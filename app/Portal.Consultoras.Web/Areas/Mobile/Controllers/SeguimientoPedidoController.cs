@@ -16,7 +16,40 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult Index(int campania = 0, string numeroPedido = "")
         {
-            var userData = UserData();
+            var model = new SeguimientoMobileModel { ListaEstadoSeguimiento = new List<SeguimientoMobileModel>() };
+            try
+            {
+                BETracking[] arrayTracking;
+                using (PedidoServiceClient sv = new PedidoServiceClient())
+                {
+                    arrayTracking = sv.GetPedidosByConsultora(userData.PaisID, userData.CodigoConsultora);
+                }
+                if(arrayTracking != null && arrayTracking.Count() > 0)
+                {
+                    model.ListaEstadoSeguimiento = arrayTracking.Select(t => new SeguimientoMobileModel { Campana = t.Campana, NumeroPedido = t.NumeroPedido }).ToList();
+                    if (model.ListaEstadoSeguimiento.Count > 3) model.ListaEstadoSeguimiento = model.ListaEstadoSeguimiento.Take(3).ToList();
+
+                    var pedidoSeleccionado = model.ListaEstadoSeguimiento.FirstOrDefault(p => p.Campana == campania && (p.NumeroPedido ?? "") == (numeroPedido ?? ""));
+                    if (pedidoSeleccionado == null) pedidoSeleccionado = model.ListaEstadoSeguimiento.First();
+
+                    model.Campana = pedidoSeleccionado.Campana;
+                    model.NumeroPedido = pedidoSeleccionado.NumeroPedido;
+                }
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
+            return View(model);
+        }
+
+        public ActionResult Detalle(int campania = 0, string numeroPedido = "")
+        {
             var model = new SeguimientoMobileModel { ListaEstadoSeguimiento = new List<SeguimientoMobileModel>() };
             try
             {
@@ -27,12 +60,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     listaPedidos = service.GetPedidosByConsultora(userData.PaisID, codigoConsultora);
                 }
 
-                if (listaPedidos.Length > 0)
+                BETracking ultimoPedido = null;
+                if (listaPedidos != null && listaPedidos.Length > 0)
                 {
-                    BETracking ultimoPedido = listaPedidos.FirstOrDefault(pedido => pedido.Campana == campania && pedido.NumeroPedido == numeroPedido);
-                    if (ultimoPedido == null) ultimoPedido = listaPedidos.FirstOrDefault(pedido => !string.IsNullOrEmpty(pedido.NumeroPedido));
-                    if (ultimoPedido == null) ultimoPedido = listaPedidos[0];
+                    ultimoPedido = listaPedidos.FirstOrDefault(p => p.Campana == campania && (p.NumeroPedido ?? "") == (numeroPedido ?? ""));
+                }
 
+                if (ultimoPedido != null)
+                { 
                     model.PaisId = ultimoPedido.PaisID;
                     model.CodigoConsultora = ultimoPedido.CodigoConsultora;
                     model.Campana = ultimoPedido.Campana;
