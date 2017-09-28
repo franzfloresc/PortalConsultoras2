@@ -66,6 +66,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@TipoContactoFavorito", DbType.Int16, cliente.TipoContactoFavorito);
             Context.Database.AddInParameter(command, "@NombreCliente", DbType.AnsiString, cliente.NombreCliente);
             Context.Database.AddInParameter(command, "@ApellidoCliente", DbType.AnsiString, cliente.ApellidoCliente);
+            Context.Database.AddInParameter(command, "@Origen", DbType.AnsiString, cliente.Origen);
 
             Context.ExecuteNonQuery(command);
             cliente.ClienteID = Convert.ToInt32(command.Parameters["@ClienteID"].Value);
