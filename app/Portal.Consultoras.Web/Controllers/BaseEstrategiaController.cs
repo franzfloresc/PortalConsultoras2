@@ -14,7 +14,7 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public List<BEEstrategia> ConsultarEstrategias(string cuv = "", int campaniaId = 0, string codAgrupacion = "")
         {
-            string varSession = Constantes.ConstSession.ListaEstrategia;// + (campaniaId > 0 ? campaniaId.ToString() : "");
+            string varSession = Constantes.ConstSession.ListaEstrategia;
             if (Session[varSession] != null && campaniaId == 0) return (List<BEEstrategia>)Session[varSession];
          
             var entidad = new BEEstrategia
@@ -56,6 +56,21 @@ namespace Portal.Consultoras.Web.Controllers
             return listEstrategia;
         }
         
+        public List<BEEstrategia> ConsultarEstrategiasPack()
+        {
+            var listEstrategia = new List<BEEstrategia>();
+
+            return listEstrategia;
+        }
+
+
+        public List<BEEstrategia> ConsultarEstrategiasPorTipo()
+        {
+            var listEstrategia = new List<BEEstrategia>();
+
+            return listEstrategia;
+        }
+
         public List<BEEstrategia> ConsultarMasVendidos()
         {          
             var entidad = new BEEstrategia
