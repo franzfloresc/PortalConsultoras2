@@ -1,4 +1,9 @@
-﻿// Tracking de errores en JS
+﻿
+if (!window.location.origin) {
+    window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
+}
+
+// Tracking de errores en JS
 window.onerror = function (msg, url, line, col, error) {
     // Browser compatibility
     // https://blog.sentry.io/2016/01/04/client-javascript-reporting-window-onerror.html
@@ -39,10 +44,6 @@ window.onerror = function (msg, url, line, col, error) {
     // Internet Explorer) se suprimirá.
     return suppressErrorAlert;
 };
-
-if (!window.location.origin) {
-    window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
-}
 
 // Tracking de llamadas $.ajax
 $(document).ajaxError(function (event, jqxhr, settings, thrownError) {
