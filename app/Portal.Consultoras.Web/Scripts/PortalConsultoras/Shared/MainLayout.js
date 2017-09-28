@@ -361,17 +361,10 @@ function CargarResumenCampaniaHeader(showPopup) {
                        
                     }
                 }
-                else {
-                    //if (typeof console !== "undefined" && typeof console.log !== "undefined")
-                    //    console.error("Ocurrio un error con el Resumen de Campaña.");
-                }
             }
         },
         error: function (data, error) {
-            if (checkTimeout(data)) {
-                //if (typeof console !== "undefined" && typeof console.log !== "undefined")
-                //    console.error(data, error);
-            }
+            checkTimeout(data);
         }
     });
 };
@@ -406,17 +399,10 @@ function CargarCantidadNotificacionesSinLeer() {
                 };
 
                 data.mensaje = data.mensaje || "";
-                if (data.mensaje != '') {
-                    //if (typeof console !== "undefined" && typeof console.log !== "undefined")
-                    //    console.log(data.mensaje);
-                }
             };
         },
         error: function (data, error) {
-            if (checkTimeout(data)) {
-                //if (typeof console !== "undefined" && typeof console.log !== "undefined")
-                //    console.error(data, error);
-            }
+            checkTimeout(data);
         }
     });
 };
@@ -861,8 +847,6 @@ function MostrarShowRoomBannerLateral() {
             error: function (response, error) {
                 if (checkTimeout(response)) {
                     closeWaitingDialog();
-                    //if (typeof console !== "undefined" && typeof console.log !== "undefined")
-                    //    console.log("Ocurrió un error en ShowRoom");
                 }
             }
         });
@@ -1103,8 +1087,7 @@ function checkCountdownODD() {
             }
         },
         error: function (err) {
-            //if (typeof console !== "undefined" && typeof console.log !== "undefined")
-            //    console.log(err);
+            checkTimeout(err);
         }
     });
 
@@ -1128,8 +1111,7 @@ function getQtyPedidoDetalleByCuvODD(cuv2, tipoEstrategiaID) {
             }
         },
         error: function (err) {
-            //if (typeof console !== "undefined" && typeof console.log !== "undefined")
-            //    console.log(err);
+            checkTimeout(err);
         }
     });
 
@@ -1175,8 +1157,7 @@ function closeOfertaDelDia(sender) {
             }
         },
         error: function (err) {
-            //if (typeof console !== "undefined" && typeof console.log !== "undefined")
-            //    console.log(err);
+            checkTimeout(err);
         }
     });
 }

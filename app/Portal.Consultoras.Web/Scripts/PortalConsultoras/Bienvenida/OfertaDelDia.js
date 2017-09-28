@@ -64,8 +64,7 @@ $(document).ready(function () {
                 array_odd = response.data;
             },
             error: function (err) {
-                //if (typeof console !== "undefined" && typeof console.log !== "undefined")
-                //    console.log(err);
+                checkTimeout(err);
             }
         });
     }
@@ -187,8 +186,7 @@ $(document).ready(function () {
                 }
             },
             error: function (err) {
-                //if (typeof console !== "undefined" && typeof console.log !== "undefined")
-                //    console.log(err);
+                checkTimeout(err);
             }
         });
     }
@@ -559,8 +557,7 @@ $(document).ready(function () {
                 }
             },
             error: function (err) {
-                //if (typeof console !== "undefined" && typeof console.log !== "undefined")
-                //    console.log(err);
+                checkTimeout(err);
             }
         });
 
@@ -666,8 +663,7 @@ $(document).ready(function () {
                 }
             },
             error: function (err) {
-                //if (typeof console !== "undefined" && typeof console.log !== "undefined")
-                //    console.log(err);
+                checkTimeout(err);
             }
         });
 
