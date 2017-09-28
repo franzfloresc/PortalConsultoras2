@@ -1509,8 +1509,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return olstProductoFaltante;
         }
-
-
+        
         private string NombreCampania(string Campania)
         {
             string Result = Campania;
@@ -3167,7 +3166,7 @@ namespace Portal.Consultoras.Web.Controllers
                     result = "Lbel";
                     break;
                 case 2:
-                    result = "Esika";
+                    result = "Ésika";
                     break;
                 case 3:
                     result = "Cyzone";
@@ -3209,6 +3208,12 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return tiposEstrategia;
+        }
+        
+        protected bool EsConsultoraNueva()
+        {
+            return userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Registrada ||
+                userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Retirada;
         }
 
         public object GetSession(string nameSession)

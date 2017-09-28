@@ -650,6 +650,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.ConsultoraAsociadaID = oBEUsuario.ConsultoraAsociadaID;
                     model.ValidacionAbierta = oBEUsuario.ValidacionAbierta;
                     model.AceptacionConsultoraDA = oBEUsuario.AceptacionConsultoraDA;
+
                     if (DateTime.Now.AddHours(oBEUsuario.ZonaHoraria) < oBEUsuario.FechaInicioFacturacion)
                         model.DiaPROLMensajeCierreCampania = false;
                     else
@@ -686,10 +687,10 @@ namespace Portal.Consultoras.Web.Controllers
                     // OGA: se calcula el fin de campañia sumando el nº de dias que dura el cronograma
                     switch (oBEUsuario.RolID)
                     {
-                        case Portal.Consultoras.Common.Constantes.Rol.Administrador:
+                        case Constantes.Rol.Administrador:
                             model.FechaFinCampania = oBEUsuario.FechaFinFacturacion;
                             break;
-                        case Portal.Consultoras.Common.Constantes.Rol.Consultora:
+                        case Constantes.Rol.Consultora:
                             model.FechaFinCampania = oBEUsuario.FechaFinFacturacion;
                             break;
 
@@ -935,6 +936,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                             var config = new ServiceUsuario.BEConfiguracionPais
                             {
+                                DesdeCampania = model.CampaniaID,
                                 Detalle = new ServiceUsuario.BEConfiguracionPaisDetalle
                                 {
                                     PaisID = model.PaisID,
@@ -1882,48 +1884,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return (anioCampaniaResult * 100) + nroCampaniaResult;
         }
-
-        private bool VerificarLan(UsuarioModel model)
-        {
-            List<BEEstrategia> listEstrategiasOPM = ConsultarEstrategias(model, "", 0, "101");
-            return listEstrategiasOPM.Any(c => c.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento);
-        }
-        private bool VerificarOPT(UsuarioModel model)
-        {
-            List<BEEstrategia> listEstrategiasOPT = ConsultarEstrategias(model, "", 0, "");
-            return listEstrategiasOPT.Any(c => c.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertaParaTi);
-        }
-        private List<BEEstrategia> ConsultarEstrategias(UsuarioModel model, string cuv = "", int campaniaId = 0, string codAgrupacion = "")
-        {
-            //var usuario = ObtenerUsuarioConfiguracion();            
-            var entidad = new BEEstrategia
-            {
-                PaisID = model.PaisID,
-                CampaniaID = campaniaId > 0 ? campaniaId : model.CampaniaID,
-                ConsultoraID = (model.UsuarioPrueba == 1 ? model.ConsultoraAsociadaID : model.ConsultoraID).ToString(),
-                CUV2 = Util.Trim(cuv),
-                Zona = model.ZonaID.ToString(),
-                ZonaHoraria = model.ZonaHoraria,
-                FechaInicioFacturacion = model.FechaFinCampania,
-                ValidarPeriodoFacturacion = true,
-                Simbolo = model.Simbolo,
-                CodigoAgrupacion = Util.Trim(codAgrupacion)
-            };
-
-
-            var listEstrategia = new List<BEEstrategia>();
-
-            using (PedidoServiceClient sv = new PedidoServiceClient())
-            {
-                listEstrategia = sv.GetEstrategiasPedido(entidad).ToList();
-            }
-          
-            if (campaniaId > 0 || codAgrupacion == Constantes.TipoEstrategiaCodigo.RevistaDigital)
-            {
-                return listEstrategia;
-            }
-
-            return listEstrategia;
-        }
+        
     }
 }

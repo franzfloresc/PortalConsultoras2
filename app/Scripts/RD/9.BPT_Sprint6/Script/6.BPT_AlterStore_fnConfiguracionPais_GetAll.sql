@@ -1,4 +1,4 @@
-USE BelcorpPeru
+﻿USE BelcorpPeru
 GO
 
 ALTER function fnConfiguracionPais_GetAll

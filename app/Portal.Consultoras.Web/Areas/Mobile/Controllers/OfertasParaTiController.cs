@@ -19,7 +19,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     ? origen
                     : Constantes.OrigenPedidoWeb.MobileOfertasParaTiDetalle;
 
-                var modelo = EstrategiaGetDetalle(id, "", origen);
+                var modelo = EstrategiaGetDetalle(id, "");
                 //origen = origen < 10 ? 11 : origen;
                 var origenPantalla = Util.SubStr(origen.ToString(), 1, 1);
 
