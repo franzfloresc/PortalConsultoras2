@@ -485,6 +485,7 @@
       <xs:element minOccurs="0" name="EsBackOrder" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsCompraPorCompra" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsKitNueva" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EsOfertaIndependiente" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsSugerido" type="xs:boolean" />
       <xs:element minOccurs="0" name="EstadoItem" type="xs:short" />
       <xs:element minOccurs="0" name="FechaCreacion" type="xs:dateTime" />
@@ -645,6 +646,7 @@
       <xs:element minOccurs="0" name="DescripcionEstrategia" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DescripcionMarca" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="EnMatrizComercial" type="xs:int" />
+      <xs:element minOccurs="0" name="EsOfertaIndependiente" type="xs:boolean" />
       <xs:element minOccurs="0" name="EstrategiaDetalle" nillable="true" type="tns:BEEstrategiaDetalle" />
       <xs:element minOccurs="0" name="EstrategiaID" type="xs:int" />
       <xs:element minOccurs="0" name="EtiquetaDescripcion" nillable="true" type="xs:string" />
@@ -740,6 +742,8 @@
       <xs:element minOccurs="0" name="FlagRecoPerfil" type="xs:int" />
       <xs:element minOccurs="0" name="FlagRecoProduc" type="xs:int" />
       <xs:element minOccurs="0" name="ImagenEstrategia" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImagenOfertaIndependiente" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MostrarImgOfertaIndependiente" type="xs:boolean" />
       <xs:element minOccurs="0" name="OfertaID" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Orden" type="xs:int" />
       <xs:element minOccurs="0" name="PaisID" type="xs:int" />
@@ -933,6 +937,7 @@
       <xs:element minOccurs="0" name="Telefono" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TelefonoTrabajo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TerritorioID" type="xs:int" />
+      <xs:element minOccurs="0" name="TieneAsesoraOnline" type="xs:int" />
       <xs:element minOccurs="0" name="TieneCDR" type="xs:int" />
       <xs:element minOccurs="0" name="TieneCDRExpress" type="xs:boolean" />
       <xs:element minOccurs="0" name="TieneCupon" type="xs:int" />

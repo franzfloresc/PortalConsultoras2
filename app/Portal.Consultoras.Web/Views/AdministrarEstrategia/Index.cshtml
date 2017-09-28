@@ -54,13 +54,13 @@
                             for (int i = 0; i < Model.ListaTipoEstrategia.Count(); i++)
                             {
                             <option flag-nueva="@Model.ListaTipoEstrategia.ToList()[i].FlagNueva"
-                                        flag-recoproduct="@Model.ListaTipoEstrategia.ToList()[i].FlagRecoProduc"
-                                        flag-recoperfil="@Model.ListaTipoEstrategia.ToList()[i].FlagRecoPerfil"
-                                        codigo-programa="@Model.ListaTipoEstrategia.ToList()[i].CodigoPrograma"
-                                        imagen-tipo="@Model.ListaTipoEstrategia.ToList()[i].Imagen"
-                                        value="@Model.ListaTipoEstrategia.ToList()[i].TipoEstrategiaID"
-                                        data-id="@Model.ListaTipoEstrategia.ToList()[i].CodigoGeneral"
-                                        data-codigo="@Model.ListaTipoEstrategia.ToList()[i].Codigo">
+                                    flag-recoproduct="@Model.ListaTipoEstrategia.ToList()[i].FlagRecoProduc"
+                                    flag-recoperfil="@Model.ListaTipoEstrategia.ToList()[i].FlagRecoPerfil"
+                                    codigo-programa="@Model.ListaTipoEstrategia.ToList()[i].CodigoPrograma"
+                                    imagen-tipo="@Model.ListaTipoEstrategia.ToList()[i].Imagen"
+                                    value="@Model.ListaTipoEstrategia.ToList()[i].TipoEstrategiaID"
+                                    data-id="@Model.ListaTipoEstrategia.ToList()[i].CodigoGeneral"
+                                    data-codigo="@Model.ListaTipoEstrategia.ToList()[i].Codigo">
                                 @Model.ListaTipoEstrategia.ToList()[i].Descripcion
                             </option>
                             }
@@ -75,13 +75,13 @@
 
             <div class="div-3">
                 <div class="titG">Tiene imagen?:</div>
-                 <div class="selectA borde_redondeado">
+                <div class="selectA borde_redondeado">
                     <select id="ddlTieneImagen" name="ddlTieneImagen">
                         <option value="-1" selected>-- Seleccionar --</option>
                         <option value="1">Si</option>
                         <option value="0">No</option>
                     </select>
-                </div>   
+                </div>
                 <div class="titG">Oferta Activa?:</div>
                 <div class="selectA borde_redondeado">
                     <select id="ddlOfertaActiva" name="ddlOfertaActiva">
@@ -98,8 +98,8 @@
                     <input type="button" name="btnBuscar" id="btnBuscar" value="Buscar" />
                     <input type="button" name="btnNuevo" id="btnNuevo" value="Nuevo" />
                     <input type="button" name="btnNuevoMasivo" id="btnNuevoMasivo" value="Nuevo Masivo" />
-                    </div>
-                <div class="input_modifica_pedido">                    
+                </div>
+                <div class="input_modifica_pedido">
                     <input type="button" name="btnActivarDesactivar" id="btnActivarDesactivar" value="Activar/Desactivar" style="display: none;" />
                 </div>
             </div>
@@ -131,9 +131,9 @@
             <div class="titH">
                 <input type="checkbox" id="chkSeleccionar" />Seleccionar todo
             </div>
-            </div>
         </div>
     </div>
+</div>
 <div id="DialogEditarTallaColor" style="display: none;">
     <div class="Content_modal">
         <div class="div-3">
@@ -297,6 +297,7 @@
     var urlS3 = "@Model.UrlS3";
     var estrategiaObj;
     var habilitarNemoTecnico = @Json.Encode(Model.habilitarNemotecnico);
+
     jQuery(document).ready(function () {
         fnGrilla();
         IniDialog();
@@ -311,7 +312,7 @@
             habilitarNemotecnico: @Json.Encode(Model.habilitarNemotecnico),
             expValidacionNemotecnico: @Html.Raw(Model.ExpValidacionNemotecnico),
             actualizarDescripcionComercialAction: '@Url.Action("ActualizarDescripcionComercial", "MatrizComercial")'
-        }); 
+        });
 
         if(habilitarNemoTecnico) {
             $("#matriz-busqueda-nemotecnico").show();
@@ -329,6 +330,9 @@
 
         $("#btnNuevo").click(function () {
             isNuevo = true;
+          
+            var tieneFlagNueva = $("#ddlTipoEstrategia option:selected").attr("flag-nueva");
+            (tieneFlagNueva == "1") ? $(".chkEsOfertaIndependiente").show() : $(".chkEsOfertaIndependiente").hide();
 
             $.jstree._reference($("#arbolRegionZona")).check_all();
 
@@ -358,7 +362,7 @@
                 $("#spanCampania").val($("#ddlCampania option:selected").html());
                 $("#spanTipoEstrategia").val($("#ddlTipoEstrategia option:selected").html().trim());
                 $('#chkHabilitarOferta').attr('checked', false);
-            $('#chkOfertaUltimoMinuto').attr('checked', false);
+                $('#chkOfertaUltimoMinuto').attr('checked', false);
                 $('#hdZonas').val('');
 
             $('#txtCUV2').val('');
@@ -1294,7 +1298,7 @@
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
             multiselect: (tipo == '4' || tipo == '7' || tipo == '20' || codigo == "005" || codigo == "007" || codigo == "008") ? true : false,
-            colNames: ['EstrategiaID', 'Orden', '#', 'Pedido Asociado', 'Precio', 'CUV2', 'Descripción', 'Limite Venta', 'Código SAP', 'ImagenURL', 'Foto', ''],
+            colNames: ['EstrategiaID', 'Orden', '#', 'Pedido Asociado', 'Precio', 'CUV2', 'Descripción', 'Limite Venta', 'Código SAP', 'ImagenURL', 'Foto', '','EsOfertaIndependiente'],
             colModel: [
                 { name: 'EstrategiaID', index: 'EstrategiaID', width: 20, editable: true, resizable: false, hidden: true },
                 { name: 'Orden', index: 'Orden', width: 20, editable: true, resizable: false, hidden: false, sortable: false },
@@ -1307,7 +1311,8 @@
                 { name: 'CodigoProducto', index: 'CodigoProducto', width: 70, align: 'center', editable: true, resizable: false, sortable: true },
                 { name: 'ImagenURL', index: 'ImagenURL', hidden: true },
                 { name: 'ImagenProducto', index: 'ImagenProducto', width: 70, align: 'center', editable: true, resizable: false, sortable: false, formatter: ShowImage },
-                { name: 'Activo', index: 'Activo', width: 30, align: 'center', editable: true, resizable: false, sortable: false, formatter: ShowActions }
+                { name: 'Activo', index: 'Activo', width: 30, align: 'center', editable: true, resizable: false, sortable: false, formatter: ShowActions },
+                { name: 'EsOfertaIndependiente', index: 'EsOfertaIndependiente', width: 0, editable: true, hidden:true }
             ],
             jsonReader:
             {
@@ -1741,6 +1746,8 @@
                     var imgFichaFondoMobile = $("#nombre-img-ficha-fondo-mobile").val();
                     var imgHomeDesktop = $("#nombre-img-home-desktop").val();
                     var imgHomeMobile = $("#nombre-img-home-mobile").val();
+                    var esOfertaIndependiente = ($("#chkEsOfertaIndependiente").attr("checked")) ? true : false;
+
                     var params = {
                         EstrategiaID: EstrategiaID,
                         TipoEstrategiaID: TipoEstrategiaID,
@@ -1780,7 +1787,8 @@
                         ImgFichaFondoMobile: imgFichaFondoMobile,
                         ImgHomeDesktop: imgHomeDesktop,
                         ImgHomeMobile: imgHomeMobile,
-                        PrecioAnt: $('#hdEstrategiaPrecioAnt').val()
+                        PrecioAnt: $('#hdEstrategiaPrecioAnt').val(),
+                        EsOfertaIndependiente: esOfertaIndependiente
                     };
                     jQuery.ajax({
                         type: 'POST',

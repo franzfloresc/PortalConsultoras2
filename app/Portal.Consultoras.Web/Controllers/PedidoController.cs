@@ -61,7 +61,7 @@ namespace Portal.Consultoras.Web.Controllers
                         model.PedidoBase = pedidoBase;
                     }
                 }
-                    
+
 
                 #endregion
 
@@ -383,7 +383,7 @@ namespace Portal.Consultoras.Web.Controllers
                 else
                 {
                     ViewBag.UrlFranjaNegra = userData.EfRutaPedido;
-                }                    
+                }
                 #endregion
             }
             catch (FaultException ex)
@@ -578,7 +578,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (model.ClienteID_ != "-1")
                 {
                     listaCliente = olstPedidoWebDetalle
-                        .Select( item =>new BECliente { ClienteID = item.ClienteID, Nombre = item.Nombre })
+                        .Select(item => new BECliente { ClienteID = item.ClienteID, Nombre = item.Nombre })
                         .GroupBy(x => x.ClienteID).Select(x => x.First()).ToList();
                     listaCliente.Insert(0, new BECliente { ClienteID = -1, Nombre = "-- TODOS --" });
                 }
@@ -825,7 +825,7 @@ namespace Portal.Consultoras.Web.Controllers
                 tipo,
                 modificoBackOrder,
                 DataBarra = !ErrorServer ? GetDataBarra() : new BarraConsultoraModel(),
-                cantidadTotalProductos = ObtenerPedidoWebDetalle().Sum( x => x.Cantidad)
+                cantidadTotalProductos = ObtenerPedidoWebDetalle().Sum(x => x.Cantidad)
             }, JsonRequestBehavior.AllowGet);
         }
 
@@ -938,7 +938,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 List<BECliente> listaCliente;
                 listaCliente = olstPedidoWebDetalle
-                    .Select( item => new BECliente { ClienteID = item.ClienteID, Nombre = item.Nombre })
+                    .Select(item => new BECliente { ClienteID = item.ClienteID, Nombre = item.Nombre })
                     .GroupBy(x => x.ClienteID).Select(x => x.First())
                     .ToList();
                 listaCliente.Insert(0, new BECliente { ClienteID = -1, Nombre = "-- TODOS --" });
@@ -1251,7 +1251,7 @@ namespace Portal.Consultoras.Web.Controllers
                 int iCantidad = 0;
                 if (int.TryParse(Cantidad, out iCantidad))
                     entidad.Cantidad = iCantidad;
-                else 
+                else
                     entidad.Cantidad = 0;
 
                 int iTipoOferta = 0;
@@ -1333,14 +1333,13 @@ namespace Portal.Consultoras.Web.Controllers
             if (tipoEstrategiaImagen == Constantes.TipoEstrategia.PackNuevas)
             {
                 var lstPedidoWebDetalle = ObtenerPedidoWebDetalle();
-
                 var packNuevas = lstPedidoWebDetalle.Where(x => x.TipoEstrategiaID == 1).ToList();
 
                 foreach (var item in packNuevas)
                 {
-                    DeletePedido(item);
+                    if (!item.EsOfertaIndependiente) //Reemplazar solo dependientes.
+                        DeletePedido(item);
                 }
-
                 Session["PedidoWebDetalle"] = null;
             }
         }
@@ -2034,8 +2033,8 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 var listObservacionModel = Mapper.Map<List<ObservacionModel>>(resultado.ListPedidoObservacion.ToList());
 
-            sessionManager.SetObservacionesProl(null);
-            sessionManager.SetDetallesPedido(null);
+                sessionManager.SetObservacionesProl(null);
+                sessionManager.SetDetallesPedido(null);
                 if (resultado.RefreshMontosProl)
                 {
                     Session[Constantes.ConstSession.PROL_CalculoMontosProl] = new List<ObjMontosProl> { new ObjMontosProl {
@@ -2045,11 +2044,11 @@ namespace Portal.Consultoras.Web.Controllers
                     MontoEscala = resultado.MontoEscala.ToString()
                 } };
                 }
-                if (resultado.ResultadoReservaEnum != Enumeradores.ResultadoReserva.ReservaNoDisponible)
+                if (resultado.ResultadoReservaEnum != EnumeradoresResultadoReserva.ReservaNoDisponible)
                 {
                     if (resultado.Reserva) CambioBannerGPR(true);
-                sessionManager.SetObservacionesProl(listObservacionModel);
-                if (resultado.RefreshPedido) sessionManager.SetPedidoWeb(null);
+                    sessionManager.SetObservacionesProl(listObservacionModel);
+                    if (resultado.RefreshPedido) sessionManager.SetPedidoWeb(null);
                 }
                 SetUserData(userData);
 
@@ -3115,7 +3114,7 @@ namespace Portal.Consultoras.Web.Controllers
                     using (var sv = new PedidoServiceClient())
                     {
                         var result = sv.ValidacionModificarPedidoSelectiva(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, userData.UsuarioPrueba == 1, userData.AceptacionConsultoraDA, false, false, true);
-                        if (result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.HorarioRestringido)
+                        if (result.MotivoPedidoLock == EnumeradoresMotivoPedidoLock.HorarioRestringido)
                         {
                             mensaje = result.Mensaje;
                             estado = true;
@@ -3158,8 +3157,8 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         result = sv.ValidacionModificarPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, userData.UsuarioPrueba == 1, userData.AceptacionConsultoraDA);
                     }
-                    pedidoReservado = result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Reservado;
-                    estado = result.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno;
+                    pedidoReservado = result.MotivoPedidoLock == EnumeradoresMotivoPedidoLock.Reservado;
+                    estado = result.MotivoPedidoLock != EnumeradoresMotivoPedidoLock.Ninguno;
                     mensaje = result.Mensaje;
                 }
 
@@ -4253,7 +4252,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #region Nuevo AgregarProducto
-        
+
         public JsonResult AgregarProducto(string listaCuvTonos
             , string EstrategiaID, string FlagNueva
             , string Cantidad
@@ -4263,86 +4262,86 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
 
-            string mensaje = "", urlRedireccionar = "",
-            area = IsMobile() ? "Mobile" : "";
+                string mensaje = "", urlRedireccionar = "",
+                area = IsMobile() ? "Mobile" : "";
 
-            #region SesiónExpirada
-            if (userData == null)
-            {
-                mensaje = "Sesión expirada.";
-                urlRedireccionar = Url.Action("Index", "Login");
-                return Json(new
+                #region SesiónExpirada
+                if (userData == null)
                 {
-                    success = false,
-                    message = mensaje,
-                    urlRedireccionar
-                }, JsonRequestBehavior.AllowGet);
+                    mensaje = "Sesión expirada.";
+                    urlRedireccionar = Url.Action("Index", "Login");
+                    return Json(new
+                    {
+                        success = false,
+                        message = mensaje,
+                        urlRedireccionar
+                    }, JsonRequestBehavior.AllowGet);
 
-                //return Json(urlRedireccionar);
-            }
-            #endregion
+                    //return Json(urlRedireccionar);
+                }
+                #endregion
 
-            #region ReservadoOEnHorarioRestringido
-            bool horario = ReservadoOEnHorarioRestringido(ref mensaje, ref urlRedireccionar);
-            if (horario)
-            {
-                return Json(new
+                #region ReservadoOEnHorarioRestringido
+                bool horario = ReservadoOEnHorarioRestringido(ref mensaje, ref urlRedireccionar);
+                if (horario)
                 {
-                    success = false,
-                    message = mensaje,
-                    urlRedireccionar
-                }, JsonRequestBehavior.AllowGet);
-                //return Json(urlRedireccionar);
-            }
-            #endregion
+                    return Json(new
+                    {
+                        success = false,
+                        message = mensaje,
+                        urlRedireccionar
+                    }, JsonRequestBehavior.AllowGet);
+                    //return Json(urlRedireccionar);
+                }
+                #endregion
 
-            #region FiltrarEstrategiaPedido
-            FlagNueva = Util.Trim(FlagNueva);
-            int IndFlagNueva = 0;
-            Int32.TryParse(FlagNueva == "" ? "0" : FlagNueva, out IndFlagNueva);
-            BEEstrategia estrategia = FiltrarEstrategiaPedido(EstrategiaID, IndFlagNueva);
-            if (estrategia.EstrategiaID <= 0)
-            {
-                mensaje = "Estrategia no encontrada.";
-                return Json(new
+                #region FiltrarEstrategiaPedido
+                FlagNueva = Util.Trim(FlagNueva);
+                int IndFlagNueva = 0;
+                Int32.TryParse(FlagNueva == "" ? "0" : FlagNueva, out IndFlagNueva);
+                BEEstrategia estrategia = FiltrarEstrategiaPedido(EstrategiaID, IndFlagNueva);
+                if (estrategia.EstrategiaID <= 0)
                 {
-                    success = false,
-                    message = mensaje
-                }, JsonRequestBehavior.AllowGet);
-            }
-            #endregion
+                    mensaje = "Estrategia no encontrada.";
+                    return Json(new
+                    {
+                        success = false,
+                        message = mensaje
+                    }, JsonRequestBehavior.AllowGet);
+                }
+                #endregion
 
-            estrategia.Cantidad = Convert.ToInt32(Cantidad);
+                estrategia.Cantidad = Convert.ToInt32(Cantidad);
 
-            if (estrategia.Cantidad > estrategia.LimiteVenta)
-            {
-                mensaje = "La cantidad no debe ser mayor que la cantidad limite ( " + estrategia.LimiteVenta + " ).";
-                return Json(new
+                if (estrategia.Cantidad > estrategia.LimiteVenta)
                 {
-                    success = false,
-                    message = mensaje
-                }, JsonRequestBehavior.AllowGet);
+                    mensaje = "La cantidad no debe ser mayor que la cantidad limite ( " + estrategia.LimiteVenta + " ).";
+                    return Json(new
+                    {
+                        success = false,
+                        message = mensaje
+                    }, JsonRequestBehavior.AllowGet);
 
-            }
+                }
 
-            listaCuvTonos = Util.Trim(listaCuvTonos);
-            if (listaCuvTonos == "")
-            {
-                listaCuvTonos = estrategia.CUV2;
-            }
-            var tonos = listaCuvTonos.Split('|');
-            var respuesta = new JsonResult();
-            foreach (var tono in tonos)
-            {
-                var listSp = tono.Split(';');
-                estrategia.CUV2 = listSp.Length > 0 ? listSp[0] : estrategia.CUV2;
-                estrategia.MarcaID = listSp.Length > 1 ? Convert.ToInt32(listSp[1]) : estrategia.MarcaID;
-                estrategia.Precio2 = listSp.Length > 2 ? Convert.ToDecimal(listSp[2]) : estrategia.Precio2;
+                listaCuvTonos = Util.Trim(listaCuvTonos);
+                if (listaCuvTonos == "")
+                {
+                    listaCuvTonos = estrategia.CUV2;
+                }
+                var tonos = listaCuvTonos.Split('|');
+                var respuesta = new JsonResult();
+                foreach (var tono in tonos)
+                {
+                    var listSp = tono.Split(';');
+                    estrategia.CUV2 = listSp.Length > 0 ? listSp[0] : estrategia.CUV2;
+                    estrategia.MarcaID = listSp.Length > 1 ? Convert.ToInt32(listSp[1]) : estrategia.MarcaID;
+                    estrategia.Precio2 = listSp.Length > 2 ? Convert.ToDecimal(listSp[2]) : estrategia.Precio2;
 
-                respuesta = EstrategiaAgregarProducto(ref mensaje, estrategia, OrigenPedidoWeb, ClienteID_, tipoEstrategiaImagen);
-            }
+                    respuesta = EstrategiaAgregarProducto(ref mensaje, estrategia, OrigenPedidoWeb, ClienteID_, tipoEstrategiaImagen);
+                }
 
-            return Json(respuesta.Data, JsonRequestBehavior.AllowGet);
+                return Json(respuesta.Data, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception ex)
@@ -4380,13 +4379,13 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
             #endregion
-            
+
             #region AgregarProductoZE
 
             return AgregarProductoZE(estrategia.MarcaID.ToString(), estrategia.CUV2, estrategia.Precio2.ToString(), descripcion, estrategia.Cantidad.ToString(), estrategia.IndicadorMontoMinimo.ToString(),
                      estrategia.TipoEstrategiaID.ToString(), OrigenPedidoWeb, ClienteID_, tipoEstrategiaImagen);
             #endregion
-            
+
         }
 
         private bool ReservadoOEnHorarioRestringido(ref string mensaje, ref string urlRedireccionar, bool mostrarAlerta = true)
@@ -4410,8 +4409,8 @@ namespace Portal.Consultoras.Web.Controllers
                     result = sv.ValidacionModificarPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, userData.UsuarioPrueba == 1, userData.AceptacionConsultoraDA);
                 }
 
-                estado = result.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno;
-                bool pedidoReservado = result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Reservado;
+                estado = result.MotivoPedidoLock != EnumeradoresMotivoPedidoLock.Ninguno;
+                bool pedidoReservado = result.MotivoPedidoLock == EnumeradoresMotivoPedidoLock.Reservado;
 
                 if (estado)
                 {

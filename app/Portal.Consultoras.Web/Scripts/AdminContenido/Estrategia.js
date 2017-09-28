@@ -72,7 +72,7 @@
     };
 
     var _editar = function (data, id) {
-
+       
         _editData = {
             EstrategiaID: data.EstrategiaID,
             CUV2: data.CUV2,
@@ -84,8 +84,9 @@
             imagenes: [],
             imagen: _obtenerImagenGrilla(id),
             descripcionOriginal: jQuery("#list").jqGrid('getCell', _idImagen, 'DescripcionCUV2')
+            //EsOfertaIndependiente: true //jQuery("#list").jqGrid('getCell', id, 'EsOfertaIndependiente')
         };
-
+       
         _obtenerFiltrarEstrategia(_editData, id).done(function (data) {
             showDialog("DialogAdministracionEstrategia");
             _editData.IdMatrizComercial = data.IdMatrizComercial;
@@ -101,7 +102,7 @@
             alert(data.message);
             closeWaitingDialog();
         }
-        );
+            );
 
         _descripcionComercial.actualizarPais(_editData.paisID);
 
@@ -121,9 +122,9 @@
                 closeWaitingDialog();
                 return false;
             }
-
+           
             $("#hdSimbolo").val(data.Simbolo);
-
+            
             if (data.Activo == "1") $("#chkHabilitarOferta").attr("checked", true);
             else $("#chkHabilitarOferta").attr("checked", false);
 
@@ -144,6 +145,10 @@
 
             if (data.ColorFondo != "") $("#hdColorFondo").val(data.ColorFondo);
             else $("#hdColorFondo").val("#FFF");
+            
+            if (data.EsOfertaIndependiente == "1") $("#chkEsOfertaIndependiente").attr('checked', true);
+            else $("#chkEsOfertaIndependiente").attr('checked', false);
+
             ActivarDesactivarChecks();
 
             $("#hdCampania").val($("#ddlCampania").val());
@@ -178,7 +183,7 @@
             $("#ddlEtiqueta1").val(data.EtiquetaID);
             if (data.Precio != "0") {
                 $("#txtPrecio").val(parseFloat(data.Precio).toFixed(2));
-            $("#hdEstrategiaPrecioAnt").val(parseFloat(data.Precio2).toFixed(2));
+                $("#hdEstrategiaPrecioAnt").val(parseFloat(data.Precio2).toFixed(2));
             } else {
                 $("#txtPrecio").val('');
             }
@@ -252,7 +257,7 @@
             }
 
             $('#file-upload').show();
-          
+
             _editData.imagen = _obtenerImagenGrilla(id);
 
             if (data.FlagEstrella == "1") $("#chkOfertaUltimoMinuto").attr("checked", true);
@@ -458,7 +463,7 @@
                 flagOD = auxOD;
             } else if (!isNuevo) {
                 flagOD = '99';
-            }else{
+            } else {
                 flagOD = '0';
             }
 

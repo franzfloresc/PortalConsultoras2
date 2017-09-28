@@ -134,7 +134,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string CodigoAgrupacion { get; set; }
 
-        
+
         [DataMember]
         public BEEstrategiaDetalle EstrategiaDetalle { get; set; }
 
@@ -157,7 +157,7 @@ namespace Portal.Consultoras.Entities
         /// </summary>
         [DataMember]
         public bool ValidarPeriodoFacturacion { get; set; }
-        
+
         /// <summary>
         /// [Filtro] del usuario
         /// </summary>
@@ -167,7 +167,7 @@ namespace Portal.Consultoras.Entities
         /// <summary>
         /// [Filtro] del usuario
         /// </summary>
-        
+
         [DataMember]
         public int IdMatrizComercial { get; set; }
         [DataMember]
@@ -197,7 +197,7 @@ namespace Portal.Consultoras.Entities
         public string ImgHomeMobile { get; set; }
         [DataMember]
         public string CodigoGenerico { get; set; }
-        
+
         [DataMember]
         public string CodigoTipoEstrategia { get; set; }
 
@@ -213,7 +213,8 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int PromValorizado { get; set; }
 
-        
+        [DataMember]
+        public bool EsOfertaIndependiente { get; set; }
         public BEEstrategia(IDataRecord row, bool partial)
         {
 
@@ -240,6 +241,9 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "ImagenURL") && row["ImagenURL"] != DBNull.Value)
                 ImagenURL = row["ImagenURL"].ToString();
+
+            if (DataRecord.HasColumn(row, "EsOfertaIndependiente"))
+                EsOfertaIndependiente = Convert.ToBoolean(row["EsOfertaIndependiente"].ToString());
 
         }
 
@@ -271,14 +275,17 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "CodigoProducto") && row["CodigoProducto"] != DBNull.Value)
                 CodigoProducto = row["CodigoProducto"].ToString();
+
+            if (DataRecord.HasColumn(row, "EsOfertaIndependiente"))
+                EsOfertaIndependiente = Convert.ToBoolean(row["EsOfertaIndependiente"].ToString());
         }
 
         [DataMember]
         public DateTime FechaInicioFacturacion { get; set; }
-        
+
         public BEEstrategia()
         { }
-        
+
         public BEEstrategia(IDataRecord row)
         {
             if (DataRecord.HasColumn(row, "TipoTallaColor") && row["TipoTallaColor"] != DBNull.Value)
@@ -423,7 +430,7 @@ namespace Portal.Consultoras.Entities
                 CodigoSAP = row["CodigoSAP"].ToString().Trim();
 
             if (DataRecord.HasColumn(row, "EnMatrizComercial") && row["EnMatrizComercial"] != DBNull.Value)
-                EnMatrizComercial = Convert.ToInt32(row["EnMatrizComercial"]); 
+                EnMatrizComercial = Convert.ToInt32(row["EnMatrizComercial"]);
 
             if (DataRecord.HasColumn(row, "CodigoEstrategia") && row["CodigoEstrategia"] != DBNull.Value)
                 CodigoEstrategia = Convert.ToString(row["CodigoEstrategia"]);
@@ -451,6 +458,9 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "PromValorizado"))
                 PromValorizado = Convert.ToInt32(row["PromValorizado"]);
+
+            if (DataRecord.HasColumn(row, "EsOfertaIndependiente"))
+                EsOfertaIndependiente = Convert.ToBoolean(row["EsOfertaIndependiente"].ToString());
 
             EstrategiaDetalle = new BEEstrategiaDetalle(row);
             TipoEstrategia = new BETipoEstrategia(row);
@@ -509,7 +519,7 @@ namespace Portal.Consultoras.Entities
         public string CodigoSap { get; set; }
         public int OfertaUltimoMinuto { get; set; }
         public int LimiteVenta { get; set; }
-        
+
         public string UsuarioCreacion { get; set; }
         public string FotoProducto01 { get; set; }
 
