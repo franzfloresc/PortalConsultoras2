@@ -213,7 +213,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.MontoEscala = pedidoWeb.MontoEscala;
                     model.TotalConDescuento = model.Total - model.MontoDescuento;
 
-                    model.ListaParametriaOfertaFinal = GetParametriaOfertaFinal(userData.OfertaFinalModel.Algoritmo);
+                    model.ListaParametriaOfertaFinal = GetParametriaOfertaFinal(GetOfertaFinal().Algoritmo);
                 }
                 else
                 {
@@ -348,15 +348,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 ViewBag.CUVOfertaProl = TempData["CUVOfertaProl"];
                 ViewBag.MensajePedidoDesktop = userData.MensajePedidoDesktop;
+                model.RevistaDigital = revistaDigital;
 
-                ViewBag.TieneRDC = userData.RevistaDigital.TieneRDC;
-                ViewBag.TieneRDR = userData.RevistaDigital.TieneRDR;
-                ViewBag.TieneRDS = userData.RevistaDigital.TieneRDS;
-                ViewBag.EstadoSucripcionRD = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
-                ViewBag.EstadoSucripcionRDAnterior1 = userData.RevistaDigital.SuscripcionAnterior1Model.EstadoRegistro;
-                ViewBag.EstadoSucripcionRDAnterior2 = userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro;
-                ViewBag.NumeroCampania = userData.CampaniaID % 100;
-                ViewBag.NumeroCampaniaMasUno = AddCampaniaAndNumero(Convert.ToInt32(userData.CampaniaID), 1) % 100;
                 ViewBag.NombreConsultora = userData.Sobrenombre;
                 if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
                     model.Prol = "GUARDA TU PEDIDO";
@@ -373,16 +366,18 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("BUCKET_NAME") ?? string.Empty;
                 ViewBag.CodigoConsultora = userData.CodigoConsultora;
                 model.TieneMasVendidos = userData.TieneMasVendidos;
-                ViewBag.OfertaFinalEstado = userData.OfertaFinalModel.Estado;
-                ViewBag.OfertaFinalAlgoritmo = userData.OfertaFinalModel.Algoritmo;
+                var ofertaFinal = GetOfertaFinal();
+                ViewBag.OfertaFinalEstado = ofertaFinal.Estado;
+                ViewBag.OfertaFinalAlgoritmo = ofertaFinal.Algoritmo;
                 #region EventoFestivo
-                if (userData.EfRutaPedido == null || userData.EfRutaPedido == "")
+                var eventofestivo = GetEventoFestivoData();
+                if (string.IsNullOrEmpty(eventofestivo.EfRutaPedido))
                 {
                     ViewBag.UrlFranjaNegra = "../../../Content/Images/Esika/background_pedido.png";
                 }
                 else
                 {
-                    ViewBag.UrlFranjaNegra = userData.EfRutaPedido;
+                    ViewBag.UrlFranjaNegra = eventofestivo.EfRutaPedido;
                 }                    
                 #endregion
             }
@@ -1510,8 +1505,8 @@ namespace Portal.Consultoras.Web.Controllers
                     : "";
 
                 /* Iscrita en EPM Revista 100% */
-                var tieneRDC = userData.RevistaDigital.TieneRDC &&
-                    userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo;
+                var tieneRDC = revistaDigital.TieneRDC &&
+                    revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo;
 
                 olstProductoModel.Add(new ProductoModel()
                 {
@@ -3644,7 +3639,7 @@ namespace Portal.Consultoras.Web.Controllers
                 using (ProductoServiceClient ps = new ProductoServiceClient())
                 {
                     double montoTotal = Convert.ToDouble(ObtenerPedidoWebDetalle().Sum(p => p.ImporteTotal));
-                    ps.InsertarRegaloOfertaFinal(userData.CodigoISO, userData.CampaniaID, userData.ConsultoraID, montoTotal, userData.OfertaFinalModel.Algoritmo);
+                    ps.InsertarRegaloOfertaFinal(userData.CodigoISO, userData.CampaniaID, userData.ConsultoraID, montoTotal, GetOfertaFinal().Algoritmo);
                 }
 
                 return Json(new
@@ -3789,7 +3784,7 @@ namespace Portal.Consultoras.Web.Controllers
             int limiteJetlore = int.Parse(ConfigurationManager.AppSettings.Get("LimiteJetloreOfertaFinal"));
 
             ListaParametroOfertaFinal ObjOfertaFinal = new ListaParametroOfertaFinal();
-
+            var ofertaFinal = GetOfertaFinal();
             ObjOfertaFinal.ZonaID = userData.ZonaID;
             ObjOfertaFinal.CampaniaID = userData.CampaniaID;
             ObjOfertaFinal.CodigoConsultora = userData.CodigoConsultora;
@@ -3802,8 +3797,9 @@ namespace Portal.Consultoras.Web.Controllers
             ObjOfertaFinal.MontoTotal = ObtenerPedidoWebDetalle().Sum(p => p.ImporteTotal);
             ObjOfertaFinal.TipoOfertaFinal = tipoOfertaFinal;
             ObjOfertaFinal.TipoProductoMostrar = tipoProductoMostrar;
-            ObjOfertaFinal.Algoritmo = userData.OfertaFinalModel.Algoritmo;
-            ObjOfertaFinal.Estado = userData.OfertaFinalModel.Estado;
+
+            ObjOfertaFinal.Algoritmo = ofertaFinal.Algoritmo;
+            ObjOfertaFinal.Estado = ofertaFinal.Estado;
 
             using (ProductoServiceClient ps = new ProductoServiceClient())
             {

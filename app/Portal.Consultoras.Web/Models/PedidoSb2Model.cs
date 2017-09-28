@@ -293,5 +293,7 @@ namespace Portal.Consultoras.Web.Models
 
         public int TieneMasVendidos { get; set; }
         public int TieneOfertaLog { get; set; }
+
+        public RevistaDigitalModel RevistaDigital { get; set; }
     }
 }

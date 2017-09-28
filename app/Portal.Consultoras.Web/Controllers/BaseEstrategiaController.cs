@@ -294,7 +294,8 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 #region Validar Tipo
-                if (userData.RevistaDigital.TieneRDR || (userData.RevistaDigital.TieneRDC && userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro == 1))
+                //if (revistaDigital.TieneRDR)
+                if (revistaDigital.TieneRDR || (revistaDigital.TieneRDC && revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == 1))
                 {
                     var estrategiaLanzamiento = listModel.FirstOrDefault(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento) ?? new BEEstrategia();
 
@@ -472,7 +473,7 @@ namespace Portal.Consultoras.Web.Controllers
                     || (
                         (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertaParaTi
                         || estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas)
-                        && (userData.RevistaDigital.TieneRDC || userData.RevistaDigital.TieneRDR))
+                        && (revistaDigital.TieneRDC || revistaDigital.TieneRDR))
                     || tipo == 1
                     ? "revistadigital-landing" : "";
                 prodModel.FotoProducto01 = estrategia.FotoProducto01;

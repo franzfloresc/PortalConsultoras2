@@ -602,16 +602,16 @@ namespace Portal.Consultoras.Web.Controllers
                 if (item.Titulo.ToLower() == "c" + userData.CampaniaNro + "_revistadigital_" + userData.CodigoISO.ToLower())
                 {
                     item.Codigo = Constantes.BannerCodigo.RevistaDigital;
-                    if (!(userData.RevistaDigital.TieneRDC || userData.RevistaDigital.TieneRDR))
+                    if (!(revistaDigital.TieneRDC || revistaDigital.TieneRDR))
                         if (ValidarPermiso("", Constantes.ConfiguracionPais.RevistaDigitalSuscripcion))
-                            if (userData.RevistaDigital.NoVolverMostrar)
+                            if (revistaDigital.NoVolverMostrar)
                             {
-                                if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.NoPopUp
-                                    || userData.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Desactivo)
+                                if (revistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.NoPopUp
+                                    || revistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Desactivo)
                                 {
                                     item.Clase = "oculto";
                                 }
-                                if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.SinRegistroDB)
+                                if (revistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.SinRegistroDB)
                                 {
                                     item.Clase = "oculto";
                                 }
