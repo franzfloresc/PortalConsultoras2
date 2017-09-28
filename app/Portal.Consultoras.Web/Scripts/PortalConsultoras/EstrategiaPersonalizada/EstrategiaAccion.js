@@ -604,4 +604,11 @@ function AbrirMensajeEstrategia(txt) {
     else if (tipoOrigenEstrategia == 2 || tipoOrigenEstrategia == 21 || tipoOrigenEstrategia == 262) {
         messageInfo(txt);
     }
+
+    else if (isMobile()) {
+        messageInfo(txt);
+    }
+    else {
+        alert_msg(txt);
+    }
 }
