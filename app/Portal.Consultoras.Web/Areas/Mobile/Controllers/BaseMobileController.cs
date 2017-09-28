@@ -13,37 +13,18 @@ using System.Web.Routing;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServicePedido;
 using AutoMapper;
+using Portal.Consultoras.Web.CustomFilters;
 using Portal.Consultoras.Web.Helpers;
+using Portal.Consultoras.Web.Infraestructure;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
+    [UniqueSession("UniqueRoute", UniqueRoute.IdentifierKey, "g/")]
     public class BaseMobileController : BaseController
     {
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             base.OnActionExecuting(filterContext);
-
-            //for access to an unique page
-            if (!Request.IsAjaxRequest())
-            {
-                if (filterContext.RequestContext.HttpContext.Request.UrlReferrer != null)
-                {
-                    var guid = HttpUtility.ParseQueryString(filterContext.RequestContext.HttpContext.Request.UrlReferrer.Query).Get("guid");
-                    if (!string.IsNullOrEmpty(guid) && !RouteData.Values.ContainsKey("guid"))
-                    {
-                        RouteData.Values.Add("guid", guid);
-                        this.Response.RedirectToRoute("UniqueRoute", RouteData.Values);
-                        return;
-                    }
-                }
-
-                if (!RouteData.Values.ContainsKey("guid") && !string.IsNullOrEmpty(this.GetUniqueKey()))
-                {
-                    RouteData.Values.Add("guid", this.GetUniqueKey());
-                    this.Response.RedirectToRoute("UniqueRoute", RouteData.Values);
-                    return;
-                }
-            }
 
             if (Session["UserData"] == null) return;
 

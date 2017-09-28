@@ -1656,11 +1656,10 @@ namespace Portal.Consultoras.Web.Controllers
                      {
                          Controller = "Login",
                          Action = "IngresoExterno",
-                         guid = Guid.NewGuid().ToString("N"),
+                         guid = Guid.NewGuid().ToString(),
                          token = token
                      }));
             }
-            //guid = this.GetUniqueKey();
 
             IngresoExternoModel model = null;
             try
@@ -1751,7 +1750,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 TipoOrigen = 1
                             }));
                     case Constantes.IngresoExternoPagina.CompartirCatalogo:
-                        return 
+                        return
                         //RedirectToAction("CompartirEnChatBot", "Compartir",
                         //    new
                         //    {

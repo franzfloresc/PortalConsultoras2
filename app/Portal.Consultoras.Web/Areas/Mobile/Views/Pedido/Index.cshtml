@@ -5,7 +5,7 @@
 
 @model PedidoMobileModel
 @{
-    var layout = ViewContext.Layout();
+    var layout = ViewContext.MobileLayout();
     ViewBag.SourcePage = 2;
 
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);

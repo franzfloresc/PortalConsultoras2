@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using Portal.Consultoras.Web.Infraestructure;
 
 namespace Portal.Consultoras.Web.Helpers
 {
@@ -11,12 +7,17 @@ namespace Portal.Consultoras.Web.Helpers
     {
         public static string GetUniqueKey(this Controller controller)
         {
-            return controller.RouteData.Values["guid"].ToString();
+            if (controller.RouteData.Values[UniqueRoute.IdentifierKey] != null)
+                return controller.RouteData.Values[UniqueRoute.IdentifierKey].ToString();
+
+            return null;
         }
+
         public static void SetUniqueSession(this Controller controller, string name, object value)
         {
             controller.Session[controller.GetUniqueKey() + "_" + name] = value;
         }
+
         public static object GetUniqueSession(this Controller controller, string name)
         {
             return controller.Session[controller.GetUniqueKey() + "_" + name];

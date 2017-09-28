@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using Portal.Consultoras.Web.Infraestructure;
 
 namespace Portal.Consultoras.Web.Helpers
 {
@@ -14,7 +10,7 @@ namespace Portal.Consultoras.Web.Helpers
         /// </summary>
         /// <param name="viewContext">Current context</param>
         /// <returns>_MobileLayout or _MobileLayoutEmpty</returns>
-        public static string Layout(this ViewContext viewContext)
+        public static string MobileLayout(this ViewContext viewContext)
         {
             var ingresoExterno = viewContext.GetUniqueSession("IngresoExterno");
             return ingresoExterno == null ? "_MobileLayout" : "_MobileLayoutEmpty";
@@ -22,23 +18,18 @@ namespace Portal.Consultoras.Web.Helpers
 
         public static string GetUniqueKey(this ViewContext viewContext)
         {
-            if (viewContext.RequestContext.RouteData.Values.ContainsKey("guid") ||
-                viewContext.RouteData.Values.ContainsKey("guid") ||
-                viewContext.HttpContext.Request.QueryString["guid"] != null)
+            if (viewContext.RequestContext.RouteData.Values.ContainsKey(UniqueRoute.IdentifierKey) ||
+                viewContext.RouteData.Values.ContainsKey(UniqueRoute.IdentifierKey) ||
+                viewContext.HttpContext.Request.QueryString[UniqueRoute.IdentifierKey] != null)
 
             {
-                return viewContext.RequestContext.RouteData.Values.ContainsKey("guid")
-                  ? viewContext.RequestContext.RouteData.Values["guid"].ToString()
-                  : viewContext.RouteData.Values.ContainsKey("guid") ? viewContext.RouteData.Values["guid"].ToString()
-                  : viewContext.HttpContext.Request.QueryString["guid"];
+                return viewContext.RequestContext.RouteData.Values.ContainsKey(UniqueRoute.IdentifierKey)
+                  ? viewContext.RequestContext.RouteData.Values[UniqueRoute.IdentifierKey].ToString()
+                  : viewContext.RouteData.Values.ContainsKey(UniqueRoute.IdentifierKey) ? viewContext.RouteData.Values[UniqueRoute.IdentifierKey].ToString()
+                  : viewContext.HttpContext.Request.QueryString[UniqueRoute.IdentifierKey];
             }
 
             return null;
-        }
-
-        public static void SetUniqueSession(this ViewContext viewContext, string name, object value)
-        {
-            viewContext.HttpContext.Session[viewContext.GetUniqueKey() + "_" + name] = value;
         }
 
         public static object GetUniqueSession(this ViewContext viewContext, string name)
