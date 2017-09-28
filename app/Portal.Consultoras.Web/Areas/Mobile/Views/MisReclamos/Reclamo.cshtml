@@ -111,7 +111,7 @@
             <div class="formulario_inscripcion_cdr">
                 @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.ListaCampania, "CampaniaID", "NombreCorto", Model.CampaniaID), new { id = "ddlCampania", @class = "select_reclamo", @required = "required" })                
                 <!-- INICIO CAMPO PARA INGRESAR CÓDIGO PRODUCTO -->
-                <input id="cuvmobile" class="tipografia_lato tipografia_lato_regular" type="text" value="" placeholder="Código del producto" />
+                <input id="cuvmobile" class="tipografia_lato tipografia_lato_regular ValidaNumeral ValidaPasteNumeral" type="text" value="" placeholder="Código del producto" />
                 <!-- FIN CAMPO PARA INGRESAR CÓDIGO PRODUCTO -->
                 <div id="DescripcionCuv" class="producto_cdr" style="font-size:13px; display:none;">
                     <span id="txtCuv" class="codigo_producto_cdr tipografia_lato_bold">00411</span>
@@ -188,7 +188,7 @@
             </div>
 
             <div class="formulario_inscripcion_cdr">
-                <input id="cuvmobile2" class="tipografia_lato tipografia_lato_regular" type="text" value="" placeholder="Código del producto" />
+                <input id="cuvmobile2" class="tipografia_lato tipografia_lato_regular ValidaNumeral ValidaPasteNumeral" type="text" value="" placeholder="Código del producto" />
                 <input type="hidden" id="hdImporteTotal2" />
                 <div id="DescripcionCuv2" class="producto_cdr" style="font-size:13px; display:none;">
                     <span id="txtCuv2" class="codigo_producto_cdr tipografia_lato_bold">00411</span>
@@ -227,6 +227,12 @@
                 <div id="spnMensajeTenerEnCuentaCambio" class="content_info_cdr tipografia_lato_regular">
                 </div>
             </div>
+            <span class="icono_arrow_left">
+                <img src="@Url.Content("~/Content/Images/mobile/left-arrow.png")" alt="Ver solicitudes anteriores" />
+            </span>
+            <a class="btn_agrega_otro_reclamo" href="@Url.Action("Index")" title="Ver solicitudes anteriores">
+                <span>VER SOLICITUDES ANTERIORES</span>
+            </a>
         </div>
         <!--FIN DE VISTA CAMBIARLO POR OTRO PRODUCTO-->
         <!-- INICIO VISTA FINALIZACIÓN DE SOLICITUD -->
@@ -705,7 +711,7 @@
             @*<div class="info_solicitud_cdr tipografia_lato_regular">
                     <span>{{item.CUV}}</span> - <span>{{item.Descripcion}}</span>
             </div>*@
-        </div>
+        </div> <br />
     @*</div>*@
     {{/each}}
 </script>

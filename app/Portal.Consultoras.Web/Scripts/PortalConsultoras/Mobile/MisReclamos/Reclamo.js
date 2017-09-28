@@ -14,6 +14,7 @@ $(document).ready(function () {
         var me = this;
 
         me.Variables = {
+            CuvValido: true,
             aCambiarProducto: "#aCambiarProducto",
             aCambiarProducto2: "#aCambiarProducto2",
             alturaListaMiSolicitud: $(document).height(),
@@ -274,13 +275,9 @@ $(document).ready(function () {
                 });
 
                 $(me.Variables.btnSiguiente1).click(function (e) {
-                    $(me.Variables.Enlace_regresar).show();
-                    
-                    ShowLoading();
-
                     if ($(me.Variables.Registro1).is(":visible")) {
-
                         if (me.Funciones.ValidarCUVCampania()) {
+                            $(me.Variables.Enlace_regresar).show(); 
                             me.Funciones.BuscarMotivo();
 
                             $(me.Variables.pasodos).hide();
@@ -326,10 +323,17 @@ $(document).ready(function () {
                     $(me.Variables.Registro2).hide();
                     $(me.Variables.Registro3).hide();
                     $(me.Variables.Registro4).hide();
-                    $(me.Variables.Cambio3).hide();                    
+                    $(me.Variables.Cambio3).hide();
+                    $(me.Variables.pasodosactivo).hide();
+                    $(me.Variables.pasotresactivo).hide();
+
                     $(me.Variables.Enlace_regresar).hide();
                     $(me.Variables.btnAceptarSolucion).hide();
                     $(me.Variables.btnCambioProducto).hide();
+                    $(me.Variables.pasodos).show();
+                    $(me.Variables.pasotres).show();
+
+
                     paso2Actual = 1
 
                     $(me.Variables.btnSiguiente1).show();
@@ -522,16 +526,18 @@ $(document).ready(function () {
                             return false;
 
                         if (data.success == false) {
+                            me.Variables.CuvValido = false;
                             messageInfoValidado(data.message);
                             return false;
                         }
 
                         data.detalle = data.detalle || new Array();
                         if (data.detalle.length <= 0) {
+                            me.Variables.CuvValido = false;
                             messageInfoError("Producto no disponible para atención por este medio, comunícate con el <span class='enlace_chat belcorpChat'><a>Chat en Línea</a></span>.");
 
                         } else {
-                            if (data.detalle.length > 1) PopupPedido(data.detalle);
+                            if (data.detalle.length > 1) messageInfoValidado("Su solicitud tiene mas de un pedido. Por favor comunícate con el <span class='enlace_chat belcorpChat'><a>Chat en Línea</a></span>.");//PopupPedido(data.detalle);
                             else me.Funciones.AsignarCUV(data.detalle[0]);
                         }
                     },
@@ -678,7 +684,7 @@ $(document).ready(function () {
             },
 
             BuscarMotivo: function () {
-
+                ShowLoading();
                 var PedidoId = $.trim($(me.Variables.hdPedidoID).val()) || 0;
                 var CampaniaId = $.trim($(me.Variables.ComboCampania).val()) || 0;
                 if (PedidoId <= 0 || CampaniaId <= 0)
@@ -718,8 +724,9 @@ $(document).ready(function () {
 
             ValidarCUVCampania: function () {
                 var ok = true;
+                ok = me.Variables.CuvValido;
                 ok = $(me.Variables.ComboCampania).val() > 0 ? ok : false;
-                ok = $.trim($(me.Variables.txtCuvMobile).val()) != "" ? ok : false;
+                ok = $.trim($(me.Variables.txtCuvMobile).val()) != "" ? ok : false;                
 
                 if (!ok) {
                     messageInfoValidado("Datos incorrectos");
@@ -728,7 +735,12 @@ $(document).ready(function () {
                 return ok;
             },
 
-            
+            RegresarRegistro1: function () {
+                $(me.Variables.Registro2).hide();
+                $(me.Variables.pasodosactivo).hide();
+                $(me.Variables.pasodos).show();
+                $(me.Variables.Registro1).show();                
+            }, 
 
             ValidarPaso1: function () {
                 var ok = true;
@@ -740,13 +752,14 @@ $(document).ready(function () {
 
                 if (!ok) {
                     messageInfoValidado("Datos incorrectos");
+                    me.Funciones.RegresarRegistro1();
                     return false;
                 }
 
-                if (!($.trim($(me.Variables.txtCantidad1).val()) > 0 && $.trim($(me.Variables.txtCantidad1).val()) <= $.trim($(me.Variables.txtCantidad1).attr("data-maxvalue")))) {
-                    
+                if (!($.trim($(me.Variables.txtCantidad1).val()) > 0 && $.trim($(me.Variables.txtCantidad1).val()) <= $.trim($(me.Variables.txtCantidad1).attr("data-maxvalue")))) {                    
                     messageInfoValidado("Lamentablemente la cantidad ingresada supera a la cantidad facturada en tu pedido (" +
                         $.trim($(me.Variables.txtCantidad1).attr("data-maxvalue")) + ")");
+                    me.Funciones.RegresarRegistro1();
                     return false;
                 }
 
@@ -772,12 +785,12 @@ $(document).ready(function () {
                             ok = data.success;
 
                             if (!data.success && data.message != "") {
+                                me.Funciones.RegresarRegistro1();
                                 messageInfoValidado(data.message);
                             }
                         }
                     },
                     error: function (data, error) {
-
                         CloseLoading();
                         if (checkTimeout(data)) { }
                     }
@@ -1052,7 +1065,7 @@ $(document).ready(function () {
 
                 var item = {
                     CUV: $.trim($(me.Variables.txtCuv).text()),
-                    DescripcionProd: $.trim($(me.Variables.DescripcionCuv).text()),
+                    DescripcionProd: $.trim($(me.Variables.txtDescripcionCuv).text()),
                     Cantidad: $.trim($(me.Variables.txtCantidad1).val()),
                     EstadoSsic: $.trim(codigoSsic)
                 };
@@ -1076,7 +1089,7 @@ $(document).ready(function () {
                         }
 
                         //$(me.Variables.Registro4).show();
-                        
+
                         if (tipo == "canje") {
                             SetHandlebars("#template-confirmacion", data.detalle, "[data-tipo-confirma='" + tipo + "'] [data-detalle-confirma]");
                             //$("#eleccion").show();

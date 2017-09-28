@@ -13217,3 +13217,7 @@ a{
     text-decoration:underline;
     margin-bottom:25px;
 }
+.enlace_chat a {
+    text-decoration: underline;
+    font-weight: bold;
+}
