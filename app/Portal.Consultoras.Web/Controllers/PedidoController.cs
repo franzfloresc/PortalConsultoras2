@@ -515,8 +515,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #region validar cuv de inicio obligatorio
                 List<BEPedidoWebDetalle> olstPedidoWebDetalle = ObtenerPedidoWebDetalle();
-                if ((userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Registrada
-                    || userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Retirada))
+                if (EsConsultoraNueva())
                 {
                     var detCuv = olstPedidoWebDetalle.FirstOrDefault(d => d.CUV == model.CUV) ?? new BEPedidoWebDetalle();
                     detCuv.CUV = Util.SubStr(detCuv.CUV, 0);
@@ -3375,8 +3374,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (Session["ConfiguracionProgramaNuevas"] != null) return;
 
-            if (!(userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Registrada
-                || userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Retirada))
+            if (!EsConsultoraNueva())
             {
                 Session["ConfiguracionProgramaNuevas"] = new BEConfiguracionProgramaNuevas();
                 return;

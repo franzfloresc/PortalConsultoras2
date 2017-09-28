@@ -32,8 +32,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 			clienteModel.CodigoRevistaSiguiente = GetRevistaCodigoIssuu(clienteModel.CampaniaSiguiente);
 
 			ViewBag.CodigoISO = userData.CodigoISO;
-			ViewBag.EsConsultoraNueva = userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Registrada ||
-				userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Retirada;
+			ViewBag.EsConsultoraNueva = EsConsultoraNueva();
 
 			string PaisesCatalogoWhatsUp = ConfigurationManager.AppSettings.Get("PaisesCatalogoWhatsUp") ?? string.Empty;
 			ViewBag.ActivacionAppCatalogoWhastUp = PaisesCatalogoWhatsUp.Contains(userData.CodigoISO) ? 1 : 0;

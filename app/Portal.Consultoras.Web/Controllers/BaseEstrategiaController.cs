@@ -16,8 +16,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             string varSession = Constantes.ConstSession.ListaEstrategia;// + (campaniaId > 0 ? campaniaId.ToString() : "");
             if (Session[varSession] != null && campaniaId == 0) return (List<BEEstrategia>)Session[varSession];
-
-            //var usuario = ObtenerUsuarioConfiguracion();            
+         
             var entidad = new BEEstrategia
             {
                 PaisID = userData.PaisID,
@@ -31,8 +30,7 @@ namespace Portal.Consultoras.Web.Controllers
                 Simbolo = userData.Simbolo,
                 CodigoAgrupacion = Util.Trim(codAgrupacion)
             };
-
-
+            
             var listEstrategia = new List<BEEstrategia>();
             
             using (PedidoServiceClient sv = new PedidoServiceClient())

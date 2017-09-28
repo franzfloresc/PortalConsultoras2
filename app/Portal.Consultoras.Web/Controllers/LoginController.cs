@@ -650,6 +650,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.ConsultoraAsociadaID = oBEUsuario.ConsultoraAsociadaID;
                     model.ValidacionAbierta = oBEUsuario.ValidacionAbierta;
                     model.AceptacionConsultoraDA = oBEUsuario.AceptacionConsultoraDA;
+
                     if (DateTime.Now.AddHours(oBEUsuario.ZonaHoraria) < oBEUsuario.FechaInicioFacturacion)
                         model.DiaPROLMensajeCierreCampania = false;
                     else
@@ -686,10 +687,10 @@ namespace Portal.Consultoras.Web.Controllers
                     // OGA: se calcula el fin de campañia sumando el nº de dias que dura el cronograma
                     switch (oBEUsuario.RolID)
                     {
-                        case Portal.Consultoras.Common.Constantes.Rol.Administrador:
+                        case Constantes.Rol.Administrador:
                             model.FechaFinCampania = oBEUsuario.FechaFinFacturacion;
                             break;
-                        case Portal.Consultoras.Common.Constantes.Rol.Consultora:
+                        case Constantes.Rol.Consultora:
                             model.FechaFinCampania = oBEUsuario.FechaFinFacturacion;
                             break;
 

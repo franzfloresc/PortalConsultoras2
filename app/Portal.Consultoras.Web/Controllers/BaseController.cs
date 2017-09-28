@@ -1508,8 +1508,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return olstProductoFaltante;
         }
-
-
+        
         private string NombreCampania(string Campania)
         {
             string Result = Campania;
@@ -3226,6 +3225,11 @@ namespace Portal.Consultoras.Web.Controllers
             return tiposEstrategia;
         }
 
+        protected bool EsConsultoraNueva()
+        {
+            return userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Registrada ||
+                userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Retirada;
+        }
     }
 }
 
