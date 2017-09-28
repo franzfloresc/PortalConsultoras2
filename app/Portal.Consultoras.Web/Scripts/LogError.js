@@ -40,6 +40,10 @@ window.onerror = function (msg, url, line, col, error) {
     return suppressErrorAlert;
 };
 
+if (!window.location.origin) {
+    window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
+}
+
 // Tracking de llamadas $.ajax
 $(document).ajaxError(function (event, jqxhr, settings, thrownError) {
 
@@ -57,11 +61,7 @@ $(document).ajaxError(function (event, jqxhr, settings, thrownError) {
 
     // HTTP Status Messages 
     // https://www.w3schools.com/tags/ref_httpmessages.asp
-
-    if (!window.location.origin) {
-        window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
-    }
-
+    
     var urlAjax = window.location.origin + "" + settings.url;
 
     // TODO: Reportar el error a través de ajax para que pueda realizar un seguimiento
