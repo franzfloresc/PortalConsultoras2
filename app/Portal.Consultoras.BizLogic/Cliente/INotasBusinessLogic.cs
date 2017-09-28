@@ -8,7 +8,7 @@ namespace Portal.Consultoras.BizLogic.Cliente
     public interface INotasBusinessLogic
     {
         ResponseType<long> Insertar(int paisId, BENota nota);
-        ResponseType<List<BENota>> Listar(int paisId, long consultoraId);
+        ResponseType<List<BENota>> Listar(int paisId, long consultoraId, short clienteId = 0);
         ResponseType<bool> Actualizar(int paisId, BENota nota);
         ResponseType<bool> Eliminar(int paisId, short clienteId, long consultoraId, long clienteNotaId);
         ResponseType<List<BENota>> Procesar(int paisId, BEClienteDB clienteDb);
