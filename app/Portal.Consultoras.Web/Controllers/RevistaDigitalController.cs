@@ -152,7 +152,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 ViewBag.EsMobile = model.IsMobile ? 2 : 1;
 
-                var palanca = model.CampaniaID != userData.CampaniaID || userData.RevistaDigital.TieneRDR
+                var palanca = model.CampaniaID != userData.CampaniaID || revistaDigital.TieneRDR
                     ? Constantes.TipoEstrategiaCodigo.RevistaDigital
                     : revistaDigital.TieneRDC && revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo
                         ? Constantes.TipoEstrategiaCodigo.RevistaDigital
