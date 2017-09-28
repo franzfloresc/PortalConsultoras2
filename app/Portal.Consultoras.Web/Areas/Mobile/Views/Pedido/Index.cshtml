@@ -1,5 +1,6 @@
 ﻿@using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Areas.Mobile.Models
+@using Portal.Consultoras.Web.Models
 
 @model PedidoMobileModel
 @{
@@ -7,6 +8,7 @@
     ViewBag.SourcePage = 2;
 
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
+    var revistaDigital = Model.RevistaDigital ?? new RevistaDigitalModel();
 }
 @section styles
 {
@@ -419,7 +421,7 @@
 </div>
 <!-- FIN POPUP CLIENTE AGREGADO -->
 
-@Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-header-mobile.cshtml")
+@Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-header-mobile.cshtml", Model.RevistaDigital)
 @Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-carrusel-mobile.cshtml")
 @Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
 

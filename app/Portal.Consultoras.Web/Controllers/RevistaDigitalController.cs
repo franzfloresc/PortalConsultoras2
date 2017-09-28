@@ -116,7 +116,7 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return PartialView("template-Landing", new RevistaDigitalModel());
+                return PartialView("template-Landing", new RevistaDigitalLandingModel());
             }
         }
 
@@ -138,7 +138,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (!(userData.RevistaDigital.TieneRDC || userData.RevistaDigital.TieneRDR) || EsCampaniaFalsa(model.CampaniaID))
+                if (!(revistaDigital.TieneRDC || revistaDigital.TieneRDR) || EsCampaniaFalsa(model.CampaniaID))
                 {
                     return Json(new
                     {
@@ -154,11 +154,11 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var palanca = model.CampaniaID != userData.CampaniaID
                     ? Constantes.TipoEstrategiaCodigo.RevistaDigital
-                    : userData.RevistaDigital.TieneRDC 
-                        ? userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo
+                    : revistaDigital.TieneRDC 
+                        ? revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo
                             ? Constantes.TipoEstrategiaCodigo.RevistaDigital
                             : ""
-                        : userData.RevistaDigital.TieneRDR
+                        : revistaDigital.TieneRDR
                             ? Constantes.TipoEstrategiaCodigo.RevistaDigital
                             : "";
 
@@ -250,9 +250,9 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (!userData.RevistaDigital.TieneRDC)
+                if (!revistaDigital.TieneRDC)
                 {
-                    if (!userData.RevistaDigital.TieneRDS)
+                    if (!revistaDigital.TieneRDS)
                     {
                         return Json(new
                         {
@@ -263,7 +263,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                if (userData.RevistaDigital.EstadoSuscripcion == 1)
+                if (revistaDigital.EstadoSuscripcion == 1)
                 {
                     return Json(new
                     {
@@ -272,7 +272,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }, JsonRequestBehavior.AllowGet);
                 }
 
-                var diasAntesFactura = userData.RevistaDigital.DiasAntesFacturaHoy;
+                var diasAntesFactura = revistaDigital.DiasAntesFacturaHoy;
                 var diasFaltanFactura = GetDiasFaltantesFacturacion(userData.FechaInicioCampania, userData.ZonaHoraria);
                 if (diasFaltanFactura <= -1 * diasAntesFactura)
                 {
@@ -302,9 +302,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (entidad.RevistaDigitalSuscripcionID > 0)
                 {
-                    userData.RevistaDigital.SuscripcionModel = Mapper.Map<BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>(entidad);
-                    userData.RevistaDigital.NoVolverMostrar = true;
-                    userData.RevistaDigital.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
+                    revistaDigital.SuscripcionModel = Mapper.Map<BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>(entidad);
+                    revistaDigital.NoVolverMostrar = true;
+                    revistaDigital.EstadoSuscripcion = revistaDigital.SuscripcionModel.EstadoRegistro;
                     userData.MenuMobile = null;
                     userData.Menu = null;
                 }
@@ -313,8 +313,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 return Json(new
                 {
-                    success = userData.RevistaDigital.EstadoSuscripcion > 0,
-                    message = userData.RevistaDigital.EstadoSuscripcion > 0 ? "" : "Ocurrió un error, vuelva a intentarlo.",
+                    success = revistaDigital.EstadoSuscripcion > 0,
+                    message = revistaDigital.EstadoSuscripcion > 0 ? "" : "Ocurrió un error, vuelva a intentarlo.",
                     CodigoMenu = Constantes.BannerCodigo.RevistaDigital
                 }, JsonRequestBehavior.AllowGet);
 
@@ -336,7 +336,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro != Constantes.EstadoRDSuscripcion.Activo)
+                if (revistaDigital.SuscripcionModel.EstadoRegistro != Constantes.EstadoRDSuscripcion.Activo)
                 {
                     return Json(new
                     {
@@ -345,7 +345,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }, JsonRequestBehavior.AllowGet);
                 }
 
-                var diasAntesFactura = userData.RevistaDigital.DiasAntesFacturaHoy;
+                var diasAntesFactura = revistaDigital.DiasAntesFacturaHoy;
                 var diasFaltanFactura = GetDiasFaltantesFacturacion(userData.FechaInicioCampania, userData.ZonaHoraria);
                 if (diasFaltanFactura <= -1 * diasAntesFactura)
                 {
@@ -373,9 +373,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (entidad.RevistaDigitalSuscripcionID > 0)
                 {
-                    userData.RevistaDigital.SuscripcionModel = Mapper.Map<BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>(entidad);
-                    userData.RevistaDigital.NoVolverMostrar = true;
-                    userData.RevistaDigital.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
+                    revistaDigital.SuscripcionModel = Mapper.Map<BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>(entidad);
+                    revistaDigital.NoVolverMostrar = true;
+                    revistaDigital.EstadoSuscripcion = revistaDigital.SuscripcionModel.EstadoRegistro;
                     userData.MenuMobile = null;
                     userData.Menu = null;
                 }
@@ -384,8 +384,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 return Json(new
                 {
-                    success = userData.RevistaDigital.EstadoSuscripcion > 0,
-                    message = userData.RevistaDigital.EstadoSuscripcion > 0 ? "" : "Ocurrió un error, vuelva a intentarlo."
+                    success = revistaDigital.EstadoSuscripcion > 0,
+                    message = revistaDigital.EstadoSuscripcion > 0 ? "" : "Ocurrió un error, vuelva a intentarlo."
                 }, JsonRequestBehavior.AllowGet);
 
             }
@@ -419,9 +419,9 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     if (sv.RDSuscripcion(entidad) > 0)
                     {
-                        userData.RevistaDigital.NoVolverMostrar = true;
-                        userData.RevistaDigital.EstadoSuscripcion = Constantes.EstadoRDSuscripcion.NoPopUp;
-                        userData.RevistaDigital.SuscripcionModel.EstadoRegistro = Constantes.EstadoRDSuscripcion.NoPopUp;
+                        revistaDigital.NoVolverMostrar = true;
+                        revistaDigital.EstadoSuscripcion = Constantes.EstadoRDSuscripcion.NoPopUp;
+                        revistaDigital.SuscripcionModel.EstadoRegistro = Constantes.EstadoRDSuscripcion.NoPopUp;
                     }
                 }
                 SetUserData(userData);
@@ -447,8 +447,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                userData.RevistaDigital.NoVolverMostrar = true;
-                userData.RevistaDigital.EstadoSuscripcion = Constantes.EstadoRDSuscripcion.NoPopUp;
+                revistaDigital.NoVolverMostrar = true;
+                revistaDigital.EstadoSuscripcion = Constantes.EstadoRDSuscripcion.NoPopUp;
                 Session[Constantes.ConstSession.TipoPopUpMostrar] = Constantes.TipoPopUp.Ninguno;
                 SetUserData(userData);
 

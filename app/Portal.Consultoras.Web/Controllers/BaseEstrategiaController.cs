@@ -284,7 +284,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 #region Validar Tipo
-                //if (userData.RevistaDigital.TieneRDR)
+                //if (revistaDigital.TieneRDR)
                 //{
                 //    listModel = listModel.Where(e => e.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList() ?? new List<BEEstrategia>();
                 //    var top = listModel.Count();
@@ -314,7 +314,7 @@ namespace Portal.Consultoras.Web.Controllers
                 //    Session[Constantes.SessionNames.ListaEstrategia] = listModel;
                 //}
                 //else 
-                if (userData.RevistaDigital.TieneRDR || (userData.RevistaDigital.TieneRDC && userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro == 1))
+                if (revistaDigital.TieneRDR || (revistaDigital.TieneRDC && revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == 1))
                 {
                     var estrategiaLanzamiento = listModel.FirstOrDefault(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento) ?? new BEEstrategia();
 
@@ -355,7 +355,7 @@ namespace Portal.Consultoras.Web.Controllers
             var listaProductoModel = ConsultarEstrategiasModelFormato(listModel);
             //if (IsMobile() && listaProductoModel.Any())
             //{
-            //    if (userData.RevistaDigital.TieneRDR )
+            //    if (revistaDigital.TieneRDR )
             //    {
             //        listaProductoModel = listaProductoModel.Take(1).ToList();
             //    }
@@ -499,7 +499,7 @@ namespace Portal.Consultoras.Web.Controllers
                     || (
                         (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertaParaTi
                         || estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas)
-                        && (userData.RevistaDigital.TieneRDC || userData.RevistaDigital.TieneRDR))
+                        && (revistaDigital.TieneRDC || revistaDigital.TieneRDR))
                     || tipo == 1
                     ? "revistadigital-landing" : "";
                 prodModel.FotoProducto01 = estrategia.FotoProducto01;

@@ -56,7 +56,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         break;
                 }
 
-                ViewBag.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
+                ViewBag.EstadoSuscripcion = revistaDigital.SuscripcionModel.EstadoRegistro;
                 ViewBag.CampaniaMasDos = AddCampaniaAndNumero(userData.CampaniaID, 2) % 100;
                 return View(modelo);
 
