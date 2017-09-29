@@ -1127,7 +1127,8 @@ function SolicitudEnviar(validarCorreoVacio, validarCelularVacio) {
         Telefono: $("#txtTelefono").val(),
         TipoDespacho: false,
         FleteDespacho: 0,
-        MensajeDespacho: ''
+        MensajeDespacho: '',
+        EsMovilFin: OrigenCDR
     };
     if ($("#hdTieneCDRExpress").val() == '1') {
         item.TipoDespacho = tipoDespacho;

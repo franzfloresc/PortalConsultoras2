@@ -565,7 +565,7 @@ namespace Portal.Consultoras.Web.Controllers
                 entidadDetalle.CodigoReclamo = model.Motivo;
                 entidadDetalle.CodigoOperacion = model.Operacion;
                 entidadDetalle.CUV = model.CUV;
-                entidadDetalle.Cantidad = model.Cantidad;
+                entidadDetalle.Cantidad = model.Cantidad;                
 
                 if (model.Operacion == Constantes.CodigoOperacionCDR.Canje)
                 {
@@ -585,6 +585,7 @@ namespace Portal.Consultoras.Web.Controllers
                     entidad.PedidoID = model.PedidoID;
                     entidad.PedidoNumero = model.NumeroPedido;
                     entidad.ConsultoraID = Int32.Parse(userData.ConsultoraID.ToString());
+                    entidad.EsMovilOrigen = Convert.ToBoolean(model.EsMovilOrigen);
                     entidad.CDRWebDetalle = new BECDRWebDetalle[] {entidadDetalle};
 
                     //EPD-1919 INICIO UNCOMMENTEDDICC
@@ -725,7 +726,8 @@ namespace Portal.Consultoras.Web.Controllers
                         Estado = Constantes.EstadoCDRWeb.Enviado,
                         TipoDespacho = !EvaluarVisibilidadCDRExpress(model.CDRWebID, model.PedidoID) ? null : model.TipoDespacho,
                         FleteDespacho = model.FleteDespacho,
-                        MensajeDespacho = model.MensajeDespacho
+                        MensajeDespacho = model.MensajeDespacho,
+                        EsMovilFin = Convert.ToBoolean(model.EsMovilFin),
                     }; //EPD-1919
 
                     resultadoUpdate = sv.UpdEstadoCDRWeb(userData.PaisID, entidad);
@@ -1066,6 +1068,9 @@ namespace Portal.Consultoras.Web.Controllers
                             break;
                         case "MotivoRechazo":
                             items = lst.OrderBy(x => x.MotivoRechazo);
+                            break;
+                        case "OrigenCDRWeb":
+                            items = lst.OrderBy(x => x.OrigenCDRWeb);
                             break;
 
                     }

@@ -1152,7 +1152,8 @@ $(document).ready(function () {
                     CUV: $(me.Variables.txtCuv).html(),
                     Cantidad: $.trim($(me.Variables.txtCantidad1).val()),
                     CUV2: $(me.Variables.txtCuv2).html(),
-                    Cantidad2: $(me.Variables.txtCantidad2).val()
+                    Cantidad2: $(me.Variables.txtCantidad2).val(),
+                    EsMovilOrigen: OrigenCDR
                 };
 
                 ShowLoading();
@@ -1381,7 +1382,8 @@ $(document).ready(function () {
                     Telefono: $(me.Variables.txtTelefono).val(),
                     TipoDespacho: false,
                     FleteDespacho: 0,
-                    MensajeDespacho: ''
+                    MensajeDespacho: '',
+                    EsMovilFin: OrigenCDR
                 };
 
                 ShowLoading();

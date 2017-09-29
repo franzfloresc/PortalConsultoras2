@@ -59,6 +59,12 @@ namespace Portal.Consultoras.Entities.CDR
         [DataMember]
         public string MensajeDespacho { get; set; }
         //EPD-1919 FIN
+        
+        [DataMember]
+        public bool EsMovilOrigen { get; set; }
+
+        [DataMember]
+        public bool EsMovilFin { get; set; }
 
         public BECDRWeb()
         { }

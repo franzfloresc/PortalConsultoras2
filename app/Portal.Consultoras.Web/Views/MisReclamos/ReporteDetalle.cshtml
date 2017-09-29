@@ -106,7 +106,7 @@
                 }),
                 mtype: 'GET',
                 contentType: "application/json; charset=utf-8",
-                colNames: ['Nro. CDR', 'Código de cliente', 'Región', 'Zona', 'Sección', 'Campaña Origen Pedido', 'Fecha Hora Solicitud', 'Fecha Hora Atención', 'Estado del Reclamo', 'Código de Venta', 'Unidades facturadas', 'Monto Facturado', 'Unidades devueltas', 'Monto Devuelto', 'Código de Venta Producto a Enviar', 'Unidades a Enviar', 'Monto Producto a Enviar', 'Operación', 'Motivo', 'Estado', 'Motivo Rechazo'],
+                colNames: ['Nro. CDR', 'Código de cliente', 'Región', 'Zona', 'Sección', 'Campaña Origen Pedido', 'Fecha Hora Solicitud', 'Fecha Hora Atención', 'Estado del Reclamo', 'Código de Venta', 'Unidades facturadas', 'Monto Facturado', 'Unidades devueltas', 'Monto Devuelto', 'Código de Venta Producto a Enviar', 'Unidades a Enviar', 'Monto Producto a Enviar', 'Operación', 'Motivo', 'Estado', 'Motivo Rechazo', 'Origen CDR Web'],
                 colModel: [
                     { name: 'NroCDR', index: 'NroCDR', width: 10, editable: true, resizable: false },
                     { name: 'ConsultoraCodigo', index: 'ConsultoraCodigo', width: 25, editable: true, resizable: false, align: 'center' },
@@ -128,8 +128,8 @@
                     { name: 'Operacion', index: 'Operacion', width: 30, editable: true, resizable: false },
                     { name: 'Reclamo', index: 'Reclamo', width: 30, editable: true, resizable: false },
                     { name: 'EstadoDetalle', index: 'EstadoDetalle', width: 30, editable: true, resizable: false, align: 'center' },
-                    { name: 'MotivoRechazo', index: 'MotivoRechazo', width: 30, editable: true, resizable: false }
-                   
+                    { name: 'MotivoRechazo', index: 'MotivoRechazo', width: 30, editable: true, resizable: false },
+                    { name: 'OrigenCDRWeb', index: 'OrigenCDRWeb', width: 30, editable: true, resizable: false, align: 'center'}                   
                 ],
                 jsonReader:
                 {

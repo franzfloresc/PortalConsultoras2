@@ -154,6 +154,9 @@ namespace Portal.Consultoras.Entities.CDR
         [DataMember]
         public decimal MontoDevuelto { get; set; }
 
+        [DataMember]
+        public bool OrigenCDRWeb { get; set; }
+
         public BECDRWebDetalleReporte()
         { }
         public BECDRWebDetalleReporte(IDataRecord row)
@@ -179,6 +182,7 @@ namespace Portal.Consultoras.Entities.CDR
             if (row.HasColumn("Reclamo")) Reclamo = Convert.ToString(row["Reclamo"]);
             if (row.HasColumn("EstadoDetalle")) EstadoDetalle = Convert.ToString(row["EstadoDetalle"]);
             if (row.HasColumn("MotivoRechazo")) MotivoRechazo = Convert.ToString(row["MotivoRechazo"]);
+            if (row.HasColumn("OrigenCDRWeb")) OrigenCDRWeb = Convert.ToBoolean(row["OrigenCDRWeb"]);
         }
     }
 }

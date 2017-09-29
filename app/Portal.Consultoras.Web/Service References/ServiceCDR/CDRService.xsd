@@ -11,6 +11,8 @@
       <xs:element minOccurs="0" name="ConsultoraCodigo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ConsultoraID" type="xs:long" />
       <xs:element minOccurs="0" name="ConsultoraSaldo" type="xs:decimal" />
+      <xs:element minOccurs="0" name="EsMovilFin" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EsMovilOrigen" type="xs:boolean" />
       <xs:element minOccurs="0" name="Estado" type="xs:int" />
       <xs:element minOccurs="0" name="FechaAtencion" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaCulminado" nillable="true" type="xs:dateTime" />
@@ -214,6 +216,7 @@
       <xs:element minOccurs="0" name="MotivoRechazo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NroCDR" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Operacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OrigenCDRWeb" type="xs:boolean" />
       <xs:element minOccurs="0" name="Reclamo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="RegionCodigo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="SeccionCodigo" nillable="true" type="xs:string" />
