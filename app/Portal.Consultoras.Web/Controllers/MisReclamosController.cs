@@ -1070,27 +1070,23 @@ namespace Portal.Consultoras.Web.Controllers
                         case "EstadoDetalle":
                             items = lst.OrderBy(x => x.EstadoDetalle);
                             break;
-                        case "MotivoRechazo":
-                            items = lst.OrderBy(x => x.MotivoRechazo);
-                            break;
                         case "OrigenCDRWeb":
                             items = lst.OrderBy(x => x.OrigenCDRWeb);
                             break;
-
                         //EPD 2582 INICIO
                         case "TipoConsultora":
                             items = lst.OrderBy(x => x.TipoConsultora);
                             break;
-
                         case "TipoDespacho":
                             items = lst.OrderBy(x => x.TipoDespacho);
                             break;
-
                         case "FleteDespacho":
                             items = lst.OrderBy(x => x.FleteDespacho);
                             break;
-                            //EPD 2582 FIN
-
+                        //EPD 2582 FIN
+                        case "MotivoRechazo":
+                            items = lst.OrderBy(x => x.MotivoRechazo);
+                            break;
                     }
                 }
                 else
@@ -1157,25 +1153,20 @@ namespace Portal.Consultoras.Web.Controllers
                         case "MotivoRechazo":
                             items = lst.OrderByDescending(x => x.MotivoRechazo);
                             break;
-                        case "OrigenCDRWeb":
-                            items = lst.OrderBy(x => x.OrigenCDRWeb);
-                            break;
-
-
                         //EPD-2582 INICIO
                         case "TipoConsultora":
                             items = lst.OrderByDescending(x => x.TipoConsultora);
                             break;
-
                         case "TipoDespacho":
                             items = lst.OrderByDescending(x => x.TipoDespacho);
                             break;
-
                         case "FleteDespacho":
                             items = lst.OrderByDescending(x => x.FleteDespacho);
                             break;
-                            //EPD-2582 FIN
-
+                        //EPD-2582 FIN
+                        case "OrigenCDRWeb":
+                            items = lst.OrderBy(x => x.OrigenCDRWeb);
+                            break;
                     }
                 }
                 #endregion
@@ -1214,14 +1205,13 @@ namespace Portal.Consultoras.Web.Controllers
                                    (a.Operacion??string.Empty).ToString(),
                                    (a.Reclamo??string.Empty).ToString(),
                                    (a.EstadoDetalle??string.Empty).ToString(),
-                                   (a.MotivoRechazo??string.Empty).ToString(),
-                                   a.OrigenCDRWeb.ToString()
+                                   (a.MotivoRechazo??string.Empty).ToString(),                                   
                                    //EPD-2582 INICIO
                                    (a.TipoConsultora ?? string.Empty).ToString(),
                                    (a.TipoDespacho??string.Empty).ToString(),
-                                   a.FleteDespacho.ToString()
+                                   a.FleteDespacho.ToString(),
                                    //EPD-2582 FIN
-
+                                   (a.OrigenCDRWeb??string.Empty).ToString()
                                    //Convert.ToDateTime(a.FechaFinDD.ToString()).ToShortDateString(),
                                    //a.ZonaID.ToString()
                                 }
@@ -1275,6 +1265,7 @@ namespace Portal.Consultoras.Web.Controllers
             dic.Add("Indicador Despacho", "TipoDespacho");
             dic.Add("Flete CDR", "FleteDespacho");
             //EPD-2598 FIn
+            dic.Add("Origen CDR Web", "OrigenCDRWeb");
             Util.ExportToExcel<BECDRWebDetalleReporte>("ReporteCDRWebDetalleExcel", lst.ToList(), dic);
             return View();
         }
