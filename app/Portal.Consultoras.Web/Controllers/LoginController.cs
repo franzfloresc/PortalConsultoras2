@@ -1098,28 +1098,29 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         #endregion
 
-                        #region Concursos
-
-                        List<BEConsultoraConcurso> Concursos = new List<BEConsultoraConcurso>();
+                        #region IncentivosConcursos
+                        model.CodigosConcursos = string.Empty;
+                        model.CodigosProgramaNuevas = string.Empty;
 
                         try
                         {
+                            var arrCalculoPuntos = Constantes.Incentivo.CalculoPuntos.Split(';');
+
                             using (PedidoServiceClient sv = new PedidoServiceClient())
                             {
-                                Concursos = sv.ObtenerConcursosXConsultora(model.PaisID, model.CampaniaID.ToString(), model.CodigoConsultora, model.CodigorRegion, model.CodigoZona).ToList();
+                                var result = sv.ObtenerConcursosXConsultora(model.PaisID, model.CampaniaID.ToString(), model.CodigoConsultora, model.CodigorRegion, model.CodigoZona);
+
+                                var Concursos = result.Where(x => arrCalculoPuntos.Contains(x.TipoConcurso));
+                                if (Concursos.Any()) model.CodigosConcursos = string.Join("|", Concursos.Select(c => c.CodigoConcurso));
+
+                                var ProgramaNuevas = result.Where(x => !arrCalculoPuntos.Contains(x.TipoConcurso));
+                                if (ProgramaNuevas.Any()) model.CodigosProgramaNuevas = string.Join("|", ProgramaNuevas.Select(c => c.CodigoConcurso));
                             }
                         }
                         catch (Exception ex)
                         {
                             LogManager.LogManager.LogErrorWebServicesBus(ex, model.CodigoConsultora, model.CodigoISO);
-                            Concursos = new List<BEConsultoraConcurso>();
                         }
-
-                        if (Concursos.Any())
-                        {
-                            model.CodigosConcursos = string.Join("|", Concursos.Select(c => c.CodigoConcurso).ToArray());
-                        }
-
                         #endregion
                     }
 

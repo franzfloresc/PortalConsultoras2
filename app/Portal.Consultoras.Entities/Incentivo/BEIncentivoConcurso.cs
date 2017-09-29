@@ -1,24 +1,59 @@
 ﻿using Portal.Consultoras.Common;
+
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Runtime.Serialization;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Portal.Consultoras.Entities
 {
     [DataContract]
     public class BEIncentivoConcurso
     {
+        private string _CodigoConcurso;
+        private string _TipoConcurso;
+
+        [Column("COD_CONC")]
+        public string COD_CONC { get; set; }
+        [Column("TIP_CONC")]
+        public string TIP_CONC { get; set; }
+
+        [Column("CampaniaID")]
         [DataMember]
         public int CampaniaID { get; set; }
         [DataMember]
         public int CampaniaIDInicio { get; set; }
         [DataMember]
         public int CampaniaIDFin { get; set; }
+        [Column("CodigoConcurso")]
         [DataMember]
-        public string CodigoConcurso { get; set; }
+        public string CodigoConcurso
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(COD_CONC)) return COD_CONC;
+                return _CodigoConcurso;
+            }
+            set
+            {
+                _CodigoConcurso = value;
+            }
+        }
+        [Column("TipoConcurso")]
         [DataMember]
-        public string TipoConcurso { get; set; }
+        public string TipoConcurso
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(TIP_CONC)) return TIP_CONC;
+                return _TipoConcurso;
+            }
+            set
+            {
+                _TipoConcurso = value;
+            }
+        }
         [DataMember]
         public int PuntosAcumulados { get; set; }
         [DataMember]
@@ -38,6 +73,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public List<BEIncentivoNivel> Niveles { get; set; }
 
+        [Obsolete("Use MapUtil.MapToCollection")]
         public BEIncentivoConcurso(IDataRecord row)
         {
             if (DataRecord.HasColumn(row, "CampaniaID"))
@@ -78,6 +114,10 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "EstadoConcurso"))
                 EstadoConcurso = Convert.ToString(row["EstadoConcurso"]);
+        }
+
+        public BEIncentivoConcurso()
+        {
         }
     }
 }
