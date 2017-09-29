@@ -468,7 +468,22 @@ namespace Portal.Consultoras.Common
             { "SV", "TemplatesDatosGenerales/_DatosGeneralesGrupo2" },
             { "VE", "" }
         };
-
+        public static Dictionary<string, string> TemplatDatosAval = new Dictionary<string, string>
+        {
+            { "BO", "TemplatesDatosAval/_DatosAvalGrupo1" },
+            { "CL", "TemplatesDatosAval/_DatosAvalGrupo1" },
+            { "CO", "TemplatesDatosAval/_DatosAvalGrupo1" },
+            { "CR", "TemplatesDatosAval/_DatosAvalGrupo1" },
+            { "DO", "TemplatesDatosAval/_DatosAvalGrupo1" },
+            { "EC", "TemplatesDatosAval/_DatosAvalGrupo1" },
+            { "GT", "TemplatesDatosAval/_DatosAvalGrupo1" },
+            { "MX", "TemplatesDatosAval/_DatosAvalGrupo1" },
+            { "PA", "TemplatesDatosAval/_DatosAvalGrupo1" },
+            { "PE", "TemplatesDatosAval/_DatosAvalGrupo1" },
+            { "PR", "TemplatesDatosAval/_DatosAvalGrupo1" },
+            { "SV", "TemplatesDatosAval/_DatosAvalGrupo1" },
+            { "VE", "TemplatesDatosAval/_DatosAvalGrupo1" },
+        };
 
     }
 

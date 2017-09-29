@@ -27,6 +27,7 @@ using System.Web;
 using Microsoft.Ajax.Utilities;
 using ConsultoraBE = Portal.Consultoras.Web.HojaInscripcionBelcorpPais.ConsultoraBE;
 using Portal.Consultoras.Web.ServiceODS;
+using Portal.Consultoras.Web.ServiceSAC;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -66,7 +67,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var regiones = sv.ObtenerRegiones(CodigoISO);
                 var estados = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.EstadoPostulante, 0);
                 //List<int> num = new List<int> { 2, 3, 4, 5, 7, 8, 9,10 };
-                List<int> num = new List<int> { 
+                List<int> num = new List<int> {
                 EnumsEstadoPostulante.EnGestionServicioAlCliente.ToInt(),//2
                 EnumsEstadoPostulante.EnAprobacionFFVV.ToInt(),//3
                 EnumsEstadoPostulante.Rechazada.ToInt(),//4
@@ -108,8 +109,8 @@ namespace Portal.Consultoras.Web.Controllers
             vm.CodigoIso = CodigoISO;
             vm.FuenteIngresoListAvailable = new List<FuenteIngresoModel>();
             vm.FuenteIngresoListAvailable.Add(new FuenteIngresoModel { ID = "MovilSE", Descripcion = "SE", Titulo = "App SE", IsSelected = false });
-            vm.FuenteIngresoListAvailable.Add(new FuenteIngresoModel { ID = "PortalGZ", Descripcion = "GZ", Titulo="Portal GZ", IsSelected = false });
-            vm.FuenteIngresoListAvailable.Add(new FuenteIngresoModel { ID = "UB", Descripcion = "UB",Titulo = "Unete a Belcorp", IsSelected = false });
+            vm.FuenteIngresoListAvailable.Add(new FuenteIngresoModel { ID = "PortalGZ", Descripcion = "GZ", Titulo = "Portal GZ", IsSelected = false });
+            vm.FuenteIngresoListAvailable.Add(new FuenteIngresoModel { ID = "UB", Descripcion = "UB", Titulo = "Unete a Belcorp", IsSelected = false });
             vm.FuenteIngresoListAvailable.Add(new FuenteIngresoModel { ID = "CALL_CENTER", Descripcion = "CC", Titulo = "Call Center", IsSelected = false });
 
             return View(vm);
@@ -262,16 +263,16 @@ namespace Portal.Consultoras.Web.Controllers
             var sv = new PortalServiceClient();
             //using (var sv = new PortalServiceClient())
             //{
-                if (!string.IsNullOrEmpty(pintarMalaZonificacion))
-                {
-                    var eventos = new EventoSolicitudPostulanteCollection();
-                    eventos = sv.ObtenerEventosSolicitudPostulante(CodigoISO, id);
-                    var tipoRechazosGZ = new ServiceUnete.ParametroUneteCollection();
-                    tipoRechazosGZ = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.TipoRechazo, 0);
-                    var MalaZonificacionString = string.Empty;
-                    MalaZonificacionString = tipoRechazosGZ.Where(x => x.Valor == Enumeradores.TiposRechazoPortalGZ.MalaZonificación_CorrespondeAotraZona.ToInt()).FirstOrDefault().Nombre;
+            if (!string.IsNullOrEmpty(pintarMalaZonificacion))
+            {
+                var eventos = new EventoSolicitudPostulanteCollection();
+                eventos = sv.ObtenerEventosSolicitudPostulante(CodigoISO, id);
+                var tipoRechazosGZ = new ServiceUnete.ParametroUneteCollection();
+                tipoRechazosGZ = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.TipoRechazo, 0);
+                var MalaZonificacionString = string.Empty;
+                MalaZonificacionString = tipoRechazosGZ.Where(x => x.Valor == Enumeradores.TiposRechazoPortalGZ.MalaZonificación_CorrespondeAotraZona.ToInt()).FirstOrDefault().Nombre;
 
-                if (eventos.ToList().OrderByDescending(ev => ev.Fecha.ToDatetime()).FirstOrDefault(e => e.Observacion != null && e.Observacion.Contains("MALA ZONIFICACIÓN")) !=null)
+                if (eventos.ToList().OrderByDescending(ev => ev.Fecha.ToDatetime()).FirstOrDefault(e => e.Observacion != null && e.Observacion.Contains("MALA ZONIFICACIÓN")) != null)
                 {
                     var eventoMZ = eventos.ToList().OrderByDescending(ev => ev.Fecha.ToDatetime()).FirstOrDefault(e => e.Observacion != null && e.Observacion.Contains("MALA ZONIFICACIÓN"));
 
@@ -282,541 +283,174 @@ namespace Portal.Consultoras.Web.Controllers
                                                   : string.Empty));
 
                 }
-                   
-                                               
-                    model.ZonaSeccionRechazo = string.IsNullOrEmpty(model.ZonaSeccionRechazo)? string.Empty :  model.ZonaSeccionRechazo.Replace('|', '/');
-                }
-                solicitudPostulante = sv.ObtenerSolicitudPostulante(CodigoISO, id);
+
+
+                model.ZonaSeccionRechazo = string.IsNullOrEmpty(model.ZonaSeccionRechazo) ? string.Empty : model.ZonaSeccionRechazo.Replace('|', '/');
+            }
+            solicitudPostulante = sv.ObtenerSolicitudPostulante(CodigoISO, id);
             solicitudPostulante.Direccion = string.IsNullOrEmpty(solicitudPostulante.Direccion) ? string.Empty : solicitudPostulante.Direccion;
 
-                if (solicitudPostulante != null)
+            if (solicitudPostulante != null)
+            {
+                model.SolicitudPostulanteID = id;
+                var direccion = solicitudPostulante.Direccion == null ? new string[0] : solicitudPostulante.Direccion.Split('|');
+
+                if (CodigoISO == Pais.Chile)
                 {
-                    model.SolicitudPostulanteID = id;
-                    var direccion = solicitudPostulante.Direccion == null ? new string[0] : solicitudPostulante.Direccion.Split('|');
-
-                    if (CodigoISO == Pais.Chile)
+                    switch (direccion.Length)
                     {
-                        switch (direccion.Length)
-                        {
-                            case 1:
-                                model.DireccionCadena = direccion[0]; break;
-                            case 2:
-                                model.DireccionCadena = direccion[0] + " " + direccion[1]; break;
-                            default:
-                                model.DireccionCadena = ""; break;
-                        }
+                        case 1:
+                            model.DireccionCadena = direccion[0]; break;
+                        case 2:
+                            model.DireccionCadena = direccion[0] + " " + direccion[1]; break;
+                        default:
+                            model.DireccionCadena = ""; break;
                     }
-                    else if (CodigoISO == Pais.Colombia)
-                    {
-                        switch (direccion.Length)
-                        {
-                            case 1:
-                                model.DireccionCadena = direccion[0]; break;
-                            case 2:
-                                //model.DireccionCadena = direccion[1] + " " + " " + direccion[0]; break;
-                                model.DireccionCadena = direccion[1]; break;
-                            case 3:
-                                //model.DireccionCadena = direccion[1] + " " + direccion[2] + " " + direccion[0]; break;
-                                model.DireccionCadena = direccion[1] + " " + direccion[2]; break;
-                            default:
-                                model.DireccionCadena = ""; break;
-                        }
-                    }
-                    else if (CodigoISO == Pais.Mexico)
-                    {
-                        switch (direccion.Length)
-                        {
-                            case 1:
-                                model.DireccionCadena = direccion[0]; break;
-                            case 2:
-                                model.DireccionCadena = direccion[0] + " " + direccion[1]; break;
-                            case 3:
-                                model.DireccionCadena = direccion[0] + " " + direccion[1]; break;
-                            default:
-                                model.DireccionCadena = ""; break;
-                        }
-                    }
-                    else if (CodigoISO == Pais.Peru)
-                    {
-                        switch (direccion.Length)
-                        {
-                            case 1:
-                                model.DireccionCadena = direccion[0]; break;
-                            case 2:
-                                model.DireccionCadena = direccion[1]; break;
-                            case 3:
-                                model.DireccionCadena = direccion[1] + " " + direccion[2]; break;
-                            default:
-                                model.DireccionCadena = ""; break;
-                        }
-                    }
-                    else if (CodigoISO == Pais.Ecuador)
-                    {
-                        switch (direccion.Length)
-                        {
-                            case 1:
-                                model.DireccionCadena = direccion[0]; break;
-                            case 2:
-                                model.DireccionCadena = direccion[1]; break;
-                            case 3:
-                                model.DireccionCadena = direccion[1]; break;
-                            default:
-                                model.DireccionCadena = ""; break;
-                        }
-                    }
-                    else
-                    {
-                        model.DireccionCadena = solicitudPostulante.Direccion;
-                    }
-
-
-                    model.Direccion = solicitudPostulante.Direccion;
-                    model.NombreRegion = solicitudPostulante.LugarPadre;
-                    model.NombreComuna = solicitudPostulante.LugarHijo;
-                    model.Latitud = solicitudPostulante.Latitud;
-                    model.Longitud = solicitudPostulante.Longitud;
-                    model.FuenteIngreso = solicitudPostulante.FuenteIngreso;
-
-                    if (CodigoISO == Pais.Chile || CodigoISO == Pais.Mexico || CodigoISO == Pais.Peru || CodigoISO == Pais.Guatemala || CodigoISO == Pais.Ecuador|| CodigoISO==Pais.Dominicana|| CodigoISO == Pais.PuertoRico || CodigoISO == Pais.Bolivia || CodigoISO == Pais.Colombia)
-                    {
-                        try
-                        {
-                            var PaisesParaRevisionPorPuntos = new List<string>() {
-                              Pais.Chile, Pais.Mexico, Pais.Peru, Pais.Ecuador, Pais.Dominicana, Pais.PuertoRico, Pais.Bolivia , Pais.Colombia
-                            };
-
-                            if (PaisesParaRevisionPorPuntos.FirstOrDefault(x => x == CodigoISO) == null)
-                            {
-                                GetLocationInfoByAddress(ref model, ref solicitudPostulante, direccion);
-                            }
-                            else if (PaisesParaRevisionPorPuntos.FirstOrDefault(x => x == CodigoISO) != null && model.Longitud == null && model.Latitud == null)
-                            {
-                                GetLocationInfoByAddress(ref model, ref solicitudPostulante, direccion);
-                                if (model.Puntos.Count == 1)
-                                {
-                                    model.Latitud = model.Puntos[0].Item1;
-                                    model.Longitud = model.Puntos[0].Item2;
-                                }
-
-                            }
-                            else
-                            {
-                           
-
-                                    model.Puntos.Add(new Tuple<decimal, decimal, string>
-                                                    (
-                                                   model.Latitud.Value,
-                                                    model.Longitud.Value,
-                                                     model.DireccionCadena
-                                                    ));
-
-                                    if (model.Puntos.Count == 1)
-                                    {
-                                        var punto = model.Puntos.First();
-                                        var noEncontroDireccion = false; //punto.Item3.Contains("");
-
-                                        if (noEncontroDireccion)
-                                        {
-
-                                        }
-                                        else
-                                        {
-                                            GetLocationInfo(ref model);
-                                        }
-                                    }
-                                }
-                            }
-                        
-                        catch (Exception ex)
-                        {
-                        }
-                    }
-
-                   
-                }
-
-                #region "Cargar Ubigeo"
-
-                if (CodigoISO == Pais.Peru)
-                {
-
-
-                    ServiceUnete.ParametroUneteCollection lugaresNivel1 = new ServiceUnete.ParametroUneteCollection();
-                    ServiceUnete.ParametroUneteCollection lugaresNivel2 = new ServiceUnete.ParametroUneteCollection();
-                    ServiceUnete.ParametroUneteCollection lugaresNivel3 = new ServiceUnete.ParametroUneteCollection();
-                    ServiceUnete.ParametroUneteCollection lugaresNivel4 = new ServiceUnete.ParametroUneteCollection();
-                    var DirlugarNivel3 = string.Empty;
-                    var DirlugarNivel4 = string.Empty;
-                    var DirCalleOAvenida = string.Empty;
-
-
-                var DireccionConcatenada = new string[0];
-
-                if (!string.IsNullOrEmpty(solicitudPostulante.Direccion))
-                {
-                    DireccionConcatenada = solicitudPostulante.Direccion.Contains('|') ? solicitudPostulante.Direccion.Split('|') :
-                                            solicitudPostulante.Direccion.Contains(',') ? solicitudPostulante.Direccion.Split(',') : new string[1] { solicitudPostulante.Direccion };
-                }
-
-                //DireccionConcatenada = DireccionConcatenada.Where(s => s != "").ToArray();
-
-                if (!string.IsNullOrEmpty(solicitudPostulante.LugarPadre) || !string.IsNullOrEmpty(solicitudPostulante.LugarHijo))
-                    {
-                        
-                        model.EditarDireccionModel.NombreLugarNivel1 = solicitudPostulante.LugarPadre;
-                        lugaresNivel1 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel1, 0);
-                        model.EditarDireccionModel.LugarNivel1 = lugaresNivel1.Where(x => x.Nombre.ToUpper().Trim() == solicitudPostulante.LugarPadre.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
-                        model.EditarDireccionModel.LugaresNivel1 = new SelectList(lugaresNivel1, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel1);
-
-                        
-                        model.EditarDireccionModel.NombreLugarNivel2 = solicitudPostulante.LugarHijo;
-                        lugaresNivel2 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel2, model.EditarDireccionModel.LugarNivel1.ToInt());
-                        model.EditarDireccionModel.LugarNivel2 = lugaresNivel2.Where(x => x.Nombre.ToUpper().Trim() == solicitudPostulante.LugarHijo.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
-                        model.EditarDireccionModel.LugaresNivel2 = new SelectList(lugaresNivel2, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel2);
-                    }
-                    else
-                    {
-                        lugaresNivel1 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel1, 0);
-                        model.EditarDireccionModel.NombreLugarNivel1 = string.Empty;
-                        model.EditarDireccionModel.NombreLugarNivel2 = string.Empty;
-                        model.EditarDireccionModel.LugaresNivel1 = new SelectList(lugaresNivel1, "IdParametroUnete", "Nombre", "");
-                        model.EditarDireccionModel.LugaresNivel2 = new SelectList(lugaresNivel2, "IdParametroUnete", "Nombre", "");
-                    }
-
-                if ((!solicitudPostulante.Direccion.Contains('|') && solicitudPostulante.Direccion.Contains(',')) || (solicitudPostulante.Direccion == string.Empty))
-                {
-                        DirCalleOAvenida = solicitudPostulante.Direccion;
-                        model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
-
-                        model.EditarDireccionModel.NombreLugarNivel3 = string.Empty;
-                        model.EditarDireccionModel.NombreLugarNivel4 = string.Empty;
-                        model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", "");
-                        model.EditarDireccionModel.LugaresNivel4 = new SelectList(lugaresNivel4, "IdParametroUnete", "Nombre", "");
-                    }
-                    else
-                    {
-                        switch (DireccionConcatenada.Length)
-                        {
-                            case 3:
-                                DirlugarNivel3 = DireccionConcatenada[0].ToString().Trim();
-                                DirlugarNivel4 = DireccionConcatenada[1].ToString().Trim();
-                                DirCalleOAvenida = DireccionConcatenada[2].ToString().Trim();
-
-                                
-                                model.EditarDireccionModel.NombreLugarNivel3 = DirlugarNivel3;
-                                
-                                lugaresNivel3 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel3, model.EditarDireccionModel.LugarNivel2.ToInt());
-                                model.EditarDireccionModel.LugarNivel3 = lugaresNivel3.Where(x => x.Nombre.ToUpper().Trim() == DirlugarNivel3.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
-                                model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel3);
-
-                                
-                                model.EditarDireccionModel.NombreLugarNivel4 = DirlugarNivel4;
-                                lugaresNivel4 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel4, model.EditarDireccionModel.LugarNivel3.ToInt());
-                                if (string.IsNullOrEmpty(model.EditarDireccionModel.NombreLugarNivel4))
-                                    model.EditarDireccionModel.LugarNivel4 = string.Empty;
-                                else
-                                    model.EditarDireccionModel.LugarNivel4 = lugaresNivel4.Where(x => x.Nombre.ToUpper().Trim() == DirlugarNivel4.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
-                                model.EditarDireccionModel.LugaresNivel4 = new SelectList(lugaresNivel4, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel4);
-
-                                model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
-                                break;
-                            case 2://nunca debería entrar aqui
-                                DirlugarNivel4 = DireccionConcatenada[0].ToString().Trim();
-                                DirCalleOAvenida = DireccionConcatenada[1].ToString().Trim();
-
-                                
-                                model.EditarDireccionModel.NombreLugarNivel4 = DirlugarNivel4;
-                                lugaresNivel4 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel4, model.EditarDireccionModel.LugarNivel3.ToInt());
-                                model.EditarDireccionModel.LugarNivel4 = lugaresNivel4.Where(x => x.Nombre.ToUpper().Trim() == DirlugarNivel4.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
-                                model.EditarDireccionModel.LugaresNivel4 = new SelectList(lugaresNivel4, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel4);
-
-                                model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
-
-                                model.EditarDireccionModel.NombreLugarNivel3 = string.Empty;
-                                model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", "");
-                                break;
-                            case 1:
-                                DirCalleOAvenida = DireccionConcatenada[0].ToString().Trim();
-                                model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
-
-                                model.EditarDireccionModel.NombreLugarNivel3 = string.Empty;
-                                model.EditarDireccionModel.NombreLugarNivel4 = string.Empty;
-                                model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", "");
-                                model.EditarDireccionModel.LugaresNivel4 = new SelectList(lugaresNivel4, "IdParametroUnete", "Nombre", "");
-                                break;
-                        }
-                    }
-                    model.EditarDireccionModel.Referencia = solicitudPostulante.Referencia;
                 }
                 else if (CodigoISO == Pais.Colombia)
                 {
-
-                    ServiceUnete.ParametroUneteCollection lugaresNivel1 = new ServiceUnete.ParametroUneteCollection();
-                    ServiceUnete.ParametroUneteCollection lugaresNivel2 = new ServiceUnete.ParametroUneteCollection();
-                    ServiceUnete.ParametroUneteCollection lugaresNivel3 = new ServiceUnete.ParametroUneteCollection();
-                    
-                    var DirCalleOAvenida = string.Empty;
-                    var DirlugarNivel3 = string.Empty;
-                    var DirNombreDireccionEdicion = string.Empty;
-                    var DireccionConcatenada = new string[0];
-
-                if (!string.IsNullOrEmpty(solicitudPostulante.Direccion))
-                {
-                    DireccionConcatenada = solicitudPostulante.Direccion.Contains('|') ? solicitudPostulante.Direccion.Split('|') :
-                                            solicitudPostulante.Direccion.Contains(',') ? solicitudPostulante.Direccion.Split(',') : new string[1] { solicitudPostulante.Direccion };
-                }
-
-                //DireccionConcatenada = DireccionConcatenada.Where(s => s != "").ToArray();
-
-                if (!string.IsNullOrEmpty(solicitudPostulante.LugarPadre) || !string.IsNullOrEmpty(solicitudPostulante.LugarHijo))
+                    switch (direccion.Length)
                     {
-
-                        model.EditarDireccionModel.NombreLugarNivel1 = solicitudPostulante.LugarPadre;
-                        lugaresNivel1 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel1, 0);
-                        model.EditarDireccionModel.LugarNivel1 = lugaresNivel1.Where(x => x.Nombre.ToUpper().Trim() == solicitudPostulante.LugarPadre.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
-                        model.EditarDireccionModel.LugaresNivel1 = new SelectList(lugaresNivel1, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel1);
-
-
-                        model.EditarDireccionModel.NombreLugarNivel2 = solicitudPostulante.LugarHijo;
-                        lugaresNivel2 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel2, model.EditarDireccionModel.LugarNivel1.ToInt());
-                        model.EditarDireccionModel.LugarNivel2 = lugaresNivel2.Where(x => x.Nombre.ToUpper().Trim() == solicitudPostulante.LugarHijo.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
-                        model.EditarDireccionModel.LugaresNivel2 = new SelectList(lugaresNivel2, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel2);
-                    }
-                    else
-                    {
-                        lugaresNivel1 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel1, 0);
-                        model.EditarDireccionModel.NombreLugarNivel1 = string.Empty;
-                        model.EditarDireccionModel.NombreLugarNivel2 = string.Empty;
-                        model.EditarDireccionModel.LugaresNivel1 = new SelectList(lugaresNivel1, "IdParametroUnete", "Nombre", "");
-                        model.EditarDireccionModel.LugaresNivel2 = new SelectList(lugaresNivel2, "IdParametroUnete", "Nombre", "");
-                    }
-
-                if ((!solicitudPostulante.Direccion.Contains('|') && solicitudPostulante.Direccion.Contains(',')) || (solicitudPostulante.Direccion == string.Empty))
-                {
-                        DirCalleOAvenida = solicitudPostulante.Direccion;
-                        model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
-
-                        model.EditarDireccionModel.NombreDireccionEdicion = string.Empty;
-                        model.EditarDireccionModel.NombreLugarNivel3 = string.Empty;
-                        //model.EditarDireccionModel.LugaresNivel3 = new SelectList(lstSeleccione, "IdParametroUnete", "Nombre", 0);Deberia cargar ya que no esta enlazado
-                        //No esta enlazado
-                        lugaresNivel3 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel3, 0);
-                        model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", "");
-                    }
-                    else
-                    {
-                        switch (DireccionConcatenada.Length)
-                        {
-                            case 3:
-                                DirCalleOAvenida = DireccionConcatenada[0].ToString().Trim();
-                                DirlugarNivel3 = DireccionConcatenada[1].ToString().Trim();
-                                DirNombreDireccionEdicion = DireccionConcatenada[2].ToString().Trim();
-
-                                model.EditarDireccionModel.NombreLugarNivel3 = DirlugarNivel3;
-                                //lugaresNivel3 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel3, model.EditarDireccionModel.LugarNivel2.ToInt());No se debe enlazar al segundo nivel
-                                lugaresNivel3 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel3, 0);
-                                model.EditarDireccionModel.LugarNivel3 = lugaresNivel3.Where(x => x.Nombre.ToUpper().Trim() == DirlugarNivel3.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
-                                model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel3);
-
-                                model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
-                                model.EditarDireccionModel.NombreDireccionEdicion = DirNombreDireccionEdicion;
-                                break;
-                            case 2://nunca debería entrar aqui
-                                DirCalleOAvenida = DireccionConcatenada[0].ToString().Trim();
-                                DirNombreDireccionEdicion = DireccionConcatenada[1].ToString().Trim();
-                                model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
-                                model.EditarDireccionModel.NombreDireccionEdicion = DirNombreDireccionEdicion;
-
-                                model.EditarDireccionModel.NombreLugarNivel3 = string.Empty;
-                                //model.EditarDireccionModel.LugaresNivel3 = new SelectList(lstSeleccione, "IdParametroUnete", "Nombre", 0);Deberia cargar ya que no esta enlazado
-                                //No esta enlazado
-                                lugaresNivel3 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel3, 0);
-                                model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", 0);
-                                break;
-                            case 1:
-                                DirCalleOAvenida = DireccionConcatenada[0].ToString().Trim();
-                                model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
-
-                                model.EditarDireccionModel.NombreDireccionEdicion = string.Empty;
-                                model.EditarDireccionModel.NombreLugarNivel3 = string.Empty;
-                                //model.EditarDireccionModel.LugaresNivel3 = new SelectList(lstSeleccione, "IdParametroUnete", "Nombre", 0);Deberia cargar ya que no esta enlazado
-                                //No esta enlazado
-                                lugaresNivel3 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel3, 0);
-                                model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", 0);
-                                break;
-                        }
-                        model.EditarDireccionModel.Referencia = solicitudPostulante.Referencia;
-                    }
-
-                }
-                else if (CodigoISO == Pais.Chile)
-                {
-                    ServiceUnete.ParametroUneteCollection lugaresNivel1 = new ServiceUnete.ParametroUneteCollection();
-                    ServiceUnete.ParametroUneteCollection lugaresNivel2 = new ServiceUnete.ParametroUneteCollection();
-                    
-                    var DirCalleOAvenida = string.Empty;
-                    var DirNumero = string.Empty;
-
-                var DireccionConcatenada = new string[0];
-
-                if (!string.IsNullOrEmpty(solicitudPostulante.Direccion))
-                {
-                    DireccionConcatenada = solicitudPostulante.Direccion.Contains('|') ? solicitudPostulante.Direccion.Split('|') :
-                                            solicitudPostulante.Direccion.Contains(',') ? solicitudPostulante.Direccion.Split(',') : new string[1] { solicitudPostulante.Direccion };
-                }
-
-                DireccionConcatenada = DireccionConcatenada.Where(s => s != "").ToArray();
-
-                    if (!string.IsNullOrEmpty(solicitudPostulante.LugarPadre) || !string.IsNullOrEmpty(solicitudPostulante.LugarHijo))
-                    {
-
-                        model.EditarDireccionModel.NombreLugarNivel1 = solicitudPostulante.LugarPadre;
-                        lugaresNivel1 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel1, 0);
-                        model.EditarDireccionModel.LugarNivel1 = lugaresNivel1.Where(x => x.Nombre.ToUpper().Trim() == solicitudPostulante.LugarPadre.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
-                        model.EditarDireccionModel.LugaresNivel1 = new SelectList(lugaresNivel1, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel1);
-
-
-                        model.EditarDireccionModel.NombreLugarNivel2 = solicitudPostulante.LugarHijo;
-                        lugaresNivel2 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel2, model.EditarDireccionModel.LugarNivel1.ToInt());
-                        model.EditarDireccionModel.LugarNivel2 = lugaresNivel2.Where(x => x.Nombre.ToUpper().Trim() == solicitudPostulante.LugarHijo.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
-                        model.EditarDireccionModel.LugaresNivel2 = new SelectList(lugaresNivel2, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel2);
-                    }
-                    else
-                    {
-                        lugaresNivel1 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel1, 0);
-                        model.EditarDireccionModel.NombreLugarNivel1 = string.Empty;
-                        model.EditarDireccionModel.NombreLugarNivel2 = string.Empty;
-                        model.EditarDireccionModel.LugaresNivel1 = new SelectList(lugaresNivel1, "IdParametroUnete", "Nombre", "");
-                        model.EditarDireccionModel.LugaresNivel2 = new SelectList(lugaresNivel2, "IdParametroUnete", "Nombre", "");
-                    }
-
-                if ((!solicitudPostulante.Direccion.Contains('|') && solicitudPostulante.Direccion.Contains(',')) || (solicitudPostulante.Direccion == string.Empty))
-                {
-                        DirCalleOAvenida = solicitudPostulante.Direccion;
-                        model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
-                        model.EditarDireccionModel.Numero = string.Empty;
-                    }
-                    else
-                    {
-                        switch (DireccionConcatenada.Length)
-                        {
-                            case 2:
-                                DirCalleOAvenida = DireccionConcatenada[0].ToString().Trim();
-                                DirNumero = DireccionConcatenada[1].ToString().Trim();
-                                model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
-                                model.EditarDireccionModel.Numero = DirNumero;
-                                break;
-                            case 1:
-                                DirCalleOAvenida = DireccionConcatenada[0].ToString().Trim();
-                                model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
-                                model.EditarDireccionModel.Numero = string.Empty;
-                                break;
-                        }
-                        model.EditarDireccionModel.Referencia = solicitudPostulante.Referencia;
+                        case 1:
+                            model.DireccionCadena = direccion[0]; break;
+                        case 2:
+                            //model.DireccionCadena = direccion[1] + " " + " " + direccion[0]; break;
+                            model.DireccionCadena = direccion[1]; break;
+                        case 3:
+                            //model.DireccionCadena = direccion[1] + " " + direccion[2] + " " + direccion[0]; break;
+                            model.DireccionCadena = direccion[1] + " " + direccion[2]; break;
+                        default:
+                            model.DireccionCadena = ""; break;
                     }
                 }
                 else if (CodigoISO == Pais.Mexico)
                 {
-                    ServiceUnete.ParametroUneteCollection lugaresNivel1 = new ServiceUnete.ParametroUneteCollection();
-                    ServiceUnete.ParametroUneteCollection lugaresNivel2 = new ServiceUnete.ParametroUneteCollection();
-                    ServiceUnete.ParametroUneteCollection lugaresNivel3 = new ServiceUnete.ParametroUneteCollection();
-
-                    var DirlugarNivel3 = string.Empty;
-                    var DirCalleOAvenida = string.Empty;
-                    var DirNumero = string.Empty;
-
-                var DireccionConcatenada = new string[0];
-
-                if (!string.IsNullOrEmpty(solicitudPostulante.Direccion))
-                {
-                    DireccionConcatenada = solicitudPostulante.Direccion.Contains('|') ? solicitudPostulante.Direccion.Split('|') :
-                                            solicitudPostulante.Direccion.Contains(',') ? solicitudPostulante.Direccion.Split(',') : new string[1] { solicitudPostulante.Direccion };
+                    switch (direccion.Length)
+                    {
+                        case 1:
+                            model.DireccionCadena = direccion[0]; break;
+                        case 2:
+                            model.DireccionCadena = direccion[0] + " " + direccion[1]; break;
+                        case 3:
+                            model.DireccionCadena = direccion[0] + " " + direccion[1]; break;
+                        default:
+                            model.DireccionCadena = ""; break;
+                    }
                 }
-
-                //DireccionConcatenada = DireccionConcatenada.Where(s => s != "").ToArray();
-
-                if (!string.IsNullOrEmpty(solicitudPostulante.LugarPadre) || !string.IsNullOrEmpty(solicitudPostulante.LugarHijo))
-                    {
-
-                        model.EditarDireccionModel.NombreLugarNivel1 = solicitudPostulante.LugarPadre;
-                        lugaresNivel1 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel1, 0);
-                        model.EditarDireccionModel.LugarNivel1 = lugaresNivel1.Where(x => x.Nombre.ToUpper().Trim() == solicitudPostulante.LugarPadre.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
-                        model.EditarDireccionModel.LugaresNivel1 = new SelectList(lugaresNivel1, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel1);
-
-
-                        model.EditarDireccionModel.NombreLugarNivel2 = solicitudPostulante.LugarHijo;
-                        lugaresNivel2 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel2, model.EditarDireccionModel.LugarNivel1.ToInt());
-                        model.EditarDireccionModel.LugarNivel2 = lugaresNivel2.Where(x => x.Nombre.ToUpper().Trim() == solicitudPostulante.LugarHijo.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
-                        model.EditarDireccionModel.LugaresNivel2 = new SelectList(lugaresNivel2, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel2);
-                    }
-                    else
-                    {
-                        lugaresNivel1 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel1, 0);
-                        model.EditarDireccionModel.NombreLugarNivel1 = string.Empty;
-                        model.EditarDireccionModel.NombreLugarNivel2 = string.Empty;
-                        model.EditarDireccionModel.LugaresNivel1 = new SelectList(lugaresNivel1, "IdParametroUnete", "Nombre", "");
-                        model.EditarDireccionModel.LugaresNivel2 = new SelectList(lugaresNivel2, "IdParametroUnete", "Nombre", "");
-                    }
-
-                if ((!solicitudPostulante.Direccion.Contains('|') && solicitudPostulante.Direccion.Contains(',')) || (solicitudPostulante.Direccion == string.Empty))
+                else if (CodigoISO == Pais.Peru)
                 {
-                        DirCalleOAvenida = solicitudPostulante.Direccion;
-                        model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
-                        model.EditarDireccionModel.Numero = string.Empty;
-
-                        model.EditarDireccionModel.NombreLugarNivel3 = string.Empty;
-                        model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", "");
-                    }
-                    else
+                    switch (direccion.Length)
                     {
-                        switch (DireccionConcatenada.Length)
-                        {
-                            case 3:
-                                DirlugarNivel3 = DireccionConcatenada[0].ToString().Trim();
-                                DirCalleOAvenida = DireccionConcatenada[1].ToString().Trim();
-                                DirNumero = DireccionConcatenada[2].ToString().Trim();
-
-                                model.EditarDireccionModel.NombreLugarNivel3 = DirlugarNivel3;
-                                lugaresNivel3 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel3, model.EditarDireccionModel.LugarNivel2.ToInt());
-                                model.EditarDireccionModel.LugarNivel3 = lugaresNivel3.Where(x => x.Nombre.ToUpper().Trim() == DirlugarNivel3.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
-                                model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel3);
-
-                                model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
-                                model.EditarDireccionModel.Numero = DirNumero;
-                                break;
-                            case 2:
-                                DirlugarNivel3 = DireccionConcatenada[0].ToString().Trim();
-                                DirCalleOAvenida = DireccionConcatenada[1].ToString().Trim();
-
-                                model.EditarDireccionModel.NombreLugarNivel3 = DirlugarNivel3;
-                                lugaresNivel3 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel3, model.EditarDireccionModel.LugarNivel2.ToInt());
-                                model.EditarDireccionModel.LugarNivel3 = lugaresNivel3.Where(x => x.Nombre.ToUpper().Trim() == DirlugarNivel3.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
-                                model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel3);
-
-                                model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
-                                model.EditarDireccionModel.Numero = solicitudPostulante.CodigoPostal.Trim();
-
-                                break;
-                            case 1:
-                                DirCalleOAvenida = DireccionConcatenada[0].ToString().Trim();
-                                model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
-                                model.EditarDireccionModel.Numero = string.Empty;
-
-                                model.EditarDireccionModel.NombreLugarNivel3 = string.Empty;
-                                model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", "");
-                                break;
-                        }
-                        model.EditarDireccionModel.Referencia = solicitudPostulante.Referencia;
+                        case 1:
+                            model.DireccionCadena = direccion[0]; break;
+                        case 2:
+                            model.DireccionCadena = direccion[1]; break;
+                        case 3:
+                            model.DireccionCadena = direccion[1] + " " + direccion[2]; break;
+                        default:
+                            model.DireccionCadena = ""; break;
                     }
                 }
                 else if (CodigoISO == Pais.Ecuador)
                 {
-                    ServiceUnete.ParametroUneteCollection lugaresNivel1 = new ServiceUnete.ParametroUneteCollection();
-                    ServiceUnete.ParametroUneteCollection lugaresNivel2 = new ServiceUnete.ParametroUneteCollection();
+                    switch (direccion.Length)
+                    {
+                        case 1:
+                            model.DireccionCadena = direccion[0]; break;
+                        case 2:
+                            model.DireccionCadena = direccion[1]; break;
+                        case 3:
+                            model.DireccionCadena = direccion[1]; break;
+                        default:
+                            model.DireccionCadena = ""; break;
+                    }
+                }
+                else
+                {
+                    model.DireccionCadena = solicitudPostulante.Direccion;
+                }
 
-                    var DirlugarNivel3 = string.Empty;
-                    var DirCalleOAvenida = string.Empty;
-                    var DirlugarNivel4 = string.Empty;
+
+                model.Direccion = solicitudPostulante.Direccion;
+                model.NombreRegion = solicitudPostulante.LugarPadre;
+                model.NombreComuna = solicitudPostulante.LugarHijo;
+                model.Latitud = solicitudPostulante.Latitud;
+                model.Longitud = solicitudPostulante.Longitud;
+                model.FuenteIngreso = solicitudPostulante.FuenteIngreso;
+
+                if (CodigoISO == Pais.Chile || CodigoISO == Pais.Mexico || CodigoISO == Pais.Peru || CodigoISO == Pais.Guatemala || CodigoISO == Pais.Ecuador || CodigoISO == Pais.Dominicana || CodigoISO == Pais.PuertoRico || CodigoISO == Pais.Bolivia || CodigoISO == Pais.Colombia)
+                {
+                    try
+                    {
+                        var PaisesParaRevisionPorPuntos = new List<string>() {
+                              Pais.Chile, Pais.Mexico, Pais.Peru, Pais.Ecuador, Pais.Dominicana, Pais.PuertoRico, Pais.Bolivia , Pais.Colombia
+                            };
+
+                        if (PaisesParaRevisionPorPuntos.FirstOrDefault(x => x == CodigoISO) == null)
+                        {
+                            GetLocationInfoByAddress(ref model, ref solicitudPostulante, direccion);
+                        }
+                        else if (PaisesParaRevisionPorPuntos.FirstOrDefault(x => x == CodigoISO) != null && model.Longitud == null && model.Latitud == null)
+                        {
+                            GetLocationInfoByAddress(ref model, ref solicitudPostulante, direccion);
+                            if (model.Puntos.Count == 1)
+                            {
+                                model.Latitud = model.Puntos[0].Item1;
+                                model.Longitud = model.Puntos[0].Item2;
+                            }
+
+                        }
+                        else
+                        {
+
+
+                            model.Puntos.Add(new Tuple<decimal, decimal, string>
+                                            (
+                                           model.Latitud.Value,
+                                            model.Longitud.Value,
+                                             model.DireccionCadena
+                                            ));
+
+                            if (model.Puntos.Count == 1)
+                            {
+                                var punto = model.Puntos.First();
+                                var noEncontroDireccion = false; //punto.Item3.Contains("");
+
+                                if (noEncontroDireccion)
+                                {
+
+                                }
+                                else
+                                {
+                                    GetLocationInfo(ref model);
+                                }
+                            }
+                        }
+                    }
+
+                    catch (Exception ex)
+                    {
+                    }
+                }
+
+
+            }
+
+            #region "Cargar Ubigeo"
+
+            if (CodigoISO == Pais.Peru)
+            {
+
+
+                ServiceUnete.ParametroUneteCollection lugaresNivel1 = new ServiceUnete.ParametroUneteCollection();
+                ServiceUnete.ParametroUneteCollection lugaresNivel2 = new ServiceUnete.ParametroUneteCollection();
+                ServiceUnete.ParametroUneteCollection lugaresNivel3 = new ServiceUnete.ParametroUneteCollection();
+                ServiceUnete.ParametroUneteCollection lugaresNivel4 = new ServiceUnete.ParametroUneteCollection();
+                var DirlugarNivel3 = string.Empty;
+                var DirlugarNivel4 = string.Empty;
+                var DirCalleOAvenida = string.Empty;
+
+
                 var DireccionConcatenada = new string[0];
 
                 if (!string.IsNullOrEmpty(solicitudPostulante.Direccion))
@@ -828,77 +462,444 @@ namespace Portal.Consultoras.Web.Controllers
                 //DireccionConcatenada = DireccionConcatenada.Where(s => s != "").ToArray();
 
                 if (!string.IsNullOrEmpty(solicitudPostulante.LugarPadre) || !string.IsNullOrEmpty(solicitudPostulante.LugarHijo))
-                    {
+                {
 
-                        model.EditarDireccionModel.NombreLugarNivel1 = solicitudPostulante.LugarPadre;
-                        lugaresNivel1 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel1, 0);
-                        model.EditarDireccionModel.LugarNivel1 = lugaresNivel1.Where(x => x.Nombre.ToUpper().Trim() == solicitudPostulante.LugarPadre.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
-                        model.EditarDireccionModel.LugaresNivel1 = new SelectList(lugaresNivel1, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel1);
+                    model.EditarDireccionModel.NombreLugarNivel1 = solicitudPostulante.LugarPadre;
+                    lugaresNivel1 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel1, 0);
+                    model.EditarDireccionModel.LugarNivel1 = lugaresNivel1.Where(x => x.Nombre.ToUpper().Trim() == solicitudPostulante.LugarPadre.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
+                    model.EditarDireccionModel.LugaresNivel1 = new SelectList(lugaresNivel1, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel1);
 
 
-                        model.EditarDireccionModel.NombreLugarNivel2 = solicitudPostulante.LugarHijo;
-                        lugaresNivel2 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel2, model.EditarDireccionModel.LugarNivel1.ToInt());
-                        model.EditarDireccionModel.LugarNivel2 = lugaresNivel2.Where(x => x.Nombre.ToUpper().Trim() == solicitudPostulante.LugarHijo.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
-                        model.EditarDireccionModel.LugaresNivel2 = new SelectList(lugaresNivel2, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel2);
-                    }
-                    else
-                    {
-                        lugaresNivel1 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel1, 0);
-                        model.EditarDireccionModel.NombreLugarNivel1 = string.Empty;
-                        model.EditarDireccionModel.NombreLugarNivel2 = string.Empty;
-                        model.EditarDireccionModel.LugaresNivel1 = new SelectList(lugaresNivel1, "IdParametroUnete", "Nombre", "");
-                        model.EditarDireccionModel.LugaresNivel2 = new SelectList(lugaresNivel2, "IdParametroUnete", "Nombre", "");
-                    }
+                    model.EditarDireccionModel.NombreLugarNivel2 = solicitudPostulante.LugarHijo;
+                    lugaresNivel2 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel2, model.EditarDireccionModel.LugarNivel1.ToInt());
+                    model.EditarDireccionModel.LugarNivel2 = lugaresNivel2.Where(x => x.Nombre.ToUpper().Trim() == solicitudPostulante.LugarHijo.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
+                    model.EditarDireccionModel.LugaresNivel2 = new SelectList(lugaresNivel2, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel2);
+                }
+                else
+                {
+                    lugaresNivel1 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel1, 0);
+                    model.EditarDireccionModel.NombreLugarNivel1 = string.Empty;
+                    model.EditarDireccionModel.NombreLugarNivel2 = string.Empty;
+                    model.EditarDireccionModel.LugaresNivel1 = new SelectList(lugaresNivel1, "IdParametroUnete", "Nombre", "");
+                    model.EditarDireccionModel.LugaresNivel2 = new SelectList(lugaresNivel2, "IdParametroUnete", "Nombre", "");
+                }
 
                 if ((!solicitudPostulante.Direccion.Contains('|') && solicitudPostulante.Direccion.Contains(',')) || (solicitudPostulante.Direccion == string.Empty))
                 {
-                        DirCalleOAvenida = solicitudPostulante.Direccion;
-                        model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
-                        model.EditarDireccionModel.LugarNivel4 = string.Empty;
-                        model.EditarDireccionModel.LugarNivel3 = string.Empty;
-                    }
-                    else
+                    DirCalleOAvenida = solicitudPostulante.Direccion;
+                    model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
+
+                    model.EditarDireccionModel.NombreLugarNivel3 = string.Empty;
+                    model.EditarDireccionModel.NombreLugarNivel4 = string.Empty;
+                    model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", "");
+                    model.EditarDireccionModel.LugaresNivel4 = new SelectList(lugaresNivel4, "IdParametroUnete", "Nombre", "");
+                }
+                else
+                {
+                    switch (DireccionConcatenada.Length)
                     {
-                        switch (DireccionConcatenada.Length)
-                        {
-                            case 3:
-                                DirlugarNivel3 = DireccionConcatenada[0].ToString().Trim();
-                                DirCalleOAvenida = DireccionConcatenada[1].ToString().Trim();
-                                DirlugarNivel4 = DireccionConcatenada[2].ToString().Trim();
+                        case 3:
+                            DirlugarNivel3 = DireccionConcatenada[0].ToString().Trim();
+                            DirlugarNivel4 = DireccionConcatenada[1].ToString().Trim();
+                            DirCalleOAvenida = DireccionConcatenada[2].ToString().Trim();
 
-                                model.EditarDireccionModel.LugarNivel3 = DirlugarNivel3;
-                                model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
-                                model.EditarDireccionModel.LugarNivel4 = DirlugarNivel4;
-                                break;
-                            case 2://nunca debería entrar aqui
-                                DirCalleOAvenida = DireccionConcatenada[0].ToString().Trim();
-                                DirlugarNivel4 = DireccionConcatenada[1].ToString().Trim();
-                                model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
-                                model.EditarDireccionModel.LugarNivel4 = DirlugarNivel4;
 
-                                model.EditarDireccionModel.LugarNivel3 = string.Empty;
-                                break;
-                            case 1:
-                                DirCalleOAvenida = DireccionConcatenada[0].ToString().Trim();
-                                model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
+                            model.EditarDireccionModel.NombreLugarNivel3 = DirlugarNivel3;
+
+                            lugaresNivel3 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel3, model.EditarDireccionModel.LugarNivel2.ToInt());
+                            model.EditarDireccionModel.LugarNivel3 = lugaresNivel3.Where(x => x.Nombre.ToUpper().Trim() == DirlugarNivel3.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
+                            model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel3);
+
+
+                            model.EditarDireccionModel.NombreLugarNivel4 = DirlugarNivel4;
+                            lugaresNivel4 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel4, model.EditarDireccionModel.LugarNivel3.ToInt());
+                            if (string.IsNullOrEmpty(model.EditarDireccionModel.NombreLugarNivel4))
                                 model.EditarDireccionModel.LugarNivel4 = string.Empty;
-                                model.EditarDireccionModel.LugarNivel3 = string.Empty;
-                                break;
-                        }
-                        model.EditarDireccionModel.Referencia = solicitudPostulante.Referencia;
+                            else
+                                model.EditarDireccionModel.LugarNivel4 = lugaresNivel4.Where(x => x.Nombre.ToUpper().Trim() == DirlugarNivel4.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
+                            model.EditarDireccionModel.LugaresNivel4 = new SelectList(lugaresNivel4, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel4);
+
+                            model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
+                            break;
+                        case 2://nunca debería entrar aqui
+                            DirlugarNivel4 = DireccionConcatenada[0].ToString().Trim();
+                            DirCalleOAvenida = DireccionConcatenada[1].ToString().Trim();
+
+
+                            model.EditarDireccionModel.NombreLugarNivel4 = DirlugarNivel4;
+                            lugaresNivel4 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel4, model.EditarDireccionModel.LugarNivel3.ToInt());
+                            model.EditarDireccionModel.LugarNivel4 = lugaresNivel4.Where(x => x.Nombre.ToUpper().Trim() == DirlugarNivel4.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
+                            model.EditarDireccionModel.LugaresNivel4 = new SelectList(lugaresNivel4, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel4);
+
+                            model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
+
+                            model.EditarDireccionModel.NombreLugarNivel3 = string.Empty;
+                            model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", "");
+                            break;
+                        case 1:
+                            DirCalleOAvenida = DireccionConcatenada[0].ToString().Trim();
+                            model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
+
+                            model.EditarDireccionModel.NombreLugarNivel3 = string.Empty;
+                            model.EditarDireccionModel.NombreLugarNivel4 = string.Empty;
+                            model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", "");
+                            model.EditarDireccionModel.LugaresNivel4 = new SelectList(lugaresNivel4, "IdParametroUnete", "Nombre", "");
+                            break;
                     }
                 }
-                else if (CodigoISO == Pais.Guatemala)
+                model.EditarDireccionModel.Referencia = solicitudPostulante.Referencia;
+            }
+            else if (CodigoISO == Pais.Colombia)
+            {
+
+                ServiceUnete.ParametroUneteCollection lugaresNivel1 = new ServiceUnete.ParametroUneteCollection();
+                ServiceUnete.ParametroUneteCollection lugaresNivel2 = new ServiceUnete.ParametroUneteCollection();
+                ServiceUnete.ParametroUneteCollection lugaresNivel3 = new ServiceUnete.ParametroUneteCollection();
+
+                var DirCalleOAvenida = string.Empty;
+                var DirlugarNivel3 = string.Empty;
+                var DirNombreDireccionEdicion = string.Empty;
+                var DireccionConcatenada = new string[0];
+
+                if (!string.IsNullOrEmpty(solicitudPostulante.Direccion))
                 {
-                    ServiceUnete.ParametroUneteCollection lugaresNivel1 = new ServiceUnete.ParametroUneteCollection();
-                    ServiceUnete.ParametroUneteCollection lugaresNivel2 = new ServiceUnete.ParametroUneteCollection();
-                    ServiceUnete.ParametroUneteCollection lugaresNivel3 = new ServiceUnete.ParametroUneteCollection();
-                    ServiceUnete.ParametroUneteCollection lugaresNivel4 = new ServiceUnete.ParametroUneteCollection();
-                    ServiceUnete.ParametroUneteCollection lugaresNivel5 = new ServiceUnete.ParametroUneteCollection();
-                    var DirlugarNivel3 = string.Empty;
-                    var DirlugarNivel4 = string.Empty;
-                    var DirlugarNivel5 = string.Empty;
-                    var DirCalleOAvenida = string.Empty;
+                    DireccionConcatenada = solicitudPostulante.Direccion.Contains('|') ? solicitudPostulante.Direccion.Split('|') :
+                                            solicitudPostulante.Direccion.Contains(',') ? solicitudPostulante.Direccion.Split(',') : new string[1] { solicitudPostulante.Direccion };
+                }
+
+                //DireccionConcatenada = DireccionConcatenada.Where(s => s != "").ToArray();
+
+                if (!string.IsNullOrEmpty(solicitudPostulante.LugarPadre) || !string.IsNullOrEmpty(solicitudPostulante.LugarHijo))
+                {
+
+                    model.EditarDireccionModel.NombreLugarNivel1 = solicitudPostulante.LugarPadre;
+                    lugaresNivel1 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel1, 0);
+                    model.EditarDireccionModel.LugarNivel1 = lugaresNivel1.Where(x => x.Nombre.ToUpper().Trim() == solicitudPostulante.LugarPadre.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
+                    model.EditarDireccionModel.LugaresNivel1 = new SelectList(lugaresNivel1, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel1);
+
+
+                    model.EditarDireccionModel.NombreLugarNivel2 = solicitudPostulante.LugarHijo;
+                    lugaresNivel2 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel2, model.EditarDireccionModel.LugarNivel1.ToInt());
+                    model.EditarDireccionModel.LugarNivel2 = lugaresNivel2.Where(x => x.Nombre.ToUpper().Trim() == solicitudPostulante.LugarHijo.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
+                    model.EditarDireccionModel.LugaresNivel2 = new SelectList(lugaresNivel2, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel2);
+                }
+                else
+                {
+                    lugaresNivel1 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel1, 0);
+                    model.EditarDireccionModel.NombreLugarNivel1 = string.Empty;
+                    model.EditarDireccionModel.NombreLugarNivel2 = string.Empty;
+                    model.EditarDireccionModel.LugaresNivel1 = new SelectList(lugaresNivel1, "IdParametroUnete", "Nombre", "");
+                    model.EditarDireccionModel.LugaresNivel2 = new SelectList(lugaresNivel2, "IdParametroUnete", "Nombre", "");
+                }
+
+                if ((!solicitudPostulante.Direccion.Contains('|') && solicitudPostulante.Direccion.Contains(',')) || (solicitudPostulante.Direccion == string.Empty))
+                {
+                    DirCalleOAvenida = solicitudPostulante.Direccion;
+                    model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
+
+                    model.EditarDireccionModel.NombreDireccionEdicion = string.Empty;
+                    model.EditarDireccionModel.NombreLugarNivel3 = string.Empty;
+                    //model.EditarDireccionModel.LugaresNivel3 = new SelectList(lstSeleccione, "IdParametroUnete", "Nombre", 0);Deberia cargar ya que no esta enlazado
+                    //No esta enlazado
+                    lugaresNivel3 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel3, 0);
+                    model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", "");
+                }
+                else
+                {
+                    switch (DireccionConcatenada.Length)
+                    {
+                        case 3:
+                            DirCalleOAvenida = DireccionConcatenada[0].ToString().Trim();
+                            DirlugarNivel3 = DireccionConcatenada[1].ToString().Trim();
+                            DirNombreDireccionEdicion = DireccionConcatenada[2].ToString().Trim();
+
+                            model.EditarDireccionModel.NombreLugarNivel3 = DirlugarNivel3;
+                            //lugaresNivel3 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel3, model.EditarDireccionModel.LugarNivel2.ToInt());No se debe enlazar al segundo nivel
+                            lugaresNivel3 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel3, 0);
+                            model.EditarDireccionModel.LugarNivel3 = lugaresNivel3.Where(x => x.Nombre.ToUpper().Trim() == DirlugarNivel3.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
+                            model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel3);
+
+                            model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
+                            model.EditarDireccionModel.NombreDireccionEdicion = DirNombreDireccionEdicion;
+                            break;
+                        case 2://nunca debería entrar aqui
+                            DirCalleOAvenida = DireccionConcatenada[0].ToString().Trim();
+                            DirNombreDireccionEdicion = DireccionConcatenada[1].ToString().Trim();
+                            model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
+                            model.EditarDireccionModel.NombreDireccionEdicion = DirNombreDireccionEdicion;
+
+                            model.EditarDireccionModel.NombreLugarNivel3 = string.Empty;
+                            //model.EditarDireccionModel.LugaresNivel3 = new SelectList(lstSeleccione, "IdParametroUnete", "Nombre", 0);Deberia cargar ya que no esta enlazado
+                            //No esta enlazado
+                            lugaresNivel3 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel3, 0);
+                            model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", 0);
+                            break;
+                        case 1:
+                            DirCalleOAvenida = DireccionConcatenada[0].ToString().Trim();
+                            model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
+
+                            model.EditarDireccionModel.NombreDireccionEdicion = string.Empty;
+                            model.EditarDireccionModel.NombreLugarNivel3 = string.Empty;
+                            //model.EditarDireccionModel.LugaresNivel3 = new SelectList(lstSeleccione, "IdParametroUnete", "Nombre", 0);Deberia cargar ya que no esta enlazado
+                            //No esta enlazado
+                            lugaresNivel3 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel3, 0);
+                            model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", 0);
+                            break;
+                    }
+                    model.EditarDireccionModel.Referencia = solicitudPostulante.Referencia;
+                }
+
+            }
+            else if (CodigoISO == Pais.Chile)
+            {
+                ServiceUnete.ParametroUneteCollection lugaresNivel1 = new ServiceUnete.ParametroUneteCollection();
+                ServiceUnete.ParametroUneteCollection lugaresNivel2 = new ServiceUnete.ParametroUneteCollection();
+
+                var DirCalleOAvenida = string.Empty;
+                var DirNumero = string.Empty;
+
+                var DireccionConcatenada = new string[0];
+
+                if (!string.IsNullOrEmpty(solicitudPostulante.Direccion))
+                {
+                    DireccionConcatenada = solicitudPostulante.Direccion.Contains('|') ? solicitudPostulante.Direccion.Split('|') :
+                                            solicitudPostulante.Direccion.Contains(',') ? solicitudPostulante.Direccion.Split(',') : new string[1] { solicitudPostulante.Direccion };
+                }
+
+                DireccionConcatenada = DireccionConcatenada.Where(s => s != "").ToArray();
+
+                if (!string.IsNullOrEmpty(solicitudPostulante.LugarPadre) || !string.IsNullOrEmpty(solicitudPostulante.LugarHijo))
+                {
+
+                    model.EditarDireccionModel.NombreLugarNivel1 = solicitudPostulante.LugarPadre;
+                    lugaresNivel1 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel1, 0);
+                    model.EditarDireccionModel.LugarNivel1 = lugaresNivel1.Where(x => x.Nombre.ToUpper().Trim() == solicitudPostulante.LugarPadre.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
+                    model.EditarDireccionModel.LugaresNivel1 = new SelectList(lugaresNivel1, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel1);
+
+
+                    model.EditarDireccionModel.NombreLugarNivel2 = solicitudPostulante.LugarHijo;
+                    lugaresNivel2 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel2, model.EditarDireccionModel.LugarNivel1.ToInt());
+                    model.EditarDireccionModel.LugarNivel2 = lugaresNivel2.Where(x => x.Nombre.ToUpper().Trim() == solicitudPostulante.LugarHijo.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
+                    model.EditarDireccionModel.LugaresNivel2 = new SelectList(lugaresNivel2, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel2);
+                }
+                else
+                {
+                    lugaresNivel1 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel1, 0);
+                    model.EditarDireccionModel.NombreLugarNivel1 = string.Empty;
+                    model.EditarDireccionModel.NombreLugarNivel2 = string.Empty;
+                    model.EditarDireccionModel.LugaresNivel1 = new SelectList(lugaresNivel1, "IdParametroUnete", "Nombre", "");
+                    model.EditarDireccionModel.LugaresNivel2 = new SelectList(lugaresNivel2, "IdParametroUnete", "Nombre", "");
+                }
+
+                if ((!solicitudPostulante.Direccion.Contains('|') && solicitudPostulante.Direccion.Contains(',')) || (solicitudPostulante.Direccion == string.Empty))
+                {
+                    DirCalleOAvenida = solicitudPostulante.Direccion;
+                    model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
+                    model.EditarDireccionModel.Numero = string.Empty;
+                }
+                else
+                {
+                    switch (DireccionConcatenada.Length)
+                    {
+                        case 2:
+                            DirCalleOAvenida = DireccionConcatenada[0].ToString().Trim();
+                            DirNumero = DireccionConcatenada[1].ToString().Trim();
+                            model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
+                            model.EditarDireccionModel.Numero = DirNumero;
+                            break;
+                        case 1:
+                            DirCalleOAvenida = DireccionConcatenada[0].ToString().Trim();
+                            model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
+                            model.EditarDireccionModel.Numero = string.Empty;
+                            break;
+                    }
+                    model.EditarDireccionModel.Referencia = solicitudPostulante.Referencia;
+                }
+            }
+            else if (CodigoISO == Pais.Mexico)
+            {
+                ServiceUnete.ParametroUneteCollection lugaresNivel1 = new ServiceUnete.ParametroUneteCollection();
+                ServiceUnete.ParametroUneteCollection lugaresNivel2 = new ServiceUnete.ParametroUneteCollection();
+                ServiceUnete.ParametroUneteCollection lugaresNivel3 = new ServiceUnete.ParametroUneteCollection();
+
+                var DirlugarNivel3 = string.Empty;
+                var DirCalleOAvenida = string.Empty;
+                var DirNumero = string.Empty;
+
+                var DireccionConcatenada = new string[0];
+
+                if (!string.IsNullOrEmpty(solicitudPostulante.Direccion))
+                {
+                    DireccionConcatenada = solicitudPostulante.Direccion.Contains('|') ? solicitudPostulante.Direccion.Split('|') :
+                                            solicitudPostulante.Direccion.Contains(',') ? solicitudPostulante.Direccion.Split(',') : new string[1] { solicitudPostulante.Direccion };
+                }
+
+                //DireccionConcatenada = DireccionConcatenada.Where(s => s != "").ToArray();
+
+                if (!string.IsNullOrEmpty(solicitudPostulante.LugarPadre) || !string.IsNullOrEmpty(solicitudPostulante.LugarHijo))
+                {
+
+                    model.EditarDireccionModel.NombreLugarNivel1 = solicitudPostulante.LugarPadre;
+                    lugaresNivel1 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel1, 0);
+                    model.EditarDireccionModel.LugarNivel1 = lugaresNivel1.Where(x => x.Nombre.ToUpper().Trim() == solicitudPostulante.LugarPadre.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
+                    model.EditarDireccionModel.LugaresNivel1 = new SelectList(lugaresNivel1, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel1);
+
+
+                    model.EditarDireccionModel.NombreLugarNivel2 = solicitudPostulante.LugarHijo;
+                    lugaresNivel2 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel2, model.EditarDireccionModel.LugarNivel1.ToInt());
+                    model.EditarDireccionModel.LugarNivel2 = lugaresNivel2.Where(x => x.Nombre.ToUpper().Trim() == solicitudPostulante.LugarHijo.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
+                    model.EditarDireccionModel.LugaresNivel2 = new SelectList(lugaresNivel2, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel2);
+                }
+                else
+                {
+                    lugaresNivel1 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel1, 0);
+                    model.EditarDireccionModel.NombreLugarNivel1 = string.Empty;
+                    model.EditarDireccionModel.NombreLugarNivel2 = string.Empty;
+                    model.EditarDireccionModel.LugaresNivel1 = new SelectList(lugaresNivel1, "IdParametroUnete", "Nombre", "");
+                    model.EditarDireccionModel.LugaresNivel2 = new SelectList(lugaresNivel2, "IdParametroUnete", "Nombre", "");
+                }
+
+                if ((!solicitudPostulante.Direccion.Contains('|') && solicitudPostulante.Direccion.Contains(',')) || (solicitudPostulante.Direccion == string.Empty))
+                {
+                    DirCalleOAvenida = solicitudPostulante.Direccion;
+                    model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
+                    model.EditarDireccionModel.Numero = string.Empty;
+
+                    model.EditarDireccionModel.NombreLugarNivel3 = string.Empty;
+                    model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", "");
+                }
+                else
+                {
+                    switch (DireccionConcatenada.Length)
+                    {
+                        case 3:
+                            DirlugarNivel3 = DireccionConcatenada[0].ToString().Trim();
+                            DirCalleOAvenida = DireccionConcatenada[1].ToString().Trim();
+                            DirNumero = DireccionConcatenada[2].ToString().Trim();
+
+                            model.EditarDireccionModel.NombreLugarNivel3 = DirlugarNivel3;
+                            lugaresNivel3 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel3, model.EditarDireccionModel.LugarNivel2.ToInt());
+                            model.EditarDireccionModel.LugarNivel3 = lugaresNivel3.Where(x => x.Nombre.ToUpper().Trim() == DirlugarNivel3.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
+                            model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel3);
+
+                            model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
+                            model.EditarDireccionModel.Numero = DirNumero;
+                            break;
+                        case 2:
+                            DirlugarNivel3 = DireccionConcatenada[0].ToString().Trim();
+                            DirCalleOAvenida = DireccionConcatenada[1].ToString().Trim();
+
+                            model.EditarDireccionModel.NombreLugarNivel3 = DirlugarNivel3;
+                            lugaresNivel3 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel3, model.EditarDireccionModel.LugarNivel2.ToInt());
+                            model.EditarDireccionModel.LugarNivel3 = lugaresNivel3.Where(x => x.Nombre.ToUpper().Trim() == DirlugarNivel3.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
+                            model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel3);
+
+                            model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
+                            model.EditarDireccionModel.Numero = solicitudPostulante.CodigoPostal.Trim();
+
+                            break;
+                        case 1:
+                            DirCalleOAvenida = DireccionConcatenada[0].ToString().Trim();
+                            model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
+                            model.EditarDireccionModel.Numero = string.Empty;
+
+                            model.EditarDireccionModel.NombreLugarNivel3 = string.Empty;
+                            model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", "");
+                            break;
+                    }
+                    model.EditarDireccionModel.Referencia = solicitudPostulante.Referencia;
+                }
+            }
+            else if (CodigoISO == Pais.Ecuador)
+            {
+                ServiceUnete.ParametroUneteCollection lugaresNivel1 = new ServiceUnete.ParametroUneteCollection();
+                ServiceUnete.ParametroUneteCollection lugaresNivel2 = new ServiceUnete.ParametroUneteCollection();
+
+                var DirlugarNivel3 = string.Empty;
+                var DirCalleOAvenida = string.Empty;
+                var DirlugarNivel4 = string.Empty;
+                var DireccionConcatenada = new string[0];
+
+                if (!string.IsNullOrEmpty(solicitudPostulante.Direccion))
+                {
+                    DireccionConcatenada = solicitudPostulante.Direccion.Contains('|') ? solicitudPostulante.Direccion.Split('|') :
+                                            solicitudPostulante.Direccion.Contains(',') ? solicitudPostulante.Direccion.Split(',') : new string[1] { solicitudPostulante.Direccion };
+                }
+
+                //DireccionConcatenada = DireccionConcatenada.Where(s => s != "").ToArray();
+
+                if (!string.IsNullOrEmpty(solicitudPostulante.LugarPadre) || !string.IsNullOrEmpty(solicitudPostulante.LugarHijo))
+                {
+
+                    model.EditarDireccionModel.NombreLugarNivel1 = solicitudPostulante.LugarPadre;
+                    lugaresNivel1 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel1, 0);
+                    model.EditarDireccionModel.LugarNivel1 = lugaresNivel1.Where(x => x.Nombre.ToUpper().Trim() == solicitudPostulante.LugarPadre.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
+                    model.EditarDireccionModel.LugaresNivel1 = new SelectList(lugaresNivel1, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel1);
+
+
+                    model.EditarDireccionModel.NombreLugarNivel2 = solicitudPostulante.LugarHijo;
+                    lugaresNivel2 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel2, model.EditarDireccionModel.LugarNivel1.ToInt());
+                    model.EditarDireccionModel.LugarNivel2 = lugaresNivel2.Where(x => x.Nombre.ToUpper().Trim() == solicitudPostulante.LugarHijo.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
+                    model.EditarDireccionModel.LugaresNivel2 = new SelectList(lugaresNivel2, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel2);
+                }
+                else
+                {
+                    lugaresNivel1 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel1, 0);
+                    model.EditarDireccionModel.NombreLugarNivel1 = string.Empty;
+                    model.EditarDireccionModel.NombreLugarNivel2 = string.Empty;
+                    model.EditarDireccionModel.LugaresNivel1 = new SelectList(lugaresNivel1, "IdParametroUnete", "Nombre", "");
+                    model.EditarDireccionModel.LugaresNivel2 = new SelectList(lugaresNivel2, "IdParametroUnete", "Nombre", "");
+                }
+
+                if ((!solicitudPostulante.Direccion.Contains('|') && solicitudPostulante.Direccion.Contains(',')) || (solicitudPostulante.Direccion == string.Empty))
+                {
+                    DirCalleOAvenida = solicitudPostulante.Direccion;
+                    model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
+                    model.EditarDireccionModel.LugarNivel4 = string.Empty;
+                    model.EditarDireccionModel.LugarNivel3 = string.Empty;
+                }
+                else
+                {
+                    switch (DireccionConcatenada.Length)
+                    {
+                        case 3:
+                            DirlugarNivel3 = DireccionConcatenada[0].ToString().Trim();
+                            DirCalleOAvenida = DireccionConcatenada[1].ToString().Trim();
+                            DirlugarNivel4 = DireccionConcatenada[2].ToString().Trim();
+
+                            model.EditarDireccionModel.LugarNivel3 = DirlugarNivel3;
+                            model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
+                            model.EditarDireccionModel.LugarNivel4 = DirlugarNivel4;
+                            break;
+                        case 2://nunca debería entrar aqui
+                            DirCalleOAvenida = DireccionConcatenada[0].ToString().Trim();
+                            DirlugarNivel4 = DireccionConcatenada[1].ToString().Trim();
+                            model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
+                            model.EditarDireccionModel.LugarNivel4 = DirlugarNivel4;
+
+                            model.EditarDireccionModel.LugarNivel3 = string.Empty;
+                            break;
+                        case 1:
+                            DirCalleOAvenida = DireccionConcatenada[0].ToString().Trim();
+                            model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
+                            model.EditarDireccionModel.LugarNivel4 = string.Empty;
+                            model.EditarDireccionModel.LugarNivel3 = string.Empty;
+                            break;
+                    }
+                    model.EditarDireccionModel.Referencia = solicitudPostulante.Referencia;
+                }
+            }
+            else if (CodigoISO == Pais.Guatemala)
+            {
+                ServiceUnete.ParametroUneteCollection lugaresNivel1 = new ServiceUnete.ParametroUneteCollection();
+                ServiceUnete.ParametroUneteCollection lugaresNivel2 = new ServiceUnete.ParametroUneteCollection();
+                ServiceUnete.ParametroUneteCollection lugaresNivel3 = new ServiceUnete.ParametroUneteCollection();
+                ServiceUnete.ParametroUneteCollection lugaresNivel4 = new ServiceUnete.ParametroUneteCollection();
+                ServiceUnete.ParametroUneteCollection lugaresNivel5 = new ServiceUnete.ParametroUneteCollection();
+                var DirlugarNivel3 = string.Empty;
+                var DirlugarNivel4 = string.Empty;
+                var DirlugarNivel5 = string.Empty;
+                var DirCalleOAvenida = string.Empty;
 
                 var DireccionConcatenada = new string[0];
 
@@ -909,229 +910,229 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 if (!string.IsNullOrEmpty(solicitudPostulante.LugarPadre) || !string.IsNullOrEmpty(solicitudPostulante.LugarHijo))
-                    {
+                {
 
-                        model.EditarDireccionModel.NombreLugarNivel1 = solicitudPostulante.LugarPadre;
-                        lugaresNivel1 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel1, 0);
-                        model.EditarDireccionModel.LugarNivel1 = lugaresNivel1.Where(x => x.Nombre.ToUpper().Trim() == solicitudPostulante.LugarPadre.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
-                        model.EditarDireccionModel.LugaresNivel1 = new SelectList(lugaresNivel1, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel1);
+                    model.EditarDireccionModel.NombreLugarNivel1 = solicitudPostulante.LugarPadre;
+                    lugaresNivel1 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel1, 0);
+                    model.EditarDireccionModel.LugarNivel1 = lugaresNivel1.Where(x => x.Nombre.ToUpper().Trim() == solicitudPostulante.LugarPadre.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
+                    model.EditarDireccionModel.LugaresNivel1 = new SelectList(lugaresNivel1, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel1);
 
 
-                        model.EditarDireccionModel.NombreLugarNivel2 = solicitudPostulante.LugarHijo;
-                        lugaresNivel2 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel2, model.EditarDireccionModel.LugarNivel1.ToInt());
-                        model.EditarDireccionModel.LugarNivel2 = lugaresNivel2.Where(x => x.Nombre.ToUpper().Trim() == solicitudPostulante.LugarHijo.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
-                        model.EditarDireccionModel.LugaresNivel2 = new SelectList(lugaresNivel2, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel2);
-                    }
-                    else
-                    {
-                        lugaresNivel1 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel1, 0);
-                        model.EditarDireccionModel.NombreLugarNivel1 = string.Empty;
-                        model.EditarDireccionModel.NombreLugarNivel2 = string.Empty;
-                        model.EditarDireccionModel.LugaresNivel1 = new SelectList(lugaresNivel1, "IdParametroUnete", "Nombre", "");
-                        model.EditarDireccionModel.LugaresNivel2 = new SelectList(lugaresNivel2, "IdParametroUnete", "Nombre", "");
-                    }
+                    model.EditarDireccionModel.NombreLugarNivel2 = solicitudPostulante.LugarHijo;
+                    lugaresNivel2 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel2, model.EditarDireccionModel.LugarNivel1.ToInt());
+                    model.EditarDireccionModel.LugarNivel2 = lugaresNivel2.Where(x => x.Nombre.ToUpper().Trim() == solicitudPostulante.LugarHijo.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
+                    model.EditarDireccionModel.LugaresNivel2 = new SelectList(lugaresNivel2, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel2);
+                }
+                else
+                {
+                    lugaresNivel1 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel1, 0);
+                    model.EditarDireccionModel.NombreLugarNivel1 = string.Empty;
+                    model.EditarDireccionModel.NombreLugarNivel2 = string.Empty;
+                    model.EditarDireccionModel.LugaresNivel1 = new SelectList(lugaresNivel1, "IdParametroUnete", "Nombre", "");
+                    model.EditarDireccionModel.LugaresNivel2 = new SelectList(lugaresNivel2, "IdParametroUnete", "Nombre", "");
+                }
 
                 if ((!solicitudPostulante.Direccion.Contains('|') && solicitudPostulante.Direccion.Contains(',')) || (solicitudPostulante.Direccion == string.Empty))
                 {
-                        DirCalleOAvenida = solicitudPostulante.Direccion;
-                        model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
+                    DirCalleOAvenida = solicitudPostulante.Direccion;
+                    model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
 
-                        model.EditarDireccionModel.NombreLugarNivel3 = string.Empty;
-                        model.EditarDireccionModel.NombreLugarNivel4 = string.Empty;
-                        model.EditarDireccionModel.NombreLugarNivel5 = string.Empty;
-                        model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", "");
-                        model.EditarDireccionModel.LugaresNivel4 = new SelectList(lugaresNivel4, "IdParametroUnete", "Nombre", "");
-                        model.EditarDireccionModel.LugaresNivel5 = new SelectList(lugaresNivel5, "IdParametroUnete", "Nombre", "");
-                    }
-                    else
-                    {
-                        switch (DireccionConcatenada.Length)
-                        {
-                            case 4:
-                                DirlugarNivel3 = DireccionConcatenada[0].ToString().Trim();
-                                DirlugarNivel4 = DireccionConcatenada[1].ToString().Trim();
-                                DirlugarNivel5 = DireccionConcatenada[2].ToString().Trim();
-                                DirCalleOAvenida = DireccionConcatenada[3].ToString().Trim();
-
-                                model.EditarDireccionModel.NombreLugarNivel3 = DirlugarNivel3;
-                                lugaresNivel3 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel3, model.EditarDireccionModel.LugarNivel2.ToInt());
-                                model.EditarDireccionModel.LugarNivel3 = lugaresNivel3.Where(x => x.Nombre.ToUpper().Trim() == DirlugarNivel3.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
-                                model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel3);
-
-                                model.EditarDireccionModel.NombreLugarNivel4 = DirlugarNivel4;
-                                lugaresNivel4 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel4, model.EditarDireccionModel.LugarNivel3.ToInt());
-                                model.EditarDireccionModel.LugarNivel4 = lugaresNivel4.Where(x => x.Nombre.ToUpper().Trim() == DirlugarNivel4.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
-                                model.EditarDireccionModel.LugaresNivel4 = new SelectList(lugaresNivel4, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel4);
-
-                                model.EditarDireccionModel.NombreLugarNivel5 = DirlugarNivel5;
-                                lugaresNivel5 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel5, model.EditarDireccionModel.LugarNivel4.ToInt());
-                                model.EditarDireccionModel.LugarNivel5 = lugaresNivel5.Where(x => x.Nombre.ToUpper().Trim() == DirlugarNivel5.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
-                                model.EditarDireccionModel.LugaresNivel5 = new SelectList(lugaresNivel5, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel5);
-
-                                model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
-                                break;
-                            case 3:
-                                DirlugarNivel4 = DireccionConcatenada[0].ToString().Trim();
-                                DirlugarNivel5 = DireccionConcatenada[1].ToString().Trim();
-                                DirCalleOAvenida = DireccionConcatenada[2].ToString().Trim();
-
-                                model.EditarDireccionModel.NombreLugarNivel4 = DirlugarNivel4;
-                                lugaresNivel4 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel4, model.EditarDireccionModel.LugarNivel3.ToInt());
-                                model.EditarDireccionModel.LugarNivel4 = lugaresNivel4.Where(x => x.Nombre.ToUpper().Trim() == DirlugarNivel4.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
-                                model.EditarDireccionModel.LugaresNivel4 = new SelectList(lugaresNivel4, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel4);
-
-                                model.EditarDireccionModel.NombreLugarNivel5 = DirlugarNivel5;
-                                lugaresNivel5 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel5, model.EditarDireccionModel.LugarNivel4.ToInt());
-                                model.EditarDireccionModel.LugarNivel5 = lugaresNivel5.Where(x => x.Nombre.ToUpper().Trim() == DirlugarNivel5.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
-                                model.EditarDireccionModel.LugaresNivel5 = new SelectList(lugaresNivel5, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel5);
-
-                                model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
-
-                                model.EditarDireccionModel.NombreLugarNivel3 = string.Empty;
-                                model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", "");
-                                break;
-                            case 2://nunca debería entrar aqui
-                                DirlugarNivel5 = DireccionConcatenada[0].ToString().Trim();
-                                DirCalleOAvenida = DireccionConcatenada[1].ToString().Trim();
-
-                                model.EditarDireccionModel.NombreLugarNivel5 = DirlugarNivel5;
-                                lugaresNivel5 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel5, model.EditarDireccionModel.LugarNivel4.ToInt());
-                                model.EditarDireccionModel.LugarNivel5 = lugaresNivel5.Where(x => x.Nombre.ToUpper().Trim() == DirlugarNivel5.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
-                                model.EditarDireccionModel.LugaresNivel5 = new SelectList(lugaresNivel5, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel5);
-
-                                model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
-
-                                model.EditarDireccionModel.NombreLugarNivel3 = string.Empty;
-                                model.EditarDireccionModel.NombreLugarNivel4 = string.Empty;
-                                model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", "");
-                                model.EditarDireccionModel.LugaresNivel4 = new SelectList(lugaresNivel4, "IdParametroUnete", "Nombre", "");
-                                break;
-                            case 1:
-                                DirCalleOAvenida = DireccionConcatenada[0].ToString().Trim();
-                                model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
-
-                                model.EditarDireccionModel.NombreLugarNivel3 = string.Empty;
-                                model.EditarDireccionModel.NombreLugarNivel4 = string.Empty;
-                                model.EditarDireccionModel.NombreLugarNivel5 = string.Empty;
-                                model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", "");
-                                model.EditarDireccionModel.LugaresNivel4 = new SelectList(lugaresNivel4, "IdParametroUnete", "Nombre", "");
-                                model.EditarDireccionModel.LugaresNivel5 = new SelectList(lugaresNivel5, "IdParametroUnete", "Nombre", "");
-                                break;
-                        }
-                        model.EditarDireccionModel.Referencia = solicitudPostulante.Referencia;
-                    }
+                    model.EditarDireccionModel.NombreLugarNivel3 = string.Empty;
+                    model.EditarDireccionModel.NombreLugarNivel4 = string.Empty;
+                    model.EditarDireccionModel.NombreLugarNivel5 = string.Empty;
+                    model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", "");
+                    model.EditarDireccionModel.LugaresNivel4 = new SelectList(lugaresNivel4, "IdParametroUnete", "Nombre", "");
+                    model.EditarDireccionModel.LugaresNivel5 = new SelectList(lugaresNivel5, "IdParametroUnete", "Nombre", "");
                 }
-                else if (CodigoISO == Pais.CostaRica || CodigoISO == Pais.Panama || CodigoISO == Pais.Salvador )
+                else
                 {
-                    ServiceUnete.ParametroUneteCollection lugaresNivel1 = new ServiceUnete.ParametroUneteCollection();
-                    ServiceUnete.ParametroUneteCollection lugaresNivel2 = new ServiceUnete.ParametroUneteCollection();
-                    ServiceUnete.ParametroUneteCollection lugaresNivel3 = new ServiceUnete.ParametroUneteCollection();
-                    ServiceUnete.ParametroUneteCollection lugaresNivel4 = new ServiceUnete.ParametroUneteCollection();
-                    var DirlugarNivel3 = string.Empty;
-                    var DirlugarNivel4 = string.Empty;
-                    var DirCalleOAvenida = string.Empty;
+                    switch (DireccionConcatenada.Length)
+                    {
+                        case 4:
+                            DirlugarNivel3 = DireccionConcatenada[0].ToString().Trim();
+                            DirlugarNivel4 = DireccionConcatenada[1].ToString().Trim();
+                            DirlugarNivel5 = DireccionConcatenada[2].ToString().Trim();
+                            DirCalleOAvenida = DireccionConcatenada[3].ToString().Trim();
+
+                            model.EditarDireccionModel.NombreLugarNivel3 = DirlugarNivel3;
+                            lugaresNivel3 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel3, model.EditarDireccionModel.LugarNivel2.ToInt());
+                            model.EditarDireccionModel.LugarNivel3 = lugaresNivel3.Where(x => x.Nombre.ToUpper().Trim() == DirlugarNivel3.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
+                            model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel3);
+
+                            model.EditarDireccionModel.NombreLugarNivel4 = DirlugarNivel4;
+                            lugaresNivel4 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel4, model.EditarDireccionModel.LugarNivel3.ToInt());
+                            model.EditarDireccionModel.LugarNivel4 = lugaresNivel4.Where(x => x.Nombre.ToUpper().Trim() == DirlugarNivel4.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
+                            model.EditarDireccionModel.LugaresNivel4 = new SelectList(lugaresNivel4, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel4);
+
+                            model.EditarDireccionModel.NombreLugarNivel5 = DirlugarNivel5;
+                            lugaresNivel5 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel5, model.EditarDireccionModel.LugarNivel4.ToInt());
+                            model.EditarDireccionModel.LugarNivel5 = lugaresNivel5.Where(x => x.Nombre.ToUpper().Trim() == DirlugarNivel5.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
+                            model.EditarDireccionModel.LugaresNivel5 = new SelectList(lugaresNivel5, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel5);
+
+                            model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
+                            break;
+                        case 3:
+                            DirlugarNivel4 = DireccionConcatenada[0].ToString().Trim();
+                            DirlugarNivel5 = DireccionConcatenada[1].ToString().Trim();
+                            DirCalleOAvenida = DireccionConcatenada[2].ToString().Trim();
+
+                            model.EditarDireccionModel.NombreLugarNivel4 = DirlugarNivel4;
+                            lugaresNivel4 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel4, model.EditarDireccionModel.LugarNivel3.ToInt());
+                            model.EditarDireccionModel.LugarNivel4 = lugaresNivel4.Where(x => x.Nombre.ToUpper().Trim() == DirlugarNivel4.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
+                            model.EditarDireccionModel.LugaresNivel4 = new SelectList(lugaresNivel4, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel4);
+
+                            model.EditarDireccionModel.NombreLugarNivel5 = DirlugarNivel5;
+                            lugaresNivel5 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel5, model.EditarDireccionModel.LugarNivel4.ToInt());
+                            model.EditarDireccionModel.LugarNivel5 = lugaresNivel5.Where(x => x.Nombre.ToUpper().Trim() == DirlugarNivel5.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
+                            model.EditarDireccionModel.LugaresNivel5 = new SelectList(lugaresNivel5, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel5);
+
+                            model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
+
+                            model.EditarDireccionModel.NombreLugarNivel3 = string.Empty;
+                            model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", "");
+                            break;
+                        case 2://nunca debería entrar aqui
+                            DirlugarNivel5 = DireccionConcatenada[0].ToString().Trim();
+                            DirCalleOAvenida = DireccionConcatenada[1].ToString().Trim();
+
+                            model.EditarDireccionModel.NombreLugarNivel5 = DirlugarNivel5;
+                            lugaresNivel5 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel5, model.EditarDireccionModel.LugarNivel4.ToInt());
+                            model.EditarDireccionModel.LugarNivel5 = lugaresNivel5.Where(x => x.Nombre.ToUpper().Trim() == DirlugarNivel5.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
+                            model.EditarDireccionModel.LugaresNivel5 = new SelectList(lugaresNivel5, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel5);
+
+                            model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
+
+                            model.EditarDireccionModel.NombreLugarNivel3 = string.Empty;
+                            model.EditarDireccionModel.NombreLugarNivel4 = string.Empty;
+                            model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", "");
+                            model.EditarDireccionModel.LugaresNivel4 = new SelectList(lugaresNivel4, "IdParametroUnete", "Nombre", "");
+                            break;
+                        case 1:
+                            DirCalleOAvenida = DireccionConcatenada[0].ToString().Trim();
+                            model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
+
+                            model.EditarDireccionModel.NombreLugarNivel3 = string.Empty;
+                            model.EditarDireccionModel.NombreLugarNivel4 = string.Empty;
+                            model.EditarDireccionModel.NombreLugarNivel5 = string.Empty;
+                            model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", "");
+                            model.EditarDireccionModel.LugaresNivel4 = new SelectList(lugaresNivel4, "IdParametroUnete", "Nombre", "");
+                            model.EditarDireccionModel.LugaresNivel5 = new SelectList(lugaresNivel5, "IdParametroUnete", "Nombre", "");
+                            break;
+                    }
+                    model.EditarDireccionModel.Referencia = solicitudPostulante.Referencia;
+                }
+            }
+            else if (CodigoISO == Pais.CostaRica || CodigoISO == Pais.Panama || CodigoISO == Pais.Salvador)
+            {
+                ServiceUnete.ParametroUneteCollection lugaresNivel1 = new ServiceUnete.ParametroUneteCollection();
+                ServiceUnete.ParametroUneteCollection lugaresNivel2 = new ServiceUnete.ParametroUneteCollection();
+                ServiceUnete.ParametroUneteCollection lugaresNivel3 = new ServiceUnete.ParametroUneteCollection();
+                ServiceUnete.ParametroUneteCollection lugaresNivel4 = new ServiceUnete.ParametroUneteCollection();
+                var DirlugarNivel3 = string.Empty;
+                var DirlugarNivel4 = string.Empty;
+                var DirCalleOAvenida = string.Empty;
 
                 var DireccionConcatenada = new string[0];
 
                 if (!string.IsNullOrEmpty(solicitudPostulante.Direccion))
                 {
-                      DireccionConcatenada = solicitudPostulante.Direccion.Contains('|') ? solicitudPostulante.Direccion.Split('|') :
-                                                solicitudPostulante.Direccion.Contains(',') ? solicitudPostulante.Direccion.Split(',') : new string[1] { solicitudPostulante.Direccion };
+                    DireccionConcatenada = solicitudPostulante.Direccion.Contains('|') ? solicitudPostulante.Direccion.Split('|') :
+                                              solicitudPostulante.Direccion.Contains(',') ? solicitudPostulante.Direccion.Split(',') : new string[1] { solicitudPostulante.Direccion };
 
                 }
                 DireccionConcatenada = DireccionConcatenada.Where(s => s != "").ToArray();
 
-                    if (!string.IsNullOrEmpty(solicitudPostulante.LugarPadre) || !string.IsNullOrEmpty(solicitudPostulante.LugarHijo))
-                    {
+                if (!string.IsNullOrEmpty(solicitudPostulante.LugarPadre) || !string.IsNullOrEmpty(solicitudPostulante.LugarHijo))
+                {
 
-                        model.EditarDireccionModel.NombreLugarNivel1 = solicitudPostulante.LugarPadre;
-                        lugaresNivel1 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel1, 0);
-                        model.EditarDireccionModel.LugarNivel1 = lugaresNivel1.Where(x => x.Nombre.ToUpper().Trim() == solicitudPostulante.LugarPadre.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
-                        model.EditarDireccionModel.LugaresNivel1 = new SelectList(lugaresNivel1, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel1);
+                    model.EditarDireccionModel.NombreLugarNivel1 = solicitudPostulante.LugarPadre;
+                    lugaresNivel1 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel1, 0);
+                    model.EditarDireccionModel.LugarNivel1 = lugaresNivel1.Where(x => x.Nombre.ToUpper().Trim() == solicitudPostulante.LugarPadre.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
+                    model.EditarDireccionModel.LugaresNivel1 = new SelectList(lugaresNivel1, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel1);
 
 
-                        model.EditarDireccionModel.NombreLugarNivel2 = solicitudPostulante.LugarHijo;
-                        lugaresNivel2 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel2, model.EditarDireccionModel.LugarNivel1.ToInt());
-                        model.EditarDireccionModel.LugarNivel2 = lugaresNivel2.Where(x => x.Nombre.ToUpper().Trim() == solicitudPostulante.LugarHijo.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
-                        model.EditarDireccionModel.LugaresNivel2 = new SelectList(lugaresNivel2, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel2);
-                    }
-                    else
-                    {
-                        lugaresNivel1 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel1, 0);
-                        model.EditarDireccionModel.NombreLugarNivel1 = string.Empty;
-                        model.EditarDireccionModel.NombreLugarNivel2 = string.Empty;
-                        model.EditarDireccionModel.LugaresNivel1 = new SelectList(lugaresNivel1, "IdParametroUnete", "Nombre", "");
-                        model.EditarDireccionModel.LugaresNivel2 = new SelectList(lugaresNivel2, "IdParametroUnete", "Nombre", "");
-                    }
+                    model.EditarDireccionModel.NombreLugarNivel2 = solicitudPostulante.LugarHijo;
+                    lugaresNivel2 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel2, model.EditarDireccionModel.LugarNivel1.ToInt());
+                    model.EditarDireccionModel.LugarNivel2 = lugaresNivel2.Where(x => x.Nombre.ToUpper().Trim() == solicitudPostulante.LugarHijo.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
+                    model.EditarDireccionModel.LugaresNivel2 = new SelectList(lugaresNivel2, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel2);
+                }
+                else
+                {
+                    lugaresNivel1 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel1, 0);
+                    model.EditarDireccionModel.NombreLugarNivel1 = string.Empty;
+                    model.EditarDireccionModel.NombreLugarNivel2 = string.Empty;
+                    model.EditarDireccionModel.LugaresNivel1 = new SelectList(lugaresNivel1, "IdParametroUnete", "Nombre", "");
+                    model.EditarDireccionModel.LugaresNivel2 = new SelectList(lugaresNivel2, "IdParametroUnete", "Nombre", "");
+                }
 
                 if ((!solicitudPostulante.Direccion.Contains('|') && solicitudPostulante.Direccion.Contains(',')) || (solicitudPostulante.Direccion == string.Empty))
                 {
-                        DirCalleOAvenida = solicitudPostulante.Direccion;
-                        model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
+                    DirCalleOAvenida = solicitudPostulante.Direccion;
+                    model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
 
-                        model.EditarDireccionModel.NombreLugarNivel3 = string.Empty;
-                        model.EditarDireccionModel.NombreLugarNivel4 = string.Empty;
-                        model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", 0);
-                        model.EditarDireccionModel.LugaresNivel4 = new SelectList(lugaresNivel4, "IdParametroUnete", "Nombre", 0);
-                    }
-                    else
-                    {
-                        switch (DireccionConcatenada.Length)
-                        {
-                            case 3:
-                                DirlugarNivel3 = DireccionConcatenada[0].ToString().Trim();
-                                DirlugarNivel4 = DireccionConcatenada[1].ToString().Trim();
-                                DirCalleOAvenida = DireccionConcatenada[2].ToString().Trim();
-
-                                model.EditarDireccionModel.NombreLugarNivel3 = DirlugarNivel3;
-                                lugaresNivel3 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel3, model.EditarDireccionModel.LugarNivel2.ToInt());
-                                model.EditarDireccionModel.LugarNivel3 = lugaresNivel3.Where(x => x.Nombre.ToUpper().Trim() == DirlugarNivel3.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
-                                model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel3);
-
-                                model.EditarDireccionModel.NombreLugarNivel4 = DirlugarNivel4;
-                                lugaresNivel4 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel4, model.EditarDireccionModel.LugarNivel3.ToInt());
-                                model.EditarDireccionModel.LugarNivel4 = lugaresNivel4.Where(x => x.Nombre.ToUpper().Trim() == DirlugarNivel4.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
-                                model.EditarDireccionModel.LugaresNivel4 = new SelectList(lugaresNivel4, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel4);
-
-                                model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
-                                break;
-                            case 2://nunca debería entrar aqui
-                                DirlugarNivel4 = DireccionConcatenada[0].ToString().Trim();
-                                DirCalleOAvenida = DireccionConcatenada[1].ToString().Trim();
-
-                                model.EditarDireccionModel.NombreLugarNivel4 = DirlugarNivel4;
-                                lugaresNivel4 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel4, model.EditarDireccionModel.LugarNivel3.ToInt());
-                                model.EditarDireccionModel.LugarNivel4 = lugaresNivel4.Where(x => x.Nombre.ToUpper().Trim() == DirlugarNivel4.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
-                                model.EditarDireccionModel.LugaresNivel4 = new SelectList(lugaresNivel4, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel4);
-
-                                model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
-
-                                model.EditarDireccionModel.NombreLugarNivel3 = string.Empty;
-                                model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", 0);
-                                break;
-                            case 1:
-                                DirCalleOAvenida = DireccionConcatenada[0].ToString().Trim();
-
-                                model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
-
-                                model.EditarDireccionModel.NombreLugarNivel3 = string.Empty;
-                                model.EditarDireccionModel.NombreLugarNivel4 = string.Empty;
-                                model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", 0);
-                                model.EditarDireccionModel.LugaresNivel4 = new SelectList(lugaresNivel4, "IdParametroUnete", "Nombre", 0);
-                                break;
-                        }
-                        model.EditarDireccionModel.Referencia = solicitudPostulante.Referencia;
-                    }
+                    model.EditarDireccionModel.NombreLugarNivel3 = string.Empty;
+                    model.EditarDireccionModel.NombreLugarNivel4 = string.Empty;
+                    model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", 0);
+                    model.EditarDireccionModel.LugaresNivel4 = new SelectList(lugaresNivel4, "IdParametroUnete", "Nombre", 0);
                 }
-                else if ( CodigoISO == Pais.Dominicana )
+                else
                 {
-                    ServiceUnete.ParametroUneteCollection lugaresNivel1 = new ServiceUnete.ParametroUneteCollection();
-                    ServiceUnete.ParametroUneteCollection lugaresNivel2 = new ServiceUnete.ParametroUneteCollection();
-                    ServiceUnete.ParametroUneteCollection lugaresNivel3 = new ServiceUnete.ParametroUneteCollection();
+                    switch (DireccionConcatenada.Length)
+                    {
+                        case 3:
+                            DirlugarNivel3 = DireccionConcatenada[0].ToString().Trim();
+                            DirlugarNivel4 = DireccionConcatenada[1].ToString().Trim();
+                            DirCalleOAvenida = DireccionConcatenada[2].ToString().Trim();
 
-                    var DirlugarNivel3 = string.Empty;
-                    var DirCalleOAvenida = string.Empty;
-                    var DirNumero = string.Empty;
+                            model.EditarDireccionModel.NombreLugarNivel3 = DirlugarNivel3;
+                            lugaresNivel3 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel3, model.EditarDireccionModel.LugarNivel2.ToInt());
+                            model.EditarDireccionModel.LugarNivel3 = lugaresNivel3.Where(x => x.Nombre.ToUpper().Trim() == DirlugarNivel3.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
+                            model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel3);
+
+                            model.EditarDireccionModel.NombreLugarNivel4 = DirlugarNivel4;
+                            lugaresNivel4 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel4, model.EditarDireccionModel.LugarNivel3.ToInt());
+                            model.EditarDireccionModel.LugarNivel4 = lugaresNivel4.Where(x => x.Nombre.ToUpper().Trim() == DirlugarNivel4.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
+                            model.EditarDireccionModel.LugaresNivel4 = new SelectList(lugaresNivel4, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel4);
+
+                            model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
+                            break;
+                        case 2://nunca debería entrar aqui
+                            DirlugarNivel4 = DireccionConcatenada[0].ToString().Trim();
+                            DirCalleOAvenida = DireccionConcatenada[1].ToString().Trim();
+
+                            model.EditarDireccionModel.NombreLugarNivel4 = DirlugarNivel4;
+                            lugaresNivel4 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel4, model.EditarDireccionModel.LugarNivel3.ToInt());
+                            model.EditarDireccionModel.LugarNivel4 = lugaresNivel4.Where(x => x.Nombre.ToUpper().Trim() == DirlugarNivel4.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
+                            model.EditarDireccionModel.LugaresNivel4 = new SelectList(lugaresNivel4, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel4);
+
+                            model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
+
+                            model.EditarDireccionModel.NombreLugarNivel3 = string.Empty;
+                            model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", 0);
+                            break;
+                        case 1:
+                            DirCalleOAvenida = DireccionConcatenada[0].ToString().Trim();
+
+                            model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
+
+                            model.EditarDireccionModel.NombreLugarNivel3 = string.Empty;
+                            model.EditarDireccionModel.NombreLugarNivel4 = string.Empty;
+                            model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", 0);
+                            model.EditarDireccionModel.LugaresNivel4 = new SelectList(lugaresNivel4, "IdParametroUnete", "Nombre", 0);
+                            break;
+                    }
+                    model.EditarDireccionModel.Referencia = solicitudPostulante.Referencia;
+                }
+            }
+            else if (CodigoISO == Pais.Dominicana)
+            {
+                ServiceUnete.ParametroUneteCollection lugaresNivel1 = new ServiceUnete.ParametroUneteCollection();
+                ServiceUnete.ParametroUneteCollection lugaresNivel2 = new ServiceUnete.ParametroUneteCollection();
+                ServiceUnete.ParametroUneteCollection lugaresNivel3 = new ServiceUnete.ParametroUneteCollection();
+
+                var DirlugarNivel3 = string.Empty;
+                var DirCalleOAvenida = string.Empty;
+                var DirNumero = string.Empty;
                 var DireccionConcatenada = new string[0];
 
                 if (!string.IsNullOrEmpty(solicitudPostulante.Direccion))
@@ -1139,83 +1140,83 @@ namespace Portal.Consultoras.Web.Controllers
                     DireccionConcatenada = solicitudPostulante.Direccion.Contains('|') ? solicitudPostulante.Direccion.Split('|') :
                                                 solicitudPostulante.Direccion.Contains(',') ? solicitudPostulante.Direccion.Split(',') : new string[1] { solicitudPostulante.Direccion };
                 }
-                    DireccionConcatenada = DireccionConcatenada.Where(x => x != string.Empty).ToArray();
-                    //DireccionConcatenada = DireccionConcatenada.Where(s => s != "").ToArray();
+                DireccionConcatenada = DireccionConcatenada.Where(x => x != string.Empty).ToArray();
+                //DireccionConcatenada = DireccionConcatenada.Where(s => s != "").ToArray();
 
-                    if (!string.IsNullOrEmpty(solicitudPostulante.LugarPadre) || !string.IsNullOrEmpty(solicitudPostulante.LugarHijo))
-                    {
+                if (!string.IsNullOrEmpty(solicitudPostulante.LugarPadre) || !string.IsNullOrEmpty(solicitudPostulante.LugarHijo))
+                {
 
-                        model.EditarDireccionModel.NombreLugarNivel1 = solicitudPostulante.LugarPadre;
-                        lugaresNivel1 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel1, 0);
-                        model.EditarDireccionModel.LugarNivel1 = lugaresNivel1.Where(x => x.Nombre == solicitudPostulante.LugarPadre).FirstOrDefault().IdParametroUnete.ToString();
-                        model.EditarDireccionModel.LugaresNivel1 = new SelectList(lugaresNivel1, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel1);
+                    model.EditarDireccionModel.NombreLugarNivel1 = solicitudPostulante.LugarPadre;
+                    lugaresNivel1 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel1, 0);
+                    model.EditarDireccionModel.LugarNivel1 = lugaresNivel1.Where(x => x.Nombre == solicitudPostulante.LugarPadre).FirstOrDefault().IdParametroUnete.ToString();
+                    model.EditarDireccionModel.LugaresNivel1 = new SelectList(lugaresNivel1, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel1);
 
 
-                        model.EditarDireccionModel.NombreLugarNivel2 = solicitudPostulante.LugarHijo;
-                        lugaresNivel2 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel2, model.EditarDireccionModel.LugarNivel1.ToInt());
-                        model.EditarDireccionModel.LugarNivel2 = lugaresNivel2.Where(x => x.Nombre == solicitudPostulante.LugarHijo).FirstOrDefault().IdParametroUnete.ToString();
-                        model.EditarDireccionModel.LugaresNivel2 = new SelectList(lugaresNivel2, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel2);
-                    }
-                    else
-                    {
-                        lugaresNivel1 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel1, 0);
-                        model.EditarDireccionModel.NombreLugarNivel1 = string.Empty;
-                        model.EditarDireccionModel.NombreLugarNivel2 = string.Empty;
-                        model.EditarDireccionModel.LugaresNivel1 = new SelectList(lugaresNivel1, "IdParametroUnete", "Nombre", "");
-                        model.EditarDireccionModel.LugaresNivel2 = new SelectList(lugaresNivel2, "IdParametroUnete", "Nombre", "");
-                    }
+                    model.EditarDireccionModel.NombreLugarNivel2 = solicitudPostulante.LugarHijo;
+                    lugaresNivel2 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel2, model.EditarDireccionModel.LugarNivel1.ToInt());
+                    model.EditarDireccionModel.LugarNivel2 = lugaresNivel2.Where(x => x.Nombre == solicitudPostulante.LugarHijo).FirstOrDefault().IdParametroUnete.ToString();
+                    model.EditarDireccionModel.LugaresNivel2 = new SelectList(lugaresNivel2, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel2);
+                }
+                else
+                {
+                    lugaresNivel1 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel1, 0);
+                    model.EditarDireccionModel.NombreLugarNivel1 = string.Empty;
+                    model.EditarDireccionModel.NombreLugarNivel2 = string.Empty;
+                    model.EditarDireccionModel.LugaresNivel1 = new SelectList(lugaresNivel1, "IdParametroUnete", "Nombre", "");
+                    model.EditarDireccionModel.LugaresNivel2 = new SelectList(lugaresNivel2, "IdParametroUnete", "Nombre", "");
+                }
 
                 if ((!solicitudPostulante.Direccion.Contains('|') && solicitudPostulante.Direccion.Contains(',')) || (solicitudPostulante.Direccion == string.Empty))
                 {
-                        DirCalleOAvenida = solicitudPostulante.Direccion;
-                        model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
-                        model.EditarDireccionModel.Numero = string.Empty;
+                    DirCalleOAvenida = solicitudPostulante.Direccion;
+                    model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
+                    model.EditarDireccionModel.Numero = string.Empty;
 
-                        model.EditarDireccionModel.NombreLugarNivel3 = string.Empty;
-                        model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", "");
-                    }
-                    else
-                    {
-                        switch (DireccionConcatenada.Length)
-                        {
-                            case 3:
-                                DirlugarNivel3 = DireccionConcatenada[0].ToString().Trim();
-                                DirCalleOAvenida = DireccionConcatenada[1].ToString().Trim();
-                                DirNumero = DireccionConcatenada[2].ToString().Trim();
-
-                                model.EditarDireccionModel.NombreLugarNivel3 = DirlugarNivel3;
-                                lugaresNivel3 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel3, model.EditarDireccionModel.LugarNivel2.ToInt());
-                                model.EditarDireccionModel.LugarNivel3 = lugaresNivel3.Where(x => x.Nombre == DirlugarNivel3).FirstOrDefault().IdParametroUnete.ToString();
-                                model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel3);
-
-                                model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
-                                model.EditarDireccionModel.Numero = DirNumero;
-                                break;
-                            case 2://nunca debería entrar aqui
-                                DirlugarNivel3 = DireccionConcatenada[0].ToString().Trim();
-                                DirCalleOAvenida = DireccionConcatenada[1].ToString().Trim();
-
-                                model.EditarDireccionModel.NombreLugarNivel3 = DirlugarNivel3;
-                                lugaresNivel3 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel3, model.EditarDireccionModel.LugarNivel2.ToInt());
-                                model.EditarDireccionModel.LugarNivel3 = lugaresNivel3.Where(x => x.Nombre == DirlugarNivel3).FirstOrDefault().IdParametroUnete.ToString();
-                                model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel3);
-
-                                model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
-                                model.EditarDireccionModel.Numero = solicitudPostulante.CodigoPostal;
-
-                                break;
-                            case 1:
-                                DirCalleOAvenida = DireccionConcatenada[0].ToString().Trim();
-                                model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
-                                model.EditarDireccionModel.Numero = string.Empty;
-
-                                model.EditarDireccionModel.NombreLugarNivel3 = string.Empty;
-                                model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", "");
-                                break;
-                        }
-                        model.EditarDireccionModel.Referencia = solicitudPostulante.Referencia;
-                    }
+                    model.EditarDireccionModel.NombreLugarNivel3 = string.Empty;
+                    model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", "");
                 }
+                else
+                {
+                    switch (DireccionConcatenada.Length)
+                    {
+                        case 3:
+                            DirlugarNivel3 = DireccionConcatenada[0].ToString().Trim();
+                            DirCalleOAvenida = DireccionConcatenada[1].ToString().Trim();
+                            DirNumero = DireccionConcatenada[2].ToString().Trim();
+
+                            model.EditarDireccionModel.NombreLugarNivel3 = DirlugarNivel3;
+                            lugaresNivel3 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel3, model.EditarDireccionModel.LugarNivel2.ToInt());
+                            model.EditarDireccionModel.LugarNivel3 = lugaresNivel3.Where(x => x.Nombre == DirlugarNivel3).FirstOrDefault().IdParametroUnete.ToString();
+                            model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel3);
+
+                            model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
+                            model.EditarDireccionModel.Numero = DirNumero;
+                            break;
+                        case 2://nunca debería entrar aqui
+                            DirlugarNivel3 = DireccionConcatenada[0].ToString().Trim();
+                            DirCalleOAvenida = DireccionConcatenada[1].ToString().Trim();
+
+                            model.EditarDireccionModel.NombreLugarNivel3 = DirlugarNivel3;
+                            lugaresNivel3 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel3, model.EditarDireccionModel.LugarNivel2.ToInt());
+                            model.EditarDireccionModel.LugarNivel3 = lugaresNivel3.Where(x => x.Nombre == DirlugarNivel3).FirstOrDefault().IdParametroUnete.ToString();
+                            model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel3);
+
+                            model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
+                            model.EditarDireccionModel.Numero = solicitudPostulante.CodigoPostal;
+
+                            break;
+                        case 1:
+                            DirCalleOAvenida = DireccionConcatenada[0].ToString().Trim();
+                            model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
+                            model.EditarDireccionModel.Numero = string.Empty;
+
+                            model.EditarDireccionModel.NombreLugarNivel3 = string.Empty;
+                            model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", "");
+                            break;
+                    }
+                    model.EditarDireccionModel.Referencia = solicitudPostulante.Referencia;
+                }
+            }
             else if (CodigoISO == Pais.PuertoRico)
             {
                 ServiceUnete.ParametroUneteCollection lugaresNivel1 = new ServiceUnete.ParametroUneteCollection();
@@ -1232,7 +1233,7 @@ namespace Portal.Consultoras.Web.Controllers
                     DireccionConcatenada = solicitudPostulante.Direccion.Contains('|') ? solicitudPostulante.Direccion.Split('|') :
                                             solicitudPostulante.Direccion.Contains(',') ? solicitudPostulante.Direccion.Split(',') : new string[1] { solicitudPostulante.Direccion };
                 }
-                    DireccionConcatenada = DireccionConcatenada.Where(x => x.Trim() != string.Empty ).ToArray();
+                DireccionConcatenada = DireccionConcatenada.Where(x => x.Trim() != string.Empty).ToArray();
                 //DireccionConcatenada = DireccionConcatenada.Where(s => s != "").ToArray();
                 model.EditarDireccionModel.Numero = solicitudPostulante.CodigoPostal;
 
@@ -1277,7 +1278,7 @@ namespace Portal.Consultoras.Web.Controllers
                             DirlugarNivel3 = DireccionConcatenada[0].ToString().Trim();
                             DirCalleOAvenida = DireccionConcatenada[1].ToString().Trim();
 
-                            model.EditarDireccionModel.NombreLugarNivel3 = DirlugarNivel3;  
+                            model.EditarDireccionModel.NombreLugarNivel3 = DirlugarNivel3;
                             model.EditarDireccionModel.LugarNivel3 = DirlugarNivel3;
 
                             model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
@@ -1389,7 +1390,8 @@ namespace Portal.Consultoras.Web.Controllers
                                 model.EditarDireccionModel.LugarNivel3 = lugaresNivel3.Where(x => x.Nombre.ToUpper().Trim() == DirlugarNivel3.ToUpper().Trim()).FirstOrDefault().IdParametroUnete.ToString();
                                 model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel3);
                             }
-                            else {
+                            else
+                            {
                                 model.EditarDireccionModel.NombreLugarNivel3 = string.Empty;
                                 model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", "");
                             }
@@ -1418,8 +1420,8 @@ namespace Portal.Consultoras.Web.Controllers
             //}
 
             model.EditarDireccionModel.SolicitudPostulanteID = id;
-                model.EditarDireccionModel.CodigoPais = CodigoISO;
-                #endregion
+            model.EditarDireccionModel.CodigoPais = CodigoISO;
+            #endregion
             //}
 
             return PartialView("_ConsultarUbicacion", model);
@@ -1429,7 +1431,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private void GetLocationInfoByAddress(ref ConsultarUbicacionModel model, ref SolicitudPostulante solicitudPostulante, string[] direccion)
         {
-            var resultadoGEO = BaseUtilities.ConsumirServicio("/ObtenerPuntosPorDireccion",new
+            var resultadoGEO = BaseUtilities.ConsumirServicio("/ObtenerPuntosPorDireccion", new
             {
                 direccion = model.DireccionCadena,
                 pais = CodigoISO,
@@ -1439,15 +1441,15 @@ namespace Portal.Consultoras.Web.Controllers
                                                      ? direccion[0]
                                                        : solicitudPostulante.LugarHijo,
                 aplicacion = 1
-            }); 
-    
+            });
+
 
             var obtenerPuntosPorDireccionResult =
                 resultadoGEO.SelectToken("ObtenerPuntosPorDireccionResult");
 
             if (obtenerPuntosPorDireccionResult.HasValues &&
-                                obtenerPuntosPorDireccionResult.SelectToken("MensajeRespuesta").ToObject<string>() =="OK" &&
-                                obtenerPuntosPorDireccionResult.SelectToken("Resultado").ToObject<string>().Contains("no pudo ser encontrada en google")==false)
+                                obtenerPuntosPorDireccionResult.SelectToken("MensajeRespuesta").ToObject<string>() == "OK" &&
+                                obtenerPuntosPorDireccionResult.SelectToken("Resultado").ToObject<string>().Contains("no pudo ser encontrada en google") == false)
             {
                 var jsonPuntos =
                     obtenerPuntosPorDireccionResult.SelectToken("Resultado")
@@ -1482,7 +1484,7 @@ namespace Portal.Consultoras.Web.Controllers
                         {
 
                             if (CodigoISO == Pais.Colombia)
-                            { 
+                            {
                                 model.Latitud = punto.Item1;
                                 model.Longitud = punto.Item2;
 
@@ -1497,12 +1499,12 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
         }
-        
+
         private void GetLocationInfo(ref ConsultarUbicacionModel model)
         {
             var punto = model.Puntos.First();
             //1. buscar el territorio por el punto
-            var obtenerTerritorioPorPuntoResult = BaseUtilities.ConsumirServicio("/ObtenerTerritorioPorPunto",new
+            var obtenerTerritorioPorPuntoResult = BaseUtilities.ConsumirServicio("/ObtenerTerritorioPorPunto", new
             {
                 punto = new
                 {
@@ -1601,7 +1603,7 @@ namespace Portal.Consultoras.Web.Controllers
                 };
 
                 if (solicitudPostulante.EstadoGEO.Value == Enumeradores.EstadoGEO.OK.ToInt() &&
-                    PaisesParaRevisarEstadoCrediticioAutomatico.Contains(CodigoISO) 
+                    PaisesParaRevisarEstadoCrediticioAutomatico.Contains(CodigoISO)
                             && solicitudPostulante.EstadoPostulante == Enumeradores.EstadoPostulante.EnGestionServicioAlCliente.ToInt())
                 {
 
@@ -1638,12 +1640,12 @@ namespace Portal.Consultoras.Web.Controllers
 
         private void actualziarCampaniaRegistro(ref SolicitudPostulante solicitudPostulante)
         {
-        
+
             using (BelcorpPaisServiceClient svc = new BelcorpPaisServiceClient())
             {
                 solicitudPostulante.CampaniaDeRegistro = svc.ObtenerIdCampaniaActivaPorZona(CodigoISO, solicitudPostulante.CodigoZona);
             }
-            
+
         }
 
         //ConsultarUbicacion CL
@@ -1789,7 +1791,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                     }
 
-                  
+
                 }
             }
 
@@ -1800,7 +1802,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var model = new ConsultarEstadoCrediticiaModel();
             var IdEstadosEvalCreditoParaCAM = new List<int>() { 30, 3, 32, 31, 2 };
-            var PaisesCAM = new List<string>() { Pais.CostaRica, Pais.Panama, Pais.Salvador, Pais.Guatemala};
+            var PaisesCAM = new List<string>() { Pais.CostaRica, Pais.Panama, Pais.Salvador, Pais.Guatemala };
             var portalSV = new PortalServiceClient();
 
             var solicitudPostulante = portalSV.ObtenerSolicitudPostulante(CodigoISO, id);
@@ -1830,7 +1832,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         ViewBag.MotivoRechazo = evaluacionCrediticaBE.RespuestaServicio;
                     }
-                
+
                 }
 
                 var estadosEvaluacionCrediticia = portalSV.ObtenerParametrosUnete(CodigoISO,
@@ -1906,7 +1908,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult ConsultarAdjuntoImageSource(string nombreArchivo, int tipo)
         {
-           
+
             var Model = new Tuple<string, string, int>(CodigoISO, nombreArchivo, tipo);
 
             var result = ConfigS3.GetUrlFileS3WithAuthentication(string.Format(
@@ -2051,7 +2053,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult MotivoRechazoGZ()
         {
- 
+
             return PartialView("_MotivoRechazo");
         }
 
@@ -2076,7 +2078,7 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception)
             {
 
-                
+
             }
 
             return Json(response, JsonRequestBehavior.AllowGet);
@@ -2101,7 +2103,7 @@ namespace Portal.Consultoras.Web.Controllers
                 eventos = sv.ObtenerEventosSolicitudPostulante(CodigoISO, id);
             }
             MalaZonificacionString = tipoRechazosGZ.Where(x => x.Valor == Enumeradores.TiposRechazoPortalGZ.MalaZonificación_CorrespondeAotraZona.ToInt()).FirstOrDefault().Nombre;
-            foreach(var evento in eventos)
+            foreach (var evento in eventos)
             {
                 historialPostulanteModel.ListaEventos.Add(new EventoPostulanteModel()
                 {
@@ -2113,7 +2115,7 @@ namespace Portal.Consultoras.Web.Controllers
                     ObservacionParte2 = (evento.Observacion != null && evento.Observacion.Contains(MalaZonificacionString) && evento.Observacion.Split('|').Length > 1) ? evento.Observacion.Substring(evento.Observacion.Split('|')[0].Length + 1) : ""
                 });
             }
- 
+
             return PartialView("_HistorialPostulante", historialPostulanteModel);
         }
 
@@ -2395,11 +2397,13 @@ namespace Portal.Consultoras.Web.Controllers
                                         ((Enumeradores.TipoSubEstadoPostulanteRechazada)i.SubEstadoPostulante).ToString()
                                         : "",
                 TelefonoCelular = i.TelefonoCelular,
-                ClaseRechazoZonaSeccion = i.EstadoPostulante == "EN GESTIÓN DEL SERVICIO AL CLIENTE" ? ( i.TipoRechazo == "3" ? "estiloMalaZonificacionZona" : i.TipoRechazo == "4" ? "estiloMalaZonificacionSeccion" :""  ) : "",
+                ClaseRechazoZonaSeccion = i.EstadoPostulante == "EN GESTIÓN DEL SERVICIO AL CLIENTE" ? (i.TipoRechazo == "3" ? "estiloMalaZonificacionZona" : i.TipoRechazo == "4" ? "estiloMalaZonificacionSeccion" : "") : "",
+                ClasePostulantesNuevasApp = i.FuenteIngreso == "MovilSE" && i.Paso < 3 ? "estiloPostulantesNuevasApp" : "",
+                TituloPostulantesNuevasApp = i.FuenteIngreso == "MovilSE" && i.Paso < 3 ? string.Format("AppSE - Postulante en Paso {0}", i.Paso) : "",
                 PopupRechazoZonaSeccion = i.EstadoPostulante == "EN GESTIÓN DEL SERVICIO AL CLIENTE" ? (i.TipoRechazo == "4" || i.TipoRechazo == "3" ? "openPopupMotivoRechazo" : "") : ""
             }).ToList();
 
- 
+
 
             var data = new
             {
@@ -2628,7 +2632,7 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 Nombre = item.ZonaSeccion,
                                 Descripcion = item.NivelRiesgo,
-                                Valor =  item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Bajo ? Enumeradores.TipoNivelesRiesgo.Bajo.ToInt()
+                                Valor = item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Bajo ? Enumeradores.TipoNivelesRiesgo.Bajo.ToInt()
                                                                   : item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Medio ? Enumeradores.TipoNivelesRiesgo.Medio.ToInt()
                                                                   : item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Alto ? Enumeradores.TipoNivelesRiesgo.Alto.ToInt()
                                                                   : Enumeradores.TipoNivelesRiesgo.Otro.ToInt(),
@@ -2792,7 +2796,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {"SECC", "SECC"},
                 {"TERRITO", "TERRITO"},
                 {"UBIGEO", "UBIGEO"},
-                
+
             };
 
 
@@ -2944,7 +2948,7 @@ namespace Portal.Consultoras.Web.Controllers
                     items.Add(objNivel);
                 }
             }
-#endregion
+            #endregion
 
             //#region antiguoBlucle
             //foreach (var item in lstSelect)
@@ -3194,7 +3198,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, "xml","xnmkl");
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "xml", "xnmkl");
                 IsCorrect = false;
             }
             return list;
@@ -3527,7 +3531,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     #endregion
 
- 
+
 
                     if (listaUbigeo.Count > 0)
                     {
@@ -3586,7 +3590,7 @@ namespace Portal.Consultoras.Web.Controllers
                                                       , model.MotivoRechazo
                                                       , Enumeradores.TipoSubEstadoPostulanteRechazada.RechazadoSAC.ToInt());
                     }
-                    else 
+                    else
                     {
                         sv.ActualizarEstadoPostulante(CodigoISO
                                                       , model.SolicitudPostulanteID
@@ -3659,9 +3663,19 @@ namespace Portal.Consultoras.Web.Controllers
                                                          new Portal.Consultoras.Web.ServiceUnete.SolicitudPostulante());
                 model.NumeroDocumento = AplicarFormatoNumeroDocumentoPorPaisVista(CodigoISO,
                     solicitudPostulante.NumeroDocumento);
-                model.Direccion = string.IsNullOrEmpty(model.Direccion)?"": model.Direccion.Replace("|", " ");
+                model.Direccion = string.IsNullOrEmpty(model.Direccion) ? "" : model.Direccion.Replace("|", " ");
                 model.CodigoPais = CodigoISO;
             }
+            using (SACServiceClient sv = new SACServiceClient())
+            {
+                model.ListaTipoVinculoFamiliar = sv.GetTablaLogicaDatos(UserData().PaisID, 36).ToList();
+            }
+            if (model.TipoVinculoFamiliar.HasValue && model.TipoVinculoFamiliar.Value != 0)
+            {
+                var tipo = model.ListaTipoVinculoFamiliar.Where(m => m.Codigo == model.TipoVinculoFamiliar.Value.ToString()).Single();
+                model.VinculoFamiliar = tipo != null ? tipo.Descripcion : "";
+            }
+
             model.ModoLectura = modoLectura;
             CargarCombos(CodigoISO);
 
@@ -3728,12 +3742,12 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (model.CodigoConsultoraRecomienda != null)
                     {
-                    //    var ConsultoraRecomienda = String.Concat("0000000", model.CodigoConsultoraRecomienda);
+                        //    var ConsultoraRecomienda = String.Concat("0000000", model.CodigoConsultoraRecomienda);
 
                         solicitudPostulante.CodigoConsultoraRecomienda =
-                                       model.CodigoConsultoraRecomienda.PadLeft(9,'0');
+                                       model.CodigoConsultoraRecomienda.PadLeft(9, '0');
                     }
- 
+
 
                     if (CodigoISO == Pais.Mexico)
                     {
@@ -3960,7 +3974,7 @@ namespace Portal.Consultoras.Web.Controllers
 
 
                     // Activacion de la geolocalización para CAM 
-                    if (CodigoISO == Pais.CostaRica || CodigoISO == Pais.Guatemala || CodigoISO == Pais.Panama || CodigoISO == Pais.Salvador )
+                    if (CodigoISO == Pais.CostaRica || CodigoISO == Pais.Guatemala || CodigoISO == Pais.Panama || CodigoISO == Pais.Salvador)
                     {
                         BelcorpPaisServiceClient svPaises = new BelcorpPaisServiceClient();
                         var codigoLugarNivel = CodigoISO == Pais.Guatemala ? model.LugarNivel5.ToInt() : model.LugarNivel4.ToInt();
@@ -3980,17 +3994,17 @@ namespace Portal.Consultoras.Web.Controllers
                         solicitudPostulante.CodigoZona = consultarUbicacionModel.Zona;
                     }
 
-                        //if (CodigoISO == Pais.PuertoRico)
-                        //{
-                        //    solicitudPostulante.CodigoPostal =model.CodigoPostal;
-                        //}
+                    //if (CodigoISO == Pais.PuertoRico)
+                    //{
+                    //    solicitudPostulante.CodigoPostal =model.CodigoPostal;
+                    //}
                     actualziarCampaniaRegistro(ref solicitudPostulante);
                     sv.ActualizarSolicitudPostulanteSAC(CodigoISO, solicitudPostulante);
                 }
             }
 
             modelMensaje.TextoMensaje = "Se actualizaron los datos de Ubigeo.";
-            return PartialView("_TemplateMensaje",modelMensaje);
+            return PartialView("_TemplateMensaje", modelMensaje);
             //return Json(new { success = true, Msg = modelMensaje }, JsonRequestBehavior.AllowGet);
         }
 
@@ -4017,7 +4031,7 @@ namespace Portal.Consultoras.Web.Controllers
                     solicitudPostulante.LugarPadre = region;
                     solicitudPostulante.LugarHijo = comuna;
 
-                    if (CodigoISO == Pais.Chile || CodigoISO == Pais.Mexico || CodigoISO == Pais.Peru || CodigoISO == Pais.Ecuador|| CodigoISO == Pais.PuertoRico || CodigoISO== Pais.Dominicana|| CodigoISO== Pais.Bolivia || CodigoISO == Pais.Colombia)
+                    if (CodigoISO == Pais.Chile || CodigoISO == Pais.Mexico || CodigoISO == Pais.Peru || CodigoISO == Pais.Ecuador || CodigoISO == Pais.PuertoRico || CodigoISO == Pais.Dominicana || CodigoISO == Pais.Bolivia || CodigoISO == Pais.Colombia)
                     {
                         try
                         {
@@ -4065,7 +4079,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
 
                     }
-                    
+
 
                     model.Region = string.IsNullOrEmpty(solicitudPostulante.CodigoZona) ? null : solicitudPostulante.CodigoZona.Substring(0, 2);
                     model.Zona = solicitudPostulante.CodigoZona;
@@ -4082,7 +4096,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             else
             {
-            return PartialView("_ConfirmarPosicion", model);
+                return PartialView("_ConfirmarPosicion", model);
             }
         }
         public ActionResult EditarDireccion(int id)
@@ -4288,7 +4302,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                     }
                 }
-                
+
 
                 using (var sv = new PortalServiceClient())
                 {
@@ -4308,7 +4322,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
 
                     // Activacion de la geolocalización para CAM 
-                    if (CodigoISO == Pais.CostaRica || CodigoISO == Pais.Guatemala || CodigoISO==Pais.Panama || CodigoISO==Pais.Salvador || CodigoISO == Pais.PuertoRico || CodigoISO == Pais.Dominicana )
+                    if (CodigoISO == Pais.CostaRica || CodigoISO == Pais.Guatemala || CodigoISO == Pais.Panama || CodigoISO == Pais.Salvador || CodigoISO == Pais.PuertoRico || CodigoISO == Pais.Dominicana)
                     {
                         BelcorpPaisServiceClient svPaises = new BelcorpPaisServiceClient();
                         var codigoLugarNivel = CodigoISO == Pais.Guatemala ? model.LugarNivel5.ToInt() : model.LugarNivel4.ToInt();
@@ -4369,8 +4383,8 @@ namespace Portal.Consultoras.Web.Controllers
                        Pais.Colombia, Pais.CostaRica, Pais.Peru, Pais.Chile
                      };
 
-                    if (solicitudPostulante.EstadoGEO.Value == Enumeradores.EstadoGEO.OK.ToInt() 
-                        && PaisesParaRevisarEstadoCrediticioAutomatico.Contains(CodigoISO)                          
+                    if (solicitudPostulante.EstadoGEO.Value == Enumeradores.EstadoGEO.OK.ToInt()
+                        && PaisesParaRevisarEstadoCrediticioAutomatico.Contains(CodigoISO)
                             && solicitudPostulante.EstadoPostulante == Enumeradores.EstadoPostulante.EnGestionServicioAlCliente.ToInt())
                     {
 
@@ -4546,7 +4560,7 @@ namespace Portal.Consultoras.Web.Controllers
                 lstSelectSE = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.TipoRechazoSociaEmpresaria, 0);
                 lstSelectGZ = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.TipoRechazo, 0);
                 tiposDocumentos = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.TipoDocumento, 0);
-                lstSubEstadosPostulante = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.TipoSubEstadoPostulante,0);
+                lstSubEstadosPostulante = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.TipoSubEstadoPostulante, 0);
             }
 
 
@@ -4608,8 +4622,8 @@ namespace Portal.Consultoras.Web.Controllers
                     DiferenciaDias = c.DiferenciaDias,
                     CodigoConsultora = c.CodigoConsultora,
                     FechaIngreso = c.FechaIngreso,
-                    Latitud=c.Latitud,
-                    Longitud= c.Longitud,
+                    Latitud = c.Latitud,
+                    Longitud = c.Longitud,
                     CampaniaDeRegistro = c.CampaniaDeRegistro,
                     TipoDocumento = (tiposDocumentos != null ? (tiposDocumentos.FirstOrDefault(tp => tp.Valor.Value == c.TipoDocumento.ToInt()) != null ? (tiposDocumentos.FirstOrDefault(tp => tp.Valor.Value == c.TipoDocumento.ToInt()).Nombre) : "") : ""),
                     CorreoElectronico = c.CorreoElectronico,
@@ -4756,9 +4770,9 @@ namespace Portal.Consultoras.Web.Controllers
 
 
             return Json(consultora != null ? consultora.NombreCompleto : string.Empty, JsonRequestBehavior.AllowGet);
-        } 
-        
-          public ActionResult ObtenerCodigoPostal(int id, string codigoIso )
+        }
+
+        public ActionResult ObtenerCodigoPostal(int id, string codigoIso)
         {
             var CodigoPostal = string.Empty;
             using (var sv = new BelcorpPaisServiceClient())
@@ -4784,7 +4798,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var lugaresNivel = sv.ObtenerParametrosUnete(codigoIso, nivel, id);
 
-                var data = lugaresNivel.Select(l => new { Value = l.IdParametroUnete, Text = l.Nombre, CodigoPostalDO=l.Descripcion }).ToList();
+                var data = lugaresNivel.Select(l => new { Value = l.IdParametroUnete, Text = l.Nombre, CodigoPostalDO = l.Descripcion }).ToList();
 
 
                 return Json(data, JsonRequestBehavior.AllowGet);
@@ -4807,7 +4821,7 @@ namespace Portal.Consultoras.Web.Controllers
                 respuesta = cadena.Substring(0, 1).ToUpper();
                 if (cadena.Length > 1)
                 {
-                    respuesta = respuesta + cadena.Substring(1, cadena.Length - 1).ToLower(); 
+                    respuesta = respuesta + cadena.Substring(1, cadena.Length - 1).ToLower();
                 }
             }
             return respuesta;
@@ -5190,7 +5204,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         //TODO: pendiente desarrollo 
-         
+
 
 
         [HttpPost]
@@ -5271,7 +5285,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return Json(new { Data = Data, Success = Success }, JsonRequestBehavior.AllowGet);
         }
-          
+
 
         public ActionResult GestionParametros()
         {
@@ -5389,14 +5403,15 @@ namespace Portal.Consultoras.Web.Controllers
         {
             ViewBag.HTMLSACUnete = getHTMLSACUnete("ReporteFunnel");
             return View();
-        }       
+        }
 
         public ActionResult ExportarExcelReporteConsolidado(string PrefijoISOPais, string FechaDesde, string FechaHasta, string Region, string Zona, string Seccion, string NombreReporte)
         {
 
             using (var sv = new PortalServiceClient())
             {
-                List<ReporteConsolidadoBE> resultado = sv.ObtenerReporteConsolidadoFiltro(new ReporteConsolidadoModelSAC() {
+                List<ReporteConsolidadoBE> resultado = sv.ObtenerReporteConsolidadoFiltro(new ReporteConsolidadoModelSAC()
+                {
 
                     CodigoIso = CodigoISO,
                     FechaDesde = FechaDesde,
@@ -5404,11 +5419,11 @@ namespace Portal.Consultoras.Web.Controllers
                     Zona = Zona,
                     Region = Region,
                     Seccion = Seccion
-                } ).ToList();
+                }).ToList();
 
                 Dictionary<string, string> dic = sv.GetDictionaryReporteConsolidado();
-                Util.ExportToExcel(NombreReporte, resultado, dic); 
-             
+                Util.ExportToExcel(NombreReporte, resultado, dic);
+
                 return null;
 
             }
@@ -5431,9 +5446,9 @@ namespace Portal.Consultoras.Web.Controllers
             //dic.Add("ACC", "ACC");
             //dic.Add("Totales", "Totales");
 
-          
+
         }
-        
+
         private BEPager Paginador<T>(BEGrid item, List<T> lst)
         {
             BEPager pag = new BEPager();
@@ -5498,7 +5513,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (var sv = new PortalServiceClient())
                 {
-                  var   data = sv.ConsultarReporteConsolidado(model);
+                    var data = sv.ConsultarReporteConsolidado(model);
                     return Json(data, JsonRequestBehavior.AllowGet);
                 }
             }
@@ -5506,46 +5521,46 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 ErrorUtilities.AddLog(ex);
                 return Json(new ReporteConsolidadoPag(), JsonRequestBehavior.AllowGet);
-            } 
+            }
 
 
-         
+
         }
 
 
         //private List<ReporteConsolidadoBE> ObtenerReporteConsolidadoFiltro(ReporteConsolidadoModel model)
         //{
-          //  List<ReporteConsolidadoBE> listaReporteConsolidado;
+        //  List<ReporteConsolidadoBE> listaReporteConsolidado;
 
-            //DateTime? fechaDesde = string.IsNullOrWhiteSpace(model.FechaDesde)
-            //  ? default(DateTime?)
-            //  : DateTime.ParseExact(model.FechaDesde, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            //DateTime? fechaHasta = string.IsNullOrWhiteSpace(model.FechaHasta)
-            //    ? default(DateTime?)
-            //    : DateTime.ParseExact(model.FechaHasta, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+        //DateTime? fechaDesde = string.IsNullOrWhiteSpace(model.FechaDesde)
+        //  ? default(DateTime?)
+        //  : DateTime.ParseExact(model.FechaDesde, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+        //DateTime? fechaHasta = string.IsNullOrWhiteSpace(model.FechaHasta)
+        //    ? default(DateTime?)
+        //    : DateTime.ParseExact(model.FechaHasta, "dd/MM/yyyy", CultureInfo.InvariantCulture);
 
-            //string codigozona = string.IsNullOrEmpty(model.Zona) ? string.Empty : model.Zona;
-            //string codigoRegion = string.IsNullOrEmpty(model.Region) ? string.Empty : model.Region;
-            //string codigoSeccion = string.IsNullOrEmpty(model.Seccion) ? string.Empty : model.Seccion;
+        //string codigozona = string.IsNullOrEmpty(model.Zona) ? string.Empty : model.Zona;
+        //string codigoRegion = string.IsNullOrEmpty(model.Region) ? string.Empty : model.Region;
+        //string codigoSeccion = string.IsNullOrEmpty(model.Seccion) ? string.Empty : model.Seccion;
 
 
-            //ReporteConsolidadoParameter objReporteConsolidadoParameter = new ReporteConsolidadoParameter
-            //{
-            //    Aplicacion = EnumsAplicacion.HerramientaGestionSAC,
-            //    CodigoIso = CodigoISO,
-            //    FechaDesde = fechaDesde,
-            //    FechaHasta = fechaHasta,
-            //    Zona = codigozona,
-            //    Region = codigoRegion,
-            //    Seccion = codigoSeccion
+        //ReporteConsolidadoParameter objReporteConsolidadoParameter = new ReporteConsolidadoParameter
+        //{
+        //    Aplicacion = EnumsAplicacion.HerramientaGestionSAC,
+        //    CodigoIso = CodigoISO,
+        //    FechaDesde = fechaDesde,
+        //    FechaHasta = fechaHasta,
+        //    Zona = codigozona,
+        //    Region = codigoRegion,
+        //    Seccion = codigoSeccion
 
-            //};
+        //};
 
-            //using (var sv = new PortalServiceClient())
-            //{
-            //    listaReporteConsolidado = sv.ObtenerReporteConsolidado(objReporteConsolidadoParameter);
-            //}
-            //return listaReporteConsolidado;
+        //using (var sv = new PortalServiceClient())
+        //{
+        //    listaReporteConsolidado = sv.ObtenerReporteConsolidado(objReporteConsolidadoParameter);
+        //}
+        //return listaReporteConsolidado;
         //    return null;
         //}
 
@@ -5560,7 +5575,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult GetReporteFuenteIngresoSearch(string CampaniaInicio, string CampaniaFin)
         {
-            var result = GetReporteFuenteIngreso(CampaniaInicio, CampaniaFin);  
+            var result = GetReporteFuenteIngreso(CampaniaInicio, CampaniaFin);
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
@@ -5590,10 +5605,10 @@ namespace Portal.Consultoras.Web.Controllers
             return Result;
         }
 
-        public ActionResult ExportarExcelFuenteIngreso(string CampaniaInicio, string CampaniaFin,string NombreReporte)
+        public ActionResult ExportarExcelFuenteIngreso(string CampaniaInicio, string CampaniaFin, string NombreReporte)
         {
- 
-           var solicitudes = GetReporteFuenteIngreso(CampaniaInicio, CampaniaFin);
+
+            var solicitudes = GetReporteFuenteIngreso(CampaniaInicio, CampaniaFin);
 
             Dictionary<string, string> dic = new Dictionary<string, string>();
 
@@ -5603,7 +5618,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             // Util.ExportToExcel("ReporteFuenteIngreso", solicitudes, dic);
-            Util.ExportToExcel(NombreReporte, solicitudes, dic); 
+            Util.ExportToExcel(NombreReporte, solicitudes, dic);
             return View();
         }
 
@@ -5611,7 +5626,7 @@ namespace Portal.Consultoras.Web.Controllers
 
 
         public string getHTMLSACUnete(string Action)
-        {        
+        {
             string UrlSACUente = ConfigurationManager.AppSettings["UneteURL"]; //"http://localhost:36852/SAC";
             string responseHTML = string.Empty;
             string url = string.Format("{0}/{1}?p={2}", UrlSACUente, Action, CodigoISO);
@@ -5630,12 +5645,12 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         public string PostHTMLSACUnete(string Action, object model)
-        { 
+        {
             var myContent = JsonConvert.SerializeObject(model);
             var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
             var byteContent = new ByteArrayContent(buffer);
-            byteContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json"); 
- 
+            byteContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+
             string UrlSACUente = ConfigurationManager.AppSettings["UneteURL"]; //"http://localhost:36852/SAC";
             string responseHTML = string.Empty;
             string url = string.Format("{0}/{1}?p={2}", UrlSACUente, Action, CodigoISO);
@@ -5654,14 +5669,14 @@ namespace Portal.Consultoras.Web.Controllers
             {
 
                 ErrorUtilities.AddLog(ex);
-            } 
+            }
 
             return responseHTML;
 
         }
 
-  
+
     }
 
- 
+
 }
