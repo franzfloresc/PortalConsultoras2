@@ -765,248 +765,6 @@ namespace Portal.Consultoras.Web.Controllers
             SetConsultoraOnlineViewBag(userData);
             return lstModel;
         }
-
-        public List<ConfiguracionPaisModel> ObtenerMenuContenedor()
-        {
-            var menuActivo = MenuContenedorObtenerActivo();
-            var listMenu = BuildMenuContenedor();
-            listMenu = listMenu.Where(e => e.CampaniaId == menuActivo.CampaniaId).ToList();
-
-            if (menuActivo.CampaniaId == userData.CampaniaID  && 
-                !(Session[Constantes.ConstSession.TieneLan] != null ? Session[Constantes.ConstSession.TieneLan].ToBool() : false))
-            {
-                listMenu = listMenu.Where(e => e.Codigo != Constantes.ConfiguracionPais.Lanzamiento).ToList();
-            }
-            if (menuActivo.CampaniaId != userData.CampaniaID && 
-                !(Session[Constantes.ConstSession.TieneLanX1] != null ? Session[Constantes.ConstSession.TieneLanX1].ToBool() : false))
-            {
-                listMenu = listMenu.Where(e => e.Codigo != Constantes.ConfiguracionPais.Lanzamiento).ToList();
-            }
-            if (!(Session[Constantes.ConstSession.TieneOpt] != null ? Session[Constantes.ConstSession.TieneOpt].ToBool() : false))
-            {
-                listMenu = listMenu.Where(e => e.Codigo != Constantes.ConfiguracionPais.OfertasParaTi).ToList();
-            }
-            return listMenu;
-        }
-
-        /*
-        * Retorna la lista de Menu vertical del contenedor en la campaña x
-        */
-        public List<ConfiguracionPaisModel> BuildMenuContenedor()
-        {
-            var listaMenu = (List<ConfiguracionPaisModel>)Session[Constantes.ConstSession.MenuContenedor] 
-                            ?? new List<ConfiguracionPaisModel>();
-            if (listaMenu.Any()) return listaMenu;
-
-            var lista = ListConfiguracionPais();
-            if (!lista.Any()) return listaMenu;
-
-            listaMenu = new List<ConfiguracionPaisModel>();
-            lista = lista.Where(c => c.TienePerfil).ToList();
-            var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-
-            var paisCarpeta = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(userData.CodigoISO) ? "Esika" : "Lbel";
-
-            foreach (var confiModel in lista)
-            {
-                confiModel.Codigo = Util.Trim(confiModel.Codigo).ToUpper();
-                confiModel.MobileLogoBanner = ConfigS3.GetUrlFileS3(carpetaPais, confiModel.MobileLogoBanner);
-                confiModel.DesktopLogoBanner = ConfigS3.GetUrlFileS3(carpetaPais, confiModel.DesktopLogoBanner);
-                confiModel.MobileFondoBanner = ConfigS3.GetUrlFileS3(carpetaPais, confiModel.MobileFondoBanner);
-                confiModel.DesktopFondoBanner = ConfigS3.GetUrlFileS3(carpetaPais, confiModel.DesktopFondoBanner);
-                confiModel.UrlMenuMobile = "/Mobile/" + confiModel.UrlMenu;
-                confiModel.EsAncla = confiModel.UrlMenu == null ? false : confiModel.UrlMenu.Contains("#");
-                confiModel.CampaniaId = userData.CampaniaID;
-                
-                if (confiModel.Codigo == Constantes.ConfiguracionPais.InicioRD)
-                {
-                    if (!revistaDigital.TieneRDC && !revistaDigital.TieneRDR)
-                        continue;
-
-                    confiModel.DesktopFondoBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_SI_D_ImagenFondo, confiModel.DesktopFondoBanner) ;
-                    confiModel.DesktopLogoBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_SI_D_ImagenLogo, confiModel.DesktopLogoBanner);
-                    confiModel.DesktopTituloBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_SI_D_TituloBanner, confiModel.DesktopTituloBanner);
-                    confiModel.DesktopSubTituloBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_SI_D_SubTituloBanner, confiModel.DesktopSubTituloBanner);
-
-                    confiModel.MobileFondoBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_SI_M_ImagenFondo, confiModel.MobileFondoBanner);
-                    confiModel.MobileLogoBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_SI_M_ImagenLogo, confiModel.MobileLogoBanner);
-                    confiModel.MobileTituloBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_SI_M_TituloBanner, confiModel.MobileTituloBanner);
-                    confiModel.MobileSubTituloBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_SI_M_SubTituloBanner, confiModel.MobileSubTituloBanner);
-
-                    confiModel.Logo = IsMobile() ? "/Content/Images/Mobile/"+ paisCarpeta + "/Contenedor/inicio_normal.png" : "/Content/Images/" + paisCarpeta + "/Contenedor/inicio_normal.png";
-                    confiModel.Descripcion = "";
-                }
-
-                if (confiModel.Codigo == Constantes.ConfiguracionPais.Inicio)
-                {
-                    if (revistaDigital.TieneRDC || revistaDigital.TieneRDR)
-                        continue;
-
-                    confiModel.DesktopFondoBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_NO_D_ImagenFondo, confiModel.DesktopFondoBanner);
-                    confiModel.DesktopLogoBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_NO_D_ImagenLogo, confiModel.DesktopLogoBanner);
-                    confiModel.DesktopTituloBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_NO_D_TituloBanner, confiModel.DesktopTituloBanner);
-                    confiModel.DesktopSubTituloBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_NO_D_SubTituloBanner, confiModel.DesktopSubTituloBanner);
-
-                    confiModel.MobileFondoBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_NO_M_ImagenFondo, confiModel.MobileFondoBanner);
-                    confiModel.MobileLogoBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_NO_M_ImagenLogo, confiModel.MobileLogoBanner);
-                    confiModel.MobileTituloBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_NO_M_TituloBanner, confiModel.MobileTituloBanner);
-                    confiModel.MobileSubTituloBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_NO_M_SubTituloBanner, confiModel.MobileSubTituloBanner);
-
-                    confiModel.Logo = IsMobile() ? "/Content/Images/Mobile/" + paisCarpeta + "/Contenedor/inicio_normal.png" : "/Content/Images/" + paisCarpeta + "/Contenedor/inicio_normal.png";
-                    confiModel.Descripcion = "";
-                }
-
-                if (confiModel.Codigo == Constantes.ConfiguracionPais.ShowRoom)
-                {
-                    if (Session["EsShowRoom"] == null || (Session["EsShowRoom"] != null && Session["EsShowRoom"].ToString() != "1"))
-                        continue;
-                }
-
-                if (confiModel.Codigo == Constantes.ConfiguracionPais.OfertaDelDia)
-                {
-                    if (!CumpleOfertaDelDia(userData))
-                        continue;
-                }
-
-                if (confiModel.Codigo == Constantes.ConfiguracionPais.Lanzamiento)
-                {
-                    if (!revistaDigital.TieneRDC && !revistaDigital.TieneRDR)
-                        continue;
-                }
-                
-                if (confiModel.Codigo == Constantes.ConfiguracionPais.OfertasParaTi)
-                {
-                    if (revistaDigital.TieneRDC || revistaDigital.TieneRDR)
-                        continue;
-                }
-
-                var config = confiModel;                               
-
-                if (confiModel.Codigo == Constantes.ConfiguracionPais.RevistaDigitalSuscripcion
-                    || config.Codigo == Constantes.ConfiguracionPais.RevistaDigitalReducida
-                    || config.Codigo == Constantes.ConfiguracionPais.RevistaDigital)
-                {
-                    BuilTituloBannerRD(ref config);
-                    if (config.DesktopSubTituloBanner == "")
-                        continue;
-                    
-                    config.MobileTituloBanner = config.DesktopTituloBanner;
-                    config.MobileSubTituloBanner = config.DesktopSubTituloBanner;
-                }
-                SepararPipe(ref config);
-                RemplazarTagNombreConfiguracion(ref config);
-
-                listaMenu.Add(config);
-            }
-
-            listaMenu.AddRange(BuildMenuContenedorBloqueado(listaMenu));
-
-            listaMenu = (revistaDigital.TieneRDC || revistaDigital.TieneRDR)
-                ? listaMenu.OrderBy(m => m.OrdenBpt).ToList()
-                : listaMenu.OrderBy(m => m.Orden).ToList();
-
-            Session[Constantes.ConstSession.MenuContenedor] = listaMenu;
-            return listaMenu;
-        }
-        
-        public List<ConfiguracionPaisModel> BuildMenuContenedorBloqueado(List<ConfiguracionPaisModel> lista)
-        {
-            var listaMenu =  new List<ConfiguracionPaisModel>();
-           foreach (var configuracionPais in lista)
-            {
-                ConfiguracionPaisModel config;
-                switch (configuracionPais.Codigo)
-                {
-                    case Constantes.ConfiguracionPais.InicioRD:
-                        config = (ConfiguracionPaisModel)configuracionPais.Clone();
-                        config.UrlMenu = "/Ofertas/Revisar";
-                        config.UrlMenuMobile = "/Mobile/Ofertas/Revisar";
-                        config.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
-                        listaMenu.Add(config);
-                        break;
-                    case Constantes.ConfiguracionPais.Lanzamiento:
-                        config = (ConfiguracionPaisModel)configuracionPais.Clone();
-                        config.UrlMenu = "#";
-                        config.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
-                        listaMenu.Add(config);
-                        break;
-                    case Constantes.ConfiguracionPais.RevistaDigital:
-                        config = (ConfiguracionPaisModel)configuracionPais.Clone();
-                        config.UrlMenu = "/RevistaDigital/Revisar";
-                        config.UrlMenuMobile = "/Mobile/RevistaDigital/Revisar";
-                        config.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
-                        listaMenu.Add(config);
-                        break;
-                }
-            }
-            return listaMenu;
-        }
-
-        public void BuilTituloBannerRD(ref ConfiguracionPaisModel confi)
-        {
-            confi.DesktopTituloBanner = userData.UsuarioNombre.ToUpper();
-            confi.DesktopSubTituloBanner = "";
-            
-            if (revistaDigital.TieneRDC)
-            {
-                if (revistaDigital.SuscripcionModel.CampaniaID > userData.CampaniaID)
-                    return;
-                
-                if (revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
-                {
-                    confi.DesktopTituloBanner += ", LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA";
-                    confi.DesktopSubTituloBanner = "ENCUENTRA OFERTAS, BONIFICACIONES, Y LANZAMIENTOS DE LAS 3 MARCAS. TODOS LOS PRODUCTOS TAMBIÉN SUMAN PUNTOS.";
-                    return;
-                }
-
-                if (revistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
-                {
-                    if (revistaDigital.SuscripcionModel.CampaniaID == userData.CampaniaID)
-                    {
-                        confi.DesktopTituloBanner += ", YA ESTÁS INSCRITA A TU NUEVA REVISTA ONLINE PERSONALIZADA";
-                        confi.DesktopSubTituloBanner = "INGRESA A ÉSIKA PARA MÍ A PARTIR DE LA PRÓXIMA CAMPAÑA Y DESCUBRE TODAS LAS OFERTAS QUE TENEMOS ÚNICAMENTE PARA TI";
-                    }
-                    else if (revistaDigital.SuscripcionModel.CampaniaID == AddCampaniaAndNumero(userData.CampaniaID, -1))
-                    {
-                        confi.DesktopTituloBanner += ", LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA";
-                        confi.DesktopSubTituloBanner = "ENCUENTRA OFERTAS, BONIFICACIONES Y LANZAMIENTOS DE LAS 3 MARCAS. RECUERDA QUE PODRÁS AGREGARLOS A PARTIR DE LA PRÓXIMA CAMPAÑA";
-                    }
-                }
-                else
-                {
-                    confi.DesktopTituloBanner += ", BIENVENIDA A ÉSIKA PARA MÍ TU NUEVA REVISTA ONLINE PRESONALIZADA";
-                    confi.DesktopSubTituloBanner = "ENCUENTRA LAS MEJORES OFERTAS Y BONIFICACIONES EXTRAS. INSCRÍBETE PARA DISFRUTAR DE TODAS ELLAS";
-                }
-                
-                return;
-            }
-
-            if (revistaDigital.TieneRDS)
-            {
-                if (!revistaDigital.TieneRDR)
-                {
-                    if (revistaDigital.SuscripcionModel.CampaniaID == userData.CampaniaID)
-                    {
-                        confi.DesktopTituloBanner += ", YA ESTÁS INSCRITA A TU NUEVA REVISTA ONLINE PERSONALIZADA";
-                        confi.DesktopSubTituloBanner = "INGRESA A ÉSIKA PARA MÍ A PARTIR DE LA PRÓXIMA CAMPAÑA Y DESCUBRE TODAS LAS OFERTAS QUE TENEMOS ÚNICAMENTE PARA TI";
-                    }
-                    else
-                    {
-                        confi.DesktopTituloBanner += ", DESCUBRE TU NUEVA REVISTA ONLINE PERSONALIZADA";
-                        confi.DesktopSubTituloBanner = "ENCUENTRA OFERTAS, BONIFICACIONES, Y LANZAMIENTOS DE LAS 3 MARCAS. TODOS LOS PRODUCTOS TAMBIÉN SUMAN PUNTOS.";
-                    }
-                    
-                    return;
-                }
-            }
-            else if (!revistaDigital.TieneRDR)
-            {
-                return;
-            }
-            
-            confi.DesktopTituloBanner += ", DESCUBRE TU NUEVA REVISTA ONLINE PERSONALIZADA";
-            confi.DesktopSubTituloBanner = "ENCUENTRA OFERTAS, BONIFICACIONES, Y LANZAMIENTOS DE LAS 3 MARCAS. TODOS LOS PRODUCTOS TAMBIÉN SUMAN PUNTOS.";
-        }
         
         private List<PermisoModel> SepararItemsMenu(List<PermisoModel> menuOriginal)
         {
@@ -2709,7 +2467,7 @@ namespace Portal.Consultoras.Web.Controllers
         #region Configuracion Seccion Palanca
         public List<ConfiguracionSeccionHomeModel> ObtenerConfiguracionSeccion()
         {
-            var menuActivo = MenuContenedorObtenerActivo();
+            var menuActivo = GetSessionMenuActivo();
             
             if (menuActivo.CampaniaId <= 0)
             {
@@ -2728,12 +2486,10 @@ namespace Portal.Consultoras.Web.Controllers
             else
             {
                 #region  Obtenido de la cache de Amazon
-                
                 using (SACServiceClient sv = new SACServiceClient())
                 {
                     listaEntidad = sv.ListarSeccionConfiguracionOfertasHome(userData.PaisID, menuActivo.CampaniaId).ToList();
                 }
-
                 #endregion
 
                 Session[sessionNombre] = listaEntidad;
@@ -2916,7 +2672,6 @@ namespace Portal.Consultoras.Web.Controllers
             return modelo.OrderBy(s => s.Orden).ToList();
 
         }
-
         public ConfiguracionSeccionHomeModel ObtenerSeccionHomePalanca(string codigo, int campaniaId)
         {
             var seccion = new ConfiguracionSeccionHomeModel();
@@ -2929,7 +2684,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return seccion;
         }
-
         public bool RDObtenerTitulosSeccion(ref string titulo, ref string subtitulo, string codigo)
         {
             if (codigo == Constantes.ConfiguracionPais.RevistaDigital)
@@ -2958,6 +2712,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
         #endregion
 
+        #region MenuContenedor
         public MenuContenedorModel GetMenuActivo()
         {
             string path = Request.Path;
@@ -2988,7 +2743,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
             catch (Exception)
-            { 
+            {
                 // ignored
             }
 
@@ -3023,25 +2778,21 @@ namespace Portal.Consultoras.Web.Controllers
                     menuActivo.Codigo = Constantes.ConfiguracionPais.Lanzamiento;
                     break;
                 case Constantes.UrlMenuContenedor.SwInicio:
-                case Constantes.UrlMenuContenedor.SwInicioIndex:
-                    menuActivo.Codigo = Constantes.ConfiguracionPais.ShowRoom;
-                    break;
                 case Constantes.UrlMenuContenedor.SwIntriga:
-                    menuActivo.Codigo = Constantes.ConfiguracionPais.ShowRoom;
-                    break;
                 case Constantes.UrlMenuContenedor.SwDetalle:
+                case Constantes.UrlMenuContenedor.SwInicioIndex:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.ShowRoom;
                     break;
                 case Constantes.UrlMenuContenedor.OptDetalle:
                     menuActivo.Codigo = GetMenuActivoOptCodigoSegunActivo(pathOrigen);
                     if (menuActivo.Codigo == "")
-                        menuActivo = (MenuContenedorModel)Session[Constantes.ConstSession.MenuContenedorActivo];
+                        menuActivo = GetSessionMenuActivo();
                     break;
                 case Constantes.UrlMenuContenedor.OfertaDelDia:
-                    menuActivo.Codigo = Constantes.ConfiguracionPais.OfertaDelDia;
-                    break;
                 case Constantes.UrlMenuContenedor.OfertaDelDiaIndex:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.OfertaDelDia;
+                    break;
+                default:
                     break;
             }
 
@@ -3107,14 +2858,247 @@ namespace Portal.Consultoras.Web.Controllers
             return codigo;
         }
 
-        public MenuContenedorModel MenuContenedorObtenerActivo()
+        public List<ConfiguracionPaisModel> ObtenerMenuContenedor()
         {
-            var menu = (MenuContenedorModel)Session[Constantes.ConstSession.MenuContenedorActivo] ?? new MenuContenedorModel();
+            var menuActivo = GetSessionMenuActivo();
+            var listMenu = BuildMenuContenedor();
+            listMenu = listMenu.Where(e => e.CampaniaId == menuActivo.CampaniaId).ToList();
 
-            return menu;
+            if (menuActivo.CampaniaId == userData.CampaniaID &&
+                !(Session[Constantes.ConstSession.TieneLan] != null ? Session[Constantes.ConstSession.TieneLan].ToBool() : false))
+            {
+                listMenu = listMenu.Where(e => e.Codigo != Constantes.ConfiguracionPais.Lanzamiento).ToList();
+            }
+            if (menuActivo.CampaniaId != userData.CampaniaID &&
+                !(Session[Constantes.ConstSession.TieneLanX1] != null ? Session[Constantes.ConstSession.TieneLanX1].ToBool() : false))
+            {
+                listMenu = listMenu.Where(e => e.Codigo != Constantes.ConfiguracionPais.Lanzamiento).ToList();
+            }
+            if (!(Session[Constantes.ConstSession.TieneOpt] != null ? Session[Constantes.ConstSession.TieneOpt].ToBool() : false))
+            {
+                listMenu = listMenu.Where(e => e.Codigo != Constantes.ConfiguracionPais.OfertasParaTi).ToList();
+            }
+            return listMenu;
         }
 
-        #region Helper function contenedor 
+        public List<ConfiguracionPaisModel> BuildMenuContenedor()
+        {
+            var listaMenu = (List<ConfiguracionPaisModel>)Session[Constantes.ConstSession.MenuContenedor]
+                            ?? new List<ConfiguracionPaisModel>();
+            if (listaMenu.Any()) return listaMenu;
+
+            var lista = ListConfiguracionPais();
+            if (!lista.Any()) return listaMenu;
+
+            listaMenu = new List<ConfiguracionPaisModel>();
+            lista = lista.Where(c => c.TienePerfil).ToList();
+            var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+
+            var paisCarpeta = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(userData.CodigoISO) ? "Esika" : "Lbel";
+
+            foreach (var confiModel in lista)
+            {
+                confiModel.Codigo = Util.Trim(confiModel.Codigo).ToUpper();
+                confiModel.MobileLogoBanner = ConfigS3.GetUrlFileS3(carpetaPais, confiModel.MobileLogoBanner);
+                confiModel.DesktopLogoBanner = ConfigS3.GetUrlFileS3(carpetaPais, confiModel.DesktopLogoBanner);
+                confiModel.MobileFondoBanner = ConfigS3.GetUrlFileS3(carpetaPais, confiModel.MobileFondoBanner);
+                confiModel.DesktopFondoBanner = ConfigS3.GetUrlFileS3(carpetaPais, confiModel.DesktopFondoBanner);
+                confiModel.UrlMenuMobile = "/Mobile/" + confiModel.UrlMenu;
+                confiModel.EsAncla = confiModel.UrlMenu == null ? false : confiModel.UrlMenu.Contains("#");
+                confiModel.CampaniaId = userData.CampaniaID;
+
+                if (confiModel.Codigo == Constantes.ConfiguracionPais.InicioRD)
+                {
+                    if (!revistaDigital.TieneRDC && !revistaDigital.TieneRDR)
+                        continue;
+
+                    confiModel.DesktopFondoBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_SI_D_ImagenFondo, confiModel.DesktopFondoBanner);
+                    confiModel.DesktopLogoBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_SI_D_ImagenLogo, confiModel.DesktopLogoBanner);
+                    confiModel.DesktopTituloBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_SI_D_TituloBanner, confiModel.DesktopTituloBanner);
+                    confiModel.DesktopSubTituloBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_SI_D_SubTituloBanner, confiModel.DesktopSubTituloBanner);
+
+                    confiModel.MobileFondoBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_SI_M_ImagenFondo, confiModel.MobileFondoBanner);
+                    confiModel.MobileLogoBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_SI_M_ImagenLogo, confiModel.MobileLogoBanner);
+                    confiModel.MobileTituloBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_SI_M_TituloBanner, confiModel.MobileTituloBanner);
+                    confiModel.MobileSubTituloBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_SI_M_SubTituloBanner, confiModel.MobileSubTituloBanner);
+
+                    confiModel.Logo = IsMobile() ? "/Content/Images/Mobile/" + paisCarpeta + "/Contenedor/inicio_normal.png" : "/Content/Images/" + paisCarpeta + "/Contenedor/inicio_normal.png";
+                    confiModel.Descripcion = "";
+                }
+
+                if (confiModel.Codigo == Constantes.ConfiguracionPais.Inicio)
+                {
+                    if (revistaDigital.TieneRDC || revistaDigital.TieneRDR)
+                        continue;
+
+                    confiModel.DesktopFondoBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_NO_D_ImagenFondo, confiModel.DesktopFondoBanner);
+                    confiModel.DesktopLogoBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_NO_D_ImagenLogo, confiModel.DesktopLogoBanner);
+                    confiModel.DesktopTituloBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_NO_D_TituloBanner, confiModel.DesktopTituloBanner);
+                    confiModel.DesktopSubTituloBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_NO_D_SubTituloBanner, confiModel.DesktopSubTituloBanner);
+
+                    confiModel.MobileFondoBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_NO_M_ImagenFondo, confiModel.MobileFondoBanner);
+                    confiModel.MobileLogoBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_NO_M_ImagenLogo, confiModel.MobileLogoBanner);
+                    confiModel.MobileTituloBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_NO_M_TituloBanner, confiModel.MobileTituloBanner);
+                    confiModel.MobileSubTituloBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_NO_M_SubTituloBanner, confiModel.MobileSubTituloBanner);
+
+                    confiModel.Logo = IsMobile() ? "/Content/Images/Mobile/" + paisCarpeta + "/Contenedor/inicio_normal.png" : "/Content/Images/" + paisCarpeta + "/Contenedor/inicio_normal.png";
+                    confiModel.Descripcion = "";
+                }
+
+                if (confiModel.Codigo == Constantes.ConfiguracionPais.ShowRoom)
+                {
+                    if (Session["EsShowRoom"] == null || (Session["EsShowRoom"] != null && Session["EsShowRoom"].ToString() != "1"))
+                        continue;
+                }
+
+                if (confiModel.Codigo == Constantes.ConfiguracionPais.OfertaDelDia)
+                {
+                    if (!CumpleOfertaDelDia(userData))
+                        continue;
+                }
+
+                if (confiModel.Codigo == Constantes.ConfiguracionPais.Lanzamiento)
+                {
+                    if (!revistaDigital.TieneRDC && !revistaDigital.TieneRDR)
+                        continue;
+                }
+
+                if (confiModel.Codigo == Constantes.ConfiguracionPais.OfertasParaTi)
+                {
+                    if (revistaDigital.TieneRDC || revistaDigital.TieneRDR)
+                        continue;
+                }
+
+                var config = confiModel;
+
+                if (confiModel.Codigo == Constantes.ConfiguracionPais.RevistaDigitalSuscripcion
+                    || config.Codigo == Constantes.ConfiguracionPais.RevistaDigitalReducida
+                    || config.Codigo == Constantes.ConfiguracionPais.RevistaDigital)
+                {
+                    BuilTituloBannerRD(ref config);
+                    if (config.DesktopSubTituloBanner == "")
+                        continue;
+
+                    config.MobileTituloBanner = config.DesktopTituloBanner;
+                    config.MobileSubTituloBanner = config.DesktopSubTituloBanner;
+                }
+                SepararPipe(ref config);
+                RemplazarTagNombreConfiguracion(ref config);
+
+                listaMenu.Add(config);
+            }
+
+            listaMenu.AddRange(BuildMenuContenedorBloqueado(listaMenu));
+
+            listaMenu = (revistaDigital.TieneRDC || revistaDigital.TieneRDR)
+                ? listaMenu.OrderBy(m => m.OrdenBpt).ToList()
+                : listaMenu.OrderBy(m => m.Orden).ToList();
+
+            Session[Constantes.ConstSession.MenuContenedor] = listaMenu;
+            return listaMenu;
+        }
+
+        public List<ConfiguracionPaisModel> BuildMenuContenedorBloqueado(List<ConfiguracionPaisModel> lista)
+        {
+            var listaMenu = new List<ConfiguracionPaisModel>();
+            foreach (var configuracionPais in lista)
+            {
+                ConfiguracionPaisModel config;
+                switch (configuracionPais.Codigo)
+                {
+                    case Constantes.ConfiguracionPais.InicioRD:
+                        config = (ConfiguracionPaisModel)configuracionPais.Clone();
+                        config.UrlMenu = "/Ofertas/Revisar";
+                        config.UrlMenuMobile = "/Mobile/Ofertas/Revisar";
+                        config.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
+                        listaMenu.Add(config);
+                        break;
+                    case Constantes.ConfiguracionPais.Lanzamiento:
+                        config = (ConfiguracionPaisModel)configuracionPais.Clone();
+                        config.UrlMenu = "#";
+                        config.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
+                        listaMenu.Add(config);
+                        break;
+                    case Constantes.ConfiguracionPais.RevistaDigital:
+                        config = (ConfiguracionPaisModel)configuracionPais.Clone();
+                        config.UrlMenu = "/RevistaDigital/Revisar";
+                        config.UrlMenuMobile = "/Mobile/RevistaDigital/Revisar";
+                        config.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
+                        listaMenu.Add(config);
+                        break;
+                }
+            }
+            return listaMenu;
+        }
+
+        public void BuilTituloBannerRD(ref ConfiguracionPaisModel confi)
+        {
+            confi.DesktopTituloBanner = userData.UsuarioNombre.ToUpper();
+            confi.DesktopSubTituloBanner = "";
+
+            if (revistaDigital.TieneRDC)
+            {
+                if (revistaDigital.SuscripcionModel.CampaniaID > userData.CampaniaID)
+                    return;
+
+                if (revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
+                {
+                    confi.DesktopTituloBanner += ", LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA";
+                    confi.DesktopSubTituloBanner = "ENCUENTRA OFERTAS, BONIFICACIONES, Y LANZAMIENTOS DE LAS 3 MARCAS. TODOS LOS PRODUCTOS TAMBIÉN SUMAN PUNTOS.";
+                    return;
+                }
+
+                if (revistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
+                {
+                    if (revistaDigital.SuscripcionModel.CampaniaID == userData.CampaniaID)
+                    {
+                        confi.DesktopTituloBanner += ", YA ESTÁS INSCRITA A TU NUEVA REVISTA ONLINE PERSONALIZADA";
+                        confi.DesktopSubTituloBanner = "INGRESA A ÉSIKA PARA MÍ A PARTIR DE LA PRÓXIMA CAMPAÑA Y DESCUBRE TODAS LAS OFERTAS QUE TENEMOS ÚNICAMENTE PARA TI";
+                    }
+                    else if (revistaDigital.SuscripcionModel.CampaniaID == AddCampaniaAndNumero(userData.CampaniaID, -1))
+                    {
+                        confi.DesktopTituloBanner += ", LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA";
+                        confi.DesktopSubTituloBanner = "ENCUENTRA OFERTAS, BONIFICACIONES Y LANZAMIENTOS DE LAS 3 MARCAS. RECUERDA QUE PODRÁS AGREGARLOS A PARTIR DE LA PRÓXIMA CAMPAÑA";
+                    }
+                }
+                else
+                {
+                    confi.DesktopTituloBanner += ", BIENVENIDA A ÉSIKA PARA MÍ TU NUEVA REVISTA ONLINE PRESONALIZADA";
+                    confi.DesktopSubTituloBanner = "ENCUENTRA LAS MEJORES OFERTAS Y BONIFICACIONES EXTRAS. INSCRÍBETE PARA DISFRUTAR DE TODAS ELLAS";
+                }
+
+                return;
+            }
+
+            if (revistaDigital.TieneRDS)
+            {
+                if (!revistaDigital.TieneRDR)
+                {
+                    if (revistaDigital.SuscripcionModel.CampaniaID == userData.CampaniaID)
+                    {
+                        confi.DesktopTituloBanner += ", YA ESTÁS INSCRITA A TU NUEVA REVISTA ONLINE PERSONALIZADA";
+                        confi.DesktopSubTituloBanner = "INGRESA A ÉSIKA PARA MÍ A PARTIR DE LA PRÓXIMA CAMPAÑA Y DESCUBRE TODAS LAS OFERTAS QUE TENEMOS ÚNICAMENTE PARA TI";
+                    }
+                    else
+                    {
+                        confi.DesktopTituloBanner += ", DESCUBRE TU NUEVA REVISTA ONLINE PERSONALIZADA";
+                        confi.DesktopSubTituloBanner = "ENCUENTRA OFERTAS, BONIFICACIONES, Y LANZAMIENTOS DE LAS 3 MARCAS. TODOS LOS PRODUCTOS TAMBIÉN SUMAN PUNTOS.";
+                    }
+
+                    return;
+                }
+            }
+            else if (!revistaDigital.TieneRDR)
+            {
+                return;
+            }
+
+            confi.DesktopTituloBanner += ", DESCUBRE TU NUEVA REVISTA ONLINE PERSONALIZADA";
+            confi.DesktopSubTituloBanner = "ENCUENTRA OFERTAS, BONIFICACIONES, Y LANZAMIENTOS DE LAS 3 MARCAS. TODOS LOS PRODUCTOS TAMBIÉN SUMAN PUNTOS.";
+        }
+        #endregion
+
+        #region Helper contenedor 
         private void SepararPipe(ref ConfiguracionPaisModel config)
         {
             if (!string.IsNullOrEmpty(config.DesktopTituloMenu) && config.DesktopTituloMenu.Contains("|"))
@@ -3128,6 +3112,7 @@ namespace Portal.Consultoras.Web.Controllers
                 config.MobileTituloMenu = config.MobileTituloMenu.SplitAndTrim('|').FirstOrDefault();
             }
         }
+
         private void RemplazarTagNombreConfiguracionOferta(ref BEConfiguracionOfertasHome config)
         {
             config.DesktopTitulo = RemplazaTag(config.DesktopTitulo);
@@ -3135,6 +3120,7 @@ namespace Portal.Consultoras.Web.Controllers
             config.MobileTitulo = RemplazaTag(config.MobileTitulo);
             config.MobileSubTitulo = RemplazaTag(config.MobileSubTitulo);
         }
+
         private void RemplazarTagNombreConfiguracion(ref ConfiguracionPaisModel config)
         {
             config.DesktopTituloBanner = RemplazaTag(config.DesktopTituloBanner);
@@ -3146,6 +3132,7 @@ namespace Portal.Consultoras.Web.Controllers
             config.MobileTituloMenu = RemplazaTag(config.MobileTituloMenu);
             config.MobileSubTituloMenu = RemplazaTag(config.MobileSubTituloMenu);
         }
+
         private string RemplazaTag(string cadena)
         {
             cadena = cadena ?? "";
@@ -3154,11 +3141,10 @@ namespace Portal.Consultoras.Web.Controllers
             cadena = cadena.Replace("#NOMBRE", userData.Sobrenombre);
             return cadena;
         }
-        #endregion
 
         protected string GetDescripcionMarca(int marcaId)
         {
-            string result = string.Empty;
+            var result = string.Empty;
 
             switch (marcaId)
             {
@@ -3209,13 +3195,15 @@ namespace Portal.Consultoras.Web.Controllers
 
             return tiposEstrategia;
         }
-        
+
         protected bool EsConsultoraNueva()
         {
             return userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Registrada ||
-                userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Retirada;
+                   userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Retirada;
         }
+        #endregion
 
+        #region Sesiones 
         public object GetSession(string nameSession)
         {
             return System.Web.HttpContext.Current.Session[nameSession] ?? new object();
@@ -3238,6 +3226,13 @@ namespace Portal.Consultoras.Web.Controllers
             return GetSession(Constantes.ConstSession.OfertaFinal) as OfertaFinalModel ??
                    new OfertaFinalModel();
         }
+
+        public MenuContenedorModel GetSessionMenuActivo()
+        {
+            return GetSession(Constantes.ConstSession.MenuContenedorActivo) as MenuContenedorModel ??
+                   new MenuContenedorModel();
+        }
+        #endregion
     }
 }
 
