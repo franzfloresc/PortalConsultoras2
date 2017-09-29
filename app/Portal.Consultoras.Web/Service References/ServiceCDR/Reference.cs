@@ -1987,7 +1987,7 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         private string OperacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool OrigenCDRWebField;
+        private string OrigenCDRWebField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ReclamoField;
@@ -2203,12 +2203,12 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool OrigenCDRWeb {
+        public string OrigenCDRWeb {
             get {
                 return this.OrigenCDRWebField;
             }
             set {
-                if ((this.OrigenCDRWebField.Equals(value) != true)) {
+                if ((object.ReferenceEquals(this.OrigenCDRWebField, value) != true)) {
                     this.OrigenCDRWebField = value;
                     this.RaisePropertyChanged("OrigenCDRWeb");
                 }

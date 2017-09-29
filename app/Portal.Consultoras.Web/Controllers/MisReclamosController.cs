@@ -1139,6 +1139,9 @@ namespace Portal.Consultoras.Web.Controllers
                         case "MotivoRechazo":
                             items = lst.OrderByDescending(x => x.MotivoRechazo);
                             break;
+                        case "OrigenCDRWeb":
+                            items = lst.OrderBy(x => x.OrigenCDRWeb);
+                            break;
 
                     }
                 }
@@ -1178,7 +1181,8 @@ namespace Portal.Consultoras.Web.Controllers
                                    a.Operacion.ToString(),
                                    a.Reclamo.ToString(),
                                    a.EstadoDetalle.ToString(),
-                                   a.MotivoRechazo.ToString()
+                                   a.MotivoRechazo.ToString(),
+                                   a.OrigenCDRWeb.ToString()
                                    //Convert.ToDateTime(a.FechaFinDD.ToString()).ToShortDateString(),
                                    //a.ZonaID.ToString()
                                 }
