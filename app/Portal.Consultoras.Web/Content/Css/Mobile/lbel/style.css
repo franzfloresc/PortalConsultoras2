@@ -1,4 +1,11 @@
-﻿body {
+﻿/* CSS Document */
+@import url('https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i,900,900i');
+
+* {
+    font-family: 'Lato', sans-serif !important;
+}
+
+body {
     background: #f3f3f3;
     font-weight: 400;
     font-size: 15px;
