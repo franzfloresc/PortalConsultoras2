@@ -11,7 +11,11 @@
                     </div>
                     {{#iff ImagenURL '!=' ''}}
                     <div class="etiqueta_producto">
+                        {{#iff EsOfertaIndependiente '==' '1'}}
+                        <img src="{{ImagenOfertaIndependiente}}" alt="Etiqueta Producto" />
+                        {{else}}
                         <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+                        {{/iff}}
                     </div>
                     {{/iff}}
                 </div>

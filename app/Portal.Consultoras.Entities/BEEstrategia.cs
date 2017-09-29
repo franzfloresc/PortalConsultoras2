@@ -215,6 +215,9 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public bool EsOfertaIndependiente { get; set; }
+
+        [DataMember]
+        public string ImagenOfertaIndependiente { get; set; }
         public BEEstrategia(IDataRecord row, bool partial)
         {
 
@@ -244,6 +247,9 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "EsOfertaIndependiente"))
                 EsOfertaIndependiente = Convert.ToBoolean(row["EsOfertaIndependiente"].ToString());
+
+            if (DataRecord.HasColumn(row, "ImagenOfertaIndependiente"))
+                ImagenOfertaIndependiente = row["ImagenOfertaIndependiente"].ToString();
 
         }
 
@@ -278,6 +284,9 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "EsOfertaIndependiente"))
                 EsOfertaIndependiente = Convert.ToBoolean(row["EsOfertaIndependiente"].ToString());
+
+            if (DataRecord.HasColumn(row, "ImagenOfertaIndependiente"))
+                ImagenOfertaIndependiente = row["ImagenOfertaIndependiente"].ToString();
         }
 
         [DataMember]
@@ -461,6 +470,9 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "EsOfertaIndependiente"))
                 EsOfertaIndependiente = Convert.ToBoolean(row["EsOfertaIndependiente"].ToString());
+
+            if (DataRecord.HasColumn(row, "ImagenOfertaIndependiente"))
+                ImagenOfertaIndependiente = row["ImagenOfertaIndependiente"].ToString();
 
             EstrategiaDetalle = new BEEstrategiaDetalle(row);
             TipoEstrategia = new BETipoEstrategia(row);

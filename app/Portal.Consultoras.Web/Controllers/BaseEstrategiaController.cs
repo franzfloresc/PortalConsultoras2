@@ -37,17 +37,18 @@ namespace Portal.Consultoras.Web.Controllers
 
 
             var listEstrategia = new List<BEEstrategia>();
-            
+
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
                 listEstrategia = sv.GetEstrategiasPedido(entidad).ToList();
             }
             listEstrategia = listEstrategia ?? new List<BEEstrategia>();
-            
+
             // Filtrar precio cero o precio de oferta mayor al precio normal.
             listEstrategia = listEstrategia.Where(e => e.Precio2 > 0).ToList();
             // EPD 3029, Solo para estrategias != Nuevas (1)
-            listEstrategia.Where(e => (e.Precio <= e.Precio2) && e.FlagNueva != 1).ToList().ForEach(e => {
+            listEstrategia.Where(e => (e.Precio <= e.Precio2) && e.FlagNueva != 1).ToList().ForEach(e =>
+            {
                 e.Precio = 0;
                 e.PrecioTachado = Util.DecimalToStringFormat(e.Precio, userData.CodigoISO);
             });
@@ -60,9 +61,9 @@ namespace Portal.Consultoras.Web.Controllers
             Session[varSession] = listEstrategia;
             return listEstrategia;
         }
-        
+
         public List<BEEstrategia> ConsultarMasVendidos()
-        {          
+        {
             var entidad = new BEEstrategia
             {
                 PaisID = userData.PaisID,
@@ -83,7 +84,8 @@ namespace Portal.Consultoras.Web.Controllers
             listEstrategia = listEstrategia ?? new List<BEEstrategia>();
 
             listEstrategia = listEstrategia.Where(e => e.Precio2 > 0).ToList();
-            listEstrategia.Where(e => e.Precio <= e.Precio2).ToList().ForEach(e => {
+            listEstrategia.Where(e => e.Precio <= e.Precio2).ToList().ForEach(e =>
+            {
                 e.Precio = 0;
                 e.PrecioTachado = Util.DecimalToStringFormat(e.Precio, userData.CodigoISO);
             });
@@ -175,8 +177,8 @@ namespace Portal.Consultoras.Web.Controllers
                 if (estrategiaModelo.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaFija || estrategiaModelo.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaVariable)
                 {
                     var listaHermanosX = new List<ProductoModel>();
-                    listaProducto = listaProducto.OrderBy(p=>p.Grupo).ToList();
-                    listaHermanos = listaHermanos.OrderBy(p=>p.CodigoProducto).ToList();
+                    listaProducto = listaProducto.OrderBy(p => p.Grupo).ToList();
+                    listaHermanos = listaHermanos.OrderBy(p => p.CodigoProducto).ToList();
 
                     var idPk = 1;
                     listaHermanos.ForEach(h => h.ID = idPk++);
@@ -309,7 +311,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 //    if (listaDemas.Count() > top)
                 //        listaDemas.RemoveRange(top, listaDemas.Count() - top);
-                    
+
                 //    listModel.AddRange(listaDemas);
                 //    Session[Constantes.SessionNames.ListaEstrategia] = listModel;
                 //}
@@ -345,7 +347,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (listaDemas.Count() > top)
                         listaDemas.RemoveRange(top, listaDemas.Count() - top);
-                    
+
                     listModel.AddRange(listaDemas);
                     Session[Constantes.SessionNames.ListaEstrategia] = listModel;
                 }
@@ -368,7 +370,7 @@ namespace Portal.Consultoras.Web.Controllers
             var listaProducto = ConsultarEstrategias(cuv, campaniaId, codAgrupacion);
 
             List<EstrategiaPedidoModel> listaProductoModel = ConsultarEstrategiasModelFormato(listaProducto);
-            
+
             return listaProductoModel;
         }
 
@@ -386,7 +388,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             var listaPedido = ObtenerPedidoWebDetalle();
             var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-            
+
             listaProductoModel.ForEach(estrategia =>
             {
                 estrategia.ClaseBloqueada = estrategia.CampaniaID > 0 && estrategia.CampaniaID != userData.CampaniaID ? "btn_desactivado_general" : "";
@@ -467,7 +469,7 @@ namespace Portal.Consultoras.Web.Controllers
                                              ((estrategia.ListaDescripcionDetalle != null && estrategia.ListaDescripcionDetalle.Any()) ||
                                               !estrategia.EstrategiaDetalle.UrlVideoMobile.IsNullOrEmptyTrim());
             });
-            
+
             return listaProductoModel;
         }
 
@@ -479,7 +481,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             var listaPedido = ObtenerPedidoWebDetalle();
             var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-            
+
             listaProductoModel.ForEach(estrategia =>
             {
                 var prodModel = new EstrategiaPersonalizadaProductoModel();
@@ -489,7 +491,7 @@ namespace Portal.Consultoras.Web.Controllers
                 prodModel.TipoEstrategiaImagenMostrar = estrategia.TipoEstrategiaImagenMostrar;
                 prodModel.CodigoEstrategia = estrategia.TipoEstrategia.Codigo;
                 prodModel.CodigoVariante = estrategia.CodigoEstrategia;
-                prodModel.ClaseEstrategia = 
+                prodModel.ClaseEstrategia =
                     (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso
                     || estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi)
                     || (
@@ -518,7 +520,7 @@ namespace Portal.Consultoras.Web.Controllers
                 prodModel.ArrayContenidoSet = estrategia.FlagNueva == 1 ? estrategia.DescripcionCUV2.Split('|').Skip(1).ToList() : new List<string>();
                 prodModel.ListaDescripcionDetalle = estrategia.ListaDescripcionDetalle ?? new List<string>();
                 prodModel.TextoLibre = Util.Trim(estrategia.TextoLibre);
-                
+
                 prodModel.MarcaID = estrategia.MarcaID;
                 prodModel.UrlCompartir = estrategia.UrlCompartir;
 
@@ -532,7 +534,7 @@ namespace Portal.Consultoras.Web.Controllers
                 //|| estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso;
 
                 prodModel.TipoAccionAgregar = estrategia.TieneVariedad == 0 ? estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas ? 1 : 2 : 3;
-                
+
                 if (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento)
                 {
                     prodModel.TipoEstrategiaDetalle.ImgFondoDesktop = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgFondoDesktop);
@@ -547,7 +549,11 @@ namespace Portal.Consultoras.Web.Controllers
                     prodModel.TipoEstrategiaDetalle.ImgHomeDesktop = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgHomeDesktop);
                     prodModel.TipoEstrategiaDetalle.ImgHomeMobile = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgHomeMobile);
                 }
-
+                if (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas)
+                {
+                    prodModel.EsOfertaIndependiente = estrategia.EsOfertaIndependiente;
+                    prodModel.ImagenOfertaIndependiente = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.ImagenOfertaIndependiente);
+                }
                 listaRetorno.Add(prodModel);
             });
 

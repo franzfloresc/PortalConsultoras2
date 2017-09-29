@@ -199,7 +199,7 @@ namespace Portal.Consultoras.Web.Controllers
                             userData.PaisID,
                             userData.CampaniaID,
                             userData.ConsultoraID,
-                            userData.NombreConsultora, 
+                            userData.NombreConsultora,
                             EsOpt()
                         ).ToList();
                     }
@@ -1198,7 +1198,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.IndicadorGPRSB = model.IndicadorGPRSB;      //0=OK,1=Facturando,2=Rechazado
             ViewBag.CerrarRechazado = model.CerrarRechazado;
             ViewBag.MostrarBannerRechazo = model.MostrarBannerRechazo;
-           
+
 
 
             ViewBag.GPRBannerTitulo = model.GPRBannerTitulo ?? "";

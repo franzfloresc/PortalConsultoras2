@@ -666,6 +666,7 @@
       <xs:element minOccurs="0" name="ID" type="xs:int" />
       <xs:element minOccurs="0" name="IdMatrizComercial" type="xs:int" />
       <xs:element minOccurs="0" name="Imagen" type="xs:int" />
+      <xs:element minOccurs="0" name="ImagenOfertaIndependiente" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImagenURL" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImgFichaDesktop" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImgFichaFondoDesktop" nillable="true" type="xs:string" />

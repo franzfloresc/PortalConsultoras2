@@ -1300,7 +1300,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public JsonResult AgregarProductoZE(string MarcaID, string CUV, string PrecioUnidad, string Descripcion, string Cantidad, string indicadorMontoMinimo,
-                                              string TipoOferta, string OrigenPedidoWeb, string ClienteID_ = "", int tipoEstrategiaImagen = 0)
+                                              string TipoOferta, string OrigenPedidoWeb, string ClienteID_ = "", int tipoEstrategiaImagen = 0, bool EsOfertaIndependiente = false)
         {
             var pedidoModel = new PedidoSb2Model()
             {
@@ -1317,7 +1317,8 @@ namespace Portal.Consultoras.Web.Controllers
                 TipoOfertaSisID = Convert.ToInt32(TipoOferta), // C1747
                 ConfiguracionOfertaID = Convert.ToInt32(TipoOferta),
                 OfertaWeb = false,
-                OrigenPedidoWeb = Convert.ToInt32(OrigenPedidoWeb)
+                OrigenPedidoWeb = Convert.ToInt32(OrigenPedidoWeb),
+                EsOfertaIndependiente = EsOfertaIndependiente
             };
 
             EliminarDetallePackNueva(pedidoModel, tipoEstrategiaImagen);
@@ -1330,6 +1331,8 @@ namespace Portal.Consultoras.Web.Controllers
         #region Eliminar Detalle Pack Nueva
         private void EliminarDetallePackNueva(PedidoSb2Model entidad, int tipoEstrategiaImagen)
         {
+            if (entidad.EsOfertaIndependiente) return;
+
             if (tipoEstrategiaImagen == Constantes.TipoEstrategia.PackNuevas)
             {
                 var lstPedidoWebDetalle = ObtenerPedidoWebDetalle();
@@ -4382,8 +4385,18 @@ namespace Portal.Consultoras.Web.Controllers
 
             #region AgregarProductoZE
 
-            return AgregarProductoZE(estrategia.MarcaID.ToString(), estrategia.CUV2, estrategia.Precio2.ToString(), descripcion, estrategia.Cantidad.ToString(), estrategia.IndicadorMontoMinimo.ToString(),
-                     estrategia.TipoEstrategiaID.ToString(), OrigenPedidoWeb, ClienteID_, tipoEstrategiaImagen);
+            return AgregarProductoZE(estrategia.MarcaID.ToString(),
+                estrategia.CUV2,
+                estrategia.Precio2.ToString(),
+                descripcion,
+                estrategia.Cantidad.ToString(),
+                estrategia.IndicadorMontoMinimo.ToString(),
+                estrategia.TipoEstrategiaID.ToString(),
+                OrigenPedidoWeb,
+                ClienteID_,
+                tipoEstrategiaImagen,
+                estrategia.EsOfertaIndependiente
+                );
             #endregion
 
         }

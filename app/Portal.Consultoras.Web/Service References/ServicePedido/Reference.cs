@@ -9571,6 +9571,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private int ImagenField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ImagenOfertaIndependienteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ImagenURLField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -10238,6 +10241,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.ImagenField.Equals(value) != true)) {
                     this.ImagenField = value;
                     this.RaisePropertyChanged("Imagen");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ImagenOfertaIndependiente {
+            get {
+                return this.ImagenOfertaIndependienteField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ImagenOfertaIndependienteField, value) != true)) {
+                    this.ImagenOfertaIndependienteField = value;
+                    this.RaisePropertyChanged("ImagenOfertaIndependiente");
                 }
             }
         }

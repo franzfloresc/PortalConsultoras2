@@ -40,7 +40,7 @@ namespace Portal.Consultoras.Web.Models
         public int FlagNueva { get; set; }
         public bool IsAgregado { get; set; }
         public string CodigoEstrategia { get; set; }
-        public string CodigoVariante { get; set; }        
+        public string CodigoVariante { get; set; }
         public List<string> ArrayContenidoSet { get; set; }
         public List<string> ListaDescripcionDetalle { get; set; }
         public string TextoLibre { get; set; }
@@ -51,5 +51,7 @@ namespace Portal.Consultoras.Web.Models
         public EstrategiaDetalleModelo TipoEstrategiaDetalle { get; set; }
 
         public List<ProductoModel> Hermanos { get; set; }
+        public bool EsOfertaIndependiente { get; set; }
+        public string ImagenOfertaIndependiente { get; set; }
     }
 }

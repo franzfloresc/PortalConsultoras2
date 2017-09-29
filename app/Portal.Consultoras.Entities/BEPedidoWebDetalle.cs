@@ -367,7 +367,7 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "CodigoCatalago"))
                 CodigoCatalago = row["CodigoCatalago"] == DBNull.Value ? 0 : Convert.ToInt32(row["CodigoCatalago"]);
             if (DataRecord.HasColumn(row, "EsOfertaIndependiente"))
-                EsOfertaIndependiente = row["EsOfertaIndependiente"] == DBNull.Value ? false : Convert.ToBoolean(row["EsOfertaIndependiente"]);
+                EsOfertaIndependiente = row["EsOfertaIndependiente"] == DBNull.Value ? false : Convert.ToBoolean(row["EsOfertaIndependiente"].ToString());
         }
     }
 
