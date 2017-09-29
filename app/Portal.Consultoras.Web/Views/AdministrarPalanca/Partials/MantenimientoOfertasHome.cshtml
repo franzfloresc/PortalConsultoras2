@@ -1,0 +1,190 @@
+﻿
+@model Portal.Consultoras.Web.Models.AdministrarOfertasHomeModel
+@{
+    string imagenVacia = "prod_grilla_vacio.png";
+}
+
+@Html.HiddenFor(model => model.ConfiguracionOfertasHomeID)
+<div class="div-3">
+    <div class="titG">Campaña:</div>
+    <div class="titG selectP2 borde_redondeado">
+        @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.ListaCampanias, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "ddlCampaniaOfertas" })
+    </div>
+</div>
+<div class="div-3">
+    <div class="titG">Palanca:</div>
+    <div class="titG selectP2 borde_redondeado">
+        <select data-val="true" data-val-required="El campo ConfiguracionPaisID es obligatorio." id="ddlConfiguracionIdOfertas" name="ConfiguracionPaisID">
+            <option value="">-- Seleccionar --</option>
+            @foreach (var item in Model.ListaConfiguracionPais)
+            {
+                var selectedOption = (item.ConfiguracionPaisID == Model.ConfiguracionPaisID) ? "selected='selected'" : "";
+                <option data-codigo="@item.Codigo" value="@item.ConfiguracionPaisID" @selectedOption>@item.Descripcion</option>
+            }
+        </select>
+        @*@Html.DropDownListFor(model => model.ConfiguracionPaisID, new SelectList(Model.ListaConfiguracionPais, "ConfiguracionPaisID", "Descripcion"), "-- Seleccionar --", new { id = "ddlConfiguracionIdOfertas" })*@
+    </div>
+</div>
+<div class="div-3">
+    <div class="titG">Orden:</div>
+    <div class="titG selectP2 borde_redondeado">
+        @Html.TextBoxFor(m => m.DesktopOrden)
+    </div>
+</div>
+<div class="div-3">
+    <div class="titG">URL Sección:</div>
+    <div class="titG selectP2 borde_redondeado">
+        @Html.TextBoxFor(m => m.UrlSeccion)
+    </div>
+</div>
+<div id="div-revista-digital" class="div-3 Content_modal" style="margin-left: 12px; width: 94%; padding-top: 10px; padding-bottom: 0; margin-bottom: 10px;">
+    <div style="color: white;">
+        <div style="display: inline-block; width:97%; text-align: center; padding: 8px; background: #00A2E8; border-top-left-radius: 10px; border-top-right-radius: 10px">
+            Datos Generales
+        </div>
+    </div>
+    <div class="fontColorAdm">
+        <div class="sideLeft">
+            <h4>Desktop</h4>
+        </div>
+        <div class="sideRight">
+            <h4>Mobile</h4>
+        </div>
+    </div>
+    <div class="clear-fix"></div>
+    <div class="fontColorAdm">
+        <div class="sideLeft">
+            <div class="div-3" >
+                <div class="titG">¿Activar?</div>
+                <div class="titG">
+                    @Html.CheckBoxFor(m => m.DesktopActivo)
+                </div>
+            </div>
+            <div class="div-3" style="display: inline-block; text-align: left; margin-bottom: 15px;">
+                <div class="titG">Imagen Fondo:</div>
+                <div style="display: inline-block;">
+                    @Html.HiddenFor(m => m.DesktopImagenFondo, new { id = "nombre-fondo-desktop" })
+                    <div id="img-fondo-desktop" style="display: inline-block;vertical-align: middle;"></div>
+                    <div class="pdr_modal2 borde_redondeado alignrigth">
+                        <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="src-fondo-desktop" class="img-matriz-preview2" data-id="">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="div-3">
+                <div class="titG" style="padding-bottom: 0;">Título:</div>
+                <br />  
+                <div class="titG selectP2 borde_redondeado" style="width: 312px;">
+                    @Html.TextBoxFor(m => m.DesktopTitulo, new { @style = "width: 312px;" })
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titG" style="padding-bottom: 0;">Sub Título:</div>
+                <br />
+                <div class="titG selectP2 borde_redondeado" style="width: 312px;">
+                    @Html.TextBoxFor(m => m.DesktopSubTitulo, new { @style = "width: 312px;" })
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titG">Cantidad:</div>
+                <div class="titG borde_redondeado" style="width: 50px;">
+                    @Html.TextBoxFor(m => m.DesktopCantidadProductos, new { @style = "width: 50px;" })
+                </div>
+                <div class="titG" style="width: 100px; display: inline-block;">
+                    Todos <input type="checkbox" id="cbDesktopCantidadTodos"
+                                 style="display: inline-block !important; margin: 5px; vertical-align: middle; height: 15px !important;" />
+                </div>
+            </div>
+            <div class="hide-configuration">
+                <div class="div-3">
+                    <div class="titG">Tipo Presentación:</div>
+                    <div class="titG borde_redondeado">
+                        @Html.DropDownListFor(model => model.DesktopTipoPresentacion, new SelectList(Model.ListaTipoPresentacion, "Codigo", "Descripcion"), "-- Seleccionar --", new { id = "ddlDesktopTipoPresentacionOfertas" })
+                    </div>
+                </div>
+
+                <div class="div-3">
+                    <div class="titG">Tipo Estrategia:</div>
+                </div>
+                <div class="div-3">
+                    <div class="borde_redondeado checkBox">
+                        @foreach (var estrategia in Model.ListaTipoEstrategia)
+                        {
+                            if (!string.IsNullOrEmpty(estrategia.Codigo))
+                            {
+                                bool checked1 = Model.DesktopTipoEstrategia.Trim().Contains(estrategia.Codigo);
+                                <input name="desktop-tipo-estrategia" type="checkbox" value="@estrategia.Codigo" checked="@checked1" style="display: inline-block !important;height: 13px !important;">
+                                <label>@estrategia.Descripcion</label><br />
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sideRight">
+            <div class="div-3">
+                <div class="titG">¿Activar?</div>
+                <div class="titG borde_redondeado">
+                    @Html.CheckBoxFor(m => m.MobileActivo)
+                </div>
+            </div>
+            <div class="div-3" style="display: inline-block; text-align: left; margin-bottom: 15px;">
+                <div class="titG">Imagen Fondo:</div>
+                <div style="display: inline-block;">
+                    @Html.HiddenFor(m => m.MobileImagenFondo, new { id = "nombre-fondo-mobile" })
+                    <div id="img-fondo-mobile" style="display: inline-block;vertical-align: middle;"></div>
+                    <div class="pdr_modal2 borde_redondeado alignrigth">
+                        <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="src-fondo-mobile" class="img-matriz-preview2" data-id="">
+                    </div>
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titG" style="padding-bottom: 0;">Título:</div>
+                <div class="titG selectP2 borde_redondeado" style="width: 312px;">
+                    @Html.TextBoxFor(m => m.MobileTitulo, new { @style = "width: 312px;" })
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titG" style="padding-bottom: 0;">Sub Título:</div>
+                <div class="titG selectP2 borde_redondeado" style="width: 312px;">
+                    @Html.TextBoxFor(m => m.MobileSubTitulo, new { @style = "width: 312px;" })
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titG">Cantidad:</div>
+                <div class="titG borde_redondeado" style="width: 50px;">
+                    @Html.TextBoxFor(m => m.MobileCantidadProductos, new { @style= "width: 50px;" })
+                </div>
+                <div class="titG" style="width: 100px; display: inline-block;">
+                    Todos <input type="checkbox" id="cbMobileCantidadTodos" 
+                                 style="display: inline-block !important; margin: 5px; vertical-align: middle; height: 15px !important;"/>
+                </div>
+            </div>
+            <div class="hide-configuration">
+                <div class="div-3">
+                    <div class="titG">Tipo Presentación:</div>
+                    <div class="titG borde_redondeado">
+                        @Html.DropDownListFor(model => model.MobileTipoPresentacion, new SelectList(Model.ListaTipoPresentacion, "Codigo", "Descripcion"), "-- Seleccionar --", new { id = "ddlMobileTipoPresentacionOfertas" })
+                    </div>
+                </div>
+                <div class="div-3">
+                    <div class="titG">Tipo Estrategia:</div>
+
+                </div>
+                <div class="div-3">
+                    <div class="borde_redondeado">
+                        @foreach (var estrategia in Model.ListaTipoEstrategia)
+                        {
+                            if (!string.IsNullOrEmpty(estrategia.Codigo))
+                            {
+                                bool checked1 = Model.MobileTipoEstrategia.Trim().Contains(estrategia.Codigo);
+                                <input name="mobile-tipo-estrategia" type="checkbox" value="@estrategia.Codigo" checked="@checked1" style="display: inline-block !important;height: 13px !important;">
+                                <label>@estrategia.Descripcion</label> <br />
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

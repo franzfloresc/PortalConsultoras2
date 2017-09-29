@@ -120,7 +120,7 @@ else
             error: function (data, error) {
                 if (checkTimeout(data)) {
                     CloseLoading();
-                    console.log(data);
+                    console.log(data, error);
                 }
             }
         });
@@ -148,7 +148,7 @@ else
             error: function (data, error) {
                 if (checkTimeout(data)) {
                     CloseLoading();
-                    console.log(data);
+                    console.log(data, error);
                 }
             }
         });
