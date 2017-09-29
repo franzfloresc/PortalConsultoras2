@@ -55,6 +55,9 @@ namespace Portal.Consultoras.Entities.CDR
         public string MensajeDespacho { get; set; }
         //EPD-1919 FIN
 
+        [DataMember]
+        public int? TipoConsultora { get; set; }
+
         public BECDRWeb()
         { }
 
@@ -75,6 +78,8 @@ namespace Portal.Consultoras.Entities.CDR
             if (row.HasColumn("TipoDespacho")) TipoDespacho = Convert.ToBoolean(row["TipoDespacho"]);
             if (row.HasColumn("FleteDespacho")) FleteDespacho = Convert.ToDecimal(row["FleteDespacho"]);
             if (row.HasColumn("MensajeDespacho")) MensajeDespacho = Convert.ToString(row["MensajeDespacho"]);
+            if (row.HasColumn("TipoConsultora")) TipoConsultora = Convert.ToInt32(row["TipoConsultora"] ?? 0);
+
             CDRWebDetalle = new List<BECDRWebDetalle>();
         }
     }
