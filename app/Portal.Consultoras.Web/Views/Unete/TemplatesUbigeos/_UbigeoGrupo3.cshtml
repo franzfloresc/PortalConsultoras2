@@ -283,8 +283,15 @@
         HabilitarDatosDireccion(1);
     });
 
-    $('#btnGrabarDireccion').click(function () {
+    $('#btnGrabarDireccion').click(function () {    
+
         if ($('#formTemplate').valid()) {
+
+            if ($('#LugarNivel4').val() == "")
+            {
+                $('#NombreLugarNivel4').val("");
+            } 
+
             $('#btnModificarDireccion').show();
             $('#btnGrabarDireccion').hide();
             $('#btnCancelarEdicion').hide();
