@@ -56,7 +56,6 @@ namespace Portal.Consultoras.Common
                 entities.Add(newObject);
             }
 
-            dataReader.Close();
             return entities;
         }
 

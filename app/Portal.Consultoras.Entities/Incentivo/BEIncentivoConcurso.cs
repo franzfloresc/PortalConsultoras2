@@ -22,8 +22,10 @@ namespace Portal.Consultoras.Entities
         [Column("CampaniaID")]
         [DataMember]
         public int CampaniaID { get; set; }
+        [Column("CampaniaIDInicio")]
         [DataMember]
         public int CampaniaIDInicio { get; set; }
+        [Column("CampaniaIDFin")]
         [DataMember]
         public int CampaniaIDFin { get; set; }
         [Column("CodigoConcurso")]
@@ -54,20 +56,28 @@ namespace Portal.Consultoras.Entities
                 _TipoConcurso = value;
             }
         }
+        [Column("PuntosAcumulados")]
         [DataMember]
         public int PuntosAcumulados { get; set; }
+        [Column("IndicadorPremioAcumulativo")]
         [DataMember]
         public bool IndicadorPremioAcumulativo { get; set; }
+        [Column("NivelAlcanzado")]
         [DataMember]
         public int NivelAlcanzado { get; set; }
+        [Column("PuntosNivel")]
         [DataMember]
         public int PuntosNivel { get; set; }
+        [Column("CampaniaIDPremiacion")]
         [DataMember]
         public int? CampaniaIDPremiacion { get; set; }
+        [Column("PuntajeExigido")]
         [DataMember]
         public int PuntajeExigido { get; set; }
+        [Column("DescripcionConcurso")]
         [DataMember]
         public string DescripcionConcurso { get; set; }
+        [Column("EstadoConcurso")]
         [DataMember]
         public string EstadoConcurso { get; set; }
         [DataMember]
