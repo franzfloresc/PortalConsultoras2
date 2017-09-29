@@ -23,6 +23,7 @@
       <xs:element minOccurs="0" name="PedidoID" type="xs:int" />
       <xs:element minOccurs="0" name="PedidoNumero" type="xs:int" />
       <xs:element minOccurs="0" name="RegionID" type="xs:int" />
+      <xs:element minOccurs="0" name="TipoConsultora" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="TipoDespacho" nillable="true" type="xs:boolean" />
       <xs:element minOccurs="0" name="ZonaID" type="xs:int" />
     </xs:sequence>
@@ -210,6 +211,7 @@
       <xs:element minOccurs="0" name="EstadoDetalle" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FechaAtencion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FechaHoraSolicitud" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FleteDespacho" nillable="true" type="xs:decimal" />
       <xs:element minOccurs="0" name="MontoDevuelto" type="xs:decimal" />
       <xs:element minOccurs="0" name="MontoFacturado" type="xs:decimal" />
       <xs:element minOccurs="0" name="MontoProductoEnviar" type="xs:decimal" />
@@ -220,6 +222,8 @@
       <xs:element minOccurs="0" name="Reclamo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="RegionCodigo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="SeccionCodigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoConsultora" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoDespacho" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UnidadesDevueltas" type="xs:int" />
       <xs:element minOccurs="0" name="UnidadesEnviar" type="xs:int" />
       <xs:element minOccurs="0" name="UnidadesFacturadas" type="xs:int" />
