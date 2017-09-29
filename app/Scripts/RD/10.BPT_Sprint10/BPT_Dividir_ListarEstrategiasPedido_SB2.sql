@@ -16,14 +16,13 @@ BEGIN
 SET NOCOUNT ON;
 	
 	declare @ZonaID VARCHAR(20) = ''
-	, @NumeroPedido INT
+	, @NumeroPedido INT = 0
 	DECLARE @tablaCuvPedido table (CUV varchar(6))
 
 	select @ZonaID = ZonaID
 		, @NumeroPedido = ConsecutivoNueva + 1
 	from ods.Consultora with(nolock)
 	where Codigo = @CodigoConsultora
-	select @ZonaID
 
 	SELECT
 		EstrategiaID,
@@ -531,7 +530,7 @@ SET NOCOUNT ON;
 	END
 	
 	SELECT
-			T.EstrategiaID
+		  T.EstrategiaID
 		, T.CUV2
 		, T.DescripcionCUV2
 		, T.EtiquetaDescripcion

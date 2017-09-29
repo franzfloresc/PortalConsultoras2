@@ -936,7 +936,7 @@ namespace Portal.Consultoras.Web.Controllers
                     .GroupBy(x => x.ClienteID).Select(x => x.First())
                     .ToList();
                 listaCliente.Insert(0, new BECliente { ClienteID = -1, Nombre = "-- TODOS --" });
-                Session["ListadoEstrategiaPedido"] = null;
+                Session[Constantes.ConstSession.ListaEstrategia] = null;
 
                 var message = !ErrorServer ? "OK"
                             : tipo.Length > 1 ? tipo
@@ -999,7 +999,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     Session["PedidoWeb"] = null;
                     Session["PedidoWebDetalle"] = null;
-                    Session["ListadoEstrategiaPedido"] = null;
+                    Session[Constantes.ConstSession.ListaEstrategia] = null;
 
                     UpdPedidoWebMontosPROL();
 
@@ -1318,7 +1318,7 @@ namespace Portal.Consultoras.Web.Controllers
             };
 
             EliminarDetallePackNueva(pedidoModel, tipoEstrategiaImagen);
-            Session["ListadoEstrategiaPedido"] = null;
+            Session[Constantes.ConstSession.ListaEstrategia] = null;
             return Insert(pedidoModel);
         }
 
@@ -1462,12 +1462,10 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     LogManager.LogManager.LogErrorWebServicesBus(e, userData.CodigoConsultora, userData.CodigoISO);
                 }
-
-
-
-                var listaEstrategias = (List<BEEstrategia>)Session["ListadoEstrategiaPedido"] ?? new List<BEEstrategia>();
+                
+                var listaEstrategias = (List<BEEstrategia>)Session[Constantes.ConstSession.ListaEstrategia] ?? new List<BEEstrategia>();
                 var estrategia = listaEstrategias.FirstOrDefault(p => p.CUV2 == model.CUV) ?? new BEEstrategia();
-                if (estrategia.TipoEstrategiaImagenMostrar == @Portal.Consultoras.Common.Constantes.TipoEstrategia.OfertaParaTi)
+                if (estrategia.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.OfertaParaTi)
                 {
                     olstProductoModel.Add(new ProductoModel() { MarcaID = 0, CUV = "El producto solicitado no existe.", TieneSugerido = 0 });
                     return Json(olstProductoModel, JsonRequestBehavior.AllowGet);
@@ -3971,37 +3969,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-
-        public JsonResult GetProductoFichaOPT(string pCuv)
-        {
-            try
-            {
-                //List<BEEstrategia> lst2 = new List<BEEstrategia>();
-                List<BEEstrategia> lst = (List<BEEstrategia>)Session["ListadoEstrategiaPedido"];
-                BEEstrategia objProOPT = lst.FirstOrDefault(p => p.CUV2 == pCuv) ?? new BEEstrategia();
-                //lst2 = lst.Where(g => g.CUV2 == pCuv).ToList();
-
-                return Json(new
-                {
-                    success = true,
-                    message = "OK",
-                    data = objProOPT,
-                    FBRuta = GetUrlCompartirFB()
-                });
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = ex.Message,
-                    data = ""
-                    //limiteJetlore = 0
-                });
-            }
-        }
-
+        
         public ActionResult AccederOfertasVALAUTOPROL(string script)
         {
             var area = "";

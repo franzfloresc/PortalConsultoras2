@@ -223,6 +223,46 @@ namespace Portal.Consultoras.Data
             }
         }
 
+        public IDataReader GetEstrategiaPackNuevas(BEEstrategia entidad)
+        {
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarEstrategiasPackNuevas"))
+            {
+                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
+                Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, entidad.ConsultoraID);
+                return Context.ExecuteReader(command);
+            }
+        }
+
+        public IDataReader GetEstrategiaLanzamiento(BEEstrategia entidad)
+        {
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarEstrategiasLanzamiento"))
+            {
+                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
+                Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, entidad.ConsultoraID);
+                return Context.ExecuteReader(command);
+            }
+        }
+
+        public IDataReader GetEstrategiaOfertaParaTi(BEEstrategia entidad)
+        {
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarEstrategiasOPT"))
+            {
+                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
+                Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, entidad.ConsultoraID);
+                return Context.ExecuteReader(command);
+            }
+        }
+
+        public IDataReader GetEstrategiaRevistaDigital(BEEstrategia entidad)
+        {
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarEstrategiasRevistaDigital"))
+            {
+                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
+                Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, entidad.ConsultoraID);
+                return Context.ExecuteReader(command);
+            }
+        }
+
         public IDataReader GetMasVendidos(BEEstrategia entidad)
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarOfertasMasVendidos"))

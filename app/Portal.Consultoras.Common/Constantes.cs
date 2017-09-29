@@ -226,6 +226,7 @@ namespace Portal.Consultoras.Common
             public const string MenuContenedor = "MenuContenedor";
 
             public const string ListaEstrategia = "ListadoEstrategiaPedido";
+
             public const string ProductoTemporal = "ProductoTemporal";
             public const string MenuContenedorActivo = "MenuContenedorActivo";
 

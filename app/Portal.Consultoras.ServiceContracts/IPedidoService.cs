@@ -675,7 +675,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEEstrategia> GetEstrategiasPedido(BEEstrategia entidad);
-
+        
         [OperationContract]
         List<BEEstrategia> GetMasVendidos(BEEstrategia entidad);
 

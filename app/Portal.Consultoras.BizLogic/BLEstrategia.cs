@@ -207,10 +207,40 @@ namespace Portal.Consultoras.BizLogic
             var estrategias = new List<BEEstrategia>();
 
             var daEstrategia = new DAEstrategia(entidad.PaisID);
-            using (var reader = daEstrategia.GetEstrategiaPedido(entidad))
+            switch (entidad.CodigoTipoEstrategia)
             {
-                while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
+                case Constantes.TipoEstrategiaCodigo.PackNuevas:
+                    using (var reader = daEstrategia.GetEstrategiaPackNuevas(entidad))
+                    {
+                        while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
+                    }
+                    break;
+                case Constantes.TipoEstrategiaCodigo.Lanzamiento:
+                    using (var reader = daEstrategia.GetEstrategiaLanzamiento(entidad))
+                    {
+                        while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
+                    }
+                    break;
+                case Constantes.TipoEstrategiaCodigo.OfertaParaTi:
+                    using (var reader = daEstrategia.GetEstrategiaOfertaParaTi(entidad))
+                    {
+                        while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
+                    }
+                    break;
+                case Constantes.TipoEstrategiaCodigo.RevistaDigital:
+                    using (var reader = daEstrategia.GetEstrategiaRevistaDigital(entidad))
+                    {
+                        while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
+                    }
+                    break;
+                default:
+                    using (var reader = daEstrategia.GetEstrategiaPedido(entidad))
+                    {
+                        while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
+                    }
+                    break;
             }
+            
             var estrategiasResult = EstrategiasPedidoLimpiar(estrategias, entidad);
             return estrategiasResult;
         }
@@ -239,7 +269,7 @@ namespace Portal.Consultoras.BizLogic
                 var fechaHoy = DateTime.Now.AddHours(entidad.ZonaHoraria).Date;
                 esFacturacion = fechaHoy >= entidad.FechaInicioFacturacion.Date;
             }
-
+            
             if (esFacturacion)
             {
                 /*Obtener si tiene stock de PROL por CodigoSAP*/
@@ -272,18 +302,22 @@ namespace Portal.Consultoras.BizLogic
 
                         if (!add) return;
 
-                        if (estrategia.Precio >= estrategia.Precio2)
-                            estrategia.Precio = Convert.ToDecimal(0.0);
+                        // Esto hace que el precio tachado no salga, se supone q el tachado debe ser superior al precio de venta
+                        //if (estrategia.Precio >= estrategia.Precio2)
+                        //    estrategia.Precio = Convert.ToDecimal(0.0);
 
                         estrategiasResult.Add(estrategia);
                     }
                 });
             }
-            else estrategiasResult.AddRange(lista);
-
-            var carpetaPais = Globals.UrlMatriz + "/" + codigoIso; //pais ISO
+            else estrategiasResult.AddRange(lista.Where(e => e.Precio2 > 0));
+            
+            var carpetaPais = Globals.UrlMatriz + "/" + codigoIso;
             estrategiasResult.ForEach(estrategia =>
             {
+                if (estrategia.Precio <= estrategia.Precio2)
+                    estrategia.Precio = Convert.ToDecimal(0.0);
+
                 estrategia.CampaniaID = entidad.CampaniaID;
                 estrategia.ImagenURL = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.ImagenURL, carpetaPais);
                 estrategia.Simbolo = entidad.Simbolo;

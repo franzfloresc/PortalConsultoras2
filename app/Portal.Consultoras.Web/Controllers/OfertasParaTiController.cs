@@ -32,7 +32,7 @@ namespace Portal.Consultoras.Web.Controllers
                 (revistaDigital.TieneRDC && revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == 1) ? 
                 Constantes.TipoEstrategiaCodigo.RevistaDigital : "";
 
-            var listModel = ConsultarEstrategiasFiltrarSegunTipo(cuv, codAgrupa);
+            var listModel = ConsultarEstrategiasHomePedido(cuv, codAgrupa);
 
             var model = new EstrategiaOutModel();
             model.CodigoEstrategia = GetCodigoEstrategia();
