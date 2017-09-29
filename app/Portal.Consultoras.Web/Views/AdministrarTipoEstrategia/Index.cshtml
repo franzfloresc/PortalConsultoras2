@@ -384,7 +384,7 @@
             resizable: false,
             modal: true,
             closeOnEscape: true,
-            width: 700,
+            width: 805,
             draggable: true,
             title: "Registro de Tipo de Estrategias",
             buttons:
@@ -543,7 +543,7 @@
                 $("#txtOrden").val(orden);
                 $("#txtPaisOferta").val($("#ddlPais option:selected").html());
                 var img = $($("#list").jqGrid('getCell', id, 'ImagenEstrategia')).attr('src');
-               
+
                 $('#img01').attr('src', img);
                 img = img.replace(/^.*[\\\/]/, '');
 
@@ -551,7 +551,7 @@
                     $('#imagenProducto01').val(img);
                     $('#imagenProductoAnterior01').val(img);
                 }
-                
+
                 var imgOfertaIndependiente = $($("#list").jqGrid('getCell', id, 'ImagenOfertaIndependiente')).attr('src');
                 $('#imgOfertaIndependiente').attr('src', imgOfertaIndependiente);
                 console.log(imgOfertaIndependiente);
@@ -719,35 +719,47 @@
                 <input type="text" id="txtCodigoPrograma" />
             </div>
         </div>
-        <div>
-            <div class="div-3">
-                <div class="titB">Imagen:</div>
-                <div class="selectP2 borde_redondeado aligncenter" style="height: 162px;">
-                    <img src='@Url.Content("~/Content/Images/prod_grilla_vacio.png")' id="img01">
-                </div>
-                <!--SB2-353 - INICIO -->
-                <div class="titB">Mostrar imagen:</div>
-                <div class="selectCheck borde_redondeado">
-                    <input type="checkbox" id="chkMostrarImg" />
-                </div>
-                <!--SB2-353 - FIN -->
-                <div class="titB" style="display: none;">Oferta:</div>
-                <div class="container clearfix" style="display: none;">
-                    <div class="selectA borde_redondeado">
-                        <!-- table id="listaOfertas"></table>
-                        <div id="pagerOferta"></div -->
-                    </div>
+        <div class="div-3">
+            <div class="titA"></div>
+            <div class="titG">
+                <div class="input_search">
+                    <input type="button" name="btnNuevaOferta" id="btnNuevaOferta" value="Ofertas" style="float:right;" />
                 </div>
             </div>
-            <div class="div-3">
-                <!--<div class="titF">Tamaño de imagen: Ancho: 100px - Alto: 25px</div> -->
-                <div class="titF">Tamaño de imagen: (Ancho: 62px - Alto: 62px)</div>
-                <div class="titG" style="width: 180px;">
-                    <div class="input_search">
-                        <input type="hidden" id="imagenProducto01" />
-                        <input type="hidden" id="imagenProductoAnterior01" />
-                        <div id="fpUpload01">
-                            <script type="text/javascript">
+        </div>
+        <div>
+            <div class="float-left">
+                <div class="div-3">
+                    <!--SB2-353 - INICIO -->
+                    <div class="titB">Mostrar imagen:</div>
+                    <div class="selectCheck borde_redondeado">
+                        <input type="checkbox" id="chkMostrarImg" />
+                    </div>
+                    <!--SB2-353 - FIN -->
+                </div>
+                <div class="div-3">
+                    <div class="titB">Imagen:</div>
+                    <div class="selectP2 borde_redondeado aligncenter" style="height: 162px;">
+                        <img src='@Url.Content("~/Content/Images/prod_grilla_vacio.png")' id="img01">
+                    </div>
+
+                    <div class="titB" style="display: none;">Oferta:</div>
+                    <div class="container clearfix" style="display: none;">
+                        <div class="selectA borde_redondeado">
+                            <!-- table id="listaOfertas"></table>
+                            <div id="pagerOferta"></div -->
+                        </div>
+                    </div>
+                </div>
+                <div class="div-3">
+                    <!--<div class="titF">Tamaño de imagen: Ancho: 100px - Alto: 25px</div> -->
+                    <div class="titF">Tamaño de imagen: (Ancho: 62px - Alto: 62px)</div>
+                    <div class="titG" style="width: 180px;">
+                        <div class="input_search">
+                            <input type="hidden" id="imagenProducto01" />
+                            <input type="hidden" id="imagenProductoAnterior01" />
+                            <div id="fpUpload01">
+                                <script type="text/javascript">
                             $.ajaxSetup({ cache: false });
                             var uploader = new qq.FileUploader({
                                 allowedExtensions: ['jpg', 'png', 'jpeg'],
@@ -769,36 +781,34 @@
                                 onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
                                 onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
                             });
-                            </script>
+                                </script>
+                            </div>
                         </div>
                     </div>
+
                 </div>
-                <div class="titF"></div>
-                <div class="titG">
-                    <div class="input_search">
-                        <input type="button" name="btnNuevaOferta" id="btnNuevaOferta" value="Ofertas" style="float:right;" />
+            </div>
+            <div class="float-left">
+                <!-- INICIO - Mostrar imagen independiente -->
+                <div class="div-3 divOfertaIndependiente">
+                    <div class="titB">Imagen Independiente:</div>
+                    <div class="selectCheck borde_redondeado">
+                        <input type="checkbox" id="chkMostrarImgIndependiente" />
                     </div>
                 </div>
-            </div>
-            <!-- INICIO - Mostrar imagen independiente -->
-            <div class="div-3 divOfertaIndependiente" style="display:none;">
-                <div class="titB">Imagen independiente:</div>
-                <div class="selectP2 borde_redondeado aligncenter" style="height: 162px;">
-                    <img src='@Url.Content("~/Content/Images/prod_grilla_vacio.png")' id="imgOfertaIndependiente">
+                <div class="div-3 divOfertaIndependiente" style="display:none;">
+                    <div class="titB">Imagen indep.:</div>
+                    <div class="selectP2 borde_redondeado aligncenter" style="height: 162px;">
+                        <img src='@Url.Content("~/Content/Images/prod_grilla_vacio.png")' id="imgOfertaIndependiente">
+                    </div>
                 </div>
-                <!--SB2-353 - INICIO -->
-                <div class="titB">Mostrar imagen Independiente:</div>
-                <div class="selectCheck borde_redondeado">
-                    <input type="checkbox" id="chkMostrarImgIndependiente" />
-                </div>
-            </div>
-            <div class="div-3 divOfertaIndependiente" style="display:none;">
-                <div class="titF">Tamaño de imagen: (Ancho: 62px - Alto: 62px)</div>
-                <div class="titG" style="width: 180px;">
-                    <div class="input_search">
-                        <input type="hidden" id="hdImagenOfertaIndependiente" />
-                        <div id="fpUpload02">
-                            <script type="text/javascript">
+                <div class="div-3 divOfertaIndependiente" style="display:none;">
+                    <div class="titF">Tamaño de imagen: (Ancho: 62px - Alto: 62px)</div>
+                    <div class="titG" style="width: 180px;">
+                        <div class="input_search">
+                            <input type="hidden" id="hdImagenOfertaIndependiente" />
+                            <div id="fpUpload02">
+                                <script type="text/javascript">
                             $.ajaxSetup({ cache: false });
                             var uploader = new qq.FileUploader({
                                 allowedExtensions: ['jpg', 'png', 'jpeg'],
@@ -820,7 +830,8 @@
                                 onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
                                 onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
                             });
-                            </script>
+                                </script>
+                            </div>
                         </div>
                     </div>
                 </div>
