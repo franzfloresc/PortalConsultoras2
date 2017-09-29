@@ -1646,9 +1646,6 @@ namespace Portal.Consultoras.Web.Controllers
         [AllowAnonymous]
         public ActionResult IngresoExterno(string token)
         {
-            //make it unique
-            //var guid =  Guid.NewGuid().ToString("N");
-
             if (!RouteData.Values.ContainsKey("guid"))
             {
                 return RedirectToRoute("UniqueRoute",
@@ -1685,7 +1682,6 @@ namespace Portal.Consultoras.Web.Controllers
                     EsAppMobile = model.EsAppMobile
                 };
 
-                //Session.Add("IngresoExterno", model.Version ?? "");
                 this.SetUniqueSession("IngresoExterno", model.Version ?? "");
 
                 if (!string.IsNullOrEmpty(model.Identifier))
@@ -1696,8 +1692,7 @@ namespace Portal.Consultoras.Web.Controllers
                 switch (model.Pagina.ToUpper())
                 {
                     case Constantes.IngresoExternoPagina.EstadoCuenta:
-                        return //RedirectToAction("Index", "EstadoCuenta", new { Area = "Mobile" });
-                        RedirectToRoute("UniqueRoute",
+                        return RedirectToRoute("UniqueRoute",
                             new RouteValueDictionary(new
                             {
                                 Controller = "EstadoCuenta",
@@ -1705,8 +1700,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 guid = this.GetUniqueKey()
                             }));
                     case Constantes.IngresoExternoPagina.SeguimientoPedido:
-                        return //RedirectToAction("Index", "SeguimientoPedido", new { Area = "Mobile", campania = model.Campania, numeroPedido = model.NumeroPedido });
-                        RedirectToRoute("UniqueRoute",
+                        return RedirectToRoute("UniqueRoute",
                             new RouteValueDictionary(new
                             {
                                 Controller = "SeguimientoPedido",
@@ -1718,8 +1712,7 @@ namespace Portal.Consultoras.Web.Controllers
                     case Constantes.IngresoExternoPagina.PedidoDetalle:
                         var listTrue = new List<string> { "1", bool.TrueString };
                         bool autoReservar = listTrue.Any(s => s.Equals(model.AutoReservar, StringComparison.OrdinalIgnoreCase));
-                        return //RedirectToAction("Detalle", "Pedido", new { guid = guid, Area = "Mobile", autoReservar = autoReservar });
-                        RedirectToRoute("UniqueRoute",
+                        return RedirectToRoute("UniqueRoute",
                             new RouteValueDictionary(new
                             {
                                 Controller = "Pedido",
@@ -1728,8 +1721,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 autoReservar = autoReservar
                             }));
                     case Constantes.IngresoExternoPagina.NotificacionesValidacionAuto:
-                        return //RedirectToAction("ListarObservaciones", "Notificaciones", new { guid = guid, Area = "Mobile", ProcesoId = model.ProcesoId, TipoOrigen = 1 });
-                        RedirectToRoute("UniqueRoute",
+                        return RedirectToRoute("UniqueRoute",
                             new RouteValueDictionary(new
                             {
                                 Controller = "Notificaciones",
@@ -1739,8 +1731,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 TipoOrigen = 1
                             }));
                     case Constantes.IngresoExternoPagina.Pedido:
-                        return //RedirectToAction("Index", "Pedido", new { guid = guid, Area = "Mobile" });
-                        RedirectToRoute("UniqueRoute",
+                        return RedirectToRoute("UniqueRoute",
                             new RouteValueDictionary(new
                             {
                                 Controller = "Pedido",
@@ -1750,17 +1741,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 TipoOrigen = 1
                             }));
                     case Constantes.IngresoExternoPagina.CompartirCatalogo:
-                        return
-                        //RedirectToAction("CompartirEnChatBot", "Compartir",
-                        //    new
-                        //    {
-                        //        guid = guid,
-                        //        Area = "Mobile",
-                        //        campania = model.Campania,
-                        //        tipoCatalogo = model.TipoCatalogo,
-                        //        url = model.UrlCatalogo
-                        //    });
-                        RedirectToRoute("UniqueRoute",
+                        return RedirectToRoute("UniqueRoute",
                             new RouteValueDictionary(new
                             {
                                 Controller = "Compartir",
@@ -1771,8 +1752,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 url = model.UrlCatalogo
                             }));
                     case Constantes.IngresoExternoPagina.MisPedidos:
-                        return //RedirectToAction("Index", "MisPedidos", new { guid = guid, Area = "Mobile" });
-                        RedirectToRoute("UniqueRoute",
+                        return RedirectToRoute("UniqueRoute",
                             new RouteValueDictionary(new
                             {
                                 Controller = "MisPedidos",
@@ -1780,8 +1760,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 guid = this.GetUniqueKey()
                             }));
                     case Constantes.IngresoExternoPagina.ShowRoom:
-                        return //RedirectToAction("Procesar", "ShowRoom", new { guid = guid, Area = "Mobile" });
-                        RedirectToRoute("UniqueRoute",
+                        return RedirectToRoute("UniqueRoute",
                             new RouteValueDictionary(new
                             {
                                 Controller = "ShowRoom",
@@ -1789,8 +1768,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 guid = this.GetUniqueKey()
                             }));
                     case Constantes.IngresoExternoPagina.ProductosAgotados:
-                        return //RedirectToAction("Index", "ProductosAgotados", new { guid = guid, Area = "Mobile" });
-                        RedirectToRoute("UniqueRoute",
+                        return RedirectToRoute("UniqueRoute",
                             new RouteValueDictionary(new
                             {
                                 Controller = "ProductosAgotados",

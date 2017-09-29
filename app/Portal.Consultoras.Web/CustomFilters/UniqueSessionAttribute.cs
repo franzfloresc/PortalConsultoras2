@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
-using Org.BouncyCastle.Asn1.Ocsp;
-using Portal.Consultoras.Web.Infraestructure;
 
 namespace Portal.Consultoras.Web.CustomFilters
 {
@@ -32,20 +25,26 @@ namespace Portal.Consultoras.Web.CustomFilters
                 {
                     var guid = HttpUtility.ParseQueryString(filterContext.RequestContext.HttpContext.Request.UrlReferrer.Query).Get(_identifierKey);
                     var originalString = filterContext.RequestContext.HttpContext.Request.UrlReferrer.OriginalString;
-                    if (originalString.IndexOf(_routePrefix) > 0)
+                    if (originalString.IndexOf(_routePrefix, StringComparison.OrdinalIgnoreCase) > 0)
                     {
-                        var urlGuid = originalString.Substring(originalString.IndexOf(_routePrefix) + _routePrefix.Length, 36);
+                        //36 is guid length
+                        var urlGuid = originalString.Substring(originalString.IndexOf(_routePrefix, StringComparison.OrdinalIgnoreCase) + _routePrefix.Length, 36);
                         guid = string.IsNullOrEmpty(guid) ? urlGuid : guid;
                     }
 
+                    Guid validatedGuid;
+                    if (!Guid.TryParse(guid, out validatedGuid))
+                        return;
+
                     if (!string.IsNullOrEmpty(guid) && !filterContext.RouteData.Values.ContainsKey(_identifierKey))
                     {
-                        filterContext.RouteData.Values.Add(_identifierKey, guid);
+                        filterContext.RouteData.Values.Add(_identifierKey, validatedGuid.ToString());
                         filterContext.Result = new RedirectToRouteResult(_routeName, filterContext.RouteData.Values);
                         return;
                     }
                 }
             }
+
             base.OnActionExecuting(filterContext);
         }
     }

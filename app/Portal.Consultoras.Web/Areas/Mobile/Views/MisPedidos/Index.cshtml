@@ -1,10 +1,9 @@
 ﻿@using Portal.Consultoras.Web.Areas.Mobile.Models
+@using Portal.Consultoras.Web.Helpers
 
 @model Portal.Consultoras.Web.Areas.Mobile.Models.PedidoWebClientePrincipalMobilModel
 @{
-    //Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
-
-    var layout = Session["IngresoExterno"] == null ? "_MobileLayout" : "_MobileLayoutEmpty";
+    var layout =  ViewContext.MobileLayout();
 
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
 }

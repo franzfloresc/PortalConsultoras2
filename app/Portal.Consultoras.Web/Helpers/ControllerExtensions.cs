@@ -5,8 +5,14 @@ namespace Portal.Consultoras.Web.Helpers
 {
     public static class ControllerExtensions
     {
+        /// <summary>
+        /// Obtiene la key unica de la ruta basada en UniqueRoute.IdentifierKey
+        /// </summary>
+        /// <param name="controller"></param>
+        /// <returns>Guid or Null</returns>
         public static string GetUniqueKey(this Controller controller)
         {
+            //todo: should evaluate rest of RouteData a queryString?
             if (controller.RouteData.Values[UniqueRoute.IdentifierKey] != null)
                 return controller.RouteData.Values[UniqueRoute.IdentifierKey].ToString();
 

@@ -29,9 +29,9 @@ namespace Portal.Consultoras.Web.Infraestructure
                 routeData.Values[IdentifierKey] = Guid.NewGuid().ToString();
             return routeData;
         }
+
         public override VirtualPathData GetVirtualPath(RequestContext requestContext, RouteValueDictionary values)
         {
-            //invert?
             return !_isGuidRoute ? null : base.GetVirtualPath(requestContext, values);
         }
     }

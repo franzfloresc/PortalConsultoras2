@@ -6,7 +6,7 @@ namespace Portal.Consultoras.Web.Helpers
     public static class ViewExtensions
     {
         /// <summary>
-        /// Calcula el nombre del Layout en base a la key IngresoExterno
+        /// Calcula el nombre del Layout en base a la Session Unica IngresoExterno
         /// </summary>
         /// <param name="viewContext">Current context</param>
         /// <returns>_MobileLayout or _MobileLayoutEmpty</returns>

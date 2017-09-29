@@ -1,14 +1,15 @@
 ﻿@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Helpers
 @model Portal.Consultoras.Web.Models.ShowRoomOfertaModel
 
 @{
-    var layout = Session["IngresoExterno"] == null ? "_MobileLayout" : "_MobileLayoutEmpty";
+    var layout =  ViewContext.MobileLayout();
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
 }
 @section styles
 {
     
-    @if (Session["IngresoExterno"] != null)
+    @if (ViewContext.GetUniqueSession("IngresoExterno") != null)
     {
         <style>
             #content {
