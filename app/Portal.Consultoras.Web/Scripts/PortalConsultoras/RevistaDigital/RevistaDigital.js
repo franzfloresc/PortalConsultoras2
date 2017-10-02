@@ -299,10 +299,15 @@ function OfertaArmarEstrategias(response) {
     divProd.find("#spnCantidadFiltro").html(cantProdFiltros);
     divProd.find("#spnCantidadTotal").html(response.cantidadTotal);
 
-    modeloTemp.lista = response.listaPerdio;
-    var divPredio = $("#divOfertaProductosPerdio");
-    var htmlDivPerdio = SetHandlebars("#producto-landing-template", modeloTemp);
-    divPredio.append(htmlDivPerdio);
+    if (response.listaPerdio != undefined) {
+        if (response.listaPerdio > 0) {
+            modeloTemp.lista = response.listaPerdio;
+            var divPredio = $("#divOfertaProductosPerdio");
+            var htmlDivPerdio = SetHandlebars("#producto-landing-template", modeloTemp);
+            divPredio.append(htmlDivPerdio);
+        }
+    }
+
     ResizeBoxContnet();
 
     if (!isDetalle) {
