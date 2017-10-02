@@ -106,6 +106,7 @@ BEGIN
 		EstadoPedidoDesc,
 		ConsultoraID,
 		PedidoID,
+		NumeroPedido,
 		FechaRegistro,
 		CanalIngreso,
 		CantidadProductos 
