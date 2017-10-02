@@ -90,10 +90,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLConfiguracionOfertasHome.cs" />
     <Compile Include="BLAsesoraOnline.cs" />
     <Compile Include="BLCupon.cs" />
     <Compile Include="Cliente\BLClienteDB.cs" />
     <Compile Include="BLConsultoraConcurso.cs" />
+    <Compile Include="BLFichaProducto.cs" />
     <Compile Include="BLPalabraInvalida.cs" />
     <Compile Include="BLProductoPalabra.cs" />
     <Compile Include="BLCuponConsultora.cs" />

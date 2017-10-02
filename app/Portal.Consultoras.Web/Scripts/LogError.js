@@ -1,13 +1,15 @@
-﻿// Tracking de errores en JS
+﻿
+if (!window.location.origin) {
+    window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
+}
+
+// Tracking de errores en JS
 window.onerror = function (msg, url, line, col, error) {
     // Browser compatibility
     // https://blog.sentry.io/2016/01/04/client-javascript-reporting-window-onerror.html
     // https://blog.bugsnag.com/js-stacktraces/
 
     if (!url) {
-        if (!window.location.origin) {
-            window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
-        }
         url = window.location.origin;
     }
 
@@ -56,11 +58,6 @@ $(document).ajaxError(function (event, jqxhr, settings, thrownError) {
     // HTTP Status Messages 
     // https://www.w3schools.com/tags/ref_httpmessages.asp
 
-
-    if (!window.location.origin) {
-        window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
-    }
-
     var urlAjax = window.location.origin + "" + settings.url;
 
     var message = settings.url + ": ";
@@ -104,9 +101,9 @@ $(document).ajaxError(function (event, jqxhr, settings, thrownError) {
 });
 
 function registrarLogError(objError) {
-    if (!urlLogDynamo) {
-        return;
-    }
+    console.log(objError);
+
+    if (!urlLogDynamo) return;
 
     var urlLogError = urlLogDynamo + "Api/LogError";
 

@@ -71,7 +71,7 @@
                             <div>¿YA VISTE TUS <b>OFERTAS EN ÉSIKA PARA MÍ</b>?
                             </div>
                             <div class="btn_diagonal btn_stroke_white">
-                                <a href="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopCatalogoSeccion)">
+                                <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
                                     VER TODAS MIS OFERTAS
                                     <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
                                     <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
@@ -94,7 +94,8 @@
                             <div class="hblock_tit" style="font-size: 14px;"> @ViewBag.NombreConsultora, LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
                             <div style="max-width: 70%; font-size: 18px;">¿YA VISTE TUS OFERTAS DE LA C-@ViewBag.NumeroCampania EN ÉSIKA PARA MÍ? </div>
                             <div class="btn_diagonal">
-                                <a href="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopCatalogoSeccion)">VER TODAS MIS OFERTAS
+                                <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
+                                    VER TODAS MIS OFERTAS
                                     <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
                                     <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
                                 </a>
@@ -119,7 +120,8 @@
                             <div>¿YA VISTE TUS <b>OFERTAS EN ÉSIKA PARA MÍ</b>?
                             </div>
                             <div class="btn_diagonal btn_stroke_white">
-                                <a href="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopCatalogoSeccion)">VER TODAS MIS OFERTAS
+                                <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
+                                    VER TODAS MIS OFERTAS
                                     <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
                                     <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
                                 </a>
@@ -299,7 +301,7 @@
         }
         var urlDetalle = '@Url.Action("Detalle", "MisCatalogosRevistas", new { area = "" })';
         var _Pagina = 1;
-        var urlRevistaDigital = '@Url.Action("Index", "RevistaDigital")';
+        var urlRevistaDigital = '@Url.Action("Comprar", "RevistaDigital")';
     </script>
 
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MisCatalogosRevistas/Index.js")"></script>

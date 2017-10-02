@@ -1,9 +1,8 @@
-﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Data.Hana;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.PublicService.Cryptography;
-
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -110,7 +109,7 @@ namespace Portal.Consultoras.BizLogic
             var DAUsuario = new DAUsuario(usuario.PaisID);
             DAUsuario.UpdUsuario(usuario);
         }
-
+        
         //1796 Inicio
         public int UpdUsuarioRechazarInvitacion(int PaisID, string CodigoUsuario)
         {
@@ -173,7 +172,7 @@ namespace Portal.Consultoras.BizLogic
             var DAUsuario = new DAUsuario(paisID);
             return DAUsuario.SetUsuarioVerTutorialDesktop(CodigoUsuario);
         }
-
+        
         public BEUsuario GetSesionUsuario(int paisID, string codigoUsuario)
         {
             BEUsuario usuario = null;
@@ -186,7 +185,7 @@ namespace Portal.Consultoras.BizLogic
                 if (reader.Read())
                     usuario = new BEUsuario(reader, true);
             }
-
+                
             if (usuario != null)
             {
                 if (usuario.ConsultoraID != 0)
@@ -196,7 +195,7 @@ namespace Portal.Consultoras.BizLogic
                         if (reader.Read())
                             configuracion = new BEConfiguracionCampania(reader);
                     }
-
+                        
                     if (configuracion != null)
                     {
                         usuario.CampaniaID = configuracion.CampaniaID;
@@ -262,7 +261,7 @@ namespace Portal.Consultoras.BizLogic
                             if (reader.Read())
                                 configuracion = new BEConfiguracionCampania(reader);
                         }
-
+                            
                         if (configuracion != null)
                         {
                             usuario.CampaniaID = configuracion.CampaniaID;
@@ -531,10 +530,10 @@ namespace Portal.Consultoras.BizLogic
         {
             var DAUsuario = new DAUsuario(paisID);
             DAUsuario.InsLogCambioContrasenia(codigoUsuarioAutenticado, emailCodigoUsuarioModificado, password, emailUsuarioModificado, Enum.GetName(typeof(EAplicacionOrigen), origen));
-
+            
             return true;
         }
-
+        
         public int ValidarEmailConsultora(int PaisID, string Email, string CodigoUsuario)
         {
             var DAUsuario = new DAUsuario(PaisID);
@@ -598,7 +597,7 @@ namespace Portal.Consultoras.BizLogic
 
             return validaLogin;
         }
-
+         
         /*EPD-1012*/
 
         /*EPD-2340*/
@@ -843,16 +842,16 @@ namespace Portal.Consultoras.BizLogic
                                         //    return 2;
                                         //else
                                         //{
-                                        if (AutorizaPedido == "N")
-                                        {
-                                            //Validamos si es SICC
-                                            if (paisID == 5 || paisID == 10 || paisID == 6 || paisID == 14 || paisID == 9 || paisID == 12 || paisID == 13)
-                                                return 2;
+                                            if (AutorizaPedido == "N")
+                                            {
+                                                //Validamos si es SICC
+                                                if (paisID == 5 || paisID == 10 || paisID == 6 || paisID == 14 || paisID == 9 || paisID == 12 || paisID == 13)
+                                                    return 2;
+                                                else
+                                                    return 3;
+                                            }
                                             else
                                                 return 3;
-                                        }
-                                        else
-                                            return 3;
                                         //} R2133
                                     }
                                     else
@@ -1184,7 +1183,7 @@ namespace Portal.Consultoras.BizLogic
         {
             List<BEUsuario> usuariosLideres = new List<BEUsuario>();
             DAUsuario DAUsuario = null;
-            int[] paises = { 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 };
+            int[] paises = { 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14};
 
             for (int i = 0; i < paises.Length; i++)
             {
@@ -1217,13 +1216,13 @@ namespace Portal.Consultoras.BizLogic
             {
                 while (reader.Read())
                 {
-                    BEUsuario usuario = new BEUsuario(reader, "Lideres", "Lideres");
+                    BEUsuario usuario = new BEUsuario(reader, "Lideres","Lideres");
                     usuariosLideres.Add(usuario);
                 }
             }
             return usuariosLideres;
 
-        }
+        }  
 
         /*R2520 - JICM - LIDERES - FIN*/
 
@@ -1265,7 +1264,7 @@ namespace Portal.Consultoras.BizLogic
                 var DAUsuario = new DAUsuario(paisId);
                 DAUsuario.CambiarClaveUsuario(codigoUsuario, nuevacontrasena, correo);
                 DAUsuario.InsLogCambioContrasenia(codigoUsuarioAutenticado, paisIso + codigoUsuario, nuevacontrasena,
-                    correo, Enum.GetName(typeof(EAplicacionOrigen), origen));
+                    correo, Enum.GetName(typeof (EAplicacionOrigen), origen));
                 resultado = true;
             }
             catch (Exception ex)
@@ -1660,29 +1659,44 @@ namespace Portal.Consultoras.BizLogic
             return entidad;
         }
 
-        public BEUsuarioExterno GetUsuarioExternoByProveedorAndIdApp(string proveedor, string idAplicacion)
+        public BEUsuarioExterno GetUsuarioExternoByProveedorAndIdApp(string proveedor, string idAplicacion, string fotoPerfil)
         {
-            var DAUsuario1 = new DAUsuario(11);
+            DAUsuario DAUsuarioPeru = null;
             BEUsuarioExternoPais entidad1 = null;
             BEUsuarioExterno entidad2 = null;
-
-            using (IDataReader reader = DAUsuario1.GetUsuarioExternoPaisByProveedorAndIdApp(proveedor, idAplicacion))
+            DAUsuario DAUsuarioPais = null;
+           
+            try
             {
-                if (reader.Read())
-                    entidad1 = new BEUsuarioExternoPais(reader);
-            }
+                DAUsuarioPeru = new DAUsuario(11);
 
-            if (entidad1 != null)
-            {
-                var DAUsuario2 = new DAUsuario(entidad1.PaisID);
-                using (IDataReader reader = DAUsuario2.GetUsuarioExternoByProveedorAndIdApp(proveedor, idAplicacion))
+                using (IDataReader reader = DAUsuarioPeru.GetUsuarioExternoPaisByProveedorAndIdApp(proveedor, idAplicacion))
                 {
-                    if (reader.Read())
-                        entidad2 = new BEUsuarioExterno(reader);
+                    if (reader.Read()) entidad1 = new BEUsuarioExternoPais(reader);
                 }
 
-                entidad2.PaisID = entidad1.PaisID;
-                entidad2.CodigoISO = entidad1.CodigoISO;
+                if (entidad1 != null)
+                {
+                    DAUsuarioPais = new DAUsuario(entidad1.PaisID);
+                    using (IDataReader reader = DAUsuarioPais.GetUsuarioExternoByProveedorAndIdApp(proveedor, idAplicacion))
+                    {
+                        if (reader.Read())
+                            entidad2 = new BEUsuarioExterno(reader);
+                    }
+
+                    entidad2.PaisID = entidad1.PaisID;
+                    entidad2.CodigoISO = entidad1.CodigoISO;                    
+
+                    if (!String.IsNullOrEmpty(fotoPerfil) && fotoPerfil != entidad2.FotoPerfil)
+                    {
+                        entidad2.FotoPerfil = fotoPerfil;
+                        DAUsuarioPais.UpdUsuarioExterno(entidad2);
+                    }   
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, entidad2.CodigoUsuario, entidad2.CodigoISO);
             }
 
             return entidad2;
@@ -1776,38 +1790,52 @@ namespace Portal.Consultoras.BizLogic
             return daTerminosCondiciones.InsertTerminosCondiciones(terminos);
         }
 
-        private BETerminosCondiciones GetTerminosCondiciones(int PaisID, string CodigoConsultora, short Tipo)
+        public BETerminosCondiciones GetTerminosCondiciones(int PaisID, string CodigoConsultora, short Tipo)
         {
-            BETerminosCondiciones beTerminosCondiciones = null;
+            var terminos = new BETerminosCondiciones();
             var daTerminosCondiciones = new DATerminosCondiciones(PaisID);
 
             using (IDataReader reader = daTerminosCondiciones.GetTerminosCondiciones(CodigoConsultora, Tipo))
             {
-                if (reader.Read()) beTerminosCondiciones = new BETerminosCondiciones(reader);
+                if (reader.Read()) terminos = new BETerminosCondiciones(reader);
             }
 
-            return beTerminosCondiciones;
+            return terminos;
         }
         #endregion
 
         #region EventoFestivo
         /*HD-817*/
-        public IList<BEEventoFestivo> GetEventoFestivo(int paisID, string Alcance, int Campania)
+        public IList<BEEventoFestivo> GetEventoFestivo(int paisId, string alcance, int campaniaId)
         {
-            if (paisID == 0)
+            if (paisId == 0)
             {
-                paisID = int.Parse(ConfigurationManager.AppSettings["masterCountry"]);
+                paisId = int.Parse(ConfigurationManager.AppSettings["masterCountry"]);
             }
-            IList<BEEventoFestivo> evento = new List<BEEventoFestivo>();
-            var DAUsuario = new DAUsuario(paisID);
-            using (IDataReader reader = DAUsuario.GetEventoFestivo(Alcance, Campania))
+
+            string customKey = alcance + "_" + campaniaId;
+            IList<BEEventoFestivo> listaEvento = CacheManager<BEEventoFestivo>.GetData(paisId,
+                ECacheItem.ConfiguracionEventoFestivo, customKey);
+
+            //IList<BEEventoFestivo> evento = new List<BEEventoFestivo>();
+
+            if (listaEvento == null || listaEvento.Count == 0)
             {
-                while (reader.Read())
+                var DAUsuario = new DAUsuario(paisId);
+                listaEvento = new List<BEEventoFestivo>();
+                using (IDataReader reader = DAUsuario.GetEventoFestivo(alcance, campaniaId))
                 {
-                    evento.Add(new BEEventoFestivo(reader));
+                    while (reader.Read())
+                    {
+                        var evento = new BEEventoFestivo(reader);
+                        listaEvento.Add(evento);
+                    }
                 }
+
+                CacheManager<BEEventoFestivo>.AddData(paisId, ECacheItem.ConfiguracionEventoFestivo, customKey, listaEvento);
             }
-            return evento;
+               
+            return listaEvento;
         }
         #endregion
     }
