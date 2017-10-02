@@ -133,7 +133,10 @@ $(document).ready(function () {
                 PopupCerrar('popupDemandaAnticipada');
             }
             if ($('#PopShowroomIntriga').is(':visible')) {
-                PopupCerrar('PopShowroomIntriga');
+                SRPopupCerrar('I');
+            }
+            if ($('#PopShowroomVenta').is(':visible')) {
+                SRPopupCerrar('V');
             }
 
             if ($('#PopRDSuscripcion').is(':visible')) {
@@ -425,8 +428,11 @@ $(document).ready(function () {
     });
 
     MostrarBarra(null, '1');
+   
 });
-
+$(window).load(function () {
+    VerSeccionBienvenida(verSeccion);
+});
 
 /*** EPD-1089 ***/
 function limitarMaximo(e, contenido, caracteres, id) {
@@ -990,7 +996,6 @@ function AgregarProductoLiquidacion(contenedor) {
     }
 
     waitingDialog({});
-
     var item = {
         Cantidad: $(contenedor).find("#txtCantidad").val(),
         MarcaID: $(contenedor).find("#MarcaID").val(),
@@ -1009,7 +1014,12 @@ function AgregarProductoLiquidacion(contenedor) {
         cache: false
     });
 
-    $.getJSON(baseUrl + 'OfertaLiquidacion/ValidarUnidadesPermitidasPedidoProducto', { CUV: item.CUV }, function (data) {
+    $.getJSON(baseUrl + 'OfertaLiquidacion/ValidarUnidadesPermitidasPedidoProducto', { CUV: item.CUV,  Cantidad: item.Cantidad, PrecioUnidad: item.PrecioUnidad}, function (data) {
+        if (data.message.length > 0) {
+            AbrirMensajeEstrategia(data.message);
+            closeWaitingDialog();
+            return false;
+        }
         if (parseInt(data.Saldo) < parseInt(item.Cantidad)) {
             var Saldo = data.Saldo;
             var UnidadesPermitidas = data.UnidadesPermitidas;
@@ -1267,8 +1277,6 @@ function CargarBanners() {
                         vpromotionsTagged.push(vpromotions[slider.currentSlide]);
                     }
                 });
-                
-
             }
         }
     });
@@ -1658,7 +1666,7 @@ function ActualizarMD() {
     }
 
     if (!$('#chkAceptoContratoMD').is(':checked')) {
-        alert('Debe aceptar los terminos y condiciones para poder actualizar sus datos.');
+        alert('Debe aceptar los términos y condiciones para poder actualizar sus datos.');
         return false;
     }
 
@@ -2575,18 +2583,19 @@ function CrearPopShow() {
 }
 function MostrarShowRoom() {
     if (viewBagRol == 1) {
-        if (sesionEsShowRoom == '0') {
+        if (!sesionEsShowRoom) {
             return;
         }
         $.ajax({
             type: "POST",
             url: baseUrl + "Bienvenida/MostrarShowRoomPopup",
+            data: null,
             contentType: 'application/json',
             success: function (response) {
                 if (checkTimeout(response)) {
                     if (response.success) {
                         var showroomConsultora = response.data;
-                       
+
                         if (!(showroomConsultora.EventoConsultoraID != 0 && showroomConsultora.MostrarPopup)) {
                             return false;
                         }
@@ -2614,43 +2623,39 @@ function MostrarShowRoom() {
 
                         $("#spnShowRoomEvento").html(evento.Tema);
 
-                                if (response.mostrarShowRoomProductos) {
-                                    if (noMostrarShowRoomVenta) {
-                                        
-                                        $("#spnShowRoomEventoVenta").html(eventoNombre);
-                                        $("#spnShowRoomEventoVenta").val(eventoNombre);
-                                        $("#spnShowRoomEventoDescripcionVenta").val(evento.Tema);
-                                        AgregarTagManagerShowRoomPopupAnalytics(eventoID, eventoNombre, evento.Tema, "1");
-                                        $("#hdEventoIDShowRoomVenta").val(eventoID);
-                                        var container = $('#PopShowroomVenta');
-                                        
-                                        var txtSaludoIntriga = response.nombre + ' YA COMENZÓ LA';
-                                        $(container).find('.saludo_consultora_showroom').text(txtSaludoIntriga);
-                                        $(container).find('.imagen_dias_intriga').attr('src', urlImagenPopupVenta);
-                                        $(container).show();
-                                        //venta analytics                                     
-                                    }
-                                } else {
-                                    if (noMostrarShowRoomIntriga) {
-                                        
-                                        $("#spnShowRoomEvento").html(eventoNombre);
-                                        $("#spnShowRoomEvento").val(eventoNombre);
-                                        $("#spnShowRoomEventoDescripcion").val(evento.Tema);
-                                        AgregarTagManagerShowRoomPopupAnalytics(eventoID, eventoNombre, evento.Tema, "0")
-                                        $('#hdEventoIDShowRoom').val(eventoID);
-                                        if (parseInt(response.diasFaltan) > 0) {
-                                            var container = $('#PopShowroomIntriga');
-                                            var txtDiasIntriga = 'FALTAN ' + response.diasFaltan + ' DÍAS';
-                                            if (response.diasFaltan == 1) txtDiasIntriga = 'FALTA 1 DÍA';
-                                            var txtSaludoIntriga = response.nombre + ' prepárate para la';
-                                            $(container).find('.saludo_consultora_showroom').text(txtSaludoIntriga);
-                                            $(container).find('.dias_intriga_home').text(txtDiasIntriga);
-                                            $(container).find('.imagen_dias_intriga').attr('src', urlImagenPopupIntriga);
-                                            $(container).show();
-                                            //intriga analytics
-                                        }
-                                    }
-                                }
+                        if (response.mostrarShowRoomProductos && noMostrarShowRoomVenta) {
+
+                            $("#spnShowRoomEventoVenta").html(eventoNombre);
+                            $("#spnShowRoomEventoVenta").val(eventoNombre);
+                            $("#spnShowRoomEventoDescripcionVenta").val(evento.Tema);
+                            AgregarTagManagerShowRoomPopupAnalytics(eventoID, eventoNombre, evento.Tema, "1");
+                            $("#hdEventoIDShowRoomVenta").val(eventoID);
+                            var container = $('#PopShowroomVenta');
+
+                            var txtSaludoIntriga = '<b>' + response.nombre + '</b>, YA COMENZÓ';
+                            $(container).find('.saludo_consultora_showroom').html(txtSaludoIntriga);
+                            $(container).find('.imagen_dias_intriga').attr('src', urlImagenPopupVenta);
+                            $(container).show();
+                        }
+
+                        if (!response.mostrarShowRoomProductos && noMostrarShowRoomIntriga) {
+
+                            $("#spnShowRoomEvento").html(eventoNombre);
+                            $("#spnShowRoomEvento").val(eventoNombre);
+                            $("#spnShowRoomEventoDescripcion").val(evento.Tema);
+                            AgregarTagManagerShowRoomPopupAnalytics(eventoID, eventoNombre, evento.Tema, "0")
+                            $('#hdEventoIDShowRoom').val(eventoID);
+                            if (parseInt(response.diasFaltan) > 0) {
+                                var container = $('#PopShowroomIntriga');
+                                var txtDiasIntriga = 'FALTAN ' + response.diasFaltan + ' DÍAS';
+                                if (response.diasFaltan == 1) txtDiasIntriga = 'FALTA 1 DÍA';
+                                var txtSaludoIntriga = '<b>' + response.nombre + '</b>, prepárate para';
+                                $(container).find('.saludo_consultora_showroom').html(txtSaludoIntriga);
+                                $(container).find('.dias_intriga_home').text(txtDiasIntriga);
+                                $(container).find('.imagen_dias_intriga').attr('src', urlImagenPopupIntriga);
+                                $(container).show();
+                            }
+                        }
                     }
                 }
             },
@@ -3114,14 +3119,14 @@ function ValidarTelefono(celular) {
 }
 
 function VerShowRoomIntriga() {
-    AgregarTagManagerShowRoomPopupClick(2);
+    //AgregarTagManagerShowRoomPopupClick(2);
     document.location.href = urlShowRoomIntriga;
     $('#PopShowroomIntriga').hide();
 }
 
 function VerShowRoomVenta() {
-    AgregarTagManagerShowRoomPopupClick(1);
-    document.location.href = urlShowRoomVenta;
+    //AgregarTagManagerShowRoomPopupClick(1);
+    document.location.href = urlOfertasIndex;
     $('#PopShowroomVenta').hide();
 }
 
@@ -3175,7 +3180,7 @@ function SRPopupCerrar(tipo) {
             CerrarPopup("#PopShowroomIntriga");
         },
         error: function (data, error) {
-            console.log(data);
+            console.log(data, error);
             CerrarLoad();
             CerrarPopup("#PopShowroomVenta");
             CerrarPopup("#PopShowroomIntriga");
@@ -3263,5 +3268,32 @@ function MostrarPopupInicial() {
         case popupAsesoraOnline:
             if (popupInicialCerrado == 0) asesoraOnlineObj.mostrar();
             break;
+    }
+}
+
+function VerSeccionBienvenida(seccion) {
+    var id = "";
+    switch (seccion) {
+        case "Belcorp":
+            id = ".content_belcorp";
+            break
+        case "MisOfertas":
+            id = "#contenedor_template_estrategia_cabecera";
+            break;
+        case "MiAcademia":
+            id = "#seccionMiAcademiaLiquidacion";
+            break;
+        case "Footer":
+            id = "footer";
+            break;
+        default://Home
+            id = ".flexslider";
+            break;
+    }
+
+    if (id != "") {
+        $("html, body").animate({
+            scrollTop: $(id).offset().top - 60
+        }, 1000);
     }
 }

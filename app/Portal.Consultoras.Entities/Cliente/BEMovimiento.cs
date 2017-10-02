@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Runtime.Serialization;
+using Portal.Consultoras.Entities.Framework;
 
 namespace Portal.Consultoras.Entities.Cliente
 {
@@ -44,6 +45,16 @@ namespace Portal.Consultoras.Entities.Cliente
 
         [DataMember]
         public IEnumerable<BEPedidoDDWebDetalle> Pedidos { get; set; }
+
+        //todo: should be part of BaseModel
+        [DataMember]
+        public string Code { get; set; }
+
+        [DataMember]
+        public string Message { get; set; }
+
+        [DataMember]
+        public StatusEnum StatusEnum { get; set; }
 
         public BEMovimiento(IDataReader row)
         {
