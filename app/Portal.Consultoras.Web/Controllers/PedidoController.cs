@@ -1399,7 +1399,8 @@ namespace Portal.Consultoras.Web.Controllers
                         DescripcionEstrategia = item.DescripcionEstrategia,
                         DescripcionCategoria = item.DescripcionCategoria,
                         FlagNueva = item.FlagNueva, // CGI(AHAA) - BUG 2015000858
-                        TipoEstrategiaID = item.TipoEstrategiaID // CGI(AHAA) - BUG 2015000858
+                        TipoEstrategiaID = item.TipoEstrategiaID, // CGI(AHAA) - BUG 2015000858
+                        EsOfertaIndependiente = item.EsOfertaIndependiente
                     });
                 }
 
@@ -1533,7 +1534,8 @@ namespace Portal.Consultoras.Web.Controllers
                     TipoEstrategiaID = olstProducto[0].TipoEstrategiaID,
                     TieneSugerido = olstProducto[0].TieneSugerido,
                     CodigoProducto = olstProducto[0].CodigoProducto,
-                    LimiteVenta = estrategia != null ? estrategia.LimiteVenta : 99
+                    LimiteVenta = estrategia != null ? estrategia.LimiteVenta : 99,
+                    EsOfertaIndependiente = estrategia.EsOfertaIndependiente
                 });
 
             }

@@ -141,7 +141,7 @@ namespace Portal.Consultoras.Entities
         public string TipoEstrategiaID { get; set; }
         /* CGI (AHAA) - BUG 2015000858 - Fin */
         [DataMember]
-        public bool IndicadorOfertaCUV  { get; set; } /*R20150701*/
+        public bool IndicadorOfertaCUV { get; set; } /*R20150701*/
         //[DataMember]
         //public string Indicador
         //{
@@ -198,6 +198,8 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public string TextoBusqueda { get; set; }
+        [DataMember]
+        public bool EsOfertaIndependiente { get; set; }
 
         public BEProducto(IDataRecord datarec)
         {
@@ -294,6 +296,8 @@ namespace Portal.Consultoras.Entities
                 DescripcionOferta = Convert.ToString(datarec["DescripcionOferta"]);
             if (DataRecord.HasColumn(datarec, "DescripcionProducto") && datarec["DescripcionProducto"] != DBNull.Value)
                 DescripcionProducto = Convert.ToString(datarec["DescripcionProducto"]);
+            if (DataRecord.HasColumn(datarec, "EsOfertaIndependiente") && datarec["EsOfertaIndependiente"] != DBNull.Value)
+                EsOfertaIndependiente = (datarec["EsOfertaIndependiente"].ToBool());
         }
 
         //Refactor Inheritance

@@ -488,7 +488,7 @@
                 success: function (data) {
                     var objPreview, objChkImagen, idImagen, dataImagen, imgFormat;
                     $('#mensajeErrorCUV').val("");
-
+                   
                     if (data.message == "OK") {
                         $("#txtDescripcion").val(data.descripcion);
 
