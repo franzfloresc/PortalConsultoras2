@@ -1370,6 +1370,10 @@ namespace Portal.Consultoras.Web.Controllers
                     BEMensajeCUV = sv.GetMensajeByCUV(oUsuarioModel.PaisID, oUsuarioModel.CampaniaID, strCUV);
                 }
 
+                /* Iscrita en EPM Revista 100% */
+                var tieneRDC = revistaDigital.TieneRDC &&
+                    revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo;
+
                 foreach (var item in olstProducto)
                 {
                     olstProductoModel.Add(new ProductoModel()
@@ -1394,7 +1398,8 @@ namespace Portal.Consultoras.Web.Controllers
                         DescripcionEstrategia = item.DescripcionEstrategia,
                         DescripcionCategoria = item.DescripcionCategoria,
                         FlagNueva = item.FlagNueva, // CGI(AHAA) - BUG 2015000858
-                        TipoEstrategiaID = item.TipoEstrategiaID // CGI(AHAA) - BUG 2015000858
+                        TipoEstrategiaID = item.TipoEstrategiaID, // CGI(AHAA) - BUG 2015000858
+                        TieneRDC = tieneRDC
                     });
                 }
 
@@ -1405,6 +1410,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 olstProductoModel.Add(new ProductoModel() { MarcaID = 0, CUV = "Ha ocurrido un Error. Vuelva a intentarlo." });
             }
 
@@ -1436,17 +1442,13 @@ namespace Portal.Consultoras.Web.Controllers
                     var codigoEstrategia = "";
                     using (PedidoServiceClient sv = new PedidoServiceClient())
                     {
-                        codigoEstrategia =
-                            sv.GetCodeEstrategiaByCUV(oUsuarioModel.PaisID, model.CUV, oUsuarioModel.CampaniaID);
+                        codigoEstrategia = sv.GetCodeEstrategiaByCUV(oUsuarioModel.PaisID, model.CUV, oUsuarioModel.CampaniaID);
                     }
                     if (codigoEstrategia != null && (Constantes.TipoEstrategiaCodigo.Lanzamiento == codigoEstrategia
-                                                     || Constantes.TipoEstrategiaCodigo.OfertasParaMi ==
-                                                     codigoEstrategia
-                                                     || Constantes.TipoEstrategiaCodigo.PackAltoDesembolso ==
-                                                     codigoEstrategia))
+                                                     || Constantes.TipoEstrategiaCodigo.OfertasParaMi == codigoEstrategia
+                                                     || Constantes.TipoEstrategiaCodigo.PackAltoDesembolso == codigoEstrategia))
                     {
-                        if (!(ValidarPermiso("", Constantes.ConfiguracionPais.RevistaDigitalReducida)
-                              || ValidarPermiso("", Constantes.ConfiguracionPais.RevistaDigital)))
+                        if (!(revistaDigital.TieneRDR || revistaDigital.TieneRDC))
                         {
                             olstProductoModel.Add(new ProductoModel()
                             {
