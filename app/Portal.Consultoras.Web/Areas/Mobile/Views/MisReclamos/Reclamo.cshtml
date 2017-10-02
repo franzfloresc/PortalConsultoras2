@@ -151,6 +151,7 @@
             <input type="hidden" id="txtPrecioUnidad" />
             <input type="hidden" id="hdImporteTotalPedido" />
             <input type="hidden" id="hdCdrWebDatos_Ssic" />
+            <input type="hidden" id="hdCuvPrecio2" />
         </div>
         <!-- FIN VISTA CON QUÉ PRODUCTO HAS TENIDO INCONVENIENTES -->
         <!-- INICIO VISTA CUÁL FUE EL INCONVENIENTE -->
@@ -199,10 +200,10 @@
                 <div class="contenedor_cantidadProductos contenedor_campo_cantidad_productos">
                     <span class="texto_cantidad_productos tipografia_lato tipografia_lato_regular">Cantidad:</span>
                     <div id="divCantidad2">
-                        <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                        <a class="cantidad_menos_home modificarPrecioMenos"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
                         <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad2" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
                                data-input="cantidad" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
-                        <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                        <a class="cantidad_mas_home modificarPrecioMas"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                     </div>
                 </div>
             </div>
@@ -227,6 +228,11 @@
                 <div id="spnMensajeTenerEnCuentaCambio" class="content_info_cdr tipografia_lato_regular">
                 </div>
             </div>
+            <!-- INICIO ENLACE QUIERO VER OTRA ALTERNATIVA -->
+            <a href="#" class="enlace_quiero_ver_otra_alternativa tipografia_lato tipografia_lato_regular" title="Quiero ver otra alternativa">
+                QUIERO VER OTRA ALTERNATIVA
+            </a>
+            <!-- FIN ENLACE QUIERO VER OTRA ALTERNATIVA -->
             <span class="icono_arrow_left">
                 <img src="@Url.Content("~/Content/Images/mobile/left-arrow.png")" alt="Ver solicitudes anteriores" />
             </span>

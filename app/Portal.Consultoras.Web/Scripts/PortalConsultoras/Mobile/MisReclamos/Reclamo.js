@@ -14,7 +14,7 @@ $(document).ready(function () {
         var me = this;
 
         me.Variables = {
-            CuvValido: true,
+            //CuvValido: true,
             aCambiarProducto: "#aCambiarProducto",
             aCambiarProducto2: "#aCambiarProducto2",
             alturaListaMiSolicitud: $(document).height(),
@@ -101,7 +101,11 @@ $(document).ready(function () {
             txtPrecioCuv2: "#txtPrecioCuv2",
             txtPrecioUnidad: "#txtPrecioUnidad",
             txtTelefono: "#txtTelefono",
-            UltimasSolicitudes: ".UltimasSolicitudes"
+            UltimasSolicitudes: ".UltimasSolicitudes",
+            modificarPrecioMas: ".modificarPrecioMas",
+            modificarPrecioMenos: ".modificarPrecioMenos",
+            hdCuvPrecio2: "#hdCuvPrecio2",
+            enlace_quiero_ver_otra_alternativa: ".enlace_quiero_ver_otra_alternativa"
         };
 
         me.Eventos = {
@@ -239,8 +243,7 @@ $(document).ready(function () {
 
                     $(this).attr("data-check", "1");
                     me.Funciones.AnalizarOperacion(id);
-
-                    $(me.Variables.Registro3).hide();
+                    //$(me.Variables.Registro3).hide();
                     //$(me.Variables.btnAceptarSolucion).show();
                 });
 
@@ -275,14 +278,15 @@ $(document).ready(function () {
                 });
 
                 $(me.Variables.btnSiguiente1).click(function (e) {
+                    
                     if ($(me.Variables.Registro1).is(":visible")) {
                         if (me.Funciones.ValidarCUVCampania()) {
                             $(me.Variables.Enlace_regresar).show(); 
                             me.Funciones.BuscarMotivo();
 
                             $(me.Variables.pasodos).hide();
-                            $(me.Variables.pasodosactivo).show();
                             $(me.Variables.Registro1).hide();
+                            $(me.Variables.pasodosactivo).show();                            
                             $(me.Variables.Registro2).show();
                             return false;
                         }
@@ -394,6 +398,35 @@ $(document).ready(function () {
                         $(me.Variables.spnCantidadCuv2).html($(me.Variables.txtCantidad2).val());
                     }
                 });
+
+                $(me.Variables.modificarPrecioMas).click(function (evt) {
+                    var precio = $(me.Variables.hdCuvPrecio2).val();
+                    var cantidad = parseInt($(me.Variables.txtCantidad2).val());
+
+                    cantidad = cantidad == 99 ? 99 : cantidad + 1;
+
+                    var importeTotal = precio * cantidad;
+
+                    $(me.Variables.hdImporteTotal2).val(importeTotal);
+                    $(me.Variables.txtPrecioCuv2).html(DecimalToStringFormat(importeTotal));
+                });
+
+                $(me.Variables.modificarPrecioMenos).click(function (evt) {
+                    var precio = $(me.Variables.hdCuvPrecio2).val();
+                    var cantidad = parseInt($(me.Variables.txtCantidad2).val());
+
+                    cantidad = cantidad == 1 ? 1 : cantidad - 1;
+
+                    var importeTotal = precio * cantidad;
+
+                    $(me.Variables.hdImporteTotal2).val(importeTotal);
+                    $(me.Variables.txtPrecioCuv2).html(DecimalToStringFormat(importeTotal));
+                });
+
+                $(me.Variables.enlace_quiero_ver_otra_alternativa).click(function (evt) {
+                    $(me.Variables.Registro4).hide();
+                    $(me.Variables.Registro3).show();
+                });
             }
         };
 
@@ -409,7 +442,6 @@ $(document).ready(function () {
         me.Funciones = {
 
             ValidarPaso2Trueque: function() {
-                
                 //if ($("#CambioProducto2").hasClass("disabledClick")) {
                 //    return false;
                 //}
@@ -488,7 +520,7 @@ $(document).ready(function () {
 
             EvaluarCUV: function () {
                 if (!me.Funciones.CUVCambio()) return false;
-
+                
                 $(me.Variables.txtCantidad1).attr("disabled", "disabled");
                 $(me.Variables.txtCantidad1).attr("data-maxvalue", "0");
                 $(me.Variables.txtDescripcionCuv).html("");
@@ -524,21 +556,25 @@ $(document).ready(function () {
                         CloseLoading();
                         if (!checkTimeout(data))
                             return false;
-
-                        if (data.success == false) {
-                            me.Variables.CuvValido = false;
+                        
+                        if (data.success == false) {                            
+                            //me.Variables.CuvValido = false;
                             messageInfoValidado(data.message);
                             return false;
                         }
 
                         data.detalle = data.detalle || new Array();
-                        if (data.detalle.length <= 0) {
-                            me.Variables.CuvValido = false;
+                        if (data.detalle.length <= 0) {                            
+                            //me.Variables.CuvValido = false;
                             messageInfoError("Producto no disponible para atención por este medio, comunícate con el <span class='enlace_chat belcorpChat'><a>Chat en Línea</a></span>.");
 
                         } else {
-                            if (data.detalle.length > 1) messageInfoValidado("Su solicitud tiene mas de un pedido. Por favor comunícate con el <span class='enlace_chat belcorpChat'><a>Chat en Línea</a></span>.");//PopupPedido(data.detalle);
-                            else me.Funciones.AsignarCUV(data.detalle[0]);
+                            if (data.detalle.length > 1) {
+                                messageInfoValidado("Su solicitud tiene mas de un pedido. Por favor comunícate con el <span class='enlace_chat belcorpChat'><a>Chat en Línea</a></span>.");//PopupPedido(data.detalle);
+                            }
+                            else {
+                                me.Funciones.AsignarCUV(data.detalle[0]);
+                            }
                         }
                     },
                     error: function (data, error) {
@@ -660,7 +696,8 @@ $(document).ready(function () {
                             $(me.Variables.txtCuv2).html(cuv2);
                             $(me.Variables.txtDescripcionCuv2).html(descripcion);
                             $(me.Variables.spnSimboloMonedaCuv2).html(vbSimbolo);
-                            $(me.Variables.txtPrecioCuv2).html(precio);
+                            $(me.Variables.txtPrecioCuv2).html(DecimalToStringFormat(precio));
+                            $(me.Variables.hdCuvPrecio2).val(precio);
 
                             $(me.Variables.txtCuvMobile2).hide();
                             $(me.Variables.DescripcionCuv2).fadeIn();
@@ -671,7 +708,7 @@ $(document).ready(function () {
                         } else {
                             $(me.Variables.txtDescripcionCuv2).html("");
                             $(me.Variables.txtPrecioCuv2).val("");
-                            //$("#hdImporteTotal2").val(0);
+                            $(me.Variables.hdImporteTotal2).val(0);
                             //$("#spnImporteTotal2").html("");
                             messageInfoValidado(data[0].CUV);
                         }
@@ -683,13 +720,13 @@ $(document).ready(function () {
                 });
             },
 
-            BuscarMotivo: function () {
-                ShowLoading();
+            BuscarMotivo: function () {                
+                
                 var PedidoId = $.trim($(me.Variables.hdPedidoID).val()) || 0;
                 var CampaniaId = $.trim($(me.Variables.ComboCampania).val()) || 0;
                 if (PedidoId <= 0 || CampaniaId <= 0)
                     return false;
-
+                ShowLoading();
                 var item = {
                     CampaniaID: $.trim($(me.Variables.ComboCampania).val()),
                     PedidoID: PedidoId
@@ -722,9 +759,10 @@ $(document).ready(function () {
                 });
             },
 
-            ValidarCUVCampania: function () {
+            ValidarCUVCampania: function () {                
                 var ok = true;
-                ok = me.Variables.CuvValido;
+                //ok = me.Variables.CuvValido;
+                ok = $.trim($(me.Variables.hdPedidoID).val()) > 0 ? ok : false;
                 ok = $(me.Variables.ComboCampania).val() > 0 ? ok : false;
                 ok = $.trim($(me.Variables.txtCuvMobile).val()) != "" ? ok : false;                
 
@@ -807,10 +845,11 @@ $(document).ready(function () {
                     $("[data-tipo-confirma=canje]").show();
 
                     me.Funciones.CargarPropuesta(id);
+                    $(me.Variables.Registro3).hide();
                     $(me.Variables.btnAceptarSolucion).show();
                 }
 
-                if (id == 'D') {
+                if (id == 'D') {                    
                     if (me.Funciones.ValidarPaso2Devolucion(id)) {
 
                         $("[data-tipo-confirma='cambio']").hide();
@@ -829,6 +868,7 @@ $(document).ready(function () {
                         $("[data-tipo-confirma=canje]").show();
                         
                         me.Funciones.CargarPropuesta(id);
+                        $(me.Variables.Registro3).hide();
                         $(me.Variables.btnAceptarSolucion).show()
                     }
                 }
@@ -839,6 +879,7 @@ $(document).ready(function () {
                         $("[data-tipo-confirma='cambio']").hide();
                         $("[data-tipo-confirma=canje]").show();
 
+                        $(me.Variables.Registro3).hide();
                         me.Funciones.CargarPropuesta(id);
                         $(me.Variables.btnAceptarSolucion).show();
                     }
@@ -863,6 +904,7 @@ $(document).ready(function () {
                     if (campania > 0) {
                         numeroCampania = campania.substring(4);
                     }
+                    $(me.Variables.Registro3).hide();
 
                     $(me.Variables.spnNumeroCampaniaReclamo).html(numeroCampania);
                     $(me.Variables.btnCambioProducto).show();
