@@ -113,7 +113,7 @@ function EstrategiaVerDetalleMobile(id, origen) {
         origen = $("#divListadoEstrategia").attr("data-OrigenPedidoWeb") || origenPedidoWebEstrategia || 0;
     }
     origen = $.trim(origen) || 0;
-    var url = "/Mobile/OfertasParaTi/Detalle?id=" + id + "&&origen=" + origen;
+    var url = getMobilePrefixUrl() + "/OfertasParaTi/Detalle?id=" + id + "&&origen=" + origen;
     try {
         if (typeof EstrategiaGuardarTemporal == "function" && typeof GetProductoStorage == "function") {
             var campania = $("[data-item=" + id + "]").parents("[data-tag-html]").attr("data-tag-html");

@@ -34,7 +34,7 @@ $(document).ready(function () {
         // Registrar valrores de analytics
         if (!esPrimeraCarga) {
             TabsRDAnalytics($(this).attr("data-tab-index"), campaniaId);
-        } else {esPrimeraCarga = false;}
+        } else { esPrimeraCarga = false; }
 
         var funt = $.trim($(this).attr("data-tag-funt"));
         if (funt != "") {
@@ -142,7 +142,7 @@ $(document).ready(function () {
 
     $("body").on("click",
         "[data-item-accion='verdetalle']",
-        function(e) {
+        function (e) {
             //var obj = JSON.parse($(this).parents("[data-item]").attr("data-estrategia"));
             var campania = $(this).parents("[data-tag-html]").attr("data-tag-html");
             var cuv = $(this).parents("[data-item]").attr("data-item-cuv");
@@ -425,16 +425,16 @@ function RDDetalleObtener() {
     }
 
     if (cuv == "" || campania == "") {
-        window.location = (mobile ? "/Mobile/" : "") + "/RevistaDigital/Index";
+        window.location = (mobile ? getMobilePrefixUrl() + "/" : "") + "/RevistaDigital/Index";
     }
 
     var prod = GetProductoStorage(cuv, campania);
     var mobile = isMobile();
     if (prod == null || prod == undefined) {
-        window.location = (mobile ? "/Mobile/" : "") + "/RevistaDigital/Index";
+        window.location = (mobile ? getMobilePrefixUrl() + "/" : "") + "/RevistaDigital/Index";
     }
     if (prod.CUV2 == undefined) {
-        window.location = (mobile ? "/Mobile/" : "") + "/RevistaDigital/Index";
+        window.location = (mobile ? getMobilePrefixUrl() + "/" : "") + "/RevistaDigital/Index";
     }
 
     var obj = new Object();
@@ -514,10 +514,10 @@ function RDPageInformativa() {
     CerrarPopup("#divMensajeBloqueada");
     $(window).scrollTop(0);
     $('ul[data-tab="tab"] li a[data-tag="0"]').click();
-    
+
     isDetalle = isDetalle || (window.location.pathname.toLowerCase() + "/").indexOf("/detalle/") >= 0;
     if (isDetalle) {
-        window.location = (isMobile() ? "/Mobile/" : "") + "/RevistaDigital#0";
+        window.location = (isMobile() ? getMobilePrefixUrl() + "/" : "") + "/RevistaDigital#0";
     }
 }
 
