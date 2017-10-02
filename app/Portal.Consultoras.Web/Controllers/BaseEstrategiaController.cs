@@ -353,33 +353,32 @@ namespace Portal.Consultoras.Web.Controllers
                     var estrategiaLanzamiento = listModel.FirstOrDefault(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento) ?? new BEEstrategia();
 
                     listModel = listModel.Where(e => e.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
-                    var top = listModel.Count();
 
-                    top = Math.Min(top, 8);
-
-                    if (top == 0 && estrategiaLanzamiento.EstrategiaID <= 0)
+                    if (!listModel.Any() && estrategiaLanzamiento.EstrategiaID <= 0)
                     {
                         Session[Constantes.ConstSession.ListaEstrategia] = listModel;
                         return new List<EstrategiaPedidoModel>();
                     }
 
-                    var estrategiaPackNuevas = listModel.FirstOrDefault(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas) ?? new BEEstrategia();
-                    var listaDemas = listModel.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi || e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertaParaTi).ToList() ?? new List<BEEstrategia>();
+                    var listaPackNueva = listModel.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas).ToList() ?? new List<BEEstrategia>();
+                    var listaRevista = listModel.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi || e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertaParaTi).ToList() ?? new List<BEEstrategia>();
 
+                    var cantMax = 8;
+                    var cantPack = listaPackNueva.Any() ? 1 : 0;
+                    var top = Math.Min(cantMax - cantPack, listaRevista.Count());
+                    
+                    if (listaRevista.Count() > top)
+                        listaRevista.RemoveRange(top, listaRevista.Count() - top);
+                    
+                    if (listaRevista.Count() > cantMax - top)
+                        listaPackNueva.RemoveRange(cantMax - top, listaPackNueva.Count() - (cantMax - top));
+                    
                     listModel = new List<BEEstrategia>();
                     if (estrategiaLanzamiento.EstrategiaID > 0)
                         listModel.Add(estrategiaLanzamiento);
-                    
-                    if (estrategiaPackNuevas.EstrategiaID > 0)
-                    {
-                        top--;
-                        listModel.Add(estrategiaPackNuevas);
-                    }
 
-                    if (listaDemas.Count() > top)
-                        listaDemas.RemoveRange(top, listaDemas.Count() - top);
-                    
-                    listModel.AddRange(listaDemas);
+                    listModel.AddRange(listaPackNueva);
+                    listModel.AddRange(listaRevista);
                     Session[Constantes.ConstSession.ListaEstrategia] = listModel;
                 }
                 #endregion
