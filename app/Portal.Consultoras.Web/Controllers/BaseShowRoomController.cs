@@ -61,7 +61,7 @@ namespace Portal.Consultoras.Web.Controllers
                     ViewBag.PermitirCerrarBannerPL20 = permitirCerrarBanner;
                     ShowRoomBannerLateralModel showRoomBannerLateral = GetShowRoomBannerLateral();
                     ViewBag.ShowRoomBannerLateral = showRoomBannerLateral;
-                    ViewBag.MostrarShowRoomBannerLateral = Session["EsShowRoom"].ToString() != "0" &&
+                    ViewBag.MostrarShowRoomBannerLateral = sessionManager.GetEsShowRoom() &&
                         !showRoomBannerLateral.ConsultoraNoEncontrada && !showRoomBannerLateral.ConsultoraNoEncontrada &&
                         showRoomBannerLateral.BEShowRoomConsultora.EventoConsultoraID != 0 && showRoomBannerLateral.EstaActivoLateral;
                     
@@ -205,44 +205,23 @@ namespace Portal.Consultoras.Web.Controllers
 
         public bool ValidarIngresoShowRoom(bool esIntriga)
         {
-            if (!userData.CargoEntidadesShowRoom) return false; // throw new Exception("Ocurrió un error al intentar traer la información de los evento y consultora de ShowRoom.");
+            if (!userData.CargoEntidadesShowRoom)
+                return false;
 
-            bool resultado = false;
-            var showRoomEvento = new BEShowRoomEvento();
-            var showRoomEventoConsultora = new BEShowRoomEventoConsultora();
+            var resultado = false;
 
-            showRoomEventoConsultora = userData.BeShowRoomConsultora;
-            showRoomEvento = userData.BeShowRoom;
+            var esShowRoom = sessionManager.GetEsShowRoom();
+            var mostrarShowRoomProductos = sessionManager.GetMostrarShowRoomProductos();
+            var mostrarShowRoomProductosExpiro = sessionManager.GetMostrarShowRoomProductosExpiro();
 
-            if (showRoomEvento != null && showRoomEvento.Estado == 1 && showRoomEventoConsultora != null)
+            if (esIntriga)
             {
-                int diasAntes = showRoomEvento.DiasAntes;
-                int diasDespues = showRoomEvento.DiasDespues;
+                resultado = esShowRoom && !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
+            }
 
-                var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
-
-                if (esIntriga)
-                {
-                    if (!(fechaHoy >= userData.FechaInicioCampania.AddDays(-showRoomEvento.DiasAntes).Date
-                    && fechaHoy <= userData.FechaInicioCampania.AddDays(showRoomEvento.DiasDespues).Date))
-                    {
-                        TimeSpan ts = userData.FechaInicioCampania.AddDays(-showRoomEvento.DiasAntes) - fechaHoy;
-
-                        ViewBag.DiasFaltan = ts.Days; //userData.FechaInicioCampania.AddDays(-showRoomEvento.DiasAntes).Day - fechaHoy.Day;
-                        if (ViewBag.DiasFaltan > 0)
-                        {
-                            resultado = true;
-                        }
-                    }
-                }
-                else
-                {
-                    if ((fechaHoy >= userData.FechaInicioCampania.AddDays(-diasAntes).Date &&
-                     fechaHoy <= userData.FechaInicioCampania.AddDays(diasDespues).Date))
-                    {
-                        resultado = true;
-                    }
-                }
+            if(!esIntriga)
+            {
+                resultado = esShowRoom && mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
             }
 
             return resultado;
@@ -473,44 +452,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public string GetDescripcionMarca(int marcaId)
-        {
-            string result = string.Empty;
-
-            switch (marcaId)
-            {
-                case 1:
-                    result = "Lbel";
-                    break;
-                case 2:
-                    result = "Esika";
-                    break;
-                case 3:
-                    result = "Cyzone";
-                    break;
-                case 4:
-                    result = "S&M";
-                    break;
-                case 5:
-                    result = "Home Collection";
-                    break;
-                case 6:
-                    result = "Finart";
-                    break;
-                case 7:
-                    result = "Generico";
-                    break;
-                case 8:
-                    result = "Glance";
-                    break;
-                default:
-                    result = "NO DISPONIBLE";
-                    break;
-            }
-
-            return result;
-        }
-
         public ShowRoomOfertaModel ViewDetalleOferta(int id)
         {
             var modelo = GetOfertaConDetalle(id);
@@ -646,11 +587,14 @@ namespace Portal.Consultoras.Web.Controllers
                 var categorias = listaShowRoomOferta.GroupBy(p => p.CodigoCategoria).Select(p => p.First());
                 foreach (var item in categorias)
                 {
-                    var beCategoria = new ShowRoomCategoriaModel();
-                    beCategoria.Codigo = item.CodigoCategoria;
-                    beCategoria.Descripcion = item.DescripcionCategoria;
-                    beCategoria.EventoID = showRoomEventoModel.EventoID;
-                    listaCategoria.Add(beCategoria);
+                    if (!string.IsNullOrEmpty(item.DescripcionCategoria))
+                    {
+                        var beCategoria = new ShowRoomCategoriaModel();
+                        beCategoria.Codigo = item.CodigoCategoria;
+                        beCategoria.Descripcion = item.DescripcionCategoria;
+                        beCategoria.EventoID = showRoomEventoModel.EventoID;
+                        listaCategoria.Add(beCategoria);
+                    }
                 }
 
                 listaCategoria = listaCategoria.OrderBy(p => p.Descripcion).ToList();

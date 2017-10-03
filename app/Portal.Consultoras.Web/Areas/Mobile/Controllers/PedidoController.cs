@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web.Routing;
 using BEPedidoWeb = Portal.Consultoras.Web.ServicePedido.BEPedidoWeb;
 using BEPedidoWebDetalle = Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle;
 
@@ -148,10 +149,43 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.EstadoSucripcionRDAnterior2 = userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro;
             ViewBag.NumeroCampania = userData.CampaniaID % 100;
             ViewBag.NumeroCampaniaMasUno = AddCampaniaAndNumero(Convert.ToInt32(userData.CampaniaID), 1) % 100;
+            #region EventoFestivo
+            if (userData.EfRutaPedido == null || userData.EfRutaPedido == "")
+            {
+                ViewBag.UrlFranjaNegra = "../../../Content/Images/Esika/background_pedido.png";
+            }
+            else
+            {
+                ViewBag.UrlFranjaNegra = userData.EfRutaPedido;
+            }
+            #endregion
 
-            return View(model);
+            return View("Index", model);
         }
-        
+
+        public ActionResult virtualCoach(string param = "")
+        {
+            string cuv = String.Empty;
+            string campanaId = "0";
+            int campana = 0;
+            try
+            {               
+                if (param.Length == 11)
+                {
+                    cuv = param.Substring(0, 5);
+                    campanaId = param.Substring(5, 6);
+                }
+                campana = Convert.ToInt32(campanaId);
+            }
+            catch (Exception ex)
+            {
+                cuv = "";
+                campana = 0;
+                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
+            }
+            return RedirectToAction("Detalle", new RouteValueDictionary(new { controller = "FichaProducto", area = "Mobile", cuv = cuv, campanaId = campana }));
+        }
+
         public ActionResult Detalle(bool autoReservar = false)
         {
             sessionManager.SetObservacionesProl(null);
@@ -318,12 +352,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.paisISO = userData.CodigoISO;
             ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("BUCKET_NAME") ?? string.Empty;
 
+            ViewBag.NombreConsultora = userData.Sobrenombre;
             if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
                 model.Prol = "GUARDA TU PEDIDO";
 
             ViewBag.OfertaFinalEstado = userData.OfertaFinalModel.Estado;
             ViewBag.OfertaFinalAlgoritmo = userData.OfertaFinalModel.Algoritmo;
-
+            ViewBag.UrlTerminosOfertaFinalRegalo = string.Format("{0}/SomosBelcorp/FileConsultoras/{1}/Flyer_Regalo_Sorpresa.pdf", ConfigurationManager.AppSettings.Get("oferta_final_regalo_url_s3"), userData.CodigoISO);
             return View(model);
         }
         

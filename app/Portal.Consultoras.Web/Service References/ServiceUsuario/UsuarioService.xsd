@@ -55,10 +55,11 @@
       <xs:extension base="tns:BaseEntidad">
         <xs:sequence>
           <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="Color" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="ConfiguracionPaisID" type="xs:int" />
           <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="DesdeCampania" type="xs:int" />
+          <xs:element minOccurs="0" name="DesktopFondoBanner" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DesktopLogoBanner" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="DesktopSubTituloBanner" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="DesktopTituloBanner" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="DesktopTituloMenu" nillable="true" type="xs:string" />
@@ -66,12 +67,15 @@
           <xs:element minOccurs="0" name="Estado" type="xs:boolean" />
           <xs:element minOccurs="0" name="Excluyente" type="xs:boolean" />
           <xs:element minOccurs="0" name="Logo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="MobileFondoBanner" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="MobileLogoBanner" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="MobileSubTituloBanner" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="MobileTituloBanner" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="MobileTituloMenu" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="Orden" type="xs:int" />
-          <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+          <xs:element minOccurs="0" name="OrdenBpt" type="xs:int" />
           <xs:element minOccurs="0" name="TienePerfil" type="xs:boolean" />
+          <xs:element minOccurs="0" name="UrlMenu" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="Validado" type="xs:boolean" />
         </xs:sequence>
       </xs:extension>
@@ -376,6 +380,24 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BETerminosCondiciones" nillable="true" type="tns:BETerminosCondiciones" />
+  <xs:complexType name="ArrayOfBEEventoFestivo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEEventoFestivo" nillable="true" type="tns:BEEventoFestivo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEEventoFestivo" nillable="true" type="tns:ArrayOfBEEventoFestivo" />
+  <xs:complexType name="BEEventoFestivo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Alcance" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Estado" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Fin" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Inicio" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Periodo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Personalizacion" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEEventoFestivo" nillable="true" type="tns:BEEventoFestivo" />
   <xs:complexType name="BEConsultoraDatos">
     <xs:sequence>
       <xs:element minOccurs="0" name="AutorizaPedido" nillable="true" type="xs:string" />

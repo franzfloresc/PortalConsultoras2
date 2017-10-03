@@ -325,10 +325,18 @@ function messageInfoError(message, titulo, fnAceptar) {
 function CargarResumenCampaniaHeader(showPopup) {
     showPopup = showPopup || false;
 
+    var soloCantidad = true;
+    if (typeof controllerName == "undefined") {
+        soloCantidad = false;
+    }
+    else {
+        soloCantidad =  controllerName == 'pedido';
+    }
+
     $.ajax({
         type: 'POST',
         url: baseUrl + 'GestionContenido/GetResumenCampania',
-        data: JSON.stringify({ soloCantidad : controllerName == 'pedido'}),
+        data: JSON.stringify({ soloCantidad: soloCantidad }),
         cache: false,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
@@ -653,10 +661,15 @@ function ValidarCorreoComunidad(tipo) {
     }
 };
 
-function alert_msg(message, titulo) {
+function alert_msg(message, titulo, funcion) {
     titulo = titulo || "MENSAJE";
     $('#alertDialogMensajes .terminos_title_2').html(titulo);
     $('#alertDialogMensajes .pop_pedido_mensaje').html(message);
+    if (typeof funcion == "function") {
+        $("#alertDialogMensajes").dialog("option", "buttons", {
+            "Ver Ofertas": function () { funcion(); }
+        });
+    }
     $('#alertDialogMensajes').dialog('open');
 }
 function alert_msg_com(message) {
@@ -795,7 +808,7 @@ function MostrarShowRoomBannerLateral() {
     });
 
     if (viewBagRol == 1) {
-        if (sesionEsShowRoom == '0') {
+        if (!sesionEsShowRoom) {
             return;
         }
         $.ajax({

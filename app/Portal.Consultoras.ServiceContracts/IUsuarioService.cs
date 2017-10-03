@@ -320,7 +320,7 @@ namespace Portal.Consultoras.ServiceContracts
         BEUsuarioExterno GetUsuarioExternoByCodigoUsuario(int paisID, string codigoUsuario);
 
         [OperationContract]
-        BEUsuarioExterno GetUsuarioExternoByProveedorAndIdApp(string proveedor, string idAplicacion);
+        BEUsuarioExterno GetUsuarioExternoByProveedorAndIdApp(string proveedor, string idAplicacion, string fotoPerfil);
 
         [OperationContract]
         List<BEUsuarioExterno> GetListaLoginExterno(int paisID, string codigoUsuario);
@@ -344,6 +344,12 @@ namespace Portal.Consultoras.ServiceContracts
         bool InsertTerminosCondiciones(BETerminosCondiciones terminos);
         [OperationContract]
         BETerminosCondiciones GetTerminosCondiciones(int PaisID, string CodigoConsultora, short Tipo);
+        #endregion
+
+        #region EventoFestivo
+        /*HD-817*/
+        [OperationContract]
+        IList<BEEventoFestivo> GetEventoFestivo(int paisID, string Alcance, int Campania);
         #endregion
     }
 }
