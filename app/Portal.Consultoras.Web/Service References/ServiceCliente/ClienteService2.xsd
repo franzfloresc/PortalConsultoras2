@@ -5,6 +5,7 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="Activo" type="xs:boolean" />
       <xs:element minOccurs="0" name="ApellidoCliente" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CantidadProductos" type="xs:int" />
       <xs:element minOccurs="0" name="Celular" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ClienteID" type="xs:int" />
       <xs:element minOccurs="0" name="CodigoCliente" type="xs:long" />
@@ -207,11 +208,13 @@
   <xs:element name="ArrayOfBECatalogoRevista" nillable="true" type="tns:ArrayOfBECatalogoRevista" />
   <xs:complexType name="BECatalogoRevista">
     <xs:sequence>
+      <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
       <xs:element minOccurs="0" name="CatalogoDescripcion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CatalogoTitulo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MarcaDescripcion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MarcaID" type="xs:int" />
       <xs:element minOccurs="0" name="Mostrar" type="xs:boolean" />
+      <xs:element minOccurs="0" name="PaisISO" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UrlImagen" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UrlVisor" nillable="true" type="xs:string" />
     </xs:sequence>
@@ -227,8 +230,10 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="Alias" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Apellidos" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CantidadProductos" type="xs:int" />
       <xs:element minOccurs="0" name="ClienteID" type="xs:long" />
       <xs:element minOccurs="0" name="ClienteIDSB" type="xs:int" />
+      <xs:element minOccurs="0" name="CodigoRespuesta" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ConsultoraID" type="xs:long" />
       <xs:element minOccurs="0" name="Contactos" nillable="true" type="tns:ArrayOfBEClienteContactoDB" />
       <xs:element minOccurs="0" name="Documento" nillable="true" type="xs:string" />
@@ -236,6 +241,8 @@
       <xs:element minOccurs="0" name="Favorito" type="xs:short" />
       <xs:element minOccurs="0" name="FechaNacimiento" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Foto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Insertado" type="xs:boolean" />
+      <xs:element minOccurs="0" name="MensajeRespuesta" nillable="true" type="xs:string" />
       <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cliente" minOccurs="0" name="Movimientos" nillable="true" type="q2:ArrayOfBEMovimiento" />
       <xs:element minOccurs="0" name="NombreCompleto" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Nombres" nillable="true" type="xs:string" />
@@ -294,22 +301,4 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEPedidoDDWebDetalle" nillable="true" type="tns:BEPedidoDDWebDetalle" />
-  <xs:complexType name="ArrayOfBEClienteResponse">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEClienteResponse" nillable="true" type="tns:BEClienteResponse" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfBEClienteResponse" nillable="true" type="tns:ArrayOfBEClienteResponse" />
-  <xs:complexType name="BEClienteResponse">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="ClienteID" type="xs:long" />
-      <xs:element minOccurs="0" name="ClienteIDSB" type="xs:int" />
-      <xs:element minOccurs="0" name="CodigoRespuesta" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ConsultoraID" type="xs:long" />
-      <xs:element minOccurs="0" name="MensajeRespuesta" nillable="true" type="xs:string" />
-      <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cliente" minOccurs="0" name="Movimientos" nillable="true" type="q5:ArrayOfBEMovimiento" />
-      <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cliente" minOccurs="0" name="Notas" nillable="true" type="q6:ArrayOfBENota" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEClienteResponse" nillable="true" type="tns:BEClienteResponse" />
 </xs:schema>
