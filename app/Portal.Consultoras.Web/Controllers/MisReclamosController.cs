@@ -1795,21 +1795,25 @@ namespace Portal.Consultoras.Web.Controllers
 
         private decimal GetValorFleteExpress()
         {
-            decimal costoFlete = 0;            try
+            decimal costoFlete = 0;
+            try
             {
                 using (CDRServiceClient cdr = new CDRServiceClient())
                 {
                     var flete = cdr.GetMontoFletePorZonaId(userData.PaisID, new BECDRWeb() { ZonaID = userData.ZonaID });
                     costoFlete = flete.FleteDespacho;
                 }
-            }            catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoUsuario, userData.CodigoISO, "");
-            }            return costoFlete;
+            }
+            return costoFlete;
         }
 
         private string SetMensajeFleteExpress(decimal flete)
-        {            if (flete <= 0) return GetMensajeCDRExpress(Constantes.MensajesCDRExpress.ExpressFleteCero);
+        {
+            if (flete <= 0) return GetMensajeCDRExpress(Constantes.MensajesCDRExpress.ExpressFleteCero);
 
             var textoFlete = GetMensajeCDRExpress(Constantes.MensajesCDRExpress.ExpressFlete);
             return string.Format(textoFlete, userData.Simbolo, Util.DecimalToStringFormat(flete, userData.CodigoISO));
