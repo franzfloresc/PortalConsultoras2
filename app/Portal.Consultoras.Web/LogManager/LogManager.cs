@@ -27,7 +27,7 @@ namespace Portal.Consultoras.Web.LogManager
             Common.LogManager.SaveLog(new Common.LogError
             {
                 Exception = exception,
-                CodigoUsuario = usuario,
+                CodigoUsuario = usuario ?? "",
                 IsoPais = pais,
                 InformacionAdicional = adicional,
                 Origen = "ServidorWeb",

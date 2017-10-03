@@ -5643,8 +5643,13 @@ body{
     border-bottom: 1px solid black;
     position:relative;
     font-family:'Lato';
-        overflow: hidden;
+    overflow: hidden;
 }
+
+.hideTituloMobileDetalleOferta{
+    display:none;
+}
+
 .fondo_f2f2f2{
     background:white;
     border-bottom: 1px solid black;
@@ -8835,6 +8840,12 @@ span.icon-advertencia{
     color:#000;
 }
 
+.icono_terminar_pedido{
+    background:url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/eFrB5kIPNXTjyJd/icono-reserva.png) no-repeat;
+    background-size:22px;
+    padding-left: 40px;    
+}
+
 /* FIN POPUP OFERTA FINAL */
 .texto_valorTurno {
     text-transform: lowercase;
@@ -9719,9 +9730,20 @@ span.icon-advertencia{
     /*height: 142px;*/
     width: 100%;
     /*overflow:hidden;*/
-    padding-top:12px;
-    min-height: 166px;
+    padding-top:4px;
+    min-height: 190px;
 }
+
+.bloqueOfertaDia_vistaOfertas{
+    width:auto;
+    margin:0 10px 10px 10px;
+    box-shadow: 0 3px 11px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0 3px 11px rgba(0,0,0,0.5);
+    -o-box-shadow: 0 3px 11px rgba(0,0,0,0.5);
+    -ms-box-shadow: 0 3px 11px rgba(0,0,0,0.5);
+    -webkit-box-shadow: 0 3px 11px rgba(0,0,0,0.5);
+}
+
 .solo_hoy_mobile{
     width: 70%;
     margin: 0 auto;
@@ -9737,20 +9759,29 @@ span.icon-advertencia{
     font-size: 11.5px;
     letter-spacing: 0.4px;
     /* margin-left: 30px; */
-    margin-top: 16%;
+    margin-top: 9%;
     color: white;
     line-height: 15px;
     text-align: center;
 }
+
+.precio_oferta_soloHoy{
+    display: block;
+    margin-top: 3px;
+    font-size: 17px;
+}
+
 .float_left{
     float:left;
 }
-.imagen_set_oferta_mobile{
-    float: left;
-    width:47%;
+
+.imagen_set_oferta_mobile {
+    float: right;
+    width: 47%;
     margin-top: 9px;
     /*margin-left: 9px;*/
     text-align: center;
+    margin-top: -7px;
 }
 .imagen_set_oferta_mobile img{
     width:90%;
@@ -9766,15 +9797,15 @@ span.icon-advertencia{
 }
 
 .content_pop_oferta_mobile{
-    display:none;
-    position:fixed;
+    /*display:none;*/
+    /*position:fixed;*/
     width:100%;
     height:100%;
     padding-bottom:45px;
     top:0;
     background:white;
     color:black;
-    z-index: 1100;
+    /*z-index: 1100;*/
     overflow-x: auto;
 }
 .header_pop_oferta{
@@ -9879,22 +9910,23 @@ span.icon-advertencia{
     margin-top:58px;
     background:black;
 }
-.btn_compralo_ahora {
-    display:block;
-    border:1px solid white;
-    width:85%;
-    color:white;
-    font-family:'Lato';
-    font-size:10px;
-    font-weight:700;
-    letter-spacing:0.8px;
-    height:26px;
-    line-height:24px;
-    /*margin-left:25px;*/
-    margin:0 auto;
-    margin-top: 7px;
-    text-align:center;
+
+.btn_compralo_ahora{
+    display: block;
+    position: relative;
+    margin-top: 9px;
+    /* top: 11px; */
+    left: 0px;
+    font-family: 'Lato';
+    color: #FFF;
+    font-size: 11px;
+    padding: 2px 21px;
+    border: 1px solid #FFF;
+    line-height: 30px;
+    height: 36.2px;
+    text-align: center;
 }
+
 .flexslider{
         width: 100%;
     overflow: hidden;
@@ -10207,7 +10239,7 @@ span.icon-advertencia{
 }
 
 /*SPRINT 6*/
-.dias_faltantes{
+/*.dias_faltantes{
     margin-top:16%;
     text-align:center;
     color:white;
@@ -10217,14 +10249,50 @@ span.icon-advertencia{
     position:absolute;
     width:100%;
     text-shadow: -0.1em 0.1em black;
+}*/
+
+.dias_faltantes{
+    text-align: center;
+    color: white;
+    font-size: 1.55em;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    position: absolute;
+    width: 100%;
+    text-shadow: -0.1em 0.1em black;
+    margin-top: 14%;
+    margin-left: 19%;
+    font-family: 'Lato';
+    letter-spacing: 2px;
+    z-index: 2;
 }
+
+@media screen and (min-width:360px) and (max-width:450px){
+    .dias_faltantes {
+        font-size: 1.83em;
+    }
+}
+
+@media screen and (min-width:451px) and (max-width:559px){
+    .dias_faltantes {
+        font-size: 2.5em;
+    }
+}
+
+@media screen and (min-width: 560px) and (max-width:700px) {
+    .dias_faltantes {
+        margin-top:15.8%;
+        font-size: 3.6em;
+    }
+}
+
 .BloqueOfertaDiaHeader{
     background: black;
-    /* height: 142px; */
+    /*height: 125px;*/ 
     width: 100%;
     overflow: hidden;
-    /* padding-top: 12px; */
-    padding-bottom: 7px;
+    padding-top: 14px; 
+    padding-bottom: 13px;
     height:60px;
     position:relative;
 }
@@ -10248,11 +10316,18 @@ span.icon-advertencia{
     text-shadow: -0.1em 0.1em black;
 }
 .solo_hoy_mobile2{
-    width: 200px;
+    width:129px;
+    /*width: 200px;*/
     height:34px;
+    position: relative;
+    top: -9px;
 }
+
 .solo_hoy_mobile2 img{
-    width:100%;
+    width: 77%;
+    object-fit: cover;
+    height: 19px;
+    object-position: 100%;
 }
 .content_banner_header_showroom img{
    display: block;
@@ -10707,7 +10782,79 @@ span.icon-advertencia{
     box-shadow: none;
 }
 
+.contenedor_banners_showroom:first-child{
+    margin:21px 10px 15px 10px;
+}
+
+.contenedor_banners_showroom{
+    text-align: center;
+    position: relative;
+    margin: 15px 10px 15px 10px;
+    overflow: hidden;
+    box-shadow: 0 3px 11px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0 3px 11px rgba(0,0,0,0.5);
+    -o-box-shadow: 0 3px 11px rgba(0,0,0,0.5);
+    -ms-box-shadow: 0 3px 11px rgba(0,0,0,0.5);
+    -webkit-box-shadow: 0 3px 11px rgba(0,0,0,0.5);
+}
+
+.contenedor_banner_showroom_vistaOfertas_seccion_inferior{
+    display:block;
+    height:190px;
+    margin: 15px 10px 18px 10px;
+    overflow: hidden;
+    box-shadow: 0 3px 11px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0 3px 11px rgba(0,0,0,0.5);
+    -o-box-shadow: 0 3px 11px rgba(0,0,0,0.5);
+    -ms-box-shadow: 0 3px 11px rgba(0,0,0,0.5);
+    -webkit-box-shadow: 0 3px 11px rgba(0,0,0,0.5);
+}
+
 /******* Oscar *******/
+
+.agregarPosicionRelativa{
+    position:relative;
+}
+
+.btn_volver_detalle_oferta{
+    display: block;
+    position: absolute;
+    top: 21px;
+    left: 20px;
+    z-index: 20;
+    height: 45px;
+    line-height: 43px;
+}
+
+.btn_volver_detalle_oferta a{
+    display:block;
+    border:none;
+}
+
+.btn_volver_detalle_oferta a span{
+    display:inline-block;
+    vertical-align:middle;
+}
+
+.icono_flecha_volver{
+    margin-right:7px;
+}
+
+.icono_flecha_volver, .icono_flecha_volver img{
+    width:6px;
+    height:11px;
+}
+
+.texto_enlace_volver_detalle{
+    font-family: 'Lato';
+    font-size: 11.9px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    color: #000;
+    position: relative;
+    top: 1px;
+}
+
 .content_room_product_sheet{
 	font-family: 'Lato';
 	padding-bottom: 30px;
@@ -11434,7 +11581,18 @@ box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
 }
 
 .btn_compralo_ahora.cabecera-no-home {
-    margin-top: -5px !important;
+    margin-top: 7px !important;
+    display: block;
+    position: absolute;
+    top: 11px;
+    left: 67px;
+    font-family: 'Lato';
+    color: #FFF;
+    font-size: 11px;
+    padding: 2px 21px;
+    border: 1px solid #FFF;
+    line-height: 17px;
+    height:22px;
 }
 
 .content_cronometro{
@@ -12305,4 +12463,180 @@ box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
 .fondo_pestana{
     background:#eeeeee;
     overflow: hidden;
+}
+
+.flip-clock-wrapper .flip{
+    box-shadow: 0 2px 5px rgba(4, 53, 83, 0.7) !important;
+}
+
+.flip-clock-wrapper ul li a div div.inn {
+    text-shadow: 0 1px 2px #043553 !important;
+    background-color: #043553 !important;
+}
+/*SPRINT 19 PL20*/
+.btn_regalo_sorpresa{
+    background: #e81c36 url(../../../Images/mobile/icono_regalo.png) no-repeat; 
+    min-width: 255px;
+    text-transform:uppercase;
+    height: 40px;
+    font-family: 'Lato';
+    font-weight: 700;
+    color: white;
+    font-size: 13px;
+    letter-spacing: 1px;
+    line-height: 39px;
+    padding-left: 40px;
+    position: absolute;
+    top: 0;
+}
+.btn_regalo_sorpresa:before{
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 40px 0 0 25px;
+    border-color: transparent transparent transparent #e81c37;
+    position:absolute;
+    right:-25px;
+    z-index:1;
+}
+.ContentSorpresaMobile{
+    display: none;
+    margin: 1% auto 5% auto;
+    right: 0;
+    left: 0;
+    position: absolute;
+    width: 95%;
+    max-width: 400px;
+    min-height: 802px;
+    top: 0;
+    background:#002e5b url(../../../Images/Esika/bg_regalo_mobile_chile.png) no-repeat center top;
+   
+    z-index: 6;
+}
+.btn_regresa_OF{
+    background: #e81c36 url(../../../Images/Esika/regresar.png) no-repeat; 
+    background-position: 15px 8px;
+    text-transform:uppercase;
+    height: 40px;
+    font-family: 'Lato';
+    font-weight: 700;
+    color: white;
+    font-size: 13px;
+    letter-spacing: 1px;
+    line-height: 39px;
+    padding-left: 40px;
+}
+.icono_regalo_sorpresa{
+    width:85px;
+    height:55px;
+    margin:0 auto;
+    margin-top:30px;
+    margin-bottom:14px;
+    background:url(../../../Images/gif-regalo-blanco.png) no-repeat; 
+}
+.titulo_regalo_sorpresa{
+    font-family: 'Lato';
+    /*font-weight: 700;*/
+    color: white;
+    font-size: 18px;
+    letter-spacing: 1px;
+    padding-left:20px;
+    padding-right:20px;
+    text-align:center;
+    line-height:22px;
+    margin-bottom:19px;
+}
+.font_700_regalo{
+    display: block;
+    padding-bottom: 11px;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 34px;
+}
+.fondo_blanco_regalo{
+    background:white;
+    width:90%;
+    max-width:280px;
+    min-height:333px;
+    margin:0 auto;
+    padding:22px 14px 5px 14px;
+}
+.titulo_regalo_producto{
+    font-family: 'Lato';
+    font-weight: 700;
+    color: black;
+    font-size: 13px;
+    /* padding-left: 14px; */
+    /* padding-right: 14px; */
+    text-align: center;
+    margin-bottom: 10px;
+}
+.content_imagen_sorpresa{
+   height: auto;
+    width: 218px;
+    margin: 0 auto;
+    text-align: center;
+}
+.content_imagen_sorpresa img{
+    width: auto;
+    height: 218px;
+}
+.descripcion_regalo{
+    font-family: 'Lato';   
+    font-size: 11px;
+    margin-top: 14px;
+    margin-bottom:16px;
+    text-align:center;
+}
+.content_detalle_monto{
+    margin:0 auto;
+    background:#f5f5f5;
+    font-family: 'Lato';   
+    font-size: 13px;
+    text-align:center;
+    line-height:18px;
+    padding-top:10px;
+    padding-bottom:10px; 
+    width:90%;
+    max-width:280px;   
+    border-top: 1px solid #d0cbcb;
+    letter-spacing:0.5px;
+}
+.btn_sigue_comprando{
+    margin:0 auto;
+    margin-top:20px;
+    height:45px;
+    width:90%;
+    max-width:280px;
+    line-height:44px;
+    display:block;   
+    color:white;
+    font-family: 'Lato';   
+    font-size: 14px;
+    padding-left:50px;
+    font-weight:700;
+    margin-bottom:50px;
+    background:black url(../../../Images/Esika/regresar.png) no-repeat; 
+    background-position: 26px 11px;
+}
+.btn_legal_RS{
+    margin-top:15px;
+    font-family: 'Lato';   
+    font-size: 13px;
+    display:block;
+    color:white;
+    text-align:center;
+    text-decoration:underline;
+    margin-bottom:25px;
+}
+
+.btn_aceptar_no_hay_producto{
+    display: block;
+    margin: 0 auto;
+    color: #FFF;
+    background: #642f80;
+    width: 100%;
+    max-width: 197px;
+    height: 40px;
 }

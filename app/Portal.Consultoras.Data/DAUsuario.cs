@@ -774,5 +774,25 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteNonQuery(command);
         }
+        
+        public int UpdUsuarioExterno(BEUsuarioExterno usuarioexterno)
+        {            
+            DbCommand command = command = Context.Database.GetStoredProcCommand("dbo.UpdUsuarioExterno"); ;            
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, usuarioexterno.CodigoUsuario);
+            Context.Database.AddInParameter(command, "@FotoPerfil", DbType.AnsiString, usuarioexterno.FotoPerfil);
+            
+            return Context.ExecuteNonQuery(command);
+        }
+
+        #region EventoFestivo
+        public IDataReader GetEventoFestivo(string Alcance, int Campania)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetEventoFestivo");
+            Context.Database.AddInParameter(command, "@Alcance", DbType.AnsiString, Alcance);
+            Context.Database.AddInParameter(command, "@Campania", DbType.Int32, Campania);
+
+            return Context.ExecuteReader(command);
+        }
+        #endregion
     }
 }

@@ -9,11 +9,19 @@ var openloginPopup = false;
 var CodigoISO;
 var PaisID;
 var CodigoUsuario;
+var ancho = 681;
 
 $(document).ready(function () {
     $(window).resize(function () {
         //resize just happened, pixels changed
         resizeNameUserExt();
+        var _id = "";
+        if (paisesEsika.indexOf(imgISO) != -1) {
+            _id = "hddFondoFestivoEsika";
+        } else {
+            _id = "hddFondoFestivoLebel";
+        }
+        Fondofestivo(_id);
     });
 
     $(document).keyup(function (e) {
@@ -512,8 +520,8 @@ function ayudaLogin2() {
             break;
     }
 
-    $('#ayuda-msg-user').html(m1.trim());
-    $('#ayuda-msg-clave').html(m2.trim());
+    $('#ayuda-msg-user').html($.trim(m1));
+    $('#ayuda-msg-clave').html($.trim(m2));
 }
 
 function AbrirMensajeLogin(tipo, close) {
@@ -577,7 +585,9 @@ function AsignarHojaEstilos() {
             $("link[data-id='iconPagina']").attr("href", "/Content/Images/Esika/favicon.ico");
             $("link[data-id='cssStyle']").prop('disabled', false);
             $("link[data-id='cssStyleLbel']").prop('disabled', true);
+            Fondofestivo("hddFondoFestivoEsika");
             window.setTimeout(function () { $("body").css("visibility", "visible"); }, 100);
+            
         }
         $("#cargarBandera").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top 10px left 2px no-repeat");
         $("#cargarBandera3").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top 10px left 2px no-repeat");
@@ -590,6 +600,7 @@ function AsignarHojaEstilos() {
                 $("link[data-id='iconPagina']").attr("href", "/Content/Images/Lbel/favicon.ico");
                 $("link[data-id='cssStyle']").prop('disabled', true);
                 $("link[data-id='cssStyleLbel']").prop('disabled', false);
+                Fondofestivo("hddFondoFestivoLebel");
                 window.setTimeout(function () { $("body").css("visibility", "visible"); }, 100);
             }
             $("#cargarBandera").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top 10px left 2px no-repeat");
@@ -601,6 +612,7 @@ function AsignarHojaEstilos() {
                 $("link[data-id='iconPagina']").attr("href", "/Content/Images/Esika/favicon.ico");
                 $("link[data-id='cssStyle']").prop('disabled', false);
                 $("link[data-id='cssStyleLbel']").prop('disabled', true);
+                Fondofestivo("hddFondoFestivoEsika");
                 window.setTimeout(function () { $("body").css("visibility", "visible"); }, 100);
             }
             $("#cargarBandera").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top -7px left -10px no-repeat");
@@ -828,4 +840,18 @@ function saveLog(ISO, usuario, mensaje) {
             console.log(response);
         }
     });
+}
+/*HD-817*/
+function Fondofestivo(id)
+{
+    if ($("body").hasClass("fondo_festivo")) {
+        var ruta = $("#" + id).val();
+        if ($(window).width() <= ancho) {
+            $(".fondo_festivo").css("background", "url(" + ruta + ")");
+
+        } else {
+            $(".fondo_festivo").css("background", "url(" + ruta + ") center center no-repeat fixed");
+            $(".fondo_festivo").css("background-size", "cover");
+        }
+    }
 }

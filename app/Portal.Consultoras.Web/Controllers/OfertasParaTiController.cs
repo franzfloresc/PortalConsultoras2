@@ -24,12 +24,12 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpGet]
-        public JsonResult JsonConsultarEstrategias(string cuv, string tipoOrigenEstrategia = "") 
+        public JsonResult JsonConsultarEstrategias(string cuv, string tipoOrigenEstrategia = "")
         {
             // solo se llama en Home y Pedido, desktop y mobile, para los carruseles de opt o rd
-      
-            var codAgrupa = userData.RevistaDigital.TieneRDR || 
-                (userData.RevistaDigital.TieneRDC && userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro == 1) ? 
+
+            var codAgrupa = userData.RevistaDigital.TieneRDR ||
+                (userData.RevistaDigital.TieneRDC && userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro == 1) ?
                 Constantes.TipoEstrategiaCodigo.RevistaDigital : "";
 
             var listModel = ConsultarEstrategiasFiltrarSegunTipo(cuv, codAgrupa);
@@ -38,8 +38,8 @@ namespace Portal.Consultoras.Web.Controllers
             model.CodigoEstrategia = GetCodigoEstrategia();
             model.Consultora = userData.Sobrenombre;
             model.Titulo = userData.Sobrenombre + " LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA";
-            model.TituloDescripcion = tipoOrigenEstrategia == "1" ? "ENCUENTRA MÁS OFERTAS, MÁS BONIFICACIONES Y LANZAMIENTOS DE LAS 3 MARCAS Y AUMENTA TUS GANANCIAS" : 
-                (tipoOrigenEstrategia == "2" ? "ENCUENTRA OFERTAS, BONIFICACIONES Y LANZAMIENTOS DE LAS 3 MARCAS" 
+            model.TituloDescripcion = tipoOrigenEstrategia == "1" ? "ENCUENTRA MÁS OFERTAS, MÁS BONIFICACIONES Y LANZAMIENTOS DE LAS 3 MARCAS Y AUMENTA TUS GANANCIAS" :
+                (tipoOrigenEstrategia == "2" ? "ENCUENTRA OFERTAS, BONIFICACIONES Y LANZAMIENTOS DE LAS 3 MARCAS"
                 : "ENCUENTRA LOS PRODUCTOS QUE TUS CLIENTES BUSCAN HASTA 65% DE DSCTO.");
 
             if (model.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.RevistaDigital)
@@ -47,14 +47,16 @@ namespace Portal.Consultoras.Web.Controllers
                 model.OrigenPedidoWeb = tipoOrigenEstrategia == "1" ? Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion
                     : tipoOrigenEstrategia == "11" ? Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion
                     : tipoOrigenEstrategia == "2" ? Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion
-                    : tipoOrigenEstrategia == "22" ? Constantes.OrigenPedidoWeb.RevistaDigitalMobilePedidoSeccion : 0;
+                    : tipoOrigenEstrategia == "22" ? Constantes.OrigenPedidoWeb.RevistaDigitalMobilePedidoSeccion
+                        : (Request.UrlReferrer != null && Request.UrlReferrer.OriginalString.Contains("Mobile")) ? Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTi : 0;
             }
             else
             {
                 model.OrigenPedidoWeb = tipoOrigenEstrategia == "1" ? Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi
                     : tipoOrigenEstrategia == "11" ? Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTi
                     : tipoOrigenEstrategia == "2" ? Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTi
-                    : tipoOrigenEstrategia == "22" ? Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTi : 0;
+                    : tipoOrigenEstrategia == "22" ? Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTi
+                        : (Request.UrlReferrer != null && Request.UrlReferrer.OriginalString.Contains("Mobile")) ? Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTi : 0;
             }
 
             model.ListaLan = ConsultarEstrategiasFormatearModelo(listModel.Where(l => l.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList());
@@ -63,6 +65,32 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
-       
+        [HttpPost]
+        public JsonResult ConsultarEstrategiasOPT()
+        {
+            var model = new EstrategiaOutModel();
+
+            try
+            {
+                var listModel = ConsultarEstrategiasFormatearModelo(ConsultarEstrategiasModel());
+                return Json(new
+                {
+                    success = true,
+                    lista = listModel,
+                    codigo = Constantes.ConfiguracionPais.OfertasParaTi
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
+            return Json(new
+            {
+                success = false
+            });
+        }
+
+
     }
 }

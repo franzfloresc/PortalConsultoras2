@@ -16,8 +16,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                ViewBag.EsMobile = 2;
-                return IndexModel();
+                return RedirectToAction("Index", "Ofertas", new { area = "Mobile" });
+                //return IndexModel();
             }
             catch (Exception ex)
             {
@@ -31,7 +31,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                ViewBag.EsMobile = 2;
                 ViewBag.CampaniaMasDosX = AddCampaniaAndNumero(userData.CampaniaID, 2) % 100;
                 return DetalleModel(cuv, campaniaId);
             }
@@ -43,11 +42,52 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return RedirectToAction("Index", "RevistaDigital", new { area = "Mobile" });
         }
 
+        public ActionResult Informacion()
+        {
+            try
+            {
+                return IndexModel();
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
+            return RedirectToAction("Index", "Bienvenida");
+        }
+
+        public ActionResult Comprar()
+        {
+            try
+            {
+                return ViewLanding(1);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
+            return RedirectToAction("Index", "Bienvenida");
+        }
+
+        public ActionResult Revisar()
+        {
+            try
+            {
+                return ViewLanding(2);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
+            return RedirectToAction("Index", "Bienvenida");
+        }
+        
         public ActionResult _Landing(int id)
         {
             try
             {
-                ViewBag.EsMobile = 2;
                 return ViewLanding(id);
             }
             catch (Exception ex)
@@ -61,7 +101,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                ViewBag.EsMobile = 2;
                 return PartialView("template-mensaje-bloqueado", MensajeProductoBloqueado());
             }
             catch (Exception ex)

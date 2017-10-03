@@ -149,19 +149,20 @@
   border-bottom-right-radius: 6px;*/
 }
 
-.flip-clock-wrapper ul li a div div.inn {
-     position: absolute;
-    left: 0;
-    z-index: 1;
-    width: 100%;
-    height: 200%;
-    color: white;
-    text-shadow: 0 1px 2px #000;
-    text-align: center;
-     background-color: black;
-     font-weight: 700;
-    /*border-radius: 6px;*/
-    font-size: 22px; }
+ .flip-clock-wrapper ul li a div div.inn {
+        position: absolute;
+        left: 0;
+        z-index: 1;
+        width: 100%;
+        height: 200%;
+        color: white;
+        text-shadow: 0 1px 2px #86161d;
+        text-align: center;
+        background-color: #86161d;
+        font-weight: 700;
+        /* border-radius: 6px; */
+        font-size: 22px;
+  }
 
 .flip-clock-wrapper ul li a div.up div.inn {
   top: 0; }
@@ -173,7 +174,7 @@
 .flip-clock-wrapper ul.play li.flip-clock-before {
   z-index: 3; }
 
-.flip-clock-wrapper .flip {   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7); }
+.flip-clock-wrapper .flip {   box-shadow: 0 2px 5px rgba(134, 22, 29, 0.7); }
 
 .flip-clock-wrapper ul.play li.flip-clock-active {
   -webkit-animation: asd 0.5s 0.5s linear both;

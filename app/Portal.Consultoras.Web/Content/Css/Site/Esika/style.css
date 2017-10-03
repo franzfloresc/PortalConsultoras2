@@ -763,22 +763,22 @@ header {
 
     }
 
-.clear {
-    background: none;
-    border: 0;
-    clear: both;
-    display: block;
-    float: none;
-    font-size: 0;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    visibility: hidden;
-    width: 0;
+.clear { 
+    background: none; 
+    border: 0; 
+    clear: both; 
+    display: block; 
+    float: none; 
+    font-size: 0; 
+    margin: 0; 
+    padding: 0; 
+    overflow: hidden; 
+    visibility: hidden; 
+    width: 0; 
     height: 0;
 }
 
-
+.clear{clear:both;}
 /*homr*/
 
 * {
@@ -951,20 +951,6 @@ header {
     width: 75px;
     float:right;
     text-align:right;
-}
-.clear {
-    background: none;
-    border: 0;
-    clear: both;
-    display: block;
-    float: none;
-    font-size: 0;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    visibility: hidden;
-    width: 0;
-    height: 0;
 }
 
 .wrapper_home_content {
@@ -1585,20 +1571,20 @@ header {
 .pedido_left {
     float: left;
 }
-.pedido_resumen_campaña {
+.pedido_resumen_campa?a {
     float:right;
     width:510px;
     margin-top: -30px;
     width: 525px;
 }
-.pedido_numero_campaña {
+.pedido_numero_campa?a {
     font-family:'lato';
     font-size:10pt;
     color:black;
     float:left;    
 }
 
-.pedido_numero_campaña span{
+.pedido_numero_campa?a span{
      font-family: 'OldStandard-Italic';
      font-size:20.2pt;
      letter-spacing:-1px;
@@ -1612,7 +1598,7 @@ header {
     margin-top:5px;
     margin-right:10px;
 }
-.pedido_detalles_campaña {
+.pedido_detalles_campa?a {
     font-family:'lato';
     font-size:8pt;
     color:black;
@@ -1780,7 +1766,7 @@ header {
     top: 0%;
     left: 0%;
     z-index: 1;
-    background: #000 url("../../../Images/Esika/background_pedido.png") no-repeat center bottom;
+    /*background: #000 url("../../../Images/Esika/background_pedido.png") no-repeat center bottom;*/
     /*background: #000 url("../../../Images/Esika/Banner_Esika.jpg") no-repeat center bottom;*/
     /*background-size:cover;*/
 }
@@ -1968,7 +1954,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
 }
 
 #divNotiCorreo, #divNotiCorreo2 {
-    top: 48.1%
+    top: 55.1%
 }
 
 #divValidationSummary, #divValidationSummary2{
@@ -4183,16 +4169,16 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 
 /*.contenedor_popup_productosSugeridos{
-    display:block;
-    position:fixed;
-    top:0;
-    left:0;
-    bottom:0;
-    right:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,0.5);
-    z-index:1000;
+????display:block;
+????position:fixed;
+????top:0;
+????left:0;
+????bottom:0;
+????right:0;
+????width:100%;
+????height:100%;
+????background:rgba(0,0,0,0.5);
+????z-index:1000;
 }*/
 
 .btn_cerrar_productosSugeridos{
@@ -4457,7 +4443,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     font-weight: bold;
 }
 
-/* POPUP INVITACIÓN FLEXIPAGO */
+/* POPUP INVITACIˆ_N FLEXIPAGO */
 
 .contenedor_popup_agregarUnidades, .contenedor_popup_ofertaFinal, .contenedor_popup_detalleCarousel, .contenedor_popup_misDatos, .contenedor_fondo_popup{
     position:fixed;
@@ -4979,11 +4965,13 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 
 .contenedor_bloques_agregaProductos{
-    display:block;
-    background:#f5f5f5;
-    height:auto;
-    padding-top:25px;
-    /*padding-bottom:20px;*/
+   display: block;
+    background: #f5f5f5;
+    height: auto;
+    padding-top: 25px;
+    /* padding-bottom: 20px; */
+    position: relative;
+    z-index: 2;
 }
 
 /*.bloque_descripciones, .bloque_carousel{
@@ -5096,7 +5084,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     margin-left:10px;
 }
 
-/* POPUP ACEPTACIÓN DE CONTRATO */
+/* POPUP ACEPTACIˆ_N DE CONTRATO */
 
 .btn_cerrar_aceptacionContrato{
     display: block;
@@ -5700,7 +5688,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     height:547px;
 }
 
-/* ACTUALIZACIÓN PÁGINA MIS PAGOS */
+/* ACTUALIZACIˆ_N PˆWGINA MIS PAGOS */
 
 .titulo_misPagos{
     width:16.85%!important;
@@ -7803,15 +7791,6 @@ h1, h2, h3, h4, h5, h6 {
 /* ---------------------------------------------------------------------- */
 /*	Clearfix
 	/* ---------------------------------------------------------------------- */
-
-.clear {
-    clear: both;
-    display: block;
-    height: 0;
-    overflow: hidden;
-    visibility: hidden;
-    width: 0;
-}
 
 .clearfix:after {
     clear: both;
@@ -12421,7 +12400,7 @@ ol {
     border: 1px solid #D8DAD7;
     padding: 0px 0px 7px 0px;
     display: inline-block;
-    vertical-align: top; /* BASELINE CORRECCIÓN*/
+    vertical-align: top; /* BASELINE CORRECCIˆ_N*/
     zoom: 1;
     *display: inline;
     background: #F1BCD0;
@@ -12454,7 +12433,7 @@ ol {
     border: 1px solid #D8DAD7;
     padding: 0px 0px 7px 0px;
     display: inline-block;
-    vertical-align: top; /* BASELINE CORRECCIÓN*/
+    vertical-align: top; /* BASELINE CORRECCIˆ_N*/
     zoom: 1;
     *display: inline;
     color: #444;
@@ -12838,7 +12817,7 @@ ol {
     padding: 0px 0px 10px 0px;
     text-align: center;   
     display: inline-block;
-    vertical-align: top; /* BASELINE CORRECCIÓN*/
+    vertical-align: top; /* BASELINE CORRECCIˆ_N*/
     zoom:1;
     *display:inline;
 }
@@ -13633,7 +13612,7 @@ ol {
     border: 1px solid #D8DAD7;
     padding: 6px;
     display: inline-block;
-    vertical-align: top; /* BASELINE CORRECCIÓN*/
+    vertical-align: top; /* BASELINE CORRECCIˆ_N*/
     zoom: 1;
     *display: inline;
     color: #444;
@@ -13654,7 +13633,7 @@ ol {
     border: 1px solid #D8DAD7;
     padding: 6px;
     display: inline-block;
-    vertical-align: top; /* BASELINE CORRECCIÓN*/
+    vertical-align: top; /* BASELINE CORRECCIˆ_N*/
     zoom: 1;
     *display: inline;
     color: #444;
@@ -13733,7 +13712,7 @@ ol {
     border: 1px solid #D8DAD7;
     padding: 6px;
     display: inline-block;
-    vertical-align: top; /* BASELINE CORRECCIÓN*/
+    vertical-align: top; /* BASELINE CORRECCIˆ_N*/
     zoom: 1;
     *display: inline;
     color: #444;
@@ -13753,7 +13732,7 @@ ol {
     border: 1px solid #D8DAD7;
     padding: 6px;
     display: inline-block;
-    vertical-align: top; /* BASELINE CORRECCIÓN*/
+    vertical-align: top; /* BASELINE CORRECCIˆ_N*/
     zoom: 1;
     *display: inline;
     color: #444;
@@ -18745,7 +18724,7 @@ float: right;
     color: #660066;
     margin-top: -10px;
     text-align: left;	
-    font-family: 'lato-regular'; /*R2442 - JICM - Se cambió tipo de letra*/
+    font-family: 'lato-regular'; /*R2442 - JICM - Se cambiˆu tipo de letra*/
     height:66px;
 }
 #divMensajeModalAfiliaBienvenida{
@@ -18754,7 +18733,7 @@ float: right;
     color: #660066;
     margin-top: -10px;
     text-align: left;	
-    font-family: 'lato-regular'; /*R2442 - JICM - Se agregó tipo de letra*/
+    font-family: 'lato-regular'; /*R2442 - JICM - Se agregˆu tipo de letra*/
     height:66px;
 }
 #paLand *{
@@ -18775,7 +18754,7 @@ float: right;
 	font-family: 'lato-regular';
 }
 #paParClientes{
-        /*'R2442 se cambió el FONT  a 100 regular - Cambio tamaño y font family*/
+        /*'R2442 se cambiˆu el FONT  a 100 regular - Cambio tama?o y font family*/
 
     font-family: 'lato-regular';
     font-size: 16px;
@@ -18822,7 +18801,7 @@ float: right;
 	text-align: center;
 }
 #paMod>img{
-    /*R2442 - Darle un tamaño ala imagen */
+    /*R2442 - Darle un tama?o ala imagen */
 	float: none;
 	margin: 0 auto;
     width: 300px;
@@ -19041,7 +19020,7 @@ float: right;
 			/*height: 685px;*/
 			overflow: hidden;
 		}
-        /*INI - R2442 - JICM - Por lo pronto la imagen será solo una */
+        /*INI - R2442 - JICM - Por lo pronto la imagen serˆh solo una */
 		#ImgEnterate1{
 			margin-left: 60px;
             width: 202px;
@@ -19141,7 +19120,7 @@ float: right;
         #ImgEnterate{
             
 		}
-          /*FIN - R2442 - JICM - Por lo pronto la imagen será solo una */
+          /*FIN - R2442 - JICM - Por lo pronto la imagen serˆh solo una */
 		#letrasPequenasEnterateMas{
 			text-align: left;
 			margin-left: 60px;
@@ -20141,7 +20120,6 @@ label.checkpop.c_on {
     font-size: 14px;
     font-weight:700;
 }
-.clear { background: none; border: 0; clear: both; display: block; float: none; font-size: 0; margin: 0; padding: 0; overflow: hidden; visibility: hidden; width: 0; height: 0 }
 /*DIALOG MENSAJE*/
 .divAgregarShowRoom {
     padding: 60px !important;    
@@ -20595,7 +20573,7 @@ label.checkpop.c_on {
 /*HEADER SECCION INGRESA TU PEDIDO*/
 
 
-/*ESTILOS PARA LIQUIDACIÓN*/
+/*ESTILOS PARA LIQUIDACIˆ_N*/
 .wrapper_home_interiores{
     /*margin: 0 auto;*/
     margin: 0 ;
@@ -20617,10 +20595,10 @@ label.checkpop.c_on {
 }
 .content_belcorp{
     max-width: 1189px;
-    margin:0 auto;
-    height:auto;
-    position:relative;
-    font-family:'Lato';
+    margin: 0 auto;
+    height: auto;
+    position: relative;
+    font-family: 'Lato';
 }
 .content_datos{
     padding-top:13px;
@@ -21197,13 +21175,16 @@ label.checkpop.c_on {
     /* overflow: hidden; */
     padding-bottom: 15px;
 }
-.content_item_carrusel{
-    position:relative;
-    float: left;
-    width: 248px;
-    margin-right:25px;
+.content_item_carrusel {
+    /* position: relative; */
+    /* float: left; */
+    /* width: 248px; */
+    /* margin-right: 25px; */
     min-height: 305px;
-    background:white;
+    margin-bottom: 15px;
+    margin-left: 7%;
+    margin-right: 7%;
+    background: white;
     border: 1px solid #e7e1e1;
     -webkit-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
     -moz-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
@@ -22516,7 +22497,7 @@ body{
     
 }
 
-/* PÁGINA MIS PEDIDOS */
+/* PˆWGINA MIS PEDIDOS */
 
 .contenedor_enlaces_misPedidos{
     display: block;
@@ -23939,7 +23920,7 @@ img
 .field90{width:90%; margin:0; padding:0; float:left;}
 .field98{width:98%; margin:0; padding:0; float:left;}
 .field100{width:100%; margin:0; padding:0;}
-.clear{clear:both;}
+
 .clear_co{clear:both;}
 
 .field100_co{width:100%; margin:0; padding:0;position:relative;float:left;}
@@ -24424,7 +24405,7 @@ img
     color: #d226aa;	
 }
 
-.submenu > ul > li > a  /*Títulos de cada sección del menú*/
+.submenu > ul > li > a  /*Tˆqtulos de cada secciˆun del menˆy*/
 {
     font-size: 1.3em;
     margin-bottom: 10px;
@@ -24579,7 +24560,7 @@ img
 	margin-top:2px;	
 }*/
 
-/*****************Menú*******************/
+/*****************Menˆy*******************/
 
 #menu>li>div>a>img
 {
@@ -24591,7 +24572,7 @@ img
 {
 	font-size:12px;
 }
-/*****************Submenú*******************/
+/*****************Submenˆy*******************/
 #menu .submenu > ul > li > a 
 {
 	font-size: 12px;
@@ -26740,8 +26721,8 @@ div.subir_archivo input {
     cursor: pointer;
 }
 input[type="checkbox"]:checked + span:after {    
-    content: "■"; /* el valor de la propiedad content también puede ser cualquier imagen, sólo tendríamos que pasarle la ruta de la imagen*/
-    content: "■";
+    content: "¡½"; /* el valor de la propiedad content tambiˆmn puede ser cualquier imagen, sˆulo tendrˆqamos que pasarle la ruta de la imagen*/
+    content: "¡½";
     position: absolute;
     z-index: 1002;
     top: 2px;
@@ -27581,7 +27562,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 /*MICHAEL*/
 .content-favclientes {
     max-width: 1189px;
-    margin: 25px auto 0 auto;
+    margin: 0px auto 0 auto;
     min-height: 405px;
     position: relative;
     display:block;
@@ -27599,7 +27580,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     font-weight: bold;
     letter-spacing: 0.5px;
     text-align: center;
-    color: #a18328;
+    color: white;
 }
 
 .catalogoPersonalizadoBloque{
@@ -27673,19 +27654,23 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 
 .content-favclientes .contiene-productos {
     background-color: white;
-    margin-right:2%;
+    margin-right:40px;
     float:left;
     position: relative;    
-    width:32%;
+    width:248px;
     margin-bottom: 15px;
     margin-top: 15px;
    
     padding-bottom: 12px;
+    border: 1px solid #e7e1e1;
+    -webkit-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
+    -moz-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
+    box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
 }
 .content-favclientes .contiene-productos:nth-child(3n){
     margin-right:0%;
 }
-/*información adicional*/
+/*informaciˆun adicional*/
 .mensajes_deAtencion span {
     width: 50%;
     color: #e81c36;
@@ -28087,7 +28072,21 @@ span.datoPedidoCliente {
     padding-bottom: 15px;
     font-size:13px;
 }
-
+@media screen and (max-width:1280px) {
+    .content-favclientes .contiene-productos {
+        width:260px;
+    }
+}
+@media screen and (max-width:1250px) {
+    .content-favclientes .contiene-productos {
+        width: 230px;
+    }
+}
+@media screen and (max-width:1204px) {
+    .content-favclientes .contiene-productos {
+        width: 225px;
+    }
+}
 @media screen and (max-width:1137px){
 
     .oscurece {
@@ -28640,7 +28639,7 @@ a#cierreMotivoRechazo img {
     margin-top:10px;
 }
 
-/* PÁGINA ESCALA DE DESCUENTOS */
+/* PˆWGINA ESCALA DE DESCUENTOS */
 
 .container_escalaDescuento{
     width:100%;
@@ -29323,7 +29322,7 @@ h1#penmostreo .campana {
 }
 
 
-/*Sb20-863 - Fín*/
+/*Sb20-863 - Fˆqn*/
 
 .encabezado_popupCatalogoPersonalizado {
     display: block;
@@ -30266,7 +30265,7 @@ h1#penmostreo .campana {
     }
     
 /* FIN POPUPS OFERTAS REVISTA */
-/* ACTUALIZAR CONTRASEÑA */
+/* ACTUALIZAR CONTRASE?A */
 .contenedor_actualizarContraseniaForm{
     display: block;
     margin: 50px auto 119px auto;
@@ -30409,7 +30408,7 @@ h1#penmostreo .campana {
 
 }
 
-/* FIN ACTUALIZAR CONTRASEÑA */
+/* FIN ACTUALIZAR CONTRASE?A */
 
 /* MENSAJES PEDIDO RECHAZADO */
 
@@ -31280,7 +31279,7 @@ h1#penmostreo .campana {
 /*.reclamo_motivo_select:last-child{
     border-bottom:0px;
 }*/
-.btn_solución_reclamo {
+.btn_soluciˆun_reclamo {
     float: left;
     width: 270px;
     height: 45px;
@@ -31293,10 +31292,10 @@ h1#penmostreo .campana {
     margin-right: 36px;
     margin-bottom: 10px;
 }
-.btn_solución_reclamo:last-child{
+.btn_soluciˆun_reclamo:last-child{
     margin-right:0px;
 }
-.btn_solución_reclamo:hover{
+.btn_soluciˆun_reclamo:hover{
     background:black;
     color:white;
 }
@@ -32646,16 +32645,30 @@ h1#penmostreo .campana {
     float:right;
     font-family:'Lato';
     font-size:13px;
-    margin-top:20px;
+    /*margin-top:20px;*/
 }
 .select_filtros_fav{
-    width:162px;
-    height:27px;
-    padding:5px;
-    font-size:11px;
-    color:black;
-    margin-left:20px;
+   width: 162px;
+    height: 27px;
+    padding: 5px;   
+    text-transform: uppercase;    
+    color: black;
+    margin-left: 20px;
+    border: 1px solid #b8b8b8;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 0.3px;
+    font-family: 'Lato';
     border:1px solid black;
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: white;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+    background-repeat: no-repeat;
+    background-position-x: 100%;
+    background-position-y: 5px;
+    padding-left: 1rem;
 }
 .texto_fav_filtro{
     margin-top:16px;
@@ -32663,12 +32676,15 @@ h1#penmostreo .campana {
     margin-left:10px;
 }
 .seleccion_filtro_fav{
-    position:relative;
-    margin-left:10px;
-    padding-left:33px;
-    padding-top:3px;
-    margin-bottom:15px;
-    cursor:pointer;
+   position: relative;
+    margin-left: 10px;
+    padding-left: 33px;
+    padding-top: 3px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    margin-top: 18px;
+    line-height: normal;
+    font-weight: normal;
 }
 .seleccion_filtro_fav:first-child{
     margin-top:6px;
@@ -32745,7 +32761,7 @@ h1#penmostreo .campana {
 
     .solo_hoy img {
         width: 100%;
-}
+    }
 
 .nombre_set_oferta {
     font-family: 'Lato';
@@ -32757,6 +32773,11 @@ h1#penmostreo .campana {
     color: white;
     text-align: center;
     margin-bottom: 5px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    /* display: block; */
+    height: 20px;
 }
 
 .producto_set {
@@ -32818,10 +32839,10 @@ h1#penmostreo .campana {
 .circulo_hoy {
     width: 16px;
     height: 16px;
-    background: #d9b33f;
+    background: white;
     border-radius: 100px;
     line-height: 14px;
-    color: black;
+    color: #c00026;
     font-weight: 700;
     font-size: 16px;
     font-family: 'Lato';
@@ -32839,9 +32860,9 @@ h1#penmostreo .campana {
     font-size: 13px;
     font-family: 'Lato';
     font-weight: 700;
-    color: #d9b33f;
+    color: white;
     letter-spacing: 0.75px;
-    border-bottom: 1px solid #d9b33f;
+    border-bottom: 1px solid white;
 }
 
 .btn_cerrar_ofertaDia {
@@ -32871,18 +32892,55 @@ h1#penmostreo .campana {
     top: 0;
 }
 
+@media screen and (max-width:1280px) {
+    .content_pop_oferta_dia {
+        margin-left: 12em !important;
+    }
+}
+
 .content_pop_oferta_dia {
     margin: 0 auto;
     left: 0;
     right: 0;
-    position: absolute;
+    position: relative;
     margin-top: 0px;
     max-width: 1024px;
-    height: 415px;
-    z-index: 2010;
-    background:#000;
+    height: 500px;
+    margin: auto, auto;
+    /*z-index: 2010;*/
+    background: #000;
     /*background-color: black;*/ /*PL20-1226*/
     /*background: url(../../../Images/PL20/fondo_pop.png) no-repeat;*/ /*PL20-1226*/
+    padding: 10px 0px;
+}
+
+@media screen and (max-width:1280px) {
+    .content_estrategia_carrusel {
+        margin-left: 12em !important;
+    }
+}
+
+.content_estrategia_carrusel {
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    position: relative;
+    margin-top: 0px;
+    max-width: 1024px;
+    height: 500px;
+}
+
+.contenido {
+    width: 88%;
+    margin: 0 auto;
+}
+
+.titulo {
+    float: left;
+    margin-left: 80px;
+    width:100%;
+    margin-top:4px;
+    margin-bottom: 12px;
 }
 
 .reloj_popOferta {
@@ -32898,12 +32956,13 @@ h1#penmostreo .campana {
 }
 
 .imagen_set_Oferta_pop {
-    width: 350px;
+    width: 46%;
     height: auto;
     float: left;
     /*margin-left: 15px;*/
     /* margin-top: 5px; */
     text-align: center;
+    margin-top:25px;
 }
 
     .imagen_set_Oferta_pop img {
@@ -32916,10 +32975,11 @@ h1#penmostreo .campana {
     /* width: 210px; */
     font-family: 'Lato';
     color: white;
-    font-size: 13px;
+    font-size: 14px;
     text-align: left;
     /* letter-spacing: 0.75px; */
     line-height: 18px;
+    letter-spacing:0.2px;
     /* font-weight: 300; */
 }
 .producto_gratis_ofertaDia {
@@ -32937,7 +32997,7 @@ h1#penmostreo .campana {
         /* width: 200px; */
     margin: 0 auto;
     font-family: 'Lato';
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 700;
     letter-spacing: 1.2px;
     /* text-align: center; */
@@ -32978,16 +33038,16 @@ h1#penmostreo .campana {
     width: 90%;
     /*height: 166px;*/
     margin: 0 auto;
-    margin-top: 21px;
+    /*margin-top: 21px;*/
     overflow: hidden;
 }
 
 .right_set_hoy {
    
     float: left;
-    width: 295px;
+    width: 49%;
     /* margin-top: 45px; */
-    margin-left: 14%;
+    margin-right: 5%;
 }
 
 .precio_valorizado_oferta {
@@ -33703,11 +33763,12 @@ h1#penmostreo .campana {
     font-size:20px;
 }
 .content_set_intriga{
-    width:65%;
+    width:55%;
     display:inline-block;
     /*float:left;*/
     overflow:hidden;
     padding-top:30px;
+    margin-left: 10em;
 }
 .set_visible_intriga{
     width:30%;
@@ -33747,7 +33808,7 @@ h1#penmostreo .campana {
     background:#f0f0f0;
     padding:26px;
     min-height:100px;
-    margin-top: -52px;
+    margin-top: 38px;
     margin-left:6%;
         -webkit-box-shadow: 0px 15px 13px -8px rgba(204,200,204,0.7);
     -moz-box-shadow: 0px 15px 13px -8px rgba(204,200,204,0.7);
@@ -33824,7 +33885,7 @@ h1#penmostreo .campana {
     line-height: 11.5px;
     padding-left: 2px;
 }
-.check_intriga:before{
+.check_intriga:before {
     content: "✓";
     line-height: 11.5px;
     padding-left: 1px;
@@ -33857,18 +33918,32 @@ h1#penmostreo .campana {
     top:50%;
     margin:-205px auto auto auto;
 }
-.dias_intriga_home{
-    font-family:'Lato';
-    font-size:55px;
-    letter-spacing:4px;
-    color:white;
-    text-align:center;
-    width:100%;
-    text-shadow: -0.1em 0.1em black;
-    position: absolute;
-    top: 36%;
-    font-weight: 700;
+
+.contenedorMensajeIntrigaA{
+    width:87%;
+    position:absolute;
 }
+
+.contenedorMensajeIntrigaB{
+    width:auto;
+    position:absolute;
+}
+
+.dias_intriga_home {
+    font-family: 'Lato';
+    font-size: 55px;
+    letter-spacing: 1.4px;
+    color: white;
+    text-align: left;
+    padding: 0 65px;
+    width: 100%;
+    text-shadow: -0.08em 0.08em black;
+    position: absolute;
+    top: 33%;
+    font-weight: bold;
+    margin-top:14px;
+}
+
 .link_cambiar_correo{
     font-family:'Lato';
     font-size:11px;
@@ -33907,17 +33982,16 @@ h1#penmostreo .campana {
     margin-bottom:10px;
     margin-right:13px;
 }
-.saludo_consultora_showroom{
+.saludo_consultora_showroom {
     position: absolute;
     font-family: 'LAto';
     color: white;
     font-size: 13px;
     text-transform: uppercase;
     letter-spacing: 1.7px;
-    top: 56px;
-    width: 100%;
-    text-align: center;
+    top: 85px;
     font-weight: 300;
+    left: 65px;
 }
 .content_set_imagen_intriga{
     height:205px;
@@ -33942,10 +34016,10 @@ h1#penmostreo .campana {
 /*SHOWROOM*/
 .set-productos-showroom{
     background-color: white;
-    margin-right: 2%;
+    margin-right: 2.6%;
     float: left;
     position: relative;
-    width: 32%;
+    width: 23%;
     margin-bottom: 15px;
     margin-top: 15px;
     padding-bottom: 12px;
@@ -33954,8 +34028,9 @@ h1#penmostreo .campana {
     box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
     margin-bottom: 15px;
     margin-top: 15px;
+    border: 1px solid #e6e3e3;
 }
-.set-productos-showroom:nth-child(3n){
+.set-productos-showroom:nth-child(4n){
       margin-right:0;
 }
 .nombre-producto-set{
@@ -33995,7 +34070,7 @@ h1#penmostreo .campana {
 }
 .content_producto_set{
     float:left;
-    width:25%;
+    width:22%;
     height:373px;
     margin-top:60px;
     text-align:center;
@@ -34003,18 +34078,23 @@ h1#penmostreo .campana {
 /*.content_producto_set img{
     width:100%;
 }*/
-.content_detalle_set{
-    width:45%;
-    float:left;
-    min-height:100px;
-    background:white;
-    margin-left:5%;
-    padding:30px;
-    font-family:'Lato';
+.content_detalle_set {
+    width: 45%;
+    float: left;
+    min-height: 100px;
+    background: white;
+    margin-left: 0;
+    padding: 30px;
+    font-family: 'Lato';
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    -webkit-box-shadow: 0px 15px 13px -8px rgba(236,236,236,1);
+    -moz-box-shadow: 0px 15px 13px -8px rgba(236,236,236,1);
+    box-shadow: 0px 15px 13px -8px rgba(236,236,236,1);
 }
 .content_solo_ficha_set{
     width:100%;
     float:left;
+    margin-left: 10em;
 }
 .titulo_set{
     font-size:20px;
@@ -34109,11 +34189,13 @@ h1#penmostreo .campana {
     text-align:center;
     margin-top:28px;
     margin-bottom:40px;
+    margin-left: 10em;
 }
 .content_tip_negocio{
     margin-top:50px;
     border-top:1px solid black;
     padding-top:20px;
+    margin-left: 10em;
 }
 .titulo_tip{
     text-transform:uppercase;
@@ -34233,6 +34315,7 @@ h1#penmostreo .campana {
     background: white;
     width:100%;
     height:73px;
+    margin-left: 12em;
    
     /*margin-top:50px;*/
     -webkit-box-shadow: -2px 1px 18px -4px rgba(0,0,0,0.5);
@@ -34339,6 +34422,7 @@ h1#penmostreo .campana {
     left: 0;
     text-align: right;
     padding-right: 20px;
+    padding-left: 15px;
 }
 .titulo_promocion:after{
     content:'';
@@ -34478,7 +34562,7 @@ h1#penmostreo .campana {
     border-bottom:0px !important;
 }
 .content_tono_detalle:hover{
-    border: 1px solid black
+    border: 1px solid black;
 }
 .titulo_contenido{
     font-family:'Lato';
@@ -34650,26 +34734,45 @@ h1#penmostreo .campana {
     width: 605px;
     height: 675px;
 }
-/*CAMBIOS EN OFERTA DEL DÍA*/
+/*CAMBIOS EN OFERTA DEL D?A*/
 .regresar_carrusel{
     color: white;
     font-family: 'Lato';
-    font-size: 12px;
-    float: right;
+    font-size: 14px;
+    letter-spacing: 0.2px;
+    float: left;
     margin-right: 15px;
-    background: url(../../../Images/PL20/flecha_regreso.png) no-repeat;
+    background: url(../../../Images/Esika/regresar.png) no-repeat;
+    background-size: 13px 24px;
     padding-left: 16px;
-    background-position: 0px -1px;
+    
 }
+
+/*TEXTOS DEL CLOCK*/
+.contenedor_texto_Tiempo {
+    float: right;
+}
+.textoHoras {
+    text-align: center;
+}
+.textoMinutos {
+    float: right;
+}
+.textoSegundos {
+    float: right;
+}
+
 .titulo_set_ODD{
-    color:white;
-    font-family:'Lato';
-    font-size:18px;
-    font-weight:700;
-    /*text-align:center;*/
-    letter-spacing:1.3px;
-    text-transform:uppercase;
-    /*margin-top:10px;*/
+    color: white;
+    font-family: 'Lato';
+    font-size: 25px;
+    font-weight: 700;
+    /* text-align: center; */
+    letter-spacing: 1.3px;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    /* margin-top: 10px; */
+    line-height: 32px;
 }
 .barra_inferior{
     width:40px;
@@ -34703,10 +34806,11 @@ h1#penmostreo .campana {
 .content_item_carrusel_ODD{
     width:260px;
    padding: 30px 30px 11px 30px;
-    border: 1px solid #d5b03e;
+    border: 1px solid white;
     float:left;
     margin-top:12px;
     margin-bottom:30px;
+    background:rgba(255,255,255,0);
 }
 .content_img_carrusel_ODD{
     width:100%;
@@ -34771,6 +34875,7 @@ h1#penmostreo .campana {
     bottom:0;
     z-index:150;
     width: 100%;
+    margin-left: 12em;
     -webkit-box-shadow: -2px 1px 18px -4px rgba(0,0,0,0.5);
     -moz-box-shadow: -2px 1px 18px -4px rgba(0,0,0,0.5);
     box-shadow: -2px 1px 18px -4px rgba(0,0,0,0.5);
@@ -34781,7 +34886,7 @@ h1#penmostreo .campana {
     height:73px;
     /*background:white;*/
     max-width: 1024px;
-    margin: 0 auto;
+    margin: 0;
 }
 .titulo_promocion_showroom{
     width: 425px;
@@ -34824,10 +34929,8 @@ h1#penmostreo .campana {
     
 }
 .content_imagen_promocion{
-    height: auto;
-    width: 85px;
+    width: 72px;
     text-align: center;
-    margin-top: -12px;
     float: left;
     margin-right: 14px;
 }
@@ -35662,7 +35765,7 @@ h1#penmostreo .campana {
     text-align:center;
     margin-top: -5px;
 }
-.content_detalle_puntuación{
+.content_detalle_puntuaciˆun{
     float:left;
     width:20%;
     font-family:'Lato';
@@ -35825,9 +35928,10 @@ h1#penmostreo .campana {
 .content_regalo_sorpresa{
     display:inline-block;
     width:310px;
-    height:570px;
+    height:580px;
     margin-top: 50px;
-    background:url(../../../Images/Esika/bg_regalo.png) no-repeat;
+    background:url(../../../Images/Esika/bg_regalo_chile.png) no-repeat;
+    background-size: 100% 100%;
     vertical-align:top;
     margin-right: -25px;
     z-index: 21;
@@ -35924,9 +36028,23 @@ h1#penmostreo .campana {
     font-size:32px;
     line-height: 35px;
 }
-.bold_900{
-    font-weight:900;
+.bold_900 {
+    font-weight: 900;
 }
+
+.bloque_detalle_gris{
+    background: #f5f5f5;
+    height: 150px;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    z-index: 1;
+}
+.content_imagen_sorpresa img{
+    width:180px;
+    height:auto;
+}
+
 
 /*EPD-1919 INICIO*/
 .content_tipo_despacho {
@@ -35959,7 +36077,6 @@ h1#penmostreo .campana {
     margin-top: -22px;
     display: block;
 }
-
 .mensaje_informativo_despacho {
     font-weight: bold;
     /*color: #205081;*/
@@ -35971,3 +36088,141 @@ h1#penmostreo .campana {
     display: block;
 }
 /*EPD-1919 FIN*/
+
+
+.previsualizales-ofertas {
+    max-width: 800px;
+    margin: auto;
+    max-height: 550px;
+}
+
+.imagen_fondo {
+    min-height: 532px;
+    max-width: 96% !important;
+    margin: auto;
+}
+
+.content_slider_ept {
+    padding-top: 30px;
+}
+/*SPRINT 19*/
+.content_new_showroom{
+    width:100%;
+    padding-left:10%;
+    padding-right:2%;
+    padding-top:57px;
+}
+.content_filtro_categoria{
+   -webkit-box-shadow: inset 0 0 0 1px #b8b8b8;
+    -moz-box-shadow: inset 0 0 0 1px #b8b8b8;
+    box-shadow: inset 0 0 0 1px #b8b8b8;
+    height: 33px;
+    line-height: 32px;
+    position: relative;
+    float: left;
+    min-width: 330px;
+    padding-left: 15px;
+    padding-right: 30px;
+    font-family: 'LAto';
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0.3px;
+    margin-right: 20px;
+    /*background: white url(../../../Images/arrow.png) no-repeat center;
+    background-size: 15px;
+    background-position-x: 95%;*/
+    background: white;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+    background-repeat: no-repeat;
+    background-position-x: 100%;
+    background-position-y: 5px;
+}
+.content_detalle_filtro{
+    width: 100%;
+    position: absolute;
+    z-index: 20;
+    top: 33px;
+    border: 1px solid #b8b8b8;    
+    border-top: 0;
+    left: 0;
+    background: white;
+    min-height: 100px;
+    /*display:none;*/
+}
+.content_filtro_range_showroom{
+        /* margin-bottom: 50px; */
+    /* margin-top: 40px; */
+    /* padding-left: 12px; */
+    width: 70%;
+    margin: 0 auto;
+    margin-top: 50px;
+}
+.filtros_derecha_SHOWROOM{
+        float: left;
+    font-family: 'Lato';
+    font-size: 13px;
+    /* margin-top: 20px; */
+}
+.cantidad_productos_resultado{
+    float: right;
+    font-family: 'Lato';
+    font-size: 13px;
+    padding-top: 6px;
+}
+.content_landing_odd .flip-clock-wrapper ul li a div div.inn{ 
+        font-size: 35px;
+}
+.content_landing_odd .flip-clock-wrapper ul{
+    width: 20px;
+    height: 44px;
+}
+.content_landing_odd .flip-clock-wrapper {
+    /*width:278px;*/
+    margin: 15px 95px 0px 10px
+}
+.content_landing_odd .flip-clock-dot {    
+    width: 4px;
+    height: 4px;
+}
+.content_landing_odd .flip-clock-dot.bottom {
+    top: 17px;
+}
+.content_landing_odd .flip-clock-divider {  
+    margin-top:8px;
+    margin-right: 1px;
+    /* margin-left: 2px; */
+}
+.content_item_carrusel_ODD .agregado{
+    color:white;
+}
+.content_item_carrusel_ODD .agregado .icono {   
+    background: url(../../../Images/group_blanco.svg) center center no-repeat;
+}
+.imagen_dias_intriga_inicio{
+    display: block;
+    width: 100vw;
+    height:590px;
+    object-fit: cover;
+    font-size:55px;
+    top: 36%;
+}
+
+/*#container-showroom-landing {
+    background: url(../../../Images/Esika/esika-venta.jpg) center center no-repeat;
+}*/
+
+.dias_inicio_landing {
+    /*font-size: 78.4px;
+    top:170px;*/
+    top: 123px;
+    font-size: 72px;
+    padding: 0% 29.45%;
+}
+.saludo_landing{
+    top: 109px;
+    font-size: 17px;
+}
+
+.position-fixed {
+    /*position: fixed;*/
+}

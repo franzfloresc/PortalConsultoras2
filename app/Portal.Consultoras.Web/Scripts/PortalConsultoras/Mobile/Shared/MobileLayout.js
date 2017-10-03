@@ -166,7 +166,7 @@
     var urlBienvenida = URLactual.indexOf("Bienvenida");
 
     if (urlBienvenida > 0) {
-        if (sesionEsShowRoom != null && sesionEsShowRoom == "1") {
+        if (sesionEsShowRoom) {
             $("#contentmobile").css({ 'margin-top': '0px' });
         } else {
             $("#contentmobile").css({ 'margin-top': '63px' });
@@ -286,11 +286,18 @@ function loadBannerLP20() {
         $("#contentmobile").css("margin-top", "0px");
         $('#content_slider_banner').show();
 
-        $('#flexslider').flexslider({
-            animation: "slide",
-            pauseOnAction: false,
-            animationSpeed: 1600
-        });
+        if ($('#BloqueMobileOfertaDia').length > 0)
+        {
+            $('#content_slider_banner').css('background-color', $('#BloqueMobileOfertaDia').css('background-color'));
+        }
+
+        if ($('#flexslider ul.slides li').length > 0) {
+            $('#flexslider').flexslider({
+                animation: "slide",
+                pauseOnAction: false,
+                animationSpeed: 1600
+            });
+        }
 
     } else {
         var url = location.href.toLowerCase();
