@@ -10,7 +10,10 @@ namespace Portal.Consultoras.Web.Models
         {
             ListaSeccion = new List<ConfiguracionSeccionHomeModel>();
         }
-        
+
+        public MensajeProductoBloqueadoModel MensajeProductoBloqueado { get; set; }
+
         public List<ConfiguracionSeccionHomeModel> ListaSeccion { get; set; }
+        
     }
 }

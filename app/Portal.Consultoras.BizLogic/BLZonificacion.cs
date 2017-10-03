@@ -36,14 +36,19 @@ namespace Portal.Consultoras.BizLogic
             if (paises == null)
             {
                 paises = new List<BEPais>();
-                var DAZonificacion = new DAZonificacion(int.Parse(ConfigurationManager.AppSettings["masterCountry"]));
-                using (IDataReader reader = DAZonificacion.GetPais())
-                    while (reader.Read())
-                        paises.Add(new BEPais(reader));
-                CacheManager<BEPais>.AddData(ECacheItem.Paises, paises);
+                var masterCountry = ConfigurationManager.AppSettings["masterCountry"];
+                int paisMaster = 0;
+                if (int.TryParse(Util.Trim(masterCountry), out paisMaster))
+                {
+                    var DAZonificacion = new DAZonificacion(paisMaster);
+                    using (IDataReader reader = DAZonificacion.GetPais())
+                        while (reader.Read())
+                            paises.Add(new BEPais(reader));
+                    CacheManager<BEPais>.AddData(ECacheItem.Paises, paises);
+                }
             }
             
-            var arrPaisesEsika = WebConfig.PaisesEsika.Split(';');
+            var arrPaisesEsika = Util.Trim(WebConfig.PaisesEsika).Split(';');
             
             foreach (var pais in paises)
             {

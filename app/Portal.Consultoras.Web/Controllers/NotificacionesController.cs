@@ -451,6 +451,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 mensaje = ex.Message;
             }
             return Json(new { mensaje, cantidadNotificaciones }, JsonRequestBehavior.AllowGet);
