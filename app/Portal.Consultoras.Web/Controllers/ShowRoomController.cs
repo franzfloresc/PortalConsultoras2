@@ -78,81 +78,127 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Index(string query)
         {
-
             ViewBag.TerminoMostrar = 1;
 
             try
             {
-                if (!ValidarIngresoShowRoom(false))
-                    return RedirectToAction("Index", "Bienvenida");
+                var mostrarShowRoomProductos = sessionManager.GetMostrarShowRoomProductos();
+                var mostrarShowRoomProductosExpiro = sessionManager.GetMostrarShowRoomProductosExpiro();
 
-                //actualizar showroom.eventoconsultora. campo recibido.
+                bool mostrarPopupIntriga = !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
+                //bool mostrarPopupVenta = mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;                
 
-                if (query != null)
+                if (mostrarPopupIntriga)
                 {
-                    if (Request.Browser.IsMobileDevice)
-                    {
-                        return RedirectToAction("Index", "ShowRoom", new { area = "Mobile", query = query });
-                    }
+                    return RedirectToAction("Intriga", "ShowRoom");
 
-                    string param = Util.Decrypt(query);
-                    string[] lista = param.Split(new char[] { ';' });
-
-                    if (lista[2] != userData.CodigoConsultora && lista[1] != userData.CodigoISO)
+                    /*
+                    if (!ValidarIngresoShowRoom(true))
                     {
                         return RedirectToAction("Index", "Bienvenida");
                     }
 
-                    if (lista[0] == CodigoProceso)
+                    var ofertasShowRoom = ObtenerOfertasShowRoom();
+
+                    if (!ofertasShowRoom.Any())
                     {
-                        using (PedidoServiceClient sv = new PedidoServiceClient())
+                        return RedirectToAction("Index", "Bienvenida");
+                    }
+
+                    return RedirectToAction("Intriga", "ShowRoom");
+                    */
+
+                    /*
+                    ActualizarUrlImagenes(ofertasShowRoom);
+
+                    var model = ObtenerPrimeraOfertaShowRoom(ofertasShowRoom);
+                    model.Simbolo = userData.Simbolo;
+                    model.CodigoISO = userData.CodigoISO;
+                    model.Suscripcion = (userData.BeShowRoomConsultora ?? new BEShowRoomEventoConsultora()).Suscripcion;
+                    model.EMail = userData.EMail;
+                    model.EMailActivo = userData.EMailActivo;
+                    model.Celular = userData.Celular;
+                    model.UrlTerminosCondiciones = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.UrlTerminosCondiciones, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+                    model.Agregado = ObtenerPedidoWebDetalle().Any(d => d.CUV == model.CUV) ? "block" : "none";
+
+                    InicializarViewbag();
+
+                    return View("Intriga", model);
+                    */
+                }
+                //else
+                //{
+                    if (!ValidarIngresoShowRoom(false))
+                        return RedirectToAction("Index", "Bienvenida");
+
+                    //actualizar showroom.eventoconsultora. campo recibido.
+
+                    if (query != null)
+                    {
+                        if (Request.Browser.IsMobileDevice)
                         {
-                            blnRecibido = Convert.ToBoolean(sv.GetEventoConsultoraRecibido(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID));
+                            return RedirectToAction("Index", "ShowRoom", new { area = "Mobile", query = query });
                         }
 
-                        if (Convert.ToInt32(lista[3]) == userData.CampaniaID && blnRecibido == false)
+                        string param = Util.Decrypt(query);
+                        string[] lista = param.Split(new char[] { ';' });
+
+                        if (lista[2] != userData.CodigoConsultora && lista[1] != userData.CodigoISO)
                         {
-                            BEShowRoomEventoConsultora Entidad = new BEShowRoomEventoConsultora();
+                            return RedirectToAction("Index", "Bienvenida");
+                        }
 
-                            Entidad.CodigoConsultora = lista[2];
-                            Entidad.CampaniaID = Convert.ToInt32(lista[3]);
-
+                        if (lista[0] == CodigoProceso)
+                        {
                             using (PedidoServiceClient sv = new PedidoServiceClient())
                             {
-                                sv.UpdShowRoomEventoConsultoraEmailRecibido(userData.PaisID, Entidad);
+                                blnRecibido = Convert.ToBoolean(sv.GetEventoConsultoraRecibido(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID));
+                            }
+
+                            if (Convert.ToInt32(lista[3]) == userData.CampaniaID && blnRecibido == false)
+                            {
+                                BEShowRoomEventoConsultora Entidad = new BEShowRoomEventoConsultora();
+
+                                Entidad.CodigoConsultora = lista[2];
+                                Entidad.CampaniaID = Convert.ToInt32(lista[3]);
+
+                                using (PedidoServiceClient sv = new PedidoServiceClient())
+                                {
+                                    sv.UpdShowRoomEventoConsultoraEmailRecibido(userData.PaisID, Entidad);
+                                }
                             }
                         }
+                        else
+                        {
+                            return RedirectToAction("Index", "Bienvenida");
+                        }
                     }
-                    else
-                    {
+
+
+                    var showRoomEventoModel = CargarValoresModel();
+                    showRoomEventoModel.ListaShowRoomOferta = ValidarUnidadesPermitidas(showRoomEventoModel.ListaShowRoomOferta);
+                    showRoomEventoModel.ListaShowRoomOferta = showRoomEventoModel.ListaShowRoomOferta ?? new List<ShowRoomOfertaModel>();
+                    if (!showRoomEventoModel.ListaShowRoomOferta.Any())
                         return RedirectToAction("Index", "Bienvenida");
+
+                    using (SACServiceClient svc = new SACServiceClient())
+                    {
+                        showRoomEventoModel.FiltersBySorting = svc.GetTablaLogicaDatos(userData.PaisID, 99).ToList();
                     }
-                }
 
+                    var xlistaShowRoom = showRoomEventoModel.ListaShowRoomOferta.Where(x => x.EsSubCampania == false).ToList();
+                    //ViewBag.PrecioMin = showRoomEventoModel.ListaShowRoomOferta.Min(p => p.PrecioOferta);
+                    //ViewBag.PrecioMax = showRoomEventoModel.ListaShowRoomOferta.Max(p => p.PrecioOferta);
+                    ViewBag.PrecioMin = xlistaShowRoom.Min(p => p.PrecioOferta);
+                    ViewBag.PrecioMax = xlistaShowRoom.Max(p => p.PrecioOferta);
 
-                var showRoomEventoModel = CargarValoresModel();
-                showRoomEventoModel.ListaShowRoomOferta = ValidarUnidadesPermitidas(showRoomEventoModel.ListaShowRoomOferta);  
-                showRoomEventoModel.ListaShowRoomOferta = showRoomEventoModel.ListaShowRoomOferta ?? new List<ShowRoomOfertaModel>();
-                if (!showRoomEventoModel.ListaShowRoomOferta.Any())
-                    return RedirectToAction("Index", "Bienvenida");
+                    ViewBag.CloseBannerCompraPorCompra = userData.CloseBannerCompraPorCompra;
 
-                using (SACServiceClient svc = new SACServiceClient())
-                {
-                    showRoomEventoModel.FiltersBySorting = svc.GetTablaLogicaDatos(userData.PaisID, 99).ToList();
-                }
+                    ViewBag.BannerImagenVenta = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.BannerImagenVenta, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+                    ViewBag.IconoLLuvia = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
 
-                var xlistaShowRoom = showRoomEventoModel.ListaShowRoomOferta.Where(x => x.EsSubCampania == false).ToList();
-                //ViewBag.PrecioMin = showRoomEventoModel.ListaShowRoomOferta.Min(p => p.PrecioOferta);
-                //ViewBag.PrecioMax = showRoomEventoModel.ListaShowRoomOferta.Max(p => p.PrecioOferta);
-                ViewBag.PrecioMin = xlistaShowRoom.Min(p => p.PrecioOferta);
-                ViewBag.PrecioMax = xlistaShowRoom.Max(p => p.PrecioOferta);
-
-                ViewBag.CloseBannerCompraPorCompra = userData.CloseBannerCompraPorCompra;
-
-                ViewBag.BannerImagenVenta = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.BannerImagenVenta, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
-                ViewBag.IconoLLuvia = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
-
-                return View(showRoomEventoModel);
+                    return View(showRoomEventoModel);
+                //}                
 
             }
             catch (Exception ex)
@@ -2717,6 +2763,9 @@ namespace Portal.Consultoras.Web.Controllers
 
             var modelo = ViewDetalleOferta(id);
 
+            var xList = modelo.ListaOfertaShowRoom.Where(x => x.EsSubCampania == false).ToList();
+            modelo.ListaOfertaShowRoom = xList;
+
             var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
             bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
 
@@ -2737,15 +2786,17 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (!ValidarIngresoShowRoom(false)) return ErrorJson("");
+                if (!ValidarIngresoShowRoom(esIntriga: false))
+                    return ErrorJson(string.Empty);
 
                 var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
                 bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
                 var urlCompartir = GetUrlCompartirFB();
-                var listaProductos = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, esFacturacion);
-                listaProductos.ForEach(p => p.UrlCompartir = urlCompartir);
 
-                var listaNoSubCampania = listaProductos.Where(x => !x.EsSubCampania).ToList();
+                var productosShowRoom = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, esFacturacion);
+                productosShowRoom.ForEach(p => p.UrlCompartir = urlCompartir);
+
+                var listaNoSubCampania = productosShowRoom.Where(x => !x.EsSubCampania).ToList();
                 int totalNoSubCampania = listaNoSubCampania.Count;
 
                 if (model.ListaFiltro != null && model.ListaFiltro.Count > 0)
@@ -2789,7 +2840,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 if (model.Limite > 0) listaNoSubCampania = listaNoSubCampania.Take(model.Limite).ToList();
 
-                var listaSubCampania = listaProductos.Where(x => x.EsSubCampania).ToList();
+                var listaSubCampania = productosShowRoom.Where(x => x.EsSubCampania).ToList();
                 listaSubCampania.ForEach(p => p.ListaDetalleOfertaShowRoom = GetOfertaConDetalle(p.OfertaShowRoomID).ListaDetalleOfertaShowRoom);
                 listaSubCampania = ValidarUnidadesPermitidas(listaSubCampania);
                 return Json(new
@@ -2805,6 +2856,251 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return ErrorJson(Constantes.MensajesError.CargarProductosShowRoom);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult CargarProductosShowRoomOferta(BusquedaProductoModel model)
+        {
+            try
+            {
+                if (!ValidarIngresoShowRoom(esIntriga: false))
+                    return ErrorJson(string.Empty);
+
+                var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
+                bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
+                var urlCompartir = GetUrlCompartirFB();
+
+                var productosShowRoom = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, esFacturacion);
+                productosShowRoom.ForEach(p => p.UrlCompartir = urlCompartir);
+
+                if (model.Limite > 0) {
+                    if (productosShowRoom.Count > 0)
+                        productosShowRoom = productosShowRoom.Where(x => x.EsSubCampania == false).Take(model.Limite).ToList();
+                }
+
+                var index = 0;
+                productosShowRoom.Each(x => {
+                    x.Posicion = index++;
+                    x.UrlDetalle = Url.Action("DetalleOferta", new { id = x.OfertaShowRoomID });
+                });
+
+                return Json(new
+                {
+                    success = true,
+                    message = "Ok",
+                    data = productosShowRoom,
+                    codigo = Constantes.ConfiguracionPais.ShowRoom
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return ErrorJson(Constantes.MensajesError.CargarProductosShowRoom);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult GetDataShowRoomIntriga()
+        {
+            try
+            {
+                const int SHOWROOM_ESTADO_INACTIVO = 0;
+                const string TIPO_APLICACION_DESKTOP = "Desktop";
+
+                //if (!PaisTieneShowRoom(userData.CodigoISO))
+                //{
+                //    return Json(new
+                //    {
+                //        success = false,
+                //        data = "",
+                //        message = "ShowRoomConsultora encontrada"
+                //    });
+                //}
+
+                //if (!userData.CargoEntidadesShowRoom)
+                //{
+                //    return Json(new
+                //    {
+                //        success = false,
+                //        data = "",
+                //        message = ""
+                //    });
+                //}
+
+                var showRoom = userData.BeShowRoom ?? new BEShowRoomEvento();
+
+                if (showRoom.Estado == SHOWROOM_ESTADO_INACTIVO)
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        data = "",
+                        message = "ShowRoomEvento no encontrado"
+                    });
+                }
+
+                var showRoomConsultora = userData.BeShowRoomConsultora ?? new BEShowRoomEventoConsultora();
+                //var mostrarPopupIntriga = showRoomConsultora.MostrarPopup;
+                //var mostrarPopupVenta = showRoomConsultora.MostrarPopupVenta;
+
+                //if (!mostrarPopupIntriga && !mostrarPopupVenta)
+                //{
+                //    return Json(new
+                //    {
+                //        success = false
+                //    });
+                //}
+
+                //var mostrarShowRoomProductos = sessionManager.GetMostrarShowRoomProductos();
+                //var mostrarShowRoomProductosExpiro = sessionManager.GetMostrarShowRoomProductosExpiro();
+
+                //mostrarPopupIntriga = !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
+                //mostrarPopupVenta = mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
+
+                //var rutaShowRoomPopup = string.Empty;
+                //if (mostrarShowRoomProductos)
+                //{
+                //    rutaShowRoomPopup = Url.Action("Index", "ShowRoom");
+                //}
+
+                var personalizacionImagenIntriga = userData
+                    .ListaShowRoomPersonalizacionConsultora
+                    .FirstOrDefault(x => x.TipoAplicacion == TIPO_APLICACION_DESKTOP &&
+                        x.Atributo == "PopupImagenIntriga");
+
+                var imagenIntriga = personalizacionImagenIntriga.Valor;
+
+                var diasFaltantes = (userData.FechaInicioCampania.AddDays(-showRoom.DiasAntes) - DateTime.Now.AddHours(userData.ZonaHoraria).Date).Days;
+                var nombreConsultora = string.IsNullOrEmpty(userData.Sobrenombre)
+                        ? userData.NombreConsultora
+                        : userData.Sobrenombre;
+                var mensajeSaludo = string.Format("{0} prepárate para la", nombreConsultora);
+                var mensajeDiasFaltantes = diasFaltantes == 1 ? "FALTA 1 DÍA" : string.Format("FALTAN {0} DÍAS", diasFaltantes);
+
+                return Json(new
+                {
+                    success = true,
+                    EventoId = showRoom.EventoID,
+                    EventoNombre = showRoom.Nombre,
+                    EventoTema = showRoom.Tema,
+                    DiasFaltantes = diasFaltantes,
+                    MensajeSaludo = mensajeSaludo,
+                    MensajeDiasFaltantes = mensajeDiasFaltantes,
+                    UrlImagenIntriga = imagenIntriga ?? string.Empty,
+                    codigo = Constantes.ConfiguracionPais.ShowRoom
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Hubo un problema con el servicio, intente nuevamente",
+                    extra = ""
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult PopupIntriga()
+        {
+            try
+            {
+                const int SHOWROOM_ESTADO_INACTIVO = 0;
+                const string TIPO_APLICACION_DESKTOP = "Desktop";
+
+                if (!PaisTieneShowRoom(userData.CodigoISO))
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        data = "",
+                        message = "ShowRoomConsultora encontrada"
+                    });
+                }
+
+                if (!userData.CargoEntidadesShowRoom)
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        data = "",
+                        message = ""
+                    });
+                }
+
+                var showRoom = userData.BeShowRoom ?? new BEShowRoomEvento();
+
+                if (showRoom.Estado == SHOWROOM_ESTADO_INACTIVO)
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        data = "",
+                        message = "ShowRoomEvento no encontrado"
+                    });
+                }
+
+                var showRoomConsultora = userData.BeShowRoomConsultora ?? new BEShowRoomEventoConsultora();
+                var mostrarPopupIntriga = showRoomConsultora.MostrarPopup;
+                var mostrarPopupVenta = showRoomConsultora.MostrarPopupVenta;
+
+                if (!mostrarPopupIntriga && !mostrarPopupVenta)
+                {
+                    return Json(new
+                    {
+                        success = false
+                    });
+                }
+
+                var mostrarShowRoomProductos = sessionManager.GetMostrarShowRoomProductos();
+                var mostrarShowRoomProductosExpiro = sessionManager.GetMostrarShowRoomProductosExpiro();
+
+                mostrarPopupIntriga = !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
+                mostrarPopupVenta = mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
+
+                var rutaShowRoomPopup = string.Empty;
+                if (mostrarShowRoomProductos)
+                {
+                    rutaShowRoomPopup = Url.Action("Index", "ShowRoom");
+                }
+
+                var personalizacionImagenIntriga = userData
+                    .ListaShowRoomPersonalizacionConsultora
+                    .FirstOrDefault(x => x.TipoAplicacion == TIPO_APLICACION_DESKTOP &&
+                        x.Atributo == "PopupImagenIntriga");
+
+                var imagenIntriga = personalizacionImagenIntriga.Valor;
+
+                var diasFaltantes = (userData.FechaInicioCampania.AddDays(-showRoom.DiasAntes) - DateTime.Now.AddHours(userData.ZonaHoraria).Date).Days;
+                var nombreConsultora = string.IsNullOrEmpty(userData.Sobrenombre)
+                        ? userData.NombreConsultora
+                        : userData.Sobrenombre;
+                var mensajeSaludo = string.Format("{0} prepárate para la", nombreConsultora);
+                var mensajeDiasFaltantes = diasFaltantes == 1 ? "FALTA 1 DÍA" : string.Format("FALTAN {0} DÍAS", diasFaltantes);
+                return Json(new
+                {
+                    success = true,
+                    EventoId = showRoom.EventoID,
+                    EventoNombre = showRoom.Nombre,
+                    EventoTema = showRoom.Tema,
+                    DiasFaltantes = diasFaltantes,
+                    MensajeSaludo = mensajeSaludo,
+                    MensajeDiasFaltantes = mensajeDiasFaltantes,
+                    UrlImagenIntriga = imagenIntriga ?? string.Empty,
+                    codigo = Constantes.ConfiguracionPais.ShowRoom
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Hubo un problema con el servicio, intente nuevamente",
+                    extra = ""
+                }, JsonRequestBehavior.AllowGet);
             }
         }
 
