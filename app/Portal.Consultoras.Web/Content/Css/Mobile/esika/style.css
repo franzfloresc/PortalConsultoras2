@@ -13246,12 +13246,11 @@ a{
     max-width: 400px;
     min-height: 802px;
     top: 0;
-    background:#002e5b url(../../../Images/Esika/bg_regalo_mobile_chile.png) no-repeat center top;
-    /*background-size: 100%;*/
+    /*background:#002e5b url(../../../Images/Esika/bg_regalo_mobile_chile.png) no-repeat center top;*/
     z-index: 6;
 }
 .btn_regresa_OF{
-    background: #e81c36 url(../../../Images/Esika/regresar.png) no-repeat; 
+    background: url(../../../Images/Esika/regresar.png) no-repeat; 
     background-position: 15px 8px;
     text-transform:uppercase;
     height: 40px;

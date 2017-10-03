@@ -659,10 +659,17 @@
             </div>
         </div>
         <!-- POP UP MOBILE REGALO SORPRESA-->
-        <div id="ContentSorpresaMobile" class="ContentSorpresaMobile">
-            <div class="btn_regresa_OF" id="btnRegresoOF">CONTINUAR COMPRANDO</div>
+
+        @{
+            var imagenFondoOFRegalo = (ViewBag.ImagenFondoOFRegalo != null) ? ViewBag.ImagenFondoOFRegalo : "";
+            var titulo1OFRegalo = (ViewBag.Titulo1OFRegalo != null) ? ViewBag.Titulo1OFRegalo : "";
+            var colorFondo1OFRegalo = (ViewBag.ColorFondo1OFRegalo != null) ? ViewBag.ColorFondo1OFRegalo : "";
+        }
+
+        <div id="ContentSorpresaMobile" class="ContentSorpresaMobile" style="background: url(@imagenFondoOFRegalo)">
+            <div class="btn_regresa_OF" id="btnRegresoOF" style="background-color: @colorFondo1OFRegalo">CONTINUAR COMPRANDO</div>
             <div class="icono_regalo_sorpresa"></div>
-            <div class="titulo_regalo_sorpresa" id="of-regalo-msg1" style="display: none;"><b>¡GANA ESTE PREMIO* </b><br/>EXCLUSIVO SÓLO POR FIESTAS PATRIAS!</div>
+            <div class="titulo_regalo_sorpresa" id="of-regalo-msg1" style="display: none;"><b>¡GANA ESTE PREMIO* </b><br/>@titulo1OFRegalo</div>
             <div class="titulo_regalo_sorpresa" id="of-regalo-msg2" style="display: none;">
                 FELICIDADES @ViewBag.NombreConsultora <span class="font_700_regalo">¡GANASTE!</span>               
             </div>

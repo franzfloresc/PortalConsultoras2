@@ -2140,9 +2140,14 @@ else
 
 <script id="ofertaFinal-template" type="text/x-handlebars-template">
     
-    <div class="content_regalo_sorpresa" id="container-of-regalo" style="display: none;" data-popup-body="">
+    @{
+        var imagenFondoOFRegalo = (ViewBag.ImagenFondoOFRegalo != null) ? ViewBag.ImagenFondoOFRegalo : "";
+        var titulo1OFRegalo = (ViewBag.Titulo1OFRegalo != null) ? ViewBag.Titulo1OFRegalo : "";
+    }
+
+    <div class="content_regalo_sorpresa" id="container-of-regalo" style="display: none; background: url(@imagenFondoOFRegalo)" data-popup-body="">
         <div class="icono_regalo_sorpresa"></div>
-        <div class="titulo_regalo_sorpresa" id="of-regalo-msg1" style="display: none;"><b>¡GANA ESTE PREMIO*</b> EXCLUSIVO SÓLO POR FIESTAS PATRIAS!</div>
+        <div class="titulo_regalo_sorpresa" id="of-regalo-msg1" style="display: none;"><b>¡GANA ESTE PREMIO*</b>@titulo1OFRegalo</div>
         <div class="titulo_regalo_2" id="of-regalo-msg2" style="display: none;">FELICIDADES @ViewBag.NombreConsultora <br /><span class="font_32">¡GANASTE!</span></div>
         <div class="titulo_regalo_2" id="of-regalo-msg3" style="display: none;">¡FELICIDADES @ViewBag.NombreConsultora <span class="bold_900">ESTE PREMIO YA ES TUYO!</span></div>
         <div class="fondo_blanco_regalo">

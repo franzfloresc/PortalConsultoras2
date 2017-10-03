@@ -739,7 +739,20 @@ function CumpleOfertaFinal(montoPedido, montoEscala, tipoPopupMostrar, codigoMen
         resultado = false;
 
         if (tipoPopupMostrar == 1) { // supero MM
-            resultado = codigoMensajeProl == "00";
+            //resultado = codigoMensajeProl == "00";
+            if (codigoMensajeProl == '00') {
+                resultado = true;
+            }
+            else {
+                var flagObs = true;
+                for (i = 0; i < listaObservacionesProl.length; i++) {
+                    if (listaObservacionesProl[i].Caso != 0) {
+                        flagObs = false;
+                        break;
+                    }
+                }
+                resultado = flagObs;
+            }
         }
         else { // MM
             if (codigoMensajeProl == "01") {

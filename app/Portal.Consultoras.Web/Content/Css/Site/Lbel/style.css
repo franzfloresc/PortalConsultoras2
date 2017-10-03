@@ -37196,7 +37196,7 @@ h1#penmostreo .campana {
     width:310px;
     height:580px;
     margin-top: 50px;
-    background:url(../../../Images/Esika/bg_regalo.png) no-repeat;
+    /*background:url(../../../Images/Esika/bg_regalo.png) no-repeat;*/
     background-size: 100% 100%;
     vertical-align:top;
     margin-right: -25px;

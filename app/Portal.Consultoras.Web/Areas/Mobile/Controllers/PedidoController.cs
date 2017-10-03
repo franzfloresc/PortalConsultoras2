@@ -359,6 +359,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.OfertaFinalEstado = userData.OfertaFinalModel.Estado;
             ViewBag.OfertaFinalAlgoritmo = userData.OfertaFinalModel.Algoritmo;
             ViewBag.UrlTerminosOfertaFinalRegalo = string.Format("{0}/SomosBelcorp/FileConsultoras/{1}/Flyer_Regalo_Sorpresa.pdf", ConfigurationManager.AppSettings.Get("oferta_final_regalo_url_s3"), userData.CodigoISO);
+
+            if (Session["EsShowRoom"] != null && Session["EsShowRoom"].ToString() == "1")
+            {
+                ViewBag.ImagenFondoOFRegalo = ObtenerValorPersonalizacionShowRoom("ImagenFondoOfertaFinalRegalo", "Mobile");
+                ViewBag.Titulo1OFRegalo = ObtenerValorPersonalizacionShowRoom("Titulo1OfertaFinalRegalo", "Mobile");
+                ViewBag.ColorFondo1OFRegalo = ObtenerValorPersonalizacionShowRoom("ColorFondo1OfertaFinalRegalo", "Mobile");
+            }
+
             return View(model);
         }
         
