@@ -1,8 +1,4 @@
-﻿using Portal.Consultoras.Common;
-
-using System;
-using System.Data;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Portal.Consultoras.Entities
@@ -25,25 +21,6 @@ namespace Portal.Consultoras.Entities
         [Column("NumeroPremio")]
         [DataMember]
         public int NumeroPremio { get; set; }
-
-        [Obsolete("Use MapUtil.MapToCollection")]
-        public BEIncentivoPremio(IDataRecord row)
-        {
-            if (DataRecord.HasColumn(row, "CodigoConcurso"))
-                CodigoConcurso = Convert.ToString(row["CodigoConcurso"]);
-
-            if (DataRecord.HasColumn(row, "CodigoNivel"))
-                CodigoNivel = Convert.ToInt32(row["CodigoNivel"]);
-
-            if (DataRecord.HasColumn(row, "CodigoPremio"))
-                CodigoPremio = Convert.ToString(row["CodigoPremio"]);
-
-            if (DataRecord.HasColumn(row, "DescripcionPremio"))
-                DescripcionPremio = Convert.ToString(row["DescripcionPremio"]);
-
-            if (DataRecord.HasColumn(row, "NumeroPremio"))
-                NumeroPremio = Convert.ToInt32(row["NumeroPremio"]);
-        }
 
         public BEIncentivoPremio()
         {

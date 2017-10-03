@@ -1,11 +1,13 @@
 ﻿using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.Incentivo;
+using Portal.Consultoras.Common;
+using Incentivos = Portal.Consultoras.Common.Constantes.Incentivo;
+
 using System.Collections.Generic;
 using System;
 using System.Data;
 using System.Linq;
-using Portal.Consultoras.Common;
-using Incentivos = Portal.Consultoras.Common.Constantes.Incentivo;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -182,17 +184,11 @@ namespace Portal.Consultoras.BizLogic
 
             using (IDataReader reader = DAConcurso.ObtenerIncentivosHistorico(codigoConsultora, codigoCampania))
             {
-                while (reader.Read())
-                {
-                    incentivosConcursos.Add(new BEIncentivoConcurso(reader));
-                }
+                incentivosConcursos = reader.MapToCollection<BEIncentivoConcurso>();
 
                 if (reader.NextResult())
                 {
-                    while (reader.Read())
-                    {
-                        incentivosPremios.Add(new BEIncentivoPremio(reader));
-                    }
+                    incentivosPremios = reader.MapToCollection<BEIncentivoPremio>();
                 }
 
                 foreach (var item in incentivosConcursos)
@@ -377,13 +373,31 @@ namespace Portal.Consultoras.BizLogic
 
         private List<BEIncentivoConcurso> ObtenerIncentivosProgramaNuevasConsultora(int paisID, string codigoConsultora, int codigoCampania)
         {
-            List<BEIncentivoConcurso> incentivosConcursos = new List<BEIncentivoConcurso>();
+            var incentivosConcursos = new List<BEIncentivoConcurso>();
+            var incentivosPremios = new List<BEIncentivoProgramaNuevasPremio>();
+            var incentivosCupon = new List<BEIncentivoProgramaNuevasCupon>();
 
             DAConcurso DAConcurso = new DAConcurso(paisID);
 
             using (IDataReader reader = DAConcurso.ObtenerIncentivosProgramaNuevasConsultora(codigoConsultora, codigoCampania))
             {
                 incentivosConcursos = reader.MapToCollection<BEIncentivoConcurso>();
+
+                if (reader.NextResult())
+                {
+                    incentivosPremios = reader.MapToCollection<BEIncentivoProgramaNuevasPremio>();
+
+                    if (reader.NextResult())
+                    {
+                        incentivosCupon = reader.MapToCollection<BEIncentivoProgramaNuevasCupon>();
+                    }
+                }
+
+                foreach (var item in incentivosConcursos)
+                {
+                    item.PremiosProgramaNuevas = incentivosPremios.Where(p => p.CodigoConcurso == item.CodigoConcurso).ToList();
+                    item.CuponesProgramaNuevas = incentivosCupon.Where(p => p.CodigoConcurso == item.CodigoConcurso).ToList();
+                }
             }
 
             return incentivosConcursos;

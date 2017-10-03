@@ -105,6 +105,8 @@
     <Compile Include="BEMenuApp.cs" />
     <Compile Include="Framework\ResponseType.cs" />
     <Compile Include="Framework\StatusEnum.cs" />
+    <Compile Include="Incentivo\BEIncentivoProgramaNuevasCupon.cs" />
+    <Compile Include="Incentivo\BEIncentivoProgramaNuevasPremio.cs" />
     <Compile Include="Mobile\BEApp.cs" />
     <Compile Include="ReservaProl\BEPedidoObservacion.cs" />
     <Compile Include="ReservaProl\BEInputReservaProl.cs" />
