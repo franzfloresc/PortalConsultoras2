@@ -200,6 +200,8 @@ $(document).ready(function () {
 
                 $(contenedorOfertas).css('background', 'url("' + _data.ImagenFondo1 + '")');
 
+                SetHandlebars("#ofertadeldia-template-style", _data, "#styleRelojOdd");
+
                 $('#banner-odd').css('background-color', _data.ColorFondo1);
                 $('#PopOfertaDia').css('background-color', _data.ColorFondo2);
 

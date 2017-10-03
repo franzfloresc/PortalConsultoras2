@@ -4330,6 +4330,7 @@
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpBloqueMensajesPedido.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpMenuB.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpFeDeErratas.cshtml" />
+    <Content Include="Views\Shared\_template-ofertadeldia-style.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpRegistroComunidad.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpBannerLateralShowRoom.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpDialogPedidoReservado.cshtml" />
