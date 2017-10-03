@@ -39,14 +39,12 @@ inner join ods.Campania c on
 where
 	c.codigo = @CampaniaID
 
-
 insert into @OfertaProductoTemp    
 select op.CampaniaID, op.CUV, op.Descripcion, op.ConfiguracionOfertaID, op.TipoOfertaSisID,null    
  FROM ShowRoom.OfertaShowRoom op    
  inner join ods.Campania c on     
  op.CampaniaID = c.CampaniaID    
-where --op.
-flaghabilitarproducto = 1 and    
+where --op.flaghabilitarproducto = 1 and    
  c.codigo = @CampaniaID
 
 DECLARE @ProductoFaltanteTemp table (CUV varchar(6))
@@ -132,9 +130,6 @@ BEGIN
 			when pl.CodigoSAP is null then 0
 			else 1 end as TieneLanzamientoCatalogoPersonalizado,		
 		ISNULL(pcor.Oferta,'') as TipoOfertaRevista,
-		CASE WHEN(TE.MostrarImgOfertaIndependiente = 1 AND EST.EsOfertaIndependiente = 1) THEN 1			
-			ELSE 0 
-		END AS EsOfertaIndependiente,
 		TE.Codigo as TipoEstrategiaCodigo
 	from ods.ProductoComercial p
 	left join dbo.ProductoDescripcion pd ON 
@@ -214,9 +209,6 @@ BEGIN
 			when pl.CodigoSAP is null then 0
 			else 1 end as TieneLanzamientoCatalogoPersonalizado,
 		ISNULL(pcor.Oferta,'') as TipoOfertaRevista,
-		CASE WHEN(TE.MostrarImgOfertaIndependiente = 1 AND EST.EsOfertaIndependiente = 1) THEN 1			
-			ELSE 0 
-		END AS EsOfertaIndependiente,
 		TE.Codigo as TipoEstrategiaCodigo
 	from ods.ProductoComercial p
 	left join dbo.ProductoDescripcion pd ON 
@@ -256,6 +248,3 @@ select CUV from @tablaCuvOPT)
 END
 
 END
-
-
-
