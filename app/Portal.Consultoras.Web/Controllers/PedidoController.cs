@@ -1388,17 +1388,15 @@ namespace Portal.Consultoras.Web.Controllers
                         CUVRevista = item.CUVRevista.Trim(),
                         CUVComplemento = item.CUVComplemento.Trim(),
                         IndicadorMontoMinimo = item.IndicadorMontoMinimo.ToString().Trim(),
-                        //CUVComplemento = item.CUVComplemento.Trim(),
                         TipoOfertaSisID = item.TipoOfertaSisID,
                         ConfiguracionOfertaID = item.ConfiguracionOfertaID,
                         MensajeCUV = BEMensajeCUV.Mensaje,
-                        /*CIG(RSA) REQ - 552 */
 
                         DescripcionMarca = item.DescripcionMarca,
                         DescripcionEstrategia = item.DescripcionEstrategia,
                         DescripcionCategoria = item.DescripcionCategoria,
-                        FlagNueva = item.FlagNueva, // CGI(AHAA) - BUG 2015000858
-                        TipoEstrategiaID = item.TipoEstrategiaID, // CGI(AHAA) - BUG 2015000858
+                        FlagNueva = item.FlagNueva,
+                        TipoEstrategiaID = item.TipoEstrategiaID,
                         TieneRDC = tieneRDC
                     });
                 }
@@ -1437,16 +1435,17 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(olstProductoModel, JsonRequestBehavior.AllowGet);
                 }
 
-                try
-                {
-                    var codigoEstrategia = "";
-                    using (PedidoServiceClient sv = new PedidoServiceClient())
-                    {
-                        codigoEstrategia = sv.GetCodeEstrategiaByCUV(oUsuarioModel.PaisID, model.CUV, oUsuarioModel.CampaniaID);
-                    }
-                    if (codigoEstrategia != null && (Constantes.TipoEstrategiaCodigo.Lanzamiento == codigoEstrategia
-                                                     || Constantes.TipoEstrategiaCodigo.OfertasParaMi == codigoEstrategia
-                                                     || Constantes.TipoEstrategiaCodigo.PackAltoDesembolso == codigoEstrategia))
+                //try
+                //{
+                    var codigoEstrategia = Util.Trim(olstProducto[0].TipoEstrategiaCodigo);
+                    //var codigoEstrategia = "";
+                    //using (PedidoServiceClient sv = new PedidoServiceClient())
+                    //{
+                    //    codigoEstrategia = sv.GetCodeEstrategiaByCUV(oUsuarioModel.PaisID, model.CUV, oUsuarioModel.CampaniaID);
+                    //}
+                    if (Constantes.TipoEstrategiaCodigo.Lanzamiento == codigoEstrategia
+                        || Constantes.TipoEstrategiaCodigo.OfertasParaMi == codigoEstrategia
+                        || Constantes.TipoEstrategiaCodigo.PackAltoDesembolso == codigoEstrategia)
                     {
                         if (!(revistaDigital.TieneRDR || revistaDigital.TieneRDC))
                         {
@@ -1459,11 +1458,11 @@ namespace Portal.Consultoras.Web.Controllers
                             return Json(olstProductoModel, JsonRequestBehavior.AllowGet);
                         }
                     }
-                }
-                catch (Exception e)
-                {
-                    LogManager.LogManager.LogErrorWebServicesBus(e, userData.CodigoConsultora, userData.CodigoISO);
-                }
+                //}
+                //catch (Exception e)
+                //{
+                //    LogManager.LogManager.LogErrorWebServicesBus(e, userData.CodigoConsultora, userData.CodigoISO);
+                //}
                 
                 var listaEstrategias = (List<BEEstrategia>)Session[Constantes.ConstSession.ListaEstrategia] ?? new List<BEEstrategia>();
                 var estrategia = listaEstrategias.FirstOrDefault(p => p.CUV2 == model.CUV) ?? new BEEstrategia();
