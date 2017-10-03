@@ -1,8 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
-  </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -174,14 +171,6 @@
     <Compile Include="BLPedidoDDDetalle.cs" />
     <Compile Include="BLPedidoFacturado.cs" />
     <Compile Include="BLPedidoFICDetalle.cs" />
-    <Compile Include="TablaLogicaDatos\ITablaLogicaDatosBusinessLogic.cs" />
-    <Compile Include="Resources\MotivoRechazoMessages.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MotivoRechazoMessages.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Usuario\IUsuarioBusinessLogic.cs" />
-    <Compile Include="Pedido\BLPedidoRechazado.cs" />
     <Compile Include="BLPedidoReporteLider.cs" />
     <Compile Include="BLPedidoWeb.cs" />
     <Compile Include="BLPedidoWebAnteriores.cs" />
@@ -210,7 +199,6 @@
     <Compile Include="BLTipoMeta.cs" />
     <Compile Include="BLTracking.cs" />
     <Compile Include="BLUbigeo.cs" />
-    <Compile Include="Usuario\BLUsuario.cs" />
     <Compile Include="BLValidacionAutomatica.cs" />
     <Compile Include="BLZonificacion.cs" />
     <Compile Include="CacheManager.cs" />
@@ -235,6 +223,7 @@
     <Compile Include="FtpConfiguration.cs" />
     <Compile Include="Cliente\IClienteDBBusinessLogic.cs" />
     <Compile Include="Mobile\BLApp.cs" />
+    <Compile Include="Pedido\BLPedidoRechazado.cs" />
     <Compile Include="Pedido\IPedidoRechazadoBusinessLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\ClienteValidationMessages.Designer.cs">
@@ -242,12 +231,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ClienteValidationMessages.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\MotivoRechazoMessages.Designer.cs" />
     <Compile Include="RevistaDigital\BLRevistaDigitalSuscripcion.cs" />
     <Compile Include="Resources\PedidoInsertMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PedidoInsertMessages.resx</DependentUpon>
     </Compile>
+    <Compile Include="TablaLogicaDatos\ITablaLogicaDatosBusinessLogic.cs" />
+    <Compile Include="Usuario\BLUsuario.cs" />
+    <Compile Include="Usuario\IUsuarioBusinessLogic.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Portal.Consultoras.Common\Portal.Consultoras.Common.csproj">
@@ -300,10 +293,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ClienteValidationMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\MotivoRechazoMessages.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>MotivoRechazoMessages.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MotivoRechazoMessages.resx" />
     <EmbeddedResource Include="Resources\PedidoInsertMessages.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>PedidoInsertMessages.Designer.cs</LastGenOutput>

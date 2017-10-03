@@ -371,6 +371,7 @@
     <Compile Include="CustomFilters\LogErrorAttribute.cs" />
     <Compile Include="CustomFilters\LogActionFilter.cs" />
     <Compile Include="CustomFilters\LogActionFilterProvider.cs" />
+    <Compile Include="CustomFilters\UniqueSessionAttribute.cs" />
     <Compile Include="CustomHelpers\ConsultoraOnlineHelper.cs" />
     <Compile Include="CustomHelpers\UploadHelper.cs" />
     <Compile Include="GestionPasos\AsignacionFactory.cs" />
@@ -390,6 +391,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ControllerExtensions.cs" />
+    <Compile Include="Helpers\ViewExtensions.cs" />
+    <Compile Include="Infraestructure\UniqueRoute.cs" />
     <Compile Include="LogManager\LogManager.cs" />
     <Compile Include="Models\AdmCuponModel.cs" />
     <Compile Include="Models\AdministrarOfertasHomeModel.cs" />
@@ -3618,6 +3622,9 @@
     <None Include="Service References\ServicePedidoRechazado\PedidoRechazadoService.disco" />
     <None Include="Service References\ServicePedidoRechazado\configuration91.svcinfo" />
     <None Include="Service References\ServicePedidoRechazado\configuration.svcinfo" />
+    <None Include="Service References\ServicePedidoRechazado\PedidoRechazadoService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServicePedidoRechazado\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

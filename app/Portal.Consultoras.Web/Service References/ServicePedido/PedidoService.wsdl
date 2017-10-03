@@ -147,12 +147,6 @@
   <wsdl:message name="IPedidoService_ObtenerIncentivosConsultora_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerIncentivosConsultoraResponse" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_ObtenerIncentivosHistorico_InputMessage">
-    <wsdl:part name="parameters" element="tns:ObtenerIncentivosHistorico" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_ObtenerIncentivosHistorico_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ObtenerIncentivosHistoricoResponse" />
-  </wsdl:message>
   <wsdl:message name="IPedidoService_InsertarProductoComentarioDetalle_InputMessage">
     <wsdl:part name="parameters" element="tns:InsertarProductoComentarioDetalle" />
   </wsdl:message>
@@ -2302,10 +2296,6 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerIncentivosConsultora" message="tns:IPedidoService_ObtenerIncentivosConsultora_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerIncentivosConsultoraResponse" message="tns:IPedidoService_ObtenerIncentivosConsultora_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="ObtenerIncentivosHistorico">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerIncentivosHistorico" message="tns:IPedidoService_ObtenerIncentivosHistorico_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerIncentivosHistoricoResponse" message="tns:IPedidoService_ObtenerIncentivosHistorico_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="InsertarProductoComentarioDetalle">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertarProductoComentarioDetalle" message="tns:IPedidoService_InsertarProductoComentarioDetalle_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertarProductoComentarioDetalleResponse" message="tns:IPedidoService_InsertarProductoComentarioDetalle_OutputMessage" />
@@ -3848,15 +3838,6 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerIncentivosConsultora">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerIncentivosConsultora" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerIncentivosHistorico">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerIncentivosHistorico" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -7137,15 +7118,6 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerIncentivosConsultora">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerIncentivosConsultora" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerIncentivosHistorico">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerIncentivosHistorico" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

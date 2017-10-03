@@ -104,7 +104,7 @@ namespace Portal.Consultoras.Common
             { "SV", 0 },
             { "VE", 0 }
         };
-
+        
         /// <summary>
         /// Formatos de los numeros de documento para guardar en BD, key: Codigo del país, value: Func<string, string> 
         /// </summary>
@@ -469,25 +469,7 @@ namespace Portal.Consultoras.Common
             { "VE", "" }
         };
 
-        /// <summary>
-        /// ID - Codigo ISO
-        /// </summary>
-        public static Dictionary<int, string> Paises = new Dictionary<int, string>
-            {
-                { Constantes.PaisID.Bolivia, Constantes.CodigosISOPais.Bolivia },
-                { Constantes.PaisID.Chile, Constantes.CodigosISOPais.Chile },
-                { Constantes.PaisID.Colombia, Constantes.CodigosISOPais.Colombia },
-                { Constantes.PaisID.CostaRica, Constantes.CodigosISOPais.CostaRica },
-                { Constantes.PaisID.Ecuador, Constantes.CodigosISOPais.Ecuador },
-                { Constantes.PaisID.ElSalvador, Constantes.CodigosISOPais.Salvador },
-                { Constantes.PaisID.Guatemala, Constantes.CodigosISOPais.Guatemala },
-                { Constantes.PaisID.Mexico, Constantes.CodigosISOPais.Mexico },
-                { Constantes.PaisID.Panama, Constantes.CodigosISOPais.Panama },
-                { Constantes.PaisID.Peru, Constantes.CodigosISOPais.Peru },
-                { Constantes.PaisID.PuertoRico, Constantes.CodigosISOPais.PuertoRico },
-                { Constantes.PaisID.RepublicaDominicana, Constantes.CodigosISOPais.Dominicana },
-                { Constantes.PaisID.Venezuela, Constantes.CodigosISOPais.Venezuela }
-            };
+
     }
 
     public class RangoEdad
@@ -539,7 +521,5 @@ namespace Portal.Consultoras.Common
         public const string PuertoRico = "PR";
         public const string Bolivia = "BO";
     }
-
-
 
 }

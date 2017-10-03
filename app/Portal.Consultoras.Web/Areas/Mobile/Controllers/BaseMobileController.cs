@@ -1,20 +1,16 @@
 ﻿using System;
-using System.Linq;
 using System.Web.Mvc;
-using System.Collections.Generic;
 using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.ServiceSeguridad;
 using Portal.Consultoras.Web.Controllers;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
-using System.Configuration;
-
-using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServicePedido;
-using AutoMapper;
+using Portal.Consultoras.Web.CustomFilters;
+using Portal.Consultoras.Web.Infraestructure;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
+    [UniqueSession("UniqueRoute", UniqueRoute.IdentifierKey, "/g/")]
     public class BaseMobileController : BaseController
     {
         protected override void OnActionExecuting(ActionExecutingContext filterContext)

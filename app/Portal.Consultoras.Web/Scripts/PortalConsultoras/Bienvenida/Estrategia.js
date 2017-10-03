@@ -1,4 +1,4 @@
-﻿
+
 // 1: escritorio Home    11 : escritorio Pedido 
 // 2: mobile  Home       21 : mobile pedido
 var tipoOrigenEstrategia = tipoOrigenEstrategia || "";
@@ -567,7 +567,7 @@ function EstrategiaVerDetalle(id, origen) {
         origen = $("#divListadoEstrategia").attr("data-OrigenPedidoWeb") || origenPedidoWebEstrategia || 0;
     }
     origen = $.trim(origen) || 0;
-    var url = "/Mobile/OfertasParaTi/Detalle?id=" + id + "&&origen=" + origen;
+    var url = getMobilePrefixUrl() + "/OfertasParaTi/Detalle?id=" + id + "&&origen=" + origen;
     try {
         if (typeof GuardarProductoTemporal == "function" && typeof GetProductoStorage == "function") {
             var campania = $("[data-item=" + id + "]").parents("[data-tag-html]").attr("data-tag-html");
