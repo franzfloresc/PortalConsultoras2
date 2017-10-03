@@ -1,9 +1,11 @@
 ﻿@using System.Configuration
 @using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Helpers
 
 @model Portal.Consultoras.Web.Models.EstrategiaPersonalizadaModel
 @{
-    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayoutContenedor.cshtml";
+    var layout = ViewContext.MobileLayoutContenedor();
+    Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
 }
 @section styles{
 

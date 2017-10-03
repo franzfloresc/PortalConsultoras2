@@ -16,6 +16,17 @@ namespace Portal.Consultoras.Web.Helpers
             return ingresoExterno == null ? "_MobileLayout" : "_MobileLayoutEmpty";
         }
 
+        /// <summary>
+        /// Calcula el nombre del Layout en base a la Session Unica IngresoExterno
+        /// </summary>
+        /// <param name="viewContext">Current context</param>
+        /// <returns>_MobileLayoutContenedor or _MobileLayoutEmpty</returns>
+        public static string MobileLayoutContenedor(this ViewContext viewContext)
+        {
+            var ingresoExterno = viewContext.GetUniqueSession("IngresoExterno");
+            return ingresoExterno == null ? "_MobileLayoutContenedor" : "_MobileLayoutEmpty";
+        }
+
         public static string GetUniqueKey(this ViewContext viewContext)
         {
             if (viewContext.RequestContext.RouteData.Values.ContainsKey(UniqueRoute.IdentifierKey) ||
