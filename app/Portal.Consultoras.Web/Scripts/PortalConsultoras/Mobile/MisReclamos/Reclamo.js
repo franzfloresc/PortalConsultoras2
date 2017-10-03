@@ -337,6 +337,19 @@ $(document).ready(function () {
                     $(me.Variables.pasodos).show();
                     $(me.Variables.pasotres).show();
 
+                    $(me.Variables.txtCuvMobile).val("");
+                    $(me.Variables.txtCantidad1).val("1");
+                    $(me.Variables.txtCuvMobile2).val("");
+                    $(me.Variables.txtPrecioCuv2).html("");
+                    $(me.Variables.txtCantidad2).val("1");
+
+                    $(me.Variables.DescripcionCuv).hide();
+                    $(me.Variables.txtCuvMobile).fadeIn();
+                    $(me.Variables.txtCuvMobile).focus();
+
+                    $(me.Variables.DescripcionCuv2).hide();
+                    $(me.Variables.txtCuvMobile2).fadeIn();
+                    $(me.Variables.txtCuvMobile2).focus();
 
                     paso2Actual = 1
 
@@ -425,6 +438,7 @@ $(document).ready(function () {
 
                 $(me.Variables.enlace_quiero_ver_otra_alternativa).click(function (evt) {
                     $(me.Variables.Registro4).hide();
+                    $(me.Variables.btnAceptarSolucion).hide();
                     $(me.Variables.Registro3).show();
                 });
             }
