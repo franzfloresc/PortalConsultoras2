@@ -381,7 +381,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ValidarUnidadesPermitidasPedidoProducto(string CUV, string Cantidad, string PrecioUnidad)
         {
-            string mensaje = ValidarPedidoMontoMaximo(Convert.ToDecimal(PrecioUnidad), Convert.ToInt32(Cantidad));
+            string mensaje = ValidarMontoMaximo(Convert.ToDecimal(PrecioUnidad), Convert.ToInt32(Cantidad));
             
             int UnidadesPermitidas = 0;
             int Saldo = 0;

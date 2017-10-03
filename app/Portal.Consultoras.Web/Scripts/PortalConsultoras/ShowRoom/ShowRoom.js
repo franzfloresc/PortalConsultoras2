@@ -356,11 +356,11 @@ function AgregarOfertaShowRoom(article, cantidad) {
         cache: false
     });
     $.getJSON(baseUrl + 'ShowRoom/ValidarUnidadesPermitidasPedidoProducto', { CUV: CUV, PrecioUnidad: PrecioUnidad, Cantidad: cantidad }, function (data) {
-        if (data.message.length > 0) {
-            AbrirMensajeEstrategia(data.message);
-            CerrarLoad();
-            return false;
-        }
+        //if (data.message.length > 0) {
+        //    AbrirMensajeEstrategia(data.message);
+        //    CerrarLoad();
+        //    return false;
+        //}
         if (parseInt(data.Saldo) < parseInt(cantidad)) {
             var Saldo = data.Saldo;
             var UnidadesPermitidas = data.UnidadesPermitidas;
