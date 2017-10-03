@@ -81,7 +81,9 @@ $(document).ready(function () {
    
     ObtenerComunicadosPopup();
 });
-
+$(window).load(function () {
+    VerSeccionBienvenida(verSeccion);
+});
 function CrearPopShow() {
     /*
     if (typeof gTipoUsuario !== 'undefined') {
@@ -522,6 +524,7 @@ function mostrarCatalogoPersonalizado() {
     document.location.href = urlCatalogoPersonalizado;
 }
 
+var ComunicadoId = 0;
 function ObtenerComunicadosPopup() {
     if (primeraVezSession == 0) return;
 
@@ -542,6 +545,12 @@ function ObtenerComunicadosPopup() {
 
     $('.contenedor_popup_comunicado').on('hidden.bs.modal', function () {
         //CERRAR
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'App Consultora',
+            'action': 'Cerrar popup',
+            'label': '{tipoBanner}'
+        });
     });
 
     $(window).resize(function (e) {
@@ -567,6 +576,20 @@ function ObtenerComunicadosPopup() {
         window.open($(this).attr("urlAccion"));
 
         //CLICK
+        dataLayer.push({
+            'event': 'promotionClick',
+            'ecommerce': {
+                'promoView': {
+                    'promotions': [
+                    {
+                        'id': ComunicadoId,
+                        'name': 'App Consultora -  Incentivo descarga',
+                        'position': 'Home pop-up - 1',
+                        'creative': 'Banner'
+                    }]
+                }
+            }
+        });
     });
 
     $(".popup_comunicado .pie_popup_comunicado .check").click(function (e) {
@@ -615,6 +638,20 @@ function armarComunicadosPopup(comunicado){
     $(".contenedor_popup_comunicado").modal("show");
 
     $(window).resize();
+    dataLayer.push({
+        'event': 'promotionView',
+        'ecommerce': {
+            'promoView': {
+                'promotions': [
+                {
+                    'id': ComunicadoId,
+                    'name': 'App Consultora -  Incentivo descarga',
+                    'position': 'Home pop-up - 1',
+                    'creative': 'Banner'
+                }]
+            }
+        }
+    });
 }
 
 function grabarComunicadoPopup() {
@@ -644,4 +681,30 @@ function grabarComunicadoPopup() {
             }
         }
     });
+}
+
+function VerSeccionBienvenida(seccion) {
+    var id = "";
+    switch (seccion) {
+        case "Belcorp":
+            id = ".content_belcorp";
+            break
+        case "MisOfertas":
+            id = "#divListaEstrategias";
+            break;
+        case "MiAcademia":
+            id = "";
+            break;
+        case "Footer":
+            id = "footer";
+            break;
+        default://Home
+            id = "#contentmobile";
+            break;
+    }
+    if (id != "") {
+        $("html, body").animate({
+            scrollTop: $(id).offset().top - 60
+        }, 1000);
+    }
 }

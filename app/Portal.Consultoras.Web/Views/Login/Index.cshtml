@@ -55,14 +55,17 @@
         }
 
         function getInfoFB(opt) {
+            var fp = null;
+
             FB.api('/me', 'GET', { fields: 'birthday,email,first_name,gender,hometown,id,last_name,link,location,name,picture.type(large)' }, function (response) {
-                //console.log(response);
+                
                 if (response.id !== null && response.id !== "") {
                     var exists = checkExternalUser('Facebook', response.id);
 
                     if (exists) {
                         if (opt == 2) {
-                            validExternalUser('Facebook', response.id);
+                            fp = (typeof response.picture === 'object') ? response.picture.data.url : "";
+                            validExternalUser('Facebook', response.id, fp);
                         }
                         else {
                             var fullname = response.name.trim();
@@ -73,7 +76,7 @@
                             }
 
                             $('#hdeNameUserExt').val(fname);
-                            //resizeNameUserExt();
+                            
                             $('#btnLoginFB2').removeClass('center_facebook');
                             $('#btnLoginFB2').text('Continuar como ' + fname);
                             $('#imgFotoPerfil2').attr('src', response.picture.data.url);
@@ -86,17 +89,13 @@
                             $('#_olgn').hide();
                             $('#loginanterior').hide();
 
-                            $('#btnfblogin').show();
-                            //$('#cambcuentatext').show();
+                            $('#btnfblogin').show();                           
                         }
                     }
-                    else {
-                        //$('#btnLoginFB').hide();
-                        //$('#spnLoginFB').text(data.name);
-
+                    else {                        
                         if (opt == 2) {
                             var lc = (typeof response.location === 'object') ? response.location.name : "";
-                            var fp = (typeof response.picture === 'object') ? response.picture.data.url : "";
+                            fp = (typeof response.picture === 'object') ? response.picture.data.url : "";
                             $('#hdeProveedor').val('Facebook');
                             $('#hdeIdApp').val(response.id);
                             $('#hdeLogin').val(response.name);
@@ -159,12 +158,13 @@
             return r;
         }
 
-        function validExternalUser(provider, id) {
+        function validExternalUser(provider, id, fotoperfil) {
             var obj = {
                 codigoISO: $('#ddlPais').val(),
                 proveedor: provider,
                 appid: id,
-                returnUrl: $('#returnUrl').val()
+                returnUrl: $('#returnUrl').val(),
+                foto: fotoperfil
             };
 
             waitingDialog();

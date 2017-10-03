@@ -17,7 +17,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
     public class BienvenidaController : BaseMobileController
     {
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-        public ActionResult Index()
+        public ActionResult Index(int verSeccion = 0)
         {
             var model = new BienvenidaModel();
             try
@@ -81,8 +81,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.ActivacionAppCatalogoWhastUp = ObtenerActivacionAppCatalogoWhastUp();
                 model.CampaniaMasDos = AddCampaniaAndNumero(Convert.ToInt32(model.NumeroCampania), 2);
                 model.ShowRoomMostrarLista = ValidarPermiso(Constantes.MenuCodigo.CatalogoPersonalizado) ? 0 : 1;
-
-
+                
                 ViewBag.paisISO = userData.CodigoISO;
                 ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("BUCKET_NAME") ?? string.Empty;
                 ViewBag.NombreConsultora = model.NombreConsultora;
@@ -107,6 +106,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     Session["PrimeraVezSessionMobile"] = 1;
                 }
 
+                ViewBag.VerSeccion = verSeccion;
             }
             catch (FaultException ex)
             {
@@ -119,7 +119,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return View(model);
         }
-
 
         private string ObtenerSaludo()
         {
@@ -237,10 +236,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             nombreConsultoraFAV = nombreConsultoraFAV.First().ToString().ToUpper() + nombreConsultoraFAV.ToLower().Substring(1);
             return nombreConsultoraFAV;
         }
-
-
-
-
+        
         [HttpPost]
         public JsonResult ValidacionConsultoraDA()
         {

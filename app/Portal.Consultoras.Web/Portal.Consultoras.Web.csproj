@@ -203,6 +203,7 @@
     <Compile Include="Areas\Mobile\Controllers\NotificacionesController.cs" />
     <Compile Include="Areas\Mobile\Controllers\OfertaDelDiaController.cs" />
     <Compile Include="Areas\Mobile\Controllers\OfertaLiquidacionController.cs" />
+    <Compile Include="Areas\Mobile\Controllers\FichaProductoController.cs" />
     <Compile Include="Areas\Mobile\Controllers\OfertasController.cs" />
     <Compile Include="Areas\Mobile\Controllers\OfertasParaTiController.cs" />
     <Compile Include="Areas\Mobile\Controllers\PaypalController.cs" />
@@ -272,6 +273,7 @@
     <Compile Include="Controllers\EstrategiaProductoComentarioController.cs" />
     <Compile Include="Controllers\CatalogosBelcorpController.cs" />
     <Compile Include="Controllers\OfertasController.cs" />
+    <Compile Include="Controllers\FichaProductoController.cs" />
     <Compile Include="Controllers\ProductoComentarioController.cs" />
     <Compile Include="Controllers\EstrategiaProductoController.cs" />
     <Compile Include="Controllers\LoginChatbotController.cs" />
@@ -408,6 +410,8 @@
     <Compile Include="Models\BarraConsultoraModel.cs" />
     <Compile Include="Models\EventoFestivoDataModel.cs" />
     <Compile Include="Models\EventoFestivoModel.cs" />
+    <Compile Include="Models\FichaProductoDetalleModel.cs" />
+    <Compile Include="Models\FichaProductoModel.cs" />
     <Compile Include="Models\OfertaFinalModel.cs" />
     <Compile Include="Models\MensajesCDRExpressModel.cs" />
     <Compile Include="Models\ProductoComentarioModel.cs" />
@@ -3147,6 +3151,7 @@
     <Content Include="Scripts\HojaInscripcion\validations.js" />
     <Content Include="Areas\Mobile\Views\Shared\_ChatbotEmptyLayout.cshtml" />
     <Content Include="Areas\Mobile\Views\Compartir\CompartirEnChatBot.cshtml" />
+    <Content Include="Areas\Mobile\Views\FichaProducto\Detalle.cshtml" />
     <Content Include="Scripts\jquery-1.11.2.js" />
     <Content Include="Scripts\jquery-1.11.2.min.js" />
     <Content Include="Scripts\jquery-labelauty.js" />
@@ -3194,6 +3199,7 @@
     <Content Include="Scripts\PortalConsultoras\CatalogoPersonalizado\catalogoPersonalizado.js" />
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
     <Content Include="Scripts\PortalConsultoras\MatrizCampania\ActualizarMatrizCampaniaModule.js" />
+    <Content Include="Scripts\PortalConsultoras\FichaProducto\Index.js" />
     <Content Include="Scripts\PortalConsultoras\ProductoComentario\ProductoComentarioAdmModule.js" />
     <Content Include="Scripts\PortalConsultoras\Cupon\CuponAdm.js" />
     <Content Include="Scripts\PortalConsultoras\Cupon\CuponAdmModule.js" />
@@ -3513,6 +3519,7 @@
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-banner.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-oferta-del-dia.cshtml" />
     <Content Include="Areas\Mobile\Views\MisDatos\Index.cshtml" />
+    <Content Include="Areas\Mobile\Views\FichaProducto\ProductoNotFound.cshtml" />
     <Content Include="Areas\Mobile\Views\OfertaDelDia\_OfertaDelDiaBannerTop.cshtml" />
     <Content Include="Areas\Mobile\Views\OfertaDelDia\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\OfertaDelDia\_OfertaDelDiaBanner.cshtml" />
@@ -3552,6 +3559,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceCliente\ClienteService32.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceCliente\ClienteService4.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceCliente\configuration91.svcinfo" />
@@ -4294,6 +4304,8 @@
     <Content Include="Views\Shared\MatrizComercial\_matrizComercialItemTemplate.cshtml" />
     <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo8.cshtml" />
     <Content Include="Views\Unete\_MotivoRechazo.cshtml" />
+    <Content Include="Views\EstrategiaPersonalizada\template-producto-landing.cshtml" />
+    <Content Include="Views\EstrategiaPersonalizada\template-producto-packnueva.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\template-producto-verdetalle.cshtml" />
     <Content Include="Views\Ofertas\Index.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\template-lanzamiento-carrusel.cshtml" />
@@ -4312,6 +4324,7 @@
     <Content Include="Views\Shared\_AsesoraOnlineLayout.cshtml" />
     <Content Include="Views\AsesoraOnline\FelicitacionesDialog.cshtml" />
     <Content Include="Views\AsesoraOnline\ConsultoraYaRegistradaCoachVirtual.cshtml" />
+    <Content Include="Views\FichaProducto\template-ficha-producto.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-banner.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpBloqueMensajesPostulante.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpBloqueMensajesPedido.cshtml" />

@@ -9,24 +9,18 @@ window.onerror = function (msg, url, line, col, error) {
     // https://blog.sentry.io/2016/01/04/client-javascript-reporting-window-onerror.html
     // https://blog.bugsnag.com/js-stacktraces/
 
+    if (!url) {
+        url = window.location.origin;
+    }
+
     // Tener en cuenta que col & error son nuevos en la especificación HTML 5 y no pueden ser 
     // soportados en todos los navegadores. 
     var stackTrace = "";
     if (!error && !col) {
-        stackTrace = msg + ' en ' + url + ' linea ' + line;
+        stackTrace += msg + ' en ' + url + ' linea ' + line;
     } else {
         stackTrace = 'linea: ' + line + ', columna: ' + col + ', ' + error.stack;
     }
-
-    // Solo Chrome, Opera y IE > 9 pasan el objeto error.
-    //var column = column || (window.event && window.event.errorCharacter);
-    //var stack = [];
-    //var f = arguments.callee.caller;
-    //while (f) {
-    //    stack.push(f.name);
-    //    f = f.caller;
-    //}
-    //console.log(message, "from", stack);
 
     // TODO: Reportar el error a través de ajax para que pueda realizar un seguimiento
     // de qué páginas tienen problemas JS
@@ -48,6 +42,7 @@ window.onerror = function (msg, url, line, col, error) {
 // Tracking de llamadas $.ajax
 $(document).ajaxError(function (event, jqxhr, settings, thrownError) {
 
+    // No se registra errores por Sesión expirada
     if (jQuery.type(jqxhr.responseText) === "string") {
         if ((jqxhr.responseText.indexOf('<input type="hidden" id="PaginaLogin" />') > -1) ||
             (jqxhr.responseText.indexOf('<input type="hidden" id="PaginaSesionExpirada" />') > -1))
@@ -56,7 +51,7 @@ $(document).ajaxError(function (event, jqxhr, settings, thrownError) {
 
     // Jquery Ajax
     // http://api.jquery.com/ajaxerror/
-    
+
     // AJAX - Server Response
     // https://www.w3schools.com/xml/ajax_xmlhttprequest_response.asp
 
@@ -65,11 +60,39 @@ $(document).ajaxError(function (event, jqxhr, settings, thrownError) {
     
     var urlAjax = window.location.origin + "" + settings.url;
 
+    var message = settings.url + ": ";
+    var stackTrace = "";
+
+    if (thrownError == 'parsererror') {
+        message += "Parsing request was failed.";
+        stackTrace = thrownError;
+    }
+    else if (thrownError == 'timeout') {
+        message += "Request time out.";
+        stackTrace = thrownError;
+    }
+    else if (thrownError == 'abort') {
+        message += "Request was aborted.";
+        stackTrace = thrownError;
+    }
+    else if (jqxhr.status === 0) {
+        message += "No connection.";
+        stackTrace = jqxhr.responseText;
+    }
+    else if (jqxhr.status >= 400) {
+        message += "HTTP Error " + jqxhr.status + " – " + jqxhr.statusText + ".";
+        stackTrace = jqxhr.responseText;
+    }
+    else {
+        message += "Unknown error.";
+        stackTrace = jqxhr.responseText + " - " + thrownError;
+    }
+
     // TODO: Reportar el error a través de ajax para que pueda realizar un seguimiento
     // de qué invocaciones AJAX tienen problemas
     var objError = {
-        Mensaje: jqxhr.status + ' - ' + jqxhr.statusText,
-        StackTrace: jqxhr.responseText,
+        Mensaje: message,
+        StackTrace: stackTrace,
         Url: urlAjax,
         Origen: 'Cliente',
         TipoTrace: 'AjaxError'
@@ -83,7 +106,7 @@ function registrarLogError(objError) {
     if (!urlLogDynamo) return;
 
     var urlLogError = urlLogDynamo + "Api/LogError";
-    
+
     var extra = [
         { 'key': 'Origen', 'value': objError.Origen },
         { 'key': 'Url', 'value': objError.Url },
@@ -109,8 +132,8 @@ function registrarLogError(objError) {
             dataType: "json",
             global: false,
             data: data,
-            success: function (result) { console.log(result); },
-            error: function (x, xh, xhr) { console.log(x); }
+            success: function (result) { },
+            error: function (x, xh, xhr) { }
         });
     }
 }

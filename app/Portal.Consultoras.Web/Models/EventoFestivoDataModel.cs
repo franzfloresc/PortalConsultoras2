@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Antlr.Runtime.Misc;
 
 namespace Portal.Consultoras.Web.Models
 {
+    [Serializable]
     public class EventoFestivoDataModel
     { 
         public List<EventoFestivoModel> ListaEventoFestivo { get; set; }

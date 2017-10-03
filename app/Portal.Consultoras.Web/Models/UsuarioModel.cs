@@ -372,6 +372,8 @@ namespace Portal.Consultoras.Web.Models
 
         public int OfertaFinal { get; set; }
         
+        public bool TieneValidacionMontoMaximo { get; set; } //EPD-2337
+
         public bool EsOfertaFinalZonaValida { get; set; }
         public bool EsOFGanaMasZonaValida { get; set; }
         public int OfertaFinalGanaMas { get; set; }

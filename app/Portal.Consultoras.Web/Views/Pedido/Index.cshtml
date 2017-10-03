@@ -1851,6 +1851,7 @@ else
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-verdetalle.cshtml")
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-packnueva.cshtml")
+@Html.Partial("~/Views/FichaProducto/template-ficha-producto.cshtml")
 
 <script id="productos-faltantes-template" type="text/x-handlebars-template">
     <table>
@@ -2162,6 +2163,8 @@ else
         var origenPagina = 2;
         var tipoOrigenEstrategia = 11;
         var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTi;
+        var origenPedidoWebFichaProducto = @Constantes.OrigenPedidoWeb.DesktopPedidoVirtualCoach;
+        var mobileDevice = false;
         var indicadorGPRSB = '@Model.IndicadorGPRSB';
         var viewBagCampaniaActual = '@Model.CampaniaActual';
         var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
@@ -2176,13 +2179,24 @@ else
         var consultoraRegaloPN = '@ViewBag.ConsultoraTieneRegaloPN';
         var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital")';
         var viewBagCondigoConsultora = '@ViewBag.CodigoConsultora';
-                var ofertaFinalEstado = '@ViewBag.OfertaFinalEstado';
-                var ofertaFinalAlgoritmo = '@ViewBag.OfertaFinalAlgoritmo';
+        var ofertaFinalEstado = '@ViewBag.OfertaFinalEstado';
+        var ofertaFinalAlgoritmo = '@ViewBag.OfertaFinalAlgoritmo';
+        var VirtualCoachCuv = '@ViewBag.VirtualCoachCuv';
+        var VirtualCoachCampana = '@ViewBag.VirtualCoachCampana' || 0;
+
+        var seccionMisOfertas = '@Constantes.SeccionBienvenida.MisOfertas';
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Pedido")
-
+    @if (HttpContext.Current.Request.Browser.IsMobileDevice)
+    {
+        <script>
+            mobileDevice = true;
+        </script>
+    }
     @if (ViewBag.MostrarPedidosPendientes == "1")
     {
         <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Pedido/ConsultoraOnline.js")"></script>
     }
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/FichaProducto/Index.js")"></script>
+            
 } 

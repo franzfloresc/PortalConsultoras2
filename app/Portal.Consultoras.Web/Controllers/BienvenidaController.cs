@@ -20,10 +20,10 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class BienvenidaController : BaseController
     {
-        public ActionResult Index(bool showPopupMisDatos = false)
+        public ActionResult Index(bool showPopupMisDatos = false, string verSeccion = "")
         {
             if (Request.Browser.IsMobileDevice)
-                return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
+                return RedirectToAction("Index", "Bienvenida", new { area = "Mobile", verSeccion = verSeccion });
 
             var model = new BienvenidaHomeModel { ShowPopupMisDatos = showPopupMisDatos };
 
@@ -256,6 +256,8 @@ namespace Portal.Consultoras.Web.Controllers
                 model.EmailActivo = userData.EMailActivo;
                 ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("BUCKET_NAME") ?? string.Empty;
                 TempData.Keep("MostrarPopupCuponGanaste");
+
+                ViewBag.VerSeccion = verSeccion;
             }
             catch (FaultException ex)
             {
