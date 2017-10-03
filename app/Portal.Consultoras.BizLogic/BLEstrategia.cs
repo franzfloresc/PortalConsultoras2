@@ -370,12 +370,7 @@ namespace Portal.Consultoras.BizLogic
 
             return lista;
         }
-
-        public string GetCodeEstrategiaByCUV(int paisID, string cuv, int campaniaID)
-        {
-            return new DAEstrategia(paisID).GetCodeEstrategiaByCUV(cuv, campaniaID);
-        }
-
+        
         public string GetImagenOfertaPersonalizadaOF(int paisID, int campaniaID, string cuv)
         {
             var imagen = string.Empty;

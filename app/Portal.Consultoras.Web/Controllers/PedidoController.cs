@@ -1392,17 +1392,34 @@ namespace Portal.Consultoras.Web.Controllers
                     olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(oUsuarioModel.PaisID, oUsuarioModel.CampaniaID, term, oUsuarioModel.RegionID, oUsuarioModel.ZonaID, oUsuarioModel.CodigorRegion, oUsuarioModel.CodigoZona, 1, 5, true).ToList();
                 }
 
-                var strCUV = string.Empty;
-                if (olstProducto.Count() > 0)
+                if (olstProducto.Count == 0)
                 {
-                    strCUV = olstProducto[0].CUV.Trim();
+                    olstProductoModel.Add(new ProductoModel() { MarcaID = 0, CUV = "El producto solicitado no existe.", TieneSugerido = 0 });
+                    return Json(olstProductoModel, JsonRequestBehavior.AllowGet);
                 }
 
+                var codigoEstrategia = Util.Trim(olstProducto[0].TipoEstrategiaCodigo);
+
+                if (Constantes.TipoEstrategiaCodigo.Lanzamiento == codigoEstrategia
+                    || Constantes.TipoEstrategiaCodigo.OfertasParaMi == codigoEstrategia
+                    || Constantes.TipoEstrategiaCodigo.PackAltoDesembolso == codigoEstrategia)
+                {
+                    if (!(revistaDigital.TieneRDR || revistaDigital.TieneRDC))
+                    {
+                        olstProductoModel.Add(new ProductoModel()
+                        {
+                            MarcaID = 0,
+                            CUV = "Para agregar este producto tienes que estar incrita a la revista digital.",
+                            TieneSugerido = 0
+                        });
+                        return Json(olstProductoModel, JsonRequestBehavior.AllowGet);
+                    }
+                }
 
                 var BEMensajeCUV = new BEMensajeCUV();
                 using (ODSServiceClient sv = new ODSServiceClient())
                 {
-                    BEMensajeCUV = sv.GetMensajeByCUV(oUsuarioModel.PaisID, oUsuarioModel.CampaniaID, strCUV);
+                    BEMensajeCUV = sv.GetMensajeByCUV(oUsuarioModel.PaisID, oUsuarioModel.CampaniaID, olstProducto[0].CUV.Trim());
                 }
 
                 /* Iscrita en EPM Revista 100% */
@@ -1426,7 +1443,6 @@ namespace Portal.Consultoras.Web.Controllers
                         TipoOfertaSisID = item.TipoOfertaSisID,
                         ConfiguracionOfertaID = item.ConfiguracionOfertaID,
                         MensajeCUV = BEMensajeCUV.Mensaje,
-
                         DescripcionMarca = item.DescripcionMarca,
                         DescripcionEstrategia = item.DescripcionEstrategia,
                         DescripcionCategoria = item.DescripcionCategoria,
@@ -1434,11 +1450,6 @@ namespace Portal.Consultoras.Web.Controllers
                         TipoEstrategiaID = item.TipoEstrategiaID,
                         TieneRDC = tieneRDC
                     });
-                }
-
-                if (olstProductoModel.Count == 0)
-                {
-                    olstProductoModel.Add(new ProductoModel() { MarcaID = 0, CUV = "El producto solicitado no existe." });
                 }
             }
             catch (Exception ex)
@@ -1469,35 +1480,24 @@ namespace Portal.Consultoras.Web.Controllers
                     olstProductoModel.Add(new ProductoModel() { MarcaID = 0, CUV = "El producto solicitado no existe.", TieneSugerido = 0 });
                     return Json(olstProductoModel, JsonRequestBehavior.AllowGet);
                 }
-
-                //try
-                //{
-                    var codigoEstrategia = Util.Trim(olstProducto[0].TipoEstrategiaCodigo);
-                    //var codigoEstrategia = "";
-                    //using (PedidoServiceClient sv = new PedidoServiceClient())
-                    //{
-                    //    codigoEstrategia = sv.GetCodeEstrategiaByCUV(oUsuarioModel.PaisID, model.CUV, oUsuarioModel.CampaniaID);
-                    //}
-                    if (Constantes.TipoEstrategiaCodigo.Lanzamiento == codigoEstrategia
-                        || Constantes.TipoEstrategiaCodigo.OfertasParaMi == codigoEstrategia
-                        || Constantes.TipoEstrategiaCodigo.PackAltoDesembolso == codigoEstrategia)
+                
+                var codigoEstrategia = Util.Trim(olstProducto[0].TipoEstrategiaCodigo);
+                    
+                if (Constantes.TipoEstrategiaCodigo.Lanzamiento == codigoEstrategia
+                    || Constantes.TipoEstrategiaCodigo.OfertasParaMi == codigoEstrategia
+                    || Constantes.TipoEstrategiaCodigo.PackAltoDesembolso == codigoEstrategia)
+                {
+                    if (!(revistaDigital.TieneRDR || revistaDigital.TieneRDC))
                     {
-                        if (!(revistaDigital.TieneRDR || revistaDigital.TieneRDC))
+                        olstProductoModel.Add(new ProductoModel()
                         {
-                            olstProductoModel.Add(new ProductoModel()
-                            {
-                                MarcaID = 0,
-                                CUV = "Para agregar este producto tienes que estar incrita a la revista digital.",
-                                TieneSugerido = 0
-                            });
-                            return Json(olstProductoModel, JsonRequestBehavior.AllowGet);
-                        }
+                            MarcaID = 0,
+                            CUV = "Para agregar este producto tienes que estar incrita a la revista digital.",
+                            TieneSugerido = 0
+                        });
+                        return Json(olstProductoModel, JsonRequestBehavior.AllowGet);
                     }
-                //}
-                //catch (Exception e)
-                //{
-                //    LogManager.LogManager.LogErrorWebServicesBus(e, userData.CodigoConsultora, userData.CodigoISO);
-                //}
+                }
                 
                 var listaEstrategias = (List<BEEstrategia>)Session[Constantes.ConstSession.ListaEstrategia] ?? new List<BEEstrategia>();
                 var estrategia = listaEstrategias.FirstOrDefault(p => p.CUV2 == model.CUV) ?? new BEEstrategia();
@@ -1524,12 +1524,10 @@ namespace Portal.Consultoras.Web.Controllers
                     revistaGana = sv.ValidarDesactivaRevistaGana(oUsuarioModel.PaisID, oUsuarioModel.CampaniaID, oUsuarioModel.CodigoZona);
                 }
 
-                var strCUV = model.CUV;
-
                 var BEMensajeCUV = new BEMensajeCUV();
                 using (ODSServiceClient sv = new ODSServiceClient())
                 {
-                    BEMensajeCUV = sv.GetMensajeByCUV(oUsuarioModel.PaisID, oUsuarioModel.CampaniaID, strCUV);
+                    BEMensajeCUV = sv.GetMensajeByCUV(oUsuarioModel.PaisID, oUsuarioModel.CampaniaID, olstProducto[0].CUV.Trim());
                 }
 
                 var ObservacionCUV = beConsultoraCUV.IdMensaje == 1
@@ -1827,17 +1825,39 @@ namespace Portal.Consultoras.Web.Controllers
                     olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(oUsuarioModel.PaisID, oUsuarioModel.CampaniaID, term, oUsuarioModel.RegionID, oUsuarioModel.ZonaID, oUsuarioModel.CodigorRegion, oUsuarioModel.CodigoZona, 2, 5, true).ToList();
                 }
 
-                var strCUV = string.Empty;
-                if (olstProducto.Count() > 0)
+                if (olstProducto.Count == 0)
                 {
-                    strCUV = olstProducto[0].CUV.Trim();
+                    olstProductoModel.Add(new ProductoModel() { MarcaID = 0, CUV = "El producto solicitado no existe.", TieneSugerido = 0 });
+                    return Json(olstProductoModel, JsonRequestBehavior.AllowGet);
+                }
+
+                var codigoEstrategia = Util.Trim(olstProducto[0].TipoEstrategiaCodigo);
+
+                if (Constantes.TipoEstrategiaCodigo.Lanzamiento == codigoEstrategia
+                    || Constantes.TipoEstrategiaCodigo.OfertasParaMi == codigoEstrategia
+                    || Constantes.TipoEstrategiaCodigo.PackAltoDesembolso == codigoEstrategia)
+                {
+                    if (!(revistaDigital.TieneRDR || revistaDigital.TieneRDC))
+                    {
+                        olstProductoModel.Add(new ProductoModel()
+                        {
+                            MarcaID = 0,
+                            CUV = "Para agregar este producto tienes que estar incrita a la revista digital.",
+                            TieneSugerido = 0
+                        });
+                        return Json(olstProductoModel, JsonRequestBehavior.AllowGet);
+                    }
                 }
 
                 var BEMensajeCUV = new BEMensajeCUV();
                 using (ODSServiceClient sv = new ODSServiceClient())
                 {
-                    BEMensajeCUV = sv.GetMensajeByCUV(oUsuarioModel.PaisID, oUsuarioModel.CampaniaID, strCUV);
+                    BEMensajeCUV = sv.GetMensajeByCUV(oUsuarioModel.PaisID, oUsuarioModel.CampaniaID, olstProducto[0].CUV.Trim());
                 }
+
+                /* Iscrita en EPM Revista 100% */
+                var tieneRDC = revistaDigital.TieneRDC &&
+                    revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo;
 
                 foreach (var item in olstProducto)
                 {
@@ -1854,21 +1874,15 @@ namespace Portal.Consultoras.Web.Controllers
                         CUVComplemento = item.CUVComplemento.Trim(),
                         TipoOfertaSisID = item.TipoOfertaSisID,
                         ConfiguracionOfertaID = item.ConfiguracionOfertaID,
-                        //CUVComplemento = item.CUVComplemento.Trim(),
                         IndicadorMontoMinimo = olstProducto[0].IndicadorMontoMinimo.ToString().Trim(),
                         MensajeCUV = BEMensajeCUV.Mensaje,
-                        /*CIG(RSA) REQ - 552 */
                         DescripcionMarca = item.DescripcionMarca,
                         DescripcionEstrategia = item.DescripcionEstrategia,
                         DescripcionCategoria = item.DescripcionCategoria,
                         TipoEstrategiaID = item.TipoEstrategiaID,
-                        FlagNueva = item.FlagNueva
+                        FlagNueva = item.FlagNueva,
+                        TieneRDC = tieneRDC
                     });
-                }
-
-                if (olstProductoModel.Count == 0)
-                {
-                    olstProductoModel.Add(new ProductoModel() { CUV = "0", Descripcion = "El producto solicitado no existe." });
                 }
             }
             catch (Exception ex)
