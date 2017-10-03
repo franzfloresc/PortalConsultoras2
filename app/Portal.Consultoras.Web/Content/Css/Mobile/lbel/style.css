@@ -5644,6 +5644,7 @@ body{
     position:relative;
     font-family:'Lato';
     overflow: hidden;
+    padding-top: 5px;
 }
 
 .hideTituloMobileDetalleOferta{
@@ -6042,6 +6043,10 @@ input[type="checkbox"]:checked + span:after {
 .btn_ok_mobile:hover{
     color:#FFF!important;
     text-decoration:none!important;
+}
+
+.btn_ok_mobile-inline {
+    display: inline-block;
 }
 
 .ver-mas-vertical span.icono{visibility:hidden}
@@ -12396,6 +12401,12 @@ box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
     overflow: hidden;
 }
 
+.enlace_chat a {
+    display: inline;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
 .flip-clock-wrapper .flip{
     box-shadow: 0 2px 5px rgba(4, 53, 83, 0.7) !important;
 }
@@ -12560,6 +12571,11 @@ box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
     text-align:center;
     text-decoration:underline;
     margin-bottom:25px;
+}
+
+.enlace_chat a {
+    text-decoration: underline;
+    font-weight: bold;
 }
 
 .btn_aceptar_no_hay_producto{

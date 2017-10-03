@@ -6777,6 +6777,10 @@ input[type="checkbox"]:checked + span:after {
     text-decoration:none!important;
 }
 
+.btn_ok_mobile-inline {    
+    display: inline-block;
+}
+
 /* ver mas la fleca abajo => poner solo la clase al contenedor*/
 
 .ver-mas-vertical span.icono {
@@ -13365,6 +13369,10 @@ a{
     text-align:center;
     text-decoration:underline;
     margin-bottom:25px;
+}
+.enlace_chat a {
+    text-decoration: underline;
+    font-weight: bold;
 }
 
 .btn_aceptar_no_hay_producto{
