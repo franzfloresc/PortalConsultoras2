@@ -440,7 +440,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     var result = sv.ValidacionModificarPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, userData.UsuarioPrueba == 1, userData.AceptacionConsultoraDA);
                     mensaje = result.Mensaje;
-                    return result.MotivoPedidoLock != EnumeradoresMotivoPedidoLock.Ninguno;
+                    return result.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno;
                 }
             }
             catch (Exception ex)
@@ -2078,7 +2078,7 @@ namespace Portal.Consultoras.Web.Controllers
 
 
 
-        public string NombreMes(int Mes)
+        public string NombreMes(int mes)
         {
             var result = string.Empty;
             switch (mes)

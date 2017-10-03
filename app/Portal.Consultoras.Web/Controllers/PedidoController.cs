@@ -2088,7 +2088,7 @@ namespace Portal.Consultoras.Web.Controllers
                     MontoEscala = resultado.MontoEscala.ToString()
                 } };
                 }
-                if (resultado.ResultadoReservaEnum != EnumeradoresResultadoReserva.ReservaNoDisponible)
+                if (resultado.ResultadoReservaEnum != Enumeradores.ResultadoReserva.ReservaNoDisponible)
                 {
                     if (resultado.Reserva) CambioBannerGPR(true);
                 sessionManager.SetObservacionesProl(listObservacionModel);
@@ -3158,7 +3158,7 @@ namespace Portal.Consultoras.Web.Controllers
                     using (var sv = new PedidoServiceClient())
                     {
                         var result = sv.ValidacionModificarPedidoSelectiva(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, userData.UsuarioPrueba == 1, userData.AceptacionConsultoraDA, false, false, true);
-                        if (result.MotivoPedidoLock == EnumeradoresMotivoPedidoLock.HorarioRestringido)
+                        if (result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.HorarioRestringido)
                         {
                             mensaje = result.Mensaje;
                             estado = true;
@@ -3201,8 +3201,8 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         result = sv.ValidacionModificarPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, userData.UsuarioPrueba == 1, userData.AceptacionConsultoraDA);
                     }
-                    pedidoReservado = result.MotivoPedidoLock == EnumeradoresMotivoPedidoLock.Reservado;
-                    estado = result.MotivoPedidoLock != EnumeradoresMotivoPedidoLock.Ninguno;
+                    pedidoReservado = result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Reservado;
+                    estado = result.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno;
                     mensaje = result.Mensaje;
                 }
 
@@ -4389,8 +4389,8 @@ namespace Portal.Consultoras.Web.Controllers
                     result = sv.ValidacionModificarPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, userData.UsuarioPrueba == 1, userData.AceptacionConsultoraDA);
                 }
 
-                estado = result.MotivoPedidoLock != EnumeradoresMotivoPedidoLock.Ninguno;
-                bool pedidoReservado = result.MotivoPedidoLock == EnumeradoresMotivoPedidoLock.Reservado;
+                estado = result.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno;
+                bool pedidoReservado = result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Reservado;
 
                 if (estado)
                 {
