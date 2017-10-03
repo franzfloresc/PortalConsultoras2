@@ -113,6 +113,30 @@
                 <!-- INICIO CAMPO PARA INGRESAR CÓDIGO PRODUCTO -->
                 <input id="cuvmobile" class="tipografia_lato tipografia_lato_regular ValidaNumeral ValidaPasteNumeral" type="text" value="" placeholder="Código del producto" />
                 <!-- FIN CAMPO PARA INGRESAR CÓDIGO PRODUCTO -->
+                <!-- INICIO SE MUESTRA CUANDO SE TIENE EL CASO DE QUE UNA CONSULTORA TIENE EL MISMO PRODUCTO EN 2 O MÁS PEDIDOS -->
+                <div class="content_eligeTuPedido" style="display:none;">
+                    <div class="titulo_eligeTuPedido tipografia_lato_bold">ELIGE UN PEDIDO</div>
+                    <div class="selecciona_tuPedido tipografia_lato_regular">Selecciona el pedido en el cual deseas aplicar la solicitud :</div>
+                    <div class="lista_pedidos_para_seleccionar">
+                        <a class="pedido_a_seleccionar">
+                            <div class="numero_pedido tipografia_lato_bold">
+                                N° 1703387739
+                            </div>
+                            <div class="fecha_pedido_a_seleccionar tipografia_lato_regular">
+                                <span>Fecha : </span> <span>14/09/2017</span>
+                            </div>
+                        </a>
+                        <a class="pedido_a_seleccionar">
+                            <div class="numero_pedido tipografia_lato_bold">
+                                N° 1703408437
+                            </div>
+                            <div class="fecha_pedido_a_seleccionar tipografia_lato_regular">
+                                <span>Fecha : </span> <span>15/09/2017</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <!-- FIN SE MUESTRA CUANDO SE TIENE EL CASO DE QUE UNA CONSULTORA TIENE EL MISMO PRODUCTO EN 2 O MÁS PEDIDOS -->
                 <div id="DescripcionCuv" class="producto_cdr" style="font-size:13px; display:none;">
                     <span id="txtCuv" class="codigo_producto_cdr tipografia_lato_bold">00411</span>
                     - <span id="txtDescripcionCuv" class="nom_producto_cdr tipografia_lato_bold">Berrylicious shampoo rojo 375ml</span>
@@ -125,6 +149,7 @@
                         <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad1" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
                                data-input="cantidad" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
                         <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                        <div style="clear:both;"></div>
                     </div>
                 </div>
             </div>
