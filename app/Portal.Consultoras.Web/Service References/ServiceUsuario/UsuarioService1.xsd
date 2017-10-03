@@ -207,6 +207,7 @@
       <xs:sequence>
         <xs:element minOccurs="0" name="proveedor" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="idAplicacion" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="fotoPerfil" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

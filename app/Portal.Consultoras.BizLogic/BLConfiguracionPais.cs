@@ -24,9 +24,9 @@ namespace Portal.Consultoras.BizLogic
                     }
                 }
             }
-            catch (Exception exc)
+            catch (Exception ex)
             {
-                Console.WriteLine(exc.StackTrace);
+                LogManager.SaveLog(ex, "", entidad.Detalle.PaisID.ToString());
                 lista = new List<BEConfiguracionPais>();
             }
             return lista;
@@ -47,9 +47,9 @@ namespace Portal.Consultoras.BizLogic
                     }
                 }
             }
-            catch (Exception exc)
+            catch (Exception ex)
             {
-                Console.WriteLine(exc.StackTrace);
+                LogManager.SaveLog(ex, "", paisId.ToString());
             }
             return configuracionPais;
         }
@@ -69,9 +69,9 @@ namespace Portal.Consultoras.BizLogic
                     }
                 }
             }
-            catch (Exception exc)
+            catch (Exception ex)
             {
-                Console.WriteLine(exc.StackTrace);
+                LogManager.SaveLog(ex, "", paisId.ToString());
                 lista = new List<BEConfiguracionPais>();
             }
             return lista;
