@@ -19,6 +19,9 @@ namespace Portal.Consultoras.Web.Models
         public bool IsMobile { get; set; }
         public int CampaniaID { get; set; }
         public bool PuedeSuscribirse { get; set; }
+        public MensajeProductoBloqueadoModel MensajeProductoBloqueado { get; set; }
+        public string UrlTerminosCondicionesRD { get; set; }
+        public int CantidadFilas { get; set; }
 
         public List<BETablaLogicaDatos> FiltersBySorting { get; set; }
         public List<BETablaLogicaDatos> FiltersByCategory { get; set; }

@@ -124,12 +124,11 @@ function UpdateLiquidacionEvento(evento) {
     var obj = GetProductoEntidad(id);
 
 
-    UpdateLiquidacionSegunTipoOfertaSis(obj.CampaniaID, obj.PedidoID, obj.PedidoDetalleID, obj.TipoOfertaSisID, obj.CUV, obj.FlagValidacion, obj.CantidadInicial, obj.EsBackOrder);
+    UpdateLiquidacionSegunTipoOfertaSis(obj.CampaniaID, obj.PedidoID, obj.PedidoDetalleID, obj.TipoOfertaSisID, obj.CUV, obj.FlagValidacion, obj.CantidadInicial, obj.EsBackOrder, obj.PrecioUnidad);
 
 }
 
-function UpdateLiquidacionSegunTipoOfertaSis(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi, EsBackOrder) {
-
+function UpdateLiquidacionSegunTipoOfertaSis(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi, EsBackOrder, PrecioUnidad) {
     var urlAccion = TipoOfertaSisID == ofertaLiquidacion
         ? urlValidarUnidadesPermitidasPedidoProducto
         : TipoOfertaSisID == ofertaShowRoom
@@ -154,7 +153,7 @@ function UpdateLiquidacionSegunTipoOfertaSis(CampaniaID, PedidoID, PedidoDetalle
 
     urls.urlValidarUnidadesPermitidas = $.trim(urls.urlValidarUnidadesPermitidas);
     if (urls.urlValidarUnidadesPermitidas != "") {
-        UpdateLiquidacionTipoOfertaSis(urls, CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi, EsBackOrder);
+        UpdateLiquidacionTipoOfertaSis(urls, CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi, EsBackOrder, PrecioUnidad);
     }
     else {
 
@@ -177,11 +176,11 @@ function UpdateLiquidacionSegunTipoOfertaSis(CampaniaID, PedidoID, PedidoDetalle
         if (TipoOfertaSisID) {
             CantidadSoli = (Cantidad - cantidadAnterior);
         }
-
+        
         var param = ({
             MarcaID: 0,
             CUV: CUV,
-            PrecioUnidad: 0,
+            PrecioUnidad: PrecioUnidad,
             Descripcion: 0,
             Cantidad: CantidadSoli,
             IndicadorMontoMinimo: 0,
@@ -200,11 +199,8 @@ function UpdateLiquidacionSegunTipoOfertaSis(CampaniaID, PedidoID, PedidoDetalle
                 if (checkTimeout(datos)) {
                     CloseLoading();
                     if (!datos.result) {
-
-                        $('#popupInformacionSB2Error').find('#mensajeInformacionSB2_Error').text(datos.message);
-                        $('#popupInformacionSB2Error').show();
-
-                        $('#Cantidad_' + PedidoDetalleID).val(cantidadAnterior);
+                        messageInfoMalo(datos.message);
+                        CargarPedido();
                         return false;
                     }
 
@@ -220,7 +216,7 @@ function UpdateLiquidacionSegunTipoOfertaSis(CampaniaID, PedidoID, PedidoDetalle
     }
 }
 
-function UpdateLiquidacionTipoOfertaSis(urls, CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi, EsBackOrder) {
+function UpdateLiquidacionTipoOfertaSis(urls, CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi, EsBackOrder, PrecioUnidad) {
     var cantidadActual = parseInt($('#Cantidad_' + PedidoDetalleID).val() == "" ? 0 : $('#Cantidad_' + PedidoDetalleID).val());
     var cantidadAnterior = parseInt($('#CantidadTemporal_' + PedidoDetalleID).val());
 
@@ -262,16 +258,22 @@ function UpdateLiquidacionTipoOfertaSis(urls, CampaniaID, PedidoID, PedidoDetall
       
     if (cantidadAnterior > cantidadActual) {
         Flag = 1;
-        StockNuevo = cantidadAnterior - cantidadActual;
     } else if (cantidadActual > cantidadAnterior) {
         Flag = 2;
-        StockNuevo = cantidadActual - cantidadAnterior;
     }
+    StockNuevo = cantidadActual - cantidadAnterior;
     
     if (CliDes.length == 0) 
         CliID = 0;
     
-    $.getJSON(urls.urlValidarUnidadesPermitidas, { CUV: CUV }, function (data) {
+    $.getJSON(urls.urlValidarUnidadesPermitidas, { CUV: CUV, Cantidad: StockNuevo, PrecioUnidad: PrecioUnidad }, function (data) {
+        if (data.message.length > 0) {
+            CloseLoading();
+            messageInfoMalo(data.message);
+            CargarPedido();
+            return false;
+        }
+
         var Saldo = data.Saldo;
         var UnidadesPermitidas = data.UnidadesPermitidas;
         var CantidadPedida = data.CantidadPedida || 0;
