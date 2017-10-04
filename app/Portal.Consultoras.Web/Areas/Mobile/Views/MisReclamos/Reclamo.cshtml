@@ -111,7 +111,7 @@
             <div class="formulario_inscripcion_cdr">
                 @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.ListaCampania, "CampaniaID", "NombreCorto", Model.CampaniaID), new { id = "ddlCampania", @class = "select_reclamo", @required = "required" })                
                 <!-- INICIO CAMPO PARA INGRESAR CÓDIGO PRODUCTO -->
-                <input id="cuvmobile" class="tipografia_lato tipografia_lato_regular ValidaNumeral ValidaPasteNumeral" type="text" value="" placeholder="Código del producto" />
+                <input id="cuvmobile" class="tipografia_lato tipografia_lato_regular ValidaNumeral ValidaPasteNumeral valid" type="text" value="" placeholder="Código del producto" />
                 <!-- FIN CAMPO PARA INGRESAR CÓDIGO PRODUCTO -->
                 <!-- INICIO SE MUESTRA CUANDO SE TIENE EL CASO DE QUE UNA CONSULTORA TIENE EL MISMO PRODUCTO EN 2 O MÁS PEDIDOS -->
                 <div class="content_eligeTuPedido" style="display:none;">
