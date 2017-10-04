@@ -164,11 +164,11 @@ $(document).ready(function () {
 
                     $(me.Variables.DescripcionCuv).hide();
                     $(me.Variables.txtCuvMobile).fadeIn();
-                    $(me.Variables.txtCuvMobile).focus();
+                    //$(me.Variables.txtCuvMobile).focus();
 
                     $(me.Variables.DescripcionCuv2).hide();
                     $(me.Variables.txtCuvMobile2).fadeIn();
-                    $(me.Variables.txtCuvMobile2).focus();
+                    //$(me.Variables.txtCuvMobile2).focus();
 
                     $(me.Variables.pasodosactivo).hide();
                     $(me.Variables.pasotresactivo).hide();
@@ -264,6 +264,14 @@ $(document).ready(function () {
                     me.Funciones.EvaluarCUV();
                 });
 
+                setInterval(function () {
+                    if (cuvKeyUp) cuvKeyUp = false;
+                    else me.Funciones.EvaluarCUV();
+
+                    if (cuv2KeyUp) cuv2KeyUp = false;
+                    else me.Funciones.EvaluarCUV2();
+                }, 1000)
+
                 $(me.Variables.aCambiarProducto).click(function (e) {
 
                     $(me.Variables.DescripcionCuv).hide();
@@ -345,11 +353,11 @@ $(document).ready(function () {
 
                     $(me.Variables.DescripcionCuv).hide();
                     $(me.Variables.txtCuvMobile).fadeIn();
-                    $(me.Variables.txtCuvMobile).focus();
+                    //$(me.Variables.txtCuvMobile).focus();
 
                     $(me.Variables.DescripcionCuv2).hide();
                     $(me.Variables.txtCuvMobile2).fadeIn();
-                    $(me.Variables.txtCuvMobile2).focus();
+                    //$(me.Variables.txtCuvMobile2).focus();
 
                     paso2Actual = 1
 
@@ -533,6 +541,7 @@ $(document).ready(function () {
             },
 
             EvaluarCUV: function () {
+                
                 if (!me.Funciones.CUVCambio()) return false;
                 
                 $(me.Variables.txtCantidad1).attr("disabled", "disabled");
