@@ -32,34 +32,44 @@ DECLARE @OfertaProductoTemp table
 
 insert into @OfertaProductoTemp
 select 
-	op.CampaniaID, op.CUV, op.Descripcion, op.ConfiguracionOfertaID, op.TipoOfertaSisID,null
-FROM OfertaProducto op
-inner join ods.Campania c on
+	op.CampaniaID, 
+	op.CUV, 
+	op.Descripcion, 
+	op.ConfiguracionOfertaID, 
+	op.TipoOfertaSisID,
+	null
+FROM OfertaProducto op with(nolock)
+inner join ods.Campania c with(nolock) on
 	op.CampaniaID = c.CampaniaID
 where
 	c.codigo = @CampaniaID
 
 insert into @OfertaProductoTemp    
-select op.CampaniaID, op.CUV, op.Descripcion, op.ConfiguracionOfertaID, op.TipoOfertaSisID,null    
- FROM ShowRoom.OfertaShowRoom op    
- inner join ods.Campania c on     
- op.CampaniaID = c.CampaniaID    
-where --op.flaghabilitarproducto = 1 and    
- c.codigo = @CampaniaID
+select op.CampaniaID, 
+	op.CUV, 
+	op.Descripcion, 
+	op.ConfiguracionOfertaID, 
+	op.TipoOfertaSisID,
+	null    
+FROM ShowRoom.OfertaShowRoom op with(nolock)   
+inner join ods.Campania c with(nolock) on     
+	op.CampaniaID = c.CampaniaID    
+where   
+	c.codigo = @CampaniaID
 
 DECLARE @ProductoFaltanteTemp table (CUV varchar(6))
 
 INSERT INTO @ProductoFaltanteTemp
 select 
 	distinct ltrim(rtrim(CUV))
-from dbo.ProductoFaltante nolock
+from dbo.ProductoFaltante with(nolock)
 where 
 	CampaniaID = @CampaniaID and Zonaid = @ZonaID
 UNION ALL
 select 
 	distinct ltrim(rtrim(fa.CodigoVenta)) AS CUV
-from ods.FaltanteAnunciado fa (nolock)
-inner join ods.Campania c (nolock) on 
+from ods.FaltanteAnunciado fa with(nolock)
+inner join ods.Campania c with(nolock) on 
 	fa.CampaniaID = c.CampaniaID
 where 
 	c.Codigo = @CampaniaID 
@@ -68,14 +78,17 @@ where
 
 --Logica para Producto Sugerido
 declare @TieneSugerido int = 0
-if exists (	select 1 from dbo.ProductoSugerido 
-			where CampaniaID = @CampaniaID and
- CUV = @CodigoDescripcion and Estado = 1)
+if exists (	
+		select 1 from dbo.ProductoSugerido 
+		where CampaniaID = @CampaniaID 
+			and CUV = @CodigoDescripcion 
+			and Estado = 1
+)
 begin
 	set @TieneSugerido = 1
 end
 
-declare @tablaCuvOPT table (CUV varchar(6))
+--declare @tablaCuvOPT table (CUV varchar(6))
 
 --if (@ValidarOPT = 1)
 --begin
@@ -89,8 +102,7 @@ IF(@Criterio = 1)
 BEGIN
 	select 
 		distinct top (@RowCount) p.CUV,
-		coalesce(EST.DescripcionCUV2 + ' '+ tcc.Descripcion, 
-		est.descripcioncuv2, 
+		coalesce(EST.DescripcionCUV2 + isnull(' '+ tccS.Descripcion, ''), 
 		op.Descripcion, 
 		mc.Descripcion, 
 		pd.Descripcion, 
@@ -150,9 +162,9 @@ BEGIN
 		(EST.CampaniaID = p.AnoCampania OR p.AnoCampania between EST.CampaniaID and EST.CampaniaIDFin)
 		AND (EST.CUV2 = p.CUV OR EST.CUV2 = (SELECT CUVPadre FROM TallaColorCUV TCC WHERE TCC.CUV = p.CUV)) 
 		AND EST.Activo = 1 
-	LEFT JOIN dbo.TallaColorCUV tcc 
-		ON tcc.CUV = p.CUV 
-		AND tcc.CampaniaID = p.AnoCampania
+	LEFT JOIN dbo.TallaColorCUV tccS
+		ON tccS.CUV = p.CUV 
+		AND tccS.CampaniaID = p.AnoCampania
 	LEFT JOIN TipoEstrategia TE ON 
 		TE.TipoEstrategiaID = EST.TipoEstrategiaID
 	LEFT JOIN Marca M ON 
@@ -167,13 +179,17 @@ BEGIN
 		p.AnoCampania = @CampaniaID 
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@CodigoDescripcion,p.CUV)>0
-		AND p.CUV not in (select CUV from @tablaCuvOPT)
+		--AND p.CUV not in (select CUV from @tablaCuvOPT)
 END
 ELSE
 BEGIN
 	select 
 		distinct top (@RowCount) p.CUV,
-		coalesce(est.descripcioncuv2, op.Descripcion, mc.Descripcion, pd.Descripcion, p.Descripcion) AS Descripcion,
+		coalesce(est.descripcioncuv2, 
+		op.Descripcion, 
+		mc.Descripcion, 
+		pd.Descripcion, 
+		p.Descripcion) AS Descripcion,
 		coalesce(est.precio2, op.PrecioOferta, pd.PrecioProducto*pd.FactorRepeticion ,p.PrecioUnitario*p.FactorRepeticion) AS PrecioCatalogo,
 		p.MarcaID,
 		0 AS EstaEnRevista,
@@ -243,8 +259,7 @@ BEGIN
 		p.AnoCampania = @CampaniaID
 		AND p.IndicadorDigitable = 1
 		AND CHARINDEX(@CodigoDescripcion,coalesce(op.Descripcion,pd.Descripcion, p.Descripcion))>0
-		AND p.CUV not in (
-select CUV from @tablaCuvOPT)
+		--AND p.CUV not in (select CUV from @tablaCuvOPT)
 END
 
 END
