@@ -727,6 +727,9 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         private System.DateTime FechaLanzamientoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MinimaVersionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string PaisISOField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -789,6 +792,19 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 if ((this.FechaLanzamientoField.Equals(value) != true)) {
                     this.FechaLanzamientoField = value;
                     this.RaisePropertyChanged("FechaLanzamiento");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MinimaVersion {
+            get {
+                return this.MinimaVersionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MinimaVersionField, value) != true)) {
+                    this.MinimaVersionField = value;
+                    this.RaisePropertyChanged("MinimaVersion");
                 }
             }
         }

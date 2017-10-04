@@ -5644,6 +5644,7 @@ body{
     position:relative;
     font-family:'Lato';
     overflow: hidden;
+    padding-top: 5px;
 }
 
 .hideTituloMobileDetalleOferta{
@@ -6042,6 +6043,10 @@ input[type="checkbox"]:checked + span:after {
 .btn_ok_mobile:hover{
     color:#FFF!important;
     text-decoration:none!important;
+}
+
+.btn_ok_mobile-inline {
+    display: inline-block;
 }
 
 .ver-mas-vertical span.icono{visibility:hidden}
@@ -10356,15 +10361,16 @@ span.icon-advertencia{
     margin-top:3px;
     margin-bottom:20px;
 }
-.correo_showroon{
-    width:248px;
-    margin:0 auto;
-    margin-bottom:20px;
-    background:url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/LUlPmmzPLc7VpSr/page-1.png)no-repeat left bottom;
-    padding-left:32px;
+.correo_showroon {
+    width: 248px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/LUlPmmzPLc7VpSr/page-1.png)no-repeat left bottom;
+    padding-left: 32px;
+    position: relative;
 }
 .correo_showroon input{ 
-     width: 100%;
+    width: 100%;
     border-bottom: 1px solid #979797;
     /* padding-bottom: 2px; */
     /* height: 15px; */
@@ -11429,7 +11435,7 @@ box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
 .icono_celular {
     background: url(../../../Images/Esika/celular_mailing.png) no-repeat;
     background-position: 4px 0px;
-    height: 24px;
+    /*height: 24px;*/
     padding-top: 3px;
 }
 .titulo_confirmacion {
@@ -11761,18 +11767,18 @@ box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
     border-color: transparent transparent transparent #000000;
     top:0;
 }
-.content_cupon{
-    width:288px;
-    height:470px;
-    position:relative;
-    padding:20px;
-    margin:0 auto;
-    margin-top:20px;
-    margin-bottom:20px;
-    background: url(../../../Images/PL20/cupon1mobile.png) no-repeat;
-    background-size:100%;
-    text-align:center;
-    font-family:'Lato';
+.content_cupon {
+    width: 288px;
+    height: 470px;
+    position: relative;
+    padding: 20px;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background: url(../../../Images/PL20/cupon_mobile_lbel.png) no-repeat;
+    background-size: 100%;
+    text-align: center;
+    font-family: 'Lato';
 }
 .titulo_gana {
     font-size: 10px;
@@ -11834,30 +11840,30 @@ box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
     font-family:'Lato';
     font-size:10.5px;
     text-align:left;
-    margin-top:8px;
+    margin-top:12px;
 }
-.btn_cupon_mobile1{
-    position:absolute;
-    bottom:0;
-    height:45px;
-    width:100%;
-    background:#e81c36;
-    font-family:'Lato';
-    font-size:14px;
-    color:white;
-    font-weight:700;
-    line-height:45px;
-    left:0;
+.btn_cupon_mobile1 {
+    position: absolute;
+    bottom: 0;
+    height: 45px;
+    width: 100%;
+    background: #613c87;
+    font-family: 'Lato';
+    font-size: 14px;
+    color: white;
+    font-weight: 700;
+    line-height: 45px;
+    left: 0;
 }
-.cupon2mobile{
-    background: url(../../../Images/PL20/cupon2mobile.png) no-repeat;
-    background-size:100%;
+.cupon2mobile {
+    background: url(../../../Images/PL20/cupon2mobile_lbel.png) no-repeat;
+    background-size: 100%;
 }
-.icono_cupon2{
-    width:59px;
-    height:41px;
-    margin:0 auto;
-    background:url(../../../Images/PL20/icono_pop_up_cupon.png) no-repeat;
+.icono_cupon2 {
+    width: 59px;
+    height: 41px;
+    margin: 0 auto;
+    background: url(../../../Images/PL20/mail_lbel.jpg) no-repeat;
     margin-bottom: 5px;
     margin-top: 60px;
 }
@@ -11890,34 +11896,29 @@ box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
     color:#333333;
     font-size:12px;
 }
-.cupon3mobile{
-    background: url(../../../Images/PL20/cupon3mobile.png) no-repeat;
-    background-size:100%;
+.cupon3mobile {
+    background: url(../../../Images/PL20/cupon3mobile_lbel.png) no-repeat;
+    background-size: 100%;
 }
-.icono_cupon3{
-    width:120px;
-    height:45px;
-    margin:0 auto;
-    background:url(../../../Images/PL20/cupon_gif_rojo.gif) no-repeat;
+.icono_cupon3 {
+    width: 120px;
+    height: 45px;
+    margin: 0 auto;
+    background:url(../../../Images/PL20/cupon_gif_morado.gif) no-repeat;
     margin-bottom: 3px;
-    margin-top: 22px;
+    margin-top: 44px;
 }
 
 .info_recuerda_cupon{
     float: left;
     width: 100%;
-    margin-top: 15px;
+    margin-top: 14px;
     font-family: 'Lato';
-    font-size: 13px;
+    font-size: 12.5px;
     /* border-right: 1px solid rgba(149, 145, 146, 0.2); */
     /* height: 72px; */
 }
-.info_recuerda_cupon img{
-    display: inline-block;
-    /* padding-top: 10px; */
-    margin-right: 13px;
-    vertical-align: middle;
-}
+
 .info_recuerda_cupon div{
     display: inline-block;
     /* margin-top: 5px; */
@@ -11929,10 +11930,11 @@ box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
 .info_recuerda_cupon:last-child{
     border-right:0;
 }
-.titulo_cupon3{
-    color:white;
-    font-size:20px;
-    letter-spacing:1.5px;
+.titulo_cupon3 {
+   color: white;
+   /* font-size: 20px; */
+   letter-spacing: 1.5px;
+   margin-top: 14px;
 }
 .texto_cupon3{
     font-family: 'lato';
@@ -12033,6 +12035,78 @@ box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
 #content-filters{
     margin-left:14px;
     margin-right:14px;
+}
+
+.tipo_porcentaje {
+    color: white;
+    font-size: 59px;
+    float: right;
+    font-weight: 700;
+    margin-top: -21px;
+    letter-spacing: 1px;
+    width: 48px;
+    margin-right: 23px;
+    text-align: right;
+    margin-right: 39px;
+    box-sizing: border-box;
+}
+
+.mensaje_alerta_cupon1 {
+    color: #613c87;
+    font-size: 10.5px;
+    letter-spacing: 0.3px;
+    position: absolute;
+    bottom: -17px;
+    border-top: 1px solid;
+    width: 88%;
+    padding-top: 2px;
+    text-align: left;
+}
+
+.contenedor_termino_condiciones_cupon {
+    margin: 0 auto;
+    margin-top: 20px;
+    font-family: 'Lato';
+    font-size: 10.5px;
+    width: 248px;
+    text-align: left;
+    position: relative;
+}
+
+.icono_alerta_cupon {
+    width: 15px;
+    height: 15px;
+    background: url(../../../Images/Lbel/icono_advertencia_notificacion.svg) no-repeat;
+    background-size: contain;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.texto_recuerda_cupon {
+    font-family: 'LAto';
+    font-size: 14px;
+    margin-top: 53px;
+    text-align: left;
+    padding-left: 51px;
+}
+
+.info_recuerda_cupon_icono {
+    width: 34px !important;
+    height: 42px;
+    background: url(../../../Images/PL20/calendario_lbel.jpg) no-repeat center center;
+    /*display: inline-block;*/
+    /* padding-top: 10px; */
+    margin-right: 13px;
+    /*vertical-align: middle;*/
+}
+
+.icono2_ganaste {
+    background: url(../../../Images/PL20/maquillaje_lbel.jpg) no-repeat center center;
+}
+
+.icono3_ganaste {
+    background: url(../../../Images/PL20/agenda_lbel.jpg) no-repeat center center;
 }
 
 /*SPRINT 15*/
@@ -12396,6 +12470,12 @@ box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
     overflow: hidden;
 }
 
+.enlace_chat a {
+    display: inline;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
 .flip-clock-wrapper .flip{
     box-shadow: 0 2px 5px rgba(4, 53, 83, 0.7) !important;
 }
@@ -12560,6 +12640,11 @@ box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
     text-align:center;
     text-decoration:underline;
     margin-bottom:25px;
+}
+
+.enlace_chat a {
+    text-decoration: underline;
+    font-weight: bold;
 }
 
 .btn_aceptar_no_hay_producto{

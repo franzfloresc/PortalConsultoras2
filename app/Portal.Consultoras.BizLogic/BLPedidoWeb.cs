@@ -945,6 +945,11 @@ namespace Portal.Consultoras.BizLogic
             string line = string.Empty;
             foreach (TemplateField field in template)
             {
+                if ((field.FieldName.Equals("TIPOCUPON") | field.FieldName.Equals("VALORCUPON")) && !ConfigurationManager.AppSettings["TieneCupon"].Contains(codigoPais))
+                {
+                    continue;
+                }
+
                 string item;
                 switch (field.FieldName)
                 {

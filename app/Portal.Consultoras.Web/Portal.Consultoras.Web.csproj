@@ -194,6 +194,7 @@
     <Compile Include="Areas\Mobile\Controllers\EstrategiaProductoController.cs" />
     <Compile Include="Areas\Mobile\Controllers\MiAsesorBellezaController.cs" />
     <Compile Include="Areas\Mobile\Controllers\MisPedidosController.cs" />
+    <Compile Include="Areas\Mobile\Controllers\MisReclamosController.cs" />
     <Compile Include="Areas\Mobile\Controllers\NovedadesCampaniaController.cs" />
     <Compile Include="Areas\Mobile\Controllers\BaseMobileController.cs" />
     <Compile Include="Areas\Mobile\Controllers\BienvenidaController.cs" />
@@ -591,6 +592,7 @@
     <Compile Include="Models\SolicitudCreditoModel.cs" />
     <Compile Include="Models\StockCargaLogModel.cs" />
     <Compile Include="Models\TablaLogicaDatosModel.cs" />
+    <Compile Include="Models\EstadoActividadModel.cs" />
     <Compile Include="Models\TipoEstrategiaModel.cs" />
     <Compile Include="Models\TipoEstrategiaModelo.cs" />
     <Compile Include="Models\TipoLinkModel.cs" />
@@ -1171,6 +1173,7 @@
     <Content Include="Content\Css\jstree\apple\throbber.gif" />
     <Content Include="Content\Css\Mobile\calc.css" />
     <Content Include="Content\Css\Mobile\esika\bootstrap-slider.min.css" />
+    <Content Include="Content\Css\Mobile\esika\cdr.css" />
     <Content Include="Content\Css\Mobile\esika\Contenedor.css" />
     <Content Include="Content\Css\Mobile\esika\icomon.css" />
     <Content Include="Content\Css\Mobile\esika\menu.css" />
@@ -1187,6 +1190,7 @@
     <Content Include="Content\Css\Mobile\fonts\icomoon.ttf" />
     <Content Include="Content\Css\Mobile\fonts\icomoon.woff" />
     <Content Include="Content\Css\Mobile\jquery.tag-editor.css" />
+    <Content Include="Content\Css\Mobile\lbel\cdr.css" />
     <Content Include="Content\Css\Mobile\lbel\Contenedor.css" />
     <Content Include="Content\Css\Mobile\lbel\icomon.css" />
     <Content Include="Content\Css\Mobile\lbel\menu.css" />
@@ -2586,6 +2590,13 @@
     <Content Include="Content\Images\mobile\app-ios.jpg" />
     <Content Include="Content\Images\mobile\bg_la_01.jpg" />
     <Content Include="Content\Images\mobile\bg_la_02.png" />
+    <Content Include="Content\Images\mobile\cdr_paso1.png" />
+    <Content Include="Content\Images\mobile\cdr_paso1_activo.png" />
+    <Content Include="Content\Images\mobile\cdr_paso2.png" />
+    <Content Include="Content\Images\mobile\cdr_paso2_activo.png" />
+    <Content Include="Content\Images\mobile\cdr_paso3.png" />
+    <Content Include="Content\Images\mobile\cdr_paso3_activo.png" />
+    <Content Include="Content\Images\mobile\dropdown-arrow.png" />
     <Content Include="Content\Images\mobile\Esika\app.png" />
     <Content Include="Content\Images\mobile\Esika\bandera.png" />
     <Content Include="Content\Images\mobile\Esika\banner1.png" />
@@ -2644,7 +2655,9 @@
     <Content Include="Content\Images\mobile\flecha-left.png" />
     <Content Include="Content\Images\mobile\icon-xclose.png" />
     <Content Include="Content\Images\mobile\flecha-right.png" />
+    <Content Include="Content\Images\mobile\icono-acepto-politica-cdr.png" />
     <Content Include="Content\Images\mobile\icono-cerrar-popup-inscripcion-mobile.svg" />
+    <Content Include="Content\Images\mobile\icono-eliminar-cdr.png" />
     <Content Include="Content\Images\mobile\icono_regalo.png" />
     <Content Include="Content\Images\mobile\icono_regalo_estrella.png" />
     <Content Include="Content\Images\mobile\icon_caja.png" />
@@ -2778,6 +2791,7 @@
     <Content Include="Content\Images\mobile\Lbel\menos_footer.png" />
     <Content Include="Content\Images\mobile\Lbel\pestana_lbel.png" />
     <Content Include="Content\Images\mobile\Lbel\video.png" />
+    <Content Include="Content\Images\mobile\left-arrow.png" />
     <Content Include="Content\Images\mobile\LogoBelcorp.png" />
     <Content Include="Content\Images\mobile\LogoFooter.png" />
     <Content Include="Content\Images\mobile\LogoHeader.png" />
@@ -2812,6 +2826,7 @@
     <Content Include="Content\Images\mobile\m_logo_somos_belcorp_bienvenido.png" />
     <Content Include="Content\Images\mobile\m_logo_somos_belcorp_white.png" />
     <Content Include="Content\Images\mobile\pattern.png" />
+    <Content Include="Content\Images\mobile\pestania_ver_solicitud.svg" />
     <Content Include="Content\Images\mobile\tags.png" />
     <Content Include="Content\Images\mobile\Tarjeta_AmericanExpress.png" />
     <Content Include="Content\Images\mobile\Tarjeta_MasterCard.png" />
@@ -2845,13 +2860,19 @@
     <Content Include="Content\Images\paypal_tarjetas.png" />
     <Content Include="Content\Images\PE_2014813641_01_pibfepfhqu.jpg" />
     <Content Include="Content\Images\PL20\agenda.png" />
+    <Content Include="Content\Images\PL20\agenda_lbel.jpg" />
     <Content Include="Content\Images\PL20\calendario.png" />
+    <Content Include="Content\Images\PL20\calendario_lbel.jpg" />
     <Content Include="Content\Images\PL20\cupon1mobile.png" />
     <Content Include="Content\Images\PL20\cupon2mobile.png" />
+    <Content Include="Content\Images\PL20\cupon2mobile_lbel.png" />
     <Content Include="Content\Images\PL20\cupon3mobile.png" />
+    <Content Include="Content\Images\PL20\cupon3mobile_lbel.png" />
+    <Content Include="Content\Images\PL20\cupon_gif_morado.gif" />
     <Content Include="Content\Images\PL20\cupon_gif_negro.gif" />
     <Content Include="Content\Images\PL20\cupon_gif_rojo.gif" />
     <Content Include="Content\Images\PL20\editar.png" />
+    <Content Include="Content\Images\PL20\cupon_mobile_lbel.png" />
     <Content Include="Content\Images\PL20\flecha_regreso.png" />
     <Content Include="Content\Images\PL20\flecha_set_Especial.png" />
     <Content Include="Content\Images\PL20\flecha_regresa_chat.png" />
@@ -2861,6 +2882,9 @@
     <Content Include="Content\Images\PL20\fondo_cupon1.png" />
     <Content Include="Content\Images\PL20\fondo_cupon2.png" />
     <Content Include="Content\Images\PL20\fondo_cupon3.png" />
+    <Content Include="Content\Images\PL20\fondo_cupon_desktop_lbel.png" />
+    <Content Include="Content\Images\PL20\fondo_cupon_lbel_gano.png" />
+    <Content Include="Content\Images\PL20\fondo_cupon_recuerda_lbel.png" />
     <Content Include="Content\Images\PL20\fondo_oferta.jpg" />
     <Content Include="Content\Images\PL20\fondo_pop.png" />
     <Content Include="Content\Images\PL20\fondo_triangular.png" />
@@ -2869,7 +2893,9 @@
     <Content Include="Content\Images\PL20\icono_pop_up_cupon.png" />
     <Content Include="Content\Images\PL20\left_black_compra.png" />
     <Content Include="Content\Images\PL20\left_compra.png" />
+    <Content Include="Content\Images\PL20\mail_lbel.jpg" />
     <Content Include="Content\Images\PL20\maquillaje.png" />
+    <Content Include="Content\Images\PL20\maquillaje_lbel.jpg" />
     <Content Include="Content\Images\PL20\mas.png" />
     <Content Include="Content\Images\PL20\menos.png" />
     <Content Include="Content\Images\PL20\regresar.png" />
@@ -3151,6 +3177,9 @@
     <Content Include="Areas\Mobile\Views\Shared\_ChatbotEmptyLayout.cshtml" />
     <Content Include="Areas\Mobile\Views\Compartir\CompartirEnChatBot.cshtml" />
     <Content Include="Areas\Mobile\Views\FichaProducto\Detalle.cshtml" />
+    <Content Include="Areas\Mobile\Views\MisReclamos\Index.cshtml" />
+    <Content Include="Areas\Mobile\Views\MisReclamos\Reclamo.cshtml" />
+    <Content Include="Areas\Mobile\Views\MisReclamos\Detalle.cshtml" />
     <Content Include="Scripts\jquery-1.11.2.js" />
     <Content Include="Scripts\jquery-1.11.2.min.js" />
     <Content Include="Scripts\jquery-labelauty.js" />
@@ -3199,6 +3228,8 @@
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
     <Content Include="Scripts\PortalConsultoras\MatrizCampania\ActualizarMatrizCampaniaModule.js" />
     <Content Include="Scripts\PortalConsultoras\FichaProducto\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\Mobile\MisReclamos\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\Mobile\MisReclamos\Reclamo.js" />
     <Content Include="Scripts\PortalConsultoras\ProductoComentario\ProductoComentarioAdmModule.js" />
     <Content Include="Scripts\PortalConsultoras\Cupon\CuponAdm.js" />
     <Content Include="Scripts\PortalConsultoras\Cupon\CuponAdmModule.js" />
@@ -3510,6 +3541,7 @@
     <Compile Include="Models\TipoProductoComentarioModel.cs" />
     <Content Include="Areas\Mobile\Views\Bienvenida\template-bpt-seccion.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\template-producto-landing.cshtml" />
+    <Content Include="Areas\Mobile\Views\Notificaciones\DetalleNotificacionesCdr.cshtml" />
     <Content Include="Areas\Mobile\Views\Ofertas\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\_MobileLayoutContenedor.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\_MenuContenedorOferta.cshtml" />
@@ -3699,13 +3731,6 @@
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService38.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServicePedido\PedidoService.disco" />
-    <None Include="Service References\ServicePedido\configuration91.svcinfo" />
-    <None Include="Service References\ServicePedido\configuration.svcinfo" />
-    <None Include="Service References\ServicePedido\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService2.disco" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.disco" />
     <None Include="Service References\ServiceAsesoraOnline\configuration91.svcinfo" />
@@ -3730,6 +3755,9 @@
     <None Include="Service References\ServiceSAC\SACService4.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServiceSAC\SACService6.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServiceSAC\SACService5.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -3742,6 +3770,12 @@
     <None Include="Service References\ServiceSAC\configuration91.svcinfo" />
     <None Include="Service References\ServiceSAC\configuration.svcinfo" />
     <None Include="Service References\ServiceSAC\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\ServicePedido\configuration91.svcinfo" />
+    <None Include="Service References\ServicePedido\configuration.svcinfo" />
+    <None Include="Service References\ServicePedido\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
