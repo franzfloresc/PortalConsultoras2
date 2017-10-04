@@ -1,8 +1,6 @@
 ﻿@{
-    ViewBag.Title = "Index";	
-    var layout =  ViewContext.MobileLayout();
-    //todo: MobileLayoutContenedor
-    Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayoutContenedor.cshtml";
 }
 
 @using Newtonsoft.Json

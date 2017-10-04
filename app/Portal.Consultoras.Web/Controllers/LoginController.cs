@@ -48,7 +48,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 model.ListaPaises = ObtenerPaises();
                 model.ListaEventos = ObtenerEventoFestivo(0, Constantes.EventoFestivoAlcance.LOGIN, 0);
-                
+
                 if (model.ListaEventos.Count == 0)
                 {
                     model.NombreClase = "fondo_estandar";
@@ -1049,7 +1049,7 @@ namespace Portal.Consultoras.Web.Controllers
                         try
                         {
                             model.ListaEventoFestivo = ObtenerEventoFestivo(model.PaisID, Constantes.EventoFestivoAlcance.SOMOS_BELCORP, model.CampaniaID);
-                            
+
                             if (model.ListaEventoFestivo.Any())
                             {
                                 foreach (var item in model.ListaEventoFestivo)
@@ -1774,8 +1774,22 @@ namespace Portal.Consultoras.Web.Controllers
                                 Action = "Procesar",
                                 guid = this.GetUniqueKey()
                             }));
-					case Constantes.IngresoExternoPagina.ProductosAgotados:
-                        return RedirectToAction("Index", "ProductosAgotados", new { Area = "Mobile" });
+                    case Constantes.IngresoExternoPagina.ProductosAgotados:
+                        return RedirectToRoute("UniqueRoute",
+                            new RouteValueDictionary(new
+                            {
+                                Controller = "ProductosAgotados",
+                                Action = "Index",
+                                guid = this.GetUniqueKey()
+                            }));
+                    case Constantes.IngresoExternoPagina.Ofertas:
+                        return RedirectToRoute("UniqueRoute",
+                            new RouteValueDictionary(new
+                            {
+                                Controller = "Ofertas",
+                                Action = "Index",
+                                guid = this.GetUniqueKey()
+                            }));
                 }
             }
             catch (Exception ex)
@@ -1897,7 +1911,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 listEstrategia = sv.GetEstrategiasPedido(entidad).ToList();
             }
-          
+
             if (campaniaId > 0 || codAgrupacion == Constantes.TipoEstrategiaCodigo.RevistaDigital)
             {
                 return listEstrategia;

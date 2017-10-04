@@ -4,8 +4,7 @@
 @model Portal.Consultoras.Web.Models.EstrategiaPersonalizadaProductoModel
 
 @{
-    var layout =  ViewContext.MobileLayout();
-    Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayoutContenedor.cshtml";
     var urlDomain = Util.GetUrlHost(Request);
 }
 

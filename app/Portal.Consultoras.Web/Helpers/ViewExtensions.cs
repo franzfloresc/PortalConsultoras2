@@ -12,8 +12,18 @@ namespace Portal.Consultoras.Web.Helpers
         /// <returns>_MobileLayout or _MobileLayoutEmpty</returns>
         public static string MobileLayout(this ViewContext viewContext)
         {
+            return viewContext.EsIngresoUnico() ? "_MobileLayoutEmpty" : "_MobileLayout";
+        }
+
+        /// <summary>
+        /// Determina si es un ingreso unico
+        /// </summary>
+        /// <param name="viewContext">Current context</param>
+        /// <returns>true or false</returns>
+        public static bool EsIngresoUnico(this ViewContext viewContext)
+        {
             var ingresoExterno = viewContext.GetUniqueSession("IngresoExterno");
-            return ingresoExterno == null ? "_MobileLayout" : "_MobileLayoutEmpty";
+            return ingresoExterno != null;
         }
 
         public static string GetUniqueKey(this ViewContext viewContext)
