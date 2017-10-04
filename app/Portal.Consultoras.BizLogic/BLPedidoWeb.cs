@@ -942,14 +942,11 @@ namespace Portal.Consultoras.BizLogic
 
         private string HeaderLine(TemplateField[] template, DataRow row, string codigoPais, string fechaProceso, string fechaFactura, string lote, string origen)
         {
+            
             string line = string.Empty;
             foreach (TemplateField field in template)
             {
-                if ((field.FieldName.Equals("TIPOCUPON") | field.FieldName.Equals("VALORCUPON")) && !ConfigurationManager.AppSettings["TieneCupon"].Contains(codigoPais))
-                {
-                    continue;
-                }
-
+                
                 string item;
                 switch (field.FieldName)
                 {
