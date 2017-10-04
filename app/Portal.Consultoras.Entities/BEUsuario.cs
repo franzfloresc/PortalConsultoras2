@@ -535,8 +535,20 @@ namespace Portal.Consultoras.Entities
         public int EsZonaDemAnti { get; set; }
 
         [Column("UsuarioPrueba")]
+        public bool usuarioPrueba { get; set; }
+        private int _UsuarioPrueba;
         [DataMember]
-        public int UsuarioPrueba { get; set; }
+        public int UsuarioPrueba
+        {
+            get
+            {
+                return usuarioPrueba ? 1 : _UsuarioPrueba;
+            }
+            set
+            {
+                _UsuarioPrueba = value;
+            }
+        }
         [DataMember]
         public int PasePedidoWeb { get; set; }
         [DataMember]
