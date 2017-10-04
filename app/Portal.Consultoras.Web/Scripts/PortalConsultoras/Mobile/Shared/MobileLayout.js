@@ -131,9 +131,23 @@
         e.preventDefault();
         //console.log('carga BelcorpChat');
         var URL = location.protocol + "//" + location.host + "/Mobile/Bienvenida/ChatBelcorp";
-
-        ventanaChat = open(URL, 'ventanaChat');
-        ventanaChat.focus();
+        var PopUpChatOpened = localStorage.getItem('PopUpChatOpened');
+        if (typeof PopUpChatOpened == 'undefined' ||
+            PopUpChatOpened == null ||
+            PopUpChatOpened == 'false') {
+            localStorage.setItem('PopUpChatOpened', 'true');
+            ventanaChat = open(URL, 'ventanaChat');
+            ventanaChat.focus();
+        } else {
+            ventanaChat = open('', 'ventanaChat');
+            //if (ventanaChat.location == "about:blank") {
+            //    ventanaChat.close();
+            //}
+            ventanaChat.focus();
+        }
+        return false;
+        //ventanaChat = open(URL, 'ventanaChat');
+        //ventanaChat.focus();
     });
 
     $("#btn_cerrar_oferta_mobile").click(function () {
