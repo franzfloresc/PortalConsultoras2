@@ -3292,8 +3292,12 @@ function VerSeccionBienvenida(seccion) {
     }
 
     if (id != "") {
+        var topOf = $(id).offset().top - 60;
+        if (id == ".flexslider")
+            topOf = 0;
+
         $("html, body").animate({
-            scrollTop: $(id).offset().top - 60
+            scrollTop: topOf
         }, 1000);
     }
 }

@@ -66,7 +66,7 @@
         var usuarioNombre = '@ViewBag.UsuarioNombre';
         var controllerName = '@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower()';
     </script>
-
+    <style id="styleRelojOdd"></style>
     @RenderSection("styles", required: false)
 
 </head>
@@ -271,7 +271,7 @@
                     <input type="hidden" Class="tipoestrategia-descripcion-odd" value="{{TipoEstrategiaDescripcion}}" />
                 </div>
                 <div class="solo_hoy">
-                    <div style="height:42px; overflow:hidden;"><img src="{{ImagenSoloHoy}}" id="img-solohoy-odd" alt="solo hoy" /></div>
+                    <div style="height:42px; overflow:hidden;"><img src="{{ImagenSoloHoy}}" id="img-solohoy-odd" alt="" /></div>
                     <div class="clock"></div>
                     <div class="message"></div>
                 </div>
@@ -441,6 +441,9 @@
         </div>
     </script>
     <!--OFERTA DEL DIA -->
+    <!--OFERTA DEL DIA STYLE -->
+    @Html.Partial("_template-ofertadeldia-style")
+    <!-- FIN OFERTA DEL DIA STYLE -->
 
     @System.Web.Optimization.Scripts.Render("~/bundles/JQueryJs")
 
