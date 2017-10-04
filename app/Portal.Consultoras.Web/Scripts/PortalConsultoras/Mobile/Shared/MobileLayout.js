@@ -121,6 +121,21 @@
         $('body').css({ 'overflow-y': 'scroll' });
     });
 
+    $("#belcorpChat a_").click(function () {
+        if (this.href.indexOf('#') != -1) {
+            messageInfoError("Por el momento el chat no se encuentra disponible. Volver a intentarlo más tarde");
+        }
+    });
+
+    $("body").on('click', '.indicador_ayuda', function (e) {
+        e.preventDefault();
+        //console.log('carga BelcorpChat');
+        var URL = location.protocol + "//" + location.host + "/Mobile/Bienvenida/ChatBelcorp";
+
+        ventanaChat = open(URL, 'ventanaChat');
+        ventanaChat.focus();
+    });
+
     $("#btn_cerrar_oferta_mobile").click(function () {
         //$('.header_slider').slideUp();
         $('.header_slider').hide();
@@ -286,8 +301,7 @@ function loadBannerLP20() {
         $("#contentmobile").css("margin-top", "0px");
         $('#content_slider_banner').show();
 
-        if ($('#BloqueMobileOfertaDia').length > 0)
-        {
+        if ($('#BloqueMobileOfertaDia').length > 0) {
             $('#content_slider_banner').css('background-color', $('#BloqueMobileOfertaDia').css('background-color'));
         }
 
@@ -785,7 +799,7 @@ function CargarCantidadProductosPedidos(noMostrarEfecto) {
         type: 'POST',
         url: urlGetCantidadProductos,
         dataType: 'json',
-        data: JSON.stringify({ soloCantidad : true }),
+        data: JSON.stringify({ soloCantidad: true }),
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
             if (checkTimeout(data)) {
@@ -895,7 +909,7 @@ function SeparadorMiles(pnumero) {
 
     if (numero.indexOf(",") >= 0) nuevoNumero = nuevoNumero.substring(0, nuevoNumero.indexOf(","));
 
-    for (var j, i = nuevoNumero.length - 1, j = 0; i >= 0; i--, j++)
+    for (var j, i = nuevoNumero.length - 1, j = 0; i >= 0; i-- , j++)
         resultado = nuevoNumero.charAt(i) + ((j > 0) && (j % 3 == 0) ? "." : "") + resultado;
 
     if (numero.indexOf(",") >= 0) resultado += numero.substring(numero.indexOf(","));
