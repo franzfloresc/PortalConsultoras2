@@ -15,7 +15,50 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                return RedirectToAction("Index", "Ofertas");
+                //return IndexModel();
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
+            return RedirectToAction("Index", "Bienvenida");
+        }
+        
+        public ActionResult Informacion()
+        {
+            try
+            {
                 return IndexModel();
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
+            return RedirectToAction("Index", "Bienvenida");
+        }
+        
+        public ActionResult Comprar()
+        {
+            try
+            {
+                return ViewLanding(1);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
+            return RedirectToAction("Index", "Bienvenida");
+        }
+
+        public ActionResult Revisar()
+        {
+            try
+            {
+                return ViewLanding(2);
             }
             catch (Exception ex)
             {
@@ -42,7 +85,7 @@ namespace Portal.Consultoras.Web.Controllers
                 modelo.UrlCompartir = Util.Trim(modelo.UrlCompartir);
             }
 
-            Session[Constantes.SessionNames.ProductoTemporal] = modelo;
+            Session[Constantes.ConstSession.ProductoTemporal] = modelo;
 
             return Json(new
             {
@@ -95,7 +138,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (!ValidarPermiso(Constantes.MenuCodigo.RevistaDigital) || EsCampaniaFalsa(model.CampaniaID))
+                if (!(userData.RevistaDigital.TieneRDC || userData.RevistaDigital.TieneRDR) || EsCampaniaFalsa(model.CampaniaID))
                 {
                     return Json(new
                     {
@@ -109,7 +152,15 @@ namespace Portal.Consultoras.Web.Controllers
 
                 ViewBag.EsMobile = model.IsMobile ? 2 : 1;
 
-                var palanca = model.ValorOpcional == Constantes.TipoEstrategiaCodigo.OfertaParaTi ? "" : Constantes.TipoEstrategiaCodigo.RevistaDigital;
+                var palanca = model.CampaniaID != userData.CampaniaID
+                    ? Constantes.TipoEstrategiaCodigo.RevistaDigital
+                    : userData.RevistaDigital.TieneRDC 
+                        ? userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo
+                            ? Constantes.TipoEstrategiaCodigo.RevistaDigital
+                            : ""
+                        : userData.RevistaDigital.TieneRDR
+                            ? Constantes.TipoEstrategiaCodigo.RevistaDigital
+                            : "";
 
                 var listaFinal1 = ConsultarEstrategiasModel("", model.CampaniaID, palanca);
                 var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1);
@@ -129,6 +180,7 @@ namespace Portal.Consultoras.Web.Controllers
                     listModelLan.AddRange(listPerdio.Where(e => e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList());
                     listPerdio = listPerdio.Where(e => e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
                 }
+
                 return Json(new
                 {
                     success = true,
@@ -151,7 +203,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-
+        
         [HttpPost]
         public JsonResult GetProductoDetalle(int id, int campaniaId)
         {
@@ -247,9 +299,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     entidad.RevistaDigitalSuscripcionID = sv.RDSuscripcion(entidad);
                 }
-                
-                
-                
+
                 if (entidad.RevistaDigitalSuscripcionID > 0)
                 {
                     userData.RevistaDigital.SuscripcionModel = Mapper.Map<BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>(entidad);
@@ -265,7 +315,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     success = userData.RevistaDigital.EstadoSuscripcion > 0,
                     message = userData.RevistaDigital.EstadoSuscripcion > 0 ? "" : "Ocurrió un error, vuelva a intentarlo.",
-                    CodigoMenu = Constantes.MenuCodigo.RevistaDigital
+                    CodigoMenu = Constantes.BannerCodigo.RevistaDigital
                 }, JsonRequestBehavior.AllowGet);
 
             }
@@ -381,8 +431,9 @@ namespace Portal.Consultoras.Web.Controllers
                     success = true
                 }, JsonRequestBehavior.AllowGet);
             }
-            catch (System.Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -406,8 +457,9 @@ namespace Portal.Consultoras.Web.Controllers
                     success = true
                 }, JsonRequestBehavior.AllowGet);
             }
-            catch (System.Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,

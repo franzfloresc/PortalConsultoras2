@@ -208,6 +208,8 @@ namespace Portal.Consultoras.Web.Models
         public int Cantidad { get; set; }
         public bool EsOfertaIndependiente { get; set; }
 
+        public bool TieneRDC { get; set; }
+
         public object Clone()
         {
             return this.MemberwiseClone();

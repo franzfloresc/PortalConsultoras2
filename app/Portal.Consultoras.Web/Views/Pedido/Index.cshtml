@@ -1736,8 +1736,9 @@
             <div class="banner_pedido_masofertas">
                 <div class="banner_pedido_text">@ViewBag.NombreConsultora, ¿YA VISTE TUS <b>OFERTAS PERSONALIZADAS DE CAMPAÑA @ViewBag.NumeroCampaniaMasUno</b>?</div>
                 <div class="btn_diagonal btn_stroke">
-                    <a href="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion)">VER TODAS MIS OFERTAS
-                    <img src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
+                    <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
+                        VER TODAS MIS OFERTAS
+                        <img src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
                     </a>
                 </div>
             </div>
@@ -1760,7 +1761,8 @@
             <div class="banner_pedido_masofertas" style="padding-bottom:0;">
                 <div class="banner_pedido_text">@ViewBag.NombreConsultora, ¿YA VISTE TUS <b>OFERTAS PERSONALIZADAS DE CAMPAÑA @ViewBag.NumeroCampania</b>?</div>
                 <div class="btn_diagonal btn_stroke" style="position:relative; left: 0; margin-left: 0; margin: auto !important; width:80%;">
-                    <a href="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion)">VER TODAS MIS OFERTAS
+                    <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
+                        VER TODAS MIS OFERTAS
                         <img class="rd_arrowright"  src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
                         <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
                     </a>
@@ -1785,7 +1787,8 @@
             <div class="banner_pedido_masofertas">
                 <div class="banner_pedido_text">@ViewBag.NombreConsultora, CONOCE LAS OFERTAS CON HASTA 65% DE DESCUENTO</div>
                 <div class="btn_diagonal btn_stroke">
-                    <a href="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion)">VER TODAS MIS OFERTAS
+                    <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
+                        VER TODAS MIS OFERTAS
                         <img src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
                     </a>
                 </div>
@@ -1827,7 +1830,8 @@ else if (ViewBag.TieneRDR)
                 <div class="contenedor_carousel_productos content_carrusel_agregado slider center" id="divListadoEstrategia">
                 </div>
             </div>
-            <div class="boxoffer boxOfferPedido" style="cursor: pointer;" onclick="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion)">
+            <div class="boxoffer boxOfferPedido" style="cursor: pointer;" 
+                 onclick="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion)">
                 <div class="fondo_boton"></div>
                 <span class="texto_boton">VER M&Aacute;S OFERTAS PARA M&Iacute;</span>
             </div>
@@ -1845,6 +1849,7 @@ else
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-verdetalle.cshtml")
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-packnueva.cshtml")
+@Html.Partial("~/Views/FichaProducto/template-ficha-producto.cshtml")
 
 <script id="packnuevas-template" type="text/x-handlebars-template">
     <div class="popup_detalleCarousel packNuevas" data-popup-body="" data-item="packNueva" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}">
@@ -2407,13 +2412,15 @@ else
         var urlMisPedidosClienteOnline = '@Url.Action("", "MisPedidos")';
         var indicadorFlexiPago = '@Model.IndicadorFlexiPago';
         var urlPedido = '@Url.Action("Index", "Pedido")';
-        var urlRevistaDigital = '@Url.Action("Index", "RevistaDigital")';
+        var urlRevistaDigital = '@Url.Action("Comprar", "RevistaDigital")';
         var cuvOfertaProl = '@ViewBag.CUVOfertaProl';
         if (isEsika) var mensajeCUVOfertaEspecial = '@Constantes.MensajeEstaEnRevista.EsikaWeb';
         else var mensajeCUVOfertaEspecial = '@Constantes.MensajeEstaEnRevista.LbelWeb';
         var origenPagina = 2;
         var tipoOrigenEstrategia = 11;
         var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTi;
+        var origenPedidoWebFichaProducto = @Constantes.OrigenPedidoWeb.DesktopPedidoVirtualCoach;
+        var mobileDevice = false;
         var indicadorGPRSB = '@Model.IndicadorGPRSB';
         var viewBagCampaniaActual = '@Model.CampaniaActual';
         var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
@@ -2428,13 +2435,24 @@ else
         var consultoraRegaloPN = '@ViewBag.ConsultoraTieneRegaloPN';
         var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital")';
         var viewBagCondigoConsultora = '@ViewBag.CodigoConsultora';
-                var ofertaFinalEstado = '@ViewBag.OfertaFinalEstado';
-                var ofertaFinalAlgoritmo = '@ViewBag.OfertaFinalAlgoritmo';
+        var ofertaFinalEstado = '@ViewBag.OfertaFinalEstado';
+        var ofertaFinalAlgoritmo = '@ViewBag.OfertaFinalAlgoritmo';
+        var VirtualCoachCuv = '@ViewBag.VirtualCoachCuv';
+        var VirtualCoachCampana = '@ViewBag.VirtualCoachCampana' || 0;
+
+        var seccionMisOfertas = '@Constantes.SeccionBienvenida.MisOfertas';
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Pedido")
-
+    @if (HttpContext.Current.Request.Browser.IsMobileDevice)
+    {
+        <script>
+            mobileDevice = true;
+        </script>
+    }
     @if (ViewBag.MostrarPedidosPendientes == "1")
     {
         <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Pedido/ConsultoraOnline.js")"></script>
     }
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/FichaProducto/Index.js")"></script>
+            
 } 
