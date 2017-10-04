@@ -33402,12 +33402,6 @@ h1#penmostreo .campana {
 }
 
 /*OFERTA FINAL*/
-.img-tooltip {
-  position: absolute;
-     background: url("http://www.psdgraphics.com/file/light-wooden-background.jpg");
-     background-color: transparent;
-     border: none;
-}
 
 .tooltip-inner {
     max-width: 130px;
