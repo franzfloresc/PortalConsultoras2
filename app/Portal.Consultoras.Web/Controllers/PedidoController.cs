@@ -1295,7 +1295,7 @@ namespace Portal.Consultoras.Web.Controllers
                 entidad.ConsultoraID = userData.ConsultoraID.ToString();
 
                 //EPD-2337
-                mensaje = ValidarPedidoMontoMaximo(Convert.ToDecimal(PrecioUnidad), entidad.Cantidad);
+                mensaje = ValidarMontoMaximo(Convert.ToDecimal(PrecioUnidad), entidad.Cantidad);
                 //FIN EPD-2337
 
                 if (mensaje == "") {
@@ -4454,7 +4454,7 @@ namespace Portal.Consultoras.Web.Controllers
                 entidad.ConsultoraID = userData.ConsultoraID.ToString();
                 entidad.FlagCantidad = TipoOferta;
 
-                mensaje = ValidarPedidoMontoMaximo(Precio, entidad.Cantidad);
+                mensaje = ValidarMontoMaximo(Precio, entidad.Cantidad);
 
                 if (mensaje == "")
                 {
