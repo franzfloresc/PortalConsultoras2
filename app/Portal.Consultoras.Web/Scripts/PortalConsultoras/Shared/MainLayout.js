@@ -287,7 +287,6 @@ $(document).ready(function () {
         return false;
     });
 
-    Scrolling();
     setInterval(animacionFlechaScroll, 1000);
 
 });
@@ -414,36 +413,7 @@ function CargarCantidadNotificacionesSinLeer() {
         }
     });
 };
-function Scrolling() {
-    var y = $(window).scrollTop();
-    $('#toUp').hide();
-    $('#toUp').attr("style", "top: 580px !important");
-    $('#toDown').click(function () {
-        y = $(window).scrollTop() + $(window).height() - 50;
-        $('html, body').animate({ scrollTop: y }, 1000);
-    });
-    $('#toUp').click(function () {
-        $('html, body').animate({ scrollTop: 0 }, 1000);
-    });
 
-    var altura = $('header').offset().top;
-
-    $(window).on('scroll', function () {
-        if ($(window).scrollTop() >= altura + 50) {
-            $('.logo_esika_tam').attr('src', baseUrl + 'Content/Images/Esika/logo_menu_esika.png');
-        } else {
-            $('.logo_esika_tam').attr('src', baseUrl + 'Content/Images/Esika/logo_esika.png');
-        }
-
-        if ($(window).scrollTop() + $(window).height() === $(document).height()) {
-            $('#toDown').hide("slow");
-            $('#toUp').show("slow");
-        } else {
-            $('#toDown').show("slow");
-            $('#toUp').hide("slow");
-        }
-    });
-};
 function AbrirModalFeErratas() {
     waitingDialog({});
 
