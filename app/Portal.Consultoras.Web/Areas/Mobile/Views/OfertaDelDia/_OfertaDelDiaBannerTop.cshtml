@@ -1,0 +1,40 @@
+﻿@model Portal.Consultoras.Web.Models.OfertaDelDiaModel
+<style>
+    .flip-clock-wrapper .flip{
+        box-shadow: 0 2px 5px @Model.ColorFondo1 !important;
+    }
+    .flip-clock-wrapper ul li a div div.inn {
+        text-shadow: 0 1px 2px @Model.ColorFondo1 !important;
+        background-color: @Model.ColorFondo1 !important;
+    }
+</style>
+<div class="BloqueOfertaDiaHeader" style="background-color:@Model.ColorFondo1">
+    <div class="row_contador" style="padding:0;">
+        <div class="float_left" style="margin-left:16px;">
+            <div class="solo_hoy_mobile2"><img src="@Model.ImagenSoloHoy" alt="Solo Hoy" /></div>
+
+            <div class="clock" data-total-seconds="@Model.TeQuedan.TotalSeconds" style="top:-48px; left:102px;"></div>
+        </div>
+        @if (Model.ListaOfertas.Count > 1)
+            {
+            <a class="btn_compralo_ahora cabecera-no-home" href="#">VER OFERTAS</a>
+        }
+        else
+        {
+            <a class="btn_compralo_ahora cabecera-no-home" href="#">VER OFERTA</a>
+        }
+        <div class="imagen_set_oferta_mobile" style="float:right;width:78px; margin-right:13px; margin-top:-2px;">
+            <img style="width:83%;" src="@Model.ImagenBanner" alt="Solo Hoy" />
+        </div>
+        <hr class="clear" />
+        <input type="hidden" id="tipoestrategia-id-odd" value="@Model.TipoEstrategiaID" />
+        <input type="hidden" id="marca-id-odd" value="@Model.MarcaID" />
+        <input type="hidden" id="cuv2-odd" value="@Model.CUV2" />
+        <input type="hidden" id="limite-venta-odd" value="@Model.LimiteVenta" />
+        <input type="hidden" id="flagnueva-odd" value="@Model.FlagNueva" />
+        <input type="hidden" id="precio-odd" value="@Model.PrecioOferta" />
+        <input type="hidden" id="nombre-odd" value="@Model.NombreOferta" />
+        <input type="hidden" id="indmonto-min-odd" value="@Model.IndicadorMontoMinimo" />
+        <input type="hidden" id="teimagenmostrar-odd" value="@Model.TipoEstrategiaImagenMostrar" />
+    </div>
+</div>

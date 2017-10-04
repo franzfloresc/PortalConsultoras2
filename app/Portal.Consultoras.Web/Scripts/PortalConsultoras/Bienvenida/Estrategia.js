@@ -80,7 +80,6 @@ $(document).ready(function () {
             $(this).attr("data-visible", "0");
         });
     }
-
 });
 
 function CargarCarouselEstrategias(cuv) {
@@ -367,7 +366,7 @@ function ArmarCarouselEstrategias(data) {
         var cant = parseInt(heightReference / hCar);
         cant = cant < 3 ? 3 : cant > 5 ? 5 : cant;
         cant = data.CodigoEstrategia == "101" ? (data.Lista.length > 4 ? 4 : data.Lista.length) : cant;
-        $('#divListadoEstrategia').slick({
+        $('#divListadoEstrategia').not('.slick-initialized').slick({
             infinite: true,
             vertical: true,
             centerMode: false,
@@ -819,16 +818,6 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
     if (ReservadoOEnHorarioRestringido())
         return false;
 
-    if (tipoOrigenEstrategia == 1 || tipoOrigenEstrategia == 17 || tipoOrigenEstrategia == 172) 
-    {
-        agregarProductoAlCarrito(objInput);
-
-        if (objParameter.FlagNueva == "1")
-            $('#OfertaTipoNuevo').val(objParameter.FlagNueva);
-        else
-            $('#OfertaTipoNuevo').val("");
-    }
-
     AbrirLoad();
 
     popup = popup || false;
@@ -868,6 +857,16 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
         data: JSON.stringify(params),
         async: true,
         success: function (datos) {
+
+            if (tipoOrigenEstrategia == 1 || tipoOrigenEstrategia == 17 || tipoOrigenEstrategia == 172) {
+                agregarProductoAlCarrito(objInput);
+
+                if (objParameter.FlagNueva == "1")
+                    $('#OfertaTipoNuevo').val(objParameter.FlagNueva);
+                else
+                    $('#OfertaTipoNuevo').val("");
+            }
+
             datos.data.cantidadIngresada = cantidadIngresada;
             datos.data.posicionItem = posicionItem;
 
@@ -1098,6 +1097,11 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
         data: JSON.stringify(param),
         async: false,
         success: function (datos) {
+            if (datos.message.length > 0) {                
+                AbrirMensajeEstrategia(datos.message);
+                CerrarLoad();
+                return false;
+            }
             if (!datos.result) {
                 AbrirMensajeEstrategia(datos.message);
                 CerrarLoad();
@@ -1216,6 +1220,11 @@ function CerrarLoad() {
     }
     else if ($.trim(tipoOrigenEstrategia)[0] == 2) {
         CloseLoading();
+    } else if (isMobile()) {
+        CloseLoading();
+    }
+    else {
+        closeWaitingDialog()
     }
 }
 
@@ -1229,6 +1238,12 @@ function AbrirLoad() {
     else if ($.trim(tipoOrigenEstrategia)[0] == 2) {
         ShowLoading();
     }
+    else if (isMobile()) {
+        ShowLoading();
+    }
+    else {
+        waitingDialog()
+    }
 }
 
 function AbrirMensajeEstrategia(txt) {
@@ -1240,6 +1255,13 @@ function AbrirMensajeEstrategia(txt) {
     }
     else if (tipoOrigenEstrategia == 2 || tipoOrigenEstrategia == 21 || tipoOrigenEstrategia == 262) {
         messageInfo(txt);
+    }
+
+    else if (isMobile()) {
+        messageInfo(txt);
+    }
+    else {
+        alert_msg(txt);
     }
 }
 

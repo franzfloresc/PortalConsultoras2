@@ -67,6 +67,7 @@
     <Compile Include="BEIncentivoPremio.cs" />
     <Compile Include="BETerminosCondiciones.cs" />
     <Compile Include="BEConfiguracionOfertasHome.cs" />
+    <Compile Include="BEFichaProducto.cs" />
     <Compile Include="Cliente\BEClienteRecordatorio.cs" />
     <Compile Include="BEConfiguracionPais.cs" />
     <Compile Include="BEConfiguracionPaisDetalle.cs" />
@@ -87,7 +88,6 @@
     <Compile Include="BEProductoComentarioDetalle.cs" />
     <Compile Include="BEClienteContactoDB.cs" />
     <Compile Include="BEClienteDB.cs" />
-    <Compile Include="BEClienteResponse.cs" />
     <Compile Include="BEReporteValidacion.cs" />
     <Compile Include="BEEstrategiaDetalle.cs" />
     <Compile Include="BEMatrizComercialImagen.cs" />
@@ -101,6 +101,8 @@
     <Compile Include="BEUsuarioExternoPais.cs" />
     <Compile Include="BEUsuarioPostulante.cs" />
     <Compile Include="BEMenuApp.cs" />
+    <Compile Include="Framework\ResponseType.cs" />
+    <Compile Include="Framework\StatusEnum.cs" />
     <Compile Include="Mobile\BEApp.cs" />
     <Compile Include="ReservaProl\BEPedidoObservacion.cs" />
     <Compile Include="ReservaProl\BEInputReservaProl.cs" />

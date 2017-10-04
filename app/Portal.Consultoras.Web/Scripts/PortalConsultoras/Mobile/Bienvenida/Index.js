@@ -81,7 +81,9 @@ $(document).ready(function () {
    
     ObtenerComunicadosPopup();
 });
-
+$(window).load(function () {
+    VerSeccionBienvenida(verSeccion);
+});
 function CrearPopShow() {
     /*
     if (typeof gTipoUsuario !== 'undefined') {
@@ -133,7 +135,7 @@ function CrearPopShow() {
 
 function MostrarShowRoom() {
     
-    if (sesionEsShowRoom == '0') {
+    if (!sesionEsShowRoom) {
         return;
     }
     $.ajax({
@@ -522,8 +524,10 @@ function mostrarCatalogoPersonalizado() {
     document.location.href = urlCatalogoPersonalizado;
 }
 
+var ComunicadoId = 0;
 function ObtenerComunicadosPopup() {
     if (primeraVezSession == 0) return;
+
 
     $(".contenedor_popup_comunicado").click(function (e) {
         grabarComunicadoPopup();
@@ -541,6 +545,12 @@ function ObtenerComunicadosPopup() {
 
     $('.contenedor_popup_comunicado').on('hidden.bs.modal', function () {
         //CERRAR
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'App Consultora',
+            'action': 'Cerrar popup',
+            'label': '{tipoBanner}'
+        });
     });
 
     $(window).resize(function (e) {
@@ -566,6 +576,20 @@ function ObtenerComunicadosPopup() {
         window.open($(this).attr("urlAccion"));
 
         //CLICK
+        dataLayer.push({
+            'event': 'promotionClick',
+            'ecommerce': {
+                'promoView': {
+                    'promotions': [
+                    {
+                        'id': ComunicadoId,
+                        'name': 'App Consultora -  Incentivo descarga',
+                        'position': 'Home pop-up - 1',
+                        'creative': 'Banner'
+                    }]
+                }
+            }
+        });
     });
 
     $(".popup_comunicado .pie_popup_comunicado .check").click(function (e) {
@@ -593,8 +617,7 @@ function ObtenerComunicadosPopup() {
             CloseLoading();
 
             if (checkTimeout(response)) {
-                if (response.success) armarComunicadosPopup(response.extra);
-                else alert(response.message);
+                armarComunicadosPopup(response.data)
             }
         },
         error: function (data, error) {
@@ -603,19 +626,32 @@ function ObtenerComunicadosPopup() {
     });
 }
 
-function armarComunicadosPopup(response){
-    if (response == null) return;
+function armarComunicadosPopup(comunicado){
+    if (comunicado == null)
+        return;
 
-    $(".popup_comunicado .pie_popup_comunicado input[type='checkbox']").val(response.ComunicadoId);
+    $(".popup_comunicado .pie_popup_comunicado input[type='checkbox']").val(comunicado.ComunicadoId);
     $(".popup_comunicado .pie_popup_comunicado input[type='checkbox']").prop('checked', false);
-    $(".popup_comunicado .detalle_popup_comunicado").attr("urlAccion", response.DescripcionAccion);
+    $(".popup_comunicado .detalle_popup_comunicado").attr("urlAccion", comunicado.DescripcionAccion);
 
-    $(".popup_comunicado .detalle_popup_comunicado").css("background-image", "url(" + response.UrlImagen + ")");
+    $(".popup_comunicado .detalle_popup_comunicado").css("background-image", "url(" + comunicado.UrlImagen + ")");
     $(".contenedor_popup_comunicado").modal("show");
 
     $(window).resize();
-
-    //ABRIR
+    dataLayer.push({
+        'event': 'promotionView',
+        'ecommerce': {
+            'promoView': {
+                'promotions': [
+                {
+                    'id': ComunicadoId,
+                    'name': 'App Consultora -  Incentivo descarga',
+                    'position': 'Home pop-up - 1',
+                    'creative': 'Banner'
+                }]
+            }
+        }
+    });
 }
 
 function grabarComunicadoPopup() {
@@ -645,4 +681,30 @@ function grabarComunicadoPopup() {
             }
         }
     });
+}
+
+function VerSeccionBienvenida(seccion) {
+    var id = "";
+    switch (seccion) {
+        case "Belcorp":
+            id = ".content_belcorp";
+            break
+        case "MisOfertas":
+            id = "#divListaEstrategias";
+            break;
+        case "MiAcademia":
+            id = "";
+            break;
+        case "Footer":
+            id = "footer";
+            break;
+        default://Home
+            id = "#contentmobile";
+            break;
+    }
+    if (id != "") {
+        $("html, body").animate({
+            scrollTop: $(id).offset().top - 60
+        }, 1000);
+    }
 }
