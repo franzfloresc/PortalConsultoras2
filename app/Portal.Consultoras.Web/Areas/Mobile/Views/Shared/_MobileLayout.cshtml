@@ -116,9 +116,9 @@
 
             @if (!string.IsNullOrEmpty(ViewBag.FotoPerfil))
             {
-            <div class="foto_usuaria_mobile">
-                <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width:100%; height:auto" />
-            </div>
+                <div class="foto_usuaria_mobile">
+                    <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width:100%; height:auto" />
+                </div>
             }
         </div>
         <br />
@@ -185,7 +185,7 @@
                             @ViewBag.GPRBannerMensaje
                             @if (ViewBag.GPRBannerUrl == Enumeradores.RechazoBannerUrl.ModificaPedido)
                             {
-                            <a class='CerrarBanner' title="MODIFICA TU PEDIDO" href='@Url.Action("Index", "Pedido", new { area = "Mobile" })'>MODIFICA TU PEDIDO</a>
+                                <a class='CerrarBanner' title="MODIFICA TU PEDIDO" href='@Url.Action("Index", "Pedido", new { area = "Mobile" })'>MODIFICA TU PEDIDO</a>
                             }
                         </span>
                     </div>
@@ -198,38 +198,38 @@
                 <a id="btn_cerrar_oferta_mobile" class="btn_cerrar_oferta_mobile">X</a>
                 <ul class="slides">
                     @if (ViewBag.MostrarOfertaDelDia == true)
-                {
-                    <li>
-                        @Html.Partial("~/Areas/Mobile/Views/OfertaDelDia/_OfertaDelDiaBannerTop.cshtml", ofertaDelDia);
-                    </li>
-                }
+                    {
+                        <li>
+                            @Html.Partial("~/Areas/Mobile/Views/OfertaDelDia/_OfertaDelDiaBannerTop.cshtml", ofertaDelDia);
+                        </li>
+                    }
 
                     @if (Session["EsShowRoom"] != null && @Session["EsShowRoom"].ToString() == "1")
                 {
                     if (showRoomBannerLateral.MostrarShowRoomProductos == true)
                     {
-                    <li>
-                        <a href="@Url.Action("Index", "ShowRoom", new {area = "Mobile"})">
-                            <div class="content_banner_header_showroom">
-                                <img src="@ViewBag.ImagenBannerShowroomVenta" alt="Solo Hoy" />
-                            </div>
-                        </a>
-                    </li>
-                    }
-                    else
-                    {
-                    <li>
-                        <a href="@Url.Action("Intriga", "ShowRoom", new {area = "Mobile"})">
-                            <div class="content_banner_header_showroom">
-                                <div class="content_titulo"><div class="titulo_intriga">VENTA EXCLUSIVA WEB</div></div>
-                                <div class="faltan_dias_header"><b>@ViewBag.DiasFaltantesLetras</b></div>
-                                <img src="@ViewBag.ImagenBannerShowroomIntriga" alt="Solo Hoy" />
-                            </div>
-                        </a>
-                    </li>
+                            <li>
+                                <a href="@Url.Action("Index", "ShowRoom", new {area = "Mobile"})">
+                                    <div class="content_banner_header_showroom">
+                                        <img src="@ViewBag.ImagenBannerShowroomVenta" alt="Solo Hoy" />
+                                    </div>
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                <a href="@Url.Action("Intriga", "ShowRoom", new {area = "Mobile"})">
+                                    <div class="content_banner_header_showroom">
+                                        <div class="content_titulo"><div class="titulo_intriga">VENTA EXCLUSIVA WEB</div></div>
+                                        <div class="faltan_dias_header"><b>@ViewBag.DiasFaltantesLetras</b></div>
+                                        <img src="@ViewBag.ImagenBannerShowroomIntriga" alt="Solo Hoy" />
+                                    </div>
+                                </a>
+                            </li>
 
+                        }
                     }
-                }
                 </ul>
             </div>
         }
@@ -458,6 +458,34 @@
             <div class="titulo_compartir"><b id="bTagTitulo">MENSAJE</b></div>
             <div id="mensajeInformacionvalidado" class="mensaje_alerta"></div>
             <a href="javascript:;" onclick="$('#popupInformacionValidado').hide();" class="btn_ok_mobile"><b>OK</b></a>
+        </div>
+    </div>
+
+    <div id="popupInformacionConfirmacion" class="MensajeAlertaMobile" style="display:none;">
+        <div class="content_mensajeAlerta">
+            <a class="cerrar_popMobile" href="javascript:;"
+               onclick="javascript: $('#popupInformacionConfirmacion').hide();">
+                <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+            </a>
+            <hr class="clear">
+            <div class="icono_alerta exclamacion_icono_mobile" style="display: none;"></div>
+            <div class="icono_alerta check_icono_mobile" style="display: none;"></div>
+            <div class="titulo_compartir"><b id="bTagTitulo">MENSAJE</b></div>
+            <div id="mensajeInformacionConfirmacion" class="mensaje_alerta"></div>
+            <div style="text-align: center; margin-top: 30px;">
+                <a href="javascript:;"
+                   onclick="$('#popupInformacionConfirmacion').hide();"
+                   class="btn_ok_mobile btn_ok_mobile-inline"
+                   style="width: 100px; margin-left: 0">
+                    <b>Cancelar</b>
+                </a>
+                <a href="javascript:;"
+                   onclick="$('#popupInformacionConfirmacion').hide();"
+                   class="btn_ok_mobile btn_ok_mobile-inline aceptar-mobile"
+                   style="width: 100px; margin-left: 20px;">
+                    <b>Aceptar</b>
+                </a>
+            </div>
         </div>
     </div>
 
@@ -703,7 +731,6 @@
 
         var ViewIndicadorGPRSB = '@ViewBag.IndicadorGPRSB';
         var MensajePedidoMobile = '@ViewBag.MensajePedidoMobile';
-
     </script>
 
     @if (ViewBag.MostrarOfertaDelDia == true)

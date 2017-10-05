@@ -1,0 +1,1176 @@
+﻿/* CDR MOBILE */
+
+/* INICIO VISTA LISTA DE SOLICITUDES CDR */
+
+.mensaje_vista_cdr, .btn_registrar_solicitud_cdr {
+    display: block;
+    font-family: 'Lato';
+    text-align: center;
+}
+
+.mensaje_vista_cdr {
+    font-size: 14px;
+    color: #000;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+    .mensaje_vista_cdr:first-child {
+        margin-top: 20px;
+        margin-bottom: 15px;
+    }
+
+.tipografia_lato {
+    font-family: 'Lato';
+}
+
+.tipografia_lato_light {
+    font-weight: 300;
+}
+
+.tipografia_lato_regular {
+    font-weight: 400;
+}
+
+.tipografia_lato_bold {
+    font-weight: bold;
+}
+
+.plazo_permitido {
+    text-decoration: underline;
+    color: #000;
+    font-weight: 500;
+}
+
+.btn_registrar_solicitud_cdr {
+    margin: 13px auto 46px auto;
+    width: 100%;
+    max-width: 200px;
+    height: 45px;
+    background: #e81c36;
+    text-transform: uppercase;
+    color: #FFF;
+    font-size: 15px;
+    line-height: 45px;
+}
+
+.grilla_registros_solicitud_cdr {
+    display: block;
+    height: auto;
+    margin-top: 30px;
+    margin-bottom: 52px;
+    padding: 0 5px;
+}
+
+.registro_solicitud_cdr {
+    display: block;
+    height: auto;
+    min-height: 63px;
+    border-top: 1px solid #979797;
+    /*border-bottom: 1px solid #979797;*/
+    padding: 17px 0;
+    text-align: left;
+    position: relative;
+}
+
+.datos_solicitud_cdr {
+    display: block;
+    font-family: 'Lato';
+}
+
+.num_solicitud, .fecha_solicitud {
+    font-size: 13px;
+}
+
+.num_campania, .resumen_resolucion {
+    font-size: 15px;
+}
+
+.productos_aprobados, .productos_rechazados {
+    display: block;
+}
+
+.estado_registro_solicitud_cdr {
+    display: block;
+    width: 82.6px;
+    height: 22px;
+    position: absolute;
+    top: 19px;
+    right: 27px;
+    font-family: 'Lato';
+    font-size: 11px;
+    text-align: center;
+    line-height: 21px;
+    text-transform: uppercase;
+}
+
+.estado_pendiente {
+    border: 1px solid #c1c1c1;
+    color: #c1c1c1;
+}
+
+.estado_observado {
+    border: 1px solid #e81c36;
+    color: #e81c36;
+}
+
+.estado_rechazado, .estado_aprobado {
+    color: #FFF;
+}
+
+.estado_rechazado {
+    border: 1px solid #777777;
+    background: #777777;
+}
+
+.estado_aprobado {
+    border: 1px solid #a18328;
+    background: #a18328;
+}
+
+.icono_busqueda {
+    display: block;
+    position: absolute;
+    width: 19px;
+    height: 19px;
+    top: 19px;
+    right: 0;
+    transform: scaleX(-1);
+    -moz-transform: scaleX(-1);
+    -ms-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    opacity: 0.5;
+}
+
+.ver_solicitud_cdr {
+    display: block;
+    text-decoration: none;
+}
+
+    .ver_solicitud_cdr img {
+        width: 100%;
+        height: auto;
+    }
+
+/* FIN VISTA LISTA DE SOLICITUDES CDR */
+
+/* INICIO VISTA PROCESO DE REGISTRO DE SOLICITUD CDR */
+
+.contenedor_proceso_registro_cdr, .pasos_proceso_registro {
+    display: block;
+    text-align: center;
+}
+
+.pasos_proceso_registro {
+    display: flex;
+    width: 158px;
+    justify-content: space-between;
+    margin: 27px auto 17.2px auto;
+    position: relative;
+}
+
+.icono_paso {
+    vertical-align: middle;
+    width: 28.7px;
+    height: 28.7px;
+    border-radius: 100%;
+    background: #FFF;
+    border: 1px solid #000;
+    position: relative;
+    z-index: 2;
+}
+
+    .icono_paso img {
+        position: relative;
+        top: -1px;
+        left: -1.4px;
+    }
+
+.icono_paso_activo {
+    background: #e81c36;
+    border: 1px solid #e81c36;
+}
+
+.linea_conexion_pasos {
+    width: 100%;
+    height: 2px;
+    background: #d1d1d1;
+    position: absolute;
+    top: 50%;
+    z-index: 1;
+}
+
+.pregunta_inconveniente_producto {
+    font-size: 16px;
+    color: #000;
+    font-family: 'Lato';
+    line-height: 19px;
+    margin-bottom: 36px;
+    padding: 0 16px;
+    position: relative;
+}
+
+.mi_solicitud_cdr {
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    border: 1px solid #979797;
+    border-right-color: #FFF;
+    line-height: 32px;
+    top: -11px;
+    right: -14px;
+    background: #FFF;
+    z-index: 999;
+}
+
+.num_solicitudes {
+    display: block;
+    position: relative;
+    top: 2px;
+    margin-left: 5px;
+}
+
+.pestania_ver_mi_solicitud {
+    position: absolute;
+    top: -1px;
+    left: -2px;
+    width: 15px;
+    height: 13px;
+    background: #FFF;
+    z-index: 2500;
+}
+
+.crece {
+    width: 17px;
+    height: 15px;
+}
+
+.pestania_ver_mi_solicitud img {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top: 0;
+    left: 1px;
+}
+
+.campos_registro_solicitud_cdr {
+    font-family: 'Lato';
+}
+
+.formulario_inscripcion_cdr {
+    display: block;
+    font-size: 14px;
+}
+
+    .formulario_inscripcion_cdr select, .formulario_inscripcion_cdr input[type="text"] {
+        display: block;
+        margin: 0 auto;
+        width: 276px;
+        height: 45px;
+        border: solid 1px #b5b5b5;
+        color: #888;
+        padding-left: 15px;
+        margin-bottom: 28px;
+        -webkit-appearance: none;
+    }
+
+    .formulario_inscripcion_cdr select {
+        background: url(/Content/Images/mobile/dropdown-arrow.png);
+        background-repeat: no-repeat;
+        background-position: 95.5% center;
+    }
+
+.content_eligeTuPedido, .lista_pedidos_para_seleccionar{
+    display:block;
+}
+
+.content_eligeTuPedido{
+    margin-bottom:27px;
+    padding: 0 9px;
+}
+
+.lista_pedidos_para_seleccionar, .pedido_a_seleccionar{
+    text-align:center;
+}
+
+.titulo_eligeTuPedido, .selecciona_tuPedido{
+    text-align:left;
+}
+
+.titulo_eligeTuPedido{
+    font-size:15px;
+    margin-bottom:10px;
+}
+
+.selecciona_tuPedido{
+    font-size:13px;
+    margin-bottom:17px;
+}
+
+.pedido_a_seleccionar{
+    display: block;
+    background: #FFF;
+    border: 1px solid #000;
+    color: #000;
+    height: auto;
+    padding: 5px 0px;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+    transition:all 0.3s ease;
+    -moz-transition:all 0.3s ease;
+    -o-transition:all 0.3s ease;
+    -ms-transition:all 0.3s ease;
+    -webkit-transition:all 0.3s ease;
+}
+
+.pedido_a_seleccionar:hover{
+    background:#000;
+    color:#FFF;
+}
+
+.numero_pedido{
+    font-size:14px;
+}
+
+.fecha_pedido_a_seleccionar{
+    font-size:13px;
+}
+
+.texto_cantidad_productos {
+    display: block;
+    color: #888;
+    margin-bottom: 7px;
+}
+
+.contenedor_campo_cantidad_productos {
+    width: 281px;
+    margin: 0 auto 70px auto;
+}
+
+.enlace_solicitudes_anteriores, .enlace_quiero_ver_otra_alternativa {
+    display: block;
+    font-size: 13px;
+    text-align: center;
+}
+
+.enlace_solicitudes_anteriores {
+    text-decoration: none;
+    margin-bottom: 44px;
+}
+
+    .enlace_solicitudes_anteriores span {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+.enlace_quiero_ver_otra_alternativa {
+    text-decoration: underline;
+    margin-bottom: 52px;
+}
+
+.icono_arrow_left {
+    margin-top: -1px;
+    margin-right: 4px;
+}
+
+.producto_cdr {
+    display: block;
+    width: 100%;
+    max-width: 274px;
+    margin: 0 auto 24px auto;
+}
+
+.enlace_cambiar_producto {
+    display: block;
+    font-size: 12px;
+    text-decoration: underline;
+    margin-top: 8px;
+}
+
+.lista_opciones_motivo_cdr {
+    display: block;
+    width: 95%;
+    max-width: 650px;
+    margin: 0 auto 47px auto;
+}
+
+.motivo_cdr {
+    display: block;
+    text-align: left;
+    border-bottom: solid 1px #d1d1d1;
+    height: auto;
+    padding: 7px 0 7px 15px;
+    margin-bottom: 2px;
+}
+
+    .motivo_cdr input[type="radio"] {
+        display: none;
+    }
+
+        .motivo_cdr input[type="radio"] + label span {
+            width: 16px;
+            height: 16px;
+            background: #e4e4e4;
+            border-radius: 100%;
+            margin-top: -2px;
+            margin-right: 25px;
+            transition: all 0.3s ease;
+            -moz-transition: all 0.3s ease;
+            -o-transition: all 0.3s ease;
+            -ms-transition: all 0.3s ease;
+            -webkit-transition: all 0.3s ease;
+        }
+
+        .motivo_cdr input[type="radio"]:checked + label span {
+            background: #e81c36;
+        }
+
+        .motivo_cdr input[type="radio"] + label span, .motivo_cdr label {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+    .motivo_cdr label {
+        font-size: 13px;
+    }
+
+.btn_cta_cdr {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 54px;
+    background: #e81c36;
+    color: #FFF;
+    z-index: 998;
+    letter-spacing: 0.4px;
+    border: none;
+}
+
+.listado_soluciones_cdr, .solucion_cdr {
+    display: block;
+}
+
+.listado_soluciones_cdr {
+    margin-bottom: 35px;
+}
+
+.solucion_cdr {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 276px;
+    height: 45px;
+    border: 1px solid #000000;
+    color: #000;
+    text-transform: uppercase;
+    line-height: 45px;
+    margin-bottom: 22px;
+    font-size: 13px;
+    transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+    .solucion_cdr:last-child {
+        margin-bottom: 0px;
+    }
+
+    .solucion_cdr:focus {
+        background: #000;
+        color: #FFF;
+    }
+
+.mb-23 {
+    margin-bottom: 23px;
+}
+
+.mb-39 {
+    margin-bottom: 39px;
+}
+
+.titulo_eleccion_cdr, .eleccion_solucion_cdr {
+    display: block;
+    font-size: 13px;
+}
+
+.titulo_eleccion_cdr {
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #d1d1d1;
+}
+
+    .titulo_eleccion_cdr span {
+        display: block;
+        margin-bottom: 12px;
+    }
+
+        .titulo_eleccion_cdr span:last-child {
+            color: #e81c26;
+        }
+
+.descripcion_eleccion_cdr {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 292px;
+    padding: 13px 10px 0 10px;
+}
+
+    .descripcion_eleccion_cdr > span {
+        display: block;
+        margin-bottom: 18px;
+    }
+
+        .descripcion_eleccion_cdr > span:last-child {
+            margin-bottom: 13px;
+        }
+
+.descripcion_producto_cambio, .descripcion_producto_cambio span {
+    display: block;
+}
+
+.descripcion_producto_cambio {
+    margin-bottom: 25px;
+}
+
+.nom_producto_cambio, .precio_producto_cambio {
+    font-size: 15px;
+}
+
+.contenedor_producto_cambio_por {
+    display: block;
+    margin: 0 10px 8px 10px;
+    padding: 0 20px 15px 20px;
+    border-bottom: 1px solid #d1d1d1;
+}
+
+    .contenedor_producto_cambio_por .producto_cdr {
+        margin-bottom: 0px;
+    }
+
+.texto_producto_a_cambiar {
+    display: block;
+    color: #e81c36;
+    font-size: 13px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.cantidad_producto {
+    display: block;
+}
+
+.info_importante_cdr {
+    display: block;
+    margin: 0 auto 34px auto;
+    padding: 15px 0 25px 0;
+    width: 100%;
+    max-width: 276px;
+    border-bottom: 1px solid #000;
+}
+
+.titulo_info_cdr {
+    margin-bottom: 9px;
+}
+
+.titulo_info_cdr, .content_info_cdr {
+    font-size: 13px;
+}
+
+.titulo_revision_resumen {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.content_solicitud_cdr {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    padding: 15px 10px;
+    border-top: 1px solid #979797;
+    position: relative;
+}
+
+.contenedor_info_cdr {
+    width: 100%;
+    max-width: 243px;
+    text-align: left;
+    font-size: 15px;
+}
+
+.icono_eliminar_solic_cdr {
+    display: block;
+    width: 17px;
+    height: 20px;
+    position: absolute;
+    top: 16px;
+    right: 11px;
+}
+
+    .icono_eliminar_solic_cdr a {
+        display: block;
+        text-decoration: none;
+    }
+
+.validacion_datos {
+    display: block;
+    margin-bottom: 36px;
+    padding: 15px 0 2px 0;
+    border-top: 2px solid #e81c36;
+    border-bottom: 2px solid #e81c36;
+}
+
+.validacion_seccion_titulo {
+    display: block;
+    margin-bottom: 20px;
+}
+
+.titulo_validacion_datos {
+    font-size: 16px;
+    margin-bottom: 4px;
+}
+
+.mensaje_validacion_datos {
+    font-size: 13px;
+}
+
+.validacion_seccion_datos div label, .validacion_seccion_datos div input[type="text"] {
+    display: block;
+    color: #888;
+    font-size: 15px;
+}
+
+.validacion_seccion_datos div input[type="text"] {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 276px;
+    height: 45px;
+    border: 1px solid #b5b5b5;
+    padding: 0 10px;
+}
+
+.mb-27 {
+    margin-bottom: 27px;
+}
+
+.content_politica_devolucion {
+    display: block;
+    margin-bottom: 39px;
+}
+
+    .content_politica_devolucion input[type="checkbox"] {
+        display: none;
+    }
+
+        .content_politica_devolucion input[type="checkbox"] + label span, .content_politica_devolucion a {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .content_politica_devolucion input[type="checkbox"] + label span {
+            width: 26px;
+            height: 26px;
+            background: #eee url("/Content/Images/mobile/icono-acepto-politica-cdr.png");
+            background-repeat: no-repeat;
+            background-position: center center;
+            border-radius: 100%;
+            position: relative;
+            top: 1px;
+            margin-right: 7px;
+            transition: background-color 0.3s ease;
+            -moz-transition: background-color 0.3s ease;
+            background-co 0.3s ease;
+            bac 0.3s ease;
+            bac 0.3s ease;
+            bac 0.3s ease;
+            ba 0.3s ease;
+            ba 0.3s ease;
+            ba 0.3s ease;
+            b 0.3s ease;
+            b 0.3s ease;
+            b 0.3s ease;
+            -o-transition: background-color 0.3s ease;
+            b 0.3s ease;
+            b 0.3s ease;
+            -ms-transition: background-color 0.3s ease;
+            b 0.3s ease;
+            -webkit-transition: background-color 0.3s ease;
+        }
+
+        .content_politica_devolucion input[type="checkbox"]:checked + label span {
+            background-color: #e81c36;
+        }
+
+    .content_politica_devolucion a, .content_politica_devolucion a:hover {
+        text-decoration: underline;
+        color: #000;
+    }
+
+.tooltip_btn_reportar_inconveniente {
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+    max-width: 278px;
+    background: #FFF;
+    height: 70px;
+    padding: 15px 4px 16px 4px;
+    border-radius: 7px;
+    position: relative;
+    box-shadow: 3px 6px 18px 0px rgba(0,0,0,0.3);
+    -moz-box-shadow: 3px 6px 18px 0px rgba(0,0,0,0.3);
+    -o-box-shadow: 3px 6px 18px 0px rgba(0,0,0,0.3);
+    -ms-box-shadow: 3px 6px 18px 0px rgba(0,0,0,0.3);
+    -webkit-box-shadow: 3px 6px 18px 0px rgba(0,0,0,0.3);
+}
+
+    .tooltip_btn_reportar_inconveniente:after {
+        top: 91%;
+        left: 50%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+        border-top-color: #FFF;
+        border-width: 21px;
+        margin-left: -19px;
+    }
+
+.icono_alerta, .texto_tooltip_reportar_inconveniente {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.icono_alerta_cdr {
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
+    margin-right: 8px;
+}
+
+.texto_tooltip_reportar_inconveniente {
+    width: 214px;
+    font-size: 14px;
+    color: #000;
+    text-align: left;
+}
+
+.btn_reportar_inconveniente {
+    display: block;
+    width: 100%;
+    max-width: 276px;
+    border: 1px solid #000;
+    margin: 30px auto 49px auto;
+    height: 45px;
+    line-height: 43px;
+    background: #FFF;
+    font-size: 13px;
+}
+
+/* FIN VISTA PROCESO DE REGISTRO DE SOLICITUD CDR */
+
+/* INICIO VISTA SOLICITUD ENVIADA */
+
+.content_mensaje_solicitud_enviada, .icono_solicitud_enviada, .titulo_solicitud_enviada, .mensaje_solicitud_enviada {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.content_mensaje_solicitud_enviada {
+    margin-top: 35px;
+    margin-bottom: 25px;
+}
+
+.icono_solicitud_enviada {
+    width: 50px;
+    height: 50px;
+}
+
+    .icono_solicitud_enviada img {
+        width: 100%;
+        height: auto;
+    }
+
+.icono_solicitud_enviada, .titulo_solicitud_enviada {
+    margin-bottom: 20px;
+}
+
+    .titulo_solicitud_enviada, .titulo_solicitud_enviada span {
+        font-size: 23px;
+    }
+
+.mensaje_solicitud_enviada {
+    font-size: 14px;
+    line-height: 19px;
+}
+
+/* INICIO VISTA DETALLE SOLICITUD CDR */
+
+.detalle_solicitud_cdr,
+.titulo_detalle_solicitud_cdr,
+.info_detalle_cdr,
+.detalle_solicitud_listado,
+.detalle_tipo_solicitud,
+.detalle_producto_cdr,
+.detalle_cdr_solucion,
+.detalle_cod_producto,
+.detalle_nom_producto,
+.detalle_cantidad_producto,
+.detalle_precio_producto,
+.detalle_cdr_solucion_titulo,
+.detalle_cdr_monto_devolucion {
+    display: block;
+}
+
+.detalle_solicitud_cdr {
+    width: 100%;
+    height: auto;
+    margin-bottom: 48px;
+    padding: 22px 13px 0 13px;
+    box-shadow: 0 0 4px 0 rgba(155, 155, 155, 0.5);
+}
+
+.titulo_detalle_solicitud_cdr {
+    width: 100%;
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.info_detalle_cdr {
+    text-align: center;
+    margin-bottom: 13px;
+}
+
+.info_fecha_solicitud, .info_num_solicitud, .info_campania_solicitud {
+    display: inline-block;
+    font-size: 13px;
+    padding: 0 6px 0 4px;
+    margin-bottom: 3px;
+}
+
+.info_fecha_solicitud {
+    border-right: 1px solid #000;
+}
+
+.color_marca {
+    color: #e81c36;
+}
+
+.detalle_solicitud_listado {
+    font-size: 15px;
+}
+
+.detalle_tipo_solicitud_titulo {
+    padding: 15px 0 14px 0;
+    border-top: 1px solid #979797;
+    border-bottom: 1px solid #979797;
+    position: relative;
+}
+
+    .detalle_tipo_solicitud_titulo > div {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+        .detalle_tipo_solicitud_titulo > div:first-child {
+            width: 70%;
+        }
+
+        .detalle_tipo_solicitud_titulo > div:last-child {
+            width: 29%;
+        }
+
+.estado_solic_cdr {
+    font-size: 13px;
+    text-align: right;
+}
+
+.detalle_tipo_solicitud {
+    padding: 15px 0 21px 0;
+}
+
+    .detalle_tipo_solicitud:last-child {
+        margin-bottom: 21px;
+    }
+
+.detalle_producto_cdr,
+.detalle_cdr_solucion {
+    position: relative;
+}
+
+.detalle_cdr_solucion_titulo,
+.detalle_cod_producto,
+.detalle_nom_producto,
+.detalle_cantidad_producto,
+.detalle_cdr_monto_devolucion {
+    margin-bottom: 2px;
+    width: 75%;
+}
+
+.detalle_precio_producto {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.datos_solicitud_cdr_consulta, .datos_solicitud_cdr_titulo, .estado_productos_cdr {
+    display: block;
+    text-align: center;
+}
+
+.datos_solicitud_cdr_consulta {
+    background: #f7f7f7;
+    position: relative;
+    top: -11px;
+    padding: 22px 0 18px 0;
+    margin-bottom: 20px;
+}
+
+.datos_solicitud_cdr_titulo {
+    font-size: 17px;
+    margin-bottom: 12px;
+}
+
+.dato_fecha_solicitud_cdr, .dato_num_solicitud_cdr, .dato_campania_solicitud_cdr {
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+    .dato_fecha_solicitud_cdr span, .dato_num_solicitud_cdr span, .dato_campania_solicitud_cdr span {
+        display: block;
+        padding: 0 10px;
+    }
+
+        .dato_fecha_solicitud_cdr span:last-child, .dato_num_solicitud_cdr span:last-child {
+            border-right: 1px solid #000;
+        }
+
+.dato_fecha_solicitud_cdr, .dato_num_solicitud_cdr, .dato_campania_solicitud_cdr, .estado_productos_cdr {
+    font-size: 14px;
+}
+
+.datos_solicitud_opened,
+.titulo_solicitud_opened,
+.cant_prod_solicitud_opened,
+.listado_productos_agregados {
+    display: block;
+}
+
+.datos_solicitud_opened {
+    display: none;
+    position: relative;
+    padding: 16px 24px;
+    height: auto;
+}
+
+.titulo_solicitud_opened {
+    font-size: 18px;
+}
+
+.cant_prod_solicitud_opened {
+    font-size: 13px;
+    margin-bottom: 4px;
+}
+
+.titulo_solicitud_opened, .cant_prod_solicitud_opened {
+    text-align: left;
+    line-height: 21px;
+}
+
+.icono_flecha_mi_solicitud {
+    width: 14px;
+    height: 27px;
+    position: absolute;
+    top: 11px;
+    right: 21px;
+    transform: scaleX(-1);
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -ms-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+}
+
+.listado_productos_agregados, .producto_agregado, .cod_producto_agregado, .nom_producto_agregado, .cant_producto_agregado, .icono_eliminar_producto_agregado {
+    display: block;
+}
+
+.listado_productos_agregados {
+    height: 189px;
+    overflow: auto;
+}
+
+.producto_agregado {
+    border-top: 1px solid #d8d8d8;
+    font-size: 13px;
+    text-align: left;
+    padding: 10px 2px;
+    line-height: 18px;
+    position: relative;
+}
+
+    .producto_agregado:last-child {
+        border-bottom: 1px solid #d8d8d8;
+        margin-bottom: 2px;
+    }
+
+.cod_producto_agregado, .nom_producto_agregado, .cant_producto_agregado {
+    width: 75%;
+}
+
+.icono_eliminar_producto_agregado {
+    position: absolute;
+    width: 17px;
+    height: 20px;
+    top: 15px;
+    right: 2px;
+}
+
+.enlace_ir_al_final {
+    display: block;
+    text-align: left;
+    position: relative;
+    width: 100%;
+    max-width: 100px;
+}
+
+    .enlace_ir_al_final .icono_flecha_mi_solicitud {
+        left: -5px;
+        top: 1px;
+    }
+
+    .enlace_ir_al_final a {
+        display: block;
+        padding-left: 16px;
+        color: #000;
+        text-decoration: none;
+        font-size: 13px;
+    }
+
+/* FIN VISTA DETALLE SOLICITUD CDR */
+
+/* VISTA NOTIFICACIONES CDR MOBILE */
+
+.content_detalle_notificaciones_cdr,
+.datos_solicitud_cdr_notificacion,
+.saludo_consultora_en_sesion,
+.respuesta_solicitud_cdr,
+.lista_detalle_notificaciones_cdr,
+.titulo_cabecera_lista_detalle_notificacion_cdr,
+.lista_detalle_estado_solicitud_cdr,
+.info_detalle_notificacion_cdr,
+.btn_verSolicitud_somosBelcorp,
+.contenedor_mensajes_respuesta_cdr,
+.resumen_respuesta_cdr,
+.resumen_respuesta_cdr span,
+.envio_express_cdr,
+.envio_express_cdr > div,
+.envio_express_cdr > div span,
+.saldo_actualizado,
+.saldo_actualizado span {
+    display: block;
+}
+
+.saludo_consultora_en_sesion {
+    margin-top: 15px;
+    margin-bottom: 14px;
+    font-size: 13px;
+}
+
+.respuesta_solicitud_cdr {
+    font-size: 15px;
+    line-height: 18px;
+    margin-bottom: 14px;
+}
+
+.tiempo_respuesta_solicitud_cdr {
+    font-size: 13px;
+    line-height: 15px;
+    margin-bottom: 22px;
+}
+
+.datos_solicitud_cdr_notificacion {
+    background: #f7f7f7;
+    position: relative;
+    padding: 14px 0 0 0;
+    font-size: 13px;
+}
+
+.titulo_cabecera_lista_detalle_notificacion_cdr, .info_detalle_notificacion_cdr, .lista_detalle_estado_solicitud_cdr {
+    border-bottom: 1px solid #979797;
+}
+
+.titulo_cabecera_lista_detalle_notificacion_cdr {
+    border-top: 1px solid #979797;
+}
+
+.titulo_cabecera_lista_detalle_notificacion_cdr, .lista_detalle_estado_solicitud_cdr {
+    padding: 10px 0;
+}
+
+    .lista_detalle_estado_solicitud_cdr span {
+        display: inline-block;
+        width: 49.5%;
+        font-size: 14px;
+    }
+
+        .lista_detalle_estado_solicitud_cdr span:nth-child(2), .lista_detalle_estado_solicitud_cdr span:last-child {
+            font-size: 13px;
+        }
+
+.info_detalle_notificacion_cdr {
+    margin-bottom: 22px;
+    padding: 21px 0 23px 0;
+    line-height: 19px;
+}
+
+.btn_verSolicitud_somosBelcorp {
+    margin: 0 auto 30px auto;
+    width: 100%;
+    max-width: 296px;
+    height: 45px;
+    line-height: 43px;
+    border: 1px solid #000;
+    color: #000;
+    font-size: 13px;
+    transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+}
+
+    .btn_verSolicitud_somosBelcorp:hover {
+        background: #000;
+        color: #FFF;
+    }
+
+.contenedor_mensajes_respuesta_cdr {
+    background: #F7F7F7;
+    padding: 15px 10px 19px 10px;
+    border-top: 1px solid #979797;
+}
+
+.resumen_respuesta_cdr {
+    margin-bottom: 10px;
+    font-size: 13px;
+}
+
+.envio_express_cdr > div:first-child {
+    margin-bottom: 10px;
+}
+
+.envio_express_cdr > div span {
+    font-size: 13px;
+}
+
+.saldo_actualizado {
+    margin-top: 10px;
+    font-size: 13px;
+}

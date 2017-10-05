@@ -57,8 +57,7 @@ def notifyBuild(String buildStatus = 'STARTED') {
     def from = 'jenkins@belcorp.biz'
     def subject = "${buildStatus}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
     def summary = "${subject} (${env.RUN_DISPLAY_URL})"
-    def details = """<p>${buildStatus}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
-        <p>Check console output at <a href='${env.RUN_DISPLAY_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a></p>"""
+    def details = "<p>${buildStatus}: Job <a href='${env.RUN_DISPLAY_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a></p>"
 
     // override default values based on build status
     if (buildStatus == 'STARTED') {
@@ -79,6 +78,13 @@ def notifyBuild(String buildStatus = 'STARTED') {
         channel: '#jenkins',
         teamDomain: 'arquitectura-td',
         tokenCredentialId: 'arquitecturatd_slack_credentials')
+    
+    hipchatSend (
+        color: color,
+        message: details,
+        notify: true,
+        room: 'Lideres SB2',
+        credentialId: 'belcorp_hipchat_credentials')
     
     // send email in case of failure
     if (buildStatus == 'FAILURE') {

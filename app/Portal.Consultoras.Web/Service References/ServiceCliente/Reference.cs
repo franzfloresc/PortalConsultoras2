@@ -2582,6 +2582,23 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         }
     }
     
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Enumeradores.TamanioImagenIssu", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common")]
+    public enum EnumeradoresTamanioImagenIssu : int {
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        ThumbSmall = 1,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        ThumbMedium = 2,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        ThumbLarge = 3,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Normal = 4,
+    }
+    
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="BECatalogoRevista", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
@@ -4414,10 +4431,10 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCliente.BECatalogoConfiguracion[]> GetCatalogoConfiguracionAsync(int paisID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClienteService/GetListCatalogoRevistaPublicado", ReplyAction="http://tempuri.org/IClienteService/GetListCatalogoRevistaPublicadoResponse")]
-        Portal.Consultoras.Web.ServiceCliente.BECatalogoRevista[] GetListCatalogoRevistaPublicado(string paisISO, string codigoZona, int campania, Portal.Consultoras.Common.Enumeradores.TamanioImagenIssu tamanioImagenIssu);
+        Portal.Consultoras.Web.ServiceCliente.BECatalogoRevista[] GetListCatalogoRevistaPublicado(string paisISO, string codigoZona, int campania, Portal.Consultoras.Web.ServiceCliente.EnumeradoresTamanioImagenIssu tamanioImagenIssu);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClienteService/GetListCatalogoRevistaPublicado", ReplyAction="http://tempuri.org/IClienteService/GetListCatalogoRevistaPublicadoResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCliente.BECatalogoRevista[]> GetListCatalogoRevistaPublicadoAsync(string paisISO, string codigoZona, int campania, Portal.Consultoras.Common.Enumeradores.TamanioImagenIssu tamanioImagenIssu);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCliente.BECatalogoRevista[]> GetListCatalogoRevistaPublicadoAsync(string paisISO, string codigoZona, int campania, Portal.Consultoras.Web.ServiceCliente.EnumeradoresTamanioImagenIssu tamanioImagenIssu);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClienteService/GetListCatalogoRevistaPublicadoWithTitulo", ReplyAction="http://tempuri.org/IClienteService/GetListCatalogoRevistaPublicadoWithTituloRespo" +
             "nse")]
@@ -4705,11 +4722,11 @@ namespace Portal.Consultoras.Web.ServiceCliente {
             return base.Channel.GetCatalogoConfiguracionAsync(paisID);
         }
         
-        public Portal.Consultoras.Web.ServiceCliente.BECatalogoRevista[] GetListCatalogoRevistaPublicado(string paisISO, string codigoZona, int campania, Portal.Consultoras.Common.Enumeradores.TamanioImagenIssu tamanioImagenIssu) {
+        public Portal.Consultoras.Web.ServiceCliente.BECatalogoRevista[] GetListCatalogoRevistaPublicado(string paisISO, string codigoZona, int campania, Portal.Consultoras.Web.ServiceCliente.EnumeradoresTamanioImagenIssu tamanioImagenIssu) {
             return base.Channel.GetListCatalogoRevistaPublicado(paisISO, codigoZona, campania, tamanioImagenIssu);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCliente.BECatalogoRevista[]> GetListCatalogoRevistaPublicadoAsync(string paisISO, string codigoZona, int campania, Portal.Consultoras.Common.Enumeradores.TamanioImagenIssu tamanioImagenIssu) {
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCliente.BECatalogoRevista[]> GetListCatalogoRevistaPublicadoAsync(string paisISO, string codigoZona, int campania, Portal.Consultoras.Web.ServiceCliente.EnumeradoresTamanioImagenIssu tamanioImagenIssu) {
             return base.Channel.GetListCatalogoRevistaPublicadoAsync(paisISO, codigoZona, campania, tamanioImagenIssu);
         }
         

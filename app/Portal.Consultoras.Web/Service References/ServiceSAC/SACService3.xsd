@@ -11,6 +11,7 @@
       <xs:element minOccurs="0" name="AplicacionNombre" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FechaActualizacion" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaLanzamiento" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="MinimaVersion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PaisISO" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="RequiereActualizacion" type="xs:boolean" />
       <xs:element minOccurs="0" name="SistemaOperativo" nillable="true" type="xs:string" />

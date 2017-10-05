@@ -9,7 +9,6 @@
     @*<link href="@Url.Content("~/Content/Css/Site/Esika/revistaDigital.css")" rel="stylesheet" />*@
     @System.Web.Optimization.Styles.Render("~/Content/Css/Site/CssPedido")
 }
-<span id="img-tooltip" class="img-tooltip" data-toggle="tooltip" data-placement="right" title="dEMO DEMO DEMO DEM O..." data-animation="false" data-trigger="manual"></span>
 <div class="franja_negra" style="background: #000 url(@ViewBag.UrlFranjaNegra) no-repeat center bottom;"></div>
 <div class="envolvente_pop_up">
     <div class="pop_pedido" id="pop_liquidacion" style="display: none;">
@@ -77,7 +76,7 @@
             <div class="pedido_ingreso_datos campo_descripcion_producto">
                 <br />
                 <input type="text" name="DescripcionProd" id="txtDescripcionProd" maxlength="250" onblur="ValidarDescripcion();" class="ValidaAlfanumerico"
-                       onkeyup="PreValidarCUV();" placeholder="Descripción producto" />
+                       onkeyup="PreValidarCUV(event);" placeholder="Descripción producto" />
             </div>
 
             <div class="pedido_ingreso_datos campo_precio">
@@ -89,7 +88,7 @@
                 <br />
                 <div class="liquidacion_rango_wrapper_pedido">
                     <input type="text" name="Cantidad" id="txtCantidad" value="1" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
-                           onkeypress="PreValidarCUV();" onfocus="SeleccionarContenido(this)" />
+                           onkeypress="PreValidarCUV(event);" onfocus="SeleccionarContenido(this)" />
                     <div class="liquidacion_rango_right_pedido">
                         <a class="mas"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
                         <a class="menos"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
