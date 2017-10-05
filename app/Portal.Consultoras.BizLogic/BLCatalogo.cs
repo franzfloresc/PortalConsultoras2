@@ -467,36 +467,39 @@ namespace Portal.Consultoras.BizLogic
             }
         }
         private void SetCatalogoRevistaFieldsInOembedIssuu(BECatalogoRevista catalogoRevista)
-        {
-            string urlISSUUSearch = "https://issuu.com/oembed?url=https://issuu.com/somosbelcorp/docs/";
-            string url = string.Format("{0}{1}", urlISSUUSearch, catalogoRevista.CodigoIssuu);
-            string response = string.Empty;
-
-            try
+        {            
+            if (!string.IsNullOrEmpty(catalogoRevista.CodigoIssuu))
             {
-                using (var wc = new WebClient())
-                {
-                    wc.Encoding = System.Text.Encoding.UTF8;
-                    wc.Proxy = null;
-                    response = wc.DownloadString(url);
-                }
-                
-                if (!string.IsNullOrEmpty(response))
-                {
-                    if (response.Substring(0, 2) == "?(") response = response.Substring(2, response.Length - 3);
+                string urlISSUUSearch = "https://issuu.com/oembed?url=https://issuu.com/somosbelcorp/docs/";
+                string url = string.Format("{0}{1}", urlISSUUSearch, catalogoRevista.CodigoIssuu);
+                string response = string.Empty;
 
-                    dynamic jsonReponse = Newtonsoft.Json.Linq.JObject.Parse(response);
+                try
+                {
+                    using (var wc = new WebClient())
+                    {
+                        wc.Encoding = System.Text.Encoding.UTF8;
+                        wc.Proxy = null;
+                        response = wc.DownloadString(url);
+                    }
 
-                    string urlIssuuVisor = ConfigurationManager.AppSettings["UrlIssuu"] ?? "";
-                    catalogoRevista.UrlVisor = string.Format(urlIssuuVisor, catalogoRevista.CodigoIssuu);
-                    catalogoRevista.UrlImagen = jsonReponse.thumbnail_url;
-                    catalogoRevista.CatalogoTitulo = jsonReponse.title;
-                    catalogoRevista.CatalogoDescripcion = jsonReponse.description;
+                    if (!string.IsNullOrEmpty(response))
+                    {
+                        if (response.Substring(0, 2) == "?(") response = response.Substring(2, response.Length - 3);
+
+                        dynamic jsonReponse = Newtonsoft.Json.Linq.JObject.Parse(response);
+
+                        string urlIssuuVisor = ConfigurationManager.AppSettings["UrlIssuu"] ?? "";
+                        catalogoRevista.UrlVisor = string.Format(urlIssuuVisor, catalogoRevista.CodigoIssuu);
+                        catalogoRevista.UrlImagen = jsonReponse.thumbnail_url;
+                        catalogoRevista.CatalogoTitulo = jsonReponse.title;
+                        catalogoRevista.CatalogoDescripcion = jsonReponse.description;
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                LogManager.SaveLog(ex, "", catalogoRevista.PaisISO);
+                catch (Exception ex)
+                {
+                    LogManager.SaveLog(ex, "", catalogoRevista.PaisISO);
+                }
             }
         }
 
