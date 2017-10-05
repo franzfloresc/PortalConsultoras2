@@ -4204,7 +4204,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #region Nuevo AgregarProducto
-        
+
         public JsonResult AgregarProducto(string listaCuvTonos
             , string EstrategiaID, string FlagNueva
             , string Cantidad
@@ -4213,45 +4213,42 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                string mensaje = "", urlRedireccionar = "",
+                area = IsMobile() ? "Mobile" : "";
 
-            string mensaje = "", urlRedireccionar = "",
-            area = IsMobile() ? "Mobile" : "";
-
-            #region SesiónExpirada
-            if (userData == null)
-            {
-                mensaje = "Sesión expirada.";
-                urlRedireccionar = Url.Action("Index", "Login");
-                return Json(new
+                #region SesiónExpirada
+                if (userData == null)
                 {
-                    success = false,
-                    message = mensaje,
-                    urlRedireccionar
-                }, JsonRequestBehavior.AllowGet);
+                    mensaje = "Sesión expirada.";
+                    urlRedireccionar = Url.Action("Index", "Login");
+                    return Json(new
+                    {
+                        success = false,
+                        message = mensaje,
+                        urlRedireccionar
+                    }, JsonRequestBehavior.AllowGet);
+                    
+                }
+                #endregion
 
-                //return Json(urlRedireccionar);
-            }
-            #endregion
-
-            #region ReservadoOEnHorarioRestringido
-            bool horario = ReservadoOEnHorarioRestringido(ref mensaje, ref urlRedireccionar);
-            if (horario)
-            {
-                return Json(new
+                #region ReservadoOEnHorarioRestringido
+                bool horario = ReservadoOEnHorarioRestringido(ref mensaje, ref urlRedireccionar);
+                if (horario)
                 {
-                    success = false,
-                    message = mensaje,
-                    urlRedireccionar
-                }, JsonRequestBehavior.AllowGet);
-                //return Json(urlRedireccionar);
-            }
-            #endregion
+                    return Json(new
+                    {
+                        success = false,
+                        message = mensaje,
+                        urlRedireccionar
+                    }, JsonRequestBehavior.AllowGet);
+                }
+                #endregion
 
-            #region FiltrarEstrategiaPedido
-            FlagNueva = Util.Trim(FlagNueva);
-            int IndFlagNueva = 0;
-            Int32.TryParse(FlagNueva == "" ? "0" : FlagNueva, out IndFlagNueva);
-            BEEstrategia estrategia = FiltrarEstrategiaPedido(EstrategiaID, IndFlagNueva);
+                #region FiltrarEstrategiaPedido
+                FlagNueva = Util.Trim(FlagNueva);
+                int IndFlagNueva = 0;
+                Int32.TryParse(FlagNueva == "" ? "0" : FlagNueva, out IndFlagNueva);
+                BEEstrategia estrategia = FiltrarEstrategiaPedido(EstrategiaID, IndFlagNueva);
                 if (estrategia.EstrategiaID <= 0)
                 {
                     var ficha = (FichaProductoDetalleModel)Session[Constantes.SessionNames.FichaProductoTemporal];
@@ -4266,39 +4263,39 @@ namespace Portal.Consultoras.Web.Controllers
                         message = mensaje
                     }, JsonRequestBehavior.AllowGet);
                 }
-            #endregion
+                #endregion
 
-            estrategia.Cantidad = Convert.ToInt32(Cantidad);
+                estrategia.Cantidad = Convert.ToInt32(Cantidad);
 
-            if (estrategia.Cantidad > estrategia.LimiteVenta)
-            {
-                mensaje = "La cantidad no debe ser mayor que la cantidad limite ( " + estrategia.LimiteVenta + " ).";
-                return Json(new
+                if (estrategia.Cantidad > estrategia.LimiteVenta)
                 {
-                    success = false,
-                    message = mensaje
-                }, JsonRequestBehavior.AllowGet);
+                    mensaje = "La cantidad no debe ser mayor que la cantidad limite ( " + estrategia.LimiteVenta + " ).";
+                    return Json(new
+                    {
+                        success = false,
+                        message = mensaje
+                    }, JsonRequestBehavior.AllowGet);
 
-            }
+                }
 
-            listaCuvTonos = Util.Trim(listaCuvTonos);
-            if (listaCuvTonos == "")
-            {
-                listaCuvTonos = estrategia.CUV2;
-            }
-            var tonos = listaCuvTonos.Split('|');
-            var respuesta = new JsonResult();
-            foreach (var tono in tonos)
-            {
-                var listSp = tono.Split(';');
-                estrategia.CUV2 = listSp.Length > 0 ? listSp[0] : estrategia.CUV2;
-                estrategia.MarcaID = listSp.Length > 1 ? Convert.ToInt32(listSp[1]) : estrategia.MarcaID;
-                estrategia.Precio2 = listSp.Length > 2 ? Convert.ToDecimal(listSp[2]) : estrategia.Precio2;
+                listaCuvTonos = Util.Trim(listaCuvTonos);
+                if (listaCuvTonos == "")
+                {
+                    listaCuvTonos = estrategia.CUV2;
+                }
+                var tonos = listaCuvTonos.Split('|');
+                var respuesta = new JsonResult();
+                foreach (var tono in tonos)
+                {
+                    var listSp = tono.Split(';');
+                    estrategia.CUV2 = listSp.Length > 0 ? listSp[0] : estrategia.CUV2;
+                    estrategia.MarcaID = listSp.Length > 1 ? Convert.ToInt32(listSp[1]) : estrategia.MarcaID;
+                    estrategia.Precio2 = listSp.Length > 2 ? Convert.ToDecimal(listSp[2]) : estrategia.Precio2;
 
-                respuesta = EstrategiaAgregarProducto(ref mensaje, estrategia, OrigenPedidoWeb, ClienteID_, tipoEstrategiaImagen);
-            }
+                    respuesta = EstrategiaAgregarProducto(ref mensaje, estrategia, OrigenPedidoWeb, ClienteID_, tipoEstrategiaImagen);
+                }
 
-            return Json(respuesta.Data, JsonRequestBehavior.AllowGet);
+                return Json(respuesta.Data, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception ex)

@@ -342,7 +342,6 @@ function EstrategiaAgregar(event, popup, limite) {
     if (EstrategiaValidarSeleccionTono(objInput)) {
         return false;
     }
-
    
     limite = limite || 0;
     var cantidad = (limite > 0) ? limite
