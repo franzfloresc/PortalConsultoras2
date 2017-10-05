@@ -1171,7 +1171,7 @@ namespace Portal.Consultoras.Common
             public const string CompraENBelcenter = "Compra en Belcenter hasta el {0} {1} y llévate el premio.";
             public const string IndicadorPremiacion = "Pasa pedido esta campaña para enviártelo";
             public const string MontoPremiacion = "Pasa pedido de {0} {1} esta campaña para entregarte tu premio.";
-
+            public const string CalculoPuntos = "X;K";
         }
 
         public class ComunicadoTipoDispositivo

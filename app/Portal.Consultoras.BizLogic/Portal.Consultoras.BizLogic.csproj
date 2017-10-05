@@ -91,7 +91,7 @@
     <Compile Include="BLAsesoraOnline.cs" />
     <Compile Include="BLCupon.cs" />
     <Compile Include="Cliente\BLClienteDB.cs" />
-    <Compile Include="BLConsultoraConcurso.cs" />
+    <Compile Include="Incentivo\BLConsultoraConcurso.cs" />
     <Compile Include="BLFichaProducto.cs" />
     <Compile Include="BLPalabraInvalida.cs" />
     <Compile Include="BLProductoPalabra.cs" />
@@ -171,6 +171,15 @@
     <Compile Include="BLPedidoDDDetalle.cs" />
     <Compile Include="BLPedidoFacturado.cs" />
     <Compile Include="BLPedidoFICDetalle.cs" />
+    <Compile Include="Incentivo\IConsultoraConcursoBusinessLogic.cs" />
+    <Compile Include="TablaLogicaDatos\ITablaLogicaDatosBusinessLogic.cs" />
+    <Compile Include="Resources\MotivoRechazoMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MotivoRechazoMessages.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Usuario\IUsuarioBusinessLogic.cs" />
+    <Compile Include="Pedido\BLPedidoRechazado.cs" />
     <Compile Include="BLPedidoReporteLider.cs" />
     <Compile Include="BLPedidoWeb.cs" />
     <Compile Include="BLPedidoWebAnteriores.cs" />
@@ -223,7 +232,6 @@
     <Compile Include="FtpConfiguration.cs" />
     <Compile Include="Cliente\IClienteDBBusinessLogic.cs" />
     <Compile Include="Mobile\BLApp.cs" />
-    <Compile Include="Pedido\BLPedidoRechazado.cs" />
     <Compile Include="Pedido\IPedidoRechazadoBusinessLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\ClienteValidationMessages.Designer.cs">
@@ -231,16 +239,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ClienteValidationMessages.resx</DependentUpon>
     </Compile>
-    <Compile Include="Resources\MotivoRechazoMessages.Designer.cs" />
     <Compile Include="RevistaDigital\BLRevistaDigitalSuscripcion.cs" />
     <Compile Include="Resources\PedidoInsertMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PedidoInsertMessages.resx</DependentUpon>
     </Compile>
-    <Compile Include="TablaLogicaDatos\ITablaLogicaDatosBusinessLogic.cs" />
     <Compile Include="Usuario\BLUsuario.cs" />
-    <Compile Include="Usuario\IUsuarioBusinessLogic.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Portal.Consultoras.Common\Portal.Consultoras.Common.csproj">
