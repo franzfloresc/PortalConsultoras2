@@ -162,7 +162,7 @@ function EstrategiaVerDetalleGeneral(estrategia) {
 
         EstrategiaGuardarTemporal(estrategia);
 
-        estrategia.Detalle = EstrategiaVerDetalleSet(estrategia.CUV2);
+        estrategia.Detalle = EstrategiaCargarCuv(estrategia.CUV2);
         AbrirLoad();
         estrategia.Linea = "0px";
         if (estrategia.Detalle.length > 0) {
@@ -224,26 +224,6 @@ function EstrategiaVerDetalleGeneral(estrategia) {
     EstrategiaMostrarMasTonos(true);
     TrackingJetloreView(estrategia.CUV2, $("#hdCampaniaCodigo").val());
 
-}
-
-function EstrategiaVerDetalleSet(cuv) {
-    AbrirLoad();
-    var detalle = new Array();
-    $.ajax({
-        type: 'GET',
-        url: baseUrl + 'OfertasParaTi/ConsultarEstrategiaSet?cuv=' + cuv,
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        async: false,
-        success: function (data) {
-            detalle = data || new Array();
-        },
-        error: function (error, x) {
-            console.log(error, x);
-        }
-    });
-    CerrarLoad();
-    return detalle;
 }
 
 function EstrategiaMostrarMasTonos(menos) {
