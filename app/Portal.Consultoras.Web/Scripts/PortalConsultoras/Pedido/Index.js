@@ -274,6 +274,7 @@ $(document).ready(function () {
     });
     $("body").on("mouseleave", ".cantidad_detalle_focus", function () {
         var idPed = $(this).find("input.liquidacion_rango_cantidad_pedido").attr('data-pedido');
+        _idPed = idPed;
         var cant = $('#txtLPCant' + idPed).val();
         var cantAnti = $('#txtLPTempCant' + idPed).val();
         if (cant == cantAnti) {
@@ -779,11 +780,12 @@ function ValidarStockEstrategia() {
     }
 
     var cantidadSol = $("#txtCantidad").val();
+    var pprecio = $("#txtPrecioR").val(); //EPD-2337
 
     var param = {
         MarcaID: 0,
         CUV: CUV,
-        PrecioUnidad: 0,
+        PrecioUnidad: pprecio,
         Descripcion: 0,
         Cantidad: cantidadSol,
         IndicadorMontoMinimo: 0,
@@ -799,14 +801,14 @@ function ValidarStockEstrategia() {
         async: false,
         success: function (datos) {
             if (checkTimeout(datos)) {
-            success = datos.result;
-            message = datos.message;
+                success = datos.result;
+                message = datos.message;
             }
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
-            resultado = false;
-        }
+                resultado = false;
+            }
         }
     });
 
@@ -883,7 +885,7 @@ function InsertarProducto(form) {
         error: function (response, x, xh, xhr) {
             if (checkTimeout(response)) {
                 //console.error(xh);
-        }
+            }
         }
     });
 }
@@ -1695,7 +1697,7 @@ function ObservacionesProducto(item) {
 
         $("#divObservaciones").html("");
 
-        if (sesionEsShowRoom == "1") {
+        if (sesionEsShowRoom) {
             $("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'><span class='icono_advertencia_notificacion'></span>Este producto sólo se puede agregar desde la sección de Pre-venta Digital.</div></div>");
         } else {
             $("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'><span class='icono_advertencia_notificacion'></span>Esta promoción no se encuentra disponible.</div></div>");
@@ -1717,7 +1719,8 @@ function ObservacionesProducto(item) {
                     $("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>Producto de ExpoOferta.</div></div>");
                 }
                 if (item.CUVRevista.length != 0 && item.DesactivaRevistaGana == 0) {
-                    $("#divObservaciones").html("<div id='divProdRevista' class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>" + mensajeCUVOfertaEspecial + "</div></div>");                    
+                    if (!item.TieneRDC)
+                        $("#divObservaciones").html("<div id='divProdRevista' class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>" + mensajeCUVOfertaEspecial + "</div></div>");
                 }
 
                 if (item.MensajeCUV != null) {
@@ -1781,7 +1784,7 @@ function ObservacionesProducto(item) {
     $("#txtCantidad").focus();
     
     if (item.TipoOfertaSisID == "1707") {
-        if (sesionEsShowRoom != "1") {
+        if (!sesionEsShowRoom) {
             $("#txtDescripcionProd").val("");
             $("#hdfDescripcionProd").val("");
             $("#txtPrecioR").val("");
@@ -2191,32 +2194,31 @@ function EjecutarServicioPROL() {
         contentType: 'application/json; charset=utf-8',
         success: function (response) {
             if (checkTimeout(response)) {
-            RespuestaEjecutarServicioPROL(response);
+                RespuestaEjecutarServicioPROL(response);
 
-            var montoEscala = response.data.MontoEscala;
-            var montoPedido = response.data.Total - response.data.MontoDescuento;
+                var montoEscala = response.data.MontoEscala;
+                var montoPedido = response.data.Total - response.data.MontoDescuento;
 
-            var codigoMensajeProl = response.data.CodigoMensajeProl;
-            var cumpleOferta;
-
-            if (response.data.Reserva == true) {
-                if (response.data.ZonaValida == true) {
-                    if (response.data.ObservacionInformativa == false) {
-                        cumpleOferta = CumpleOfertaFinalMostrar(montoPedido, montoEscala, 1, codigoMensajeProl, response.data.ListaObservacionesProl);
-                        if (cumpleOferta.resultado) {
-                            esPedidoValidado = response.data.ProlSinStock != true;
+                var codigoMensajeProl = response.data.CodigoMensajeProl;
+                var cumpleOferta;
+                if (response.data.Reserva == true) {
+                    if (response.data.ZonaValida == true) {
+                        if (response.data.ObservacionInformativa == false) {
+                            cumpleOferta = CumpleOfertaFinalMostrar(montoPedido, montoEscala, 1, codigoMensajeProl, response.data.ListaObservacionesProl);
+                            if (cumpleOferta.resultado) {
+                                esPedidoValidado = response.data.ProlSinStock != true;
                                 FlagEnviarCorreo = true; //EPD-2378
-                        } else {
-                            if (response.data.ProlSinStock == true) {
-                                showDialog("divReservaSatisfactoria3");
-                                CargarDetallePedido();
                             } else {
-                                $('#dialog_divReservaSatisfactoria').show(); //EPD-2278
-                                AnalyticsGuardarValidar(response);
-                                AnalyticsPedidoValidado(response);
-                                setTimeout(function () {
-                                    location.href = baseUrl + 'Pedido/PedidoValidado';
-                                }, 3000);
+                                if (response.data.ProlSinStock == true) {
+                                    showDialog("divReservaSatisfactoria3");
+                                    CargarDetallePedido();
+                                } else {
+                                    $('#dialog_divReservaSatisfactoria').show(); //EPD-2278
+                                    AnalyticsGuardarValidar(response);
+                                    AnalyticsPedidoValidado(response);
+                                    setTimeout(function () {
+                                        location.href = baseUrl + 'Pedido/PedidoValidado';
+                                    }, 3000);
                                     /*** EPD-2378 ***/
                                     if (!FlagEnviarCorreo && response.flagCorreo == '1')
                                         EnviarCorreoPedidoReservado();
@@ -2231,7 +2233,6 @@ function EjecutarServicioPROL() {
                         if (!cumpleOferta.resultado) {
                             $('#DivObsBut').css({ "display": "none" });
                             $('#DivObsInfBut').css({ "display": "block" });
-
                             showDialog("divObservacionesPROL");
                             $("#divObservacionesPROL").css("width", "600px").parent().css("left", "372px");
                         }
@@ -2945,6 +2946,7 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
         return false;
     }
 
+    var PrecioUnidad = $('#hdfLPPrecioU' + PedidoDetalleID).val();
     if (TipoOfertaSisID == constConfiguracionOfertaLiquidacion) {
         var PROL = $("#hdValidarPROL").val();
 
@@ -2968,21 +2970,24 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
 
         var Flag = 0;
         var StockNuevo = 0;
+        StockNuevo = parseInt(Cantidad) - parseInt(CantidadAnti);
         if (parseInt(CantidadAnti) > parseInt(Cantidad)) {
             Flag = 1;
-            StockNuevo = parseInt(CantidadAnti) - parseInt(Cantidad);
         } else if (parseInt(Cantidad) > parseInt(CantidadAnti)) {
             Flag = 2;
-            StockNuevo = parseInt(Cantidad) - parseInt(CantidadAnti);
         }
 
-        var PrecioUnidad = $('#hdfLPPrecioU' + PedidoDetalleID).val();
         if (CliDes.length == 0) {
             CliID = 0;
         }
         AbrirSplash();
-        $.getJSON(baseUrl + 'OfertaLiquidacion/ValidarUnidadesPermitidasPedidoProducto', { CUV: CUV }, function (data) {
+        $.getJSON(baseUrl + 'OfertaLiquidacion/ValidarUnidadesPermitidasPedidoProducto', { CUV: CUV, Cantidad: StockNuevo, PrecioUnidad: PrecioUnidad}, function (data) {
             CerrarSplash();
+            if (data.message != "") { /*Validación Pedido Máximo*/
+                AbrirMensajeEstrategia(data.message);
+                CargarDetallePedido();                
+                return false;
+            } 
             var Saldo = data.Saldo;
             var UnidadesPermitidas = data.UnidadesPermitidas;
             var CantidadPedida = data.CantidadPedida;
@@ -3121,12 +3126,13 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
             var DesProd = $('#lblLPDesProd' + PedidoDetalleID).html();
             var Flag = 0;
             var StockNuevo = 0;
+            StockNuevo = parseInt(Cantidad) - parseInt(CantidadAnti);
             if (parseInt(CantidadAnti) > parseInt(Cantidad)) {
                 Flag = 1;
-                StockNuevo = parseInt(CantidadAnti) - parseInt(Cantidad);
+                //StockNuevo = parseInt(CantidadAnti) - parseInt(Cantidad);
             } else if (parseInt(Cantidad) > parseInt(CantidadAnti)) {
                 Flag = 2;
-                StockNuevo = parseInt(Cantidad) - parseInt(CantidadAnti);
+                //StockNuevo = parseInt(Cantidad) - parseInt(CantidadAnti);
             }
             if (FlagValidacion == "1") {
                 if (CantidadAnti == Cantidad)
@@ -3155,7 +3161,12 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
             if (CliDes.length == 0) {
                 CliID = 0;
             }
-            $.getJSON(baseUrl + 'ShowRoom/ValidarUnidadesPermitidasPedidoProducto', { CUV: CUV }, function (data) {
+            $.getJSON(baseUrl + 'ShowRoom/ValidarUnidadesPermitidasPedidoProducto', { CUV: CUV, Cantidad: StockNuevo, PrecioUnidad: PrecioUnidad }, function (data) {
+                if (data.message != "") { /*Validación Pedido Máximo*/
+                    AbrirMensajeEstrategia(data.message);
+                    CargarDetallePedido();
+                    return false;
+                } 
                 var Saldo = data.Saldo;
                 var UnidadesPermitidas = data.UnidadesPermitidas;
                 var CantidadPedida = data.CantidadPedida;
@@ -3292,7 +3303,7 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
             var param = ({
                 MarcaID: 0,
                 CUV: CUV,
-                PrecioUnidad: 0,
+                PrecioUnidad: PrecioUnidad,
                 Descripcion: 0,
                 Cantidad: CantidadSoli,
                 IndicadorMontoMinimo: 0,
@@ -3308,15 +3319,14 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
                 async: true,
                 success: function (datos) {
                     if (checkTimeout(datos)) {
-                    if (!datos.result) {
-                        $('#dialog_ErrorMainLayout').find('.mensaje_agregarUnidades').text(datos.message);
-                        $('#dialog_ErrorMainLayout').show();
-                        CerrarSplash();
-                        $('#txtLPCant' + PedidoDetalleID).val(CantidadAnti);
-                        return false;
-                    } else {
-                        Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV);
-                    }
+                        if (!datos.result) {
+                            AbrirMensajeEstrategia(datos.message);
+                            CerrarSplash();
+                            $('#txtLPCant' + PedidoDetalleID).val(CantidadAnti);
+                            return false;
+                        } else {
+                            Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV);
+                        }
                     }
                 },
                 error: function (data, error) {

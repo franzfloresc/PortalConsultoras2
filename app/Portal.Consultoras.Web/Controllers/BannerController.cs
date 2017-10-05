@@ -601,8 +601,8 @@ namespace Portal.Consultoras.Web.Controllers
                 item.Clase = "";
                 if (item.Titulo.ToLower() == "c" + userData.CampaniaNro + "_revistadigital_" + userData.CodigoISO.ToLower())
                 {
-                    item.Codigo = Constantes.MenuCodigo.RevistaDigital;
-                    if (!ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
+                    item.Codigo = Constantes.BannerCodigo.RevistaDigital;
+                    if (!(userData.RevistaDigital.TieneRDC || userData.RevistaDigital.TieneRDR))
                         if (ValidarPermiso("", Constantes.ConfiguracionPais.RevistaDigitalSuscripcion))
                             if (userData.RevistaDigital.NoVolverMostrar)
                             {

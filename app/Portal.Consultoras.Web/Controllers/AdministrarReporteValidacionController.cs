@@ -106,15 +106,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         private IEnumerable<TipoEstrategiaModel> DropDowListTipoEstrategia()
         {
-            List<BETipoEstrategia> lst;
+            List<BETipoEstrategia> lst = GetTipoEstrategias();
             List<TipoEstrategiaModel> lista = new List<TipoEstrategiaModel>();
-            var entidad = new BETipoEstrategia();
-            entidad.PaisID = UserData().PaisID;
-            using (PedidoServiceClient sv = new PedidoServiceClient())
-            {
-                lst = sv.GetTipoEstrategias(entidad).ToList();
-
-            }
 
             foreach (var item in lst)
             {
