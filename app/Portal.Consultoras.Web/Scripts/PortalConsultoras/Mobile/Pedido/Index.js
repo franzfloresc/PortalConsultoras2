@@ -465,7 +465,7 @@ function ObservacionesProducto(item) {
     }
 
     if (item.TipoOfertaSisID == "1707") {
-        if (sesionEsShowRoom == "1") {
+        if (sesionEsShowRoom) {
             MostrarMensaje("mensajeCUVShowRoom", "Producto disponible sólo desde la sección de Pre-venta Digital.");
         } else {
             MostrarMensaje("mensajeCUVShowRoom", "Esta promoción no se encuentra disponible.");

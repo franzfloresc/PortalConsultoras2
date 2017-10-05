@@ -68,11 +68,9 @@ function ResponderBotmaker(url, data) {
     ShowLoading();
 
     data['userToken'] = tokenBotmaker;
-    console.log(url);
-    console.log(data);
+
     $.post(url, data)
         .done(function (response) {
-            console.log(response);
             if (!webViewFallBack) {
                 MessengerExtensions.requestCloseBrowser(
                     function success() { },

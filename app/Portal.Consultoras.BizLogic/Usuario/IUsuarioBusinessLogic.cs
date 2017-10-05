@@ -35,7 +35,7 @@ namespace Portal.Consultoras.BizLogic
         string GetUsuarioAsociado(int paisID, string codigoConsultora);
         List<BEUsuario> GetUsuarioDigitadorByFfVv(int paisID, string codigoFfvv);
         BEUsuarioExterno GetUsuarioExternoByCodigoUsuario(int paisID, string codigoUsuario);
-        BEUsuarioExterno GetUsuarioExternoByProveedorAndIdApp(string proveedor, string idAplicacion);
+        BEUsuarioExterno GetUsuarioExternoByProveedorAndIdApp(string proveedor, string idAplicacion, string fotoPerfil);
         string GetUsuarioPermisos(int paisID, string codigoUsuario, string codigoConsultora, short tipoUsuario, short rolID);
         BEUsuarioPostulante GetUsuarioPostulante(int paisID, string numeroDocumento);
         BEValidaLoginSB2 GetValidarAutoLogin(int paisID, string codigoUsuario, string proveedor);

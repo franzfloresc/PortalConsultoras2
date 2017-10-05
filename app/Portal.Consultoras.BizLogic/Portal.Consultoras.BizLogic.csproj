@@ -1,8 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
-  </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -90,10 +87,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLConfiguracionOfertasHome.cs" />
     <Compile Include="BLAsesoraOnline.cs" />
     <Compile Include="BLCupon.cs" />
     <Compile Include="Cliente\BLClienteDB.cs" />
     <Compile Include="Incentivo\BLConsultoraConcurso.cs" />
+    <Compile Include="BLFichaProducto.cs" />
     <Compile Include="BLPalabraInvalida.cs" />
     <Compile Include="BLProductoPalabra.cs" />
     <Compile Include="BLCuponConsultora.cs" />
@@ -209,7 +208,6 @@
     <Compile Include="BLTipoMeta.cs" />
     <Compile Include="BLTracking.cs" />
     <Compile Include="BLUbigeo.cs" />
-    <Compile Include="Usuario\BLUsuario.cs" />
     <Compile Include="BLValidacionAutomatica.cs" />
     <Compile Include="BLZonificacion.cs" />
     <Compile Include="CacheManager.cs" />
@@ -247,6 +245,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PedidoInsertMessages.resx</DependentUpon>
     </Compile>
+    <Compile Include="Usuario\BLUsuario.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Portal.Consultoras.Common\Portal.Consultoras.Common.csproj">
@@ -299,10 +298,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ClienteValidationMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\MotivoRechazoMessages.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>MotivoRechazoMessages.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MotivoRechazoMessages.resx" />
     <EmbeddedResource Include="Resources\PedidoInsertMessages.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>PedidoInsertMessages.Designer.cs</LastGenOutput>

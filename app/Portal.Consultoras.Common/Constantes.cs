@@ -267,6 +267,13 @@ namespace Portal.Consultoras.Common
 
         }
 
+        public class TipoFichaProducto
+        {
+            public const string SinTonos = "0";
+            public const string IndividualConTonos = "1";
+            public const string PackConTonos = "2";
+        }
+
         public class ConstSession
         {
             public const string IngresoPortalLideres = "IngresoPortalLideres";
@@ -306,6 +313,14 @@ namespace Portal.Consultoras.Common
 
             //AsesoraOnline
             public const string EmailAsesoraOnline = "EmailAsesoraOnline";
+            // Configuracion Seccion Home Contenedor de Palancas
+            public const string ListadoSeccionPalanca = "ListadoSeccionPalanca";
+
+            public const string MenuContenedor = "MenuContenedor";
+
+            public const string ListaEstrategia = "ListadoEstrategiaPedido";
+            public const string ProductoTemporal = "ProductoTemporal";
+            public const string MenuContenedorActivo = "MenuContenedorActivo";
         }
 
         public class TipoOfertaFinalCatalogoPersonalizado
@@ -495,6 +510,10 @@ namespace Portal.Consultoras.Common
             public const int DesktopMasVendidosProductPageCarrusel = 1612;
             public const int MobileHomeMasVendidosCarrusel = 2151;
             public const int MobileMasVendidosProductPageFicha = 2611;
+
+            //FichaProducto VirtualCoach
+            public const int DesktopPedidoVirtualCoach = 1231;
+            public const int MobilePedidoVirtualCoach = 2231;
         }
 
         public class TipoTutorial
@@ -531,7 +550,6 @@ namespace Portal.Consultoras.Common
             public const int Observado = 4;
         }
 
-
         public class TipoMensajeCDR
         {
             public const string Motivo = "Motivo";
@@ -556,6 +574,7 @@ namespace Portal.Consultoras.Common
             public const string ValidacionDiasFaltante = "ValidacionDiasFaltante";
             public const string DiasAntesFacturacion = "DiasAntesFacturacion";
         }
+
         public class CdrWebMensajes
         {
             public const string ZonaBloqueada = "Lo sentimos, por el momento tu zona no se encuentra disponible para realizar esta operación.";
@@ -618,7 +637,6 @@ namespace Portal.Consultoras.Common
             public const string RolSociaEmpresaria = "SE";
         }
 
-
         public class MensajeEstaEnRevista
         {
             public const string EsikaWeb = "Producto en la Guía de Negocio Ésika con oferta especial.";
@@ -659,6 +677,9 @@ namespace Portal.Consultoras.Common
                 public const string ImagenFondoTituloOfertaSubCampania = "ImagenFondoTituloOfertaSubCampania";
                 public const string ColorFondoContenidoOfertaSubCampania = "ColorFondoContenidoOfertaSubCampania";
                 public const string TextoBotonVerMasOfertaSubCampania = "TextoBotonVerMasOfertaSubCampania";
+                public const string ImagenFondoContenedorOfertasShowRoomIntriga = "ImagenFondoContenedorOfertasShowRoomIntriga";
+                public const string ImagenFondoContenedorOfertasShowRoomVenta = "ImagenFondoContenedorOfertasShowRoomVenta";
+
             }
 
             public class Mobile
@@ -677,6 +698,9 @@ namespace Portal.Consultoras.Common
                 public const string TextoTituloOfertaSubCampania = "TextoTituloOfertaSubCampania";
                 public const string ColorTextoTituloOfertaSubCampania = "ColorTextoTituloOfertaSubCampania";
                 public const string ColorFondoTituloOfertaSubCampania = "ColorFondoTituloOfertaSubCampania";
+                public const string ImagenBannerContenedorOfertasIntriga = "ImagenBannerContenedorOfertasIntriga";
+                public const string ImagenBannerContenedorOfertasVenta = "ImagenBannerContenedorOfertasVenta";
+                
             }
 
             public class TipoAplicacion
@@ -724,14 +748,17 @@ namespace Portal.Consultoras.Common
         }
 
         public class MenuCodigo
-        {
-            public const string RevistaShowRoom = "ShowRoom";
+        {            
             public const string MiNegocio = "MiNegocio";
-            public const string RevistaDigital = "RevistaDigital";
             public const string RevistaDigitalSuscripcion = "RevistaDigitalSuscripcion";
             public const string CatalogoPersonalizado = "FDTC";
-            public const string RevistaDigitalShowRoom = "RevistaDigitalShowRoom";
             public const string PedidoFIC = "PedidoFIC";
+            public const string ContenedorOfertas = "ContenedorOfertas";
+        }
+
+        public class BannerCodigo
+        {
+            public const string RevistaDigital = "RevistaDigital";
         }
 
         public class IngresoExternoPagina
@@ -745,6 +772,7 @@ namespace Portal.Consultoras.Common
             public const string MisPedidos = "MISPEDIDOS";
             public const string ShowRoom = "SHOWROOM";
             public const string ProductosAgotados = "PRODUCTOSAGOTADOS";
+            public const string Ofertas = "OFERTAS";
         }
 
         public class EstadoCuentaTipoMovimiento
@@ -814,12 +842,33 @@ namespace Portal.Consultoras.Common
 
         public class ConfiguracionPais
         {
+            public const string InicioRD = "INICIORD";
+            public const string Inicio = "INICIO";
+            public const string OfertasParaTi = "OPT";
             public const string RevistaDigital = "RD";
             public const string RevistaDigitalReducida = "RDR";
             public const string RevistaDigitalSuscripcion = "RDS";
+            public const string Lanzamiento = "LAN";
+            public const string ValidacionMontoMaximo = "MMAX";
             public const string OfertaFinalTradicional = "OFT";
             public const string OfertaFinalCrossSelling = "OFC";
             public const string OfertaFinalRegaloSorpresa = "OFR";
+            public const string ShowRoom = "SR";
+            public const string OfertaDelDia = "ODD";
+            public const string Informacion = "INFO";
+        }
+
+        public class ConfiguracionSeccion
+        {
+            public class TipoPresentacion
+            {
+                public const int CarruselSimple = 1;
+                public const int CarruselPrevisuales = 2;
+                public const int SimpleCentrado = 3;
+                public const int Banners = 4;
+                public const int ShowRoom = 5;
+                public const int OfertaDelDia = 6;
+            }
         }
 
         public class TooltipLoginUsuario
@@ -870,6 +919,16 @@ namespace Portal.Consultoras.Common
             // Lista de estrategias en session para OPT y BPT 
             public const string ListaEstrategia = "ListadoEstrategiaPedido";
             public const string ProductoTemporal = "ProductoTemporal";
+
+            public const string FichaProductoTemporal = "FichaProductoTemporal";
+        }
+
+        public class SeccionBienvenida {
+            public const string Home = "Home";
+            public const string Belcorp = "Belcorp";
+            public const string MisOfertas = "MisOfertas";
+            public const string MisAcademia = "MiAcademia";
+            public const string Footer = "Footer";
         }
 
         public class EstadoRDSuscripcion
@@ -882,6 +941,7 @@ namespace Portal.Consultoras.Common
 
         public struct TablaLogica
         {
+            public const int PersonalizacionODD = 93;
             public const int Plan20 = 98;
             public const int CDRExpress = 104;
 
@@ -1136,6 +1196,7 @@ namespace Portal.Consultoras.Common
         {
             public const string LOGIN = "LOGIN";
             public const string SOMOS_BELCORP = "SOMOS_BELCORP";
+            public const string MENU_SOMOS_BELCORP = "MENU_SOMOS_BELCORP";
         }
 
         public class EventoFestivoNombre
@@ -1144,7 +1205,49 @@ namespace Portal.Consultoras.Common
             public const string FONDO_LBEL = "FONDO_LBEL";
             public const string SALUDO = "SALUDO";
             public const string FONDO_INGPED = "FONDO_INGPED";
+            public const string GIF_MENU_OFERTAS = "GIF_MENU_OFERTAS";
+            public const string GIF_MENU_OFERTAS_BPT = "GIF_MENU_OFERTAS_BPT";
+            public const string RD_SI_D_ImagenLogo = "RD_SI_D_ImagenLogo";
+            public const string RD_SI_D_ImagenFondo = "RD_SI_D_ImagenFondo";
+            public const string RD_SI_D_TituloBanner = "RD_SI_D_TituloBanner";
+            public const string RD_SI_D_SubTituloBanner = "RD_SI_D_SubTituloBanner";
+            public const string RD_SI_M_ImagenLogo = "RD_SI_M_ImagenLogo";
+            public const string RD_SI_M_ImagenFondo = "RD_SI_M_ImagenFondo";
+            public const string RD_SI_M_TituloBanner = "RD_SI_M_TituloBanner";
+            public const string RD_SI_M_SubTituloBanner = "RD_SI_M_SubTituloBanner";
+            public const string RD_NO_D_ImagenLogo = "RD_NO_D_ImagenLogo";
+            public const string RD_NO_D_ImagenFondo = "RD_NO_D_ImagenFondo";
+            public const string RD_NO_D_TituloBanner = "RD_NO_D_TituloBanner";
+            public const string RD_NO_D_SubTituloBanner = "RD_NO_D_SubTituloBanner";
+            public const string RD_NO_M_ImagenLogo = "RD_NO_M_ImagenLogo";
+            public const string RD_NO_M_ImagenFondo = "RD_NO_M_ImagenFondo";
+            public const string RD_NO_M_TituloBanner = "RD_NO_M_TituloBanner";
+            public const string RD_NO_M_SubTituloBanner = "RD_NO_M_SubTituloBanner";
         }
         #endregion
+
+        /* 
+         * Url del contenedor
+         * Usar solo minusculas. 
+         */
+        public class UrlMenuContenedor
+        {
+            public const string Inicio = "/ofertas";
+            public const string InicioIndex = "/ofertas/index";
+            public const string InicioRevisar = "/ofertas/revisar";
+            public const string RdInicio = "/revistadigital";
+            public const string RdInicioIndex = "/revistadigital/index";
+            public const string RdComprar = "/revistadigital/comprar";
+            public const string RdRevisar = "/revistadigital/revisar";
+            public const string RdInformacion = "/revistadigital/informacion";
+            public const string RdDetalle = "/revistadigital/detalle";
+            public const string SwInicio = "/showroom";
+            public const string SwInicioIndex = "/showroom/index";
+            public const string SwIntriga = "/showroom/intriga";
+            public const string SwDetalle = "/showroom/detalleoferta";
+            public const string OptDetalle = "/ofertasparati/detalle";
+            public const string OfertaDelDia = "/ofertadeldia";
+            public const string OfertaDelDiaIndex = "/ofertadeldia/index";
+        }
     }
 }

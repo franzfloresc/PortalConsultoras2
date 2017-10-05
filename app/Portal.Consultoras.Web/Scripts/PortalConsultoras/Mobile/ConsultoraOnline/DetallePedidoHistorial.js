@@ -43,10 +43,10 @@ function CancelarSolicitud(solicitudClienteIdActual, marcaIdActual) {
                     else $('#dialog_mensajeCancelado .spnMensajeSolicitudCancelada').html(mensajeCanceladoMarcas);
                     $('#dialog_mensajeCancelado').show();
                 },
-                error: function (data) {
+                error: function (data, error) {
                     if (checkTimeout(data)) {
                         MensajeErrorCancelado('Hubieron problemas de conexion al intentar cancelar su solicitud, inténtelo más tarde.');
-                        console.log(data);
+                        console.log(data, error);
                     }
                 },
                 complete: CloseLoading

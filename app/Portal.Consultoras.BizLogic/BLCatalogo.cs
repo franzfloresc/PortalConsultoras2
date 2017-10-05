@@ -471,29 +471,13 @@ namespace Portal.Consultoras.BizLogic
 
             try
             {
-                //ServicePointManager.DefaultConnectionLimit = int.MaxValue;
-                //WebRequest.DefaultWebProxy = null;
-
                 using (var wc = new WebClient())
                 {
                     wc.Encoding = System.Text.Encoding.UTF8;
                     wc.Proxy = null;
                     response = wc.DownloadString(url);
                 }
-
-                //HttpWebRequest http = (HttpWebRequest)WebRequest.Create(url);
-                //WebResponse wresponse = http.GetResponse();
-                //var stream = wresponse.GetResponseStream();
-                //StreamReader sr = new StreamReader(stream);
-                //response = sr.ReadToEnd();
-
-                //using (System.Net.Http.HttpClient client = new System.Net.Http.HttpClient())
-                //{
-                //    System.Net.Http.HttpResponseMessage httpresponse = client.GetAsync(url).Result;
-                //    //httpresponse.EnsureSuccessStatusCode();
-                //    response = httpresponse.Content.ReadAsStringAsync().Result;
-                //}
-
+                
                 if (!string.IsNullOrEmpty(response))
                 {
                     if (response.Substring(0, 2) == "?(") response = response.Substring(2, response.Length - 3);

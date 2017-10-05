@@ -76,6 +76,7 @@ namespace Portal.Consultoras.Web.Models
             this.EsLebel = false;
             this.TieneCDRExpress = false;
             this.PopupBienvenidaCerrado = false;
+            this.ConfiguracionPais = new List<ConfiguracionPaisModel>();
         }
 
         public string Celular { get; set; }
@@ -373,6 +374,8 @@ namespace Portal.Consultoras.Web.Models
         public ConsultoraRegaloProgramaNuevasModel ConsultoraRegaloProgramaNuevas { get; set; }
         public List<MenuMobileModel> MenuMobile { get; set; }
 
+        public bool TieneValidacionMontoMaximo { get; set; } //EPD-2337
+
         public OfertaFinalModel OfertaFinalModel { get; set; }
         public string CodigosConcursos { get; set; }
         public string CodigosProgramaNuevas { get; set; }
@@ -383,5 +386,7 @@ namespace Portal.Consultoras.Web.Models
         public List<EventoFestivoModel> ListaEventoFestivo { get; set; } 
         public string EfRutaPedido { get; set; }
         public string EfSaludo { get; set; }
+
+        public List<EventoFestivoModel> ListaGifMenuContenedorOfertas{ get; set; }
     }
 }

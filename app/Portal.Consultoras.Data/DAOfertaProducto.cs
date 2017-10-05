@@ -242,7 +242,7 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteNonQuery(command);
         }
 
-        public int UpdMatrizComercialImagen(BEMatrizComercialImagen entity)
+        public int UpdMatrizComercialImagen(BEMatrizComercialImagen entity) 
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdMatrizComercialImagen");
             Context.Database.AddInParameter(command, "@IdMatrizComercialImagen", DbType.AnsiString, entity.IdMatrizComercialImagen);

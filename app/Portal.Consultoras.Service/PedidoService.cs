@@ -39,6 +39,7 @@ namespace Portal.Consultoras.Service
         private BLEstrategia blEstrategia;        
         private BLRevistaDigitalSuscripcion BLRevistaDigitalSuscripcion;
         private BLCuponConsultora BLCuponConsultora;
+        private BLFichaProducto blFichaProducto;
 
         private readonly IConsultoraConcursoBusinessLogic _consultoraConcursoBusinessLogic;
 
@@ -67,6 +68,7 @@ namespace Portal.Consultoras.Service
             blEstrategia = new BLEstrategia();
             BLRevistaDigitalSuscripcion = new BLRevistaDigitalSuscripcion();
             BLCuponConsultora = new BLCuponConsultora();
+            blFichaProducto = new BLFichaProducto();
         }
 
         public PedidoService(IConsultoraConcursoBusinessLogic consultoraConcursoBusinessLogic)
@@ -2239,6 +2241,13 @@ namespace Portal.Consultoras.Service
             return blEstrategia.AprobarProductoComentarioDetalle(paisID, entidad);
         }
 
+        #endregion
+
+        #region FichaProducto
+        public List<BEFichaProducto> GetFichaProducto(BEFichaProducto entidad)
+        {
+            return blFichaProducto.GetFichaProducto(entidad);
+        }
         #endregion
     }
 }

@@ -1,20 +1,16 @@
 ﻿using System;
-using System.Linq;
 using System.Web.Mvc;
-using System.Collections.Generic;
 using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.ServiceSeguridad;
 using Portal.Consultoras.Web.Controllers;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
-using System.Configuration;
-
-using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServicePedido;
-using AutoMapper;
+using Portal.Consultoras.Web.CustomFilters;
+using Portal.Consultoras.Web.Infraestructure;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
+    [UniqueSession("UniqueRoute", UniqueRoute.IdentifierKey, "/g/")]
     public class BaseMobileController : BaseController
     {
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
@@ -63,7 +59,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     ViewBag.PermitirCerrarBannerPL20 = permitirCerrarBanner;
                     ShowRoomBannerLateralModel showRoomBannerLateral = GetShowRoomBannerLateral();
                     ViewBag.ShowRoomBannerLateral = showRoomBannerLateral;
-                    ViewBag.MostrarShowRoomBannerLateral = Session["EsShowRoom"].ToString() != "0" &&
+                    ViewBag.MostrarShowRoomBannerLateral = sessionManager.GetEsShowRoom() &&
                         !showRoomBannerLateral.ConsultoraNoEncontrada && !showRoomBannerLateral.ConsultoraNoEncontrada &&
                         showRoomBannerLateral.BEShowRoomConsultora.EventoConsultoraID != 0 && showRoomBannerLateral.EstaActivoLateral;
 
@@ -218,9 +214,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
             string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
 
-            //if (controllerName == "CatalogoPersonalizado" && actionName == "Index") return true;
-            //if (controllerName == "CatalogoPersonalizado" && actionName == "Producto") return true;
-            //if (controllerName == "ShowRoom") return true;
             if (controllerName == "Bienvenida" && actionName == "Index") return true;
             if (controllerName == "Pedido") return true;
             if (controllerName == "CatalogoPersonalizado") return true;
@@ -228,6 +221,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (controllerName == "SeguimientoPedido") return true;
             if (controllerName == "PedidosFacturados") return true;
             if (controllerName == "OfertaLiquidacion") return true;
+            if (controllerName == "Ofertas") return true;
+            if (controllerName == "OfertaDelDia") return true;
+
             return false;
         }
 
@@ -238,9 +234,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             if (controllerName == "OfertaLiquidacion") return true;
             if (controllerName == "CatalogoPersonalizado") return true;
-            //if (controllerName == "MisPedidos") return true;
             if (controllerName == "Pedido") return true;
             if (controllerName == "ShowRoom") return true;
+            if (controllerName == "Ofertas") return true;
+            if (controllerName == "OfertaDelDia") return true;
+
             return false;
         }
 

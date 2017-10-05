@@ -62,14 +62,15 @@
     <Compile Include="BEAdministracionOfertaProducto.cs" />
     <Compile Include="BEAfiliaClienteConsultora.cs" />
     <Compile Include="BEAPISB2Response.cs" />
+    <Compile Include="BEEventoFestivo.cs" />
     <Compile Include="BEGPRBanner.cs" />
     <Compile Include="BEGPRUsuario.cs" />
-    <Compile Include="BEEventoFestivo.cs" />
     <Compile Include="Incentivo\BEIncentivoConcurso.cs" />
     <Compile Include="Incentivo\BEIncentivoNivel.cs" />
     <Compile Include="Incentivo\BEIncentivoPremio.cs" />
     <Compile Include="BETerminosCondiciones.cs" />
     <Compile Include="BEConfiguracionOfertasHome.cs" />
+    <Compile Include="BEFichaProducto.cs" />
     <Compile Include="Cliente\BEClienteRecordatorio.cs" />
     <Compile Include="BEConfiguracionPais.cs" />
     <Compile Include="BEConfiguracionPaisDetalle.cs" />
