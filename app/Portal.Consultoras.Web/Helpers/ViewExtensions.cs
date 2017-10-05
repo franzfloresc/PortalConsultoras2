@@ -31,7 +31,6 @@ namespace Portal.Consultoras.Web.Helpers
             if (viewContext.RequestContext.RouteData.Values.ContainsKey(UniqueRoute.IdentifierKey) ||
                 viewContext.RouteData.Values.ContainsKey(UniqueRoute.IdentifierKey) ||
                 viewContext.HttpContext.Request.QueryString[UniqueRoute.IdentifierKey] != null)
-
             {
                 return viewContext.RequestContext.RouteData.Values.ContainsKey(UniqueRoute.IdentifierKey)
                   ? viewContext.RequestContext.RouteData.Values[UniqueRoute.IdentifierKey].ToString()
