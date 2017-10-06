@@ -942,9 +942,11 @@ namespace Portal.Consultoras.BizLogic
 
         private string HeaderLine(TemplateField[] template, DataRow row, string codigoPais, string fechaProceso, string fechaFactura, string lote, string origen)
         {
+            
             string line = string.Empty;
             foreach (TemplateField field in template)
             {
+                
                 string item;
                 switch (field.FieldName)
                 {

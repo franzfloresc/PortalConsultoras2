@@ -437,6 +437,9 @@ namespace Portal.Consultoras.BizLogic
             foreach (var catalogoRevista in listCatalogoRevista)
             {
                 url = urlISSUUSearch + catalogoRevista.CodigoIssuu;
+                //Si el codigo de la revista es nulo el bucle continua en el siguiente objeto
+                if (string.IsNullOrEmpty(catalogoRevista.CodigoIssuu)) continue;
+
                 response = "";
                 try
                 {

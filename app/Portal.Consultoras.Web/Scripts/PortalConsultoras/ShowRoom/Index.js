@@ -4,6 +4,9 @@ var rangoPrecios = 0;
 
 $(document).ready(function () {
     $("#VerOfertaEspecial").on("click", function () {
+        $('#PopupBannerEspecial').css('display', 'block');
+        $('div.banner_especial_showroom').css('z-index', 1000);
+
         $('#content_set_especial_header').hide();
         $('#BajarOfertaEspecial').show();
         //$('.promocion_especial_header').css("background", "#fff6f4");
@@ -27,6 +30,9 @@ $(document).ready(function () {
         $('#contenedor-showroom-subcampanias').slick('slickGoTo', 1);
     });
     $("#BajarOfertaEspecial").on("click", function () {
+        $('#PopupBannerEspecial').css('display', 'none');
+        $('div.banner_especial_showroom').css('z-index', 150);
+
         $('#content_set_especial_header').show();
         $('#BajarOfertaEspecial').hide();
              

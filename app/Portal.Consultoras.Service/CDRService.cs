@@ -48,6 +48,11 @@ namespace Portal.Consultoras.Service
             return BLCDRWeb.GetCDRWeb(PaisID, entity);
         }
 
+        public List<BECDRWeb> GetCDRWebMobile(int PaisID, BECDRWeb entity)
+        {
+            return BLCDRWeb.GetCDRWeb(PaisID, entity, 1);
+        }
+
         public int UpdEstadoCDRWeb(int PaisID, BECDRWeb entity)
         {
             return BLCDRWeb.UpdEstadoCDRWeb(PaisID, entity);
