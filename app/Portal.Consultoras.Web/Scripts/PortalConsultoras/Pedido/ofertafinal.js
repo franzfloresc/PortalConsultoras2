@@ -300,6 +300,7 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
         }
     }
 
+    debugger;
     if (consultoraRegaloPN == 'True') {
         mostrarMensajeRegaloPN(objOf.TipoMeta, objOf.TotalPedido, objOf.MetaMontoStr, objOf.Simbolo, 1)
     }
@@ -468,6 +469,7 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
     var tipoMeta = $("#divOfertaFinal div[data-meta]").attr("data-meta") || data.TipoMeta;
     var simbolo = $("#hdSimbolo").val();
 
+    debugger;
     if (consultoraRegaloPN == 'True') {
         var mm = $("#msjOfertaFinal").attr("data-meta-monto");
         var mt = $("#divOfertaFinal div[data-meta-total]").attr("data-meta-total");
@@ -593,11 +595,12 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
 }
 
 function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simbolo, flag) {
+    debugger;
     if (oRegaloPN == null)
         oRegaloPN = GetRegaloProgramaNuevas();
 
     if (oRegaloPN != null) {
-        var msgRegalo = "";
+        var mensaje = "", mensaje2 = "";
         var disclaimer = "";
         var nivel = oRegaloPN.CodigoNivel;
         var montoMeta = 0;
@@ -607,29 +610,42 @@ function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simbolo, flag)
         if (nivel == '01' || nivel == '02' || nivel == '03') {
             if (tipoMeta == 'MM') {
                 if (montoTotal >= montoMeta) {
-                    msgRegalo = '<b>¡GANASTE UN ' + oRegaloPN.DescripcionPremio + '!</b>';
-                    disclaimer = '*En caso tu pedido no tenga observaciones y se mantenga en el monto mínimo';
+                    mensaje = '<b>¡LLEGASTE AL MONTO MÍNIMO <br />Y GANASTE UN ' + oRegaloPN.DescripcionPremio + '*!</b>';
+                    disclaimer = '*En caso tu pedido no tenga observaciones y supere el monto mínimo.';
                 }
                 else {
-                    msgRegalo = 'LLEGA AL MONTO MINIMO Y <b>GANA UN ' + oRegaloPN.DescripcionPremio + '.'
+                    mensaje = 'ALCÁNZALO CON ESTAS OFERTAS Y <b>GANA UN ' + oRegaloPN.DescripcionPremio + '*,</b>';
                     if (oRegaloPN.PrecioCatalogo > 0)
-                        msgRegalo += ' PUEDES VENDERLO A ' + simbolo + ' ' + oRegaloPN.PrecioCatalogoFormat + '</b>';
+                        mensaje += ' PUEDES VENDERLO A ' + simbolo + ' ' + oRegaloPN.PrecioCatalogoFormat;
+                    disclaimer = '*En caso tu pedido no tenga observaciones y supere el monto mínimo.';
                 }
             }
             else {
-                msgRegalo = '<b>¡GANASTE UN ' + oRegaloPN.DescripcionPremio + '!</b>';
+                mensaje = '<b>¡GANASTE UN ' + oRegaloPN.DescripcionPremio + '!</b>';
                 disclaimer = '*En caso tu pedido no tenga observaciones y se mantenga en el monto mínimo';
             }
         }
         else if (nivel == '04' || nivel == '05' || nivel == '06') {
-            if (oRegaloPN.TippingPoint > 0) {
-                if (montoTotal >= oRegaloPN.TippingPoint) {
-                    msgRegalo = '<b>¡GANASTE UN ' + oRegaloPN.DescripcionPremio + '!</b>';
-                    disclaimer = '*En caso tu pedido no tenga observaciones y se mantenga en un monto mínimo de ' + simbolo + ' ' + oRegaloPN.TippingPointFormat;
-                }
-                else {
-                    var stp = (oRegaloPN.TippingPoint - parseFloat(montoTotal)).toFixed(2);
-                    msgRegalo = '<b>AGREGA ' + simbolo + ' ' + DecimalToStringFormat(parseFloat(stp)) + ' PARA GANARTE UN ' + oRegaloPN.DescripcionPremio + ' Y ACCEDER A OFERTAS EXCLUSIVAS</b>';
+            if (tipoMeta == 'MM') {
+                var stp = (oRegaloPN.TippingPoint - parseFloat(montoTotal));
+                mensaje = 'AGREGA ' + simbolo + ' ' + DecimalToStringFormat(parseFloat(stp)) + ' PARA <b>GANAR UN ' + oRegaloPN.DescripcionPremio + '*</b>';
+                mensaje += 'Y ACCEDER A PACKS EXCLUSIVOS NUEVAS**';
+                disclaimer = '*En caso tu pedido no tenga observaciones y supere monto mínimo. **Encuéntralos en la seccion de Oferta para Ti.';
+            }
+            else {
+                if (oRegaloPN.TippingPoint > 0) {
+                    if (montoTotal >= oRegaloPN.TippingPoint) {
+                        mensaje = '<b>¡LLEGASTE AL MONTO MÍNIMO <br />Y GANASTE UN ' + oRegaloPN.DescripcionPremio + '*!</b>';
+                        mensaje += ',AHORA PUEDES ACCEDER A PACKS EXCLUSIVOS NUEVAS**';
+                        disclaimer = '*En caso tu pedido no tenga observaciones y se mantenga en un monto mínimo de ' + simbolo + ' ' + oRegaloPN.TippingPointFormat;
+                    }
+                    else {
+                        var stp = (oRegaloPN.TippingPoint - parseFloat(montoTotal));
+                        mensaje = '<b>¡LLEGASTE AL MONTO MÍNIMO!</b>';
+                        mensaje2 += 'AGREGA ' + simbolo + ' ' + DecimalToStringFormat(parseFloat(stp)) + ' PARA <b>GANAR UN ' + oRegaloPN.DescripcionPremio + '*</b>';
+                        mensaje2 += 'Y ACCEDER A PACKS EXCLUSIVOS NUEVAS**';
+                        disclaimer = '*En caso tu pedido no tenga observaciones y supere monto mínimo, **Encuéntralos en la seccion de Oferta para Ti.';
+                    }
                 }
             }
         }
@@ -642,8 +658,10 @@ function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simbolo, flag)
         else {
             $('#msg-regalo-pn').css('padding-top', '15px');
         }
-        $('#msg-regalo-pn').html(msgRegalo);
-        $('#msg-regalo-pn2').html(msgRegalo);   // mobile
+
+        $('#msg-regalo-pn').html(mensaje);
+        $('#msg-regalo-pn2').html(mensaje);   // mobile
+
         if (disclaimer != "") {
             $('#txt-disclaimer-pn').html(disclaimer);
         }
@@ -710,8 +728,10 @@ function CumpleOfertaFinalMostrar(montoPedido, montoEscala, tipoPopupMostrar, co
     if (tipoOrigen == "1") AbrirSplash();
     else ShowLoading();
 
+    debugger;
     var cumpleOferta = CumpleOfertaFinal(montoPedido, montoEscala, tipoPopupMostrar, codigoMensajeProl, listaObservacionesProl);
     if (cumpleOferta.resultado) {
+        debugger;
         cumpleOferta.resultado = MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar);
     }
     return cumpleOferta;
