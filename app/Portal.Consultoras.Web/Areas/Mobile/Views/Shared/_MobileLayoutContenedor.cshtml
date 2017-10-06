@@ -140,7 +140,7 @@
     <!-- header -->
     <header id="new-header">
         <!--BANNER-->
-        @if (ViewBag.mostrarBannerPostulante == true)
+        @if (ViewBag.mostrarBannerPostulante == true && !esIngresoUnico)
         {
             <div id="bloquemensajesPostulante" style="display:none;">
                 @*<div class="oscurecer_animacion"></div>*@
@@ -164,7 +164,7 @@
                 </div>
             </div>
         }
-        else if (ViewBag.MostrarBannerRechazo == true)
+        else if (ViewBag.MostrarBannerRechazo == true && !esIngresoUnico)
         {
             <div id="bloquemensajesPedido" style="display:none;">
                 @*<div class="oscurecer_animacion"></div>*@
