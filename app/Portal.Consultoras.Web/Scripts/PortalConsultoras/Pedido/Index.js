@@ -1146,7 +1146,9 @@ function ValidarCliente() {
     }
 }
 
-function ValidarClienteFocus() {
+function ValidarClienteFocus(event) {
+    event = event || window.event;
+
     if (event.keyCode == 9) {
         if ($("#btnAgregar")[0].disabled == true) {
             if (event.preventDefault)
@@ -1324,7 +1326,7 @@ function showClienteDetalle(cliente, pClienteDetalleOK, pClienteDetalleCANCEL) {
 //    });
 //}
 
-function Tabular() {
+function Tabular(event) {
     if (event.keyCode == 9) {
         if (event.preventDefault)
             event.preventDefault();
