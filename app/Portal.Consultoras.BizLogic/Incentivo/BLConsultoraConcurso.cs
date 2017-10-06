@@ -379,6 +379,8 @@ namespace Portal.Consultoras.BizLogic
 
             DAConcurso DAConcurso = new DAConcurso(paisID);
 
+            string paisISO = Util.GetPaisISO(paisID);
+
             using (IDataReader reader = DAConcurso.ObtenerIncentivosProgramaNuevasConsultora(codigoConsultora, codigoCampania))
             {
                 incentivosConcursos = reader.MapToCollection<BEIncentivoConcurso>();
@@ -397,6 +399,11 @@ namespace Portal.Consultoras.BizLogic
                 {
                     item.PremiosProgramaNuevas = incentivosPremios.Where(p => p.CodigoConcurso == item.CodigoConcurso).ToList();
                     item.CuponesProgramaNuevas = incentivosCupon.Where(p => p.CodigoConcurso == item.CodigoConcurso).ToList();
+
+                    if (item.PremiosProgramaNuevas.Any())
+                        item.UrlBannerPremiosProgramaNuevas = string.Format(Resources.IncentivoMessages.UrlBannerPremiosProgramaNuevas, ConfigS3.GetUrlS3(string.Empty), paisISO, Dictionaries.IncentivoProgramaNuevasNiveles[item.CodigoNivelProgramaNuevas], item.CodigoConcurso);
+                    if (item.CuponesProgramaNuevas.Any())
+                        item.UrlBannerCuponesProgramaNuevas = string.Format(Resources.IncentivoMessages.UrlBannerCuponesProgramaNuevas, ConfigS3.GetUrlS3(string.Empty), paisISO, Dictionaries.IncentivoProgramaNuevasNiveles[item.CodigoNivelProgramaNuevas], item.CodigoConcurso);
                 }
             }
 
