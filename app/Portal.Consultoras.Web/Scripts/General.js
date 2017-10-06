@@ -110,6 +110,13 @@ jQuery(document).ready(function () {
         return newStr;
     };
 
+    if (!String.prototype.startsWith) {
+        String.prototype.startsWith = function (stringBuscada, posicion) {
+            posicion = posicion || 0;
+            return this.indexOf(stringBuscada, posicion) === posicion;
+        };
+    };
+
     Right = function (str, n) {
         if (n <= 0)
             return "";

@@ -129,9 +129,9 @@
         }
     });
 
-    $("body").on('click', '.indicador_ayuda', function (e) {
+    $("body").on('click', '.belcorpChat, .indicador_ayuda', function (e) {
         e.preventDefault();
-        //console.log('carga BelcorpChat');
+
         var URL = location.protocol + "//" + location.host + "/Mobile/Bienvenida/ChatBelcorp";
         var PopUpChatOpened = localStorage.getItem('PopUpChatOpened');
        
@@ -793,7 +793,7 @@ function messageInfoError(message, fnAceptar) {
 
     $('#popupInformacionSB2Error .btn_ok_mobile').on('click', function () {
         $('#popupInformacionSB2Error').hide();
-        fnAceptar();
+        //fnAceptar();
     });
 
     //if ($.isFunction(fnAceptar)) {
@@ -808,6 +808,15 @@ function messageInfoValidado(message, fnAceptar) {
     if ($.isFunction(fnAceptar)) {
         $('#popupInformacionValidado .btn_ok_mobile').off('click');
         $('#popupInformacionValidado .btn_ok_mobile').on('click', fnAceptar);
+    }
+}
+
+function messageConfirmacion(message, fnAceptar) {
+    $('#mensajeInformacionConfirmacion').html(message);
+    $('#popupInformacionConfirmacion').show();
+    if ($.isFunction(fnAceptar)) {
+        $('#popupInformacionConfirmacion .aceptar-mobile').off('click');
+        $('#popupInformacionConfirmacion .aceptar-mobile').on('click', fnAceptar);
     }
 }
 
