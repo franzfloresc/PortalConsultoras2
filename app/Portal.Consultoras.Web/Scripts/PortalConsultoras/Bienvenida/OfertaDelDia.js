@@ -93,7 +93,7 @@ $(document).ready(function () {
 
             },
             error: function (err) {
-                console.log(err);
+                checkTimeout(err);
             }
         });
     }
@@ -234,7 +234,7 @@ $(document).ready(function () {
                 }
             },
             error: function (err) {
-                console.log(err);
+                checkTimeout(err);
             }
         });
 
@@ -662,7 +662,7 @@ $(document).ready(function () {
                 }
             },
             error: function (err) {
-                console.log(err);
+                checkTimeout(err);
             }
         });
 
@@ -768,7 +768,7 @@ $(document).ready(function () {
                 }
             },
             error: function (err) {
-                console.log(err);
+                checkTimeout(err);
             }
         });
 

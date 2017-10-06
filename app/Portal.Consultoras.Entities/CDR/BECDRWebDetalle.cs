@@ -54,6 +54,13 @@ namespace Portal.Consultoras.Entities.CDR
 
         [DataMember]
         public int TipoMotivoRechazo { get; set; }
+
+        //HD-726
+        [DataMember]
+        public string FormatoPrecio1 { get; set; }
+
+        [DataMember]
+        public string FormatoPrecio2 { get; set; }
         
         public BECDRWebDetalle()
         { }   
@@ -80,8 +87,6 @@ namespace Portal.Consultoras.Entities.CDR
             if (row.HasColumn("SolucionSolicitada")) SolucionSolicitada = Convert.ToString(row["SolucionSolicitada"]);
             if (row.HasColumn("TipoMotivoRechazo")) TipoMotivoRechazo = Convert.ToInt32(row["TipoMotivoRechazo"]);
         }
-
-        
     }
 
     [DataContract]
@@ -149,6 +154,18 @@ namespace Portal.Consultoras.Entities.CDR
         [DataMember]
         public decimal MontoDevuelto { get; set; }
 
+        [DataMember]
+        public string OrigenCDRWeb { get; set; }
+
+        //EPD-2582 INICIO         
+        [DataMember]
+        public string TipoDespacho { get; set; }
+        [DataMember]
+        public decimal? FleteDespacho { get; set; }
+        [DataMember]
+        public string TipoConsultora { get; set; }
+        //EPD-2582 FIN
+
         public BECDRWebDetalleReporte()
         { }
         public BECDRWebDetalleReporte(IDataRecord row)
@@ -174,6 +191,13 @@ namespace Portal.Consultoras.Entities.CDR
             if (row.HasColumn("Reclamo")) Reclamo = Convert.ToString(row["Reclamo"]);
             if (row.HasColumn("EstadoDetalle")) EstadoDetalle = Convert.ToString(row["EstadoDetalle"]);
             if (row.HasColumn("MotivoRechazo")) MotivoRechazo = Convert.ToString(row["MotivoRechazo"]);
+            if (row.HasColumn("OrigenCDRWeb")) OrigenCDRWeb = Convert.ToString(row["OrigenCDRWeb"]);
+
+            //EPD-2582 INICIO
+            if (row.HasColumn("TipoDespacho")) TipoDespacho = (row["TipoDespacho"] ?? string.Empty).ToString();
+            if (row.HasColumn("FleteDespacho")) FleteDespacho = Convert.ToDecimal(row["FleteDespacho"] ?? 0);
+            if (row.HasColumn("TipoConsultora")) TipoConsultora = (row["TipoConsultora"] ?? string.Empty).ToString();
+            //EPD-2582 FIN
         }
     }
 }
