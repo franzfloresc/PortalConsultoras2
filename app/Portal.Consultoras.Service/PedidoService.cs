@@ -883,6 +883,11 @@ namespace Portal.Consultoras.Service
             return BLTracking.GetPedidoByConsultoraAndCampania(paisID, codigoConsultora, campania);
         }
 
+        public BETracking GetPedidoByConsultoraAndCampaniaAndNroPedido(int paisID, string codigoConsultora, int campania, string nroPedido)
+        {
+            return BLTracking.GetPedidoByConsultoraAndCampaniaAndNroPedido(paisID, codigoConsultora, campania, nroPedido);
+        }
+
         public List<BETracking> GetTrackingByPedido(int paisID, string codigo, string campana, string nropedido)
         {
             return BLTracking.GetTrackingByPedido(paisID, codigo, campana, nropedido);

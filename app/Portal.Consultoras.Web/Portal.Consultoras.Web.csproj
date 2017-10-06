@@ -3228,6 +3228,7 @@
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
     <Content Include="Scripts\PortalConsultoras\MatrizCampania\ActualizarMatrizCampaniaModule.js" />
     <Content Include="Scripts\PortalConsultoras\FichaProducto\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\Mobile\SeguimientoPedido\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\MisReclamos\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\MisReclamos\Reclamo.js" />
     <Content Include="Scripts\PortalConsultoras\ProductoComentario\ProductoComentarioAdmModule.js" />
@@ -3552,6 +3553,7 @@
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-oferta-del-dia.cshtml" />
     <Content Include="Areas\Mobile\Views\MisDatos\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\FichaProducto\ProductoNotFound.cshtml" />
+    <Content Include="Areas\Mobile\Views\SeguimientoPedido\Detalle.cshtml" />
     <Content Include="Areas\Mobile\Views\OfertaDelDia\_OfertaDelDiaBannerTop.cshtml" />
     <Content Include="Areas\Mobile\Views\OfertaDelDia\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\OfertaDelDia\_OfertaDelDiaBanner.cshtml" />

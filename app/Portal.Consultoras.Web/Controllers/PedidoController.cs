@@ -2088,7 +2088,7 @@ namespace Portal.Consultoras.Web.Controllers
                     MontoEscala = resultado.MontoEscala.ToString()
                 } };
                 }
-                if (resultado.ResultadoReservaEnum != Enumeradores.ResultadoReserva.ReservaNoDisponible)
+                if (resultado.ResultadoReservaEnum != EnumeradoresResultadoReserva.ReservaNoDisponible)
                 {
                     if (resultado.Reserva) CambioBannerGPR(true);
                 sessionManager.SetObservacionesProl(listObservacionModel);
@@ -2544,6 +2544,15 @@ namespace Portal.Consultoras.Web.Controllers
             userData.ValidacionAbierta = oBEConfiguracionCampania.ValidacionAbierta;
 
             #endregion
+
+            if (userData.EfRutaPedido == null || userData.EfRutaPedido == "")
+            {
+                ViewBag.UrlFranjaNegra = "../../../Content/Images/Esika/background_pedido.png";
+            }
+            else
+            {
+                ViewBag.UrlFranjaNegra = userData.EfRutaPedido;
+            }
 
             return View(model);
         }
@@ -3158,7 +3167,7 @@ namespace Portal.Consultoras.Web.Controllers
                     using (var sv = new PedidoServiceClient())
                     {
                         var result = sv.ValidacionModificarPedidoSelectiva(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, userData.UsuarioPrueba == 1, userData.AceptacionConsultoraDA, false, false, true);
-                        if (result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.HorarioRestringido)
+                        if (result.MotivoPedidoLock == EnumeradoresMotivoPedidoLock.HorarioRestringido)
                         {
                             mensaje = result.Mensaje;
                             estado = true;
@@ -3201,8 +3210,8 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         result = sv.ValidacionModificarPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, userData.UsuarioPrueba == 1, userData.AceptacionConsultoraDA);
                     }
-                    pedidoReservado = result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Reservado;
-                    estado = result.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno;
+                    pedidoReservado = result.MotivoPedidoLock == EnumeradoresMotivoPedidoLock.Reservado;
+                    estado = result.MotivoPedidoLock != EnumeradoresMotivoPedidoLock.Ninguno;
                     mensaje = result.Mensaje;
                 }
 
@@ -4389,8 +4398,8 @@ namespace Portal.Consultoras.Web.Controllers
                     result = sv.ValidacionModificarPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, userData.UsuarioPrueba == 1, userData.AceptacionConsultoraDA);
                 }
 
-                estado = result.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno;
-                bool pedidoReservado = result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Reservado;
+                estado = result.MotivoPedidoLock != EnumeradoresMotivoPedidoLock.Ninguno;
+                bool pedidoReservado = result.MotivoPedidoLock == EnumeradoresMotivoPedidoLock.Reservado;
 
                 if (estado)
                 {
