@@ -1229,6 +1229,7 @@
     <Content Include="Content\Images\Lbel\Contenedor\inicio_hover.png" />
     <Content Include="Content\Images\Lbel\Contenedor\inicio_normal.png" />
     <Content Include="Content\Images\mobile\Esika\Contenedor\casita_hover.png" />
+    <Content Include="Content\Images\mobile\Esika\Contenedor\inicio_hover.png" />
     <Content Include="Content\Images\mobile\Esika\Contenedor\inicio_normal.png" />
     <Content Include="Content\Images\check-acepto-terminos.png" />
     <Content Include="Content\Images\Esika\bg_regalo.png" />
