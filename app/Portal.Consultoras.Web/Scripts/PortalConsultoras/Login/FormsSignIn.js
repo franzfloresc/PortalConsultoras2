@@ -9,6 +9,7 @@ var v_IsMovilDevice = 0;
 var CodigoISO;
 var PaisID;
 var CodigoUsuario;
+var correoRecuperar = "";
 
 $(document).ready(function () {
     $(window).resize(function () {
@@ -300,7 +301,8 @@ $(document).ready(function () {
     });
 
     $("#divRecup_porcorreo").click(function () {
-        ProcesaEnvioEmail();
+        if (correoRecuperar != "")
+            ProcesaEnvioEmail();
     });
 });
 
@@ -812,8 +814,8 @@ function resizeNameUserExt() {
 }
 function Enmascarar_Correo(p_correo)
 {
-    let v_literal = "";
-    let v_correo = "";
+    var v_literal = "", v_correo = "";
+    
     v_literal = p_correo.split("@")[0];
 
     $.each(v_literal.split(""), function (index, value) {
@@ -826,9 +828,9 @@ function Enmascarar_Correo(p_correo)
 }
 
 function ProcesaEnvioEmail(){
-    let paisId = $("#cboPaisCambioClave").val();
+    var paisId = $("#cboPaisCambioClave").val();
 
-    let parametros = {
+    var parametros = {
         paisId: paisId,
         filtro: $("#txtCorreoElectronico").val(),
         EsMobile: parseInt($(".lk_chat").attr("ismovildevice"))
@@ -926,12 +928,13 @@ function RecuperarClave() {
                 $("#spsincorreo").hide();
                 $("#spsincorreo").html("");
                 $("#divRecup_porcorreo").removeClass("deshabilitar_opcion_correo");
+                correoRecuperar = $.trim(response.correo);
             } else {
                 $("#spcorreo").hide();                
                 $("#spsincorreo").show();
                 $("#spcorreo").html("");
                 $("#divRecup_porcorreo").addClass("deshabilitar_opcion_correo");
-                $("#divRecup_porcorreo").unbind("click");
+                correoRecuperar = "";
             }
 
             $("#hdCodigoConsultora").val(response.codigo);
