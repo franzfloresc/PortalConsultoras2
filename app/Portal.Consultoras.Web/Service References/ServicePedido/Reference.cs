@@ -10694,6 +10694,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private int EtiquetaID2Field;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int FactorCuadreField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.DateTime FechaInicioFacturacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -11218,6 +11221,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.EtiquetaID2Field.Equals(value) != true)) {
                     this.EtiquetaID2Field = value;
                     this.RaisePropertyChanged("EtiquetaID2");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int FactorCuadre {
+            get {
+                return this.FactorCuadreField;
+            }
+            set {
+                if ((this.FactorCuadreField.Equals(value) != true)) {
+                    this.FactorCuadreField = value;
+                    this.RaisePropertyChanged("FactorCuadre");
                 }
             }
         }

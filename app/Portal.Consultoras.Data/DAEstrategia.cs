@@ -356,7 +356,8 @@ namespace Portal.Consultoras.Data
                 UsuarioCreacion = codigoUsuario,
                 FotoProducto01 = item.ImagenURL,
                 CodigoEstrategia = item.CodigoEstrategia,
-                TieneVariedad = item.TieneVariedad
+                TieneVariedad = item.TieneVariedad,
+                FactorCuadre = item.FactorCuadre
                 
             }).ToList();
 

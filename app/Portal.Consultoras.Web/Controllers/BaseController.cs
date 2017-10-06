@@ -2774,19 +2774,28 @@ namespace Portal.Consultoras.Web.Controllers
             return url.Contains("/mobile/");
         }
 
-        public List<BETablaLogicaDatos> ObtenerParametrosTablaLogica(int paisID, short tablaLogicaId)
+        public List<BETablaLogicaDatos> ObtenerParametrosTablaLogica(int paisID, short tablaLogicaId, bool sesion = false)
         {
-            var datos = new List<BETablaLogicaDatos>();
-            using (var svc = new SACServiceClient())
+            var datos = sesion ? (List<BETablaLogicaDatos>)Session[Constantes.ConstSession.TablaLogicaDatos + tablaLogicaId.ToString()] : null;
+            if (datos == null)
             {
-                datos = svc.GetTablaLogicaDatos(paisID, tablaLogicaId).ToList();
+                datos = new List<BETablaLogicaDatos>();
+                using (SACServiceClient sv = new SACServiceClient())
+                {
+                    datos = sv.GetTablaLogicaDatos(userData.PaisID, tablaLogicaId).ToList();
+                }
+                datos = datos ?? new List<BETablaLogicaDatos>();
+
+                if (sesion)
+                    Session[Constantes.ConstSession.TablaLogicaDatos + tablaLogicaId.ToString()] = datos;
             }
+
             return datos;
         }
 
-        public string ObtenerValorTablaLogica(int paisID, short tablaLogicaId, short idTablaLogicaDatos)
+        public string ObtenerValorTablaLogica(int paisID, short tablaLogicaId, short idTablaLogicaDatos, bool sesion = false)
         {
-            return ObtenerValorTablaLogica(ObtenerParametrosTablaLogica(paisID, tablaLogicaId), idTablaLogicaDatos);
+            return ObtenerValorTablaLogica(ObtenerParametrosTablaLogica(paisID, tablaLogicaId, sesion), idTablaLogicaDatos);
         }
 
         public string ObtenerValorTablaLogica(List<BETablaLogicaDatos> datos, short idTablaLogicaDatos)
@@ -2794,11 +2803,8 @@ namespace Portal.Consultoras.Web.Controllers
             var valor = "";
             if (datos.Any())
             {
-                var par = datos.FirstOrDefault(d => d.TablaLogicaDatosID == idTablaLogicaDatos);
-                if (par != null)
-                {
-                    valor = par.Codigo;
-                }
+                var par = datos.FirstOrDefault(d => d.TablaLogicaDatosID == idTablaLogicaDatos) ?? new BETablaLogicaDatos();
+                valor = Util.Trim(par.Codigo); 
             }
             return valor;
         }

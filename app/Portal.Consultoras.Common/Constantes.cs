@@ -126,6 +126,7 @@ namespace Portal.Consultoras.Common
             public const int BusquedaNemotecnicoOfertaLiquidacion = 9852;
             public const int BusquedaNemotecnicoProductoSugerido = 9853;
             public const int BusquedaNemotecnicoZonaEstrategia = 9854;
+            public const int Tonos = 9802;
         }
 
         public class ParametrosNames
