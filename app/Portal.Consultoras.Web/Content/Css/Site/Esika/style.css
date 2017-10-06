@@ -35491,7 +35491,9 @@ h1#penmostreo .campana {
     letter-spacing: 0.2px;
     color:#6a6a6a;
     margin-top: -5px;
+    padding-bottom: 10px;
 }
+
 .contenedor-texto-agregar{
     display:block;
 }
