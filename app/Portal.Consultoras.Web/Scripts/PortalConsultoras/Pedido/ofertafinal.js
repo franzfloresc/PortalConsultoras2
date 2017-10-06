@@ -251,7 +251,7 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
     $('.js-slick-next-' + aux).remove();
     $('#divCarruselOfertaFinal.slick-initialized').slick('unslick');
 
-    $('div.popup_ofertaFinal').removeClass('fondo_gris_OF');
+    //$('div.popup_ofertaFinal').removeClass('fondo_gris_OF');
     $('#divOfertaFinal').html('<div style="text-align: center;">Actualizando Productos de Oferta Final<br><img src="' + urlLoad + '" /></div>');
 
     var objOf = cumpleOferta.productosMostrar[0];
@@ -423,7 +423,7 @@ function MostrarOfertaFinalRegalo(totalPedido) {
         }
         if (tipoOrigen == '1') {
             $(container).show();
-            $('div.popup_ofertaFinal').addClass('fondo_gris_OF');
+            //$('div.popup_ofertaFinal').addClass('fondo_gris_OF');
         }
     }
 }
@@ -634,10 +634,10 @@ function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simbolo, flag)
             }
         }
 
-        $('#img-regalo-pn').hide();
+        //$('#img-regalo-pn').hide();
         if (oRegaloPN.UrlImagenRegalo != null && oRegaloPN.UrlImagenRegalo != "") {
             $('#img-regalo-pn').attr('src', oRegaloPN.UrlImagenRegalo);
-            $('#img-regalo-pn').show();
+            //$('#img-regalo-pn').show();
         }
         else {
             $('#msg-regalo-pn').css('padding-top', '15px');
@@ -649,7 +649,7 @@ function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simbolo, flag)
         }
         $('#div-regalo-pn').show();
         $('#txt-disclaimer-pn').show();
-        $('div.popup_ofertaFinal').addClass('fondo_gris_OF');
+        //$('div.popup_ofertaFinal').addClass('fondo_gris_OF');
     }
 }
 
