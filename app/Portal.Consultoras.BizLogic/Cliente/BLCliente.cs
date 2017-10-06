@@ -328,6 +328,7 @@ namespace Portal.Consultoras.BizLogic
                                 TipoContactoFavorito = tblConsultoraCliente.TipoContactoFavorito,
                                 Saldo = tblClienteDetalle.Saldo,
                                 CantidadProductos = tblClienteDetalle.CantidadProductos,
+                                MontoPedido = tblClienteDetalle.MontoPedido,
                                 Contactos = tblConsultoraCliente.Contactos,
                                 Recordatorios = recordatorios.Where(r => r.ClienteId == tblConsultoraCliente.ClienteID).ToList(),
                                 Notas = notas.Data.Where(r => r.ClienteId == tblConsultoraCliente.ClienteID).ToList()
@@ -343,11 +344,7 @@ namespace Portal.Consultoras.BizLogic
 
             using (IDataReader reader = DACliente.GetClienteByConsultoraDetalle(consultoraID, campaniaID, clienteID))
             {
-                while (reader.Read())
-                {
-                    var cliente = new BECliente(reader);
-                    clientes.Add(cliente);
-                }
+                clientes = reader.MapToCollection<BECliente>();
             }
 
             return clientes;
