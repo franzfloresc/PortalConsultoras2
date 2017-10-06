@@ -4940,10 +4940,11 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     margin-top:10px;
     padding:0;
     font-family:'Lato';
-    font-size:23px;
-    color:#000;
-    font-weight:300!important;
+    font-size: 22px;
+    color: #000000;
+    font-weight: bold !important;
     text-align:center;
+    letter-spacing: 1px;
     margin-bottom:3px;
 }
 
@@ -4966,7 +4967,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 
 .contenedor_bloques_agregaProductos{
    display: block;
-    background: #f5f5f5;
+    /* background: #f5f5f5; */
     height: auto;
     padding-top: 25px;
     /* padding-bottom: 20px; */
@@ -27006,8 +27007,8 @@ position: relative; float: left;
     width:100%;
 }
 .icono_mensaje_alerta{
-    width:60px;
-    height:60px;
+    width: 40px;
+    height: 40px;
     margin:0 auto;
 }
 .icono_check_alerta{
@@ -35398,25 +35399,72 @@ h1#penmostreo .campana {
 /*SPRINT 13*/
 
 .content_producto_alternativo{
-    margin-top: -40px;
-    margin-bottom: 23px;
     text-align:center;
-    height:52px;
-    background:white;
-    width:100%;
-    -webkit-box-shadow: 0px 3px 22px -1px rgba(0,0,0,0.25);
-    -moz-box-shadow: 0px 3px 22px -1px rgba(0,0,0,0.25);
-    box-shadow: 0px 3px 22px -1px rgba(0,0,0,0.25);
+    height: 55px;
 }
 .content_imagen_alternativo{
-    width:45px;
-    height:auto;
+    width: 55px;
+    height: 55px;
     display:inline-block;
-    vertical-align:middle
+    vertical-align:middle;
 }
 .content_imagen_alternativo img{
-    width:100%;
+    width: 55px;
+    height: 55px;
 }
+
+.numero_pedido {
+    position: relative;
+    margin-top: -40px;
+    margin-bottom: 20px;
+}
+
+.numero_pedido_fondo {
+    width: auto;
+    float: left;
+    height: 42px;
+}
+
+.numero_pedido_fondo img {
+    position: absolute;
+    float: left;
+    width: auto;
+    height: 42px;
+}
+
+.content-texto-numero-pedido {
+    width: auto;
+    position: absolute;
+    color: white;
+    float: left;
+    padding: 1.3%;
+}
+
+.numero_pd {
+    font-family: 'Austin';
+    font-size: 33px;
+    font-weight: normal;
+    font-style: italic;
+    line-height: 0.36;
+    letter-spacing: 1px;
+}
+
+.posicion_pd {
+    font-family: 'Austin';
+    font-size: 21px;
+    font-weight: normal;
+    font-style: italic;
+    line-height: 0.57;
+    letter-spacing: 1px;
+}
+
+.texto_pd {
+    font-family: 'Lato';
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 0.75;
+}
+
 .content-texto-producto-alternativo{
     display:inline-block;
     padding-left:10px;
@@ -35426,7 +35474,7 @@ h1#penmostreo .campana {
     color:black;
     vertical-align:middle;
     padding-top:5px;
-    
+    max-width: 485px;
 }
 .content-texto-producto-alternativo b{
     font-weight:900 !important;
@@ -35437,11 +35485,12 @@ h1#penmostreo .campana {
 
 .txt-ayuda1-pn{
     font-family:'Lato';
-    font-size:13px;
+    font-size: 11px;
     text-align:center;
-    margin-top:15px;
+    line-height: 1.09;
+    letter-spacing: 0.2px;
     color:#6a6a6a;
-    margin-bottom:20px;
+    margin-top: -5px;
 }
 .contenedor-texto-agregar{
     display:block;
@@ -35957,7 +36006,7 @@ h1#penmostreo .campana {
 }
 
 .bloque_detalle_gris{
-    background: #f5f5f5;
+    /*background: #f5f5f5;*/
     height: 150px;
     position: absolute;
     width: 100%;

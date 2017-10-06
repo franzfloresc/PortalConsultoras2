@@ -2163,13 +2163,17 @@ else
             <b>TE FALTA AGREGAR: <span id="of-regalo-montosaldo">$23.999</span></b>
         </div>
     </div>
-    <div class="popup_ofertaFinal" data-meta="{{TipoMeta}}" data-meta-total="{{TotalPedido}}" data-popup-body="" style="height:580px;">
+    <div class="popup_ofertaFinal" data-meta="{{TipoMeta}}" data-meta-total="{{TotalPedido}}" data-popup-body="" style="height:560px;">
         <!--SI SALE EL DIV DE PRODUCTO ALTERNATIVO SE AÑADE LA CLASE "fondo_gris_OF"-->
-        <div class="content_producto_alternativo" id="div-regalo-pn" style="display: none;">
-            <div class="content_imagen_alternativo">
-                <img id="img-regalo-pn" src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_2000111962017530330_cjzkqorxhx.png">
+        <div class="numero_pedido" id="div-numero-pedido">
+            <div class="numero_pedido_fondo">
+                <img id="img-numero-pedido-fondo" src="/Content/Images/popup_pedido/numero_pedido_site_bg.png">
+                <div class="content-texto-numero-pedido" id="msg-numero-pedido" style="padding-top: 15px;">
+                    <span class="numero_pd" id="numero-pd">1</span>
+                    <span class="posicion_pd" id="posicion-pd">ER.</span>
+                    <span class="texto_pd" id="texto-pd">PEDIDO</span>
+                </div>
             </div>
-            <div class="content-texto-producto-alternativo" id="msg-regalo-pn">AGREGA S/. 30.00 PARA <b>GANARTE 1 MAGNAT Y ACCEDER A OFERTAS EXCLUSIVAS</b></div>
         </div>
         <div class="btn_cerrar_ofertaFinal">
             <a href="javascript:;" title="Cerrar" data-popup-close="divOfertaFinal" onclick="of_google_analytics_cerrar_popup();">
@@ -2184,7 +2188,7 @@ else
                 <div>
                     <h1 class="titulo_ofertaFinal" id="spnTituloOfertaFinal">
                         {{#if_eq TipoMeta 'MM'}}
-                        <span><b>AÚN TE FALTA {{Simbolo}} <span data-monto="">{{MetaMontoStr}}</span></b> PARA LLEGAR AL MONTO MÍNIMO</span>
+                        <span><b>AÚN TE FALTA {{Simbolo}} <span data-monto="">{{MetaMontoStr}}</span> PARA LLEGAR AL MONTO MÍNIMO</b></span>
                         {{else if_eq TipoMeta 'GM'}}
                         <span>¡GUARDASTE TU<b> PEDIDO CON ÉXITO</b>!</span>
                         {{else}}    <!--se espera escala de dscto-->
@@ -2209,6 +2213,12 @@ else
                     </div>
                 </div>
 
+                <div class="content_producto_alternativo" id="div-regalo-pn" style="">
+                    <div class="content-texto-producto-alternativo" id="msg-regalo-pn" style="padding-top: 15px;">ALCÁNZALO CON ESTAS OFERTAS Y <b>GANA UN ÉSIKA MAGNAT 90ML*</b>, PUEDES VENDERLO A S/.99.00</div>
+                    <div class="content_imagen_alternativo">
+                        <img id="img-regalo-pn" src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_2000111962017530330_cjzkqorxhx.png">
+                    </div>
+                </div>
             </div>
             <div class="contenedor_bloques_agregaProductos">
                 <div style="margin: 0 auto; width:90%;" class="bloque_carousel">
@@ -2292,7 +2302,9 @@ else
                         RESERVA TU PEDIDO
                     </button>
                 </div>
-                <div style="display: none;" id="txt-disclaimer-pn" class="txt-ayuda1-pn"></div>
+                <div id="txt-disclaimer-pn" class="txt-ayuda1-pn">
+                    *En caso tu pedido no tenga observaciones y supere el monto mínimo.
+                </div>
 
 
                 <hr class="clear" />
