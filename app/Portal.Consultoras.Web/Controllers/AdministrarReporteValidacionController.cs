@@ -106,15 +106,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         private IEnumerable<TipoEstrategiaModel> DropDowListTipoEstrategia()
         {
-            List<BETipoEstrategia> lst;
+            List<BETipoEstrategia> lst = GetTipoEstrategias();
             List<TipoEstrategiaModel> lista = new List<TipoEstrategiaModel>();
-            var entidad = new BETipoEstrategia();
-            entidad.PaisID = UserData().PaisID;
-            using (PedidoServiceClient sv = new PedidoServiceClient())
-            {
-                lst = sv.GetTipoEstrategias(entidad).ToList();
-
-            }
 
             foreach (var item in lst)
             {
@@ -269,8 +262,8 @@ namespace Portal.Consultoras.Web.Controllers
                 Nombre = x.Nombre,
                 Descripcion1 = x.Descripcion1,
                 Descripcion2 = x.Descripcion2,
-                Descripcion3 = x.Descripcion3
-
+                Descripcion3 = x.Descripcion3,
+                FlagImagenCargada = Convert.ToInt32(x.FlagImagenCargada)
             }));
 
             lst.Add(listSRCampaniaModel);

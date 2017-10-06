@@ -207,6 +207,7 @@
       <xs:sequence>
         <xs:element minOccurs="0" name="proveedor" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="idAplicacion" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="fotoPerfil" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -322,6 +323,22 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetTerminosCondicionesResult" nillable="true" type="q16:BETerminosCondiciones" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEventoFestivo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="Alcance" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Campania" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEventoFestivoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetEventoFestivoResult" nillable="true" type="q16:ArrayOfBEEventoFestivo" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

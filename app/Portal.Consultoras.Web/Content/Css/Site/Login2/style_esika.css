@@ -32,12 +32,6 @@ body {
     padding: 0px;
     color: #555;
     text-align: center;
-    background: url('../Images/login-esika-1920.jpg') no-repeat center center fixed;
-    /*background: url('../Images/loggin_esika.jpg') no-repeat center center fixed;*/
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
 }
 
 ul {
@@ -1706,7 +1700,7 @@ h1, h2, h3, h4, h5, h6 {
         background: none;
     }
 
-    body {
+    .fondo_estandar {
         background: url('../images/login-esika-1920.jpg');
     }
 
@@ -2240,7 +2234,7 @@ h1, h2, h3, h4, h5, h6 {
             float: none !important;
         }
 
-        body {
+        .fondo_estandar {
             background: url('../images/login-esika-1920.jpg') no-repeat fixed !important;
         }
     }
@@ -2708,4 +2702,12 @@ h1, h2, h3, h4, h5, h6 {
         background: url(../../../Images/Esika/icono_advertencia_notificacion.svg) no-repeat;
         background-size: 15px;
         color: #e81c36;
+}
+
+.fondo_estandar {
+    background: url(../Images/login-esika-1920.jpg) center center no-repeat fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover
     }

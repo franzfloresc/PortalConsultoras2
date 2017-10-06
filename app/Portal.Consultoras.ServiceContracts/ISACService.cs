@@ -712,5 +712,19 @@ namespace Portal.Consultoras.ServiceContracts
         BEHorario GetHorarioByCodigo(int paisID, string codigo, bool loadEstaDisponible);
 
         #endregion
+        
+        #region ConfiguracionOfertasHome
+        [OperationContract]
+        List<BEConfiguracionOfertasHome> ListConfiguracionOfertasHome(int paisId, int campaniaId);
+
+        [OperationContract]
+        BEConfiguracionOfertasHome GetConfiguracionOfertasHome(int paisId, int configuracionOfertasHomeId);
+
+        [OperationContract]
+        void UpdateConfiguracionOfertasHome(BEConfiguracionOfertasHome configuracionOfertasHome);
+
+        [OperationContract]
+        IList<BEConfiguracionOfertasHome> ListarSeccionConfiguracionOfertasHome(int paisId, int campaniaId);
+        #endregion
     }
 }

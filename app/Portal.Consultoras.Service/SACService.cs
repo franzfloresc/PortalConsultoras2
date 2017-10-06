@@ -1414,7 +1414,6 @@ namespace Portal.Consultoras.Service
             var bl = new BLConfiguracionPais();
             return bl.GetList(paisId, tienePerfil);
         }
-
         public BEConfiguracionPais GetConfiguracionPais(int paisId, int configuracionPaisId)
         {
             var bl = new BLConfiguracionPais();
@@ -1425,6 +1424,31 @@ namespace Portal.Consultoras.Service
         {
             var bl = new BLConfiguracionPais();
             bl.Update(configuracionPais);
+        }
+        #endregion
+
+        #region ConfiguracionOfertasHome
+        public List<BEConfiguracionOfertasHome> ListConfiguracionOfertasHome(int paisId, int campaniaId)
+        {
+            var bl = new BLConfiguracionOfertasHome();
+            return bl.GetList(paisId, campaniaId);
+        }
+
+        public BEConfiguracionOfertasHome GetConfiguracionOfertasHome(int paisId, int configuracionOfertasHomeId)
+        {
+            var bl = new BLConfiguracionOfertasHome();
+            return bl.Get(paisId, configuracionOfertasHomeId);
+        }
+
+        public void UpdateConfiguracionOfertasHome(BEConfiguracionOfertasHome configuracionOfertasHome)
+        {
+            var bl = new BLConfiguracionOfertasHome();
+            bl.Update(configuracionOfertasHome);
+        }
+        public IList<BEConfiguracionOfertasHome> ListarSeccionConfiguracionOfertasHome(int paisId, int campaniaId)
+        {
+            var bl = new BLConfiguracionOfertasHome();
+            return bl.GetListarSeccion(paisId, campaniaId);
         }
         #endregion
 
