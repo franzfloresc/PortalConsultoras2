@@ -51,6 +51,8 @@ namespace Portal.Consultoras.Web.Models
         public bool? TipoDespacho { get; set; }
         public decimal FleteDespacho { get; set; }
         public string MensajeDespacho { get; set; }
+        public bool EsMovilOrigen { get; set; }
+        public bool EsMovilFin { get; set; }
         public MensajesCDRExpressModel MensajesExpress { get; set; }
         //EPD-1919 FIN
     }
