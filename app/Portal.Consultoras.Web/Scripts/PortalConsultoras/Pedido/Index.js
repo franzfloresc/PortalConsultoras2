@@ -1119,6 +1119,8 @@ function ValidarDescripcion() {
 }
 
 function PreValidarCUV(event) {
+    event = event || window.event;
+
     if (event.keyCode == 13) {
         if ($("#btnAgregar")[0].disabled == false) {
             AgregarProductoListado();
@@ -1327,6 +1329,8 @@ function showClienteDetalle(cliente, pClienteDetalleOK, pClienteDetalleCANCEL) {
 //}
 
 function Tabular(event) {
+    event = event || window.event;
+
     if (event.keyCode == 9) {
         if (event.preventDefault)
             event.preventDefault();
