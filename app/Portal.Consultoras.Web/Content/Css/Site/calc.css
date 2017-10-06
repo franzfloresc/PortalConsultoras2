@@ -16,13 +16,19 @@
     width: calc(100% - 80px);
     width: -webkit-calc(100% - 80px);
 }
-
-/*Estilos revistadigital*/
-.content_texto_gana {
-    margin: 0 auto;
-    float: left;
-    width: -moz-calc(100% -765px);
-    width: calc(100% - 765px);
-    width: -webkit-calc(100% - 765px);
-    width: -webkit-calc(~'100% - 765px');
+.banner_especial_showroom{
+    width: -moz-calc(100% - 12%);
+    width: calc(100% - 12%);
+    width: -webkit-calc(100% - 12%);
+    overflow:hidden;
+}
+.content_banner_compra{
+    width: -moz-calc(100% - 12%);
+    width: calc(100% - 12%);
+    width: -webkit-calc(100% - 12%);
+}
+.btn_pop_agregalo_oferta{
+    width: -moz-calc(80% - 80px);
+    width: calc(80% - 80px);
+    width: -webkit-calc(80% - 80px);
 }

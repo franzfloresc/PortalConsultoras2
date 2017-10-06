@@ -230,7 +230,10 @@ namespace Portal.Consultoras.Web.Controllers
                     UpdPedidoWebMontosPROL();
                     dataBarra = GetDataBarra();
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                }
 
                 return Json(new { success = true, message = "", dataBarra = dataBarra });
             }
@@ -363,7 +366,7 @@ namespace Portal.Consultoras.Web.Controllers
             string[] arrTotal = { "Total:", userData.Simbolo + " #ImporteTotalPedido" };
 
             ExportToExcelMultiple("PedidosWebExcel", lstDetalles, dicCabeceras, dicDetalles, arrTotal);
-            return View();
+            return new EmptyResult();
         }
 
         private void ExportToExcelMultiple(string filename, List<SC.BEPedidoWebDetalle> SourceDetails, List<KeyValuePair<int, string>> columnHeaderDefinition,
@@ -513,9 +516,9 @@ namespace Portal.Consultoras.Web.Controllers
                 stream = null;
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
         }
 
@@ -567,7 +570,7 @@ namespace Portal.Consultoras.Web.Controllers
             string[] arrTotal = { "Importe Total:", " #CodigoUsuarioCreacion", "Flete:", " #CodigoUsuarioModificacion", "Total Facturado:", " #Mensaje", };
 
             ExportToExcelMultipleFacturado("PedidosWebExcel", lst, dicCabeceras, dicDetalles, arrTotal, vTotalParcial, vFlete, vTotalFacturado);
-            return View();
+            return new EmptyResult();
         }
 
         private void ExportToExcelMultipleFacturado(string filename, List<BEPedidoWebDetalle> SourceDetails, List<KeyValuePair<int, string>> columnHeaderDefinition,
@@ -702,9 +705,10 @@ namespace Portal.Consultoras.Web.Controllers
                 HttpContext.Response.End();
                 stream = null;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                UsuarioModel userModel = userData ?? new UsuarioModel();
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userModel.CodigoConsultora, userModel.CodigoISO);
             }
         }
 

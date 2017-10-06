@@ -1194,9 +1194,13 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEReporteValidacion> GetReporteValidacion(int paisID, int campaniaID, int tipoEstrategia);
+        #endregion
 
+        #region Incentivos
         [OperationContract]
         List<BEIncentivoConcurso> ObtenerIncentivosConsultora(int paisID, string codigoConsultora, int codigoCampania);
+        [OperationContract]
+        List<BEIncentivoConcurso> ObtenerIncentivosHistorico(int paisID, string codigoConsultora, int codigoCampania);
         #endregion
 
         #region Producto Comentario
@@ -1219,5 +1223,10 @@ namespace Portal.Consultoras.ServiceContracts
         int AprobarProductoComentarioDetalle(int paisID, BEProductoComentarioDetalle entidad);
         #endregion
 
+        #region FichaProducto
+        [OperationContract]
+        List<BEFichaProducto> GetFichaProducto(BEFichaProducto entidad);
+
+        #endregion
     }
 }

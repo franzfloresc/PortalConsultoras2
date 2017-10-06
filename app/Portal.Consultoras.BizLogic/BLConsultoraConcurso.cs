@@ -146,11 +146,11 @@ namespace Portal.Consultoras.BizLogic
         }
 
         /// <summary>
-        /// Obtener la informacion de concursos, niveles y premios por consultora.
+        /// Obtener los incentivos vigentes por consultora.
         /// </summary>
         /// <param name="PaisID"></param>
+        /// /// <param name="CodigoConsultora"></param>
         /// <param name="CodigoCampania"></param>
-        /// <param name="CodigoConsultora"></param>
         /// <returns></returns>
         public List<BEIncentivoConcurso> ObtenerIncentivosConsultora(int paisID, string codigoConsultora, int codigoCampania)
         {
@@ -188,12 +188,63 @@ namespace Portal.Consultoras.BizLogic
                     {
                         item.CodigoPremio = string.Join("\n", incentivosPremios.Where(p => p.CodigoConcurso == item.CodigoConcurso && p.CodigoNivel == item.CodigoNivel).Select(x=>x.CodigoPremio));
                         item.DescripcionPremio = string.Join("\n", incentivosPremios.Where(p => p.CodigoConcurso == item.CodigoConcurso && p.CodigoNivel == item.CodigoNivel).Select(x=>x.DescripcionPremio));
+                        item.NumeroPremio = string.Join("\n", incentivosPremios.Where(p => p.CodigoConcurso == item.CodigoConcurso && p.CodigoNivel == item.CodigoNivel).Select(x => x.NumeroPremio));
                     }
                 }
 
                 foreach (var item in incentivosConcursos)
                 {
                     item.Niveles = incentivosNivel.Where(p => p.CodigoConcurso == item.CodigoConcurso).ToList();
+                }
+            }
+
+            return incentivosConcursos;
+        }
+
+        /// <summary>
+        /// Obtener los incentivos historicos por consultora.
+        /// </summary>
+        /// <param name="PaisID"></param>
+        /// /// <param name="CodigoConsultora"></param>
+        /// <param name="CodigoCampania"></param>
+        /// <returns></returns>
+        public List<BEIncentivoConcurso> ObtenerIncentivosHistorico(int paisID, string codigoConsultora, int codigoCampania)
+        {
+            List<BEIncentivoConcurso> incentivosConcursos = new List<BEIncentivoConcurso>();
+            List<BEIncentivoNivel> incentivosNivel = new List<BEIncentivoNivel>();
+            List<BEIncentivoPremio> incentivosPremios = new List<BEIncentivoPremio>();
+
+            DAConcurso DAConcurso = new DAConcurso(paisID);
+
+            using (IDataReader reader = DAConcurso.ObtenerIncentivosHistorico(codigoConsultora, codigoCampania))
+            {
+                while (reader.Read())
+                {
+                    incentivosConcursos.Add(new BEIncentivoConcurso(reader));
+                }
+
+                if (reader.NextResult())
+                {
+                    while (reader.Read())
+                    {
+                        incentivosPremios.Add(new BEIncentivoPremio(reader));
+                    }
+                }
+
+                foreach (var item in incentivosConcursos)
+                {
+                    incentivosNivel = new List<BEIncentivoNivel>();
+
+                    incentivosNivel.Add(new BEIncentivoNivel()
+                    {
+                        CodigoConcurso = item.CodigoConcurso,
+                        CodigoNivel = item.NivelAlcanzado,
+                        PuntosNivel = item.PuntosNivel,
+                        CodigoPremio = string.Join("\n", incentivosPremios.Where(p => p.CodigoConcurso == item.CodigoConcurso).Select(x => x.CodigoPremio)),
+                        DescripcionPremio = string.Join("\n", incentivosPremios.Where(p => p.CodigoConcurso == item.CodigoConcurso).Select(x => x.DescripcionPremio))
+                    });
+
+                    item.Niveles = incentivosNivel;
                 }
             }
 

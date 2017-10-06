@@ -131,5 +131,8 @@ namespace Portal.Consultoras.Web.Models
         //public int Orden { get; set; }
         public string UrlCompartir { get; set; }
         public int UnidadesPermitidasRestantes { get; set; }
+
+        public int Posicion { get; set; }
+        public string UrlDetalle { get; set; }
     }
 }

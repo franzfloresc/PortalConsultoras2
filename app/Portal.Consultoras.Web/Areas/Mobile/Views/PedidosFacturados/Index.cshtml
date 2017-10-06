@@ -79,6 +79,10 @@ else
         });
 
         function cargarDetallePedido(campaniaID, pedidoId) {
+
+            if (!campaniaID) return;
+            if (!pedidoId) return;
+
             ShowLoading();
             jQuery.ajax({
                 type: 'POST',
@@ -101,7 +105,7 @@ else
                 error: function (data, error) {
                     if (checkTimeout(data)) {
                         CloseLoading();
-                        console.log(data);
+                        console.log(data, error);
                     }
                 }
             });
