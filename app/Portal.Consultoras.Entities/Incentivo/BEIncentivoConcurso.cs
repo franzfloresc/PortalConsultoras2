@@ -86,6 +86,14 @@ namespace Portal.Consultoras.Entities
         public List<BEIncentivoProgramaNuevasPremio> PremiosProgramaNuevas { get; set; }
         [DataMember]
         public List<BEIncentivoProgramaNuevasCupon> CuponesProgramaNuevas { get; set; }
+
+        [DataMember]
+        public string UrlBannerPremiosProgramaNuevas { get; set; }
+        [DataMember]
+        public string UrlBannerCuponesProgramaNuevas { get; set; }
+        [DataMember]
+        [Column("CodigoNivel")]
+        public string CodigoNivelProgramaNuevas { get; set; }
         #endregion
 
         public BEIncentivoConcurso()

@@ -469,7 +469,15 @@ namespace Portal.Consultoras.Common
             { "VE", "" }
         };
 
-
+        public static Dictionary<string, string> IncentivoProgramaNuevasNiveles = new Dictionary<string, string>
+        {
+            { "01", "PrimerPedido" },
+            { "02", "SegundoPedido" },
+            { "03", "TercerPedido" },
+            { "04", "CuartoPedido" },
+            { "05", "QuintoPedido" },
+            { "06", "SextoPedido" }
+        };
     }
 
     public class RangoEdad
