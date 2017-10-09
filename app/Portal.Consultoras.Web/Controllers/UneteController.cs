@@ -2519,7 +2519,7 @@ namespace Portal.Consultoras.Web.Controllers
             dic.Add("ZonaSeccion", "ZonaSeccion");
             dic.Add("NivelRiesgo", "NivelRiesgo");
             Util.ExportToExcel("ReporteNivelesRiesgo", items, dic);
-            return View();
+            return new EmptyResult();
         }
 
         [HttpPost]
@@ -2830,7 +2830,7 @@ namespace Portal.Consultoras.Web.Controllers
                 dic.Add("BARRIO_COLONIA_URBANIZACION_REFERENCIAS", "BARRIO_COLONIA_URBANIZACION_REFERENCIAS");
             }
             Util.ExportToExcel("ReporteNivelesGeograficos", items, dic);
-            return View();
+            return new EmptyResult();
         }
 
 
@@ -4746,7 +4746,7 @@ namespace Portal.Consultoras.Web.Controllers
             dic.Add("Longitud", "Longitud");
 
             Util.ExportToExcel("ReportePostulantes", resultado.ToList(), dic);
-            return View();
+            return new EmptyResult();
         }
 
         public JsonResult ObtenerNombreConsultora(string codigoISO, string codigoConsultora)
@@ -5402,7 +5402,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult ReporteFunnel()
         {
             ViewBag.HTMLSACUnete = getHTMLSACUnete("ReporteFunnel");
-            return View();
+            return new EmptyResult();
         }
 
         public ActionResult ExportarExcelReporteConsolidado(string PrefijoISOPais, string FechaDesde, string FechaHasta, string Region, string Zona, string Seccion, string NombreReporte)
@@ -5619,7 +5619,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             // Util.ExportToExcel("ReporteFuenteIngreso", solicitudes, dic);
             Util.ExportToExcel(NombreReporte, solicitudes, dic);
-            return View();
+            return new EmptyResult();
         }
 
 

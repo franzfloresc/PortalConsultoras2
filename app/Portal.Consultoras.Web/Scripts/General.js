@@ -110,6 +110,13 @@ jQuery(document).ready(function () {
         return newStr;
     };
 
+    if (!String.prototype.startsWith) {
+        String.prototype.startsWith = function (stringBuscada, posicion) {
+            posicion = posicion || 0;
+            return this.indexOf(stringBuscada, posicion) === posicion;
+        };
+    };
+
     Right = function (str, n) {
         if (n <= 0)
             return "";
@@ -328,18 +335,19 @@ jQuery(document).ready(function () {
 
     }
     SetHandlebars = function (idTemplate, data, idHtml) {
+
         if (!Handlebars.helpers.iff)
             HandlebarsRegisterHelper();
 
-        if ($(idTemplate).length == 0) {
-            return false;
-        }
+        if ($(idTemplate).length == 0) return false;
+        if (typeof data === "undefined") return false;
 
         var source = $(idTemplate).html();
         var template = Handlebars.compile(source);
         var htmlDiv = template(data);
-        idHtml = $.trim(idHtml);
+        idHtml = typeof idHtml == "string" ? $.trim(idHtml) : idHtml;
         if (idHtml == "") return htmlDiv;
+        if ($(idHtml).length === 0) return htmlDiv;
         $(idHtml).html(htmlDiv);
         return "";
     }
@@ -436,6 +444,7 @@ function showDialog(dialogId) {
     $("#ui-datepicker-div").css("z-index", "9999");
     return false;
 }
+
 function HideDialog(dialogId) {
     $("#" + dialogId).dialog("close");
     return false;
@@ -488,6 +497,7 @@ function waitingDialog(waiting) {
 
     }
 }
+
 function closeWaitingDialog() {
     try { $("#loadingScreen").dialog('close'); }
     catch (err) {
@@ -626,6 +636,13 @@ function isMobile() {
     var isUrlMobile = $.trim(location.href).toLowerCase().indexOf("/mobile/") > 0;
     return isUrlMobile;
 }
+
+function isPagina(pagina) {
+    pagina = $.trim(pagina);
+    if (pagina == "") return false;
+    return ($.trim(location.href) + "/").toLowerCase().indexOf("/" + pagina + "/") > 0;
+}
+
 function isHome() {
     var isUrl = ($.trim(location.href) + "/").toLowerCase().indexOf("/bienvenida/") > 0;
     return isUrl;
@@ -929,19 +946,27 @@ function LayoutHeader() {
 
 function LayoutHeaderFin() {
     var wtop = $("header").innerHeight();
-    //$("[data-content]").animate({ "margin-top": (wtop) + "px" });
     $("[data-content]").css("margin-top", (wtop) + "px");
+
+    //$("[data-content] div[data-layout-menu2]").css("top", (wtop) + "px");
+    //if ($('[data-content] div[data-layout-menu2]').is(':visible')) {
+    //    wtop = $(window).innerWidth() * 0.12;
+    //    $("[data-content] div[data-layout-menu2]").css("width", (wtop) + "px");
+    //    $("[data-content] div[data-layout-body]").css("margin-left", (wtop) + "px");
+    //}
+    //else {
+    //    $("[data-content] div[data-layout-body]").css("width", "100%");
+    //    $("[data-content] div[data-layout-body]").css("margin-left", "");
+    //}
 }
-function LayoutHeaderFin() {
-    var wtop = $("header").innerHeight();
-    $("[data-content]").css("margin-top", (wtop) + "px");
-}
+
 function LayoutMenu() {
     LayoutMenuFin();
     $(document).ajaxStop(function () {
         LayoutMenuFin();
     });
 }
+
 function LayoutMenuFin() {
     // validar si sale en dos lineas
     var idMenus = "#ulNavPrincipal-0 > li";
@@ -1569,8 +1594,7 @@ function odd_desktop_google_analytics_addtocart(tipo,element) {
 function odd_google_analytics_product_click(name, id, price, brand, variant, position) {  
     if (variant == null || variant == "")
         variant = "Estándar";
-    dataLayer.push
-	({
+    dataLayer.push({
 	    'event': 'productClick',
 	    'ecommerce':
 		{
@@ -1591,6 +1615,7 @@ function odd_google_analytics_product_click(name, id, price, brand, variant, pos
 		}
 	});
 }
+
 function GuardarIndicadorPedidoAutentico() {
     if (fingerprintOk == 0) {
         new Fingerprint2().get(function (result, components) {
