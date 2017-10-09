@@ -539,16 +539,26 @@
                 <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="Cerrar">
             </a>
             <!---->
+            <div class="numero_pedido" id="div-numero-pedido">
+                <div class="numero_pedido_fondo">
+                    <img id="img-numero-pedido-fondo" src="/Content/Images/popup_pedido/numero_pedido_mobile_bg.png">
+                    <div class="content-texto-numero-pedido" id="msg-numero-pedido" style="padding-top: 15px;">
+                        <span class="numero_pd" id="numero-pd">4</span>
+                        <span class="posicion_pd" id="posicion-pd">TO.</span>
+                        <div class="texto_pd" id="texto-pd">PEDIDO</div>
+                    </div>
+                </div>
+            </div>
             <div class="content_texto_OPT">
                 <div class="icono_alerta {{ofIconoSuperior}}" id="ofIconoSuperior" style="margin-top:10px; margin-bottom:10px;"></div>
 
                 <h1 class="ofertaFinal_titulo" id="spnTituloOfertaFinal">
                     {{#if_eq TipoMeta 'MM'}}
-                        <span><b>AÚN TE FALTA {{Simbolo}} <span data-monto="">{{MetaMontoStr}}</span></b> PARA LLEGAR AL MONTO MÍNIMO</span>
+                        <span><b>AÚN TE FALTA {{Simbolo}} <span data-monto="">{{MetaMontoStr}}</span> PARA LLEGAR AL MONTO MÍNIMO</b></span>
                     {{else if_eq TipoMeta 'GM'}}
-                        <span>¡GUARDASTE TU<br><b> PEDIDO CON ÉXITO</b>!</span>
+                        <span><b>¡GUARDASTE TU PEDIDO<br> CON ÉXITO!</b></span>
                     {{else}} <!--se espera escala de dscto-->
-                        <span>¡GUARDASTE TU<br><b> PEDIDO CON ÉXITO</b>!</span>
+                        <span><b>¡GUARDASTE TU PEDIDO<br> CON ÉXITO!</b></span>
                     {{/if_eq}}
                 </h1>
                 <div class="ofertaFinal_descripcion" id="msjOfertaFinal" data-meta-porcentaje="{{MetaPorcentaje}}" data-meta-monto="{{MontoMeta}}">
@@ -565,6 +575,14 @@
                     {{else}}    <!--se espera escala de dscto-->
                     <span>ALCANZA EL <b style="font-size:23px;">{{MetaPorcentaje}}%</b> DSCTO AGREGANDO {{Simbolo}} <span data-monto="">{{MetaMontoStr}}</span> DE ESTAS OFERTAS</span>
                     {{/if_eq}}
+                </div>
+                <div class="content_producto_alternativo" id="div-regalo-pn" style="">
+                    <div class="content-texto-producto-alternativo">
+                        <div id="msg-regalo-pn2">AGREGA S/.50.00 PARA <b>GANAR UN ESIKA LEYENDA 100ML*</b> Y ACCEDER A PACKS EXCLUSIVOS NUEVAS**</div>
+                    </div>
+                    <div class="content_imagen_alternativo">
+                        <img id="img-regalo-pn" src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_2000111962017530330_cjzkqorxhx.png">
+                    </div>
                 </div>
             </div>
 
@@ -645,6 +663,10 @@
                 <button class="enlace_btnNoGracias btnNoGraciasOfertaFinal icono_terminar_pedido" id="btnNoGraciasOfertaFinal" style="display:{{#iff TipoMeta '==' 'MM'}}none;{{else}}block;{{/iff}}" onclick="of_google_analytics_cerrar_popup()">
                     RESERVA TU PEDIDO
                 </button>
+                <div style="" id="txt-disclaimer-pn" class="txt-ayuda1-pn">
+                    *En caso tu pedido no tenga observaciones y supere el monto mínimo.<br><br>
+                    ** Encuéntralos en la sección de Ofertas para Ti.
+                </div>
             </div>
             <div class="content_producto_alternativo" id="div-regalo-pn" style="display:none;">
                 <div class="content_imagen_alternativo">

@@ -4950,12 +4950,15 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 
 .descripcion_ofertaFinal{
     display:block;
-    font-size: 17px;
-    font-weight:700;
+    font-family:'Lato';
+    font-size: 14px;
+    /*font-weight:700;*/
+    line-height: 1.14;
+    letter-spacing: 0.5px;
     text-align:center;
     margin-bottom: 18px;
     /*margin-top: 18px;*/
-    TEXT-TRANSFORM: uppercase;
+    /*TEXT-TRANSFORM: uppercase;*/
 }
 .texto_complemento_oferta{
     text-transform:uppercase;
@@ -35400,7 +35403,7 @@ h1#penmostreo .campana {
 
 .content_producto_alternativo{
     text-align:center;
-    height: 55px;
+    height: auto;
 }
 .content_imagen_alternativo{
     width: 55px;
