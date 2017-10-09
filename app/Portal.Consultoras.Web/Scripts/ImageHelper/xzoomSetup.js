@@ -40,7 +40,6 @@ $(document).ready(function () {
                     $(this).hammer().on("tap", function (event) {
                         event.pageX = event.gesture.center.pageX;
                         event.pageY = event.gesture.center.pageY;
-                        var s = 1, ls;
 
                         xzoom.eventmove = function (element) {
                             element.hammer().on('drag', function (event) {
@@ -65,7 +64,6 @@ $(document).ready(function () {
                     $(this).hammer().on("tap", function (event) {
                         event.pageX = event.gesture.center.pageX;
                         event.pageY = event.gesture.center.pageY;
-                        var s = 1, ls;
 
                         xzoom.eventmove = function (element) {
                             element.hammer().on('drag', function (event) {
@@ -103,7 +101,6 @@ $(document).ready(function () {
                     $(this).hammer().on("tap", function (event) {
                         event.pageX = event.gesture.center.pageX;
                         event.pageY = event.gesture.center.pageY;
-                        var s = 1, ls;
 
                         xzoom.eventmove = function (element) {
                             element.hammer().on('drag', function (event) {

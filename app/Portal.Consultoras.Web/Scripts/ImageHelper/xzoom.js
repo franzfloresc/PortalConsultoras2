@@ -741,7 +741,7 @@ if (/MSIE (\d+\.\d+);/.test(navigator.userAgent)){
 
     this.destroy = function() {
       current.eventunbind();
-      delete current;
+      current = null;
     }
 
     this.closezoom = function() {
