@@ -428,7 +428,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     estrategia.Precio = 0;
                     estrategia.DescripcionCortada = estrategia.DescripcionCUV2.Split('|')[0];
-                    estrategia.DescripcionDetalle = estrategia.DescripcionCUV2.Split('|')[1];
+                    estrategia.DescripcionDetalle = estrategia.DescripcionCUV2.Contains("|") ? estrategia.DescripcionCUV2.Split('|')[1] : string.Empty;
                     estrategia.DescripcionResumen = "";
                 }
                 else
