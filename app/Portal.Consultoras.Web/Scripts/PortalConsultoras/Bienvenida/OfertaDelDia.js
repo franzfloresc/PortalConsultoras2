@@ -93,7 +93,7 @@ $(document).ready(function () {
 
             },
             error: function (err) {
-                console.log(err);
+                checkTimeout(err);
             }
         });
     }
@@ -198,7 +198,16 @@ $(document).ready(function () {
                 //$(".flip-clock-wrapper ul li a div div.inn").css("text-shadow", "0 1px 2px" + "black");
                 //$(".flip-clock-wrapper ul li a div div.inn").css("background-color", "black");
 
-                $(contenedorOfertas).css('background', 'url("' + _data.ImagenFondo1 + '")');
+                var url = window.location.href.toLowerCase() + "/";
+                url = url.replace("#", "/");
+                if (url.indexOf("/ofertas/") >= 0) {
+                    $(contenedorOfertas).css('background-color', _data.ColorFondo1);
+                }
+                else {
+                    $(contenedorOfertas).css('background', 'url("' + _data.ImagenFondo1 + '")');
+                }
+
+                SetHandlebars("#ofertadeldia-template-style", _data, "#styleRelojOdd");
 
                 $('#banner-odd').css('background-color', _data.ColorFondo1);
                 $('#PopOfertaDia').css('background-color', _data.ColorFondo2);
@@ -225,7 +234,7 @@ $(document).ready(function () {
                 }
             },
             error: function (err) {
-                console.log(err);
+                checkTimeout(err);
             }
         });
 
@@ -653,7 +662,7 @@ $(document).ready(function () {
                 }
             },
             error: function (err) {
-                console.log(err);
+                checkTimeout(err);
             }
         });
 
@@ -759,7 +768,7 @@ $(document).ready(function () {
                 }
             },
             error: function (err) {
-                console.log(err);
+                checkTimeout(err);
             }
         });
 

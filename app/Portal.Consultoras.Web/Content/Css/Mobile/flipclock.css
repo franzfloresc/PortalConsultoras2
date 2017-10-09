@@ -173,9 +173,9 @@
                         width: 100%;
                         height: 200%;
                         color: white;
-                        text-shadow: 0 1px 2px #86161d;
+                        text-shadow: 0 1px 2px #000;
                         text-align: center;
-                        background-color: #86161d;
+                        background-color: #000;
                         font-weight: 700;
                         /* border-radius: 6px; */
                         font-size: 22px;
@@ -195,7 +195,7 @@
         }
 
     .flip-clock-wrapper .flip {
-        box-shadow: 0 2px 5px rgba(134, 22, 29, 0.7);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
     }
 
     .flip-clock-wrapper ul.play li.flip-clock-active {

@@ -287,7 +287,6 @@ $(document).ready(function () {
         return false;
     });
 
-    Scrolling();
     setInterval(animacionFlechaScroll, 1000);
 
 });
@@ -369,15 +368,10 @@ function CargarResumenCampaniaHeader(showPopup) {
                        
                     }
                 }
-                else {
-                    console.error("Ocurrio un error con el Resumen de Campaña.");
-                }
             }
         },
         error: function (data, error) {
-            if (checkTimeout(data)) {
-                console.error(data, error);
-            }
+            checkTimeout(data);
         }
     });
 };
@@ -412,48 +406,14 @@ function CargarCantidadNotificacionesSinLeer() {
                 };
 
                 data.mensaje = data.mensaje || "";
-                if (data.mensaje != '') {
-                    console.log(data.mensaje);
-                }
             };
         },
         error: function (data, error) {
-            if (checkTimeout(data)) {
-                console.error(data, error);
-            }
+            checkTimeout(data);
         }
     });
 };
-function Scrolling() {
-    var y = $(window).scrollTop();
-    $('#toUp').hide();
-    $('#toUp').attr("style", "top: 580px !important");
-    $('#toDown').click(function () {
-        y = $(window).scrollTop() + $(window).height() - 50;
-        $('html, body').animate({ scrollTop: y }, 1000);
-    });
-    $('#toUp').click(function () {
-        $('html, body').animate({ scrollTop: 0 }, 1000);
-    });
 
-    var altura = $('header').offset().top;
-
-    $(window).on('scroll', function () {
-        if ($(window).scrollTop() >= altura + 50) {
-            $('.logo_esika_tam').attr('src', baseUrl + 'Content/Images/Esika/logo_menu_esika.png');
-        } else {
-            $('.logo_esika_tam').attr('src', baseUrl + 'Content/Images/Esika/logo_esika.png');
-        }
-
-        if ($(window).scrollTop() + $(window).height() === $(document).height()) {
-            $('#toDown').hide("slow");
-            $('#toUp').show("slow");
-        } else {
-            $('#toDown').show("slow");
-            $('#toUp').hide("slow");
-        }
-    });
-};
 function AbrirModalFeErratas() {
     waitingDialog({});
 
@@ -870,7 +830,6 @@ function MostrarShowRoomBannerLateral() {
             error: function (response, error) {
                 if (checkTimeout(response)) {
                     closeWaitingDialog();
-                    console.log("Ocurrió un error en ShowRoom");
                 }
             }
         });
@@ -1111,7 +1070,7 @@ function checkCountdownODD() {
             }
         },
         error: function (err) {
-            console.log(err);
+            checkTimeout(err);
         }
     });
 
@@ -1135,7 +1094,7 @@ function getQtyPedidoDetalleByCuvODD(cuv2, tipoEstrategiaID) {
             }
         },
         error: function (err) {
-            console.log(err);
+            checkTimeout(err);
         }
     });
 
@@ -1181,7 +1140,7 @@ function closeOfertaDelDia(sender) {
             }
         },
         error: function (err) {
-            console.log(err);
+            checkTimeout(err);
         }
     });
 }

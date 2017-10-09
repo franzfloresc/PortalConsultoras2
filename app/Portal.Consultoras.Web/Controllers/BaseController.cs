@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServiceCDR;
 using Portal.Consultoras.Web.Models.Layout;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServicePedidoRechazado;
@@ -201,7 +202,7 @@ namespace Portal.Consultoras.Web.Controllers
                             userData.PaisID,
                             userData.CampaniaID,
                             userData.ConsultoraID,
-                            userData.NombreConsultora, 
+                            userData.NombreConsultora,
                             EsOpt()
                         ).ToList();
                     }
@@ -1272,7 +1273,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.IndicadorPermisoFIC = model.IndicadorPermisoFIC;
             ViewBag.IndicadorPermisoFlexipago = model.IndicadorPermisoFlexipago;
             ViewBag.HorasDuracionRestriccion = model.HorasDuracionRestriccion;
-            ViewBag.UrlBelcorpChat = String.Format(UrlEMTELCO, model.SegmentoAbreviatura.Trim(), model.CodigoUsuario.Trim(), model.PrimerNombre.Split(' ').First().Trim(), model.EMail.Trim(), model.CodigoISO.Trim());
+            ViewBag.UrlBelcorpChat = String.Format(UrlEMTELCO, model.SegmentoAbreviatura.Trim(), model.CodigoUsuario.Trim(), model.PrimerNombre.Split(' ').First().Trim(), model.EMail == null ? string.Empty : model.EMail.Trim(), model.CodigoISO.Trim());
 
             ViewBag.RegionAnalytics = model.CodigorRegion;
             ViewBag.SegmentoAnalytics = model.Segmento != null && model.Segmento != "" ?
@@ -1447,7 +1448,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.IndicadorGPRSB = model.IndicadorGPRSB;      //0=OK,1=Facturando,2=Rechazado
                 ViewBag.CerrarRechazado = model.CerrarRechazado;
                 ViewBag.MostrarBannerRechazo = model.MostrarBannerRechazo;
-                
+
                 ViewBag.GPRBannerTitulo = model.GPRBannerTitulo ?? "";
                 ViewBag.GPRBannerMensaje = model.GPRBannerMensaje ?? "";
                 ViewBag.GPRBannerUrl = model.GPRBannerUrl;
@@ -2084,6 +2085,8 @@ namespace Portal.Consultoras.Web.Controllers
         }
         #endregion
 
+
+
         public string NombreMes(int mes)
         {
             var result = string.Empty;
@@ -2712,6 +2715,19 @@ namespace Portal.Consultoras.Web.Controllers
             return Mapper.Map<IList<BEZona>, IEnumerable<ZonaModel>>(lst);
         }
 
+        //EPD-2598 INICIO
+
+        //protected IEnumerable<EstadoActividadModel> DropDownListEstadoActividad(int PaisID)
+        //{
+        //    IList<BEConsultorasProgramaNuevas> lst;
+        //    using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
+        //    {
+        //        lst = sv.sele(PaisID);
+        //    }
+        //    return Mapper.Map<IList<BEZona>, IEnumerable<EstadoActividadModel>>(lst);
+        //}
+        //EPD-2598  FIN
+
         public JsonResult ObtenerZonasByRegion(int PaisID, int RegionID)
         {
             var listaZonas = DropDownListZonas(PaisID);
@@ -3097,6 +3113,390 @@ namespace Portal.Consultoras.Web.Controllers
 
             return origenActual;
         }
+
+        #region CDR
+        protected string MensajeGestionCdrInhabilitadaYChatEnLinea()
+        {
+            string mensajeGestionCdrInhabilitada = MensajeGestionCdrInhabilitada();
+            if (string.IsNullOrEmpty(mensajeGestionCdrInhabilitada)) return mensajeGestionCdrInhabilitada;
+            return mensajeGestionCdrInhabilitada + " " + Constantes.CdrWebMensajes.ContactateChatEnLinea;
+        }
+
+        protected string MensajeGestionCdrInhabilitada()
+        {
+            if (userData.EsCDRWebZonaValida == 0) return Constantes.CdrWebMensajes.ZonaBloqueada;
+            if (userData.IndicadorBloqueoCDR == 1) return Constantes.CdrWebMensajes.ConsultoraBloqueada;
+            if (CumpleRangoCampaniaCDR() == 0) return Constantes.CdrWebMensajes.SinPedidosDisponibles;
+
+            int diasFaltantes = GetDiasFaltantesFacturacion(userData.FechaInicioCampania, userData.ZonaHoraria);
+            if (diasFaltantes == 0) return Constantes.CdrWebMensajes.FueraDeFecha;
+
+            int cDRDiasAntesFacturacion = 0;
+            BECDRWebDatos cDRWebDatos = ObtenerCdrWebDatosByCodigo(Constantes.CdrWebDatos.DiasAntesFacturacion);
+            if (cDRWebDatos != null) Int32.TryParse(cDRWebDatos.Valor, out cDRDiasAntesFacturacion);
+            if (diasFaltantes <= cDRDiasAntesFacturacion) return Constantes.CdrWebMensajes.FueraDeFecha;
+
+            return string.Empty;
+        }
+
+        private int CumpleRangoCampaniaCDR()
+        {
+            var listaMotivoOperacion = CargarMotivoOperacion();
+            // get max dias => plazo para hacer reclamo
+            // calcular las campañas existentes en ese rango de dias
+            // obtener todos pedidos facturados de esas campañas existentes
+
+            int maxDias = 0;
+            if (listaMotivoOperacion.Any())
+            {
+                maxDias += int.Parse(listaMotivoOperacion.Max(m => m.CDRTipoOperacion.NumeroDiasAtrasOperacion).ToString());
+            }
+
+            var listaPedidoFacturados = CargarPedidosFacturados(maxDias);
+            return (listaPedidoFacturados.Count > 0) ? 1 : 0;
+        }
+
+        protected List<BEPedidoWeb> CargarPedidosFacturados(int maxDias = 0)
+        {
+            try
+            {
+                if (Session[Constantes.ConstSession.CDRPedidosFacturado] != null)
+                {
+                    return (List<BEPedidoWeb>)Session[Constantes.ConstSession.CDRPedidosFacturado];
+                }
+
+                if (maxDias <= 0) return new List<BEPedidoWeb>();
+
+                var listaPedidoFacturados = new List<BEPedidoWeb>();
+                using (PedidoServiceClient sv = new PedidoServiceClient())
+                {
+                    listaPedidoFacturados = sv.GetPedidosFacturadoSegunDias(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, maxDias).ToList();
+                }
+
+                listaPedidoFacturados = listaPedidoFacturados ?? new List<BEPedidoWeb>();
+                Session[Constantes.ConstSession.CDRPedidosFacturado] = listaPedidoFacturados;
+                return listaPedidoFacturados;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                Session[Constantes.ConstSession.CDRPedidosFacturado] = null;
+                return new List<BEPedidoWeb>();
+            }
+        }
+
+        protected List<BECDRWebMotivoOperacion> CargarMotivoOperacion()
+        {
+            try
+            {
+                if (Session[Constantes.ConstSession.CDRMotivoOperacion] != null)
+                {
+                    return (List<BECDRWebMotivoOperacion>)Session[Constantes.ConstSession.CDRMotivoOperacion];
+                }
+
+                var listaMotivoOperacion = new List<BECDRWebMotivoOperacion>();
+                using (CDRServiceClient sv = new CDRServiceClient())
+                {
+                    listaMotivoOperacion = sv.GetCDRWebMotivoOperacion(userData.PaisID, new BECDRWebMotivoOperacion()).ToList();
+                }
+
+                int diasFaltantes = 0;
+                BECDRWebDatos cDRWebDatos = ObtenerCdrWebDatosByCodigo(Constantes.CdrWebDatos.ValidacionDiasFaltante);
+                if (cDRWebDatos != null) Int32.TryParse(cDRWebDatos.Valor, out diasFaltantes);
+
+                if (diasFaltantes > 0)
+                {
+                    List<string> operacionFaltanteList = new List<string> { "F", "G" };
+                    listaMotivoOperacion.Where(mo => operacionFaltanteList.Contains(mo.CodigoOperacion))
+                        .Update(mo =>
+                        {
+                            mo.CDRTipoOperacion.NumeroDiasAtrasOperacion = Math.Min(diasFaltantes, mo.CDRTipoOperacion.NumeroDiasAtrasOperacion);
+                        });
+                }
+                Session[Constantes.ConstSession.CDRMotivoOperacion] = listaMotivoOperacion;
+                return listaMotivoOperacion;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                Session[Constantes.ConstSession.CDRMotivoOperacion] = null;
+                return new List<BECDRWebMotivoOperacion>();
+            }
+        }
+
+        protected BECDRWebDatos ObtenerCdrWebDatosByCodigo(string codigo)
+        {
+            return CargarCdrWebDatos().FirstOrDefault(p => p.Codigo == codigo);
+        }
+
+        protected List<BECDRWebDatos> CargarCdrWebDatos()
+        {
+            try
+            {
+                if (Session[Constantes.ConstSession.CDRWebDatos] != null)
+                {
+                    var listacdrWebDatos = (List<BECDRWebDatos>)Session[Constantes.ConstSession.CDRWebDatos];
+                    if (listacdrWebDatos.Count > 0)
+                        return listacdrWebDatos;
+                }
+
+                var lista = new List<BECDRWebDatos>();
+                var entidad = new BECDRWebDatos();
+                using (CDRServiceClient sv = new CDRServiceClient())
+                {
+                    lista = sv.GetCDRWebDatos(userData.PaisID, entidad).ToList();
+                }
+
+                Session[Constantes.ConstSession.CDRWebDatos] = lista;
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                Session[Constantes.ConstSession.CDRWebDatos] = null;
+                return new List<BECDRWebDatos>();
+            }
+        }
+
+        protected List<BECDRWebDetalle> CargarDetalle(MisReclamosModel model)
+        {
+            try
+            {
+                if (Session[Constantes.ConstSession.CDRWebDetalle] != null)
+                {
+                    return (List<BECDRWebDetalle>)Session[Constantes.ConstSession.CDRWebDetalle];
+                }
+
+                model = model ?? new MisReclamosModel();
+
+                var lista = new List<BECDRWebDetalle>();
+                var entidad = new BECDRWebDetalle();
+                entidad.CDRWebID = model.CDRWebID;
+                using (CDRServiceClient sv = new CDRServiceClient())
+                {
+                    lista = sv.GetCDRWebDetalle(userData.PaisID, entidad, model.PedidoID).ToList();
+                }
+
+                lista = lista ?? new List<BECDRWebDetalle>();
+
+                lista.Update(p => p.Solicitud = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.Finalizado).Descripcion);
+                lista.Update(p => p.SolucionSolicitada = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.MensajeFinalizado).Descripcion);
+                lista.Update(p => p.FormatoPrecio1 = Util.DecimalToStringFormat(p.Precio, userData.CodigoISO));
+                lista.Update(p => p.FormatoPrecio2 = Util.DecimalToStringFormat(p.Precio2, userData.CodigoISO));
+                Session[Constantes.ConstSession.CDRWebDetalle] = lista;
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                Session[Constantes.ConstSession.CDRWebDetalle] = null;
+                return new List<BECDRWebDetalle>();
+            }
+        }
+
+        protected List<BECDRMotivoReclamo> CargarMotivo(MisReclamosModel model)
+        {
+            var listaRetorno = new List<BECDRMotivoReclamo>();
+            try
+            {
+                model.Operacion = Util.SubStr(model.Operacion, 0);
+                var listaFiltro = CargarMotivoOperacionPorDias(model);
+                foreach (var item in listaFiltro)
+                {
+                    if (item.CodigoOperacion != model.Operacion && model.Operacion != "")
+                        continue;
+
+                    if (listaRetorno.Any(r => r.CodigoReclamo == item.CodigoReclamo))
+                        continue;
+
+                    var desc = ObtenerDescripcion(item.CDRMotivoReclamo.CodigoReclamo, Constantes.TipoMensajeCDR.Motivo);
+                    var add = new BECDRMotivoReclamo();
+                    add.CodigoReclamo = item.CodigoReclamo;
+                    add.DescripcionReclamo = desc.Descripcion;
+                    listaRetorno.Add(add);
+                }
+
+                return listaRetorno;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return listaRetorno;
+            }
+        }
+
+        protected List<BECDRWebMotivoOperacion> CargarMotivoOperacionPorDias(MisReclamosModel model)
+        {
+            var listaPedidoFacturado = CargarPedidosFacturados();
+            var pedido = listaPedidoFacturado.FirstOrDefault(p => p.PedidoID == model.PedidoID) ?? new BEPedidoWeb();
+            DateTime fechaSys = userData.FechaActualPais.Date;
+            DateTime fechaFinCampania = pedido.FechaRegistro.Date;
+            TimeSpan diferencia = fechaSys - fechaFinCampania;
+            int differenceInDays = diferencia.Days;
+            //Para Pruebas
+            //differenceInDays = 30;
+
+            if (differenceInDays <= 0) return new List<BECDRWebMotivoOperacion>();
+
+            var listaMotivoOperacion = CargarMotivoOperacion();
+            var listaFiltro = listaMotivoOperacion.Where(mo => mo.CDRTipoOperacion.NumeroDiasAtrasOperacion >= differenceInDays).ToList();
+            return listaFiltro.OrderBy(p => p.Prioridad).ToList();
+        }
+
+        protected BECDRWebDescripcion ObtenerDescripcion(string codigoSsic, string tipo)
+        {
+            codigoSsic = Util.SubStr(codigoSsic, 0);
+            //codigoSsic = codigoSsic.ToLower();
+            tipo = Util.SubStr(tipo, 0);
+            //tipo = tipo.ToLower();
+            var listaDescripcion = CargarDescripcion();
+            var desc = listaDescripcion.FirstOrDefault(d => d.CodigoSSIC == codigoSsic && d.Tipo == tipo) ?? new BECDRWebDescripcion();
+
+            desc.Descripcion = Util.SubStr(desc.Descripcion, 0);
+            return desc;
+        }
+
+        private List<BECDRWebDescripcion> CargarDescripcion()
+        {
+            try
+            {
+                if (Session[Constantes.ConstSession.CDRDescripcion] != null)
+                {
+                    var listaDescripcion = (List<BECDRWebDescripcion>)Session[Constantes.ConstSession.CDRDescripcion];
+                    if (listaDescripcion.Count > 0)
+                        return listaDescripcion;
+                }
+
+                var lista = new List<BECDRWebDescripcion>();
+                var entidad = new BECDRWebDescripcion();
+                using (CDRServiceClient sv = new CDRServiceClient())
+                {
+                    lista = sv.GetCDRWebDescripcion(userData.PaisID, entidad).ToList();
+                }
+
+                lista = lista ?? new List<BECDRWebDescripcion>();
+                //lista.Update(d => d.Tipo = d.Tipo.ToLower());
+                Session[Constantes.ConstSession.CDRDescripcion] = lista;
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                Session[Constantes.ConstSession.CDRDescripcion] = null;
+                return new List<BECDRWebDescripcion>();
+            }
+        }
+
+        protected void CargarInformacion()
+        {
+            Session[Constantes.ConstSession.CDRWebDetalle] = null;
+            Session[Constantes.ConstSession.CDRWeb] = null;
+
+            var listaMotivoOperacion = CargarMotivoOperacion();
+            // get max dias => plazo para hacer reclamo
+            // calcular las campañas existentes en ese rango de dias
+            // obtener todos pedidos facturados de esas campañas existentes
+
+            int maxDias = 0;
+            if (listaMotivoOperacion.Any())
+            {
+                maxDias += int.Parse(listaMotivoOperacion.Max(m => m.CDRTipoOperacion.NumeroDiasAtrasOperacion).ToString());
+            }
+
+            var listaPedidoFacturados = CargarPedidosFacturados(maxDias);
+
+            var listaCampanias = new List<CampaniaModel>();
+            var campania = new CampaniaModel();
+            campania.CampaniaID = 0;
+            campania.NombreCorto = "¿En qué campaña lo solicitaste?";
+            listaCampanias.Add(campania);
+            foreach (var facturado in listaPedidoFacturados)
+            {
+                var existe = listaCampanias.Where(c => c.CampaniaID == facturado.CampaniaID) ?? new List<CampaniaModel>();
+                if (!existe.Any())
+                {
+                    campania = new CampaniaModel();
+                    campania.CampaniaID = facturado.CampaniaID;
+                    campania.NombreCorto = facturado.CampaniaID.ToString();
+                    listaCampanias.Add(campania);
+                }
+            }
+
+            Session[Constantes.ConstSession.CDRCampanias] = listaCampanias;
+
+            CargarParametriaCdr();
+            CargarCdrWebDatos();
+        }
+
+        protected List<BECDRParametria> CargarParametriaCdr()
+        {
+            try
+            {
+                if (Session[Constantes.ConstSession.CDRParametria] != null)
+                {
+                    var listaDescripcion = (List<BECDRParametria>)Session[Constantes.ConstSession.CDRParametria];
+                    if (listaDescripcion.Count > 0)
+                        return listaDescripcion;
+                }
+
+                var lista = new List<BECDRParametria>();
+                var entidad = new BECDRParametria();
+                using (CDRServiceClient sv = new CDRServiceClient())
+                {
+                    lista = sv.GetCDRParametria(userData.PaisID, entidad).ToList();
+                }
+
+                Session[Constantes.ConstSession.CDRParametria] = lista;
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                Session[Constantes.ConstSession.CDRParametria] = null;
+                return new List<BECDRParametria>();
+            }
+        }
+
+        protected List<BECDRWeb> CargarBECDRWeb(MisReclamosModel model)
+        {
+            var entidadLista = new List<BECDRWeb>();
+            try
+            {
+                if (Session[Constantes.ConstSession.CDRWeb] != null)
+                {
+                    return (List<BECDRWeb>)Session[Constantes.ConstSession.CDRWeb];
+                }
+
+                //if (model.PedidoID * model.CampaniaID <= 0)
+                //    return entidadLista;
+
+                var entidad = new BECDRWeb();
+                entidad.CampaniaID = model.CampaniaID;
+                entidad.PedidoID = model.PedidoID;
+                entidad.ConsultoraID = Int32.Parse(userData.ConsultoraID.ToString());
+
+                using (CDRServiceClient sv = new CDRServiceClient())
+                {
+                    entidadLista = sv.GetCDRWeb(userData.PaisID, entidad).ToList();
+                }
+
+                Session[Constantes.ConstSession.CDRWeb] = null;
+                if (entidadLista.Count() == 1)
+                {
+                    Session[Constantes.ConstSession.CDRWeb] = entidadLista;
+                }
+
+                return entidadLista;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                Session[Constantes.ConstSession.CDRWeb] = null;
+                entidadLista = new List<BECDRWeb>();
+                return entidadLista;
+            }
+        }
+        #endregion
 
         protected string GetPaisesEsikaFromConfig()
         {
