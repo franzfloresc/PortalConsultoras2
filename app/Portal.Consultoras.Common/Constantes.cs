@@ -183,13 +183,6 @@ namespace Portal.Consultoras.Common
 
         }
 
-        public class TipoFichaProducto
-        {
-            public const string SinTonos = "0";
-            public const string IndividualConTonos = "1";
-            public const string PackConTonos = "2";
-        }
-
         public class ConstSession
         {
             public const string IngresoPortalLideres = "IngresoPortalLideres";
