@@ -331,6 +331,8 @@ namespace Portal.Consultoras.BizLogic
                     usuario.NuevoPROL = configuracion.NuevoPROL;
                     usuario.ZonaNuevoPROL = configuracion.ZonaNuevoPROL;
                     usuario.IndicadorGPRSB = configuracion.IndicadorGPRSB;
+                    usuario.ValidacionAbierta = configuracion.ValidacionAbierta;
+                    usuario.EstadoPedido = configuracion.EstadoPedido;
                 }
             }
 
@@ -365,6 +367,8 @@ namespace Portal.Consultoras.BizLogic
                         usuario.NuevoPROL = configuracion.NuevoPROL;
                         usuario.ZonaNuevoPROL = configuracion.ZonaNuevoPROL;
                         usuario.IndicadorGPRSB = configuracion.IndicadorGPRSB;
+                        usuario.ValidacionAbierta = configuracion.ValidacionAbierta;
+                        usuario.EstadoPedido = configuracion.EstadoPedido;
                     }
                 }
             }

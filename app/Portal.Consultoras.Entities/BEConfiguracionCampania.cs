@@ -77,6 +77,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public TimeSpan HoraCierreNoFacturable { get; set; }
         [DataMember]
+        [Column("estadoPedido")]
         public int EstadoPedido { get; set; }
         [DataMember]
         public bool ModificaPedidoReservado { get; set; }
@@ -119,6 +120,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public TimeSpan FactorCierreZonaDemAnti { get; set; }
         [DataMember]
+        [Column("ValidacionAbierta")]
         public bool ValidacionAbierta { get; set; }//CCSS_JZ_PROL2
 
         [Column("NuevoPROL")]
