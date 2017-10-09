@@ -268,7 +268,10 @@
 
     <!-- content -->
     <section style="min-height: 380px;">
-        <div id="contentmobile" data-content="" style="margin-top: 60px;">
+        @{ 
+            var marginTop = esIngresoUnico ? "0px;" : "60px";
+        }
+        <div id="contentmobile" data-content="" style="margin-top:@marginTop">
 
             @if (ViewBag.MostrarBannerPL20 == true && ViewBag.MostrarBannerOtros == false)
             {
