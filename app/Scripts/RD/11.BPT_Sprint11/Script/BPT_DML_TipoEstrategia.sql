@@ -1,3 +1,6 @@
 
--- oferta del dia, 009 para todos los paises
-select * from TipoEstrategia where codigo = '009'
+GO
+update TipoEstrategia
+set Codigo = '009'
+ where DescripcionEstrategia = 'Oferta del Día'
+ GO
