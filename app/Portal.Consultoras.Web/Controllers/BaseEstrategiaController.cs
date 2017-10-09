@@ -157,7 +157,6 @@ namespace Portal.Consultoras.Web.Controllers
         public EstrategiaPersonalizadaProductoModel EstrategiaGetDetalle(int id, string cuv = "")
         {
             var estrategiaModelo = new EstrategiaPersonalizadaProductoModel();
-            estrategiaModelo.Hermanos = new List<ProductoModel>();
 
             try
             {
@@ -232,14 +231,15 @@ namespace Portal.Consultoras.Web.Controllers
                     listaHermanos.ForEach(h =>
                     {
                         h.CUV = Util.Trim(h.CUV);
+                        h.FactorCuadre = 1;
                     });
                     listaHermanos = listaHermanos.OrderBy(h => h.Orden).ToList();
                 }
                 if (estrategiaModelo.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaFija || estrategiaModelo.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaVariable)
                 {
                     var listaHermanosX = new List<ProductoModel>();
-                    listaProducto = listaProducto.OrderBy(p=>p.Grupo).ToList();
-                    listaHermanos = listaHermanos.OrderBy(p=>p.CodigoProducto).ToList();
+                    listaProducto = listaProducto.OrderBy(p => p.Grupo).ToList();
+                    listaHermanos = listaHermanos.OrderBy(p => p.CodigoProducto).ToList();
 
                     var idPk = 1;
                     listaHermanos.ForEach(h => h.ID = idPk++);
@@ -264,6 +264,7 @@ namespace Portal.Consultoras.Web.Controllers
                         prod.Digitable = item.Digitable;
                         prod.CUV = Util.Trim(item.CUV);
                         prod.Cantidad = item.Cantidad;
+                        prod.FactorCuadre = item.FactorCuadre;
                         listaHermanosX.Add(prod);
                         idPk = prod.ID;
                     }
@@ -304,7 +305,27 @@ namespace Portal.Consultoras.Web.Controllers
 
                 }
 
-                estrategiaModelo.Hermanos = listaHermanos ?? new List<ProductoModel>();
+                #region Factor Cuadre
+
+                var listaHermanosCuadre = new List<ProductoModel>();
+                
+                foreach (var hermano in listaHermanos)
+                {
+                    listaHermanosCuadre.Add((ProductoModel)hermano.Clone());
+                    
+                    if (hermano.FactorCuadre > 1)
+                    {
+                        for (int i = 0; i < hermano.FactorCuadre - 1; i++)
+                        {
+                            listaHermanosCuadre.Add((ProductoModel)hermano.Clone());
+                        }
+                    }
+                }
+
+                #endregion
+
+                //estrategiaModelo.Hermanos = listaHermanos ?? new List<ProductoModel>();
+                estrategiaModelo.Hermanos = listaHermanosCuadre ?? new List<ProductoModel>();
             }
             catch (Exception ex)
             {
