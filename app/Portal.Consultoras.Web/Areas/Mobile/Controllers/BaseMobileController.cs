@@ -157,7 +157,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 int j = ViewBag.NombreConsultora.Trim().IndexOf(' ');
                 if (j >= 0) ViewBag.NombreConsultora = ViewBag.NombreConsultora.Substring(0, j).Trim();
 
-                ViewBag.NumeroCampania = userData.NombreCorto.Substring(4);
+                ViewBag.NumeroCampania = (!string.IsNullOrEmpty(userData.NombreCorto) && userData.NombreCorto.Length > 4)
+                    ? userData.NombreCorto.Substring(4) : "";
                 ViewBag.EsUsuarioComunidad = userData.EsUsuarioComunidad ? 1 : 0;
                 ViewBag.AnalyticsCampania = userData.CampaniaID;
                 ViewBag.AnalyticsSegmento = string.IsNullOrEmpty(userData.Segmento) ? "(not available)" : userData.Segmento.Trim();
