@@ -710,7 +710,7 @@ function AgregarProductoListado() {
     var param = ({
         MarcaID: 0,
         CUV: CUV,
-        PrecioUnidad: 0,
+        PrecioUnidad: $("#hdfPrecioUnidad").val(),
         Descripcion: 0,
         Cantidad: Cantidad,
         IndicadorMontoMinimo: 0,

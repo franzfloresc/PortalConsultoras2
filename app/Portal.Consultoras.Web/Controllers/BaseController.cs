@@ -470,23 +470,29 @@ namespace Portal.Consultoras.Web.Controllers
             return false;
         }
 
-        protected string ValidarMontoMaximo(decimal montoCuv, int Cantidad)
+        protected string ValidarMontoMaximo(decimal montoCuv, int Cantidad, out bool resul)
         {
             string mensaje = "";
+            resul = false;
             try
-            {
+            {                
                 if (userData.TieneValidacionMontoMaximo)
                 {
                     if (userData.MontoMaximo == Convert.ToDecimal(9999999999.00)) /*monto sin limites*/
                         mensaje = "";
                     else
-                    {
+                    {                        
                         var listaProducto = ObtenerPedidoWebDetalle();
 
                         var totalPedido = listaProducto.Sum(p => p.ImporteTotal);
                         decimal _dTotalPedido = Convert.ToDecimal(totalPedido);
                         decimal descuentoProl = 0;
 
+                        if (_dTotalPedido > userData.MontoMaximo && Cantidad < 0)
+                        {
+                            resul = true;
+                        }
+                        
                         if (listaProducto.Count() > 0)
                             descuentoProl = listaProducto[0].DescuentoProl;
 
