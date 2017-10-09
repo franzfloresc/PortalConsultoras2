@@ -1,6 +1,7 @@
 ﻿using OpenSource.Library.DataAccess;
 using Portal.Consultoras.Common;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Runtime.Serialization;
 
@@ -21,7 +22,10 @@ namespace Portal.Consultoras.Entities
         private string msTelefono;
         private string msTelefonoTrabajo;
         private string msCelular;
-        private string msSobrenombre;
+        [Column("Sobrenombre")]
+        public string msSobrenombre { get; set; }
+        [Column("PrimerNombre")]
+        public string msPrimerNombre { get; set; }
         private bool mbCompartirDatos;
         private bool mbActivo;
         private Int16 miTipoUsuario;
@@ -34,7 +38,9 @@ namespace Portal.Consultoras.Entities
         private string msCodigoZona;
         private long miConsultoraID;
         private short miRolID;
+
         private int miCampaniaID;
+
         private DateTime mdFechaInicioFacturacion;
         private DateTime mdFechaFinFacturacion;
         private DateTime mdFechaFinFIC;//1501
@@ -55,7 +61,7 @@ namespace Portal.Consultoras.Entities
         private string mNombrePais;
         private int mConsultoraNueva;
         private string mSegmento;
-        
+
         private int miDiasDuracionCronograma;
         private bool mHabilitarRestriccionHoraria;
         private string mAnoCampaniaIngreso;
@@ -69,7 +75,10 @@ namespace Portal.Consultoras.Entities
         private string mSegmentoConstancia;//R2469(CSR)
         private string mSeccionAnalytics;//R2469(CSR)
         private string mDescripcionNivel; //R2469(CSR)
-        private bool mesConsultoraLider;//R2469(CSR)
+
+        [Column("ESCONSULTORALIDER")]
+        public int mesConsultoraLider { get; set; }//R2469(CSR)
+
         private bool bEstadoSimplificacionCUV { get; set; }
         private bool bEsquemaDAConsultora;
         private string digitoVerificador;
@@ -77,10 +86,20 @@ namespace Portal.Consultoras.Entities
 
         private string mSegmentoAbreviatura;
 
+        [Column("TIENEHANA")]
+        public bool tieneHana { get; set; }
+
+        [Column("TieneODD")]
+        public int tieneOdd { get; set; }
+
+        [Column("TieneLoginExterno")]
+        public int tieneLoginExterno { get; set; }
+
         public BEUsuario()
         {
         }
-        
+
+        [Obsolete("Use MapUtil.MapToCollection")]
         public BEUsuario(IDataRecord row)
         {
             msCodigoConsultora = row["CodigoConsultora"].ToString();
@@ -99,7 +118,7 @@ namespace Portal.Consultoras.Entities
             mbCambioClave = Convert.ToBoolean(row["CambioClave"]);
 
             if (DataRecord.HasColumn(row, "TelefonoTrabajo") && row["TelefonoTrabajo"] != DBNull.Value)
-                msTelefonoTrabajo = Convert.ToString(row["TelefonoTrabajo"]);  
+                msTelefonoTrabajo = Convert.ToString(row["TelefonoTrabajo"]);
             if (DataRecord.HasColumn(row, "AceptoContrato") && row["AceptoContrato"] != DBNull.Value)
                 this.AceptoContrato = Convert.ToBoolean(row["AceptoContrato"]);
             if (DataRecord.HasColumn(row, "MostrarAyudaWebTraking") && row["MostrarAyudaWebTraking"] != DBNull.Value)
@@ -147,6 +166,7 @@ namespace Portal.Consultoras.Entities
             //EPD-1919 FIN
         }
 
+        [Obsolete("Use MapUtil.MapToCollection")]
         public BEUsuario(IDataRecord row, bool Tipo)
         {
             if (DataRecord.HasColumn(row, "PaisID")) miPaisID = Convert.ToInt32(row["PaisID"]);
@@ -236,7 +256,7 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "Direccion") && row["Direccion"] != DBNull.Value)
                 Direccion = Convert.ToString(row["Direccion"]);
             if (DataRecord.HasColumn(row, "TelefonoTrabajo") && row["TelefonoTrabajo"] != DBNull.Value)
-                msTelefonoTrabajo = Convert.ToString(row["TelefonoTrabajo"]);            
+                msTelefonoTrabajo = Convert.ToString(row["TelefonoTrabajo"]);
             if (DataRecord.HasColumn(row, "AnoCampanaIngreso") && row["AnoCampanaIngreso"] != DBNull.Value)
                 AnoCampaniaIngreso = Convert.ToString(row["AnoCampanaIngreso"]);
             if (DataRecord.HasColumn(row, "PrimerNombre") && row["PrimerNombre"] != DBNull.Value)
@@ -410,10 +430,10 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "TipoUsuario") && row["TipoUsuario"] != DBNull.Value)
                 TipoUsuario = Convert.ToInt16(row["TipoUsuario"]);
-            
+
             if (DataRecord.HasColumn(row, "TieneLoginExterno") && row["TieneLoginExterno"] != DBNull.Value)
                 TieneLoginExterno = Convert.ToBoolean(row["TieneLoginExterno"]);
-            
+
             //EPD-1919 INICIO
             if (DataRecord.HasColumn(row, "TieneCDRExpress")) TieneCDRExpress = Convert.ToBoolean(row["TieneCDRExpress"]);
             if (DataRecord.HasColumn(row, "EsConsecutivoNueva")) EsConsecutivoNueva = Convert.ToBoolean(row["EsConsecutivoNueva"]);
@@ -475,7 +495,7 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "EstadoPedido") && row["EstadoPedido"] != DBNull.Value)
                 EstadoPedido = Convert.ToInt32(row["EstadoPedido"]);
-            
+
             if (DataRecord.HasColumn(row, "ValidacionAbierta") && row["ValidacionAbierta"] != DBNull.Value)
                 ValidacionAbierta = Convert.ToBoolean(row["ValidacionAbierta"]);
 
@@ -489,6 +509,7 @@ namespace Portal.Consultoras.Entities
                 AceptacionConsultoraDA = Convert.ToInt32(row["CompartirDatos"]);
         }
 
+        [Column("ConsultoraAsociadoID")]
         [DataMember]
         public long ConsultoraAsociadaID
         {
@@ -498,6 +519,8 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public string RolDescripcion { get; set; }
+
+        [Column("NroCampanias")]
         [DataMember]
         public int NroCampanias { get; set; }
         [DataMember]
@@ -510,8 +533,22 @@ namespace Portal.Consultoras.Entities
         public double ZonaHoraria { get; set; }
         [DataMember]
         public int EsZonaDemAnti { get; set; }
+
+        [Column("UsuarioPrueba")]
+        public bool usuarioPrueba { get; set; }
+        private int _UsuarioPrueba;
         [DataMember]
-        public int UsuarioPrueba { get; set; }
+        public int UsuarioPrueba
+        {
+            get
+            {
+                return usuarioPrueba ? 1 : _UsuarioPrueba;
+            }
+            set
+            {
+                _UsuarioPrueba = value;
+            }
+        }
         [DataMember]
         public int PasePedidoWeb { get; set; }
         [DataMember]
@@ -532,6 +569,8 @@ namespace Portal.Consultoras.Entities
         public int SegmentoID { get; set; }
         [DataMember]
         public DateTime FechaNacimiento { get; set; }
+
+        [Column("FechaLimitePago")]
         [DataMember]
         public DateTime FechaLimPago { get; set; }
         [DataMember]
@@ -594,6 +633,7 @@ namespace Portal.Consultoras.Entities
             set { mCodigoFuente = value; }
         }
 
+        [Column("CodigoUsuario")]
         [DataMember]
         public string CodigoUsuario
         {
@@ -601,18 +641,23 @@ namespace Portal.Consultoras.Entities
             set { msCodigoUsuario = value; }
         }
 
+        [Column("CodigoConsultora")]
         [DataMember]
         public string CodigoConsultora
         {
             get { return msCodigoConsultora; }
             set { msCodigoConsultora = value; }
         }
+
+        [Column("PaisID")]
         [DataMember]
         public int PaisID
         {
             get { return miPaisID; }
             set { miPaisID = value; }
         }
+
+        [Column("NombreCompleto")]
         [DataMember]
         public string Nombre
         {
@@ -637,6 +682,8 @@ namespace Portal.Consultoras.Entities
             get { return msConfirmarClave; }
             set { msConfirmarClave = value; }
         }
+
+        [Column("EMail")]
         [DataMember]
         public string EMail
         {
@@ -649,28 +696,38 @@ namespace Portal.Consultoras.Entities
             get { return mbEMailActivo; }
             set { mbEMailActivo = value; }
         }
+
+        [Column("Telefono")]
         [DataMember]
         public string Telefono
         {
             get { return msTelefono; }
             set { msTelefono = value; }
         }
+
+        [Column("TelefonoTrabajo")]
         [DataMember]
         public string TelefonoTrabajo
         {
             get { return msTelefonoTrabajo; }
             set { msTelefonoTrabajo = value; }
         }
+
+        [Column("Celular")]
         [DataMember]
         public string Celular
         {
             get { return msCelular; }
             set { msCelular = value; }
         }
+
         [DataMember]
         public string Sobrenombre
         {
-            get { return msSobrenombre; }
+            get {
+                if (string.IsNullOrEmpty(msSobrenombre)) msSobrenombre = msPrimerNombre;
+                return msSobrenombre;
+            }
             set { msSobrenombre = value; }
         }
         [DataMember]
@@ -687,6 +744,8 @@ namespace Portal.Consultoras.Entities
             get { return mbActivo; }
             set { mbActivo = value; }
         }
+
+        [Column("TipoUsuario")]
         [DataMember]
         public Int16 TipoUsuario
         {
@@ -700,6 +759,7 @@ namespace Portal.Consultoras.Entities
             set { mbCambioClave = value; }
         }
 
+        [Column("CodigoISO")]
         [DataMember]
         public string CodigoISO
         {
@@ -707,6 +767,7 @@ namespace Portal.Consultoras.Entities
             set { msCodigoISO = value; }
         }
 
+        [Column("RegionID")]
         [DataMember]
         public int RegionID
         {
@@ -714,6 +775,7 @@ namespace Portal.Consultoras.Entities
             set { miRegionID = value; }
         }
 
+        [Column("CodigorRegion")]
         [DataMember]
         public string CodigorRegion
         {
@@ -721,6 +783,7 @@ namespace Portal.Consultoras.Entities
             set { msCodigorRegion = value; }
         }
 
+        [Column("ZonaID")]
         [DataMember]
         public int ZonaID
         {
@@ -728,6 +791,7 @@ namespace Portal.Consultoras.Entities
             set { miZonaID = value; }
         }
 
+        [Column("CodigoZona")]
         [DataMember]
         public string CodigoZona
         {
@@ -735,6 +799,7 @@ namespace Portal.Consultoras.Entities
             set { msCodigoZona = value; }
         }
 
+        [Column("ConsultoraID")]
         [DataMember]
         public long ConsultoraID
         {
@@ -742,6 +807,7 @@ namespace Portal.Consultoras.Entities
             set { miConsultoraID = value; }
         }
 
+        [Column("RolID")]
         [DataMember]
         public short RolID
         {
@@ -798,6 +864,7 @@ namespace Portal.Consultoras.Entities
             set { mbZonaValida = value; }
         }
 
+        [Column("Simbolo")]
         [DataMember]
         public string Simbolo
         {
@@ -819,6 +886,7 @@ namespace Portal.Consultoras.Entities
             set { msCodigoTerritorio = value; }
         }
 
+        [Column("MontoMinimoPedido")]
         [DataMember]
         public decimal MontoMinimoPedido
         {
@@ -826,6 +894,7 @@ namespace Portal.Consultoras.Entities
             set { mmMontoMinimoPedido = value; }
         }
 
+        [Column("MontoMaximoPedido")]
         [DataMember]
         public decimal MontoMaximoPedido
         {
@@ -860,7 +929,7 @@ namespace Portal.Consultoras.Entities
             get { return mSegmento; }
             set { mSegmento = value; }
         }
-        
+
         [DataMember]
         public int DiasDuracionCronograma
         {
@@ -917,12 +986,14 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int Lider { get; set; }
 
+        [Column("ConsultoraAsociada")]
         [DataMember]
         public string ConsultoraAsociada { get; set; }
 
         [DataMember]
         public string CampaniaInicioLider { get; set; }
 
+        [Column("SeccionGestionLider")]
         [DataMember]
         public string SeccionGestionLider { get; set; }
 
@@ -986,11 +1057,12 @@ namespace Portal.Consultoras.Entities
             get { return mDescripcionNivel; }
             set { mDescripcionNivel = value; }
         }
+
         [DataMember]
         public bool esConsultoraLider
         {
-            get { return mesConsultoraLider; }
-            set { mesConsultoraLider = value; }
+            get { return Convert.ToBoolean(mesConsultoraLider); }
+            set { mesConsultoraLider = value ? 1 : 0; }
         }
         [DataMember]
         public string DigitoVerificador
@@ -1017,6 +1089,8 @@ namespace Portal.Consultoras.Entities
         public string Region { get; set; }
         [DataMember]
         public string Pais { get; set; }
+
+        [Column("Campania")]
         [DataMember]
         public string Campania { get; set; }
         [DataMember]
@@ -1075,7 +1149,11 @@ namespace Portal.Consultoras.Entities
         public int VioTutorialSalvavidas { get; set; }
 
         [DataMember]
-        public int TieneHana { get; set; }
+        public int TieneHana
+        {
+            get { return tieneHana ? 1 : 0; }
+            set { tieneHana = value == 1; }
+        }
 
         [DataMember]
         public int IndicadorBloqueoCDR { get; set; }
@@ -1208,20 +1286,29 @@ namespace Portal.Consultoras.Entities
 
         /*PL20-1226*/
         [DataMember]
-        public bool OfertaDelDia { get; set; }
+        public bool OfertaDelDia
+        {
+            get { return Convert.ToBoolean(tieneOdd); }
+            set { tieneOdd = value ? 1 : 0; }
+        }
 
         //EPD-1836
         [DataMember]
         public int AceptacionConsultoraDA { get; set; }
-        
+
+        [Column("DocumentoIdentidad")]
         [DataMember]
         public string DocumentoIdentidad { get; set; }
-                
-        public bool DiaPROL { get; set; }        
+
+        public bool DiaPROL { get; set; }
         public bool EsHoraReserva { get; set; }
-        
+
         [DataMember]
-        public bool TieneLoginExterno { get; set; }
+        public bool TieneLoginExterno
+        {
+            get { return Convert.ToBoolean(tieneLoginExterno); }
+            set { tieneLoginExterno = value ? 1 : 0; }
+        }
 
         //[DataMember]
         //public int EsOfertaDelDia { get; set; }
@@ -1277,9 +1364,33 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool EsConsecutivoNueva { get; set; }
         //EPD-1919 FIN
-        
+
         [DataMember]
         public bool PedidoFICActivo { get; set; }
 
+        [DataMember]
+        public string FotoPerfil { get; set; }
+
+        [DataMember]
+        public bool AceptaTerminosCondiciones { get; set; }
+
+        [DataMember]
+        public string DestinatariosFeedback { get; set; }
+
+        [DataMember]
+        public bool GPRMostrarBannerRechazo { get; set; }
+        [DataMember]
+        public string GPRBannerTitulo { get; set; }
+        [DataMember]
+        public string GPRBannerMensaje { get; set; }
+        [DataMember]
+        public Enumeradores.RechazoBannerUrl GPRBannerUrl { get; set; }
+        [DataMember]
+        public string GPRTextovinculo { get; set; }
+
+        [DataMember]
+        public string FechaVencimiento { get; set; }
+        [DataMember]
+        public int DiasCierre { get; set; }
     }
 }

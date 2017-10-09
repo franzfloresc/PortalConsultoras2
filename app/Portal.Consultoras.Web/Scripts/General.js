@@ -190,19 +190,19 @@ jQuery(document).ready(function () {
             Handlebars.registerHelper('iff', function (a, operator, b, opts) {
                 var bool = false;
                 var ret = false;
-                
+
                 switch (b) {
                     case undefined:
                     case null:
                         ret = typeof a == "boolean";
                         bool = ret ? a : false;
                         break;
-                    default:  break;
+                    default: break;
                 }
 
                 if (ret)
                     return bool ? operator.fn(this) : operator.inverse(this);
-                
+
 
                 switch (operator) {
                     case '==':
@@ -411,9 +411,9 @@ jQuery(document).ready(function () {
     $(document).scroll(function () {
         try {
             $(".loadingScreenWindow").css("top", (($(window).height() / 2) + $(document).scrollTop() - $(".loadingScreenWindow").height()) + "px");
-        } catch (e) { }        
+        } catch (e) { }
     });
-    
+
     RemoverRepetidos = function (lista, campo) {
         campo = $.trim(campo);
         var newLista = new Array();
@@ -436,7 +436,7 @@ jQuery(document).ready(function () {
         });
 
         return newLista;
-    };    
+    };
 })(jQuery);
 
 function showDialog(dialogId) {
@@ -542,10 +542,10 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
         }
         titulo = titulo || "MENSAJE";
         var CONS_TIPO_ICONO = { ALERTA: 1, CHECK: 2 };
-        var isUrlMobile = $.trim(location.href).toLowerCase().indexOf("/mobile/") > 0;
+        var isUrlMobile = isMobile();
         if (isUrlMobile > 0) {
             $('.icono_alerta').hide();
-            if (tipoIcono ==  CONS_TIPO_ICONO.ALERTA) {
+            if (tipoIcono == CONS_TIPO_ICONO.ALERTA) {
                 $('.icono_alerta.exclamacion_icono_mobile').show();
             }
             if (tipoIcono == CONS_TIPO_ICONO.CHECK) {
@@ -557,7 +557,7 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
             $('#mensajeInformacionvalidado').html(mensaje);
             $('#popupInformacionValidado').show();
             $('#popupInformacionValidado #bTagTitulo').html(titulo);
-            
+
             if ($.isFunction(fnAceptar)) {
                 var botonesCerrar = $('#popupInformacionValidado .btn_ok_mobile,.cerrar_popMobile');
                 botonesCerrar.off('click');
@@ -574,12 +574,12 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
 
             $('.ui-dialog .ui-button').on('click', function () {
                 $('#alertDialogMensajes').dialog('close');
-                if($.isFunction(fnAceptar)) fnAceptar();
+                if ($.isFunction(fnAceptar)) fnAceptar();
             });
 
             $('.ui-dialog .ui-icon-closethick').on('click', function () {
                 $('#alertDialogMensajes').dialog('close');
-                if($.isFunction(fnAceptar)) fnAceptar();
+                if ($.isFunction(fnAceptar)) fnAceptar();
             });
 
             $('.ui-dialog .ui-button').focus();
@@ -633,8 +633,18 @@ function IsValidUrl(value) {
 }
 
 function isMobile() {
-    var isUrlMobile = $.trim(location.href).toLowerCase().indexOf("/mobile/") > 0;
+    var isUrlMobile = $.trim(location.href).toLowerCase().indexOf("/mobile/") > 0 ||
+        $.trim(location.href).toLowerCase().indexOf("/g/") > 0;
     return isUrlMobile;
+}
+
+function getMobilePrefixUrl() {
+    var uniquePrefix = "/g/";
+    var currentUrl = $.trim(location.href).toLowerCase();
+    var uniqueIndexOfUrl = currentUrl.indexOf(uniquePrefix);
+    var isUniqueUrl = uniqueIndexOfUrl > 0;
+    //36 is Guid Length
+    return isUniqueUrl ? currentUrl.substring(uniqueIndexOfUrl, uniqueIndexOfUrl + uniquePrefix.length + 36) : "/mobile";
 }
 
 function isPagina(pagina) {
@@ -671,11 +681,11 @@ function checkTimeout(data) {
             if (ViewBagEsMobile == 1) {/*1 Desktop, 2 Mobile*/
                 $('#dialog_SesionMainLayout #mensajeSesionSB2_Error').html(message);
                 $('#dialog_SesionMainLayout').show();
-        }
+            }
             else {
                 $('#popupInformacionSB2SesionFinalizada').find('#mensajeInformacionSB2_SesionFinalizada').text(message);
                 $('#popupInformacionSB2SesionFinalizada').show();
-    }
+            }
         }
     }
     else {
@@ -686,7 +696,7 @@ function checkTimeout(data) {
 
 function checkUserSession() {
     var res = -1;
-    
+
     $.ajax({
         url: '/Login/CheckUserSession',
         type: 'POST',
@@ -1183,7 +1193,7 @@ function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto, nombre) 
         } else {
             AnalyticsRedesSociales(tipoRedes, ruta);
         }
-    } catch (e) {console.log(e)} 
+    } catch (e) { console.log(e) }
 
     if (tipoRedes == "FB") {
         var popWwidth = 570;
@@ -1208,7 +1218,7 @@ function AnalyticsRedesSociales(tipoRedes, ruta) {
             'action': 'Share',
             'target': ruta
         });
-    } else if (tipoRedes == "WA"){
+    } else if (tipoRedes == "WA") {
         dataLayer.push({
             'event': 'socialEvent',
             'network': 'Whatsapp',
@@ -1412,7 +1422,7 @@ function MostrarMenu(codigo, accion) {
     }
 
     LayoutMenu();
-    
+
 }
 
 function FuncionEjecutar(functionHide) {
@@ -1429,7 +1439,7 @@ function IfNull(input, replaceNull) {
     return input == null ? replaceNull : input;
 }
 
-function odd_desktop_google_analytics_promotion_click() {    
+function odd_desktop_google_analytics_promotion_click() {
     if ($('#divOddCarruselDetalle').length > 0 && $("#odd_simbolo_ver_ofertas").html() === "+") {
         var id = $('#divOddCarruselDetalle').find(".estrategia-id-odd").val();
         var name = "Oferta del día - " + $('#divOddCarruselDetalle').find(".nombre-odd").val();
@@ -1483,7 +1493,7 @@ function odd_desktop_google_analytics_product_impresion() {
     var carrusel = $("[data-odd-tipoventana='carrusel']");
     var detalle = $("[data-odd-tipoventana='detalle']");
     var impresions = new Array();
-    if (carrusel.length > 0 && carrusel.is(":visible")) {        
+    if (carrusel.length > 0 && carrusel.is(":visible")) {
         var divs = new Array();
         var div1 = $(carrusel).find("[data-item-position = 0]")[0];
         var div2 = $(carrusel).find("[data-item-position = 1]")[0];
@@ -1527,15 +1537,15 @@ function odd_desktop_google_analytics_product_impresion() {
     }
 }
 
-function odd_desktop_google_analytics_addtocart(tipo,element) {
+function odd_desktop_google_analytics_addtocart(tipo, element) {
     var id, name, price, marca, variant, quantity, dimension16;
-    if (tipo == "banner") {        
+    if (tipo == "banner") {
         id = $('#banner-odd').find(".cuv2-odd").val();
         name = $('#banner-odd').find(".nombre-odd").val();
         price = $('#banner-odd').find(".precio-odd").val();
         marca = $('#banner-odd').find(".marca-descripcion-odd").val();
         variant = $('#banner-odd').find(".tipoestrategia-descripcion-odd").val();
-        quantity = 1;        
+        quantity = 1;
         dimension16 = "Oferta del día - Banner";
     }
     if (tipo == "list") {
@@ -1561,7 +1571,7 @@ function odd_desktop_google_analytics_addtocart(tipo,element) {
 
     quantity = parseInt(quantity);
 
-    var fechaAddToCart = Date.now();    
+    var fechaAddToCart = Date.now();
     var dimension15 = fechaAddToCart - fechaMostrarBanner;
     if (dimension15 != 0)
         dimension15 = (dimension15 / 1000);
@@ -1591,7 +1601,7 @@ function odd_desktop_google_analytics_addtocart(tipo,element) {
     dataLayer.push(data);
 }
 
-function odd_google_analytics_product_click(name, id, price, brand, variant, position) {  
+function odd_google_analytics_product_click(name, id, price, brand, variant, position) {
     if (variant == null || variant == "")
         variant = "Estándar";
     dataLayer.push({
@@ -1661,7 +1671,7 @@ function GuardarIndicadorPedidoAutentico() {
                     }
                 });
             } else {
-                
+
                 var accion = 3;
                 var tp = localStorage.getItem('SBTokenPais');
                 if (tp !== IsoPais) {
@@ -1738,7 +1748,7 @@ function limpiar_local_storage() {
     if (typeof (Storage) !== 'undefined') {
         var itemSBTokenPais = localStorage.getItem('SBTokenPais');
         var itemSBTokenPedido = localStorage.getItem('SBTokenPedido');
- 
+
         localStorage.clear();
 
         if (typeof (itemSBTokenPais) !== 'undefined' && itemSBTokenPais !== null) {
@@ -1768,7 +1778,7 @@ var _actualizarModelMasVendidosPromise = function (model) {
         type: 'POST',
         url: '/OfertasMasVendidos/ActualizarModel',
         data: JSON.stringify(model),
-        dataType: 'json',        
+        dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         async: false
     });

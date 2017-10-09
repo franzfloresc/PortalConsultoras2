@@ -53,6 +53,9 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         private string NombreClienteField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string OrigenField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int PaginaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -212,6 +215,19 @@ namespace Portal.Consultoras.Web.ServiceCliente {
                 if ((object.ReferenceEquals(this.NombreClienteField, value) != true)) {
                     this.NombreClienteField = value;
                     this.RaisePropertyChanged("NombreCliente");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Origen {
+            get {
+                return this.OrigenField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.OrigenField, value) != true)) {
+                    this.OrigenField = value;
+                    this.RaisePropertyChanged("Origen");
                 }
             }
         }
@@ -2582,23 +2598,6 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         }
     }
     
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Enumeradores.TamanioImagenIssu", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common")]
-    public enum EnumeradoresTamanioImagenIssu : int {
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        ThumbSmall = 1,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        ThumbMedium = 2,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        ThumbLarge = 3,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Normal = 4,
-    }
-    
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="BECatalogoRevista", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
@@ -4431,10 +4430,10 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCliente.BECatalogoConfiguracion[]> GetCatalogoConfiguracionAsync(int paisID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClienteService/GetListCatalogoRevistaPublicado", ReplyAction="http://tempuri.org/IClienteService/GetListCatalogoRevistaPublicadoResponse")]
-        Portal.Consultoras.Web.ServiceCliente.BECatalogoRevista[] GetListCatalogoRevistaPublicado(string paisISO, string codigoZona, int campania, Portal.Consultoras.Web.ServiceCliente.EnumeradoresTamanioImagenIssu tamanioImagenIssu);
+        Portal.Consultoras.Web.ServiceCliente.BECatalogoRevista[] GetListCatalogoRevistaPublicado(string paisISO, string codigoZona, int campania, Portal.Consultoras.Common.Enumeradores.TamanioImagenIssu tamanioImagenIssu);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClienteService/GetListCatalogoRevistaPublicado", ReplyAction="http://tempuri.org/IClienteService/GetListCatalogoRevistaPublicadoResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCliente.BECatalogoRevista[]> GetListCatalogoRevistaPublicadoAsync(string paisISO, string codigoZona, int campania, Portal.Consultoras.Web.ServiceCliente.EnumeradoresTamanioImagenIssu tamanioImagenIssu);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCliente.BECatalogoRevista[]> GetListCatalogoRevistaPublicadoAsync(string paisISO, string codigoZona, int campania, Portal.Consultoras.Common.Enumeradores.TamanioImagenIssu tamanioImagenIssu);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClienteService/GetListCatalogoRevistaPublicadoWithTitulo", ReplyAction="http://tempuri.org/IClienteService/GetListCatalogoRevistaPublicadoWithTituloRespo" +
             "nse")]
@@ -4475,10 +4474,10 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCliente.BEClienteDB[]> SaveDBAsync(int paisID, Portal.Consultoras.Web.ServiceCliente.BEClienteDB[] clientes);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClienteService/SelectByConsultoraDB", ReplyAction="http://tempuri.org/IClienteService/SelectByConsultoraDBResponse")]
-        Portal.Consultoras.Web.ServiceCliente.BEClienteDB[] SelectByConsultoraDB(int paisID, long consultoraID, int campaniaID);
+        Portal.Consultoras.Web.ServiceCliente.BEClienteDB[] SelectByConsultoraDB(int paisID, long consultoraID, int campaniaID, int clienteID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClienteService/SelectByConsultoraDB", ReplyAction="http://tempuri.org/IClienteService/SelectByConsultoraDBResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCliente.BEClienteDB[]> SelectByConsultoraDBAsync(int paisID, long consultoraID, int campaniaID);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCliente.BEClienteDB[]> SelectByConsultoraDBAsync(int paisID, long consultoraID, int campaniaID, int clienteID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClienteService/MovimientoInsertar", ReplyAction="http://tempuri.org/IClienteService/MovimientoInsertarResponse")]
         int MovimientoInsertar(int paisId, Portal.Consultoras.Web.ServiceCliente.BEMovimiento movimiento);
@@ -4722,11 +4721,11 @@ namespace Portal.Consultoras.Web.ServiceCliente {
             return base.Channel.GetCatalogoConfiguracionAsync(paisID);
         }
         
-        public Portal.Consultoras.Web.ServiceCliente.BECatalogoRevista[] GetListCatalogoRevistaPublicado(string paisISO, string codigoZona, int campania, Portal.Consultoras.Web.ServiceCliente.EnumeradoresTamanioImagenIssu tamanioImagenIssu) {
+        public Portal.Consultoras.Web.ServiceCliente.BECatalogoRevista[] GetListCatalogoRevistaPublicado(string paisISO, string codigoZona, int campania, Portal.Consultoras.Common.Enumeradores.TamanioImagenIssu tamanioImagenIssu) {
             return base.Channel.GetListCatalogoRevistaPublicado(paisISO, codigoZona, campania, tamanioImagenIssu);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCliente.BECatalogoRevista[]> GetListCatalogoRevistaPublicadoAsync(string paisISO, string codigoZona, int campania, Portal.Consultoras.Web.ServiceCliente.EnumeradoresTamanioImagenIssu tamanioImagenIssu) {
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCliente.BECatalogoRevista[]> GetListCatalogoRevistaPublicadoAsync(string paisISO, string codigoZona, int campania, Portal.Consultoras.Common.Enumeradores.TamanioImagenIssu tamanioImagenIssu) {
             return base.Channel.GetListCatalogoRevistaPublicadoAsync(paisISO, codigoZona, campania, tamanioImagenIssu);
         }
         
@@ -4778,12 +4777,12 @@ namespace Portal.Consultoras.Web.ServiceCliente {
             return base.Channel.SaveDBAsync(paisID, clientes);
         }
         
-        public Portal.Consultoras.Web.ServiceCliente.BEClienteDB[] SelectByConsultoraDB(int paisID, long consultoraID, int campaniaID) {
-            return base.Channel.SelectByConsultoraDB(paisID, consultoraID, campaniaID);
+        public Portal.Consultoras.Web.ServiceCliente.BEClienteDB[] SelectByConsultoraDB(int paisID, long consultoraID, int campaniaID, int clienteID) {
+            return base.Channel.SelectByConsultoraDB(paisID, consultoraID, campaniaID, clienteID);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCliente.BEClienteDB[]> SelectByConsultoraDBAsync(int paisID, long consultoraID, int campaniaID) {
-            return base.Channel.SelectByConsultoraDBAsync(paisID, consultoraID, campaniaID);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCliente.BEClienteDB[]> SelectByConsultoraDBAsync(int paisID, long consultoraID, int campaniaID, int clienteID) {
+            return base.Channel.SelectByConsultoraDBAsync(paisID, consultoraID, campaniaID, clienteID);
         }
         
         public int MovimientoInsertar(int paisId, Portal.Consultoras.Web.ServiceCliente.BEMovimiento movimiento) {
