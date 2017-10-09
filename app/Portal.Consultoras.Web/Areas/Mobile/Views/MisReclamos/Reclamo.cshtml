@@ -11,11 +11,11 @@
 {
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
     {
-        <link href = "~/Content/Css/Mobile/esika/cdr.css" rel = "stylesheet" />
+        <link href="@Url.Content("~/Content/Css/Mobile/esika/cdr.css")" rel="stylesheet" />
     }
     else
     {
-        <link href = "~/Content/Css/Mobile/lbel/cdr.css" rel = "stylesheet" />
+        <link href="@Url.Content("~/Content/Css/Mobile/lbel/cdr.css")" rel="stylesheet" />
     }
 }
 
