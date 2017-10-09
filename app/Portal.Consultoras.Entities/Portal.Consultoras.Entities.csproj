@@ -89,8 +89,8 @@
     <Compile Include="BEProductoComentario.cs" />
     <Compile Include="BEProductoComentarioDetalleFilter.cs" />
     <Compile Include="BEProductoComentarioDetalle.cs" />
-    <Compile Include="BEClienteContactoDB.cs" />
-    <Compile Include="BEClienteDB.cs" />
+    <Compile Include="Cliente\BEClienteContactoDB.cs" />
+    <Compile Include="Cliente\BEClienteDB.cs" />
     <Compile Include="BEReporteValidacion.cs" />
     <Compile Include="BEEstrategiaDetalle.cs" />
     <Compile Include="BEMatrizComercialImagen.cs" />
@@ -129,7 +129,7 @@
     <Compile Include="BECatalogoConfiguracion.cs" />
     <Compile Include="BECatalogoIssuu.cs" />
     <Compile Include="BECiudad.cs" />
-    <Compile Include="BECliente.cs" />
+    <Compile Include="Cliente\BECliente.cs" />
     <Compile Include="BEComprobantePercepcion.cs" />
     <Compile Include="BEComprobantePercepcionDetalle.cs" />
     <Compile Include="BEComunicado.cs" />
