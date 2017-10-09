@@ -5,10 +5,14 @@
       <xs:element minOccurs="0" name="CDRWebDetalle" nillable="true" type="tns:ArrayOfBECDRWebDetalle" />
       <xs:element minOccurs="0" name="CDRWebID" type="xs:int" />
       <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+      <xs:element minOccurs="0" name="CantidadAprobados" type="xs:int" />
       <xs:element minOccurs="0" name="CantidadDetalle" type="xs:int" />
+      <xs:element minOccurs="0" name="CantidadRechazados" type="xs:int" />
       <xs:element minOccurs="0" name="ConsultoraCodigo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ConsultoraID" type="xs:long" />
       <xs:element minOccurs="0" name="ConsultoraSaldo" type="xs:decimal" />
+      <xs:element minOccurs="0" name="EsMovilFin" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EsMovilOrigen" type="xs:boolean" />
       <xs:element minOccurs="0" name="Estado" type="xs:int" />
       <xs:element minOccurs="0" name="FechaAtencion" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaCulminado" nillable="true" type="xs:dateTime" />
@@ -19,6 +23,7 @@
       <xs:element minOccurs="0" name="PedidoID" type="xs:int" />
       <xs:element minOccurs="0" name="PedidoNumero" type="xs:int" />
       <xs:element minOccurs="0" name="RegionID" type="xs:int" />
+      <xs:element minOccurs="0" name="TipoConsultora" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="TipoDespacho" nillable="true" type="xs:boolean" />
       <xs:element minOccurs="0" name="ZonaID" type="xs:int" />
     </xs:sequence>
@@ -45,6 +50,8 @@
       <xs:element minOccurs="0" name="Eliminado" type="xs:boolean" />
       <xs:element minOccurs="0" name="Estado" type="xs:int" />
       <xs:element minOccurs="0" name="FechaRegistro" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FormatoPrecio1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FormatoPrecio2" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MotivoRechazo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Observacion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Precio" type="xs:decimal" />
@@ -204,15 +211,19 @@
       <xs:element minOccurs="0" name="EstadoDetalle" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FechaAtencion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FechaHoraSolicitud" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FleteDespacho" nillable="true" type="xs:decimal" />
       <xs:element minOccurs="0" name="MontoDevuelto" type="xs:decimal" />
       <xs:element minOccurs="0" name="MontoFacturado" type="xs:decimal" />
       <xs:element minOccurs="0" name="MontoProductoEnviar" type="xs:decimal" />
       <xs:element minOccurs="0" name="MotivoRechazo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NroCDR" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Operacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OrigenCDRWeb" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Reclamo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="RegionCodigo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="SeccionCodigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoConsultora" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoDespacho" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UnidadesDevueltas" type="xs:int" />
       <xs:element minOccurs="0" name="UnidadesEnviar" type="xs:int" />
       <xs:element minOccurs="0" name="UnidadesFacturadas" type="xs:int" />
