@@ -130,8 +130,6 @@ namespace Portal.Consultoras.Entities
         public string CodigoEstrategia { get; set; }
         [DataMember]
         public int TieneVariedad { get; set; }
-        [DataMember]
-        public int FactorCuadre { get; set; }
 
         [DataMember]
         public string CodigoAgrupacion { get; set; }
@@ -516,7 +514,6 @@ namespace Portal.Consultoras.Entities
 
         public string CodigoEstrategia { get; set; }
         public int TieneVariedad { get; set; }
-        public int FactorCuadre { get; set; }
     }
     // 1747 - Fin
 }

@@ -722,7 +722,6 @@
       <xs:element minOccurs="0" name="EtiquetaDescripcion2" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="EtiquetaID" type="xs:int" />
       <xs:element minOccurs="0" name="EtiquetaID2" type="xs:int" />
-      <xs:element minOccurs="0" name="FactorCuadre" type="xs:int" />
       <xs:element minOccurs="0" name="FechaInicioFacturacion" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FlagCEP" type="xs:int" />
       <xs:element minOccurs="0" name="FlagCEP2" type="xs:int" />
@@ -794,6 +793,7 @@
       <xs:element minOccurs="0" name="Digitable" type="xs:int" />
       <xs:element minOccurs="0" name="EstrategiaID" type="xs:int" />
       <xs:element minOccurs="0" name="EstrategiaProductoID" type="xs:int" />
+      <xs:element minOccurs="0" name="FactorCuadre" type="xs:int" />
       <xs:element minOccurs="0" name="Grupo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Orden" type="xs:int" />
       <xs:element minOccurs="0" name="PaisID" type="xs:int" />
