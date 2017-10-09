@@ -1342,12 +1342,11 @@ namespace Portal.Consultoras.Web.Controllers
                 return ofertasDelDiaModel;
 
             ofertasDelDia = ofertasDelDia.OrderBy(odd => odd.Orden).ToList();
-
+            var countdown = CountdownODD(model);
 
             var contOdd = 0;
             foreach (var oferta in ofertasDelDia)
             {
-
                 var carpetaPais = Globals.UrlMatriz + "/" + model.CodigoISO;
                 oferta.ImagenURL = ConfigS3.GetUrlFileS3(carpetaPais, oferta.ImagenURL, carpetaPais);
 
@@ -1360,7 +1359,7 @@ namespace Portal.Consultoras.Web.Controllers
                 oddModel.LimiteVenta = oferta.LimiteVenta;
                 oddModel.IndicadorMontoMinimo = oferta.IndicadorMontoMinimo;
                 oddModel.TipoEstrategiaImagenMostrar = oferta.TipoEstrategiaImagenMostrar;
-                oddModel.TeQuedan = CountdownODD(model);
+                oddModel.TeQuedan = countdown;
                 oddModel.ImagenFondo1 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgFondo1ODD"), model.CodigoISO);
                 oddModel.ColorFondo1 = personalizacionesOfertaDelDia.Where(x => x.TablaLogicaDatosID == 9301).First().Codigo ?? string.Empty;
                 oddModel.ImagenBanner = oferta.FotoProducto01;
@@ -1378,7 +1377,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 ofertasDelDiaModel.Add(oddModel);
             }
-
 
             return ofertasDelDiaModel;
         }

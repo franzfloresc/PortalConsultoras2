@@ -33402,12 +33402,6 @@ h1#penmostreo .campana {
 }
 
 /*OFERTA FINAL*/
-.img-tooltip {
-  position: absolute;
-     background: url("http://www.psdgraphics.com/file/light-wooden-background.jpg");
-     background-color: transparent;
-     border: none;
-}
 
 .tooltip-inner {
     max-width: 130px;
@@ -33927,7 +33921,7 @@ h1#penmostreo .campana {
 
 .dias_intriga_home {
     font-family: 'Lato';
-    font-size: 55px;
+    font-size: 45px;
     letter-spacing: 1.4px;
     color: white;
     text-align: left;
@@ -34900,7 +34894,7 @@ h1#penmostreo .campana {
 }*/
 .titulo_banner_showroom{
     display:block;
-    font-size:24px;
+    font-size:20px;
     /*color:#f9779f;*/
     font-weight: 900;
 }
@@ -35442,6 +35436,82 @@ h1#penmostreo .campana {
 }
 
 /*SPRINT 14*/
+
+/*SPRINT 14*/ .titulo_mas_vendido {
+    background: white;
+    display: inline-block;
+    text-align: center;
+    letter-spacing: 2.1px;
+    font-size: 25px;
+    font-weight: 700;
+    margin-top: 31px;
+    margin-bottom: 37px;
+    font-family: 'lato';
+    PADDING-LEFT: 30px;
+    padding-right: 30px
+}
+
+.content_mas_vendidos {
+    padding-top: 15px;
+    padding-bottom: 40px;
+    overflow: hidden;
+}
+
+.content_carrusel_mas_vendidos {
+    width: 90%;
+    margin: 0 auto;
+    height: auto;
+}
+
+    .content_carrusel_mas_vendidos .producto_nombre_descripcion {
+        margin-bottom: 0;
+    }
+
+    .content_carrusel_mas_vendidos .producto_precio {
+        margin-bottom: 0;
+    }
+
+    .content_carrusel_mas_vendidos .content_item_carrusel {
+        border: 0;
+        box-shadow: none;
+    }
+
+.content_puntuacion {
+    padding-left: 16px;
+    padding-right: 16px;
+    overflow: hidden;
+    padding-bottom: 7px;
+    padding-top: 8px;
+    text-align: center;
+}
+
+.cantidad_puntuacion {
+    font-family: 'Lato';
+    font-size: 13px;
+    font-weight: 700;
+    padding-left: 2px;
+    padding-right: 5px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+/*CUPON LBEL*/
+
+.icono_recuerda_cupon {
+    padding-top: 10px;
+    width: 34px;
+    height: 42px;
+    margin: 0 auto;
+    background: url(../../../Images/PL20/calendario.png) no-repeat center bottom;
+}
+
+.recuerda_icono2 {
+    background: url(../../../Images/PL20/maquillaje.png) no-repeat center bottom;
+}
+
+.recuerda_icono3 {
+    background: url(../../../Images/PL20/agenda.png) no-repeat center bottom;
+}
 
 .titulo_mas_vendido{
 
