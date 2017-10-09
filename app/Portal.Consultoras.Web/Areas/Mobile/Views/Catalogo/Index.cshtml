@@ -187,7 +187,7 @@
                     </div>
                     <div class="revistadigital contenedor_botonVerMasOfertas">
                         <div class="boxoffer" style="cursor: pointer; position: relative !important;" 
-                             onclick="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion)">
+                             onclick="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital');">
                             <div class="fondo_boton"></div>
                             <span class="texto_boton">VER M&Aacute;S OFERTAS PARA M&Iacute;</span>
                         </div>
@@ -336,7 +336,7 @@
 @section scripts{
     <script type="text/javascript">
         var imgNoDisponible = '@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")';
-        var imgIssuu = '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart01' + '{img}' + '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart02Alternativo'
+        var imgIssuu = '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart01' + '{img}' + '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart02Alternativo';
         var codigoIso = '@ViewBag.CodigoISO';
         var defaultImageRevista = '@Url.Content("~/Content/Images/revista_no_disponible.jpg")';
         var urlObtenerPortadaRevista = '@Url.Action("ObtenerPortadaRevista", "Catalogo", new { area = "Mobile" })';

@@ -105,7 +105,7 @@
             <div class="mensaje_cierre_fechapromesa">
                 @(Html.Raw(ViewBag.MensajeCierreCampania))
             </div>
-            <a role="link" region="Cuerpo" parent="Ingresa tu Pedido" title="Ingresa tu Pedido" class="boton_home_guardar" href="@Url.Action("Index","Pedido")">INGRESA TU PEDIDO</a>
+            <a role="link" region="Cuerpo" parent="Ingresa tu Pedido" title="Ingresa tu Pedido" class="boton_home_guardar" href="@Url.Action("Index", "Pedido")">INGRESA TU PEDIDO</a>
         </div>
         <div class="socia_negocio_home">
             <div class="notificaciones_resumen">
@@ -123,7 +123,7 @@
 
             @if (ViewBag.IndicadorPermisoFIC == 1)
             {
-                <a class="seguir_pedido" href="@Url.Action("Index","PedidoFIC")">INGRESA TU PEDIDO FIC</a>
+                <a class="seguir_pedido" href="@Url.Action("Index", "PedidoFIC")">INGRESA TU PEDIDO FIC</a>
             }
         </div>
     </div>
@@ -1582,7 +1582,7 @@
 <script id="template-showroom" type="text/x-handlebars-template">
     <div class="content-favclientes content_carrusel_agregado">
         <div class="linea_separadora"></div>
-        <div class="banner_showroom_home" style="cursor: pointer;" onclick="javascript: window.location.href = '@Url.Action("Index","ShowRoom")'">
+        <div class="banner_showroom_home" style="cursor: pointer;" onclick="javascript: window.location.href = '@Url.Action("Index", "ShowRoom")'">
             <img src="@Model.ShowRoomBannerUrl" alt="" />
         </div>
         <div style="width:71%;float:left;">
@@ -2252,7 +2252,7 @@
 <!--FIN-->
 <!--REVISTA DIGITAL -->
 <!-- POPUP REVISTA DIGITAL Suscripcion -->
-@if (@ViewBag.TieneRDS == true)
+@if (Model.RevistaDigital.TieneRDS == true)
 {
     <div class="Content_general_pop_up" id="PopRDSuscripcion" data-popup-main="" style="font-family: 'Lato' !important" data-popup-function-hide="RDPopupCerrar(0)">
         <div class="popup_rd rd_inscripcion" style="width: 940px;" data-popup-body="">
@@ -2386,9 +2386,9 @@
         var tipoOrigenEstrategia = 1;
         var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi';
 
-        var urlOfertasIndex = '@Url.Action("Index","Ofertas")';
-        var urlShowRoomIntriga = '@Url.Action("Intriga","ShowRoom")';
-        var urlShowRoomVenta = '@Url.Action("Index","ShowRoom")';
+        var urlOfertasIndex = '@Url.Action("Index", "Ofertas")';
+        var urlShowRoomIntriga = '@Url.Action("Intriga", "ShowRoom")';
+        var urlShowRoomVenta = '@Url.Action("Index", "ShowRoom")';
         var urlDetalleShowRoom = '@Url.Action("DetalleOferta", "ShowRoom")';
         var urlInformacionSuscripcion = '@Url.Action("Index", "RevistaDigital")';
         var urlRevistaDigital = '@Url.Action("Comprar", "RevistaDigital")';

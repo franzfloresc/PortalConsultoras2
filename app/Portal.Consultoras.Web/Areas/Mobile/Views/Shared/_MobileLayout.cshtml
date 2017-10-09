@@ -185,7 +185,7 @@
                             <span role="link" region="Superior" parent="Pedido" title="Pedido" class="num-menu-shop">0</span>
                         </a>
                         <a role="link" region="Superior" parent="Notificaciones" title="Notificaciones"
-                           class="campana_mobile" href="@Url.Action("Index","Notificaciones", new { area = "Mobile" })" style="margin-left: -15px;">
+                           class="campana_mobile" href="@Url.Action("Index", "Notificaciones", new { area="Mobile" })" style="margin-left: -15px;">
                             <div role="link" region="Superior" parent="Notificaciones" title="Notificaciones" class="campana_svg_mobile"><p role="link" region="Superior" parent="Notificaciones" title="Notificaciones" class="notificaciones_mobiles">0</p></div>
                         </a>
                     </div>
@@ -431,7 +431,7 @@
 
     @if (ViewBag.MostrarOfertaDelDia == true)
     {
-    <script type="text/javascript" src="@Url.Content(" ~/Scripts/PortalConsultoras/Bienvenida/OfertaDelDia.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/OfertaDelDia.js")"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             if (mostrarOfertaDelDia) {
