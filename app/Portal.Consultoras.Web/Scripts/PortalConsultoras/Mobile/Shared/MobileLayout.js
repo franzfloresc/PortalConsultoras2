@@ -211,6 +211,10 @@
         }
     }
 
+    if (URLactual.indexOf('/g/') > 0) {
+        $("#contentmobile").css({ 'margin-top': '0px' });
+    }
+
     $(".bannersi").on("click", function () {
 
         var eventId = $("#hdEventoIDShowRoom").val();
