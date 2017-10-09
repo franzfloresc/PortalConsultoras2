@@ -77,7 +77,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public TimeSpan HoraCierreNoFacturable { get; set; }
         [DataMember]
-        [Column("estadoPedido")]
+        [Column("EstadoPedido")]
         public int EstadoPedido { get; set; }
         [DataMember]
         public bool ModificaPedidoReservado { get; set; }
