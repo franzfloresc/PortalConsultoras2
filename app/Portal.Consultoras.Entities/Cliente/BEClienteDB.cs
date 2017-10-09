@@ -76,6 +76,8 @@ namespace Portal.Consultoras.Entities
         public decimal Saldo { get; set; }
         [DataMember]
         public int CantidadProductos { get; set; }
+        [DataMember]
+        public decimal MontoPedido { get; set; }
 
         [DataMember]
         public string CodigoRespuesta { get; set; }

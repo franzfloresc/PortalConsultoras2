@@ -468,7 +468,18 @@ namespace Portal.Consultoras.Common
             { "SV", "TemplatesDatosGenerales/_DatosGeneralesGrupo2" },
             { "VE", "" }
         };
-        public static Dictionary<string, string> TemplatDatosAval = new Dictionary<string, string>
+
+        public static Dictionary<string, string> IncentivoProgramaNuevasNiveles = new Dictionary<string, string>
+        {
+            { "01", "PrimerPedido" },
+            { "02", "SegundoPedido" },
+            { "03", "TercerPedido" },
+            { "04", "CuartoPedido" },
+            { "05", "QuintoPedido" },
+            { "06", "SextoPedido" }
+        };
+
+		public static Dictionary<string, string> TemplatDatosAval = new Dictionary<string, string>
         {
             { "BO", "TemplatesDatosAval/_DatosAvalGrupo1" },
             { "CL", "TemplatesDatosAval/_DatosAvalGrupo1" },

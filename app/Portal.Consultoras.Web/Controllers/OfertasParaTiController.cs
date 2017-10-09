@@ -48,7 +48,7 @@ namespace Portal.Consultoras.Web.Controllers
                     : tipoOrigenEstrategia == "11" ? Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion
                     : tipoOrigenEstrategia == "2" ? Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion
                     : tipoOrigenEstrategia == "22" ? Constantes.OrigenPedidoWeb.RevistaDigitalMobilePedidoSeccion
-                        : (Request.UrlReferrer != null && Request.UrlReferrer.OriginalString.Contains("Mobile")) ? Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTi : 0;
+                        : (Request.UrlReferrer != null && IsMobile()) ? Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTi : 0;
             }
             else
             {
@@ -56,7 +56,7 @@ namespace Portal.Consultoras.Web.Controllers
                     : tipoOrigenEstrategia == "11" ? Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTi
                     : tipoOrigenEstrategia == "2" ? Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTi
                     : tipoOrigenEstrategia == "22" ? Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTi
-                        : (Request.UrlReferrer != null && Request.UrlReferrer.OriginalString.Contains("Mobile")) ? Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTi : 0;
+                        : (Request.UrlReferrer != null && IsMobile()) ? Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTi : 0;
             }
 
             model.ListaLan = ConsultarEstrategiasFormatearModelo(listModel.Where(l => l.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList());

@@ -2,6 +2,7 @@
 @using Portal.Consultoras.Web.Models;
 @using Portal.Consultoras.Web.Areas.Mobile.Helpers
 @using Newtonsoft.Json;
+@using Portal.Consultoras.Web.Helpers
 
 @{
     ShowRoomBannerLateralModel showRoomBannerLateral = new ShowRoomBannerLateralModel();
@@ -9,6 +10,8 @@
 
     OfertaDelDiaModel ofertaDelDia = new OfertaDelDiaModel();
     if (ViewBag.MostrarOfertaDelDia == true) { ofertaDelDia = ViewBag.OfertaDelDia; }
+
+    bool esIngresoUnico = ViewContext.EsIngresoUnico();
 }
 
 <!DOCTYPE html>
@@ -99,27 +102,30 @@
     <input type="hidden" id="hdTipoCatalogoPersonalizado" value="@ViewBag.CatalogoPersonalizado" />
     <input type="hidden" id="hdEsCatalogoPersonalizadoZonaValida" value="@Convert.ToString(ViewBag.EsCatalogoPersonalizadoZonaValida)" />
     <input type="hidden" id="hdCodigoEstrategia" value="@Util.Trim(ViewBag.CodigoEstrategia)" />
-
-    <!-- Menu icon -->
-    <div class="menu">
-        <div class="content_close">
-            <div class="icon-close">
-                <img src="@Url.Content("~/Content/Images/mobile/Esika/btn_cerrar_header.png")" alt="X" />
-            </div>
-        </div>
-        <div class="foto_menu">
-            @if (!string.IsNullOrEmpty(ViewBag.FotoPerfil))
-            {
-                <div class="foto_usuaria_mobile">
-                    <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width:100%; height:auto" />
+    
+    @if (!esIngresoUnico)
+    {
+       <!-- Menu icon -->
+        <div class="menu">
+            <div class="content_close">
+                <div class="icon-close">
+                    <img src="@Url.Content("~/Content/Images/mobile/Esika/btn_cerrar_header.png")" alt="X" />
                 </div>
-            }
+            </div>
+            <div class="foto_menu">
+                @if (!string.IsNullOrEmpty(ViewBag.FotoPerfil))
+                {
+                    <div class="foto_usuaria_mobile">
+                        <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width:100%; height:auto" />
+                    </div>
+                }
+            </div>
+            <br />
+            <div class="saludo_menu">¡Hola @ViewBag.NombreConsultora!</div>
+            @Html.Partial("_MobileMenuLateral")
+            <a role="menu" region="Menú Lateral" parent="Cerrar Sesion" title="Cerrar Sesion" class="btn_cerrar_sesion" href="@Url.Action("LogOut", "Login", new { area = "" })">Cerrar sesión</a>
         </div>
-        <br />
-        <div class="saludo_menu">¡Hola @ViewBag.NombreConsultora!</div>
-        @Html.Partial("_MobileMenuLateral")
-        <a role="menu" region="Menú Lateral" parent="Cerrar Sesion" title="Cerrar Sesion" class="btn_cerrar_sesion" href="@Url.Action("LogOut", "Login", new { area = "" })">Cerrar sesión</a>
-    </div>
+    }
 
     <!-- alert-top -->
     <div id="divAlertaPedidosOnline" class="alert-top alert-success alert-top-conline" style="display: none;">
@@ -134,7 +140,7 @@
     <!-- header -->
     <header id="new-header">
         <!--BANNER-->
-        @if (ViewBag.mostrarBannerPostulante == true)
+        @if (ViewBag.mostrarBannerPostulante == true && !esIngresoUnico)
         {
             <div id="bloquemensajesPostulante" style="display:none;">
                 @*<div class="oscurecer_animacion"></div>*@
@@ -158,7 +164,7 @@
                 </div>
             </div>
         }
-        else if (ViewBag.MostrarBannerRechazo == true)
+        else if (ViewBag.MostrarBannerRechazo == true && !esIngresoUnico)
         {
             <div id="bloquemensajesPedido" style="display:none;">
                 @*<div class="oscurecer_animacion"></div>*@
@@ -228,7 +234,9 @@
             </div>
         }*@
         <!--END BANNER-->
-
+        
+    @if (!esIngresoUnico)
+    {
         <div class="container-fluid" style="padding-top:9px; padding-bottom:9px;">
             <div class="row">
                 <div class="col-xs-4">
@@ -253,6 +261,7 @@
                 </div>
             </div>
         </div>
+    }
 
     </header>
     
@@ -328,12 +337,15 @@
             <br />
         </div>
     </section>
-
-    <!-- footer -->
-    <footer class="footer-page">
-        @Html.Partial("_MobileMenuFooter")
-        <hr class="clear" />
-    </footer>
+    
+    @if (!esIngresoUnico)
+    {
+        <!-- footer -->
+        <footer class="footer-page">
+            @Html.Partial("_MobileMenuFooter")
+            <hr class="clear" />
+        </footer>
+    }
 
     <div class="content-spinner2" id="loading-spin">
         <div class="busy-loader">
