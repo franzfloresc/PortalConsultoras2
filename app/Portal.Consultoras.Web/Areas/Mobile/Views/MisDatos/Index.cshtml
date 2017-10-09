@@ -377,7 +377,27 @@ Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
             return re.test(keyChar);
         }
     });
-	  
+	 
+	function limitarMaximo(e, contenido, caracteres, id) {
+		var unicode = e.keyCode ? e.keyCode : e.charCode;
+		if (unicode == 8 || unicode == 46 || unicode == 13 || unicode == 9 || unicode == 37 ||
+			unicode == 39 || unicode == 38 || unicode == 40 || unicode == 17 || unicode == 67 || unicode == 86)
+			return true;
+
+		if (contenido.length >= caracteres) {
+			selectedText = document.getSelection();
+			if (selectedText == contenido) {
+				$("#" + id).val("");
+				return true;
+			} else if (selectedText != "") {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		return true;
+	}
+ 
 function ValidarTelefono(celular) {
     var resultado = false;
 	ShowLoading();;
@@ -503,4 +523,5 @@ function CambiarContrasenia() {
     }
 } 
  </script> 
+ 
 }

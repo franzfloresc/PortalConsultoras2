@@ -368,15 +368,10 @@ function CargarResumenCampaniaHeader(showPopup) {
                        
                     }
                 }
-                else {
-                    console.error("Ocurrio un error con el Resumen de Campaña.");
-                }
             }
         },
         error: function (data, error) {
-            if (checkTimeout(data)) {
-                console.error(data, error);
-            }
+            checkTimeout(data);
         }
     });
 };
@@ -411,15 +406,10 @@ function CargarCantidadNotificacionesSinLeer() {
                 };
 
                 data.mensaje = data.mensaje || "";
-                if (data.mensaje != '') {
-                    console.log(data.mensaje);
-                }
             };
         },
         error: function (data, error) {
-            if (checkTimeout(data)) {
-                console.error(data, error);
-            }
+            checkTimeout(data);
         }
     });
 };
@@ -840,7 +830,6 @@ function MostrarShowRoomBannerLateral() {
             error: function (response, error) {
                 if (checkTimeout(response)) {
                     closeWaitingDialog();
-                    console.log("Ocurrió un error en ShowRoom");
                 }
             }
         });
@@ -1081,7 +1070,7 @@ function checkCountdownODD() {
             }
         },
         error: function (err) {
-            console.log(err);
+            checkTimeout(err);
         }
     });
 
@@ -1105,7 +1094,7 @@ function getQtyPedidoDetalleByCuvODD(cuv2, tipoEstrategiaID) {
             }
         },
         error: function (err) {
-            console.log(err);
+            checkTimeout(err);
         }
     });
 
@@ -1151,7 +1140,7 @@ function closeOfertaDelDia(sender) {
             }
         },
         error: function (err) {
-            console.log(err);
+            checkTimeout(err);
         }
     });
 }

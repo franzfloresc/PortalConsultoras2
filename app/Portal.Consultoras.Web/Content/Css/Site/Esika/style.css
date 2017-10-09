@@ -1572,20 +1572,20 @@ header {
 .pedido_left {
     float: left;
 }
-.pedido_resumen_campa?a {
+.pedido_resumen_campaña {
     float:right;
     width:510px;
     margin-top: -30px;
     width: 525px;
 }
-.pedido_numero_campa?a {
+.pedido_numero_campaña {
     font-family:'lato';
     font-size:10pt;
     color:black;
     float:left;    
 }
 
-.pedido_numero_campa?a span{
+.pedido_numero_campaña span{
      font-family: 'OldStandard-Italic';
      font-size:20.2pt;
      letter-spacing:-1px;
@@ -1599,7 +1599,7 @@ header {
     margin-top:5px;
     margin-right:10px;
 }
-.pedido_detalles_campa?a {
+.pedido_detalles_campaña {
     font-family:'lato';
     font-size:8pt;
     color:black;
@@ -4170,16 +4170,16 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 
 /*.contenedor_popup_productosSugeridos{
-????display:block;
-????position:fixed;
-????top:0;
-????left:0;
-????bottom:0;
-????right:0;
-????width:100%;
-????height:100%;
-????background:rgba(0,0,0,0.5);
-????z-index:1000;
+    display:block;
+    position:fixed;
+    top:0;
+    left:0;
+    bottom:0;
+    right:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.5);
+    z-index:1000;
 }*/
 
 .btn_cerrar_productosSugeridos{
@@ -4444,7 +4444,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     font-weight: bold;
 }
 
-/* POPUP INVITACIˆ_N FLEXIPAGO */
+/* POPUP INVITACIÓN FLEXIPAGO */
 
 .contenedor_popup_agregarUnidades, .contenedor_popup_ofertaFinal, .contenedor_popup_detalleCarousel, .contenedor_popup_misDatos, .contenedor_fondo_popup{
     position:fixed;
@@ -5085,7 +5085,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     margin-left:10px;
 }
 
-/* POPUP ACEPTACIˆ_N DE CONTRATO */
+/* POPUP ACEPTACIÓN DE CONTRATO */
 
 .btn_cerrar_aceptacionContrato{
     display: block;
@@ -5689,7 +5689,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     height:547px;
 }
 
-/* ACTUALIZACIˆ_N PˆWGINA MIS PAGOS */
+/* ACTUALIZACIÓN PÁGINA MIS PAGOS */
 
 .titulo_misPagos{
     width:16.85%!important;
@@ -12401,7 +12401,7 @@ ol {
     border: 1px solid #D8DAD7;
     padding: 0px 0px 7px 0px;
     display: inline-block;
-    vertical-align: top; /* BASELINE CORRECCIˆ_N*/
+    vertical-align: top; /* BASELINE CORRECCIÓN*/
     zoom: 1;
     *display: inline;
     background: #F1BCD0;
@@ -12434,7 +12434,7 @@ ol {
     border: 1px solid #D8DAD7;
     padding: 0px 0px 7px 0px;
     display: inline-block;
-    vertical-align: top; /* BASELINE CORRECCIˆ_N*/
+    vertical-align: top; /* BASELINE CORRECCIÓN*/
     zoom: 1;
     *display: inline;
     color: #444;
@@ -12818,7 +12818,7 @@ ol {
     padding: 0px 0px 10px 0px;
     text-align: center;   
     display: inline-block;
-    vertical-align: top; /* BASELINE CORRECCIˆ_N*/
+    vertical-align: top; /* BASELINE CORRECCIÓN*/
     zoom:1;
     *display:inline;
 }
@@ -13613,7 +13613,7 @@ ol {
     border: 1px solid #D8DAD7;
     padding: 6px;
     display: inline-block;
-    vertical-align: top; /* BASELINE CORRECCIˆ_N*/
+    vertical-align: top; /* BASELINE CORRECCIÓN*/
     zoom: 1;
     *display: inline;
     color: #444;
@@ -13634,7 +13634,7 @@ ol {
     border: 1px solid #D8DAD7;
     padding: 6px;
     display: inline-block;
-    vertical-align: top; /* BASELINE CORRECCIˆ_N*/
+    vertical-align: top; /* BASELINE CORRECCIÓN*/
     zoom: 1;
     *display: inline;
     color: #444;
@@ -13713,7 +13713,7 @@ ol {
     border: 1px solid #D8DAD7;
     padding: 6px;
     display: inline-block;
-    vertical-align: top; /* BASELINE CORRECCIˆ_N*/
+    vertical-align: top; /* BASELINE CORRECCIÓN*/
     zoom: 1;
     *display: inline;
     color: #444;
@@ -13733,7 +13733,7 @@ ol {
     border: 1px solid #D8DAD7;
     padding: 6px;
     display: inline-block;
-    vertical-align: top; /* BASELINE CORRECCIˆ_N*/
+    vertical-align: top; /* BASELINE CORRECCIÓN*/
     zoom: 1;
     *display: inline;
     color: #444;
@@ -18725,7 +18725,7 @@ float: right;
     color: #660066;
     margin-top: -10px;
     text-align: left;	
-    font-family: 'lato-regular'; /*R2442 - JICM - Se cambiˆu tipo de letra*/
+    font-family: 'lato-regular'; /*R2442 - JICM - Se cambió tipo de letra*/
     height:66px;
 }
 #divMensajeModalAfiliaBienvenida{
@@ -18734,7 +18734,7 @@ float: right;
     color: #660066;
     margin-top: -10px;
     text-align: left;	
-    font-family: 'lato-regular'; /*R2442 - JICM - Se agregˆu tipo de letra*/
+    font-family: 'lato-regular'; /*R2442 - JICM - Se agregó tipo de letra*/
     height:66px;
 }
 #paLand *{
@@ -18755,7 +18755,7 @@ float: right;
 	font-family: 'lato-regular';
 }
 #paParClientes{
-        /*'R2442 se cambiˆu el FONT  a 100 regular - Cambio tama?o y font family*/
+        /*'R2442 se cambió el FONT  a 100 regular - Cambio tamaño y font family*/
 
     font-family: 'lato-regular';
     font-size: 16px;
@@ -18802,7 +18802,7 @@ float: right;
 	text-align: center;
 }
 #paMod>img{
-    /*R2442 - Darle un tama?o ala imagen */
+    /*R2442 - Darle un tamaño ala imagen */
 	float: none;
 	margin: 0 auto;
     width: 300px;
@@ -19021,7 +19021,7 @@ float: right;
 			/*height: 685px;*/
 			overflow: hidden;
 		}
-        /*INI - R2442 - JICM - Por lo pronto la imagen serˆh solo una */
+        /*INI - R2442 - JICM - Por lo pronto la imagen será solo una */
 		#ImgEnterate1{
 			margin-left: 60px;
             width: 202px;
@@ -19121,7 +19121,7 @@ float: right;
         #ImgEnterate{
             
 		}
-          /*FIN - R2442 - JICM - Por lo pronto la imagen serˆh solo una */
+          /*FIN - R2442 - JICM - Por lo pronto la imagen será solo una */
 		#letrasPequenasEnterateMas{
 			text-align: left;
 			margin-left: 60px;
@@ -20574,7 +20574,7 @@ label.checkpop.c_on {
 /*HEADER SECCION INGRESA TU PEDIDO*/
 
 
-/*ESTILOS PARA LIQUIDACIˆ_N*/
+/*ESTILOS PARA LIQUIDACIÓN*/
 .wrapper_home_interiores{
     /*margin: 0 auto;*/
     margin: 0 ;
@@ -22498,7 +22498,7 @@ body{
     
 }
 
-/* PˆWGINA MIS PEDIDOS */
+/* PÁGINA MIS PEDIDOS */
 
 .contenedor_enlaces_misPedidos{
     display: block;
@@ -24406,7 +24406,7 @@ img
     color: #d226aa;	
 }
 
-.submenu > ul > li > a  /*Tˆqtulos de cada secciˆun del menˆy*/
+.submenu > ul > li > a  /*Títulos de cada sección del menú*/
 {
     font-size: 1.3em;
     margin-bottom: 10px;
@@ -24561,7 +24561,7 @@ img
 	margin-top:2px;	
 }*/
 
-/*****************Menˆy*******************/
+/*****************Menú*******************/
 
 #menu>li>div>a>img
 {
@@ -24573,7 +24573,7 @@ img
 {
 	font-size:12px;
 }
-/*****************Submenˆy*******************/
+/*****************Submenú*******************/
 #menu .submenu > ul > li > a 
 {
 	font-size: 12px;
@@ -26722,8 +26722,8 @@ div.subir_archivo input {
     cursor: pointer;
 }
 input[type="checkbox"]:checked + span:after {    
-    content: "¡½"; /* el valor de la propiedad content tambiˆmn puede ser cualquier imagen, sˆulo tendrˆqamos que pasarle la ruta de la imagen*/
-    content: "¡½";
+    content: "■"; /* el valor de la propiedad content también puede ser cualquier imagen, sólo tendríamos que pasarle la ruta de la imagen*/
+    content: "■";
     position: absolute;
     z-index: 1002;
     top: 2px;
@@ -27671,7 +27671,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 .content-favclientes .contiene-productos:nth-child(3n){
     margin-right:0%;
 }
-/*informaciˆun adicional*/
+/*información adicional*/
 .mensajes_deAtencion span {
     width: 50%;
     color: #e81c36;
@@ -28640,7 +28640,7 @@ a#cierreMotivoRechazo img {
     margin-top:10px;
 }
 
-/* PˆWGINA ESCALA DE DESCUENTOS */
+/* PÁGINA ESCALA DE DESCUENTOS */
 
 .container_escalaDescuento{
     width:100%;
@@ -29323,7 +29323,7 @@ h1#penmostreo .campana {
 }
 
 
-/*Sb20-863 - Fˆqn*/
+/*Sb20-863 - Fín*/
 
 .encabezado_popupCatalogoPersonalizado {
     display: block;
@@ -30266,7 +30266,7 @@ h1#penmostreo .campana {
     }
     
 /* FIN POPUPS OFERTAS REVISTA */
-/* ACTUALIZAR CONTRASE?A */
+/* ACTUALIZAR CONTRASEÑA */
 .contenedor_actualizarContraseniaForm{
     display: block;
     margin: 50px auto 119px auto;
@@ -30409,7 +30409,7 @@ h1#penmostreo .campana {
 
 }
 
-/* FIN ACTUALIZAR CONTRASE?A */
+/* FIN ACTUALIZAR CONTRASEÑA */
 
 /* MENSAJES PEDIDO RECHAZADO */
 
@@ -31280,7 +31280,7 @@ h1#penmostreo .campana {
 /*.reclamo_motivo_select:last-child{
     border-bottom:0px;
 }*/
-.btn_soluciˆun_reclamo {
+.btn_solución_reclamo {
     float: left;
     width: 270px;
     height: 45px;
@@ -31293,10 +31293,10 @@ h1#penmostreo .campana {
     margin-right: 36px;
     margin-bottom: 10px;
 }
-.btn_soluciˆun_reclamo:last-child{
+.btn_solución_reclamo:last-child{
     margin-right:0px;
 }
-.btn_soluciˆun_reclamo:hover{
+.btn_solución_reclamo:hover{
     background:black;
     color:white;
 }
@@ -33339,7 +33339,7 @@ h1#penmostreo .campana {
 .mod-ofer1 .boton_Agregalo_home{
     width:139px;
 }
-.enlace_chat a{
+.enlace_chat {
     display:inline;
     font-weight:bold;
     text-decoration:underline;
@@ -33403,12 +33403,6 @@ h1#penmostreo .campana {
 }
 
 /*OFERTA FINAL*/
-.img-tooltip {
-  position: absolute;
-     background: url("http://www.psdgraphics.com/file/light-wooden-background.jpg");
-     background-color: transparent;
-     border: none;
-}
 
 .tooltip-inner {
     max-width: 130px;
@@ -33700,11 +33694,7 @@ h1#penmostreo .campana {
 .mod-ofer1 .boton_Agregalo_home{
     width:139px;
 }
-.enlace_chat a{
-    display:inline;
-    font-weight:bold;
-    text-decoration:underline;
-}
+
 .tooltipPedido{
     display:none;
     position:absolute;
@@ -33932,7 +33922,7 @@ h1#penmostreo .campana {
 
 .dias_intriga_home {
     font-family: 'Lato';
-    font-size: 55px;
+    font-size: 45px;
     letter-spacing: 1.4px;
     color: white;
     text-align: left;
@@ -34370,11 +34360,6 @@ h1#penmostreo .campana {
     margin-left: 3%;
 }
 
-.enlace_chat a{
-    display:inline;
-    font-weight:bold;
-    text-decoration:underline;
-}
 .menu_socia_empresaria > .new_menu > .new_menu_a{
     font-size:10.5px;
     letter-spacing:0.5px;
@@ -34735,7 +34720,7 @@ h1#penmostreo .campana {
     width: 605px;
     height: 675px;
 }
-/*CAMBIOS EN OFERTA DEL D?A*/
+/*CAMBIOS EN OFERTA DEL DÍA*/
 .regresar_carrusel{
     color: white;
     font-family: 'Lato';
@@ -34910,7 +34895,7 @@ h1#penmostreo .campana {
 }*/
 .titulo_banner_showroom{
     display:block;
-    font-size:24px;
+    font-size:20px;
     /*color:#f9779f;*/
     font-weight: 900;
 }
@@ -35452,6 +35437,82 @@ h1#penmostreo .campana {
 }
 
 /*SPRINT 14*/
+
+/*SPRINT 14*/ .titulo_mas_vendido {
+    background: white;
+    display: inline-block;
+    text-align: center;
+    letter-spacing: 2.1px;
+    font-size: 25px;
+    font-weight: 700;
+    margin-top: 31px;
+    margin-bottom: 37px;
+    font-family: 'lato';
+    PADDING-LEFT: 30px;
+    padding-right: 30px
+}
+
+.content_mas_vendidos {
+    padding-top: 15px;
+    padding-bottom: 40px;
+    overflow: hidden;
+}
+
+.content_carrusel_mas_vendidos {
+    width: 90%;
+    margin: 0 auto;
+    height: auto;
+}
+
+    .content_carrusel_mas_vendidos .producto_nombre_descripcion {
+        margin-bottom: 0;
+    }
+
+    .content_carrusel_mas_vendidos .producto_precio {
+        margin-bottom: 0;
+    }
+
+    .content_carrusel_mas_vendidos .content_item_carrusel {
+        border: 0;
+        box-shadow: none;
+    }
+
+.content_puntuacion {
+    padding-left: 16px;
+    padding-right: 16px;
+    overflow: hidden;
+    padding-bottom: 7px;
+    padding-top: 8px;
+    text-align: center;
+}
+
+.cantidad_puntuacion {
+    font-family: 'Lato';
+    font-size: 13px;
+    font-weight: 700;
+    padding-left: 2px;
+    padding-right: 5px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+/*CUPON LBEL*/
+
+.icono_recuerda_cupon {
+    padding-top: 10px;
+    width: 34px;
+    height: 42px;
+    margin: 0 auto;
+    background: url(../../../Images/PL20/calendario.png) no-repeat center bottom;
+}
+
+.recuerda_icono2 {
+    background: url(../../../Images/PL20/maquillaje.png) no-repeat center bottom;
+}
+
+.recuerda_icono3 {
+    background: url(../../../Images/PL20/agenda.png) no-repeat center bottom;
+}
 
 .titulo_mas_vendido{
 

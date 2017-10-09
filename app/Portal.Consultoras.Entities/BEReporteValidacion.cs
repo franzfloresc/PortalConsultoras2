@@ -612,6 +612,7 @@ namespace Portal.Consultoras.Entities
         private string _Descripcion1;
         private string _Descripcion2;
         private string _Descripcion3;
+        private string _FlagImagenCargada;
         #endregion
 
         public BEReporteValidacionSRComponentes(IDataRecord row)
@@ -637,6 +638,9 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "Descripcion3") && row["Descripcion3"] != DBNull.Value)
                 _Descripcion3 = Convert.ToString(row["Descripcion3"]);
+
+            if (DataRecord.HasColumn(row, "FlagImagenCargada") && row["FlagImagenCargada"] != DBNull.Value)
+                _FlagImagenCargada = Convert.ToString(row["FlagImagenCargada"]);
         }
 
         #region Reporte Validacion para ShowRoom
@@ -687,6 +691,13 @@ namespace Portal.Consultoras.Entities
         {
             get { return _Descripcion3; }
             set { _Descripcion3 = value; }
+        }
+
+        [DataMember]
+        public string FlagImagenCargada
+        {
+            get { return _FlagImagenCargada; }
+            set { _FlagImagenCargada = value; }
         }
 
         #endregion
