@@ -7,6 +7,7 @@ using Portal.Consultoras.Web.ServiceCDR;
 
 namespace Portal.Consultoras.Web.Models
 {
+    [Serializable]
     public class CDRWebModel
     {
         public int CDRWebID { get; set; }        
@@ -41,7 +42,7 @@ namespace Portal.Consultoras.Web.Models
                 switch (Estado)
                 {
                     case Constantes.EstadoCDRWeb.Pendiente: return "PENDIENTE";
-                    case Constantes.EstadoCDRWeb.Enviado: return "EN EVALUACIÓN";
+                    case Constantes.EstadoCDRWeb.Enviado: return "ENVIADO";//"EN EVALUACIÓN";
                     case Constantes.EstadoCDRWeb.Observado: return "RECHAZADO";
                     case Constantes.EstadoCDRWeb.Aceptado: return "APROBADO";
                     default: return "";
@@ -67,10 +68,19 @@ namespace Portal.Consultoras.Web.Models
         public int ZonaID { get; set; }
         public int PaisID { get; set; }
         public int RegionID { get; set; }
+        
+        /*HD-726* nuevos campos que se utilizan en CDR mobile*/
+        public int CantidadAprobados { get; set; }
+        public int CantidadRechazados { get; set; }
+        public string OrigenCDRDetalle { get; set; }
+        public string FormatoFechaCulminado { get; set; }
+        public string FormatoCampaniaID { get; set; }
+        /*Fin HD-726*/
 
         public IEnumerable<CampaniaModel> lista { get; set; }
         public IEnumerable<PaisModel> listaPaises { get; set; }
         public IEnumerable<ZonaModel> listaZonas { get; set; }
         public IEnumerable<RegionModel> listaRegiones { get; set; }
+        public IEnumerable<EstadoActividadModel> TiposConsultora { get; set; }
     }
 }

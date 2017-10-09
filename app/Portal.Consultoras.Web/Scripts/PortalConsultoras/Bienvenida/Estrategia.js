@@ -987,13 +987,10 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
         data: JSON.stringify(param),
         async: false,
         success: function (datos) {
-            if (datos.message.length > 0) {                
-                AbrirMensajeEstrategia(datos.message);
-                CerrarLoad();
-                return false;
-            }
             if (!datos.result) {
-                AbrirMensajeEstrategia(datos.message);
+                if (datos.message.length > 0) {
+                    AbrirMensajeEstrategia(datos.message);
+                }
                 CerrarLoad();
             } else {
                 jQuery.ajax({

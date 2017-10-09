@@ -115,9 +115,9 @@
                 -->
             @if (!string.IsNullOrEmpty(ViewBag.FotoPerfil))
             {
-            <div class="foto_usuaria_mobile">
-                <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width:100%; height:auto" />
-            </div>
+                <div class="foto_usuaria_mobile">
+                    <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width:100%; height:auto" />
+                </div>
             }
         </div>
         <br />
@@ -154,9 +154,9 @@
                 <ul class="slides">
                     @if (ViewBag.MostrarOfertaDelDia == true)
                     {
-                    <li>
-                        @Html.Partial("~/Areas/Mobile/Views/OfertaDelDia/_OfertaDelDiaBannerTop.cshtml", ofertaDelDia)
-                    </li>
+                        <li>
+                            @Html.Partial("~/Areas/Mobile/Views/OfertaDelDia/_OfertaDelDiaBannerTop.cshtml", ofertaDelDia);
+                        </li>
                     }
 
                     @if (Session["EsShowRoom"] != null && @Session["EsShowRoom"].ToString() == "1")
@@ -175,7 +175,7 @@
                 </div>
                 <div class="col-xs-4 text-center">
                     <a role="link" region="Superior" parent="Bienvenida" title="Bienvenida"
-                       class="logo_mobile" href="@Url.Action("Index", "Bienvenida", new { area="Mobile" })"></a>
+                       class="logo_mobile" href="@Url.Action("Index", "Bienvenida", new { area = "Mobile" })"></a>
                 </div>
                 <div class="col-xs-4 text-right">
                     <div class="menu-shop">
@@ -325,6 +325,34 @@
     </script>
 
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/vp_BloquePopupMensajesInformacion.cshtml")
+    <div id="popupInformacionConfirmacion" class="MensajeAlertaMobile" style="display:none;">
+        <div class="content_mensajeAlerta">
+            <a class="cerrar_popMobile" href="javascript:;"
+               onclick="javascript: $('#popupInformacionConfirmacion').hide();">
+                <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+            </a>
+            <hr class="clear">
+            <div class="icono_alerta exclamacion_icono_mobile" style="display: none;"></div>
+            <div class="icono_alerta check_icono_mobile" style="display: none;"></div>
+            <div class="titulo_compartir"><b id="bTagTitulo">MENSAJE</b></div>
+            <div id="mensajeInformacionConfirmacion" class="mensaje_alerta"></div>
+            <div style="text-align: center; margin-top: 30px;">
+                <a href="javascript:;"
+                   onclick="$('#popupInformacionConfirmacion').hide();"
+                   class="btn_ok_mobile btn_ok_mobile-inline"
+                   style="width: 100px; margin-left: 0">
+                    <b>Cancelar</b>
+                </a>
+                <a href="javascript:;"
+                   onclick="$('#popupInformacionConfirmacion').hide();"
+                   class="btn_ok_mobile btn_ok_mobile-inline aceptar-mobile"
+                   style="width: 100px; margin-left: 20px;">
+                    <b>Aceptar</b>
+                </a>
+            </div>
+        </div>
+    </div>
+
 
     <!--POP MENSAJE POSTULANTE-->
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupPostulante.cshtml")    
@@ -427,7 +455,6 @@
 
         var ViewIndicadorGPRSB = '@ViewBag.IndicadorGPRSB';
         var MensajePedidoMobile = '@ViewBag.MensajePedidoMobile';
-
     </script>
 
     @if (ViewBag.MostrarOfertaDelDia == true)

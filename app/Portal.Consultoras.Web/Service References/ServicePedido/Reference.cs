@@ -1455,6 +1455,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string Descripcion3Field;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FlagImagenCargadaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NombreField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
@@ -1541,6 +1544,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.Descripcion3Field, value) != true)) {
                     this.Descripcion3Field = value;
                     this.RaisePropertyChanged("Descripcion3");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FlagImagenCargada {
+            get {
+                return this.FlagImagenCargadaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FlagImagenCargadaField, value) != true)) {
+                    this.FlagImagenCargadaField = value;
+                    this.RaisePropertyChanged("FlagImagenCargada");
                 }
             }
         }

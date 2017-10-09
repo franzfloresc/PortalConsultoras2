@@ -403,7 +403,7 @@ function ValidarDescripcion() {
     }
 }
 
-function PreValidarCUV() {
+function PreValidarCUV(event) {
     if (event.keyCode == 13) {
         if ($("#btnAgregar")[0].disabled == false) {
             AgregarProductoListado();
