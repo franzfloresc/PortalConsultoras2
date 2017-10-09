@@ -761,10 +761,9 @@ namespace Portal.Consultoras.Web.Controllers
                             });
                         }
 
-                                    var ListaTonos = productoModel.Hermanos.OrderBy(e => e.NombreBulk).ToList();
-                                    productoModel.Tonos = ListaTonos;
+                        var ListaTonos = productoModel.Hermanos.OrderBy(e => e.NombreBulk).ToList();
+                        productoModel.Tonos = ListaTonos;
                     }
-
                                
                     Session["ProductosCatalogoPersonalizadoFilter"] = listaProductoModel;
                 }

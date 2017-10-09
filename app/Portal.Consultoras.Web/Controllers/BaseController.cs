@@ -1752,6 +1752,7 @@ namespace Portal.Consultoras.Web.Controllers
                         listaHermanos.ForEach(h =>
                         {
                             h.CUV = Util.Trim(h.CUV);
+                            h.FactorCuadre = 1;
                         });
                         listaHermanos = listaHermanos.OrderBy(h => h.Orden).ToList();
                     }                    
@@ -1785,6 +1786,7 @@ namespace Portal.Consultoras.Web.Controllers
                         prod.Digitable = item.Digitable;
                         prod.CUV = Util.Trim(item.CUV);
                         prod.Cantidad = item.Cantidad;
+                        prod.FactorCuadre = item.FactorCuadre > 0 ? item.FactorCuadre : 1;
                         listaHermanosX.Add(prod);
                         idPk = prod.ID;
                     }
@@ -1821,7 +1823,26 @@ namespace Portal.Consultoras.Web.Controllers
                         listaHermanos = listaHermanosR.OrderBy(p => p.Orden).ToList();
                     }
                 }
-                fichaProductoModelo.Hermanos = listaHermanos ?? new List<ProductoModel>();
+                #region Factor Cuadre
+
+                var listaHermanosCuadre = new List<ProductoModel>();
+
+                foreach (var hermano in listaHermanos)
+                {
+                    listaHermanosCuadre.Add((ProductoModel)hermano.Clone());
+
+                    if (hermano.FactorCuadre > 1)
+                    {
+                        for (int i = 0; i < hermano.FactorCuadre - 1; i++)
+                        {
+                            listaHermanosCuadre.Add((ProductoModel)hermano.Clone());
+                        }
+                    }
+                }
+
+                #endregion
+
+                fichaProductoModelo.Hermanos = listaHermanosCuadre ?? new List<ProductoModel>();
             }
             catch (Exception ex)
             {

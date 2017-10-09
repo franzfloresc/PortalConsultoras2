@@ -264,7 +264,7 @@ namespace Portal.Consultoras.Web.Controllers
                         prod.Digitable = item.Digitable;
                         prod.CUV = Util.Trim(item.CUV);
                         prod.Cantidad = item.Cantidad;
-                        prod.FactorCuadre = item.FactorCuadre;
+                        prod.FactorCuadre = item.FactorCuadre > 0 ? item.FactorCuadre : 1;
                         listaHermanosX.Add(prod);
                         idPk = prod.ID;
                     }
