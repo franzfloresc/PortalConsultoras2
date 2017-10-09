@@ -1903,6 +1903,15 @@ namespace Portal.Consultoras.Web.Controllers
                   e.Valor.Value < Convert.ToInt32(EnumsEstadoBurocrediticio.ErrorConsumoIntegracion)).ToList();
                     ViewBag.EstadosEvaluacionCrediticia = new SelectList(estados, "Valor", "Nombre");
                 }
+                if(CodigoISO == Pais.Peru)
+                {
+                    if(evaluacionCrediticaBE.RespuestaServicio == "ErrorConsumoServicio")
+                    {
+                        model.EstadoBuroCrediticioID = Convert.ToInt32(EnumsEstadoBurocrediticio.SinConsultar);
+                        model.Mensaje = "SIN CONSULTAR";
+                        ViewBag.MotivoRechazo = "En estos momentos no está disponible la validación crediticia, por favor intenta más tarde.";
+                    }
+                }
 
 
             }
