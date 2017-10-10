@@ -1,20 +1,18 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Models;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Web;
-using System.Web.Mvc; 
+using System.Web.Mvc;
 using System.Web.Script.Serialization;
-using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.Models;
 
-//R2161
 namespace Portal.Consultoras.Web.Controllers
 {
     public class PaqueteDocumentarioController : BaseController
-    { 
+    {
         //
         // GET: /PaqueteDocumentario/
 
@@ -100,7 +98,7 @@ namespace Portal.Consultoras.Web.Controllers
                        {
                            //R20150906
                            id = a.Nombre + "-" + a.FechaFacturacion,
-                           cell = new string[] 
+                           cell = new string[]
                             {
                                 a.Nombre,
                                 a.FechaFacturacion,
@@ -123,7 +121,7 @@ namespace Portal.Consultoras.Web.Controllers
             ErrorCode = string.Empty;
             ErrorMessage = string.Empty;
             try
-            { 
+            {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 string output = serializer.Serialize(complain);
 
@@ -132,9 +130,9 @@ namespace Portal.Consultoras.Web.Controllers
                 WebRequest request = WebRequest.Create(uri);
                 request.Method = "POST";
                 request.ContentType = "application/json; charset=utf-8";
-                 
+
                 using (StreamWriter writer = new StreamWriter(request.GetRequestStream()))
-                { 
+                {
                     writer.Write(output);
                 }
 
@@ -185,7 +183,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 return lstCampaniaModel;
 
-            
+
         }
 
         public List<RVPRFModel> GetPDFRVDigitalWeb(string Campania, out bool ErrorServicio, out string ErrorCode, out string ErrorMessage)

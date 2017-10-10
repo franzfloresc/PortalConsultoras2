@@ -22,7 +22,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Index()
         {
             var clienteModel = new MisCatalogosRevistasModel();
-            
+
             clienteModel.PaisNombre = getPaisNombreByISO(userData.CodigoISO);
             clienteModel.CampaniaActual = userData.CampaniaID.ToString();
             clienteModel.CampaniaAnterior = AddCampaniaAndNumero(userData.CampaniaID, -1).ToString();
@@ -76,7 +76,7 @@ namespace Portal.Consultoras.Web.Controllers
             };
             return Json(data, JsonRequestBehavior.AllowGet);
         }
-        
+
         public List<Catalogo> GetCatalogosPublicados(string paisISO, string campaniaId)
         {
             List<Catalogo> catalogos = new List<Catalogo>();
@@ -132,25 +132,26 @@ namespace Portal.Consultoras.Web.Controllers
             List<BECliente> lista = new List<BECliente>();
             lista = (List<BECliente>)Session[Constantes.ConstSession.ClientesByConsultora] ?? new List<BECliente>();
             if (!lista.Any())
-	        {
+            {
                 using (ClienteServiceClient sv = new ClienteServiceClient())
                 {
                     lista = sv.SelectByConsultora(userData.PaisID, userData.ConsultoraID).ToList();
                 }
-                lista.Update(c=> {c.Nombre = c.Nombre.Trim(); c.eMail = c.eMail.Trim();});
+                lista.Update(c => { c.Nombre = c.Nombre.Trim(); c.eMail = c.eMail.Trim(); });
                 lista = lista.Where(c => c.eMail != "").ToList();
                 Session[Constantes.ConstSession.ClientesByConsultora] = lista;
             }
             lista = lista.Where(c => c.eMail.Contains(term)).ToList();
 
-            var data = lista.Select(c => 
-                new {
+            var data = lista.Select(c =>
+                new
+                {
                     value = c.eMail,
                     label = c.eMail,
                     email = c.eMail,
                     nombre = c.Nombre,
                     clienteID = c.ClienteID,
-            });
+                });
 
             return Json(data, JsonRequestBehavior.AllowGet);
         }
@@ -161,7 +162,7 @@ namespace Portal.Consultoras.Web.Controllers
             string CampaniaID = string.Empty;
             string FechaFacturacion = string.Empty;
             List<CatalogoClienteModel> lstClientesCat = new List<CatalogoClienteModel>();
-            
+
             try
             {
                 List<Catalogo> catalogos = new List<Catalogo>();
@@ -269,7 +270,7 @@ namespace Portal.Consultoras.Web.Controllers
                     urlIconEmail = "https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/SWR2zWZftNbE4mn/mensaje_mail.png";
                     urlIconTelefono = "https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/1YI6wJJKvX90WZk/celu_mail.png";
                 }
-                    
+
                 foreach (var item in ListaCatalogosCliente)
                 {
                     #region foreach
@@ -313,7 +314,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (!string.IsNullOrEmpty(userData.EMail))
                     {
-                        mailBody += "<img style=\"vertical-align:middle;\" src=\"" + urlIconEmail +"\" alt=\"Icono Mensaje\" /> &nbsp;" + userData.EMail;
+                        mailBody += "<img style=\"vertical-align:middle;\" src=\"" + urlIconEmail + "\" alt=\"Icono Mensaje\" /> &nbsp;" + userData.EMail;
 
                     }
                     mailBody += "</td>";
@@ -323,9 +324,9 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         mailBody += "<img style=\"vertical-align:middle;\"  src=\"" + urlIconTelefono + "\" alt=\"Icono Celular\" /> &nbsp;" + userData.Celular;
                         if (!string.IsNullOrEmpty(userData.Telefono))
-                    {
+                        {
                             mailBody += " / " + userData.Telefono;
-                    }
+                        }
                     }
 
                     mailBody += "</td>";
@@ -400,7 +401,7 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             RutaPublicaImagen = Constantes.CatalogoUrlParameters.UrlPart01 + catalogoCyZone.DocumentID + Constantes.CatalogoUrlParameters.UrlPart03;
                             urlIssuCatalogo = catalogoCyZone.SkinURL;
-                    }
+                        }
 
                         mailBody += "<td style=\"width:29.3%; display: table-cell; padding-left:2%; padding-right:2%;\">";
                         mailBody += "<a href=\"" + urlIssuCatalogo + "\" style=\"width:100%; display:block;\">";
@@ -418,10 +419,10 @@ namespace Portal.Consultoras.Web.Controllers
                     mailBody += "</table>";
                     mailBody += "</td>";
                     mailBody += "</tr>";
-                        mailBody += "<tr>";
+                    mailBody += "<tr>";
                     mailBody += "<td colspan=\"3\" style=\"text-align:center; font-family:'Calibri'; color:#000; font-size:12px; font-weight:400;padding-top:45px; padding-bottom:27px;\"></td>";
-                        mailBody += "</tr>";
-                        mailBody += "<tr>";
+                    mailBody += "</tr>";
+                    mailBody += "<tr>";
                     mailBody += "<td colspan=\"3\" style=\"background:#000; height:62px;\">";
                     mailBody += "<table align=\"center\" style=\"text-align:center; padding:0 13px; width:100%; max-width:550px; \">";
                     mailBody += "<!--[if gte mso 9]>";
@@ -450,7 +451,7 @@ namespace Portal.Consultoras.Web.Controllers
                     mailBody += "<td style=\"width:15%; font-family:'Calibri'; font-weight:400; font-size:13px; color:#FFF; vertical-align:middle;\">";
                     mailBody += "<table align=\"center\" style=\"text-align:center; width:100%;\">";
                     mailBody += "<tbody>";
-                        mailBody += "<tr>";
+                    mailBody += "<tr>";
                     mailBody += "<td style=\"text-align: right; font-family:'Calibri'; font-weight:400; font-size:13px; vertical-align: middle; width: 69%; color:white;\">S&Iacute;GUENOS</td>";
                     mailBody += "<td style=\"text-align: right; position: relative; top: 2px; left: 10px; width: 20%; vertical-align: top;\">";
                     mailBody += "<a href=\"https://es-la.facebook.com/SomosBelcorpOficial\" style=\"width:100%; display:block;\">";
@@ -467,14 +468,14 @@ namespace Portal.Consultoras.Web.Controllers
                     mailBody += "<![endif]-->";
                     mailBody += "</table>";
                     mailBody += "</td>";
-                        mailBody += "</tr>";
-                        mailBody += "<tr>";
+                    mailBody += "</tr>";
+                    mailBody += "<tr>";
                     mailBody += "<td colspan=\"3\">";
                     mailBody += "<table align=\"center\" style=\"text-align:center; width:200px;\">";
                     mailBody += "<tbody>";
-                        mailBody += "<tr>";
+                    mailBody += "<tr>";
                     mailBody += "<td colspan=\"2\" style=\"height:6px;\"></td>";
-                        mailBody += "</tr>";
+                    mailBody += "</tr>";
                     mailBody += "<tr>";
                     mailBody += "<td style=\"text-align:center; width:48%; border-right:1px solid #000;\">";
                     mailBody += "<a href=\"http://comunidad.somosbelcorp.com\" style=\"width:100%; display:block;\">";
@@ -497,7 +498,7 @@ namespace Portal.Consultoras.Web.Controllers
                     mailBody += "</html>";
 
                     if (!ValidarCorreoFormato(item.Email)) CorreosInvalidos += item.Email + "; ";
-                    else Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", item.Email, "Revisa tus catálogos de campaña " + CampaniaID.Substring(4,2), mailBody, true, userData.NombreConsultora);
+                    else Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", item.Email, "Revisa tus catálogos de campaña " + CampaniaID.Substring(4, 2), mailBody, true, userData.NombreConsultora);
 
                     #endregion
                 }
@@ -528,7 +529,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-        
+
         private string CampaniaInicioFin(BECatalogoConfiguracion catalogo, int campania)
         {
             string resultado = catalogo.Estado.ToString();

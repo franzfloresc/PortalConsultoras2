@@ -25,7 +25,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return RedirectToAction("Index", "Bienvenida");
         }
-        
+
         public ActionResult Informacion()
         {
             try
@@ -39,7 +39,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return RedirectToAction("Index", "Bienvenida");
         }
-        
+
         public ActionResult Comprar()
         {
             try
@@ -160,19 +160,19 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var listaFinal1 = ConsultarEstrategiasModel("", model.CampaniaID, palanca);
                 var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1);
-                
+
                 var listModelLan = listModel.Where(e => e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
                 listModel = listModel.Where(e => e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
 
                 int cantidadTotal = listModel.Count;
-                
+
                 var listPerdio = new List<EstrategiaPersonalizadaProductoModel>();
                 if (TieneProductosPerdio(model.CampaniaID))
                 {
                     var listPerdio1 = ConsultarEstrategiasModel("", model.CampaniaID, Constantes.TipoEstrategiaCodigo.RevistaDigital);
                     listPerdio1 = listPerdio1.Where(p => p.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.PackNuevas).ToList();
                     listPerdio = ConsultarEstrategiasFormatearModelo(listPerdio1, 1);
-                    
+
                     listModelLan.AddRange(listPerdio.Where(e => e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList());
                     listPerdio = listPerdio.Where(e => e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
                 }
@@ -199,7 +199,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-        
+
         [HttpPost]
         public JsonResult Suscripcion()
         {
@@ -249,7 +249,7 @@ namespace Portal.Consultoras.Web.Controllers
                 entidad.EMail = userData.EMail;
                 if (entidad.CodigoConsultora == "")
                     throw new Exception("El codigo de la consultora no puede ser nulo.");
-               
+
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
                     entidad.RevistaDigitalSuscripcionID = sv.RDSuscripcion(entidad);

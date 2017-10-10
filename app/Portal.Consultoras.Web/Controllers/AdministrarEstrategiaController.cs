@@ -4,19 +4,17 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceGestionWebPROL;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
-using Portal.Consultoras.Web.ServiceUsuario;
-using Portal.Consultoras.Web.CustomHelpers;
-using System.Configuration;
-using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -534,7 +532,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 string mensaje = "", descripcion = "", precio = "", codigoSAP = ""; int enMatrizComercial = 1;
                 string carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO; int idMatrizComercial = 0;
-               
+
                 string wsprecio = ""; ///GR-1060
 
                 if (lst.Count > 0)
@@ -729,7 +727,7 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 if (entidad.EstrategiaID != 0)
                                     estrategiaDetalle = sv.GetEstrategiaDetalle(entidad.PaisID, entidad.EstrategiaID);
-                                
+
                                 entidad = VerficarArchivos(entidad, estrategiaDetalle);
                             }
                         }
@@ -810,7 +808,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
             }
@@ -1071,7 +1069,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             SetUserData(usuario);
         }
-        
+
         [HttpPost]
         public JsonResult InsertEstrategiaPortal(PedidoDetalleModel model)
         {
@@ -1267,7 +1265,7 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Index", "AdministrarEstrategia");
         }
 
-         public ActionResult ConsultarCuvTipoConfigurado(string sidx, string sord, int page, int rows, int campaniaId, int tipoConfigurado, int estrategiaID)
+        public ActionResult ConsultarCuvTipoConfigurado(string sidx, string sord, int page, int rows, int campaniaId, int tipoConfigurado, int estrategiaID)
         {
             if (ModelState.IsValid)
             {
@@ -1409,7 +1407,7 @@ namespace Portal.Consultoras.Web.Controllers
                                          productoEstrategia.codigo_estrategia == Constantes.TipoEstrategiaSet.CompuestaFija) ||
                                         (productoEstrategia.codigo_estrategia == Constantes.TipoEstrategiaSet.CompuestaVariable &&
                                          grupoPrevio != productoEstrategia.grupo);
-                                    
+
                                     if (tono)
                                     {
                                         grupoPrevio = productoEstrategia.grupo;
@@ -1420,7 +1418,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     }
                                     #endregion
                                 }
-                                
+
                                 string nemoTecnicoBusqueda = String.Empty;
                                 foreach (String nemoTecnico in nemotecnicosLista)
                                 {
@@ -1462,7 +1460,7 @@ namespace Portal.Consultoras.Web.Controllers
                         message = "No se encontraron productos en ods.productocomercial."
                     }, JsonRequestBehavior.AllowGet);
                 }
-                
+
                 try
                 {
                     using (PedidoServiceClient ps = new PedidoServiceClient())
@@ -1486,7 +1484,7 @@ namespace Portal.Consultoras.Web.Controllers
                     message = "Se insertaron en la tabla temporal de Estrategia.",
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
-                
+
             }
             catch (Exception ex)
             {
@@ -1731,30 +1729,30 @@ namespace Portal.Consultoras.Web.Controllers
 
         public BEEstrategia VerficarArchivos(BEEstrategia estrategia, BEEstrategiaDetalle estrategiaDetalle)
         {
-            if (!String.IsNullOrEmpty(estrategia.ImgFondoDesktop) && 
+            if (!String.IsNullOrEmpty(estrategia.ImgFondoDesktop) &&
                 (String.IsNullOrEmpty(estrategiaDetalle.ImgFondoDesktop) || estrategia.ImgFondoDesktop != estrategiaDetalle.ImgFondoDesktop))
                 estrategia.ImgFondoDesktop = SaveFileS3(estrategia.ImgFondoDesktop);
 
-            if (!String.IsNullOrEmpty(estrategia.ImgPrevDesktop) && 
+            if (!String.IsNullOrEmpty(estrategia.ImgPrevDesktop) &&
                 (String.IsNullOrEmpty(estrategiaDetalle.ImgPrevDesktop) || estrategia.ImgPrevDesktop != estrategiaDetalle.ImgPrevDesktop))
                 estrategia.ImgPrevDesktop = SaveFileS3(estrategia.ImgPrevDesktop);
 
-            if (!String.IsNullOrEmpty(estrategia.ImgFichaDesktop) && 
+            if (!String.IsNullOrEmpty(estrategia.ImgFichaDesktop) &&
                 (String.IsNullOrEmpty(estrategiaDetalle.ImgFichaDesktop) || estrategia.ImgFichaDesktop != estrategiaDetalle.ImgFichaDesktop))
                 estrategia.ImgFichaDesktop = SaveFileS3(estrategia.ImgFichaDesktop);
 
             //if (String.IsNullOrEmpty(estrategiaDetalle.ImgFondoMobile) || estrategia.ImgFondoMobile != estrategiaDetalle.ImgFondoMobile)
             //    estrategia.ImgFondoMobile = SaveFileS3(estrategia.ImgFondoMobile);
 
-            if (!String.IsNullOrEmpty(estrategia.ImgFichaMobile) && 
+            if (!String.IsNullOrEmpty(estrategia.ImgFichaMobile) &&
                 (String.IsNullOrEmpty(estrategiaDetalle.ImgFichaMobile) || estrategia.ImgFichaMobile != estrategiaDetalle.ImgFichaMobile))
                 estrategia.ImgFichaMobile = SaveFileS3(estrategia.ImgFichaMobile);
 
-            if (!String.IsNullOrEmpty(estrategia.ImgFichaFondoDesktop) && 
+            if (!String.IsNullOrEmpty(estrategia.ImgFichaFondoDesktop) &&
                 (String.IsNullOrEmpty(estrategiaDetalle.ImgFichaFondoDesktop) || estrategia.ImgFichaFondoDesktop != estrategiaDetalle.ImgFichaFondoDesktop))
                 estrategia.ImgFichaFondoDesktop = SaveFileS3(estrategia.ImgFichaFondoDesktop);
 
-            if (!String.IsNullOrEmpty(estrategia.ImgFichaFondoMobile) && 
+            if (!String.IsNullOrEmpty(estrategia.ImgFichaFondoMobile) &&
                 (String.IsNullOrEmpty(estrategiaDetalle.ImgFichaFondoMobile) || estrategia.ImgFichaFondoMobile != estrategiaDetalle.ImgFichaFondoMobile))
                 estrategia.ImgFichaFondoMobile = SaveFileS3(estrategia.ImgFichaFondoMobile);
 

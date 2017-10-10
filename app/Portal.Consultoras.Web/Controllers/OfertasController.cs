@@ -95,7 +95,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return model;
         }
-        
+
         [HttpPost]
         public JsonResult ObtenerSeccion(string codigo, int campaniaId)
         {
@@ -141,7 +141,7 @@ namespace Portal.Consultoras.Web.Controllers
                     estado = ex.Message
                 }, JsonRequestBehavior.AllowGet);
             }
-}
+        }
 
     }
 }

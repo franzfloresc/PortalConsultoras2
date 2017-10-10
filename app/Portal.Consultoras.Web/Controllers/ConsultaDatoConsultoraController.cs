@@ -4,8 +4,6 @@
     using Portal.Consultoras.Common;
     using Portal.Consultoras.Web.Models;
     using Portal.Consultoras.Web.ServiceCliente;
-    using Portal.Consultoras.Web.ServiceOSBBelcorpConsultora;
-    using Portal.Consultoras.Web.ServiceOSBBelcorpPedido;
     using Portal.Consultoras.Web.ServicePedido;
     using Portal.Consultoras.Web.ServiceSAC;
     using Portal.Consultoras.Web.ServiceUsuario;
@@ -73,7 +71,7 @@
                     rows = from a in lista
                            select new
                            {
-                               cell = new string[] 
+                               cell = new string[]
                                {
                                    a.OfertaNuevaId.ToString(),
                                    a.DescripcionProd.ToString()
@@ -206,7 +204,7 @@
                         rows = from a in items
                                select new
                                {
-                                   cell = new string[] 
+                                   cell = new string[]
                                {
                                    a.Fecha.ToString("dd/MM/yyyy"),
                                    a.Glosa.ToString(),
@@ -230,7 +228,7 @@
                         rows = from a in items
                                select new
                                {
-                                   cell = new string[] 
+                                   cell = new string[]
                                {
                                    a.Fecha.ToString("dd/MM/yyyy"),
                                    a.Glosa.ToString(),
@@ -259,7 +257,7 @@
                     using (SACServiceClient client = new SACServiceClient())
                     {
                         lista = client.GetPedidosFacturadosCabecera(userData.PaisID, codigoConsultora).ToList();
-                }
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -267,29 +265,29 @@
                 }
 
                 foreach (var pedido in lista)
-                    {
-                        Portal.Consultoras.Web.ServicePedido.BEPedidoWeb oBEPedidoWeb = new Portal.Consultoras.Web.ServicePedido.BEPedidoWeb();
+                {
+                    Portal.Consultoras.Web.ServicePedido.BEPedidoWeb oBEPedidoWeb = new Portal.Consultoras.Web.ServicePedido.BEPedidoWeb();
                     oBEPedidoWeb.CampaniaID = pedido.Campania;
                     oBEPedidoWeb.ImporteTotal = pedido.ImporteTotal;
                     oBEPedidoWeb.CantidadProductos = pedido.Cantidad;
                     if (!string.IsNullOrEmpty(pedido.EstadoPedido))
-                        {
+                    {
                         string[] parametros = pedido.EstadoPedido.Split(';');
                         if (parametros.Length >= 3)
-                            {
-                                //Se utilizará el campo para enviar la información de Origen
-                                oBEPedidoWeb.EstadoPedidoDesc = OrigenDescripcion(parametros[0]);
-                                //Se utilizará el campo para enviar la información de Flete
-                                oBEPedidoWeb.Direccion = parametros[1] == string.Empty ? "0" : parametros[1];
-                                //Se utilizará el campo para enviar la fecha de Facturación
-                                oBEPedidoWeb.CodigoUsuarioCreacion = parametros[2] == string.Empty ? "" : Convert.ToDateTime(parametros[2]).ToShortDateString();
-                            }
-                            
-                            
+                        {
+                            //Se utilizará el campo para enviar la información de Origen
+                            oBEPedidoWeb.EstadoPedidoDesc = OrigenDescripcion(parametros[0]);
+                            //Se utilizará el campo para enviar la información de Flete
+                            oBEPedidoWeb.Direccion = parametros[1] == string.Empty ? "0" : parametros[1];
+                            //Se utilizará el campo para enviar la fecha de Facturación
+                            oBEPedidoWeb.CodigoUsuarioCreacion = parametros[2] == string.Empty ? "" : Convert.ToDateTime(parametros[2]).ToShortDateString();
                         }
-                        
-                        lst.Add(oBEPedidoWeb);
+
+
                     }
+
+                    lst.Add(oBEPedidoWeb);
+                }
 
                 // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
@@ -357,7 +355,7 @@
                                select new
                                {
                                    id = a.CampaniaID,
-                                   cell = new string[] 
+                                   cell = new string[]
                                {
                                    DescripcionCampania(a.CampaniaID.ToString()),
                                    a.EstadoPedidoDesc,
@@ -382,7 +380,7 @@
                                select new
                                {
                                    id = a.CampaniaID,
-                                   cell = new string[] 
+                                   cell = new string[]
                                {
                                    DescripcionCampania(a.CampaniaID.ToString()),
                                    a.EstadoPedidoDesc,
@@ -400,12 +398,12 @@
             return RedirectToAction("Index", "Bienvenida");
         }
 
-        public ActionResult PedidoFacturadoProducto(string sidx, string sord, int page, int rows, string campaniaId, string codigoConsultora,string flete, string totalFacturado)
+        public ActionResult PedidoFacturadoProducto(string sidx, string sord, int page, int rows, string campaniaId, string codigoConsultora, string flete, string totalFacturado)
         {
             if (ModelState.IsValid)
             {
                 decimal Flete2 = flete == string.Empty ? 0 : Convert.ToDecimal(flete);
-                decimal TotalFacturado = totalFacturado == string.Empty ? 0 :Convert.ToDecimal(totalFacturado);
+                decimal TotalFacturado = totalFacturado == string.Empty ? 0 : Convert.ToDecimal(totalFacturado);
                 string importeTotal;
                 string fleteString;
                 string totalFacturadoString;
@@ -539,7 +537,7 @@
                                select new
                                {
                                    id = a.CUV,
-                                   cell = new string[] 
+                                   cell = new string[]
                                {
                                    a.CUV,
                                    a.DescripcionProd,
@@ -571,7 +569,7 @@
                                select new
                                {
                                    id = a.CUV,
-                                   cell = new string[] 
+                                   cell = new string[]
                                {
                                    a.CUV,
                                    a.DescripcionProd,
@@ -676,7 +674,7 @@
                            select new
                            {
                                id = a.ClienteID,
-                               cell = new string[] 
+                               cell = new string[]
                                {
                                    a.Nombre,
                                    a.ClienteID.ToString(),
@@ -774,7 +772,7 @@
                                select new
                                {
                                    id = a.PedidoDetalleID,
-                                   cell = new string[] 
+                                   cell = new string[]
                                {
                                    a.CUV,
                                    a.DescripcionProd,
@@ -800,7 +798,7 @@
                                select new
                                {
                                    id = a.PedidoDetalleID,
-                                   cell = new string[] 
+                                   cell = new string[]
                                {
                                    a.CUV,
                                    a.DescripcionProd,
@@ -1033,7 +1031,7 @@
             pag = Paginador(grid, campania, lst);
 
             // Creamos la estructura
-            var data = new 
+            var data = new
             {
                 total = pag.PageCount,
                 page = pag.CurrentPage,
@@ -1043,7 +1041,7 @@
                        {
                            //R20150906
                            id = a.Nombre + "-" + a.FechaFacturacion,
-                           cell = new string[] 
+                           cell = new string[]
                                 {
                                 a.Nombre,
                                 a.FechaFacturacion,
@@ -1249,46 +1247,60 @@
 
             switch (ISO)
             {
-                case "AR": result = "ARGENTINA";
+                case "AR":
+                    result = "ARGENTINA";
                     Marca = "L'Bel";
                     break;
-                case "BO": result = "BOLIVIA";
+                case "BO":
+                    result = "BOLIVIA";
                     Marca = "Esika";
                     break;
-                case "CL": result = "CHILE";
+                case "CL":
+                    result = "CHILE";
                     Marca = "Esika";
                     break;
-                case "CO": result = "COLOMBIA";
+                case "CO":
+                    result = "COLOMBIA";
                     Marca = "L'Bel";
                     break;
-                case "CR": result = "COSTA RICA";
+                case "CR":
+                    result = "COSTA RICA";
                     Marca = "L'Bel";
                     break;
-                case "DO": result = "DOMINICANA";
+                case "DO":
+                    result = "DOMINICANA";
                     Marca = "L'Bel";
                     break;
-                case "EC": result = "ECUADOR";
+                case "EC":
+                    result = "ECUADOR";
                     Marca = "L'Bel";
                     break;
-                case "SV": result = "EL SALVADOR";
+                case "SV":
+                    result = "EL SALVADOR";
                     Marca = "Esika";
                     break;
-                case "GT": result = "GUATEMALA";
+                case "GT":
+                    result = "GUATEMALA";
                     Marca = "Esika";
                     break;
-                case "MX": result = "MEXICO";
+                case "MX":
+                    result = "MEXICO";
                     Marca = "L'Bel";
                     break;
-                case "PA": result = "PANAMA";
+                case "PA":
+                    result = "PANAMA";
                     Marca = "L'Bel";
                     break;
-                case "PE": result = "PERU";
+                case "PE":
+                    result = "PERU";
                     Marca = "Esika";
                     break;
-                case "PR": result = "PUERTO RICO";
+                case "PR":
+                    result = "PUERTO RICO";
                     Marca = "L'Bel";
                     break;
-                case "VE": result = "VENEZUELA";
+                case "VE":
+                    result = "VENEZUELA";
                     Marca = "L'Bel";
                     break;
             }
@@ -1342,7 +1354,7 @@
         {
             List<EstadoCuentaModel> lst = ObtenerEstadoCuenta();
 
-            return lst;            
+            return lst;
         }
 
         public BEPager Paginador(BEGrid item, List<EstadoCuentaModel> lst)

@@ -1,16 +1,14 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Areas.Mobile.Controllers;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServicePROLConsultas;
-using Portal.Consultoras.Web.ServiceSeguridad;
-using Portal.Consultoras.Web.ServiceUsuario;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using Portal.Consultoras.Web.Areas.Mobile.Controllers;
 using System.Linq;
 using System.ServiceModel;
 
@@ -21,7 +19,7 @@ namespace Portal.Consultoras.Web.Controllers
         protected void ActionExecutingMobile()
         {
             if (Session["UserData"] == null) return;
-            
+
             var userData = UserData();
             ViewBag.CodigoCampania = userData.CampaniaID.ToString();
 
@@ -55,7 +53,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 bool mostrarBannerTop = NuncaMostrarBannerTopPL20() ? false : true;
                 ViewBag.MostrarBannerTopPL20 = mostrarBannerTop;
-                
+
                 if (mostrarBanner || mostrarBannerTop)
                 {
                     ViewBag.PermitirCerrarBannerPL20 = permitirCerrarBanner;
@@ -64,7 +62,7 @@ namespace Portal.Consultoras.Web.Controllers
                     ViewBag.MostrarShowRoomBannerLateral = sessionManager.GetEsShowRoom() &&
                         !showRoomBannerLateral.ConsultoraNoEncontrada && !showRoomBannerLateral.ConsultoraNoEncontrada &&
                         showRoomBannerLateral.BEShowRoomConsultora.EventoConsultoraID != 0 && showRoomBannerLateral.EstaActivoLateral;
-                    
+
                     if (showRoomBannerLateral.DiasFalta < 1)
                     {
                         ViewBag.MostrarShowRoomBannerLateral = false;
@@ -84,13 +82,13 @@ namespace Portal.Consultoras.Web.Controllers
                     ViewBag.ImagenPopupShowroomVenta = showRoomBannerLateral.ImagenPopupShowroomVenta;
                     ViewBag.ImagenBannerShowroomVenta = showRoomBannerLateral.ImagenBannerShowroomVenta;
                     ViewBag.DiasFaltantesLetras = showRoomBannerLateral.LetrasDias;
-                    
+
                     OfertaDelDiaModel ofertaDelDia = GetOfertaDelDiaModel();
                     ViewBag.OfertaDelDia = ofertaDelDia;
 
                     ViewBag.MostrarOfertaDelDia =
-                         userData.CloseOfertaDelDia 
-                         ? false 
+                         userData.CloseOfertaDelDia
+                         ? false
                          : (userData.TieneOfertaDelDia && ofertaDelDia != null && ofertaDelDia.TeQuedan.TotalSeconds > 0);
 
                     showRoomBannerLateral.EstadoActivo = mostrarBannerTop ? "0" : "1";
@@ -119,7 +117,7 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
         }
-        
+
         private bool SiempreMostrarBannerPL20()
         {
             string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
@@ -159,7 +157,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 ViewBag.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre).ToUpper();
                 int j = ViewBag.NombreConsultora.Trim().IndexOf(' ');
-                if (j >= 0) ViewBag.NombreConsultora = ViewBag.NombreConsultora.Substring(0, j).Trim(); 
+                if (j >= 0) ViewBag.NombreConsultora = ViewBag.NombreConsultora.Substring(0, j).Trim();
 
                 ViewBag.NumeroCampania = userData.NombreCorto.Substring(4);
                 ViewBag.EsUsuarioComunidad = userData.EsUsuarioComunidad ? 1 : 0;
@@ -219,7 +217,7 @@ namespace Portal.Consultoras.Web.Controllers
                 resultado = esShowRoom && !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
             }
 
-            if(!esIntriga)
+            if (!esIntriga)
             {
                 resultado = esShowRoom && mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
             }
@@ -322,7 +320,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             //Session[Constantes.ConstSession.ListaProductoShowRoom] = null;
-            Session[Constantes.ConstSession.ListaProductoShowRoom] = listaShowRoomOfertaFinal;            
+            Session[Constantes.ConstSession.ListaProductoShowRoom] = listaShowRoomOfertaFinal;
 
             var listadoOfertasTodasModel1 = Mapper.Map<List<BEShowRoomOferta>, List<ShowRoomOfertaModel>>(listaShowRoomOfertaFinal);
             listadoOfertasTodasModel1.Update(x =>
@@ -473,8 +471,8 @@ namespace Portal.Consultoras.Web.Controllers
             var nombreMarca = "";
             modelo.ListaDetalleOfertaShowRoom.Update(d =>
             {
-                d.MarcaProducto = d.MarcaProducto == nombreMarca 
-                    ? "" : 
+                d.MarcaProducto = d.MarcaProducto == nombreMarca
+                    ? "" :
                     d.MarcaProducto;
                 nombreMarca = d.MarcaProducto == ""
                     ? nombreMarca
@@ -487,9 +485,9 @@ namespace Portal.Consultoras.Web.Controllers
             var tipoAplicacion = esMovil
                     ? Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile
                     : Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop;
-            
+
             modelo.TextoCondicionCompraCpc = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.TextoCondicionCompraCpc, tipoAplicacion);
-            modelo.TextoDescripcionLegalCpc = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.TextoDescripcionLegalCpc, tipoAplicacion);            
+            modelo.TextoDescripcionLegalCpc = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.TextoDescripcionLegalCpc, tipoAplicacion);
 
             return modelo;
         }
@@ -604,8 +602,8 @@ namespace Portal.Consultoras.Web.Controllers
                 bool esMovil = Request.Browser.IsMobileDevice;
                 var tipoAplicacion = esMovil
                     ? Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile
-                    : Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop;      
-                
+                    : Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop;
+
                 showRoomEventoModel.UrlTerminosCondiciones = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.UrlTerminosCondiciones, tipoAplicacion);
                 showRoomEventoModel.TextoCondicionCompraCpc = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.TextoCondicionCompraCpc, tipoAplicacion);
                 showRoomEventoModel.TextoDescripcionLegalCpc = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.TextoDescripcionLegalCpc, tipoAplicacion);
@@ -628,14 +626,14 @@ namespace Portal.Consultoras.Web.Controllers
                     showRoomEventoModel.ImagenFondoTituloOfertaSubCampania = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.ImagenFondoTituloOfertaSubCampania, tipoAplicacion);
                     showRoomEventoModel.ColorFondoContenidoOfertaSubCampania = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.ColorFondoContenidoOfertaSubCampania, tipoAplicacion);
                     showRoomEventoModel.TextoBotonVerMasOfertaSubCampania = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.TextoBotonVerMasOfertaSubCampania, tipoAplicacion);
-                    
-                }                                
+
+                }
             }
             catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 showRoomEventoModel = new ShowRoomEventoModel();
-            }            
+            }
 
             return showRoomEventoModel;
         }

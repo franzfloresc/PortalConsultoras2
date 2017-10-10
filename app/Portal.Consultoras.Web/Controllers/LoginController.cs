@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.PublicService.Cryptography;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceContenido;
@@ -17,7 +18,6 @@ using System.ServiceModel;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-using Portal.Consultoras.PublicService.Cryptography;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -46,7 +46,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 model.ListaPaises = ObtenerPaises();
                 model.ListaEventos = ObtenerEventoFestivo(0, Constantes.EventoFestivoAlcance.LOGIN, 0);
-                
+
                 if (model.ListaEventos.Count == 0)
                 {
                     model.NombreClase = "fondo_estandar";
@@ -74,7 +74,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 AsignarViewBagPorIso(iso);
                 AsignarUrlRetorno(returnUrl);
-                
+
             }
             catch (FaultException ex)
             {
@@ -928,7 +928,7 @@ namespace Portal.Consultoras.Web.Controllers
                         try
                         {
                             RevistaDigitalModel revistaDigitalModel = new RevistaDigitalModel();
-                            List<ConfiguracionPaisModel>  configuracionPaisModels;
+                            List<ConfiguracionPaisModel> configuracionPaisModels;
                             OfertaFinalModel ofertaFinalModel = new OfertaFinalModel();
 
                             revistaDigitalModel.NoVolverMostrar = true;
@@ -1028,7 +1028,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 Session[Constantes.ConstSession.ConfiguracionPaises] = configuracionPaisModels;
                                 Session[Constantes.ConstSession.OfertaFinal] = ofertaFinalModel;
                             }
-                            
+
                         }
                         catch (Exception ex)
                         {
@@ -1047,7 +1047,7 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             EventoFestivoDataModel eventoFestivoDataModel = new EventoFestivoDataModel();
                             eventoFestivoDataModel.ListaEventoFestivo = ObtenerEventoFestivo(model.PaisID, Constantes.EventoFestivoAlcance.SOMOS_BELCORP, model.CampaniaID);
-                            
+
                             if (eventoFestivoDataModel.ListaEventoFestivo.Any())
                             {
                                 foreach (var item in eventoFestivoDataModel.ListaEventoFestivo)
@@ -1458,8 +1458,7 @@ namespace Portal.Consultoras.Web.Controllers
             imgSh = imgSh.Substring(0, imgSh.Length - exte.Length - 1) + (cantidadOfertas > 1 ? "s" : "") + "." + exte;
             return imgSh;
         }
-
-
+        
         [AllowAnonymous]
         public ActionResult SesionExpirada(string returnUrl)
         {
@@ -1861,6 +1860,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return (anioCampaniaResult * 100) + nroCampaniaResult;
         }
-        
+
     }
 }

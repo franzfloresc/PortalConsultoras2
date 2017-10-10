@@ -41,10 +41,10 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             listEstrategia = listEstrategia ?? new List<BEEstrategia>();
-            
+
             //if (campaniaId > 0 || codAgrupacion == Constantes.TipoEstrategiaCodigo.RevistaDigital)
             //    return listEstrategia;
-            
+
             //Session[varSession] = listEstrategia;
             return listEstrategia;
         }
@@ -87,7 +87,7 @@ namespace Portal.Consultoras.Web.Controllers
                     listEstrategia = sv.GetEstrategiasPedido(entidad).ToList();
                 }
                 listEstrategia = listEstrategia ?? new List<BEEstrategia>();
-                
+
                 if (campaniaId == userData.CampaniaID)
                 {
                     if (tipo == Constantes.TipoEstrategiaCodigo.PackNuevas
@@ -119,7 +119,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         public List<BEEstrategia> ConsultarMasVendidos()
-        {          
+        {
             var entidad = new BEEstrategia
             {
                 PaisID = userData.PaisID,
@@ -138,7 +138,7 @@ namespace Portal.Consultoras.Web.Controllers
                 listEstrategia = sv.GetMasVendidos(entidad).ToList();
             }
             listEstrategia = listEstrategia ?? new List<BEEstrategia>();
-            
+
             return listEstrategia;
         }
 
@@ -296,11 +296,11 @@ namespace Portal.Consultoras.Web.Controllers
                 #region Factor Cuadre
 
                 var listaHermanosCuadre = new List<ProductoModel>();
-                
+
                 foreach (var hermano in listaHermanos)
                 {
                     listaHermanosCuadre.Add((ProductoModel)hermano.Clone());
-                    
+
                     if (hermano.FactorCuadre > 1)
                     {
                         for (int i = 0; i < hermano.FactorCuadre - 1; i++)
@@ -356,7 +356,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 #region Validar Tipo RD
-                
+
                 if (revistaDigital.TieneRDR || (revistaDigital.TieneRDC && revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == 1))
                 {
                     var estrategiaLanzamiento = listModel.FirstOrDefault(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento) ?? new BEEstrategia();
@@ -375,13 +375,13 @@ namespace Portal.Consultoras.Web.Controllers
                     var cantMax = 8;
                     var cantPack = listaPackNueva.Any() ? 1 : 0;
                     var top = Math.Min(cantMax - cantPack, listaRevista.Count());
-                    
+
                     if (listaRevista.Count() > top)
                         listaRevista.RemoveRange(top, listaRevista.Count() - top);
-                    
+
                     if (listaRevista.Count() > cantMax - top)
                         listaPackNueva.RemoveRange(cantMax - top, listaPackNueva.Count() - (cantMax - top));
-                    
+
                     listModel = new List<BEEstrategia>();
                     if (estrategiaLanzamiento.EstrategiaID > 0)
                         listModel.Add(estrategiaLanzamiento);
@@ -402,7 +402,7 @@ namespace Portal.Consultoras.Web.Controllers
             var listaProducto = ConsultarEstrategias(cuv, campaniaId, codAgrupacion);
 
             List<EstrategiaPedidoModel> listaProductoModel = ConsultarEstrategiasModelFormato(listaProducto);
-            
+
             return listaProductoModel;
         }
 
@@ -420,7 +420,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             var listaPedido = ObtenerPedidoWebDetalle();
             var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-            
+
             listaProductoModel.ForEach(estrategia =>
             {
                 estrategia.ClaseBloqueada = estrategia.CampaniaID > 0 && estrategia.CampaniaID != userData.CampaniaID ? "btn_desactivado_general" : "";
@@ -507,7 +507,7 @@ namespace Portal.Consultoras.Web.Controllers
                                              ((estrategia.ListaDescripcionDetalle != null && estrategia.ListaDescripcionDetalle.Any()) ||
                                               !estrategia.EstrategiaDetalle.UrlVideoMobile.IsNullOrEmptyTrim());
             });
-            
+
             return listaProductoModel;
         }
 
@@ -519,7 +519,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             var listaPedido = ObtenerPedidoWebDetalle();
             var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-            
+
             listaProductoModel.ForEach(estrategia =>
             {
                 var prodModel = new EstrategiaPersonalizadaProductoModel();
@@ -529,7 +529,7 @@ namespace Portal.Consultoras.Web.Controllers
                 prodModel.TipoEstrategiaImagenMostrar = estrategia.TipoEstrategiaImagenMostrar;
                 prodModel.CodigoEstrategia = estrategia.TipoEstrategia.Codigo;
                 prodModel.CodigoVariante = estrategia.CodigoEstrategia;
-                prodModel.ClaseEstrategia = 
+                prodModel.ClaseEstrategia =
                     (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso
                     || estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi)
                     || (
@@ -558,7 +558,7 @@ namespace Portal.Consultoras.Web.Controllers
                 prodModel.ArrayContenidoSet = estrategia.FlagNueva == 1 ? estrategia.DescripcionCUV2.Split('|').Skip(1).ToList() : new List<string>();
                 prodModel.ListaDescripcionDetalle = estrategia.ListaDescripcionDetalle ?? new List<string>();
                 prodModel.TextoLibre = Util.Trim(estrategia.TextoLibre);
-                
+
                 prodModel.MarcaID = estrategia.MarcaID;
                 prodModel.UrlCompartir = estrategia.UrlCompartir;
 
@@ -572,7 +572,7 @@ namespace Portal.Consultoras.Web.Controllers
                 //|| estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso;
 
                 prodModel.TipoAccionAgregar = estrategia.TieneVariedad == 0 ? estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas ? 1 : 2 : 3;
-                
+
                 if (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento)
                 {
                     prodModel.TipoEstrategiaDetalle.ImgFondoDesktop = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgFondoDesktop);

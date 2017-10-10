@@ -62,7 +62,7 @@ namespace Portal.Consultoras.Web.Controllers
                         model.PedidoBase = pedidoBase;
                     }
                 }
-                    
+
 
                 #endregion
 
@@ -379,7 +379,7 @@ namespace Portal.Consultoras.Web.Controllers
                 else
                 {
                     ViewBag.UrlFranjaNegra = eventofestivo.EfRutaPedido;
-                }                    
+                }
                 #endregion
             }
             catch (FaultException ex)
@@ -392,13 +392,14 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             ViewBag.UrlTerminosOfertaFinalRegalo = string.Format("{0}/SomosBelcorp/FileConsultoras/{1}/Flyer_Regalo_Sorpresa.pdf", ConfigurationManager.AppSettings.Get("oferta_final_regalo_url_s3"), userData.CodigoISO);
-            return View("Index",model);
+            return View("Index", model);
         }
 
-        public ActionResult virtualCoach(string param = "") {
+        public ActionResult virtualCoach(string param = "")
+        {
             if (Request.Browser.IsMobileDevice)
             {
-                return RedirectToAction("virtualCoach", new RouteValueDictionary(new { controller = "Pedido", area = "Mobile", param = param })); 
+                return RedirectToAction("virtualCoach", new RouteValueDictionary(new { controller = "Pedido", area = "Mobile", param = param }));
             }
             try
             {
@@ -600,7 +601,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (model.ClienteID_ != "-1")
                 {
                     listaCliente = olstPedidoWebDetalle
-                        .Select( item =>new BECliente { ClienteID = item.ClienteID, Nombre = item.Nombre })
+                        .Select(item => new BECliente { ClienteID = item.ClienteID, Nombre = item.Nombre })
                         .GroupBy(x => x.ClienteID).Select(x => x.First()).ToList();
                     listaCliente.Insert(0, new BECliente { ClienteID = -1, Nombre = "-- TODOS --" });
                 }
@@ -848,7 +849,7 @@ namespace Portal.Consultoras.Web.Controllers
                 tipo,
                 modificoBackOrder,
                 DataBarra = !ErrorServer ? GetDataBarra() : new BarraConsultoraModel(),
-                cantidadTotalProductos = ObtenerPedidoWebDetalle().Sum( x => x.Cantidad)
+                cantidadTotalProductos = ObtenerPedidoWebDetalle().Sum(x => x.Cantidad)
             }, JsonRequestBehavior.AllowGet);
         }
 
@@ -961,7 +962,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 List<BECliente> listaCliente;
                 listaCliente = olstPedidoWebDetalle
-                    .Select( item => new BECliente { ClienteID = item.ClienteID, Nombre = item.Nombre })
+                    .Select(item => new BECliente { ClienteID = item.ClienteID, Nombre = item.Nombre })
                     .GroupBy(x => x.ClienteID).Select(x => x.First())
                     .ToList();
                 listaCliente.Insert(0, new BECliente { ClienteID = -1, Nombre = "-- TODOS --" });
@@ -1274,7 +1275,7 @@ namespace Portal.Consultoras.Web.Controllers
                 int iCantidad = 0;
                 if (int.TryParse(Cantidad, out iCantidad))
                     entidad.Cantidad = iCantidad;
-                else 
+                else
                     entidad.Cantidad = 0;
 
                 int iTipoOferta = 0;
@@ -1292,7 +1293,8 @@ namespace Portal.Consultoras.Web.Controllers
                 mensaje = ValidarMontoMaximo(Convert.ToDecimal(PrecioUnidad), entidad.Cantidad);
                 //FIN EPD-2337
 
-                if (mensaje == "") {
+                if (mensaje == "")
+                {
                     using (PedidoServiceClient svc = new PedidoServiceClient())
                     {
                         mensaje = svc.ValidarStockEstrategia(entidad);
@@ -1480,9 +1482,9 @@ namespace Portal.Consultoras.Web.Controllers
                     olstProductoModel.Add(new ProductoModel() { MarcaID = 0, CUV = "El producto solicitado no existe.", TieneSugerido = 0 });
                     return Json(olstProductoModel, JsonRequestBehavior.AllowGet);
                 }
-                
+
                 var codigoEstrategia = Util.Trim(olstProducto[0].TipoEstrategiaCodigo);
-                    
+
                 if (Constantes.TipoEstrategiaCodigo.Lanzamiento == codigoEstrategia
                     || Constantes.TipoEstrategiaCodigo.OfertasParaMi == codigoEstrategia
                     || Constantes.TipoEstrategiaCodigo.PackAltoDesembolso == codigoEstrategia)
@@ -1498,7 +1500,7 @@ namespace Portal.Consultoras.Web.Controllers
                         return Json(olstProductoModel, JsonRequestBehavior.AllowGet);
                     }
                 }
-                
+
                 var listaEstrategias = (List<BEEstrategia>)Session[Constantes.ConstSession.ListaEstrategia] ?? new List<BEEstrategia>();
                 var estrategia = listaEstrategias.FirstOrDefault(p => p.CUV2 == model.CUV) ?? new BEEstrategia();
                 if (estrategia.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.OfertaParaTi)
@@ -2098,8 +2100,8 @@ namespace Portal.Consultoras.Web.Controllers
                 if (resultado.ResultadoReservaEnum != Enumeradores.ResultadoReserva.ReservaNoDisponible)
                 {
                     if (resultado.Reserva) CambioBannerGPR(true);
-                sessionManager.SetObservacionesProl(listObservacionModel);
-                if (resultado.RefreshPedido) sessionManager.SetPedidoWeb(null);
+                    sessionManager.SetObservacionesProl(listObservacionModel);
+                    if (resultado.RefreshPedido) sessionManager.SetPedidoWeb(null);
                 }
                 SetUserData(userData);
 
@@ -3896,7 +3898,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var oddModel = GetOfertaDelDiaModel();
-                
+
                 return Json(new
                 {
                     success = oddModel != null,
@@ -4019,7 +4021,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-        
+
         public ActionResult AccederOfertasVALAUTOPROL(string script)
         {
             var area = "";
@@ -4168,7 +4170,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 result = "OK"
             }, JsonRequestBehavior.AllowGet);
-        }        
+        }
 
         public JsonResult GetRegaloProgramaNuevas()
         {
@@ -4227,7 +4229,7 @@ namespace Portal.Consultoras.Web.Controllers
                         message = mensaje,
                         urlRedireccionar
                     }, JsonRequestBehavior.AllowGet);
-                    
+
                 }
                 #endregion
 
@@ -4333,13 +4335,13 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
             #endregion
-            
+
             #region AgregarProductoZE
 
             return AgregarProductoZE(estrategia.MarcaID.ToString(), estrategia.CUV2, estrategia.Precio2.ToString(), descripcion, estrategia.Cantidad.ToString(), estrategia.IndicadorMontoMinimo.ToString(),
                      estrategia.TipoEstrategiaID.ToString(), OrigenPedidoWeb, ClienteID_, tipoEstrategiaImagen);
             #endregion
-            
+
         }
 
         private bool ReservadoOEnHorarioRestringido(ref string mensaje, ref string urlRedireccionar, bool mostrarAlerta = true)
@@ -4437,7 +4439,7 @@ namespace Portal.Consultoras.Web.Controllers
                         mensaje = svc.ValidarStockEstrategia(entidad);
                     }
                 }
-                
+
                 mensaje = Util.Trim(mensaje);
             }
             catch (FaultException ex)
@@ -4481,7 +4483,7 @@ namespace Portal.Consultoras.Web.Controllers
                         message = mensaje,
                         urlRedireccionar
                     }, JsonRequestBehavior.AllowGet);
-                    
+
                 }
                 #endregion
 
@@ -4516,33 +4518,33 @@ namespace Portal.Consultoras.Web.Controllers
                         message = mensaje
                     }, JsonRequestBehavior.AllowGet);
                 }
-                
+
                 var descripcion = ficha.DescripcionCompleta;
                 if (ficha.FlagNueva == 1)
                 {
                     numero = ficha.LimiteVenta;
                     descripcion = ficha.DescripcionCortada;
                 }
-                                                
+
                 listaCuvTonos = Util.Trim(listaCuvTonos);
                 if (listaCuvTonos == "")
                 {
                     listaCuvTonos = ficha.CUV2;
                 }
-                
+
                 var tonos = listaCuvTonos.Split('|');
                 var respuesta = new JsonResult();
                 foreach (var tono in tonos)
                 {
                     var listSp = tono.Split(';');
                     ficha.CUV2 = listSp.Length > 0 ? listSp[0] : ficha.CUV2;
-                    if(ficha.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaVariable)
+                    if (ficha.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaVariable)
                     {
-                        var brother = ficha.Hermanos.Select(m => m.Hermanos.Where(s=>s.CUV == listSp[0])).SingleOrDefault();
+                        var brother = ficha.Hermanos.Select(m => m.Hermanos.Where(s => s.CUV == listSp[0])).SingleOrDefault();
                         descripcion = brother.Select(m => m.DescripcionComercial).SingleOrDefault();
-                    }                     
+                    }
 
-                    respuesta = AgregarProductoZE(ficha.MarcaID.ToString(), ficha.CUV2, ficha.Precio2.ToString(), descripcion, Cantidad.ToString(), ficha.IndicadorMontoMinimo.ToString(),ficha.CodigoEstrategia, OrigenPedidoWeb, ClienteID_,ficha.TipoEstrategiaImagenMostrar);
+                    respuesta = AgregarProductoZE(ficha.MarcaID.ToString(), ficha.CUV2, ficha.Precio2.ToString(), descripcion, Cantidad.ToString(), ficha.IndicadorMontoMinimo.ToString(), ficha.CodigoEstrategia, OrigenPedidoWeb, ClienteID_, ficha.TipoEstrategiaImagenMostrar);
                 }
 
                 return Json(respuesta.Data, JsonRequestBehavior.AllowGet);
@@ -4558,7 +4560,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-        
+
         #endregion
     }
 }

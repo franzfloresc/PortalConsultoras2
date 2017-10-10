@@ -3,15 +3,13 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
-using Portal.Consultoras.Web.ServicesCalculosPROL;
 using Portal.Consultoras.Web.ServiceSAC;
+using Portal.Consultoras.Web.ServicesCalculosPROL;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using System.ServiceModel;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -25,7 +23,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             var model = new CatalogoPersonalizadoModel();
- 
+
             if (!userData.EsCatalogoPersonalizadoZonaValida)
             {
                 return RedirectToAction("Index", "Bienvenida");
@@ -100,7 +98,7 @@ namespace Portal.Consultoras.Web.Controllers
                     message = "OK"
                 });
             }
-            catch(Exception ex) 
+            catch (Exception ex)
             {
                 return Json(new
                 {
@@ -111,7 +109,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         private JsonResult ObtenerProductos(int cantidad, int offset = 0, List<FiltroResultadoModel> lstFilters = null, int tipoOrigen = 0)
-        {            
+        {
             if (userData.CatalogoPersonalizado != Constantes.TipoOfertaFinalCatalogoPersonalizado.Arp
                 && userData.CatalogoPersonalizado != Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore)
             {
@@ -126,7 +124,7 @@ namespace Portal.Consultoras.Web.Controllers
             var lista = new List<Producto>();
             var listaProductoModel = new List<ProductoModel>();
             int flt = 0;
-   
+
             try
             {
                 #region obtener catalogo personalizado
@@ -143,7 +141,7 @@ namespace Portal.Consultoras.Web.Controllers
                         bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
 
                         lista = ps.ObtenerTodosProductos(userData.CatalogoPersonalizado, userData.CodigoISO,
-                                userData.CampaniaID, userData.CodigoConsultora, userData.ZonaID, 
+                                userData.CampaniaID, userData.CodigoConsultora, userData.ZonaID,
                                 userData.CodigorRegion, userData.CodigoZona, tipoProductoMostrar,
                                 cantidad, esFacturacion).ToList();
                     }
@@ -198,7 +196,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                             if (add)
                             {
-                                decimal preciotachado = userData.CatalogoPersonalizado == 2 && tipoProductoMostrar == 1 
+                                decimal preciotachado = userData.CatalogoPersonalizado == 2 && tipoProductoMostrar == 1
                                     ? producto.PrecioValorizado : beProducto.PrecioValorizado;
 
                                 listaProductoModel.Add(new ProductoModel()
@@ -292,7 +290,7 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 flt += v1.Split(',').Count();
                             }
-                        }                            
+                        }
                     }
                 }
 
@@ -340,7 +338,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 {
                                     lstProductoModelFilter = lstProductoModelFilter.OrderBy(x => x.PrecioCatalogo).ToList();
                                 }
-                                else if(item.Orden == "02")
+                                else if (item.Orden == "02")
                                 {
                                     lstProductoModelFilter = lstProductoModelFilter.OrderByDescending(x => x.PrecioCatalogo).ToList();
                                 }
@@ -356,7 +354,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     string[] arrIds = item.Valor1.Split(',');
                                     lstProductoModelFilter = lstProductoModelFilter.Where(x => arrIds.Contains(x.CodigoCategoria)).ToList();
                                 }
-                                
+
                             }
                             else if (item.Id == "3")
                             {
@@ -368,7 +366,7 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                             else if (item.Id == "4")
                             {
-                                lstProductoModelFilter = lstProductoModelFilter.Where(x => Convert.ToDecimal(x.PrecioCatalogoString) >= Convert.ToDecimal(item.Valor1) 
+                                lstProductoModelFilter = lstProductoModelFilter.Where(x => Convert.ToDecimal(x.PrecioCatalogoString) >= Convert.ToDecimal(item.Valor1)
                                     && Convert.ToDecimal(x.PrecioCatalogoString) <= Convert.ToDecimal(item.Valor2)).ToList();
                             }
                             else if (item.Id == "5")
@@ -470,7 +468,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string caracterSepara = "|";
 
                 dataPROL.lista_oObjGratis = dataPROL.lista_oObjGratis ?? new ObjGratis[0];
-                dataPROL.lista_oObjItemPack = dataPROL.lista_oObjItemPack ?? new ObjItemPack[0];                
+                dataPROL.lista_oObjItemPack = dataPROL.lista_oObjItemPack ?? new ObjItemPack[0];
 
                 if (dataPROL.lista_oObjGratis.Length > 0)
                 {
@@ -632,7 +630,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
@@ -642,14 +640,14 @@ namespace Portal.Consultoras.Web.Controllers
                     data = ""
                 });
             }
-            
+
         }
 
         //PL20-1237
         public JsonResult InsertarProductoCompartido(ProductoCompartidoModel ProCompModel)
         {
-            try 
-	        {
+            try
+            {
                 int id;
                 AutoMapper.Mapper.CreateMap<ProductoCompartidoModel, BEProductoCompartido>()
                     .ForMember(t => t.PaisID, f => f.MapFrom(c => c.mPaisID))
@@ -677,9 +675,9 @@ namespace Portal.Consultoras.Web.Controllers
                         id = id
                     }
                 });
-	        }
-	        catch (Exception ex)
-	        {
+            }
+            catch (Exception ex)
+            {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
@@ -687,7 +685,7 @@ namespace Portal.Consultoras.Web.Controllers
                     message = "Ocurrrio un problema con la operacion.",
                     data = ""
                 });
-	        }
+            }
         }
 
         //PL20-1268
@@ -695,7 +693,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var productoModel = new ProductoModel(); 
+                var productoModel = new ProductoModel();
                 var listaProductoModel = new List<ProductoModel>();
                 listaProductoModel = (List<ProductoModel>)Session["ProductosCatalogoPersonalizado"] ?? new List<ProductoModel>();
 
@@ -713,7 +711,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 productoModel.UrlCompartirFB = GetUrlCompartirFB();
-                
+
                 //if (productoModel != null)
                 //{
                 //    if (productoModel.EsMaquillaje)
@@ -764,7 +762,7 @@ namespace Portal.Consultoras.Web.Controllers
                         var ListaTonos = productoModel.Hermanos.OrderBy(e => e.NombreBulk).ToList();
                         productoModel.Tonos = ListaTonos;
                     }
-                               
+
                     Session["ProductosCatalogoPersonalizadoFilter"] = listaProductoModel;
                 }
                 else
@@ -792,7 +790,7 @@ namespace Portal.Consultoras.Web.Controllers
                     message = "Ocurrrio un problema con la operacion.",
                 });
             }
-        }        
+        }
 
         public JsonResult CargarFiltros()
         {
@@ -800,8 +798,8 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var lstProductoModelFilter = new List<FiltroResultadoModel>();
                 if (Session["UserFiltersFAV"] != null)
-                {                  
-                    lstProductoModelFilter = (List<FiltroResultadoModel>)Session["UserFiltersFAV"] ?? new List<FiltroResultadoModel>();                    
+                {
+                    lstProductoModelFilter = (List<FiltroResultadoModel>)Session["UserFiltersFAV"] ?? new List<FiltroResultadoModel>();
                 }
 
                 return Json(new
@@ -812,7 +810,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
             catch (Exception)
-            {                
+            {
                 return Json(new
                 {
                     success = false,

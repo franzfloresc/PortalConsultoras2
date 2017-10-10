@@ -1,13 +1,9 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceAsesoraOnline;
-using Portal.Consultoras.Web.ServiceUsuario;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
 using System.ServiceModel;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -29,14 +25,14 @@ namespace Portal.Consultoras.Web.Controllers
                     Origen = param.Substring(9);
                 }
             }
-            catch (Exception ex )
+            catch (Exception ex)
             {
                 IsoPais = String.Empty;
-                CodigoConsultora =  String.Empty;
+                CodigoConsultora = String.Empty;
                 Origen = String.Empty;
                 LogManager.LogManager.LogErrorWebServicesBus(ex, CodigoConsultora, IsoPais);
             }
-            
+
             return View();
         }
 
@@ -69,9 +65,9 @@ namespace Portal.Consultoras.Web.Controllers
                         var titulo = string.Format("{0}, BIENVENIDA A ÉSIKA MI GUÍA DIGITAL", usuario.Sobrenombre).ToUpper();
                         sv.EnviarMailBienvenidaAsesoraOnline(from, usuario.EMail, titulo, "SomosBelcorp", usuario.Nombre);
                     }
-                }            
+                }
 
-                return Json(new { success = true, message = "Se proceso correctamente.", extra = "", usuario = usuario, resultado = resultado });                   
+                return Json(new { success = true, message = "Se proceso correctamente.", extra = "", usuario = usuario, resultado = resultado });
             }
             catch (FaultException ex)
             {
@@ -101,7 +97,7 @@ namespace Portal.Consultoras.Web.Controllers
                     int desactivado = 0;
                     resultado = sv.ActualizarEstadoConfiguracionPaisDetalle(isoPais, codigoConsultora, desactivado);
                 }
-                
+
                 return Json(new { success = true, message = "Se actualizó con éxito." });
             }
             catch (FaultException ex)
@@ -112,11 +108,12 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, codigoConsultora, isoPais);
-                return Json(new {
+                return Json(new
+                {
                     success = false,
                     message = "Ocurrió un problema al intentar acceder al servicio, intente nuevamente."
                 }, JsonRequestBehavior.AllowGet);
             }
-        }       
+        }
     }
 }
