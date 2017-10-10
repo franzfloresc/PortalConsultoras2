@@ -20,9 +20,13 @@ var tipoOfertaFinal_Log = "";
 var gap_Log = 0;
 var tipoOrigen = '1';
 var FlagEnviarCorreo = false; 
+var dataBarra = dataBarra || {};
 
 $(document).ready(function () {
-
+    var hdDataBarra = $("#hdDataBarra").val();
+    if ($.trim(hdDataBarra) != "") {
+        dataBarra = JSON.parse(hdDataBarra);
+    }
 
 
     dataBarra.TotalPedido = dataBarra.TotalPedido || parseFloat($("#hdfTotal").val(), 10);

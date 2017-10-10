@@ -23,6 +23,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             if (Session["UserData"] == null) return;
 
+            if (Request.IsAjaxRequest())
+            {
+                return;
+            }
+
             var userData = UserData();
             ViewBag.CodigoCampania = userData.CampaniaID.ToString();
 
