@@ -320,6 +320,106 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/jquery.rateyo.css"
             ));
 
+            bundles.Add(new ScriptBundle("~/bundles/RevistaDigital-Info").Include(
+                "~/Scripts/jquery.flexslider.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
+                "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
+                "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Landing.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js"
+            ));
+
+            bundles.Add(new StyleBundle("~/bundles/css/Site/RevistaDigital-Info").Include(
+                "~/Content/Css/Site/slick-pedido.css",
+                "~/Content/Css/Site/flexslider.css",
+                "~/Content/Css/Site/Esika/revistaDigital.css"
+            ));
+
+            bundles.Add(new ScriptBundle("~/bundles/RevistaDigital-Landing").Include(
+                "~/Scripts/jquery.flexslider.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
+                "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
+                "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Landing.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js"
+            ));
+
+            bundles.Add(new StyleBundle("~/bundles/css/Site/RevistaDigital-Landing").Include(
+                "~/Content/Css/Site/slick-pedido.css",
+                "~/Content/Css/Site/flexslider.css",
+                "~/Content/Css/Site/Esika/revistaDigital.css"
+            ));
+
+            bundles.Add(new ScriptBundle("~/bundles/RevistaDigital-Detalle").Include(
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
+                "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
+                "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Landing.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js"
+            ));
+
+            bundles.Add(new StyleBundle("~/bundles/css/Site/RevistaDigital-Detalle").Include(
+                "~/Content/Css/Site/Esika/revistaDigital.css"
+            ));
+
+            bundles.Add(new ScriptBundle("~/bundles/Mobile/RevistaDigital-Info").Include(
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
+                "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Landing.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js"
+            ));
+
+            bundles.Add(new StyleBundle("~/bundles/css/Mobile/Site/RevistaDigital-Info").Include(
+                "~/Content/Css/Site/slick-pedido.css",
+                "~/Content/Css/Site/flexslider.css",
+                "~/Content/Css/Mobile/esika/revistaDigital.css"
+            ));
+
+            bundles.Add(new ScriptBundle("~/bundles/Mobile/RevistaDigital-Landing").Include(
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
+                "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Landing.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js"
+            ));
+
+            bundles.Add(new StyleBundle("~/bundles/css/Mobile/Site/RevistaDigital-Landing").Include(
+                "~/Content/Css/Site/slick-pedido.css",
+                "~/Content/Css/Site/flexslider.css",
+                "~/Content/Css/Mobile/esika/revistaDigital.css"
+            ));
+
+            bundles.Add(new ScriptBundle("~/bundles/Mobile/RevistaDigital-Detalle").Include(
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
+                "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Landing.js"
+            ));
+
+            bundles.Add(new StyleBundle("~/bundles/css/Mobile/Site/RevistaDigital-Detalle").Include(
+                "~/Content/Css/Site/jquery.range.css",
+                "~/Content/Css/Site/slick-pedido.css",
+                "~/Content/Css/Site/flexslider.css",
+                "~/Content/Css/Mobile/esika/revistaDigital.css"
+            ));
+
 #if DEBUG
             BundleTable.EnableOptimizations = false;
 #else
