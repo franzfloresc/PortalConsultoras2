@@ -14,13 +14,13 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public List<BEEstrategia> ConsultarEstrategias(string cuv = "", int campaniaId = 0, string codAgrupacion = "")
         {
-            string varSession = Constantes.ConstSession.ListaEstrategia;
-            if (Session[varSession] != null && campaniaId == 0) return (List<BEEstrategia>)Session[varSession];
+            //string varSession = Constantes.ConstSession.ListaEstrategia;
+            //if (Session[varSession] != null && campaniaId == 0) return (List<BEEstrategia>)Session[varSession];
 
             codAgrupacion = Util.Trim(codAgrupacion);
             var listEstrategia = new List<BEEstrategia>();
 
-            if (codAgrupacion == Constantes.TipoEstrategiaCodigo.Lanzamiento)
+            if (codAgrupacion != Constantes.TipoEstrategiaCodigo.Lanzamiento)
             {
                 listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.PackNuevas, campaniaId));
                 listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.OfertaWeb, campaniaId));
@@ -42,10 +42,10 @@ namespace Portal.Consultoras.Web.Controllers
 
             listEstrategia = listEstrategia ?? new List<BEEstrategia>();
             
-            if (campaniaId > 0 || codAgrupacion == Constantes.TipoEstrategiaCodigo.RevistaDigital)
-                return listEstrategia;
+            //if (campaniaId > 0 || codAgrupacion == Constantes.TipoEstrategiaCodigo.RevistaDigital)
+            //    return listEstrategia;
             
-            Session[varSession] = listEstrategia;
+            //Session[varSession] = listEstrategia;
             return listEstrategia;
         }
 
@@ -92,14 +92,10 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     if (tipo == Constantes.TipoEstrategiaCodigo.PackNuevas
                         || tipo == Constantes.TipoEstrategiaCodigo.Lanzamiento
-                        || tipo == Constantes.TipoEstrategiaCodigo.OfertaParaTi)
+                        || tipo == Constantes.TipoEstrategiaCodigo.OfertaParaTi
+                        || tipo == Constantes.TipoEstrategiaCodigo.OfertaWeb)
                     {
                         Session[varSession] = listEstrategia;
-                    }
-                    else if (tipo == Constantes.TipoEstrategiaCodigo.OfertaWeb)
-                    {
-                        if (!listEstrategia.Any())
-                            Session[varSession] = listEstrategia;
                     }
                     if (tipo == Constantes.TipoEstrategiaCodigo.PackNuevas && listEstrategia.Any())
                     {
