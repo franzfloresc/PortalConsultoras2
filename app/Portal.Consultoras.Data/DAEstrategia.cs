@@ -223,6 +223,16 @@ namespace Portal.Consultoras.Data
             }
         }
 
+        public IDataReader GetEstrategiaOfertaWeb(BEEstrategia entidad)
+        {
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarEstrategiasOfertaWeb"))
+            {
+                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
+                Context.Database.AddInParameter(command, "@ZonaID", DbType.String, entidad.Zona);
+                return Context.ExecuteReader(command);
+            }
+        }
+
         public IDataReader GetEstrategiaPackNuevas(BEEstrategia entidad)
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarEstrategiasPackNuevas"))
