@@ -348,7 +348,7 @@ function OfertaArmarEstrategiasContenedorSeccion(response) {
 
         $.each(listaItem, function (ind, item) {
             if (("," + response.Seccion.TipoEstrategia + ",").indexOf("," + item.CodigoEstrategia + ",") >= 0) {
-                if (ind < cant) {
+                if (newLista.length < cant) {
                     newLista.push(item);
                 }
             }
