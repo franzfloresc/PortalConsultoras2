@@ -88,21 +88,13 @@ begin
 	set @TieneSugerido = 1
 end
 
---declare @tablaCuvOPT table (CUV varchar(6))
-
---if (@ValidarOPT = 1)
---begin
-
---	insert into @tablaCuvOPT
---	select distinct cuv from ods.OfertasPersonalizadas where AnioCampanaVenta = @CampaniaID and TipoPersonalizacion='OPT'
-
---end
-	
-IF(@Criterio = 1)
-BEGIN
 	select 
 		distinct top (@RowCount) p.CUV,
-		coalesce(EST.DescripcionCUV2 + isnull(' '+ tccS.Descripcion, ''), 
+		coalesce(EST.DescripcionCUV2 + 
+		(
+			case when @Criterio = 1 then isnull(' '+ tccS.Descripcion, '')
+			else '' end
+		),
 		op.Descripcion, 
 		mc.Descripcion, 
 		pd.Descripcion, 
@@ -143,123 +135,44 @@ BEGIN
 			else 1 end as TieneLanzamientoCatalogoPersonalizado,		
 		ISNULL(pcor.Oferta,'') as TipoOfertaRevista,
 		TE.Codigo as TipoEstrategiaCodigo
-	from ods.ProductoComercial p
-	left join dbo.ProductoDescripcion pd ON 
+	from ods.ProductoComercial p with(nolock)
+	left join dbo.ProductoDescripcion pd with(nolock) ON 
 		p.AnoCampania = pd.CampaniaID 
 		AND p.CUV = pd.CUV
-	left join @ProductoFaltanteTemp pf ON 
+	left join @ProductoFaltanteTemp pf with(nolock) ON 
 		p.CUV = pf.CUV
-	left join ProductoComercialConfiguracion pcc ON 
+	left join ProductoComercialConfiguracion pcc with(nolock) ON 
 		p.AnoCampania = pcc.CampaniaID 
 		AND p.CUV = pcc.CUV
-	left join @OfertaProductoTemp op on 
+	left join @OfertaProductoTemp op with(nolock) on 
 		op.CampaniaID = P.CampaniaID 
 		AND op.CUV = P.CUV
-	left join MatrizComercial mc on 
+	left join MatrizComercial mc with(nolock) on 
 		p.CodigoProducto = mc.CodigoSAP
-	LEFT JOIN Estrategia EST ON 
+	LEFT JOIN Estrategia EST with(nolock) ON 
 		--EST.CampaniaID = p.AnoCampania
 		(EST.CampaniaID = p.AnoCampania OR p.AnoCampania between EST.CampaniaID and EST.CampaniaIDFin)
 		AND (EST.CUV2 = p.CUV OR EST.CUV2 = (SELECT CUVPadre FROM TallaColorCUV TCC WHERE TCC.CUV = p.CUV)) 
 		AND EST.Activo = 1 
-	LEFT JOIN dbo.TallaColorCUV tccS
+	LEFT JOIN dbo.TallaColorCUV tccS with(nolock)
 		ON tccS.CUV = p.CUV 
 		AND tccS.CampaniaID = p.AnoCampania
-	LEFT JOIN TipoEstrategia TE ON 
+	LEFT JOIN TipoEstrategia TE with(nolock) ON 
 		TE.TipoEstrategiaID = EST.TipoEstrategiaID
-	LEFT JOIN Marca M ON 
+	LEFT JOIN Marca M with(nolock) ON 
 		p.MarcaId = M.MarcaId
-	LEFT JOIN ods.ProductosLanzamiento pl on
+	LEFT JOIN ods.ProductosLanzamiento pl with(nolock) on
 		p.CodigoProducto = pl.CodigoSAP
 		and p.AnoCampania = pl.Campania
-	LEFT JOIN ProductoComercialOfertaRevista pcor ON 
+	LEFT JOIN ProductoComercialOfertaRevista pcor with(nolock) ON 
 		p.AnoCampania = pcor.Campania 
 		AND p.CUV = pcor.CUV
 	where 
 		p.AnoCampania = @CampaniaID 
 		AND p.IndicadorDigitable = 1
-		AND CHARINDEX(@CodigoDescripcion,p.CUV)>0
-		--AND p.CUV not in (select CUV from @tablaCuvOPT)
-END
-ELSE
-BEGIN
-	select 
-		distinct top (@RowCount) p.CUV,
-		coalesce(est.descripcioncuv2, 
-		op.Descripcion, 
-		mc.Descripcion, 
-		pd.Descripcion, 
-		p.Descripcion) AS Descripcion,
-		coalesce(est.precio2, op.PrecioOferta, pd.PrecioProducto*pd.FactorRepeticion ,p.PrecioUnitario*p.FactorRepeticion) AS PrecioCatalogo,
-		p.MarcaID,
-		0 AS EstaEnRevista,
-		(case when ISNULL(pf.CUV,0) = 0 then 1 when ISNULL(pf.CUV,0) > 0 then 0 end) AS TieneStock,
-		ISNULL(pcc.EsExpoOferta,0) AS EsExpoOferta,
-		ISNULL(pcc.CUVRevista,'') AS CUVRevista,
-		'' AS CUVComplemento,
-		p.PaisID,
-		p.AnoCampania AS CampaniaID,
-		p.CodigoCatalago,
-		p.CodigoProducto,
-		p.IndicadorMontoMinimo,	
-		M.Descripcion as DescripcionMarca,
-		'NO DISPONIBLE' AS DescripcionCategoria,
-		TE.DescripcionEstrategia AS DescripcionEstrategia,
-		ISNULL(op.ConfiguracionOfertaID,0) ConfiguracionOfertaID,
-		CASE
-			WHEN EXISTS(SELECT 1 FROM TallaColorLiquidacion WHERE CampaniaID = @CampaniaID AND CUV = p.CUV) THEN 1702
-			WHEN EXISTS(SELECT 1 FROM TallaColorCUV WHERE CampaniaID = @CampaniaID AND CUV = p.CUV) THEN
-			(	SELECT E.TipoEstrategiaID FROM Estrategia E
-				INNER JOIN TALLACOLORCUV TCC ON E.CAMPANIAID = TCC.CAMPANIAID AND E.CUV2 = TCC.CUVPADRE
-				WHERE TCC.CUV = p.CUV AND E.CAMPANIAID=@CampaniaID)
-			ELSE ISNULL(op.TipoOfertaSisID,0) END TipoOfertaSisID,
-		ISNULL(te.flagNueva, 0) FlagNueva,
-		ISNULL(te.TipoEstrategiaID, '') TipoEstrategiaID,
-		P.IndicadorOferta,
-		@TieneSugerido as TieneSugerido,
-		CASE
-			WHEN pcor.SAP IS NULL THEN 0
-			ELSE 1 END TieneOfertaRevista,
-		p.PrecioValorizado,
-		case 
-			when pl.CodigoSAP is null then 0
-			else 1 end as TieneLanzamientoCatalogoPersonalizado,
-		ISNULL(pcor.Oferta,'') as TipoOfertaRevista,
-		TE.Codigo as TipoEstrategiaCodigo
-	from ods.ProductoComercial p
-	left join dbo.ProductoDescripcion pd ON 
-		p.AnoCampania = pd.CampaniaID 
-		AND p.CUV = pd.CUV
-	left join @ProductoFaltanteTemp pf ON 
-		p.CUV = pf.CUV
-	left join ProductoComercialConfiguracion pcc ON 
-		p.AnoCampania = pcc.CampaniaID 
-		AND p.CUV = pcc.CUV
-	left join @OfertaProductoTemp op on
-		op.CampaniaID = P.CampaniaID
-		AND op.CUV = P.CUV
-	left join MatrizComercial mc on
-		p.CodigoProducto = mc.CodigoSAP
-	LEFT JOIN Estrategia EST ON
-		--EST.CampaniaID = p.AnoCampania
-		(EST.CampaniaID = p.AnoCampania OR p.AnoCampania between EST.CampaniaID and EST.CampaniaIDFin)
-		AND (EST.CUV2 = p.CUV OR EST.CUV2 = (SELECT CUVPadre FROM TallaColorCUV	TCC WHERE TCC.CUV = p.CUV))
-		AND EST.Activo = 1
-	LEFT JOIN TipoEstrategia TE ON
-		TE.TipoEstrategiaID = EST.TipoEstrategiaID
-	LEFT JOIN Marca M ON
-		p.MarcaId = M.MarcaId
-	LEFT JOIN ods.ProductosLanzamiento pl on
-		p.CodigoProducto = pl.CodigoSAP
-		and p.AnoCampania = pl.Campania
-	LEFT JOIN ProductoComercialOfertaRevista pcor ON 
-		p.AnoCampania = pcor.Campania 
-		AND p.CUV = pcor.CUV
-	where
-		p.AnoCampania = @CampaniaID
-		AND p.IndicadorDigitable = 1
-		AND CHARINDEX(@CodigoDescripcion,coalesce(op.Descripcion,pd.Descripcion, p.Descripcion))>0
-		--AND p.CUV not in (select CUV from @tablaCuvOPT)
-END
+		AND (
+			(@Criterio = 1 and CHARINDEX(@CodigoDescripcion,p.CUV) > 0 )
+			or (@Criterio != 1 and  CHARINDEX(@CodigoDescripcion,coalesce(op.Descripcion,pd.Descripcion, p.Descripcion)) > 0 )
+		)
 
 END
