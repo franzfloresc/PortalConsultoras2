@@ -17,7 +17,6 @@ SET NOCOUNT ON;
 	
 	declare @ZonaID VARCHAR(20) = ''
 	, @NumeroPedido INT = 0
-	DECLARE @tablaCuvPedido table (CUV varchar(6))
 
 	select @ZonaID = ZonaID
 		, @NumeroPedido = ConsecutivoNueva + 1

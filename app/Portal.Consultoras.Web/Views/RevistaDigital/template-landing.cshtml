@@ -9,9 +9,7 @@
 }
 
 @section styles{
-    <link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet" />
-    <link href="@Url.Content("~/Content/Css/Site/flexslider.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Content/Css/Site/Esika/revistaDigital.css")" rel="stylesheet" type="text/css" />
+    @System.Web.Optimization.Styles.Render("~/bundles/css/Site/RevistaDigital-Landing")
 }
 
 <div class="BloqueLandingRD" data-listado-campania="@Model.CampaniaID"  data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding">
@@ -118,13 +116,5 @@
         var tieneMasVendidos = 0;
         var campaniaId = @Model.CampaniaID;
     </script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Cupon/Cupon.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Landing.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js")"></script>
+    @System.Web.Optimization.Scripts.Render("~/bundles/RevistaDigital-Landing")
 }
