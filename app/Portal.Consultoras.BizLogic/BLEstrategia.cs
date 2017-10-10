@@ -526,9 +526,9 @@ namespace Portal.Consultoras.BizLogic
                     oTransactionScope.Complete();
                 }
             }
-
             catch (Exception ex)
             {
+                LogManager.SaveLog(ex, "", paisID.ToString());
                 throw;
             }
 

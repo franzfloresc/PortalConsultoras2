@@ -73,7 +73,7 @@ namespace Portal.Consultoras.Common
             string emailTo = ConfigurationManager.AppSettings["EmailToProcesoDescargaExcepcion"] ?? "";
 
             try { Util.EnviarMail(emailFrom, emailTo, "", titulo, htmlTemplate, true); }
-            catch(Exception ex) { }
+            catch (Exception) { }
         }
 
         public static void EnviarMailProcesoRecuperaContrasenia(string emailFrom, string emailTo, string titulo, string displayname, string logo, string nombre, string url, string fondo)

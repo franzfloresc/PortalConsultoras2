@@ -3113,7 +3113,7 @@ namespace Portal.Consultoras.Common
                     mensaje = "Ocurrió un error durante la validación ADFS.";
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 codigoMensaje = "001";  //CodigosMensajesError.CodigoExcepcion;
                 mensaje = "Ocurrió un error durante la validación ADFS.";
