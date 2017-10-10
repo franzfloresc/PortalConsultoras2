@@ -760,6 +760,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 Result = false;
                 Mensaje = "Error (FAD): Volver a intentar.";
             }
@@ -1055,6 +1056,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 ErrorServer = true;
                 message = "Hubo un problema al intentar eliminar el pedido. Por favor inténtelo nuevamente.";
             }
@@ -1229,7 +1231,7 @@ namespace Portal.Consultoras.Web.Controllers
             catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
-                //R2118
+
                 if (userData.PaisID == 4)
                 {
                     ViewBag.LineaCredito = "0";
@@ -1246,7 +1248,7 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                //R2118
+
                 if (userData.PaisID == 4)
                 {
                     ViewBag.LineaCredito = "0";
@@ -2035,6 +2037,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new { result = false, data = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
@@ -3403,12 +3406,12 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException faulException)
             {
-                Portal.Consultoras.Web.LogManager.LogManager.LogErrorWebServicesPortal(faulException, userData.CodigoConsultora, userData.CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(faulException, userData.CodigoConsultora, userData.CodigoISO);
                 result = 0;
             }
             catch (Exception expException)
             {
-                Portal.Consultoras.Web.LogManager.LogManager.LogErrorWebServicesBus(expException, userData.CodigoConsultora, userData.CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(expException, userData.CodigoConsultora, userData.CodigoISO);
                 result = 0;
             }
             return result;
@@ -3519,8 +3522,9 @@ namespace Portal.Consultoras.Web.Controllers
                         Insert(model);
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                     sv.Abort();
                 }
             }
@@ -3654,8 +3658,9 @@ namespace Portal.Consultoras.Web.Controllers
                     listaParametriaOfertaFinal = sv.GetParametriaOfertaFinal(userData.PaisID, algoritmo).ToList() ?? new List<BEEscalaDescuento>();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 listaParametriaOfertaFinal = new List<BEEscalaDescuento>();
             }
 
@@ -4125,6 +4130,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return RedirectToAction("Index", "Bienvenida", new { area = area });
             }
         }
@@ -4164,6 +4170,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
