@@ -294,7 +294,8 @@ namespace Portal.Consultoras.Web.Controllers
                         string FlagActivo, string OfertaID, string imagenAnterior,
                         string FlagNueva, string FlagRecoProduc, string FlagRecoPerfil,
                         string CodigoPrograma, string FlagMostrarImg,
-                        bool MostrarImgOfertaIndependiente = false, string ImagenOfertaIndependiente = "")
+                        bool MostrarImgOfertaIndependiente = false, string ImagenOfertaIndependiente = "", 
+                        string ImagenOfertaIndependienteAnterior = "")
         {
             int resultado = 0;
             string operacion = "registró";
@@ -335,13 +336,16 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (ImagenOfertaIndependiente != "")
                 {
-                    var path = Path.Combine(Globals.RutaTemporales, ImagenOfertaIndependiente);
-                    var carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
-                    var time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
-                    var newfilename = UserData().CodigoISO + "_" + time + "_" + "01" + "_" + FileManager.RandomString() + ".png";
-                    //if (imagenAnterior != "") ConfigS3.DeleteFileS3(carpetaPais, imagenAnterior);
-                    ConfigS3.SetFileS3(path, carpetaPais, newfilename);
-                    entidad.ImagenOfertaIndependiente = newfilename;
+                    if (ImagenOfertaIndependienteAnterior != ImagenOfertaIndependiente)
+                    {
+                        var path = Path.Combine(Globals.RutaTemporales, ImagenOfertaIndependiente);
+                        var carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
+                        var time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
+                        var newfilename = UserData().CodigoISO + "_" + time + "_" + "01" + "_" + FileManager.RandomString() + ".png";
+                        if (ImagenOfertaIndependienteAnterior != "") ConfigS3.DeleteFileS3(carpetaPais, ImagenOfertaIndependienteAnterior);
+                        ConfigS3.SetFileS3(path, carpetaPais, newfilename);
+                        entidad.ImagenOfertaIndependiente = newfilename;
+                    }
                 }
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())

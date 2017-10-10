@@ -397,13 +397,14 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             ViewBag.UrlTerminosOfertaFinalRegalo = string.Format("{0}/SomosBelcorp/FileConsultoras/{1}/Flyer_Regalo_Sorpresa.pdf", ConfigurationManager.AppSettings.Get("oferta_final_regalo_url_s3"), userData.CodigoISO);
-            return View("Index",model);
+            return View("Index", model);
         }
 
-        public ActionResult virtualCoach(string param = "") {
+        public ActionResult virtualCoach(string param = "")
+        {
             if (Request.Browser.IsMobileDevice)
             {
-                return RedirectToAction("virtualCoach", new RouteValueDictionary(new { controller = "Pedido", area = "Mobile", param = param })); 
+                return RedirectToAction("virtualCoach", new RouteValueDictionary(new { controller = "Pedido", area = "Mobile", param = param }));
             }
             try
             {
@@ -646,7 +647,7 @@ namespace Portal.Consultoras.Web.Controllers
                     tipo,
                     modificoBackOrder,
                     DataBarra = !errorServer ? GetDataBarra() : new BarraConsultoraModel(),
-                    cantidadTotalProductos = ObtenerPedidoWebDetalle().Sum(dp => dp.Cantidad)
+                    cantidadTotalProductos = ObtenerPedidoWebDetalle().Sum(dp => dp.Cantidad)                   
                 });
 
             }
@@ -1298,7 +1299,8 @@ namespace Portal.Consultoras.Web.Controllers
                 mensaje = ValidarPedidoMontoMaximo(Convert.ToDecimal(PrecioUnidad), entidad.Cantidad);
                 //FIN EPD-2337
 
-                if (mensaje == "") {
+                if (mensaje == "")
+                {
                     using (PedidoServiceClient svc = new PedidoServiceClient())
                     {
                         mensaje = svc.ValidarStockEstrategia(entidad);
@@ -1378,8 +1380,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                 foreach (var item in packNuevas)
                 {
-                    if (!item.EsOfertaIndependiente) //Reemplazar solo dependientes.
-                        DeletePedido(item);
+                    if (!item.EsOfertaIndependiente)
+                    { //Reemplazar solo dependientes.
+                        DeletePedido(item);                        
+                    }
                 }
                 Session["PedidoWebDetalle"] = null;
             }
@@ -3893,7 +3897,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var oddModel = GetOfertaDelDiaModel();
-                
+
                 return Json(new
                 {
                     success = oddModel != null,
@@ -4195,7 +4199,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 result = "OK"
             }, JsonRequestBehavior.AllowGet);
-        }        
+        }
 
         public JsonResult GetRegaloProgramaNuevas()
         {
@@ -4477,7 +4481,7 @@ namespace Portal.Consultoras.Web.Controllers
                         mensaje = svc.ValidarStockEstrategia(entidad);
                     }
                 }
-                
+
                 mensaje = Util.Trim(mensaje);
             }
             catch (FaultException ex)
@@ -4521,7 +4525,7 @@ namespace Portal.Consultoras.Web.Controllers
                         message = mensaje,
                         urlRedireccionar
                     }, JsonRequestBehavior.AllowGet);
-                    
+
                 }
                 #endregion
 
@@ -4556,33 +4560,33 @@ namespace Portal.Consultoras.Web.Controllers
                         message = mensaje
                     }, JsonRequestBehavior.AllowGet);
                 }
-                
+
                 var descripcion = ficha.DescripcionCompleta;
                 if (ficha.FlagNueva == 1)
                 {
                     numero = ficha.LimiteVenta;
                     descripcion = ficha.DescripcionCortada;
                 }
-                                                
+
                 listaCuvTonos = Util.Trim(listaCuvTonos);
                 if (listaCuvTonos == "")
                 {
                     listaCuvTonos = ficha.CUV2;
                 }
-                
+
                 var tonos = listaCuvTonos.Split('|');
                 var respuesta = new JsonResult();
                 foreach (var tono in tonos)
                 {
                     var listSp = tono.Split(';');
                     ficha.CUV2 = listSp.Length > 0 ? listSp[0] : ficha.CUV2;
-                    if(ficha.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaVariable)
+                    if (ficha.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaVariable)
                     {
-                        var brother = ficha.Hermanos.Select(m => m.Hermanos.Where(s=>s.CUV == listSp[0])).SingleOrDefault();
+                        var brother = ficha.Hermanos.Select(m => m.Hermanos.Where(s => s.CUV == listSp[0])).SingleOrDefault();
                         descripcion = brother.Select(m => m.DescripcionComercial).SingleOrDefault();
-                    }                     
+                    }
 
-                    respuesta = AgregarProductoZE(ficha.MarcaID.ToString(), ficha.CUV2, ficha.Precio2.ToString(), descripcion, Cantidad.ToString(), ficha.IndicadorMontoMinimo.ToString(),ficha.CodigoEstrategia, OrigenPedidoWeb, ClienteID_,ficha.TipoEstrategiaImagenMostrar);
+                    respuesta = AgregarProductoZE(ficha.MarcaID.ToString(), ficha.CUV2, ficha.Precio2.ToString(), descripcion, Cantidad.ToString(), ficha.IndicadorMontoMinimo.ToString(), ficha.CodigoEstrategia, OrigenPedidoWeb, ClienteID_, ficha.TipoEstrategiaImagenMostrar);
                 }
 
                 return Json(respuesta.Data, JsonRequestBehavior.AllowGet);
@@ -4598,7 +4602,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-        
+
         #endregion
     }
 }

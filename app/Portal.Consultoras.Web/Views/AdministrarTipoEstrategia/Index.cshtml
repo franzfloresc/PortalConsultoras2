@@ -26,10 +26,14 @@
             $("#txtDescripcionOriginalModal").val("");
             $("#txtOrden").val("");
             $('#img01').attr('src', '@Url.Content("~/Content/Images/prod_grilla_vacio.png")');
+            $('#imgOfertaIndependiente').attr('src', '@Url.Content("~/Content/Images/prod_grilla_vacio.png")');
             $("#hdofertas").val("");
             $("#chkActivo").attr("checked", true);
             $("#imagenProducto01").val("");
             $("#imagenProductoAnterior01").val("");
+            $("#hdImagenOfertaIndependiente").val("");
+            $("#hdImagenOfertaIndependienteAnterior").val("");
+
             $("#hdTipoEstrategiaID").val("0");
             $("#txtCodigoPrograma").prop('disabled', true).val("");
 
@@ -401,6 +405,7 @@
                     var flagActivo = "0";
                     var ofertaID = "";
                     var imagenOfertaIndependiente = $("#hdImagenOfertaIndependiente").val();
+                    var imagenOfertaIndependienteAnterior = $("#hdImagenOfertaIndependienteAnterior").val();
 
                     if ($("#chkActivo").attr("checked")) {
                         flagActivo = "1";
@@ -471,7 +476,8 @@
                         CodigoPrograma: codigoPrograma,
                         FlagMostrarImg: flagMostrarImg,
                         MostrarImgOfertaIndependiente: flagMostrarImgIndependiente,
-                        ImagenOfertaIndependiente: imagenOfertaIndependiente
+                        ImagenOfertaIndependiente: imagenOfertaIndependiente,
+                        ImagenOfertaIndependienteAnterior: imagenOfertaIndependienteAnterior
                     };
 
                     jQuery.ajax({
@@ -556,12 +562,12 @@
 
                 var imgOfertaIndependiente = $($("#list").jqGrid('getCell', id, 'ImagenOfertaIndependiente')).attr('src');
                 $('#imgOfertaIndependiente').attr('src', imgOfertaIndependiente);
-                console.log(imgOfertaIndependiente);
+
                 imgOfertaIndependiente = imgOfertaIndependiente.replace(/^.*[\\\/]/, '');
 
                 if (imgOfertaIndependiente.length > 0) {
                     $('#hdImagenOfertaIndependiente').val(imgOfertaIndependiente);
-                    //$('#imagenProductoAnterior01').val(img);
+                    $('#hdImagenOfertaIndependienteAnterior').val(imgOfertaIndependiente);
                 }
 
                 var flagNueva = jQuery("#list").jqGrid('getCell', id, 'FlagNueva');
@@ -809,6 +815,7 @@
                     <div class="titG" style="width: 180px;">
                         <div class="input_search">
                             <input type="hidden" id="hdImagenOfertaIndependiente" />
+                            <input type="hidden" id="hdImagenOfertaIndependienteAnterior" />
                             <div id="fpUpload02">
                                 <script type="text/javascript">
                             $.ajaxSetup({ cache: false });
