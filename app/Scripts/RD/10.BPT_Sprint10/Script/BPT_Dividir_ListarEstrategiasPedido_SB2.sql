@@ -853,7 +853,7 @@ SET NOCOUNT ON;
 		AND TE.flagRecoProduc = 0
 		AND TE.flagNueva = 0
 		AND TE.flagRecoPerfil = 0
-		AND E.Zona LIKE '%' + @ZonaID + '%'
+		AND E.Zona LIKE '%' + Convert(varchar, @ZonaID) + '%'
 
 SET NOCOUNT OFF
 END

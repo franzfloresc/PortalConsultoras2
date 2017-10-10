@@ -209,6 +209,12 @@ namespace Portal.Consultoras.BizLogic
             var daEstrategia = new DAEstrategia(entidad.PaisID);
             switch (entidad.CodigoTipoEstrategia)
             {
+                case Constantes.TipoEstrategiaCodigo.OfertaWeb:
+                    using (var reader = daEstrategia.GetEstrategiaOfertaWeb(entidad))
+                    {
+                        while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
+                    }
+                    break;
                 case Constantes.TipoEstrategiaCodigo.PackNuevas:
                     using (var reader = daEstrategia.GetEstrategiaPackNuevas(entidad))
                     {
