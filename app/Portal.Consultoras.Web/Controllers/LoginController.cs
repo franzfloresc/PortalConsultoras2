@@ -18,6 +18,8 @@ using System.ServiceModel;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using Portal.Consultoras.PublicService.Cryptography;
+using Portal.Consultoras.Web.SessionManager;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -27,6 +29,8 @@ namespace Portal.Consultoras.Web.Controllers
         private readonly string IP_DEFECTO = "190.187.154.154";
         private readonly string ISO_DEFECTO = "PE";
         private readonly int USUARIO_VALIDO = 3;
+
+        protected ISessionManager sessionManager = SessionManager.SessionManager.Instance;
 
         [AllowAnonymous]
         public ActionResult Index(string returnUrl = null)
@@ -1027,7 +1031,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 revistaDigitalModel.CampaniaMasUno = AddCampaniaAndNumero(Convert.ToInt32(model.CampaniaID), 1, model.NroCampanias) % 100;
                                 revistaDigitalModel.CampaniaMasDos = AddCampaniaAndNumero(Convert.ToInt32(model.CampaniaID), 2, model.NroCampanias) % 100;
 
-                                Session[Constantes.ConstSession.RevistaDigital] = revistaDigitalModel;
+                                sessionManager.SetRevistaDigital(revistaDigitalModel);
                                 Session[Constantes.ConstSession.ConfiguracionPaises] = configuracionPaisModels;
                                 Session[Constantes.ConstSession.OfertaFinal] = ofertaFinalModel;
                             }
@@ -1037,7 +1041,7 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             LogManager.LogManager.LogErrorWebServicesBus(ex, model.CodigoConsultora, model.PaisID.ToString());
                             pasoLog = "Ocurrió un error al cargar ConfiguracionPais";
-                            Session[Constantes.ConstSession.RevistaDigital] = new RevistaDigitalModel();
+                            sessionManager.SetRevistaDigital(new RevistaDigitalModel());
                             Session[Constantes.ConstSession.ConfiguracionPaises] = new List<ConfiguracionPaisModel>();
                             Session[Constantes.ConstSession.OfertaFinal] = new OfertaFinalModel();
                         }
