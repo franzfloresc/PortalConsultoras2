@@ -19,7 +19,12 @@ namespace Portal.Consultoras.Web.Controllers
 
             codAgrupacion = Util.Trim(codAgrupacion);
             var listEstrategia = new List<BEEstrategia>();
-            listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.PackNuevas, campaniaId));
+
+            if (codAgrupacion == Constantes.TipoEstrategiaCodigo.Lanzamiento)
+            {
+                listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.PackNuevas, campaniaId));
+                listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.OfertaWeb, campaniaId));
+            }
 
             switch (codAgrupacion)
             {
@@ -34,25 +39,6 @@ namespace Portal.Consultoras.Web.Controllers
                     listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.OfertaParaTi, campaniaId));
                     break;
             }
-         
-            //var entidad = new BEEstrategia
-            //{
-            //    PaisID = userData.PaisID,
-            //    CampaniaID = campaniaId > 0 ? campaniaId : userData.CampaniaID,
-            //    ConsultoraID = (userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociadaID : userData.ConsultoraID).ToString(),
-            //    CUV2 = Util.Trim(cuv),
-            //    Zona = userData.ZonaID.ToString(),
-            //    ZonaHoraria = userData.ZonaHoraria,
-            //    FechaInicioFacturacion = userData.FechaFinCampania,
-            //    ValidarPeriodoFacturacion = true,
-            //    Simbolo = userData.Simbolo,
-            //    CodigoAgrupacion = Util.Trim(codAgrupacion)
-            //};
-            //var listEstrategia = new List<BEEstrategia>();
-            //using (PedidoServiceClient sv = new PedidoServiceClient())
-            //{
-            //    listEstrategia = sv.GetEstrategiasPedido(entidad).ToList();
-            //}
 
             listEstrategia = listEstrategia ?? new List<BEEstrategia>();
             
@@ -107,8 +93,14 @@ namespace Portal.Consultoras.Web.Controllers
                     if (tipo == Constantes.TipoEstrategiaCodigo.PackNuevas
                         || tipo == Constantes.TipoEstrategiaCodigo.Lanzamiento
                         || tipo == Constantes.TipoEstrategiaCodigo.OfertaParaTi)
+                    {
                         Session[varSession] = listEstrategia;
-                    
+                    }
+                    else if (tipo == Constantes.TipoEstrategiaCodigo.OfertaWeb)
+                    {
+                        if (!listEstrategia.Any())
+                            Session[varSession] = listEstrategia;
+                    }
                     if (tipo == Constantes.TipoEstrategiaCodigo.PackNuevas && listEstrategia.Any())
                     {
                         listEstrategia = ConsultarEstrategiasFiltrarPackNuevasPedido(listEstrategia);
@@ -450,8 +442,10 @@ namespace Portal.Consultoras.Web.Controllers
                 else if (estrategia.FlagNueva == 1)
                 {
                     estrategia.Precio = 0;
-                    estrategia.DescripcionCortada = estrategia.DescripcionCUV2.Split('|')[0];
-                    estrategia.DescripcionDetalle = estrategia.DescripcionCUV2.Split('|')[1];
+
+                    var listadescr = estrategia.DescripcionCUV2.Split('|');
+                    estrategia.DescripcionCortada = listadescr.Length > 0 ? listadescr[0] : "";
+                    estrategia.DescripcionDetalle = listadescr.Length > 1 ? listadescr[1] : "";
                     estrategia.DescripcionResumen = "";
                 }
                 else
