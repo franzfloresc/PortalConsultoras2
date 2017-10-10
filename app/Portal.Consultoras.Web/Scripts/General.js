@@ -506,9 +506,8 @@ function closeWaitingDialog() {
 }
 
 function AbrirLoad(opcion) {
-    try {
-        var isUrlMobile = $.trim(location.href).toLowerCase().indexOf("mobile") > 0;
-        if (isUrlMobile > 0) {
+    try {        
+        if (isMobile()) {
             ShowLoading(opcion);
         }
         else {
