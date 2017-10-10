@@ -506,9 +506,8 @@ function closeWaitingDialog() {
 }
 
 function AbrirLoad(opcion) {
-    try {
-        var isUrlMobile = $.trim(location.href).toLowerCase().indexOf("mobile") > 0;
-        if (isUrlMobile > 0) {
+    try {        
+        if (isMobile()) {
             ShowLoading(opcion);
         }
         else {
@@ -521,8 +520,7 @@ function AbrirLoad(opcion) {
 
 function CerrarLoad(opcion) {
     try {
-        var isUrlMobile = $.trim(location.href).toLowerCase().indexOf("mobile") > 0;
-        if (isUrlMobile > 0) {
+        if (isMobile()) {
             CloseLoading(opcion);
         }
         else {
