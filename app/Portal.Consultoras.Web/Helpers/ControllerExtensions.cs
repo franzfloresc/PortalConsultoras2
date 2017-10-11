@@ -21,12 +21,16 @@ namespace Portal.Consultoras.Web.Helpers
 
         public static void SetUniqueSession(this Controller controller, string name, object value)
         {
-            controller.Session[controller.GetUniqueKey() + "_" + name] = value;
+            //todo:
+            //controller.Session[controller.GetUniqueKey() + "_" + name] = value;
+            controller.Session[name] = value;
         }
 
         public static object GetUniqueSession(this Controller controller, string name)
         {
-            return controller.Session[controller.GetUniqueKey() + "_" + name];
+            //todo:
+            //return controller.Session[controller.GetUniqueKey() + "_" + name];
+            return controller.Session[name];
         }
     }
 }
