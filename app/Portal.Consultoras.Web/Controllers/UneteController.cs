@@ -1083,22 +1083,12 @@ namespace Portal.Consultoras.Web.Controllers
                     consultora = sv.ObtenerConsultoraPorCodigo(codigoISO, codigo);
                 }
             }
-            using (SACServiceClient sv = new SACServiceClient())
-            {
-                model.ListaTipoVinculoFamiliar = sv.GetTablaLogicaDatos(UserData().PaisID, 36).ToList();
-            }
-            if (model.TipoVinculoFamiliar.HasValue && model.TipoVinculoFamiliar.Value != 0)
-            {
-                var tipo = model.ListaTipoVinculoFamiliar.Where(m => m.Codigo == model.TipoVinculoFamiliar.Value.ToString()).Single();
-                model.VinculoFamiliar = tipo != null ? tipo.Descripcion : "";
-            }
-
 
 
             return Json(consultora != null ? consultora.NombreCompleto : string.Empty, JsonRequestBehavior.AllowGet);
-        } 
-        
-          public ActionResult ObtenerCodigoPostal(int id, string codigoIso )
+        }
+
+        public ActionResult ObtenerCodigoPostal(int id, string codigoIso )
         {
             var CodigoPostal = string.Empty;
             using (var sv = new BelcorpPaisServiceClient())
