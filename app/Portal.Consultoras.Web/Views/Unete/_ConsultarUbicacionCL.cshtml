@@ -1,4 +1,5 @@
-﻿@model Portal.Consultoras.Web.Models.ConsultarUbicacionModel
+﻿@(new HtmlString(ViewBag.HTMLSACUnete))
+@*@model Portal.Consultoras.Web.Models.ConsultarUbicacionModel
 @{
     var nro = 0;
     var textoNingunaDireccion = Model.Puntos.Count > 1 ? "Ninguna dirección coincide, asignar manualmente" : (Model.Puntos.Count > 0 ? "La dirección no coincide, asignar manualmente" : "No figura dirección, asignar manualmente");
@@ -598,7 +599,7 @@
 
             @if (Model.Puntos.Count > 0)
             {
-               @*<text> $('#mapa').addClass('height_100'); </text>*@
+              
 		        <text>
             map = new google.maps.Map(document.getElementById('mapa'), {
                 center: new google.maps.LatLng(parseFloat('@Model.Puntos[0].Item1'.replace(",", ".")), parseFloat('@Model.Puntos[0].Item2'.replace(",", ".")))
@@ -697,4 +698,4 @@
         $('.button_purple').css('behavior', 'url("@Url.Content("~/Content/Css/Pie/PIE.htc)")")');
     }, 10);
 
-</script>
+</script>*@
