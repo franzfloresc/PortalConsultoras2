@@ -1,5 +1,9 @@
-﻿@model Portal.Consultoras.Web.Models.ConfiguracionSeccionHomeModel
+﻿@using System.Linq
+@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Models
+@using System.Collections.Generic
 
+@model Portal.Consultoras.Web.Models.ConfiguracionSeccionHomeModel
 @{
     var esShowRoom = Portal.Consultoras.Web.SessionManager.SessionManager.Instance.GetEsShowRoom();
     var mostrarShowRoomProductos = Portal.Consultoras.Web.SessionManager.SessionManager.Instance.GetMostrarShowRoomProductos();
@@ -9,6 +13,9 @@
     var mostrarPopupVenta = mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
 
     var backgroundVenta = mostrarPopupIntriga ? "" : "background: url('" + @Model.ImagenFondo + "') center center no-repeat;";
+
+	//BPT 236 Numero de productos en ShowRoom
+	var listaShowRom =ViewBag.xlistaProductoSR;
 }
 
 @if (esShowRoom)
@@ -48,6 +55,11 @@
                     <div>
                         <div class="titulo">
                             <h2>@Model.Titulo</h2>
+							<div style="float:left;">
+								<div id="divCantProductos" class="cantidad_productos_resultado">
+									Te Mostramos <span id="spnCantidadFiltro">3</span> de <span id="spnCantidadTotal">@listaShowRom</span> <span> Productos</span>
+								</div>
+							</div>
                             <div class="boton-ir">
                                 <a href="/ShowRoom">VER TODOS LOS SETS</a>
                             </div>

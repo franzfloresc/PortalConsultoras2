@@ -1,7 +1,10 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServicePedido;
+using System.Collections.Generic;
 using System;
 using System.Web.Mvc;
+using System.Linq;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -15,7 +18,13 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     ListaSeccion = ObtenerConfiguracionSeccion(),
                     MensajeProductoBloqueado = MensajeProductoBloqueado()
+                    
                 };
+
+                //BPT 236
+                ViewBag.xlistaProductoSR = ((List<BEShowRoomOferta>)Session[Constantes.ConstSession.ListaProductoShowRoom]).
+                                            Where(x => x.EsSubCampania == false).ToList().Count();
+                
 
                 return View(modelo);
             }
