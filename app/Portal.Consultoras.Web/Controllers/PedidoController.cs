@@ -30,9 +30,12 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class PedidoController : BaseController
     {
-        private const int CRITERIO_BUSQUEDA_CUV_PRODUCTO = 1;
-        private const int CRITERIO_BUSQUEDA_DESC_PRODUCTO = 2;
-        private const int CUV_NO_TIENE_CREDITO = 2;
+        private readonly int CANTIDAD_FILAS_AUTOCOMPLETADO = 5;
+        private readonly int CRITERIO_BUSQUEDA_CUV_PRODUCTO = 1;
+        private readonly int CRITERIO_BUSQUEDA_DESC_PRODUCTO = 2;
+        private readonly int CUV_NO_TIENE_CREDITO = 2;
+        private readonly int CODIGO_REVISTA_IMPRESA = 24;
+
 
         public ActionResult Index(bool lanzarTabConsultoraOnline = false, string cuv = "", int campana = 0)
         {
@@ -1396,7 +1399,14 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var userModel = userData;
-                productos = SelectProductoByCodigoDescripcionSearchRegionZona(term, userModel, 5, CRITERIO_BUSQUEDA_CUV_PRODUCTO);
+                productos = SelectProductoByCodigoDescripcionSearchRegionZona(term, userModel, 10, CRITERIO_BUSQUEDA_CUV_PRODUCTO);
+
+                if (sessionManager.GetRevistaDigital().BloqueroRevistaImpresa)
+                {
+                    productos = productos.Where(x => x.CodigoCatalogo != CODIGO_REVISTA_IMPRESA).ToList();
+                }
+
+                productos = productos.Take(CANTIDAD_FILAS_AUTOCOMPLETADO).ToList();
 
                 if (!productos.Any())
                 {
@@ -1530,6 +1540,18 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(productosModel, JsonRequestBehavior.AllowGet);
                 }
 
+                if (sessionManager.GetRevistaDigital().BloqueroRevistaImpresa)
+                {
+                    productos = productos.Where(x => x.CodigoCatalogo != CODIGO_REVISTA_IMPRESA).ToList();
+
+                    if (!productos.Any())
+                    {
+                        productosModel.Add(GetProductoNoExisteEnEsikaParaMi());
+                        //
+                        return Json(productosModel, JsonRequestBehavior.AllowGet);
+                    }
+                }
+
                 var codigoEstrategia = Util.Trim(productos.First().TipoEstrategiaCodigo);
                 if (NoEstaInscritaEnRevistaDigital(codigoEstrategia))
                 {
@@ -1601,6 +1623,16 @@ namespace Portal.Consultoras.Web.Controllers
 
             return Json(productosModel, JsonRequestBehavior.AllowGet);
 
+        }
+
+        private ProductoModel GetProductoNoExisteEnEsikaParaMi()
+        {
+            return new ProductoModel()
+            {
+                MarcaID = 0,
+                CUV = "El producto solicitado no existe en \"Ésika para mí\"",
+                TieneSugerido = 0
+            };
         }
 
         private BECUVCredito ValidarCUVCreditoPorCUVRegular(PedidoDetalleModel model, UsuarioModel userModel)
@@ -1881,7 +1913,14 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var userModel = userData;
-                productos = SelectProductoByCodigoDescripcionSearchRegionZona(term, userModel, 5, CRITERIO_BUSQUEDA_DESC_PRODUCTO);
+                productos = SelectProductoByCodigoDescripcionSearchRegionZona(term, userModel, 10, CRITERIO_BUSQUEDA_DESC_PRODUCTO);
+
+                if (sessionManager.GetRevistaDigital().BloqueroRevistaImpresa)
+                {
+                    productos = productos.Where(x => x.CodigoCatalogo != CODIGO_REVISTA_IMPRESA).ToList();
+                }
+
+                productos = productos.Take(CANTIDAD_FILAS_AUTOCOMPLETADO).ToList();
 
                 if (!productos.Any())
                 {
