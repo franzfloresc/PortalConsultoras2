@@ -1,4 +1,5 @@
-﻿@using Portal.Consultoras.Common
+@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Helpers
 
 <!DOCTYPE html>
 <html lang="es-PE">
@@ -199,7 +200,7 @@
         var vbSimbolo = '@ViewBag.Simbolo';
         var ViewBagEsMobile = '@ViewBag.EsMobile';
         var urlChatbot = '@System.Configuration.ConfigurationManager.AppSettings.Get("UrlChatbot")';
-        var ingresoExterno = '@Session["IngresoExterno"]';
+        var ingresoExterno = '@ViewContext.GetUniqueSession("IngresoExterno")';
         var gTipoUsuario = '@ViewBag.TipoUsuario';
         var usuarioNombre = '@ViewBag.UsuarioNombre';
         var campaniaCodigo = '@ViewBag.CampaniaCodigo';

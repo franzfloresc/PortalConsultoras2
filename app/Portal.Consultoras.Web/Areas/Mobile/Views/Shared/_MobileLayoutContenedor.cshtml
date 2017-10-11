@@ -1,7 +1,8 @@
-﻿@using Portal.Consultoras.Common
+@using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Models;
 @using Portal.Consultoras.Web.Areas.Mobile.Helpers
 @using Newtonsoft.Json;
+@using Portal.Consultoras.Web.Helpers
 
 @{
     ShowRoomBannerLateralModel showRoomBannerLateral = new ShowRoomBannerLateralModel();
@@ -9,6 +10,8 @@
 
     OfertaDelDiaModel ofertaDelDia = new OfertaDelDiaModel();
     if (ViewBag.MostrarOfertaDelDia == true) { ofertaDelDia = ViewBag.OfertaDelDia; }
+
+    bool esIngresoUnico = ViewContext.EsIngresoUnico();
 }
 
 <!DOCTYPE html>
@@ -18,6 +21,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="description" content="SomosBelcorp Web Mobile" />
+    <meta charset="utf8" />
     <title>Somos Belcorp</title>
 
     <link href='https://fonts.googleapis.com/css?family=Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>
@@ -99,27 +103,30 @@
     <input type="hidden" id="hdTipoCatalogoPersonalizado" value="@ViewBag.CatalogoPersonalizado" />
     <input type="hidden" id="hdEsCatalogoPersonalizadoZonaValida" value="@Convert.ToString(ViewBag.EsCatalogoPersonalizadoZonaValida)" />
     <input type="hidden" id="hdCodigoEstrategia" value="@Util.Trim(ViewBag.CodigoEstrategia)" />
-
-    <!-- Menu icon -->
-    <div class="menu">
-        <div class="content_close">
-            <div class="icon-close">
-                <img src="@Url.Content("~/Content/Images/mobile/Esika/btn_cerrar_header.png")" alt="X" />
-            </div>
-        </div>
-        <div class="foto_menu">
-            @if (!string.IsNullOrEmpty(ViewBag.FotoPerfil))
-            {
-                <div class="foto_usuaria_mobile">
-                    <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width:100%; height:auto" />
+    
+    @if (!esIngresoUnico)
+    {
+       <!-- Menu icon -->
+        <div class="menu">
+            <div class="content_close">
+                <div class="icon-close">
+                    <img src="@Url.Content("~/Content/Images/mobile/Esika/btn_cerrar_header.png")" alt="X" />
                 </div>
-            }
+            </div>
+            <div class="foto_menu">
+                @if (!string.IsNullOrEmpty(ViewBag.FotoPerfil))
+                {
+                    <div class="foto_usuaria_mobile">
+                        <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width:100%; height:auto" />
+                    </div>
+                }
+            </div>
+            <br />
+            <div class="saludo_menu">¡Hola @ViewBag.NombreConsultora!</div>
+            @Html.Partial("_MobileMenuLateral")
+            <a role="menu" region="Menú Lateral" parent="Cerrar Sesion" title="Cerrar Sesion" class="btn_cerrar_sesion" href="@Url.Action("LogOut", "Login", new { area = "" })">Cerrar sesión</a>
         </div>
-        <br />
-        <div class="saludo_menu">¡Hola @ViewBag.NombreConsultora!</div>
-        @Html.Partial("_MobileMenuLateral")
-        <a role="menu" region="Menú Lateral" parent="Cerrar Sesion" title="Cerrar Sesion" class="btn_cerrar_sesion" href="@Url.Action("LogOut", "Login", new { area = "" })">Cerrar sesión</a>
-    </div>
+    }
 
     <!-- alert-top -->
     <div id="divAlertaPedidosOnline" class="alert-top alert-success alert-top-conline" style="display: none;">
@@ -134,7 +141,7 @@
     <!-- header -->
     <header id="new-header">
         <!--BANNER-->
-        @if (ViewBag.mostrarBannerPostulante == true)
+        @if (ViewBag.mostrarBannerPostulante == true && !esIngresoUnico)
         {
             <div id="bloquemensajesPostulante" style="display:none;">
                 @*<div class="oscurecer_animacion"></div>*@
@@ -158,7 +165,7 @@
                 </div>
             </div>
         }
-        else if (ViewBag.MostrarBannerRechazo == true)
+        else if (ViewBag.MostrarBannerRechazo == true && !esIngresoUnico)
         {
             <div id="bloquemensajesPedido" style="display:none;">
                 @*<div class="oscurecer_animacion"></div>*@
@@ -228,7 +235,9 @@
             </div>
         }*@
         <!--END BANNER-->
-
+        
+    @if (!esIngresoUnico)
+    {
         <div class="container-fluid" style="padding-top:9px; padding-bottom:9px;">
             <div class="row">
                 <div class="col-xs-4">
@@ -253,13 +262,17 @@
                 </div>
             </div>
         </div>
+    }
 
     </header>
     
 
     <!-- content -->
     <section style="min-height: 380px;">
-        <div id="contentmobile" data-content="" style="margin-top: 60px;">
+        @{ 
+            var marginTop = esIngresoUnico ? "0px;" : "60px";
+        }
+        <div id="contentmobile" data-content="" style="margin-top:@marginTop">
 
             @if (ViewBag.MostrarBannerPL20 == true && ViewBag.MostrarBannerOtros == false)
             {
@@ -282,26 +295,26 @@
                                             <input type="hidden" id="hdTemaEventoShowRoom" value="@showRoomBannerLateral.BEShowRoom.Tema" />
                                             @if (showRoomBannerLateral.MostrarShowRoomProductos)
                                             {
-                                            <input type="hidden" id="hdtiposw" value="1" />
-                                            <div class="fondo_m">
-                                                <a class="bannersc" href="@Url.Action("Index", "ShowRoom", new { area = "Mobile" })">
-                                                    <div class="content_banner_new_showroom">
-                                                        <img style="width:100%;height:100%;" src="@ViewBag.ImagenPopupShowroomVenta" alt="-" />
-                                                    </div>
-                                                </a>
-                                            </div>
+                                                <input type="hidden" id="hdtiposw" value="1" />
+                                                <div class="fondo_m">
+                                                    <a class="bannersc" href="@Url.Action("Index", "ShowRoom", new { area = "Mobile" })">
+                                                        <div class="content_banner_new_showroom">
+                                                            <img style="width:100%;height:100%;" src="@ViewBag.ImagenPopupShowroomVenta" alt="-" />
+                                                        </div>
+                                                    </a>
+                                                </div>
                                             }
                                             else if (showRoomBannerLateral.MostrarShowRoomProductos == false)
                                             {
-                                            <input type="hidden" id="hdtiposw" value="2" />
-                                            <div class="fondo_m">
-                                                <a class="bannersi" href="@Url.Action("Intriga", "ShowRoom", new { area = "Mobile" })">
-                                                    <div class="content_banner_new_showroom">
-                                                        <div class="dias_faltantes"><span id="spnDiasFaltantes">@ViewBag.DiasFaltantesLetras </span> </div>
-                                                        <img style="width:100%;" src="@ViewBag.ImagenPopupShowroomIntriga" alt="-" />
-                                                    </div>
-                                                </a>
-                                            </div>
+                                                <input type="hidden" id="hdtiposw" value="2" />
+                                                <div class="fondo_m">
+                                                    <a class="bannersi" href="@Url.Action("Intriga", "ShowRoom", new { area = "Mobile" })">
+                                                        <div class="content_banner_new_showroom">
+                                                            <div class="dias_faltantes"><span id="spnDiasFaltantes">@ViewBag.DiasFaltantesLetras </span> </div>
+                                                            <img style="width:100%;" src="@ViewBag.ImagenPopupShowroomIntriga" alt="-" />
+                                                        </div>
+                                                    </a>
+                                                </div>
                                             }
                                         </div>
                                     </li>
@@ -328,12 +341,15 @@
             <br />
         </div>
     </section>
-
-    <!-- footer -->
-    <footer class="footer-page">
-        @Html.Partial("_MobileMenuFooter")
-        <hr class="clear" />
-    </footer>
+    
+    @if (!esIngresoUnico)
+    {
+        <!-- footer -->
+        <footer class="footer-page">
+            @Html.Partial("_MobileMenuFooter")
+            <hr class="clear" />
+        </footer>
+    }
 
     <div class="content-spinner2" id="loading-spin">
         <div class="busy-loader">
