@@ -12,5 +12,6 @@ namespace Portal.Consultoras.BizLogic.Cliente
         ResponseType<BEMovimiento> Actualizar(int paisId, BEMovimiento movimiento);
         ResponseType<int> Eliminar(int paisId, long consultoraId, short clienteId, int movimientoId);
         ResponseType<List<BEMovimiento>> Procesar(int paisId, BEClienteDB clienteDb);
+        ResponseType<BEMovimientoDetalle> ActualizarDetalle(BEMovimientoDetalle movimientoDetalle);
     }
 }
