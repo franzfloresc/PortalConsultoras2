@@ -155,6 +155,9 @@ namespace Portal.Consultoras.Entities
         public string TipoOfertaRevista { get; set; }
 
         [DataMember]
+        public int CodigoCatalogo { get; set; }
+
+        [DataMember]
         public string CatalogoDescripcion { get; set; }
 
         [DataMember]
@@ -233,6 +236,9 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(datarec, "TipoOfertaRevista") && datarec["TipoOfertaRevista"] != DBNull.Value)
                 TipoOfertaRevista = Convert.ToString(datarec["TipoOfertaRevista"]).Trim();
+
+            if (DataRecord.HasColumn(datarec, "CodigoCatalago") && datarec["CodigoCatalago"] != DBNull.Value)
+                CodigoCatalogo = Convert.ToInt32(datarec["CodigoCatalago"]);
 
             if (DataRecord.HasColumn(datarec, "CatalogoDescripcion") && datarec["CatalogoDescripcion"] != DBNull.Value)
                 CatalogoDescripcion = datarec["CatalogoDescripcion"].ToString();

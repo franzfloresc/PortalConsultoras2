@@ -61,7 +61,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 userData = UserData();
-                revistaDigital = GetSession(Constantes.ConstSession.RevistaDigital) as RevistaDigitalModel ?? new RevistaDigitalModel();
+                revistaDigital = sessionManager.GetRevistaDigital() ?? new RevistaDigitalModel();
                 if (userData == null)
                 {
                     string URLSignOut = string.Empty;
