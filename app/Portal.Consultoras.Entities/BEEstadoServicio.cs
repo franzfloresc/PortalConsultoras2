@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Data;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
-using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Entities
 {
@@ -46,7 +42,7 @@ namespace Portal.Consultoras.Entities
         public string CampaniaFinalId { get; set; }
         [DataMember]
         public int ServicioId { get; set; }
-        
+
         public BEEstadoServicio()
         {
         }

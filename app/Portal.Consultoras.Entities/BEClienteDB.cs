@@ -1,8 +1,7 @@
-﻿using System.Runtime.Serialization;
-using System.Collections.Generic;
-
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities.Cliente;
-using Portal.Consultoras.Common;
+using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities
 {
@@ -30,7 +29,8 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string Nombres { get; set; }
         [DataMember]
-        public string NombreCompleto {
+        public string NombreCompleto
+        {
             get
             {
                 return string.Format("{0} {1}", (Nombres == null ? string.Empty : Nombres), (Apellidos == null ? string.Empty : Apellidos)).Trim();

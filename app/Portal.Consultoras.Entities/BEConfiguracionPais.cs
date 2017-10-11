@@ -58,9 +58,10 @@ namespace Portal.Consultoras.Entities
         public bool BloqueoRevistaImpresa { get; set; }
 
         [DataMember]
-        public BEConfiguracionPaisDetalle Detalle  { get; set; }
+        public BEConfiguracionPaisDetalle Detalle { get; set; }
 
-        public BEConfiguracionPais() {
+        public BEConfiguracionPais()
+        {
             Detalle = new BEConfiguracionPaisDetalle();
         }
 

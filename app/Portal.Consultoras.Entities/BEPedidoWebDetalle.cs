@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Data;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
-using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Entities
 {
@@ -109,7 +105,7 @@ namespace Portal.Consultoras.Entities
         public bool IndicadorOfertaCUV { get; set; } /*R20150701*/
         [DataMember]
         public decimal MontoTotalProl { get; set; }   /*R20150701*/
-        
+
         [DataMember]
         public string NombreCliente { get; set; } //R2584
 
@@ -118,7 +114,7 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public bool EsKitNueva { get; set; }
-        
+
         [DataMember]
         public int OrdenPedidoWD { get; set; }
 
@@ -217,7 +213,7 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "MontoTotalProl"))
                 MontoTotalProl = row["MontoTotalProl"] == DBNull.Value ? 0 : Convert.ToDecimal(row["MontoTotalProl"]);
-            
+
             //2584
             if (DataRecord.HasColumn(row, "NombreCliente"))
                 NombreCliente = Convert.ToString(row["NombreCliente"]);
@@ -335,7 +331,7 @@ namespace Portal.Consultoras.Entities
                 IndicadorOfertaCUV = row["IndicadorOfertaCUV"] == DBNull.Value ? false : Convert.ToBoolean(row["IndicadorOfertaCUV"]);
             if (DataRecord.HasColumn(row, "MontoTotalProl"))
                 MontoTotalProl = row["MontoTotalProl"] == DBNull.Value ? 0 : Convert.ToDecimal(row["MontoTotalProl"]);
-            
+
             //2584
             if (DataRecord.HasColumn(row, "NombreCliente"))
                 NombreCliente = Convert.ToString(row["NombreCliente"]);
@@ -372,5 +368,5 @@ namespace Portal.Consultoras.Entities
                 CodigoCatalago = row["CodigoCatalago"] == DBNull.Value ? 0 : Convert.ToInt32(row["CodigoCatalago"]);
         }
     }
-    
+
 }

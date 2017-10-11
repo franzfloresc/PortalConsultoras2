@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Entities
 {
@@ -16,7 +12,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string CodigoZona { set; get; }
         [DataMember]
-        public int DiasParametroCarga { set; get; } //R20151221 - View
+        public int DiasParametroCarga { set; get; }
         [DataMember]
         public string Usuario { set; get; }
 

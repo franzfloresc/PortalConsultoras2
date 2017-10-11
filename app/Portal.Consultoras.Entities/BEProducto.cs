@@ -44,7 +44,7 @@ namespace Portal.Consultoras.Entities
             get { return msIndicadorMontoMinimo; }
             set { msIndicadorMontoMinimo = value; }
         }
-        
+
         [DataMember]
         public string Descripcion
         {
@@ -57,21 +57,21 @@ namespace Portal.Consultoras.Entities
             get { return mdPrecioCatalogo; }
             set { mdPrecioCatalogo = value; }
         }
-        
+
         [DataMember]
         public int MarcaID
         {
             get { return miMarcaID; }
             set { miMarcaID = value; }
         }
-        
+
         [DataMember]
         public bool EstaEnRevista
         {
             get { return mbEstaEnRevista; }
             set { mbEstaEnRevista = value; }
         }
-        
+
         [DataMember]
         public bool TieneStock
         {
@@ -100,21 +100,21 @@ namespace Portal.Consultoras.Entities
             get { return msCUVComplemento; }
             set { msCUVComplemento = value; }
         }
-        
+
         [DataMember]
         public string DescripcionMarca { get; set; }
         [DataMember]
         public string DescripcionCategoria { get; set; }
         [DataMember]
         public string DescripcionEstrategia { get; set; }
-        
+
         [DataMember]
         public string FlagNueva { get; set; }
         [DataMember]
         public string TipoEstrategiaID { get; set; }
-        
+
         [DataMember]
-        public bool IndicadorOfertaCUV  { get; set; }
+        public bool IndicadorOfertaCUV { get; set; }
 
         [DataMember]
         public string Nombre { get; set; }
@@ -159,7 +159,7 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public string TextoBusqueda { get; set; }
-        
+
         [DataMember]
         public string TipoEstrategiaCodigo { get; set; }
 
