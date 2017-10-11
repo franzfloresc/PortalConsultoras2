@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using AutoMapper;
-using Portal.Consultoras.Web.ServiceZonificacion;
-using Portal.Consultoras.Web.ServiceContenido;
-using Portal.Consultoras.Web.ServiceUsuario;
-using Portal.Consultoras.Web.ServiceSAC;
-using System.IO;
-using System.Drawing;
-using System.ServiceModel;
 using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServiceZonificacion;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.ServiceModel;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -110,11 +106,11 @@ namespace Portal.Consultoras.Web.Controllers
                            select new
                            {
                                id = a.TipoEstrategiaID,
-                               cell = new string[] 
+                               cell = new string[]
                                {
                                    a.TipoEstrategiaID.ToString(),
                                    a.DescripcionEstrategia.ToString(),
-                                   a.DescripcionOferta.ToString(),                                   
+                                   a.DescripcionOferta.ToString(),
                                    a.Orden.ToString(),
                                    a.ImagenEstrategia.ToString(),
                                    a.OfertaID.ToString(),
@@ -170,7 +166,7 @@ namespace Portal.Consultoras.Web.Controllers
                            select new
                            {
                                id = a.OfertaID,
-                               cell = new string[] 
+                               cell = new string[]
                                {
                                    a.OfertaID.ToString(),
                                    a.CodigoOferta.ToString(),
@@ -286,7 +282,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult Registrar(string TipoEstrategiaID, string DescripcionEstrategia,
                         string ImagenEstrategia, string Orden,
-                        string FlagActivo,  string OfertaID, string imagenAnterior,
+                        string FlagActivo, string OfertaID, string imagenAnterior,
                         string FlagNueva, string FlagRecoProduc, string FlagRecoPerfil,
                         string CodigoPrograma, string FlagMostrarImg)
         {

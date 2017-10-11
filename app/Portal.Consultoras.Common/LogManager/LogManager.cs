@@ -39,7 +39,7 @@ namespace Portal.Consultoras.Common
                 RegistrarArchivoTexto(logError, pathFile);
                 RegistrarDynamoDB(logError);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //EventLog.WriteEntry("SomosBelcorp - LogManager", string.Format("Mensaje: {0} \nTrace: {1}", ex.Message, ex.StackTrace), EventLogEntryType.Error);
             }

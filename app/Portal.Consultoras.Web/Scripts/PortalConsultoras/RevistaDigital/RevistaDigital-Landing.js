@@ -22,6 +22,8 @@ var filtroIni = {
 
 $(document).ready(function () {
 
+    urlOfertaCargarProductos = $.trim(urlOfertaCargarProductos);
+
     $("select[data-filtro-tipo]").change(function (event) {
         OfertaObtenerProductos(this, true);
     });
@@ -259,7 +261,6 @@ function OfertaCargarProductos(busquedaModel, clear, objSeccion) {
 function OfertaCargarProductoRespuesta(response, clear, objSeccion) {
     CerrarLoad();
     
-
     var divProd = $("[data-listado-campania=" + response.campaniaId + "]");
     if (divProd.length > 0) {
         divProd.find("#divOfertaProductosLoad").hide();
@@ -269,7 +270,6 @@ function OfertaCargarProductoRespuesta(response, clear, objSeccion) {
     }
 
     if (response.success !== true) return false;
-
 
     divProd.find('[data-listado-content]').show();
     OfertaObtenerIndLocal(response.campaniaId);

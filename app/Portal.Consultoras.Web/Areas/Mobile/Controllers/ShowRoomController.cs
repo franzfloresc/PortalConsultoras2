@@ -1,4 +1,3 @@
-using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Controllers;
 using Portal.Consultoras.Web.Models;
@@ -68,7 +67,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 return RedirectToAction("Intriga", "ShowRoom", new { area = "Mobile" });
             }
- 
+
             ActionExecutingMobile();
             var showRoomEventoModel = OfertaShowRoom();
 
@@ -131,7 +130,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
 
                 ActualizarUrlImagenes(ofertasShowRoom);
-                
+
                 var model = ObtenerPrimeraOfertaShowRoom(ofertasShowRoom);
 
                 model.Simbolo = userData.Simbolo;

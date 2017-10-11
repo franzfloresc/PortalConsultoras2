@@ -120,19 +120,19 @@ namespace Portal.Consultoras.Web.Controllers
         {
             string aux_fechaVencimiento;
             string montoPagar;
-            decimal montoPagarDec = 0;  
+            decimal montoPagarDec = 0;
 
             try
             {
                 List<EstadoCuentaModel> lst = new List<EstadoCuentaModel>();
                 lst = ObtenerEstadoCuenta();
-                lst = lst.OrderByDescending(x => x.Fecha).ThenByDescending(x => x.TipoMovimiento).ToList();             
+                lst = lst.OrderByDescending(x => x.Fecha).ThenByDescending(x => x.TipoMovimiento).ToList();
 
                 ObtenerFechaVencimientoMontoPagar(out aux_fechaVencimiento, out montoPagar, out montoPagarDec);
                 lst.Add(new EstadoCuentaModel()
                 {
                     Cargo = montoPagarDec
-                });                
+                });
 
                 #region cotnenido del correo
                 /*CO-RE2584 - CS(CGI) */
@@ -654,7 +654,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (SACServiceClient sv = new SACServiceClient())
             {
-                lst = (sv.SelectLugarPago(paisID) ?? new BELugarPago[0]).ToList().OrderBy(x=>x.Posicion).ToList();
+                lst = (sv.SelectLugarPago(paisID) ?? new BELugarPago[0]).ToList().OrderBy(x => x.Posicion).ToList();
             }
 
             foreach (var item in lst)
@@ -676,7 +676,7 @@ namespace Portal.Consultoras.Web.Controllers
             };
 
             return lugaresPagoModel;
-        }        
+        }
 
         private void ExportToExcelEstadoCuenta(string filename, List<EstadoCuentaModel> SourceDetails, List<KeyValuePair<int, string>> columnHeaderDefinition,
            Dictionary<string, string> columnDetailDefinition, string[] arrTotal, decimal cargoTotal, decimal abonoTotal)

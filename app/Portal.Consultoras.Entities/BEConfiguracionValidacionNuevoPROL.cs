@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Entities
 {
@@ -27,7 +23,6 @@ namespace Portal.Consultoras.Entities
         {
             ZonaID = Convert.ToInt32(row["ZonaID"]);
             CodigoZona = Convert.ToString(row["CodigoZona"]);
-           
         }
 
     }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServiceCDR;
 using Portal.Consultoras.Web.ServicePedidoRechazado;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
@@ -9,7 +10,6 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
-using Portal.Consultoras.Web.ServiceCDR;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -318,7 +318,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.Origen = 3;
             return PartialView("ListadoObservaciones", model);
         }
-        
+
         public ActionResult ListarDetallePedidoRechazado(long ProcesoId)
         {
             NotificacionesModel model = new NotificacionesModel();
@@ -353,7 +353,7 @@ namespace Portal.Consultoras.Web.Controllers
                 listaCdrWebDetalle.Update(p => p.Solicitud = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.Finalizado).Descripcion);
                 listaCdrWebDetalle.Update(p => p.SolucionSolicitada = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.MensajeFinalizado).Descripcion);
             }
-            
+
             var model = Mapper.Map<CDRWebModel>(logCdrWeb);
             model.NombreConsultora = userData.NombreConsultora;
             model.CodigoIso = userData.CodigoISO;
@@ -374,7 +374,7 @@ namespace Portal.Consultoras.Web.Controllers
                 listaCdrWebDetalle.Update(p => p.Solicitud = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.Finalizado).Descripcion);
                 listaCdrWebDetalle.Update(p => p.SolucionSolicitada = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.MensajeFinalizado).Descripcion);
             }
-            
+
             var model = Mapper.Map<CDRWebModel>(cdrWeb);
             model.CodigoIso = userData.CodigoISO;
             model.NombreConsultora = userData.NombreConsultora;

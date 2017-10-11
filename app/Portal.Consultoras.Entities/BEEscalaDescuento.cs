@@ -1,11 +1,7 @@
 ﻿using Portal.Consultoras.Common;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Entities
 {
@@ -31,7 +27,9 @@ namespace Portal.Consultoras.Entities
 
         #endregion        
 
-        public BEEscalaDescuento(){ }
+        public string Algoritmo { get; set; }
+
+        public BEEscalaDescuento() { }
 
         public BEEscalaDescuento(IDataRecord row)
         {
@@ -48,7 +46,5 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "Algoritmo") && row["Algoritmo"] != DBNull.Value)
                 Algoritmo = Convert.ToString(row["Algoritmo"]);
         }
-
-        public string Algoritmo { get; set; }
     }
 }

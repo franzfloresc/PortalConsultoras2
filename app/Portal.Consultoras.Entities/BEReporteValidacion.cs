@@ -1,6 +1,5 @@
-﻿﻿using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Runtime.Serialization;
 
@@ -706,5 +705,3 @@ namespace Portal.Consultoras.Entities
     }
 
 }
-
-

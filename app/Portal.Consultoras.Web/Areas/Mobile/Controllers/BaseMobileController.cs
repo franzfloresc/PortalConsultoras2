@@ -1,17 +1,10 @@
-﻿using System;
-using System.Linq;
-using System.Web.Mvc;
-using System.Collections.Generic;
-using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.ServiceSeguridad;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Controllers;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.Areas.Mobile.Models;
-using System.Configuration;
-
-using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServicePedido;
-using AutoMapper;
+using System;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
