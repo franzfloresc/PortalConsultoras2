@@ -1180,7 +1180,7 @@ function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto, nombre) 
 
     try {
         if (origenPedidoWebEstrategia !== undefined && origenPedidoWebEstrategia.indexOf("7") !== -1) {
-            CompartirProductoRDAnalytics(tipoRedes, ruta, nombre);
+            rdAnalyticsModule.CompartirProducto(tipoRedes, ruta, nombre);
         } else {
             AnalyticsRedesSociales(tipoRedes, ruta);
         }

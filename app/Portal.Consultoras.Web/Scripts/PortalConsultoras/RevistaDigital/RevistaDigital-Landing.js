@@ -58,13 +58,7 @@ function OfertaObtenerProductos(filtro, clear) {
         if (typeof filtro != 'undefined') {
             var label = $(filtro).find("option:selected").text();
             var tipo = $(filtro).data("filtro-campo");
-            if (tipo === "precio") {
-                OrdenarProductoRDAnalytics(label);
-            } else if (tipo === "marca") {
-                FiltrarProductoRDAnalytics(label);
-            } else {
-                BorrarFiltroRDAnalytics();
-            }
+            rdAnalyticsModule.FiltrarProducto(tipo, label);
         }
     } catch (e) {
         console.log("Error analytic RD: " + e);

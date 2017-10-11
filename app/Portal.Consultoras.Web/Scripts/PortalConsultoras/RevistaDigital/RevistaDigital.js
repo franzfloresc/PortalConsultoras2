@@ -43,7 +43,7 @@ $(document).ready(function () {
         });
         // Registrar valrores de analytics
         if (!esPrimeraCarga) {
-            TabsRDAnalytics($(this).attr("data-tab-index"), campaniaId);
+            rdAnalyticsModule.Tabs($(this).attr("data-tab-index"), campaniaId);
         } else {esPrimeraCarga = false;}
 
         var funt = $.trim($(this).attr("data-tag-funt"));
@@ -165,7 +165,7 @@ $(document).ready(function () {
         obj.CUV2 = $.trim(obj.CUV2);
             obj.Posicion = 1;
         if (obj.CUV2 != "") {
-                VerDetalleLanRDAnalytics(obj);
+            rdAnalyticsModule.VerDetalleLan(obj);
             var guardo = EstrategiaGuardarTemporal(obj);
             if (guardo)
                 return window.location = urlOfertaDetalleProducto +
