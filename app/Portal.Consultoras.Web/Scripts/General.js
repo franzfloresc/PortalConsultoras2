@@ -424,7 +424,7 @@ jQuery(document).ready(function () {
                 arrAux = newLista.Find(campo, item[campo]);
             }
             else {
-                arrAux = newLista.Find(item)
+                arrAux = newLista.Find(item);
             }
             if (arrAux.length == 0) {
                 try {
@@ -851,7 +851,11 @@ FuncionesGenerales = {
         };
 
         return obj;
-    }
+    },
+    MaxLengthCheck: function (object, cantidadMaxima) {
+        if (object.value.length > cantidadMaxima)
+            object.value = object.value.slice(0, cantidadMaxima);
+    },
 };
 
 function InsertarLogDymnamo(pantallaOpcion, opcionAccion, esMobile, extra) {
@@ -871,7 +875,7 @@ function InsertarLogDymnamo(pantallaOpcion, opcionAccion, esMobile, extra) {
         'DispositivoID': '',
         'Version': '2.0',
         'Extra': extra
-    }
+    };
     if (urlLogDynamo != "") {
         jQuery.ajax({
             type: "POST",
