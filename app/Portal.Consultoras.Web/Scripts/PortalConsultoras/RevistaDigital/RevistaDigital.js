@@ -158,9 +158,8 @@ $(document).ready(function () {
             }
         }
         if (obj == undefined) {
-	    return;
+	        return;
         }
-
 
         var obj = JSON.parse($(this).parents("[data-item]").find("[data-estrategia]").attr("data-estrategia"));
         obj.CUV2 = $.trim(obj.CUV2);
@@ -311,17 +310,37 @@ function OfertaArmarEstrategias(response) {
     ResizeBoxContnet();
 
     if (!isDetalle) {
-        LocalStorageListado(lsListaRD + response.CampaniaID, filtroCampania[indCampania]);
+        RDLocalStorageListado(lsListaRD + response.CampaniaID, filtroCampania[indCampania]);
     }
 }
 
+function RDLocalStorageListado(key, valor, codigo) {
+    var valLocalStorage = LocalStorageListado(lsListaRD + valor.CampaniaID, null, 1);
+    if (valLocalStorage != null) {
+        valLocalStorage = JSON.parse(valLocalStorage);
+        if (codigo == "LAN") {
+            valLocalStorage.listaLan = valor.listaLan;
+        }
+        else {
+            valor.response.listaLan = valLocalStorage.listaLan;
+            valLocalStorage = Clone(valor);
+        }
+    }
+    else {
+        valLocalStorage = valor;
+    }
+
+    LocalStorageListado(key, valLocalStorage);
+}
+
+
 function OfertaArmarEstrategiasContenedor(responseData) {
 
-    LocalStorageListado(lsListaRD + responseData.CampaniaID, filtroCampania[indCampania]);
+    RDLocalStorageListado(lsListaRD + responseData.CampaniaID, filtroCampania[indCampania]);
 
     var response = Clone(responseData);
 
-    var listaSeccionesRD = ["LAN", "RD", "RDR"]
+    var listaSeccionesRD = ["RD", "RDR"]
 
     $.each(listaSeccionesRD, function (ind, tipo) {
         response.Seccion = listaSeccion[tipo + "-" + response.CampaniaID];
@@ -341,35 +360,20 @@ function OfertaArmarEstrategiasContenedor(responseData) {
 
 function OfertaArmarEstrategiasContenedorSeccion(response) {
     var cant = response.Seccion.CantidadProductos || 0;
-    cant = cant == 0 ? response.Seccion.Codigo == "LAN" ? response.listaLan.length : response.lista.length : cant;
+    cant = cant == 0 ? response.lista.length : cant;
     if (cant > 0) {
         var newLista = [];
-        var listaItem = response.Seccion.Codigo == "LAN" ? response.listaLan : response.lista;
+        var listaItem = response.lista;
 
         $.each(listaItem, function (ind, item) {
             if (("," + response.Seccion.TipoEstrategia + ",").indexOf("," + item.CodigoEstrategia + ",") >= 0) {
-                if (ind < cant) {
+                if (newLista.length < cant) {
                     newLista.push(item);
                 }
             }
         });
 
-        if (response.Seccion.Codigo == "LAN") {
-            response.Mobile = isMobile();
-            if (newLista.length > 0) {
-                $.each(newLista, function (ind, tem) {
-                    tem.TipoEstrategiaDetalle = tem.TipoEstrategiaDetalle || {};
-                    tem.Posicion = ind + 1;
-                });
-            }
-
-            response.listaLan = newLista;
-            response.lista = [];
-        }
-        else {
-            response.listaLan = [];
-            response.lista = newLista;
-        }
+        response.lista = newLista;
     }
 
     SeccionMostrarProductos(response);

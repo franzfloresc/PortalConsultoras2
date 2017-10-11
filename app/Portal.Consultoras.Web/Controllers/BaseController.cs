@@ -3377,7 +3377,7 @@ namespace Portal.Consultoras.Web.Controllers
                         seccion.VerMas = false;
                         break;
                     case Constantes.ConfiguracionPais.Lanzamiento:
-                        seccion.UrlObtenerProductos = "RevistaDigital/RDObtenerProductos";
+                        seccion.UrlObtenerProductos = "RevistaDigital/RDObtenerProductosLan";
                         break;
                     case Constantes.ConfiguracionPais.RevistaDigital:
                         seccion.UrlObtenerProductos = "RevistaDigital/RDObtenerProductos";

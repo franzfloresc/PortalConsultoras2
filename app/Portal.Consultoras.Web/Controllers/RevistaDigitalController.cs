@@ -182,10 +182,70 @@ namespace Portal.Consultoras.Web.Controllers
                     success = true,
                     lista = listModel,
                     listaPerdio = listPerdio,
-                    listaLan = listModelLan,
+                    //listaLan = listModelLan,
                     cantidadTotal = cantidadTotal,
                     cantidad = cantidadTotal,
                     campaniaId = model.CampaniaID
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Error al cargar los productos",
+                    data = ""
+                });
+            }
+        }
+        
+        [HttpPost]
+        public JsonResult RDObtenerProductosLan(BusquedaProductoModel model)
+        {
+            try
+            {
+                if (!(revistaDigital.TieneRDC || revistaDigital.TieneRDR) || EsCampaniaFalsa(model.CampaniaID))
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "",
+                        lista = new List<ShowRoomOfertaModel>(),
+                        cantidadTotal = 0,
+                        cantidad = 0
+                    });
+                }
+
+                var palanca = model.CampaniaID != userData.CampaniaID || revistaDigital.TieneRDR || revistaDigital.TieneRDC
+                    ? Constantes.TipoEstrategiaCodigo.Lanzamiento
+                    : "";
+
+                if (palanca == "")
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "",
+                        lista = new List<ShowRoomOfertaModel>(),
+                        cantidadTotal = 0,
+                        cantidad = 0
+                    });
+                }
+
+                var listaFinal1 = ConsultarEstrategiasModel("", model.CampaniaID, palanca);
+                var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1);
+                
+                int cantidadTotal = listModel.Count;
+
+                return Json(new
+                {
+                    success = true,
+                    listaLan = listModel,
+                    cantidadTotal = cantidadTotal,
+                    cantidad = cantidadTotal,
+                    campaniaId = model.CampaniaID,
+                    codigo = Constantes.ConfiguracionPais.Lanzamiento
                 });
             }
             catch (Exception ex)
