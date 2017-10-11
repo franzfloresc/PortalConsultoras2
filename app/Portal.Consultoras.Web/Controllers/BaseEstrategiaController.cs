@@ -82,9 +82,6 @@ namespace Portal.Consultoras.Web.Controllers
                     CodigoTipoEstrategia = tipo
                 };
 
-                revistaDigital.SuscripcionModel.EMail = Util.Trim(revistaDigital.SuscripcionModel.EMail);
-                revistaDigital.SuscripcionModel.EMail += "|" + tipo;
-
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
                     listEstrategia = sv.GetEstrategiasPedido(entidad).ToList();
