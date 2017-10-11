@@ -1073,6 +1073,7 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_NOTAINVALIDA = "15";
                 public const string ERROR_MOVIMIENTOINVALIDO = "16";
                 public const string ERROR_NOTACANTIDADMAXIMA = "17";
+                public const string ERROR_MOVIMIENTODETALLENOACTUALIZADO = "18";
             }
 
             public static Dictionary<string, string> Message
@@ -1097,7 +1098,8 @@ namespace Portal.Consultoras.Common
                         {Code.ERROR_CLIENTEASOCIADOPEDIDO, "No es posible eliminar al cliente dado que se encuentra asociado a un pedido."},
                         {Code.ERROR_TIPOCONTACTOREPETIDO, "El contacto se encuentra repetido para el cliente."},
                         {Code.ERROR_NOTAINVALIDA, "Nota invalida, no se pudo procesar"},
-                        {Code.ERROR_MOVIMIENTOINVALIDO, "Movimiento invalido, no se pudo procesar"}
+                        {Code.ERROR_MOVIMIENTOINVALIDO, "Movimiento invalido, no se pudo procesar"},
+                        {Code.ERROR_MOVIMIENTODETALLENOACTUALIZADO, "El detalle de movimiento no fue actualizado."},
                     });
                 }
             }

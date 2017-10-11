@@ -240,5 +240,10 @@ namespace Portal.Consultoras.Service
         {
             return _notasBusinessLogic.Eliminar(paisId, clienteId, consultoraId, clienteNotaId);
         }
+
+        public ResponseType<BEMovimientoDetalle> MovimientoDetalleActualizar(BEMovimientoDetalle movimientoDetalle)
+        {
+            return _movimientoBusinessLogic.ActualizarDetalle(movimientoDetalle);
+        }
     }
 }

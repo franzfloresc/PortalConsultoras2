@@ -168,5 +168,23 @@ namespace Portal.Consultoras.BizLogic.Cliente
 
             return movimientosResponse;
         }
+
+        public ResponseType<BEMovimientoDetalle> ActualizarDetalle(BEMovimientoDetalle movimientoDetalle)
+        {
+            var daPedidoWebDetalle = new DAPedidoWebDetalle(movimientoDetalle.PaisID);
+            movimientoDetalle.ImporteTotal = movimientoDetalle.Cantidad * movimientoDetalle.PrecioUnidad;
+            var result = daPedidoWebDetalle.UpdPedidoWebFacturado(movimientoDetalle.PedidoWebFacturadoID, movimientoDetalle.PrecioUnidad, movimientoDetalle.ImporteTotal);
+
+            if (result == 0)
+            {
+                movimientoDetalle.Code = Constantes.ClienteValidacion.Code.ERROR_MOVIMIENTODETALLENOACTUALIZADO;
+                movimientoDetalle.Message = Constantes.ClienteValidacion.Message[Constantes.ClienteValidacion.Code.ERROR_MOVIMIENTODETALLENOACTUALIZADO];
+                return ResponseType<BEMovimientoDetalle>.Build(false, movimientoDetalle.Code, movimientoDetalle.Message, movimientoDetalle);
+            }
+
+            movimientoDetalle.Code = Constantes.ClienteValidacion.Code.SUCCESS;
+            movimientoDetalle.Message = Constantes.ClienteValidacion.Message[Constantes.ClienteValidacion.Code.SUCCESS];
+            return ResponseType<BEMovimientoDetalle>.Build(true, movimientoDetalle.Code, movimientoDetalle.Message, movimientoDetalle);
+        }
     }
 }

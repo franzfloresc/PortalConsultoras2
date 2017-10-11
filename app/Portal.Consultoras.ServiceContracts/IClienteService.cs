@@ -128,5 +128,8 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         ResponseType<bool> NotaEliminar(int paisId, short clienteId, long consultoraId, long clienteNotaId);
+
+        [OperationContract]
+        ResponseType<BEMovimientoDetalle> MovimientoDetalleActualizar(BEMovimientoDetalle movimientoDetalle);
     }
 }
