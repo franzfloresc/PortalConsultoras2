@@ -186,7 +186,7 @@ function SeccionMostrarProductos(data) {
             $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
             $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeIn();
 
-            $("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-total]").html(data.lista.length);
+            $("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-total]").html(data.CantidadProductos);
             $("#" + data.Seccion.Codigo).find("[data-productos-info]").fadeIn();
             
         } else {

@@ -160,8 +160,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var listaFinal1 = ConsultarEstrategiasModel("", model.CampaniaID, palanca);
                 var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1);
-
-                var listModelLan = listModel.Where(e => e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
+                
                 listModel = listModel.Where(e => e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
 
                 int cantidadTotal = listModel.Count;
@@ -172,8 +171,7 @@ namespace Portal.Consultoras.Web.Controllers
                     var listPerdio1 = ConsultarEstrategiasModel("", model.CampaniaID, Constantes.TipoEstrategiaCodigo.RevistaDigital);
                     listPerdio1 = listPerdio1.Where(p => p.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.PackNuevas).ToList();
                     listPerdio = ConsultarEstrategiasFormatearModelo(listPerdio1, 1);
-
-                    listModelLan.AddRange(listPerdio.Where(e => e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList());
+                    
                     listPerdio = listPerdio.Where(e => e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
                 }
 
@@ -182,7 +180,6 @@ namespace Portal.Consultoras.Web.Controllers
                     success = true,
                     lista = listModel,
                     listaPerdio = listPerdio,
-                    //listaLan = listModelLan,
                     cantidadTotal = cantidadTotal,
                     cantidad = cantidadTotal,
                     campaniaId = model.CampaniaID
@@ -235,7 +232,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var listaFinal1 = ConsultarEstrategiasModel("", model.CampaniaID, palanca);
                 var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1);
-                
+
                 int cantidadTotal = listModel.Count;
 
                 return Json(new

@@ -315,14 +315,17 @@ function OfertaArmarEstrategias(response) {
 }
 
 function RDLocalStorageListado(key, valor, codigo) {
-    var valLocalStorage = LocalStorageListado(lsListaRD + valor.CampaniaID, null, 1);
+    console.log(key, valor, codigo);
+    var valLocalStorage = LocalStorageListado(key, null, 1);
     if (valLocalStorage != null) {
         valLocalStorage = JSON.parse(valLocalStorage);
+        console.log(key, valLocalStorage);
+        valLocalStorage.response = valLocalStorage.response || {};
         if (codigo == "LAN") {
-            valLocalStorage.listaLan = valor.listaLan;
+            valLocalStorage.response.listaLan = valor.listaLan;
         }
         else {
-            valor.response.listaLan = valLocalStorage.listaLan;
+            valor.response.listaLan = valLocalStorage.listaLan || valLocalStorage.response.listaLan;
             valLocalStorage = Clone(valor);
         }
     }
@@ -359,6 +362,7 @@ function OfertaArmarEstrategiasContenedor(responseData) {
 }
 
 function OfertaArmarEstrategiasContenedorSeccion(response) {
+    response.CantidadProductos = response.lista.length;
     var cant = response.Seccion.CantidadProductos || 0;
     cant = cant == 0 ? response.lista.length : cant;
     if (cant > 0) {

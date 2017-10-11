@@ -230,6 +230,7 @@ function OfertaCargarProductos(busquedaModel, clear, objSeccion) {
     if (valLocalStorage != null) {
         filtroCampania[indCampania] = JSON.parse(valLocalStorage);
         jQuery.extend(filtroCampania[indCampania], Clone(busquedaModel));
+        filtroCampania[indCampania].response = filtroCampania[indCampania].response || {};
         filtroCampania[indCampania].response.Completo = 0;
         OfertaCargarProductoRespuesta(filtroCampania[indCampania].response, clear, objSeccion);
         return true;
