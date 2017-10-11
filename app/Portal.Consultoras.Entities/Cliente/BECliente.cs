@@ -215,6 +215,10 @@ namespace Portal.Consultoras.Entities
         public decimal MontoPedido { get; set; }
 
         [DataMember]
+        [Column("CantidadPedido")]
+        public int CantidadPedido { get; set; }
+
+        [DataMember]
         public string Origen { get; set; }
 
         [DataMember]
