@@ -1194,7 +1194,7 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         List<BEConsultoraConcurso> ListConcursosByCampania(int paisId, string codigoCampaniaActual, string codigoCampania, string tipoConcurso, string codigoConsultora);
         [OperationContract]
-        List<BEIncentivoConcurso> ObtenerIncentivosConsultora(int paisID, string codigoConsultora, int codigoCampania);
+        List<BEIncentivoConcurso> ObtenerIncentivosConsultora(int paisID, string codigoConsultora, int codigoCampania, long ConsultoraID);
         [OperationContract]
         List<BEIncentivoConcurso> ObtenerIncentivosHistorico(int paisID, string codigoConsultora, int codigoCampania);
         #endregion
