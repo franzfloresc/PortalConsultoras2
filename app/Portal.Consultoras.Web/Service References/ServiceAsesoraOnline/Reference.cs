@@ -197,6 +197,9 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool AceptaTerminosCondicionesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int AceptacionConsultoraDAField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -293,7 +296,13 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         private string DescripcionNivelField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DestinatariosFeedbackField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int DiasAntesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int DiasCierreField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int DiasDuracionCronogramaField;
@@ -374,7 +383,28 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         private System.DateTime FechaNacimientoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FechaVencimientoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string FlagActivacionSuscripcionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FotoPerfilField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string GPRBannerMensajeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string GPRBannerTituloField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Portal.Consultoras.Common.Enumeradores.RechazoBannerUrl GPRBannerUrlField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool GPRMostrarBannerRechazoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string GPRTextovinculoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool HabilitarRestriccionHorariaField;
@@ -683,6 +713,19 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool AceptaTerminosCondiciones {
+            get {
+                return this.AceptaTerminosCondicionesField;
+            }
+            set {
+                if ((this.AceptaTerminosCondicionesField.Equals(value) != true)) {
+                    this.AceptaTerminosCondicionesField = value;
+                    this.RaisePropertyChanged("AceptaTerminosCondiciones");
+                }
             }
         }
         
@@ -1103,6 +1146,19 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DestinatariosFeedback {
+            get {
+                return this.DestinatariosFeedbackField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DestinatariosFeedbackField, value) != true)) {
+                    this.DestinatariosFeedbackField = value;
+                    this.RaisePropertyChanged("DestinatariosFeedback");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int DiasAntes {
             get {
                 return this.DiasAntesField;
@@ -1111,6 +1167,19 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
                 if ((this.DiasAntesField.Equals(value) != true)) {
                     this.DiasAntesField = value;
                     this.RaisePropertyChanged("DiasAntes");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int DiasCierre {
+            get {
+                return this.DiasCierreField;
+            }
+            set {
+                if ((this.DiasCierreField.Equals(value) != true)) {
+                    this.DiasCierreField = value;
+                    this.RaisePropertyChanged("DiasCierre");
                 }
             }
         }
@@ -1454,6 +1523,19 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FechaVencimiento {
+            get {
+                return this.FechaVencimientoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FechaVencimientoField, value) != true)) {
+                    this.FechaVencimientoField = value;
+                    this.RaisePropertyChanged("FechaVencimiento");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string FlagActivacionSuscripcion {
             get {
                 return this.FlagActivacionSuscripcionField;
@@ -1462,6 +1544,84 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
                 if ((object.ReferenceEquals(this.FlagActivacionSuscripcionField, value) != true)) {
                     this.FlagActivacionSuscripcionField = value;
                     this.RaisePropertyChanged("FlagActivacionSuscripcion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FotoPerfil {
+            get {
+                return this.FotoPerfilField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FotoPerfilField, value) != true)) {
+                    this.FotoPerfilField = value;
+                    this.RaisePropertyChanged("FotoPerfil");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string GPRBannerMensaje {
+            get {
+                return this.GPRBannerMensajeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.GPRBannerMensajeField, value) != true)) {
+                    this.GPRBannerMensajeField = value;
+                    this.RaisePropertyChanged("GPRBannerMensaje");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string GPRBannerTitulo {
+            get {
+                return this.GPRBannerTituloField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.GPRBannerTituloField, value) != true)) {
+                    this.GPRBannerTituloField = value;
+                    this.RaisePropertyChanged("GPRBannerTitulo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Portal.Consultoras.Common.Enumeradores.RechazoBannerUrl GPRBannerUrl {
+            get {
+                return this.GPRBannerUrlField;
+            }
+            set {
+                if ((this.GPRBannerUrlField.Equals(value) != true)) {
+                    this.GPRBannerUrlField = value;
+                    this.RaisePropertyChanged("GPRBannerUrl");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool GPRMostrarBannerRechazo {
+            get {
+                return this.GPRMostrarBannerRechazoField;
+            }
+            set {
+                if ((this.GPRMostrarBannerRechazoField.Equals(value) != true)) {
+                    this.GPRMostrarBannerRechazoField = value;
+                    this.RaisePropertyChanged("GPRMostrarBannerRechazo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string GPRTextovinculo {
+            get {
+                return this.GPRTextovinculoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.GPRTextovinculoField, value) != true)) {
+                    this.GPRTextovinculoField = value;
+                    this.RaisePropertyChanged("GPRTextovinculo");
                 }
             }
         }

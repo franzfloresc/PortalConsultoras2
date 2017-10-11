@@ -18,36 +18,19 @@ namespace Portal.Consultoras.Web.WebPages
             if (IsPostBack) return;
 
             var dataQueryString = Request.QueryString["data"];
-            if (dataQueryString != null)
-            {                
-                CargarSessionConsultora(dataQueryString);
-
-                var campania = Request.QueryString["campania"];
-                int paisID = Convert.ToInt32(ViewState["PAIS"]);
-
-                if (campania != null)
-                {                    
-                    string codigoConsultora = Convert.ToString(ViewState["CODIGO"]);
-                    string paisISO = Convert.ToString(ViewState["PAISISO"]);
-
-                    BETracking bETracking = new BETracking();
-                    using (PedidoServiceClient sv = new PedidoServiceClient())
-                    {
-                        bETracking = sv.GetPedidoByConsultoraAndCampania(paisID, codigoConsultora, Convert.ToInt32(campania));
-                    }
-                    
-                    pnlNovedadesEntrega.Visible = true;
-                    pnlNovedadesPostVenta.Visible = false;
-                    HtmlTableCell row1 = (HtmlTableCell)vTracking.FindControl("cellPedidos");
-                    row1.Style.Add("display", "none");                    
-
-                    CargarSeguimientoPedido(paisID, codigoConsultora, campania, bETracking.Fecha.HasValue ? bETracking.Fecha.Value : DateTime.Now, bETracking.NumeroPedido, paisISO, bETracking.Estado);
-                }
-
-                lnkPoliticasVenta.Visible = paisID == Util.GetPaisID("CO");
+            if (dataQueryString == null)
+            {
+                Response.Redirect("~/WebPages/UserUnknownLogin.aspx");
+                return;
             }
-            else Response.Redirect("~/WebPages/UserUnknownLogin.aspx");
 
+            if (!CargarSessionConsultora(dataQueryString)) return;
+
+            var campania = Request.QueryString["campania"];
+            var nroPedido = Request.QueryString["nroPedido"];
+
+            if (campania == null) CargarTablasMaestras();
+            else CargarPedidoEspecifico(campania, nroPedido);
         }
 
         protected void gridPedidos_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -63,9 +46,9 @@ namespace Portal.Consultoras.Web.WebPages
 
                 int paisID = Convert.ToInt32(ViewState["PAIS"]);
                 string codigo = Convert.ToString(ViewState["CODIGO"]);
+                string paisISO = Convert.ToString(ViewState["PAISISO"]);
                 string campana = lblCampana.Text;
                 string nropedido = lblNumeroPedido.Text;
-                string paisISO = Util.GetPaisISO(paisID);
                 string estado = lblEstado.Text;
                 DateTime fecha = Convert.ToDateTime(lblFecha.Text);
 
@@ -255,7 +238,7 @@ namespace Portal.Consultoras.Web.WebPages
 
         }
 
-        public void CargarSessionConsultora(string encriptado)
+        private bool CargarSessionConsultora(string encriptado)
         {
             try
             {
@@ -266,7 +249,7 @@ namespace Portal.Consultoras.Web.WebPages
                 {
                     lblMensaje.Visible = true;
                     lblMensaje.Text = "El medio que envie la informacion en modo seguro, esta enviando de forma incorrecta. Notifique al área de tecnologia correspondiente. Gracias + Error: len de los datos=" + query.Length.ToString();
-                    return;
+                    return false;
                 }
 
                 int paisID = Convert.ToInt32(query[0]);
@@ -279,18 +262,36 @@ namespace Portal.Consultoras.Web.WebPages
                 ViewState["PAIS"] = paisID;
                 ViewState["PAISISO"] = paisISO;
                 ViewState["CAMPANHAID"] = campanhaID;
+                ViewState["MOSTRARAYUDA"] = mostrarAyuda;
+                return true;
+            }
+            catch (Exception ex)
+            {
+                lblMensaje.Visible = true;
+                lblMensaje.Text = ex.Message;
+                return false;
+            }
+        }
+
+        private void CargarTablasMaestras()
+        {
+            try
+            {
+                int paisID = Convert.ToInt32(ViewState["PAIS"]);
+                string codigoConsultora = Convert.ToString(ViewState["CODIGO"]);
+                string paisISO = Convert.ToString(ViewState["PAISISO"]);
+                int campanhaID = Convert.ToInt32(ViewState["CAMPANHAID"]);
+                int mostrarAyuda = Convert.ToInt32(ViewState["MOSTRARAYUDA"]);
 
                 CargarPedidos(paisID, codigoConsultora, paisISO, campanhaID);
                 if (paisISO == "CO")
                 {
+                    lnkPoliticasVenta.Visible = true;
                     pPostVenta.Visible = true;
                     CargarPostVenta(paisID, codigoConsultora);
-
                 }
 
                 MostrarAyuda(mostrarAyuda);
-
-                lblMensaje.Visible = false;
             }
             catch (Exception ex)
             {
@@ -299,23 +300,27 @@ namespace Portal.Consultoras.Web.WebPages
             }
         }
 
-        public void CargarPedidos(int paisID, string codigo, string paisISO, int campanhaID)
+        private void CargarPedidoEspecifico(string campania, string nroPedido)
         {
+            if (nroPedido == "0") nroPedido = null;
             try
             {
-                IList<BETracking> pedidos = new List<BETracking>();
-                List<BETracking> listaPedidos = new List<BETracking>();
+                int paisID = Convert.ToInt32(ViewState["PAIS"]);
+                string codigoConsultora = Convert.ToString(ViewState["CODIGO"]);
+                string paisISO = Convert.ToString(ViewState["PAISISO"]);
 
+                BETracking bETracking = new BETracking();
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    pedidos = sv.GetPedidosByConsultora(paisID, codigo);
+                    bETracking = sv.GetPedidoByConsultoraAndCampaniaAndNroPedido(paisID, codigoConsultora, Convert.ToInt32(campania), nroPedido);
                 }
 
-                listaPedidos.AddRange(pedidos);
+                pnlNovedadesEntrega.Visible = true;
+                pnlNovedadesPostVenta.Visible = false;
+                HtmlTableCell row1 = (HtmlTableCell)vTracking.FindControl("cellPedidos");
+                row1.Style.Add("display", "none");
 
-                gridPedidos.DataSource = listaPedidos;
-                gridPedidos.DataBind();
-
+                CargarSeguimientoPedido(paisID, codigoConsultora, campania, bETracking.Fecha.HasValue ? bETracking.Fecha.Value : DateTime.Now, bETracking.NumeroPedido, paisISO, bETracking.Estado);
             }
             catch (Exception ex)
             {
@@ -324,29 +329,36 @@ namespace Portal.Consultoras.Web.WebPages
             }
         }
 
-        public void CargarPostVenta(int paisID, string codigo)
+        private void CargarPedidos(int paisID, string codigo, string paisISO, int campanhaID)
         {
-            try
+            IList<BETracking> pedidos = new List<BETracking>();
+            List<BETracking> listaPedidos = new List<BETracking>();
+
+            using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                IList<BEPostVenta> postVentas = new List<BEPostVenta>();
-                List<BEPostVenta> listaPostVenta = new List<BEPostVenta>();
-
-                using (PedidoServiceClient sv = new PedidoServiceClient())
-                {
-                    postVentas = sv.GetMisPostVentaByConsultora(paisID, codigo);
-                }
-
-                listaPostVenta.AddRange(postVentas);
-
-                gridPostVenta.DataSource = listaPostVenta;
-                gridPostVenta.DataBind();
-
+                pedidos = sv.GetPedidosByConsultora(paisID, codigo);
             }
-            catch (Exception ex)
+
+            listaPedidos.AddRange(pedidos);
+
+            gridPedidos.DataSource = listaPedidos;
+            gridPedidos.DataBind();
+        }
+
+        private void CargarPostVenta(int paisID, string codigo)
+        {
+            IList<BEPostVenta> postVentas = new List<BEPostVenta>();
+            List<BEPostVenta> listaPostVenta = new List<BEPostVenta>();
+
+            using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                lblMensaje.Visible = true;
-                lblMensaje.Text = ex.Message;
+                postVentas = sv.GetMisPostVentaByConsultora(paisID, codigo);
             }
+
+            listaPostVenta.AddRange(postVentas);
+
+            gridPostVenta.DataSource = listaPostVenta;
+            gridPostVenta.DataBind();
         }
 
         public void CargarSeguimientoPedido(int paisID, string codigo, string campana, DateTime fecha, string nropedido, string paisISO, string estado)

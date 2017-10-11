@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Data;
 using System.Text.RegularExpressions;
+
 using Portal.Consultoras.BizLogic.Cliente;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Data;
@@ -16,19 +17,23 @@ namespace Portal.Consultoras.BizLogic
         private readonly INotasBusinessLogic _notasBusinessLogic;
         private readonly IMovimientoBusinessLogic _movimientoBusinessLogic;
         private readonly IRecordatorioBusinessLogic _recordatorioBusinessLogic;
+        private readonly IClienteDBBusinessLogic _clienteDBBusinessLogic;
 
         public BLCliente() : this(new BLNotas(),
             new BLMovimiento(),
-            new BLRecordatorio())
+            new BLRecordatorio(),
+            new BLClienteDB())
         { }
 
         public BLCliente(INotasBusinessLogic notasBusinessLogic,
             IMovimientoBusinessLogic movimientoBusinessLogic,
-            IRecordatorioBusinessLogic recordatorioBusinessLogic)
+            IRecordatorioBusinessLogic recordatorioBusinessLogic,
+            IClienteDBBusinessLogic clienteDBBusinessLogic)
         {
             _notasBusinessLogic = notasBusinessLogic;
             _movimientoBusinessLogic = movimientoBusinessLogic;
             _recordatorioBusinessLogic = recordatorioBusinessLogic;
+            _clienteDBBusinessLogic = clienteDBBusinessLogic;
         }
 
         public int Insert(BECliente cliente)
@@ -58,12 +63,12 @@ namespace Portal.Consultoras.BizLogic
             return deleted;
         }
 
-        public IList<BECliente> SelectByConsultora(int paisID, long consultoraID)
+        public IList<BECliente> SelectByConsultora(int paisID, long consultoraID, int ClienteID = 0)
         {
             var clientes = new List<BECliente>();
             var DACliente = new DACliente(paisID);
 
-            using (IDataReader reader = DACliente.GetClienteByConsultora(consultoraID))
+            using (IDataReader reader = DACliente.GetClienteByConsultora(consultoraID, ClienteID))
                 while (reader.Read())
                 {
                     var cliente = new BECliente(reader);
@@ -93,7 +98,7 @@ namespace Portal.Consultoras.BizLogic
             var cliente = new BECliente();
             var DACliente = new DACliente(paisID);
 
-            using (IDataReader reader = DACliente.GetClienteByConsultora(consultoraID))
+            using (IDataReader reader = DACliente.GetClienteByConsultora(consultoraID, clienteID))
                 if (reader.Read())
                 {
                     cliente = new BECliente(reader);
@@ -281,13 +286,12 @@ namespace Portal.Consultoras.BizLogic
         /// <param name="consultoraID">Consultora Id</param>
         /// <param name="campaniaID">Campania Id</param>
         /// <returns></returns>
-        public List<BEClienteDB> SelectByConsultoraDB(int paisID, long consultoraID, int campaniaID)
+        public List<BEClienteDB> SelectByConsultoraDB(int paisID, long consultoraID, int campaniaID, int clienteID)
         {
-            var blClienteDB = new BLClienteDB();
-            //OBTENER CLIENTE CONSULTORA            var clienteTaskList = Task.Run(() => this.SelectByConsultora(paisID, consultoraID));
-            var recordatorioTaskList = Task.Run(() => _recordatorioBusinessLogic.Listar(paisID, consultoraID));
-            var notaTaskList = Task.Run(() => _notasBusinessLogic.Listar(paisID, consultoraID));
-            var clienteTaskCalc = Task.Run(() => this.GetClienteByConsultoraDetalle(paisID, consultoraID, campaniaID));
+            //OBTENER CLIENTE CONSULTORA            var clienteTaskList = Task.Run(() => this.SelectByConsultora(paisID, consultoraID, clienteID));
+            var recordatorioTaskList = Task.Run(() => _recordatorioBusinessLogic.Listar(paisID, consultoraID, (short)clienteID));
+            var notaTaskList = Task.Run(() => _notasBusinessLogic.Listar(paisID, consultoraID, (short)clienteID));
+            var clienteTaskCalc = Task.Run(() => this.GetClienteByConsultoraDetalle(paisID, consultoraID, campaniaID, clienteID));
 
             Task.WaitAll(clienteTaskList, recordatorioTaskList, notaTaskList, clienteTaskCalc);
 
@@ -298,7 +302,7 @@ namespace Portal.Consultoras.BizLogic
 
             //OBTENER CLIENTES Y TIPO CONTACTOS
             string strclientes = string.Join("|", lstConsultoraCliente.Select(x => x.CodigoCliente));
-            var lstCliente = blClienteDB.GetClienteByClienteID(strclientes, paisID);
+            var lstCliente = _clienteDBBusinessLogic.GetClienteByClienteID(strclientes, paisID);
             //ARMAR CONTACTOS POR CONSULTORA
             this.ContactoListar(lstConsultoraCliente, lstCliente);
             //CONSULTA FINAL
@@ -324,6 +328,7 @@ namespace Portal.Consultoras.BizLogic
                                 TipoContactoFavorito = tblConsultoraCliente.TipoContactoFavorito,
                                 Saldo = tblClienteDetalle.Saldo,
                                 CantidadProductos = tblClienteDetalle.CantidadProductos,
+                                MontoPedido = tblClienteDetalle.MontoPedido,
                                 Contactos = tblConsultoraCliente.Contactos,
                                 Recordatorios = recordatorios.Where(r => r.ClienteId == tblConsultoraCliente.ClienteID).ToList(),
                                 Notas = notas.Data.Where(r => r.ClienteId == tblConsultoraCliente.ClienteID).ToList()
@@ -332,18 +337,14 @@ namespace Portal.Consultoras.BizLogic
         }
         #endregion
 
-        private List<BECliente> GetClienteByConsultoraDetalle(int paisID, long consultoraID, int campaniaID)
+        private List<BECliente> GetClienteByConsultoraDetalle(int paisID, long consultoraID, int campaniaID, int clienteID)
         {
             var clientes = new List<BECliente>();
             var DACliente = new DACliente(paisID);
 
-            using (IDataReader reader = DACliente.GetClienteByConsultoraDetalle(consultoraID, campaniaID))
+            using (IDataReader reader = DACliente.GetClienteByConsultoraDetalle(consultoraID, campaniaID, clienteID))
             {
-                while (reader.Read())
-                {
-                    var cliente = new BECliente(reader);
-                    clientes.Add(cliente);
-                }
+                clientes = reader.MapToCollection<BECliente>();
             }
 
             return clientes;
@@ -573,7 +574,8 @@ namespace Portal.Consultoras.BizLogic
                 Celular = celular,
                 CodigoCliente = cliente.CodigoCliente,
                 Favorito = cliente.Favorito,
-                TipoContactoFavorito = cliente.TipoContactoFavorito
+                TipoContactoFavorito = cliente.TipoContactoFavorito,
+                Origen = cliente.Origen
             };
             if (cliente.ClienteID == 0)
             {

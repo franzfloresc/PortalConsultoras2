@@ -181,6 +181,9 @@ namespace Portal.Consultoras.Web.HojaInscripcionODS {
         private string CodigoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoRolField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private long ConsultoraIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -261,6 +264,19 @@ namespace Portal.Consultoras.Web.HojaInscripcionODS {
                 if ((object.ReferenceEquals(this.CodigoField, value) != true)) {
                     this.CodigoField = value;
                     this.RaisePropertyChanged("Codigo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoRol {
+            get {
+                return this.CodigoRolField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoRolField, value) != true)) {
+                    this.CodigoRolField = value;
+                    this.RaisePropertyChanged("CodigoRol");
                 }
             }
         }
