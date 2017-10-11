@@ -185,6 +185,10 @@ function SeccionMostrarProductos(data) {
             $("#" + data.Seccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
             $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
             $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeIn();
+
+            $("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-total]").html(data.lista.length);
+            $("#" + data.Seccion.Codigo).find("[data-productos-info]").fadeIn();
+            
         } else {
             $("#" + data.Seccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
             $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeOut();

@@ -23,6 +23,7 @@
 <div class="bc_plantilla_estrategia_personalizada"
      data-OrigenPedidoWeb=""
      data-seccion-productos="" 
+     data-plantilla="ShowRoom"
      style="@backgroundVenta;min-height: 500px; vertical-align: middle;">
 
     @if (mostrarPopupIntriga)
@@ -55,13 +56,13 @@
                     <div>
                         <div class="titulo">
                             <h2>@Model.Titulo</h2>
-							<div style="float:left;">
-								<div id="divCantProductos" class="cantidad_productos_resultado">
-									Te Mostramos <span id="spnCantidadFiltro">3</span> de <span id="spnCantidadTotal">@listaShowRom</span> <span> Productos</span>
-								</div>
-							</div>
                             <div class="boton-ir">
                                 <a href="/ShowRoom">VER TODOS LOS SETS</a>
+                            </div>
+                            <div style="float:right;">
+                                <div id="divCantProductos" class="cantidad_productos_resultado">
+                                    Te Mostramos <span id="spnCantidadFiltro">3</span> de <span id="spnCantidadTotal">@listaShowRom</span> <span> Productos</span>
+                                </div>
                             </div>
                         </div>
                         <div class="clear"></div>

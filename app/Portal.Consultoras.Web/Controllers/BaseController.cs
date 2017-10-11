@@ -3363,7 +3363,7 @@ namespace Portal.Consultoras.Web.Controllers
                     SubTitulo = isMobile ? entConf.MobileSubTitulo : entConf.DesktopSubTitulo,
                     TipoPresentacion = isMobile ? entConf.MobileTipoPresentacion : entConf.DesktopTipoPresentacion,
                     TipoEstrategia = isMobile ? entConf.MobileTipoEstrategia : entConf.DesktopTipoEstrategia,
-                    CantidadProductos = isMobile ? entConf.MobileCantidadProductos : entConf.DesktopCantidadProductos,
+                    CantidadMostrar = isMobile ? entConf.MobileCantidadProductos : entConf.DesktopCantidadProductos,
                     UrlLandig = "/" + (isMobile ? "Mobile/" : "") + entConf.UrlSeccion,
                     VerMas = true
                 };
@@ -3446,13 +3446,13 @@ namespace Portal.Consultoras.Web.Controllers
                     case Constantes.ConfiguracionSeccion.TipoPresentacion.SimpleCentrado:
                         seccion.TemplatePresentacion = "seccion-simple-centrado";
                         seccion.TemplateProducto = "#producto-landing-template";
-                        seccion.CantidadProductos = isMobile ? 1 : seccion.CantidadProductos > 3 || seccion.CantidadProductos <= 0 ? 3 : seccion.CantidadProductos;
+                        seccion.CantidadMostrar = isMobile ? 1 : seccion.CantidadMostrar > 3 || seccion.CantidadMostrar <= 0 ? 3 : seccion.CantidadMostrar;
                         break;
                     case Constantes.ConfiguracionSeccion.TipoPresentacion.Banners:
                         seccion.TemplatePresentacion = "seccion-banner";
                         seccion.Titulo = "";
                         seccion.SubTitulo = "";
-                        seccion.CantidadProductos = 0;
+                        seccion.CantidadMostrar = 0;
                         break;
                     case Constantes.ConfiguracionSeccion.TipoPresentacion.ShowRoom:
                         if (sessionManager.GetEsShowRoom())

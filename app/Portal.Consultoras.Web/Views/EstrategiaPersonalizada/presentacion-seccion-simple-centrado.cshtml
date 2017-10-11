@@ -5,8 +5,8 @@
         margin-top: 15px !important;
     }
 </style>
-<div class="bc_plantilla_estrategia_personalizada" style="background: url(@Model.ImagenFondo) center center no-repeat;
-    background-position: center !important; min-height: 500px;vertical-align: middle;">
+<div class="bc_plantilla_estrategia_personalizada" style="background: url(@Model.ImagenFondo) center center no-repeat; background-position: center !important; min-height: 500px;vertical-align: middle;"
+     data-plantilla="simple-centrado">
     <div class="content_estrategia_carrusel">
         <div class="titulo">
             @if (Model.Titulo != "")
@@ -19,6 +19,11 @@
                     <a href="javascript: window.location.href = '@Model.UrlLandig'">VER MÁS OFERTAS</a>
                 </div>
             }
+            <div style="float:right; display:none;" data-productos-info="">
+                <div id="divCantProductos" class="cantidad_productos_resultado">
+                    Te Mostramos <span data-productos-mostrar="">@Model.CantidadMostrar</span> de <span data-productos-total="">@Model.CantidadProductos</span> <span> Productos</span>
+                </div>
+            </div>
         </div>
         <div class="clear"></div>
         <div class="contenido" data-seccion-productos=""></div>
