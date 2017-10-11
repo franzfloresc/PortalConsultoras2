@@ -3257,7 +3257,7 @@ function MostrarPopupInicial() {
             break;
         case popupRevistaDigitalSuscripcion:
             PopupMostrar('PopRDSuscripcion');
-            MostrarPopupRDAnalytics();
+            rdAnalyticsModule.MostrarPopup();
             break;
         case popupCupon:
             cuponModule.mostrarPopupGana();

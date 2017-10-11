@@ -128,10 +128,10 @@
 
                     function onPlayerStateChange(event) {
                         if (event.data == YT.PlayerState.PLAYING) {
-                            CompartirProductoRDAnalytics("YTI", player.getVideoUrl(), "@Model.DescripcionResumen");
+                            rdAnalyticsModule.CompartirProducto("YTI", player.getVideoUrl(), "@Model.DescripcionResumen");
                         }
                         if (event.data == YT.PlayerState.ENDED) {
-                            CompartirProductoRDAnalytics("YTF", player.getVideoUrl(), "@Model.DescripcionResumen");
+                            rdAnalyticsModule.CompartirProducto("YTF", player.getVideoUrl(), "@Model.DescripcionResumen");
                         }
                     }
 
