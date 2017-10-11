@@ -2199,9 +2199,9 @@ namespace Portal.Consultoras.Service
         {
             return _consultoraConcursoBusinessLogic.ListConcursosByCampania(paisId, codigoCampania, codigoCampania, tipoConcurso, codigoConsultora);
         }
-        public List<BEIncentivoConcurso> ObtenerIncentivosConsultora(int paisID, string codigoConsultora, int codigoCampania)
+        public List<BEIncentivoConcurso> ObtenerIncentivosConsultora(int paisID, string codigoConsultora, int codigoCampania, long ConsultoraID)
         {
-            return _consultoraConcursoBusinessLogic.ObtenerIncentivosConsultora(paisID, codigoConsultora, codigoCampania);
+            return _consultoraConcursoBusinessLogic.ObtenerIncentivosConsultora(paisID, codigoConsultora, codigoCampania, ConsultoraID);
         }
 
         public List<BEIncentivoConcurso> ObtenerIncentivosHistorico(int paisID, string codigoConsultora, int codigoCampania)
