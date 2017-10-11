@@ -27,6 +27,7 @@ using System.Web;
 using Microsoft.Ajax.Utilities;
 using ConsultoraBE = Portal.Consultoras.Web.HojaInscripcionBelcorpPais.ConsultoraBE;
 using Portal.Consultoras.Web.ServiceODS;
+using Portal.Consultoras.Web.ServiceSAC;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -309,7 +310,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                     }
 
-                  
+
                 }
             }
 
@@ -502,7 +503,7 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 Nombre = item.ZonaSeccion,
                                 Descripcion = item.NivelRiesgo,
-                                Valor =  item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Bajo ? Enumeradores.TipoNivelesRiesgo.Bajo.ToInt()
+                                Valor = item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Bajo ? Enumeradores.TipoNivelesRiesgo.Bajo.ToInt()
                                                                   : item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Medio ? Enumeradores.TipoNivelesRiesgo.Medio.ToInt()
                                                                   : item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Alto ? Enumeradores.TipoNivelesRiesgo.Alto.ToInt()
                                                                   : Enumeradores.TipoNivelesRiesgo.Otro.ToInt(),
@@ -639,7 +640,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, "xml","xnmkl");
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "xml", "xnmkl");
                 IsCorrect = false;
             }
             return list;
@@ -972,7 +973,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     #endregion
 
- 
+
 
                     if (listaUbigeo.Count > 0)
                     {
@@ -1082,6 +1083,16 @@ namespace Portal.Consultoras.Web.Controllers
                     consultora = sv.ObtenerConsultoraPorCodigo(codigoISO, codigo);
                 }
             }
+            using (SACServiceClient sv = new SACServiceClient())
+            {
+                model.ListaTipoVinculoFamiliar = sv.GetTablaLogicaDatos(UserData().PaisID, 36).ToList();
+            }
+            if (model.TipoVinculoFamiliar.HasValue && model.TipoVinculoFamiliar.Value != 0)
+            {
+                var tipo = model.ListaTipoVinculoFamiliar.Where(m => m.Codigo == model.TipoVinculoFamiliar.Value.ToString()).Single();
+                model.VinculoFamiliar = tipo != null ? tipo.Descripcion : "";
+            }
+
 
 
             return Json(consultora != null ? consultora.NombreCompleto : string.Empty, JsonRequestBehavior.AllowGet);
@@ -5596,15 +5607,16 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult ReporteFunnel()
         {
             ViewBag.HTMLSACUnete = getHTMLSACUnete("ReporteFunnel", null);
-            return View();
-        }       
+            return new EmptyResult();
+        }
 
         public ActionResult ExportarExcelReporteConsolidado(string PrefijoISOPais, string FechaDesde, string FechaHasta, string Region, string Zona, string Seccion, string NombreReporte)
         {
 
             using (var sv = new PortalServiceClient())
             {
-                List<ReporteConsolidadoBE> resultado = sv.ObtenerReporteConsolidadoFiltro(new ReporteConsolidadoModelSAC() {
+                List<ReporteConsolidadoBE> resultado = sv.ObtenerReporteConsolidadoFiltro(new ReporteConsolidadoModelSAC()
+                {
 
                     CodigoIso = CodigoISO,
                     FechaDesde = FechaDesde,
@@ -5612,11 +5624,11 @@ namespace Portal.Consultoras.Web.Controllers
                     Zona = Zona,
                     Region = Region,
                     Seccion = Seccion
-                } ).ToList();
+                }).ToList();
 
                 Dictionary<string, string> dic = sv.GetDictionaryReporteConsolidado();
-                Util.ExportToExcel(NombreReporte, resultado, dic); 
-             
+                Util.ExportToExcel(NombreReporte, resultado, dic);
+
                 return null;
 
             }
@@ -5639,9 +5651,9 @@ namespace Portal.Consultoras.Web.Controllers
             //dic.Add("ACC", "ACC");
             //dic.Add("Totales", "Totales");
 
-          
+
         }
-        
+
         private BEPager Paginador<T>(BEGrid item, List<T> lst)
         {
             BEPager pag = new BEPager();
@@ -5706,7 +5718,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (var sv = new PortalServiceClient())
                 {
-                  var   data = sv.ConsultarReporteConsolidado(model);
+                    var data = sv.ConsultarReporteConsolidado(model);
                     return Json(data, JsonRequestBehavior.AllowGet);
                 }
             }
@@ -5714,46 +5726,46 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 ErrorUtilities.AddLog(ex);
                 return Json(new ReporteConsolidadoPag(), JsonRequestBehavior.AllowGet);
-            } 
+            }
 
 
-         
+
         }
 
 
         //private List<ReporteConsolidadoBE> ObtenerReporteConsolidadoFiltro(ReporteConsolidadoModel model)
         //{
-          //  List<ReporteConsolidadoBE> listaReporteConsolidado;
+        //  List<ReporteConsolidadoBE> listaReporteConsolidado;
 
-            //DateTime? fechaDesde = string.IsNullOrWhiteSpace(model.FechaDesde)
-            //  ? default(DateTime?)
-            //  : DateTime.ParseExact(model.FechaDesde, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            //DateTime? fechaHasta = string.IsNullOrWhiteSpace(model.FechaHasta)
-            //    ? default(DateTime?)
-            //    : DateTime.ParseExact(model.FechaHasta, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+        //DateTime? fechaDesde = string.IsNullOrWhiteSpace(model.FechaDesde)
+        //  ? default(DateTime?)
+        //  : DateTime.ParseExact(model.FechaDesde, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+        //DateTime? fechaHasta = string.IsNullOrWhiteSpace(model.FechaHasta)
+        //    ? default(DateTime?)
+        //    : DateTime.ParseExact(model.FechaHasta, "dd/MM/yyyy", CultureInfo.InvariantCulture);
 
-            //string codigozona = string.IsNullOrEmpty(model.Zona) ? string.Empty : model.Zona;
-            //string codigoRegion = string.IsNullOrEmpty(model.Region) ? string.Empty : model.Region;
-            //string codigoSeccion = string.IsNullOrEmpty(model.Seccion) ? string.Empty : model.Seccion;
+        //string codigozona = string.IsNullOrEmpty(model.Zona) ? string.Empty : model.Zona;
+        //string codigoRegion = string.IsNullOrEmpty(model.Region) ? string.Empty : model.Region;
+        //string codigoSeccion = string.IsNullOrEmpty(model.Seccion) ? string.Empty : model.Seccion;
 
 
-            //ReporteConsolidadoParameter objReporteConsolidadoParameter = new ReporteConsolidadoParameter
-            //{
-            //    Aplicacion = EnumsAplicacion.HerramientaGestionSAC,
-            //    CodigoIso = CodigoISO,
-            //    FechaDesde = fechaDesde,
-            //    FechaHasta = fechaHasta,
-            //    Zona = codigozona,
-            //    Region = codigoRegion,
-            //    Seccion = codigoSeccion
+        //ReporteConsolidadoParameter objReporteConsolidadoParameter = new ReporteConsolidadoParameter
+        //{
+        //    Aplicacion = EnumsAplicacion.HerramientaGestionSAC,
+        //    CodigoIso = CodigoISO,
+        //    FechaDesde = fechaDesde,
+        //    FechaHasta = fechaHasta,
+        //    Zona = codigozona,
+        //    Region = codigoRegion,
+        //    Seccion = codigoSeccion
 
-            //};
+        //};
 
-            //using (var sv = new PortalServiceClient())
-            //{
-            //    listaReporteConsolidado = sv.ObtenerReporteConsolidado(objReporteConsolidadoParameter);
-            //}
-            //return listaReporteConsolidado;
+        //using (var sv = new PortalServiceClient())
+        //{
+        //    listaReporteConsolidado = sv.ObtenerReporteConsolidado(objReporteConsolidadoParameter);
+        //}
+        //return listaReporteConsolidado;
         //    return null;
         //}
 
@@ -5768,7 +5780,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult GetReporteFuenteIngresoSearch(string CampaniaInicio, string CampaniaFin)
         {
-            var result = GetReporteFuenteIngreso(CampaniaInicio, CampaniaFin);  
+            var result = GetReporteFuenteIngreso(CampaniaInicio, CampaniaFin);
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
@@ -5798,10 +5810,10 @@ namespace Portal.Consultoras.Web.Controllers
             return Result;
         }
 
-        public ActionResult ExportarExcelFuenteIngreso(string CampaniaInicio, string CampaniaFin,string NombreReporte)
+        public ActionResult ExportarExcelFuenteIngreso(string CampaniaInicio, string CampaniaFin, string NombreReporte)
         {
- 
-           var solicitudes = GetReporteFuenteIngreso(CampaniaInicio, CampaniaFin);
+
+            var solicitudes = GetReporteFuenteIngreso(CampaniaInicio, CampaniaFin);
 
             Dictionary<string, string> dic = new Dictionary<string, string>();
 
@@ -5811,13 +5823,13 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             // Util.ExportToExcel("ReporteFuenteIngreso", solicitudes, dic);
-            Util.ExportToExcel(NombreReporte, solicitudes, dic); 
-            return View();
+            Util.ExportToExcel(NombreReporte, solicitudes, dic);
+            return new EmptyResult();
         }
 
 
         public string getHTMLSACUnete(string Action, string URLParams)
-        {        
+        {
             string UrlSACUente = ConfigurationManager.AppSettings["UneteURL"]; //"http://localhost:36852/SAC";
             string responseHTML = string.Empty;
             string url = string.Format("{0}/{1}?p={2}", UrlSACUente, Action, CodigoISO);
@@ -5841,12 +5853,12 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         public string PostHTMLSACUnete(string Action, object model)
-        { 
+        {
             var myContent = JsonConvert.SerializeObject(model);
             var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
             var byteContent = new ByteArrayContent(buffer);
-            byteContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json"); 
- 
+            byteContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+
             string UrlSACUente = ConfigurationManager.AppSettings["UneteURL"]; //"http://localhost:36852/SAC";
             string responseHTML = string.Empty;
             string url = string.Format("{0}/{1}", UrlSACUente, Action);
@@ -5865,14 +5877,14 @@ namespace Portal.Consultoras.Web.Controllers
             {
 
                 ErrorUtilities.AddLog(ex);
-            } 
+            }
 
             return responseHTML;
 
         }
 
-  
+
     }
 
- 
+
 }

@@ -13,6 +13,7 @@
     var validacionTipoRucEmpresa = false;
 
     var HideCaribe = Model.CodigoPais == "DO" || Model.CodigoPais == "PR" ? "HideCaribe" : "";
+    var HideIconoDatosAval = Model.CodigoPais != "EC" ? "HideIconoDatosAval" : "";
 }
 
 <style>
@@ -99,120 +100,132 @@
         <div class="contenido_popUp eliminarCliente">
 
 
-
-            <div class="div-3 estilo2">
-                <div class="filterEdit">
-                    <div class="">
-                        Datos del Postulante
-                    </div>
-                </div>
-            </div>
-
-            @Html.Partial(Dictionaries.TemplatDatosGenerales[Model.CodigoPais], Model)
-
-
-          <div class="div-3 estilo2">
-                <div class="filterEdit">
-                    <div class="">
-                     Informacion Adicional del Postulante
-                    </div>
-                </div>
-            </div>
-            <div class="div-3 estilo2 @HideCaribe">
-                <div class="filterEdit">
-                    <div class="selectP2 seleccion_pagina textboxSBEdit2">
-                        @Html.DropDownListFor(m => m.EstadoCivil, estadosCiviles, "Estado civil", new { @class = "field_85 textboxSBEdit" })
-                    </div>
-                </div>
-                <div class="filterEdit">
-                    <div class="selectP2 seleccion_pagina textboxSBEdit2">
-                        @Html.DropDownListFor(m => m.NivelEducativo, nivelesEducativos, "Nivel educativo", new { @class = "field_85 textboxSBEdit" })
-                    </div>
-                </div>
-
-                @if (Model.CodigoPais != "MX")
-                {
+            <div id="DatosPersonalesPostulante">
+                <span id="iconoPersonalAcordion"  class="iconoFlechaAcordion @HideIconoDatosAval">Datos Aval</span>
+                <div class="div-3 estilo2">
                     <div class="filterEdit">
-                        <div class="selectP2 seleccion_pagina textboxSBEdit2">
-                            @Html.DropDownListFor(m => m.TipoNacionalidad, tiposNacionalidad, "Nacionalidad", new { @class = "field_85 textboxSBEdit" })
+                        <div class="">
+                            Datos del Postulante
                         </div>
                     </div>
+                </div>
+
+                @Html.Partial(Dictionaries.TemplatDatosGenerales[Model.CodigoPais], Model)
+
+
+                <div class="div-3 estilo2">
+                    <div class="filterEdit">
+                        <div class="">
+                            Informacion Adicional del Postulante
+                        </div>
+                    </div>
+                </div>
+                <div class="div-3 estilo2 @HideCaribe">
+                    <div class="filterEdit">
+                        <div class="selectP2 seleccion_pagina textboxSBEdit2">
+                            @Html.DropDownListFor(m => m.EstadoCivil, estadosCiviles, "Estado civil", new { @class = "field_85 textboxSBEdit" })
+                        </div>
+                    </div>
+                    <div class="filterEdit">
+                        <div class="selectP2 seleccion_pagina textboxSBEdit2">
+                            @Html.DropDownListFor(m => m.NivelEducativo, nivelesEducativos, "Nivel educativo", new { @class = "field_85 textboxSBEdit" })
+                        </div>
+                    </div>
+
+                    @if (Model.CodigoPais != "MX")
+                {
+                <div class="filterEdit">
+                    <div class="selectP2 seleccion_pagina textboxSBEdit2">
+                        @Html.DropDownListFor(m => m.TipoNacionalidad, tiposNacionalidad, "Nacionalidad", new { @class = "field_85 textboxSBEdit" })
+                    </div>
+                </div>
                 }
                 else
                 {
-                    <div class="filterEdit">
-                        <div class="selectP2 seleccion_pagina textboxSBEdit2">
-                            @Html.DropDownListFor(m => m.TipoContacto, tiposContacto, "Como llego a nosotros", new { @class = "field_85 textboxSBEdit" })
-                        </div>
+                <div class="filterEdit">
+                    <div class="selectP2 seleccion_pagina textboxSBEdit2">
+                        @Html.DropDownListFor(m => m.TipoContacto, tiposContacto, "Como llego a nosotros", new { @class = "field_85 textboxSBEdit" })
                     </div>
+                </div>
                 }
 
-            </div>
-            <div class="div-3 div_3_fix estilo2 @HideCaribe">
-                <div class="validation_clear"></div>
-                <div class="validation">
-                    @Html.ValidationMessageFor(m => m.EstadoCivil)
                 </div>
-                <div class="validation_clear"></div>
-                <div class="validation">
-                    @Html.ValidationMessageFor(m => m.NivelEducativo)
+                <div class="div-3 div_3_fix estilo2 @HideCaribe">
+                    <div class="validation_clear"></div>
+                    <div class="validation">
+                        @Html.ValidationMessageFor(m => m.EstadoCivil)
+                    </div>
+                    <div class="validation_clear"></div>
+                    <div class="validation">
+                        @Html.ValidationMessageFor(m => m.NivelEducativo)
+                    </div>
+                    <div class="validation_clear"></div>
+                    <div class="validation">
+                        @Html.ValidationMessageFor(m => m.TipoNacionalidad)
+                    </div>
                 </div>
-                <div class="validation_clear"></div>
-                <div class="validation">
-                    @Html.ValidationMessageFor(m => m.TipoNacionalidad)
-                </div>
-            </div>
 
-            <div class="div-3 estilo2">
+                <div class="div-3 estilo2">
 
-                @if (Model.CodigoPais != "MX")
+                    @if (Model.CodigoPais != "MX")
                 {
-                 
 
 
-                        <div class="filterEdit  @HideCaribe">
-                            <div class="selectP2 seleccion_pagina textboxSBEdit2">
-                                @Html.DropDownListFor(m => m.TipoContacto, tiposContacto, "Como llego a nosotros", new { @class = "field_85 textboxSBEdit" })
-                            </div>
-                        </div>
-                        <div class="filterEdit">
-                            <div class="selectP2 seleccion_pagina textboxSBEdit2">
-                                @Html.TextBoxFor(m => m.CodigoConsultoraRecomienda, new { @class = "numero field_85 textboxSB", @placeholder = "Consultora que recomienda" }   )
-                            </div>
-                        </div>
 
-                        <div class="filterEdit">
-                            <div class="selectP2 seleccion_pagina textboxSBEdit2">
-                                @Html.TextBoxFor(m => m.NombreConsultoraRecomienda, new { @class = "texto rfcSearch textboxSB", @placeholder = "Nombre de la consultora", @readonly = "true" })
-                            </div>
-                        </div>
+                <div class="filterEdit  @HideCaribe">
+                    <div class="selectP2 seleccion_pagina textboxSBEdit2">
+                        @Html.DropDownListFor(m => m.TipoContacto, tiposContacto, "Como llego a nosotros", new { @class = "field_85 textboxSBEdit" })
+                    </div>
+                </div>
+                <div class="filterEdit">
+                    <div class="selectP2 seleccion_pagina textboxSBEdit2">
+                        @Html.TextBoxFor(m => m.CodigoConsultoraRecomienda, new { @class = "numero field_85 textboxSB", @placeholder = "Consultora que recomienda" }   )
+                    </div>
+                </div>
+
+                <div class="filterEdit">
+                    <div class="selectP2 seleccion_pagina textboxSBEdit2">
+                        @Html.TextBoxFor(m => m.NombreConsultoraRecomienda, new { @class = "texto rfcSearch textboxSB", @placeholder = "Nombre de la consultora", @readonly = "true" })
+                    </div>
+                </div>
                 }
                 else
                 {
-                     
-                        <div class="filterEdit">
-                            <div class="selectP2 seleccion_pagina textboxSBEdit2">
-                                @Html.TextBoxFor(m => m.CodigoConsultoraRecomienda, new { @class = "numero field_85 textboxSB", @placeholder = "Consultora que recomienda" })
-                            </div>
-                        </div>
+
+                <div class="filterEdit">
+                    <div class="selectP2 seleccion_pagina textboxSBEdit2">
+                        @Html.TextBoxFor(m => m.CodigoConsultoraRecomienda, new { @class = "numero field_85 textboxSB", @placeholder = "Consultora que recomienda" })
+                    </div>
+                </div>
 
                 }
 
 
-               
+
+                </div>
             </div>
+            <div id="DatosAvalPostulante" style="display:none;">
+                <span id="iconoAvalAcordion" class="iconoFlechaAcordion @HideIconoDatosAval">Datos Postulante</span>
+                <div class="div-3 estilo2">
+                    <div class="filterEdit">
+                        <div class="">
+                            Datos de Aval
+                        </div>
+                    </div>
+                </div>
 
-
+                @Html.Partial(Dictionaries.TemplatDatosAval[Model.CodigoPais], Model)
+            </div>
             <div class="btn_grupo_eliminarCliente" style="width:90%; margin-left:5%; display:inline-block; margin-top:10px;">
-                    @if (!Model.ModoLectura)
-                    {
-               <input type="submit" class="btn_noEliminarCliente btnEditSolic" id="btnGuardar" value="Guardar" />
+                @if (!Model.ModoLectura)
+                {
+                    <input type="submit" class="btn_noEliminarCliente btnEditSolic" id="btnGuardar" value="Guardar" />
 
-                    }
+                }
                 <button type="button" name="btn_noEliminarCliente" class="btn_noEliminarCliente btnEditSolic" onclick="closeModalEditar()" id="btnCancelar">Cancelar </button>
             </div>
 
-        </div>
+            </div>
     </div>
 
 
@@ -323,6 +336,18 @@
         user agent stylesheet input, textarea, keygen, select, button, meter, progress {
             -webkit-writing-mode: horizontal-tb;
         }
+
+        .iconoFlechaAcordion {
+            position: relative;
+            float: right;
+            right: 50px;
+            font-size: 8px;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        .HideIconoDatosAval {
+            display: none !important;
+        }
     </style>
 
 
@@ -356,6 +381,16 @@
     }, 'El texto ingresado no es un documento valido');
 
     $(document).ready(function () {
+        function showDatosAval() {
+            $("#DatosPersonalesPostulante").slideUp();
+            $("#DatosAvalPostulante").slideDown();
+        }
+        function showDatosPersonales() {
+            $("#DatosAvalPostulante").slideUp();
+            $("#DatosPersonalesPostulante").slideDown();
+        }
+        $(document).on('click', '#iconoAvalAcordion', showDatosPersonales);
+        $(document).on('click', '#iconoPersonalAcordion', showDatosAval);
     });
 
     $(function () {

@@ -2,7 +2,7 @@ node {
     try {    
         ws("workspace/${env.JOB_NAME}") {
             stage('Start') {
-                notify('Job started')
+                notifyBuild('STARTED')
             }
             stage('Clean') {
                 step([$class: 'WsCleanup'])
@@ -12,72 +12,89 @@ node {
             }
             stage('Sonar') {
                 def sqScannerMsBuildHome = tool 'sonar-scanner-msbuild'
+                def sqScannerHome = tool 'sonar-scanner'
                 def msBuildHome = tool 'msbuild'
                 def branchName = env.BRANCH_NAME.capitalize()
                 withSonarQubeEnv('Sonar Qube Server') {
                     dir('app') {
                         bat ".\\.nuget\\Nuget.exe restore"
-                        bat "${sqScannerMsBuildHome}\\SonarQube.Scanner.MSBuild.exe begin /k:portal.consultoras /n:\"Consultoras - Web - ${branchName}\" /v:1.0 /d:sonar.host.url=%SONAR_HOST_URL% /d:sonar.login=%SONAR_AUTH_TOKEN% /d:sonar.branch=${branchName} /d:sonar.inclusions=**/*.cs"
+                        bat "${sqScannerMsBuildHome}\\SonarQube.Scanner.MSBuild.exe begin /k:portal.consultoras /n:\"Consultoras - Web - \" /d:sonar.host.url=%SONAR_HOST_URL% /d:sonar.login=%SONAR_AUTH_TOKEN% /d:sonar.branch=${branchName} /d:sonar.inclusions=**/*.cs"
                         bat "\"${msBuildHome}\"\\MSBuild.exe /t:Rebuild"
                         bat "${sqScannerMsBuildHome}\\SonarQube.Scanner.MSBuild.exe end"
+                        bat "${sqScannerHome}\\sonar-scanner.bat -Dsonar.host.url=%SONAR_HOST_URL% -Dsonar.login=%SONAR_AUTH_TOKEN% -Dsonar.branch=${branchName} -Dproject.settings=../sonar-project-js.properties"
+                        bat "${sqScannerHome}\\sonar-scanner.bat -Dsonar.host.url=%SONAR_HOST_URL% -Dsonar.login=%SONAR_AUTH_TOKEN% -Dsonar.branch=${branchName} -Dproject.settings=../sonar-project-css.properties"
                     }
                 }
             }
-            stage('Mail') {
-                currentBuild.result = 'SUCCESS'
-                emailLog()
-            }
-           stage('Finish') {
-                notify('Job finished')
+            stage('Linting') {
+                bat "yarn install"
+                try {
+                    bat "npm run jslint"
+                } 
+                catch(error) {
+                    def patternHtml = "**/results/*-lint.html"
+                    archiveArtifacts "${patternHtml}"
+                    throw error
+                }
             }
         }
     }
     catch(error) {
         currentBuild.result = 'FAILURE'
-        notify(error)
-        emailLog()
+    }
+    stage('Finish') {
+        notifyBuild(currentBuild.result)
     }
 }
 
-def notify(status) {
-    def to = ""
-    def subject = "${status}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
-    def blueOceanBuildUrl = "${env.JENKINS_URL}blue/organizations/jenkins/${env.JOB_NAME}/detail/${env.JOB_NAME}/${env.BUILD_NUMBER}/pipeline"
-    def summary = "${subject} (${blueOceanBuildUrl})"
-    def details = """<p>${status}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
-        <p>Check console output at <a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a></p>"""
+def notifyBuild(String buildStatus = 'STARTED') {
+    // default build status in case is not passed as parameter
+    buildStatus = buildStatus ?: 'SUCCESS'
 
+    // variables and constants
+    def colorName = 'RED'
+    def colorCode = '#FF0000'
+    def from = 'jenkins@belcorp.biz'
+    def subject = "${buildStatus}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
+    def summary = "${subject} (${env.RUN_DISPLAY_URL})"
+    def details = "<p>${buildStatus}: Job <a href='${env.RUN_DISPLAY_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a></p>"
+
+    // override default values based on build status
+    if (buildStatus == 'STARTED') {
+        color = 'YELLOW'
+        colorCode = '#FFFF00'
+    } else if (buildStatus == 'SUCCESS') {
+        color = 'GREEN'
+        colorCode = '#00FF00'
+    } else {
+        color = 'RED'
+        colorCode = '#FF0000'
+    }
+
+    // send notifications
     slackSend (
+        color: colorCode,
         message: summary,
         channel: '#jenkins',
         teamDomain: 'arquitectura-td',
-        tokenCredentialId: 'arquitecturatd_slack_credentials'
-    )
-}
-
-def emailLog() {
-    email(
-        "ldiego@belcorp.biz, jdongo@belcorp.biz, carloshurtado@belcorp.biz, elazaro@belcorp.biz",
-        "${env.JOB_NAME} - Build #${env.BUILD_NUMBER} - ${currentBuild.result}!",
-        '${JELLY_SCRIPT,template="log"}'
-    )
-}
-
-def email(to, subject, template) {
-    try {
-        def from = "belcorpdev@gmail.com"
-        def mimeType = "text/html"
-        def attachLog = true
-        def compressLog = true
-
-       emailext from: from,
-                to: to,
-                subject: subject,
-                mimeType: mimeType,
-                body: template,
-                attachLog: attachLog,
-                compressLog: compressLog
-    } catch (err) {
-        echo "${err}"
+        tokenCredentialId: 'arquitecturatd_slack_credentials')
+    
+    hipchatSend (
+        color: color,
+        message: details,
+        notify: true,
+        room: 'Lideres SB2',
+        credentialId: 'belcorp_hipchat_credentials')
+    
+    // send email in case of failure
+    if (buildStatus == 'FAILURE') {
+        emailext(
+            from: from,
+            subject: subject,
+            body: '${JELLY_SCRIPT,template="log"}',
+            to: '$DEFAULT_RECIPIENTS',
+            attachLog: true,
+            compressLog: true
+        )
     }
 }

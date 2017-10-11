@@ -26,7 +26,6 @@ namespace Portal.Consultoras.Entities
         private long miCodigoCliente;
         private short miFavorito;
         private short miTipoContactoFavorito;
-        private decimal saldo;
         private string msNombreCliente;
         private string msApellidoCliente;
 
@@ -46,11 +45,20 @@ namespace Portal.Consultoras.Entities
 
         public BECliente(IDataRecord datarec)
         {
-            miConsultoraID = Convert.ToInt64(datarec["ConsultoraID"]);
-            miClienteID = Convert.ToInt32(datarec["ClienteID"]);
-            msNombre = datarec["Nombre"].ToString();
-            mseMail = datarec["eMail"].ToString();
-            mbActivo = Convert.ToBoolean(datarec["Activo"]);
+            if (DataRecord.HasColumn(datarec, "ConsultoraID") && datarec["ConsultoraID"] != DBNull.Value)
+                miConsultoraID = Convert.ToInt64(datarec["ConsultoraID"]);
+
+            if (DataRecord.HasColumn(datarec, "ClienteID") && datarec["ClienteID"] != DBNull.Value)
+                miClienteID = Convert.ToInt32(datarec["ClienteID"]);
+
+            if (DataRecord.HasColumn(datarec, "Nombre") && datarec["Nombre"] != DBNull.Value)
+                msNombre = datarec["Nombre"].ToString();
+
+            if (DataRecord.HasColumn(datarec, "eMail") && datarec["eMail"] != DBNull.Value)
+                mseMail = datarec["eMail"].ToString();
+
+            if (DataRecord.HasColumn(datarec, "Activo") && datarec["Activo"] != DBNull.Value)
+                mbActivo = Convert.ToBoolean(datarec["Activo"]);
 
             if (DataRecord.HasColumn(datarec, "Telefono") && datarec["Telefono"] != DBNull.Value)
                 msTelefono = datarec["Telefono"].ToString();
@@ -67,14 +75,17 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(datarec, "TipoContactoFavorito") && datarec["TipoContactoFavorito"] != DBNull.Value)
                 miTipoContactoFavorito = Convert.ToInt16(datarec["TipoContactoFavorito"]);
 
-            if (datarec.HasColumn("Saldo"))
-                saldo = datarec.GetValue<decimal>("Saldo");
-
             if (DataRecord.HasColumn(datarec, "NombreCliente") && datarec["NombreCliente"] != DBNull.Value)
                 msNombreCliente = datarec["NombreCliente"].ToString();
 
             if (DataRecord.HasColumn(datarec, "ApellidoCliente") && datarec["ApellidoCliente"] != DBNull.Value)
                 msApellidoCliente = datarec["ApellidoCliente"].ToString();
+
+            if (DataRecord.HasColumn(datarec, "Saldo") && datarec["Saldo"] != DBNull.Value)
+                Saldo = Convert.ToDecimal(datarec["Saldo"]);
+
+            if (DataRecord.HasColumn(datarec, "CantidadProductos") && datarec["CantidadProductos"] != DBNull.Value)
+                CantidadProductos = Convert.ToInt32(datarec["CantidadProductos"]);
         }
 
         [DataMember]
@@ -193,11 +204,10 @@ namespace Portal.Consultoras.Entities
         }
 
         [DataMember]
-        public decimal Saldo
-        {
-            get { return saldo; }
-            set { saldo = value; }
-        }
+        public decimal Saldo { get; set; }
+
+        [DataMember]
+        public int CantidadProductos { get; set; }
 
         [DataMember]
         public IEnumerable<BEClienteRecordatorio> Recordatorios { get; set; }

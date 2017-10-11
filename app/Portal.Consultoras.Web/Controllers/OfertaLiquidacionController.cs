@@ -100,31 +100,38 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var lst = new List<BEOfertaProducto>();
             var estado = false;
-            using (PedidoServiceClient sv = new PedidoServiceClient())
+            try
             {
-                lst = origen == "OfertaLiquidacion" ? sv.GetOfertaProductosPortal2(userData.PaisID, Constantes.ConfiguracionOferta.Liquidacion, 1, userData.CampaniaID, offset, cantidadregistros*2).ToList() : sv.GetOfertaProductosPortal2(userData.PaisID, Constantes.ConfiguracionOferta.Liquidacion, 1, userData.CampaniaID, offset, cantidadregistros).ToList();
-            }
-            ViewBag.Simbolo = userData.Simbolo.ToString().Trim();
-
-            // 1664
-            if (lst != null && lst.Count > 0)
-            {
-                if (lst.Count > cantidadregistros)
+                using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    estado = true;
+                    lst = origen == "OfertaLiquidacion" ? sv.GetOfertaProductosPortal2(userData.PaisID, Constantes.ConfiguracionOferta.Liquidacion, 1, userData.CampaniaID, offset, cantidadregistros * 2).ToList() : sv.GetOfertaProductosPortal2(userData.PaisID, Constantes.ConfiguracionOferta.Liquidacion, 1, userData.CampaniaID, offset, cantidadregistros).ToList();
                 }
+                ViewBag.Simbolo = userData.Simbolo.ToString().Trim();
 
-                lst = lst.Take(cantidadregistros).ToList();
-                var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                lst.Update(x => x.ImagenProducto = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.UrlMatriz + "/" + userData.CodigoISO));
-                lst.Update(x => x.PrecioString = Util.DecimalToStringFormat(x.PrecioOferta, userData.CodigoISO));
+                // 1664
+                if (lst != null && lst.Count > 0)
+                {
+                    if (lst.Count > cantidadregistros)
+                    {
+                        estado = true;
+                    }
+
+                    lst = lst.Take(cantidadregistros).ToList();
+                    var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+                    lst.Update(x => x.ImagenProducto = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.UrlMatriz + "/" + userData.CodigoISO));
+                    lst.Update(x => x.PrecioString = Util.DecimalToStringFormat(x.PrecioOferta, userData.CodigoISO));
+                }
             }
-            
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
             return Json(new
             {
-                lista = lst,             
-                verMas = estado 
-            }, JsonRequestBehavior.AllowGet);           
+                lista = lst,
+                verMas = estado
+            }, JsonRequestBehavior.AllowGet);
         }
 
         public List<OfertaProductoModel> GetListadoOfertasLiquidacion()
@@ -379,8 +386,10 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult ValidarUnidadesPermitidasPedidoProducto(string CUV)
+        public JsonResult ValidarUnidadesPermitidasPedidoProducto(string CUV, string Cantidad, string PrecioUnidad)
         {
+            string mensaje = ValidarMontoMaximo(Convert.ToDecimal(PrecioUnidad), Convert.ToInt32(Cantidad));
+            
             int UnidadesPermitidas = 0;
             int Saldo = 0;
             /* 2024 - Inicio */
@@ -391,18 +400,22 @@ namespace Portal.Consultoras.Web.Controllers
             entidad.CUV = CUV;
             entidad.ConsultoraID = Convert.ToInt32(userData.ConsultoraID);
 
-            using (PedidoServiceClient sv = new PedidoServiceClient())
+            if (mensaje == "")
             {
-                UnidadesPermitidas = sv.GetUnidadesPermitidasByCuv(userData.PaisID, userData.CampaniaID, CUV);
-                Saldo = sv.ValidarUnidadesPermitidasEnPedido(userData.PaisID, userData.CampaniaID, CUV, userData.ConsultoraID);
-                CantidadPedida = sv.CantidadPedidoByConsultora(entidad);
+                using (PedidoServiceClient sv = new PedidoServiceClient())
+                {
+                    UnidadesPermitidas = sv.GetUnidadesPermitidasByCuv(userData.PaisID, userData.CampaniaID, CUV);
+                    Saldo = sv.ValidarUnidadesPermitidasEnPedido(userData.PaisID, userData.CampaniaID, CUV, userData.ConsultoraID);
+                    CantidadPedida = sv.CantidadPedidoByConsultora(entidad);
+                }
             }
 
             return Json(new
             {
                 UnidadesPermitidas = UnidadesPermitidas,
                 Saldo = Saldo,
-                CantidadPedida = CantidadPedida
+                CantidadPedida = CantidadPedida,
+                message = mensaje
             }, JsonRequestBehavior.AllowGet);
         }
 
