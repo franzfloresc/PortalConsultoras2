@@ -474,7 +474,7 @@ namespace Portal.Consultoras.ServiceContracts
         #region Tracking
 
         [OperationContract]
-        List<BETracking> GetPedidosByConsultora(int paisID, string codigoConsultora);
+        List<BETracking> GetPedidosByConsultora(int paisID, string codigoConsultora, int top);
 
         [OperationContract]
         BETracking GetPedidoByConsultoraAndCampania(int paisID, string codigoConsultora, int campania);
@@ -1002,7 +1002,7 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEPedidoWeb> GetPedidosFacturados(int paisId, string codigoConsultora);
 
         [OperationContract]
-        List<BEPedidoWeb> GetPedidosIngresadoFacturado(int paisID, int consultoraID, int campaniaID, string codigoConsultora);
+        List<BEPedidoWeb> GetPedidosIngresadoFacturado(int paisID, int consultoraID, int campaniaID, string codigoConsultora, int top);
 
         [OperationContract]
         List<BEPedidoWeb> GetPedidosIngresadoFacturadoWebMobile(int paisID, int consultoraID, int campaniaID, int clienteID, int top, string codigoConsultora);

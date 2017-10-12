@@ -336,7 +336,7 @@ namespace Portal.Consultoras.Web.WebPages
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                pedidos = sv.GetPedidosByConsultora(paisID, codigo);
+                pedidos = sv.GetPedidosByConsultora(paisID, codigo, 6);
             }
 
             listaPedidos.AddRange(pedidos);
