@@ -165,14 +165,5 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "CodigoUbigeo") && row["CodigoUbigeo"] != DBNull.Value)
                 CodigoUbigeo = Convert.ToString(row["CodigoUbigeo"]);
         }
-
-
     }
-
-
-    
-
-
-
-
 }

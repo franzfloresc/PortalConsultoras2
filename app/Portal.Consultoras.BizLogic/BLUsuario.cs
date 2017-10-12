@@ -713,6 +713,7 @@ namespace Portal.Consultoras.BizLogic
             //2: Usuario Esta dentro de la Lista / Autoriza Pedido NULL o N
             //3: Usuario OK
 
+            int nroCampanias = new BLZonificacion().GetPaisNumeroCampaniasByPaisID(paisID);
             BLTablaLogicaDatos oBLTablaLogicaDatos = new BLTablaLogicaDatos();
             List<BETablaLogicaDatos> tabla_Retirada = oBLTablaLogicaDatos.GetTablaLogicaDatos(paisID, 12);
             List<BETablaLogicaDatos> tabla_Reingresada = oBLTablaLogicaDatos.GetTablaLogicaDatos(paisID, 18);
@@ -741,20 +742,12 @@ namespace Portal.Consultoras.BizLogic
                     if (paisID == 3)
                     {
                         //Se valida las campañas que no ha ingresado
-                        if (UltimaCampania != 0 && CampaniaActual.ToString().Length == 6 && UltimaCampania.ToString().Length == 6)
+                        int campaniaSinIngresar = 0;
+                        if (CampaniaActual.ToString().Length == 6 && UltimaCampania.ToString().Length == 6)
                         {
-                            string CA = CampaniaActual.ToString().Substring(0, 4);
-                            string UC = UltimaCampania.ToString().Substring(0, 4);
-                            if (CA != UC)
-                            {
-                                CA = CampaniaActual.ToString().Substring(4, 2);
-                                UC = UltimaCampania.ToString().Substring(4, 2);
-                                CampaniaActual = Convert.ToInt32(UC) + Convert.ToInt16(CA);
-                                UltimaCampania = Convert.ToInt32(UC);
-                            }
+                            campaniaSinIngresar = CampaniaActual - Common.Util.AddCampaniaAndNumero(UltimaCampania, 3, nroCampanias);
                         }
-
-                        if (CampaniaActual - UltimaCampania > 3 && UltimaCampania != 0) return 2;
+                        if (campaniaSinIngresar > 0) return 2;
                     }
                     else if (paisID == 4) return 2; //Caso Colombia
                 }
