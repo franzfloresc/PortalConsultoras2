@@ -111,5 +111,6 @@ namespace Portal.Consultoras.Web.Models
         public string GananciaString { get; set; }
         public bool EsOfertaIndependiente { get; set; }
         public string ImagenOfertaIndependiente { get; set; }
+        public bool MostrarImgOfertaIndependiente { get; set; }
     }
 }

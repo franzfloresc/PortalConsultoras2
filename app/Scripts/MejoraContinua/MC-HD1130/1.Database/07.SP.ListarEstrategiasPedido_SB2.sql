@@ -78,6 +78,7 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 		FlagMostrarImg int,
 		EsOfertaIndependiente BIT,
 		ImagenOfertaIndependiente  varchar(500),
+		MostrarImgOfertaIndependiente bit
 	)
 	
 	-- Obtener estrategias de Pack Nuevas.
@@ -111,12 +112,10 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 		, E.TieneVariedad
 		, TE.CODIGO
 		, TE.DescripcionEstrategia
-		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg,
-		CASE 
-			WHEN(TE.MostrarImgOfertaIndependiente = 1 AND E.EsOfertaIndependiente = 1) THEN 1
-			ELSE 0 
-		END AS EsOfertaIndependiente,
-		TE.ImagenOfertaIndependiente
+		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg
+		, E.EsOfertaIndependiente
+		, TE.ImagenOfertaIndependiente
+		, TE.MostrarImgOfertaIndependiente
 	FROM Estrategia E with(nolock)
 	INNER JOIN TipoEstrategia TE with(nolock) ON
 		E.TipoEstrategiaID = TE.TipoEstrategiaID
@@ -189,7 +188,8 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 		, TE.DescripcionEstrategia
 		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg,
 		0 AS EsOfertaIndependiente,
-		'' AS ImagenOfertaIndependiente	
+		'' AS ImagenOfertaIndependiente	,
+		0 AS MostrarImgOfertaIndependiente
 	FROM Estrategia E with(nolock)
 	INNER JOIN ods.OfertasPersonalizadas op with(nolock) ON 
 		op.CodConsultora = @CodigoConsultora  
@@ -247,7 +247,8 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 			, TE.DescripcionEstrategia
 			, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg
 			, 0 AS EsOfertaIndependiente
-			, '' AS ImagenOfertaIndependiente		
+			, '' AS ImagenOfertaIndependiente
+			, 0 AS MostrarImgOfertaIndependiente
 		FROM Estrategia E with(nolock)
 		INNER JOIN ods.OfertasPersonalizadas op with(nolock) ON 
 			op.CodConsultora = @codConsultoraDefault  
@@ -303,7 +304,8 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 			, TE.DescripcionEstrategia
 			, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg
 			, 0 AS EsOfertaIndependiente
-			, '' AS ImagenOfertaIndependiente		
+			, '' AS ImagenOfertaIndependiente	
+			, TE.MostrarImgOfertaIndependiente	
 		FROM Estrategia E with(nolock)
 		INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
 		INNER JOIN ods.Campania CA with(nolock) ON E.CampaniaID = CA.Codigo
@@ -401,6 +403,7 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 		, D.ImgHomeMobile
 		, T.EsOfertaIndependiente
 		, T.ImagenOfertaIndependiente
+		, T.MostrarImgOfertaIndependiente
 	FROM #TEMPORAL T
 	LEFT JOIN Marca M with(nolock) ON M.MarcaId = T.MarcaId
 	LEFT JOIN @temp D ON D.EstrategiaID = T.EstrategiaID
@@ -494,6 +497,7 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 		FlagMostrarImg int,
 		EsOfertaIndependiente BIT,
 		ImagenOfertaIndependiente  varchar(500),
+		MostrarImgOfertaIndependiente bit
 	)
 	
 	-- Obtener estrategias de Pack Nuevas.
@@ -527,12 +531,10 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 		, E.TieneVariedad
 		, TE.CODIGO
 		, TE.DescripcionEstrategia
-		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg,
-		CASE 
-			WHEN(TE.MostrarImgOfertaIndependiente = 1 AND E.EsOfertaIndependiente = 1) THEN 1
-			ELSE 0 
-		END AS EsOfertaIndependiente,
-		TE.ImagenOfertaIndependiente
+		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg
+		, E.EsOfertaIndependiente
+		, TE.ImagenOfertaIndependiente
+		, TE.MostrarImgOfertaIndependiente
 	FROM Estrategia E with(nolock)
 	INNER JOIN TipoEstrategia TE with(nolock) ON
 		E.TipoEstrategiaID = TE.TipoEstrategiaID
@@ -605,7 +607,8 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 		, TE.DescripcionEstrategia
 		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg,
 		0 AS EsOfertaIndependiente,
-		'' AS ImagenOfertaIndependiente	
+		'' AS ImagenOfertaIndependiente	,
+		0 AS MostrarImgOfertaIndependiente
 	FROM Estrategia E with(nolock)
 	INNER JOIN ods.OfertasPersonalizadas op with(nolock) ON 
 		op.CodConsultora = @CodigoConsultora  
@@ -663,7 +666,8 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 			, TE.DescripcionEstrategia
 			, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg
 			, 0 AS EsOfertaIndependiente
-			, '' AS ImagenOfertaIndependiente		
+			, '' AS ImagenOfertaIndependiente
+			, 0 AS MostrarImgOfertaIndependiente
 		FROM Estrategia E with(nolock)
 		INNER JOIN ods.OfertasPersonalizadas op with(nolock) ON 
 			op.CodConsultora = @codConsultoraDefault  
@@ -719,7 +723,8 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 			, TE.DescripcionEstrategia
 			, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg
 			, 0 AS EsOfertaIndependiente
-			, '' AS ImagenOfertaIndependiente		
+			, '' AS ImagenOfertaIndependiente	
+			, TE.MostrarImgOfertaIndependiente	
 		FROM Estrategia E with(nolock)
 		INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
 		INNER JOIN ods.Campania CA with(nolock) ON E.CampaniaID = CA.Codigo
@@ -817,6 +822,7 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 		, D.ImgHomeMobile
 		, T.EsOfertaIndependiente
 		, T.ImagenOfertaIndependiente
+		, T.MostrarImgOfertaIndependiente
 	FROM #TEMPORAL T
 	LEFT JOIN Marca M with(nolock) ON M.MarcaId = T.MarcaId
 	LEFT JOIN @temp D ON D.EstrategiaID = T.EstrategiaID
@@ -910,6 +916,7 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 		FlagMostrarImg int,
 		EsOfertaIndependiente BIT,
 		ImagenOfertaIndependiente  varchar(500),
+		MostrarImgOfertaIndependiente bit
 	)
 	
 	-- Obtener estrategias de Pack Nuevas.
@@ -943,12 +950,10 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 		, E.TieneVariedad
 		, TE.CODIGO
 		, TE.DescripcionEstrategia
-		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg,
-		CASE 
-			WHEN(TE.MostrarImgOfertaIndependiente = 1 AND E.EsOfertaIndependiente = 1) THEN 1
-			ELSE 0 
-		END AS EsOfertaIndependiente,
-		TE.ImagenOfertaIndependiente
+		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg
+		, E.EsOfertaIndependiente
+		, TE.ImagenOfertaIndependiente
+		, TE.MostrarImgOfertaIndependiente
 	FROM Estrategia E with(nolock)
 	INNER JOIN TipoEstrategia TE with(nolock) ON
 		E.TipoEstrategiaID = TE.TipoEstrategiaID
@@ -1021,7 +1026,8 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 		, TE.DescripcionEstrategia
 		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg,
 		0 AS EsOfertaIndependiente,
-		'' AS ImagenOfertaIndependiente	
+		'' AS ImagenOfertaIndependiente	,
+		0 AS MostrarImgOfertaIndependiente
 	FROM Estrategia E with(nolock)
 	INNER JOIN ods.OfertasPersonalizadas op with(nolock) ON 
 		op.CodConsultora = @CodigoConsultora  
@@ -1079,7 +1085,8 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 			, TE.DescripcionEstrategia
 			, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg
 			, 0 AS EsOfertaIndependiente
-			, '' AS ImagenOfertaIndependiente		
+			, '' AS ImagenOfertaIndependiente
+			, 0 AS MostrarImgOfertaIndependiente
 		FROM Estrategia E with(nolock)
 		INNER JOIN ods.OfertasPersonalizadas op with(nolock) ON 
 			op.CodConsultora = @codConsultoraDefault  
@@ -1135,7 +1142,8 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 			, TE.DescripcionEstrategia
 			, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg
 			, 0 AS EsOfertaIndependiente
-			, '' AS ImagenOfertaIndependiente		
+			, '' AS ImagenOfertaIndependiente	
+			, TE.MostrarImgOfertaIndependiente	
 		FROM Estrategia E with(nolock)
 		INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
 		INNER JOIN ods.Campania CA with(nolock) ON E.CampaniaID = CA.Codigo
@@ -1233,6 +1241,7 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 		, D.ImgHomeMobile
 		, T.EsOfertaIndependiente
 		, T.ImagenOfertaIndependiente
+		, T.MostrarImgOfertaIndependiente
 	FROM #TEMPORAL T
 	LEFT JOIN Marca M with(nolock) ON M.MarcaId = T.MarcaId
 	LEFT JOIN @temp D ON D.EstrategiaID = T.EstrategiaID
@@ -1326,6 +1335,7 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 		FlagMostrarImg int,
 		EsOfertaIndependiente BIT,
 		ImagenOfertaIndependiente  varchar(500),
+		MostrarImgOfertaIndependiente bit
 	)
 	
 	-- Obtener estrategias de Pack Nuevas.
@@ -1359,12 +1369,10 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 		, E.TieneVariedad
 		, TE.CODIGO
 		, TE.DescripcionEstrategia
-		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg,
-		CASE 
-			WHEN(TE.MostrarImgOfertaIndependiente = 1 AND E.EsOfertaIndependiente = 1) THEN 1
-			ELSE 0 
-		END AS EsOfertaIndependiente,
-		TE.ImagenOfertaIndependiente
+		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg
+		, E.EsOfertaIndependiente
+		, TE.ImagenOfertaIndependiente
+		, TE.MostrarImgOfertaIndependiente
 	FROM Estrategia E with(nolock)
 	INNER JOIN TipoEstrategia TE with(nolock) ON
 		E.TipoEstrategiaID = TE.TipoEstrategiaID
@@ -1437,7 +1445,8 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 		, TE.DescripcionEstrategia
 		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg,
 		0 AS EsOfertaIndependiente,
-		'' AS ImagenOfertaIndependiente	
+		'' AS ImagenOfertaIndependiente	,
+		0 AS MostrarImgOfertaIndependiente
 	FROM Estrategia E with(nolock)
 	INNER JOIN ods.OfertasPersonalizadas op with(nolock) ON 
 		op.CodConsultora = @CodigoConsultora  
@@ -1495,7 +1504,8 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 			, TE.DescripcionEstrategia
 			, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg
 			, 0 AS EsOfertaIndependiente
-			, '' AS ImagenOfertaIndependiente		
+			, '' AS ImagenOfertaIndependiente
+			, 0 AS MostrarImgOfertaIndependiente
 		FROM Estrategia E with(nolock)
 		INNER JOIN ods.OfertasPersonalizadas op with(nolock) ON 
 			op.CodConsultora = @codConsultoraDefault  
@@ -1551,7 +1561,8 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 			, TE.DescripcionEstrategia
 			, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg
 			, 0 AS EsOfertaIndependiente
-			, '' AS ImagenOfertaIndependiente		
+			, '' AS ImagenOfertaIndependiente	
+			, TE.MostrarImgOfertaIndependiente	
 		FROM Estrategia E with(nolock)
 		INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
 		INNER JOIN ods.Campania CA with(nolock) ON E.CampaniaID = CA.Codigo
@@ -1649,6 +1660,7 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 		, D.ImgHomeMobile
 		, T.EsOfertaIndependiente
 		, T.ImagenOfertaIndependiente
+		, T.MostrarImgOfertaIndependiente
 	FROM #TEMPORAL T
 	LEFT JOIN Marca M with(nolock) ON M.MarcaId = T.MarcaId
 	LEFT JOIN @temp D ON D.EstrategiaID = T.EstrategiaID
@@ -1742,6 +1754,7 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 		FlagMostrarImg int,
 		EsOfertaIndependiente BIT,
 		ImagenOfertaIndependiente  varchar(500),
+		MostrarImgOfertaIndependiente bit
 	)
 	
 	-- Obtener estrategias de Pack Nuevas.
@@ -1775,12 +1788,10 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 		, E.TieneVariedad
 		, TE.CODIGO
 		, TE.DescripcionEstrategia
-		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg,
-		CASE 
-			WHEN(TE.MostrarImgOfertaIndependiente = 1 AND E.EsOfertaIndependiente = 1) THEN 1
-			ELSE 0 
-		END AS EsOfertaIndependiente,
-		TE.ImagenOfertaIndependiente
+		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg
+		, E.EsOfertaIndependiente
+		, TE.ImagenOfertaIndependiente
+		, TE.MostrarImgOfertaIndependiente
 	FROM Estrategia E with(nolock)
 	INNER JOIN TipoEstrategia TE with(nolock) ON
 		E.TipoEstrategiaID = TE.TipoEstrategiaID
@@ -1853,7 +1864,8 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 		, TE.DescripcionEstrategia
 		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg,
 		0 AS EsOfertaIndependiente,
-		'' AS ImagenOfertaIndependiente	
+		'' AS ImagenOfertaIndependiente	,
+		0 AS MostrarImgOfertaIndependiente
 	FROM Estrategia E with(nolock)
 	INNER JOIN ods.OfertasPersonalizadas op with(nolock) ON 
 		op.CodConsultora = @CodigoConsultora  
@@ -1911,7 +1923,8 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 			, TE.DescripcionEstrategia
 			, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg
 			, 0 AS EsOfertaIndependiente
-			, '' AS ImagenOfertaIndependiente		
+			, '' AS ImagenOfertaIndependiente
+			, 0 AS MostrarImgOfertaIndependiente
 		FROM Estrategia E with(nolock)
 		INNER JOIN ods.OfertasPersonalizadas op with(nolock) ON 
 			op.CodConsultora = @codConsultoraDefault  
@@ -1967,7 +1980,8 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 			, TE.DescripcionEstrategia
 			, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg
 			, 0 AS EsOfertaIndependiente
-			, '' AS ImagenOfertaIndependiente		
+			, '' AS ImagenOfertaIndependiente	
+			, TE.MostrarImgOfertaIndependiente	
 		FROM Estrategia E with(nolock)
 		INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
 		INNER JOIN ods.Campania CA with(nolock) ON E.CampaniaID = CA.Codigo
@@ -2065,6 +2079,7 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 		, D.ImgHomeMobile
 		, T.EsOfertaIndependiente
 		, T.ImagenOfertaIndependiente
+		, T.MostrarImgOfertaIndependiente
 	FROM #TEMPORAL T
 	LEFT JOIN Marca M with(nolock) ON M.MarcaId = T.MarcaId
 	LEFT JOIN @temp D ON D.EstrategiaID = T.EstrategiaID
@@ -2158,6 +2173,7 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 		FlagMostrarImg int,
 		EsOfertaIndependiente BIT,
 		ImagenOfertaIndependiente  varchar(500),
+		MostrarImgOfertaIndependiente bit
 	)
 	
 	-- Obtener estrategias de Pack Nuevas.
@@ -2191,12 +2207,10 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 		, E.TieneVariedad
 		, TE.CODIGO
 		, TE.DescripcionEstrategia
-		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg,
-		CASE 
-			WHEN(TE.MostrarImgOfertaIndependiente = 1 AND E.EsOfertaIndependiente = 1) THEN 1
-			ELSE 0 
-		END AS EsOfertaIndependiente,
-		TE.ImagenOfertaIndependiente
+		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg
+		, E.EsOfertaIndependiente
+		, TE.ImagenOfertaIndependiente
+		, TE.MostrarImgOfertaIndependiente
 	FROM Estrategia E with(nolock)
 	INNER JOIN TipoEstrategia TE with(nolock) ON
 		E.TipoEstrategiaID = TE.TipoEstrategiaID
@@ -2269,7 +2283,8 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 		, TE.DescripcionEstrategia
 		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg,
 		0 AS EsOfertaIndependiente,
-		'' AS ImagenOfertaIndependiente	
+		'' AS ImagenOfertaIndependiente	,
+		0 AS MostrarImgOfertaIndependiente
 	FROM Estrategia E with(nolock)
 	INNER JOIN ods.OfertasPersonalizadas op with(nolock) ON 
 		op.CodConsultora = @CodigoConsultora  
@@ -2327,7 +2342,8 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 			, TE.DescripcionEstrategia
 			, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg
 			, 0 AS EsOfertaIndependiente
-			, '' AS ImagenOfertaIndependiente		
+			, '' AS ImagenOfertaIndependiente
+			, 0 AS MostrarImgOfertaIndependiente
 		FROM Estrategia E with(nolock)
 		INNER JOIN ods.OfertasPersonalizadas op with(nolock) ON 
 			op.CodConsultora = @codConsultoraDefault  
@@ -2383,7 +2399,8 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 			, TE.DescripcionEstrategia
 			, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg
 			, 0 AS EsOfertaIndependiente
-			, '' AS ImagenOfertaIndependiente		
+			, '' AS ImagenOfertaIndependiente	
+			, TE.MostrarImgOfertaIndependiente	
 		FROM Estrategia E with(nolock)
 		INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
 		INNER JOIN ods.Campania CA with(nolock) ON E.CampaniaID = CA.Codigo
@@ -2481,6 +2498,7 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 		, D.ImgHomeMobile
 		, T.EsOfertaIndependiente
 		, T.ImagenOfertaIndependiente
+		, T.MostrarImgOfertaIndependiente
 	FROM #TEMPORAL T
 	LEFT JOIN Marca M with(nolock) ON M.MarcaId = T.MarcaId
 	LEFT JOIN @temp D ON D.EstrategiaID = T.EstrategiaID
@@ -2574,6 +2592,7 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 		FlagMostrarImg int,
 		EsOfertaIndependiente BIT,
 		ImagenOfertaIndependiente  varchar(500),
+		MostrarImgOfertaIndependiente bit
 	)
 	
 	-- Obtener estrategias de Pack Nuevas.
@@ -2607,12 +2626,10 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 		, E.TieneVariedad
 		, TE.CODIGO
 		, TE.DescripcionEstrategia
-		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg,
-		CASE 
-			WHEN(TE.MostrarImgOfertaIndependiente = 1 AND E.EsOfertaIndependiente = 1) THEN 1
-			ELSE 0 
-		END AS EsOfertaIndependiente,
-		TE.ImagenOfertaIndependiente
+		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg
+		, E.EsOfertaIndependiente
+		, TE.ImagenOfertaIndependiente
+		, TE.MostrarImgOfertaIndependiente
 	FROM Estrategia E with(nolock)
 	INNER JOIN TipoEstrategia TE with(nolock) ON
 		E.TipoEstrategiaID = TE.TipoEstrategiaID
@@ -2685,7 +2702,8 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 		, TE.DescripcionEstrategia
 		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg,
 		0 AS EsOfertaIndependiente,
-		'' AS ImagenOfertaIndependiente	
+		'' AS ImagenOfertaIndependiente	,
+		0 AS MostrarImgOfertaIndependiente
 	FROM Estrategia E with(nolock)
 	INNER JOIN ods.OfertasPersonalizadas op with(nolock) ON 
 		op.CodConsultora = @CodigoConsultora  
@@ -2743,7 +2761,8 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 			, TE.DescripcionEstrategia
 			, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg
 			, 0 AS EsOfertaIndependiente
-			, '' AS ImagenOfertaIndependiente		
+			, '' AS ImagenOfertaIndependiente
+			, 0 AS MostrarImgOfertaIndependiente
 		FROM Estrategia E with(nolock)
 		INNER JOIN ods.OfertasPersonalizadas op with(nolock) ON 
 			op.CodConsultora = @codConsultoraDefault  
@@ -2799,7 +2818,8 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 			, TE.DescripcionEstrategia
 			, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg
 			, 0 AS EsOfertaIndependiente
-			, '' AS ImagenOfertaIndependiente		
+			, '' AS ImagenOfertaIndependiente	
+			, TE.MostrarImgOfertaIndependiente	
 		FROM Estrategia E with(nolock)
 		INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
 		INNER JOIN ods.Campania CA with(nolock) ON E.CampaniaID = CA.Codigo
@@ -2897,6 +2917,7 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 		, D.ImgHomeMobile
 		, T.EsOfertaIndependiente
 		, T.ImagenOfertaIndependiente
+		, T.MostrarImgOfertaIndependiente
 	FROM #TEMPORAL T
 	LEFT JOIN Marca M with(nolock) ON M.MarcaId = T.MarcaId
 	LEFT JOIN @temp D ON D.EstrategiaID = T.EstrategiaID
@@ -2990,6 +3011,7 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 		FlagMostrarImg int,
 		EsOfertaIndependiente BIT,
 		ImagenOfertaIndependiente  varchar(500),
+		MostrarImgOfertaIndependiente bit
 	)
 	
 	-- Obtener estrategias de Pack Nuevas.
@@ -3023,12 +3045,10 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 		, E.TieneVariedad
 		, TE.CODIGO
 		, TE.DescripcionEstrategia
-		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg,
-		CASE 
-			WHEN(TE.MostrarImgOfertaIndependiente = 1 AND E.EsOfertaIndependiente = 1) THEN 1
-			ELSE 0 
-		END AS EsOfertaIndependiente,
-		TE.ImagenOfertaIndependiente
+		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg
+		, E.EsOfertaIndependiente
+		, TE.ImagenOfertaIndependiente
+		, TE.MostrarImgOfertaIndependiente
 	FROM Estrategia E with(nolock)
 	INNER JOIN TipoEstrategia TE with(nolock) ON
 		E.TipoEstrategiaID = TE.TipoEstrategiaID
@@ -3101,7 +3121,8 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 		, TE.DescripcionEstrategia
 		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg,
 		0 AS EsOfertaIndependiente,
-		'' AS ImagenOfertaIndependiente	
+		'' AS ImagenOfertaIndependiente	,
+		0 AS MostrarImgOfertaIndependiente
 	FROM Estrategia E with(nolock)
 	INNER JOIN ods.OfertasPersonalizadas op with(nolock) ON 
 		op.CodConsultora = @CodigoConsultora  
@@ -3159,7 +3180,8 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 			, TE.DescripcionEstrategia
 			, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg
 			, 0 AS EsOfertaIndependiente
-			, '' AS ImagenOfertaIndependiente		
+			, '' AS ImagenOfertaIndependiente
+			, 0 AS MostrarImgOfertaIndependiente
 		FROM Estrategia E with(nolock)
 		INNER JOIN ods.OfertasPersonalizadas op with(nolock) ON 
 			op.CodConsultora = @codConsultoraDefault  
@@ -3215,7 +3237,8 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 			, TE.DescripcionEstrategia
 			, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg
 			, 0 AS EsOfertaIndependiente
-			, '' AS ImagenOfertaIndependiente		
+			, '' AS ImagenOfertaIndependiente	
+			, TE.MostrarImgOfertaIndependiente	
 		FROM Estrategia E with(nolock)
 		INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
 		INNER JOIN ods.Campania CA with(nolock) ON E.CampaniaID = CA.Codigo
@@ -3313,6 +3336,7 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 		, D.ImgHomeMobile
 		, T.EsOfertaIndependiente
 		, T.ImagenOfertaIndependiente
+		, T.MostrarImgOfertaIndependiente
 	FROM #TEMPORAL T
 	LEFT JOIN Marca M with(nolock) ON M.MarcaId = T.MarcaId
 	LEFT JOIN @temp D ON D.EstrategiaID = T.EstrategiaID
@@ -3406,6 +3430,7 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 		FlagMostrarImg int,
 		EsOfertaIndependiente BIT,
 		ImagenOfertaIndependiente  varchar(500),
+		MostrarImgOfertaIndependiente bit
 	)
 	
 	-- Obtener estrategias de Pack Nuevas.
@@ -3439,12 +3464,10 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 		, E.TieneVariedad
 		, TE.CODIGO
 		, TE.DescripcionEstrategia
-		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg,
-		CASE 
-			WHEN(TE.MostrarImgOfertaIndependiente = 1 AND E.EsOfertaIndependiente = 1) THEN 1
-			ELSE 0 
-		END AS EsOfertaIndependiente,
-		TE.ImagenOfertaIndependiente
+		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg
+		, E.EsOfertaIndependiente
+		, TE.ImagenOfertaIndependiente
+		, TE.MostrarImgOfertaIndependiente
 	FROM Estrategia E with(nolock)
 	INNER JOIN TipoEstrategia TE with(nolock) ON
 		E.TipoEstrategiaID = TE.TipoEstrategiaID
@@ -3517,7 +3540,8 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 		, TE.DescripcionEstrategia
 		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg,
 		0 AS EsOfertaIndependiente,
-		'' AS ImagenOfertaIndependiente	
+		'' AS ImagenOfertaIndependiente	,
+		0 AS MostrarImgOfertaIndependiente
 	FROM Estrategia E with(nolock)
 	INNER JOIN ods.OfertasPersonalizadas op with(nolock) ON 
 		op.CodConsultora = @CodigoConsultora  
@@ -3575,7 +3599,8 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 			, TE.DescripcionEstrategia
 			, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg
 			, 0 AS EsOfertaIndependiente
-			, '' AS ImagenOfertaIndependiente		
+			, '' AS ImagenOfertaIndependiente
+			, 0 AS MostrarImgOfertaIndependiente
 		FROM Estrategia E with(nolock)
 		INNER JOIN ods.OfertasPersonalizadas op with(nolock) ON 
 			op.CodConsultora = @codConsultoraDefault  
@@ -3631,7 +3656,8 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 			, TE.DescripcionEstrategia
 			, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg
 			, 0 AS EsOfertaIndependiente
-			, '' AS ImagenOfertaIndependiente		
+			, '' AS ImagenOfertaIndependiente	
+			, TE.MostrarImgOfertaIndependiente	
 		FROM Estrategia E with(nolock)
 		INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
 		INNER JOIN ods.Campania CA with(nolock) ON E.CampaniaID = CA.Codigo
@@ -3729,6 +3755,7 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 		, D.ImgHomeMobile
 		, T.EsOfertaIndependiente
 		, T.ImagenOfertaIndependiente
+		, T.MostrarImgOfertaIndependiente
 	FROM #TEMPORAL T
 	LEFT JOIN Marca M with(nolock) ON M.MarcaId = T.MarcaId
 	LEFT JOIN @temp D ON D.EstrategiaID = T.EstrategiaID
@@ -3822,6 +3849,7 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 		FlagMostrarImg int,
 		EsOfertaIndependiente BIT,
 		ImagenOfertaIndependiente  varchar(500),
+		MostrarImgOfertaIndependiente bit
 	)
 	
 	-- Obtener estrategias de Pack Nuevas.
@@ -3855,12 +3883,10 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 		, E.TieneVariedad
 		, TE.CODIGO
 		, TE.DescripcionEstrategia
-		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg,
-		CASE 
-			WHEN(TE.MostrarImgOfertaIndependiente = 1 AND E.EsOfertaIndependiente = 1) THEN 1
-			ELSE 0 
-		END AS EsOfertaIndependiente,
-		TE.ImagenOfertaIndependiente
+		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg
+		, E.EsOfertaIndependiente
+		, TE.ImagenOfertaIndependiente
+		, TE.MostrarImgOfertaIndependiente
 	FROM Estrategia E with(nolock)
 	INNER JOIN TipoEstrategia TE with(nolock) ON
 		E.TipoEstrategiaID = TE.TipoEstrategiaID
@@ -3933,7 +3959,8 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 		, TE.DescripcionEstrategia
 		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg,
 		0 AS EsOfertaIndependiente,
-		'' AS ImagenOfertaIndependiente	
+		'' AS ImagenOfertaIndependiente	,
+		0 AS MostrarImgOfertaIndependiente
 	FROM Estrategia E with(nolock)
 	INNER JOIN ods.OfertasPersonalizadas op with(nolock) ON 
 		op.CodConsultora = @CodigoConsultora  
@@ -3991,7 +4018,8 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 			, TE.DescripcionEstrategia
 			, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg
 			, 0 AS EsOfertaIndependiente
-			, '' AS ImagenOfertaIndependiente		
+			, '' AS ImagenOfertaIndependiente
+			, 0 AS MostrarImgOfertaIndependiente
 		FROM Estrategia E with(nolock)
 		INNER JOIN ods.OfertasPersonalizadas op with(nolock) ON 
 			op.CodConsultora = @codConsultoraDefault  
@@ -4047,7 +4075,8 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 			, TE.DescripcionEstrategia
 			, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg
 			, 0 AS EsOfertaIndependiente
-			, '' AS ImagenOfertaIndependiente		
+			, '' AS ImagenOfertaIndependiente	
+			, TE.MostrarImgOfertaIndependiente	
 		FROM Estrategia E with(nolock)
 		INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
 		INNER JOIN ods.Campania CA with(nolock) ON E.CampaniaID = CA.Codigo
@@ -4145,6 +4174,7 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 		, D.ImgHomeMobile
 		, T.EsOfertaIndependiente
 		, T.ImagenOfertaIndependiente
+		, T.MostrarImgOfertaIndependiente
 	FROM #TEMPORAL T
 	LEFT JOIN Marca M with(nolock) ON M.MarcaId = T.MarcaId
 	LEFT JOIN @temp D ON D.EstrategiaID = T.EstrategiaID
@@ -4238,6 +4268,7 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 		FlagMostrarImg int,
 		EsOfertaIndependiente BIT,
 		ImagenOfertaIndependiente  varchar(500),
+		MostrarImgOfertaIndependiente bit
 	)
 	
 	-- Obtener estrategias de Pack Nuevas.
@@ -4271,12 +4302,10 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 		, E.TieneVariedad
 		, TE.CODIGO
 		, TE.DescripcionEstrategia
-		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg,
-		CASE 
-			WHEN(TE.MostrarImgOfertaIndependiente = 1 AND E.EsOfertaIndependiente = 1) THEN 1
-			ELSE 0 
-		END AS EsOfertaIndependiente,
-		TE.ImagenOfertaIndependiente
+		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg
+		, E.EsOfertaIndependiente
+		, TE.ImagenOfertaIndependiente
+		, TE.MostrarImgOfertaIndependiente
 	FROM Estrategia E with(nolock)
 	INNER JOIN TipoEstrategia TE with(nolock) ON
 		E.TipoEstrategiaID = TE.TipoEstrategiaID
@@ -4349,7 +4378,8 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 		, TE.DescripcionEstrategia
 		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg,
 		0 AS EsOfertaIndependiente,
-		'' AS ImagenOfertaIndependiente	
+		'' AS ImagenOfertaIndependiente	,
+		0 AS MostrarImgOfertaIndependiente
 	FROM Estrategia E with(nolock)
 	INNER JOIN ods.OfertasPersonalizadas op with(nolock) ON 
 		op.CodConsultora = @CodigoConsultora  
@@ -4407,7 +4437,8 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 			, TE.DescripcionEstrategia
 			, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg
 			, 0 AS EsOfertaIndependiente
-			, '' AS ImagenOfertaIndependiente		
+			, '' AS ImagenOfertaIndependiente
+			, 0 AS MostrarImgOfertaIndependiente
 		FROM Estrategia E with(nolock)
 		INNER JOIN ods.OfertasPersonalizadas op with(nolock) ON 
 			op.CodConsultora = @codConsultoraDefault  
@@ -4463,7 +4494,8 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 			, TE.DescripcionEstrategia
 			, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg
 			, 0 AS EsOfertaIndependiente
-			, '' AS ImagenOfertaIndependiente		
+			, '' AS ImagenOfertaIndependiente	
+			, TE.MostrarImgOfertaIndependiente	
 		FROM Estrategia E with(nolock)
 		INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
 		INNER JOIN ods.Campania CA with(nolock) ON E.CampaniaID = CA.Codigo
@@ -4561,6 +4593,7 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 		, D.ImgHomeMobile
 		, T.EsOfertaIndependiente
 		, T.ImagenOfertaIndependiente
+		, T.MostrarImgOfertaIndependiente
 	FROM #TEMPORAL T
 	LEFT JOIN Marca M with(nolock) ON M.MarcaId = T.MarcaId
 	LEFT JOIN @temp D ON D.EstrategiaID = T.EstrategiaID
@@ -4654,6 +4687,7 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 		FlagMostrarImg int,
 		EsOfertaIndependiente BIT,
 		ImagenOfertaIndependiente  varchar(500),
+		MostrarImgOfertaIndependiente bit
 	)
 	
 	-- Obtener estrategias de Pack Nuevas.
@@ -4687,12 +4721,10 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 		, E.TieneVariedad
 		, TE.CODIGO
 		, TE.DescripcionEstrategia
-		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg,
-		CASE 
-			WHEN(TE.MostrarImgOfertaIndependiente = 1 AND E.EsOfertaIndependiente = 1) THEN 1
-			ELSE 0 
-		END AS EsOfertaIndependiente,
-		TE.ImagenOfertaIndependiente
+		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg
+		, E.EsOfertaIndependiente
+		, TE.ImagenOfertaIndependiente
+		, TE.MostrarImgOfertaIndependiente
 	FROM Estrategia E with(nolock)
 	INNER JOIN TipoEstrategia TE with(nolock) ON
 		E.TipoEstrategiaID = TE.TipoEstrategiaID
@@ -4765,7 +4797,8 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 		, TE.DescripcionEstrategia
 		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg,
 		0 AS EsOfertaIndependiente,
-		'' AS ImagenOfertaIndependiente	
+		'' AS ImagenOfertaIndependiente	,
+		0 AS MostrarImgOfertaIndependiente
 	FROM Estrategia E with(nolock)
 	INNER JOIN ods.OfertasPersonalizadas op with(nolock) ON 
 		op.CodConsultora = @CodigoConsultora  
@@ -4823,7 +4856,8 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 			, TE.DescripcionEstrategia
 			, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg
 			, 0 AS EsOfertaIndependiente
-			, '' AS ImagenOfertaIndependiente		
+			, '' AS ImagenOfertaIndependiente
+			, 0 AS MostrarImgOfertaIndependiente
 		FROM Estrategia E with(nolock)
 		INNER JOIN ods.OfertasPersonalizadas op with(nolock) ON 
 			op.CodConsultora = @codConsultoraDefault  
@@ -4879,7 +4913,8 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 			, TE.DescripcionEstrategia
 			, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg
 			, 0 AS EsOfertaIndependiente
-			, '' AS ImagenOfertaIndependiente		
+			, '' AS ImagenOfertaIndependiente	
+			, TE.MostrarImgOfertaIndependiente	
 		FROM Estrategia E with(nolock)
 		INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
 		INNER JOIN ods.Campania CA with(nolock) ON E.CampaniaID = CA.Codigo
@@ -4977,6 +5012,7 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 		, D.ImgHomeMobile
 		, T.EsOfertaIndependiente
 		, T.ImagenOfertaIndependiente
+		, T.MostrarImgOfertaIndependiente
 	FROM #TEMPORAL T
 	LEFT JOIN Marca M with(nolock) ON M.MarcaId = T.MarcaId
 	LEFT JOIN @temp D ON D.EstrategiaID = T.EstrategiaID
@@ -5070,6 +5106,7 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 		FlagMostrarImg int,
 		EsOfertaIndependiente BIT,
 		ImagenOfertaIndependiente  varchar(500),
+		MostrarImgOfertaIndependiente bit
 	)
 	
 	-- Obtener estrategias de Pack Nuevas.
@@ -5103,12 +5140,10 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 		, E.TieneVariedad
 		, TE.CODIGO
 		, TE.DescripcionEstrategia
-		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg,
-		CASE 
-			WHEN(TE.MostrarImgOfertaIndependiente = 1 AND E.EsOfertaIndependiente = 1) THEN 1
-			ELSE 0 
-		END AS EsOfertaIndependiente,
-		TE.ImagenOfertaIndependiente
+		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg
+		, E.EsOfertaIndependiente
+		, TE.ImagenOfertaIndependiente
+		, TE.MostrarImgOfertaIndependiente
 	FROM Estrategia E with(nolock)
 	INNER JOIN TipoEstrategia TE with(nolock) ON
 		E.TipoEstrategiaID = TE.TipoEstrategiaID
@@ -5181,7 +5216,8 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 		, TE.DescripcionEstrategia
 		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg,
 		0 AS EsOfertaIndependiente,
-		'' AS ImagenOfertaIndependiente	
+		'' AS ImagenOfertaIndependiente	,
+		0 AS MostrarImgOfertaIndependiente
 	FROM Estrategia E with(nolock)
 	INNER JOIN ods.OfertasPersonalizadas op with(nolock) ON 
 		op.CodConsultora = @CodigoConsultora  
@@ -5239,7 +5275,8 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 			, TE.DescripcionEstrategia
 			, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg
 			, 0 AS EsOfertaIndependiente
-			, '' AS ImagenOfertaIndependiente		
+			, '' AS ImagenOfertaIndependiente
+			, 0 AS MostrarImgOfertaIndependiente
 		FROM Estrategia E with(nolock)
 		INNER JOIN ods.OfertasPersonalizadas op with(nolock) ON 
 			op.CodConsultora = @codConsultoraDefault  
@@ -5295,7 +5332,8 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 			, TE.DescripcionEstrategia
 			, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg
 			, 0 AS EsOfertaIndependiente
-			, '' AS ImagenOfertaIndependiente		
+			, '' AS ImagenOfertaIndependiente	
+			, TE.MostrarImgOfertaIndependiente	
 		FROM Estrategia E with(nolock)
 		INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
 		INNER JOIN ods.Campania CA with(nolock) ON E.CampaniaID = CA.Codigo
@@ -5393,6 +5431,7 @@ SET @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 		, D.ImgHomeMobile
 		, T.EsOfertaIndependiente
 		, T.ImagenOfertaIndependiente
+		, T.MostrarImgOfertaIndependiente
 	FROM #TEMPORAL T
 	LEFT JOIN Marca M with(nolock) ON M.MarcaId = T.MarcaId
 	LEFT JOIN @temp D ON D.EstrategiaID = T.EstrategiaID

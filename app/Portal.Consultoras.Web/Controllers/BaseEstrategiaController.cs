@@ -557,6 +557,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     prodModel.EsOfertaIndependiente = estrategia.EsOfertaIndependiente;
                     prodModel.ImagenOfertaIndependiente = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.ImagenOfertaIndependiente);
+                    prodModel.MostrarImgOfertaIndependiente = estrategia.MostrarImgOfertaIndependiente;
                 }
                 listaRetorno.Add(prodModel);
             });
