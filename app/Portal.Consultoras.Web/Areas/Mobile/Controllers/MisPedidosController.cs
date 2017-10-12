@@ -18,50 +18,50 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             //var listaPedidos = new List<BEPedidoWeb>();
             var model = new PedidoWebClientePrincipalMobilModel();
 
-            //try
-            //{
-            //    var mobileConfiguracion = (Session["MobileAppConfiguracion"] == null ? new MobileAppConfiguracionModel() : (MobileAppConfiguracionModel)Session["MobileAppConfiguracion"]);
-            //    model.ClienteID = mobileConfiguracion.ClienteID;
-            //    //if (mobileConfiguracion.ClienteID > 0)
-            //    //{
-            //    //    using (var sv = new Portal.Consultoras.Web.ServiceCliente.ClienteServiceClient())
-            //    //    {
-            //    //        var cliente = sv.SelectByConsultoraByCodigo(userData.PaisID, userData.ConsultoraID, 0, mobileConfiguracion.ClienteID);
-            //    //        model.ClienteID = cliente.ClienteID;
-            //    //    }
-            //    //}
+            try
+            {
+                var mobileConfiguracion = (Session["MobileAppConfiguracion"] == null ? new MobileAppConfiguracionModel() : (MobileAppConfiguracionModel)Session["MobileAppConfiguracion"]);
+                model.ClienteID = mobileConfiguracion.ClienteID;
+                //    //if (mobileConfiguracion.ClienteID > 0)
+                //    //{
+                //    //    using (var sv = new Portal.Consultoras.Web.ServiceCliente.ClienteServiceClient())
+                //    //    {
+                //    //        var cliente = sv.SelectByConsultoraByCodigo(userData.PaisID, userData.ConsultoraID, 0, mobileConfiguracion.ClienteID);
+                //    //        model.ClienteID = cliente.ClienteID;
+                //    //    }
+                //    //}
 
-            //    using(var service = new PedidoServiceClient())
-            //    {
-            //        listaPedidos = service.GetPedidosIngresadoFacturadoWebMobile(userData.PaisID, Convert.ToInt32(userData.ConsultoraID), userData.CampaniaID, model.ClienteID, 3, userData.CodigoConsultora).ToList();
-            //    }
+                //    using(var service = new PedidoServiceClient())
+                //    {
+                //        listaPedidos = service.GetPedidosIngresadoFacturadoWebMobile(userData.PaisID, Convert.ToInt32(userData.ConsultoraID), userData.CampaniaID, model.ClienteID, 3, userData.CodigoConsultora).ToList();
+                //    }
 
-            //    foreach (var pedido in listaPedidos)
-            //    {
-            //        var bePedidoWeb = new PedidoWebMobilModel();
-            //        bePedidoWeb.PedidoId = pedido.PedidoID;
-            //        bePedidoWeb.CampaniaID = pedido.CampaniaID;
-            //        bePedidoWeb.EstadoPedidoDesc = pedido.EstadoPedidoDesc;
-            //        bePedidoWeb.ImporteTotal = pedido.ImporteTotal;
-            //        bePedidoWeb.Descuento = -pedido.DescuentoProl;
-            //        bePedidoWeb.CantidadProductos = pedido.CantidadProductos;
+                //    foreach (var pedido in listaPedidos)
+                //    {
+                //        var bePedidoWeb = new PedidoWebMobilModel();
+                //        bePedidoWeb.PedidoId = pedido.PedidoID;
+                //        bePedidoWeb.CampaniaID = pedido.CampaniaID;
+                //        bePedidoWeb.EstadoPedidoDesc = pedido.EstadoPedidoDesc;
+                //        bePedidoWeb.ImporteTotal = pedido.ImporteTotal;
+                //        bePedidoWeb.Descuento = -pedido.DescuentoProl;
+                //        bePedidoWeb.CantidadProductos = pedido.CantidadProductos;
 
-            //        bePedidoWeb.Flete = pedido.Flete;
-            //        bePedidoWeb.Subtotal = pedido.ImporteTotal - pedido.Flete;
+                //        bePedidoWeb.Flete = pedido.Flete;
+                //        bePedidoWeb.Subtotal = pedido.ImporteTotal - pedido.Flete;
 
-            //        model.ListaPedidoCliente.Add(bePedidoWeb);
-            //    }
+                //        model.ListaPedidoCliente.Add(bePedidoWeb);
+                //    }
 
-            //    Session["Pedidos"] = model;
-            //}
-            //catch (FaultException ex)
-            //{
-            //    LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
-            //}
-            //catch (Exception ex)
-            //{
-            //    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-            //}
+                //    Session["Pedidos"] = model;
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
 
             return View(model);
         }

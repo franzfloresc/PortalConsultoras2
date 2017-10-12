@@ -11,23 +11,23 @@
 <style>
     body
     {
-        background:#f2f2f2
+        background:#f8f8f8
     }
 
     .app-tabs
     {
         text-align: center;
         font-size: 13px;
-        border-bottom: solid 1px #dfdfdf
+        border-bottom: solid 1px #dfdfdf;
+        margin-bottom:20px
     }
     .app-tabs a {
-        border-bottom: 4px solid #f2f2f2;
-        width: 33.3%;
+        border-bottom: 4px solid #f8f8f8;
+        width: 33%;
         display: inline-block;
         padding: 8px 0 8px 5px;
         margin-left: -2px;
         margin-right: -2px;
-        border-bottom: solid 4px #f2f2f2;
         color: black;
         text-decoration: none;
         font-family: 'Lato';
@@ -40,11 +40,121 @@
     }
 
     .app-panels {
-        background:#fff;
-        margin-top:30px;
-        margin-left:10px;
-        margin-right:10px;
-        border:solid 1px #d9d9d9
+        background: #fff;
+        margin-top: 10px;
+        margin-left: 10px;
+        margin-right: 10px;
+        border-left:solid 4px #d9d9d9;
+        box-shadow: 0 3px 5px 0 rgba(217,217,217,.8);
+    }
+    .app-panels .panel-heading{
+        padding:10px
+    }
+    .app-panels .panel-body{
+        padding:0;
+        padding-top:20px;
+        background:#f8f8f8;
+        padding:10px;
+        font-size:13px
+    }
+    .app-panels .sections {
+        width:50%;
+        display: inline-block;
+        margin-left: -2px;
+        margin-right: -2px;
+        vertical-align:middle;
+    }
+    .app-panels .sections-client {
+        color:#1d1d26;
+        font-size:15px
+    }
+    .app-panels .sections-price {
+        display:table-cell;
+        width:100%;
+        text-align:right;
+        padding-right:20px;
+        font-size:16px
+    }
+    .app-panels .sections-subtitle{
+        color:#979797;
+        font-size:12px
+    }
+    .app-panels .sections-right {
+        display:table;
+        width:100%
+    }
+    .app-panels .sections-arrow{
+        display:table-cell;
+        vertical-align:top
+    }
+    .app-panels .sections-2 {
+        text-align:right;
+        vertical-align:top;
+    }
+    .app-panels .resaltado{
+        color:#e81c36
+    }
+    .app-panels .codigo-producto {
+        font-weight:bold
+    }
+    .app-panels .producto-cantidad{
+        color: #979797
+    }
+    .app-panels .producto-precio{
+        color: #979797
+    }
+    .app-panels .producto-total{
+        width:100%;
+        bottom:0;
+        position: absolute;
+    }
+    .app-panels hr{
+        display: block;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid #979797;
+        margin: 1em 0;
+        padding: 0; 
+    }
+    .app-panels .sections-table {
+        display:table;
+        width:100%
+    }
+    .app-panels .sections-cell {
+        display:table-cell;
+        width:50%;
+        position:relative
+    }
+
+    .app-footer{
+        width: 100%;
+        height: 54px;
+        line-height: 54px;
+        font-family: 'Lato';
+        color: #1d1d26;
+        text-align: center;
+        display: block;
+        margin-top: 30px;
+        background: #fff;
+        box-shadow: 0 -6px 9px 0 rgba(217,217,217,.8);
+    }
+    .app-footer .sections-1{
+        width:50%;
+        display: inline-block;
+        margin-left: -2px;
+        margin-right: -2px;
+        vertical-align:middle;
+        text-align:right;
+        font-size:17px
+    }
+    .app-footer .sections-2{
+        width:50%;
+        display: inline-block;
+        margin-left: -2px;
+        margin-right: -2px;
+        vertical-align:middle;
+        text-align:center;
+        font-size:19px
     }
 </style>
 
@@ -72,10 +182,72 @@
 </div>
 
 <div class="app-panels panel">
-    <div class="panel-body">
-        AZUCENA SUAREZ
+    <div class="panel-heading" data-toggle="collapse" href="#collapse1">
+        <div class="sections">
+            <div class="sections-client">Azucena Suárez</div>
+            <div class="sections-subtitle">3 productos ingresados</div>
+        </div>
+        <div class="sections">
+            <div class="sections-right">
+                <div class="sections-price">S/ 249.00</div>
+                <div class="sections-arrow"><img src="~/Content/Images/arrow.png" height="9" /></div>
+            </div>
+        </div>
+    </div>
+    <div id="collapse1" class="panel-collapse collapse">
+        <div class="panel-body">
+            <div class="sections-table">
+                <div class="sections-cell">
+                    <div class="resaltado">LIQUIDACIÓN WEB</div>
+                    <div class="descripcion-producto">
+                        <span class="codigo-producto">62238</span> Cyzone pulsera Instadays. De metal bañado en bronce envejecido y cinta negra.
+                    </div>
+                </div>
+                <div class="sections-cell sections-2">
+                    <div class="producto-cantidad">
+                        CANT: 2
+                    </div>
+                    <div class="producto-precio">
+                        S/ 44.80
+                    </div>
+                    <div class="producto-total">
+                        S/. 89.60
+                    </div>
+                </div>
+            </div>
+            <hr />
+        </div>
     </div>
 </div>
+
+<div class="app-footer">
+    <div class="sections-1">TOTAL</div>
+    <div class="sections-2">S/ 399.00</div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        var expanded = false;
+        var currentPanelHeading = null;
+        $(document).ready(function () {
+            $(".app-tabs a").click(function () {
+                $('.app-tabs a.active').removeClass("active");
+                $(this).addClass("active");
+            });
+
+            $(".panel-heading").click(function (e) {
+                currentPanelHeading = $(this);
+                setTimeout(function () {
+                    if (!expanded) currentPanelHeading.parent().css("border-left", "solid 4px #e81c36");
+                    else currentPanelHeading.parent().css("border-left", "solid 4px #d9d9d9");
+                    expanded = !expanded;
+                    currentPanelHeading = null;
+                }, 500);
+            });
+        });
+    </script>
+}
+
 @*@if (Model.ListaPedidoCliente.Count == 0)
 {
     <div class="">

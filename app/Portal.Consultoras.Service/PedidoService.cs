@@ -6,6 +6,9 @@ using Portal.Consultoras.Entities.ReservaProl;
 using Portal.Consultoras.Entities.RevistaDigital;
 using Portal.Consultoras.Entities.ShowRoom;
 using Portal.Consultoras.ServiceContracts;
+using Portal.Consultoras.BizLogic.Pedido;
+using Portal.Consultoras.Entities.Pedido;
+
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -42,8 +45,9 @@ namespace Portal.Consultoras.Service
         private BLFichaProducto blFichaProducto;
 
         private readonly IConsultoraConcursoBusinessLogic _consultoraConcursoBusinessLogic;
+        private readonly IPedidoWebBusinessLogic _pedidoWebBusinessLogic;
 
-        public PedidoService() : this(new BLConsultoraConcurso())
+        public PedidoService() : this(new BLConsultoraConcurso(), new BLPedidoWeb())
         {
             BLPedidoWebDetalle = new BLPedidoWebDetalle();
             BLPedidoWeb = new BLPedidoWeb();
@@ -71,9 +75,10 @@ namespace Portal.Consultoras.Service
             blFichaProducto = new BLFichaProducto();
         }
 
-        public PedidoService(IConsultoraConcursoBusinessLogic consultoraConcursoBusinessLogic)
+        public PedidoService(IConsultoraConcursoBusinessLogic consultoraConcursoBusinessLogic, IPedidoWebBusinessLogic pedidoWebBusinessLogic)
         {
             _consultoraConcursoBusinessLogic = consultoraConcursoBusinessLogic;
+            _pedidoWebBusinessLogic = pedidoWebBusinessLogic;
         }
 
         #region Reporte Lider
@@ -2247,6 +2252,13 @@ namespace Portal.Consultoras.Service
         public List<BEFichaProducto> GetFichaProducto(BEFichaProducto entidad)
         {
             return blFichaProducto.GetFichaProducto(entidad);
+        }
+        #endregion
+
+        #region MisPedidos
+        public List<BEMisPedidosCampania> GetMisPedidosByCampania(int paisID, long ConsultoraID, int CampaniaID, int ClienteID, int Top)
+        {
+            return _pedidoWebBusinessLogic.GetMisPedidosByCampania(paisID, ConsultoraID, CampaniaID, ClienteID, Top);
         }
         #endregion
     }

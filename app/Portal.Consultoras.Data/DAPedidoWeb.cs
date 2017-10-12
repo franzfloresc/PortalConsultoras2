@@ -821,7 +821,18 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CodigoRegion", DbType.AnsiString, codigoRegion);
             Context.Database.AddInParameter(command, "@CodigoZona", DbType.AnsiString, codigoZona);
             return Context.ExecuteReader(command);
-        }        
-        
+        }
+
+        #region MisPedidos
+        public IDataReader GetMisPedidosByCampania(long ConsultoraID, int CampaniaID, int ClienteID, int Top)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetMisPedidosByCampania");
+            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, ConsultoraID);
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
+            Context.Database.AddInParameter(command, "@ClienteID", DbType.Int16, ClienteID);
+            Context.Database.AddInParameter(command, "@Top", DbType.Int32, Top);
+            return Context.ExecuteReader(command);
+        }
+        #endregion
     }
 }

@@ -3,6 +3,8 @@ using Portal.Consultoras.Entities.Cupon;
 using Portal.Consultoras.Entities.ReservaProl;
 using Portal.Consultoras.Entities.RevistaDigital;
 using Portal.Consultoras.Entities.ShowRoom;
+using Portal.Consultoras.Entities.Pedido;
+
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -1223,6 +1225,10 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         List<BEFichaProducto> GetFichaProducto(BEFichaProducto entidad);
 
+        #endregion
+
+        #region MisPedidos
+        List<BEMisPedidosCampania> GetMisPedidosByCampania(int paisID, long ConsultoraID, int CampaniaID, int ClienteID, int Top);
         #endregion
     }
 }
