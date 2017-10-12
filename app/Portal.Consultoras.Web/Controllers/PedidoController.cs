@@ -96,7 +96,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.EstadoPedido = configuracionCampania.EstadoPedido == Constantes.EstadoPedido.Pendiente ? 0 : 1;
 
 
-                ValidarStatusCampania(configuracionCampania);
+                ActualizarUserDataConInformacionCampania(configuracionCampania);
 
                 /* SB20-287 - INICIO */
                 TimeSpan HoraCierrePortal = userData.EsZonaDemAnti == 0 ? userData.HoraCierreZonaNormal : userData.HoraCierreZonaDemAnti;
@@ -443,30 +443,31 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
 
-        private void ValidarStatusCampania(BEConfiguracionCampania configuracionCampania)
+        private void ActualizarUserDataConInformacionCampania(BEConfiguracionCampania configuracionCampania)
         {
             UsuarioModel usuario = userData;
+            //
             usuario.ZonaValida = configuracionCampania.ZonaValida;
+            //
             usuario.FechaInicioCampania = configuracionCampania.FechaInicioFacturacion;
-
-            // OGA se calcula la fecha de fin de campaña sumando la fecha de inicio mas los dias de duración del cronograma
-            //usuario.FechaFinCampania = oBEConfiguracionCampania.FechaFinFacturacion;
             usuario.FechaFinCampania = configuracionCampania.FechaFinFacturacion;
-
+            //
             usuario.HoraInicioReserva = configuracionCampania.HoraInicio;
             usuario.HoraFinReserva = configuracionCampania.HoraFin;
+            //
             usuario.HoraInicioPreReserva = configuracionCampania.HoraInicioNoFacturable;
             usuario.HoraFinPreReserva = configuracionCampania.HoraCierreNoFacturable;
+            //
             usuario.DiasCampania = configuracionCampania.DiasAntes;
-            UpdateDiaPROLAndMostrarBotonValidar(usuario);
+            ActualizarEsDiaPROLyMostrarBotonValidarPedido(usuario);
             usuario.NombreCorto = configuracionCampania.CampaniaDescripcion;
             usuario.CampaniaID = configuracionCampania.CampaniaID;
             usuario.ZonaHoraria = configuracionCampania.ZonaHoraria;
             usuario.HoraCierreZonaDemAnti = configuracionCampania.HoraCierreZonaDemAnti;
             usuario.HoraCierreZonaNormal = configuracionCampania.HoraCierreZonaNormal;
-            usuario.ValidacionAbierta = configuracionCampania.ValidacionAbierta; //CCSS_JZ_PROL
-            usuario.ValidacionInteractiva = configuracionCampania.ValidacionInteractiva; //R20160306
-            usuario.MensajeValidacionInteractiva = configuracionCampania.MensajeValidacionInteractiva; //R20160306
+            usuario.ValidacionAbierta = configuracionCampania.ValidacionAbierta;
+            usuario.ValidacionInteractiva = configuracionCampania.ValidacionInteractiva;
+            usuario.MensajeValidacionInteractiva = configuracionCampania.MensajeValidacionInteractiva;
 
             if (DateTime.Now.AddHours(configuracionCampania.ZonaHoraria) < configuracionCampania.FechaInicioFacturacion.AddDays(-configuracionCampania.DiasAntes))
             {
@@ -478,11 +479,11 @@ namespace Portal.Consultoras.Web.Controllers
                 usuario.FechaFacturacion = configuracionCampania.FechaFinFacturacion;
                 usuario.HoraFacturacion = configuracionCampania.HoraFin;
             }
-            DateTime FecActual = DateTime.Now.AddHours(usuario.ZonaHoraria);
-            TimeSpan HoActual = new TimeSpan(FecActual.Hour, FecActual.Minute, 0);
-            TimeSpan HCierrePais = usuario.EsZonaDemAnti == 0 ? usuario.HoraCierreZonaNormal : usuario.HoraCierreZonaDemAnti;
+            var fechaActual = DateTime.Now.AddHours(usuario.ZonaHoraria);
+            var horaActual = new TimeSpan(fechaActual.Hour, fechaActual.Minute, 0);
+            var horaCierrePais = usuario.EsZonaDemAnti == 0 ? usuario.HoraCierreZonaNormal : usuario.HoraCierreZonaDemAnti;
 
-            if (HoActual > HCierrePais)
+            if (horaActual > horaCierrePais)
             {
                 usuario.IngresoPedidoCierre = true;
             }
@@ -490,25 +491,32 @@ namespace Portal.Consultoras.Web.Controllers
             SetUserData(usuario);
         }
 
-        private void UpdateDiaPROLAndMostrarBotonValidar(UsuarioModel usuario)
+        private void ActualizarEsDiaPROLyMostrarBotonValidarPedido(UsuarioModel usuario)
         {
             DateTime fechaHoraActual = DateTime.Now.AddHours(usuario.ZonaHoraria);
-            usuario.DiaPROL = usuario.FechaInicioCampania.AddDays(-usuario.DiasCampania) < fechaHoraActual
-                && fechaHoraActual < usuario.FechaFinCampania.AddDays(1);
+
+            usuario.DiaPROL = (usuario.FechaInicioCampania.AddDays(-usuario.DiasCampania) < fechaHoraActual
+                && fechaHoraActual < usuario.FechaFinCampania.AddDays(1));
+
             usuario.MostrarBotonValidar = EsHoraReserva(usuario, fechaHoraActual);
         }
 
-        private bool EsHoraReserva(UsuarioModel usuario, DateTime fechaHoraActual)
+        private bool EsHoraReserva(UsuarioModel usuario, DateTime fechaHora)
         {
-            if (!usuario.DiaPROL) return false;
+            if (!usuario.DiaPROL)
+                return false;
 
-            TimeSpan HoraNow = new TimeSpan(fechaHoraActual.Hour, fechaHoraActual.Minute, 0);
-            bool esHorarioReserva = (fechaHoraActual < usuario.FechaInicioCampania) ?
+            TimeSpan HoraNow = new TimeSpan(fechaHora.Hour, fechaHora.Minute, 0);
+            bool esHorarioReserva = (fechaHora < usuario.FechaInicioCampania) ?
                 (HoraNow > usuario.HoraInicioPreReserva && HoraNow < usuario.HoraFinPreReserva) :
                 (HoraNow > usuario.HoraInicioReserva && HoraNow < usuario.HoraFinReserva);
-            if (!esHorarioReserva) return false;
 
-            if (usuario.CodigoISO != Constantes.CodigosISOPais.Peru) return (BuildFechaNoHabil() == 0);
+            if (!esHorarioReserva)
+                return false;
+
+            if (usuario.CodigoISO != Constantes.CodigosISOPais.Peru)
+                return (BuildFechaNoHabil() == 0);
+
             return true;
         }
 
@@ -2148,7 +2156,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                UpdateDiaPROLAndMostrarBotonValidar(userData);
+                ActualizarEsDiaPROLyMostrarBotonValidarPedido(userData);
 
                 var input = Mapper.Map<BEInputReservaProl>(userData);
                 input.EnviarCorreo = false;
