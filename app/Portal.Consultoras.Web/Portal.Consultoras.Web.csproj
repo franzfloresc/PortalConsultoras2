@@ -1218,6 +1218,7 @@
     <Content Include="Content\HojaInscripcion\carrito-menu.png" />
     <Content Include="Content\Css\Site\Login2\style_esika.min.css" />
     <Content Include="Content\Css\Site\Login2\style_lbel.min.css" />
+    <Content Include="Content\ImageHelper\xzoom.css" /> 
     <Content Include="Content\Images\arrow-down.svg" />
     <Content Include="Content\Images\arrow.png" />
     <Content Include="Content\Css\Site\jquery.rateyo.css" />
@@ -3086,6 +3087,7 @@
     <Content Include="Content\Images\total.png" />
     <Content Include="Content\Images\trash.png" />
     <Content Include="Content\Images\trash_e.png" />
+    <Content Include="Content\Images\turn_left.png" />
     <Content Include="Content\Images\Undo.png" />
     <Content Include="Content\Images\unificado_lb_es.png" />
     <Content Include="Content\Images\update.png" />
@@ -3126,6 +3128,7 @@
     <Content Include="Content\Images\webtracking\regresar.png" />
     <Content Include="Content\Images\webtracking\settings.png" />
     <Content Include="Content\Images\webtracking\si.png" />
+    <Content Include="Content\Images\xloading.gif" />
     <Content Include="Content\Images\zona_.png" />
     <Content Include="Content\layer-flx-cl\img\boton_conoce_05.png" />
     <Content Include="Content\layer-flx-cl\img\boton_inscribete_03.png" />
@@ -3185,6 +3188,12 @@
     <Content Include="Areas\Mobile\Views\MisReclamos\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\MisReclamos\Reclamo.cshtml" />
     <Content Include="Areas\Mobile\Views\MisReclamos\Detalle.cshtml" />
+    <Content Include="Scripts\ImageHelper\hammer.min.js" />
+    <Content Include="Scripts\ImageHelper\jquery.hammer.min.js" />
+    <Content Include="Scripts\ImageHelper\sizzle.js" />
+    <Content Include="Scripts\ImageHelper\xzoom.js" />
+    <Content Include="Scripts\ImageHelper\xzoom.min.js" />
+    <Content Include="Scripts\ImageHelper\xzoomSetup.js" />
     <Content Include="Scripts\jquery-1.11.2.js" />
     <Content Include="Scripts\jquery-1.11.2.min.js" />
     <Content Include="Scripts\jquery-labelauty.js" />
@@ -3233,6 +3242,7 @@
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
     <Content Include="Scripts\PortalConsultoras\MatrizCampania\ActualizarMatrizCampaniaModule.js" />
     <Content Include="Scripts\PortalConsultoras\FichaProducto\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\Mobile\SeguimientoPedido\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\MisReclamos\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\MisReclamos\Reclamo.js" />
     <Content Include="Scripts\PortalConsultoras\ProductoComentario\ProductoComentarioAdmModule.js" />
@@ -3557,6 +3567,7 @@
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-oferta-del-dia.cshtml" />
     <Content Include="Areas\Mobile\Views\MisDatos\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\FichaProducto\ProductoNotFound.cshtml" />
+    <Content Include="Areas\Mobile\Views\SeguimientoPedido\Detalle.cshtml" />
     <Content Include="Areas\Mobile\Views\OfertaDelDia\_OfertaDelDiaBannerTop.cshtml" />
     <Content Include="Areas\Mobile\Views\OfertaDelDia\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\OfertaDelDia\_OfertaDelDiaBanner.cshtml" />
@@ -3865,6 +3876,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceUnete\PortalService7.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService81.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceUsuarioExt\UsuarioWebService.wsdl" />
@@ -4369,6 +4383,7 @@
     <Content Include="Views\AsesoraOnline\FelicitacionesDialog.cshtml" />
     <Content Include="Views\AsesoraOnline\ConsultoraYaRegistradaCoachVirtual.cshtml" />
     <Content Include="Views\FichaProducto\template-ficha-producto.cshtml" />
+    <Content Include="Views\Unete\TemplatesDatosAval\_DatosAvalGrupo1.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-banner.cshtml" />
     <Content Include="Views\Shared\_vpBloqueMensajesPostulante.cshtml" />
     <Content Include="Views\Shared\_vpBloqueMensajesPedido.cshtml" />

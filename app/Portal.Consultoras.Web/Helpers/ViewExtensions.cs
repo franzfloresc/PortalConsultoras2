@@ -1,10 +1,31 @@
 ﻿using System.Web.Mvc;
 using Portal.Consultoras.Web.Infraestructure;
+using System.Web.Mvc.Html;
 
 namespace Portal.Consultoras.Web.Helpers
 {
     public static class ViewExtensions
     {
+        public static System.Web.IHtmlString CdrMobilePorPais(this HtmlHelper htmlHelper)
+        {
+            var route = EsPaisEsika(htmlHelper.ViewContext) ? "esika" : "lbel";
+            var url = UrlHelper.GenerateContentUrl(string.Format("~/Content/Css/Mobile/{0}/cdr.css", route), htmlHelper.ViewContext.HttpContext);
+            var link = string.Format("<link href=\"{0}\" rel=\"stylesheet\" />", url);
+            return new MvcHtmlString(link);
+        }
+
+        //todo: use htmlHelper?
+        /// <summary>
+        /// Calcula si es un pais Esika basado en ViewBag.PaisAnalytics
+        /// </summary>
+        /// <param name="viewContext"></param>
+        /// <returns></returns>
+        public static bool EsPaisEsika(this ViewContext viewContext)
+        {
+            return System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika")
+                .Contains(viewContext.ViewBag.PaisAnalytics);
+        }
+
         /// <summary>
         /// Calcula el nombre del Layout en base a la Session Unica IngresoExterno
         /// </summary>

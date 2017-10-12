@@ -1,4 +1,4 @@
-@using Portal.Consultoras.Common
+﻿@using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Helpers
 @model Portal.Consultoras.Web.Models.ShowRoomOfertaModel
 
@@ -8,7 +8,6 @@
 }
 @section styles
 {
-
     @if (ViewContext.GetUniqueSession("IngresoExterno") != null)
     {
         <style>
@@ -18,6 +17,9 @@
         </style>
     }
 }
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
 <div class="titulo_mobile hideTituloMobileDetalleOferta">
     @{  
         if (mobileConfiguracion.MostrarBotonAtras)

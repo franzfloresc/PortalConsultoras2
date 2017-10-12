@@ -480,6 +480,9 @@ namespace Portal.Consultoras.ServiceContracts
         BETracking GetPedidoByConsultoraAndCampania(int paisID, string codigoConsultora, int campania);
 
         [OperationContract]
+        BETracking GetPedidoByConsultoraAndCampaniaAndNroPedido(int paisID, string codigoConsultora, int campania, string nroPedido);
+
+        [OperationContract]
         List<BETracking> GetTrackingByPedido(int paisID, string codigo, string campana, string nropedido);
 
         #endregion

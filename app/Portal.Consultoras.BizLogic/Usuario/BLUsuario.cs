@@ -530,6 +530,22 @@ namespace Portal.Consultoras.BizLogic
             return existe;
         }
 
+        public string IsConsultoraExist(int paisID, string CodigoConsultora)
+        {
+            var DAUsuario = new DAUsuario(paisID);
+            var existe = false;
+            string retorno = string.Empty;
+            
+            retorno = "0|0";
+            using (IDataReader reader = DAUsuario.GetUsuarioByConsultora(CodigoConsultora))
+            {
+                if (reader.Read())
+                    retorno = "1" + "|" + reader["CodigoUsuario"].ToString();
+            }
+            
+            return retorno;
+        }
+
         public bool ChangePasswordUser(int paisID, string codigoUsuarioAutenticado, string emailCodigoUsuarioModificado, string password, string emailUsuarioModificado, EAplicacionOrigen origen)
         {
             var DAUsuario = new DAUsuario(paisID);
