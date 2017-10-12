@@ -57,29 +57,45 @@ namespace Portal.Consultoras.Web
                "~/Scripts/jquery.flexnav.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/JSTree").Include(
-               "~/Scripts/jquery.jstree.js"));
+               "~/Scripts/jquery.jstree.js"));            
 
-            bundles.Add(new ScriptBundle("~/Scripts/Mobile").Include(
+            bundles.Add(new ScriptBundle("~/Scripts/MobileLayout").Include(
+                "~/Scripts/jquery-{version}.js",
+                "~/Scripts/jquery-ui-1.9.2.custom.js",
+                "~/Scripts/jquery.validate.js",
+                "~/Scripts/jquery.validate.unobtrusive.js",
+                "~/Scripts/bootstrap.js",                           
+                "~/Scripts/accordion.js",
+                "~/Scripts/fingerprint2.js",                                          
+                "~/Scripts/handlebars.js",                
+                "~/Scripts/flipclock.js",
+                "~/Scripts/jquery.flexslider.js",
+                "~/Scripts/slick.js",
+                "~/Scripts/PortalConsultoras/Shared/TrackingJetlore.js",
+                "~/Scripts/LogError.js",
+                "~/Scripts/menu.js",
+                "~/Scripts/General.js",
+                "~/Scripts/PortalConsultoras/Mobile/Shared/MobileLayout.js"
+            ));
+
+            bundles.Add(new ScriptBundle("~/Scripts/MobileLayoutContenedor").Include(
                 "~/Scripts/jquery-{version}.js",
                 "~/Scripts/jquery-ui-1.9.2.custom.js",
                 "~/Scripts/jquery.validate.js",
                 "~/Scripts/jquery.validate.unobtrusive.js",
                 "~/Scripts/bootstrap.js",
-                "~/Scripts/menu.js",
-                "~/Scripts/PortalConsultoras/Shared/MenuContenedor.js",
                 "~/Scripts/accordion.js",
                 "~/Scripts/fingerprint2.js",
-                "~/Scripts/General.js",
-                "~/Scripts/LogError.js"
-            ));
-
-            bundles.Add(new ScriptBundle("~/Scripts/MobileLayout").Include(
-                "~/Scripts/PortalConsultoras/Mobile/Shared/MobileLayout.js",
                 "~/Scripts/handlebars.js",
-                "~/Scripts/PortalConsultoras/Shared/TrackingJetlore.js",
                 "~/Scripts/flipclock.js",
                 "~/Scripts/jquery.flexslider.js",
-                "~/Scripts/slick.js"
+                "~/Scripts/slick.js",
+                "~/Scripts/PortalConsultoras/Shared/TrackingJetlore.js",
+                "~/Scripts/LogError.js",
+                "~/Scripts/menu.js",
+                "~/Scripts/General.js",
+                "~/Scripts/PortalConsultoras/Mobile/Shared/MobileLayout.js",
+                "~/Scripts/PortalConsultoras/Shared/MenuContenedor.js"
             ));
 
             bundles.Add(new StyleBundle("~/bundles/CSSFuzemodal").Include(

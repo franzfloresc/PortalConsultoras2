@@ -336,7 +336,7 @@
 @section scripts{
     <script type="text/javascript">
         var imgNoDisponible = '@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")';
-        var imgIssuu = '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart01' + '{img}' + '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart02Alternativo'
+        var imgIssuu = '@Constantes.CatalogoUrlParameters.UrlPart01' + '{img}' + '@Constantes.CatalogoUrlParameters.UrlPart02Alternativo';
         var codigoIso = '@ViewBag.CodigoISO';
         var defaultImageRevista = '@Url.Content("~/Content/Images/revista_no_disponible.jpg")';
         var urlObtenerPortadaRevista = '@Url.Action("ObtenerPortadaRevista", "Catalogo", new { area = "Mobile" })';

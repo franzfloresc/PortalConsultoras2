@@ -1,4 +1,24 @@
-﻿
+﻿var tagLbel = "Lbel";
+var tagEsika = "Esika";
+var tagCyzone = "Cyzone";
+
+var campSelect = "";
+var campSelectI = 1;
+
+var aCam = new Array();
+var linkCat = new Object();
+var descrCat = new Object();
+var ordenCat = new Object();
+
+var cantCat = 3;
+var cantCam = 3;
+var cont = 0;
+
+var listaCorreo = new Array();
+
+var imgIssuu = (imgIssuu == null || imgIssuu == undefined)
+    ? "" : imgIssuu.startsWith("https") ? imgIssuu.replace("https://", "http://") : imgIssuu;
+
 $(document).ready(function () {
     aCam.push($("#hdCampaniaAnterior").val());
     aCam.push($("#hdCampaniaActual").val());
@@ -89,26 +109,6 @@ $(document).ready(function () {
         CatalogoEnviarEmail();
     });
 });
-
-var tagLbel = "Lbel";
-var tagEsika = "Esika";
-var tagCyzone = "Cyzone";
-
-var campSelect = "";
-var campSelectI = 1;
-
-var aCam = new Array();
-var linkCat = new Object();
-var descrCat = new Object();
-var ordenCat = new Object();
-
-var cantCat = 3;
-var cantCam = 3;
-var cont = 0;
-
-var listaCorreo = new Array();
-
-imgIssuu = imgIssuu.startsWith("https") ? imgIssuu.replace("https://", "http://") : imgIssuu;
 
 function InsertarLogCatalogoDynamo(opcionAccion, campaniaCatalogo, marca, cantidad) {
     InsertarLogDymnamo(
