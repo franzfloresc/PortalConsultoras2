@@ -508,6 +508,7 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
                 $("#msjOfertaFinal").attr("class", "ganancia_total_pop");
             }
 
+            //debugger;
             if (consultoraRegaloPN == 'True') {  // CASE 3,4,5
                 var nivel = oRegaloPN.CodigoNivel;
                 var sep = (tipoOrigen == 1) ? ' | ' : '<br />';
@@ -515,12 +516,12 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
                     $("#msjOfertaFinal span").html('Monto Total de Pedido: ' + simbolo + ' ' + data.formatoTotal + sep + 'Ganancia Estimada Total: ' + simbolo + ' ' + data.DataBarra.MontoGananciaStr);
                 }
                 else {
-
                     if (tipoOrigen == 1)
                         $("#msjOfertaFinal span").html('Monto Total de Pedido: ' + simbolo + ' ' + data.formatoTotal + sep + 'Ganancia Estimada Total: ' + simbolo + ' ' + data.DataBarra.MontoGananciaStr);
                     else
                         $("#msjOfertaFinal span").html('Monto Total de Pedido: ' + simbolo + ' ' + data.formatoTotal);
                 }
+                $('#msjOfertaFinal span').css('display', 'inline-block');
             }
             else
                 $("#msjOfertaFinal span").html("<b>" + msj + simbolo + " " + data.DataBarra.MontoGananciaStr + "</b><br />Monto total: " + simbolo + " " + data.formatoTotal);
@@ -586,8 +587,8 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
             if (nivel == '01' || nivel == '02' || nivel == '03') {
                 // CASE 9
                 var xmsg = '<b>AHORA TU MONTO TOTAL DE PEDIDO ES ' + simbolo + ' ' + data.formatoTotal + '</b>';
-                $("#spnTituloOfertaFinal span").html(xmsg);
-                $("#msjOfertaFinal span").html('Ganancia Estimada Total: ' + simbolo + ' ' + data.DataBarra.MontoGananciaStr);
+                $('#spnTituloOfertaFinal span').html(xmsg);
+                $('#msjOfertaFinal span').html('Ganancia Estimada Total: ' + simbolo + ' ' + data.DataBarra.MontoGananciaStr);
 
                 $('#msg-regalo-pn').css('display', 'none');
                 $('#msg-regalo-pn2').css('display', 'none');
@@ -596,24 +597,25 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
                 disclaimer = '*En caso tu pedido no tenga observaciones y supere monto mínimo, **Encuéntralos en la seccion de Oferta para Ti.';
                 if (data.total >= oRegaloPN.TippingPoint) {
                     // CASE 11
-                    var xmsg = '<b>AHORA TU MONTO TOTAL DE PEDIDO ES DE' + simbolo + ' ' + data.formatoTotal + '</b>';
+                    var xmsg = '<b>AHORA TU MONTO TOTAL DE PEDIDO ES DE ' + simbolo + ' ' + data.formatoTotal + '</b>';
                     xmsg += '<br /><span style="font-weight: normal;font-size:16px;"><b>Y GANASTE UN ' + oRegaloPN.DescripcionPremio + '*</b>';
                     xmsg += ',AHORA PUEDES ACCEDER A PACKS EXCLUSIVOS NUEVAS**</span>';
 
-                    $("#spnTituloOfertaFinal span").html(xmsg);
-                    if (tipoOrigen == 1) ("#msjOfertaFinal span").html('Ganancia Estimada Total: ' + simbolo + ' ' + data.DataBarra.MontoGananciaStr);
+                    $('#spnTituloOfertaFinal span').html(xmsg);
+                    if (tipoOrigen == 1) $('#msjOfertaFinal span').html('Ganancia Estimada Total: ' + simbolo + ' ' + data.DataBarra.MontoGananciaStr);
 
                     $('#msg-regalo-pn').css('display', 'none');
                     $('#msg-regalo-pn2').css('display', 'none');
                 }
                 else {
                     // CASE 10
-                    var xmsg = '<b>AHORA TU MONTO TOTAL DE PEDIDO ES ' + simbolo + ' ' + data.formatoTotal + '</b>';
-                    $("#spnTituloOfertaFinal span").html(xmsg);
+                    var xmsg = '<b>AHORA TU MONTO TOTAL DE PEDIDO ES DE ' + simbolo + ' ' + data.formatoTotal + '</b>';
+                    $('#spnTituloOfertaFinal span').html(xmsg);
                     if (tipoOrigen == 1) ("#msjOfertaFinal span").html('Ganancia Estimada Total: ' + simbolo + ' ' + data.DataBarra.MontoGananciaStr);
 
                     xmsg2 = 'AGREGA ' + simbolo + ' ' + DecimalToStringFormat(stp) + ' PARA <b>GANAR UN ' + oRegaloPN.DescripcionPremio + '*</b>';
                     xmsg2 += 'Y ACCEDER A PACKS EXCLUSIVOS NUEVAS**';
+
                     $('#msg-regalo-pn').html(xmsg2);
                     $('#msg-regalo-pn2').html(xmsg2);                    
                 }
@@ -682,7 +684,7 @@ function getAbrevNumPedido(nivel) {
 }
 
 function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simbolo, flag) {
-    debugger;
+    //debugger;
     if (oRegaloPN == null)
         oRegaloPN = GetRegaloProgramaNuevas();
 
@@ -695,7 +697,7 @@ function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simbolo, flag)
         var sep = (tipoOrigen == 1) ? ' ' : '<br />';
         var showDiv = true;
         $('#msjOfertaFinal span').css('display', 'none');
-        $('#msjOfertaFinal span').css('margin-top', '0px;');
+        $('#msjOfertaFinal span').css('margin-top', '0');
         $('#msg-regalo-pn').css('display', 'none');
         $('#msg-regalo-pn2').css('display', 'none');
         $('#div-regalo-pn').css('display', 'none');
@@ -733,8 +735,9 @@ function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simbolo, flag)
                         $('#msg-regalo-pn').html(msg2);
                         $('#msg-regalo-pn2').html(msg2);
 
-                        $('#msg-regalo-pn').css('display', 'block');
-                        $('#msg-regalo-pn2').css('display', 'block');
+                        $('#msg-regalo-pn').css('display', 'inline-block');
+                        $('#msg-regalo-pn2').css('display', 'inline-block');
+                        $('#msg-regalo-pn2').css('margin-top', '20px');
                     }
                 }
             }
@@ -758,8 +761,8 @@ function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simbolo, flag)
                     $('#msg-regalo-pn2').html(msg2);
                 }
 
-                $('#msg-regalo-pn').css('display', 'block');
-                $('#msg-regalo-pn2').css('display', 'block');
+                $('#msg-regalo-pn').css('display', 'inline-block');
+                $('#msg-regalo-pn2').css('display', 'inline-block');
             }
         }
         else if (tipoMeta == 'GM') {
@@ -773,8 +776,8 @@ function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simbolo, flag)
                 $('#msg-regalo-pn').html(msg2);
                 $('#msg-regalo-pn2').html(msg2);
 
-                $('#msg-regalo-pn').css('display', 'block');
-                $('#msg-regalo-pn2').css('display', 'block');
+                $('#msg-regalo-pn').css('display', 'inline-block');
+                $('#msg-regalo-pn2').css('display', 'inline-block');
                 showDiv = false;
             }
             else {
@@ -792,7 +795,7 @@ function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simbolo, flag)
                     else
                         $('#msjOfertaFinal span').html('Monto Total de Pedido: ' + simbolo + ' ' + montoTotal);
 
-                    $('#msjOfertaFinal span').css('display', 'block');
+                    $('#msjOfertaFinal span').css('display', 'inline-block');
                     $('#msjOfertaFinal span').css('margin-top', '20px');
                     showDiv = false;
                 }
@@ -806,8 +809,8 @@ function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simbolo, flag)
                     $('#msg-regalo-pn').html(msg2);
                     $('#msg-regalo-pn2').html(msg2);
 
-                    $('#msg-regalo-pn').css('display', 'block');
-                    $('#msg-regalo-pn2').css('display', 'block');
+                    $('#msg-regalo-pn').css('display', 'inline-block');
+                    $('#msg-regalo-pn2').css('display', 'inline-block');
                 }
             }
         }
@@ -821,8 +824,9 @@ function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simbolo, flag)
             $('#img-regalo-pn').attr('src', oRegaloPN.UrlImagenRegalo);
             //$('#img-regalo-pn').show();
         }
-        else 
-            $('#msg-regalo-pn').css('padding-top', '15px');
+        //else {
+        //    $('#msg-regalo-pn').css('padding-top', '15px');
+        //}
 
         //$('#msg-regalo-pn').html(mensaje);
         //$('#msg-regalo-pn2').html(mensaje);   // mobile
