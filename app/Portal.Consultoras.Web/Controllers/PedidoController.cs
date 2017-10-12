@@ -53,24 +53,18 @@ namespace Portal.Consultoras.Web.Controllers
                 AgregarKitNuevas();
 
                 #region Flexipago
-
-                model.IndicadorFlexiPago = 0;
                 if (PaisTieneFlexiPago(userData.CodigoISO))
                 {
                     model.IndicadorFlexiPago = userData.IndicadorFlexiPago;
 
                     if (userData.IndicadorFlexiPago != 0)
                     {
-                        decimal pedidoBase;
-                        decimal lineaCredito;
-                        ObtenerLineaCreditoSB2(out lineaCredito, out pedidoBase);
-
-                        model.LineaCredito = lineaCredito;
-                        model.PedidoBase = pedidoBase;
+                        var flexipago = GetLineaCreditoFlexipago(userData);
+                        //
+                        model.LineaCredito = flexipago.LineaCredito;
+                        model.PedidoBase = flexipago.PedidoBase;
                     }
                 }
-
-
                 #endregion
 
                 #region Configuracion de Campaña
@@ -1179,31 +1173,30 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-        private void ObtenerLineaCreditoSB2(out decimal lineaCredito, out decimal pedidoBase)
+        private BEOfertaFlexipago GetLineaCreditoFlexipago(UsuarioModel usuarioModel)
         {
+            BEOfertaFlexipago ofertaFlexipago = null;
             try
             {
-                using (PedidoServiceClient svc = new PedidoServiceClient())
+                using (var pedidoServiceClient = new PedidoServiceClient())
                 {
-                    BEOfertaFlexipago oBe = svc.GetLineaCreditoFlexipago(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID);
+                    ofertaFlexipago = pedidoServiceClient.GetLineaCreditoFlexipago(usuarioModel.PaisID,
+                        usuarioModel.CodigoConsultora,
+                        usuarioModel.CampaniaID);
 
-                    lineaCredito = oBe.LineaCredito;
-                    pedidoBase = oBe.PedidoBase;
                 }
             }
             catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
-                lineaCredito = 0;
-                pedidoBase = 0;
 
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                lineaCredito = 0;
-                pedidoBase = 0;
             }
+
+            return ofertaFlexipago;
         }
 
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
