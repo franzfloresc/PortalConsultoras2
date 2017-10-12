@@ -23,6 +23,8 @@ var FlagEnviarCorreo = false;
 
 $(document).ready(function () {
 
+
+
     dataBarra.TotalPedido = dataBarra.TotalPedido || parseFloat($("#hdfTotal").val(), 10);
 
     $("#hdDataBarra, #hdListaEscala").val("");
@@ -1117,7 +1119,7 @@ function ValidarDescripcion() {
     }
 }
 
-function PreValidarCUV() {
+function PreValidarCUV(event) {
     if (event.keyCode == 13) {
         if ($("#btnAgregar")[0].disabled == false) {
             AgregarProductoListado();

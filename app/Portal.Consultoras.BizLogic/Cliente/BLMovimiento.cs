@@ -38,12 +38,8 @@ namespace Portal.Consultoras.BizLogic.Cliente
             var daPedidoDetalle = new DAPedidoWebDetalle(paisId);
 
             using (var reader = daCliente.MovimientosListar(clienteId, consultoraId))
-                while (reader.Read())
-                {
-                    var movimiento = new BEMovimiento(reader);
-                    movimientos.Add(movimiento);
-                }
-
+                movimientos = reader.MapToCollection<BEMovimiento>();
+            
             foreach (var movimiento in movimientos)
             {
                 if (movimiento.TipoMovimiento != Constantes.MovimientoTipo.CargoBelcorp)

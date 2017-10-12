@@ -87,7 +87,7 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEClienteDB> SaveDB(int paisID, List<BEClienteDB> clientes);
 
         [OperationContract]
-        IList<BEClienteDB> SelectByConsultoraDB(int paisID, long consultoraID, int campaniaID);
+        IList<BEClienteDB> SelectByConsultoraDB(int paisID, long consultoraID, int campaniaID, int clienteID);
         #endregion
 
         [OperationContract]

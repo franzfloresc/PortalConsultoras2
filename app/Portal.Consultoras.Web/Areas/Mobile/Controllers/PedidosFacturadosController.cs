@@ -77,7 +77,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 var pedidosFacturados = Session["PedidosFacturados"] as PedidoWebClientePrincipalMobilModel;
                 if (pedidosFacturados == null) return PartialView();
 
-                var pedidoWebMobile = pedidosFacturados.ListaPedidoCliente.FirstOrDefault(p => p.CampaniaID == campaniaID);
+                var pedidoWebMobile = pedidosFacturados.ListaPedidoCliente.FirstOrDefault(p => p.CampaniaID == campaniaID && p.PedidoId == pedidoId);
                 if (pedidoWebMobile == null) return PartialView();
 
                 model.CodigoISO = userData.CodigoISO;

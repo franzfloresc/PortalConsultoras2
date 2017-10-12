@@ -13,6 +13,7 @@
       <xs:element minOccurs="0" name="Favorito" type="xs:short" />
       <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NombreCliente" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Origen" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Pagina" type="xs:int" />
       <xs:element minOccurs="0" name="PaisID" type="xs:int" />
       <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cliente" minOccurs="0" name="Recordatorios" nillable="true" type="q1:ArrayOfBEClienteRecordatorio" />
@@ -231,8 +232,8 @@
       <xs:element minOccurs="0" name="Alias" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Apellidos" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CantidadProductos" type="xs:int" />
-      <xs:element minOccurs="0" name="ClienteID" type="xs:long" />
-      <xs:element minOccurs="0" name="ClienteIDSB" type="xs:int" />
+      <xs:element minOccurs="0" name="ClienteID" type="xs:int" />
+      <xs:element minOccurs="0" name="CodigoCliente" type="xs:long" />
       <xs:element minOccurs="0" name="CodigoRespuesta" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ConsultoraID" type="xs:long" />
       <xs:element minOccurs="0" name="Contactos" nillable="true" type="tns:ArrayOfBEClienteContactoDB" />
@@ -253,7 +254,6 @@
       <xs:element minOccurs="0" name="Saldo" type="xs:decimal" />
       <xs:element minOccurs="0" name="Sexo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoContactoFavorito" type="xs:short" />
-      <xs:element minOccurs="0" name="TipoRegistro" type="xs:short" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEClienteDB" nillable="true" type="tns:BEClienteDB" />

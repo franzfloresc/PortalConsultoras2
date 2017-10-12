@@ -1296,7 +1296,7 @@ namespace Portal.Consultoras.Web.Controllers
                 entidad.ConsultoraID = userData.ConsultoraID.ToString();
 
                 //EPD-2337
-                mensaje = ValidarPedidoMontoMaximo(Convert.ToDecimal(PrecioUnidad), entidad.Cantidad);
+                mensaje = ValidarMontoMaximo(Convert.ToDecimal(PrecioUnidad), entidad.Cantidad);
                 //FIN EPD-2337
 
                 if (mensaje == "")
@@ -2552,6 +2552,15 @@ namespace Portal.Consultoras.Web.Controllers
             userData.ValidacionAbierta = oBEConfiguracionCampania.ValidacionAbierta;
 
             #endregion
+
+            if (userData.EfRutaPedido == null || userData.EfRutaPedido == "")
+            {
+                ViewBag.UrlFranjaNegra = "../../../Content/Images/Esika/background_pedido.png";
+            }
+            else
+            {
+                ViewBag.UrlFranjaNegra = userData.EfRutaPedido;
+            }
 
             return View(model);
         }
@@ -4472,7 +4481,7 @@ namespace Portal.Consultoras.Web.Controllers
                 entidad.ConsultoraID = userData.ConsultoraID.ToString();
                 entidad.FlagCantidad = TipoOferta;
 
-                mensaje = ValidarPedidoMontoMaximo(Precio, entidad.Cantidad);
+                mensaje = ValidarMontoMaximo(Precio, entidad.Cantidad);
 
                 if (mensaje == "")
                 {
