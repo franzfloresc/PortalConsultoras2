@@ -111,6 +111,12 @@
   <wsdl:message name="IBelcorpPaisService_ObtenerDatosConsultora_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerDatosConsultoraResponse" />
   </wsdl:message>
+  <wsdl:message name="IBelcorpPaisService_GetDatosConsultoraByRegionZona_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDatosConsultoraByRegionZona" />
+  </wsdl:message>
+  <wsdl:message name="IBelcorpPaisService_GetDatosConsultoraByRegionZona_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDatosConsultoraByRegionZonaResponse" />
+  </wsdl:message>
   <wsdl:portType name="IBelcorpPaisService">
     <wsdl:operation name="ObtenerIdCampaniaActiva">
       <wsdl:input wsaw:Action="http://tempuri.org/IBelcorpPaisService/ObtenerIdCampaniaActiva" message="tns:IBelcorpPaisService_ObtenerIdCampaniaActiva_InputMessage" />
@@ -179,6 +185,10 @@
     <wsdl:operation name="ObtenerDatosConsultora">
       <wsdl:input wsaw:Action="http://tempuri.org/IBelcorpPaisService/ObtenerDatosConsultora" message="tns:IBelcorpPaisService_ObtenerDatosConsultora_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IBelcorpPaisService/ObtenerDatosConsultoraResponse" message="tns:IBelcorpPaisService_ObtenerDatosConsultora_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDatosConsultoraByRegionZona">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBelcorpPaisService/GetDatosConsultoraByRegionZona" message="tns:IBelcorpPaisService_GetDatosConsultoraByRegionZona_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBelcorpPaisService/GetDatosConsultoraByRegionZonaResponse" message="tns:IBelcorpPaisService_GetDatosConsultoraByRegionZona_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IBelcorpPaisService" type="tns:IBelcorpPaisService">
@@ -329,6 +339,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerDatosConsultora">
       <soap:operation soapAction="http://tempuri.org/IBelcorpPaisService/ObtenerDatosConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDatosConsultoraByRegionZona">
+      <soap:operation soapAction="http://tempuri.org/IBelcorpPaisService/GetDatosConsultoraByRegionZona" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

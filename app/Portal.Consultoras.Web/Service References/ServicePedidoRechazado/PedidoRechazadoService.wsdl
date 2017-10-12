@@ -30,6 +30,7 @@
       <xsd:import schemaLocation="http://localhost:41615/PedidoRechazadoService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoRechazadoService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoRechazadoService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoRechazadoService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IPedidoRechazadoService_SetPedidoRechazado_InputMessage">
@@ -50,6 +51,12 @@
   <wsdl:message name="IPedidoRechazadoService_GetListBELogGPRValidacionDetalleBELogGPRValidacionByLogGPRValidacionId_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetListBELogGPRValidacionDetalleBELogGPRValidacionByLogGPRValidacionIdResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoRechazadoService_GetMotivoRechazo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetMotivoRechazo" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoRechazadoService_GetMotivoRechazo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetMotivoRechazoResponse" />
+  </wsdl:message>
   <wsdl:portType name="IPedidoRechazadoService">
     <wsdl:operation name="SetPedidoRechazado">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoRechazadoService/SetPedidoRechazado" message="tns:IPedidoRechazadoService_SetPedidoRechazado_InputMessage" />
@@ -62,6 +69,10 @@
     <wsdl:operation name="GetListBELogGPRValidacionDetalleBELogGPRValidacionByLogGPRValidacionId">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoRechazadoService/GetListBELogGPRValidacionDetalleBELogGPRValidacionByLogGPRValidacionId" message="tns:IPedidoRechazadoService_GetListBELogGPRValidacionDetalleBELogGPRValidacionByLogGPRValidacionId_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoRechazadoService/GetListBELogGPRValidacionDetalleBELogGPRValidacionByLogGPRValidacionIdResponse" message="tns:IPedidoRechazadoService_GetListBELogGPRValidacionDetalleBELogGPRValidacionByLogGPRValidacionId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMotivoRechazo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoRechazadoService/GetMotivoRechazo" message="tns:IPedidoRechazadoService_GetMotivoRechazo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoRechazadoService/GetMotivoRechazoResponse" message="tns:IPedidoRechazadoService_GetMotivoRechazo_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IPedidoRechazadoService" type="tns:IPedidoRechazadoService">
@@ -93,6 +104,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetMotivoRechazo">
+      <soap:operation soapAction="http://tempuri.org/IPedidoRechazadoService/GetMotivoRechazo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="BasicHttpsBinding_IPedidoRechazadoService" type="tns:IPedidoRechazadoService">
     <wsp:PolicyReference URI="#BasicHttpsBinding_IPedidoRechazadoService_policy" />
@@ -117,6 +137,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetListBELogGPRValidacionDetalleBELogGPRValidacionByLogGPRValidacionId">
       <soap:operation soapAction="http://tempuri.org/IPedidoRechazadoService/GetListBELogGPRValidacionDetalleBELogGPRValidacionByLogGPRValidacionId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMotivoRechazo">
+      <soap:operation soapAction="http://tempuri.org/IPedidoRechazadoService/GetMotivoRechazo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

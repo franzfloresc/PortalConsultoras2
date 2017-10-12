@@ -71,7 +71,7 @@ namespace Portal.Consultoras.BizLogic
             if (!BLPais.EsPaisHana(PaisId)) // Validar si informacion de pais es de origen Normal o Hana
             {
                 var DAPedidoFacturado = new DAPedidoFacturado(PaisId);
-                using (IDataReader reader = DAPedidoFacturado.GetPedidosFacturadosDetalle(Campania, Region, Zona, CodigoConsultora))
+                using (IDataReader reader = DAPedidoFacturado.GetPedidosFacturadosDetalle(Campania, Region, Zona, CodigoConsultora, pedidoId))
                     while (reader.Read())
                     {
                         var entidad = new BEPedidoFacturado(reader);
