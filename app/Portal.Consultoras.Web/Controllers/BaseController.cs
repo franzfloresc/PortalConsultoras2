@@ -3374,13 +3374,16 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     case Constantes.ConfiguracionPais.OfertasParaTi:
                         seccion.UrlObtenerProductos = "OfertasParaTi/ConsultarEstrategiasOPT";
+                        seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding : Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding;
                         seccion.VerMas = false;
                         break;
                     case Constantes.ConfiguracionPais.Lanzamiento:
                         seccion.UrlObtenerProductos = "RevistaDigital/RDObtenerProductosLan";
+                        seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.RevistaDigitalMobileLandingCarrusel : Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLandingCarrusel;
                         break;
                     case Constantes.ConfiguracionPais.RevistaDigital:
                         seccion.UrlObtenerProductos = "RevistaDigital/RDObtenerProductos";
+                        seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding : Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding;
                         break;
                     case Constantes.ConfiguracionPais.ShowRoom:
 
