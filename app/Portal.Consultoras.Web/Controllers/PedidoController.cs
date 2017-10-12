@@ -2638,6 +2638,16 @@ namespace Portal.Consultoras.Web.Controllers
 
             #endregion
 
+            var eventofestivo = GetEventoFestivoData();
+            if (eventofestivo.EfRutaPedido == null || eventofestivo.EfRutaPedido == "")
+            {
+                ViewBag.UrlFranjaNegra = "../../../Content/Images/Esika/background_pedido.png";
+            }
+            else
+            {
+                ViewBag.UrlFranjaNegra = eventofestivo.EfRutaPedido;
+            }
+
             return View(model);
         }
 

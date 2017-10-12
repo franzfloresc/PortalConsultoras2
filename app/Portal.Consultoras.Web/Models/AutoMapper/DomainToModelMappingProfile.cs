@@ -252,6 +252,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                
             Mapper.CreateMap<ServiceUsuario.BEEventoFestivo, EventoFestivoModel>();
 
+            Mapper.CreateMap<BETracking, SeguimientoMobileModel>();
         }
     }
 }

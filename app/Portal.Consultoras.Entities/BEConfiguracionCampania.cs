@@ -1,6 +1,7 @@
 ﻿using OpenSource.Library.DataAccess;
 using Portal.Consultoras.Common;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Runtime.Serialization;
 
@@ -9,37 +10,87 @@ namespace Portal.Consultoras.Entities
     [DataContract]
     public class BEConfiguracionCampania
     {
+        [Column("CampaniaID")]
+        public string TempCampaniaId { get; set; }
+
+        [Column("DiasAntes")]
+        public int TempDiasAntes { get; set; }
+
+        [Column("ZonaValida")]
+        public int TempZonaValida { get; set; }
+
         [DataMember]
-        public int CampaniaID { get; set; }
+        public int CampaniaID
+        {
+            get
+            {
+                int defaultCampania;
+                return int.TryParse(TempCampaniaId, out defaultCampania) ? defaultCampania : 0;
+            }
+            set { TempCampaniaId = value.ToString(); }
+        }
+
+        [Column("FechaInicioFacturacion")]
         [DataMember]
         public DateTime FechaInicioFacturacion { get; set; }
+
+        [Column("FechaFinFacturacion")]
         [DataMember]
         public DateTime FechaFinFacturacion { get; set; }
+
+        [Column("CampaniaDescripcion")]
         [DataMember]
         public string CampaniaDescripcion { get; set; }
 
+        [Column("HoraInicio")]
         [DataMember]
         public TimeSpan HoraInicio { get; set; }
+
+        [Column("HoraFin")]
         [DataMember]
         public TimeSpan HoraFin { get; set; }
+
         [DataMember]
-        public byte DiasAntes { get; set; }
+        public byte DiasAntes
+        {
+            get
+            {
+                return Convert.ToByte(TempDiasAntes);
+            }
+            set { TempDiasAntes = Convert.ToInt32(value); }
+        }
+
         [DataMember]
-        public bool ZonaValida { get; set; }
+        public bool ZonaValida
+        {
+            get { return TempZonaValida == -1 ? false : true; }
+            set { TempZonaValida = value ? 1 : -1; }
+        }
+
+        [Column("HoraInicioNoFacturable")]
         [DataMember]
         public TimeSpan HoraInicioNoFacturable { get; set; }
         [DataMember]
         public TimeSpan HoraCierreNoFacturable { get; set; }
         [DataMember]
+        [Column("EstadoPedido")]
         public int EstadoPedido { get; set; }
         [DataMember]
         public bool ModificaPedidoReservado { get; set; }
+
+        [Column("HoraCierreZonaNormal")]
         [DataMember]
         public TimeSpan HoraCierreZonaNormal { get; set; }
+
+        [Column("HoraCierreZonaDemAnti")]
         [DataMember]
         public TimeSpan HoraCierreZonaDemAnti { get; set; }
+
+        [Column("ZonaHoraria")]
         [DataMember]
         public double ZonaHoraria { get; set; }
+
+        [Column("EsZonaDemAnti")]
         [DataMember]
         public int EsZonaDemAnti { get; set; }
         [DataMember]
@@ -65,9 +116,14 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public TimeSpan FactorCierreZonaDemAnti { get; set; }
         [DataMember]
+        [Column("ValidacionAbierta")]
         public bool ValidacionAbierta { get; set; }
+
+        [Column("NuevoPROL")]
         [DataMember]
         public bool NuevoPROL { get; set; }
+
+        [Column("ZonaNuevoPROL")]
         [DataMember]
         public bool ZonaNuevoPROL { get; set; }
         [DataMember]
@@ -81,13 +137,22 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string MensajeValidacionInteractiva { get; set; }
 
+        [Column("IndicadorGPRSB")]
         [DataMember]
         public int IndicadorGPRSB { get; set; }
         [DataMember]
         public DateTime FechaActualPais { get; set; }
+
+        [Column("AceptacionConsultoraDA")]
         [DataMember]
         public int AceptacionConsultoraDA { get; set; }
 
+        public BEConfiguracionCampania()
+        {
+
+        }
+
+        [Obsolete("Use MapUtil.MapToCollection")]
         public BEConfiguracionCampania(IDataRecord datarec)
         {
             if (DataRecord.HasColumn(datarec, "CampaniaID") && datarec["CampaniaID"] != DBNull.Value)
@@ -105,7 +170,7 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(datarec, "DiasAntes") && datarec["DiasAntes"] != DBNull.Value)
                 DiasAntes = DbConvert.ToByte(datarec["DiasAntes"]);
             if (DataRecord.HasColumn(datarec, "ZonaValida") && datarec["ZonaValida"] != DBNull.Value)
-                ZonaValida = Convert.ToInt32(datarec["ZonaValida"]) == -1 ? false : true;
+                TempZonaValida = Convert.ToInt32(datarec["ZonaValida"]);
             if (DataRecord.HasColumn(datarec, "HoraInicioNoFacturable") && datarec["HoraInicioNoFacturable"] != DBNull.Value)
                 HoraInicioNoFacturable = DbConvert.ToTimeSpan(datarec["HoraInicioNoFacturable"]);
             if (DataRecord.HasColumn(datarec, "HoraCierreNoFacturable") && datarec["HoraCierreNoFacturable"] != DBNull.Value)

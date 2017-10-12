@@ -25,17 +25,26 @@ $(document).ready(function () {
         $("[data-popup='facturado']").find("[data-selectcamp]").html("");
         $.each($(".content_datos_mispedidos [data-campnro]"), function (ind, tag) {
             var tagCam = $(tag);
+            var itemCanal = tagCam.parent().find('.canal_ingreso').html().toUpperCase();
             var estadoCamp = tagCam.parent().attr("data-estado") || "";
             var pedidoIdCamp = tagCam.parent().attr("data-idpedido") || 0;
             estadoCamp = estadoCamp.toLowerCase();
             estadoCamp = estadoCamp[0];
             estadoCamp = estadoCamp == "i" ? "[data-popup='ingresado']" : estadoCamp == "f" ? "[data-popup='facturado']" : "";
+
             if (estadoCamp != "") {
-                $(estadoCamp).find("[data-selectcamp]").append('<option value="' + tagCam.html() + '" data-campformat="' + tagCam.attr("data-campformat") + '" data-pedidoidformat="'+ pedidoIdCamp +'">C-' + tagCam.attr("data-campnro") + '</option>');
+                var option = $('<option>')
+                    .val(tagCam.html() + '-' + pedidoIdCamp)
+                    .attr('data-campformat', tagCam.attr('data-campformat'))
+                    .attr('data-pedidoidformat', pedidoIdCamp)
+                    .attr('data-canal', itemCanal)
+                    .html('C-' + tagCam.attr("data-campnro") + ' ' + itemCanal);
+
+                $(estadoCamp).find("[data-selectcamp]").append(option);
             }
         });
-        $("[data-popup='ingresado']").find("[data-selectcamp]").val(campId.substr(0, 4) + "-" + campId.substr(4, 6));
-        $("[data-popup='facturado']").find("[data-selectcamp]").val(campId.substr(0, 4) + "-" + campId.substr(4, 6));
+        $("[data-popup='ingresado']").find("[data-selectcamp]").val(campId.substr(0, 4) + "-" + campId.substr(4, 6) + '-' + pedidoId);
+        $("[data-popup='facturado']").find("[data-selectcamp]").val(campId.substr(0, 4) + "-" + campId.substr(4, 6) + '-' + pedidoId);
         $("[data-popup='ingresado']").find("[data-selectcamp]").attr("data-selectpedidoid", pedidoId);
         $("[data-popup='facturado']").find("[data-selectcamp]").attr("data-selectpedidoid", pedidoId);
 
@@ -48,16 +57,12 @@ $(document).ready(function () {
         PopupMostrar(estado, campId, pedidoId);
         $("#regresarFacturado").Visible(estado == "f");
         $('[data-popup="ingresado"] [data-selectcamp]').Visible(estado == "i");
-        var canal = $.trim(pop.find(".canal_ingreso").html()).toLowerCase();
-
-        $('#verIngresado').Visible(canal == "web" || canal == "mixto");
-
+        BotonVerIngresadosSetVisible();
     });
 
     $('#verIngresado').click(function () {
-        $('#lblcampania')[0].innerHTML="";
-        var opt = $(this).parent().find("[data-selectcamp]");
-        var obj = opt.find("[value='" + opt.val() + "']");
+        $('#lblcampania')[0].innerHTML = "";
+        var obj = $(this).parent().find("[data-selectcamp] option:selected");
         var campFormat = obj.attr("data-campformat") || "";
         var pedidoIdFormat = obj.attr("data-pedidoidformat") || 0;
         if (campFormat == "") return false;
@@ -69,7 +74,6 @@ $(document).ready(function () {
         campFormat = campFormat.replace("-", "");
         PopupMostrar("i", campFormat, pedidoIdFormat);
         $('#lblcampania')[0].innerHTML = $('[data-popup="ingresado"] [data-selectcamp]')[0].dataset.campregresar;
-
     });
     
     $('#regresarFacturado').click(function () {
@@ -78,10 +82,8 @@ $(document).ready(function () {
         if (campFormat == "") return false;
         
         var pedidoIdFormat = obj.attr("data-selectpedidoid") || 0;
-
         $('[data-popup="ingresado"] [data-selectcamp]').attr("data-campregresar", "");
         $('[data-popup="ingresado"] [data-selectcamp]').show();
-        $('[data-popup="facturado"] [data-selectcamp]').val(campFormat);
         
         $("#divGrilla").find("select[data-cliente]").val(-1);
         campFormat = campFormat.replace("-", "");
@@ -150,7 +152,7 @@ $(document).ready(function () {
 
     $("body").on("change", "[data-selectcamp]", function (e) {
         e.preventDefault();
-        var obj = $(this).find("[value='" + $(this).val() + "']");
+        var obj = $("[data-selectcamp] option:selected");
         var campFormat = obj.attr("data-campformat") || "";
         if (campFormat == "") return false;
         campFormat = campFormat.replace("-", "");
@@ -159,17 +161,18 @@ $(document).ready(function () {
         
         var popup = obj.parents("[data-popup]").attr("data-popup");
         PopupMostrar(popup, campFormat, pedidoFormat);
+        BotonVerIngresadosSetVisible();
     });
     
     $("body").on("change", "select[data-cliente]", function (e) {
         e.preventDefault();
+
         var obj = $(this);
         var campFormat = obj.attr("data-camp") || "";
         if (campFormat == "") return false;
-        campFormat = campFormat.replace("-", "");
-        
-        var pedidoId = obj.attr("data-idpedido") || 0;
 
+        campFormat = campFormat.replace("-", "");        
+        var pedidoId = obj.attr("data-idpedido") || 0;
         var popup = obj.parents("[data-popup]").attr("data-popup");
         PopupMostrar(popup, campFormat, pedidoId);
     });
@@ -197,10 +200,10 @@ function CargarEventosTabs() {
     if (!lanzarTabClienteOnline) $('ul[data-tab="tab"]>li>a[data-tag]').first().trigger('click');
 }
 
-function CargarFramePedido(campania)
+function CargarFramePedido(campania, nroPedido)
 {
     waitingDialog({});
-    $('#PopSeguimiento iframe').attr('src', urlPedidos + "&campania=" + campania);
+    $('#PopSeguimiento iframe').attr('src', urlPedidos + "&campania=" + campania + "&nroPedido=" + nroPedido);
 }
 
 function WidthWindow() {
@@ -237,12 +240,8 @@ function PopupMostrar(popup, campFormat, pedidoId) {
     popup = popup.toLowerCase();
     popup = popup[0];
     $("html").css({ "overflow": "hidden" });
-    if (popup == "f") {
-        $('[data-popup="facturado"]').show();
-    }
-    else if (popup == "i") {
-        $('[data-popup="ingresado"]').show();
-    }
+    if (popup == "f") $('[data-popup="facturado"]').show();
+    else if (popup == "i") $('[data-popup="ingresado"]').show();
     else {
         $("html").css({ "overflow": "auto" });
         return false;
@@ -296,8 +295,7 @@ function CargarDetalleFacturado(camp, page, rows, tipo, pedidoId) {
             
             var htmlDiv = SetHandlebars("#html-detalle-facturado", data);
             var campania = data.CampaniaId;
-            if (tipo == "i") {
-                
+            if (tipo == "i") {                
                 if(data.listaCliente==0)
                 {
                     alert("No tiene Pedidos por la Web");
@@ -309,6 +307,7 @@ function CargarDetalleFacturado(camp, page, rows, tipo, pedidoId) {
                 $('#pedidoPorCliente').empty().html(htmlDiv);
                 $("#divGrilla").find(".content_datos_pedidosFacturados").removeClass("content_datos_pedidosFacturados").addClass("content_datos_pedidosIngresados");
                 $("[data-div='i']").find("[data-facturadoCabecera]").html(facturado);
+                $("#pedidoPorCliente").find('.info_extra_Validado').Visible(dataAjax.cliente == -1);
 
                 // en caso de facturados tenga, poner fuera del if else
                 $("#divGrilla").find("select[data-cliente]").append(new Option("Cliente", -1));
@@ -322,10 +321,12 @@ function CargarDetalleFacturado(camp, page, rows, tipo, pedidoId) {
             else if (tipo == "f") {
                 $("#divContenidofacturado").empty().html(htmlDiv);
                 $("#divContenidofacturado").find('[data-paginacion="rows"]').val(data.PageSize);
-                if ($(".content_mis_pedidos").find("[data-camp='" + campania + "']").length == 1) {
-                    var parcial = $(".content_mis_pedidos").find("[data-camp='" + campania + "']").find('[data-parcial]').attr("data-parcial");
-                    var flete = $(".content_mis_pedidos").find("[data-camp='" + campania + "']").find('[data-flete]').attr("data-flete");
-                    var facturado = $(".content_mis_pedidos").find("[data-camp='" + campania + "']").find('[data-facturado]').attr("data-facturado");
+
+                var fila = $(".content_mis_pedidos").find("[data-camp='" + campania + "'][data-idpedido='" + pedidoId + "']")
+                if (fila.length == 1) {
+                    var parcial = fila.find('[data-parcial]').attr("data-parcial");
+                    var flete = fila.find('[data-flete]').attr("data-flete");
+                    var facturado = fila.find('[data-facturado]').attr("data-facturado");
                     $("#divContenidofacturado").find("[data-total]").html(parcial);
                     $("#divContenidofacturado").find("[data-flete]").html(flete);
                     $("#divContenidofacturado").find("[data-facturado]").html(facturado);
@@ -387,7 +388,6 @@ function CargarDetalleIngresado(camp, page, rows) {
 }
 
 function CargarDetalleIngresadoCliente(tag, camp, page, rows) {
-
     var obj = tag.parents(".acordion_titulo");
     var cliente = $(obj).attr("data-cliente");
     if (cliente < 0) return false;
@@ -443,7 +443,7 @@ function CargarDetalleIngresadoCliente(tag, camp, page, rows) {
 
 function ExportExcel(obj) {
     waitingDialog();
-    var campaniaID = $.trim($(obj).parents("[data-popup]").find("[data-selectcamp]").val());
+    var campaniaID = $.trim($(obj).parents("[data-popup]").find("[data-selectcamp] option:selected").attr('data-campformat'));
     campaniaID = campaniaID || $.trim($(obj).parents("[data-popup]").find("[data-selectcamp]").attr("data-campregresar"));
     campaniaID = campaniaID.replace("-", "");
     var ClienteID = $("#divGrilla").find("select[data-cliente]").val();
@@ -491,10 +491,9 @@ function DownloadAttachExcel(CampaniaID,ClienteID) {
 function ExportExcelFacturado(obj) {
     waitingDialog();
     var popup = $(obj).parents("[data-popup]");
-    var campaniaID = $.trim(popup.find("[data-selectcamp]").val());
+    var campaniaID = $.trim(popup.find("[data-selectcamp] option:selected").attr('data-campformat'));
     campaniaID = campaniaID.replace("-", "");
-
-    var pedidoId = $.trim(popup.find("[data-selectcamp]").attr("data-selectpedidoid")) || 0;
+    var pedidoId = $.trim(popup.find("[data-selectcamp] option:selected").attr("data-pedidoidformat")) || 0;
 
     var TotalParcial = popup.find("[data-total]").html();
     var Flete = popup.find("[data-flete]").html();
@@ -548,13 +547,14 @@ function Imprimir() {
 }
 
 function Percepcion() {
-
     $(".popup_Percepcion").slideDown(slidetime);
 
     $(".btn_cerrar_popupPercepcion").click(function () {
-
         $(".popup_Percepcion").slideUp(slidetime);
-
     });
+}
 
+function BotonVerIngresadosSetVisible() {
+    var canal = $("[data-selectcamp] option:selected").attr('data-canal');
+    $('#verIngresado').Visible(canal == "WEB" || canal == "MIXTO");
 }

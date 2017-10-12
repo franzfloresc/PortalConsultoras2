@@ -11,8 +11,10 @@
       <xs:element minOccurs="0" name="CodigoCliente" type="xs:long" />
       <xs:element minOccurs="0" name="ConsultoraID" type="xs:long" />
       <xs:element minOccurs="0" name="Favorito" type="xs:short" />
+      <xs:element minOccurs="0" name="MontoPedido" type="xs:decimal" />
       <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NombreCliente" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Origen" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Pagina" type="xs:int" />
       <xs:element minOccurs="0" name="PaisID" type="xs:int" />
       <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cliente" minOccurs="0" name="Recordatorios" nillable="true" type="q1:ArrayOfBEClienteRecordatorio" />
@@ -243,6 +245,7 @@
       <xs:element minOccurs="0" name="Foto" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Insertado" type="xs:boolean" />
       <xs:element minOccurs="0" name="MensajeRespuesta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MontoPedido" type="xs:decimal" />
       <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cliente" minOccurs="0" name="Movimientos" nillable="true" type="q2:ArrayOfBEMovimiento" />
       <xs:element minOccurs="0" name="NombreCompleto" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Nombres" nillable="true" type="xs:string" />

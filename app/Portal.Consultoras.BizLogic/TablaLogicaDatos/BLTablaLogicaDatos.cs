@@ -5,7 +5,7 @@ using Portal.Consultoras.Entities;
 
 namespace Portal.Consultoras.BizLogic
 {
-    public class BLTablaLogicaDatos
+    public class BLTablaLogicaDatos : ITablaLogicaDatosBusinessLogic
     {
         public List<BETablaLogicaDatos> GetTablaLogicaDatos(int paisID, short TablaLogicaID)
         {

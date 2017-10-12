@@ -256,33 +256,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfUbigeoTemplate" nillable="true" type="tns:ArrayOfUbigeoTemplate" />
-  <xs:complexType name="ArrayOfReporteFunnel">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="ReporteFunnel" nillable="true" type="tns:ReporteFunnel" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfReporteFunnel" nillable="true" type="tns:ArrayOfReporteFunnel" />
-  <xs:complexType name="ReporteFunnel">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Campania" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoCreado" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoCreadoPer" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DiasEnEspera" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="IngresoTotal" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="IngresoX" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="IngresoX1" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="RegistroCompleto" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="RegistroCompletoPer" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="RegistroValidado" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="RegistroValidadoPer" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="TCIngresoRV" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="TCIngresoX1RV" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="TCIngresoXRV" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="VisitaUnica" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="VisitaUnicaPer" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ReporteFunnel" nillable="true" type="tns:ReporteFunnel" />
   <xs:complexType name="ArrayOfReporteFuenteIngreso">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="ReporteFuenteIngreso" nillable="true" type="tns:ReporteFuenteIngreso" />
@@ -315,4 +288,31 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="SolicitudPrePostulante" nillable="true" type="tns:SolicitudPrePostulante" />
+  <xs:complexType name="ArrayOfReporteFunnel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ReporteFunnel" nillable="true" type="tns:ReporteFunnel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfReporteFunnel" nillable="true" type="tns:ArrayOfReporteFunnel" />
+  <xs:complexType name="ReporteFunnel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Campania" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoCreado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoCreadoPer" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DiasEnEspera" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IngresoTotal" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IngresoX" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IngresoX1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RegistroCompleto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RegistroCompletoPer" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RegistroValidado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RegistroValidadoPer" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TCIngresoRV" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TCIngresoX1RV" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TCIngresoXRV" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VisitaUnica" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VisitaUnicaPer" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ReporteFunnel" nillable="true" type="tns:ReporteFunnel" />
 </xs:schema>

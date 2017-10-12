@@ -15,5 +15,8 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BELogGPRValidacionDetalle> GetListBELogGPRValidacionDetalleBELogGPRValidacionByLogGPRValidacionId(int paisID, long logGPRValidacionId);
+
+        [OperationContract]
+        BEGPRBanner GetMotivoRechazo(BEGPRUsuario usuario);
     }
 }
