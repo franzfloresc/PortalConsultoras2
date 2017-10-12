@@ -17,12 +17,12 @@ namespace Portal.Consultoras.BizLogic
 {
     public class BLTracking
     {
-        public List<BETracking> GetPedidosByConsultora(int paisID, string codigoConsultora)
+        public List<BETracking> GetPedidosByConsultora(int paisID, string codigoConsultora, int top)
         {
             var pedidos = new List<BETracking>();
             var DATracking = new DATracking(paisID);
 
-            using (IDataReader reader = DATracking.GetPedidosByConsultora(codigoConsultora))
+            using (IDataReader reader = DATracking.GetPedidosByConsultora(codigoConsultora, top))
             {
                 while (reader.Read())
                 {

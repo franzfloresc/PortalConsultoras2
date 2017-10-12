@@ -655,11 +655,12 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
         
-        public IDataReader GetPedidosIngresadoFacturado(int consultoraID, int campaniaID)
+        public IDataReader GetPedidosIngresadoFacturado(int consultoraID, int campaniaID, int top)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidosIngresadoFacturado_SB2");
             Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int32, consultoraID);
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
+            Context.Database.AddInParameter(command, "@top", DbType.Int32, top);
 
             return Context.ExecuteReader(command);
         }
