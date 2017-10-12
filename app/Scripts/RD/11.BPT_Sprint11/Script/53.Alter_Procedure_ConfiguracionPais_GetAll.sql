@@ -1,17 +1,14 @@
 USE [BelcorpPeru_BPT]
 GO
 
-DROP PROCEDURE [dbo].[ConfiguracionPais_GetAll]
-GO
-
-CREATE PROCEDURE [dbo].[ConfiguracionPais_GetAll]
+ALTER PROCEDURE [dbo].[ConfiguracionPais_GetAll]
 (
 @DesdeCampania int = 0
 ,@Codigo varchar(100) = ''
-,@CodigoRegionvarchar(100) = ''
-,@CodigoZonavarchar(100) = ''
-,@CodigoSeccionvarchar(100) = ''
-,@CodigoConsultoravarchar(100) = ''
+,@CodigoRegion varchar(100) = ''
+,@CodigoZona varchar(100) = ''
+,@CodigoSeccion varchar(100) = ''
+,@CodigoConsultora varchar(100) = ''
 )
 AS
 /*

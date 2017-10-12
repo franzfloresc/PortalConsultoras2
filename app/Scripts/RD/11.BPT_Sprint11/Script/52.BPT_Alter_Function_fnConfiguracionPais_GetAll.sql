@@ -1,10 +1,7 @@
 USE [BelcorpPeru_BPT]
 GO
 
-DROP FUNCTION [dbo].[fnConfiguracionPais_GetAll]
-GO
-
-CREATE function [dbo].[fnConfiguracionPais_GetAll]
+ALTER function [dbo].[fnConfiguracionPais_GetAll]
 (
 	@Codigo varchar(100) = ''
 	,@CodigoRegion  varchar(100) = ''
