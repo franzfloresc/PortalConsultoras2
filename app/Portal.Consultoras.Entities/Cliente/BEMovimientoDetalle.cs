@@ -9,11 +9,6 @@ namespace Portal.Consultoras.Entities.Cliente
     public class BEMovimientoDetalle
     {
         /// <summary>
-        /// Id del pais
-        /// </summary>
-        [DataMember]
-        public int PaisID { get; set; }
-        /// <summary>
         /// Id de la tabla autogenerado
         /// </summary>
         [DataMember]
