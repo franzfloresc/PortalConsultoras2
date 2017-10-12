@@ -2552,13 +2552,14 @@ namespace Portal.Consultoras.Web.Controllers
 
             #endregion
 
-            if (userData.EfRutaPedido == null || userData.EfRutaPedido == "")
+            var eventofestivo = GetEventoFestivoData();
+            if (eventofestivo.EfRutaPedido == null || eventofestivo.EfRutaPedido == "")
             {
                 ViewBag.UrlFranjaNegra = "../../../Content/Images/Esika/background_pedido.png";
             }
             else
             {
-                ViewBag.UrlFranjaNegra = userData.EfRutaPedido;
+                ViewBag.UrlFranjaNegra = eventofestivo.EfRutaPedido;
             }
 
             return View(model);
