@@ -1,13 +1,16 @@
-﻿using Portal.Consultoras.Common;
+﻿using System.Web.Routing;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Controllers;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
-using System;
-using System.Web.Mvc;
+using Portal.Consultoras.Web.CustomFilters;
+using Portal.Consultoras.Web.Helpers;
+using Portal.Consultoras.Web.Infraestructure;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
+    //[UniqueSession("UniqueRoute", UniqueRoute.IdentifierKey, "/g/")]
     public class BaseMobileController : BaseController
     {
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
@@ -239,5 +242,35 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return false;
         }
 
+        /// <summary>
+        /// Redirect to UniqueSession if it exists, otherwise redirect to default
+        /// </summary>
+        /// <param name="actionName"></param>
+        /// <param name="controllerName"></param>
+        /// <param name="routeValues"></param>
+        /// <returns></returns>
+        protected override RedirectToRouteResult RedirectToAction(string actionName, string controllerName, RouteValueDictionary routeValues)
+        {
+            var uniqueKey = this.GetUniqueKey();
+            var uniqueSessionAttribute = (UniqueSessionAttribute)Attribute.GetCustomAttribute(GetType(), typeof(UniqueSessionAttribute));
+
+            if (uniqueSessionAttribute == null || string.IsNullOrEmpty(uniqueKey))
+                return base.RedirectToAction(actionName, controllerName, routeValues);
+
+            if (routeValues.ContainsKey("area"))
+                routeValues.Remove("area");
+
+            if (!routeValues.ContainsKey("controller"))
+                routeValues.Add("controller", controllerName);
+
+            if (!routeValues.ContainsKey("action"))
+                routeValues.Add("action", actionName);
+
+           
+            if (!routeValues.ContainsKey(uniqueSessionAttribute.IdentifierKey))
+                routeValues.Add(uniqueSessionAttribute.IdentifierKey, uniqueKey);
+
+            return RedirectToRoute(uniqueSessionAttribute.RouteName, routeValues);
+        }
     }
 }
