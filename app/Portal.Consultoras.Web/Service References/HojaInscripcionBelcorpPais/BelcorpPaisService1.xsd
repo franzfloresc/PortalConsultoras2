@@ -257,4 +257,21 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetDatosConsultoraByRegionZona">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="CodigoISO" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="codIsoSicc" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="codRegion" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="codZona" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDatosConsultoraByRegionZonaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="GetDatosConsultoraByRegionZonaResult" nillable="true" type="q15:ConsultoraBE" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

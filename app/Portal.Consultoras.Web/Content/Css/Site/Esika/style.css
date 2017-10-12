@@ -21176,10 +21176,10 @@ label.checkpop.c_on {
     padding-bottom: 15px;
 }
 .content_item_carrusel {
-    /* position: relative; */
-    /* float: left; */
-    /* width: 248px; */
-    /* margin-right: 25px; */
+    position: relative; 
+    float: left; 
+    width: 248px; 
+    margin-right: 25px; 
     min-height: 305px;
     margin-bottom: 15px;
     margin-left: 7%;

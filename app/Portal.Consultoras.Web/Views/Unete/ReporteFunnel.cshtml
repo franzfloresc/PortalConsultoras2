@@ -1,12 +1,12 @@
-﻿@using System.Configuration
-@using Portal.Consultoras.Common
-
+﻿
 @{
 
     Layout = "~/Views/Shared/_SACLayout.cshtml";
 }
 
-<div class="redborder w100 lateralPadding20">
+@(new HtmlString(ViewBag.HTMLSACUnete))
+
+@*<div class="redborder w100 lateralPadding20">
 
 
     <div id="Filters" class="redborder" style="">
@@ -37,7 +37,7 @@
 
 </div>
 <script>
-    @*var dataGrid = @Html.Raw(Json.Encode(ViewBag.Result));*@
+ 
     var dataGrid = null;
     var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
 
@@ -348,4 +348,4 @@
     .excelDiv{
         border-bottom: solid 2px black;
     }
-</style>
+</style>*@

@@ -7,6 +7,18 @@
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
 }
 
+@section styles
+{
+    @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
+    {
+        <link href="@Url.Content("~/Content/Css/Mobile/esika/cdr.css")" rel="stylesheet" />
+    }
+    else
+    {
+        <link href="@Url.Content("~/Content/Css/Mobile/lbel/cdr.css")" rel="stylesheet" />
+    }
+}
+
 <style type="text/css">
     .footer-page {
         padding-bottom: 70px;

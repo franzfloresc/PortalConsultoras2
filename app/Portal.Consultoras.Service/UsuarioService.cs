@@ -3,6 +3,7 @@ using Portal.Consultoras.BizLogic.CDR;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.ServiceContracts;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,18 @@ namespace Portal.Consultoras.Service
 {
     public class UsuarioService : IUsuarioService
     {
+        private readonly IUsuarioBusinessLogic _usuarioBusinessLogic;
+
+        public UsuarioService() : this(new BLUsuario())
+        {
+
+        }
+
+        public UsuarioService(IUsuarioBusinessLogic usuarioBusinessLogic)
+        {
+            _usuarioBusinessLogic = usuarioBusinessLogic;
+        }
+
         public BEUsuario Select(int paisID, string codigoUsuario)
         {
             var BLUsuario = new BLUsuario();
@@ -136,6 +149,11 @@ namespace Portal.Consultoras.Service
             return BLUsuario.GetSesionUsuario(paisID, codigoUsuario);
         }
 
+        public BEUsuario GetSesionUsuarioWS(int paisID, string codigoUsuario)
+        {
+            return _usuarioBusinessLogic.GetSesionUsuarioWS(paisID, codigoUsuario);
+        }
+
         public string GetUsuarioAsociado(int paisID, string codigoUsuario)
         {
             var BLUsuario = new BLUsuario();
@@ -152,6 +170,12 @@ namespace Portal.Consultoras.Service
         {
             var BLUsuario = new BLUsuario();
             return BLUsuario.IsUserExist(paisID, CodigoUsuario);
+        }
+
+        public string IsConsultoraExist(int paisID, string CodigoConsultora)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.IsConsultoraExist(paisID, CodigoConsultora);
         }
 
         public bool ChangePasswordUser(int paisID, string codigoUsuarioAutenticado, string emailCodigoUsuarioModificado, string password, string emailUsuarioModificado, EAplicacionOrigen origen)
@@ -754,11 +778,6 @@ namespace Portal.Consultoras.Service
         public bool InsertTerminosCondiciones(BETerminosCondiciones terminos)
         {
             return new BLUsuario().InsertTerminosCondiciones(terminos);
-        }
-
-        public BETerminosCondiciones GetTerminosCondiciones(int PaisID, string CodigoConsultora, short Tipo)
-        {
-            return new BLUsuario().GetTerminosCondiciones(PaisID, CodigoConsultora, Tipo);
         }
         #endregion
 
