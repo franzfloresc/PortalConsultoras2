@@ -1,11 +1,7 @@
 ﻿using Portal.Consultoras.Common;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Entities
 {
@@ -40,7 +36,7 @@ namespace Portal.Consultoras.Entities
         {
             if (DataRecord.HasColumn(row, "PlantillaID"))
                 PlantillaID = Convert.ToInt32(row["PlantillaID"]);
-           
+
             if (DataRecord.HasColumn(row, "PaisID"))
                 PaisID = Convert.ToInt32(row["PaisID"]);
 
@@ -73,7 +69,7 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public string DescripcionTipo { get; set; }
-        
+
         [DataMember]
         public string Disponibilidad { get; set; }
 
@@ -145,7 +141,7 @@ namespace Portal.Consultoras.Entities
                 FechaEnvio = Convert.ToDateTime(row["FechaEnvio"]);
             if (DataRecord.HasColumn(row, "ConsultoraID") && row["ConsultoraID"] != DBNull.Value)
                 ConsultoraID = Convert.ToInt32(row["ConsultoraID"]);
-            
+
         }
     }
 
@@ -169,7 +165,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int SeccionID { get; set; }
         [DataMember]
-        public int  PlantillaID { get; set; }
+        public int PlantillaID { get; set; }
         [DataMember]
         public string CodigoConsultora { get; set; }
         [DataMember]
@@ -194,9 +190,9 @@ namespace Portal.Consultoras.Entities
                 CodigoConsultora = Convert.ToString(row["Codigo"]);
             if (DataRecord.HasColumn(row, "PlantillaID") && row["PlantillaID"] != DBNull.Value)
                 PlantillaID = Convert.ToInt32(row["PlantillaID"]);
-            
+
         }
 
-        
+
     }
 }

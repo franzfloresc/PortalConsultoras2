@@ -29,7 +29,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.ModPedido = "display:none;";
                 ViewBag.NombreConsultora = userData.NombreConsultora;
                 ViewBag.PedidoFIC = "C" + AddCampaniaAndNumero(userData.CampaniaID, 1);
-                ViewBag.MensajeFIC ="antes del " + userData.FechaFinFIC.Day + " de "+ NombreMes(userData.FechaFinFIC.Month);//1501
+                ViewBag.MensajeFIC = "antes del " + userData.FechaFinFIC.Day + " de " + NombreMes(userData.FechaFinFIC.Month);//1501
 
                 List<BEPedidoFICDetalle> olstPedidoFICDetalle = new List<BEPedidoFICDetalle>();
                 olstPedidoFICDetalle = ObtenerPedidoFICDetalle();
@@ -76,7 +76,7 @@ namespace Portal.Consultoras.Web.Controllers
                 PedidoSb2Model model = new PedidoSb2Model();
                 model.CodigoIso = userData.CodigoISO;
                 var listaDetalle = ObtenerPedidoFICDetalle() ?? new List<BEPedidoFICDetalle>();
-                
+
                 decimal total = listaDetalle.Sum(p => p.ImporteTotal);
 
                 model.ListaCliente = (from item in listaDetalle
@@ -232,7 +232,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             decimal Total = olstPedidoWebDetalle.Sum(p => p.ImporteTotal);
             string formatoTotal = Util.DecimalToStringFormat(Total, userData.CodigoISO);
-            
+
             decimal totalCliente = 0;
             string Total_Cliente = "";
             if (model.ClienteID_ != "-1")
@@ -283,7 +283,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             bool ErrorServer = false;
-            AdministradorPedido(obe, "D", false, out ErrorServer);            
+            AdministradorPedido(obe, "D", false, out ErrorServer);
             if (ErrorServer)
             {
                 return Json(new
@@ -299,7 +299,7 @@ namespace Portal.Consultoras.Web.Controllers
                 message = "El detalle se eliminó exitosamente."
             }, JsonRequestBehavior.AllowGet);
         }
-        
+
         [HttpPost]
         public JsonResult DeleteAll()
         {
@@ -528,7 +528,7 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
 
         #region Funciones Privadas
-        
+
         private List<BEPedidoFICDetalle> ObtenerPedidoFICDetalle()
         {
             if (Session[Constantes.ConstSession.PedidoFIC] != null) return (List<BEPedidoFICDetalle>)Session[Constantes.ConstSession.PedidoFIC];

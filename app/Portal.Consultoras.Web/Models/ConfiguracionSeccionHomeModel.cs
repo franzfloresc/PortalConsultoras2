@@ -17,6 +17,7 @@ namespace Portal.Consultoras.Web.Models
         public string SubTitulo { get; set; }
         public int TipoPresentacion { get; set; }
         public string TipoEstrategia { get; set; }
+        public int CantidadMostrar { get; set; }
         public int CantidadProductos { get; set; }
         public string UrlObtenerProductos { get; set; }
         public string UrlLandig { get; set; }

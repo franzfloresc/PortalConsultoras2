@@ -126,6 +126,7 @@ namespace Portal.Consultoras.Common
             public const int BusquedaNemotecnicoOfertaLiquidacion = 9852;
             public const int BusquedaNemotecnicoProductoSugerido = 9853;
             public const int BusquedaNemotecnicoZonaEstrategia = 9854;
+            public const int Tonos = 9802;
         }
 
         public class ParametrosNames
@@ -179,14 +180,8 @@ namespace Portal.Consultoras.Common
             public const string PackAltoDesembolso = "008";
             public const string RevistaDigital = "101"; // No tiene referecia con BD, es un grupo de estrategias
             public const string LosMasVendidos = "020";
+            public const string OfertaDelDia = "009";
 
-        }
-
-        public class TipoFichaProducto
-        {
-            public const string SinTonos = "0";
-            public const string IndividualConTonos = "1";
-            public const string PackConTonos = "2";
         }
 
         public class ConstSession

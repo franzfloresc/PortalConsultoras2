@@ -1,12 +1,12 @@
-﻿using System;
-using System.Web.Mvc;
-using System.ServiceModel;
-using System.Linq;
-using System.Collections.Generic;
-using Portal.Consultoras.Web.ServicePedido;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
-using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.ServiceModel;
+using System.Web.Mvc;
 
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
@@ -31,7 +31,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 //    }
                 //}
 
-                using(var service = new PedidoServiceClient())
+                using (var service = new PedidoServiceClient())
                 {
                     listaPedidos = service.GetPedidosIngresadoFacturadoWebMobile(userData.PaisID, Convert.ToInt32(userData.ConsultoraID), userData.CampaniaID, model.ClienteID, 3, userData.CodigoConsultora).ToList();
                 }
@@ -194,7 +194,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
 
                 foreach (var pedidoDetalle in listaPedidosFacturadosDetalle)
-                { 
+                {
                     if (pedidoDetalle.CUV.Trim().Length > 0 &&
                         pedidoDetalle.Descripcion.Trim().Length > 0)
                     {
@@ -217,7 +217,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 using (var sv = new ServiceCliente.ClienteServiceClient())
                 {
-                    model.ListaClientes = sv.SelectByConsultora(userData.PaisID, userData.ConsultoraID).OrderBy(x=>x.Nombre).ToList();
+                    model.ListaClientes = sv.SelectByConsultora(userData.PaisID, userData.ConsultoraID).OrderBy(x => x.Nombre).ToList();
                     model.ListaClientes.Insert(0, new ServiceCliente.BECliente { ClienteID = 0, Nombre = userData.NombreConsultora });
                 }
             }

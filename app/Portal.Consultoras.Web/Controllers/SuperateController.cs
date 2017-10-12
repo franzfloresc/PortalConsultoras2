@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Portal.Consultoras.Common;
-using System.Configuration;
-using System.Text;
-using System.IO;
-using Portal.Consultoras.Web.Models;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.ServiceContenido;
+using System;
+using System.Configuration;
 using System.Data;
+using System.IO;
+using System.Text;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -64,7 +60,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string KeyPath = Path.Combine(XmlPath, "KeyPublicaSuperate.xml");
                 //string PathData = "/pais/" + UserData().CodigoISO + "/codConsultora/" + UserData().CodigoConsultora + "/campania/" + UserData().CampaniaID + "/region/" + UserData().CodigorRegion + "/zona/" + UserData().CodigoZona + "/nombre/" + UserData().NombreConsultora + "/email/" + UserData().EMail;
                 //R2004
-				//string PathData = "pais=" + UserData().CodigoISO + "&codConsultora=" + UserData().CodigoConsultora + "&campania=" + UserData().CampaniaID + "&region=" + UserData().CodigorRegion + "&zona=" + UserData().CodigoZona + "&nombre=" + UserData().NombreConsultora + "&email=" + UserData().EMail + "&segmento=" + (UserData().Segmento.Trim() == "" ? "Nivel IV" : UserData().Segmento.Trim()) + "&perfil=Consultora" + "&seccion=" + "" + "&Lider=" + UserData().Lider.ToString() + "&NivelLider=" + UserData().NivelLider.ToString();
+                //string PathData = "pais=" + UserData().CodigoISO + "&codConsultora=" + UserData().CodigoConsultora + "&campania=" + UserData().CampaniaID + "&region=" + UserData().CodigorRegion + "&zona=" + UserData().CodigoZona + "&nombre=" + UserData().NombreConsultora + "&email=" + UserData().EMail + "&segmento=" + (UserData().Segmento.Trim() == "" ? "Nivel IV" : UserData().Segmento.Trim()) + "&perfil=Consultora" + "&seccion=" + "" + "&Lider=" + UserData().Lider.ToString() + "&NivelLider=" + UserData().NivelLider.ToString();
                 // 2379
                 string PathData = "pais=" + UserData().CodigoISO + "&codConsultora=" + UserData().CodigoConsultora + "&campania=" + UserData().CampaniaID + "&region=" + UserData().CodigorRegion + "&zona=" + UserData().CodigoZona + "&nombre=" + UserData().NombreConsultora + "&email=" + UserData().EMail + "&segmento=" + (UserData().Segmento.Trim() == "" ? "Nivel IV" : UserData().Segmento.Trim()) + "&perfil=Consultora" + "&seccion=" + "" + "&Lider=" + UserData().Lider.ToString() + "&NL=" + UserData().NivelLider.ToString() + "&CL=" + CampaniaVenta + "&SL=" + SeccionGestionLider + "&PN=" + NivelProyectado;
                 string texto = System.Web.HttpUtility.UrlEncode(Util.EncriptarSuperateBelcorp(KeyPath, PathData));

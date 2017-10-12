@@ -53,7 +53,7 @@ namespace Portal.Consultoras.Entities
                 NumeroPedido = Convert.ToString(row["NumeroPedido"]);
             if (DataRecord.HasColumn(row, "FechaRecojo"))
                 FechaRecojo = Convert.ToDateTime(row["FechaRecojo"]);
-            //FechaRecojo = row["FechaRecojo"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(row["FechaRecojo"]);
+
             if (DataRecord.HasColumn(row, "FechaEstimadoRecojo"))
                 FechaEstimadoRecojo = Convert.ToDateTime(row["FechaEstimadoRecojo"]);
             if (DataRecord.HasColumn(row, "EstadoRecojoID"))
@@ -140,7 +140,7 @@ namespace Portal.Consultoras.Entities
                 NumeroPedido = Convert.ToString(row["NumeroPedido"]);
             if (DataRecord.HasColumn(row, "FechaRecojo"))
                 FechaRecojo = Convert.ToDateTime(row["FechaRecojo"]);
-            //FechaRecojo = row["FechaRecojo"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(row["FechaRecojo"]);
+
             if (DataRecord.HasColumn(row, "FechaEstimadoRecojo"))
                 FechaEstimadoRecojo = row["FechaEstimadoRecojo"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(row["FechaEstimadoRecojo"]);
             if (DataRecord.HasColumn(row, "EstadoRecojoID"))

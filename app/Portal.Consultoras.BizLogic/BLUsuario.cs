@@ -1062,6 +1062,7 @@ namespace Portal.Consultoras.BizLogic
             }
             catch (Exception ex)
             {
+                LogManager.SaveLog(ex, codigoUsuario, paisIso);
                 resultado = false;
             }
             
@@ -1402,6 +1403,7 @@ namespace Portal.Consultoras.BizLogic
             }
             catch (Exception ex)
             {
+                LogManager.SaveLog(ex, numeroDocumento, paisID.ToString());
             }
 
             return r;
@@ -1422,6 +1424,7 @@ namespace Portal.Consultoras.BizLogic
             }
             catch (Exception ex)
             {
+                LogManager.SaveLog(ex, numeroDocumento, paisID.ToString());
             }
 
             return postulante;

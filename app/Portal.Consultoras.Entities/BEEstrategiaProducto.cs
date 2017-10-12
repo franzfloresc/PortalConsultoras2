@@ -41,6 +41,8 @@ namespace Portal.Consultoras.Entities
         public string CodigoError { get; set; }
         [DataMember]
         public string CodigoErrorObs { get; set; }
+        [DataMember]
+        public int FactorCuadre { get; set; }
 
         public BEEstrategiaProducto(IDataRecord row)
         {
@@ -59,6 +61,7 @@ namespace Portal.Consultoras.Entities
             CodigoEstrategia = DataRecord.GetColumn(row, "CodigoEstrategia", "");
             CodigoError = DataRecord.GetColumn(row, "CodigoError", "");
             CodigoErrorObs = DataRecord.GetColumn(row, "CodigoErrorObs", "");
+            FactorCuadre = DataRecord.GetColumn<int>(row, "FactorCuadre");
         }
     }
 }

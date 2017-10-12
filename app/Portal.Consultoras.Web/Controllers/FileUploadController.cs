@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Portal.Consultoras.Common;
+using System;
+using System.IO;
 using System.Web;
 using System.Web.Mvc;
-using Portal.Consultoras.Common;
-using System.IO;
-using System.Drawing;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -48,7 +45,7 @@ namespace Portal.Consultoras.Web.Controllers
                     System.IO.File.WriteAllBytes(path, fileBytes);
                     if (!System.IO.File.Exists(Globals.RutaImagenesTemp))
                         System.IO.Directory.CreateDirectory(Globals.RutaImagenesTemp);
-                    
+
                     return Json(new { success = true, name = Path.GetFileName(path) }, "text/html");
                 }
             }
@@ -315,7 +312,7 @@ namespace Portal.Consultoras.Web.Controllers
                     Stream inputStream = Request.InputStream;
                     byte[] fileBytes = ReadFully(inputStream);
                     string ffFileName = qqfile;
-                    
+
                     var path = Path.Combine(Globals.RutaTemporales, ffFileName);
                     System.IO.File.WriteAllBytes(path, fileBytes);
                     if (!System.IO.File.Exists(Globals.RutaTemporales))

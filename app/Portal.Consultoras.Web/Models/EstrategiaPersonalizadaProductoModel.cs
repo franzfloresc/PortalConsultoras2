@@ -10,6 +10,8 @@ namespace Portal.Consultoras.Web.Models
         {
             TipoEstrategiaDetalle = new EstrategiaDetalleModelo();
             ArrayContenidoSet = new List<string>();
+            ListaDescripcionDetalle = new List<string>();
+            Hermanos = new List<ProductoModel>();
         }
 
         public int CampaniaID { get; set; }

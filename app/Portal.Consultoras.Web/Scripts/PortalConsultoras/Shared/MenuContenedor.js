@@ -113,14 +113,12 @@ var menuModule = (function () {
         });
     }
     function hasScrolledMobile(st) {
-        
         if (Math.abs(lastScrollTop - st) <= delta)
             return false;
 
         if (scr) return false;
         scr = true;
 
-        //var divOffSet = $(elementos.seccionBannerMobile).offset().top - navbarHeight + seccionMenuMobileHeight;
         //Scroll dowm
         if (st > lastScrollTop) {
             //fix the menu 
@@ -129,7 +127,6 @@ var menuModule = (function () {
                 $(elementos.seccionMenuFija).css("position", "fixed")
                     .css("top", navbarHeight - seccionMenuMobileHeight);
             }
-
         } else {   // Scroll Up
             if (st < delta) {
                 $(elementos.seccionMenuFija).css("position", "").css("top", "");
@@ -218,12 +215,17 @@ var menuModule = (function () {
                 _animateScrollTo(elementos.html, menuHeight);
             }
            
-            if (window.location.pathname.toLowerCase() === url.toLowerCase()) {
-                return;
-            }
+            if (window.location.pathname.toLowerCase() === url.toLowerCase()) return;
 
             window.location = window.location.origin + url;
         }
+    }
+    function tabClick(element, url) {
+        if (window.location.pathname.toLowerCase() === url.toLowerCase()) return;
+        var campania = $(element).data("campania") || "";
+        var codigo = $(element).data("codigo") || "";
+        rdAnalyticsModule.Tabs(codigo, campania);
+        window.location = window.location.origin + url;
     }
     function setCarrouselMenu() {
         if (isMobile()) {
@@ -248,6 +250,7 @@ var menuModule = (function () {
         checkAnchor: checkAnchor,
         menuClick: menuClick,
         setCarrouselMenu: setCarrouselMenu,
+        tabClick: tabClick
     };
 })();
 

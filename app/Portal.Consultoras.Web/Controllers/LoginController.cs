@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.PublicService.Cryptography;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceContenido;
@@ -18,6 +19,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using Portal.Consultoras.PublicService.Cryptography;
+using Portal.Consultoras.Web.SessionManager;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -27,6 +29,8 @@ namespace Portal.Consultoras.Web.Controllers
         private readonly string IP_DEFECTO = "190.187.154.154";
         private readonly string ISO_DEFECTO = "PE";
         private readonly int USUARIO_VALIDO = 3;
+
+        protected ISessionManager sessionManager = SessionManager.SessionManager.Instance;
 
         [AllowAnonymous]
         public ActionResult Index(string returnUrl = null)
@@ -46,7 +50,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 model.ListaPaises = ObtenerPaises();
                 model.ListaEventos = ObtenerEventoFestivo(0, Constantes.EventoFestivoAlcance.LOGIN, 0);
-                
+
                 if (model.ListaEventos.Count == 0)
                 {
                     model.NombreClase = "fondo_estandar";
@@ -74,7 +78,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 AsignarViewBagPorIso(iso);
                 AsignarUrlRetorno(returnUrl);
-                
+
             }
             catch (FaultException ex)
             {
@@ -928,7 +932,7 @@ namespace Portal.Consultoras.Web.Controllers
                         try
                         {
                             RevistaDigitalModel revistaDigitalModel = new RevistaDigitalModel();
-                            List<ConfiguracionPaisModel>  configuracionPaisModels;
+                            List<ConfiguracionPaisModel> configuracionPaisModels;
                             OfertaFinalModel ofertaFinalModel = new OfertaFinalModel();
 
                             revistaDigitalModel.NoVolverMostrar = true;
@@ -965,11 +969,14 @@ namespace Portal.Consultoras.Web.Controllers
                                     {
                                         case Constantes.ConfiguracionPais.RevistaDigital:
                                             revistaDigitalModel.TieneRDC = true;
+                                            revistaDigitalModel.BloqueroRevistaImpresa = c.BloqueoRevistaImpresa;
                                             using (PedidoServiceClient sv1 = new PedidoServiceClient())
                                             {
                                                 revistaDigitalModel.SuscripcionModel = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
+                                                //
                                                 rds.CampaniaID = AddCampaniaAndNumero(model.CampaniaID, -1, model.NroCampanias);
                                                 revistaDigitalModel.SuscripcionAnterior1Model = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
+                                                //
                                                 rds.CampaniaID = AddCampaniaAndNumero(model.CampaniaID, -2, model.NroCampanias);
                                                 revistaDigitalModel.SuscripcionAnterior2Model = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
                                             }
@@ -1024,17 +1031,17 @@ namespace Portal.Consultoras.Web.Controllers
                                 revistaDigitalModel.CampaniaMasUno = AddCampaniaAndNumero(Convert.ToInt32(model.CampaniaID), 1, model.NroCampanias) % 100;
                                 revistaDigitalModel.CampaniaMasDos = AddCampaniaAndNumero(Convert.ToInt32(model.CampaniaID), 2, model.NroCampanias) % 100;
 
-                                Session[Constantes.ConstSession.RevistaDigital] = revistaDigitalModel;
+                                sessionManager.SetRevistaDigital(revistaDigitalModel);
                                 Session[Constantes.ConstSession.ConfiguracionPaises] = configuracionPaisModels;
                                 Session[Constantes.ConstSession.OfertaFinal] = ofertaFinalModel;
                             }
-                            
+
                         }
                         catch (Exception ex)
                         {
                             LogManager.LogManager.LogErrorWebServicesBus(ex, model.CodigoConsultora, model.PaisID.ToString());
                             pasoLog = "Ocurrió un error al cargar ConfiguracionPais";
-                            Session[Constantes.ConstSession.RevistaDigital] = new RevistaDigitalModel();
+                            sessionManager.SetRevistaDigital(new RevistaDigitalModel());
                             Session[Constantes.ConstSession.ConfiguracionPaises] = new List<ConfiguracionPaisModel>();
                             Session[Constantes.ConstSession.OfertaFinal] = new OfertaFinalModel();
                         }
@@ -1047,7 +1054,7 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             EventoFestivoDataModel eventoFestivoDataModel = new EventoFestivoDataModel();
                             eventoFestivoDataModel.ListaEventoFestivo = ObtenerEventoFestivo(model.PaisID, Constantes.EventoFestivoAlcance.SOMOS_BELCORP, model.CampaniaID);
-                            
+
                             if (eventoFestivoDataModel.ListaEventoFestivo.Any())
                             {
                                 foreach (var item in eventoFestivoDataModel.ListaEventoFestivo)
@@ -1458,8 +1465,7 @@ namespace Portal.Consultoras.Web.Controllers
             imgSh = imgSh.Substring(0, imgSh.Length - exte.Length - 1) + (cantidadOfertas > 1 ? "s" : "") + "." + exte;
             return imgSh;
         }
-
-
+        
         [AllowAnonymous]
         public ActionResult SesionExpirada(string returnUrl)
         {
@@ -1861,6 +1867,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return (anioCampaniaResult * 100) + nroCampaniaResult;
         }
-        
+
     }
 }
