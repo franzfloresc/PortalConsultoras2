@@ -44,7 +44,7 @@ $(document).ready(function () {
         // Registrar valrores de analytics
         if (!esPrimeraCarga) {
             TabsRDAnalytics($(this).attr("data-tab-index"), campaniaId);
-        } else {esPrimeraCarga = false;}
+        } else { esPrimeraCarga = false; }
 
         var funt = $.trim($(this).attr("data-tag-funt"));
         if (funt != "") {
@@ -577,11 +577,13 @@ function RDPageInformativa() {
     CerrarPopup("#divMensajeBloqueada");
     $(window).scrollTop(0);
     $('ul[data-tab="tab"] li a[data-tag="0"]').click();
-    
+
+    //todo: getMobilePrefixUrl()
     window.location = (isMobile() ? "/Mobile/" : "") + sProps.UrlRevistaDigitalInformacion;
 }
 
 function RDDetalleVolver(campaniaId) {
+	//todo: getMobilePrefixUrl()
     var urlVolver = (isMobile() ? "/Mobile/" : "");
     if (campaniaCodigo == campaniaId) {
         urlVolver = urlVolver + sProps.UrlContenedorComprar;

@@ -40,4 +40,12 @@
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="Enumeradores.ResultadoReserva" nillable="true" type="tns:Enumeradores.ResultadoReserva" />
+  <xs:simpleType name="Enumeradores.RechazoBannerUrl">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Ninguna" />
+      <xs:enumeration value="Deuda" />
+      <xs:enumeration value="ModificaPedido" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="Enumeradores.RechazoBannerUrl" nillable="true" type="tns:Enumeradores.RechazoBannerUrl" />
 </xs:schema>

@@ -19,12 +19,12 @@ namespace Portal.Consultoras.BizLogic.Cliente
             return daCliente.RecordatorioInsertar(recordatorio);
         }
 
-        public List<BEClienteRecordatorio> Listar(int paisId, long consultoraId)
+        public List<BEClienteRecordatorio> Listar(int paisId, long consultoraId, short clienteId = 0)
         {
             var recordatorios = new List<BEClienteRecordatorio>();
             var daCliente = new DACliente(paisId);
 
-            using (IDataReader reader = daCliente.RecordatorioObtener(consultoraId))
+            using (IDataReader reader = daCliente.RecordatorioObtener(consultoraId, clienteId))
                 while (reader.Read())
                 {
                     var recordatorio = new BEClienteRecordatorio(reader);

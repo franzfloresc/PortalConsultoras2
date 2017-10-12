@@ -16,8 +16,10 @@ using System.Linq;
 using System.ServiceModel;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using System.Web.Security;
 using Portal.Consultoras.PublicService.Cryptography;
+using Portal.Consultoras.Web.Helpers;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -46,7 +48,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 model.ListaPaises = ObtenerPaises();
                 model.ListaEventos = ObtenerEventoFestivo(0, Constantes.EventoFestivoAlcance.LOGIN, 0);
-                
+
                 if (model.ListaEventos.Count == 0)
                 {
                     model.NombreClase = "fondo_estandar";
@@ -74,7 +76,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 AsignarViewBagPorIso(iso);
                 AsignarUrlRetorno(returnUrl);
-                
+
             }
             catch (FaultException ex)
             {
@@ -864,22 +866,31 @@ namespace Portal.Consultoras.Web.Controllers
                         model.IndicadorGPRSB = oBEUsuario.IndicadorGPRSB;
                         if (oBEUsuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
                         {
-                            CalcularMotivoRechazo(model);
-                            if (!string.IsNullOrEmpty(model.GPRBannerMensaje))
+                            using (var sv = new ServicePedidoRechazado.PedidoRechazadoServiceClient())
                             {
-                                model.MostrarBannerRechazo = true;
+                                var beGPRUsuario = new ServicePedidoRechazado.BEGPRUsuario()
+                                {
+                                    IndicadorGPRSB = oBEUsuario.IndicadorGPRSB,
+                                    CampaniaID = oBEUsuario.CampaniaID,
+                                    PaisID = oBEUsuario.PaisID,
+                                    ConsultoraID = oBEUsuario.ConsultoraID,
+                                    MontoDeuda = model.MontoDeuda,
+                                    Simbolo = oBEUsuario.Simbolo,
+                                    CodigoISO = oBEUsuario.CodigoISO,
+                                    MontoMinimoPedido = oBEUsuario.MontoMinimoPedido,
+                                    MontoMaximoPedido = oBEUsuario.MontoMaximoPedido,
+                                    ValidacionAbierta = oBEUsuario.ValidacionAbierta,
+                                    EstadoPedido = oBEUsuario.EstadoPedido
+                                };
 
-                                if (model.IndicadorGPRSB == (int)Enumeradores.IndicadorGPR.Rechazado && ((oBEUsuario.ValidacionAbierta == false && oBEUsuario.EstadoPedido == 201) || oBEUsuario.ValidacionAbierta == true && oBEUsuario.EstadoPedido == 202))
+                                var beGPRBanner = sv.GetMotivoRechazo(beGPRUsuario);
+                                if (beGPRBanner != null)
                                 {
-                                    model.MostrarBannerRechazo = true;
-                                }
-                                else if (model.RechazadoXdeuda == true)
-                                {
-                                    model.MostrarBannerRechazo = true;
-                                }
-                                else
-                                {
-                                    model.MostrarBannerRechazo = model.IndicadorGPRSB == (int)Enumeradores.IndicadorGPR.Descargado ? true : false;
+                                    model.GPRBannerUrl = beGPRBanner.BannerUrl;
+                                    model.GPRBannerTitulo = beGPRBanner.BannerTitulo;
+                                    model.GPRBannerMensaje = beGPRBanner.BannerMensaje;
+                                    model.RechazadoXdeuda = beGPRBanner.RechazadoXdeuda;
+                                    model.MostrarBannerRechazo = beGPRBanner.MostrarBannerRechazo;
                                 }
                             }
                         }
@@ -1047,7 +1058,7 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             EventoFestivoDataModel eventoFestivoDataModel = new EventoFestivoDataModel();
                             eventoFestivoDataModel.ListaEventoFestivo = ObtenerEventoFestivo(model.PaisID, Constantes.EventoFestivoAlcance.SOMOS_BELCORP, model.CampaniaID);
-                            
+
                             if (eventoFestivoDataModel.ListaEventoFestivo.Any())
                             {
                                 foreach (var item in eventoFestivoDataModel.ListaEventoFestivo)
@@ -1077,28 +1088,29 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         #endregion
 
-                        #region Concursos
-
-                        List<BEConsultoraConcurso> Concursos = new List<BEConsultoraConcurso>();
+                        #region IncentivosConcursos
+                        model.CodigosConcursos = string.Empty;
+                        model.CodigosProgramaNuevas = string.Empty;
 
                         try
                         {
+                            var arrCalculoPuntos = Constantes.Incentivo.CalculoPuntos.Split(';');
+
                             using (PedidoServiceClient sv = new PedidoServiceClient())
                             {
-                                Concursos = sv.ObtenerConcursosXConsultora(model.PaisID, model.CampaniaID.ToString(), model.CodigoConsultora, model.CodigorRegion, model.CodigoZona).ToList();
+                                var result = sv.ObtenerConcursosXConsultora(model.PaisID, model.CampaniaID.ToString(), model.CodigoConsultora, model.CodigorRegion, model.CodigoZona);
+
+                                var Concursos = result.Where(x => arrCalculoPuntos.Contains(x.TipoConcurso));
+                                if (Concursos.Any()) model.CodigosConcursos = string.Join("|", Concursos.Select(c => c.CodigoConcurso));
+
+                                var ProgramaNuevas = result.Where(x => !arrCalculoPuntos.Contains(x.TipoConcurso));
+                                if (ProgramaNuevas.Any()) model.CodigosProgramaNuevas = string.Join("|", ProgramaNuevas.Select(c => c.CodigoConcurso));
                             }
                         }
                         catch (Exception ex)
                         {
                             LogManager.LogManager.LogErrorWebServicesBus(ex, model.CodigoConsultora, model.CodigoISO);
-                            Concursos = new List<BEConsultoraConcurso>();
                         }
-
-                        if (Concursos.Any())
-                        {
-                            model.CodigosConcursos = string.Join("|", Concursos.Select(c => c.CodigoConcurso).ToArray());
-                        }
-
                         #endregion
                     }
 
@@ -1145,70 +1157,6 @@ namespace Portal.Consultoras.Web.Controllers
                 throw;
             }
             return model;
-        }
-
-        private void CalcularMotivoRechazo(UsuarioModel model)
-        {
-            model.GPRBannerUrl = Enumeradores.RechazoBannerUrl.Ninguna;
-
-            if (model.IndicadorGPRSB == (int)Enumeradores.IndicadorGPR.SinAccion) return;
-            if (model.IndicadorGPRSB == (int)Enumeradores.IndicadorGPR.Descargado)
-            {
-                model.GPRBannerTitulo = "ESTAMOS FACTURANDO TU PEDIDO DE C" + model.CampaniaNro;
-                model.GPRBannerMensaje = "Te notificaremos en caso tu pedido tenga observaciones.";
-                return;
-            }
-            model.GPRBannerTitulo = "TU PEDIDO HA SIDO RECHAZADO";
-
-            var procesoRechazado = new BEProcesoPedidoRechazado();
-            try
-            {
-                using (PedidoServiceClient sv = new PedidoServiceClient())
-                {
-                    procesoRechazado = sv.ObtenerProcesoPedidoRechazadoGPR(model.PaisID, model.CampaniaID, model.ConsultoraID);
-                }
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, model.CodigoUsuario, model.CodigoISO);
-            }
-
-            if (procesoRechazado.IdProcesoPedidoRechazado == 0) return;
-
-            List<BEPedidoRechazado> listaRechazo = procesoRechazado.olstBEPedidoRechazado != null ? procesoRechazado.olstBEPedidoRechazado.ToList() : new List<BEPedidoRechazado>();
-            if (listaRechazo.Count > 0) listaRechazo = listaRechazo.Where(r => r.Rechazado && !string.IsNullOrEmpty(r.MotivoRechazo)).ToList();
-            if (listaRechazo.Count == 0) return;
-
-            BEPedidoRechazado pedidoRechazado = listaRechazo.FirstOrDefault(p => p.MotivoRechazo == Constantes.GPRMotivoRechazo.ActualizacionDeuda);
-            if (pedidoRechazado != null && model.MontoDeuda > 0)
-            {
-                string montoDeuda = model.Simbolo + " " + Util.DecimalToStringFormat(pedidoRechazado.Valor, model.CodigoISO);
-                model.GPRBannerMensaje = "Tienes una deuda de " + montoDeuda;
-                model.GPRBannerUrl = Enumeradores.RechazoBannerUrl.Deuda;
-                model.RechazadoXdeuda = true;
-            }
-
-            string mensajeParcial = null;
-            if (listaRechazo.FirstOrDefault(p => p.MotivoRechazo == Constantes.GPRMotivoRechazo.MontoMinino) != null)
-            {
-                mensajeParcial = "No llegaste al monto mínimo de " + model.Simbolo + " " + Util.DecimalToStringFormat(model.MontoMinimo, model.CodigoISO);
-            }
-            else if (listaRechazo.FirstOrDefault(p => p.MotivoRechazo == Constantes.GPRMotivoRechazo.MontoMaximo) != null)
-            {
-                mensajeParcial = "Superaste tu línea de crédito de " + model.Simbolo + " " + Util.DecimalToStringFormat(model.MontoMaximo, model.CodigoISO);
-            }
-            else if (listaRechazo.FirstOrDefault(p => p.MotivoRechazo == Constantes.GPRMotivoRechazo.ValidacionMontoMinimoStock) != null)
-            {
-                mensajeParcial = "No llegaste al monto mínimo";
-            }
-
-            if (!string.IsNullOrEmpty(mensajeParcial))
-            {
-                model.GPRBannerUrl = Enumeradores.RechazoBannerUrl.ModificaPedido;
-                if (string.IsNullOrEmpty(model.GPRBannerMensaje)) model.GPRBannerMensaje = mensajeParcial;
-                else model.GPRBannerMensaje += " y " + mensajeParcial.ToLower(1);
-            }
-            if (!string.IsNullOrEmpty(model.GPRBannerMensaje)) model.GPRBannerMensaje += ".";
         }
 
         public List<TipoLinkModel> GetLinksPorPais(int PaisID)
@@ -1720,14 +1668,14 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 string secretKey = ConfigurationManager.AppSettings["JsonWebTokenSecretKey"] ?? "";
                 model = JWT.JsonWebToken.DecodeToObject<IngresoExternoModel>(token, secretKey);
-                if (model == null) return RedirectToAction("UserUnknown");
+                if (model == null) return RedirectToAction("UserUnknown", "Login", new { area = "" });
 
                 var userData = (UsuarioModel)Session["UserData"];
                 if (userData == null || userData.CodigoUsuario.CompareTo(model.CodigoUsuario) != 0)
                 {
                     userData = GetUserData(Util.GetPaisID(model.Pais), model.CodigoUsuario);
                 }
-                if (userData == null) return RedirectToAction("UserUnknown");
+                if (userData == null) return RedirectToAction("UserUnknown", "Login", new { area = "" });
 
                 FormsAuthentication.SetAuthCookie(model.CodigoUsuario, false);
 
@@ -1739,7 +1687,7 @@ namespace Portal.Consultoras.Web.Controllers
                     EsAppMobile = model.EsAppMobile
                 };
 
-                Session.Add("IngresoExterno", model.Version ?? "");
+                this.SetUniqueSession("IngresoExterno", model.Version ?? "");
 
                 if (!string.IsNullOrEmpty(model.Identifier))
                 {
@@ -1775,6 +1723,8 @@ namespace Portal.Consultoras.Web.Controllers
                         return RedirectToAction("Procesar", "ShowRoom", new { Area = "Mobile" });
                     case Constantes.IngresoExternoPagina.ProductosAgotados:
                         return RedirectToAction("Index", "ProductosAgotados", new { Area = "Mobile" });
+                    case Constantes.IngresoExternoPagina.Ofertas:
+                        return RedirectToAction("Index", "Ofertas", new { Area = "Mobile" });
                 }
             }
             catch (Exception ex)
@@ -1791,7 +1741,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return HttpNotFound("Error: " + ex.Message);
             }
 
-            return RedirectToAction("UserUnknown");
+            return RedirectToAction("UserUnknown", "Login", new { area = "" });
         }
 
         private ConsultoraRegaloProgramaNuevasModel GetConsultoraRegaloProgramaNuevas(UsuarioModel model)

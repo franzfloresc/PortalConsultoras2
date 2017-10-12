@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cliente" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cliente" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:41615/ClienteService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Framework" />
   <xs:import schemaLocation="http://localhost:41615/ClienteService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
   <xs:complexType name="ArrayOfBEClienteRecordatorio">
     <xs:sequence>
@@ -11,9 +12,12 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="ClienteId" type="xs:short" />
       <xs:element minOccurs="0" name="ClienteRecordatorioId" type="xs:int" />
+      <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ConsultoraId" type="xs:long" />
       <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Fecha" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Framework" minOccurs="0" name="StatusEnum" type="q1:Status" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEClienteRecordatorio" nillable="true" type="tns:BEClienteRecordatorio" />
@@ -27,14 +31,17 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="ClienteId" type="xs:short" />
       <xs:element minOccurs="0" name="ClienteMovimientoId" type="xs:int" />
+      <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoCampania" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoCliente" nillable="true" type="xs:long" />
       <xs:element minOccurs="0" name="ConsultoraId" type="xs:long" />
       <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Fecha" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Monto" type="xs:decimal" />
       <xs:element minOccurs="0" name="Nota" nillable="true" type="xs:string" />
-      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="Pedidos" nillable="true" type="q1:ArrayOfBEPedidoDDWebDetalle" />
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="Pedidos" nillable="true" type="q2:ArrayOfBEPedidoDDWebDetalle" />
+      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Framework" minOccurs="0" name="StatusEnum" type="q3:Status" />
       <xs:element minOccurs="0" name="TipoMovimiento" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
@@ -55,6 +62,7 @@
       <xs:element minOccurs="0" name="Fecha" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaRecordatorio" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+      <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Framework" minOccurs="0" name="StatusEnum" type="q4:Status" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BENota" nillable="true" type="tns:BENota" />

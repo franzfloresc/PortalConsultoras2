@@ -1,8 +1,9 @@
 ﻿@using Portal.Consultoras.Web.Areas.Mobile.Models
 @using System.Globalization
+@using Portal.Consultoras.Web.Helpers
 @model NotificacionesMobileModel
 @{
-    var layout = Session["IngresoExterno"] == null ? "_MobileLayout" : "_MobileLayoutEmpty";
+    var layout =  ViewContext.MobileLayout();
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
 }
 
