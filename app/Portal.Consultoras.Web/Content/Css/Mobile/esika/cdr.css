@@ -741,7 +741,7 @@
         margin-left: -19px;
     }
 
-.icono_alerta, .texto_tooltip_reportar_inconveniente {
+.texto_tooltip_reportar_inconveniente {
     display: inline-block;
     vertical-align: top;
 }

@@ -4,8 +4,7 @@
 @model Portal.Consultoras.Web.Models.RevistaDigitalModel
 
 @{
-    var layout = Session["IngresoExterno"] == null ? "_MobileLayoutContenedor" : "_MobileLayoutEmpty";
-    Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayoutContenedor.cshtml";
     var urlDomain = Util.GetUrlHost(Request);
 }
 
@@ -110,7 +109,7 @@
         <div class="text_legal_ept">*Comparación vs. consultoras que no compraron ofertas digitales de www.somosbelcorp.com. Período evaluado: Dic. 2016 – Abr. 2017 (Perú y Chile).</div>
     </div>
 
-    <div class="box_cancelarInscripcion_ept" id="divMensajeAnularSuscripcion" data-estadoregistro2=""  style="display: none">
+    <div class="box_cancelarInscripcion_ept" id="divMensajeAnularSuscripcion" data-estadoregistro2="" style="display: none">
         <div class="content_320 ingresoPedidom">
             <div class="tit_preguntas" style="text-transform: uppercase">
                 haz anulado tu inscripción con éxito

@@ -10,6 +10,8 @@ using System.Configuration;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
+using System.Web.Routing;
+using Portal.Consultoras.Web.Helpers;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -53,6 +55,21 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 esShowRoom = true && OfertaShowRoom() != null;
             }
 
+            //return esShowRoom ?
+            //    RedirectToRoute("UniqueRoute",
+            //                new RouteValueDictionary(new
+            //                {
+            //                    Controller = "ShowRoom",
+            //                    Action = "Index",
+            //                    guid = this.GetUniqueKey()
+            //                })) :
+            //    RedirectToRoute("UniqueRoute",
+            //        new RouteValueDictionary(new
+            //        {
+            //            Controller = "ShowRoom",
+            //            Action = "Intriga",
+            //            guid = this.GetUniqueKey()
+            //        }));
             return RedirectToAction(esShowRoom ? "Index" : "Intriga");
         }
 
@@ -131,7 +148,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
 
                 ActualizarUrlImagenes(ofertasShowRoom);
-                
+
                 var model = ObtenerPrimeraOfertaShowRoom(ofertasShowRoom);
 
                 model.Simbolo = userData.Simbolo;

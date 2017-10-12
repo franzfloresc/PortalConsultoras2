@@ -28,6 +28,15 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
+        public IDataReader GetPedidoByConsultoraAndCampaniaAndNroPedido(string codigoConsultora, int campania, string nroPedido)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidoByConsultoraAndCampaniaAndNroPedido_SB2");
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, codigoConsultora);
+            Context.Database.AddInParameter(command, "@Campania", DbType.Int32, campania);
+            Context.Database.AddInParameter(command, "@NroPedido", DbType.String, nroPedido);
+            return Context.ExecuteReader(command);
+        }
+
         /* GR-1883 - INICIO */
         //public IDataReader GetTrackingByPedido(string codigo, string campana, DateTime fecha)
         public IDataReader GetTrackingByPedido(string codigo, string campana, string nropedido)

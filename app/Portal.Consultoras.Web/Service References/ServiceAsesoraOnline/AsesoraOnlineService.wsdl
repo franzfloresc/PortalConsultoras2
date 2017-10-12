@@ -31,6 +31,7 @@
       <xsd:import schemaLocation="http://localhost:41615/AsesoraOnlineService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:41615/AsesoraOnlineService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.AsesoraOnline" />
       <xsd:import schemaLocation="http://localhost:41615/AsesoraOnlineService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
+      <xsd:import schemaLocation="http://localhost:41615/AsesoraOnlineService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IAsesoraOnlineService_EnviarFormulario_InputMessage">

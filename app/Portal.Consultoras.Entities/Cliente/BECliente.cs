@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Runtime.Serialization;
 using System.Data;
+using System.ComponentModel.DataAnnotations.Schema;
 
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities.Cliente;
@@ -45,46 +43,46 @@ namespace Portal.Consultoras.Entities
 
         public BECliente(IDataRecord datarec)
         {
-            if (DataRecord.HasColumn(datarec, "ConsultoraID") && datarec["ConsultoraID"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "ConsultoraID"))
                 miConsultoraID = Convert.ToInt64(datarec["ConsultoraID"]);
 
-            if (DataRecord.HasColumn(datarec, "ClienteID") && datarec["ClienteID"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "ClienteID"))
                 miClienteID = Convert.ToInt32(datarec["ClienteID"]);
 
-            if (DataRecord.HasColumn(datarec, "Nombre") && datarec["Nombre"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "Nombre"))
                 msNombre = datarec["Nombre"].ToString();
 
-            if (DataRecord.HasColumn(datarec, "eMail") && datarec["eMail"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "eMail"))
                 mseMail = datarec["eMail"].ToString();
 
-            if (DataRecord.HasColumn(datarec, "Activo") && datarec["Activo"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "Activo"))
                 mbActivo = Convert.ToBoolean(datarec["Activo"]);
 
-            if (DataRecord.HasColumn(datarec, "Telefono") && datarec["Telefono"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "Telefono"))
                 msTelefono = datarec["Telefono"].ToString();
 
-            if (DataRecord.HasColumn(datarec, "Celular") && datarec["Celular"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "Celular"))
                 msCelular = datarec["Celular"].ToString();
 
-            if (DataRecord.HasColumn(datarec, "CodigoCliente") && datarec["CodigoCliente"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "CodigoCliente"))
                 miCodigoCliente = Convert.ToInt64(datarec["CodigoCliente"]);
 
-            if (DataRecord.HasColumn(datarec, "Favorito") && datarec["Favorito"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "Favorito"))
                 miFavorito = Convert.ToInt16(datarec["Favorito"]);
 
-            if (DataRecord.HasColumn(datarec, "TipoContactoFavorito") && datarec["TipoContactoFavorito"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "TipoContactoFavorito"))
                 miTipoContactoFavorito = Convert.ToInt16(datarec["TipoContactoFavorito"]);
 
-            if (DataRecord.HasColumn(datarec, "NombreCliente") && datarec["NombreCliente"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "NombreCliente"))
                 msNombreCliente = datarec["NombreCliente"].ToString();
 
-            if (DataRecord.HasColumn(datarec, "ApellidoCliente") && datarec["ApellidoCliente"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "ApellidoCliente"))
                 msApellidoCliente = datarec["ApellidoCliente"].ToString();
 
-            if (DataRecord.HasColumn(datarec, "Saldo") && datarec["Saldo"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "Saldo"))
                 Saldo = Convert.ToDecimal(datarec["Saldo"]);
 
-            if (DataRecord.HasColumn(datarec, "CantidadProductos") && datarec["CantidadProductos"] != DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "CantidadProductos"))
                 CantidadProductos = Convert.ToInt32(datarec["CantidadProductos"]);
         }
 
@@ -116,6 +114,7 @@ namespace Portal.Consultoras.Entities
         }
 
         [DataMember]
+        [Column("ClienteID")]
         public int ClienteID
         {
             get { return miClienteID; }
@@ -204,10 +203,19 @@ namespace Portal.Consultoras.Entities
         }
 
         [DataMember]
+        [Column("Saldo")]
         public decimal Saldo { get; set; }
 
         [DataMember]
+        [Column("CantidadProductos")]
         public int CantidadProductos { get; set; }
+
+        [DataMember]
+        [Column("MontoPedido")]
+        public decimal MontoPedido { get; set; }
+
+        [DataMember]
+        public string Origen { get; set; }
 
         [DataMember]
         public IEnumerable<BEClienteRecordatorio> Recordatorios { get; set; }
