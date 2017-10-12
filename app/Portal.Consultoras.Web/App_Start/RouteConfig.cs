@@ -17,14 +17,14 @@ namespace Portal.Consultoras.Web
                 namespaces: new[] { "Portal.Consultoras.Web.Controllers" }
             );
             
-            routes.Add("UniqueRoute", new UniqueRoute(
-                "g/{guid}/{controller}/{action}/{id}",
-                new { controller = "Login", action = "Index", guid = "", id = UrlParameter.Optional },
-                new RouteValueDictionary(new
-                {
-                    Area = "Mobile",
-                    Namespaces = new[] { "Portal.Consultoras.Web.Areas.Mobile.Controllers" }
-                })));
+            //routes.Add("UniqueRoute", new UniqueRoute(
+            //    "g/{guid}/{controller}/{action}/{id}",
+            //    new { controller = "Login", action = "Index", guid = "", id = UrlParameter.Optional },
+            //    new RouteValueDictionary(new
+            //    {
+            //        Area = "Mobile",
+            //        Namespaces = new[] { "Portal.Consultoras.Web.Areas.Mobile.Controllers" }
+            //    })));
 
             routes.MapRoute(
                 name: "Default",
