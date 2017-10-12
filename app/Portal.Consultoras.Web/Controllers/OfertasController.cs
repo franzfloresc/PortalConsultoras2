@@ -21,9 +21,8 @@ namespace Portal.Consultoras.Web.Controllers
                     
                 };
 
-                //BPT 236
-                ViewBag.xlistaProductoSR = ((List<BEShowRoomOferta>)Session[Constantes.ConstSession.ListaProductoShowRoom]).
-                                            Where(x => x.EsSubCampania == false).ToList().Count();
+                var listaShowRoom = (List<BEShowRoomOferta>)Session[Constantes.ConstSession.ListaProductoShowRoom] ?? new List<BEShowRoomOferta>();
+                ViewBag.xlistaProductoSR = listaShowRoom.Count(x => x.EsSubCampania == false);
                 
 
                 return View(modelo);
