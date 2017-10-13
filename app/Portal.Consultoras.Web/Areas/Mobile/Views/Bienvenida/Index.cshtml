@@ -946,40 +946,6 @@
 <!--FIN-->
 @section scripts{
     <script type="text/javascript">
-        $(document).ready(function () {
-            $(".termino_condiciones_intriga").click(function () {
-                $(this).toggleClass('check_intriga');
-                if (typeof intrigaAceptoTerminos !== 'undefined') {
-                    intrigaAceptoTerminos = !intrigaAceptoTerminos;
-                }
-            });
-        });
-        $(function () {
-            var rating = 1.6;
-            $(".rateyo-readonly-widg").rateYo({
-                rating: rating,
-                numStars: 5,
-                precision: 2,
-                minValue: 1,
-                maxValue: 5,
-                starWidth: "17px"
-            }).on("rateyo.change", function (e, data) {
-                //console.log(data.rating);
-            });
-
-            $('.titulo_estrellas').rateYo({
-                rating: "100%",
-                spacing: "10px",
-                numStars: 5,
-                starWidth: "14px",
-                readOnly: true,
-                ratedFill: "#cca11e"
-            });
-        });
-
-    </script>
-    <script type="text/javascript">
-
             var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new { area = "" })';
             var urlPedidoInsertZe = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';
             var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';

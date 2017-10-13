@@ -1,6 +1,25 @@
-﻿
+﻿var tagLbel = "Lbel";
+var tagEsika = "Esika";
+var tagCyzone = "Cyzone";
+var campSelect = "";
+var campSelectI = 1;
+var aCam = new Array();
+var linkCat = new Object();
+var descrCat = new Object();
+var ordenCat = new Object();
+var cantCat = 3;
+var cantCam = 3;
+var cont = 0;
+
 var listaCorreo = new Array();
 var nombreCat = new Object();
+
+var campaniaEmail = "";
+
+var rCampSelect = "";
+var rCampSelectI = 1;
+var cantCamRev = 3;
+var aCamRev = new Array();
 
 $(document).ready(function () {
     ObtenerURLExpofertas();
@@ -404,7 +423,6 @@ function CompartirFacebook(catalogo, campaniaCatalogo, btn) {
 }
 
 // catalogo email
-var campaniaEmail = "";
 function AbrirCompartirCorreo(tipoCatalogo, campania) {
     dataLayer.push({
         'event': 'virtualEvent',

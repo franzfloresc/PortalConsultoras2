@@ -2399,11 +2399,10 @@ else
         var urlImagenMicroEfecto = isEsika ? '@Url.Content("~/Content/Images/regalo_microefecto_esika.png")'
             : '@Url.Content("~/Content/Images/regalo_microefecto_lbel.png")';
         var dataBarra = {};
-        var listaEscalaDescuento = JSON.parse($("#hdListaEscala").val());
-        var listaMensajeMeta = dataBarra.ListaMensajeMeta;
-        var listaParametriaOfertaFinal = JSON.parse($("#hdListaParametriaOfertaFinal").val());
-        var urlReservadoOEnHorarioRestringido =
-            '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new {area = ""})';
+        var listaEscalaDescuento = {};
+        var listaMensajeMeta;
+        var listaParametriaOfertaFinal = {};
+        var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new {area = ""})';
         var urlValidadoPedido = '@Url.Action("PedidoValidado", "Pedido", new {area = ""})';
         var constConfiguracionOfertaShowRoom = '@Constantes.ConfiguracionOferta.ShowRoom';
         var lanzarTabConsultoraOnline = '@ViewBag.LanzarTabConsultoraOnline';

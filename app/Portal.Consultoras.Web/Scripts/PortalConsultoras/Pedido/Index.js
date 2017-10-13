@@ -21,13 +21,26 @@ var gap_Log = 0;
 var tipoOrigen = '1';
 var FlagEnviarCorreo = false; 
 var dataBarra = dataBarra || {};
+var listaEscalaDescuento = listaEscalaDescuento || {};
+var listaMensajeMeta = listaMensajeMeta;
+var listaParametriaOfertaFinal = listaParametriaOfertaFinal || {};
 
 $(document).ready(function () {
     var hdDataBarra = $("#hdDataBarra").val();
     if ($.trim(hdDataBarra) != "") {
         dataBarra = JSON.parse(hdDataBarra);
+        listaMensajeMeta = dataBarra.ListaMensajeMeta || new Array();
     }
 
+    var hdListaEscalaDescuento = $("#hdListaEscala").val();
+    if ($.trim(hdListaEscalaDescuento) != "") {
+        listaEscalaDescuento = JSON.parse(hdListaEscalaDescuento);
+    }
+
+    var hdListaParametriaOfertaFinal = $("#hdListaParametriaOfertaFinal").val();
+    if ($.trim(hdListaParametriaOfertaFinal) != "") {
+        listaParametriaOfertaFinal = JSON.parse(hdListaParametriaOfertaFinal);
+    }
 
     dataBarra.TotalPedido = dataBarra.TotalPedido || parseFloat($("#hdfTotal").val(), 10);
 

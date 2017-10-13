@@ -1,6 +1,12 @@
 ﻿var arrayOfertasParaTi = [];
 
 $(document).ready(function () {
+    $(".termino_condiciones_intriga").click(function () {
+        $(this).toggleClass('check_intriga');
+        if (typeof intrigaAceptoTerminos !== 'undefined') {
+            intrigaAceptoTerminos = !intrigaAceptoTerminos;
+        }
+    });
 
     $('.flexsliderTutorialMobile').flexslider({
         animation: "slide"
@@ -58,6 +64,16 @@ $(document).ready(function () {
             starWidth: "17px"
         }).on("rateyo.change", function (e, data) {
         });
+
+        $('.titulo_estrellas').rateYo({
+            rating: "100%",
+            spacing: "10px",
+            numStars: 5,
+            starWidth: "14px",
+            readOnly: true,
+            ratedFill: "#cca11e"
+        });
+
         CargarCarouselMasVendidos('mobile');
     }
 

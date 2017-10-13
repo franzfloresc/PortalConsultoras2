@@ -19,6 +19,13 @@ var listaCorreo = new Array();
 var imgIssuu = (imgIssuu == null || imgIssuu == undefined)
     ? "" : imgIssuu.startsWith("https") ? imgIssuu.replace("https://", "http://") : imgIssuu;
 
+var campaniaEmail = "";
+
+var rCampSelect = "";
+var rCampSelectI = 1;
+var cantCamRev = 3;
+var aCamRev = new Array();
+
 $(document).ready(function () {
     aCam.push($("#hdCampaniaAnterior").val());
     aCam.push($("#hdCampaniaActual").val());
@@ -525,7 +532,6 @@ function CatalogoEnviarEmail() {
 
 }
 
-var campaniaEmail = "";
 function AbrirCompartirCorreo(tipoCatalogo, campania) {
     dataLayer.push({
         'event': 'virtualEvent',
@@ -549,12 +555,6 @@ function AbrirCompartirCorreo(tipoCatalogo, campania) {
         $("#divCheckbox [data-cat='" + cat + "']").show();
     }
 }
-
-var rCampSelect = "";
-var rCampSelectI = 1;
-var cantCamRev = 3;
-var aCamRev = new Array();
-
 
 function MostrarRevistaCorrecta(campania) {
     var urlImagen = "";

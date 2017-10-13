@@ -263,33 +263,11 @@
 @section scripts{
     @*<script src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>*@
     <script src="@Url.Content("~/Scripts/Tag/jquery.tags.input.js")"></script>
-
-    <script type="text/javascript" id="js-ready-Catalogo">
-        var tagLbel = "Lbel";
-        var tagEsika = "Esika";
-        var tagCyzone = "Cyzone";
-
-        var campSelect = "";
-        var campSelectI = 1;
-
-        var aCam = new Array();
-        var linkCat = new Object();
-        var descrCat = new Object();
-        var ordenCat = new Object();
-
-        var cantCat = 3;
-        var cantCam = 3;
-        var cont = 0;
-
+    <script type="text/javascript" id="js-ready-Catalogo">        
         var imgNoDisponible = '@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")';
-        var imgIssuu = '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart01' + '{img}' + '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart02Alternativo'
-        imgIssuu = imgIssuu.startsWith("https") ? imgIssuu.replace("https://", "http://") : imgIssuu;
-
-        var rCampSelect = "";
-        var rCampSelectI = 1;
-        var cantCamRev = 3;
+        var imgIssuu = '@Constantes.CatalogoUrlParameters.UrlPart01' + '{img}' + '@Constantes.CatalogoUrlParameters.UrlPart02Alternativo'
+        imgIssuu = imgIssuu.startsWith("https") ? imgIssuu.replace("https://", "http://") : imgIssuu;        
         var codigoIso = '@ViewBag.CodigoISO';
-        var aCamRev = new Array();
         var urlObtenerPortadaRevista = '@Url.Action("ObtenerPortadaRevista", "Catalogo", new { area = "Mobile" })';
         var defaultImageRevista = '@Url.Content("~/Content/Images/revista_no_disponible.jpg")';
         var urlIconoClienteAutoCompletar = '@Url.Content("~/Content/Images/Esika/user.jpg")';
