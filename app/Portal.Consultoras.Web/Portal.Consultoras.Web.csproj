@@ -1218,7 +1218,7 @@
     <Content Include="Content\HojaInscripcion\carrito-menu.png" />
     <Content Include="Content\Css\Site\Login2\style_esika.min.css" />
     <Content Include="Content\Css\Site\Login2\style_lbel.min.css" />
-    <Content Include="Content\ImageHelper\xzoom.css" /> 
+    <Content Include="Content\ImageHelper\xzoom.css" />
     <Content Include="Content\Images\arrow-down.svg" />
     <Content Include="Content\Images\arrow.png" />
     <Content Include="Content\Css\Site\jquery.rateyo.css" />
@@ -4389,6 +4389,7 @@
     <Content Include="Views\Shared\_vpBloqueMensajesPedido.cshtml" />
     <Content Include="Views\Shared\_vpMenuB.cshtml" />
     <Content Include="Views\Shared\_template-ofertadeldia-style.cshtml" />
+    <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-descargables-navidenos.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
