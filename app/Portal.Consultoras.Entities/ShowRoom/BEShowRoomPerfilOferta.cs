@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
-using OpenSource.Library.DataAccess;
+﻿using OpenSource.Library.DataAccess;
 using Portal.Consultoras.Common;
+using System;
+using System.Data;
+using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities.ShowRoom
 {
@@ -49,7 +45,7 @@ namespace Portal.Consultoras.Entities.ShowRoom
             if (DataRecord.HasColumn(datarec, "Orden") && datarec["Orden"] != DBNull.Value)
                 Orden = DbConvert.ToInt32(datarec["Orden"]);
             if (DataRecord.HasColumn(datarec, "EsSubCampania") && datarec["EsSubCampania"] != DBNull.Value)
-                EsSubCampania = DbConvert.ToBoolean(datarec["EsSubCampania"]);            
+                EsSubCampania = DbConvert.ToBoolean(datarec["EsSubCampania"]);
         }
     }
 }
