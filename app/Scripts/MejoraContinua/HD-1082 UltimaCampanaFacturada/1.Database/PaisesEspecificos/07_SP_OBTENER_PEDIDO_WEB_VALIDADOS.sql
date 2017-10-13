@@ -55,7 +55,7 @@ BEGIN
 		  END AS EsBrillante
 		, isnull(c.AnoCampanaIngreso, '') AS CampaniaIngreso
 		, isnull(CAST(
-			iif(c.TipoFacturacion = 'FA', c.UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,c.UltimaCampanaFacturada,-1))
+			iif(isnull(c.TipoFacturacion,'FA') = 'FA', c.UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,c.UltimaCampanaFacturada,-1))
 			AS VARCHAR(6)
 		), '') AS UltimaFacturacion
 		, isnull(sip.VAL_ORIG,'') AS OrigenPedido
@@ -171,7 +171,7 @@ BEGIN
 		  END AS EsBrillante
 		, isnull(c.AnoCampanaIngreso, '') AS CampaniaIngreso
 		, isnull(CAST(
-			iif(c.TipoFacturacion = 'FA', c.UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,c.UltimaCampanaFacturada,-1))
+			iif(isnull(c.TipoFacturacion,'FA') = 'FA', c.UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,c.UltimaCampanaFacturada,-1))
 			AS VARCHAR(6)
 		), '') AS UltimaFacturacion
 		, isnull(sip.VAL_ORIG,'') AS OrigenPedido
@@ -287,7 +287,7 @@ BEGIN
 		  END AS EsBrillante
 		, isnull(c.AnoCampanaIngreso, '') AS CampaniaIngreso
 		, isnull(CAST(
-			iif(c.TipoFacturacion = 'FA', c.UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,c.UltimaCampanaFacturada,-1))
+			iif(isnull(c.TipoFacturacion,'FA') = 'FA', c.UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,c.UltimaCampanaFacturada,-1))
 			AS VARCHAR(6)
 		), '') AS UltimaFacturacion
 		, isnull(sip.VAL_ORIG,'') AS OrigenPedido
@@ -403,7 +403,7 @@ BEGIN
 		  END AS EsBrillante
 		, isnull(c.AnoCampanaIngreso, '') AS CampaniaIngreso
 		, isnull(CAST(
-			iif(c.TipoFacturacion = 'FA', c.UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,c.UltimaCampanaFacturada,-1))
+			iif(isnull(c.TipoFacturacion,'FA') = 'FA', c.UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,c.UltimaCampanaFacturada,-1))
 			AS VARCHAR(6)
 		), '') AS UltimaFacturacion
 		, isnull(sip.VAL_ORIG,'') AS OrigenPedido
@@ -519,7 +519,7 @@ BEGIN
 		  END AS EsBrillante
 		, isnull(c.AnoCampanaIngreso, '') AS CampaniaIngreso
 		, isnull(CAST(
-			iif(c.TipoFacturacion = 'FA', c.UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,c.UltimaCampanaFacturada,-1))
+			iif(isnull(c.TipoFacturacion,'FA') = 'FA', c.UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,c.UltimaCampanaFacturada,-1))
 			AS VARCHAR(6)
 		), '') AS UltimaFacturacion
 		, isnull(sip.VAL_ORIG,'') AS OrigenPedido
@@ -635,7 +635,7 @@ BEGIN
 		  END AS EsBrillante
 		, isnull(c.AnoCampanaIngreso, '') AS CampaniaIngreso
 		, isnull(CAST(
-			iif(c.TipoFacturacion = 'FA', c.UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,c.UltimaCampanaFacturada,-1))
+			iif(isnull(c.TipoFacturacion,'FA') = 'FA', c.UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,c.UltimaCampanaFacturada,-1))
 			AS VARCHAR(6)
 		), '') AS UltimaFacturacion
 		, isnull(sip.VAL_ORIG,'') AS OrigenPedido
@@ -752,7 +752,7 @@ BEGIN
 		  END AS EsBrillante
 		, isnull(c.AnoCampanaIngreso, '') AS CampaniaIngreso
 		, isnull(CAST(
-			iif(c.TipoFacturacion = 'FA', c.UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,c.UltimaCampanaFacturada,-1))
+			iif(isnull(c.TipoFacturacion,'FA') = 'FA', c.UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,c.UltimaCampanaFacturada,-1))
 			AS VARCHAR(6)
 		), '') AS UltimaFacturacion
 		, isnull(sip.VAL_ORIG,'') AS OrigenPedido
@@ -868,7 +868,7 @@ BEGIN
 		  END AS EsBrillante
 		, isnull(c.AnoCampanaIngreso, '') AS CampaniaIngreso
 		, isnull(CAST(
-			iif(c.TipoFacturacion = 'FA', c.UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,c.UltimaCampanaFacturada,-1))
+			iif(isnull(c.TipoFacturacion,'FA') = 'FA', c.UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,c.UltimaCampanaFacturada,-1))
 			AS VARCHAR(6)
 		), '') AS UltimaFacturacion
 		, isnull(sip.VAL_ORIG,'') AS OrigenPedido
@@ -984,7 +984,7 @@ BEGIN
 		  END AS EsBrillante
 		, isnull(c.AnoCampanaIngreso, '') AS CampaniaIngreso
 		, isnull(CAST(
-			iif(c.TipoFacturacion = 'FA', c.UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,c.UltimaCampanaFacturada,-1))
+			iif(isnull(c.TipoFacturacion,'FA') = 'FA', c.UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,c.UltimaCampanaFacturada,-1))
 			AS VARCHAR(6)
 		), '') AS UltimaFacturacion
 		, isnull(sip.VAL_ORIG,'') AS OrigenPedido
@@ -1100,7 +1100,7 @@ BEGIN
 		  END AS EsBrillante
 		, isnull(c.AnoCampanaIngreso, '') AS CampaniaIngreso
 		, isnull(CAST(
-			iif(c.TipoFacturacion = 'FA', c.UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,c.UltimaCampanaFacturada,-1))
+			iif(isnull(c.TipoFacturacion,'FA') = 'FA', c.UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,c.UltimaCampanaFacturada,-1))
 			AS VARCHAR(6)
 		), '') AS UltimaFacturacion
 		, isnull(sip.VAL_ORIG,'') AS OrigenPedido
@@ -1216,7 +1216,7 @@ BEGIN
 		  END AS EsBrillante
 		, isnull(c.AnoCampanaIngreso, '') AS CampaniaIngreso
 		, isnull(CAST(
-			iif(c.TipoFacturacion = 'FA', c.UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,c.UltimaCampanaFacturada,-1))
+			iif(isnull(c.TipoFacturacion,'FA') = 'FA', c.UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,c.UltimaCampanaFacturada,-1))
 			AS VARCHAR(6)
 		), '') AS UltimaFacturacion
 		, isnull(sip.VAL_ORIG,'') AS OrigenPedido
@@ -1332,7 +1332,7 @@ BEGIN
 		  END AS EsBrillante
 		, isnull(c.AnoCampanaIngreso, '') AS CampaniaIngreso
 		, isnull(CAST(
-			iif(c.TipoFacturacion = 'FA', c.UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,c.UltimaCampanaFacturada,-1))
+			iif(isnull(c.TipoFacturacion,'FA') = 'FA', c.UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,c.UltimaCampanaFacturada,-1))
 			AS VARCHAR(6)
 		), '') AS UltimaFacturacion
 		, isnull(sip.VAL_ORIG,'') AS OrigenPedido
@@ -1448,7 +1448,7 @@ BEGIN
 		  END AS EsBrillante
 		, isnull(c.AnoCampanaIngreso, '') AS CampaniaIngreso
 		, isnull(CAST(
-			iif(c.TipoFacturacion = 'FA', c.UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,c.UltimaCampanaFacturada,-1))
+			iif(isnull(c.TipoFacturacion,'FA') = 'FA', c.UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,c.UltimaCampanaFacturada,-1))
 			AS VARCHAR(6)
 		), '') AS UltimaFacturacion
 		, isnull(sip.VAL_ORIG,'') AS OrigenPedido

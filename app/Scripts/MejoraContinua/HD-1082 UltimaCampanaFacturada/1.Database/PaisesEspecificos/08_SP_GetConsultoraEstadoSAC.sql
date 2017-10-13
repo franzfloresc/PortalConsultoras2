@@ -34,7 +34,7 @@ BEGIN
 		@RegionID = IsNull(C.RegionID,0),
 		@ConsultoraID = IsNull(C.ConsultoraID,0),
 		@campaniaIngreso = AnoCampanaIngreso,
-		@campaniaUltima = iif(TipoFacturacion = 'FA', UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,UltimaCampanaFacturada,-1))
+		@campaniaUltima = iif(isnull(TipoFacturacion,'FA') = 'FA', UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,UltimaCampanaFacturada,-1))
 	from ods.consultora C with(nolock)
 	where C.Codigo = @codigoConsultora;
 	/*fin*/
@@ -124,7 +124,7 @@ BEGIN
 		@RegionID = IsNull(C.RegionID,0),
 		@ConsultoraID = IsNull(C.ConsultoraID,0),
 		@campaniaIngreso = AnoCampanaIngreso,
-		@campaniaUltima = iif(TipoFacturacion = 'FA', UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,UltimaCampanaFacturada,-1))
+		@campaniaUltima = iif(isnull(TipoFacturacion,'FA') = 'FA', UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,UltimaCampanaFacturada,-1))
 	from ods.consultora C with(nolock)
 	where C.Codigo = @codigoConsultora;
 	/*fin*/
@@ -214,7 +214,7 @@ BEGIN
 		@RegionID = IsNull(C.RegionID,0),
 		@ConsultoraID = IsNull(C.ConsultoraID,0),
 		@campaniaIngreso = AnoCampanaIngreso,
-		@campaniaUltima = iif(TipoFacturacion = 'FA', UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,UltimaCampanaFacturada,-1))
+		@campaniaUltima = iif(isnull(TipoFacturacion,'FA') = 'FA', UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,UltimaCampanaFacturada,-1))
 	from ods.consultora C with(nolock)
 	where C.Codigo = @codigoConsultora;
 	/*fin*/
@@ -304,7 +304,7 @@ BEGIN
 		@RegionID = IsNull(C.RegionID,0),
 		@ConsultoraID = IsNull(C.ConsultoraID,0),
 		@campaniaIngreso = AnoCampanaIngreso,
-		@campaniaUltima = iif(TipoFacturacion = 'FA', UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,UltimaCampanaFacturada,-1))
+		@campaniaUltima = iif(isnull(TipoFacturacion,'FA') = 'FA', UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,UltimaCampanaFacturada,-1))
 	from ods.consultora C with(nolock)
 	where C.Codigo = @codigoConsultora;
 	/*fin*/
@@ -394,7 +394,7 @@ BEGIN
 		@RegionID = IsNull(C.RegionID,0),
 		@ConsultoraID = IsNull(C.ConsultoraID,0),
 		@campaniaIngreso = AnoCampanaIngreso,
-		@campaniaUltima = iif(TipoFacturacion = 'FA', UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,UltimaCampanaFacturada,-1))
+		@campaniaUltima = iif(isnull(TipoFacturacion,'FA') = 'FA', UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,UltimaCampanaFacturada,-1))
 	from ods.consultora C with(nolock)
 	where C.Codigo = @codigoConsultora;
 	/*fin*/
@@ -484,7 +484,7 @@ BEGIN
 		@RegionID = IsNull(C.RegionID,0),
 		@ConsultoraID = IsNull(C.ConsultoraID,0),
 		@campaniaIngreso = AnoCampanaIngreso,
-		@campaniaUltima = iif(TipoFacturacion = 'FA', UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,UltimaCampanaFacturada,-1))
+		@campaniaUltima = iif(isnull(TipoFacturacion,'FA') = 'FA', UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,UltimaCampanaFacturada,-1))
 	from ods.consultora C with(nolock)
 	where C.Codigo = @codigoConsultora;
 	/*fin*/
@@ -574,7 +574,7 @@ BEGIN
 		@RegionID = IsNull(C.RegionID,0),
 		@ConsultoraID = IsNull(C.ConsultoraID,0),
 		@campaniaIngreso = AnoCampanaIngreso,
-		@campaniaUltima = iif(TipoFacturacion = 'FA', UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,UltimaCampanaFacturada,-1))
+		@campaniaUltima = iif(isnull(TipoFacturacion,'FA') = 'FA', UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,UltimaCampanaFacturada,-1))
 	from ods.consultora C with(nolock)
 	where C.Codigo = @codigoConsultora;
 	/*fin*/
@@ -664,7 +664,7 @@ BEGIN
 		@RegionID = IsNull(C.RegionID,0),
 		@ConsultoraID = IsNull(C.ConsultoraID,0),
 		@campaniaIngreso = AnoCampanaIngreso,
-		@campaniaUltima = iif(TipoFacturacion = 'FA', UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,UltimaCampanaFacturada,-1))
+		@campaniaUltima = iif(isnull(TipoFacturacion,'FA') = 'FA', UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,UltimaCampanaFacturada,-1))
 	from ods.consultora C with(nolock)
 	where C.Codigo = @codigoConsultora;
 	/*fin*/
@@ -754,7 +754,7 @@ BEGIN
 		@RegionID = IsNull(C.RegionID,0),
 		@ConsultoraID = IsNull(C.ConsultoraID,0),
 		@campaniaIngreso = AnoCampanaIngreso,
-		@campaniaUltima = iif(TipoFacturacion = 'FA', UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,UltimaCampanaFacturada,-1))
+		@campaniaUltima = iif(isnull(TipoFacturacion,'FA') = 'FA', UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,UltimaCampanaFacturada,-1))
 	from ods.consultora C with(nolock)
 	where C.Codigo = @codigoConsultora;
 	/*fin*/
@@ -844,7 +844,7 @@ BEGIN
 		@RegionID = IsNull(C.RegionID,0),
 		@ConsultoraID = IsNull(C.ConsultoraID,0),
 		@campaniaIngreso = AnoCampanaIngreso,
-		@campaniaUltima = iif(TipoFacturacion = 'FA', UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,UltimaCampanaFacturada,-1))
+		@campaniaUltima = iif(isnull(TipoFacturacion,'FA') = 'FA', UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,UltimaCampanaFacturada,-1))
 	from ods.consultora C with(nolock)
 	where C.Codigo = @codigoConsultora;
 	/*fin*/
@@ -934,7 +934,7 @@ BEGIN
 		@RegionID = IsNull(C.RegionID,0),
 		@ConsultoraID = IsNull(C.ConsultoraID,0),
 		@campaniaIngreso = AnoCampanaIngreso,
-		@campaniaUltima = iif(TipoFacturacion = 'FA', UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,UltimaCampanaFacturada,-1))
+		@campaniaUltima = iif(isnull(TipoFacturacion,'FA') = 'FA', UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,UltimaCampanaFacturada,-1))
 	from ods.consultora C with(nolock)
 	where C.Codigo = @codigoConsultora;
 	/*fin*/
@@ -1024,7 +1024,7 @@ BEGIN
 		@RegionID = IsNull(C.RegionID,0),
 		@ConsultoraID = IsNull(C.ConsultoraID,0),
 		@campaniaIngreso = AnoCampanaIngreso,
-		@campaniaUltima = iif(TipoFacturacion = 'FA', UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,UltimaCampanaFacturada,-1))
+		@campaniaUltima = iif(isnull(TipoFacturacion,'FA') = 'FA', UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,UltimaCampanaFacturada,-1))
 	from ods.consultora C with(nolock)
 	where C.Codigo = @codigoConsultora;
 	/*fin*/
@@ -1114,7 +1114,7 @@ BEGIN
 		@RegionID = IsNull(C.RegionID,0),
 		@ConsultoraID = IsNull(C.ConsultoraID,0),
 		@campaniaIngreso = AnoCampanaIngreso,
-		@campaniaUltima = iif(TipoFacturacion = 'FA', UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,UltimaCampanaFacturada,-1))
+		@campaniaUltima = iif(isnull(TipoFacturacion,'FA') = 'FA', UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,UltimaCampanaFacturada,-1))
 	from ods.consultora C with(nolock)
 	where C.Codigo = @codigoConsultora;
 	/*fin*/

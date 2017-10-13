@@ -353,7 +353,7 @@ BEGIN
 
 	select
 		@UltimaCampanaFacturada = ISNULL(UltimaCampanaFacturada,0),
-		@TipoFacturacion = ISNULL(TipoFacturacion,'')
+		@TipoFacturacion = ISNULL(TipoFacturacion,'FA')
 	From ods.consultora (nolock)
 	Where consultoraid = @consultoraid
 
@@ -362,7 +362,7 @@ BEGIN
 	BEGIN
 		SELECT
 			@UltimaCampanaFacturada = ISNULL(c.UltimaCampanaFacturada,0),
-			@TipoFacturacion = ISNULL(c.TipoFacturacion,''),
+			@TipoFacturacion = ISNULL(c.TipoFacturacion,'FA'),
 			@ConsultoraIdAsociada = ISNULL(c.ConsultoraId,0)
 		FROM ConsultoraFicticia cf with(nolock)
 		INNER JOIN UsuarioPrueba up with(nolock) on cf.Codigo = up.CodigoFicticio
@@ -1021,7 +1021,7 @@ BEGIN
 		@RegionID = IsNull(RegionID,0),
 		@ConsultoraID = IsNull(ConsultoraID,0),
 		@UltimaCampanaFacturada = IsNull(UltimaCampanaFacturada,0),
-		@TipoFacturacion = IsNull(TipoFacturacion,'')
+		@TipoFacturacion = IsNull(TipoFacturacion,'FA')
 	from ods.consultora with(nolock)
 	where codigo = @CodConsultora;
 	
@@ -1050,7 +1050,7 @@ BEGIN
 		order by PedidoID desc;
 
 		/* Se toma en cuenta la Fecha de Vencimiento sobre la última campaña facturada */
-		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,-11), @UltimaCampanaFacturada);
+		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
 
@@ -1442,6 +1442,127 @@ BEGIN
 		(@MarcaId <> 3 OR year(C.FechaNacimiento) > @AnioLimite);
 END
 GO
+ALTER PROCEDURE dbo.OBTENER_PEDIDO_WEB_RECHAZADOS
+  @ConsultoraLiderID     	BIGINT,
+  @CodigoPais				VARCHAR(3),
+  @CodigoCampaniaActual		VARCHAR(6)
+AS
+BEGIN
+	DECLARE 
+		@CodigoZona VARCHAR(4)
+		, @CodigoRegion VARCHAR(2)
+		, @CodigoSeccion VARCHAR(1)
+		, @CodigoConsultora VARCHAR(25)
+	
+	DECLARE @PedidoFacturado TABLE (COD_CLIE varchar(15))
+	
+	SELECT TOP 1
+		@CodigoRegion = isnull(rtrim(substring(cl.SeccionGestionLider, 1, 2)), '')
+		, @CodigoZona = isnull(rtrim(substring(cl.SeccionGestionLider, 3, 4)), '')
+		, @CodigoSeccion = isnull(rtrim(substring(cl.SeccionGestionLider, 7, 8)), '')
+		, @CodigoConsultora = cl.CodigoConsultora
+	FROM ods.ConsultoraLider cl
+	WHERE
+		cl.ConsultoraID = @ConsultoraLiderID
+	
+	INSERT @PedidoFacturado
+	SELECT 
+		cod_clie 
+	FROM ods.SOA_INFOR_PEDID sp 
+	WHERE 
+		sp.cod_peri = @CodigoCampaniaActual
+	and sp.cod_zona = @CodigoZona
+	and sp.cod_secc = @CodigoSeccion
+	and sp.val_esta_pedi = 'FACTURADO'
+	and sp.VAL_ORIG = 'WEB'
+	
+	SELECT DISTINCT
+		c.ConsultoraID
+		, c.NombreCompleto AS Nombre
+		, c.Codigo AS CodigodeConsultora
+		, isnull(terr.Codigo, '') AS Territorio
+		, isnull(tf.Numero, '') AS TelefonoCasa
+		, isnull(tm.Numero, '') AS TelefonoCelular
+		, isnull(cdm.FrecuenciaPedidos, '') AS Constancia
+		, CASE 
+			WHEN @CodigoPais = 'VE' THEN isnull(seg.Descripcion, '')
+			ELSE isnull(segint.Descripcion, '')
+		  END AS Segmentacion
+		, isnull(c.MontoSaldoActual, 0.00) AS SaldoPendienteTotal
+		, isnull(pdw.ImporteTotal-isnull(pdw.DescuentoProl,0), 0.00) AS VentaConsultora
+		, isnull(c.MontoUltimoPedido, 0.00) AS MontoPedidoFacturado
+		, isnull(sip.MOT_RECH, '') AS MotivoRechazo
+		-- Adicionales
+		, isnull(idt.Numero,'') AS DocumentodeIdentidad
+		, isnull(dir.DireccionLinea1, '') AS Direccion
+		, isnull(c.Email, '') AS Email
+		, CASE 
+			WHEN c.IndicadorFamiliaProtegida = 1 THEN 'SI' 
+			ELSE 'NO' 
+		  END AS FamiliaProtegida
+		, CASE 
+			WHEN c.IndicadorFlexiPago = 1 THEN 'SI' 
+			ELSE 'NO' 
+		  END AS UsaFlexipago
+		, CASE 
+			WHEN c.EsBrillante = 1 THEN 'SI' 
+			ELSE 'NO' 
+		  END AS EsBrillante
+		, isnull(c.AnoCampanaIngreso, '') AS CampaniaIngreso
+		, isnull(CAST(
+			iif(isnull(c.TipoFacturacion,'FA') = 'FA', c.UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,c.UltimaCampanaFacturada,-1))
+			AS VARCHAR(6)
+		), '') AS UltimaFacturacion
+		, isnull(sip.VAL_ORIG,'') AS OrigenPedido
+		, CASE 
+			WHEN isnull(c.FechaNacimiento,'')='' THEN '' 
+			ELSE CAST(DAY(c.FechaNacimiento) AS VARCHAR(2)) + 
+				 ' de ' + 
+				 (CASE MONTH(c.FechaNacimiento) 
+					WHEN 1 THEN 'Enero' 
+					WHEN 2 THEN 'Febrero' 
+					WHEN 3 THEN 'Marzo' 
+					WHEN 4 THEN 'Abril' 
+					WHEN 5 THEN 'Mayo' 
+					WHEN 6 THEN 'Junio' 
+					WHEN 7 THEN 'Julio' 
+					WHEN 8 THEN 'Agosto' 
+					WHEN 9 THEN 'Setiembre' 
+					WHEN 10 THEN 'Octubre' 
+					WHEN 11 THEN 'Noviembre' 
+					WHEN 12 THEN 'Diciembre'
+				 END)  
+			END AS Cumpleanios
+	FROM PedidoWeb pdw
+	JOIN ods.Consultora c ON pdw.ConsultoraID = c.ConsultoraID
+	JOIN ods.Zona z ON z.ZonaID = c.ZonaID AND z.Codigo = @CodigoZona
+	JOIN ods.Seccion s ON s.SeccionID = c.SeccionID AND s.Codigo = @CodigoSeccion
+	INNER JOIN ods.SOA_INFOR_PEDID sip WITH(NOLOCK) ON c.ConsultoraID = sip.ConsultoraID AND sip.COD_PERI = @CodigoCampaniaActual
+	LEFT JOIN ods.Territorio terr WITH(NOLOCK) ON c.TerritorioID = terr.TerritorioID AND c.SeccionID = terr.SeccionID
+	LEFT JOIN ods.Telefono tf WITH(NOLOCK) ON c.ConsultoraID = tf.ConsultoraID AND tf.TipoTelefono = 'TF'
+	LEFT JOIN ods.Telefono tm WITH(NOLOCK) ON c.ConsultoraID = tm.ConsultoraID AND tm.TipoTelefono = 'TM'
+	LEFT JOIN ods.ConsultoraDM cdm WITH(NOLOCK) ON c.Codigo = cdm.ConsultoraID
+	LEFT JOIN ods.SegmentoInterno segint WITH(NOLOCK) ON c.SegmentoInternoID = segint.SegmentoInternoID
+	LEFT JOIN ods.Segmento seg WITH(NOLOCK) ON c.SegmentoID = seg.SegmentoID
+	-- Adicionales
+	LEFT JOIN ods.Identificacion idt ON c.ConsultoraID = idt.ConsultoraID AND idt.DocumentoPrincipal = 1
+	LEFT JOIN ods.Direccion dir ON c.ConsultoraID = dir.ConsultoraID AND dir.TipoDireccion = 'Domicilio' AND dir.EstadoActivo = 1
+	WHERE
+			pdw.CampaniaID = @CodigoCampaniaActual 
+		--AND pdw.IndicadorEnviado = 1 
+		AND (sip.VAL_ESTA_PEDI = 'RECHAZADO')
+		AND sip.VAL_ORIG = 'WEB'
+		AND sip.cod_clie NOT IN (SELECT cod_clie FROM @PedidoFacturado)
+		AND sip.fec_ulti_actu = (
+									SELECT MAX(FEC_ULTI_ACTU) FROM ods.soa_infor_pedid 
+									WHERE 
+									cod_peri = @CodigoCampaniaActual 
+									AND cod_zona = @CodigoZona 
+									AND COD_SECC= @CodigoSeccion 
+									AND COD_CLIE = sip.COD_CLIE
+								)
+END
+GO
 ALTER PROCEDURE dbo.GetConsultorasPorUbigeo
 	@PaisId int,    
 	@CodigoUbigeo varchar(24),    
@@ -1524,7 +1645,7 @@ BEGIN
 	DECLARE @idcampaniaingreso INT;
 	SELECT
 		@idcampaniaingreso = AnoCampanaIngreso,
-		@ultimacampaniafacturable = isnull(iif(TipoFacturacion = 'FA', UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(UltimaCampanaFacturada,-1,@NroCampania)),0)
+		@ultimacampaniafacturable = isnull(iif(isnull(TipoFacturacion,'FA') = 'FA', UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(UltimaCampanaFacturada,-1,@NroCampania)),0)
 	FROM ods.Consultora WHERE ConsultoraID=@ConsultoraID;
 		
 	DECLARE @campaniafacturableingreso INT = @ultimacampaniafacturable - @idcampaniaingreso;
@@ -2005,7 +2126,7 @@ BEGIN
 
 	select
 		@UltimaCampanaFacturada = ISNULL(UltimaCampanaFacturada,0),
-		@TipoFacturacion = ISNULL(TipoFacturacion,'')
+		@TipoFacturacion = ISNULL(TipoFacturacion,'FA')
 	From ods.consultora (nolock)
 	Where consultoraid = @consultoraid
 
@@ -2014,7 +2135,7 @@ BEGIN
 	BEGIN
 		SELECT
 			@UltimaCampanaFacturada = ISNULL(c.UltimaCampanaFacturada,0),
-			@TipoFacturacion = ISNULL(c.TipoFacturacion,''),
+			@TipoFacturacion = ISNULL(c.TipoFacturacion,'FA'),
 			@ConsultoraIdAsociada = ISNULL(c.ConsultoraId,0)
 		FROM ConsultoraFicticia cf with(nolock)
 		INNER JOIN UsuarioPrueba up with(nolock) on cf.Codigo = up.CodigoFicticio
@@ -2673,7 +2794,7 @@ BEGIN
 		@RegionID = IsNull(RegionID,0),
 		@ConsultoraID = IsNull(ConsultoraID,0),
 		@UltimaCampanaFacturada = IsNull(UltimaCampanaFacturada,0),
-		@TipoFacturacion = IsNull(TipoFacturacion,'')
+		@TipoFacturacion = IsNull(TipoFacturacion,'FA')
 	from ods.consultora with(nolock)
 	where codigo = @CodConsultora;
 	
@@ -2702,7 +2823,7 @@ BEGIN
 		order by PedidoID desc;
 
 		/* Se toma en cuenta la Fecha de Vencimiento sobre la última campaña facturada */
-		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,-11), @UltimaCampanaFacturada);
+		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
 
@@ -3094,6 +3215,127 @@ BEGIN
 		(@MarcaId <> 3 OR year(C.FechaNacimiento) > @AnioLimite);
 END
 GO
+ALTER PROCEDURE dbo.OBTENER_PEDIDO_WEB_RECHAZADOS
+  @ConsultoraLiderID     	BIGINT,
+  @CodigoPais				VARCHAR(3),
+  @CodigoCampaniaActual		VARCHAR(6)
+AS
+BEGIN
+	DECLARE 
+		@CodigoZona VARCHAR(4)
+		, @CodigoRegion VARCHAR(2)
+		, @CodigoSeccion VARCHAR(1)
+		, @CodigoConsultora VARCHAR(25)
+	
+	DECLARE @PedidoFacturado TABLE (COD_CLIE varchar(15))
+	
+	SELECT TOP 1
+		@CodigoRegion = isnull(rtrim(substring(cl.SeccionGestionLider, 1, 2)), '')
+		, @CodigoZona = isnull(rtrim(substring(cl.SeccionGestionLider, 3, 4)), '')
+		, @CodigoSeccion = isnull(rtrim(substring(cl.SeccionGestionLider, 7, 8)), '')
+		, @CodigoConsultora = cl.CodigoConsultora
+	FROM ods.ConsultoraLider cl
+	WHERE
+		cl.ConsultoraID = @ConsultoraLiderID
+	
+	INSERT @PedidoFacturado
+	SELECT 
+		cod_clie 
+	FROM ods.SOA_INFOR_PEDID sp 
+	WHERE 
+		sp.cod_peri = @CodigoCampaniaActual
+	and sp.cod_zona = @CodigoZona
+	and sp.cod_secc = @CodigoSeccion
+	and sp.val_esta_pedi = 'FACTURADO'
+	and sp.VAL_ORIG = 'WEB'
+	
+	SELECT DISTINCT
+		c.ConsultoraID
+		, c.NombreCompleto AS Nombre
+		, c.Codigo AS CodigodeConsultora
+		, isnull(terr.Codigo, '') AS Territorio
+		, isnull(tf.Numero, '') AS TelefonoCasa
+		, isnull(tm.Numero, '') AS TelefonoCelular
+		, isnull(cdm.FrecuenciaPedidos, '') AS Constancia
+		, CASE 
+			WHEN @CodigoPais = 'VE' THEN isnull(seg.Descripcion, '')
+			ELSE isnull(segint.Descripcion, '')
+		  END AS Segmentacion
+		, isnull(c.MontoSaldoActual, 0.00) AS SaldoPendienteTotal
+		, isnull(pdw.ImporteTotal-isnull(pdw.DescuentoProl,0), 0.00) AS VentaConsultora
+		, isnull(c.MontoUltimoPedido, 0.00) AS MontoPedidoFacturado
+		, isnull(sip.MOT_RECH, '') AS MotivoRechazo
+		-- Adicionales
+		, isnull(idt.Numero,'') AS DocumentodeIdentidad
+		, isnull(dir.DireccionLinea1, '') AS Direccion
+		, isnull(c.Email, '') AS Email
+		, CASE 
+			WHEN c.IndicadorFamiliaProtegida = 1 THEN 'SI' 
+			ELSE 'NO' 
+		  END AS FamiliaProtegida
+		, CASE 
+			WHEN c.IndicadorFlexiPago = 1 THEN 'SI' 
+			ELSE 'NO' 
+		  END AS UsaFlexipago
+		, CASE 
+			WHEN c.EsBrillante = 1 THEN 'SI' 
+			ELSE 'NO' 
+		  END AS EsBrillante
+		, isnull(c.AnoCampanaIngreso, '') AS CampaniaIngreso
+		, isnull(CAST(
+			iif(isnull(c.TipoFacturacion,'FA') = 'FA', c.UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,c.UltimaCampanaFacturada,-1))
+			AS VARCHAR(6)
+		), '') AS UltimaFacturacion
+		, isnull(sip.VAL_ORIG,'') AS OrigenPedido
+		, CASE 
+			WHEN isnull(c.FechaNacimiento,'')='' THEN '' 
+			ELSE CAST(DAY(c.FechaNacimiento) AS VARCHAR(2)) + 
+				 ' de ' + 
+				 (CASE MONTH(c.FechaNacimiento) 
+					WHEN 1 THEN 'Enero' 
+					WHEN 2 THEN 'Febrero' 
+					WHEN 3 THEN 'Marzo' 
+					WHEN 4 THEN 'Abril' 
+					WHEN 5 THEN 'Mayo' 
+					WHEN 6 THEN 'Junio' 
+					WHEN 7 THEN 'Julio' 
+					WHEN 8 THEN 'Agosto' 
+					WHEN 9 THEN 'Setiembre' 
+					WHEN 10 THEN 'Octubre' 
+					WHEN 11 THEN 'Noviembre' 
+					WHEN 12 THEN 'Diciembre'
+				 END)  
+			END AS Cumpleanios
+	FROM PedidoWeb pdw
+	JOIN ods.Consultora c ON pdw.ConsultoraID = c.ConsultoraID
+	JOIN ods.Zona z ON z.ZonaID = c.ZonaID AND z.Codigo = @CodigoZona
+	JOIN ods.Seccion s ON s.SeccionID = c.SeccionID AND s.Codigo = @CodigoSeccion
+	INNER JOIN ods.SOA_INFOR_PEDID sip WITH(NOLOCK) ON c.ConsultoraID = sip.ConsultoraID AND sip.COD_PERI = @CodigoCampaniaActual
+	LEFT JOIN ods.Territorio terr WITH(NOLOCK) ON c.TerritorioID = terr.TerritorioID AND c.SeccionID = terr.SeccionID
+	LEFT JOIN ods.Telefono tf WITH(NOLOCK) ON c.ConsultoraID = tf.ConsultoraID AND tf.TipoTelefono = 'TF'
+	LEFT JOIN ods.Telefono tm WITH(NOLOCK) ON c.ConsultoraID = tm.ConsultoraID AND tm.TipoTelefono = 'TM'
+	LEFT JOIN ods.ConsultoraDM cdm WITH(NOLOCK) ON c.Codigo = cdm.ConsultoraID
+	LEFT JOIN ods.SegmentoInterno segint WITH(NOLOCK) ON c.SegmentoInternoID = segint.SegmentoInternoID
+	LEFT JOIN ods.Segmento seg WITH(NOLOCK) ON c.SegmentoID = seg.SegmentoID
+	-- Adicionales
+	LEFT JOIN ods.Identificacion idt ON c.ConsultoraID = idt.ConsultoraID AND idt.DocumentoPrincipal = 1
+	LEFT JOIN ods.Direccion dir ON c.ConsultoraID = dir.ConsultoraID AND dir.TipoDireccion = 'Domicilio' AND dir.EstadoActivo = 1
+	WHERE
+			pdw.CampaniaID = @CodigoCampaniaActual 
+		--AND pdw.IndicadorEnviado = 1 
+		AND (sip.VAL_ESTA_PEDI = 'RECHAZADO')
+		AND sip.VAL_ORIG = 'WEB'
+		AND sip.cod_clie NOT IN (SELECT cod_clie FROM @PedidoFacturado)
+		AND sip.fec_ulti_actu = (
+									SELECT MAX(FEC_ULTI_ACTU) FROM ods.soa_infor_pedid 
+									WHERE 
+									cod_peri = @CodigoCampaniaActual 
+									AND cod_zona = @CodigoZona 
+									AND COD_SECC= @CodigoSeccion 
+									AND COD_CLIE = sip.COD_CLIE
+								)
+END
+GO
 ALTER PROCEDURE dbo.GetConsultorasPorUbigeo
 	@PaisId int,    
 	@CodigoUbigeo varchar(24),    
@@ -3176,7 +3418,7 @@ BEGIN
 	DECLARE @idcampaniaingreso INT;
 	SELECT
 		@idcampaniaingreso = AnoCampanaIngreso,
-		@ultimacampaniafacturable = isnull(iif(TipoFacturacion = 'FA', UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(UltimaCampanaFacturada,-1,@NroCampania)),0)
+		@ultimacampaniafacturable = isnull(iif(isnull(TipoFacturacion,'FA') = 'FA', UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(UltimaCampanaFacturada,-1,@NroCampania)),0)
 	FROM ods.Consultora WHERE ConsultoraID=@ConsultoraID;
 		
 	DECLARE @campaniafacturableingreso INT = @ultimacampaniafacturable - @idcampaniaingreso;
@@ -3657,7 +3899,7 @@ BEGIN
 
 	select
 		@UltimaCampanaFacturada = ISNULL(UltimaCampanaFacturada,0),
-		@TipoFacturacion = ISNULL(TipoFacturacion,'')
+		@TipoFacturacion = ISNULL(TipoFacturacion,'FA')
 	From ods.consultora (nolock)
 	Where consultoraid = @consultoraid
 
@@ -3666,7 +3908,7 @@ BEGIN
 	BEGIN
 		SELECT
 			@UltimaCampanaFacturada = ISNULL(c.UltimaCampanaFacturada,0),
-			@TipoFacturacion = ISNULL(c.TipoFacturacion,''),
+			@TipoFacturacion = ISNULL(c.TipoFacturacion,'FA'),
 			@ConsultoraIdAsociada = ISNULL(c.ConsultoraId,0)
 		FROM ConsultoraFicticia cf with(nolock)
 		INNER JOIN UsuarioPrueba up with(nolock) on cf.Codigo = up.CodigoFicticio
@@ -4325,7 +4567,7 @@ BEGIN
 		@RegionID = IsNull(RegionID,0),
 		@ConsultoraID = IsNull(ConsultoraID,0),
 		@UltimaCampanaFacturada = IsNull(UltimaCampanaFacturada,0),
-		@TipoFacturacion = IsNull(TipoFacturacion,'')
+		@TipoFacturacion = IsNull(TipoFacturacion,'FA')
 	from ods.consultora with(nolock)
 	where codigo = @CodConsultora;
 	
@@ -4354,7 +4596,7 @@ BEGIN
 		order by PedidoID desc;
 
 		/* Se toma en cuenta la Fecha de Vencimiento sobre la última campaña facturada */
-		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,-11), @UltimaCampanaFacturada);
+		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
 
@@ -4746,6 +4988,127 @@ BEGIN
 		(@MarcaId <> 3 OR year(C.FechaNacimiento) > @AnioLimite);
 END
 GO
+ALTER PROCEDURE dbo.OBTENER_PEDIDO_WEB_RECHAZADOS
+  @ConsultoraLiderID     	BIGINT,
+  @CodigoPais				VARCHAR(3),
+  @CodigoCampaniaActual		VARCHAR(6)
+AS
+BEGIN
+	DECLARE 
+		@CodigoZona VARCHAR(4)
+		, @CodigoRegion VARCHAR(2)
+		, @CodigoSeccion VARCHAR(1)
+		, @CodigoConsultora VARCHAR(25)
+	
+	DECLARE @PedidoFacturado TABLE (COD_CLIE varchar(15))
+	
+	SELECT TOP 1
+		@CodigoRegion = isnull(rtrim(substring(cl.SeccionGestionLider, 1, 2)), '')
+		, @CodigoZona = isnull(rtrim(substring(cl.SeccionGestionLider, 3, 4)), '')
+		, @CodigoSeccion = isnull(rtrim(substring(cl.SeccionGestionLider, 7, 8)), '')
+		, @CodigoConsultora = cl.CodigoConsultora
+	FROM ods.ConsultoraLider cl
+	WHERE
+		cl.ConsultoraID = @ConsultoraLiderID
+	
+	INSERT @PedidoFacturado
+	SELECT 
+		cod_clie 
+	FROM ods.SOA_INFOR_PEDID sp 
+	WHERE 
+		sp.cod_peri = @CodigoCampaniaActual
+	and sp.cod_zona = @CodigoZona
+	and sp.cod_secc = @CodigoSeccion
+	and sp.val_esta_pedi = 'FACTURADO'
+	and sp.VAL_ORIG = 'WEB'
+	
+	SELECT DISTINCT
+		c.ConsultoraID
+		, c.NombreCompleto AS Nombre
+		, c.Codigo AS CodigodeConsultora
+		, isnull(terr.Codigo, '') AS Territorio
+		, isnull(tf.Numero, '') AS TelefonoCasa
+		, isnull(tm.Numero, '') AS TelefonoCelular
+		, isnull(cdm.FrecuenciaPedidos, '') AS Constancia
+		, CASE 
+			WHEN @CodigoPais = 'VE' THEN isnull(seg.Descripcion, '')
+			ELSE isnull(segint.Descripcion, '')
+		  END AS Segmentacion
+		, isnull(c.MontoSaldoActual, 0.00) AS SaldoPendienteTotal
+		, isnull(pdw.ImporteTotal-isnull(pdw.DescuentoProl,0), 0.00) AS VentaConsultora
+		, isnull(c.MontoUltimoPedido, 0.00) AS MontoPedidoFacturado
+		, isnull(sip.MOT_RECH, '') AS MotivoRechazo
+		-- Adicionales
+		, isnull(idt.Numero,'') AS DocumentodeIdentidad
+		, isnull(dir.DireccionLinea1, '') AS Direccion
+		, isnull(c.Email, '') AS Email
+		, CASE 
+			WHEN c.IndicadorFamiliaProtegida = 1 THEN 'SI' 
+			ELSE 'NO' 
+		  END AS FamiliaProtegida
+		, CASE 
+			WHEN c.IndicadorFlexiPago = 1 THEN 'SI' 
+			ELSE 'NO' 
+		  END AS UsaFlexipago
+		, CASE 
+			WHEN c.EsBrillante = 1 THEN 'SI' 
+			ELSE 'NO' 
+		  END AS EsBrillante
+		, isnull(c.AnoCampanaIngreso, '') AS CampaniaIngreso
+		, isnull(CAST(
+			iif(isnull(c.TipoFacturacion,'FA') = 'FA', c.UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,c.UltimaCampanaFacturada,-1))
+			AS VARCHAR(6)
+		), '') AS UltimaFacturacion
+		, isnull(sip.VAL_ORIG,'') AS OrigenPedido
+		, CASE 
+			WHEN isnull(c.FechaNacimiento,'')='' THEN '' 
+			ELSE CAST(DAY(c.FechaNacimiento) AS VARCHAR(2)) + 
+				 ' de ' + 
+				 (CASE MONTH(c.FechaNacimiento) 
+					WHEN 1 THEN 'Enero' 
+					WHEN 2 THEN 'Febrero' 
+					WHEN 3 THEN 'Marzo' 
+					WHEN 4 THEN 'Abril' 
+					WHEN 5 THEN 'Mayo' 
+					WHEN 6 THEN 'Junio' 
+					WHEN 7 THEN 'Julio' 
+					WHEN 8 THEN 'Agosto' 
+					WHEN 9 THEN 'Setiembre' 
+					WHEN 10 THEN 'Octubre' 
+					WHEN 11 THEN 'Noviembre' 
+					WHEN 12 THEN 'Diciembre'
+				 END)  
+			END AS Cumpleanios
+	FROM PedidoWeb pdw
+	JOIN ods.Consultora c ON pdw.ConsultoraID = c.ConsultoraID
+	JOIN ods.Zona z ON z.ZonaID = c.ZonaID AND z.Codigo = @CodigoZona
+	JOIN ods.Seccion s ON s.SeccionID = c.SeccionID AND s.Codigo = @CodigoSeccion
+	INNER JOIN ods.SOA_INFOR_PEDID sip WITH(NOLOCK) ON c.ConsultoraID = sip.ConsultoraID AND sip.COD_PERI = @CodigoCampaniaActual
+	LEFT JOIN ods.Territorio terr WITH(NOLOCK) ON c.TerritorioID = terr.TerritorioID AND c.SeccionID = terr.SeccionID
+	LEFT JOIN ods.Telefono tf WITH(NOLOCK) ON c.ConsultoraID = tf.ConsultoraID AND tf.TipoTelefono = 'TF'
+	LEFT JOIN ods.Telefono tm WITH(NOLOCK) ON c.ConsultoraID = tm.ConsultoraID AND tm.TipoTelefono = 'TM'
+	LEFT JOIN ods.ConsultoraDM cdm WITH(NOLOCK) ON c.Codigo = cdm.ConsultoraID
+	LEFT JOIN ods.SegmentoInterno segint WITH(NOLOCK) ON c.SegmentoInternoID = segint.SegmentoInternoID
+	LEFT JOIN ods.Segmento seg WITH(NOLOCK) ON c.SegmentoID = seg.SegmentoID
+	-- Adicionales
+	LEFT JOIN ods.Identificacion idt ON c.ConsultoraID = idt.ConsultoraID AND idt.DocumentoPrincipal = 1
+	LEFT JOIN ods.Direccion dir ON c.ConsultoraID = dir.ConsultoraID AND dir.TipoDireccion = 'Domicilio' AND dir.EstadoActivo = 1
+	WHERE
+			pdw.CampaniaID = @CodigoCampaniaActual 
+		--AND pdw.IndicadorEnviado = 1 
+		AND (sip.VAL_ESTA_PEDI = 'RECHAZADO')
+		AND sip.VAL_ORIG = 'WEB'
+		AND sip.cod_clie NOT IN (SELECT cod_clie FROM @PedidoFacturado)
+		AND sip.fec_ulti_actu = (
+									SELECT MAX(FEC_ULTI_ACTU) FROM ods.soa_infor_pedid 
+									WHERE 
+									cod_peri = @CodigoCampaniaActual 
+									AND cod_zona = @CodigoZona 
+									AND COD_SECC= @CodigoSeccion 
+									AND COD_CLIE = sip.COD_CLIE
+								)
+END
+GO
 ALTER PROCEDURE dbo.GetConsultorasPorUbigeo
 	@PaisId int,    
 	@CodigoUbigeo varchar(24),    
@@ -4828,7 +5191,7 @@ BEGIN
 	DECLARE @idcampaniaingreso INT;
 	SELECT
 		@idcampaniaingreso = AnoCampanaIngreso,
-		@ultimacampaniafacturable = isnull(iif(TipoFacturacion = 'FA', UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(UltimaCampanaFacturada,-1,@NroCampania)),0)
+		@ultimacampaniafacturable = isnull(iif(isnull(TipoFacturacion,'FA') = 'FA', UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(UltimaCampanaFacturada,-1,@NroCampania)),0)
 	FROM ods.Consultora WHERE ConsultoraID=@ConsultoraID;
 		
 	DECLARE @campaniafacturableingreso INT = @ultimacampaniafacturable - @idcampaniaingreso;
@@ -5309,7 +5672,7 @@ BEGIN
 
 	select
 		@UltimaCampanaFacturada = ISNULL(UltimaCampanaFacturada,0),
-		@TipoFacturacion = ISNULL(TipoFacturacion,'')
+		@TipoFacturacion = ISNULL(TipoFacturacion,'FA')
 	From ods.consultora (nolock)
 	Where consultoraid = @consultoraid
 
@@ -5318,7 +5681,7 @@ BEGIN
 	BEGIN
 		SELECT
 			@UltimaCampanaFacturada = ISNULL(c.UltimaCampanaFacturada,0),
-			@TipoFacturacion = ISNULL(c.TipoFacturacion,''),
+			@TipoFacturacion = ISNULL(c.TipoFacturacion,'FA'),
 			@ConsultoraIdAsociada = ISNULL(c.ConsultoraId,0)
 		FROM ConsultoraFicticia cf with(nolock)
 		INNER JOIN UsuarioPrueba up with(nolock) on cf.Codigo = up.CodigoFicticio
@@ -5977,7 +6340,7 @@ BEGIN
 		@RegionID = IsNull(RegionID,0),
 		@ConsultoraID = IsNull(ConsultoraID,0),
 		@UltimaCampanaFacturada = IsNull(UltimaCampanaFacturada,0),
-		@TipoFacturacion = IsNull(TipoFacturacion,'')
+		@TipoFacturacion = IsNull(TipoFacturacion,'FA')
 	from ods.consultora with(nolock)
 	where codigo = @CodConsultora;
 	
@@ -6006,7 +6369,7 @@ BEGIN
 		order by PedidoID desc;
 
 		/* Se toma en cuenta la Fecha de Vencimiento sobre la última campaña facturada */
-		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,-11), @UltimaCampanaFacturada);
+		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
 
@@ -6398,6 +6761,127 @@ BEGIN
 		(@MarcaId <> 3 OR year(C.FechaNacimiento) > @AnioLimite);
 END
 GO
+ALTER PROCEDURE dbo.OBTENER_PEDIDO_WEB_RECHAZADOS
+  @ConsultoraLiderID     	BIGINT,
+  @CodigoPais				VARCHAR(3),
+  @CodigoCampaniaActual		VARCHAR(6)
+AS
+BEGIN
+	DECLARE 
+		@CodigoZona VARCHAR(4)
+		, @CodigoRegion VARCHAR(2)
+		, @CodigoSeccion VARCHAR(1)
+		, @CodigoConsultora VARCHAR(25)
+	
+	DECLARE @PedidoFacturado TABLE (COD_CLIE varchar(15))
+	
+	SELECT TOP 1
+		@CodigoRegion = isnull(rtrim(substring(cl.SeccionGestionLider, 1, 2)), '')
+		, @CodigoZona = isnull(rtrim(substring(cl.SeccionGestionLider, 3, 4)), '')
+		, @CodigoSeccion = isnull(rtrim(substring(cl.SeccionGestionLider, 7, 8)), '')
+		, @CodigoConsultora = cl.CodigoConsultora
+	FROM ods.ConsultoraLider cl
+	WHERE
+		cl.ConsultoraID = @ConsultoraLiderID
+	
+	INSERT @PedidoFacturado
+	SELECT 
+		cod_clie 
+	FROM ods.SOA_INFOR_PEDID sp 
+	WHERE 
+		sp.cod_peri = @CodigoCampaniaActual
+	and sp.cod_zona = @CodigoZona
+	and sp.cod_secc = @CodigoSeccion
+	and sp.val_esta_pedi = 'FACTURADO'
+	and sp.VAL_ORIG = 'WEB'
+	
+	SELECT DISTINCT
+		c.ConsultoraID
+		, c.NombreCompleto AS Nombre
+		, c.Codigo AS CodigodeConsultora
+		, isnull(terr.Codigo, '') AS Territorio
+		, isnull(tf.Numero, '') AS TelefonoCasa
+		, isnull(tm.Numero, '') AS TelefonoCelular
+		, isnull(cdm.FrecuenciaPedidos, '') AS Constancia
+		, CASE 
+			WHEN @CodigoPais = 'VE' THEN isnull(seg.Descripcion, '')
+			ELSE isnull(segint.Descripcion, '')
+		  END AS Segmentacion
+		, isnull(c.MontoSaldoActual, 0.00) AS SaldoPendienteTotal
+		, isnull(pdw.ImporteTotal-isnull(pdw.DescuentoProl,0), 0.00) AS VentaConsultora
+		, isnull(c.MontoUltimoPedido, 0.00) AS MontoPedidoFacturado
+		, isnull(sip.MOT_RECH, '') AS MotivoRechazo
+		-- Adicionales
+		, isnull(idt.Numero,'') AS DocumentodeIdentidad
+		, isnull(dir.DireccionLinea1, '') AS Direccion
+		, isnull(c.Email, '') AS Email
+		, CASE 
+			WHEN c.IndicadorFamiliaProtegida = 1 THEN 'SI' 
+			ELSE 'NO' 
+		  END AS FamiliaProtegida
+		, CASE 
+			WHEN c.IndicadorFlexiPago = 1 THEN 'SI' 
+			ELSE 'NO' 
+		  END AS UsaFlexipago
+		, CASE 
+			WHEN c.EsBrillante = 1 THEN 'SI' 
+			ELSE 'NO' 
+		  END AS EsBrillante
+		, isnull(c.AnoCampanaIngreso, '') AS CampaniaIngreso
+		, isnull(CAST(
+			iif(isnull(c.TipoFacturacion,'FA') = 'FA', c.UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,c.UltimaCampanaFacturada,-1))
+			AS VARCHAR(6)
+		), '') AS UltimaFacturacion
+		, isnull(sip.VAL_ORIG,'') AS OrigenPedido
+		, CASE 
+			WHEN isnull(c.FechaNacimiento,'')='' THEN '' 
+			ELSE CAST(DAY(c.FechaNacimiento) AS VARCHAR(2)) + 
+				 ' de ' + 
+				 (CASE MONTH(c.FechaNacimiento) 
+					WHEN 1 THEN 'Enero' 
+					WHEN 2 THEN 'Febrero' 
+					WHEN 3 THEN 'Marzo' 
+					WHEN 4 THEN 'Abril' 
+					WHEN 5 THEN 'Mayo' 
+					WHEN 6 THEN 'Junio' 
+					WHEN 7 THEN 'Julio' 
+					WHEN 8 THEN 'Agosto' 
+					WHEN 9 THEN 'Setiembre' 
+					WHEN 10 THEN 'Octubre' 
+					WHEN 11 THEN 'Noviembre' 
+					WHEN 12 THEN 'Diciembre'
+				 END)  
+			END AS Cumpleanios
+	FROM PedidoWeb pdw
+	JOIN ods.Consultora c ON pdw.ConsultoraID = c.ConsultoraID
+	JOIN ods.Zona z ON z.ZonaID = c.ZonaID AND z.Codigo = @CodigoZona
+	JOIN ods.Seccion s ON s.SeccionID = c.SeccionID AND s.Codigo = @CodigoSeccion
+	INNER JOIN ods.SOA_INFOR_PEDID sip WITH(NOLOCK) ON c.ConsultoraID = sip.ConsultoraID AND sip.COD_PERI = @CodigoCampaniaActual
+	LEFT JOIN ods.Territorio terr WITH(NOLOCK) ON c.TerritorioID = terr.TerritorioID AND c.SeccionID = terr.SeccionID
+	LEFT JOIN ods.Telefono tf WITH(NOLOCK) ON c.ConsultoraID = tf.ConsultoraID AND tf.TipoTelefono = 'TF'
+	LEFT JOIN ods.Telefono tm WITH(NOLOCK) ON c.ConsultoraID = tm.ConsultoraID AND tm.TipoTelefono = 'TM'
+	LEFT JOIN ods.ConsultoraDM cdm WITH(NOLOCK) ON c.Codigo = cdm.ConsultoraID
+	LEFT JOIN ods.SegmentoInterno segint WITH(NOLOCK) ON c.SegmentoInternoID = segint.SegmentoInternoID
+	LEFT JOIN ods.Segmento seg WITH(NOLOCK) ON c.SegmentoID = seg.SegmentoID
+	-- Adicionales
+	LEFT JOIN ods.Identificacion idt ON c.ConsultoraID = idt.ConsultoraID AND idt.DocumentoPrincipal = 1
+	LEFT JOIN ods.Direccion dir ON c.ConsultoraID = dir.ConsultoraID AND dir.TipoDireccion = 'Domicilio' AND dir.EstadoActivo = 1
+	WHERE
+			pdw.CampaniaID = @CodigoCampaniaActual 
+		--AND pdw.IndicadorEnviado = 1 
+		AND (sip.VAL_ESTA_PEDI = 'RECHAZADO')
+		AND sip.VAL_ORIG = 'WEB'
+		AND sip.cod_clie NOT IN (SELECT cod_clie FROM @PedidoFacturado)
+		AND sip.fec_ulti_actu = (
+									SELECT MAX(FEC_ULTI_ACTU) FROM ods.soa_infor_pedid 
+									WHERE 
+									cod_peri = @CodigoCampaniaActual 
+									AND cod_zona = @CodigoZona 
+									AND COD_SECC= @CodigoSeccion 
+									AND COD_CLIE = sip.COD_CLIE
+								)
+END
+GO
 ALTER PROCEDURE dbo.GetConsultorasPorUbigeo
 	@PaisId int,    
 	@CodigoUbigeo varchar(24),    
@@ -6480,7 +6964,7 @@ BEGIN
 	DECLARE @idcampaniaingreso INT;
 	SELECT
 		@idcampaniaingreso = AnoCampanaIngreso,
-		@ultimacampaniafacturable = isnull(iif(TipoFacturacion = 'FA', UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(UltimaCampanaFacturada,-1,@NroCampania)),0)
+		@ultimacampaniafacturable = isnull(iif(isnull(TipoFacturacion,'FA') = 'FA', UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(UltimaCampanaFacturada,-1,@NroCampania)),0)
 	FROM ods.Consultora WHERE ConsultoraID=@ConsultoraID;
 		
 	DECLARE @campaniafacturableingreso INT = @ultimacampaniafacturable - @idcampaniaingreso;
@@ -6961,7 +7445,7 @@ BEGIN
 
 	select
 		@UltimaCampanaFacturada = ISNULL(UltimaCampanaFacturada,0),
-		@TipoFacturacion = ISNULL(TipoFacturacion,'')
+		@TipoFacturacion = ISNULL(TipoFacturacion,'FA')
 	From ods.consultora (nolock)
 	Where consultoraid = @consultoraid
 
@@ -6970,7 +7454,7 @@ BEGIN
 	BEGIN
 		SELECT
 			@UltimaCampanaFacturada = ISNULL(c.UltimaCampanaFacturada,0),
-			@TipoFacturacion = ISNULL(c.TipoFacturacion,''),
+			@TipoFacturacion = ISNULL(c.TipoFacturacion,'FA'),
 			@ConsultoraIdAsociada = ISNULL(c.ConsultoraId,0)
 		FROM ConsultoraFicticia cf with(nolock)
 		INNER JOIN UsuarioPrueba up with(nolock) on cf.Codigo = up.CodigoFicticio
@@ -7629,7 +8113,7 @@ BEGIN
 		@RegionID = IsNull(RegionID,0),
 		@ConsultoraID = IsNull(ConsultoraID,0),
 		@UltimaCampanaFacturada = IsNull(UltimaCampanaFacturada,0),
-		@TipoFacturacion = IsNull(TipoFacturacion,'')
+		@TipoFacturacion = IsNull(TipoFacturacion,'FA')
 	from ods.consultora with(nolock)
 	where codigo = @CodConsultora;
 	
@@ -7658,7 +8142,7 @@ BEGIN
 		order by PedidoID desc;
 
 		/* Se toma en cuenta la Fecha de Vencimiento sobre la última campaña facturada */
-		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,-11), @UltimaCampanaFacturada);
+		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
 
@@ -8050,6 +8534,127 @@ BEGIN
 		(@MarcaId <> 3 OR year(C.FechaNacimiento) > @AnioLimite);
 END
 GO
+ALTER PROCEDURE dbo.OBTENER_PEDIDO_WEB_RECHAZADOS
+  @ConsultoraLiderID     	BIGINT,
+  @CodigoPais				VARCHAR(3),
+  @CodigoCampaniaActual		VARCHAR(6)
+AS
+BEGIN
+	DECLARE 
+		@CodigoZona VARCHAR(4)
+		, @CodigoRegion VARCHAR(2)
+		, @CodigoSeccion VARCHAR(1)
+		, @CodigoConsultora VARCHAR(25)
+	
+	DECLARE @PedidoFacturado TABLE (COD_CLIE varchar(15))
+	
+	SELECT TOP 1
+		@CodigoRegion = isnull(rtrim(substring(cl.SeccionGestionLider, 1, 2)), '')
+		, @CodigoZona = isnull(rtrim(substring(cl.SeccionGestionLider, 3, 4)), '')
+		, @CodigoSeccion = isnull(rtrim(substring(cl.SeccionGestionLider, 7, 8)), '')
+		, @CodigoConsultora = cl.CodigoConsultora
+	FROM ods.ConsultoraLider cl
+	WHERE
+		cl.ConsultoraID = @ConsultoraLiderID
+	
+	INSERT @PedidoFacturado
+	SELECT 
+		cod_clie 
+	FROM ods.SOA_INFOR_PEDID sp 
+	WHERE 
+		sp.cod_peri = @CodigoCampaniaActual
+	and sp.cod_zona = @CodigoZona
+	and sp.cod_secc = @CodigoSeccion
+	and sp.val_esta_pedi = 'FACTURADO'
+	and sp.VAL_ORIG = 'WEB'
+	
+	SELECT DISTINCT
+		c.ConsultoraID
+		, c.NombreCompleto AS Nombre
+		, c.Codigo AS CodigodeConsultora
+		, isnull(terr.Codigo, '') AS Territorio
+		, isnull(tf.Numero, '') AS TelefonoCasa
+		, isnull(tm.Numero, '') AS TelefonoCelular
+		, isnull(cdm.FrecuenciaPedidos, '') AS Constancia
+		, CASE 
+			WHEN @CodigoPais = 'VE' THEN isnull(seg.Descripcion, '')
+			ELSE isnull(segint.Descripcion, '')
+		  END AS Segmentacion
+		, isnull(c.MontoSaldoActual, 0.00) AS SaldoPendienteTotal
+		, isnull(pdw.ImporteTotal-isnull(pdw.DescuentoProl,0), 0.00) AS VentaConsultora
+		, isnull(c.MontoUltimoPedido, 0.00) AS MontoPedidoFacturado
+		, isnull(sip.MOT_RECH, '') AS MotivoRechazo
+		-- Adicionales
+		, isnull(idt.Numero,'') AS DocumentodeIdentidad
+		, isnull(dir.DireccionLinea1, '') AS Direccion
+		, isnull(c.Email, '') AS Email
+		, CASE 
+			WHEN c.IndicadorFamiliaProtegida = 1 THEN 'SI' 
+			ELSE 'NO' 
+		  END AS FamiliaProtegida
+		, CASE 
+			WHEN c.IndicadorFlexiPago = 1 THEN 'SI' 
+			ELSE 'NO' 
+		  END AS UsaFlexipago
+		, CASE 
+			WHEN c.EsBrillante = 1 THEN 'SI' 
+			ELSE 'NO' 
+		  END AS EsBrillante
+		, isnull(c.AnoCampanaIngreso, '') AS CampaniaIngreso
+		, isnull(CAST(
+			iif(isnull(c.TipoFacturacion,'FA') = 'FA', c.UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,c.UltimaCampanaFacturada,-1))
+			AS VARCHAR(6)
+		), '') AS UltimaFacturacion
+		, isnull(sip.VAL_ORIG,'') AS OrigenPedido
+		, CASE 
+			WHEN isnull(c.FechaNacimiento,'')='' THEN '' 
+			ELSE CAST(DAY(c.FechaNacimiento) AS VARCHAR(2)) + 
+				 ' de ' + 
+				 (CASE MONTH(c.FechaNacimiento) 
+					WHEN 1 THEN 'Enero' 
+					WHEN 2 THEN 'Febrero' 
+					WHEN 3 THEN 'Marzo' 
+					WHEN 4 THEN 'Abril' 
+					WHEN 5 THEN 'Mayo' 
+					WHEN 6 THEN 'Junio' 
+					WHEN 7 THEN 'Julio' 
+					WHEN 8 THEN 'Agosto' 
+					WHEN 9 THEN 'Setiembre' 
+					WHEN 10 THEN 'Octubre' 
+					WHEN 11 THEN 'Noviembre' 
+					WHEN 12 THEN 'Diciembre'
+				 END)  
+			END AS Cumpleanios
+	FROM PedidoWeb pdw
+	JOIN ods.Consultora c ON pdw.ConsultoraID = c.ConsultoraID
+	JOIN ods.Zona z ON z.ZonaID = c.ZonaID AND z.Codigo = @CodigoZona
+	JOIN ods.Seccion s ON s.SeccionID = c.SeccionID AND s.Codigo = @CodigoSeccion
+	INNER JOIN ods.SOA_INFOR_PEDID sip WITH(NOLOCK) ON c.ConsultoraID = sip.ConsultoraID AND sip.COD_PERI = @CodigoCampaniaActual
+	LEFT JOIN ods.Territorio terr WITH(NOLOCK) ON c.TerritorioID = terr.TerritorioID AND c.SeccionID = terr.SeccionID
+	LEFT JOIN ods.Telefono tf WITH(NOLOCK) ON c.ConsultoraID = tf.ConsultoraID AND tf.TipoTelefono = 'TF'
+	LEFT JOIN ods.Telefono tm WITH(NOLOCK) ON c.ConsultoraID = tm.ConsultoraID AND tm.TipoTelefono = 'TM'
+	LEFT JOIN ods.ConsultoraDM cdm WITH(NOLOCK) ON c.Codigo = cdm.ConsultoraID
+	LEFT JOIN ods.SegmentoInterno segint WITH(NOLOCK) ON c.SegmentoInternoID = segint.SegmentoInternoID
+	LEFT JOIN ods.Segmento seg WITH(NOLOCK) ON c.SegmentoID = seg.SegmentoID
+	-- Adicionales
+	LEFT JOIN ods.Identificacion idt ON c.ConsultoraID = idt.ConsultoraID AND idt.DocumentoPrincipal = 1
+	LEFT JOIN ods.Direccion dir ON c.ConsultoraID = dir.ConsultoraID AND dir.TipoDireccion = 'Domicilio' AND dir.EstadoActivo = 1
+	WHERE
+			pdw.CampaniaID = @CodigoCampaniaActual 
+		--AND pdw.IndicadorEnviado = 1 
+		AND (sip.VAL_ESTA_PEDI = 'RECHAZADO')
+		AND sip.VAL_ORIG = 'WEB'
+		AND sip.cod_clie NOT IN (SELECT cod_clie FROM @PedidoFacturado)
+		AND sip.fec_ulti_actu = (
+									SELECT MAX(FEC_ULTI_ACTU) FROM ods.soa_infor_pedid 
+									WHERE 
+									cod_peri = @CodigoCampaniaActual 
+									AND cod_zona = @CodigoZona 
+									AND COD_SECC= @CodigoSeccion 
+									AND COD_CLIE = sip.COD_CLIE
+								)
+END
+GO
 ALTER PROCEDURE dbo.GetConsultorasPorUbigeo
 	@PaisId int,    
 	@CodigoUbigeo varchar(24),    
@@ -8132,7 +8737,7 @@ BEGIN
 	DECLARE @idcampaniaingreso INT;
 	SELECT
 		@idcampaniaingreso = AnoCampanaIngreso,
-		@ultimacampaniafacturable = isnull(iif(TipoFacturacion = 'FA', UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(UltimaCampanaFacturada,-1,@NroCampania)),0)
+		@ultimacampaniafacturable = isnull(iif(isnull(TipoFacturacion,'FA') = 'FA', UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(UltimaCampanaFacturada,-1,@NroCampania)),0)
 	FROM ods.Consultora WHERE ConsultoraID=@ConsultoraID;
 		
 	DECLARE @campaniafacturableingreso INT = @ultimacampaniafacturable - @idcampaniaingreso;
@@ -8613,7 +9218,7 @@ BEGIN
 
 	select
 		@UltimaCampanaFacturada = ISNULL(UltimaCampanaFacturada,0),
-		@TipoFacturacion = ISNULL(TipoFacturacion,'')
+		@TipoFacturacion = ISNULL(TipoFacturacion,'FA')
 	From ods.consultora (nolock)
 	Where consultoraid = @consultoraid
 
@@ -8622,7 +9227,7 @@ BEGIN
 	BEGIN
 		SELECT
 			@UltimaCampanaFacturada = ISNULL(c.UltimaCampanaFacturada,0),
-			@TipoFacturacion = ISNULL(c.TipoFacturacion,''),
+			@TipoFacturacion = ISNULL(c.TipoFacturacion,'FA'),
 			@ConsultoraIdAsociada = ISNULL(c.ConsultoraId,0)
 		FROM ConsultoraFicticia cf with(nolock)
 		INNER JOIN UsuarioPrueba up with(nolock) on cf.Codigo = up.CodigoFicticio
@@ -9281,7 +9886,7 @@ BEGIN
 		@RegionID = IsNull(RegionID,0),
 		@ConsultoraID = IsNull(ConsultoraID,0),
 		@UltimaCampanaFacturada = IsNull(UltimaCampanaFacturada,0),
-		@TipoFacturacion = IsNull(TipoFacturacion,'')
+		@TipoFacturacion = IsNull(TipoFacturacion,'FA')
 	from ods.consultora with(nolock)
 	where codigo = @CodConsultora;
 	
@@ -9310,7 +9915,7 @@ BEGIN
 		order by PedidoID desc;
 
 		/* Se toma en cuenta la Fecha de Vencimiento sobre la última campaña facturada */
-		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,-11), @UltimaCampanaFacturada);
+		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
 
@@ -9702,6 +10307,127 @@ BEGIN
 		(@MarcaId <> 3 OR year(C.FechaNacimiento) > @AnioLimite);
 END
 GO
+ALTER PROCEDURE dbo.OBTENER_PEDIDO_WEB_RECHAZADOS
+  @ConsultoraLiderID     	BIGINT,
+  @CodigoPais				VARCHAR(3),
+  @CodigoCampaniaActual		VARCHAR(6)
+AS
+BEGIN
+	DECLARE 
+		@CodigoZona VARCHAR(4)
+		, @CodigoRegion VARCHAR(2)
+		, @CodigoSeccion VARCHAR(1)
+		, @CodigoConsultora VARCHAR(25)
+	
+	DECLARE @PedidoFacturado TABLE (COD_CLIE varchar(15))
+	
+	SELECT TOP 1
+		@CodigoRegion = isnull(rtrim(substring(cl.SeccionGestionLider, 1, 2)), '')
+		, @CodigoZona = isnull(rtrim(substring(cl.SeccionGestionLider, 3, 4)), '')
+		, @CodigoSeccion = isnull(rtrim(substring(cl.SeccionGestionLider, 7, 8)), '')
+		, @CodigoConsultora = cl.CodigoConsultora
+	FROM ods.ConsultoraLider cl
+	WHERE
+		cl.ConsultoraID = @ConsultoraLiderID
+	
+	INSERT @PedidoFacturado
+	SELECT 
+		cod_clie 
+	FROM ods.SOA_INFOR_PEDID sp 
+	WHERE 
+		sp.cod_peri = @CodigoCampaniaActual
+	and sp.cod_zona = @CodigoZona
+	and sp.cod_secc = @CodigoSeccion
+	and sp.val_esta_pedi = 'FACTURADO'
+	and sp.VAL_ORIG = 'WEB'
+	
+	SELECT DISTINCT
+		c.ConsultoraID
+		, c.NombreCompleto AS Nombre
+		, c.Codigo AS CodigodeConsultora
+		, isnull(terr.Codigo, '') AS Territorio
+		, isnull(tf.Numero, '') AS TelefonoCasa
+		, isnull(tm.Numero, '') AS TelefonoCelular
+		, isnull(cdm.FrecuenciaPedidos, '') AS Constancia
+		, CASE 
+			WHEN @CodigoPais = 'VE' THEN isnull(seg.Descripcion, '')
+			ELSE isnull(segint.Descripcion, '')
+		  END AS Segmentacion
+		, isnull(c.MontoSaldoActual, 0.00) AS SaldoPendienteTotal
+		, isnull(pdw.ImporteTotal-isnull(pdw.DescuentoProl,0), 0.00) AS VentaConsultora
+		, isnull(c.MontoUltimoPedido, 0.00) AS MontoPedidoFacturado
+		, isnull(sip.MOT_RECH, '') AS MotivoRechazo
+		-- Adicionales
+		, isnull(idt.Numero,'') AS DocumentodeIdentidad
+		, isnull(dir.DireccionLinea1, '') AS Direccion
+		, isnull(c.Email, '') AS Email
+		, CASE 
+			WHEN c.IndicadorFamiliaProtegida = 1 THEN 'SI' 
+			ELSE 'NO' 
+		  END AS FamiliaProtegida
+		, CASE 
+			WHEN c.IndicadorFlexiPago = 1 THEN 'SI' 
+			ELSE 'NO' 
+		  END AS UsaFlexipago
+		, CASE 
+			WHEN c.EsBrillante = 1 THEN 'SI' 
+			ELSE 'NO' 
+		  END AS EsBrillante
+		, isnull(c.AnoCampanaIngreso, '') AS CampaniaIngreso
+		, isnull(CAST(
+			iif(isnull(c.TipoFacturacion,'FA') = 'FA', c.UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,c.UltimaCampanaFacturada,-1))
+			AS VARCHAR(6)
+		), '') AS UltimaFacturacion
+		, isnull(sip.VAL_ORIG,'') AS OrigenPedido
+		, CASE 
+			WHEN isnull(c.FechaNacimiento,'')='' THEN '' 
+			ELSE CAST(DAY(c.FechaNacimiento) AS VARCHAR(2)) + 
+				 ' de ' + 
+				 (CASE MONTH(c.FechaNacimiento) 
+					WHEN 1 THEN 'Enero' 
+					WHEN 2 THEN 'Febrero' 
+					WHEN 3 THEN 'Marzo' 
+					WHEN 4 THEN 'Abril' 
+					WHEN 5 THEN 'Mayo' 
+					WHEN 6 THEN 'Junio' 
+					WHEN 7 THEN 'Julio' 
+					WHEN 8 THEN 'Agosto' 
+					WHEN 9 THEN 'Setiembre' 
+					WHEN 10 THEN 'Octubre' 
+					WHEN 11 THEN 'Noviembre' 
+					WHEN 12 THEN 'Diciembre'
+				 END)  
+			END AS Cumpleanios
+	FROM PedidoWeb pdw
+	JOIN ods.Consultora c ON pdw.ConsultoraID = c.ConsultoraID
+	JOIN ods.Zona z ON z.ZonaID = c.ZonaID AND z.Codigo = @CodigoZona
+	JOIN ods.Seccion s ON s.SeccionID = c.SeccionID AND s.Codigo = @CodigoSeccion
+	INNER JOIN ods.SOA_INFOR_PEDID sip WITH(NOLOCK) ON c.ConsultoraID = sip.ConsultoraID AND sip.COD_PERI = @CodigoCampaniaActual
+	LEFT JOIN ods.Territorio terr WITH(NOLOCK) ON c.TerritorioID = terr.TerritorioID AND c.SeccionID = terr.SeccionID
+	LEFT JOIN ods.Telefono tf WITH(NOLOCK) ON c.ConsultoraID = tf.ConsultoraID AND tf.TipoTelefono = 'TF'
+	LEFT JOIN ods.Telefono tm WITH(NOLOCK) ON c.ConsultoraID = tm.ConsultoraID AND tm.TipoTelefono = 'TM'
+	LEFT JOIN ods.ConsultoraDM cdm WITH(NOLOCK) ON c.Codigo = cdm.ConsultoraID
+	LEFT JOIN ods.SegmentoInterno segint WITH(NOLOCK) ON c.SegmentoInternoID = segint.SegmentoInternoID
+	LEFT JOIN ods.Segmento seg WITH(NOLOCK) ON c.SegmentoID = seg.SegmentoID
+	-- Adicionales
+	LEFT JOIN ods.Identificacion idt ON c.ConsultoraID = idt.ConsultoraID AND idt.DocumentoPrincipal = 1
+	LEFT JOIN ods.Direccion dir ON c.ConsultoraID = dir.ConsultoraID AND dir.TipoDireccion = 'Domicilio' AND dir.EstadoActivo = 1
+	WHERE
+			pdw.CampaniaID = @CodigoCampaniaActual 
+		--AND pdw.IndicadorEnviado = 1 
+		AND (sip.VAL_ESTA_PEDI = 'RECHAZADO')
+		AND sip.VAL_ORIG = 'WEB'
+		AND sip.cod_clie NOT IN (SELECT cod_clie FROM @PedidoFacturado)
+		AND sip.fec_ulti_actu = (
+									SELECT MAX(FEC_ULTI_ACTU) FROM ods.soa_infor_pedid 
+									WHERE 
+									cod_peri = @CodigoCampaniaActual 
+									AND cod_zona = @CodigoZona 
+									AND COD_SECC= @CodigoSeccion 
+									AND COD_CLIE = sip.COD_CLIE
+								)
+END
+GO
 ALTER PROCEDURE dbo.GetConsultorasPorUbigeo
 	@PaisId int,    
 	@CodigoUbigeo varchar(24),    
@@ -9784,7 +10510,7 @@ BEGIN
 	DECLARE @idcampaniaingreso INT;
 	SELECT
 		@idcampaniaingreso = AnoCampanaIngreso,
-		@ultimacampaniafacturable = isnull(iif(TipoFacturacion = 'FA', UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(UltimaCampanaFacturada,-1,@NroCampania)),0)
+		@ultimacampaniafacturable = isnull(iif(isnull(TipoFacturacion,'FA') = 'FA', UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(UltimaCampanaFacturada,-1,@NroCampania)),0)
 	FROM ods.Consultora WHERE ConsultoraID=@ConsultoraID;
 		
 	DECLARE @campaniafacturableingreso INT = @ultimacampaniafacturable - @idcampaniaingreso;
@@ -10265,7 +10991,7 @@ BEGIN
 
 	select
 		@UltimaCampanaFacturada = ISNULL(UltimaCampanaFacturada,0),
-		@TipoFacturacion = ISNULL(TipoFacturacion,'')
+		@TipoFacturacion = ISNULL(TipoFacturacion,'FA')
 	From ods.consultora (nolock)
 	Where consultoraid = @consultoraid
 
@@ -10274,7 +11000,7 @@ BEGIN
 	BEGIN
 		SELECT
 			@UltimaCampanaFacturada = ISNULL(c.UltimaCampanaFacturada,0),
-			@TipoFacturacion = ISNULL(c.TipoFacturacion,''),
+			@TipoFacturacion = ISNULL(c.TipoFacturacion,'FA'),
 			@ConsultoraIdAsociada = ISNULL(c.ConsultoraId,0)
 		FROM ConsultoraFicticia cf with(nolock)
 		INNER JOIN UsuarioPrueba up with(nolock) on cf.Codigo = up.CodigoFicticio
@@ -10933,7 +11659,7 @@ BEGIN
 		@RegionID = IsNull(RegionID,0),
 		@ConsultoraID = IsNull(ConsultoraID,0),
 		@UltimaCampanaFacturada = IsNull(UltimaCampanaFacturada,0),
-		@TipoFacturacion = IsNull(TipoFacturacion,'')
+		@TipoFacturacion = IsNull(TipoFacturacion,'FA')
 	from ods.consultora with(nolock)
 	where codigo = @CodConsultora;
 	
@@ -10962,7 +11688,7 @@ BEGIN
 		order by PedidoID desc;
 
 		/* Se toma en cuenta la Fecha de Vencimiento sobre la última campaña facturada */
-		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,-11), @UltimaCampanaFacturada);
+		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
 
@@ -11354,6 +12080,127 @@ BEGIN
 		(@MarcaId <> 3 OR year(C.FechaNacimiento) > @AnioLimite);
 END
 GO
+ALTER PROCEDURE dbo.OBTENER_PEDIDO_WEB_RECHAZADOS
+  @ConsultoraLiderID     	BIGINT,
+  @CodigoPais				VARCHAR(3),
+  @CodigoCampaniaActual		VARCHAR(6)
+AS
+BEGIN
+	DECLARE 
+		@CodigoZona VARCHAR(4)
+		, @CodigoRegion VARCHAR(2)
+		, @CodigoSeccion VARCHAR(1)
+		, @CodigoConsultora VARCHAR(25)
+	
+	DECLARE @PedidoFacturado TABLE (COD_CLIE varchar(15))
+	
+	SELECT TOP 1
+		@CodigoRegion = isnull(rtrim(substring(cl.SeccionGestionLider, 1, 2)), '')
+		, @CodigoZona = isnull(rtrim(substring(cl.SeccionGestionLider, 3, 4)), '')
+		, @CodigoSeccion = isnull(rtrim(substring(cl.SeccionGestionLider, 7, 8)), '')
+		, @CodigoConsultora = cl.CodigoConsultora
+	FROM ods.ConsultoraLider cl
+	WHERE
+		cl.ConsultoraID = @ConsultoraLiderID
+	
+	INSERT @PedidoFacturado
+	SELECT 
+		cod_clie 
+	FROM ods.SOA_INFOR_PEDID sp 
+	WHERE 
+		sp.cod_peri = @CodigoCampaniaActual
+	and sp.cod_zona = @CodigoZona
+	and sp.cod_secc = @CodigoSeccion
+	and sp.val_esta_pedi = 'FACTURADO'
+	and sp.VAL_ORIG = 'WEB'
+	
+	SELECT DISTINCT
+		c.ConsultoraID
+		, c.NombreCompleto AS Nombre
+		, c.Codigo AS CodigodeConsultora
+		, isnull(terr.Codigo, '') AS Territorio
+		, isnull(tf.Numero, '') AS TelefonoCasa
+		, isnull(tm.Numero, '') AS TelefonoCelular
+		, isnull(cdm.FrecuenciaPedidos, '') AS Constancia
+		, CASE 
+			WHEN @CodigoPais = 'VE' THEN isnull(seg.Descripcion, '')
+			ELSE isnull(segint.Descripcion, '')
+		  END AS Segmentacion
+		, isnull(c.MontoSaldoActual, 0.00) AS SaldoPendienteTotal
+		, isnull(pdw.ImporteTotal-isnull(pdw.DescuentoProl,0), 0.00) AS VentaConsultora
+		, isnull(c.MontoUltimoPedido, 0.00) AS MontoPedidoFacturado
+		, isnull(sip.MOT_RECH, '') AS MotivoRechazo
+		-- Adicionales
+		, isnull(idt.Numero,'') AS DocumentodeIdentidad
+		, isnull(dir.DireccionLinea1, '') AS Direccion
+		, isnull(c.Email, '') AS Email
+		, CASE 
+			WHEN c.IndicadorFamiliaProtegida = 1 THEN 'SI' 
+			ELSE 'NO' 
+		  END AS FamiliaProtegida
+		, CASE 
+			WHEN c.IndicadorFlexiPago = 1 THEN 'SI' 
+			ELSE 'NO' 
+		  END AS UsaFlexipago
+		, CASE 
+			WHEN c.EsBrillante = 1 THEN 'SI' 
+			ELSE 'NO' 
+		  END AS EsBrillante
+		, isnull(c.AnoCampanaIngreso, '') AS CampaniaIngreso
+		, isnull(CAST(
+			iif(isnull(c.TipoFacturacion,'FA') = 'FA', c.UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,c.UltimaCampanaFacturada,-1))
+			AS VARCHAR(6)
+		), '') AS UltimaFacturacion
+		, isnull(sip.VAL_ORIG,'') AS OrigenPedido
+		, CASE 
+			WHEN isnull(c.FechaNacimiento,'')='' THEN '' 
+			ELSE CAST(DAY(c.FechaNacimiento) AS VARCHAR(2)) + 
+				 ' de ' + 
+				 (CASE MONTH(c.FechaNacimiento) 
+					WHEN 1 THEN 'Enero' 
+					WHEN 2 THEN 'Febrero' 
+					WHEN 3 THEN 'Marzo' 
+					WHEN 4 THEN 'Abril' 
+					WHEN 5 THEN 'Mayo' 
+					WHEN 6 THEN 'Junio' 
+					WHEN 7 THEN 'Julio' 
+					WHEN 8 THEN 'Agosto' 
+					WHEN 9 THEN 'Setiembre' 
+					WHEN 10 THEN 'Octubre' 
+					WHEN 11 THEN 'Noviembre' 
+					WHEN 12 THEN 'Diciembre'
+				 END)  
+			END AS Cumpleanios
+	FROM PedidoWeb pdw
+	JOIN ods.Consultora c ON pdw.ConsultoraID = c.ConsultoraID
+	JOIN ods.Zona z ON z.ZonaID = c.ZonaID AND z.Codigo = @CodigoZona
+	JOIN ods.Seccion s ON s.SeccionID = c.SeccionID AND s.Codigo = @CodigoSeccion
+	INNER JOIN ods.SOA_INFOR_PEDID sip WITH(NOLOCK) ON c.ConsultoraID = sip.ConsultoraID AND sip.COD_PERI = @CodigoCampaniaActual
+	LEFT JOIN ods.Territorio terr WITH(NOLOCK) ON c.TerritorioID = terr.TerritorioID AND c.SeccionID = terr.SeccionID
+	LEFT JOIN ods.Telefono tf WITH(NOLOCK) ON c.ConsultoraID = tf.ConsultoraID AND tf.TipoTelefono = 'TF'
+	LEFT JOIN ods.Telefono tm WITH(NOLOCK) ON c.ConsultoraID = tm.ConsultoraID AND tm.TipoTelefono = 'TM'
+	LEFT JOIN ods.ConsultoraDM cdm WITH(NOLOCK) ON c.Codigo = cdm.ConsultoraID
+	LEFT JOIN ods.SegmentoInterno segint WITH(NOLOCK) ON c.SegmentoInternoID = segint.SegmentoInternoID
+	LEFT JOIN ods.Segmento seg WITH(NOLOCK) ON c.SegmentoID = seg.SegmentoID
+	-- Adicionales
+	LEFT JOIN ods.Identificacion idt ON c.ConsultoraID = idt.ConsultoraID AND idt.DocumentoPrincipal = 1
+	LEFT JOIN ods.Direccion dir ON c.ConsultoraID = dir.ConsultoraID AND dir.TipoDireccion = 'Domicilio' AND dir.EstadoActivo = 1
+	WHERE
+			pdw.CampaniaID = @CodigoCampaniaActual 
+		--AND pdw.IndicadorEnviado = 1 
+		AND (sip.VAL_ESTA_PEDI = 'RECHAZADO')
+		AND sip.VAL_ORIG = 'WEB'
+		AND sip.cod_clie NOT IN (SELECT cod_clie FROM @PedidoFacturado)
+		AND sip.fec_ulti_actu = (
+									SELECT MAX(FEC_ULTI_ACTU) FROM ods.soa_infor_pedid 
+									WHERE 
+									cod_peri = @CodigoCampaniaActual 
+									AND cod_zona = @CodigoZona 
+									AND COD_SECC= @CodigoSeccion 
+									AND COD_CLIE = sip.COD_CLIE
+								)
+END
+GO
 ALTER PROCEDURE dbo.GetConsultorasPorUbigeo
 	@PaisId int,    
 	@CodigoUbigeo varchar(24),    
@@ -11436,7 +12283,7 @@ BEGIN
 	DECLARE @idcampaniaingreso INT;
 	SELECT
 		@idcampaniaingreso = AnoCampanaIngreso,
-		@ultimacampaniafacturable = isnull(iif(TipoFacturacion = 'FA', UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(UltimaCampanaFacturada,-1,@NroCampania)),0)
+		@ultimacampaniafacturable = isnull(iif(isnull(TipoFacturacion,'FA') = 'FA', UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(UltimaCampanaFacturada,-1,@NroCampania)),0)
 	FROM ods.Consultora WHERE ConsultoraID=@ConsultoraID;
 		
 	DECLARE @campaniafacturableingreso INT = @ultimacampaniafacturable - @idcampaniaingreso;
@@ -11917,7 +12764,7 @@ BEGIN
 
 	select
 		@UltimaCampanaFacturada = ISNULL(UltimaCampanaFacturada,0),
-		@TipoFacturacion = ISNULL(TipoFacturacion,'')
+		@TipoFacturacion = ISNULL(TipoFacturacion,'FA')
 	From ods.consultora (nolock)
 	Where consultoraid = @consultoraid
 
@@ -11926,7 +12773,7 @@ BEGIN
 	BEGIN
 		SELECT
 			@UltimaCampanaFacturada = ISNULL(c.UltimaCampanaFacturada,0),
-			@TipoFacturacion = ISNULL(c.TipoFacturacion,''),
+			@TipoFacturacion = ISNULL(c.TipoFacturacion,'FA'),
 			@ConsultoraIdAsociada = ISNULL(c.ConsultoraId,0)
 		FROM ConsultoraFicticia cf with(nolock)
 		INNER JOIN UsuarioPrueba up with(nolock) on cf.Codigo = up.CodigoFicticio
@@ -12585,7 +13432,7 @@ BEGIN
 		@RegionID = IsNull(RegionID,0),
 		@ConsultoraID = IsNull(ConsultoraID,0),
 		@UltimaCampanaFacturada = IsNull(UltimaCampanaFacturada,0),
-		@TipoFacturacion = IsNull(TipoFacturacion,'')
+		@TipoFacturacion = IsNull(TipoFacturacion,'FA')
 	from ods.consultora with(nolock)
 	where codigo = @CodConsultora;
 	
@@ -12614,7 +13461,7 @@ BEGIN
 		order by PedidoID desc;
 
 		/* Se toma en cuenta la Fecha de Vencimiento sobre la última campaña facturada */
-		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,-11), @UltimaCampanaFacturada);
+		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
 
@@ -13006,6 +13853,127 @@ BEGIN
 		(@MarcaId <> 3 OR year(C.FechaNacimiento) > @AnioLimite);
 END
 GO
+ALTER PROCEDURE dbo.OBTENER_PEDIDO_WEB_RECHAZADOS
+  @ConsultoraLiderID     	BIGINT,
+  @CodigoPais				VARCHAR(3),
+  @CodigoCampaniaActual		VARCHAR(6)
+AS
+BEGIN
+	DECLARE 
+		@CodigoZona VARCHAR(4)
+		, @CodigoRegion VARCHAR(2)
+		, @CodigoSeccion VARCHAR(1)
+		, @CodigoConsultora VARCHAR(25)
+	
+	DECLARE @PedidoFacturado TABLE (COD_CLIE varchar(15))
+	
+	SELECT TOP 1
+		@CodigoRegion = isnull(rtrim(substring(cl.SeccionGestionLider, 1, 2)), '')
+		, @CodigoZona = isnull(rtrim(substring(cl.SeccionGestionLider, 3, 4)), '')
+		, @CodigoSeccion = isnull(rtrim(substring(cl.SeccionGestionLider, 7, 8)), '')
+		, @CodigoConsultora = cl.CodigoConsultora
+	FROM ods.ConsultoraLider cl
+	WHERE
+		cl.ConsultoraID = @ConsultoraLiderID
+	
+	INSERT @PedidoFacturado
+	SELECT 
+		cod_clie 
+	FROM ods.SOA_INFOR_PEDID sp 
+	WHERE 
+		sp.cod_peri = @CodigoCampaniaActual
+	and sp.cod_zona = @CodigoZona
+	and sp.cod_secc = @CodigoSeccion
+	and sp.val_esta_pedi = 'FACTURADO'
+	and sp.VAL_ORIG = 'WEB'
+	
+	SELECT DISTINCT
+		c.ConsultoraID
+		, c.NombreCompleto AS Nombre
+		, c.Codigo AS CodigodeConsultora
+		, isnull(terr.Codigo, '') AS Territorio
+		, isnull(tf.Numero, '') AS TelefonoCasa
+		, isnull(tm.Numero, '') AS TelefonoCelular
+		, isnull(cdm.FrecuenciaPedidos, '') AS Constancia
+		, CASE 
+			WHEN @CodigoPais = 'VE' THEN isnull(seg.Descripcion, '')
+			ELSE isnull(segint.Descripcion, '')
+		  END AS Segmentacion
+		, isnull(c.MontoSaldoActual, 0.00) AS SaldoPendienteTotal
+		, isnull(pdw.ImporteTotal-isnull(pdw.DescuentoProl,0), 0.00) AS VentaConsultora
+		, isnull(c.MontoUltimoPedido, 0.00) AS MontoPedidoFacturado
+		, isnull(sip.MOT_RECH, '') AS MotivoRechazo
+		-- Adicionales
+		, isnull(idt.Numero,'') AS DocumentodeIdentidad
+		, isnull(dir.DireccionLinea1, '') AS Direccion
+		, isnull(c.Email, '') AS Email
+		, CASE 
+			WHEN c.IndicadorFamiliaProtegida = 1 THEN 'SI' 
+			ELSE 'NO' 
+		  END AS FamiliaProtegida
+		, CASE 
+			WHEN c.IndicadorFlexiPago = 1 THEN 'SI' 
+			ELSE 'NO' 
+		  END AS UsaFlexipago
+		, CASE 
+			WHEN c.EsBrillante = 1 THEN 'SI' 
+			ELSE 'NO' 
+		  END AS EsBrillante
+		, isnull(c.AnoCampanaIngreso, '') AS CampaniaIngreso
+		, isnull(CAST(
+			iif(isnull(c.TipoFacturacion,'FA') = 'FA', c.UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,c.UltimaCampanaFacturada,-1))
+			AS VARCHAR(6)
+		), '') AS UltimaFacturacion
+		, isnull(sip.VAL_ORIG,'') AS OrigenPedido
+		, CASE 
+			WHEN isnull(c.FechaNacimiento,'')='' THEN '' 
+			ELSE CAST(DAY(c.FechaNacimiento) AS VARCHAR(2)) + 
+				 ' de ' + 
+				 (CASE MONTH(c.FechaNacimiento) 
+					WHEN 1 THEN 'Enero' 
+					WHEN 2 THEN 'Febrero' 
+					WHEN 3 THEN 'Marzo' 
+					WHEN 4 THEN 'Abril' 
+					WHEN 5 THEN 'Mayo' 
+					WHEN 6 THEN 'Junio' 
+					WHEN 7 THEN 'Julio' 
+					WHEN 8 THEN 'Agosto' 
+					WHEN 9 THEN 'Setiembre' 
+					WHEN 10 THEN 'Octubre' 
+					WHEN 11 THEN 'Noviembre' 
+					WHEN 12 THEN 'Diciembre'
+				 END)  
+			END AS Cumpleanios
+	FROM PedidoWeb pdw
+	JOIN ods.Consultora c ON pdw.ConsultoraID = c.ConsultoraID
+	JOIN ods.Zona z ON z.ZonaID = c.ZonaID AND z.Codigo = @CodigoZona
+	JOIN ods.Seccion s ON s.SeccionID = c.SeccionID AND s.Codigo = @CodigoSeccion
+	INNER JOIN ods.SOA_INFOR_PEDID sip WITH(NOLOCK) ON c.ConsultoraID = sip.ConsultoraID AND sip.COD_PERI = @CodigoCampaniaActual
+	LEFT JOIN ods.Territorio terr WITH(NOLOCK) ON c.TerritorioID = terr.TerritorioID AND c.SeccionID = terr.SeccionID
+	LEFT JOIN ods.Telefono tf WITH(NOLOCK) ON c.ConsultoraID = tf.ConsultoraID AND tf.TipoTelefono = 'TF'
+	LEFT JOIN ods.Telefono tm WITH(NOLOCK) ON c.ConsultoraID = tm.ConsultoraID AND tm.TipoTelefono = 'TM'
+	LEFT JOIN ods.ConsultoraDM cdm WITH(NOLOCK) ON c.Codigo = cdm.ConsultoraID
+	LEFT JOIN ods.SegmentoInterno segint WITH(NOLOCK) ON c.SegmentoInternoID = segint.SegmentoInternoID
+	LEFT JOIN ods.Segmento seg WITH(NOLOCK) ON c.SegmentoID = seg.SegmentoID
+	-- Adicionales
+	LEFT JOIN ods.Identificacion idt ON c.ConsultoraID = idt.ConsultoraID AND idt.DocumentoPrincipal = 1
+	LEFT JOIN ods.Direccion dir ON c.ConsultoraID = dir.ConsultoraID AND dir.TipoDireccion = 'Domicilio' AND dir.EstadoActivo = 1
+	WHERE
+			pdw.CampaniaID = @CodigoCampaniaActual 
+		--AND pdw.IndicadorEnviado = 1 
+		AND (sip.VAL_ESTA_PEDI = 'RECHAZADO')
+		AND sip.VAL_ORIG = 'WEB'
+		AND sip.cod_clie NOT IN (SELECT cod_clie FROM @PedidoFacturado)
+		AND sip.fec_ulti_actu = (
+									SELECT MAX(FEC_ULTI_ACTU) FROM ods.soa_infor_pedid 
+									WHERE 
+									cod_peri = @CodigoCampaniaActual 
+									AND cod_zona = @CodigoZona 
+									AND COD_SECC= @CodigoSeccion 
+									AND COD_CLIE = sip.COD_CLIE
+								)
+END
+GO
 ALTER PROCEDURE dbo.GetConsultorasPorUbigeo
 	@PaisId int,    
 	@CodigoUbigeo varchar(24),    
@@ -13088,7 +14056,7 @@ BEGIN
 	DECLARE @idcampaniaingreso INT;
 	SELECT
 		@idcampaniaingreso = AnoCampanaIngreso,
-		@ultimacampaniafacturable = isnull(iif(TipoFacturacion = 'FA', UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(UltimaCampanaFacturada,-1,@NroCampania)),0)
+		@ultimacampaniafacturable = isnull(iif(isnull(TipoFacturacion,'FA') = 'FA', UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(UltimaCampanaFacturada,-1,@NroCampania)),0)
 	FROM ods.Consultora WHERE ConsultoraID=@ConsultoraID;
 		
 	DECLARE @campaniafacturableingreso INT = @ultimacampaniafacturable - @idcampaniaingreso;
@@ -13569,7 +14537,7 @@ BEGIN
 
 	select
 		@UltimaCampanaFacturada = ISNULL(UltimaCampanaFacturada,0),
-		@TipoFacturacion = ISNULL(TipoFacturacion,'')
+		@TipoFacturacion = ISNULL(TipoFacturacion,'FA')
 	From ods.consultora (nolock)
 	Where consultoraid = @consultoraid
 
@@ -13578,7 +14546,7 @@ BEGIN
 	BEGIN
 		SELECT
 			@UltimaCampanaFacturada = ISNULL(c.UltimaCampanaFacturada,0),
-			@TipoFacturacion = ISNULL(c.TipoFacturacion,''),
+			@TipoFacturacion = ISNULL(c.TipoFacturacion,'FA'),
 			@ConsultoraIdAsociada = ISNULL(c.ConsultoraId,0)
 		FROM ConsultoraFicticia cf with(nolock)
 		INNER JOIN UsuarioPrueba up with(nolock) on cf.Codigo = up.CodigoFicticio
@@ -14237,7 +15205,7 @@ BEGIN
 		@RegionID = IsNull(RegionID,0),
 		@ConsultoraID = IsNull(ConsultoraID,0),
 		@UltimaCampanaFacturada = IsNull(UltimaCampanaFacturada,0),
-		@TipoFacturacion = IsNull(TipoFacturacion,'')
+		@TipoFacturacion = IsNull(TipoFacturacion,'FA')
 	from ods.consultora with(nolock)
 	where codigo = @CodConsultora;
 	
@@ -14266,7 +15234,7 @@ BEGIN
 		order by PedidoID desc;
 
 		/* Se toma en cuenta la Fecha de Vencimiento sobre la última campaña facturada */
-		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,-11), @UltimaCampanaFacturada);
+		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
 
@@ -14658,6 +15626,127 @@ BEGIN
 		(@MarcaId <> 3 OR year(C.FechaNacimiento) > @AnioLimite);
 END
 GO
+ALTER PROCEDURE dbo.OBTENER_PEDIDO_WEB_RECHAZADOS
+  @ConsultoraLiderID     	BIGINT,
+  @CodigoPais				VARCHAR(3),
+  @CodigoCampaniaActual		VARCHAR(6)
+AS
+BEGIN
+	DECLARE 
+		@CodigoZona VARCHAR(4)
+		, @CodigoRegion VARCHAR(2)
+		, @CodigoSeccion VARCHAR(1)
+		, @CodigoConsultora VARCHAR(25)
+	
+	DECLARE @PedidoFacturado TABLE (COD_CLIE varchar(15))
+	
+	SELECT TOP 1
+		@CodigoRegion = isnull(rtrim(substring(cl.SeccionGestionLider, 1, 2)), '')
+		, @CodigoZona = isnull(rtrim(substring(cl.SeccionGestionLider, 3, 4)), '')
+		, @CodigoSeccion = isnull(rtrim(substring(cl.SeccionGestionLider, 7, 8)), '')
+		, @CodigoConsultora = cl.CodigoConsultora
+	FROM ods.ConsultoraLider cl
+	WHERE
+		cl.ConsultoraID = @ConsultoraLiderID
+	
+	INSERT @PedidoFacturado
+	SELECT 
+		cod_clie 
+	FROM ods.SOA_INFOR_PEDID sp 
+	WHERE 
+		sp.cod_peri = @CodigoCampaniaActual
+	and sp.cod_zona = @CodigoZona
+	and sp.cod_secc = @CodigoSeccion
+	and sp.val_esta_pedi = 'FACTURADO'
+	and sp.VAL_ORIG = 'WEB'
+	
+	SELECT DISTINCT
+		c.ConsultoraID
+		, c.NombreCompleto AS Nombre
+		, c.Codigo AS CodigodeConsultora
+		, isnull(terr.Codigo, '') AS Territorio
+		, isnull(tf.Numero, '') AS TelefonoCasa
+		, isnull(tm.Numero, '') AS TelefonoCelular
+		, isnull(cdm.FrecuenciaPedidos, '') AS Constancia
+		, CASE 
+			WHEN @CodigoPais = 'VE' THEN isnull(seg.Descripcion, '')
+			ELSE isnull(segint.Descripcion, '')
+		  END AS Segmentacion
+		, isnull(c.MontoSaldoActual, 0.00) AS SaldoPendienteTotal
+		, isnull(pdw.ImporteTotal-isnull(pdw.DescuentoProl,0), 0.00) AS VentaConsultora
+		, isnull(c.MontoUltimoPedido, 0.00) AS MontoPedidoFacturado
+		, isnull(sip.MOT_RECH, '') AS MotivoRechazo
+		-- Adicionales
+		, isnull(idt.Numero,'') AS DocumentodeIdentidad
+		, isnull(dir.DireccionLinea1, '') AS Direccion
+		, isnull(c.Email, '') AS Email
+		, CASE 
+			WHEN c.IndicadorFamiliaProtegida = 1 THEN 'SI' 
+			ELSE 'NO' 
+		  END AS FamiliaProtegida
+		, CASE 
+			WHEN c.IndicadorFlexiPago = 1 THEN 'SI' 
+			ELSE 'NO' 
+		  END AS UsaFlexipago
+		, CASE 
+			WHEN c.EsBrillante = 1 THEN 'SI' 
+			ELSE 'NO' 
+		  END AS EsBrillante
+		, isnull(c.AnoCampanaIngreso, '') AS CampaniaIngreso
+		, isnull(CAST(
+			iif(isnull(c.TipoFacturacion,'FA') = 'FA', c.UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,c.UltimaCampanaFacturada,-1))
+			AS VARCHAR(6)
+		), '') AS UltimaFacturacion
+		, isnull(sip.VAL_ORIG,'') AS OrigenPedido
+		, CASE 
+			WHEN isnull(c.FechaNacimiento,'')='' THEN '' 
+			ELSE CAST(DAY(c.FechaNacimiento) AS VARCHAR(2)) + 
+				 ' de ' + 
+				 (CASE MONTH(c.FechaNacimiento) 
+					WHEN 1 THEN 'Enero' 
+					WHEN 2 THEN 'Febrero' 
+					WHEN 3 THEN 'Marzo' 
+					WHEN 4 THEN 'Abril' 
+					WHEN 5 THEN 'Mayo' 
+					WHEN 6 THEN 'Junio' 
+					WHEN 7 THEN 'Julio' 
+					WHEN 8 THEN 'Agosto' 
+					WHEN 9 THEN 'Setiembre' 
+					WHEN 10 THEN 'Octubre' 
+					WHEN 11 THEN 'Noviembre' 
+					WHEN 12 THEN 'Diciembre'
+				 END)  
+			END AS Cumpleanios
+	FROM PedidoWeb pdw
+	JOIN ods.Consultora c ON pdw.ConsultoraID = c.ConsultoraID
+	JOIN ods.Zona z ON z.ZonaID = c.ZonaID AND z.Codigo = @CodigoZona
+	JOIN ods.Seccion s ON s.SeccionID = c.SeccionID AND s.Codigo = @CodigoSeccion
+	INNER JOIN ods.SOA_INFOR_PEDID sip WITH(NOLOCK) ON c.ConsultoraID = sip.ConsultoraID AND sip.COD_PERI = @CodigoCampaniaActual
+	LEFT JOIN ods.Territorio terr WITH(NOLOCK) ON c.TerritorioID = terr.TerritorioID AND c.SeccionID = terr.SeccionID
+	LEFT JOIN ods.Telefono tf WITH(NOLOCK) ON c.ConsultoraID = tf.ConsultoraID AND tf.TipoTelefono = 'TF'
+	LEFT JOIN ods.Telefono tm WITH(NOLOCK) ON c.ConsultoraID = tm.ConsultoraID AND tm.TipoTelefono = 'TM'
+	LEFT JOIN ods.ConsultoraDM cdm WITH(NOLOCK) ON c.Codigo = cdm.ConsultoraID
+	LEFT JOIN ods.SegmentoInterno segint WITH(NOLOCK) ON c.SegmentoInternoID = segint.SegmentoInternoID
+	LEFT JOIN ods.Segmento seg WITH(NOLOCK) ON c.SegmentoID = seg.SegmentoID
+	-- Adicionales
+	LEFT JOIN ods.Identificacion idt ON c.ConsultoraID = idt.ConsultoraID AND idt.DocumentoPrincipal = 1
+	LEFT JOIN ods.Direccion dir ON c.ConsultoraID = dir.ConsultoraID AND dir.TipoDireccion = 'Domicilio' AND dir.EstadoActivo = 1
+	WHERE
+			pdw.CampaniaID = @CodigoCampaniaActual 
+		--AND pdw.IndicadorEnviado = 1 
+		AND (sip.VAL_ESTA_PEDI = 'RECHAZADO')
+		AND sip.VAL_ORIG = 'WEB'
+		AND sip.cod_clie NOT IN (SELECT cod_clie FROM @PedidoFacturado)
+		AND sip.fec_ulti_actu = (
+									SELECT MAX(FEC_ULTI_ACTU) FROM ods.soa_infor_pedid 
+									WHERE 
+									cod_peri = @CodigoCampaniaActual 
+									AND cod_zona = @CodigoZona 
+									AND COD_SECC= @CodigoSeccion 
+									AND COD_CLIE = sip.COD_CLIE
+								)
+END
+GO
 ALTER PROCEDURE dbo.GetConsultorasPorUbigeo
 	@PaisId int,    
 	@CodigoUbigeo varchar(24),    
@@ -14740,7 +15829,7 @@ BEGIN
 	DECLARE @idcampaniaingreso INT;
 	SELECT
 		@idcampaniaingreso = AnoCampanaIngreso,
-		@ultimacampaniafacturable = isnull(iif(TipoFacturacion = 'FA', UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(UltimaCampanaFacturada,-1,@NroCampania)),0)
+		@ultimacampaniafacturable = isnull(iif(isnull(TipoFacturacion,'FA') = 'FA', UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(UltimaCampanaFacturada,-1,@NroCampania)),0)
 	FROM ods.Consultora WHERE ConsultoraID=@ConsultoraID;
 		
 	DECLARE @campaniafacturableingreso INT = @ultimacampaniafacturable - @idcampaniaingreso;
@@ -15221,7 +16310,7 @@ BEGIN
 
 	select
 		@UltimaCampanaFacturada = ISNULL(UltimaCampanaFacturada,0),
-		@TipoFacturacion = ISNULL(TipoFacturacion,'')
+		@TipoFacturacion = ISNULL(TipoFacturacion,'FA')
 	From ods.consultora (nolock)
 	Where consultoraid = @consultoraid
 
@@ -15230,7 +16319,7 @@ BEGIN
 	BEGIN
 		SELECT
 			@UltimaCampanaFacturada = ISNULL(c.UltimaCampanaFacturada,0),
-			@TipoFacturacion = ISNULL(c.TipoFacturacion,''),
+			@TipoFacturacion = ISNULL(c.TipoFacturacion,'FA'),
 			@ConsultoraIdAsociada = ISNULL(c.ConsultoraId,0)
 		FROM ConsultoraFicticia cf with(nolock)
 		INNER JOIN UsuarioPrueba up with(nolock) on cf.Codigo = up.CodigoFicticio
@@ -15889,7 +16978,7 @@ BEGIN
 		@RegionID = IsNull(RegionID,0),
 		@ConsultoraID = IsNull(ConsultoraID,0),
 		@UltimaCampanaFacturada = IsNull(UltimaCampanaFacturada,0),
-		@TipoFacturacion = IsNull(TipoFacturacion,'')
+		@TipoFacturacion = IsNull(TipoFacturacion,'FA')
 	from ods.consultora with(nolock)
 	where codigo = @CodConsultora;
 	
@@ -15918,7 +17007,7 @@ BEGIN
 		order by PedidoID desc;
 
 		/* Se toma en cuenta la Fecha de Vencimiento sobre la última campaña facturada */
-		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,-11), @UltimaCampanaFacturada);
+		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
 
@@ -16310,6 +17399,127 @@ BEGIN
 		(@MarcaId <> 3 OR year(C.FechaNacimiento) > @AnioLimite);
 END
 GO
+ALTER PROCEDURE dbo.OBTENER_PEDIDO_WEB_RECHAZADOS
+  @ConsultoraLiderID     	BIGINT,
+  @CodigoPais				VARCHAR(3),
+  @CodigoCampaniaActual		VARCHAR(6)
+AS
+BEGIN
+	DECLARE 
+		@CodigoZona VARCHAR(4)
+		, @CodigoRegion VARCHAR(2)
+		, @CodigoSeccion VARCHAR(1)
+		, @CodigoConsultora VARCHAR(25)
+	
+	DECLARE @PedidoFacturado TABLE (COD_CLIE varchar(15))
+	
+	SELECT TOP 1
+		@CodigoRegion = isnull(rtrim(substring(cl.SeccionGestionLider, 1, 2)), '')
+		, @CodigoZona = isnull(rtrim(substring(cl.SeccionGestionLider, 3, 4)), '')
+		, @CodigoSeccion = isnull(rtrim(substring(cl.SeccionGestionLider, 7, 8)), '')
+		, @CodigoConsultora = cl.CodigoConsultora
+	FROM ods.ConsultoraLider cl
+	WHERE
+		cl.ConsultoraID = @ConsultoraLiderID
+	
+	INSERT @PedidoFacturado
+	SELECT 
+		cod_clie 
+	FROM ods.SOA_INFOR_PEDID sp 
+	WHERE 
+		sp.cod_peri = @CodigoCampaniaActual
+	and sp.cod_zona = @CodigoZona
+	and sp.cod_secc = @CodigoSeccion
+	and sp.val_esta_pedi = 'FACTURADO'
+	and sp.VAL_ORIG = 'WEB'
+	
+	SELECT DISTINCT
+		c.ConsultoraID
+		, c.NombreCompleto AS Nombre
+		, c.Codigo AS CodigodeConsultora
+		, isnull(terr.Codigo, '') AS Territorio
+		, isnull(tf.Numero, '') AS TelefonoCasa
+		, isnull(tm.Numero, '') AS TelefonoCelular
+		, isnull(cdm.FrecuenciaPedidos, '') AS Constancia
+		, CASE 
+			WHEN @CodigoPais = 'VE' THEN isnull(seg.Descripcion, '')
+			ELSE isnull(segint.Descripcion, '')
+		  END AS Segmentacion
+		, isnull(c.MontoSaldoActual, 0.00) AS SaldoPendienteTotal
+		, isnull(pdw.ImporteTotal-isnull(pdw.DescuentoProl,0), 0.00) AS VentaConsultora
+		, isnull(c.MontoUltimoPedido, 0.00) AS MontoPedidoFacturado
+		, isnull(sip.MOT_RECH, '') AS MotivoRechazo
+		-- Adicionales
+		, isnull(idt.Numero,'') AS DocumentodeIdentidad
+		, isnull(dir.DireccionLinea1, '') AS Direccion
+		, isnull(c.Email, '') AS Email
+		, CASE 
+			WHEN c.IndicadorFamiliaProtegida = 1 THEN 'SI' 
+			ELSE 'NO' 
+		  END AS FamiliaProtegida
+		, CASE 
+			WHEN c.IndicadorFlexiPago = 1 THEN 'SI' 
+			ELSE 'NO' 
+		  END AS UsaFlexipago
+		, CASE 
+			WHEN c.EsBrillante = 1 THEN 'SI' 
+			ELSE 'NO' 
+		  END AS EsBrillante
+		, isnull(c.AnoCampanaIngreso, '') AS CampaniaIngreso
+		, isnull(CAST(
+			iif(isnull(c.TipoFacturacion,'FA') = 'FA', c.UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,c.UltimaCampanaFacturada,-1))
+			AS VARCHAR(6)
+		), '') AS UltimaFacturacion
+		, isnull(sip.VAL_ORIG,'') AS OrigenPedido
+		, CASE 
+			WHEN isnull(c.FechaNacimiento,'')='' THEN '' 
+			ELSE CAST(DAY(c.FechaNacimiento) AS VARCHAR(2)) + 
+				 ' de ' + 
+				 (CASE MONTH(c.FechaNacimiento) 
+					WHEN 1 THEN 'Enero' 
+					WHEN 2 THEN 'Febrero' 
+					WHEN 3 THEN 'Marzo' 
+					WHEN 4 THEN 'Abril' 
+					WHEN 5 THEN 'Mayo' 
+					WHEN 6 THEN 'Junio' 
+					WHEN 7 THEN 'Julio' 
+					WHEN 8 THEN 'Agosto' 
+					WHEN 9 THEN 'Setiembre' 
+					WHEN 10 THEN 'Octubre' 
+					WHEN 11 THEN 'Noviembre' 
+					WHEN 12 THEN 'Diciembre'
+				 END)  
+			END AS Cumpleanios
+	FROM PedidoWeb pdw
+	JOIN ods.Consultora c ON pdw.ConsultoraID = c.ConsultoraID
+	JOIN ods.Zona z ON z.ZonaID = c.ZonaID AND z.Codigo = @CodigoZona
+	JOIN ods.Seccion s ON s.SeccionID = c.SeccionID AND s.Codigo = @CodigoSeccion
+	INNER JOIN ods.SOA_INFOR_PEDID sip WITH(NOLOCK) ON c.ConsultoraID = sip.ConsultoraID AND sip.COD_PERI = @CodigoCampaniaActual
+	LEFT JOIN ods.Territorio terr WITH(NOLOCK) ON c.TerritorioID = terr.TerritorioID AND c.SeccionID = terr.SeccionID
+	LEFT JOIN ods.Telefono tf WITH(NOLOCK) ON c.ConsultoraID = tf.ConsultoraID AND tf.TipoTelefono = 'TF'
+	LEFT JOIN ods.Telefono tm WITH(NOLOCK) ON c.ConsultoraID = tm.ConsultoraID AND tm.TipoTelefono = 'TM'
+	LEFT JOIN ods.ConsultoraDM cdm WITH(NOLOCK) ON c.Codigo = cdm.ConsultoraID
+	LEFT JOIN ods.SegmentoInterno segint WITH(NOLOCK) ON c.SegmentoInternoID = segint.SegmentoInternoID
+	LEFT JOIN ods.Segmento seg WITH(NOLOCK) ON c.SegmentoID = seg.SegmentoID
+	-- Adicionales
+	LEFT JOIN ods.Identificacion idt ON c.ConsultoraID = idt.ConsultoraID AND idt.DocumentoPrincipal = 1
+	LEFT JOIN ods.Direccion dir ON c.ConsultoraID = dir.ConsultoraID AND dir.TipoDireccion = 'Domicilio' AND dir.EstadoActivo = 1
+	WHERE
+			pdw.CampaniaID = @CodigoCampaniaActual 
+		--AND pdw.IndicadorEnviado = 1 
+		AND (sip.VAL_ESTA_PEDI = 'RECHAZADO')
+		AND sip.VAL_ORIG = 'WEB'
+		AND sip.cod_clie NOT IN (SELECT cod_clie FROM @PedidoFacturado)
+		AND sip.fec_ulti_actu = (
+									SELECT MAX(FEC_ULTI_ACTU) FROM ods.soa_infor_pedid 
+									WHERE 
+									cod_peri = @CodigoCampaniaActual 
+									AND cod_zona = @CodigoZona 
+									AND COD_SECC= @CodigoSeccion 
+									AND COD_CLIE = sip.COD_CLIE
+								)
+END
+GO
 ALTER PROCEDURE dbo.GetConsultorasPorUbigeo
 	@PaisId int,    
 	@CodigoUbigeo varchar(24),    
@@ -16392,7 +17602,7 @@ BEGIN
 	DECLARE @idcampaniaingreso INT;
 	SELECT
 		@idcampaniaingreso = AnoCampanaIngreso,
-		@ultimacampaniafacturable = isnull(iif(TipoFacturacion = 'FA', UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(UltimaCampanaFacturada,-1,@NroCampania)),0)
+		@ultimacampaniafacturable = isnull(iif(isnull(TipoFacturacion,'FA') = 'FA', UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(UltimaCampanaFacturada,-1,@NroCampania)),0)
 	FROM ods.Consultora WHERE ConsultoraID=@ConsultoraID;
 		
 	DECLARE @campaniafacturableingreso INT = @ultimacampaniafacturable - @idcampaniaingreso;
@@ -16873,7 +18083,7 @@ BEGIN
 
 	select
 		@UltimaCampanaFacturada = ISNULL(UltimaCampanaFacturada,0),
-		@TipoFacturacion = ISNULL(TipoFacturacion,'')
+		@TipoFacturacion = ISNULL(TipoFacturacion,'FA')
 	From ods.consultora (nolock)
 	Where consultoraid = @consultoraid
 
@@ -16882,7 +18092,7 @@ BEGIN
 	BEGIN
 		SELECT
 			@UltimaCampanaFacturada = ISNULL(c.UltimaCampanaFacturada,0),
-			@TipoFacturacion = ISNULL(c.TipoFacturacion,''),
+			@TipoFacturacion = ISNULL(c.TipoFacturacion,'FA'),
 			@ConsultoraIdAsociada = ISNULL(c.ConsultoraId,0)
 		FROM ConsultoraFicticia cf with(nolock)
 		INNER JOIN UsuarioPrueba up with(nolock) on cf.Codigo = up.CodigoFicticio
@@ -17541,7 +18751,7 @@ BEGIN
 		@RegionID = IsNull(RegionID,0),
 		@ConsultoraID = IsNull(ConsultoraID,0),
 		@UltimaCampanaFacturada = IsNull(UltimaCampanaFacturada,0),
-		@TipoFacturacion = IsNull(TipoFacturacion,'')
+		@TipoFacturacion = IsNull(TipoFacturacion,'FA')
 	from ods.consultora with(nolock)
 	where codigo = @CodConsultora;
 	
@@ -17570,7 +18780,7 @@ BEGIN
 		order by PedidoID desc;
 
 		/* Se toma en cuenta la Fecha de Vencimiento sobre la última campaña facturada */
-		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,-11), @UltimaCampanaFacturada);
+		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
 
@@ -17962,6 +19172,127 @@ BEGIN
 		(@MarcaId <> 3 OR year(C.FechaNacimiento) > @AnioLimite);
 END
 GO
+ALTER PROCEDURE dbo.OBTENER_PEDIDO_WEB_RECHAZADOS
+  @ConsultoraLiderID     	BIGINT,
+  @CodigoPais				VARCHAR(3),
+  @CodigoCampaniaActual		VARCHAR(6)
+AS
+BEGIN
+	DECLARE 
+		@CodigoZona VARCHAR(4)
+		, @CodigoRegion VARCHAR(2)
+		, @CodigoSeccion VARCHAR(1)
+		, @CodigoConsultora VARCHAR(25)
+	
+	DECLARE @PedidoFacturado TABLE (COD_CLIE varchar(15))
+	
+	SELECT TOP 1
+		@CodigoRegion = isnull(rtrim(substring(cl.SeccionGestionLider, 1, 2)), '')
+		, @CodigoZona = isnull(rtrim(substring(cl.SeccionGestionLider, 3, 4)), '')
+		, @CodigoSeccion = isnull(rtrim(substring(cl.SeccionGestionLider, 7, 8)), '')
+		, @CodigoConsultora = cl.CodigoConsultora
+	FROM ods.ConsultoraLider cl
+	WHERE
+		cl.ConsultoraID = @ConsultoraLiderID
+	
+	INSERT @PedidoFacturado
+	SELECT 
+		cod_clie 
+	FROM ods.SOA_INFOR_PEDID sp 
+	WHERE 
+		sp.cod_peri = @CodigoCampaniaActual
+	and sp.cod_zona = @CodigoZona
+	and sp.cod_secc = @CodigoSeccion
+	and sp.val_esta_pedi = 'FACTURADO'
+	and sp.VAL_ORIG = 'WEB'
+	
+	SELECT DISTINCT
+		c.ConsultoraID
+		, c.NombreCompleto AS Nombre
+		, c.Codigo AS CodigodeConsultora
+		, isnull(terr.Codigo, '') AS Territorio
+		, isnull(tf.Numero, '') AS TelefonoCasa
+		, isnull(tm.Numero, '') AS TelefonoCelular
+		, isnull(cdm.FrecuenciaPedidos, '') AS Constancia
+		, CASE 
+			WHEN @CodigoPais = 'VE' THEN isnull(seg.Descripcion, '')
+			ELSE isnull(segint.Descripcion, '')
+		  END AS Segmentacion
+		, isnull(c.MontoSaldoActual, 0.00) AS SaldoPendienteTotal
+		, isnull(pdw.ImporteTotal-isnull(pdw.DescuentoProl,0), 0.00) AS VentaConsultora
+		, isnull(c.MontoUltimoPedido, 0.00) AS MontoPedidoFacturado
+		, isnull(sip.MOT_RECH, '') AS MotivoRechazo
+		-- Adicionales
+		, isnull(idt.Numero,'') AS DocumentodeIdentidad
+		, isnull(dir.DireccionLinea1, '') AS Direccion
+		, isnull(c.Email, '') AS Email
+		, CASE 
+			WHEN c.IndicadorFamiliaProtegida = 1 THEN 'SI' 
+			ELSE 'NO' 
+		  END AS FamiliaProtegida
+		, CASE 
+			WHEN c.IndicadorFlexiPago = 1 THEN 'SI' 
+			ELSE 'NO' 
+		  END AS UsaFlexipago
+		, CASE 
+			WHEN c.EsBrillante = 1 THEN 'SI' 
+			ELSE 'NO' 
+		  END AS EsBrillante
+		, isnull(c.AnoCampanaIngreso, '') AS CampaniaIngreso
+		, isnull(CAST(
+			iif(isnull(c.TipoFacturacion,'FA') = 'FA', c.UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,c.UltimaCampanaFacturada,-1))
+			AS VARCHAR(6)
+		), '') AS UltimaFacturacion
+		, isnull(sip.VAL_ORIG,'') AS OrigenPedido
+		, CASE 
+			WHEN isnull(c.FechaNacimiento,'')='' THEN '' 
+			ELSE CAST(DAY(c.FechaNacimiento) AS VARCHAR(2)) + 
+				 ' de ' + 
+				 (CASE MONTH(c.FechaNacimiento) 
+					WHEN 1 THEN 'Enero' 
+					WHEN 2 THEN 'Febrero' 
+					WHEN 3 THEN 'Marzo' 
+					WHEN 4 THEN 'Abril' 
+					WHEN 5 THEN 'Mayo' 
+					WHEN 6 THEN 'Junio' 
+					WHEN 7 THEN 'Julio' 
+					WHEN 8 THEN 'Agosto' 
+					WHEN 9 THEN 'Setiembre' 
+					WHEN 10 THEN 'Octubre' 
+					WHEN 11 THEN 'Noviembre' 
+					WHEN 12 THEN 'Diciembre'
+				 END)  
+			END AS Cumpleanios
+	FROM PedidoWeb pdw
+	JOIN ods.Consultora c ON pdw.ConsultoraID = c.ConsultoraID
+	JOIN ods.Zona z ON z.ZonaID = c.ZonaID AND z.Codigo = @CodigoZona
+	JOIN ods.Seccion s ON s.SeccionID = c.SeccionID AND s.Codigo = @CodigoSeccion
+	INNER JOIN ods.SOA_INFOR_PEDID sip WITH(NOLOCK) ON c.ConsultoraID = sip.ConsultoraID AND sip.COD_PERI = @CodigoCampaniaActual
+	LEFT JOIN ods.Territorio terr WITH(NOLOCK) ON c.TerritorioID = terr.TerritorioID AND c.SeccionID = terr.SeccionID
+	LEFT JOIN ods.Telefono tf WITH(NOLOCK) ON c.ConsultoraID = tf.ConsultoraID AND tf.TipoTelefono = 'TF'
+	LEFT JOIN ods.Telefono tm WITH(NOLOCK) ON c.ConsultoraID = tm.ConsultoraID AND tm.TipoTelefono = 'TM'
+	LEFT JOIN ods.ConsultoraDM cdm WITH(NOLOCK) ON c.Codigo = cdm.ConsultoraID
+	LEFT JOIN ods.SegmentoInterno segint WITH(NOLOCK) ON c.SegmentoInternoID = segint.SegmentoInternoID
+	LEFT JOIN ods.Segmento seg WITH(NOLOCK) ON c.SegmentoID = seg.SegmentoID
+	-- Adicionales
+	LEFT JOIN ods.Identificacion idt ON c.ConsultoraID = idt.ConsultoraID AND idt.DocumentoPrincipal = 1
+	LEFT JOIN ods.Direccion dir ON c.ConsultoraID = dir.ConsultoraID AND dir.TipoDireccion = 'Domicilio' AND dir.EstadoActivo = 1
+	WHERE
+			pdw.CampaniaID = @CodigoCampaniaActual 
+		--AND pdw.IndicadorEnviado = 1 
+		AND (sip.VAL_ESTA_PEDI = 'RECHAZADO')
+		AND sip.VAL_ORIG = 'WEB'
+		AND sip.cod_clie NOT IN (SELECT cod_clie FROM @PedidoFacturado)
+		AND sip.fec_ulti_actu = (
+									SELECT MAX(FEC_ULTI_ACTU) FROM ods.soa_infor_pedid 
+									WHERE 
+									cod_peri = @CodigoCampaniaActual 
+									AND cod_zona = @CodigoZona 
+									AND COD_SECC= @CodigoSeccion 
+									AND COD_CLIE = sip.COD_CLIE
+								)
+END
+GO
 ALTER PROCEDURE dbo.GetConsultorasPorUbigeo
 	@PaisId int,    
 	@CodigoUbigeo varchar(24),    
@@ -18044,7 +19375,7 @@ BEGIN
 	DECLARE @idcampaniaingreso INT;
 	SELECT
 		@idcampaniaingreso = AnoCampanaIngreso,
-		@ultimacampaniafacturable = isnull(iif(TipoFacturacion = 'FA', UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(UltimaCampanaFacturada,-1,@NroCampania)),0)
+		@ultimacampaniafacturable = isnull(iif(isnull(TipoFacturacion,'FA') = 'FA', UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(UltimaCampanaFacturada,-1,@NroCampania)),0)
 	FROM ods.Consultora WHERE ConsultoraID=@ConsultoraID;
 		
 	DECLARE @campaniafacturableingreso INT = @ultimacampaniafacturable - @idcampaniaingreso;
@@ -18525,7 +19856,7 @@ BEGIN
 
 	select
 		@UltimaCampanaFacturada = ISNULL(UltimaCampanaFacturada,0),
-		@TipoFacturacion = ISNULL(TipoFacturacion,'')
+		@TipoFacturacion = ISNULL(TipoFacturacion,'FA')
 	From ods.consultora (nolock)
 	Where consultoraid = @consultoraid
 
@@ -18534,7 +19865,7 @@ BEGIN
 	BEGIN
 		SELECT
 			@UltimaCampanaFacturada = ISNULL(c.UltimaCampanaFacturada,0),
-			@TipoFacturacion = ISNULL(c.TipoFacturacion,''),
+			@TipoFacturacion = ISNULL(c.TipoFacturacion,'FA'),
 			@ConsultoraIdAsociada = ISNULL(c.ConsultoraId,0)
 		FROM ConsultoraFicticia cf with(nolock)
 		INNER JOIN UsuarioPrueba up with(nolock) on cf.Codigo = up.CodigoFicticio
@@ -19193,7 +20524,7 @@ BEGIN
 		@RegionID = IsNull(RegionID,0),
 		@ConsultoraID = IsNull(ConsultoraID,0),
 		@UltimaCampanaFacturada = IsNull(UltimaCampanaFacturada,0),
-		@TipoFacturacion = IsNull(TipoFacturacion,'')
+		@TipoFacturacion = IsNull(TipoFacturacion,'FA')
 	from ods.consultora with(nolock)
 	where codigo = @CodConsultora;
 	
@@ -19222,7 +20553,7 @@ BEGIN
 		order by PedidoID desc;
 
 		/* Se toma en cuenta la Fecha de Vencimiento sobre la última campaña facturada */
-		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,-11), @UltimaCampanaFacturada);
+		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
 
@@ -19614,6 +20945,127 @@ BEGIN
 		(@MarcaId <> 3 OR year(C.FechaNacimiento) > @AnioLimite);
 END
 GO
+ALTER PROCEDURE dbo.OBTENER_PEDIDO_WEB_RECHAZADOS
+  @ConsultoraLiderID     	BIGINT,
+  @CodigoPais				VARCHAR(3),
+  @CodigoCampaniaActual		VARCHAR(6)
+AS
+BEGIN
+	DECLARE 
+		@CodigoZona VARCHAR(4)
+		, @CodigoRegion VARCHAR(2)
+		, @CodigoSeccion VARCHAR(1)
+		, @CodigoConsultora VARCHAR(25)
+	
+	DECLARE @PedidoFacturado TABLE (COD_CLIE varchar(15))
+	
+	SELECT TOP 1
+		@CodigoRegion = isnull(rtrim(substring(cl.SeccionGestionLider, 1, 2)), '')
+		, @CodigoZona = isnull(rtrim(substring(cl.SeccionGestionLider, 3, 4)), '')
+		, @CodigoSeccion = isnull(rtrim(substring(cl.SeccionGestionLider, 7, 8)), '')
+		, @CodigoConsultora = cl.CodigoConsultora
+	FROM ods.ConsultoraLider cl
+	WHERE
+		cl.ConsultoraID = @ConsultoraLiderID
+	
+	INSERT @PedidoFacturado
+	SELECT 
+		cod_clie 
+	FROM ods.SOA_INFOR_PEDID sp 
+	WHERE 
+		sp.cod_peri = @CodigoCampaniaActual
+	and sp.cod_zona = @CodigoZona
+	and sp.cod_secc = @CodigoSeccion
+	and sp.val_esta_pedi = 'FACTURADO'
+	and sp.VAL_ORIG = 'WEB'
+	
+	SELECT DISTINCT
+		c.ConsultoraID
+		, c.NombreCompleto AS Nombre
+		, c.Codigo AS CodigodeConsultora
+		, isnull(terr.Codigo, '') AS Territorio
+		, isnull(tf.Numero, '') AS TelefonoCasa
+		, isnull(tm.Numero, '') AS TelefonoCelular
+		, isnull(cdm.FrecuenciaPedidos, '') AS Constancia
+		, CASE 
+			WHEN @CodigoPais = 'VE' THEN isnull(seg.Descripcion, '')
+			ELSE isnull(segint.Descripcion, '')
+		  END AS Segmentacion
+		, isnull(c.MontoSaldoActual, 0.00) AS SaldoPendienteTotal
+		, isnull(pdw.ImporteTotal-isnull(pdw.DescuentoProl,0), 0.00) AS VentaConsultora
+		, isnull(c.MontoUltimoPedido, 0.00) AS MontoPedidoFacturado
+		, isnull(sip.MOT_RECH, '') AS MotivoRechazo
+		-- Adicionales
+		, isnull(idt.Numero,'') AS DocumentodeIdentidad
+		, isnull(dir.DireccionLinea1, '') AS Direccion
+		, isnull(c.Email, '') AS Email
+		, CASE 
+			WHEN c.IndicadorFamiliaProtegida = 1 THEN 'SI' 
+			ELSE 'NO' 
+		  END AS FamiliaProtegida
+		, CASE 
+			WHEN c.IndicadorFlexiPago = 1 THEN 'SI' 
+			ELSE 'NO' 
+		  END AS UsaFlexipago
+		, CASE 
+			WHEN c.EsBrillante = 1 THEN 'SI' 
+			ELSE 'NO' 
+		  END AS EsBrillante
+		, isnull(c.AnoCampanaIngreso, '') AS CampaniaIngreso
+		, isnull(CAST(
+			iif(isnull(c.TipoFacturacion,'FA') = 'FA', c.UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,c.UltimaCampanaFacturada,-1))
+			AS VARCHAR(6)
+		), '') AS UltimaFacturacion
+		, isnull(sip.VAL_ORIG,'') AS OrigenPedido
+		, CASE 
+			WHEN isnull(c.FechaNacimiento,'')='' THEN '' 
+			ELSE CAST(DAY(c.FechaNacimiento) AS VARCHAR(2)) + 
+				 ' de ' + 
+				 (CASE MONTH(c.FechaNacimiento) 
+					WHEN 1 THEN 'Enero' 
+					WHEN 2 THEN 'Febrero' 
+					WHEN 3 THEN 'Marzo' 
+					WHEN 4 THEN 'Abril' 
+					WHEN 5 THEN 'Mayo' 
+					WHEN 6 THEN 'Junio' 
+					WHEN 7 THEN 'Julio' 
+					WHEN 8 THEN 'Agosto' 
+					WHEN 9 THEN 'Setiembre' 
+					WHEN 10 THEN 'Octubre' 
+					WHEN 11 THEN 'Noviembre' 
+					WHEN 12 THEN 'Diciembre'
+				 END)  
+			END AS Cumpleanios
+	FROM PedidoWeb pdw
+	JOIN ods.Consultora c ON pdw.ConsultoraID = c.ConsultoraID
+	JOIN ods.Zona z ON z.ZonaID = c.ZonaID AND z.Codigo = @CodigoZona
+	JOIN ods.Seccion s ON s.SeccionID = c.SeccionID AND s.Codigo = @CodigoSeccion
+	INNER JOIN ods.SOA_INFOR_PEDID sip WITH(NOLOCK) ON c.ConsultoraID = sip.ConsultoraID AND sip.COD_PERI = @CodigoCampaniaActual
+	LEFT JOIN ods.Territorio terr WITH(NOLOCK) ON c.TerritorioID = terr.TerritorioID AND c.SeccionID = terr.SeccionID
+	LEFT JOIN ods.Telefono tf WITH(NOLOCK) ON c.ConsultoraID = tf.ConsultoraID AND tf.TipoTelefono = 'TF'
+	LEFT JOIN ods.Telefono tm WITH(NOLOCK) ON c.ConsultoraID = tm.ConsultoraID AND tm.TipoTelefono = 'TM'
+	LEFT JOIN ods.ConsultoraDM cdm WITH(NOLOCK) ON c.Codigo = cdm.ConsultoraID
+	LEFT JOIN ods.SegmentoInterno segint WITH(NOLOCK) ON c.SegmentoInternoID = segint.SegmentoInternoID
+	LEFT JOIN ods.Segmento seg WITH(NOLOCK) ON c.SegmentoID = seg.SegmentoID
+	-- Adicionales
+	LEFT JOIN ods.Identificacion idt ON c.ConsultoraID = idt.ConsultoraID AND idt.DocumentoPrincipal = 1
+	LEFT JOIN ods.Direccion dir ON c.ConsultoraID = dir.ConsultoraID AND dir.TipoDireccion = 'Domicilio' AND dir.EstadoActivo = 1
+	WHERE
+			pdw.CampaniaID = @CodigoCampaniaActual 
+		--AND pdw.IndicadorEnviado = 1 
+		AND (sip.VAL_ESTA_PEDI = 'RECHAZADO')
+		AND sip.VAL_ORIG = 'WEB'
+		AND sip.cod_clie NOT IN (SELECT cod_clie FROM @PedidoFacturado)
+		AND sip.fec_ulti_actu = (
+									SELECT MAX(FEC_ULTI_ACTU) FROM ods.soa_infor_pedid 
+									WHERE 
+									cod_peri = @CodigoCampaniaActual 
+									AND cod_zona = @CodigoZona 
+									AND COD_SECC= @CodigoSeccion 
+									AND COD_CLIE = sip.COD_CLIE
+								)
+END
+GO
 ALTER PROCEDURE dbo.GetConsultorasPorUbigeo
 	@PaisId int,    
 	@CodigoUbigeo varchar(24),    
@@ -19696,7 +21148,7 @@ BEGIN
 	DECLARE @idcampaniaingreso INT;
 	SELECT
 		@idcampaniaingreso = AnoCampanaIngreso,
-		@ultimacampaniafacturable = isnull(iif(TipoFacturacion = 'FA', UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(UltimaCampanaFacturada,-1,@NroCampania)),0)
+		@ultimacampaniafacturable = isnull(iif(isnull(TipoFacturacion,'FA') = 'FA', UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(UltimaCampanaFacturada,-1,@NroCampania)),0)
 	FROM ods.Consultora WHERE ConsultoraID=@ConsultoraID;
 		
 	DECLARE @campaniafacturableingreso INT = @ultimacampaniafacturable - @idcampaniaingreso;
@@ -20177,7 +21629,7 @@ BEGIN
 
 	select
 		@UltimaCampanaFacturada = ISNULL(UltimaCampanaFacturada,0),
-		@TipoFacturacion = ISNULL(TipoFacturacion,'')
+		@TipoFacturacion = ISNULL(TipoFacturacion,'FA')
 	From ods.consultora (nolock)
 	Where consultoraid = @consultoraid
 
@@ -20186,7 +21638,7 @@ BEGIN
 	BEGIN
 		SELECT
 			@UltimaCampanaFacturada = ISNULL(c.UltimaCampanaFacturada,0),
-			@TipoFacturacion = ISNULL(c.TipoFacturacion,''),
+			@TipoFacturacion = ISNULL(c.TipoFacturacion,'FA'),
 			@ConsultoraIdAsociada = ISNULL(c.ConsultoraId,0)
 		FROM ConsultoraFicticia cf with(nolock)
 		INNER JOIN UsuarioPrueba up with(nolock) on cf.Codigo = up.CodigoFicticio
@@ -20845,7 +22297,7 @@ BEGIN
 		@RegionID = IsNull(RegionID,0),
 		@ConsultoraID = IsNull(ConsultoraID,0),
 		@UltimaCampanaFacturada = IsNull(UltimaCampanaFacturada,0),
-		@TipoFacturacion = IsNull(TipoFacturacion,'')
+		@TipoFacturacion = IsNull(TipoFacturacion,'FA')
 	from ods.consultora with(nolock)
 	where codigo = @CodConsultora;
 	
@@ -20874,7 +22326,7 @@ BEGIN
 		order by PedidoID desc;
 
 		/* Se toma en cuenta la Fecha de Vencimiento sobre la última campaña facturada */
-		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,-11), @UltimaCampanaFacturada);
+		declare @CampaniaSiguiente int = iif(@TipoFacturacion = 'FA', dbo.fnAddCampaniaAndNumero(null,@UltimaCampanaFacturada,1), @UltimaCampanaFacturada);
 		DECLARE @CampaniaSiguienteChar VARCHAR(6) = cast(@CampaniaSiguiente as varchar(6));
 		DECLARE @CampaniaSiguienteID INT = (select top 1 campaniaid from ods.campania where codigo = @CampaniaSiguienteChar);
 
@@ -21266,6 +22718,127 @@ BEGIN
 		(@MarcaId <> 3 OR year(C.FechaNacimiento) > @AnioLimite);
 END
 GO
+ALTER PROCEDURE dbo.OBTENER_PEDIDO_WEB_RECHAZADOS
+  @ConsultoraLiderID     	BIGINT,
+  @CodigoPais				VARCHAR(3),
+  @CodigoCampaniaActual		VARCHAR(6)
+AS
+BEGIN
+	DECLARE 
+		@CodigoZona VARCHAR(4)
+		, @CodigoRegion VARCHAR(2)
+		, @CodigoSeccion VARCHAR(1)
+		, @CodigoConsultora VARCHAR(25)
+	
+	DECLARE @PedidoFacturado TABLE (COD_CLIE varchar(15))
+	
+	SELECT TOP 1
+		@CodigoRegion = isnull(rtrim(substring(cl.SeccionGestionLider, 1, 2)), '')
+		, @CodigoZona = isnull(rtrim(substring(cl.SeccionGestionLider, 3, 4)), '')
+		, @CodigoSeccion = isnull(rtrim(substring(cl.SeccionGestionLider, 7, 8)), '')
+		, @CodigoConsultora = cl.CodigoConsultora
+	FROM ods.ConsultoraLider cl
+	WHERE
+		cl.ConsultoraID = @ConsultoraLiderID
+	
+	INSERT @PedidoFacturado
+	SELECT 
+		cod_clie 
+	FROM ods.SOA_INFOR_PEDID sp 
+	WHERE 
+		sp.cod_peri = @CodigoCampaniaActual
+	and sp.cod_zona = @CodigoZona
+	and sp.cod_secc = @CodigoSeccion
+	and sp.val_esta_pedi = 'FACTURADO'
+	and sp.VAL_ORIG = 'WEB'
+	
+	SELECT DISTINCT
+		c.ConsultoraID
+		, c.NombreCompleto AS Nombre
+		, c.Codigo AS CodigodeConsultora
+		, isnull(terr.Codigo, '') AS Territorio
+		, isnull(tf.Numero, '') AS TelefonoCasa
+		, isnull(tm.Numero, '') AS TelefonoCelular
+		, isnull(cdm.FrecuenciaPedidos, '') AS Constancia
+		, CASE 
+			WHEN @CodigoPais = 'VE' THEN isnull(seg.Descripcion, '')
+			ELSE isnull(segint.Descripcion, '')
+		  END AS Segmentacion
+		, isnull(c.MontoSaldoActual, 0.00) AS SaldoPendienteTotal
+		, isnull(pdw.ImporteTotal-isnull(pdw.DescuentoProl,0), 0.00) AS VentaConsultora
+		, isnull(c.MontoUltimoPedido, 0.00) AS MontoPedidoFacturado
+		, isnull(sip.MOT_RECH, '') AS MotivoRechazo
+		-- Adicionales
+		, isnull(idt.Numero,'') AS DocumentodeIdentidad
+		, isnull(dir.DireccionLinea1, '') AS Direccion
+		, isnull(c.Email, '') AS Email
+		, CASE 
+			WHEN c.IndicadorFamiliaProtegida = 1 THEN 'SI' 
+			ELSE 'NO' 
+		  END AS FamiliaProtegida
+		, CASE 
+			WHEN c.IndicadorFlexiPago = 1 THEN 'SI' 
+			ELSE 'NO' 
+		  END AS UsaFlexipago
+		, CASE 
+			WHEN c.EsBrillante = 1 THEN 'SI' 
+			ELSE 'NO' 
+		  END AS EsBrillante
+		, isnull(c.AnoCampanaIngreso, '') AS CampaniaIngreso
+		, isnull(CAST(
+			iif(isnull(c.TipoFacturacion,'FA') = 'FA', c.UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(null,c.UltimaCampanaFacturada,-1))
+			AS VARCHAR(6)
+		), '') AS UltimaFacturacion
+		, isnull(sip.VAL_ORIG,'') AS OrigenPedido
+		, CASE 
+			WHEN isnull(c.FechaNacimiento,'')='' THEN '' 
+			ELSE CAST(DAY(c.FechaNacimiento) AS VARCHAR(2)) + 
+				 ' de ' + 
+				 (CASE MONTH(c.FechaNacimiento) 
+					WHEN 1 THEN 'Enero' 
+					WHEN 2 THEN 'Febrero' 
+					WHEN 3 THEN 'Marzo' 
+					WHEN 4 THEN 'Abril' 
+					WHEN 5 THEN 'Mayo' 
+					WHEN 6 THEN 'Junio' 
+					WHEN 7 THEN 'Julio' 
+					WHEN 8 THEN 'Agosto' 
+					WHEN 9 THEN 'Setiembre' 
+					WHEN 10 THEN 'Octubre' 
+					WHEN 11 THEN 'Noviembre' 
+					WHEN 12 THEN 'Diciembre'
+				 END)  
+			END AS Cumpleanios
+	FROM PedidoWeb pdw
+	JOIN ods.Consultora c ON pdw.ConsultoraID = c.ConsultoraID
+	JOIN ods.Zona z ON z.ZonaID = c.ZonaID AND z.Codigo = @CodigoZona
+	JOIN ods.Seccion s ON s.SeccionID = c.SeccionID AND s.Codigo = @CodigoSeccion
+	INNER JOIN ods.SOA_INFOR_PEDID sip WITH(NOLOCK) ON c.ConsultoraID = sip.ConsultoraID AND sip.COD_PERI = @CodigoCampaniaActual
+	LEFT JOIN ods.Territorio terr WITH(NOLOCK) ON c.TerritorioID = terr.TerritorioID AND c.SeccionID = terr.SeccionID
+	LEFT JOIN ods.Telefono tf WITH(NOLOCK) ON c.ConsultoraID = tf.ConsultoraID AND tf.TipoTelefono = 'TF'
+	LEFT JOIN ods.Telefono tm WITH(NOLOCK) ON c.ConsultoraID = tm.ConsultoraID AND tm.TipoTelefono = 'TM'
+	LEFT JOIN ods.ConsultoraDM cdm WITH(NOLOCK) ON c.Codigo = cdm.ConsultoraID
+	LEFT JOIN ods.SegmentoInterno segint WITH(NOLOCK) ON c.SegmentoInternoID = segint.SegmentoInternoID
+	LEFT JOIN ods.Segmento seg WITH(NOLOCK) ON c.SegmentoID = seg.SegmentoID
+	-- Adicionales
+	LEFT JOIN ods.Identificacion idt ON c.ConsultoraID = idt.ConsultoraID AND idt.DocumentoPrincipal = 1
+	LEFT JOIN ods.Direccion dir ON c.ConsultoraID = dir.ConsultoraID AND dir.TipoDireccion = 'Domicilio' AND dir.EstadoActivo = 1
+	WHERE
+			pdw.CampaniaID = @CodigoCampaniaActual 
+		--AND pdw.IndicadorEnviado = 1 
+		AND (sip.VAL_ESTA_PEDI = 'RECHAZADO')
+		AND sip.VAL_ORIG = 'WEB'
+		AND sip.cod_clie NOT IN (SELECT cod_clie FROM @PedidoFacturado)
+		AND sip.fec_ulti_actu = (
+									SELECT MAX(FEC_ULTI_ACTU) FROM ods.soa_infor_pedid 
+									WHERE 
+									cod_peri = @CodigoCampaniaActual 
+									AND cod_zona = @CodigoZona 
+									AND COD_SECC= @CodigoSeccion 
+									AND COD_CLIE = sip.COD_CLIE
+								)
+END
+GO
 ALTER PROCEDURE dbo.GetConsultorasPorUbigeo
 	@PaisId int,    
 	@CodigoUbigeo varchar(24),    
@@ -21348,7 +22921,7 @@ BEGIN
 	DECLARE @idcampaniaingreso INT;
 	SELECT
 		@idcampaniaingreso = AnoCampanaIngreso,
-		@ultimacampaniafacturable = isnull(iif(TipoFacturacion = 'FA', UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(UltimaCampanaFacturada,-1,@NroCampania)),0)
+		@ultimacampaniafacturable = isnull(iif(isnull(TipoFacturacion,'FA') = 'FA', UltimaCampanaFacturada, dbo.fnAddCampaniaAndNumero(UltimaCampanaFacturada,-1,@NroCampania)),0)
 	FROM ods.Consultora WHERE ConsultoraID=@ConsultoraID;
 		
 	DECLARE @campaniafacturableingreso INT = @ultimacampaniafacturable - @idcampaniaingreso;
