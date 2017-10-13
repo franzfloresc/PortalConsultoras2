@@ -4839,21 +4839,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #region Metodos privados
-
-        private string AplicarFormatoNumeroDocumentoPorPais(string codigoPais, string numeroDocumento)
-        {
-            return Dictionaries.FormatoNumeroDocumentoBD.ContainsKey(codigoPais) &&
-                  Dictionaries.FormatoNumeroDocumentoBD[codigoPais] != null &&
-                  !string.IsNullOrWhiteSpace(numeroDocumento)
-               ? Dictionaries.FormatoNumeroDocumentoBD[codigoPais](numeroDocumento)
-               : numeroDocumento;
-            //return DictionariesUnete.FormatoNumeroDocumentoBD.ContainsKey(codigoPais) &&
-            //       DictionariesUnete.FormatoNumeroDocumentoBD[codigoPais] != null &&
-            //       !string.IsNullOrWhiteSpace(numeroDocumento)
-            //    ? DictionariesUnete.FormatoNumeroDocumentoBD[codigoPais](numeroDocumento)
-            //    : numeroDocumento;
-        }
-
+        
         private string AplicarFormatoNumeroDocumentoPorPaisVista(string codigoPais, string numeroDocumento)
         {
             return Dictionaries.FormatoNumeroDocumentoView.ContainsKey(codigoPais) &&
@@ -4944,31 +4930,7 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
 
         #region ReenviarCorreo
-
-        public string RenderViewAsString(string viewName, object model)
-        {
-            // Create a string writer to receive the HTML code
-            StringWriter stringWriter = new StringWriter();
-
-            // Get the view to render
-            ViewEngineResult viewResult = ViewEngines.Engines.FindView(ControllerContext, viewName, null);
-
-            // Create a context to render a view based on a model
-            ViewContext viewContext = new ViewContext(
-                ControllerContext,
-                viewResult.View,
-                new ViewDataDictionary(model),
-                new TempDataDictionary(),
-                stringWriter
-                );
-
-            // Render the view to a HTML code
-            viewResult.View.Render(viewContext, stringWriter);
-
-            // return the HTML code
-            return stringWriter.ToString();
-        }
-
+        
         public string RenderViewAsString<T>(string viewName, object model)
             where T : Controller, new()
         {

@@ -109,6 +109,7 @@ namespace Portal.Consultoras.Web.Controllers
             // return the HTML code
             return stringWriter.ToString();
         }
+
         public void EnviarCorreoNotificacion(
             string codigoISO,
             Portal.Consultoras.Web.ServiceUnete.SolicitudPostulante solicitudPostulante,
