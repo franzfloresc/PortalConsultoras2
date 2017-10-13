@@ -9,7 +9,7 @@
     if (ViewBag.MostrarOfertaDelDia == true) { ofertaDelDia = ViewBag.OfertaDelDia; }
 }
 
-@if (ViewBag.MostrarOfertaDelDia == true)
+@if (ViewBag.MostrarOfertaDelDiaContenedor == true)
 {
     <div id="pop_oferta_mobile" class="content_pop_oferta_mobile">
         <div>
@@ -103,7 +103,7 @@
 @section scripts {
     <script type="text/javascript">
         $(document).ready(function () {
-            if (mostrarOfertaDelDia) {
+            if ('@ViewBag.MostrarOfertaDelDiaContenedor' == "True") {
                 window.OfertaDelDia.CargarODD();
             }
         });
