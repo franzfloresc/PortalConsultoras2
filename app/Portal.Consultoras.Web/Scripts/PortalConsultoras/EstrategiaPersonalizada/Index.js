@@ -184,7 +184,7 @@ function SeccionMostrarProductos(data) {
         if (data.lista !== undefined && data.lista.length > 0) {
             $("#" + data.Seccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
             $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
-        $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeIn();
+            $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeIn();
         } else {
             $("#" + data.Seccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
             $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeOut();
