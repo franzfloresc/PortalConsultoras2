@@ -396,14 +396,14 @@ namespace Portal.Consultoras.BizLogic
             catch (Exception) { throw; }
         }
 
-        public List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, int estrategiaId)
+        public List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, string estrategiaCodigo)
         {
             try
             {
                 List<BEEstrategia> listaEstrategias = new List<BEEstrategia>();
 
                 var DAEstrategia = new DAEstrategia(paisId);
-                using (IDataReader reader = DAEstrategia.GetOfertasParaTiByTipoConfigurado(campaniaId, tipoConfigurado, estrategiaId))
+                using (IDataReader reader = DAEstrategia.GetOfertasParaTiByTipoConfigurado(campaniaId, tipoConfigurado, estrategiaCodigo))
                 {
                     while (reader.Read())
                     {
