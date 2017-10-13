@@ -134,7 +134,8 @@ namespace Portal.Consultoras.Web.Models
         public string NombreGerenteZonal { get; internal set; }
         public bool PopupInicialCerrado { get; set; }
         public bool ShowPopupMisDatos { get; set; }
-        
+        public RevistaDigitalModel RevistaDigital { get; set; }
+
         public BienvenidaHomeModel()
         {
             // EPD-2811 Colombia requiere campos de solo lectura debido a la LEY de actualizacion de datos

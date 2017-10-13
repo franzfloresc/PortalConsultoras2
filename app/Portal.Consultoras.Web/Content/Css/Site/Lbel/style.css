@@ -1,5 +1,4 @@
 ﻿/* CSS Document */
-
 * {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -23,7 +22,9 @@
     font-weight: normal;
     font-style: normal;
 }
-
+body {
+    font-family: 'Lato', sans-serif !important;
+}
 body > img {
     display: none;
 }

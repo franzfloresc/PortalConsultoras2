@@ -247,7 +247,7 @@ namespace Portal.Consultoras.Web.Controllers
                     Session[Constantes.ConstSession.IngresoPortalConsultoras] = true;
                 }
 
-                model.CampaniaMasDos = AddCampaniaAndNumero(Convert.ToInt32(userData.CampaniaID), 2) % 100;
+               
 
                 // validar si se muestra Show Room en Bienvenida
                 model.ShowRoomMostrarLista = ValidarPermiso(Constantes.MenuCodigo.CatalogoPersonalizado) ? 0 : 1;
@@ -273,14 +273,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                ViewBag.TieneRDC = userData.RevistaDigital.TieneRDC;
-                ViewBag.TieneRDR = userData.RevistaDigital.TieneRDR;
-                ViewBag.TieneRDS = userData.RevistaDigital.TieneRDS;
-                ViewBag.EstadoSucripcionRD = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
-                ViewBag.EstadoSucripcionRDAnterior1 = userData.RevistaDigital.SuscripcionAnterior1Model.EstadoRegistro;
-                ViewBag.EstadoSucripcionRDAnterior2 = userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro;
-                ViewBag.NumeroCampania = userData.CampaniaID % 100;
-                ViewBag.NumeroCampaniaMasUno = AddCampaniaAndNumero(Convert.ToInt32(userData.CampaniaID), 1) % 100;
+                model.RevistaDigital = revistaDigital;
             }
             catch (FaultException ex)
             {
@@ -368,7 +361,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (TipoPopUpMostrar == Constantes.TipoPopUp.RevistaDigitalSuscripcion)
                 {
-                    if (userData.RevistaDigital.NoVolverMostrar)
+                    if (revistaDigital.NoVolverMostrar)
                         TipoPopUpMostrar = 0;
                     
                 }
@@ -533,10 +526,10 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else if (popup.CodigoPopup == Constantes.TipoPopUp.RevistaDigitalSuscripcion)
                 {
-                    if (!userData.RevistaDigital.NoVolverMostrar)
+                    if (!revistaDigital.NoVolverMostrar)
                     {
-                        if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro == 0
-                            || userData.RevistaDigital.SuscripcionModel.EstadoRegistro == 2
+                        if (revistaDigital.SuscripcionModel.EstadoRegistro == 0
+                            || revistaDigital.SuscripcionModel.EstadoRegistro == 2
                                 )
                         {
                             TipoPopUpMostrar = Constantes.TipoPopUp.RevistaDigitalSuscripcion;
@@ -560,9 +553,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else if (popup.CodigoPopup == Constantes.TipoPopUp.RevistaDigitalSuscripcion)
                 {
-                    if (!userData.RevistaDigital.NoVolverMostrar)
+                    if (!revistaDigital.NoVolverMostrar)
                     {
-                        if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro == 0)
+                        if (revistaDigital.SuscripcionModel.EstadoRegistro == 0)
                         {
                             TipoPopUpMostrar = Constantes.TipoPopUp.RevistaDigitalSuscripcion;
                             break;
@@ -1829,7 +1822,7 @@ namespace Portal.Consultoras.Web.Controllers
                 const int SHOWROOM_ESTADO_INACTIVO = 0;
                 const string TIPO_APLICACION_DESKTOP = "Desktop";
 
-                //if (!userData.RevistaDigital.NoVolverMostrar)
+                //if (!revistaDigital.NoVolverMostrar)
                 //{
                 //    return Json(new
                 //    {

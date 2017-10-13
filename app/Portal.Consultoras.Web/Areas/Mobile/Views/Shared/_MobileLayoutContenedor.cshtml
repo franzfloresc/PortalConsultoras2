@@ -143,55 +143,11 @@
         <!--BANNER-->
         @if (ViewBag.mostrarBannerPostulante == true && !esIngresoUnico)
         {
-            <div id="bloquemensajesPostulante" style="display:none;">
-                @*<div class="oscurecer_animacion"></div>*@
-                <div class="bloque_mensajesPedido">
-                    <div class="icono_cerrar_mensaje">
-                        <span>
-                            <a href="javascript:void(0);" id="" title="Cerrar" onclick="cerrarMensajePostulante();">
-                                <img src="/Content/Images/cerrar_04.png" alt="Cerrar">
-                            </a>
-                        </span>
-                    </div>
-                    <div class="icono_estadoPedido" style="position: absolute;">
-                        <img src="@Url.Content("~/Content/Images/icono_exclamacion_estado_pedido_negro.png")" alt="Icono Estado Pedido" />
-                    </div>
-                    <div class="mensajes_estadoPedido" style="margin-left: 40px; margin-right: 15px;">
-                        TE ENCUENTRAS EN UNA SESIÓN DE PRUEBA
-                        <span class="mensaje_horarioIngresoPedido">
-                            Una vez recibas tu código de consultora, podrás acceder a todos los beneficios de Somos Belcorp.
-                        </span>
-                    </div>
-                </div>
-            </div>
+            @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloqueMensajesPostulante.cshtml")
         }
         else if (ViewBag.MostrarBannerRechazo == true && !esIngresoUnico)
         {
-            <div id="bloquemensajesPedido" style="display:none;">
-                @*<div class="oscurecer_animacion"></div>*@
-                <div class="bloque_mensajesPedido">
-                    <div class="icono_cerrar_mensaje">
-                        <span>
-                            <a href="javascript:void(0);" id="cerrarMensajeEstadoPedido" title="Cerrar" onclick="cerrarMensajeEstadoPedido();">
-                                <img src="/Content/Images/cerrar_04.png" alt="Cerrar">
-                            </a>
-                        </span>
-                    </div>
-                    <div class="icono_estadoPedido">
-                        <img src="@Url.Content("~/Content/Images/icono_exclamacion_estado_pedido_negro.png")" alt="Icono Estado Pedido" />
-                    </div>
-                    <div class="mensajes_estadoPedido">
-                        <span class="mensaje_estadoActualPedido">@ViewBag.GPRBannerTitulo</span>
-                        <span class="mensaje_horarioIngresoPedido">
-                            @ViewBag.GPRBannerMensaje
-                            @if (ViewBag.GPRBannerUrl == Enumeradores.RechazoBannerUrl.ModificaPedido)
-                            {
-                            <a class='CerrarBanner' title="MODIFICA TU PEDIDO" href='@Url.Action("Index", "Pedido", new { area = "Mobile" })'>MODIFICA TU PEDIDO</a>
-                            }
-                        </span>
-                    </div>
-                </div>
-            </div>
+            @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloqueMensajesPedido.cshtml")
         }
         @*else if (ViewBag.MostrarBannerTopPL20 == true)
         {
@@ -255,7 +211,7 @@
                             <span role="link" region="Superior" parent="Pedido" title="Pedido" class="num-menu-shop">0</span>
                         </a>
                         <a role="link" region="Superior" parent="Notificaciones" title="Notificaciones"
-                           class="campana_mobile" href="@Url.Action("Index","Notificaciones", new { area = "Mobile" })" style="margin-left: -15px;">
+                           class="campana_mobile" href="@Url.Action("Index", "Notificaciones", new { area = "Mobile" })" style="margin-left: -15px;">
                             <div role="link" region="Superior" parent="Notificaciones" title="Notificaciones" class="campana_svg_mobile"><p role="link" region="Superior" parent="Notificaciones" title="Notificaciones" class="notificaciones_mobiles">0</p></div>
                         </a>
                     </div>
@@ -289,34 +245,7 @@
                                 {
 
                                     <li>
-                                        <div id="divShowRoomHoy" class="divShowRoom">
-                                            <input type="hidden" id="hdEventoIDShowRoom" value="@showRoomBannerLateral.BEShowRoom.EventoID" />
-                                            <input type="hidden" id="hdNombreEventoShowRoom" value="@showRoomBannerLateral.BEShowRoom.Nombre" />
-                                            <input type="hidden" id="hdTemaEventoShowRoom" value="@showRoomBannerLateral.BEShowRoom.Tema" />
-                                            @if (showRoomBannerLateral.MostrarShowRoomProductos)
-                                            {
-                                                <input type="hidden" id="hdtiposw" value="1" />
-                                                <div class="fondo_m">
-                                                    <a class="bannersc" href="@Url.Action("Index", "ShowRoom", new { area = "Mobile" })">
-                                                        <div class="content_banner_new_showroom">
-                                                            <img style="width:100%;height:100%;" src="@ViewBag.ImagenPopupShowroomVenta" alt="-" />
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                            }
-                                            else if (showRoomBannerLateral.MostrarShowRoomProductos == false)
-                                            {
-                                                <input type="hidden" id="hdtiposw" value="2" />
-                                                <div class="fondo_m">
-                                                    <a class="bannersi" href="@Url.Action("Intriga", "ShowRoom", new { area = "Mobile" })">
-                                                        <div class="content_banner_new_showroom">
-                                                            <div class="dias_faltantes"><span id="spnDiasFaltantes">@ViewBag.DiasFaltantesLetras </span> </div>
-                                                            <img style="width:100%;" src="@ViewBag.ImagenPopupShowroomIntriga" alt="-" />
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                            }
-                                        </div>
+                                        @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloqueBannerShowRoom.cshtml", showRoomBannerLateral)
                                     </li>
                                 }
 
@@ -369,199 +298,20 @@
             </div>
         </div>
     </div>
-
     
-
-    <div id="popupInformacion" class="MensajeAlertaMobile" style="display:none;">
-        <div class="content_mensajeAlerta">
-            <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacion').hide();">
-                <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
-            </a>
-            <hr class="clear">
-            <div class="icono_alerta exclamacion_icono_mobile"></div>
-            <div class="titulo_compartir"><b>IMPORTANTE</b></div>
-            <div id="mensajeInformacion" class="mensaje_alerta"></div>
-            <a href="javascript:;" onclick="$('#popupInformacion').hide();" class="btn_ok_mobile btn-aceptar"><b>OK</b></a>
-        </div>
-    </div>
-
-    <div id="popupInformacion2" class="MensajeAlertaMobile" style="display:none;">
-        <div class="content_mensajeAlerta">
-            <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacion2').hide();">
-                <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
-            </a>
-            <hr class="clear">
-            <div class="icono_alerta exclamacion_icono_mobile"></div>
-            <div class="titulo_compartir"><b>IMPORTANTE</b></div>
-            <div id="mensajeInformacion2" class="mensaje_alerta"></div>
-            <a href="javascript:;" onclick="ModificarPedido2('2');" class="btn_ok_mobile btn-aceptar" style="width:152px;"><b>Modificar mi pedido</b></a>
-        </div>
-    </div>
-
-    <div id="popupInformacionValidado" class="MensajeAlertaMobile" style="display:none;">
-        <div class="content_mensajeAlerta">
-            <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacionValidado').hide();">
-                <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
-            </a>
-            <hr class="clear">
-            <div class="icono_alerta exclamacion_icono_mobile" style="display: none;"></div>
-            <div class="icono_alerta check_icono_mobile" style="display: none;"></div>
-            <div class="titulo_compartir"><b id="bTagTitulo">MENSAJE</b></div>
-            <div id="mensajeInformacionvalidado" class="mensaje_alerta"></div>
-            <a href="javascript:;" onclick="$('#popupInformacionValidado').hide();" class="btn_ok_mobile"><b>OK</b></a>
-        </div>
-    </div>
-
-    <div id="popupComunidad" class="modal fade" data-backdrop="static" data-keyboard="false" style="z-index: 10000 !important; ">
-        <div class="modal-dialog modal-alert ">
-            <div class="modal-content">
-                <div class="modal-body">
-
-                    <div class="row text-left">
-                        <div class="col-xs-12">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="icon-close-belcorp"></i></button>
-                            <ol class="breadcrumb-next upper">
-                                <li>
-                                    Comunidad Somos Belcorp
-                                </li>
-                            </ol>
-                        </div>
-                    </div>
-
-                    <div class="row text-left">
-
-                        <div class="form-controls-grey">
-                            <div class="col-xs-12">
-                                <div class="form-group">
-                                    ¿Aún no eres parte de nuestra comunidad?
-                                    Ingresa tus datos aquí.
-                                </div>
-                                <div class="form-group">
-                                    <input id="txtNombreConCom" class="form-control" placeholder="" value="@ViewBag.NombreC" type="text" readonly="readonly" />
-                                </div>
-
-                                <div class="form-group">
-                                    <input id="txtApellidoConCom" class="form-control" placeholder="" value="@ViewBag.ApellidoC" type="text" readonly="readonly" />
-                                </div>
-
-                                <div class="form-group">
-                                    <input id="txtUsuarioComunidad" class="form-control" placeholder="Tu apodo en la Comunidad" maxlength="25" type="text" onblur="if (this.value != '') { ValidarUsuarioIngresado(this.value); }" />
-                                    <div id="ErrorUsuario" style="font-size: 11px; color: red; display: none;">Debe ingresar un apodo.</div>
-                                    <div id="ValUsuario" style="font-size: 11px; display: none;"></div>
-                                </div>
-
-                                <div class="form-group">
-                                    <input id="txtNuevoCorreoComunidad" class="form-control" placeholder="Correo Electronico" onblur="if (this.value != '') { ValidarCorreoIngresado(this.value); }" />
-                                    <div id="ErrorCorreo" style="font-size: 11px; color: red; display: none;"></div>
-                                    <div id="ValCorreo" style="font-size: 11px; display: none;"></div>
-                                </div>
-
-                                <div class="block-center text-center">
-                                    <a id="btnRegistrarUsuarioComunidad" onclick="return ValidarCorreoComunidad(2)" class="btn btn-line-action btn-round">Crea tu cuenta</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="clear">
-                        </div>
-
-                        <div class="col-xs-12">
-                            <hr style="border-top: 1px solid #CCC;" />
-                        </div>
-                        <div class="form-controls-grey">
-
-                            <div class="col-xs-12">
-                                <div class="form-group">
-                                    Si ya eres miembro de la Comunidad Somos Belcorp, ingresa tu correo aquí:
-                                </div>
-                                <div class="form-group">
-
-                                    <input id="txtCorreoComunidad" class="form-control" placeholder="Correo Electronico" />
-                                    <div id="ErrorCorreoC" style="font-size: 11px; color: red; display: none;"></div>
-                                    <div id="ES_CorreoC" style="height: 10px; display: none;"></div>
-
-                                </div>
-
-                                <div class="block-center text-center">
-                                    <a id="btnValidarCorreo" class="btn btn-line-action btn-round" onclick="return ValidarCorreoComunidad(1)">Ingresar</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/vp_BloquePopupMensajesInformacion.cshtml")
 
     <!--POP MENSAJE POSTULANTE-->
-    <div id="dialog_MensajePostulante_Pedido" class="MensajeAlertaMobile" style="display:none;">
-        <div class="content_mensajeAlerta">
-            <a class="cerrar_popMobile" href="javascript:;" onclick="CerrarDialogMesajePostulantePedido();">
-                <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
-            </a>
-            <hr class="clear">
-            <div class="icono_alerta exclamacion_icono_mobile"></div>
-            <div class="titulo_compartir"><b id="titutloPedido">IMPORTANTE</b></div>
-            <div id="mensajePedido" class="mensaje_alerta"></div>
-            <a href="javascript:;" onclick="CerrarDialogMesajePostulantePedido();" class="btn_ok_mobile"><b>CONTINUAR</b></a>
-        </div>
-    </div>
-    <!--FIN-->
-    <!--POP MENSAJE IMPORTANTE-->
-    <div id="popupInformacionSB2Malo" class="MensajeAlertaMobile" style="display:none;">
-        <div class="content_mensajeAlerta">
-            <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacionSB2Malo').hide();">
-                <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
-            </a>
-            <hr class="clear">
-            <div class="icono_alerta exclamacion_icono_mobile"></div>
-            <div class="titulo_compartir"><b>IMPORTANTE</b></div>
-            <div id="mensajeInformacionSB2_Malo" class="mensaje_alerta"></div>
-            <a href="javascript:;" onclick="$('#popupInformacionSB2Malo').hide();" class="btn_ok_mobile"><b>OK</b></a>
-        </div>
-    </div>
-    <!--FIN-->
-    <!--POP MENSAJE Error-->
-    <div id="popupInformacionSB2Error" class="MensajeAlertaMobile" style="display:none;">
-        <div class="content_mensajeAlerta">
-            <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacionSB2Error').hide();">
-                <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
-            </a>
-            <hr class="clear">
-            <div class="icono_alerta exclamacion_icono_mobile"></div>
-            <div class="titulo_compartir"><b>LO SENTIMOS</b></div>
-            <div id="mensajeInformacionSB2_Error" class="mensaje_alerta"></div>
-            <a href="javascript:;" onclick="$('#popupInformacionSB2Error').hide();" class="btn_ok_mobile"><b>OK</b></a>
-        </div>
-    </div>
-    <!--FIN-->
+    @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupPostulante.cshtml")
+    <!--FIN--> 
+
+    <!--POP COMUNIDAD-->
+    @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupComunidad.cshtml")
+    <!--FIN--> 
+
     <!--POP MENSAJE SESION FINALIZADA Error-->
-    <div id="popupInformacionSB2SesionFinalizada" class="MensajeAlertaMobile" style="display:none;">
-        <div class="content_mensajeAlerta">
-            <a class="cerrar_popMobile" href="javascript:;" onclick="window.location.href='@Url.Action("Index", "Login", new { area = "" })'">
-                <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
-            </a>
-            <hr class="clear">
-            <div class="icono_alerta exclamacion_icono_mobile"></div>
-            <div class="titulo_compartir"><b>SESIÓN FINALIZADA</b></div>
-            <div id="mensajeInformacionSB2_SesionFinalizada" class="mensaje_alerta"></div>
-            <a href="javascript:;" onclick="window.location.href='@Url.Action("Index", "Login", new { area = "" })'" class="btn_ok_mobile"><b>OK</b></a>
-        </div>
-    </div>
-    <!--FIN-->
-    <!--POP MENSAJE LO LOGRASTE-->
-    <div id="popupInformacionSB2Bueno" class="MensajeAlertaMobile" style="display:none;">
-        <div class="content_mensajeAlerta">
-            <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacionSB2Bueno').hide();">
-                <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
-            </a>
-            <hr class="clear">
-            <div class="icono_alerta check_icono_mobile"></div>
-            <div class="titulo_compartir">¡LO <b>LOGRASTE</b>!</div>
-            <div id="mensajeInformacionSB2Bueno" class="mensaje_alerta"></div>
-            <a href="javascript:;" onclick="$('#popupInformacionSB2Bueno').hide();" class="btn_ok_mobile"><b>OK</b></a>
-        </div>
-    </div>
+    @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupSesionFinalizada.cshtml")
+    <!--FIN-->    
 
     <div style="display:none">
         <a id="HiddenRedesSocialesWA" href="#" data-action="share/whatsapp/share">WA</a>

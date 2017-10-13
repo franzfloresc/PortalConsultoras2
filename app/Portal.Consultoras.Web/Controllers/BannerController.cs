@@ -602,16 +602,16 @@ namespace Portal.Consultoras.Web.Controllers
                 if (item.Titulo.ToLower() == "c" + userData.CampaniaNro + "_revistadigital_" + userData.CodigoISO.ToLower())
                 {
                     item.Codigo = Constantes.BannerCodigo.RevistaDigital;
-                    if (!(userData.RevistaDigital.TieneRDC || userData.RevistaDigital.TieneRDR))
+                    if (!(revistaDigital.TieneRDC || revistaDigital.TieneRDR))
                         if (ValidarPermiso("", Constantes.ConfiguracionPais.RevistaDigitalSuscripcion))
-                            if (userData.RevistaDigital.NoVolverMostrar)
+                            if (revistaDigital.NoVolverMostrar)
                             {
-                                if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.NoPopUp
-                                    || userData.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Desactivo)
+                                if (revistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.NoPopUp
+                                    || revistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Desactivo)
                                 {
                                     item.Clase = "oculto";
                                 }
-                                if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.SinRegistroDB)
+                                if (revistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.SinRegistroDB)
                                 {
                                     item.Clase = "oculto";
                                 }
@@ -632,275 +632,7 @@ namespace Portal.Consultoras.Web.Controllers
                 data = lstFinalModel
             });
         }
-
-        //R2133
-        public JsonResult ObtenerBannerPaginaPrincipalBK()
-        {
-            /*
-             * 1: SeccionPrincipal
-             * 2: Seccion Intermedia 1
-             * 3: Seccion Intermedia 2
-             * 4: Seccion Intermedia 3
-             * 5: Seccion Intermedia 4
-             * 6: Seccion Baja 1
-             * 7: Seccion Baja 2
-             * 8: Seccion Baja 3
-             * 9: Seccion Baja 4
-             */
-            bool issuccess = true;
-            List<BEBannerInfo> lstBannerInfo = null;
-            List<BEBannerInfo> lstFinalInfo = new List<BEBannerInfo>();
-            try
-            {
-                int PaisId = userData.PaisID, CampaniaId = userData.CampaniaID;
-                string CodigoConsultora = userData.CodigoConsultora;
-                bool ConsultoraNueva = userData.ConsultoraNueva == 2 ? true : false;
-                //BEUsuario beusuario = new BEUsuario();
-                List<BETablaLogicaDatos> list_segmentos = new List<BETablaLogicaDatos>();
-                int segmento_nueva, segmento_top;
-
-                using (ContenidoServiceClient svc1 = new ContenidoServiceClient())
-                {
-                    lstBannerInfo = svc1.SelectBannerByConsultoraBienvenida(PaisId, CampaniaId, CodigoConsultora, ConsultoraNueva).ToList();
-                }
-
-                //using (UsuarioServiceClient sv = new UsuarioServiceClient())
-                //{
-                //    beusuario = sv.Select(userData.PaisID, userData.CodigoUsuario);
-                //}
-
-                using (SACServiceClient sv = new SACServiceClient())
-                {
-                    list_segmentos = sv.GetTablaLogicaDatos(userData.PaisID, 20).ToList();
-                    segmento_nueva = Convert.ToInt32((from item in list_segmentos where item.TablaLogicaDatosID == 2001 select item.Codigo).First());
-                    segmento_top = Convert.ToInt32((from item in list_segmentos where item.TablaLogicaDatosID == 2002 select item.Codigo).First());
-                }
-
-
-                //Estableciendo las reglas para el Banner 1
-                #region Reglas para Banner 1
-                if (userData.PasePedidoWeb == 0)
-                {
-                    lstBannerInfo = (from item in lstBannerInfo
-                                     where item.GrupoBannerID != 3 && item.GrupoBannerID != 4 && item.GrupoBannerID != 5 && item.GrupoBannerID != 11
-                                     select item).ToList();
-                }
-                else if (userData.TipoOferta2 == 0)
-                {
-                    lstBannerInfo = (from item in lstBannerInfo
-                                     where item.GrupoBannerID != 2 && item.GrupoBannerID != 4 && item.GrupoBannerID != 5 && item.GrupoBannerID != 11
-                                     select item).ToList();
-                }
-                else if (userData.EMail == "")
-                {
-                    lstBannerInfo = (from item in lstBannerInfo
-                                     where item.GrupoBannerID != 2 && item.GrupoBannerID != 3 && item.GrupoBannerID != 5 && item.GrupoBannerID != 11
-                                     select item).ToList();
-                }
-                // valida que envia catalogo
-                else if (!ValidarEnviarEmail())
-                {
-                    lstBannerInfo = (from item in lstBannerInfo
-                                     where item.GrupoBannerID != 2 && item.GrupoBannerID != 3 && item.GrupoBannerID != 4 && item.GrupoBannerID != 11
-                                     select item).ToList();
-                }
-                else
-                {
-                    lstBannerInfo = (from item in lstBannerInfo
-                                     where item.GrupoBannerID != 2 && item.GrupoBannerID != 3 && item.GrupoBannerID != 4 && item.GrupoBannerID != 5
-                                     select item).ToList();
-                }
-                #endregion
-                #region Reglas para Banner 2
-                if (userData.SegmentoID == segmento_nueva)
-                {
-                    lstBannerInfo = (from item in lstBannerInfo
-                                     where item.GrupoBannerID != 13
-                                     select item).ToList();
-                }
-                else
-                {
-                    lstBannerInfo = (from item in lstBannerInfo
-                                     where item.GrupoBannerID != 12
-                                     select item).ToList();
-                }
-                #endregion
-                #region Reglas para Banner 3
-                if (userData.SegmentoID != segmento_nueva)
-                {
-                    if (userData.IndicadorDupla == 0)
-                    {
-                        lstBannerInfo = (from item in lstBannerInfo
-                                         where item.GrupoBannerID != 15 && item.GrupoBannerID != 16 && item.GrupoBannerID != 17 && item.GrupoBannerID != 18 && item.GrupoBannerID != 19 && item.GrupoBannerID != 20 && item.GrupoBannerID != 21
-                                         select item).ToList();
-                    }
-                    else if (userData.CompraKitDupla == 0)
-                    {
-                        lstBannerInfo = (from item in lstBannerInfo
-                                         where item.GrupoBannerID != 14 && item.GrupoBannerID != 15 && item.GrupoBannerID != 17 && item.GrupoBannerID != 18 && item.GrupoBannerID != 19 && item.GrupoBannerID != 20 && item.GrupoBannerID != 21
-                                         select item).ToList();
-                    }
-                    else if (userData.CompraOfertaDupla == 0)
-                    {
-                        lstBannerInfo = (from item in lstBannerInfo
-                                         where item.GrupoBannerID != 14 && item.GrupoBannerID != 15 && item.GrupoBannerID != 16 && item.GrupoBannerID != 18 && item.GrupoBannerID != 19 && item.GrupoBannerID != 20 && item.GrupoBannerID != 21
-                                         select item).ToList();
-                    }
-                    else
-                    {
-                        lstBannerInfo = (from item in lstBannerInfo
-                                         where item.GrupoBannerID != 14 && item.GrupoBannerID != 15 && item.GrupoBannerID != 16 && item.GrupoBannerID != 17 && item.GrupoBannerID != 19 && item.GrupoBannerID != 20 && item.GrupoBannerID != 21
-                                         select item).ToList();
-                    }
-                }
-                else
-                {
-                    if (userData.CompraOfertaEspecial == 0)
-                    {
-                        lstBannerInfo = (from item in lstBannerInfo
-                                         where item.GrupoBannerID != 14 && item.GrupoBannerID != 15 && item.GrupoBannerID != 16 && item.GrupoBannerID != 17 && item.GrupoBannerID != 18 && item.GrupoBannerID != 20 && item.GrupoBannerID != 21
-                                         select item).ToList();
-                    }
-                    else if (userData.IndicadorMeta == 0)
-                    {
-                        lstBannerInfo = (from item in lstBannerInfo
-                                         where item.GrupoBannerID != 14 && item.GrupoBannerID != 15 && item.GrupoBannerID != 16 && item.GrupoBannerID != 17 && item.GrupoBannerID != 18 && item.GrupoBannerID != 19 && item.GrupoBannerID != 21
-                                         select item).ToList();
-                    }
-                    else
-                    {
-                        lstBannerInfo = (from item in lstBannerInfo
-                                         where item.GrupoBannerID != 14 && item.GrupoBannerID != 15 && item.GrupoBannerID != 16 && item.GrupoBannerID != 17 && item.GrupoBannerID != 18 && item.GrupoBannerID != 19 && item.GrupoBannerID != 20
-                                         select item).ToList();
-                    }
-
-                }
-                #endregion
-                #region Reglas para Banner 4
-                if (userData.EsJoven == 1 && userData.SegmentoID != segmento_top)//1530
-                {
-                    //lstBannerInfo = (from item in lstBannerInfo
-                    //                 where item.GrupoBannerID != 23
-                    //                 select item).ToList();
-                    lstBannerInfo = (from item in lstBannerInfo
-                                     where item.GrupoBannerID != 22 && item.GrupoBannerID != 23
-                                     select item).ToList();
-                }
-                if (userData.EsJoven == 1 && userData.SegmentoID == segmento_top)//1530
-                {
-                    //lstBannerInfo = (from item in lstBannerInfo
-                    //                 where item.GrupoBannerID != 22
-                    //                 select item).ToList();
-                    lstBannerInfo = (from item in lstBannerInfo
-                                     where item.GrupoBannerID != 22 && item.GrupoBannerID != 23
-                                     select item).ToList();
-                }
-
-                if (userData.EsJoven != 1 && userData.SegmentoID != segmento_top)//1530
-                {
-
-                    lstBannerInfo = (from item in lstBannerInfo
-                                     where item.GrupoBannerID != 23 && item.GrupoBannerID != 26
-                                     select item).ToList();
-                }
-
-                if (userData.EsJoven != 1 && userData.SegmentoID == segmento_top)//1530
-                {
-
-                    lstBannerInfo = (from item in lstBannerInfo
-                                     where item.GrupoBannerID != 22 && item.GrupoBannerID != 26
-                                     select item).ToList();
-                }
-                #endregion
-
-                //actualiza los ID de los banners para que se puedan mostrar en la pagina de bienvenida
-                foreach (BEBannerInfo item in lstBannerInfo)
-                {
-                    if (item.GrupoBannerID == 2 || item.GrupoBannerID == 3 || item.GrupoBannerID == 4 || item.GrupoBannerID == 5 || item.GrupoBannerID == 11)
-                        item.GrupoBannerID = 2;
-                    if (item.GrupoBannerID == 12 || item.GrupoBannerID == 13)
-                        item.GrupoBannerID = 3;
-                    if (item.GrupoBannerID == 14 || item.GrupoBannerID == 15 || item.GrupoBannerID == 16 || item.GrupoBannerID == 17 || item.GrupoBannerID == 18 || item.GrupoBannerID == 19 || item.GrupoBannerID == 20 || item.GrupoBannerID == 21)
-                        item.GrupoBannerID = 4;
-                    if (item.GrupoBannerID == 22 || item.GrupoBannerID == 23 || item.GrupoBannerID == 26)
-                        item.GrupoBannerID = 5;
-                }
-                //Incluye los parametros a todos los banners
-                //string nroDocumento;
-                //using (UsuarioServiceClient sv = new UsuarioServiceClient())
-                //{
-                //    nroDocumento = sv.GetNroDocumentoConsultora(userData.PaisID, userData.CodigoConsultora);
-                //}
-
-                //string[] parametros = new string[] { userData.CodigoISO, userData.CodigoConsultora, "", nroDocumento, userData.NombreConsultora, "", userData.EMail, userData.Celular, userData.Telefono, userData.CodigoZona};
-
-                //foreach (BEBannerInfo item in lstBannerInfo)
-                //{
-                //    if (item.GrupoBannerID == 2 || item.GrupoBannerID == 3 || item.GrupoBannerID == 4 || item.GrupoBannerID == 5)
-                //    {
-                //        if (item.TipoContenido == 0)
-                //        {
-                //            if (item.URL != "" && item.URL != null)
-                //            {
-                //                item.URL = item.URL + DevolverCadenaParametros();
-                //            }
-                //        }
-                //    }
-                //    else
-                //    {
-                //        if (item.URL != "" && item.URL != null)
-                //        {
-                //            item.URL = item.URL + DevolverCadenaParametros();
-                //        }
-                //    }
-                //}
-
-                #region Mejoras
-                //Ordenamiento
-                if (lstBannerInfo.Count > 0)
-                {
-                    // Ordena y agrega los banner Principales
-                    lstFinalInfo.AddRange(lstBannerInfo.Where(x => x.GrupoBannerID == 1).OrderBy(x => x.Orden));
-                    // Agrega los banner Intermedios
-                    lstFinalInfo.AddRange(lstBannerInfo.Where(x => x.GrupoBannerID != 1 && x.GrupoBannerID != 6 &&
-                         x.GrupoBannerID != 7 && x.GrupoBannerID != 8 && x.GrupoBannerID != 9 && x.GrupoBannerID != 24 && x.GrupoBannerID != 25));
-                    // Ordena y agrega los banner Bajos
-                    lstBannerInfo = lstBannerInfo.Where(x => x.GrupoBannerID == 6 || x.GrupoBannerID == 7 ||
-                                            x.GrupoBannerID == 8 || x.GrupoBannerID == 9 || x.GrupoBannerID == 24 || x.GrupoBannerID == 25).OrderBy(x => x.Orden).ToList();
-                    lstBannerInfo.Where((x, i) => i == 0).Update(x => x.GrupoBannerID = 6);
-                    lstBannerInfo.Where((x, i) => i == 1).Update(x => x.GrupoBannerID = 8);
-                    lstBannerInfo.Where((x, i) => i == 2).Update(x => x.GrupoBannerID = 7);
-                    lstBannerInfo.Where((x, i) => i == 3).Update(x => x.GrupoBannerID = 9);
-
-                    lstFinalInfo.AddRange(lstBannerInfo);
-                }
-                #endregion
-
-                issuccess = true;
-            }
-            catch (FaultException ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
-                issuccess = false;
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                issuccess = false;
-            }
-
-            // 1664
-            var carpetaPais = Globals.UrlBanner;
-            if (lstFinalInfo != null)
-                if (lstFinalInfo.Count > 0) lstFinalInfo.Update(x => x.Archivo = ConfigS3.GetUrlFileS3(carpetaPais, x.Archivo, Globals.RutaImagenesBanners));
-
-            return Json(new
-            {
-                success = issuccess,
-                data = lstFinalInfo
-            });
-        }
-
+        
         [HttpPost]
         public ActionResult ImageMatrizUpload(string qqfile)
         {
@@ -1156,11 +888,10 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 string CodigoConsultora = userData.CodigoConsultora;
-                bool ConsultoraNueva = userData.ConsultoraNueva == 2 ? true : false;
 
                 using (ContenidoServiceClient svc1 = new ContenidoServiceClient())
                 {
-                    lstBannerInfo = svc1.SelectBannerByConsultora(vPaisID, vCampaniaID, CodigoConsultora, ConsultoraNueva).ToList();
+                    lstBannerInfo = svc1.SelectBannerByConsultora(vPaisID, vCampaniaID, CodigoConsultora, userData.ConsultoraNueva == 2).ToList();
                 }
 
                 if (vTipoBanner == "P")

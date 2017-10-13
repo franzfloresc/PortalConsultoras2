@@ -688,10 +688,10 @@ namespace Portal.Consultoras.Web.Controllers
                     // OGA: se calcula el fin de campañia sumando el nº de dias que dura el cronograma
                     switch (oBEUsuario.RolID)
                     {
-                        case Portal.Consultoras.Common.Constantes.Rol.Administrador:
+                        case Constantes.Rol.Administrador:
                             model.FechaFinCampania = oBEUsuario.FechaFinFacturacion;
                             break;
-                        case Portal.Consultoras.Common.Constantes.Rol.Consultora:
+                        case Constantes.Rol.Consultora:
                             model.FechaFinCampania = oBEUsuario.FechaFinFacturacion;
                             break;
 
@@ -938,7 +938,11 @@ namespace Portal.Consultoras.Web.Controllers
 
                         try
                         {
-                            model.RevistaDigital.NoVolverMostrar = true;
+                            RevistaDigitalModel revistaDigitalModel = new RevistaDigitalModel();
+                            List<ConfiguracionPaisModel>  configuracionPaisModels;
+                            OfertaFinalModel ofertaFinalModel = new OfertaFinalModel();
+
+                            revistaDigitalModel.NoVolverMostrar = true;
                             if (model.TipoUsuario == Constantes.TipoUsuario.Postulante) throw new Exception("No se asigna configuracion pais para los Postulantes.");
 
                             var config = new ServiceUsuario.BEConfiguracionPais
@@ -958,59 +962,53 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 //verificar si se tiene registrado RD o RDS en la tabla ConfiguracionPais
                                 var listaConfigPais = sv.GetConfiguracionPais(config);
-                                model.ConfiguracionPais = Mapper.Map<IList<ServiceUsuario.BEConfiguracionPais>, List<ConfiguracionPaisModel>>(listaConfigPais);
+                                configuracionPaisModels = Mapper.Map<IList<ServiceUsuario.BEConfiguracionPais>, List<ConfiguracionPaisModel>>(listaConfigPais);
                             }
 
-                            if (model.ConfiguracionPais.Any())
+                            if (configuracionPaisModels.Any())
                             {
-                                model.RevistaDigital.EstadoSuscripcion = 0;
+                                revistaDigitalModel.EstadoSuscripcion = 0;
+                                var rds = new BERevistaDigitalSuscripcion { PaisID = model.PaisID, CodigoConsultora = model.CodigoConsultora };
 
-                                foreach (var c in model.ConfiguracionPais)
+                                foreach (var c in configuracionPaisModels)
                                 {
                                     switch (c.Codigo)
                                     {
                                         case Constantes.ConfiguracionPais.RevistaDigital:
-                                            model.RevistaDigital.TieneRDC = true;
+                                            revistaDigitalModel.TieneRDC = true;
                                             using (PedidoServiceClient sv1 = new PedidoServiceClient())
                                             {
-                                                var rds = new BERevistaDigitalSuscripcion { PaisID = model.PaisID, CodigoConsultora = model.CodigoConsultora };
-                                                model.RevistaDigital.SuscripcionModel = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
+                                                revistaDigitalModel.SuscripcionModel = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
                                                 rds.CampaniaID = AddCampaniaAndNumero(model.CampaniaID, -1, model.NroCampanias);
-                                                model.RevistaDigital.SuscripcionAnterior1Model = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
+                                                revistaDigitalModel.SuscripcionAnterior1Model = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
                                                 rds.CampaniaID = AddCampaniaAndNumero(model.CampaniaID, -2, model.NroCampanias);
-                                                model.RevistaDigital.SuscripcionAnterior2Model = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
+                                                revistaDigitalModel.SuscripcionAnterior2Model = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
                                             }
                                             break;
                                         case Constantes.ConfiguracionPais.RevistaDigitalSuscripcion:
-                                            // model.FechaFinCampania; fecha de fin de  la campaña
-                                            // model.ConsultoraNueva; referencia de la columna idestadoactividad 
-                                            // Validacion de la fecha de cierre de campaña y  del idestadoactividad
-                                            // metodo GetDiasFaltantesFacturacion => model.FechaActualPais.Date >= model.FechaInicioCampania.Date
-                                            //&& model.ConsultoraNueva == Constantes.EstadoActividadConsultora.Constante_Normal
-                                            if (DateTime.Now.AddHours(model.ZonaHoraria).Date >= model.FechaInicioCampania.Date.AddDays(model.RevistaDigital.DiasAntesFacturaHoy))
+                                            if (DateTime.Now.AddHours(model.ZonaHoraria).Date >= model.FechaInicioCampania.Date.AddDays(revistaDigitalModel.DiasAntesFacturaHoy))
                                                 break;
 
-                                            model.RevistaDigital.TieneRDS = true;
+                                            revistaDigitalModel.TieneRDS = true;
                                             using (PedidoServiceClient sv1 = new PedidoServiceClient())
                                             {
-                                                var rds = new BERevistaDigitalSuscripcion { PaisID = model.PaisID, CodigoConsultora = model.CodigoConsultora };
-                                                model.RevistaDigital.SuscripcionModel = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
+                                                revistaDigitalModel.SuscripcionModel = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
                                             }
 
-                                            switch (model.RevistaDigital.SuscripcionModel.EstadoRegistro)
+                                            switch (revistaDigitalModel.SuscripcionModel.EstadoRegistro)
                                             {
-                                                case Constantes.EstadoRDSuscripcion.Activo: model.RevistaDigital.NoVolverMostrar = true; break;
-                                                case Constantes.EstadoRDSuscripcion.Desactivo: model.RevistaDigital.NoVolverMostrar = false; break;
+                                                case Constantes.EstadoRDSuscripcion.Activo: revistaDigitalModel.NoVolverMostrar = true; break;
+                                                case Constantes.EstadoRDSuscripcion.Desactivo: revistaDigitalModel.NoVolverMostrar = false; break;
                                                 case Constantes.EstadoRDSuscripcion.NoPopUp:
-                                                    model.RevistaDigital.NoVolverMostrar = model.RevistaDigital.SuscripcionModel.CampaniaID == model.CampaniaID;
+                                                    revistaDigitalModel.NoVolverMostrar = revistaDigitalModel.SuscripcionModel.CampaniaID == model.CampaniaID;
                                                     break;
                                                 default:
-                                                    model.RevistaDigital.NoVolverMostrar = model.RevistaDigital.SuscripcionModel.RevistaDigitalSuscripcionID > 0;
+                                                    revistaDigitalModel.NoVolverMostrar = revistaDigitalModel.SuscripcionModel.RevistaDigitalSuscripcionID > 0;
                                                     break;
                                             }
                                             break;
                                         case Constantes.ConfiguracionPais.RevistaDigitalReducida:
-                                            model.RevistaDigital.TieneRDR = true;
+                                            revistaDigitalModel.TieneRDR = true;
                                             break;
                                         case Constantes.ConfiguracionPais.ValidacionMontoMaximo:
                                             model.TieneValidacionMontoMaximo = c.Estado;
@@ -1018,8 +1016,8 @@ namespace Portal.Consultoras.Web.Controllers
                                         case Constantes.ConfiguracionPais.OfertaFinalTradicional:
                                         case Constantes.ConfiguracionPais.OfertaFinalCrossSelling:
                                         case Constantes.ConfiguracionPais.OfertaFinalRegaloSorpresa:
-                                            model.OfertaFinalModel.Algoritmo = c.Codigo;
-                                            model.OfertaFinalModel.Estado = c.Estado;
+                                            ofertaFinalModel.Algoritmo = c.Codigo;
+                                            ofertaFinalModel.Estado = c.Estado;
                                             if (c.Estado)
                                             {
                                                 model.OfertaFinal = 1;
@@ -1033,13 +1031,23 @@ namespace Portal.Consultoras.Web.Controllers
                                         if (c.Estado) model.OfertaFinalGanaMas = 1;
                                     }
                                 }
+                                revistaDigitalModel.Campania = model.CampaniaID % 100;
+                                revistaDigitalModel.CampaniaMasUno = AddCampaniaAndNumero(Convert.ToInt32(model.CampaniaID), 1, model.NroCampanias) % 100;
+                                revistaDigitalModel.CampaniaMasDos = AddCampaniaAndNumero(Convert.ToInt32(model.CampaniaID), 2, model.NroCampanias) % 100;
+
+                                Session[Constantes.ConstSession.RevistaDigital] = revistaDigitalModel;
+                                Session[Constantes.ConstSession.ConfiguracionPaises] = configuracionPaisModels;
+                                Session[Constantes.ConstSession.OfertaFinal] = ofertaFinalModel;
                             }
+                            
                         }
                         catch (Exception ex)
                         {
                             LogManager.LogManager.LogErrorWebServicesBus(ex, model.CodigoConsultora, model.PaisID.ToString());
                             pasoLog = "Ocurrió un error al cargar ConfiguracionPais";
-                            model.ConfiguracionPais = new List<ConfiguracionPaisModel>();
+                            Session[Constantes.ConstSession.RevistaDigital] = new RevistaDigitalModel();
+                            Session[Constantes.ConstSession.ConfiguracionPaises] = new List<ConfiguracionPaisModel>();
+                            Session[Constantes.ConstSession.OfertaFinal] = new OfertaFinalModel();
                         }
 
 
@@ -1048,32 +1056,35 @@ namespace Portal.Consultoras.Web.Controllers
                         #region EventoFestivo
                         try
                         {
-                            model.ListaEventoFestivo = ObtenerEventoFestivo(model.PaisID, Constantes.EventoFestivoAlcance.SOMOS_BELCORP, model.CampaniaID);
+                            EventoFestivoDataModel eventoFestivoDataModel = new EventoFestivoDataModel();
+                            eventoFestivoDataModel.ListaEventoFestivo = ObtenerEventoFestivo(model.PaisID, Constantes.EventoFestivoAlcance.SOMOS_BELCORP, model.CampaniaID);
 
-                            if (model.ListaEventoFestivo.Any())
+                            if (eventoFestivoDataModel.ListaEventoFestivo.Any())
                             {
-                                foreach (var item in model.ListaEventoFestivo)
+                                foreach (var item in eventoFestivoDataModel.ListaEventoFestivo)
                                 {
                                     switch (item.Nombre)
                                     {
                                         case Constantes.EventoFestivoNombre.SALUDO:
-                                            model.EfSaludo = Convert.ToString(item.Personalizacion);
+                                            eventoFestivoDataModel.EfSaludo = Convert.ToString(item.Personalizacion);
                                             break;
 
                                         case Constantes.EventoFestivoNombre.FONDO_INGPED:
-                                            model.EfRutaPedido = Convert.ToString(item.Personalizacion);
+                                            eventoFestivoDataModel.EfRutaPedido = Convert.ToString(item.Personalizacion);
                                             break;
                                     }
                                 }
                             }
 
-                            model.ListaGifMenuContenedorOfertas = ObtenerEventoFestivo(model.PaisID, Constantes.EventoFestivoAlcance.MENU_SOMOS_BELCORP, model.CampaniaID);
+                            eventoFestivoDataModel.ListaGifMenuContenedorOfertas = ObtenerEventoFestivo(model.PaisID, Constantes.EventoFestivoAlcance.MENU_SOMOS_BELCORP, model.CampaniaID);
+
+                            Session[Constantes.ConstSession.EventoFestivo] = eventoFestivoDataModel;
                         }
                         catch (Exception ex)
                         {
                             LogManager.LogManager.LogErrorWebServicesBus(ex, model.CodigoConsultora, model.PaisID.ToString());
                             pasoLog = "Ocurrió un error al cargar Eventofestivo";
-                            model.ListaEventoFestivo = new List<EventoFestivoModel>();
+                            Session[Constantes.ConstSession.EventoFestivo] = new EventoFestivoDataModel();
                         }
                         #endregion
 
@@ -1132,9 +1143,9 @@ namespace Portal.Consultoras.Web.Controllers
                         model.EsLebel = true;
                     }
 
-                    Session["TieneLan"] = true;
-                    Session["TieneLanX1"] = true;
-                    Session["TieneOpt"] = true;
+                    Session[Constantes.ConstSession.TieneLan] = true;
+                    Session[Constantes.ConstSession.TieneLanX1] = true;
+                    Session[Constantes.ConstSession.TieneOpt] = true;
                 }
 
                 Session["UserData"] = model;
@@ -1652,18 +1663,6 @@ namespace Portal.Consultoras.Web.Controllers
         [AllowAnonymous]
         public ActionResult IngresoExterno(string token)
         {
-            //if (!RouteData.Values.ContainsKey("guid"))
-            //{
-            //    return RedirectToRoute("UniqueRoute",
-            //         new RouteValueDictionary(new
-            //         {
-            //             Controller = "Login",
-            //             Action = "IngresoExterno",
-            //             guid = Guid.NewGuid().ToString(),
-            //             token = token
-            //         }));
-            //}
-
             IngresoExternoModel model = null;
             try
             {
@@ -1812,48 +1811,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return (anioCampaniaResult * 100) + nroCampaniaResult;
         }
-
-        private bool VerificarLan(UsuarioModel model)
-        {
-            List<BEEstrategia> listEstrategiasOPM = ConsultarEstrategias(model, "", 0, "101");
-            return listEstrategiasOPM.Any(c => c.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento);
-        }
-        private bool VerificarOPT(UsuarioModel model)
-        {
-            List<BEEstrategia> listEstrategiasOPT = ConsultarEstrategias(model, "", 0, "");
-            return listEstrategiasOPT.Any(c => c.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertaParaTi);
-        }
-        private List<BEEstrategia> ConsultarEstrategias(UsuarioModel model, string cuv = "", int campaniaId = 0, string codAgrupacion = "")
-        {
-            //var usuario = ObtenerUsuarioConfiguracion();            
-            var entidad = new BEEstrategia
-            {
-                PaisID = model.PaisID,
-                CampaniaID = campaniaId > 0 ? campaniaId : model.CampaniaID,
-                ConsultoraID = (model.UsuarioPrueba == 1 ? model.ConsultoraAsociadaID : model.ConsultoraID).ToString(),
-                CUV2 = Util.Trim(cuv),
-                Zona = model.ZonaID.ToString(),
-                ZonaHoraria = model.ZonaHoraria,
-                FechaInicioFacturacion = model.FechaFinCampania,
-                ValidarPeriodoFacturacion = true,
-                Simbolo = model.Simbolo,
-                CodigoAgrupacion = Util.Trim(codAgrupacion)
-            };
-
-
-            var listEstrategia = new List<BEEstrategia>();
-
-            using (PedidoServiceClient sv = new PedidoServiceClient())
-            {
-                listEstrategia = sv.GetEstrategiasPedido(entidad).ToList();
-            }
-
-            if (campaniaId > 0 || codAgrupacion == Constantes.TipoEstrategiaCodigo.RevistaDigital)
-            {
-                return listEstrategia;
-            }
-
-            return listEstrategia;
-        }
+        
     }
 }

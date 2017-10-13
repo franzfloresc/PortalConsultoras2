@@ -259,6 +259,7 @@ namespace Portal.Consultoras.Common
         {
             public const string OfertaParaTi = "001";
             public const string PackNuevas = "002"; // Oferta Nueva Esika
+            public const string OfertaWeb = "003";
             public const string Lanzamiento = "005";
             public const string OfertasParaMi = "007";
             public const string PackAltoDesembolso = "008";
@@ -319,8 +320,19 @@ namespace Portal.Consultoras.Common
             public const string MenuContenedor = "MenuContenedor";
 
             public const string ListaEstrategia = "ListadoEstrategiaPedido";
+
             public const string ProductoTemporal = "ProductoTemporal";
             public const string MenuContenedorActivo = "MenuContenedorActivo";
+
+            public const string RevistaDigital = "RevistaDigital";
+            public const string ConfiguracionPaises = "ConfiguracionPaises";
+
+            public const string EventoFestivo = "EventoFestivo";
+
+            public const string OfertaFinal = "OfertaFinal";
+            public const string TieneLan = "TieneLan";
+            public const string TieneLanX1 = "TieneLanX1";
+            public const string TieneOpt = "TieneOpt";
         }
 
         public class TipoOfertaFinalCatalogoPersonalizado
