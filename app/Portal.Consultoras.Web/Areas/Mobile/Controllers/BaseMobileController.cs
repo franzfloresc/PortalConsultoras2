@@ -12,7 +12,7 @@ using Portal.Consultoras.Web.Infraestructure;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
-    //[UniqueSession("UniqueRoute", UniqueRoute.IdentifierKey, "/g/")]
+    [UniqueSession("UniqueRoute", UniqueRoute.IdentifierKey, "/g/")]
     public class BaseMobileController : BaseController
     {
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
