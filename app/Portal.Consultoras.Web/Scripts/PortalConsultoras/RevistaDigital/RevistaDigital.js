@@ -345,7 +345,7 @@ function OfertaArmarEstrategiasContenedorSeccion(response) {
     if (cant > 0) {
         var newLista = [];
         var listaItem = response.Seccion.Codigo == "LAN" ? response.listaLan : response.lista;
-
+        listaItem = response.Seccion.Codigo != "LAN" ? listaItem.concat(response.listaPerdio || []) : listaItem;
         $.each(listaItem, function (ind, item) {
             if (("," + response.Seccion.TipoEstrategia + ",").indexOf("," + item.CodigoEstrategia + ",") >= 0) {
                 if (newLista.length < cant) {
