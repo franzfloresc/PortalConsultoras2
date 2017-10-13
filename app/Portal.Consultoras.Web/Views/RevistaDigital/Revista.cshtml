@@ -1,1 +1,86 @@
-﻿Hola soy la revista impresa, pero no te confundas yo no paso por la impresora, soy digital :)
+﻿<style>
+    .visual-portada {
+        width: 100%;
+        background-size: cover !important;
+        background-position: top center !important;
+        background-repeat: no-repeat !important;
+        position: relative;
+    }
+
+        .visual-portada img.portada-img {
+            width: 100%;
+            height: auto;
+        }
+
+        .visual-portada > .btn-ver {
+            background: black;
+            color: white;
+            text-align: center;
+            padding: 10px 0px 10px 0px;
+            text-transform: uppercase;
+            font-size: 10px;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
+
+            .visual-portada > .btn-ver a.abrir-item-revista {
+                color: white;
+                display: block;
+                padding-top: 0 !important;
+                width: 100%;
+            }
+
+
+
+            .visual-portada > .btn-ver img.flecha-bajar {
+                width: 10px !important;
+                margin-left: 10px;
+                position: relative;
+                top: 0px;
+            }
+
+            .visual-portada > .btn-ver .contenedor-portada {
+                background: #232323;
+                padding: 10px;
+                margin-top: 10px;
+                display: none;
+                padding: 10px 0px 0px 0px;
+                letter-spacing: 1px;
+            }
+
+                .visual-portada > .btn-ver .contenedor-portada img.revista {
+                    width: 28%;
+                    height: auto;
+                    display: inline-block;
+                    text-align: center;
+                    margin-left: 2%;
+                    margin-right: 2%;
+                    margin-bottom: 1%;
+                }
+
+    .open {
+        display: block !important;
+    }
+
+    .open-sinmargin {
+        padding: 10px 0px 0px 0px !important;
+    }
+</style>
+
+<div class="visual-portada" style="background:url()">
+    <img class="portada-img" src="https://image.isu.pub/170321005726-493f6caa5b7a6aafafa9e41cd63df725/jpg/page_1.jpg" alt="Alternate Text" />
+    <div class="btn-ver">
+        <a class="abrir-item-revista">
+            Ver Más<img src="http://www.freeiconspng.com/uploads/white-down-arrow-png-2.png" alt="" class="flecha-bajar">
+        </a>
+        <div id="carrusel-revista" class="contenedor-portada">
+            <img src="https://i.pinimg.com/236x/b2/51/57/b25157cbebc9ed4e2364e74c7835ae69--peru-lima.jpg" alt="" class="revista">
+            <img src="https://i.pinimg.com/236x/b2/51/57/b25157cbebc9ed4e2364e74c7835ae69--peru-lima.jpg" alt="" class="revista">
+            <img src="https://i.pinimg.com/236x/b2/51/57/b25157cbebc9ed4e2364e74c7835ae69--peru-lima.jpg" alt="" class="revista">
+        </div>
+    </div>
+
+</div>

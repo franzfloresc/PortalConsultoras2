@@ -104,6 +104,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
             return PartialView("template-mensaje-bloqueado", new MensajeProductoBloqueadoModel());
         }
-
+        
     }
 }
