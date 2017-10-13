@@ -1663,6 +1663,18 @@ namespace Portal.Consultoras.Web.Controllers
         [AllowAnonymous]
         public ActionResult IngresoExterno(string token)
         {
+            if (!RouteData.Values.ContainsKey("guid"))
+            {
+                return RedirectToRoute("UniqueRoute",
+                     new RouteValueDictionary(new
+                     {
+                         Controller = "Login",
+                         Action = "IngresoExterno",
+                         guid = Guid.NewGuid().ToString(),
+                         token = token
+                     }));
+            }
+
             IngresoExternoModel model = null;
             try
             {
@@ -1697,34 +1709,97 @@ namespace Portal.Consultoras.Web.Controllers
                 switch (model.Pagina.ToUpper())
                 {
                     case Constantes.IngresoExternoPagina.EstadoCuenta:
-                        return RedirectToAction("Index", "EstadoCuenta", new { Area = "Mobile" });
+                        return RedirectToRoute("UniqueRoute",
+                            new RouteValueDictionary(new
+                            {
+                                Controller = "EstadoCuenta",
+                                Action = "Index",
+                                guid = this.GetUniqueKey()
+                            }));
                     case Constantes.IngresoExternoPagina.SeguimientoPedido:
-                        return RedirectToAction("Index", "SeguimientoPedido", new { Area = "Mobile", campania = model.Campania, numeroPedido = model.NumeroPedido });
+                        return RedirectToRoute("UniqueRoute",
+                            new RouteValueDictionary(new
+                            {
+                                Controller = "SeguimientoPedido",
+                                Action = "Index",
+                                guid = this.GetUniqueKey(),
+                                campania = model.Campania,
+                                numeroPedido = model.NumeroPedido
+                            }));
                     case Constantes.IngresoExternoPagina.PedidoDetalle:
                         var listTrue = new List<string> { "1", bool.TrueString };
                         bool autoReservar = listTrue.Any(s => s.Equals(model.AutoReservar, StringComparison.OrdinalIgnoreCase));
-                        return RedirectToAction("Detalle", "Pedido", new { Area = "Mobile", autoReservar = autoReservar });
-                    case Constantes.IngresoExternoPagina.NotificacionesValidacionAuto:
-                        return RedirectToAction("ListarObservaciones", "Notificaciones", new { Area = "Mobile", ProcesoId = model.ProcesoId, TipoOrigen = 1 });
-                    case Constantes.IngresoExternoPagina.Pedido:
-                        return RedirectToAction("Index", "Pedido", new { Area = "Mobile" });
-                    case Constantes.IngresoExternoPagina.CompartirCatalogo:
-                        return RedirectToAction("CompartirEnChatBot", "Compartir",
-                            new
+                        return RedirectToRoute("UniqueRoute",
+                            new RouteValueDictionary(new
                             {
-                                Area = "Mobile",
+                                Controller = "Pedido",
+                                Action = "Detalle",
+                                guid = this.GetUniqueKey(),
+                                autoReservar = autoReservar
+                            }));
+                    case Constantes.IngresoExternoPagina.NotificacionesValidacionAuto:
+                        return RedirectToRoute("UniqueRoute",
+                            new RouteValueDictionary(new
+                            {
+                                Controller = "Notificaciones",
+                                Action = "ListarObservaciones",
+                                guid = this.GetUniqueKey(),
+                                ProcesoId = model.ProcesoId,
+                                TipoOrigen = 1
+                            }));
+                    case Constantes.IngresoExternoPagina.Pedido:
+                        return RedirectToRoute("UniqueRoute",
+                            new RouteValueDictionary(new
+                            {
+                                Controller = "Pedido",
+                                Action = "Index",
+                                guid = this.GetUniqueKey(),
+                                ProcesoId = model.ProcesoId,
+                                TipoOrigen = 1
+                            }));
+                    case Constantes.IngresoExternoPagina.CompartirCatalogo:
+                        return RedirectToRoute("UniqueRoute",
+                            new RouteValueDictionary(new
+                            {
+                                Controller = "Compartir",
+                                Action = "CompartirEnChatBot",
+                                guid = this.GetUniqueKey(),
                                 campania = model.Campania,
                                 tipoCatalogo = model.TipoCatalogo,
                                 url = model.UrlCatalogo
-                            });
+                            }));
                     case Constantes.IngresoExternoPagina.MisPedidos:
-                        return RedirectToAction("Index", "MisPedidos", new { Area = "Mobile" });
+                        return RedirectToRoute("UniqueRoute",
+                            new RouteValueDictionary(new
+                            {
+                                Controller = "MisPedidos",
+                                Action = "Index",
+                                guid = this.GetUniqueKey()
+                            }));
                     case Constantes.IngresoExternoPagina.ShowRoom:
-                        return RedirectToAction("Procesar", "ShowRoom", new { Area = "Mobile" });
+                        return RedirectToRoute("UniqueRoute",
+                            new RouteValueDictionary(new
+                            {
+                                Controller = "ShowRoom",
+                                Action = "Procesar",
+                                guid = this.GetUniqueKey()
+                            }));
                     case Constantes.IngresoExternoPagina.ProductosAgotados:
-                        return RedirectToAction("Index", "ProductosAgotados", new { Area = "Mobile" });
+                        return RedirectToRoute("UniqueRoute",
+                            new RouteValueDictionary(new
+                            {
+                                Controller = "ProductosAgotados",
+                                Action = "Index",
+                                guid = this.GetUniqueKey()
+                            }));
                     case Constantes.IngresoExternoPagina.Ofertas:
-                        return RedirectToAction("Index", "Ofertas", new { Area = "Mobile" });
+                        return RedirectToRoute("UniqueRoute",
+                            new RouteValueDictionary(new
+                            {
+                                Controller = "Ofertas",
+                                Action = "Index",
+                                guid = this.GetUniqueKey()
+                            }));
                 }
             }
             catch (Exception ex)

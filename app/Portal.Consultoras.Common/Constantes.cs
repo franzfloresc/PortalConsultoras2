@@ -712,7 +712,7 @@ namespace Portal.Consultoras.Common
                 public const string ColorFondoTituloOfertaSubCampania = "ColorFondoTituloOfertaSubCampania";
                 public const string ImagenBannerContenedorOfertasIntriga = "ImagenBannerContenedorOfertasIntriga";
                 public const string ImagenBannerContenedorOfertasVenta = "ImagenBannerContenedorOfertasVenta";
-                
+
             }
 
             public class TipoAplicacion
@@ -760,7 +760,7 @@ namespace Portal.Consultoras.Common
         }
 
         public class MenuCodigo
-        {            
+        {
             public const string MiNegocio = "MiNegocio";
             public const string RevistaDigitalSuscripcion = "RevistaDigitalSuscripcion";
             public const string CatalogoPersonalizado = "FDTC";
@@ -935,7 +935,8 @@ namespace Portal.Consultoras.Common
             public const string FichaProductoTemporal = "FichaProductoTemporal";
         }
 
-        public class SeccionBienvenida {
+        public class SeccionBienvenida
+        {
             public const string Home = "Home";
             public const string Belcorp = "Belcorp";
             public const string MisOfertas = "MisOfertas";
@@ -1085,6 +1086,7 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_NOTAINVALIDA = "15";
                 public const string ERROR_MOVIMIENTOINVALIDO = "16";
                 public const string ERROR_NOTACANTIDADMAXIMA = "17";
+                public const string ERROR_RECORDATORIOINVALIDA = "18";
             }
 
             public static Dictionary<string, string> Message
@@ -1109,7 +1111,8 @@ namespace Portal.Consultoras.Common
                         {Code.ERROR_CLIENTEASOCIADOPEDIDO, "No es posible eliminar al cliente dado que se encuentra asociado a un pedido."},
                         {Code.ERROR_TIPOCONTACTOREPETIDO, "El contacto se encuentra repetido para el cliente."},
                         {Code.ERROR_NOTAINVALIDA, "Nota invalida, no se pudo procesar"},
-                        {Code.ERROR_MOVIMIENTOINVALIDO, "Movimiento invalido, no se pudo procesar"}
+                        {Code.ERROR_MOVIMIENTOINVALIDO, "Movimiento invalido, no se pudo procesar"},
+                        {Code.ERROR_RECORDATORIOINVALIDA, "Recordatorio invalido, no se pudo procesar"}
                     });
                 }
             }
