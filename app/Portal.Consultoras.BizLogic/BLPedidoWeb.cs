@@ -1827,7 +1827,7 @@ namespace Portal.Consultoras.BizLogic
             return listaPedidosFacturados;
         }
 
-        public List<BEPedidoWeb> GetPedidosIngresadoFacturado(int paisID, int consultoraID, int campaniaID, string codigoConsultora)
+        public List<BEPedidoWeb> GetPedidosIngresadoFacturado(int paisID, int consultoraID, int campaniaID, string codigoConsultora, int top)
         {
             var listaPedidosFacturados = new List<BEPedidoWeb>();
 
@@ -1837,7 +1837,7 @@ namespace Portal.Consultoras.BizLogic
 
             if (!BLPais.EsPaisHana(paisID)) // Validar si informacion de pais es de origen Normal o Hana
             {
-                using (IDataReader reader = DAPedidoWeb.GetPedidosIngresadoFacturado(consultoraID, campaniaID))
+                using (IDataReader reader = DAPedidoWeb.GetPedidosIngresadoFacturado(consultoraID, campaniaID, top))
                     while (reader.Read())
                     {
                         var entidad = new BEPedidoWeb(reader);
