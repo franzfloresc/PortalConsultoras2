@@ -121,7 +121,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             DateTime newDate = DateTime.Now;
             DateTime? oldDate = (DateTime?)fechaCreacion;
-            TimeSpan ts;
+            //TimeSpan ts;
             int diferenciaDias = 0;
 
             if (fechaCreacion.HasValue)
@@ -129,7 +129,7 @@ namespace Portal.Consultoras.Web.Controllers
                 //ts = newDate - (DateTime) oldDate;
 
                 diferenciaDias = (newDate - oldDate.Value).TotalDays.ToInt();
-                ; //ts.Days;
+                //ts.Days;
             }
             else
             {
@@ -3943,7 +3943,7 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                         }
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         modelMensaje.TextoMensaje = "Ocurrió un error";
                     }
@@ -4294,7 +4294,7 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                         }
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                     }
                 }
@@ -5273,7 +5273,7 @@ namespace Portal.Consultoras.Web.Controllers
                     Data = 5;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 Success = false;
                 Data = 5;

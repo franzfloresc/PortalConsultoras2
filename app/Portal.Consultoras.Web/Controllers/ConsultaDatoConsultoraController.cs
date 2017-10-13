@@ -261,7 +261,7 @@
                 }
                 catch (Exception ex)
                 {
-
+                    Web.LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 }
 
                 foreach (var pedido in lista)
@@ -434,6 +434,7 @@
                 }
                 catch (Exception ex)
                 {
+                    Web.LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                     lista = null;
                 }
 
@@ -962,6 +963,7 @@
             }
             catch (Exception ex)
             {
+                Web.LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -1060,7 +1062,6 @@
             var complain = new RVDWebCampaniasParam { Pais = usuario.CodigoISO, Tipo = "1", CodigoConsultora = ((usuario.UsuarioPrueba == 1) ? usuario.ConsultoraAsociada : CodigoConsultora) };
             //Fin ITG 1793 HFMG
             List<CampaniaModel> lstCampaniaModel = new List<CampaniaModel>();
-            bool ErrorServicio = false;
             string ErrorCode = string.Empty;
             string ErrorMessage = string.Empty;
             try
@@ -1117,7 +1118,7 @@
             }
             catch (Exception ex)
             {
-                ErrorServicio = true;
+                Web.LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
             //R20150906
             if (lstCampaniaModel.Count != 0)
@@ -1234,6 +1235,7 @@
             }
             catch (Exception ex)
             {
+                Web.LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 ErrorServicio = true;
             }
 
@@ -1422,6 +1424,7 @@
             }
             catch (Exception ex)
             {
+                Web.LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 DesCamp = CampaniaID;
             }
             return DesCamp;

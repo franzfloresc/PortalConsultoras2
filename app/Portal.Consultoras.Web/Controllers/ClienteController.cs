@@ -549,8 +549,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult ExportarExcelMisClientes()
         {
-            decimal cargo = 0;
-            decimal abono = 0;
             List<BECliente> lst;
             using (ClienteServiceClient sv = new ClienteServiceClient())
             {

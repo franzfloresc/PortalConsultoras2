@@ -75,7 +75,6 @@ namespace Portal.Consultoras.Web.Controllers
                 string fechaproceso;
                 if (model.TipoCronogramaID == 5)
                 {
-                    int resultado;
                     string isoPais = UserData().CodigoISO;
 
                     using (ServiceSAC.SACServiceClient sv = new ServiceSAC.SACServiceClient())
