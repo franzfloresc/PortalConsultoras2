@@ -1,36 +1,32 @@
-﻿using System;
+﻿using Belcorp.Security.Federation.Connections;
+using ClosedXML.Excel;
+using MaxMind.Db;
+using MaxMind.Util;
+using Microsoft.IdentityModel.Protocols.WSIdentity;
+using Microsoft.IdentityModel.Protocols.WSTrust;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.OleDb;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
-using System.Text;
-using System.Configuration;
-using System.Web;
-using System.Data;
 using System.Net.Mime;
-using System.Data.OleDb;
-using System.IO;
-using ClosedXML.Excel;
-using DocumentFormat.OpenXml;
 using System.Reflection;
-using TSHAK;
 using System.Security.Cryptography;
-using System.ComponentModel;
-using System.Threading.Tasks;
-using System.Threading;
-using System.Web.Mvc;
-using System.Web.Script.Serialization;
-using System.Drawing.Imaging;
-using System.Drawing;
-using Belcorp.Security.Federation.Connections;
-using MaxMind.Util;
-using MaxMind.Db;
-using Microsoft.IdentityModel.Protocols.WSIdentity;
-using Microsoft.IdentityModel.Protocols.WSTrust;
 using System.ServiceModel;
 using System.ServiceModel.Security;
+using System.Text;
+using System.Threading;
+using System.Web;
+using System.Web.Mvc;
 using System.Web.Routing;
+using System.Web.Script.Serialization;
 
 namespace Portal.Consultoras.Common
 {
@@ -1526,7 +1522,7 @@ namespace Portal.Consultoras.Common
                         }
                         row++;
                     }
-                    ws.Range(1, 1, 1, index - 1).AddToNamed("Titles");                    
+                    ws.Range(1, 1, 1, index - 1).AddToNamed("Titles");
                 }
 
                 //ws.Row(1).Style.Font.Bold = true;

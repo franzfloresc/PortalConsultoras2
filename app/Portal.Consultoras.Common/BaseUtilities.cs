@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
@@ -6,8 +8,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Net;
 using System.Text;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace Portal.Consultoras.Common
 {
@@ -45,7 +45,7 @@ namespace Portal.Consultoras.Common
         /// <param name="metodo">El método del servicio que se va a usar</param>
         /// <param name="contentType">El tipo de contenido del request. Por default es "application/json"</param>
         /// <returns>Retorna un objeto del tipo "dynamic"</returns>
-        public static TResult ConsumirServicio<TResult>(byte[] data, string urlBase, string metodo, string contentType = "application/json") where TResult: class 
+        public static TResult ConsumirServicio<TResult>(byte[] data, string urlBase, string metodo, string contentType = "application/json") where TResult : class
         {
             try
             {
@@ -69,11 +69,11 @@ namespace Portal.Consultoras.Common
             catch (Exception ex)
             {
                 ErrorUtilities.AddLog(ex);
-                return null; 
+                return null;
             }
         }
 
-        public static TResult ConsumirServicio<TResult>(string metodo, object data, string urlServicio = null) where TResult: class 
+        public static TResult ConsumirServicio<TResult>(string metodo, object data, string urlServicio = null) where TResult : class
         {
             var urlBase = ConfigurationManager.AppSettings[AppSettingsKeys.WSGEO_Url];
             var bytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(data));
@@ -109,7 +109,7 @@ namespace Portal.Consultoras.Common
             return key != null ? ConfigurationManager.AppSettings[key] : string.Empty;
         }
 
-        public static  string AplicarFormatoNumeroDocumentoPorPais(string codigoISO, string numeroDocumento)
+        public static string AplicarFormatoNumeroDocumentoPorPais(string codigoISO, string numeroDocumento)
         {
             return Dictionaries.FormatoNumeroDocumentoBD.ContainsKey(codigoISO) && Dictionaries.FormatoNumeroDocumentoBD[codigoISO] != null && !string.IsNullOrWhiteSpace(numeroDocumento) ?
                 Dictionaries.FormatoNumeroDocumentoBD[codigoISO](numeroDocumento) : numeroDocumento;

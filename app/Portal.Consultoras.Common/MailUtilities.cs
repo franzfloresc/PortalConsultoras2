@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Text;
-using Newtonsoft.Json;
-using System;
 
 namespace Portal.Consultoras.Common
 {
@@ -18,7 +18,7 @@ namespace Portal.Consultoras.Common
         /// <returns></returns>
         public static dynamic EnviarMailMandrillJson(List<ToWithType> recipients, string message, List<Images> images = null)
         {
-            
+
             var url = ConfigurationManager.AppSettings[AppSettingsKeys.MandrillURL];
             var key = ConfigurationManager.AppSettings[AppSettingsKeys.MandrillKey];
             var from = ConfigurationManager.AppSettings[AppSettingsKeys.MandrillFrom];
@@ -250,7 +250,7 @@ namespace Portal.Consultoras.Common
             sBuilder.Append("<table width=\"100%\" align=\"center\" border =\"0\" cellspacing =\"0\" cellpadding =\"0\" style=\"background: #fff; max-width: 600px;\" class=\"main\">");
             sBuilder.Append("<tr>");
             sBuilder.Append("<td colspan=\"2\" style=\"width: 100%; height: 50px; padding: 12px 0px; text-align: center; background: #fff;\">");
-            if(tipopais)
+            if (tipopais)
                 sBuilder.Append("<img src=\"http://www.genesis-peru.com/mailing-belcorp/logo.png\" alt =\"Logo Esika\"/>");
             else
                 sBuilder.Append("<img src=\"https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/jG6i4d6VUyIaUwi/logod.png\" alt =\"Logo Esika\"/>");
@@ -294,10 +294,10 @@ namespace Portal.Consultoras.Common
             sBuilder.Append("</table>");
             sBuilder.Append("</div>");
             sBuilder.Append("<div style=\"display: inline-block; width: 148px; vertical-align: middle; padding: 10px;\">");
-            
+
             sBuilder.Append("<table>");
             sBuilder.Append("<tr>");
-            if(tipopais)
+            if (tipopais)
                 sBuilder.Append("<td><img src=\"https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/zpKTgmlpMBbOCFr/group-13.png\" ></td>");
             else
                 sBuilder.Append("<td><img src=\"https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/JYBIo3emz2Twn5P/icono_lbel.png\" ></td>");
@@ -364,7 +364,7 @@ namespace Portal.Consultoras.Common
             sBuilder.Append("<span style=\"font-family:'Calibri'; font-size:11.5px; color:#000;\"><a style=\"text-decoration: none;  color: #000;\" href=\"http://comunidad.somosbelcorp.com/\">¿Tienes dudas?</a></span>");
             sBuilder.Append("</td>");
             sBuilder.Append("<td align=\"center\" style=\"text-align:center;\">");
-            sBuilder.Append("<span style=\"font-family:'Calibri'; font-size:11.5px; color:#000;\"><a href=\"http://www.belcorpresponde.com/\" style=\"text-decoration: none; color: #000;\">Contáctanos</a></span>");           
+            sBuilder.Append("<span style=\"font-family:'Calibri'; font-size:11.5px; color:#000;\"><a href=\"http://www.belcorpresponde.com/\" style=\"text-decoration: none; color: #000;\">Contáctanos</a></span>");
             sBuilder.Append("</td>");
             sBuilder.Append("</tr>");
             sBuilder.Append("</tbody>");
@@ -376,7 +376,7 @@ namespace Portal.Consultoras.Common
             sBuilder.Append("</div>");
             sBuilder.Append("</body>");
             sBuilder.Append("</html>");
-            
+
             return sBuilder.ToString();
         }
 
