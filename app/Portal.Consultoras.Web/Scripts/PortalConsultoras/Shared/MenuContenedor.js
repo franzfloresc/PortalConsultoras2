@@ -55,8 +55,9 @@ var menuModule = (function () {
         }
     }
     function _animateScrollTo(codigo, topHeight) {
+        var top = $(codigo).length > 0 ? $(codigo).offset().top - topHeight : 0;
         $(elementos.html).animate({
-            scrollTop: $(codigo).offset().top - topHeight
+            scrollTop: top
         },
         1000);
     }
@@ -155,16 +156,20 @@ var menuModule = (function () {
 
         if (url.indexOf(anchorMark) > -1) {
             var strippedUrl = url.toString().split(anchorMark);
-           
-            if (strippedUrl.length > 1) anchorValue = strippedUrl[1];
 
             $(elementos.menu2Li).find("a").removeClass(elementos.claseActivo);
-            $(elementos.html).find("[data-codigo=" + anchorValue + "]").find("a").addClass(elementos.claseActivo);
+            if (strippedUrl.length > 1) {
+                anchorValue = $.trim(strippedUrl[1]);
 
-            if ($(anchorMark + anchorValue).length > 0) {
-                _animateScrollTo(anchorMark + anchorValue, menuHeight);
-            } else {
-                _animateScrollTo(elementos.html, menuHeight);
+                if (anchorValue != "") {
+                    $(elementos.html).find("[data-codigo=" + anchorValue + "]").find("a").addClass(elementos.claseActivo);
+
+                    if ($(anchorMark + anchorValue).length > 0) {
+                        _animateScrollTo(anchorMark + anchorValue, menuHeight);
+                    } else {
+                        _animateScrollTo(elementos.html, menuHeight);
+                    }
+                }
             }
             _changeLogoMobile();
         }
