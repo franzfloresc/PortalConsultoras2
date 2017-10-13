@@ -424,7 +424,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                     }
 
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                     }
                 }
@@ -1782,7 +1782,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 }
                             }
                         }
-                        catch (Exception ex)
+                        catch (Exception)
                         {
                         }
                     }
