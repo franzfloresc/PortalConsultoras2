@@ -1,5 +1,4 @@
-﻿@(new HtmlString(ViewBag.HTMLSACUnete))
-@*@using Portal.Consultoras.Web.Models
+﻿@using Portal.Consultoras.Web.Models
 @model Portal.Consultoras.Web.Models.RechazoModel
 
 @Html.Hidden("SolicitudPostulanteID", Model.SolicitudPostulanteID)
@@ -44,7 +43,13 @@
                 <h4>¿Cúal es el motivo?</h4>
 
                 <form id="myForm">
-                   
+                    @*<form action="" class="formulario_motivosRechazo">
+
+            <div class="div-3" style="font-weight: bold;   font-size: 15px !important;   padding-top: 25px;  padding-left: 25px;  padding-right: 25px;">
+
+            ¿Est&aacute; seguro de rechazar a esta postulante?
+            <br />
+            <br />*@
                     <div class="div-3 contenedor_campoMotivo">
 
                         <div class="selectP2 seleccion_pagina textboxSB2">
@@ -62,7 +67,7 @@
                     <div class="div-3 contenedor_campoMotivo">
 
                         <div class="selectP2 seleccion_pagina textboxSB2">
-                            
+                            @*@Html.TextBoxFor(m => m.MotivoRechazo, new { @class = "field_85 textboxSB", @placeholder = "Motivo de Rechazo" })*@
                             @Html.TextAreaFor(m => m.MotivoRechazo, new { @class = "field_85 textboxSB espaciadoDeLinea", @placeholder = "Comentarios adicionales...", maxlength = 255 })
                         </div>
                     </div>
@@ -76,7 +81,34 @@
             </div>
 
 
-           
+            @*<div class="opcion_motivoRechazo">
+                        <input id="edadSuficiente" type="checkbox" name="edadSuficiente" />
+                        <label for="edadSuficiente">
+                            No tiene la edad suficiente para ser consultora.
+                        </label>
+                    </div>
+
+                    <div class="opcion_motivoRechazo">
+                        <input id="zonaAsignada" type="checkbox" name="zonaAsignada" />
+                        <label for="zonaAsignada">La postulante no corresponde a la zona asignada.</label>
+                    </div>
+
+                    <div class="opcion_motivoRechazo">
+                        <input id="edadSuficiente2" type="checkbox" name="edadSuficiente2" />
+                        <label for="edadSuficiente2">No tiene la edad suficiente para ser consultora.</label>
+                    </div>
+
+                    <div class="opcion_motivoRechazo">
+                        <input id="historialCrediticio" type="checkbox" name="historialCrediticio" />
+                        <label for="historialCrediticio">Tiene una deuda pendiente en su historial crediticio.</label>
+                    </div>
+
+                    <div class="opcion_motivoRechazo">
+                        <input id="zonaAsignada2" type="checkbox" name="zonaAsignada2" />
+                        <label for="zonaAsignada2">La postulante no corresponde a la zona asignada.</label>
+                    </div>
+
+                </form>*@
 
         </div>
 
@@ -554,4 +586,4 @@
 
     //centrarPopup();
 
-</script>*@
+</script>

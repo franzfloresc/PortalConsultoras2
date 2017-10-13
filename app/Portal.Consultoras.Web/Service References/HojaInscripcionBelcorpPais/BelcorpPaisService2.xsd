@@ -55,7 +55,6 @@
   <xs:element name="TipoBloqueoBE" nillable="true" type="tns:TipoBloqueoBE" />
   <xs:complexType name="GestionValidacionesParameter">
     <xs:sequence>
-      <xs:element minOccurs="0" name="CodigoISO" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ListaZonasTelefonicasActivas" nillable="true" type="tns:ArrayOfParametroUneteBE" />
       <xs:element minOccurs="0" name="ListaZonasTelefonicasInactivas" nillable="true" type="tns:ArrayOfParametroUneteBE" />
       <xs:element minOccurs="0" name="ParametroCorreo" nillable="true" type="tns:ParametroUneteBE" />

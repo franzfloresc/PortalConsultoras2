@@ -1,6 +1,4 @@
-﻿@(new HtmlString(ViewBag.HTMLSACUnete))
-
-@*@using Portal.Consultoras.Web.Models
+﻿@using Portal.Consultoras.Web.Models
 @model Portal.Consultoras.Web.Models.HistorialPostulanteModel
 
 @Html.Hidden("SolicitudPostulanteID", Model.SolicitudPostulanteID)
@@ -15,7 +13,25 @@
     </div>
     <div class="contenido_popUp eliminarCliente contenido_popUp rechazarPostulante">
         <div class="contenido_popUp rechazarPostulante">
-            
+            @*<table>
+                <thead>
+                    <tr>
+                        <td>Fecha</td>
+                        <td>Evento</td>
+                        <td>Observacion</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var evento in Model.ListaEventos)
+                    {
+                        <tr>
+                            <td>@evento.Fecha</td>
+                            <td>@evento.Evento</td>
+                            <td>@evento.Observacion</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>*@
             <h1>HISTORIAL DE&nbsp;<span class="texto_enNegritas">POSTULANTE</span></h1>
             <div class="usuario_por_rechazar">Postulante:&nbsp;<span>@Model.NombreCompleto</span></div>
 
@@ -603,4 +619,4 @@
         $('#divVerHistorialPostulante').hide();
     }
     
-</script>*@
+</script>

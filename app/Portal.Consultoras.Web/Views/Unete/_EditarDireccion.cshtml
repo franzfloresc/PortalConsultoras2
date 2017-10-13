@@ -1,5 +1,4 @@
-﻿@(new HtmlString(ViewBag.HTMLSACUnete))
-@*@using Portal.Consultoras.Common
+﻿@using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Models;
 
 @model Portal.Consultoras.Web.Models.EditarDireccionModel
@@ -95,7 +94,9 @@
             <div class="btn_grupo_eliminarCliente" style="width:90%; margin-left:5%; display:inline-block; margin-top:10px;">
 
                 <input type="submit" class="btn_noEliminarCliente btnEditarUbic" id="btnGuardar" value="Aceptar" />
-               
+                @*<input type="button" class="btn_noEliminarCliente btnEditarUbic" id="btnCancelar" value="Cancelar" />*@
+
+                @*<button type="button" name="btn_noEliminarCliente" class="btn_noEliminarCliente btnEditarUbic" id="btnGuardar">Aceptar</button>*@
                 <button type="button" name="btn_noEliminarCliente" class="btn_noEliminarCliente btnEditarUbic" id="btnCancelar">Cancelar </button>
 
    
@@ -395,4 +396,4 @@
         width: 283.5px !important;
         margin-left: 20% !important;
     }
-</style>*@
+</style>
