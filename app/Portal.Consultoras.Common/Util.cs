@@ -1453,7 +1453,6 @@ namespace Portal.Consultoras.Common
                 HttpContext.Current.Response.BinaryWrite(stream.ToArray());
                 HttpContext.Current.Response.Flush();
                 HttpContext.Current.Response.End();
-                stream = null;
 
                 return true;
             }
@@ -1557,7 +1556,6 @@ namespace Portal.Consultoras.Common
                 HttpContext.Current.Response.BinaryWrite(stream.ToArray());
                 HttpContext.Current.Response.Flush();
                 HttpContext.Current.Response.End();
-                stream = null;
 
                 return true;
             }
@@ -1656,7 +1654,6 @@ namespace Portal.Consultoras.Common
                 HttpContext.Current.Response.BinaryWrite(stream.ToArray());
                 HttpContext.Current.Response.Flush();
                 HttpContext.Current.Response.End();
-                stream = null;
 
                 return true;
             }
@@ -1760,7 +1757,6 @@ namespace Portal.Consultoras.Common
                 HttpContext.Current.Response.BinaryWrite(stream.ToArray());
                 HttpContext.Current.Response.Flush();
                 HttpContext.Current.Response.End();
-                stream = null;
 
                 return true;
             }
@@ -1858,7 +1854,6 @@ namespace Portal.Consultoras.Common
                 HttpContext.Current.Response.BinaryWrite(stream.ToArray());
                 HttpContext.Current.Response.Flush();
                 HttpContext.Current.Response.End();
-                stream = null;
 
                 return true;
             }
@@ -1998,7 +1993,6 @@ namespace Portal.Consultoras.Common
                 HttpContext.Current.Response.BinaryWrite(stream.ToArray());
                 HttpContext.Current.Response.Flush();
                 HttpContext.Current.Response.End();
-                stream = null;
 
                 return true;
             }
@@ -2299,7 +2293,6 @@ namespace Portal.Consultoras.Common
                 //String baseUrl = string.Format("{0}://{1}/{2}", request.Url.Scheme, hostHeader,"Portal");
 
                 var rd = controller.RouteData;
-                var Action = rd.GetRequiredString("action");
                 var Controller = rd.GetRequiredString("controller");
 
                 baseUrl = string.Format(baseUrl + "/{0}/{1}?parametros={2}", Controller, stActionIndex, enviar);
@@ -2829,7 +2822,6 @@ namespace Portal.Consultoras.Common
                 HttpContext.Current.Response.BinaryWrite(stream.ToArray());
                 HttpContext.Current.Response.Flush();
                 HttpContext.Current.Response.End();
-                stream = null;
 
                 return true;
             }
@@ -2938,17 +2930,17 @@ namespace Portal.Consultoras.Common
         public static string ValidaMontoMaximo(string monto)
         {
             var montoval = string.IsNullOrEmpty(monto) ? "" : monto.Trim();
-            if (montoval != "")
-            {
-                if (montoval == "0" || montoval == "0.00" || montoval == "0,00"
-                    || montoval == "99999999" || montoval == "99999999.00" || montoval == "99999999,00"
-                    || montoval == "99,999,999.00" || montoval == "99.999.999"
-                    || montoval == "999,999,999.00" || montoval == "999.999.999"
-                    || montoval == "9,999,999,999.00" || montoval == "9.999.999.999"
-                    || montoval == "99,999,999,999.00" || montoval == "99.999.999.999"
-                    || montoval == "999,999,999,999.00" || montoval == "999.999.999.999")
-                    return "";
-            }
+            if (montoval != "" &&
+                (montoval == "0" || montoval == "0.00" || montoval == "0,00"
+                || montoval == "99999999" || montoval == "99999999.00" || montoval == "99999999,00"
+                || montoval == "99,999,999.00" || montoval == "99.999.999"
+                || montoval == "999,999,999.00" || montoval == "999.999.999"
+                || montoval == "9,999,999,999.00" || montoval == "9.999.999.999"
+                || montoval == "99,999,999,999.00" || montoval == "99.999.999.999"
+                || montoval == "999,999,999,999.00" || montoval == "999.999.999.999")
+            )
+                return "";
+
             return montoval;
         }
 
