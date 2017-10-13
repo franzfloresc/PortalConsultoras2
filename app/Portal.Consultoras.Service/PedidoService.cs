@@ -2260,6 +2260,14 @@ namespace Portal.Consultoras.Service
         {
             return _pedidoWebBusinessLogic.GetMisPedidosByCampania(paisID, ConsultoraID, CampaniaID, ClienteID, Top);
         }
+        public List<BEMisPedidosIngresados> GetMisPedidosIngresados(int paisID, long ConsultoraID, int CampaniaID, int ClienteID, string NombreConsultora)
+        {
+            return _pedidoWebBusinessLogic.GetMisPedidosIngresados(paisID, ConsultoraID, CampaniaID, ClienteID, NombreConsultora);
+        }
+        public List<BEMisPedidosFacturados> GetMisPedidosFacturados(int paisID, long ConsultoraID, int CampaniaID, int ClienteID, string NombreConsultora)
+        {
+            return _pedidoWebBusinessLogic.GetMisPedidosFacturados(paisID, ConsultoraID, CampaniaID, ClienteID, NombreConsultora);
+        }
         #endregion
     }
 }

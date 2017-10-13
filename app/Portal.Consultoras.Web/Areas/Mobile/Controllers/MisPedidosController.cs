@@ -3,25 +3,39 @@ using System.Web.Mvc;
 using System.ServiceModel;
 using System.Linq;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Globalization;
+
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.ServiceSAC;
-
+using AutoMapper;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
     public class MisPedidosController : BaseMobileController
     {
-        public ActionResult Index()
+        public async Task<ViewResult> Index()
         {
-            //var listaPedidos = new List<BEPedidoWeb>();
-            var model = new PedidoWebClientePrincipalMobilModel();
+            var listaPedidos = new List<MisPedidosCampaniaModel>();
+            var top = 3;
 
             try
             {
                 var mobileConfiguracion = (Session["MobileAppConfiguracion"] == null ? new MobileAppConfiguracionModel() : (MobileAppConfiguracionModel)Session["MobileAppConfiguracion"]);
-                model.ClienteID = mobileConfiguracion.ClienteID;
+
+                using (var service = new PedidoServiceClient())
+                {
+                    var result = await service.GetMisPedidosByCampaniaAsync(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, mobileConfiguracion.ClienteID, top);
+
+                    Mapper.CreateMap<BEMisPedidosCampania, MisPedidosCampaniaModel>()
+                        .ForMember(t => t.NumeroCampania, f => f.MapFrom(c => (c.CampaniaID.ToString().Length == 6 ? string.Format("C{0}", c.CampaniaID.Substring(4,2)) : string.Empty)))
+                        .ForMember(t => t.AnioCampania, f => f.MapFrom(c => (c.CampaniaID.ToString().Length == 6 ? c.CampaniaID.Substring(0,4) : string.Empty)))
+                        .ForMember(t => t.EsCampaniaActual, f => f.MapFrom(c => (c.CampaniaID == userData.CampaniaID ? true : false)));
+
+                    listaPedidos = Mapper.Map<List<BEMisPedidosCampania>, List<MisPedidosCampaniaModel>>(result.ToList());
+                }
+
                 //    //if (mobileConfiguracion.ClienteID > 0)
                 //    //{
                 //    //    using (var sv = new Portal.Consultoras.Web.ServiceCliente.ClienteServiceClient())
@@ -31,28 +45,28 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 //    //    }
                 //    //}
 
-                //    using(var service = new PedidoServiceClient())
-                //    {
-                //        listaPedidos = service.GetPedidosIngresadoFacturadoWebMobile(userData.PaisID, Convert.ToInt32(userData.ConsultoraID), userData.CampaniaID, model.ClienteID, 3, userData.CodigoConsultora).ToList();
-                //    }
+                    //    using(var service = new PedidoServiceClient())
+                    //    {
+                    //        listaPedidos = service.GetPedidosIngresadoFacturadoWebMobile(userData.PaisID, Convert.ToInt32(userData.ConsultoraID), userData.CampaniaID, model.ClienteID, 3, userData.CodigoConsultora).ToList();
+                    //    }
 
-                //    foreach (var pedido in listaPedidos)
-                //    {
-                //        var bePedidoWeb = new PedidoWebMobilModel();
-                //        bePedidoWeb.PedidoId = pedido.PedidoID;
-                //        bePedidoWeb.CampaniaID = pedido.CampaniaID;
-                //        bePedidoWeb.EstadoPedidoDesc = pedido.EstadoPedidoDesc;
-                //        bePedidoWeb.ImporteTotal = pedido.ImporteTotal;
-                //        bePedidoWeb.Descuento = -pedido.DescuentoProl;
-                //        bePedidoWeb.CantidadProductos = pedido.CantidadProductos;
+                    //    foreach (var pedido in listaPedidos)
+                    //    {
+                    //        var bePedidoWeb = new PedidoWebMobilModel();
+                    //        bePedidoWeb.PedidoId = pedido.PedidoID;
+                    //        bePedidoWeb.CampaniaID = pedido.CampaniaID;
+                    //        bePedidoWeb.EstadoPedidoDesc = pedido.EstadoPedidoDesc;
+                    //        bePedidoWeb.ImporteTotal = pedido.ImporteTotal;
+                    //        bePedidoWeb.Descuento = -pedido.DescuentoProl;
+                    //        bePedidoWeb.CantidadProductos = pedido.CantidadProductos;
 
-                //        bePedidoWeb.Flete = pedido.Flete;
-                //        bePedidoWeb.Subtotal = pedido.ImporteTotal - pedido.Flete;
+                    //        bePedidoWeb.Flete = pedido.Flete;
+                    //        bePedidoWeb.Subtotal = pedido.ImporteTotal - pedido.Flete;
 
-                //        model.ListaPedidoCliente.Add(bePedidoWeb);
-                //    }
+                    //        model.ListaPedidoCliente.Add(bePedidoWeb);
+                    //    }
 
-                //    Session["Pedidos"] = model;
+                    //    Session["Pedidos"] = model;
             }
             catch (FaultException ex)
             {
@@ -63,175 +77,226 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
 
-            return View(model);
+            return View(listaPedidos);
         }
 
-        //public PartialViewResult IngresadoDetalle(int campaniaID, int pedidoId)
-        //{
-        //    var model = new PedidoWebMobilModel();
-        //    Portal.Consultoras.Web.ServiceCliente.BEPedidoWebDetalle[] lstPedidoDetalle;
-        //    Portal.Consultoras.Web.ServiceCliente.BEPedidoWebDetalle[] lstPedidoDetalleProducto;
-        //    Portal.Consultoras.Web.ServiceCliente.BEPedidoWebDetalle[] lstPedidoDetallexCliente;
+        public PartialViewResult IngresadoDetalle()
+        {
+            var listaPedidos = new List<MisPedidosIngresadosModel>();
+            //    var model = new PedidoWebMobilModel();
+            //    Portal.Consultoras.Web.ServiceCliente.BEPedidoWebDetalle[] lstPedidoDetalle;
+            //    Portal.Consultoras.Web.ServiceCliente.BEPedidoWebDetalle[] lstPedidoDetalleProducto;
+            //    Portal.Consultoras.Web.ServiceCliente.BEPedidoWebDetalle[] lstPedidoDetallexCliente;
 
-        //    try
-        //    {
-        //        var pedidosRegistrados = Session["Pedidos"] as PedidoWebClientePrincipalMobilModel;
-        //        if (pedidosRegistrados == null) return PartialView();
+            try
+            {
+                var mobileConfiguracion = (Session["MobileAppConfiguracion"] == null ? new MobileAppConfiguracionModel() : (MobileAppConfiguracionModel)Session["MobileAppConfiguracion"]);
 
-        //        var pedidoWebMobile = pedidosRegistrados.ListaPedidoCliente.FirstOrDefault(p => p.CampaniaID == campaniaID);
-        //        if (pedidoWebMobile == null) return PartialView();
+                using (var service = new PedidoServiceClient())
+                {
+                    var result = service.GetMisPedidosIngresados(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, mobileConfiguracion.ClienteID, userData.NombreConsultora);
 
-        //        using (var sv = new Portal.Consultoras.Web.ServiceCliente.ClienteServiceClient())
-        //        {
-        //            lstPedidoDetalle = sv.GetClientesByCampania(userData.PaisID, campaniaID, userData.ConsultoraID);
-        //        }
+                    Mapper.CreateMap<BEMisPedidosIngresados, MisPedidosIngresadosModel>()
+                        .ForMember(t => t.ImportePedido, f => f.MapFrom(c => this.FormatoMontos(c.ImportePedido)))
+                        .ForMember(t => t.CampaniaID, f => f.MapFrom(c => userData.CampaniaID));
+                    Mapper.CreateMap<BEMisPedidosIngresadosDetalle, MisPedidosIngresadosDetalleModel>()
+                        .ForMember(t => t.PrecioUnidad, f => f.MapFrom(c => this.FormatoMontos(c.PrecioUnidad)))
+                        .ForMember(t => t.ImporteTotal, f => f.MapFrom(c => this.FormatoMontos(c.ImporteTotal)));
 
-        //        if (pedidosRegistrados.ClienteID != 0)
-        //            lstPedidoDetallexCliente = lstPedidoDetalle.Where(p => p.ClienteID == Convert.ToInt16(pedidosRegistrados.ClienteID)).ToArray();
-        //        else
-        //            lstPedidoDetallexCliente = lstPedidoDetalle;
+                    var TotalPedido = result.Sum(x => x.ImportePedido);
+                    ViewBag.TotalPedido = this.FormatoMontos(TotalPedido);
 
-        //        foreach (var pedidoDetalle in lstPedidoDetallexCliente)
-        //        {
-        //            model.ListaPedidoWebDetalle.Add(new PedidoWebClienteMobilModel
-        //            {
-        //                ClienteID = pedidoDetalle.ClienteID,
-        //                Nombre = pedidoDetalle.Nombre,
-        //                eMail = pedidoDetalle.eMail,
-        //                CampaniaID = pedidoDetalle.CampaniaID
-        //            });
-        //        }
+                    listaPedidos = Mapper.Map<List<BEMisPedidosIngresados>, List<MisPedidosIngresadosModel>>(result.ToList());
+                }
+                //        var pedidosRegistrados = Session["Pedidos"] as PedidoWebClientePrincipalMobilModel;
+                //        if (pedidosRegistrados == null) return PartialView();
 
-        //        foreach (var pedidoDetalleProducto in model.ListaPedidoWebDetalle)
-        //        {
-        //            using (var sv = new Portal.Consultoras.Web.ServiceCliente.ClienteServiceClient())
-        //            {
-        //                lstPedidoDetalleProducto = sv.GetPedidoWebDetalleByCliente(userData.PaisID, campaniaID, userData.ConsultoraID, pedidoDetalleProducto.ClienteID);
-        //            }
+                //        var pedidoWebMobile = pedidosRegistrados.ListaPedidoCliente.FirstOrDefault(p => p.CampaniaID == campaniaID);
+                //        if (pedidoWebMobile == null) return PartialView();
 
-        //            foreach (var producto in lstPedidoDetalleProducto)
-        //            {
-        //                pedidoDetalleProducto.ListaPedidoWebDetalleProductos.Add(new PedidoWebDetalleMobilModel
-        //                {
-        //                    ClienteID = producto.ClienteID,
-        //                    Nombre = producto.Nombre,
-        //                    eMail = producto.eMail,
-        //                    CampaniaID = producto.CampaniaID,
-        //                    DescripcionProd = producto.DescripcionProd,
-        //                    CUV = producto.CUV,
-        //                    ObservacionPROL = producto.ObservacionPROL,
-        //                    IndicadorOfertaCUV = producto.IndicadorOfertaCUV,
-        //                    PrecioUnidad = producto.PrecioUnidad,
-        //                    Cantidad = producto.Cantidad,
-        //                    ImporteTotal = producto.ImporteTotal
-        //                });
-        //            }
-        //            pedidoDetalleProducto.ImporteTotalPedido = pedidoDetalleProducto.ListaPedidoWebDetalleProductos.Sum(p => p.ImporteTotal);
-        //        }
+                //        using (var sv = new Portal.Consultoras.Web.ServiceCliente.ClienteServiceClient())
+                //        {
+                //            lstPedidoDetalle = sv.GetClientesByCampania(userData.PaisID, campaniaID, userData.ConsultoraID);
+                //        }
 
-        //        model.TieneDescuentoCuv = userData.EstadoSimplificacionCUV && model.ListaPedidoWebDetalle.Any(pedidoWebDetalle =>
-        //            pedidoWebDetalle.ListaPedidoWebDetalleProductos.Any(item =>
-        //                string.IsNullOrEmpty(item.ObservacionPROL) && item.IndicadorOfertaCUV
-        //            )
-        //        );
+                //        if (pedidosRegistrados.ClienteID != 0)
+                //            lstPedidoDetallexCliente = lstPedidoDetalle.Where(p => p.ClienteID == Convert.ToInt16(pedidosRegistrados.ClienteID)).ToArray();
+                //        else
+                //            lstPedidoDetallexCliente = lstPedidoDetalle;
 
-        //        model.Subtotal = pedidoWebMobile.ImporteTotal;
-        //        model.Descuento = pedidoWebMobile.Descuento;
-        //        model.ImporteTotal = pedidoWebMobile.Subtotal + pedidoWebMobile.Descuento;
+                //        foreach (var pedidoDetalle in lstPedidoDetallexCliente)
+                //        {
+                //            model.ListaPedidoWebDetalle.Add(new PedidoWebClienteMobilModel
+                //            {
+                //                ClienteID = pedidoDetalle.ClienteID,
+                //                Nombre = pedidoDetalle.Nombre,
+                //                eMail = pedidoDetalle.eMail,
+                //                CampaniaID = pedidoDetalle.CampaniaID
+                //            });
+                //        }
 
-        //        if (userData.PaisID == 4)
-        //        {
-        //            model.SubtotalString = model.Subtotal.ToString("n0", new System.Globalization.CultureInfo("es-CO"));
-        //            model.DescuentoString = model.Descuento.ToString("n0", new System.Globalization.CultureInfo("es-CO"));
-        //            model.ImporteTotalString = model.ImporteTotal.ToString("n0", new System.Globalization.CultureInfo("es-CO"));
-        //        }
-        //        else
-        //        {
-        //            model.SubtotalString = model.Subtotal.ToString("n2", new System.Globalization.CultureInfo("es-PE"));
-        //            model.DescuentoString = model.Descuento.ToString("n2", new System.Globalization.CultureInfo("es-PE"));
-        //            model.ImporteTotalString = model.ImporteTotal.ToString("n2", new System.Globalization.CultureInfo("es-PE"));
-        //        }
+                //        foreach (var pedidoDetalleProducto in model.ListaPedidoWebDetalle)
+                //        {
+                //            using (var sv = new Portal.Consultoras.Web.ServiceCliente.ClienteServiceClient())
+                //            {
+                //                lstPedidoDetalleProducto = sv.GetPedidoWebDetalleByCliente(userData.PaisID, campaniaID, userData.ConsultoraID, pedidoDetalleProducto.ClienteID);
+                //            }
 
-        //        model.Simbolo = userData.Simbolo;
-        //        model.PaisID = userData.PaisID;
-        //        model.CampaniaID = campaniaID;
-        //    }
-        //    catch (FaultException ex)
-        //    {
-        //        LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-        //    }
+                //            foreach (var producto in lstPedidoDetalleProducto)
+                //            {
+                //                pedidoDetalleProducto.ListaPedidoWebDetalleProductos.Add(new PedidoWebDetalleMobilModel
+                //                {
+                //                    ClienteID = producto.ClienteID,
+                //                    Nombre = producto.Nombre,
+                //                    eMail = producto.eMail,
+                //                    CampaniaID = producto.CampaniaID,
+                //                    DescripcionProd = producto.DescripcionProd,
+                //                    CUV = producto.CUV,
+                //                    ObservacionPROL = producto.ObservacionPROL,
+                //                    IndicadorOfertaCUV = producto.IndicadorOfertaCUV,
+                //                    PrecioUnidad = producto.PrecioUnidad,
+                //                    Cantidad = producto.Cantidad,
+                //                    ImporteTotal = producto.ImporteTotal
+                //                });
+                //            }
+                //            pedidoDetalleProducto.ImporteTotalPedido = pedidoDetalleProducto.ListaPedidoWebDetalleProductos.Sum(p => p.ImporteTotal);
+                //        }
 
-        //    return PartialView(model);
-        //}
+                //        model.TieneDescuentoCuv = userData.EstadoSimplificacionCUV && model.ListaPedidoWebDetalle.Any(pedidoWebDetalle =>
+                //            pedidoWebDetalle.ListaPedidoWebDetalleProductos.Any(item =>
+                //                string.IsNullOrEmpty(item.ObservacionPROL) && item.IndicadorOfertaCUV
+                //            )
+                //        );
 
-        //public PartialViewResult FacturadoDetalle(int campaniaID, int pedidoId)
-        //{
-        //    var model = new PedidoWebMobilModel();
-        //    BEPedidoFacturado[] listaPedidosFacturadosDetalle;
+                //        model.Subtotal = pedidoWebMobile.ImporteTotal;
+                //        model.Descuento = pedidoWebMobile.Descuento;
+                //        model.ImporteTotal = pedidoWebMobile.Subtotal + pedidoWebMobile.Descuento;
 
-        //    try
-        //    {
-        //        var pedidosFacturados = Session["Pedidos"] as PedidoWebClientePrincipalMobilModel;
-        //        if (pedidosFacturados == null) return PartialView();
+                //        if (userData.PaisID == 4)
+                //        {
+                //            model.SubtotalString = model.Subtotal.ToString("n0", new System.Globalization.CultureInfo("es-CO"));
+                //            model.DescuentoString = model.Descuento.ToString("n0", new System.Globalization.CultureInfo("es-CO"));
+                //            model.ImporteTotalString = model.ImporteTotal.ToString("n0", new System.Globalization.CultureInfo("es-CO"));
+                //        }
+                //        else
+                //        {
+                //            model.SubtotalString = model.Subtotal.ToString("n2", new System.Globalization.CultureInfo("es-PE"));
+                //            model.DescuentoString = model.Descuento.ToString("n2", new System.Globalization.CultureInfo("es-PE"));
+                //            model.ImporteTotalString = model.ImporteTotal.ToString("n2", new System.Globalization.CultureInfo("es-PE"));
+                //        }
 
-        //        var pedidoWebMobile = pedidosFacturados.ListaPedidoCliente.FirstOrDefault(p => p.CampaniaID == campaniaID);
-        //        if (pedidoWebMobile == null) return PartialView();
+                //        model.Simbolo = userData.Simbolo;
+                //        model.PaisID = userData.PaisID;
+                //        model.CampaniaID = campaniaID;
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
 
-        //        model.CodigoISO = userData.CodigoISO;
-        //        model.Simbolo = userData.Simbolo;
-        //        model.ImporteTotal = pedidoWebMobile.ImporteTotal;
-        //        model.Subtotal = pedidoWebMobile.Subtotal;
-        //        model.Flete = pedidoWebMobile.Flete;
+            //    return PartialView(model);
+            return PartialView(listaPedidos);
+        }
 
-        //        var ClienteId = pedidosFacturados.ClienteID;
-        //        using (var service = new SACServiceClient())
-        //        {
-        //            listaPedidosFacturadosDetalle = service.GetPedidosFacturadosDetalleMobile(userData.PaisID, campaniaID, userData.ConsultoraID, (short)ClienteId, userData.CodigoConsultora);
-        //        }
+        public PartialViewResult FacturadoDetalle(int campaniaID)
+        {
+            var listaPedidos = new List<MisPedidosFacturadosModel>();
+            //    var model = new PedidoWebMobilModel();
+            //    BEPedidoFacturado[] listaPedidosFacturadosDetalle;
 
-        //        foreach (var pedidoDetalle in listaPedidosFacturadosDetalle)
-        //        { 
-        //            if (pedidoDetalle.CUV.Trim().Length > 0 &&
-        //                pedidoDetalle.Descripcion.Trim().Length > 0)
-        //            {
-        //                model.ListaPedidoWebDetalle.Add(
-        //                    new PedidoWebClienteMobilModel
-        //                    {
-        //                        PedidoID = pedidoDetalle.PedidoId,
-        //                        CUV = pedidoDetalle.CUV,
-        //                        DescripcionProd = pedidoDetalle.Descripcion,
-        //                        Cantidad = pedidoDetalle.Cantidad,
-        //                        PrecioUnidad = pedidoDetalle.PrecioUnidad,
-        //                        ImporteTotal = pedidoDetalle.ImporteTotal,
-        //                        ImporteDescuento = pedidoDetalle.MontoDescuento,
-        //                        ImporteTotalPedido = pedidoDetalle.ImporteTotal - pedidoDetalle.MontoDescuento,
-        //                        ClienteID = Convert.ToInt16(pedidoDetalle.ClienteID),
-        //                        Nombre = pedidoDetalle.NombreCliente
-        //                    });
-        //            }
-        //        }
+            try
+            {
+                var mobileConfiguracion = (Session["MobileAppConfiguracion"] == null ? new MobileAppConfiguracionModel() : (MobileAppConfiguracionModel)Session["MobileAppConfiguracion"]);
 
-        //        using (var sv = new ServiceCliente.ClienteServiceClient())
-        //        {
-        //            model.ListaClientes = sv.SelectByConsultora(userData.PaisID, userData.ConsultoraID).OrderBy(x=>x.Nombre).ToList();
-        //            model.ListaClientes.Insert(0, new ServiceCliente.BECliente { ClienteID = 0, Nombre = userData.NombreConsultora });
-        //        }
-        //    }
-        //    catch (FaultException ex)
-        //    {
-        //        LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-        //    }
+                using (var service = new PedidoServiceClient())
+                {
+                    var result = service.GetMisPedidosFacturados(userData.PaisID, userData.ConsultoraID, campaniaID, mobileConfiguracion.ClienteID, userData.NombreConsultora);
 
-        //    return PartialView(model);
-        //}
+                    Mapper.CreateMap<BEMisPedidosFacturados, MisPedidosFacturadosModel>()
+                        .ForMember(t => t.ImportePedido, f => f.MapFrom(c => this.FormatoMontos(c.ImportePedido)));
+                    Mapper.CreateMap<BEMisPedidosFacturadosDetalle, MisPedidosFacturadosDetalleModel>()
+                        .ForMember(t => t.PrecioUnidad, f => f.MapFrom(c => this.FormatoMontos(c.PrecioUnidad)))
+                        .ForMember(t => t.ImporteTotal, f => f.MapFrom(c => this.FormatoMontos(c.ImporteTotal)));
+
+                    var TotalPedido = result.Sum(x => x.ImportePedido);
+                    ViewBag.TotalPedido = this.FormatoMontos(TotalPedido);
+
+                    listaPedidos = Mapper.Map<List<BEMisPedidosFacturados>, List<MisPedidosFacturadosModel>>(result.ToList());
+                }
+
+                //        var pedidosFacturados = Session["Pedidos"] as PedidoWebClientePrincipalMobilModel;
+                //        if (pedidosFacturados == null) return PartialView();
+
+                //        var pedidoWebMobile = pedidosFacturados.ListaPedidoCliente.FirstOrDefault(p => p.CampaniaID == campaniaID);
+                //        if (pedidoWebMobile == null) return PartialView();
+
+                //        model.CodigoISO = userData.CodigoISO;
+                //        model.Simbolo = userData.Simbolo;
+                //        model.ImporteTotal = pedidoWebMobile.ImporteTotal;
+                //        model.Subtotal = pedidoWebMobile.Subtotal;
+                //        model.Flete = pedidoWebMobile.Flete;
+
+                //        var ClienteId = pedidosFacturados.ClienteID;
+                //        using (var service = new SACServiceClient())
+                //        {
+                //            listaPedidosFacturadosDetalle = service.GetPedidosFacturadosDetalleMobile(userData.PaisID, campaniaID, userData.ConsultoraID, (short)ClienteId, userData.CodigoConsultora);
+                //        }
+
+                //        foreach (var pedidoDetalle in listaPedidosFacturadosDetalle)
+                //        { 
+                //            if (pedidoDetalle.CUV.Trim().Length > 0 &&
+                //                pedidoDetalle.Descripcion.Trim().Length > 0)
+                //            {
+                //                model.ListaPedidoWebDetalle.Add(
+                //                    new PedidoWebClienteMobilModel
+                //                    {
+                //                        PedidoID = pedidoDetalle.PedidoId,
+                //                        CUV = pedidoDetalle.CUV,
+                //                        DescripcionProd = pedidoDetalle.Descripcion,
+                //                        Cantidad = pedidoDetalle.Cantidad,
+                //                        PrecioUnidad = pedidoDetalle.PrecioUnidad,
+                //                        ImporteTotal = pedidoDetalle.ImporteTotal,
+                //                        ImporteDescuento = pedidoDetalle.MontoDescuento,
+                //                        ImporteTotalPedido = pedidoDetalle.ImporteTotal - pedidoDetalle.MontoDescuento,
+                //                        ClienteID = Convert.ToInt16(pedidoDetalle.ClienteID),
+                //                        Nombre = pedidoDetalle.NombreCliente
+                //                    });
+                //            }
+                //        }
+
+                //        using (var sv = new ServiceCliente.ClienteServiceClient())
+                //        {
+                //            model.ListaClientes = sv.SelectByConsultora(userData.PaisID, userData.ConsultoraID).OrderBy(x=>x.Nombre).ToList();
+                //            model.ListaClientes.Insert(0, new ServiceCliente.BECliente { ClienteID = 0, Nombre = userData.NombreConsultora });
+                //        }
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
+            //    return PartialView(model);
+            return PartialView(listaPedidos);
+        }
+
+        private string FormatoMontos(decimal importe)
+        {
+            string MontoCadena = string.Empty;
+            if (userData.PaisID == Util.GetPaisID(Constantes.CodigosISOPais.Colombia))
+                MontoCadena = importe.ToString("n2", new CultureInfo("es-CO")).Replace(',', '.');
+            else
+                MontoCadena = importe.ToString("n2", new CultureInfo("es-PE")).Replace(',', '.');
+
+            return string.Format("{0} {1}", userData.Simbolo, MontoCadena);
+        }
 
         //[HttpPost]
         //public JsonResult EnviarEmailConsultora(string campaniaId)

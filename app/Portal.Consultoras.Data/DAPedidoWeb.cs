@@ -833,6 +833,24 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@Top", DbType.Int32, Top);
             return Context.ExecuteReader(command);
         }
+        public IDataReader GetMisPedidosIngresados(long ConsultoraID, int CampaniaID, int ClienteID, string NombreConsultora)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetMisPedidosIngresados");
+            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, ConsultoraID);
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
+            Context.Database.AddInParameter(command, "@ClienteID", DbType.Int16, ClienteID);
+            Context.Database.AddInParameter(command, "@NombreConsultora", DbType.AnsiString, NombreConsultora);
+            return Context.ExecuteReader(command);
+        }
+        public IDataReader GetMisPedidosFacturados(long ConsultoraID, int CampaniaID, int ClienteID, string NombreConsultora)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetMisPedidosFacturados");
+            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, ConsultoraID);
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
+            Context.Database.AddInParameter(command, "@ClienteID", DbType.Int16, ClienteID);
+            Context.Database.AddInParameter(command, "@NombreConsultora", DbType.AnsiString, NombreConsultora);
+            return Context.ExecuteReader(command);
+        }
         #endregion
     }
 }

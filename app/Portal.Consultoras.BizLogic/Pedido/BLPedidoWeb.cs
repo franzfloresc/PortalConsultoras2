@@ -2197,11 +2197,48 @@ namespace Portal.Consultoras.BizLogic
         public List<BEMisPedidosCampania> GetMisPedidosByCampania(int paisID, long ConsultoraID, int CampaniaID, int ClienteID, int Top)
         {
             var pedidos = new List<BEMisPedidosCampania>();
-            var DAPedidoWeb = new DAPedidoWeb(paisID);
 
-            using (IDataReader reader = DAPedidoWeb.GetMisPedidosByCampania(ConsultoraID, CampaniaID, ClienteID, Top))
+            using (IDataReader reader = new DAPedidoWeb(paisID).GetMisPedidosByCampania(ConsultoraID, CampaniaID, ClienteID, Top))
             {
                 pedidos = reader.MapToCollection<BEMisPedidosCampania>();
+            }
+
+            return pedidos;
+        }
+        public List<BEMisPedidosIngresados> GetMisPedidosIngresados(int paisID, long ConsultoraID, int CampaniaID, int ClienteID, string NombreConsultora)
+        {
+            var pedidos = new List<BEMisPedidosIngresados>();
+            var detallepedidos = new List<BEMisPedidosIngresadosDetalle>();
+
+            using (IDataReader reader = new DAPedidoWeb(paisID).GetMisPedidosIngresados(ConsultoraID, CampaniaID, ClienteID, NombreConsultora))
+            {
+                pedidos = reader.MapToCollection<BEMisPedidosIngresados>();
+
+                if (reader.NextResult()) detallepedidos = reader.MapToCollection<BEMisPedidosIngresadosDetalle>();
+
+                foreach(var pedido in pedidos)
+                {
+                    pedido.Detalle = detallepedidos.Where(x => x.ClienteID == pedido.ClienteID).ToList();
+                }
+            }
+
+            return pedidos;
+        }
+        public List<BEMisPedidosFacturados> GetMisPedidosFacturados(int paisID, long ConsultoraID, int CampaniaID, int ClienteID, string NombreConsultora)
+        {
+            var pedidos = new List<BEMisPedidosFacturados>();
+            var detallepedidos = new List<BEMisPedidosFacturadosDetalle>();
+
+            using (IDataReader reader = new DAPedidoWeb(paisID).GetMisPedidosFacturados(ConsultoraID, CampaniaID, ClienteID, NombreConsultora))
+            {
+                pedidos = reader.MapToCollection<BEMisPedidosFacturados>();
+
+                if (reader.NextResult()) detallepedidos = reader.MapToCollection<BEMisPedidosFacturadosDetalle>();
+
+                foreach (var pedido in pedidos)
+                {
+                    pedido.Detalle = detallepedidos.Where(x => x.ClienteID == pedido.ClienteID).ToList();
+                }
             }
 
             return pedidos;

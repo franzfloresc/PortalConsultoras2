@@ -1,9 +1,13 @@
-﻿@using Portal.Consultoras.Web.Areas.Mobile.Models
-@using Portal.Consultoras.Web.Helpers
+﻿@using Portal.Consultoras.Web.Helpers
+@using Portal.Consultoras.Web.Areas.Mobile.Models
 
-@model Portal.Consultoras.Web.Areas.Mobile.Models.PedidoWebClientePrincipalMobilModel
+@using System.Collections.Generic
+
+@*@model Portal.Consultoras.Web.Areas.Mobile.Models.PedidoWebClientePrincipalMobilModel*@
+@model List<MisPedidosCampaniaModel>
+
 @{
-    var layout =  ViewContext.MobileLayout();
+    var layout = ViewContext.MobileLayout();
 
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
 }
@@ -47,6 +51,10 @@
         border-left:solid 4px #d9d9d9;
         box-shadow: 0 3px 5px 0 rgba(217,217,217,.8);
     }
+    /*.col-xs-12 {
+        padding-left:10px;
+        padding-right:10px
+    }*/
     .app-panels .panel-heading{
         padding:10px
     }
@@ -91,9 +99,9 @@
         text-align:right;
         vertical-align:top;
     }
-    .app-panels .resaltado{
+    /*.app-panels .resaltado{
         color:#e81c36
-    }
+    }*/
     .app-panels .codigo-producto {
         font-weight:bold
     }
@@ -104,9 +112,9 @@
         color: #979797
     }
     .app-panels .producto-total{
-        width:100%;
+        /*width:100%;
         bottom:0;
-        position: absolute;
+        position: absolute;*/
     }
     .app-panels hr{
         display: block;
@@ -169,19 +177,36 @@
     MIS PEDIDOS
 </div>
 
+@{ 
+    bool firstCampania = true;
+}
+
 <div class="app-tabs">
-    <a href="javascript:;" class="active">
-        C15 2017
-    </a>
-    <a href="javascript:;">
-        C14 2017
-    </a>
-    <a href="javascript:;">
-        C13 2017
-    </a>
+    @{
+        foreach (var pedidoCampania in @Model)
+        {
+            <a href="javascript:;" class="@(firstCampania ? "active" : string.Empty)" data-campania="@pedidoCampania.CampaniaID">
+                @pedidoCampania.NumeroCampania @pedidoCampania.AnioCampania
+            </a>
+            firstCampania = false;
+        }
+    }
 </div>
 
-<div class="app-panels panel">
+<div class="app-tabs-detail">
+    @{
+        firstCampania = true;
+        foreach (var pedidoCampania in @Model)
+        {
+            <div id="ContenedorPedido_@pedidoCampania.CampaniaID" style="@(firstCampania ? string.Empty : "display:none")">
+                @(pedidoCampania.EsCampaniaActual ? Html.Action("IngresadoDetalle") : Html.Action("FacturadoDetalle", new { campaniaID = pedidoCampania.CampaniaID }))
+            </div>
+            firstCampania = false;
+        }
+    }
+</div>
+
+@*<div class="app-panels panel">
     <div class="panel-heading" data-toggle="collapse" href="#collapse1">
         <div class="sections">
             <div class="sections-client">Azucena Suárez</div>
@@ -218,12 +243,12 @@
             <hr />
         </div>
     </div>
-</div>
+</div>*@
 
-<div class="app-footer">
+@*<div class="app-footer">
     <div class="sections-1">TOTAL</div>
     <div class="sections-2">S/ 399.00</div>
-</div>
+</div>*@
 
 @section scripts{
     <script type="text/javascript">
@@ -233,16 +258,25 @@
             $(".app-tabs a").click(function () {
                 $('.app-tabs a.active').removeClass("active");
                 $(this).addClass("active");
+
+                var campaniaSeleccionada = $(this).attr("data-campania");
+                $(".app-tabs-detail").children().css("display", "none");
+                $("#ContenedorPedido_" + campaniaSeleccionada).css("display", "");
             });
 
             $(".panel-heading").click(function (e) {
                 currentPanelHeading = $(this);
-                setTimeout(function () {
-                    if (!expanded) currentPanelHeading.parent().css("border-left", "solid 4px #e81c36");
-                    else currentPanelHeading.parent().css("border-left", "solid 4px #d9d9d9");
-                    expanded = !expanded;
-                    currentPanelHeading = null;
-                }, 500);
+                //setTimeout(function () {
+                //    if (!expanded) currentPanelHeading.parent().css("border-left", "solid 4px #e81c36");
+                //    else currentPanelHeading.parent().css("border-left", "solid 4px #d9d9d9");
+                //    expanded = !expanded;
+                //    currentPanelHeading = null;
+                //}, 500);
+
+                if (!expanded) currentPanelHeading.parent().css("border-left", "solid 4px #e81c36");
+                else currentPanelHeading.parent().css("border-left", "solid 4px #d9d9d9");
+                expanded = !expanded;
+                currentPanelHeading = null;
             });
         });
     </script>
