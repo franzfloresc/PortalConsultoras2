@@ -261,6 +261,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 DesCamp = CampaniaID;
             }
             return DesCamp;
@@ -495,7 +496,6 @@ namespace Portal.Consultoras.Web.Controllers
                 var wb = new XLWorkbook();
                 var ws = wb.Worksheets.Add("Hoja1");
                 List<string> Columns = new List<string>();
-                int index = 1;
 
                 int row = 5;
                 int col = 0;

@@ -240,7 +240,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult ExportarExcelEstadoCuenta()
         {
-            decimal cargo = 0;
             decimal abono = 0;
             string fechaVencimiento;
             string montoPagar;

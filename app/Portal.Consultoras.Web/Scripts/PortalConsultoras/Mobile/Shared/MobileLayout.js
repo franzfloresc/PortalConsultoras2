@@ -2,6 +2,8 @@
 
     LayoutHeader();
 
+    var ventanaChat = null;
+
     SetFormatDecimalPais(formatDecimalPaisMain);
 
     if (mostrarBannerPostulante == 'True') {
@@ -127,12 +129,30 @@
         }
     });
 
-    $("body").on('click', '.belcorpChat', function (e) {
+    $("body").on('click', '.belcorpChat, .indicador_ayuda', function (e) {
         e.preventDefault();
 
         var URL = location.protocol + "//" + location.host + "/Mobile/Bienvenida/ChatBelcorp";
-        open(URL, 'ventanaChat');
+        var PopUpChatOpened = localStorage.getItem('PopUpChatOpened');
+       
+        if (typeof PopUpChatOpened == 'undefined' ||
+            PopUpChatOpened == null ||
+            PopUpChatOpened == 'false') {
+            localStorage.setItem('PopUpChatOpened', 'true');
+            ventanaChat = open(URL, 'ventanaChat');
+            ventanaChat.focus();
+        } else {
+
+            ventanaChat = open('', 'ventanaChat');
+            console.log(ventanaChat.location);
+            if (ventanaChat.location == "about:blank") {
+                URL = location.protocol + "//" + location.host + "/Mobile/Bienvenida/ChatBelcorp";
+                ventanaChat = open(URL, 'ventanaChat');
+            }
+            ventanaChat.focus();
+        }
         return false;
+
     });
 
     $("#btn_cerrar_oferta_mobile").click(function () {
@@ -189,6 +209,10 @@
         if ($('#flexslidertop ul.slides li').length == 0) {
             $("#contentmobile").css({ 'margin-top': '63px' });
         }
+    }
+
+    if (URLactual.indexOf('/g/') > 0) {
+        $("#contentmobile").css({ 'margin-top': '0px' });
     }
 
     $(".bannersi").on("click", function () {
@@ -300,8 +324,7 @@ function loadBannerLP20() {
         $("#contentmobile").css("margin-top", "0px");
         $('#content_slider_banner').show();
 
-        if ($('#BloqueMobileOfertaDia').length > 0)
-        {
+        if ($('#BloqueMobileOfertaDia').length > 0) {
             $('#content_slider_banner').css('background-color', $('#BloqueMobileOfertaDia').css('background-color'));
         }
 

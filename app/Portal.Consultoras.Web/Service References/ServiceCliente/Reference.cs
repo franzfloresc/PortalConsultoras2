@@ -47,10 +47,16 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         private short FavoritoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal MontoPedidoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NombreField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NombreClienteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string OrigenField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int PaginaField;
@@ -191,6 +197,19 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal MontoPedido {
+            get {
+                return this.MontoPedidoField;
+            }
+            set {
+                if ((this.MontoPedidoField.Equals(value) != true)) {
+                    this.MontoPedidoField = value;
+                    this.RaisePropertyChanged("MontoPedido");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string Nombre {
             get {
                 return this.NombreField;
@@ -212,6 +231,19 @@ namespace Portal.Consultoras.Web.ServiceCliente {
                 if ((object.ReferenceEquals(this.NombreClienteField, value) != true)) {
                     this.NombreClienteField = value;
                     this.RaisePropertyChanged("NombreCliente");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Origen {
+            get {
+                return this.OrigenField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.OrigenField, value) != true)) {
+                    this.OrigenField = value;
+                    this.RaisePropertyChanged("Origen");
                 }
             }
         }
@@ -2811,6 +2843,9 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         private string MensajeRespuestaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal MontoPedidoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Portal.Consultoras.Web.ServiceCliente.BEMovimiento[] MovimientosField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -3041,6 +3076,19 @@ namespace Portal.Consultoras.Web.ServiceCliente {
                 if ((object.ReferenceEquals(this.MensajeRespuestaField, value) != true)) {
                     this.MensajeRespuestaField = value;
                     this.RaisePropertyChanged("MensajeRespuesta");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal MontoPedido {
+            get {
+                return this.MontoPedidoField;
+            }
+            set {
+                if ((this.MontoPedidoField.Equals(value) != true)) {
+                    this.MontoPedidoField = value;
+                    this.RaisePropertyChanged("MontoPedido");
                 }
             }
         }
@@ -4458,10 +4506,10 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCliente.BEClienteDB[]> SaveDBAsync(int paisID, Portal.Consultoras.Web.ServiceCliente.BEClienteDB[] clientes);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClienteService/SelectByConsultoraDB", ReplyAction="http://tempuri.org/IClienteService/SelectByConsultoraDBResponse")]
-        Portal.Consultoras.Web.ServiceCliente.BEClienteDB[] SelectByConsultoraDB(int paisID, long consultoraID, int campaniaID);
+        Portal.Consultoras.Web.ServiceCliente.BEClienteDB[] SelectByConsultoraDB(int paisID, long consultoraID, int campaniaID, int clienteID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClienteService/SelectByConsultoraDB", ReplyAction="http://tempuri.org/IClienteService/SelectByConsultoraDBResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCliente.BEClienteDB[]> SelectByConsultoraDBAsync(int paisID, long consultoraID, int campaniaID);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCliente.BEClienteDB[]> SelectByConsultoraDBAsync(int paisID, long consultoraID, int campaniaID, int clienteID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClienteService/MovimientoInsertar", ReplyAction="http://tempuri.org/IClienteService/MovimientoInsertarResponse")]
         int MovimientoInsertar(int paisId, Portal.Consultoras.Web.ServiceCliente.BEMovimiento movimiento);
@@ -4761,12 +4809,12 @@ namespace Portal.Consultoras.Web.ServiceCliente {
             return base.Channel.SaveDBAsync(paisID, clientes);
         }
         
-        public Portal.Consultoras.Web.ServiceCliente.BEClienteDB[] SelectByConsultoraDB(int paisID, long consultoraID, int campaniaID) {
-            return base.Channel.SelectByConsultoraDB(paisID, consultoraID, campaniaID);
+        public Portal.Consultoras.Web.ServiceCliente.BEClienteDB[] SelectByConsultoraDB(int paisID, long consultoraID, int campaniaID, int clienteID) {
+            return base.Channel.SelectByConsultoraDB(paisID, consultoraID, campaniaID, clienteID);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCliente.BEClienteDB[]> SelectByConsultoraDBAsync(int paisID, long consultoraID, int campaniaID) {
-            return base.Channel.SelectByConsultoraDBAsync(paisID, consultoraID, campaniaID);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCliente.BEClienteDB[]> SelectByConsultoraDBAsync(int paisID, long consultoraID, int campaniaID, int clienteID) {
+            return base.Channel.SelectByConsultoraDBAsync(paisID, consultoraID, campaniaID, clienteID);
         }
         
         public int MovimientoInsertar(int paisId, Portal.Consultoras.Web.ServiceCliente.BEMovimiento movimiento) {

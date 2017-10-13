@@ -53,78 +53,50 @@ namespace Portal.Consultoras.Web.Controllers
                 AgregarKitNuevas();
 
                 #region Flexipago
-
-                model.IndicadorFlexiPago = 0;
                 if (PaisTieneFlexiPago(userData.CodigoISO))
                 {
                     model.IndicadorFlexiPago = userData.IndicadorFlexiPago;
 
                     if (userData.IndicadorFlexiPago != 0)
                     {
-                        decimal pedidoBase;
-                        decimal lineaCredito;
-                        ObtenerLineaCreditoSB2(out lineaCredito, out pedidoBase);
-
-                        model.LineaCredito = lineaCredito;
-                        model.PedidoBase = pedidoBase;
+                        var flexipago = GetLineaCreditoFlexipago(userData);
+                        //
+                        model.LineaCredito = flexipago.LineaCredito;
+                        model.PedidoBase = flexipago.PedidoBase;
                     }
                 }
-
-
                 #endregion
 
                 #region Configuracion de Campaña
 
-                BEConfiguracionCampania oBEConfiguracionCampania = null;
+                var configuracionCampania = GetConfiguracionCampania();
 
-                //EPD-2058
-                if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
-                {
-                    using (PedidoServiceClient sv = new PedidoServiceClient())
-                    {
-                        var ConsultoraID = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociadaID : userData.ConsultoraID;
-                        oBEConfiguracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, ConsultoraID, userData.ZonaID, userData.RegionID);
-                    }
-                }
-                else
-                {
-                    oBEConfiguracionCampania = new BEConfiguracionCampania();
-                    oBEConfiguracionCampania.CampaniaID = userData.CampaniaID;
-                    oBEConfiguracionCampania.EstadoPedido = Constantes.EstadoPedido.Pendiente;
-                    oBEConfiguracionCampania.ModificaPedidoReservado = false;
-                    oBEConfiguracionCampania.ZonaValida = false;
-                    oBEConfiguracionCampania.CampaniaDescripcion = Convert.ToString(userData.CampaniaID); //Soluciona el problema al dar f5 en pedidos para usuario postulante.
-                }
-
-                if (oBEConfiguracionCampania != null)
-                {
-                    if (oBEConfiguracionCampania.CampaniaID == 0)
-                        return RedirectToAction("CampaniaZonaNoConfigurada");
-
-                    if (oBEConfiguracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado &&
-                        !oBEConfiguracionCampania.ModificaPedidoReservado &&
-                        !oBEConfiguracionCampania.ValidacionAbierta)
-                    {
-                        return RedirectToAction("PedidoValidado");
-                    }
-
-                    userData.ZonaValida = oBEConfiguracionCampania.ZonaValida;
-
-                    model.FlagValidacionPedido = "0";
-                    if (oBEConfiguracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado &&
-                        oBEConfiguracionCampania.ModificaPedidoReservado)
-                    {
-                        model.FlagValidacionPedido = "1";
-                    }
-
-                    model.EstadoPedido = oBEConfiguracionCampania.EstadoPedido == Constantes.EstadoPedido.Pendiente ? 0 : 1;
-                }
-                else
-                {
+                if (configuracionCampania == null)
                     return RedirectToAction("CampaniaZonaNoConfigurada");
+
+                if (configuracionCampania.CampaniaID == 0)
+                    return RedirectToAction("CampaniaZonaNoConfigurada");
+
+                if (configuracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado &&
+                    !configuracionCampania.ModificaPedidoReservado &&
+                    !configuracionCampania.ValidacionAbierta)
+                {
+                    return RedirectToAction("PedidoValidado");
                 }
 
-                ValidarStatusCampania(oBEConfiguracionCampania);
+                userData.ZonaValida = configuracionCampania.ZonaValida;
+
+                model.FlagValidacionPedido = "0";
+                if (configuracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado &&
+                    configuracionCampania.ModificaPedidoReservado)
+                {
+                    model.FlagValidacionPedido = "1";
+                }
+
+                model.EstadoPedido = configuracionCampania.EstadoPedido == Constantes.EstadoPedido.Pendiente ? 0 : 1;
+
+
+                ActualizarUserDataConInformacionCampania(configuracionCampania);
 
                 /* SB20-287 - INICIO */
                 TimeSpan HoraCierrePortal = userData.EsZonaDemAnti == 0 ? userData.HoraCierreZonaNormal : userData.HoraCierreZonaDemAnti;
@@ -151,7 +123,7 @@ namespace Portal.Consultoras.Web.Controllers
                         model.AccionBoton = "validar";
                         model.Prol = "RESERVA TU PEDIDO";
                         model.ProlTooltip = "Haz click aqui para reservar tu pedido";
-                        model.IndicadorGPRSB = oBEConfiguracionCampania.IndicadorGPRSB;
+                        model.IndicadorGPRSB = configuracionCampania.IndicadorGPRSB;
 
                         if (diaActual <= userData.FechaInicioCampania)
                         {
@@ -402,6 +374,31 @@ namespace Portal.Consultoras.Web.Controllers
             return View("Index", model);
         }
 
+        private BEConfiguracionCampania GetConfiguracionCampania()
+        {
+            BEConfiguracionCampania configuracionCampania = null;
+
+            if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
+            {
+                using (var pedidoServiceClient = new PedidoServiceClient())
+                {
+                    var ConsultoraID = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociadaID : userData.ConsultoraID;
+                    configuracionCampania = pedidoServiceClient.GetEstadoPedido(userData.PaisID, userData.CampaniaID, ConsultoraID, userData.ZonaID, userData.RegionID);
+                }
+
+                return configuracionCampania;
+            }
+            
+            configuracionCampania = new BEConfiguracionCampania();
+            configuracionCampania.CampaniaID = userData.CampaniaID;
+            configuracionCampania.EstadoPedido = Constantes.EstadoPedido.Pendiente;
+            configuracionCampania.ModificaPedidoReservado = false;
+            configuracionCampania.ZonaValida = false;
+            configuracionCampania.CampaniaDescripcion = Convert.ToString(userData.CampaniaID);
+
+            return configuracionCampania;
+        }
+
         public ActionResult virtualCoach(string param = "")
         {
             if (Request.Browser.IsMobileDevice)
@@ -446,46 +443,47 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
 
-        private void ValidarStatusCampania(BEConfiguracionCampania oBEConfiguracionCampania)
+        private void ActualizarUserDataConInformacionCampania(BEConfiguracionCampania configuracionCampania)
         {
             UsuarioModel usuario = userData;
-            usuario.ZonaValida = oBEConfiguracionCampania.ZonaValida;
-            usuario.FechaInicioCampania = oBEConfiguracionCampania.FechaInicioFacturacion;
+            //
+            usuario.ZonaValida = configuracionCampania.ZonaValida;
+            //
+            usuario.FechaInicioCampania = configuracionCampania.FechaInicioFacturacion;
+            usuario.FechaFinCampania = configuracionCampania.FechaFinFacturacion;
+            //
+            usuario.HoraInicioReserva = configuracionCampania.HoraInicio;
+            usuario.HoraFinReserva = configuracionCampania.HoraFin;
+            //
+            usuario.HoraInicioPreReserva = configuracionCampania.HoraInicioNoFacturable;
+            usuario.HoraFinPreReserva = configuracionCampania.HoraCierreNoFacturable;
+            //
+            usuario.DiasCampania = configuracionCampania.DiasAntes;
+            ActualizarEsDiaPROLyMostrarBotonValidarPedido(usuario);
+            usuario.NombreCorto = configuracionCampania.CampaniaDescripcion;
+            usuario.CampaniaID = configuracionCampania.CampaniaID;
+            usuario.ZonaHoraria = configuracionCampania.ZonaHoraria;
+            usuario.HoraCierreZonaDemAnti = configuracionCampania.HoraCierreZonaDemAnti;
+            usuario.HoraCierreZonaNormal = configuracionCampania.HoraCierreZonaNormal;
+            usuario.ValidacionAbierta = configuracionCampania.ValidacionAbierta;
+            usuario.ValidacionInteractiva = configuracionCampania.ValidacionInteractiva;
+            usuario.MensajeValidacionInteractiva = configuracionCampania.MensajeValidacionInteractiva;
 
-            // OGA se calcula la fecha de fin de campaña sumando la fecha de inicio mas los dias de duración del cronograma
-            //usuario.FechaFinCampania = oBEConfiguracionCampania.FechaFinFacturacion;
-            usuario.FechaFinCampania = oBEConfiguracionCampania.FechaFinFacturacion;
-
-            usuario.HoraInicioReserva = oBEConfiguracionCampania.HoraInicio;
-            usuario.HoraFinReserva = oBEConfiguracionCampania.HoraFin;
-            usuario.HoraInicioPreReserva = oBEConfiguracionCampania.HoraInicioNoFacturable;
-            usuario.HoraFinPreReserva = oBEConfiguracionCampania.HoraCierreNoFacturable;
-            usuario.DiasCampania = oBEConfiguracionCampania.DiasAntes;
-            UpdateDiaPROLAndMostrarBotonValidar(usuario);
-            usuario.NombreCorto = oBEConfiguracionCampania.CampaniaDescripcion;
-            usuario.CampaniaID = oBEConfiguracionCampania.CampaniaID;
-            usuario.ZonaHoraria = oBEConfiguracionCampania.ZonaHoraria;
-            usuario.HoraCierreZonaDemAnti = oBEConfiguracionCampania.HoraCierreZonaDemAnti;
-            usuario.HoraCierreZonaNormal = oBEConfiguracionCampania.HoraCierreZonaNormal;
-            usuario.ValidacionAbierta = oBEConfiguracionCampania.ValidacionAbierta; //CCSS_JZ_PROL
-            usuario.ValidacionInteractiva = oBEConfiguracionCampania.ValidacionInteractiva; //R20160306
-            usuario.MensajeValidacionInteractiva = oBEConfiguracionCampania.MensajeValidacionInteractiva; //R20160306
-
-            if (DateTime.Now.AddHours(oBEConfiguracionCampania.ZonaHoraria) < oBEConfiguracionCampania.FechaInicioFacturacion.AddDays(-oBEConfiguracionCampania.DiasAntes))
+            if (DateTime.Now.AddHours(configuracionCampania.ZonaHoraria) < configuracionCampania.FechaInicioFacturacion.AddDays(-configuracionCampania.DiasAntes))
             {
-                usuario.FechaFacturacion = oBEConfiguracionCampania.FechaInicioFacturacion.AddDays(-oBEConfiguracionCampania.DiasAntes);
-                usuario.HoraFacturacion = oBEConfiguracionCampania.HoraInicioNoFacturable;
+                usuario.FechaFacturacion = configuracionCampania.FechaInicioFacturacion.AddDays(-configuracionCampania.DiasAntes);
+                usuario.HoraFacturacion = configuracionCampania.HoraInicioNoFacturable;
             }
             else
             {
-                usuario.FechaFacturacion = oBEConfiguracionCampania.FechaFinFacturacion;
-                usuario.HoraFacturacion = oBEConfiguracionCampania.HoraFin;
+                usuario.FechaFacturacion = configuracionCampania.FechaFinFacturacion;
+                usuario.HoraFacturacion = configuracionCampania.HoraFin;
             }
-            DateTime FecActual = DateTime.Now.AddHours(usuario.ZonaHoraria);
-            TimeSpan HoActual = new TimeSpan(FecActual.Hour, FecActual.Minute, 0);
-            TimeSpan HCierrePais = usuario.EsZonaDemAnti == 0 ? usuario.HoraCierreZonaNormal : usuario.HoraCierreZonaDemAnti;
+            var fechaActual = DateTime.Now.AddHours(usuario.ZonaHoraria);
+            var horaActual = new TimeSpan(fechaActual.Hour, fechaActual.Minute, 0);
+            var horaCierrePais = usuario.EsZonaDemAnti == 0 ? usuario.HoraCierreZonaNormal : usuario.HoraCierreZonaDemAnti;
 
-            if (HoActual > HCierrePais)
+            if (horaActual > horaCierrePais)
             {
                 usuario.IngresoPedidoCierre = true;
             }
@@ -493,25 +491,32 @@ namespace Portal.Consultoras.Web.Controllers
             SetUserData(usuario);
         }
 
-        private void UpdateDiaPROLAndMostrarBotonValidar(UsuarioModel usuario)
+        private void ActualizarEsDiaPROLyMostrarBotonValidarPedido(UsuarioModel usuario)
         {
             DateTime fechaHoraActual = DateTime.Now.AddHours(usuario.ZonaHoraria);
-            usuario.DiaPROL = usuario.FechaInicioCampania.AddDays(-usuario.DiasCampania) < fechaHoraActual
-                && fechaHoraActual < usuario.FechaFinCampania.AddDays(1);
+
+            usuario.DiaPROL = (usuario.FechaInicioCampania.AddDays(-usuario.DiasCampania) < fechaHoraActual
+                && fechaHoraActual < usuario.FechaFinCampania.AddDays(1));
+
             usuario.MostrarBotonValidar = EsHoraReserva(usuario, fechaHoraActual);
         }
 
-        private bool EsHoraReserva(UsuarioModel usuario, DateTime fechaHoraActual)
+        private bool EsHoraReserva(UsuarioModel usuario, DateTime fechaHora)
         {
-            if (!usuario.DiaPROL) return false;
+            if (!usuario.DiaPROL)
+                return false;
 
-            TimeSpan HoraNow = new TimeSpan(fechaHoraActual.Hour, fechaHoraActual.Minute, 0);
-            bool esHorarioReserva = (fechaHoraActual < usuario.FechaInicioCampania) ?
+            TimeSpan HoraNow = new TimeSpan(fechaHora.Hour, fechaHora.Minute, 0);
+            bool esHorarioReserva = (fechaHora < usuario.FechaInicioCampania) ?
                 (HoraNow > usuario.HoraInicioPreReserva && HoraNow < usuario.HoraFinPreReserva) :
                 (HoraNow > usuario.HoraInicioReserva && HoraNow < usuario.HoraFinReserva);
-            if (!esHorarioReserva) return false;
 
-            if (usuario.CodigoISO != Constantes.CodigosISOPais.Peru) return (BuildFechaNoHabil() == 0);
+            if (!esHorarioReserva)
+                return false;
+
+            if (usuario.CodigoISO != Constantes.CodigosISOPais.Peru)
+                return (BuildFechaNoHabil() == 0);
+
             return true;
         }
 
@@ -1179,31 +1184,30 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-        private void ObtenerLineaCreditoSB2(out decimal lineaCredito, out decimal pedidoBase)
+        private BEOfertaFlexipago GetLineaCreditoFlexipago(UsuarioModel usuarioModel)
         {
+            BEOfertaFlexipago ofertaFlexipago = null;
             try
             {
-                using (PedidoServiceClient svc = new PedidoServiceClient())
+                using (var pedidoServiceClient = new PedidoServiceClient())
                 {
-                    BEOfertaFlexipago oBe = svc.GetLineaCreditoFlexipago(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID);
+                    ofertaFlexipago = pedidoServiceClient.GetLineaCreditoFlexipago(usuarioModel.PaisID,
+                        usuarioModel.CodigoConsultora,
+                        usuarioModel.CampaniaID);
 
-                    lineaCredito = oBe.LineaCredito;
-                    pedidoBase = oBe.PedidoBase;
                 }
             }
             catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
-                lineaCredito = 0;
-                pedidoBase = 0;
 
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                lineaCredito = 0;
-                pedidoBase = 0;
             }
+
+            return ofertaFlexipago;
         }
 
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
@@ -2152,7 +2156,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                UpdateDiaPROLAndMostrarBotonValidar(userData);
+                ActualizarEsDiaPROLyMostrarBotonValidarPedido(userData);
 
                 var input = Mapper.Map<BEInputReservaProl>(userData);
                 input.EnviarCorreo = false;
@@ -2637,6 +2641,16 @@ namespace Portal.Consultoras.Web.Controllers
             userData.ValidacionAbierta = oBEConfiguracionCampania.ValidacionAbierta;
 
             #endregion
+
+            var eventofestivo = GetEventoFestivoData();
+            if (eventofestivo.EfRutaPedido == null || eventofestivo.EfRutaPedido == "")
+            {
+                ViewBag.UrlFranjaNegra = "../../../Content/Images/Esika/background_pedido.png";
+            }
+            else
+            {
+                ViewBag.UrlFranjaNegra = eventofestivo.EfRutaPedido;
+            }
 
             return View(model);
         }

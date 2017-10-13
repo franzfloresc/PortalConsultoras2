@@ -214,24 +214,15 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-                var palanca = model.CampaniaID != userData.CampaniaID || revistaDigital.TieneRDR || revistaDigital.TieneRDC
-                    ? Constantes.TipoEstrategiaCodigo.Lanzamiento
-                    : "";
+                var listaFinal1 = ConsultarEstrategiasModel("", model.CampaniaID, Constantes.TipoEstrategiaCodigo.Lanzamiento);
 
-                if (palanca == "")
-                {
-                    return Json(new
-                    {
-                        success = false,
-                        message = "",
-                        lista = new List<ShowRoomOfertaModel>(),
-                        cantidadTotal = 0,
-                        cantidad = 0
-                    });
-                }
+                var perdio = model.CampaniaID != userData.CampaniaID || revistaDigital.TieneRDR
+                    ? 0
+                    : revistaDigital.TieneRDC && revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo
+                        ? 0
+                        : 1;
 
-                var listaFinal1 = ConsultarEstrategiasModel("", model.CampaniaID, palanca);
-                var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1);
+                var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1, perdio);
 
                 int cantidadTotal = listModel.Count;
 

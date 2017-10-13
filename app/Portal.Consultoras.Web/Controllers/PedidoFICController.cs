@@ -59,6 +59,16 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
+                var eventofestivo = GetEventoFestivoData();
+                if (eventofestivo.EfRutaPedido == null || eventofestivo.EfRutaPedido == "")
+                {
+                    ViewBag.UrlFranjaNegra = "../../../Content/Images/Esika/background_pedido.png";
+                }
+                else
+                {
+                    ViewBag.UrlFranjaNegra = eventofestivo.EfRutaPedido;
+                }
+
                 return View(PedidoModelo);
             }
             catch (FaultException ex)
@@ -428,6 +438,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 olstProductoModel.Add(new ProductoModel() { MarcaID = 0, CUV = "Ha ocurrido un Error. Vuelva a intentarlo." });
             }
 

@@ -61,7 +61,7 @@ namespace Portal.Consultoras.Web.Controllers
                 Mapper.CreateMap<BEPais, PaisModel>();
                 return Mapper.Map<List<BEPais>, List<PaisModel>>(lst);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return new List<PaisModel>();
             }

@@ -231,9 +231,9 @@ namespace Portal.Consultoras.Web.Controllers
 
 
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-
+                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 }
                 return View(consultoraAfiliar);
             }
@@ -1419,6 +1419,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return null;
             }
         }
@@ -1869,6 +1870,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 var dataError = new
                 {
                     success = false,

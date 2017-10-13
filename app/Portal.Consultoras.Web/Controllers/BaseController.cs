@@ -62,7 +62,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 userData = UserData();
                 revistaDigital = sessionManager.GetRevistaDigital() ?? new RevistaDigitalModel();
-                if (userData == null)
+                if (userData == null || userData == default(UsuarioModel))
                 {
                     string URLSignOut = string.Empty;
                     if (Request.UrlReferrer != null && Request.UrlReferrer.ToString().Contains(Request.Url.Host))
@@ -987,7 +987,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             if (model == null)
-                return model;
+                return new UsuarioModel();
 
             string UrlEMTELCO = "";
             try
@@ -2807,13 +2807,14 @@ namespace Portal.Consultoras.Web.Controllers
 
         public bool IsMobile()
         {
+            //// todo: better aproach HttpContext.Request.Browser.IsMobileDevice;
             var url = string.Empty;
 
             url = HttpContext.Request.UrlReferrer != null ?
                 Util.Trim(HttpContext.Request.UrlReferrer.LocalPath).ToLower() :
                 Util.Trim(HttpContext.Request.FilePath).ToLower();
 
-            return url.Contains("/mobile/");
+            return url.Contains("/mobile/") || url.Contains("/g/");
         }
 
         public List<BETablaLogicaDatos> ObtenerParametrosTablaLogica(int paisID, short tablaLogicaId, bool sesion = false)
@@ -3292,6 +3293,7 @@ namespace Portal.Consultoras.Web.Controllers
             else
             {
                 #region  Obtenido de la cache de Amazon
+
                 using (SACServiceClient sv = new SACServiceClient())
                 {
                     listaEntidad = sv.ListarSeccionConfiguracionOfertasHome(userData.PaisID, menuActivo.CampaniaId).ToList();
@@ -3303,7 +3305,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (menuActivo.CampaniaId > userData.CampaniaID)
             {
-                listaEntidad = listaEntidad.Where(entConf => entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigital
+                listaEntidad = listaEntidad.Where(entConf
+                => entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigital
                 || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.Lanzamiento
                 || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.InicioRD).ToList();
             }
@@ -3381,6 +3384,7 @@ namespace Portal.Consultoras.Web.Controllers
                         seccion.UrlObtenerProductos = "RevistaDigital/RDObtenerProductosLan";
                         seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.RevistaDigitalMobileLandingCarrusel : Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLandingCarrusel;
                         break;
+                    case Constantes.ConfiguracionPais.RevistaDigitalReducida:
                     case Constantes.ConfiguracionPais.RevistaDigital:
                         seccion.UrlObtenerProductos = "RevistaDigital/RDObtenerProductos";
                         seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding : Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding;
@@ -3527,7 +3531,13 @@ namespace Portal.Consultoras.Web.Controllers
         {
             string path = Request.Path;
             var listMenu = BuildMenuContenedor();
+
             path = path.ToLower().Replace("/mobile", "");
+
+            //// guid length + /g/ length
+            if (path.IndexOf("/g/", StringComparison.OrdinalIgnoreCase) >= 0)
+                path = path.Substring(path.IndexOf("/g/", StringComparison.OrdinalIgnoreCase) + 39);
+
             var pathStrings = path.Split('/');
             var newPath = "";
             var pathOrigen = "";

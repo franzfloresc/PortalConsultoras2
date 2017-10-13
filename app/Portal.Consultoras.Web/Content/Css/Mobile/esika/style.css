@@ -12254,7 +12254,7 @@ a{
     background:black;
 }
 .content_titulo_sub_oferta{
-    /*background:black;*/
+    background:black;
     height:45px;
     width:280px;
     margin:0 auto;
@@ -12263,7 +12263,7 @@ a{
 }
 .content_titulo_texto_sw {
     font-family: 'Lato';
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 700;
     /*color: white;*/
     letter-spacing: 1.3px;

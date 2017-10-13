@@ -44,7 +44,7 @@ $(document).ready(function () {
         // Registrar valrores de analytics
         if (!esPrimeraCarga) {
             rdAnalyticsModule.Tabs($(this).attr("data-tab-index"), campaniaId);
-        } else {esPrimeraCarga = false;}
+        } else { esPrimeraCarga = false; }
 
         var funt = $.trim($(this).attr("data-tag-funt"));
         if (funt != "") {
@@ -362,13 +362,14 @@ function OfertaArmarEstrategiasContenedor(responseData) {
 }
 
 function OfertaArmarEstrategiasContenedorSeccion(response) {
-    response.CantidadProductos = response.lista.length;
+    response.listaPerdio = response.listaPerdio || [];
+    response.CantidadProductos = response.lista.length + response.listaPerdio.length;
     var cant = response.Seccion.CantidadProductos || 0;
     cant = cant == 0 ? response.lista.length : cant;
     if (cant > 0) {
         var newLista = [];
         var listaItem = response.lista;
-
+        listaItem = listaItem.concat(response.listaPerdio);
         $.each(listaItem, function (ind, item) {
             if (("," + response.Seccion.TipoEstrategia + ",").indexOf("," + item.CodigoEstrategia + ",") >= 0) {
                 if (newLista.length < cant) {

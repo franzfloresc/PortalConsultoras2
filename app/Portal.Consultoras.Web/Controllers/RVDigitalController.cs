@@ -187,6 +187,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 ErrorServicio = true;
             }
 
@@ -327,6 +328,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 ErrorServicio = true;
             }
 

@@ -135,6 +135,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", "");
                 return Json(new { success = false, message = "Hubo un error al cargar el archivo, intente nuevamente." }, "text/html");
             }
         }
@@ -160,6 +161,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", "");
                 return Json(new { success = false, message = "Hubo un error al cargar el archivo, intente nuevamente." }, "text/html");
             }
         }
@@ -222,6 +224,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", "");
                 return Json(new { success = false, message = "Hubo un error al cargar el archivo, intente nuevamente." }, "text/html");
             }
         }
@@ -285,6 +288,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", "");
                 return Json(new { success = false, message = "Hubo un error al cargar el archivo, intente nuevamente." }, "text/html");
             }
         }
@@ -347,6 +351,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", "");
                 return Json(new { success = false, message = "Hubo un error al cargar el archivo, intente nuevamente." }, "text/html");
             }
         }
@@ -383,6 +388,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", "");
                 return Json(new { success = false, message = "Hubo un error al cargar el archivo, intente nuevamente." }, "text/html");
             }
         }

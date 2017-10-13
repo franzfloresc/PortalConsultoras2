@@ -2,9 +2,12 @@
 using Portal.Consultoras.Web.Models;
 using System;
 using System.Web.Mvc;
+using Portal.Consultoras.Web.CustomFilters;
+using Portal.Consultoras.Web.Infraestructure;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
+    //[UniqueSession("UniqueRoute", UniqueRoute.IdentifierKey, "/g/")]
     public class RevistaDigitalController : BaseRevistaDigitalController
     {
         public ActionResult Index()

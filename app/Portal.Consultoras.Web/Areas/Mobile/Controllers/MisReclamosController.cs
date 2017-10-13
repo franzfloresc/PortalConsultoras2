@@ -31,6 +31,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
             catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 listaCDRWebModel = new List<CDRWebModel>();
             }
 
