@@ -295,11 +295,29 @@
   <wsdl:message name="IPortalService_ObtenerPosiblesConsultorasPendientesVisita_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerPosiblesConsultorasPendientesVisitaResponse" />
   </wsdl:message>
+  <wsdl:message name="IPortalService_ConsultarSolicitudesPostulanteV2_InputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultarSolicitudesPostulanteV2" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ConsultarSolicitudesPostulanteV2_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultarSolicitudesPostulanteV2Response" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerReporteGestionPostulante_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerReporteGestionPostulante" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerReporteGestionPostulante_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerReporteGestionPostulanteResponse" />
+  </wsdl:message>
   <wsdl:message name="IPortalService_GetDictionaryReporteFuenteIngreso_InputMessage">
     <wsdl:part name="parameters" element="tns:GetDictionaryReporteFuenteIngreso" />
   </wsdl:message>
   <wsdl:message name="IPortalService_GetDictionaryReporteFuenteIngreso_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetDictionaryReporteFuenteIngresoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_GetDictionaryReporteGestionPostulantes_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDictionaryReporteGestionPostulantes" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_GetDictionaryReporteGestionPostulantes_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDictionaryReporteGestionPostulantesResponse" />
   </wsdl:message>
   <wsdl:message name="IPortalService_GetDictionaryReporteConsolidado_InputMessage">
     <wsdl:part name="parameters" element="tns:GetDictionaryReporteConsolidado" />
@@ -324,6 +342,18 @@
   </wsdl:message>
   <wsdl:message name="IPortalService_ConsultarReporteConsolidado_OutputMessage">
     <wsdl:part name="parameters" element="tns:ConsultarReporteConsolidadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ConsultarNivelesGeograficos_InputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultarNivelesGeograficos" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ConsultarNivelesGeograficos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultarNivelesGeograficosResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ConsultarNivelesRiesgo_InputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultarNivelesRiesgo" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ConsultarNivelesRiesgo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultarNivelesRiesgoResponse" />
   </wsdl:message>
   <wsdl:message name="IPortalService_GetReporteFunnel_InputMessage">
     <wsdl:part name="parameters" element="tns:GetReporteFunnel" />
@@ -520,9 +550,21 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerPosiblesConsultorasPendientesVisita" message="tns:IPortalService_ObtenerPosiblesConsultorasPendientesVisita_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerPosiblesConsultorasPendientesVisitaResponse" message="tns:IPortalService_ObtenerPosiblesConsultorasPendientesVisita_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ConsultarSolicitudesPostulanteV2">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ConsultarSolicitudesPostulanteV2" message="tns:IPortalService_ConsultarSolicitudesPostulanteV2_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ConsultarSolicitudesPostulanteV2Response" message="tns:IPortalService_ConsultarSolicitudesPostulanteV2_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerReporteGestionPostulante">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerReporteGestionPostulante" message="tns:IPortalService_ObtenerReporteGestionPostulante_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerReporteGestionPostulanteResponse" message="tns:IPortalService_ObtenerReporteGestionPostulante_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetDictionaryReporteFuenteIngreso">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/GetDictionaryReporteFuenteIngreso" message="tns:IPortalService_GetDictionaryReporteFuenteIngreso_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/GetDictionaryReporteFuenteIngresoResponse" message="tns:IPortalService_GetDictionaryReporteFuenteIngreso_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDictionaryReporteGestionPostulantes">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/GetDictionaryReporteGestionPostulantes" message="tns:IPortalService_GetDictionaryReporteGestionPostulantes_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/GetDictionaryReporteGestionPostulantesResponse" message="tns:IPortalService_GetDictionaryReporteGestionPostulantes_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetDictionaryReporteConsolidado">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/GetDictionaryReporteConsolidado" message="tns:IPortalService_GetDictionaryReporteConsolidado_InputMessage" />
@@ -539,6 +581,14 @@
     <wsdl:operation name="ConsultarReporteConsolidado">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ConsultarReporteConsolidado" message="tns:IPortalService_ConsultarReporteConsolidado_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ConsultarReporteConsolidadoResponse" message="tns:IPortalService_ConsultarReporteConsolidado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarNivelesGeograficos">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ConsultarNivelesGeograficos" message="tns:IPortalService_ConsultarNivelesGeograficos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ConsultarNivelesGeograficosResponse" message="tns:IPortalService_ConsultarNivelesGeograficos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarNivelesRiesgo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ConsultarNivelesRiesgo" message="tns:IPortalService_ConsultarNivelesRiesgo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ConsultarNivelesRiesgoResponse" message="tns:IPortalService_ConsultarNivelesRiesgo_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetReporteFunnel">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/GetReporteFunnel" message="tns:IPortalService_GetReporteFunnel_InputMessage" />
@@ -970,8 +1020,35 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ConsultarSolicitudesPostulanteV2">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ConsultarSolicitudesPostulanteV2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerReporteGestionPostulante">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ObtenerReporteGestionPostulante" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetDictionaryReporteFuenteIngreso">
       <soap:operation soapAction="http://tempuri.org/IPortalService/GetDictionaryReporteFuenteIngreso" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDictionaryReporteGestionPostulantes">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/GetDictionaryReporteGestionPostulantes" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1008,6 +1085,24 @@
     </wsdl:operation>
     <wsdl:operation name="ConsultarReporteConsolidado">
       <soap:operation soapAction="http://tempuri.org/IPortalService/ConsultarReporteConsolidado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarNivelesGeograficos">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ConsultarNivelesGeograficos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarNivelesRiesgo">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ConsultarNivelesRiesgo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

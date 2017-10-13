@@ -64,8 +64,7 @@ namespace Portal.Consultoras.Web.Helpers
 
         public static object GetUniqueSession(this ViewContext viewContext, string name)
         {
-            //return viewContext.HttpContext.Session[viewContext.GetUniqueKey() + "_" + name];
-            return viewContext.HttpContext.Session[name];
+            return viewContext.HttpContext.Session[viewContext.GetUniqueKey() + "_" + name];
         }
     }
 }

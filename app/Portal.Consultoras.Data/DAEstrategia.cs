@@ -223,6 +223,56 @@ namespace Portal.Consultoras.Data
             }
         }
 
+        public IDataReader GetEstrategiaOfertaWeb(BEEstrategia entidad)
+        {
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarEstrategiasOfertaWeb"))
+            {
+                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
+                Context.Database.AddInParameter(command, "@ZonaID", DbType.String, entidad.Zona);
+                return Context.ExecuteReader(command);
+            }
+        }
+
+        public IDataReader GetEstrategiaPackNuevas(BEEstrategia entidad)
+        {
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarEstrategiasPackNuevas"))
+            {
+                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
+                Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, entidad.ConsultoraID);
+                return Context.ExecuteReader(command);
+            }
+        }
+
+        public IDataReader GetEstrategiaLanzamiento(BEEstrategia entidad)
+        {
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarEstrategiasLanzamiento"))
+            {
+                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
+                Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, entidad.ConsultoraID);
+                return Context.ExecuteReader(command);
+            }
+        }
+
+        public IDataReader GetEstrategiaOfertaParaTi(BEEstrategia entidad)
+        {
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarEstrategiasOPT"))
+            {
+                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
+                Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, entidad.ConsultoraID);
+                return Context.ExecuteReader(command);
+            }
+        }
+
+        public IDataReader GetEstrategiaRevistaDigital(BEEstrategia entidad)
+        {
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarEstrategiasRevistaDigital"))
+            {
+                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
+                Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, entidad.ConsultoraID);
+                return Context.ExecuteReader(command);
+            }
+        }
+
         public IDataReader GetMasVendidos(BEEstrategia entidad)
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarOfertasMasVendidos"))
@@ -266,26 +316,7 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 		// 1747 - Fin
-
-        public string GetCodeEstrategiaByCUV(string cuv, int campaniaId)
-        {
-            var stringValue = "";
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCodeEstrategiaByCUV");
-            Context.Database.AddInParameter(command, "@Cuv", DbType.String, cuv);
-            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
-
-            using (var reader = Context.ExecuteReader(command))
-            {
-                if (reader.Read())
-                {
-                    stringValue = reader.GetString(reader.GetOrdinal("Codigo"));
-                }
-                
-            }
-
-            return stringValue;
-        }
-
+        
         public string GetImagenOfertaPersonalizadaOF(int campaniaID, string cuv)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetImagenOfertaPersonalizadaOF_SB2");

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Runtime.Serialization;
-using System.Data;
-using OpenSource.Library.DataAccess;
+﻿using OpenSource.Library.DataAccess;
 using Portal.Consultoras.Common;
+using System;
+using System.Data;
+using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities
 {
@@ -14,14 +10,14 @@ namespace Portal.Consultoras.Entities
     public class BEProducto
     {
         private string msCUV;
-        //private string msCodigoSAP;
+
         private string msDescripcion;
         private decimal mdPrecioCatalogo;
-        //private decimal mdPrecioValorizado;
+
         private int miMarcaID;
-        //private bool mbEsPremio;
+
         private bool mbEstaEnRevista;
-        //private bool mbEsFaltanteAnunciado;
+
         private bool mbTieneStock;
         private bool mbEsExpoOferta;
         private string msCUVRevista;
@@ -35,8 +31,6 @@ namespace Portal.Consultoras.Entities
         public int ConfiguracionOfertaID { get; set; }
         [DataMember]
         public int TipoOfertaSisID { get; set; }
-        //private string msIndicador;
-        //private byte miPaisID;
 
         [DataMember]
         public string CUV
@@ -50,12 +44,7 @@ namespace Portal.Consultoras.Entities
             get { return msIndicadorMontoMinimo; }
             set { msIndicadorMontoMinimo = value; }
         }
-        //[DataMember]
-        //public string CodigoSAP
-        //{
-        //    get { return msCodigoSAP; }
-        //    set { msCodigoSAP = value; }
-        //}
+        
         [DataMember]
         public string Descripcion
         {
@@ -68,36 +57,21 @@ namespace Portal.Consultoras.Entities
             get { return mdPrecioCatalogo; }
             set { mdPrecioCatalogo = value; }
         }
-        //[DataMember]
-        //public decimal PrecioValorizado
-        //{
-        //    get { return mdPrecioValorizado; }
-        //    set { mdPrecioValorizado = value; }
-        //}
+        
         [DataMember]
         public int MarcaID
         {
             get { return miMarcaID; }
             set { miMarcaID = value; }
         }
-        //[DataMember]
-        //public bool EsPremio
-        //{
-        //    get { return mbEsPremio; }
-        //    set { mbEsPremio = value; }
-        //}
+        
         [DataMember]
         public bool EstaEnRevista
         {
             get { return mbEstaEnRevista; }
             set { mbEstaEnRevista = value; }
         }
-        //[DataMember]
-        //public bool EsFaltanteAnunciado
-        //{
-        //    get { return mbEsFaltanteAnunciado; }
-        //    set { mbEsFaltanteAnunciado = value; }
-        //}
+        
         [DataMember]
         public bool TieneStock
         {
@@ -126,34 +100,21 @@ namespace Portal.Consultoras.Entities
             get { return msCUVComplemento; }
             set { msCUVComplemento = value; }
         }
-        /*R2469 - JICM - INI*/
+        
         [DataMember]
         public string DescripcionMarca { get; set; }
         [DataMember]
         public string DescripcionCategoria { get; set; }
         [DataMember]
         public string DescripcionEstrategia { get; set; }
-        /*R2469 - JICM - FIN*/
-        /* CGI (AHAA) - BUG 2015000858 - Inicio */
+        
         [DataMember]
         public string FlagNueva { get; set; }
         [DataMember]
         public string TipoEstrategiaID { get; set; }
-        /* CGI (AHAA) - BUG 2015000858 - Fin */
+        
         [DataMember]
-        public bool IndicadorOfertaCUV  { get; set; } /*R20150701*/
-        //[DataMember]
-        //public string Indicador
-        //{
-        //    get { return msIndicador; }
-        //    set { msIndicador = value; }
-        //}
-        //[DataMember]
-        //public byte PaisID
-        //{
-        //    get { return miPaisID; }
-        //    set { miPaisID = value; }
-        //}
+        public bool IndicadorOfertaCUV  { get; set; }
 
         [DataMember]
         public string Nombre { get; set; }
@@ -198,22 +159,24 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public string TextoBusqueda { get; set; }
+        
+        [DataMember]
+        public string TipoEstrategiaCodigo { get; set; }
 
         public BEProducto(IDataRecord datarec)
         {
-            //miCampaniaID = Convert.ToInt32(datarec["CampaniaID"]);
             msCUV = (datarec["CUV"] ?? "").ToString();
             if (DataRecord.HasColumn(datarec, "CodigoSAP") && datarec["CodigoSAP"] != DBNull.Value)
                 CodigoSAP = DbConvert.ToString(datarec["CodigoSAP"]);
             if (DataRecord.HasColumn(datarec, "PrecioCatalogo") && datarec["PrecioCatalogo"] != DBNull.Value)
                 mdPrecioCatalogo = DbConvert.ToDecimal(datarec["PrecioCatalogo"]);
-            //mdPrecioValorizado = Convert.ToDecimal(datarec["PrecioValorizado"]);
+
             if (DataRecord.HasColumn(datarec, "MarcaID") && datarec["MarcaID"] != DBNull.Value)
                 miMarcaID = DbConvert.ToInt32(datarec["MarcaID"]);
-            //mbEsPremio = Convert.ToBoolean(datarec["EsPremio"]);
+
             if (DataRecord.HasColumn(datarec, "EstaEnRevista") && datarec["EstaEnRevista"] != DBNull.Value)
                 mbEstaEnRevista = DbConvert.ToBoolean(datarec["EstaEnRevista"]);
-            //mbEsFaltanteAnunciado = Convert.ToBoolean(datarec["EsFaltanteAnunciado"]);
+
             if (DataRecord.HasColumn(datarec, "TieneStock") && datarec["TieneStock"] != DBNull.Value)
                 mbTieneStock = DbConvert.ToBoolean(datarec["TieneStock"]);
             if (DataRecord.HasColumn(datarec, "EsExpoOferta") && datarec["EsExpoOferta"] != DBNull.Value)
@@ -222,18 +185,17 @@ namespace Portal.Consultoras.Entities
                 msCUVRevista = datarec["CUVRevista"].ToString();
             if (DataRecord.HasColumn(datarec, "CUVComplemento") && datarec["CUVComplemento"] != DBNull.Value)
                 msCUVComplemento = datarec["CUVComplemento"].ToString();
-            //msIndicadorMontoMinimo = datarec["IndicadorMontoMinimo"] != DBNull.Value ? DbConvert.ToInt32(datarec["IndicadorMontoMinimo"]) : 1;
+
             if (DataRecord.HasColumn(datarec, "IndicadorMontoMinimo") && datarec["IndicadorMontoMinimo"] != DBNull.Value)
                 msIndicadorMontoMinimo = Convert.ToInt32(datarec["IndicadorMontoMinimo"]);
             else
                 msIndicadorMontoMinimo = 1;
-            //msIndicador = datarec["Indicador"].ToString();
-            //miPaisID = (byte)datarec["PaisID"];
+
             if (DataRecord.HasColumn(datarec, "ConfiguracionOfertaID") && datarec["ConfiguracionOfertaID"] != DBNull.Value)
                 ConfiguracionOfertaID = Convert.ToInt32(datarec["ConfiguracionOfertaID"]);
             if (DataRecord.HasColumn(datarec, "TipoOfertaSisID") && datarec["TipoOfertaSisID"] != DBNull.Value)
                 TipoOfertaSisID = Convert.ToInt32(datarec["TipoOfertaSisID"]);
-            /*R2469 - JICM - INI*/
+
             if (DataRecord.HasColumn(datarec, "DescripcionMarca") && datarec["DescripcionMarca"] != DBNull.Value)
                 DescripcionMarca = datarec["DescripcionMarca"].ToString();
 
@@ -242,13 +204,11 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(datarec, "DescripcionEstrategia") && datarec["DescripcionEstrategia"] != DBNull.Value)
                 DescripcionEstrategia = datarec["DescripcionEstrategia"].ToString();
-            /*R2469 - JICM - FIN*/
-            /* CGI (AHAA) - BUG 2015000858 - Inicio */
+
             if (DataRecord.HasColumn(datarec, "FlagNueva") && datarec["FlagNueva"] != DBNull.Value)
                 FlagNueva = datarec["FlagNueva"].ToString();
             if (DataRecord.HasColumn(datarec, "TipoEstrategiaID") && datarec["TipoEstrategiaID"] != DBNull.Value)
                 TipoEstrategiaID = datarec["TipoEstrategiaID"].ToString();
-            /* CGI (AHAA) - BUG 2015000858 - Fin */
 
             if (DataRecord.HasColumn(datarec, "IndicadorOfertaCUV") && datarec["IndicadorOfertaCUV"] != DBNull.Value)
                 IndicadorOfertaCUV = Convert.ToBoolean(datarec["IndicadorOfertaCUV"]);
@@ -294,6 +254,8 @@ namespace Portal.Consultoras.Entities
                 DescripcionOferta = Convert.ToString(datarec["DescripcionOferta"]);
             if (DataRecord.HasColumn(datarec, "DescripcionProducto") && datarec["DescripcionProducto"] != DBNull.Value)
                 DescripcionProducto = Convert.ToString(datarec["DescripcionProducto"]);
+
+            TipoEstrategiaCodigo = DataRecord.GetColumn<string>(datarec, "TipoEstrategiaCodigo");
         }
 
         //Refactor Inheritance
