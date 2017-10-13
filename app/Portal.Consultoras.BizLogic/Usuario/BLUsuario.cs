@@ -533,7 +533,6 @@ namespace Portal.Consultoras.BizLogic
         public string IsConsultoraExist(int paisID, string CodigoConsultora)
         {
             var DAUsuario = new DAUsuario(paisID);
-            var existe = false;
             string retorno = string.Empty;
             
             retorno = "0|0";
