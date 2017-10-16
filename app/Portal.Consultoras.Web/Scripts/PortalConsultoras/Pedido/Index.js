@@ -2985,10 +2985,12 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
         AbrirSplash();
         $.getJSON(baseUrl + 'OfertaLiquidacion/ValidarUnidadesPermitidasPedidoProducto', { CUV: CUV, Cantidad: StockNuevo, PrecioUnidad: PrecioUnidad}, function (data) {
             CerrarSplash();
-            if (data.message != "") { /*Validación Pedido Máximo*/
-                AbrirMensajeEstrategia(data.message);
-                CargarDetallePedido();                
-                return false;
+            if (data.message.length > 3) { /*Validación Pedido Máximo*/
+                AbrirMensajeEstrategia(data.message);                
+                if (!data.result) {
+                    CargarDetallePedido(); 
+                    return false;
+                }                    
             } 
             var Saldo = data.Saldo;
             var UnidadesPermitidas = data.UnidadesPermitidas;
@@ -3327,6 +3329,9 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
                             $('#txtLPCant' + PedidoDetalleID).val(CantidadAnti);
                             return false;
                         } else {
+                            if (datos.message.length > 3)
+                                AbrirMensajeEstrategia(datos.message);
+
                             Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV);
                         }
                     }
