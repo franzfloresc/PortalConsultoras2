@@ -13,15 +13,15 @@
 
 .contenedor_seccion_personaliza{
     width:100%;
-    min-height:585px;
-    /*background-image:url("/Content/Images/Esika/Contenedor/fondo-seccion-descarga-imprime.png");*/
+    min-height:500px;
+    background-image:url("/Content/Images/Esika/Contenedor/fondo-seccion-descarga-imprime.jpg");
     background-repeat:no-repeat;
-    background-size:cover;
     background-position:center;
-    padding-top:55px;
+    padding-top:34px;
     box-sizing:border-box;
     font-family:'Lato';
-    margin-bottom:20px;
+    margin-top:40px;
+    /*margin-bottom:20px;*/
 }
 
 .seccion_personaliza_descarga_e_imprime{
@@ -41,7 +41,7 @@
     font-weight:bold;
     color:#b52e36;    
     letter-spacing:2.1px;
-    margin-bottom:6px;
+    /*margin-bottom:6px;*/
 }
 
 .texto_personaliza_tus_regalos{
@@ -49,13 +49,13 @@
     font-weight:400;
     color:#000;
     letter-spacing:0.2px;
-    margin-bottom:54px;
+    margin-bottom:32px;
 }
 
 .col_izq_seccion_personaliza, .col_der_seccion_personaliza{
     display:inline-block;
     vertical-align:top;
-    height:366px;
+    height:338px;
     box-sizing:border-box;
 }
 
@@ -77,7 +77,7 @@
 }
 
 .img_tarjeta_navidenia, .img_papel_regalo_navidenio{
-    margin-bottom:39px;
+    margin-bottom:20px;
 }
 
 .img_tarjeta_navidenia{
@@ -102,7 +102,7 @@
 }
 
 .info_papel_regalo_navidenio{
-    margin-bottom:13px;
+    margin-bottom:10px;
 }
 
 .enlace_descargables{
