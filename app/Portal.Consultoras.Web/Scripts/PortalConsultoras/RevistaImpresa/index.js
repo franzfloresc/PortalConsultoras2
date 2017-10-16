@@ -1,8 +1,4 @@
 ﻿$(document).ready(function () {
-    $('.demo-lightSlider a.btn-ver-mas').click(function () {
-        $('.contenedor-items-revista').toggle();
-    });
-
     $('#lightSlider').lightSlider({
         gallery: true,
         item: 1,
@@ -29,5 +25,28 @@
         nextHtml: ''
     });
 });
+
+/******/
+
+$(document).ready(main);
+
+var contador = 1;
+
+function main() {
+    $('.btn-mostrar-productos').click(function () {
+        if (contador == 1) {
+            $('.contenedor-items-revista').css("display", "block");
+            $('.demo-lightSlider a.btn-ver-mas span.txt-ocultar').css("display", "block");
+            $('.demo-lightSlider a.btn-ver-mas span.txt-ver').css("display", "none");
+            contador = 0;
+        } else {
+            contador = 1;
+            $('.contenedor-items-revista').css("display", "none");
+            $('.demo-lightSlider a.btn-ver-mas span.txt-ocultar').css("display", "none");
+            $('.demo-lightSlider a.btn-ver-mas span.txt-ver').css("display", "block");
+        }
+    });
+    
+}
 
 
