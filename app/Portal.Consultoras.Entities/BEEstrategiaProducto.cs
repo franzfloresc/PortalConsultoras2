@@ -46,21 +46,21 @@ namespace Portal.Consultoras.Entities
 
         public BEEstrategiaProducto(IDataRecord row)
         {
-            EstrategiaProductoID = DataRecord.GetColumn(row, "EstrategiaProductoID", 0);
-            EstrategiaID = DataRecord.GetColumn(row, "EstrategiaID", 0);
-            Campania = DataRecord.GetColumn(row, "Campania", 0);
-            CUV = DataRecord.GetColumn(row, "CUV", "");
-            CUV2 = DataRecord.GetColumn(row, "CUV2", "");
-            SAP = DataRecord.GetColumn(row, "SAP", "");
-            Grupo = DataRecord.GetColumn(row, "Grupo", "");
-            Orden = DataRecord.GetColumn(row, "Orden", 0);
-            Cantidad = DataRecord.GetColumn(row, "Cantidad", 0);
-            Precio = DataRecord.GetColumn(row, "Precio", Convert.ToDecimal(0));
-            PrecioValorizado = DataRecord.GetColumn(row, "PrecioValorizado", Convert.ToDecimal(0));
-            Digitable = DataRecord.GetColumn(row, "Digitable", 0);
-            CodigoEstrategia = DataRecord.GetColumn(row, "CodigoEstrategia", "");
-            CodigoError = DataRecord.GetColumn(row, "CodigoError", "");
-            CodigoErrorObs = DataRecord.GetColumn(row, "CodigoErrorObs", "");
+            EstrategiaProductoID = DataRecord.GetColumn<int>(row, "EstrategiaProductoID");
+            EstrategiaID = DataRecord.GetColumn<int>(row, "EstrategiaID");
+            Campania = DataRecord.GetColumn<int>(row, "Campania");
+            CUV = DataRecord.GetColumn<string>(row, "CUV");
+            CUV2 = DataRecord.GetColumn<string>(row, "CUV2");
+            SAP = DataRecord.GetColumn<string>(row, "SAP");
+            Grupo = DataRecord.GetColumn<string>(row, "Grupo");
+            Orden = DataRecord.GetColumn<int>(row, "Orden");
+            Cantidad = DataRecord.GetColumn<int>(row, "Cantidad");
+            Precio = DataRecord.GetColumn<decimal>(row, "Precio");
+            PrecioValorizado = DataRecord.GetColumn<decimal>(row, "PrecioValorizado");
+            Digitable = DataRecord.GetColumn<int>(row, "Digitable");
+            CodigoEstrategia = DataRecord.GetColumn<string>(row, "CodigoEstrategia");
+            CodigoError = DataRecord.GetColumn<string>(row, "CodigoError");
+            CodigoErrorObs = DataRecord.GetColumn<string>(row, "CodigoErrorObs");
             FactorCuadre = DataRecord.GetColumn<int>(row, "FactorCuadre");
         }
     }
