@@ -5,7 +5,7 @@ namespace Portal.Consultoras.Common
     public class WebConfig
     {
         #region Variables miembre
-        
+
         #endregion
 
         #region Propiedades

@@ -10,14 +10,14 @@ namespace Portal.Consultoras.Common
         public static void AddLog(Exception ex)
         {
             var log = getLog(ex);
-            ErrorUtilities.AddLogFile(log);    
+            ErrorUtilities.AddLogFile(log);
         }
-       
+
         private static void AddLogFile(Log log)
-        {            
+        {
             string path = Path.Combine(HttpRuntime.AppDomainAppPath, "Log");
             string fileName = string.Format("{0}.txt", DateTime.Now.ToFileFormattedStringDate());
-            StreamWriter sw = null;            
+            StreamWriter sw = null;
 
             if (!System.IO.Directory.Exists(path))
             {
@@ -25,7 +25,7 @@ namespace Portal.Consultoras.Common
             }
 
             // Add headers if file don't exists
-            if (!System.IO.File.Exists(Path.Combine(path, fileName))) 
+            if (!System.IO.File.Exists(Path.Combine(path, fileName)))
             {
                 sw = new StreamWriter(Path.Combine(path, fileName), true, Encoding.UTF8);
                 sw.WriteLine(string.Format("{0}\t{1}\t{2}\t{3}\t{4}",
@@ -46,11 +46,11 @@ namespace Portal.Consultoras.Common
             var log = new Log();
             var exception = string.Empty;
             var stackTrace = string.Empty;
-            var dbEntityException = string.Empty;            
+            var dbEntityException = string.Empty;
 
-            while (ex.InnerException != null) 
-            { 
-                ex = ex.InnerException; 
+            while (ex.InnerException != null)
+            {
+                ex = ex.InnerException;
             }
 
             exception = ex.Message;
@@ -89,7 +89,7 @@ namespace Portal.Consultoras.Common
             sw.WriteLine(Environment.NewLine);
             sw.Close();
         }
-        
+
         public static string GetExceptionMessage(Exception exception)
         {
             string message = string.Empty, separadorExcepciones = string.Empty;

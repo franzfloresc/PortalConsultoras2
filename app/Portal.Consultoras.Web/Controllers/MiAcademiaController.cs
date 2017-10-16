@@ -179,7 +179,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (!string.IsNullOrEmpty(json) && !json.Contains("Token not Valid"))
                     {
                         var model = JsonConvert.DeserializeObject<RootMiCurso>(json);
-
+                        model.Cursos = model.Cursos ?? new List<MiCurso>();
                         var lstCursos = model.Cursos.OrderBy(x => x.estado).ToList().Take(max);
 
                         lstCursos.Update(x => x.url = String.Format(urlCurso, x.id));

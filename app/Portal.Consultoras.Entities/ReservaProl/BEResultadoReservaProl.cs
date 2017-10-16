@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Entities.ReservaProl
 {
@@ -67,7 +67,7 @@ namespace Portal.Consultoras.Entities.ReservaProl
         public BEResultadoReservaProl()
         {
             CodigoMensaje = "";
-            ListPedidoObservacion = new List<BEPedidoObservacion>();           
+            ListPedidoObservacion = new List<BEPedidoObservacion>();
         }
     }
 }
