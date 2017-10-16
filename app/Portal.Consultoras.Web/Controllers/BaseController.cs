@@ -1229,6 +1229,7 @@ namespace Portal.Consultoras.Web.Controllers
                 //        : model.TieneOfertaDelDia;
                 //}
                 ViewBag.TieneOfertaDelDia = CumpleOfertaDelDia(model);
+                ViewBag.MostrarOfertaDelDiaContenedor = model.TieneOfertaDelDia;
 
                 var configuracionPaisOdd = ListConfiguracionPais().FirstOrDefault(p => p.Codigo == Constantes.ConfiguracionPais.OfertaDelDia);
                 configuracionPaisOdd = configuracionPaisOdd ?? new ConfiguracionPaisModel();
@@ -3407,7 +3408,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         break;
                     case Constantes.ConfiguracionPais.OfertaDelDia:
-                        //seccion.UrlObtenerProductos = "undefined";
+                        if (!userData.TieneOfertaDelDia) continue;
                         break;
                     default:
                         break;
@@ -3448,12 +3449,7 @@ namespace Portal.Consultoras.Web.Controllers
                         break;
                 }
 
-                if (seccion.TemplatePresentacion == "") continue;
-                if (seccion.Codigo == Constantes.ConfiguracionPais.OfertaDelDia)
-                {
-                    if (!CumpleOfertaDelDia(userData))
-                        continue;
-                }
+                if (seccion.TemplatePresentacion == "") continue;                
 
                 modelo.Add(seccion);
             }
@@ -3748,7 +3744,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (confiModel.Codigo == Constantes.ConfiguracionPais.OfertaDelDia)
                 {
-                    if (!CumpleOfertaDelDia(userData))
+                    if (!userData.TieneOfertaDelDia)
                         continue;
                 }
 

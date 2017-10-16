@@ -152,7 +152,7 @@
             <div id="flexslidertop" class="header_slider" style="overflow:hidden;">
                 <a id="btn_cerrar_oferta_mobile" class="btn_cerrar_oferta_mobile">X</a>
                 <ul class="slides">
-                    @if (ViewBag.MostrarOfertaDelDia == true)
+                    @if (ViewBag.MostrarOfertaDelDiaContenedor == true)
                     {
                         <li>
                             @Html.Partial("~/Areas/Mobile/Views/OfertaDelDia/_OfertaDelDiaBannerTop.cshtml", ofertaDelDia);
@@ -457,14 +457,12 @@
         var MensajePedidoMobile = '@ViewBag.MensajePedidoMobile';
     </script>
 
-    @if (ViewBag.MostrarOfertaDelDia == true)
+    @if (ViewBag.MostrarOfertaDelDiaContenedor == true)
     {
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/OfertaDelDia.js")"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            if (mostrarOfertaDelDia) {
-                window.OfertaDelDia.CargarODD();
-            }
+            window.OfertaDelDia.CargarODD();
         });
     </script>
     }
