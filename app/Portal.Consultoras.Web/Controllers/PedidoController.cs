@@ -1264,6 +1264,7 @@ namespace Portal.Consultoras.Web.Controllers
             string MarcaID, string CUV, string PrecioUnidad, string Descripcion, string Cantidad, string indicadorMontoMinimo, string TipoOferta)
         {
             string mensaje = "";
+            bool resul = false;
             try
             {
                 // Validar la cantidad que se está ingresando compararla con la cantidad ya ingresada y el campo límite
@@ -1288,16 +1289,19 @@ namespace Portal.Consultoras.Web.Controllers
                 entidad.CampaniaID = userData.CampaniaID;
                 entidad.ConsultoraID = userData.ConsultoraID.ToString();
 
-                //EPD-2337
-                mensaje = ValidarMontoMaximo(Convert.ToDecimal(PrecioUnidad), entidad.Cantidad);
+                //EPD-2337                
+                string menMmax = ValidarMontoMaximo(Convert.ToDecimal(PrecioUnidad), entidad.Cantidad, out resul);
                 //FIN EPD-2337
 
-                if (mensaje == "") {
+                if (menMmax == "" || resul) {
                     using (PedidoServiceClient svc = new PedidoServiceClient())
                     {
                         mensaje = svc.ValidarStockEstrategia(entidad);
                     }
                 }
+
+                if (menMmax != "")
+                    mensaje = menMmax;
             }
             catch (FaultException ex)
             {
@@ -1320,7 +1324,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 return Json(new
                 {
-                    result = false,
+                    result = resul,
                     message = mensaje
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -4336,7 +4340,19 @@ namespace Portal.Consultoras.Web.Controllers
                 descripcion = estrategia.DescripcionCUV2;
             }
 
+            bool resul = false;
+            mensaje = ValidarMontoMaximo(estrategia.Precio2, estrategia.Cantidad, out resul);
+            if (mensaje.Length > 1)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = mensaje
+                });
+            }
+
             mensaje = ValidarStockEstrategia(estrategia.CUV2, estrategia.Cantidad, estrategia.TipoEstrategiaID, estrategia.Precio2);
+
             if (mensaje != "")
             {
                 return Json(new
@@ -4441,14 +4457,9 @@ namespace Portal.Consultoras.Web.Controllers
                 entidad.ConsultoraID = userData.ConsultoraID.ToString();
                 entidad.FlagCantidad = TipoOferta;
 
-                mensaje = ValidarMontoMaximo(Precio, entidad.Cantidad);
-
-                if (mensaje == "")
+                using (PedidoServiceClient svc = new PedidoServiceClient())
                 {
-                    using (PedidoServiceClient svc = new PedidoServiceClient())
-                    {
-                        mensaje = svc.ValidarStockEstrategia(entidad);
-                    }
+                    mensaje = svc.ValidarStockEstrategia(entidad);
                 }
                 
                 mensaje = Util.Trim(mensaje);
