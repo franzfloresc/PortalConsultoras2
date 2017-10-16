@@ -197,6 +197,12 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public decimal PrecioPublico { get; set; }
         
+        [DataMember]
+        public DateTime FechaInicioFacturacion { get; set; }
+
+        public BEEstrategia()
+        { }
+
         public BEEstrategia(IDataRecord row, bool partial)
         {
             LimiteVenta = DataRecord.GetColumn<int>(row, "LimiteVenta");
@@ -222,12 +228,6 @@ namespace Portal.Consultoras.Entities
             LimiteVenta = DataRecord.GetColumn<int>(row, "LimiteVenta");
             CodigoProducto = DataRecord.GetColumn<string>(row, "CodigoProducto");
         }
-
-        [DataMember]
-        public DateTime FechaInicioFacturacion { get; set; }
-
-        public BEEstrategia()
-        { }
 
         public BEEstrategia(IDataRecord row)
         {
