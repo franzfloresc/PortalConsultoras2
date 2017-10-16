@@ -32,7 +32,13 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         private int CampaniaIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CantidadAprobadosField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int CantidadDetalleField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CantidadRechazadosField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ConsultoraCodigoField;
@@ -42,6 +48,12 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal ConsultoraSaldoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsMovilFinField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsMovilOrigenField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int EstadoField;
@@ -72,6 +84,9 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int RegionIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> TipoConsultoraField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<bool> TipoDespachoField;
@@ -129,6 +144,19 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CantidadAprobados {
+            get {
+                return this.CantidadAprobadosField;
+            }
+            set {
+                if ((this.CantidadAprobadosField.Equals(value) != true)) {
+                    this.CantidadAprobadosField = value;
+                    this.RaisePropertyChanged("CantidadAprobados");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int CantidadDetalle {
             get {
                 return this.CantidadDetalleField;
@@ -137,6 +165,19 @@ namespace Portal.Consultoras.Web.ServiceCDR {
                 if ((this.CantidadDetalleField.Equals(value) != true)) {
                     this.CantidadDetalleField = value;
                     this.RaisePropertyChanged("CantidadDetalle");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CantidadRechazados {
+            get {
+                return this.CantidadRechazadosField;
+            }
+            set {
+                if ((this.CantidadRechazadosField.Equals(value) != true)) {
+                    this.CantidadRechazadosField = value;
+                    this.RaisePropertyChanged("CantidadRechazados");
                 }
             }
         }
@@ -176,6 +217,32 @@ namespace Portal.Consultoras.Web.ServiceCDR {
                 if ((this.ConsultoraSaldoField.Equals(value) != true)) {
                     this.ConsultoraSaldoField = value;
                     this.RaisePropertyChanged("ConsultoraSaldo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsMovilFin {
+            get {
+                return this.EsMovilFinField;
+            }
+            set {
+                if ((this.EsMovilFinField.Equals(value) != true)) {
+                    this.EsMovilFinField = value;
+                    this.RaisePropertyChanged("EsMovilFin");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsMovilOrigen {
+            get {
+                return this.EsMovilOrigenField;
+            }
+            set {
+                if ((this.EsMovilOrigenField.Equals(value) != true)) {
+                    this.EsMovilOrigenField = value;
+                    this.RaisePropertyChanged("EsMovilOrigen");
                 }
             }
         }
@@ -311,6 +378,19 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> TipoConsultora {
+            get {
+                return this.TipoConsultoraField;
+            }
+            set {
+                if ((this.TipoConsultoraField.Equals(value) != true)) {
+                    this.TipoConsultoraField = value;
+                    this.RaisePropertyChanged("TipoConsultora");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public System.Nullable<bool> TipoDespacho {
             get {
                 return this.TipoDespachoField;
@@ -393,6 +473,12 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.DateTime FechaRegistroField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FormatoPrecio1Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FormatoPrecio2Field;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string MotivoRechazoField;
@@ -590,6 +676,32 @@ namespace Portal.Consultoras.Web.ServiceCDR {
                 if ((this.FechaRegistroField.Equals(value) != true)) {
                     this.FechaRegistroField = value;
                     this.RaisePropertyChanged("FechaRegistro");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FormatoPrecio1 {
+            get {
+                return this.FormatoPrecio1Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FormatoPrecio1Field, value) != true)) {
+                    this.FormatoPrecio1Field = value;
+                    this.RaisePropertyChanged("FormatoPrecio1");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FormatoPrecio2 {
+            get {
+                return this.FormatoPrecio2Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FormatoPrecio2Field, value) != true)) {
+                    this.FormatoPrecio2Field = value;
+                    this.RaisePropertyChanged("FormatoPrecio2");
                 }
             }
         }
@@ -1873,6 +1985,9 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         private string FechaHoraSolicitudField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> FleteDespachoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal MontoDevueltoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1891,6 +2006,9 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         private string OperacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string OrigenCDRWebField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ReclamoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1898,6 +2016,12 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string SeccionCodigoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TipoConsultoraField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TipoDespachoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int UnidadesDevueltasField;
@@ -2026,6 +2150,19 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> FleteDespacho {
+            get {
+                return this.FleteDespachoField;
+            }
+            set {
+                if ((this.FleteDespachoField.Equals(value) != true)) {
+                    this.FleteDespachoField = value;
+                    this.RaisePropertyChanged("FleteDespacho");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public decimal MontoDevuelto {
             get {
                 return this.MontoDevueltoField;
@@ -2104,6 +2241,19 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string OrigenCDRWeb {
+            get {
+                return this.OrigenCDRWebField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.OrigenCDRWebField, value) != true)) {
+                    this.OrigenCDRWebField = value;
+                    this.RaisePropertyChanged("OrigenCDRWeb");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string Reclamo {
             get {
                 return this.ReclamoField;
@@ -2138,6 +2288,32 @@ namespace Portal.Consultoras.Web.ServiceCDR {
                 if ((object.ReferenceEquals(this.SeccionCodigoField, value) != true)) {
                     this.SeccionCodigoField = value;
                     this.RaisePropertyChanged("SeccionCodigo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TipoConsultora {
+            get {
+                return this.TipoConsultoraField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TipoConsultoraField, value) != true)) {
+                    this.TipoConsultoraField = value;
+                    this.RaisePropertyChanged("TipoConsultora");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TipoDespacho {
+            get {
+                return this.TipoDespachoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TipoDespachoField, value) != true)) {
+                    this.TipoDespachoField = value;
+                    this.RaisePropertyChanged("TipoDespacho");
                 }
             }
         }
@@ -2225,6 +2401,12 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICDRService/GetCDRWeb", ReplyAction="http://tempuri.org/ICDRService/GetCDRWebResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCDR.BECDRWeb[]> GetCDRWebAsync(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWeb entity);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICDRService/GetCDRWebMobile", ReplyAction="http://tempuri.org/ICDRService/GetCDRWebMobileResponse")]
+        Portal.Consultoras.Web.ServiceCDR.BECDRWeb[] GetCDRWebMobile(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWeb entity);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICDRService/GetCDRWebMobile", ReplyAction="http://tempuri.org/ICDRService/GetCDRWebMobileResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCDR.BECDRWeb[]> GetCDRWebMobileAsync(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWeb entity);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICDRService/UpdEstadoCDRWeb", ReplyAction="http://tempuri.org/ICDRService/UpdEstadoCDRWebResponse")]
         int UpdEstadoCDRWeb(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWeb entity);
@@ -2408,6 +2590,14 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCDR.BECDRWeb[]> GetCDRWebAsync(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWeb entity) {
             return base.Channel.GetCDRWebAsync(PaisID, entity);
+        }
+        
+        public Portal.Consultoras.Web.ServiceCDR.BECDRWeb[] GetCDRWebMobile(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWeb entity) {
+            return base.Channel.GetCDRWebMobile(PaisID, entity);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCDR.BECDRWeb[]> GetCDRWebMobileAsync(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWeb entity) {
+            return base.Channel.GetCDRWebMobileAsync(PaisID, entity);
         }
         
         public int UpdEstadoCDRWeb(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWeb entity) {

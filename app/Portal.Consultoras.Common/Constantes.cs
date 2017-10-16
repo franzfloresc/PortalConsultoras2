@@ -62,12 +62,94 @@ namespace Portal.Consultoras.Common
             public const short Facturado = 2;
         }
 
+        public class PaisID
+        {
+            /// <summary>
+            /// 1
+            /// </summary>
+            public const int Argentina = 1;
+
+            /// <summary>
+            /// 2
+            /// </summary>
+            public const int Bolivia = 2;
+
+            /// <summary>
+            /// 3
+            /// </summary>
+            public const int Chile = 3;
+
+            /// <summary>
+            /// 4
+            /// </summary>
+            public const int Colombia = 4;
+
+            /// <summary>
+            /// 5
+            /// </summary>
+            public const int CostaRica = 5;
+
+            /// <summary>
+            /// 6
+            /// </summary>
+            public const int Ecuador = 6;
+
+            /// <summary>
+            /// 7
+            /// </summary>
+            public const int ElSalvador = 7;
+
+            /// <summary>
+            /// 8
+            /// </summary>
+            public const int Guatemala = 8;
+
+            /// <summary>
+            /// 9
+            /// </summary>
+            public const int Mexico = 9;
+
+            /// <summary>
+            /// 10
+            /// </summary>
+            public const int Panama = 10;
+
+            /// <summary>
+            /// 11
+            /// </summary>
+            public const int Peru = 11;
+
+            /// <summary>
+            /// 12
+            /// </summary>
+            public const int PuertoRico = 12;
+
+            /// <summary>
+            /// 13
+            /// </summary>
+            public const int RepublicaDominicana = 13;
+
+            /// <summary>
+            /// 14
+            /// </summary>
+            public const int Venezuela = 14;
+
+            /// <summary>
+            /// 15
+            /// </summary>
+            public const int Brasil = 15;
+        }
+
         public class CodigosISOPais
         {
             public const string Peru = "PE";
             public const string Chile = "CL";
             public const string Ecuador = "EC";
             public const string CostaRica = "CR";
+
+            /// <summary>
+            /// El Salvador
+            /// </summary>
             public const string Salvador = "SV";
             public const string Guatemala = "GT";
             public const string Panama = "PA";
@@ -78,6 +160,10 @@ namespace Portal.Consultoras.Common
             public const string Bolivia = "BO";
             public const string Mexico = "MX";
             public const string PuertoRico = "PR";
+
+            /// <summary>
+            /// Republica Dominicana
+            /// </summary>
             public const string Dominicana = "DO";
         }
 
@@ -686,6 +772,7 @@ namespace Portal.Consultoras.Common
             public const string MisPedidos = "MISPEDIDOS";
             public const string ShowRoom = "SHOWROOM";
             public const string ProductosAgotados = "PRODUCTOSAGOTADOS";
+            public const string Ofertas = "OFERTAS";
         }
 
         public class EstadoCuentaTipoMovimiento
@@ -857,6 +944,8 @@ namespace Portal.Consultoras.Common
             public const int PersonalizacionODD = 93;
             public const int Plan20 = 98;
             public const int CDRExpress = 104;
+
+            public const int CorreoFeedbackAppConsultora = 105;
 
             /// <summary>
             /// Variables configurables del app
@@ -1082,7 +1171,7 @@ namespace Portal.Consultoras.Common
             public const string CompraENBelcenter = "Compra en Belcenter hasta el {0} {1} y llévate el premio.";
             public const string IndicadorPremiacion = "Pasa pedido esta campaña para enviártelo";
             public const string MontoPremiacion = "Pasa pedido de {0} {1} esta campaña para entregarte tu premio.";
-
+            public const string CalculoPuntos = "X;K";
         }
 
         public class ComunicadoTipoDispositivo
@@ -1090,6 +1179,16 @@ namespace Portal.Consultoras.Common
             public const short Todos = 0;
             public const short Desktop = 1;
             public const short Mobile = 2;
+        }
+
+        public class ProveedorAutenticacion
+        {
+            public const string Facebook = "Facebook";
+        }
+
+        public class TipoTerminosCondiciones
+        {
+            public const short App = 1;
         }
 
         #region EventoFestivo

@@ -27,6 +27,7 @@ using System.Web;
 using Microsoft.Ajax.Utilities;
 using ConsultoraBE = Portal.Consultoras.Web.HojaInscripcionBelcorpPais.ConsultoraBE;
 using Portal.Consultoras.Web.ServiceODS;
+using Portal.Consultoras.Web.ServiceSAC;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -1903,6 +1904,15 @@ namespace Portal.Consultoras.Web.Controllers
                   e.Valor.Value < Convert.ToInt32(EnumsEstadoBurocrediticio.ErrorConsumoIntegracion)).ToList();
                     ViewBag.EstadosEvaluacionCrediticia = new SelectList(estados, "Valor", "Nombre");
                 }
+                if(CodigoISO == Pais.Peru)
+                {
+                    if(evaluacionCrediticaBE.RespuestaServicio == "ErrorConsumoServicio")
+                    {
+                        model.EstadoBuroCrediticioID = Convert.ToInt32(EnumsEstadoBurocrediticio.SinConsultar);
+                        model.Mensaje = "SIN CONSULTAR";
+                        ViewBag.MotivoRechazo = "En estos momentos no está disponible la validación crediticia, por favor intenta más tarde.";
+                    }
+                }
 
 
             }
@@ -2443,7 +2453,9 @@ namespace Portal.Consultoras.Web.Controllers
                                         : "",
                 TelefonoCelular = i.TelefonoCelular,
                 ClaseRechazoZonaSeccion = i.EstadoPostulante == "EN GESTIÓN DEL SERVICIO AL CLIENTE" ? ( i.TipoRechazo == "3" ? "estiloMalaZonificacionZona" : i.TipoRechazo == "4" ? "estiloMalaZonificacionSeccion" :""  ) : "",
-                PopupRechazoZonaSeccion = i.EstadoPostulante == "EN GESTIÓN DEL SERVICIO AL CLIENTE" ? (i.TipoRechazo == "4" || i.TipoRechazo == "3" ? "openPopupMotivoRechazo" : "") : ""
+                PopupRechazoZonaSeccion = i.EstadoPostulante == "EN GESTIÓN DEL SERVICIO AL CLIENTE" ? (i.TipoRechazo == "4" || i.TipoRechazo == "3" ? "openPopupMotivoRechazo" : "") : "",
+                ClasePostulantesNuevasApp = i.FuenteIngreso == "MovilSE" && i.Paso < 3 ? "estiloPostulantesNuevasApp" : "",
+                TituloPostulantesNuevasApp = i.FuenteIngreso == "MovilSE" && i.Paso < 3 ? string.Format("AppSE - Postulante en Paso {0}", i.Paso) : ""
             }).ToList();
 
  
@@ -2562,7 +2574,7 @@ namespace Portal.Consultoras.Web.Controllers
             dic.Add("ZonaSeccion", "ZonaSeccion");
             dic.Add("NivelRiesgo", "NivelRiesgo");
             Util.ExportToExcel("ReporteNivelesRiesgo", items, dic);
-            return new EmptyResult();
+            return View();
         }
 
         [HttpPost]
@@ -2873,7 +2885,7 @@ namespace Portal.Consultoras.Web.Controllers
                 dic.Add("BARRIO_COLONIA_URBANIZACION_REFERENCIAS", "BARRIO_COLONIA_URBANIZACION_REFERENCIAS");
             }
             Util.ExportToExcel("ReporteNivelesGeograficos", items, dic);
-            return new EmptyResult();
+            return View();
         }
 
 
@@ -3708,6 +3720,15 @@ namespace Portal.Consultoras.Web.Controllers
                     solicitudPostulante.NumeroDocumento);
                 model.Direccion = string.IsNullOrEmpty(model.Direccion)?"": model.Direccion.Replace("|", " ");
                 model.CodigoPais = CodigoISO;
+            }
+            using (SACServiceClient sv = new SACServiceClient())
+            {
+                model.ListaTipoVinculoFamiliar = sv.GetTablaLogicaDatos(UserData().PaisID, 36).ToList();
+            }
+            if (model.TipoVinculoFamiliar.HasValue && model.TipoVinculoFamiliar.Value != 0)
+            {
+                var tipo = model.ListaTipoVinculoFamiliar.Where(m => m.Codigo == model.TipoVinculoFamiliar.Value.ToString()).Single();
+                model.VinculoFamiliar = tipo != null ? tipo.Descripcion : "";
             }
             model.ModoLectura = modoLectura;
             CargarCombos(CodigoISO);
@@ -4823,7 +4844,7 @@ namespace Portal.Consultoras.Web.Controllers
             dic.Add("Longitud", "Longitud");
 
             Util.ExportToExcel("ReportePostulantes", resultado.ToList(), dic);
-            return new EmptyResult();
+            return View();
         }
 
         public JsonResult ObtenerNombreConsultora(string codigoISO, string codigoConsultora)
@@ -5356,7 +5377,7 @@ namespace Portal.Consultoras.Web.Controllers
             dic.Add("ACC", "ACC");
             dic.Add("Totales", "Totales");
             Util.ExportToExcel("ReporteConsolidado", resultado, dic);
-            return new EmptyResult();
+            return null;
         }
 
 
@@ -5434,7 +5455,7 @@ namespace Portal.Consultoras.Web.Controllers
                             {"Dias en Espera", "DiasEnEspera"} 
             }; 
             Util.ExportToExcel("ReporteFunnel", solicitudes, dic);
-            return new EmptyResult();
+            return View();
         }
 
 
@@ -5487,7 +5508,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             };
             Util.ExportToExcel("ReporteFuenteIngreso", solicitudes, dic);
-            return new EmptyResult();
+            return View();
         }
 
 
