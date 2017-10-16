@@ -197,96 +197,96 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public decimal PrecioPublico { get; set; }
         
-        public BEEstrategia(IDataRecord row, bool partial)
-        {
-            LimiteVenta = GetFieldInt(row, "LimiteVenta");
-            DescripcionCUV2 = GetFieldString(row, "DescripcionCUV2");
-            CUV2 = GetFieldString(row, "CUV2");
-            Precio2 = GetFieldDecimal(row, "Precio2");
-            ID = GetFieldInt(row, "ID");
-            FlagMostrarImg = GetFieldInt(row, "FlagMostrarImg");
-            CodigoProducto = GetFieldString(row, "CodigoProducto");
-            ImagenURL = GetFieldString(row, "ImagenURL");
-            PrecioPublico = GetFieldDecimal(row, "PrecioPublico");
-        }
-
-        public BEEstrategia(IDataRecord row, int liteVersion)
-        {
-            EstrategiaID = GetFieldInt(row, "EstrategiaID");
-            Precio2 = GetFieldDecimal(row, "Precio2");
-            NumeroPedido = GetFieldInt(row, "NumeroPedido");
-            CUV2 = GetFieldString(row, "CUV2");
-            DescripcionCUV2 = GetFieldString(row, "DescripcionCUV2");
-            Activo = GetFieldInt(row, "Activo");
-            ImagenURL = GetFieldString(row, "ImagenURL");
-            LimiteVenta = GetFieldInt(row, "LimiteVenta");
-            CodigoProducto = GetFieldString(row, "CodigoProducto");
-        }
-
         [DataMember]
         public DateTime FechaInicioFacturacion { get; set; }
 
         public BEEstrategia()
         { }
 
+        public BEEstrategia(IDataRecord row, bool partial)
+        {
+            LimiteVenta = DataRecord.GetColumn<int>(row, "LimiteVenta");
+            DescripcionCUV2 = DataRecord.GetColumn<string>(row, "DescripcionCUV2");
+            CUV2 = DataRecord.GetColumn<string>(row, "CUV2");
+            Precio2 = DataRecord.GetColumn<decimal>(row, "Precio2");
+            ID = DataRecord.GetColumn<int>(row, "ID");
+            FlagMostrarImg = DataRecord.GetColumn<int>(row, "FlagMostrarImg");
+            CodigoProducto = DataRecord.GetColumn<string>(row, "CodigoProducto");
+            ImagenURL = DataRecord.GetColumn<string>(row, "ImagenURL");
+            PrecioPublico = DataRecord.GetColumn<decimal>(row, "PrecioPublico");
+        }
+
+        public BEEstrategia(IDataRecord row, int liteVersion)
+        {
+            EstrategiaID = DataRecord.GetColumn<int>(row, "EstrategiaID");
+            Precio2 = DataRecord.GetColumn<decimal>(row, "Precio2");
+            NumeroPedido = DataRecord.GetColumn<int>(row, "NumeroPedido");
+            CUV2 = DataRecord.GetColumn<string>(row, "CUV2");
+            DescripcionCUV2 = DataRecord.GetColumn<string>(row, "DescripcionCUV2");
+            Activo = DataRecord.GetColumn<int>(row, "Activo");
+            ImagenURL = DataRecord.GetColumn<string>(row, "ImagenURL");
+            LimiteVenta = DataRecord.GetColumn<int>(row, "LimiteVenta");
+            CodigoProducto = DataRecord.GetColumn<string>(row, "CodigoProducto");
+        }
+
         public BEEstrategia(IDataRecord row)
         {
-            TipoTallaColor = GetFieldString(row, "TipoTallaColor");
-            EstrategiaID = GetFieldInt(row, "EstrategiaID");
-            TipoEstrategiaID = GetFieldInt(row, "TipoEstrategiaID");
-            CampaniaID = GetFieldInt(row, "CampaniaID");
-            CampaniaIDFin = GetFieldInt(row, "CampaniaIDFin");
-            NumeroPedido = GetFieldInt(row, "NumeroPedido");
-            Activo = GetFieldInt(row, "Activo");
-            LimiteVenta = GetFieldInt(row, "LimiteVenta");
-            DescripcionCUV2 = GetFieldString(row, "DescripcionCUV2");
-            FlagDescripcion = GetFieldInt(row, "FlagDescripcion");
-            CUV1 = GetFieldString(row, "CUV");
-            EtiquetaID = GetFieldInt(row, "EtiquetaID");
-            Precio = GetFieldDecimal(row, "Precio");
-            FlagCEP = GetFieldInt(row, "FlagCEP");
-            CUV2 = GetFieldString(row, "CUV2");
-            EtiquetaID2 = GetFieldInt(row, "EtiquetaID2");
-            Precio2 = GetFieldDecimal(row, "Precio2");
-            FlagCEP2 = GetFieldInt(row, "FlagCEP2");
-            TextoLibre = GetFieldString(row, "TextoLibre");
-            FlagTextoLibre = GetFieldInt(row, "FlagTextoLibre");
-            Cantidad = GetFieldInt(row, "Cantidad");
-            FlagCantidad = GetFieldInt(row, "FlagCantidad");
-            Zona = GetFieldString(row, "Zona");
-            Orden = GetFieldInt(row, "Orden");
-            ID = GetFieldInt(row, "ID");
-            PrecioUnitario = GetFieldDecimal(row, "PrecioUnitario");
-            CodigoProducto = GetFieldString(row, "CodigoProducto");
-            ColorFondo = GetFieldString(row, "ColorFondo");
-            FlagEstrella = GetFieldInt(row, "FlagEstrella");
-            EtiquetaDescripcion = GetFieldString(row, "EtiquetaDescripcion");
-            EtiquetaDescripcion2 = GetFieldString(row, "EtiquetaDescripcion2");
-            MarcaID = GetFieldInt(row, "MarcaID");
-            TallaColor = GetFieldString(row, "TallaColor");
-            TipoOferta = GetFieldInt(row, "TipoOferta");
-            IndicadorMontoMinimo = GetFieldInt(row, "IndicadorMontoMinimo");
-            Mensaje = GetFieldString(row, "Mensaje");
-            DescripcionMarca = GetFieldString(row, "DescripcionMarca");
-            DescripcionCategoria = GetFieldString(row, "DescripcionCategoria");
-            DescripcionEstrategia = GetFieldString(row, "DescripcionEstrategia");
-            FlagNueva = GetFieldInt(row, "FlagNueva");
-            TipoEstrategiaImagenMostrar = GetFieldInt(row, "TipoEstrategiaImagenMostrar");
-            TieneStockProl = GetFieldBool(row, "TieneStockProl");
-            FlagMostrarImg = GetFieldInt(row, "FlagMostrarImg");
-            OfertaUltimoMinuto = GetFieldInt(row, "OfertaUltimoMinuto");
-            CodigoSAP = GetFieldString(row, "CodigoSAP");
-            EnMatrizComercial = GetFieldInt(row, "EnMatrizComercial");
-            CodigoEstrategia = GetFieldString(row, "CodigoEstrategia");
-            TieneVariedad = GetFieldInt(row, "TieneVariedad");
-            IdMatrizComercial = GetFieldInt(row, "IdMatrizComercial");
-            FotoProducto01 = GetFieldString(row, "FotoProducto01");
-            CodigoGenerico = GetFieldString(row, "CodigoGenerico");
-            ProdComentarioId = GetFieldInt(row, "ProdComentarioId");
-            CantComenAprob = GetFieldInt(row, "CantComenAprob");
-            CantComenRecom = GetFieldInt(row, "CantComenRecom");
-            PromValorizado = GetFieldInt(row, "PromValorizado");
-            PrecioPublico = GetFieldDecimal(row, "PrecioPublico");
+            TipoTallaColor = DataRecord.GetColumn<string>(row, "TipoTallaColor");
+            EstrategiaID = DataRecord.GetColumn<int>(row, "EstrategiaID");
+            TipoEstrategiaID = DataRecord.GetColumn<int>(row, "TipoEstrategiaID");
+            CampaniaID = DataRecord.GetColumn<int>(row, "CampaniaID");
+            CampaniaIDFin = DataRecord.GetColumn<int>(row, "CampaniaIDFin");
+            NumeroPedido = DataRecord.GetColumn<int>(row, "NumeroPedido");
+            Activo = DataRecord.GetColumn<int>(row, "Activo");
+            LimiteVenta = DataRecord.GetColumn<int>(row, "LimiteVenta");
+            DescripcionCUV2 = DataRecord.GetColumn<string>(row, "DescripcionCUV2");
+            FlagDescripcion = DataRecord.GetColumn<int>(row, "FlagDescripcion");
+            CUV1 = DataRecord.GetColumn<string>(row, "CUV");
+            EtiquetaID = DataRecord.GetColumn<int>(row, "EtiquetaID");
+            Precio = DataRecord.GetColumn<decimal>(row, "Precio");
+            FlagCEP = DataRecord.GetColumn<int>(row, "FlagCEP");
+            CUV2 = DataRecord.GetColumn<string>(row, "CUV2");
+            EtiquetaID2 = DataRecord.GetColumn<int>(row, "EtiquetaID2");
+            Precio2 = DataRecord.GetColumn<decimal>(row, "Precio2");
+            FlagCEP2 = DataRecord.GetColumn<int>(row, "FlagCEP2");
+            TextoLibre = DataRecord.GetColumn<string>(row, "TextoLibre");
+            FlagTextoLibre = DataRecord.GetColumn<int>(row, "FlagTextoLibre");
+            Cantidad = DataRecord.GetColumn<int>(row, "Cantidad");
+            FlagCantidad = DataRecord.GetColumn<int>(row, "FlagCantidad");
+            Zona = DataRecord.GetColumn<string>(row, "Zona");
+            Orden = DataRecord.GetColumn<int>(row, "Orden");
+            ID = DataRecord.GetColumn<int>(row, "ID");
+            PrecioUnitario = DataRecord.GetColumn<decimal>(row, "PrecioUnitario");
+            CodigoProducto = DataRecord.GetColumn<string>(row, "CodigoProducto");
+            ColorFondo = DataRecord.GetColumn<string>(row, "ColorFondo");
+            FlagEstrella = DataRecord.GetColumn<int>(row, "FlagEstrella");
+            EtiquetaDescripcion = DataRecord.GetColumn<string>(row, "EtiquetaDescripcion");
+            EtiquetaDescripcion2 = DataRecord.GetColumn<string>(row, "EtiquetaDescripcion2");
+            MarcaID = DataRecord.GetColumn<int>(row, "MarcaID");
+            TallaColor = DataRecord.GetColumn<string>(row, "TallaColor");
+            TipoOferta = DataRecord.GetColumn<int>(row, "TipoOferta");
+            IndicadorMontoMinimo = DataRecord.GetColumn<int>(row, "IndicadorMontoMinimo");
+            Mensaje = DataRecord.GetColumn<string>(row, "Mensaje");
+            DescripcionMarca = DataRecord.GetColumn<string>(row, "DescripcionMarca");
+            DescripcionCategoria = DataRecord.GetColumn<string>(row, "DescripcionCategoria");
+            DescripcionEstrategia = DataRecord.GetColumn<string>(row, "DescripcionEstrategia");
+            FlagNueva = DataRecord.GetColumn<int>(row, "FlagNueva");
+            TipoEstrategiaImagenMostrar = DataRecord.GetColumn<int>(row, "TipoEstrategiaImagenMostrar");
+            TieneStockProl = DataRecord.GetColumn<bool>(row, "TieneStockProl");
+            FlagMostrarImg = DataRecord.GetColumn<int>(row, "FlagMostrarImg");
+            OfertaUltimoMinuto = DataRecord.GetColumn<int>(row, "OfertaUltimoMinuto");
+            CodigoSAP = DataRecord.GetColumn<string>(row, "CodigoSAP");
+            EnMatrizComercial = DataRecord.GetColumn<int>(row, "EnMatrizComercial");
+            CodigoEstrategia = DataRecord.GetColumn<string>(row, "CodigoEstrategia");
+            TieneVariedad = DataRecord.GetColumn<int>(row, "TieneVariedad");
+            IdMatrizComercial = DataRecord.GetColumn<int>(row, "IdMatrizComercial");
+            FotoProducto01 = DataRecord.GetColumn<string>(row, "FotoProducto01");
+            CodigoGenerico = DataRecord.GetColumn<string>(row, "CodigoGenerico");
+            ProdComentarioId = DataRecord.GetColumn<int>(row, "ProdComentarioId");
+            CantComenAprob = DataRecord.GetColumn<int>(row, "CantComenAprob");
+            CantComenRecom = DataRecord.GetColumn<int>(row, "CantComenRecom");
+            PromValorizado = DataRecord.GetColumn<int>(row, "PromValorizado");
+            PrecioPublico = DataRecord.GetColumn<decimal>(row, "PrecioPublico");
 
             EstrategiaDetalle = new BEEstrategiaDetalle(row);
             TipoEstrategia = new BETipoEstrategia(row);
@@ -316,13 +316,13 @@ namespace Portal.Consultoras.Entities
 
         public BEConfiguracionValidacionZE(IDataRecord row)
         {
-            CampaniaID = GetFieldInt(row, "CampaniaID");
-            RegionID = GetFieldInt(row, "RegionID");
-            RegionNombre = GetFieldString(row, "RegionNombre");
-            ZonaID = GetFieldInt(row, "ZonaID");
-            ZonaNombre = GetFieldString(row, "ZonaNombre");
-            ValidacionActiva = GetFieldShort(row, "ValidacionActiva");
-            DiasDuracionCronograma = GetFieldShort(row, "DiasDuracionCronograma");
+            CampaniaID = DataRecord.GetColumn<int>(row, "CampaniaID");
+            RegionID = DataRecord.GetColumn<int>(row, "RegionID");
+            RegionNombre = DataRecord.GetColumn<string>(row, "RegionNombre");
+            ZonaID = DataRecord.GetColumn<int>(row, "ZonaID");
+            ZonaNombre = DataRecord.GetColumn<string>(row, "ZonaNombre");
+            ValidacionActiva = DataRecord.GetColumn<short>(row, "ValidacionActiva");
+            DiasDuracionCronograma = DataRecord.GetColumn<short>(row, "DiasDuracionCronograma");
             DiasDuracionCronograma = (short) (DiasDuracionCronograma == 0 ? 1 : DiasDuracionCronograma);
         }
     }
