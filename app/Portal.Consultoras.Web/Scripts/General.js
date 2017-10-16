@@ -13,7 +13,7 @@ jQuery(document).ready(function () {
         LayoutMenu();
     });
 
-    if (typeof (fingerprintOk) !== 'undefined' && typeof (tokenPedidoAutenticoOk) !== 'undefined') {
+    if (typeof (tokenPedidoAutenticoOk) !== 'undefined') {
         GuardarIndicadorPedidoAutentico();
     }
 });
@@ -1629,26 +1629,6 @@ function odd_google_analytics_product_click(name, id, price, brand, variant, pos
 }
 
 function GuardarIndicadorPedidoAutentico() {
-    if (fingerprintOk == 0) {
-        new Fingerprint2().get(function (result, components) {
-            var data1 = { 'accion': 1, 'codigo': result };
-            jQuery.ajax({
-                type: 'POST',
-                url: '/Pedido/GuardarIndicadorPedidoAutentico',
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(data1),
-                success: function (response) {
-                    if (response.success) {
-                    }
-                },
-                error: function (response) {
-                    console.log(response);
-                }
-            });
-        });
-    }
-
     if (tokenPedidoAutenticoOk == 0) {
         if (typeof (Storage) !== 'undefined') {
             var itemSBTokenPedido = localStorage.getItem('SBTokenPedido');

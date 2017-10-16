@@ -777,7 +777,7 @@ namespace Portal.Consultoras.Web.Controllers
                         model.EsUsuarioComunidad = EsUsuarioComunidad(oBEUsuario.PaisID, oBEUsuario.CodigoUsuario);
                     }
 
-                    model.SegmentoConstancia = oBEUsuario.SegmentoConstancia;
+                    model.SegmentoConstancia = oBEUsuario.SegmentoConstancia ?? "";
                     model.SeccionAnalytics = oBEUsuario.SeccionAnalytics;
                     model.DescripcionNivel = oBEUsuario.DescripcionNivel;
                     model.esConsultoraLider = oBEUsuario.esConsultoraLider;

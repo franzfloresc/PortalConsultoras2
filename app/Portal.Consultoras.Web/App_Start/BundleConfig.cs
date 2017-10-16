@@ -28,8 +28,7 @@ namespace Portal.Consultoras.Web
                "~/Scripts/jquery.unobtrusive-ajax.js",
                "~/Scripts/jquery-ui-1.9.2.custom.js",
                "~/Scripts/HojaInscripcion/validations.js",
-               "~/Scripts/donetyping.js",
-               "~/Scripts/fingerprint2.js"
+               "~/Scripts/donetyping.js"
                ));
 
             bundles.Add(new ScriptBundle("~/bundles/JQGridJs").Include(
@@ -65,8 +64,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/jquery.validate.js",
                 "~/Scripts/jquery.validate.unobtrusive.js",
                 "~/Scripts/bootstrap.js",                           
-                "~/Scripts/accordion.js",
-                "~/Scripts/fingerprint2.js",                                          
+                "~/Scripts/accordion.js",                                      
                 "~/Scripts/handlebars.js",                
                 "~/Scripts/flipclock.js",
                 "~/Scripts/jquery.flexslider.js",
@@ -85,7 +83,6 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/jquery.validate.unobtrusive.js",
                 "~/Scripts/bootstrap.js",
                 "~/Scripts/accordion.js",
-                "~/Scripts/fingerprint2.js",
                 "~/Scripts/handlebars.js",
                 "~/Scripts/flipclock.js",
                 "~/Scripts/jquery.flexslider.js",

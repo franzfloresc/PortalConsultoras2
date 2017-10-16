@@ -28,7 +28,6 @@ namespace Portal.Consultoras.Web.Controllers
                 string eMail = userData.EMail.ToString().Trim() == string.Empty ? eMailNoExiste : userData.EMail.ToString();
                 bool exito = false;
                 
-                string CampaniaVenta = GetCampaniaLider(userData.PaisID, userData.ConsultoraID, userData.CodigoISO);
                 string NivelProyectado = "";
                 string SeccionGestionLider = "";
                 DataSet parametros = null;
@@ -103,7 +102,6 @@ namespace Portal.Consultoras.Web.Controllers
                 string eMail = userData.EMail.ToString().Trim() == string.Empty ? eMailNoExiste : userData.EMail.ToString();
                 bool exito = false;
                 
-                string CampaniaVenta = GetCampaniaLider(userData.PaisID, userData.ConsultoraID, userData.CodigoISO);
                 string NivelProyectado = "";
                 string SeccionGestionLider = "";
                 DataSet parametros = null;
@@ -150,12 +148,6 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
             }
             return View();
-        }
-
-        private string GetCampaniaLider(int paisID, long ConsultoraID, string CodigoPais)
-        {
-            ContenidoServiceClient sv = new ContenidoServiceClient();
-            return sv.GetLiderCampaniaActual(paisID, ConsultoraID, CodigoPais)[0].ToString();
         }
 
         private List<MiCurso> ValidadCursosMA() 
