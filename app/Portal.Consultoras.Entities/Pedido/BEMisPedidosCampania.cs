@@ -16,11 +16,17 @@ namespace Portal.Consultoras.Entities.Pedido
         [Column("CampaniaID")]
         public int CampaniaID { get; set; }
         /// <summary>
-        /// Codigo del estado de pedido (1: Ingresado, 2: Facturado)
+        /// Codigo del estado de pedido (1: INGRESADO, 2: FACTURADO)
         /// </summary>
         [DataMember]
         [Column("CodigoEstadoPedido")]
         public short CodigoEstadoPedido { get; set; }
+        /// <summary>
+        /// Descripcion del estado de pedido ('INGRESADO', 'FACTURADO')
+        /// </summary>
+        [DataMember]
+        [Column("DescripcionEstadoPedido")]
+        public string DescripcionEstadoPedido { get; set; }
 
         public BEMisPedidosCampania()
         {

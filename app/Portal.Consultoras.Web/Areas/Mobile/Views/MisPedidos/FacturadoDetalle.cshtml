@@ -10,11 +10,11 @@
     {
         <div class="app-panels panel">
             <div class="panel-heading" data-toggle="collapse" href="#collapse_@(pedido.CampaniaID)_@(pedido.ClienteID)">
-                <div class="sections">
+                <div class="sections-1">
                     <div class="sections-client">@pedido.NombreCliente</div>
                     <div class="sections-subtitle">@pedido.CantidadPedido productos ingresados</div>
                 </div>
-                <div class="sections">
+                <div class="sections-2">
                     <div class="sections-right">
                         <div class="sections-price">@pedido.ImportePedido</div>
                         <div class="sections-arrow"><img src="~/Content/Images/arrow.png" height="9" /></div>
@@ -23,26 +23,24 @@
             </div>
             <div id="collapse_@(pedido.CampaniaID)_@(pedido.ClienteID)" class="panel-collapse collapse">
                 <div class="panel-body">
-                    @{ 
+                    @{
                         contadorDetalle = 1;
                         foreach (var pedidoDetalle in pedido.Detalle)
                         {
-                            <div class="sections-table">
-                                <div class="sections-cell">
-                                    <div class="descripcion-producto">
-                                        <span class="codigo-producto">@pedidoDetalle.CUV</span> @pedidoDetalle.DescripcionProducto
-                                    </div>
+                            <div class="sections-3">
+                                <div>
+                                    <span class="codigo-producto">@pedidoDetalle.CUV</span> @pedidoDetalle.DescripcionProducto
                                 </div>
-                                <div class="sections-cell sections-2">
-                                    <div class="producto-cantidad">
-                                        CANT: @pedidoDetalle.Cantidad
-                                    </div>
-                                    <div class="producto-precio">
-                                        @pedidoDetalle.PrecioUnidad
-                                    </div>
-                                    <div class="producto-total">
-                                        @pedidoDetalle.ImporteTotal
-                                    </div>
+                            </div>
+                            <div class="sections-4">
+                                <div class="producto-cantidad">
+                                    CANT: @pedidoDetalle.Cantidad
+                                </div>
+                                <div class="producto-precio">
+                                    @pedidoDetalle.PrecioUnidad
+                                </div>
+                                <div>
+                                    @pedidoDetalle.ImporteTotal
                                 </div>
                             </div>
                             if (contadorDetalle < pedido.Detalle.Count)
@@ -62,157 +60,3 @@
     <div class="sections-1">TOTAL</div>
     <div class="sections-2">@ViewBag.TotalPedido</div>
 </div>
-
-@*@using Portal.Consultoras.Common
-@using Portal.Consultoras.Web.Areas.Mobile.Models
-
-@model PedidoWebMobilModel
-
-<div class="block-white" style="margin-top:1px;">
-    <br />
-    <div class="upper">
-        <div>
-            <strong class="text-primary">
-                Total Facturado
-            </strong>
-            <span class="pull-right">
-                <strong>
-                    @Model.Simbolo
-                    @if (Model.CodigoISO == Constantes.CodigosISOPais.Colombia)
-                    {
-                        @(string.Format("{0:#,##0}", Model.ImporteTotal).Replace(',', '.'))
-                    }
-                    else
-                    {
-                        @(string.Format("{0:#,##0.00}", Model.ImporteTotal).Replace(',', '.'))
-                    }
-                </strong>
-            </span>
-        </div>
-    </div>
-    <hr style="border-top: 1px solid #bababa" />
-
-    <div class="list-table-new">
-        <ul class="list-table-title upper">
-            <li>Productos <span class="table-title-right">Cant</span></li>
-        </ul>
-        <ul class="list-table-body">
-            @foreach (var item in Model.ListaPedidoWebDetalle)
-            {
-                <li>
-                    <div class="posr">
-                        <div class="table-width">
-                            <div class="upper">@item.DescripcionProd</div>
-                            <div class="mb-10">
-                                <div>@item.CUV</div>
-                            </div>
-                            Precio Unitario  @Model.Simbolo
-                            @if (Model.CodigoISO == Constantes.CodigosISOPais.Colombia)
-                            {
-                                @(string.Format("{0:#,##0}", item.PrecioUnidad).Replace(',', '.'))
-                            }
-                            else
-                            {
-                                @(string.Format("{0:#,##0.00}", item.PrecioUnidad).Replace(',', '.'))
-                            }
-                            <br />
-                            Total @Model.Simbolo
-                            @if (Model.CodigoISO == Constantes.CodigosISOPais.Colombia)
-                            {
-                                @(string.Format("{0:#,##0}", item.ImporteTotal).Replace(',', '.'))
-                            }
-                            else
-                            {
-                                @(string.Format("{0:#,##0.00}", item.ImporteTotal).Replace(',', '.'))
-                            }
-                            <br />
-                            <div class="caja" style="padding-top: 15px;">
-                                <span> Cliente: </span>
-                                @Html.DropDownListFor(x => item.ClienteID, new SelectList(Model.ListaClientes, "ClienteID", "Nombre", item.ClienteID), new { @class = "cbolstClientes", @PedidoId = item.PedidoID, @disabled = "disabled" })
-                            </div>
-                        </div>
-                        <span class="cantidad-numero"> @item.Cantidad </span>
-                    </div>
-                </li>
-            }
-        </ul>
-    </div>
-    @{
-        var sessionMobile = (Session["MobileAppConfiguracion"] == null ? new MobileAppConfiguracionModel() : (MobileAppConfiguracionModel)Session["MobileAppConfiguracion"]);
-
-        if (sessionMobile.ClienteID == 0)
-        { 
-            <table class="table pcolor">
-                <tbody>
-                    <tr>
-                        <td class="upper" style="padding-top:25px;">Importe Total<br><span class="color_facturado">Flete</span></td>
-                        <td class="text-right" style="padding-top:25px;">
-                            @Model.Simbolo
-                            @if (Model.CodigoISO == Constantes.CodigosISOPais.Colombia)
-                            {
-                                @(string.Format("{0:#,##0}", Model.Subtotal).Replace(',', '.'))
-                            }
-                            else
-                            {
-                                @(string.Format("{0:#,##0.00}", Model.Subtotal).Replace(',', '.'))
-                            }
-                            <br />
-                            <span class="color_facturado">
-                                @Model.Simbolo
-                            </span>
-                            @if (Model.CodigoISO == Constantes.CodigosISOPais.Colombia)
-                            {
-                                <span class="color_facturado">@(string.Format("{0:#,##0}", Model.Flete).Replace(',', '.'))</span>
-                            }
-                            else
-                            {
-                                <span class="color_facturado">@(string.Format("{0:#,##0.00}", Model.Flete).Replace(',', '.'))</span>
-                            }
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        }
-    }
-</div>
-<div class="btn_facturado text-center" style="margin-top: -10px;">
-    Total Facturado <br />
-    <div class="text-lg">
-        @Model.Simbolo
-        @if (Model.CodigoISO == Constantes.CodigosISOPais.Colombia)
-        {
-            @(string.Format("{0:#,##0}", Model.ImporteTotal).Replace(',', '.'))
-        }
-        else
-        {
-            @(string.Format("{0:#,##0.00}", Model.ImporteTotal).Replace(',', '.'))
-        }
-    </div>
-</div>
-
-<script>
-    $(".cbolstClientes").change(function (e) {
-        var CodigoCliente = $(this).val();
-        var CodigoPedido = $(this).attr("PedidoId");
-
-        ShowLoading();
-
-        jQuery.ajax({
-            type: 'POST',
-            url: '@Url.Action("ActualizarClientePedidoFacturado", "MisPedidos", new { area = "Mobile" })',
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify({ CodigoPedido: CodigoPedido, CodigoCliente: CodigoCliente }),
-            async: true,
-            success: function (data) {
-                CloseLoading();
-            },
-            error: function (data, error) {
-                if (checkTimeout(data)) {
-                    CloseLoading();
-                    console.log(data, error);
-                }
-            }
-        });
-    });
-</script>*@

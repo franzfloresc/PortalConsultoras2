@@ -3,7 +3,6 @@
 
 @using System.Collections.Generic
 
-@*@model Portal.Consultoras.Web.Areas.Mobile.Models.PedidoWebClientePrincipalMobilModel*@
 @model List<MisPedidosCampaniaModel>
 
 @{
@@ -16,153 +15,6 @@
     body
     {
         background:#f8f8f8
-    }
-
-    .app-tabs
-    {
-        text-align: center;
-        font-size: 13px;
-        border-bottom: solid 1px #dfdfdf;
-        margin-bottom:20px
-    }
-    .app-tabs a {
-        border-bottom: 4px solid #f8f8f8;
-        width: 33%;
-        display: inline-block;
-        padding: 8px 0 8px 5px;
-        margin-left: -2px;
-        margin-right: -2px;
-        color: black;
-        text-decoration: none;
-        font-family: 'Lato';
-    }
-    .app-tabs a.active {
-        border-bottom: 4px solid #e81c36;
-    }
-    .app-tabs a:hover {
-        border-bottom: 4px solid #e81c36;
-    }
-
-    .app-panels {
-        background: #fff;
-        margin-top: 10px;
-        margin-left: 10px;
-        margin-right: 10px;
-        border-left:solid 4px #d9d9d9;
-        box-shadow: 0 3px 5px 0 rgba(217,217,217,.8);
-    }
-    /*.col-xs-12 {
-        padding-left:10px;
-        padding-right:10px
-    }*/
-    .app-panels .panel-heading{
-        padding:10px
-    }
-    .app-panels .panel-body{
-        padding:0;
-        padding-top:20px;
-        background:#f8f8f8;
-        padding:10px;
-        font-size:13px
-    }
-    .app-panels .sections {
-        width:50%;
-        display: inline-block;
-        margin-left: -2px;
-        margin-right: -2px;
-        vertical-align:middle;
-    }
-    .app-panels .sections-client {
-        color:#1d1d26;
-        font-size:15px
-    }
-    .app-panels .sections-price {
-        display:table-cell;
-        width:100%;
-        text-align:right;
-        padding-right:20px;
-        font-size:16px
-    }
-    .app-panels .sections-subtitle{
-        color:#979797;
-        font-size:12px
-    }
-    .app-panels .sections-right {
-        display:table;
-        width:100%
-    }
-    .app-panels .sections-arrow{
-        display:table-cell;
-        vertical-align:top
-    }
-    .app-panels .sections-2 {
-        text-align:right;
-        vertical-align:top;
-    }
-    /*.app-panels .resaltado{
-        color:#e81c36
-    }*/
-    .app-panels .codigo-producto {
-        font-weight:bold
-    }
-    .app-panels .producto-cantidad{
-        color: #979797
-    }
-    .app-panels .producto-precio{
-        color: #979797
-    }
-    .app-panels .producto-total{
-        /*width:100%;
-        bottom:0;
-        position: absolute;*/
-    }
-    .app-panels hr{
-        display: block;
-        height: 1px;
-        border: 0;
-        border-top: 1px solid #979797;
-        margin: 1em 0;
-        padding: 0; 
-    }
-    .app-panels .sections-table {
-        display:table;
-        width:100%
-    }
-    .app-panels .sections-cell {
-        display:table-cell;
-        width:50%;
-        position:relative
-    }
-
-    .app-footer{
-        width: 100%;
-        height: 54px;
-        line-height: 54px;
-        font-family: 'Lato';
-        color: #1d1d26;
-        text-align: center;
-        display: block;
-        margin-top: 30px;
-        background: #fff;
-        box-shadow: 0 -6px 9px 0 rgba(217,217,217,.8);
-    }
-    .app-footer .sections-1{
-        width:50%;
-        display: inline-block;
-        margin-left: -2px;
-        margin-right: -2px;
-        vertical-align:middle;
-        text-align:right;
-        font-size:17px
-    }
-    .app-footer .sections-2{
-        width:50%;
-        display: inline-block;
-        margin-left: -2px;
-        margin-right: -2px;
-        vertical-align:middle;
-        text-align:center;
-        font-size:19px
     }
 </style>
 
@@ -186,6 +38,7 @@
         foreach (var pedidoCampania in @Model)
         {
             <a href="javascript:;" class="@(firstCampania ? "active" : string.Empty)" data-campania="@pedidoCampania.CampaniaID">
+                @pedidoCampania.DescripcionEstadoPedido<br />
                 @pedidoCampania.NumeroCampania @pedidoCampania.AnioCampania
             </a>
             firstCampania = false;
@@ -206,50 +59,6 @@
     }
 </div>
 
-@*<div class="app-panels panel">
-    <div class="panel-heading" data-toggle="collapse" href="#collapse1">
-        <div class="sections">
-            <div class="sections-client">Azucena Suárez</div>
-            <div class="sections-subtitle">3 productos ingresados</div>
-        </div>
-        <div class="sections">
-            <div class="sections-right">
-                <div class="sections-price">S/ 249.00</div>
-                <div class="sections-arrow"><img src="~/Content/Images/arrow.png" height="9" /></div>
-            </div>
-        </div>
-    </div>
-    <div id="collapse1" class="panel-collapse collapse">
-        <div class="panel-body">
-            <div class="sections-table">
-                <div class="sections-cell">
-                    <div class="resaltado">LIQUIDACIÓN WEB</div>
-                    <div class="descripcion-producto">
-                        <span class="codigo-producto">62238</span> Cyzone pulsera Instadays. De metal bañado en bronce envejecido y cinta negra.
-                    </div>
-                </div>
-                <div class="sections-cell sections-2">
-                    <div class="producto-cantidad">
-                        CANT: 2
-                    </div>
-                    <div class="producto-precio">
-                        S/ 44.80
-                    </div>
-                    <div class="producto-total">
-                        S/. 89.60
-                    </div>
-                </div>
-            </div>
-            <hr />
-        </div>
-    </div>
-</div>*@
-
-@*<div class="app-footer">
-    <div class="sections-1">TOTAL</div>
-    <div class="sections-2">S/ 399.00</div>
-</div>*@
-
 @section scripts{
     <script type="text/javascript">
         var expanded = false;
@@ -266,156 +75,12 @@
 
             $(".panel-heading").click(function (e) {
                 currentPanelHeading = $(this);
-                //setTimeout(function () {
-                //    if (!expanded) currentPanelHeading.parent().css("border-left", "solid 4px #e81c36");
-                //    else currentPanelHeading.parent().css("border-left", "solid 4px #d9d9d9");
-                //    expanded = !expanded;
-                //    currentPanelHeading = null;
-                //}, 500);
 
-                if (!expanded) currentPanelHeading.parent().css("border-left", "solid 4px #e81c36");
-                else currentPanelHeading.parent().css("border-left", "solid 4px #d9d9d9");
+                if (!expanded) currentPanelHeading.parent().addClass("active");
+                else currentPanelHeading.parent().removeClass("active");
                 expanded = !expanded;
                 currentPanelHeading = null;
             });
         });
     </script>
 }
-
-@*@if (Model.ListaPedidoCliente.Count == 0)
-{
-    <div class="">
-        <div class="pestana_esika"></div><!--PESTANA ESIKA-->
-        <div class="pestana_lbel"></div><!--PESTANA LBEL-->
-        <div class="col-xs-12">
-            <div class="icono_alerta exclamacion_icono_mobile"></div>
-            <div class="mensaje_alerta">Hasta el momento no tienes ningún pedido facturado.</div>
-        </div>
-    </div>
-}
-else
-{
-    <div class="fondo_f2f2f2">
-        <div class="pestana_esika"></div><!--PESTANA ESIKA-->
-        <div class="pestana_lbel"></div><!--PESTANA LBEL-->
-        <div class="tabs-link tab-primary upper">
-            @for (int i = 0; i < Model.ListaPedidoCliente.Count; i++)
-            {
-                var pedidoCliente = Model.ListaPedidoCliente[i];
-
-                <a href="javascript:;" class="mytab @( i == 0 ? "active" : "")" data-campania="@pedidoCliente.CampaniaID" data-idpedido="@pedidoCliente.PedidoId" data-estadopedido="@(Model.ListaPedidoCliente[i].EstadoPedidoDesc == "INGRESADO" ? "1" : "2")" style="width: @(100.00 / Model.ListaPedidoCliente.Count)%">
-                    @pedidoCliente.EstadoPedidoDesc<br />
-                    <small>Campaña</small>
-                    <br />
-                    <b>@pedidoCliente.CampaniaID.ToString().Substring(4)</b>
-                    @pedidoCliente.CampaniaID.ToString().Substring(0, 4)
-                </a>
-            }
-        </div>
-        @for (int i = 0; i < Model.ListaPedidoCliente.Count; i++)
-        {
-            <div class="col-xs-12">
-                <div id="divListaPedidoDetalle_@Model.ListaPedidoCliente[i].CampaniaID" style="@( i > 0 ? "display:none;" : "" )">
-                </div>
-            </div>
-        }
-    </div>
-}
-@section scripts{
-    <script type="text/javascript">
-    var primerEnvio = 0;
-    var campaniaActual = "";
-    var campaniasCargadas = new Array();
-
-    $(document).ready(function () {
-
-        $(".mytab").click(function () {
-
-            $('.mytab.active').removeClass("active");
-            $(this).addClass("active");
-
-            var campaniaSeleccionada = $(this).attr("data-campania");
-            var pedidoId = $(this).attr("data-idpedido");
-            var estadoPedido = $(this).attr("data-estadopedido");
-
-            if (campaniaActual != campaniaSeleccionada) {
-                $("#divListaPedidoDetalle_" + campaniaActual).hide();
-                //$("#divListaPedidoDetalle_" + campaniaSeleccionada).show();
-                $("#divListaPedidoDetalle_" + campaniaSeleccionada).fadeIn();
-
-                if (campaniasCargadas.indexOf(campaniaSeleccionada) > -1) {
-                    campaniaActual = campaniaSeleccionada;
-
-                    if (estadoPedido == "@Portal.Consultoras.Common.Constantes.EstadoPedido.Registrado")
-                        dataLayer.push({ 'event': 'virtualPage', 'pageUrl': '@Url.Action("IngresadoDetalle", "MisPedidos", new { area = "Mobile" })' + '/' + campaniaSeleccionada, 'pageName': 'Pedidos Ingresados - ' + campaniaSeleccionada });
-                    else if (estadoPedido == "@Portal.Consultoras.Common.Constantes.EstadoPedido.Facturado")
-                        dataLayer.push({ 'event': 'virtualPage', 'pageUrl': '@Url.Action("FacturadoDetalle", "MisPedidos", new { area = "Mobile" })' + '/' + campaniaSeleccionada, 'pageName': 'Pedidos Facturados - ' + campaniaSeleccionada });
-                } else {
-                    if (estadoPedido == "@Portal.Consultoras.Common.Constantes.EstadoPedido.Registrado")
-                        cargarDetallePedidoIngresado(campaniaSeleccionada, pedidoId);
-                    else if (estadoPedido == "@Portal.Consultoras.Common.Constantes.EstadoPedido.Facturado")
-                        cargarDetallePedidoFacturado(campaniaSeleccionada, pedidoId);
-                }
-            }
-        });
-
-        $('.mytab.active').trigger("click");
-    });
-
-    function cargarDetallePedidoIngresado(campaniaID, pedidoId) {
-        ShowLoading();
-        jQuery.ajax({
-            type: 'POST',
-            url: '@Url.Action("IngresadoDetalle", "MisPedidos", new { area = "Mobile" })',
-            dataType: 'html',
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify({ campaniaID: campaniaID, pedidoId: pedidoId }),
-            async: true,
-            success: function (html) {
-                $("#divListaPedidoDetalle_" + campaniaID).html(html);
-                campaniaActual = campaniaID;
-                if (primerEnvio != 0) {
-                    dataLayer.push({ 'event': 'virtualPage', 'pageUrl': '@Url.Action("IngresadoDetalle", "MisPedidos", new { area = "Mobile" })' + '/' + campaniaActual, 'pageName': 'Pedidos Ingresados - ' + campaniaActual });
-                }
-                primerEnvio++;
-                campaniasCargadas.push(campaniaID);
-                CloseLoading();
-            },
-            error: function (data, error) {
-                if (checkTimeout(data)) {
-                    CloseLoading();
-                    console.log(data, error);
-                }
-            }
-        });
-    }
-
-    function cargarDetallePedidoFacturado(campaniaID, pedidoId) {
-        ShowLoading();
-        jQuery.ajax({
-            type: 'POST',
-            url: '@Url.Action("FacturadoDetalle", "MisPedidos", new { area = "Mobile" })',
-            dataType: 'html',
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify({ campaniaID: campaniaID, pedidoId: pedidoId }),
-            async: true,
-            success: function (html) {
-                $("#divListaPedidoDetalle_" + campaniaID).html(html);
-                campaniaActual = campaniaID;
-                if (primerEnvio != 0) {
-                    dataLayer.push({ 'event': 'virtualPage', 'pageUrl': '@Url.Action("FacturadoDetalle", "MisPedidos", new { area = "Mobile" })' + '/' + campaniaActual, 'pageName': 'Pedidos Facturados - ' + campaniaActual });
-                }
-                primerEnvio++;
-                campaniasCargadas.push(campaniaID);
-                CloseLoading();
-            },
-            error: function (data, error) {
-                if (checkTimeout(data)) {
-                    CloseLoading();
-                    console.log(data, error);
-                }
-            }
-        });
-    }
-</script>
-}*@

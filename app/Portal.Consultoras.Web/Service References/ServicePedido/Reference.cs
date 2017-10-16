@@ -5368,6 +5368,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private short CodigoEstadoPedidoField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescripcionEstadoPedidoField;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -5400,6 +5403,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.CodigoEstadoPedidoField.Equals(value) != true)) {
                     this.CodigoEstadoPedidoField = value;
                     this.RaisePropertyChanged("CodigoEstadoPedido");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DescripcionEstadoPedido {
+            get {
+                return this.DescripcionEstadoPedidoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescripcionEstadoPedidoField, value) != true)) {
+                    this.DescripcionEstadoPedidoField = value;
+                    this.RaisePropertyChanged("DescripcionEstadoPedido");
                 }
             }
         }
