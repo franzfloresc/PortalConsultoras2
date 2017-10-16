@@ -3696,6 +3696,10 @@ namespace Portal.Consultoras.Web.Controllers
                     case Constantes.ConfiguracionSeccion.TipoPresentacion.OfertaDelDia:
                         seccion.TemplatePresentacion = "seccion-oferta-del-dia";
                         break;
+
+                    case Constantes.ConfiguracionSeccion.TipoPresentacion.DescagablesNavidenos:
+                        seccion.TemplatePresentacion = "seccion-descargables-navidenos";
+                        break;
                 }
 
                 if (seccion.TemplatePresentacion == "") continue;

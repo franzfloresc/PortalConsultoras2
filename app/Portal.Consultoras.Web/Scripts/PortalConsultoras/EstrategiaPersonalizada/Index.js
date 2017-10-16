@@ -20,7 +20,8 @@ var CONS_CODIGO_SECCION = {
     RDR: "RDR",
     SR: "SR",
     ODD: "ODD",
-    OPT: "OPT"
+    OPT: "OPT",
+    DES: "DES-NAV"
 };
 
 var listaSeccion = {};
@@ -36,6 +37,7 @@ $(document).ready(function () {
 });
 
 function SeccionRender() {
+    debugger
     var listaSecciones = $(sElementos.seccion);
     if (listaSecciones.length === 0)
         return false;
@@ -84,6 +86,11 @@ function SeccionCargarProductos(objConsulta) {
     if (isMobile() && objConsulta.Codigo === CONS_CODIGO_SECCION.ODD) {
         $("#ODD").find(".seccion-loading-contenedor").fadeOut();
         $("#ODD").find(".seccion-content-contenedor").fadeIn();   
+    }
+
+    if (objConsulta.Codigo === CONS_CODIGO_SECCION.DES) {
+        $("#" + objConsulta.Codigo).find(".seccion-loading-contenedor").fadeOut();
+        $("#" + objConsulta.Codigo).find(".seccion-content-contenedor").fadeIn();   
     }
 
     if (objConsulta.UrlObtenerProductos === "")

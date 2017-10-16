@@ -856,6 +856,7 @@ namespace Portal.Consultoras.Common
             public const string ShowRoom = "SR";
             public const string OfertaDelDia = "ODD";
             public const string Informacion = "INFO";
+            public const string Descargables = "DES-NAV";
         }
 
         public class ConfiguracionSeccion
@@ -868,6 +869,7 @@ namespace Portal.Consultoras.Common
                 public const int Banners = 4;
                 public const int ShowRoom = 5;
                 public const int OfertaDelDia = 6;
+                public const int DescagablesNavidenos = 7;
             }
         }
 
