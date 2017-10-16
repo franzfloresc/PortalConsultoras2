@@ -1,5 +1,6 @@
 ﻿@using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Areas.Mobile.Models
+@using Portal.Consultoras.Web.Helpers
 @model Portal.Consultoras.Web.Models.MisReclamosModel
 
 @{
@@ -27,9 +28,9 @@
 
 <div class="titulo_mobile">
     @{
-    var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new MobileAppConfiguracionModel() : (MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
-    if (mobileConfiguracion.MostrarBotonAtras)
-    {
+        var mobileConfiguracion = Html.MobileAppConfiguracion();
+        if (mobileConfiguracion.MostrarBotonAtras)
+        {
         <a class="enlace_regresar catalogosR" title="Regresar" style="display:none;"></a>
     }
     }

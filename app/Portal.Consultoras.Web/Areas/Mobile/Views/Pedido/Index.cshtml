@@ -25,7 +25,7 @@
     <!-- BANNERS INGRESO DE PEDIDO -->
     <div class="banner_ingresoPedido" style="background: #000 url(@ViewBag.UrlFranjaNegra) no-repeat center center;">
         <div class="content_320 ingresoPedido">            
-            @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new MobileAppConfiguracionModel() : (MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+            @{  var mobileConfiguracion = Html.MobileAppConfiguracion();
                 if (mobileConfiguracion.MostrarBotonAtras)
                 {
                     <a href="@Request.UrlReferrer" class="enlace_regresar ingresoP" style="display:normal" title="Regresar"></a>

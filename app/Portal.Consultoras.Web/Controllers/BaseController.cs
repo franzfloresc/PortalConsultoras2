@@ -25,6 +25,7 @@ using System.Text;
 using System.Web.Mvc;
 using Portal.Consultoras.Web.ServiceODS;
 using System.Web.Security;
+using Portal.Consultoras.Web.Helpers;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -737,7 +738,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (menu.Codigo == Constantes.MenuCodigo.ContenedorOfertas.ToLower())
                 {
-                    bool tieneRevistaDigital = revistaDigital.TieneRDC || revistaDigital.TieneRDR;                    
+                    bool tieneRevistaDigital = revistaDigital.TieneRDC || revistaDigital.TieneRDR;
 
                     string imagenContenedorOfertasDefault = ConfigurationManager.AppSettings.Get("GIF_MENU_DEFAULT_OFERTAS");
                     string imagenContenedorOfertasDefaultBpt = ConfigurationManager.AppSettings.Get("GIF_MENU_DEFAULT_OFERTAS_BPT");
@@ -813,7 +814,7 @@ namespace Portal.Consultoras.Web.Controllers
             SetConsultoraOnlineViewBag(userData);
             return lstModel;
         }
-        
+
         private List<PermisoModel> SepararItemsMenu(List<PermisoModel> menuOriginal)
         {
             // Crear lista resultante
@@ -1315,7 +1316,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return olstProductoFaltante;
         }
-        
+
         private string NombreCampania(string Campania)
         {
             string Result = Campania;
@@ -2835,9 +2836,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             get
             {
-                return Session["MobileAppConfiguracion"] == null
-                    ? new MobileAppConfiguracionModel()
-                    : (MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+                return this.GetUniqueSession<MobileAppConfiguracionModel>("MobileAppConfiguracion");
             }
         }
 
