@@ -384,20 +384,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.ListaDetalle = listaCdrWebDetalle;
             return PartialView("ListaDetalleCdrCulminado", model);
         }
-
-        private BECDRWebDescripcion ObtenerDescripcion(string codigoSsic, string tipo)
-        {
-            codigoSsic = Util.SubStr(codigoSsic, 0);
-            //codigoSsic = codigoSsic.ToLower();
-            tipo = Util.SubStr(tipo, 0);
-            //tipo = tipo.ToLower();
-            var listaDescripcion = CargarDescripcion();
-            var desc = listaDescripcion.FirstOrDefault(d => d.CodigoSSIC == codigoSsic && d.Tipo == tipo) ?? new BECDRWebDescripcion();
-
-            desc.Descripcion = Util.SubStr(desc.Descripcion, 0);
-            return desc;
-        }
-
+        
         private List<BECDRWebDescripcion> CargarDescripcion()
         {
             try

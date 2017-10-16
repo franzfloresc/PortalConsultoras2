@@ -339,13 +339,13 @@ namespace Portal.Consultoras.Data
             return result;
         }
 
-        public IDataReader GetOfertasParaTiByTipoConfigurado(int campaniaId, int tipoConfigurado, int estrategiaId)
+        public IDataReader GetOfertasParaTiByTipoConfigurado(int campaniaId, int tipoConfigurado, string estrategiaCodigo)
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetOfertasParaTiByTipoConfigurado"))
             {
                 Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
                 Context.Database.AddInParameter(command, "@TipoConfigurado", DbType.Int32, tipoConfigurado);
-                Context.Database.AddInParameter(command, "@TipoEstrategia", DbType.Int32, estrategiaId);
+                Context.Database.AddInParameter(command, "@EstrategiaCodigo", DbType.String, estrategiaCodigo);
                 command.CommandTimeout = 0;
                 return Context.ExecuteReader(command);
             }
@@ -366,7 +366,8 @@ namespace Portal.Consultoras.Data
                 UsuarioCreacion = codigoUsuario,
                 FotoProducto01 = item.ImagenURL,
                 CodigoEstrategia = item.CodigoEstrategia,
-                TieneVariedad = item.TieneVariedad
+                TieneVariedad = item.TieneVariedad,
+                PrecioPublico = item.PrecioPublico
             }).ToList();
 
             var command = new SqlCommand("dbo.InsertEstrategiaTemporal");

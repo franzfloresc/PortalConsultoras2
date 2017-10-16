@@ -839,7 +839,7 @@
             var params = {
                 campaniaId: parseInt($("#ddlCampania").val()),
                 tipoConfigurado: 2,
-                estrategiaID: $('#ddlTipoEstrategia').find(':selected').data('id'),
+                estrategiaCodigo: $('#ddlTipoEstrategia').find(':selected').data('codigo'),
                 habilitarNemotecnico: estrategiaObj.habilitarNemotecnico
             };
 
@@ -1466,7 +1466,7 @@
         var parametros = {
             campaniaId: parseInt($("#ddlCampania").val()),
             tipoConfigurado: parseInt(tipo),
-            estrategiaID: $('#ddlTipoEstrategia').find(':selected').data('id')
+            estrategiaCodigo: $('#ddlTipoEstrategia').find(':selected').data('codigo')
         };
 
         $('#listGrillaCuv1').setGridParam({ postData: parametros });

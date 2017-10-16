@@ -3969,7 +3969,7 @@ namespace Portal.Consultoras.Web.Controllers
             switch (marcaId)
             {
                 case 1:
-                    result = "Lbel";
+                    result = "L'bel";
                     break;
                 case 2:
                     result = "Ésika";
