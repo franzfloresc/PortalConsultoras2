@@ -5596,8 +5596,9 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult ReporteFunnel()
         {
+            ViewBag.ipRequest = Request.UserHostAddress;
             ViewBag.HTMLSACUnete = getHTMLSACUnete("ReporteFunnel", null);
-            return new EmptyResult();
+            return View();
         }
 
         public ActionResult ExportarExcelReporteConsolidado(string PrefijoISOPais, string FechaDesde, string FechaHasta, string Region, string Zona, string Seccion, string NombreReporte)
