@@ -266,6 +266,12 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="PosiblesConsultorasPendientesVisitaBE" nillable="true" type="tns:PosiblesConsultorasPendientesVisitaBE" />
+  <xs:complexType name="ArrayOfSolicitudPostulanteBE">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SolicitudPostulanteBE" nillable="true" type="tns:SolicitudPostulanteBE" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSolicitudPostulanteBE" nillable="true" type="tns:ArrayOfSolicitudPostulanteBE" />
   <xs:complexType name="ArrayOfReporteConsolidadoBE">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="ReporteConsolidadoBE" nillable="true" type="tns:ReporteConsolidadoBE" />
