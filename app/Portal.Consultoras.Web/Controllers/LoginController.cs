@@ -939,7 +939,7 @@ namespace Portal.Consultoras.Web.Controllers
                         try
                         {
                             RevistaDigitalModel revistaDigitalModel = new RevistaDigitalModel();
-                            List<ConfiguracionPaisModel>  configuracionPaisModels;
+                            List<ConfiguracionPaisModel> configuracionPaisModels;
                             OfertaFinalModel ofertaFinalModel = new OfertaFinalModel();
 
                             revistaDigitalModel.NoVolverMostrar = true;
@@ -1039,7 +1039,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 Session[Constantes.ConstSession.ConfiguracionPaises] = configuracionPaisModels;
                                 Session[Constantes.ConstSession.OfertaFinal] = ofertaFinalModel;
                             }
-                            
+
                         }
                         catch (Exception ex)
                         {
@@ -1683,21 +1683,22 @@ namespace Portal.Consultoras.Web.Controllers
                 if (model == null) return RedirectToAction("UserUnknown", "Login", new { area = "" });
 
                 var userData = (UsuarioModel)Session["UserData"];
-                if (userData == null || userData.CodigoUsuario.CompareTo(model.CodigoUsuario) != 0)
+                if (userData == null || string.Compare(userData.CodigoUsuario, model.CodigoUsuario, StringComparison.OrdinalIgnoreCase) != 0)
                 {
+                    Session.Clear();
                     userData = GetUserData(Util.GetPaisID(model.Pais), model.CodigoUsuario);
                 }
                 if (userData == null) return RedirectToAction("UserUnknown", "Login", new { area = "" });
 
                 FormsAuthentication.SetAuthCookie(model.CodigoUsuario, false);
 
-                Session["MobileAppConfiguracion"] = new MobileAppConfiguracionModel()
+                this.SetUniqueSession("MobileAppConfiguracion", new MobileAppConfiguracionModel
                 {
                     MostrarBotonAtras = !model.EsAppMobile,
                     ClienteID = model.ClienteID,
                     MostrarHipervinculo = !model.EsAppMobile,
                     EsAppMobile = model.EsAppMobile
-                };
+                });
 
                 this.SetUniqueSession("IngresoExterno", model.Version ?? "");
 
@@ -1886,6 +1887,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return (anioCampaniaResult * 100) + nroCampaniaResult;
         }
-        
+
     }
 }

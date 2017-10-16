@@ -1,15 +1,16 @@
-﻿@using Portal.Consultoras.Web.Models;
+﻿@using Portal.Consultoras.Web.Helpers
+@using Portal.Consultoras.Web.Models;
 
 @{
     ViewBag.Title = "OfertaDelDia";
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayoutContenedor.cshtml";
 
-    var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel() : (Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+    var mobileConfiguracion = Html.MobileAppConfiguracion();
     OfertaDelDiaModel ofertaDelDia = new OfertaDelDiaModel();
     if (ViewBag.MostrarOfertaDelDia == true) { ofertaDelDia = ViewBag.OfertaDelDia; }
 }
 
-@if (ViewBag.MostrarOfertaDelDia == true)
+@if (ViewBag.MostrarOfertaDelDiaContenedor == true)
 {
     <div id="pop_oferta_mobile" class="content_pop_oferta_mobile">
         <div>
@@ -103,7 +104,7 @@
 @section scripts {
     <script type="text/javascript">
         $(document).ready(function () {
-            if (mostrarOfertaDelDia) {
+            if ('@ViewBag.MostrarOfertaDelDiaContenedor' == "True") {
                 window.OfertaDelDia.CargarODD();
             }
         });

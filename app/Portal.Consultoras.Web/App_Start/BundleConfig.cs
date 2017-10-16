@@ -130,29 +130,31 @@ namespace Portal.Consultoras.Web
             ));
 
             bundles.Add(new StyleBundle("~/Content/Css/Mobile/esika/CssSB2Mobile").Include(
-                "~/Content/Css/Mobile/esika/icomon.css",
-                "~/Content/Css/Mobile/esika/menu.css",
-                "~/Content/Css/Mobile/esika/style.css",
-                "~/Content/Css/Mobile/esika/theme.css",
-                "~/Content/Css/Mobile/flexslider.css",
-                "~/Content/Css/Mobile/flipclock.css",
-                "~/Content/Css/Site/slick.css",
-                "~/Content/Css/Site/asesora-online.css",
-                "~/Content/Css/Mobile/esika/misDatos.css",
-                "~/Content/Css/Mobile/Esika/revistaDigital.css"
-            ));
+               "~/Content/Css/Mobile/esika/icomon.css",
+               "~/Content/Css/Mobile/esika/menu.css",
+               "~/Content/Css/Mobile/esika/style.css",
+               "~/Content/Css/Mobile/esika/theme.css",
+               "~/Content/Css/Mobile/flexslider.css",
+               "~/Content/Css/Mobile/flipclock.css",
+               "~/Content/Css/Site/slick.css",
+               "~/Content/Css/Site/asesora-online.css",
+               "~/Content/Css/Mobile/esika/misDatos.css",
+               "~/Content/Css/Mobile/Esika/revistaDigital.css",
+               "~/Content/Css/Mobile/esika/cdr.css"
+               ));
 
             bundles.Add(new StyleBundle("~/Content/Css/Mobile/lbel/CssSB2Mobile").Include(
-                "~/Content/Css/Mobile/lbel/icomon.css",
-                "~/Content/Css/Mobile/lbel/menu.css",
-                "~/Content/Css/Mobile/lbel/style.css",
-                "~/Content/Css/Mobile/lbel/theme.css",
-                "~/Content/Css/Mobile/flexslider.css",
-                "~/Content/Css/Mobile/flipclock.css",
-                "~/Content/Css/Site/slick.css",
-                "~/Content/Css/Mobile/lbel/misDatos.css",
-                "~/Content/Css/Mobile/Lbel/revistaDigital.css"
-            ));
+               "~/Content/Css/Mobile/lbel/icomon.css",
+               "~/Content/Css/Mobile/lbel/menu.css",
+               "~/Content/Css/Mobile/lbel/style.css",
+               "~/Content/Css/Mobile/lbel/theme.css",
+               "~/Content/Css/Mobile/flexslider.css",
+               "~/Content/Css/Mobile/flipclock.css",
+               "~/Content/Css/Site/slick.css",
+               "~/Content/Css/Mobile/lbel/misDatos.css",
+               "~/Content/Css/Mobile/Lbel/revistaDigital.css",
+               "~/Content/Css/Mobile/lbel/cdr.css" 
+               ));
 
             bundles.Add(new StyleBundle("~/Content/Css/Site/CssBienvenida").Include(
                 "~/Content/Css/Mobile/esika/bootstrap-slider.min.css",
