@@ -1268,7 +1268,7 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Index", "AdministrarEstrategia");
         }
 
-        public ActionResult ConsultarCuvTipoConfigurado(string sidx, string sord, int page, int rows, int campaniaId, int tipoConfigurado, int estrategiaID)
+        public ActionResult ConsultarCuvTipoConfigurado(string sidx, string sord, int page, int rows, int campaniaId, int tipoConfigurado, string estrategiaCodigo)
         {
             if (ModelState.IsValid)
             {
@@ -1278,7 +1278,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     using (PedidoServiceClient ps = new PedidoServiceClient())
                     {
-                        lst = ps.GetOfertasParaTiByTipoConfigurado(userData.PaisID, campaniaId, tipoConfigurado, estrategiaID).ToList();
+                        lst = ps.GetOfertasParaTiByTipoConfigurado(userData.PaisID, campaniaId, tipoConfigurado, estrategiaCodigo).ToList();
                     }
                 }
                 catch (Exception ex)
@@ -1323,20 +1323,19 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Index", "AdministrarEstrategia");
         }
 
-        public JsonResult InsertEstrategiaTemporal(int campaniaId, int tipoConfigurado, int estrategiaID, bool habilitarNemotecnico)
+        public JsonResult InsertEstrategiaTemporal(int campaniaId, int tipoConfigurado, string estrategiaCodigo, bool habilitarNemotecnico)
         {
             try
             {
-                List<BEEstrategia> lst = new List<BEEstrategia>();
-
+                List<BEEstrategia> listBeEstrategias;
                 try
                 {
-                    using (PedidoServiceClient ps = new PedidoServiceClient())
+                    using (var ps = new PedidoServiceClient())
                     {
-                        lst = ps.GetOfertasParaTiByTipoConfigurado(userData.PaisID, campaniaId, tipoConfigurado, estrategiaID).ToList();
+                        listBeEstrategias = ps.GetOfertasParaTiByTipoConfigurado(userData.PaisID, campaniaId, tipoConfigurado, estrategiaCodigo).ToList();
                     }
 
-                    if (!lst.Any())
+                    if (!listBeEstrategias.Any())
                     {
                         return Json(new
                         {
@@ -1345,15 +1344,22 @@ namespace Portal.Consultoras.Web.Controllers
                         }, JsonRequestBehavior.AllowGet);
                     }
 
-                    var tono = false;
-
-                    foreach (var opt in lst)
+                    var tono = //opt.Activo == 1 &&
+                    (estrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertaParaTi ||
+                     estrategiaCodigo == Constantes.TipoEstrategiaCodigo.Lanzamiento ||
+                     estrategiaCodigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso ||
+                     estrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi ||
+                     estrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertaDelDia ||
+                     estrategiaCodigo == Constantes.TipoEstrategiaCodigo.LosMasVendidos);
+                    
+                    
+                    foreach (var opt in listBeEstrategias)
                     {
                         #region precioOferta
                         decimal precioOferta = 0;
                         try
                         {
-                            using (ServicePROL.ServiceStockSsic svs = new ServicePROL.ServiceStockSsic())
+                            using (var svs = new ServicePROL.ServiceStockSsic())
                             {
                                 svs.Url = ConfigurarUrlServiceProl();
                                 precioOferta = svs.wsObtenerPrecioPack(opt.CUV2, userData.CodigoISO, campaniaId.ToString());
@@ -1375,15 +1381,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                         try
                         {
-                            List<RptProductoEstrategia> productoEstrategias = new List<RptProductoEstrategia>();
-                            tono = //opt.Activo == 1 &&
-                                (opt.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertaParaTi ||
-                                opt.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.Lanzamiento ||
-                                opt.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso ||
-                                opt.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi ||
-                                opt.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertaDelDia ||
-                                opt.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.LosMasVendidos);
-
+                            var productoEstrategias = new List<RptProductoEstrategia>();
+                           
                             if (tono)
                             {
                                 opt.CampaniaID = campaniaId;
@@ -1401,10 +1400,9 @@ namespace Portal.Consultoras.Web.Controllers
                             if (habilitarNemotecnico)
                             {
                                 #region habilitarNemotecnico
-
-                                List<string> nemotecnicosLista = new List<string>();
-                                string grupoPrevio = String.Empty;
-                                foreach (RptProductoEstrategia productoEstrategia in productoEstrategias)
+                                var nemotecnicosLista = new List<string>();
+                                var grupoPrevio = string.Empty;
+                                foreach (var productoEstrategia in productoEstrategias)
                                 {
                                     #region habilitarNemotecnico
                                     tono = (productoEstrategia.codigo_estrategia == Constantes.TipoEstrategiaSet.IndividualConTonos ||
@@ -1412,28 +1410,22 @@ namespace Portal.Consultoras.Web.Controllers
                                         (productoEstrategia.codigo_estrategia == Constantes.TipoEstrategiaSet.CompuestaVariable &&
                                          grupoPrevio != productoEstrategia.grupo);
 
-                                    if (tono)
-                                    {
-                                        grupoPrevio = productoEstrategia.grupo;
-                                        string cantidad = (productoEstrategia.cantidad.ToString().Length < 2)
-                                            ? "0" + productoEstrategia.cantidad.ToString()
-                                            : productoEstrategia.cantidad.ToString();
-                                        nemotecnicosLista.Add(String.Format("{0}#{1}", productoEstrategia.codigo_sap, cantidad));
-                                    }
+                                    if (!tono) continue;
+                                    grupoPrevio = productoEstrategia.grupo;
+                                    var cantidad = (productoEstrategia.cantidad.ToString().Length < 2)
+                                        ? "0" + productoEstrategia.cantidad
+                                        : productoEstrategia.cantidad.ToString();
+                                    nemotecnicosLista.Add(String.Format("{0}#{1}", productoEstrategia.codigo_sap, cantidad));
                                     #endregion
                                 }
 
-                                string nemoTecnicoBusqueda = String.Empty;
-                                foreach (String nemoTecnico in nemotecnicosLista)
-                                {
-                                    nemoTecnicoBusqueda += nemoTecnicoBusqueda == String.Empty ? nemoTecnico : ("&" + nemoTecnico);
-                                }
+                                var nemoTecnicoBusqueda = nemotecnicosLista.Aggregate(string.Empty, (current, nemoTecnico) => current + (current == string.Empty ? nemoTecnico : ("&" + nemoTecnico)));
 
-                                List<BEMatrizComercialImagen> lstImagenes = new List<BEMatrizComercialImagen>();
-                                using (PedidoServiceClient ps = new PedidoServiceClient())
+                                List<BEMatrizComercialImagen> lstImagenes;
+                                using (var ps = new PedidoServiceClient())
                                 {
                                     lstImagenes = ps.GetImagenByNemotecnico(userData.PaisID, 0, null, null, 0, 0, 0,
-                                            nemoTecnicoBusqueda, Common.Constantes.TipoBusqueda.Exacta, 1, 1).ToList();
+                                            nemoTecnicoBusqueda, Constantes.TipoBusqueda.Exacta, 1, 1).ToList();
                                     opt.FotoProducto01 = lstImagenes.Any() ? lstImagenes[0].Foto : String.Empty;
                                 }
 
@@ -1467,9 +1459,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 try
                 {
-                    using (PedidoServiceClient ps = new PedidoServiceClient())
+                    using (var ps = new PedidoServiceClient())
                     {
-                        ps.InsertEstrategiaTemporal(userData.PaisID, lst.ToArray(), campaniaId, userData.CodigoUsuario);
+                        ps.InsertEstrategiaTemporal(userData.PaisID, listBeEstrategias.ToArray(), campaniaId, userData.CodigoUsuario);
                     }
                 }
                 catch (Exception ex)

@@ -45,8 +45,8 @@ namespace Portal.Consultoras.Web.Controllers
             List<BETablaLogicaDatos> list_segmentos = new List<BETablaLogicaDatos>();
             string CodConsultora = "", NombreCompleto = "", CodigoZona = "", CodigorRegion = "", EstadoActividad = "", Segmento = "", FechaNacimiento = "",
                     EstadoCivil = "", KtiNueva = "", AutorizaPedido = "", EMail = "", MontoUltimoPedido = "", MontoFlexipago = "", UltimaCampanaFacturada = "",
-                    MontoMaximoPedido = "", MontoMinimoPedido = "", FechaIngreso = "", MontoSaldoActual = "", PasePedidoWeb = "", TipoOferta2 = "", IndicadorDupla = "",
-                    CompraOfertaEspecial = "", Simbolo = "", NombrePais = "", Telefono = "", Celular = "", CompraKitDupla = "", CompraOfertaDupla = "",
+                    MontoMaximoPedido = "", MontoMinimoPedido = "", FechaIngreso = "", MontoSaldoActual = "", PasePedidoWeb = "", TipoOferta2 = "",
+                    Simbolo = "", NombrePais = "", Telefono = "", Celular = "",
                     EstablecidaDupla = "", NuevaComproOfertaEspecial = "", EnviaCatalogo = "";
             int segmento_nueva, segmento_top;
 

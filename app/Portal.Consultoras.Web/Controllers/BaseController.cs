@@ -62,7 +62,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 userData = UserData();
                 revistaDigital = sessionManager.GetRevistaDigital() ?? new RevistaDigitalModel();
-                if (userData == null)
+                if (userData == null || userData == default(UsuarioModel))
                 {
                     string URLSignOut = string.Empty;
                     if (Request.UrlReferrer != null && Request.UrlReferrer.ToString().Contains(Request.Url.Host))
@@ -987,7 +987,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             if (model == null)
-                return model;
+                return new UsuarioModel();
 
             string UrlEMTELCO = "";
             try
@@ -3305,7 +3305,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (menuActivo.CampaniaId > userData.CampaniaID)
             {
-                listaEntidad = listaEntidad.Where(entConf => entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigital
+                listaEntidad = listaEntidad.Where(entConf
+                => entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigital
                 || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.Lanzamiento
                 || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.InicioRD).ToList();
             }
@@ -3383,6 +3384,7 @@ namespace Portal.Consultoras.Web.Controllers
                         seccion.UrlObtenerProductos = "RevistaDigital/RDObtenerProductosLan";
                         seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.RevistaDigitalMobileLandingCarrusel : Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLandingCarrusel;
                         break;
+                    case Constantes.ConfiguracionPais.RevistaDigitalReducida:
                     case Constantes.ConfiguracionPais.RevistaDigital:
                         seccion.UrlObtenerProductos = "RevistaDigital/RDObtenerProductos";
                         seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding : Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding;
@@ -3967,7 +3969,7 @@ namespace Portal.Consultoras.Web.Controllers
             switch (marcaId)
             {
                 case 1:
-                    result = "Lbel";
+                    result = "L'bel";
                     break;
                 case 2:
                     result = "Ésika";

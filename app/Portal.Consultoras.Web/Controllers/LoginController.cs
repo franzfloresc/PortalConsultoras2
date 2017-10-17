@@ -2,6 +2,7 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.PublicService.Cryptography;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
+using Portal.Consultoras.Web.Helpers;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceContenido;
 using Portal.Consultoras.Web.ServicePedido;
@@ -9,6 +10,7 @@ using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
+using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -17,11 +19,7 @@ using System.Linq;
 using System.ServiceModel;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
 using System.Web.Security;
-using Portal.Consultoras.PublicService.Cryptography;
-using Portal.Consultoras.Web.SessionManager;
-using Portal.Consultoras.Web.Helpers;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -147,6 +145,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, Campania.ToString() + " - " + Alcance, paisID.ToString());
                 lst = new List<BEEventoFestivo>(); ;
             }
             return Mapper.Map<IList<BEEventoFestivo>, List<EventoFestivoModel>>(lst);

@@ -108,7 +108,7 @@ namespace Portal.Consultoras.Web.WebPages
                 //listaE = BusinessService.obtenerPedidoWebAnteriorDetalle("201303", "PE", "0", "0", "032396461");
                 listaE = BusinessService.obtenerPedidoWebAnteriorDetalle(Campaniaddl_val, ISOWS, Regionddl, Zonaddl, CodConsultoratxt_ID);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 listaE = null;
             }

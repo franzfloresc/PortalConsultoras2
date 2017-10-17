@@ -13,8 +13,6 @@ namespace Portal.Consultoras.Web.Models
     public class DetalleSolicitudPostulanteModel : SolicitudPostulanteModel
     {
         public bool ModoLectura { get; set; }
-
-        public string CodigoISO { get; set; }
     }
 
     public class SolicitudPostulanteModel

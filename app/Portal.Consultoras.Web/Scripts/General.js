@@ -1401,9 +1401,9 @@ function OcultarMenu(codigo) {
 
 function MostrarMenu(codigo, accion) {
     codigo = $.trim(codigo);
-    if (codigo == "") {
+    if (codigo == "")
         return false;
-    }
+    
     var idMenus = "#ulNavPrincipal-0";
     var menu = $(idMenus).find("[data-codigo='" + codigo + "']");
     menu = menu.length == 0 ? $(idMenus).find("[data-codigo='" + codigo.toLowerCase() + "']") : menu;

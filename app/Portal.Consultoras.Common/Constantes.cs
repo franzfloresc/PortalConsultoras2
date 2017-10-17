@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+
 namespace Portal.Consultoras.Common
 {
     public class Constantes
@@ -707,7 +708,7 @@ namespace Portal.Consultoras.Common
                 public const string ColorFondoTituloOfertaSubCampania = "ColorFondoTituloOfertaSubCampania";
                 public const string ImagenBannerContenedorOfertasIntriga = "ImagenBannerContenedorOfertasIntriga";
                 public const string ImagenBannerContenedorOfertasVenta = "ImagenBannerContenedorOfertasVenta";
-                
+
             }
 
             public class TipoAplicacion
@@ -755,7 +756,7 @@ namespace Portal.Consultoras.Common
         }
 
         public class MenuCodigo
-        {            
+        {
             public const string MiNegocio = "MiNegocio";
             public const string RevistaDigitalSuscripcion = "RevistaDigitalSuscripcion";
             public const string CatalogoPersonalizado = "FDTC";
@@ -930,7 +931,8 @@ namespace Portal.Consultoras.Common
             public const string FichaProductoTemporal = "FichaProductoTemporal";
         }
 
-        public class SeccionBienvenida {
+        public class SeccionBienvenida
+        {
             public const string Home = "Home";
             public const string Belcorp = "Belcorp";
             public const string MisOfertas = "MisOfertas";
