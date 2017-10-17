@@ -528,9 +528,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     if (!revistaDigital.NoVolverMostrar)
                     {
-                        if (revistaDigital.SuscripcionModel.EstadoRegistro == 0
-                            || revistaDigital.SuscripcionModel.EstadoRegistro == 2
-                                )
+                        if (revistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.SinRegistroDB
+                            || revistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Desactivo)
                         {
                             TipoPopUpMostrar = Constantes.TipoPopUp.RevistaDigitalSuscripcion;
                             break;
@@ -555,7 +554,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     if (!revistaDigital.NoVolverMostrar)
                     {
-                        if (revistaDigital.SuscripcionModel.EstadoRegistro == 0)
+                        if (revistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.SinRegistroDB)
                         {
                             TipoPopUpMostrar = Constantes.TipoPopUp.RevistaDigitalSuscripcion;
                             break;
