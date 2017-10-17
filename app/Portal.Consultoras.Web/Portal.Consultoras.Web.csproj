@@ -230,6 +230,11 @@
     <Compile Include="Areas\Mobile\Models\ClienteMobileModel.cs" />
     <Compile Include="Areas\Mobile\Models\EstadoCuentaMobilModel.cs" />
     <Compile Include="Areas\Mobile\Models\MenuMobileModel.cs" />
+    <Compile Include="Areas\Mobile\Models\MisPedidosCampaniaModel.cs" />
+    <Compile Include="Areas\Mobile\Models\MisPedidosFacturadosDetalleModel.cs" />
+    <Compile Include="Areas\Mobile\Models\MisPedidosFacturadosModel.cs" />
+    <Compile Include="Areas\Mobile\Models\MisPedidosIngresadosDetalleModel.cs" />
+    <Compile Include="Areas\Mobile\Models\MisPedidosIngresadosModel.cs" />
     <Compile Include="Areas\Mobile\Models\NotificacionesMobileModel.cs" />
     <Compile Include="Areas\Mobile\Models\OfertaProductoMobilModel.cs" />
     <Compile Include="Areas\Mobile\Models\OfertaProductoPrincipalMobileModel.cs" />
@@ -3700,6 +3705,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServicePedido\PedidoService10.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServicePedido\PedidoService11.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServicePedido\PedidoService2.xsd">
