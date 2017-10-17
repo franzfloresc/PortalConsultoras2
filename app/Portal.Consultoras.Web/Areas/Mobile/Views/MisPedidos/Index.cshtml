@@ -7,7 +7,6 @@
 
 @{
     var layout = ViewContext.MobileLayout();
-
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
 }
 
@@ -29,35 +28,44 @@
     MIS PEDIDOS
 </div>
 
-@{ 
+@{
     bool firstCampania = true;
+    if (Model.Count == 0)
+    {
+        <div class="col-xs-12">
+            <div class="icono_alerta exclamacion_icono_mobile"></div>
+            <div class="mensaje_alerta">Hasta el momento no tienes ningún pedido.</div>
+        </div>
+    }
+    else
+    {
+        <div class="app-tabs">
+            @{
+                foreach (var pedidoCampania in Model)
+                {
+                    <a href="javascript:;" class="@(firstCampania ? "active" : string.Empty)" data-campania="@pedidoCampania.CampaniaID">
+                        @pedidoCampania.DescripcionEstadoPedido<br />
+                        @pedidoCampania.NumeroCampania @pedidoCampania.AnioCampania
+                    </a>
+                    firstCampania = false;
+                }
+            }
+        </div>
+
+        <div class="app-tabs-detail">
+            @{
+                firstCampania = true;
+                foreach (var pedidoCampania in Model)
+                {
+                    <div id="ContenedorPedido_@pedidoCampania.CampaniaID" style="@(firstCampania ? string.Empty : "display:none")">
+                        @(pedidoCampania.EsCampaniaActual ? Html.Action("IngresadoDetalle") : Html.Action("FacturadoDetalle", new { campaniaID = pedidoCampania.CampaniaID }))
+                    </div>
+                    firstCampania = false;
+                }
+            }
+        </div>
+    }
 }
-
-<div class="app-tabs">
-    @{
-        foreach (var pedidoCampania in @Model)
-        {
-            <a href="javascript:;" class="@(firstCampania ? "active" : string.Empty)" data-campania="@pedidoCampania.CampaniaID">
-                @pedidoCampania.DescripcionEstadoPedido<br />
-                @pedidoCampania.NumeroCampania @pedidoCampania.AnioCampania
-            </a>
-            firstCampania = false;
-        }
-    }
-</div>
-
-<div class="app-tabs-detail">
-    @{
-        firstCampania = true;
-        foreach (var pedidoCampania in @Model)
-        {
-            <div id="ContenedorPedido_@pedidoCampania.CampaniaID" style="@(firstCampania ? string.Empty : "display:none")">
-                @(pedidoCampania.EsCampaniaActual ? Html.Action("IngresadoDetalle") : Html.Action("FacturadoDetalle", new { campaniaID = pedidoCampania.CampaniaID }))
-            </div>
-            firstCampania = false;
-        }
-    }
-</div>
 
 @section scripts{
     <script type="text/javascript">
