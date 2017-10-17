@@ -25,7 +25,7 @@ namespace Portal.Consultoras.Web.Controllers
                 // solo se llama en Home y Pedido, desktop y mobile, para los carruseles de opt o rd
 
                 var codAgrupa = revistaDigital.TieneRDR ||
-                    (revistaDigital.TieneRDC && revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == 1) ?
+                    (revistaDigital.TieneRDC && revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo) ?
                     Constantes.TipoEstrategiaCodigo.RevistaDigital : "";
 
                 var listModel = ConsultarEstrategiasHomePedido(cuv, codAgrupa);
