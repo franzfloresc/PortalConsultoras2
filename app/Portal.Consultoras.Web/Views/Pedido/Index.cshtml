@@ -2145,16 +2145,16 @@ else
         var titulo1OFRegalo = (ViewBag.Titulo1OFRegalo != null) ? ViewBag.Titulo1OFRegalo : "";
     }
 
-    <div class="content_regalo_sorpresa" id="container-of-regalo" style="display: none; background: url(@imagenFondoOFRegalo)" data-popup-body="">
+    <div class="content_regalo_sorpresa" id="container-of-regalo" style="display: none; background: url(@imagenFondoOFRegalo); background-repeat:no-repeat;" data-popup-body="">
         <div class="icono_regalo_sorpresa"></div>
-        <div class="titulo_regalo_sorpresa" id="of-regalo-msg1" style="display: none;"><b>¡GANA ESTE PREMIO*</b>@titulo1OFRegalo</div>
+        <div class="titulo_regalo_sorpresa" id="of-regalo-msg1" style="display: none;"><b>¡GANA ESTE PREMIO*</b><br/>@titulo1OFRegalo</div>
         <div class="titulo_regalo_2" id="of-regalo-msg2" style="display: none;">FELICIDADES @ViewBag.NombreConsultora <br /><span class="font_32">¡GANASTE!</span></div>
         <div class="titulo_regalo_2" id="of-regalo-msg3" style="display: none;">¡FELICIDADES @ViewBag.NombreConsultora <span class="bold_900">ESTE PREMIO YA ES TUYO!</span></div>
         <div class="fondo_blanco_regalo">
             <div class="titulo_regalo_producto" id="of-regalo-descripcion">Bicicleta Rockrider 340 Azul</div>
             <div class="content_imagen_sorpresa"><img id="of-regalo-imagen" src="" alt="" /></div>
             <div class="descripcion_regalo">
-                <span id="of-regalo-descripcion-larga">Pedalier de acero con triple plato, con protección de plástico de color azul. Tamaño 80cm x 120cm.</span>
+                <span id="of-regalo-descripcion-larga" class="oferta_final_descripcion">Pedalier de acero con triple plato, con protección de plástico de color azul. Tamaño 80cm x 120cm.</span>
                 <a target="_blank" href="@ViewBag.UrlTerminosOfertaFinalRegalo">*Leer términos y condiciones</a>
             </div>
         </div>
@@ -2163,9 +2163,9 @@ else
             <b>TE FALTA AGREGAR: <span id="of-regalo-montosaldo">$23.999</span></b>
         </div>
     </div>
-    <div class="popup_ofertaFinal" data-meta="{{TipoMeta}}" data-meta-total="{{TotalPedido}}" data-popup-body="" style="height:auto;">
+    <div class="popup_ofertaFinal pt-0" data-meta="{{TipoMeta}}" data-meta-total="{{TotalPedido}}" data-popup-body="" style="height:auto;">
         <!--SI SALE EL DIV DE PRODUCTO ALTERNATIVO SE AÑADE LA CLASE "fondo_gris_OF"-->
-        <div class="numero_pedido" id="div-numero-pedido">
+        <div class="numero_pedido mt-0 mb-21" id="div-numero-pedido">
             <div class="numero_pedido_fondo">
                 <img id="img-numero-pedido-fondo" src="/Content/Images/popup_pedido/numero_pedido_site_bg.png">
                 <div class="content-texto-numero-pedido" id="msg-numero-pedido" style="padding-top: 15px;">
@@ -2174,6 +2174,7 @@ else
                     <span class="texto_pd" id="texto-pd">PEDIDO</span>
                 </div>
             </div>
+            <div style="clear:both;"></div>
         </div>
         <div class="btn_cerrar_ofertaFinal">
             <a href="javascript:;" title="Cerrar" data-popup-close="divOfertaFinal" onclick="of_google_analytics_cerrar_popup();">
@@ -2182,11 +2183,11 @@ else
             </a>
         </div>
         <div class="contenido_popUp">
-            <div class="content_texto_oferta">
-                <div class="icono_mensaje_alerta {{ofIconoSuperior}}" id="ofIconoSuperior"></div>
+            <div class="content_texto_oferta mb-0">
+                <div class="icono_mensaje_alerta {{ofIconoSuperior}} tamanioIcono" id="ofIconoSuperior"></div>
 
                 <div>
-                    <h1 class="titulo_ofertaFinal" id="spnTituloOfertaFinal">
+                    <h1 class="titulo_ofertaFinal mb-13" id="spnTituloOfertaFinal">
                         {{#if_eq TipoMeta 'MM'}}
                         <span><b>AÚN TE FALTA {{Simbolo}} <span data-monto="">{{MetaMontoStr}}</span> PARA LLEGAR AL MONTO MÍNIMO</b></span>
                         {{else if_eq TipoMeta 'GM'}}
@@ -2196,7 +2197,7 @@ else
                         {{/if_eq}}
                     </h1>
                     <hr class="clear" />
-                    <div class="descripcion_ofertaFinal" id="msjOfertaFinal" data-meta-porcentaje="{{MetaPorcentaje}}" data-meta-monto="{{MontoMeta}}">
+                    <div class="descripcion_ofertaFinal mb-0" id="msjOfertaFinal" data-meta-porcentaje="{{MetaPorcentaje}}" data-meta-monto="{{MontoMeta}}">
                         {{#if_eq TipoMeta 'MM'}}
                         <span>TE AYUDAMOS A ALCANZARLO CON ESTAS OFERTAS</span>
                         {{else if_eq TipoMeta 'GM'}}
@@ -2221,8 +2222,11 @@ else
                 </div>
             </div>
             <div class="contenedor_bloques_agregaProductos">
+                <div class="descripcion_cant_sets_productos_ofertaFinal">
+                    Aquí encontrarás los <span>12</span> mejores sets para ganar tu premio.
+                </div>
                 <div style="margin: 0 auto; width:90%;" class="bloque_carousel">
-                    <div style="margin-left: 27px; margin-right: 27px; position: relative;margin-top:-95px;">
+                    <div style="margin-left: 27px; margin-right: 27px; position: relative;">
                         <div class="slider center" id="divCarruselOfertaFinal" style="width: 100%">
 
                             {{#each this.Detalle}}
@@ -2298,6 +2302,7 @@ else
 
                         </div>
                     </div>
+                    <div style="clear:both;"></div>
                     <button id="id_btn_noGracias_agregarProductos" name="btn_noGracias_agregarProductos" class="btn_noGracias_agregarProductos btnNoGraciasOfertaFinal icono_terminar_pedido" id="btnNoGraciasOfertaFinal" style="display:{{#iff TipoMeta '==' 'MM'}}none;{{else}}block;{{/iff}}" onclick="of_google_analytics_cerrar_popup()">
                         RESERVA TU PEDIDO
                     </button>
