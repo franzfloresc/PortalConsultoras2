@@ -592,6 +592,8 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
                 
                 $('#msjOfertaFinal span').html('Ganancia Estimada Total: ' + simbolo + ' ' + data.DataBarra.MontoGananciaStr);
                 
+                if (tipoOrigen == 2) $('#msjOfertaFinal').css('margin-top', '15px');
+                if (tipoOrigen == 1) $('div.contenedor_bloques_agregaProductos').css('padding-top', '10px');
                 $('#msjOfertaFinal').show();
                 $('#div-regalo-pn').hide();
             }
@@ -718,6 +720,22 @@ function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simbolo, flag)
 
         $('#msjOfertaFinal').hide();
         $('#div-regalo-pn').hide();
+        $('#div-count-ofertas').hide();
+
+        $('#numero-pd').text(parseInt(nivel));
+        $('#posicion-pd').text(getAbrevNumPedido(parseInt(nivel)));
+        $('#div-numero-pedido').show();
+
+        if (tipoOrigen == 2) {
+            $('#ofIconoSuperior').css('width', '35px');
+            $('#ofIconoSuperior').css('height', '35px');
+        }
+
+        if (oRegaloPN.UrlImagenRegalo != null && oRegaloPN.UrlImagenRegalo != "") {
+            $('#img-regalo-pn').attr('src', oRegaloPN.UrlImagenRegalo);
+            ('div.content_imagen_alternativo').show();
+        }
+        $('div.content_imagen_alternativo').show();
 
         if (tipoMeta == 'MM') {
             if (montoTotal >= montoMeta) {
@@ -727,6 +745,8 @@ function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simbolo, flag)
                     msg1 += '<br /><b>Y GANASTE UN ' + oRegaloPN.DescripcionPremio + '*!</b>';
 
                     $('#spnTituloOfertaFinal span').html(msg1);
+                    $('#div-regalo-pn').hide();
+                    if (tipoOrigen == 1) $('div.contenedor_bloques_agregaProductos').css('padding-top', '10px');
                 }
                 else {
                     if (montoTotal >= oRegaloPN.TippingPoint) {
@@ -784,8 +804,10 @@ function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simbolo, flag)
                 $('#spnTituloOfertaFinal span').html(msg1);
                 $('#msg-regalo-pn').html(msg2);
                 $('#msg-regalo-pn2').html(msg2);
-
                 $('#div-regalo-pn').show();
+                $('div.content_imagen_alternativo').hide();
+                $('#msg-regalo-pn2').css('padding-top', '10px');
+                if (tipoOrigen == 1) $('#msjOfertaFinal').css('margin-bottom', '10px');
             }
             else {
                 if (montoTotal >= oRegaloPN.TippingPoint) {
@@ -819,36 +841,9 @@ function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simbolo, flag)
             }
         }
 
-        $('#numero-pd').text(parseInt(nivel));
-        $('#posicion-pd').text(getAbrevNumPedido(parseInt(nivel)));
-        $('#div-numero-pedido').show();
-
-        if (tipoOrigen == 2) {
-            $('#ofIconoSuperior').css('width', '35px');
-            $('#ofIconoSuperior').css('height', '35px');
-        }
-
-        if (oRegaloPN.UrlImagenRegalo != null && oRegaloPN.UrlImagenRegalo != "") {
-            $('#img-regalo-pn').attr('src', oRegaloPN.UrlImagenRegalo);
-            $('div.content_imagen_alternativo').show();
-        }
-        //else {
-        //    $('#msg-regalo-pn').css('padding-top', '15px');
-        //}
-
-        $('div.content_imagen_alternativo').show();
-
-        /*
-        var maxw = (tipoOrigen == 1) ? '570px' : '225px';
-        var minw = (tipoOrigen == 1) ? '570px' : '225px';
-        $('#div-regalo-pn').css('max-width', maxw);
-        $('#div-regalo-pn').css('min-width', minw);
-        */
-
         //$('#msg-regalo-pn').html(mensaje);
         //$('#msg-regalo-pn2').html(mensaje);   // mobile
-        
-        //if (showDiv) $('#div-regalo-pn').show();
+        $('#div-regalo-pn').show();
 
         $('#txt-disclaimer-pn').html(disclaimer);
         $('#txt-disclaimer-pn').show();
