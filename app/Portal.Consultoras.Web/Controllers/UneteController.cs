@@ -167,157 +167,6 @@ namespace Portal.Consultoras.Web.Controllers
         
       
 
-        //ConsultarUbicacion CL
-        public ActionResult ConsultarUbicacionCL(int id)
-        {
-            var model = new ConsultarUbicacionModel();
-
-            using (var sv = new PortalServiceClient())
-            {
-                var solicitudPostulante = sv.ObtenerSolicitudPostulante(CodigoISO, id);
-
-                if (solicitudPostulante != null)
-                {
-                    model.SolicitudPostulanteID = id;
-                    var direccion = solicitudPostulante.Direccion == null ? new string[0] : solicitudPostulante.Direccion.Split('|');
-
-                    if (CodigoISO == Pais.Chile)
-                    {
-                        switch (direccion.Length)
-                        {
-                            case 1:
-                                model.DireccionCadena = direccion[0]; break;
-                            case 2:
-                                model.DireccionCadena = direccion[0] + " " + direccion[1]; break;
-                            default:
-                                model.DireccionCadena = ""; break;
-                        }
-                    }
-                    else if (CodigoISO == Pais.Colombia)
-                    {
-                        switch (direccion.Length)
-                        {
-                            case 1:
-                                model.DireccionCadena = direccion[0]; break;
-                            case 2:
-                                model.DireccionCadena = direccion[1] + " " + " " + direccion[0]; break;
-                            case 3:
-                                model.DireccionCadena = direccion[1] + " " + direccion[2] + " " + direccion[0]; break;
-                            default:
-                                model.DireccionCadena = ""; break;
-                        }
-                    }
-                    else if (CodigoISO == Pais.Mexico)
-                    {
-                        switch (direccion.Length)
-                        {
-                            case 1:
-                                model.DireccionCadena = direccion[0]; break;
-                            case 2:
-                                model.DireccionCadena = direccion[0] + " " + direccion[1]; break;
-                            case 3:
-                                model.DireccionCadena = direccion[0] + " " + direccion[1]; break;
-                            default:
-                                model.DireccionCadena = ""; break;
-                        }
-                    }
-                    else if (CodigoISO == Pais.Peru)
-                    {
-                        switch (direccion.Length)
-                        {
-                            case 1:
-                                model.DireccionCadena = ""; break;
-                            case 2:
-                                model.DireccionCadena = direccion[1]; break;
-                            case 3:
-                                model.DireccionCadena = direccion[1] + " " + direccion[2]; break;
-                            default:
-                                model.DireccionCadena = ""; break;
-                        }
-                    }
-                    else if (CodigoISO == Pais.Ecuador)
-                    {
-                        switch (direccion.Length)
-                        {
-                            case 1:
-                                model.DireccionCadena = direccion[0]; break;
-                            case 2:
-                                model.DireccionCadena = direccion[1]; break;
-                            case 3:
-                                model.DireccionCadena = direccion[1]; break;
-                            default:
-                                model.DireccionCadena = ""; break;
-                        }
-                    }
-                    else
-                    {
-                        model.DireccionCadena = solicitudPostulante.Direccion;
-                    }
-
-
-                    model.Direccion = solicitudPostulante.Direccion;
-                    model.NombreRegion = solicitudPostulante.LugarPadre;
-                    model.NombreComuna = solicitudPostulante.LugarHijo;
-                    model.Latitud = solicitudPostulante.Latitud;
-                    model.Longitud = solicitudPostulante.Longitud;
-                    model.FuenteIngreso = solicitudPostulante.FuenteIngreso;
-
-                    if (CodigoISO == Pais.Chile || CodigoISO == Pais.Mexico || CodigoISO == Pais.Peru || CodigoISO == Pais.Guatemala || CodigoISO == Pais.Ecuador || CodigoISO == Pais.Colombia)
-                    {
-                        try
-                        {
-                            var PaisesParaRevisionPorPuntos = new List<string>() {
-                              Pais.Chile, Pais.Mexico, Pais.Peru, Pais.Ecuador
-                            };
-
-                            if (PaisesParaRevisionPorPuntos.FirstOrDefault(x => x == CodigoISO) == null)
-                            {
-                                GetLocationInfoByAddress(ref model, ref solicitudPostulante, direccion);
-                            }
-                            else if (PaisesParaRevisionPorPuntos.FirstOrDefault(x => x == CodigoISO) != null && model.Longitud == null && model.Latitud == null)
-                            {
-                                GetLocationInfoByAddress(ref model, ref solicitudPostulante, direccion);
-
-                            }
-                            else
-                            {
-
-                                model.Puntos.Add(new Tuple<decimal, decimal, string>
-                                                (
-                                               model.Latitud.Value,
-                                                model.Longitud.Value,
-                                                 model.DireccionCadena
-                                                ));
-
-                                if (model.Puntos.Count == 1)
-                                {
-                                    var punto = model.Puntos.First();
-                                    var noEncontroDireccion = false; //punto.Item3.Contains("");
-
-                                    if (noEncontroDireccion)
-                                    {
-
-                                    }
-                                    else
-                                    {
-                                        GetLocationInfo(ref model);
-                                    }
-                                }
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                        }
-                    }
-
-
-                }
-            }
-
-            return PartialView("_ConsultarUbicacionCL", model);
-        }
-            
-
         public ActionResult ConsultarValidacionTelefonica(int id)
         {
             var model = new ConsultarValidacionTelefonicaModel { SolicitudPostulanteId = id };
@@ -1490,6 +1339,161 @@ namespace Portal.Consultoras.Web.Controllers
 
 
 
+
+
+        //ConsultarUbicacion CL
+        public ActionResult ConsultarUbicacionCL(int id)
+        {
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("ConsultarUbicacionCL", "&id=" + id.ToString());
+
+            return PartialView("_ConsultarUbicacionCL");
+
+            //var model = new ConsultarUbicacionModel();
+
+            //using (var sv = new PortalServiceClient())
+            //{
+            //    var solicitudPostulante = sv.ObtenerSolicitudPostulante(CodigoISO, id);
+
+            //    if (solicitudPostulante != null)
+            //    {
+            //        model.SolicitudPostulanteID = id;
+            //        var direccion = solicitudPostulante.Direccion == null ? new string[0] : solicitudPostulante.Direccion.Split('|');
+
+            //        if (CodigoISO == Pais.Chile)
+            //        {
+            //            switch (direccion.Length)
+            //            {
+            //                case 1:
+            //                    model.DireccionCadena = direccion[0]; break;
+            //                case 2:
+            //                    model.DireccionCadena = direccion[0] + " " + direccion[1]; break;
+            //                default:
+            //                    model.DireccionCadena = ""; break;
+            //            }
+            //        }
+            //        else if (CodigoISO == Pais.Colombia)
+            //        {
+            //            switch (direccion.Length)
+            //            {
+            //                case 1:
+            //                    model.DireccionCadena = direccion[0]; break;
+            //                case 2:
+            //                    model.DireccionCadena = direccion[1] + " " + " " + direccion[0]; break;
+            //                case 3:
+            //                    model.DireccionCadena = direccion[1] + " " + direccion[2] + " " + direccion[0]; break;
+            //                default:
+            //                    model.DireccionCadena = ""; break;
+            //            }
+            //        }
+            //        else if (CodigoISO == Pais.Mexico)
+            //        {
+            //            switch (direccion.Length)
+            //            {
+            //                case 1:
+            //                    model.DireccionCadena = direccion[0]; break;
+            //                case 2:
+            //                    model.DireccionCadena = direccion[0] + " " + direccion[1]; break;
+            //                case 3:
+            //                    model.DireccionCadena = direccion[0] + " " + direccion[1]; break;
+            //                default:
+            //                    model.DireccionCadena = ""; break;
+            //            }
+            //        }
+            //        else if (CodigoISO == Pais.Peru)
+            //        {
+            //            switch (direccion.Length)
+            //            {
+            //                case 1:
+            //                    model.DireccionCadena = ""; break;
+            //                case 2:
+            //                    model.DireccionCadena = direccion[1]; break;
+            //                case 3:
+            //                    model.DireccionCadena = direccion[1] + " " + direccion[2]; break;
+            //                default:
+            //                    model.DireccionCadena = ""; break;
+            //            }
+            //        }
+            //        else if (CodigoISO == Pais.Ecuador)
+            //        {
+            //            switch (direccion.Length)
+            //            {
+            //                case 1:
+            //                    model.DireccionCadena = direccion[0]; break;
+            //                case 2:
+            //                    model.DireccionCadena = direccion[1]; break;
+            //                case 3:
+            //                    model.DireccionCadena = direccion[1]; break;
+            //                default:
+            //                    model.DireccionCadena = ""; break;
+            //            }
+            //        }
+            //        else
+            //        {
+            //            model.DireccionCadena = solicitudPostulante.Direccion;
+            //        }
+
+
+            //        model.Direccion = solicitudPostulante.Direccion;
+            //        model.NombreRegion = solicitudPostulante.LugarPadre;
+            //        model.NombreComuna = solicitudPostulante.LugarHijo;
+            //        model.Latitud = solicitudPostulante.Latitud;
+            //        model.Longitud = solicitudPostulante.Longitud;
+            //        model.FuenteIngreso = solicitudPostulante.FuenteIngreso;
+
+            //        if (CodigoISO == Pais.Chile || CodigoISO == Pais.Mexico || CodigoISO == Pais.Peru || CodigoISO == Pais.Guatemala || CodigoISO == Pais.Ecuador || CodigoISO == Pais.Colombia)
+            //        {
+            //            try
+            //            {
+            //                var PaisesParaRevisionPorPuntos = new List<string>() {
+            //                  Pais.Chile, Pais.Mexico, Pais.Peru, Pais.Ecuador
+            //                };
+
+            //                if (PaisesParaRevisionPorPuntos.FirstOrDefault(x => x == CodigoISO) == null)
+            //                {
+            //                    GetLocationInfoByAddress(ref model, ref solicitudPostulante, direccion);
+            //                }
+            //                else if (PaisesParaRevisionPorPuntos.FirstOrDefault(x => x == CodigoISO) != null && model.Longitud == null && model.Latitud == null)
+            //                {
+            //                    GetLocationInfoByAddress(ref model, ref solicitudPostulante, direccion);
+
+            //                }
+            //                else
+            //                {
+
+            //                    model.Puntos.Add(new Tuple<decimal, decimal, string>
+            //                                    (
+            //                                   model.Latitud.Value,
+            //                                    model.Longitud.Value,
+            //                                     model.DireccionCadena
+            //                                    ));
+
+            //                    if (model.Puntos.Count == 1)
+            //                    {
+            //                        var punto = model.Puntos.First();
+            //                        var noEncontroDireccion = false; //punto.Item3.Contains("");
+
+            //                        if (noEncontroDireccion)
+            //                        {
+
+            //                        }
+            //                        else
+            //                        {
+            //                            GetLocationInfo(ref model);
+            //                        }
+            //                    }
+            //                }
+            //            }
+            //            catch (Exception ex)
+            //            {
+            //            }
+            //        }
+
+
+            //    }
+            //}
+
+            //return PartialView("_ConsultarUbicacionCL", model);
+        }
 
 
 
@@ -3472,7 +3476,7 @@ namespace Portal.Consultoras.Web.Controllers
         
         public ActionResult EditarDireccion(int id)
         {
-            ViewBag.HTMLSACUnete = getHTMLSACUnete("ConsultarUbicacion",
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("EditarDireccion",
                 "&id=" + id );
 
             return PartialView("_EditarDireccion");
