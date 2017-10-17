@@ -59,6 +59,15 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
+                if (userData.EfRutaPedido == null || userData.EfRutaPedido == "")
+                {
+                    ViewBag.UrlFranjaNegra = "../../../Content/Images/Esika/background_pedido.png";
+                }
+                else
+                {
+                    ViewBag.UrlFranjaNegra = userData.EfRutaPedido;
+                }
+
                 return View(PedidoModelo);
             }
             catch (FaultException ex)

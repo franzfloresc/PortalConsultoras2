@@ -1,10 +1,11 @@
-﻿@using Portal.Consultoras.Web.Models;
+﻿@using Portal.Consultoras.Web.Helpers
+@using Portal.Consultoras.Web.Models;
 
 @{
     ViewBag.Title = "OfertaDelDia";
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayoutContenedor.cshtml";
 
-    var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel() : (Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+    var mobileConfiguracion = Html.MobileAppConfiguracion();
     OfertaDelDiaModel ofertaDelDia = new OfertaDelDiaModel();
     if (ViewBag.MostrarOfertaDelDia == true) { ofertaDelDia = ViewBag.OfertaDelDia; }
 }

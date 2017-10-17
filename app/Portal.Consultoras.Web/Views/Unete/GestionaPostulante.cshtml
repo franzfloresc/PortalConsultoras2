@@ -90,6 +90,7 @@
 @Html.HiddenFor(m => Model.PrefijoISOPais)
 <div class="wrap_cab">
     <div class="filtros2">
+        
         <div class="elements" style="margin: 0 300px 0px 300px !important;">
             <div class="div-2" style="letter-spacing: 2.1px;
     font-size: 25px;
@@ -101,7 +102,7 @@
                 Herramienta de <b> Gesti&oacute;n</b>
             </div>
             <div class="div-3">
-
+                
                 <div class="filterDistr">
                     <div class="selectP2 seleccion_pagina txtFiltro fechaGrillaPrincipal">
                         @Html.TextBoxFor(m => Model.FechaDesde, new { @class = "textEbel ", @placeholder = "Fecha desde" })
@@ -259,9 +260,9 @@
 
 <script id="cliente-template" type="text/x-handlebars-template">
     {{#each this }}
-    <div class="content_listado_notificaciones{{PintarMalaZonificacion}}  {{ClaseRechazoZonaSeccion}}">
+    <div class="content_listado_notificaciones{{PintarMalaZonificacion}}  {{ClaseRechazoZonaSeccion}} {{ClasePostulantesNuevasApp}}" {{#iff ClasePostulantesNuevasApp '!=' ''}} title="{{TituloPostulantesNuevasApp}}" {{/iff}}>
         <!-- Inicio - Si existe mala zonificación mostrar -->
-        <div class="icono_malaZonificacion  {{PopupRechazoZonaSeccion}}  "></div>
+        <div class="icono_malaZonificacion  {{PopupRechazoZonaSeccion}}" ></div>
         <!-- Fin - Si existe mala zonificación mostrar -->
         <div class="cellGrid " data-colname="FechaCreacion">
             <span>{{FechaCreacion}}</span>
@@ -1086,8 +1087,13 @@
                             <ul id="list01" style="list-style:none; "></ul>
                         </div>
                         <div class="style2">
-                            <img id="image01Visor" src='' height='350' />
-
+                            <img class="xzoom4 flip" id="image01Visor" src='' xoriginal='' height='350' />     
+                            <button id="fliper" type="button" style="text-align: center !important;" class="btn_noEliminarCliente rotate turn-left">
+                                
+                            </button>     
+                            <button type="button" style="text-align: center !important;" class="btn_noEliminarCliente print" onclick="javascript: PrintImage(this);">
+                                
+                            </button>                    
                         </div>
                     </div>
                     <div class="tab02Content tabDocContent" style="display:none">
@@ -1095,8 +1101,13 @@
                             <ul id="list02" style="list-style:none; "></ul>
                         </div>
                         <div class="style2">
-                            <img id="image02Visor" src='' height='350' />
-
+                            <img class="xzoom4 flip" id="image02Visor" src='' xoriginal='' height='350' />
+                            <button id="fliper2" type="button" style="text-align: center !important;" class="btn_noEliminarCliente rotate turn-left">
+                                
+                            </button>
+                            <button type="button" style="text-align: center !important;" class="btn_noEliminarCliente print" onclick="javascript: PrintImage(this);">
+                                
+                            </button> 
                         </div>
                     </div>
 
@@ -1105,7 +1116,7 @@
             </div>
 
             <div class="btn_grupo_eliminarCliente" style="width:90%; margin-left:5%; display:inline-block; margin-top:10px;">
-
+                
                 <button type="button" name="btn_noEliminarCliente" style="text-align: center !important;" class="btn_noEliminarCliente" onclick="CerrarDiv(3);">
                     Cerrar
                 </button>
@@ -1238,6 +1249,7 @@
         $("#" + element).parent().hide();
         if (image != '') {
             $("#" + element).attr("src", image);
+            $("#" + element).attr("xoriginal", image);
             $("#" + element).parent().show();
         }
     }
@@ -1249,6 +1261,7 @@
         $.post('@Url.Action("ConsultarAdjuntoImageSource", "Unete")', { nombreArchivo: nombreArchivo, tipo: tipo }, function (img) {
 
             setImageSrc('image01Visor', img);
+            xZoomSetup.Funciones.InicializarImage('fliper','image01Visor');
             generalCloseLoading();
         }).done(function () {
 
@@ -1263,6 +1276,7 @@
         $.post('@Url.Action("ConsultarAdjuntoImageSource", "Unete")', { nombreArchivo: nombreArchivo, tipo: tipo }, function (img) {
 
             setImageSrc('image02Visor', img);
+            xZoomSetup.Funciones.InicializarImage('fliper2','image02Visor');
             generalCloseLoading();
         }).done(function () {
 
@@ -1331,6 +1345,15 @@
             setImageSrc('image02Visor', '');
         }
 
+    }
+
+    function PrintImage(element) {
+        element = $(element);
+        var img = element.parents('.style2').find('img');
+        var src = img.attr('src');
+        var win = window.open('');
+        win.document.write('<img src="' + src + '" onload="window.print();window.close()" />');
+        win.focus();
     }
 </script>
 <script>
@@ -1733,7 +1756,7 @@
 
         $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenDNI'), 1, 'Doc. Identidad anverso'));
         $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenComprobanteDomicilio'), 2, 'Doc. Identidad reverso'));
-        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboPagoAval'), 7, 'Recibo de pago de servicios'));
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenAval'), 5, 'Recibo de pago de servicios'));
         $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenContrato'), 3, 'Contrato'));
  
         
@@ -1872,10 +1895,6 @@
                 $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenAval'), 5, ' CEDULA FIADOR'));//ImagenDniAval
                 $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenCreditoAval'), 8, 'CERTIFICACIÓN'));//ImagenCreditoAval
             }
-        }
-        else if (codigoIso == 'BO') {
-              $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenAval'), 5, 'Documento de Identidad Fiador Anverso'));
-              $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboOtraMarca'), 6, 'Documento de Identidad Fiador Reverso'));
         }
         else {
             $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboOtraMarca'), 6, 'Recibo Otra Marca'));
@@ -2198,7 +2217,10 @@
    
 
 </script>
-
+<script type="text/javascript" src="~/Scripts/ImageHelper/sizzle.js"></script>
+<script type="text/javascript" src="~/Scripts/ImageHelper/xzoom.js"></script>
+<script type="text/javascript" src="~/Scripts/ImageHelper/jquery.hammer.min.js"></script>
+<link href="~/Content/ImageHelper/xzoom.css" rel="stylesheet" />
 <style>
     .buttonGrid {
         font-weight: 600;
@@ -2395,9 +2417,13 @@
         background: #ec9313;
     }
 
-    .estiloMalaZonificacionZona, .estiloMalaZonificacionSeccion {
+    .estiloMalaZonificacionZona, .estiloMalaZonificacionSeccion, .estiloPostulantesNuevasApp {
         margin-bottom: 0px;
         position: relative;
+    }
+
+    .estiloPostulantesNuevasApp .icono_malaZonificacion {
+        background: #8b847a;
     }
 
     .estiloMalaZonificacionZona {
@@ -2408,6 +2434,9 @@
         border-bottom: 1px solid #ec9313;
     }
 
+    .estiloPostulantesNuevasApp {
+        border-bottom: 1px solid #8b847a;
+    }
     .nombre_cliente_sb {
         width: 15%;
         display: inline-block;
@@ -3068,6 +3097,28 @@
         margin: 0 auto;
         border: 0px;
     }
+    .turn-left {
+        background:#FFF url(/Content/Images/turn_left.png) center no-repeat;
+        background-size:20px;
+        color:transparent;
+    }
+    .turn-left:hover {
+        color: #FFF;        
+    }
+    .turn-left:hover:before {
+        content: 'Girar';  
+    }
+    .print {
+        background:#FFF url(/Content/Images/ico_print.png) center no-repeat;
+        background-size:20px;
+        color:transparent;
+    }
+    .print:hover {
+        color: #FFF;        
+    }
+    .print:hover:before {
+        content: 'Imprimir';     
+    }
 </style>
 <style>
     .textboxSB {
@@ -3128,3 +3179,5 @@
         z-index: 3;
     }
 </style>
+
+<script type="text/javascript" src="~/Scripts/ImageHelper/xzoomSetup.js"></script>

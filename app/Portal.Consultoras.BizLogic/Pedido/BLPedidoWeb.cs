@@ -2,8 +2,8 @@ using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Data.Hana;
 using Portal.Consultoras.Entities;
-using Portal.Consultoras.PublicService.Cryptography;
 using Portal.Consultoras.Entities.Pedido;
+using Portal.Consultoras.PublicService.Cryptography;
 
 using System;
 using System.Collections.Generic;
@@ -1828,7 +1828,7 @@ namespace Portal.Consultoras.BizLogic
             return listaPedidosFacturados;
         }
 
-        public List<BEPedidoWeb> GetPedidosIngresadoFacturado(int paisID, int consultoraID, int campaniaID, string codigoConsultora)
+        public List<BEPedidoWeb> GetPedidosIngresadoFacturado(int paisID, int consultoraID, int campaniaID, string codigoConsultora, int top)
         {
             var listaPedidosFacturados = new List<BEPedidoWeb>();
 
@@ -1838,7 +1838,7 @@ namespace Portal.Consultoras.BizLogic
 
             if (!BLPais.EsPaisHana(paisID)) // Validar si informacion de pais es de origen Normal o Hana
             {
-                using (IDataReader reader = DAPedidoWeb.GetPedidosIngresadoFacturado(consultoraID, campaniaID))
+                using (IDataReader reader = DAPedidoWeb.GetPedidosIngresadoFacturado(consultoraID, campaniaID, top))
                     while (reader.Read())
                     {
                         var entidad = new BEPedidoWeb(reader);
@@ -2216,7 +2216,7 @@ namespace Portal.Consultoras.BizLogic
 
                 if (reader.NextResult()) detallepedidos = reader.MapToCollection<BEMisPedidosIngresadosDetalle>();
 
-                foreach(var pedido in pedidos)
+                foreach (var pedido in pedidos)
                 {
                     pedido.Detalle = detallepedidos.Where(x => x.ClienteID == pedido.ClienteID).ToList();
                 }

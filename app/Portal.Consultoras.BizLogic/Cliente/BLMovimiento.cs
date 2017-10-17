@@ -169,22 +169,55 @@ namespace Portal.Consultoras.BizLogic.Cliente
             return movimientosResponse;
         }
 
-        public ResponseType<BEMovimientoDetalle> ActualizarDetalle(BEMovimientoDetalle movimientoDetalle)
+        public ResponseType<List<BEMovimientoDetalle>> ActualizarDetalle(int paisId, List<BEMovimientoDetalle> movimientos)
         {
-            var daPedidoWebDetalle = new DAPedidoWebDetalle(movimientoDetalle.PaisID);
-            movimientoDetalle.ImporteTotal = movimientoDetalle.Cantidad * movimientoDetalle.PrecioUnidad;
-            var result = daPedidoWebDetalle.UpdPedidoWebFacturado(movimientoDetalle.PedidoWebFacturadoID, movimientoDetalle.PrecioUnidad, movimientoDetalle.ImporteTotal);
+            var daPedidoWebDetalle = new DAPedidoWebDetalle(paisId);
 
-            if (result == 0)
+            foreach (var movimientoDetalle in movimientos)
             {
-                movimientoDetalle.Code = Constantes.ClienteValidacion.Code.ERROR_MOVIMIENTODETALLENOACTUALIZADO;
-                movimientoDetalle.Message = Constantes.ClienteValidacion.Message[Constantes.ClienteValidacion.Code.ERROR_MOVIMIENTODETALLENOACTUALIZADO];
-                return ResponseType<BEMovimientoDetalle>.Build(false, movimientoDetalle.Code, movimientoDetalle.Message, movimientoDetalle);
+                this.ValidarMovimientoDetalle(movimientoDetalle);
+                if (movimientoDetalle.Code != Constantes.ClienteValidacion.Code.SUCCESS) continue;
+
+                movimientoDetalle.ImporteTotal = movimientoDetalle.Cantidad * movimientoDetalle.PrecioUnidad;
+                var result = daPedidoWebDetalle.UpdPedidoWebFacturado(movimientoDetalle.PedidoWebFacturadoID, movimientoDetalle.PrecioUnidad, movimientoDetalle.ImporteTotal);
+
+                if (result == 0)
+                {
+                    movimientoDetalle.Code = Constantes.ClienteValidacion.Code.ERROR_MOVIMIENTODETALLE_NOACTUALIZADO;
+                    movimientoDetalle.Message = Constantes.ClienteValidacion.Message[Constantes.ClienteValidacion.Code.ERROR_MOVIMIENTODETALLE_NOACTUALIZADO];
+                    continue;
+                }
+
+                movimientoDetalle.Code = Constantes.ClienteValidacion.Code.SUCCESS;
+                movimientoDetalle.Message = Constantes.ClienteValidacion.Message[Constantes.ClienteValidacion.Code.SUCCESS];
             }
 
-            movimientoDetalle.Code = Constantes.ClienteValidacion.Code.SUCCESS;
-            movimientoDetalle.Message = Constantes.ClienteValidacion.Message[Constantes.ClienteValidacion.Code.SUCCESS];
-            return ResponseType<BEMovimientoDetalle>.Build(true, movimientoDetalle.Code, movimientoDetalle.Message, movimientoDetalle);
+            return ResponseType<List<BEMovimientoDetalle>>.Build(true, Constantes.ClienteValidacion.Code.SUCCESS, Constantes.ClienteValidacion.Message[Constantes.ClienteValidacion.Code.SUCCESS], movimientos);
+        }
+
+        private void ValidarMovimientoDetalle(BEMovimientoDetalle detalle)
+        {
+            if(detalle.PedidoWebFacturadoID == 0)
+            {
+                detalle.Code = Constantes.ClienteValidacion.Code.ERROR_MOVIMIENTODETALLE_PEDIDOWEBFACTURADOID_NOENVIADO;
+                detalle.Message = Constantes.ClienteValidacion.Message[Constantes.ClienteValidacion.Code.ERROR_MOVIMIENTODETALLE_PEDIDOWEBFACTURADOID_NOENVIADO];
+                return;
+            }
+            else if (detalle.Cantidad == 0)
+            {
+                detalle.Code = Constantes.ClienteValidacion.Code.ERROR_MOVIMIENTODETALLE_CANTIDAD_NOENVIADO;
+                detalle.Message = Constantes.ClienteValidacion.Message[Constantes.ClienteValidacion.Code.ERROR_MOVIMIENTODETALLE_CANTIDAD_NOENVIADO];
+                return;
+            }
+            else if (detalle.PrecioUnidad == 0)
+            {
+                detalle.Code = Constantes.ClienteValidacion.Code.ERROR_MOVIMIENTODETALLE_PRECIOUNIDAD_NOENVIADO;
+                detalle.Message = Constantes.ClienteValidacion.Message[Constantes.ClienteValidacion.Code.ERROR_MOVIMIENTODETALLE_PRECIOUNIDAD_NOENVIADO];
+                return;
+            }
+
+            detalle.Code = Constantes.ClienteValidacion.Code.SUCCESS;
+            detalle.Message = Constantes.ClienteValidacion.Message[Constantes.ClienteValidacion.Code.SUCCESS];
         }
     }
 }

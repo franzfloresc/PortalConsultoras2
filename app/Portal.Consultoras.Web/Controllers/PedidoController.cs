@@ -2545,6 +2545,15 @@ namespace Portal.Consultoras.Web.Controllers
 
             #endregion
 
+            if (userData.EfRutaPedido == null || userData.EfRutaPedido == "")
+            {
+                ViewBag.UrlFranjaNegra = "../../../Content/Images/Esika/background_pedido.png";
+            }
+            else
+            {
+                ViewBag.UrlFranjaNegra = userData.EfRutaPedido;
+            }
+
             return View(model);
         }
 

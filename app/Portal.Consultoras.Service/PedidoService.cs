@@ -883,14 +883,19 @@ namespace Portal.Consultoras.Service
 
         #region Tracking
 
-        public List<BETracking> GetPedidosByConsultora(int paisID, string codigoConsultora)
+        public List<BETracking> GetPedidosByConsultora(int paisID, string codigoConsultora, int top)
         {
-            return BLTracking.GetPedidosByConsultora(paisID, codigoConsultora);
+            return BLTracking.GetPedidosByConsultora(paisID, codigoConsultora, top);
         }
 
         public BETracking GetPedidoByConsultoraAndCampania(int paisID, string codigoConsultora, int campania)
         {
             return BLTracking.GetPedidoByConsultoraAndCampania(paisID, codigoConsultora, campania);
+        }
+
+        public BETracking GetPedidoByConsultoraAndCampaniaAndNroPedido(int paisID, string codigoConsultora, int campania, string nroPedido)
+        {
+            return BLTracking.GetPedidoByConsultoraAndCampaniaAndNroPedido(paisID, codigoConsultora, campania, nroPedido);
         }
 
         public List<BETracking> GetTrackingByPedido(int paisID, string codigo, string campana, string nropedido)
@@ -1845,9 +1850,9 @@ namespace Portal.Consultoras.Service
             return BLPedidoWeb.GetPedidosFacturados(paisId, codigoConsultora);
         }
 
-        public List<BEPedidoWeb> GetPedidosIngresadoFacturado(int paisID, int consultoraID, int campaniaID, string codigoConsultora)
+        public List<BEPedidoWeb> GetPedidosIngresadoFacturado(int paisID, int consultoraID, int campaniaID, string codigoConsultora, int top)
         {
-            return BLPedidoWeb.GetPedidosIngresadoFacturado(paisID, consultoraID, campaniaID, codigoConsultora);
+            return BLPedidoWeb.GetPedidosIngresadoFacturado(paisID, consultoraID, campaniaID, codigoConsultora, top);
         }
 
         public List<BEPedidoWeb> GetPedidosIngresadoFacturadoWebMobile(int paisID, int consultoraID, int campaniaID, int clienteID, int top, string codigoConsultora)

@@ -22,7 +22,7 @@
 }
 <!--  MAQUETADO NUEVO-->
 @*<div class="content_banner_header_showroom">*@
-    @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel() : (Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+    @{  var mobileConfiguracion = Html.MobileAppConfiguracion();
         @*if (mobileConfiguracion.MostrarBotonAtras)
         {
             <a href="@Request.UrlReferrer" class="enlace_regresar ingresoP" title="Regresar" style="top:26%;"></a>
@@ -257,11 +257,11 @@
     {
         <!--SUB OFERTAS SHOWROOM-->
         <div class="content_sub_oferta_showroom" id="content_sub_oferta_showroom">
-            <div class="content_titulo_sub_oferta" style="background: @Model.ColorFondoTituloOfertaSubCampania">
+            <div class="content_titulo_sub_oferta">
                 <hr class="clear" />
                 <div class="content_titulo_texto_sw" style="color: @Model.ColorTextoInicialOfertaSubCampania">
-                    @Model.TextoInicialOfertaSubCampania
-                    <span class="titulo_banner_showroom" style="color: @Model.ColorTextoTituloOfertaSubCampania">@Model.TextoTituloOfertaSubCampania</span>
+                    <span style="font-size: 12px;">@Model.TextoInicialOfertaSubCampania</span> 
+                    <span class="titulo_banner_showroom" style="font-size=11px;color: @Model.ColorTextoTituloOfertaSubCampania">@Model.TextoTituloOfertaSubCampania</span>
                 </div>
                 <a href="#" class="btn_descubre_set_especial" id="btn_descubre_mobile"></a>
             </div>
@@ -270,7 +270,7 @@
         </div>
         <div class="content_display_set_suboferta">
             <div class="content_header_sub">
-                <div class="content_titulo_sub_oferta" style="background: @Model.ColorFondoTituloOfertaSubCampania">
+                <div class="content_titulo_sub_oferta">
                     <hr class="clear" />
                     <div class="content_titulo_texto_sw" style="color: @Model.ColorTextoInicialOfertaSubCampania">
                         @Model.TextoInicialOfertaSubCampania

@@ -77,6 +77,9 @@ namespace Portal.Consultoras.ServiceContracts
         bool IsUserExist(int paisID, string CodigoUsuario);
 
         [OperationContract]
+        string IsConsultoraExist(int paisID, string CodigoConsultora);
+
+        [OperationContract]
         bool ChangePasswordUser(int paisID, string codigoUsuarioAutenticado, string emailCodigoUsuarioModificado, string password, string emailUsuarioModificado, EAplicacionOrigen origen);
         
         [OperationContract]
