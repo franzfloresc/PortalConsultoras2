@@ -3579,6 +3579,8 @@
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloquePopupComunidad.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloquePopupSesionFinalizada.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloquePopupPostulante.cshtml" />
+    <Content Include="Content\FAQ\CodigoEticaCAPEVEDI_PE.pdf" />
+    <Content Include="Content\FAQ\QUIZCAPEVEDI_PE.pdf" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>
