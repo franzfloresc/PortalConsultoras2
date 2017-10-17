@@ -61,8 +61,8 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "MobileLogoBanner", DbType.String, entity.MobileLogoBanner);
             Context.Database.AddInParameter(command, "UrlMenu", DbType.String, entity.UrlMenu);
             Context.Database.AddInParameter(command, "OrdenBpt", DbType.Int32, entity.OrdenBpt);
-            Context.Database.AddInParameter(command, "MobileOrden", DbType.Int32, entity.MobileOrden);
-            Context.Database.AddInParameter(command, "MobileOrdenBPT", DbType.Int32, entity.MobileOrdenBpt);
+            //Context.Database.AddInParameter(command, "MobileOrden", DbType.Int32, entity.MobileOrden);
+            //Context.Database.AddInParameter(command, "MobileOrdenBPT", DbType.Int32, entity.MobileOrdenBpt);
             return Context.ExecuteReader(command);
         }
     }
