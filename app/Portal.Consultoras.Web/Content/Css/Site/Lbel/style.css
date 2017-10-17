@@ -5126,7 +5126,6 @@ a.subir_carousel, a.bajar_carousel {
     text-align:left;
     padding-left: 88px;
     box-sizing: border-box;
-    margin-bottom:-12px;
 }
 
 .texto_complemento_oferta {
@@ -37369,6 +37368,14 @@ h1#penmostreo .campana {
     background:url(https://image.prntscr.com/image/FsgNYCifSjqEzkw5UjWyBw.png);
     margin: 0 auto;
     margin-top:26px;
+}
+.icono_regalo_sorpresa.mt-11{
+    margin-top:11px;
+}
+.contenedor_boton_reservarPedido{
+    display:block;
+    width:100%;
+    text-align:center;
 }
 .titulo_regalo_2{
     font-family: 'Lato';

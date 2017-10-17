@@ -4976,7 +4976,6 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     text-align:left;
     padding-left: 88px;
     box-sizing: border-box;
-    margin-bottom:-12px;
 }
 .texto_complemento_oferta{
     text-transform:uppercase;
@@ -5038,8 +5037,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     width: 152px;
     margin: 0 auto;
     height: 50px;
-    text-align: center;
-   
+    text-align: center;   
     color: #000;
     font-family: 'Lato';
     font-size: 11px;
@@ -36023,6 +36021,14 @@ h1#penmostreo .campana {
     background: url("/Content/Images/gif-regalo-blanco.png");
     margin: 0 auto;
     margin-top: 26px;
+}
+.icono_regalo_sorpresa.mt-11{
+    margin-top:11px;
+}
+.contenedor_boton_reservarPedido{
+    display:block;
+    width:100%;
+    text-align:center;
 }
 .titulo_regalo_2{
     font-family: 'Lato';

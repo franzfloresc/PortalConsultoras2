@@ -2146,7 +2146,7 @@ else
     }
 
     <div class="content_regalo_sorpresa" id="container-of-regalo" style="display: none; background: url(@imagenFondoOFRegalo); background-repeat:no-repeat;" data-popup-body="">
-        <div class="icono_regalo_sorpresa"></div>
+        <div class="icono_regalo_sorpresa mt-11"></div>
         <div class="titulo_regalo_sorpresa" id="of-regalo-msg1" style="display: none;"><b>¡GANA ESTE PREMIO*</b><br/>@titulo1OFRegalo</div>
         <div class="titulo_regalo_2" id="of-regalo-msg2" style="display: none;">FELICIDADES @ViewBag.NombreConsultora <br /><span class="font_32">¡GANASTE!</span></div>
         <div class="titulo_regalo_2" id="of-regalo-msg3" style="display: none;">¡FELICIDADES @ViewBag.NombreConsultora <span class="bold_900">ESTE PREMIO YA ES TUYO!</span></div>
@@ -2225,7 +2225,7 @@ else
                 <div class="descripcion_cant_sets_productos_ofertaFinal" id="div-count-ofertas">
                     Aquí encontrarás los <span id="count-ofertas">12</span> mejores sets para ganar tu premio.
                 </div>
-                <div style="margin: 0 auto; width:90%;" class="bloque_carousel">
+                <div style="margin: -12px auto 0 auto; width:90%;" class="bloque_carousel">
                     <div style="margin-left: 27px; margin-right: 27px; position: relative;">
                         <div class="slider center" id="divCarruselOfertaFinal" style="width: 100%">
 
@@ -2302,7 +2302,8 @@ else
 
                         </div>
                     </div>
-                    <div style="clear:both;"></div>
+                </div>
+                <div class="contenedor_boton_reservarPedido">
                     <button id="id_btn_noGracias_agregarProductos" name="btn_noGracias_agregarProductos" class="btn_noGracias_agregarProductos btnNoGraciasOfertaFinal icono_terminar_pedido" id="btnNoGraciasOfertaFinal" style="display:{{#iff TipoMeta '==' 'MM'}}none;{{else}}block;{{/iff}}" onclick="of_google_analytics_cerrar_popup()">
                         RESERVA TU PEDIDO
                     </button>

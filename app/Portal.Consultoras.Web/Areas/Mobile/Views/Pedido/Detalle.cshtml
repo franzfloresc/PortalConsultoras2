@@ -548,6 +548,7 @@
                         <div class="texto_pd" id="texto-pd">PEDIDO</div>
                     </div>
                 </div>
+                <div style="clear:both;"></div>
             </div>
             <div class="content_texto_OPT">
                 <div class="icono_alerta {{ofIconoSuperior}}" id="ofIconoSuperior" style="margin-top:10px; margin-bottom:10px;"></div>
@@ -556,9 +557,9 @@
                     {{#if_eq TipoMeta 'MM'}}
                         <span><b>AÚN TE FALTA {{Simbolo}} <span data-monto="">{{MetaMontoStr}}</span> PARA LLEGAR AL MONTO MÍNIMO</b></span>
                     {{else if_eq TipoMeta 'GM'}}
-                        <span><b>¡GUARDASTE TU PEDIDO<br> CON ÉXITO!</b></span>
+                        <span>¡GUARDASTE TU <br><b>PEDIDO CON ÉXITO!</b></span>
                     {{else}} <!--se espera escala de dscto-->
-                        <span><b>¡GUARDASTE TU PEDIDO<br> CON ÉXITO!</b></span>
+                        <span>¡GUARDASTE TU <br><b>PEDIDO CON ÉXITO!</b></span>
                     {{/if_eq}}
                 </h1>
                 <div class="ofertaFinal_descripcion" id="msjOfertaFinal" data-meta-porcentaje="{{MetaPorcentaje}}" data-meta-monto="{{MontoMeta}}">
