@@ -843,7 +843,7 @@ function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simbolo, flag)
 
         //$('#msg-regalo-pn').html(mensaje);
         //$('#msg-regalo-pn2').html(mensaje);   // mobile
-        $('#div-regalo-pn').show();
+        //$('#div-regalo-pn').show();
 
         $('#txt-disclaimer-pn').html(disclaimer);
         $('#txt-disclaimer-pn').show();
