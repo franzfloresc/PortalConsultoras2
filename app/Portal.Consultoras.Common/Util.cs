@@ -2914,6 +2914,24 @@ namespace Portal.Consultoras.Common
         /// </summary>
         /// <param name="valor">Monto a formatear</param>
         /// <param name="pais">CodigoISO del Pais. Ejm PE</param>
+        /// <param name="simbolo">Simbolo monetario del Pais. Ejm S/.</param>
+        /// <returns></returns>
+        public static string DecimalToStringFormat(decimal valor, string pais, string simbolo)
+        {
+            if (string.IsNullOrEmpty(pais)) return "";
+
+            var importe = string.Format("{0:#,##0.00}", valor);
+            string listaPaises = ParseString(ConfigurationManager.AppSettings["KeyPaisFormatDecimal"] ?? "");
+            if (listaPaises.Contains(pais)) importe = importe.Split('.')[0].Replace(",", ".");
+
+            return string.Format("{0} {1}", simbolo, importe);
+        }
+
+        /// <summary>
+        /// Convierte el decimal a string con el formato segun el pais
+        /// </summary>
+        /// <param name="valor">Monto a formatear</param>
+        /// <param name="pais">CodigoISO del Pais. Ejm PE</param>
         /// <returns></returns>
         public static string DecimalToStringFormat(string valor, string pais)
         {
