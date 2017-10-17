@@ -38,25 +38,20 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         [HttpGet]
         public PartialViewResult AgregarCliente(ClienteMobileModel model)
         {
-            ModelState.Clear();
-
-            using (var sv = new ClienteServiceClient())
+            if(model.ClienteID != 0)
             {
-                var clienteService = sv.SelectByConsultoraByCodigo(userData.PaisID, userData.ConsultoraID, model.ClienteID, 0);
-
-                model = new ClienteMobileModel()
+                try
                 {
-                    ClienteID = clienteService.ClienteID,
-                    CodigoCliente = clienteService.CodigoCliente,
-                    Nombre = clienteService.Nombre,
-                    NombreCliente = clienteService.NombreCliente,
-                    ApellidoCliente = clienteService.ApellidoCliente,
-                    Celular = clienteService.Celular,
-                    Telefono = clienteService.Telefono,
-                    Email = clienteService.eMail,
-                };
+                    ModelState.Clear();
+                    using (var sv = new ClienteServiceClient())
+                    {
+                        var clienteService = sv.SelectByConsultoraByCodigo(userData.PaisID, userData.ConsultoraID, model.ClienteID, 0);
+                        model = Mapper.Map<ClienteMobileModel>(clienteService);
+                    }
+                }
+                catch (FaultException ex){ LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO); }
+                catch (Exception ex) { LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO); }
             }
-
             return PartialView(model);
         }
 

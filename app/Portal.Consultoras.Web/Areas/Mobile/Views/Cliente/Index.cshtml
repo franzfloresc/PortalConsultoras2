@@ -231,35 +231,25 @@
 
             var ClienteDetalleOK = null;
             function showClienteDetalle(divPadre) {
-                var url = '@Url.Action("AgregarCliente", "Cliente", new { area = "Mobile" })';
-
                 var cliente = {};
-
                 if (divPadre != null) {
                     var divInfo = $(divPadre).find(".table-width");
 
-                    var id = $(divInfo).find(".clienteId").val();
-                    var codigo = $(divInfo).find(".clienteCodigo").val();
-                    var nombre = $(divInfo).find(".clienteNombre").html();
-                    var correo = $(divInfo).find(".clienteEmail").html();
-                    var telefono = $(divInfo).find(".clienteTelefono").html();
-                    var celular = $(divInfo).find(".clienteCelular").html();
-
-                    cliente.ClienteID = id;
-                    cliente.CodigoCliente = codigo;
-                    cliente.Nombre = nombre;
-                    cliente.eMail = correo;
-                    cliente.Telefono = telefono;
-                    cliente.Celular = celular;
+                    cliente.ClienteID = $(divInfo).find(".clienteId").val();
+                    cliente.CodigoCliente = $(divInfo).find(".clienteCodigo").val();
+                    cliente.NombreCliente = $(divInfo).find(".clienteNombre").html();
+                    cliente.Nombre = cliente.NombreCliente;
+                    cliente.eMail = $(divInfo).find(".clienteEmail").html();
+                    cliente.Telefono = $(divInfo).find(".clienteTelefono").html();
+                    cliente.Celular = $(divInfo).find(".clienteCelular").html();
                 }
 
                 ShowLoading();
-
                 $.ajax({
                     type: 'GET',
                     dataType: 'html',
                     cache: false,
-                    url: url,
+                    url: '@Url.Action("AgregarCliente", "Cliente", new { area = "Mobile" })',
                     data: cliente,
                     success: function (data) {
                         CloseLoading();

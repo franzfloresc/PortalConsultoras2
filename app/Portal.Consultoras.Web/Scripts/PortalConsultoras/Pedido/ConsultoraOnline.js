@@ -393,6 +393,7 @@ function AceptarPedido(pedidoId, tipo) {
 
             var cliente = {
                 ConsultoraId: 0,
+                NombreCliente: name,
                 Nombre: name,
                 Telefono: phone,
                 eMail: email

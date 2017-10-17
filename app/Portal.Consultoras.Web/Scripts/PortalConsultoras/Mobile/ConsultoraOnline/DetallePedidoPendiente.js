@@ -119,6 +119,7 @@ function AceptarPedido(id, tipo) {
 
         var cliente = {
             ConsultoraId: 0,
+            NombreCliente: name,
             Nombre: name,
             Telefono: phone,
             eMail: email
@@ -249,10 +250,7 @@ function showClienteDetalle(pcliente, pClienteDetalleOK) {
             $("#divAgregarCliente").modal("show");
             //$("#divAgregarCliente").show();
 
-            if ($.isFunction(pClienteDetalleOK)) {
-                ClienteDetalleOK = pClienteDetalleOK;
-            }
-
+            if ($.isFunction(pClienteDetalleOK)) ClienteDetalleOK = pClienteDetalleOK;
         },
         error: function (xhr, ajaxOptions, error) {
             CloseLoading();
