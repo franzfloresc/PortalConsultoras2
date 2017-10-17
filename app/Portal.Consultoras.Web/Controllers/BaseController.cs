@@ -25,6 +25,7 @@ using System.Text;
 using System.Web.Mvc;
 using Portal.Consultoras.Web.ServiceODS;
 using System.Web.Security;
+using Portal.Consultoras.Web.Helpers;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -3085,9 +3086,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             get
             {
-                return Session["MobileAppConfiguracion"] == null
-                    ? new MobileAppConfiguracionModel()
-                    : (MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+                return this.GetUniqueSession<MobileAppConfiguracionModel>("MobileAppConfiguracion");
             }
         }
 

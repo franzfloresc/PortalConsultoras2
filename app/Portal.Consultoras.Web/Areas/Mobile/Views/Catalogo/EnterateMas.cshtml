@@ -1,5 +1,6 @@
 ﻿@using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Areas.Mobile.Models
+@using Portal.Consultoras.Web.Helpers
 
 @model BienvenidaModel
 
@@ -9,7 +10,7 @@
 
 <div class="wrapper_resumen_mobile sin_padding">
     <div class="encabezado_liquidacion">
-        @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new MobileAppConfiguracionModel() : (MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+        @{  var mobileConfiguracion = Html.MobileAppConfiguracion();
             if (mobileConfiguracion.MostrarBotonAtras)
             {
                 <a href="@Request.UrlReferrer" class="enlace_regresar" title="Regresar"></a>
