@@ -37,7 +37,6 @@ $(document).ready(function () {
 });
 
 function SeccionRender() {
-    debugger
     var listaSecciones = $(sElementos.seccion);
     if (listaSecciones.length === 0)
         return false;
@@ -332,4 +331,38 @@ function VerificarSecciones() {
     if (visibles == 0) {
         $("#no-productos").fadeIn();
     }
+}
+
+function Descargables(Filename) {
+    var NombreArchivo = Filename;
+
+    $.ajax({
+        type: 'POST',
+        url: baseUrl + "Ofertas/Descargables",
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify({ FileName: NombreArchivo }),
+        success: function (data) {
+           
+            if (checkTimeout()) {
+                if (data.Result) {
+                    var url = data.UrlS3;
+                    var nombre = NombreArchivo;
+
+                    var link = document.createElement("a");
+                    link.download = nombre;
+                    link.href = url;
+                    link.setAttribute("target", "_blank");
+                    document.body.appendChild(link);
+                    link.click();
+
+                    document.body.removeChild(link);
+                    delete link;
+                }
+            }            
+        },
+        error: function (error, x) {
+            console.log(error, x);
+        }
+    });
 }
