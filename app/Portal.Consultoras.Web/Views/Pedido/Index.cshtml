@@ -2165,7 +2165,7 @@ else
     </div>
     <div class="popup_ofertaFinal pt-0" data-meta="{{TipoMeta}}" data-meta-total="{{TotalPedido}}" data-popup-body="" style="height:auto;">
         <!--SI SALE EL DIV DE PRODUCTO ALTERNATIVO SE AÑADE LA CLASE "fondo_gris_OF"-->
-        <div class="numero_pedido mt-0 mb-21" id="div-numero-pedido">
+        <div class="numero_pedido mt-0 mb-21" id="div-numero-pedido" style="display: none;">
             <div class="numero_pedido_fondo">
                 <img id="img-numero-pedido-fondo" src="/Content/Images/popup_pedido/numero_pedido_site_bg.png">
                 <div class="content-texto-numero-pedido" id="msg-numero-pedido" style="padding-top: 15px;">
@@ -2222,8 +2222,8 @@ else
                 </div>
             </div>
             <div class="contenedor_bloques_agregaProductos">
-                <div class="descripcion_cant_sets_productos_ofertaFinal">
-                    Aquí encontrarás los <span>12</span> mejores sets para ganar tu premio.
+                <div class="descripcion_cant_sets_productos_ofertaFinal" id="div-count-ofertas">
+                    Aquí encontrarás los <span id="count-ofertas">12</span> mejores sets para ganar tu premio.
                 </div>
                 <div style="margin: -12px auto 0 auto; width:90%;" class="bloque_carousel">
                     <div style="margin-left: 27px; margin-right: 27px; position: relative;">
@@ -2308,10 +2308,9 @@ else
                         RESERVA TU PEDIDO
                     </button>
                 </div>
-                <div id="txt-disclaimer-pn" class="txt-ayuda1-pn">
+                <div id="txt-disclaimer-pn" class="txt-ayuda1-pn" style="display: none;">
                     *En caso tu pedido no tenga observaciones y supere el monto mínimo.
                 </div>
-
 
                 <hr class="clear" />
             </div>
