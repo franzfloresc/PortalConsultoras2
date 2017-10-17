@@ -382,7 +382,10 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
 function MostrarOfertaFinalRegalo(totalPedido) {
     var container = (tipoOrigen == '1') ? $('#container-of-regalo') : $('#ContentSorpresaMobile');
     if (container.length > 0) {
-        if (tipoOrigen == '2') $('#linkRegaloSorpresa').show();
+        if (tipoOrigen == '2') {
+            $('#linkRegaloSorpresa').show();
+            $('.popup_ofertaFinal').css({"padding-top":"0px"});
+        }
         var gano = (totalPedido >= ofertaFinalRegalo.MontoMeta);
         $(container).find('#of-regalo-descripcion').text(ofertaFinalRegalo.Descripcion);
         $(container).find('#of-regalo-imagen').attr('src',ofertaFinalRegalo.RegaloImagenUrl);
