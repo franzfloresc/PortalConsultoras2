@@ -1,6 +1,6 @@
 ﻿@using Portal.Consultoras.Web.Helpers
-@using Portal.Consultoras.Web.Models
-@model NotificacionesModel
+@using Portal.Consultoras.Common
+@model Portal.Consultoras.Web.Models.CDRWebModel
 
 @{
     ViewBag.Title = "Notificaciones CDR";
@@ -41,7 +41,7 @@
                 <!-- INICIO - CUANDO LA NOTIFICACIÓN ES DE RESPUESTA SALE ESTE MENSAJE -->
                 <span>ESTA ES LA RESPUESTA A TU SOLICITUD DE CAMBIOS Y DEVOLUCIONES</span>
                 <!-- FIN - CUANDO LA NOTIFICACIÓN ES DE RESPUESTA SALE ESTE MENSAJE -->
-            }            
+            }
         </div>
 
         <!-- INICIO - CUANDO LA NOTIFICACION ES DE REGISTRO DE SOLICITUD SE MUESTRA ESTE MENSAJE -->
@@ -67,7 +67,7 @@
                 <span class="tipografia_lato_regular">@formatoCampania</span>
             </div>
         </div>
-        
+
         @if (Model.Proceso == "CDR")
         {
             <!-- INICIO - ESTE DIV APARECE CUANDO LA NOTIFICACIÓN ES DE RESPUESTA A LA SOLICITUD CDR -->
@@ -76,11 +76,11 @@
                     <span class="tipografia_lato_regular">Resumen: </span>
                     <span class="tipografia_lato_bold"> @Model.ResumenResolucion</span>
                     @*<!-- INICIO - MENSAJE CUANDO LA SOLICITUD CDR HA SIDO APROBADA -->
-                    <span class="tipografia_lato_bold" style="display:none;">Todos los productos fueron aprobados</span>
-                    <!-- FIN - MENSAJE CUANDO LA SOLICITUD CDR HA SIDO APROBADA -->
-                    <!-- INICIO - MENSAJE CUANDO LA SOLICITUD CDR HA SIDO RECHAZADA -->
-                    <span class="tipografia_lato_bold">Resuelve las observaciones y envía nuevamente la solicitud.</span>
-                    <!-- FIN - MENSAJE CUANDO LA SOLICITUD CDR HA SIDO RECHAZADA -->*@
+                        <span class="tipografia_lato_bold" style="display:none;">Todos los productos fueron aprobados</span>
+                        <!-- FIN - MENSAJE CUANDO LA SOLICITUD CDR HA SIDO APROBADA -->
+                        <!-- INICIO - MENSAJE CUANDO LA SOLICITUD CDR HA SIDO RECHAZADA -->
+                        <span class="tipografia_lato_bold">Resuelve las observaciones y envía nuevamente la solicitud.</span>
+                        <!-- FIN - MENSAJE CUANDO LA SOLICITUD CDR HA SIDO RECHAZADA -->*@
                 </div>
 
                 <!-- INICIO - CUANDO HAY MENSAJE DE ENVÍO EXPRESS -->
@@ -105,44 +105,44 @@
             </div>
             <!-- FIN - ESTE DIV APARECE CUANDO LA NOTIFICACIÓN ES DE RESPUESTA A LA SOLICITUD CDR -->
         }
-        
+
         <div class="lista_detalle_notificaciones_cdr">
             <div class="titulo_cabecera_lista_detalle_notificacion_cdr text-center tipografia_lato_bold">DETALLE DE LA SOLICITUD</div>
 
-        @foreach (var item in Model.ListaDetalle)
+            @foreach (var item in Model.ListaDetalle)
+            {
+                var descripcionCompleta = "";
+                if (Model.Proceso == "CDR")
                 {
-                    var descripcionCompleta = "";
-                    if (Model.Proceso == "CDR")
-                    {
-                        var descripcionEstado = item.Estado == Constantes.EstadoCDRWeb.Aceptado
-                    ? "APROBADO"
-                    : item.Estado == Constantes.EstadoCDRWeb.Enviado
-                        ? "ENVIADO"
-                        : item.Estado == Constantes.EstadoCDRWeb.Observado
-                            ? "RECHAZADO"
-                            : item.Estado == Constantes.EstadoCDRWeb.Pendiente
-                                ? "PENDIENTE"
-                                : "";
+                    var descripcionEstado = item.Estado == Constantes.EstadoCDRWeb.Aceptado
+                ? "APROBADO"
+                : item.Estado == Constantes.EstadoCDRWeb.Enviado
+                    ? "ENVIADO"
+                    : item.Estado == Constantes.EstadoCDRWeb.Observado
+                        ? "RECHAZADO"
+                        : item.Estado == Constantes.EstadoCDRWeb.Pendiente
+                            ? "PENDIENTE"
+                            : "";
 
-                        descripcionCompleta = item.Estado == Constantes.EstadoCDRWeb.Aceptado
+                    descripcionCompleta = item.Estado == Constantes.EstadoCDRWeb.Aceptado
+                        ? ""
+                        : item.Estado == Constantes.EstadoCDRWeb.Enviado
                             ? ""
-                            : item.Estado == Constantes.EstadoCDRWeb.Enviado
-                                ? ""
-                                : item.Estado == Constantes.EstadoCDRWeb.Observado
-                                    ? item.Observacion
-                                    : item.Estado == Constantes.EstadoCDRWeb.Pendiente
-                                        ? "Revisa la respuesta en Somos Belcorp."
-                                        : "";
+                            : item.Estado == Constantes.EstadoCDRWeb.Observado
+                                ? item.Observacion
+                                : item.Estado == Constantes.EstadoCDRWeb.Pendiente
+                                    ? "Revisa la respuesta en Somos Belcorp."
+                                    : "";
 
                     <!-- INICIO - CUANDO LA SOLICITUD CDR HA SIDO RESPONDIDA SE MUESTRA EL ESTADO DE LA SOLICITUD -->
-                        <div class="lista_detalle_estado_solicitud_cdr">
-                            <span class="tipografia_lato_bold">Estado de solicitud :</span>
-                            <!-- INICIO - ESTADO APROBADO -->
-                            <span class="tipografia_lato_bold color_marca text-right">@descripcionEstado</span>
-                            <!-- FIN - ESTADO APROBADO -->
-                        </div>
+                    <div class="lista_detalle_estado_solicitud_cdr">
+                        <span class="tipografia_lato_bold">Estado de solicitud :</span>
+                        <!-- INICIO - ESTADO APROBADO -->
+                        <span class="tipografia_lato_bold color_marca text-right">@descripcionEstado</span>
+                        <!-- FIN - ESTADO APROBADO -->
+                    </div>
                     <!-- FIN - CUANDO LA SOLICITUD CDR HA SIDO RESPONDIDA SE MUESTRA EL ESTADO DE LA SOLICITUD -->
-            }
+                }
 
                 <div class="info_detalle_notificacion_cdr">
                     <div class="detalle_producto_cdr">
@@ -160,7 +160,7 @@
                             @Model.Simbolo @Util.DecimalToStringFormat(item.Precio, Model.CodigoIso)
                         </span>
                         <!-- FIN - EL COSTO DEL PRODUCTO SALE CUANDO LA SOLICITUD CDR ES DE CAMBIO DE PRODUCTO -->
-                    </div>                   
+                    </div>
 
                     <div class="detalle_cdr_solucion">
                         @if ((new List<string> {
@@ -168,7 +168,7 @@
                                         Constantes.CodigoOperacionCDR.Devolucion,
                                         Constantes.CodigoOperacionCDR.Faltante,
                                         Constantes.CodigoOperacionCDR.FaltanteAbono }
-                                    ).Contains(item.CodigoOperacion))
+                            ).Contains(item.CodigoOperacion))
                         {
                             <span class="detalle_cdr_solucion_titulo color_marca tipografia_lato_bold">
                                 @item.Solicitud
@@ -194,16 +194,15 @@
                             </span>
                             <!-- FIN - SOLICITUD CAMBIO DE PRODUCTO -->
                         }
-                        
+
                         <!-- INICIO - SOLICITUD REENVÍO DE PRODUCTO -->
                         @*<span class="detalle_cdr_solucion_titulo color_marca tipografia_lato_bold">
-                        Reenviar:
-                        </span>
-                        <span class="detalle_cod_producto tipografia_lato_regular">
-                            El mismo producto
-                        </span>*@
+                            Reenviar:
+                            </span>
+                            <span class="detalle_cod_producto tipografia_lato_regular">
+                                El mismo producto
+                            </span>*@
                         <!-- FIN - SOLICITUD REENVÍO DE PRODUCTO -->
-                        
                         <!-- INICIO - CUANDO LA SOLICITUD CDR ES RECHAZADA SE MUESTRA EL MOTIVO -->
                         @if (descripcionCompleta != "")
                         {
@@ -217,11 +216,11 @@
                         <!-- FIN - CUANDO LA SOLICITUD CDR ES RECHAZADA SE MUESTRA EL MOTIVO -->
                     </div>
                 </div>
-            }                
-                <a href="@Url.Action("Index","MisReclamos", new {area="Mobile"})" class="btn_verSolicitud_somosBelcorp text-center tipografia_lato_bold" title="Ver la solicitud en Somos Belcorp">
-                    VER LA SOLICITUD EN SOMOS BELCORP
-                </a>
-            </div>
+            }
+            <a href="@Url.Action("Index","MisReclamos", new {area="Mobile"})" class="btn_verSolicitud_somosBelcorp text-center tipografia_lato_bold" title="Ver la solicitud en Somos Belcorp">
+                VER LA SOLICITUD EN SOMOS BELCORP
+            </a>
+        </div>
     </div>
 
 </div>
