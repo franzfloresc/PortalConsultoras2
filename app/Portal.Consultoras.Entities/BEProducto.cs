@@ -163,6 +163,9 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string TipoEstrategiaCodigo { get; set; }
 
+        [DataMember]
+        public bool EsOfertaIndependiente { get; set; }
+
         public BEProducto(IDataRecord datarec)
         {
             msCUV = (datarec["CUV"] ?? "").ToString();
@@ -256,6 +259,8 @@ namespace Portal.Consultoras.Entities
                 DescripcionProducto = Convert.ToString(datarec["DescripcionProducto"]);
 
             TipoEstrategiaCodigo = DataRecord.GetColumn<string>(datarec, "TipoEstrategiaCodigo");
+            if (DataRecord.HasColumn(datarec, "EsOfertaIndependiente") && datarec["EsOfertaIndependiente"] != DBNull.Value)
+                EsOfertaIndependiente = (datarec["EsOfertaIndependiente"].ToBool());
         }
 
         //Refactor Inheritance

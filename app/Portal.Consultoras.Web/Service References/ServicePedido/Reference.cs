@@ -5002,6 +5002,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string ImagenEstrategiaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ImagenOfertaIndependienteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool MostrarImgOfertaIndependienteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string OfertaIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -5168,6 +5174,32 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.ImagenEstrategiaField, value) != true)) {
                     this.ImagenEstrategiaField = value;
                     this.RaisePropertyChanged("ImagenEstrategia");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ImagenOfertaIndependiente {
+            get {
+                return this.ImagenOfertaIndependienteField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ImagenOfertaIndependienteField, value) != true)) {
+                    this.ImagenOfertaIndependienteField = value;
+                    this.RaisePropertyChanged("ImagenOfertaIndependiente");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool MostrarImgOfertaIndependiente {
+            get {
+                return this.MostrarImgOfertaIndependienteField;
+            }
+            set {
+                if ((this.MostrarImgOfertaIndependienteField.Equals(value) != true)) {
+                    this.MostrarImgOfertaIndependienteField = value;
+                    this.RaisePropertyChanged("MostrarImgOfertaIndependiente");
                 }
             }
         }
@@ -9431,6 +9463,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private bool EsKitNuevaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsOfertaIndependienteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EsSugeridoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -9885,6 +9920,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.EsKitNuevaField.Equals(value) != true)) {
                     this.EsKitNuevaField = value;
                     this.RaisePropertyChanged("EsKitNueva");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsOfertaIndependiente {
+            get {
+                return this.EsOfertaIndependienteField;
+            }
+            set {
+                if ((this.EsOfertaIndependienteField.Equals(value) != true)) {
+                    this.EsOfertaIndependienteField = value;
+                    this.RaisePropertyChanged("EsOfertaIndependiente");
                 }
             }
         }
@@ -11315,6 +11363,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private int EnMatrizComercialField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsOfertaIndependienteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Portal.Consultoras.Web.ServicePedido.BEEstrategiaDetalle EstrategiaDetalleField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -11372,6 +11423,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private int ImagenField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ImagenOfertaIndependienteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ImagenURLField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -11412,6 +11466,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string MensajeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool MostrarImgOfertaIndependienteField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int NumeroPedidoField;
@@ -11784,6 +11841,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsOfertaIndependiente {
+            get {
+                return this.EsOfertaIndependienteField;
+            }
+            set {
+                if ((this.EsOfertaIndependienteField.Equals(value) != true)) {
+                    this.EsOfertaIndependienteField = value;
+                    this.RaisePropertyChanged("EsOfertaIndependiente");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public Portal.Consultoras.Web.ServicePedido.BEEstrategiaDetalle EstrategiaDetalle {
             get {
                 return this.EstrategiaDetalleField;
@@ -12031,6 +12101,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ImagenOfertaIndependiente {
+            get {
+                return this.ImagenOfertaIndependienteField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ImagenOfertaIndependienteField, value) != true)) {
+                    this.ImagenOfertaIndependienteField = value;
+                    this.RaisePropertyChanged("ImagenOfertaIndependiente");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string ImagenURL {
             get {
                 return this.ImagenURLField;
@@ -12208,6 +12291,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.MensajeField, value) != true)) {
                     this.MensajeField = value;
                     this.RaisePropertyChanged("Mensaje");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool MostrarImgOfertaIndependiente {
+            get {
+                return this.MostrarImgOfertaIndependienteField;
+            }
+            set {
+                if ((this.MostrarImgOfertaIndependienteField.Equals(value) != true)) {
+                    this.MostrarImgOfertaIndependienteField = value;
+                    this.RaisePropertyChanged("MostrarImgOfertaIndependiente");
                 }
             }
         }
@@ -13150,7 +13246,7 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string MensajeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Portal.Consultoras.Common.Enumeradores.MotivoPedidoLock MotivoPedidoLockField;
+        private Portal.Consultoras.Web.ServicePedido.EnumeradoresMotivoPedidoLock MotivoPedidoLockField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -13176,7 +13272,7 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Portal.Consultoras.Common.Enumeradores.MotivoPedidoLock MotivoPedidoLock {
+        public Portal.Consultoras.Web.ServicePedido.EnumeradoresMotivoPedidoLock MotivoPedidoLock {
             get {
                 return this.MotivoPedidoLockField;
             }
@@ -13196,6 +13292,23 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
             }
         }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Enumeradores.MotivoPedidoLock", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common")]
+    public enum EnumeradoresMotivoPedidoLock : int {
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Ninguno = 0,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        GPR = 2,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Reservado = 3,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        HorarioRestringido = 4,
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -13434,7 +13547,7 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private bool RestrictivasField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Portal.Consultoras.Common.Enumeradores.ResultadoReserva ResultadoReservaEnumField;
+        private Portal.Consultoras.Web.ServicePedido.EnumeradoresResultadoReserva ResultadoReservaEnumField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string SimboloField;
@@ -13752,7 +13865,7 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Portal.Consultoras.Common.Enumeradores.ResultadoReserva ResultadoReservaEnum {
+        public Portal.Consultoras.Web.ServicePedido.EnumeradoresResultadoReserva ResultadoReservaEnum {
             get {
                 return this.ResultadoReservaEnumField;
             }
@@ -13891,6 +14004,32 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
             }
         }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Enumeradores.ResultadoReserva", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common")]
+    public enum EnumeradoresResultadoReserva : int {
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Ninguno = 0,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Reservado = 1,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        ReservadoObservaciones = 2,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        NoReservadoObservaciones = 3,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        NoReservadoMontoMinimo = 4,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        NoReservadoMontoMaximo = 5,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        ReservaNoDisponible = 6,
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -14827,7 +14966,7 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string GPRBannerTituloField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Portal.Consultoras.Common.Enumeradores.RechazoBannerUrl GPRBannerUrlField;
+        private Portal.Consultoras.Web.ServicePedido.EnumeradoresRechazoBannerUrl GPRBannerUrlField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool GPRMostrarBannerRechazoField;
@@ -16017,7 +16156,7 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Portal.Consultoras.Common.Enumeradores.RechazoBannerUrl GPRBannerUrl {
+        public Portal.Consultoras.Web.ServicePedido.EnumeradoresRechazoBannerUrl GPRBannerUrl {
             get {
                 return this.GPRBannerUrlField;
             }
@@ -17363,6 +17502,20 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
             }
         }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Enumeradores.RechazoBannerUrl", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common")]
+    public enum EnumeradoresRechazoBannerUrl : int {
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Ninguna = 0,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Deuda = 1,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        ModificaPedido = 2,
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]

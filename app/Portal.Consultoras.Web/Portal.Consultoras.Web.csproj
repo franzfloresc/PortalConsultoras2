@@ -4362,7 +4362,6 @@
     <Content Include="Views\ConsultaPedido\ConsultaPedidoImp.cshtml" />
     <Content Include="Views\Shared\_Menu2.cshtml" />
     <Content Include="Views\AdministrarReporteValidacion\Index.cshtml" />
-    <Content Include="Views\EstrategiaPersonalizada\template-producto-landing.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\template-producto-packnueva.cshtml" />
     <Content Include="Views\Unete\ReporteFunnel.cshtml" />
     <Content Include="Views\Unete\_DevolverSolicitud.cshtml" />
@@ -4370,8 +4369,6 @@
     <Content Include="Views\Shared\MatrizComercial\_matrizComercialItemTemplate.cshtml" />
     <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo8.cshtml" />
     <Content Include="Views\Unete\_MotivoRechazo.cshtml" />
-    <Content Include="Views\EstrategiaPersonalizada\template-producto-landing.cshtml" />
-    <Content Include="Views\EstrategiaPersonalizada\template-producto-packnueva.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\template-producto-verdetalle.cshtml" />
     <Content Include="Views\Ofertas\Index.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\template-lanzamiento-carrusel.cshtml" />

@@ -203,6 +203,7 @@ namespace Portal.Consultoras.Web.Models
         public string Grupo { get; set; }
 
         public int Cantidad { get; set; }
+        public bool EsOfertaIndependiente { get; set; }
 
         public bool TieneRDC { get; set; }
 

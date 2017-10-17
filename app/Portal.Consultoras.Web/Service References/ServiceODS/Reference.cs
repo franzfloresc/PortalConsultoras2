@@ -382,6 +382,9 @@ namespace Portal.Consultoras.Web.ServiceODS {
         private bool EsExpoOfertaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsOfertaIndependienteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EstaEnRevistaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -644,6 +647,19 @@ namespace Portal.Consultoras.Web.ServiceODS {
                 if ((this.EsExpoOfertaField.Equals(value) != true)) {
                     this.EsExpoOfertaField = value;
                     this.RaisePropertyChanged("EsExpoOferta");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsOfertaIndependiente {
+            get {
+                return this.EsOfertaIndependienteField;
+            }
+            set {
+                if ((this.EsOfertaIndependienteField.Equals(value) != true)) {
+                    this.EsOfertaIndependienteField = value;
+                    this.RaisePropertyChanged("EsOfertaIndependiente");
                 }
             }
         }
