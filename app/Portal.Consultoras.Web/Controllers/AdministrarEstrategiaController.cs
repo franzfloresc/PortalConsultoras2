@@ -284,17 +284,18 @@ namespace Portal.Consultoras.Web.Controllers
                                    id = a.EstrategiaID,
                                    cell = new string[]
                                    {
-                                   a.EstrategiaID.ToString(),
-                                   a.Orden.ToString(),
-                                   a.ID.ToString(),
-                                   a.NumeroPedido.ToString(),
-                                   a.Precio2.ToString(),
-                                   a.CUV2.ToString(),
-                                   a.DescripcionCUV2.ToString(),
-                                   a.LimiteVenta.ToString(),
-                                   a.CodigoProducto.ToString(),
-                                   a.ImagenURL.ToString(),
-                                   a.Activo.ToString()
+                                       a.EstrategiaID.ToString(),
+                                       a.Orden.ToString(),
+                                       a.ID.ToString(),
+                                       a.NumeroPedido.ToString(),
+                                       a.Precio2.ToString(),
+                                       a.CUV2.ToString(),
+                                       a.DescripcionCUV2.ToString(),
+                                       a.LimiteVenta.ToString(),
+                                       a.CodigoProducto.ToString(),
+                                       a.ImagenURL.ToString(),
+                                       a.Activo.ToString(),
+                                       a.EsOfertaIndependiente.ToString()
                                     }
                                }
                     };
@@ -534,7 +535,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 string mensaje = "", descripcion = "", precio = "", codigoSAP = ""; int enMatrizComercial = 1;
                 string carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO; int idMatrizComercial = 0;
-               
+
                 string wsprecio = ""; ///GR-1060
 
                 if (lst.Count > 0)
@@ -818,7 +819,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
             }
@@ -1275,7 +1276,7 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Index", "AdministrarEstrategia");
         }
 
-         public ActionResult ConsultarCuvTipoConfigurado(string sidx, string sord, int page, int rows, int campaniaId, int tipoConfigurado, int estrategiaID)
+        public ActionResult ConsultarCuvTipoConfigurado(string sidx, string sord, int page, int rows, int campaniaId, int tipoConfigurado, int estrategiaID)
         {
             if (ModelState.IsValid)
             {
@@ -1730,30 +1731,30 @@ namespace Portal.Consultoras.Web.Controllers
 
         public BEEstrategia VerficarArchivos(BEEstrategia estrategia, BEEstrategiaDetalle estrategiaDetalle)
         {
-            if (!String.IsNullOrEmpty(estrategia.ImgFondoDesktop) && 
+            if (!String.IsNullOrEmpty(estrategia.ImgFondoDesktop) &&
                 (String.IsNullOrEmpty(estrategiaDetalle.ImgFondoDesktop) || estrategia.ImgFondoDesktop != estrategiaDetalle.ImgFondoDesktop))
                 estrategia.ImgFondoDesktop = SaveFileS3(estrategia.ImgFondoDesktop);
 
-            if (!String.IsNullOrEmpty(estrategia.ImgPrevDesktop) && 
+            if (!String.IsNullOrEmpty(estrategia.ImgPrevDesktop) &&
                 (String.IsNullOrEmpty(estrategiaDetalle.ImgPrevDesktop) || estrategia.ImgPrevDesktop != estrategiaDetalle.ImgPrevDesktop))
                 estrategia.ImgPrevDesktop = SaveFileS3(estrategia.ImgPrevDesktop);
 
-            if (!String.IsNullOrEmpty(estrategia.ImgFichaDesktop) && 
+            if (!String.IsNullOrEmpty(estrategia.ImgFichaDesktop) &&
                 (String.IsNullOrEmpty(estrategiaDetalle.ImgFichaDesktop) || estrategia.ImgFichaDesktop != estrategiaDetalle.ImgFichaDesktop))
                 estrategia.ImgFichaDesktop = SaveFileS3(estrategia.ImgFichaDesktop);
 
             //if (String.IsNullOrEmpty(estrategiaDetalle.ImgFondoMobile) || estrategia.ImgFondoMobile != estrategiaDetalle.ImgFondoMobile)
             //    estrategia.ImgFondoMobile = SaveFileS3(estrategia.ImgFondoMobile);
 
-            if (!String.IsNullOrEmpty(estrategia.ImgFichaMobile) && 
+            if (!String.IsNullOrEmpty(estrategia.ImgFichaMobile) &&
                 (String.IsNullOrEmpty(estrategiaDetalle.ImgFichaMobile) || estrategia.ImgFichaMobile != estrategiaDetalle.ImgFichaMobile))
                 estrategia.ImgFichaMobile = SaveFileS3(estrategia.ImgFichaMobile);
 
-            if (!String.IsNullOrEmpty(estrategia.ImgFichaFondoDesktop) && 
+            if (!String.IsNullOrEmpty(estrategia.ImgFichaFondoDesktop) &&
                 (String.IsNullOrEmpty(estrategiaDetalle.ImgFichaFondoDesktop) || estrategia.ImgFichaFondoDesktop != estrategiaDetalle.ImgFichaFondoDesktop))
                 estrategia.ImgFichaFondoDesktop = SaveFileS3(estrategia.ImgFichaFondoDesktop);
 
-            if (!String.IsNullOrEmpty(estrategia.ImgFichaFondoMobile) && 
+            if (!String.IsNullOrEmpty(estrategia.ImgFichaFondoMobile) &&
                 (String.IsNullOrEmpty(estrategiaDetalle.ImgFichaFondoMobile) || estrategia.ImgFichaFondoMobile != estrategiaDetalle.ImgFichaFondoMobile))
                 estrategia.ImgFichaFondoMobile = SaveFileS3(estrategia.ImgFichaFondoMobile);
 

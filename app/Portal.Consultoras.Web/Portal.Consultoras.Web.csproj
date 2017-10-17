@@ -1219,7 +1219,7 @@
     <Content Include="Content\HojaInscripcion\carrito-menu.png" />
     <Content Include="Content\Css\Site\Login2\style_esika.min.css" />
     <Content Include="Content\Css\Site\Login2\style_lbel.min.css" />
-    <Content Include="Content\ImageHelper\xzoom.css" /> 
+    <Content Include="Content\ImageHelper\xzoom.css" />
     <Content Include="Content\Images\arrow-down.svg" />
     <Content Include="Content\Images\arrow.png" />
     <Content Include="Content\Css\Site\jquery.rateyo.css" />
@@ -4362,7 +4362,6 @@
     <Content Include="Views\ConsultaPedido\ConsultaPedidoImp.cshtml" />
     <Content Include="Views\Shared\_Menu2.cshtml" />
     <Content Include="Views\AdministrarReporteValidacion\Index.cshtml" />
-    <Content Include="Views\EstrategiaPersonalizada\template-producto-landing.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\template-producto-packnueva.cshtml" />
     <Content Include="Views\Unete\ReporteFunnel.cshtml" />
     <Content Include="Views\Unete\_DevolverSolicitud.cshtml" />
@@ -4370,8 +4369,6 @@
     <Content Include="Views\Shared\MatrizComercial\_matrizComercialItemTemplate.cshtml" />
     <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo8.cshtml" />
     <Content Include="Views\Unete\_MotivoRechazo.cshtml" />
-    <Content Include="Views\EstrategiaPersonalizada\template-producto-landing.cshtml" />
-    <Content Include="Views\EstrategiaPersonalizada\template-producto-packnueva.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\template-producto-verdetalle.cshtml" />
     <Content Include="Views\Ofertas\Index.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\template-lanzamiento-carrusel.cshtml" />
@@ -4406,6 +4403,7 @@
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpDialogErrorMainLayout.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpDialogMensajes.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpTemplateResumenCampania.cshtml" />
+    <Content Include="Views\EstrategiaPersonalizada\template-producto-landing.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
