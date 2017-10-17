@@ -1756,7 +1756,7 @@
 
         $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenDNI'), 1, 'Doc. Identidad anverso'));
         $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenComprobanteDomicilio'), 2, 'Doc. Identidad reverso'));
-        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboPagoAval'), 7, 'Recibo de pago de servicios'));
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenAval'), 5, 'Recibo de pago de servicios'));
         $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenContrato'), 3, 'Contrato'));
  
         
@@ -1895,10 +1895,6 @@
                 $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenAval'), 5, ' CEDULA FIADOR'));//ImagenDniAval
                 $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenCreditoAval'), 8, 'CERTIFICACIÓN'));//ImagenCreditoAval
             }
-        }
-        else if (codigoIso == 'BO') {
-              $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenAval'), 5, 'Documento de Identidad Fiador Anverso'));
-              $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboOtraMarca'), 6, 'Documento de Identidad Fiador Reverso'));
         }
         else {
             $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboOtraMarca'), 6, 'Recibo Otra Marca'));
