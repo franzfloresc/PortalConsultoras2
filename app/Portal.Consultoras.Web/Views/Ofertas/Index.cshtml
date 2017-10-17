@@ -11,6 +11,9 @@
 }
 
 <div class="bc_estrategia_contenido" id="seccion-estrategia-contenido">
+    
+    @Html.Partial("~/Views/RevistaDigital/Revista.cshtml")
+
     @foreach (var seccion in Model.ListaSeccion)
     {
         <div data-seccion="@seccion.Codigo" 
