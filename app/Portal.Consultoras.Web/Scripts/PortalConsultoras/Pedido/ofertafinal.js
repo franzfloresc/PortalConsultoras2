@@ -295,7 +295,7 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
         if (esOfertaFinalRegalo) {
             if (ofertaFinalRegalo != null) {
                 MostrarOfertaFinalRegalo(objOf.TotalPedido);
-            GanoOfertaFinalRegalo(objOf.TotalPedido);
+                GanoOfertaFinalRegalo(objOf.TotalPedido);
             }
         }
     }
@@ -474,8 +474,7 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
 
     var ValoresOFR = GetValoresOfertaFinalRegalo(data);
     var minimo = 0;
-    if (ValoresOFR != null) 
-        minimo = ValoresOFR.minimo;
+    if (ValoresOFR != null) minimo = ValoresOFR.minimo;
 
     if (consultoraRegaloPN == 'True') {
         var montoMeta = parseFloat(metaMonto) + parseFloat(metaTotal);
@@ -487,9 +486,7 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
         //var totalPedido = $("#divOfertaFinal div[data-meta-total]").attr("data-meta-total")
         //var montolimite = parseFloat(faltante) + parseFloat(totalPedido);
         var montolimite = parseFloat(metaMonto) + parseFloat(metaTotal);
-
-        if (ValoresOFR != null)
-            montolimite = minimo;
+        if (ValoresOFR != null) montolimite = minimo;
         
         if (parseFloat(data.total) >= montolimite) {
             var msj = tipoOrigen == "2" ? "Ahora tu ganancia estimada total es " : "Ahora tu ganancia estimada total es ";
@@ -508,20 +505,24 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
                 $("#msjOfertaFinal").attr("class", "ganancia_total_pop");
             }
 
-            //debugger;
             if (consultoraRegaloPN == 'True') {  // CASE 3,4,5
                 var nivel = oRegaloPN.CodigoNivel;
-                var sep = (tipoOrigen == 1) ? ' | ' : '<br />';
+                var sep1 = (tipoOrigen == 1) ? ' | ' : '<br />';
+                var msg3 = 'Monto Total de Pedido: ' + simbolo + ' ' + data.formatoTotal + sep1 + 'Ganancia Estimada Total: ' + simbolo + ' ' + data.DataBarra.MontoGananciaStr;
+
                 if (nivel == '01' || nivel == '02' || nivel == '03') {
-                    $("#msjOfertaFinal span").html('Monto Total de Pedido: ' + simbolo + ' ' + data.formatoTotal + sep + 'Ganancia Estimada Total: ' + simbolo + ' ' + data.DataBarra.MontoGananciaStr);
+                    $('#msjOfertaFinal span').html(msg3);
                 }
                 else {
                     if (tipoOrigen == 1)
-                        $("#msjOfertaFinal span").html('Monto Total de Pedido: ' + simbolo + ' ' + data.formatoTotal + sep + 'Ganancia Estimada Total: ' + simbolo + ' ' + data.DataBarra.MontoGananciaStr);
+                        $("#msjOfertaFinal span").html(msg3);
                     else
                         $("#msjOfertaFinal span").html('Monto Total de Pedido: ' + simbolo + ' ' + data.formatoTotal);
+
+                    $('#msjOfertaFinal').css('margin-bottom', '0');
+                    if (tipoOrigen == 2) $('#div-regalo-pn').css('padding-top', '20px');
                 }
-                $('#msjOfertaFinal span').css('display', 'inline-block');
+                $('#msjOfertaFinal').show();
             }
             else
                 $("#msjOfertaFinal span").html("<b>" + msj + simbolo + " " + data.DataBarra.MontoGananciaStr + "</b><br />Monto total: " + simbolo + " " + data.formatoTotal);
@@ -581,45 +582,65 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
     else if (tipoMeta == "GM") {
         if (consultoraRegaloPN == 'True') {
             var nivel = oRegaloPN.CodigoNivel;
-            var stp = (oRegaloPN.TippingPoint > 0) ? (parseFloat(oRegaloPN.TippingPoint) - parseFloat(data.total)) : 0;
+            var sep2 = (tipoOrigen == 1) ? ' ' : '<br />';
             var disclaimer = '*En caso tu pedido no tenga observaciones y supere el monto mínimo.';
 
             if (nivel == '01' || nivel == '02' || nivel == '03') {
                 // CASE 9
-                var xmsg = '<b>AHORA TU MONTO TOTAL DE PEDIDO ES ' + simbolo + ' ' + data.formatoTotal + '</b>';
-                $('#spnTituloOfertaFinal span').html(xmsg);
+                var msg1 = '<b>AHORA TU MONTO TOTAL' + sep2 + 'DE PEDIDO ES ' + simbolo + ' ' + data.formatoTotal + '</b>';
+                $('#spnTituloOfertaFinal span').html(msg1);
+                
                 $('#msjOfertaFinal span').html('Ganancia Estimada Total: ' + simbolo + ' ' + data.DataBarra.MontoGananciaStr);
-
-                $('#msg-regalo-pn').css('display', 'none');
-                $('#msg-regalo-pn2').css('display', 'none');
+                
+                $('#msjOfertaFinal').show();
+                $('#div-regalo-pn').hide();
             }
             else {
-                disclaimer = '*En caso tu pedido no tenga observaciones y supere monto mínimo, **Encuéntralos en la seccion de Oferta para Ti.';
+                var stp = (oRegaloPN.TippingPoint > 0) ? (parseFloat(oRegaloPN.TippingPoint) - parseFloat(data.total)) : 0;
+
                 if (data.total >= oRegaloPN.TippingPoint) {
                     // CASE 11
-                    var xmsg = '<b>AHORA TU MONTO TOTAL DE PEDIDO ES DE ' + simbolo + ' ' + data.formatoTotal + '</b>';
-                    xmsg += '<br /><span style="font-weight: normal;font-size:16px;"><b>Y GANASTE UN ' + oRegaloPN.DescripcionPremio + '*</b>';
-                    xmsg += ',AHORA PUEDES ACCEDER A PACKS EXCLUSIVOS NUEVAS**</span>';
+                    var msg1 = '<b>AHORA TU MONTO TOTAL' + sep2 + 'DE PEDIDO ES DE ' + simbolo + ' ' + data.formatoTotal + '</b>';
+                    msg1 += '<br /><span style="font-weight: normal;font-size:14px;"><b>Y GANASTE UN ' + oRegaloPN.DescripcionPremio + '*</b>';
+                    msg1 += ', AHORA PUEDES ACCEDER A PACKS EXCLUSIVOS NUEVAS**</span>';
 
-                    $('#spnTituloOfertaFinal span').html(xmsg);
-                    if (tipoOrigen == 1) $('#msjOfertaFinal span').html('Ganancia Estimada Total: ' + simbolo + ' ' + data.DataBarra.MontoGananciaStr);
+                    $('#spnTituloOfertaFinal span').html(msg1);
 
-                    $('#msg-regalo-pn').css('display', 'none');
-                    $('#msg-regalo-pn2').css('display', 'none');
+                    if (tipoOrigen == 1) {
+                        $('#spnTituloOfertaFinal').css('max-width', '700px');
+                        $('#spnTituloOfertaFinal').css('margin', '0 auto');
+
+                        $('#msjOfertaFinal span').html('Ganancia Estimada Total: ' + simbolo + ' ' + data.DataBarra.MontoGananciaStr);
+                        $('#msjOfertaFinal').css('padding-top', '10px');
+                        $('#msjOfertaFinal').show();
+                    }
+                    else {
+                        $('#msjOfertaFinal').hide();
+                    }
+
+                    $('#div-regalo-pn').hide();
                 }
                 else {
                     // CASE 10
-                    var xmsg = '<b>AHORA TU MONTO TOTAL DE PEDIDO ES DE ' + simbolo + ' ' + data.formatoTotal + '</b>';
-                    $('#spnTituloOfertaFinal span').html(xmsg);
-                    if (tipoOrigen == 1) ("#msjOfertaFinal span").html('Ganancia Estimada Total: ' + simbolo + ' ' + data.DataBarra.MontoGananciaStr);
+                    var msg1 = '<b>AHORA TU MONTO TOTAL' + sep2 +  'DE PEDIDO  ES ' + simbolo + ' ' + data.formatoTotal + '</b>';
+                    $('#spnTituloOfertaFinal span').html(msg1);
 
-                    xmsg2 = 'AGREGA ' + simbolo + ' ' + DecimalToStringFormat(stp) + ' PARA <b>GANAR UN ' + oRegaloPN.DescripcionPremio + '*</b>';
-                    xmsg2 += 'Y ACCEDER A PACKS EXCLUSIVOS NUEVAS**';
+                    if (tipoOrigen == 1) {
+                        $('#msjOfertaFinal span').html('Ganancia Estimada Total: ' + simbolo + ' ' + data.DataBarra.MontoGananciaStr);
+                        $('#msjOfertaFinal').css('margin-bottom', '0');
+                        $('#msjOfertaFinal').show();
+                    }
 
-                    $('#msg-regalo-pn').html(xmsg2);
-                    $('#msg-regalo-pn2').html(xmsg2);                    
+                    var msg2 = 'AGREGA ' + simbolo + ' ' + DecimalToStringFormat(stp) + ' PARA <b>GANAR UN ' + oRegaloPN.DescripcionPremio + '*</b>';
+                    msg2 += ' Y ACCEDER A PACKS EXCLUSIVOS NUEVAS**';
+
+                    $('#msg-regalo-pn').html(msg2);
+                    $('#msg-regalo-pn2').html(msg2);
+                    $('#div-regalo-pn').show();
                 }
+                disclaimer = '*En caso tu pedido no tenga observaciones y supere monto mínimo.' + sep1 + '**Encuéntralos en la seccion de Oferta para Ti.';
             }
+
             $('#txt-disclaimer-pn').html(disclaimer);
         }
         else
@@ -684,61 +705,50 @@ function getAbrevNumPedido(nivel) {
 }
 
 function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simbolo, flag) {
-    //debugger;
     if (oRegaloPN == null)
         oRegaloPN = GetRegaloProgramaNuevas();
 
     if (oRegaloPN != null) {
-        var msg = '', msg2 = '';
+        var msg1 = '', msg2 = '';
         var nivel = oRegaloPN.CodigoNivel;
-        var montoMeta = (flag == 1) ? parseFloat(montoTotal) + parseFloat(montoSaldo) : montoSaldo;
-        var disclaimer = '*En caso tu pedido no tenga observaciones y supere el monto mínimo.';
+        var montoMeta = (flag == 1) ? (parseFloat(montoTotal) + parseFloat(montoSaldo)) : montoSaldo;
         var stp = (oRegaloPN.TippingPoint > 0) ? (parseFloat(oRegaloPN.TippingPoint) - parseFloat(montoTotal)) : 0;
-        var sep = (tipoOrigen == 1) ? ' ' : '<br />';
-        var showDiv = true;
-        $('#msjOfertaFinal span').css('display', 'none');
-        $('#msjOfertaFinal span').css('margin-top', '0');
-        $('#msg-regalo-pn').css('display', 'none');
-        $('#msg-regalo-pn2').css('display', 'none');
-        $('#div-regalo-pn').css('display', 'none');
-        //$('#div-regalo-pn').css('margin-top', '0px;');
+        var sep = (tipoOrigen == 1) ? ' | ' : '<br />';
+        var disclaimer = '*En caso tu pedido no tenga observaciones y supere el monto mínimo.';
+
+        $('#msjOfertaFinal').hide();
+        $('#div-regalo-pn').hide();
 
         if (tipoMeta == 'MM') {
             if (montoTotal >= montoMeta) {
                 if (nivel == '01' || nivel == '02' || nivel == '03') {
                     // CASE 3
-                    msg = '<b>¡LLEGASTE AL MONTO MÍNIMO</b>';
-                    msg += '<br /><span><b>Y GANASTE UN ' + oRegaloPN.DescripcionPremio + '*!</b></span>';
+                    msg1 = '<b>¡LLEGASTE AL MONTO MÍNIMO</b>';
+                    msg1 += '<br /><b>Y GANASTE UN ' + oRegaloPN.DescripcionPremio + '*!</b>';
 
-                    $('#spnTituloOfertaFinal span').html(msg);
-                    showDiv = false;
+                    $('#spnTituloOfertaFinal span').html(msg1);
                 }
                 else {
-                    disclaimer = '*En caso tu pedido no tenga observaciones y supere monto mínimo.' + sep + '**Encuéntralos en la seccion de Oferta para Ti.';
                     if (montoTotal >= oRegaloPN.TippingPoint) {
                         // CASE 5
-                        msg = '<b>¡LLEGASTE AL MONTO MÍNIMO!</b>';
-                        msg += '<br /><span style="font-weight: normal;font-size:16px;"><b>Y GANASTE UN ' + oRegaloPN.DescripcionPremio + '*</b>';
-                        msg += ',AHORA PUEDES ACCEDER A PACKS EXCLUSIVOS NUEVAS**</span>';
+                        msg1 = '<b>¡LLEGASTE AL MONTO MÍNIMO!</b>';
+                        msg1 += '<br /><span style="font-weight: normal;font-size:14px;"><b>Y GANASTE UN ' + oRegaloPN.DescripcionPremio + '*</b>';
+                        msg1 += ', AHORA PUEDES ACCEDER A PACKS EXCLUSIVOS NUEVAS**</span>';
 
-                        $('#spnTituloOfertaFinal span').html(msg);
-                        $('#msjOfertaFinal span').css('margin-top', '20px');
-                        showDiv = false;
+                        $('#spnTituloOfertaFinal span').html(msg1);
                     }
                     else {
                         // CASE 4
-                        msg = '<b>¡LLEGASTE AL MONTO MÍNIMO!</b>';
+                        msg1 = '<b>¡LLEGASTE AL MONTO MÍNIMO!</b>';
                         msg2 = 'AGREGA ' + simbolo + ' ' + DecimalToStringFormat(stp) + ' PARA <b>GANAR UN ' + oRegaloPN.DescripcionPremio + '*</b>';
                         msg2 += ' Y ACCEDER A PACKS EXCLUSIVOS NUEVAS**';
 
-                        $('#spnTituloOfertaFinal span').html(msg);
+                        $('#spnTituloOfertaFinal span').html(msg1);
                         $('#msg-regalo-pn').html(msg2);
                         $('#msg-regalo-pn2').html(msg2);
-
-                        $('#msg-regalo-pn').css('display', 'inline-block');
-                        $('#msg-regalo-pn2').css('display', 'inline-block');
-                        $('#msg-regalo-pn2').css('margin-top', '20px');
+                        $('#div-regalo-pn').show();
                     }
+                    disclaimer = '*En caso tu pedido no tenga observaciones y supere monto mínimo.' + sep + '**Encuéntralos en la seccion de Oferta para Ti.';
                 }
             }
             else {
@@ -746,96 +756,103 @@ function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simbolo, flag)
                     // CASE 1
                     msg2 = 'ALCÁNZALO CON ESTAS OFERTAS Y <b>GANA UN ' + oRegaloPN.DescripcionPremio + '*</b>';
                     if (oRegaloPN.Valorizado > 0)
-                        msg2 += ',PUEDES VENDERLO A ' + simbolo + ' ' + oRegaloPN.PrecioValorizadoFormat;
+                        msg2 += ', PUEDES VENDERLO A ' + simbolo + ' ' + oRegaloPN.PrecioValorizadoFormat;
 
                     $('#msg-regalo-pn').html(msg2);
                     $('#msg-regalo-pn2').html(msg2);
                 }
                 else {
                     // CASE 2
-                    disclaimer = '*En caso tu pedido no tenga observaciones y supere monto mínimo.' + sep + '**Encuéntralos en la seccion de Oferta para Ti.';
                     msg2 = 'AGREGA ' + simbolo + ' ' + DecimalToStringFormat(stp) + ' PARA <b>GANAR UN ' + oRegaloPN.DescripcionPremio + '*</b>';
                     msg2 += ' Y ACCEDER A PACKS EXCLUSIVOS NUEVAS**';
 
                     $('#msg-regalo-pn').html(msg2);
                     $('#msg-regalo-pn2').html(msg2);
+                    disclaimer = '*En caso tu pedido no tenga observaciones y supere monto mínimo.' + sep + '**Encuéntralos en la seccion de Oferta para Ti.';
                 }
 
-                $('#msg-regalo-pn').css('display', 'inline-block');
-                $('#msg-regalo-pn2').css('display', 'inline-block');
+                $('#div-regalo-pn').show();
             }
         }
         else if (tipoMeta == 'GM') {
             if (nivel == '01' || nivel == '02' || nivel == '03') {
                 // CASE 6
-                msg = '<b>¡GUARDASTE TU PEDIDO CON ÉXITO</b>';
-                msg += '<br /><span><b>Y GANASTE UN ' + oRegaloPN.DescripcionPremio + '*!</b></span>';
-                msg2 = (tipoOrigen == 1) ? 'APROVECHA ESTAS OFERTAS Y <b>GANA MÁS</b> ESTA CAMPAÑA' : 'APROVECHA ESTAS OFERTAS';
+                msg1 = '<b>¡GUARDASTE TU PEDIDO CON ÉXITO</b>';
+                msg1 += '<br /><b>Y GANASTE UN ' + oRegaloPN.DescripcionPremio + '*!</b>';
+                msg2 = (tipoOrigen == 1) ? 'APROVECHA ESTAS OFERTAS Y <b>GANA MÁS</b> ESTA CAMPAÑA' : 'APROVECHA ESTAS <b>OFERTAS</b>';
 
-                $('#spnTituloOfertaFinal span').html(msg);
+                $('#spnTituloOfertaFinal span').html(msg1);
                 $('#msg-regalo-pn').html(msg2);
                 $('#msg-regalo-pn2').html(msg2);
 
-                $('#msg-regalo-pn').css('display', 'inline-block');
-                $('#msg-regalo-pn2').css('display', 'inline-block');
-                showDiv = false;
+                $('#div-regalo-pn').show();
             }
             else {
-                disclaimer = '*En caso tu pedido no tenga observaciones y supere monto mínimo.' + sep + '**Encuéntralos en la seccion de Oferta para Ti.';
                 if (montoTotal >= oRegaloPN.TippingPoint) {
                     // CASE 8
-                    msg = '<b>¡GUARDASTE TU PEDIDO CON ÉXITO!</b>';
-                    msg += '<br /><span style="font-weight: normal;font-size:16px;"><b>Y GANASTE UN ' + oRegaloPN.DescripcionPremio + '*</b>';
-                    msg += ',AHORA PUEDES ACCEDER A PACKS EXCLUSIVOS NUEVAS**</span>';
+                    msg1 = '<b>¡GUARDASTE TU PEDIDO CON ÉXITO!</b>';
+                    msg1 += '<br /><span style="font-weight: normal;font-size:14px;"><b>Y GANASTE UN ' + oRegaloPN.DescripcionPremio + '*</b>';
+                    msg1 += ', AHORA PUEDES ACCEDER A PACKS EXCLUSIVOS NUEVAS**</span>';
 
-                    $('#spnTituloOfertaFinal span').html(msg);
+                    $('#spnTituloOfertaFinal span').html(msg1);
                     
                     if (tipoOrigen == 1)
                         $('#msjOfertaFinal span').html('Monto Total de Pedido: ' + simbolo + ' ' + dataBarra.TotalPedidoStr + ' | ' + 'Ganancia Estimada Total: ' + simbolo + ' ' + dataBarra.MontoGananciaStr);
                     else
                         $('#msjOfertaFinal span').html('Monto Total de Pedido: ' + simbolo + ' ' + montoTotal);
 
-                    $('#msjOfertaFinal span').css('display', 'inline-block');
-                    $('#msjOfertaFinal span').css('margin-top', '20px');
-                    showDiv = false;
+                    $('#msjOfertaFinal').show();
                 }
                 else {
                    // CASE 7
-                    msg = '<b>¡GUARDASTE TU PEDIDO CON ÉXITO!</b>';
+                    msg1 = '<b>¡GUARDASTE TU PEDIDO CON ÉXITO!</b>';
                     msg2 = 'AGREGA ' + simbolo + ' ' + DecimalToStringFormat(stp) + ' PARA <b>GANAR UN ' + oRegaloPN.DescripcionPremio + '*</b>';
-                    msg2 += ' Y ACCEDER A PACKS EXCLUSIVOS NUEVAS** ¡APROVECHA ESTAS OFERTAS!';
+                    msg2 += ' Y ACCEDER A PACKS EXCLUSIVOS NUEVAS**';
+                    if (tipoOrigen == 1) msg2 += ' ¡APROVECHA ESTAS OFERTAS!';
 
-                    $('#spnTituloOfertaFinal span').html(msg);
+                    $('#spnTituloOfertaFinal span').html(msg1);
                     $('#msg-regalo-pn').html(msg2);
                     $('#msg-regalo-pn2').html(msg2);
-
-                    $('#msg-regalo-pn').css('display', 'inline-block');
-                    $('#msg-regalo-pn2').css('display', 'inline-block');
+                    $('#div-regalo-pn').show();
                 }
+                disclaimer = '*En caso tu pedido no tenga observaciones y supere monto mínimo.' + sep + '**Encuéntralos en la seccion de Oferta para Ti.';
             }
         }
 
-        //$('#msjOfertaFinal').html('');
         $('#numero-pd').text(parseInt(nivel));
         $('#posicion-pd').text(getAbrevNumPedido(parseInt(nivel)));
+        $('#div-numero-pedido').show();
 
-        //$('#img-regalo-pn').hide();
-        if (oRegaloPN.UrlImagenRegalo !== null && oRegaloPN.UrlImagenRegalo !== "") {
+        if (tipoOrigen == 2) {
+            $('#ofIconoSuperior').css('width', '35px');
+            $('#ofIconoSuperior').css('height', '35px');
+        }
+
+        if (oRegaloPN.UrlImagenRegalo != null && oRegaloPN.UrlImagenRegalo != "") {
             $('#img-regalo-pn').attr('src', oRegaloPN.UrlImagenRegalo);
-            //$('#img-regalo-pn').show();
+            $('div.content_imagen_alternativo').show();
         }
         //else {
         //    $('#msg-regalo-pn').css('padding-top', '15px');
         //}
 
+        $('div.content_imagen_alternativo').show();
+
+        /*
+        var maxw = (tipoOrigen == 1) ? '570px' : '225px';
+        var minw = (tipoOrigen == 1) ? '570px' : '225px';
+        $('#div-regalo-pn').css('max-width', maxw);
+        $('#div-regalo-pn').css('min-width', minw);
+        */
+
         //$('#msg-regalo-pn').html(mensaje);
         //$('#msg-regalo-pn2').html(mensaje);   // mobile
+        
+        //if (showDiv) $('#div-regalo-pn').show();
 
-        if (disclaimer !== "")
-            $('#txt-disclaimer-pn').html(disclaimer);
-
-        if (showDiv) $('#div-regalo-pn').show();
+        $('#txt-disclaimer-pn').html(disclaimer);
         $('#txt-disclaimer-pn').show();
+        
         //$('div.popup_ofertaFinal').addClass('fondo_gris_OF');
     }
 }

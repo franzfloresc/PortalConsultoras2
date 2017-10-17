@@ -539,7 +539,7 @@
                 <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="Cerrar">
             </a>
             <!---->
-            <div class="numero_pedido" id="div-numero-pedido">
+            <div class="numero_pedido" id="div-numero-pedido" style="display: none;">
                 <div class="numero_pedido_fondo">
                     <img id="img-numero-pedido-fondo" src="/Content/Images/popup_pedido/numero_pedido_mobile_bg.png">
                     <div class="content-texto-numero-pedido" id="msg-numero-pedido" style="padding-top: 15px;">
@@ -576,7 +576,7 @@
                     <span>ALCANZA EL <b style="font-size:23px;">{{MetaPorcentaje}}%</b> DSCTO AGREGANDO {{Simbolo}} <span data-monto="">{{MetaMontoStr}}</span> DE ESTAS OFERTAS</span>
                     {{/if_eq}}
                 </div>
-                <div class="content_producto_alternativo" id="div-regalo-pn" style="">
+                <div class="content_producto_alternativo" id="div-regalo-pn" style="display: none;">
                     <div class="content-texto-producto-alternativo">
                         <div id="msg-regalo-pn2">AGREGA S/.50.00 PARA <b>GANAR UN ESIKA LEYENDA 100ML*</b> Y ACCEDER A PACKS EXCLUSIVOS NUEVAS**</div>
                     </div>
@@ -663,7 +663,7 @@
                 <button class="enlace_btnNoGracias btnNoGraciasOfertaFinal icono_terminar_pedido" id="btnNoGraciasOfertaFinal" style="display:{{#iff TipoMeta '==' 'MM'}}none;{{else}}block;{{/iff}}" onclick="of_google_analytics_cerrar_popup()">
                     RESERVA TU PEDIDO
                 </button>
-                <div style="" id="txt-disclaimer-pn" class="txt-ayuda1-pn">
+                <div id="txt-disclaimer-pn" class="txt-ayuda1-pn" style="display: none;">
                     *En caso tu pedido no tenga observaciones y supere el monto mínimo.<br><br>
                     ** Encuéntralos en la sección de Ofertas para Ti.
                 </div>
@@ -676,7 +676,7 @@
                     <div id="msg-regalo-pn2">
                         Llega al monto mínimo <b>Gana 1 ÉSIKA MAGNAT</b>
                     </div>
-                    <div style="display: none;" id="txt-disclaimer-pn" class="txt-ayuda1-pn"></div>
+                    <div id="txt-disclaimer-pn" class="txt-ayuda1-pn" style="display: none;"></div>
                 </div>
             </div>
         </div>
