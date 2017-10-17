@@ -34,6 +34,9 @@ namespace Portal.Consultoras.Web.Models
         public string MobileLogoBanner { get; set; }
         public string UrlMenu { get; set; }
 
+
+
+
         public int PaisID { get; set; }
         public IEnumerable<PaisModel> ListaPaises { set; get; }
         public IEnumerable<CampaniaModel> ListaCampanias { set; get; }
