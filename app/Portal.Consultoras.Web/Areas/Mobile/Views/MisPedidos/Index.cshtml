@@ -41,8 +41,7 @@
                 foreach (var pedidoCampania in Model)
                 {
                     <a href="javascript:;" class="@(firstCampania ? "active" : string.Empty)" data-campania="@pedidoCampania.CampaniaID">
-                        @pedidoCampania.DescripcionEstadoPedido<br />
-                        @pedidoCampania.NumeroCampania @pedidoCampania.AnioCampania
+                        @pedidoCampania.NumeroCampania @pedidoCampania.DescripcionEstadoPedido
                     </a>
                     firstCampania = false;
                 }

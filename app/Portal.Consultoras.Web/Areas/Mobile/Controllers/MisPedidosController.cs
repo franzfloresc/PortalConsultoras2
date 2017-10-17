@@ -37,7 +37,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                             CodigoEstadoPedido = item.CodigoEstadoPedido,
                             DescripcionEstadoPedido = item.DescripcionEstadoPedido,
                             NumeroCampania = (item.CampaniaID.ToString().Length == 6 ? string.Format("C{0}", item.CampaniaID.Substring(4, 2)) : string.Empty),
-                            AnioCampania = (item.CampaniaID.ToString().Length == 6 ? item.CampaniaID.Substring(0, 4) : string.Empty),
                             EsCampaniaActual = (item.CampaniaID == userData.CampaniaID)
                         });
                     }
@@ -69,7 +68,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     var result = service.GetMisPedidosIngresados(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, mobileConfiguracion.ClienteID, userData.NombreConsultora);
 
                     var TotalPedido = result.Sum(x => x.ImportePedido);
-                    ViewBag.TotalPedido = this.FormatoMontos(TotalPedido);
+                    ViewBag.TotalPedido = Util.DecimalToStringFormat(TotalPedido, userData.CodigoISO, userData.Simbolo);
 
                     foreach (var item in result)
                     {
@@ -79,15 +78,15 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                             ClienteID = item.ClienteID,
                             NombreCliente = item.NombreCliente,
                             CantidadPedido = item.CantidadPedido,
-                            ImportePedido = this.FormatoMontos(item.ImportePedido),
+                            ImportePedido = Util.DecimalToStringFormat(item.ImportePedido, userData.CodigoISO, userData.Simbolo),
                             Detalle = item.Detalle.Select(x => new MisPedidosIngresadosDetalleModel()
                             {
                                 ClienteID = x.ClienteID,
                                 CUV = x.CUV,
                                 DescripcionProducto = x.DescripcionProducto,
                                 Cantidad = x.Cantidad,
-                                PrecioUnidad = this.FormatoMontos(x.PrecioUnidad),
-                                ImporteTotal = this.FormatoMontos(x.ImporteTotal)
+                                PrecioUnidad = Util.DecimalToStringFormat(x.PrecioUnidad, userData.CodigoISO, userData.Simbolo),
+                                ImporteTotal = Util.DecimalToStringFormat(x.ImporteTotal, userData.CodigoISO, userData.Simbolo)
                             }).ToList()
                         });
                     }
@@ -119,7 +118,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     var result = service.GetMisPedidosFacturados(userData.PaisID, userData.ConsultoraID, campaniaID, mobileConfiguracion.ClienteID, userData.NombreConsultora);
 
                     var TotalPedido = result.Sum(x => x.ImportePedido);
-                    ViewBag.TotalPedido = this.FormatoMontos(TotalPedido);
+                    ViewBag.TotalPedido = Util.DecimalToStringFormat(TotalPedido, userData.CodigoISO);
 
                     foreach (var item in result)
                     {
@@ -129,15 +128,15 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                             ClienteID = item.ClienteID,
                             NombreCliente = item.NombreCliente,
                             CantidadPedido = item.CantidadPedido,
-                            ImportePedido = this.FormatoMontos(item.ImportePedido),
+                            ImportePedido = Util.DecimalToStringFormat(item.ImportePedido, userData.CodigoISO, userData.Simbolo),
                             Detalle = item.Detalle.Select(x => new MisPedidosFacturadosDetalleModel()
                             {
                                 ClienteID = x.ClienteID,
                                 CUV = x.CUV,
                                 DescripcionProducto = x.DescripcionProducto,
                                 Cantidad = x.Cantidad,
-                                PrecioUnidad = this.FormatoMontos(x.PrecioUnidad),
-                                ImporteTotal = this.FormatoMontos(x.ImporteTotal)
+                                PrecioUnidad = Util.DecimalToStringFormat(x.PrecioUnidad, userData.CodigoISO, userData.Simbolo),
+                                ImporteTotal = Util.DecimalToStringFormat(x.ImporteTotal, userData.CodigoISO, userData.Simbolo)
                             }).ToList()
                         });
                     }
@@ -153,17 +152,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
 
             return PartialView(listaPedidos);
-        }
-
-        private string FormatoMontos(decimal importe)
-        {
-            string MontoCadena = string.Empty;
-            if (userData.PaisID == Util.GetPaisID(Constantes.CodigosISOPais.Colombia))
-                MontoCadena = importe.ToString("n2", new CultureInfo("es-CO")).Replace(',', '.');
-            else
-                MontoCadena = importe.ToString("n2", new CultureInfo("es-PE")).Replace(',', '.');
-
-            return string.Format("{0} {1}", userData.Simbolo, MontoCadena);
         }
     }
 }
