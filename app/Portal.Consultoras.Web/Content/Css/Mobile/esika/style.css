@@ -13501,7 +13501,9 @@ a{
 .app-panels .panel-heading{
     padding:10px;
     height:80px;
-    cursor:pointer
+    cursor:pointer;
+    display: flex;
+    align-items: center;
 }
 .app-panels .panel-body{
     padding:0;
