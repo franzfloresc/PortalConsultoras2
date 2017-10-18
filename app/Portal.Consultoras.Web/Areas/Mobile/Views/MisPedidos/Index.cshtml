@@ -82,6 +82,8 @@
 
                 if (className.indexOf("active") > -1) $(this).parent().removeClass("active");
                 else $(this).parent().addClass("active");
+
+                $(this).find(".sections-arrow img").toggleClass("app-panels-flip");
             });
         });
     </script>
