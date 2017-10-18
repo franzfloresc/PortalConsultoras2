@@ -39,7 +39,7 @@ namespace Portal.Consultoras.BizLogic.Cliente
 
             using (var reader = daCliente.MovimientosListar(clienteId, consultoraId))
                 movimientos = reader.MapToCollection<BEMovimiento>();
-            
+
             foreach (var movimiento in movimientos)
             {
                 if (movimiento.TipoMovimiento != Constantes.MovimientoTipo.CargoBelcorp)
@@ -192,12 +192,15 @@ namespace Portal.Consultoras.BizLogic.Cliente
                 movimientoDetalle.Message = Constantes.ClienteValidacion.Message[Constantes.ClienteValidacion.Code.SUCCESS];
             }
 
+            if (movimientos.Any(m => m.Code != Constantes.ClienteValidacion.Code.SUCCESS))
+                return ResponseType<List<BEMovimientoDetalle>>.Build(false, Constantes.ClienteValidacion.Code.ERROR_MOVIMIENTODETALLE_NOACTUALIZADO, Constantes.ClienteValidacion.Message[Constantes.ClienteValidacion.Code.ERROR_MOVIMIENTODETALLE_NOACTUALIZADO], movimientos);
+
             return ResponseType<List<BEMovimientoDetalle>>.Build(true, Constantes.ClienteValidacion.Code.SUCCESS, Constantes.ClienteValidacion.Message[Constantes.ClienteValidacion.Code.SUCCESS], movimientos);
         }
 
         private void ValidarMovimientoDetalle(BEMovimientoDetalle detalle)
         {
-            if(detalle.PedidoWebFacturadoID == 0)
+            if (detalle.PedidoWebFacturadoID == 0)
             {
                 detalle.Code = Constantes.ClienteValidacion.Code.ERROR_MOVIMIENTODETALLE_PEDIDOWEBFACTURADOID_NOENVIADO;
                 detalle.Message = Constantes.ClienteValidacion.Message[Constantes.ClienteValidacion.Code.ERROR_MOVIMIENTODETALLE_PEDIDOWEBFACTURADOID_NOENVIADO];
