@@ -12,8 +12,6 @@
 
 }
 
-@Html.Partial("~/Areas/Mobile/Views/RevistaDigital/Revista.cshtml")
-
 @foreach (var seccion in Model.ListaSeccion)
 {
     <div data-seccion="@seccion.Codigo" 
@@ -51,6 +49,4 @@
     var urlOfertaDetalleProducto = '@Url.Action("Detalle", "RevistaDigital", new { area = "Mobile" })';
 </script>
 @System.Web.Optimization.Scripts.Render("~/bundles/JsMobile/JsSB2-Ofertas")
-<script type="text/javascript" src="http://sachinchoolur.github.io/lightslider/dist/js/lightslider.js"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaImpresa/index.js")"></script>
 }
