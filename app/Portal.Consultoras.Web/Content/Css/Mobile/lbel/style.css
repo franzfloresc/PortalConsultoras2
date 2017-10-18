@@ -12608,12 +12608,12 @@ box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
     font-size: 14px;
     padding-left:50px;
     font-weight:700;
-    margin-bottom:36px;
+    margin-bottom:0;
     background:black url(../../../Images/Esika/regresar.png) no-repeat; 
     background-position: 26px 11px;
 }
 .btn_legal_RS{
-    margin-top:8px;
+    margin-top:36px;
     font-family: 'Lato';   
     font-size: 13px;
     display:block;
