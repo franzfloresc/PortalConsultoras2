@@ -141,7 +141,34 @@ namespace Portal.Consultoras.Web.Controllers
                     estado = ex.Message
                 }, JsonRequestBehavior.AllowGet);
             }
-}
+        }
+
+        public ActionResult Descargables(string FileName)
+        {
+            try
+            {
+                string paisISO = Util.GetPaisISO(userData.PaisID);
+                var carpetaPais = Globals.UrlFileConsultoras + "/" + paisISO;
+                string urlS3 = ConfigS3.GetUrlS3(carpetaPais) + FileName;
+
+                //return File(urlS3, "application/pdf", FileName);
+
+                return Json(new
+                {
+                    Result = true,
+                    UrlS3 = urlS3
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    Result = true,
+                    UrlS3 = ""
+                });
+            }
+        }
 
     }
 }
