@@ -1,7 +1,7 @@
 USE BelcorpBolivia
 GO
 
-CREATE PROCEDURE [dbo].[ListarTipoEstrategia_SB2]  
+ALTER PROCEDURE [dbo].[ListarTipoEstrategia_SB2]  
  @TipoEstrategiaID INT  
 AS  
 BEGIN  
@@ -54,7 +54,7 @@ USE BelcorpChile
 GO 
 
 
-CREATE PROCEDURE [dbo].[ListarTipoEstrategia_SB2]  
+ALTER PROCEDURE [dbo].[ListarTipoEstrategia_SB2]  
  @TipoEstrategiaID INT  
 AS  
 BEGIN  
@@ -101,7 +101,7 @@ USE BelcorpColombia
 GO
 
 
-CREATE PROCEDURE [dbo].[ListarTipoEstrategia_SB2]  
+ALTER PROCEDURE [dbo].[ListarTipoEstrategia_SB2]  
  @TipoEstrategiaID INT  
 AS  
 BEGIN  
@@ -153,7 +153,7 @@ USE BelcorpCostaRica
 GO
 
 
-CREATE PROCEDURE [dbo].[ListarTipoEstrategia_SB2]  
+ALTER PROCEDURE [dbo].[ListarTipoEstrategia_SB2]  
  @TipoEstrategiaID INT  
 AS  
 BEGIN  
@@ -202,7 +202,7 @@ USE BelcorpDominicana
 GO 
 
 
-CREATE PROCEDURE [dbo].[ListarTipoEstrategia_SB2]  
+ALTER PROCEDURE [dbo].[ListarTipoEstrategia_SB2]  
  @TipoEstrategiaID INT  
 AS  
 BEGIN  
@@ -253,7 +253,7 @@ GO
 USE BelcorpEcuador
 GO
 
-CREATE PROCEDURE [dbo].[ListarTipoEstrategia_SB2]  
+ALTER PROCEDURE [dbo].[ListarTipoEstrategia_SB2]  
  @TipoEstrategiaID INT  
 AS  
 BEGIN  
@@ -301,7 +301,7 @@ USE BelcorpGuatemala
 GO
 
 
-CREATE PROCEDURE [dbo].[ListarTipoEstrategia_SB2]  
+ALTER PROCEDURE [dbo].[ListarTipoEstrategia_SB2]  
  @TipoEstrategiaID INT  
 AS  
 BEGIN  
@@ -351,8 +351,7 @@ GO
 USE BelcorpMexico
 GO 
 
-
-CREATE PROCEDURE [dbo].[ListarTipoEstrategia_SB2]  
+ALTER PROCEDURE [dbo].[ListarTipoEstrategia_SB2]  
  @TipoEstrategiaID INT  
 AS  
 BEGIN  
@@ -402,8 +401,7 @@ GO
 USE BelcorpPanama
 GO 
 
-
-CREATE PROCEDURE [dbo].[ListarTipoEstrategia_SB2]  
+ALTER PROCEDURE [dbo].[ListarTipoEstrategia_SB2]  
  @TipoEstrategiaID INT  
 AS  
 BEGIN  
@@ -451,8 +449,7 @@ GO
 USE BelcorpPuertoRico
 GO
 
-
-CREATE PROCEDURE [dbo].[ListarTipoEstrategia_SB2]  
+ALTER PROCEDURE [dbo].[ListarTipoEstrategia_SB2]  
  @TipoEstrategiaID INT  
 AS  
 BEGIN  
@@ -501,7 +498,7 @@ GO
 USE BelcorpSalvador
 GO 
 
-CREATE PROCEDURE [dbo].[ListarTipoEstrategia_SB2]  
+ALTER PROCEDURE [dbo].[ListarTipoEstrategia_SB2]  
  @TipoEstrategiaID INT  
 AS  
 BEGIN  
