@@ -1161,6 +1161,8 @@
         var flagRecoProduc = $("#ddlTipoEstrategia option:selected").attr("flag-recoproduct");
         var flagRecoPerfil = $("#ddlTipoEstrategia option:selected").attr("flag-recoperfil");
 
+        (flagNueva == "1") ? $(".chkEsOfertaIndependiente").show() : $(".chkEsOfertaIndependiente").hide();
+
         $("#ddlCampaniaFin").val("");
         $("#list").jqGrid('hideCol', ["NumeroPedido"]);
         if (flagNueva == "1") {
