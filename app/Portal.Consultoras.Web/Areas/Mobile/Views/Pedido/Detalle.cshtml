@@ -551,7 +551,7 @@
                 <div style="clear:both;"></div>
             </div>
             <div class="content_texto_OPT">
-                <div class="icono_alerta {{ofIconoSuperior}}" id="ofIconoSuperior" style="margin-top:10px; margin-bottom:10px;"></div>
+                <div class="icono_alerta {{ofIconoSuperior}}" id="ofIconoSuperior" style="margin-top:10px; margin-bottom:10px; width:40px; height:40px;"></div>
 
                 <h1 class="ofertaFinal_titulo" id="spnTituloOfertaFinal">
                     {{#if_eq TipoMeta 'MM'}}
@@ -587,8 +587,8 @@
                 </div>
             </div>
 
-            <div class="contenedor_carruselOfertaFinal">
-                <div class="bloque_carousel" style="margin-top:-90px;">
+            <div class="contenedor_carruselOfertaFinal" style="padding-top:0;">
+                <div class="bloque_carousel" style="margin-bottom:17px;">
                     <div class="slider center" id="divCarruselOfertaFinal" style="width: 100%">
                         {{#each this.Detalle}}
                         <div class="content_item_carrusel_ofertaFinal" data-item="ofertaFinal" data-id="{{ID}}">
@@ -689,9 +689,9 @@
             var colorFondo1OFRegalo = (ViewBag.ColorFondo1OFRegalo != null) ? ViewBag.ColorFondo1OFRegalo : "";
         }
 
-        <div id="ContentSorpresaMobile" class="ContentSorpresaMobile" style="background: url(@imagenFondoOFRegalo)">
+        <div id="ContentSorpresaMobile" class="ContentSorpresaMobile" style="background: url(@imagenFondoOFRegalo); background-size:cover; background-position:center -3px;">
             <div class="btn_regresa_OF" id="btnRegresoOF" style="background-color: @colorFondo1OFRegalo">CONTINUAR COMPRANDO</div>
-            <div class="icono_regalo_sorpresa"></div>
+            <div class="icono_regalo_sorpresa" style="margin-top:47px;"></div>
             <div class="titulo_regalo_sorpresa" id="of-regalo-msg1" style="display: none;"><b>¡GANA ESTE PREMIO* </b><br/>@titulo1OFRegalo</div>
             <div class="titulo_regalo_sorpresa" id="of-regalo-msg2" style="display: none;">
                 FELICIDADES @ViewBag.NombreConsultora <span class="font_700_regalo">¡GANASTE!</span>               
