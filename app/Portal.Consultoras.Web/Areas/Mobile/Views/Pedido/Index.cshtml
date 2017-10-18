@@ -21,7 +21,7 @@
 }
 <div class="wrapper_resumen_mobile sin_padding">
     <div class="titulo_mobile alineaIzquierda pl-49 agregarSombraInferior">
-        @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new MobileAppConfiguracionModel() : (MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+        @{  var mobileConfiguracion = Html.MobileAppConfiguracion();
             if (mobileConfiguracion.MostrarBotonAtras)
             {
                 <a href="@Request.UrlReferrer" class="enlace_regresar ajustePosicionFlecha" style="display:normal" title="Regresar"></a>
@@ -29,27 +29,13 @@
         }
         INGRESAR PEDIDO C@(Model.CampaniaNro)
     </div>
-    <!-- BARRA GANANCIA SB MOBILE -->
-    <div class="contenedor_barra_ganancia">
-        <div class="meta_descuento">
-            <div class="meta_cantidad_porcentaje_descuento">
-                ¡YA LLEGAS AL <span>30</span>% DSCTO!
-            </div>
-            <div>
-                Sólo agrega <span>S/. 33</span>
-            </div>
-        </div>
-        <div class="descuento_pedido">
-            <div>
-                <span>30</span>% DSCTO
-            </div>
-            <div>S/. 601</div>
-        </div>
-        <div class="barra_ganancia">
-            <div class="barra_ganancia_espacio_logrado"></div>
-        </div>
-    </div>
-    <!-- FIN BARRA GANANCIA SB MOBILE -->
+    @if (mobileConfiguracion.EsAppMobile)
+    {
+        @Html.Partial("~/Areas/Mobile/Views/Util/_barra.cshtml")
+        <input type="hidden" id="hdfSimbolo" value="@Model.Simbolo" />
+        <input type="hidden" id="hdfTotal" value="@Model.Total" />
+    }
+
     <!-- BANNERS INGRESO DE PEDIDO -->
     <div class="banner_ingresoPedido nuevaAlturaBanner" style="background: #000 url(@ViewBag.UrlFranjaNegra) no-repeat center center;">
         <div class="content_320 ingresoPedido">
@@ -631,8 +617,8 @@
         @if (mobileConfiguracion.MostrarHipervinculo)
         {
             <text>
-        mensajeCUVLiquidacion = "Este producto solo lo puedes agregar a tu pedido desde la página de <a href=" + '@(Url.Action("Index", "OfertaLiquidacion", new { area = "Mobile"}))' + ">Liquidación Web.</a>";
-        </text>
+                mensajeCUVLiquidacion = "Este producto solo lo puedes agregar a tu pedido desde la página de <a href=" + '@(Url.Action("Index", "OfertaLiquidacion", new { area = "Mobile"}))' + ">Liquidación Web.</a>";
+            </text>
         }
 
         var mensajeCUVCantidadMaxima = "Ya ingresaste la cantidad máxima permitida de este producto (#)";
@@ -695,7 +681,23 @@
 
         var VirtualCoachCuv = '@ViewBag.VirtualCoachCuv';
         var VirtualCoachCampana = '@ViewBag.VirtualCoachCampana' || 0;
+        var dataBarra = JSON.parse('@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.DataBarra))');
+        var listaMensajeMeta = dataBarra.ListaMensajeMeta;
     </script>
-    @System.Web.Optimization.Scripts.Render("~/bundles/JsMobile/Pedido")
 
+    @if (mobileConfiguracion.EsAppMobile)
+    {
+        <script>
+            $(document).ready(function() {
+                belcorp.estrategia.initialize();
+                belcorp.pedido.initialize();
+                belcorp.pedido.subscribe("onProductoAgregado", MostrarBarra);
+                belcorp.estrategia.subscribe("onProductoAgregado", MostrarBarra);
+            });
+        </script>
+    }
+
+    @System.Web.Optimization.Scripts.Render("~/bundles/JsMobile/Pedido")
+    @*todo, bundle*@
+    <script src="~/Scripts/PortalConsultoras/Pedido/barra.js"></script>
 }

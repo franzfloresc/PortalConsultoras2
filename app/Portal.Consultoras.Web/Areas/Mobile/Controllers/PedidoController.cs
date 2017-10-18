@@ -140,6 +140,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("BUCKET_NAME") ?? string.Empty;
             model.TieneMasVendidos = userData.TieneMasVendidos;
             //model.TieneOfertaLog = userData.TieneOfertaLog;
+            ViewBag.DataBarra = GetDataBarra(true, true);
 
             ViewBag.TieneRDC = userData.RevistaDigital.TieneRDC;
             ViewBag.TieneRDR = userData.RevistaDigital.TieneRDR;

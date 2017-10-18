@@ -7,6 +7,11 @@ namespace Portal.Consultoras.Web.Helpers
 {
     public static class ViewExtensions
     {
+        /// <summary>
+        /// Obtiene la configuracion mobile basada en session unica
+        /// </summary>
+        /// <param name="htmlHelper"></param>
+        /// <returns></returns>
         public static MobileAppConfiguracionModel MobileAppConfiguracion(this HtmlHelper htmlHelper)
         {
             return GetUniqueSession<MobileAppConfiguracionModel>(htmlHelper.ViewContext, "MobileAppConfiguracion");

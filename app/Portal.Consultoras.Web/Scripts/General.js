@@ -1787,3 +1787,40 @@ var _actualizarModelMasVendidosPromise = function (model) {
 
     return d.promise();
 }
+
+var registerEvent = function (eventName) {
+    var self = this;
+    if (self[eventName]) {
+        console.log("event already exists");
+    }
+
+    self[eventName] = self[eventName] || {};
+    self[eventName].callBacks = [];
+    self[eventName].subscribe = function (cb) {
+        if (!!cb && typeof cb == "function") {
+            self[eventName].callBacks.push(cb);
+            return;
+        }
+
+        console.log("invalid callback " + cb);
+    }
+
+    self.subscribe = function (event, cb) {
+        if (!!event) {
+            if (self[event]) {
+                self[event].subscribe(cb);
+                return;
+            }
+        }
+
+        console.log("no event exists " + event);
+    }
+
+    self.applyChanges = function (event, args) {
+        if (self[event]) {
+            self[event].callBacks.forEach(function (cb) {
+                cb.call(undefined, args);
+            });
+        }
+    }
+}
