@@ -855,7 +855,10 @@ function ArmarCarouselLiquidaciones(data) {
 
     $('#divCarruselLiquidaciones').empty().html(htmlDiv);
 
+    EstablecerLazyCarrusel($('#divCarruselLiquidaciones'));
+
     $('#divCarruselLiquidaciones').slick({
+        lazyLoad: 'ondemand',
         infinite: false,
         vertical: false,
         slidesToShow: 1,

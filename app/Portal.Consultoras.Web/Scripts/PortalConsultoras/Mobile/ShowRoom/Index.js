@@ -20,8 +20,11 @@
         $('#PopCompra').show();
         var id = $("#LlamarPopCompra").data("promotion-impresion-id");
         var name = $("#LlamarPopCompra").data("promotion-impresion-name");
-        odd_mobile_promotion_impression(id,name);
+        odd_mobile_promotion_impression(id, name);
+
+        EstablecerLazyCarrusel($('.content_pop_compra'));
         $('.content_pop_compra').slick({
+            lazyLoad: 'ondemand',
             dots: false,
             infinite: true,
             vertical: false,

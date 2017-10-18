@@ -203,11 +203,11 @@
                             <div class="content_imagen_carrusel_compra">
                                 @if (item.ImagenProducto != "")
                                 {
-                                    <img src="@item.ImagenProducto" class="imagen_producto">
+                                    <img src="@item.ImagenProducto" class="imagen_producto" data-img-lazy="1" />
                                 }
                                 else
                                 {
-                                    <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto"/>
+                                    <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" data-img-lazy="1"/>
                                 }
                             </div>
                             <div style="height: 50px;">
@@ -259,7 +259,7 @@
                     </div>
                     <a href="@Url.Action("DetalleOferta", "ShowRoom", new {id = oferta.OfertaShowRoomID, area = "Mobile"})" class="slider_item_content">
                         <div data-img="">
-                            <img src="@oferta.ImagenProducto"/>
+                            <img src="@oferta.ImagenProducto" data-img-lazy="1"/>
                         </div>
                         <span class="title">@descripcion</span>
                         <span class="precio_tachado_carrusel_set">@oferta.Simbolo @oferta.FormatoPrecioValorizado</span>
@@ -377,11 +377,11 @@
                             <div class="content_imagen_carrusel_compra">
                                 @if (item.ImagenProducto != "")
                                 {
-                                    <img src="@item.ImagenProducto" class="imagen_producto">
+                                    <img src="@item.ImagenProducto" class="imagen_producto" data-img-lazy="1"/>
                                 }
                                 else
                                 {
-                                    <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" />
+                                    <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" data-img-lazy="1"/>
                                 }
                             </div>
                             <div style="height: 130px;">

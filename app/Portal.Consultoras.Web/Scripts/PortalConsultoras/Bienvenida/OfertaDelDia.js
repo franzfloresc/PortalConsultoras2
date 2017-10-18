@@ -300,8 +300,11 @@ $(document).ready(function () {
         }
 
         if (cantidadProductos > 3) {
+            EstablecerLazyCarrusel($('#divOddCarrusel'));
+
             $('#divOddCarrusel.slick-initialized').slick('unslick');
             $('#divOddCarrusel').not('.slick-initialized').slick({
+                lazyLoad: 'ondemand',
                 infinite: true,
                 vertical: false,
                 slidesToShow: 3,
@@ -324,8 +327,11 @@ $(document).ready(function () {
         }
 
         if (cantidadProductos > 1) {
+            EstablecerLazyCarrusel($('#divOddCarruselDetalle'));
+
             $('#divOddCarruselDetalle.slick-initialized').slick('unslick');
             $('#divOddCarruselDetalle').not('.slick-initialized').slick({
+                lazyLoad: 'ondemand',
                 infinite: true,
                 vertical: false,
                 slidesToShow: 1,
@@ -786,8 +792,12 @@ $(document).ready(function () {
 
     function ConfigurarSlick() {
         $(elements.ContenedorOfertaDelDiaMobile).show();
+
+        EstablecerLazyCarrusel($(elements.ContenedorOfertaDelDiaMobile));
+
         $(elements.ContenedorOfertaDelDiaMobile + '.slick-initialized').slick('unslick');
         $(elements.ContenedorOfertaDelDiaMobile).slick({
+            lazyLoad: 'ondemand',
             dots: false,
             infinite: true,
             vertical: false,

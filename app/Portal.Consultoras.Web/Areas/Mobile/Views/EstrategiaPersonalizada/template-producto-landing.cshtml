@@ -7,11 +7,11 @@
             <div {{#iff TieneVerDetalle }} onclick="javascript:VerDetalleEstrategia(event);" {{/iff}}>
                 <div {{#iff TieneVerDetalle }} style="cursor:pointer;" {{/iff}}>
                     <div class="producto_img_mobile_bpt">
-                        <img src="{{FotoProducto01}}" />
+                        <img src="{{FotoProducto01}}" data-img-lazy="1"/>
                     </div>
                     {{#iff ImagenURL '!=' ''}}
                     <div class="etiqueta_producto">
-                        <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+                        <img src="{{ImagenURL}}" alt="Etiqueta Producto" data-img-lazy="1"/>
                     </div>
                     {{/iff}}
                 </div>

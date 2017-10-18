@@ -33,7 +33,10 @@ $(document).ready(function () {
             $('.content_carrusel_pop_compra').slick('slickGoTo', parseInt(posicion) - 1);
         });
 
+        EstablecerLazyCarrusel($('.responsive'));
+
         $('.responsive').not('.slick-initialized').slick({
+            lazyLoad: 'ondemand',
             infinite: true,
             vertical: false,
             slidesToShow: 4,
@@ -43,7 +46,10 @@ $(document).ready(function () {
             prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: 0;margin-left: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
             nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: 0;margin-right: -5%;text-align:right"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>'
         });
+
+        EstablecerLazyCarrusel($('.content_ficha_compra'));
         $('.content_ficha_compra').slick({
+            lazyLoad: 'ondemand',
             dots: true,
             infinite: true,
             vertical: true,
@@ -96,9 +102,10 @@ $(document).ready(function () {
             $('body').css({ 'overflow-y': 'hidden' });
             $('#PopCompra').show();
 
+            EstablecerLazyCarrusel($('.content_pop_compra'));
             $('.content_pop_compra.slick-initialized').slick('unslick');
-
             $('.content_pop_compra').slick({
+                lazyLoad: 'ondemand',
                 dots: false,
                 infinite: true,
                 vertical: false,
@@ -120,6 +127,8 @@ $(document).ready(function () {
         $("footer").hide();
         $("#content").css("margin-top", "63px");
 
+        EstablecerLazyCarrusel($('.variable-width'));
+
         $('.variable-width').on('init', function (event, slick) {
             setTimeout(function () {
                 slick.setPosition();
@@ -127,6 +136,7 @@ $(document).ready(function () {
                 $("#divEstrategias").find("[data-posicion-set]").find(".orden_listado_numero").find("[data-posicion-current]").html(2);
             }, 500);
         }).slick({
+            lazyLoad: 'ondemand',
             dots: true,
             infinite: false,
             speed: 300,
@@ -151,7 +161,9 @@ $(document).ready(function () {
             $("#divEstrategias").find("[data-posicion-set]").find(".orden_listado_numero").find("[data-posicion-current]").html(posicion);
         });
 
+        EstablecerLazyCarrusel($('.content_compra_carrusel'));
         $('.content_compra_carrusel').slick({
+            lazyLoad: 'ondemand',
             dots: false,
             infinite: true,
             vertical: false,
@@ -581,8 +593,12 @@ function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosS
             $.each(response.listaSubCampania, function (i, v) { v.Descripcion = IfNull(v.Descripcion, '').SubStrToMax(35, true); });
 
             SetHandlebars("#template-showroom-subcampania", response.listaSubCampania, "#contenedor-showroom-subcampanias");
+
+            EstablecerLazyCarrusel($('#contenedor-showroom-subcampanias'));
+
             $('#contenedor-showroom-subcampanias.slick-initialized').slick('unslick');
             $('#contenedor-showroom-subcampanias').not('.slick-initialized').slick({
+                lazyLoad: 'ondemand',
                 slidesToShow: 3,
                 dots: false,
                 vertical: false,
@@ -652,8 +668,11 @@ function ResolverCargarProductosShowRoomPromiseMobile(response, busquedaModel) {
     }
 }
 function ConfigurarSlick() {
+    EstablecerLazyCarrusel($('#contenedor-showroom-subcampanias-mobile'));
+
     $('#contenedor-showroom-subcampanias-mobile.slick-initialized').slick('unslick');
     $('#contenedor-showroom-subcampanias-mobile').slick({
+        lazyLoad: 'ondemand',
         dots: false,
         infinite: true,
         vertical: false,

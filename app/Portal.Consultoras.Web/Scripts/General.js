@@ -1787,3 +1787,19 @@ var _actualizarModelMasVendidosPromise = function (model) {
 
     return d.promise();
 }
+
+function EstablecerLazyCarrusel(elementoHtml) {
+    if (!$(elementoHtml).length) {
+        return false;
+    }
+    var listaImagenes = $(elementoHtml).find("img[data-img-lazy='1']");
+
+    $.each(listaImagenes, function (index, value) {
+        var rutaImagen = $(value).attr("src");
+
+        $(value).attr("data-lazy", rutaImagen);
+        $(value).removeAttr("src");
+    });
+
+    //return $(nombreElementoHtml).html();
+}

@@ -325,17 +325,24 @@ function ArmarCarouselEstrategias(data) {
     RevisarMostrarContenedorCupon();
 
     if (tipoOrigenEstrategia == 1) {
-        var cantProCarrusel = $("#divListadoEstrategia2").length > 0 ?  1 : 4;
+        var cantProCarrusel = $("#divListadoEstrategia2").length > 0 ? 3 : 4;
+        var esVariableWidth = $("#divListadoEstrategia2").length > 0;
+        EstablecerLazyCarrusel($('#divListadoEstrategia'));
+
         $('#divListaEstrategias #divListadoEstrategia [data-item] > div').attr("class", "content_item_carrusel");
         $('#divListaEstrategias').show();
+
+        EstablecerLazyCarrusel($('#divListadoEstrategia'));
+
         $('#divListadoEstrategia').not('.slick-initialized').slick({
+            lazyLoad: 'ondemand',
             infinite: true,
             vertical: false,
             slidesToShow: cantProCarrusel,
             slidesToScroll: 1,
             autoplay: false,
+            variableWidth: esVariableWidth,
             speed: 260,
-            variableWidth: cantProCarrusel > 1 ? false : true,
             prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: 0;margin-left: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
             nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: 0;margin-right: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>',
             responsive: [
@@ -366,7 +373,11 @@ function ArmarCarouselEstrategias(data) {
         var cant = parseInt(heightReference / hCar);
         cant = cant < 3 ? 3 : cant > 5 ? 5 : cant;
         cant = data.CodigoEstrategia == "101" ? (data.Lista.length > 4 ? 4 : data.Lista.length) : cant;
+
+        EstablecerLazyCarrusel($('#divListadoEstrategia'));
+
         $('#divListadoEstrategia').not('.slick-initialized').slick({
+            lazyLoad: 'ondemand',
             infinite: true,
             vertical: true,
             centerMode: false,
@@ -391,14 +402,17 @@ function ArmarCarouselEstrategias(data) {
         $('#div-linea-OPT').show();
         $("#divListaEstrategias").show();
 
+        EstablecerLazyCarrusel($('#divListadoEstrategia'));
+
         $('#divListadoEstrategia').slick({
+            lazyLoad: 'ondemand',
             infinite: true,
             vertical: false,
-            slidesToShow: 4,
+            slidesToShow: 1,
             slidesToScroll: 1,
             autoplay: false,
-            prevArrow: '<a class="previous_ofertas_mobile js-slick-prev" href="javascript:void(0);" style="margin-left:-12%; text-align:left;"><img src="' + baseUrl + 'Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="" /></a>',
-            nextArrow: '<a class="previous_ofertas_mobile js-slick-next" href="javascript:void(0);" style="margin-right:-12%; text-align:right; right:0"><img src="' + baseUrl + 'Content/Images/mobile/Esika/next.png")" alt="" /></a>',
+            prevArrow: '<a class="previous_ofertas_mobile js-slick-prev" href="javascript:void(0);" style="margin-left:-12%; padding-top:150px; text-align:left;"><img src="' + baseUrl + 'Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="" /></a>',
+            nextArrow: '<a class="previous_ofertas_mobile js-slick-next" href="javascript:void(0);" style="margin-right:-12%; padding-top:150px; text-align:right; right:0"><img src="' + baseUrl + 'Content/Images/mobile/Esika/next.png")" alt="" /></a>',
             responsive: [
                 {
                     breakpoint: 1200,
@@ -419,13 +433,17 @@ function ArmarCarouselEstrategias(data) {
     }
     else if (tipoOrigenEstrategia == 21) {
         $("#divListaEstrategias").show();
+
+        EstablecerLazyCarrusel($('#divListadoEstrategia'));
+
         $('#divListadoEstrategia').slick({
-            slidesToShow: 4,
+            lazyLoad: 'ondemand',
+            slidesToShow: 1,
             slidesToScroll: 1,
             autoplay: false,
             dots: false,
-            prevArrow: '<a class="previous_ofertas_mobile js-slick-prev" href="javascript:void(0);" id="slick-prev" style="margin-left:-13%;"><img src="' + urlCarruselPrev + '")" alt="-"/></a>',
-            nextArrow: '<a class="previous_ofertas_mobile js-slick-next" href="javascript:void(0);" id="slick-next" style="margin-right:-13%; text-align:right; right:0;"><img src="' + urlCarruselNext + '" alt="-"/></a>',
+            prevArrow: '<a class="previous_ofertas_mobile js-slick-prev" href="javascript:void(0);" id="slick-prev" style="margin-left:-13%; padding-top:150px;"><img src="' + urlCarruselPrev + '")" alt="-"/></a>',
+            nextArrow: '<a class="previous_ofertas_mobile js-slick-next" href="javascript:void(0);" id="slick-next" style="margin-right:-13%; padding-top:150px; text-align:right; right:0;"><img src="' + urlCarruselNext + '" alt="-"/></a>',
             infinite: true,
             speed: 300,
             responsive: [

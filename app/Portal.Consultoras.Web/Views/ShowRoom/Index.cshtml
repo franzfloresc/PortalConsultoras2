@@ -256,11 +256,11 @@
                             <div class="content_imagen_compra" data-img="">
                                 @if (item.ImagenProducto != "")
                                 {
-                                    <img src="@item.ImagenProducto" class="imagen_producto">
+                                    <img src="@item.ImagenProducto" class="imagen_producto" data-img-lazy="1" />
                                 }
                                 else
                                 {
-                                    <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" />
+                                    <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" data-img-lazy="1"/>
                                 }
                             </div>
 
@@ -335,7 +335,7 @@
         </div>
         <div class="content_item_carrusel">
             <div class="producto_img_home" data-img="">
-                <img src="{{producto.ImagenProducto}}" class="imagen_producto">
+                <img src="{{producto.ImagenProducto}}" class="imagen_producto" data-img-lazy="1"/>
             </div>
             <div class="content_info_set_especial">
                 <div class="titulo_set_especial">{{producto.Descripcion}}</div>

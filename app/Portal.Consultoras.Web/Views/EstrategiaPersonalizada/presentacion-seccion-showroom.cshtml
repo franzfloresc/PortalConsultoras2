@@ -71,9 +71,9 @@
                                     </div>
                                     <div class="producto_img_home mini" data-img="">
                                         {{#IsNullOrEmpty ImagenProducto '=='}}
-                                        <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="max-width: 100% !important;" class="imagen_producto" alt="" />
+                                        <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="max-width: 100% !important;" class="imagen_producto" alt="" data-img-lazy="1"/>
                                         {{else}}
-                                        <img src="{{ImagenProducto}}" alt="" style="max-width: 100% !important;" class="imagen_producto" />
+                                        <img src="{{ImagenProducto}}" alt="" style="max-width: 100% !important;" class="imagen_producto" data-img-lazy="1"/>
                                         {{/IsNullOrEmpty}}
                                         <a class="ver_detalle_carrusel" href="{{UrlDetalle}}">VER DETALLE</a>
                                     </div>
