@@ -8681,6 +8681,7 @@ span.icon-advertencia{
     top: 11px;
     right: 11px;
     float: none;
+    z-index: 1000;
 }
 
 .popup_ofertaFinal .icono_aprobacion{
