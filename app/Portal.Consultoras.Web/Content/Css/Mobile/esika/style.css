@@ -9103,8 +9103,8 @@ span.title-app-b {
     background-position: 8px 3px;
     padding-left: 46px;
     height:32px;
-    margin-top:-16px;
-    margin-bottom:22px;
+    margin-top:-22px;
+    margin-bottom:5px; 
 }
 /* FIN POPUP OFERTA FINAL */
 
@@ -11308,7 +11308,7 @@ a{
 
 /*NUEVO OF*/
 .content_texto_OPT{
-    margin-bottom:70px;
+    margin-bottom:0;
 }
 
 .texto_comple_ficha{
@@ -13304,9 +13304,9 @@ a{
     right: 0;
     left: 0;
     position: absolute;
-    width: 95%;
+    width: 97%;
     max-width: 350px;
-    min-height: 802px;
+    min-height: 746px;
     top: 0;
     /*background:#002e5b url(../../../Images/Esika/bg_regalo_mobile_chile.png) no-repeat center top;*/
     background-repeat:no-repeat!important;
@@ -13414,7 +13414,7 @@ a{
     font-size: 14px;
     padding-left:50px;
     font-weight:700;
-    margin-bottom:0;
+    margin-bottom:36px;
     background:black url(../../../Images/Esika/regresar.png) no-repeat; 
     background-position: 26px 11px;
 }
