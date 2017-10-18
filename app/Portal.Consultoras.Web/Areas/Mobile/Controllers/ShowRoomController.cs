@@ -10,6 +10,8 @@ using System.Configuration;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
+using System.Web.Routing;
+using Portal.Consultoras.Web.Helpers;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -53,11 +55,37 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 esShowRoom = true && OfertaShowRoom() != null;
             }
 
+            //return esShowRoom ?
+            //    RedirectToRoute("UniqueRoute",
+            //                new RouteValueDictionary(new
+            //                {
+            //                    Controller = "ShowRoom",
+            //                    Action = "Index",
+            //                    guid = this.GetUniqueKey()
+            //                })) :
+            //    RedirectToRoute("UniqueRoute",
+            //        new RouteValueDictionary(new
+            //        {
+            //            Controller = "ShowRoom",
+            //            Action = "Intriga",
+            //            guid = this.GetUniqueKey()
+            //        }));
             return RedirectToAction(esShowRoom ? "Index" : "Intriga");
         }
 
         public ActionResult Index(string query)
         {
+            var mostrarShowRoomProductos = sessionManager.GetMostrarShowRoomProductos();
+            var mostrarShowRoomProductosExpiro = sessionManager.GetMostrarShowRoomProductosExpiro();
+
+            bool mostrarPopupIntriga = !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
+            //bool mostrarPopupVenta = mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;                
+
+            if (mostrarPopupIntriga)
+            {
+                return RedirectToAction("Intriga", "ShowRoom", new { area = "Mobile" });
+            }
+ 
             ActionExecutingMobile();
             var showRoomEventoModel = OfertaShowRoom();
 
@@ -120,7 +148,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
 
                 ActualizarUrlImagenes(ofertasShowRoom);
-                
+
                 var model = ObtenerPrimeraOfertaShowRoom(ofertasShowRoom);
 
                 model.Simbolo = userData.Simbolo;

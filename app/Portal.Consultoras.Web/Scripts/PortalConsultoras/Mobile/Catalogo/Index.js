@@ -628,9 +628,10 @@ function RevistaMostrar(accion, btn) {
 }
 
 function TagManagerPaginasVirtuales() {
+    var urlPrefix = getMobilePrefixUrl();
     dataLayer.push({
         'event': 'virtualPage',
-        'pageUrl': '/Mobile/catalogo/revistas/',
+        'pageUrl': urlPrefix + '/catalogo/revistas/',
         'pageName': 'Catálogo – Revistas | Somos Belcorp'
     });
 }

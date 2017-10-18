@@ -61,6 +61,15 @@ namespace Portal.Consultoras.BizLogic.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Solo puedes ingresar un máximo de {0} notas.
+        /// </summary>
+        internal static string NotaCantidadMaximaSuperada {
+            get {
+                return ResourceManager.GetString("NotaCantidadMaximaSuperada", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tipo de movimiento no permitido.
         /// </summary>
         internal static string TipoMovimientoInvalido {

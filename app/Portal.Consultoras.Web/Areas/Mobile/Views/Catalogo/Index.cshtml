@@ -1,14 +1,22 @@
 ﻿@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Helpers
 @using Portal.Consultoras.Web.Models
 @model MisCatalogosRevistasModel
 
 @{
-    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+    var layout = ViewContext.MobileLayout();
+    Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
     var userAgent = HttpContext.Current.Request.UserAgent.ToLower();
     var urlApp = userAgent.Contains("iphone;") ? "https://itunes.apple.com/pe/app/catalogos-esika-lbel-cyzone/id1052948837?mt=8"
                                                                                      : "https://play.google.com/store/apps/details?id=belcorp.modobeta.catalogov2&hl=es_419";
     var textApp = userAgent.Contains("iphone;") ? "Gratis en App Store" : "Gratis en Play Store";
 }
+
+<style type="text/css">
+    #flexslidertop{
+        height:60px;
+    }
+</style>
 
 <input type="hidden" id="hdPaisNombre" value="@Model.PaisNombre" />
 <input type="hidden" id="hdCampaniaAnterior" value="@Model.CampaniaAnterior" />
@@ -23,7 +31,7 @@
 @{
     if (HttpContext.Current.Request.Browser.IsMobileDevice && ViewBag.ActivacionAppCatalogoWhastUp == 1)
     {
-        <div class="wrapper_resumen_mobile">
+        <div class="wrapper_resumen_mobile" style="margin-top:126px;">
             <div class="content_320">
                 <div class="content_app">
                     DESCARGA TU<br />
@@ -100,7 +108,10 @@
                             <div class="banner_pedido_text">@ViewBag.NombreConsultora ¿YA VISTE TUS <b>OFERTAS EN ÉSIKA PARA MÍ?</b>
                             </div>
                             <div class="btn_red">
-                                <a href="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion)">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")"></a>
+                                <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
+                                    VER TODAS MIS OFERTAS
+                                    <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")">
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -122,7 +133,10 @@
                             <div class="banner_pedido_text">@ViewBag.NombreConsultora, ¿YA VISTE TUS <b>OFERTAS DE LA C-@ViewBag.NumeroCampania EN ÉSIKA PARA MÍ?</b>
                             </div>
                             <div class="btn_red">
-                                <a href="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion)">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")"></a>
+                                <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigitalReducida')">
+                                    VER TODAS MIS OFERTAS
+                                    <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")">
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -145,7 +159,10 @@
                             <div class="banner_pedido_text">@ViewBag.NombreConsultora, CONOCE AHORA ESTA NOVEDAD Y TUS <b>OFERTAS CON HASTA 65% DE DESCUENTO</b>
                             </div>
                             <div class="btn_red">
-                                <a href="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion)">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")"></a>
+                                <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
+                                    VER TODAS MIS OFERTAS
+                                    <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")">
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -169,7 +186,8 @@
                         <span>Conoce ahora tus ofertas y aumenta tus ganancias</span>
                     </div>
                     <div class="revistadigital contenedor_botonVerMasOfertas">
-                        <div class="boxoffer" style="cursor: pointer; position: relative !important;" onclick="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion)">
+                        <div class="boxoffer" style="cursor: pointer; position: relative !important;" 
+                             onclick="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion)">
                             <div class="fondo_boton"></div>
                             <span class="texto_boton">VER M&Aacute;S OFERTAS PARA M&Iacute;</span>
                         </div>
@@ -332,7 +350,7 @@
             '@Model.CampaniaSiguiente': '@Model.CodigoRevistaSiguiente'
         };
         var urlDetalle = '@Url.Action("Detalle", "MisCatalogosRevistas", new { area = "" })';
-        var urlRevistaDigital = '@Url.Action("Index", "RevistaDigital", new { area = "Mobile" })';
+        var urlRevistaDigital = '@Url.Action("Comprar", "RevistaDigital", new { area = "Mobile" })';
     </script>
     <script src="@Url.Content("~/Scripts/Tag/jquery.tags.input.js")"></script>
     <script src="@Url.Content("~/Scripts/Tag/jquery.tag-editor.js")"></script>

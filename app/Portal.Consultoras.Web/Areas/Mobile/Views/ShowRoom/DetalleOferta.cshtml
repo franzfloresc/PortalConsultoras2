@@ -1,292 +1,308 @@
 ﻿@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Helpers
 @model Portal.Consultoras.Web.Models.ShowRoomOfertaModel
 
 @{
-    var layout = Session["IngresoExterno"] == null ? "_MobileLayout" : "_MobileLayoutEmpty";
-    Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
+    var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel() : (Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayoutContenedor.cshtml";
 }
 @section styles
 {
-    
-    @if (Session["IngresoExterno"] != null)
+    @if (ViewContext.GetUniqueSession("IngresoExterno") != null)
     {
         <style>
             #content {
                 margin-top: 0px !important;
             }
         </style>
-    }    
+    }
 }
-<div class="titulo_mobile">
-    @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel() : (Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<div class="titulo_mobile hideTituloMobileDetalleOferta">
+    @{  
         if (mobileConfiguracion.MostrarBotonAtras)
         {
             <a href="@Request.UrlReferrer" class="enlace_regresar catalogosP" title="Regresar"></a>
-        } }
-    &nbsp;&nbsp;&nbsp;&nbsp;VENTA EXCLUSIVA WEB
-    
+        }
+    }
+    &nbsp;&nbsp;&nbsp;&nbsp;VOLVER
+
 </div>
-<div class="pestana_esika"></div><!--PESTANA ESIKA-->
-<div class="pestana_lbel"></div><!--PESTANA LBEL-->
+<div class="pestana_esika hideTituloMobileDetalleOferta"></div><!--PESTANA ESIKA-->
+<div class="pestana_lbel hideTituloMobileDetalleOferta"></div><!--PESTANA LBEL-->
 
 <div class="content_room_product_sheet content_detalle_s">
-    <div class="product_sheet_image" data-img="" style="background:url(@ViewBag.ImagenFondoProductPage) no-repeat top center; background-size: 100% auto;">
-        
-        <img src="@Model.ImagenProducto" width="236" style="margin-top:20px;">
+@if (mobileConfiguracion.MostrarBotonAtras)
+{
+    <a href="@Request.UrlReferrer" class="btn_volver_detalle_oferta" title="Volver">
+        <span class="icono_flecha_volver">
+            <img src="@Url.Content("~/Content/Images/mobile/flecha-volver-detalle.svg")" alt="Volver" />
+        </span>
+        <span class="texto_enlace_volver_detalle">VOLVER</span>
+    </a>
+}
+
+<div class="product_sheet_image" data-img="" style="background: url(@ViewBag.ImagenFondoProductPage) no-repeat top center; background-size: 100% auto;">
+
+    <img src="@Model.ImagenProducto" width="236" style="margin-top: 20px;">
+</div>
+<div class="wrapper_resumen_mobile" style="margin-top: 10px;">
+    <h1>@Model.Descripcion</h1>
+    <input type="hidden" id="swdetdescripcion" value="@Model.Descripcion"/>
+    <input type="hidden" id="swdetmarca" value="@Model.DescripcionMarca"/>
+    <input type="hidden" id="swdetprecio" value="@Model.PrecioOferta"/>
+    <input type="hidden" id="swdeteventoofertaid" value="@Model.OfertaShowRoomID"/>
+    <div class="price_product">
+        <s class="price_offer">@Model.Simbolo @Model.FormatoPrecioValorizado</s>
+        <span class="price">Precio para ti <b>@Model.Simbolo @Model.FormatoPrecioOferta</b></span>
+        <span class="comment">Gana @Model.Simbolo @Model.FormatoGana</span>
     </div>
-    <div class="wrapper_resumen_mobile" style="margin-top:10px;">
-        <h1>@Model.Descripcion</h1>
-        <input type="hidden" id="swdetdescripcion" value="@Model.Descripcion" />
-        <input type="hidden" id="swdetmarca" value="@Model.DescripcionMarca" />
-        <input type="hidden" id="swdetprecio" value="@Model.PrecioOferta" />
-        <input type="hidden" id="swdeteventoofertaid" value="@Model.OfertaShowRoomID" />
-        <div class="price_product">
-            <s class="price_offer">@Model.Simbolo @Model.FormatoPrecioValorizado</s>
-            <span class="price">Precio para ti <b>@Model.Simbolo @Model.FormatoPrecioOferta</b></span>
-            <span class="comment">Gana @Model.Simbolo @Model.FormatoGana</span>
-        </div>
-        <div class="item_product">
-            @foreach (var detalle in Model.ListaDetalleOfertaShowRoom)
-            {
-                <div class="description_item">
-                    @*<div class="quantity"><br />x1</div>*@
-                    <div class="detail">
-                        @if (detalle.MarcaProducto != "")
-                        {
-                            <span class="brand">@detalle.MarcaProducto</span>
-                        }
-                        <div class="content_detalle_set_showroom">
-                            <div class="content_imagen_individual">
-                                <img src="@detalle.Imagen">
-                            </div>
-                            <div class="content_descripcion_set">
-                                <span class="product_name">@detalle.NombreProducto</span>
-                                <span class="price">@detalle.Descripcion1</span>
-                                <span class="price">@detalle.Descripcion3</span>
-                                <span class="price" style="margin-bottom:8px;">@detalle.Descripcion2</span>
-                            </div>
+    <div class="item_product">
+        @foreach (var detalle in Model.ListaDetalleOfertaShowRoom)
+        {
+            <div class="description_item">
+                @*<div class="quantity"><br />x1</div>*@
+                <div class="detail">
+                    @if (detalle.MarcaProducto != "")
+                    {
+                        <span class="brand">@detalle.MarcaProducto</span>
+                    }
+                    <div class="content_detalle_set_showroom">
+                        <div class="content_imagen_individual">
+                            <img src="@detalle.Imagen">
                         </div>
-
-
+                        <div class="content_descripcion_set">
+                            <span class="product_name">@detalle.NombreProducto</span>
+                            <span class="price">@detalle.Descripcion1</span>
+                            <span class="price">@detalle.Descripcion3</span>
+                            <span class="price" style="margin-bottom: 8px;">@detalle.Descripcion2</span>
+                        </div>
                     </div>
+
+
                 </div>
-                <div class="variants" style="display:none;">
-                    <a href="#" class="select_variant">
-                        <span class="color" style="background-color:#C31727;"></span>
+            </div>
+            <div class="variants" style="display: none;">
+                <a href="#" class="select_variant">
+                    <span class="color" style="background-color: #C31727;"></span>
+                    <span class="title_variant">
+                        Rojo Pimienta
+                    </span>
+                </a>
+                <span class="variants_items">
+                    <a href="#" data-color="#D44F82" data-title="Pimienta Caliente">
+                        <span class="color" style="background-color: #D44F82;"></span>
                         <span class="title_variant">
-                            Rojo Pimienta
+                            Pimienta Caliente
                         </span>
                     </a>
-                    <span class="variants_items">
-                        <a href="#" data-color="#D44F82" data-title="Pimienta Caliente">
-                            <span class="color" style="background-color:#D44F82;"></span>
-                            <span class="title_variant">
-                                Pimienta Caliente
-                            </span>
-                        </a>
-                        <a href="#" data-color="#B02F48" data-title="Café Habano">
-                            <span class="color" style="background-color:#B02F48;"></span>
-                            <span class="title_variant">
-                                Café Habano
-                            </span>
-                        </a>
-                        <a href="#" data-color="#E9316D" data-title="Ciruela Glam">
-                            <span class="color" style="background-color:#E9316D;"></span>
-                            <span class="title_variant">
-                                Ciruela Glam
-                            </span>
-                        </a>
-                        <a href="#" data-color="#C31727" data-title="Coral Ensueño">
-                            <span class="color" style="background-color:#C31727;"></span>
-                            <span class="title_variant">
-                                Coral Ensueño
-                            </span>
-                        </a>
-                        <a href="#" data-color="#DB2020" data-title="Frambuesa Encanto">
-                            <span class="color" style="background-color:#DB2020;"></span>
-                            <span class="title_variant">
-                                Frambuesa Encanto
-                            </span>
-                        </a>
-                        <a href="#" data-color="#95494C" data-title="Fucsia Vibrante">
-                            <span class="color" style="background-color:#95494C;"></span>
-                            <span class="title_variant">
-                                Fucsia Vibrante
-                            </span>
-                        </a>
-                        <a href="#" data-color="#982218" data-title="Magenta Sweet">
-                            <span class="color" style="background-color:#982218;"></span>
-                            <span class="title_variant">
-                                Magenta Sweet
-                            </span>
-                        </a>
-                        <a href="#" data-color="#EE7389" data-title="Melon Intense">
-                            <span class="color" style="background-color:#EE7389;"></span>
-                            <span class="title_variant">
-                                Melon Intense
-                            </span>
-                        </a>
-                        <a href="#" data-color="#DE5C52" data-title="Pimienta Caliente">
-                            <span class="color" style="background-color:#DE5C52;"></span>
-                            <span class="title_variant">
-                                Pimienta Caliente
-                            </span>
-                        </a>
-                        <a href="#" data-color="#CE7869" data-title="Café Habano">
-                            <span class="color" style="background-color:#CE7869;"></span>
-                            <span class="title_variant">
-                                Café Habano
-                            </span>
-                        </a>
-                    </span>
-                    <div class="variants_colors">
-                        <a href="#" class="variant" style="background-color:#D44F82;" data-color="#D44F82" data-title="Pimienta Caliente"></a>
-                        <a href="#" class="variant" style="background-color:#B02F48;" data-color="#B02F48" data-title="Café Habano"></a>
-                        <a href="#" class="variant" style="background-color:#E9316D;" data-color="#E9316D" data-title="Ciruela Glam"></a>
-                        <a href="#" class="variant" style="background-color:#C31727;" data-color="#C31727" data-title="Coral Ensueño"></a>
-                        <a href="#" class="variant" style="background-color:#DB2020;" data-color="#DB2020" data-title="Frambuesa Encanto"></a>
-                        <a href="#" class="variant" style="background-color:#95494C;" data-color="#95494C" data-title="Fucsia Vibrante"></a>
-                        <a href="#" class="variant" style="background-color:#982218;" data-color="#982218" data-title="Magenta Sweet"></a>
-                        <a href="#" class="variant" style="background-color:#EE7389;" data-color="#EE7389" data-title="Melon Intense"></a>
-                        <a href="#" class="variant" style="background-color:#DE5C52;" data-color="#DE5C52" data-title="Pimienta Caliente"></a>
-                        <a href="#" class="variant" style="background-color:#CE7869;" data-color="#CE7869" data-title="Café Habano"></a>
-                    </div>
+                    <a href="#" data-color="#B02F48" data-title="Café Habano">
+                        <span class="color" style="background-color: #B02F48;"></span>
+                        <span class="title_variant">
+                            Café Habano
+                        </span>
+                    </a>
+                    <a href="#" data-color="#E9316D" data-title="Ciruela Glam">
+                        <span class="color" style="background-color: #E9316D;"></span>
+                        <span class="title_variant">
+                            Ciruela Glam
+                        </span>
+                    </a>
+                    <a href="#" data-color="#C31727" data-title="Coral Ensueño">
+                        <span class="color" style="background-color: #C31727;"></span>
+                        <span class="title_variant">
+                            Coral Ensueño
+                        </span>
+                    </a>
+                    <a href="#" data-color="#DB2020" data-title="Frambuesa Encanto">
+                        <span class="color" style="background-color: #DB2020;"></span>
+                        <span class="title_variant">
+                            Frambuesa Encanto
+                        </span>
+                    </a>
+                    <a href="#" data-color="#95494C" data-title="Fucsia Vibrante">
+                        <span class="color" style="background-color: #95494C;"></span>
+                        <span class="title_variant">
+                            Fucsia Vibrante
+                        </span>
+                    </a>
+                    <a href="#" data-color="#982218" data-title="Magenta Sweet">
+                        <span class="color" style="background-color: #982218;"></span>
+                        <span class="title_variant">
+                            Magenta Sweet
+                        </span>
+                    </a>
+                    <a href="#" data-color="#EE7389" data-title="Melon Intense">
+                        <span class="color" style="background-color: #EE7389;"></span>
+                        <span class="title_variant">
+                            Melon Intense
+                        </span>
+                    </a>
+                    <a href="#" data-color="#DE5C52" data-title="Pimienta Caliente">
+                        <span class="color" style="background-color: #DE5C52;"></span>
+                        <span class="title_variant">
+                            Pimienta Caliente
+                        </span>
+                    </a>
+                    <a href="#" data-color="#CE7869" data-title="Café Habano">
+                        <span class="color" style="background-color: #CE7869;"></span>
+                        <span class="title_variant">
+                            Café Habano
+                        </span>
+                    </a>
+                </span>
+                <div class="variants_colors">
+                    <a href="#" class="variant" style="background-color: #D44F82;" data-color="#D44F82" data-title="Pimienta Caliente"></a>
+                    <a href="#" class="variant" style="background-color: #B02F48;" data-color="#B02F48" data-title="Café Habano"></a>
+                    <a href="#" class="variant" style="background-color: #E9316D;" data-color="#E9316D" data-title="Ciruela Glam"></a>
+                    <a href="#" class="variant" style="background-color: #C31727;" data-color="#C31727" data-title="Coral Ensueño"></a>
+                    <a href="#" class="variant" style="background-color: #DB2020;" data-color="#DB2020" data-title="Frambuesa Encanto"></a>
+                    <a href="#" class="variant" style="background-color: #95494C;" data-color="#95494C" data-title="Fucsia Vibrante"></a>
+                    <a href="#" class="variant" style="background-color: #982218;" data-color="#982218" data-title="Magenta Sweet"></a>
+                    <a href="#" class="variant" style="background-color: #EE7389;" data-color="#EE7389" data-title="Melon Intense"></a>
+                    <a href="#" class="variant" style="background-color: #DE5C52;" data-color="#DE5C52" data-title="Pimienta Caliente"></a>
+                    <a href="#" class="variant" style="background-color: #CE7869;" data-color="#CE7869" data-title="Café Habano"></a>
                 </div>
+            </div>
 
+        }
+    </div>
+</div>
+
+@if (Model.TieneCompraXcompra)
+{
+    if (Model.ListaShowRoomCompraPorCompra != null && Model.ListaShowRoomCompraPorCompra.Count > 0)
+    {
+        <div style="max-width: 250px; margin: 0 auto;">
+            <div class="box_promotions">
+                <div class="titulo_compra_carrusel">PROMOCIÓN</div>
+                <div class="content_compra_carrusel">
+                    @{ var posicionCpc = 1; }
+                    @foreach (var item in Model.ListaShowRoomCompraPorCompra)
+                    {
+                        var descripcion = item.Descripcion;
+                        if (descripcion != null && descripcion.Length > 41)
+                        {
+                            descripcion = descripcion.Substring(0, 40) + " ...";
+                        }
+                        <div data-posicion="@posicionCpc" data-item="@item.OfertaShowRoomID">
+                            <div data-campos="">
+                                <input type="hidden" class="hdOfertaShowRoomID" value="@item.OfertaShowRoomID"/>
+                                <input type="hidden" class="valorCuv" value="@item.CUV"/>
+                                <input type="hidden" class="claseMarcaID" value="@item.MarcaID"/>
+                                <input type="hidden" class="clasePrecioUnidad" value="@item.PrecioOferta"/>
+                                <input type="hidden" class="DescripcionProd" value="@item.Descripcion"/>
+                                <input type="hidden" class="DescripcionMarca" value="@item.DescripcionMarca"/>
+                                <input type="hidden" class="posicionEstrategia" value="@posicionCpc"/>
+                            </div>
+                            <div class="nombre_producto_pop_compra">@descripcion</div>
+                            <div class="precio_set_compra">A SÓLO @item.Simbolo @item.FormatoPrecioOferta</div>
+                            <div class="descripcion_compra">Valorizado en @item.Simbolo @item.FormatoPrecioValorizado</div>
+                            <div class="content_imagen_carrusel_compra">
+                                @if (item.ImagenProducto != "")
+                                {
+                                    <img src="@item.ImagenProducto" class="imagen_producto">
+                                }
+                                else
+                                {
+                                    <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto"/>
+                                }
+                            </div>
+                            <div style="height: 50px;">
+                                <div class="texto_banner_compra" style="text-align: center">
+                                    <span>@Model.TextoCondicionCompraCpc</span>
+                                </div>
+                            </div>
+
+                            <a class="btn_agrega_compra verDetalleCompraPorCompra">VER PROMOCIÓN</a>
+                        </div>
+                        {
+                            posicionCpc++;
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+
+    }
+}
+
+
+<div class="other_consultants">
+    <div class="oc_title">
+        <b>VER MÁS SETS</b> EXCLUSIVOS PARA TI
+    </div>
+    <div class="content_carrusel_intriga" id="divEstrategias">
+        @{ var posicionx = 0; }
+        <div class="variable-width">
+            @foreach (var oferta in Model.ListaOfertaShowRoom)
+            {
+                var descripcion = oferta.Descripcion;
+                if (descripcion != null && descripcion.Length > 41)
+                {
+                    descripcion = descripcion.Substring(0, 40) + " ...";
+                }
+
+                posicionx++;
+                <div class="slider_item" data-posicion="@posicionx" data-item="@oferta.OfertaShowRoomID" data-position="@posicionx">
+                    <div data-campos="" style="display: none;">
+                        <input type="hidden" class="hdOfertaShowRoomID" value="@oferta.OfertaShowRoomID"/>
+                        <input type="hidden" class="valorCuv" value="@oferta.CUV"/>
+                        <input type="hidden" class="claseMarcaID" value="@oferta.MarcaID"/>
+                        <input type="hidden" class="clasePrecioUnidad" value="@oferta.PrecioOferta"/>
+                        <input type="hidden" class="claseConfiguracionOfertaID" value="@oferta.ConfiguracionOfertaID"/>
+                        <input type="hidden" class="DescripcionProd" value="@oferta.Descripcion"/>
+                        <input type="hidden" class="DescripcionMarca" value="@oferta.DescripcionMarca"/>
+                        <input type="hidden" class="posicionEstrategia" value="@posicionx"/>
+                    </div>
+                    <a href="@Url.Action("DetalleOferta", "ShowRoom", new {id = oferta.OfertaShowRoomID, area = "Mobile"})" class="slider_item_content">
+                        <div data-img="">
+                            <img src="@oferta.ImagenProducto"/>
+                        </div>
+                        <span class="title">@descripcion</span>
+                        <span class="precio_tachado_carrusel_set">@oferta.Simbolo @oferta.FormatoPrecioValorizado</span>
+                        <span class="price"><b>@oferta.Simbolo @oferta.FormatoPrecioOferta </b></span>
+                    </a>
+                </div>
             }
         </div>
+        <div class="content_orden_carrusel" data-posicion-set="">
+            <div class="orden_listado_numero"><span data-posicion-current=""></span> / @posicionx</div>
+            <div class="linea_separadora_mobile" style="margin-top: -7px;"></div>
+            <div class="orden_flecha"><img src="@Url.Content("~/Content/Images/Esika/flecha_orden.png")" alt="flecha"/>
+            </div>
+            <div class="orden_flecha" style="right: 0;"><img src="@Url.Content("~/Content/Images/Esika/flecha_orden_right.png")" alt="flecha"/>
+            </div>
+        </div>
+
+
     </div>
 
-    @if (Model.TieneCompraXcompra)
-    {
-        if (Model.ListaShowRoomCompraPorCompra != null && Model.ListaShowRoomCompraPorCompra.Count > 0)
-        {
-            <div style="max-width:250px; margin:0 auto;">
-                <div class="box_promotions">
-                    <div class="titulo_compra_carrusel">PROMOCIÓN</div>
-                    <div class="content_compra_carrusel">
-                        @{ var posicionCpc = 1; }
-                        @foreach (var item in Model.ListaShowRoomCompraPorCompra)
-                        {
-                            var descripcion = item.Descripcion;
-                            if (descripcion != null && descripcion.Length > 41)
-                            {
-                                descripcion = descripcion.Substring(0, 40) + " ...";
-                            }
-                            <div data-posicion="@posicionCpc" data-item="@item.OfertaShowRoomID">
-                                <div data-campos="">
-                                    <input type="hidden" class="hdOfertaShowRoomID" value="@item.OfertaShowRoomID" />
-                                    <input type="hidden" class="valorCuv" value="@item.CUV" />
-                                    <input type="hidden" class="claseMarcaID" value="@item.MarcaID" />
-                                    <input type="hidden" class="clasePrecioUnidad" value="@item.PrecioOferta" />
-                                    <input type="hidden" class="DescripcionProd" value="@item.Descripcion" />
-                                    <input type="hidden" class="DescripcionMarca" value="@item.DescripcionMarca" />
-                                    <input type="hidden" class="posicionEstrategia" value="@posicionCpc" />
-                                </div>
-                                <div class="nombre_producto_pop_compra">@descripcion</div>
-                                <div class="precio_set_compra">A SÓLO @item.Simbolo @item.FormatoPrecioOferta</div>
-                                <div class="descripcion_compra">Valorizado en @item.Simbolo @item.FormatoPrecioValorizado</div>
-                                <div class="content_imagen_carrusel_compra">
-                                    @if (item.ImagenProducto != "")
-                                    {
-                                        <img src="@item.ImagenProducto" class="imagen_producto">
-                                    }
-                                    else
-                                    {
-                                        <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" />
-                                    }
-                                </div>
-                                <div style="height:50px;">
-                                    <div class="texto_banner_compra" style="text-align:center">
-                                        <span>@Model.TextoCondicionCompraCpc</span>
-                                    </div>
-                                </div>
-
-                                <a class="btn_agrega_compra verDetalleCompraPorCompra">VER PROMOCIÓN</a>
-                            </div>
-                            {
-                                posicionCpc++;
-                            }
-                        }
-                    </div>
-                </div>
-            </div>
-
-                                }
-                            }
-
-
-    <div class="other_consultants">
-        <div class="oc_title">
-            <b>VER MÁS SETS</b>  EXCLUSIVOS PARA TI
-        </div>
-        <div class="content_carrusel_intriga" id="divEstrategias">
-            @{ var posicionx = 0; }
-            <div class="variable-width">
-                @foreach (var oferta in Model.ListaOfertaShowRoom)
-                {
-                    var descripcion = oferta.Descripcion;
-                    if (descripcion != null && descripcion.Length > 41)
-                    {
-                        descripcion = descripcion.Substring(0, 40) + " ...";
-                    }
-
-                    posicionx++;
-                    <div class="slider_item" data-posicion="@posicionx" data-item="@oferta.OfertaShowRoomID" data-position="@posicionx">
-                        <div data-campos="" style="display:none;">
-                            <input type="hidden" class="hdOfertaShowRoomID" value="@oferta.OfertaShowRoomID" />
-                            <input type="hidden" class="valorCuv" value="@oferta.CUV" />
-                            <input type="hidden" class="claseMarcaID" value="@oferta.MarcaID" />
-                            <input type="hidden" class="clasePrecioUnidad" value="@oferta.PrecioOferta" />
-                            <input type="hidden" class="claseConfiguracionOfertaID" value="@oferta.ConfiguracionOfertaID" />
-                            <input type="hidden" class="DescripcionProd" value="@oferta.Descripcion" />
-                            <input type="hidden" class="DescripcionMarca" value="@oferta.DescripcionMarca" />
-                            <input type="hidden" class="posicionEstrategia" value="@posicionx" />
-                        </div>
-                        <a href="@Url.Action("DetalleOferta", "ShowRoom", new {id = oferta.OfertaShowRoomID, area="Mobile"})" class="slider_item_content">
-                            <div data-img="">
-                                <img src="@oferta.ImagenProducto" />
-                            </div>
-                            <span class="title">@descripcion</span>
-                            <span class="precio_tachado_carrusel_set">@oferta.Simbolo @oferta.FormatoPrecioValorizado</span>
-                            <span class="price"><b>@oferta.Simbolo @oferta.FormatoPrecioOferta </b></span>
-                        </a>
-                    </div>
-                }
-            </div>
-            <div class="content_orden_carrusel" data-posicion-set="">
-                <div class="orden_listado_numero"><span data-posicion-current=""></span> / @posicionx</div>
-                <div class="linea_separadora_mobile" style="margin-top:-7px;"></div>
-                <div class="orden_flecha"><img src="@Url.Content("~/Content/Images/Esika/flecha_orden.png")" alt="flecha" /></div>
-                <div class="orden_flecha" style="right:0;"><img src="@Url.Content("~/Content/Images/Esika/flecha_orden_right.png")" alt="flecha" /></div>
-            </div>
-
-
-        </div>
-
+</div>
+@if (!string.IsNullOrEmpty(Model.TipNegocio))
+{
+    <div class="business_tips">
+        <h3 class="title">tip de negocio</h3>
+        <div class="content">@Model.TipNegocio</div>
     </div>
-    @if (!string.IsNullOrEmpty(Model.TipNegocio))
-    {
-        <div class="business_tips">
-            <h3 class="title">tip de negocio</h3>
-            <div class="content">@Model.TipNegocio</div>
-        </div>
-    }
-    <div class="share_social_nertwoks" data-posicion="0" data-item="@Model.OfertaShowRoomID">
-        <div data-compartir-campos="" style="display:none;">
-            <input type="hidden" class="CUV" value="@Model.CUV" />
-            <input type="hidden" class="rsFBMensaje" value="@Model.FBMensaje" />
-            <input type="hidden" class="rsFBRuta" value="@Model.FBRuta" />
-            <input type="hidden" class="rsWAMensaje" value="@Model.FBMensaje" />
-            <input type="hidden" class="rsWARuta" value="@Model.FBRuta" />
-            <input type="hidden" class="rsFBRutaImagen" value="@Model.ImagenProducto" />
-            <input type="hidden" class="rsWARutaImagen" value="@Model.ImagenProducto" />
-            <input type="hidden" class="Nombre" value="@Model.Descripcion" />
-            <input type="hidden" class="MarcaID" value="@Model.MarcaID" />
-            <input type="hidden" class="MarcaNombre" value="@Model.DescripcionMarca" />
-            <input type="hidden" class="ProductoDescripcion" value="@Model.Descripcion" />
-            <input type="hidden" class="Palanca" value="SR" />
-        </div>
+}
+<div class="share_social_nertwoks" data-posicion="0" data-item="@Model.OfertaShowRoomID">
+    <div data-compartir-campos="" style="display: none;">
+        <input type="hidden" class="CUV" value="@Model.CUV"/>
+        <input type="hidden" class="rsFBMensaje" value="@Model.FBMensaje"/>
+        <input type="hidden" class="rsFBRuta" value="@Model.FBRuta"/>
+        <input type="hidden" class="rsWAMensaje" value="@Model.FBMensaje"/>
+        <input type="hidden" class="rsWARuta" value="@Model.FBRuta"/>
+        <input type="hidden" class="rsFBRutaImagen" value="@Model.ImagenProducto"/>
+        <input type="hidden" class="rsWARutaImagen" value="@Model.ImagenProducto"/>
+        <input type="hidden" class="Nombre" value="@Model.Descripcion"/>
+        <input type="hidden" class="MarcaID" value="@Model.MarcaID"/>
+        <input type="hidden" class="MarcaNombre" value="@Model.DescripcionMarca"/>
+        <input type="hidden" class="ProductoDescripcion" value="@Model.Descripcion"/>
+        <input type="hidden" class="Palanca" value="SR"/>
+    </div>
     @if (mobileConfiguracion.MostrarBotonAtras)
     {
         <div class="title">Comparte este producto con tus clientes:</div>
@@ -298,8 +314,8 @@
                 <img src="/Content/Images/Mobile/Esika/facebook.png">
             </a>
         </div>
-    }        
-    </div>
+    }
+</div>
 </div>
 <div class="content_btn_agregar" data-posicion="0" data-item="@Model.OfertaShowRoomID">
     <div data-campos="" style="display:none;">

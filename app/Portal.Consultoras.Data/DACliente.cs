@@ -42,10 +42,11 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        public IDataReader GetClienteByConsultora(long ConsultoraID)
+        public IDataReader GetClienteByConsultora(long ConsultoraID, int ClienteID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetClienteByConsultora");
             Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, ConsultoraID);
+            Context.Database.AddInParameter(command, "@ClienteID", DbType.Int32, ClienteID);
 
             return Context.ExecuteReader(command);
         }
@@ -65,6 +66,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@TipoContactoFavorito", DbType.Int16, cliente.TipoContactoFavorito);
             Context.Database.AddInParameter(command, "@NombreCliente", DbType.AnsiString, cliente.NombreCliente);
             Context.Database.AddInParameter(command, "@ApellidoCliente", DbType.AnsiString, cliente.ApellidoCliente);
+            Context.Database.AddInParameter(command, "@Origen", DbType.AnsiString, cliente.Origen);
 
             Context.ExecuteNonQuery(command);
             cliente.ClienteID = Convert.ToInt32(command.Parameters["@ClienteID"].Value);
@@ -201,6 +203,23 @@ namespace Portal.Consultoras.Data
             }
         }
 
+        public bool MovimientoEliminar(long consultoraId, short clienteId, int movimientoId)
+        {
+            using (var command = Context.Database.GetStoredProcCommand("dbo.ClienteMovimiento_Eliminar"))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+
+                Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int64, consultoraId);
+                Context.Database.AddInParameter(command, "@ClienteId", DbType.Int32, clienteId);
+                Context.Database.AddInParameter(command, "@MovimientoId", DbType.Int32, movimientoId);
+
+                using (var reader = Context.ExecuteReader(command))
+                {
+                    return reader.RecordsAffected == 1;
+                }
+            }
+        }
+
         public IDataReader MovimientosListar(short clienteId, long consultoraId)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ClienteMovimiento_Listar");
@@ -243,13 +262,14 @@ namespace Portal.Consultoras.Data
             return identity;
         }
 
-        public IDataReader RecordatorioObtener(long consultoraId)
+        public IDataReader RecordatorioObtener(long consultoraId, short ClienteId)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ClienteRecordatorio_Listar");
 
             command.CommandType = CommandType.StoredProcedure;
 
             Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int64, consultoraId);
+            Context.Database.AddInParameter(command, "@ClienteId", DbType.Int16, ClienteId);
 
             return Context.ExecuteReader(command);
         }
@@ -328,13 +348,14 @@ namespace Portal.Consultoras.Data
             }
         }
 
-        public IDataReader NotaObtener(long consultoraId)
+        public IDataReader NotaObtener(long consultoraId, short clienteId)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ClienteNota_Listar");
 
             command.CommandType = CommandType.StoredProcedure;
 
             Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int64, consultoraId);
+            Context.Database.AddInParameter(command, "@ClienteId", DbType.Int16, clienteId);
 
             return Context.ExecuteReader(command);
         }
@@ -375,6 +396,19 @@ namespace Portal.Consultoras.Data
             command.CommandType = CommandType.StoredProcedure;
 
             Context.Database.AddInParameter(command, "@consultoraId", DbType.Int64, consultoraId);
+
+            return Context.ExecuteReader(command);
+        }
+
+        public IDataReader GetClienteByConsultoraDetalle(long ConsultoraID, int CampaniaID, int ClienteID)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetClienteByConsultoraDetalle");
+
+            command.CommandType = CommandType.StoredProcedure;
+
+            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, ConsultoraID);
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
+            Context.Database.AddInParameter(command, "@ClienteID", DbType.Int32, ClienteID);
 
             return Context.ExecuteReader(command);
         }

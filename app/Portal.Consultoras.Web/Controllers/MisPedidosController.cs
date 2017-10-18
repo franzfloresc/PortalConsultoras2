@@ -33,8 +33,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    listaPedidoFacturados = sv.GetPedidosIngresadoFacturado(userData.PaisID, Convert.ToInt32(userData.ConsultoraID), userData.CampaniaID,
-                        userData.CodigoConsultora).ToList();
+                    listaPedidoFacturados = sv.GetPedidosIngresadoFacturado(userData.PaisID, Convert.ToInt32(userData.ConsultoraID), userData.CampaniaID, userData.CodigoConsultora).ToList();
                 }
                 using (SC.ClienteServiceClient sv = new SC.ClienteServiceClient())
                 {
@@ -50,6 +49,7 @@ namespace Portal.Consultoras.Web.Controllers
                     listaPedidoFacturados.Update(x =>
                     {
                         x.RutaPaqueteDocumentario = ObtenerRutaPaqueteDocumentario(x.CampaniaID);
+                        x.ImporteTotal = x.ImporteTotal - x.DescuentoProl;
                         x.ImporteCredito = x.ImporteTotal - x.Flete;
                     });
                     model.ListaFacturados = listaPedidoFacturados;
@@ -69,8 +69,8 @@ namespace Portal.Consultoras.Web.Controllers
                 string paisID = usuario.PaisID.ToString();
                 string codigoConsultora = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : usuario.CodigoConsultora;
                 string mostrarAyudaWebTracking = Convert.ToInt32(usuario.MostrarAyudaWebTraking).ToString();
-                string paisISO = UserData().CodigoISO.Trim();
-                string campanhaID = UserData().CampaniaID.ToString();
+                string paisISO = userData.CodigoISO.Trim();
+                string campanhaID = userData.CampaniaID.ToString();
 
                 string url = "/WebPages/WebTracking.aspx?data=" + Util.EncriptarQueryString(paisID, codigoConsultora, mostrarAyudaWebTracking, paisISO, campanhaID);
 
@@ -230,7 +230,10 @@ namespace Portal.Consultoras.Web.Controllers
                     UpdPedidoWebMontosPROL();
                     dataBarra = GetDataBarra();
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                }
 
                 return Json(new { success = true, message = "", dataBarra = dataBarra });
             }
@@ -363,7 +366,7 @@ namespace Portal.Consultoras.Web.Controllers
             string[] arrTotal = { "Total:", userData.Simbolo + " #ImporteTotalPedido" };
 
             ExportToExcelMultiple("PedidosWebExcel", lstDetalles, dicCabeceras, dicDetalles, arrTotal);
-            return View();
+            return new EmptyResult();
         }
 
         private void ExportToExcelMultiple(string filename, List<SC.BEPedidoWebDetalle> SourceDetails, List<KeyValuePair<int, string>> columnHeaderDefinition,
@@ -513,9 +516,9 @@ namespace Portal.Consultoras.Web.Controllers
                 stream = null;
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
         }
 
@@ -567,7 +570,7 @@ namespace Portal.Consultoras.Web.Controllers
             string[] arrTotal = { "Importe Total:", " #CodigoUsuarioCreacion", "Flete:", " #CodigoUsuarioModificacion", "Total Facturado:", " #Mensaje", };
 
             ExportToExcelMultipleFacturado("PedidosWebExcel", lst, dicCabeceras, dicDetalles, arrTotal, vTotalParcial, vFlete, vTotalFacturado);
-            return View();
+            return new EmptyResult();
         }
 
         private void ExportToExcelMultipleFacturado(string filename, List<BEPedidoWebDetalle> SourceDetails, List<KeyValuePair<int, string>> columnHeaderDefinition,
@@ -702,9 +705,10 @@ namespace Portal.Consultoras.Web.Controllers
                 HttpContext.Response.End();
                 stream = null;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                UsuarioModel userModel = userData ?? new UsuarioModel();
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userModel.CodigoConsultora, userModel.CodigoISO);
             }
         }
 
@@ -785,8 +789,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPedidoWebDetalle> items = itemCliente.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize).ToList();
 
             var totalpedido = itemCliente.Sum(p => p.ImporteTotal);
+            var montoConDescto = cliente == -1 ? totalpedido - pedidoWeb.DescuentoProl : totalpedido;
             var ImporteTotal = Util.DecimalToStringFormat(totalpedido, userData.CodigoISO);
-            var montoConDescto = Util.DecimalToStringFormat(totalpedido - pedidoWeb.DescuentoProl, userData.CodigoISO);
+            var montoConDesctoString = Util.DecimalToStringFormat(montoConDescto, userData.CodigoISO);
             var itm = items.FirstOrDefault() ?? new BEPedidoWebDetalle();
             // Creamos la estructura
             var data = new
@@ -809,7 +814,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ImporteTotal,
                 ImporteFlete = Util.DecimalToStringFormat(0, userData.CodigoISO),
                 OfertaNiveles = Util.DecimalToStringFormat(pedidoWeb.DescuentoProl, userData.CodigoISO),
-                ImporteFacturado = montoConDescto,
+                ImporteFacturado = montoConDesctoString,
                 Ganancia = Util.DecimalToStringFormat(pedidoWeb.MontoAhorroCatalogo + pedidoWeb.MontoAhorroRevista, userData.CodigoISO),
                 Rows = items.Select(a => new
                 {

@@ -71,7 +71,13 @@ namespace Portal.Consultoras.ServiceContracts
         BEUsuario GetSesionUsuario(int paisID, string codigoUsuario);
 
         [OperationContract]
+        BEUsuario GetSesionUsuarioWS(int paisID, string codigoUsuario);
+
+        [OperationContract]
         bool IsUserExist(int paisID, string CodigoUsuario);
+
+        [OperationContract]
+        string IsConsultoraExist(int paisID, string CodigoConsultora);
 
         [OperationContract]
         bool ChangePasswordUser(int paisID, string codigoUsuarioAutenticado, string emailCodigoUsuarioModificado, string password, string emailUsuarioModificado, EAplicacionOrigen origen);
@@ -320,7 +326,7 @@ namespace Portal.Consultoras.ServiceContracts
         BEUsuarioExterno GetUsuarioExternoByCodigoUsuario(int paisID, string codigoUsuario);
 
         [OperationContract]
-        BEUsuarioExterno GetUsuarioExternoByProveedorAndIdApp(string proveedor, string idAplicacion);
+        BEUsuarioExterno GetUsuarioExternoByProveedorAndIdApp(string proveedor, string idAplicacion, string fotoPerfil);
 
         [OperationContract]
         List<BEUsuarioExterno> GetListaLoginExterno(int paisID, string codigoUsuario);
@@ -341,9 +347,13 @@ namespace Portal.Consultoras.ServiceContracts
 
         #region TerminosCondiciones
         [OperationContract]
-        bool InsertTerminosCondiciones(BETerminosCondiciones terminos);
+        bool InsertTerminosCondiciones(BETerminosCondiciones terminos);
+        #endregion
+
+        #region EventoFestivo
+        /*HD-817*/
         [OperationContract]
-        BETerminosCondiciones GetTerminosCondiciones(int PaisID, string CodigoConsultora, short Tipo);
+        IList<BEEventoFestivo> GetEventoFestivo(int paisID, string Alcance, int Campania);
         #endregion
     }
 }

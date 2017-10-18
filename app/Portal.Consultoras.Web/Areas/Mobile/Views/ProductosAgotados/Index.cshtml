@@ -1,9 +1,11 @@
-﻿@using Portal.Consultoras.Web.Models
+﻿@using Portal.Consultoras.Web.Helpers
+@using Portal.Consultoras.Web.Models
 
 @model PedidoDetalleModel
 
 @{
-    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+    var layout =  ViewContext.MobileLayout();
+    Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
 }
 
 @section styles{
@@ -18,7 +20,8 @@
         if (mobileConfiguracion.MostrarBotonAtras)
         {
             <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
-        } }
+        } 
+    }
     &nbsp;&nbsp;&nbsp;&nbsp;PRODUCTOS AGOTADOS
 </div>
 
