@@ -3375,6 +3375,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                 switch (entConf.ConfiguracionPais.Codigo)
                 {
+                    case Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada:
+                        seccion.UrlObtenerProductos = "";
+                        seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.GNDMobileContenedor : Constantes.OrigenPedidoWeb.GNDDesktopContenedor;
+                        break;
                     case Constantes.ConfiguracionPais.OfertasParaTi:
                         seccion.UrlObtenerProductos = "OfertasParaTi/ConsultarEstrategiasOPT";
                         seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding : Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding;
@@ -3486,6 +3490,7 @@ namespace Portal.Consultoras.Web.Controllers
             return modelo.OrderBy(s => s.Orden).ToList();
 
         }
+
         public ConfiguracionSeccionHomeModel ObtenerSeccionHomePalanca(string codigo, int campaniaId)
         {
             var seccion = new ConfiguracionSeccionHomeModel();
@@ -3498,6 +3503,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return seccion;
         }
+
         public bool RDObtenerTitulosSeccion(ref string titulo, ref string subtitulo, string codigo)
         {
             if (codigo == Constantes.ConfiguracionPais.RevistaDigital)
