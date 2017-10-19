@@ -1,13 +1,9 @@
 ﻿using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServiceCatalogosIssuu;
 using Portal.Consultoras.Web.ServiceCliente;
-using Portal.Consultoras.Web.ServiceUsuario;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.ServiceModel;
@@ -31,25 +27,16 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 			clienteModel.CodigoRevistaAnterior = GetRevistaCodigoIssuu(clienteModel.CampaniaAnterior);
 			clienteModel.CodigoRevistaSiguiente = GetRevistaCodigoIssuu(clienteModel.CampaniaSiguiente);
 
-			ViewBag.CodigoISO = userData.CodigoISO;
-			ViewBag.EsConsultoraNueva = userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Registrada ||
-				userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Retirada;
+		    clienteModel.MostrarRevistaDigital = revistaDigital.TieneRDR;
+		    clienteModel.RevistaDigital = revistaDigital;
 
+            ViewBag.CodigoISO = userData.CodigoISO;
+			ViewBag.EsConsultoraNueva = EsConsultoraNueva();
 			string PaisesCatalogoWhatsUp = ConfigurationManager.AppSettings.Get("PaisesCatalogoWhatsUp") ?? string.Empty;
 			ViewBag.ActivacionAppCatalogoWhastUp = PaisesCatalogoWhatsUp.Contains(userData.CodigoISO) ? 1 : 0;
 			ViewBag.TextoMensajeSaludoCorreo = TextoMensajeSaludoCorreo;
-
-            clienteModel.MostrarRevistaDigital = userData.RevistaDigital.TieneRDR;
-		    ViewBag.TieneRDC = userData.RevistaDigital.TieneRDC;
-		    ViewBag.TieneRDR = userData.RevistaDigital.TieneRDR;
-		    ViewBag.TieneRDS = userData.RevistaDigital.TieneRDS;
-		    ViewBag.EstadoSucripcionRD = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
-		    ViewBag.EstadoSucripcionRDAnterior1 = userData.RevistaDigital.SuscripcionAnterior1Model.EstadoRegistro;
-		    ViewBag.EstadoSucripcionRDAnterior2 = userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro;
-		    ViewBag.NumeroCampania = userData.CampaniaID % 100;
-		    ViewBag.NumeroCampaniaMasUno = AddCampaniaAndNumero(Convert.ToInt32(userData.CampaniaID), 1) % 100;
 		    ViewBag.NombreConsultora = userData.Sobrenombre;
-
+            
 			return View(clienteModel);
 		}
 

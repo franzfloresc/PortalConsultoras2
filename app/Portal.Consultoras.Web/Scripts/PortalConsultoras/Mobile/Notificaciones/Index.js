@@ -1,6 +1,5 @@
 ﻿function VisualizarPopup(ProcesoId, Observaciones, Estado, FacturaHoy, DiaFact, MesFact, Visualizado, Asunto, Proceso) {
     ShowLoading();
-   
     var TipoOrigen;   
     switch (Proceso) {
         case "VALAUTO": TipoOrigen = 1; break;
@@ -18,7 +17,7 @@
     else if (TipoOrigen == 5) location.href = urlDetalleSolicitudClienteCatalogo + "?SolicitudId=" + ProcesoId;
     else if (TipoOrigen == 4) location.href = Estado == 0 ? urlConsultoraOnlinePendientes : urlConsultoraOnlineHistorial;
     else if (TipoOrigen == 3) location.href = urlListarObservacionesStock + "?ProcesoId=" + ProcesoId;
-    else if (TipoOrigen == 7) location.href = urlListarDetalleCDR + "?solicitudId=" + ProcesoId;
-    else if (TipoOrigen == 8) location.href = urlListarDetalleCDRCulminado + "?solicitudId=" + ProcesoId;
+    else if (TipoOrigen == 7) location.href = urlListarDetalleCDRCulminado + "?solicitudId=" + ProcesoId + "&Proceso=" + Proceso;
+    else if (TipoOrigen == 8) location.href = urlListarDetalleCDRCulminado + "?solicitudId=" + ProcesoId + "&Proceso=" + Proceso;
     else location.href = urlListarObservaciones + "?ProcesoId=" + ProcesoId + "&TipoOrigen=" + TipoOrigen;
 }

@@ -299,10 +299,15 @@ function OfertaArmarEstrategias(response) {
     divProd.find("#spnCantidadFiltro").html(cantProdFiltros);
     divProd.find("#spnCantidadTotal").html(response.cantidadTotal);
 
-    modeloTemp.lista = response.listaPerdio;
-    var divPredio = $("#divOfertaProductosPerdio");
-    var htmlDivPerdio = SetHandlebars("#producto-landing-template", modeloTemp);
-    divPredio.append(htmlDivPerdio);
+    if (response.listaPerdio != undefined) {
+        if (response.listaPerdio.length > 0) {
+            modeloTemp.lista = response.listaPerdio;
+            var divPredio = $("#divOfertaProductosPerdio");
+            var htmlDivPerdio = SetHandlebars("#producto-landing-template", modeloTemp);
+            divPredio.append(htmlDivPerdio);
+        }
+    }
+
     ResizeBoxContnet();
 
     if (!isDetalle) {
@@ -340,10 +345,10 @@ function OfertaArmarEstrategiasContenedorSeccion(response) {
     if (cant > 0) {
         var newLista = [];
         var listaItem = response.Seccion.Codigo == "LAN" ? response.listaLan : response.lista;
-
+        listaItem = response.Seccion.Codigo != "LAN" ? listaItem.concat(response.listaPerdio || []) : listaItem;
         $.each(listaItem, function (ind, item) {
             if (("," + response.Seccion.TipoEstrategia + ",").indexOf("," + item.CodigoEstrategia + ",") >= 0) {
-                if (ind < cant) {
+                if (newLista.length < cant) {
                     newLista.push(item);
                 }
             }

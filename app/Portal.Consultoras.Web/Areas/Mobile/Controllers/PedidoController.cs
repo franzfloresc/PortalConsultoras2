@@ -11,6 +11,7 @@ using System.Configuration;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Portal.Consultoras.Web.Helpers;
 using BEPedidoWeb = Portal.Consultoras.Web.ServicePedido.BEPedidoWeb;
 using BEPedidoWebDetalle = Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle;
 
@@ -118,8 +119,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             ViewBag.MensajePedidoMobile = userData.MensajePedidoMobile;
 
-            ViewBag.MobileApp = (Session["MobileAppConfiguracion"] == null ? false : true);
-            var mobileConfiguracion = (Session["MobileAppConfiguracion"] == null ? new MobileAppConfiguracionModel() : (MobileAppConfiguracionModel)Session["MobileAppConfiguracion"]);
+            ViewBag.MobileApp = (this.GetUniqueSession<MobileAppConfiguracionModel>("MobileAppConfiguracion", false) == null ? false : true);
+            var mobileConfiguracion = this.GetUniqueSession<MobileAppConfiguracionModel>("MobileAppConfiguracion");
             //var clienteSeleccionado = model.ListaClientes.Where(x => x.CodigoCliente == mobileConfiguracion.ClienteID).FirstOrDefault();
             //model.Nombre = (clienteSeleccionado == null ? string.Empty : (clienteSeleccionado.ClienteID == 0 ? string.Empty : clienteSeleccionado.ClienteID.ToString()));
             model.ClienteId = mobileConfiguracion.ClienteID;
@@ -139,25 +140,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("BUCKET_NAME") ?? string.Empty;
             model.TieneMasVendidos = userData.TieneMasVendidos;
             //model.TieneOfertaLog = userData.TieneOfertaLog;
+            model.RevistaDigital = revistaDigital;
 
-            ViewBag.TieneRDC = userData.RevistaDigital.TieneRDC;
-            ViewBag.TieneRDR = userData.RevistaDigital.TieneRDR;
-            ViewBag.TieneRDC = userData.RevistaDigital.TieneRDC;
-            ViewBag.TieneRDS = userData.RevistaDigital.TieneRDS;
-            ViewBag.EstadoSucripcionRD = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
-            ViewBag.EstadoSucripcionRDAnterior1 = userData.RevistaDigital.SuscripcionAnterior1Model.EstadoRegistro;
-            ViewBag.EstadoSucripcionRDAnterior2 = userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro;
-            ViewBag.NumeroCampania = userData.CampaniaID % 100;
-            ViewBag.NumeroCampaniaMasUno = AddCampaniaAndNumero(Convert.ToInt32(userData.CampaniaID), 1) % 100;
             #region EventoFestivo
-            if (userData.EfRutaPedido == null || userData.EfRutaPedido == "")
-            {
-                ViewBag.UrlFranjaNegra = "../../../Content/Images/Esika/background_pedido.png";
-            }
-            else
-            {
-                ViewBag.UrlFranjaNegra = userData.EfRutaPedido;
-            }
+            var eventofestivo = GetEventoFestivoData();
+            ViewBag.UrlFranjaNegra = string.IsNullOrEmpty(eventofestivo.EfRutaPedido) ? 
+                "../../../Content/Images/Esika/background_pedido.png" : 
+                eventofestivo.EfRutaPedido;
             #endregion
 
             return View("Index", model);
@@ -355,9 +344,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.NombreConsultora = userData.Sobrenombre;
             if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
                 model.Prol = "GUARDA TU PEDIDO";
-
-            ViewBag.OfertaFinalEstado = userData.OfertaFinalModel.Estado;
-            ViewBag.OfertaFinalAlgoritmo = userData.OfertaFinalModel.Algoritmo;
+            var ofertaFinalModel = GetOfertaFinal();
+            ViewBag.OfertaFinalEstado = ofertaFinalModel.Estado;
+            ViewBag.OfertaFinalAlgoritmo = ofertaFinalModel.Algoritmo;
             ViewBag.UrlTerminosOfertaFinalRegalo = string.Format("{0}/SomosBelcorp/FileConsultoras/{1}/Flyer_Regalo_Sorpresa.pdf", ConfigurationManager.AppSettings.Get("oferta_final_regalo_url_s3"), userData.CodigoISO);
             return View(model);
         }
@@ -735,7 +724,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    listaParametriaOfertaFinal = sv.GetParametriaOfertaFinal(userData.PaisID,userData.OfertaFinalModel.Algoritmo).ToList() ?? new List<BEEscalaDescuento>();
+                    listaParametriaOfertaFinal = sv.GetParametriaOfertaFinal(userData.PaisID,GetOfertaFinal().Algoritmo).ToList() ?? new List<BEEscalaDescuento>();
                 }
             }
             catch (Exception)

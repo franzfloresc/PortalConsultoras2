@@ -3,7 +3,7 @@
 @model Portal.Consultoras.Web.Models.ShowRoomOfertaModel
 
 @{
-    var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel() : (Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+    var mobileConfiguracion = Html.MobileAppConfiguracion();
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayoutContenedor.cshtml";
 }
 @section styles

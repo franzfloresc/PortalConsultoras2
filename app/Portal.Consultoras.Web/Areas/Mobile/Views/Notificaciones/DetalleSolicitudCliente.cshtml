@@ -1,5 +1,6 @@
 ﻿@using Portal.Consultoras.Web.Models
 @using System.Globalization;
+@using Portal.Consultoras.Web.Helpers
 @model SolicitudClienteConsultoraModel
 @{
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
@@ -16,7 +17,7 @@
 <input type="hidden" id="hdSolicitudId" value="@Model.SolicitudClienteId" />
 
 <div class="titulo_mobile">
-    @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel() : (Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+    @{  var mobileConfiguracion = Html.MobileAppConfiguracion();
         if (mobileConfiguracion.MostrarBotonAtras)
         {
             <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
