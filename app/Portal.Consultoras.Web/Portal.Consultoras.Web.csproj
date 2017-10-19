@@ -184,6 +184,7 @@
     <Compile Include="App_Start\RouteConfig.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Areas\Mobile\Controllers\GuiaNegocioController.cs" />
     <Compile Include="Areas\Mobile\Controllers\MisDatosController.cs" />
     <Compile Include="Areas\Mobile\Controllers\CompartirController.cs" />
     <Compile Include="Areas\Mobile\Controllers\CatalogoRevistaController.cs" />
@@ -4727,6 +4728,7 @@
   <ItemGroup>
     <Folder Include="Annotations\App_Data\" />
     <Folder Include="Areas\Mobile\Views\EstrategiaProductoComentario\" />
+    <Folder Include="Areas\Mobile\Views\GuiaNegocio\" />
     <Folder Include="Content\ArchivoNivelGeografico\" />
     <Folder Include="GestionPasos\Asignaciones\" />
     <Folder Include="Views\BaseShowRoom\" />
