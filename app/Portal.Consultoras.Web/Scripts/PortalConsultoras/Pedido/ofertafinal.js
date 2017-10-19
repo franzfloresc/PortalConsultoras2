@@ -721,6 +721,7 @@ function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simbolo, flag)
         var sep = (tipoOrigen == 1) ? ' | ' : '<br />';
         var disclaimer = '*En caso tu pedido no tenga observaciones y supere el monto mínimo.';
 
+        if (tipoOrigen == 2) $('#div-content-of-titulo').addClass('margenSuperiorProgramaNuevas');
         $('#msjOfertaFinal').hide();
         $('#div-regalo-pn').hide();
         $('#div-count-ofertas').hide();
