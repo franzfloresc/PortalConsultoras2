@@ -17,7 +17,7 @@
 
 .bc_plantilla_estrategia_personalizada .titulo {
     display: block;
-    padding: 4% 6%;
+    padding: 4% 2.5% 2% 2.5%;
     text-align: center;
     padding-bottom: 5px;
     margin-bottom: 15px !important;
@@ -342,7 +342,7 @@
     text-align: center;
     position: absolute;
     /*left: 18%;*/
-    left:0%;
+    left:1.5%;
     /* padding: 0 18%; */
     padding: 0 11%;
 }
