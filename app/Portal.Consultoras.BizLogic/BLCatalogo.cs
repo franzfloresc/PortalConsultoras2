@@ -268,14 +268,14 @@ namespace Portal.Consultoras.BizLogic
                     PaisISO = paisISO
                 });
 
-                lstCatalogoRevista.Add(new BECatalogoRevista
-                {
-                    MarcaID = Constantes.Marca.Finart,
-                    MarcaDescripcion = "Finart",
-                    UrlImagen = Constantes.CatalogoImagenDefault.Catalogo,
-                    CampaniaID = Convert.ToInt32(itemCampania),
-                    PaisISO = paisISO
-                });
+                //lstCatalogoRevista.Add(new BECatalogoRevista
+                //{
+                //    MarcaID = Constantes.Marca.Finart,
+                //    MarcaDescripcion = "Finart",
+                //    UrlImagen = Constantes.CatalogoImagenDefault.Catalogo,
+                //    CampaniaID = Convert.ToInt32(itemCampania),
+                //    PaisISO = paisISO
+                //});
             }
 
             return lstCatalogoRevista;
