@@ -46,6 +46,7 @@ namespace Portal.Consultoras.Web.Controllers
         public BaseController()
         {
             userData = new UsuarioModel();
+            logManager = LogManager.LogManager.Instance;
         }
 
         public BaseController(ISessionManager sessionManager)
