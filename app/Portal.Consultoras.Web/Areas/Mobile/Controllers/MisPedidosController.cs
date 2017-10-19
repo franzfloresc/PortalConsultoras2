@@ -118,7 +118,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     var result = service.GetMisPedidosFacturados(userData.PaisID, userData.ConsultoraID, campaniaID, mobileConfiguracion.ClienteID, userData.NombreConsultora);
 
                     var TotalPedido = result.Sum(x => x.ImportePedido);
-                    ViewBag.TotalPedido = Util.DecimalToStringFormat(TotalPedido, userData.CodigoISO);
+                    ViewBag.TotalPedido = Util.DecimalToStringFormat(TotalPedido, userData.CodigoISO, userData.Simbolo);
 
                     foreach (var item in result)
                     {
