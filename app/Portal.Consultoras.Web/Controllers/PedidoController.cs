@@ -3864,7 +3864,7 @@ namespace Portal.Consultoras.Web.Controllers
             ObjOfertaFinal.Limite = limiteJetlore;
             ObjOfertaFinal.MontoEscala = GetDataBarra().MontoEscala;
             ObjOfertaFinal.MontoMinimo = userData.MontoMinimo;
-            ObjOfertaFinal.MontoTotal = ObtenerPedidoWebDetalle().Sum(p => p.ImporteTotal - (p.DescuentoProl.Equals(null) ? 0 : p.DescuentoProl));
+            ObjOfertaFinal.MontoTotal = ObtenerPedidoWebDetalle().Sum(p => p.ImporteTotal);
             ObjOfertaFinal.TipoOfertaFinal = tipoOfertaFinal;
             ObjOfertaFinal.TipoProductoMostrar = tipoProductoMostrar;
 
