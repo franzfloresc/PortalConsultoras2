@@ -522,6 +522,15 @@ namespace Portal.Consultoras.Common
             //FichaProducto VirtualCoach
             public const int DesktopPedidoVirtualCoach = 1231;
             public const int MobilePedidoVirtualCoach = 2231;
+
+            // Guía de Negocio Digitalizada
+            public const int GNDDesktopContenedor = 1711;
+            public const int GNDDesktopLanding = 1711;
+            public const int GNDDesktopLandingPopUp = 1712;
+            public const int GNDDesktopProductPage = 1731;
+            public const int GNDMobileContenedor = 1711;
+            public const int GNDMobileLanding = 1711;
+            public const int GNDMobileProductPage = 1731;
         }
 
         public class TipoTutorial
@@ -864,6 +873,7 @@ namespace Portal.Consultoras.Common
             public const string ShowRoom = "SR";
             public const string OfertaDelDia = "ODD";
             public const string Informacion = "INFO";
+            public const string GuiaDeNegocioDigitalizada = "GND";
         }
 
         public class ConfiguracionSeccion

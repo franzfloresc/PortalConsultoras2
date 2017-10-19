@@ -86,6 +86,13 @@ function SeccionCargarProductos(objConsulta) {
         $("#ODD").find(".seccion-content-contenedor").fadeIn();   
     }
 
+    if (objConsulta.TipoPresentacion == CONS_TIPO_PRESENTACION.Banners) {
+        if (objConsulta.UrlObtenerProductos === "") {
+            $("#" + objConsulta.Codigo).find(".seccion-loading-contenedor").fadeOut();
+            $("#" + objConsulta.Codigo).find(".seccion-content-contenedor").fadeIn();
+        }
+        return false;
+    }
     if (objConsulta.UrlObtenerProductos === "")
         return false;
 
