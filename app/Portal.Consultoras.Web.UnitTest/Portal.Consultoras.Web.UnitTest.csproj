@@ -94,6 +94,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AreasMobile\Mobile\GuiaNegocioControllerUnitTests.cs" />
     <Compile Include="Controllers\BaseControllerUnitTest.cs" />
     <Compile Include="Controllers\GestionContenidoControllerUnitTest.cs" />
     <Compile Include="Controllers\PedidoControllerUnitTest.cs" />
