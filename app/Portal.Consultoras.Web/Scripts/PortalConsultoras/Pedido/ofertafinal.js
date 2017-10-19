@@ -523,7 +523,7 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
                         $("#msjOfertaFinal span").html('Monto Total de Pedido: ' + simbolo + ' ' + data.formatoTotal);
 
                     $('#msjOfertaFinal').css('margin-bottom', '0');
-                    if (tipoOrigen == 2) $('#div-regalo-pn').css('padding-top', '20px');
+                    //if (tipoOrigen == 2) $('#div-regalo-pn').css('padding-top', '20px');
                 }
                 $('#msjOfertaFinal').show();
             }

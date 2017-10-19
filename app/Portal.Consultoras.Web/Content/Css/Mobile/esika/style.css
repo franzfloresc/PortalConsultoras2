@@ -8935,7 +8935,8 @@ span.title-app-b {
     top: 11px;
     right: 11px;
     float: none;
-    }
+    z-index:1000;
+}
 
 .popup_ofertaFinal .icono_aprobacion{
     width:60px;
@@ -8950,7 +8951,7 @@ span.title-app-b {
     font-size: 18px;
     font-weight: bold;
     text-align: center;
-    line-height: 21px;
+    line-height: 19px;
     color: #000000;
     margin-bottom:14px;
 }
@@ -11311,6 +11312,10 @@ a{
     margin-bottom:0;
 }
 
+.margenSuperiorProgramaNuevas{
+    margin-top:-40px;
+}
+
 .texto_comple_ficha{
     font-size:13px;
     font-weight:400;
@@ -12826,7 +12831,7 @@ a{
     vertical-align:middle;
     text-align: left;
     padding-top:5px;
-    max-width: 225px;
+    max-width: 259px;
 }
 .content-texto-producto-alternativo b{
     font-weight:900 !important;
