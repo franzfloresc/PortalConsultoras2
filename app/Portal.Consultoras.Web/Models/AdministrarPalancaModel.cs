@@ -34,7 +34,10 @@ namespace Portal.Consultoras.Web.Models
         public string MobileLogoBanner { get; set; }
         public string UrlMenu { get; set; }
 
-
+        //BPT 353
+        public int OrdenBpt { get; set; }
+        public int MobileOrden { get; set; }
+        public int MobileOrdenBpt { get; set; }
 
 
         public int PaisID { get; set; }
