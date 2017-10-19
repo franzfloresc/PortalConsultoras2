@@ -7,6 +7,7 @@ var cuvOfertaProl = cuvOfertaProl || "";
 var oRegaloPN = null;
 var ofertaFinalRegalo = null;
 var esOfertaFinalRegalo = false;
+var totalProductosOF = 0;
 
 $(document).ready(function () {
    
@@ -254,6 +255,7 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
     //$('div.popup_ofertaFinal').removeClass('fondo_gris_OF');
     $('#divOfertaFinal').html('<div style="text-align: center;">Actualizando Productos de Oferta Final<br><img src="' + urlLoad + '" /></div>');
 
+    totalProductosOF = cumpleOferta.productosMostrar.length;
     var objOf = cumpleOferta.productosMostrar[0];
     objOf.MetaPorcentaje = $.trim(objOf.TipoMeta);
     objOf.Detalle = cumpleOferta.productosMostrar;
@@ -370,7 +372,7 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
 
     if (tipoOrigen === "1") {
         if($("#id_btn_noGracias_agregarProductos").length > 0){
-            $("#id_btn_noGracias_agregarProductos").css({ 'margen': "auto" });
+            $("#id_btn_noGracias_agregarProductos").css({ 'margin': "auto" , "line-height":"49px" });
             $("#id_btn_noGracias_agregarProductos").hide();
             $("#id_btn_noGracias_agregarProductos").show();
         }
@@ -427,6 +429,11 @@ function MostrarOfertaFinalRegalo(totalPedido) {
         if (tipoOrigen == '1') {
             $(container).show();
             //$('div.popup_ofertaFinal').addClass('fondo_gris_OF');
+        }
+
+        if (tipoOrigen == 1) {
+            $('#count-ofertas').text(totalProductosOF);
+            $('#div-count-ofertas').show();
         }
     }
 }
@@ -721,7 +728,9 @@ function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simbolo, flag)
         var sep = (tipoOrigen == 1) ? ' | ' : '<br />';
         var disclaimer = '*En caso tu pedido no tenga observaciones y supere el monto mínimo.';
 
+        if (tipoOrigen == 1) $('#div-popup-ofertafinal').css('padding-top', '0');
         if (tipoOrigen == 2) $('#div-content-of-titulo').addClass('margenSuperiorProgramaNuevas');
+
         $('#msjOfertaFinal').hide();
         $('#div-regalo-pn').hide();
         $('#div-count-ofertas').hide();
@@ -739,7 +748,6 @@ function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simbolo, flag)
             $('#img-regalo-pn').attr('src', oRegaloPN.UrlImagenRegalo);
             ('div.content_imagen_alternativo').show();
         }
-        $('div.content_imagen_alternativo').show();
 
         if (tipoMeta == 'MM') {
             if (montoTotal >= montoMeta) {

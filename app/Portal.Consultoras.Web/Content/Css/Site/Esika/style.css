@@ -4917,8 +4917,8 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     margin-top:50px;
     vertical-align:top;
 }
-.popup_ofertaFinal.pt-0{
-    padding-top:0;
+.popup_ofertaFinal.pt-26{
+    padding-top:26px;
 }
 .icono_mensaje_alerta.tamanioIcono{
     width:55px;
@@ -4968,14 +4968,15 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     /*margin-top: 18px;*/
     /*TEXT-TRANSFORM: uppercase;*/
 }
-.descripcion_ofertaFinal.mb-0{
+/*.descripcion_ofertaFinal.mb-0{
     margin-bottom:0;
-}
+}*/
 .descripcion_cant_sets_productos_ofertaFinal{
     display:block;
     text-align:left;
     padding-left: 88px;
     box-sizing: border-box;
+    margin-bottom:-5px;
 }
 .texto_complemento_oferta{
     text-transform:uppercase;
@@ -4989,7 +4990,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
    display: block;
     /* background: #f5f5f5; */
     height: auto;
-    padding-top: 25px;
+    /*padding-top: 25px*/;
     /* padding-bottom: 20px; */
     position: relative;
     z-index: 2;

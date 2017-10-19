@@ -2163,7 +2163,7 @@ else
             <b>TE FALTA AGREGAR: <span id="of-regalo-montosaldo">$23.999</span></b>
         </div>
     </div>
-    <div class="popup_ofertaFinal pt-0" data-meta="{{TipoMeta}}" data-meta-total="{{TotalPedido}}" data-popup-body="" style="height:auto;">
+    <div class="popup_ofertaFinal pt-26" data-meta="{{TipoMeta}}" data-meta-total="{{TotalPedido}}" data-popup-body="" style="height:auto;" id="div-popup-ofertafinal">
         <!--SI SALE EL DIV DE PRODUCTO ALTERNATIVO SE AÑADE LA CLASE "fondo_gris_OF"-->
         <div class="numero_pedido mt-0 mb-21" id="div-numero-pedido" style="display: none;">
             <div class="numero_pedido_fondo">
@@ -2222,10 +2222,10 @@ else
                 </div>
             </div>
             <div class="contenedor_bloques_agregaProductos">
-                <div class="descripcion_cant_sets_productos_ofertaFinal" id="div-count-ofertas">
+                <div class="descripcion_cant_sets_productos_ofertaFinal" id="div-count-ofertas" style="display: none;">
                     Aquí encontrarás los <span id="count-ofertas">12</span> mejores sets para ganar tu premio.
                 </div>
-                <div style="margin: -12px auto 0 auto; width:90%;" class="bloque_carousel">
+                <div style="margin: 0 auto; width:90%;" class="bloque_carousel">
                     <div style="margin-left: 27px; margin-right: 27px; position: relative;">
                         <div class="slider center" id="divCarruselOfertaFinal" style="width: 100%">
 
@@ -2303,15 +2303,16 @@ else
                         </div>
                     </div>
                 </div>
-                <div class="contenedor_boton_reservarPedido">
-                    <button id="id_btn_noGracias_agregarProductos" name="btn_noGracias_agregarProductos" class="btn_noGracias_agregarProductos btnNoGraciasOfertaFinal icono_terminar_pedido" id="btnNoGraciasOfertaFinal" style="display:{{#iff TipoMeta '==' 'MM'}}none;{{else}}block;{{/iff}}" onclick="of_google_analytics_cerrar_popup()">
-                        RESERVA TU PEDIDO
-                    </button>
+                <div style="display: block; position: relative; top: -8px;">
+                    <div class="contenedor_boton_reservarPedido">
+                        <a id="id_btn_noGracias_agregarProductos" name="btn_noGracias_agregarProductos" class="btn_noGracias_agregarProductos btnNoGraciasOfertaFinal icono_terminar_pedido" id="btnNoGraciasOfertaFinal" style="display:{{#iff TipoMeta '==' 'MM'}}none;{{else}}block;{{/iff}}" onclick="of_google_analytics_cerrar_popup()">
+                            RESERVA TU PEDIDO
+                        </a>
+                    </div>
+                    <div id="txt-disclaimer-pn" class="txt-ayuda1-pn" style="display: none;">
+                        *En caso tu pedido no tenga observaciones y supere el monto mínimo.
+                    </div>
                 </div>
-                <div id="txt-disclaimer-pn" class="txt-ayuda1-pn" style="display: none;">
-                    *En caso tu pedido no tenga observaciones y supere el monto mínimo.
-                </div>
-
                 <hr class="clear" />
             </div>
             <div class="bloque_detalle_gris"></div>
