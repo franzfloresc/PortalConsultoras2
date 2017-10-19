@@ -3326,6 +3326,12 @@ namespace Portal.Consultoras.Web.Controllers
 
                 string titulo = "", subTitulo = "";
 
+                var configPis = ConfiguracionPaisObtener(entConf.ConfiguracionPais.Codigo);
+                if (!configPis.Excluyente)
+                {
+                    if (configPis.ConfiguracionPaisID <= 0) continue;
+                }
+
                 if (entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigital
                     || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigitalReducida
                     || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.OfertasParaTi)
@@ -3350,7 +3356,7 @@ namespace Portal.Consultoras.Web.Controllers
                         entConf.UrlSeccion = "RevistaDigital/Revisar";
                     }
                 }
-                if (entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.Lanzamiento)
+                else if (entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.Lanzamiento)
                 {
                     if (!revistaDigital.TieneRDC && !revistaDigital.TieneRDR) continue;
 
@@ -3620,6 +3626,10 @@ namespace Portal.Consultoras.Web.Controllers
                 case Constantes.UrlMenuContenedor.OfertaDelDia:
                 case Constantes.UrlMenuContenedor.OfertaDelDiaIndex:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.OfertaDelDia;
+                    break;
+                case Constantes.UrlMenuContenedor.GuiaDeNegocio:
+                case Constantes.UrlMenuContenedor.GuiaDeNegocioIndex:
+                    menuActivo.Codigo = Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada;
                     break;
                 default:
                     break;
@@ -4042,6 +4052,15 @@ namespace Portal.Consultoras.Web.Controllers
         {
             return GetSession(Constantes.ConstSession.ConfiguracionPaises) as List<ConfiguracionPaisModel> ??
                    new List<ConfiguracionPaisModel>();
+        }
+
+        public ConfiguracionPaisModel ConfiguracionPaisObtener(string codigo)
+        {
+            codigo = Util.Trim(codigo).ToUpper();
+            var listado = ListConfiguracionPais();
+            var entidad = listado.FirstOrDefault(c => c.Codigo == codigo) ?? new ConfiguracionPaisModel();
+            
+            return entidad;
         }
 
         public EventoFestivoDataModel GetEventoFestivoData()
