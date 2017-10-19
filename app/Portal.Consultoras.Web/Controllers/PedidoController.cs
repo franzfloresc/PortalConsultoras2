@@ -379,7 +379,7 @@ namespace Portal.Consultoras.Web.Controllers
                 else
                 {
                     ViewBag.UrlFranjaNegra = eventofestivo.EfRutaPedido;
-                }                    
+                }
                 #endregion
             }
             catch (FaultException ex)
@@ -641,7 +641,7 @@ namespace Portal.Consultoras.Web.Controllers
                     tipo,
                     modificoBackOrder,
                     DataBarra = !errorServer ? GetDataBarra() : new BarraConsultoraModel(),
-                    cantidadTotalProductos = ObtenerPedidoWebDetalle().Sum(dp => dp.Cantidad)                   
+                    cantidadTotalProductos = ObtenerPedidoWebDetalle().Sum(dp => dp.Cantidad)
                 });
 
             }
@@ -1294,7 +1294,8 @@ namespace Portal.Consultoras.Web.Controllers
                 string menMmax = ValidarMontoMaximo(Convert.ToDecimal(PrecioUnidad), entidad.Cantidad, out resul);
                 //FIN EPD-2337
 
-                if (menMmax == "" || resul) {
+                if (menMmax == "" || resul)
+                {
                     using (PedidoServiceClient svc = new PedidoServiceClient())
                     {
                         mensaje = svc.ValidarStockEstrategia(entidad);
@@ -1379,7 +1380,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     if (!item.EsOfertaIndependiente)
                     { //Reemplazar solo dependientes.
-                        DeletePedido(item);                        
+                        DeletePedido(item);
                     }
                 }
                 Session["PedidoWebDetalle"] = null;
@@ -1490,9 +1491,9 @@ namespace Portal.Consultoras.Web.Controllers
                     olstProductoModel.Add(new ProductoModel() { MarcaID = 0, CUV = "El producto solicitado no existe.", TieneSugerido = 0 });
                     return Json(olstProductoModel, JsonRequestBehavior.AllowGet);
                 }
-                
+
                 var codigoEstrategia = Util.Trim(olstProducto[0].TipoEstrategiaCodigo);
-                    
+
                 if (Constantes.TipoEstrategiaCodigo.Lanzamiento == codigoEstrategia
                     || Constantes.TipoEstrategiaCodigo.OfertasParaMi == codigoEstrategia
                     || Constantes.TipoEstrategiaCodigo.PackAltoDesembolso == codigoEstrategia)
@@ -1508,7 +1509,7 @@ namespace Portal.Consultoras.Web.Controllers
                         return Json(olstProductoModel, JsonRequestBehavior.AllowGet);
                     }
                 }
-                
+
                 var listaEstrategias = (List<BEEstrategia>)Session[Constantes.ConstSession.ListaEstrategia] ?? new List<BEEstrategia>();
                 var estrategia = listaEstrategias.FirstOrDefault(p => p.CUV2 == model.CUV) ?? new BEEstrategia();
                 if (estrategia.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.OfertaParaTi)
@@ -3863,7 +3864,7 @@ namespace Portal.Consultoras.Web.Controllers
             ObjOfertaFinal.Limite = limiteJetlore;
             ObjOfertaFinal.MontoEscala = GetDataBarra().MontoEscala;
             ObjOfertaFinal.MontoMinimo = userData.MontoMinimo;
-            ObjOfertaFinal.MontoTotal = ObtenerPedidoWebDetalle().Sum(p => p.ImporteTotal);
+            ObjOfertaFinal.MontoTotal = ObtenerPedidoWebDetalle().Sum(p => p.ImporteTotal - (p.DescuentoProl.Equals(null) ? 0 : p.DescuentoProl));
             ObjOfertaFinal.TipoOfertaFinal = tipoOfertaFinal;
             ObjOfertaFinal.TipoProductoMostrar = tipoProductoMostrar;
 
@@ -4040,7 +4041,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-        
+
         public ActionResult AccederOfertasVALAUTOPROL(string script)
         {
             var area = "";
@@ -4478,7 +4479,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     mensaje = svc.ValidarStockEstrategia(entidad);
                 }
-                
+
                 mensaje = Util.Trim(mensaje);
             }
             catch (FaultException ex)
