@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
+using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Layout;
 using Portal.Consultoras.Web.ServiceCDR;
@@ -36,6 +37,7 @@ namespace Portal.Consultoras.Web.Controllers
         protected UsuarioModel userData;
         protected RevistaDigitalModel revistaDigital;
         protected ISessionManager sessionManager = SessionManager.SessionManager.Instance;
+        protected ILogManager logManager = LogManager.LogManager.Instance;
 
         #endregion
 

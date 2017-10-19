@@ -397,6 +397,7 @@
     <Compile Include="Helpers\ControllerExtensions.cs" />
     <Compile Include="Helpers\ViewExtensions.cs" />
     <Compile Include="Infraestructure\UniqueRoute.cs" />
+    <Compile Include="LogManager\ILogManager.cs" />
     <Compile Include="LogManager\LogManager.cs" />
     <Compile Include="Models\AdmCuponModel.cs" />
     <Compile Include="Models\AdministrarOfertasHomeModel.cs" />

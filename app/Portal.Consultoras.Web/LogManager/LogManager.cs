@@ -6,8 +6,21 @@ using System.ServiceModel;
 
 namespace Portal.Consultoras.Web.LogManager
 {
-    public static class LogManager
+    public class LogManager:ILogManager
     {
+        private static ILogManager _instance;
+
+        public static ILogManager Instance
+        {
+            get
+            {
+                if (_instance == null)
+                    _instance = new LogManager();
+
+                return _instance;
+            }
+        }
+
         private static string pathFile = ConfigurationManager.AppSettings["LogPath"].ToString() + "SB2\\";
 
         public static void LogErrorWebServicesPortal(FaultException exception, string usuario, string pais)
@@ -33,6 +46,10 @@ namespace Portal.Consultoras.Web.LogManager
                 Origen = "ServidorWeb",
                 Titulo = "Seguimiento de Errores Web Portal"
             }, pathFile);
+        }
+        public void LogErrorWebServicesBusWrap(Exception exception, string usuario, string pais, string adicional = "")
+        {
+            LogManager.LogErrorWebServicesBus(exception, usuario, pais, adicional);
         }
 
         public static void LogActions(ErrorsLog model)
