@@ -20,7 +20,8 @@ namespace Portal.Consultoras.Web.Controllers
             codAgrupacion = Util.Trim(codAgrupacion);
             var listEstrategia = new List<BEEstrategia>();
 
-            if (codAgrupacion != Constantes.TipoEstrategiaCodigo.Lanzamiento)
+            if (codAgrupacion != Constantes.TipoEstrategiaCodigo.Lanzamiento 
+                && codAgrupacion != Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada)
             {
                 listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.PackNuevas, campaniaId));
                 listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.OfertaWeb, campaniaId));
@@ -34,6 +35,9 @@ namespace Portal.Consultoras.Web.Controllers
                     break;
                 case Constantes.TipoEstrategiaCodigo.Lanzamiento:
                     listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.Lanzamiento, campaniaId));
+                    break;
+                case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
+                    listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada, campaniaId));
                     break;
                 default:
                     listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.OfertaParaTi, campaniaId));

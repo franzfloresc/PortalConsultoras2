@@ -269,6 +269,7 @@
     <Compile Include="Controllers\AdministrarTipoEstrategiaController.cs" />
     <Compile Include="Controllers\AsesoraOnlineController.cs" />
     <Compile Include="Controllers\BaseControllerUnete.cs" />
+    <Compile Include="Controllers\BaseGuiaNegocioController.cs" />
     <Compile Include="Controllers\BaseRevistaDigitalController.cs" />
     <Compile Include="Controllers\BaseEstrategiaController.cs" />
     <Compile Include="Controllers\BaseShowRoomController.cs" />
@@ -358,6 +359,7 @@
     <Compile Include="Controllers\ReportePedidoDDWebController.cs" />
     <Compile Include="Controllers\ReportePedidoFICController.cs" />
     <Compile Include="Controllers\ReservaSAPController.cs" />
+    <Compile Include="Controllers\GuiaNegocioController.cs" />
     <Compile Include="Controllers\RevistaDigitalController.cs" />
     <Compile Include="Controllers\RolController.cs" />
     <Compile Include="Controllers\RVDigitalController.cs" />
@@ -4408,6 +4410,7 @@
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpDialogMensajes.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpTemplateResumenCampania.cshtml" />
     <Content Include="Views\AdministrarGuiaNegocioDigitalizada\Index.cshtml" />
+    <Content Include="Views\GuiaNegocio\Index.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

@@ -9,13 +9,13 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class GuiaNegocioController : BaseRevistaDigitalController
+    public class GuiaNegocioController : BaseGuiaNegocioController
     {
         public ActionResult Index()
         {
             try
             {
-                return RedirectToAction("Index", "Ofertas");
+                return ViewLanding();
             }
             catch (Exception ex)
             {
