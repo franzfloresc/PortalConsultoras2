@@ -4,7 +4,7 @@ GO
 GO
 update TipoEstrategia
 set Codigo = '009'
-where (RTRIM(LTRIM(Upper(DescripcionEstrategia))) = 'OFERTA DEL DÍA' 
+where (RTRIM(LTRIM(Upper(DescripcionEstrategia))) = 'OFERTA DEL DÃA' 
 	OR RTRIM(LTRIM(Upper(DescripcionEstrategia))) = 'OFERTA DEL DIA')
 AND RTRIM(LTRIM(ISNULL(Codigo, ''))) = ''
 GO
@@ -30,7 +30,7 @@ GO
 GO
 update TipoEstrategia
 set Codigo = '009'
-where (RTRIM(LTRIM(Upper(DescripcionEstrategia))) = 'OFERTA DEL DÍA' 
+where (RTRIM(LTRIM(Upper(DescripcionEstrategia))) = 'OFERTA DEL DÃA' 
 	OR RTRIM(LTRIM(Upper(DescripcionEstrategia))) = 'OFERTA DEL DIA')
 AND RTRIM(LTRIM(ISNULL(Codigo, ''))) = ''
 GO
@@ -56,7 +56,7 @@ GO
 GO
 update TipoEstrategia
 set Codigo = '009'
-where (RTRIM(LTRIM(Upper(DescripcionEstrategia))) = 'OFERTA DEL DÍA' 
+where (RTRIM(LTRIM(Upper(DescripcionEstrategia))) = 'OFERTA DEL DÃA' 
 	OR RTRIM(LTRIM(Upper(DescripcionEstrategia))) = 'OFERTA DEL DIA')
 AND RTRIM(LTRIM(ISNULL(Codigo, ''))) = ''
 GO
@@ -82,7 +82,7 @@ GO
 GO
 update TipoEstrategia
 set Codigo = '009'
-where (RTRIM(LTRIM(Upper(DescripcionEstrategia))) = 'OFERTA DEL DÍA' 
+where (RTRIM(LTRIM(Upper(DescripcionEstrategia))) = 'OFERTA DEL DÃA' 
 	OR RTRIM(LTRIM(Upper(DescripcionEstrategia))) = 'OFERTA DEL DIA')
 AND RTRIM(LTRIM(ISNULL(Codigo, ''))) = ''
 GO
@@ -108,7 +108,7 @@ GO
 GO
 update TipoEstrategia
 set Codigo = '009'
-where (RTRIM(LTRIM(Upper(DescripcionEstrategia))) = 'OFERTA DEL DÍA' 
+where (RTRIM(LTRIM(Upper(DescripcionEstrategia))) = 'OFERTA DEL DÃA' 
 	OR RTRIM(LTRIM(Upper(DescripcionEstrategia))) = 'OFERTA DEL DIA')
 AND RTRIM(LTRIM(ISNULL(Codigo, ''))) = ''
 GO
@@ -134,7 +134,7 @@ GO
 GO
 update TipoEstrategia
 set Codigo = '009'
-where (RTRIM(LTRIM(Upper(DescripcionEstrategia))) = 'OFERTA DEL DÍA' 
+where (RTRIM(LTRIM(Upper(DescripcionEstrategia))) = 'OFERTA DEL DÃA' 
 	OR RTRIM(LTRIM(Upper(DescripcionEstrategia))) = 'OFERTA DEL DIA')
 AND RTRIM(LTRIM(ISNULL(Codigo, ''))) = ''
 GO
@@ -160,7 +160,7 @@ GO
 GO
 update TipoEstrategia
 set Codigo = '009'
-where (RTRIM(LTRIM(Upper(DescripcionEstrategia))) = 'OFERTA DEL DÍA' 
+where (RTRIM(LTRIM(Upper(DescripcionEstrategia))) = 'OFERTA DEL DÃA' 
 	OR RTRIM(LTRIM(Upper(DescripcionEstrategia))) = 'OFERTA DEL DIA')
 AND RTRIM(LTRIM(ISNULL(Codigo, ''))) = ''
 GO
@@ -186,7 +186,7 @@ GO
 GO
 update TipoEstrategia
 set Codigo = '009'
-where (RTRIM(LTRIM(Upper(DescripcionEstrategia))) = 'OFERTA DEL DÍA' 
+where (RTRIM(LTRIM(Upper(DescripcionEstrategia))) = 'OFERTA DEL DÃA' 
 	OR RTRIM(LTRIM(Upper(DescripcionEstrategia))) = 'OFERTA DEL DIA')
 AND RTRIM(LTRIM(ISNULL(Codigo, ''))) = ''
 GO
@@ -212,7 +212,7 @@ GO
 GO
 update TipoEstrategia
 set Codigo = '009'
-where (RTRIM(LTRIM(Upper(DescripcionEstrategia))) = 'OFERTA DEL DÍA' 
+where (RTRIM(LTRIM(Upper(DescripcionEstrategia))) = 'OFERTA DEL DÃA' 
 	OR RTRIM(LTRIM(Upper(DescripcionEstrategia))) = 'OFERTA DEL DIA')
 AND RTRIM(LTRIM(ISNULL(Codigo, ''))) = ''
 GO
@@ -238,7 +238,7 @@ GO
 GO
 update TipoEstrategia
 set Codigo = '009'
-where (RTRIM(LTRIM(Upper(DescripcionEstrategia))) = 'OFERTA DEL DÍA' 
+where (RTRIM(LTRIM(Upper(DescripcionEstrategia))) = 'OFERTA DEL DÃA' 
 	OR RTRIM(LTRIM(Upper(DescripcionEstrategia))) = 'OFERTA DEL DIA')
 AND RTRIM(LTRIM(ISNULL(Codigo, ''))) = ''
 GO
@@ -264,7 +264,7 @@ GO
 GO
 update TipoEstrategia
 set Codigo = '009'
-where (RTRIM(LTRIM(Upper(DescripcionEstrategia))) = 'OFERTA DEL DÍA' 
+where (RTRIM(LTRIM(Upper(DescripcionEstrategia))) = 'OFERTA DEL DÃA' 
 	OR RTRIM(LTRIM(Upper(DescripcionEstrategia))) = 'OFERTA DEL DIA')
 AND RTRIM(LTRIM(ISNULL(Codigo, ''))) = ''
 GO
@@ -290,7 +290,7 @@ GO
 GO
 update TipoEstrategia
 set Codigo = '009'
-where (RTRIM(LTRIM(Upper(DescripcionEstrategia))) = 'OFERTA DEL DÍA' 
+where (RTRIM(LTRIM(Upper(DescripcionEstrategia))) = 'OFERTA DEL DÃA' 
 	OR RTRIM(LTRIM(Upper(DescripcionEstrategia))) = 'OFERTA DEL DIA')
 AND RTRIM(LTRIM(ISNULL(Codigo, ''))) = ''
 GO
@@ -316,7 +316,7 @@ GO
 GO
 update TipoEstrategia
 set Codigo = '009'
-where (RTRIM(LTRIM(Upper(DescripcionEstrategia))) = 'OFERTA DEL DÍA' 
+where (RTRIM(LTRIM(Upper(DescripcionEstrategia))) = 'OFERTA DEL DÃA' 
 	OR RTRIM(LTRIM(Upper(DescripcionEstrategia))) = 'OFERTA DEL DIA')
 AND RTRIM(LTRIM(ISNULL(Codigo, ''))) = ''
 GO
