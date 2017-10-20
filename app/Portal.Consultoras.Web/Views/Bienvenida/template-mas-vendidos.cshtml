@@ -13,16 +13,16 @@
                 </div>
                 <div class="producto_nombre_descripcion">
                     <h6>{{DescripcionMarca}}</h6>
-                    {{#IsNullOrEmpty DescripcionResumen '!='}}
+                    {{#iff DescripcionResumen '!=' ''}}
                     <p class="nombre_producto">
                         <b>{{DescripcionResumen}}</b>
                     </p>
-                    {{/IsNullOrEmpty}}
-                    {{#IsNullOrEmpty DescripcionCortada '!='}}
+                    {{/iff}}
+                    {{#iff DescripcionCortada '!=' ''}}
                     <p class="nombre_producto">
                         <b>{{DescripcionCortada}}</b>
                     </p>
-                    {{/IsNullOrEmpty}}
+                    {{/iff}}
 
                     <div class="producto_precio">
                         <div style="height:15px">

@@ -4,394 +4,390 @@
     Layout = "~/Views/Shared/_SACLayout.cshtml";
 }
 
-
-@(new HtmlString(ViewBag.HTMLSACUnete))
-
-
 <link href="https://fonts.googleapis.com/css?family=Lato:400,700italic,300,700,900" rel="stylesheet" type="text/css" />
-@*
-    <div class="redborder w100 lateralPadding20">
-        <div id="Filters" class="redborder" style="">
 
-            <div class="FilterContainers redborder">
-                <div class="inputContainer redborder">
-                    <input type="text" id="CampIni" placeholder="Campaña Inicio" name="name" value="" />
-                </div>
-                <div class="inputContainer redborder">
-                    <input type="text" id="CampFin" placeholder="Campaña Fin" name="name" value="" />
-                </div>
-                <div class="buttonContainer redborder">
-                    <input type="button" id="buttonFuenteIngreso" onclick="GetData()" value="Aceptar" />
-                </div>
+<div class="redborder w100 lateralPadding20">
+    <div id="Filters" class="redborder" style="">
+
+        <div class="FilterContainers redborder">
+            <div class="inputContainer redborder">
+                <input type="text" id="CampIni" placeholder="Campaña Inicio" name="name" value="" />
             </div>
-
-        </div>
-        <div class="excelDiv redborder" style="height:30px;">
-
-            <a href="javascript:void(0);" style="margin-left:40px; margin-top:-5px; float:right;" onclick="ExportExcel();" class="acciones_pagos redborder"><img src="@Url.Content("~/Content/Images/Esika/excel.png")" /></a>
-
-        </div>
-
-        <h1 class="titulo_reporte_fuente_ingreso tipografia_lato tipografia_lato_light">
-            REPORTE POR <span class="tipografia_lato_regular">FUENTE DE INGRESO</span>
-        </h1>
-
-
-        <div id="ContainerGrid" class="redborder" style="height:auto">
-            <div id="gridFuenteIngreso" class="grilla_reporte_fuente_ingreso tipografia_lato">
+            <div class="inputContainer redborder">
+                <input type="text" id="CampFin" placeholder="Campaña Fin" name="name" value="" />
+            </div>
+            <div class="buttonContainer redborder">
+                <input type="button" id="buttonFuenteIngreso" onclick="GetData()" value="Aceptar" />
             </div>
         </div>
 
     </div>
-    <script>
+    <div class="excelDiv redborder" style="height:30px;">
 
-        var dataGrid = null;
-        var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
+        <a href="javascript:void(0);" style="margin-left:40px; margin-top:-5px; float:right;" onclick="ExportExcel();" class="acciones_pagos redborder"><img src="@Url.Content("~/Content/Images/Esika/excel.png")" /></a>
 
-         $(document).ready(function () {
+    </div>
 
-            setGridHeaders();
-         });
+    <h1 class="titulo_reporte_fuente_ingreso tipografia_lato tipografia_lato_light">
+        REPORTE POR <span class="tipografia_lato_regular">FUENTE DE INGRESO</span>
+    </h1>
 
-         function setGridHeaders()
+
+    <div id="ContainerGrid" class="redborder" style="height:auto">  
+        <div id="gridFuenteIngreso" class="grilla_reporte_fuente_ingreso tipografia_lato">             
+        </div>
+    </div>
+
+</div>
+<script>
+  
+    var dataGrid = null;
+    var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
+
+     $(document).ready(function () {
+
+        setGridHeaders();
+     });
+
+     function setGridHeaders()
+     {
+         $('#gridFuenteIngreso').append('<div class="grilla_cabecera" >' +
+                '<div class="col_campania col_cabecera tipografia_lato_semibold">Campaña</div>' +
+                '<div class="col_ub col_cabecera tipografia_lato_semibold">UB</div>' +
+                '<div class="col_portalGZ col_cabecera tipografia_lato_semibold">Portal GZ</div>' +
+                '<div class="col_callCenter col_cabecera tipografia_lato_semibold">Call center</div>' +
+                '<div class="col_AppSE col_cabecera tipografia_lato_semibold">App SE</div>' +
+
+             '</div>');
+     }
+     function GetData()
+     {
+         if( $('#CampIni').val()=='' && $('#CampFin').val()=='')
          {
-             $('#gridFuenteIngreso').append('<div class="grilla_cabecera" >' +
-                    '<div class="col_campania col_cabecera tipografia_lato_semibold">Campaña</div>' +
-                    '<div class="col_ub col_cabecera tipografia_lato_semibold">UB</div>' +
-                    '<div class="col_portalGZ col_cabecera tipografia_lato_semibold">Portal GZ</div>' +
-                    '<div class="col_callCenter col_cabecera tipografia_lato_semibold">Call center</div>' +
-                    '<div class="col_AppSE col_cabecera tipografia_lato_semibold">App SE</div>' +
-
-                 '</div>');
-         }
-         function GetData()
-         {
-             if( $('#CampIni').val()=='' && $('#CampFin').val()=='')
-             {
-                 alert('Por favor ingrese los filtros de Campaña Inicio y fin.');
-                 return false;
-             }
-
-             var obj ={CampaniaInicio: $('#CampIni').val() ,CampaniaFin: $('#CampFin').val() };
-
-             $.ajax({
-                 type: 'POST',
-                 url: '@Url.Action("GetReporteFuenteIngresoSearch", "Unete")',
-                 dataType: 'json',
-                 contentType: 'application/json; charset=utf-8',
-                 data: JSON.stringify(obj),
-                 async: true,
-                 success: function (data) {
-
-                     setDataToGrid(data);
-
-                 },
-                 error: function (error) {
-
-                 },
-                 beforeSend: function(){
-                     LoadSpinner('gridFuenteIngreso');
-
-                     $('#buttonFuenteIngreso').attr('disabled', true);
-
-                 },
-                 complete: function(){
-
-                     $('#buttonFuenteIngreso').removeAttr('disabled');
-                 }
-
-             });
-
+             alert('Por favor ingrese los filtros de Campaña Inicio y fin.');
              return false;
          }
 
-         function setDataToGrid(data)
-         {
-             ResetGrid();
-             setGridHeaders();
-             if(data)
-             {
-                 $(data).each(function(a,b){
-                     buildDataRow(b);
-                 });
+         var obj ={CampaniaInicio: $('#CampIni').val() ,CampaniaFin: $('#CampFin').val() };
+
+         $.ajax({
+             type: 'POST',
+             url: '@Url.Action("GetReporteFuenteIngresoSearch", "Unete")',
+             dataType: 'json',
+             contentType: 'application/json; charset=utf-8',
+             data: JSON.stringify(obj),
+             async: true,
+             success: function (data) {
+       
+                 setDataToGrid(data);
+
+             },
+             error: function (error) {
+
+             },
+             beforeSend: function(){
+                 LoadSpinner('gridFuenteIngreso');
+
+                 $('#buttonFuenteIngreso').attr('disabled', true);
+
+             },
+             complete: function(){
+
+                 $('#buttonFuenteIngreso').removeAttr('disabled');
              }
 
+         });
 
+         return false;
+     }
 
-         }
-         function ResetGrid()
+     function setDataToGrid(data)
+     {
+         ResetGrid();
+         setGridHeaders();
+         if(data)
          {
-             $('.grilla_contenido').remove();
-             $('#spinner').remove();
+             $(data).each(function(a,b){
+                 buildDataRow(b);
+             });
          }
 
-         function buildDataCell(colName, className, value)
+
+
+     }
+     function ResetGrid()
+     {
+         $('.grilla_contenido').remove();
+         $('#spinner').remove();
+     }
+
+     function buildDataCell(colName, className, value)
+     {
+         var strClass = 'tipografia_lato_regular ';
+
+         if(className)
          {
-             var strClass = 'tipografia_lato_regular ';
-
-             if(className)
-             {
-                 strClass=strClass+className;
-
-             }
-             return '<div data-colname="'+ colName +'" class="'+ strClass+'">'+value+'</div>';
+             strClass=strClass+className;
 
          }
+         return '<div data-colname="'+ colName +'" class="'+ strClass+'">'+value+'</div>';
 
-         function buildDataRow(row)
-         {
-             var rowHtml ='<div class="grilla_contenido" data-id="'+ row.Campania+'">';
+     }
 
-
-             rowHtml = rowHtml + buildDataCell('Campania', 'col_campania', row.Campania);
-
-             rowHtml = rowHtml + buildDataCell('UB', 'col_ub', row.UB);
-             rowHtml = rowHtml + buildDataCell('PortalGZ', 'col_portalGZ', row.PortalGZ);
-             rowHtml = rowHtml + buildDataCell('CallCenter', 'col_callCenter', row.CallCenter);
-             rowHtml = rowHtml + buildDataCell('AppSE', 'col_AppSE', row.AppSE);
-
-             $('#gridFuenteIngreso').append(rowHtml +'</div>');
+     function buildDataRow(row)
+     {
+         var rowHtml ='<div class="grilla_contenido" data-id="'+ row.Campania+'">';
 
 
+         rowHtml = rowHtml + buildDataCell('Campania', 'col_campania', row.Campania);
+
+         rowHtml = rowHtml + buildDataCell('UB', 'col_ub', row.UB);
+         rowHtml = rowHtml + buildDataCell('PortalGZ', 'col_portalGZ', row.PortalGZ);
+         rowHtml = rowHtml + buildDataCell('CallCenter', 'col_callCenter', row.CallCenter);
+         rowHtml = rowHtml + buildDataCell('AppSE', 'col_AppSE', row.AppSE);
+
+         $('#gridFuenteIngreso').append(rowHtml +'</div>');
+
+
+     }
+
+     function LoadSpinner(elementId)
+     {
+
+         $('#'+elementId).html('<div id="spinner" style="text-align: center; color:white;">Cargando, por favor espere<br><img src="' + urlLoad + '" /></div>');
+     }
+
+
+     function ExportExcel() {
+         var content = baseUrl +
+             "Unete/ExportarExcelFuenteIngreso?" +
+             "CampaniaInicio=" +
+               $('#CampIni').val() +
+             "&CampaniaFin=" +
+           $('#CampFin').val();
+
+         var iframe_ = document.createElement("iframe");
+         iframe_.style.display = "none";
+         iframe_.setAttribute("src", content);
+
+         if (navigator.userAgent.indexOf("MSIE") > -1 && !window.opera) { // Si es Internet Explorer
+             iframe_.onreadystatechange = function () {
+                 switch (this.readyState) {
+                     case "loading":
+                         waitingDialog({});
+                         break;
+                     case "complete":
+                     case "interactive":
+                     case "uninitialized":
+                         closeWaitingDialog();
+                         break;
+                     default:
+                         closeWaitingDialog();
+                         break;
+                 }
+             };
          }
+         else {
+             // Si es Firefox o Chrome
+             $(iframe_).ready(function () {
 
-         function LoadSpinner(elementId)
-         {
-
-             $('#'+elementId).html('<div id="spinner" style="text-align: center; color:white;">Cargando, por favor espere<br><img src="' + urlLoad + '" /></div>');
+             });
          }
+         document.body.appendChild(iframe_);
+     }
+</script>
+<style>
 
+    .redborder {
+    }
 
-         function ExportExcel() {
-             var content = baseUrl +
-                 "Unete/ExportarExcelFuenteIngreso?" +
-                 "CampaniaInicio=" +
-                   $('#CampIni').val() +
-                 "&CampaniaFin=" +
-               $('#CampFin').val();
+    .greenBorder {
+        border: solid green 1px;
+    }
 
-             var iframe_ = document.createElement("iframe");
-             iframe_.style.display = "none";
-             iframe_.setAttribute("src", content);
+    .w100 {
+        width: 95% !important;
+    }
 
-             if (navigator.userAgent.indexOf("MSIE") > -1 && !window.opera) { // Si es Internet Explorer
-                 iframe_.onreadystatechange = function () {
-                     switch (this.readyState) {
-                         case "loading":
-                             waitingDialog({});
-                             break;
-                         case "complete":
-                         case "interactive":
-                         case "uninitialized":
-                             closeWaitingDialog();
-                             break;
-                         default:
-                             closeWaitingDialog();
-                             break;
-                     }
-                 };
-             }
-             else {
-                 // Si es Firefox o Chrome
-                 $(iframe_).ready(function () {
+    .h100 {
+        height: 100% !important;
+    }
 
-                 });
-             }
-             document.body.appendChild(iframe_);
-         }
-    </script>
-    <style>
+    .lateralPadding20 {
+        padding-left: 50px;
+        padding-right: 50px;
+    }
 
-        .redborder {
-        }
+    .cellFuenteIngreso {
+        width: 6%;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        display: inline-block;
+        overflow: hidden;
+        /*border:solid 1px black;*/
+    }
 
-        .greenBorder {
-            border: solid green 1px;
-        }
+    .Campania {
+        border-bottom: solid 2px #552080;
+    }
 
-        .w100 {
-            width: 95% !important;
-        }
+    #gridFuenteIngreso {
+        text-align: center;
+    }
 
-        .h100 {
-            height: 100% !important;
-        }
+    .headFuenteIngreso {
+        text-align: center;
+    }
 
-        .lateralPadding20 {
-            padding-left: 50px;
-            padding-right: 50px;
-        }
+    .whiteCell {
+        border-bottom: solid 1px #c144ab;
+        text-align: center;
+    }
 
-        .cellFuenteIngreso {
-            width: 6%;
-            padding-top: 10px;
-            padding-bottom: 10px;
-            display: inline-block;
-            overflow: hidden;
-            /*border:solid 1px black;*/
-        }
+    .purpleCell {
+        color: white;
+        background-color: #642f80;
+    }
 
-        .Campania {
-            border-bottom: solid 2px #552080;
-        }
+    .ligthPurpleCell {
+        color: white;
+        background-color: #bda2f1;
+        border-left: 3px solid white;
+    }
 
-        #gridFuenteIngreso {
-            text-align: center;
-        }
+    .ligthPinkCell {
+        color: white;
+        background-color: #ffc4d4;
+        border-left: 3px solid white;
+    }
 
-        .headFuenteIngreso {
-            text-align: center;
-        }
+    .borderLeft {
+        border-left: 3px solid white;
+    }
 
-        .whiteCell {
-            border-bottom: solid 1px #c144ab;
-            text-align: center;
-        }
+    .blueCell {
+        color: white;
+        background-color: #2376b4;
+        border-left: 3px solid white;
+    }
 
-        .purpleCell {
-            color: white;
-            background-color: #642f80;
-        }
+    .FilterContainers {
+        width: 60%;
+        display: inline-block;
+        margin-top: 50px;
+    }
 
-        .ligthPurpleCell {
-            color: white;
-            background-color: #bda2f1;
-            border-left: 3px solid white;
-        }
+    #Filters {
+        text-align: center;
+        height: 150px;
+    }
 
-        .ligthPinkCell {
-            color: white;
-            background-color: #ffc4d4;
-            border-left: 3px solid white;
-        }
+    .inputContainer {
+        width: 40%;
+        float: left;
+    }
 
-        .borderLeft {
-            border-left: 3px solid white;
-        }
+    .buttonContainer {
+        width: 18%;
+        float: left;
+    }
 
-        .blueCell {
-            color: white;
-            background-color: #2376b4;
-            border-left: 3px solid white;
-        }
+    #CampIni, #CampFin {
+        width: 100%;
+        height: auto;
+        padding: 9px;
+        background: #fff;
+        color: black;
+        border: 1px solid #cfcfcf;
+        position: relative;
+        width: 75% !important;
+        border-color: rgba(0, 0, 0, 0.66) !important;
+        outline: 0;
+        font-size: 100%;
+    }
 
-        .FilterContainers {
-            width: 60%;
-            display: inline-block;
-            margin-top: 50px;
-        }
+    #buttonFuenteIngreso {
+        background: #642f80;
+        color: #FFF;
+        border: none;
+        font-weight: normal !important;
+        text-align: center;
+        padding-top: 7px;
+        padding-bottom: 8px;
+        cursor: pointer;
+        width: 70%;
+        float: right;
+    }
 
-        #Filters {
-            text-align: center;
-            height: 150px;
-        }
+    #buttonFuenteIngreso:disabled {
+        background-color: #B75D9F !important;
+        cursor: default;
+    }
 
-        .inputContainer {
-            width: 40%;
-            float: left;
-        }
+    .excelDiv {
+        border-bottom: solid 2px black;
+    }
 
-        .buttonContainer {
-            width: 18%;
-            float: left;
-        }
+    /* REPORTE FUENTE DE INGRESO */
 
-        #CampIni, #CampFin {
-            width: 100%;
-            height: auto;
-            padding: 9px;
-            background: #fff;
-            color: black;
-            border: 1px solid #cfcfcf;
-            position: relative;
-            width: 75% !important;
-            border-color: rgba(0, 0, 0, 0.66) !important;
-            outline: 0;
-            font-size: 100%;
-        }
+    .tipografia_lato{
+        font-family:'Lato';
+        font-weight:normal;
+    }
 
-        #buttonFuenteIngreso {
-            background: #642f80;
-            color: #FFF;
-            border: none;
-            font-weight: normal !important;
-            text-align: center;
-            padding-top: 7px;
-            padding-bottom: 8px;
-            cursor: pointer;
-            width: 70%;
-            float: right;
-        }
+    .tipografia_lato_light{
+        font-weight:300!important;
+    }
 
-        #buttonFuenteIngreso:disabled {
-            background-color: #B75D9F !important;
-            cursor: default;
-        }
+    .tipografia_lato_regular{
+        font-weight:400;
+    }
 
-        .excelDiv {
-            border-bottom: solid 2px black;
-        }
+    .tipografia_lato_semibold{
+        font-weight:600;
+    }
 
-        /* REPORTE FUENTE DE INGRESO */
+    .titulo_reporte_fuente_ingreso{
+        margin:52.3px auto 32px auto;
+        padding:0;
+        color:#000;
+        font-size:20px;
+    }
 
-        .tipografia_lato{
-            font-family:'Lato';
-            font-weight:normal;
-        }
+    .titulo_reporte_fuente_ingreso, .grilla_reporte_fuente_ingreso{
+        display:block;
+        width:517px;
+        text-align:center;
+    }
 
-        .tipografia_lato_light{
-            font-weight:300!important;
-        }
+    .grilla_reporte_fuente_ingreso{
+        margin:0 auto;
+    }
 
-        .tipografia_lato_regular{
-            font-weight:400;
-        }
+    .grilla_cabecera, .grilla_contenido{
+        display:block;
+        margin-bottom:8.3px;
+    }
 
-        .tipografia_lato_semibold{
-            font-weight:600;
-        }
+    .grilla_cabecera, .col_campania{
+        color:#642f80;
+    }
 
-        .titulo_reporte_fuente_ingreso{
-            margin:52.3px auto 32px auto;
-            padding:0;
-            color:#000;
-            font-size:20px;
-        }
+    .grilla_contenido{
+        background-color:#f3f3f3;
+        color:#000;
+    }
 
-        .titulo_reporte_fuente_ingreso, .grilla_reporte_fuente_ingreso{
-            display:block;
-            width:517px;
-            text-align:center;
-        }
+    .col_campania, .col_ub, .col_portalGZ, .col_callCenter, .col_AppSE{
+        display:inline-block;
+        width:20%;
+        height:39px;
+        margin-left:-3px;
+        font-size:16.8px;
+        line-height:39px;
+        letter-spacing:0.1px;
+    }
 
-        .grilla_reporte_fuente_ingreso{
-            margin:0 auto;
-        }
+    /* FIN REPORTE FUENTE DE INGRESO */
 
-        .grilla_cabecera, .grilla_contenido{
-            display:block;
-            margin-bottom:8.3px;
-        }
-
-        .grilla_cabecera, .col_campania{
-            color:#642f80;
-        }
-
-        .grilla_contenido{
-            background-color:#f3f3f3;
-            color:#000;
-        }
-
-        .col_campania, .col_ub, .col_portalGZ, .col_callCenter, .col_AppSE{
-            display:inline-block;
-            width:20%;
-            height:39px;
-            margin-left:-3px;
-            font-size:16.8px;
-            line-height:39px;
-            letter-spacing:0.1px;
-        }
-
-        /* FIN REPORTE FUENTE DE INGRESO */
-
-    </style>*@
+</style>
