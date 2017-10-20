@@ -277,7 +277,8 @@ function CargarProductosShowRoom(busquedaModel) {
 
     $.when(cargarProductosShowRoomPromise)
         .then(function (response) {
-            ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosSubCampanias, busquedaModel);
+            ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosSubCampanias, busquedaModel);            
+            EstablecerAccionLazyImagen("img[data-lazy-seccion-showroom]");
         })
         .fail(function (response) {
             if (busquedaModel.hidden) {

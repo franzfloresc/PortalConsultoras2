@@ -428,7 +428,6 @@ $(document).ready(function () {
     });
 
     MostrarBarra(null, '1');
-   
 });
 $(window).load(function () {
     VerSeccionBienvenida(verSeccion);
@@ -1193,7 +1192,7 @@ function CargarBanners() {
                             var iniHtmlLink = ((dataResult.data[count].URL.length > 0 && dataResult.data[count].TipoAccion == 0) || dataResult.data[count].TipoAccion == 1 || dataResult.data[count].TipoAccion == 2) ? "<a id='bannerMicroefecto" + dataResult.data[count].BannerID + "' href='javascript:;' onclick=\"return EnlaceBanner('" + dataResult.data[count].URL + "','" + dataResult.data[count].Titulo + "','" + dataResult.data[count].TipoAccion + "','" + dataResult.data[count].CuvPedido + "','" + dataResult.data[count].CantCuvPedido + "','" + dataResult.data[count].BannerID + "','" + Posicion + "','" + dataResult.data[count].Titulo + "', this);\" rel='marquesina' >" : "";
                             var finHtmlLink = ((dataResult.data[count].URL.length > 0 && dataResult.data[count].TipoAccion == 0) || dataResult.data[count].TipoAccion == 1 || dataResult.data[count].TipoAccion == 2) ? '</a>' : '';
 
-                            $('.flexslider ul.slides').append('<li><div><div>' + iniHtmlLink + '<img class="imagen_producto" src="' + fileName + '"data-object-fit="none">' + finHtmlLink + '</div></div></li>');
+                            $('.flexslider ul.slides').append('<li><div><div>' + iniHtmlLink + '<img class="imagen_producto" data-src="' + fileName + '"data-object-fit="none" data-lazy-seccion-banner-home="">' + finHtmlLink + '</div></div></li>');
                             delayPrincipal = dataResult.data[count].TiempoRotacion;
                             break;
                         case -5: case -6: case -7: // Seccion Baja 1 SB2.0 
@@ -1201,7 +1200,7 @@ function CargarBanners() {
                             var trackingDesc = dataResult.data[count].TextoComentario;
                             var htmlLink = dataResult.data[count].URL.length > 0 ? "onclick=\"return SetGoogleAnalyticsBannerInferiores('" + dataResult.data[count].URL + "','" + trackingText + "','0','" + dataResult.data[count].BannerID + "','" + countBajos + "','" + dataResult.data[count].Titulo + "');\" target='_blank' rel='banner-inferior' " : "";
 
-                            $('#bannerBajos').append("<a class='enlaces_home' href='javascript:void();' " + htmlLink + "><div class='div-img hidden' style='margin-bottom: 10px;'><img class='banner-img' src='" + fileName + "' /></div><div class='btn_enlaces'>" + trackingText + "</div></a>");
+                            $('#bannerBajos').append("<a class='enlaces_home' href='javascript:void();' " + htmlLink + "><div class='div-img hidden' style='margin-bottom: 10px;'><img class='banner-img' data-src='" + fileName + "' data-lazy-seccion-banner-home=''/></div><div class='btn_enlaces'>" + trackingText + "</div></a>");
                             delaySBaja1 = dataResult.data[count].TiempoRotacion;
                             promotionsBajos.push({
                                 id: dataResult.data[count].BannerID,
@@ -1227,6 +1226,8 @@ function CargarBanners() {
                         'creative': Creative
                     });
                 }
+
+                EstablecerAccionLazyImagen("img[data-lazy-seccion-banner-home]");
 
                 if (promotionsBajos.length > 0) {
                     dataLayer.push({

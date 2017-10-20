@@ -29,7 +29,8 @@ namespace Portal.Consultoras.Web
                "~/Scripts/jquery-ui-1.9.2.custom.js",
                "~/Scripts/HojaInscripcion/validations.js",
                "~/Scripts/donetyping.js",
-               "~/Scripts/fingerprint2.js"
+               "~/Scripts/fingerprint2.js",
+               "~/Scripts/jquery.lazy.js"
                ));
 
             bundles.Add(new ScriptBundle("~/bundles/JQGridJs").Include(

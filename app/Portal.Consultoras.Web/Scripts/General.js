@@ -1803,3 +1803,9 @@ function EstablecerLazyCarrusel(elementoHtml) {
 
     //return $(nombreElementoHtml).html();
 }
+
+function EstablecerAccionLazyImagen(nombreAtributo) {
+    if (nombreAtributo == undefined || nombreAtributo == null || nombreAtributo == "")
+        return;
+    setTimeout(function () { $(nombreAtributo).lazy(); }, 500);
+}

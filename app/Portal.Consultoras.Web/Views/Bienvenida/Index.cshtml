@@ -22,10 +22,12 @@
 
 <input type="hidden" id="hdTipoEstrategiaID" value="0" />
 
-<div class="content_slider_home">
+<div class="content_slider_home" style="min-height: 300px;">
     <div id="sliderHomeLoading" class="center">
         <br />
-        <img src="@Url.Content("~/Content/Images/Loading.gif")" /> Cargando...
+        <div >
+            <img src="@Url.Content("~/Content/Images/Loading.gif")" /> Cargando...
+        </div>        
         <br />
     </div>
     <div class="flexslider">
@@ -1838,7 +1840,7 @@
     <div class="content-favclientes content_carrusel_agregado">
         <div class="linea_separadora"></div>
         <div class="banner_showroom_home" style="cursor: pointer;" onclick="javascript: window.location.href = '@Url.Action("Index","ShowRoom")'">
-            <img src="@Model.ShowRoomBannerUrl" alt="" />
+            <img data-src="@Model.ShowRoomBannerUrl" alt="" data-lazy-seccion-showroom=""/>
         </div>
         <div style="width:71%;float:left;">
             <div class="clear"></div>
@@ -1860,9 +1862,9 @@
                     </div>
                     <div class="producto_img_home mini" data-img="">
                         {{#IsNullOrEmpty ImagenProducto '=='}}
-                        <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" alt="" />
+                        <img data-src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" alt="" data-lazy-seccion-showroom=""/>
                         {{else}}
-                        <img src="{{ImagenProducto}}" alt="" style="width: auto; height: 100%;" class="imagen_producto" />
+                        <img data-src="{{ImagenProducto}}" alt="" style="width: auto; height: 100%;" class="imagen_producto" data-lazy-seccion-showroom=""/>
                         {{/IsNullOrEmpty}}
                         <a class="ver_detalle_carrusel" href="{{UrlDetalle}}">VER DETALLE</a>
                     </div>
