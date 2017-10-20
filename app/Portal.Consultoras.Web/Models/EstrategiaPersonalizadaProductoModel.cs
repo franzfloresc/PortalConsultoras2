@@ -51,18 +51,8 @@ namespace Portal.Consultoras.Web.Models
         public int MarcaID { get; set; }
         public string UrlCompartir { get; set; }
 
-        public string Ganancia
-        {
-            get
-            {
-                if (Precio > 0 && Precio > Precio2)
-                {
-                    return (Precio - Precio2).ToString("F2");
-                }
-                return "";
-            }
-        }
-        
+        public decimal Ganancia { get; set; }
+        public string GananciaString { get; set; }
         public EstrategiaDetalleModelo TipoEstrategiaDetalle { get; set; }
 
         public List<ProductoModel> Hermanos { get; set; }

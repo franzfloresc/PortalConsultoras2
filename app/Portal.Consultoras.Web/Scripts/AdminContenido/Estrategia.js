@@ -271,6 +271,7 @@
             $("#url-video-desktop").val(data.UrlVideoDesktop);
             $("#url-video-mobile").val(data.UrlVideoMobile);
             $("#txtPrecioPublico").val(data.PrecioPublico);
+            $("#txtGanancia").val(data.Ganancia);
             closeWaitingDialog();
 
             return data;
@@ -423,6 +424,8 @@
         _limpiarCamposLanzamiento('img-home-mobile');
         $("#url-video-desktop").val("");
         $("#url-video-mobile").val("");
+        $("#txtPrecioPublico").val("");
+        $("#txtGanancia").val("");
         if ($("#hdEstrategiaCodigo").val() === '005') $('#div-revista-digital').show();
         else $('#div-revista-digital').hide();
 
