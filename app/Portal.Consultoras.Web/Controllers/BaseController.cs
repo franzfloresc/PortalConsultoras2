@@ -3486,6 +3486,7 @@ namespace Portal.Consultoras.Web.Controllers
             return modelo.OrderBy(s => s.Orden).ToList();
 
         }
+
         public ConfiguracionSeccionHomeModel ObtenerSeccionHomePalanca(string codigo, int campaniaId)
         {
             var seccion = new ConfiguracionSeccionHomeModel();
@@ -3498,6 +3499,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return seccion;
         }
+
         public bool RDObtenerTitulosSeccion(ref string titulo, ref string subtitulo, string codigo)
         {
             if (codigo == Constantes.ConfiguracionPais.RevistaDigital)
@@ -3810,9 +3812,10 @@ namespace Portal.Consultoras.Web.Controllers
 
             listaMenu.AddRange(BuildMenuContenedorBloqueado(listaMenu));
 
+            var isMob = IsMobile();
             listaMenu = (revistaDigital.TieneRDC || revistaDigital.TieneRDR)
-                ? listaMenu.OrderBy(m => m.OrdenBpt).ToList()
-                : listaMenu.OrderBy(m => m.Orden).ToList();
+                ? isMob ? listaMenu.OrderBy(m => m.MobileOrdenBPT).ToList() : listaMenu.OrderBy(m => m.OrdenBpt).ToList()
+                : isMob ? listaMenu.OrderBy(m => m.MobileOrden).ToList() : listaMenu.OrderBy(m => m.Orden).ToList();
 
             Session[Constantes.ConstSession.MenuContenedor] = listaMenu;
             return listaMenu;

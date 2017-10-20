@@ -302,6 +302,12 @@ function ArmarCarouselEstrategias(data) {
         if ($.trim($('#divListadoEstrategia2').html()).length > 0) {
             $('#divListaEstrategias').show();
             //return false;
+            if ($.trim($('#divListadoEstrategia2 #bc_promo').html()).length === 0) {
+                $('#divListadoEstrategia2 #bc_promo').remove();
+                $('#divListadoEstrategia2 .bc_productos').css("width", "90%");
+                $('#divListadoEstrategia2 .bc_productos').css("float", "none");
+                $('#divListadoEstrategia2 .bc_productos').css("margin", "0 auto");
+            }
         }
     } catch (e) {
         console.log(e);
