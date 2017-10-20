@@ -326,8 +326,7 @@ function ArmarCarouselEstrategias(data) {
 
     if (tipoOrigenEstrategia == 1) {
         var cantProCarrusel = $("#divListadoEstrategia2").length > 0 ? 3 : 4;
-        var esVariableWidth = $("#divListadoEstrategia2").length > 0;
-        EstablecerLazyCarrusel($('#divListadoEstrategia'));
+        var esVariableWidth = $("#divListadoEstrategia2").length > 0;        
 
         $('#divListaEstrategias #divListadoEstrategia [data-item] > div').attr("class", "content_item_carrusel");
         $('#divListaEstrategias').show();
