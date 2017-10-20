@@ -565,6 +565,12 @@ namespace Portal.Consultoras.Web.Controllers
                 prodModel.TienePaginaProducto = estrategia.PuedeVerDetalle;
                 prodModel.TienePaginaProductoMob = estrategia.PuedeVerDetalleMob;
                 prodModel.TieneVerDetalle = true;
+                prodModel.PrecioPublico = estrategia.PrecioPublico;
+                if (estrategia.PrecioPublico > 0 && estrategia.PrecioPublico > estrategia.Precio2)
+                {
+                    prodModel.Precio = estrategia.PrecioPublico;
+                    prodModel.PrecioTachado = estrategia.PrecioPublico.ToString("F2");
+                }
                 //estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas
                 //|| estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertaParaTi
                 //|| estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento

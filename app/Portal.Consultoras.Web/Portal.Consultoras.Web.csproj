@@ -1219,7 +1219,7 @@
     <Content Include="Content\HojaInscripcion\carrito-menu.png" />
     <Content Include="Content\Css\Site\Login2\style_esika.min.css" />
     <Content Include="Content\Css\Site\Login2\style_lbel.min.css" />
-    <Content Include="Content\ImageHelper\xzoom.css" /> 
+    <Content Include="Content\ImageHelper\xzoom.css" />
     <Content Include="Content\Images\arrow-down.svg" />
     <Content Include="Content\Images\arrow.png" />
     <Content Include="Content\Css\Site\jquery.rateyo.css" />

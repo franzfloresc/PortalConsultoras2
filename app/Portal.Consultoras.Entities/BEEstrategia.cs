@@ -198,6 +198,9 @@ namespace Portal.Consultoras.Entities
         public decimal PrecioPublico { get; set; }
         
         [DataMember]
+        public decimal Ganancia { get; set; }
+
+        [DataMember]
         public DateTime FechaInicioFacturacion { get; set; }
 
         public BEEstrategia()
@@ -214,6 +217,7 @@ namespace Portal.Consultoras.Entities
             CodigoProducto = DataRecord.GetColumn<string>(row, "CodigoProducto");
             ImagenURL = DataRecord.GetColumn<string>(row, "ImagenURL");
             PrecioPublico = DataRecord.GetColumn<decimal>(row, "PrecioPublico");
+            Ganancia = DataRecord.GetColumn<decimal>(row, "Ganancia");
         }
 
         public BEEstrategia(IDataRecord row, int liteVersion)
@@ -227,6 +231,7 @@ namespace Portal.Consultoras.Entities
             ImagenURL = DataRecord.GetColumn<string>(row, "ImagenURL");
             LimiteVenta = DataRecord.GetColumn<int>(row, "LimiteVenta");
             CodigoProducto = DataRecord.GetColumn<string>(row, "CodigoProducto");
+            Ganancia = DataRecord.GetColumn<decimal>(row, "Ganancia");
         }
 
         public BEEstrategia(IDataRecord row)
@@ -287,6 +292,7 @@ namespace Portal.Consultoras.Entities
             CantComenRecom = DataRecord.GetColumn<int>(row, "CantComenRecom");
             PromValorizado = DataRecord.GetColumn<int>(row, "PromValorizado");
             PrecioPublico = DataRecord.GetColumn<decimal>(row, "PrecioPublico");
+            Ganancia = DataRecord.GetColumn<decimal>(row, "Ganancia");
 
             EstrategiaDetalle = new BEEstrategiaDetalle(row);
             TipoEstrategia = new BETipoEstrategia(row);
@@ -344,5 +350,6 @@ namespace Portal.Consultoras.Entities
         public string CodigoEstrategia { get; set; }
         public int TieneVariedad { get; set; }
         public decimal PrecioPublico { get; set; }
+        public decimal Ganancia { get; set; }
     }
 }

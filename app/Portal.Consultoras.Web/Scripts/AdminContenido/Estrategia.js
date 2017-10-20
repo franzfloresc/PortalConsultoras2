@@ -270,7 +270,7 @@
             _agregarCamposLanzamiento('img-home-mobile', data.ImgHomeMobile);
             $("#url-video-desktop").val(data.UrlVideoDesktop);
             $("#url-video-mobile").val(data.UrlVideoMobile);
-
+            $("#txtPrecioPublico").val(data.PrecioPublico);
             closeWaitingDialog();
 
             return data;
@@ -491,9 +491,11 @@
 
                         if (data.wsprecio > 0) {
                             $("#txtPrecio2").val(parseFloat(data.wsprecio).toFixed(2));
+                            $("#txtPrecio").val(data.precio);
+                            $("#txtGanancia").val(data.ganancia);
                         }
-                        else if (data.wsprecio == 0) {
-                            if (data.precio == 0) {
+                        else if (data.wsprecio === 0.0) {
+                            if (data.precio === 0.0) {
                                 $("#txtPrecio2").val(parseFloat(data.precio).toFixed(2));
                             }
                             else {
