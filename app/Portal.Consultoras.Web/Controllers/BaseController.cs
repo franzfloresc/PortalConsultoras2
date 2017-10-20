@@ -3829,9 +3829,10 @@ namespace Portal.Consultoras.Web.Controllers
 
             listaMenu.AddRange(BuildMenuContenedorBloqueado(listaMenu));
 
+            var isMob = IsMobile();
             listaMenu = (revistaDigital.TieneRDC || revistaDigital.TieneRDR)
-                ? listaMenu.OrderBy(m => m.OrdenBpt).ToList()
-                : listaMenu.OrderBy(m => m.Orden).ToList();
+                ? isMob ? listaMenu.OrderBy(m => m.MobileOrdenBPT).ToList() : listaMenu.OrderBy(m => m.OrdenBpt).ToList()
+                : isMob ? listaMenu.OrderBy(m => m.MobileOrden).ToList() : listaMenu.OrderBy(m => m.Orden).ToList();
 
             Session[Constantes.ConstSession.MenuContenedor] = listaMenu;
             return listaMenu;

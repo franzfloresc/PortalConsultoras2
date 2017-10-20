@@ -440,6 +440,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string MobileLogoBannerField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int MobileOrdenField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int MobileOrdenBptField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string MobileSubTituloBannerField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -667,6 +673,32 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.MobileLogoBannerField, value) != true)) {
                     this.MobileLogoBannerField = value;
                     this.RaisePropertyChanged("MobileLogoBanner");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int MobileOrden {
+            get {
+                return this.MobileOrdenField;
+            }
+            set {
+                if ((this.MobileOrdenField.Equals(value) != true)) {
+                    this.MobileOrdenField = value;
+                    this.RaisePropertyChanged("MobileOrden");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int MobileOrdenBpt {
+            get {
+                return this.MobileOrdenBptField;
+            }
+            set {
+                if ((this.MobileOrdenBptField.Equals(value) != true)) {
+                    this.MobileOrdenBptField = value;
+                    this.RaisePropertyChanged("MobileOrdenBpt");
                 }
             }
         }
