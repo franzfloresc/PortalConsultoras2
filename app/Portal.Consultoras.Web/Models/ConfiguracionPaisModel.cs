@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 
-namespace Portal.Consultoras.Web.Models 
+namespace Portal.Consultoras.Web.Models
 {
     [Serializable]
     public class ConfiguracionPaisModel : ICloneable

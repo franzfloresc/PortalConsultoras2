@@ -394,6 +394,8 @@
       <xs:element minOccurs="0" name="FlagRecoPerfil" type="xs:int" />
       <xs:element minOccurs="0" name="FlagRecoProduc" type="xs:int" />
       <xs:element minOccurs="0" name="ImagenEstrategia" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImagenOfertaIndependiente" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MostrarImgOfertaIndependiente" type="xs:boolean" />
       <xs:element minOccurs="0" name="OfertaID" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Orden" type="xs:int" />
       <xs:element minOccurs="0" name="PaisID" type="xs:int" />
@@ -586,6 +588,7 @@
       <xs:element minOccurs="0" name="EsBackOrder" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsCompraPorCompra" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsKitNueva" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EsOfertaIndependiente" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsSugerido" type="xs:boolean" />
       <xs:element minOccurs="0" name="EstadoItem" type="xs:short" />
       <xs:element minOccurs="0" name="FechaCreacion" type="xs:dateTime" />
@@ -746,6 +749,7 @@
       <xs:element minOccurs="0" name="DescripcionEstrategia" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DescripcionMarca" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="EnMatrizComercial" type="xs:int" />
+      <xs:element minOccurs="0" name="EsOfertaIndependiente" type="xs:boolean" />
       <xs:element minOccurs="0" name="EstrategiaDetalle" nillable="true" type="tns:BEEstrategiaDetalle" />
       <xs:element minOccurs="0" name="EstrategiaID" type="xs:int" />
       <xs:element minOccurs="0" name="EtiquetaDescripcion" nillable="true" type="xs:string" />
@@ -765,6 +769,7 @@
       <xs:element minOccurs="0" name="ID" type="xs:int" />
       <xs:element minOccurs="0" name="IdMatrizComercial" type="xs:int" />
       <xs:element minOccurs="0" name="Imagen" type="xs:int" />
+      <xs:element minOccurs="0" name="ImagenOfertaIndependiente" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImagenURL" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImgFichaDesktop" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImgFichaFondoDesktop" nillable="true" type="xs:string" />
@@ -779,6 +784,7 @@
       <xs:element minOccurs="0" name="LimiteVenta" type="xs:int" />
       <xs:element minOccurs="0" name="MarcaID" type="xs:int" />
       <xs:element minOccurs="0" name="Mensaje" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MostrarImgOfertaIndependiente" type="xs:boolean" />
       <xs:element minOccurs="0" name="NumeroPedido" type="xs:int" />
       <xs:element minOccurs="0" name="OfertaUltimoMinuto" type="xs:int" />
       <xs:element minOccurs="0" name="Orden" type="xs:int" />

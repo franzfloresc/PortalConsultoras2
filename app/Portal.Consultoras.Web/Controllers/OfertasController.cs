@@ -51,12 +51,12 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var model = new MensajeProductoBloqueadoModel();
 
-            if (!userData.RevistaDigital.TieneRDC) return model;
+            if (!revistaDigital.TieneRDC) return model;
 
             model.IsMobile = IsMobile();
-            if (userData.RevistaDigital.SuscripcionAnterior1Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
+            if (revistaDigital.SuscripcionAnterior1Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
             {
-                if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
+                if (revistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
                 {
                     model.MensajeIconoSuperior = true;
                     model.MensajeTitulo = model.IsMobile
@@ -75,7 +75,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             else
             {
-                if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
+                if (revistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
                 {
                     model.MensajeIconoSuperior = true;
                     model.MensajeTitulo = model.IsMobile
@@ -121,9 +121,12 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (campaniaId == userData.CampaniaID && codigo.Equals("LAN")) Session["TieneLan"] = false;
-                else if (campaniaId == userData.CampaniaID && codigo.Equals("OPT")) Session["TieneOpt"] = false;
-                else if (campaniaId != userData.CampaniaID && codigo.Equals("LAN")) Session["TieneLanX1"] = false;
+                if (campaniaId == userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.Lanzamiento))
+                    Session[Constantes.ConstSession.TieneLan] = false;
+                else if (campaniaId == userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.OfertasParaTi))
+                    Session[Constantes.ConstSession.TieneOpt] = false;
+                else if (campaniaId != userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.Lanzamiento))
+                    Session[Constantes.ConstSession.TieneLanX1] = false;
                 return Json(new
                 {
                     estado = "Ok"
@@ -138,7 +141,34 @@ namespace Portal.Consultoras.Web.Controllers
                     estado = ex.Message
                 }, JsonRequestBehavior.AllowGet);
             }
-}
+        }
+
+        public ActionResult Descargables(string FileName)
+        {
+            try
+            {
+                string paisISO = Util.GetPaisISO(userData.PaisID);
+                var carpetaPais = Globals.UrlFileConsultoras + "/" + paisISO;
+                string urlS3 = ConfigS3.GetUrlS3(carpetaPais) + FileName;
+
+                //return File(urlS3, "application/pdf", FileName);
+
+                return Json(new
+                {
+                    Result = true,
+                    UrlS3 = urlS3
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    Result = true,
+                    UrlS3 = ""
+                });
+            }
+        }
 
     }
 }
