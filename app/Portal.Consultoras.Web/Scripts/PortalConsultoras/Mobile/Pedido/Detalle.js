@@ -203,8 +203,9 @@ function UpdateLiquidacionSegunTipoOfertaSis(CampaniaID, PedidoID, PedidoDetalle
                         CargarPedido();
                         return false;
                     }
-
                     Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, EsBackOrder);
+                    if (datos.message.length > 3)
+                        messageInfoMalo(datos.message);
                 }
             },
             error: function (data, error) {
@@ -271,7 +272,8 @@ function UpdateLiquidacionTipoOfertaSis(urls, CampaniaID, PedidoID, PedidoDetall
             CloseLoading();
             messageInfoMalo(data.message);
             CargarPedido();
-            return false;
+            if (!data.result)
+                return false;
         }
 
         var Saldo = data.Saldo;
