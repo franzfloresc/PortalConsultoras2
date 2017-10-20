@@ -1,23 +1,5 @@
---ROLLBACK
 
-ALTER TABLE dbo.ConfiguracionPais DROP CONSTRAINT MobileOrden_def  
-GO 
-ALTER TABLE dbo.ConfiguracionPais DROP CONSTRAINT MobileOrdenBPT_def 
-GO 
 
-ALTER TABLE dbo.ConfiguracionPais  DROP COLUMN MobileOrden; 
-GO 
-ALTER TABLE dbo.ConfiguracionPais  DROP COLUMN MobileOrdenBPT; 
-GO 
-
------------------------------------------------------------------------------
-
---ROLBACK
-
-/****** Object:  StoredProcedure [dbo].[ConfiguracionPaisList]    Script Date: 16/10/2017 11:33:15 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
 GO
 
 ALTER PROCEDURE [dbo].[ConfiguracionPaisList]
@@ -55,14 +37,7 @@ BEGIN
 		P.TienePerfil = @TienePerfil
 END
 
-------------------------------------------------------------------------------------
 
---ROLLBACK
-
-/****** Object:  StoredProcedure [dbo].[ConfiguracionPaisUpdate]    Script Date: 16/10/2017 13:35:57 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
 GO
 
 ALTER PROCEDURE [dbo].[ConfiguracionPaisUpdate] 
@@ -121,9 +96,7 @@ ELSE
 	END
 END
 
--------------------------------------------------------------------------------------------------
-
----ROLLBACK
+GO
  
 ALTER PROCEDURE [dbo].[ConfiguracionPaisGet] 
 	@ConfiguracionPaisID int
@@ -160,13 +133,6 @@ BEGIN
 		P.ConfiguracionPaisID = @ConfiguracionPaisID
 END
 
-----------------------------------------------------------------------------------------
-
---- ROLLBACK
-
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
 GO
 
 ALTER PROCEDURE [dbo].[ConfiguracionOfertasHomeUpdate] 
