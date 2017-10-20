@@ -1,5 +1,5 @@
 ﻿
-
+GO
 ALTER PROCEDURE [dbo].[ConfiguracionPaisList]
 	@TienePerfil BIT
 AS
