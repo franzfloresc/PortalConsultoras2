@@ -2,7 +2,6 @@ USE BelcorpPeru
 GO
 
 GO
-
 ALTER PROCEDURE [dbo].[InsertarEstrategia_SB2]
 	@EstrategiaID int,
 	@TipoEstrategiaID int,
@@ -56,7 +55,7 @@ SET NOCOUNT ON
 		FROM	TipoEstrategia 
 		WHERE	TipoEstrategiaId = @TipoEstrategiaID AND  flagnueva = 1
 
-		-- Para calcular la etiqueta Oferta del dÌa
+		-- Para calcular la etiqueta Oferta del d√≠a
 		SELECT	@TipoEstrategiaIDOfertaDia = COUNT( TipoEstrategiaID) 
 		FROM	TipoEstrategia 
 		WHERE	TipoEstrategiaId = @TipoEstrategiaID AND  DescripcionEstrategia like '%'+ UPPER('OFERTA DEL')+'%'
@@ -80,7 +79,7 @@ SET NOCOUNT ON
 			SELECT @EtiquetaID = EtiquetaID from Etiqueta 
 			WHERE Descripcion like '%' + UPPER('Ganancia') + '%'
 		END
-		-- Obtener el EtiquetaID de la Oferta del dÌa.
+		-- Obtener el EtiquetaID de la Oferta del d√≠a.
 		IF @TipoEstrategiaIDOfertaDia > 0
 		BEGIN
 			SELECT @EtiquetaID2 = EtiquetaID from Etiqueta 
@@ -91,14 +90,14 @@ SET NOCOUNT ON
 		BEGIN
 				IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 				BEGIN
-					RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaÒa seleccionado.', 16, 1)
+					RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campa√±a seleccionado.', 16, 1)
 				END
 
 				IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008') AND ISNULL(@Orden,0) > 0)
 				BEGIN
 					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 					BEGIN
-						RAISERROR('El orden ingresado para la estrategia ya est· siendo utilizado.', 16, 1)
+						RAISERROR('El orden ingresado para la estrategia ya est√° siendo utilizado.', 16, 1)
 					END
 				END
 				
@@ -119,7 +118,7 @@ SET NOCOUNT ON
 
 					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND ESTRATEGIAID <> @EstrategiaID  AND NUMEROPEDIDO = @NumeroPedido)
 					BEGIN
-						RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaÒa seleccionado.', 16, 1)
+						RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campa√±a seleccionado.', 16, 1)
 					END								 
 					
 					IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008') AND ISNULL(@Orden,0) > 0)
@@ -127,7 +126,7 @@ SET NOCOUNT ON
 	
 						IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID  AND ESTRATEGIAID <> @EstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 						BEGIN
-							RAISERROR('El orden ingresado para la estrategia ya est· siendo utilizado.', 16, 1)
+							RAISERROR('El orden ingresado para la estrategia ya est√° siendo utilizado.', 16, 1)
 						END
 					END
 	
@@ -176,15 +175,12 @@ SET NOCOUNT ON
 	
 SET NOCOUNT OFF
 END
-GO
-/*END*/
 GO
 
 USE BelcorpMexico
 GO
 
 GO
-
 ALTER PROCEDURE [dbo].[InsertarEstrategia_SB2]
 	@EstrategiaID int,
 	@TipoEstrategiaID int,
@@ -238,7 +234,7 @@ SET NOCOUNT ON
 		FROM	TipoEstrategia 
 		WHERE	TipoEstrategiaId = @TipoEstrategiaID AND  flagnueva = 1
 
-		-- Para calcular la etiqueta Oferta del dÌa
+		-- Para calcular la etiqueta Oferta del d√≠a
 		SELECT	@TipoEstrategiaIDOfertaDia = COUNT( TipoEstrategiaID) 
 		FROM	TipoEstrategia 
 		WHERE	TipoEstrategiaId = @TipoEstrategiaID AND  DescripcionEstrategia like '%'+ UPPER('OFERTA DEL')+'%'
@@ -262,7 +258,7 @@ SET NOCOUNT ON
 			SELECT @EtiquetaID = EtiquetaID from Etiqueta 
 			WHERE Descripcion like '%' + UPPER('Ganancia') + '%'
 		END
-		-- Obtener el EtiquetaID de la Oferta del dÌa.
+		-- Obtener el EtiquetaID de la Oferta del d√≠a.
 		IF @TipoEstrategiaIDOfertaDia > 0
 		BEGIN
 			SELECT @EtiquetaID2 = EtiquetaID from Etiqueta 
@@ -273,14 +269,14 @@ SET NOCOUNT ON
 		BEGIN
 				IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 				BEGIN
-					RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaÒa seleccionado.', 16, 1)
+					RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campa√±a seleccionado.', 16, 1)
 				END
 
 				IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008') AND ISNULL(@Orden,0) > 0)
 				BEGIN
 					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 					BEGIN
-						RAISERROR('El orden ingresado para la estrategia ya est· siendo utilizado.', 16, 1)
+						RAISERROR('El orden ingresado para la estrategia ya est√° siendo utilizado.', 16, 1)
 					END
 				END
 				
@@ -301,7 +297,7 @@ SET NOCOUNT ON
 
 					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND ESTRATEGIAID <> @EstrategiaID  AND NUMEROPEDIDO = @NumeroPedido)
 					BEGIN
-						RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaÒa seleccionado.', 16, 1)
+						RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campa√±a seleccionado.', 16, 1)
 					END								 
 					
 					IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008') AND ISNULL(@Orden,0) > 0)
@@ -309,7 +305,7 @@ SET NOCOUNT ON
 	
 						IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID  AND ESTRATEGIAID <> @EstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 						BEGIN
-							RAISERROR('El orden ingresado para la estrategia ya est· siendo utilizado.', 16, 1)
+							RAISERROR('El orden ingresado para la estrategia ya est√° siendo utilizado.', 16, 1)
 						END
 					END
 	
@@ -358,15 +354,12 @@ SET NOCOUNT ON
 	
 SET NOCOUNT OFF
 END
-GO
-/*END*/
 GO
 
 USE BelcorpColombia
 GO
 
 GO
-
 ALTER PROCEDURE [dbo].[InsertarEstrategia_SB2]
 	@EstrategiaID int,
 	@TipoEstrategiaID int,
@@ -420,7 +413,7 @@ SET NOCOUNT ON
 		FROM	TipoEstrategia 
 		WHERE	TipoEstrategiaId = @TipoEstrategiaID AND  flagnueva = 1
 
-		-- Para calcular la etiqueta Oferta del dÌa
+		-- Para calcular la etiqueta Oferta del d√≠a
 		SELECT	@TipoEstrategiaIDOfertaDia = COUNT( TipoEstrategiaID) 
 		FROM	TipoEstrategia 
 		WHERE	TipoEstrategiaId = @TipoEstrategiaID AND  DescripcionEstrategia like '%'+ UPPER('OFERTA DEL')+'%'
@@ -444,7 +437,7 @@ SET NOCOUNT ON
 			SELECT @EtiquetaID = EtiquetaID from Etiqueta 
 			WHERE Descripcion like '%' + UPPER('Ganancia') + '%'
 		END
-		-- Obtener el EtiquetaID de la Oferta del dÌa.
+		-- Obtener el EtiquetaID de la Oferta del d√≠a.
 		IF @TipoEstrategiaIDOfertaDia > 0
 		BEGIN
 			SELECT @EtiquetaID2 = EtiquetaID from Etiqueta 
@@ -455,14 +448,14 @@ SET NOCOUNT ON
 		BEGIN
 				IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 				BEGIN
-					RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaÒa seleccionado.', 16, 1)
+					RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campa√±a seleccionado.', 16, 1)
 				END
 
 				IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008') AND ISNULL(@Orden,0) > 0)
 				BEGIN
 					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 					BEGIN
-						RAISERROR('El orden ingresado para la estrategia ya est· siendo utilizado.', 16, 1)
+						RAISERROR('El orden ingresado para la estrategia ya est√° siendo utilizado.', 16, 1)
 					END
 				END
 				
@@ -483,7 +476,7 @@ SET NOCOUNT ON
 
 					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND ESTRATEGIAID <> @EstrategiaID  AND NUMEROPEDIDO = @NumeroPedido)
 					BEGIN
-						RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaÒa seleccionado.', 16, 1)
+						RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campa√±a seleccionado.', 16, 1)
 					END								 
 					
 					IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008') AND ISNULL(@Orden,0) > 0)
@@ -491,7 +484,7 @@ SET NOCOUNT ON
 	
 						IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID  AND ESTRATEGIAID <> @EstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 						BEGIN
-							RAISERROR('El orden ingresado para la estrategia ya est· siendo utilizado.', 16, 1)
+							RAISERROR('El orden ingresado para la estrategia ya est√° siendo utilizado.', 16, 1)
 						END
 					END
 	
@@ -540,15 +533,12 @@ SET NOCOUNT ON
 	
 SET NOCOUNT OFF
 END
-GO
-/*END*/
 GO
 
 USE BelcorpVenezuela
 GO
 
 GO
-
 ALTER PROCEDURE [dbo].[InsertarEstrategia_SB2]
 	@EstrategiaID int,
 	@TipoEstrategiaID int,
@@ -602,7 +592,7 @@ SET NOCOUNT ON
 		FROM	TipoEstrategia 
 		WHERE	TipoEstrategiaId = @TipoEstrategiaID AND  flagnueva = 1
 
-		-- Para calcular la etiqueta Oferta del dÌa
+		-- Para calcular la etiqueta Oferta del d√≠a
 		SELECT	@TipoEstrategiaIDOfertaDia = COUNT( TipoEstrategiaID) 
 		FROM	TipoEstrategia 
 		WHERE	TipoEstrategiaId = @TipoEstrategiaID AND  DescripcionEstrategia like '%'+ UPPER('OFERTA DEL')+'%'
@@ -626,7 +616,7 @@ SET NOCOUNT ON
 			SELECT @EtiquetaID = EtiquetaID from Etiqueta 
 			WHERE Descripcion like '%' + UPPER('Ganancia') + '%'
 		END
-		-- Obtener el EtiquetaID de la Oferta del dÌa.
+		-- Obtener el EtiquetaID de la Oferta del d√≠a.
 		IF @TipoEstrategiaIDOfertaDia > 0
 		BEGIN
 			SELECT @EtiquetaID2 = EtiquetaID from Etiqueta 
@@ -637,14 +627,14 @@ SET NOCOUNT ON
 		BEGIN
 				IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 				BEGIN
-					RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaÒa seleccionado.', 16, 1)
+					RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campa√±a seleccionado.', 16, 1)
 				END
 
 				IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008') AND ISNULL(@Orden,0) > 0)
 				BEGIN
 					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 					BEGIN
-						RAISERROR('El orden ingresado para la estrategia ya est· siendo utilizado.', 16, 1)
+						RAISERROR('El orden ingresado para la estrategia ya est√° siendo utilizado.', 16, 1)
 					END
 				END
 				
@@ -665,7 +655,7 @@ SET NOCOUNT ON
 
 					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND ESTRATEGIAID <> @EstrategiaID  AND NUMEROPEDIDO = @NumeroPedido)
 					BEGIN
-						RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaÒa seleccionado.', 16, 1)
+						RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campa√±a seleccionado.', 16, 1)
 					END								 
 					
 					IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008') AND ISNULL(@Orden,0) > 0)
@@ -673,7 +663,7 @@ SET NOCOUNT ON
 	
 						IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID  AND ESTRATEGIAID <> @EstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 						BEGIN
-							RAISERROR('El orden ingresado para la estrategia ya est· siendo utilizado.', 16, 1)
+							RAISERROR('El orden ingresado para la estrategia ya est√° siendo utilizado.', 16, 1)
 						END
 					END
 	
@@ -722,15 +712,12 @@ SET NOCOUNT ON
 	
 SET NOCOUNT OFF
 END
-GO
-/*END*/
 GO
 
 USE BelcorpSalvador
 GO
 
 GO
-
 ALTER PROCEDURE [dbo].[InsertarEstrategia_SB2]
 	@EstrategiaID int,
 	@TipoEstrategiaID int,
@@ -784,7 +771,7 @@ SET NOCOUNT ON
 		FROM	TipoEstrategia 
 		WHERE	TipoEstrategiaId = @TipoEstrategiaID AND  flagnueva = 1
 
-		-- Para calcular la etiqueta Oferta del dÌa
+		-- Para calcular la etiqueta Oferta del d√≠a
 		SELECT	@TipoEstrategiaIDOfertaDia = COUNT( TipoEstrategiaID) 
 		FROM	TipoEstrategia 
 		WHERE	TipoEstrategiaId = @TipoEstrategiaID AND  DescripcionEstrategia like '%'+ UPPER('OFERTA DEL')+'%'
@@ -808,7 +795,7 @@ SET NOCOUNT ON
 			SELECT @EtiquetaID = EtiquetaID from Etiqueta 
 			WHERE Descripcion like '%' + UPPER('Ganancia') + '%'
 		END
-		-- Obtener el EtiquetaID de la Oferta del dÌa.
+		-- Obtener el EtiquetaID de la Oferta del d√≠a.
 		IF @TipoEstrategiaIDOfertaDia > 0
 		BEGIN
 			SELECT @EtiquetaID2 = EtiquetaID from Etiqueta 
@@ -819,14 +806,14 @@ SET NOCOUNT ON
 		BEGIN
 				IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 				BEGIN
-					RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaÒa seleccionado.', 16, 1)
+					RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campa√±a seleccionado.', 16, 1)
 				END
 
 				IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008') AND ISNULL(@Orden,0) > 0)
 				BEGIN
 					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 					BEGIN
-						RAISERROR('El orden ingresado para la estrategia ya est· siendo utilizado.', 16, 1)
+						RAISERROR('El orden ingresado para la estrategia ya est√° siendo utilizado.', 16, 1)
 					END
 				END
 				
@@ -847,7 +834,7 @@ SET NOCOUNT ON
 
 					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND ESTRATEGIAID <> @EstrategiaID  AND NUMEROPEDIDO = @NumeroPedido)
 					BEGIN
-						RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaÒa seleccionado.', 16, 1)
+						RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campa√±a seleccionado.', 16, 1)
 					END								 
 					
 					IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008') AND ISNULL(@Orden,0) > 0)
@@ -855,7 +842,7 @@ SET NOCOUNT ON
 	
 						IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID  AND ESTRATEGIAID <> @EstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 						BEGIN
-							RAISERROR('El orden ingresado para la estrategia ya est· siendo utilizado.', 16, 1)
+							RAISERROR('El orden ingresado para la estrategia ya est√° siendo utilizado.', 16, 1)
 						END
 					END
 	
@@ -904,15 +891,12 @@ SET NOCOUNT ON
 	
 SET NOCOUNT OFF
 END
-GO
-/*END*/
 GO
 
 USE BelcorpPuertoRico
 GO
 
 GO
-
 ALTER PROCEDURE [dbo].[InsertarEstrategia_SB2]
 	@EstrategiaID int,
 	@TipoEstrategiaID int,
@@ -966,7 +950,7 @@ SET NOCOUNT ON
 		FROM	TipoEstrategia 
 		WHERE	TipoEstrategiaId = @TipoEstrategiaID AND  flagnueva = 1
 
-		-- Para calcular la etiqueta Oferta del dÌa
+		-- Para calcular la etiqueta Oferta del d√≠a
 		SELECT	@TipoEstrategiaIDOfertaDia = COUNT( TipoEstrategiaID) 
 		FROM	TipoEstrategia 
 		WHERE	TipoEstrategiaId = @TipoEstrategiaID AND  DescripcionEstrategia like '%'+ UPPER('OFERTA DEL')+'%'
@@ -990,7 +974,7 @@ SET NOCOUNT ON
 			SELECT @EtiquetaID = EtiquetaID from Etiqueta 
 			WHERE Descripcion like '%' + UPPER('Ganancia') + '%'
 		END
-		-- Obtener el EtiquetaID de la Oferta del dÌa.
+		-- Obtener el EtiquetaID de la Oferta del d√≠a.
 		IF @TipoEstrategiaIDOfertaDia > 0
 		BEGIN
 			SELECT @EtiquetaID2 = EtiquetaID from Etiqueta 
@@ -1001,14 +985,14 @@ SET NOCOUNT ON
 		BEGIN
 				IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 				BEGIN
-					RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaÒa seleccionado.', 16, 1)
+					RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campa√±a seleccionado.', 16, 1)
 				END
 
 				IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008') AND ISNULL(@Orden,0) > 0)
 				BEGIN
 					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 					BEGIN
-						RAISERROR('El orden ingresado para la estrategia ya est· siendo utilizado.', 16, 1)
+						RAISERROR('El orden ingresado para la estrategia ya est√° siendo utilizado.', 16, 1)
 					END
 				END
 				
@@ -1029,7 +1013,7 @@ SET NOCOUNT ON
 
 					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND ESTRATEGIAID <> @EstrategiaID  AND NUMEROPEDIDO = @NumeroPedido)
 					BEGIN
-						RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaÒa seleccionado.', 16, 1)
+						RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campa√±a seleccionado.', 16, 1)
 					END								 
 					
 					IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008') AND ISNULL(@Orden,0) > 0)
@@ -1037,7 +1021,7 @@ SET NOCOUNT ON
 	
 						IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID  AND ESTRATEGIAID <> @EstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 						BEGIN
-							RAISERROR('El orden ingresado para la estrategia ya est· siendo utilizado.', 16, 1)
+							RAISERROR('El orden ingresado para la estrategia ya est√° siendo utilizado.', 16, 1)
 						END
 					END
 	
@@ -1086,15 +1070,12 @@ SET NOCOUNT ON
 	
 SET NOCOUNT OFF
 END
-GO
-/*END*/
 GO
 
 USE BelcorpPanama
 GO
 
 GO
-
 ALTER PROCEDURE [dbo].[InsertarEstrategia_SB2]
 	@EstrategiaID int,
 	@TipoEstrategiaID int,
@@ -1148,7 +1129,7 @@ SET NOCOUNT ON
 		FROM	TipoEstrategia 
 		WHERE	TipoEstrategiaId = @TipoEstrategiaID AND  flagnueva = 1
 
-		-- Para calcular la etiqueta Oferta del dÌa
+		-- Para calcular la etiqueta Oferta del d√≠a
 		SELECT	@TipoEstrategiaIDOfertaDia = COUNT( TipoEstrategiaID) 
 		FROM	TipoEstrategia 
 		WHERE	TipoEstrategiaId = @TipoEstrategiaID AND  DescripcionEstrategia like '%'+ UPPER('OFERTA DEL')+'%'
@@ -1172,7 +1153,7 @@ SET NOCOUNT ON
 			SELECT @EtiquetaID = EtiquetaID from Etiqueta 
 			WHERE Descripcion like '%' + UPPER('Ganancia') + '%'
 		END
-		-- Obtener el EtiquetaID de la Oferta del dÌa.
+		-- Obtener el EtiquetaID de la Oferta del d√≠a.
 		IF @TipoEstrategiaIDOfertaDia > 0
 		BEGIN
 			SELECT @EtiquetaID2 = EtiquetaID from Etiqueta 
@@ -1183,14 +1164,14 @@ SET NOCOUNT ON
 		BEGIN
 				IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 				BEGIN
-					RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaÒa seleccionado.', 16, 1)
+					RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campa√±a seleccionado.', 16, 1)
 				END
 
 				IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008') AND ISNULL(@Orden,0) > 0)
 				BEGIN
 					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 					BEGIN
-						RAISERROR('El orden ingresado para la estrategia ya est· siendo utilizado.', 16, 1)
+						RAISERROR('El orden ingresado para la estrategia ya est√° siendo utilizado.', 16, 1)
 					END
 				END
 				
@@ -1211,7 +1192,7 @@ SET NOCOUNT ON
 
 					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND ESTRATEGIAID <> @EstrategiaID  AND NUMEROPEDIDO = @NumeroPedido)
 					BEGIN
-						RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaÒa seleccionado.', 16, 1)
+						RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campa√±a seleccionado.', 16, 1)
 					END								 
 					
 					IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008') AND ISNULL(@Orden,0) > 0)
@@ -1219,7 +1200,7 @@ SET NOCOUNT ON
 	
 						IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID  AND ESTRATEGIAID <> @EstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 						BEGIN
-							RAISERROR('El orden ingresado para la estrategia ya est· siendo utilizado.', 16, 1)
+							RAISERROR('El orden ingresado para la estrategia ya est√° siendo utilizado.', 16, 1)
 						END
 					END
 	
@@ -1268,15 +1249,12 @@ SET NOCOUNT ON
 	
 SET NOCOUNT OFF
 END
-GO
-/*END*/
 GO
 
 USE BelcorpGuatemala
 GO
 
 GO
-
 ALTER PROCEDURE [dbo].[InsertarEstrategia_SB2]
 	@EstrategiaID int,
 	@TipoEstrategiaID int,
@@ -1330,7 +1308,7 @@ SET NOCOUNT ON
 		FROM	TipoEstrategia 
 		WHERE	TipoEstrategiaId = @TipoEstrategiaID AND  flagnueva = 1
 
-		-- Para calcular la etiqueta Oferta del dÌa
+		-- Para calcular la etiqueta Oferta del d√≠a
 		SELECT	@TipoEstrategiaIDOfertaDia = COUNT( TipoEstrategiaID) 
 		FROM	TipoEstrategia 
 		WHERE	TipoEstrategiaId = @TipoEstrategiaID AND  DescripcionEstrategia like '%'+ UPPER('OFERTA DEL')+'%'
@@ -1354,7 +1332,7 @@ SET NOCOUNT ON
 			SELECT @EtiquetaID = EtiquetaID from Etiqueta 
 			WHERE Descripcion like '%' + UPPER('Ganancia') + '%'
 		END
-		-- Obtener el EtiquetaID de la Oferta del dÌa.
+		-- Obtener el EtiquetaID de la Oferta del d√≠a.
 		IF @TipoEstrategiaIDOfertaDia > 0
 		BEGIN
 			SELECT @EtiquetaID2 = EtiquetaID from Etiqueta 
@@ -1365,14 +1343,14 @@ SET NOCOUNT ON
 		BEGIN
 				IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 				BEGIN
-					RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaÒa seleccionado.', 16, 1)
+					RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campa√±a seleccionado.', 16, 1)
 				END
 
 				IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008') AND ISNULL(@Orden,0) > 0)
 				BEGIN
 					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 					BEGIN
-						RAISERROR('El orden ingresado para la estrategia ya est· siendo utilizado.', 16, 1)
+						RAISERROR('El orden ingresado para la estrategia ya est√° siendo utilizado.', 16, 1)
 					END
 				END
 				
@@ -1393,7 +1371,7 @@ SET NOCOUNT ON
 
 					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND ESTRATEGIAID <> @EstrategiaID  AND NUMEROPEDIDO = @NumeroPedido)
 					BEGIN
-						RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaÒa seleccionado.', 16, 1)
+						RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campa√±a seleccionado.', 16, 1)
 					END								 
 					
 					IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008') AND ISNULL(@Orden,0) > 0)
@@ -1401,7 +1379,7 @@ SET NOCOUNT ON
 	
 						IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID  AND ESTRATEGIAID <> @EstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 						BEGIN
-							RAISERROR('El orden ingresado para la estrategia ya est· siendo utilizado.', 16, 1)
+							RAISERROR('El orden ingresado para la estrategia ya est√° siendo utilizado.', 16, 1)
 						END
 					END
 	
@@ -1450,15 +1428,12 @@ SET NOCOUNT ON
 	
 SET NOCOUNT OFF
 END
-GO
-/*END*/
 GO
 
 USE BelcorpEcuador
 GO
 
 GO
-
 ALTER PROCEDURE [dbo].[InsertarEstrategia_SB2]
 	@EstrategiaID int,
 	@TipoEstrategiaID int,
@@ -1512,7 +1487,7 @@ SET NOCOUNT ON
 		FROM	TipoEstrategia 
 		WHERE	TipoEstrategiaId = @TipoEstrategiaID AND  flagnueva = 1
 
-		-- Para calcular la etiqueta Oferta del dÌa
+		-- Para calcular la etiqueta Oferta del d√≠a
 		SELECT	@TipoEstrategiaIDOfertaDia = COUNT( TipoEstrategiaID) 
 		FROM	TipoEstrategia 
 		WHERE	TipoEstrategiaId = @TipoEstrategiaID AND  DescripcionEstrategia like '%'+ UPPER('OFERTA DEL')+'%'
@@ -1536,7 +1511,7 @@ SET NOCOUNT ON
 			SELECT @EtiquetaID = EtiquetaID from Etiqueta 
 			WHERE Descripcion like '%' + UPPER('Ganancia') + '%'
 		END
-		-- Obtener el EtiquetaID de la Oferta del dÌa.
+		-- Obtener el EtiquetaID de la Oferta del d√≠a.
 		IF @TipoEstrategiaIDOfertaDia > 0
 		BEGIN
 			SELECT @EtiquetaID2 = EtiquetaID from Etiqueta 
@@ -1547,14 +1522,14 @@ SET NOCOUNT ON
 		BEGIN
 				IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 				BEGIN
-					RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaÒa seleccionado.', 16, 1)
+					RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campa√±a seleccionado.', 16, 1)
 				END
 
 				IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008') AND ISNULL(@Orden,0) > 0)
 				BEGIN
 					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 					BEGIN
-						RAISERROR('El orden ingresado para la estrategia ya est· siendo utilizado.', 16, 1)
+						RAISERROR('El orden ingresado para la estrategia ya est√° siendo utilizado.', 16, 1)
 					END
 				END
 				
@@ -1575,7 +1550,7 @@ SET NOCOUNT ON
 
 					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND ESTRATEGIAID <> @EstrategiaID  AND NUMEROPEDIDO = @NumeroPedido)
 					BEGIN
-						RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaÒa seleccionado.', 16, 1)
+						RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campa√±a seleccionado.', 16, 1)
 					END								 
 					
 					IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008') AND ISNULL(@Orden,0) > 0)
@@ -1583,7 +1558,7 @@ SET NOCOUNT ON
 	
 						IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID  AND ESTRATEGIAID <> @EstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 						BEGIN
-							RAISERROR('El orden ingresado para la estrategia ya est· siendo utilizado.', 16, 1)
+							RAISERROR('El orden ingresado para la estrategia ya est√° siendo utilizado.', 16, 1)
 						END
 					END
 	
@@ -1632,15 +1607,12 @@ SET NOCOUNT ON
 	
 SET NOCOUNT OFF
 END
-GO
-/*END*/
 GO
 
 USE BelcorpDominicana
 GO
 
 GO
-
 ALTER PROCEDURE [dbo].[InsertarEstrategia_SB2]
 	@EstrategiaID int,
 	@TipoEstrategiaID int,
@@ -1694,7 +1666,7 @@ SET NOCOUNT ON
 		FROM	TipoEstrategia 
 		WHERE	TipoEstrategiaId = @TipoEstrategiaID AND  flagnueva = 1
 
-		-- Para calcular la etiqueta Oferta del dÌa
+		-- Para calcular la etiqueta Oferta del d√≠a
 		SELECT	@TipoEstrategiaIDOfertaDia = COUNT( TipoEstrategiaID) 
 		FROM	TipoEstrategia 
 		WHERE	TipoEstrategiaId = @TipoEstrategiaID AND  DescripcionEstrategia like '%'+ UPPER('OFERTA DEL')+'%'
@@ -1718,7 +1690,7 @@ SET NOCOUNT ON
 			SELECT @EtiquetaID = EtiquetaID from Etiqueta 
 			WHERE Descripcion like '%' + UPPER('Ganancia') + '%'
 		END
-		-- Obtener el EtiquetaID de la Oferta del dÌa.
+		-- Obtener el EtiquetaID de la Oferta del d√≠a.
 		IF @TipoEstrategiaIDOfertaDia > 0
 		BEGIN
 			SELECT @EtiquetaID2 = EtiquetaID from Etiqueta 
@@ -1729,14 +1701,14 @@ SET NOCOUNT ON
 		BEGIN
 				IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 				BEGIN
-					RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaÒa seleccionado.', 16, 1)
+					RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campa√±a seleccionado.', 16, 1)
 				END
 
 				IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008') AND ISNULL(@Orden,0) > 0)
 				BEGIN
 					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 					BEGIN
-						RAISERROR('El orden ingresado para la estrategia ya est· siendo utilizado.', 16, 1)
+						RAISERROR('El orden ingresado para la estrategia ya est√° siendo utilizado.', 16, 1)
 					END
 				END
 				
@@ -1757,7 +1729,7 @@ SET NOCOUNT ON
 
 					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND ESTRATEGIAID <> @EstrategiaID  AND NUMEROPEDIDO = @NumeroPedido)
 					BEGIN
-						RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaÒa seleccionado.', 16, 1)
+						RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campa√±a seleccionado.', 16, 1)
 					END								 
 					
 					IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008') AND ISNULL(@Orden,0) > 0)
@@ -1765,7 +1737,7 @@ SET NOCOUNT ON
 	
 						IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID  AND ESTRATEGIAID <> @EstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 						BEGIN
-							RAISERROR('El orden ingresado para la estrategia ya est· siendo utilizado.', 16, 1)
+							RAISERROR('El orden ingresado para la estrategia ya est√° siendo utilizado.', 16, 1)
 						END
 					END
 	
@@ -1814,15 +1786,12 @@ SET NOCOUNT ON
 	
 SET NOCOUNT OFF
 END
-GO
-/*END*/
 GO
 
 USE BelcorpCostaRica
 GO
 
 GO
-
 ALTER PROCEDURE [dbo].[InsertarEstrategia_SB2]
 	@EstrategiaID int,
 	@TipoEstrategiaID int,
@@ -1876,7 +1845,7 @@ SET NOCOUNT ON
 		FROM	TipoEstrategia 
 		WHERE	TipoEstrategiaId = @TipoEstrategiaID AND  flagnueva = 1
 
-		-- Para calcular la etiqueta Oferta del dÌa
+		-- Para calcular la etiqueta Oferta del d√≠a
 		SELECT	@TipoEstrategiaIDOfertaDia = COUNT( TipoEstrategiaID) 
 		FROM	TipoEstrategia 
 		WHERE	TipoEstrategiaId = @TipoEstrategiaID AND  DescripcionEstrategia like '%'+ UPPER('OFERTA DEL')+'%'
@@ -1900,7 +1869,7 @@ SET NOCOUNT ON
 			SELECT @EtiquetaID = EtiquetaID from Etiqueta 
 			WHERE Descripcion like '%' + UPPER('Ganancia') + '%'
 		END
-		-- Obtener el EtiquetaID de la Oferta del dÌa.
+		-- Obtener el EtiquetaID de la Oferta del d√≠a.
 		IF @TipoEstrategiaIDOfertaDia > 0
 		BEGIN
 			SELECT @EtiquetaID2 = EtiquetaID from Etiqueta 
@@ -1911,14 +1880,14 @@ SET NOCOUNT ON
 		BEGIN
 				IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 				BEGIN
-					RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaÒa seleccionado.', 16, 1)
+					RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campa√±a seleccionado.', 16, 1)
 				END
 
 				IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008') AND ISNULL(@Orden,0) > 0)
 				BEGIN
 					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 					BEGIN
-						RAISERROR('El orden ingresado para la estrategia ya est· siendo utilizado.', 16, 1)
+						RAISERROR('El orden ingresado para la estrategia ya est√° siendo utilizado.', 16, 1)
 					END
 				END
 				
@@ -1939,7 +1908,7 @@ SET NOCOUNT ON
 
 					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND ESTRATEGIAID <> @EstrategiaID  AND NUMEROPEDIDO = @NumeroPedido)
 					BEGIN
-						RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaÒa seleccionado.', 16, 1)
+						RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campa√±a seleccionado.', 16, 1)
 					END								 
 					
 					IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008') AND ISNULL(@Orden,0) > 0)
@@ -1947,7 +1916,7 @@ SET NOCOUNT ON
 	
 						IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID  AND ESTRATEGIAID <> @EstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 						BEGIN
-							RAISERROR('El orden ingresado para la estrategia ya est· siendo utilizado.', 16, 1)
+							RAISERROR('El orden ingresado para la estrategia ya est√° siendo utilizado.', 16, 1)
 						END
 					END
 	
@@ -1996,15 +1965,12 @@ SET NOCOUNT ON
 	
 SET NOCOUNT OFF
 END
-GO
-/*END*/
 GO
 
 USE BelcorpChile
 GO
 
 GO
-
 ALTER PROCEDURE [dbo].[InsertarEstrategia_SB2]
 	@EstrategiaID int,
 	@TipoEstrategiaID int,
@@ -2058,7 +2024,7 @@ SET NOCOUNT ON
 		FROM	TipoEstrategia 
 		WHERE	TipoEstrategiaId = @TipoEstrategiaID AND  flagnueva = 1
 
-		-- Para calcular la etiqueta Oferta del dÌa
+		-- Para calcular la etiqueta Oferta del d√≠a
 		SELECT	@TipoEstrategiaIDOfertaDia = COUNT( TipoEstrategiaID) 
 		FROM	TipoEstrategia 
 		WHERE	TipoEstrategiaId = @TipoEstrategiaID AND  DescripcionEstrategia like '%'+ UPPER('OFERTA DEL')+'%'
@@ -2082,7 +2048,7 @@ SET NOCOUNT ON
 			SELECT @EtiquetaID = EtiquetaID from Etiqueta 
 			WHERE Descripcion like '%' + UPPER('Ganancia') + '%'
 		END
-		-- Obtener el EtiquetaID de la Oferta del dÌa.
+		-- Obtener el EtiquetaID de la Oferta del d√≠a.
 		IF @TipoEstrategiaIDOfertaDia > 0
 		BEGIN
 			SELECT @EtiquetaID2 = EtiquetaID from Etiqueta 
@@ -2093,14 +2059,14 @@ SET NOCOUNT ON
 		BEGIN
 				IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 				BEGIN
-					RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaÒa seleccionado.', 16, 1)
+					RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campa√±a seleccionado.', 16, 1)
 				END
 
 				IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008') AND ISNULL(@Orden,0) > 0)
 				BEGIN
 					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 					BEGIN
-						RAISERROR('El orden ingresado para la estrategia ya est· siendo utilizado.', 16, 1)
+						RAISERROR('El orden ingresado para la estrategia ya est√° siendo utilizado.', 16, 1)
 					END
 				END
 				
@@ -2121,7 +2087,7 @@ SET NOCOUNT ON
 
 					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND ESTRATEGIAID <> @EstrategiaID  AND NUMEROPEDIDO = @NumeroPedido)
 					BEGIN
-						RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaÒa seleccionado.', 16, 1)
+						RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campa√±a seleccionado.', 16, 1)
 					END								 
 					
 					IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008') AND ISNULL(@Orden,0) > 0)
@@ -2129,7 +2095,7 @@ SET NOCOUNT ON
 	
 						IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID  AND ESTRATEGIAID <> @EstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 						BEGIN
-							RAISERROR('El orden ingresado para la estrategia ya est· siendo utilizado.', 16, 1)
+							RAISERROR('El orden ingresado para la estrategia ya est√° siendo utilizado.', 16, 1)
 						END
 					END
 	
@@ -2178,15 +2144,12 @@ SET NOCOUNT ON
 	
 SET NOCOUNT OFF
 END
-GO
-/*END*/
 GO
 
 USE BelcorpBolivia
 GO
 
 GO
-
 ALTER PROCEDURE [dbo].[InsertarEstrategia_SB2]
 	@EstrategiaID int,
 	@TipoEstrategiaID int,
@@ -2240,7 +2203,7 @@ SET NOCOUNT ON
 		FROM	TipoEstrategia 
 		WHERE	TipoEstrategiaId = @TipoEstrategiaID AND  flagnueva = 1
 
-		-- Para calcular la etiqueta Oferta del dÌa
+		-- Para calcular la etiqueta Oferta del d√≠a
 		SELECT	@TipoEstrategiaIDOfertaDia = COUNT( TipoEstrategiaID) 
 		FROM	TipoEstrategia 
 		WHERE	TipoEstrategiaId = @TipoEstrategiaID AND  DescripcionEstrategia like '%'+ UPPER('OFERTA DEL')+'%'
@@ -2264,7 +2227,7 @@ SET NOCOUNT ON
 			SELECT @EtiquetaID = EtiquetaID from Etiqueta 
 			WHERE Descripcion like '%' + UPPER('Ganancia') + '%'
 		END
-		-- Obtener el EtiquetaID de la Oferta del dÌa.
+		-- Obtener el EtiquetaID de la Oferta del d√≠a.
 		IF @TipoEstrategiaIDOfertaDia > 0
 		BEGIN
 			SELECT @EtiquetaID2 = EtiquetaID from Etiqueta 
@@ -2275,14 +2238,14 @@ SET NOCOUNT ON
 		BEGIN
 				IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 				BEGIN
-					RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaÒa seleccionado.', 16, 1)
+					RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campa√±a seleccionado.', 16, 1)
 				END
 
 				IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008') AND ISNULL(@Orden,0) > 0)
 				BEGIN
 					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 					BEGIN
-						RAISERROR('El orden ingresado para la estrategia ya est· siendo utilizado.', 16, 1)
+						RAISERROR('El orden ingresado para la estrategia ya est√° siendo utilizado.', 16, 1)
 					END
 				END
 				
@@ -2303,7 +2266,7 @@ SET NOCOUNT ON
 
 					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND ESTRATEGIAID <> @EstrategiaID  AND NUMEROPEDIDO = @NumeroPedido)
 					BEGIN
-						RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaÒa seleccionado.', 16, 1)
+						RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campa√±a seleccionado.', 16, 1)
 					END								 
 					
 					IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008') AND ISNULL(@Orden,0) > 0)
@@ -2311,7 +2274,7 @@ SET NOCOUNT ON
 	
 						IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID  AND ESTRATEGIAID <> @EstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 						BEGIN
-							RAISERROR('El orden ingresado para la estrategia ya est· siendo utilizado.', 16, 1)
+							RAISERROR('El orden ingresado para la estrategia ya est√° siendo utilizado.', 16, 1)
 						END
 					END
 	
@@ -2361,6 +2324,3 @@ SET NOCOUNT ON
 SET NOCOUNT OFF
 END
 GO
-/*END*/
-GO
-
