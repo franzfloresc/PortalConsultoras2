@@ -17,9 +17,16 @@ $(document).ready(function () {
         MensajeEstadoPedido();
     }
 
-    if (tieneOfertaDelDia == "True") {
-        window.OfertaDelDia.CargarODD();
+    if (!esContenedorOfertas) {
+        if (tieneOfertaDelDia == "True") {
+            window.OfertaDelDia.CargarODD();
+        }
+    } else {
+        if (mostrarOfertaDelDiaContenedor == "True") {
+            window.OfertaDelDia.CargarODD();
+        }
     }
+    
     
     $(document).keyup(function (e) {
         if (e.keyCode == 27) {
