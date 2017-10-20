@@ -1741,6 +1741,7 @@
                     var imgFichaFondoMobile = $("#nombre-img-ficha-fondo-mobile").val();
                     var imgHomeDesktop = $("#nombre-img-home-desktop").val();
                     var imgHomeMobile = $("#nombre-img-home-mobile").val();
+                    var ganancia = $("#txtGanancia").val();
                     var params = {
                         EstrategiaID: EstrategiaID,
                         TipoEstrategiaID: TipoEstrategiaID,
@@ -1780,7 +1781,8 @@
                         ImgFichaFondoMobile: imgFichaFondoMobile,
                         ImgHomeDesktop: imgHomeDesktop,
                         ImgHomeMobile: imgHomeMobile,
-                        PrecioAnt: $('#hdEstrategiaPrecioAnt').val()
+                        PrecioAnt: $('#hdEstrategiaPrecioAnt').val(),
+                        Ganancia: ganancia
                     };
                     jQuery.ajax({
                         type: 'POST',
