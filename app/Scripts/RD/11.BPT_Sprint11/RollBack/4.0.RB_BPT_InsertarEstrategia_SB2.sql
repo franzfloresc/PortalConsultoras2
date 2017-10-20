@@ -1,7 +1,7 @@
-go
-Use BelcorpBolivia
+USE BelcorpPeru
 GO
 
+GO
 ALTER PROCEDURE [dbo].[InsertarEstrategia_SB2]
 	@EstrategiaID int,
 	@TipoEstrategiaID int,
@@ -33,22 +33,18 @@ ALTER PROCEDURE [dbo].[InsertarEstrategia_SB2]
 	@FlagEstrella bit,
 	@CodigoEstrategia varchar(100),
 	@TieneVariedad INT,
+	@EsOfertaIndependiente BIT = 0,
 	@Retorno int output
 AS
 BEGIN
-SET NOCOUNT ON
+	SET NOCOUNT ON
 
-	BEGIN TRY
+		BEGIN TRY
 
 		set @Retorno = 0
 
 		DECLARE @TipoEstrategiaIDPackNueva INT = 0, @TipoEstrategiaIDOfertaDia INT = 0
 		
-		DECLARE @CodigoTipoEstrategia VARCHAR = ''
-		SELECT	@CodigoTipoEstrategia = Codigo 
-		FROM	TipoEstrategia 
-		WHERE	TipoEstrategiaId = @TipoEstrategiaID 
-
 		-- Para calcular la etiqueta para pack nuevas
 		SELECT	@TipoEstrategiaIDPackNueva = COUNT( TipoEstrategiaID) 
 		FROM	TipoEstrategia 
@@ -67,8 +63,6 @@ SET NOCOUNT ON
 		if isnull(@CUV,'') != ''
 			SELECT @EtiquetaID = EtiquetaID FROM Etiqueta 
 			WHERE Descripcion like '%' + UPPER('Precio Cat') + '%'
-		else if @CodigoTipoEstrategia in ('005', '007', '008')
-			set @EtiquetaID = 1
 		else
 			set @EtiquetaID = 0
 
@@ -85,42 +79,42 @@ SET NOCOUNT ON
 			WHERE Descripcion like '%' + UPPER('OFERTA DEL') + '%'
 		END		
 
-		IF NOT EXISTS(SELECT 1 FROM Estrategia WHERE EstrategiaID = @EstrategiaID)
-		BEGIN
+			IF NOT EXISTS(SELECT 1 FROM Estrategia WHERE EstrategiaID = @EstrategiaID)
+			BEGIN
 				IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 				BEGIN
 					RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaña seleccionado.', 16, 1)
 				END
 
-				IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008') AND ISNULL(@Orden,0) > 0)
+				IF (@TipoEstrategiaID NOT IN (3009) AND ISNULL(@Orden,0) > 0)	-- SB20-312
 				BEGIN
 					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 					BEGIN
 						RAISERROR('El orden ingresado para la estrategia ya está siendo utilizado.', 16, 1)
 					END
-				END
+				END							
 				
 			    INSERT INTO dbo.Estrategia
 			    (TipoEstrategiaID, CampaniaID, CampaniaIDFin, NumeroPedido, Activo, ImagenURL, LimiteVenta, DescripcionCUV2
-					,FlagDescripcion, CUV, EtiquetaID, Precio, FlagCEP, CUV2, EtiquetaID2, Precio2
-					,FlagCEP2, TextoLibre, FlagTextoLibre, Cantidad, FlagCantidad, Zona, Orden, UsuarioCreacion, FechaCreacion, ColorFondo, FlagEstrella, CodigoEstrategia, TieneVariedad )
+				,FlagDescripcion, CUV, EtiquetaID, Precio, FlagCEP, CUV2, EtiquetaID2, Precio2
+				,FlagCEP2, TextoLibre, FlagTextoLibre, Cantidad, FlagCantidad, Zona, Orden, UsuarioCreacion, FechaCreacion, ColorFondo, FlagEstrella, CodigoEstrategia, TieneVariedad, EsOfertaIndependiente )
 				VALUES
 			   (@TipoEstrategiaID,@CampaniaID,@CampaniaIDFin,@NumeroPedido,@Activo,@ImagenURL,@LimiteVenta,@DescripcionCUV2
 					,@FlagDescripcion,@CUV,@EtiquetaID,@Precio,@FlagCEP,@CUV2,@EtiquetaID2,@Precio2
-					,@FlagCEP2,@TextoLibre,@FlagTextoLibre,@Cantidad,@FlagCantidad,@Zona,@Orden,@UsuarioCreacion,GETDATE(), @ColorFondo, @FlagEstrella, @CodigoEstrategia, @TieneVariedad)
+					,@FlagCEP2,@TextoLibre,@FlagTextoLibre,@Cantidad,@FlagCantidad,@Zona,@Orden,@UsuarioCreacion,GETDATE(), @ColorFondo, @FlagEstrella, @CodigoEstrategia, @TieneVariedad, @EsOfertaIndependiente)
 	
 					set @Retorno = @@IDENTITY
 	
-		END
-		ELSE
-		BEGIN
-
+				END
+				ELSE
+				BEGIN			
+	
 					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND ESTRATEGIAID <> @EstrategiaID  AND NUMEROPEDIDO = @NumeroPedido)
 					BEGIN
 						RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaña seleccionado.', 16, 1)
 					END								 
 					
-					IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008') AND ISNULL(@Orden,0) > 0)
+					IF (@TipoEstrategiaID NOT IN (3009) AND ISNULL(@Orden,0) > 0) -- SB20-312
 					BEGIN
 	
 						IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID  AND ESTRATEGIAID <> @EstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
@@ -158,26 +152,30 @@ SET NOCOUNT ON
 						ColorFondo			= @ColorFondo, 
 						FlagEstrella		= @FlagEstrella,
 						CodigoEstrategia	= @CodigoEstrategia,
-						TieneVariedad		= @TieneVariedad
+						TieneVariedad		= @TieneVariedad,
+						EsOfertaIndependiente = @EsOfertaIndependiente
 					WHERE EstrategiaID = @EstrategiaID
 					
 					set @Retorno = @EstrategiaID
 	
-		END
-	END TRY
-	BEGIN CATCH
-		DECLARE @ErrorMessage NVARCHAR(4000), @ErrorSeverity INT, @ErrorState INT
-		SELECT @ErrorMessage = ERROR_MESSAGE(), @ErrorSeverity = ERROR_SEVERITY(), @ErrorState = ERROR_STATE()
-		RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState)
-	END CATCH
+				END
+			END TRY
+			BEGIN CATCH
+				DECLARE @ErrorMessage NVARCHAR(4000), @ErrorSeverity INT, @ErrorState INT
+				SELECT @ErrorMessage = ERROR_MESSAGE(), @ErrorSeverity = ERROR_SEVERITY(), @ErrorState = ERROR_STATE()
+				RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState)
+			END CATCH
 	
-SET NOCOUNT OFF
-END
+		SET NOCOUNT OFF
+	END
+GO
+/*END*/
+GO
+
+USE BelcorpMexico
+GO
 
 GO
-Use BelcorpChile
-GO
-
 ALTER PROCEDURE [dbo].[InsertarEstrategia_SB2]
 	@EstrategiaID int,
 	@TipoEstrategiaID int,
@@ -209,22 +207,18 @@ ALTER PROCEDURE [dbo].[InsertarEstrategia_SB2]
 	@FlagEstrella bit,
 	@CodigoEstrategia varchar(100),
 	@TieneVariedad INT,
+	@EsOfertaIndependiente BIT = 0,
 	@Retorno int output
 AS
 BEGIN
-SET NOCOUNT ON
+	SET NOCOUNT ON
 
-	BEGIN TRY
+		BEGIN TRY
 
 		set @Retorno = 0
 
 		DECLARE @TipoEstrategiaIDPackNueva INT = 0, @TipoEstrategiaIDOfertaDia INT = 0
 		
-		DECLARE @CodigoTipoEstrategia VARCHAR = ''
-		SELECT	@CodigoTipoEstrategia = Codigo 
-		FROM	TipoEstrategia 
-		WHERE	TipoEstrategiaId = @TipoEstrategiaID 
-
 		-- Para calcular la etiqueta para pack nuevas
 		SELECT	@TipoEstrategiaIDPackNueva = COUNT( TipoEstrategiaID) 
 		FROM	TipoEstrategia 
@@ -243,8 +237,6 @@ SET NOCOUNT ON
 		if isnull(@CUV,'') != ''
 			SELECT @EtiquetaID = EtiquetaID FROM Etiqueta 
 			WHERE Descripcion like '%' + UPPER('Precio Cat') + '%'
-		else if @CodigoTipoEstrategia in ('005', '007', '008')
-			set @EtiquetaID = 1
 		else
 			set @EtiquetaID = 0
 
@@ -261,42 +253,42 @@ SET NOCOUNT ON
 			WHERE Descripcion like '%' + UPPER('OFERTA DEL') + '%'
 		END		
 
-		IF NOT EXISTS(SELECT 1 FROM Estrategia WHERE EstrategiaID = @EstrategiaID)
-		BEGIN
+			IF NOT EXISTS(SELECT 1 FROM Estrategia WHERE EstrategiaID = @EstrategiaID)
+			BEGIN
 				IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 				BEGIN
 					RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaña seleccionado.', 16, 1)
 				END
 
-				IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008') AND ISNULL(@Orden,0) > 0)
+				IF (@TipoEstrategiaID NOT IN (3009) AND ISNULL(@Orden,0) > 0)	-- SB20-312
 				BEGIN
 					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 					BEGIN
 						RAISERROR('El orden ingresado para la estrategia ya está siendo utilizado.', 16, 1)
 					END
-				END
+				END							
 				
 			    INSERT INTO dbo.Estrategia
 			    (TipoEstrategiaID, CampaniaID, CampaniaIDFin, NumeroPedido, Activo, ImagenURL, LimiteVenta, DescripcionCUV2
-					,FlagDescripcion, CUV, EtiquetaID, Precio, FlagCEP, CUV2, EtiquetaID2, Precio2
-					,FlagCEP2, TextoLibre, FlagTextoLibre, Cantidad, FlagCantidad, Zona, Orden, UsuarioCreacion, FechaCreacion, ColorFondo, FlagEstrella, CodigoEstrategia, TieneVariedad )
+				,FlagDescripcion, CUV, EtiquetaID, Precio, FlagCEP, CUV2, EtiquetaID2, Precio2
+				,FlagCEP2, TextoLibre, FlagTextoLibre, Cantidad, FlagCantidad, Zona, Orden, UsuarioCreacion, FechaCreacion, ColorFondo, FlagEstrella, CodigoEstrategia, TieneVariedad, EsOfertaIndependiente )
 				VALUES
 			   (@TipoEstrategiaID,@CampaniaID,@CampaniaIDFin,@NumeroPedido,@Activo,@ImagenURL,@LimiteVenta,@DescripcionCUV2
 					,@FlagDescripcion,@CUV,@EtiquetaID,@Precio,@FlagCEP,@CUV2,@EtiquetaID2,@Precio2
-					,@FlagCEP2,@TextoLibre,@FlagTextoLibre,@Cantidad,@FlagCantidad,@Zona,@Orden,@UsuarioCreacion,GETDATE(), @ColorFondo, @FlagEstrella, @CodigoEstrategia, @TieneVariedad)
+					,@FlagCEP2,@TextoLibre,@FlagTextoLibre,@Cantidad,@FlagCantidad,@Zona,@Orden,@UsuarioCreacion,GETDATE(), @ColorFondo, @FlagEstrella, @CodigoEstrategia, @TieneVariedad, @EsOfertaIndependiente)
 	
 					set @Retorno = @@IDENTITY
 	
-		END
-		ELSE
-		BEGIN
-
+				END
+				ELSE
+				BEGIN			
+	
 					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND ESTRATEGIAID <> @EstrategiaID  AND NUMEROPEDIDO = @NumeroPedido)
 					BEGIN
 						RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaña seleccionado.', 16, 1)
 					END								 
 					
-					IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008') AND ISNULL(@Orden,0) > 0)
+					IF (@TipoEstrategiaID NOT IN (3009) AND ISNULL(@Orden,0) > 0) -- SB20-312
 					BEGIN
 	
 						IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID  AND ESTRATEGIAID <> @EstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
@@ -334,26 +326,30 @@ SET NOCOUNT ON
 						ColorFondo			= @ColorFondo, 
 						FlagEstrella		= @FlagEstrella,
 						CodigoEstrategia	= @CodigoEstrategia,
-						TieneVariedad		= @TieneVariedad
+						TieneVariedad		= @TieneVariedad,
+						EsOfertaIndependiente = @EsOfertaIndependiente
 					WHERE EstrategiaID = @EstrategiaID
 					
 					set @Retorno = @EstrategiaID
 	
-		END
-	END TRY
-	BEGIN CATCH
-		DECLARE @ErrorMessage NVARCHAR(4000), @ErrorSeverity INT, @ErrorState INT
-		SELECT @ErrorMessage = ERROR_MESSAGE(), @ErrorSeverity = ERROR_SEVERITY(), @ErrorState = ERROR_STATE()
-		RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState)
-	END CATCH
+				END
+			END TRY
+			BEGIN CATCH
+				DECLARE @ErrorMessage NVARCHAR(4000), @ErrorSeverity INT, @ErrorState INT
+				SELECT @ErrorMessage = ERROR_MESSAGE(), @ErrorSeverity = ERROR_SEVERITY(), @ErrorState = ERROR_STATE()
+				RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState)
+			END CATCH
 	
-SET NOCOUNT OFF
-END
+		SET NOCOUNT OFF
+	END
+GO
+/*END*/
+GO
+
+USE BelcorpColombia
+GO
 
 GO
-Use BelcorpColombia
-GO
-
 ALTER PROCEDURE [dbo].[InsertarEstrategia_SB2]
 	@EstrategiaID int,
 	@TipoEstrategiaID int,
@@ -385,22 +381,18 @@ ALTER PROCEDURE [dbo].[InsertarEstrategia_SB2]
 	@FlagEstrella bit,
 	@CodigoEstrategia varchar(100),
 	@TieneVariedad INT,
+	@EsOfertaIndependiente BIT = 0,
 	@Retorno int output
 AS
 BEGIN
-SET NOCOUNT ON
+	SET NOCOUNT ON
 
-	BEGIN TRY
+		BEGIN TRY
 
 		set @Retorno = 0
 
 		DECLARE @TipoEstrategiaIDPackNueva INT = 0, @TipoEstrategiaIDOfertaDia INT = 0
 		
-		DECLARE @CodigoTipoEstrategia VARCHAR = ''
-		SELECT	@CodigoTipoEstrategia = Codigo 
-		FROM	TipoEstrategia 
-		WHERE	TipoEstrategiaId = @TipoEstrategiaID 
-
 		-- Para calcular la etiqueta para pack nuevas
 		SELECT	@TipoEstrategiaIDPackNueva = COUNT( TipoEstrategiaID) 
 		FROM	TipoEstrategia 
@@ -419,8 +411,6 @@ SET NOCOUNT ON
 		if isnull(@CUV,'') != ''
 			SELECT @EtiquetaID = EtiquetaID FROM Etiqueta 
 			WHERE Descripcion like '%' + UPPER('Precio Cat') + '%'
-		else if @CodigoTipoEstrategia in ('005', '007', '008')
-			set @EtiquetaID = 1
 		else
 			set @EtiquetaID = 0
 
@@ -437,42 +427,42 @@ SET NOCOUNT ON
 			WHERE Descripcion like '%' + UPPER('OFERTA DEL') + '%'
 		END		
 
-		IF NOT EXISTS(SELECT 1 FROM Estrategia WHERE EstrategiaID = @EstrategiaID)
-		BEGIN
+			IF NOT EXISTS(SELECT 1 FROM Estrategia WHERE EstrategiaID = @EstrategiaID)
+			BEGIN
 				IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 				BEGIN
 					RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaña seleccionado.', 16, 1)
 				END
 
-				IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008') AND ISNULL(@Orden,0) > 0)
+				IF (@TipoEstrategiaID NOT IN (3009) AND ISNULL(@Orden,0) > 0)	-- SB20-312
 				BEGIN
 					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 					BEGIN
 						RAISERROR('El orden ingresado para la estrategia ya está siendo utilizado.', 16, 1)
 					END
-				END
+				END							
 				
 			    INSERT INTO dbo.Estrategia
 			    (TipoEstrategiaID, CampaniaID, CampaniaIDFin, NumeroPedido, Activo, ImagenURL, LimiteVenta, DescripcionCUV2
-					,FlagDescripcion, CUV, EtiquetaID, Precio, FlagCEP, CUV2, EtiquetaID2, Precio2
-					,FlagCEP2, TextoLibre, FlagTextoLibre, Cantidad, FlagCantidad, Zona, Orden, UsuarioCreacion, FechaCreacion, ColorFondo, FlagEstrella, CodigoEstrategia, TieneVariedad )
+				,FlagDescripcion, CUV, EtiquetaID, Precio, FlagCEP, CUV2, EtiquetaID2, Precio2
+				,FlagCEP2, TextoLibre, FlagTextoLibre, Cantidad, FlagCantidad, Zona, Orden, UsuarioCreacion, FechaCreacion, ColorFondo, FlagEstrella, CodigoEstrategia, TieneVariedad, EsOfertaIndependiente )
 				VALUES
 			   (@TipoEstrategiaID,@CampaniaID,@CampaniaIDFin,@NumeroPedido,@Activo,@ImagenURL,@LimiteVenta,@DescripcionCUV2
 					,@FlagDescripcion,@CUV,@EtiquetaID,@Precio,@FlagCEP,@CUV2,@EtiquetaID2,@Precio2
-					,@FlagCEP2,@TextoLibre,@FlagTextoLibre,@Cantidad,@FlagCantidad,@Zona,@Orden,@UsuarioCreacion,GETDATE(), @ColorFondo, @FlagEstrella, @CodigoEstrategia, @TieneVariedad)
+					,@FlagCEP2,@TextoLibre,@FlagTextoLibre,@Cantidad,@FlagCantidad,@Zona,@Orden,@UsuarioCreacion,GETDATE(), @ColorFondo, @FlagEstrella, @CodigoEstrategia, @TieneVariedad, @EsOfertaIndependiente)
 	
 					set @Retorno = @@IDENTITY
 	
-		END
-		ELSE
-		BEGIN
-
+				END
+				ELSE
+				BEGIN			
+	
 					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND ESTRATEGIAID <> @EstrategiaID  AND NUMEROPEDIDO = @NumeroPedido)
 					BEGIN
 						RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaña seleccionado.', 16, 1)
 					END								 
 					
-					IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008') AND ISNULL(@Orden,0) > 0)
+					IF (@TipoEstrategiaID NOT IN (3009) AND ISNULL(@Orden,0) > 0) -- SB20-312
 					BEGIN
 	
 						IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID  AND ESTRATEGIAID <> @EstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
@@ -510,26 +500,30 @@ SET NOCOUNT ON
 						ColorFondo			= @ColorFondo, 
 						FlagEstrella		= @FlagEstrella,
 						CodigoEstrategia	= @CodigoEstrategia,
-						TieneVariedad		= @TieneVariedad
+						TieneVariedad		= @TieneVariedad,
+						EsOfertaIndependiente = @EsOfertaIndependiente
 					WHERE EstrategiaID = @EstrategiaID
 					
 					set @Retorno = @EstrategiaID
 	
-		END
-	END TRY
-	BEGIN CATCH
-		DECLARE @ErrorMessage NVARCHAR(4000), @ErrorSeverity INT, @ErrorState INT
-		SELECT @ErrorMessage = ERROR_MESSAGE(), @ErrorSeverity = ERROR_SEVERITY(), @ErrorState = ERROR_STATE()
-		RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState)
-	END CATCH
+				END
+			END TRY
+			BEGIN CATCH
+				DECLARE @ErrorMessage NVARCHAR(4000), @ErrorSeverity INT, @ErrorState INT
+				SELECT @ErrorMessage = ERROR_MESSAGE(), @ErrorSeverity = ERROR_SEVERITY(), @ErrorState = ERROR_STATE()
+				RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState)
+			END CATCH
 	
-SET NOCOUNT OFF
-END
+		SET NOCOUNT OFF
+	END
+GO
+/*END*/
+GO
+
+USE BelcorpVenezuela
+GO
 
 GO
-Use BelcorpCostaRica
-GO
-
 ALTER PROCEDURE [dbo].[InsertarEstrategia_SB2]
 	@EstrategiaID int,
 	@TipoEstrategiaID int,
@@ -561,22 +555,18 @@ ALTER PROCEDURE [dbo].[InsertarEstrategia_SB2]
 	@FlagEstrella bit,
 	@CodigoEstrategia varchar(100),
 	@TieneVariedad INT,
+	@EsOfertaIndependiente BIT = 0,
 	@Retorno int output
 AS
 BEGIN
-SET NOCOUNT ON
+	SET NOCOUNT ON
 
-	BEGIN TRY
+		BEGIN TRY
 
 		set @Retorno = 0
 
 		DECLARE @TipoEstrategiaIDPackNueva INT = 0, @TipoEstrategiaIDOfertaDia INT = 0
 		
-		DECLARE @CodigoTipoEstrategia VARCHAR = ''
-		SELECT	@CodigoTipoEstrategia = Codigo 
-		FROM	TipoEstrategia 
-		WHERE	TipoEstrategiaId = @TipoEstrategiaID 
-
 		-- Para calcular la etiqueta para pack nuevas
 		SELECT	@TipoEstrategiaIDPackNueva = COUNT( TipoEstrategiaID) 
 		FROM	TipoEstrategia 
@@ -595,8 +585,6 @@ SET NOCOUNT ON
 		if isnull(@CUV,'') != ''
 			SELECT @EtiquetaID = EtiquetaID FROM Etiqueta 
 			WHERE Descripcion like '%' + UPPER('Precio Cat') + '%'
-		else if @CodigoTipoEstrategia in ('005', '007', '008')
-			set @EtiquetaID = 1
 		else
 			set @EtiquetaID = 0
 
@@ -613,42 +601,42 @@ SET NOCOUNT ON
 			WHERE Descripcion like '%' + UPPER('OFERTA DEL') + '%'
 		END		
 
-		IF NOT EXISTS(SELECT 1 FROM Estrategia WHERE EstrategiaID = @EstrategiaID)
-		BEGIN
+			IF NOT EXISTS(SELECT 1 FROM Estrategia WHERE EstrategiaID = @EstrategiaID)
+			BEGIN
 				IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 				BEGIN
 					RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaña seleccionado.', 16, 1)
 				END
 
-				IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008') AND ISNULL(@Orden,0) > 0)
+				IF (@TipoEstrategiaID NOT IN (3009) AND ISNULL(@Orden,0) > 0)	-- SB20-312
 				BEGIN
 					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 					BEGIN
 						RAISERROR('El orden ingresado para la estrategia ya está siendo utilizado.', 16, 1)
 					END
-				END
+				END							
 				
 			    INSERT INTO dbo.Estrategia
 			    (TipoEstrategiaID, CampaniaID, CampaniaIDFin, NumeroPedido, Activo, ImagenURL, LimiteVenta, DescripcionCUV2
-					,FlagDescripcion, CUV, EtiquetaID, Precio, FlagCEP, CUV2, EtiquetaID2, Precio2
-					,FlagCEP2, TextoLibre, FlagTextoLibre, Cantidad, FlagCantidad, Zona, Orden, UsuarioCreacion, FechaCreacion, ColorFondo, FlagEstrella, CodigoEstrategia, TieneVariedad )
+				,FlagDescripcion, CUV, EtiquetaID, Precio, FlagCEP, CUV2, EtiquetaID2, Precio2
+				,FlagCEP2, TextoLibre, FlagTextoLibre, Cantidad, FlagCantidad, Zona, Orden, UsuarioCreacion, FechaCreacion, ColorFondo, FlagEstrella, CodigoEstrategia, TieneVariedad, EsOfertaIndependiente )
 				VALUES
 			   (@TipoEstrategiaID,@CampaniaID,@CampaniaIDFin,@NumeroPedido,@Activo,@ImagenURL,@LimiteVenta,@DescripcionCUV2
 					,@FlagDescripcion,@CUV,@EtiquetaID,@Precio,@FlagCEP,@CUV2,@EtiquetaID2,@Precio2
-					,@FlagCEP2,@TextoLibre,@FlagTextoLibre,@Cantidad,@FlagCantidad,@Zona,@Orden,@UsuarioCreacion,GETDATE(), @ColorFondo, @FlagEstrella, @CodigoEstrategia, @TieneVariedad)
+					,@FlagCEP2,@TextoLibre,@FlagTextoLibre,@Cantidad,@FlagCantidad,@Zona,@Orden,@UsuarioCreacion,GETDATE(), @ColorFondo, @FlagEstrella, @CodigoEstrategia, @TieneVariedad, @EsOfertaIndependiente)
 	
 					set @Retorno = @@IDENTITY
 	
-		END
-		ELSE
-		BEGIN
-
+				END
+				ELSE
+				BEGIN			
+	
 					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND ESTRATEGIAID <> @EstrategiaID  AND NUMEROPEDIDO = @NumeroPedido)
 					BEGIN
 						RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaña seleccionado.', 16, 1)
 					END								 
 					
-					IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008') AND ISNULL(@Orden,0) > 0)
+					IF (@TipoEstrategiaID NOT IN (3009) AND ISNULL(@Orden,0) > 0) -- SB20-312
 					BEGIN
 	
 						IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID  AND ESTRATEGIAID <> @EstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
@@ -686,26 +674,30 @@ SET NOCOUNT ON
 						ColorFondo			= @ColorFondo, 
 						FlagEstrella		= @FlagEstrella,
 						CodigoEstrategia	= @CodigoEstrategia,
-						TieneVariedad		= @TieneVariedad
+						TieneVariedad		= @TieneVariedad,
+						EsOfertaIndependiente = @EsOfertaIndependiente
 					WHERE EstrategiaID = @EstrategiaID
 					
 					set @Retorno = @EstrategiaID
 	
-		END
-	END TRY
-	BEGIN CATCH
-		DECLARE @ErrorMessage NVARCHAR(4000), @ErrorSeverity INT, @ErrorState INT
-		SELECT @ErrorMessage = ERROR_MESSAGE(), @ErrorSeverity = ERROR_SEVERITY(), @ErrorState = ERROR_STATE()
-		RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState)
-	END CATCH
+				END
+			END TRY
+			BEGIN CATCH
+				DECLARE @ErrorMessage NVARCHAR(4000), @ErrorSeverity INT, @ErrorState INT
+				SELECT @ErrorMessage = ERROR_MESSAGE(), @ErrorSeverity = ERROR_SEVERITY(), @ErrorState = ERROR_STATE()
+				RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState)
+			END CATCH
 	
-SET NOCOUNT OFF
-END
+		SET NOCOUNT OFF
+	END
+GO
+/*END*/
+GO
+
+USE BelcorpSalvador
+GO
 
 GO
-Use BelcorpDominicana
-GO
-
 ALTER PROCEDURE [dbo].[InsertarEstrategia_SB2]
 	@EstrategiaID int,
 	@TipoEstrategiaID int,
@@ -737,22 +729,18 @@ ALTER PROCEDURE [dbo].[InsertarEstrategia_SB2]
 	@FlagEstrella bit,
 	@CodigoEstrategia varchar(100),
 	@TieneVariedad INT,
+	@EsOfertaIndependiente BIT = 0,
 	@Retorno int output
 AS
 BEGIN
-SET NOCOUNT ON
+	SET NOCOUNT ON
 
-	BEGIN TRY
+		BEGIN TRY
 
 		set @Retorno = 0
 
 		DECLARE @TipoEstrategiaIDPackNueva INT = 0, @TipoEstrategiaIDOfertaDia INT = 0
 		
-		DECLARE @CodigoTipoEstrategia VARCHAR = ''
-		SELECT	@CodigoTipoEstrategia = Codigo 
-		FROM	TipoEstrategia 
-		WHERE	TipoEstrategiaId = @TipoEstrategiaID 
-
 		-- Para calcular la etiqueta para pack nuevas
 		SELECT	@TipoEstrategiaIDPackNueva = COUNT( TipoEstrategiaID) 
 		FROM	TipoEstrategia 
@@ -771,8 +759,6 @@ SET NOCOUNT ON
 		if isnull(@CUV,'') != ''
 			SELECT @EtiquetaID = EtiquetaID FROM Etiqueta 
 			WHERE Descripcion like '%' + UPPER('Precio Cat') + '%'
-		else if @CodigoTipoEstrategia in ('005', '007', '008')
-			set @EtiquetaID = 1
 		else
 			set @EtiquetaID = 0
 
@@ -789,42 +775,42 @@ SET NOCOUNT ON
 			WHERE Descripcion like '%' + UPPER('OFERTA DEL') + '%'
 		END		
 
-		IF NOT EXISTS(SELECT 1 FROM Estrategia WHERE EstrategiaID = @EstrategiaID)
-		BEGIN
+			IF NOT EXISTS(SELECT 1 FROM Estrategia WHERE EstrategiaID = @EstrategiaID)
+			BEGIN
 				IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 				BEGIN
 					RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaña seleccionado.', 16, 1)
 				END
 
-				IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008') AND ISNULL(@Orden,0) > 0)
+				IF (@TipoEstrategiaID NOT IN (3009) AND ISNULL(@Orden,0) > 0)	-- SB20-312
 				BEGIN
 					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 					BEGIN
 						RAISERROR('El orden ingresado para la estrategia ya está siendo utilizado.', 16, 1)
 					END
-				END
+				END							
 				
 			    INSERT INTO dbo.Estrategia
 			    (TipoEstrategiaID, CampaniaID, CampaniaIDFin, NumeroPedido, Activo, ImagenURL, LimiteVenta, DescripcionCUV2
-					,FlagDescripcion, CUV, EtiquetaID, Precio, FlagCEP, CUV2, EtiquetaID2, Precio2
-					,FlagCEP2, TextoLibre, FlagTextoLibre, Cantidad, FlagCantidad, Zona, Orden, UsuarioCreacion, FechaCreacion, ColorFondo, FlagEstrella, CodigoEstrategia, TieneVariedad )
+				,FlagDescripcion, CUV, EtiquetaID, Precio, FlagCEP, CUV2, EtiquetaID2, Precio2
+				,FlagCEP2, TextoLibre, FlagTextoLibre, Cantidad, FlagCantidad, Zona, Orden, UsuarioCreacion, FechaCreacion, ColorFondo, FlagEstrella, CodigoEstrategia, TieneVariedad, EsOfertaIndependiente )
 				VALUES
 			   (@TipoEstrategiaID,@CampaniaID,@CampaniaIDFin,@NumeroPedido,@Activo,@ImagenURL,@LimiteVenta,@DescripcionCUV2
 					,@FlagDescripcion,@CUV,@EtiquetaID,@Precio,@FlagCEP,@CUV2,@EtiquetaID2,@Precio2
-					,@FlagCEP2,@TextoLibre,@FlagTextoLibre,@Cantidad,@FlagCantidad,@Zona,@Orden,@UsuarioCreacion,GETDATE(), @ColorFondo, @FlagEstrella, @CodigoEstrategia, @TieneVariedad)
+					,@FlagCEP2,@TextoLibre,@FlagTextoLibre,@Cantidad,@FlagCantidad,@Zona,@Orden,@UsuarioCreacion,GETDATE(), @ColorFondo, @FlagEstrella, @CodigoEstrategia, @TieneVariedad, @EsOfertaIndependiente)
 	
 					set @Retorno = @@IDENTITY
 	
-		END
-		ELSE
-		BEGIN
-
+				END
+				ELSE
+				BEGIN			
+	
 					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND ESTRATEGIAID <> @EstrategiaID  AND NUMEROPEDIDO = @NumeroPedido)
 					BEGIN
 						RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaña seleccionado.', 16, 1)
 					END								 
 					
-					IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008') AND ISNULL(@Orden,0) > 0)
+					IF (@TipoEstrategiaID NOT IN (3009) AND ISNULL(@Orden,0) > 0) -- SB20-312
 					BEGIN
 	
 						IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID  AND ESTRATEGIAID <> @EstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
@@ -862,26 +848,30 @@ SET NOCOUNT ON
 						ColorFondo			= @ColorFondo, 
 						FlagEstrella		= @FlagEstrella,
 						CodigoEstrategia	= @CodigoEstrategia,
-						TieneVariedad		= @TieneVariedad
+						TieneVariedad		= @TieneVariedad,
+						EsOfertaIndependiente = @EsOfertaIndependiente
 					WHERE EstrategiaID = @EstrategiaID
 					
 					set @Retorno = @EstrategiaID
 	
-		END
-	END TRY
-	BEGIN CATCH
-		DECLARE @ErrorMessage NVARCHAR(4000), @ErrorSeverity INT, @ErrorState INT
-		SELECT @ErrorMessage = ERROR_MESSAGE(), @ErrorSeverity = ERROR_SEVERITY(), @ErrorState = ERROR_STATE()
-		RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState)
-	END CATCH
+				END
+			END TRY
+			BEGIN CATCH
+				DECLARE @ErrorMessage NVARCHAR(4000), @ErrorSeverity INT, @ErrorState INT
+				SELECT @ErrorMessage = ERROR_MESSAGE(), @ErrorSeverity = ERROR_SEVERITY(), @ErrorState = ERROR_STATE()
+				RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState)
+			END CATCH
 	
-SET NOCOUNT OFF
-END
+		SET NOCOUNT OFF
+	END
+GO
+/*END*/
+GO
+
+USE BelcorpPuertoRico
+GO
 
 GO
-Use BelcorpEcuador
-GO
-
 ALTER PROCEDURE [dbo].[InsertarEstrategia_SB2]
 	@EstrategiaID int,
 	@TipoEstrategiaID int,
@@ -913,22 +903,18 @@ ALTER PROCEDURE [dbo].[InsertarEstrategia_SB2]
 	@FlagEstrella bit,
 	@CodigoEstrategia varchar(100),
 	@TieneVariedad INT,
+	@EsOfertaIndependiente BIT = 0,
 	@Retorno int output
 AS
 BEGIN
-SET NOCOUNT ON
+	SET NOCOUNT ON
 
-	BEGIN TRY
+		BEGIN TRY
 
 		set @Retorno = 0
 
 		DECLARE @TipoEstrategiaIDPackNueva INT = 0, @TipoEstrategiaIDOfertaDia INT = 0
 		
-		DECLARE @CodigoTipoEstrategia VARCHAR = ''
-		SELECT	@CodigoTipoEstrategia = Codigo 
-		FROM	TipoEstrategia 
-		WHERE	TipoEstrategiaId = @TipoEstrategiaID 
-
 		-- Para calcular la etiqueta para pack nuevas
 		SELECT	@TipoEstrategiaIDPackNueva = COUNT( TipoEstrategiaID) 
 		FROM	TipoEstrategia 
@@ -947,8 +933,6 @@ SET NOCOUNT ON
 		if isnull(@CUV,'') != ''
 			SELECT @EtiquetaID = EtiquetaID FROM Etiqueta 
 			WHERE Descripcion like '%' + UPPER('Precio Cat') + '%'
-		else if @CodigoTipoEstrategia in ('005', '007', '008')
-			set @EtiquetaID = 1
 		else
 			set @EtiquetaID = 0
 
@@ -965,42 +949,42 @@ SET NOCOUNT ON
 			WHERE Descripcion like '%' + UPPER('OFERTA DEL') + '%'
 		END		
 
-		IF NOT EXISTS(SELECT 1 FROM Estrategia WHERE EstrategiaID = @EstrategiaID)
-		BEGIN
+			IF NOT EXISTS(SELECT 1 FROM Estrategia WHERE EstrategiaID = @EstrategiaID)
+			BEGIN
 				IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 				BEGIN
 					RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaña seleccionado.', 16, 1)
 				END
 
-				IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008') AND ISNULL(@Orden,0) > 0)
+				IF (@TipoEstrategiaID NOT IN (3009) AND ISNULL(@Orden,0) > 0)	-- SB20-312
 				BEGIN
 					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 					BEGIN
 						RAISERROR('El orden ingresado para la estrategia ya está siendo utilizado.', 16, 1)
 					END
-				END
+				END							
 				
 			    INSERT INTO dbo.Estrategia
 			    (TipoEstrategiaID, CampaniaID, CampaniaIDFin, NumeroPedido, Activo, ImagenURL, LimiteVenta, DescripcionCUV2
-					,FlagDescripcion, CUV, EtiquetaID, Precio, FlagCEP, CUV2, EtiquetaID2, Precio2
-					,FlagCEP2, TextoLibre, FlagTextoLibre, Cantidad, FlagCantidad, Zona, Orden, UsuarioCreacion, FechaCreacion, ColorFondo, FlagEstrella, CodigoEstrategia, TieneVariedad )
+				,FlagDescripcion, CUV, EtiquetaID, Precio, FlagCEP, CUV2, EtiquetaID2, Precio2
+				,FlagCEP2, TextoLibre, FlagTextoLibre, Cantidad, FlagCantidad, Zona, Orden, UsuarioCreacion, FechaCreacion, ColorFondo, FlagEstrella, CodigoEstrategia, TieneVariedad, EsOfertaIndependiente )
 				VALUES
 			   (@TipoEstrategiaID,@CampaniaID,@CampaniaIDFin,@NumeroPedido,@Activo,@ImagenURL,@LimiteVenta,@DescripcionCUV2
 					,@FlagDescripcion,@CUV,@EtiquetaID,@Precio,@FlagCEP,@CUV2,@EtiquetaID2,@Precio2
-					,@FlagCEP2,@TextoLibre,@FlagTextoLibre,@Cantidad,@FlagCantidad,@Zona,@Orden,@UsuarioCreacion,GETDATE(), @ColorFondo, @FlagEstrella, @CodigoEstrategia, @TieneVariedad)
+					,@FlagCEP2,@TextoLibre,@FlagTextoLibre,@Cantidad,@FlagCantidad,@Zona,@Orden,@UsuarioCreacion,GETDATE(), @ColorFondo, @FlagEstrella, @CodigoEstrategia, @TieneVariedad, @EsOfertaIndependiente)
 	
 					set @Retorno = @@IDENTITY
 	
-		END
-		ELSE
-		BEGIN
-
+				END
+				ELSE
+				BEGIN			
+	
 					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND ESTRATEGIAID <> @EstrategiaID  AND NUMEROPEDIDO = @NumeroPedido)
 					BEGIN
 						RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaña seleccionado.', 16, 1)
 					END								 
 					
-					IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008') AND ISNULL(@Orden,0) > 0)
+					IF (@TipoEstrategiaID NOT IN (3009) AND ISNULL(@Orden,0) > 0) -- SB20-312
 					BEGIN
 	
 						IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID  AND ESTRATEGIAID <> @EstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
@@ -1038,26 +1022,30 @@ SET NOCOUNT ON
 						ColorFondo			= @ColorFondo, 
 						FlagEstrella		= @FlagEstrella,
 						CodigoEstrategia	= @CodigoEstrategia,
-						TieneVariedad		= @TieneVariedad
+						TieneVariedad		= @TieneVariedad,
+						EsOfertaIndependiente = @EsOfertaIndependiente
 					WHERE EstrategiaID = @EstrategiaID
 					
 					set @Retorno = @EstrategiaID
 	
-		END
-	END TRY
-	BEGIN CATCH
-		DECLARE @ErrorMessage NVARCHAR(4000), @ErrorSeverity INT, @ErrorState INT
-		SELECT @ErrorMessage = ERROR_MESSAGE(), @ErrorSeverity = ERROR_SEVERITY(), @ErrorState = ERROR_STATE()
-		RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState)
-	END CATCH
+				END
+			END TRY
+			BEGIN CATCH
+				DECLARE @ErrorMessage NVARCHAR(4000), @ErrorSeverity INT, @ErrorState INT
+				SELECT @ErrorMessage = ERROR_MESSAGE(), @ErrorSeverity = ERROR_SEVERITY(), @ErrorState = ERROR_STATE()
+				RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState)
+			END CATCH
 	
-SET NOCOUNT OFF
-END
+		SET NOCOUNT OFF
+	END
+GO
+/*END*/
+GO
+
+USE BelcorpPanama
+GO
 
 GO
-Use BelcorpGuatemala
-GO
-
 ALTER PROCEDURE [dbo].[InsertarEstrategia_SB2]
 	@EstrategiaID int,
 	@TipoEstrategiaID int,
@@ -1089,22 +1077,18 @@ ALTER PROCEDURE [dbo].[InsertarEstrategia_SB2]
 	@FlagEstrella bit,
 	@CodigoEstrategia varchar(100),
 	@TieneVariedad INT,
+	@EsOfertaIndependiente BIT = 0,
 	@Retorno int output
 AS
 BEGIN
-SET NOCOUNT ON
+	SET NOCOUNT ON
 
-	BEGIN TRY
+		BEGIN TRY
 
 		set @Retorno = 0
 
 		DECLARE @TipoEstrategiaIDPackNueva INT = 0, @TipoEstrategiaIDOfertaDia INT = 0
 		
-		DECLARE @CodigoTipoEstrategia VARCHAR = ''
-		SELECT	@CodigoTipoEstrategia = Codigo 
-		FROM	TipoEstrategia 
-		WHERE	TipoEstrategiaId = @TipoEstrategiaID 
-
 		-- Para calcular la etiqueta para pack nuevas
 		SELECT	@TipoEstrategiaIDPackNueva = COUNT( TipoEstrategiaID) 
 		FROM	TipoEstrategia 
@@ -1123,8 +1107,6 @@ SET NOCOUNT ON
 		if isnull(@CUV,'') != ''
 			SELECT @EtiquetaID = EtiquetaID FROM Etiqueta 
 			WHERE Descripcion like '%' + UPPER('Precio Cat') + '%'
-		else if @CodigoTipoEstrategia in ('005', '007', '008')
-			set @EtiquetaID = 1
 		else
 			set @EtiquetaID = 0
 
@@ -1141,42 +1123,42 @@ SET NOCOUNT ON
 			WHERE Descripcion like '%' + UPPER('OFERTA DEL') + '%'
 		END		
 
-		IF NOT EXISTS(SELECT 1 FROM Estrategia WHERE EstrategiaID = @EstrategiaID)
-		BEGIN
+			IF NOT EXISTS(SELECT 1 FROM Estrategia WHERE EstrategiaID = @EstrategiaID)
+			BEGIN
 				IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 				BEGIN
 					RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaña seleccionado.', 16, 1)
 				END
 
-				IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008') AND ISNULL(@Orden,0) > 0)
+				IF (@TipoEstrategiaID NOT IN (3009) AND ISNULL(@Orden,0) > 0)	-- SB20-312
 				BEGIN
 					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 					BEGIN
 						RAISERROR('El orden ingresado para la estrategia ya está siendo utilizado.', 16, 1)
 					END
-				END
+				END							
 				
 			    INSERT INTO dbo.Estrategia
 			    (TipoEstrategiaID, CampaniaID, CampaniaIDFin, NumeroPedido, Activo, ImagenURL, LimiteVenta, DescripcionCUV2
-					,FlagDescripcion, CUV, EtiquetaID, Precio, FlagCEP, CUV2, EtiquetaID2, Precio2
-					,FlagCEP2, TextoLibre, FlagTextoLibre, Cantidad, FlagCantidad, Zona, Orden, UsuarioCreacion, FechaCreacion, ColorFondo, FlagEstrella, CodigoEstrategia, TieneVariedad )
+				,FlagDescripcion, CUV, EtiquetaID, Precio, FlagCEP, CUV2, EtiquetaID2, Precio2
+				,FlagCEP2, TextoLibre, FlagTextoLibre, Cantidad, FlagCantidad, Zona, Orden, UsuarioCreacion, FechaCreacion, ColorFondo, FlagEstrella, CodigoEstrategia, TieneVariedad, EsOfertaIndependiente )
 				VALUES
 			   (@TipoEstrategiaID,@CampaniaID,@CampaniaIDFin,@NumeroPedido,@Activo,@ImagenURL,@LimiteVenta,@DescripcionCUV2
 					,@FlagDescripcion,@CUV,@EtiquetaID,@Precio,@FlagCEP,@CUV2,@EtiquetaID2,@Precio2
-					,@FlagCEP2,@TextoLibre,@FlagTextoLibre,@Cantidad,@FlagCantidad,@Zona,@Orden,@UsuarioCreacion,GETDATE(), @ColorFondo, @FlagEstrella, @CodigoEstrategia, @TieneVariedad)
+					,@FlagCEP2,@TextoLibre,@FlagTextoLibre,@Cantidad,@FlagCantidad,@Zona,@Orden,@UsuarioCreacion,GETDATE(), @ColorFondo, @FlagEstrella, @CodigoEstrategia, @TieneVariedad, @EsOfertaIndependiente)
 	
 					set @Retorno = @@IDENTITY
 	
-		END
-		ELSE
-		BEGIN
-
+				END
+				ELSE
+				BEGIN			
+	
 					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND ESTRATEGIAID <> @EstrategiaID  AND NUMEROPEDIDO = @NumeroPedido)
 					BEGIN
 						RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaña seleccionado.', 16, 1)
 					END								 
 					
-					IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008') AND ISNULL(@Orden,0) > 0)
+					IF (@TipoEstrategiaID NOT IN (3009) AND ISNULL(@Orden,0) > 0) -- SB20-312
 					BEGIN
 	
 						IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID  AND ESTRATEGIAID <> @EstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
@@ -1214,26 +1196,30 @@ SET NOCOUNT ON
 						ColorFondo			= @ColorFondo, 
 						FlagEstrella		= @FlagEstrella,
 						CodigoEstrategia	= @CodigoEstrategia,
-						TieneVariedad		= @TieneVariedad
+						TieneVariedad		= @TieneVariedad,
+						EsOfertaIndependiente = @EsOfertaIndependiente
 					WHERE EstrategiaID = @EstrategiaID
 					
 					set @Retorno = @EstrategiaID
 	
-		END
-	END TRY
-	BEGIN CATCH
-		DECLARE @ErrorMessage NVARCHAR(4000), @ErrorSeverity INT, @ErrorState INT
-		SELECT @ErrorMessage = ERROR_MESSAGE(), @ErrorSeverity = ERROR_SEVERITY(), @ErrorState = ERROR_STATE()
-		RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState)
-	END CATCH
+				END
+			END TRY
+			BEGIN CATCH
+				DECLARE @ErrorMessage NVARCHAR(4000), @ErrorSeverity INT, @ErrorState INT
+				SELECT @ErrorMessage = ERROR_MESSAGE(), @ErrorSeverity = ERROR_SEVERITY(), @ErrorState = ERROR_STATE()
+				RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState)
+			END CATCH
 	
-SET NOCOUNT OFF
-END
+		SET NOCOUNT OFF
+	END
+GO
+/*END*/
+GO
+
+USE BelcorpGuatemala
+GO
 
 GO
-Use BelcorpMexico
-GO
-
 ALTER PROCEDURE [dbo].[InsertarEstrategia_SB2]
 	@EstrategiaID int,
 	@TipoEstrategiaID int,
@@ -1265,22 +1251,18 @@ ALTER PROCEDURE [dbo].[InsertarEstrategia_SB2]
 	@FlagEstrella bit,
 	@CodigoEstrategia varchar(100),
 	@TieneVariedad INT,
+	@EsOfertaIndependiente BIT = 0,
 	@Retorno int output
 AS
 BEGIN
-SET NOCOUNT ON
+	SET NOCOUNT ON
 
-	BEGIN TRY
+		BEGIN TRY
 
 		set @Retorno = 0
 
 		DECLARE @TipoEstrategiaIDPackNueva INT = 0, @TipoEstrategiaIDOfertaDia INT = 0
 		
-		DECLARE @CodigoTipoEstrategia VARCHAR = ''
-		SELECT	@CodigoTipoEstrategia = Codigo 
-		FROM	TipoEstrategia 
-		WHERE	TipoEstrategiaId = @TipoEstrategiaID 
-
 		-- Para calcular la etiqueta para pack nuevas
 		SELECT	@TipoEstrategiaIDPackNueva = COUNT( TipoEstrategiaID) 
 		FROM	TipoEstrategia 
@@ -1299,8 +1281,6 @@ SET NOCOUNT ON
 		if isnull(@CUV,'') != ''
 			SELECT @EtiquetaID = EtiquetaID FROM Etiqueta 
 			WHERE Descripcion like '%' + UPPER('Precio Cat') + '%'
-		else if @CodigoTipoEstrategia in ('005', '007', '008')
-			set @EtiquetaID = 1
 		else
 			set @EtiquetaID = 0
 
@@ -1317,42 +1297,42 @@ SET NOCOUNT ON
 			WHERE Descripcion like '%' + UPPER('OFERTA DEL') + '%'
 		END		
 
-		IF NOT EXISTS(SELECT 1 FROM Estrategia WHERE EstrategiaID = @EstrategiaID)
-		BEGIN
+			IF NOT EXISTS(SELECT 1 FROM Estrategia WHERE EstrategiaID = @EstrategiaID)
+			BEGIN
 				IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 				BEGIN
 					RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaña seleccionado.', 16, 1)
 				END
 
-				IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008') AND ISNULL(@Orden,0) > 0)
+				IF (@TipoEstrategiaID NOT IN (3009) AND ISNULL(@Orden,0) > 0)	-- SB20-312
 				BEGIN
 					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 					BEGIN
 						RAISERROR('El orden ingresado para la estrategia ya está siendo utilizado.', 16, 1)
 					END
-				END
+				END							
 				
 			    INSERT INTO dbo.Estrategia
 			    (TipoEstrategiaID, CampaniaID, CampaniaIDFin, NumeroPedido, Activo, ImagenURL, LimiteVenta, DescripcionCUV2
-					,FlagDescripcion, CUV, EtiquetaID, Precio, FlagCEP, CUV2, EtiquetaID2, Precio2
-					,FlagCEP2, TextoLibre, FlagTextoLibre, Cantidad, FlagCantidad, Zona, Orden, UsuarioCreacion, FechaCreacion, ColorFondo, FlagEstrella, CodigoEstrategia, TieneVariedad )
+				,FlagDescripcion, CUV, EtiquetaID, Precio, FlagCEP, CUV2, EtiquetaID2, Precio2
+				,FlagCEP2, TextoLibre, FlagTextoLibre, Cantidad, FlagCantidad, Zona, Orden, UsuarioCreacion, FechaCreacion, ColorFondo, FlagEstrella, CodigoEstrategia, TieneVariedad, EsOfertaIndependiente )
 				VALUES
 			   (@TipoEstrategiaID,@CampaniaID,@CampaniaIDFin,@NumeroPedido,@Activo,@ImagenURL,@LimiteVenta,@DescripcionCUV2
 					,@FlagDescripcion,@CUV,@EtiquetaID,@Precio,@FlagCEP,@CUV2,@EtiquetaID2,@Precio2
-					,@FlagCEP2,@TextoLibre,@FlagTextoLibre,@Cantidad,@FlagCantidad,@Zona,@Orden,@UsuarioCreacion,GETDATE(), @ColorFondo, @FlagEstrella, @CodigoEstrategia, @TieneVariedad)
+					,@FlagCEP2,@TextoLibre,@FlagTextoLibre,@Cantidad,@FlagCantidad,@Zona,@Orden,@UsuarioCreacion,GETDATE(), @ColorFondo, @FlagEstrella, @CodigoEstrategia, @TieneVariedad, @EsOfertaIndependiente)
 	
 					set @Retorno = @@IDENTITY
 	
-		END
-		ELSE
-		BEGIN
-
+				END
+				ELSE
+				BEGIN			
+	
 					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND ESTRATEGIAID <> @EstrategiaID  AND NUMEROPEDIDO = @NumeroPedido)
 					BEGIN
 						RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaña seleccionado.', 16, 1)
 					END								 
 					
-					IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008') AND ISNULL(@Orden,0) > 0)
+					IF (@TipoEstrategiaID NOT IN (3009) AND ISNULL(@Orden,0) > 0) -- SB20-312
 					BEGIN
 	
 						IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID  AND ESTRATEGIAID <> @EstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
@@ -1390,26 +1370,30 @@ SET NOCOUNT ON
 						ColorFondo			= @ColorFondo, 
 						FlagEstrella		= @FlagEstrella,
 						CodigoEstrategia	= @CodigoEstrategia,
-						TieneVariedad		= @TieneVariedad
+						TieneVariedad		= @TieneVariedad,
+						EsOfertaIndependiente = @EsOfertaIndependiente
 					WHERE EstrategiaID = @EstrategiaID
 					
 					set @Retorno = @EstrategiaID
 	
-		END
-	END TRY
-	BEGIN CATCH
-		DECLARE @ErrorMessage NVARCHAR(4000), @ErrorSeverity INT, @ErrorState INT
-		SELECT @ErrorMessage = ERROR_MESSAGE(), @ErrorSeverity = ERROR_SEVERITY(), @ErrorState = ERROR_STATE()
-		RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState)
-	END CATCH
+				END
+			END TRY
+			BEGIN CATCH
+				DECLARE @ErrorMessage NVARCHAR(4000), @ErrorSeverity INT, @ErrorState INT
+				SELECT @ErrorMessage = ERROR_MESSAGE(), @ErrorSeverity = ERROR_SEVERITY(), @ErrorState = ERROR_STATE()
+				RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState)
+			END CATCH
 	
-SET NOCOUNT OFF
-END
+		SET NOCOUNT OFF
+	END
+GO
+/*END*/
+GO
+
+USE BelcorpEcuador
+GO
 
 GO
-Use BelcorpPanama
-GO
-
 ALTER PROCEDURE [dbo].[InsertarEstrategia_SB2]
 	@EstrategiaID int,
 	@TipoEstrategiaID int,
@@ -1441,22 +1425,18 @@ ALTER PROCEDURE [dbo].[InsertarEstrategia_SB2]
 	@FlagEstrella bit,
 	@CodigoEstrategia varchar(100),
 	@TieneVariedad INT,
+	@EsOfertaIndependiente BIT = 0,
 	@Retorno int output
 AS
 BEGIN
-SET NOCOUNT ON
+	SET NOCOUNT ON
 
-	BEGIN TRY
+		BEGIN TRY
 
 		set @Retorno = 0
 
 		DECLARE @TipoEstrategiaIDPackNueva INT = 0, @TipoEstrategiaIDOfertaDia INT = 0
 		
-		DECLARE @CodigoTipoEstrategia VARCHAR = ''
-		SELECT	@CodigoTipoEstrategia = Codigo 
-		FROM	TipoEstrategia 
-		WHERE	TipoEstrategiaId = @TipoEstrategiaID 
-
 		-- Para calcular la etiqueta para pack nuevas
 		SELECT	@TipoEstrategiaIDPackNueva = COUNT( TipoEstrategiaID) 
 		FROM	TipoEstrategia 
@@ -1475,8 +1455,6 @@ SET NOCOUNT ON
 		if isnull(@CUV,'') != ''
 			SELECT @EtiquetaID = EtiquetaID FROM Etiqueta 
 			WHERE Descripcion like '%' + UPPER('Precio Cat') + '%'
-		else if @CodigoTipoEstrategia in ('005', '007', '008')
-			set @EtiquetaID = 1
 		else
 			set @EtiquetaID = 0
 
@@ -1493,42 +1471,42 @@ SET NOCOUNT ON
 			WHERE Descripcion like '%' + UPPER('OFERTA DEL') + '%'
 		END		
 
-		IF NOT EXISTS(SELECT 1 FROM Estrategia WHERE EstrategiaID = @EstrategiaID)
-		BEGIN
+			IF NOT EXISTS(SELECT 1 FROM Estrategia WHERE EstrategiaID = @EstrategiaID)
+			BEGIN
 				IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 				BEGIN
 					RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaña seleccionado.', 16, 1)
 				END
 
-				IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008') AND ISNULL(@Orden,0) > 0)
+				IF (@TipoEstrategiaID NOT IN (3009) AND ISNULL(@Orden,0) > 0)	-- SB20-312
 				BEGIN
 					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 					BEGIN
 						RAISERROR('El orden ingresado para la estrategia ya está siendo utilizado.', 16, 1)
 					END
-				END
+				END							
 				
 			    INSERT INTO dbo.Estrategia
 			    (TipoEstrategiaID, CampaniaID, CampaniaIDFin, NumeroPedido, Activo, ImagenURL, LimiteVenta, DescripcionCUV2
-					,FlagDescripcion, CUV, EtiquetaID, Precio, FlagCEP, CUV2, EtiquetaID2, Precio2
-					,FlagCEP2, TextoLibre, FlagTextoLibre, Cantidad, FlagCantidad, Zona, Orden, UsuarioCreacion, FechaCreacion, ColorFondo, FlagEstrella, CodigoEstrategia, TieneVariedad )
+				,FlagDescripcion, CUV, EtiquetaID, Precio, FlagCEP, CUV2, EtiquetaID2, Precio2
+				,FlagCEP2, TextoLibre, FlagTextoLibre, Cantidad, FlagCantidad, Zona, Orden, UsuarioCreacion, FechaCreacion, ColorFondo, FlagEstrella, CodigoEstrategia, TieneVariedad, EsOfertaIndependiente )
 				VALUES
 			   (@TipoEstrategiaID,@CampaniaID,@CampaniaIDFin,@NumeroPedido,@Activo,@ImagenURL,@LimiteVenta,@DescripcionCUV2
 					,@FlagDescripcion,@CUV,@EtiquetaID,@Precio,@FlagCEP,@CUV2,@EtiquetaID2,@Precio2
-					,@FlagCEP2,@TextoLibre,@FlagTextoLibre,@Cantidad,@FlagCantidad,@Zona,@Orden,@UsuarioCreacion,GETDATE(), @ColorFondo, @FlagEstrella, @CodigoEstrategia, @TieneVariedad)
+					,@FlagCEP2,@TextoLibre,@FlagTextoLibre,@Cantidad,@FlagCantidad,@Zona,@Orden,@UsuarioCreacion,GETDATE(), @ColorFondo, @FlagEstrella, @CodigoEstrategia, @TieneVariedad, @EsOfertaIndependiente)
 	
 					set @Retorno = @@IDENTITY
 	
-		END
-		ELSE
-		BEGIN
-
+				END
+				ELSE
+				BEGIN			
+	
 					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND ESTRATEGIAID <> @EstrategiaID  AND NUMEROPEDIDO = @NumeroPedido)
 					BEGIN
 						RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaña seleccionado.', 16, 1)
 					END								 
 					
-					IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008') AND ISNULL(@Orden,0) > 0)
+					IF (@TipoEstrategiaID NOT IN (3009) AND ISNULL(@Orden,0) > 0) -- SB20-312
 					BEGIN
 	
 						IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID  AND ESTRATEGIAID <> @EstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
@@ -1566,26 +1544,30 @@ SET NOCOUNT ON
 						ColorFondo			= @ColorFondo, 
 						FlagEstrella		= @FlagEstrella,
 						CodigoEstrategia	= @CodigoEstrategia,
-						TieneVariedad		= @TieneVariedad
+						TieneVariedad		= @TieneVariedad,
+						EsOfertaIndependiente = @EsOfertaIndependiente
 					WHERE EstrategiaID = @EstrategiaID
 					
 					set @Retorno = @EstrategiaID
 	
-		END
-	END TRY
-	BEGIN CATCH
-		DECLARE @ErrorMessage NVARCHAR(4000), @ErrorSeverity INT, @ErrorState INT
-		SELECT @ErrorMessage = ERROR_MESSAGE(), @ErrorSeverity = ERROR_SEVERITY(), @ErrorState = ERROR_STATE()
-		RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState)
-	END CATCH
+				END
+			END TRY
+			BEGIN CATCH
+				DECLARE @ErrorMessage NVARCHAR(4000), @ErrorSeverity INT, @ErrorState INT
+				SELECT @ErrorMessage = ERROR_MESSAGE(), @ErrorSeverity = ERROR_SEVERITY(), @ErrorState = ERROR_STATE()
+				RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState)
+			END CATCH
 	
-SET NOCOUNT OFF
-END
+		SET NOCOUNT OFF
+	END
+GO
+/*END*/
+GO
+
+USE BelcorpDominicana
+GO
 
 GO
-Use BelcorpPeru
-GO
-
 ALTER PROCEDURE [dbo].[InsertarEstrategia_SB2]
 	@EstrategiaID int,
 	@TipoEstrategiaID int,
@@ -1617,22 +1599,18 @@ ALTER PROCEDURE [dbo].[InsertarEstrategia_SB2]
 	@FlagEstrella bit,
 	@CodigoEstrategia varchar(100),
 	@TieneVariedad INT,
+	@EsOfertaIndependiente BIT = 0,
 	@Retorno int output
 AS
 BEGIN
-SET NOCOUNT ON
+	SET NOCOUNT ON
 
-	BEGIN TRY
+		BEGIN TRY
 
 		set @Retorno = 0
 
 		DECLARE @TipoEstrategiaIDPackNueva INT = 0, @TipoEstrategiaIDOfertaDia INT = 0
 		
-		DECLARE @CodigoTipoEstrategia VARCHAR = ''
-		SELECT	@CodigoTipoEstrategia = Codigo 
-		FROM	TipoEstrategia 
-		WHERE	TipoEstrategiaId = @TipoEstrategiaID 
-
 		-- Para calcular la etiqueta para pack nuevas
 		SELECT	@TipoEstrategiaIDPackNueva = COUNT( TipoEstrategiaID) 
 		FROM	TipoEstrategia 
@@ -1651,8 +1629,6 @@ SET NOCOUNT ON
 		if isnull(@CUV,'') != ''
 			SELECT @EtiquetaID = EtiquetaID FROM Etiqueta 
 			WHERE Descripcion like '%' + UPPER('Precio Cat') + '%'
-		else if @CodigoTipoEstrategia in ('005', '007', '008')
-			set @EtiquetaID = 1
 		else
 			set @EtiquetaID = 0
 
@@ -1669,42 +1645,42 @@ SET NOCOUNT ON
 			WHERE Descripcion like '%' + UPPER('OFERTA DEL') + '%'
 		END		
 
-		IF NOT EXISTS(SELECT 1 FROM Estrategia WHERE EstrategiaID = @EstrategiaID)
-		BEGIN
+			IF NOT EXISTS(SELECT 1 FROM Estrategia WHERE EstrategiaID = @EstrategiaID)
+			BEGIN
 				IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 				BEGIN
 					RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaña seleccionado.', 16, 1)
 				END
 
-				IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008') AND ISNULL(@Orden,0) > 0)
+				IF (@TipoEstrategiaID NOT IN (3009) AND ISNULL(@Orden,0) > 0)	-- SB20-312
 				BEGIN
 					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 					BEGIN
 						RAISERROR('El orden ingresado para la estrategia ya está siendo utilizado.', 16, 1)
 					END
-				END
+				END							
 				
 			    INSERT INTO dbo.Estrategia
 			    (TipoEstrategiaID, CampaniaID, CampaniaIDFin, NumeroPedido, Activo, ImagenURL, LimiteVenta, DescripcionCUV2
-					,FlagDescripcion, CUV, EtiquetaID, Precio, FlagCEP, CUV2, EtiquetaID2, Precio2
-					,FlagCEP2, TextoLibre, FlagTextoLibre, Cantidad, FlagCantidad, Zona, Orden, UsuarioCreacion, FechaCreacion, ColorFondo, FlagEstrella, CodigoEstrategia, TieneVariedad )
+				,FlagDescripcion, CUV, EtiquetaID, Precio, FlagCEP, CUV2, EtiquetaID2, Precio2
+				,FlagCEP2, TextoLibre, FlagTextoLibre, Cantidad, FlagCantidad, Zona, Orden, UsuarioCreacion, FechaCreacion, ColorFondo, FlagEstrella, CodigoEstrategia, TieneVariedad, EsOfertaIndependiente )
 				VALUES
 			   (@TipoEstrategiaID,@CampaniaID,@CampaniaIDFin,@NumeroPedido,@Activo,@ImagenURL,@LimiteVenta,@DescripcionCUV2
 					,@FlagDescripcion,@CUV,@EtiquetaID,@Precio,@FlagCEP,@CUV2,@EtiquetaID2,@Precio2
-					,@FlagCEP2,@TextoLibre,@FlagTextoLibre,@Cantidad,@FlagCantidad,@Zona,@Orden,@UsuarioCreacion,GETDATE(), @ColorFondo, @FlagEstrella, @CodigoEstrategia, @TieneVariedad)
+					,@FlagCEP2,@TextoLibre,@FlagTextoLibre,@Cantidad,@FlagCantidad,@Zona,@Orden,@UsuarioCreacion,GETDATE(), @ColorFondo, @FlagEstrella, @CodigoEstrategia, @TieneVariedad, @EsOfertaIndependiente)
 	
 					set @Retorno = @@IDENTITY
 	
-		END
-		ELSE
-		BEGIN
-
+				END
+				ELSE
+				BEGIN			
+	
 					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND ESTRATEGIAID <> @EstrategiaID  AND NUMEROPEDIDO = @NumeroPedido)
 					BEGIN
 						RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaña seleccionado.', 16, 1)
 					END								 
 					
-					IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008') AND ISNULL(@Orden,0) > 0)
+					IF (@TipoEstrategiaID NOT IN (3009) AND ISNULL(@Orden,0) > 0) -- SB20-312
 					BEGIN
 	
 						IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID  AND ESTRATEGIAID <> @EstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
@@ -1742,26 +1718,30 @@ SET NOCOUNT ON
 						ColorFondo			= @ColorFondo, 
 						FlagEstrella		= @FlagEstrella,
 						CodigoEstrategia	= @CodigoEstrategia,
-						TieneVariedad		= @TieneVariedad
+						TieneVariedad		= @TieneVariedad,
+						EsOfertaIndependiente = @EsOfertaIndependiente
 					WHERE EstrategiaID = @EstrategiaID
 					
 					set @Retorno = @EstrategiaID
 	
-		END
-	END TRY
-	BEGIN CATCH
-		DECLARE @ErrorMessage NVARCHAR(4000), @ErrorSeverity INT, @ErrorState INT
-		SELECT @ErrorMessage = ERROR_MESSAGE(), @ErrorSeverity = ERROR_SEVERITY(), @ErrorState = ERROR_STATE()
-		RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState)
-	END CATCH
+				END
+			END TRY
+			BEGIN CATCH
+				DECLARE @ErrorMessage NVARCHAR(4000), @ErrorSeverity INT, @ErrorState INT
+				SELECT @ErrorMessage = ERROR_MESSAGE(), @ErrorSeverity = ERROR_SEVERITY(), @ErrorState = ERROR_STATE()
+				RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState)
+			END CATCH
 	
-SET NOCOUNT OFF
-END
+		SET NOCOUNT OFF
+	END
+GO
+/*END*/
+GO
+
+USE BelcorpCostaRica
+GO
 
 GO
-Use BelcorpPuertoRico
-GO
-
 ALTER PROCEDURE [dbo].[InsertarEstrategia_SB2]
 	@EstrategiaID int,
 	@TipoEstrategiaID int,
@@ -1793,22 +1773,18 @@ ALTER PROCEDURE [dbo].[InsertarEstrategia_SB2]
 	@FlagEstrella bit,
 	@CodigoEstrategia varchar(100),
 	@TieneVariedad INT,
+	@EsOfertaIndependiente BIT = 0,
 	@Retorno int output
 AS
 BEGIN
-SET NOCOUNT ON
+	SET NOCOUNT ON
 
-	BEGIN TRY
+		BEGIN TRY
 
 		set @Retorno = 0
 
 		DECLARE @TipoEstrategiaIDPackNueva INT = 0, @TipoEstrategiaIDOfertaDia INT = 0
 		
-		DECLARE @CodigoTipoEstrategia VARCHAR = ''
-		SELECT	@CodigoTipoEstrategia = Codigo 
-		FROM	TipoEstrategia 
-		WHERE	TipoEstrategiaId = @TipoEstrategiaID 
-
 		-- Para calcular la etiqueta para pack nuevas
 		SELECT	@TipoEstrategiaIDPackNueva = COUNT( TipoEstrategiaID) 
 		FROM	TipoEstrategia 
@@ -1827,8 +1803,6 @@ SET NOCOUNT ON
 		if isnull(@CUV,'') != ''
 			SELECT @EtiquetaID = EtiquetaID FROM Etiqueta 
 			WHERE Descripcion like '%' + UPPER('Precio Cat') + '%'
-		else if @CodigoTipoEstrategia in ('005', '007', '008')
-			set @EtiquetaID = 1
 		else
 			set @EtiquetaID = 0
 
@@ -1845,42 +1819,42 @@ SET NOCOUNT ON
 			WHERE Descripcion like '%' + UPPER('OFERTA DEL') + '%'
 		END		
 
-		IF NOT EXISTS(SELECT 1 FROM Estrategia WHERE EstrategiaID = @EstrategiaID)
-		BEGIN
+			IF NOT EXISTS(SELECT 1 FROM Estrategia WHERE EstrategiaID = @EstrategiaID)
+			BEGIN
 				IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 				BEGIN
 					RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaña seleccionado.', 16, 1)
 				END
 
-				IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008') AND ISNULL(@Orden,0) > 0)
+				IF (@TipoEstrategiaID NOT IN (3009) AND ISNULL(@Orden,0) > 0)	-- SB20-312
 				BEGIN
 					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 					BEGIN
 						RAISERROR('El orden ingresado para la estrategia ya está siendo utilizado.', 16, 1)
 					END
-				END
+				END							
 				
 			    INSERT INTO dbo.Estrategia
 			    (TipoEstrategiaID, CampaniaID, CampaniaIDFin, NumeroPedido, Activo, ImagenURL, LimiteVenta, DescripcionCUV2
-					,FlagDescripcion, CUV, EtiquetaID, Precio, FlagCEP, CUV2, EtiquetaID2, Precio2
-					,FlagCEP2, TextoLibre, FlagTextoLibre, Cantidad, FlagCantidad, Zona, Orden, UsuarioCreacion, FechaCreacion, ColorFondo, FlagEstrella, CodigoEstrategia, TieneVariedad )
+				,FlagDescripcion, CUV, EtiquetaID, Precio, FlagCEP, CUV2, EtiquetaID2, Precio2
+				,FlagCEP2, TextoLibre, FlagTextoLibre, Cantidad, FlagCantidad, Zona, Orden, UsuarioCreacion, FechaCreacion, ColorFondo, FlagEstrella, CodigoEstrategia, TieneVariedad, EsOfertaIndependiente )
 				VALUES
 			   (@TipoEstrategiaID,@CampaniaID,@CampaniaIDFin,@NumeroPedido,@Activo,@ImagenURL,@LimiteVenta,@DescripcionCUV2
 					,@FlagDescripcion,@CUV,@EtiquetaID,@Precio,@FlagCEP,@CUV2,@EtiquetaID2,@Precio2
-					,@FlagCEP2,@TextoLibre,@FlagTextoLibre,@Cantidad,@FlagCantidad,@Zona,@Orden,@UsuarioCreacion,GETDATE(), @ColorFondo, @FlagEstrella, @CodigoEstrategia, @TieneVariedad)
+					,@FlagCEP2,@TextoLibre,@FlagTextoLibre,@Cantidad,@FlagCantidad,@Zona,@Orden,@UsuarioCreacion,GETDATE(), @ColorFondo, @FlagEstrella, @CodigoEstrategia, @TieneVariedad, @EsOfertaIndependiente)
 	
 					set @Retorno = @@IDENTITY
 	
-		END
-		ELSE
-		BEGIN
-
+				END
+				ELSE
+				BEGIN			
+	
 					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND ESTRATEGIAID <> @EstrategiaID  AND NUMEROPEDIDO = @NumeroPedido)
 					BEGIN
 						RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaña seleccionado.', 16, 1)
 					END								 
 					
-					IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008') AND ISNULL(@Orden,0) > 0)
+					IF (@TipoEstrategiaID NOT IN (3009) AND ISNULL(@Orden,0) > 0) -- SB20-312
 					BEGIN
 	
 						IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID  AND ESTRATEGIAID <> @EstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
@@ -1918,26 +1892,30 @@ SET NOCOUNT ON
 						ColorFondo			= @ColorFondo, 
 						FlagEstrella		= @FlagEstrella,
 						CodigoEstrategia	= @CodigoEstrategia,
-						TieneVariedad		= @TieneVariedad
+						TieneVariedad		= @TieneVariedad,
+						EsOfertaIndependiente = @EsOfertaIndependiente
 					WHERE EstrategiaID = @EstrategiaID
 					
 					set @Retorno = @EstrategiaID
 	
-		END
-	END TRY
-	BEGIN CATCH
-		DECLARE @ErrorMessage NVARCHAR(4000), @ErrorSeverity INT, @ErrorState INT
-		SELECT @ErrorMessage = ERROR_MESSAGE(), @ErrorSeverity = ERROR_SEVERITY(), @ErrorState = ERROR_STATE()
-		RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState)
-	END CATCH
+				END
+			END TRY
+			BEGIN CATCH
+				DECLARE @ErrorMessage NVARCHAR(4000), @ErrorSeverity INT, @ErrorState INT
+				SELECT @ErrorMessage = ERROR_MESSAGE(), @ErrorSeverity = ERROR_SEVERITY(), @ErrorState = ERROR_STATE()
+				RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState)
+			END CATCH
 	
-SET NOCOUNT OFF
-END
+		SET NOCOUNT OFF
+	END
+GO
+/*END*/
+GO
+
+USE BelcorpChile
+GO
 
 GO
-Use BelcorpSalvador
-GO
-
 ALTER PROCEDURE [dbo].[InsertarEstrategia_SB2]
 	@EstrategiaID int,
 	@TipoEstrategiaID int,
@@ -1969,22 +1947,18 @@ ALTER PROCEDURE [dbo].[InsertarEstrategia_SB2]
 	@FlagEstrella bit,
 	@CodigoEstrategia varchar(100),
 	@TieneVariedad INT,
+	@EsOfertaIndependiente BIT = 0,
 	@Retorno int output
 AS
 BEGIN
-SET NOCOUNT ON
+	SET NOCOUNT ON
 
-	BEGIN TRY
+		BEGIN TRY
 
 		set @Retorno = 0
 
 		DECLARE @TipoEstrategiaIDPackNueva INT = 0, @TipoEstrategiaIDOfertaDia INT = 0
 		
-		DECLARE @CodigoTipoEstrategia VARCHAR = ''
-		SELECT	@CodigoTipoEstrategia = Codigo 
-		FROM	TipoEstrategia 
-		WHERE	TipoEstrategiaId = @TipoEstrategiaID 
-
 		-- Para calcular la etiqueta para pack nuevas
 		SELECT	@TipoEstrategiaIDPackNueva = COUNT( TipoEstrategiaID) 
 		FROM	TipoEstrategia 
@@ -2003,8 +1977,6 @@ SET NOCOUNT ON
 		if isnull(@CUV,'') != ''
 			SELECT @EtiquetaID = EtiquetaID FROM Etiqueta 
 			WHERE Descripcion like '%' + UPPER('Precio Cat') + '%'
-		else if @CodigoTipoEstrategia in ('005', '007', '008')
-			set @EtiquetaID = 1
 		else
 			set @EtiquetaID = 0
 
@@ -2021,42 +1993,42 @@ SET NOCOUNT ON
 			WHERE Descripcion like '%' + UPPER('OFERTA DEL') + '%'
 		END		
 
-		IF NOT EXISTS(SELECT 1 FROM Estrategia WHERE EstrategiaID = @EstrategiaID)
-		BEGIN
+			IF NOT EXISTS(SELECT 1 FROM Estrategia WHERE EstrategiaID = @EstrategiaID)
+			BEGIN
 				IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 				BEGIN
 					RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaña seleccionado.', 16, 1)
 				END
 
-				IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008') AND ISNULL(@Orden,0) > 0)
+				IF (@TipoEstrategiaID NOT IN (3009) AND ISNULL(@Orden,0) > 0)	-- SB20-312
 				BEGIN
 					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 					BEGIN
 						RAISERROR('El orden ingresado para la estrategia ya está siendo utilizado.', 16, 1)
 					END
-				END
+				END							
 				
 			    INSERT INTO dbo.Estrategia
 			    (TipoEstrategiaID, CampaniaID, CampaniaIDFin, NumeroPedido, Activo, ImagenURL, LimiteVenta, DescripcionCUV2
-					,FlagDescripcion, CUV, EtiquetaID, Precio, FlagCEP, CUV2, EtiquetaID2, Precio2
-					,FlagCEP2, TextoLibre, FlagTextoLibre, Cantidad, FlagCantidad, Zona, Orden, UsuarioCreacion, FechaCreacion, ColorFondo, FlagEstrella, CodigoEstrategia, TieneVariedad )
+				,FlagDescripcion, CUV, EtiquetaID, Precio, FlagCEP, CUV2, EtiquetaID2, Precio2
+				,FlagCEP2, TextoLibre, FlagTextoLibre, Cantidad, FlagCantidad, Zona, Orden, UsuarioCreacion, FechaCreacion, ColorFondo, FlagEstrella, CodigoEstrategia, TieneVariedad, EsOfertaIndependiente )
 				VALUES
 			   (@TipoEstrategiaID,@CampaniaID,@CampaniaIDFin,@NumeroPedido,@Activo,@ImagenURL,@LimiteVenta,@DescripcionCUV2
 					,@FlagDescripcion,@CUV,@EtiquetaID,@Precio,@FlagCEP,@CUV2,@EtiquetaID2,@Precio2
-					,@FlagCEP2,@TextoLibre,@FlagTextoLibre,@Cantidad,@FlagCantidad,@Zona,@Orden,@UsuarioCreacion,GETDATE(), @ColorFondo, @FlagEstrella, @CodigoEstrategia, @TieneVariedad)
+					,@FlagCEP2,@TextoLibre,@FlagTextoLibre,@Cantidad,@FlagCantidad,@Zona,@Orden,@UsuarioCreacion,GETDATE(), @ColorFondo, @FlagEstrella, @CodigoEstrategia, @TieneVariedad, @EsOfertaIndependiente)
 	
 					set @Retorno = @@IDENTITY
 	
-		END
-		ELSE
-		BEGIN
-
+				END
+				ELSE
+				BEGIN			
+	
 					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND ESTRATEGIAID <> @EstrategiaID  AND NUMEROPEDIDO = @NumeroPedido)
 					BEGIN
 						RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaña seleccionado.', 16, 1)
 					END								 
 					
-					IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008') AND ISNULL(@Orden,0) > 0)
+					IF (@TipoEstrategiaID NOT IN (3009) AND ISNULL(@Orden,0) > 0) -- SB20-312
 					BEGIN
 	
 						IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID  AND ESTRATEGIAID <> @EstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
@@ -2094,26 +2066,30 @@ SET NOCOUNT ON
 						ColorFondo			= @ColorFondo, 
 						FlagEstrella		= @FlagEstrella,
 						CodigoEstrategia	= @CodigoEstrategia,
-						TieneVariedad		= @TieneVariedad
+						TieneVariedad		= @TieneVariedad,
+						EsOfertaIndependiente = @EsOfertaIndependiente
 					WHERE EstrategiaID = @EstrategiaID
 					
 					set @Retorno = @EstrategiaID
 	
-		END
-	END TRY
-	BEGIN CATCH
-		DECLARE @ErrorMessage NVARCHAR(4000), @ErrorSeverity INT, @ErrorState INT
-		SELECT @ErrorMessage = ERROR_MESSAGE(), @ErrorSeverity = ERROR_SEVERITY(), @ErrorState = ERROR_STATE()
-		RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState)
-	END CATCH
+				END
+			END TRY
+			BEGIN CATCH
+				DECLARE @ErrorMessage NVARCHAR(4000), @ErrorSeverity INT, @ErrorState INT
+				SELECT @ErrorMessage = ERROR_MESSAGE(), @ErrorSeverity = ERROR_SEVERITY(), @ErrorState = ERROR_STATE()
+				RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState)
+			END CATCH
 	
-SET NOCOUNT OFF
-END
+		SET NOCOUNT OFF
+	END
+GO
+/*END*/
+GO
+
+USE BelcorpBolivia
+GO
 
 GO
-Use BelcorpVenezuela
-GO
-
 ALTER PROCEDURE [dbo].[InsertarEstrategia_SB2]
 	@EstrategiaID int,
 	@TipoEstrategiaID int,
@@ -2145,22 +2121,18 @@ ALTER PROCEDURE [dbo].[InsertarEstrategia_SB2]
 	@FlagEstrella bit,
 	@CodigoEstrategia varchar(100),
 	@TieneVariedad INT,
+	@EsOfertaIndependiente BIT = 0,
 	@Retorno int output
 AS
 BEGIN
-SET NOCOUNT ON
+	SET NOCOUNT ON
 
-	BEGIN TRY
+		BEGIN TRY
 
 		set @Retorno = 0
 
 		DECLARE @TipoEstrategiaIDPackNueva INT = 0, @TipoEstrategiaIDOfertaDia INT = 0
 		
-		DECLARE @CodigoTipoEstrategia VARCHAR = ''
-		SELECT	@CodigoTipoEstrategia = Codigo 
-		FROM	TipoEstrategia 
-		WHERE	TipoEstrategiaId = @TipoEstrategiaID 
-
 		-- Para calcular la etiqueta para pack nuevas
 		SELECT	@TipoEstrategiaIDPackNueva = COUNT( TipoEstrategiaID) 
 		FROM	TipoEstrategia 
@@ -2179,8 +2151,6 @@ SET NOCOUNT ON
 		if isnull(@CUV,'') != ''
 			SELECT @EtiquetaID = EtiquetaID FROM Etiqueta 
 			WHERE Descripcion like '%' + UPPER('Precio Cat') + '%'
-		else if @CodigoTipoEstrategia in ('005', '007', '008')
-			set @EtiquetaID = 1
 		else
 			set @EtiquetaID = 0
 
@@ -2197,42 +2167,42 @@ SET NOCOUNT ON
 			WHERE Descripcion like '%' + UPPER('OFERTA DEL') + '%'
 		END		
 
-		IF NOT EXISTS(SELECT 1 FROM Estrategia WHERE EstrategiaID = @EstrategiaID)
-		BEGIN
+			IF NOT EXISTS(SELECT 1 FROM Estrategia WHERE EstrategiaID = @EstrategiaID)
+			BEGIN
 				IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 				BEGIN
 					RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaña seleccionado.', 16, 1)
 				END
 
-				IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008') AND ISNULL(@Orden,0) > 0)
+				IF (@TipoEstrategiaID NOT IN (3009) AND ISNULL(@Orden,0) > 0)	-- SB20-312
 				BEGIN
 					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 					BEGIN
 						RAISERROR('El orden ingresado para la estrategia ya está siendo utilizado.', 16, 1)
 					END
-				END
+				END							
 				
 			    INSERT INTO dbo.Estrategia
 			    (TipoEstrategiaID, CampaniaID, CampaniaIDFin, NumeroPedido, Activo, ImagenURL, LimiteVenta, DescripcionCUV2
-					,FlagDescripcion, CUV, EtiquetaID, Precio, FlagCEP, CUV2, EtiquetaID2, Precio2
-					,FlagCEP2, TextoLibre, FlagTextoLibre, Cantidad, FlagCantidad, Zona, Orden, UsuarioCreacion, FechaCreacion, ColorFondo, FlagEstrella, CodigoEstrategia, TieneVariedad )
+				,FlagDescripcion, CUV, EtiquetaID, Precio, FlagCEP, CUV2, EtiquetaID2, Precio2
+				,FlagCEP2, TextoLibre, FlagTextoLibre, Cantidad, FlagCantidad, Zona, Orden, UsuarioCreacion, FechaCreacion, ColorFondo, FlagEstrella, CodigoEstrategia, TieneVariedad, EsOfertaIndependiente )
 				VALUES
 			   (@TipoEstrategiaID,@CampaniaID,@CampaniaIDFin,@NumeroPedido,@Activo,@ImagenURL,@LimiteVenta,@DescripcionCUV2
 					,@FlagDescripcion,@CUV,@EtiquetaID,@Precio,@FlagCEP,@CUV2,@EtiquetaID2,@Precio2
-					,@FlagCEP2,@TextoLibre,@FlagTextoLibre,@Cantidad,@FlagCantidad,@Zona,@Orden,@UsuarioCreacion,GETDATE(), @ColorFondo, @FlagEstrella, @CodigoEstrategia, @TieneVariedad)
+					,@FlagCEP2,@TextoLibre,@FlagTextoLibre,@Cantidad,@FlagCantidad,@Zona,@Orden,@UsuarioCreacion,GETDATE(), @ColorFondo, @FlagEstrella, @CodigoEstrategia, @TieneVariedad, @EsOfertaIndependiente)
 	
 					set @Retorno = @@IDENTITY
 	
-		END
-		ELSE
-		BEGIN
-
+				END
+				ELSE
+				BEGIN			
+	
 					IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND ESTRATEGIAID <> @EstrategiaID  AND NUMEROPEDIDO = @NumeroPedido)
 					BEGIN
 						RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaña seleccionado.', 16, 1)
 					END								 
 					
-					IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008') AND ISNULL(@Orden,0) > 0)
+					IF (@TipoEstrategiaID NOT IN (3009) AND ISNULL(@Orden,0) > 0) -- SB20-312
 					BEGIN
 	
 						IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID  AND ESTRATEGIAID <> @EstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
@@ -2270,20 +2240,23 @@ SET NOCOUNT ON
 						ColorFondo			= @ColorFondo, 
 						FlagEstrella		= @FlagEstrella,
 						CodigoEstrategia	= @CodigoEstrategia,
-						TieneVariedad		= @TieneVariedad
+						TieneVariedad		= @TieneVariedad,
+						EsOfertaIndependiente = @EsOfertaIndependiente
 					WHERE EstrategiaID = @EstrategiaID
 					
 					set @Retorno = @EstrategiaID
 	
-		END
-	END TRY
-	BEGIN CATCH
-		DECLARE @ErrorMessage NVARCHAR(4000), @ErrorSeverity INT, @ErrorState INT
-		SELECT @ErrorMessage = ERROR_MESSAGE(), @ErrorSeverity = ERROR_SEVERITY(), @ErrorState = ERROR_STATE()
-		RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState)
-	END CATCH
+				END
+			END TRY
+			BEGIN CATCH
+				DECLARE @ErrorMessage NVARCHAR(4000), @ErrorSeverity INT, @ErrorState INT
+				SELECT @ErrorMessage = ERROR_MESSAGE(), @ErrorSeverity = ERROR_SEVERITY(), @ErrorState = ERROR_STATE()
+				RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState)
+			END CATCH
 	
-SET NOCOUNT OFF
-END
-
+		SET NOCOUNT OFF
+	END
 GO
+/*END*/
+GO
+
