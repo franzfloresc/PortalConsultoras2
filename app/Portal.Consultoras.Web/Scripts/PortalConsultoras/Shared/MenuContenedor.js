@@ -54,6 +54,13 @@ var menuModule = (function () {
             $(elementos.menuMobHome).find('img').attr("src", img);
         }
     }
+    function _animateScrollTo(codigo, topHeight) {
+        if ($(codigo).length) {
+            $(elementos.html).animate({
+                scrollTop: $(codigo).offset().top - topHeight
+            }, 1000);
+        }
+    }
     function init() {
         navbarHeight = _getHeight(elementos.header);
         seccionMenuMobileHeight = _getHeight(elementos.seccionBannerMobile);
@@ -161,13 +168,14 @@ var menuModule = (function () {
                 if (anchorValue != "") {
                     $(elementos.html).find("[data-codigo=" + anchorValue + "]").find("a").addClass(elementos.claseActivo);
 
-                    $(elementos.html).animate({
-                        scrollTop: $(anchorMark + anchorValue).offset().top - menuHeight
-                    },
-                    1000);
+                    if ($(anchorMark + anchorValue).length > 0) {
+                        _animateScrollTo(anchorMark + anchorValue, menuHeight);
+                    } else {
+                        _animateScrollTo(elementos.html, menuHeight);
+                    }
                 }
+                _changeLogoMobile();
             }
-            _changeLogoMobile();
         }
     }
     function menuClick(e, url) {
@@ -176,6 +184,7 @@ var menuModule = (function () {
         var codigo = objHtmlEvent.data("codigo") || "";
         var currentLocation = window.location.href.toLowerCase();
         var originLocation = window.location.origin;
+        var menuHeight = navbarHeight;
 
         objHtmlEvent.siblings("li").find("a").removeClass(elementos.claseActivo);
         objHtmlEvent.find("a").addClass(elementos.claseActivo);
@@ -194,18 +203,11 @@ var menuModule = (function () {
                 }
                 window.location = originLocation + "/" + (isMobile() ? "Mobile/" : "") + controller + codigo;
             } else if (currentLocation.indexOf("/ofertas") > -1) {
-                var menuHeight = navbarHeight;
                 if ($(elementos.seccionMenuFija).css("position") === "fixed") menuHeight += seccionFixedMenuHeigt;
+                _animateScrollTo(anchorMark + codigo, menuHeight);
+                if (isMobile()) _moverSubMenuContenedorOfertasMobile();
 
-                if ($('#' + codigo).length) {
-                    $(elementos.html).animate({
-                        scrollTop: $('#' + codigo).offset().top - menuHeight
-                    },
-                    1000);
-                }
 
-                if (isMobile())
-                    _moverSubMenuContenedorOfertasMobile();
             } else {
                 if (currentLocation.indexOf("/revisar") > -1)
                     window.location = originLocation + "/" + (isMobile() ? "Mobile/" : "") + "Ofertas/Revisar#" + codigo;
@@ -221,6 +223,7 @@ var menuModule = (function () {
                     img = img.replace("_normal.", "_hover.");
                     $(elementos.menuMobHome).find('img').attr("src", img);
                 }
+                _animateScrollTo(elementos.html, menuHeight);
             }
 
             if (window.location.pathname.toLowerCase() === url.toLowerCase()) {

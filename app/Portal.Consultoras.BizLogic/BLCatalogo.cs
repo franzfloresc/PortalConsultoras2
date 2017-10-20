@@ -57,13 +57,11 @@ namespace Portal.Consultoras.BizLogic
                 string catalogoLbel = "lbel." + catalogoCampania;
                 string catalogoEsika = "esika." + catalogoCampania;
                 string catalogoCyzone = "cyzone." + catalogoCampania;
-                string catalogoFinart = "finart." + catalogoCampania;
 
                 var url = urlISSUUSearch +
                     "docname:" + catalogoLbel + "+OR+" +
                     "docname:" + catalogoEsika + "+OR+" +
-                    "docname:" + catalogoCyzone + "+OR+" +
-                    "docname:" + catalogoFinart + "&jsonCallback=?";
+                    "docname:" + catalogoCyzone + "&jsonCallback=?";
 
                 string response = "";
                 using (var wc = new WebClient())
@@ -88,7 +86,6 @@ namespace Portal.Consultoras.BizLogic
                     if (docName == catalogoLbel) catalogos.Add(new BECatalogoIssuu { MarcaID = 1, CodigoIssuu = documentId, UrlVisor = urlISSUUVisor + docName });
                     else if (docName == catalogoEsika) catalogos.Add(new BECatalogoIssuu { MarcaID = 2, CodigoIssuu = documentId, UrlVisor = urlISSUUVisor + docName });
                     else if (docName == catalogoCyzone) catalogos.Add(new BECatalogoIssuu { MarcaID = 3, CodigoIssuu = documentId, UrlVisor = urlISSUUVisor + docName });
-                    else if (docName == catalogoFinart) catalogos.Add(new BECatalogoIssuu { MarcaID = 4, CodigoIssuu = documentId, UrlVisor = urlISSUUVisor + docName });
                 }
             }
             catch (Exception) { catalogos = new List<BECatalogoIssuu>(); }
@@ -210,13 +207,8 @@ namespace Portal.Consultoras.BizLogic
                     MarcaDescripcion = "Cyzone",
                     UrlImagen = Constantes.CatalogoImagenDefault.Catalogo,
                     UrlVisor = Constantes.CatalogoUrlDefault.Cyzone
-                },
-                new BECatalogoRevista
-                {
-                    MarcaID = Constantes.Marca.Finart,
-                    MarcaDescripcion = "Finart",
-                    UrlImagen = Constantes.CatalogoImagenDefault.Catalogo
                 }
+
             };
         }
 
@@ -264,15 +256,6 @@ namespace Portal.Consultoras.BizLogic
                     MarcaDescripcion = "Cyzone",
                     UrlImagen = Constantes.CatalogoImagenDefault.Catalogo,
                     UrlVisor = Constantes.CatalogoUrlDefault.Cyzone,
-                    CampaniaID = Convert.ToInt32(itemCampania),
-                    PaisISO = paisISO
-                });
-
-                lstCatalogoRevista.Add(new BECatalogoRevista
-                {
-                    MarcaID = Constantes.Marca.Finart,
-                    MarcaDescripcion = "Finart",
-                    UrlImagen = Constantes.CatalogoImagenDefault.Catalogo,
                     CampaniaID = Convert.ToInt32(itemCampania),
                     PaisISO = paisISO
                 });
