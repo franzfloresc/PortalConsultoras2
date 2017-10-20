@@ -59,12 +59,40 @@ $(document).ready(function () {
             //    }, 2000);
             //},
             inicializarEventos: function () {
-                $("body").on("click", ".cta_inscripcion", me.Eventos.irASeccionFormulario);
-                $("body").on("click", ".cerrar_popup_inscripcion", me.Eventos.cerrarPopupsAsesoraOnline);
-                $("body").on("click", "#datos_son_correctos", me.Eventos.cerrarPopupsAsesoraOnline);
+                
+                $("body").on("click", ".cta_inscripcion", function () {
+                    dataLayer.push({
+                        'event': 'virtualEvent',
+                        'category': 'Coach Virtual',
+                        'action': 'Click Botón',
+                        'label': 'Quiero Subscribirme'
+                    });
+                    me.Eventos.irASeccionFormulario;
+                });
+                $("body").on("click", ".cerrar_popup_inscripcion",
+                    function () {
+                        dataLayer.push({
+                            'event': 'virtualEvent',
+                            'category': 'Coach Virtual',
+                            'action': 'Banner Confirmación',
+                            'label': ' Cerrar popup '
+                        }); 
+                        $(this).parents(".contenedor_fondo_popup").fadeOut(400);
+                        //me.Eventos.cerrarPopupsAsesoraOnline;
+                    });
+                $("body").on("click", "#datos_son_correctos",
+                    function () {
+                        dataLayer.push({
+                            'event': 'virtualEvent',
+                            'category': 'Coach Virtual',
+                            'action': 'Banner Confirmación',  
+                            'label': 'Click botón Todos mis datos son correctos'
+                        });
+                        //me.Eventos.cerrarPopupsAsesoraOnline;
+                        $(this).parents(".contenedor_fondo_popup").fadeOut(400);
+                    });
                 $("body").on("click", ".arrow_down_coach_virtual", me.Eventos.scrollDownArrow);
                 $(document).on("scroll", me.Eventos.mostrarBotonSuscripcionMobile);
-
                 $("#enviar-form").on("click", asesoraOnlineObj.enviarFormulario);
                 $("#modificar_mis_datos").on("click", asesoraOnlineObj.irAModificarMisDatos);
                 $("#modificar_mis_datos_ya_registrado").on("click", asesoraOnlineObj.irAModificarMisDatos);

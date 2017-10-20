@@ -10,7 +10,6 @@ using Portal.Consultoras.Web.ServiceCliente;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServiceUsuario;
 using System.Configuration;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using Portal.Consultoras.Web.ServiceSAC;
@@ -24,7 +23,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
        
 
-        public ActionResult Index()
+        public ActionResult Index(bool vc = false)
         {
             BEUsuario beusuario = new BEUsuario();
             ViewBag.DatosIniciales = new BienvenidaHomeModel();
@@ -115,7 +114,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     }
                 }
             }
-          
+
+            ViewBag.VC_Datos = vc;
             return View(model);
         }
 

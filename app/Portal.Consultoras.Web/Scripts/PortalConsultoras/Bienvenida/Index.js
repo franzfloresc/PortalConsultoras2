@@ -70,6 +70,15 @@ $(document).ready(function () {
                 $('#fondoComunPopUp').hide();
             }
             if ($('#popupMisDatos').is(':visible')) {
+                if (showPopupMisDatos == '1') {
+                    dataLayer.push({
+                        'event': 'virtualEvent',
+                        'category': 'Coach Virtual',
+                        'action': 'Banner Actualizar Datos',
+                        'label': 'Cerrar popup'
+                    });
+                    showPopupMisDatos = '0';
+                }
                 $('#fondoComunPopUp').hide();
             }
         }
@@ -113,6 +122,15 @@ $(document).ready(function () {
             }
             //EPD-1564
             if ($('#popupMisDatos').is(':visible')) {
+                if (showPopupMisDatos == '1') {
+                    dataLayer.push({
+                        'event': 'virtualEvent',
+                        'category': 'Coach Virtual',
+                        'action': 'Banner Actualizar Datos',
+                        'label': ' Cerrar popup '
+                    });
+                    showPopupMisDatos = '0';
+                }
                 PopupCerrar('popupMisDatos');
             }
 
@@ -267,6 +285,16 @@ $(document).ready(function () {
         return false;
     });
     $("#cerrarPopupMisDatos").click(function () {
+        
+        if (showPopupMisDatos == '1') {
+            dataLayer.push({
+                'event': 'virtualEvent',
+                'category': 'Coach Virtual',
+                'action': 'Banner Actualizar Datos',
+                'label': ' Cerrar popup '
+            });
+            showPopupMisDatos = '0';
+        }
         PopupCerrar('popupMisDatos');
         return false;
     });
@@ -1610,7 +1638,7 @@ function CambiarContrasenia() {
 }
 
 function ActualizarMD() {
-
+    
     if (viewBagPaisID != 4) {
 
         if (jQuery.trim($('#txtEMailMD').val()) == "") {
@@ -1684,7 +1712,16 @@ function ActualizarMD() {
             CompartirDatos: false,
             AceptoContrato: $('#chkAceptoContratoMD').is(':checked')
     };
-
+    
+    if (showPopupMisDatos == '1') {
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Coach Virtual',
+            'action': 'Banner Actualizar Datos',
+            'label': 'Click botón Actualizar'
+        });
+        showPopupMisDatos = '0';
+    }
     if (viewBagPaisID != 4) {
 
         jQuery.ajax({
@@ -1695,6 +1732,7 @@ function ActualizarMD() {
             data: JSON.stringify(item),
             async: true,
             success: function (data) {
+                
                 if (checkTimeout(data)) {
                     closeWaitingDialog();
                     PopupCerrar('popupMisDatos');
@@ -1973,6 +2011,7 @@ function DownloadAttachPDFTerminos() {
     $('#hrefTerminos').attr('href', UrlPdfTerminosyCondiciones);
 };
 function CerrarPopupActualizacionDatos() {
+   
     var ClaveSecreta = $('#txtActualizarClaveSecreta').val();
     var ConfirmarClaveSecreta = $('#txtConfirmarClaveSecreta').val();
 
