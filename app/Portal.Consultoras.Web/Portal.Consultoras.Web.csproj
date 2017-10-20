@@ -374,6 +374,7 @@
     <Compile Include="Controllers\UneteController.cs" />
     <Compile Include="Controllers\UpdatePassSACController.cs" />
     <Compile Include="Controllers\UsuarioRolController.cs" />
+    <Compile Include="CustomFilters\ClearSessionMobileAppAttribute.cs" />
     <Compile Include="CustomFilters\LogErrorAttribute.cs" />
     <Compile Include="CustomFilters\LogActionFilter.cs" />
     <Compile Include="CustomFilters\LogActionFilterProvider.cs" />
@@ -398,6 +399,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ControllerExtensions.cs" />
+    <Compile Include="Helpers\RouteExtensions.cs" />
+    <Compile Include="Helpers\SessionExtensions.cs" />
     <Compile Include="Helpers\ViewExtensions.cs" />
     <Compile Include="Infraestructure\UniqueRoute.cs" />
     <Compile Include="LogManager\LogManager.cs" />

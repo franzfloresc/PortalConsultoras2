@@ -13,6 +13,7 @@ using Portal.Consultoras.Web.Infraestructure;
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
     [UniqueSession("UniqueRoute", UniqueRoute.IdentifierKey, "/g/")]
+    [ClearSessionMobileApp(UniqueRoute.IdentifierKey, "MobileAppConfiguracion", "StartSession")]
     public class BaseMobileController : BaseController
     {
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
@@ -268,7 +269,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (!routeValues.ContainsKey("action"))
                 routeValues.Add("action", actionName);
 
-           
+
             if (!routeValues.ContainsKey(uniqueSessionAttribute.IdentifierKey))
                 routeValues.Add(uniqueSessionAttribute.IdentifierKey, uniqueKey);
 
