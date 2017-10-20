@@ -269,6 +269,7 @@
     <Compile Include="Controllers\AdministrarTipoEstrategiaController.cs" />
     <Compile Include="Controllers\AsesoraOnlineController.cs" />
     <Compile Include="Controllers\BaseControllerUnete.cs" />
+    <Compile Include="Controllers\BaseGuiaNegocioController.cs" />
     <Compile Include="Controllers\BaseRevistaDigitalController.cs" />
     <Compile Include="Controllers\BaseEstrategiaController.cs" />
     <Compile Include="Controllers\BaseShowRoomController.cs" />
@@ -358,6 +359,7 @@
     <Compile Include="Controllers\ReportePedidoDDWebController.cs" />
     <Compile Include="Controllers\ReportePedidoFICController.cs" />
     <Compile Include="Controllers\ReservaSAPController.cs" />
+    <Compile Include="Controllers\GuiaNegocioController.cs" />
     <Compile Include="Controllers\RevistaDigitalController.cs" />
     <Compile Include="Controllers\RolController.cs" />
     <Compile Include="Controllers\RVDigitalController.cs" />
@@ -397,6 +399,7 @@
     <Compile Include="Helpers\ControllerExtensions.cs" />
     <Compile Include="Helpers\ViewExtensions.cs" />
     <Compile Include="Infraestructure\UniqueRoute.cs" />
+    <Compile Include="LogManager\ILogManager.cs" />
     <Compile Include="LogManager\LogManager.cs" />
     <Compile Include="Models\AdmCuponModel.cs" />
     <Compile Include="Models\AdministrarOfertasHomeModel.cs" />
@@ -4410,6 +4413,7 @@
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpTemplateResumenCampania.cshtml" />
     <Content Include="Views\RevistaDigital\Revista.cshtml" />
     <Content Include="Views\AdministrarGuiaNegocioDigitalizada\Index.cshtml" />
+    <Content Include="Views\GuiaNegocio\Index.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

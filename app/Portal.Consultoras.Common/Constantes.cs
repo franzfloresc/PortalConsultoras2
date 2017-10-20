@@ -268,6 +268,7 @@ namespace Portal.Consultoras.Common
             public const string RevistaDigital = "101"; // No tiene referecia con BD, es un grupo de estrategias
             public const string LosMasVendidos = "020";
             public const string OfertaDelDia = "009";
+            public const string GuiaDeNegocioDigitalizada = "010";
 
         }
 
@@ -1267,6 +1268,8 @@ namespace Portal.Consultoras.Common
             public const string OptDetalle = "/ofertasparati/detalle";
             public const string OfertaDelDia = "/ofertadeldia";
             public const string OfertaDelDiaIndex = "/ofertadeldia/index";
+            public const string GuiaDeNegocio = "/guianegocio";
+            public const string GuiaDeNegocioIndex = "/guianegocio/index";
         }
     }
 }
