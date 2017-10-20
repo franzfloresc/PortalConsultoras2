@@ -33,8 +33,6 @@ namespace Portal.Consultoras.Web.Controllers
                 var listaFinal1 = ConsultarEstrategiasModel("", 0, Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada);
                 var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1);
                 
-                listModel = listModel.Where(e => e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
-                
                 return Json(new
                 {
                     success = true,
