@@ -40,12 +40,6 @@
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd10" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
-  <wsdl:message name="IPedidoService_UpdateCuponConsultoraEnvioCorreo_InputMessage">
-    <wsdl:part name="parameters" element="tns:UpdateCuponConsultoraEnvioCorreo" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_UpdateCuponConsultoraEnvioCorreo_OutputMessage">
-    <wsdl:part name="parameters" element="tns:UpdateCuponConsultoraEnvioCorreoResponse" />
-  </wsdl:message>
   <wsdl:message name="IPedidoService_CrearCupon_InputMessage">
     <wsdl:part name="parameters" element="tns:CrearCupon" />
   </wsdl:message>
@@ -201,12 +195,6 @@
   </wsdl:message>
   <wsdl:message name="IPedidoService_GetFichaProducto_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetFichaProductoResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_GetUnidadesPermitidasByCuvShowRoom_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetUnidadesPermitidasByCuvShowRoom" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_GetUnidadesPermitidasByCuvShowRoom_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetUnidadesPermitidasByCuvShowRoomResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_ValidarUnidadesPermitidasEnPedidoShowRoom_InputMessage">
     <wsdl:part name="parameters" element="tns:ValidarUnidadesPermitidasEnPedidoShowRoom" />
@@ -712,6 +700,12 @@
   <wsdl:message name="IPedidoService_UpdateCuponConsultoraEstadoCupon_OutputMessage">
     <wsdl:part name="parameters" element="tns:UpdateCuponConsultoraEstadoCuponResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_UpdateCuponConsultoraEnvioCorreo_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateCuponConsultoraEnvioCorreo" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_UpdateCuponConsultoraEnvioCorreo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateCuponConsultoraEnvioCorreoResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_InsConfirmacionEntrega_InputMessage">
     <wsdl:part name="parameters" element="tns:InsConfirmacionEntrega" />
   </wsdl:message>
@@ -795,12 +789,6 @@
   </wsdl:message>
   <wsdl:message name="IPedidoService_GetTipoEstrategias_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetTipoEstrategiasResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_GetCodeEstrategiaByCUV_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetCodeEstrategiaByCUV" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_GetCodeEstrategiaByCUV_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetCodeEstrategiaByCUVResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_GetEstrategias_InputMessage">
     <wsdl:part name="parameters" element="tns:GetEstrategias" />
@@ -1221,6 +1209,12 @@
   </wsdl:message>
   <wsdl:message name="IPedidoService_RemoverOfertaShowRoom_OutputMessage">
     <wsdl:part name="parameters" element="tns:RemoverOfertaShowRoomResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetUnidadesPermitidasByCuvShowRoom_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUnidadesPermitidasByCuvShowRoom" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetUnidadesPermitidasByCuvShowRoom_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUnidadesPermitidasByCuvShowRoomResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_DelPedidoWebDetalleMasivo_InputMessage">
     <wsdl:part name="parameters" element="tns:DelPedidoWebDetalleMasivo" />
@@ -2243,10 +2237,6 @@
     <wsdl:part name="parameters" element="tns:GetCUVAsociadoByFilterResponse" />
   </wsdl:message>
   <wsdl:portType name="IPedidoService">
-    <wsdl:operation name="UpdateCuponConsultoraEnvioCorreo">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/UpdateCuponConsultoraEnvioCorreo" message="tns:IPedidoService_UpdateCuponConsultoraEnvioCorreo_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/UpdateCuponConsultoraEnvioCorreoResponse" message="tns:IPedidoService_UpdateCuponConsultoraEnvioCorreo_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="CrearCupon">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/CrearCupon" message="tns:IPedidoService_CrearCupon_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/CrearCuponResponse" message="tns:IPedidoService_CrearCupon_OutputMessage" />
@@ -2350,10 +2340,6 @@
     <wsdl:operation name="GetFichaProducto">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetFichaProducto" message="tns:IPedidoService_GetFichaProducto_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetFichaProductoResponse" message="tns:IPedidoService_GetFichaProducto_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetUnidadesPermitidasByCuvShowRoom">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetUnidadesPermitidasByCuvShowRoom" message="tns:IPedidoService_GetUnidadesPermitidasByCuvShowRoom_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetUnidadesPermitidasByCuvShowRoomResponse" message="tns:IPedidoService_GetUnidadesPermitidasByCuvShowRoom_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ValidarUnidadesPermitidasEnPedidoShowRoom">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ValidarUnidadesPermitidasEnPedidoShowRoom" message="tns:IPedidoService_ValidarUnidadesPermitidasEnPedidoShowRoom_InputMessage" />
@@ -2691,6 +2677,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/UpdateCuponConsultoraEstadoCupon" message="tns:IPedidoService_UpdateCuponConsultoraEstadoCupon_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/UpdateCuponConsultoraEstadoCuponResponse" message="tns:IPedidoService_UpdateCuponConsultoraEstadoCupon_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="UpdateCuponConsultoraEnvioCorreo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/UpdateCuponConsultoraEnvioCorreo" message="tns:IPedidoService_UpdateCuponConsultoraEnvioCorreo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/UpdateCuponConsultoraEnvioCorreoResponse" message="tns:IPedidoService_UpdateCuponConsultoraEnvioCorreo_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="InsConfirmacionEntrega">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsConfirmacionEntrega" message="tns:IPedidoService_InsConfirmacionEntrega_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsConfirmacionEntregaResponse" message="tns:IPedidoService_InsConfirmacionEntrega_OutputMessage" />
@@ -2746,10 +2736,6 @@
     <wsdl:operation name="GetTipoEstrategias">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetTipoEstrategias" message="tns:IPedidoService_GetTipoEstrategias_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetTipoEstrategiasResponse" message="tns:IPedidoService_GetTipoEstrategias_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetCodeEstrategiaByCUV">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetCodeEstrategiaByCUV" message="tns:IPedidoService_GetCodeEstrategiaByCUV_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetCodeEstrategiaByCUVResponse" message="tns:IPedidoService_GetCodeEstrategiaByCUV_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetEstrategias">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetEstrategias" message="tns:IPedidoService_GetEstrategias_InputMessage" />
@@ -3030,6 +3016,10 @@
     <wsdl:operation name="RemoverOfertaShowRoom">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/RemoverOfertaShowRoom" message="tns:IPedidoService_RemoverOfertaShowRoom_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/RemoverOfertaShowRoomResponse" message="tns:IPedidoService_RemoverOfertaShowRoom_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUnidadesPermitidasByCuvShowRoom">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetUnidadesPermitidasByCuvShowRoom" message="tns:IPedidoService_GetUnidadesPermitidasByCuvShowRoom_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetUnidadesPermitidasByCuvShowRoomResponse" message="tns:IPedidoService_GetUnidadesPermitidasByCuvShowRoom_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="DelPedidoWebDetalleMasivo">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/DelPedidoWebDetalleMasivo" message="tns:IPedidoService_DelPedidoWebDetalleMasivo_InputMessage" />
@@ -3714,15 +3704,6 @@
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IPedidoService" type="tns:IPedidoService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="UpdateCuponConsultoraEnvioCorreo">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdateCuponConsultoraEnvioCorreo" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="CrearCupon">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/CrearCupon" style="document" />
       <wsdl:input>
@@ -3950,15 +3931,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetFichaProducto">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetFichaProducto" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetUnidadesPermitidasByCuvShowRoom">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetUnidadesPermitidasByCuvShowRoom" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4722,6 +4694,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="UpdateCuponConsultoraEnvioCorreo">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdateCuponConsultoraEnvioCorreo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="InsConfirmacionEntrega">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/InsConfirmacionEntrega" style="document" />
       <wsdl:input>
@@ -4841,15 +4822,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetTipoEstrategias">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetTipoEstrategias" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetCodeEstrategiaByCUV">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetCodeEstrategiaByCUV" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -5480,6 +5452,15 @@
     </wsdl:operation>
     <wsdl:operation name="RemoverOfertaShowRoom">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/RemoverOfertaShowRoom" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUnidadesPermitidasByCuvShowRoom">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetUnidadesPermitidasByCuvShowRoom" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -7021,15 +7002,6 @@
   <wsdl:binding name="BasicHttpsBinding_IPedidoService" type="tns:IPedidoService">
     <wsp:PolicyReference URI="#BasicHttpsBinding_IPedidoService_policy" />
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="UpdateCuponConsultoraEnvioCorreo">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdateCuponConsultoraEnvioCorreo" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="CrearCupon">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/CrearCupon" style="document" />
       <wsdl:input>
@@ -7257,15 +7229,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetFichaProducto">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetFichaProducto" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetUnidadesPermitidasByCuvShowRoom">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetUnidadesPermitidasByCuvShowRoom" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -8029,6 +7992,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="UpdateCuponConsultoraEnvioCorreo">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdateCuponConsultoraEnvioCorreo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="InsConfirmacionEntrega">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/InsConfirmacionEntrega" style="document" />
       <wsdl:input>
@@ -8148,15 +8120,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetTipoEstrategias">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetTipoEstrategias" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetCodeEstrategiaByCUV">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetCodeEstrategiaByCUV" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -8787,6 +8750,15 @@
     </wsdl:operation>
     <wsdl:operation name="RemoverOfertaShowRoom">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/RemoverOfertaShowRoom" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUnidadesPermitidasByCuvShowRoom">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetUnidadesPermitidasByCuvShowRoom" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

@@ -3228,9 +3228,7 @@ namespace Portal.Consultoras.Common
                 if (columnName == "") return false;
 
                 if (r.GetOrdinal(columnName) >= 0)
-                {
                     return r[columnName] != DBNull.Value;
-                }
 
                 return false;
             }
@@ -3251,6 +3249,23 @@ namespace Portal.Consultoras.Common
         }
 
         public static dynamic GetColumn<T>(IDataRecord lector, string name, T tipoDato)
+        {
+            try
+            {
+                name = name ?? "";
+                name = name.Trim();
+                if (HasColumn(lector, name))
+                    return (T)lector.GetValue(lector.GetOrdinal(name));
+
+                return default(T);
+            }
+            catch (Exception)
+            {
+                return default(T);
+            }
+        }
+
+        public static T GetColumn<T>(IDataRecord lector, string name)
         {
             try
             {

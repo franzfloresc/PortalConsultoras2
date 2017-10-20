@@ -1,5 +1,6 @@
 ﻿@using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Areas.Mobile.Models
+@using Portal.Consultoras.Web.Helpers
 
 @model PedidoWebMobilModel
 
@@ -97,10 +98,10 @@
         </ul>
     </div>
     @{
-        var sessionMobile = (Session["MobileAppConfiguracion"] == null ? new MobileAppConfiguracionModel() : (MobileAppConfiguracionModel)Session["MobileAppConfiguracion"]);
+        var sessionMobile = Html.MobileAppConfiguracion();
 
         if (sessionMobile.ClienteID == 0)
-        { 
+        {
             <table class="table pcolor">
                 <tbody>
                     <tr>

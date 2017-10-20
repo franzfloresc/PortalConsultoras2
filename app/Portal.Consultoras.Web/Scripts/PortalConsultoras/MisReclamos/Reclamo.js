@@ -597,7 +597,7 @@ function AnalizarOperacion(id) {
 
     if (id == "D") {
         if (ValidarPaso2Devolucion(id)) {
-            //CambioPaso2(100);
+            CambioPaso2(100);
             $("[data-tipo-confirma='cambio']").hide();
             $("[data-tipo-confirma=canje]").show();
 

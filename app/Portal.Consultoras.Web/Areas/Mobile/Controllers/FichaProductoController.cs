@@ -31,7 +31,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
                 ViewBag.OrigenUrl = Url.Action("Index", "Pedido", new { area = "Mobile" });
 
-                ViewBag.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
+                ViewBag.EstadoSuscripcion = revistaDigital.SuscripcionModel.EstadoRegistro;
                 ViewBag.VirtualCoachCuv = cuv;
                 ViewBag.VirtualCoachCampana = campanaId;
                 return View(producto);
