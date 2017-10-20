@@ -1,30 +1,4 @@
-﻿---------------------------------------------------------------------
--- CREACION DE CAMPOS DE ORDEN MOBILE (MobileOrden, MobileOrdenBPT) 
--- PARA TABLA dbo.ConfiguracionPais 
--- BPT 353
--- 16/10/2017
----------------------------------------------------------------------
-
-ALTER TABLE dbo.ConfiguracionPais ADD MobileOrden int NULL, MobileOrdenBPT INT NULL ;  
-GO
-ALTER TABLE dbo.ConfiguracionPais ADD CONSTRAINT MobileOrden_def DEFAULT 0 FOR MobileOrden;  
-GO 
-ALTER TABLE dbo.ConfiguracionPais ADD CONSTRAINT MobileOrdenBPT_def DEFAULT 0 FOR MobileOrdenBPT;  
-GO 
-
-UPDATE configuracionpais
-SET	MobileOrden = 0,
-	MobileOrdenBPT = 0
-
-
-
- --------------------------------------------------------------------------------------------------------------
-
-/****** Object:  StoredProcedure [dbo].[ConfiguracionPaisList]    Script Date: 16/10/2017 11:33:15 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+﻿
 
 ALTER PROCEDURE [dbo].[ConfiguracionPaisList]
 	@TienePerfil BIT
@@ -63,13 +37,6 @@ BEGIN
 		P.TienePerfil = @TienePerfil
 END
 
-
-----------------------------------------------------------------------------------------------
-
-/****** Object:  StoredProcedure [dbo].[ConfiguracionPaisUpdate]    Script Date: 16/10/2017 13:35:57 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
 GO
 
 ALTER PROCEDURE [dbo].[ConfiguracionPaisUpdate] 
@@ -137,7 +104,7 @@ ELSE
 	END
 END
 
------------------------------------------------------------------------------------------
+GO
 
 ALTER PROCEDURE [dbo].[ConfiguracionPaisGet] 
 	@ConfiguracionPaisID int
@@ -177,13 +144,6 @@ BEGIN
 END
 
 
-
--------------- OFERTAS HOME ------------------------------------------------------------------
-
-/****** Object:  StoredProcedure [dbo].[ConfiguracionOfertasHomeUpdate]    Script Date: 19/10/2017 11:05:04 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
 GO
 
 ALTER PROCEDURE [dbo].[ConfiguracionOfertasHomeUpdate] 
@@ -287,6 +247,10 @@ ELSE
 		set @insertedId = @ConfiguracionPaisID;
 	END
 END
+
+GO
+
+/*END*/
 
 GO
 
