@@ -440,18 +440,22 @@ namespace Portal.Consultoras.Data
                 UsuarioCreacion = codigoUsuario,
                 FotoProducto01 = item.ImagenURL,
                 TieneVariedad = item.TieneVariedad,
-                CodigoEstrategia = item.CodigoEstrategia
+                CodigoEstrategia = item.CodigoEstrategia,
+                PrecioPublico = item.PrecioPublico,
+                Ganancia = item.Ganancia
             }).ToList();
 
-            var command = new SqlCommand("dbo.InsertEstrategiaOfertaParaTi");
-            command.CommandType = CommandType.StoredProcedure;
+            var command =
+                new SqlCommand("dbo.InsertEstrategiaOfertaParaTi") {CommandType = CommandType.StoredProcedure};
 
-            var parameter = new SqlParameter("@EstrategiaTemporal", SqlDbType.Structured);
-            parameter.TypeName = "dbo.EstrategiaTemporalType";
-            parameter.Value = new GenericDataReader<BEEstrategiaType>(listaTypes);
-           
-            var parameter2 = new SqlParameter("@TipoEstrategia", SqlDbType.Int);
-            parameter2.Value = estrategiaId;
+            var parameter =
+                new SqlParameter("@EstrategiaTemporal", SqlDbType.Structured)
+                {
+                    TypeName = "dbo.EstrategiaTemporalType",
+                    Value = new GenericDataReader<BEEstrategiaType>(listaTypes)
+                };
+
+            var parameter2 = new SqlParameter("@TipoEstrategia", SqlDbType.Int) {Value = estrategiaId};
 
             command.Parameters.Add(parameter);
             command.Parameters.Add(parameter2);

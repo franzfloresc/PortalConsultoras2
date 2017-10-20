@@ -2,7 +2,7 @@
 @model Portal.Consultoras.Web.Models.EstrategiaModel
 @{
     ViewBag.Title = "Administración de Estrategias";
-    string imagenVacia = "prod_grilla_vacio.png";
+    const string imagenVacia = "prod_grilla_vacio.png";
 }
 
 <div id="DialogAdministracionEstrategia" style="display: none;">
@@ -52,27 +52,26 @@
                     </div>
                     <div style="display: inline-block; padding-left: 40px;">Precio para ti:</div>
                     <div style="display: inline-block;">
-                        <input type="text" id="txtPrecio2" maxlength="10" class="ValidaNumeral" style="width: 60px;" />
-                    </div>
-                    <br />
-                    <div style="display: inline-block;"></div>
-                    <div style="display: inline-block;">
-                        
-                    </div>
-                    <div style="display: inline-block; padding-left: 40px;">Precio Publico:</div>
-                    <div style="display: inline-block;">
-                        <input type="text" id="txtPrecioPublico" maxlength="10" class="ValidaNumeral" style="width: 60px;" disabled="disabled"/>
+                        <input type="text" id="txtPrecio2" maxlength="10" class="ValidaNumeral" style="width: 60px;" disabled="disabled"/>
                     </div>
                 </div>
                 <div style="display: inline-block; width: 47%; text-align: center; padding: 8px; margin-right: -3px;">
-                    <div style="display: inline-block;">CUV:</div>
+                    <div style="display: inline-block;">Ganancia: </div>
+                    <div style="display: inline-block; width: 90px;">
+                        <input type="text" id="txtGanancia" class="ValidaNumeral" style="width: 60px;" disabled="disabled" />
+                    </div>
+                    <div style="display: inline-block; padding-left: 40px;">Valorizado:</div>
+                    <div style="display: inline-block;">
+                        <input type="text" id="txtPrecio" style="width: 60px;" disabled="disabled"/>
+                    </div>
+                    @*<div style="display: inline-block;">CUV:</div>
                     <div style="display: inline-block;">
                         <input type="text" id="txtCUV" maxlength="5" class="ValidaNumeral" style="width: 60px;" />
                     </div>
                     <div style="display: inline-block;">Precio:</div>
                     <div style="display: inline-block;">
                         <input type="text" id="txtPrecio" style="width: 60px;" />
-                    </div>
+                    </div>*@
                 </div>
             </div>
         </div>
