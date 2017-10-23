@@ -1,31 +1,23 @@
 ﻿@using Portal.Consultoras.Web.Helpers
 @using Portal.Consultoras.Web.Areas.Mobile.Models
 
-@using System.Collections.Generic
-
-@model List<MisPedidosCampaniaModel>
-
+@model Portal.Consultoras.Web.Areas.Mobile.Models.PedidoWebClientePrincipalMobilModel
 @{
-    var layout = ViewContext.MobileLayout();
+    var layout =  ViewContext.MobileLayout();
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
     MobileAppConfiguracionModel mobileConfiguracion = Html.MobileAppConfiguracion();
 }
-
-<style>
-    body
-    {
-        background:#f8f8f8
-    }
-</style>
-
-@{ 
-    bool firstCampania = true;
-    if (!mobileConfiguracion.EsAppMobile)
-    {
-        <div class="titulo_mobile">
-            <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
-            MIS PEDIDOS
-        </div>
+@{ if (!mobileConfiguracion.EsAppMobile)
+     {
+         <div class="titulo_mobile">
+             <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+             MIS PEDIDOS
+         </div>
+     }
+}
+@if (Model.ListaPedidoCliente.Count == 0)
+{
+    <div class="">
         <div class="pestana_esika"></div><!--PESTANA ESIKA-->
         <div class="pestana_lbel"></div><!--PESTANA LBEL-->
     }

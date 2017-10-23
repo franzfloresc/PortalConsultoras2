@@ -43,14 +43,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     permitirCerrarBanner = true;
 
                     if (userData.CloseBannerPL20) mostrarBanner = false;
-                    else
-                    {
-                        using (var sv = new PedidoServiceClient())
-                        {
-                            var result = sv.ValidacionModificarPedidoSelectiva(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, userData.UsuarioPrueba == 1, userData.AceptacionConsultoraDA, false, true, false);
-                            if (result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Reservado) mostrarBanner = false;
-                        }
-                    }
                 }
 
                 bool mostrarBannerTop = NuncaMostrarBannerTopPL20() || userData.IndicadorGPRSB == 1 ? false : true;
@@ -65,11 +57,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     ViewBag.MostrarShowRoomBannerLateral = sessionManager.GetEsShowRoom() &&
                         !showRoomBannerLateral.ConsultoraNoEncontrada && !showRoomBannerLateral.ConsultoraNoEncontrada &&
                         showRoomBannerLateral.BEShowRoomConsultora.EventoConsultoraID != 0 && showRoomBannerLateral.EstaActivoLateral;
-
-                    //if (showRoomBannerLateral.DiasFalta < 1)
-                    //{
-                    //    //ViewBag.MostrarShowRoomBannerLateral = false;
-                    //}
 
                     if (showRoomBannerLateral.DiasFalta > 0)
                     {

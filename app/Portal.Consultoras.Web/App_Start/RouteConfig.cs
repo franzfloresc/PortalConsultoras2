@@ -16,7 +16,7 @@ namespace Portal.Consultoras.Web
                 defaults: new { controller = "ConsultoraOnline", action = "ObtenerPagina", Pagina = UrlParameter.Optional },
                 namespaces: new[] { "Portal.Consultoras.Web.Controllers" }
             );
-            
+
             routes.Add("UniqueRoute", new UniqueRoute(
                 "g/{guid}/{controller}/{action}/{id}",
                 new { controller = "Login", action = "Index", guid = "", id = UrlParameter.Optional },

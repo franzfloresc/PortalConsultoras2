@@ -84,7 +84,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 return RedirectToAction("Intriga", "ShowRoom", new { area = "Mobile" });
             }
- 
+
             ActionExecutingMobile();
             var showRoomEventoModel = OfertaShowRoom();
 
