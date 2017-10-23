@@ -10,15 +10,15 @@ namespace Portal.Consultoras.Web.Models
     [Serializable]
     public class CDRWebModel
     {
-        public int CDRWebID { get; set; }        
-        public int PedidoID { get; set; }       
-        public int PedidoNumero { get; set; }        
-        public int CampaniaID { get; set; }        
-        public int ConsultoraID { get; set; }        
-        public DateTime FechaRegistro { get; set; }        
-        public int Estado { get; set; }        
-        public DateTime? FechaCulminado { get; set; }        
-        public DateTime? FechaAtencion { get; set; }        
+        public int CDRWebID { get; set; }
+        public int PedidoID { get; set; }
+        public int PedidoNumero { get; set; }
+        public int CampaniaID { get; set; }
+        public int ConsultoraID { get; set; }
+        public DateTime FechaRegistro { get; set; }
+        public int Estado { get; set; }
+        public DateTime? FechaCulminado { get; set; }
+        public DateTime? FechaAtencion { get; set; }
         public decimal Importe { get; set; }
         public int CantidadDetalle { get; set; }
         public string NombreConsultora { get; set; }
@@ -33,6 +33,10 @@ namespace Portal.Consultoras.Web.Models
         public decimal FleteDespacho { get; set; }
         public string MensajeDespacho { get; set; }
         //EPD-1919 FIN
+
+        //HD-1227 -- Notificaciones Mobile
+        public string Proceso {get; set;}
+        //HD-1227 FIN
 
         public List<BECDRWebDetalle> ListaDetalle { get; set; }
         public string EstadoDescripcion

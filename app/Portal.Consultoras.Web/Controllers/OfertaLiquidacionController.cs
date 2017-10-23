@@ -392,7 +392,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ValidarUnidadesPermitidasPedidoProducto(string CUV, string Cantidad, string PrecioUnidad)
         {
-            string mensaje = ValidarMontoMaximo(Convert.ToDecimal(PrecioUnidad), Convert.ToInt32(Cantidad));
+            bool resul = false;
+            string mensaje = ValidarMontoMaximo(Convert.ToDecimal(PrecioUnidad), Convert.ToInt32(Cantidad), out resul);
 
             int UnidadesPermitidas = 0;
             int Saldo = 0;
@@ -404,7 +405,7 @@ namespace Portal.Consultoras.Web.Controllers
             entidad.CUV = CUV;
             entidad.ConsultoraID = Convert.ToInt32(userData.ConsultoraID);
 
-            if (mensaje == "")
+            if (mensaje == "" || resul)
             {
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
@@ -419,7 +420,8 @@ namespace Portal.Consultoras.Web.Controllers
                 UnidadesPermitidas = UnidadesPermitidas,
                 Saldo = Saldo,
                 CantidadPedida = CantidadPedida,
-                message = mensaje
+                message = mensaje,
+                result = resul
             }, JsonRequestBehavior.AllowGet);
         }
 

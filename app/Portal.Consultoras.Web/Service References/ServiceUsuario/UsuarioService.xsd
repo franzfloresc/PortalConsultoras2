@@ -80,6 +80,8 @@
           <xs:element minOccurs="0" name="Logo" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="MobileFondoBanner" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="MobileLogoBanner" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="MobileOrden" type="xs:int" />
+          <xs:element minOccurs="0" name="MobileOrdenBpt" type="xs:int" />
           <xs:element minOccurs="0" name="MobileSubTituloBanner" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="MobileTituloBanner" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="MobileTituloMenu" nillable="true" type="xs:string" />

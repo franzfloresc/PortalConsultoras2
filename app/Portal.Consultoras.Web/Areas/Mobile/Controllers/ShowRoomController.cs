@@ -54,22 +54,21 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 esShowRoom = true && OfertaShowRoom() != null;
             }
 
-            //return esShowRoom ?
-            //    RedirectToRoute("UniqueRoute",
-            //                new RouteValueDictionary(new
-            //                {
-            //                    Controller = "ShowRoom",
-            //                    Action = "Index",
-            //                    guid = this.GetUniqueKey()
-            //                })) :
-            //    RedirectToRoute("UniqueRoute",
-            //        new RouteValueDictionary(new
-            //        {
-            //            Controller = "ShowRoom",
-            //            Action = "Intriga",
-            //            guid = this.GetUniqueKey()
-            //        }));
-            return RedirectToAction(esShowRoom ? "Index" : "Intriga");
+            return esShowRoom ?
+                RedirectToRoute("UniqueRoute",
+                            new RouteValueDictionary(new
+                            {
+                                Controller = "ShowRoom",
+                                Action = "Index",
+                                guid = this.GetUniqueKey()
+                            })) :
+                RedirectToRoute("UniqueRoute",
+                    new RouteValueDictionary(new
+                    {
+                        Controller = "ShowRoom",
+                        Action = "Intriga",
+                        guid = this.GetUniqueKey()
+                    }));
         }
 
         public ActionResult Index(string query)

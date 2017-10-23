@@ -42,16 +42,22 @@ namespace Portal.Consultoras.Web.Models
         public int FlagNueva { get; set; }
         public bool IsAgregado { get; set; }
         public string CodigoEstrategia { get; set; }
-        public string CodigoVariante { get; set; }        
+        public string CodigoVariante { get; set; }
         public List<string> ArrayContenidoSet { get; set; }
         public List<string> ListaDescripcionDetalle { get; set; }
         public string TextoLibre { get; set; }
-
+        public decimal PrecioPublico { get; set; }
+        
         public int MarcaID { get; set; }
         public string UrlCompartir { get; set; }
 
+        public decimal Ganancia { get; set; }
+        public string GananciaString { get; set; }
         public EstrategiaDetalleModelo TipoEstrategiaDetalle { get; set; }
 
         public List<ProductoModel> Hermanos { get; set; }
+        public bool EsOfertaIndependiente { get; set; }
+        public string ImagenOfertaIndependiente { get; set; }
+        public bool MostrarImgOfertaIndependiente { get; set; }
     }
 }
