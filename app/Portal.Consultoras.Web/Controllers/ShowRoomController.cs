@@ -1780,7 +1780,7 @@ namespace Portal.Consultoras.Web.Controllers
                     indPedidoAutentico.CampaniaID = entidad.CampaniaID;
                     indPedidoAutentico.PedidoDetalleID = entidad.PedidoDetalleID;
                     indPedidoAutentico.IndicadorIPUsuario = GetIPCliente();
-                    indPedidoAutentico.IndicadorFingerprint = (Session["Fingerprint"] != null) ? Session["Fingerprint"].ToString() : "";
+                    indPedidoAutentico.IndicadorFingerprint = "";
                     indPedidoAutentico.IndicadorToken = (Session["TokenPedidoAutentico"] != null) ? Session["TokenPedidoAutentico"].ToString() : ""; ;
 
                     InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);
@@ -1881,7 +1881,7 @@ namespace Portal.Consultoras.Web.Controllers
                     indPedidoAutentico.CampaniaID = entidad.CampaniaID;
                     indPedidoAutentico.PedidoDetalleID = entidad.PedidoDetalleID;
                     indPedidoAutentico.IndicadorIPUsuario = GetIPCliente();
-                    indPedidoAutentico.IndicadorFingerprint = (Session["Fingerprint"] != null) ? Session["Fingerprint"].ToString() : "";
+                    indPedidoAutentico.IndicadorFingerprint = "";
                     indPedidoAutentico.IndicadorToken = (Session["TokenPedidoAutentico"] != null) ? Session["TokenPedidoAutentico"].ToString() : ""; ;
 
                     InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);

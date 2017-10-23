@@ -131,7 +131,6 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                ViewBag.FingerprintOk = (Session["Fingerprint"] != null) ? 1 : 0;
                 ViewBag.TokenPedidoAutenticoOk = (Session["TokenPedidoAutentico"] != null) ? 1 : 0;
                 ViewBag.CodigoEstrategia = GetCodigoEstrategia();
 

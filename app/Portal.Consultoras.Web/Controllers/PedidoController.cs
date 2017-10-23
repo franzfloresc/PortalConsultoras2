@@ -3020,7 +3020,7 @@ namespace Portal.Consultoras.Web.Controllers
                 indPedidoAutentico.CampaniaID = oBEPedidoWebDetalle.CampaniaID;
                 indPedidoAutentico.PedidoDetalleID = oBEPedidoWebDetalle.PedidoDetalleID;
                 indPedidoAutentico.IndicadorIPUsuario = GetIPCliente();
-                indPedidoAutentico.IndicadorFingerprint = (Session["Fingerprint"] != null) ? Session["Fingerprint"].ToString() : "";
+                indPedidoAutentico.IndicadorFingerprint = "";
                 indPedidoAutentico.IndicadorToken = (Session["TokenPedidoAutentico"] != null) ? Session["TokenPedidoAutentico"].ToString() : "";
 
                 oBEPedidoWebDetalle.IndicadorPedidoAutentico = indPedidoAutentico;
@@ -4113,12 +4113,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 switch (accion)
                 {
-                    case "1":
-                        if (!string.IsNullOrEmpty(codigo))
-                        {
-                            Session["Fingerprint"] = codigo;
-                        }
-                        break;
                     case "2":
                         using (PedidoServiceClient svc = new PedidoServiceClient())
                         {

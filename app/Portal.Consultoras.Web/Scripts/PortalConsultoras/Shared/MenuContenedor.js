@@ -55,10 +55,11 @@ var menuModule = (function () {
         }
     }
     function _animateScrollTo(codigo, topHeight) {
-        $(elementos.html).animate({
-            scrollTop: $(codigo).offset().top - topHeight
-        },
-            1000);
+        if ($(codigo).length) {
+            $(elementos.html).animate({
+                scrollTop: $(codigo).offset().top - topHeight
+            }, 1000);
+        }
     }
     function init() {
         navbarHeight = _getHeight(elementos.header);
@@ -232,8 +233,6 @@ var menuModule = (function () {
             window.location = window.location.origin + url;
         }
     }
-
-
     function setCarrouselMenu() {
         if (isMobile()) {
             $(elementos.menu2Ul + '.slick-initialized').slick('unslick');

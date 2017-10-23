@@ -12,7 +12,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                
+                if (!ViewBag.MostrarOfertaDelDia)
+                {
+                    return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
+                }
             }
             catch (Exception ex)
             {

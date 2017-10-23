@@ -370,7 +370,6 @@
         <a id="HiddenRedesSocialesWA" href="#" data-action="share/whatsapp/share">WA</a>
     </div>
 
-    @Scripts.Render("~/Scripts/Mobile")
     @Scripts.Render("~/Scripts/MobileLayout")
 
     <script type="text/javascript">
@@ -434,7 +433,6 @@
         var EstadoActivo = '@ViewBag.EstadoActivo';
         var ViewBagEsMobile = '@ViewBag.EsMobile';
 
-        var fingerprintOk = '@ViewBag.FingerprintOk';
         var tokenPedidoAutenticoOk = '@ViewBag.TokenPedidoAutenticoOk';
         var _ModificacionPedidoProl = '@ViewBag.ModificarPedidoProl'; //EPD-1682
         var urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
