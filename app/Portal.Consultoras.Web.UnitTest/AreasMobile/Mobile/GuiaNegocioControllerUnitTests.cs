@@ -38,7 +38,7 @@ namespace Portal.Consultoras.Web.UnitTest.AreasMobile.Mobile
         {
             public class GuiaNegocioControllerStub01: GuiaNegocioController
             {
-                public override ActionResult RenderIndex()
+                public override ActionResult ViewLanding()
                 {
                     throw new Exception("Error Render Index");
                 }
