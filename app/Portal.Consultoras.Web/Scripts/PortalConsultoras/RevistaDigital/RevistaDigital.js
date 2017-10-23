@@ -315,11 +315,11 @@ function OfertaArmarEstrategias(response) {
 }
 
 function RDLocalStorageListado(key, valor, codigo) {
-    console.log(key, valor, codigo);
+
     var valLocalStorage = LocalStorageListado(key, null, 1);
     if (valLocalStorage != null) {
         valLocalStorage = JSON.parse(valLocalStorage);
-        console.log(key, valLocalStorage);
+
         valLocalStorage.response = valLocalStorage.response || {};
         if (codigo == "LAN") {
             valLocalStorage.response.listaLan = valor.listaLan;

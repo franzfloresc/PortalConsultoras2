@@ -14,9 +14,9 @@ namespace Portal.Consultoras.Web.Models
         public string NumeroPedido { get; set; }
         public string Activo { get; set; }
         public string ImagenURL { get; set; }
-        public string LimiteVenta{ get; set; }
-        public string DescripcionCUV2{ get; set; }
-        public string FlagDescripcion{ get; set; }
+        public string LimiteVenta { get; set; }
+        public string DescripcionCUV2 { get; set; }
+        public string FlagDescripcion { get; set; }
         public string CUV { get; set; }
         public string EtiquetaID { get; set; }
         public string Precio { get; set; }
@@ -48,5 +48,7 @@ namespace Portal.Consultoras.Web.Models
         public string ImgHomeMobile { get; set; }
         public string PrecioAnt { get; set; }
         public string Ganancia { get; set; }
+        public bool EsOfertaIndependiente { get; set; }
+
     }
 }

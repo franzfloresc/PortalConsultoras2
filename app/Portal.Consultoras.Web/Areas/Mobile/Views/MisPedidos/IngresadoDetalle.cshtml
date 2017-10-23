@@ -1,10 +1,11 @@
 ﻿@using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Areas.Mobile.Models
+@using Portal.Consultoras.Web.Helpers
 
 @model PedidoWebMobilModel
 
 @{
-    var sessionMobile = (Session["MobileAppConfiguracion"] == null ? new MobileAppConfiguracionModel() : (MobileAppConfiguracionModel)Session["MobileAppConfiguracion"]);
+    var sessionMobile = Html.MobileAppConfiguracion();
 }
 
 <div class="block-white" style="margin-top:1px;">

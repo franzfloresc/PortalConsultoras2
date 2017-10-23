@@ -1278,6 +1278,7 @@ namespace Portal.Consultoras.Web.Controllers
             string MarcaID, string CUV, string PrecioUnidad, string Descripcion, string Cantidad, string indicadorMontoMinimo, string TipoOferta)
         {
             string mensaje = "";
+            bool resul = false;
             try
             {
                 // Validar la cantidad que se está ingresando compararla con la cantidad ya ingresada y el campo límite
@@ -1303,10 +1304,10 @@ namespace Portal.Consultoras.Web.Controllers
                 entidad.ConsultoraID = userData.ConsultoraID.ToString();
 
                 //EPD-2337
-                mensaje = ValidarMontoMaximo(Convert.ToDecimal(PrecioUnidad), entidad.Cantidad);
+                mensaje = ValidarMontoMaximo(Convert.ToDecimal(PrecioUnidad), entidad.Cantidad, out resul);
                 //FIN EPD-2337
 
-                if (mensaje == "")
+                if (mensaje == "" || resul)
                 {
                     using (PedidoServiceClient svc = new PedidoServiceClient())
                     {
@@ -1335,7 +1336,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 return Json(new
                 {
-                    result = false,
+                    result = resul,
                     message = mensaje
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -1344,7 +1345,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public JsonResult AgregarProductoZE(string MarcaID, string CUV, string PrecioUnidad, string Descripcion, string Cantidad, string indicadorMontoMinimo,
-                                              string TipoOferta, string OrigenPedidoWeb, string ClienteID_ = "", int tipoEstrategiaImagen = 0)
+                                              string TipoOferta, string OrigenPedidoWeb, string ClienteID_ = "", int tipoEstrategiaImagen = 0, bool EsOfertaIndependiente = false)
         {
             OrigenPedidoWeb = Util.Trim(OrigenPedidoWeb) ?? "0";
             OrigenPedidoWeb = OrigenPedidoWeb == "" ? "0" : OrigenPedidoWeb;
@@ -1364,7 +1365,8 @@ namespace Portal.Consultoras.Web.Controllers
                 TipoOfertaSisID = Convert.ToInt32(TipoOferta), // C1747
                 ConfiguracionOfertaID = Convert.ToInt32(TipoOferta),
                 OfertaWeb = false,
-                OrigenPedidoWeb = Convert.ToInt32(OrigenPedidoWeb)
+                OrigenPedidoWeb = Convert.ToInt32(OrigenPedidoWeb),
+                EsOfertaIndependiente = EsOfertaIndependiente
             };
 
             EliminarDetallePackNueva(pedidoModel, tipoEstrategiaImagen);
@@ -1377,17 +1379,20 @@ namespace Portal.Consultoras.Web.Controllers
         #region Eliminar Detalle Pack Nueva
         private void EliminarDetallePackNueva(PedidoSb2Model entidad, int tipoEstrategiaImagen)
         {
+            if (entidad.EsOfertaIndependiente) return;
+
             if (tipoEstrategiaImagen == Constantes.TipoEstrategia.PackNuevas)
             {
                 var lstPedidoWebDetalle = ObtenerPedidoWebDetalle();
-
                 var packNuevas = lstPedidoWebDetalle.Where(x => x.TipoEstrategiaID == 1).ToList();
 
                 foreach (var item in packNuevas)
                 {
-                    DeletePedido(item);
+                    if (!item.EsOfertaIndependiente)
+                    { //Reemplazar solo dependientes.
+                        DeletePedido(item);
+                    }
                 }
-
                 Session["PedidoWebDetalle"] = null;
             }
         }
@@ -1428,6 +1433,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 string cuv = productos.First().CUV.Trim();
                 var mensajeByCuv = GetMensajeByCUV(userModel, cuv);
+                /* Iscrita en EPM Revista 100% */
+                var tieneRDC = revistaDigital.TieneRDC &&
+                    revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo;
 
                 foreach (var prod in productos)
                 {
@@ -1451,8 +1459,8 @@ namespace Portal.Consultoras.Web.Controllers
                         DescripcionCategoria = prod.DescripcionCategoria,
                         FlagNueva = prod.FlagNueva,
                         TipoEstrategiaID = prod.TipoEstrategiaID,
-                        TieneRDC = revistaDigital.TieneRDC &&
-                                    revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo
+                        TieneRDC = tieneRDC,
+                        EsOfertaIndependiente = prod.EsOfertaIndependiente
                     });
                 }
             }
@@ -1576,9 +1584,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 var cuvCredito = ValidarCUVCreditoPorCUVRegular(model, userModel);
-                //
+                
                 string ObservacionCUV = ObtenerObservacionCreditoCuv(userModel, cuvCredito);
-                //
+                
                 if (cuvCredito.IdMensaje == CUV_NO_TIENE_CREDITO)
                 {
                     productosModel.Add(GetProductoCuvRegular(cuvCredito));
@@ -1588,6 +1596,9 @@ namespace Portal.Consultoras.Web.Controllers
                 string cuv = productos.First().CUV.Trim();
                 var mensajeByCuv = GetMensajeByCUV(userModel, cuv);
 
+                /* Iscrita en EPM Revista 100% */
+                var tieneRDC = revistaDigital.TieneRDC &&
+                    revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo;
 
                 int? revistaGana = ValidarDesactivaRevistaGana(userModel);
 
@@ -1616,8 +1627,8 @@ namespace Portal.Consultoras.Web.Controllers
                     TieneSugerido = productos[0].TieneSugerido,
                     CodigoProducto = productos[0].CodigoProducto,
                     LimiteVenta = estrategia != null ? estrategia.LimiteVenta : 99,
-                    TieneRDC = revistaDigital.TieneRDC &&
-                        revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo
+                    EsOfertaIndependiente = estrategia.EsOfertaIndependiente,
+                    TieneRDC = tieneRDC
                 });
 
             }
@@ -1654,7 +1665,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string ObtenerObservacionCreditoCuv(UsuarioModel userModel, BECUVCredito cuvCredito)
         {
-            //
             return cuvCredito.IdMensaje == 1
                 ? userModel.PrimerNombre.ToString()
                     + " tienes el beneficio de pagar en 2 partes el valor de este SET de productos. Si lo deseas ingresa este código al pedir el set: "
@@ -4430,7 +4440,19 @@ namespace Portal.Consultoras.Web.Controllers
                 descripcion = estrategia.DescripcionCUV2;
             }
 
+            bool resul = false;
+            mensaje = ValidarMontoMaximo(estrategia.Precio2, estrategia.Cantidad, out resul);
+            if (mensaje.Length > 1)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = mensaje
+                });
+            }
+
             mensaje = ValidarStockEstrategia(estrategia.CUV2, estrategia.Cantidad, estrategia.TipoEstrategiaID, estrategia.Precio2);
+
             if (mensaje != "")
             {
                 return Json(new
@@ -4443,8 +4465,18 @@ namespace Portal.Consultoras.Web.Controllers
 
             #region AgregarProductoZE
 
-            return AgregarProductoZE(estrategia.MarcaID.ToString(), estrategia.CUV2, estrategia.Precio2.ToString(), descripcion, estrategia.Cantidad.ToString(), estrategia.IndicadorMontoMinimo.ToString(),
-                     estrategia.TipoEstrategiaID.ToString(), OrigenPedidoWeb, ClienteID_, tipoEstrategiaImagen);
+            return AgregarProductoZE(estrategia.MarcaID.ToString(),
+                estrategia.CUV2,
+                estrategia.Precio2.ToString(),
+                descripcion,
+                estrategia.Cantidad.ToString(),
+                estrategia.IndicadorMontoMinimo.ToString(),
+                estrategia.TipoEstrategiaID.ToString(),
+                OrigenPedidoWeb,
+                ClienteID_,
+                tipoEstrategiaImagen,
+                estrategia.EsOfertaIndependiente
+                );
             #endregion
 
         }
@@ -4535,14 +4567,9 @@ namespace Portal.Consultoras.Web.Controllers
                 entidad.ConsultoraID = userData.ConsultoraID.ToString();
                 entidad.FlagCantidad = TipoOferta;
 
-                mensaje = ValidarMontoMaximo(Precio, entidad.Cantidad);
-
-                if (mensaje == "")
+                using (PedidoServiceClient svc = new PedidoServiceClient())
                 {
-                    using (PedidoServiceClient svc = new PedidoServiceClient())
-                    {
-                        mensaje = svc.ValidarStockEstrategia(entidad);
-                    }
+                    mensaje = svc.ValidarStockEstrategia(entidad);
                 }
 
                 mensaje = Util.Trim(mensaje);

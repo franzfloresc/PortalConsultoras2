@@ -1,19 +1,17 @@
 ﻿using System.Web.Mvc;
 using Portal.Consultoras.Web.Infraestructure;
 using System.Web.Mvc.Html;
+using Portal.Consultoras.Web.Areas.Mobile.Models;
 
 namespace Portal.Consultoras.Web.Helpers
 {
     public static class ViewExtensions
     {
-        public static System.Web.IHtmlString CdrMobilePorPais(this HtmlHelper htmlHelper)
+        public static MobileAppConfiguracionModel MobileAppConfiguracion(this HtmlHelper htmlHelper)
         {
-            var route = EsPaisEsika(htmlHelper.ViewContext) ? "esika" : "lbel";
-            var url = UrlHelper.GenerateContentUrl(string.Format("~/Content/Css/Mobile/{0}/cdr.css", route), htmlHelper.ViewContext.HttpContext);
-            var link = string.Format("<link href=\"{0}\" rel=\"stylesheet\" />", url);
-            return new MvcHtmlString(link);
+            return GetUniqueSession<MobileAppConfiguracionModel>(htmlHelper.ViewContext, "MobileAppConfiguracion");
         }
-
+        
         //todo: use htmlHelper?
         /// <summary>
         /// Calcula si es un pais Esika basado en ViewBag.PaisAnalytics
@@ -64,8 +62,21 @@ namespace Portal.Consultoras.Web.Helpers
 
         public static object GetUniqueSession(this ViewContext viewContext, string name)
         {
-            //return viewContext.HttpContext.Session[viewContext.GetUniqueKey() + "_" + name];
-            return viewContext.HttpContext.Session[name];
+            return viewContext.HttpContext.Session[viewContext.GetUniqueKey() + "_" + name];
+        }
+
+        /// <summary>
+        /// Obtiene y castea si no es null
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="viewContext"></param>
+        /// <param name="name"></param>
+        /// <param name="newInstance">Nueva instancia o null por defecto</param>
+        /// <returns></returns>
+        public static T GetUniqueSession<T>(this ViewContext viewContext, string name, bool newInstance = true) where T : class, new()
+        {
+            var getUniqueSession = GetUniqueSession(viewContext, name);
+            return getUniqueSession == null ? newInstance ? new T() : default(T) : (T)getUniqueSession;
         }
     }
 }

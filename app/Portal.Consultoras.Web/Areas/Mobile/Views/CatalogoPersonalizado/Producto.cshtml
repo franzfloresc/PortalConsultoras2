@@ -1,11 +1,12 @@
-﻿@model Portal.Consultoras.Web.Models.ProductoModel
+﻿@using Portal.Consultoras.Web.Helpers
+@model Portal.Consultoras.Web.Models.ProductoModel
 
 @{
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
     bool EsLebel = ViewBag.EsLebel;
 }
 <div class="titulo_mobile">
-    @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel() : (Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+    @{  var mobileConfiguracion = Html.MobileAppConfiguracion();
         if (mobileConfiguracion.MostrarBotonAtras)
         {
             <a href="@Request.UrlReferrer" class="enlace_regresar catalogosP" title="Regresar"></a>

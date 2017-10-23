@@ -21,16 +21,26 @@ namespace Portal.Consultoras.Web.Helpers
 
         public static void SetUniqueSession(this Controller controller, string name, object value)
         {
-            //todo:
-            //controller.Session[controller.GetUniqueKey() + "_" + name] = value;
-            controller.Session[name] = value;
+            controller.Session[controller.GetUniqueKey() + "_" + name] = value;
         }
 
         public static object GetUniqueSession(this Controller controller, string name)
         {
-            //todo:
-            //return controller.Session[controller.GetUniqueKey() + "_" + name];
-            return controller.Session[name];
+            return controller.Session[controller.GetUniqueKey() + "_" + name];
+        }
+
+        /// <summary>
+        /// Obtiene y castea si no es null
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="controller"></param>
+        /// <param name="name"></param>
+        /// <param name="newInstance">Nueva instancia o null por defecto</param>
+        /// <returns></returns>
+        public static T GetUniqueSession<T>(this Controller controller, string name, bool newInstance = true) where T : class, new()
+        {
+            var getUniqueSession = GetUniqueSession(controller, name);
+            return getUniqueSession == null ? newInstance ? new T() : default(T) : (T)getUniqueSession;
         }
     }
 }

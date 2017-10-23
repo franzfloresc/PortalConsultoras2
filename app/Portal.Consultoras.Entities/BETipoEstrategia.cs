@@ -58,6 +58,13 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public string Codigo { get; set; }
+        //INICIO-HD1130
+        [DataMember]
+        public bool MostrarImgOfertaIndependiente { get; set; }
+
+        [DataMember]
+        public string ImagenOfertaIndependiente { get; set; }
+        //FIN-HD1130
 
         public BETipoEstrategia(IDataRecord row)
         {
@@ -102,6 +109,13 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "Codigo") && row["Codigo"] != DBNull.Value)
                 Codigo = Convert.ToString(row["Codigo"]);
+            //INICIO-HD1130
+            if (DataRecord.HasColumn(row, "MostrarImgOfertaIndependiente") && row["MostrarImgOfertaIndependiente"] != DBNull.Value)
+                MostrarImgOfertaIndependiente = Convert.ToBoolean(row["MostrarImgOfertaIndependiente"]);
+
+            if (DataRecord.HasColumn(row, "ImagenOfertaIndependiente") && row["ImagenOfertaIndependiente"] != DBNull.Value)
+                ImagenOfertaIndependiente = row["ImagenOfertaIndependiente"].ToString();
+            //FIN-HD1130
         }
 
     }
