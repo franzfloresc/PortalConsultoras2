@@ -11,6 +11,7 @@
 
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
     var revistaDigital = Model.RevistaDigital ?? new RevistaDigitalModel();
+    var mobileConfiguracion = Html.MobileAppConfiguracion();
 }
 @section styles
 {
@@ -22,15 +23,14 @@
     </style>
 }
 <div class="wrapper_resumen_mobile sin_padding">
-    <div class="titulo_mobile alineaIzquierda pl-49 agregarSombraInferior">
-        @{  var mobileConfiguracion = Html.MobileAppConfiguracion();
-            if (mobileConfiguracion.MostrarBotonAtras)
-            {
-                <a href="@Request.UrlReferrer" class="enlace_regresar ajustePosicionFlecha" style="display:normal" title="Regresar"></a>
-            }
-        }
-        INGRESAR PEDIDO C@(Model.CampaniaNro)
-    </div>
+    @if (!mobileConfiguracion.EsAppMobile)
+    {
+        <div class="titulo_mobile alineaIzquierda pl-49 agregarSombraInferior">
+            <a href="@Request.UrlReferrer" class="enlace_regresar ajustePosicionFlecha" style="display:normal" title="Regresar"></a>
+            INGRESAR PEDIDO C@(Model.CampaniaNro)
+        </div>
+    }
+    
     @if (mobileConfiguracion.EsAppMobile)
     {
         @Html.Partial("~/Areas/Mobile/Views/Util/_barra.cshtml")

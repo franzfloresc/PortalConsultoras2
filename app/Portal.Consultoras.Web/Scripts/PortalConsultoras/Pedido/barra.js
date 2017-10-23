@@ -204,9 +204,8 @@ function MostrarBarra(datax, destino) {
     $("#divBarra").show();
     if (!belcorp.barra.settings.isMobile) {
         $("#divBarra #divBarraPosicion").css("width", wTotal);
+        $("#divBarra").css("width", wTotal);
     }
-    
-    $("#divBarra").css("width", wTotal);
 
     var styleMin = 'style="margin-left: 6px;"';
     var htmlPunto = '<div id="punto_{punto}" data-punto="{select}">'
