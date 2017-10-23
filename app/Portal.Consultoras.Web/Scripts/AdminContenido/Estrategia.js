@@ -178,16 +178,16 @@
             $("#ddlEtiqueta1").val(data.EtiquetaID);
             if (data.Precio != "0") {
                 $("#txtPrecio").val(parseFloat(data.Precio).toFixed(2));
-            $("#hdEstrategiaPrecioAnt").val(parseFloat(data.Precio2).toFixed(2));
+                $("#hdEstrategiaPrecioAnt").val(parseFloat(data.Precio2).toFixed(2));
             } else {
-                $("#txtPrecio").val('');
+                $("#txtPrecio").val('0.00');
             }
             $("#txtCUV2").val(data.CUV2);
             $("#ddlEtiqueta2").val(data.EtiquetaID2);
             if (data.Precio2 != "0") {
                 $("#txtPrecio2").val(parseFloat(data.Precio2).toFixed(2));
             } else {
-                $("#txtPrecio2").val('');
+                $("#txtPrecio2").val('0.00');
             }
             $("#txtTextoLibre").val(data.TextoLibre);
             $("#txtCantidad").val(data.Cantidad);
