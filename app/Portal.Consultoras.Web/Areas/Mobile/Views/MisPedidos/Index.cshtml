@@ -1,64 +1,71 @@
 ﻿@using Portal.Consultoras.Web.Helpers
 @using Portal.Consultoras.Web.Areas.Mobile.Models
 
-@model Portal.Consultoras.Web.Areas.Mobile.Models.PedidoWebClientePrincipalMobilModel
-@{
-    var layout =  ViewContext.MobileLayout();
-    Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
-    MobileAppConfiguracionModel mobileConfiguracion = Html.MobileAppConfiguracion();
-}
-@{ if (!mobileConfiguracion.EsAppMobile)
-     {
-         <div class="titulo_mobile">
-             <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
-             MIS PEDIDOS
-         </div>
-     }
-}
-@if (Model.ListaPedidoCliente.Count == 0)
-{
-    <div class="">
-        <div class="pestana_esika"></div><!--PESTANA ESIKA-->
-        <div class="pestana_lbel"></div><!--PESTANA LBEL-->
-    }
-    if (Model.Count == 0)
-    {
-        <div class="col-xs-12">
-            <div class="icono_alerta exclamacion_icono_mobile"></div>
-            <div class="mensaje_alerta">Hasta el momento no tienes ningún pedido.</div>
-        </div>
-    }
-    else
-    {
-        <div class="app-tabs">
-            @{
-                foreach (var pedidoCampania in Model)
-                {
-                    <a href="javascript:;" class="@(firstCampania ? "active" : string.Empty)" data-campania="@pedidoCampania.CampaniaID">
-                        @pedidoCampania.NumeroCampania @pedidoCampania.DescripcionEstadoPedido
-                    </a>
-                    firstCampania = false;
-                }
-            }
-        </div>
+@using System.Collections.Generic
 
-        <div class="app-tabs-detail">
-            @{
-                firstCampania = true;
-                foreach (var pedidoCampania in Model)
-                {
-                    <div id="ContenedorPedido_@pedidoCampania.CampaniaID" style="@(firstCampania ? string.Empty : "display:none")">
-                        @(pedidoCampania.EsCampaniaActual ? Html.Action("IngresadoDetalle") : Html.Action("FacturadoDetalle", new { campaniaID = pedidoCampania.CampaniaID }))
-                    </div>
-                    firstCampania = false;
-                }
-            }
-        </div>
-    }
-}
+@model List<MisPedidosCampaniaModel>
 
-@section scripts{
-    <script type="text/javascript">
+    @{
+        var layout = ViewContext.MobileLayout();
+        Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
+        MobileAppConfiguracionModel mobileConfiguracion = Html.MobileAppConfiguracion();
+    }
+
+    <style>
+        body {
+            background: #f8f8f8;
+        }
+    </style>
+
+    @{
+        bool firstCampania = true;
+        if (!mobileConfiguracion.EsAppMobile)
+        {
+            <div class="titulo_mobile">
+                <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+                MIS PEDIDOS
+            </div>
+            <div class="pestana_esika"></div><!--PESTANA ESIKA-->
+            <div class="pestana_lbel"></div><!--PESTANA LBEL-->
+        }
+        if (Model.Count == 0)
+        {
+            <div class="col-xs-12">
+                <div class="icono_alerta exclamacion_icono_mobile"></div>
+                <div class="mensaje_alerta">Hasta el momento no tienes ningún pedido.</div>
+            </div>
+        }
+        else
+        {
+            <div class="app-tabs">
+                @{
+                    foreach (var pedidoCampania in Model)
+                    {
+                        <a href="javascript:;" class="@(firstCampania ? "active" : string.Empty)" data-campania="@pedidoCampania.CampaniaID">
+                            @pedidoCampania.NumeroCampania @pedidoCampania.DescripcionEstadoPedido
+                        </a>
+                        firstCampania = false;
+                    }
+                }
+            </div>
+
+            <div class="app-tabs-detail">
+                @{
+                    firstCampania = true;
+                    foreach (var pedidoCampania in Model)
+                    {
+                        <div id="ContenedorPedido_@pedidoCampania.CampaniaID" style="@(firstCampania ? string.Empty : "display:none")">
+                            @(pedidoCampania.EsCampaniaActual ? Html.Action("IngresadoDetalle") : Html.Action("FacturadoDetalle", new { campaniaID = pedidoCampania.CampaniaID }))
+                        </div>
+                        firstCampania = false;
+                    }
+                }
+            </div>
+                    }
+    }
+
+    @section scripts{
+        <script type="text/javascript">
         $(document).ready(function () {
             $(".app-tabs a").click(function () {
                 $('.app-tabs a.active').removeClass("active");
@@ -78,5 +85,5 @@
                 $(this).find(".sections-arrow img").toggleClass("app-panels-flip");
             });
         });
-    </script>
-}
+        </script>
+    }
