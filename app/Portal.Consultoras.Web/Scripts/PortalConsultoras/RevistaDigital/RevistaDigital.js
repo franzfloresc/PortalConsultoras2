@@ -293,8 +293,13 @@ function OfertaArmarEstrategias(response) {
             tem.TipoAccionAgregar = 0;
         });
     }
-    var htmlDiv = SetHandlebars("#producto-landing-template", modeloTemp);
+    var htmlDiv = SetHandlebars("#producto-landing-template", modeloTemp);      
+
     divProd.find('#divOfertaProductos').append(htmlDiv);
+
+    /*Logica para agregar atributos para el EfectoLazy*/
+    EstablecerAccionLazyImagen("img[data-lazy-seccion-revista-digital]");
+
     //ResizeBoxContnet();
     divProd.find("#spnCantidadFiltro").html(cantProdFiltros);
     divProd.find("#spnCantidadTotal").html(response.cantidadTotal);

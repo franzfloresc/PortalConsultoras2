@@ -1798,8 +1798,18 @@ function EstablecerLazyCarrusel(elementoHtml) {
     $.each(listaImagenes, function (index, value) {
         var rutaImagen = $(value).attr("src");
 
-        $(value).attr("data-lazy", rutaImagen);
-        $(value).removeAttr("src");
+        if (typeof rutaImagen !== typeof undefined && rutaImagen !== false) {
+            $(value).attr("data-lazy", rutaImagen);
+            $(value).removeAttr("src");
+        }
+        else {
+            rutaImagen = $(value).attr("data-src");
+            if (typeof rutaImagen !== typeof undefined && rutaImagen !== false) {
+                $(value).attr("data-lazy", rutaImagen);
+                $(value).removeAttr("data-src");
+            }
+        }
+        
     });
 
     //return $(nombreElementoHtml).html();
