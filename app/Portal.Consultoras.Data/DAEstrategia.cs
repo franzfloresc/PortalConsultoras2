@@ -377,7 +377,8 @@ namespace Portal.Consultoras.Data
                 FotoProducto01 = item.ImagenURL,
                 CodigoEstrategia = item.CodigoEstrategia,
                 TieneVariedad = item.TieneVariedad,
-                PrecioPublico = item.PrecioPublico
+                PrecioPublico = item.PrecioPublico,
+                Ganancia = item.Ganancia
             }).ToList();
 
             var command = new SqlCommand("dbo.InsertEstrategiaTemporal");
