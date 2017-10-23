@@ -8120,6 +8120,9 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         private System.Nullable<int> CampanaRegistroField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ClasePostulantesNuevasAppField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ClaseRechazoZonaSeccionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -8267,6 +8270,9 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         private string TipoRechazoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TituloPostulantesNuevasAppField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string UrlContentField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -8326,6 +8332,19 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 if ((this.CampanaRegistroField.Equals(value) != true)) {
                     this.CampanaRegistroField = value;
                     this.RaisePropertyChanged("CampanaRegistro");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ClasePostulantesNuevasApp {
+            get {
+                return this.ClasePostulantesNuevasAppField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ClasePostulantesNuevasAppField, value) != true)) {
+                    this.ClasePostulantesNuevasAppField = value;
+                    this.RaisePropertyChanged("ClasePostulantesNuevasApp");
                 }
             }
         }
@@ -8963,6 +8982,19 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 if ((object.ReferenceEquals(this.TipoRechazoField, value) != true)) {
                     this.TipoRechazoField = value;
                     this.RaisePropertyChanged("TipoRechazo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TituloPostulantesNuevasApp {
+            get {
+                return this.TituloPostulantesNuevasAppField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TituloPostulantesNuevasAppField, value) != true)) {
+                    this.TituloPostulantesNuevasAppField = value;
+                    this.RaisePropertyChanged("TituloPostulantesNuevasApp");
                 }
             }
         }
