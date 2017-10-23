@@ -1,12 +1,8 @@
 ﻿@using Portal.Consultoras.Web.Models;
 
 @{
-    ViewBag.Title = "OfertaDelDia";
     OfertaDelDiaModel ofertaDelDia = new OfertaDelDiaModel();
-    if (ViewBag.MostrarOfertaDelDia == true) { ofertaDelDia = ViewBag.OfertaDelDia; }
+    ofertaDelDia = ViewBag.OfertaDelDia;
 }
 
-@if (ViewBag.MostrarOfertaDelDia == true)
-{
-    @Html.Partial("~/Areas/Mobile/Views/OfertaDelDia/_OfertaDelDiaBanner.cshtml", ofertaDelDia)
-}
+@Html.Partial("~/Areas/Mobile/Views/OfertaDelDia/_OfertaDelDiaBanner.cshtml", ofertaDelDia)

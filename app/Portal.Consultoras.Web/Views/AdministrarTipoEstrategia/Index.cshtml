@@ -26,14 +26,20 @@
             $("#txtDescripcionOriginalModal").val("");
             $("#txtOrden").val("");
             $('#img01').attr('src', '@Url.Content("~/Content/Images/prod_grilla_vacio.png")');
+            $('#imgOfertaIndependiente').attr('src', '@Url.Content("~/Content/Images/prod_grilla_vacio.png")');
             $("#hdofertas").val("");
             $("#chkActivo").attr("checked", true);
             $("#imagenProducto01").val("");
             $("#imagenProductoAnterior01").val("");
+            $("#hdImagenOfertaIndependiente").val("");
+            $("#hdImagenOfertaIndependienteAnterior").val("");
+
             $("#hdTipoEstrategiaID").val("0");
             $("#txtCodigoPrograma").prop('disabled', true).val("");
 
-            $("#chkMostrarImg").attr("checked", false); 
+            $("#chkMostrarImg").attr("checked", false);
+            $("#chkMostrarImgIndependiente").attr("checked", false);
+            $(".divOfertaIndependiente").hide();
 
             fnGrillaOfertas('0');
             showDialog("DialogAdministracionTipoEstrategia");
@@ -62,6 +68,7 @@
             fnGrilla();
         });
         $("#chkNueva").click(function () {
+            $(".divOfertaIndependiente").toggle();
             if ($("#chkNueva").attr('checked')) {
                 $("#chkRecoProduc").removeAttr('checked');
                 $("#chkRecoPerfil").removeAttr('checked');
@@ -69,6 +76,7 @@
             }
         });
         $("#chkRecoProduc").click(function () {
+            $(".divOfertaIndependiente").hide();
             if ($("#chkRecoProduc").attr('checked')) {
                 $("#chkNueva").removeAttr('checked');
                 $("#chkRecoPerfil").removeAttr('checked');
@@ -77,6 +85,7 @@
             }
         });
         $("#chkRecoPerfil").click(function () {
+            $(".divOfertaIndependiente").hide();
             if ($("#chkRecoPerfil").attr('checked')) {
                 $("#chkNueva").removeAttr('checked');
                 $("#chkRecoProduc").removeAttr('checked');
@@ -169,7 +178,7 @@
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
-            colNames: ['TipoEstrategiaID', 'Tipo de Estrategia', 'Ofertas', 'Orden', 'Imagen', 'OfertaID', 'Acción', '', '', '', 'CodigoPrograma', 'FlagMostrarImg'],
+            colNames: ['TipoEstrategiaID', 'Tipo de Estrategia', 'Ofertas', 'Orden', 'Imagen', 'OfertaID', 'Acción', '', '', '', 'CodigoPrograma', 'FlagMostrarImg', 'MostrarImgOfertaIndependiente','ImagenOfertaIndependiente'],
             colModel: [
                 { name: 'TipoEstrategiaID', index: 'TipoEstrategiaID', width: 20, editable: true, resizable: false, hidden: true },
                 { name: 'DescripcionEstrategia', index: 'DescripcionEstrategia', width: 180, editable: true, resizable: false, hidden: false },
@@ -183,6 +192,8 @@
                 { name: 'FlagRecoPerfil', index: 'FlagRecoPerfil', width: 0, editable: true, resizable: false, hidden: true },
                 { name: 'CodigoPrograma', index: 'CodigoPrograma', width: 0, editable: true, resizable: false, hidden: true },
                 { name: 'FlagMostrarImg', index: 'FlagMostrarImg', width: 0, editable: true, resizable: false, hidden: true },
+                { name: 'MostrarImgOfertaIndependiente', index: 'MostrarImgOfertaIndependiente', width: 0, editable: false, resizable: false, hidden: true },
+                { name: 'ImagenOfertaIndependiente', index: 'ImagenOfertaIndependiente', width: 0, editable: false, resizable: false, hidden: true, formatter: ShowImage  }
             ],
             jsonReader:
             {
@@ -217,7 +228,7 @@
         jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
     }
 
-    function fnGrillaOfertas(id) {       
+    function fnGrillaOfertas(id) {
         $("#listaOfertas").jqGrid("GridUnload");
         var url = "AdministrarTipoEstrategia/ConsultarOfertas/" + id
         jQuery("#listaOfertas").jqGrid({
@@ -276,15 +287,15 @@
     }
 
     function ShowActions(cellvalue, options, rowObject) {
-        var cellValueInt = parseInt(cellvalue); 
-        var Des = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + rowObject[0] + "','" + rowObject[1] + "','" + rowObject[3] + "','" + rowObject[4] + "','" + rowObject[5] + "','" + rowObject[6] + "','" + rowObject[10] + "','" + rowObject[11] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Edit.png")' alt='Editar Mensaje' title='Editar Mensaje' border='0' /></a>";
+        var cellValueInt = parseInt(cellvalue);
+        var Des = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + rowObject[0] + "','" + rowObject[1] + "','" + rowObject[3] + "','" + rowObject[4] + "','" + rowObject[5] + "','" + rowObject[6] + "','" + rowObject[10] + "','" + rowObject[11] + "','" + rowObject[12] + "','" + rowObject[13]+ "');\" >" + "<img src='@Url.Content("~/Content/Images/Edit.png")' alt='Editar Mensaje' title='Editar Mensaje' border='0' /></a>";
         Des += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + rowObject[0] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Delete.png")' alt='Eliminar Mensaje' title='Eliminar Mensaje' border='0' /></a>";
         return Des;
     }
 
     function EditarOferta(id) {
         var codigoOferta = jQuery("#listaOfertas").jqGrid('getCell', id, 'CodigoOferta');
-        var descripcionOferta = jQuery("#listaOfertas").jqGrid('getCell', id, 'DescripcionOferta'); 
+        var descripcionOferta = jQuery("#listaOfertas").jqGrid('getCell', id, 'DescripcionOferta');
         $("#hdofertaid").val(id);
         $("#txtCodigoOferta").val(codigoOferta);
         $("#txtDescripcionOferta").val(descripcionOferta);
@@ -379,7 +390,7 @@
             resizable: false,
             modal: true,
             closeOnEscape: true,
-            width: 700,
+            width: 805,
             draggable: true,
             title: "Registro de Tipo de Estrategias",
             buttons:
@@ -393,6 +404,8 @@
                     var orden = $("#txtOrden").val();
                     var flagActivo = "0";
                     var ofertaID = "";
+                    var imagenOfertaIndependiente = $("#hdImagenOfertaIndependiente").val();
+                    var imagenOfertaIndependienteAnterior = $("#hdImagenOfertaIndependienteAnterior").val();
 
                     if ($("#chkActivo").attr("checked")) {
                         flagActivo = "1";
@@ -419,7 +432,7 @@
                     }
 
                     ofertaID = $("#hdofertas").val();
-                   
+
                     if (ofertaID.length > 0) {
                         ofertaID = ofertaID.substring(0, ofertaID.length - 1);
                     } else {
@@ -433,12 +446,21 @@
                             return false;
                         }
                     }
-                    
+
+                    if ($("#chkMostrarImgIndependiente").attr("checked")) {
+                        if ($("#imgOfertaIndependiente").attr("src") == "" || ($("#imgOfertaIndependiente").attr("src").indexOf('prod_grilla_vacio.png') >= 0)) {
+                            alert("Debe seleccionar una imagen para oferta independiente.");
+                            return false;
+                        }
+                    }
+
                     var flagNueva = ($("#chkNueva").attr("checked")) ? "1" : "0";
                     var flagRecoPerfil = ($("#chkRecoPerfil").attr("checked")) ? "1" : "0";
                     var flagRecoProduc = ($("#chkRecoProduc").attr("checked")) ? "1" : "0";
                     var codigoPrograma = flagNueva ? $("#txtCodigoPrograma").val() : null;
                     var flagMostrarImg = ($("#chkMostrarImg").attr("checked")) ? "1" : "0";
+                    var flagMostrarImgIndependiente = ($("#chkMostrarImgIndependiente").attr("checked")) ? true : false;
+
 
                     var params = {
                         TipoEstrategiaID: tipoEstrategiaID,
@@ -452,7 +474,10 @@
                         FlagRecoPerfil: flagRecoPerfil,
                         FlagRecoProduc: flagRecoProduc,
                         CodigoPrograma: codigoPrograma,
-                        FlagMostrarImg: flagMostrarImg 
+                        FlagMostrarImg: flagMostrarImg,
+                        MostrarImgOfertaIndependiente: flagMostrarImgIndependiente,
+                        ImagenOfertaIndependiente: imagenOfertaIndependiente,
+                        ImagenOfertaIndependienteAnterior: imagenOfertaIndependienteAnterior
                     };
 
                     jQuery.ajax({
@@ -517,7 +542,7 @@
     }
 
     $.jgrid.extend({
-        Editar: function (id, descripcion, orden, imagen, ofertas, flagactivo, codigoPrograma, flagMostrarImg) {
+        Editar: function (id, descripcion, orden, imagen, ofertas, flagactivo, codigoPrograma, flagMostrarImg, MostrarImgOfertaIndependiente, ImagenOfertaIndependiente) {
             if (id) {
 
                 $("#txtPaisModal").val($("#ddlPais option:selected").html());
@@ -526,21 +551,34 @@
                 $("#txtOrden").val(orden);
                 $("#txtPaisOferta").val($("#ddlPais option:selected").html());
                 var img = $($("#list").jqGrid('getCell', id, 'ImagenEstrategia')).attr('src');
+
                 $('#img01').attr('src', img);
                 img = img.replace(/^.*[\\\/]/, '');
-                
+
                 if (img.length > 0) {
                     $('#imagenProducto01').val(img);
                     $('#imagenProductoAnterior01').val(img);
                 }
-               
+
+                var imgOfertaIndependiente = $($("#list").jqGrid('getCell', id, 'ImagenOfertaIndependiente')).attr('src');
+                $('#imgOfertaIndependiente').attr('src', imgOfertaIndependiente);
+
+                imgOfertaIndependiente = imgOfertaIndependiente.replace(/^.*[\\\/]/, '');
+
+                if (imgOfertaIndependiente.length > 0) {
+                    $('#hdImagenOfertaIndependiente').val(imgOfertaIndependiente);
+                    $('#hdImagenOfertaIndependienteAnterior').val(imgOfertaIndependiente);
+                }
+
                 var flagNueva = jQuery("#list").jqGrid('getCell', id, 'FlagNueva');
                 var flagRecoProduc = jQuery("#list").jqGrid('getCell', id, 'FlagRecoProduc');
                 var flagRecoPerfil = jQuery("#list").jqGrid('getCell', id, 'FlagRecoPerfil');
+                var flagImagenOfertaIndependiente = jQuery("#list").jqGrid('getCell', id, 'MostrarImgOfertaIndependiente');
 
                 $('#chkNueva').attr("checked", (flagNueva == "1") ? true : false);
                 $('#chkRecoProduc').attr("checked", (flagRecoProduc == "1") ? true : false);
                 $('#chkRecoPerfil').attr("checked", (flagRecoPerfil == "1") ? true : false);
+                $('#chkMostrarImgIndependiente').attr("checked", (flagImagenOfertaIndependiente == "1") ? true : false);
 
                 $("#hdTipoEstrategiaID").val(id);
                 $("#hdofertas").val(ofertas + ',');
@@ -556,6 +594,11 @@
                 }
                 else {
                     $("#chkMostrarImg").attr("checked", false);
+                }
+                if (flagNueva == "1") {
+                    $(".divOfertaIndependiente").show();
+                } else {
+                    $(".divOfertaIndependiente").hide();
                 }
 
                 fnGrillaOfertas(id);
@@ -621,7 +664,7 @@
                 </div -->
                 <div class="input_horizontal">
                     <input type="button" name="btnBuscar" id="btnBuscar" value="Buscar" />
-                    <input type="button" name="btnNuevo" id="btnNuevo" value="Nuevo"  />
+                    <input type="button" name="btnNuevo" id="btnNuevo" value="Nuevo" />
                 </div>
             </div>
         </div>
@@ -685,35 +728,46 @@
             </div>
         </div>
         <div class="div-3">
-            <div class="titB">Imagen:</div>
-            <div class="selectP2 borde_redondeado aligncenter" style="height: 162px;">
-                <img src='@Url.Content("~/Content/Images/prod_grilla_vacio.png")' id="img01">
-            </div>
-
-            <!--SB2-353 - INICIO -->
-            <div class="titB">Mostrar imagen:</div>
-            <div class="selectCheck borde_redondeado">
-                <input type="checkbox" id="chkMostrarImg" />
-            </div>
-            <!--SB2-353 - FIN -->
-
-            <div class="titB" style="display: none;">Oferta:</div>
-            <div class="container clearfix" style="display: none;">
-                <div class="selectA borde_redondeado">
-                    <!-- table id="listaOfertas"></table>
-                    <div id="pagerOferta"></div -->
+            <div class="titA"></div>
+            <div class="titG">
+                <div class="input_search">
+                    <input type="button" name="btnNuevaOferta" id="btnNuevaOferta" value="Ofertas" style="float:right;" />
                 </div>
             </div>
         </div>
-        <div class="div-3">
-            <!--<div class="titF">Tamaño de imagen: Ancho: 100px - Alto: 25px</div> -->
-            <div class="titF">Tamaño de imagen: (Ancho: 62px - Alto: 62px)</div>
-            <div class="titG" style="width: 180px;">
-                <div class="input_search">
-                    <input type="hidden" id="imagenProducto01" />
-                    <input type="hidden" id="imagenProductoAnterior01" />
-                    <div id="fpUpload01">
-                        <script type="text/javascript">
+        <div>
+            <div class="float-left">
+                <div class="div-3">
+                    <!--SB2-353 - INICIO -->
+                    <div class="titB">Mostrar imagen:</div>
+                    <div class="selectCheck borde_redondeado">
+                        <input type="checkbox" id="chkMostrarImg" />
+                    </div>
+                    <!--SB2-353 - FIN -->
+                </div>
+                <div class="div-3">
+                    <div class="titB">Imagen:</div>
+                    <div class="selectP2 borde_redondeado aligncenter" style="height: 162px;">
+                        <img src='@Url.Content("~/Content/Images/prod_grilla_vacio.png")' id="img01">
+                    </div>
+
+                    <div class="titB" style="display: none;">Oferta:</div>
+                    <div class="container clearfix" style="display: none;">
+                        <div class="selectA borde_redondeado">
+                            <!-- table id="listaOfertas"></table>
+                            <div id="pagerOferta"></div -->
+                        </div>
+                    </div>
+                </div>
+                <div class="div-3">
+                    <!--<div class="titF">Tamaño de imagen: Ancho: 100px - Alto: 25px</div> -->
+                    <div class="titF">Tamaño de imagen: (Ancho: 62px - Alto: 62px)</div>
+                    <div class="titG" style="width: 180px;">
+                        <div class="input_search">
+                            <input type="hidden" id="imagenProducto01" />
+                            <input type="hidden" id="imagenProductoAnterior01" />
+                            <div id="fpUpload01">
+                                <script type="text/javascript">
                             $.ajaxSetup({ cache: false });
                             var uploader = new qq.FileUploader({
                                 allowedExtensions: ['jpg', 'png', 'jpeg'],
@@ -735,16 +789,63 @@
                                 onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
                                 onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
                             });
-                        </script>
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="float-left">
+                <!-- INICIO - Mostrar imagen independiente -->
+                <div class="div-3 divOfertaIndependiente">
+                    <div class="titB">Imagen Independiente:</div>
+                    <div class="selectCheck borde_redondeado">
+                        <input type="checkbox" id="chkMostrarImgIndependiente" />
+                    </div>
+                </div>
+                <div class="div-3 divOfertaIndependiente" style="display:none;">
+                    <div class="titB">Imagen indep.:</div>
+                    <div class="selectP2 borde_redondeado aligncenter" style="height: 162px;">
+                        <img src='@Url.Content("~/Content/Images/prod_grilla_vacio.png")' id="imgOfertaIndependiente">
+                    </div>
+                </div>
+                <div class="div-3 divOfertaIndependiente" style="display:none;">
+                    <div class="titF">Tamaño de imagen: (Ancho: 62px - Alto: 62px)</div>
+                    <div class="titG" style="width: 180px;">
+                        <div class="input_search">
+                            <input type="hidden" id="hdImagenOfertaIndependiente" />
+                            <input type="hidden" id="hdImagenOfertaIndependienteAnterior" />
+                            <div id="fpUpload02">
+                                <script type="text/javascript">
+                            $.ajaxSetup({ cache: false });
+                            var uploader = new qq.FileUploader({
+                                allowedExtensions: ['jpg', 'png', 'jpeg'],
+                                element: document.getElementById('fpUpload02'),
+                                action: '@Url.Action("ImageTipoOfertaUpload", "AdministrarTipoEstrategia")',
+                                onComplete: function (id, fileName, responseJSON) {
+                                    if (checkTimeout(responseJSON)) {
+                                        $(".qq-upload-list").css("display", "none");
+                                        if (responseJSON.success) {
+                                            $("#hdImagenOfertaIndependiente").val(responseJSON.name);
+                                            $('#imgOfertaIndependiente').attr('src', '@Url.Content("~/Content/Temporales/")' + responseJSON.name);
+                                        }
+                                        else {
+                                            alert(responseJSON.message);
+                                        }
+                                    }
+                                },
+                                onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); },
+                                onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
+                                onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
+                            });
+                                </script>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="titF"></div>
-            <div class="titG">
-                <div class="input_search">
-                    <input type="button" name="btnNuevaOferta" id="btnNuevaOferta" value="Ofertas" style="float:right;" />
-                </div>
-            </div>
+            <!-- FIN - Mostrar imagen independiente -->
         </div>
     </div>
 </div>

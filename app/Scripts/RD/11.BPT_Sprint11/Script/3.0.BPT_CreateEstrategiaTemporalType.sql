@@ -1,13 +1,19 @@
 USE BelcorpPeru
 GO
 
-DROP PROCEDURE dbo.InsertEstrategiaTemporal
+go
+IF EXISTS (select * from sys.types where name = 'EstrategiaTemporalType') 
+	DROP TYPE [dbo].[EstrategiaTemporalType]
 GO
 
-DROP PROCEDURE dbo.InsertEstrategiaOfertaParaTi
+go
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InsertEstrategiaTemporal]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].[InsertEstrategiaTemporal]
 GO
 
-DROP TYPE [dbo].[EstrategiaTemporalType]
+go
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InsertEstrategiaOfertaParaTi]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].[InsertEstrategiaOfertaParaTi]
 GO
 
 CREATE TYPE [dbo].[EstrategiaTemporalType] AS TABLE(
@@ -105,7 +111,7 @@ BEGIN
 	BEGIN
 		SELECT  @TipoEstrategiaID = TipoEstrategiaID 
 		FROM TipoEstrategia 
-		WHERE DescripcionEstrategia like '%'+ UPPER('Los más vendidos')+'%'
+		WHERE DescripcionEstrategia like '%'+ UPPER('Los mÃ¡s vendidos')+'%'
 	END
 	
 	IF @TipoEstrategia = 4
@@ -117,13 +123,13 @@ BEGIN
 	IF @TipoEstrategia = 7
 	BEGIN
 		SELECT @EtiquetaID2 = EtiquetaID FROM Etiqueta 
-		WHERE Descripcion like '%' + UPPER('OFERTA DEL DÍA') + '%'
+		WHERE Descripcion like '%' + UPPER('OFERTA DEL DÃA') + '%'
 	END
 
 	IF @TipoEstrategia = 20
 	BEGIN
 		SELECT @EtiquetaID2 = EtiquetaID FROM Etiqueta 
-		WHERE Descripcion like '%' + UPPER('Los más vendidos') + '%'
+		WHERE Descripcion like '%' + UPPER('Los mÃ¡s vendidos') + '%'
 	END
 	
 	INSERT INTO Estrategia
@@ -143,13 +149,19 @@ GO
 USE BelcorpMexico
 GO
 
-DROP PROCEDURE dbo.InsertEstrategiaTemporal
+go
+IF EXISTS (select * from sys.types where name = 'EstrategiaTemporalType') 
+	DROP TYPE [dbo].[EstrategiaTemporalType]
 GO
 
-DROP PROCEDURE dbo.InsertEstrategiaOfertaParaTi
+go
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InsertEstrategiaTemporal]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].[InsertEstrategiaTemporal]
 GO
 
-DROP TYPE [dbo].[EstrategiaTemporalType]
+go
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InsertEstrategiaOfertaParaTi]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].[InsertEstrategiaOfertaParaTi]
 GO
 
 CREATE TYPE [dbo].[EstrategiaTemporalType] AS TABLE(
@@ -247,7 +259,7 @@ BEGIN
 	BEGIN
 		SELECT  @TipoEstrategiaID = TipoEstrategiaID 
 		FROM TipoEstrategia 
-		WHERE DescripcionEstrategia like '%'+ UPPER('Los más vendidos')+'%'
+		WHERE DescripcionEstrategia like '%'+ UPPER('Los mÃ¡s vendidos')+'%'
 	END
 	
 	IF @TipoEstrategia = 4
@@ -259,13 +271,13 @@ BEGIN
 	IF @TipoEstrategia = 7
 	BEGIN
 		SELECT @EtiquetaID2 = EtiquetaID FROM Etiqueta 
-		WHERE Descripcion like '%' + UPPER('OFERTA DEL DÍA') + '%'
+		WHERE Descripcion like '%' + UPPER('OFERTA DEL DÃA') + '%'
 	END
 
 	IF @TipoEstrategia = 20
 	BEGIN
 		SELECT @EtiquetaID2 = EtiquetaID FROM Etiqueta 
-		WHERE Descripcion like '%' + UPPER('Los más vendidos') + '%'
+		WHERE Descripcion like '%' + UPPER('Los mÃ¡s vendidos') + '%'
 	END
 	
 	INSERT INTO Estrategia
@@ -285,13 +297,19 @@ GO
 USE BelcorpColombia
 GO
 
-DROP PROCEDURE dbo.InsertEstrategiaTemporal
+go
+IF EXISTS (select * from sys.types where name = 'EstrategiaTemporalType') 
+	DROP TYPE [dbo].[EstrategiaTemporalType]
 GO
 
-DROP PROCEDURE dbo.InsertEstrategiaOfertaParaTi
+go
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InsertEstrategiaTemporal]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].[InsertEstrategiaTemporal]
 GO
 
-DROP TYPE [dbo].[EstrategiaTemporalType]
+go
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InsertEstrategiaOfertaParaTi]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].[InsertEstrategiaOfertaParaTi]
 GO
 
 CREATE TYPE [dbo].[EstrategiaTemporalType] AS TABLE(
@@ -389,7 +407,7 @@ BEGIN
 	BEGIN
 		SELECT  @TipoEstrategiaID = TipoEstrategiaID 
 		FROM TipoEstrategia 
-		WHERE DescripcionEstrategia like '%'+ UPPER('Los más vendidos')+'%'
+		WHERE DescripcionEstrategia like '%'+ UPPER('Los mÃ¡s vendidos')+'%'
 	END
 	
 	IF @TipoEstrategia = 4
@@ -401,13 +419,13 @@ BEGIN
 	IF @TipoEstrategia = 7
 	BEGIN
 		SELECT @EtiquetaID2 = EtiquetaID FROM Etiqueta 
-		WHERE Descripcion like '%' + UPPER('OFERTA DEL DÍA') + '%'
+		WHERE Descripcion like '%' + UPPER('OFERTA DEL DÃA') + '%'
 	END
 
 	IF @TipoEstrategia = 20
 	BEGIN
 		SELECT @EtiquetaID2 = EtiquetaID FROM Etiqueta 
-		WHERE Descripcion like '%' + UPPER('Los más vendidos') + '%'
+		WHERE Descripcion like '%' + UPPER('Los mÃ¡s vendidos') + '%'
 	END
 	
 	INSERT INTO Estrategia
@@ -427,13 +445,19 @@ GO
 USE BelcorpVenezuela
 GO
 
-DROP PROCEDURE dbo.InsertEstrategiaTemporal
+go
+IF EXISTS (select * from sys.types where name = 'EstrategiaTemporalType') 
+	DROP TYPE [dbo].[EstrategiaTemporalType]
 GO
 
-DROP PROCEDURE dbo.InsertEstrategiaOfertaParaTi
+go
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InsertEstrategiaTemporal]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].[InsertEstrategiaTemporal]
 GO
 
-DROP TYPE [dbo].[EstrategiaTemporalType]
+go
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InsertEstrategiaOfertaParaTi]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].[InsertEstrategiaOfertaParaTi]
 GO
 
 CREATE TYPE [dbo].[EstrategiaTemporalType] AS TABLE(
@@ -531,7 +555,7 @@ BEGIN
 	BEGIN
 		SELECT  @TipoEstrategiaID = TipoEstrategiaID 
 		FROM TipoEstrategia 
-		WHERE DescripcionEstrategia like '%'+ UPPER('Los más vendidos')+'%'
+		WHERE DescripcionEstrategia like '%'+ UPPER('Los mÃ¡s vendidos')+'%'
 	END
 	
 	IF @TipoEstrategia = 4
@@ -543,13 +567,13 @@ BEGIN
 	IF @TipoEstrategia = 7
 	BEGIN
 		SELECT @EtiquetaID2 = EtiquetaID FROM Etiqueta 
-		WHERE Descripcion like '%' + UPPER('OFERTA DEL DÍA') + '%'
+		WHERE Descripcion like '%' + UPPER('OFERTA DEL DÃA') + '%'
 	END
 
 	IF @TipoEstrategia = 20
 	BEGIN
 		SELECT @EtiquetaID2 = EtiquetaID FROM Etiqueta 
-		WHERE Descripcion like '%' + UPPER('Los más vendidos') + '%'
+		WHERE Descripcion like '%' + UPPER('Los mÃ¡s vendidos') + '%'
 	END
 	
 	INSERT INTO Estrategia
@@ -569,13 +593,19 @@ GO
 USE BelcorpSalvador
 GO
 
-DROP PROCEDURE dbo.InsertEstrategiaTemporal
+go
+IF EXISTS (select * from sys.types where name = 'EstrategiaTemporalType') 
+	DROP TYPE [dbo].[EstrategiaTemporalType]
 GO
 
-DROP PROCEDURE dbo.InsertEstrategiaOfertaParaTi
+go
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InsertEstrategiaTemporal]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].[InsertEstrategiaTemporal]
 GO
 
-DROP TYPE [dbo].[EstrategiaTemporalType]
+go
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InsertEstrategiaOfertaParaTi]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].[InsertEstrategiaOfertaParaTi]
 GO
 
 CREATE TYPE [dbo].[EstrategiaTemporalType] AS TABLE(
@@ -673,7 +703,7 @@ BEGIN
 	BEGIN
 		SELECT  @TipoEstrategiaID = TipoEstrategiaID 
 		FROM TipoEstrategia 
-		WHERE DescripcionEstrategia like '%'+ UPPER('Los más vendidos')+'%'
+		WHERE DescripcionEstrategia like '%'+ UPPER('Los mÃ¡s vendidos')+'%'
 	END
 	
 	IF @TipoEstrategia = 4
@@ -685,13 +715,13 @@ BEGIN
 	IF @TipoEstrategia = 7
 	BEGIN
 		SELECT @EtiquetaID2 = EtiquetaID FROM Etiqueta 
-		WHERE Descripcion like '%' + UPPER('OFERTA DEL DÍA') + '%'
+		WHERE Descripcion like '%' + UPPER('OFERTA DEL DÃA') + '%'
 	END
 
 	IF @TipoEstrategia = 20
 	BEGIN
 		SELECT @EtiquetaID2 = EtiquetaID FROM Etiqueta 
-		WHERE Descripcion like '%' + UPPER('Los más vendidos') + '%'
+		WHERE Descripcion like '%' + UPPER('Los mÃ¡s vendidos') + '%'
 	END
 	
 	INSERT INTO Estrategia
@@ -711,13 +741,19 @@ GO
 USE BelcorpPuertoRico
 GO
 
-DROP PROCEDURE dbo.InsertEstrategiaTemporal
+go
+IF EXISTS (select * from sys.types where name = 'EstrategiaTemporalType') 
+	DROP TYPE [dbo].[EstrategiaTemporalType]
 GO
 
-DROP PROCEDURE dbo.InsertEstrategiaOfertaParaTi
+go
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InsertEstrategiaTemporal]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].[InsertEstrategiaTemporal]
 GO
 
-DROP TYPE [dbo].[EstrategiaTemporalType]
+go
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InsertEstrategiaOfertaParaTi]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].[InsertEstrategiaOfertaParaTi]
 GO
 
 CREATE TYPE [dbo].[EstrategiaTemporalType] AS TABLE(
@@ -815,7 +851,7 @@ BEGIN
 	BEGIN
 		SELECT  @TipoEstrategiaID = TipoEstrategiaID 
 		FROM TipoEstrategia 
-		WHERE DescripcionEstrategia like '%'+ UPPER('Los más vendidos')+'%'
+		WHERE DescripcionEstrategia like '%'+ UPPER('Los mÃ¡s vendidos')+'%'
 	END
 	
 	IF @TipoEstrategia = 4
@@ -827,13 +863,13 @@ BEGIN
 	IF @TipoEstrategia = 7
 	BEGIN
 		SELECT @EtiquetaID2 = EtiquetaID FROM Etiqueta 
-		WHERE Descripcion like '%' + UPPER('OFERTA DEL DÍA') + '%'
+		WHERE Descripcion like '%' + UPPER('OFERTA DEL DÃA') + '%'
 	END
 
 	IF @TipoEstrategia = 20
 	BEGIN
 		SELECT @EtiquetaID2 = EtiquetaID FROM Etiqueta 
-		WHERE Descripcion like '%' + UPPER('Los más vendidos') + '%'
+		WHERE Descripcion like '%' + UPPER('Los mÃ¡s vendidos') + '%'
 	END
 	
 	INSERT INTO Estrategia
@@ -853,13 +889,19 @@ GO
 USE BelcorpPanama
 GO
 
-DROP PROCEDURE dbo.InsertEstrategiaTemporal
+go
+IF EXISTS (select * from sys.types where name = 'EstrategiaTemporalType') 
+	DROP TYPE [dbo].[EstrategiaTemporalType]
 GO
 
-DROP PROCEDURE dbo.InsertEstrategiaOfertaParaTi
+go
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InsertEstrategiaTemporal]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].[InsertEstrategiaTemporal]
 GO
 
-DROP TYPE [dbo].[EstrategiaTemporalType]
+go
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InsertEstrategiaOfertaParaTi]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].[InsertEstrategiaOfertaParaTi]
 GO
 
 CREATE TYPE [dbo].[EstrategiaTemporalType] AS TABLE(
@@ -957,7 +999,7 @@ BEGIN
 	BEGIN
 		SELECT  @TipoEstrategiaID = TipoEstrategiaID 
 		FROM TipoEstrategia 
-		WHERE DescripcionEstrategia like '%'+ UPPER('Los más vendidos')+'%'
+		WHERE DescripcionEstrategia like '%'+ UPPER('Los mÃ¡s vendidos')+'%'
 	END
 	
 	IF @TipoEstrategia = 4
@@ -969,13 +1011,13 @@ BEGIN
 	IF @TipoEstrategia = 7
 	BEGIN
 		SELECT @EtiquetaID2 = EtiquetaID FROM Etiqueta 
-		WHERE Descripcion like '%' + UPPER('OFERTA DEL DÍA') + '%'
+		WHERE Descripcion like '%' + UPPER('OFERTA DEL DÃA') + '%'
 	END
 
 	IF @TipoEstrategia = 20
 	BEGIN
 		SELECT @EtiquetaID2 = EtiquetaID FROM Etiqueta 
-		WHERE Descripcion like '%' + UPPER('Los más vendidos') + '%'
+		WHERE Descripcion like '%' + UPPER('Los mÃ¡s vendidos') + '%'
 	END
 	
 	INSERT INTO Estrategia
@@ -995,13 +1037,19 @@ GO
 USE BelcorpGuatemala
 GO
 
-DROP PROCEDURE dbo.InsertEstrategiaTemporal
+go
+IF EXISTS (select * from sys.types where name = 'EstrategiaTemporalType') 
+	DROP TYPE [dbo].[EstrategiaTemporalType]
 GO
 
-DROP PROCEDURE dbo.InsertEstrategiaOfertaParaTi
+go
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InsertEstrategiaTemporal]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].[InsertEstrategiaTemporal]
 GO
 
-DROP TYPE [dbo].[EstrategiaTemporalType]
+go
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InsertEstrategiaOfertaParaTi]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].[InsertEstrategiaOfertaParaTi]
 GO
 
 CREATE TYPE [dbo].[EstrategiaTemporalType] AS TABLE(
@@ -1099,7 +1147,7 @@ BEGIN
 	BEGIN
 		SELECT  @TipoEstrategiaID = TipoEstrategiaID 
 		FROM TipoEstrategia 
-		WHERE DescripcionEstrategia like '%'+ UPPER('Los más vendidos')+'%'
+		WHERE DescripcionEstrategia like '%'+ UPPER('Los mÃ¡s vendidos')+'%'
 	END
 	
 	IF @TipoEstrategia = 4
@@ -1111,13 +1159,13 @@ BEGIN
 	IF @TipoEstrategia = 7
 	BEGIN
 		SELECT @EtiquetaID2 = EtiquetaID FROM Etiqueta 
-		WHERE Descripcion like '%' + UPPER('OFERTA DEL DÍA') + '%'
+		WHERE Descripcion like '%' + UPPER('OFERTA DEL DÃA') + '%'
 	END
 
 	IF @TipoEstrategia = 20
 	BEGIN
 		SELECT @EtiquetaID2 = EtiquetaID FROM Etiqueta 
-		WHERE Descripcion like '%' + UPPER('Los más vendidos') + '%'
+		WHERE Descripcion like '%' + UPPER('Los mÃ¡s vendidos') + '%'
 	END
 	
 	INSERT INTO Estrategia
@@ -1137,13 +1185,19 @@ GO
 USE BelcorpEcuador
 GO
 
-DROP PROCEDURE dbo.InsertEstrategiaTemporal
+go
+IF EXISTS (select * from sys.types where name = 'EstrategiaTemporalType') 
+	DROP TYPE [dbo].[EstrategiaTemporalType]
 GO
 
-DROP PROCEDURE dbo.InsertEstrategiaOfertaParaTi
+go
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InsertEstrategiaTemporal]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].[InsertEstrategiaTemporal]
 GO
 
-DROP TYPE [dbo].[EstrategiaTemporalType]
+go
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InsertEstrategiaOfertaParaTi]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].[InsertEstrategiaOfertaParaTi]
 GO
 
 CREATE TYPE [dbo].[EstrategiaTemporalType] AS TABLE(
@@ -1241,7 +1295,7 @@ BEGIN
 	BEGIN
 		SELECT  @TipoEstrategiaID = TipoEstrategiaID 
 		FROM TipoEstrategia 
-		WHERE DescripcionEstrategia like '%'+ UPPER('Los más vendidos')+'%'
+		WHERE DescripcionEstrategia like '%'+ UPPER('Los mÃ¡s vendidos')+'%'
 	END
 	
 	IF @TipoEstrategia = 4
@@ -1253,13 +1307,13 @@ BEGIN
 	IF @TipoEstrategia = 7
 	BEGIN
 		SELECT @EtiquetaID2 = EtiquetaID FROM Etiqueta 
-		WHERE Descripcion like '%' + UPPER('OFERTA DEL DÍA') + '%'
+		WHERE Descripcion like '%' + UPPER('OFERTA DEL DÃA') + '%'
 	END
 
 	IF @TipoEstrategia = 20
 	BEGIN
 		SELECT @EtiquetaID2 = EtiquetaID FROM Etiqueta 
-		WHERE Descripcion like '%' + UPPER('Los más vendidos') + '%'
+		WHERE Descripcion like '%' + UPPER('Los mÃ¡s vendidos') + '%'
 	END
 	
 	INSERT INTO Estrategia
@@ -1279,13 +1333,19 @@ GO
 USE BelcorpDominicana
 GO
 
-DROP PROCEDURE dbo.InsertEstrategiaTemporal
+go
+IF EXISTS (select * from sys.types where name = 'EstrategiaTemporalType') 
+	DROP TYPE [dbo].[EstrategiaTemporalType]
 GO
 
-DROP PROCEDURE dbo.InsertEstrategiaOfertaParaTi
+go
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InsertEstrategiaTemporal]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].[InsertEstrategiaTemporal]
 GO
 
-DROP TYPE [dbo].[EstrategiaTemporalType]
+go
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InsertEstrategiaOfertaParaTi]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].[InsertEstrategiaOfertaParaTi]
 GO
 
 CREATE TYPE [dbo].[EstrategiaTemporalType] AS TABLE(
@@ -1383,7 +1443,7 @@ BEGIN
 	BEGIN
 		SELECT  @TipoEstrategiaID = TipoEstrategiaID 
 		FROM TipoEstrategia 
-		WHERE DescripcionEstrategia like '%'+ UPPER('Los más vendidos')+'%'
+		WHERE DescripcionEstrategia like '%'+ UPPER('Los mÃ¡s vendidos')+'%'
 	END
 	
 	IF @TipoEstrategia = 4
@@ -1395,13 +1455,13 @@ BEGIN
 	IF @TipoEstrategia = 7
 	BEGIN
 		SELECT @EtiquetaID2 = EtiquetaID FROM Etiqueta 
-		WHERE Descripcion like '%' + UPPER('OFERTA DEL DÍA') + '%'
+		WHERE Descripcion like '%' + UPPER('OFERTA DEL DÃA') + '%'
 	END
 
 	IF @TipoEstrategia = 20
 	BEGIN
 		SELECT @EtiquetaID2 = EtiquetaID FROM Etiqueta 
-		WHERE Descripcion like '%' + UPPER('Los más vendidos') + '%'
+		WHERE Descripcion like '%' + UPPER('Los mÃ¡s vendidos') + '%'
 	END
 	
 	INSERT INTO Estrategia
@@ -1421,13 +1481,19 @@ GO
 USE BelcorpCostaRica
 GO
 
-DROP PROCEDURE dbo.InsertEstrategiaTemporal
+go
+IF EXISTS (select * from sys.types where name = 'EstrategiaTemporalType') 
+	DROP TYPE [dbo].[EstrategiaTemporalType]
 GO
 
-DROP PROCEDURE dbo.InsertEstrategiaOfertaParaTi
+go
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InsertEstrategiaTemporal]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].[InsertEstrategiaTemporal]
 GO
 
-DROP TYPE [dbo].[EstrategiaTemporalType]
+go
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InsertEstrategiaOfertaParaTi]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].[InsertEstrategiaOfertaParaTi]
 GO
 
 CREATE TYPE [dbo].[EstrategiaTemporalType] AS TABLE(
@@ -1525,7 +1591,7 @@ BEGIN
 	BEGIN
 		SELECT  @TipoEstrategiaID = TipoEstrategiaID 
 		FROM TipoEstrategia 
-		WHERE DescripcionEstrategia like '%'+ UPPER('Los más vendidos')+'%'
+		WHERE DescripcionEstrategia like '%'+ UPPER('Los mÃ¡s vendidos')+'%'
 	END
 	
 	IF @TipoEstrategia = 4
@@ -1537,13 +1603,13 @@ BEGIN
 	IF @TipoEstrategia = 7
 	BEGIN
 		SELECT @EtiquetaID2 = EtiquetaID FROM Etiqueta 
-		WHERE Descripcion like '%' + UPPER('OFERTA DEL DÍA') + '%'
+		WHERE Descripcion like '%' + UPPER('OFERTA DEL DÃA') + '%'
 	END
 
 	IF @TipoEstrategia = 20
 	BEGIN
 		SELECT @EtiquetaID2 = EtiquetaID FROM Etiqueta 
-		WHERE Descripcion like '%' + UPPER('Los más vendidos') + '%'
+		WHERE Descripcion like '%' + UPPER('Los mÃ¡s vendidos') + '%'
 	END
 	
 	INSERT INTO Estrategia
@@ -1563,13 +1629,19 @@ GO
 USE BelcorpChile
 GO
 
-DROP PROCEDURE dbo.InsertEstrategiaTemporal
+go
+IF EXISTS (select * from sys.types where name = 'EstrategiaTemporalType') 
+	DROP TYPE [dbo].[EstrategiaTemporalType]
 GO
 
-DROP PROCEDURE dbo.InsertEstrategiaOfertaParaTi
+go
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InsertEstrategiaTemporal]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].[InsertEstrategiaTemporal]
 GO
 
-DROP TYPE [dbo].[EstrategiaTemporalType]
+go
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InsertEstrategiaOfertaParaTi]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].[InsertEstrategiaOfertaParaTi]
 GO
 
 CREATE TYPE [dbo].[EstrategiaTemporalType] AS TABLE(
@@ -1667,7 +1739,7 @@ BEGIN
 	BEGIN
 		SELECT  @TipoEstrategiaID = TipoEstrategiaID 
 		FROM TipoEstrategia 
-		WHERE DescripcionEstrategia like '%'+ UPPER('Los más vendidos')+'%'
+		WHERE DescripcionEstrategia like '%'+ UPPER('Los mÃ¡s vendidos')+'%'
 	END
 	
 	IF @TipoEstrategia = 4
@@ -1679,13 +1751,13 @@ BEGIN
 	IF @TipoEstrategia = 7
 	BEGIN
 		SELECT @EtiquetaID2 = EtiquetaID FROM Etiqueta 
-		WHERE Descripcion like '%' + UPPER('OFERTA DEL DÍA') + '%'
+		WHERE Descripcion like '%' + UPPER('OFERTA DEL DÃA') + '%'
 	END
 
 	IF @TipoEstrategia = 20
 	BEGIN
 		SELECT @EtiquetaID2 = EtiquetaID FROM Etiqueta 
-		WHERE Descripcion like '%' + UPPER('Los más vendidos') + '%'
+		WHERE Descripcion like '%' + UPPER('Los mÃ¡s vendidos') + '%'
 	END
 	
 	INSERT INTO Estrategia
@@ -1705,13 +1777,19 @@ GO
 USE BelcorpBolivia
 GO
 
-DROP PROCEDURE dbo.InsertEstrategiaTemporal
+go
+IF EXISTS (select * from sys.types where name = 'EstrategiaTemporalType') 
+	DROP TYPE [dbo].[EstrategiaTemporalType]
 GO
 
-DROP PROCEDURE dbo.InsertEstrategiaOfertaParaTi
+go
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InsertEstrategiaTemporal]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].[InsertEstrategiaTemporal]
 GO
 
-DROP TYPE [dbo].[EstrategiaTemporalType]
+go
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InsertEstrategiaOfertaParaTi]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].[InsertEstrategiaOfertaParaTi]
 GO
 
 CREATE TYPE [dbo].[EstrategiaTemporalType] AS TABLE(
@@ -1809,7 +1887,7 @@ BEGIN
 	BEGIN
 		SELECT  @TipoEstrategiaID = TipoEstrategiaID 
 		FROM TipoEstrategia 
-		WHERE DescripcionEstrategia like '%'+ UPPER('Los más vendidos')+'%'
+		WHERE DescripcionEstrategia like '%'+ UPPER('Los mÃ¡s vendidos')+'%'
 	END
 	
 	IF @TipoEstrategia = 4
@@ -1821,13 +1899,13 @@ BEGIN
 	IF @TipoEstrategia = 7
 	BEGIN
 		SELECT @EtiquetaID2 = EtiquetaID FROM Etiqueta 
-		WHERE Descripcion like '%' + UPPER('OFERTA DEL DÍA') + '%'
+		WHERE Descripcion like '%' + UPPER('OFERTA DEL DÃA') + '%'
 	END
 
 	IF @TipoEstrategia = 20
 	BEGIN
 		SELECT @EtiquetaID2 = EtiquetaID FROM Etiqueta 
-		WHERE Descripcion like '%' + UPPER('Los más vendidos') + '%'
+		WHERE Descripcion like '%' + UPPER('Los mÃ¡s vendidos') + '%'
 	END
 	
 	INSERT INTO Estrategia

@@ -311,7 +311,7 @@ jQuery(document).ready(function () {
         //$(idHtml).load(urlTemplate, function (dataTemplate, status, xhr) {
         jQuery.get(urlTemplate, function (dataTemplate) {
             dataTemplate = $.trim(dataTemplate);
-            //console.log(dataTemplate);
+
             if (dataTemplate == "") {
                 return false;
             }
@@ -340,7 +340,7 @@ jQuery(document).ready(function () {
             HandlebarsRegisterHelper();
 
         if ($(idTemplate).length === 0 || typeof data === "undefined") {
-            console.log(idTemplate, data, idHtml);
+           
             return false;
         }
 

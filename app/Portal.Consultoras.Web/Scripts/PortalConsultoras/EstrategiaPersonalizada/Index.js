@@ -20,7 +20,8 @@ var CONS_CODIGO_SECCION = {
     RDR: "RDR",
     SR: "SR",
     ODD: "ODD",
-    OPT: "OPT"
+    OPT: "OPT",
+    DES: "DES-NAV"
 };
 
 var listaSeccion = {};
@@ -84,6 +85,12 @@ function SeccionCargarProductos(objConsulta) {
     if (isMobile() && objConsulta.Codigo === CONS_CODIGO_SECCION.ODD) {
         $("#ODD").find(".seccion-loading-contenedor").fadeOut();
         $("#ODD").find(".seccion-content-contenedor").fadeIn();   
+    }
+
+    if (objConsulta.Codigo === CONS_CODIGO_SECCION.DES) {
+        $("#" + objConsulta.Codigo).find(".seccion-loading-contenedor").fadeOut();
+        $("#" + objConsulta.Codigo).find(".seccion-content-contenedor").fadeIn();
+        return false;   
     }
 
     if (objConsulta.TipoPresentacion == CONS_TIPO_PRESENTACION.Banners) {
@@ -337,4 +344,39 @@ function VerificarSecciones() {
     if (visibles == 0) {
         $("#no-productos").fadeIn();
     }
+}
+
+function Descargables(Filename) {
+    var NombreArchivo = Filename;
+
+    $.ajax({
+        type: 'POST',
+        url: baseUrl + "Ofertas/Descargables",
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify({ FileName: NombreArchivo }),
+        success: function (data) {
+           
+            if (checkTimeout()) {
+                if (data.Result) {
+                    var url = data.UrlS3;
+                    var nombre = NombreArchivo;
+
+                    var link = document.createElement("a");
+                    link.setAttribute("id", "dwnarchivo")
+                    link.setAttribute("target", "_blank");
+                    link.setAttribute('style', 'display:none;');
+                    link.download = nombre;
+                    link.href = url;                    
+                    document.body.appendChild(link);
+                    link.click();
+
+                    document.body.removeChild(link);
+                }
+            }            
+        },
+        error: function (error, x) {
+            console.log(error, x);
+        }
+    });
 }

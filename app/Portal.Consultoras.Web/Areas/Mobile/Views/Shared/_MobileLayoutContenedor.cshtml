@@ -21,7 +21,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="description" content="SomosBelcorp Web Mobile" />
-    <meta charset="utf8" />
+   
     <title>Somos Belcorp</title>
 
     <link href='https://fonts.googleapis.com/css?family=Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>
@@ -405,14 +405,12 @@
 
     </script>
 
-    @if (ViewBag.MostrarOfertaDelDia == true)
+    @if (ViewBag.MostrarOfertaDelDiaContenedor == true)
     {
         <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/OfertaDelDia.js")"></script>
         <script type="text/javascript">
             $(document).ready(function () {
-                if (mostrarOfertaDelDia) {
-                    window.OfertaDelDia.CargarODD();
-                }
+                window.OfertaDelDia.CargarODD();
             });
         </script>
     }

@@ -1218,9 +1218,11 @@
     <Content Include="Content\Css\Site\Esika\Contenedor.css" />
     <Content Include="Content\Css\Site\Esika\reset.css" />
     <Content Include="Content\Css\Site\Esika\revistaDigital.css" />
+    <Content Include="Content\Css\Site\Esika\seccion-descarga-imprime.css" />
     <Content Include="Content\Css\Site\Esika\style.css" />
     <Content Include="Content\Css\Site\Lbel\Contenedor.css" />
     <Content Include="Content\Css\Site\Lbel\revistaDigital.css" />
+    <Content Include="Content\Css\Site\Lbel\seccion-descarga-imprime.css" />
     <Content Include="Content\HojaInscripcion\carrito-menu.png" />
     <Content Include="Content\Css\Site\Login2\style_esika.min.css" />
     <Content Include="Content\Css\Site\Login2\style_lbel.min.css" />
@@ -1233,8 +1235,18 @@
     <Content Include="Content\FileCargaCuponConsultora\test.html" />
     <Content Include="Content\Images\carrito-hover.png" />
     <Content Include="Content\Images\carrito.png" />
+    <Content Include="Content\Images\Esika\Contenedor\fondo-seccion-descarga-imprime.jpg" />
+    <Content Include="Content\Images\Esika\Contenedor\icono-descarga-e-imprime-hover.svg" />
+    <Content Include="Content\Images\Esika\Contenedor\icono-descarga-e-imprime.svg" />
+    <Content Include="Content\Images\Esika\Contenedor\papel-de-regalo.png" />
+    <Content Include="Content\Images\Esika\Contenedor\tarjetas-navidenias.png" />
+    <Content Include="Content\Images\Lbel\Contenedor\fondo-seccion-descarga-imprime.jpg" />
+    <Content Include="Content\Images\Lbel\Contenedor\icono-descarga-e-imprime-hover.svg" />
+    <Content Include="Content\Images\Lbel\Contenedor\icono-descarga-e-imprime.svg" />
     <Content Include="Content\Images\Lbel\Contenedor\inicio_hover.png" />
     <Content Include="Content\Images\Lbel\Contenedor\inicio_normal.png" />
+    <Content Include="Content\Images\Lbel\Contenedor\papel-de-regalo.png" />
+    <Content Include="Content\Images\Lbel\Contenedor\tarjetas-navidenias.png" />
     <Content Include="Content\Images\mobile\Esika\Contenedor\casita_hover.png" />
     <Content Include="Content\Images\mobile\Esika\Contenedor\inicio_hover.png" />
     <Content Include="Content\Images\mobile\Esika\Contenedor\inicio_normal.png" />
@@ -3586,6 +3598,8 @@
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloquePopupSesionFinalizada.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloquePopupPostulante.cshtml" />
     <Content Include="Areas\Mobile\Views\RevistaDigital\Revista.cshtml" />
+    <Content Include="Content\FAQ\CodigoEticaCAPEVEDI_PE.pdf" />
+    <Content Include="Content\FAQ\QUIZCAPEVEDI_PE.pdf" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>
@@ -4369,7 +4383,6 @@
     <Content Include="Views\ConsultaPedido\ConsultaPedidoImp.cshtml" />
     <Content Include="Views\Shared\_Menu2.cshtml" />
     <Content Include="Views\AdministrarReporteValidacion\Index.cshtml" />
-    <Content Include="Views\EstrategiaPersonalizada\template-producto-landing.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\template-producto-packnueva.cshtml" />
     <Content Include="Views\Unete\ReporteFunnel.cshtml" />
     <Content Include="Views\Unete\_DevolverSolicitud.cshtml" />
@@ -4414,6 +4427,8 @@
     <Content Include="Views\RevistaDigital\Revista.cshtml" />
     <Content Include="Views\AdministrarGuiaNegocioDigitalizada\Index.cshtml" />
     <Content Include="Views\GuiaNegocio\Index.cshtml" />
+    <Content Include="Views\EstrategiaPersonalizada\template-producto-landing.cshtml" />
+    <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-descargables-navidenos.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

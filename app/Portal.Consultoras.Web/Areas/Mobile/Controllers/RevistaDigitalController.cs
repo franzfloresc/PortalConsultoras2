@@ -7,7 +7,7 @@ using Portal.Consultoras.Web.Infraestructure;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
-    //[UniqueSession("UniqueRoute", UniqueRoute.IdentifierKey, "/g/")]
+    [UniqueSession("UniqueRoute", UniqueRoute.IdentifierKey, "/g/")]
     public class RevistaDigitalController : BaseRevistaDigitalController
     {
         public ActionResult Index()

@@ -874,6 +874,7 @@ namespace Portal.Consultoras.Common
             public const string ShowRoom = "SR";
             public const string OfertaDelDia = "ODD";
             public const string Informacion = "INFO";
+            public const string Descargables = "DES-NAV";
             public const string GuiaDeNegocioDigitalizada = "GND";
         }
 
@@ -887,6 +888,7 @@ namespace Portal.Consultoras.Common
                 public const int Banners = 4;
                 public const int ShowRoom = 5;
                 public const int OfertaDelDia = 6;
+                public const int DescagablesNavidenos = 7;
             }
         }
 
@@ -1093,6 +1095,7 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_NOTAINVALIDA = "15";
                 public const string ERROR_MOVIMIENTOINVALIDO = "16";
                 public const string ERROR_NOTACANTIDADMAXIMA = "17";
+                public const string ERROR_RECORDATORIOINVALIDA = "18";
             }
 
             public static Dictionary<string, string> Message
@@ -1117,7 +1120,8 @@ namespace Portal.Consultoras.Common
                         {Code.ERROR_CLIENTEASOCIADOPEDIDO, "No es posible eliminar al cliente dado que se encuentra asociado a un pedido."},
                         {Code.ERROR_TIPOCONTACTOREPETIDO, "El contacto se encuentra repetido para el cliente."},
                         {Code.ERROR_NOTAINVALIDA, "Nota invalida, no se pudo procesar"},
-                        {Code.ERROR_MOVIMIENTOINVALIDO, "Movimiento invalido, no se pudo procesar"}
+                        {Code.ERROR_MOVIMIENTOINVALIDO, "Movimiento invalido, no se pudo procesar"},
+                        {Code.ERROR_RECORDATORIOINVALIDA, "Recordatorio invalido, no se pudo procesar"}
                     });
                 }
             }
