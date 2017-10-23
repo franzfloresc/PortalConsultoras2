@@ -202,7 +202,10 @@ function MostrarBarra(datax, destino) {
     var vLimite = listaLimite[indPuntoLimite].valor;
 
     $("#divBarra").show();
-    $("#divBarra #divBarraPosicion").css("width", wTotal);
+    if (!belcorp.barra.settings.isMobile) {
+        $("#divBarra #divBarraPosicion").css("width", wTotal);
+    }
+    
     $("#divBarra").css("width", wTotal);
 
     var styleMin = 'style="margin-left: 6px;"';
