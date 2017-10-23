@@ -52,7 +52,9 @@
                     <div {{#iff CodigoVariante 'ContainsArray' '[2002,2003]'}} class="content_right_ficha" style="text-align:right;" {{/iff}}>
                         <div class="precio_ficha_producto">
                             {{#iff Ganancia '>' 0}}
-                                Valorizado: <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span><br />
+                            <div style="margin-top:-5px;">
+                                <span class="texto_precio_ficha">Valorizadoa:</span> <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span>
+                            </div>
                             {{/iff}}
                             <div style="margin-top:-5px;"><span class="texto_precio_ficha">Precio para ti:</span>{{Simbolo}} {{PrecioVenta}}</div>
                             {{#iff Ganancia '>' 0}}
