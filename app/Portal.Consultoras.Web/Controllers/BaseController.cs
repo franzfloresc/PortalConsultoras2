@@ -25,6 +25,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Web.Mvc;
 using System.Web.Security;
+using Portal.Consultoras.Web.Helpers;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -472,23 +473,29 @@ namespace Portal.Consultoras.Web.Controllers
             return false;
         }
 
-        protected string ValidarMontoMaximo(decimal montoCuv, int Cantidad)
+        protected string ValidarMontoMaximo(decimal montoCuv, int Cantidad, out bool resul)
         {
             string mensaje = "";
+            resul = false;
             try
-            {
+            {                
                 if (userData.TieneValidacionMontoMaximo)
                 {
                     if (userData.MontoMaximo == Convert.ToDecimal(9999999999.00)) /*monto sin limites*/
                         mensaje = "";
                     else
-                    {
+                    {                        
                         var listaProducto = ObtenerPedidoWebDetalle();
 
                         var totalPedido = listaProducto.Sum(p => p.ImporteTotal);
                         decimal _dTotalPedido = Convert.ToDecimal(totalPedido);
                         decimal descuentoProl = 0;
 
+                        if (_dTotalPedido > userData.MontoMaximo && Cantidad < 0)
+                        {
+                            resul = true;
+                        }
+                        
                         if (listaProducto.Count() > 0)
                             descuentoProl = listaProducto[0].DescuentoProl;
 
@@ -1222,6 +1229,7 @@ namespace Portal.Consultoras.Web.Controllers
                 //        : model.TieneOfertaDelDia;
                 //}
                 ViewBag.TieneOfertaDelDia = CumpleOfertaDelDia(model);
+                ViewBag.MostrarOfertaDelDiaContenedor = model.TieneOfertaDelDia;
 
                 var configuracionPaisOdd = ListConfiguracionPais().FirstOrDefault(p => p.Codigo == Constantes.ConfiguracionPais.OfertaDelDia);
                 configuracionPaisOdd = configuracionPaisOdd ?? new ConfiguracionPaisModel();
@@ -2856,9 +2864,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             get
             {
-                return Session["MobileAppConfiguracion"] == null
-                    ? new MobileAppConfiguracionModel()
-                    : (MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+                return this.GetUniqueSession<MobileAppConfiguracionModel>("MobileAppConfiguracion");
             }
         }
 
@@ -3432,7 +3438,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         break;
                     case Constantes.ConfiguracionPais.OfertaDelDia:
-                        //seccion.UrlObtenerProductos = "undefined";
+                        if (!userData.TieneOfertaDelDia) continue;
                         break;
                     default:
                         break;
@@ -3471,14 +3477,13 @@ namespace Portal.Consultoras.Web.Controllers
                     case Constantes.ConfiguracionSeccion.TipoPresentacion.OfertaDelDia:
                         seccion.TemplatePresentacion = "seccion-oferta-del-dia";
                         break;
+
+                    case Constantes.ConfiguracionSeccion.TipoPresentacion.DescagablesNavidenos:
+                        seccion.TemplatePresentacion = "seccion-descargables-navidenos";
+                        break;
                 }
 
-                if (seccion.TemplatePresentacion == "") continue;
-                if (seccion.Codigo == Constantes.ConfiguracionPais.OfertaDelDia)
-                {
-                    if (!CumpleOfertaDelDia(userData))
-                        continue;
-                }
+                if (seccion.TemplatePresentacion == "") continue;                
 
                 modelo.Add(seccion);
             }
@@ -3775,7 +3780,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (confiModel.Codigo == Constantes.ConfiguracionPais.OfertaDelDia)
                 {
-                    if (!CumpleOfertaDelDia(userData))
+                    if (!userData.TieneOfertaDelDia)
                         continue;
                 }
 

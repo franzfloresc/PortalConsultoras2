@@ -286,17 +286,18 @@ namespace Portal.Consultoras.Web.Controllers
                                    id = a.EstrategiaID,
                                    cell = new string[]
                                    {
-                                   a.EstrategiaID.ToString(),
-                                   a.Orden.ToString(),
-                                   a.ID.ToString(),
-                                   a.NumeroPedido.ToString(),
-                                   a.Precio2.ToString(),
-                                   a.CUV2.ToString(),
-                                   a.DescripcionCUV2.ToString(),
-                                   a.LimiteVenta.ToString(),
-                                   a.CodigoProducto.ToString(),
-                                   a.ImagenURL.ToString(),
-                                   a.Activo.ToString()
+                                       a.EstrategiaID.ToString(),
+                                       a.Orden.ToString(),
+                                       a.ID.ToString(),
+                                       a.NumeroPedido.ToString(),
+                                       a.Precio2.ToString(),
+                                       a.CUV2.ToString(),
+                                       a.DescripcionCUV2.ToString(),
+                                       a.LimiteVenta.ToString(),
+                                       a.CodigoProducto.ToString(),
+                                       a.ImagenURL.ToString(),
+                                       a.Activo.ToString(),
+                                       a.EsOfertaIndependiente.ToString()
                                     }
                                }
                     };
