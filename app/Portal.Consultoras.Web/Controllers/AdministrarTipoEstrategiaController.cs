@@ -53,7 +53,10 @@ namespace Portal.Consultoras.Web.Controllers
                 string carpetapais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
 
                 if (lst != null && lst.Count > 0)
+                {
                     lst.Update(x => x.ImagenEstrategia = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenEstrategia, carpetapais));
+                    lst.Update(x => x.ImagenOfertaIndependiente = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenOfertaIndependiente, carpetapais));
+                }
 
                 // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
@@ -119,7 +122,9 @@ namespace Portal.Consultoras.Web.Controllers
                                    a.FlagRecoProduc.ToString(),
                                    a.FlagRecoPerfil.ToString(),
                                    string.IsNullOrEmpty( a.CodigoPrograma) ? string.Empty: a.CodigoPrograma.ToString(),
-                                   a.FlagMostrarImg.ToString()     // SB20-353
+                                   a.FlagMostrarImg.ToString(),     // SB20-353
+                                   a.MostrarImgOfertaIndependiente.ToInt().ToString(),
+                                   a.ImagenOfertaIndependiente
                                 }
                            }
                 };
@@ -284,7 +289,9 @@ namespace Portal.Consultoras.Web.Controllers
                         string ImagenEstrategia, string Orden,
                         string FlagActivo, string OfertaID, string imagenAnterior,
                         string FlagNueva, string FlagRecoProduc, string FlagRecoPerfil,
-                        string CodigoPrograma, string FlagMostrarImg)
+                        string CodigoPrograma, string FlagMostrarImg,
+                        bool MostrarImgOfertaIndependiente = false, string ImagenOfertaIndependiente = "", 
+                        string ImagenOfertaIndependienteAnterior = "")
         {
             int resultado = 0;
             string operacion = "registró";
@@ -305,7 +312,10 @@ namespace Portal.Consultoras.Web.Controllers
                 entidad.FlagRecoProduc = Convert.ToInt32(FlagRecoProduc);
                 entidad.CodigoPrograma = CodigoPrograma;
                 entidad.FlagMostrarImg = Convert.ToInt32(FlagMostrarImg);    // SB20-353
+                entidad.MostrarImgOfertaIndependiente = MostrarImgOfertaIndependiente;
+                entidad.ImagenOfertaIndependiente = ImagenOfertaIndependiente;
 
+                //entidad
                 if (ImagenEstrategia != "")
                 {
                     if (imagenAnterior != ImagenEstrategia)
@@ -317,6 +327,20 @@ namespace Portal.Consultoras.Web.Controllers
                         if (imagenAnterior != "") ConfigS3.DeleteFileS3(carpetaPais, imagenAnterior);
                         ConfigS3.SetFileS3(path, carpetaPais, newfilename);
                         entidad.ImagenEstrategia = newfilename;
+                    }
+                }
+
+                if (ImagenOfertaIndependiente != "")
+                {
+                    if (ImagenOfertaIndependienteAnterior != ImagenOfertaIndependiente)
+                    {
+                        var path = Path.Combine(Globals.RutaTemporales, ImagenOfertaIndependiente);
+                        var carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
+                        var time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
+                        var newfilename = UserData().CodigoISO + "_" + time + "_" + "01" + "_" + FileManager.RandomString() + ".png";
+                        if (ImagenOfertaIndependienteAnterior != "") ConfigS3.DeleteFileS3(carpetaPais, ImagenOfertaIndependienteAnterior);
+                        ConfigS3.SetFileS3(path, carpetaPais, newfilename);
+                        entidad.ImagenOfertaIndependiente = newfilename;
                     }
                 }
 

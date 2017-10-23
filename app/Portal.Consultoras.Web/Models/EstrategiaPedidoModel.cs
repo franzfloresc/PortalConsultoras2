@@ -110,5 +110,8 @@ namespace Portal.Consultoras.Web.Models
         public EstrategiaProductoComentarioModel UltimoComentario { get; set; }
         public int Posicion {get;set;}
         public string GananciaString { get; set; }
+        public bool EsOfertaIndependiente { get; set; }
+        public string ImagenOfertaIndependiente { get; set; }
+        public bool MostrarImgOfertaIndependiente { get; set; }
     }
 }

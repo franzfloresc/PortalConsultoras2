@@ -46,7 +46,7 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "@EstrategiaID", DbType.Int32, entidad.EstrategiaID);
                 Context.Database.AddInParameter(command, "@CUV2", DbType.String, entidad.CUV2);
                 Context.Database.AddInParameter(command, "@TipoEstrategiaID", DbType.Int32, entidad.TipoEstrategiaID);
-                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);              
+                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
                 return Context.ExecuteReader(command);
             }
         }
@@ -127,6 +127,8 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "@FlagEstrella", DbType.String, entidad.FlagEstrella);
                 Context.Database.AddInParameter(command, "@CodigoEstrategia", DbType.String, entidad.CodigoEstrategia);
                 Context.Database.AddInParameter(command, "@TieneVariedad", DbType.Int32, entidad.TieneVariedad);
+                Context.Database.AddInParameter(command, "@Ganancia", DbType.Decimal, entidad.Ganancia);
+                Context.Database.AddInParameter(command, "@EsOfertaIndependiente", DbType.Boolean, entidad.EsOfertaIndependiente);
                 Context.Database.AddOutParameter(command, "@Retorno", DbType.Int32, 1000);
                 Context.ExecuteNonQuery(command);
                 result = Convert.ToInt32(command.Parameters["@Retorno"].Value);
@@ -176,7 +178,7 @@ namespace Portal.Consultoras.Data
             int result;
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.DeshabilitarEstrategia"))
             {
-                Context.Database.AddInParameter(command, "@EstrategiaID", DbType.Int32, entidad.EstrategiaID);                    
+                Context.Database.AddInParameter(command, "@EstrategiaID", DbType.Int32, entidad.EstrategiaID);
                 Context.Database.AddInParameter(command, "@UsuarioModificacion", DbType.String, entidad.UsuarioModificacion);
 
                 result = Context.ExecuteNonQuery(command);
@@ -316,7 +318,7 @@ namespace Portal.Consultoras.Data
                 return Context.ExecuteScalar(command).ToString();
             }
         }
-		// 1747 - Inicio
+        // 1747 - Inicio
         public IDataReader GetRegionZonaZE(int RegionID, int ZonaID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetRegionZonaZE");
@@ -372,12 +374,13 @@ namespace Portal.Consultoras.Data
                 LimiteVenta = item.LimiteVenta,
                 OfertaUltimoMinuto = item.OfertaUltimoMinuto,
                 PrecioOferta = item.Precio2,
-                PrecioTachado = item.Precio,             
+                PrecioTachado = item.Precio,
                 UsuarioCreacion = codigoUsuario,
                 FotoProducto01 = item.ImagenURL,
                 CodigoEstrategia = item.CodigoEstrategia,
                 TieneVariedad = item.TieneVariedad,
-                PrecioPublico = item.PrecioPublico
+                PrecioPublico = item.PrecioPublico,
+                Ganancia = item.Ganancia
             }).ToList();
 
             var command = new SqlCommand("dbo.InsertEstrategiaTemporal");
@@ -425,7 +428,7 @@ namespace Portal.Consultoras.Data
             return result;
         }
 
-         public int InsertEstrategiaOfertaParaTi(List<BEEstrategia> lista, int campaniaId, string codigoUsuario, int estrategiaId)
+        public int InsertEstrategiaOfertaParaTi(List<BEEstrategia> lista, int campaniaId, string codigoUsuario, int estrategiaId)
         {
             var listaTypes = lista.Select(item => new BEEstrategiaType
             {

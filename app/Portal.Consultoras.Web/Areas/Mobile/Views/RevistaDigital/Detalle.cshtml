@@ -31,7 +31,7 @@
         <input type="hidden" class="Palanca" value="LAN" />
     </div>
     <div class="content_detalle_set_bpt">
-        @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel() : (Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+        @{  var mobileConfiguracion = Html.MobileAppConfiguracion();
             if (mobileConfiguracion.MostrarBotonAtras)
             {
                 <a class="regresar_landing" href="javascript: RDDetalleVolver(@Model.CampaniaID);">VOLVER</a>

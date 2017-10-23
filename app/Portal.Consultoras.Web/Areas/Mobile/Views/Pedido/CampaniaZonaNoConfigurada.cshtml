@@ -9,7 +9,7 @@
 <div class="row">
     <div class="col-xs-12">
         <ol class="breadcrumb-next upper">
-            @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new MobileAppConfiguracionModel() : (MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+            @{  var mobileConfiguracion = Html.MobileAppConfiguracion();
                 if (mobileConfiguracion.MostrarBotonAtras)
                 {
                     <li><a href="@Request.UrlReferrer"><i class="icon-angle-left"></i> VOLVER </a></li>

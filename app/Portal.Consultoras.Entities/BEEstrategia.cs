@@ -195,8 +195,15 @@ namespace Portal.Consultoras.Entities
         public int PromValorizado { get; set; }
 
         [DataMember]
+        public bool EsOfertaIndependiente { get; set; }
+
+        [DataMember]
+        public string ImagenOfertaIndependiente { get; set; }
+        [DataMember]
+        public bool MostrarImgOfertaIndependiente { get; set; }
+
+        [DataMember]
         public decimal PrecioPublico { get; set; }
-        
         [DataMember]
         public decimal Ganancia { get; set; }
 
@@ -218,6 +225,14 @@ namespace Portal.Consultoras.Entities
             ImagenURL = DataRecord.GetColumn<string>(row, "ImagenURL");
             PrecioPublico = DataRecord.GetColumn<decimal>(row, "PrecioPublico");
             Ganancia = DataRecord.GetColumn<decimal>(row, "Ganancia");
+            if (DataRecord.HasColumn(row, "EsOfertaIndependiente"))
+                EsOfertaIndependiente = Convert.ToBoolean(row["EsOfertaIndependiente"].ToString());
+
+            if (DataRecord.HasColumn(row, "ImagenOfertaIndependiente"))
+                ImagenOfertaIndependiente = row["ImagenOfertaIndependiente"].ToString();
+
+            if (DataRecord.HasColumn(row, "MostrarImgOfertaIndependiente"))
+                MostrarImgOfertaIndependiente = Convert.ToBoolean(row["MostrarImgOfertaIndependiente"].ToString());
         }
 
         public BEEstrategia(IDataRecord row, int liteVersion)
@@ -232,6 +247,15 @@ namespace Portal.Consultoras.Entities
             LimiteVenta = DataRecord.GetColumn<int>(row, "LimiteVenta");
             CodigoProducto = DataRecord.GetColumn<string>(row, "CodigoProducto");
             Ganancia = DataRecord.GetColumn<decimal>(row, "Ganancia");
+
+            if (DataRecord.HasColumn(row, "EsOfertaIndependiente"))
+                EsOfertaIndependiente = Convert.ToBoolean(row["EsOfertaIndependiente"].ToString());
+
+            if (DataRecord.HasColumn(row, "ImagenOfertaIndependiente"))
+                ImagenOfertaIndependiente = row["ImagenOfertaIndependiente"].ToString();
+
+            if (DataRecord.HasColumn(row, "MostrarImgOfertaIndependiente"))
+                MostrarImgOfertaIndependiente = Convert.ToBoolean(row["MostrarImgOfertaIndependiente"].ToString());
         }
 
         public BEEstrategia(IDataRecord row)
@@ -293,6 +317,15 @@ namespace Portal.Consultoras.Entities
             PromValorizado = DataRecord.GetColumn<int>(row, "PromValorizado");
             PrecioPublico = DataRecord.GetColumn<decimal>(row, "PrecioPublico");
             Ganancia = DataRecord.GetColumn<decimal>(row, "Ganancia");
+
+            if (DataRecord.HasColumn(row, "EsOfertaIndependiente"))
+                EsOfertaIndependiente = Convert.ToBoolean(row["EsOfertaIndependiente"].ToString());
+
+            if (DataRecord.HasColumn(row, "ImagenOfertaIndependiente"))
+                ImagenOfertaIndependiente = row["ImagenOfertaIndependiente"].ToString();
+
+            if (DataRecord.HasColumn(row, "MostrarImgOfertaIndependiente"))
+                MostrarImgOfertaIndependiente = Convert.ToBoolean(row["MostrarImgOfertaIndependiente"].ToString());
 
             EstrategiaDetalle = new BEEstrategiaDetalle(row);
             TipoEstrategia = new BETipoEstrategia(row);
