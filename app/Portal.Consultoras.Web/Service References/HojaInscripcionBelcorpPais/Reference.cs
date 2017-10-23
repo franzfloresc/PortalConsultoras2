@@ -741,6 +741,9 @@ namespace Portal.Consultoras.Web.HojaInscripcionBelcorpPais {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoISOField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Collections.Generic.List<Portal.Consultoras.Web.HojaInscripcionBelcorpPais.ParametroUneteBE> ListaZonasTelefonicasActivasField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -759,6 +762,19 @@ namespace Portal.Consultoras.Web.HojaInscripcionBelcorpPais {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoISO {
+            get {
+                return this.CodigoISOField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoISOField, value) != true)) {
+                    this.CodigoISOField = value;
+                    this.RaisePropertyChanged("CodigoISO");
+                }
             }
         }
         
