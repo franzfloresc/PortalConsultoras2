@@ -13468,3 +13468,8 @@ a{
     max-width: 197px;
     height: 40px;
 }
+
+.precio-oferta-normal {
+    font-size: 12px;
+    text-decoration: line-through;
+}
