@@ -127,6 +127,7 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "@FlagEstrella", DbType.String, entidad.FlagEstrella);
                 Context.Database.AddInParameter(command, "@CodigoEstrategia", DbType.String, entidad.CodigoEstrategia);
                 Context.Database.AddInParameter(command, "@TieneVariedad", DbType.Int32, entidad.TieneVariedad);
+                Context.Database.AddInParameter(command, "@Ganancia", DbType.Decimal, entidad.Ganancia);
                 Context.Database.AddInParameter(command, "@EsOfertaIndependiente", DbType.Boolean, entidad.EsOfertaIndependiente);
                 Context.Database.AddOutParameter(command, "@Retorno", DbType.Int32, 1000);
                 Context.ExecuteNonQuery(command);
