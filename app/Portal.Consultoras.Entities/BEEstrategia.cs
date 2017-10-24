@@ -244,7 +244,10 @@ namespace Portal.Consultoras.Entities
             NumeroPedido = DataRecord.GetColumn<int>(row, "NumeroPedido");
             CUV2 = DataRecord.GetColumn<string>(row, "CUV2");
             DescripcionCUV2 = DataRecord.GetColumn<string>(row, "DescripcionCUV2");
-            Activo = DataRecord.GetColumn<int>(row, "Activo");
+
+            if (DataRecord.HasColumn(row, "Activo"))
+                Activo = Convert.ToInt32(row["Activo"]);
+
             ImagenURL = DataRecord.GetColumn<string>(row, "ImagenURL");
             LimiteVenta = DataRecord.GetColumn<int>(row, "LimiteVenta");
             CodigoProducto = DataRecord.GetColumn<string>(row, "CodigoProducto");
@@ -268,7 +271,10 @@ namespace Portal.Consultoras.Entities
             CampaniaID = DataRecord.GetColumn<int>(row, "CampaniaID");
             CampaniaIDFin = DataRecord.GetColumn<int>(row, "CampaniaIDFin");
             NumeroPedido = DataRecord.GetColumn<int>(row, "NumeroPedido");
-            Activo = DataRecord.GetColumn<int>(row, "Activo");
+
+            if (DataRecord.HasColumn(row, "Activo"))
+                Activo = Convert.ToInt32(row["Activo"]);
+
             LimiteVenta = DataRecord.GetColumn<int>(row, "LimiteVenta");
             DescripcionCUV2 = DataRecord.GetColumn<string>(row, "DescripcionCUV2");
             FlagDescripcion = DataRecord.GetColumn<int>(row, "FlagDescripcion");
