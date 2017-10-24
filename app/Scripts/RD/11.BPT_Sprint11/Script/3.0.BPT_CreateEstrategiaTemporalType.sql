@@ -2,11 +2,6 @@ USE BelcorpPeru
 GO
 
 go
-IF EXISTS (select * from sys.types where name = 'EstrategiaTemporalType') 
-	DROP TYPE [dbo].[EstrategiaTemporalType]
-GO
-
-go
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InsertEstrategiaTemporal]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [dbo].[InsertEstrategiaTemporal]
 GO
@@ -14,6 +9,11 @@ GO
 go
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InsertEstrategiaOfertaParaTi]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [dbo].[InsertEstrategiaOfertaParaTi]
+GO
+
+go
+IF EXISTS (select * from sys.types where name = 'EstrategiaTemporalType') 
+	DROP TYPE [dbo].[EstrategiaTemporalType]
 GO
 
 CREATE TYPE [dbo].[EstrategiaTemporalType] AS TABLE(
@@ -150,11 +150,6 @@ USE BelcorpMexico
 GO
 
 go
-IF EXISTS (select * from sys.types where name = 'EstrategiaTemporalType') 
-	DROP TYPE [dbo].[EstrategiaTemporalType]
-GO
-
-go
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InsertEstrategiaTemporal]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [dbo].[InsertEstrategiaTemporal]
 GO
@@ -162,6 +157,11 @@ GO
 go
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InsertEstrategiaOfertaParaTi]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [dbo].[InsertEstrategiaOfertaParaTi]
+GO
+
+go
+IF EXISTS (select * from sys.types where name = 'EstrategiaTemporalType') 
+	DROP TYPE [dbo].[EstrategiaTemporalType]
 GO
 
 CREATE TYPE [dbo].[EstrategiaTemporalType] AS TABLE(
@@ -298,11 +298,6 @@ USE BelcorpColombia
 GO
 
 go
-IF EXISTS (select * from sys.types where name = 'EstrategiaTemporalType') 
-	DROP TYPE [dbo].[EstrategiaTemporalType]
-GO
-
-go
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InsertEstrategiaTemporal]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [dbo].[InsertEstrategiaTemporal]
 GO
@@ -310,6 +305,11 @@ GO
 go
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InsertEstrategiaOfertaParaTi]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [dbo].[InsertEstrategiaOfertaParaTi]
+GO
+
+go
+IF EXISTS (select * from sys.types where name = 'EstrategiaTemporalType') 
+	DROP TYPE [dbo].[EstrategiaTemporalType]
 GO
 
 CREATE TYPE [dbo].[EstrategiaTemporalType] AS TABLE(
@@ -446,11 +446,6 @@ USE BelcorpVenezuela
 GO
 
 go
-IF EXISTS (select * from sys.types where name = 'EstrategiaTemporalType') 
-	DROP TYPE [dbo].[EstrategiaTemporalType]
-GO
-
-go
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InsertEstrategiaTemporal]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [dbo].[InsertEstrategiaTemporal]
 GO
@@ -458,6 +453,11 @@ GO
 go
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InsertEstrategiaOfertaParaTi]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [dbo].[InsertEstrategiaOfertaParaTi]
+GO
+
+go
+IF EXISTS (select * from sys.types where name = 'EstrategiaTemporalType') 
+	DROP TYPE [dbo].[EstrategiaTemporalType]
 GO
 
 CREATE TYPE [dbo].[EstrategiaTemporalType] AS TABLE(
@@ -594,11 +594,6 @@ USE BelcorpSalvador
 GO
 
 go
-IF EXISTS (select * from sys.types where name = 'EstrategiaTemporalType') 
-	DROP TYPE [dbo].[EstrategiaTemporalType]
-GO
-
-go
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InsertEstrategiaTemporal]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [dbo].[InsertEstrategiaTemporal]
 GO
@@ -606,6 +601,11 @@ GO
 go
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InsertEstrategiaOfertaParaTi]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [dbo].[InsertEstrategiaOfertaParaTi]
+GO
+
+go
+IF EXISTS (select * from sys.types where name = 'EstrategiaTemporalType') 
+	DROP TYPE [dbo].[EstrategiaTemporalType]
 GO
 
 CREATE TYPE [dbo].[EstrategiaTemporalType] AS TABLE(
@@ -742,11 +742,6 @@ USE BelcorpPuertoRico
 GO
 
 go
-IF EXISTS (select * from sys.types where name = 'EstrategiaTemporalType') 
-	DROP TYPE [dbo].[EstrategiaTemporalType]
-GO
-
-go
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InsertEstrategiaTemporal]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [dbo].[InsertEstrategiaTemporal]
 GO
@@ -754,6 +749,11 @@ GO
 go
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InsertEstrategiaOfertaParaTi]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [dbo].[InsertEstrategiaOfertaParaTi]
+GO
+
+go
+IF EXISTS (select * from sys.types where name = 'EstrategiaTemporalType') 
+	DROP TYPE [dbo].[EstrategiaTemporalType]
 GO
 
 CREATE TYPE [dbo].[EstrategiaTemporalType] AS TABLE(
@@ -890,11 +890,6 @@ USE BelcorpPanama
 GO
 
 go
-IF EXISTS (select * from sys.types where name = 'EstrategiaTemporalType') 
-	DROP TYPE [dbo].[EstrategiaTemporalType]
-GO
-
-go
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InsertEstrategiaTemporal]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [dbo].[InsertEstrategiaTemporal]
 GO
@@ -902,6 +897,11 @@ GO
 go
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InsertEstrategiaOfertaParaTi]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [dbo].[InsertEstrategiaOfertaParaTi]
+GO
+
+go
+IF EXISTS (select * from sys.types where name = 'EstrategiaTemporalType') 
+	DROP TYPE [dbo].[EstrategiaTemporalType]
 GO
 
 CREATE TYPE [dbo].[EstrategiaTemporalType] AS TABLE(
@@ -1038,11 +1038,6 @@ USE BelcorpGuatemala
 GO
 
 go
-IF EXISTS (select * from sys.types where name = 'EstrategiaTemporalType') 
-	DROP TYPE [dbo].[EstrategiaTemporalType]
-GO
-
-go
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InsertEstrategiaTemporal]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [dbo].[InsertEstrategiaTemporal]
 GO
@@ -1050,6 +1045,11 @@ GO
 go
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InsertEstrategiaOfertaParaTi]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [dbo].[InsertEstrategiaOfertaParaTi]
+GO
+
+go
+IF EXISTS (select * from sys.types where name = 'EstrategiaTemporalType') 
+	DROP TYPE [dbo].[EstrategiaTemporalType]
 GO
 
 CREATE TYPE [dbo].[EstrategiaTemporalType] AS TABLE(
@@ -1186,11 +1186,6 @@ USE BelcorpEcuador
 GO
 
 go
-IF EXISTS (select * from sys.types where name = 'EstrategiaTemporalType') 
-	DROP TYPE [dbo].[EstrategiaTemporalType]
-GO
-
-go
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InsertEstrategiaTemporal]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [dbo].[InsertEstrategiaTemporal]
 GO
@@ -1198,6 +1193,11 @@ GO
 go
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InsertEstrategiaOfertaParaTi]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [dbo].[InsertEstrategiaOfertaParaTi]
+GO
+
+go
+IF EXISTS (select * from sys.types where name = 'EstrategiaTemporalType') 
+	DROP TYPE [dbo].[EstrategiaTemporalType]
 GO
 
 CREATE TYPE [dbo].[EstrategiaTemporalType] AS TABLE(
@@ -1334,11 +1334,6 @@ USE BelcorpDominicana
 GO
 
 go
-IF EXISTS (select * from sys.types where name = 'EstrategiaTemporalType') 
-	DROP TYPE [dbo].[EstrategiaTemporalType]
-GO
-
-go
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InsertEstrategiaTemporal]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [dbo].[InsertEstrategiaTemporal]
 GO
@@ -1346,6 +1341,11 @@ GO
 go
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InsertEstrategiaOfertaParaTi]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [dbo].[InsertEstrategiaOfertaParaTi]
+GO
+
+go
+IF EXISTS (select * from sys.types where name = 'EstrategiaTemporalType') 
+	DROP TYPE [dbo].[EstrategiaTemporalType]
 GO
 
 CREATE TYPE [dbo].[EstrategiaTemporalType] AS TABLE(
@@ -1482,11 +1482,6 @@ USE BelcorpCostaRica
 GO
 
 go
-IF EXISTS (select * from sys.types where name = 'EstrategiaTemporalType') 
-	DROP TYPE [dbo].[EstrategiaTemporalType]
-GO
-
-go
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InsertEstrategiaTemporal]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [dbo].[InsertEstrategiaTemporal]
 GO
@@ -1494,6 +1489,11 @@ GO
 go
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InsertEstrategiaOfertaParaTi]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [dbo].[InsertEstrategiaOfertaParaTi]
+GO
+
+go
+IF EXISTS (select * from sys.types where name = 'EstrategiaTemporalType') 
+	DROP TYPE [dbo].[EstrategiaTemporalType]
 GO
 
 CREATE TYPE [dbo].[EstrategiaTemporalType] AS TABLE(
@@ -1626,12 +1626,7 @@ BEGIN
 END
 GO
 
-USE BelcorpChile
-GO
-
-go
-IF EXISTS (select * from sys.types where name = 'EstrategiaTemporalType') 
-	DROP TYPE [dbo].[EstrategiaTemporalType]
+USE BelcorpChile_BPT
 GO
 
 go
@@ -1642,6 +1637,11 @@ GO
 go
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InsertEstrategiaOfertaParaTi]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [dbo].[InsertEstrategiaOfertaParaTi]
+GO
+
+go
+IF EXISTS (select * from sys.types where name = 'EstrategiaTemporalType') 
+	DROP TYPE [dbo].[EstrategiaTemporalType]
 GO
 
 CREATE TYPE [dbo].[EstrategiaTemporalType] AS TABLE(
@@ -1778,11 +1778,6 @@ USE BelcorpBolivia
 GO
 
 go
-IF EXISTS (select * from sys.types where name = 'EstrategiaTemporalType') 
-	DROP TYPE [dbo].[EstrategiaTemporalType]
-GO
-
-go
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InsertEstrategiaTemporal]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [dbo].[InsertEstrategiaTemporal]
 GO
@@ -1790,6 +1785,11 @@ GO
 go
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[InsertEstrategiaOfertaParaTi]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [dbo].[InsertEstrategiaOfertaParaTi]
+GO
+
+go
+IF EXISTS (select * from sys.types where name = 'EstrategiaTemporalType') 
+	DROP TYPE [dbo].[EstrategiaTemporalType]
 GO
 
 CREATE TYPE [dbo].[EstrategiaTemporalType] AS TABLE(
@@ -1921,4 +1921,3 @@ BEGIN
 	FROM @EstrategiaTemporal
 END
 GO
-
