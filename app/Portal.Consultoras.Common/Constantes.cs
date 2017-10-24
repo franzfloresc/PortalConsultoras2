@@ -341,29 +341,45 @@ namespace Portal.Consultoras.Common
 
         public class OrigenPedidoWeb
         {
-            // Primer Dígito -- Plataforma
-            // 1: Desktop                   2: Mobile
+            public class Campos
+            {
+                // Primer Dígito
+                public const int PLATAFORMA_INICIO = 0;
+                public const int PLATAFORMA_TAMANO = 1;
+                //  Segundo Dígito
+                public const int PANTALLA_INICIO = 1;
+                public const int PANTALLA_TAMANO = 1;
+                // Tercer Dígito
+                public const int SECCION_DENTRO_DE_PANTALLA_INICIO = 2;
+                public const int SECCION_DENTRO_DE_PANTALLA_TAMANO = 1;
 
-            // Segundo Dígito -- Pantalla
-            // 1: Home                      2: Pedido
-            // 3: Liquidacion               4: Catalogo Personalizado
-            // 5: ShowRoom                  6: OfertaParaTi
-            // 7: RevistaDigital            8: GuiaNegocioDigital
-            // 9: General
+                // Cuarto Dígito
+                public const int POPUP_INICIO = 3;
+                public const int POPUP_TAMANO = 1;
+            }
+                // Primer Dígito -- Plataforma
+                // 1: Desktop                   2: Mobile
 
-            // Tercer Dígito -- Sección dentro de la Pantalla
-            // 1: Banners                   2: Ofertas para ti
-            // 3: Catalogo Personalizado    4: Liquidacion
-            // 5: Producto Sugerido         6: Oferta Final
-            // 7: ShowRoom                  8: Consultora Online
-            // 9: Oferta del dia            0: Revista Digital
-            // 1: index
-            // 2: OfertaParaTi Detalle
+                // Segundo Dígito -- Pantalla
+                // 1: Home                      2: Pedido
+                // 3: Liquidacion               4: Catalogo Personalizado
+                // 5: ShowRoom                  6: OfertaParaTi
+                // 7: RevistaDigital            8: GuiaNegocioDigital
+                // 9: General
 
-            // Cuarto Dígito
-            // 1. Sin popUp                 2. Con popUp
+                // Tercer Dígito -- Sección dentro de la Pantalla
+                // 1: Banners                   2: Ofertas para ti
+                // 3: Catalogo Personalizado    4: Liquidacion
+                // 5: Producto Sugerido         6: Oferta Final
+                // 7: ShowRoom                  8: Consultora Online
+                // 9: Oferta del dia            0: Revista Digital
+                // 1: index
+                // 2: OfertaParaTi Detalle
 
-            public const int DesktopHomeBanners = 1111;
+                // Cuarto Dígito
+                // 1. Sin popUp                 2. Con popUp
+
+                public const int DesktopHomeBanners = 1111;
             public const int DesktopHomeOfertasParaTi = 1121;
             public const int DesktopHomeOfertasParaTiPopUp = 1122;
             public const int DesktopHomeCatalogoPersonalizado = 1131;
