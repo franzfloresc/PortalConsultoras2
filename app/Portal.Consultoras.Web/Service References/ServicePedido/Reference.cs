@@ -11414,6 +11414,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private decimal GananciaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string GananciaStringField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int IDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -12060,6 +12063,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.GananciaField.Equals(value) != true)) {
                     this.GananciaField = value;
                     this.RaisePropertyChanged("Ganancia");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string GananciaString {
+            get {
+                return this.GananciaStringField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.GananciaStringField, value) != true)) {
+                    this.GananciaStringField = value;
+                    this.RaisePropertyChanged("GananciaString");
                 }
             }
         }
