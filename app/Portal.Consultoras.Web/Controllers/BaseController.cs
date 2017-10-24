@@ -1008,7 +1008,7 @@ namespace Portal.Consultoras.Web.Controllers
             #region Cargar variables
 
             if (!model.CargoEntidadesShowRoom) CargarEntidadesShowRoom(model);
-
+            
             model.UsuarioNombre = string.IsNullOrEmpty(model.Sobrenombre) ? model.NombreConsultora : model.Sobrenombre;
             ViewBag.UsuarioNombre = (Util.Trim(model.Sobrenombre) == "" ? model.NombreConsultora : model.Sobrenombre);
             ViewBag.Usuario = "Hola, " + model.UsuarioNombre;
@@ -2820,7 +2820,7 @@ namespace Portal.Consultoras.Web.Controllers
             url = HttpContext.Request.UrlReferrer != null ?
                 Util.Trim(HttpContext.Request.UrlReferrer.LocalPath).ToLower() :
                 Util.Trim(HttpContext.Request.FilePath).ToLower();
-
+            url = url.Replace("#", "/") + "/";
             return url.Contains("/mobile/") || url.Contains("/g/");
         }
 
