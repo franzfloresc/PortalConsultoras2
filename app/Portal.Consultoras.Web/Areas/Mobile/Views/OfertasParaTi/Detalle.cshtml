@@ -90,7 +90,7 @@
             {
 
                 <div class="precio_bpt">
-                    @if (Model.Ganancia > 0)
+                    @if (Model.Precio > 0)
                     {
                         <span class="precio_tachado_bpt">@Model.Simbolo @Model.PrecioTachado</span>
                     }
@@ -103,7 +103,7 @@
             }
             else
             {
-                if (Model.Ganancia > 0)
+                if (Model.Precio > 0)
                 {
                      <div class="precio_tachado_048"> Valorizado <span>@Model.Simbolo @Model.PrecioTachado</span></div>
                 }
