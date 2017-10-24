@@ -1,10 +1,6 @@
 ﻿var arrayOfertasParaTi = [];
 
-$(document).ready(function () {
-
-    $('.flexsliderTutorialMobile').flexslider({
-        animation: "slide"
-    });
+$(document).ready(function () {        
     $(".contenedor-tutorial-lbel .otromomento").click(function () {
         $('#tutorialesMobile').hide();
         $('.btn_agregarPedido').show();
@@ -13,9 +9,7 @@ $(document).ready(function () {
         $('#tutorialesMobile').hide();
         $('.btn_agregarPedido').show();
     });
-    $(".footer-page").css({ "margin-bottom": "54px" });
-
-    mostrarTutorialMobile();
+    $(".footer-page").css({ "margin-bottom": "54px" });    
 
     $(".cerrar").click(function () {
         UpdateUsuarioTutorialMobile();
@@ -23,9 +17,7 @@ $(document).ready(function () {
         $('.btn_agregarPedido').show();
     });
     $("#tutorialFooterMobile").click(function () {
-        $('.btn_agregarPedido').hide();
-        $('#tutorialesMobile').show();
-        setTimeout(function (){ $(window).resize(); }, 50);
+        VerTutorialMobile();
     });
     $(".ver_video_introductorio").click(function () {
         $('#VideoIntroductorio').show();
@@ -40,6 +32,9 @@ $(document).ready(function () {
 
     });
 
+    if (viewBagVioTutorial == "0") {
+        VerTutorialMobile();
+    }
 
     CargarCarouselEstrategias("");
 
@@ -80,6 +75,7 @@ $(document).ready(function () {
     });
    
     ObtenerComunicadosPopup();
+    EstablecerAccionLazyImagen("img[data-lazy-seccion-banner-home]");    
 });
 $(window).load(function () {
     VerSeccionBienvenida(verSeccion);
@@ -250,16 +246,6 @@ function AgregarTagManagerShowRoomCheckBox() {
         'label': '(not available)'
     });
 }
-
-function mostrarTutorialMobile() {
-    if (viewBagVioTutorial == "0") {
-        $('#tutorialesMobile').show();
-        $('.btn_agregarPedido').hide();
-        setTimeout(function () {
-            $(window).resize();
-        }, 300);
-    }
-};
 
 function stopVideo() {
     if (player) {
@@ -707,4 +693,22 @@ function VerSeccionBienvenida(seccion) {
             scrollTop: $(id).offset().top - 60
         }, 1000);
     }
+}
+
+function VerTutorialMobile() {
+    if (isEsika) {
+        $("#tutorialesMobile .contenedor-tutorial-lbel .slides img").removeAttr("data-lazy-seccion-tutorial");
+    } else {
+        $("#tutorialesMobile .contenedor-tutorial-esika .slides img").removeAttr("data-lazy-seccion-tutorial");
+    }
+
+    $('.btn_agregarPedido').hide();
+    $('.flexsliderTutorialMobile').flexslider({
+        animation: "slide"
+    });
+
+    EstablecerAccionLazyImagenAll("img[data-lazy-seccion-tutorial]");
+    $('#tutorialesMobile').show();
+
+    setTimeout(function () { $(window).resize(); }, 50);
 }

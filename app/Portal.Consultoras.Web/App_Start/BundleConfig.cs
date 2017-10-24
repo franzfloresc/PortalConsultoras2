@@ -84,7 +84,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Shared/TrackingJetlore.js",
                 "~/Scripts/flipclock.js",
                 "~/Scripts/jquery.flexslider.js",
-                "~/Scripts/slick.js"
+                "~/Scripts/slick.js",
+                "~/Scripts/jquery.lazy.js"
             ));
 
             bundles.Add(new StyleBundle("~/bundles/CSSFuzemodal").Include(

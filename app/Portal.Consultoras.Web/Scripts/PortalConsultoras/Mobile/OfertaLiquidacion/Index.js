@@ -128,6 +128,8 @@ function ArmarCarouselLiquidaciones(data) {
     data = EstructurarDataCarouselLiquidaciones(data);
     var htmlDiv = SetHandlebars("#OfertasLiquidacionMobile-template", data);
     $('#liquidacionMobile').append(htmlDiv);
+
+    EstablecerAccionLazyImagen("img[data-lazy-seccion-liquidacion]");
 };
 function EstructurarDataCarouselLiquidaciones(array) {
     var contadorLq = 1;

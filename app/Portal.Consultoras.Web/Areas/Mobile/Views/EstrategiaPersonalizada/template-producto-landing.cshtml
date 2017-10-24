@@ -7,7 +7,7 @@
             <div {{#iff TieneVerDetalle }} onclick="javascript:VerDetalleEstrategia(event);" {{/iff}}>
                 <div {{#iff TieneVerDetalle }} style="cursor:pointer;" {{/iff}}>
                     <div class="producto_img_mobile_bpt">
-                        <img src="{{FotoProducto01}}" data-img-lazy="1"/>
+                        <img data-src="{{FotoProducto01}}" data-img-lazy="1" data-lazy-seccion-revista-digital=""/>
                     </div>
                     {{#iff EsOfertaIndependiente '==' '1'}}
                     {{#iff MostrarImgOfertaIndependiente '==' '1'}}
@@ -18,7 +18,7 @@
                     {{else}}
                     {{#iff ImagenURL '!=' ''}}
                     <div class="etiqueta_producto" data-item-tag="etiqueta">
-                        <img src="{{ImagenURL}}" alt="Etiqueta Producto" data-img-lazy="1"/>
+                        <img data-src="{{ImagenURL}}" alt="Etiqueta Producto" data-img-lazy="1" data-lazy-seccion-revista-digital=""/>
                     </div>
                     {{/iff}}
                     {{/iff}}

@@ -383,9 +383,9 @@ else
             <div class="producto_img_mobile swproddetcompra">
                 <a class="btnVerDetalleOfertaShowRoom swproddetcompraimg" href="{{UrlDetalle}}">
                     {{#IsNullOrEmpty ImagenProducto '=='}}
-                    <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" />
+                    <img data-src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" data-lazy-seccion-showroom=""/>
                     {{else}}
-                    <img src="{{ImagenProducto}}" alt="" onclick="click_producto_showroow('{{Descripcion}}','{{CUV}}','{{PrecioOferta}}','{{DescripcionMarca}}','{{Posicion}}')" />
+                    <img data-src="{{ImagenProducto}}" alt="" onclick="click_producto_showroow('{{Descripcion}}','{{CUV}}','{{PrecioOferta}}','{{DescripcionMarca}}','{{Posicion}}')" data-lazy-seccion-showroom=""/>
                     {{/IsNullOrEmpty}}
                 </a>
             </div>

@@ -1815,8 +1815,27 @@ function EstablecerLazyCarrusel(elementoHtml) {
     //return $(nombreElementoHtml).html();
 }
 
-function EstablecerAccionLazyImagen(nombreAtributo) {
+function EstablecerAccionLazyImagen(nombreAtributo, withTimeout) {
+    //Si se requiere esperar un momento, withTimeout = true
+    if (withTimeout == undefined || withTimeout == null)
+        withTimeout = true;
+
     if (nombreAtributo == undefined || nombreAtributo == null || nombreAtributo == "")
         return;
-    setTimeout(function () { $(nombreAtributo).lazy(); }, 500);
+
+    if (withTimeout)
+        setTimeout(function () {
+            $(nombreAtributo).lazy();
+        }, 500);
+    else
+        $(nombreAtributo).lazy();
+}
+
+function EstablecerAccionLazyImagenAll(nombreAtributo) {
+    if (nombreAtributo == undefined || nombreAtributo == null || nombreAtributo == "")
+        return;
+
+    $(nombreAtributo).lazy({
+        delay: 0
+    });
 }
