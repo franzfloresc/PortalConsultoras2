@@ -3946,6 +3946,11 @@ namespace Portal.Consultoras.Web.Controllers
 
             int limiteJetlore = int.Parse(ConfigurationManager.AppSettings.Get("LimiteJetloreOfertaFinal"));
 
+            decimal descuentoprol=0;
+
+            try { descuentoprol = ObtenerPedidoWebDetalle()[0].DescuentoProl; } catch { descuentoprol=0; }
+            
+
             ListaParametroOfertaFinal ObjOfertaFinal = new ListaParametroOfertaFinal();
             var ofertaFinal = GetOfertaFinal();
             ObjOfertaFinal.ZonaID = userData.ZonaID;
@@ -3957,7 +3962,7 @@ namespace Portal.Consultoras.Web.Controllers
             ObjOfertaFinal.Limite = limiteJetlore;
             ObjOfertaFinal.MontoEscala = GetDataBarra().MontoEscala;
             ObjOfertaFinal.MontoMinimo = userData.MontoMinimo;
-            ObjOfertaFinal.MontoTotal = ObtenerPedidoWebDetalle().Sum(p => p.ImporteTotal);
+            ObjOfertaFinal.MontoTotal = ObtenerPedidoWebDetalle().Sum(p => p.ImporteTotal)  - (descuentoprol.Equals(null) ? 0 : descuentoprol);
             ObjOfertaFinal.TipoOfertaFinal = tipoOfertaFinal;
             ObjOfertaFinal.TipoProductoMostrar = tipoProductoMostrar;
 

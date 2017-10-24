@@ -91,16 +91,7 @@ namespace Portal.Consultoras.Web.Models
         public EstrategiaDetalleModelo EstrategiaDetalle { get; set; }
         public TipoEstrategiaModelo TipoEstrategia { get; set; }
 
-        public decimal Ganancia
-        {
-            get
-            {
-                decimal precioValorizado = 0;
-                try { precioValorizado = Convert.ToDecimal(PrecioTachado); } catch { }
-
-                return (precioValorizado - Precio2);
-            }
-        }
+        public decimal Ganancia { get; set; }
 
         public string CodigoGenerico { get; set; }
         public int ProdComentarioId { get; set; }

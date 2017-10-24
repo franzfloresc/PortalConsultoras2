@@ -154,8 +154,7 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Site/slick.css",
                "~/Content/Css/Site/asesora-online.css",
                "~/Content/Css/Mobile/esika/misDatos.css",
-               "~/Content/Css/Mobile/Esika/revistaDigital.css",
-               "~/Content/Css/Mobile/esika/cdr.css"
+               "~/Content/Css/Mobile/Esika/revistaDigital.css"              
                ));
 
             bundles.Add(new StyleBundle("~/Content/Css/Mobile/lbel/CssSB2Mobile").Include(
@@ -167,8 +166,7 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Mobile/flipclock.css",
                "~/Content/Css/Site/slick.css",
                "~/Content/Css/Mobile/lbel/misDatos.css",
-               "~/Content/Css/Mobile/Lbel/revistaDigital.css",
-               "~/Content/Css/Mobile/lbel/cdr.css" 
+               "~/Content/Css/Mobile/Lbel/revistaDigital.css"               
                ));
 
             bundles.Add(new StyleBundle("~/Content/Css/Site/CssBienvenida").Include(

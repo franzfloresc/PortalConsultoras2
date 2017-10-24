@@ -37,6 +37,8 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string PrecioTachado { get; set; }
         [DataMember]
+        public string GananciaString { get; set; }
+        [DataMember]
         public string CUV1 { get; set; }
         [DataMember]
         public string CUV2 { get; set; }
