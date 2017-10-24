@@ -66,6 +66,7 @@ namespace Portal.Consultoras.Web.UnitTest.AreasMobile.Mobile
                     It.IsAny<string>()),
                     Times.Once);
                 //
+                Assert.AreEqual("Mobile", result.RouteValues["area"]);
                 Assert.AreEqual("Bienvenida", result.RouteValues["controller"]);
                 Assert.AreEqual("Index", result.RouteValues["action"]);
             }
