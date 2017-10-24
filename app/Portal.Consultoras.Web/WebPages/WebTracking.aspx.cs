@@ -34,7 +34,7 @@ namespace Portal.Consultoras.Web.WebPages
 
             try
             {
-                if (ConfigurationManager.AppSettings["Ambiente"].ToString() != "PRD")
+                if (ConfigurationManager.AppSettings["Ambiente"].ToString() != "PR")
                 {
                     lnkPoliticasVenta.NavigateUrl = "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/SeguimientoPedido/" + Convert.ToString(ViewState["PAISISO"]) + "/Politica.pdf";
                 }
