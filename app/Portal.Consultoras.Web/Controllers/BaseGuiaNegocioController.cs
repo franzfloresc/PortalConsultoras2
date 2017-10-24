@@ -34,54 +34,8 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
 
-        public ActionResult DetalleModel(string cuv, int campaniaId)
-        {
-            //modelo = modelo ?? new EstrategiaPersonalizadaProductoModel();
-            var modelo = (EstrategiaPersonalizadaProductoModel)Session[Constantes.ConstSession.ProductoTemporal];
-            if (modelo == null || modelo.EstrategiaID == 0 || modelo.CUV2 != cuv || modelo.CampaniaID != campaniaId)
-            {
-                return RedirectToAction("Index", "GuiaNegocio", new { area = IsMobile() ? "Mobile" : "" });
-            }
+      
 
-            if (!revistaDigital.TieneRDC && !revistaDigital.TieneRDR)
-            {
-                return RedirectToAction("Index", "GuiaNegocio", new { area = IsMobile() ? "Mobile" : "" });
-            }
-            if (EsCampaniaFalsa(modelo.CampaniaID))
-            {
-                return RedirectToAction("Index", "GuiaNegocio", new { area = IsMobile() ? "Mobile" : "" });
-            }
-            if (modelo.EstrategiaID <= 0)
-            {
-                return RedirectToAction("Index", "GuiaNegocio", new { area = IsMobile() ? "Mobile" : "" });
-            }
 
-            modelo.TipoEstrategiaDetalle = modelo.TipoEstrategiaDetalle ?? new EstrategiaDetalleModelo();
-            modelo.ListaDescripcionDetalle = modelo.ListaDescripcionDetalle ?? new List<string>();
-            ViewBag.TieneRDC = revistaDigital.TieneRDC;
-            ViewBag.EstadoSuscripcion = revistaDigital.SuscripcionModel.EstadoRegistro;
-            ViewBag.TieneProductosPerdio = TieneProductosPerdio(modelo.CampaniaID);
-            ViewBag.NombreConsultora = userData.Sobrenombre;
-            var campaniaX2 = revistaDigital.SuscripcionAnterior1Model.CampaniaID > 0 && revistaDigital.SuscripcionAnterior1Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo
-                ? revistaDigital.SuscripcionAnterior1Model.CampaniaID : userData.CampaniaID;
-            ViewBag.CampaniaMasDos = AddCampaniaAndNumero(campaniaX2, 2) % 100;
-            ViewBag.Campania = campaniaId;
-            return View(modelo);
-
-        }
-
-        public bool EsCampaniaFalsa(int campaniaId)
-        {
-            return (campaniaId < userData.CampaniaID || campaniaId > AddCampaniaAndNumero(userData.CampaniaID, 1));
-        }
-
-        public bool TieneProductosPerdio(int campaniaID)
-        {
-            if (revistaDigital.TieneRDC &&
-                revistaDigital.SuscripcionAnterior2Model.EstadoRegistro != Constantes.EstadoRDSuscripcion.Activo &&
-                campaniaID == userData.CampaniaID)
-                return true;
-            return false;
-        }
     }
 }

@@ -93,19 +93,7 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult Detalle(string cuv, int campaniaId)
-        {
-            try
-            {
-                return DetalleModel(cuv, campaniaId);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-            }
 
-            return RedirectToAction("Index", "GuiaNegocio");
-        }
 
     }
 }
