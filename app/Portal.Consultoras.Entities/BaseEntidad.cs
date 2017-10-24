@@ -1,4 +1,7 @@
-﻿using System.Runtime.Serialization;
+﻿using System;
+using System.Data;
+using System.Runtime.Serialization;
+using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Entities
 {

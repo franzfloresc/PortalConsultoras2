@@ -70,25 +70,22 @@ namespace Portal.Consultoras.Entities
             Pedido = new PedidoResumen();
         }
 
-        public BEConsultoraResumen(IDataRecord row) 
+        public BEConsultoraResumen(IDataRecord row)
         {
             Build(row);
         }
 
         public void Build(IDataRecord row)
         {
-            //clientes
             if (row.HasColumn("CantidadClientes"))
                 CantidadClientes = row.GetValue<int>("CantidadClientes");
 
-            //deudas            
             if (row.HasColumn("CantidadDeudores"))
                 Deudas.CantidadDeudores = row.GetValue<int>("CantidadDeudores");
 
             if (row.HasColumn("TotalDeuda"))
                 Deudas.TotalDeuda = row.GetValue<decimal>("TotalDeuda");
 
-            //pedido
             if (row.HasColumn("MotivoCreditoID"))
                 Pedido.MotivoCreditoID = row.GetValue<short>("MotivoCreditoID");
 

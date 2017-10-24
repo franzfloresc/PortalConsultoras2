@@ -1,11 +1,7 @@
 ﻿using Portal.Consultoras.Common;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Entities
 {
@@ -40,8 +36,6 @@ namespace Portal.Consultoras.Entities
         public bool EsMontoMinimo { get; set; }
         [DataMember]
         public bool FlagProcedencia { get; set; }
-        //[DataMember]
-        //public string DetalleNotificacion { get; set; }
 
         public BENotificaciones(IDataRecord row)
         {
@@ -90,14 +84,14 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int StockDisponible { get; set; }
         [DataMember]
-        public int Cantidad {get;set;}
+        public int Cantidad { get; set; }
         [DataMember]
-        public decimal PrecioUnidad {get;set;}
+        public decimal PrecioUnidad { get; set; }
         [DataMember]
-        public decimal ImporteTotal {get;set;}
+        public decimal ImporteTotal { get; set; }
         [DataMember]
         public string ObservacionPROL { get; set; }
-        //I 20151127        
+
         [DataMember]
         public int IndicadorOferta { get; set; }
         [DataMember]
@@ -106,7 +100,7 @@ namespace Portal.Consultoras.Entities
         public decimal DescuentoProl { get; set; }
         [DataMember]
         public decimal ImporteTotalPedido { get; set; }
-        //F 20151127
+
         public BENotificacionesDetallePedido(IDataRecord row)
         {
             this.CUV = Convert.ToString(row["CUV"]);
@@ -115,7 +109,7 @@ namespace Portal.Consultoras.Entities
             this.PrecioUnidad = Convert.ToDecimal(row["PrecioUnidad"]);
             this.ImporteTotal = Convert.ToDecimal(row["ImporteTotal"]);
             this.ObservacionPROL = Convert.ToString(row["ObservacionPROL"]);
-            //I R20151127
+
             if (DataRecord.HasColumn(row, "IndicadorOferta") && row["IndicadorOferta"] != DBNull.Value)
                 this.IndicadorOferta = Convert.ToInt16(row["IndicadorOferta"]);
             if (DataRecord.HasColumn(row, "MontoTotalProl") && row["MontoTotalProl"] != DBNull.Value)
@@ -124,7 +118,7 @@ namespace Portal.Consultoras.Entities
                 this.DescuentoProl = Convert.ToDecimal(row["DescuentoProl"]);
             if (DataRecord.HasColumn(row, "ImporteTotalPedido") && row["ImporteTotalPedido"] != DBNull.Value)
                 this.ImporteTotalPedido = Convert.ToDecimal(row["ImporteTotalPedido"]);
-            //F R20151127
+
             if (DataRecord.HasColumn(row, "StockDisponible") && row["StockDisponible"] != DBNull.Value)
                 StockDisponible = Convert.ToInt32(row["StockDisponible"]);
         }

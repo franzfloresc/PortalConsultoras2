@@ -28,7 +28,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 {
                     SegmentoID = (userData.SegmentoInternoID == null) ? userData.SegmentoID : (int)userData.SegmentoInternoID;
                 }
-                
+
                 BEBannerInfo[] lstBannerInfoTemp;
 
                 using (var service = new ContenidoServiceClient())

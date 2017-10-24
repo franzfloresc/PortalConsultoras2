@@ -1,32 +1,28 @@
-﻿using Portal.Consultoras.Web.Models;
+﻿using AutoMapper;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.GestionPasos;
+using Portal.Consultoras.Web.HojaInscripcionBelcorpPais;
+using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServiceEvaluacionCrediticia;
+using Portal.Consultoras.Web.ServiceUnete;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
-using System.Data.OleDb;
-using System.Data;
-using Portal.Consultoras.Web.ServiceUnete;
-using Portal.Consultoras.Web.ServiceEvaluacionCrediticia;
-using Portal.Consultoras.Common;
-using System.Globalization;
-using AutoMapper;
 using System.Configuration;
-using Newtonsoft.Json;
-using System.Text;
-using System.Net;
+using System.Data;
+using System.Data.OleDb;
+using System.Globalization;
 using System.IO;
-using Newtonsoft.Json.Linq;
-using Portal.Consultoras.Web.HojaInscripcionBelcorpPais;
-using CORP.BEL.Unete.Utils.ServicioLocal;
-using Portal.Consultoras.Web.GestionPasos;
-using Portal.Consultoras.Web.ServiceZonificacion;
-using ParametroUneteBE = Portal.Consultoras.Web.HojaInscripcionBelcorpPais.ParametroUneteBE;
-using Pais = Portal.Consultoras.Common.Constantes.CodigosISOPais;
+using System.Linq;
+using System.Net;
 using System.ServiceModel;
+using System.Text;
 using System.Web;
-using Microsoft.Ajax.Utilities;
+using System.Web.Mvc;
 using ConsultoraBE = Portal.Consultoras.Web.HojaInscripcionBelcorpPais.ConsultoraBE;
-using Portal.Consultoras.Web.ServiceODS;
+using Pais = Portal.Consultoras.Common.Constantes.CodigosISOPais;
+using ParametroUneteBE = Portal.Consultoras.Web.HojaInscripcionBelcorpPais.ParametroUneteBE;
 using Portal.Consultoras.Web.ServiceSAC;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -172,7 +168,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             DateTime newDate = DateTime.Now;
             DateTime? oldDate = (DateTime?)fechaCreacion;
-            TimeSpan ts;
+            //TimeSpan ts;
             int diferenciaDias = 0;
 
             if (fechaCreacion.HasValue)
@@ -180,7 +176,7 @@ namespace Portal.Consultoras.Web.Controllers
                 //ts = newDate - (DateTime) oldDate;
 
                 diferenciaDias = (newDate - oldDate.Value).TotalDays.ToInt();
-                ; //ts.Days;
+                //ts.Days;
             }
             else
             {
@@ -475,7 +471,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 }
                             }
                         
-                        catch (Exception ex)
+                    catch (Exception)
                         {
                         }
                     }
@@ -1832,7 +1828,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 }
                             }
                         }
-                        catch (Exception ex)
+                        catch (Exception)
                         {
                         }
                     }
@@ -4001,7 +3997,7 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                         }
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         modelMensaje.TextoMensaje = "Ocurrió un error";
                     }
@@ -4352,7 +4348,7 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                         }
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                     }
                 }
@@ -4941,21 +4937,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #region Metodos privados
-
-        private string AplicarFormatoNumeroDocumentoPorPais(string codigoPais, string numeroDocumento)
-        {
-            return Dictionaries.FormatoNumeroDocumentoBD.ContainsKey(codigoPais) &&
-                  Dictionaries.FormatoNumeroDocumentoBD[codigoPais] != null &&
-                  !string.IsNullOrWhiteSpace(numeroDocumento)
-               ? Dictionaries.FormatoNumeroDocumentoBD[codigoPais](numeroDocumento)
-               : numeroDocumento;
-            //return DictionariesUnete.FormatoNumeroDocumentoBD.ContainsKey(codigoPais) &&
-            //       DictionariesUnete.FormatoNumeroDocumentoBD[codigoPais] != null &&
-            //       !string.IsNullOrWhiteSpace(numeroDocumento)
-            //    ? DictionariesUnete.FormatoNumeroDocumentoBD[codigoPais](numeroDocumento)
-            //    : numeroDocumento;
-        }
-
+        
         private string AplicarFormatoNumeroDocumentoPorPaisVista(string codigoPais, string numeroDocumento)
         {
             return Dictionaries.FormatoNumeroDocumentoView.ContainsKey(codigoPais) &&
@@ -5064,31 +5046,7 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
 
         #region ReenviarCorreo
-
-        public string RenderViewAsString(string viewName, object model)
-        {
-            // Create a string writer to receive the HTML code
-            StringWriter stringWriter = new StringWriter();
-
-            // Get the view to render
-            ViewEngineResult viewResult = ViewEngines.Engines.FindView(ControllerContext, viewName, null);
-
-            // Create a context to render a view based on a model
-            ViewContext viewContext = new ViewContext(
-                ControllerContext,
-                viewResult.View,
-                new ViewDataDictionary(model),
-                new TempDataDictionary(),
-                stringWriter
-                );
-
-            // Render the view to a HTML code
-            viewResult.View.Render(viewContext, stringWriter);
-
-            // return the HTML code
-            return stringWriter.ToString();
-        }
-
+        
         public string RenderViewAsString<T>(string viewName, object model)
             where T : Controller, new()
         {

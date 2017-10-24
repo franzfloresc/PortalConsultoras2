@@ -37,5 +37,9 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetTiposEstrategia(List<BETipoEstrategia> tiposEstrategia);
 
         List<BETipoEstrategia> GetTiposEstrategia();
+
+        void SetRevistaDigital(RevistaDigitalModel revistaDigital);
+
+        RevistaDigitalModel GetRevistaDigital();
     }
 }

@@ -1,5 +1,9 @@
-﻿@model Portal.Consultoras.Web.Models.ConfiguracionSeccionHomeModel
+﻿@using System.Linq
+@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Models
+@using System.Collections.Generic
 
+@model Portal.Consultoras.Web.Models.ConfiguracionSeccionHomeModel
 @{
     var esShowRoom = Portal.Consultoras.Web.SessionManager.SessionManager.Instance.GetEsShowRoom();
     var mostrarShowRoomProductos = Portal.Consultoras.Web.SessionManager.SessionManager.Instance.GetMostrarShowRoomProductos();
@@ -9,6 +13,9 @@
     var mostrarPopupVenta = mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
 
     var backgroundVenta = mostrarPopupIntriga ? "" : "background: url('" + @Model.ImagenFondo + "') center center no-repeat;";
+
+	//BPT 236 Numero de productos en ShowRoom
+	var listaShowRom =ViewBag.xlistaProductoSR;
 }
 
 @if (esShowRoom)
@@ -16,6 +23,7 @@
 <div class="bc_plantilla_estrategia_personalizada"
      data-OrigenPedidoWeb=""
      data-seccion-productos="" 
+     data-plantilla="ShowRoom"
      style="@backgroundVenta;min-height: 500px; vertical-align: middle;">
 
     @if (mostrarPopupIntriga)
@@ -46,15 +54,21 @@
             <div class="content_estrategia_carrusel">
                 <div id="container-showroom-landing" class="content-favclientes content_carrusel_agregado">
                     <div>
-                        <div class="titulo">
-                            <h2>@Model.Titulo</h2>
-                            <div class="boton-ir">
-                                <a href="/ShowRoom">VER TODOS LOS SETS</a>
-                            </div>
-                        </div>
+                        
                         <div class="clear"></div>
                         @*<hr class="clear" />*@
                         <div class="contenido" style="position:relative;">
+                            <div class="titulo">
+                                <h2>@Model.Titulo</h2>
+                                <div class="boton-ir">
+                                    <a href="/ShowRoom">VER TODOS LOS SETS</a>
+                                </div>
+                                <div style="float:right; padding: 0 10px;">
+                                    <div id="divCantProductos" class="cantidad_productos_resultado">
+                                        Mostrando <span id="spnCantidadFiltro">3</span> de <span id="spnCantidadTotal">@listaShowRom</span>
+                                    </div>
+                                </div>
+                            </div>
                             {{#each this.data as |item|}}
                             <div class="" style="float: left; height: 100%; min-height: 1px; width:300px">
                                 <div class="content_item_carrusel" data-posicion="{{Posicion}}" data-item="{{OfertaShowRoomID}}">

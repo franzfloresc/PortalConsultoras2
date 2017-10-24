@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using svUsuario = Portal.Consultoras.Web.ServiceUsuario;
@@ -128,7 +127,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }, JsonRequestBehavior.AllowGet); }
         }
-        
+
         private CuponConsultoraModel ObtenerDatosCupon()
         {
             CuponConsultoraModel cuponModel;
@@ -242,12 +241,13 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
         }
-        
+
         private CuponConsultoraModel MapearBECuponConsultoraACuponConsultoraModel(BECuponConsultora cuponBE)
         {
             var codigoISO = userData.CodigoISO;
 
-            return new CuponConsultoraModel(codigoISO) {
+            return new CuponConsultoraModel(codigoISO)
+            {
                 CuponConsultoraId = cuponBE.CuponConsultoraId,
                 CodigoConsultora = cuponBE.CodigoConsultora,
                 CampaniaId = cuponBE.CampaniaId,

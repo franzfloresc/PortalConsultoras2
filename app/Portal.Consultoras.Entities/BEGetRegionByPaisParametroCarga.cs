@@ -12,7 +12,7 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public string Codigo { set; get; }
-        
+
         [DataMember]
         public string Usuario { set; get; }
 

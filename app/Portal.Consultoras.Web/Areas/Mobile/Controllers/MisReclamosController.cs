@@ -1,14 +1,12 @@
 ﻿using AutoMapper;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceCDR;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using Portal.Consultoras.Common;
-using System.ServiceModel;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -33,6 +31,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
             catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 listaCDRWebModel = new List<CDRWebModel>();
             }
 

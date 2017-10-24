@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Runtime.Serialization;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Data;
-using Portal.Consultoras.Common;
+using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities
 {
@@ -71,8 +67,8 @@ namespace Portal.Consultoras.Entities
                 FechaCreacionString = row["FechaCreacion"].ToString();
             if (DataRecord.HasColumn(row, "FechaModificacion"))
                 FechaModificacionString = row["FechaModificacion"].ToString();
-                
-        } 
+
+        }
 
 
     }

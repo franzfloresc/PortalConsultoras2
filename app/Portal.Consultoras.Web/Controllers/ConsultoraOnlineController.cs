@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.Configuration;
-using System.ServiceModel;
-using Portal.Consultoras.Web.ServiceUsuario;
-using Portal.Consultoras.Web.CustomFilters;
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using System.Text;
-using System.Globalization;
-
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
-//using Portal.Consultoras.Web.ServiceCliente;
+using Portal.Consultoras.Web.ServiceUsuario;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Globalization;
+using System.Linq;
+using System.ServiceModel;
+using System.Text;
+using System.Web;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -234,9 +231,9 @@ namespace Portal.Consultoras.Web.Controllers
 
 
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-
+                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 }
                 return View(consultoraAfiliar);
             }
@@ -646,7 +643,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                     }
                 }
-                
+
                 model.ListaPedidos = olstMisPedidos;
 
                 objMisPedidos = model;
@@ -739,7 +736,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                             // Difference in days, hours, and minutes.
                             TimeSpan ts = endDate - starDate;
-                            model.FechaPedidoReciente = ts.Hours.ToString().PadLeft(2,'0') + ":" + ts.Minutes.ToString().PadLeft(2,'0') + ":" + ts.Seconds.ToString().PadLeft(2,'0');
+                            model.FechaPedidoReciente = ts.Hours.ToString().PadLeft(2, '0') + ":" + ts.Minutes.ToString().PadLeft(2, '0') + ":" + ts.Seconds.ToString().PadLeft(2, '0');
 
                         }
 
@@ -793,7 +790,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 List<BEMisPedidosDetalle> olstMisPedidosDet = new List<BEMisPedidosDetalle>();
                 MisPedidosDetalleModel model = new MisPedidosDetalleModel();
-                
+
                 using (UsuarioServiceClient svc = new UsuarioServiceClient())
                 {
                     olstMisPedidosDet = svc.GetMisPedidosDetalleConsultoraOnline(userData.PaisID, pedidoId).ToList();
@@ -813,7 +810,7 @@ namespace Portal.Consultoras.Web.Controllers
                     Session["objMisPedidosDetalle"] = olstMisPedidosDet;
 
                     // 0=App Catalogos, >0=Portal Marca
-                    if (pedido.MarcaID == 0)    
+                    if (pedido.MarcaID == 0)
                     {
                         int? revistaGana = null;
                         using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -861,7 +858,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 item.TieneStock = 0;
                                 item.MensajeValidacion = "El producto solicitado no existe";
                             }
-                            
+
                         }// foreach
                     }
 
@@ -964,7 +961,7 @@ namespace Portal.Consultoras.Web.Controllers
                     codigo = id
                 }, JsonRequestBehavior.AllowGet);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return Json(new
                 {
@@ -1387,7 +1384,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var userData = UserData();
-                List<BEPedidoWebDetalle> olstPedidoWebDetalle = new List<BEPedidoWebDetalle>(); 
+                List<BEPedidoWebDetalle> olstPedidoWebDetalle = new List<BEPedidoWebDetalle>();
 
                 BEPedidoWebDetalle oBePedidoWebDetalle = new BEPedidoWebDetalle();
                 oBePedidoWebDetalle.IPUsuario = userData.IPUsuario;
@@ -1422,6 +1419,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return null;
             }
         }
@@ -1531,16 +1529,16 @@ namespace Portal.Consultoras.Web.Controllers
                             });
 
                         break;
-                    //case "D":
+                        //case "D":
 
-                    //    using (PedidoServiceClient sv = new PedidoServiceClient())
-                    //    {
-                    //        sv.DelPedidoWebDetalle(oBEPedidoWebDetalle);
-                    //    }
+                        //    using (PedidoServiceClient sv = new PedidoServiceClient())
+                        //    {
+                        //        sv.DelPedidoWebDetalle(oBEPedidoWebDetalle);
+                        //    }
 
-                    //    olstTempListado.RemoveAll(p => p.PedidoDetalleID == oBEPedidoWebDetalle.PedidoDetalleID);
+                        //    olstTempListado.RemoveAll(p => p.PedidoDetalleID == oBEPedidoWebDetalle.PedidoDetalleID);
 
-                    //    break;
+                        //    break;
                 }
 
                 Session["PedidoWebDetalle"] = null;
@@ -1872,6 +1870,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 var dataError = new
                 {
                     success = false,

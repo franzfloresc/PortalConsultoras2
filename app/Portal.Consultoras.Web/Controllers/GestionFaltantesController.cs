@@ -1,5 +1,4 @@
-﻿using System.Globalization;//R1957
-using AutoMapper;
+﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceODS;
@@ -7,15 +6,12 @@ using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;//R1957
 using System.Data;//R1957
 using System.IO;
 using System.Linq;
-using System.Reflection;//R1957
 using System.ServiceModel;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Script.Serialization;//R1957
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -33,11 +29,11 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
             }
-            IEnumerable<CampaniaModel> lstCampania = new List<CampaniaModel>() { 
+            IEnumerable<CampaniaModel> lstCampania = new List<CampaniaModel>() {
                                 new CampaniaModel() {
-                                    CampaniaID = 0, 
-                                    Codigo = "-- Seleccionar --" 
-                                } 
+                                    CampaniaID = 0,
+                                    Codigo = "-- Seleccionar --"
+                                }
             };
             var gestionfaltantemodel = new GestionFaltantesModel()
             {
@@ -95,7 +91,7 @@ namespace Portal.Consultoras.Web.Controllers
                                select new
                                {
                                    id = a.rowID,
-                                   cell = new string[] 
+                                   cell = new string[]
                                    {
                                        a.ZonaID.ToString(),
                                        a.CampaniaID.ToString(),
@@ -338,12 +334,12 @@ namespace Portal.Consultoras.Web.Controllers
                         for (int i = 0; i < data.Lista.Items.Count; i++)
                         {
                             BEProductoFaltante producto = new BEProductoFaltante()
-                                {
-                                    CampaniaID = data.Lista.Items[i].CampaniaID,
-                                    CUV = data.Lista.Items[i].CUV,
-                                    ZonaID = data.Lista.Items[i].ZonaID,
-                                    FaltanteUltimoMinuto = false,
-                                };
+                            {
+                                CampaniaID = data.Lista.Items[i].CampaniaID,
+                                CUV = data.Lista.Items[i].CUV,
+                                ZonaID = data.Lista.Items[i].ZonaID,
+                                FaltanteUltimoMinuto = false,
+                            };
                             Lproducto.Add(producto);
                         }
 
@@ -599,10 +595,10 @@ namespace Portal.Consultoras.Web.Controllers
         {
 
             //R1957
-            List<BEPais> lst = new List<BEPais>() { 
+            List<BEPais> lst = new List<BEPais>() {
                                 new BEPais() {
-                                    PaisID = 0, 
-                                    Nombre = "-- Seleccionar --" 
+                                    PaisID = 0,
+                                    Nombre = "-- Seleccionar --"
                                 }
                   };
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
@@ -625,7 +621,7 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
 
         // 1957 - Inicio
-        public JsonResult EliminarTodos(string CampaniaID, string Zona,string CUV, string Fecha, string Descripcion)
+        public JsonResult EliminarTodos(string CampaniaID, string Zona, string CUV, string Fecha, string Descripcion)
         {
 
             try

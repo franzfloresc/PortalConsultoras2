@@ -47,18 +47,18 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string ClienteDireccion { get; set; }
         [DataMember]
-        public string Mensaje{ get; set; }
+        public string Mensaje { get; set; }
         [DataMember]
         public decimal Total { get; set; }
         [DataMember]
         public int Cantidad { get; set; }
         [DataMember]
-        public List<BEMisPedidosDetalleAppCatalogo> DetallePedido  { get; set; }
+        public List<BEMisPedidosDetalleAppCatalogo> DetallePedido { get; set; }
 
         public BEMisPedidosAppCatalogo(IDataRecord row)
         {
             this.PedidoId = Convert.ToInt64(row["SolicitudClienteID"]);
-       
+
             this.ConsultoraID = Convert.ToInt32(row["ConsultoraID"]);
             this.ConsultoraCodigo = Convert.ToString(row["ConsultoraCodigo"]);
             this.ConsultoraNombre = Convert.ToString(row["ConsultoraNombre"]);
@@ -87,7 +87,7 @@ namespace Portal.Consultoras.Entities
             this.ClienteEmail = Convert.ToString(row["ClienteEmail"]);
             this.ClienteDireccion = Convert.ToString(row["ClienteDireccion"]);
             this.Mensaje = Convert.ToString(row["Mensaje"]);
-            
+
             if (DataRecord.HasColumn(row, "Total") && row["Total"] != DBNull.Value)
                 this.Total = Convert.ToDecimal(row["Total"]);
 
@@ -151,7 +151,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public double SubTotal { get; set; }
 
-        public BEMisPedidosDetalleAppCatalogo(){ }
+        public BEMisPedidosDetalleAppCatalogo() { }
 
         public BEMisPedidosDetalleAppCatalogo(IDataRecord row)
         {
