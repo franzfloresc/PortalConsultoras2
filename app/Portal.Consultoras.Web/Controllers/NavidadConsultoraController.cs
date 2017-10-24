@@ -11,7 +11,6 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 
-
 namespace Portal.Consultoras.Web.Controllers
 {
     public class NavidadConsultoraController : BaseController
@@ -42,7 +41,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string parametroComparte = "";
                 registro = resultado.FirstOrDefault();
                 modelo.UrlImagen = ConfigS3.GetUrlFileS3(carpetaPais, registro.NombreImg, "");
-                parametroComparte =  Convert.ToString(registro.ImagenId) + "-" +Convert.ToString(registro.PaisId);
+                parametroComparte = Convert.ToString(registro.ImagenId) + "-" + Convert.ToString(registro.PaisId);
                 modelo.UrlComparte = Request.Url.Scheme + "://" + Request.Url.Authority + (Request.ApplicationPath.ToString().Equals("/") ? "/" : (Request.ApplicationPath + "/")) + "WebPages/NavidadConsultora.aspx?comparte=" + parametroComparte;
                 return View(modelo);
             }
@@ -75,7 +74,7 @@ namespace Portal.Consultoras.Web.Controllers
                        select new
                        {
                            id = a.ImagenId,
-                           cell = new string[] 
+                           cell = new string[]
                                {
                                    a.ImagenId.ToString(),
                                    a.CampaniaId.ToString(),
@@ -102,7 +101,7 @@ namespace Portal.Consultoras.Web.Controllers
                     var fileName = Path.GetFileName(postedFile.FileName);
                     sourceimage = System.Drawing.Image.FromStream(postedFile.InputStream);
 
-                    if (sourceimage.Height == 403 && sourceimage.Width == 403 && postedFile.ContentLength <=204800)
+                    if (sourceimage.Height == 403 && sourceimage.Width == 403 && postedFile.ContentLength <= 204800)
                     {
                         var path = Path.Combine(Globals.RutaTemporales, fileName);
                         if (!System.IO.File.Exists(Globals.RutaTemporales))
@@ -110,7 +109,9 @@ namespace Portal.Consultoras.Web.Controllers
                         postedFile.SaveAs(path);
                         path = Url.Content(Path.Combine(Globals.RutaTemporales, fileName));
                         return Json(new { success = true, name = qqfile, nameFile = fileName }, "text/html");
-                    }else {
+                    }
+                    else
+                    {
                         return Json(new { success = false, name = "", nameFile = "" }, "text/html");
                     }
                 }
@@ -136,6 +137,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new { success = false, message = "Hubo un error al cargar el archivo, intente nuevamente." }, "text/html");
             }
         }
@@ -167,7 +169,7 @@ namespace Portal.Consultoras.Web.Controllers
                         using (ContenidoServiceClient servicio = new ContenidoServiceClient())
                         {
                             if (tipoMantenimiento == "Nuevo")
-                            {                            
+                            {
                                 var aviso = servicio.InsertarNavidadConsultora(parametro);
                                 if (aviso == 1)
                                 {
@@ -177,7 +179,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 {
                                     return Json("repetido", JsonRequestBehavior.AllowGet);
 
-                                }                                                              
+                                }
                             }
                             else
                             {
@@ -192,9 +194,9 @@ namespace Portal.Consultoras.Web.Controllers
                         return Json("false", JsonRequestBehavior.AllowGet);
                     }
                 }
-                return Json("error", JsonRequestBehavior.AllowGet); 
+                return Json("error", JsonRequestBehavior.AllowGet);
             }
-            return Json("error", JsonRequestBehavior.AllowGet);  
+            return Json("error", JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

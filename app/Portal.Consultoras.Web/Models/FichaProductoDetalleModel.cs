@@ -9,6 +9,8 @@ namespace Portal.Consultoras.Web.Models
         public FichaProductoDetalleModel()
         {
             ArrayContenidoSet = new List<string>();
+            ListaDescripcionDetalle = new List<string>();
+            Hermanos = new List<ProductoModel>();
         }
 
         public int CampaniaID { get; set; }
@@ -31,7 +33,7 @@ namespace Portal.Consultoras.Web.Models
         public decimal Precio { get; set; }
         public decimal Precio2 { get; set; }
         public string PrecioTachado { get; set; }
-        public string PrecioVenta { get; set; } // cambiar por PrecioVenta
+        public string PrecioVenta { get; set; }
         public int TipoAccionAgregar { get; set; } // es para los diferentes botones que sale en la seccion de agrega, elegir tono, ...
         public string ClaseBloqueada { get; set; }
         public bool ProductoPerdio { get; set; }

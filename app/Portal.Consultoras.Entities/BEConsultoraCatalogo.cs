@@ -70,7 +70,7 @@ namespace Portal.Consultoras.Entities
 
         public string CodigoUsuario { get; set; }
         public int RolId { get; set; }
-        //public int IdEstadoActividad { get; set; }
+
         public string AutorizaPedido { get; set; }
         public bool EsAfiliado { get; set; }
         public int UltimaCampania { get; set; }

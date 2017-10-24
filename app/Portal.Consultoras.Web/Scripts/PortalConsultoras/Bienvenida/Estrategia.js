@@ -311,6 +311,12 @@ function ArmarCarouselEstrategias(data) {
         if ($.trim($('#divListadoEstrategia2').html()).length > 0) {
             $('#divListaEstrategias').show();
             //return false;
+            if ($.trim($('#divListadoEstrategia2 #bc_promo').html()).length === 0) {
+                $('#divListadoEstrategia2 #bc_promo').remove();
+                $('#divListadoEstrategia2 .bc_productos').css("width", "90%");
+                $('#divListadoEstrategia2 .bc_productos').css("float", "none");
+                $('#divListadoEstrategia2 .bc_productos').css("margin", "0 auto");
+            }
         }
     } catch (e) {
         console.log(e);
@@ -626,46 +632,6 @@ function EstrategiaMostrarMasTonos(menos) {
     }
 }
 
-function CargarEstrategiaSet(cuv) {
-    AbrirLoad();
-    var detalle = new Array();
-    $.ajax({
-        type: 'GET',
-        url: baseUrl + 'OfertasParaTi/ConsultarEstrategiaSet?cuv=' + cuv,
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        async: false,
-        success: function (data) {
-            detalle = data || new Array();
-        },
-        error: function (error, x) {
-            console.log(error, x);
-            //$('#divListadoEstrategia').html('<div style="text-align: center;">Ocurrio un error al cargar los productos.</div>');
-        }
-    });
-    CerrarLoad();
-    return detalle;
-}
-
-function CargarEstrategiaCuv(cuv) {
-    AbrirLoad();
-    var detalle = new Array();
-    $.ajax({
-        type: 'GET',
-        url: baseUrl + 'OfertasParaTi/ConsultarEstrategiaCuv?cuv=' + cuv,
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        async: false,
-        success: function (data) {
-            detalle = data || new Array();
-        },
-        error: function (error, x) {
-            console.log(error, x);
-        }
-    });
-    CerrarLoad();
-    return detalle;
-}
 function CargarProductoDestacado(objParameter, objInput, popup, limite) {
     if ($.trim($(objInput).attr("data-bloqueada")) != "") {
         if (isMobile()) {

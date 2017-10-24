@@ -1,18 +1,17 @@
-﻿using System;
+﻿using AutoMapper;
+using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.CustomHelpers;
+using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServiceZonificacion;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
 using System.Linq;
+using System.ServiceModel;
 using System.Web;
 using System.Web.Mvc;
-using Portal.Consultoras.Web.Models;
-using System.ServiceModel;
-using Portal.Consultoras.Web.ServiceZonificacion;
-using Portal.Consultoras.Web.ServicePedido;
-using AutoMapper;
-using Portal.Consultoras.Common;
-using System.IO;
-using Portal.Consultoras.Web.CustomHelpers;
-using System.Configuration;
-using System.Text.RegularExpressions;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -94,7 +93,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Util.PaginadorGenerico(grid, lst);           
+                pag = Util.PaginadorGenerico(grid, lst);
                 // Creamos la estructura
                 string ISO = Util.GetPaisISO(paisID);
                 var carpetaPais = Globals.UrlMatriz + "/" + ISO; // 1664
@@ -109,7 +108,7 @@ namespace Portal.Consultoras.Web.Controllers
                            select new
                            {
                                id = a.CodigoSAP,
-                               cell = new string[] 
+                               cell = new string[]
                                {
                                    a.IdMatrizComercial.ToString(),
                                    a.CodigoSAP.ToString(),
@@ -338,12 +337,14 @@ namespace Portal.Consultoras.Web.Controllers
                 var urlS3 = ConfigS3.GetUrlS3(formatoArchivo.CarpetaPais);
 
                 return Json(new
-                { success = true, message = "Se actualizó la Matriz de Productos satisfactoriamente.",
+                {
+                    success = true,
+                    message = "Se actualizó la Matriz de Productos satisfactoriamente.",
                     isNewRecord = isNewRecord,
                     isNewImage = isNewImage,
                     idMatrizComercial = idMatrizComercial,
                     idMatrizComercialImagen = model.IdMatrizComercialImagen,
-                    codigoSap= model.CodigoSAP,
+                    codigoSap = model.CodigoSAP,
                     foto = urlS3 + entity.Foto
                 }, "text/html");
             }
@@ -415,7 +416,7 @@ namespace Portal.Consultoras.Web.Controllers
                 success = true,
                 message = "Se actualizó la descripción comercial satisfactoriamente."
             });
-        }    
+        }
 
         [HttpPost]
         public string UpdDescripcionProductoMasivo(HttpPostedFileBase flDescProd)

@@ -311,7 +311,7 @@ jQuery(document).ready(function () {
         //$(idHtml).load(urlTemplate, function (dataTemplate, status, xhr) {
         jQuery.get(urlTemplate, function (dataTemplate) {
             dataTemplate = $.trim(dataTemplate);
-            //console.log(dataTemplate);
+
             if (dataTemplate == "") {
                 return false;
             }
@@ -1192,7 +1192,7 @@ function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto, nombre) 
 
     try {
         if (origenPedidoWebEstrategia !== undefined && origenPedidoWebEstrategia.indexOf("7") !== -1) {
-            CompartirProductoRDAnalytics(tipoRedes, ruta, nombre);
+            rdAnalyticsModule.CompartirProducto(tipoRedes, ruta, nombre);
         } else {
             AnalyticsRedesSociales(tipoRedes, ruta);
         }
@@ -1405,9 +1405,9 @@ function OcultarMenu(codigo) {
 
 function MostrarMenu(codigo, accion) {
     codigo = $.trim(codigo);
-    if (codigo == "") {
+    if (codigo == "")
         return false;
-    }
+    
     var idMenus = "#ulNavPrincipal-0";
     var menu = $(idMenus).find("[data-codigo='" + codigo + "']");
     menu = menu.length == 0 ? $(idMenus).find("[data-codigo='" + codigo.toLowerCase() + "']") : menu;

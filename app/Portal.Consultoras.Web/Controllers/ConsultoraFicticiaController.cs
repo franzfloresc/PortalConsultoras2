@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Portal.Consultoras.Web.ServiceSAC;
-using Portal.Consultoras.Web.ServiceODS;
-using Portal.Consultoras.Web.ServiceZonificacion;
-using Portal.Consultoras.Web.ServiceUsuario;
+﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using AutoMapper;
+using Portal.Consultoras.Web.ServiceODS;
+using Portal.Consultoras.Web.ServiceSAC;
+using Portal.Consultoras.Web.ServiceUsuario;
+using Portal.Consultoras.Web.ServiceZonificacion;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.ServiceModel;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -26,7 +25,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!UsuarioModel.HasAcces(ViewBag.Permiso, "ConsultoraFicticia/Index"))
                     return RedirectToAction("Index", "Bienvenida");
             }
-            catch (FaultException ex) 
+            catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
             }
@@ -240,12 +239,12 @@ namespace Portal.Consultoras.Web.Controllers
                 else
                 {
 
-                        return Json(new
-                        {
-                            success = true,
-                            message = "Usuario de prueba ha sido creado correctamente.",
-                            extra = ""
-                        });
+                    return Json(new
+                    {
+                        success = true,
+                        message = "Usuario de prueba ha sido creado correctamente.",
+                        extra = ""
+                    });
                 }
             }
             catch (FaultException ex)
@@ -443,7 +442,7 @@ namespace Portal.Consultoras.Web.Controllers
                         rows = from a in items
                                select new
                                {
-                                   cell = new string[] 
+                                   cell = new string[]
                                 {
                                    a.ConsultoraID.ToString(),
                                    vPaisID,
@@ -529,7 +528,7 @@ namespace Portal.Consultoras.Web.Controllers
                         rows = from a in items
                                select new
                                {
-                                   cell = new string[] 
+                                   cell = new string[]
                                {
                                    a.ConsultoraID.ToString(),
                                    vPaisID,
@@ -579,9 +578,9 @@ namespace Portal.Consultoras.Web.Controllers
                 else
                 {
                     lst = new List<BEPais>();
-                    lst.Add(sv.SelectPais(UserData().PaisID)); 
+                    lst.Add(sv.SelectPais(UserData().PaisID));
                 }
-                
+
             }
             Mapper.CreateMap<BEPais, PaisModel>()
                     .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))

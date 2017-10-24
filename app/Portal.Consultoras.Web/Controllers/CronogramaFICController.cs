@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Portal.Consultoras.Web.ServiceZonificacion;
-using Portal.Consultoras.Web.ServiceSAC;
+﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using AutoMapper;
-using System.ServiceModel;
+using Portal.Consultoras.Web.ServiceZonificacion;
+using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.ServiceModel;
+using System.Web;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -146,12 +145,12 @@ namespace Portal.Consultoras.Web.Controllers
                            select new
                            {
                                id = a.ZonaID,
-                               cell = new string[] 
+                               cell = new string[]
                                {
                                    a.Campania.ToString(),
                                    a.Zona.ToString(),
                                    //a.FechaFin == null ? "" : Convert.ToDateTime(a.FechaFin.ToString()).ToShortDateString(),
-                                   a.FechaFin == null ? "" : Convert.ToDateTime(a.FechaFin.ToString()).Day.ToString() + " de " + NombreMes(Convert.ToDateTime(a.FechaFin.ToString()).Month),                                   
+                                   a.FechaFin == null ? "" : Convert.ToDateTime(a.FechaFin.ToString()).Day.ToString() + " de " + NombreMes(Convert.ToDateTime(a.FechaFin.ToString()).Month),
                                    a.ZonaID.ToString(),
                                    a.CampaniaID.ToString()
                                 }
@@ -390,7 +389,7 @@ namespace Portal.Consultoras.Web.Controllers
                     extra = ""
                 });
             }
-           
+
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
@@ -631,11 +630,11 @@ namespace Portal.Consultoras.Web.Controllers
                                  {
                                      data = r,
                                      attr = new JsTreeAttribute_
-                                         {
-                                             tipo = 1,
-                                             CodigoZona = r,
-                                             selected = false
-                                         },
+                                     {
+                                         tipo = 1,
+                                         CodigoZona = r,
+                                         selected = false
+                                     },
                                      children = lst.Where(i => i.Zona.Trim() == r.Trim()).Select(
                                                          z => new JsTreeModel2
                                                          {

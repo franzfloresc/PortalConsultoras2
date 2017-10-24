@@ -22,7 +22,7 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public int PaisID { get; set; }
-        
+
         [DataMember]
         public string CodigoUsuario { get; set; }
 

@@ -210,8 +210,32 @@
           <s:element minOccurs="1" maxOccurs="1" name="precio_valorizado" type="s:decimal" />
           <s:element minOccurs="1" maxOccurs="1" name="orden" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="digitable" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="factor_cuadre" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="codigo_error" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="obs_error" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ObtenerPrecioEstrategia">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="cuv" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="codigoPais" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="codigoCampana" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtenerPrecioEstrategiaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtenerPrecioEstrategiaResult" type="tns:PreciosEstrategia" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PreciosEstrategia">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="montotal" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="montoganacia" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="descripcionerror" type="s:string" />
         </s:sequence>
       </s:complexType>
     </s:schema>
@@ -258,6 +282,12 @@
   <wsdl:message name="GetEstrategiaProductoSoapOut">
     <wsdl:part name="parameters" element="tns:GetEstrategiaProductoResponse" />
   </wsdl:message>
+  <wsdl:message name="ObtenerPrecioEstrategiaSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtenerPrecioEstrategia" />
+  </wsdl:message>
+  <wsdl:message name="ObtenerPrecioEstrategiaSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtenerPrecioEstrategiaResponse" />
+  </wsdl:message>
   <wsdl:portType name="WsGestionWebSoap">
     <wsdl:operation name="GetCdrWebConsulta">
       <wsdl:input message="tns:GetCdrWebConsultaSoapIn" />
@@ -286,6 +316,10 @@
     <wsdl:operation name="GetEstrategiaProducto">
       <wsdl:input message="tns:GetEstrategiaProductoSoapIn" />
       <wsdl:output message="tns:GetEstrategiaProductoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPrecioEstrategia">
+      <wsdl:input message="tns:ObtenerPrecioEstrategiaSoapIn" />
+      <wsdl:output message="tns:ObtenerPrecioEstrategiaSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="WsGestionWebSoap" type="tns:WsGestionWebSoap">
@@ -353,6 +387,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ObtenerPrecioEstrategia">
+      <soap:operation soapAction="http://tempuri.org/ObtenerPrecioEstrategia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="WsGestionWebSoap12" type="tns:WsGestionWebSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -412,6 +455,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetEstrategiaProducto">
       <soap12:operation soapAction="http://tempuri.org/GetEstrategiaProducto" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPrecioEstrategia">
+      <soap12:operation soapAction="http://tempuri.org/ObtenerPrecioEstrategia" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

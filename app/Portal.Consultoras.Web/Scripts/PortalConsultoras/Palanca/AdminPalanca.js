@@ -181,7 +181,10 @@ function IniDialogs() {
                     DesktopLogoBanner : $("#nombre-desktop-logo-banner").val(),
                     MobileFondoBanner : $("#nombre-mobile-fondo-banner").val(),
                     MobileLogoBanner: $("#nombre-mobile-logo-banner").val(),
-                    UrlMenu: $("#UrlMenu").val()
+                    UrlMenu : $("#UrlMenu").val(),
+                    OrdenBpt : $("#OrdenBpt").val(),
+                    MobileOrden : $("#MobileOrden").val(),
+                    MobileOrdenBpt : $("#MobileOrdenBpt").val()
                 };
                 jQuery.ajax({
                     type: 'POST',
@@ -264,7 +267,7 @@ function IniDialogs() {
                     ConfiguracionPaisID: $("#ddlConfiguracionIdOfertas").val(),
                     CampaniaID: $("#ddlCampaniaOfertas").val(),
                     DesktopOrden: $("#DesktopOrden").val(),
-                    //MobileOrden: $("#").val(),
+                    MobileOrden: $("#MobileOrden").val(),
                     DesktopImagenFondo: $("#nombre-fondo-desktop").val(),
                     MobileImagenFondo: $("#nombre-fondo-mobile").val(),
                     DesktopTitulo: $("#DesktopTitulo").val(),
@@ -279,7 +282,9 @@ function IniDialogs() {
                     MobileCantidadProductos: $("#MobileCantidadProductos").val(),
                     DesktopActivo: $("#DesktopActivo").is(':checked'),
                     MobileActivo: $("#MobileActivo").is(':checked'),
-                    UrlSeccion: $('#UrlSeccion').val()
+                    UrlSeccion: $('#UrlSeccion').val(),
+                    DesktopOrdenBpt: $('#DesktopOrdenBpt').val(),
+                    MobileOrdenBpt: $('#MobileOrdenBpt').val()
                 };
                 jQuery.ajax({
                     type: 'POST',

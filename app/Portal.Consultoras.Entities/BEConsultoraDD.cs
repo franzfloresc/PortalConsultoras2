@@ -44,7 +44,7 @@
         public decimal MontoSaldoActual { get; set; }
         [DataMember]
         public int CampaniaID { get; set; }
-        [DataMember] /*AOB: C20151003*/
+        [DataMember]
         public string EstadoConsultora { get; set; }
 
         public BEConsultoraDD()
@@ -102,7 +102,7 @@
                     case "MontoSaldoActual":
                         MontoSaldoActual = Convert.ToDecimal(row["MontoSaldoActual"]);
                         break;
-                    case "EstadoConsultora": /*AOB: C20151003*/
+                    case "EstadoConsultora":
                         EstadoConsultora = Convert.ToString(row["EstadoConsultora"]);
                         break;
                     default:

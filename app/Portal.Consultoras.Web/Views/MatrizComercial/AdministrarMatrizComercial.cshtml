@@ -154,7 +154,7 @@
             hidegrid: false,
             datatype: 'json',
             postData: ({
-                paisID: function () { return $("#ddlPais").val() },
+                paisID: function () { return parseInt($("#ddlPais").val()) },
                 codigoSAP: function () { return ($.trim($("#txtCodigoSAP").val())) }
             }),
             mtype: 'GET',

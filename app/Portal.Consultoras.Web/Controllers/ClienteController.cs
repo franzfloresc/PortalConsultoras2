@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Portal.Consultoras.Web.ServiceCliente;
+﻿using ClosedXML.Excel;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using System.ServiceModel;
+using Portal.Consultoras.Web.ServiceCliente;
+using System;
+using System.Collections.Generic;
 using System.IO;
-using ClosedXML.Excel;
+using System.Linq;
+using System.ServiceModel;
+using System.Web;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -90,7 +90,7 @@ namespace Portal.Consultoras.Web.Controllers
                     contactos.Add(new BEClienteContactoDB()
                     {
                         ClienteID = model.ClienteID,
-                        Estado =  Constantes.ClienteEstado.Activo,
+                        Estado = Constantes.ClienteEstado.Activo,
                         TipoContactoID = Constantes.ClienteTipoContacto.Correo,
                         Valor = model.eMail
                     });
@@ -397,7 +397,7 @@ namespace Portal.Consultoras.Web.Controllers
                 };
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
-            return RedirectToAction("Index","Bienvenida");
+            return RedirectToAction("Index", "Bienvenida");
         }
 
         public JsonResult Eliminar(int ClienteID)
@@ -519,7 +519,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #endregion
-        
+
         public JsonResult ObtenerTodosClientes()
         {
             try
@@ -549,8 +549,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult ExportarExcelMisClientes()
         {
-            decimal cargo = 0;
-            decimal abono = 0;
             List<BECliente> lst;
             using (ClienteServiceClient sv = new ClienteServiceClient())
             {
@@ -655,12 +653,12 @@ namespace Portal.Consultoras.Web.Controllers
                                 ws.Cell(row, col).Style.NumberFormat.Format = "@";
                                 ws.Cell(row, col).Value = arr[0] + source.eMail;
                                 ws.Cell(row, col).Style.Fill.BackgroundColor = XLColor.FromHtml("#F0F6F8");
-                            }                            
+                            }
                             col++;
                         }
                         row++;
                         i++;
-                    }                    
+                    }
                     row++;
                     index = keyvalue.Key;
                     SourceDetails.RemoveRange(0, index);

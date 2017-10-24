@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Omu.Drawing;
+using System;
 using System.Drawing;
 using System.IO;
-using Omu.Drawing;
 using System.Text;
 
 namespace Portal.Consultoras.Common
@@ -261,7 +261,7 @@ namespace Portal.Consultoras.Common
             if (!File.Exists(root))
                 System.IO.Directory.CreateDirectory(root);
             var t = temproot + TempPath + filename;
-            var newfilename = filename.Substring(0,filename.Length - 4) + "_" + time + ".png";
+            var newfilename = filename.Substring(0, filename.Length - 4) + "_" + time + ".png";
             var r = root + Path + newfilename;
 
             if (File.Exists(t))

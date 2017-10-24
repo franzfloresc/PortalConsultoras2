@@ -116,7 +116,7 @@ namespace Portal.Consultoras.BizLogic
             try
             {
                 SetCatalogoRevistaMostrar(paisISO, campania, listCatalogoRevista);
-                SetCatalogoRevistaCodigoIssuu(paisISO, codigoZona, campania, listCatalogoRevista);                
+                SetCatalogoRevistaCodigoIssuu(paisISO, codigoZona, campania, listCatalogoRevista);
                 SetCatalogoRevistaFieldsInOembedIssuu(paisISO, listCatalogoRevista);
                 AjusteRevistaTituloDescripcion(paisISO, campania, listCatalogoRevista);
             }
@@ -146,7 +146,7 @@ namespace Portal.Consultoras.BizLogic
                     this.AjusteRevistaTituloDescripcion(catalogoRevista);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 LogManager.SaveLog(ex, "", paisISO);
             }
@@ -212,7 +212,7 @@ namespace Portal.Consultoras.BizLogic
             };
         }
 
-        private List<BECatalogoRevista> GetAllCatalogoRevista(string paisISO,string campanias)
+        private List<BECatalogoRevista> GetAllCatalogoRevista(string paisISO, string campanias)
         {
             var lstCampania = campanias.Split('|');
 
@@ -265,7 +265,7 @@ namespace Portal.Consultoras.BizLogic
         }
 
         private void SetCatalogoRevistaMostrar(string paisISO, int campania, List<BECatalogoRevista> listCatalogoRevista)
-        {            
+        {
             var listCatalogoConfiguracion = this.GetCatalogoConfiguracion(Util.GetPaisID(paisISO)).ToList();
 
             foreach (var catalogoRevista in listCatalogoRevista)
@@ -318,7 +318,7 @@ namespace Portal.Consultoras.BizLogic
             int campaniaInicio = Convert.ToInt32(paisCamp[1]);
             return campania >= campaniaInicio;
         }
-        
+
         private void SetCatalogoRevistaCodigoIssuu(string paisISO, string codigoZona, int campania, List<BECatalogoRevista> listCatalogoRevista)
         {
             string nombreCatalogoConfig = null, codigo;
@@ -369,10 +369,10 @@ namespace Portal.Consultoras.BizLogic
             for (int i = 0; i < listCatalogoRevista.Count; i++)
             {
                 queryString += "docname:" + listCatalogoRevista[i].CodigoIssuu;
-                if(i < listCatalogoRevista.Count - 1) queryString += "+OR+";
+                if (i < listCatalogoRevista.Count - 1) queryString += "+OR+";
                 else queryString += "&jsonCallback=?";
             }
-            
+
             string urlISSUUSearch = "http://search.issuu.com/api/2_0/document?username=somosbelcorp&q=";
             var url = urlISSUUSearch + queryString;
             string response = "";
@@ -404,7 +404,7 @@ namespace Portal.Consultoras.BizLogic
             foreach (var doc in jsonReponse["response"]["docs"])
             {
                 catalogoRevista = listCatalogoRevista.FirstOrDefault(cr => cr.CodigoIssuu == doc["docname"]);
-                if(catalogoRevista != null)
+                if (catalogoRevista != null)
                 {
                     catalogoRevista.UrlVisor = string.Format(urlIssuuVisor, catalogoRevista.CodigoIssuu);
                     catalogoRevista.UrlImagen = string.Format(UrlIssuuImage, doc["documentId"], tamanioImagen);
@@ -457,18 +457,18 @@ namespace Portal.Consultoras.BizLogic
                 string url = string.Format("{0}{1}", urlISSUUSearch, catalogoRevista.CodigoIssuu);
                 string response = string.Empty;
 
-                try
+            try
+            {
+                using (var wc = new WebClient())
                 {
-                    using (var wc = new WebClient())
-                    {
-                        wc.Encoding = System.Text.Encoding.UTF8;
-                        wc.Proxy = null;
-                        response = wc.DownloadString(url);
-                    }
+                    wc.Encoding = System.Text.Encoding.UTF8;
+                    wc.Proxy = null;
+                    response = wc.DownloadString(url);
+                }
 
-                    if (!string.IsNullOrEmpty(response))
-                    {
-                        if (response.Substring(0, 2) == "?(") response = response.Substring(2, response.Length - 3);
+                if (!string.IsNullOrEmpty(response))
+                {
+                    if (response.Substring(0, 2) == "?(") response = response.Substring(2, response.Length - 3);
 
                         dynamic jsonReponse = Newtonsoft.Json.Linq.JObject.Parse(response);
 

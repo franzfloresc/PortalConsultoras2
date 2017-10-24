@@ -3,16 +3,17 @@ using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServiceCDR;
 using Portal.Consultoras.Web.Models.Layout;
+using Portal.Consultoras.Web.ServiceCDR;
+using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServicePedidoRechazado;
+using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
 using Portal.Consultoras.Web.ServiceSeguridad;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
-using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,6 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Web.Mvc;
-using Portal.Consultoras.Web.ServiceODS;
 using System.Web.Security;
 using Portal.Consultoras.Web.Helpers;
 
@@ -62,8 +62,8 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 userData = UserData();
-                revistaDigital = GetSession(Constantes.ConstSession.RevistaDigital) as RevistaDigitalModel ?? new RevistaDigitalModel();
-                if (userData == null)
+                revistaDigital = sessionManager.GetRevistaDigital() ?? new RevistaDigitalModel();
+                if (userData == null || userData == default(UsuarioModel))
                 {
                     string URLSignOut = string.Empty;
                     if (Request.UrlReferrer != null && Request.UrlReferrer.ToString().Contains(Request.Url.Host))
@@ -993,7 +993,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             if (model == null)
-                return model;
+                return new UsuarioModel();
 
             string UrlEMTELCO = "";
             try
@@ -1764,6 +1764,7 @@ namespace Portal.Consultoras.Web.Controllers
                         listaHermanos.ForEach(h =>
                         {
                             h.CUV = Util.Trim(h.CUV);
+                            h.FactorCuadre = 1;
                         });
                         listaHermanos = listaHermanos.OrderBy(h => h.Orden).ToList();
                     }
@@ -1797,6 +1798,7 @@ namespace Portal.Consultoras.Web.Controllers
                         prod.Digitable = item.Digitable;
                         prod.CUV = Util.Trim(item.CUV);
                         prod.Cantidad = item.Cantidad;
+                        prod.FactorCuadre = item.FactorCuadre > 0 ? item.FactorCuadre : 1;
                         listaHermanosX.Add(prod);
                         idPk = prod.ID;
                     }
@@ -1833,7 +1835,26 @@ namespace Portal.Consultoras.Web.Controllers
                         listaHermanos = listaHermanosR.OrderBy(p => p.Orden).ToList();
                     }
                 }
-                fichaProductoModelo.Hermanos = listaHermanos ?? new List<ProductoModel>();
+                #region Factor Cuadre
+
+                var listaHermanosCuadre = new List<ProductoModel>();
+
+                foreach (var hermano in listaHermanos)
+                {
+                    listaHermanosCuadre.Add((ProductoModel)hermano.Clone());
+
+                    if (hermano.FactorCuadre > 1)
+                    {
+                        for (int i = 0; i < hermano.FactorCuadre - 1; i++)
+                        {
+                            listaHermanosCuadre.Add((ProductoModel)hermano.Clone());
+                        }
+                    }
+                }
+
+                #endregion
+
+                fichaProductoModelo.Hermanos = listaHermanosCuadre ?? new List<ProductoModel>();
             }
             catch (Exception ex)
             {
@@ -2803,19 +2824,28 @@ namespace Portal.Consultoras.Web.Controllers
             return url.Contains("/mobile/") || url.Contains("/g/");
         }
 
-        public List<BETablaLogicaDatos> ObtenerParametrosTablaLogica(int paisID, short tablaLogicaId)
+        public List<BETablaLogicaDatos> ObtenerParametrosTablaLogica(int paisID, short tablaLogicaId, bool sesion = false)
         {
-            var datos = new List<BETablaLogicaDatos>();
-            using (var svc = new SACServiceClient())
+            var datos = sesion ? (List<BETablaLogicaDatos>)Session[Constantes.ConstSession.TablaLogicaDatos + tablaLogicaId.ToString()] : null;
+            if (datos == null)
             {
-                datos = svc.GetTablaLogicaDatos(paisID, tablaLogicaId).ToList();
+                datos = new List<BETablaLogicaDatos>();
+                using (SACServiceClient sv = new SACServiceClient())
+                {
+                    datos = sv.GetTablaLogicaDatos(userData.PaisID, tablaLogicaId).ToList();
+                }
+                datos = datos ?? new List<BETablaLogicaDatos>();
+
+                if (sesion)
+                    Session[Constantes.ConstSession.TablaLogicaDatos + tablaLogicaId.ToString()] = datos;
             }
+
             return datos;
         }
 
-        public string ObtenerValorTablaLogica(int paisID, short tablaLogicaId, short idTablaLogicaDatos)
+        public string ObtenerValorTablaLogica(int paisID, short tablaLogicaId, short idTablaLogicaDatos, bool sesion = false)
         {
-            return ObtenerValorTablaLogica(ObtenerParametrosTablaLogica(paisID, tablaLogicaId), idTablaLogicaDatos);
+            return ObtenerValorTablaLogica(ObtenerParametrosTablaLogica(paisID, tablaLogicaId, sesion), idTablaLogicaDatos);
         }
 
         public string ObtenerValorTablaLogica(List<BETablaLogicaDatos> datos, short idTablaLogicaDatos)
@@ -2823,11 +2853,8 @@ namespace Portal.Consultoras.Web.Controllers
             var valor = "";
             if (datos.Any())
             {
-                var par = datos.FirstOrDefault(d => d.TablaLogicaDatosID == idTablaLogicaDatos);
-                if (par != null)
-                {
-                    valor = par.Codigo;
-                }
+                var par = datos.FirstOrDefault(d => d.TablaLogicaDatosID == idTablaLogicaDatos) ?? new BETablaLogicaDatos();
+                valor = Util.Trim(par.Codigo);
             }
             return valor;
         }
@@ -3344,7 +3371,7 @@ namespace Portal.Consultoras.Web.Controllers
                     SubTitulo = isMobile ? entConf.MobileSubTitulo : entConf.DesktopSubTitulo,
                     TipoPresentacion = isMobile ? entConf.MobileTipoPresentacion : entConf.DesktopTipoPresentacion,
                     TipoEstrategia = isMobile ? entConf.MobileTipoEstrategia : entConf.DesktopTipoEstrategia,
-                    CantidadProductos = isMobile ? entConf.MobileCantidadProductos : entConf.DesktopCantidadProductos,
+                    CantidadMostrar = isMobile ? entConf.MobileCantidadProductos : entConf.DesktopCantidadProductos,
                     UrlLandig = "/" + (isMobile ? "Mobile/" : "") + entConf.UrlSeccion,
                     VerMas = true
                 };
@@ -3355,14 +3382,17 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     case Constantes.ConfiguracionPais.OfertasParaTi:
                         seccion.UrlObtenerProductos = "OfertasParaTi/ConsultarEstrategiasOPT";
+                        seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding : Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding;
                         seccion.VerMas = false;
                         break;
                     case Constantes.ConfiguracionPais.Lanzamiento:
-                        seccion.UrlObtenerProductos = "RevistaDigital/RDObtenerProductos";
+                        seccion.UrlObtenerProductos = "RevistaDigital/RDObtenerProductosLan";
+                        seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.RevistaDigitalMobileLandingCarrusel : Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLandingCarrusel;
                         break;
                     case Constantes.ConfiguracionPais.RevistaDigitalReducida:
                     case Constantes.ConfiguracionPais.RevistaDigital:
                         seccion.UrlObtenerProductos = "RevistaDigital/RDObtenerProductos";
+                        seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding : Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding;
                         break;
                     case Constantes.ConfiguracionPais.ShowRoom:
 
@@ -3428,13 +3458,13 @@ namespace Portal.Consultoras.Web.Controllers
                     case Constantes.ConfiguracionSeccion.TipoPresentacion.SimpleCentrado:
                         seccion.TemplatePresentacion = "seccion-simple-centrado";
                         seccion.TemplateProducto = "#producto-landing-template";
-                        seccion.CantidadProductos = isMobile ? 1 : seccion.CantidadProductos > 3 || seccion.CantidadProductos <= 0 ? 3 : seccion.CantidadProductos;
+                        seccion.CantidadMostrar = isMobile ? 1 : seccion.CantidadMostrar > 3 || seccion.CantidadMostrar <= 0 ? 3 : seccion.CantidadMostrar;
                         break;
                     case Constantes.ConfiguracionSeccion.TipoPresentacion.Banners:
                         seccion.TemplatePresentacion = "seccion-banner";
                         seccion.Titulo = "";
                         seccion.SubTitulo = "";
-                        seccion.CantidadProductos = 0;
+                        seccion.CantidadMostrar = 0;
                         break;
                     case Constantes.ConfiguracionSeccion.TipoPresentacion.ShowRoom:
                         if (sessionManager.GetEsShowRoom())
@@ -3460,6 +3490,7 @@ namespace Portal.Consultoras.Web.Controllers
             return modelo.OrderBy(s => s.Orden).ToList();
 
         }
+
         public ConfiguracionSeccionHomeModel ObtenerSeccionHomePalanca(string codigo, int campaniaId)
         {
             var seccion = new ConfiguracionSeccionHomeModel();
@@ -3472,6 +3503,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return seccion;
         }
+
         public bool RDObtenerTitulosSeccion(ref string titulo, ref string subtitulo, string codigo)
         {
             if (codigo == Constantes.ConfiguracionPais.RevistaDigital)
@@ -3784,9 +3816,10 @@ namespace Portal.Consultoras.Web.Controllers
 
             listaMenu.AddRange(BuildMenuContenedorBloqueado(listaMenu));
 
+            var isMob = IsMobile();
             listaMenu = (revistaDigital.TieneRDC || revistaDigital.TieneRDR)
-                ? listaMenu.OrderBy(m => m.OrdenBpt).ToList()
-                : listaMenu.OrderBy(m => m.Orden).ToList();
+                ? isMob ? listaMenu.OrderBy(m => m.MobileOrdenBPT).ToList() : listaMenu.OrderBy(m => m.OrdenBpt).ToList()
+                : isMob ? listaMenu.OrderBy(m => m.MobileOrden).ToList() : listaMenu.OrderBy(m => m.Orden).ToList();
 
             Session[Constantes.ConstSession.MenuContenedor] = listaMenu;
             return listaMenu;
@@ -3943,7 +3976,7 @@ namespace Portal.Consultoras.Web.Controllers
             switch (marcaId)
             {
                 case 1:
-                    result = "Lbel";
+                    result = "L'bel";
                     break;
                 case 2:
                     result = "Ésika";
@@ -4029,4 +4062,3 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
     }
 }
-

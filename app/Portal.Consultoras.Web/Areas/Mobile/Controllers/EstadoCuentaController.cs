@@ -34,7 +34,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                             FechaVencimiento = item.Fecha.ToString("dd/MM/yyyy"),
                             TipoMovimiento = item.Abono > 0 ? Constantes.EstadoCuentaTipoMovimiento.Abono :
                                 item.Cargo > 0 ? Constantes.EstadoCuentaTipoMovimiento.Cargo : 0,
-                            MontoStr = Util.DecimalToStringFormat(item.Abono > 0 ? item.Abono : item.Cargo, userData.CodigoISO), 
+                            MontoStr = Util.DecimalToStringFormat(item.Abono > 0 ? item.Abono : item.Cargo, userData.CodigoISO),
                             Fecha = item.Fecha
                         });
                 }

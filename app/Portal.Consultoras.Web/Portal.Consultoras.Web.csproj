@@ -255,6 +255,7 @@
     <Compile Include="Controllers\AdministrarConfiguracionPortalController.cs" />
     <Compile Include="Controllers\AdministrarCuponController.cs" />
     <Compile Include="Controllers\AdministrarEstrategiaController.cs" />
+    <Compile Include="Controllers\AdministrarGuiaNegocioDigitalizadaController.cs" />
     <Compile Include="Controllers\AdministrarPalancaController.cs" />
     <Compile Include="Controllers\AdministrarEtiquetasController.cs" />
     <Compile Include="Controllers\AdministrarFactoresGananciaController.cs" />
@@ -4416,6 +4417,7 @@
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpDialogErrorMainLayout.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpDialogMensajes.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpTemplateResumenCampania.cshtml" />
+    <Content Include="Views\AdministrarGuiaNegocioDigitalizada\Index.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\template-producto-landing.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-descargables-navidenos.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">

@@ -1,6 +1,6 @@
-﻿using System.Web.Mvc;
-using Portal.Consultoras.Web.Areas.Mobile.Models;
+﻿using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Controllers;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {

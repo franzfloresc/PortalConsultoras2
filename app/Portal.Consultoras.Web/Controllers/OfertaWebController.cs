@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using AutoMapper;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using System.ServiceModel;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceZonificacion;
-using AutoMapper;
-using Portal.Consultoras.Common;
+using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.ServiceModel;
+using System.Web;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -59,13 +59,17 @@ namespace Portal.Consultoras.Web.Controllers
 
             switch (MarcaID)
             {
-                case 1: result = "L'Bel";
+                case 1:
+                    result = "L'Bel";
                     break;
-                case 2: result = "Ésika";
+                case 2:
+                    result = "Ésika";
                     break;
-                case 3: result = "Cyzone";
+                case 3:
+                    result = "Cyzone";
                     break;
-                case 6: result = "Finart";
+                case 6:
+                    result = "Finart";
                     break;
             }
 
@@ -160,7 +164,7 @@ namespace Portal.Consultoras.Web.Controllers
                         entidad.CampaniaID = UserData().CampaniaID;
                         entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.Web;
                         entidad.IPUsuario = UserData().IPUsuario;
-                        
+
                         entidad.CodigoUsuarioCreacion = UserData().CodigoConsultora;
                         entidad.CodigoUsuarioModificacion = entidad.CodigoUsuarioCreacion;
                         entidad.OrigenPedidoWeb = ProcesarOrigenPedido(entidad.OrigenPedidoWeb);
@@ -272,7 +276,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     entidad.CodigoUsuarioCreacion = UserData().CodigoConsultora;
                     entidad.CodigoUsuarioModificacion = entidad.CodigoUsuarioCreacion;
-                    
+
                     sv.UpdPedidoWebDetalleOferta(entidad);
                 }
 
@@ -372,7 +376,7 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult ObtenerImagenesByCodigoSAP(int paisID, string codigoSAP)
         {
             List<BEMatrizComercial> lst = new List<BEMatrizComercial>();
-			// 1664
+            // 1664
             var carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
             List<BEMatrizComercial> lstFinal = new List<BEMatrizComercial>();
 
@@ -531,7 +535,7 @@ namespace Portal.Consultoras.Web.Controllers
                            select new
                            {
                                id = a.NroOrden,
-                               cell = new string[] 
+                               cell = new string[]
                                {
                                    a.TipoOferta.ToString(),
                                    a.CodigoProducto.ToString(),
