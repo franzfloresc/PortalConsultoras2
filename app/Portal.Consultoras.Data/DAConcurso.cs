@@ -83,7 +83,7 @@ namespace Portal.Consultoras.Data
 
         public IDataReader ObtenerIncentivosProgramaNuevasConsultora(string CodigoConsultora, int CodigoCampania, long ConsultoraID)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerIncentivosProgramaNuevasConsultora");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerIncentivosProgramaNuevasConsultora2");
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, CodigoConsultora);
             Context.Database.AddInParameter(command, "@CodigoCampania", DbType.Int32, CodigoCampania);
             Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, ConsultoraID);
