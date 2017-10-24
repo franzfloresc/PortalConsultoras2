@@ -2816,7 +2816,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public bool IsMobile()
+        public virtual bool  IsMobile()
         {
             //// todo: better aproach HttpContext.Request.Browser.IsMobileDevice;
             var url = string.Empty;
@@ -3392,7 +3392,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     case Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada:
                         seccion.UrlObtenerProductos = "";
-                        seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.GNDMobileContenedor : Constantes.OrigenPedidoWeb.GNDDesktopContenedor;
+                        //seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb. : Constantes.OrigenPedidoWeb.GNDDesktopContenedor;
                         break;
                     case Constantes.ConfiguracionPais.OfertasParaTi:
                         seccion.UrlObtenerProductos = "OfertasParaTi/ConsultarEstrategiasOPT";

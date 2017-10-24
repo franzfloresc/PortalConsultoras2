@@ -749,6 +749,29 @@ namespace Portal.Consultoras.Common
             }
         }
 
+        public class GuiaNegocioTipoOrdenamiento
+        {
+            public const string Precio = "PRECIO";
+            public class ValorPrecio
+            {
+                public const string Predefinido = "01";
+                public const string MenorAMayor = "02";
+                public const string MayorAMenor = "03";
+            }
+        }
+
+        public class GuiaNegocioMarca
+        {
+            public const string Precio = "MARCA";
+            public class ValorPrecio
+            {
+                public const string Predefinido = "-";
+                public const string Cyzone = "CYZONE";
+                public const string Esika = "ÉSIKA";
+                public const string LBel = "LBEL";
+            }
+        }
+
         public class MatrizNemotecnicoMensajes
         {
             public const string TooltipInformacionFormatoBusqueda = "Formato de búsqueda de Nemotécnico: &lt;SAP_1&gt;#&lt;Cantidad_1&gt;&amp;&lt;SAP_2&gt;#&lt;Cantidad_2&gt;&amp;...&lt;SAP_N&gt;#&lt;Cantidad_N&gt; , ejemplos: 210080203, 210080203#01, 200083988 210080203, 200083988&210080203, 200083988#02&210080203#01";
