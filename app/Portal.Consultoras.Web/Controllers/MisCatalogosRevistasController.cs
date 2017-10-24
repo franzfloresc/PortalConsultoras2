@@ -32,19 +32,11 @@ namespace Portal.Consultoras.Web.Controllers
             clienteModel.CodigoRevistaSiguiente = GetRevistaCodigoIssuu(clienteModel.CampaniaSiguiente);
 
             ViewBag.CodigoISO = userData.CodigoISO;
-            ViewBag.EsConsultoraNueva = userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Registrada ||
-                                        userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Retirada;
+            ViewBag.EsConsultoraNueva = EsConsultoraNueva();
             ViewBag.TextoMensajeSaludoCorreo = TextoMensajeSaludoCorreo;
 
-            clienteModel.MostrarRevistaDigital = userData.RevistaDigital.TieneRDR;
-            ViewBag.TieneRDC = userData.RevistaDigital.TieneRDC;
-            ViewBag.TieneRDR = userData.RevistaDigital.TieneRDR;
-            ViewBag.TieneRDS = userData.RevistaDigital.TieneRDS;
-            ViewBag.EstadoSucripcionRD = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
-            ViewBag.EstadoSucripcionRDAnterior1 = userData.RevistaDigital.SuscripcionAnterior1Model.EstadoRegistro; 
-            ViewBag.EstadoSucripcionRDAnterior2 = userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro;
-            ViewBag.NombreConsultora = userData.Sobrenombre;
-            ViewBag.NumeroCampania = userData.CampaniaID % 100;
+            clienteModel.MostrarRevistaDigital = revistaDigital.TieneRDR;
+            clienteModel.RevistaDigital = revistaDigital;
             return View(clienteModel);
         }
 

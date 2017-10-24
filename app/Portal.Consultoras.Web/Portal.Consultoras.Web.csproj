@@ -413,6 +413,7 @@
     <Compile Include="Models\ClienteOnlineDetalleModel.cs" />
     <Compile Include="Models\ClienteSb2Model.cs" />
     <Compile Include="Models\BarraConsultoraModel.cs" />
+    <Compile Include="Models\EventoFestivoDataModel.cs" />
     <Compile Include="Models\EventoFestivoModel.cs" />
     <Compile Include="Models\FichaProductoDetalleModel.cs" />
     <Compile Include="Models\FichaProductoModel.cs" />
@@ -1212,13 +1213,15 @@
     <Content Include="Content\Css\Site\Esika\Contenedor.css" />
     <Content Include="Content\Css\Site\Esika\reset.css" />
     <Content Include="Content\Css\Site\Esika\revistaDigital.css" />
+    <Content Include="Content\Css\Site\Esika\seccion-descarga-imprime.css" />
     <Content Include="Content\Css\Site\Esika\style.css" />
     <Content Include="Content\Css\Site\Lbel\Contenedor.css" />
     <Content Include="Content\Css\Site\Lbel\revistaDigital.css" />
+    <Content Include="Content\Css\Site\Lbel\seccion-descarga-imprime.css" />
     <Content Include="Content\HojaInscripcion\carrito-menu.png" />
     <Content Include="Content\Css\Site\Login2\style_esika.min.css" />
     <Content Include="Content\Css\Site\Login2\style_lbel.min.css" />
-    <Content Include="Content\ImageHelper\xzoom.css" /> 
+    <Content Include="Content\ImageHelper\xzoom.css" />
     <Content Include="Content\Images\arrow-down.svg" />
     <Content Include="Content\Images\arrow.png" />
     <Content Include="Content\Css\Site\jquery.rateyo.css" />
@@ -1227,8 +1230,18 @@
     <Content Include="Content\FileCargaCuponConsultora\test.html" />
     <Content Include="Content\Images\carrito-hover.png" />
     <Content Include="Content\Images\carrito.png" />
+    <Content Include="Content\Images\Esika\Contenedor\fondo-seccion-descarga-imprime.jpg" />
+    <Content Include="Content\Images\Esika\Contenedor\icono-descarga-e-imprime-hover.svg" />
+    <Content Include="Content\Images\Esika\Contenedor\icono-descarga-e-imprime.svg" />
+    <Content Include="Content\Images\Esika\Contenedor\papel-de-regalo.png" />
+    <Content Include="Content\Images\Esika\Contenedor\tarjetas-navidenias.png" />
+    <Content Include="Content\Images\Lbel\Contenedor\fondo-seccion-descarga-imprime.jpg" />
+    <Content Include="Content\Images\Lbel\Contenedor\icono-descarga-e-imprime-hover.svg" />
+    <Content Include="Content\Images\Lbel\Contenedor\icono-descarga-e-imprime.svg" />
     <Content Include="Content\Images\Lbel\Contenedor\inicio_hover.png" />
     <Content Include="Content\Images\Lbel\Contenedor\inicio_normal.png" />
+    <Content Include="Content\Images\Lbel\Contenedor\papel-de-regalo.png" />
+    <Content Include="Content\Images\Lbel\Contenedor\tarjetas-navidenias.png" />
     <Content Include="Content\Images\mobile\Esika\Contenedor\casita_hover.png" />
     <Content Include="Content\Images\mobile\Esika\Contenedor\inicio_hover.png" />
     <Content Include="Content\Images\mobile\Esika\Contenedor\inicio_normal.png" />
@@ -3548,7 +3561,6 @@
     <Content Include="Areas\Mobile\Views\RevistaDigital\template-landing.cshtml" />
     <Content Include="Areas\Mobile\Views\RevistaDigital\template-informativa.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaProducto\DetalleProducto.cshtml" />
-    <Content Include="Areas\Mobile\Views\Bienvenida\template-opt-carrusel-mobile.cshtml" />
     <Content Include="Areas\Mobile\Views\Bienvenida\template-opt-seccion.cshtml" />
     <Content Include="Areas\Mobile\Views\RevistaDigital\template-mensaje-bloqueado.cshtml" />
     <Content Include="Areas\Mobile\Views\RevistaDigital\template-mensaje-inscrita.cshtml" />
@@ -3571,6 +3583,16 @@
     <Content Include="Areas\Mobile\Views\OfertaDelDia\_OfertaDelDiaBannerTop.cshtml" />
     <Content Include="Areas\Mobile\Views\OfertaDelDia\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\OfertaDelDia\_OfertaDelDiaBanner.cshtml" />
+    <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloqueMensajesPostulante.cshtml" />
+    <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloqueMensajesPedido.cshtml" />
+    <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloqueBannerShowRoomTop.cshtml" />
+    <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloqueBannerShowRoom.cshtml" />
+    <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\vp_BloquePopupMensajesInformacion.cshtml" />
+    <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloquePopupComunidad.cshtml" />
+    <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloquePopupSesionFinalizada.cshtml" />
+    <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloquePopupPostulante.cshtml" />
+    <Content Include="Content\FAQ\CodigoEticaCAPEVEDI_PE.pdf" />
+    <Content Include="Content\FAQ\QUIZCAPEVEDI_PE.pdf" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>
@@ -4354,7 +4376,6 @@
     <Content Include="Views\ConsultaPedido\ConsultaPedidoImp.cshtml" />
     <Content Include="Views\Shared\_Menu2.cshtml" />
     <Content Include="Views\AdministrarReporteValidacion\Index.cshtml" />
-    <Content Include="Views\EstrategiaPersonalizada\template-producto-landing.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\template-producto-packnueva.cshtml" />
     <Content Include="Views\Unete\ReporteFunnel.cshtml" />
     <Content Include="Views\Unete\_DevolverSolicitud.cshtml" />
@@ -4362,8 +4383,6 @@
     <Content Include="Views\Shared\MatrizComercial\_matrizComercialItemTemplate.cshtml" />
     <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo8.cshtml" />
     <Content Include="Views\Unete\_MotivoRechazo.cshtml" />
-    <Content Include="Views\EstrategiaPersonalizada\template-producto-landing.cshtml" />
-    <Content Include="Views\EstrategiaPersonalizada\template-producto-packnueva.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\template-producto-verdetalle.cshtml" />
     <Content Include="Views\Ofertas\Index.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\template-lanzamiento-carrusel.cshtml" />
@@ -4385,10 +4404,21 @@
     <Content Include="Views\FichaProducto\template-ficha-producto.cshtml" />
     <Content Include="Views\Unete\TemplatesDatosAval\_DatosAvalGrupo1.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-banner.cshtml" />
-    <Content Include="Views\Shared\_vpBloqueMensajesPostulante.cshtml" />
-    <Content Include="Views\Shared\_vpBloqueMensajesPedido.cshtml" />
-    <Content Include="Views\Shared\_vpMenuB.cshtml" />
+    <Content Include="Views\Shared\VistaParcialMainLayout\_vpBloqueMensajesPostulante.cshtml" />
+    <Content Include="Views\Shared\VistaParcialMainLayout\_vpBloqueMensajesPedido.cshtml" />
+    <Content Include="Views\Shared\VistaParcialMainLayout\_vpMenuB.cshtml" />
+    <Content Include="Views\Shared\VistaParcialMainLayout\_vpFeDeErratas.cshtml" />
     <Content Include="Views\Shared\_template-ofertadeldia-style.cshtml" />
+    <Content Include="Views\Shared\VistaParcialMainLayout\_vpRegistroComunidad.cshtml" />
+    <Content Include="Views\Shared\VistaParcialMainLayout\_vpBannerLateralShowRoom.cshtml" />
+    <Content Include="Views\Shared\VistaParcialMainLayout\_vpDialogPedidoReservado.cshtml" />
+    <Content Include="Views\Shared\VistaParcialMainLayout\_vpDialogMensajePostulante.cshtml" />
+    <Content Include="Views\Shared\VistaParcialMainLayout\_vpDialogSesionMainLayout.cshtml" />
+    <Content Include="Views\Shared\VistaParcialMainLayout\_vpDialogErrorMainLayout.cshtml" />
+    <Content Include="Views\Shared\VistaParcialMainLayout\_vpDialogMensajes.cshtml" />
+    <Content Include="Views\Shared\VistaParcialMainLayout\_vpTemplateResumenCampania.cshtml" />
+    <Content Include="Views\EstrategiaPersonalizada\template-producto-landing.cshtml" />
+    <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-descargables-navidenos.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -4399,7 +4429,6 @@
     <Content Include="Views\MisReclamos\ReporteDetalle.cshtml" />
     <Content Include="Views\IncentivosSMS\Index.cshtml" />
     <Content Include="Views\RevistaDigital\Index.cshtml" />
-    <Content Include="Views\Bienvenida\template-carrusel-opt.cshtml" />
     <Content Include="Views\MatrizComercial\MatrizComercialDialog.cshtml" />
     <Content Include="Views\AdministrarProductoSugerido\ListadoImagenesMatriz.cshtml" />
     <Content Include="Views\OfertaLiquidacion\OfertaLiquidacionDialog.cshtml" />

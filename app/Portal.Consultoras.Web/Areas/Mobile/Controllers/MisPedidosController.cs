@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Helpers;
 using Portal.Consultoras.Web.ServiceSAC;
 
 
@@ -20,7 +21,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             try
             {
-                var mobileConfiguracion = (Session["MobileAppConfiguracion"] == null ? new MobileAppConfiguracionModel() : (MobileAppConfiguracionModel)Session["MobileAppConfiguracion"]);
+                var mobileConfiguracion = this.GetUniqueSession<MobileAppConfiguracionModel>("MobileAppConfiguracion");
                 model.ClienteID = mobileConfiguracion.ClienteID;
                 //if (mobileConfiguracion.ClienteID > 0)
                 //{
@@ -31,7 +32,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 //    }
                 //}
 
-                using(var service = new PedidoServiceClient())
+                using (var service = new PedidoServiceClient())
                 {
                     listaPedidos = service.GetPedidosIngresadoFacturadoWebMobile(userData.PaisID, Convert.ToInt32(userData.ConsultoraID), userData.CampaniaID, model.ClienteID, 3, userData.CodigoConsultora).ToList();
                 }
@@ -194,7 +195,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
 
                 foreach (var pedidoDetalle in listaPedidosFacturadosDetalle)
-                { 
+                {
                     if (pedidoDetalle.CUV.Trim().Length > 0 &&
                         pedidoDetalle.Descripcion.Trim().Length > 0)
                     {
@@ -217,7 +218,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 using (var sv = new ServiceCliente.ClienteServiceClient())
                 {
-                    model.ListaClientes = sv.SelectByConsultora(userData.PaisID, userData.ConsultoraID).OrderBy(x=>x.Nombre).ToList();
+                    model.ListaClientes = sv.SelectByConsultora(userData.PaisID, userData.ConsultoraID).OrderBy(x => x.Nombre).ToList();
                     model.ListaClientes.Insert(0, new ServiceCliente.BECliente { ClienteID = 0, Nombre = userData.NombreConsultora });
                 }
             }
