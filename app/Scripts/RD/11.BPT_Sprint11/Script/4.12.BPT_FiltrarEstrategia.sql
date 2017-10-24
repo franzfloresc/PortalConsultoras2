@@ -1,6 +1,7 @@
 USE BelcorpPeru
 GO
 
+GO
 ALTER PROCEDURE [dbo].[FiltrarEstrategia] 
 	@EstrategiaID INT = 0,
 	@CUV2 varchar(50),
@@ -8,6 +9,7 @@ ALTER PROCEDURE [dbo].[FiltrarEstrategia]
 	@CampaniaID INT
 AS
 BEGIN
+
 	SELECT
 		EstrategiaID,
 		TipoEstrategiaID,
@@ -37,6 +39,7 @@ BEGIN
 		ISNULL(e.FlagEstrella, 0) FlagEstrella,
 		mc.CodigoSAP,
 		mc.IdMatrizComercial,
+		e.EsOfertaIndependiente,
 		e.PrecioPublico,
 		e.Ganancia
 	FROM dbo.Estrategia e
@@ -51,12 +54,14 @@ BEGIN
 		((@CampaniaID = 0) OR (@CampaniaID IS NULL) OR (e.CampaniaID = @CampaniaID))
 		AND
 		((@TipoEstrategiaID = 0) OR (@TipoEstrategiaID IS NULL) OR (e.TipoEstrategiaID = @TipoEstrategiaID));
+
 END
 GO
 
 USE BelcorpMexico
 GO
 
+GO
 ALTER PROCEDURE [dbo].[FiltrarEstrategia] 
 	@EstrategiaID INT = 0,
 	@CUV2 varchar(50),
@@ -64,6 +69,7 @@ ALTER PROCEDURE [dbo].[FiltrarEstrategia]
 	@CampaniaID INT
 AS
 BEGIN
+
 	SELECT
 		EstrategiaID,
 		TipoEstrategiaID,
@@ -93,6 +99,7 @@ BEGIN
 		ISNULL(e.FlagEstrella, 0) FlagEstrella,
 		mc.CodigoSAP,
 		mc.IdMatrizComercial,
+		e.EsOfertaIndependiente,
 		e.PrecioPublico,
 		e.Ganancia
 	FROM dbo.Estrategia e
@@ -107,12 +114,14 @@ BEGIN
 		((@CampaniaID = 0) OR (@CampaniaID IS NULL) OR (e.CampaniaID = @CampaniaID))
 		AND
 		((@TipoEstrategiaID = 0) OR (@TipoEstrategiaID IS NULL) OR (e.TipoEstrategiaID = @TipoEstrategiaID));
+
 END
 GO
 
 USE BelcorpColombia
 GO
 
+GO
 ALTER PROCEDURE [dbo].[FiltrarEstrategia] 
 	@EstrategiaID INT = 0,
 	@CUV2 varchar(50),
@@ -120,6 +129,7 @@ ALTER PROCEDURE [dbo].[FiltrarEstrategia]
 	@CampaniaID INT
 AS
 BEGIN
+
 	SELECT
 		EstrategiaID,
 		TipoEstrategiaID,
@@ -149,6 +159,7 @@ BEGIN
 		ISNULL(e.FlagEstrella, 0) FlagEstrella,
 		mc.CodigoSAP,
 		mc.IdMatrizComercial,
+		e.EsOfertaIndependiente,
 		e.PrecioPublico,
 		e.Ganancia
 	FROM dbo.Estrategia e
@@ -163,12 +174,14 @@ BEGIN
 		((@CampaniaID = 0) OR (@CampaniaID IS NULL) OR (e.CampaniaID = @CampaniaID))
 		AND
 		((@TipoEstrategiaID = 0) OR (@TipoEstrategiaID IS NULL) OR (e.TipoEstrategiaID = @TipoEstrategiaID));
+
 END
 GO
 
 USE BelcorpVenezuela
 GO
 
+GO
 ALTER PROCEDURE [dbo].[FiltrarEstrategia] 
 	@EstrategiaID INT = 0,
 	@CUV2 varchar(50),
@@ -176,6 +189,7 @@ ALTER PROCEDURE [dbo].[FiltrarEstrategia]
 	@CampaniaID INT
 AS
 BEGIN
+
 	SELECT
 		EstrategiaID,
 		TipoEstrategiaID,
@@ -205,6 +219,7 @@ BEGIN
 		ISNULL(e.FlagEstrella, 0) FlagEstrella,
 		mc.CodigoSAP,
 		mc.IdMatrizComercial,
+		e.EsOfertaIndependiente,
 		e.PrecioPublico,
 		e.Ganancia
 	FROM dbo.Estrategia e
@@ -219,12 +234,14 @@ BEGIN
 		((@CampaniaID = 0) OR (@CampaniaID IS NULL) OR (e.CampaniaID = @CampaniaID))
 		AND
 		((@TipoEstrategiaID = 0) OR (@TipoEstrategiaID IS NULL) OR (e.TipoEstrategiaID = @TipoEstrategiaID));
+
 END
 GO
 
 USE BelcorpSalvador
 GO
 
+GO
 ALTER PROCEDURE [dbo].[FiltrarEstrategia] 
 	@EstrategiaID INT = 0,
 	@CUV2 varchar(50),
@@ -232,6 +249,7 @@ ALTER PROCEDURE [dbo].[FiltrarEstrategia]
 	@CampaniaID INT
 AS
 BEGIN
+
 	SELECT
 		EstrategiaID,
 		TipoEstrategiaID,
@@ -261,6 +279,7 @@ BEGIN
 		ISNULL(e.FlagEstrella, 0) FlagEstrella,
 		mc.CodigoSAP,
 		mc.IdMatrizComercial,
+		e.EsOfertaIndependiente,
 		e.PrecioPublico,
 		e.Ganancia
 	FROM dbo.Estrategia e
@@ -275,12 +294,14 @@ BEGIN
 		((@CampaniaID = 0) OR (@CampaniaID IS NULL) OR (e.CampaniaID = @CampaniaID))
 		AND
 		((@TipoEstrategiaID = 0) OR (@TipoEstrategiaID IS NULL) OR (e.TipoEstrategiaID = @TipoEstrategiaID));
+
 END
 GO
 
 USE BelcorpPuertoRico
 GO
 
+GO
 ALTER PROCEDURE [dbo].[FiltrarEstrategia] 
 	@EstrategiaID INT = 0,
 	@CUV2 varchar(50),
@@ -288,6 +309,7 @@ ALTER PROCEDURE [dbo].[FiltrarEstrategia]
 	@CampaniaID INT
 AS
 BEGIN
+
 	SELECT
 		EstrategiaID,
 		TipoEstrategiaID,
@@ -317,6 +339,7 @@ BEGIN
 		ISNULL(e.FlagEstrella, 0) FlagEstrella,
 		mc.CodigoSAP,
 		mc.IdMatrizComercial,
+		e.EsOfertaIndependiente,
 		e.PrecioPublico,
 		e.Ganancia
 	FROM dbo.Estrategia e
@@ -331,12 +354,14 @@ BEGIN
 		((@CampaniaID = 0) OR (@CampaniaID IS NULL) OR (e.CampaniaID = @CampaniaID))
 		AND
 		((@TipoEstrategiaID = 0) OR (@TipoEstrategiaID IS NULL) OR (e.TipoEstrategiaID = @TipoEstrategiaID));
+
 END
 GO
 
 USE BelcorpPanama
 GO
 
+GO
 ALTER PROCEDURE [dbo].[FiltrarEstrategia] 
 	@EstrategiaID INT = 0,
 	@CUV2 varchar(50),
@@ -344,6 +369,7 @@ ALTER PROCEDURE [dbo].[FiltrarEstrategia]
 	@CampaniaID INT
 AS
 BEGIN
+
 	SELECT
 		EstrategiaID,
 		TipoEstrategiaID,
@@ -373,6 +399,7 @@ BEGIN
 		ISNULL(e.FlagEstrella, 0) FlagEstrella,
 		mc.CodigoSAP,
 		mc.IdMatrizComercial,
+		e.EsOfertaIndependiente,
 		e.PrecioPublico,
 		e.Ganancia
 	FROM dbo.Estrategia e
@@ -387,12 +414,14 @@ BEGIN
 		((@CampaniaID = 0) OR (@CampaniaID IS NULL) OR (e.CampaniaID = @CampaniaID))
 		AND
 		((@TipoEstrategiaID = 0) OR (@TipoEstrategiaID IS NULL) OR (e.TipoEstrategiaID = @TipoEstrategiaID));
+
 END
 GO
 
 USE BelcorpGuatemala
 GO
 
+GO
 ALTER PROCEDURE [dbo].[FiltrarEstrategia] 
 	@EstrategiaID INT = 0,
 	@CUV2 varchar(50),
@@ -400,6 +429,7 @@ ALTER PROCEDURE [dbo].[FiltrarEstrategia]
 	@CampaniaID INT
 AS
 BEGIN
+
 	SELECT
 		EstrategiaID,
 		TipoEstrategiaID,
@@ -429,6 +459,7 @@ BEGIN
 		ISNULL(e.FlagEstrella, 0) FlagEstrella,
 		mc.CodigoSAP,
 		mc.IdMatrizComercial,
+		e.EsOfertaIndependiente,
 		e.PrecioPublico,
 		e.Ganancia
 	FROM dbo.Estrategia e
@@ -443,12 +474,14 @@ BEGIN
 		((@CampaniaID = 0) OR (@CampaniaID IS NULL) OR (e.CampaniaID = @CampaniaID))
 		AND
 		((@TipoEstrategiaID = 0) OR (@TipoEstrategiaID IS NULL) OR (e.TipoEstrategiaID = @TipoEstrategiaID));
+
 END
 GO
 
 USE BelcorpEcuador
 GO
 
+GO
 ALTER PROCEDURE [dbo].[FiltrarEstrategia] 
 	@EstrategiaID INT = 0,
 	@CUV2 varchar(50),
@@ -456,6 +489,7 @@ ALTER PROCEDURE [dbo].[FiltrarEstrategia]
 	@CampaniaID INT
 AS
 BEGIN
+
 	SELECT
 		EstrategiaID,
 		TipoEstrategiaID,
@@ -485,6 +519,7 @@ BEGIN
 		ISNULL(e.FlagEstrella, 0) FlagEstrella,
 		mc.CodigoSAP,
 		mc.IdMatrizComercial,
+		e.EsOfertaIndependiente,
 		e.PrecioPublico,
 		e.Ganancia
 	FROM dbo.Estrategia e
@@ -499,12 +534,14 @@ BEGIN
 		((@CampaniaID = 0) OR (@CampaniaID IS NULL) OR (e.CampaniaID = @CampaniaID))
 		AND
 		((@TipoEstrategiaID = 0) OR (@TipoEstrategiaID IS NULL) OR (e.TipoEstrategiaID = @TipoEstrategiaID));
+
 END
 GO
 
 USE BelcorpDominicana
 GO
 
+GO
 ALTER PROCEDURE [dbo].[FiltrarEstrategia] 
 	@EstrategiaID INT = 0,
 	@CUV2 varchar(50),
@@ -512,6 +549,7 @@ ALTER PROCEDURE [dbo].[FiltrarEstrategia]
 	@CampaniaID INT
 AS
 BEGIN
+
 	SELECT
 		EstrategiaID,
 		TipoEstrategiaID,
@@ -541,6 +579,7 @@ BEGIN
 		ISNULL(e.FlagEstrella, 0) FlagEstrella,
 		mc.CodigoSAP,
 		mc.IdMatrizComercial,
+		e.EsOfertaIndependiente,
 		e.PrecioPublico,
 		e.Ganancia
 	FROM dbo.Estrategia e
@@ -555,12 +594,14 @@ BEGIN
 		((@CampaniaID = 0) OR (@CampaniaID IS NULL) OR (e.CampaniaID = @CampaniaID))
 		AND
 		((@TipoEstrategiaID = 0) OR (@TipoEstrategiaID IS NULL) OR (e.TipoEstrategiaID = @TipoEstrategiaID));
+
 END
 GO
 
 USE BelcorpCostaRica
 GO
 
+GO
 ALTER PROCEDURE [dbo].[FiltrarEstrategia] 
 	@EstrategiaID INT = 0,
 	@CUV2 varchar(50),
@@ -568,6 +609,7 @@ ALTER PROCEDURE [dbo].[FiltrarEstrategia]
 	@CampaniaID INT
 AS
 BEGIN
+
 	SELECT
 		EstrategiaID,
 		TipoEstrategiaID,
@@ -597,6 +639,7 @@ BEGIN
 		ISNULL(e.FlagEstrella, 0) FlagEstrella,
 		mc.CodigoSAP,
 		mc.IdMatrizComercial,
+		e.EsOfertaIndependiente,
 		e.PrecioPublico,
 		e.Ganancia
 	FROM dbo.Estrategia e
@@ -611,12 +654,14 @@ BEGIN
 		((@CampaniaID = 0) OR (@CampaniaID IS NULL) OR (e.CampaniaID = @CampaniaID))
 		AND
 		((@TipoEstrategiaID = 0) OR (@TipoEstrategiaID IS NULL) OR (e.TipoEstrategiaID = @TipoEstrategiaID));
+
 END
 GO
 
 USE BelcorpChile
 GO
 
+GO
 ALTER PROCEDURE [dbo].[FiltrarEstrategia] 
 	@EstrategiaID INT = 0,
 	@CUV2 varchar(50),
@@ -624,6 +669,7 @@ ALTER PROCEDURE [dbo].[FiltrarEstrategia]
 	@CampaniaID INT
 AS
 BEGIN
+
 	SELECT
 		EstrategiaID,
 		TipoEstrategiaID,
@@ -653,6 +699,7 @@ BEGIN
 		ISNULL(e.FlagEstrella, 0) FlagEstrella,
 		mc.CodigoSAP,
 		mc.IdMatrizComercial,
+		e.EsOfertaIndependiente,
 		e.PrecioPublico,
 		e.Ganancia
 	FROM dbo.Estrategia e
@@ -667,12 +714,14 @@ BEGIN
 		((@CampaniaID = 0) OR (@CampaniaID IS NULL) OR (e.CampaniaID = @CampaniaID))
 		AND
 		((@TipoEstrategiaID = 0) OR (@TipoEstrategiaID IS NULL) OR (e.TipoEstrategiaID = @TipoEstrategiaID));
+
 END
 GO
 
 USE BelcorpBolivia
 GO
 
+GO
 ALTER PROCEDURE [dbo].[FiltrarEstrategia] 
 	@EstrategiaID INT = 0,
 	@CUV2 varchar(50),
@@ -680,6 +729,7 @@ ALTER PROCEDURE [dbo].[FiltrarEstrategia]
 	@CampaniaID INT
 AS
 BEGIN
+
 	SELECT
 		EstrategiaID,
 		TipoEstrategiaID,
@@ -709,6 +759,7 @@ BEGIN
 		ISNULL(e.FlagEstrella, 0) FlagEstrella,
 		mc.CodigoSAP,
 		mc.IdMatrizComercial,
+		e.EsOfertaIndependiente,
 		e.PrecioPublico,
 		e.Ganancia
 	FROM dbo.Estrategia e
@@ -723,6 +774,6 @@ BEGIN
 		((@CampaniaID = 0) OR (@CampaniaID IS NULL) OR (e.CampaniaID = @CampaniaID))
 		AND
 		((@TipoEstrategiaID = 0) OR (@TipoEstrategiaID IS NULL) OR (e.TipoEstrategiaID = @TipoEstrategiaID));
+
 END
 GO
-
