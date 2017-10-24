@@ -347,9 +347,9 @@ namespace Portal.Consultoras.Common
             // Segundo Dígito -- Pantalla
             // 1: Home                      2: Pedido
             // 3: Liquidacion               4: Catalogo Personalizado
-            // 5: ShowRoom                  9: General
-            // 6: OfertaParaTi
-            // 7: RevistaDigital
+            // 5: ShowRoom                  6: OfertaParaTi
+            // 7: RevistaDigital            8: GuiaNegocioDigital
+            // 9: General
 
             // Tercer Dígito -- Sección dentro de la Pantalla
             // 1: Banners                   2: Ofertas para ti
@@ -525,13 +525,11 @@ namespace Portal.Consultoras.Common
             public const int MobilePedidoVirtualCoach = 2231;
 
             // Guía de Negocio Digitalizada
-            public const int GNDDesktopContenedor = 1711;
-            public const int GNDDesktopLanding = 1711;
-            public const int GNDDesktopLandingPopUp = 1712;
-            public const int GNDDesktopProductPage = 1731;
-            public const int GNDMobileContenedor = 1711;
-            public const int GNDMobileLanding = 1711;
-            public const int GNDMobileProductPage = 1731;
+            public const int GNDDesktopLanding = 1811;
+            public const int GNDDesktopLandingPopUp = 1812;
+            //
+            public const int GNDMobileLanding = 2811;
+            public const int GNDMobileProductPage = 2812;
         }
 
         public class TipoTutorial
@@ -748,6 +746,29 @@ namespace Portal.Consultoras.Common
                 public const string Predefinido = "01";
                 public const string MenorAMayor = "02";
                 public const string MayorAMenor = "03";
+            }
+        }
+
+        public class GuiaNegocioTipoOrdenamiento
+        {
+            public const string Precio = "PRECIO";
+            public class ValorPrecio
+            {
+                public const string Predefinido = "01";
+                public const string MenorAMayor = "02";
+                public const string MayorAMenor = "03";
+            }
+        }
+
+        public class GuiaNegocioMarca
+        {
+            public const string Precio = "MARCA";
+            public class ValorPrecio
+            {
+                public const string Predefinido = "-";
+                public const string Cyzone = "CYZONE";
+                public const string Esika = "ÉSIKA";
+                public const string LBel = "LBEL";
             }
         }
 

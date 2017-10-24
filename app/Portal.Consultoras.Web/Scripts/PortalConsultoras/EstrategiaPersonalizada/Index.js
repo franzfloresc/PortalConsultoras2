@@ -90,13 +90,13 @@ function SeccionCargarProductos(objConsulta) {
     if (objConsulta.Codigo === CONS_CODIGO_SECCION.DES) {
         $("#" + objConsulta.Codigo).find(".seccion-loading-contenedor").fadeOut();
         $("#" + objConsulta.Codigo).find(".seccion-content-contenedor").fadeIn();
-        return false;
     }
 
     if (objConsulta.TipoPresentacion == CONS_TIPO_PRESENTACION.Banners) {
             $("#" + objConsulta.Codigo).find(".seccion-loading-contenedor").fadeOut();
             $("#" + objConsulta.Codigo).find(".seccion-content-contenedor").fadeIn();
     }
+
     if (objConsulta.UrlObtenerProductos === "")
         return false;
 
