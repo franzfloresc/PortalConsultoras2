@@ -341,29 +341,45 @@ namespace Portal.Consultoras.Common
 
         public class OrigenPedidoWeb
         {
-            // Primer Dígito -- Plataforma
-            // 1: Desktop                   2: Mobile
+            public class Campos
+            {
+                // Primer Dígito
+                public const int PLATAFORMA_INICIO = 0;
+                public const int PLATAFORMA_TAMANO = 1;
+                //  Segundo Dígito
+                public const int PANTALLA_INICIO = 1;
+                public const int PANTALLA_TAMANO = 1;
+                // Tercer Dígito
+                public const int SECCION_DENTRO_DE_PANTALLA_INICIO = 2;
+                public const int SECCION_DENTRO_DE_PANTALLA_TAMANO = 1;
 
-            // Segundo Dígito -- Pantalla
-            // 1: Home                      2: Pedido
-            // 3: Liquidacion               4: Catalogo Personalizado
-            // 5: ShowRoom                  9: General
-            // 6: OfertaParaTi
-            // 7: RevistaDigital
+                // Cuarto Dígito
+                public const int POPUP_INICIO = 3;
+                public const int POPUP_TAMANO = 1;
+            }
+                // Primer Dígito -- Plataforma
+                // 1: Desktop                   2: Mobile
 
-            // Tercer Dígito -- Sección dentro de la Pantalla
-            // 1: Banners                   2: Ofertas para ti
-            // 3: Catalogo Personalizado    4: Liquidacion
-            // 5: Producto Sugerido         6: Oferta Final
-            // 7: ShowRoom                  8: Consultora Online
-            // 9: Oferta del dia            0: Revista Digital
-            // 1: index
-            // 2: OfertaParaTi Detalle
+                // Segundo Dígito -- Pantalla
+                // 1: Home                      2: Pedido
+                // 3: Liquidacion               4: Catalogo Personalizado
+                // 5: ShowRoom                  6: OfertaParaTi
+                // 7: RevistaDigital            8: GuiaNegocioDigital
+                // 9: General
 
-            // Cuarto Dígito
-            // 1. Sin popUp                 2. Con popUp
+                // Tercer Dígito -- Sección dentro de la Pantalla
+                // 1: Banners                   2: Ofertas para ti
+                // 3: Catalogo Personalizado    4: Liquidacion
+                // 5: Producto Sugerido         6: Oferta Final
+                // 7: ShowRoom                  8: Consultora Online
+                // 9: Oferta del dia            0: Revista Digital
+                // 1: index
+                // 2: OfertaParaTi Detalle
 
-            public const int DesktopHomeBanners = 1111;
+                // Cuarto Dígito
+                // 1. Sin popUp                 2. Con popUp
+
+                public const int DesktopHomeBanners = 1111;
             public const int DesktopHomeOfertasParaTi = 1121;
             public const int DesktopHomeOfertasParaTiPopUp = 1122;
             public const int DesktopHomeCatalogoPersonalizado = 1131;
@@ -525,13 +541,11 @@ namespace Portal.Consultoras.Common
             public const int MobilePedidoVirtualCoach = 2231;
 
             // Guía de Negocio Digitalizada
-            public const int GNDDesktopContenedor = 1711;
-            public const int GNDDesktopLanding = 1711;
-            public const int GNDDesktopLandingPopUp = 1712;
-            public const int GNDDesktopProductPage = 1731;
-            public const int GNDMobileContenedor = 1711;
-            public const int GNDMobileLanding = 1711;
-            public const int GNDMobileProductPage = 1731;
+            public const int GNDDesktopLanding = 1811;
+            public const int GNDDesktopLandingPopUp = 1812;
+            //
+            public const int GNDMobileLanding = 2811;
+            public const int GNDMobileProductPage = 2812;
         }
 
         public class TipoTutorial
@@ -748,6 +762,29 @@ namespace Portal.Consultoras.Common
                 public const string Predefinido = "01";
                 public const string MenorAMayor = "02";
                 public const string MayorAMenor = "03";
+            }
+        }
+
+        public class GuiaNegocioTipoOrdenamiento
+        {
+            public const string Precio = "PRECIO";
+            public class ValorPrecio
+            {
+                public const string Predefinido = "01";
+                public const string MenorAMayor = "02";
+                public const string MayorAMenor = "03";
+            }
+        }
+
+        public class GuiaNegocioMarca
+        {
+            public const string Precio = "MARCA";
+            public class ValorPrecio
+            {
+                public const string Predefinido = "-";
+                public const string Cyzone = "CYZONE";
+                public const string Esika = "ÉSIKA";
+                public const string LBel = "LBEL";
             }
         }
 

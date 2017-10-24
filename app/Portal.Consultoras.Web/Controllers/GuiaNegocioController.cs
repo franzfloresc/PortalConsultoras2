@@ -33,12 +33,16 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var listaFinal1 = ConsultarEstrategiasModel("", 0, Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada);
                 var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1);
+
+                int cantidadTotal = listModel.Count;
                 
                 return Json(new
                 {
                     success = true,
                     lista = listModel,
-                    campaniaId = model.CampaniaID
+                    campaniaId = model.CampaniaID,
+                    cantidadTotal = cantidadTotal,
+                    cantidad = cantidadTotal
                 });
             }
             catch (Exception ex)

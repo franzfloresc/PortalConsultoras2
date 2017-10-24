@@ -1,6 +1,7 @@
 USE BelcorpPeru
 GO
 
+GO
 ALTER PROCEDURE [dbo].[ListarEstrategiasPackNuevas]
 	@CampaniaID INT,
 	@CodigoConsultora VARCHAR(30)
@@ -49,6 +50,9 @@ SET NOCOUNT ON;
 		, TE.CODIGO
 		, TE.DescripcionEstrategia
 		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg
+		, E.EsOfertaIndependiente
+		, TE.ImagenOfertaIndependiente
+		, TE.MostrarImgOfertaIndependiente
 		, E.PrecioPublico
 		, E.Ganancia
 	FROM Estrategia E with(nolock)
@@ -81,6 +85,7 @@ GO
 USE BelcorpMexico
 GO
 
+GO
 ALTER PROCEDURE [dbo].[ListarEstrategiasPackNuevas]
 	@CampaniaID INT,
 	@CodigoConsultora VARCHAR(30)
@@ -129,6 +134,9 @@ SET NOCOUNT ON;
 		, TE.CODIGO
 		, TE.DescripcionEstrategia
 		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg
+		, E.EsOfertaIndependiente
+		, TE.ImagenOfertaIndependiente
+		, TE.MostrarImgOfertaIndependiente
 		, E.PrecioPublico
 		, E.Ganancia
 	FROM Estrategia E with(nolock)
@@ -161,6 +169,7 @@ GO
 USE BelcorpColombia
 GO
 
+GO
 ALTER PROCEDURE [dbo].[ListarEstrategiasPackNuevas]
 	@CampaniaID INT,
 	@CodigoConsultora VARCHAR(30)
@@ -209,6 +218,9 @@ SET NOCOUNT ON;
 		, TE.CODIGO
 		, TE.DescripcionEstrategia
 		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg
+		, E.EsOfertaIndependiente
+		, TE.ImagenOfertaIndependiente
+		, TE.MostrarImgOfertaIndependiente
 		, E.PrecioPublico
 		, E.Ganancia
 	FROM Estrategia E with(nolock)
@@ -241,6 +253,7 @@ GO
 USE BelcorpVenezuela
 GO
 
+GO
 ALTER PROCEDURE [dbo].[ListarEstrategiasPackNuevas]
 	@CampaniaID INT,
 	@CodigoConsultora VARCHAR(30)
@@ -289,6 +302,9 @@ SET NOCOUNT ON;
 		, TE.CODIGO
 		, TE.DescripcionEstrategia
 		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg
+		, E.EsOfertaIndependiente
+		, TE.ImagenOfertaIndependiente
+		, TE.MostrarImgOfertaIndependiente
 		, E.PrecioPublico
 		, E.Ganancia
 	FROM Estrategia E with(nolock)
@@ -321,6 +337,7 @@ GO
 USE BelcorpSalvador
 GO
 
+GO
 ALTER PROCEDURE [dbo].[ListarEstrategiasPackNuevas]
 	@CampaniaID INT,
 	@CodigoConsultora VARCHAR(30)
@@ -369,6 +386,9 @@ SET NOCOUNT ON;
 		, TE.CODIGO
 		, TE.DescripcionEstrategia
 		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg
+		, E.EsOfertaIndependiente
+		, TE.ImagenOfertaIndependiente
+		, TE.MostrarImgOfertaIndependiente
 		, E.PrecioPublico
 		, E.Ganancia
 	FROM Estrategia E with(nolock)
@@ -401,6 +421,7 @@ GO
 USE BelcorpPuertoRico
 GO
 
+GO
 ALTER PROCEDURE [dbo].[ListarEstrategiasPackNuevas]
 	@CampaniaID INT,
 	@CodigoConsultora VARCHAR(30)
@@ -449,6 +470,9 @@ SET NOCOUNT ON;
 		, TE.CODIGO
 		, TE.DescripcionEstrategia
 		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg
+		, E.EsOfertaIndependiente
+		, TE.ImagenOfertaIndependiente
+		, TE.MostrarImgOfertaIndependiente
 		, E.PrecioPublico
 		, E.Ganancia
 	FROM Estrategia E with(nolock)
@@ -481,6 +505,7 @@ GO
 USE BelcorpPanama
 GO
 
+GO
 ALTER PROCEDURE [dbo].[ListarEstrategiasPackNuevas]
 	@CampaniaID INT,
 	@CodigoConsultora VARCHAR(30)
@@ -529,6 +554,9 @@ SET NOCOUNT ON;
 		, TE.CODIGO
 		, TE.DescripcionEstrategia
 		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg
+		, E.EsOfertaIndependiente
+		, TE.ImagenOfertaIndependiente
+		, TE.MostrarImgOfertaIndependiente
 		, E.PrecioPublico
 		, E.Ganancia
 	FROM Estrategia E with(nolock)
@@ -561,6 +589,7 @@ GO
 USE BelcorpGuatemala
 GO
 
+GO
 ALTER PROCEDURE [dbo].[ListarEstrategiasPackNuevas]
 	@CampaniaID INT,
 	@CodigoConsultora VARCHAR(30)
@@ -609,6 +638,9 @@ SET NOCOUNT ON;
 		, TE.CODIGO
 		, TE.DescripcionEstrategia
 		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg
+		, E.EsOfertaIndependiente
+		, TE.ImagenOfertaIndependiente
+		, TE.MostrarImgOfertaIndependiente
 		, E.PrecioPublico
 		, E.Ganancia
 	FROM Estrategia E with(nolock)
@@ -641,6 +673,7 @@ GO
 USE BelcorpEcuador
 GO
 
+GO
 ALTER PROCEDURE [dbo].[ListarEstrategiasPackNuevas]
 	@CampaniaID INT,
 	@CodigoConsultora VARCHAR(30)
@@ -689,6 +722,9 @@ SET NOCOUNT ON;
 		, TE.CODIGO
 		, TE.DescripcionEstrategia
 		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg
+		, E.EsOfertaIndependiente
+		, TE.ImagenOfertaIndependiente
+		, TE.MostrarImgOfertaIndependiente
 		, E.PrecioPublico
 		, E.Ganancia
 	FROM Estrategia E with(nolock)
@@ -721,6 +757,7 @@ GO
 USE BelcorpDominicana
 GO
 
+GO
 ALTER PROCEDURE [dbo].[ListarEstrategiasPackNuevas]
 	@CampaniaID INT,
 	@CodigoConsultora VARCHAR(30)
@@ -769,6 +806,9 @@ SET NOCOUNT ON;
 		, TE.CODIGO
 		, TE.DescripcionEstrategia
 		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg
+		, E.EsOfertaIndependiente
+		, TE.ImagenOfertaIndependiente
+		, TE.MostrarImgOfertaIndependiente
 		, E.PrecioPublico
 		, E.Ganancia
 	FROM Estrategia E with(nolock)
@@ -801,6 +841,7 @@ GO
 USE BelcorpCostaRica
 GO
 
+GO
 ALTER PROCEDURE [dbo].[ListarEstrategiasPackNuevas]
 	@CampaniaID INT,
 	@CodigoConsultora VARCHAR(30)
@@ -849,6 +890,9 @@ SET NOCOUNT ON;
 		, TE.CODIGO
 		, TE.DescripcionEstrategia
 		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg
+		, E.EsOfertaIndependiente
+		, TE.ImagenOfertaIndependiente
+		, TE.MostrarImgOfertaIndependiente
 		, E.PrecioPublico
 		, E.Ganancia
 	FROM Estrategia E with(nolock)
@@ -881,6 +925,7 @@ GO
 USE BelcorpChile
 GO
 
+GO
 ALTER PROCEDURE [dbo].[ListarEstrategiasPackNuevas]
 	@CampaniaID INT,
 	@CodigoConsultora VARCHAR(30)
@@ -929,6 +974,9 @@ SET NOCOUNT ON;
 		, TE.CODIGO
 		, TE.DescripcionEstrategia
 		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg
+		, E.EsOfertaIndependiente
+		, TE.ImagenOfertaIndependiente
+		, TE.MostrarImgOfertaIndependiente
 		, E.PrecioPublico
 		, E.Ganancia
 	FROM Estrategia E with(nolock)
@@ -961,6 +1009,7 @@ GO
 USE BelcorpBolivia
 GO
 
+GO
 ALTER PROCEDURE [dbo].[ListarEstrategiasPackNuevas]
 	@CampaniaID INT,
 	@CodigoConsultora VARCHAR(30)
@@ -1009,6 +1058,9 @@ SET NOCOUNT ON;
 		, TE.CODIGO
 		, TE.DescripcionEstrategia
 		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg
+		, E.EsOfertaIndependiente
+		, TE.ImagenOfertaIndependiente
+		, TE.MostrarImgOfertaIndependiente
 		, E.PrecioPublico
 		, E.Ganancia
 	FROM Estrategia E with(nolock)
@@ -1037,4 +1089,3 @@ SET NOCOUNT ON;
 SET NOCOUNT OFF
 END
 GO
-
