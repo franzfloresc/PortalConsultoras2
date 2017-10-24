@@ -632,7 +632,7 @@ function IsValidUrl(value) {
 }
 
 function isMobile() {
-    var isUrlMobile = $.trim(location.href).toLowerCase().indexOf("/mobile/") > 0 ||
+    var isUrlMobile = $.trim(location.href.replace("#", "/") + "/").toLowerCase().indexOf("/mobile/") > 0 ||
         $.trim(location.href).toLowerCase().indexOf("/g/") > 0;
     return isUrlMobile;
 }
