@@ -13599,6 +13599,9 @@ a{
     margin-top: 30px;
     background: #fff;
     box-shadow: 0 -6px 9px 0 rgba(217,217,217,.8);
+    position:fixed;
+    bottom:0%;
+    z-index:1001
 }
 .app-footer .sections-1{
     width:50%;
