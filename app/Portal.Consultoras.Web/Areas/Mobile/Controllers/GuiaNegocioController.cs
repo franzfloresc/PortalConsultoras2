@@ -7,14 +7,14 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
-    public class GuiaNegocioController : BaseEstrategiaController
+    public class GuiaNegocioController : BaseGuiaNegocioController
     {
         // GET: Mobile/GuiaNegocio
         public ActionResult Index()
         {
             try
             {
-                return RenderIndex();
+                return ViewLanding();
             }
             catch (Exception ex)
             {
@@ -22,11 +22,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
 
             return RedirectToAction("Index", "Bienvenida");
-        }
-
-        public virtual ActionResult RenderIndex()
-        {
-            return null;
         }
     }
 }

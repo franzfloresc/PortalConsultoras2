@@ -9,7 +9,7 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class BaseGuiaNegocioController : BaseEstrategiaController
     {
-        public ActionResult ViewLanding()
+        public virtual ActionResult ViewLanding()
         {
             var model = new RevistaDigitalLandingModel();
 
