@@ -639,7 +639,40 @@
     </script>
 }
 
+@section headerScripts {
+    @*<script type="text/javascript" id="analytics-load" src="~/Scripts/PortalConsultoras/Login/Test.js"></script>*@
+    <script type="text/javascript">
+    /* <![CDATA[ */
+        var google_conversion_id = 0;
+        var google_custom_params = window.google_tag_params;
+        var google_remarketing_only = true;
+    /* ]]> */
+    </script>
+
+    <div id="div-analytics-image" style="display:inline;"></div>
+    <noscript id="noscript-pixel-image"></noscript>
+}
+
 @section scripts {
+    <script>
+        var configAnalytics = { listPaisAnalytics : [] };
+        @if (Model.ListPaisAnalytics != null)
+        {
+            foreach (var paisAnalytics in Model.ListPaisAnalytics)
+            {
+                <text>
+                    configAnalytics.listPaisAnalytics.push({
+                        CodigoISO: '@paisAnalytics.CodigoISO',
+                        GndId: @(paisAnalytics.GndId),
+                        PixelId: '@paisAnalytics.PixelId',
+                        SearchId: @(paisAnalytics.SearchId),
+                        YoutubeId: @(paisAnalytics.YoutubeId)
+                    })
+                </text>
+            }
+        }
+    </script>
+
     @System.Web.Optimization.Scripts.Render("~/bundles/JS-Login")
 }
 

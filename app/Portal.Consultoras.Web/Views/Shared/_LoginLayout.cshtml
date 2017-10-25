@@ -62,6 +62,8 @@
             a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
         }, 1);
     </script>
+
+    @RenderSection("headerScripts", required: false)
 </head>
 <body class="body_login @Model.NombreClase" onload="noback();" onpageshow="if(event.persisted) noback();" onunload="" >
     <!--[if lt IE 9]>

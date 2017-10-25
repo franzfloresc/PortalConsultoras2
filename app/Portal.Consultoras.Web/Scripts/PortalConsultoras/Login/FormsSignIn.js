@@ -4,7 +4,7 @@ var activarHover = true;
 var val_comboLogin = "";
 var temp = "";
 var openloginPopup = false;
-
+var analytics = Analytics(configAnalytics);
 
 var CodigoISO;
 var PaisID;
@@ -74,13 +74,11 @@ $(document).ready(function () {
 
     $("#ddlPais").change(function () {
         imgISO = $("#ddlPais").val();
+        analytics.invocarAnalyticsByCodigoIso(imgISO);
 
-        if ($("#ddlPais").val() == "MX") {
-            $("#AvisoASP").show();
-        }
-        else {
-            $("#AvisoASP").hide();
-        }       
+        if ($("#ddlPais").val() == "MX") $("#AvisoASP").show();
+        else $("#AvisoASP").hide();
+
         EsconderLogoEsikaPanama(imgISO);
         AsignarHojaEstilos();
 

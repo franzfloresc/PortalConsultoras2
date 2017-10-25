@@ -33,12 +33,11 @@ namespace Portal.Consultoras.Web.Controllers
         [AllowAnonymous]
         public ActionResult Index(string returnUrl = null)
         {
-            if (EsUsuarioAutenticado() && EsDispositivoMovil())
+            if (EsUsuarioAutenticado())
+            {
+                if (!EsDispositivoMovil()) return RedirectToAction("Index", "Bienvenida");
                 return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
-
-            if (EsUsuarioAutenticado() && !EsDispositivoMovil())
-                return RedirectToAction("Index", "Bienvenida");
-
+            }
 
             var ip = string.Empty;
             var iso = string.Empty;
@@ -49,10 +48,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.ListaPaises = ObtenerPaises();
                 model.ListaEventos = ObtenerEventoFestivo(0, Constantes.EventoFestivoAlcance.LOGIN, 0);
 
-                if (model.ListaEventos.Count == 0)
-                {
-                    model.NombreClase = "fondo_estandar";
-                }
+                if (model.ListaEventos.Count == 0) model.NombreClase = "fondo_estandar";
                 else
                 {
                     model.NombreClase = "fondo_festivo";
@@ -60,12 +56,10 @@ namespace Portal.Consultoras.Web.Controllers
                     model.RutaEventoLBel = (from g in model.ListaEventos where g.Nombre == Constantes.EventoFestivoNombre.FONDO_LBEL select g.Personalizacion).FirstOrDefault();
                 }
 
-
                 if (EstaActivoBuscarIsoPorIp())
                 {
                     ip = GetIpCliente();
-                    if (!string.IsNullOrWhiteSpace(ip))
-                        iso = Util.GetISObyIPAddress(ip);
+                    if (!string.IsNullOrWhiteSpace(ip)) iso = Util.GetISObyIPAddress(ip);
                 }
 
                 if (string.IsNullOrEmpty(iso))
@@ -76,7 +70,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 AsignarViewBagPorIso(iso);
                 AsignarUrlRetorno(returnUrl);
-
+                model.ListPaisAnalytics = GetLoginAnalyticsModel();
             }
             catch (FaultException ex)
             {
@@ -87,8 +81,7 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, ip, iso, "Login.GET.Index");
             }
 
-            ViewBag.FBAppId = ConfigurationManager.AppSettings.Get("FB_AppId");
-
+            ViewBag.FBAppId = ConfigurationManager.AppSettings["FB_AppId"];
             return View(model);
         }
 
@@ -215,6 +208,33 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 ViewBag.ReturnURL = returnUrl;
             }
+        }
+
+        private List<LoginAnalyticsModel> GetLoginAnalyticsModel()
+        {
+            return new List<LoginAnalyticsModel> {
+                new LoginAnalyticsModel{
+                    CodigoISO = "CL",
+                    GndId = 958175395,
+                    PixelId = "702802606578920",
+                    SearchId = 989089161,
+                    YoutubeId = 956468365
+                },
+                new LoginAnalyticsModel{
+                    CodigoISO = "CO",
+                    GndId = 971131996,
+                    PixelId = "145027672730911",
+                    SearchId = 995835500,
+                    YoutubeId = 957866857
+                },
+                new LoginAnalyticsModel{
+                    CodigoISO = "PE",
+                    GndId = 956111599,
+                    PixelId = "1004828506227914",
+                    SearchId = 986595497,
+                    YoutubeId = 954887628
+                }
+            };
         }
 
         [AllowAnonymous]
