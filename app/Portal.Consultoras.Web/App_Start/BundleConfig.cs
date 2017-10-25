@@ -346,8 +346,7 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new StyleBundle("~/bundles/css/Site/RevistaDigital-Info").Include(
                 "~/Content/Css/Site/slick-pedido.css",
-                "~/Content/Css/Site/flexslider.css",
-                "~/Content/Css/Site/Esika/revistaDigital.css"
+                "~/Content/Css/Site/flexslider.css"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/RevistaDigital-Landing").Include(
@@ -364,8 +363,7 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new StyleBundle("~/bundles/css/Site/RevistaDigital-Landing").Include(
                 "~/Content/Css/Site/slick-pedido.css",
-                "~/Content/Css/Site/flexslider.css",
-                "~/Content/Css/Site/Esika/revistaDigital.css"
+                "~/Content/Css/Site/flexslider.css"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/RevistaDigital-Detalle").Include(
@@ -380,7 +378,6 @@ namespace Portal.Consultoras.Web
             ));
 
             bundles.Add(new StyleBundle("~/bundles/css/Site/RevistaDigital-Detalle").Include(
-                "~/Content/Css/Site/Esika/revistaDigital.css"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/Mobile/RevistaDigital-Info").Include(
@@ -395,8 +392,7 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new StyleBundle("~/bundles/css/Mobile/Site/RevistaDigital-Info").Include(
                 "~/Content/Css/Site/slick-pedido.css",
-                "~/Content/Css/Site/flexslider.css",
-                "~/Content/Css/Mobile/esika/revistaDigital.css"
+                "~/Content/Css/Site/flexslider.css"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/Mobile/RevistaDigital-Landing").Include(
@@ -411,8 +407,7 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new StyleBundle("~/bundles/css/Mobile/Site/RevistaDigital-Landing").Include(
                 "~/Content/Css/Site/slick-pedido.css",
-                "~/Content/Css/Site/flexslider.css",
-                "~/Content/Css/Mobile/esika/revistaDigital.css"
+                "~/Content/Css/Site/flexslider.css"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/Mobile/RevistaDigital-Detalle").Include(
@@ -428,8 +423,7 @@ namespace Portal.Consultoras.Web
             bundles.Add(new StyleBundle("~/bundles/css/Mobile/Site/RevistaDigital-Detalle").Include(
                 "~/Content/Css/Site/jquery.range.css",
                 "~/Content/Css/Site/slick-pedido.css",
-                "~/Content/Css/Site/flexslider.css",
-                "~/Content/Css/Mobile/esika/revistaDigital.css"
+                "~/Content/Css/Site/flexslider.css"
             ));
 
 #if DEBUG
