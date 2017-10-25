@@ -3476,8 +3476,8 @@ namespace Portal.Consultoras.Web.Controllers
                         break;
                     case Constantes.ConfiguracionSeccion.TipoPresentacion.Banners:
                         seccion.TemplatePresentacion = "seccion-banner";
-                        seccion.Titulo = "";
-                        seccion.SubTitulo = "";
+                        //seccion.Titulo = "";
+                        //seccion.SubTitulo = "";
                         seccion.CantidadMostrar = 0;
                         break;
                     case Constantes.ConfiguracionSeccion.TipoPresentacion.ShowRoom:
