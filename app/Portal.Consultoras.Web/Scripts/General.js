@@ -1788,3 +1788,13 @@ var _actualizarModelMasVendidosPromise = function (model) {
 
     return d.promise();
 }
+
+Object.defineProperty(Object.prototype, "in", {
+    value: function () {
+        for (var i = 0; i < arguments.length; i++)
+            if (arguments[i] == this) return true;
+        return false;
+    },
+    enumerable: false,
+    writable: true
+});

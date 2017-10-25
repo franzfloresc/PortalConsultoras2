@@ -297,7 +297,17 @@
     var urlS3 = "@Model.UrlS3";
     var estrategiaObj;
     var habilitarNemoTecnico = @Json.Encode(Model.habilitarNemotecnico);
-
+    var CodigoOfertaParaTi = "001";
+    var CodigoPackNuevas = "002"; // Oferta Nueva Esika
+    var CodigoOfertaWeb = "003";
+    var CodigoLanzamiento = "005";
+    var CodigoOfertasParaMi = "007";
+    var CodigoPackAltoDesembolso = "008";
+    var CodigoLosMasVendidos = "020";
+    var CodigoOfertaDelDia = "009";
+    var CodigoGuiaDeNegocio = "010";
+    
+   
     jQuery(document).ready(function () {
         fnGrilla();
         IniDialog();
@@ -511,16 +521,16 @@
 
         });
         $("#ddlTipoEstrategia").change(function () {
-            var aux1 = $('#ddlTipoEstrategia').find(':selected').data('id');
+            //var aux1 = $('#ddlTipoEstrategia').find(':selected').data('id');
             var aux2 = $('#ddlTipoEstrategia').find(':selected').data('codigo');
             $("#btnActivarDesactivar").hide();
             $("#btnNuevoMasivo").hide();
 
-            if (aux1 == "4" || aux1 == "7" || aux1 == "20" || aux2 == "005" || aux2 == "007" || aux2 == "008" ) {
+            if (aux2.in(CodigoOfertaParaTi, CodigoOfertaDelDia, CodigoLosMasVendidos, CodigoLanzamiento,
+                        CodigoOfertasParaMi, CodigoPackAltoDesembolso, CodigoGuiaDeNegocio)) {
                 $("#btnActivarDesactivar").show();
                 $("#btnNuevoMasivo").show();
             }
-
 
             SeleccionarTipoOferta();
             PedidoAsociadoChecks();
@@ -817,7 +827,7 @@
                 return false;
             } else {
                 var estrategiaId = $("#ddlTipoEstrategia option:selected").data("id");
-                if (estrategiaId !== 4  && estrategiaId !== 20 && estrategiaId !== 9 && estrategiaId !== 10 && estrategiaId !== 11 && estrategiaId !== 7) {
+                if (estrategiaId !== 4 && estrategiaId !== 20 && estrategiaId !== 9 && estrategiaId !== 10 && estrategiaId !== 11 && estrategiaId !== 7 && estrategiaId !== 12) {
                     alert("Debe seleccionar el tipo de Estrategia que permita esta funcionalidad.");
                     return false;
                 }
@@ -1300,7 +1310,7 @@
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
-            multiselect: (tipo == '4' || tipo == '7' || tipo == '20' || codigo == "005" || codigo == "007" || codigo == "008") ? true : false,
+            multiselect: (tipo == '4' || tipo == '7' || tipo == '20' || codigo == "005" || codigo == "007" || codigo == "008" || codigo == "010") ? true : false,
             colNames: ['EstrategiaID', 'Orden', '#', 'Pedido Asociado', 'Precio', 'CUV2', 'Descripción', 'Limite Venta', 'Código SAP', 'ImagenURL', 'Foto', '','EsOfertaIndependiente'],
             colModel: [
                 { name: 'EstrategiaID', index: 'EstrategiaID', width: 20, editable: true, resizable: false, hidden: true },
@@ -1354,7 +1364,7 @@
             }
         });
         jQuery("#list").jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
-        if (tipo == '4' || codigo == "005" || codigo == "007" || codigo == "008") { $("#list").jqGrid('hideCol', ["Orden"]); }
+        if (tipo == '4' || codigo == "005" || codigo == "007" || codigo == "008" || codigo == "010") { $("#list").jqGrid('hideCol', ["Orden"]); }
     }
 
     function ShowInputTC(cellvalue, options, rowObject) {
@@ -1676,7 +1686,7 @@
                     }
                     var aux2 = $('#ddlTipoEstrategia').find(':selected').data('id');
                     var aux3 = $('#ddlTipoEstrategia').find(':selected').data('codigo');
-                    if (aux2 !== 4 && aux2 !== 7 && aux2 !== 20 && aux2 !== 9 && aux2 !== 10 && aux2 !== 11) {
+                    if (aux2 !== 4 && aux2 !== 7 && aux2 !== 20 && aux2 !== 9 && aux2 !== 10 && aux2 !== 11 && aux2 !== 12) {
                         if ($.trim($("#txtOrden").val()) == "" || $.isNumeric($("#txtOrden").val()) == false) {
                             alert("Ingrese un orden para mostrar.");
                             return false;
