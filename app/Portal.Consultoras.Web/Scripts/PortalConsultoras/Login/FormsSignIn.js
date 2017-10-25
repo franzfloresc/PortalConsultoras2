@@ -742,6 +742,7 @@ function login2() {
 
             if (response.success) {
                 if (response.redirectTo !== "") {
+                    analytics.invocarEventoPixel("FacebookLoginLogin");
                     document.location.href = response.redirectTo;
                 }
             }

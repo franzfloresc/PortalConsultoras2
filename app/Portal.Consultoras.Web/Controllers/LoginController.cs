@@ -464,26 +464,26 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     if (Request.IsAjaxRequest())
                     {
-                        var urlx = (Url.IsLocalUrl(decodedUrl))
-                            ? decodedUrl
-                            : Url.Action("Index", "Bienvenida", new { area = "Mobile" });
+                        var urlx = (Url.IsLocalUrl(decodedUrl)) ? decodedUrl : Url.Action("Index", "Bienvenida", new { area = "Mobile" });
                         return Json(new
                         {
                             success = true,
                             redirectTo = urlx
                         });
                     }
+
+                    SetTempDataAnalyticsLogin(usuario, hizoLoginExterno);
                     if (Url.IsLocalUrl(decodedUrl))
                     {
                         return Redirect(decodedUrl);
                     }
                     return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
                 }
+
                 if (string.IsNullOrEmpty(usuario.EMail) || usuario.EMailActivo == false)
                 {
                     Session["PrimeraVezSession"] = 0;
                 }
-
                 if (Request.IsAjaxRequest())
                 {
                     var urlx = (Url.IsLocalUrl(decodedUrl)) ? decodedUrl : Url.Action("Index", "Bienvenida");
@@ -493,6 +493,8 @@ namespace Portal.Consultoras.Web.Controllers
                         redirectTo = urlx
                     });
                 }
+
+                SetTempDataAnalyticsLogin(usuario, hizoLoginExterno);
                 if (Url.IsLocalUrl(decodedUrl))
                 {
                     return Redirect(decodedUrl);
@@ -512,6 +514,19 @@ namespace Portal.Consultoras.Web.Controllers
                 return Redirect(decodedUrl);
             }
             return RedirectToAction("Index", "Bienvenida");
+        }
+
+        private void SetTempDataAnalyticsLogin(UsuarioModel usuario, bool hizoLoginExterno)
+        {
+            var listAnalytics = GetLoginAnalyticsModel();
+            var analyticsCurrentPais = listAnalytics.FirstOrDefault(a => a.CodigoISO == usuario.CodigoISO);
+
+            if(analyticsCurrentPais != null)
+            {
+                TempData["PixelCodigoIso"] = usuario.CodigoISO;
+                TempData["PixelMarcacion"] = hizoLoginExterno ? "LoginFacebook" : "LoginNormal";
+                TempData["PixelId"] = analyticsCurrentPais.PixelId;
+            }
         }
 
         private string GetUrlUsuarioDesconocido()

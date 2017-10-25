@@ -180,9 +180,10 @@
                     
                     if (response.success) {
                         //if (!response.exists) {
-                            if (response.redirectTo !== "") {
-                                document.location.href = response.redirectTo;
-                            }
+                        if (response.redirectTo !== "") {
+                            analytics.invocarEventoPixel("FacebookLoginValidExternalUser");
+                            document.location.href = response.redirectTo;
+                        }
                         //}
                     }
                     else {

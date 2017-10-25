@@ -1,6 +1,7 @@
 var Analytics = function (config) {
+    config = config || {};
     var _config = { listPaisAnalytics: config.listPaisAnalytics || [] };
-    var _paisIso = null;
+
     var _listImagenAnalyticsId = [], _listScriptAnalyticsId = [], _callingScriptAnalytics = false;
     var _listImagenPixelId = [];
 
@@ -67,11 +68,16 @@ var Analytics = function (config) {
         }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
 
         window.fbq('init', id);
-        window.fbq('track', 'PageView');
         console.log('Cargó Pixel Id: ' + id);
     }
     var _limpiarPixelFacebook = function () {
         window.fbq = window._fbq = null;
+    }
+    var _invocarPageViewPixel = function () {
+        if (!window.fbq) return;
+
+        window.fbq('track', 'PageView');
+        console.log('Pixel PageView');
     }
 
     var _invocarAnalyticsByCodigoIso = function (codigoIso) {
@@ -85,11 +91,13 @@ var Analytics = function (config) {
 
                 _addListScriptAnalytics([item.GndId, item.SearchId, item.YoutubeId]);
                 _invocarPixelFacebook(item.PixelId);
+                _invocarPageViewPixel();
 
                 return false;
             }
-        })
+        });
     }
+
     var _invocarEventoPixel = function (link) {
         if (!window.fbq) return;
 
@@ -97,8 +105,16 @@ var Analytics = function (config) {
         console.log('Pixel Convert: ' + link);
     }
 
+    var _invocarEventoPixelById = function (link, id) {
+        _limpiarPixelFacebook();
+        _crearImagenPixelWithId(id);
+        _invocarPixelFacebook(id);
+        _invocarEventoPixel(link);
+    }
+
     return {
         invocarAnalyticsByCodigoIso: _invocarAnalyticsByCodigoIso,
-        invocarEventoPixel: _invocarEventoPixel
+        invocarEventoPixel: _invocarEventoPixel,
+        invocarEventoPixelById: _invocarEventoPixelById
     }
 };
