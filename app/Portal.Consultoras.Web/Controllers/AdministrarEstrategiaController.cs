@@ -1,4 +1,5 @@
 using AutoMapper;
+
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceGestionWebPROL;
@@ -6,6 +7,8 @@ using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceZonificacion;
+using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
+
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,17 +16,14 @@ using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
-using Portal.Consultoras.Web.ServiceUsuario;
-using Portal.Consultoras.Web.CustomHelpers;
 using System.Configuration;
-using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 
 namespace Portal.Consultoras.Web.Controllers
 {
     public class AdministrarEstrategiaController : BaseController
     {
 
-        public ActionResult Index()
+        public ActionResult Index(int ProgramaNueva = 0)
         {
             if (!UsuarioModel.HasAcces(ViewBag.Permiso, "AdministrarEstrategia/Index"))
                 return RedirectToAction("Index", "Bienvenida");

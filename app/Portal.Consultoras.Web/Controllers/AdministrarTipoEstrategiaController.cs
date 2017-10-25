@@ -116,6 +116,7 @@ namespace Portal.Consultoras.Web.Controllers
                                cell = new string[]
                                {
                                    a.TipoEstrategiaID.ToString(),
+                                   a.Codigo,
                                    a.DescripcionEstrategia.ToString(),
                                    a.DescripcionOferta.ToString(),
                                    a.Orden.ToString(),
@@ -295,7 +296,7 @@ namespace Portal.Consultoras.Web.Controllers
                         string FlagNueva, string FlagRecoProduc, string FlagRecoPerfil,
                         string CodigoPrograma, string FlagMostrarImg,
                         bool MostrarImgOfertaIndependiente = false, string ImagenOfertaIndependiente = "", 
-                        string ImagenOfertaIndependienteAnterior = "")
+                        string ImagenOfertaIndependienteAnterior = "", string Codigo = "")
         {
             int resultado = 0;
             string operacion = "registró";
@@ -318,6 +319,7 @@ namespace Portal.Consultoras.Web.Controllers
                 entidad.FlagMostrarImg = Convert.ToInt32(FlagMostrarImg);    // SB20-353
                 entidad.MostrarImgOfertaIndependiente = MostrarImgOfertaIndependiente;
                 entidad.ImagenOfertaIndependiente = ImagenOfertaIndependiente;
+                entidad.Codigo = Codigo;
 
                 //entidad
                 if (ImagenEstrategia != "")
