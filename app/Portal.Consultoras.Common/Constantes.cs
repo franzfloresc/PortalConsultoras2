@@ -892,6 +892,7 @@ namespace Portal.Consultoras.Common
             public const int Showroom = 44;
             public const int OPT = 45;
             public const int ODD = 46;
+            public const int TablaLogicaId = 130;
         }
 
         public class TipoBusqueda

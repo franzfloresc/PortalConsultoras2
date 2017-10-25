@@ -295,7 +295,7 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
         if (esOfertaFinalRegalo) {
             if (ofertaFinalRegalo != null) {
                 MostrarOfertaFinalRegalo(objOf.TotalPedido);
-            GanoOfertaFinalRegalo(objOf.TotalPedido);
+                GanoOfertaFinalRegalo(objOf.TotalPedido);
             }
         }
     }
@@ -424,6 +424,13 @@ function MostrarOfertaFinalRegalo(totalPedido) {
         if (tipoOrigen == '1') {
             $(container).show();
             $('div.popup_ofertaFinal').addClass('fondo_gris_OF');
+        }
+
+        //set url terminos y condiciones segun rango
+        if (ofertaFinalRegalo.TipoRango != null && ofertaFinalRegalo.TipoRango != '') {
+            var href = $('#of-regalo-terminos').attr('href');
+            var nhref = href.replace('RGX', ofertaFinalRegalo.TipoRango);
+            $('#of-regalo-terminos').attr('href', nhref);
         }
     }
 }
