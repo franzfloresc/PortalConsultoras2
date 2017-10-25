@@ -21,7 +21,7 @@
                 dataLayer.push({
                     'event': 'virtualEvent',
                     'category': 'Coach Virtual',
-                    'action': 'Banner Inscribirme a Mi Guía Digita',//'{tipoBanner}',
+                    'action': 'Banner Inscribirme a Mi Guía Digital',//'{tipoBanner}',
                     'label': 'Cerrar popup'
                 });
                 $("#fondoComunPopUp").hide();
