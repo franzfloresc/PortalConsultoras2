@@ -142,7 +142,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             //model.TieneOfertaLog = userData.TieneOfertaLog;
             ViewBag.DataBarra = GetDataBarra(true, true);
 
-			model.RevistaDigital = revistaDigital;
+            model.RevistaDigital = revistaDigital;
 
             #region EventoFestivo
             var eventofestivo = GetEventoFestivoData();
@@ -255,14 +255,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 {                    
                     if (userData.PROLSinStock)
                     {
-                    	ViewBag.AccionBoton = "guardar";
+                        ViewBag.AccionBoton = "guardar";
                         model.Prol = "GUARDA TU PEDIDO";
                         model.ProlTooltip = "Es importante que guardes tu pedido";
                         model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
                     }
                     else
                     {
-                    	ViewBag.AccionBoton = "validar";
+                        ViewBag.AccionBoton = "validar";
                         model.Prol = "VALIDA TU PEDIDO";
                         model.ProlTooltip = "Haz click aqui para validar tu pedido";
 

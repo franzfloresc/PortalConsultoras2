@@ -1604,25 +1604,25 @@ function odd_google_analytics_product_click(name, id, price, brand, variant, pos
     if (variant == null || variant == "")
         variant = "Estándar";
     dataLayer.push({
-	    'event': 'productClick',
-	    'ecommerce':
-		{
-		    'click':
-			{
-			    'actionField': { 'list': 'Oferta del día' },
-			    'products':
-				[{
-				    'name': name,
-				    'id': id,
-				    'price': price,
-				    'brand': brand,
-				    'category': 'No disponible',
-				    'variant': variant,
-				    'position': position
-				}]
-			}
-		}
-	});
+        'event': 'productClick',
+        'ecommerce':
+        {
+            'click':
+            {
+                'actionField': { 'list': 'Oferta del día' },
+                'products':
+                [{
+                    'name': name,
+                    'id': id,
+                    'price': price,
+                    'brand': brand,
+                    'category': 'No disponible',
+                    'variant': variant,
+                    'position': position
+                }]
+            }
+        }
+    });
 }
 
 function GuardarIndicadorPedidoAutentico() {
