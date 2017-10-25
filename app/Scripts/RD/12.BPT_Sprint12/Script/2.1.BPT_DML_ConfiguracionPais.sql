@@ -18,8 +18,8 @@ begin
 		1, 201715,
 		0, 0, 0, 0,
 		'EXPLORA|GUÍA DE NEGOCIO', 'GUÍA DE NEGOCIO',
-		'Guía de Negocio Digitalizada', 'Guía de Negocio Digitalizada',
-		'', '',
+		'#Nombre, disfruta de tu guía de negocio online', 'Guía de Negocio Digitalizada',
+		'Encuentra aquí todas las ofertas de tu revista física y no te pierdas ninguna oferta.', 'Encuentra aquí todas las ofertas de tu revista física y no te pierdas ninguna oferta.',
 		'sr-banner-navidad-desktop.jpg', 'sr-banner-navidad-mobile.jpg',
 		'sr-logo-navidad-desktop.png', 'sr-logo-navidad-mobile.png',
 		'GuiaNegocio', null)
