@@ -102,7 +102,7 @@
 
     };
     var _dataLayerVirutalCoach = function (action, label) {
-        debugger;
+       
         dataLayer.push({
             'event': 'virtualEvent',
             'category': 'Coach Virtual',
