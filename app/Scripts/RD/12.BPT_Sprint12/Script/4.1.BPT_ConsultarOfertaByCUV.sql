@@ -7,7 +7,7 @@ ALTER PROCEDURE [dbo].[ConsultarOfertaByCUV]
 	@CUV2			  VARCHAR(20),
 	@TipoEstrategiaID INT,
 	@CUV1			  VARCHAR(20),
-	@flag			  INT -- SI @flag ES { 0: CUV2, 1: CUV1, 2: Talla/Color, 3: Descripción vacía }
+	@flag			  INT -- SI @flag ES { 0: CUV2, 1: CUV1, 2: Talla/Color, 3: DescripciÃ³n vacÃ­a }
 
 AS
 BEGIN
@@ -22,7 +22,7 @@ BEGIN TRY
 	IF @flag = 0 OR @flag = 2
 	BEGIN
 
-		-- VALIDAR QUE EL CUV EXISTA PARA LA CAMPAÑA ACTUAL
+		-- VALIDAR QUE EL CUV EXISTA PARA LA CAMPAÃ‘A ACTUAL
 		IF NOT EXISTS(
 			SELECT 1 
 			FROM ods.ProductoComercial PC
@@ -30,7 +30,7 @@ BEGIN TRY
 			WHERE C.codigo = @CampaniaID AND CUV = @CUV2
 		)
 		BEGIN
-			RAISERROR('El CUV2 ingresado no existe para la campaña actual.', 16, 1)
+			RAISERROR('El CUV2 ingresado no existe para la campaÃ±a actual.', 16, 1)
 		END
 
 		-- VALIDAR SI EL CUV EXISTE PARA EL TIPO DE OFERTA SELECCIONADO
@@ -84,7 +84,7 @@ BEGIN TRY
 	ELSE IF @flag = 1
 	BEGIN
 
-		-- VALIDAR QUE EL CUV EXISTA PARA LA CAMPAÑA ACTUAL
+		-- VALIDAR QUE EL CUV EXISTA PARA LA CAMPAÃ‘A ACTUAL
 		IF NOT EXISTS(
 			SELECT 1
 			FROM ods.ProductoComercial PC
@@ -92,7 +92,7 @@ BEGIN TRY
 			WHERE C.codigo = @CampaniaID AND CUV = @CUV1
 		)
 		BEGIN
-				RAISERROR('El CUV1 ingresado no existe para la campaña actual.', 16, 1)
+				RAISERROR('El CUV1 ingresado no existe para la campaÃ±a actual.', 16, 1)
 		END
 
 		DECLARE @codigoSAP VARCHAR(20) = NULL;
@@ -104,7 +104,7 @@ BEGIN TRY
 		IF NOT EXISTS(SELECT 1 FROM ods.ProductoComercial WHERE CUV = @CUV1 AND CodigoProducto = @codigoSAP)
 		BEGIN
 		RAISERROR
-				('El CUV1 no pertenece al mismo código SAP que el CUV2.', 16, 1)
+				('El CUV1 no pertenece al mismo cÃ³digo SAP que el CUV2.', 16, 1)
 			END
 
 		SELECT 
@@ -162,7 +162,7 @@ BEGIN TRY
 
 	ELSE IF @flag = 4 OR @flag = 9 OR @flag = 10 OR @flag = 11 OR @flag = 12
 	BEGIN
-		-- VALIDAR QUE EL CUV EXISTA PARA LA CAMPAÑA ACTUAL
+		-- VALIDAR QUE EL CUV EXISTA PARA LA CAMPAÃ‘A ACTUAL
 		DECLARE  @codigoEstrategia VARCHAR(5) = '';
 		SET @codigoEstrategia = CASE @flag 
 			WHEN 4 THEN 'ODD'
@@ -178,7 +178,7 @@ BEGIN TRY
 			WHERE C.codigo = @CampaniaID AND CUV = @CUV2
 		)
 		BEGIN
-			RAISERROR('El CUV2 ingresado no existe para la campaña actual.', 16, 1)
+			RAISERROR('El CUV2 ingresado no existe para la campaÃ±a actual.', 16, 1)
 		END
 
 		SELECT

@@ -54,7 +54,7 @@ BEGIN TRY
 		FROM	TipoEstrategia 
 		WHERE	TipoEstrategiaId = @TipoEstrategiaID AND  flagnueva = 1
 
-		-- Para calcular la etiqueta Oferta del dÌa
+		-- Para calcular la etiqueta Oferta del d√≠a
 		SELECT	@TipoEstrategiaIDOfertaDia = COUNT( TipoEstrategiaID) 
 		FROM	TipoEstrategia 
 		WHERE	TipoEstrategiaId = @TipoEstrategiaID AND  DescripcionEstrategia like '%'+ UPPER('OFERTA DEL')+'%'
@@ -78,7 +78,7 @@ BEGIN TRY
 			SELECT @EtiquetaID = EtiquetaID from Etiqueta 
 			WHERE Descripcion like '%' + UPPER('Ganancia') + '%'
 		END
-		-- Obtener el EtiquetaID de la Oferta del dÌa.
+		-- Obtener el EtiquetaID de la Oferta del d√≠a.
 		IF @TipoEstrategiaIDOfertaDia > 0
 		BEGIN
 			SELECT @EtiquetaID2 = EtiquetaID from Etiqueta 
@@ -89,14 +89,14 @@ BEGIN TRY
 		BEGIN
 			IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 			BEGIN
-				RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaÒa seleccionado.', 16, 1)
+				RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campa√±a seleccionado.', 16, 1)
 			END
 
 			IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008', '010') AND ISNULL(@Orden,0) > 0)
 			BEGIN
 				IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 				BEGIN
-					RAISERROR('El orden ingresado para la estrategia ya est· siendo utilizado.', 16, 1)
+					RAISERROR('El orden ingresado para la estrategia ya est√° siendo utilizado.', 16, 1)
 				END
 			END							
 				
@@ -119,7 +119,7 @@ BEGIN TRY
 
 			IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE CUV2 = @CUV2 AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND ESTRATEGIAID <> @EstrategiaID  AND NUMEROPEDIDO = @NumeroPedido)
 			BEGIN
-				RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaÒa seleccionado.', 16, 1)
+				RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campa√±a seleccionado.', 16, 1)
 			END								 
 				
 			IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008', '010') AND ISNULL(@Orden,0) > 0)
@@ -127,7 +127,7 @@ BEGIN TRY
 
 				IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID  AND ESTRATEGIAID <> @EstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 				BEGIN
-					RAISERROR('El orden ingresado para la estrategia ya est· siendo utilizado.', 16, 1)
+					RAISERROR('El orden ingresado para la estrategia ya est√° siendo utilizado.', 16, 1)
 				END
 			END		
 
