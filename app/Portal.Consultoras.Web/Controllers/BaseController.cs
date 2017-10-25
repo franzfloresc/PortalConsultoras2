@@ -3391,8 +3391,8 @@ namespace Portal.Consultoras.Web.Controllers
                 switch (entConf.ConfiguracionPais.Codigo)
                 {
                     case Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada:
-                        seccion.UrlObtenerProductos = "";
-                        //seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb. : Constantes.OrigenPedidoWeb.GNDDesktopContenedor;
+                        seccion.UrlObtenerProductos = "GuiaNegocio/RDObtenerProductos";
+                        seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.GNDMobileLanding : Constantes.OrigenPedidoWeb.GNDDesktopLanding;
                         break;
                     case Constantes.ConfiguracionPais.OfertasParaTi:
                         seccion.UrlObtenerProductos = "OfertasParaTi/ConsultarEstrategiasOPT";

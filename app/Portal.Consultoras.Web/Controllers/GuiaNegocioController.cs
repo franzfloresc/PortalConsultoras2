@@ -31,6 +31,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+               
                 var listaFinal1 = ConsultarEstrategiasModel("", 0, Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada);
                 var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1);
 
