@@ -11,9 +11,7 @@ $(document).ready(function () {
         $('#BajarOfertaEspecial').show();
         //$('.promocion_especial_header').css("background", "#fff6f4");
         $('.content_set_oferta_especial').slideDown();
-
-        EstablecerLazyCarrusel($('#contenedor-showroom-subcampanias'));
-
+       
         $('#contenedor-showroom-subcampanias.slick-initialized').slick('unslick');
         $('#contenedor-showroom-subcampanias').not('.slick-initialized').slick({
             lazyLoad: 'ondemand',

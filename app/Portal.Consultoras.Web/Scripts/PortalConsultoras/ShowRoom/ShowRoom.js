@@ -17,9 +17,10 @@ $(document).ready(function () {
 
             $("#PopDetalleCompra").show();
 
-            $('.content_carrusel_pop_compra.slick-initialized').slick('unslick');
-            
+            EstablecerLazyCarrusel($('.content_carrusel_pop_compra'));
+            $('.content_carrusel_pop_compra.slick-initialized').slick('unslick');            
             $('.content_carrusel_pop_compra').not('.slick-initialized').slick({
+                lazyLoad: 'ondemand',
                 dots: false,
                 infinite: true,
                 vertical: false,
@@ -597,21 +598,21 @@ function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosS
 
             EstablecerLazyCarrusel($('#contenedor-showroom-subcampanias'));
 
-            $('#contenedor-showroom-subcampanias.slick-initialized').slick('unslick');
-            $('#contenedor-showroom-subcampanias').not('.slick-initialized').slick({
-                lazyLoad: 'ondemand',
-                slidesToShow: 3,
-                dots: false,
-                vertical: false,
-                infinite: true,
-                speed: 300,
-                centerPadding: '0px',
-                centerMode: true,
-                slidesToScroll: 1,
-                variableWidth: false,
-                prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: -1%; text-align:left; top:10%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
-                nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: -1%; text-align:right; top:10%;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>',
-            });
+            //$('#contenedor-showroom-subcampanias.slick-initialized').slick('unslick');
+            //$('#contenedor-showroom-subcampanias').not('.slick-initialized').slick({
+            //    lazyLoad: 'ondemand',
+            //    slidesToShow: 3,
+            //    dots: false,
+            //    vertical: false,
+            //    infinite: true,
+            //    speed: 300,
+            //    centerPadding: '0px',
+            //    centerMode: true,
+            //    slidesToScroll: 1,
+            //    variableWidth: false,
+            //    prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: -1%; text-align:left; top:10%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
+            //    nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: -1%; text-align:right; top:10%;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>',
+            //});
         }
         
         $.each(response.listaNoSubCampania, function (index, value) {
@@ -662,15 +663,14 @@ function ResolverCargarProductosShowRoomPromiseMobile(response, busquedaModel) {
         $.each(response.listaSubCampania, function (i, v) { v.Descripcion = IfNull(v.Descripcion, '').SubStrToMax(30, true); });
 
         SetHandlebars("#template-showroom-subcampanias-mobile", data, "#contenedor-showroom-subcampanias-mobile");
+        EstablecerLazyCarrusel($('#contenedor-showroom-subcampanias-mobile'));
     }
     else {
         messageInfoError(response.message);
         if (busquedaModel.hidden == true) $("#divProductosShowRoom").hide();
     }
 }
-function ConfigurarSlick() {
-    EstablecerLazyCarrusel($('#contenedor-showroom-subcampanias-mobile'));
-
+function ConfigurarSlick() {    
     $('#contenedor-showroom-subcampanias-mobile.slick-initialized').slick('unslick');
     $('#contenedor-showroom-subcampanias-mobile').slick({
         lazyLoad: 'ondemand',

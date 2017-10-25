@@ -256,11 +256,11 @@
                             <div class="content_imagen_compra" data-img="">
                                 @if (item.ImagenProducto != "")
                                 {
-                                    <img src="@item.ImagenProducto" class="imagen_producto" data-img-lazy="1" />
+                                    <img data-src="@item.ImagenProducto" class="imagen_producto" data-img-lazy="1" />
                                 }
                                 else
                                 {
-                                    <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" data-img-lazy="1"/>
+                                    <img data-src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" data-img-lazy="1"/>
                                 }
                             </div>
 
