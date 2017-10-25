@@ -6,12 +6,7 @@
     };
 
     var _irAModificarMisDatos = function () {
-        dataLayer.push({
-            'event': 'virtualEvent',
-            'category': 'Coach Virtual',
-            'action': 'Banner Confirmación',
-            'label': 'Click botón Modificar mis datos'
-        });
+        _dataLayerVC("Banner Confirmación", "Click botón Modificar mis datos");
         window.location = _config.irAModificarMisDatosUrl;
     };
 
@@ -31,12 +26,7 @@
 
     var _enviarFormulario = function () {
        
-        dataLayer.push({
-            'event': 'virtualEvent',
-            'category': 'Coach Virtual',
-            'action': 'Suscripción Exitosa',
-            'label': '(not available)'
-        });
+        _dataLayerVC("Suscripción Exitosa", "(not available)");
         var respuesta1 = $("#revisar-catalogo-clientes:checked").val();
         var respuesta2 = $("#dejar-catalogo-clientes:checked").val();
         var respuesta3 = $("#mis-clientes-vienen:checked").val();
@@ -88,7 +78,14 @@
         return false;
 
     };
-
+    var _dataLayerVC = function (action, label) {
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Coach Virtual',
+            'action': action,
+            'label': label
+        });
+    }
     return {
         enviarFormulario: _enviarFormulario,
         irAModificarMisDatos: _irAModificarMisDatos

@@ -71,12 +71,7 @@ $(document).ready(function () {
             }
             if ($('#popupMisDatos').is(':visible')) {
                 if (showPopupMisDatos == '1') {
-                    dataLayer.push({
-                        'event': 'virtualEvent',
-                        'category': 'Coach Virtual',
-                        'action': 'Banner Actualizar Datos',
-                        'label': 'Cerrar popup'
-                    });
+                    dataLayerVC("Banner Actualizar Datos", "Cerrar popup");
                     showPopupMisDatos = '0';
                 }
                 $('#fondoComunPopUp').hide();
@@ -123,12 +118,7 @@ $(document).ready(function () {
             //EPD-1564
             if ($('#popupMisDatos').is(':visible')) {
                 if (showPopupMisDatos == '1') {
-                    dataLayer.push({
-                        'event': 'virtualEvent',
-                        'category': 'Coach Virtual',
-                        'action': 'Banner Actualizar Datos',
-                        'label': ' Cerrar popup '
-                    });
+                    dataLayerVC("Banner Actualizar Datos", "Cerrar popup");
                     showPopupMisDatos = '0';
                 }
                 PopupCerrar('popupMisDatos');
@@ -287,12 +277,7 @@ $(document).ready(function () {
     $("#cerrarPopupMisDatos").click(function () {
         
         if (showPopupMisDatos == '1') {
-            dataLayer.push({
-                'event': 'virtualEvent',
-                'category': 'Coach Virtual',
-                'action': 'Banner Actualizar Datos',
-                'label': ' Cerrar popup '
-            });
+            dataLayerVC("Banner Actualizar Datos", "Cerrar popup");
             showPopupMisDatos = '0';
         }
         PopupCerrar('popupMisDatos');
@@ -1714,12 +1699,7 @@ function ActualizarMD() {
     };
     
     if (showPopupMisDatos == '1') {
-        dataLayer.push({
-            'event': 'virtualEvent',
-            'category': 'Coach Virtual',
-            'action': 'Banner Actualizar Datos',
-            'label': 'Click botón Actualizar'
-        });
+        dataLayerVC("Banner Actualizar Datos", "Click botón Actualizar");
         showPopupMisDatos = '0';
     }
     if (viewBagPaisID != 4) {
@@ -3339,4 +3319,13 @@ function VerSeccionBienvenida(seccion) {
             scrollTop: topOf
         }, 1000);
     }
+}
+
+function dataLayerVC(action, label) {
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Coach Virtual',
+        'action': action,
+        'label': label
+    });
 }

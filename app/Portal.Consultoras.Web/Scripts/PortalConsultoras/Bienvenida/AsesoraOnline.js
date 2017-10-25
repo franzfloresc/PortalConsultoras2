@@ -18,12 +18,7 @@
         $.post(config.cerrarPopupInicialUrl)
             .always(closeWaitingDialog)
             .done(function () {
-                dataLayer.push({
-                    'event': 'virtualEvent',
-                    'category': 'Coach Virtual',
-                    'action': 'Banner Inscribirme a Mi Guía Digital',//'{tipoBanner}',
-                    'label': 'Cerrar popup'
-                });
+                _dataLayerVirutalCoach("Banner Inscribirme a Mi Guía Digital", "Cerrar popup");
                 $("#fondoComunPopUp").hide();
                 $("#virtual-coach-dialog").hide();
             })
@@ -74,24 +69,14 @@
             window.location = _armarAsesoraOnlineUrl(_config.isoPais, _config.codigoConsultora, _config.origen) + '#formulario-inscripcion';
         });
         //$("#quiero-tips-ofertas").attr("href", _armarAsesoraOnlineUrl(_config.isoPais, _config.codigoConsultora, _config.origen) + '#formulario-inscripcion');
-        $("#ver-mas-informacion").on("click", function () {
-            dataLayer.push({
-                'event': 'virtualEvent',
-                'category': 'Coach Virtual',
-                'action': 'Banner Inscribirme a Mi Guía Digital',
-                'label': 'Ver más Información'
-            });
+       $("#ver-mas-informacion").on("click", function () {
+           _dataLayerVirutalCoach("Banner Inscribirme a Mi Guía Digital", "Ver más Información");
             window.location = _armarAsesoraOnlineUrl(_config.isoPais, _config.codigoConsultora, _config.origen);
         });
         //$("#ver-mas-informacion").attr("href", _armarAsesoraOnlineUrl(_config.isoPais, _config.codigoConsultora, _config.origen));
         $("#cerrar-virtual-coach-dialog").on("click", _hidePopup);
         $("#no-volver-mostrar-mensaje").on("click", function () {
-            dataLayer.push({
-                'event': 'virtualEvent',
-                'category': 'Coach Virtual',
-                'action': 'Banner Inscribirme a Mi Guía Digital',//'{tipoBanner}',
-                'label': 'No volver a ver este mensaje'
-            });
+            _dataLayerVirutalCoach("Banner Inscribirme a Mi Guía Digital", "No volver a ver este mensaje");
             _actualizarEstadoConfiguracionPaisDetalle(isoPais, codigoConsultora);
         });
     };
@@ -116,7 +101,15 @@
         });
 
     };
-
+    var _dataLayerVirutalCoach = function (action, label) {
+        debugger;
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Coach Virtual',
+            'action': action,
+            'label': label
+        });
+    };
     return {
         asignarEventos: _asignarEventos,
         mostrar: _mostrar,
