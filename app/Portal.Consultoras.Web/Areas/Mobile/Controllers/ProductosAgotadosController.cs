@@ -10,7 +10,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
     public class ProductosAgotadosController : BaseMobileController
     {
-        private const int numeroFilas = 10; 
+        private const int numeroFilas = 10;
 
         public ActionResult Index()
         {
@@ -31,7 +31,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
 
-            return View(model); 
+            return View(model);
         }
 
         [HttpPost]
@@ -46,7 +46,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     success = true,
                     lista = lstProductoFaltante.Skip(Cantidad).Take(numeroFilas).ToList(),
                     total = lstProductoFaltante.Count
-                });      
+                });
             }
             catch (Exception)
             {
@@ -55,8 +55,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     success = false,
                     lista = "",
                     total = 0
-                });   
-            }            
+                });
+            }
         }
     }
 }

@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Data;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
-using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Entities
 {
@@ -39,7 +35,7 @@ namespace Portal.Consultoras.Entities
         public int CampaniaID { get; set; }
 
         [DataMember]
-        public string EtiquetaPrecio { get; set; }//1673CC
+        public string EtiquetaPrecio { get; set; }
         public BECrossSellingAsociacion(IDataRecord row)
         {
             if (DataRecord.HasColumn(row, "CrossSellingAsociacionID") && row["CrossSellingAsociacionID"] != DBNull.Value)
@@ -62,8 +58,8 @@ namespace Portal.Consultoras.Entities
                 CodigoSegmento = Convert.ToString(row["CodigoSegmento"]);
             if (DataRecord.HasColumn(row, "CampaniaID") && row["CampaniaID"] != DBNull.Value)
                 CampaniaID = Convert.ToInt32(row["CampaniaID"]);
-			if (DataRecord.HasColumn(row, "EtiquetaPrecio") && row["EtiquetaPrecio"] != DBNull.Value)//1673CC
-                EtiquetaPrecio = Convert.ToString(row["EtiquetaPrecio"]);//1673CC
+            if (DataRecord.HasColumn(row, "EtiquetaPrecio") && row["EtiquetaPrecio"] != DBNull.Value)
+                EtiquetaPrecio = Convert.ToString(row["EtiquetaPrecio"]);
             else
                 EtiquetaPrecio = string.Empty;
         }

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
+﻿using OpenSource.Library.DataAccess;
 using Portal.Consultoras.Common;
-using OpenSource.Library.DataAccess;
+using System;
+using System.Data;
+using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities
 {
@@ -19,8 +15,7 @@ namespace Portal.Consultoras.Entities
         public int PaisID { set; get; }
         [DataMember]
         public string PaisNombre { set; get; }
-        //[DataMember]
-        //public int CampaniaID { set; get; }
+
         [DataMember]
         public string NombreCorto { set; get; }
         [DataMember]
@@ -51,8 +46,6 @@ namespace Portal.Consultoras.Entities
                 PaisID = Convert.ToInt32(row["PaisID"]);
             if (DataRecord.HasColumn(row, "PaisNombre"))
                 PaisNombre = Convert.ToString(row["PaisNombre"]);
-            //if (DataRecord.HasColumn(row, "CampaniaID"))
-            //    CampaniaID = DbConvert.ToInt32(row["CampaniaID"]);
             if (DataRecord.HasColumn(row, "NombreCorto"))
                 NombreCorto = DbConvert.ToString(row["NombreCorto"]);
             if (DataRecord.HasColumn(row, "ConsultoraID"))

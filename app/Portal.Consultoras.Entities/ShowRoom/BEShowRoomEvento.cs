@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
-using OpenSource.Library.DataAccess;
+﻿using OpenSource.Library.DataAccess;
 using Portal.Consultoras.Common;
+using System;
+using System.Data;
+using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities.ShowRoom
 {
@@ -74,7 +70,7 @@ namespace Portal.Consultoras.Entities.ShowRoom
         public string ImagenPestaniaShowRoom { get; set; }
 
         [DataMember]
-        public string ImagenPreventaDigital { get; set; }        
+        public string ImagenPreventaDigital { get; set; }
 
         [DataMember]
         public int Estado { get; set; }
@@ -133,7 +129,7 @@ namespace Portal.Consultoras.Entities.ShowRoom
             if (DataRecord.HasColumn(datarec, "ImagenPestaniaShowRoom") && datarec["ImagenPestaniaShowRoom"] != DBNull.Value)
                 ImagenPestaniaShowRoom = DbConvert.ToString(datarec["ImagenPestaniaShowRoom"]);
             if (DataRecord.HasColumn(datarec, "ImagenPreventaDigital") && datarec["ImagenPreventaDigital"] != DBNull.Value)
-                ImagenPreventaDigital = DbConvert.ToString(datarec["ImagenPreventaDigital"]);            
+                ImagenPreventaDigital = DbConvert.ToString(datarec["ImagenPreventaDigital"]);
             if (DataRecord.HasColumn(datarec, "Estado") && datarec["Estado"] != DBNull.Value)
                 Estado = DbConvert.ToInt32(datarec["Estado"]);
             if (DataRecord.HasColumn(datarec, "TieneCategoria") && datarec["TieneCategoria"] != DBNull.Value)

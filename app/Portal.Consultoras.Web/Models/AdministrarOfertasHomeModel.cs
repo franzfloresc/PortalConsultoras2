@@ -30,6 +30,10 @@ namespace Portal.Consultoras.Web.Models
         public bool MobileActivo { get; set; }
         public string UrlSeccion { get; set; }
 
+        // BPT 353
+        public int DesktopOrdenBpt { get; set; }
+        public int MobileOrdenBpt { get; set; }
+
         public int PaisID { get; set; }
         public ConfiguracionPaisModel ConfiguracionPais { get; set; }
         public IEnumerable<PaisModel> ListaPaises { set; get; }

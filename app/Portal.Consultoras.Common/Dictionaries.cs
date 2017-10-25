@@ -104,7 +104,7 @@ namespace Portal.Consultoras.Common
             { "SV", 0 },
             { "VE", 0 }
         };
-        
+
         /// <summary>
         /// Formatos de los numeros de documento para guardar en BD, key: Codigo del país, value: Func<string, string> 
         /// </summary>
@@ -479,7 +479,7 @@ namespace Portal.Consultoras.Common
             { "06", "SextoPedido" }
         };
 
-		public static Dictionary<string, string> TemplatDatosAval = new Dictionary<string, string>
+        public static Dictionary<string, string> TemplatDatosAval = new Dictionary<string, string>
         {
             { "BO", "TemplatesDatosAval/_DatosAvalGrupo1" },
             { "CL", "TemplatesDatosAval/_DatosAvalGrupo1" },

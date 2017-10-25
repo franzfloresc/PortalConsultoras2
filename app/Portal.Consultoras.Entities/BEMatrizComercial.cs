@@ -16,7 +16,7 @@ namespace Portal.Consultoras.Entities
         [ViewProperty]
         public int IdMatrizComercial { get; set; }
         [DataMember]
-        public string CodigoSAP { get; set; }      
+        public string CodigoSAP { get; set; }
         [DataMember]
         [ViewProperty]
         public string DescripcionOriginal { get; set; }

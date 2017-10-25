@@ -541,7 +541,7 @@
 .content_slider_ept{
     max-width:929px;    
     margin:0 auto;
-    padding-top:50px;
+    padding-top:10px;
     position:relative;
 }
 .imagen_fondo{
@@ -660,7 +660,7 @@
     min-height: 600px;
 }
 .BloqueLandingRD .cantidad_productos_fav {
-    padding-bottom: 20px;
+    /*padding-bottom: 20px;*/
     float: none; 
     text-align: right;
 }
@@ -740,11 +740,11 @@
     height: 40px;
     color: black;
     font-family: 'Lato';
-    float: right;
     padding-left: 7px;
     font-size: 12px;
-    float: left;
-    margin-right: 10px;
+    float: right;
+    letter-spacing: 0.3px;
+    margin-left: 10px;
 }
 .content_buscador_landing{
     float:right;

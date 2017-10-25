@@ -122,9 +122,9 @@ namespace Portal.Consultoras.Web.Controllers
                     else if (docName == catalogoFinart) catalogos.Add(new Catalogo { AnoCampana = campaniaId.Substring(4, 2), IdMarcaCatalogo = Constantes.Marca.Finart, marcaCatalogo = "Finart", DocumentID = documentId, SkinURL = string.Format(urlISSUUVisor, docName) });
                 }
             }
-            catch (Exception) { catalogos = new List<Catalogo>(); }            
+            catch (Exception) { catalogos = new List<Catalogo>(); }
             return catalogos.OrderBy(i => preferences.IndexOf(i.marcaCatalogo)).ToList();
         }
-              
+
     }
 }

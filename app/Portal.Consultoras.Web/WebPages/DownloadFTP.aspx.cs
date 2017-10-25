@@ -60,11 +60,11 @@ namespace Portal.Consultoras.Web.WebPages
                 Response.Close();
                
             }
-            catch (WebException ex)
+            catch (WebException)
             {
                 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 
             }

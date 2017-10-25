@@ -1,10 +1,9 @@
-﻿using Portal.Consultoras.Web.Models;
-using System;
-using System.Web.Mvc;
+﻿using AutoMapper;
+using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
-using AutoMapper;
-
+using System;
 using System.Globalization;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -13,7 +12,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Index()
         {
             return View();
-        }       
+        }
 
         [HttpPost]
         public JsonResult ObtenerDetalleProducto(EstrategiaPedidoModel item)

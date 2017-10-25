@@ -1,16 +1,12 @@
-﻿using System;
+﻿using AutoMapper;
+using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServiceSAC;
+using Portal.Consultoras.Web.ServiceZonificacion;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Portal.Consultoras.Web.ServiceUsuario;
-using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.Models;
-using AutoMapper;
-using System.Configuration;
 using System.ServiceModel;
-using Portal.Consultoras.Web.ServiceZonificacion;
-using Portal.Consultoras.Web.ServiceSAC;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -20,11 +16,11 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Index()
         {
             AdministrarConfiguracionPortalModel model = new AdministrarConfiguracionPortalModel();
-            BEConfiguracionPortal configuracionPortal = new BEConfiguracionPortal(); 
+            BEConfiguracionPortal configuracionPortal = new BEConfiguracionPortal();
 
             try
             {
-                
+
                 BEConfiguracionPortal configuracionPortalParametro = new BEConfiguracionPortal();
                 configuracionPortalParametro.PaisID = UserData().PaisID;
 
@@ -91,9 +87,12 @@ namespace Portal.Consultoras.Web.Controllers
                     resultado = sv.ActualizarConfiguracionPortal(configuracionPortal);
                 }
 
-                if (resultado == 0) { 
-                    operacion = "No se actualizó la configuracion portal."; 
-                }else{
+                if (resultado == 0)
+                {
+                    operacion = "No se actualizó la configuracion portal.";
+                }
+                else
+                {
                     operacion = "Se actualizó la configuracion portal.";
                 }
 

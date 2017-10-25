@@ -58,13 +58,17 @@ namespace Portal.Consultoras.Web.Controllers
 
             switch (MarcaID)
             {
-                case 1: result = "L'Bel";
+                case 1:
+                    result = "L'Bel";
                     break;
-                case 2: result = "Ésika";
+                case 2:
+                    result = "Ésika";
                     break;
-                case 3: result = "Cyzone";
+                case 3:
+                    result = "Cyzone";
                     break;
-                case 6: result = "Finart";
+                case 6:
+                    result = "Finart";
                     break;
             }
 
@@ -197,7 +201,7 @@ namespace Portal.Consultoras.Web.Controllers
                     entidad.OrigenPedidoWeb = ProcesarOrigenPedido(entidad.OrigenPedidoWeb);
 
                     sv.InsPedidoWebDetalleOferta(entidad);
-                    
+
                 }
 
                 UpdPedidoWebMontosPROL();
@@ -210,7 +214,7 @@ namespace Portal.Consultoras.Web.Controllers
                     indPedidoAutentico.CampaniaID = entidad.CampaniaID;
                     indPedidoAutentico.PedidoDetalleID = entidad.PedidoDetalleID;
                     indPedidoAutentico.IndicadorIPUsuario = GetIPCliente();
-                    indPedidoAutentico.IndicadorFingerprint = (Session["Fingerprint"] != null) ? Session["Fingerprint"].ToString() : "";
+                    indPedidoAutentico.IndicadorFingerprint = "";
                     indPedidoAutentico.IndicadorToken = (Session["TokenPedidoAutentico"] != null) ? Session["TokenPedidoAutentico"].ToString() : ""; ;
 
                     InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);
@@ -679,7 +683,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 pag = Util.PaginadorGenerico(grid, lst);
                 string ISO = Util.GetPaisISO(PaisID);
-                
+
                 // lst.Update(x => x.ImagenProducto = (x.ImagenProducto.ToString().Equals(string.Empty) ? string.Empty : (ISO + "/" + x.ImagenProducto)));
                 // 1664
                 var carpetaPais = Globals.UrlMatriz + "/" + ISO;
@@ -696,7 +700,7 @@ namespace Portal.Consultoras.Web.Controllers
                            select new
                            {
                                id = a.NroOrden,
-                               cell = new string[] 
+                               cell = new string[]
                                {
                                    a.TipoOferta.ToString(),
                                    a.CodigoProducto.ToString(),
