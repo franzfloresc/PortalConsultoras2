@@ -21,7 +21,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 logManager.LogErrorWebServicesBusWrap(ex, userData.CodigoConsultora, userData.CodigoISO,string.Empty);
             }
 
-            return RedirectToAction("Index", "Bienvenida");
+            return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
         }
     }
 }

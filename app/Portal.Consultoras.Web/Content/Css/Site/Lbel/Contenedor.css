@@ -17,7 +17,7 @@
 
 .bc_plantilla_estrategia_personalizada .titulo {
     display: block;
-    padding: 4% 6%;
+    padding: 4% 2.5% 2% 2.5%;
     text-align: center;
     padding-bottom: 5px;
     margin-bottom: 15px !important;
@@ -98,7 +98,7 @@
 
 .bc_menu_estrategia .op_menu-horizontal ul li {
     display: inline-block;
-        width: 33.2%;
+        width: 33.3%;
 }
             
 .bc_menu_estrategia .op_menu-horizontal ul li a.activo {
@@ -334,17 +334,13 @@
 }
 
 .previsualizales-ofertas {
-    max-width: 700px !important;
+    max-width: 901px !important;
 }
 .previsualizales-ofertas .titulo {
-    display: block;
-    /* padding-top: 40px; */
-    text-align: center;
-    position: absolute;
-    /*left: 18%;*/
-    left:0%;
-    /* padding: 0 18%; */
-    padding: 0 11%;
+    width: 901px;
+    text-align: left;
+    margin: auto;
+    padding: 0 2%;
 }
 
 
@@ -438,4 +434,61 @@
     left: 0;
     bottom: 0;
     right: 0;
+}
+
+.parche_presentacion_contenedor {
+max-width: 980px;
+margin: auto;
+margin-bottom: 40px;
+}
+.parche_presentacion_contenedor .bloque-menu {
+width: 100%;
+}
+.parche_presentacion_contenedor .titulo {
+float: left;
+width: 41.33%;
+margin: 0;
+font-size: 20px;
+font-weight: bolder !important;
+letter-spacing: 1px;
+font-family: 'Lato';
+color: #b52e36;
+border: 1px solid transparent;
+}
+.parche_presentacion_contenedor .titulo span{
+position: relative;
+top: 6px;
+}
+.parche_presentacion_contenedor .cantidad{
+float:left;
+width:33.33%;
+font-family: 'Lato';
+font-size: 13px;
+text-align:right;
+border: 1px solid transparent;
+}
+.parche_presentacion_contenedor .cantidad span{
+position: relative;
+top: 11px;
+}
+.parche_presentacion_contenedor .ir{
+float:left;
+width:25.33%;
+}
+.parche_presentacion_contenedor .ir a {
+background: #b52e36;
+color: white;
+display: block;
+width: 210px;
+text-align: center;
+padding: 10px 0px;
+/* margin: auto 164px; */
+/* display: none; */
+font-size: 14px;
+float: right;
+letter-spacing: 1px;
+font-family: 'Lato';
+}
+.parche_presentacion_contenedor .parche_clear{
+clear:both;
 }

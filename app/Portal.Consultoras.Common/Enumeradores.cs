@@ -284,5 +284,19 @@
             Rechazado = 3
         }
 
+        public enum PantallaOrigenPedidoWeb
+        {
+            Default=0,
+            Home = 1,
+            Pedido = 2,
+            Liquidacion = 3,
+            CatalogoPersonalizado = 4,
+            ShowRoom = 5,
+            OfertaParaTi = 6,
+            RevistaDigital = 7,
+            GuiaNegocioDigital = 8,
+            General = 9
+        }
+
     }
 }

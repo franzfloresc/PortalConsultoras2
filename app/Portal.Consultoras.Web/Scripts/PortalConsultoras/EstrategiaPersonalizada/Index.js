@@ -96,6 +96,7 @@ function SeccionCargarProductos(objConsulta) {
             $("#" + objConsulta.Codigo).find(".seccion-loading-contenedor").fadeOut();
             $("#" + objConsulta.Codigo).find(".seccion-content-contenedor").fadeIn();
     }
+
     if (objConsulta.UrlObtenerProductos === "")
         return false;
 

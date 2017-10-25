@@ -550,7 +550,7 @@ namespace Portal.Consultoras.Web.Controllers
                 prodModel.Simbolo = userData.Simbolo;
                 prodModel.Precio = estrategia.Precio;
                 prodModel.Precio2 = estrategia.Precio2;
-               // prodModel.PrecioTachado = estrategia.PrecioTachado;
+                prodModel.PrecioTachado = estrategia.PrecioTachado;
                 prodModel.PrecioVenta = estrategia.PrecioString;
                 prodModel.ClaseBloqueada = tipo == 1 || (estrategia.CampaniaID > 0 && estrategia.CampaniaID != userData.CampaniaID) ? "btn_desactivado_general" : "";
                 prodModel.ProductoPerdio = tipo == 1;
@@ -569,12 +569,8 @@ namespace Portal.Consultoras.Web.Controllers
                 prodModel.TieneVerDetalle = true;
                 prodModel.PrecioPublico = estrategia.PrecioPublico;
                 prodModel.Ganancia = estrategia.Ganancia;
-                if (estrategia.Ganancia > 0)
-                {
-                    prodModel.PrecioTachado = estrategia.Precio.ToString("F2");
-                    prodModel.GananciaString = estrategia.Ganancia.ToString("F2");
-                }
-                
+                prodModel.GananciaString = estrategia.GananciaString;
+
                 //estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas
                 //|| estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertaParaTi
                 //|| estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento
