@@ -444,7 +444,7 @@ margin-bottom: 20px;
 }
 .parche_presentacion_contenedor .bloque-titulo .seccion-titulo {
 float: left;
-width: 41.33%;
+width: 50%;
 margin: 0;
 font-size: 20px;
 font-weight: bolder !important;
@@ -461,7 +461,7 @@ top: 6px;
 }
 .parche_presentacion_contenedor .bloque-titulo .cantidad{
 float:left;
-width:33.33%;
+width:25%;
 font-family: 'Lato';
 font-size: 13px;
 text-align:right;
@@ -473,7 +473,7 @@ top: 11px;
 }
 .parche_presentacion_contenedor .bloque-titulo .ir{
 float:left;
-width:25.33%;
+width:25%;
 }
 .parche_presentacion_contenedor .bloque-titulo .ir a {
 background: #b52e36;
