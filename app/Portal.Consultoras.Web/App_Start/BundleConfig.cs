@@ -322,6 +322,7 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/jquery.rateyo.css"
             ));
 
+            #region RevistaDigital
             bundles.Add(new ScriptBundle("~/bundles/RevistaDigital-Info").Include(
                 "~/Scripts/jquery.flexslider.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
@@ -351,7 +352,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js"
             ));
-
+            
             bundles.Add(new StyleBundle("~/bundles/css/Site/RevistaDigital-Landing").Include(
                 "~/Content/Css/Site/slick-pedido.css",
                 "~/Content/Css/Site/flexslider.css",
@@ -422,6 +423,7 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Mobile/esika/revistaDigital.css"
             ));
 
+            #endregion
 
             bundles.Add(new ScriptBundle("~/bundles/Mobile/OfertaParaTi-Detalle").Include(
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
@@ -431,6 +433,26 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js"
             ));
+
+            #region GuiaNegocio
+
+            bundles.Add(new ScriptBundle("~/bundles/GuiaNegocio-Landing").Include(
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
+                "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
+                "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Landing.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js"
+            ));
+
+
+            bundles.Add(new StyleBundle("~/bundles/css/Site/GuiaNegocio-Landing").Include(
+                "~/Content/Css/Site/slick-pedido.css",
+                "~/Content/Css/Site/Esika/revistaDigital.css"
+            ));
+
+            #endregion
 
 #if DEBUG
             BundleTable.EnableOptimizations = false;
