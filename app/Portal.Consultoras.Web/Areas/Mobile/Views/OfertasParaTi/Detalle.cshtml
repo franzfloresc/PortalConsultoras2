@@ -86,32 +86,14 @@
             <div class="marca_oferta048">@Model.DescripcionMarca</div>
             <div id="fav_nombre_prod" class="titulo_ficha_producto">@Model.DescripcionCompleta</div>
 
-            @if (codigo == Constantes.ConfiguracionPais.RevistaDigital)
+            @if (Model.Precio > 0)
             {
-
-                <div class="precio_bpt">
-                    @if (Model.Precio > 0)
-                    {
-                        <span class="precio_tachado_bpt">@Model.Simbolo @Model.PrecioTachado</span>
-                    }
-                    <b>@Model.Simbolo @Model.PrecioVenta</b>
-                    @if (Model.Ganancia > 0)
-                    {
-                    <div class="gana_048">@Model.Simbolo @Model.GananciaString</div>
-                    }
-                </div>
+                    <div class="precio_tachado_048"> Valorizado a: <span>@Model.Simbolo @Model.PrecioTachado</span></div>
             }
-            else
+            <div class="precio_para_ti_048">Precio para ti: <b>@Model.Simbolo @Model.PrecioVenta</b></div>
+            @if (Model.Ganancia > 0)
             {
-                if (Model.Precio > 0)
-                {
-                     <div class="precio_tachado_048"> Valorizado <span>@Model.Simbolo @Model.PrecioTachado</span></div>
-                }
-                <div class="precio_para_ti_048">Precio para ti <b>@Model.Simbolo @Model.PrecioVenta</b></div>
-                if (Model.Ganancia > 0)
-                {
-                    <div class="gana_048">Gana @Model.Simbolo @Model.GananciaString</div>
-                }
+                <div class="gana_048">Gana: @Model.Simbolo @Model.GananciaString</div>
             }
             <div data-compartir-campos="" style="display:none;">
                 <input type="hidden" class="CUV" value="@Model.CUV2" />
