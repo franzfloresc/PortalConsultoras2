@@ -27,7 +27,8 @@ var Analytics = function (config) {
 
         _callingScriptAnalytics = true;
         $.getScript("//www.googleadservices.com/pagead/conversion.js").done(function() {
-            console.log(_listScriptAnalyticsId.shift());
+            _listScriptAnalyticsId.shift();
+            console.log('Cargó analytics Id: ' + google_conversion_id);
             _callingScriptAnalytics = false;
             _invocarScriptAnalytics();
         });
@@ -45,7 +46,7 @@ var Analytics = function (config) {
         parent.append(element);
         _listImagenPixelId.push(id);
     }
-    var _functionPixelFacebook = function () {
+    var _invocarPixelFacebook = function (id) {
         !function (f, b, e, v, n, t, s) {
             if (f.fbq) return;
 
@@ -64,16 +65,17 @@ var Analytics = function (config) {
             s = b.getElementsByTagName(e)[0];
             s.parentNode.insertBefore(t, s)
         }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
-    }
-    var _invocarScriptPixel = function (id) {
-        window.fbq = window._fbq = null;
-        _functionPixelFacebook();
 
         window.fbq('init', id);
         window.fbq('track', 'PageView');
+        console.log('Cargó Pixel Id: ' + id);
+    }
+    var _limpiarPixelFacebook = function () {
+        window.fbq = window._fbq = null;
     }
 
     var _invocarAnalyticsByCodigoIso = function (codigoIso) {
+        _limpiarPixelFacebook();
         $.each(_config.listPaisAnalytics, function (key, item) {
             if (item.CodigoISO == codigoIso) {
                 _crearImagenAnalyticsWithId(item.GndId);
@@ -82,14 +84,21 @@ var Analytics = function (config) {
                 _crearImagenPixelWithId(item.PixelId);
 
                 _addListScriptAnalytics([item.GndId, item.SearchId, item.YoutubeId]);
-                _invocarScriptPixel(item.PixelId);
+                _invocarPixelFacebook(item.PixelId);
 
                 return false;
             }
         })
     }
+    var _invocarEventoPixel = function (link) {
+        if (!window.fbq) return;
+
+        window.fbq('trackCustom', 'Convert', { 'link': link });
+        console.log('Pixel Convert: ' + link);
+    }
 
     return {
-        invocarAnalyticsByCodigoIso: _invocarAnalyticsByCodigoIso
+        invocarAnalyticsByCodigoIso: _invocarAnalyticsByCodigoIso,
+        invocarEventoPixel: _invocarEventoPixel
     }
 };

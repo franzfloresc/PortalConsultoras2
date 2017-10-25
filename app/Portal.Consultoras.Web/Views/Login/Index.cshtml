@@ -640,20 +640,21 @@
 }
 
 @section headerScripts {
-    @*<script type="text/javascript" id="analytics-load" src="~/Scripts/PortalConsultoras/Login/Test.js"></script>*@
-    <script type="text/javascript">
-    /* <![CDATA[ */
-        var google_conversion_id = 0;
-        var google_custom_params = window.google_tag_params;
-        var google_remarketing_only = true;
-    /* ]]> */
-    </script>
+    @if (Model.ListPaisAnalytics != null && Model.ListPaisAnalytics.Count > 0)
+    {
+        <script type="text/javascript">
+        /* <![CDATA[ */
+            var google_conversion_id = 0;
+            var google_custom_params = window.google_tag_params;
+            var google_remarketing_only = true;
+        /* ]]> */
+        </script>
 
-    <div id="div-analytics-image" style="display:inline;"></div>
-    <noscript id="noscript-pixel-image"></noscript>
-}
+        <div id="div-analytics-image" style="display:inline;"></div>
+        <noscript id="noscript-pixel-image"></noscript>
+    }
 
-@section scripts {
+    @System.Web.Optimization.Scripts.Render("~/bundles/JS-Login-Header")
     <script>
         var configAnalytics = { listPaisAnalytics : [] };
         @if (Model.ListPaisAnalytics != null)
@@ -672,7 +673,9 @@
             }
         }
     </script>
+}
 
+@section scripts {
     @System.Web.Optimization.Scripts.Render("~/bundles/JS-Login")
 }
 

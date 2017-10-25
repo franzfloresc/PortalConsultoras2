@@ -621,6 +621,8 @@ function AsignarHojaEstilos() {
 
 function olvidasteContrasenia() {
     _gaq.push(['_trackEvent', 'Link', 'Olvide-contrasenia']);
+    analytics.invocarEventoPixel("OlvidasteContraseña");
+
     val_comboLogin = $("#ddlPais").val();
     temp = getVALbyISO(val_comboLogin);
     $("#cboPaisCambioClave").val(temp);

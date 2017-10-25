@@ -248,6 +248,9 @@ namespace Portal.Consultoras.Web
                "~/Scripts/PortalConsultoras/Login/Analytics.js",
                "~/Scripts/PortalConsultoras/Login/FormsSignIn.js"
             ));
+            bundles.Add(new ScriptBundle("~/bundles/JS-Login-Header").Include(
+               "~/Scripts/PortalConsultoras/Login/Analytics.js"
+            ));
 
             bundles.Add(new StyleBundle("~/Content/Css/Login").Include(
                "~/Content/Css/ui.jquery/jquery-ui.css",
