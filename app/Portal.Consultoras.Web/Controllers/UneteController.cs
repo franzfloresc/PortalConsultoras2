@@ -5524,7 +5524,7 @@ namespace Portal.Consultoras.Web.Controllers
                     Data = 5;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 Success = false;
                 Data = 5;
