@@ -73,16 +73,6 @@ namespace Portal.Consultoras.Web.UnitTest.AreasMobile.Mobile
                 Assert.AreEqual("Index", result.RouteValues["action"]);
             }
 
-
-            public class OfertasParaTiControllerStub02 : OfertasParaTiController
-            {
-                public override EstrategiaPersonalizadaProductoModel EstrategiaGetDetalle(int id, string cuv = "")
-                {
-                    return null;
-                }
-
-            }
-
         }
 
         [TestClass]
