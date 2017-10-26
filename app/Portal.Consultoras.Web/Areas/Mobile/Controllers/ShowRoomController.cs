@@ -1,4 +1,3 @@
-using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Controllers;
 using Portal.Consultoras.Web.Models;

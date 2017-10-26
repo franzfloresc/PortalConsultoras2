@@ -1,16 +1,13 @@
-﻿using System;
+using System;
 using System.Web.Mvc;
 using System.ServiceModel;
 using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Globalization;
-
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
-using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Helpers;
-using Portal.Consultoras.Web.ServiceSAC;
+using Portal.Consultoras.Common;
 
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers

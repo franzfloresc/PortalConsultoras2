@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using OpenSource.Library.DataAccess;
+using Portal.Consultoras.Common;
+using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
-using OpenSource.Library.DataAccess;
-using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Entities
 {
@@ -112,7 +108,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string ImagenURLOfertaFIC { get; set; }
         [DataMember]
-        public bool PROLSinStock { get; set; } //1510
+        public bool PROLSinStock { get; set; }
         [DataMember]
         public DateTime FechaInicioReFacturacion { get; set; }
         [DataMember]
@@ -121,25 +117,25 @@ namespace Portal.Consultoras.Entities
         public TimeSpan FactorCierreZonaDemAnti { get; set; }
         [DataMember]
         [Column("ValidacionAbierta")]
-        public bool ValidacionAbierta { get; set; }//CCSS_JZ_PROL2
+        public bool ValidacionAbierta { get; set; }
 
         [Column("NuevoPROL")]
         [DataMember]
-        public bool NuevoPROL { get; set; }//RQ_NP - R2133
+        public bool NuevoPROL { get; set; }
 
         [Column("ZonaNuevoPROL")]
         [DataMember]
-        public bool ZonaNuevoPROL { get; set; }//RQ_NP - R2133
+        public bool ZonaNuevoPROL { get; set; }
         [DataMember]
-        public bool EstadoSimplificacionCUV { get; set; } /*R20150701 - LR*/
+        public bool EstadoSimplificacionCUV { get; set; }
         [DataMember]
         public bool EsquemaDAConsultora { get; set; }
-        [DataMember]// R20151126
-        public TimeSpan HoraCierreZonaDemAntiCierre { get; set; } // R20151126
-        [DataMember]// R20150306
-        public bool ValidacionInteractiva { get; set; } // R20150306
-        [DataMember]// R20150306
-        public string MensajeValidacionInteractiva { get; set; } // R20150306
+        [DataMember]
+        public TimeSpan HoraCierreZonaDemAntiCierre { get; set; }
+        [DataMember]
+        public bool ValidacionInteractiva { get; set; }
+        [DataMember]
+        public string MensajeValidacionInteractiva { get; set; }
 
         [Column("IndicadorGPRSB")]
         [DataMember]
@@ -212,26 +208,24 @@ namespace Portal.Consultoras.Entities
                 FactorCierreZonaNormal = DbConvert.ToTimeSpan(datarec["FactorCierreZonaNormal"]);
             if (DataRecord.HasColumn(datarec, "FactorCierreZonaDemAnti") && datarec["FactorCierreZonaDemAnti"] != DBNull.Value)
                 FactorCierreZonaDemAnti = DbConvert.ToTimeSpan(datarec["FactorCierreZonaDemAnti"]);
-            //RQ_NP - R2133
+
             if (DataRecord.HasColumn(datarec, "NuevoPROL") && datarec["NuevoPROL"] != DBNull.Value)
                 NuevoPROL = DbConvert.ToBoolean(datarec["NuevoPROL"]);
-            //RQ_NP - R2133
+
             if (DataRecord.HasColumn(datarec, "ZonaNuevoPROL") && datarec["ZonaNuevoPROL"] != DBNull.Value)
                 ZonaNuevoPROL = DbConvert.ToBoolean(datarec["ZonaNuevoPROL"]);
-            /*R20150701*/
+
             if (DataRecord.HasColumn(datarec, "EstadoSimplificacionCUV") && datarec["EstadoSimplificacionCUV"] != DBNull.Value)
                 EstadoSimplificacionCUV = DbConvert.ToBoolean(datarec["EstadoSimplificacionCUV"]);
             if (DataRecord.HasColumn(datarec, "EsquemaDAConsultora") && datarec["EsquemaDAConsultora"] != DBNull.Value)
                 EsquemaDAConsultora = DbConvert.ToBoolean(datarec["EsquemaDAConsultora"]);
-            if (DataRecord.HasColumn(datarec, "HoraCierreZonaDemAntiCierre") && datarec["HoraCierreZonaDemAntiCierre"] != DBNull.Value) //R20151126
-                HoraCierreZonaDemAntiCierre = DbConvert.ToTimeSpan(datarec["HoraCierreZonaDemAntiCierre"]); //R20151126
+            if (DataRecord.HasColumn(datarec, "HoraCierreZonaDemAntiCierre") && datarec["HoraCierreZonaDemAntiCierre"] != DBNull.Value)
+                HoraCierreZonaDemAntiCierre = DbConvert.ToTimeSpan(datarec["HoraCierreZonaDemAntiCierre"]);
 
-            /*R20160306: INICIO*/
             if (DataRecord.HasColumn(datarec, "ValidacionInteractiva") && datarec["ValidacionInteractiva"] != DBNull.Value)
                 ValidacionInteractiva = DbConvert.ToBoolean(datarec["ValidacionInteractiva"]);
             if (DataRecord.HasColumn(datarec, "MensajeValidacionInteractiva") && datarec["MensajeValidacionInteractiva"] != DBNull.Value)
                 MensajeValidacionInteractiva = DbConvert.ToString(datarec["MensajeValidacionInteractiva"]);
-            /*R20160306: FIN*/
 
             if (DataRecord.HasColumn(datarec, "IndicadorGPRSB") && datarec["IndicadorGPRSB"] != DBNull.Value)
                 IndicadorGPRSB = Convert.ToInt32(datarec["IndicadorGPRSB"]);

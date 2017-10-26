@@ -1,15 +1,15 @@
-﻿using System;
+﻿using AutoMapper;
+using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServiceSAC;
+using Portal.Consultoras.Web.ServiceZonificacion;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
-using AutoMapper;
-using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServiceSAC;
-using Portal.Consultoras.Web.ServiceZonificacion;
-using Portal.Consultoras.Web.ServicePedido;
-using Portal.Consultoras.Common;
-using System.IO;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -45,7 +45,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             model.ListaCampanias = ListCampanias(userData.PaisID);
             model.ListaTipoPresentacion = ListTipoPresentacion();
-            if (!string.IsNullOrEmpty(model.DesktopTituloMenu) && model.DesktopTituloMenu.Contains("|")) 
+            if (!string.IsNullOrEmpty(model.DesktopTituloMenu) && model.DesktopTituloMenu.Contains("|"))
             {
                 model.DesktopSubTituloMenu = model.DesktopTituloMenu.SplitAndTrim('|').LastOrDefault();
                 model.DesktopTituloMenu = model.DesktopTituloMenu.SplitAndTrim('|').FirstOrDefault();
@@ -57,7 +57,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return PartialView("Partials/MantenimientoPalanca", model);
         }
-            
+
         public ActionResult GetOfertasHome(int idOfertasHome)
         {
             AdministrarOfertasHomeModel model = new AdministrarOfertasHomeModel();
@@ -88,18 +88,18 @@ namespace Portal.Consultoras.Web.Controllers
                     //page = pag.CurrentPage,
                     //records = pag.RecordCount,
                     rows = from a in list
-                    select new
-                    {
-                        id = a.ConfiguracionPaisID,
-                        cell = new string[]
-                        {
+                           select new
+                           {
+                               id = a.ConfiguracionPaisID,
+                               cell = new string[]
+                               {
                             a.ConfiguracionPaisID.ToString(),
                             a.Orden.ToString(),
                             a.Codigo.ToString(),
                             a.Descripcion.ToString(),
                             a.Estado.ToString()
-                        }
-                    }
+                               }
+                           }
                 };
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -138,9 +138,9 @@ namespace Portal.Consultoras.Web.Controllers
                     records = pag.RecordCount,
                     rows = from a in items
                            select new
-                    {
-                        id = a.ConfiguracionOfertasHomeID,
-                        cell = new string[]
+                           {
+                               id = a.ConfiguracionOfertasHomeID,
+                               cell = new string[]
                         {
                             a.ConfiguracionOfertasHomeID.ToString(),
                             a.DesktopOrden.ToString(),
@@ -148,7 +148,7 @@ namespace Portal.Consultoras.Web.Controllers
                             a.ConfiguracionPais.Descripcion,
                             a.DesktopTitulo
                         }
-                    }
+                           }
                 };
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -250,7 +250,7 @@ namespace Portal.Consultoras.Web.Controllers
             List<ServiceSAC.BEConfiguracionPais> lst;
             using (SACServiceClient sv = new SACServiceClient())
             {
-                lst =  sv.ListConfiguracionPais(UserData().PaisID, true).ToList();
+                lst = sv.ListConfiguracionPais(UserData().PaisID, true).ToList();
             }
             return Mapper.Map<IList<ServiceSAC.BEConfiguracionPais>, IEnumerable<ConfiguracionPaisModel>>(lst);
         }
@@ -295,8 +295,8 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             var lista = from a in lst
-                where a.FlagActivo == 1
-                select a;
+                        where a.FlagActivo == 1
+                        select a;
 
             Mapper.CreateMap<BETipoEstrategia, TipoEstrategiaModel>()
                 .ForMember(t => t.TipoEstrategiaID, f => f.MapFrom(c => c.TipoEstrategiaID))
@@ -382,7 +382,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!String.IsNullOrEmpty(model.MobileImagenFondo) &&
                     (String.IsNullOrEmpty(entidad.MobileImagenFondo) || model.MobileImagenFondo != entidad.MobileImagenFondo))
                     model.MobileImagenFondo = SaveFileS3(model.MobileImagenFondo);
-               
+
             }
             else //create
             {

@@ -47,6 +47,7 @@ namespace Portal.Consultoras.Web.Models
         public string ImgHomeDesktop { get; set; }
         public string ImgHomeMobile { get; set; }
         public string PrecioAnt { get; set; }
+        public string Ganancia { get; set; }
         public bool EsOfertaIndependiente { get; set; }
 
     }

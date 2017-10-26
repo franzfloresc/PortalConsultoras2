@@ -1,11 +1,7 @@
 ﻿using Portal.Consultoras.Common;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Entities
 {
@@ -68,7 +64,7 @@ namespace Portal.Consultoras.Entities
         public int IndicadorPedido { get; set; }
 
         [DataMember]
-        public decimal ganahasta { get; set; }//1731
+        public decimal ganahasta { get; set; }
 
         public BEOfertaNueva()
         {
@@ -120,14 +116,14 @@ namespace Portal.Consultoras.Entities
                 IndicadorMontoMinimo = Convert.ToInt32(row["IndicadorMontoMinimo"]);
             if (DataRecord.HasColumn(row, "DescripcionProd"))
                 DescripcionProd = Convert.ToString(row["DescripcionProd"]);
-           
+
             if (DataRecord.HasColumn(row, "IndicadorPedido") && row["IndicadorPedido"] != DBNull.Value)//1487
                 IndicadorPedido = Convert.ToInt32(row["IndicadorPedido"]);
             else
                 IndicadorPedido = 0;
 
-            if (DataRecord.HasColumn(row, "ganahasta"))//1731
-                ganahasta = Convert.ToDecimal(row["ganahasta"]);//1731
+            if (DataRecord.HasColumn(row, "ganahasta"))
+                ganahasta = Convert.ToDecimal(row["ganahasta"]);
         }
     }
 }

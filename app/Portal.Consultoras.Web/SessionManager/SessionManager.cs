@@ -1,4 +1,5 @@
-﻿using Portal.Consultoras.Web.Models;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
 using System;
 using System.Collections.Generic;
@@ -93,6 +94,16 @@ namespace Portal.Consultoras.Web.SessionManager
         List<BETipoEstrategia> ISessionManager.GetTiposEstrategia()
         {
             return (List<BETipoEstrategia>)HttpContext.Current.Session["ListaTipoEstrategia"];
+        }
+
+        void ISessionManager.SetRevistaDigital(RevistaDigitalModel revistaDigital)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.RevistaDigital] = revistaDigital;
+        }
+
+        RevistaDigitalModel ISessionManager.GetRevistaDigital()
+        {
+            return (RevistaDigitalModel)HttpContext.Current.Session[Constantes.ConstSession.RevistaDigital];
         }
     }
 }

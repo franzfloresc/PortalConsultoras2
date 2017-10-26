@@ -1,12 +1,9 @@
-﻿using System;
+﻿using OpenSource.Library.DataAccess;
+using Portal.Consultoras.Common;
+using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
-using OpenSource.Library.DataAccess;
-using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Entities
 {
@@ -17,12 +14,10 @@ namespace Portal.Consultoras.Entities
         public long SolicitudClienteID { get; set; }
         [DataMember]
         public string CodigoConsultora { get; set; }
-        // 2319 - 20012015 - Inicio
         [DataMember]
         public long ConsultoraID { get; set; }
         [DataMember]
         public string CodigoUbigeo { get; set; }
-        // 2319 - 20012015 - Fin
         [DataMember]
         public string NombreCompleto { get; set; }
         [DataMember]
@@ -67,7 +62,6 @@ namespace Portal.Consultoras.Entities
         public DateTime FechaSolicitud { get; set; }
         [DataMember]
         public IList<BESolicitudClienteDetalle> DetalleSolicitud { get; set; }
-        /* R2319 - AAHA 02022015 - Inicio */
         [DataMember]
         public string EnviadoGZ { get; set; }
         [DataMember]
@@ -87,7 +81,6 @@ namespace Portal.Consultoras.Entities
         public BESolicitudCliente()
         {
         }
-        /* R2319 - AAHA 02022015 - Fin */
 
         public BESolicitudCliente(IDataRecord row)
         {
@@ -151,7 +144,7 @@ namespace Portal.Consultoras.Entities
                 UnidadGeografica3 = Convert.ToString(row["UnidadGeografica3"]);
             if (DataRecord.HasColumn(row, "TipoDistribucion") && row["TipoDistribucion"] != DBNull.Value)
                 TipoDistribucion = Convert.ToInt32(row["TipoDistribucion"]);
-            /* R2319 - AAHA 02022015 - Fin */
+
             if (DataRecord.HasColumn(row, "EstadoSolicitudClienteId") && row["EstadoSolicitudClienteId"] != DBNull.Value)
                 EstadoSolicitudClienteId = Convert.ToInt32(row["EstadoSolicitudClienteId"]);
 
@@ -162,7 +155,7 @@ namespace Portal.Consultoras.Entities
     }
 
     [DataContract]
-    public class BESolicitudClienteDetalle 
+    public class BESolicitudClienteDetalle
     {
         [DataMember]
         public long SolicitudClienteID { get; set; }
@@ -193,7 +186,7 @@ namespace Portal.Consultoras.Entities
 
         public BESolicitudClienteDetalle() { }
 
-        public BESolicitudClienteDetalle(IDataRecord row) 
+        public BESolicitudClienteDetalle(IDataRecord row)
         {
             if (DataRecord.HasColumn(row, "SolicitudClienteID") && row["SolicitudClienteID"] != DBNull.Value)
                 SolicitudClienteID = Convert.ToInt64(row["SolicitudClienteID"]);
@@ -240,7 +233,8 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string Tono { get; set; }
         public BESolicitudClienteDetalleStoreParameter() { }
-        public BESolicitudClienteDetalleStoreParameter(BESolicitudClienteDetalle solicitudClienteDetalle) {
+        public BESolicitudClienteDetalleStoreParameter(BESolicitudClienteDetalle solicitudClienteDetalle)
+        {
 
             CUV = solicitudClienteDetalle.CUV;
             DescripcionProducto = solicitudClienteDetalle.DescripcionProducto;
@@ -269,12 +263,10 @@ namespace Portal.Consultoras.Entities
     {
         [DataMember]
         public string CodigoConsultora { get; set; }
-        // 2319 - 20012015 - Inicio
         [DataMember]
         public long ConsultoraID { get; set; }
         [DataMember]
         public string CodigoUbigeo { get; set; }
-        // 2319 - 20012015 - Fin
         [DataMember]
         public string NombreCompleto { get; set; }
         [DataMember]
@@ -327,13 +319,13 @@ namespace Portal.Consultoras.Entities
     public class BESolicitudNuevaConsultora
     {
         [DataMember]
-        public string Nombre {get; set;}
-        
+        public string Nombre { get; set; }
+
         [DataMember]
-        public string Email {get; set;}
-        
+        public string Email { get; set; }
+
         [DataMember]
-        public string MarcaNombre {get; set;}
+        public string MarcaNombre { get; set; }
 
         public BESolicitudNuevaConsultora(IDataRecord row)
         {
