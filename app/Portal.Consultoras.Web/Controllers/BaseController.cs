@@ -3345,10 +3345,6 @@ namespace Portal.Consultoras.Web.Controllers
                         entConf.DesktopCantidadProductos = 0;
                     }
 
-                    if (menuActivo.CampaniaId > userData.CampaniaID)
-                    {
-                        entConf.UrlSeccion = "RevistaDigital/Revisar";
-                    }
                 }
                 else if (entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.Lanzamiento)
                 {
@@ -3379,6 +3375,7 @@ namespace Portal.Consultoras.Web.Controllers
                 switch (entConf.ConfiguracionPais.Codigo)
                 {
                     case Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada:
+                        seccion.UrlLandig = "/GuiaNegocio";
                         seccion.UrlObtenerProductos = "";
                         seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.GNDMobileLanding : Constantes.OrigenPedidoWeb.GNDDesktopLanding;
                         break;
@@ -3390,53 +3387,20 @@ namespace Portal.Consultoras.Web.Controllers
                     case Constantes.ConfiguracionPais.Lanzamiento:
                         seccion.UrlObtenerProductos = "RevistaDigital/RDObtenerProductosLan";
                         seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.RevistaDigitalMobileLandingCarrusel : Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLandingCarrusel;
+                        seccion.VerMas = false;
                         break;
                     case Constantes.ConfiguracionPais.RevistaDigitalReducida:
                     case Constantes.ConfiguracionPais.RevistaDigital:
+                        seccion.UrlLandig = menuActivo.CampaniaId > userData.CampaniaID ? "RevistaDigital/Revisar" : "RevistaDigital/Comprar";
                         seccion.UrlObtenerProductos = "RevistaDigital/RDObtenerProductos";
                         seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding : Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding;
                         break;
                     case Constantes.ConfiguracionPais.ShowRoom:
+                        
+                        ConfiguracionSeccionShowRoom(ref seccion);
+                        if (seccion.UrlLandig == "")
+                            continue;
 
-                        if (sessionManager.GetEsShowRoom() &&
-                            !sessionManager.GetMostrarShowRoomProductos() &&
-                            !sessionManager.GetMostrarShowRoomProductosExpiro())
-                        {
-                            seccion.UrlObtenerProductos = "ShowRoom/GetDataShowRoomIntriga";
-
-                            if (!isMobile)
-                            {
-                                seccion.ImagenFondo =
-                                    ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.ImagenFondoContenedorOfertasShowRoomIntriga,
-                                                                        Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
-                            }
-                            else
-                            {
-                                seccion.ImagenFondo =
-                                    ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.ImagenBannerContenedorOfertasIntriga,
-                                                                        Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
-                            }
-                        }
-
-                        if (sessionManager.GetEsShowRoom() &&
-                            sessionManager.GetMostrarShowRoomProductos() &&
-                            !sessionManager.GetMostrarShowRoomProductosExpiro())
-                        {
-                            seccion.UrlObtenerProductos = "ShowRoom/CargarProductosShowRoomOferta";
-                            if (!isMobile)
-                            {
-                                seccion.ImagenFondo =
-                                    ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.ImagenFondoContenedorOfertasShowRoomVenta,
-                                                                        Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
-                            }
-                            else
-                            {
-                                seccion.ImagenFondo =
-                                    ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.ImagenBannerContenedorOfertasVenta,
-                                                                        Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
-                            }
-
-                        }
                         break;
                     case Constantes.ConfiguracionPais.OfertaDelDia:
                         if (!userData.TieneOfertaDelDia) continue;
@@ -3469,11 +3433,8 @@ namespace Portal.Consultoras.Web.Controllers
                         seccion.CantidadMostrar = 0;
                         break;
                     case Constantes.ConfiguracionSeccion.TipoPresentacion.ShowRoom:
-                        if (sessionManager.GetEsShowRoom())
-                        {
-                            seccion.TemplatePresentacion = "seccion-showroom";
-                            seccion.TemplateProducto = "#template-showroom";
-                        }
+                        seccion.TemplatePresentacion = "seccion-showroom";
+                        seccion.TemplateProducto = "#template-showroom";
                         break;
                     case Constantes.ConfiguracionSeccion.TipoPresentacion.OfertaDelDia:
                         seccion.TemplatePresentacion = "seccion-oferta-del-dia";
@@ -3491,6 +3452,55 @@ namespace Portal.Consultoras.Web.Controllers
 
             return modelo.OrderBy(s => s.Orden).ToList();
 
+        }
+
+        private void ConfiguracionSeccionShowRoom(ref ConfiguracionSeccionHomeModel seccion)
+        {
+            seccion.UrlLandig = "";
+
+            if (!sessionManager.GetEsShowRoom())
+                return;
+
+            if (!sessionManager.GetMostrarShowRoomProductos() &&
+                !sessionManager.GetMostrarShowRoomProductosExpiro())
+            {
+
+                seccion.UrlLandig = "/ShowRoom/Intriga";
+                seccion.UrlObtenerProductos = "ShowRoom/GetDataShowRoomIntriga";
+
+                if (!IsMobile())
+                {
+                    seccion.ImagenFondo =
+                        ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.ImagenFondoContenedorOfertasShowRoomIntriga,
+                                                            Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+                }
+                else
+                {
+                    seccion.ImagenFondo =
+                        ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.ImagenBannerContenedorOfertasIntriga,
+                                                            Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
+                }
+            }
+
+            if (sessionManager.GetMostrarShowRoomProductos() &&
+                !sessionManager.GetMostrarShowRoomProductosExpiro())
+            {
+                seccion.UrlLandig = "/ShowRoom";
+                seccion.UrlObtenerProductos = "ShowRoom/CargarProductosShowRoomOferta";
+                if (!IsMobile())
+                {
+                    seccion.ImagenFondo =
+                        ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.ImagenFondoContenedorOfertasShowRoomVenta,
+                                                            Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+                }
+                else
+                {
+                    seccion.ImagenFondo =
+                        ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.ImagenBannerContenedorOfertasVenta,
+                                                            Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
+                }
+
+            }
         }
 
         public ConfiguracionSeccionHomeModel ObtenerSeccionHomePalanca(string codigo, int campaniaId)
