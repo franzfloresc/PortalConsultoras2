@@ -115,7 +115,7 @@
                     <input type="hidden" class="cdrweb_CantidadAprobados" value="@item.CantidadAprobados" />
                     <input type="hidden" class="cdrweb_CantidadRechazados" value="@item.CantidadRechazados" />
 
-                    <div class="datos_solicitud_cdr">
+                    <div class="datos_solicitud_cdr abrir_detallemb">
                         <div class="fecha_solicitud tipografia_lato_light">
                             @formatoFechaAtencion
                         </div>
@@ -152,8 +152,7 @@
     }
 
 </div>
-@Scripts.Render("~/Scripts/Mobile")
-<script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/MisReclamos/Index.js")"></script>
+@Scripts.Render("~/bundles/Mobile/CDRWeb")
 <script type="text/javascript">
     var mensajeGestionCdrInhabilitada = '@Html.Raw(Model.MensajeGestionCdrInhabilitada)';
     var urlReclamo = '@Url.Action("Reclamo", "MisReclamos", new { area = "Mobile" } )';
