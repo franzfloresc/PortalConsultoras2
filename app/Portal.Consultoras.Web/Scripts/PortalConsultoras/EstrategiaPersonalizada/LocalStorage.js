@@ -61,7 +61,7 @@ function ActualizarLocalStorageAgregado(tipo, cuv, valor) {
         if (cuv == "" || cuv == undefined) {
             return false;
         }
-        if (valor == "" || valor == undefined) {
+        if (valor == undefined) {
             return false;
         }
 
