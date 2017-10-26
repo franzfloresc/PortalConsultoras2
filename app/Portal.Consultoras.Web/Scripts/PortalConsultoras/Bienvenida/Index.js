@@ -14,6 +14,11 @@ var popupCantidadInicial = popupCantidadInicial || 1;
 var popupListaPrioridad = popupListaPrioridad || new Array();
 var showRoomMostrarLista = showRoomMostrarLista || 0;
 
+//youtube
+var tag = null;
+var firstScriptTag = null;
+var player;
+
 $(document).ready(function () { 
     $("#hdDataBarra").val("");
 
@@ -54,10 +59,17 @@ $(document).ready(function () {
     $(".ver_video_introductorio").click(function () {
         $('#fondoComunPopUp').show();
         contadorFondoPopUp++;
+        ConfigurarYoutube();
         $('#videoIntroductorio').fadeIn(function () {
             $("#videoIntroductorio").delay(200);
             $("#videoIntroductorio").fadeIn(function () {
                 playVideo();
+
+                setTimeout(function () {
+                    if (player.playVideo) {
+                        player.playVideo();
+                    }
+                }, 2000);
             });
         });
     });
@@ -674,8 +686,20 @@ function ocultarUbicacionTutorial() {
 function mostrarVideoIntroductorio() {
     try {
         if (viewBagVioVideo == "0") {
+            ConfigurarYoutube();            
+
             PopupMostrar('videoIntroductorio');
-            setTimeout(function () { playVideo(); }, 1000);
+
+            setTimeout(function () {
+                playVideo();
+            }, 1000);            
+
+            setTimeout(function () {
+                if (player.playVideo) {
+                    player.playVideo();
+                }
+            }, 2000);
+
             return true;
         }
 
@@ -2532,8 +2556,8 @@ function playVideo() {
                 'category': 'Home',
                 'action': 'Video de Bienvenida: Iniciar video',
                 'label': 'SomosBelcorp.com ¡se renueva para ti!'
-            });
-        }
+            });            
+        }        
     } catch (e) { }
 };
 
@@ -3303,5 +3327,44 @@ function VerSeccionBienvenida(seccion) {
         $("html, body").animate({
             scrollTop: topOf
         }, 1000);
+    }
+}
+
+function ConfigurarYoutube() {
+    if (tag == null) {
+        tag = document.createElement("script");
+        tag.src = "https://www.youtube.com/iframe_api";
+
+        firstScriptTag = document.getElementsByTagName("script")[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    }
+}
+
+function onYouTubeIframeAPIReady(playerId) {
+    var videoIdMostrar;
+    if (isEsika) {
+        videoIdMostrar = "jNoP8OoMmW4"; //Video Esika
+    } else {
+        videoIdMostrar = "djSn0tFcQ0w"; //Video Lbel
+    }
+    player = new YT.Player("divPlayer", {
+        width: "100%",
+        videoId: videoIdMostrar,
+        playerVars: { rel: 0 },
+        events: {
+            'onStateChange': onPlayerStateChange
+        }
+    });
+};
+
+function onPlayerStateChange(event) {
+    // track when video ends
+    if (event.data == YT.PlayerState.ENDED) {
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Home',
+            'action': 'Video de Bienvenida: Finalizar video',
+            'label': 'SomosBelcorp.com ¡se renueva para ti!'
+        });
     }
 }
