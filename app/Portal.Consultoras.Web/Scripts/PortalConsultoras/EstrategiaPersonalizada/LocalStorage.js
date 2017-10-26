@@ -51,18 +51,26 @@ function GetProductoStorage(cuv, campania, nombreKey) {
 function ActualizarLocalStorageAgregado(tipo, cuv, valor) {
     var ok = false;
     try {
+        tipo = $.trim(tipo);
         cuv = $.trim(cuv);
+        valor = $.trim(valor);
+
+        if (tipo == "" || tipo == undefined) {
+            return false;
+        }
+        if (cuv == "" || cuv == undefined) {
+            return false;
+        }
+        if (valor == "" || valor == undefined) {
+            return false;
+        }
+
         if (tipo == "rd") {
-            if (cuv == "" || valor == undefined) {
-                return false;
-            }
-           
             var listaCuv = cuv.split('|');
             $.each(listaCuv, function (ind, cuvItem) {
                 var cuvx = cuvItem.split(';')[0];
                 ok = RDActualizarLocalStorageAgragado(cuvx, valor);
             });
-            
         }
     } catch (e) {
         console.log(e);
