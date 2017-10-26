@@ -439,8 +439,7 @@ margin: auto;
 }
 .parche_presentacion_contenedor .bloque-titulo {
 width: 100%;
-padding-top: 30px;
-padding-bottom: 20px;
+padding: 30px 0;
 }
 .parche_presentacion_contenedor .bloque-titulo .seccion-titulo {
 float: left;
@@ -488,6 +487,7 @@ font-size: 14px;
 float: right;
 letter-spacing: 1px;
 font-family: 'Lato';
+height: 40px;
 }
 .parche_presentacion_contenedor .parche_clear{
 clear:both;
