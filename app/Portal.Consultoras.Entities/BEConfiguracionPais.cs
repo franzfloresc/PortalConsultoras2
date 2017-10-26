@@ -34,8 +34,6 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int DesdeCampania { get; set; }
         [DataMember]
-        public int PaisID { get; set; }
-        [DataMember]
         public string DesktopTituloBanner { get; set; }
         [DataMember]
         public string MobileTituloBanner { get; set; }
@@ -43,13 +41,33 @@ namespace Portal.Consultoras.Entities
         public string DesktopSubTituloBanner { get; set; }
         [DataMember]
         public string MobileSubTituloBanner { get; set; }
-        [DataMember]
-        public string Color { get; set; }
 
         [DataMember]
-        public BEConfiguracionPaisDetalle Detalle  { get; set; }
+        public string DesktopFondoBanner { get; set; }
+        [DataMember]
+        public string MobileFondoBanner { get; set; }
+        [DataMember]
+        public string DesktopLogoBanner { get; set; }
+        [DataMember]
+        public string MobileLogoBanner { get; set; }
+        [DataMember]
+        public string UrlMenu { get; set; }
+        [DataMember]
+        public int OrdenBpt { get; set; }
+        [DataMember]
+        public bool BloqueoRevistaImpresa { get; set; }
 
-        public BEConfiguracionPais() {
+        //BPT 353
+        [DataMember]
+        public int MobileOrden { get; set; }
+        [DataMember]
+        public int MobileOrdenBpt { get; set; }
+
+        [DataMember]
+        public BEConfiguracionPaisDetalle Detalle { get; set; }
+
+        public BEConfiguracionPais()
+        {
             Detalle = new BEConfiguracionPaisDetalle();
         }
 
@@ -70,7 +88,16 @@ namespace Portal.Consultoras.Entities
             if (row.HasColumn("MobileTituloBanner")) MobileTituloBanner = Convert.ToString(row["MobileTituloBanner"]);
             if (row.HasColumn("DesktopSubTituloBanner")) DesktopSubTituloBanner = Convert.ToString(row["DesktopSubTituloBanner"]);
             if (row.HasColumn("MobileSubTituloBanner")) MobileSubTituloBanner = Convert.ToString(row["MobileSubTituloBanner"]);
-            if (row.HasColumn("Color")) Color = Convert.ToString(row["Color"]);
+            if (row.HasColumn("DesktopFondoBanner")) DesktopFondoBanner = Convert.ToString(row["DesktopFondoBanner"]);
+            if (row.HasColumn("MobileFondoBanner")) MobileFondoBanner = Convert.ToString(row["MobileFondoBanner"]);
+            if (row.HasColumn("DesktopLogoBanner")) DesktopLogoBanner = Convert.ToString(row["DesktopLogoBanner"]);
+            if (row.HasColumn("MobileLogoBanner")) MobileLogoBanner = Convert.ToString(row["MobileLogoBanner"]);
+            if (row.HasColumn("UrlMenu")) UrlMenu = Convert.ToString(row["UrlMenu"]);
+            if (row.HasColumn("OrdenBpt")) OrdenBpt = Convert.ToInt32(row["OrdenBpt"]);
+            if (row.HasColumn("BloqueoRevistaImpresa")) BloqueoRevistaImpresa = Convert.ToBoolean(row["BloqueoRevistaImpresa"]);
+            //BPT 353
+            if (row.HasColumn("MobileOrden")) MobileOrden = Convert.ToInt32(row["MobileOrden"]);
+            if (row.HasColumn("MobileOrdenBPT")) MobileOrdenBpt = Convert.ToInt32(row["MobileOrdenBPT"]);
             Detalle = new BEConfiguracionPaisDetalle();
         }
     }

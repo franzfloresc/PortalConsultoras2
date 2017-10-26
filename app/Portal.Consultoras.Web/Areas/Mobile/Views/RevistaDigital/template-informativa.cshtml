@@ -3,6 +3,14 @@
 
 @model Portal.Consultoras.Web.Models.RevistaDigitalModel
 
+@{
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayoutContenedor.cshtml";
+    var urlDomain = Util.GetUrlHost(Request);
+}
+
+@section styles{
+    @System.Web.Optimization.Styles.Render("~/bundles/css/Mobile/Site/RevistaDigital-Info")
+}
 <div class="content_320 ingresoPedidom" data-estadoregistro="@Model.EstadoSuscripcion">
     <div class="box_beneficios_ept">
         <div class="tit_preguntas">INGRESA A ÉSIKA PARA MÍ EN LA PRÓXIMA CAMPAÑA Y CRECE EN MÁS DE 20%* TUS GANANCIAS:</div>
@@ -99,7 +107,7 @@
         <div class="text_legal_ept">*Comparación vs. consultoras que no compraron ofertas digitales de www.somosbelcorp.com. Período evaluado: Dic. 2016 – Abr. 2017 (Perú y Chile).</div>
     </div>
 
-    <div class="box_cancelarInscripcion_ept" id="divMensajeAnularSuscripcion" data-estadoregistro2=""  style="display: none">
+    <div class="box_cancelarInscripcion_ept" id="divMensajeAnularSuscripcion" data-estadoregistro2="" style="display: none">
         <div class="content_320 ingresoPedidom">
             <div class="tit_preguntas" style="text-transform: uppercase">
                 haz anulado tu inscripción con éxito
@@ -117,3 +125,23 @@
     </div>
 
 </div>
+
+@section scripts{
+    <script type="text/javascript">
+        var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
+        var tipoOrigenPantalla = 1;
+        var urlOfertaCargarProductos = '@Url.Action("RDObtenerProductos", "RevistaDigital", new { area = ""})';
+        var urlOfertaDetalleProducto = '@Url.Action("Detalle", "RevistaDigital", new { area = "Mobile" })';
+        var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital", new { area = "" })';
+        var urlTerminosCondicionesRD = '@ConfigurationManager.AppSettings["UrlTerminosCondicionesRD"].Trim()';
+        var urlRevistaDigital = '@Url.Action("Comprar", "RevistaDigital")';
+        var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding';
+        var tipoOrigenEstrategia = 27;
+        var mayormenor = '@Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor';
+        var menormayor = '@Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor';
+        var tieneMasVendidos = 0;
+        var isScroll = false;
+    </script>
+
+    @System.Web.Optimization.Scripts.Render("~/bundles/Mobile/RevistaDigital-Info")
+}

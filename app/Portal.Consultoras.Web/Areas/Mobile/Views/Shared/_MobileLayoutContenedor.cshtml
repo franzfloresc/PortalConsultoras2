@@ -1,0 +1,627 @@
+﻿@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Models;
+@using Portal.Consultoras.Web.Areas.Mobile.Helpers
+@using Newtonsoft.Json;
+@using Portal.Consultoras.Web.Helpers
+
+@{
+    ShowRoomBannerLateralModel showRoomBannerLateral = new ShowRoomBannerLateralModel();
+    if (ViewBag.MostrarShowRoomBannerLateral == true) { showRoomBannerLateral = ViewBag.ShowRoomBannerLateral; }
+
+    OfertaDelDiaModel ofertaDelDia = new OfertaDelDiaModel();
+    if (ViewBag.MostrarOfertaDelDia == true) { ofertaDelDia = ViewBag.OfertaDelDia; }
+
+    bool esIngresoUnico = ViewContext.EsIngresoUnico();
+}
+
+<!DOCTYPE html>
+<html lang="es-PE">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="SomosBelcorp Web Mobile" />
+   
+    <title>Somos Belcorp</title>
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>
+
+    @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
+    {
+        <link href="@Url.Content("~/Content/Images/Esika/favicon.ico")" rel="shortcut icon" type="image/x-icon" />
+        @Styles.Render("~/Content/Css/Mobile/Esika/CssSB2Mobile")
+        <link href="@Url.Content("~/Content/Css/Mobile/Esika/Contenedor.css")" rel="stylesheet" type="text/css" />
+    }
+    else
+    {
+        <link href="@Url.Content("~/Content/Images/icons/favicon_lbel.ico")" rel="shortcut icon" type="image/x-icon" />
+        @Styles.Render("~/Content/Css/Mobile/Lbel/CssSB2Mobile")
+        <link href="@Url.Content("~/Content/Css/Mobile/Lbel/Contenedor.css")" rel="stylesheet" type="text/css" />
+    }
+    <link href="@Url.Content("~/Content/Css/Mobile/calc.css")" rel="stylesheet" type="text/css" />
+
+    <script type="text/javascript">
+        var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))' == "True";
+    </script>
+
+    @RenderSection("styles", required: false)
+
+</head>
+<body>
+    <!-- Google Tag Manager -->
+    <script type="text/javascript">
+
+        dataLayer = [{
+            'campana': '@ViewBag.AnalyticsCampania',
+            'segmento': '@ViewBag.AnalyticsSegmento',
+            'edad': '@ViewBag.AnalyticsEdad',
+            'zona': '@ViewBag.AnalyticsZona',
+            'pais': '@ViewBag.AnalyticsPais',
+            'rol': '@ViewBag.AnalyticsRol',
+            'region': '@ViewBag.AnalyticsRegion',
+            'seccion': '@ViewBag.AnalyticsSeccion',
+            'codigoconsultora': '@ViewBag.AnalyticsCodigoConsultora',
+            'periodo': '@ViewBag.AnalyticsPeriodo',
+            'segmentoconstancia': '@ViewBag.AnalyticsSegmentoConstancia',
+            'socianivel': '@ViewBag.AnalyticsSociaNivel',
+            'semana-periodo': '@ViewBag.SemanaAnalytics'
+        }];
+    </script>
+    <noscript>
+        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-TTK6KS" height="0" width="0" style="display: none; visibility: hidden"></iframe>
+    </noscript>
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s),
+                dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-TTK6KS');
+    </script>
+    <!-- End Google Tag Manager -->
+    @if (ViewBag.PaisesConTrackingJetlore == "1")
+    {
+        <script type="text/javascript" src="https://assets.jetlore.com/js/jltracking.js"></script>
+
+        <script type="text/javascript">
+            var trackingJetloreAccessToken = '@System.Configuration.ConfigurationManager.AppSettings.Get("TrackingJetloreAccessToken")';
+
+            JL.tracking({
+                cid: trackingJetloreAccessToken,
+                user_id: '@ViewBag.CodigoConsultoraDL',
+                feed_id: 'Belcorp_' + '@ViewBag.CodigoISODL',
+            });
+        </script>
+    }
+
+    <input type="hidden" id="hdCampaniaCodigo" value="@ViewBag.CampaniaCodigo" />
+    <input type="hidden" id="hdTipoOfertaFinal" value="@ViewBag.OfertaFinal" />
+    <input type="hidden" id="hdTipoCatalogoPersonalizado" value="@ViewBag.CatalogoPersonalizado" />
+    <input type="hidden" id="hdEsCatalogoPersonalizadoZonaValida" value="@Convert.ToString(ViewBag.EsCatalogoPersonalizadoZonaValida)" />
+    <input type="hidden" id="hdCodigoEstrategia" value="@Util.Trim(ViewBag.CodigoEstrategia)" />
+    
+    @if (!esIngresoUnico)
+    {
+       <!-- Menu icon -->
+        <div class="menu">
+            <div class="content_close">
+                <div class="icon-close">
+                    <img src="@Url.Content("~/Content/Images/mobile/Esika/btn_cerrar_header.png")" alt="X" />
+                </div>
+            </div>
+            <div class="foto_menu">
+                @if (!string.IsNullOrEmpty(ViewBag.FotoPerfil))
+                {
+                    <div class="foto_usuaria_mobile">
+                        <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width:100%; height:auto" />
+                    </div>
+                }
+            </div>
+            <br />
+            <div class="saludo_menu">¡Hola @ViewBag.NombreConsultora!</div>
+            @Html.Partial("_MobileMenuLateral")
+            <a role="menu" region="Menú Lateral" parent="Cerrar Sesion" title="Cerrar Sesion" class="btn_cerrar_sesion" href="@Url.Action("LogOut", "Login", new { area = "" })">Cerrar sesión</a>
+        </div>
+    }
+
+    <!-- alert-top -->
+    <div id="divAlertaPedidosOnline" class="alert-top alert-success alert-top-conline" style="display: none;">
+        <a href="@Url.Action("MisPedidos", "ConsultoraOnline", new { area = "Mobile" })">
+            <span class="alert-icon"><i class="icon-notificaciones-belcorp"></i></span>
+            <span id="spanNumeroPedidoOnline1" class="alert-number"></span>
+            <div class="alert-text upper center-min">TIENES <span id="spanNumeroPedidoOnline2">0</span> NUEVOS PEDIDOS DE CONSULTORA ONLINE</div>
+        </a>
+        <span class="alert-close"><i class="icon-close-belcorp"></i></span>
+    </div>
+
+    <!-- header -->
+    <header id="new-header">
+        <!--BANNER-->
+        @if (ViewBag.mostrarBannerPostulante == true && !esIngresoUnico)
+        {
+            @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloqueMensajesPostulante.cshtml")
+        }
+        else if (ViewBag.MostrarBannerRechazo == true && !esIngresoUnico)
+        {
+            @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloqueMensajesPedido.cshtml")
+        }
+        @*else if (ViewBag.MostrarBannerTopPL20 == true)
+        {
+            <div id="flexslidertop" class="header_slider" style="overflow:hidden;">
+                <a id="btn_cerrar_oferta_mobile" class="btn_cerrar_oferta_mobile">X</a>
+                <ul class="slides">
+                    @if (ViewBag.MostrarOfertaDelDia == true)
+                {
+                        <li>
+                            @Html.Partial("~/Areas/Mobile/Views/OfertaDelDia/_OfertaDelDiaBannerTop.cshtml", ofertaDelDia);
+                        </li>
+                    }
+
+                    @if (Session["EsShowRoom"] != null && @Session["EsShowRoom"].ToString() == "1")
+                {
+                    if (showRoomBannerLateral.MostrarShowRoomProductos == true)
+                    {
+                            <li>
+                                <a href="@Url.Action("Index", "ShowRoom", new {area = "Mobile"})">
+                                    <div class="content_banner_header_showroom">
+                                        <img src="@ViewBag.ImagenBannerShowroomVenta" alt="" />
+                                    </div>
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                <a href="@Url.Action("Intriga", "ShowRoom", new {area = "Mobile"})">
+                                    <div class="content_banner_header_showroom">
+                                        <div class="content_titulo"><div class="titulo_intriga">VENTA EXCLUSIVA WEB</div></div>
+                                        <div class="faltan_dias_header"><b>@ViewBag.DiasFaltantesLetras</b></div>
+                                        <img src="@ViewBag.ImagenBannerShowroomIntriga" alt="" />
+                                    </div>
+                                </a>
+                            </li>
+
+                        }
+                    }
+                </ul>
+            </div>
+        }*@
+        <!--END BANNER-->
+        
+    @if (!esIngresoUnico)
+    {
+        <div class="container-fluid" style="padding-top:9px; padding-bottom:9px;">
+            <div class="row">
+                <div class="col-xs-4">
+                    <img src="@Url.Content("~/Content/Images/mobile/Esika/icon_menu.png")" id="ic_menu" class="icon-menu" alt="Menú" />
+                </div>
+                <div class="col-xs-4 text-center">
+                    <a role="link" region="Superior" parent="Bienvenida" title="Bienvenida"
+                       class="logo_mobile" href="@Url.Action("Index", "Bienvenida", new { area = "Mobile" })"></a>
+                </div>
+                <div class="col-xs-4 text-right">
+                    <div class="menu-shop">
+                        <a role="link" region="Superior" parent="Pedido" title="Pedido"
+                           class="campana_mobile" href="@Url.Action("Detalle", "Pedido", new { area = "Mobile" })" id="lnk-sup-pedido">
+                            <span role="link" region="Superior" parent="Pedido" title="Pedido" class="icon-menu-shop"><i class="icon-shop-belcorp"></i></span>
+                            <span role="link" region="Superior" parent="Pedido" title="Pedido" class="num-menu-shop">0</span>
+                        </a>
+                        <a role="link" region="Superior" parent="Notificaciones" title="Notificaciones"
+                           class="campana_mobile" href="@Url.Action("Index", "Notificaciones", new { area = "Mobile" })" style="margin-left: -15px;">
+                            <div role="link" region="Superior" parent="Notificaciones" title="Notificaciones" class="campana_svg_mobile"><p role="link" region="Superior" parent="Notificaciones" title="Notificaciones" class="notificaciones_mobiles">0</p></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    </header>
+    
+
+    <!-- content -->
+    <section style="min-height: 380px;">
+        @{ 
+            var marginTop = esIngresoUnico ? "0px;" : "60px";
+        }
+        <div id="contentmobile" data-content="" style="margin-top:@marginTop">
+
+            @if (ViewBag.MostrarBannerPL20 == true && ViewBag.MostrarBannerOtros == false)
+            {
+                if (ViewBag.MostrarODD == false)
+                {
+                    <div id="content_slider_banner" class="content_slider_banner" style="display:none;">
+                        @if (ViewBag.PermitirCerrarBannerPL20 == true)
+                        {
+                            <a class="btn_cerrar_oferta_mobile" href="javascript:void(0);" onclick="closeBannerPL20();">X</a>
+                        }
+                        <div id="flexslider">
+                            <ul class="slides">
+                                @if (ViewBag.MostrarShowRoomBannerLateral == true)
+                                {
+
+                                    <li>
+                                        @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloqueBannerShowRoom.cshtml", showRoomBannerLateral)
+                                    </li>
+                                }
+
+                                @if (ViewBag.MostrarOfertaDelDia == true)
+                                {
+                                    <li>
+                                        @Html.Partial("~/Areas/Mobile/Views/OfertaDelDia/_OfertaDelDiaBanner.cshtml", ofertaDelDia);
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                }
+            }
+            @Html.Partial("~/Areas/Mobile/Views/Shared/_MenuContenedorOferta.cshtml")
+            <div id="mob-content-layout">
+                @RenderBody()
+            </div>
+        </div>
+        <div class="clear">
+            <br />
+            <br />
+        </div>
+    </section>
+    
+    @if (!esIngresoUnico)
+    {
+        <!-- footer -->
+        <footer class="footer-page">
+            @Html.Partial("_MobileMenuFooter")
+            <hr class="clear" />
+        </footer>
+    }
+
+    <div class="content-spinner2" id="loading-spin">
+        <div class="busy-loader">
+            <div class="w-ball-wrapper ball-1">
+                <div class="w-ball"></div>
+            </div>
+            <div class="w-ball-wrapper ball-2">
+                <div class="w-ball"></div>
+            </div>
+            <div class="w-ball-wrapper ball-3">
+                <div class="w-ball"> </div>
+            </div> <div class="w-ball-wrapper ball-4">
+                <div class="w-ball"> </div>
+            </div>
+            <div class="w-ball-wrapper ball-5">
+                <div class="w-ball"> </div>
+            </div>
+        </div>
+    </div>
+    
+    @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/vp_BloquePopupMensajesInformacion.cshtml")
+
+    <!--POP MENSAJE POSTULANTE-->
+    @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupPostulante.cshtml")
+    <!--FIN--> 
+
+    <!--POP COMUNIDAD-->
+    @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupComunidad.cshtml")
+    <!--FIN--> 
+
+    <!--POP MENSAJE SESION FINALIZADA Error-->
+    @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupSesionFinalizada.cshtml")
+    <!--FIN-->    
+
+    <div style="display:none">
+        <a id="HiddenRedesSocialesWA" href="#" data-action="share/whatsapp/share">WA</a>
+    </div>
+
+    @Scripts.Render("~/Scripts/MobileLayoutContenedor")
+
+    <script type="text/javascript">
+        var urlRegistrarUsuarioComunidad = '@Url.Action("RegistrarUsuarioComunidad", "Bienvenida", new { area = "" })';
+        var urlValidarCorreoComunidad = '@Url.Action("ValidarCorreoComunidad", "Bienvenida", new { area = "" })';
+        var urlValidarCorreoIngresado = '@Url.Action("ValidarCorreoIngresado", "Bienvenida", new { area = "" })';
+        var urlValidarUsuarioIngresado = '@Url.Action("ValidarUsuarioIngresado", "Bienvenida", new { area = "" })';
+        var urlGetCantidadProductos = '@Url.Action("GetResumenCampania", "GestionContenido", new { area = "" })';
+        var urlGetNotificacionesSinLeer = '@Url.Action("GetNotificacionesSinLeer", "Notificaciones", new { area = "" })';
+        var urlGetCantidadPedidos = '@Url.Action("GetCantidadPedidos", "ConsultoraOnline", new { area = "Mobile" })';
+        var urlGetShowRoom = '@Url.Action("MostrarShowRoomBannerLateral", "Bienvenida", new { area = "" })';
+        var urlCloseBannerPL20 = '@Url.Action("CloseBannerPL20", "Pedido", new { area = "" })';
+        var urlOcultarBannerTop = '@Url.Action("OcultarBannerTop", "Pedido", new { area = "" })';
+        var urlDeshacerReservaPedidoReservado2 = '@Url.Action("PedidoValidadoDeshacerReserva", "Pedido", new { area = "" })';
+        var urlReservadoEnHorarioRestringuido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
+        var urlPedidoValidado = '@Url.Action("Validado", "Pedido", new { area = "Mobile" })';
+        var urlOfertaDelDiaMobile = '@Url.Action("Index", "OfertaDelDia", new { area = "Mobile" })';
+
+        var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new { area = "" })';
+        var urlPedidoInsertZe = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';
+        var baseUrl = "@Url.Content("~")";
+        var tipoOfertaFinalCatalogoPersonalizado = '@Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore';
+
+        var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
+        var vbSimbolo = '@ViewBag.Simbolo';
+        var esPaisTrackingJetlore = '@ViewBag.PaisesConTrackingJetlore';
+        var MobileHomeOfertasParaTi = @Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTi;
+        var MobilePedidoOfertasParaTi = @Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTi;
+        var MobilePedidoSugerido = @Constantes.OrigenPedidoWeb.MobilePedidoSugerido;
+        var MobilePedidoOfertaFinal = @Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal;
+        var indicadorEnviadoDescarga = '@ViewBag.IndicadorEnviado';
+
+        var IsoPais = '@ViewBag.CodigoISODL';
+        var gTipoUsuario = '@ViewBag.TipoUsuario';
+
+        //Postulante
+        var mostrarBannerPostulante = '@ViewBag.MostrarBannerPostulante';
+
+        //GPR
+        var estaRechazado = '@ViewBag.IndicadorGPRSB';
+        var cerrarRechazado = '@ViewBag.CerrarRechazado';
+        var mostrarBannerRechazo = '@ViewBag.MostrarBannerRechazo';
+
+        //ODD
+        var mostrarOfertaDelDia = '@ViewBag.MostrarODD' == 'True';
+        var vbMmostrarOfertaDelDia = '@ViewBag.MostrarOfertaDelDia';
+        var usuarioNombre = '@ViewBag.UsuarioNombre';
+        var campaniaCodigo = '@ViewBag.CampaniaCodigo';
+        var campaniaAnio = parseInt(parseInt(campaniaCodigo) / 100);
+        var campaniaNro = parseInt(campaniaCodigo) - campaniaAnio * 100;
+        var MostrarBannerPL20 = '@ViewBag.MostrarBannerPL20';
+        var MostrarBannerOtros = '@ViewBag.MostrarBannerOtros';
+        var ocultarBannerTop = '@Session["OcultarBannerTop"]';
+        var TipoOrigenPantallaODD = 2;
+        var MobileShowRoom = @Constantes.OrigenPedidoWeb.MobileShowRoom;
+        var MobileLiquidacion = @Constantes.OrigenPedidoWeb.MobileLiquidacion;
+        var MobileCatalogoPersonalizado = @Constantes.OrigenPedidoWeb.MobileCatalogoPersonalizado;
+        var MobileCatalogoPersonalizadoPopUp = @Constantes.OrigenPedidoWeb.MobileCatalogoPersonalizadoPopUp;
+
+        var sesionEsShowRoom = '@Session["EsShowRoom"]';
+        var EstadoActivo = '@ViewBag.EstadoActivo';
+        var ViewBagEsMobile = '@ViewBag.EsMobile';
+
+        var tokenPedidoAutenticoOk = '@ViewBag.TokenPedidoAutenticoOk';
+        var _ModificacionPedidoProl = '@ViewBag.ModificarPedidoProl'; //EPD-1682
+        var urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
+        var userData = {
+            'aplicacion': '@(Constantes.LogDynamoDB.AplicacionPortalConsultoras)',
+            'rol': '@(Constantes.LogDynamoDB.RolConsultora)',
+            'campana': '@ViewBag.AnalyticsCampania',
+            'region': '@ViewBag.AnalyticsRegion',
+            'zona': '@ViewBag.AnalyticsZona',
+            'seccion': '@ViewBag.AnalyticsSeccion',
+            'pais': '@ViewBag.AnalyticsPais',
+            'codigoConsultora': '@ViewBag.AnalyticsCodigoConsultora'
+        };
+        var vbFotoPerfil = '@ViewBag.FotoPerfil';
+        if (vbFotoPerfil != null && vbFotoPerfil != "") {
+            $('.foto_menu').show();
+        }
+
+        var ViewIndicadorGPRSB = '@ViewBag.IndicadorGPRSB';
+        var MensajePedidoMobile = '@ViewBag.MensajePedidoMobile';
+
+    </script>
+
+    @if (ViewBag.MostrarOfertaDelDiaContenedor == true)
+    {
+        <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/OfertaDelDia.js")"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                window.OfertaDelDia.CargarODD();
+            });
+        </script>
+    }
+
+    
+
+    @if (ViewBag.MostrarBannerPL20 == true || ViewBag.MostrarBannerOtros == true)
+    {
+        if (ViewBag.MostrarShowRoomBannerLateral == true)
+        {
+            <script type="text/javascript">
+                var mostrarShowRoomProductos = '@showRoomBannerLateral.MostrarShowRoomProductos';
+                var showRoomDiasFaltantes = @showRoomBannerLateral.DiasFaltantes;
+                var showRoomMesFaltante = @showRoomBannerLateral.MesFaltante;
+                var showRoomAnioFaltante = @showRoomBannerLateral.AnioFaltante;
+
+                function AgregarTagManagerShowRoomAnalytics() {
+                    var EventoIdentificador = $("#hdEventoIDShowRoom").val();
+                    var EventoShowRoomNombre = $("#hdNombreEventoShowRoom").val();
+                    var EventoShowRoomTema = $("#hdTemaEventoShowRoom").val();
+
+                    if (mostrarShowRoomProductos == 'True') {
+                        dataLayer.push({
+                            'event': 'promotionView',
+                            'ecommerce': {
+                                'promoView': {
+                                    'promotions': [
+                                        {
+                                            'id': EventoIdentificador,
+                                            'name': EventoShowRoomNombre + ' ' + EventoShowRoomTema + ' - Compra Ya',
+                                            'position': 'Home Slider - 1',
+                                            'creative': 'Banner'
+                                        }
+                                    ]
+                                }
+                            }
+                        });
+                    } else {
+                        dataLayer.push({
+                            'event': 'promotionView',
+                            'ecommerce': {
+                                'promoView': {
+                                    'promotions': [
+                                        {
+                                            'id': EventoIdentificador,
+                                            'name': EventoShowRoomNombre + ' ' + EventoShowRoomTema + ' - Entérate',
+                                            'position': 'Home Slider - 1',
+                                            'creative': 'Banner'
+                                        }
+                                    ]
+                                }
+                            }
+                        });
+                    }
+                    if ($('#flexslidertop ul.slides li').length > 0) {
+                        if (mostrarShowRoomProductos == 'True') {
+                            dataLayer.push({
+                                'event': 'promotionView',
+                                'ecommerce': {
+                                    'promoView': {
+                                        'promotions': [
+                                            {
+                                                'id': EventoIdentificador,
+                                                'name': 'Venta Exclusiva Web ' + EventoShowRoomNombre + ' - Compra Ya',
+                                                'position': 'Home superior - 1',
+                                                'creative': 'Banner'
+                                            }
+                                        ]
+                                    }
+                                }
+                            });
+                        } else {
+                            dataLayer.push({
+                                'event': 'promotionView',
+                                'ecommerce': {
+                                    'promoView': {
+                                        'promotions': [
+                                            {
+                                                'id': EventoIdentificador,
+                                                'name': 'Venta Exclusiva Web ' + EventoShowRoomNombre + ' - Entérate',
+                                                'position': 'Home superior - 1',
+                                                'creative': 'Banner'
+                                            }
+                                        ]
+                                    }
+                                }
+                            });
+                        }
+                    }
+                }
+
+
+                function CargarShowRoom() {
+                    AgregarTagManagerShowRoomAnalytics();
+                    if (mostrarShowRoomProductos == 'True') {
+                        $("#lnkConoceMasShowRoomBannerLateralHoy, #lnkConoceMasShowRoomBannerLateralImagenHoy").click(function () {
+                            AgregarTagManagerShowRoomBannerLateralConocesMas(true);
+                        });
+                        //AgregarTagManagerShowRoomBannerLateral(true);
+                    }
+                    else {
+                        $("#lnkConoceMasShowRoomBannerLateral").click(function () {
+                            AgregarTagManagerShowRoomBannerLateralConocesMas(false);
+                        });
+                        AgregarTimerShowRoom(showRoomDiasFaltantes, showRoomMesFaltante, showRoomAnioFaltante);
+                        //AgregarTagManagerShowRoomBannerLateral(false);
+                    }
+                }
+
+                function AgregarTagManagerShowRoomBannerClick() {
+                    dataLayer.push({
+                        'event': 'promotionClick',
+                        'ecommerce': {
+                            'promoView': {
+                                'promotions': [
+                                    {
+                                        'id': '123',
+                                        'name': 'venta',
+                                        'position': 'Home pop-up - 1',
+                                        'creative': 'Banner'
+                                    }
+                                ]
+                            }
+                        }
+                    });
+
+                }
+
+                function AgregarTagManagerShowRoomBannerLateralConocesMas(esHoy) {
+                    var name = 'showroom digital ' + $("#hdTemaEventoShowRoom").val();
+                    if (esHoy) name += " - fase 2";
+
+                    dataLayer.push({
+                        'event': 'promotionClick',
+                        'ecommerce': {
+                            'promoClick': {
+                                'promotions': [
+                                    {
+                                        'id': $("#hdEventoIDShowRoom").val(),
+                                        'name': name,
+                                        'position': 'Home lateral - 1',
+                                        'creative': 'Banner'
+                                    }]
+                            }
+                        }
+                    });
+                }
+
+                function AgregarTagManagerShowRoomBannerLateral(esHoy) {
+                    var name = 'showroom digital ' + $("#hdTemaEventoShowRoom").val();
+                    if (esHoy) name += " - fase 2";
+
+                    dataLayer.push({
+                        'event': 'promotionView',
+                        'ecommerce': {
+                            'promoView': {
+                                'promotions': [
+                                    {
+                                        'id': $("#hdEventoIDShowRoom").val(),
+                                        'name': name,
+                                        'position': 'Home lateral - 1',
+                                        'creative': 'Banner'
+                                    }]
+                            }
+                        }
+                    });
+                }
+
+                function AgregarTimerShowRoom(dia, mes, anio) {
+                    var calcNewYear = setInterval(function () {
+                        date_future = new Date(anio, mes - 1, dia);
+                        date_now = new Date();
+
+                        seconds = Math.floor((date_future - (date_now)) / 1000);
+                        minutes = Math.floor(seconds / 60);
+                        hours = Math.floor(minutes / 60);
+                        days = Math.floor(hours / 24);
+
+                        hours = hours - (days * 24);
+                        minutes = minutes - (days * 24 * 60) - (hours * 60);
+                        seconds = seconds - (days * 24 * 60 * 60) - (hours * 60 * 60) - (minutes * 60);
+
+                        //$("#time").text("Time until new year:\nDays: " + days + " Hours: " + hours + " Minutes: " + minutes + " Seconds: " + seconds);
+                        $(".clsDia").html(days);
+                        $(".clsHora").html(hours);
+                        $(".clsMinuto").html(minutes);
+                        $(".clsSegundo").html(seconds);
+
+                        if (days == 0 && hours == 0 && minutes == 0 && seconds == 0) {
+                            clearInterval(calcNewYear);
+                        }
+                        if (days < 0) {
+                            $(".clsDia").html(0);
+                            $(".clsHora").html(0);
+                            $(".clsMinuto").html(0);
+                            $(".clsSegundo").html(0);
+                            clearInterval(calcNewYear);
+                        }
+                    }, 1000);
+                }
+
+            </script>
+        }
+    }
+    <script type="text/javascript">
+                function messageInfoPostulante() {
+                    $('.icon-close').click();
+                    $('#mensajeInformacionvalidado').html('Por el momento esta sección no está habilitada, te encuentras en una sesión de prueba. Una vez recibas tu código de consultora, podrás acceder a todos los beneficios de Somos Belcorp.');
+                    $('#popupInformacionValidado').show();
+                    return false;
+                }
+    </script>
+    @RenderSection("scripts", required: false)
+    @{Html.PlaceScripts();}
+</body>
+</html>

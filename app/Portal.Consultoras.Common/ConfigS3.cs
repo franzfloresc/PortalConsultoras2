@@ -1,10 +1,6 @@
 ﻿using Amazon.S3.Model;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Common
 {
@@ -22,6 +18,12 @@ namespace Portal.Consultoras.Common
         {
             fileName = fileName ?? "";
             if (fileName.StartsWith(URL_S3))
+                return fileName;
+
+            if (fileName.StartsWith("http:/"))
+                return fileName;
+
+            if (fileName.StartsWith("https:/"))
                 return fileName;
 
             carpetaPais = carpetaPais ?? "";
@@ -59,7 +61,7 @@ namespace Portal.Consultoras.Common
                 {
                     LogManager.SaveLog(e, "", "");
                 }
-                
+
             }
 
             client.Dispose();
@@ -80,14 +82,14 @@ namespace Portal.Consultoras.Common
                         var inputStream = new FileStream(path, FileMode.Open);
                         using (var client = Amazon.AWSClientFactory.CreateAmazonS3Client(ConfigS3.MY_AWS_ACCESS_KEY_ID, ConfigS3.MY_AWS_SECRET_KEY, Amazon.RegionEndpoint.USEast1))
                         {
-                        var request = new PutObjectRequest();
-                        request.BucketName = ConfigS3.BUCKET_NAME;
-                        request.Key = ConfigS3.ROOT_DIRECTORY + "/" + ((carpetaPais != "") ? carpetaPais + "/" : "") + fileName;
-                        request.InputStream = inputStream;
+                            var request = new PutObjectRequest();
+                            request.BucketName = ConfigS3.BUCKET_NAME;
+                            request.Key = ConfigS3.ROOT_DIRECTORY + "/" + ((carpetaPais != "") ? carpetaPais + "/" : "") + fileName;
+                            request.InputStream = inputStream;
                             if (archivoPublico) request.CannedACL = Amazon.S3.S3CannedACL.PublicRead;
-                        client.PutObject(request);
+                            client.PutObject(request);
                         }
-                        if(EliminarArchivo) System.IO.File.Delete(path);
+                        if (EliminarArchivo) System.IO.File.Delete(path);
                     }
                 }
                 return true;

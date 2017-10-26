@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Data;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
-using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Entities
 {
@@ -29,7 +25,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public Int16 DiasParametroCarga { get; set; }
         [DataMember]
-        public Int16 DiasDuracionCronograma { get; set; } //R20160221
+        public Int16 DiasDuracionCronograma { get; set; }
 
         public BEConfiguracionParametroCarga()
         { }

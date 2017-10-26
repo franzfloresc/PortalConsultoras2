@@ -21,5 +21,10 @@ namespace Portal.Consultoras.Entities
         public string CatalogoDescripcion { get; set; }
 
         public string CodigoIssuu { get; set; }
+
+        [DataMember]
+        public int CampaniaID { get; set; }
+        [DataMember]
+        public string PaisISO { get; set; }
     }
 }

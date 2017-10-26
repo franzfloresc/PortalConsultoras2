@@ -1,23 +1,21 @@
-﻿using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.Controllers;
+﻿using Portal.Consultoras.Web.Controllers;
 using Portal.Consultoras.Web.Models;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
 using System.Web.Mvc;
-using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.CustomFilters;
+using Portal.Consultoras.Web.Infraestructure;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
+    [UniqueSession("UniqueRoute", UniqueRoute.IdentifierKey, "/g/")]
     public class RevistaDigitalController : BaseRevistaDigitalController
     {
         public ActionResult Index()
         {
             try
             {
-                ViewBag.EsMobile = 2;
-                return IndexModel();
+                return RedirectToAction("Index", "Ofertas", new { area = "Mobile" });
+                //return IndexModel();
             }
             catch (Exception ex)
             {
@@ -31,7 +29,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                ViewBag.EsMobile = 2;
                 ViewBag.CampaniaMasDosX = AddCampaniaAndNumero(userData.CampaniaID, 2) % 100;
                 return DetalleModel(cuv, campaniaId);
             }
@@ -43,11 +40,52 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return RedirectToAction("Index", "RevistaDigital", new { area = "Mobile" });
         }
 
+        public ActionResult Informacion()
+        {
+            try
+            {
+                return IndexModel();
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
+            return RedirectToAction("Index", "Bienvenida");
+        }
+
+        public ActionResult Comprar()
+        {
+            try
+            {
+                return ViewLanding(1);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
+            return RedirectToAction("Index", "Bienvenida");
+        }
+
+        public ActionResult Revisar()
+        {
+            try
+            {
+                return ViewLanding(2);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
+            return RedirectToAction("Index", "Bienvenida");
+        }
+
         public ActionResult _Landing(int id)
         {
             try
             {
-                ViewBag.EsMobile = 2;
                 return ViewLanding(id);
             }
             catch (Exception ex)
@@ -61,7 +99,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                ViewBag.EsMobile = 2;
                 return PartialView("template-mensaje-bloqueado", MensajeProductoBloqueado());
             }
             catch (Exception ex)

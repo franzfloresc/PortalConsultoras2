@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Runtime.Serialization;
 using System.Data;
+using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities
 {
@@ -21,10 +17,10 @@ namespace Portal.Consultoras.Entities
         public BEFormularioDato() { }
         public BEFormularioDato(IDataRecord datarec)
         {
-	        miPaisID = Convert.ToInt32(datarec["PaisID"]);
+            miPaisID = Convert.ToInt32(datarec["PaisID"]);
             miTipoFormularioID = (ETipoFormulario)Convert.ToInt32(datarec["TipoFormularioID"]);
-	        miFormularioDatoID = Convert.ToInt32(datarec["FormularioDatoID"]);
-	        msDescripcion = (string)datarec["Descripcion"];
+            miFormularioDatoID = Convert.ToInt32(datarec["FormularioDatoID"]);
+            msDescripcion = (string)datarec["Descripcion"];
             msArchivo = (string)datarec["Archivo"];
             msURL = (string)datarec["URL"];
         }

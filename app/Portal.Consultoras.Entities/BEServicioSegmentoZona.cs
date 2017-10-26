@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities
 {
-    //RQ_SB- R2161
     [DataContract]
     public class BEServicioSegmentoZona
     {
@@ -26,7 +20,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string DesCampania { set; get; }
         [DataMember]
-        public string SegmentoInternoID { set; get; }/*CGI(RSA) - REQ 2544*/
+        public string SegmentoInternoID { set; get; }
 
         public BEServicioSegmentoZona()
         {

@@ -17,18 +17,19 @@ $(document).ready(function () {
         MensajeEstadoPedido();
     }
 
-    if (tieneOfertaDelDia == "True") {
-        window.OfertaDelDia.CargarODD();
+    if (!esContenedorOfertas) {
+        if (tieneOfertaDelDia == "True") {
+            window.OfertaDelDia.CargarODD();
+        }
+    } else {
+        if (mostrarOfertaDelDiaContenedor == "True") {
+            window.OfertaDelDia.CargarODD();
+        }
     }
+    
     
     $(document).keyup(function (e) {
         if (e.keyCode == 27) {
-            if ($('#PopOfertaDia').is(':visible')) {
-                $('#PopOfertaDia').slideUp();
-                $('.circulo_hoy span').html('+');
-                showDisplayODD = 0;
-            }
-
             if ($('#PopFichaProductoNueva').is(':visible')) {
                 CerrarPopup('#PopFichaProductoNueva');
             }
@@ -287,7 +288,6 @@ $(document).ready(function () {
         return false;
     });
 
-    Scrolling();
     setInterval(animacionFlechaScroll, 1000);
 
 });
@@ -325,10 +325,18 @@ function messageInfoError(message, titulo, fnAceptar) {
 function CargarResumenCampaniaHeader(showPopup) {
     showPopup = showPopup || false;
 
+    var soloCantidad = true;
+    if (typeof controllerName == "undefined") {
+        soloCantidad = false;
+    }
+    else {
+        soloCantidad =  controllerName == 'pedido';
+    }
+
     $.ajax({
         type: 'POST',
         url: baseUrl + 'GestionContenido/GetResumenCampania',
-        data: JSON.stringify({ soloCantidad : controllerName == 'pedido'}),
+        data: JSON.stringify({ soloCantidad: soloCantidad }),
         cache: false,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
@@ -361,15 +369,10 @@ function CargarResumenCampaniaHeader(showPopup) {
                        
                     }
                 }
-                else {
-                    console.error("Ocurrio un error con el Resumen de Campaña.");
-                }
             }
         },
         error: function (data, error) {
-            if (checkTimeout(data)) {
-                console.error(data, error);
-            }
+            checkTimeout(data);
         }
     });
 };
@@ -404,48 +407,14 @@ function CargarCantidadNotificacionesSinLeer() {
                 };
 
                 data.mensaje = data.mensaje || "";
-                if (data.mensaje != '') {
-                    console.log(data.mensaje);
-                }
             };
         },
         error: function (data, error) {
-            if (checkTimeout(data)) {
-                console.error(data, error);
-            }
+            checkTimeout(data);
         }
     });
 };
-function Scrolling() {
-    var y = $(window).scrollTop();
-    $('#toUp').hide();
-    $('#toUp').attr("style", "top: 580px !important");
-    $('#toDown').click(function () {
-        y = $(window).scrollTop() + $(window).height() - 50;
-        $('html, body').animate({ scrollTop: y }, 1000);
-    });
-    $('#toUp').click(function () {
-        $('html, body').animate({ scrollTop: 0 }, 1000);
-    });
 
-    var altura = $('header').offset().top;
-
-    $(window).on('scroll', function () {
-        if ($(window).scrollTop() >= altura + 50) {
-            $('.logo_esika_tam').attr('src', baseUrl + 'Content/Images/Esika/logo_menu_esika.png');
-        } else {
-            $('.logo_esika_tam').attr('src', baseUrl + 'Content/Images/Esika/logo_esika.png');
-        }
-
-        if ($(window).scrollTop() + $(window).height() === $(document).height()) {
-            $('#toDown').hide("slow");
-            $('#toUp').show("slow");
-        } else {
-            $('#toDown').show("slow");
-            $('#toUp').hide("slow");
-        }
-    });
-};
 function AbrirModalFeErratas() {
     waitingDialog({});
 
@@ -653,10 +622,15 @@ function ValidarCorreoComunidad(tipo) {
     }
 };
 
-function alert_msg(message, titulo) {
+function alert_msg(message, titulo, funcion) {
     titulo = titulo || "MENSAJE";
     $('#alertDialogMensajes .terminos_title_2').html(titulo);
     $('#alertDialogMensajes .pop_pedido_mensaje').html(message);
+    if (typeof funcion == "function") {
+        $("#alertDialogMensajes").dialog("option", "buttons", {
+            "Ver Ofertas": function () { funcion(); }
+        });
+    }
     $('#alertDialogMensajes').dialog('open');
 }
 function alert_msg_com(message) {
@@ -795,7 +769,7 @@ function MostrarShowRoomBannerLateral() {
     });
 
     if (viewBagRol == 1) {
-        if (sesionEsShowRoom == '0') {
+        if (!sesionEsShowRoom) {
             return;
         }
         $.ajax({
@@ -857,7 +831,6 @@ function MostrarShowRoomBannerLateral() {
             error: function (response, error) {
                 if (checkTimeout(response)) {
                     closeWaitingDialog();
-                    console.log("Ocurrió un error en ShowRoom");
                 }
             }
         });
@@ -1098,7 +1071,7 @@ function checkCountdownODD() {
             }
         },
         error: function (err) {
-            console.log(err);
+            checkTimeout(err);
         }
     });
 
@@ -1122,7 +1095,7 @@ function getQtyPedidoDetalleByCuvODD(cuv2, tipoEstrategiaID) {
             }
         },
         error: function (err) {
-            console.log(err);
+            checkTimeout(err);
         }
     });
 
@@ -1168,7 +1141,7 @@ function closeOfertaDelDia(sender) {
             }
         },
         error: function (err) {
-            console.log(err);
+            checkTimeout(err);
         }
     });
 }

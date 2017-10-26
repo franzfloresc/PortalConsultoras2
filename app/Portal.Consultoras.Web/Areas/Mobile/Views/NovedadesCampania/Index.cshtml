@@ -1,4 +1,5 @@
-﻿@model List<Portal.Consultoras.Web.ServiceContenido.BEBannerInfo>
+﻿@using Portal.Consultoras.Web.Helpers
+@model List<Portal.Consultoras.Web.ServiceContenido.BEBannerInfo>
 
     @{
         Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
@@ -16,7 +17,7 @@
         <div class="col-xs-12">
             <ol class="breadcrumb-next upper">
                 <li>
-                    @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel() : (Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+                    @{  var mobileConfiguracion = Html.MobileAppConfiguracion();
                         if (mobileConfiguracion.MostrarBotonAtras)
                         {
                             <a href="@Request.UrlReferrer"><i class="icon-angle-left"></i> Volver </a>
@@ -238,7 +239,7 @@
                     error: function (data, error) {
                         if (checkTimeout(data)) {
                             CloseLoading();
-                            console.log(data);
+                            console.log(data, error);
                         }
                     }
                 });

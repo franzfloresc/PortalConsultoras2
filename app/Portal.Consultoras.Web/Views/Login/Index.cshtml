@@ -3,6 +3,7 @@
 @{
     Layout = "~/Views/Shared/_LoginLayout.cshtml";
     ViewBag.Title = "Login";
+    var mensajeError = "";
 }
 
 <body>
@@ -54,14 +55,17 @@
         }
 
         function getInfoFB(opt) {
+            var fp = null;
+
             FB.api('/me', 'GET', { fields: 'birthday,email,first_name,gender,hometown,id,last_name,link,location,name,picture.type(large)' }, function (response) {
-                //console.log(response);
+                
                 if (response.id !== null && response.id !== "") {
                     var exists = checkExternalUser('Facebook', response.id);
 
                     if (exists) {
                         if (opt == 2) {
-                            validExternalUser('Facebook', response.id);
+                            fp = (typeof response.picture === 'object') ? response.picture.data.url : "";
+                            validExternalUser('Facebook', response.id, fp);
                         }
                         else {
                             var fullname = response.name.trim();
@@ -72,7 +76,7 @@
                             }
 
                             $('#hdeNameUserExt').val(fname);
-                            //resizeNameUserExt();
+                            
                             $('#btnLoginFB2').removeClass('center_facebook');
                             $('#btnLoginFB2').text('Continuar como ' + fname);
                             $('#imgFotoPerfil2').attr('src', response.picture.data.url);
@@ -85,17 +89,13 @@
                             $('#_olgn').hide();
                             $('#loginanterior').hide();
 
-                            $('#btnfblogin').show();
-                            //$('#cambcuentatext').show();
+                            $('#btnfblogin').show();                           
                         }
                     }
-                    else {
-                        //$('#btnLoginFB').hide();
-                        //$('#spnLoginFB').text(data.name);
-
+                    else {                        
                         if (opt == 2) {
                             var lc = (typeof response.location === 'object') ? response.location.name : "";
-                            var fp = (typeof response.picture === 'object') ? response.picture.data.url : "";
+                            fp = (typeof response.picture === 'object') ? response.picture.data.url : "";
                             $('#hdeProveedor').val('Facebook');
                             $('#hdeIdApp').val(response.id);
                             $('#hdeLogin').val(response.name);
@@ -158,12 +158,13 @@
             return r;
         }
 
-        function validExternalUser(provider, id) {
+        function validExternalUser(provider, id, fotoperfil) {
             var obj = {
                 codigoISO: $('#ddlPais').val(),
                 proveedor: provider,
                 appid: id,
-                returnUrl: $('#returnUrl').val()
+                returnUrl: $('#returnUrl').val(),
+                foto: fotoperfil
             };
 
             waitingDialog();
@@ -433,7 +434,14 @@
                                 {
                                     foreach (var item in Model.ListaPaises)
                                     {
-                                        <option value="@item.CodigoISO" data-id="@item.PaisID">@item.Nombre</option>
+                                        if (item.PaisID > 0)
+                                        {
+                                            <option value="@item.CodigoISO" data-id="@item.PaisID">@item.Nombre</option>
+                                        }
+                                        else
+                                        {
+                                            mensajeError = item.Nombre;
+                                        }
                                     }
                                 }
                             </select>
@@ -442,7 +450,7 @@
                 </div>
 
                 <!--- FORM CONTROL USUARIO --->
-                <div class="boxform">
+                <div class="boxform" data-error="@mensajeError">
                     <div class="formcontrol user">
                         <input id="txtUsuario" name="CodigoUsuario" type="text" class="inputForm" value="" onfocus="" onblur="" placeholder="Usuario o Correo Electrónico" />
                     </div>
@@ -507,7 +515,7 @@
                 <!-- ADMINISTRADOR FORMULARIO -->
                 <div class="boxform">
                     <div class="admin">
-                        <a href="@Url.Action("Admin","Login")" onclick="return RedirectAdministrador();" rel="menu-superior" title="Administrador">INGRESA COMO <strong>ADMINISTRADOR</strong></a>
+                        <a href="@Url.Action("Admin", "Login")" onclick="return RedirectAdministrador();" rel="menu-superior" title="Administrador">INGRESA COMO <strong>ADMINISTRADOR</strong></a>
                     </div>
                 </div>
 
@@ -618,9 +626,9 @@
 {
     <script type="text/javascript">
         var errorLogin = '@TempData["errorLogin"]';
-        var serverPaisId = '@TempData["serverPaisId"]'
-        var serverPaisISO = '@TempData["serverPaisISO"]'
-        var serverCodigoUsuario = '@TempData["serverCodigoUsuario"]'
+        var serverPaisId = '@TempData["serverPaisId"]';
+        var serverPaisISO = '@TempData["serverPaisISO"]';
+        var serverCodigoUsuario = '@TempData["serverCodigoUsuario"]';
     </script>
 }
 

@@ -38,10 +38,12 @@ namespace Portal.Consultoras.Service
         private BLCupon BLCupon;
         private BLEstrategia blEstrategia;        
         private BLRevistaDigitalSuscripcion BLRevistaDigitalSuscripcion;
-        private BLConsultoraConcurso BLConsultoraConcurso;
         private BLCuponConsultora BLCuponConsultora;
+        private BLFichaProducto blFichaProducto;
 
-        public PedidoService()
+        private readonly IConsultoraConcursoBusinessLogic _consultoraConcursoBusinessLogic;
+
+        public PedidoService() : this(new BLConsultoraConcurso())
         {
             BLPedidoWebDetalle = new BLPedidoWebDetalle();
             BLPedidoWeb = new BLPedidoWeb();
@@ -63,10 +65,15 @@ namespace Portal.Consultoras.Service
             BLMensajeMetaConsultora = new BLMensajeMetaConsultora();
             BLProcesoPedidoRechazado = new BLProcesoPedidoRechazado();
             BLCupon = new BLCupon();
-            blEstrategia = new BLEstrategia();            
+            blEstrategia = new BLEstrategia();
             BLRevistaDigitalSuscripcion = new BLRevistaDigitalSuscripcion();
-            BLConsultoraConcurso = new BLConsultoraConcurso();
             BLCuponConsultora = new BLCuponConsultora();
+            blFichaProducto = new BLFichaProducto();
+        }
+
+        public PedidoService(IConsultoraConcursoBusinessLogic consultoraConcursoBusinessLogic)
+        {
+            _consultoraConcursoBusinessLogic = consultoraConcursoBusinessLogic;
         }
 
         #region Reporte Lider
@@ -881,6 +888,11 @@ namespace Portal.Consultoras.Service
             return BLTracking.GetPedidoByConsultoraAndCampania(paisID, codigoConsultora, campania);
         }
 
+        public BETracking GetPedidoByConsultoraAndCampaniaAndNroPedido(int paisID, string codigoConsultora, int campania, string nroPedido)
+        {
+            return BLTracking.GetPedidoByConsultoraAndCampaniaAndNroPedido(paisID, codigoConsultora, campania, nroPedido);
+        }
+
         public List<BETracking> GetTrackingByPedido(int paisID, string codigo, string campana, string nropedido)
         {
             return BLTracking.GetTrackingByPedido(paisID, codigo, campana, nropedido);
@@ -1219,10 +1231,6 @@ namespace Portal.Consultoras.Service
             return new BLEstrategia().GetRegionZonaZE(PaisID, RegionID, ZonaID);
         }
 
-        public string GetCodeEstrategiaByCUV(int paisID, string cuv, int campaniaID)
-        {
-            return new BLEstrategia().GetCodeEstrategiaByCUV(paisID, cuv, campaniaID);
-        }
         // 1747 - Fin
         public void InsPedidoWebDetallePROLv2(int PaisID, int CampaniaID, int PedidoID, short EstadoPedido, List<BEPedidoWebDetalle> olstPedidoWebDetalle, bool ValidacionAbierta, string CodigoUsuario, decimal MontoTotalProl, decimal DescuentoProl)
         {
@@ -1916,9 +1924,9 @@ namespace Portal.Consultoras.Service
             return new BLEstrategia().GetCantidadOfertasParaTi(paisId, campaniaId, tipoConfigurado, estrategiaId);
         }
 
-        public List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, int estrategiaId)
+        public List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, string estrategiaCodigo)
         {
-            return new BLEstrategia().GetOfertasParaTiByTipoConfigurado(paisId, campaniaId, tipoConfigurado, estrategiaId);
+            return new BLEstrategia().GetOfertasParaTiByTipoConfigurado(paisId, campaniaId, tipoConfigurado, estrategiaCodigo);
         }
 
         public int InsertEstrategiaTemporal(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario)
@@ -2155,30 +2163,6 @@ namespace Portal.Consultoras.Service
         {
             return BLRevistaDigitalSuscripcion.Single(entidad);
         }
-        public List<BEConsultoraConcurso> ObtenerConcursosXConsultora(int PaisID, string CodigoCampania, string CodigoConsultora, string CodigoRegion, string CodigoZona)
-        {
-            return BLConsultoraConcurso.ObtenerConcursosXConsultora(PaisID, CodigoCampania, CodigoConsultora, CodigoRegion, CodigoZona).ToList();
-        }
-
-        public void ActualizarInsertarPuntosConcurso(int PaisID, string CodigoConsultora, string CodigoCampania, string CodigoConcursos, string PuntosConcursos, string PuntosExigidosConcurso)
-        {
-            BLConsultoraConcurso.ActualizarInsertarPuntosConcurso(PaisID, CodigoConsultora, CodigoCampania, CodigoConcursos, PuntosConcursos, PuntosExigidosConcurso);
-        }
-
-        public List<BEConsultoraConcurso> ObtenerPuntosXConsultoraConcurso(int PaisID, string CodigoCampania, string CodigoConsultora)
-        {
-            return BLConsultoraConcurso.ObtenerPuntosXConsultoraConcurso(PaisID, CodigoCampania, CodigoConsultora);
-        }
-
-        public List<BEConsultoraConcurso> ListConcursosVigentes(int paisId, string codigoCampania, string codigoConsultora)
-        {
-            return BLConsultoraConcurso.ListConcursosVigentes(paisId, codigoCampania, codigoConsultora);
-        }
-
-        public List<BEConsultoraConcurso> ListConcursosByCampania(int paisId, string codigoCampaniaActual, string codigoCampania, string tipoConcurso, string codigoConsultora)
-        {
-            return BLConsultoraConcurso.ListConcursosByCampania(paisId, codigoCampania, codigoCampania, tipoConcurso, codigoConsultora);
-        }
 
         public BEConsultoraResumen ObtenerResumen(int paisId, int codigoCampania, long consultoraId)
         {
@@ -2189,10 +2173,41 @@ namespace Portal.Consultoras.Service
         {
             return new BLReporteValidacion().GetReporteValidacion(paisID, campaniaID, tipoEstrategia).ToList();
         }
+        #endregion
 
+        #region Incentivos
+        public List<BEIncentivoConcurso> ObtenerConcursosXConsultora(int PaisID, string CodigoCampania, string CodigoConsultora, string CodigoRegion, string CodigoZona)
+        {
+            return _consultoraConcursoBusinessLogic.ObtenerConcursosXConsultora(PaisID, CodigoCampania, CodigoConsultora, CodigoRegion, CodigoZona).ToList();
+        }
+
+        public void ActualizarInsertarPuntosConcurso(int PaisID, string CodigoConsultora, string CodigoCampania, string CodigoConcursos, string PuntosConcursos, string PuntosExigidosConcurso)
+        {
+            _consultoraConcursoBusinessLogic.ActualizarInsertarPuntosConcurso(PaisID, CodigoConsultora, CodigoCampania, CodigoConcursos, PuntosConcursos, PuntosExigidosConcurso);
+        }
+
+        public List<BEConsultoraConcurso> ObtenerPuntosXConsultoraConcurso(int PaisID, string CodigoCampania, string CodigoConsultora)
+        {
+            return _consultoraConcursoBusinessLogic.ObtenerPuntosXConsultoraConcurso(PaisID, CodigoCampania, CodigoConsultora);
+        }
+
+        public List<BEConsultoraConcurso> ListConcursosVigentes(int paisId, string codigoCampania, string codigoConsultora)
+        {
+            return _consultoraConcursoBusinessLogic.ListConcursosVigentes(paisId, codigoCampania, codigoConsultora);
+        }
+
+        public List<BEConsultoraConcurso> ListConcursosByCampania(int paisId, string codigoCampaniaActual, string codigoCampania, string tipoConcurso, string codigoConsultora)
+        {
+            return _consultoraConcursoBusinessLogic.ListConcursosByCampania(paisId, codigoCampania, codigoCampania, tipoConcurso, codigoConsultora);
+        }
         public List<BEIncentivoConcurso> ObtenerIncentivosConsultora(int paisID, string codigoConsultora, int codigoCampania)
         {
-            return BLConsultoraConcurso.ObtenerIncentivosConsultora(paisID, codigoConsultora, codigoCampania);
+            return _consultoraConcursoBusinessLogic.ObtenerIncentivosConsultora(paisID, codigoConsultora, codigoCampania);
+        }
+
+        public List<BEIncentivoConcurso> ObtenerIncentivosHistorico(int paisID, string codigoConsultora, int codigoCampania)
+        {
+            return _consultoraConcursoBusinessLogic.ObtenerIncentivosHistorico(paisID, codigoConsultora, codigoCampania);
         }
         #endregion
 
@@ -2227,6 +2242,13 @@ namespace Portal.Consultoras.Service
             return blEstrategia.AprobarProductoComentarioDetalle(paisID, entidad);
         }
 
+        #endregion
+
+        #region FichaProducto
+        public List<BEFichaProducto> GetFichaProducto(BEFichaProducto entidad)
+        {
+            return blFichaProducto.GetFichaProducto(entidad);
+        }
         #endregion
     }
 }

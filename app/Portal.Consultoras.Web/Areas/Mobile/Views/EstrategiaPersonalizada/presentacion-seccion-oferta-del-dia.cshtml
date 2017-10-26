@@ -1,0 +1,8 @@
+﻿@using Portal.Consultoras.Web.Models;
+
+@{
+    OfertaDelDiaModel ofertaDelDia = new OfertaDelDiaModel();
+    ofertaDelDia = ViewBag.OfertaDelDia;
+}
+
+@Html.Partial("~/Areas/Mobile/Views/OfertaDelDia/_OfertaDelDiaBanner.cshtml", ofertaDelDia)

@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Portal.Consultoras.Web.ServiceCliente;
+﻿using ClosedXML.Excel;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using AutoMapper;
-using System.ServiceModel;
+using Portal.Consultoras.Web.ServiceCliente;
+using System;
+using System.Collections.Generic;
 using System.IO;
-using ClosedXML.Excel;
+using System.Linq;
+using System.ServiceModel;
+using System.Web;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -53,52 +52,54 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult Mantener(ClienteModel model)
         {
-            //if (model.ClienteID == 0)
-            //    return Insert(model);
-            //else
-            //    return Update(model);
-
             List<BEClienteDB> clientes = new List<BEClienteDB>();
             List<BEClienteContactoDB> contactos = new List<BEClienteContactoDB>();
-            List<BEClienteResponse> response = new List<BEClienteResponse>();
+            List<BEClienteDB> response = new List<BEClienteDB>();
 
             try
             {
-                contactos.Add(new BEClienteContactoDB()
+                if (!string.IsNullOrEmpty(model.Celular))
                 {
-                    ClienteID = model.CodigoCliente,
-                    Estado = (string.IsNullOrEmpty(model.Celular) ? Constantes.ClienteEstado.Inactivo : Constantes.ClienteEstado.Activo),
-                    TipoContactoID = Constantes.ClienteTipoContacto.Celular,
-                    Valor = model.Celular
-                });
+                    contactos.Add(new BEClienteContactoDB()
+                    {
+                        ClienteID = model.ClienteID,
+                        Estado = Constantes.ClienteEstado.Activo,
+                        TipoContactoID = Constantes.ClienteTipoContacto.Celular,
+                        Valor = model.Celular
+                    });
+                }
 
-                contactos.Add(new BEClienteContactoDB()
+                if (!string.IsNullOrEmpty(model.Telefono))
                 {
-                    ClienteID = model.CodigoCliente,
-                    Estado = (string.IsNullOrEmpty(model.Telefono) ? Constantes.ClienteEstado.Inactivo : Constantes.ClienteEstado.Activo),
-                    TipoContactoID = Constantes.ClienteTipoContacto.TelefonoFijo,
-                    Valor = model.Telefono
-                });
+                    contactos.Add(new BEClienteContactoDB()
+                    {
+                        ClienteID = model.ClienteID,
+                        Estado = Constantes.ClienteEstado.Activo,
+                        TipoContactoID = Constantes.ClienteTipoContacto.TelefonoFijo,
+                        Valor = model.Telefono
+                    });
+                }
 
-                contactos.Add(new BEClienteContactoDB()
+                if (!string.IsNullOrEmpty(model.eMail))
                 {
-                    ClienteID = model.CodigoCliente,
-                    Estado = (string.IsNullOrEmpty(model.eMail) ? Constantes.ClienteEstado.Inactivo : Constantes.ClienteEstado.Activo),
-                    TipoContactoID = Constantes.ClienteTipoContacto.Correo,
-                    Valor = model.eMail
-                });
+                    contactos.Add(new BEClienteContactoDB()
+                    {
+                        ClienteID = model.ClienteID,
+                        Estado = Constantes.ClienteEstado.Activo,
+                        TipoContactoID = Constantes.ClienteTipoContacto.Correo,
+                        Valor = model.eMail
+                    });
+                }
 
                 clientes.Add(new BEClienteDB()
                 {
-                    ClienteID = model.CodigoCliente,
-                    ClienteIDSB = model.ClienteID,
-                    //Nombres = model.Nombre,
+                    CodigoCliente = model.CodigoCliente,
+                    ClienteID = model.ClienteID,
                     Nombres = model.NombreCliente,
                     Apellidos = model.ApellidoCliente,
                     ConsultoraID = userData.ConsultoraID,
                     Origen = Constantes.ClienteOrigen.Desktop,
                     Estado = Constantes.ClienteEstado.Activo,
-                    TipoRegistro = Constantes.ClienteTipoRegistro.Todos,
                     Contactos = contactos.ToArray()
                 });
 
@@ -114,8 +115,8 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(new
                     {
                         success = true,
-                        message = (model.ClienteID == 0 ? "Se registró con éxito tu cliente." : "Se actualizó con éxito tu cliente."),
-                        extra = string.Format("{0}|{1}", itemResponse.ClienteID, itemResponse.ClienteIDSB)
+                        message = (itemResponse.Insertado ? "Se registró con éxito tu cliente." : "Se actualizó con éxito tu cliente."),
+                        extra = string.Format("{0}|{1}", itemResponse.CodigoCliente, itemResponse.ClienteID)
                     });
                 }
                 else
@@ -391,7 +392,7 @@ namespace Portal.Consultoras.Web.Controllers
                 };
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
-            return RedirectToAction("Index","Bienvenida");
+            return RedirectToAction("Index", "Bienvenida");
         }
 
         public JsonResult Eliminar(int ClienteID)
@@ -513,7 +514,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #endregion
-        
+
         public JsonResult ObtenerTodosClientes()
         {
             try
@@ -543,8 +544,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult ExportarExcelMisClientes()
         {
-            decimal cargo = 0;
-            decimal abono = 0;
             List<BECliente> lst;
             using (ClienteServiceClient sv = new ClienteServiceClient())
             {
@@ -649,12 +648,12 @@ namespace Portal.Consultoras.Web.Controllers
                                 ws.Cell(row, col).Style.NumberFormat.Format = "@";
                                 ws.Cell(row, col).Value = arr[0] + source.eMail;
                                 ws.Cell(row, col).Style.Fill.BackgroundColor = XLColor.FromHtml("#F0F6F8");
-                            }                            
+                            }
                             col++;
                         }
                         row++;
                         i++;
-                    }                    
+                    }
                     row++;
                     index = keyvalue.Key;
                     SourceDetails.RemoveRange(0, index);

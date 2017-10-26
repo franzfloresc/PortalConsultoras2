@@ -13,7 +13,7 @@ jQuery(document).ready(function () {
         LayoutMenu();
     });
 
-    if (typeof (fingerprintOk) !== 'undefined' && typeof (tokenPedidoAutenticoOk) !== 'undefined') {
+    if (typeof (tokenPedidoAutenticoOk) !== 'undefined') {
         GuardarIndicadorPedidoAutentico();
     }
 });
@@ -110,6 +110,13 @@ jQuery(document).ready(function () {
         return newStr;
     };
 
+    if (!String.prototype.startsWith) {
+        String.prototype.startsWith = function (stringBuscada, posicion) {
+            posicion = posicion || 0;
+            return this.indexOf(stringBuscada, posicion) === posicion;
+        };
+    };
+
     Right = function (str, n) {
         if (n <= 0)
             return "";
@@ -183,19 +190,19 @@ jQuery(document).ready(function () {
             Handlebars.registerHelper('iff', function (a, operator, b, opts) {
                 var bool = false;
                 var ret = false;
-                
+
                 switch (b) {
                     case undefined:
                     case null:
                         ret = typeof a == "boolean";
                         bool = ret ? a : false;
                         break;
-                    default:  break;
+                    default: break;
                 }
 
                 if (ret)
                     return bool ? operator.fn(this) : operator.inverse(this);
-                
+
 
                 switch (operator) {
                     case '==':
@@ -304,7 +311,7 @@ jQuery(document).ready(function () {
         //$(idHtml).load(urlTemplate, function (dataTemplate, status, xhr) {
         jQuery.get(urlTemplate, function (dataTemplate) {
             dataTemplate = $.trim(dataTemplate);
-            //console.log(dataTemplate);
+
             if (dataTemplate == "") {
                 return false;
             }
@@ -328,18 +335,20 @@ jQuery(document).ready(function () {
 
     }
     SetHandlebars = function (idTemplate, data, idHtml) {
+
         if (!Handlebars.helpers.iff)
             HandlebarsRegisterHelper();
 
-        if ($(idTemplate).length == 0) {
+        if ($(idTemplate).length === 0 || typeof data === "undefined") {
+           
             return false;
         }
 
         var source = $(idTemplate).html();
         var template = Handlebars.compile(source);
         var htmlDiv = template(data);
-        idHtml = $.trim(idHtml);
-        if (idHtml == "") return htmlDiv;
+        idHtml = typeof idHtml === "string" ? $.trim(idHtml) : idHtml;
+        if (idHtml == "" || $(idHtml).length === 0) return htmlDiv;
         $(idHtml).html(htmlDiv);
         return "";
     }
@@ -403,9 +412,9 @@ jQuery(document).ready(function () {
     $(document).scroll(function () {
         try {
             $(".loadingScreenWindow").css("top", (($(window).height() / 2) + $(document).scrollTop() - $(".loadingScreenWindow").height()) + "px");
-        } catch (e) { }        
+        } catch (e) { }
     });
-    
+
     RemoverRepetidos = function (lista, campo) {
         campo = $.trim(campo);
         var newLista = new Array();
@@ -416,7 +425,7 @@ jQuery(document).ready(function () {
                 arrAux = newLista.Find(campo, item[campo]);
             }
             else {
-                arrAux = newLista.Find(item)
+                arrAux = newLista.Find(item);
             }
             if (arrAux.length == 0) {
                 try {
@@ -428,7 +437,7 @@ jQuery(document).ready(function () {
         });
 
         return newLista;
-    };    
+    };
 })(jQuery);
 
 function showDialog(dialogId) {
@@ -436,6 +445,7 @@ function showDialog(dialogId) {
     $("#ui-datepicker-div").css("z-index", "9999");
     return false;
 }
+
 function HideDialog(dialogId) {
     $("#" + dialogId).dialog("close");
     return false;
@@ -488,6 +498,7 @@ function waitingDialog(waiting) {
 
     }
 }
+
 function closeWaitingDialog() {
     try { $("#loadingScreen").dialog('close'); }
     catch (err) {
@@ -496,9 +507,8 @@ function closeWaitingDialog() {
 }
 
 function AbrirLoad(opcion) {
-    try {
-        var isUrlMobile = $.trim(location.href).toLowerCase().indexOf("mobile") > 0;
-        if (isUrlMobile > 0) {
+    try {        
+        if (isMobile()) {
             ShowLoading(opcion);
         }
         else {
@@ -511,8 +521,7 @@ function AbrirLoad(opcion) {
 
 function CerrarLoad(opcion) {
     try {
-        var isUrlMobile = $.trim(location.href).toLowerCase().indexOf("mobile") > 0;
-        if (isUrlMobile > 0) {
+        if (isMobile()) {
             CloseLoading(opcion);
         }
         else {
@@ -532,10 +541,10 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
         }
         titulo = titulo || "MENSAJE";
         var CONS_TIPO_ICONO = { ALERTA: 1, CHECK: 2 };
-        var isUrlMobile = $.trim(location.href).toLowerCase().indexOf("/mobile/") > 0;
+        var isUrlMobile = isMobile();
         if (isUrlMobile > 0) {
             $('.icono_alerta').hide();
-            if (tipoIcono ==  CONS_TIPO_ICONO.ALERTA) {
+            if (tipoIcono == CONS_TIPO_ICONO.ALERTA) {
                 $('.icono_alerta.exclamacion_icono_mobile').show();
             }
             if (tipoIcono == CONS_TIPO_ICONO.CHECK) {
@@ -547,7 +556,7 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
             $('#mensajeInformacionvalidado').html(mensaje);
             $('#popupInformacionValidado').show();
             $('#popupInformacionValidado #bTagTitulo').html(titulo);
-            
+
             if ($.isFunction(fnAceptar)) {
                 var botonesCerrar = $('#popupInformacionValidado .btn_ok_mobile,.cerrar_popMobile');
                 botonesCerrar.off('click');
@@ -564,12 +573,12 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
 
             $('.ui-dialog .ui-button').on('click', function () {
                 $('#alertDialogMensajes').dialog('close');
-                if($.isFunction(fnAceptar)) fnAceptar();
+                if ($.isFunction(fnAceptar)) fnAceptar();
             });
 
             $('.ui-dialog .ui-icon-closethick').on('click', function () {
                 $('#alertDialogMensajes').dialog('close');
-                if($.isFunction(fnAceptar)) fnAceptar();
+                if ($.isFunction(fnAceptar)) fnAceptar();
             });
 
             $('.ui-dialog .ui-button').focus();
@@ -623,9 +632,26 @@ function IsValidUrl(value) {
 }
 
 function isMobile() {
-    var isUrlMobile = $.trim(location.href).toLowerCase().indexOf("/mobile/") > 0;
+    var isUrlMobile = $.trim(location.href.replace("#", "/") + "/").toLowerCase().indexOf("/mobile/") > 0 ||
+        $.trim(location.href).toLowerCase().indexOf("/g/") > 0;
     return isUrlMobile;
 }
+
+function getMobilePrefixUrl() {
+    var uniquePrefix = "/g/";
+    var currentUrl = $.trim(location.href).toLowerCase();
+    var uniqueIndexOfUrl = currentUrl.indexOf(uniquePrefix);
+    var isUniqueUrl = uniqueIndexOfUrl > 0;
+    //36 is Guid Length
+    return isUniqueUrl ? currentUrl.substring(uniqueIndexOfUrl, uniqueIndexOfUrl + uniquePrefix.length + 36) : "/mobile";
+}
+
+function isPagina(pagina) {
+    pagina = $.trim(pagina).toLowerCase();
+    if (pagina == "") return false;
+    return ($.trim(location.href) + "/").toLowerCase().indexOf("/" + pagina + "/") > 0;
+}
+
 function isHome() {
     var isUrl = ($.trim(location.href) + "/").toLowerCase().indexOf("/bienvenida/") > 0;
     return isUrl;
@@ -654,11 +680,11 @@ function checkTimeout(data) {
             if (ViewBagEsMobile == 1) {/*1 Desktop, 2 Mobile*/
                 $('#dialog_SesionMainLayout #mensajeSesionSB2_Error').html(message);
                 $('#dialog_SesionMainLayout').show();
-        }
+            }
             else {
                 $('#popupInformacionSB2SesionFinalizada').find('#mensajeInformacionSB2_SesionFinalizada').text(message);
                 $('#popupInformacionSB2SesionFinalizada').show();
-    }
+            }
         }
     }
     else {
@@ -669,7 +695,7 @@ function checkTimeout(data) {
 
 function checkUserSession() {
     var res = -1;
-    
+
     $.ajax({
         url: '/Login/CheckUserSession',
         type: 'POST',
@@ -834,7 +860,11 @@ FuncionesGenerales = {
         };
 
         return obj;
-    }
+    },
+    MaxLengthCheck: function (object, cantidadMaxima) {
+        if (object.value.length > cantidadMaxima)
+            object.value = object.value.slice(0, cantidadMaxima);
+    },
 };
 
 function InsertarLogDymnamo(pantallaOpcion, opcionAccion, esMobile, extra) {
@@ -854,7 +884,7 @@ function InsertarLogDymnamo(pantallaOpcion, opcionAccion, esMobile, extra) {
         'DispositivoID': '',
         'Version': '2.0',
         'Extra': extra
-    }
+    };
     if (urlLogDynamo != "") {
         jQuery.ajax({
             type: "POST",
@@ -929,19 +959,27 @@ function LayoutHeader() {
 
 function LayoutHeaderFin() {
     var wtop = $("header").innerHeight();
-    //$("[data-content]").animate({ "margin-top": (wtop) + "px" });
     $("[data-content]").css("margin-top", (wtop) + "px");
+
+    //$("[data-content] div[data-layout-menu2]").css("top", (wtop) + "px");
+    //if ($('[data-content] div[data-layout-menu2]').is(':visible')) {
+    //    wtop = $(window).innerWidth() * 0.12;
+    //    $("[data-content] div[data-layout-menu2]").css("width", (wtop) + "px");
+    //    $("[data-content] div[data-layout-body]").css("margin-left", (wtop) + "px");
+    //}
+    //else {
+    //    $("[data-content] div[data-layout-body]").css("width", "100%");
+    //    $("[data-content] div[data-layout-body]").css("margin-left", "");
+    //}
 }
-function LayoutHeaderFin() {
-    var wtop = $("header").innerHeight();
-    $("[data-content]").css("margin-top", (wtop) + "px");
-}
+
 function LayoutMenu() {
     LayoutMenuFin();
     $(document).ajaxStop(function () {
         LayoutMenuFin();
     });
 }
+
 function LayoutMenuFin() {
     // validar si sale en dos lineas
     var idMenus = "#ulNavPrincipal-0 > li";
@@ -1154,11 +1192,11 @@ function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto, nombre) 
 
     try {
         if (origenPedidoWebEstrategia !== undefined && origenPedidoWebEstrategia.indexOf("7") !== -1) {
-            CompartirProductoRDAnalytics(tipoRedes, ruta, nombre);
+            rdAnalyticsModule.CompartirProducto(tipoRedes, ruta, nombre);
         } else {
             AnalyticsRedesSociales(tipoRedes, ruta);
         }
-    } catch (e) {console.log(e)} 
+    } catch (e) { console.log(e) }
 
     if (tipoRedes == "FB") {
         var popWwidth = 570;
@@ -1183,7 +1221,7 @@ function AnalyticsRedesSociales(tipoRedes, ruta) {
             'action': 'Share',
             'target': ruta
         });
-    } else if (tipoRedes == "WA"){
+    } else if (tipoRedes == "WA") {
         dataLayer.push({
             'event': 'socialEvent',
             'network': 'Whatsapp',
@@ -1367,9 +1405,9 @@ function OcultarMenu(codigo) {
 
 function MostrarMenu(codigo, accion) {
     codigo = $.trim(codigo);
-    if (codigo == "") {
+    if (codigo == "")
         return false;
-    }
+    
     var idMenus = "#ulNavPrincipal-0";
     var menu = $(idMenus).find("[data-codigo='" + codigo + "']");
     menu = menu.length == 0 ? $(idMenus).find("[data-codigo='" + codigo.toLowerCase() + "']") : menu;
@@ -1387,7 +1425,7 @@ function MostrarMenu(codigo, accion) {
     }
 
     LayoutMenu();
-    
+
 }
 
 function FuncionEjecutar(functionHide) {
@@ -1404,7 +1442,7 @@ function IfNull(input, replaceNull) {
     return input == null ? replaceNull : input;
 }
 
-function odd_desktop_google_analytics_promotion_click() {    
+function odd_desktop_google_analytics_promotion_click() {
     if ($('#divOddCarruselDetalle').length > 0 && $("#odd_simbolo_ver_ofertas").html() === "+") {
         var id = $('#divOddCarruselDetalle').find(".estrategia-id-odd").val();
         var name = "Oferta del día - " + $('#divOddCarruselDetalle').find(".nombre-odd").val();
@@ -1458,7 +1496,7 @@ function odd_desktop_google_analytics_product_impresion() {
     var carrusel = $("[data-odd-tipoventana='carrusel']");
     var detalle = $("[data-odd-tipoventana='detalle']");
     var impresions = new Array();
-    if (carrusel.length > 0 && carrusel.is(":visible")) {        
+    if (carrusel.length > 0 && carrusel.is(":visible")) {
         var divs = new Array();
         var div1 = $(carrusel).find("[data-item-position = 0]")[0];
         var div2 = $(carrusel).find("[data-item-position = 1]")[0];
@@ -1502,15 +1540,15 @@ function odd_desktop_google_analytics_product_impresion() {
     }
 }
 
-function odd_desktop_google_analytics_addtocart(tipo,element) {
+function odd_desktop_google_analytics_addtocart(tipo, element) {
     var id, name, price, marca, variant, quantity, dimension16;
-    if (tipo == "banner") {        
+    if (tipo == "banner") {
         id = $('#banner-odd').find(".cuv2-odd").val();
         name = $('#banner-odd').find(".nombre-odd").val();
         price = $('#banner-odd').find(".precio-odd").val();
         marca = $('#banner-odd').find(".marca-descripcion-odd").val();
         variant = $('#banner-odd').find(".tipoestrategia-descripcion-odd").val();
-        quantity = 1;        
+        quantity = 1;
         dimension16 = "Oferta del día - Banner";
     }
     if (tipo == "list") {
@@ -1536,7 +1574,7 @@ function odd_desktop_google_analytics_addtocart(tipo,element) {
 
     quantity = parseInt(quantity);
 
-    var fechaAddToCart = Date.now();    
+    var fechaAddToCart = Date.now();
     var dimension15 = fechaAddToCart - fechaMostrarBanner;
     if (dimension15 != 0)
         dimension15 = (dimension15 / 1000);
@@ -1566,11 +1604,10 @@ function odd_desktop_google_analytics_addtocart(tipo,element) {
     dataLayer.push(data);
 }
 
-function odd_google_analytics_product_click(name, id, price, brand, variant, position) {  
+function odd_google_analytics_product_click(name, id, price, brand, variant, position) {
     if (variant == null || variant == "")
         variant = "Estándar";
-    dataLayer.push
-	({
+    dataLayer.push({
 	    'event': 'productClick',
 	    'ecommerce':
 		{
@@ -1591,27 +1628,8 @@ function odd_google_analytics_product_click(name, id, price, brand, variant, pos
 		}
 	});
 }
-function GuardarIndicadorPedidoAutentico() {
-    if (fingerprintOk == 0) {
-        new Fingerprint2().get(function (result, components) {
-            var data1 = { 'accion': 1, 'codigo': result };
-            jQuery.ajax({
-                type: 'POST',
-                url: '/Pedido/GuardarIndicadorPedidoAutentico',
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(data1),
-                success: function (response) {
-                    if (response.success) {
-                    }
-                },
-                error: function (response) {
-                    console.log(response);
-                }
-            });
-        });
-    }
 
+function GuardarIndicadorPedidoAutentico() {
     if (tokenPedidoAutenticoOk == 0) {
         if (typeof (Storage) !== 'undefined') {
             var itemSBTokenPedido = localStorage.getItem('SBTokenPedido');
@@ -1636,7 +1654,7 @@ function GuardarIndicadorPedidoAutentico() {
                     }
                 });
             } else {
-                
+
                 var accion = 3;
                 var tp = localStorage.getItem('SBTokenPais');
                 if (tp !== IsoPais) {
@@ -1713,7 +1731,7 @@ function limpiar_local_storage() {
     if (typeof (Storage) !== 'undefined') {
         var itemSBTokenPais = localStorage.getItem('SBTokenPais');
         var itemSBTokenPedido = localStorage.getItem('SBTokenPedido');
- 
+
         localStorage.clear();
 
         if (typeof (itemSBTokenPais) !== 'undefined' && itemSBTokenPais !== null) {
@@ -1743,7 +1761,7 @@ var _actualizarModelMasVendidosPromise = function (model) {
         type: 'POST',
         url: '/OfertasMasVendidos/ActualizarModel',
         data: JSON.stringify(model),
-        dataType: 'json',        
+        dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         async: false
     });

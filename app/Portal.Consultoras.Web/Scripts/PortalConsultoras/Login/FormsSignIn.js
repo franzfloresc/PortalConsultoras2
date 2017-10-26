@@ -17,9 +17,9 @@ $(document).ready(function () {
         resizeNameUserExt();
         var _id = "";
         if (paisesEsika.indexOf(imgISO) != -1) {
-            var _id = "hddFondoFestivoEsika";
+            _id = "hddFondoFestivoEsika";
         } else {
-            var _id = "hddFondoFestivoLebel";
+            _id = "hddFondoFestivoLebel";
         }
         Fondofestivo(_id);
     });
@@ -438,7 +438,7 @@ function LugarMensaje() {
 
     var wiu = $("a.helper.huno") == null ? 0 : parseInt($("a.helper.huno").offset().left);
     if (wiu > 0) {
-        wiu = wiu + ($("a.helper.huno").parent().outerWidth())
+        wiu = wiu + ($("a.helper.huno").parent().outerWidth());
     }
     if ($(window).width() < 1093) {
         $(".content-alerta-red-user").css("left", 75 + "px");
@@ -520,8 +520,8 @@ function ayudaLogin2() {
             break;
     }
 
-    $('#ayuda-msg-user').html(m1.trim());
-    $('#ayuda-msg-clave').html(m2.trim());
+    $('#ayuda-msg-user').html($.trim(m1));
+    $('#ayuda-msg-clave').html($.trim(m2));
 }
 
 function AbrirMensajeLogin(tipo, close) {

@@ -1,4 +1,5 @@
-﻿@model Portal.Consultoras.Web.Models.ClienteContactaConsultoraModel
+﻿@using Portal.Consultoras.Web.Helpers
+@model Portal.Consultoras.Web.Models.ClienteContactaConsultoraModel
 
 @{
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
@@ -26,7 +27,7 @@
 }
 
 <div class="titulo_mobile">
-    @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel() : (Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+    @{  var mobileConfiguracion = Html.MobileAppConfiguracion();
         if (mobileConfiguracion.MostrarBotonAtras)
         {
             <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
@@ -153,7 +154,7 @@
 {
     <script type="text/javascript">
 
-        var urlInscripcion = '@Url.Action("Inscripcion","ConsultoraOnline", new{ area="Mobile"})';
+        var urlInscripcion = '@Url.Action("Inscripcion", "ConsultoraOnline", new{ area="Mobile"})';
         var urlEnviaCorreo = '@Url.Action("EnviaCorreo", "ConsultoraOnline", new { area = "Mobile" })';
         var urlBienvenida = '@Url.Action("Index", "Bienvenida", new { area = "Mobile" })';
         var urlIndex = '@Url.Action("Index", "ConsultoraOnline", new { area = "Mobile" })';

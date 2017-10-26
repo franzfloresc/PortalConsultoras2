@@ -1,5 +1,4 @@
 ﻿/* CSS Document */
-
 * {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -23,7 +22,9 @@
     font-weight: normal;
     font-style: normal;
 }
-
+body {
+    font-family: 'Lato', sans-serif !important;
+}
 body > img {
     display: none;
 }
@@ -2088,7 +2089,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
 }
 
 #divNotiCorreo, #divNotiCorreo2 {
-    top: 50.1%
+    top: 61.1%
 }
 
 #divValidationSummary, #divValidationSummary2 {
@@ -21725,11 +21726,12 @@ label.checkpop.c_on {
     width: 248px;
     margin-right: 25px;
     min-height: 330px;
+    margin-bottom: 15px;
     background: white;
     border: 1px solid #e7e1e1;
-    -webkit-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
-    -moz-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
-    box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
+    -webkit-box-shadow: 0px 15px 13px -8px rgba(0, 0, 0, 0.31);
+    -moz-box-shadow: 0px 15px 13px -8px rgba(0, 0, 0, 0.31);
+    box-shadow: 0px 15px 13px -8px rgba(0, 0, 0, 0.31);
 }
 
 .content_item_carrusel_ofertaFinal {
@@ -28582,7 +28584,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 /*MICHAEL*/
 .content-favclientes {
     max-width: 1189px;
-    margin: 25px auto 0 auto;
+    margin: 0px auto 0 auto;
     min-height: 405px;
     position: relative;
     display: block;
@@ -28652,10 +28654,12 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     margin-right: 2%;
     float: left;
     position: relative;
-    width: 32%;
+    width:248px;
     margin-bottom: 15px;
     margin-top: 15px;
     padding-bottom: 12px;
+    box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
+    border: 1px solid #e7e1e1;
 }
 
     .content-favclientes .contiene-productos:nth-child(3n) {
@@ -33868,24 +33872,36 @@ h1#penmostreo .campana {
     float: left;
     font-family: 'Lato';
     font-size: 13px;
-    padding-top: 20px;
+    padding-top:6px;
 }
 
 .filtros_derecha {
     float: right;
     font-family: 'Lato';
     font-size: 13px;
-    margin-top: 20px;
+    /*margin-top:20px;*/
 }
-
-.select_filtros_fav {
+.select_filtros_fav{
     width: 162px;
-    height: 27px;
-    padding: 5px;
-    font-size: 11px;
+    height: 33px;
+    padding: 5px;   
+    text-transform: uppercase;    
     color: black;
     margin-left: 20px;
-    border: 1px solid black;
+    border: 1px solid #b8b8b8;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0.3px;
+    font-family: 'Lato';
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: white;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+    background-repeat: no-repeat;
+    background-position-x: 100%;
+    background-position-y: 5px;
+    padding-left: 1rem;
 }
 
 .texto_fav_filtro {
@@ -33893,23 +33909,23 @@ h1#penmostreo .campana {
     margin-bottom: 16px;
     margin-left: 10px;
 }
-
-.seleccion_filtro_fav {
-    position: relative;
+.seleccion_filtro_fav{
+  position: relative;
     margin-left: 10px;
     padding-left: 33px;
-    padding-top: 3px;
-    margin-bottom: 15px;
+    padding-top: 4px;
+    margin-bottom: 18px;
     cursor: pointer;
+    margin-top: 18px;
+    line-height: normal;
+    font-weight: normal;
 }
-
-    .seleccion_filtro_fav:first-child {
-        margin-top: 6px;
-    }
-
-    .seleccion_filtro_fav:last-child {
-        margin-bottom: 30px;
-    }
+/*.seleccion_filtro_fav:first-child{
+    margin-top:6px;
+}
+.seleccion_filtro_fav:last-child{
+    margin-bottom:30px;
+}*/
 
     .seleccion_filtro_fav:before {
         position: absolute;
@@ -34008,6 +34024,10 @@ h1#penmostreo .campana {
     color: white;
     text-align: center;
     margin-bottom: 5px;
+    text-overflow: ellipsis;   
+    overflow: hidden;
+    /* display: block; */
+    height: 20px;
 }
 
 .producto_set {
@@ -34071,10 +34091,10 @@ h1#penmostreo .campana {
 .circulo_hoy {
     width: 16px;
     height: 16px;
-    background: #d9b33f;
+    background:white;
     border-radius: 100px;
     line-height: 14px;
-    color: black;
+    color:#043553;
     font-weight: 700;
     font-size: 16px;
     font-family: 'Lato';
@@ -34092,9 +34112,13 @@ h1#penmostreo .campana {
     font-size: 13px;
     font-family: 'Lato';
     font-weight: 700;
-    color: #d9b33f;
+    color: white;
     letter-spacing: 0.75px;
-    border-bottom: 1px solid #d9b33f;
+    border-bottom: 1px solid white;
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    -webkit-box-shadow: 0px 15px 13px -8px rgba(236,236,236,1);
+    -moz-box-shadow: 0px 15px 13px -8px rgba(236,236,236,1);
+    box-shadow: 0px 15px 13px -8px rgba(236,236,236,1);
 }
 
 .btn_cerrar_ofertaDia {
@@ -34124,17 +34148,53 @@ h1#penmostreo .campana {
     top: 0;
 }
 
+@media screen and (max-width:1280px) {
+    .content_pop_oferta_dia {
+        margin-left: 12em !important;
+    }
+}
+
 .content_pop_oferta_dia {
     margin: 0 auto;
     left: 0;
     right: 0;
-    position: absolute;
+    position: relative;
     margin-top: 0px;
     max-width: 1024px;
-    height: 415px;
-    z-index: 2010;
+    height: 490px;
+    margin: auto, auto;
+    /*z-index: 2010;*/
     background: #000;
     /*background: black url(../../../Images/PL20/fondo_pop.png) no-repeat;*/
+}
+
+@media screen and (max-width:1280px) {
+    .content_estrategia_carrusel {
+        margin-left: 12em !important;
+    }
+}
+
+.content_estrategia_carrusel {
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    position: relative;
+    margin-top: 0px;
+    max-width: 1024px;
+    height: 500px;
+}
+
+.contenido {
+    width: 88%;
+    margin: 0 auto;
+}
+
+.titulo {
+    float: left;
+    margin-left: 80px;
+    width:100%;
+    margin-top:4px;
+    margin-bottom: 12px;
 }
 
 .reloj_popOferta {
@@ -34150,12 +34210,13 @@ h1#penmostreo .campana {
 }
 
 .imagen_set_Oferta_pop {
-    width: 350px;
+    width: 46%;
     height: auto;
     float: left;
     /*margin-left: 15px;*/
     /* margin-top: 5px; */
     text-align: center;
+    margin-top:25px;
 }
 
     .imagen_set_Oferta_pop img {
@@ -34168,10 +34229,11 @@ h1#penmostreo .campana {
     /* width: 210px; */
     font-family: 'Lato';
     color: white;
-    font-size: 13px;
+    font-size: 14px;
     text-align: left;
     /* letter-spacing: 0.75px; */
     line-height: 18px;
+    letter-spacing:0.2px;
     /* font-weight: 300; */
 }
 
@@ -34190,7 +34252,7 @@ h1#penmostreo .campana {
     /* width: 200px; */
     margin: 0 auto;
     font-family: 'Lato';
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 700;
     letter-spacing: 1.2px;
     /* text-align: center; */
@@ -34231,15 +34293,15 @@ h1#penmostreo .campana {
     width: 90%;
     /*height: 166px;*/
     margin: 0 auto;
-    margin-top: 21px;
+    /*margin-top: 21px;*/
     overflow: hidden;
 }
 
 .right_set_hoy {
     float: left;
-    width: 295px;
+    width: 49%;
     /* margin-top: 45px; */
-    margin-left: 14%;
+    margin-right: 5%;
 }
 
 .precio_valorizado_oferta {
@@ -34554,13 +34616,6 @@ h1#penmostreo .campana {
 
 /*OFERTA FINAL*/
 
-.img-tooltip {
-    position: absolute;
-    background: url("http://www.psdgraphics.com/file/light-wooden-background.jpg");
-    background-color: transparent;
-    border: none;
-}
-
 .tooltip-inner {
     max-width: 130px;
     padding: 3px 8px;
@@ -34750,11 +34805,12 @@ h1#penmostreo .campana {
 }
 
 .content_set_intriga {
-    width: 65%;
+    width: 55%;
     display: inline-block;
     /*float:left;*/
     overflow: hidden;
     padding-top: 30px;
+    margin-left: 10em;
 }
 
 .set_visible_intriga {
@@ -34800,7 +34856,7 @@ h1#penmostreo .campana {
     background: #f0f0f0;
     padding: 26px;
     min-height: 100px;
-    margin-top: -52px;
+    margin-top: 38px;
     margin-left: 6%;
     -webkit-box-shadow: 0px 15px 13px -8px rgba(204,200,204,0.7);
     -moz-box-shadow: 0px 15px 13px -8px rgba(204,200,204,0.7);
@@ -34825,6 +34881,7 @@ h1#penmostreo .campana {
 }
 
 .correo_showroon {
+    position: relative;
     width: 100%;
     margin-top: 20px;
     background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/LUlPmmzPLc7VpSr/page-1.png)no-repeat left bottom;
@@ -34845,7 +34902,7 @@ h1#penmostreo .campana {
         padding-bottom: 4px;
     }
 
-.termino_condiciones_intriga, .termino_condiciones_cupon {
+.termino_condiciones_intriga{
     position: relative;
     padding-left: 18px;
     margin: 0 auto;
@@ -34857,6 +34914,10 @@ h1#penmostreo .campana {
     text-align: left;
 }
 
+.termino_condiciones_cupon {
+    position: relative;
+    padding-left: 18px;
+}
     .termino_condiciones_intriga:before, .termino_condiciones_cupon:before {
         position: absolute;
         content: "";
@@ -34905,17 +34966,29 @@ h1#penmostreo .campana {
     margin: -205px auto auto auto;
 }
 
+.contenedorMensajeIntrigaA{
+    width:87%;
+    position:absolute;
+}
+
+.contenedorMensajeIntrigaB{
+    width:auto;
+    position:absolute;
+}
+
 .dias_intriga_home {
     font-family: 'Lato';
-    font-size: 55px;
-    letter-spacing: 4px;
+    font-size: 45px;
+    letter-spacing: 1.4px;
     color: white;
-    text-align: center;
+    text-align: left;
+    padding: 0 65px;
     width: 100%;
-    text-shadow: -0.1em 0.1em black;
+    text-shadow: -0.08em 0.08em black;
     position: absolute;
-    top: 36%;
-    font-weight: 700;
+    top: 33%;
+    font-weight: bold;
+    margin-top:14px;
 }
 
 .link_cambiar_correo {
@@ -34961,15 +35034,14 @@ h1#penmostreo .campana {
 
 .saludo_consultora_showroom {
     position: absolute;
-    font-family: 'LAto';
+    font-family: 'Lato';
     color: white;
     font-size: 13px;
     text-transform: uppercase;
     letter-spacing: 1.7px;
-    top: 56px;
-    width: 100%;
-    text-align: center;
+    top: 85px;
     font-weight: 300;
+    left: 65px;
 }
 
 .content_set_imagen_intriga {
@@ -34996,10 +35068,10 @@ h1#penmostreo .campana {
 /*SHOWROOM*/
 .set-productos-showroom {
     background-color: white;
-    margin-right: 2%;
+    margin-right: 2.6%;
     float: left;
     position: relative;
-    width: 32%;
+    width: 23%;
     margin-bottom: 15px;
     margin-top: 15px;
     padding-bottom: 12px;
@@ -35008,13 +35080,12 @@ h1#penmostreo .campana {
     box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
     margin-bottom: 15px;
     margin-top: 15px;
+    border: 1px solid #e6e3e3;
 }
-
-    .set-productos-showroom:nth-child(3n) {
-        margin-right: 0;
-    }
-
-.nombre-producto-set {
+.set-productos-showroom:nth-child(4n){
+      margin-right:0;
+}
+.nombre-producto-set{
     font-size: 13px;
     margin: 0 auto;
     width: 100%;
@@ -35054,7 +35125,7 @@ h1#penmostreo .campana {
 
 .content_producto_set {
     float: left;
-    width: 25%;
+    width: 22%;
     height: 373px;
     margin-top: 60px;
     text-align: center;
@@ -35063,11 +35134,11 @@ h1#penmostreo .campana {
     width:100%;
 }*/
 .content_detalle_set {
-    width: 45%;
+    width:48%;
     float: left;
     min-height: 100px;
     background: white;
-    margin-left: 5%;
+    margin-left:0;
     padding: 30px;
     font-family: 'Lato';
 }
@@ -35075,6 +35146,7 @@ h1#penmostreo .campana {
 .content_solo_ficha_set {
     width: 100%;
     float: left;
+    margin-left: 10em;
 }
 
 .titulo_set {
@@ -35180,12 +35252,14 @@ h1#penmostreo .campana {
     text-align: center;
     margin-top: 28px;
     margin-bottom: 40px;
+    margin-left: 10em;
 }
 
 .content_tip_negocio {
     margin-top: 50px;
     border-top: 1px solid black;
     padding-top: 20px;
+    margin-left: 10em;
 }
 
 .titulo_tip {
@@ -35326,8 +35400,9 @@ h1#penmostreo .campana {
     position: fixed;
     bottom: 0;
     background: white;
-    width: 100%;
+    /*width:100%;*/
     height: 73px;
+    margin-left: 12em;
     /*margin-top:50px;*/
     -webkit-box-shadow: -2px 1px 18px -4px rgba(0,0,0,0.5);
     -moz-box-shadow: -2px 1px 18px -4px rgba(0,0,0,0.5);
@@ -35445,6 +35520,7 @@ h1#penmostreo .campana {
     left: 0;
     text-align: right;
     padding-right: 20px;
+    padding-left: 15px;
 }
 
     .titulo_promocion:after {
@@ -35835,17 +35911,17 @@ h1#penmostreo .campana {
 }
 
 .texto_elige_tono {
-    position: absolute;
+    /*position:absolute; 
+    left: 0;
+    top: -19px;*/
     font-family: 'LAto';
     font-size: 10.5px;
     font-weight: 700;
     color: #e81c36;
     text-align: center;
     height: 20px;
-    width: 100%;
-    left: 0;
-    top: -19px;
-    letter-spacing: 0.2px;
+    width:100%;  
+    letter-spacing:0.2px;
 }
 
 .btn_elige_tono {
@@ -35917,19 +35993,16 @@ h1#penmostreo .campana {
     position: relative;
 }
 
-    .banner_showroom_home img {
-        height: 703px;
-        width: auto;
-        display: block;
-    }
 /*CAMBIOS EN OFERTA DEL DÍA*/
 .regresar_carrusel {
     color: white;
     font-family: 'Lato';
-    font-size: 12px;
-    float: right;
+    font-size: 14px;
+    letter-spacing: 0.2px;
+    float: left;
     margin-right: 15px;
-    background: url(../../../Images/PL20/flecha_regreso.png) no-repeat;
+    background: url(../../../Images/Esika/regresar.png) no-repeat;
+    background-size: 13px 24px;
     padding-left: 16px;
     background-position: 0px -1px;
 }
@@ -35937,12 +36010,14 @@ h1#penmostreo .campana {
 .titulo_set_ODD {
     color: white;
     font-family: 'Lato';
-    font-size: 18px;
-    /*text-align:center;*/
+    font-size: 25px;
+    font-weight: 700;
+    /* text-align: center; */
     letter-spacing: 1.3px;
     text-transform: uppercase;
-    font-weight: 700;
-    /*margin-top:10px;*/
+    margin-bottom: 15px;
+    /* margin-top: 10px; */
+    line-height: 32px;
 }
 
 .barra_inferior {
@@ -35983,10 +36058,12 @@ h1#penmostreo .campana {
 .content_item_carrusel_ODD {
     width: 260px;
     padding: 30px 30px 11px 30px;
-    border: 1px solid #d5b03e;
+    border: 1px solid white;
     float: left;
     margin-top: 12px;
     margin-bottom: 30px;
+    background:#a3001f;
+    background:rgba(255,255,255,0);
 }
 
 .content_img_carrusel_ODD {
@@ -36060,7 +36137,7 @@ h1#penmostreo .campana {
     height: auto;
     bottom: 0;
     z-index: 150;
-    width: 100%;
+    margin-left: 12em;
     -webkit-box-shadow: -2px 1px 18px -4px rgba(0,0,0,0.5);
     -moz-box-shadow: -2px 1px 18px -4px rgba(0,0,0,0.5);
     box-shadow: -2px 1px 18px -4px rgba(0,0,0,0.5);
@@ -36072,7 +36149,7 @@ h1#penmostreo .campana {
     height: 73px;
     /*background:white;*/
     max-width: 1024px;
-    margin: 0 auto;
+    margin: 0;
 }
 
 .titulo_promocion_showroom {
@@ -36083,20 +36160,20 @@ h1#penmostreo .campana {
     float: left;
     /*background: url(../../../Images/PL20/fondo_triangular.png) no-repeat right top;*/
 }
-/*.titulo_promocion_showroom:after{
+.titulo_promocion_showroom:after{
     content: '';
-    left:-150%;
-    width: 150%;
+    left: -100%;
+    width: 100%;
     height: 73px;
     background: black;
     position: absolute;
     top: 0;
     z-index: 151;
-}*/
+}
 
 .titulo_banner_showroom {
     display: block;
-    font-size: 24px;
+    font-size: 20px;
     /*color:#f9779f;*/
     font-weight: 900;
 }
@@ -36303,8 +36380,8 @@ h1#penmostreo .campana {
     width: 94%;
     height: 44px;
     background: black url(../../../Images/PL20/icono_cupon.png) no-repeat;
-    background-size: 45px 19px;
-    background-position: 23px 12px;
+    background-size: 22%;
+    background-position: 19px 6px;
     position: relative;
     font-family: 'Lato';
     font-size: 12px;
@@ -36351,11 +36428,11 @@ h1#penmostreo .campana {
     position: relative;
     text-align: right;
     padding-right: 13px;
-    padding-top: 10px;
+    padding-top: 5px;
 }
 
     .icono_cupon_monto img {
-        width: 63%;
+    	width: 87%;
     }
 
     .icono_cupon_monto::before {
@@ -36386,7 +36463,7 @@ h1#penmostreo .campana {
     position: relative;
     top: 50%;
     margin: -140px auto auto auto;
-    background: url(../../../Images/PL20/fondo_cupon1.png) no-repeat;
+    background: url(../../../Images/PL20/fondo_cupon_desktop_lbel.png) no-repeat;
 }
 
 .content_monto_cupon {
@@ -36493,7 +36570,7 @@ h1#penmostreo .campana {
 .cupon2 {
     text-align: center;
     padding-top: 50px;
-    background: url(../../../Images/PL20/fondo_cupon2.png) no-repeat;
+    background: url(../../../Images/PL20/fondo_cupon_lbel_gano.png) no-repeat;
 }
 
 .titulo_cupon2 {
@@ -36532,21 +36609,21 @@ h1#penmostreo .campana {
     width: 59px;
     height: 41px;
     margin: 0 auto;
-    background: url(../../../Images/PL20/icono_pop_up_cupon.png) no-repeat;
+    background: url(../../../Images/PL20/mail_lbel.png) no-repeat;
     margin-bottom: 5px;
 }
 
 .cupon3 {
     text-align: center;
     padding-top: 30px;
-    background: url(../../../Images/PL20/fondo_cupon3.png) no-repeat;
+    background: url(../../../Images/PL20/fondo_cupon_recuerda_lbel.png) no-repeat;
 }
 
 .icono_cupon3 {
     width: 120px;
     height: 45px;
     margin: 0 auto;
-    background: url(../../../Images/PL20/cupon_gif_rojo.gif) no-repeat;
+    background: url(../../../Images/PL20/cupon_gif_morado.gif) no-repeat;
     margin-bottom: 3px;
 }
 
@@ -36684,6 +36761,62 @@ h1#penmostreo .campana {
     position: relative;
     font-weight: 300;
     z-index: 10;
+}
+
+.contenedor_termino_condiciones_cupon {
+    margin: 0 auto;
+    margin-top: 22px;
+    font-family: 'Lato';
+    font-size: 10.5px;
+    width: 90%;
+    color: #494949;
+    text-align: left;
+    position: relative;
+}
+
+
+
+
+
+.mensaje_alerta_cupon1 {
+    color: #613c87;
+    font-size: 10.5px;
+    letter-spacing: 0.3px;
+    position: absolute;
+    bottom: -17px;
+    border-top: 1px solid #613c87;
+    width: 88%;
+    padding-top: 2px;
+}
+
+.icono_alerta_cupon {
+    width: 17px;
+    height: 17px;
+    background: url(../../../Images/Lbel/icono_advertencia_notificacion.svg) no-repeat;
+    background-size: contain;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.borde_seleccion_alerta:before {
+    border: 1px solid #613c87;
+}
+
+.icono_recuerda_cupon {
+    padding-top: 10px;
+    width: 34px;
+    height: 42px;
+    margin: 0 auto;
+    background: url(../../../Images/PL20/calendario_lbel.jpg) no-repeat center bottom;
+}
+
+.recuerda_icono2 {
+    background: url(../../../Images/PL20/maquillaje_lbel.jpg) no-repeat center bottom;
+}
+
+.recuerda_icono3 {
+    background: url(../../../Images/PL20/agenda_lbel.jpg) no-repeat center bottom;
 }
 
 .content_mas_vendidos {
@@ -37279,3 +37412,117 @@ h1#penmostreo .campana {
     display: block;
 }
 /*EPD-1919 FIN*/
+
+/*SPRINT 19*/
+.content_new_showroom{
+    width:100%;
+    padding-left:10%;
+    padding-right:2%;
+    padding-top:57px;
+}
+.content_filtro_categoria{
+   -webkit-box-shadow: inset 0 0 0 1px #b8b8b8;
+    -moz-box-shadow: inset 0 0 0 1px #b8b8b8;
+    box-shadow: inset 0 0 0 1px #b8b8b8;
+    height: 33px;
+    line-height: 32px;
+    position: relative;
+    float: left;
+    min-width: 330px;
+    padding-left: 15px;
+    padding-right: 30px;
+    font-family: 'LAto';
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0.3px;
+    margin-right: 20px;
+    /*background: white url(../../../Images/arrow.png) no-repeat center;
+    background-size: 15px;
+    background-position-x: 95%;*/
+    background: white;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+    background-repeat: no-repeat;
+    background-position-x: 100%;
+    background-position-y: 5px;
+}
+.content_detalle_filtro{
+    width: 100%;
+    position: absolute;
+    z-index: 20;
+    top: 33px;
+    border: 1px solid #b8b8b8;    
+    border-top: 0;
+    left: 0;
+    background: white;
+    min-height: 100px;
+    /*display:none;*/
+}
+.content_filtro_range_showroom{
+        /* margin-bottom: 50px; */
+    /* margin-top: 40px; */
+    /* padding-left: 12px; */
+    width: 70%;
+    margin: 0 auto;
+    margin-top: 50px;
+}
+.filtros_derecha_SHOWROOM{
+        float: left;
+    font-family: 'Lato';
+    font-size: 13px;
+    /* margin-top: 20px; */
+}
+.cantidad_productos_resultado{
+    float: right;
+    font-family: 'Lato';
+    font-size: 13px;
+    padding-top: 6px;
+}
+
+.content_landing_odd .flip-clock-wrapper ul li a div div.inn {
+    font-size: 35px;
+}
+.content_landing_odd .flip-clock-wrapper ul {
+    width: 20px;
+    height: 44px;
+}
+.content_landing_odd .flip-clock-wrapper {
+    /*width:278px;*/
+    margin: 15px 95px 0px 10px
+}
+.content_landing_odd .flip-clock-dot {
+    width: 4px;
+    height: 4px;
+}
+.content_landing_odd .flip-clock-dot.bottom {
+    top: 17px;
+}
+.content_landing_odd .flip-clock-divider {
+    margin-top: 8px;
+    margin-right: 1px;
+    /* margin-left: 2px; */
+}
+.content_item_carrusel_ODD .agregado{
+    color:white;
+}
+.content_item_carrusel_ODD .agregado .icono {   
+    background: url(../../../Images/group_blanco.svg) center center no-repeat;
+}
+.imagen_dias_intriga_inicio{
+    display: block;
+    width: 100vw;
+    height:590px;
+    object-fit: cover;
+    font-size:55px;
+    top: 36%;
+}
+.dias_inicio_landing {
+    /*font-size: 78.4px;
+    top:170px;*/
+    top: 123px;
+    font-size: 72px;
+    padding: 0% 29.45%;
+}
+.saludo_landing{
+    top: 109px;
+    font-size: 17px;
+}

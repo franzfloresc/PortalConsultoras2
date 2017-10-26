@@ -7,17 +7,18 @@ using Portal.Consultoras.Web.ServiceCDR;
 
 namespace Portal.Consultoras.Web.Models
 {
+    [Serializable]
     public class CDRWebModel
     {
-        public int CDRWebID { get; set; }        
-        public int PedidoID { get; set; }       
-        public int PedidoNumero { get; set; }        
-        public int CampaniaID { get; set; }        
-        public int ConsultoraID { get; set; }        
-        public DateTime FechaRegistro { get; set; }        
-        public int Estado { get; set; }        
-        public DateTime? FechaCulminado { get; set; }        
-        public DateTime? FechaAtencion { get; set; }        
+        public int CDRWebID { get; set; }
+        public int PedidoID { get; set; }
+        public int PedidoNumero { get; set; }
+        public int CampaniaID { get; set; }
+        public int ConsultoraID { get; set; }
+        public DateTime FechaRegistro { get; set; }
+        public int Estado { get; set; }
+        public DateTime? FechaCulminado { get; set; }
+        public DateTime? FechaAtencion { get; set; }
         public decimal Importe { get; set; }
         public int CantidadDetalle { get; set; }
         public string NombreConsultora { get; set; }
@@ -33,6 +34,10 @@ namespace Portal.Consultoras.Web.Models
         public string MensajeDespacho { get; set; }
         //EPD-1919 FIN
 
+        //HD-1227 -- Notificaciones Mobile
+        public string Proceso {get; set;}
+        //HD-1227 FIN
+
         public List<BECDRWebDetalle> ListaDetalle { get; set; }
         public string EstadoDescripcion
         {
@@ -41,7 +46,7 @@ namespace Portal.Consultoras.Web.Models
                 switch (Estado)
                 {
                     case Constantes.EstadoCDRWeb.Pendiente: return "PENDIENTE";
-                    case Constantes.EstadoCDRWeb.Enviado: return "EN EVALUACIÓN";
+                    case Constantes.EstadoCDRWeb.Enviado: return "ENVIADO";//"EN EVALUACIÓN";
                     case Constantes.EstadoCDRWeb.Observado: return "RECHAZADO";
                     case Constantes.EstadoCDRWeb.Aceptado: return "APROBADO";
                     default: return "";
@@ -67,10 +72,19 @@ namespace Portal.Consultoras.Web.Models
         public int ZonaID { get; set; }
         public int PaisID { get; set; }
         public int RegionID { get; set; }
+        
+        /*HD-726* nuevos campos que se utilizan en CDR mobile*/
+        public int CantidadAprobados { get; set; }
+        public int CantidadRechazados { get; set; }
+        public string OrigenCDRDetalle { get; set; }
+        public string FormatoFechaCulminado { get; set; }
+        public string FormatoCampaniaID { get; set; }
+        /*Fin HD-726*/
 
         public IEnumerable<CampaniaModel> lista { get; set; }
         public IEnumerable<PaisModel> listaPaises { get; set; }
         public IEnumerable<ZonaModel> listaZonas { get; set; }
         public IEnumerable<RegionModel> listaRegiones { get; set; }
+        public IEnumerable<EstadoActividadModel> TiposConsultora { get; set; }
     }
 }

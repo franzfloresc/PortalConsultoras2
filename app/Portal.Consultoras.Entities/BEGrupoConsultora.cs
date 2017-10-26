@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Runtime.Serialization;
 using System.Data;
+using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities
 {
@@ -15,7 +11,7 @@ namespace Portal.Consultoras.Entities
         private string miConsultoraCodigo;
         private string msPaisCodigo;
 
-        public BEGrupoConsultora(IDataRecord row) 
+        public BEGrupoConsultora(IDataRecord row)
         {
             miPaisID = Convert.ToInt32(row["PaisID"]);
             miConsultoraCodigo = Convert.ToString(row["ConsultoraCodigo"]);

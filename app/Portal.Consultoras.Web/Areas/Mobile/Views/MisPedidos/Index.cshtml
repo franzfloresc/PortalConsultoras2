@@ -1,23 +1,20 @@
 ﻿@using Portal.Consultoras.Web.Areas.Mobile.Models
+@using Portal.Consultoras.Web.Helpers
 
 @model Portal.Consultoras.Web.Areas.Mobile.Models.PedidoWebClientePrincipalMobilModel
 @{
-    //Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
-
-    var layout = Session["IngresoExterno"] == null ? "_MobileLayout" : "_MobileLayoutEmpty";
-
+    var layout =  ViewContext.MobileLayout();
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
+    MobileAppConfiguracionModel mobileConfiguracion = Html.MobileAppConfiguracion();
 }
-<div class="titulo_mobile">
-    @{  
-        var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new MobileAppConfiguracionModel() : (MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
-        if (mobileConfiguracion.MostrarBotonAtras)
-        {
-        <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
-        }
-    }
-    MIS PEDIDOS
-</div>
+@{ if (!mobileConfiguracion.EsAppMobile)
+     {
+         <div class="titulo_mobile">
+             <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+             MIS PEDIDOS
+         </div>
+     }
+}
 @if (Model.ListaPedidoCliente.Count == 0)
 {
     <div class="">
@@ -120,7 +117,7 @@ else
             error: function (data, error) {
                 if (checkTimeout(data)) {
                     CloseLoading();
-                    console.log(data);
+                    console.log(data, error);
                 }
             }
         });
@@ -148,7 +145,7 @@ else
             error: function (data, error) {
                 if (checkTimeout(data)) {
                     CloseLoading();
-                    console.log(data);
+                    console.log(data, error);
                 }
             }
         });

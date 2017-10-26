@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Portal.Consultoras.Web.ServiceZonificacion;
-using Portal.Consultoras.Web.ServiceODS;
-using Portal.Consultoras.Web.ServiceSAC;
+﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using AutoMapper;
+using Portal.Consultoras.Web.ServiceSAC;
+using Portal.Consultoras.Web.ServiceZonificacion;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.ServiceModel;
+using System.Web.Mvc;
 
 
 namespace Portal.Consultoras.Web.Controllers
@@ -77,10 +75,10 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                if (string.IsNullOrEmpty(paisId)) throw new ArgumentNullException("vPaisID","No puede ser nulo o vacío.");
+                if (string.IsNullOrEmpty(paisId)) throw new ArgumentNullException("vPaisID", "No puede ser nulo o vacío.");
                 using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
                 {
-                        campanias.AddRange(sv.SelectCampanias(UserData().PaisID).ToList());
+                    campanias.AddRange(sv.SelectCampanias(UserData().PaisID).ToList());
                 }
             }
             catch (FaultException ex)
@@ -91,7 +89,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
             }
-            
+
             return Json(new
             {
                 DropDownListCampania = campanias

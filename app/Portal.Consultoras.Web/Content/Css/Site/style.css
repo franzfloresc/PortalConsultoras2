@@ -2753,6 +2753,7 @@ ul.tabs {
     border: 0;
     margin: 0 15px 0 0;
 }
+
     .div-3 .input_modifica_horizontal input.button_desafiliate {
         background: url(../../Images/btn_desafiliate.png) 0 0 no-repeat;
     }
@@ -4820,7 +4821,7 @@ ol {
     height: 200px;
     width: 100%;
     overflow: auto !important;
-    border: 1px solid #d0d0d0!important;
+    border: 1px solid #d0d0d0 !important;
     background: rgb(248, 248, 248) !important;
 }
 
@@ -7288,7 +7289,7 @@ ol {
                 }
 
             .menu_header_preview ul li a.nivel1 {
-                display: block!important;
+                display: block !important;
                 display: none;
                 position: relative;
             }
@@ -11444,11 +11445,11 @@ body, html {
     font-family: 'museo_sans_100regular';
     text-transform: uppercase;
     line-height: 28px;
-    color: #660066!important;
+    color: #660066 !important;
 }
 
     .paCapLg b {
-        color: #660066!important;
+        color: #660066 !important;
     }
 
 .paCapSmll {
@@ -11549,7 +11550,7 @@ body, html {
             border-radius: 22px;
             padding: 0;
             color: #fff;
-            background: #660066!important;
+            background: #660066 !important;
         }
 
 #paImgBann .container {
@@ -11641,11 +11642,11 @@ body, html {
     }
 
 .paPriTd {
-    text-align: left!important;
+    text-align: left !important;
 }
 
 #paSltdTab table tfoot td.paBrd {
-    border: 1px #425363 solid!important;
+    border: 1px #425363 solid !important;
     color: #009999;
     font-size: 24px;
     font-family: 'museo_sans_700regulart';
@@ -11953,9 +11954,9 @@ body, html {
 
 .btnBlanco {
     display: block;
-    color: #660066!important;
-    background: transparent!important;
-    border: 1px solid #660066!important;
+    color: #660066 !important;
+    background: transparent !important;
+    border: 1px solid #660066 !important;
 }
     /*R2535 - CS */
     .btnBlanco:focus {
@@ -13077,52 +13078,52 @@ label.checkpop {
     height: 35px;
 }
 
-.matriz-comercial-list .item{
-    display:inline-block;
-    width:171px;
-    float:left;
-    padding:5px;
-    margin:5px;
+.matriz-comercial-list .item {
+    display: inline-block;
+    width: 171px;
+    float: left;
+    padding: 5px;
+    margin: 5px;
 }
 
-.matriz-comercial-list .item img {
-  width: 140px;
-  max-height: 133px;
-}
+    .matriz-comercial-list .item img {
+        width: 140px;
+        max-height: 133px;
+    }
 
-.matriz-comercial-list .item .content {
-  height:134px;
-  padding:0;
-  margin-bottom: 2px;
-}
+    .matriz-comercial-list .item .content {
+        height: 134px;
+        padding: 0;
+        margin-bottom: 2px;
+    }
 
-.matriz-comercial-list .item .actions .nemotecnico-wrapper {
-  width:170px; 
-  display:inline-block; 
-  font-size:0.9em;
-  color:gray !important;
-  padding-top:2px;
-  padding-bottom:2px; 
-  overflow: hidden; 
-  white-space: nowrap; 
-  text-overflow: ellipsis;
-  height:20px;
-}
+    .matriz-comercial-list .item .actions .nemotecnico-wrapper {
+        width: 170px;
+        display: inline-block;
+        font-size: 0.9em;
+        color: gray !important;
+        padding-top: 2px;
+        padding-bottom: 2px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        height: 20px;
+    }
 
-.matriz-comercial-list .item .actions .nemotecnico-wrapper:hover {
-    /*border: 1px solid;*/
-    background-color:#eeeeee;
-    cursor:pointer;
-}
+        .matriz-comercial-list .item .actions .nemotecnico-wrapper:hover {
+            /*border: 1px solid;*/
+            background-color: #eeeeee;
+            cursor: pointer;
+        }
 
-.matriz-comercial-list .item .actions .nemotecnico-wrapper a {
-   text-decoration: none !important;
-}
+        .matriz-comercial-list .item .actions .nemotecnico-wrapper a {
+            text-decoration: none !important;
+        }
 
-.matriz-comercial-list .item.disabledItem {
-    pointer-events: none;
-    opacity: 0.4;
-}
+    .matriz-comercial-list .item.disabledItem {
+        pointer-events: none;
+        opacity: 0.4;
+    }
 
 .matriz-lista-container .div-img-matriz-comercial:nth-child(6) {
     padding-left: 152px;
@@ -13134,7 +13135,7 @@ label.checkpop {
 }
 
 .matriz-campania .div-img-matriz-comercial {
-    padding:7px
+    padding: 7px
 }
 
 #matriz-imagenes-paginacion {
@@ -13142,59 +13143,60 @@ label.checkpop {
     text-align: center;
 }
 
-#matriz-imagenes-paginacion .item {
-    display:inline-block;
-    width: 30px;
-}
+    #matriz-imagenes-paginacion .item {
+        display: inline-block;
+        width: 30px;
+    }
 
-#matriz-imagenes-paginacion .item a {
-    padding: 4px 8px;
-    text-decoration: none !important;
-}
+        #matriz-imagenes-paginacion .item a {
+            padding: 4px 8px;
+            text-decoration: none !important;
+        }
 
-#matriz-imagenes-paginacion .item.current a {
-    background-color: #00a1e7;
-    color: white;
-}
+        #matriz-imagenes-paginacion .item.current a {
+            background-color: #00a1e7;
+            color: white;
+        }
 
-#matriz-imagenes-paginacion .item.item-disabled a {
-    pointer-events: none;
-    cursor: default;
-    color: lightgray;
-}
+        #matriz-imagenes-paginacion .item.item-disabled a {
+            pointer-events: none;
+            cursor: default;
+            color: lightgray;
+        }
 
-#matriz-imagenes-paginacion .item:not(.current):not(.item-disabled) a:hover 
-{ 
-    background-color: #ddd;
-}
+        #matriz-imagenes-paginacion .item:not(.current):not(.item-disabled) a:hover {
+            background-color: #ddd;
+        }
 
 #matriz-busqueda-nemotecnico {
-    width:530px; 
-    margin:0; 
-    display:inline-block;
+    width: 530px;
+    margin: 0;
+    display: inline-block;
 }
 
-#matriz-busqueda-nemotecnico .search-input-field {
-    width: 356px;
-}
+    #matriz-busqueda-nemotecnico .search-input-field {
+        width: 356px;
+    }
 
-#matriz-busqueda-nemotecnico .search-button-field { 
-    text-decoration:none !important;
-    cursor:pointer;
-    color: #00a1e7;
-}
+    #matriz-busqueda-nemotecnico .search-button-field {
+        text-decoration: none !important;
+        cursor: pointer;
+        color: #00a1e7;
+    }
 
-#matriz-busqueda-nemotecnico .search-button-field i {
-    vertical-align:middle;
-}
+        #matriz-busqueda-nemotecnico .search-button-field i {
+            vertical-align: middle;
+        }
 
-#matriz-busqueda-nemotecnico .busqueda-exacta{
-    display:inline-block; 
-}
+    #matriz-busqueda-nemotecnico .busqueda-exacta {
+        display: inline-block;
+    }
 
-#matriz-busqueda-nemotecnico .busqueda-exacta input[type=checkbox]{
-    display: inline-block !important; vertical-align: bottom; height: 13px !important;
-}
+        #matriz-busqueda-nemotecnico .busqueda-exacta input[type=checkbox] {
+            display: inline-block !important;
+            vertical-align: bottom;
+            height: 13px !important;
+        }
 
 #file-upload-add .qq-upload-list {
     margin: 0px;
@@ -13415,6 +13417,7 @@ label.checkpop {
     color: #702789;
     font-size: 14px;
 }
+
 .sideLeft {
     display: inline-block;
     width: 48%;
@@ -13423,6 +13426,7 @@ label.checkpop {
     margin-right: -3px;
     border-right: 1px #D0D0D0 solid;
 }
+
 .sideRight {
     display: inline-block;
     width: 47%;
@@ -13432,8 +13436,11 @@ label.checkpop {
     vert-align: top;
     position: absolute
 }
+
 .inforRdText {
-   position: relative; margin-top: -16px; font-size: 11px; 
+    position: relative;
+    margin-top: -16px;
+    font-size: 11px;
 }
 
 /*EPD2031*/
@@ -13476,7 +13483,7 @@ label.checkpop {
 
             .contentCatalogo .box .revista img {
                 height: 240px;
-                webkit-box-shadow: 6px 7px 5px 0px rgba(212,205,212,1);
+                -webkit-box-shadow: 6px 7px 5px 0px rgba(212,205,212,1);
                 -moz-box-shadow: 6px 7px 5px 0px rgba(212,205,212,1);
                 box-shadow: 6px 7px 5px 0px rgba(212,205,212,1);
             }
@@ -13507,3 +13514,16 @@ label.checkpop {
             opacity: 0.7;
         }
 /*EPD2031 -->*/
+
+.float-left {
+    float: left;
+}
+
+.checkBox input{
+    display: inline-block !important;
+}
+
+.checkBox label {
+    display: inline-block !important;
+}
+

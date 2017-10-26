@@ -7,17 +7,18 @@ $(document).ready(function () {
 function RDPopupCerrar(tipo) {
     AbrirLoad();
     if (tipo == 1) {
-        CerrarPopUpRDAnalytics('Banner Inscripción Exitosa');
+        rdAnalyticsModule.CerrarPopUp('Banner Inscripción Exitosa');
         location.href = location.href;
         return false;
     }
     if (tipo == 2) {
-        CerrarPopUpRDAnalytics('Banner Inscripción Exitosa');
+        rdAnalyticsModule.CerrarPopUp('Banner Inscripción Exitosa');
         CerrarPopup("#PopRDSuscripcion");
+        CerrarLoad();
         return true;
     }
 
-    CerrarPopUpRDAnalytics('Banner Inscribirme a Ésika para mí');
+    rdAnalyticsModule.CerrarPopUp('Banner Inscribirme a Ésika para mí');
     
     $.ajax({
         type: 'POST',
@@ -38,7 +39,7 @@ function RDPopupCerrar(tipo) {
 function RDSuscripcion(accion) {
    
     AbrirLoad();
-    InscripcionRDAnalytics();
+    rdAnalyticsModule.Inscripcion();
     $.ajax({
         type: 'POST',
         url: baseUrl + 'RevistaDigital/Suscripcion',
@@ -62,8 +63,7 @@ function RDSuscripcion(accion) {
                 $("[data-estadoregistro0]").hide();
                 $("[data-estadoregistro2]").hide();
                 $("[data-estadoregistro1]").show();
-                //SuscripcionExistosaRDAnalytics();
-                SuscripcionExistosaRDAnalytics2();
+                rdAnalyticsModule.SuscripcionExistosa();
                 return true;
             }
 
@@ -80,7 +80,7 @@ function RDSuscripcion(accion) {
                 CerrarPopup("#divMensajeBloqueada");
             }
             AbrirPopupFade("#PopRDInscrita");
-            SuscripcionExistosaRDAnalytics2();
+            rdAnalyticsModule.suscripcionExitosa();
         },
         error: function (data, error) {
             CerrarLoad();
@@ -91,7 +91,7 @@ function RDSuscripcion(accion) {
 
 function RDDesuscripcion(accion) {
     AbrirLoad();
-    CancelarSuscripcionRDAnalytics();
+    rdAnalyticsModule.CancelarSuscripcion();
     $.ajax({
         type: 'POST',
         url: baseUrl + 'RevistaDigital/Desuscripcion',
@@ -124,7 +124,7 @@ function RDDesuscripcion(accion) {
 }
 
 function RDPopupNoVolverMostrar() {
-    CerrarPopUpRDAnalytics('Banner Inscribirme a Ésika para mí');
+    rdAnalyticsModule.CerrarPopUp('Banner Inscribirme a Ésika para mí');
     CerrarPopup("#PopRDSuscripcion");
     AbrirLoad();
     $.ajax({
@@ -145,22 +145,16 @@ function RDInformacion() {
     location.href = urlInformacionSuscripcion;
 }
 
-function RDSuscripcionRedireccionar(accion) {
-    SaberMasRDAnalytics();
-    var url = ((isMobile() ? "/Mobile" : "") + "/RevistaDigital#0");
-    var urlLocal = $.trim(window.location).toLowerCase().replace("#", "/")+"/";
-    window.location = url;
-    if (urlLocal.indexOf("/revistadigital/") > 0) {
-        window.location.reload();
-    }
-}
+function RDRedireccionarInformacion(seccion) {
+    seccion = seccion || 0;
+    rdAnalyticsModule.IrCancelarSuscripcion();
+    var url = (isMobile() ? "/Mobile" : "") + "/RevistaDigital/Informacion";
 
-function RDRedireccionarDesuscripcion() {
-    IrCancelarSuscripcionRDAnalytics();
-    var url = ((isMobile() ? "/Mobile" : "") + "/RevistaDigital#divCambiosEstadoRegistro");
-    var urlLocal = $.trim(window.location).toLowerCase().replace("#", "/")+"/";
+    if (seccion == 1) url += "#divCambiosEstadoRegistro";
+    
+    var urlLocal = $.trim(window.location).toLowerCase() + "/";
     window.location = url;
-    if (urlLocal.indexOf("/revistadigital/") > 0) {
+    if (urlLocal.indexOf("/revistadigital//Informacion/") >= 0) {
         window.location.reload();
     }
 }
@@ -185,6 +179,12 @@ function MostrarTerminos() {
 
 function RedirectToLandingRD(origenWeb) {
     // Save analytics before redirect 
-    AccessRDAnalytics(origenWeb);
+    rdAnalyticsModule.Access(origenWeb);
     window.location = urlRevistaDigital;
+}
+
+function RedireccionarContenedorComprar(origenWeb, codigo) {
+    rdAnalyticsModule.Access(origenWeb);
+    codigo = $.trim(codigo);
+    window.location = (isMobile() ? "/Mobile" : "") + "/Ofertas" + (codigo != "" ? "#" + codigo : "");
 }

@@ -1,21 +1,21 @@
-﻿@model Portal.Consultoras.Web.Models.NivelesRiesgoModel
+﻿@*@model Portal.Consultoras.Web.Models.NivelesRiesgoModel*@
 @{
     Layout = "~/Views/Shared/_SACLayout.cshtml";
     ViewBag.Title = "Niveles de Riesgo";
 }
 
-
-<style type="text/css">
+@(new HtmlString(ViewBag.HTMLSACUnete))
+@*<style type="text/css">
     #SelectedRowList {
         margin-top: 5px;
         border: 1px solid #999;
         background-color: #EEE;
         padding: 5px;
     }
-</style>
+</style>*@
 
 
-<script type="text/javascript" src="~/Scripts/jquery.form.js"></script>
+@*<script type="text/javascript" src="~/Scripts/jquery.form.js"></script>
 <script type="text/javascript">
 
 
@@ -177,9 +177,9 @@
             DownloadAttachExcel();
         }, 0);
     }
-</script>
+</script>*@
 
-<div class="wrap_cab">
+@*<div class="wrap_cab">
 
     <div class="filtros2">
         <div class="elements">
@@ -190,7 +190,7 @@
     </div>
 
 </div>
-<!--/ .wrap-->
+
 @Html.HiddenFor(m => Model.CodigoISO)
 <div class="wrap">
     <div class="container clearfix">
@@ -247,4 +247,4 @@
             <div id="pager"></div>
         </div>
     </div>
-</div>
+</div>*@

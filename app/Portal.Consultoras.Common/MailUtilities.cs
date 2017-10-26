@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Text;
-using Newtonsoft.Json;
-using System;
 
 namespace Portal.Consultoras.Common
 {
@@ -18,7 +18,7 @@ namespace Portal.Consultoras.Common
         /// <returns></returns>
         public static dynamic EnviarMailMandrillJson(List<ToWithType> recipients, string message, List<Images> images = null)
         {
-            
+
             var url = ConfigurationManager.AppSettings[AppSettingsKeys.MandrillURL];
             var key = ConfigurationManager.AppSettings[AppSettingsKeys.MandrillKey];
             var from = ConfigurationManager.AppSettings[AppSettingsKeys.MandrillFrom];
@@ -73,7 +73,7 @@ namespace Portal.Consultoras.Common
             string emailTo = ConfigurationManager.AppSettings["EmailToProcesoDescargaExcepcion"] ?? "";
 
             try { Util.EnviarMail(emailFrom, emailTo, "", titulo, htmlTemplate, true); }
-            catch(Exception ex) { }
+            catch (Exception) { }
         }
 
         public static void EnviarMailProcesoRecuperaContrasenia(string emailFrom, string emailTo, string titulo, string displayname, string logo, string nombre, string url, string fondo)
@@ -234,7 +234,7 @@ namespace Portal.Consultoras.Common
 
         }
 
-        public static string CuerpoCorreoActivacionCupon(string userName, string campaniaActual, string simbolo, decimal monto, string tipoOferta, string url, string montoLimite)
+        public static string CuerpoCorreoActivacionCupon(string userName, string campaniaActual, string simbolo, decimal monto, string tipoOferta, string url, string montoLimite, bool tipopais)
         {
             string codigoCampania = campaniaActual.Substring(4, 2);
             var textoGanaste = "¡" + userName + " ACTIVASTE TU CUPÓN DE " + Convert.ToInt32(monto) + "% DE DSCTO!";
@@ -250,7 +250,10 @@ namespace Portal.Consultoras.Common
             sBuilder.Append("<table width=\"100%\" align=\"center\" border =\"0\" cellspacing =\"0\" cellpadding =\"0\" style=\"background: #fff; max-width: 600px;\" class=\"main\">");
             sBuilder.Append("<tr>");
             sBuilder.Append("<td colspan=\"2\" style=\"width: 100%; height: 50px; padding: 12px 0px; text-align: center; background: #fff;\">");
-            sBuilder.Append("<img src=\"http://www.genesis-peru.com/mailing-belcorp/logo.png\" alt =\"Logo Esika\"/>");
+            if (tipopais)
+                sBuilder.Append("<img src=\"http://www.genesis-peru.com/mailing-belcorp/logo.png\" alt =\"Logo Esika\"/>");
+            else
+                sBuilder.Append("<img src=\"https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/jG6i4d6VUyIaUwi/logod.png\" alt =\"Logo Esika\"/>");
             sBuilder.Append("</td>");
             sBuilder.Append("</tr>");
             sBuilder.Append("<tr>");
@@ -264,7 +267,12 @@ namespace Portal.Consultoras.Common
             sBuilder.Append("</tr>");
             sBuilder.Append("<tr>");
             sBuilder.Append("<td colspan=\"2\" style=\"text-align: center; padding-top: 25px; background:#f2f2f2; padding-left: 5%; padding-right: 5%; padding-bottom: 25px;\">");
-            sBuilder.Append("<div style=\"width: 100%; background:#e31b35; padding-top: 20px; padding-bottom: 20px; border-bottom:2px dashed #fff;\">");
+            if (tipopais)
+                sBuilder.Append("<table width=\"100%\" align=\"center\" border =\"0\" cellspacing =\"0\" style=\"background:#e31b35; padding-top: 20px; padding-bottom: 20px; border-bottom:2px dashed #fff;\">");
+            else
+                sBuilder.Append("<table width=\"100%\" align=\"center\" border =\"0\" cellspacing =\"0\" style=\"background:#642f80; padding-top: 20px; padding-bottom: 20px; border-bottom:2px dashed #fff;\">");
+            sBuilder.Append("<tr>");
+            sBuilder.Append("<td>");
             sBuilder.Append("<div style=\"display: inline-block; width: 148px; vertical-align: middle; padding: 10px;\">");
             sBuilder.Append("<table>");
             sBuilder.Append("<tr>");
@@ -286,18 +294,27 @@ namespace Portal.Consultoras.Common
             sBuilder.Append("</table>");
             sBuilder.Append("</div>");
             sBuilder.Append("<div style=\"display: inline-block; width: 148px; vertical-align: middle; padding: 10px;\">");
+
             sBuilder.Append("<table>");
             sBuilder.Append("<tr>");
-            sBuilder.Append("<td><img src=\"https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/zpKTgmlpMBbOCFr/group-13.png\" ></td>");
+            if (tipopais)
+                sBuilder.Append("<td><img src=\"https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/zpKTgmlpMBbOCFr/group-13.png\" ></td>");
+            else
+                sBuilder.Append("<td><img src=\"https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/JYBIo3emz2Twn5P/icono_lbel.png\" ></td>");
             sBuilder.Append("</tr>");
             sBuilder.Append("<tr>");
             sBuilder.Append("<td style=\"color:#fff; font-size: 12px; font-family: 'Arial';  padding-top: 10px;\">Tu dscto lo verás reflejado en tu facturación<br>(dscto hasta " + simbolo + " " + montoLimite + ")</td>");
             sBuilder.Append("</tr>");
             sBuilder.Append("</table>");
             sBuilder.Append("</div>");
-            sBuilder.Append("</div>");
+            sBuilder.Append("</td>");
+            sBuilder.Append("</tr>");
+            sBuilder.Append("</table>");
             sBuilder.Append("<div style=\"padding-top: 20px; background: #fff; padding-bottom: 20px;\" > ");
-            sBuilder.Append("<a href='" + url + "' style=\"display: inline-block; background:#e81c36; color: #fff;font-family: 'Arial'; height: 45px; width: 240px; line-height: 45px; font-size: 13px;letter-spacing: 1px; text-decoration: none;\">INGRESA A SOMOSBELCORP</a>");
+            if (tipopais)
+                sBuilder.Append("<a href='" + url + "' style=\"display: inline-block; background:#e81c36; color: #fff;font-family: 'Arial'; height: 45px; width: 240px; line-height: 45px; font-size: 13px;letter-spacing: 1px; text-decoration: none;\">INGRESA A SOMOSBELCORP</a>");
+            else
+                sBuilder.Append("<a href='" + url + "' style=\"display: inline-block; background:#642f80; color: #fff;font-family: 'Arial'; height: 45px; width: 240px; line-height: 45px; font-size: 13px;letter-spacing: 1px; text-decoration: none;\">INGRESA A SOMOSBELCORP</a>");
             sBuilder.Append("</div>");
             sBuilder.Append("</td>");
             sBuilder.Append("</tr>");
@@ -347,7 +364,7 @@ namespace Portal.Consultoras.Common
             sBuilder.Append("<span style=\"font-family:'Calibri'; font-size:11.5px; color:#000;\"><a style=\"text-decoration: none;  color: #000;\" href=\"http://comunidad.somosbelcorp.com/\">¿Tienes dudas?</a></span>");
             sBuilder.Append("</td>");
             sBuilder.Append("<td align=\"center\" style=\"text-align:center;\">");
-            sBuilder.Append("<span style=\"font-family:'Calibri'; font-size:11.5px; color:#000;\"><a href=\"http://www.belcorpresponde.com/\" style=\"text-decoration: none; color: #000;\">Contáctanos</a></span>");           
+            sBuilder.Append("<span style=\"font-family:'Calibri'; font-size:11.5px; color:#000;\"><a href=\"http://www.belcorpresponde.com/\" style=\"text-decoration: none; color: #000;\">Contáctanos</a></span>");
             sBuilder.Append("</td>");
             sBuilder.Append("</tr>");
             sBuilder.Append("</tbody>");
@@ -359,7 +376,7 @@ namespace Portal.Consultoras.Common
             sBuilder.Append("</div>");
             sBuilder.Append("</body>");
             sBuilder.Append("</html>");
-            
+
             return sBuilder.ToString();
         }
 
