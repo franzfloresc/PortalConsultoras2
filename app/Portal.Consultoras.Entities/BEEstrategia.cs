@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 namespace Portal.Consultoras.Entities
 {
     [DataContract]
-    public class BEEstrategia
+    public class BEEstrategia : BaseEntidad
     {
         [DataMember]
         public int MarcaID { get; set; }
@@ -14,8 +14,6 @@ namespace Portal.Consultoras.Entities
         public string ConsultoraID { get; set; }
         [DataMember]
         public int EstrategiaID { get; set; }
-        [DataMember]
-        public int PaisID { get; set; }
         [DataMember]
         public int CampaniaID { get; set; }
         [DataMember]
@@ -38,6 +36,8 @@ namespace Portal.Consultoras.Entities
         public string PrecioString { get; set; }
         [DataMember]
         public string PrecioTachado { get; set; }
+        [DataMember]
+        public string GananciaString { get; set; }
         [DataMember]
         public string CUV1 { get; set; }
         [DataMember]
@@ -97,15 +97,13 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string Mensaje { get; set; }
 
-        //R2469 - JICM - Agregando más campos para la Marcación de los Pedidos
         [DataMember]
         public string DescripcionMarca { get; set; }
         [DataMember]
         public string DescripcionCategoria { get; set; }
         [DataMember]
         public string DescripcionEstrategia { get; set; }
-        // FIN 
-        /*R2621 -LR - Se añade la propiedad FlagNueva*/
+
         [DataMember]
         public int FlagNueva { get; set; }
 
@@ -116,7 +114,7 @@ namespace Portal.Consultoras.Entities
         public bool TieneStockProl { get; set; }
 
         [DataMember]
-        public int FlagMostrarImg { get; set; }      // SB2-353     
+        public int FlagMostrarImg { get; set; }
 
         [DataMember]
         public int OfertaUltimoMinuto { get; set; }
@@ -134,20 +132,12 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string CodigoAgrupacion { get; set; }
 
-
         [DataMember]
         public BEEstrategiaDetalle EstrategiaDetalle { get; set; }
 
         [DataMember]
         public BETipoEstrategia TipoEstrategia { get; set; }
 
-        //[DataMember]
-        //public string CodigoSAP { get; set; }
-
-        /// <summary>
-        /// Url para compartir, es llenado en el servicio de estrategia
-        /// GetEstrategiasPedido
-        /// </summary>
         [DataMember]
         public string URLCompartir { get; set; }
 
@@ -158,21 +148,14 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool ValidarPeriodoFacturacion { get; set; }
 
-        /// <summary>
-        /// [Filtro] del usuario
-        /// </summary>
         [DataMember]
         public double ZonaHoraria { get; set; }
-
-        /// <summary>
-        /// [Filtro] del usuario
-        /// </summary>
 
         [DataMember]
         public int IdMatrizComercial { get; set; }
         [DataMember]
         public string FotoProducto01 { get; set; }
-        // Campos solo para la estrategia de lanzamiento...
+
         [DataMember]
         public string ImgFondoDesktop { get; set; }
         [DataMember]
@@ -221,9 +204,19 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool MostrarImgOfertaIndependiente { get; set; }
 
+        [DataMember]
+        public decimal PrecioPublico { get; set; }
+        [DataMember]
+        public decimal Ganancia { get; set; }
+
+        [DataMember]
+        public DateTime FechaInicioFacturacion { get; set; }
+
+        public BEEstrategia()
+        { }
+
         public BEEstrategia(IDataRecord row, bool partial)
         {
-
             if (DataRecord.HasColumn(row, "LimiteVenta") && row["LimiteVenta"] != DBNull.Value)
                 LimiteVenta = Convert.ToInt32(row["LimiteVenta"]);
 
@@ -247,7 +240,10 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "ImagenURL") && row["ImagenURL"] != DBNull.Value)
                 ImagenURL = row["ImagenURL"].ToString();
-
+            
+            PrecioPublico = DataRecord.GetColumn<decimal>(row, "PrecioPublico");
+            Ganancia = DataRecord.GetColumn<decimal>(row, "Ganancia");
+            
             if (DataRecord.HasColumn(row, "EsOfertaIndependiente"))
                 EsOfertaIndependiente = Convert.ToBoolean(row["EsOfertaIndependiente"].ToString());
 
@@ -287,6 +283,9 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "CodigoProducto") && row["CodigoProducto"] != DBNull.Value)
                 CodigoProducto = row["CodigoProducto"].ToString();
 
+            PrecioPublico = DataRecord.GetColumn<decimal>(row, "PrecioPublico");
+            Ganancia = DataRecord.GetColumn<decimal>(row, "Ganancia");
+
             if (DataRecord.HasColumn(row, "EsOfertaIndependiente"))
                 EsOfertaIndependiente = Convert.ToBoolean(row["EsOfertaIndependiente"].ToString());
 
@@ -296,12 +295,6 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "MostrarImgOfertaIndependiente"))
                 MostrarImgOfertaIndependiente = Convert.ToBoolean(row["MostrarImgOfertaIndependiente"].ToString());
         }
-
-        [DataMember]
-        public DateTime FechaInicioFacturacion { get; set; }
-
-        public BEEstrategia()
-        { }
 
         public BEEstrategia(IDataRecord row)
         {
@@ -416,7 +409,6 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "Mensaje") && row["Mensaje"] != DBNull.Value)
                 Mensaje = row["Mensaje"].ToString();
 
-            //R2469 - JICM - Agregando más campos para la Marcación de los Pedidos
             if (DataRecord.HasColumn(row, "DescripcionMarca") && row["DescripcionMarca"] != DBNull.Value)
                 DescripcionMarca = row["DescripcionMarca"].ToString();
 
@@ -425,8 +417,7 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "DescripcionEstrategia") && row["DescripcionEstrategia"] != DBNull.Value)
                 DescripcionEstrategia = row["DescripcionEstrategia"].ToString();
-            //FIN 
-            /*R2621LR - Flag Nueva*/
+
             if (DataRecord.HasColumn(row, "FlagNueva") && row["FlagNueva"] != DBNull.Value)
                 FlagNueva = Convert.ToInt32(row["FlagNueva"].ToString());
 
@@ -436,7 +427,6 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "TieneStockProl") && row["TieneStockProl"] != DBNull.Value)
                 TieneStockProl = Convert.ToBoolean(row["TieneStockProl"].ToString());
 
-            // SB2-353
             if (DataRecord.HasColumn(row, "FlagMostrarImg") && row["FlagMostrarImg"] != DBNull.Value)
                 FlagMostrarImg = Convert.ToInt32(row["FlagMostrarImg"]);
 
@@ -476,6 +466,9 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "PromValorizado"))
                 PromValorizado = Convert.ToInt32(row["PromValorizado"]);
 
+            PrecioPublico = DataRecord.GetColumn<decimal>(row, "PrecioPublico");
+            Ganancia = DataRecord.GetColumn<decimal>(row, "Ganancia");
+
             if (DataRecord.HasColumn(row, "EsOfertaIndependiente"))
                 EsOfertaIndependiente = Convert.ToBoolean(row["EsOfertaIndependiente"].ToString());
 
@@ -489,9 +482,9 @@ namespace Portal.Consultoras.Entities
             TipoEstrategia = new BETipoEstrategia(row);
         }
     }
-    // 1747 - Inicio
+
     [DataContract]
-    public class BEConfiguracionValidacionZE
+    public class BEConfiguracionValidacionZE : BaseEntidad
     {
         [DataMember]
         public int CampaniaID { set; get; }
@@ -505,8 +498,6 @@ namespace Portal.Consultoras.Entities
         public string ZonaNombre { set; get; }
         [DataMember]
         public Int16 ValidacionActiva { set; get; }
-        [DataMember]
-        public int PaisID { set; get; }
         [DataMember]
         public Int16 DiasDuracionCronograma { get; set; }
 
@@ -548,6 +539,7 @@ namespace Portal.Consultoras.Entities
 
         public string CodigoEstrategia { get; set; }
         public int TieneVariedad { get; set; }
+        public decimal PrecioPublico { get; set; }
+        public decimal Ganancia { get; set; }
     }
-    // 1747 - Fin
 }

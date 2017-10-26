@@ -1,22 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
+﻿using AutoMapper;
 using Portal.Consultoras.Web.Models;
-using AutoMapper;
+using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceZonificacion;
-using System.Threading.Tasks;
-using Portal.Consultoras.Web.ServiceODS;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.ServiceModel;
+using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
     public class CUVAutomaticoController : BaseController
     {
-        //
-        // GET: /CUVAutomatico/
-
         public async Task<ActionResult> Index()
         {
             if (!UsuarioModel.HasAcces(ViewBag.Permiso, "CUVAutomatico/Index"))
@@ -304,7 +301,7 @@ namespace Portal.Consultoras.Web.Controllers
                         rows = from a in lst
                                select new
                                {
-                                   cell = new string[] 
+                                   cell = new string[]
                                    {
                                        a.CampaniaID.ToString(),
                                        a.CUV,

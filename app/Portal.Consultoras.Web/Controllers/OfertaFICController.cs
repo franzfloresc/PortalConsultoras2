@@ -42,7 +42,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
         public JsonResult ObtenterCampanias(int PaisID)
         {
-            var listCampania = PaisID == 0 ? null : DropDowListCampanias(PaisID);            
+            var listCampania = PaisID == 0 ? null : DropDowListCampanias(PaisID);
             return Json(new { lista = listCampania }, JsonRequestBehavior.AllowGet);
         }
         private IEnumerable<CampaniaModel> DropDowListCampanias(int PaisID)
@@ -57,7 +57,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult FindByCUVs(int campaniaID, int paisID, string codigo, int rowCount)
         {
-            List<ServiceODS.BEProductoDescripcion> lista;            
+            List<ServiceODS.BEProductoDescripcion> lista;
             int campaniaAnterior = AddCampaniaAndNumero(campaniaID, -1);
             using (ODSServiceClient srv = new ODSServiceClient())
             {
@@ -90,7 +90,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         int campaniaAnterior = AddCampaniaAndNumero(model.CampaniaID, -1);
                         foreach (string cuv in productosAValidar)
-                        {                            
+                        {
                             productoFaltante = srv.GetProductoComercialByPaisAndCampania(campaniaAnterior, cuv, model.PaisID, 1).ToList();
                             if (productoFaltante.Count == 0 || productoFaltante[0].CUV != cuv)
                             {
@@ -108,12 +108,12 @@ namespace Portal.Consultoras.Web.Controllers
                 if (message != string.Empty) return message;
 
                 if (uplArchivo == null) return "El archivo especificado no existe.";
-                
+
                 string fileextension = Path.GetExtension(uplArchivo.FileName);
                 if (!fileextension.ToLower().Equals(".jpg")) return "Sólo se permiten imágenes en formato JPG.";
 
-                string fileName = Guid.NewGuid().ToString() + fileextension;                   
-                if (!Directory.Exists(Globals.RutaTemporales)) Directory.CreateDirectory(Globals.RutaTemporales);                    
+                string fileName = Guid.NewGuid().ToString() + fileextension;
+                if (!Directory.Exists(Globals.RutaTemporales)) Directory.CreateDirectory(Globals.RutaTemporales);
                 var path = Path.Combine(Globals.RutaTemporales, fileName);
                 HttpPostedFileBase postedFile = Request.Files[0];
                 postedFile.SaveAs(path);
@@ -140,13 +140,13 @@ namespace Portal.Consultoras.Web.Controllers
                 return "Hubo un problema con el servicio, intente nuevamente.";
             }
         }
-        
+
         public ActionResult Consultar(string sidx, string sord, int page, int rows, int paisID, int campaniaID)
         {
             try
             {
                 if (!ModelState.IsValid) return RedirectToAction("Index", "Bienvenida");
-                
+
                 List<BEOfertaFIC> lst;
                 using (SACServiceClient srv = new SACServiceClient())
                 {
@@ -167,18 +167,18 @@ namespace Portal.Consultoras.Web.Controllers
                     page = page,
                     records = Records,
                     rows = from a in lst
-                            select new
-                            {
-                                cell = new string[] 
-                                {
+                           select new
+                           {
+                               cell = new string[]
+                               {
                                     a.CampaniaID.ToString(),
                                     a.CUV,
                                     a.Descripcion,
                                     a.NombreImagen
-                                }
-                            }
+                               }
+                           }
                 };
-                return Json(data, JsonRequestBehavior.AllowGet);                
+                return Json(data, JsonRequestBehavior.AllowGet);
             }
             catch (FaultException ex)
             {
@@ -198,7 +198,8 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (SACServiceClient SACsrv = new SACServiceClient())
                 {
-                    BEOfertaFIC producto = new BEOfertaFIC {
+                    BEOfertaFIC producto = new BEOfertaFIC
+                    {
                         CampaniaID = CampaniaID,
                         CUV = CUV
                     };

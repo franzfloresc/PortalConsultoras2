@@ -27,7 +27,7 @@ namespace Portal.Consultoras.Entities.CDR
             if (row.HasColumn("CodigoSSIC")) CodigoSSIC = Convert.ToString(row["CodigoSSIC"]);
             if (row.HasColumn("EntidadSSIC")) EntidadSSIC = Convert.ToString(row["EntidadSSIC"]);
             if (row.HasColumn("Tipo")) Tipo = Convert.ToString(row["Tipo"]);
-            if (row.HasColumn("Descripcion")) Descripcion = Convert.ToString(row["Descripcion"]);            
+            if (row.HasColumn("Descripcion")) Descripcion = Convert.ToString(row["Descripcion"]);
         }
     }
 }

@@ -3,7 +3,6 @@ using ClosedXML.Excel;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceODS;
-//using Portal.Consultoras.Web.ServiceOSBBelcorp;
 using Portal.Consultoras.Web.ServiceOSBBelcorpPedido;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceZonificacion;
@@ -184,6 +183,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 catch (Exception ex)
                 {
+                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                     lst = new List<BEPedidoDDWeb>();
                 }
 
@@ -719,6 +719,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 lst = new List<BEPedidoDDWeb>();
             }
 
