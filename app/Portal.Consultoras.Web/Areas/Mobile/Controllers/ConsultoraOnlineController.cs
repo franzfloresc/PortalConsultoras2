@@ -6,7 +6,6 @@ using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
-using Portal.Consultoras.Web.ServiceCliente;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -481,7 +480,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 olstMisPedidosDet = svc.GetMisPedidosDetalleConsultoraOnline(userData.PaisID, pedidoId).ToList();
                 Session["objMisPedidosDetalle"] = olstMisPedidosDet;
             }
-            
+
             pedido.DetallePedido = olstMisPedidosDet.ToArray();
 
             return View("DetallePedido", pedido);
@@ -975,7 +974,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         //    return Json(data, JsonRequestBehavior.AllowGet);
         //}
-        
+
         [HttpPost]
         public JsonResult CancelarPedido(long SolicitudId, int OpcionCancelado, string RazonMotivoCancelado)
         {
@@ -1714,7 +1713,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 {
                     model.CampaniasConsultoraOnline.Add(new CampaniaModel { CampaniaID = AddCampaniaAndNumero(userData.CampaniaID, -i) });
                 }
-                model.CampaniasConsultoraOnline.Update(campania => {
+                model.CampaniasConsultoraOnline.Update(campania =>
+                {
                     campania.Anio = Convert.ToInt32(campania.CampaniaID.ToString().Substring(0, 4));
                     campania.NroCampania = Convert.ToInt32(campania.CampaniaID.ToString().Substring(4, 2));
                 });

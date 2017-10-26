@@ -56,6 +56,7 @@
       <xs:element minOccurs="0" name="CampanaCreacionCodigo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CampanaIngreso" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CampanaRegistro" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ClasePostulantesNuevasApp" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ClaseRechazoZonaSeccion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoSeccion" nillable="true" type="xs:string" />
@@ -105,6 +106,7 @@
       <xs:element minOccurs="0" name="Tipo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoDocumento" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoRechazo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TituloPostulantesNuevasApp" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UrlContent" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UrlContentImage" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UsuarioModificacion" nillable="true" type="xs:string" />

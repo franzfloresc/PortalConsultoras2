@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
-// R2073 - Toda la clase
 namespace Portal.Consultoras.Entities
 {
     [DataContract]
@@ -29,8 +24,8 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public DateTime FechaHoraFacturacion { get; set; }
         public BEValidacionAutomatica()
-        { 
-        
+        {
+
         }
 
         public BEValidacionAutomatica(IDataRecord row)

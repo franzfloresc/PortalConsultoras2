@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Entities
 {
-    //R2319 - JLCS
     [DataContract]
     public class BEAfiliaClienteConsultora
     {
@@ -18,7 +13,7 @@ namespace Portal.Consultoras.Entities
         public bool EsConsultoraLider { get; set; }
         [DataMember]
         public int EsAfiliado { get; set; }
-        //R2442 - JICM - Agregando nuevos campos
+
         [DataMember]
         public bool EmailActivo { get; set; }
         [DataMember]
@@ -29,7 +24,7 @@ namespace Portal.Consultoras.Entities
         public string Celular { get; set; }
         [DataMember]
         public string Telefono { get; set; }
-        //R2442 - FIN
+
         public BEAfiliaClienteConsultora()
         {
         }
@@ -37,7 +32,7 @@ namespace Portal.Consultoras.Entities
         public BEAfiliaClienteConsultora(IDataRecord datarec)
         {
             ConsultoraID = Convert.ToInt64(datarec["ConsultoraID"]);
-            EsConsultoraLider = Convert.ToInt32(datarec["EsConsultoraLider"])>0;
+            EsConsultoraLider = Convert.ToInt32(datarec["EsConsultoraLider"]) > 0;
             EsAfiliado = Convert.ToInt32(datarec["EsAfiliado"]);
             NombreCompleto = Convert.ToString(datarec["NombreCompleto"]);
             Email = Convert.ToString(datarec["Email"]);
@@ -45,8 +40,6 @@ namespace Portal.Consultoras.Entities
             Telefono = Convert.ToString(datarec["Telefono"]);
             EmailActivo = Convert.ToBoolean(datarec["EmailActivo"]);
         }
-
-
 
     }
 }

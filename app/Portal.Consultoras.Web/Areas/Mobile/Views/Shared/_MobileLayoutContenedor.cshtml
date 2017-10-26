@@ -168,7 +168,7 @@
                             <li>
                                 <a href="@Url.Action("Index", "ShowRoom", new {area = "Mobile"})">
                                     <div class="content_banner_header_showroom">
-                                        <img src="@ViewBag.ImagenBannerShowroomVenta" alt="Solo Hoy" />
+                                        <img src="@ViewBag.ImagenBannerShowroomVenta" alt="" />
                                     </div>
                                 </a>
                             </li>
@@ -180,7 +180,7 @@
                                     <div class="content_banner_header_showroom">
                                         <div class="content_titulo"><div class="titulo_intriga">VENTA EXCLUSIVA WEB</div></div>
                                         <div class="faltan_dias_header"><b>@ViewBag.DiasFaltantesLetras</b></div>
-                                        <img src="@ViewBag.ImagenBannerShowroomIntriga" alt="Solo Hoy" />
+                                        <img src="@ViewBag.ImagenBannerShowroomIntriga" alt="" />
                                     </div>
                                 </a>
                             </li>
@@ -317,8 +317,7 @@
         <a id="HiddenRedesSocialesWA" href="#" data-action="share/whatsapp/share">WA</a>
     </div>
 
-    @Scripts.Render("~/Scripts/Mobile")
-    @Scripts.Render("~/Scripts/MobileLayout")
+    @Scripts.Render("~/Scripts/MobileLayoutContenedor")
 
     <script type="text/javascript">
         var urlRegistrarUsuarioComunidad = '@Url.Action("RegistrarUsuarioComunidad", "Bienvenida", new { area = "" })';
@@ -381,7 +380,6 @@
         var EstadoActivo = '@ViewBag.EstadoActivo';
         var ViewBagEsMobile = '@ViewBag.EsMobile';
 
-        var fingerprintOk = '@ViewBag.FingerprintOk';
         var tokenPedidoAutenticoOk = '@ViewBag.TokenPedidoAutenticoOk';
         var _ModificacionPedidoProl = '@ViewBag.ModificarPedidoProl'; //EPD-1682
         var urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';

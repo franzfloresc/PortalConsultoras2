@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Runtime.Serialization;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Data;
-using Portal.Consultoras.Common;
+using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities
 {
@@ -66,7 +62,7 @@ namespace Portal.Consultoras.Entities
                 NombreCliente = row["NombreCliente"].ToString();
             if (DataRecord.HasColumn(row, "Direccion"))
                 Direccion = row["Direccion"].ToString();
-            if (DataRecord.HasColumn(row, "EmailCliente") )
+            if (DataRecord.HasColumn(row, "EmailCliente"))
                 EmailCliente = row["EmailCliente"].ToString();
             if (DataRecord.HasColumn(row, "TelefonoCliente"))
                 TelefonoCliente = row["TelefonoCliente"].ToString();
@@ -97,6 +93,6 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "Leido"))
                 Leido = Convert.ToBoolean(row["Leido"]);
 
-        } 
+        }
     }
 }
