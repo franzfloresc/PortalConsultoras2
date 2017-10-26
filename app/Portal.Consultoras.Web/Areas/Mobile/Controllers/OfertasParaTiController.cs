@@ -37,10 +37,15 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.EstadoSuscripcion = revistaDigital.SuscripcionModel.EstadoRegistro;
             ViewBag.CampaniaMasDos = AddCampaniaAndNumero(userData.CampaniaID, 2) % 100;
 
-            ViewBag.origenPedidoWebEstrategia = Constantes.OrigenPedidoWeb.MobileOfertasParaTiDetalle;
+            ViewBag.origenPedidoWebEstrategia = origen;
+            if (origenPantalla == Enumeradores.PantallaOrigenPedidoWeb.Default)
+            {
+                ViewBag.origenPedidoWebEstrategia = Constantes.OrigenPedidoWeb.MobileOfertasParaTiDetalle;
+            }
+
             if (origenPantalla == Enumeradores.PantallaOrigenPedidoWeb.RevistaDigital)
             {
-                ViewBag.origenPedidoWebEstrategia = origen;
+                ViewBag.origenPedidoWebEstrategia = Constantes.OrigenPedidoWeb.RevistaDigitalMobileProductPage;
                 ViewBag.Codigo = Constantes.ConfiguracionPais.RevistaDigital;
             }
 
