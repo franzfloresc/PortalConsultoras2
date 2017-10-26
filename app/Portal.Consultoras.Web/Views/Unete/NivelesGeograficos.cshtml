@@ -1,9 +1,11 @@
-﻿@model Portal.Consultoras.Web.Models.NivelesGeograficosModel
-@using Pais = Portal.Consultoras.Common.Constantes.CodigosISOPais;
-@{
+﻿@{
     Layout = "~/Views/Shared/_SACLayout.cshtml";
     ViewBag.Title = "Niveles Geograficos";
 }
+@(new HtmlString(ViewBag.HTMLSACUnete))
+@*@model Portal.Consultoras.Web.Models.NivelesGeograficosModel
+@using Pais = Portal.Consultoras.Common.Constantes.CodigosISOPais;
+
 
 
 
@@ -346,5 +348,5 @@
             <div id="pager"></div>
         </div>
     </div>
-</div>
+</div>*@
 

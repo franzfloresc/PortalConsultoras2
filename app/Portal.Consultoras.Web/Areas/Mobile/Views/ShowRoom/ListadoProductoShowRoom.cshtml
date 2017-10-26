@@ -121,7 +121,7 @@
                         </div>
                         <div class="cantidad_texto">CANTIDAD</div>
                         <a class="showroom_menos_carrousel restaCarrusel">-</a>
-                        <input type="tel" class="showroom_cantidad_carrousel txtCantidad" value="1" min="1" max="99" oninput="maxLengthCheck(this, 2)" onkeypress=" return FuncionesGenerales.ValidarSoloNumeros(event); ">
+                        <input type="tel" class="showroom_cantidad_carrousel txtCantidad" value="1" min="1" max="99" oninput="FuncionesGenerales.MaxLengthCheck(this, 2)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
                         <a class="showroom_mas_carrousel sumaCarrusel">+</a>
                         <hr class="clear" />
                         <div class="divBotonAgotado">
@@ -507,11 +507,6 @@
                     }
                 }
             });
-        }
-
-        function maxLengthCheck(object, cantidadMaxima) {
-            if (object.value.length > cantidadMaxima)
-                object.value = object.value.slice(0, cantidadMaxima);
         }
     </script>
 }

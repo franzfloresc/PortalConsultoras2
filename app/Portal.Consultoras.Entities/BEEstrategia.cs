@@ -240,10 +240,10 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "ImagenURL") && row["ImagenURL"] != DBNull.Value)
                 ImagenURL = row["ImagenURL"].ToString();
-
+            
             PrecioPublico = DataRecord.GetColumn<decimal>(row, "PrecioPublico");
             Ganancia = DataRecord.GetColumn<decimal>(row, "Ganancia");
-
+            
             if (DataRecord.HasColumn(row, "EsOfertaIndependiente"))
                 EsOfertaIndependiente = Convert.ToBoolean(row["EsOfertaIndependiente"].ToString());
 

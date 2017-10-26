@@ -1479,7 +1479,7 @@ namespace Portal.Consultoras.Web.Controllers
                 indPedidoAutentico.CampaniaID = oBEPedidoWebDetalle.CampaniaID;
                 indPedidoAutentico.PedidoDetalleID = oBEPedidoWebDetalle.PedidoDetalleID;
                 indPedidoAutentico.IndicadorIPUsuario = GetIPCliente();
-                indPedidoAutentico.IndicadorFingerprint = (Session["Fingerprint"] != null) ? Session["Fingerprint"].ToString() : "";
+                indPedidoAutentico.IndicadorFingerprint = "";
                 indPedidoAutentico.IndicadorToken = (Session["TokenPedidoAutentico"] != null) ? Session["TokenPedidoAutentico"].ToString() : "";
 
                 oBEPedidoWebDetalle.IndicadorPedidoAutentico = indPedidoAutentico;

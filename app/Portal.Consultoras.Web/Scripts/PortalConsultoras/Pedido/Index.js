@@ -20,10 +20,27 @@ var tipoOfertaFinal_Log = "";
 var gap_Log = 0;
 var tipoOrigen = '1';
 var FlagEnviarCorreo = false;
+var dataBarra = dataBarra || {};
+var listaEscalaDescuento = listaEscalaDescuento || {};
+var listaMensajeMeta = listaMensajeMeta;
+var listaParametriaOfertaFinal = listaParametriaOfertaFinal || {};
 
 $(document).ready(function () {
+    var hdDataBarra = $("#hdDataBarra").val();
+    if ($.trim(hdDataBarra) != "") {
+        dataBarra = JSON.parse(hdDataBarra);
+        listaMensajeMeta = dataBarra.ListaMensajeMeta || new Array();
+    }
 
+    var hdListaEscalaDescuento = $("#hdListaEscala").val();
+    if ($.trim(hdListaEscalaDescuento) != "") {
+        listaEscalaDescuento = JSON.parse(hdListaEscalaDescuento);
+    }
 
+    var hdListaParametriaOfertaFinal = $("#hdListaParametriaOfertaFinal").val();
+    if ($.trim(hdListaParametriaOfertaFinal) != "") {
+        listaParametriaOfertaFinal = JSON.parse(hdListaParametriaOfertaFinal);
+    }
 
     dataBarra.TotalPedido = dataBarra.TotalPedido || parseFloat($("#hdfTotal").val(), 10);
 
@@ -1106,6 +1123,8 @@ function ValidarDescripcion() {
 }
 
 function PreValidarCUV(event) {
+    event = event || window.event;
+
     if (event.keyCode == 13) {
         if ($("#btnAgregar")[0].disabled == false) {
             AgregarProductoListado();
@@ -1133,7 +1152,9 @@ function ValidarCliente() {
     }
 }
 
-function ValidarClienteFocus() {
+function ValidarClienteFocus(event) {
+    event = event || window.event;
+
     if (event.keyCode == 9) {
         if ($("#btnAgregar")[0].disabled == true) {
             if (event.preventDefault)
@@ -1309,7 +1330,9 @@ function showClienteDetalle(cliente, pClienteDetalleOK, pClienteDetalleCANCEL) {
 //    });
 //}
 
-function Tabular() {
+function Tabular(event) {
+    event = event || window.event;
+
     if (event.keyCode == 9) {
         if (event.preventDefault)
             event.preventDefault();
@@ -1436,7 +1459,7 @@ function BuscarByCUV(CUV) {
                 }
 
                 $("#divObservaciones").html("");
-                
+
                 if (data[0].MarcaID != 0) {
                     TrackingJetloreSearch(CUV, $("#hdCampaniaCodigo").val());
                     $("#hdTipoOfertaSisID").val(data[0].TipoOfertaSisID);

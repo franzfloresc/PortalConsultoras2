@@ -134,7 +134,6 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                ViewBag.FingerprintOk = (Session["Fingerprint"] != null) ? 1 : 0;
                 ViewBag.TokenPedidoAutenticoOk = (Session["TokenPedidoAutentico"] != null) ? 1 : 0;
                 ViewBag.CodigoEstrategia = GetCodigoEstrategia();
 
@@ -445,7 +444,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     var result = sv.ValidacionModificarPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, userData.UsuarioPrueba == 1, userData.AceptacionConsultoraDA);
                     mensaje = result.Mensaje;
-                    return result.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno;
+                    return result.MotivoPedidoLock != EnumeradoresMotivoPedidoLock.Ninguno;
                 }
             }
             catch (Exception ex)
@@ -1012,7 +1011,7 @@ namespace Portal.Consultoras.Web.Controllers
             #region Cargar variables
 
             if (!model.CargoEntidadesShowRoom) CargarEntidadesShowRoom(model);
-
+            
             model.UsuarioNombre = string.IsNullOrEmpty(model.Sobrenombre) ? model.NombreConsultora : model.Sobrenombre;
             ViewBag.UsuarioNombre = (Util.Trim(model.Sobrenombre) == "" ? model.NombreConsultora : model.Sobrenombre);
             ViewBag.Usuario = "Hola, " + model.UsuarioNombre;
@@ -2824,7 +2823,7 @@ namespace Portal.Consultoras.Web.Controllers
             url = HttpContext.Request.UrlReferrer != null ?
                 Util.Trim(HttpContext.Request.UrlReferrer.LocalPath).ToLower() :
                 Util.Trim(HttpContext.Request.FilePath).ToLower();
-
+            url = url.Replace("#", "/") + "/";
             return url.Contains("/mobile/") || url.Contains("/g/");
         }
 
