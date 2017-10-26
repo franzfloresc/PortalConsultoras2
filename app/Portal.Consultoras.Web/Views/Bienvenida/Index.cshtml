@@ -1586,7 +1586,7 @@
                         <div class="liquidacion_rango_home" data-cantidad-contenedor="">
                             <input type="text" value="1" min="1" max="99" size="2" maxlength="2"
                                    class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
-                                   oninput="maxLengthCheck(this, 2)" onkeypress=" return FuncionesGenerales.ValidarSoloNumeros(event); "
+                                   oninput="FuncionesGenerales.MaxLengthCheck(this, 2);" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);"
                                    data-input="cantidad" data-cantidad-input="-">
                             <div class="liquidacion_rango_right_pedido">
                                 <a class="mas" data-cantidad-agregar="+" href="javascript:;"><img src="/Content/Images/Esika/mas.png" alt=""></a>
@@ -2321,7 +2321,7 @@
         var viewBagVerComunicado = '-1';
         var urlObtenerProductosCatalogoPersonalizado = '@Url.Action("ObtenerProductosCatalogoPersonalizadoHome", "CatalogoPersonalizado", new { area = "" })';
         var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
-        var dataBarra = JSON.parse($("#hdDataBarra").val());
+        var dataBarra = {};
         var urlPedidoValidado = '@Url.Action("PedidoValidado", "Pedido", new { area = "" })';
         var viewBagVioTutorialSalvavidas = '@Model.VioTutorialSalvavidas';
         var constanteVioVideo = '@Constantes.TipoTutorial.Video';
@@ -2360,7 +2360,7 @@
         var urlRevistaDigital = '@Url.Action("Comprar", "RevistaDigital")';
         var urlRevistaDigitalInformacion = '@Url.Action("Informacion", "RevistaDigital")';
         var urlDetalleRevistaDigital = '@Url.Action("Detalle", "RevistaDigital")';
-        var urlTerminosCondicionesRD = '@ConfigurationManager.AppSettings["UrlTerminosCondicionesRD"].Trim() ';
+        var urlTerminosCondicionesRD = '@ConfigurationManager.AppSettings["UrlTerminosCondicionesRD"].Trim()';
         var showRoomMostrarLista = '@Model.ShowRoomMostrarLista';
         var showRoomOrigenInsertar = '@Constantes.OrigenPedidoWeb.DesktopShowRoomBienvenida';
         var tipoOrigenPantalla = 1;

@@ -1,14 +1,10 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Data;
 using System.Runtime.Serialization;
-using Portal.Consultoras.Common;
-
 
 namespace Portal.Consultoras.Entities
 {
-    /// <summary>
-    /// /*R2613-LR*/
-    /// </summary>
     [DataContract]
     public class BEConsultoraSolicitudCliente
     {

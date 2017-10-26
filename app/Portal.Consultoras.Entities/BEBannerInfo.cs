@@ -18,7 +18,7 @@ namespace Portal.Consultoras.Entities
         protected int miBannerID;
         protected string msTituloComentario;
         protected string msTextoComentario;
-		protected int miTipoAccion;
+        protected int miTipoAccion;
         protected string miCUVpedido;
         protected int miCantCUVpedido;
 
@@ -37,7 +37,7 @@ namespace Portal.Consultoras.Entities
             miBannerID = banner.BannerID;
             msTituloComentario = banner.TituloComentario;
             msTextoComentario = banner.TextoComentario;
-			miTipoAccion = banner.TipoAccion;
+            miTipoAccion = banner.TipoAccion;
             miCUVpedido = banner.CuvPedido;
             miCantCUVpedido = banner.CantCuvPedido;
         }
@@ -69,7 +69,7 @@ namespace Portal.Consultoras.Entities
         }
 
         [DataMember]
-        public int TiempoRotacion 
+        public int TiempoRotacion
         {
             get { return miTiempoRotacion; }
             set { miTiempoRotacion = value; }
@@ -130,7 +130,7 @@ namespace Portal.Consultoras.Entities
             get { return msTextoComentario; }
             set { msTextoComentario = value; }
         }
-		[DataMember]
+        [DataMember]
         public int TipoAccion
         {
             get { return miTipoAccion; }
@@ -151,11 +151,9 @@ namespace Portal.Consultoras.Entities
             set { miCantCUVpedido = value; }
         }
 
-        //RQ_SB - R2133
         [DataMember]
         public int Segmento { get; set; }
 
-        //RQ_SB - R2133
         [DataMember]
         public string ConfiguracionZona { get; set; }
     }

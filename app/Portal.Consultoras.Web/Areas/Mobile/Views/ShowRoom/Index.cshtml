@@ -48,7 +48,7 @@
         <hr class="clear">
         <div id="summary-filters">
             <div id="div-result-number" style="margin-left: 0; float: left; width: 65%; font-size: 13px;">
-                <span id="result-number">Mostrando <span id="spnCantidadFiltro">0</span> de <span id="spnCantidadTotal">0</span> productos</span>
+                <span id="result-number">Mostrando <span id="spnCantidadFiltro">0</span> de <span id="spnCantidadTotal">0</span></span>
             </div>
 
             <div id="div-delete-filters" style="display: none; margin-right: 0px;">
@@ -471,9 +471,9 @@ else
 </script>
 
 @section scripts{
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/ShowRoom/Index.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/CatalogoPersonalizado/bootstrap-slider.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/ShowRoom/Index.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js")"></script>    
     <script type="text/javascript">
         var urlEnHorarioRestringido = '@Url.Action("EnHorarioRestringido", "Pedido", new {area = ""})';
         var urlValidarUnidadesPermitidasPedidoProducto = '@Url.Action("ValidarUnidadesPermitidasPedidoProducto", "ShowRoom", new { area = "" })';

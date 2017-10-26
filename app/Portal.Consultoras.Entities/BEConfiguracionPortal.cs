@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
-using OpenSource.Library.DataAccess;
+﻿using OpenSource.Library.DataAccess;
 using Portal.Consultoras.Common;
+using System;
+using System.Data;
+using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities
 {
@@ -14,15 +10,15 @@ namespace Portal.Consultoras.Entities
     public class BEConfiguracionPortal
     {
         [DataMember]
-        public int PaisID  {get; set;}
+        public int PaisID { get; set; }
         [DataMember]
         public bool EstadoSimplificacionCUV { get; set; }
         [DataMember]
         public bool EsquemaDAConsultora { get; set; }
         [DataMember]
         public bool? TipoProcesoCarga { get; set; }
-     
-        public  BEConfiguracionPortal (IDataRecord row)
+
+        public BEConfiguracionPortal(IDataRecord row)
         {
             if (DataRecord.HasColumn(row, "EstadoSimplificacionCUV") && row["EstadoSimplificacionCUV"] != DBNull.Value)
                 EstadoSimplificacionCUV = DbConvert.ToBoolean(row["EstadoSimplificacionCUV"]);

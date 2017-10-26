@@ -8,14 +8,16 @@
 
     var estadoPostulantes = ViewBag.EstadoPostulantes as SelectList;
 }
-@*<script async defer type="text/javascript" src="https://maps-api-ssl.google.com/maps/api/js?v3.exp"></script>*@
+ 
 <script async defer type="text/javascript" src="https://maps-api-ssl.google.com/maps/api/js?v3.exp&key=AIzaSyDlzZQgypPc7OctIyO8oxrhcptOmltoKrg&amp;libraries=places"></script>
 
 <script src="~/Scripts/handlebars.js"></script>
 <script src="~/Scripts/General.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Lato:400,700italic,300,700,900" rel="stylesheet" type="text/css" />
 
-<style>
+@(new HtmlString(ViewBag.HTMLSACUnete))
+
+@*<style>
     .ui-widget-content.ui-dialog {
         behavior: url('@Url.Content("~/Content/Css/Pie/PIE.htc)")') !important;
     }
@@ -116,7 +118,7 @@
                 <div style="width:25%; display:inline-block">
 
                     <input type="submit" name="" id="btnBuscar" style="padding:0px !important; float:left !important;width: 100px  !important; background: #642f80; color: #FFF;border: none;  font-weight:bold !important; height: 40px;   padding: 0px;    margin: 0px;" class="btnbusuqeda" value="Aceptar" />
-                    @*<button type="button" id="btnAceptar" data-direccion-correcta="si" disabled class="btn_noEliminarCliente btnConsUbi">Aceptar</button>*@
+                     
                 </div>
             </div>
             <div class="div-3">
@@ -149,13 +151,13 @@
 
                 <div class="filterDistr">
                     <div class="selectP2 seleccion_pagina txtFiltro">
-                        @*@Html.DropDownListFor(m => Model.CodigoRegion, ListaRegiones, new { @class = "textEbel ", @placeholder = "Region" })*@
+                        
                         @Html.TextBoxFor(m => Model.CodigoRegion, new { @id = "CodigoRegionFiltro", @class = "textEbel ", @placeholder = "Región" })
                     </div>
                 </div>
                 <div class="filterDistr">
                     <div class="selectP2 seleccion_pagina txtFiltro" style="height: 18px;padding-top: 3px;padding-bottom: 15px;">
-                        @*@Html.CheckBoxListFor(m => Model.PostedFuenteIngreso.SelectedIds, m => Model.FuenteIngresoListAvailable, entity => entity.ID, entity => entity.Descripcion, entity => entity.IsSelected, m => Model.FuenteIngresoListSelected)*@
+                        
                         <table>
                             <tr>
                                 @foreach (var item in Model.FuenteIngresoListAvailable)
@@ -191,7 +193,7 @@
         <div class="cellGrid  headerGrid headerGridSort" onclick="OrderListByColumnn(this, 'FechaCreacion')" data-colName="FechaCreacion">Fecha<br />Registro</div>
         <div class="cellGrid  headerGrid" data-colName="CampanaRegistro">Campaña<br />Registro</div>
         <div class="cellGrid  headerGrid headerGridSort" onclick="OrderListByColumnn(this, 'FuenteIngreso')" data-colName="FuenteIngreso">Fuente</div>
-        @*<div class="cellGrid  headerGrid" data-colname="MalaZonificacion">Mala<br />Zonificacion</div>*@
+        
         <div class="cellGrid  headerGrid" data-colName="Tipo">Tipo</div>
         <div class="cellGrid  headerGrid headerGridSort" onclick="OrderListByColumnn(this, 'NombreCompleto')" data-colName="NombreCompleto">Nombre</div>
         <div class="cellGrid  headerGrid" data-colName="TipoDocumento">Tipo<br />Doc</div>
@@ -271,7 +273,7 @@
         <div class="cellGrid " data-colname="FuenteIngreso">{{FuenteIngreso}}</div>
         <div class="cellGrid " data-colname="Tipo">{{Tipo}}</div>
         <div class="cellGrid " data-colname="NombreCompleto"><a href="javascript:void(0);" class="enlaceNombreCompleto" onclick="verHistorialPostulante('{{SolicitudPostulanteID}}', '{{NombreCompleto}}', '{{FechaCreacion}}')">{{NombreCompleto}}</a></div>
-        @*<div class="cellGrid " data-colname="NombreCompleto">{{NombreCompleto}}</div>*@
+        
         <div class="cellGrid " data-colname="TipoDocumento">{{TipoDocumento}}</div>
         <div class="cellGrid " data-colname="NumeroDocumento">{{NumeroDocumento}}</div>
         <div class="cellGrid " data-colname="Correo" style="font-size:10px !important;word-wrap: break-word;">{{Correo}}</div>
@@ -1756,7 +1758,7 @@
 
         $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenDNI'), 1, 'Doc. Identidad anverso'));
         $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenComprobanteDomicilio'), 2, 'Doc. Identidad reverso'));
-        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenAval'), 5, 'Recibo de pago de servicios'));
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboPagoAval'), 7, 'Recibo de pago de servicios'));
         $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenContrato'), 3, 'Contrato'));
  
         
@@ -1895,6 +1897,10 @@
                 $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenAval'), 5, ' CEDULA FIADOR'));//ImagenDniAval
                 $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenCreditoAval'), 8, 'CERTIFICACIÓN'));//ImagenCreditoAval
             }
+        }
+        else if (codigoIso == 'BO') {
+              $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenAval'), 5, 'Documento de Identidad Fiador Anverso'));
+              $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboOtraMarca'), 6, 'Documento de Identidad Fiador Reverso'));
         }
         else {
             $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboOtraMarca'), 6, 'Recibo Otra Marca'));
@@ -3178,6 +3184,6 @@
     cursor:pointer;
         z-index: 3;
     }
-</style>
+</style>*@
 
 <script type="text/javascript" src="~/Scripts/ImageHelper/xzoomSetup.js"></script>

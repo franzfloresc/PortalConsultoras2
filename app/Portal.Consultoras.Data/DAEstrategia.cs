@@ -127,6 +127,7 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "@FlagEstrella", DbType.String, entidad.FlagEstrella);
                 Context.Database.AddInParameter(command, "@CodigoEstrategia", DbType.String, entidad.CodigoEstrategia);
                 Context.Database.AddInParameter(command, "@TieneVariedad", DbType.Int32, entidad.TieneVariedad);
+                Context.Database.AddInParameter(command, "@Ganancia", DbType.Decimal, entidad.Ganancia);
                 Context.Database.AddInParameter(command, "@EsOfertaIndependiente", DbType.Boolean, entidad.EsOfertaIndependiente);
                 Context.Database.AddOutParameter(command, "@Retorno", DbType.Int32, 1000);
                 Context.ExecuteNonQuery(command);
@@ -340,13 +341,13 @@ namespace Portal.Consultoras.Data
             return result;
         }
 
-        public IDataReader GetOfertasParaTiByTipoConfigurado(int campaniaId, int tipoConfigurado, int estrategiaId)
+        public IDataReader GetOfertasParaTiByTipoConfigurado(int campaniaId, int tipoConfigurado, string estrategiaCodigo)
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetOfertasParaTiByTipoConfigurado"))
             {
                 Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
                 Context.Database.AddInParameter(command, "@TipoConfigurado", DbType.Int32, tipoConfigurado);
-                Context.Database.AddInParameter(command, "@TipoEstrategia", DbType.Int32, estrategiaId);
+                Context.Database.AddInParameter(command, "@EstrategiaCodigo", DbType.String, estrategiaCodigo);
                 command.CommandTimeout = 0;
                 return Context.ExecuteReader(command);
             }
@@ -367,8 +368,9 @@ namespace Portal.Consultoras.Data
                 UsuarioCreacion = codigoUsuario,
                 FotoProducto01 = item.ImagenURL,
                 CodigoEstrategia = item.CodigoEstrategia,
-                TieneVariedad = item.TieneVariedad
-
+                TieneVariedad = item.TieneVariedad,
+                PrecioPublico = item.PrecioPublico,
+                Ganancia = item.Ganancia
             }).ToList();
 
             var command = new SqlCommand("dbo.InsertEstrategiaTemporal");
@@ -431,18 +433,22 @@ namespace Portal.Consultoras.Data
                 UsuarioCreacion = codigoUsuario,
                 FotoProducto01 = item.ImagenURL,
                 TieneVariedad = item.TieneVariedad,
-                CodigoEstrategia = item.CodigoEstrategia
+                CodigoEstrategia = item.CodigoEstrategia,
+                PrecioPublico = item.PrecioPublico,
+                Ganancia = item.Ganancia
             }).ToList();
 
-            var command = new SqlCommand("dbo.InsertEstrategiaOfertaParaTi");
-            command.CommandType = CommandType.StoredProcedure;
+            var command =
+                new SqlCommand("dbo.InsertEstrategiaOfertaParaTi") {CommandType = CommandType.StoredProcedure};
 
-            var parameter = new SqlParameter("@EstrategiaTemporal", SqlDbType.Structured);
-            parameter.TypeName = "dbo.EstrategiaTemporalType";
-            parameter.Value = new GenericDataReader<BEEstrategiaType>(listaTypes);
+            var parameter =
+                new SqlParameter("@EstrategiaTemporal", SqlDbType.Structured)
+                {
+                    TypeName = "dbo.EstrategiaTemporalType",
+                    Value = new GenericDataReader<BEEstrategiaType>(listaTypes)
+                };
 
-            var parameter2 = new SqlParameter("@TipoEstrategia", SqlDbType.Int);
-            parameter2.Value = estrategiaId;
+            var parameter2 = new SqlParameter("@TipoEstrategia", SqlDbType.Int) {Value = estrategiaId};
 
             command.Parameters.Add(parameter);
             command.Parameters.Add(parameter2);

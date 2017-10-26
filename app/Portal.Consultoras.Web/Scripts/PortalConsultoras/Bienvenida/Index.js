@@ -13,13 +13,19 @@ var timeoutTooltipTutorial;
 var popupCantidadInicial = popupCantidadInicial || 1;
 var popupListaPrioridad = popupListaPrioridad || new Array();
 var showRoomMostrarLista = showRoomMostrarLista || 0;
+var dataBarra = dataBarra || {};
 
 //youtube
 var tag = null;
 var firstScriptTag = null;
 var player;
 
-$(document).ready(function () { 
+$(document).ready(function () {
+    var hdDataBarra = $("#hdDataBarra").val();
+    if ($.trim(hdDataBarra) != "") {
+        dataBarra = JSON.parse(hdDataBarra);
+    }
+
     $("#hdDataBarra").val("");
 
     if (vbFotoPerfil != null && vbFotoPerfil != "") {
@@ -3285,7 +3291,7 @@ function MostrarPopupInicial() {
             break;
         case popupRevistaDigitalSuscripcion:
             PopupMostrar('PopRDSuscripcion');
-            MostrarPopupRDAnalytics();
+            rdAnalyticsModule.MostrarPopup();
             break;
         case popupCupon:
             cuponModule.mostrarPopupGana();
@@ -3320,13 +3326,15 @@ function VerSeccionBienvenida(seccion) {
     }
 
     if (id != "") {
-        var topOf = $(id).offset().top - 60;
-        if (id == ".flexslider")
-            topOf = 0;
+        if ($(id).length) {
+            var topOf = $(id).offset().top - 60;
+            if (id == ".flexslider")
+                topOf = 0;
 
-        $("html, body").animate({
-            scrollTop: topOf
-        }, 1000);
+            $("html, body").animate({
+                scrollTop: topOf
+            }, 1000);
+        }        
     }
 }
 

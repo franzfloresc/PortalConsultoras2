@@ -23,7 +23,7 @@ namespace Portal.Consultoras.Web.Controllers
             var reportePedidoCampaniaModel = new ReportePedidoFICModel();
             try
             {
-                ViewBag.Pais = userData.PaisID;                
+                ViewBag.Pais = userData.PaisID;
                 reportePedidoCampaniaModel = new ReportePedidoFICModel()
                 {
                     listaCampanias = new List<CampaniaModel>(),
@@ -80,7 +80,7 @@ namespace Portal.Consultoras.Web.Controllers
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
                 IEnumerable<BEServicePROLFIC> items = lst;
-                
+
                 #region Sort Section
                 var orderList = (sord == "asc") ? OrderAscending : OrderDescending;
                 switch (sidx)
@@ -107,11 +107,11 @@ namespace Portal.Consultoras.Web.Controllers
                     rows = from a in items
                            select new
                            {
-                               cell = new string[] 
+                               cell = new string[]
                                {
                                     bepais.Nombre,
                                     vCampania,
-                                    a.FechaRegistro == null ? "" : Convert.ToDateTime(a.FechaRegistro.ToString()).ToShortDateString() + " "+ Convert.ToDateTime(a.FechaRegistro.ToString()).ToShortTimeString(),                                  
+                                    a.FechaRegistro == null ? "" : Convert.ToDateTime(a.FechaRegistro.ToString()).ToShortDateString() + " "+ Convert.ToDateTime(a.FechaRegistro.ToString()).ToShortTimeString(),
                                     a.FechaModificacion == null ? "" : Convert.ToDateTime(a.FechaModificacion.ToString()).ToShortDateString() + " "+ Convert.ToDateTime(a.FechaRegistro.ToString()).ToShortTimeString(),
                                     a.ZONA,
                                     a.CUENTA,
@@ -215,7 +215,8 @@ namespace Portal.Consultoras.Web.Controllers
                 lstZonas = DropDownListZonas(PaisID).OrderBy(x => x.Codigo);
             }
 
-            return Json(new {
+            return Json(new
+            {
                 lista = lst,
                 lstRegiones = lstRegiones,
                 listaZonas = lstZonas

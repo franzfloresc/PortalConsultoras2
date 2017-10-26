@@ -101,7 +101,7 @@
 
             <div class="pedido_ingreso_datos campo_cliente">
                 <br />
-                <input type="text" name="ClienteDescripcion" id="txtClienteDescripcion" onblur="ValidarCliente();" onkeydown="ValidarClienteFocus();"
+                <input type="text" name="ClienteDescripcion" id="txtClienteDescripcion" onblur="ValidarCliente();" onkeydown="ValidarClienteFocus(event);"
                        maxlength="50" class="ValidaAlfanumerico" placeholder="Cliente (Opcional)" />
                 <span class="pedido_ingreso_datos_icono_mas">+</span>
                 @*<a class="pedidos_cliente" onclick="AbrirModalCliente();">*@
@@ -111,7 +111,7 @@
             </div>
             <input type="hidden" id="hdFlagNueva" />
             <input type="hidden" id="hdMetodoBusqueda" />
-            <input id="btnAgregar" type="submit" value="AGREGAR" disabled="disabled" onkeydown="Tabular()" class="pedido_agregado" />
+            <input id="btnAgregar" type="submit" value="AGREGAR" disabled="disabled" onkeydown="Tabular(event);" class="pedido_agregado" />
         </form>
     </div>
     <div class="clear"></div>
@@ -1613,7 +1613,7 @@
                     {{else}}
                     <div class="liquidacion_rango_wrapper_pedido cantidad_detalle_focus">
                         <input type="text" value="{{Cantidad}}" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" id="txtLPCant{{PedidoDetalleID}}"
-                               data-pedido="{{PedidoDetalleID}}" onkeypress="PreValidarCUV()" onfocus="SeleccionarContenido(this)"
+                               data-pedido="{{PedidoDetalleID}}" onkeypress="PreValidarCUV(event);" onfocus="SeleccionarContenido(this)"
                                onblur="UpdateLiquidacion('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '1', '{{Cantidad}}')" />
                         <div class="liquidacion_rango_right_pedido">
                             <a class="mas"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
@@ -2144,12 +2144,11 @@ else
         var alertaSugerido = '@Url.Content("~/Content/Images/Esika/icono_advertencia_notificacion.png")';
         var urlImagenMicroEfecto = isEsika ? '@Url.Content("~/Content/Images/regalo_microefecto_esika.png")'
             : '@Url.Content("~/Content/Images/regalo_microefecto_lbel.png")';
-        var dataBarra = JSON.parse($("#hdDataBarra").val());
-        var listaEscalaDescuento = JSON.parse($("#hdListaEscala").val());
-        var listaMensajeMeta = dataBarra.ListaMensajeMeta;
-        var listaParametriaOfertaFinal = JSON.parse($("#hdListaParametriaOfertaFinal").val());
-        var urlReservadoOEnHorarioRestringido =
-            '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new {area = ""})';
+        var dataBarra = {};
+        var listaEscalaDescuento = {};
+        var listaMensajeMeta;
+        var listaParametriaOfertaFinal = {};
+        var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new {area = ""})';
         var urlValidadoPedido = '@Url.Action("PedidoValidado", "Pedido", new {area = ""})';
         var constConfiguracionOfertaShowRoom = '@Constantes.ConfiguracionOferta.ShowRoom';
         var lanzarTabConsultoraOnline = '@ViewBag.LanzarTabConsultoraOnline';

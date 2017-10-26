@@ -186,7 +186,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var listaCuponConsultoras = ListarCuponConsultorasPorCupon(userData.PaisID, model.CuponId);
                 var existeCuponConsultora = listaCuponConsultoras.Any(x => x.CodigoConsultora == model.CodigoConsultora && x.CampaniaId == model.CampaniaId && x.CuponId == model.CuponId && x.CuponConsultoraId != model.CuponConsultoraId);
-                
+
                 if (!existeCuponConsultora)
                 {
                     using (PedidoServiceClient svClient = new PedidoServiceClient())
@@ -292,7 +292,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                     return Json(new { success = true, message = "Los datos fueron grabados." }, JsonRequestBehavior.AllowGet);
                 }
-                else {
+                else
+                {
                     return Json(new { success = false, message = "Debe seleccionar un archivo" }, JsonRequestBehavior.AllowGet);
                 }
             }
