@@ -422,6 +422,12 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Mobile/esika/revistaDigital.css"
             ));
 
+            bundles.Add(new ScriptBundle("~/bundles/Mobile/CDRWeb").Include(
+                "~/Scripts/jquery-{version}.js",
+                "~/Scripts/jquery-ui-1.9.2.custom.js",
+                "~/Scripts/PortalConsultoras/Mobile/MisReclamos/Index.js"
+            ));
+
 #if DEBUG
             BundleTable.EnableOptimizations = false;
 #else
