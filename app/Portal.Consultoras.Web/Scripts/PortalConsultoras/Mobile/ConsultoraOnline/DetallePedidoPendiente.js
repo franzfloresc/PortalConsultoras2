@@ -121,7 +121,6 @@ function AceptarPedido(id, tipo) {
             ConsultoraId: 0,
             NombreCliente: name,
             Nombre: name,
-            Telefono: phone,
             eMail: email
         };
 
