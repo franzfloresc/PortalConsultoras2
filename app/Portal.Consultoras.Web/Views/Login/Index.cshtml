@@ -650,8 +650,7 @@
             var google_remarketing_only = true;
         /* ]]> */
         </script>
-
-        <div id="div-analytics-image" style="display:inline;"></div>
+        
         <noscript id="noscript-pixel-image"></noscript>
     }
 
@@ -678,5 +677,10 @@
 
 @section scripts {
     @System.Web.Optimization.Scripts.Render("~/bundles/JS-Login")
+
+    @if (Model.ListPaisAnalytics != null && Model.ListPaisAnalytics.Count > 0)
+    {
+        <div id="div-analytics-image" style="display:inline;"></div>
+    }
 }
 
