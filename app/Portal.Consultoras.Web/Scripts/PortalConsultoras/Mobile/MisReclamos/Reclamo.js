@@ -105,11 +105,13 @@ $(document).ready(function () {
             modificarPrecioMas: ".modificarPrecioMas",
             modificarPrecioMenos: ".modificarPrecioMenos",
             hdCuvPrecio2: "#hdCuvPrecio2",
-            enlace_quiero_ver_otra_alternativa: ".enlace_quiero_ver_otra_alternativa"
+            enlace_quiero_ver_otra_alternativa: ".enlace_quiero_ver_otra_alternativa",
+            footer_page: ".footer-page"
         };
 
         me.Eventos = {
             bindEvents: function () {
+                $(me.Variables.footer_page).hide();
 
                 var pedidoId = parseInt($(me.Variables.hdPedidoID).val());
                 if (pedidoId != 0) {
