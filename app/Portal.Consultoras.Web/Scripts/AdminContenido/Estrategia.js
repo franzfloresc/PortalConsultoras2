@@ -88,6 +88,12 @@
         };
        
         _obtenerFiltrarEstrategia(_editData, id).done(function (data) {
+            var TipoEstrategiaCodigo = $('#ddlTipoEstrategia').find(':selected').data('codigo');
+            if (TipoEstrategiaCodigo == TipoEstrategiaIncentivosProgramaNuevas)
+                $("#divPrecioValorizado").html("Ganancia");
+            else
+                $("#divPrecioValorizado").html("Precio Valorizado");
+
             showDialog("DialogAdministracionEstrategia");
             _editData.IdMatrizComercial = data.IdMatrizComercial;
             _editData.CUV2 = data.CUV2;

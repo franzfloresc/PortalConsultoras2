@@ -23,7 +23,7 @@ namespace Portal.Consultoras.Web.Controllers
     public class AdministrarEstrategiaController : BaseController
     {
 
-        public ActionResult Index(int ProgramaNueva = 0)
+        public ActionResult Index(int TipoVistaEstrategia = 0)
         {
             if (!UsuarioModel.HasAcces(ViewBag.Permiso, "AdministrarEstrategia/Index"))
                 return RedirectToAction("Index", "Bienvenida");
@@ -38,11 +38,12 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 listaCampania = new List<CampaniaModel>(),
                 listaPaises = DropDowListPaises(),
-                ListaTipoEstrategia = DropDowListTipoEstrategia(),
+                ListaTipoEstrategia = DropDowListTipoEstrategia(TipoVistaEstrategia),
                 ListaEtiquetas = DropDowListEtiqueta(),
                 UrlS3 = urlS3,
                 habilitarNemotecnico = habilitarNemotecnico == "1",
-                ExpValidacionNemotecnico = ConfigurationManager.AppSettings["ExpresionValidacionNemotecnico"]
+                ExpValidacionNemotecnico = ConfigurationManager.AppSettings["ExpresionValidacionNemotecnico"],
+                TipoVistaEstrategia = TipoVistaEstrategia
             };
             return View(EstrategiaModel);
         }
@@ -125,21 +126,21 @@ namespace Portal.Consultoras.Web.Controllers
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
         }
 
-        private IEnumerable<TipoEstrategiaModel> DropDowListTipoEstrategia()
+        private IEnumerable<TipoEstrategiaModel> DropDowListTipoEstrategia(int TipoVistaEstrategia = 0)
         {
-            List<BETipoEstrategia> lst = GetTipoEstrategias();
+            var lst = GetTipoEstrategias();
 
             if (lst != null && lst.Count > 0)
             {
                 var carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
                 lst.Update(x => x.ImagenEstrategia = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenEstrategia, Globals.RutaImagenesMatriz + "/" + UserData().CodigoISO));
-            }
 
-            var lista = from a in lst
-                        where a.FlagActivo == 1
-                        select a;
+                var lista = (from a in lst
+                            where a.FlagActivo == 1
+                            && a.Codigo == (TipoVistaEstrategia == Constantes.TipoVistaEstrategia.ProgramaNuevas ? Constantes.TipoEstrategiaCodigo.IncentivosProgramaNuevas : a.Codigo)
+                            select a);
 
-            Mapper.CreateMap<BETipoEstrategia, TipoEstrategiaModel>()
+                Mapper.CreateMap<BETipoEstrategia, TipoEstrategiaModel>()
                     .ForMember(t => t.TipoEstrategiaID, f => f.MapFrom(c => c.TipoEstrategiaID))
                     .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.DescripcionEstrategia))
                     .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
@@ -149,7 +150,10 @@ namespace Portal.Consultoras.Web.Controllers
                     .ForMember(t => t.Imagen, f => f.MapFrom(c => c.ImagenEstrategia))
                     .ForMember(t => t.CodigoPrograma, f => f.MapFrom(c => c.CodigoPrograma));
 
-            return Mapper.Map<IList<BETipoEstrategia>, IEnumerable<TipoEstrategiaModel>>(lista.ToList());
+                return Mapper.Map<IEnumerable<BETipoEstrategia>, IEnumerable<TipoEstrategiaModel>>(lista);
+            }
+
+            return null;
         }
 
         public class BEConfiguracionValidacionZERegionIDComparer : IEqualityComparer<BEConfiguracionValidacionZE>

@@ -265,7 +265,7 @@ namespace Portal.Consultoras.Common
             public const string PackAltoDesembolso = "008";
             public const string RevistaDigital = "101"; // No tiene referecia con BD, es un grupo de estrategias
             public const string LosMasVendidos = "020";
-
+            public const string IncentivosProgramaNuevas = "021";
         }
 
         public class TipoFichaProducto
@@ -1275,6 +1275,12 @@ namespace Portal.Consultoras.Common
             public const string OptDetalle = "/ofertasparati/detalle";
             public const string OfertaDelDia = "/ofertadeldia";
             public const string OfertaDelDiaIndex = "/ofertadeldia/index";
+        }
+
+        public class TipoVistaEstrategia
+        {
+            public const int Todos = 0;
+            public const int ProgramaNuevas = 1;
         }
     }
 }
