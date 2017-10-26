@@ -1,5 +1,10 @@
 ﻿var arrayOfertasParaTi = [];
 
+//youtube
+var tag = null;
+var firstScriptTag = null;
+var player;
+
 $(document).ready(function () {        
     $(".termino_condiciones_intriga").click(function () {
         $(this).toggleClass('check_intriga');
@@ -25,9 +30,18 @@ $(document).ready(function () {
     $("#tutorialFooterMobile").click(function () {
         VerTutorialMobile();
     });
-    $(".ver_video_introductorio").click(function () {
+    $(".ver_video_introductorio").click(function () {        
         $('#VideoIntroductorio').show();
+
+        ConfigurarYoutube();
+
         setTimeout(function () { playVideo(); }, 500);
+
+        setTimeout(function () {
+            if (player.playVideo) {
+                player.playVideo();
+            }
+        }, 2000);
     });
     $("#cerrarVideoIntroductorio").click(function () {
         stopVideo();
@@ -697,3 +711,28 @@ function VerTutorialMobile() {
 
     setTimeout(function () { $(window).resize(); }, 50);
 }
+
+function ConfigurarYoutube() {
+    if (tag == null) {
+        tag = document.createElement("script");
+        tag.src = "https://www.youtube.com/iframe_api";
+
+        firstScriptTag = document.getElementsByTagName("script")[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    }
+}
+
+function onYouTubeIframeAPIReady(playerId) {
+    var videoIdMostrar;
+    if (isEsika) {
+        videoIdMostrar = "jNoP8OoMmW4"; //Video Esika
+    }
+    else {
+        videoIdMostrar = "djSn0tFcQ0w"; //Video Lbel
+    }
+    player = new YT.Player("divPlayer", {
+        width: "100%",
+        videoId: videoIdMostrar,
+        playerVars: { rel: 0 }
+    });
+};

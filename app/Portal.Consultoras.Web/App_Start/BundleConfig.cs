@@ -93,7 +93,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/flipclock.js",
                 "~/Scripts/jquery.flexslider.js",
                 "~/Scripts/slick.js",
-                "~/Scripts/jquery.lazy.js"
+                "~/Scripts/jquery.lazy.js",
                 "~/Scripts/PortalConsultoras/Shared/TrackingJetlore.js",
                 "~/Scripts/LogError.js",
                 "~/Scripts/menu.js",
