@@ -5864,7 +5864,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 ErrorUtilities.AddLog(ex);
