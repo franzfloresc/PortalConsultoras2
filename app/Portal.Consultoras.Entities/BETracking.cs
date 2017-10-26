@@ -1,5 +1,4 @@
-﻿
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
 using System;
 using System.Data;
 using System.Runtime.Serialization;
@@ -34,7 +33,7 @@ namespace Portal.Consultoras.Entities
         public DateTime? Fecha { get; set; }
 
         [DataMember]
-        public string ValorTurno { get; set; }  /*SB20-964 */
+        public string ValorTurno { get; set; }
 
         public BETracking()
         {
@@ -57,7 +56,6 @@ namespace Portal.Consultoras.Entities
             if (row.HasColumn("Fecha"))
                 Fecha = row["Fecha"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(row["Fecha"]);
 
-            /*SB20-964 */
             if (row.HasColumn("ValorTurno"))
                 ValorTurno = Convert.ToString(row["ValorTurno"]);
         }
@@ -85,9 +83,9 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string Observacion { get; set; }
         [DataMember]
-        public string Boleta { get; set; }//R20150710
+        public string Boleta { get; set; }
         [DataMember]
-        public string Foto { get; set; }//R20150710
+        public string Foto { get; set; }
 
         public BENovedadTracking()
         { }
@@ -104,13 +102,12 @@ namespace Portal.Consultoras.Entities
             Longitud = Convert.ToString(row["Longitud"]);
             Observacion = Convert.ToString(row["Observacion"]);
             if (DataRecord.HasColumn(row, "Boleta") && row["Boleta"] != DBNull.Value)
-                Boleta = Convert.ToString(row["Boleta"]);//R20150710
+                Boleta = Convert.ToString(row["Boleta"]);
             if (DataRecord.HasColumn(row, "Foto") && row["Foto"] != DBNull.Value)
-                Foto = Convert.ToString(row["Foto"]);//R20150710
+                Foto = Convert.ToString(row["Foto"]);
         }
     }
 
-    //R2004
     [DataContract]
     public class BENovedadFacturacion
     {
@@ -128,6 +125,4 @@ namespace Portal.Consultoras.Entities
             DescripcionMotivo = Convert.ToString(row["DescripcionMotivo"]); ;
         }
     }
-
-
 }

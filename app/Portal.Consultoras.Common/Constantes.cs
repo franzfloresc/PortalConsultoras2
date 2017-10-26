@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+
 namespace Portal.Consultoras.Common
 {
     public class Constantes
@@ -212,6 +213,7 @@ namespace Portal.Consultoras.Common
             public const int BusquedaNemotecnicoOfertaLiquidacion = 9852;
             public const int BusquedaNemotecnicoProductoSugerido = 9853;
             public const int BusquedaNemotecnicoZonaEstrategia = 9854;
+            public const int Tonos = 9802;
         }
 
         public class ParametrosNames
@@ -259,19 +261,14 @@ namespace Portal.Consultoras.Common
         {
             public const string OfertaParaTi = "001";
             public const string PackNuevas = "002"; // Oferta Nueva Esika
+            public const string OfertaWeb = "003";
             public const string Lanzamiento = "005";
             public const string OfertasParaMi = "007";
             public const string PackAltoDesembolso = "008";
             public const string RevistaDigital = "101"; // No tiene referecia con BD, es un grupo de estrategias
             public const string LosMasVendidos = "020";
+            public const string OfertaDelDia = "009";
 
-        }
-
-        public class TipoFichaProducto
-        {
-            public const string SinTonos = "0";
-            public const string IndividualConTonos = "1";
-            public const string PackConTonos = "2";
         }
 
         public class ConstSession
@@ -319,8 +316,19 @@ namespace Portal.Consultoras.Common
             public const string MenuContenedor = "MenuContenedor";
 
             public const string ListaEstrategia = "ListadoEstrategiaPedido";
+
             public const string ProductoTemporal = "ProductoTemporal";
             public const string MenuContenedorActivo = "MenuContenedorActivo";
+
+            public const string RevistaDigital = "RevistaDigital";
+            public const string ConfiguracionPaises = "ConfiguracionPaises";
+
+            public const string EventoFestivo = "EventoFestivo";
+
+            public const string OfertaFinal = "OfertaFinal";
+            public const string TieneLan = "TieneLan";
+            public const string TieneLanX1 = "TieneLanX1";
+            public const string TieneOpt = "TieneOpt";
         }
 
         public class TipoOfertaFinalCatalogoPersonalizado
@@ -700,7 +708,7 @@ namespace Portal.Consultoras.Common
                 public const string ColorFondoTituloOfertaSubCampania = "ColorFondoTituloOfertaSubCampania";
                 public const string ImagenBannerContenedorOfertasIntriga = "ImagenBannerContenedorOfertasIntriga";
                 public const string ImagenBannerContenedorOfertasVenta = "ImagenBannerContenedorOfertasVenta";
-                
+
             }
 
             public class TipoAplicacion
@@ -748,7 +756,7 @@ namespace Portal.Consultoras.Common
         }
 
         public class MenuCodigo
-        {            
+        {
             public const string MiNegocio = "MiNegocio";
             public const string RevistaDigitalSuscripcion = "RevistaDigitalSuscripcion";
             public const string CatalogoPersonalizado = "FDTC";
@@ -856,6 +864,7 @@ namespace Portal.Consultoras.Common
             public const string ShowRoom = "SR";
             public const string OfertaDelDia = "ODD";
             public const string Informacion = "INFO";
+            public const string Descargables = "DES-NAV";
         }
 
         public class ConfiguracionSeccion
@@ -868,6 +877,7 @@ namespace Portal.Consultoras.Common
                 public const int Banners = 4;
                 public const int ShowRoom = 5;
                 public const int OfertaDelDia = 6;
+                public const int DescagablesNavidenos = 7;
             }
         }
 
@@ -923,7 +933,8 @@ namespace Portal.Consultoras.Common
             public const string FichaProductoTemporal = "FichaProductoTemporal";
         }
 
-        public class SeccionBienvenida {
+        public class SeccionBienvenida
+        {
             public const string Home = "Home";
             public const string Belcorp = "Belcorp";
             public const string MisOfertas = "MisOfertas";
@@ -1073,6 +1084,7 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_NOTAINVALIDA = "15";
                 public const string ERROR_MOVIMIENTOINVALIDO = "16";
                 public const string ERROR_NOTACANTIDADMAXIMA = "17";
+                public const string ERROR_RECORDATORIOINVALIDA = "18";
             }
 
             public static Dictionary<string, string> Message
@@ -1097,7 +1109,8 @@ namespace Portal.Consultoras.Common
                         {Code.ERROR_CLIENTEASOCIADOPEDIDO, "No es posible eliminar al cliente dado que se encuentra asociado a un pedido."},
                         {Code.ERROR_TIPOCONTACTOREPETIDO, "El contacto se encuentra repetido para el cliente."},
                         {Code.ERROR_NOTAINVALIDA, "Nota invalida, no se pudo procesar"},
-                        {Code.ERROR_MOVIMIENTOINVALIDO, "Movimiento invalido, no se pudo procesar"}
+                        {Code.ERROR_MOVIMIENTOINVALIDO, "Movimiento invalido, no se pudo procesar"},
+                        {Code.ERROR_RECORDATORIOINVALIDA, "Recordatorio invalido, no se pudo procesar"}
                     });
                 }
             }

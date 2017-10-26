@@ -1,17 +1,20 @@
-﻿﻿@using Portal.Consultoras.Common
-@model System.String
+﻿@using Portal.Consultoras.Common
+@{
+    string controllerAction = this.ViewContext.RouteData.Values["controller"].ToString() + this.ViewContext.RouteData.Values["action"].ToString();
+    controllerAction = controllerAction.ToLower();
+}
 
 <div class="menu_esika_b">
     <div class="campana user-profile oculto">
         <img class="mostrar_perfil" region="Superior" src="/Content/Images/Esika/user.jpg" alt="Esika">
     </div>
-    <div class="campana @(Model == "bienvenidaindex" ? "oculto" : "")">
+    <div class="campana @(controllerAction == "bienvenidaindex" ? "oculto" : "")">
         <a href="javascript:;" onclick="Notificaciones();" role="menu" region="Superior" title="Notificaciones" id="lnk-sup-notificacion">
             <div class="campana_svg mensaje_svg"></div>
             <p class="notificaciones notificaciones_existentes js-notificaciones">0</p>
         </a>
     </div>
-    <div class="borde_c @(Model == "bienvenidaindex" ? "invisible" : "")"></div>
+    <div class="borde_c @(controllerAction == "bienvenidaindex" ? "invisible" : "")"></div>
     <div class="campana cart_compras" style="width: auto;">
         <div class="contenedor_circulos">
             <div class="circulo-1 iniciarTransicion"></div>

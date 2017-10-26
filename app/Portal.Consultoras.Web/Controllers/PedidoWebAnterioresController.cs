@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Portal.Consultoras.Web.ServiceCliente;
+﻿using ClosedXML.Excel;
+using Newtonsoft.Json.Linq;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using AutoMapper;
-using Newtonsoft.Json.Linq;
-using System.ServiceModel;
-using ClosedXML.Excel;
-using System.IO;
+using Portal.Consultoras.Web.ServiceCliente;
 using Portal.Consultoras.Web.ServiceSAC; //R2073
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.ServiceModel;
+using System.Web;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -43,7 +42,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.CampaniaId = CampaniaId;
 
             if (UserData().PaisID == 4)
-            { 
+            {
                 // Validación pais Colombia Req. 1478
                 ViewBag.Flete = string.Format("{0:#,##0}", Flete).Replace(',', '.');
                 ViewBag.Total = string.Format("{0:#,##0}", Total).Replace(',', '.');
@@ -101,7 +100,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         //R2073
-		public ActionResult ConsultarPedidoWebAnteriores(string sidx, string sord, int page, int rows)
+        public ActionResult ConsultarPedidoWebAnteriores(string sidx, string sord, int page, int rows)
         {
             if (ModelState.IsValid)
             {
@@ -112,7 +111,7 @@ namespace Portal.Consultoras.Web.Controllers
                     using (SACServiceClient client = new SACServiceClient())
                     {
                         lista = client.GetPedidosFacturadosCabecera(UserData().PaisID, UserData().CodigoConsultora).ToList();
-                }
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -120,29 +119,29 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 foreach (var pedido in lista)
-                    {
-                        BEPedidoWeb oBEPedidoWeb = new BEPedidoWeb();
+                {
+                    BEPedidoWeb oBEPedidoWeb = new BEPedidoWeb();
                     oBEPedidoWeb.CampaniaID = pedido.Campania;
                     oBEPedidoWeb.ImporteTotal = pedido.ImporteTotal;
                     oBEPedidoWeb.CantidadProductos = pedido.Cantidad;
                     if (!string.IsNullOrEmpty(pedido.EstadoPedido))
-                        {
+                    {
                         string[] parametros = pedido.EstadoPedido.Split(';');
                         if (parametros.Length >= 3)
-                            {
-                                //Se utilizará el campo para enviar la información de Origen
-                                oBEPedidoWeb.EstadoPedidoDesc = OrigenDescripcion(parametros[0]);
-                                //Se utilizará el campo para enviar la información de Flete
-                                oBEPedidoWeb.Direccion = parametros[1] == string.Empty ? "0" : parametros[1];
-                                //Se utilizará el campo para enviar la fecha de Facturación
-                                oBEPedidoWeb.CodigoUsuarioCreacion = parametros[2] == string.Empty ? "" : Convert.ToDateTime(parametros[2]).ToShortDateString();
-                            }
-                            
-                            
+                        {
+                            //Se utilizará el campo para enviar la información de Origen
+                            oBEPedidoWeb.EstadoPedidoDesc = OrigenDescripcion(parametros[0]);
+                            //Se utilizará el campo para enviar la información de Flete
+                            oBEPedidoWeb.Direccion = parametros[1] == string.Empty ? "0" : parametros[1];
+                            //Se utilizará el campo para enviar la fecha de Facturación
+                            oBEPedidoWeb.CodigoUsuarioCreacion = parametros[2] == string.Empty ? "" : Convert.ToDateTime(parametros[2]).ToShortDateString();
                         }
-                        
-                        lst.Add(oBEPedidoWeb);
+
+
                     }
+
+                    lst.Add(oBEPedidoWeb);
+                }
 
                 // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
@@ -210,7 +209,7 @@ namespace Portal.Consultoras.Web.Controllers
                                select new
                                {
                                    id = a.CampaniaID,
-                                   cell = new string[] 
+                                   cell = new string[]
                                {
                                    DescripcionCampania(a.CampaniaID.ToString()),
                                    a.EstadoPedidoDesc,
@@ -235,7 +234,7 @@ namespace Portal.Consultoras.Web.Controllers
                                select new
                                {
                                    id = a.CampaniaID,
-                                   cell = new string[] 
+                                   cell = new string[]
                                {
                                    DescripcionCampania(a.CampaniaID.ToString()),
                                    a.EstadoPedidoDesc,
@@ -262,13 +261,14 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 DesCamp = CampaniaID;
             }
             return DesCamp;
         }
 
         //R2073
-		public ActionResult ConsultarPedidoWebAnterioresProductos(string sidx, string sord, int page, int rows, string CampaniaId)
+        public ActionResult ConsultarPedidoWebAnterioresProductos(string sidx, string sord, int page, int rows, string CampaniaId)
         {
             if (ModelState.IsValid)
             {
@@ -279,7 +279,7 @@ namespace Portal.Consultoras.Web.Controllers
                     using (SACServiceClient client = new SACServiceClient())
                     {
                         lista = client.GetPedidosFacturadosDetalle(UserData().PaisID, CampaniaId, "0", "0", UserData().CodigoConsultora, 0).ToList();
-                }
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -301,7 +301,7 @@ namespace Portal.Consultoras.Web.Controllers
                             //Se esta reutilizando este campo para devolver el descuente correspondiente al CUV
                             ImporteTotalPedido = pedido.MontoDescuento
                         });
-                    }
+                }
 
                 // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
@@ -384,7 +384,7 @@ namespace Portal.Consultoras.Web.Controllers
                                select new
                                {
                                    id = a.CUV,
-                                   cell = new string[] 
+                                   cell = new string[]
                                {
                                    a.CUV,
                                    a.DescripcionProd,
@@ -413,7 +413,7 @@ namespace Portal.Consultoras.Web.Controllers
                                select new
                                {
                                    id = a.CUV,
-                                   cell = new string[] 
+                                   cell = new string[]
                                {
                                    a.CUV,
                                    a.DescripcionProd,
@@ -434,7 +434,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         //R2073
-		public ActionResult ExportarExcel(string vCampaniaID, string vTotalParcial, string vFlete, string vTotalFacturado)
+        public ActionResult ExportarExcel(string vCampaniaID, string vTotalParcial, string vFlete, string vTotalFacturado)
         {
             List<KeyValuePair<int, string>> dicCabeceras = new List<KeyValuePair<int, string>>();
             List<BEPedidoWebDetalle> lst = new List<BEPedidoWebDetalle>();
@@ -452,23 +452,23 @@ namespace Portal.Consultoras.Web.Controllers
                 lista = null;
             }
 
-                foreach (var item in lista)
-                {
+            foreach (var item in lista)
+            {
                 if (!string.IsNullOrEmpty(item.CUV.Trim()))
+                {
+                    lst.Add(new BEPedidoWebDetalle()
                     {
-                        lst.Add(new BEPedidoWebDetalle()
-                        {
                         CUV = item.CUV,
                         DescripcionProd = item.Descripcion,
                         Cantidad = item.Cantidad,
                         PrecioUnidad = Convert.ToDecimal(item.PrecioUnidad),
                         ImporteTotal = Convert.ToDecimal(item.ImporteTotal),
                         ImporteTotalPedido = Convert.ToDecimal(item.MontoDescuento),
-                        });
-                    }
+                    });
                 }
+            }
 
-                dicCabeceras.Add(new KeyValuePair<int, string>(lst.Count, UserData().NombreConsultora));
+            dicCabeceras.Add(new KeyValuePair<int, string>(lst.Count, UserData().NombreConsultora));
 
             Dictionary<string, string> dicDetalles = new Dictionary<string, string>();
             dicDetalles.Add("Código", "CUV");
@@ -496,7 +496,6 @@ namespace Portal.Consultoras.Web.Controllers
                 var wb = new XLWorkbook();
                 var ws = wb.Worksheets.Add("Hoja1");
                 List<string> Columns = new List<string>();
-                int index = 1;
 
                 int row = 5;
                 int col = 0;
@@ -667,8 +666,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                     //    ws.Cell(row, col - 2).Value = arrTotal[0]; //Total:
                     //    ws.Cell(row, col - 1).Value = arrTotal[1].Split('#')[0] + ((BEPedidoWebDetalle)SourceDetails[i]).ImporteTotalPedido.ToString("0.00");
-                        
-                        
+
+
                     //    //TotalPedido += ((BEPedidoWebDetalle)SourceDetails[i]).ImporteTotalPedido;
                     //}
                     row++;

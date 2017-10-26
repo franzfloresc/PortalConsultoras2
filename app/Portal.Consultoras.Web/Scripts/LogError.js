@@ -57,7 +57,7 @@ $(document).ajaxError(function (event, jqxhr, settings, thrownError) {
 
     // HTTP Status Messages 
     // https://www.w3schools.com/tags/ref_httpmessages.asp
-
+    
     var urlAjax = window.location.origin + "" + settings.url;
 
     var message = settings.url + ": ";
@@ -101,7 +101,6 @@ $(document).ajaxError(function (event, jqxhr, settings, thrownError) {
 });
 
 function registrarLogError(objError) {
-    console.log(objError);
 
     if (!urlLogDynamo) return;
 

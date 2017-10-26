@@ -20,7 +20,8 @@ var CONS_CODIGO_SECCION = {
     RDR: "RDR",
     SR: "SR",
     ODD: "ODD",
-    OPT: "OPT"
+    OPT: "OPT",
+    DES: "DES-NAV"
 };
 
 var listaSeccion = {};
@@ -86,13 +87,17 @@ function SeccionCargarProductos(objConsulta) {
         $("#ODD").find(".seccion-content-contenedor").fadeIn();   
     }
 
+    if (objConsulta.Codigo === CONS_CODIGO_SECCION.DES) {
+        $("#" + objConsulta.Codigo).find(".seccion-loading-contenedor").fadeOut();
+        $("#" + objConsulta.Codigo).find(".seccion-content-contenedor").fadeIn();   
+    }
+
     if (objConsulta.UrlObtenerProductos === "")
         return false;
 
     listaSeccion[objConsulta.Codigo + "-" + objConsulta.CampaniaId] = objConsulta;
 
-    if (objConsulta.Codigo === CONS_CODIGO_SECCION.LAN
-        || objConsulta.Codigo === CONS_CODIGO_SECCION.RDR
+    if (objConsulta.Codigo === CONS_CODIGO_SECCION.RDR
         || objConsulta.Codigo === CONS_CODIGO_SECCION.RD) {
         if (!varContenedor.CargoRevista) {
             varContenedor.CargoRevista = true;
@@ -162,42 +167,48 @@ function SeccionMostrarProductos(data) {
         return false;
     }
 
-    if (data.Seccion !== undefined && data.Seccion.Codigo === CONS_CODIGO_SECCION.LAN) {
+    if (data.Seccion === undefined)
+        return false;
+
+    if (data.Seccion.Codigo != undefined) {
+        $("#" + data.Seccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
+    }
+
+    if (data.Seccion.Codigo === CONS_CODIGO_SECCION.LAN) {
         if (data.listaLan !== undefined && data.listaLan.length > 0) {
-            $("#" + data.Seccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
+            RDLocalStorageListado(lsListaRD + data.campaniaId, data, CONS_CODIGO_SECCION.LAN);
             $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
         } else {
-            $("#" + data.Seccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
-            $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeOut();
-            UpdateSessionState(data.Seccion.Codigo, data.CampaniaID);
-        }
-    } else if (data.Seccion !== undefined && data.Seccion.Codigo === CONS_CODIGO_SECCION.OPT) {
-        if (data.lista !== undefined && data.lista.length > 0) {
-            $("#" + data.Seccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
-            $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
-        } else {
-            $("#" + data.Seccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
             $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeOut();
             UpdateSessionState(data.Seccion.Codigo, data.campaniaId);
         }
-    } else if (data.Seccion !== undefined && (data.Seccion.Codigo === CONS_CODIGO_SECCION.RD || data.Seccion.Codigo === CONS_CODIGO_SECCION.RDR) ) {
+    } else if (data.Seccion.Codigo === CONS_CODIGO_SECCION.OPT) {
         if (data.lista !== undefined && data.lista.length > 0) {
-            $("#" + data.Seccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
             $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
-        $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeIn();
         } else {
-            $("#" + data.Seccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
+            $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeOut();
+            UpdateSessionState(data.Seccion.Codigo, data.campaniaId);
+        }
+    } else if (data.Seccion.Codigo === CONS_CODIGO_SECCION.RD || data.Seccion.Codigo === CONS_CODIGO_SECCION.RDR) {
+        if (data.lista !== undefined && data.lista.length > 0) {
+            $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
+            $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeIn();
+
+            $("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-total]").html(data.CantidadProductos);
+            $("#" + data.Seccion.Codigo).find("[data-productos-info]").fadeIn();
+            
+        } else {
             $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeOut();
         }
-    } else if (data.Seccion !== undefined && data.Seccion.Codigo === CONS_CODIGO_SECCION.SR) {
+    } else if (data.Seccion.Codigo === CONS_CODIGO_SECCION.SR) {
         if (data.Seccion.TipoPresentacion === CONS_TIPO_PRESENTACION.ShowRoom.toString()) {
-            $("#" + data.Seccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
             $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
         } else {
-            $("#" + data.Seccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
             $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeOut();
         }
     }
+
+    data.Mobile = isMobile();
 
     SetHandlebars(data.Seccion.TemplateProducto, data, divListadoProductos);
     
@@ -325,4 +336,39 @@ function VerificarSecciones() {
     if (visibles == 0) {
         $("#no-productos").fadeIn();
     }
+}
+
+function Descargables(Filename) {
+    var NombreArchivo = Filename;
+
+    $.ajax({
+        type: 'POST',
+        url: baseUrl + "Ofertas/Descargables",
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify({ FileName: NombreArchivo }),
+        success: function (data) {
+           
+            if (checkTimeout()) {
+                if (data.Result) {
+                    var url = data.UrlS3;
+                    var nombre = NombreArchivo;
+
+                    var link = document.createElement("a");
+                    link.setAttribute("id", "dwnarchivo")
+                    link.setAttribute("target", "_blank");
+                    link.setAttribute('style', 'display:none;');
+                    link.download = nombre;
+                    link.href = url;                    
+                    document.body.appendChild(link);
+                    link.click();
+
+                    document.body.removeChild(link);
+                }
+            }            
+        },
+        error: function (error, x) {
+            console.log(error, x);
+        }
+    });
 }

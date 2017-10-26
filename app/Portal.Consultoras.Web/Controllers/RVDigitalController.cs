@@ -1,18 +1,17 @@
-﻿using System;
+﻿using AutoMapper;
+using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServiceContenido;
+using Portal.Consultoras.Web.ServiceZonificacion;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.ServiceModel;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
-using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServiceContenido;
-using AutoMapper;
-using Portal.Consultoras.Web.ServiceZonificacion;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -68,7 +67,7 @@ namespace Portal.Consultoras.Web.Controllers
             string ErrorCode;
             string ErrorMessage;
             List<RVPRFModel> lst = new List<RVPRFModel>();
-            if(!string.IsNullOrEmpty(Campania))
+            if (!string.IsNullOrEmpty(Campania))
                 lst = GetPDFRVDigital(Campania, out ErrorServicio, out ErrorCode, out ErrorMessage);
             IEnumerable<RVPRFModel> items = lst;
 
@@ -110,7 +109,7 @@ namespace Portal.Consultoras.Web.Controllers
                        select new
                        {
                            id = a.Nombre,
-                           cell = new string[] 
+                           cell = new string[]
                                {
                                    "Paquete Documentario",
                                    Campania,
@@ -186,8 +185,9 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 ErrorServicio = true;
             }
 
@@ -201,46 +201,60 @@ namespace Portal.Consultoras.Web.Controllers
 
             switch (ISO)
             {
-                case "AR": result = "ARGENTINA";
+                case "AR":
+                    result = "ARGENTINA";
                     Marca = "L'Bel";
                     break;
-                case "BO": result = "BOLIVIA";
+                case "BO":
+                    result = "BOLIVIA";
                     Marca = "Esika";
                     break;
-                case "CL": result = "CHILE";
+                case "CL":
+                    result = "CHILE";
                     Marca = "Esika";
                     break;
-                case "CO": result = "COLOMBIA";
+                case "CO":
+                    result = "COLOMBIA";
                     Marca = "L'Bel";
                     break;
-                case "CR": result = "COSTA RICA";
+                case "CR":
+                    result = "COSTA RICA";
                     Marca = "L'Bel";
                     break;
-                case "DO": result = "DOMINICANA";
+                case "DO":
+                    result = "DOMINICANA";
                     Marca = "L'Bel";
                     break;
-                case "EC": result = "ECUADOR";
+                case "EC":
+                    result = "ECUADOR";
                     Marca = "L'Bel";
                     break;
-                case "SV": result = "EL SALVADOR";
+                case "SV":
+                    result = "EL SALVADOR";
                     Marca = "Esika";
                     break;
-                case "GT": result = "GUATEMALA";
+                case "GT":
+                    result = "GUATEMALA";
                     Marca = "Esika";
                     break;
-                case "MX": result = "MEXICO";
+                case "MX":
+                    result = "MEXICO";
                     Marca = "L'Bel";
                     break;
-                case "PA": result = "PANAMA";
+                case "PA":
+                    result = "PANAMA";
                     Marca = "L'Bel";
                     break;
-                case "PE": result = "PERU";
+                case "PE":
+                    result = "PERU";
                     Marca = "Esika";
                     break;
-                case "PR": result = "PUERTO RICO";
+                case "PR":
+                    result = "PUERTO RICO";
                     Marca = "L'Bel";
                     break;
-                case "VE": result = "VENEZUELA";
+                case "VE":
+                    result = "VENEZUELA";
                     Marca = "L'Bel";
                     break;
             }
@@ -314,6 +328,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 ErrorServicio = true;
             }
 
@@ -481,7 +496,7 @@ namespace Portal.Consultoras.Web.Controllers
             RVDigitalPaqueteDocumentarioModel model = new RVDigitalPaqueteDocumentarioModel();
             model.PaisID = UserData().PaisID;
             model.listaPaises = DropDowListPaises();
- 
+
             return View(model);
         }
 
@@ -499,6 +514,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
-        
+
     }
 }

@@ -10,7 +10,7 @@ namespace Portal.Consultoras.Entities
     {
         [DataMember]
         public long LogGPRValidacionDetalleId { get; set; }
-        
+
         [DataMember]
         public long LogGPRValidacionId { get; set; }
 

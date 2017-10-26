@@ -38,7 +38,7 @@ go
 DECLARE @PermisoID INT
 DECLARE @OrdenItem INT
 
-if not exists (select 1 from Permiso where Descripcion = 'Configurar Palanca')
+if not exists (select 1 from Permiso where Descripcion = 'Configurar Contenedor')
 begin
 
 	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso
@@ -60,7 +60,7 @@ begin
     ,[Codigo])
 	VALUES
 	(@PermisoID+1
-	,'Configurar Palanca'
+	,'Configurar Contenedor'
 	,111
 	,@OrdenItem+1
 	,'AdministrarPalanca/Index'
@@ -120,7 +120,7 @@ go
 DECLARE @PermisoID INT
 DECLARE @OrdenItem INT
 
-if not exists (select 1 from Permiso where Descripcion = 'Configurar Palanca')
+if not exists (select 1 from Permiso where Descripcion = 'Configurar Contenedor')
 begin
 
 	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso
@@ -142,7 +142,7 @@ begin
     ,[Codigo])
 	VALUES
 	(@PermisoID+1
-	,'Configurar Palanca'
+	,'Configurar Contenedor'
 	,111
 	,@OrdenItem+1
 	,'AdministrarPalanca/Index'
@@ -202,7 +202,7 @@ go
 DECLARE @PermisoID INT
 DECLARE @OrdenItem INT
 
-if not exists (select 1 from Permiso where Descripcion = 'Configurar Palanca')
+if not exists (select 1 from Permiso where Descripcion = 'Configurar Contenedor')
 begin
 
 	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso
@@ -224,7 +224,7 @@ begin
     ,[Codigo])
 	VALUES
 	(@PermisoID+1
-	,'Configurar Palanca'
+	,'Configurar Contenedor'
 	,111
 	,@OrdenItem+1
 	,'AdministrarPalanca/Index'
@@ -284,7 +284,7 @@ go
 DECLARE @PermisoID INT
 DECLARE @OrdenItem INT
 
-if not exists (select 1 from Permiso where Descripcion = 'Configurar Palanca')
+if not exists (select 1 from Permiso where Descripcion = 'Configurar Contenedor')
 begin
 
 	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso
@@ -306,7 +306,7 @@ begin
     ,[Codigo])
 	VALUES
 	(@PermisoID+1
-	,'Configurar Palanca'
+	,'Configurar Contenedor'
 	,111
 	,@OrdenItem+1
 	,'AdministrarPalanca/Index'
@@ -366,7 +366,7 @@ go
 DECLARE @PermisoID INT
 DECLARE @OrdenItem INT
 
-if not exists (select 1 from Permiso where Descripcion = 'Configurar Palanca')
+if not exists (select 1 from Permiso where Descripcion = 'Configurar Contenedor')
 begin
 
 	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso
@@ -388,7 +388,7 @@ begin
     ,[Codigo])
 	VALUES
 	(@PermisoID+1
-	,'Configurar Palanca'
+	,'Configurar Contenedor'
 	,111
 	,@OrdenItem+1
 	,'AdministrarPalanca/Index'
@@ -448,7 +448,7 @@ go
 DECLARE @PermisoID INT
 DECLARE @OrdenItem INT
 
-if not exists (select 1 from Permiso where Descripcion = 'Configurar Palanca')
+if not exists (select 1 from Permiso where Descripcion = 'Configurar Contenedor')
 begin
 
 	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso
@@ -470,7 +470,7 @@ begin
     ,[Codigo])
 	VALUES
 	(@PermisoID+1
-	,'Configurar Palanca'
+	,'Configurar Contenedor'
 	,111
 	,@OrdenItem+1
 	,'AdministrarPalanca/Index'
@@ -530,7 +530,7 @@ go
 DECLARE @PermisoID INT
 DECLARE @OrdenItem INT
 
-if not exists (select 1 from Permiso where Descripcion = 'Configurar Palanca')
+if not exists (select 1 from Permiso where Descripcion = 'Configurar Contenedor')
 begin
 
 	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso
@@ -552,7 +552,7 @@ begin
     ,[Codigo])
 	VALUES
 	(@PermisoID+1
-	,'Configurar Palanca'
+	,'Configurar Contenedor'
 	,111
 	,@OrdenItem+1
 	,'AdministrarPalanca/Index'
@@ -612,7 +612,7 @@ go
 DECLARE @PermisoID INT
 DECLARE @OrdenItem INT
 
-if not exists (select 1 from Permiso where Descripcion = 'Configurar Palanca')
+if not exists (select 1 from Permiso where Descripcion = 'Configurar Contenedor')
 begin
 
 	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso
@@ -634,7 +634,7 @@ begin
     ,[Codigo])
 	VALUES
 	(@PermisoID+1
-	,'Configurar Palanca'
+	,'Configurar Contenedor'
 	,111
 	,@OrdenItem+1
 	,'AdministrarPalanca/Index'
@@ -694,7 +694,7 @@ go
 DECLARE @PermisoID INT
 DECLARE @OrdenItem INT
 
-if not exists (select 1 from Permiso where Descripcion = 'Configurar Palanca')
+if not exists (select 1 from Permiso where Descripcion = 'Configurar Contenedor')
 begin
 
 	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso
@@ -716,7 +716,7 @@ begin
     ,[Codigo])
 	VALUES
 	(@PermisoID+1
-	,'Configurar Palanca'
+	,'Configurar Contenedor'
 	,111
 	,@OrdenItem+1
 	,'AdministrarPalanca/Index'
@@ -776,7 +776,7 @@ go
 DECLARE @PermisoID INT
 DECLARE @OrdenItem INT
 
-if not exists (select 1 from Permiso where Descripcion = 'Configurar Palanca')
+if not exists (select 1 from Permiso where Descripcion = 'Configurar Contenedor')
 begin
 
 	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso
@@ -798,7 +798,7 @@ begin
     ,[Codigo])
 	VALUES
 	(@PermisoID+1
-	,'Configurar Palanca'
+	,'Configurar Contenedor'
 	,111
 	,@OrdenItem+1
 	,'AdministrarPalanca/Index'
@@ -858,7 +858,7 @@ go
 DECLARE @PermisoID INT
 DECLARE @OrdenItem INT
 
-if not exists (select 1 from Permiso where Descripcion = 'Configurar Palanca')
+if not exists (select 1 from Permiso where Descripcion = 'Configurar Contenedor')
 begin
 
 	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso
@@ -880,7 +880,7 @@ begin
     ,[Codigo])
 	VALUES
 	(@PermisoID+1
-	,'Configurar Palanca'
+	,'Configurar Contenedor'
 	,111
 	,@OrdenItem+1
 	,'AdministrarPalanca/Index'
@@ -939,7 +939,7 @@ go
 DECLARE @PermisoID INT
 DECLARE @OrdenItem INT
 
-if not exists (select 1 from Permiso where Descripcion = 'Configurar Palanca')
+if not exists (select 1 from Permiso where Descripcion = 'Configurar Contenedor')
 begin
 
 	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso
@@ -961,7 +961,7 @@ begin
     ,[Codigo])
 	VALUES
 	(@PermisoID+1
-	,'Configurar Palanca'
+	,'Configurar Contenedor'
 	,111
 	,@OrdenItem+1
 	,'AdministrarPalanca/Index'
@@ -1020,7 +1020,7 @@ go
 DECLARE @PermisoID INT
 DECLARE @OrdenItem INT
 
-if not exists (select 1 from Permiso where Descripcion = 'Configurar Palanca')
+if not exists (select 1 from Permiso where Descripcion = 'Configurar Contenedor')
 begin
 
 	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso
@@ -1042,7 +1042,7 @@ begin
     ,[Codigo])
 	VALUES
 	(@PermisoID+1
-	,'Configurar Palanca'
+	,'Configurar Contenedor'
 	,111
 	,@OrdenItem+1
 	,'AdministrarPalanca/Index'

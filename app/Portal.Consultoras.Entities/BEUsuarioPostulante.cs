@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using System.Runtime.Serialization;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Data;
-using Portal.Consultoras.Common;
+using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities
 {
@@ -23,9 +18,6 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public string NombreCompleto { get; set; }
-
-        //[DataMember]
-        //public string TipoDocumento { get; set;}
 
         [DataMember]
         public string NumeroDocumento { get; set; }
@@ -84,9 +76,6 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "NumeroDocumento") && row["NumeroDocumento"] != DBNull.Value)
                 NombreCompleto = Convert.ToString(row["NombreCompleto"]);
 
-            //if (DataRecord.HasColumn(row, "TipoDocumento") && row["TipoDocumento"] != DBNull.Value)
-            //    TipoDocumento = Convert.ToString(row["TipoDocumento"]);
-
             if (DataRecord.HasColumn(row, "NumeroDocumento") && row["NumeroDocumento"] != DBNull.Value)
                 NumeroDocumento = Convert.ToString(row["NumeroDocumento"]);
 
@@ -113,11 +102,6 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "ZonaID") && row["ZonaID"] != DBNull.Value)
                 ZonaID = Convert.ToInt32(row["ZonaID"]);
-
-            /*
-            if (DataRecord.HasColumn(row, "CodigoZona") && row["CodigoZona"] != DBNull.Value)
-                Zona = Convert.ToString(row["CodigoZona"]);
-             * */
 
             if (DataRecord.HasColumn(row, "RegionID") && row["RegionID"] != DBNull.Value)
                 RegionID = Convert.ToInt32(row["RegionID"]);

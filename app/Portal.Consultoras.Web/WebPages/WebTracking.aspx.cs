@@ -31,6 +31,20 @@ namespace Portal.Consultoras.Web.WebPages
 
             if (campania == null) CargarTablasMaestras();
             else CargarPedidoEspecifico(campania, nroPedido);
+
+            try
+            {
+                if (ConfigurationManager.AppSettings["Ambiente"].ToString() != "PR")
+                {
+                    lnkPoliticasVenta.NavigateUrl = "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/SeguimientoPedido/" + Convert.ToString(ViewState["PAISISO"]) + "/Politica.pdf";
+                }
+                else
+                {
+                    lnkPoliticasVenta.NavigateUrl = "https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/SeguimientoPedido/" + Convert.ToString(ViewState["PAISISO"]) + "/Politica.pdf";
+                }
+            }
+            catch  {}
+
         }
 
         protected void gridPedidos_RowCommand(object sender, GridViewCommandEventArgs e)

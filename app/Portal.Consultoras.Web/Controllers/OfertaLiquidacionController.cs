@@ -49,13 +49,17 @@ namespace Portal.Consultoras.Web.Controllers
 
             switch (MarcaID)
             {
-                case 1: result = "L'Bel";
+                case 1:
+                    result = "L'Bel";
                     break;
-                case 2: result = "Ésika";
+                case 2:
+                    result = "Ésika";
                     break;
-                case 3: result = "Cyzone";
+                case 3:
+                    result = "Cyzone";
                     break;
-                case 6: result = "Finart";
+                case 6:
+                    result = "Finart";
                     break;
             }
 
@@ -216,7 +220,7 @@ namespace Portal.Consultoras.Web.Controllers
                     entidad.OrigenPedidoWeb = ProcesarOrigenPedido(entidad.OrigenPedidoWeb);
 
                     sv.InsPedidoWebDetalleOferta(entidad);
-                    
+
                     Session["PedidoWeb"] = null;
                     Session["PedidoWebDetalle"] = null;
                 }
@@ -231,9 +235,9 @@ namespace Portal.Consultoras.Web.Controllers
                     indPedidoAutentico.CampaniaID = entidad.CampaniaID;
                     indPedidoAutentico.PedidoDetalleID = entidad.PedidoDetalleID;
                     indPedidoAutentico.IndicadorIPUsuario = GetIPCliente();
-                    indPedidoAutentico.IndicadorFingerprint = (Session["Fingerprint"] != null) ? Session["Fingerprint"].ToString() : "";
+                    indPedidoAutentico.IndicadorFingerprint = "";
                     indPedidoAutentico.IndicadorToken = (Session["TokenPedidoAutentico"] != null) ? Session["TokenPedidoAutentico"].ToString() : ""; ;
-                    
+
                     InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);
                 }
                 //EPD-2248
@@ -388,8 +392,9 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ValidarUnidadesPermitidasPedidoProducto(string CUV, string Cantidad, string PrecioUnidad)
         {
-            string mensaje = ValidarMontoMaximo(Convert.ToDecimal(PrecioUnidad), Convert.ToInt32(Cantidad));
-            
+            bool resul = false;
+            string mensaje = ValidarMontoMaximo(Convert.ToDecimal(PrecioUnidad), Convert.ToInt32(Cantidad), out resul);
+
             int UnidadesPermitidas = 0;
             int Saldo = 0;
             /* 2024 - Inicio */
@@ -400,7 +405,7 @@ namespace Portal.Consultoras.Web.Controllers
             entidad.CUV = CUV;
             entidad.ConsultoraID = Convert.ToInt32(userData.ConsultoraID);
 
-            if (mensaje == "")
+            if (mensaje == "" || resul)
             {
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
@@ -415,7 +420,8 @@ namespace Portal.Consultoras.Web.Controllers
                 UnidadesPermitidas = UnidadesPermitidas,
                 Saldo = Saldo,
                 CantidadPedida = CantidadPedida,
-                message = mensaje
+                message = mensaje,
+                result = resul
             }, JsonRequestBehavior.AllowGet);
         }
 
@@ -1193,9 +1199,9 @@ namespace Portal.Consultoras.Web.Controllers
                            select new
                            {
                                id = a.ID,
-                               cell = new string[] 
+                               cell = new string[]
                                {
-                                   a.ID.ToString(),                                   
+                                   a.ID.ToString(),
                                    a.CUV.ToString(),
                                    a.DescripcionCUV.ToString(),
                                    a.PrecioUnitario.ToString(),

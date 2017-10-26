@@ -9,7 +9,6 @@ using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -27,7 +26,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string eMailNoExiste = userData.CodigoConsultora + "@notengocorreo.com";
                 string eMail = userData.EMail.ToString().Trim() == string.Empty ? eMailNoExiste : userData.EMail.ToString();
                 bool exito = false;
-                
+
                 string CampaniaVenta = GetCampaniaLider(userData.PaisID, userData.ConsultoraID, userData.CodigoISO);
                 string NivelProyectado = "";
                 string SeccionGestionLider = "";
@@ -55,19 +54,19 @@ namespace Portal.Consultoras.Web.Controllers
                 if (getUser.codigo == "002")
                 {
                     createUser = svcLMS.ws_servercreate_user(
-                        IsoUsuario, 
-                        userData.NombreConsultora, 
-                        eMail, 
-                        userData.CampaniaID.ToString(), 
-                        userData.CodigorRegion, 
-                        userData.CodigoZona, 
-                        userData.SegmentoConstancia.ToString(), 
-                        userData.SeccionAnalytics.ToString(), 
-                        userData.Lider.ToString(), 
-                        userData.NivelLider.ToString(), 
-                        userData.CampaniaInicioLider.ToString(), 
-                        userData.SeccionGestionLider.ToString(), 
-                        NivelProyectado, 
+                        IsoUsuario,
+                        userData.NombreConsultora,
+                        eMail,
+                        userData.CampaniaID.ToString(),
+                        userData.CodigorRegion,
+                        userData.CodigoZona,
+                        userData.SegmentoConstancia.ToString(),
+                        userData.SeccionAnalytics.ToString(),
+                        userData.Lider.ToString(),
+                        userData.NivelLider.ToString(),
+                        userData.CampaniaInicioLider.ToString(),
+                        userData.SeccionGestionLider.ToString(),
+                        NivelProyectado,
                         key);
                     token = createUser.token;
                 }
@@ -90,7 +89,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return View();
         }
-   
+
         public ActionResult Cursos(int idcurso)
         {
             try
@@ -102,7 +101,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string eMailNoExiste = userData.CodigoConsultora + "@notengocorreo.com";
                 string eMail = userData.EMail.ToString().Trim() == string.Empty ? eMailNoExiste : userData.EMail.ToString();
                 bool exito = false;
-                
+
                 string CampaniaVenta = GetCampaniaLider(userData.PaisID, userData.ConsultoraID, userData.CodigoISO);
                 string NivelProyectado = "";
                 string SeccionGestionLider = "";
@@ -158,7 +157,7 @@ namespace Portal.Consultoras.Web.Controllers
             return sv.GetLiderCampaniaActual(paisID, ConsultoraID, CodigoPais)[0].ToString();
         }
 
-        private List<MiCurso> ValidadCursosMA() 
+        private List<MiCurso> ValidadCursosMA()
         {
             try
             {
@@ -180,7 +179,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (!string.IsNullOrEmpty(json) && !json.Contains("Token not Valid"))
                     {
                         var model = JsonConvert.DeserializeObject<RootMiCurso>(json);
-
+                        model.Cursos = model.Cursos ?? new List<MiCurso>();
                         var lstCursos = model.Cursos.OrderBy(x => x.estado).ToList().Take(max);
 
                         lstCursos.Update(x => x.url = String.Format(urlCurso, x.id));
@@ -196,6 +195,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return new List<MiCurso>();
             }
         }

@@ -3,8 +3,6 @@ using System.Net;
 using System.Net.Sockets;
 using System.Web;
 
-// EPD-2929 Clase para Obtener la IP del cliente
-
 namespace Portal.Consultoras.Common
 {
     public static class ClientIP
@@ -23,7 +21,7 @@ namespace Portal.Consultoras.Common
 
             if (string.IsNullOrWhiteSpace(IP) && request.UserHostAddress != "::1")
             {
-                IP = GetFirstValidIpFromString(request.UserHostAddress,skipPrivate);
+                IP = GetFirstValidIpFromString(request.UserHostAddress, skipPrivate);
             }
 
             if (!string.IsNullOrWhiteSpace(IP) && IP.IndexOf(":") > 0)

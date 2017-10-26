@@ -1,18 +1,17 @@
-﻿using System;
-using System.Web.Mvc;
-using System.Web.Routing;
-using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.Controllers;
-using Portal.Consultoras.Web.Models;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
-using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.Controllers;
 using Portal.Consultoras.Web.CustomFilters;
 using Portal.Consultoras.Web.Helpers;
 using Portal.Consultoras.Web.Infraestructure;
+using Portal.Consultoras.Web.Models;
+using System;
+using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
-    //[UniqueSession("UniqueRoute", UniqueRoute.IdentifierKey, "/g/")]
+    [UniqueSession("UniqueRoute", UniqueRoute.IdentifierKey, "/g/")]
     public class BaseMobileController : BaseController
     {
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
@@ -20,6 +19,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             base.OnActionExecuting(filterContext);
 
             if (Session["UserData"] == null) return;
+
+            if (Request.IsAjaxRequest())
+            {
+                return;
+            }
 
             var userData = UserData();
             ViewBag.CodigoCampania = userData.CampaniaID.ToString();
@@ -42,14 +46,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     permitirCerrarBanner = true;
 
                     if (userData.CloseBannerPL20) mostrarBanner = false;
-                    else
-                    {
-                        using (var sv = new PedidoServiceClient())
-                        {
-                            var result = sv.ValidacionModificarPedidoSelectiva(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, userData.UsuarioPrueba == 1, userData.AceptacionConsultoraDA, false, true, false);
-                            if (result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Reservado) mostrarBanner = false;
-                        }
-                    }
                 }
 
                 bool mostrarBannerTop = NuncaMostrarBannerTopPL20() || userData.IndicadorGPRSB == 1 ? false : true;
@@ -64,11 +60,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     ViewBag.MostrarShowRoomBannerLateral = sessionManager.GetEsShowRoom() &&
                         !showRoomBannerLateral.ConsultoraNoEncontrada && !showRoomBannerLateral.ConsultoraNoEncontrada &&
                         showRoomBannerLateral.BEShowRoomConsultora.EventoConsultoraID != 0 && showRoomBannerLateral.EstaActivoLateral;
-
-                    //if (showRoomBannerLateral.DiasFalta < 1)
-                    //{
-                    //    //ViewBag.MostrarShowRoomBannerLateral = false;
-                    //}
 
                     if (showRoomBannerLateral.DiasFalta > 0)
                     {
@@ -155,7 +146,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 int j = ViewBag.NombreConsultora.Trim().IndexOf(' ');
                 if (j >= 0) ViewBag.NombreConsultora = ViewBag.NombreConsultora.Substring(0, j).Trim();
 
-                ViewBag.NumeroCampania = userData.NombreCorto.Substring(4);
+                ViewBag.NumeroCampania = (!string.IsNullOrEmpty(userData.NombreCorto) && userData.NombreCorto.Length > 4)
+                    ? userData.NombreCorto.Substring(4) : "";
                 ViewBag.EsUsuarioComunidad = userData.EsUsuarioComunidad ? 1 : 0;
                 ViewBag.AnalyticsCampania = userData.CampaniaID;
                 ViewBag.AnalyticsSegmento = string.IsNullOrEmpty(userData.Segmento) ? "(not available)" : userData.Segmento.Trim();
