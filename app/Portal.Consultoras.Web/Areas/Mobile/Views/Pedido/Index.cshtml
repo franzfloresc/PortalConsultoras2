@@ -1,26 +1,16 @@
 ﻿@using Portal.Consultoras.Common
-@using Portal.Consultoras.Web.Areas.Mobile.Controllers
 @using Portal.Consultoras.Web.Areas.Mobile.Models
 @using Portal.Consultoras.Web.Models
 @using Portal.Consultoras.Web.Helpers;
 
 @model PedidoMobileModel
 @{
-    var layout = ViewContext.MobileLayout();
+    var layout = ViewContext.MobilePedidoLayout();
     ViewBag.SourcePage = 2;
 
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
     var revistaDigital = Model.RevistaDigital ?? new RevistaDigitalModel();
     var mobileConfiguracion = Html.MobileAppConfiguracion();
-}
-@section styles
-{
-    <link href="~/Content/Css/Mobile/esika/revistaDigital.css" rel="stylesheet" />
-    <style>
-        #divAgregarCliente {
-            display: none;
-        }
-    </style>
 }
 <div class="wrapper_resumen_mobile sin_padding">
     @if (!mobileConfiguracion.EsAppMobile)
@@ -51,14 +41,7 @@
                 {
                     <input type="text" id="txtClienteNombre" placeholder="Cliente" class="PedidoClienteNombre" />
                 }
-                @*@if (string.IsNullOrEmpty(Model.Nombre))
-                    {
-                        @Html.DropDownListFor(model => model.Nombre, new SelectList(Model.ListaClientes, "ClienteID", "Nombre"), new { id = "ddlClientes", @required = "required", @class="PedidoClienteCombo" })
-                    }
-                    else
-                    {
-                        @Html.DropDownListFor(model => model.Nombre, new SelectList(Model.ListaClientes, "ClienteID", "Nombre"), new { id = "ddlClientes", @required = "required", @class="PedidoClienteCombo",  @disabled = "disabled" })
-                    }*@
+               
                 <input type="tel" name="codigoProducto" value="" placeholder="Código" id="txtCodigoProducto" oninput="maxLengthCheck(this, 5)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
             </form>
         </div>
@@ -110,7 +93,7 @@
                                 <img src="/Content/Images/Mobile/Esika/menos.png">
                             </span>
                             <div class="campo_cantidadProductos">
-                                <input type="tel" name="cantidad" value="1" id="txtCantidad" min="1" max="99" maxlength="2" oninput="maxLengthCheck(this,2)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
+                                <input type="tel" name="cantidad" value="1" id="txtCantidad" min="1" max="99" maxlength="2" oninput="FuncionesGenerales.MaxLengthCheck(this,2);" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
                             </div>
                             <span class="signo_mas" id="suma">
                                 <img src="/Content/Images/Mobile/Esika/mas.png">
@@ -118,23 +101,6 @@
                             <div class="clear"></div>
                         </div>
                     </div>
-                    @*<div class="contenedor_seleccionCliente">*@
-                    @*@if (string.IsNullOrEmpty(Model.Nombre))
-                        {
-                            @Html.DropDownListFor(model => model.Nombre, new SelectList(Model.ListaClientes, "ClienteID", "Nombre"), new { id = "ddlClientes", @required = "required" })
-                            <a href="javascript:;" class="btn_agregarCliente" id="linkAgregarCliente">
-                                AGREGAR CLIENTE <span>+</span>
-                            </a>
-                        }
-                        else
-                        {
-                            @Html.DropDownListFor(model => model.Nombre, new SelectList(Model.ListaClientes, "ClienteID", "Nombre"), new { id = "ddlClientes", @required = "required", @disabled = "disabled" })
-                        }*@
-                    @*@Html.DropDownListFor(model => model.Nombre, new SelectList(Model.ListaClientes, "ClienteID", "Nombre"), new { id = "ddlClientes", @required = "required" })
-                        <a href="javascript:;" class="btn_agregarCliente" id="linkAgregarCliente">
-                            AGREGAR CLIENTE <span>+</span>
-                        </a>*@
-                    @*</div>*@
                 </div>
             </div>
             <!-- FIN CONTENIDO INGRESO DE PEDIDO -->
@@ -225,7 +191,7 @@
                         <input type="hidden" id="hdePieEscala" value="@pieEscala" />
                         <input type="hidden" id="hdeLbl1Ganancia" value="@lbl1Ganancia" />
                         <input type="hidden" id="hdeLbl2Ganancia" value="@lbl2Ganancia" />
-                        <span class="mi_ganancia" style=" margin-left 30px;">@(cabezaEscala.ToUpper().Trim()) :</span>
+                        <span class="mi_ganancia" style="margin-left:30px;">@(cabezaEscala.ToUpper().Trim()) :</span>
                     </div>
 
                     <div class="montos_resumen">
@@ -374,42 +340,11 @@
 <!-- FIN POPUP MIS GANANCIAS -->
 <!--SB20-483 - FIN -->
 <!-- POPUP AGREGAR CLIENTE -->
-<div class="contenedor_popup_clientes modal" id="divAgregarCliente">
+<div class="contenedor_popup_clientes modal" id="divAgregarCliente" style="display: none;">
     <div class="popup_agregarCliente">
         <div id="divDetalleCliente"></div>
     </div>
 </div>
-@*<div class="contenedor_popup_clientes" id="divAgregarClientePedido">
-        <div class="popup_agregarCliente">
-            <div class="btn_cerrar_agregarUnidades">
-                <a href="javascript:;" onclick="CerrarMantenerCliente();">
-                    <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
-                    <span class="texto_btn_cerrar">CERRAR</span>
-                </a>
-            </div>
-            <h6>AGREGAR <b>CLIENTE</b></h6>
-            <input type="text" name="nombre" id="Nombres" value="" placeholder="Ingresa su nombre" maxlength="50" class="ValidaAlfabeto" />
-            <div class="noti mensaje_producto_noExiste" id="divNotiNombre">
-                <div class="noti_message red_texto_size">
-                    <span class="icono_advertencia_notificacion"></span>
-                    <span class="descripcion_mensaje">
-                        Por favor ingresa un nombre válido.
-                    </span>
-                </div>
-            </div>
-            <input type="email" name="correoelectronico" value="" placeholder="Correo Electrónico (Opcional)" maxlength="80" id="Correo" />
-            <div class="noti mensaje_producto_noExiste" id="divNotiEmail">
-                <div class="noti_message red_texto_size">
-                    <span class="icono_advertencia_notificacion"></span>
-                    <span class="descripcion_mensaje">
-                        El correo ingresado <b>no existe.</b><br />
-                        Por favor ingresa un correo válido.
-                    </span>
-                </div>
-            </div>
-            <input type="button" class="btnCliente_agregar" name="agregarCliente" value="GUARDAR" onclick="AgregarMantenerCliente();" />
-        </div>
-    </div>*@
 <!-- FIN POPUP AGREGAR CLIENTE -->
 <!-- POPUP CLIENTE AGREGADO -->
 <div id="popupClienteIngresado" class="MensajeAlertaMobile" style="display:none;">
@@ -519,7 +454,7 @@
         var urlValidarUnidadesPermitidasPedidoProducto = '@Url.Action("ValidarUnidadesPermitidasPedidoProducto", "Accesorizate", new {area = ""})';
         var urlObtenerStockActualProducto = '@Url.Action("ObtenerStockActualProducto", "Accesorizate", new {area = ""})';
         var urlEnHorarioRestringido = '@Url.Action("EnHorarioRestringido", "Pedido", new {area = ""})';
-        var urlSesionExperirada = '@Url.Action("SesionExpirada", "Login")';
+        var urlSesionExperirada = '@Url.Action("SesionExpirada", "Login", new { area = "" })';
         var paisIDSesion = '@Model.PaisId';
 
         var urlValidadoPedido = '@Url.Action("Validado", "Pedido", new { area = "Mobile" })';
@@ -535,11 +470,10 @@
         var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTi;
 
         var urlClienteDetalle = "@Url.Action("AgregarCliente", "Cliente", new { area = "Mobile" })";
-        var lstClientes = @Html.Raw(@Json.Encode(Model.ListaClientes))
+        var lstClientes = @Html.Raw(@Json.Encode(Model.ListaClientes));
         var urlImagenListaCliente = '@Url.Content("~/Content/Images/arrow.png")';
 
         var tieneCupon = '@Model.TieneCupon';
-        //var tieneOfertaLog = '@Model.TieneOfertaLog';
         var paginaOrigenCupon = 21;
         var tieneMasVendidos = @Model.TieneMasVendidos;
         var esEmailActivo = '@Model.EmailActivo';
@@ -572,7 +506,5 @@
         </script>
     }
 
-    @System.Web.Optimization.Scripts.Render("~/bundles/JsMobile/Pedido")
-    @*todo, bundle*@
-    <script src="~/Scripts/PortalConsultoras/Pedido/barra.js"></script>
+    @Scripts.Render("~/bundles/JsMobile/Pedido")
 }

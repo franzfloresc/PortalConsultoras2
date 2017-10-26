@@ -260,6 +260,7 @@
     <Compile Include="Controllers\AdministrarConfiguracionPortalController.cs" />
     <Compile Include="Controllers\AdministrarCuponController.cs" />
     <Compile Include="Controllers\AdministrarEstrategiaController.cs" />
+    <Compile Include="Controllers\AdministrarGuiaNegocioDigitalizadaController.cs" />
     <Compile Include="Controllers\AdministrarPalancaController.cs" />
     <Compile Include="Controllers\AdministrarEtiquetasController.cs" />
     <Compile Include="Controllers\AdministrarFactoresGananciaController.cs" />
@@ -402,6 +403,7 @@
     <Compile Include="Helpers\RouteExtensions.cs" />
     <Compile Include="Helpers\SessionExtensions.cs" />
     <Compile Include="Helpers\ViewExtensions.cs" />
+    <Compile Include="Infraestructure\Settings.cs" />
     <Compile Include="Infraestructure\UniqueRoute.cs" />
     <Compile Include="LogManager\LogManager.cs" />
     <Compile Include="Models\AdmCuponModel.cs" />
@@ -3191,7 +3193,6 @@
     <Content Include="Scripts\DD_roundies.js" />
     <Content Include="Scripts\donetyping.js" />
     <Content Include="Scripts\fileuploader.min.js" />
-    <Content Include="Scripts\fingerprint2.js" />
     <Content Include="Scripts\flipclock.js" />
     <Content Include="Scripts\fuzemodal-1.3\fuzemodal-1.3.1.min.js" />
     <Content Include="Scripts\fuzemodal-1.3\fuzemodal-1.3.2.min.js" />
@@ -3601,6 +3602,7 @@
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloquePopupPostulante.cshtml" />
     <Content Include="Content\FAQ\CodigoEticaCAPEVEDI_PE.pdf" />
     <Content Include="Content\FAQ\QUIZCAPEVEDI_PE.pdf" />
+    <Content Include="Areas\Mobile\Views\Shared\_MobileLayoutPedidoEmpty.cshtml" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>
@@ -4431,6 +4433,7 @@
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpDialogErrorMainLayout.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpDialogMensajes.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpTemplateResumenCampania.cshtml" />
+    <Content Include="Views\AdministrarGuiaNegocioDigitalizada\Index.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\template-producto-landing.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-descargables-navidenos.cshtml" />
     <Content Include="Areas\Mobile\Views\Util\_barra.cshtml" />

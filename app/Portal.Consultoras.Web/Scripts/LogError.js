@@ -106,7 +106,6 @@ $(document).ajaxError(function (event, jqxhr, settings, thrownError) {
 });
 
 function registrarLogError(objError) {
-    console.log(objError);
 
     if (!urlLogDynamo) return;
 

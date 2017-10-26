@@ -1,14 +1,13 @@
-﻿using System;
-using System.Web.Mvc;
-using System.Web.Routing;
-using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.Controllers;
-using Portal.Consultoras.Web.Models;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
-using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.Controllers;
 using Portal.Consultoras.Web.CustomFilters;
 using Portal.Consultoras.Web.Helpers;
 using Portal.Consultoras.Web.Infraestructure;
+using Portal.Consultoras.Web.Models;
+using System;
+using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -21,6 +20,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             base.OnActionExecuting(filterContext);
 
             if (Session["UserData"] == null) return;
+
+            if (Request.IsAjaxRequest())
+            {
+                return;
+            }
 
             var userData = UserData();
             ViewBag.CodigoCampania = userData.CampaniaID.ToString();
@@ -143,7 +147,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 int j = ViewBag.NombreConsultora.Trim().IndexOf(' ');
                 if (j >= 0) ViewBag.NombreConsultora = ViewBag.NombreConsultora.Substring(0, j).Trim();
 
-                ViewBag.NumeroCampania = userData.NombreCorto.Substring(4);
+                ViewBag.NumeroCampania = (!string.IsNullOrEmpty(userData.NombreCorto) && userData.NombreCorto.Length > 4)
+                    ? userData.NombreCorto.Substring(4) : "";
                 ViewBag.EsUsuarioComunidad = userData.EsUsuarioComunidad ? 1 : 0;
                 ViewBag.AnalyticsCampania = userData.CampaniaID;
                 ViewBag.AnalyticsSegmento = string.IsNullOrEmpty(userData.Segmento) ? "(not available)" : userData.Segmento.Trim();

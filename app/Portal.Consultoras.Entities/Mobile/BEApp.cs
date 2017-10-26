@@ -57,7 +57,7 @@ namespace Portal.Consultoras.Entities.Mobile
 
             if (row.HasColumn("Version"))
                 Version = row.GetValue<string>("Version");
-            
+
             if (row.HasColumn("RequiereActualizacion"))
                 RequiereActualizacion = row.GetValue<bool>("RequiereActualizacion");
 

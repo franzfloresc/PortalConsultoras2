@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Runtime.Serialization;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Data;
-using Portal.Consultoras.Common;
+using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities
 {
@@ -55,7 +51,7 @@ namespace Portal.Consultoras.Entities
         public string CodigoPrograma { get; set; }
 
         [DataMember]
-        public int FlagMostrarImg { get; set; }      // SB2-353 
+        public int FlagMostrarImg { get; set; }
 
         [DataMember]
         public int CodigoGeneral { get; set; }

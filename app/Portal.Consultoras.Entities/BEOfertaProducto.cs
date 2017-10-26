@@ -1,22 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
+﻿using OpenSource.Library.DataAccess;
 using Portal.Consultoras.Common;
-using OpenSource.Library.DataAccess;
+using System;
+using System.Data;
+using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities
 {
     [DataContract]
     public class BEOfertaProducto
     {
-        //        [TipoOfertaSisID] [int] NULL,
-        //[CampaniaID] [int] NULL,
-        //[CUV] [varchar](20) NULL,
-        //[Stock] [int] NULL
         [DataMember]
         [ViewProperty]
         public int PaisID { get; set; }
@@ -93,7 +85,6 @@ namespace Portal.Consultoras.Entities
         [ViewProperty]
         public int StockInicial { get; set; }
 
-        /* 2024 - Inicio */
         [DataMember]
         [ViewProperty]
         public int ID { get; set; }
@@ -124,9 +115,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         [ViewProperty]
         public int ConsultoraID { get; set; }
-        /* 2024 - Fin */
 
-        /*R2469 - JICM - INI*/
         [DataMember]
         [ViewProperty]
         public string DescripcionMarca { get; set; }
@@ -136,7 +125,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         [ViewProperty]
         public string DescripcionEstrategia { get; set; }
-        /*R2469 - JICM - FIN*/
+
         public BEOfertaProducto(IDataRecord row)
         {
             if (DataRecord.HasColumn(row, "OfertaProductoID") && row["OfertaProductoID"] != DBNull.Value)
@@ -179,7 +168,7 @@ namespace Portal.Consultoras.Entities
                 MarcaID = Convert.ToInt32(row["MarcaID"]);
             if (DataRecord.HasColumn(row, "StockInicial") && row["StockInicial"] != DBNull.Value)
                 StockInicial = Convert.ToInt32(row["StockInicial"]);
-            /* 2024 - Inicio */
+
             if (DataRecord.HasColumn(row, "ID") && row["ID"] != DBNull.Value)
                 ID = Convert.ToInt32(row["ID"]);
 
@@ -203,9 +192,7 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "TallaColor") && row["TallaColor"] != DBNull.Value)
                 TallaColor = row["TallaColor"].ToString();
-            /* 2024 - Fin */
 
-            /*R2469 - JICM - INI 2505 DCG*/
             if (DataRecord.HasColumn(row, "DescripcionMarca") && row["DescripcionMarca"] != DBNull.Value)
                 DescripcionMarca = row["DescripcionMarca"].ToString();
 
@@ -214,7 +201,6 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "DescripcionEstrategia") && row["DescripcionEstrategia"] != DBNull.Value)
                 DescripcionEstrategia = row["DescripcionEstrategia"].ToString();
-            /*R2469 - JICM - FIN*/
 
         }
         public BEOfertaProducto()

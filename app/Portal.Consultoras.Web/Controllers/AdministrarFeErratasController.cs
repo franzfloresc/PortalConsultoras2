@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.ServiceModel;
-using System.Web;
-using System.Web.Mvc;
-using AutoMapper;
+﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceZonificacion;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.ServiceModel;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -177,7 +175,7 @@ namespace Portal.Consultoras.Web.Controllers
                            select new
                            {
                                id = a.FeErratasID.ToString(),
-                               cell = new string[] 
+                               cell = new string[]
                                {
                                    a.FeErratasID.ToString(),
                                    a.PaisID.ToString(),
@@ -199,7 +197,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             // se lee la lista de Session
             var listaEntradas = Session["entradas"] as List<AdministrarFeErratasModel>;
-            if (listaEntradas != null && listaEntradas.Count>0)
+            if (listaEntradas != null && listaEntradas.Count > 0)
             {
                 // se realiza el mapeo
                 Mapper.CreateMap<AdministrarFeErratasModel, BEFeErratas>()
@@ -401,7 +399,7 @@ namespace Portal.Consultoras.Web.Controllers
                            select new
                            {
                                id = a.FeErratasID.ToString(),
-                               cell = new string[] 
+                               cell = new string[]
                                {
                                    a.FeErratasID.ToString(),
                                    a.Pagina.ToString(),

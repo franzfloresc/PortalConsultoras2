@@ -16,8 +16,7 @@ namespace Portal.Consultoras.Web.Helpers
         {
             return GetUniqueSession<MobileAppConfiguracionModel>(htmlHelper.ViewContext, "MobileAppConfiguracion");
         }
-
-        //todo: use htmlHelper?
+        
         /// <summary>
         /// Calcula si es un pais Esika basado en ViewBag.PaisAnalytics
         /// </summary>
@@ -25,8 +24,7 @@ namespace Portal.Consultoras.Web.Helpers
         /// <returns></returns>
         public static bool EsPaisEsika(this ViewContext viewContext)
         {
-            return System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika")
-                .Contains(viewContext.ViewBag.PaisAnalytics);
+            return Settings.Instance.PaisesEsika.Contains(viewContext.ViewBag.PaisAnalytics);
         }
 
         /// <summary>
@@ -37,6 +35,11 @@ namespace Portal.Consultoras.Web.Helpers
         public static string MobileLayout(this ViewContext viewContext)
         {
             return viewContext.EsIngresoUnico() ? "_MobileLayoutEmpty" : "_MobileLayout";
+        }
+
+        public static string MobilePedidoLayout(this ViewContext viewContext)
+        {
+            return viewContext.EsIngresoUnico() ? "_MobileLayoutPedidoEmpty" : "_MobileLayout";
         }
 
         /// <summary>
@@ -83,5 +86,6 @@ namespace Portal.Consultoras.Web.Helpers
             var getUniqueSession = GetUniqueSession(viewContext, name);
             return getUniqueSession == null ? newInstance ? new T() : default(T) : (T)getUniqueSession;
         }
+        
     }
 }

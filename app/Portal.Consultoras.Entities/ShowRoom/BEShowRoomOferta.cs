@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
-using OpenSource.Library.DataAccess;
+﻿using OpenSource.Library.DataAccess;
 using Portal.Consultoras.Common;
+using System;
+using System.Data;
+using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities.ShowRoom
 {
@@ -32,7 +27,7 @@ namespace Portal.Consultoras.Entities.ShowRoom
 
         [DataMember]
         [ViewProperty]
-        public int ConfiguracionOfertaID { get; set; }        
+        public int ConfiguracionOfertaID { get; set; }
 
         [DataMember]
         public decimal PrecioValorizado { get; set; }
@@ -68,7 +63,7 @@ namespace Portal.Consultoras.Entities.ShowRoom
 
         [DataMember]
         [ViewProperty]
-        public string CategoriaID { get; set; }     
+        public string CategoriaID { get; set; }
 
         [DataMember]
         [ViewProperty]
@@ -162,7 +157,7 @@ namespace Portal.Consultoras.Entities.ShowRoom
             if (DataRecord.HasColumn(row, "Descripcion") && row["Descripcion"] != DBNull.Value)
                 Descripcion = Convert.ToString(row["Descripcion"]);
             if (DataRecord.HasColumn(row, "PrecioOferta") && row["PrecioOferta"] != DBNull.Value)
-                PrecioOferta = Convert.ToDecimal(row["PrecioOferta"]);           
+                PrecioOferta = Convert.ToDecimal(row["PrecioOferta"]);
             if (DataRecord.HasColumn(row, "PrecioValorizado") && row["PrecioValorizado"] != DBNull.Value)
                 PrecioValorizado = Convert.ToDecimal(row["PrecioValorizado"]);
             if (DataRecord.HasColumn(row, "Stock") && row["Stock"] != DBNull.Value)
@@ -180,7 +175,7 @@ namespace Portal.Consultoras.Entities.ShowRoom
             if (DataRecord.HasColumn(row, "DescripcionLegal") && row["DescripcionLegal"] != DBNull.Value)
                 DescripcionLegal = Convert.ToString(row["DescripcionLegal"]);
             if (DataRecord.HasColumn(row, "CategoriaID") && row["CategoriaID"] != DBNull.Value)
-                CategoriaID = Convert.ToString(row["CategoriaID"]);            
+                CategoriaID = Convert.ToString(row["CategoriaID"]);
             if (DataRecord.HasColumn(row, "UsuarioRegistro") && row["UsuarioRegistro"] != DBNull.Value)
                 UsuarioRegistro = Convert.ToString(row["UsuarioRegistro"]);
             if (DataRecord.HasColumn(row, "FechaRegistro") && row["FechaRegistro"] != DBNull.Value)
@@ -212,7 +207,7 @@ namespace Portal.Consultoras.Entities.ShowRoom
                 DescripcionCategoria = Convert.ToString(row["DescripcionCategoria"]);
             if (DataRecord.HasColumn(row, "EsSubCampania") && row["EsSubCampania"] != DBNull.Value)
                 EsSubCampania = Convert.ToBoolean(row["EsSubCampania"]);
-            
+
         }
     }
 }

@@ -379,7 +379,7 @@
             $('#txtCUV').val('');
             $('#txtPrecio').val('');
             $('#txtDescripcion').val('');
-
+            $('#txtGanancia').val('');
             $('#matriz-imagenes-paginacion').empty();
             $('#matriz-comercial-images').empty();
             $('#file-upload').hide();
@@ -858,7 +858,7 @@
             var params = {
                 campaniaId: parseInt($("#ddlCampania").val()),
                 tipoConfigurado: 2,
-                estrategiaID: $('#ddlTipoEstrategia').find(':selected').data('id'),
+                estrategiaCodigo: $('#ddlTipoEstrategia').find(':selected').data('codigo'),
                 habilitarNemotecnico: estrategiaObj.habilitarNemotecnico
             };
 
@@ -1503,7 +1503,7 @@
         var parametros = {
             campaniaId: parseInt($("#ddlCampania").val()),
             tipoConfigurado: parseInt(tipo),
-            estrategiaID: $('#ddlTipoEstrategia').find(':selected').data('id')
+            estrategiaCodigo: $('#ddlTipoEstrategia').find(':selected').data('codigo')
         };
 
         $('#listGrillaCuv1').setGridParam({ postData: parametros });
@@ -1777,6 +1777,7 @@
                     var imgFichaFondoMobile = $("#nombre-img-ficha-fondo-mobile").val();
                     var imgHomeDesktop = $("#nombre-img-home-desktop").val();
                     var imgHomeMobile = $("#nombre-img-home-mobile").val();
+                    var ganancia = $("#txtGanancia").val();
                     var esOfertaIndependiente = ($("#chkEsOfertaIndependiente").attr("checked")) ? true : false;
 
                     var params = {
@@ -1819,7 +1820,8 @@
                         ImgHomeDesktop: imgHomeDesktop,
                         ImgHomeMobile: imgHomeMobile,
                         PrecioAnt: $('#hdEstrategiaPrecioAnt').val(),
-                        EsOfertaIndependiente: esOfertaIndependiente
+                        EsOfertaIndependiente: esOfertaIndependiente,
+                        Ganancia: ganancia
                     };
                     jQuery.ajax({
                         type: 'POST',

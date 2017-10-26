@@ -11,6 +11,8 @@
       <xs:element minOccurs="0" name="CodigoConcurso" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoNivel" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CuponesProgramaNuevas" nillable="true" type="tns:ArrayOfBEIncentivoProgramaNuevasCupon" />
+      <xs:element minOccurs="0" name="MontoExigidoCupon" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MontoExigidoPremio" type="xs:decimal" />
       <xs:element minOccurs="0" name="PremiosProgramaNuevas" nillable="true" type="tns:ArrayOfBEIncentivoProgramaNuevasPremio" />
     </xs:sequence>
   </xs:complexType>

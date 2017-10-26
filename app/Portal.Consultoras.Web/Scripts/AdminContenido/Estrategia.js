@@ -191,14 +191,14 @@
                 $("#txtPrecio").val(parseFloat(data.Precio).toFixed(2));
                 $("#hdEstrategiaPrecioAnt").val(parseFloat(data.Precio2).toFixed(2));
             } else {
-                $("#txtPrecio").val('');
+                $("#txtPrecio").val('0.00');
             }
             $("#txtCUV2").val(data.CUV2);
             $("#ddlEtiqueta2").val(data.EtiquetaID2);
             if (data.Precio2 != "0") {
                 $("#txtPrecio2").val(parseFloat(data.Precio2).toFixed(2));
             } else {
-                $("#txtPrecio2").val('');
+                $("#txtPrecio2").val('0.00');
             }
             $("#txtTextoLibre").val(data.TextoLibre);
             $("#txtCantidad").val(data.Cantidad);
@@ -281,7 +281,8 @@
             _agregarCamposLanzamiento('img-home-mobile', data.ImgHomeMobile);
             $("#url-video-desktop").val(data.UrlVideoDesktop);
             $("#url-video-mobile").val(data.UrlVideoMobile);
-
+            $("#txtPrecioPublico").val(data.PrecioPublico);
+            $("#txtGanancia").val(data.Ganancia);
             closeWaitingDialog();
 
             return data;
@@ -434,6 +435,8 @@
         _limpiarCamposLanzamiento('img-home-mobile');
         $("#url-video-desktop").val("");
         $("#url-video-mobile").val("");
+        $("#txtPrecioPublico").val("");
+        $("#txtGanancia").val("");
         if ($("#hdEstrategiaCodigo").val() === '005') $('#div-revista-digital').show();
         else $('#div-revista-digital').hide();
 
@@ -502,9 +505,11 @@
 
                         if (data.wsprecio > 0) {
                             $("#txtPrecio2").val(parseFloat(data.wsprecio).toFixed(2));
+                            $("#txtPrecio").val(data.precio);
+                            $("#txtGanancia").val(data.ganancia);
                         }
-                        else if (data.wsprecio == 0) {
-                            if (data.precio == 0) {
+                        else if (data.wsprecio === 0.0) {
+                            if (data.precio === 0.0) {
                                 $("#txtPrecio2").val(parseFloat(data.precio).toFixed(2));
                             }
                             else {

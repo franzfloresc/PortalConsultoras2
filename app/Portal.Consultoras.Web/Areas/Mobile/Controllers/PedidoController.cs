@@ -34,7 +34,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 beConfiguracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.ZonaID, userData.RegionID);
             }
-            
+
             if (beConfiguracionCampania == null)
                 return RedirectToAction("CampaniaZonaNoConfigurada", "Pedido", new { area = "Mobile" });
 
@@ -142,12 +142,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             //model.TieneOfertaLog = userData.TieneOfertaLog;
             ViewBag.DataBarra = GetDataBarra(true, true);
 
-			model.RevistaDigital = revistaDigital;
+            model.RevistaDigital = revistaDigital;
 
             #region EventoFestivo
             var eventofestivo = GetEventoFestivoData();
-            ViewBag.UrlFranjaNegra = string.IsNullOrEmpty(eventofestivo.EfRutaPedido) ? 
-                "../../../Content/Images/Esika/background_pedido.png" : 
+            ViewBag.UrlFranjaNegra = string.IsNullOrEmpty(eventofestivo.EfRutaPedido) ?
+                "../../../Content/Images/Esika/background_pedido.png" :
                 eventofestivo.EfRutaPedido;
             #endregion
 
@@ -160,7 +160,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             string campanaId = "0";
             int campana = 0;
             try
-            {               
+            {
                 if (param.Length == 11)
                 {
                     cuv = param.Substring(0, 5);
@@ -252,17 +252,17 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     }
                 }
                 else // PROL 1
-                {                    
+                {
                     if (userData.PROLSinStock)
                     {
-                    	ViewBag.AccionBoton = "guardar";
+                        ViewBag.AccionBoton = "guardar";
                         model.Prol = "GUARDA TU PEDIDO";
                         model.ProlTooltip = "Es importante que guardes tu pedido";
                         model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
                     }
                     else
                     {
-                    	ViewBag.AccionBoton = "validar";
+                        ViewBag.AccionBoton = "validar";
                         model.Prol = "VALIDA TU PEDIDO";
                         model.ProlTooltip = "Haz click aqui para validar tu pedido";
 
@@ -352,7 +352,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.UrlTerminosOfertaFinalRegalo = string.Format("{0}/SomosBelcorp/FileConsultoras/{1}/Flyer_Regalo_Sorpresa.pdf", ConfigurationManager.AppSettings.Get("oferta_final_regalo_url_s3"), userData.CodigoISO);
             return View(model);
         }
-        
+
         public ActionResult CampaniaZonaNoConfigurada()
         {
             ViewBag.MensajeCampaniaZona = userData.CampaniaID == 0 ? "Campaña" : "Zona";
@@ -360,7 +360,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         }
 
         [HttpGet]
-        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")] 
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public ActionResult Validado()
         {
             BEConfiguracionCampania beConfiguracionCampania;
@@ -373,7 +373,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 if (beConfiguracionCampania.CampaniaID > userData.CampaniaID)
                     return RedirectToAction("Index");
             }
-            
+
             if (beConfiguracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado
                 && (beConfiguracionCampania.ModificaPedidoReservado
                 || beConfiguracionCampania.ValidacionAbierta))
@@ -410,7 +410,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             model.TotalMinimo = lstPedidoWebDetalle.Where(p => p.IndicadorMontoMinimo == 1).Sum(p => p.ImporteTotal);
             model.DescripcionTotalMinimo = Util.DecimalToStringFormat(model.TotalMinimo, model.CodigoISO);
-            
+
             model.MontoAhorroCatalogo = bePedidoWebByCampania.MontoAhorroCatalogo;
             model.MontoAhorroRevista = bePedidoWebByCampania.MontoAhorroRevista;
             model.GanaciaEstimada = model.MontoAhorroCatalogo + model.MontoAhorroRevista;
@@ -495,7 +495,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                                 model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
                             }
                         }
-                    }   
+                    }
                 }
             }
             /* SB20-287 - FIN */
@@ -651,7 +651,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
             return DiaPROL;
         }
-        
+
         private List<BEPedidoWebDetalle> PedidoJerarquico(List<BEPedidoWebDetalle> listadoPedidos)
         {
             List<BEPedidoWebDetalle> result = new List<BEPedidoWebDetalle>();
@@ -682,7 +682,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
 
             // se recorren los productos del pedido y se evalua su indicador de descuento aplicando la logica siguiente:
-            ProductosIndicadorDscto.ForEach(delegate(BEPedidoWebDetalleDescuento productoIndicadorDscto)
+            ProductosIndicadorDscto.ForEach(delegate (BEPedidoWebDetalleDescuento productoIndicadorDscto)
             {
                 string indicador = productoIndicadorDscto.IndicadorDscto.ToLower();
                 decimal indicadorNumero;
@@ -726,7 +726,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    listaParametriaOfertaFinal = sv.GetParametriaOfertaFinal(userData.PaisID,GetOfertaFinal().Algoritmo).ToList() ?? new List<BEEscalaDescuento>();
+                    listaParametriaOfertaFinal = sv.GetParametriaOfertaFinal(userData.PaisID, GetOfertaFinal().Algoritmo).ToList() ?? new List<BEEscalaDescuento>();
                 }
             }
             catch (Exception)

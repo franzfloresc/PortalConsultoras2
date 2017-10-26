@@ -13,7 +13,7 @@ jQuery(document).ready(function () {
         LayoutMenu();
     });
 
-    if (typeof (fingerprintOk) !== 'undefined' && typeof (tokenPedidoAutenticoOk) !== 'undefined') {
+    if (typeof (tokenPedidoAutenticoOk) !== 'undefined') {
         GuardarIndicadorPedidoAutentico();
     }
 });
@@ -311,7 +311,7 @@ jQuery(document).ready(function () {
         //$(idHtml).load(urlTemplate, function (dataTemplate, status, xhr) {
         jQuery.get(urlTemplate, function (dataTemplate) {
             dataTemplate = $.trim(dataTemplate);
-            //console.log(dataTemplate);
+
             if (dataTemplate == "") {
                 return false;
             }
@@ -425,7 +425,7 @@ jQuery(document).ready(function () {
                 arrAux = newLista.Find(campo, item[campo]);
             }
             else {
-                arrAux = newLista.Find(item)
+                arrAux = newLista.Find(item);
             }
             if (arrAux.length == 0) {
                 try {
@@ -632,7 +632,7 @@ function IsValidUrl(value) {
 }
 
 function isMobile() {
-    var isUrlMobile = $.trim(location.href).toLowerCase().indexOf("/mobile/") > 0 ||
+    var isUrlMobile = $.trim(location.href.replace("#", "/") + "/").toLowerCase().indexOf("/mobile/") > 0 ||
         $.trim(location.href).toLowerCase().indexOf("/g/") > 0;
     return isUrlMobile;
 }
@@ -860,7 +860,11 @@ FuncionesGenerales = {
         };
 
         return obj;
-    }
+    },
+    MaxLengthCheck: function (object, cantidadMaxima) {
+        if (object.value.length > cantidadMaxima)
+            object.value = object.value.slice(0, cantidadMaxima);
+    },
 };
 
 function InsertarLogDymnamo(pantallaOpcion, opcionAccion, esMobile, extra) {
@@ -880,7 +884,7 @@ function InsertarLogDymnamo(pantallaOpcion, opcionAccion, esMobile, extra) {
         'DispositivoID': '',
         'Version': '2.0',
         'Extra': extra
-    }
+    };
     if (urlLogDynamo != "") {
         jQuery.ajax({
             type: "POST",
@@ -1188,7 +1192,7 @@ function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto, nombre) 
 
     try {
         if (origenPedidoWebEstrategia !== undefined && origenPedidoWebEstrategia.indexOf("7") !== -1) {
-            CompartirProductoRDAnalytics(tipoRedes, ruta, nombre);
+            rdAnalyticsModule.CompartirProducto(tipoRedes, ruta, nombre);
         } else {
             AnalyticsRedesSociales(tipoRedes, ruta);
         }
@@ -1401,9 +1405,9 @@ function OcultarMenu(codigo) {
 
 function MostrarMenu(codigo, accion) {
     codigo = $.trim(codigo);
-    if (codigo == "") {
+    if (codigo == "")
         return false;
-    }
+    
     var idMenus = "#ulNavPrincipal-0";
     var menu = $(idMenus).find("[data-codigo='" + codigo + "']");
     menu = menu.length == 0 ? $(idMenus).find("[data-codigo='" + codigo.toLowerCase() + "']") : menu;
@@ -1604,48 +1608,28 @@ function odd_google_analytics_product_click(name, id, price, brand, variant, pos
     if (variant == null || variant == "")
         variant = "Estándar";
     dataLayer.push({
-	    'event': 'productClick',
-	    'ecommerce':
-		{
-		    'click':
-			{
-			    'actionField': { 'list': 'Oferta del día' },
-			    'products':
-				[{
-				    'name': name,
-				    'id': id,
-				    'price': price,
-				    'brand': brand,
-				    'category': 'No disponible',
-				    'variant': variant,
-				    'position': position
-				}]
-			}
-		}
-	});
+        'event': 'productClick',
+        'ecommerce':
+        {
+            'click':
+            {
+                'actionField': { 'list': 'Oferta del día' },
+                'products':
+                [{
+                    'name': name,
+                    'id': id,
+                    'price': price,
+                    'brand': brand,
+                    'category': 'No disponible',
+                    'variant': variant,
+                    'position': position
+                }]
+            }
+        }
+    });
 }
 
 function GuardarIndicadorPedidoAutentico() {
-    if (fingerprintOk == 0) {
-        new Fingerprint2().get(function (result, components) {
-            var data1 = { 'accion': 1, 'codigo': result };
-            jQuery.ajax({
-                type: 'POST',
-                url: '/Pedido/GuardarIndicadorPedidoAutentico',
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(data1),
-                success: function (response) {
-                    if (response.success) {
-                    }
-                },
-                error: function (response) {
-                    console.log(response);
-                }
-            });
-        });
-    }
-
     if (tokenPedidoAutenticoOk == 0) {
         if (typeof (Storage) !== 'undefined') {
             var itemSBTokenPedido = localStorage.getItem('SBTokenPedido');

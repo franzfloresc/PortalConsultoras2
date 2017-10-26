@@ -34,8 +34,8 @@ namespace Portal.Consultoras.BizLogic
 
             return pedidos;
         }
-             
-        public BETracking GetPedidoByConsultoraAndCampania(int paisID,string codigoConsultora, int campania)
+
+        public BETracking GetPedidoByConsultoraAndCampania(int paisID, string codigoConsultora, int campania)
         {
             var pedido = new BETracking();
             var DATracking = new DATracking(paisID);
@@ -118,7 +118,7 @@ namespace Portal.Consultoras.BizLogic
                 Result = DATracking.InsConfirmacionEntrega(oBEConfirmacionEntrega);
 
                 /* EPD-665 - INICIO */
-                if (ConfigurationManager.AppSettings["PaisLogConfirmacionEntrega"].Contains(oBEConfirmacionEntrega.PaisISO) && 
+                if (ConfigurationManager.AppSettings["PaisLogConfirmacionEntrega"].Contains(oBEConfirmacionEntrega.PaisISO) &&
                     ConfigurationManager.AppSettings["SaveLogConfirmacionEntrega"] == "1")
                 {
                     BELogConfirmacionEntrega oBELogConfirmacionEntrega = new BELogConfirmacionEntrega();
@@ -143,7 +143,7 @@ namespace Portal.Consultoras.BizLogic
                 }
                 /* EPD-665 - FIN */
             }
-            catch(Exception ex) 
+            catch (Exception ex)
             {
                 /* EPD-665 */
                 LogManager.SaveLog(ex, "ConfirmacionEntrega", oBEConfirmacionEntrega.PaisISO);
@@ -162,7 +162,7 @@ namespace Portal.Consultoras.BizLogic
                 Result = DATracking.UpdConfirmacionEntrega(oBEConfirmacionEntrega);
 
                 /* EPD-665 - INICIO */
-                if (ConfigurationManager.AppSettings["PaisLogConfirmacionEntrega"].Contains(oBEConfirmacionEntrega.PaisISO) && 
+                if (ConfigurationManager.AppSettings["PaisLogConfirmacionEntrega"].Contains(oBEConfirmacionEntrega.PaisISO) &&
                     ConfigurationManager.AppSettings["SaveLogConfirmacionEntrega"] == "1")
                 {
                     BELogConfirmacionEntrega oBELogConfirmacionEntrega = new BELogConfirmacionEntrega();
@@ -178,7 +178,7 @@ namespace Portal.Consultoras.BizLogic
                 }
                 /* EPD-665 - FIN */
             }
-            catch(Exception ex) 
+            catch (Exception ex)
             {
                 /* EPD-665 */
                 LogManager.SaveLog(ex, "ConfirmacionEntrega", oBEConfirmacionEntrega.PaisISO);

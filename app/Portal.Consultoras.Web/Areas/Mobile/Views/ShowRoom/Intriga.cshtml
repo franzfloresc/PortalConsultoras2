@@ -22,7 +22,7 @@
 @*<div class="content_banner_header_showroom">
         <div class="content_titulo"><div class="titulo_intriga">VENTA EXCLUSIVA WEB</div></div>
         <div class="faltan_dias_header"><b>@ViewBag.LetrasDias</b></div>
-        <img src="@ViewBag.ImagenBannerShowroomIntriga" alt="Solo Hoy" />
+        <img src="@ViewBag.ImagenBannerShowroomIntriga" alt="" />
         @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel() : (Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
             if (mobileConfiguracion.MostrarBotonAtras)
             {
@@ -59,7 +59,7 @@
     <div class="variable-width">
         <div>
             <div class="producto_faltante">
-                <img src="@Url.Content("~/Content/Images/Mobile/img-showroom/pronto2.png")" alt="Solo Hoy" />
+                <img src="@Url.Content("~/Content/Images/Mobile/img-showroom/pronto2.png")" alt="" />
             </div>
             <div class="linea_separadora_intriga"></div>
         </div>
@@ -101,7 +101,7 @@
         </div>
         <div>
             <div class="producto_faltante">
-                <img src="@Url.Content("~/Content/Images/Mobile/img-showroom/pronto2.png")" alt="Solo Hoy" />
+                <img src="@Url.Content("~/Content/Images/Mobile/img-showroom/pronto2.png")" alt="" />
             </div>
             <div class="linea_separadora_intriga"></div>
         </div>
