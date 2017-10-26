@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Portal.Consultoras.Common
 {
@@ -79,7 +76,7 @@ namespace Portal.Consultoras.Common
     public class RecipientMetadata
     {
         public string rcpt;
-        public Values values; 
+        public Values values;
     }
     public class Attachments
     {

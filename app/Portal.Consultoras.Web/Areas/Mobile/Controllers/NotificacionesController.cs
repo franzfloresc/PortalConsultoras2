@@ -2,6 +2,7 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServiceCDR;
 using Portal.Consultoras.Web.ServiceCliente;
 using Portal.Consultoras.Web.ServicePedidoRechazado;
 using Portal.Consultoras.Web.ServiceSAC;
@@ -120,6 +121,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
                 catch (Exception ex)
                 {
+                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 }
 
                 var data = new
@@ -131,6 +133,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
             catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+
                 var data = new
                 {
                     success = false,
@@ -186,7 +190,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         }
                         catch (Exception ex)
                         {
-
+                            LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                         }
                     }
                 }
@@ -323,9 +327,42 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return View("ListadoPedidoRechazadoDetalle", model);
         }
 
-        public ActionResult DetalleNotificacionesCDR()
+        public ActionResult DetalleNotificacionesCDR(long solicitudId, string Proceso)
         {
-            return View();
+            if (Proceso == "CDR" || Proceso == "CDR-CULM")
+            {
+                var cdrWeb = new BECDRWeb();
+                var logCdrWeb = new BELogCDRWeb();
+                var listaCdrWebDetalle = new List<BECDRWebDetalle>();
+                using (CDRServiceClient sv = new CDRServiceClient())
+                {
+                    if (Proceso == "CDR")
+                    {
+                        logCdrWeb = sv.GetLogCDRWebByLogCDRWebId(userData.PaisID, solicitudId);
+                        listaCdrWebDetalle = sv.GetCDRWebDetalleLog(userData.PaisID, logCdrWeb).ToList() ?? new List<BECDRWebDetalle>();
+                    }
+                    else if (Proceso == "CDR-CULM")
+                    {
+                        cdrWeb = sv.GetCDRWebByLogCDRWebCulminadoId(userData.PaisID, solicitudId);
+                        listaCdrWebDetalle = sv.GetCDRWebDetalleByLogCDRWebCulminadoId(userData.PaisID, solicitudId).ToList() ?? new List<BECDRWebDetalle>();
+                    }
+                }
+
+                listaCdrWebDetalle.Update(p => p.Solicitud = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.Finalizado).Descripcion);
+                listaCdrWebDetalle.Update(p => p.SolucionSolicitada = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.MensajeFinalizado).Descripcion);
+
+                var model = Proceso == "CDR-CULM" ? Mapper.Map<CDRWebModel>(cdrWeb) : Mapper.Map<CDRWebModel>(logCdrWeb);
+                model.CodigoIso = userData.CodigoISO;
+                model.NombreConsultora = userData.NombreConsultora;
+                model.Simbolo = userData.Simbolo;
+                model.ListaDetalle = listaCdrWebDetalle;
+                model.Proceso = Proceso;
+                return View("DetalleNotificacionesCDR", model);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Notificaciones", new { area = "Mobile" });
+            }
         }
 
         #endregion

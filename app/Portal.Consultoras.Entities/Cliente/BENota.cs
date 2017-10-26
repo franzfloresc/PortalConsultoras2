@@ -1,9 +1,7 @@
-﻿using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Entities.Framework;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data;
 using System.Runtime.Serialization;
-using Portal.Consultoras.Entities.Framework;
 
 namespace Portal.Consultoras.Entities.Cliente
 {

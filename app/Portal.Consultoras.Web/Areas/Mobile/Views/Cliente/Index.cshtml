@@ -1,5 +1,6 @@
 ﻿@using Portal.Consultoras.Web.Areas.Mobile.Models
 @using System.Globalization
+@using Portal.Consultoras.Web.Helpers
 
 @model List<ClienteMobileModel>
 
@@ -49,7 +50,7 @@
         </style>
     }
     <div class="titulo_mobile">
-        @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new MobileAppConfiguracionModel() : (MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+        @{  var mobileConfiguracion = Html.MobileAppConfiguracion();
             if (mobileConfiguracion.MostrarBotonAtras)
             {
                 <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>

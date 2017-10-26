@@ -6,7 +6,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
     public class OfertasParaTiController : BaseEstrategiaController
     {
-        
+
         public ActionResult Index()
         {
             return View();
@@ -19,7 +19,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     ? origen
                     : Constantes.OrigenPedidoWeb.MobileOfertasParaTiDetalle;
 
-                var modelo = EstrategiaGetDetalle(id, "", origen);
+                var modelo = EstrategiaGetDetalle(id, "");
                 //origen = origen < 10 ? 11 : origen;
                 var origenPantalla = Util.SubStr(origen.ToString(), 1, 1);
 
@@ -56,7 +56,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         break;
                 }
 
-                ViewBag.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
+                ViewBag.EstadoSuscripcion = revistaDigital.SuscripcionModel.EstadoRegistro;
                 ViewBag.CampaniaMasDos = AddCampaniaAndNumero(userData.CampaniaID, 2) % 100;
                 return View(modelo);
 

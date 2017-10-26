@@ -204,87 +204,56 @@ namespace Portal.Consultoras.BizLogic
 
         public List<BEEstrategia> GetEstrategiasPedido(BEEstrategia entidad)
         {
-            var estrategiasResult = new List<BEEstrategia>();
             var estrategias = new List<BEEstrategia>();
-            var codigoIso = Util.GetPaisISO(entidad.PaisID);
 
             var daEstrategia = new DAEstrategia(entidad.PaisID);
-            using (var reader = daEstrategia.GetEstrategiaPedido(entidad))
+            switch (entidad.CodigoTipoEstrategia)
             {
-                while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
-            }
-
-            var esFacturacion = false;
-            if (entidad.ValidarPeriodoFacturacion)
-            {
-                var fechaHoy = DateTime.Now.AddHours(entidad.ZonaHoraria).Date;
-                esFacturacion = fechaHoy >= entidad.FechaInicioFacturacion.Date;
-            }
-
-            if (esFacturacion)
-            {
-                /*Obtener si tiene stock de PROL por CodigoSAP*/
-                var listaTieneStock = new List<Lista>();
-                try
-                {
-                    var codigoSap = string.Join("|", estrategias.Where(e => !string.IsNullOrEmpty(e.CodigoProducto)).Select(e => e.CodigoProducto));
-                    if (!string.IsNullOrEmpty(codigoSap))
+                case Constantes.TipoEstrategiaCodigo.OfertaWeb:
+                    using (var reader = daEstrategia.GetEstrategiaOfertaWeb(entidad))
                     {
-                        using (var sv = new wsConsulta())
-                        {
-                            sv.Url = ConfigurationManager.AppSettings["RutaServicePROLConsultas"];
-                            listaTieneStock = sv.ConsultaStock(codigoSap, codigoIso).ToList();
-                        }
+                        while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
                     }
-                }
-                catch (Exception ex)
-                {
-                    LogManager.SaveLog(ex, entidad.ConsultoraID, entidad.PaisID.ToString());
-                    listaTieneStock = new List<Lista>();
-                }
-
-                estrategias.ForEach(estrategia =>
-                {
-                    if (estrategia.Precio2 > 0)
+                    break;
+                case Constantes.TipoEstrategiaCodigo.PackNuevas:
+                    using (var reader = daEstrategia.GetEstrategiaPackNuevas(entidad))
                     {
-                        var add = true;
-                        if (estrategia.TipoEstrategiaImagenMostrar ==
-                            Constantes.TipoEstrategia.OfertaParaTi)
-                        {
-                        add = listaTieneStock.Any(p => p.Codsap.ToString() == estrategia.CodigoProducto && p.estado == 1);
-                        }
-                        if (!add) return;
-
-                        if (estrategia.Precio >= estrategia.Precio2)
-                            estrategia.Precio = Convert.ToDecimal(0.0);
-
-                        estrategiasResult.Add(estrategia);
+                        while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
                     }
-                });
+                    break;
+                case Constantes.TipoEstrategiaCodigo.Lanzamiento:
+                    using (var reader = daEstrategia.GetEstrategiaLanzamiento(entidad))
+                    {
+                        while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
+                    }
+                    break;
+                case Constantes.TipoEstrategiaCodigo.OfertaParaTi:
+                    using (var reader = daEstrategia.GetEstrategiaOfertaParaTi(entidad))
+                    {
+                        while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
+                    }
+                    break;
+                case Constantes.TipoEstrategiaCodigo.RevistaDigital:
+                    using (var reader = daEstrategia.GetEstrategiaRevistaDigital(entidad))
+                    {
+                        while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
+                    }
+                    break;
+                default:
+                    using (var reader = daEstrategia.GetEstrategiaPedido(entidad))
+                    {
+                        while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
+                    }
+                    break;
             }
-            else estrategiasResult.AddRange(estrategias);
-
-            var carpetaPais = Globals.UrlMatriz + "/" + codigoIso; //pais ISO
-            estrategiasResult.ForEach(estrategia =>
-            {
-                estrategia.CampaniaID = entidad.CampaniaID;
-                estrategia.ImagenURL = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.ImagenURL, carpetaPais);
-                estrategia.Simbolo = entidad.Simbolo;
-                estrategia.TieneStockProl = true;
-                estrategia.PrecioString = Util.DecimalToStringFormat(estrategia.Precio2, codigoIso);
-                estrategia.PrecioTachado = Util.DecimalToStringFormat(estrategia.Precio, codigoIso);
-                estrategia.FotoProducto01 = string.IsNullOrEmpty(estrategia.FotoProducto01) ? string.Empty : ConfigS3.GetUrlFileS3(carpetaPais, estrategia.FotoProducto01, carpetaPais);
-                estrategia.URLCompartir = Util.GetUrlCompartirFB(codigoIso);
-                estrategia.CodigoEstrategia = Util.Trim(estrategia.CodigoEstrategia);
-            });
+            
+            var estrategiasResult = EstrategiasPedidoLimpiar(estrategias, entidad);
             return estrategiasResult;
         }
 
         public List<BEEstrategia> GetMasVendidos(BEEstrategia entidad)
         {
-            var estrategiasResult = new List<BEEstrategia>();
             var estrategias = new List<BEEstrategia>();
-            var codigoIso = Util.GetPaisISO(entidad.PaisID);
 
             var daEstrategia = new DAEstrategia(entidad.PaisID);
             using (var reader = daEstrategia.GetMasVendidos(entidad))
@@ -292,20 +261,28 @@ namespace Portal.Consultoras.BizLogic
                 while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
             }
 
+            var estrategiasResult = EstrategiasPedidoLimpiar(estrategias, entidad);
+            return estrategiasResult;
+        }
+
+        private List<BEEstrategia> EstrategiasPedidoLimpiar(List<BEEstrategia> lista, BEEstrategia entidad)
+        {
+            var estrategiasResult = new List<BEEstrategia>();
+            var codigoIso = Util.GetPaisISO(entidad.PaisID);
             var esFacturacion = false;
             if (entidad.ValidarPeriodoFacturacion)
             {
                 var fechaHoy = DateTime.Now.AddHours(entidad.ZonaHoraria).Date;
                 esFacturacion = fechaHoy >= entidad.FechaInicioFacturacion.Date;
             }
-
+            
             if (esFacturacion)
             {
                 /*Obtener si tiene stock de PROL por CodigoSAP*/
                 var listaTieneStock = new List<Lista>();
                 try
                 {
-                    var codigoSap = string.Join("|", estrategias.Where(e => !string.IsNullOrEmpty(e.CodigoProducto)).Select(e => e.CodigoProducto));
+                    var codigoSap = string.Join("|", lista.Where(e => !string.IsNullOrEmpty(e.CodigoProducto)).Select(e => e.CodigoProducto));
                     if (!string.IsNullOrEmpty(codigoSap))
                     {
                         using (var sv = new wsConsulta())
@@ -321,35 +298,39 @@ namespace Portal.Consultoras.BizLogic
                     listaTieneStock = new List<Lista>();
                 }
 
-                estrategias.ForEach(estrategia =>
+                lista.ForEach(estrategia =>
                 {
                     if (estrategia.Precio2 > 0)
                     {
                         var add = true;
-                        if (estrategia.TipoEstrategiaImagenMostrar ==
-                            Constantes.TipoEstrategia.OfertaParaTi)
-                        {
+                        if (estrategia.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.OfertaParaTi)
                             add = listaTieneStock.Any(p => p.Codsap.ToString() == estrategia.CodigoProducto && p.estado == 1);
-                        }
+
                         if (!add) return;
 
-                        if (estrategia.Precio >= estrategia.Precio2)
-                            estrategia.Precio = Convert.ToDecimal(0.0);
+                        // Esto hace que el precio tachado no salga, se supone q el tachado debe ser superior al precio de venta
+                        //if (estrategia.Precio >= estrategia.Precio2)
+                        //    estrategia.Precio = Convert.ToDecimal(0.0);
 
                         estrategiasResult.Add(estrategia);
                     }
                 });
             }
-            else estrategiasResult.AddRange(estrategias);
-
-            var carpetaPais = Globals.UrlMatriz + "/" + codigoIso; //pais ISO
+            else estrategiasResult.AddRange(lista.Where(e => e.Precio2 > 0));
+            
+            var carpetaPais = Globals.UrlMatriz + "/" + codigoIso;
             estrategiasResult.ForEach(estrategia =>
             {
+                if (estrategia.Precio <= estrategia.Precio2)
+                    estrategia.Precio = Convert.ToDecimal(0.0);
+
+                estrategia.CampaniaID = entidad.CampaniaID;
                 estrategia.ImagenURL = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.ImagenURL, carpetaPais);
                 estrategia.Simbolo = entidad.Simbolo;
                 estrategia.TieneStockProl = true;
                 estrategia.PrecioString = Util.DecimalToStringFormat(estrategia.Precio2, codigoIso);
                 estrategia.PrecioTachado = Util.DecimalToStringFormat(estrategia.Precio, codigoIso);
+                estrategia.GananciaString = Util.DecimalToStringFormat(estrategia.Ganancia, codigoIso);
                 estrategia.FotoProducto01 = string.IsNullOrEmpty(estrategia.FotoProducto01) ? string.Empty : ConfigS3.GetUrlFileS3(carpetaPais, estrategia.FotoProducto01, carpetaPais);
                 estrategia.URLCompartir = Util.GetUrlCompartirFB(codigoIso);
                 estrategia.CodigoEstrategia = Util.Trim(estrategia.CodigoEstrategia);
@@ -396,12 +377,7 @@ namespace Portal.Consultoras.BizLogic
 
             return lista;
         }
-
-        public string GetCodeEstrategiaByCUV(int paisID, string cuv, int campaniaID)
-        {
-            return new DAEstrategia(paisID).GetCodeEstrategiaByCUV(cuv, campaniaID);
-        }
-
+        
         public string GetImagenOfertaPersonalizadaOF(int paisID, int campaniaID, string cuv)
         {
             var imagen = string.Empty;
@@ -421,14 +397,14 @@ namespace Portal.Consultoras.BizLogic
             catch (Exception) { throw; }
         }
 
-        public List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, int estrategiaId)
+        public List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, string estrategiaCodigo)
         {
             try
             {
                 List<BEEstrategia> listaEstrategias = new List<BEEstrategia>();
 
                 var DAEstrategia = new DAEstrategia(paisId);
-                using (IDataReader reader = DAEstrategia.GetOfertasParaTiByTipoConfigurado(campaniaId, tipoConfigurado, estrategiaId))
+                using (IDataReader reader = DAEstrategia.GetOfertasParaTiByTipoConfigurado(campaniaId, tipoConfigurado, estrategiaCodigo))
                 {
                     while (reader.Read())
                     {
@@ -551,9 +527,9 @@ namespace Portal.Consultoras.BizLogic
                     oTransactionScope.Complete();
                 }
             }
-
             catch (Exception ex)
             {
+                LogManager.SaveLog(ex, "", paisID.ToString());
                 throw;
             }
 

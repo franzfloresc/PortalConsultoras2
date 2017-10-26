@@ -638,10 +638,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BETipoEstrategia> GetTipoEstrategias(BETipoEstrategia entidad);
-
-        [OperationContract]
-        string GetCodeEstrategiaByCUV(int paisID, string cuv, int campaniaID);
-
+        
         // Req. 1747 - Estrategia
         [OperationContract]
         List<BEEstrategia> GetEstrategias(BEEstrategia entidad);
@@ -678,7 +675,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEEstrategia> GetEstrategiasPedido(BEEstrategia entidad);
-
+        
         [OperationContract]
         List<BEEstrategia> GetMasVendidos(BEEstrategia entidad);
 
@@ -1042,7 +1039,7 @@ namespace Portal.Consultoras.ServiceContracts
         int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado, int estrategiaId);
 
         [OperationContract]
-        List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, int estrategiaId);
+        List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, string estrategiaCodigo);
 
         [OperationContract]
         int InsertEstrategiaTemporal(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario);

@@ -1,9 +1,6 @@
 ﻿using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceCatalogosIssuu;
-using Portal.Consultoras.Web.ServiceCliente;
-using Portal.Consultoras.Web.ServiceUsuario;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -41,10 +38,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 scampaniaActual = vcampania[1];
                 scampaniaSiguiente = vcampania[2];
             }
-            else {
+            else
+            {
                 return RedirectToAction("Index", "Login", new { area = "" });
             }
-                      
+
 
             var clienteModel = new MisCatalogosRevistasModel();
             clienteModel.PaisNombre = CodigoISO;
@@ -54,7 +52,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             clienteModel.CodigoRevistaActual = GetRevistaCodigoIssuu(clienteModel.CampaniaActual);
             clienteModel.CodigoRevistaAnterior = GetRevistaCodigoIssuu(clienteModel.CampaniaAnterior);
             clienteModel.CodigoRevistaSiguiente = GetRevistaCodigoIssuu(clienteModel.CampaniaSiguiente);
-            var EsMobile = Request.Browser.IsMobileDevice; 
+            var EsMobile = Request.Browser.IsMobileDevice;
             if (EsMobile)
             {
                 clienteModel.NombreClasefb = "btnfbMobile";
@@ -222,7 +220,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             codigo = ConfigurationManager.AppSettings["CodigoCatalogoIssuu"].ToString();
             return string.Format(codigo, nombreCatalogoIssuu, paisNombre, campania.Substring(4, 2), campania.Substring(0, 4));
         }
-		
+
         [HttpPost]
         public JsonResult ObtenerPortadaRevista(string codigoRevista)
         {

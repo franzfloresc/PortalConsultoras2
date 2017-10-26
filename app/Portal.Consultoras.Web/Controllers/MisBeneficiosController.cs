@@ -1,24 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using AutoMapper;
+﻿using AutoMapper;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceSAC;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
     public class MisBeneficiosController : BaseController
     {
-        //
-        // GET: /MisBeneficios/
-
         public ActionResult Index()
         {
             ViewBag.CodigoISO_MB = userData.CodigoISO;
             return View();
-        }       
+        }
 
         [HttpGet]
         public JsonResult GetJsonProgramasBelcorp()
@@ -54,7 +49,7 @@ namespace Portal.Consultoras.Web.Controllers
                         .ForMember(x => x.ServicioId, t => t.MapFrom(c => c.ServicioId))
                         .ForMember(x => x.Descripcion, t => t.MapFrom(c => c.Descripcion))
                         .ForMember(x => x.Url, t => t.MapFrom(c => c.Url));
-               
+
                 return Json(new
                 {
                     lista = Mapper.Map<IList<ServiceSAC.BEServicioCampania>, List<ServicioCampaniaModel>>(lst),
@@ -66,7 +61,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lista = new List<ServicioCampaniaModel>(),
                 exito = false
-            }, JsonRequestBehavior.AllowGet);  
+            }, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -1,14 +1,12 @@
-﻿using System;
+﻿using AutoMapper;
+using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServiceSAC;
+using Portal.Consultoras.Web.ServiceZonificacion;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.ServiceModel;
-using System.Web;
 using System.Web.Mvc;
-using AutoMapper;
-using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServiceZonificacion;
-using Portal.Consultoras.Web.ServiceSAC;
-using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -93,11 +91,11 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult TraerRegiones(int pais)
         {
             JsTreeModel[] tree = null;
-            tree = new JsTreeModel[] 
+            tree = new JsTreeModel[]
                 {
                     new JsTreeModel { data = "Confirm Application", attr = new JsTreeAttribute { id = 10, selected = true } },
-                    new JsTreeModel 
-                    { 
+                    new JsTreeModel
+                    {
                         data = "Things",
                         attr = new JsTreeAttribute { id = 20 },
                         children = new JsTreeModel[]
@@ -105,14 +103,14 @@ namespace Portal.Consultoras.Web.Controllers
                                 new JsTreeModel { data = "Thing 1", attr = new JsTreeAttribute { id = 21, selected = true } },
                                 new JsTreeModel { data = "Thing 2", attr = new JsTreeAttribute { id = 22 } },
                                 new JsTreeModel { data = "Thing 3", attr = new JsTreeAttribute { id = 23 } },
-                                new JsTreeModel 
-                                { 
-                                    data = "Thing 4", 
+                                new JsTreeModel
+                                {
+                                    data = "Thing 4",
                                     attr = new JsTreeAttribute { id = 24 },
-                                    children = new JsTreeModel[] 
-                                    { 
-                                        new JsTreeModel { data = "Thing 4.1", attr = new JsTreeAttribute { id = 241 } }, 
-                                        new JsTreeModel { data = "Thing 4.2", attr = new JsTreeAttribute { id = 242 } }, 
+                                    children = new JsTreeModel[]
+                                    {
+                                        new JsTreeModel { data = "Thing 4.1", attr = new JsTreeAttribute { id = 241 } },
+                                        new JsTreeModel { data = "Thing 4.2", attr = new JsTreeAttribute { id = 242 } },
                                         new JsTreeModel { data = "Thing 4.3", attr = new JsTreeAttribute { id = 243 } }
                                     },
                                 },
@@ -175,11 +173,11 @@ namespace Portal.Consultoras.Web.Controllers
                     sv.UpdConfiguracionValidacionZonaCronograma(UserData().PaisID, EntradasConfiguracionValidacionZona.ToArray());
                 }
                 return Json(new
-                       {
-                           success = true,
-                           message = "Modificación de cronograma exitosa.",
-                           extra = ""
-                       });
+                {
+                    success = true,
+                    message = "Modificación de cronograma exitosa.",
+                    extra = ""
+                });
             }
             catch (Exception ex)
             {
@@ -215,95 +213,95 @@ namespace Portal.Consultoras.Web.Controllers
         {
             //if (ModelState.IsValid)
             //{
-                IList<BELogModificacionCronograma> lst;
-                using (SACServiceClient sv = new SACServiceClient())
+            IList<BELogModificacionCronograma> lst;
+            using (SACServiceClient sv = new SACServiceClient())
+            {
+                lst = sv.GetLogModificacionCronograma(UserData().PaisID);
+            }
+
+            // Usamos el modelo para obtener los datos
+            BEGrid grid = new BEGrid();
+            grid.PageSize = rows;
+            grid.CurrentPage = page;
+            grid.SortColumn = sidx;
+            grid.SortOrder = sord;
+            //int buscar = int.Parse(txtBuscar);
+            BEPager pag = new BEPager();
+            IEnumerable<BELogModificacionCronograma> items = lst;
+
+            #region Sort Section
+            if (sord == "asc")
+            {
+                switch (sidx)
                 {
-                    lst = sv.GetLogModificacionCronograma(UserData().PaisID);
+                    case "CodigoUsuario":
+                        items = lst.OrderBy(x => x.CodigoUsuario);
+                        break;
+                    case "Fecha":
+                        items = lst.OrderBy(x => x.Fecha);
+                        break;
+                    case "CodigosRegionZona":
+                        items = lst.OrderBy(x => x.CodigosRegionZona);
+                        break;
+                    case "DiasCronogramaAnterior":
+                        items = lst.OrderBy(x => x.DiasDuracionCronogramaAnterior);
+                        break;
+                    case "DiasCronogramaActual":
+                        items = lst.OrderBy(x => x.DiasDuracionCronogramaActual);
+                        break;
                 }
-
-                // Usamos el modelo para obtener los datos
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
-                //int buscar = int.Parse(txtBuscar);
-                BEPager pag = new BEPager();
-                IEnumerable<BELogModificacionCronograma> items = lst;
-
-                #region Sort Section
-                if (sord == "asc")
+            }
+            else
+            {
+                switch (sidx)
                 {
-                    switch (sidx)
-                    {
-                        case "CodigoUsuario":
-                            items = lst.OrderBy(x => x.CodigoUsuario);
-                            break;
-                        case "Fecha":
-                            items = lst.OrderBy(x => x.Fecha);
-                            break;
-                        case "CodigosRegionZona":
-                            items = lst.OrderBy(x => x.CodigosRegionZona);
-                            break;
-                        case "DiasCronogramaAnterior":
-                            items = lst.OrderBy(x => x.DiasDuracionCronogramaAnterior);
-                            break;
-                        case "DiasCronogramaActual":
-                            items = lst.OrderBy(x => x.DiasDuracionCronogramaActual);
-                            break;
-                    }
+                    case "CodigoUsuario":
+                        items = lst.OrderByDescending(x => x.CodigoUsuario);
+                        break;
+                    case "Fecha":
+                        items = lst.OrderByDescending(x => x.Fecha);
+                        break;
+                    case "CodigosRegionZona":
+                        items = lst.OrderByDescending(x => x.CodigosRegionZona);
+                        break;
+                    case "DiasCronogramaAnterior":
+                        items = lst.OrderByDescending(x => x.DiasDuracionCronogramaAnterior);
+                        break;
+                    case "DiasCronogramaActual":
+                        items = lst.OrderByDescending(x => x.DiasDuracionCronogramaActual);
+                        break;
                 }
-                else
-                {
-                    switch (sidx)
-                    {
-                        case "CodigoUsuario":
-                            items = lst.OrderByDescending(x => x.CodigoUsuario);
-                            break;
-                        case "Fecha":
-                            items = lst.OrderByDescending(x => x.Fecha);
-                            break;
-                        case "CodigosRegionZona":
-                            items = lst.OrderByDescending(x => x.CodigosRegionZona);
-                            break;
-                        case "DiasCronogramaAnterior":
-                            items = lst.OrderByDescending(x => x.DiasDuracionCronogramaAnterior);
-                            break;
-                        case "DiasCronogramaActual":
-                            items = lst.OrderByDescending(x => x.DiasDuracionCronogramaActual);
-                            break;
-                    }
-                }
-                #endregion
+            }
+            #endregion
 
-                if (string.IsNullOrEmpty(vBusqueda))
-                    items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-                else
-                    items = items.Where(p => p.Fecha.ToString().ToUpper().Contains(vBusqueda.ToUpper())).ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+            if (string.IsNullOrEmpty(vBusqueda))
+                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+            else
+                items = items.Where(p => p.Fecha.ToString().ToUpper().Contains(vBusqueda.ToUpper())).ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Paginador(grid, vBusqueda);
+            pag = Paginador(grid, vBusqueda);
 
-                // Creamos la estructura
-                var data = new
-                {
-                    total = pag.PageCount,
-                    page = pag.CurrentPage,
-                    records = pag.RecordCount,
-                    rows = from a in items
-                           select new
+            // Creamos la estructura
+            var data = new
+            {
+                total = pag.PageCount,
+                page = pag.CurrentPage,
+                records = pag.RecordCount,
+                rows = from a in items
+                       select new
+                       {
+                           id = a.CodigoUsuario.ToString(),
+                           cell = new string[]
                            {
-                               id = a.CodigoUsuario.ToString(),
-                               cell = new string[] 
-                               {
                                    a.CodigoUsuario,
                                    a.Fecha.ToString(),
                                    a.CodigosRegionZona,
                                    Convert.ToString(a.DiasDuracionCronogramaAnterior),
                                    Convert.ToString(a.DiasDuracionCronogramaActual)
-                                }
-                           }
-                };
-                return Json(data, JsonRequestBehavior.AllowGet);
+                            }
+                       }
+            };
+            return Json(data, JsonRequestBehavior.AllowGet);
             //}
             //return RedirectToAction("Index", "ModificacionCronograma");
         }

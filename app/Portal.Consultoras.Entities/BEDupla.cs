@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Runtime.Serialization;
 using System.Data;
+using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities
 {
@@ -28,19 +24,19 @@ namespace Portal.Consultoras.Entities
 
         public BEDupla(IDataRecord row)
         {
-	        msCodigoUsuario = row["CodigoUsuario"].ToString();
-	        msNombre = row["Nombre"].ToString();
-	        msSegundoNombre = row["SegundoNombre"].ToString();
-	        msApellidoPaterno = row["ApellidoPaterno"].ToString();
-	        msApellidoMaterno = row["ApellidoMaterno"].ToString();
-	        msSobrenombre = row["Sobrenombre"].ToString();
-	        mdFechaNacimiento = Convert.ToDateTime(row["FechaNacimiento"]);
-	        mseMail = row["eMail"].ToString();
-	        msSexo = row["Sexo"].ToString();
-	        msTelefono = row["Telefono"].ToString();
-	        msCelular = row["Celular"].ToString();
-	        msDireccion = row["Direccion"].ToString();
-	        mbActivo = Convert.ToBoolean(row["Activo"]);
+            msCodigoUsuario = row["CodigoUsuario"].ToString();
+            msNombre = row["Nombre"].ToString();
+            msSegundoNombre = row["SegundoNombre"].ToString();
+            msApellidoPaterno = row["ApellidoPaterno"].ToString();
+            msApellidoMaterno = row["ApellidoMaterno"].ToString();
+            msSobrenombre = row["Sobrenombre"].ToString();
+            mdFechaNacimiento = Convert.ToDateTime(row["FechaNacimiento"]);
+            mseMail = row["eMail"].ToString();
+            msSexo = row["Sexo"].ToString();
+            msTelefono = row["Telefono"].ToString();
+            msCelular = row["Celular"].ToString();
+            msDireccion = row["Direccion"].ToString();
+            mbActivo = Convert.ToBoolean(row["Activo"]);
         }
 
         [DataMember]
