@@ -2198,7 +2198,7 @@ namespace Portal.Consultoras.Web.Controllers
                     MontoEscala = resultado.MontoEscala.ToString()
                 } };
                 }
-                if (resultado.ResultadoReservaEnum != Enumeradores.ResultadoReserva.ReservaNoDisponible)
+                if (resultado.ResultadoReservaEnum != EnumeradoresResultadoReserva.ReservaNoDisponible)
                 {
                     if (resultado.Reserva) CambioBannerGPR(true);
                     sessionManager.SetObservacionesProl(listObservacionModel);
@@ -3111,7 +3111,7 @@ namespace Portal.Consultoras.Web.Controllers
                 indPedidoAutentico.CampaniaID = oBEPedidoWebDetalle.CampaniaID;
                 indPedidoAutentico.PedidoDetalleID = oBEPedidoWebDetalle.PedidoDetalleID;
                 indPedidoAutentico.IndicadorIPUsuario = GetIPCliente();
-                indPedidoAutentico.IndicadorFingerprint = (Session["Fingerprint"] != null) ? Session["Fingerprint"].ToString() : "";
+                indPedidoAutentico.IndicadorFingerprint = "";
                 indPedidoAutentico.IndicadorToken = (Session["TokenPedidoAutentico"] != null) ? Session["TokenPedidoAutentico"].ToString() : "";
 
                 oBEPedidoWebDetalle.IndicadorPedidoAutentico = indPedidoAutentico;
@@ -3278,7 +3278,7 @@ namespace Portal.Consultoras.Web.Controllers
                     using (var sv = new PedidoServiceClient())
                     {
                         var result = sv.ValidacionModificarPedidoSelectiva(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, userData.UsuarioPrueba == 1, userData.AceptacionConsultoraDA, false, false, true);
-                        if (result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.HorarioRestringido)
+                        if (result.MotivoPedidoLock == EnumeradoresMotivoPedidoLock.HorarioRestringido)
                         {
                             mensaje = result.Mensaje;
                             estado = true;
@@ -3321,8 +3321,8 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         result = sv.ValidacionModificarPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, userData.UsuarioPrueba == 1, userData.AceptacionConsultoraDA);
                     }
-                    pedidoReservado = result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Reservado;
-                    estado = result.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno;
+                    pedidoReservado = result.MotivoPedidoLock == EnumeradoresMotivoPedidoLock.Reservado;
+                    estado = result.MotivoPedidoLock != EnumeradoresMotivoPedidoLock.Ninguno;
                     mensaje = result.Mensaje;
                 }
 
@@ -3946,6 +3946,11 @@ namespace Portal.Consultoras.Web.Controllers
 
             int limiteJetlore = int.Parse(ConfigurationManager.AppSettings.Get("LimiteJetloreOfertaFinal"));
 
+            decimal descuentoprol=0;
+
+            try { descuentoprol = ObtenerPedidoWebDetalle()[0].DescuentoProl; } catch { descuentoprol=0; }
+            
+
             ListaParametroOfertaFinal ObjOfertaFinal = new ListaParametroOfertaFinal();
             var ofertaFinal = GetOfertaFinal();
             ObjOfertaFinal.ZonaID = userData.ZonaID;
@@ -3957,7 +3962,7 @@ namespace Portal.Consultoras.Web.Controllers
             ObjOfertaFinal.Limite = limiteJetlore;
             ObjOfertaFinal.MontoEscala = GetDataBarra().MontoEscala;
             ObjOfertaFinal.MontoMinimo = userData.MontoMinimo;
-            ObjOfertaFinal.MontoTotal = ObtenerPedidoWebDetalle().Sum(p => p.ImporteTotal);
+            ObjOfertaFinal.MontoTotal = ObtenerPedidoWebDetalle().Sum(p => p.ImporteTotal)  - (descuentoprol.Equals(null) ? 0 : descuentoprol);
             ObjOfertaFinal.TipoOfertaFinal = tipoOfertaFinal;
             ObjOfertaFinal.TipoProductoMostrar = tipoProductoMostrar;
 
@@ -4207,12 +4212,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 switch (accion)
                 {
-                    case "1":
-                        if (!string.IsNullOrEmpty(codigo))
-                        {
-                            Session["Fingerprint"] = codigo;
-                        }
-                        break;
                     case "2":
                         using (PedidoServiceClient svc = new PedidoServiceClient())
                         {
@@ -4502,8 +4501,8 @@ namespace Portal.Consultoras.Web.Controllers
                     result = sv.ValidacionModificarPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, userData.UsuarioPrueba == 1, userData.AceptacionConsultoraDA);
                 }
 
-                estado = result.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno;
-                bool pedidoReservado = result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Reservado;
+                estado = result.MotivoPedidoLock != EnumeradoresMotivoPedidoLock.Ninguno;
+                bool pedidoReservado = result.MotivoPedidoLock == EnumeradoresMotivoPedidoLock.Reservado;
 
                 if (estado)
                 {

@@ -470,7 +470,7 @@ namespace Portal.Consultoras.Web.Controllers
                 else
                 {
                     estrategia.DescripcionCortada = Util.SubStrCortarNombre(estrategia.DescripcionCUV2, 40);
-                };
+                }
 
                 estrategia.ID = estrategia.EstrategiaID;
                 if (estrategia.FlagMostrarImg == 1)

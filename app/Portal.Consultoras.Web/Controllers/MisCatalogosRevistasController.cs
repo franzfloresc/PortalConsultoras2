@@ -37,6 +37,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             clienteModel.MostrarRevistaDigital = revistaDigital.TieneRDR;
             clienteModel.RevistaDigital = revistaDigital;
+            ViewBag.NombreConsultora = userData.Sobrenombre;
             return View(clienteModel);
         }
 

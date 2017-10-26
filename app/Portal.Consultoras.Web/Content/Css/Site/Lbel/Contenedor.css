@@ -333,9 +333,6 @@
     right: -9.5% !important;
 }
 
-.previsualizales-ofertas {
-    max-width: 901px !important;
-}
 .previsualizales-ofertas .titulo {
     width: 901px;
     text-align: left;
@@ -439,43 +436,46 @@
 .parche_presentacion_contenedor {
 max-width: 980px;
 margin: auto;
-margin-bottom: 40px;
 }
-.parche_presentacion_contenedor .bloque-menu {
+.parche_presentacion_contenedor .bloque-titulo {
 width: 100%;
+margin-top: 30px;
+margin-bottom: 20px;
 }
-.parche_presentacion_contenedor .titulo {
+.parche_presentacion_contenedor .bloque-titulo .seccion-titulo {
 float: left;
-width: 41.33%;
+width: 50%;
 margin: 0;
 font-size: 20px;
 font-weight: bolder !important;
 letter-spacing: 1px;
 font-family: 'Lato';
 color: #b52e36;
+text-transform: uppercase;
 border: 1px solid transparent;
+padding-left: 60px;
 }
-.parche_presentacion_contenedor .titulo span{
+.parche_presentacion_contenedor .bloque-titulo .seccion-titulo span{
 position: relative;
 top: 6px;
 }
-.parche_presentacion_contenedor .cantidad{
+.parche_presentacion_contenedor .bloque-titulo .cantidad{
 float:left;
-width:33.33%;
+width:25%;
 font-family: 'Lato';
 font-size: 13px;
 text-align:right;
 border: 1px solid transparent;
 }
-.parche_presentacion_contenedor .cantidad span{
+.parche_presentacion_contenedor .bloque-titulo .cantidad > span{
 position: relative;
 top: 11px;
 }
-.parche_presentacion_contenedor .ir{
+.parche_presentacion_contenedor .bloque-titulo .ir{
 float:left;
-width:25.33%;
+width:25%;
 }
-.parche_presentacion_contenedor .ir a {
+.parche_presentacion_contenedor .bloque-titulo .ir a {
 background: #b52e36;
 color: white;
 display: block;
