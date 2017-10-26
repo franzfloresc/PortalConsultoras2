@@ -514,6 +514,7 @@ function EstrategiaAgregar(event, popup, limite) {
             }
 
             ActualizarLocalStorageAgregado("rd", params.listaCuvTonos || params.cuv, true);
+            ActualizarLocalStorageAgregado("gn", params.listaCuvTonos || params.cuv, true);
 
             ProcesarActualizacionMostrarContenedorCupon();
         },
