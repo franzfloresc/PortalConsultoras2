@@ -410,11 +410,11 @@ namespace Portal.Consultoras.Web.Controllers
                 string cuv = String.Empty;
                 string campanaId = "0";
                 int campana = 0;
-                if (param.Length == 11)
-                {
+                //if (param.Length == 11)
+                //{
                     cuv = param.Substring(0, 5);
                     campanaId = param.Substring(5, 6);
-                }
+                //}
                 campana = Convert.ToInt32(campanaId);
                 ViewBag.VirtualCoachCuv = cuv;
                 ViewBag.VirtualCoachCampana = campanaId;
