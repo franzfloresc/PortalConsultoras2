@@ -3800,12 +3800,10 @@ namespace Portal.Consultoras.Web.Controllers
                         if (!revistaDigital.TieneRDC && !revistaDigital.TieneRDR)
                             continue;
                         break;
-                }
-
-                if (confiModel.Codigo == Constantes.ConfiguracionPais.OfertasParaTi)
-                {
-                    if (revistaDigital.TieneRDC || revistaDigital.TieneRDR)
-                        continue;
+                    case Constantes.ConfiguracionPais.OfertasParaTi:
+                        if (revistaDigital.TieneRDC || revistaDigital.TieneRDR)
+                            continue;
+                        break;
                 }
 
                 if (confiModel.Codigo == Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada)
