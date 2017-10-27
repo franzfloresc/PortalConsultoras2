@@ -462,16 +462,25 @@ function EstrategiaAgregar(event, popup, limite) {
             var cuv = estrategia.CUV2;
 
             if (tipoOrigenEstrategia == 1) {
-                MostrarBarra(data, '1');
-                ActualizarGanancia(data.DataBarra);
-                CargarCarouselEstrategias(cuv);
+                if (typeof MostrarBarra != "undefined")
+                    MostrarBarra(data, '1');
+                
+                if (typeof ActualizarGanancia != "undefined")
+                    ActualizarGanancia(data.DataBarra);
+                
+                if (typeof CargarCarouselEstrategias != "undefined")
+                    CargarCarouselEstrategias(cuv);
+
+                //if (tieneMasVendidos == 1 && typeof CargarCarouselEstrategias != "undefined") {
                 if (tieneMasVendidos === 1) {
-                    CargarCarouselMasVendidos('desktop');
+                    if(typeof CargarCarouselEstrategias != "undefined")
+                        CargarCarouselMasVendidos('desktop');
                 }
             }
             else if (tipoOrigenEstrategia == 11) {
 
                 $("#hdErrorInsertarProducto").val(data.errorInsertarProducto);
+
 
                 cierreCarouselEstrategias();
                 CargarCarouselEstrategias(cuv);
