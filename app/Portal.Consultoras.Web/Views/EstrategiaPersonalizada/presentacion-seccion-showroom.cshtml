@@ -1,8 +1,4 @@
-﻿@using System.Linq
-@using Portal.Consultoras.Common
-@using Portal.Consultoras.Web.Models
-@using System.Collections.Generic
-
+﻿
 @model Portal.Consultoras.Web.Models.ConfiguracionSeccionHomeModel
 @{
     var esShowRoom = Portal.Consultoras.Web.SessionManager.SessionManager.Instance.GetEsShowRoom();
@@ -11,9 +7,7 @@
 
     var mostrarPopupIntriga = !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
     var mostrarPopupVenta = mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
-
-    var backgroundVenta = mostrarPopupIntriga ? "" : "background: url('" + @Model.ImagenFondo + "') center center no-repeat;";
-
+  
 	//BPT 236 Numero de productos en ShowRoom
 	var listaShowRom =ViewBag.xlistaProductoSR;
 }
@@ -22,8 +16,7 @@
 {
 <div class="bc_plantilla_estrategia_personalizada"
      data-OrigenPedidoWeb=""
-     data-plantilla="ShowRoom"
-     style="@backgroundVenta;min-height: 500px; vertical-align: middle;">
+     data-plantilla="ShowRoom"     >
     <div class="parche_presentacion_contenedor">
         @if (mostrarPopupVenta)
         {

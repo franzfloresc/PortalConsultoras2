@@ -37,6 +37,11 @@ namespace Portal.Consultoras.Web
                "~/Scripts/Jqgrid/jquery.jqGrid*"
             ));
 
+            bundles.Add(new ScriptBundle("~/Scripts/PortalConsultoras/ShowRoom/ShowRoomJs").Include(
+                "~/Scripts/PortalConsultoras/ShowRoom/Index.js",
+                "~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js"
+                ));
+
             bundles.Add(new ScriptBundle("~/bundles/JsPluginsHeaderSAC").Include(
                 "~/Scripts/maskedinput.js",
                 "~/Scripts/General.js",
@@ -119,7 +124,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/HojaInscripcion/*.js",
                 "~/Scripts/DatetimePicker/*.js"
             ));
-          
+
             bundles.Add(new StyleBundle("~/Content/Css/Site/Esika/CssSB2").Include(
                "~/Content/Css/Site/flipclock.css",
                "~/Content/Css/Site/slick.css",
@@ -134,6 +139,8 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/asesora-online.css"
             ));
 
+            bundles.Add(new StyleBundle("~/Content/Css/Site/Esika/Contenedor").Include("~/Content/Css/Site/Esika/Contenedor.css"));
+
             bundles.Add(new StyleBundle("~/Content/Css/Site/Lbel/CssSB2").Include(
                "~/Content/Css/Site/flipclock.css",
                "~/Content/Css/Site/slick.css",
@@ -143,6 +150,8 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Site/Lbel/revistaDigital.css",
                "~/Content/Css/Site/Lbel/seccion-descarga-imprime.css"
                ));
+
+            bundles.Add(new StyleBundle("~/Content/Css/Site/Lbel/Contenedor").Include("~/Content/Css/Site/Lbel/Contenedor.css"));
 
             bundles.Add(new StyleBundle("~/Content/Css/Mobile/esika/CssSB2Mobile").Include(
                "~/Content/Css/Mobile/esika/icomon.css",
@@ -154,7 +163,7 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Site/slick.css",
                "~/Content/Css/Site/asesora-online.css",
                "~/Content/Css/Mobile/esika/misDatos.css",
-               "~/Content/Css/Mobile/Esika/revistaDigital.css"              
+               "~/Content/Css/Mobile/Esika/revistaDigital.css"
                ));
 
             bundles.Add(new StyleBundle("~/Content/Css/Mobile/lbel/CssSB2Mobile").Include(
@@ -166,7 +175,7 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Mobile/flipclock.css",
                "~/Content/Css/Site/slick.css",
                "~/Content/Css/Mobile/lbel/misDatos.css",
-               "~/Content/Css/Mobile/Lbel/revistaDigital.css"               
+               "~/Content/Css/Mobile/Lbel/revistaDigital.css"
                ));
 
             bundles.Add(new StyleBundle("~/Content/Css/Site/CssBienvenida").Include(
@@ -232,10 +241,10 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js"
             ));
 
-            bundles.Add(new ScriptBundle("~/bundles/JsMobile/Bienvenida").Include(                
+            bundles.Add(new ScriptBundle("~/bundles/JsMobile/Bienvenida").Include(
                 "~/Scripts/jquery.rateyo.js",
                 "~/Scripts/PortalConsultoras/EstrategiaProducto/DetalleProducto.js",
-                "~/Scripts/PortalConsultoras/Mobile/Bienvenida/Index.js",                              
+                "~/Scripts/PortalConsultoras/Mobile/Bienvenida/Index.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
                 "~/Scripts/PortalConsultoras/Cupon/CuponModule.js",
                 "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
@@ -262,7 +271,7 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/ui.jquery/jquery-ui.css",
                "~/Content/Css/Site/jquery.custom-scrollbar.css"
             ));
-                     
+
             bundles.Add(new ScriptBundle("~/bundles/JsMobile/Pedido").Include(
                 "~/Scripts/General.js",
                 "~/Scripts/PortalConsultoras/Mobile/Pedido/index.js",
