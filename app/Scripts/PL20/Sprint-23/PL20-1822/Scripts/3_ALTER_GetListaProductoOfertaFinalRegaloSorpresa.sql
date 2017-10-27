@@ -64,7 +64,7 @@ BEGIN
             FROM ods.Consultora WITH (NOLOCK)
             WHERE Codigo = @CodigoConsultora;
 
-            IF (@MontoMaxPedido <= (@MontoTotal + @GapAgregar))
+            IF ((@MontoTotal + @GapAgregar) <= @MontoMaxPedido)
             BEGIN
                 SET @CumpleParametria = 1;
 
@@ -411,7 +411,7 @@ BEGIN
             FROM ods.Consultora WITH (NOLOCK)
             WHERE Codigo = @CodigoConsultora;
 
-            IF (@MontoMaxPedido <= (@MontoTotal + @GapAgregar))
+            IF ((@MontoTotal + @GapAgregar) <= @MontoMaxPedido)
             BEGIN
                 SET @CumpleParametria = 1;
 
@@ -757,7 +757,7 @@ BEGIN
             FROM ods.Consultora WITH (NOLOCK)
             WHERE Codigo = @CodigoConsultora;
 
-            IF (@MontoMaxPedido <= (@MontoTotal + @GapAgregar))
+            IF ((@MontoTotal + @GapAgregar) <= @MontoMaxPedido)
             BEGIN
                 SET @CumpleParametria = 1;
 
@@ -1103,7 +1103,7 @@ BEGIN
             FROM ods.Consultora WITH (NOLOCK)
             WHERE Codigo = @CodigoConsultora;
 
-            IF (@MontoMaxPedido <= (@MontoTotal + @GapAgregar))
+            IF ((@MontoTotal + @GapAgregar) <= @MontoMaxPedido)
             BEGIN
                 SET @CumpleParametria = 1;
 
@@ -1449,7 +1449,7 @@ BEGIN
             FROM ods.Consultora WITH (NOLOCK)
             WHERE Codigo = @CodigoConsultora;
 
-            IF (@MontoMaxPedido <= (@MontoTotal + @GapAgregar))
+            IF ((@MontoTotal + @GapAgregar) <= @MontoMaxPedido)
             BEGIN
                 SET @CumpleParametria = 1;
 
@@ -1795,7 +1795,7 @@ BEGIN
             FROM ods.Consultora WITH (NOLOCK)
             WHERE Codigo = @CodigoConsultora;
 
-            IF (@MontoMaxPedido <= (@MontoTotal + @GapAgregar))
+            IF ((@MontoTotal + @GapAgregar) <= @MontoMaxPedido)
             BEGIN
                 SET @CumpleParametria = 1;
 
@@ -2141,7 +2141,7 @@ BEGIN
             FROM ods.Consultora WITH (NOLOCK)
             WHERE Codigo = @CodigoConsultora;
 
-            IF (@MontoMaxPedido <= (@MontoTotal + @GapAgregar))
+            IF ((@MontoTotal + @GapAgregar) <= @MontoMaxPedido)
             BEGIN
                 SET @CumpleParametria = 1;
 
@@ -2487,7 +2487,7 @@ BEGIN
             FROM ods.Consultora WITH (NOLOCK)
             WHERE Codigo = @CodigoConsultora;
 
-            IF (@MontoMaxPedido <= (@MontoTotal + @GapAgregar))
+            IF ((@MontoTotal + @GapAgregar) <= @MontoMaxPedido)
             BEGIN
                 SET @CumpleParametria = 1;
 
@@ -2833,7 +2833,7 @@ BEGIN
             FROM ods.Consultora WITH (NOLOCK)
             WHERE Codigo = @CodigoConsultora;
 
-            IF (@MontoMaxPedido <= (@MontoTotal + @GapAgregar))
+            IF ((@MontoTotal + @GapAgregar) <= @MontoMaxPedido)
             BEGIN
                 SET @CumpleParametria = 1;
 
@@ -3179,7 +3179,7 @@ BEGIN
             FROM ods.Consultora WITH (NOLOCK)
             WHERE Codigo = @CodigoConsultora;
 
-            IF (@MontoMaxPedido <= (@MontoTotal + @GapAgregar))
+            IF ((@MontoTotal + @GapAgregar) <= @MontoMaxPedido)
             BEGIN
                 SET @CumpleParametria = 1;
 
@@ -3525,7 +3525,7 @@ BEGIN
             FROM ods.Consultora WITH (NOLOCK)
             WHERE Codigo = @CodigoConsultora;
 
-            IF (@MontoMaxPedido <= (@MontoTotal + @GapAgregar))
+            IF ((@MontoTotal + @GapAgregar) <= @MontoMaxPedido)
             BEGIN
                 SET @CumpleParametria = 1;
 
@@ -3871,7 +3871,7 @@ BEGIN
             FROM ods.Consultora WITH (NOLOCK)
             WHERE Codigo = @CodigoConsultora;
 
-            IF (@MontoMaxPedido <= (@MontoTotal + @GapAgregar))
+            IF ((@MontoTotal + @GapAgregar) <= @MontoMaxPedido)
             BEGIN
                 SET @CumpleParametria = 1;
 
@@ -4217,7 +4217,7 @@ BEGIN
             FROM ods.Consultora WITH (NOLOCK)
             WHERE Codigo = @CodigoConsultora;
 
-            IF (@MontoMaxPedido <= (@MontoTotal + @GapAgregar))
+            IF ((@MontoTotal + @GapAgregar) <= @MontoMaxPedido)
             BEGIN
                 SET @CumpleParametria = 1;
 
