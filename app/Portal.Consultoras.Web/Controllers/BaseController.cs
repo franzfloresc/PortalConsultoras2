@@ -3804,12 +3804,10 @@ namespace Portal.Consultoras.Web.Controllers
                         if (revistaDigital.TieneRDC || revistaDigital.TieneRDR)
                             continue;
                         break;
-                }
-
-                if (confiModel.Codigo == Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada)
-                {
-                    if (!GNDValidarAcceso())
-                        continue;
+                    case Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada:
+                        if (!GNDValidarAcceso())
+                            continue;
+                        break;
                 }
 
                 var config = confiModel;
