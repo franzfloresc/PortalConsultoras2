@@ -3788,12 +3788,10 @@ namespace Portal.Consultoras.Web.Controllers
                         confiModel.Logo = IsMobile() ? "/Content/Images/Mobile/" + paisCarpeta + "/Contenedor/inicio_normal.png" : "/Content/Images/" + paisCarpeta + "/Contenedor/inicio_normal.png";
                         confiModel.Descripcion = "";
                         break;
-                }
-
-                if (confiModel.Codigo == Constantes.ConfiguracionPais.ShowRoom)
-                {
-                    if (Session["EsShowRoom"] == null || (Session["EsShowRoom"] != null && Session["EsShowRoom"].ToString() != "1"))
-                        continue;
+                    case Constantes.ConfiguracionPais.ShowRoom:
+                        if (Session["EsShowRoom"] == null || (Session["EsShowRoom"] != null && Session["EsShowRoom"].ToString() != "1"))
+                            continue;
+                        break;
                 }
 
                 if (confiModel.Codigo == Constantes.ConfiguracionPais.OfertaDelDia)
