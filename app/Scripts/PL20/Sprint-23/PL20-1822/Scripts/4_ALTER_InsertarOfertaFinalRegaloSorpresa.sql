@@ -20,65 +20,84 @@ BEGIN
             @RangoId INT,
             @GapMinimo DECIMAL(18, 2),
             @GapMaximo DECIMAL(18, 2),
-			@TipoRango VARCHAR(3);
+            @TipoRango VARCHAR(3),
+            @MontoMaxPedido DECIMAL(18, 2);
+
     SET @MontoMeta = 0;
 
     SELECT @RangoId = ISNULL(OfertaFinalParametriaID, 0),
            @GapAgregar = ISNULL(PrecioMinimo, 0),
            @GapMinimo = ISNULL(GapMinimo, 0),
            @GapMaximo = ISNULL(GapMaximo, 0),
-		   @TipoRango = Tipo
+           @TipoRango = Tipo
     FROM dbo.OfertaFinalParametria
     WHERE Tipo LIKE 'RG%'
           AND @MontoTotal >= GapMinimo
           AND @MontoTotal <= GapMaximo
           AND Algoritmo = @Algoritmo;
 
-    IF NOT EXISTS
-    (
-        SELECT 1
-        FROM OfertaFinalMontoMeta WITH (NOLOCK)
-        WHERE CampaniaId = @CampaniaID
-              AND ConsultoraId = @ConsultoraId
-    )
-       AND @RangoId != 0
+    IF (@RangoId != 0)
     BEGIN
-        /*Monto Meta y Regalo*/
-        DECLARE @Cuv VARCHAR(100);
-        SET @Cuv =
-        (
-            SELECT Cuv
-            FROM OfertaFinalRegaloXCampania WITH (NOLOCK)
-            WHERE CampaniaId = @CampaniaID
-                  AND RangoId = @RangoId
-        );
-        --Set @MontoMeta = @MontoTotal + Convert(decimal(18,2),@GapAgregar*(@MontoTotal))/100
+        SELECT @MontoMaxPedido = ISNULL(MontoMaximoPedido, 0)
+        FROM ods.Consultora
+        WHERE ConsultoraId = @ConsultoraId;
+
         SET @MontoMeta = @MontoTotal + @GapAgregar;
-        INSERT INTO OfertaFinalMontoMeta
-        (
-            CampaniaId,
-            ConsultoraId,
-            MontoPedido,
-            GapMinimo,
-            GapMaximo,
-            GapAgregar,
-            MontoMeta,
-            Cuv,
-			TipoRango,
-			FechaRegistro
-        )
-        SELECT CampaniaId = @CampaniaID,
-               ConsultoraId = @ConsultoraId,
-               MontoPedido = @MontoTotal,
-               GapMinimo = @GapMinimo,
-               GapMaximo = @GapMaximo,
-               GapAgregar = @GapAgregar,
-               MontoMeta = @MontoMeta,
-               Cuv = @Cuv,
-			   TipoRango = @TipoRango,
-			   FechaRegistro = GETDATE();
+
+        IF (@MontoMeta <= @MontoMaxPedido)
+        BEGIN
+            IF NOT EXISTS
+            (
+                SELECT 1
+                FROM OfertaFinalMontoMeta WITH (NOLOCK)
+                WHERE CampaniaId = @CampaniaID
+                      AND ConsultoraId = @ConsultoraId
+            )
+            BEGIN
+                /*Monto Meta y Regalo*/
+                DECLARE @Cuv VARCHAR(100);
+
+                SELECT @Cuv = Cuv
+                FROM OfertaFinalRegaloXCampania WITH (NOLOCK)
+                WHERE CampaniaId = @CampaniaID
+                      AND RangoId = @RangoId;
+
+                --Set @MontoMeta = @MontoTotal + Convert(decimal(18,2),@GapAgregar*(@MontoTotal))/100
+                --SET @MontoMeta = @MontoTotal + @GapAgregar;
+                INSERT INTO OfertaFinalMontoMeta
+                (
+                    CampaniaId,
+                    ConsultoraId,
+                    MontoPedido,
+                    GapMinimo,
+                    GapMaximo,
+                    GapAgregar,
+                    MontoMeta,
+                    Cuv,
+                    TipoRango,
+                    FechaRegistro
+                )
+                SELECT CampaniaId = @CampaniaID,
+                       ConsultoraId = @ConsultoraId,
+                       MontoPedido = @MontoTotal,
+                       GapMinimo = @GapMinimo,
+                       GapMaximo = @GapMaximo,
+                       GapAgregar = @GapAgregar,
+                       MontoMeta = @MontoMeta,
+                       Cuv = @Cuv,
+                       TipoRango = @TipoRango,
+                       FechaRegistro = GETDATE();
+            END;
+
+        END;
+        ELSE
+            SET @MontoMeta = 0;
     END;
+    ELSE
+        SET @MontoMeta = 0;
+
 END;
+
 GO
 
 USE BelcorpChile
@@ -102,65 +121,84 @@ BEGIN
             @RangoId INT,
             @GapMinimo DECIMAL(18, 2),
             @GapMaximo DECIMAL(18, 2),
-			@TipoRango VARCHAR(3);
+            @TipoRango VARCHAR(3),
+            @MontoMaxPedido DECIMAL(18, 2);
+
     SET @MontoMeta = 0;
 
     SELECT @RangoId = ISNULL(OfertaFinalParametriaID, 0),
            @GapAgregar = ISNULL(PrecioMinimo, 0),
            @GapMinimo = ISNULL(GapMinimo, 0),
            @GapMaximo = ISNULL(GapMaximo, 0),
-		   @TipoRango = Tipo
+           @TipoRango = Tipo
     FROM dbo.OfertaFinalParametria
     WHERE Tipo LIKE 'RG%'
           AND @MontoTotal >= GapMinimo
           AND @MontoTotal <= GapMaximo
           AND Algoritmo = @Algoritmo;
 
-    IF NOT EXISTS
-    (
-        SELECT 1
-        FROM OfertaFinalMontoMeta WITH (NOLOCK)
-        WHERE CampaniaId = @CampaniaID
-              AND ConsultoraId = @ConsultoraId
-    )
-       AND @RangoId != 0
+    IF (@RangoId != 0)
     BEGIN
-        /*Monto Meta y Regalo*/
-        DECLARE @Cuv VARCHAR(100);
-        SET @Cuv =
-        (
-            SELECT Cuv
-            FROM OfertaFinalRegaloXCampania WITH (NOLOCK)
-            WHERE CampaniaId = @CampaniaID
-                  AND RangoId = @RangoId
-        );
-        --Set @MontoMeta = @MontoTotal + Convert(decimal(18,2),@GapAgregar*(@MontoTotal))/100
+        SELECT @MontoMaxPedido = ISNULL(MontoMaximoPedido, 0)
+        FROM ods.Consultora
+        WHERE ConsultoraId = @ConsultoraId;
+
         SET @MontoMeta = @MontoTotal + @GapAgregar;
-        INSERT INTO OfertaFinalMontoMeta
-        (
-            CampaniaId,
-            ConsultoraId,
-            MontoPedido,
-            GapMinimo,
-            GapMaximo,
-            GapAgregar,
-            MontoMeta,
-            Cuv,
-			TipoRango,
-			FechaRegistro
-        )
-        SELECT CampaniaId = @CampaniaID,
-               ConsultoraId = @ConsultoraId,
-               MontoPedido = @MontoTotal,
-               GapMinimo = @GapMinimo,
-               GapMaximo = @GapMaximo,
-               GapAgregar = @GapAgregar,
-               MontoMeta = @MontoMeta,
-               Cuv = @Cuv,
-			   TipoRango = @TipoRango,
-			   FechaRegistro = GETDATE();
+
+        IF (@MontoMeta <= @MontoMaxPedido)
+        BEGIN
+            IF NOT EXISTS
+            (
+                SELECT 1
+                FROM OfertaFinalMontoMeta WITH (NOLOCK)
+                WHERE CampaniaId = @CampaniaID
+                      AND ConsultoraId = @ConsultoraId
+            )
+            BEGIN
+                /*Monto Meta y Regalo*/
+                DECLARE @Cuv VARCHAR(100);
+
+                SELECT @Cuv = Cuv
+                FROM OfertaFinalRegaloXCampania WITH (NOLOCK)
+                WHERE CampaniaId = @CampaniaID
+                      AND RangoId = @RangoId;
+
+                --Set @MontoMeta = @MontoTotal + Convert(decimal(18,2),@GapAgregar*(@MontoTotal))/100
+                --SET @MontoMeta = @MontoTotal + @GapAgregar;
+                INSERT INTO OfertaFinalMontoMeta
+                (
+                    CampaniaId,
+                    ConsultoraId,
+                    MontoPedido,
+                    GapMinimo,
+                    GapMaximo,
+                    GapAgregar,
+                    MontoMeta,
+                    Cuv,
+                    TipoRango,
+                    FechaRegistro
+                )
+                SELECT CampaniaId = @CampaniaID,
+                       ConsultoraId = @ConsultoraId,
+                       MontoPedido = @MontoTotal,
+                       GapMinimo = @GapMinimo,
+                       GapMaximo = @GapMaximo,
+                       GapAgregar = @GapAgregar,
+                       MontoMeta = @MontoMeta,
+                       Cuv = @Cuv,
+                       TipoRango = @TipoRango,
+                       FechaRegistro = GETDATE();
+            END;
+
+        END;
+        ELSE
+            SET @MontoMeta = 0;
     END;
+    ELSE
+        SET @MontoMeta = 0;
+
 END;
+
 GO
 
 USE BelcorpColombia
@@ -184,65 +222,84 @@ BEGIN
             @RangoId INT,
             @GapMinimo DECIMAL(18, 2),
             @GapMaximo DECIMAL(18, 2),
-			@TipoRango VARCHAR(3);
+            @TipoRango VARCHAR(3),
+            @MontoMaxPedido DECIMAL(18, 2);
+
     SET @MontoMeta = 0;
 
     SELECT @RangoId = ISNULL(OfertaFinalParametriaID, 0),
            @GapAgregar = ISNULL(PrecioMinimo, 0),
            @GapMinimo = ISNULL(GapMinimo, 0),
            @GapMaximo = ISNULL(GapMaximo, 0),
-		   @TipoRango = Tipo
+           @TipoRango = Tipo
     FROM dbo.OfertaFinalParametria
     WHERE Tipo LIKE 'RG%'
           AND @MontoTotal >= GapMinimo
           AND @MontoTotal <= GapMaximo
           AND Algoritmo = @Algoritmo;
 
-    IF NOT EXISTS
-    (
-        SELECT 1
-        FROM OfertaFinalMontoMeta WITH (NOLOCK)
-        WHERE CampaniaId = @CampaniaID
-              AND ConsultoraId = @ConsultoraId
-    )
-       AND @RangoId != 0
+    IF (@RangoId != 0)
     BEGIN
-        /*Monto Meta y Regalo*/
-        DECLARE @Cuv VARCHAR(100);
-        SET @Cuv =
-        (
-            SELECT Cuv
-            FROM OfertaFinalRegaloXCampania WITH (NOLOCK)
-            WHERE CampaniaId = @CampaniaID
-                  AND RangoId = @RangoId
-        );
-        --Set @MontoMeta = @MontoTotal + Convert(decimal(18,2),@GapAgregar*(@MontoTotal))/100
+        SELECT @MontoMaxPedido = ISNULL(MontoMaximoPedido, 0)
+        FROM ods.Consultora
+        WHERE ConsultoraId = @ConsultoraId;
+
         SET @MontoMeta = @MontoTotal + @GapAgregar;
-        INSERT INTO OfertaFinalMontoMeta
-        (
-            CampaniaId,
-            ConsultoraId,
-            MontoPedido,
-            GapMinimo,
-            GapMaximo,
-            GapAgregar,
-            MontoMeta,
-            Cuv,
-			TipoRango,
-			FechaRegistro
-        )
-        SELECT CampaniaId = @CampaniaID,
-               ConsultoraId = @ConsultoraId,
-               MontoPedido = @MontoTotal,
-               GapMinimo = @GapMinimo,
-               GapMaximo = @GapMaximo,
-               GapAgregar = @GapAgregar,
-               MontoMeta = @MontoMeta,
-               Cuv = @Cuv,
-			   TipoRango = @TipoRango,
-			   FechaRegistro = GETDATE();
+
+        IF (@MontoMeta <= @MontoMaxPedido)
+        BEGIN
+            IF NOT EXISTS
+            (
+                SELECT 1
+                FROM OfertaFinalMontoMeta WITH (NOLOCK)
+                WHERE CampaniaId = @CampaniaID
+                      AND ConsultoraId = @ConsultoraId
+            )
+            BEGIN
+                /*Monto Meta y Regalo*/
+                DECLARE @Cuv VARCHAR(100);
+
+                SELECT @Cuv = Cuv
+                FROM OfertaFinalRegaloXCampania WITH (NOLOCK)
+                WHERE CampaniaId = @CampaniaID
+                      AND RangoId = @RangoId;
+
+                --Set @MontoMeta = @MontoTotal + Convert(decimal(18,2),@GapAgregar*(@MontoTotal))/100
+                --SET @MontoMeta = @MontoTotal + @GapAgregar;
+                INSERT INTO OfertaFinalMontoMeta
+                (
+                    CampaniaId,
+                    ConsultoraId,
+                    MontoPedido,
+                    GapMinimo,
+                    GapMaximo,
+                    GapAgregar,
+                    MontoMeta,
+                    Cuv,
+                    TipoRango,
+                    FechaRegistro
+                )
+                SELECT CampaniaId = @CampaniaID,
+                       ConsultoraId = @ConsultoraId,
+                       MontoPedido = @MontoTotal,
+                       GapMinimo = @GapMinimo,
+                       GapMaximo = @GapMaximo,
+                       GapAgregar = @GapAgregar,
+                       MontoMeta = @MontoMeta,
+                       Cuv = @Cuv,
+                       TipoRango = @TipoRango,
+                       FechaRegistro = GETDATE();
+            END;
+
+        END;
+        ELSE
+            SET @MontoMeta = 0;
     END;
+    ELSE
+        SET @MontoMeta = 0;
+
 END;
+
 GO
 
 USE BelcorpCostaRica
@@ -266,65 +323,84 @@ BEGIN
             @RangoId INT,
             @GapMinimo DECIMAL(18, 2),
             @GapMaximo DECIMAL(18, 2),
-			@TipoRango VARCHAR(3);
+            @TipoRango VARCHAR(3),
+            @MontoMaxPedido DECIMAL(18, 2);
+
     SET @MontoMeta = 0;
 
     SELECT @RangoId = ISNULL(OfertaFinalParametriaID, 0),
            @GapAgregar = ISNULL(PrecioMinimo, 0),
            @GapMinimo = ISNULL(GapMinimo, 0),
            @GapMaximo = ISNULL(GapMaximo, 0),
-		   @TipoRango = Tipo
+           @TipoRango = Tipo
     FROM dbo.OfertaFinalParametria
     WHERE Tipo LIKE 'RG%'
           AND @MontoTotal >= GapMinimo
           AND @MontoTotal <= GapMaximo
           AND Algoritmo = @Algoritmo;
 
-    IF NOT EXISTS
-    (
-        SELECT 1
-        FROM OfertaFinalMontoMeta WITH (NOLOCK)
-        WHERE CampaniaId = @CampaniaID
-              AND ConsultoraId = @ConsultoraId
-    )
-       AND @RangoId != 0
+    IF (@RangoId != 0)
     BEGIN
-        /*Monto Meta y Regalo*/
-        DECLARE @Cuv VARCHAR(100);
-        SET @Cuv =
-        (
-            SELECT Cuv
-            FROM OfertaFinalRegaloXCampania WITH (NOLOCK)
-            WHERE CampaniaId = @CampaniaID
-                  AND RangoId = @RangoId
-        );
-        --Set @MontoMeta = @MontoTotal + Convert(decimal(18,2),@GapAgregar*(@MontoTotal))/100
+        SELECT @MontoMaxPedido = ISNULL(MontoMaximoPedido, 0)
+        FROM ods.Consultora
+        WHERE ConsultoraId = @ConsultoraId;
+
         SET @MontoMeta = @MontoTotal + @GapAgregar;
-        INSERT INTO OfertaFinalMontoMeta
-        (
-            CampaniaId,
-            ConsultoraId,
-            MontoPedido,
-            GapMinimo,
-            GapMaximo,
-            GapAgregar,
-            MontoMeta,
-            Cuv,
-			TipoRango,
-			FechaRegistro
-        )
-        SELECT CampaniaId = @CampaniaID,
-               ConsultoraId = @ConsultoraId,
-               MontoPedido = @MontoTotal,
-               GapMinimo = @GapMinimo,
-               GapMaximo = @GapMaximo,
-               GapAgregar = @GapAgregar,
-               MontoMeta = @MontoMeta,
-               Cuv = @Cuv,
-			   TipoRango = @TipoRango,
-			   FechaRegistro = GETDATE();
+
+        IF (@MontoMeta <= @MontoMaxPedido)
+        BEGIN
+            IF NOT EXISTS
+            (
+                SELECT 1
+                FROM OfertaFinalMontoMeta WITH (NOLOCK)
+                WHERE CampaniaId = @CampaniaID
+                      AND ConsultoraId = @ConsultoraId
+            )
+            BEGIN
+                /*Monto Meta y Regalo*/
+                DECLARE @Cuv VARCHAR(100);
+
+                SELECT @Cuv = Cuv
+                FROM OfertaFinalRegaloXCampania WITH (NOLOCK)
+                WHERE CampaniaId = @CampaniaID
+                      AND RangoId = @RangoId;
+
+                --Set @MontoMeta = @MontoTotal + Convert(decimal(18,2),@GapAgregar*(@MontoTotal))/100
+                --SET @MontoMeta = @MontoTotal + @GapAgregar;
+                INSERT INTO OfertaFinalMontoMeta
+                (
+                    CampaniaId,
+                    ConsultoraId,
+                    MontoPedido,
+                    GapMinimo,
+                    GapMaximo,
+                    GapAgregar,
+                    MontoMeta,
+                    Cuv,
+                    TipoRango,
+                    FechaRegistro
+                )
+                SELECT CampaniaId = @CampaniaID,
+                       ConsultoraId = @ConsultoraId,
+                       MontoPedido = @MontoTotal,
+                       GapMinimo = @GapMinimo,
+                       GapMaximo = @GapMaximo,
+                       GapAgregar = @GapAgregar,
+                       MontoMeta = @MontoMeta,
+                       Cuv = @Cuv,
+                       TipoRango = @TipoRango,
+                       FechaRegistro = GETDATE();
+            END;
+
+        END;
+        ELSE
+            SET @MontoMeta = 0;
     END;
+    ELSE
+        SET @MontoMeta = 0;
+
 END;
+
 GO
 
 USE BelcorpDominicana
@@ -348,65 +424,84 @@ BEGIN
             @RangoId INT,
             @GapMinimo DECIMAL(18, 2),
             @GapMaximo DECIMAL(18, 2),
-			@TipoRango VARCHAR(3);
+            @TipoRango VARCHAR(3),
+            @MontoMaxPedido DECIMAL(18, 2);
+
     SET @MontoMeta = 0;
 
     SELECT @RangoId = ISNULL(OfertaFinalParametriaID, 0),
            @GapAgregar = ISNULL(PrecioMinimo, 0),
            @GapMinimo = ISNULL(GapMinimo, 0),
            @GapMaximo = ISNULL(GapMaximo, 0),
-		   @TipoRango = Tipo
+           @TipoRango = Tipo
     FROM dbo.OfertaFinalParametria
     WHERE Tipo LIKE 'RG%'
           AND @MontoTotal >= GapMinimo
           AND @MontoTotal <= GapMaximo
           AND Algoritmo = @Algoritmo;
 
-    IF NOT EXISTS
-    (
-        SELECT 1
-        FROM OfertaFinalMontoMeta WITH (NOLOCK)
-        WHERE CampaniaId = @CampaniaID
-              AND ConsultoraId = @ConsultoraId
-    )
-       AND @RangoId != 0
+    IF (@RangoId != 0)
     BEGIN
-        /*Monto Meta y Regalo*/
-        DECLARE @Cuv VARCHAR(100);
-        SET @Cuv =
-        (
-            SELECT Cuv
-            FROM OfertaFinalRegaloXCampania WITH (NOLOCK)
-            WHERE CampaniaId = @CampaniaID
-                  AND RangoId = @RangoId
-        );
-        --Set @MontoMeta = @MontoTotal + Convert(decimal(18,2),@GapAgregar*(@MontoTotal))/100
+        SELECT @MontoMaxPedido = ISNULL(MontoMaximoPedido, 0)
+        FROM ods.Consultora
+        WHERE ConsultoraId = @ConsultoraId;
+
         SET @MontoMeta = @MontoTotal + @GapAgregar;
-        INSERT INTO OfertaFinalMontoMeta
-        (
-            CampaniaId,
-            ConsultoraId,
-            MontoPedido,
-            GapMinimo,
-            GapMaximo,
-            GapAgregar,
-            MontoMeta,
-            Cuv,
-			TipoRango,
-			FechaRegistro
-        )
-        SELECT CampaniaId = @CampaniaID,
-               ConsultoraId = @ConsultoraId,
-               MontoPedido = @MontoTotal,
-               GapMinimo = @GapMinimo,
-               GapMaximo = @GapMaximo,
-               GapAgregar = @GapAgregar,
-               MontoMeta = @MontoMeta,
-               Cuv = @Cuv,
-			   TipoRango = @TipoRango,
-			   FechaRegistro = GETDATE();
+
+        IF (@MontoMeta <= @MontoMaxPedido)
+        BEGIN
+            IF NOT EXISTS
+            (
+                SELECT 1
+                FROM OfertaFinalMontoMeta WITH (NOLOCK)
+                WHERE CampaniaId = @CampaniaID
+                      AND ConsultoraId = @ConsultoraId
+            )
+            BEGIN
+                /*Monto Meta y Regalo*/
+                DECLARE @Cuv VARCHAR(100);
+
+                SELECT @Cuv = Cuv
+                FROM OfertaFinalRegaloXCampania WITH (NOLOCK)
+                WHERE CampaniaId = @CampaniaID
+                      AND RangoId = @RangoId;
+
+                --Set @MontoMeta = @MontoTotal + Convert(decimal(18,2),@GapAgregar*(@MontoTotal))/100
+                --SET @MontoMeta = @MontoTotal + @GapAgregar;
+                INSERT INTO OfertaFinalMontoMeta
+                (
+                    CampaniaId,
+                    ConsultoraId,
+                    MontoPedido,
+                    GapMinimo,
+                    GapMaximo,
+                    GapAgregar,
+                    MontoMeta,
+                    Cuv,
+                    TipoRango,
+                    FechaRegistro
+                )
+                SELECT CampaniaId = @CampaniaID,
+                       ConsultoraId = @ConsultoraId,
+                       MontoPedido = @MontoTotal,
+                       GapMinimo = @GapMinimo,
+                       GapMaximo = @GapMaximo,
+                       GapAgregar = @GapAgregar,
+                       MontoMeta = @MontoMeta,
+                       Cuv = @Cuv,
+                       TipoRango = @TipoRango,
+                       FechaRegistro = GETDATE();
+            END;
+
+        END;
+        ELSE
+            SET @MontoMeta = 0;
     END;
+    ELSE
+        SET @MontoMeta = 0;
+
 END;
+
 GO
 
 USE BelcorpEcuador
@@ -430,65 +525,84 @@ BEGIN
             @RangoId INT,
             @GapMinimo DECIMAL(18, 2),
             @GapMaximo DECIMAL(18, 2),
-			@TipoRango VARCHAR(3);
+            @TipoRango VARCHAR(3),
+            @MontoMaxPedido DECIMAL(18, 2);
+
     SET @MontoMeta = 0;
 
     SELECT @RangoId = ISNULL(OfertaFinalParametriaID, 0),
            @GapAgregar = ISNULL(PrecioMinimo, 0),
            @GapMinimo = ISNULL(GapMinimo, 0),
            @GapMaximo = ISNULL(GapMaximo, 0),
-		   @TipoRango = Tipo
+           @TipoRango = Tipo
     FROM dbo.OfertaFinalParametria
     WHERE Tipo LIKE 'RG%'
           AND @MontoTotal >= GapMinimo
           AND @MontoTotal <= GapMaximo
           AND Algoritmo = @Algoritmo;
 
-    IF NOT EXISTS
-    (
-        SELECT 1
-        FROM OfertaFinalMontoMeta WITH (NOLOCK)
-        WHERE CampaniaId = @CampaniaID
-              AND ConsultoraId = @ConsultoraId
-    )
-       AND @RangoId != 0
+    IF (@RangoId != 0)
     BEGIN
-        /*Monto Meta y Regalo*/
-        DECLARE @Cuv VARCHAR(100);
-        SET @Cuv =
-        (
-            SELECT Cuv
-            FROM OfertaFinalRegaloXCampania WITH (NOLOCK)
-            WHERE CampaniaId = @CampaniaID
-                  AND RangoId = @RangoId
-        );
-        --Set @MontoMeta = @MontoTotal + Convert(decimal(18,2),@GapAgregar*(@MontoTotal))/100
+        SELECT @MontoMaxPedido = ISNULL(MontoMaximoPedido, 0)
+        FROM ods.Consultora
+        WHERE ConsultoraId = @ConsultoraId;
+
         SET @MontoMeta = @MontoTotal + @GapAgregar;
-        INSERT INTO OfertaFinalMontoMeta
-        (
-            CampaniaId,
-            ConsultoraId,
-            MontoPedido,
-            GapMinimo,
-            GapMaximo,
-            GapAgregar,
-            MontoMeta,
-            Cuv,
-			TipoRango,
-			FechaRegistro
-        )
-        SELECT CampaniaId = @CampaniaID,
-               ConsultoraId = @ConsultoraId,
-               MontoPedido = @MontoTotal,
-               GapMinimo = @GapMinimo,
-               GapMaximo = @GapMaximo,
-               GapAgregar = @GapAgregar,
-               MontoMeta = @MontoMeta,
-               Cuv = @Cuv,
-			   TipoRango = @TipoRango,
-			   FechaRegistro = GETDATE();
+
+        IF (@MontoMeta <= @MontoMaxPedido)
+        BEGIN
+            IF NOT EXISTS
+            (
+                SELECT 1
+                FROM OfertaFinalMontoMeta WITH (NOLOCK)
+                WHERE CampaniaId = @CampaniaID
+                      AND ConsultoraId = @ConsultoraId
+            )
+            BEGIN
+                /*Monto Meta y Regalo*/
+                DECLARE @Cuv VARCHAR(100);
+
+                SELECT @Cuv = Cuv
+                FROM OfertaFinalRegaloXCampania WITH (NOLOCK)
+                WHERE CampaniaId = @CampaniaID
+                      AND RangoId = @RangoId;
+
+                --Set @MontoMeta = @MontoTotal + Convert(decimal(18,2),@GapAgregar*(@MontoTotal))/100
+                --SET @MontoMeta = @MontoTotal + @GapAgregar;
+                INSERT INTO OfertaFinalMontoMeta
+                (
+                    CampaniaId,
+                    ConsultoraId,
+                    MontoPedido,
+                    GapMinimo,
+                    GapMaximo,
+                    GapAgregar,
+                    MontoMeta,
+                    Cuv,
+                    TipoRango,
+                    FechaRegistro
+                )
+                SELECT CampaniaId = @CampaniaID,
+                       ConsultoraId = @ConsultoraId,
+                       MontoPedido = @MontoTotal,
+                       GapMinimo = @GapMinimo,
+                       GapMaximo = @GapMaximo,
+                       GapAgregar = @GapAgregar,
+                       MontoMeta = @MontoMeta,
+                       Cuv = @Cuv,
+                       TipoRango = @TipoRango,
+                       FechaRegistro = GETDATE();
+            END;
+
+        END;
+        ELSE
+            SET @MontoMeta = 0;
     END;
+    ELSE
+        SET @MontoMeta = 0;
+
 END;
+
 GO
 
 USE BelcorpGuatemala
@@ -512,65 +626,84 @@ BEGIN
             @RangoId INT,
             @GapMinimo DECIMAL(18, 2),
             @GapMaximo DECIMAL(18, 2),
-			@TipoRango VARCHAR(3);
+            @TipoRango VARCHAR(3),
+            @MontoMaxPedido DECIMAL(18, 2);
+
     SET @MontoMeta = 0;
 
     SELECT @RangoId = ISNULL(OfertaFinalParametriaID, 0),
            @GapAgregar = ISNULL(PrecioMinimo, 0),
            @GapMinimo = ISNULL(GapMinimo, 0),
            @GapMaximo = ISNULL(GapMaximo, 0),
-		   @TipoRango = Tipo
+           @TipoRango = Tipo
     FROM dbo.OfertaFinalParametria
     WHERE Tipo LIKE 'RG%'
           AND @MontoTotal >= GapMinimo
           AND @MontoTotal <= GapMaximo
           AND Algoritmo = @Algoritmo;
 
-    IF NOT EXISTS
-    (
-        SELECT 1
-        FROM OfertaFinalMontoMeta WITH (NOLOCK)
-        WHERE CampaniaId = @CampaniaID
-              AND ConsultoraId = @ConsultoraId
-    )
-       AND @RangoId != 0
+    IF (@RangoId != 0)
     BEGIN
-        /*Monto Meta y Regalo*/
-        DECLARE @Cuv VARCHAR(100);
-        SET @Cuv =
-        (
-            SELECT Cuv
-            FROM OfertaFinalRegaloXCampania WITH (NOLOCK)
-            WHERE CampaniaId = @CampaniaID
-                  AND RangoId = @RangoId
-        );
-        --Set @MontoMeta = @MontoTotal + Convert(decimal(18,2),@GapAgregar*(@MontoTotal))/100
+        SELECT @MontoMaxPedido = ISNULL(MontoMaximoPedido, 0)
+        FROM ods.Consultora
+        WHERE ConsultoraId = @ConsultoraId;
+
         SET @MontoMeta = @MontoTotal + @GapAgregar;
-        INSERT INTO OfertaFinalMontoMeta
-        (
-            CampaniaId,
-            ConsultoraId,
-            MontoPedido,
-            GapMinimo,
-            GapMaximo,
-            GapAgregar,
-            MontoMeta,
-            Cuv,
-			TipoRango,
-			FechaRegistro
-        )
-        SELECT CampaniaId = @CampaniaID,
-               ConsultoraId = @ConsultoraId,
-               MontoPedido = @MontoTotal,
-               GapMinimo = @GapMinimo,
-               GapMaximo = @GapMaximo,
-               GapAgregar = @GapAgregar,
-               MontoMeta = @MontoMeta,
-               Cuv = @Cuv,
-			   TipoRango = @TipoRango,
-			   FechaRegistro = GETDATE();
+
+        IF (@MontoMeta <= @MontoMaxPedido)
+        BEGIN
+            IF NOT EXISTS
+            (
+                SELECT 1
+                FROM OfertaFinalMontoMeta WITH (NOLOCK)
+                WHERE CampaniaId = @CampaniaID
+                      AND ConsultoraId = @ConsultoraId
+            )
+            BEGIN
+                /*Monto Meta y Regalo*/
+                DECLARE @Cuv VARCHAR(100);
+
+                SELECT @Cuv = Cuv
+                FROM OfertaFinalRegaloXCampania WITH (NOLOCK)
+                WHERE CampaniaId = @CampaniaID
+                      AND RangoId = @RangoId;
+
+                --Set @MontoMeta = @MontoTotal + Convert(decimal(18,2),@GapAgregar*(@MontoTotal))/100
+                --SET @MontoMeta = @MontoTotal + @GapAgregar;
+                INSERT INTO OfertaFinalMontoMeta
+                (
+                    CampaniaId,
+                    ConsultoraId,
+                    MontoPedido,
+                    GapMinimo,
+                    GapMaximo,
+                    GapAgregar,
+                    MontoMeta,
+                    Cuv,
+                    TipoRango,
+                    FechaRegistro
+                )
+                SELECT CampaniaId = @CampaniaID,
+                       ConsultoraId = @ConsultoraId,
+                       MontoPedido = @MontoTotal,
+                       GapMinimo = @GapMinimo,
+                       GapMaximo = @GapMaximo,
+                       GapAgregar = @GapAgregar,
+                       MontoMeta = @MontoMeta,
+                       Cuv = @Cuv,
+                       TipoRango = @TipoRango,
+                       FechaRegistro = GETDATE();
+            END;
+
+        END;
+        ELSE
+            SET @MontoMeta = 0;
     END;
+    ELSE
+        SET @MontoMeta = 0;
+
 END;
+
 GO
 
 USE BelcorpMexico
@@ -594,65 +727,84 @@ BEGIN
             @RangoId INT,
             @GapMinimo DECIMAL(18, 2),
             @GapMaximo DECIMAL(18, 2),
-			@TipoRango VARCHAR(3);
+            @TipoRango VARCHAR(3),
+            @MontoMaxPedido DECIMAL(18, 2);
+
     SET @MontoMeta = 0;
 
     SELECT @RangoId = ISNULL(OfertaFinalParametriaID, 0),
            @GapAgregar = ISNULL(PrecioMinimo, 0),
            @GapMinimo = ISNULL(GapMinimo, 0),
            @GapMaximo = ISNULL(GapMaximo, 0),
-		   @TipoRango = Tipo
+           @TipoRango = Tipo
     FROM dbo.OfertaFinalParametria
     WHERE Tipo LIKE 'RG%'
           AND @MontoTotal >= GapMinimo
           AND @MontoTotal <= GapMaximo
           AND Algoritmo = @Algoritmo;
 
-    IF NOT EXISTS
-    (
-        SELECT 1
-        FROM OfertaFinalMontoMeta WITH (NOLOCK)
-        WHERE CampaniaId = @CampaniaID
-              AND ConsultoraId = @ConsultoraId
-    )
-       AND @RangoId != 0
+    IF (@RangoId != 0)
     BEGIN
-        /*Monto Meta y Regalo*/
-        DECLARE @Cuv VARCHAR(100);
-        SET @Cuv =
-        (
-            SELECT Cuv
-            FROM OfertaFinalRegaloXCampania WITH (NOLOCK)
-            WHERE CampaniaId = @CampaniaID
-                  AND RangoId = @RangoId
-        );
-        --Set @MontoMeta = @MontoTotal + Convert(decimal(18,2),@GapAgregar*(@MontoTotal))/100
+        SELECT @MontoMaxPedido = ISNULL(MontoMaximoPedido, 0)
+        FROM ods.Consultora
+        WHERE ConsultoraId = @ConsultoraId;
+
         SET @MontoMeta = @MontoTotal + @GapAgregar;
-        INSERT INTO OfertaFinalMontoMeta
-        (
-            CampaniaId,
-            ConsultoraId,
-            MontoPedido,
-            GapMinimo,
-            GapMaximo,
-            GapAgregar,
-            MontoMeta,
-            Cuv,
-			TipoRango,
-			FechaRegistro
-        )
-        SELECT CampaniaId = @CampaniaID,
-               ConsultoraId = @ConsultoraId,
-               MontoPedido = @MontoTotal,
-               GapMinimo = @GapMinimo,
-               GapMaximo = @GapMaximo,
-               GapAgregar = @GapAgregar,
-               MontoMeta = @MontoMeta,
-               Cuv = @Cuv,
-			   TipoRango = @TipoRango,
-			   FechaRegistro = GETDATE();
+
+        IF (@MontoMeta <= @MontoMaxPedido)
+        BEGIN
+            IF NOT EXISTS
+            (
+                SELECT 1
+                FROM OfertaFinalMontoMeta WITH (NOLOCK)
+                WHERE CampaniaId = @CampaniaID
+                      AND ConsultoraId = @ConsultoraId
+            )
+            BEGIN
+                /*Monto Meta y Regalo*/
+                DECLARE @Cuv VARCHAR(100);
+
+                SELECT @Cuv = Cuv
+                FROM OfertaFinalRegaloXCampania WITH (NOLOCK)
+                WHERE CampaniaId = @CampaniaID
+                      AND RangoId = @RangoId;
+
+                --Set @MontoMeta = @MontoTotal + Convert(decimal(18,2),@GapAgregar*(@MontoTotal))/100
+                --SET @MontoMeta = @MontoTotal + @GapAgregar;
+                INSERT INTO OfertaFinalMontoMeta
+                (
+                    CampaniaId,
+                    ConsultoraId,
+                    MontoPedido,
+                    GapMinimo,
+                    GapMaximo,
+                    GapAgregar,
+                    MontoMeta,
+                    Cuv,
+                    TipoRango,
+                    FechaRegistro
+                )
+                SELECT CampaniaId = @CampaniaID,
+                       ConsultoraId = @ConsultoraId,
+                       MontoPedido = @MontoTotal,
+                       GapMinimo = @GapMinimo,
+                       GapMaximo = @GapMaximo,
+                       GapAgregar = @GapAgregar,
+                       MontoMeta = @MontoMeta,
+                       Cuv = @Cuv,
+                       TipoRango = @TipoRango,
+                       FechaRegistro = GETDATE();
+            END;
+
+        END;
+        ELSE
+            SET @MontoMeta = 0;
     END;
+    ELSE
+        SET @MontoMeta = 0;
+
 END;
+
 GO
 
 USE BelcorpPanama
@@ -676,65 +828,84 @@ BEGIN
             @RangoId INT,
             @GapMinimo DECIMAL(18, 2),
             @GapMaximo DECIMAL(18, 2),
-			@TipoRango VARCHAR(3);
+            @TipoRango VARCHAR(3),
+            @MontoMaxPedido DECIMAL(18, 2);
+
     SET @MontoMeta = 0;
 
     SELECT @RangoId = ISNULL(OfertaFinalParametriaID, 0),
            @GapAgregar = ISNULL(PrecioMinimo, 0),
            @GapMinimo = ISNULL(GapMinimo, 0),
            @GapMaximo = ISNULL(GapMaximo, 0),
-		   @TipoRango = Tipo
+           @TipoRango = Tipo
     FROM dbo.OfertaFinalParametria
     WHERE Tipo LIKE 'RG%'
           AND @MontoTotal >= GapMinimo
           AND @MontoTotal <= GapMaximo
           AND Algoritmo = @Algoritmo;
 
-    IF NOT EXISTS
-    (
-        SELECT 1
-        FROM OfertaFinalMontoMeta WITH (NOLOCK)
-        WHERE CampaniaId = @CampaniaID
-              AND ConsultoraId = @ConsultoraId
-    )
-       AND @RangoId != 0
+    IF (@RangoId != 0)
     BEGIN
-        /*Monto Meta y Regalo*/
-        DECLARE @Cuv VARCHAR(100);
-        SET @Cuv =
-        (
-            SELECT Cuv
-            FROM OfertaFinalRegaloXCampania WITH (NOLOCK)
-            WHERE CampaniaId = @CampaniaID
-                  AND RangoId = @RangoId
-        );
-        --Set @MontoMeta = @MontoTotal + Convert(decimal(18,2),@GapAgregar*(@MontoTotal))/100
+        SELECT @MontoMaxPedido = ISNULL(MontoMaximoPedido, 0)
+        FROM ods.Consultora
+        WHERE ConsultoraId = @ConsultoraId;
+
         SET @MontoMeta = @MontoTotal + @GapAgregar;
-        INSERT INTO OfertaFinalMontoMeta
-        (
-            CampaniaId,
-            ConsultoraId,
-            MontoPedido,
-            GapMinimo,
-            GapMaximo,
-            GapAgregar,
-            MontoMeta,
-            Cuv,
-			TipoRango,
-			FechaRegistro
-        )
-        SELECT CampaniaId = @CampaniaID,
-               ConsultoraId = @ConsultoraId,
-               MontoPedido = @MontoTotal,
-               GapMinimo = @GapMinimo,
-               GapMaximo = @GapMaximo,
-               GapAgregar = @GapAgregar,
-               MontoMeta = @MontoMeta,
-               Cuv = @Cuv,
-			   TipoRango = @TipoRango,
-			   FechaRegistro = GETDATE();
+
+        IF (@MontoMeta <= @MontoMaxPedido)
+        BEGIN
+            IF NOT EXISTS
+            (
+                SELECT 1
+                FROM OfertaFinalMontoMeta WITH (NOLOCK)
+                WHERE CampaniaId = @CampaniaID
+                      AND ConsultoraId = @ConsultoraId
+            )
+            BEGIN
+                /*Monto Meta y Regalo*/
+                DECLARE @Cuv VARCHAR(100);
+
+                SELECT @Cuv = Cuv
+                FROM OfertaFinalRegaloXCampania WITH (NOLOCK)
+                WHERE CampaniaId = @CampaniaID
+                      AND RangoId = @RangoId;
+
+                --Set @MontoMeta = @MontoTotal + Convert(decimal(18,2),@GapAgregar*(@MontoTotal))/100
+                --SET @MontoMeta = @MontoTotal + @GapAgregar;
+                INSERT INTO OfertaFinalMontoMeta
+                (
+                    CampaniaId,
+                    ConsultoraId,
+                    MontoPedido,
+                    GapMinimo,
+                    GapMaximo,
+                    GapAgregar,
+                    MontoMeta,
+                    Cuv,
+                    TipoRango,
+                    FechaRegistro
+                )
+                SELECT CampaniaId = @CampaniaID,
+                       ConsultoraId = @ConsultoraId,
+                       MontoPedido = @MontoTotal,
+                       GapMinimo = @GapMinimo,
+                       GapMaximo = @GapMaximo,
+                       GapAgregar = @GapAgregar,
+                       MontoMeta = @MontoMeta,
+                       Cuv = @Cuv,
+                       TipoRango = @TipoRango,
+                       FechaRegistro = GETDATE();
+            END;
+
+        END;
+        ELSE
+            SET @MontoMeta = 0;
     END;
+    ELSE
+        SET @MontoMeta = 0;
+
 END;
+
 GO
 
 USE BelcorpPeru
@@ -758,65 +929,84 @@ BEGIN
             @RangoId INT,
             @GapMinimo DECIMAL(18, 2),
             @GapMaximo DECIMAL(18, 2),
-			@TipoRango VARCHAR(3);
+            @TipoRango VARCHAR(3),
+            @MontoMaxPedido DECIMAL(18, 2);
+
     SET @MontoMeta = 0;
 
     SELECT @RangoId = ISNULL(OfertaFinalParametriaID, 0),
            @GapAgregar = ISNULL(PrecioMinimo, 0),
            @GapMinimo = ISNULL(GapMinimo, 0),
            @GapMaximo = ISNULL(GapMaximo, 0),
-		   @TipoRango = Tipo
+           @TipoRango = Tipo
     FROM dbo.OfertaFinalParametria
     WHERE Tipo LIKE 'RG%'
           AND @MontoTotal >= GapMinimo
           AND @MontoTotal <= GapMaximo
           AND Algoritmo = @Algoritmo;
 
-    IF NOT EXISTS
-    (
-        SELECT 1
-        FROM OfertaFinalMontoMeta WITH (NOLOCK)
-        WHERE CampaniaId = @CampaniaID
-              AND ConsultoraId = @ConsultoraId
-    )
-       AND @RangoId != 0
+    IF (@RangoId != 0)
     BEGIN
-        /*Monto Meta y Regalo*/
-        DECLARE @Cuv VARCHAR(100);
-        SET @Cuv =
-        (
-            SELECT Cuv
-            FROM OfertaFinalRegaloXCampania WITH (NOLOCK)
-            WHERE CampaniaId = @CampaniaID
-                  AND RangoId = @RangoId
-        );
-        --Set @MontoMeta = @MontoTotal + Convert(decimal(18,2),@GapAgregar*(@MontoTotal))/100
+        SELECT @MontoMaxPedido = ISNULL(MontoMaximoPedido, 0)
+        FROM ods.Consultora
+        WHERE ConsultoraId = @ConsultoraId;
+
         SET @MontoMeta = @MontoTotal + @GapAgregar;
-        INSERT INTO OfertaFinalMontoMeta
-        (
-            CampaniaId,
-            ConsultoraId,
-            MontoPedido,
-            GapMinimo,
-            GapMaximo,
-            GapAgregar,
-            MontoMeta,
-            Cuv,
-			TipoRango,
-			FechaRegistro
-        )
-        SELECT CampaniaId = @CampaniaID,
-               ConsultoraId = @ConsultoraId,
-               MontoPedido = @MontoTotal,
-               GapMinimo = @GapMinimo,
-               GapMaximo = @GapMaximo,
-               GapAgregar = @GapAgregar,
-               MontoMeta = @MontoMeta,
-               Cuv = @Cuv,
-			   TipoRango = @TipoRango,
-			   FechaRegistro = GETDATE();
+
+        IF (@MontoMeta <= @MontoMaxPedido)
+        BEGIN
+            IF NOT EXISTS
+            (
+                SELECT 1
+                FROM OfertaFinalMontoMeta WITH (NOLOCK)
+                WHERE CampaniaId = @CampaniaID
+                      AND ConsultoraId = @ConsultoraId
+            )
+            BEGIN
+                /*Monto Meta y Regalo*/
+                DECLARE @Cuv VARCHAR(100);
+
+                SELECT @Cuv = Cuv
+                FROM OfertaFinalRegaloXCampania WITH (NOLOCK)
+                WHERE CampaniaId = @CampaniaID
+                      AND RangoId = @RangoId;
+
+                --Set @MontoMeta = @MontoTotal + Convert(decimal(18,2),@GapAgregar*(@MontoTotal))/100
+                --SET @MontoMeta = @MontoTotal + @GapAgregar;
+                INSERT INTO OfertaFinalMontoMeta
+                (
+                    CampaniaId,
+                    ConsultoraId,
+                    MontoPedido,
+                    GapMinimo,
+                    GapMaximo,
+                    GapAgregar,
+                    MontoMeta,
+                    Cuv,
+                    TipoRango,
+                    FechaRegistro
+                )
+                SELECT CampaniaId = @CampaniaID,
+                       ConsultoraId = @ConsultoraId,
+                       MontoPedido = @MontoTotal,
+                       GapMinimo = @GapMinimo,
+                       GapMaximo = @GapMaximo,
+                       GapAgregar = @GapAgregar,
+                       MontoMeta = @MontoMeta,
+                       Cuv = @Cuv,
+                       TipoRango = @TipoRango,
+                       FechaRegistro = GETDATE();
+            END;
+
+        END;
+        ELSE
+            SET @MontoMeta = 0;
     END;
+    ELSE
+        SET @MontoMeta = 0;
+
 END;
+
 GO
 
 USE BelcorpPuertoRico
@@ -840,66 +1030,86 @@ BEGIN
             @RangoId INT,
             @GapMinimo DECIMAL(18, 2),
             @GapMaximo DECIMAL(18, 2),
-			@TipoRango VARCHAR(3);
+            @TipoRango VARCHAR(3),
+            @MontoMaxPedido DECIMAL(18, 2);
+
     SET @MontoMeta = 0;
 
     SELECT @RangoId = ISNULL(OfertaFinalParametriaID, 0),
            @GapAgregar = ISNULL(PrecioMinimo, 0),
            @GapMinimo = ISNULL(GapMinimo, 0),
            @GapMaximo = ISNULL(GapMaximo, 0),
-		   @TipoRango = Tipo
+           @TipoRango = Tipo
     FROM dbo.OfertaFinalParametria
     WHERE Tipo LIKE 'RG%'
           AND @MontoTotal >= GapMinimo
           AND @MontoTotal <= GapMaximo
           AND Algoritmo = @Algoritmo;
 
-    IF NOT EXISTS
-    (
-        SELECT 1
-        FROM OfertaFinalMontoMeta WITH (NOLOCK)
-        WHERE CampaniaId = @CampaniaID
-              AND ConsultoraId = @ConsultoraId
-    )
-       AND @RangoId != 0
+    IF (@RangoId != 0)
     BEGIN
-        /*Monto Meta y Regalo*/
-        DECLARE @Cuv VARCHAR(100);
-        SET @Cuv =
-        (
-            SELECT Cuv
-            FROM OfertaFinalRegaloXCampania WITH (NOLOCK)
-            WHERE CampaniaId = @CampaniaID
-                  AND RangoId = @RangoId
-        );
-        --Set @MontoMeta = @MontoTotal + Convert(decimal(18,2),@GapAgregar*(@MontoTotal))/100
+        SELECT @MontoMaxPedido = ISNULL(MontoMaximoPedido, 0)
+        FROM ods.Consultora
+        WHERE ConsultoraId = @ConsultoraId;
+
         SET @MontoMeta = @MontoTotal + @GapAgregar;
-        INSERT INTO OfertaFinalMontoMeta
-        (
-            CampaniaId,
-            ConsultoraId,
-            MontoPedido,
-            GapMinimo,
-            GapMaximo,
-            GapAgregar,
-            MontoMeta,
-            Cuv,
-			TipoRango,
-			FechaRegistro
-        )
-        SELECT CampaniaId = @CampaniaID,
-               ConsultoraId = @ConsultoraId,
-               MontoPedido = @MontoTotal,
-               GapMinimo = @GapMinimo,
-               GapMaximo = @GapMaximo,
-               GapAgregar = @GapAgregar,
-               MontoMeta = @MontoMeta,
-               Cuv = @Cuv,
-			   TipoRango = @TipoRango,
-			   FechaRegistro = GETDATE();
+
+        IF (@MontoMeta <= @MontoMaxPedido)
+        BEGIN
+            IF NOT EXISTS
+            (
+                SELECT 1
+                FROM OfertaFinalMontoMeta WITH (NOLOCK)
+                WHERE CampaniaId = @CampaniaID
+                      AND ConsultoraId = @ConsultoraId
+            )
+            BEGIN
+                /*Monto Meta y Regalo*/
+                DECLARE @Cuv VARCHAR(100);
+
+                SELECT @Cuv = Cuv
+                FROM OfertaFinalRegaloXCampania WITH (NOLOCK)
+                WHERE CampaniaId = @CampaniaID
+                      AND RangoId = @RangoId;
+
+                --Set @MontoMeta = @MontoTotal + Convert(decimal(18,2),@GapAgregar*(@MontoTotal))/100
+                --SET @MontoMeta = @MontoTotal + @GapAgregar;
+                INSERT INTO OfertaFinalMontoMeta
+                (
+                    CampaniaId,
+                    ConsultoraId,
+                    MontoPedido,
+                    GapMinimo,
+                    GapMaximo,
+                    GapAgregar,
+                    MontoMeta,
+                    Cuv,
+                    TipoRango,
+                    FechaRegistro
+                )
+                SELECT CampaniaId = @CampaniaID,
+                       ConsultoraId = @ConsultoraId,
+                       MontoPedido = @MontoTotal,
+                       GapMinimo = @GapMinimo,
+                       GapMaximo = @GapMaximo,
+                       GapAgregar = @GapAgregar,
+                       MontoMeta = @MontoMeta,
+                       Cuv = @Cuv,
+                       TipoRango = @TipoRango,
+                       FechaRegistro = GETDATE();
+            END;
+
+        END;
+        ELSE
+            SET @MontoMeta = 0;
     END;
+    ELSE
+        SET @MontoMeta = 0;
+
 END;
+
 GO
+
 
 USE BelcorpSalvador
 GO
@@ -922,67 +1132,85 @@ BEGIN
             @RangoId INT,
             @GapMinimo DECIMAL(18, 2),
             @GapMaximo DECIMAL(18, 2),
-			@TipoRango VARCHAR(3);
+            @TipoRango VARCHAR(3),
+            @MontoMaxPedido DECIMAL(18, 2);
+
     SET @MontoMeta = 0;
 
     SELECT @RangoId = ISNULL(OfertaFinalParametriaID, 0),
            @GapAgregar = ISNULL(PrecioMinimo, 0),
            @GapMinimo = ISNULL(GapMinimo, 0),
            @GapMaximo = ISNULL(GapMaximo, 0),
-		   @TipoRango = Tipo
+           @TipoRango = Tipo
     FROM dbo.OfertaFinalParametria
     WHERE Tipo LIKE 'RG%'
           AND @MontoTotal >= GapMinimo
           AND @MontoTotal <= GapMaximo
           AND Algoritmo = @Algoritmo;
 
-    IF NOT EXISTS
-    (
-        SELECT 1
-        FROM OfertaFinalMontoMeta WITH (NOLOCK)
-        WHERE CampaniaId = @CampaniaID
-              AND ConsultoraId = @ConsultoraId
-    )
-       AND @RangoId != 0
+    IF (@RangoId != 0)
     BEGIN
-        /*Monto Meta y Regalo*/
-        DECLARE @Cuv VARCHAR(100);
-        SET @Cuv =
-        (
-            SELECT Cuv
-            FROM OfertaFinalRegaloXCampania WITH (NOLOCK)
-            WHERE CampaniaId = @CampaniaID
-                  AND RangoId = @RangoId
-        );
-        --Set @MontoMeta = @MontoTotal + Convert(decimal(18,2),@GapAgregar*(@MontoTotal))/100
-        SET @MontoMeta = @MontoTotal + @GapAgregar;
-        INSERT INTO OfertaFinalMontoMeta
-        (
-            CampaniaId,
-            ConsultoraId,
-            MontoPedido,
-            GapMinimo,
-            GapMaximo,
-            GapAgregar,
-            MontoMeta,
-            Cuv,
-			TipoRango,
-			FechaRegistro
-        )
-        SELECT CampaniaId = @CampaniaID,
-               ConsultoraId = @ConsultoraId,
-               MontoPedido = @MontoTotal,
-               GapMinimo = @GapMinimo,
-               GapMaximo = @GapMaximo,
-               GapAgregar = @GapAgregar,
-               MontoMeta = @MontoMeta,
-               Cuv = @Cuv,
-			   TipoRango = @TipoRango,
-			   FechaRegistro = GETDATE();
-    END;
-END;
-GO
+        SELECT @MontoMaxPedido = ISNULL(MontoMaximoPedido, 0)
+        FROM ods.Consultora
+        WHERE ConsultoraId = @ConsultoraId;
 
+        SET @MontoMeta = @MontoTotal + @GapAgregar;
+
+        IF (@MontoMeta <= @MontoMaxPedido)
+        BEGIN
+            IF NOT EXISTS
+            (
+                SELECT 1
+                FROM OfertaFinalMontoMeta WITH (NOLOCK)
+                WHERE CampaniaId = @CampaniaID
+                      AND ConsultoraId = @ConsultoraId
+            )
+            BEGIN
+                /*Monto Meta y Regalo*/
+                DECLARE @Cuv VARCHAR(100);
+
+                SELECT @Cuv = Cuv
+                FROM OfertaFinalRegaloXCampania WITH (NOLOCK)
+                WHERE CampaniaId = @CampaniaID
+                      AND RangoId = @RangoId;
+
+                --Set @MontoMeta = @MontoTotal + Convert(decimal(18,2),@GapAgregar*(@MontoTotal))/100
+                --SET @MontoMeta = @MontoTotal + @GapAgregar;
+                INSERT INTO OfertaFinalMontoMeta
+                (
+                    CampaniaId,
+                    ConsultoraId,
+                    MontoPedido,
+                    GapMinimo,
+                    GapMaximo,
+                    GapAgregar,
+                    MontoMeta,
+                    Cuv,
+                    TipoRango,
+                    FechaRegistro
+                )
+                SELECT CampaniaId = @CampaniaID,
+                       ConsultoraId = @ConsultoraId,
+                       MontoPedido = @MontoTotal,
+                       GapMinimo = @GapMinimo,
+                       GapMaximo = @GapMaximo,
+                       GapAgregar = @GapAgregar,
+                       MontoMeta = @MontoMeta,
+                       Cuv = @Cuv,
+                       TipoRango = @TipoRango,
+                       FechaRegistro = GETDATE();
+            END;
+
+        END;
+        ELSE
+            SET @MontoMeta = 0;
+    END;
+    ELSE
+        SET @MontoMeta = 0;
+
+END;
+
+GO
 
 USE BelcorpVenezuela
 GO
@@ -1005,63 +1233,82 @@ BEGIN
             @RangoId INT,
             @GapMinimo DECIMAL(18, 2),
             @GapMaximo DECIMAL(18, 2),
-			@TipoRango VARCHAR(3);
+            @TipoRango VARCHAR(3),
+            @MontoMaxPedido DECIMAL(18, 2);
+
     SET @MontoMeta = 0;
 
     SELECT @RangoId = ISNULL(OfertaFinalParametriaID, 0),
            @GapAgregar = ISNULL(PrecioMinimo, 0),
            @GapMinimo = ISNULL(GapMinimo, 0),
            @GapMaximo = ISNULL(GapMaximo, 0),
-		   @TipoRango = Tipo
+           @TipoRango = Tipo
     FROM dbo.OfertaFinalParametria
     WHERE Tipo LIKE 'RG%'
           AND @MontoTotal >= GapMinimo
           AND @MontoTotal <= GapMaximo
           AND Algoritmo = @Algoritmo;
 
-    IF NOT EXISTS
-    (
-        SELECT 1
-        FROM OfertaFinalMontoMeta WITH (NOLOCK)
-        WHERE CampaniaId = @CampaniaID
-              AND ConsultoraId = @ConsultoraId
-    )
-       AND @RangoId != 0
+    IF (@RangoId != 0)
     BEGIN
-        /*Monto Meta y Regalo*/
-        DECLARE @Cuv VARCHAR(100);
-        SET @Cuv =
-        (
-            SELECT Cuv
-            FROM OfertaFinalRegaloXCampania WITH (NOLOCK)
-            WHERE CampaniaId = @CampaniaID
-                  AND RangoId = @RangoId
-        );
-        --Set @MontoMeta = @MontoTotal + Convert(decimal(18,2),@GapAgregar*(@MontoTotal))/100
+        SELECT @MontoMaxPedido = ISNULL(MontoMaximoPedido, 0)
+        FROM ods.Consultora
+        WHERE ConsultoraId = @ConsultoraId;
+
         SET @MontoMeta = @MontoTotal + @GapAgregar;
-        INSERT INTO OfertaFinalMontoMeta
-        (
-            CampaniaId,
-            ConsultoraId,
-            MontoPedido,
-            GapMinimo,
-            GapMaximo,
-            GapAgregar,
-            MontoMeta,
-            Cuv,
-			TipoRango,
-			FechaRegistro
-        )
-        SELECT CampaniaId = @CampaniaID,
-               ConsultoraId = @ConsultoraId,
-               MontoPedido = @MontoTotal,
-               GapMinimo = @GapMinimo,
-               GapMaximo = @GapMaximo,
-               GapAgregar = @GapAgregar,
-               MontoMeta = @MontoMeta,
-               Cuv = @Cuv,
-			   TipoRango = @TipoRango,
-			   FechaRegistro = GETDATE();
+
+        IF (@MontoMeta <= @MontoMaxPedido)
+        BEGIN
+            IF NOT EXISTS
+            (
+                SELECT 1
+                FROM OfertaFinalMontoMeta WITH (NOLOCK)
+                WHERE CampaniaId = @CampaniaID
+                      AND ConsultoraId = @ConsultoraId
+            )
+            BEGIN
+                /*Monto Meta y Regalo*/
+                DECLARE @Cuv VARCHAR(100);
+
+                SELECT @Cuv = Cuv
+                FROM OfertaFinalRegaloXCampania WITH (NOLOCK)
+                WHERE CampaniaId = @CampaniaID
+                      AND RangoId = @RangoId;
+
+                --Set @MontoMeta = @MontoTotal + Convert(decimal(18,2),@GapAgregar*(@MontoTotal))/100
+                --SET @MontoMeta = @MontoTotal + @GapAgregar;
+                INSERT INTO OfertaFinalMontoMeta
+                (
+                    CampaniaId,
+                    ConsultoraId,
+                    MontoPedido,
+                    GapMinimo,
+                    GapMaximo,
+                    GapAgregar,
+                    MontoMeta,
+                    Cuv,
+                    TipoRango,
+                    FechaRegistro
+                )
+                SELECT CampaniaId = @CampaniaID,
+                       ConsultoraId = @ConsultoraId,
+                       MontoPedido = @MontoTotal,
+                       GapMinimo = @GapMinimo,
+                       GapMaximo = @GapMaximo,
+                       GapAgregar = @GapAgregar,
+                       MontoMeta = @MontoMeta,
+                       Cuv = @Cuv,
+                       TipoRango = @TipoRango,
+                       FechaRegistro = GETDATE();
+            END;
+
+        END;
+        ELSE
+            SET @MontoMeta = 0;
     END;
+    ELSE
+        SET @MontoMeta = 0;
+
 END;
+
 GO

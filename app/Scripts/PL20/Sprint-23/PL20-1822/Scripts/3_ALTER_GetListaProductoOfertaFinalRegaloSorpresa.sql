@@ -34,7 +34,8 @@ BEGIN
             @MontoFaltante DECIMAL(18, 2),
             @PrecioMinimo DECIMAL(18, 2),
             @TipoMeta CHAR(2),
-            @MontoMeta DECIMAL(18, 2);
+            @MontoMeta DECIMAL(18, 2),
+            @GapAgregar DECIMAL(18, 2);
 
     SET @CumpleParametria = 0;
 
@@ -42,58 +43,66 @@ BEGIN
     BEGIN
         PRINT 'RANGO';
 
-        IF EXISTS
-        (
-            SELECT 1
-            FROM OfertaFinalParametria WITH (NOLOCK)
-            WHERE Tipo LIKE 'RG%'
-                  AND @MontoTotal >= GapMinimo
-                  AND @MontoTotal <= GapMaximo
-                  AND Algoritmo = @Algoritmo
-        )
+        SELECT @GapAgregar = ISNULL(PrecioMinimo, 0)
+        FROM OfertaFinalParametria WITH (NOLOCK)
+        WHERE Tipo LIKE 'RG%'
+              AND @MontoTotal >= GapMinimo
+              AND @MontoTotal <= GapMaximo
+              AND Algoritmo = @Algoritmo;
+
+        IF (@GapAgregar != 0)
         BEGIN
             SET @TipoMeta = 'RG';
             SET @PrecioMinimo = 0;
-            SET @CumpleParametria = 1;
+            --SET @CumpleParametria = 1;
 
-            DECLARE @ConsultoraId INT;
-            SET @ConsultoraId =
-            (
-                SELECT ConsultoraId
-                FROM ods.Consultora WITH (NOLOCK)
-                WHERE Codigo = @CodigoConsultora
-            );
-            SET @MontoMeta =
-            (
-                SELECT MontoMeta
+            DECLARE @ConsultoraId INT,
+                    @MontoMaxPedido DECIMAL(18, 2);
+
+            SELECT @ConsultoraId = ConsultoraId,
+                   @MontoMaxPedido = ISNULL(MontoMaximoPedido, 0)
+            FROM ods.Consultora WITH (NOLOCK)
+            WHERE Codigo = @CodigoConsultora;
+
+            IF (@MontoMaxPedido <= (@MontoTotal + @GapAgregar))
+            BEGIN
+                SET @CumpleParametria = 1;
+
+                SELECT @MontoMeta = MontoMeta
                 FROM OfertaFinalMontoMeta WITH (NOLOCK)
                 WHERE CampaniaId = @CampaniaID
-                      AND ConsultoraId = @ConsultoraId
-            );
+                      AND ConsultoraId = @ConsultoraId;
 
-            IF (ISNULL(@MontoMeta, 0) = 0)
-                EXECUTE InsertarOfertaFinalRegaloSorpresa @CampaniaID,
-                                                          @ConsultoraId,
-                                                          @MontoTotal,
-                                                          @Algoritmo,
-                                                          @MontoMeta OUTPUT;
+                IF (ISNULL(@MontoMeta, 0) = 0)
+                    EXECUTE InsertarOfertaFinalRegaloSorpresa @CampaniaID,
+                                                              @ConsultoraId,
+                                                              @MontoTotal,
+                                                              @Algoritmo,
+                                                              @MontoMeta OUTPUT;
 
-            IF (@MontoTotal >= @MontoMeta AND @MontoMeta != 0)
-            BEGIN
-                SET @TipoMeta = 'GM';
-                SET @PrecioMinimo =
-                (
-                    SELECT TOP 1
-                        PrecioMinimo
-                    FROM OfertaFinalParametria WITH (NOLOCK)
-                    WHERE Tipo = 'GM'
-                          AND Algoritmo = @Algoritmo
-                );
-                IF (ISNULL(@PrecioMinimo, 0) >= 0)
-                    SET @CumpleParametria = 1;
+                IF (@MontoMeta != 0)
+                BEGIN
+                    IF (@MontoTotal >= @MontoMeta)
+                    BEGIN
+                        SET @TipoMeta = 'GM';
+
+                        SELECT TOP 1
+                            @PrecioMinimo = PrecioMinimo
+                        FROM OfertaFinalParametria WITH (NOLOCK)
+                        WHERE Tipo = 'GM'
+                              AND Algoritmo = @Algoritmo;
+
+                        IF (ISNULL(@PrecioMinimo, 0) >= 0)
+                            SET @CumpleParametria = 1;
+                        ELSE
+                            SET @CumpleParametria = 0;
+                    END;
+                END;
                 ELSE
                     SET @CumpleParametria = 0;
             END;
+            ELSE
+                SET @CumpleParametria = 0;
         END;
     END;
     ELSE
@@ -258,9 +267,7 @@ BEGIN
                    AND op.CUV = tc.CUV;
 
         IF (@TipoMeta = 'GM')
-        BEGIN
             SET @MontoFaltante = 0;
-        END;
 
         -- PASO 5 (completar datos)
         SELECT DISTINCT
@@ -335,7 +342,9 @@ BEGIN
 
     END;
 END;
+
 GO
+
 
 USE BelcorpChile
 GO
@@ -372,7 +381,8 @@ BEGIN
             @MontoFaltante DECIMAL(18, 2),
             @PrecioMinimo DECIMAL(18, 2),
             @TipoMeta CHAR(2),
-            @MontoMeta DECIMAL(18, 2);
+            @MontoMeta DECIMAL(18, 2),
+            @GapAgregar DECIMAL(18, 2);
 
     SET @CumpleParametria = 0;
 
@@ -380,58 +390,66 @@ BEGIN
     BEGIN
         PRINT 'RANGO';
 
-        IF EXISTS
-        (
-            SELECT 1
-            FROM OfertaFinalParametria WITH (NOLOCK)
-            WHERE Tipo LIKE 'RG%'
-                  AND @MontoTotal >= GapMinimo
-                  AND @MontoTotal <= GapMaximo
-                  AND Algoritmo = @Algoritmo
-        )
+        SELECT @GapAgregar = ISNULL(PrecioMinimo, 0)
+        FROM OfertaFinalParametria WITH (NOLOCK)
+        WHERE Tipo LIKE 'RG%'
+              AND @MontoTotal >= GapMinimo
+              AND @MontoTotal <= GapMaximo
+              AND Algoritmo = @Algoritmo;
+
+        IF (@GapAgregar != 0)
         BEGIN
             SET @TipoMeta = 'RG';
             SET @PrecioMinimo = 0;
-            SET @CumpleParametria = 1;
+            --SET @CumpleParametria = 1;
 
-            DECLARE @ConsultoraId INT;
-            SET @ConsultoraId =
-            (
-                SELECT ConsultoraId
-                FROM ods.Consultora WITH (NOLOCK)
-                WHERE Codigo = @CodigoConsultora
-            );
-            SET @MontoMeta =
-            (
-                SELECT MontoMeta
+            DECLARE @ConsultoraId INT,
+                    @MontoMaxPedido DECIMAL(18, 2);
+
+            SELECT @ConsultoraId = ConsultoraId,
+                   @MontoMaxPedido = ISNULL(MontoMaximoPedido, 0)
+            FROM ods.Consultora WITH (NOLOCK)
+            WHERE Codigo = @CodigoConsultora;
+
+            IF (@MontoMaxPedido <= (@MontoTotal + @GapAgregar))
+            BEGIN
+                SET @CumpleParametria = 1;
+
+                SELECT @MontoMeta = MontoMeta
                 FROM OfertaFinalMontoMeta WITH (NOLOCK)
                 WHERE CampaniaId = @CampaniaID
-                      AND ConsultoraId = @ConsultoraId
-            );
+                      AND ConsultoraId = @ConsultoraId;
 
-            IF (ISNULL(@MontoMeta, 0) = 0)
-                EXECUTE InsertarOfertaFinalRegaloSorpresa @CampaniaID,
-                                                          @ConsultoraId,
-                                                          @MontoTotal,
-                                                          @Algoritmo,
-                                                          @MontoMeta OUTPUT;
+                IF (ISNULL(@MontoMeta, 0) = 0)
+                    EXECUTE InsertarOfertaFinalRegaloSorpresa @CampaniaID,
+                                                              @ConsultoraId,
+                                                              @MontoTotal,
+                                                              @Algoritmo,
+                                                              @MontoMeta OUTPUT;
 
-            IF (@MontoTotal >= @MontoMeta AND @MontoMeta != 0)
-            BEGIN
-                SET @TipoMeta = 'GM';
-                SET @PrecioMinimo =
-                (
-                    SELECT TOP 1
-                        PrecioMinimo
-                    FROM OfertaFinalParametria WITH (NOLOCK)
-                    WHERE Tipo = 'GM'
-                          AND Algoritmo = @Algoritmo
-                );
-                IF (ISNULL(@PrecioMinimo, 0) >= 0)
-                    SET @CumpleParametria = 1;
+                IF (@MontoMeta != 0)
+                BEGIN
+                    IF (@MontoTotal >= @MontoMeta)
+                    BEGIN
+                        SET @TipoMeta = 'GM';
+
+                        SELECT TOP 1
+                            @PrecioMinimo = PrecioMinimo
+                        FROM OfertaFinalParametria WITH (NOLOCK)
+                        WHERE Tipo = 'GM'
+                              AND Algoritmo = @Algoritmo;
+
+                        IF (ISNULL(@PrecioMinimo, 0) >= 0)
+                            SET @CumpleParametria = 1;
+                        ELSE
+                            SET @CumpleParametria = 0;
+                    END;
+                END;
                 ELSE
                     SET @CumpleParametria = 0;
             END;
+            ELSE
+                SET @CumpleParametria = 0;
         END;
     END;
     ELSE
@@ -596,9 +614,7 @@ BEGIN
                    AND op.CUV = tc.CUV;
 
         IF (@TipoMeta = 'GM')
-        BEGIN
             SET @MontoFaltante = 0;
-        END;
 
         -- PASO 5 (completar datos)
         SELECT DISTINCT
@@ -673,6 +689,7 @@ BEGIN
 
     END;
 END;
+
 GO
 
 USE BelcorpColombia
@@ -710,7 +727,8 @@ BEGIN
             @MontoFaltante DECIMAL(18, 2),
             @PrecioMinimo DECIMAL(18, 2),
             @TipoMeta CHAR(2),
-            @MontoMeta DECIMAL(18, 2);
+            @MontoMeta DECIMAL(18, 2),
+            @GapAgregar DECIMAL(18, 2);
 
     SET @CumpleParametria = 0;
 
@@ -718,58 +736,66 @@ BEGIN
     BEGIN
         PRINT 'RANGO';
 
-        IF EXISTS
-        (
-            SELECT 1
-            FROM OfertaFinalParametria WITH (NOLOCK)
-            WHERE Tipo LIKE 'RG%'
-                  AND @MontoTotal >= GapMinimo
-                  AND @MontoTotal <= GapMaximo
-                  AND Algoritmo = @Algoritmo
-        )
+        SELECT @GapAgregar = ISNULL(PrecioMinimo, 0)
+        FROM OfertaFinalParametria WITH (NOLOCK)
+        WHERE Tipo LIKE 'RG%'
+              AND @MontoTotal >= GapMinimo
+              AND @MontoTotal <= GapMaximo
+              AND Algoritmo = @Algoritmo;
+
+        IF (@GapAgregar != 0)
         BEGIN
             SET @TipoMeta = 'RG';
             SET @PrecioMinimo = 0;
-            SET @CumpleParametria = 1;
+            --SET @CumpleParametria = 1;
 
-            DECLARE @ConsultoraId INT;
-            SET @ConsultoraId =
-            (
-                SELECT ConsultoraId
-                FROM ods.Consultora WITH (NOLOCK)
-                WHERE Codigo = @CodigoConsultora
-            );
-            SET @MontoMeta =
-            (
-                SELECT MontoMeta
+            DECLARE @ConsultoraId INT,
+                    @MontoMaxPedido DECIMAL(18, 2);
+
+            SELECT @ConsultoraId = ConsultoraId,
+                   @MontoMaxPedido = ISNULL(MontoMaximoPedido, 0)
+            FROM ods.Consultora WITH (NOLOCK)
+            WHERE Codigo = @CodigoConsultora;
+
+            IF (@MontoMaxPedido <= (@MontoTotal + @GapAgregar))
+            BEGIN
+                SET @CumpleParametria = 1;
+
+                SELECT @MontoMeta = MontoMeta
                 FROM OfertaFinalMontoMeta WITH (NOLOCK)
                 WHERE CampaniaId = @CampaniaID
-                      AND ConsultoraId = @ConsultoraId
-            );
+                      AND ConsultoraId = @ConsultoraId;
 
-            IF (ISNULL(@MontoMeta, 0) = 0)
-                EXECUTE InsertarOfertaFinalRegaloSorpresa @CampaniaID,
-                                                          @ConsultoraId,
-                                                          @MontoTotal,
-                                                          @Algoritmo,
-                                                          @MontoMeta OUTPUT;
+                IF (ISNULL(@MontoMeta, 0) = 0)
+                    EXECUTE InsertarOfertaFinalRegaloSorpresa @CampaniaID,
+                                                              @ConsultoraId,
+                                                              @MontoTotal,
+                                                              @Algoritmo,
+                                                              @MontoMeta OUTPUT;
 
-            IF (@MontoTotal >= @MontoMeta AND @MontoMeta != 0)
-            BEGIN
-                SET @TipoMeta = 'GM';
-                SET @PrecioMinimo =
-                (
-                    SELECT TOP 1
-                        PrecioMinimo
-                    FROM OfertaFinalParametria WITH (NOLOCK)
-                    WHERE Tipo = 'GM'
-                          AND Algoritmo = @Algoritmo
-                );
-                IF (ISNULL(@PrecioMinimo, 0) >= 0)
-                    SET @CumpleParametria = 1;
+                IF (@MontoMeta != 0)
+                BEGIN
+                    IF (@MontoTotal >= @MontoMeta)
+                    BEGIN
+                        SET @TipoMeta = 'GM';
+
+                        SELECT TOP 1
+                            @PrecioMinimo = PrecioMinimo
+                        FROM OfertaFinalParametria WITH (NOLOCK)
+                        WHERE Tipo = 'GM'
+                              AND Algoritmo = @Algoritmo;
+
+                        IF (ISNULL(@PrecioMinimo, 0) >= 0)
+                            SET @CumpleParametria = 1;
+                        ELSE
+                            SET @CumpleParametria = 0;
+                    END;
+                END;
                 ELSE
                     SET @CumpleParametria = 0;
             END;
+            ELSE
+                SET @CumpleParametria = 0;
         END;
     END;
     ELSE
@@ -934,9 +960,7 @@ BEGIN
                    AND op.CUV = tc.CUV;
 
         IF (@TipoMeta = 'GM')
-        BEGIN
             SET @MontoFaltante = 0;
-        END;
 
         -- PASO 5 (completar datos)
         SELECT DISTINCT
@@ -1011,6 +1035,7 @@ BEGIN
 
     END;
 END;
+
 GO
 
 USE BelcorpCostaRica
@@ -1048,7 +1073,8 @@ BEGIN
             @MontoFaltante DECIMAL(18, 2),
             @PrecioMinimo DECIMAL(18, 2),
             @TipoMeta CHAR(2),
-            @MontoMeta DECIMAL(18, 2);
+            @MontoMeta DECIMAL(18, 2),
+            @GapAgregar DECIMAL(18, 2);
 
     SET @CumpleParametria = 0;
 
@@ -1056,58 +1082,66 @@ BEGIN
     BEGIN
         PRINT 'RANGO';
 
-        IF EXISTS
-        (
-            SELECT 1
-            FROM OfertaFinalParametria WITH (NOLOCK)
-            WHERE Tipo LIKE 'RG%'
-                  AND @MontoTotal >= GapMinimo
-                  AND @MontoTotal <= GapMaximo
-                  AND Algoritmo = @Algoritmo
-        )
+        SELECT @GapAgregar = ISNULL(PrecioMinimo, 0)
+        FROM OfertaFinalParametria WITH (NOLOCK)
+        WHERE Tipo LIKE 'RG%'
+              AND @MontoTotal >= GapMinimo
+              AND @MontoTotal <= GapMaximo
+              AND Algoritmo = @Algoritmo;
+
+        IF (@GapAgregar != 0)
         BEGIN
             SET @TipoMeta = 'RG';
             SET @PrecioMinimo = 0;
-            SET @CumpleParametria = 1;
+            --SET @CumpleParametria = 1;
 
-            DECLARE @ConsultoraId INT;
-            SET @ConsultoraId =
-            (
-                SELECT ConsultoraId
-                FROM ods.Consultora WITH (NOLOCK)
-                WHERE Codigo = @CodigoConsultora
-            );
-            SET @MontoMeta =
-            (
-                SELECT MontoMeta
+            DECLARE @ConsultoraId INT,
+                    @MontoMaxPedido DECIMAL(18, 2);
+
+            SELECT @ConsultoraId = ConsultoraId,
+                   @MontoMaxPedido = ISNULL(MontoMaximoPedido, 0)
+            FROM ods.Consultora WITH (NOLOCK)
+            WHERE Codigo = @CodigoConsultora;
+
+            IF (@MontoMaxPedido <= (@MontoTotal + @GapAgregar))
+            BEGIN
+                SET @CumpleParametria = 1;
+
+                SELECT @MontoMeta = MontoMeta
                 FROM OfertaFinalMontoMeta WITH (NOLOCK)
                 WHERE CampaniaId = @CampaniaID
-                      AND ConsultoraId = @ConsultoraId
-            );
+                      AND ConsultoraId = @ConsultoraId;
 
-            IF (ISNULL(@MontoMeta, 0) = 0)
-                EXECUTE InsertarOfertaFinalRegaloSorpresa @CampaniaID,
-                                                          @ConsultoraId,
-                                                          @MontoTotal,
-                                                          @Algoritmo,
-                                                          @MontoMeta OUTPUT;
+                IF (ISNULL(@MontoMeta, 0) = 0)
+                    EXECUTE InsertarOfertaFinalRegaloSorpresa @CampaniaID,
+                                                              @ConsultoraId,
+                                                              @MontoTotal,
+                                                              @Algoritmo,
+                                                              @MontoMeta OUTPUT;
 
-            IF (@MontoTotal >= @MontoMeta AND @MontoMeta != 0)
-            BEGIN
-                SET @TipoMeta = 'GM';
-                SET @PrecioMinimo =
-                (
-                    SELECT TOP 1
-                        PrecioMinimo
-                    FROM OfertaFinalParametria WITH (NOLOCK)
-                    WHERE Tipo = 'GM'
-                          AND Algoritmo = @Algoritmo
-                );
-                IF (ISNULL(@PrecioMinimo, 0) >= 0)
-                    SET @CumpleParametria = 1;
+                IF (@MontoMeta != 0)
+                BEGIN
+                    IF (@MontoTotal >= @MontoMeta)
+                    BEGIN
+                        SET @TipoMeta = 'GM';
+
+                        SELECT TOP 1
+                            @PrecioMinimo = PrecioMinimo
+                        FROM OfertaFinalParametria WITH (NOLOCK)
+                        WHERE Tipo = 'GM'
+                              AND Algoritmo = @Algoritmo;
+
+                        IF (ISNULL(@PrecioMinimo, 0) >= 0)
+                            SET @CumpleParametria = 1;
+                        ELSE
+                            SET @CumpleParametria = 0;
+                    END;
+                END;
                 ELSE
                     SET @CumpleParametria = 0;
             END;
+            ELSE
+                SET @CumpleParametria = 0;
         END;
     END;
     ELSE
@@ -1272,9 +1306,7 @@ BEGIN
                    AND op.CUV = tc.CUV;
 
         IF (@TipoMeta = 'GM')
-        BEGIN
             SET @MontoFaltante = 0;
-        END;
 
         -- PASO 5 (completar datos)
         SELECT DISTINCT
@@ -1349,6 +1381,7 @@ BEGIN
 
     END;
 END;
+
 GO
 
 USE BelcorpDominicana
@@ -1386,7 +1419,8 @@ BEGIN
             @MontoFaltante DECIMAL(18, 2),
             @PrecioMinimo DECIMAL(18, 2),
             @TipoMeta CHAR(2),
-            @MontoMeta DECIMAL(18, 2);
+            @MontoMeta DECIMAL(18, 2),
+            @GapAgregar DECIMAL(18, 2);
 
     SET @CumpleParametria = 0;
 
@@ -1394,58 +1428,66 @@ BEGIN
     BEGIN
         PRINT 'RANGO';
 
-        IF EXISTS
-        (
-            SELECT 1
-            FROM OfertaFinalParametria WITH (NOLOCK)
-            WHERE Tipo LIKE 'RG%'
-                  AND @MontoTotal >= GapMinimo
-                  AND @MontoTotal <= GapMaximo
-                  AND Algoritmo = @Algoritmo
-        )
+        SELECT @GapAgregar = ISNULL(PrecioMinimo, 0)
+        FROM OfertaFinalParametria WITH (NOLOCK)
+        WHERE Tipo LIKE 'RG%'
+              AND @MontoTotal >= GapMinimo
+              AND @MontoTotal <= GapMaximo
+              AND Algoritmo = @Algoritmo;
+
+        IF (@GapAgregar != 0)
         BEGIN
             SET @TipoMeta = 'RG';
             SET @PrecioMinimo = 0;
-            SET @CumpleParametria = 1;
+            --SET @CumpleParametria = 1;
 
-            DECLARE @ConsultoraId INT;
-            SET @ConsultoraId =
-            (
-                SELECT ConsultoraId
-                FROM ods.Consultora WITH (NOLOCK)
-                WHERE Codigo = @CodigoConsultora
-            );
-            SET @MontoMeta =
-            (
-                SELECT MontoMeta
+            DECLARE @ConsultoraId INT,
+                    @MontoMaxPedido DECIMAL(18, 2);
+
+            SELECT @ConsultoraId = ConsultoraId,
+                   @MontoMaxPedido = ISNULL(MontoMaximoPedido, 0)
+            FROM ods.Consultora WITH (NOLOCK)
+            WHERE Codigo = @CodigoConsultora;
+
+            IF (@MontoMaxPedido <= (@MontoTotal + @GapAgregar))
+            BEGIN
+                SET @CumpleParametria = 1;
+
+                SELECT @MontoMeta = MontoMeta
                 FROM OfertaFinalMontoMeta WITH (NOLOCK)
                 WHERE CampaniaId = @CampaniaID
-                      AND ConsultoraId = @ConsultoraId
-            );
+                      AND ConsultoraId = @ConsultoraId;
 
-            IF (ISNULL(@MontoMeta, 0) = 0)
-                EXECUTE InsertarOfertaFinalRegaloSorpresa @CampaniaID,
-                                                          @ConsultoraId,
-                                                          @MontoTotal,
-                                                          @Algoritmo,
-                                                          @MontoMeta OUTPUT;
+                IF (ISNULL(@MontoMeta, 0) = 0)
+                    EXECUTE InsertarOfertaFinalRegaloSorpresa @CampaniaID,
+                                                              @ConsultoraId,
+                                                              @MontoTotal,
+                                                              @Algoritmo,
+                                                              @MontoMeta OUTPUT;
 
-            IF (@MontoTotal >= @MontoMeta AND @MontoMeta != 0)
-            BEGIN
-                SET @TipoMeta = 'GM';
-                SET @PrecioMinimo =
-                (
-                    SELECT TOP 1
-                        PrecioMinimo
-                    FROM OfertaFinalParametria WITH (NOLOCK)
-                    WHERE Tipo = 'GM'
-                          AND Algoritmo = @Algoritmo
-                );
-                IF (ISNULL(@PrecioMinimo, 0) >= 0)
-                    SET @CumpleParametria = 1;
+                IF (@MontoMeta != 0)
+                BEGIN
+                    IF (@MontoTotal >= @MontoMeta)
+                    BEGIN
+                        SET @TipoMeta = 'GM';
+
+                        SELECT TOP 1
+                            @PrecioMinimo = PrecioMinimo
+                        FROM OfertaFinalParametria WITH (NOLOCK)
+                        WHERE Tipo = 'GM'
+                              AND Algoritmo = @Algoritmo;
+
+                        IF (ISNULL(@PrecioMinimo, 0) >= 0)
+                            SET @CumpleParametria = 1;
+                        ELSE
+                            SET @CumpleParametria = 0;
+                    END;
+                END;
                 ELSE
                     SET @CumpleParametria = 0;
             END;
+            ELSE
+                SET @CumpleParametria = 0;
         END;
     END;
     ELSE
@@ -1610,9 +1652,7 @@ BEGIN
                    AND op.CUV = tc.CUV;
 
         IF (@TipoMeta = 'GM')
-        BEGIN
             SET @MontoFaltante = 0;
-        END;
 
         -- PASO 5 (completar datos)
         SELECT DISTINCT
@@ -1687,6 +1727,7 @@ BEGIN
 
     END;
 END;
+
 GO
 
 USE BelcorpEcuador
@@ -1724,7 +1765,8 @@ BEGIN
             @MontoFaltante DECIMAL(18, 2),
             @PrecioMinimo DECIMAL(18, 2),
             @TipoMeta CHAR(2),
-            @MontoMeta DECIMAL(18, 2);
+            @MontoMeta DECIMAL(18, 2),
+            @GapAgregar DECIMAL(18, 2);
 
     SET @CumpleParametria = 0;
 
@@ -1732,58 +1774,66 @@ BEGIN
     BEGIN
         PRINT 'RANGO';
 
-        IF EXISTS
-        (
-            SELECT 1
-            FROM OfertaFinalParametria WITH (NOLOCK)
-            WHERE Tipo LIKE 'RG%'
-                  AND @MontoTotal >= GapMinimo
-                  AND @MontoTotal <= GapMaximo
-                  AND Algoritmo = @Algoritmo
-        )
+        SELECT @GapAgregar = ISNULL(PrecioMinimo, 0)
+        FROM OfertaFinalParametria WITH (NOLOCK)
+        WHERE Tipo LIKE 'RG%'
+              AND @MontoTotal >= GapMinimo
+              AND @MontoTotal <= GapMaximo
+              AND Algoritmo = @Algoritmo;
+
+        IF (@GapAgregar != 0)
         BEGIN
             SET @TipoMeta = 'RG';
             SET @PrecioMinimo = 0;
-            SET @CumpleParametria = 1;
+            --SET @CumpleParametria = 1;
 
-            DECLARE @ConsultoraId INT;
-            SET @ConsultoraId =
-            (
-                SELECT ConsultoraId
-                FROM ods.Consultora WITH (NOLOCK)
-                WHERE Codigo = @CodigoConsultora
-            );
-            SET @MontoMeta =
-            (
-                SELECT MontoMeta
+            DECLARE @ConsultoraId INT,
+                    @MontoMaxPedido DECIMAL(18, 2);
+
+            SELECT @ConsultoraId = ConsultoraId,
+                   @MontoMaxPedido = ISNULL(MontoMaximoPedido, 0)
+            FROM ods.Consultora WITH (NOLOCK)
+            WHERE Codigo = @CodigoConsultora;
+
+            IF (@MontoMaxPedido <= (@MontoTotal + @GapAgregar))
+            BEGIN
+                SET @CumpleParametria = 1;
+
+                SELECT @MontoMeta = MontoMeta
                 FROM OfertaFinalMontoMeta WITH (NOLOCK)
                 WHERE CampaniaId = @CampaniaID
-                      AND ConsultoraId = @ConsultoraId
-            );
+                      AND ConsultoraId = @ConsultoraId;
 
-            IF (ISNULL(@MontoMeta, 0) = 0)
-                EXECUTE InsertarOfertaFinalRegaloSorpresa @CampaniaID,
-                                                          @ConsultoraId,
-                                                          @MontoTotal,
-                                                          @Algoritmo,
-                                                          @MontoMeta OUTPUT;
+                IF (ISNULL(@MontoMeta, 0) = 0)
+                    EXECUTE InsertarOfertaFinalRegaloSorpresa @CampaniaID,
+                                                              @ConsultoraId,
+                                                              @MontoTotal,
+                                                              @Algoritmo,
+                                                              @MontoMeta OUTPUT;
 
-            IF (@MontoTotal >= @MontoMeta AND @MontoMeta != 0)
-            BEGIN
-                SET @TipoMeta = 'GM';
-                SET @PrecioMinimo =
-                (
-                    SELECT TOP 1
-                        PrecioMinimo
-                    FROM OfertaFinalParametria WITH (NOLOCK)
-                    WHERE Tipo = 'GM'
-                          AND Algoritmo = @Algoritmo
-                );
-                IF (ISNULL(@PrecioMinimo, 0) >= 0)
-                    SET @CumpleParametria = 1;
+                IF (@MontoMeta != 0)
+                BEGIN
+                    IF (@MontoTotal >= @MontoMeta)
+                    BEGIN
+                        SET @TipoMeta = 'GM';
+
+                        SELECT TOP 1
+                            @PrecioMinimo = PrecioMinimo
+                        FROM OfertaFinalParametria WITH (NOLOCK)
+                        WHERE Tipo = 'GM'
+                              AND Algoritmo = @Algoritmo;
+
+                        IF (ISNULL(@PrecioMinimo, 0) >= 0)
+                            SET @CumpleParametria = 1;
+                        ELSE
+                            SET @CumpleParametria = 0;
+                    END;
+                END;
                 ELSE
                     SET @CumpleParametria = 0;
             END;
+            ELSE
+                SET @CumpleParametria = 0;
         END;
     END;
     ELSE
@@ -1948,9 +1998,7 @@ BEGIN
                    AND op.CUV = tc.CUV;
 
         IF (@TipoMeta = 'GM')
-        BEGIN
             SET @MontoFaltante = 0;
-        END;
 
         -- PASO 5 (completar datos)
         SELECT DISTINCT
@@ -2025,6 +2073,7 @@ BEGIN
 
     END;
 END;
+
 GO
 
 USE BelcorpGuatemala
@@ -2062,7 +2111,8 @@ BEGIN
             @MontoFaltante DECIMAL(18, 2),
             @PrecioMinimo DECIMAL(18, 2),
             @TipoMeta CHAR(2),
-            @MontoMeta DECIMAL(18, 2);
+            @MontoMeta DECIMAL(18, 2),
+            @GapAgregar DECIMAL(18, 2);
 
     SET @CumpleParametria = 0;
 
@@ -2070,58 +2120,66 @@ BEGIN
     BEGIN
         PRINT 'RANGO';
 
-        IF EXISTS
-        (
-            SELECT 1
-            FROM OfertaFinalParametria WITH (NOLOCK)
-            WHERE Tipo LIKE 'RG%'
-                  AND @MontoTotal >= GapMinimo
-                  AND @MontoTotal <= GapMaximo
-                  AND Algoritmo = @Algoritmo
-        )
+        SELECT @GapAgregar = ISNULL(PrecioMinimo, 0)
+        FROM OfertaFinalParametria WITH (NOLOCK)
+        WHERE Tipo LIKE 'RG%'
+              AND @MontoTotal >= GapMinimo
+              AND @MontoTotal <= GapMaximo
+              AND Algoritmo = @Algoritmo;
+
+        IF (@GapAgregar != 0)
         BEGIN
             SET @TipoMeta = 'RG';
             SET @PrecioMinimo = 0;
-            SET @CumpleParametria = 1;
+            --SET @CumpleParametria = 1;
 
-            DECLARE @ConsultoraId INT;
-            SET @ConsultoraId =
-            (
-                SELECT ConsultoraId
-                FROM ods.Consultora WITH (NOLOCK)
-                WHERE Codigo = @CodigoConsultora
-            );
-            SET @MontoMeta =
-            (
-                SELECT MontoMeta
+            DECLARE @ConsultoraId INT,
+                    @MontoMaxPedido DECIMAL(18, 2);
+
+            SELECT @ConsultoraId = ConsultoraId,
+                   @MontoMaxPedido = ISNULL(MontoMaximoPedido, 0)
+            FROM ods.Consultora WITH (NOLOCK)
+            WHERE Codigo = @CodigoConsultora;
+
+            IF (@MontoMaxPedido <= (@MontoTotal + @GapAgregar))
+            BEGIN
+                SET @CumpleParametria = 1;
+
+                SELECT @MontoMeta = MontoMeta
                 FROM OfertaFinalMontoMeta WITH (NOLOCK)
                 WHERE CampaniaId = @CampaniaID
-                      AND ConsultoraId = @ConsultoraId
-            );
+                      AND ConsultoraId = @ConsultoraId;
 
-            IF (ISNULL(@MontoMeta, 0) = 0)
-                EXECUTE InsertarOfertaFinalRegaloSorpresa @CampaniaID,
-                                                          @ConsultoraId,
-                                                          @MontoTotal,
-                                                          @Algoritmo,
-                                                          @MontoMeta OUTPUT;
+                IF (ISNULL(@MontoMeta, 0) = 0)
+                    EXECUTE InsertarOfertaFinalRegaloSorpresa @CampaniaID,
+                                                              @ConsultoraId,
+                                                              @MontoTotal,
+                                                              @Algoritmo,
+                                                              @MontoMeta OUTPUT;
 
-            IF (@MontoTotal >= @MontoMeta AND @MontoMeta != 0)
-            BEGIN
-                SET @TipoMeta = 'GM';
-                SET @PrecioMinimo =
-                (
-                    SELECT TOP 1
-                        PrecioMinimo
-                    FROM OfertaFinalParametria WITH (NOLOCK)
-                    WHERE Tipo = 'GM'
-                          AND Algoritmo = @Algoritmo
-                );
-                IF (ISNULL(@PrecioMinimo, 0) >= 0)
-                    SET @CumpleParametria = 1;
+                IF (@MontoMeta != 0)
+                BEGIN
+                    IF (@MontoTotal >= @MontoMeta)
+                    BEGIN
+                        SET @TipoMeta = 'GM';
+
+                        SELECT TOP 1
+                            @PrecioMinimo = PrecioMinimo
+                        FROM OfertaFinalParametria WITH (NOLOCK)
+                        WHERE Tipo = 'GM'
+                              AND Algoritmo = @Algoritmo;
+
+                        IF (ISNULL(@PrecioMinimo, 0) >= 0)
+                            SET @CumpleParametria = 1;
+                        ELSE
+                            SET @CumpleParametria = 0;
+                    END;
+                END;
                 ELSE
                     SET @CumpleParametria = 0;
             END;
+            ELSE
+                SET @CumpleParametria = 0;
         END;
     END;
     ELSE
@@ -2286,9 +2344,7 @@ BEGIN
                    AND op.CUV = tc.CUV;
 
         IF (@TipoMeta = 'GM')
-        BEGIN
             SET @MontoFaltante = 0;
-        END;
 
         -- PASO 5 (completar datos)
         SELECT DISTINCT
@@ -2363,6 +2419,7 @@ BEGIN
 
     END;
 END;
+
 GO
 
 USE BelcorpMexico
@@ -2400,7 +2457,8 @@ BEGIN
             @MontoFaltante DECIMAL(18, 2),
             @PrecioMinimo DECIMAL(18, 2),
             @TipoMeta CHAR(2),
-            @MontoMeta DECIMAL(18, 2);
+            @MontoMeta DECIMAL(18, 2),
+            @GapAgregar DECIMAL(18, 2);
 
     SET @CumpleParametria = 0;
 
@@ -2408,58 +2466,66 @@ BEGIN
     BEGIN
         PRINT 'RANGO';
 
-        IF EXISTS
-        (
-            SELECT 1
-            FROM OfertaFinalParametria WITH (NOLOCK)
-            WHERE Tipo LIKE 'RG%'
-                  AND @MontoTotal >= GapMinimo
-                  AND @MontoTotal <= GapMaximo
-                  AND Algoritmo = @Algoritmo
-        )
+        SELECT @GapAgregar = ISNULL(PrecioMinimo, 0)
+        FROM OfertaFinalParametria WITH (NOLOCK)
+        WHERE Tipo LIKE 'RG%'
+              AND @MontoTotal >= GapMinimo
+              AND @MontoTotal <= GapMaximo
+              AND Algoritmo = @Algoritmo;
+
+        IF (@GapAgregar != 0)
         BEGIN
             SET @TipoMeta = 'RG';
             SET @PrecioMinimo = 0;
-            SET @CumpleParametria = 1;
+            --SET @CumpleParametria = 1;
 
-            DECLARE @ConsultoraId INT;
-            SET @ConsultoraId =
-            (
-                SELECT ConsultoraId
-                FROM ods.Consultora WITH (NOLOCK)
-                WHERE Codigo = @CodigoConsultora
-            );
-            SET @MontoMeta =
-            (
-                SELECT MontoMeta
+            DECLARE @ConsultoraId INT,
+                    @MontoMaxPedido DECIMAL(18, 2);
+
+            SELECT @ConsultoraId = ConsultoraId,
+                   @MontoMaxPedido = ISNULL(MontoMaximoPedido, 0)
+            FROM ods.Consultora WITH (NOLOCK)
+            WHERE Codigo = @CodigoConsultora;
+
+            IF (@MontoMaxPedido <= (@MontoTotal + @GapAgregar))
+            BEGIN
+                SET @CumpleParametria = 1;
+
+                SELECT @MontoMeta = MontoMeta
                 FROM OfertaFinalMontoMeta WITH (NOLOCK)
                 WHERE CampaniaId = @CampaniaID
-                      AND ConsultoraId = @ConsultoraId
-            );
+                      AND ConsultoraId = @ConsultoraId;
 
-            IF (ISNULL(@MontoMeta, 0) = 0)
-                EXECUTE InsertarOfertaFinalRegaloSorpresa @CampaniaID,
-                                                          @ConsultoraId,
-                                                          @MontoTotal,
-                                                          @Algoritmo,
-                                                          @MontoMeta OUTPUT;
+                IF (ISNULL(@MontoMeta, 0) = 0)
+                    EXECUTE InsertarOfertaFinalRegaloSorpresa @CampaniaID,
+                                                              @ConsultoraId,
+                                                              @MontoTotal,
+                                                              @Algoritmo,
+                                                              @MontoMeta OUTPUT;
 
-            IF (@MontoTotal >= @MontoMeta AND @MontoMeta != 0)
-            BEGIN
-                SET @TipoMeta = 'GM';
-                SET @PrecioMinimo =
-                (
-                    SELECT TOP 1
-                        PrecioMinimo
-                    FROM OfertaFinalParametria WITH (NOLOCK)
-                    WHERE Tipo = 'GM'
-                          AND Algoritmo = @Algoritmo
-                );
-                IF (ISNULL(@PrecioMinimo, 0) >= 0)
-                    SET @CumpleParametria = 1;
+                IF (@MontoMeta != 0)
+                BEGIN
+                    IF (@MontoTotal >= @MontoMeta)
+                    BEGIN
+                        SET @TipoMeta = 'GM';
+
+                        SELECT TOP 1
+                            @PrecioMinimo = PrecioMinimo
+                        FROM OfertaFinalParametria WITH (NOLOCK)
+                        WHERE Tipo = 'GM'
+                              AND Algoritmo = @Algoritmo;
+
+                        IF (ISNULL(@PrecioMinimo, 0) >= 0)
+                            SET @CumpleParametria = 1;
+                        ELSE
+                            SET @CumpleParametria = 0;
+                    END;
+                END;
                 ELSE
                     SET @CumpleParametria = 0;
             END;
+            ELSE
+                SET @CumpleParametria = 0;
         END;
     END;
     ELSE
@@ -2624,9 +2690,7 @@ BEGIN
                    AND op.CUV = tc.CUV;
 
         IF (@TipoMeta = 'GM')
-        BEGIN
             SET @MontoFaltante = 0;
-        END;
 
         -- PASO 5 (completar datos)
         SELECT DISTINCT
@@ -2701,6 +2765,7 @@ BEGIN
 
     END;
 END;
+
 GO
 
 USE BelcorpPanama
@@ -2738,7 +2803,8 @@ BEGIN
             @MontoFaltante DECIMAL(18, 2),
             @PrecioMinimo DECIMAL(18, 2),
             @TipoMeta CHAR(2),
-            @MontoMeta DECIMAL(18, 2);
+            @MontoMeta DECIMAL(18, 2),
+            @GapAgregar DECIMAL(18, 2);
 
     SET @CumpleParametria = 0;
 
@@ -2746,58 +2812,66 @@ BEGIN
     BEGIN
         PRINT 'RANGO';
 
-        IF EXISTS
-        (
-            SELECT 1
-            FROM OfertaFinalParametria WITH (NOLOCK)
-            WHERE Tipo LIKE 'RG%'
-                  AND @MontoTotal >= GapMinimo
-                  AND @MontoTotal <= GapMaximo
-                  AND Algoritmo = @Algoritmo
-        )
+        SELECT @GapAgregar = ISNULL(PrecioMinimo, 0)
+        FROM OfertaFinalParametria WITH (NOLOCK)
+        WHERE Tipo LIKE 'RG%'
+              AND @MontoTotal >= GapMinimo
+              AND @MontoTotal <= GapMaximo
+              AND Algoritmo = @Algoritmo;
+
+        IF (@GapAgregar != 0)
         BEGIN
             SET @TipoMeta = 'RG';
             SET @PrecioMinimo = 0;
-            SET @CumpleParametria = 1;
+            --SET @CumpleParametria = 1;
 
-            DECLARE @ConsultoraId INT;
-            SET @ConsultoraId =
-            (
-                SELECT ConsultoraId
-                FROM ods.Consultora WITH (NOLOCK)
-                WHERE Codigo = @CodigoConsultora
-            );
-            SET @MontoMeta =
-            (
-                SELECT MontoMeta
+            DECLARE @ConsultoraId INT,
+                    @MontoMaxPedido DECIMAL(18, 2);
+
+            SELECT @ConsultoraId = ConsultoraId,
+                   @MontoMaxPedido = ISNULL(MontoMaximoPedido, 0)
+            FROM ods.Consultora WITH (NOLOCK)
+            WHERE Codigo = @CodigoConsultora;
+
+            IF (@MontoMaxPedido <= (@MontoTotal + @GapAgregar))
+            BEGIN
+                SET @CumpleParametria = 1;
+
+                SELECT @MontoMeta = MontoMeta
                 FROM OfertaFinalMontoMeta WITH (NOLOCK)
                 WHERE CampaniaId = @CampaniaID
-                      AND ConsultoraId = @ConsultoraId
-            );
+                      AND ConsultoraId = @ConsultoraId;
 
-            IF (ISNULL(@MontoMeta, 0) = 0)
-                EXECUTE InsertarOfertaFinalRegaloSorpresa @CampaniaID,
-                                                          @ConsultoraId,
-                                                          @MontoTotal,
-                                                          @Algoritmo,
-                                                          @MontoMeta OUTPUT;
+                IF (ISNULL(@MontoMeta, 0) = 0)
+                    EXECUTE InsertarOfertaFinalRegaloSorpresa @CampaniaID,
+                                                              @ConsultoraId,
+                                                              @MontoTotal,
+                                                              @Algoritmo,
+                                                              @MontoMeta OUTPUT;
 
-            IF (@MontoTotal >= @MontoMeta AND @MontoMeta != 0)
-            BEGIN
-                SET @TipoMeta = 'GM';
-                SET @PrecioMinimo =
-                (
-                    SELECT TOP 1
-                        PrecioMinimo
-                    FROM OfertaFinalParametria WITH (NOLOCK)
-                    WHERE Tipo = 'GM'
-                          AND Algoritmo = @Algoritmo
-                );
-                IF (ISNULL(@PrecioMinimo, 0) >= 0)
-                    SET @CumpleParametria = 1;
+                IF (@MontoMeta != 0)
+                BEGIN
+                    IF (@MontoTotal >= @MontoMeta)
+                    BEGIN
+                        SET @TipoMeta = 'GM';
+
+                        SELECT TOP 1
+                            @PrecioMinimo = PrecioMinimo
+                        FROM OfertaFinalParametria WITH (NOLOCK)
+                        WHERE Tipo = 'GM'
+                              AND Algoritmo = @Algoritmo;
+
+                        IF (ISNULL(@PrecioMinimo, 0) >= 0)
+                            SET @CumpleParametria = 1;
+                        ELSE
+                            SET @CumpleParametria = 0;
+                    END;
+                END;
                 ELSE
                     SET @CumpleParametria = 0;
             END;
+            ELSE
+                SET @CumpleParametria = 0;
         END;
     END;
     ELSE
@@ -2962,9 +3036,7 @@ BEGIN
                    AND op.CUV = tc.CUV;
 
         IF (@TipoMeta = 'GM')
-        BEGIN
             SET @MontoFaltante = 0;
-        END;
 
         -- PASO 5 (completar datos)
         SELECT DISTINCT
@@ -3039,6 +3111,7 @@ BEGIN
 
     END;
 END;
+
 GO
 
 USE BelcorpPeru
@@ -3076,7 +3149,8 @@ BEGIN
             @MontoFaltante DECIMAL(18, 2),
             @PrecioMinimo DECIMAL(18, 2),
             @TipoMeta CHAR(2),
-            @MontoMeta DECIMAL(18, 2);
+            @MontoMeta DECIMAL(18, 2),
+            @GapAgregar DECIMAL(18, 2);
 
     SET @CumpleParametria = 0;
 
@@ -3084,58 +3158,66 @@ BEGIN
     BEGIN
         PRINT 'RANGO';
 
-        IF EXISTS
-        (
-            SELECT 1
-            FROM OfertaFinalParametria WITH (NOLOCK)
-            WHERE Tipo LIKE 'RG%'
-                  AND @MontoTotal >= GapMinimo
-                  AND @MontoTotal <= GapMaximo
-                  AND Algoritmo = @Algoritmo
-        )
+        SELECT @GapAgregar = ISNULL(PrecioMinimo, 0)
+        FROM OfertaFinalParametria WITH (NOLOCK)
+        WHERE Tipo LIKE 'RG%'
+              AND @MontoTotal >= GapMinimo
+              AND @MontoTotal <= GapMaximo
+              AND Algoritmo = @Algoritmo;
+
+        IF (@GapAgregar != 0)
         BEGIN
             SET @TipoMeta = 'RG';
             SET @PrecioMinimo = 0;
-            SET @CumpleParametria = 1;
+            --SET @CumpleParametria = 1;
 
-            DECLARE @ConsultoraId INT;
-            SET @ConsultoraId =
-            (
-                SELECT ConsultoraId
-                FROM ods.Consultora WITH (NOLOCK)
-                WHERE Codigo = @CodigoConsultora
-            );
-            SET @MontoMeta =
-            (
-                SELECT MontoMeta
+            DECLARE @ConsultoraId INT,
+                    @MontoMaxPedido DECIMAL(18, 2);
+
+            SELECT @ConsultoraId = ConsultoraId,
+                   @MontoMaxPedido = ISNULL(MontoMaximoPedido, 0)
+            FROM ods.Consultora WITH (NOLOCK)
+            WHERE Codigo = @CodigoConsultora;
+
+            IF (@MontoMaxPedido <= (@MontoTotal + @GapAgregar))
+            BEGIN
+                SET @CumpleParametria = 1;
+
+                SELECT @MontoMeta = MontoMeta
                 FROM OfertaFinalMontoMeta WITH (NOLOCK)
                 WHERE CampaniaId = @CampaniaID
-                      AND ConsultoraId = @ConsultoraId
-            );
+                      AND ConsultoraId = @ConsultoraId;
 
-            IF (ISNULL(@MontoMeta, 0) = 0)
-                EXECUTE InsertarOfertaFinalRegaloSorpresa @CampaniaID,
-                                                          @ConsultoraId,
-                                                          @MontoTotal,
-                                                          @Algoritmo,
-                                                          @MontoMeta OUTPUT;
+                IF (ISNULL(@MontoMeta, 0) = 0)
+                    EXECUTE InsertarOfertaFinalRegaloSorpresa @CampaniaID,
+                                                              @ConsultoraId,
+                                                              @MontoTotal,
+                                                              @Algoritmo,
+                                                              @MontoMeta OUTPUT;
 
-            IF (@MontoTotal >= @MontoMeta AND @MontoMeta != 0)
-            BEGIN
-                SET @TipoMeta = 'GM';
-                SET @PrecioMinimo =
-                (
-                    SELECT TOP 1
-                        PrecioMinimo
-                    FROM OfertaFinalParametria WITH (NOLOCK)
-                    WHERE Tipo = 'GM'
-                          AND Algoritmo = @Algoritmo
-                );
-                IF (ISNULL(@PrecioMinimo, 0) >= 0)
-                    SET @CumpleParametria = 1;
+                IF (@MontoMeta != 0)
+                BEGIN
+                    IF (@MontoTotal >= @MontoMeta)
+                    BEGIN
+                        SET @TipoMeta = 'GM';
+
+                        SELECT TOP 1
+                            @PrecioMinimo = PrecioMinimo
+                        FROM OfertaFinalParametria WITH (NOLOCK)
+                        WHERE Tipo = 'GM'
+                              AND Algoritmo = @Algoritmo;
+
+                        IF (ISNULL(@PrecioMinimo, 0) >= 0)
+                            SET @CumpleParametria = 1;
+                        ELSE
+                            SET @CumpleParametria = 0;
+                    END;
+                END;
                 ELSE
                     SET @CumpleParametria = 0;
             END;
+            ELSE
+                SET @CumpleParametria = 0;
         END;
     END;
     ELSE
@@ -3300,9 +3382,7 @@ BEGIN
                    AND op.CUV = tc.CUV;
 
         IF (@TipoMeta = 'GM')
-        BEGIN
             SET @MontoFaltante = 0;
-        END;
 
         -- PASO 5 (completar datos)
         SELECT DISTINCT
@@ -3377,6 +3457,7 @@ BEGIN
 
     END;
 END;
+
 GO
 
 USE BelcorpPuertoRico
@@ -3414,7 +3495,8 @@ BEGIN
             @MontoFaltante DECIMAL(18, 2),
             @PrecioMinimo DECIMAL(18, 2),
             @TipoMeta CHAR(2),
-            @MontoMeta DECIMAL(18, 2);
+            @MontoMeta DECIMAL(18, 2),
+            @GapAgregar DECIMAL(18, 2);
 
     SET @CumpleParametria = 0;
 
@@ -3422,58 +3504,66 @@ BEGIN
     BEGIN
         PRINT 'RANGO';
 
-        IF EXISTS
-        (
-            SELECT 1
-            FROM OfertaFinalParametria WITH (NOLOCK)
-            WHERE Tipo LIKE 'RG%'
-                  AND @MontoTotal >= GapMinimo
-                  AND @MontoTotal <= GapMaximo
-                  AND Algoritmo = @Algoritmo
-        )
+        SELECT @GapAgregar = ISNULL(PrecioMinimo, 0)
+        FROM OfertaFinalParametria WITH (NOLOCK)
+        WHERE Tipo LIKE 'RG%'
+              AND @MontoTotal >= GapMinimo
+              AND @MontoTotal <= GapMaximo
+              AND Algoritmo = @Algoritmo;
+
+        IF (@GapAgregar != 0)
         BEGIN
             SET @TipoMeta = 'RG';
             SET @PrecioMinimo = 0;
-            SET @CumpleParametria = 1;
+            --SET @CumpleParametria = 1;
 
-            DECLARE @ConsultoraId INT;
-            SET @ConsultoraId =
-            (
-                SELECT ConsultoraId
-                FROM ods.Consultora WITH (NOLOCK)
-                WHERE Codigo = @CodigoConsultora
-            );
-            SET @MontoMeta =
-            (
-                SELECT MontoMeta
+            DECLARE @ConsultoraId INT,
+                    @MontoMaxPedido DECIMAL(18, 2);
+
+            SELECT @ConsultoraId = ConsultoraId,
+                   @MontoMaxPedido = ISNULL(MontoMaximoPedido, 0)
+            FROM ods.Consultora WITH (NOLOCK)
+            WHERE Codigo = @CodigoConsultora;
+
+            IF (@MontoMaxPedido <= (@MontoTotal + @GapAgregar))
+            BEGIN
+                SET @CumpleParametria = 1;
+
+                SELECT @MontoMeta = MontoMeta
                 FROM OfertaFinalMontoMeta WITH (NOLOCK)
                 WHERE CampaniaId = @CampaniaID
-                      AND ConsultoraId = @ConsultoraId
-            );
+                      AND ConsultoraId = @ConsultoraId;
 
-            IF (ISNULL(@MontoMeta, 0) = 0)
-                EXECUTE InsertarOfertaFinalRegaloSorpresa @CampaniaID,
-                                                          @ConsultoraId,
-                                                          @MontoTotal,
-                                                          @Algoritmo,
-                                                          @MontoMeta OUTPUT;
+                IF (ISNULL(@MontoMeta, 0) = 0)
+                    EXECUTE InsertarOfertaFinalRegaloSorpresa @CampaniaID,
+                                                              @ConsultoraId,
+                                                              @MontoTotal,
+                                                              @Algoritmo,
+                                                              @MontoMeta OUTPUT;
 
-            IF (@MontoTotal >= @MontoMeta AND @MontoMeta != 0)
-            BEGIN
-                SET @TipoMeta = 'GM';
-                SET @PrecioMinimo =
-                (
-                    SELECT TOP 1
-                        PrecioMinimo
-                    FROM OfertaFinalParametria WITH (NOLOCK)
-                    WHERE Tipo = 'GM'
-                          AND Algoritmo = @Algoritmo
-                );
-                IF (ISNULL(@PrecioMinimo, 0) >= 0)
-                    SET @CumpleParametria = 1;
+                IF (@MontoMeta != 0)
+                BEGIN
+                    IF (@MontoTotal >= @MontoMeta)
+                    BEGIN
+                        SET @TipoMeta = 'GM';
+
+                        SELECT TOP 1
+                            @PrecioMinimo = PrecioMinimo
+                        FROM OfertaFinalParametria WITH (NOLOCK)
+                        WHERE Tipo = 'GM'
+                              AND Algoritmo = @Algoritmo;
+
+                        IF (ISNULL(@PrecioMinimo, 0) >= 0)
+                            SET @CumpleParametria = 1;
+                        ELSE
+                            SET @CumpleParametria = 0;
+                    END;
+                END;
                 ELSE
                     SET @CumpleParametria = 0;
             END;
+            ELSE
+                SET @CumpleParametria = 0;
         END;
     END;
     ELSE
@@ -3638,9 +3728,7 @@ BEGIN
                    AND op.CUV = tc.CUV;
 
         IF (@TipoMeta = 'GM')
-        BEGIN
             SET @MontoFaltante = 0;
-        END;
 
         -- PASO 5 (completar datos)
         SELECT DISTINCT
@@ -3715,6 +3803,7 @@ BEGIN
 
     END;
 END;
+
 GO
 
 USE BelcorpSalvador
@@ -3752,7 +3841,8 @@ BEGIN
             @MontoFaltante DECIMAL(18, 2),
             @PrecioMinimo DECIMAL(18, 2),
             @TipoMeta CHAR(2),
-            @MontoMeta DECIMAL(18, 2);
+            @MontoMeta DECIMAL(18, 2),
+            @GapAgregar DECIMAL(18, 2);
 
     SET @CumpleParametria = 0;
 
@@ -3760,58 +3850,66 @@ BEGIN
     BEGIN
         PRINT 'RANGO';
 
-        IF EXISTS
-        (
-            SELECT 1
-            FROM OfertaFinalParametria WITH (NOLOCK)
-            WHERE Tipo LIKE 'RG%'
-                  AND @MontoTotal >= GapMinimo
-                  AND @MontoTotal <= GapMaximo
-                  AND Algoritmo = @Algoritmo
-        )
+        SELECT @GapAgregar = ISNULL(PrecioMinimo, 0)
+        FROM OfertaFinalParametria WITH (NOLOCK)
+        WHERE Tipo LIKE 'RG%'
+              AND @MontoTotal >= GapMinimo
+              AND @MontoTotal <= GapMaximo
+              AND Algoritmo = @Algoritmo;
+
+        IF (@GapAgregar != 0)
         BEGIN
             SET @TipoMeta = 'RG';
             SET @PrecioMinimo = 0;
-            SET @CumpleParametria = 1;
+            --SET @CumpleParametria = 1;
 
-            DECLARE @ConsultoraId INT;
-            SET @ConsultoraId =
-            (
-                SELECT ConsultoraId
-                FROM ods.Consultora WITH (NOLOCK)
-                WHERE Codigo = @CodigoConsultora
-            );
-            SET @MontoMeta =
-            (
-                SELECT MontoMeta
+            DECLARE @ConsultoraId INT,
+                    @MontoMaxPedido DECIMAL(18, 2);
+
+            SELECT @ConsultoraId = ConsultoraId,
+                   @MontoMaxPedido = ISNULL(MontoMaximoPedido, 0)
+            FROM ods.Consultora WITH (NOLOCK)
+            WHERE Codigo = @CodigoConsultora;
+
+            IF (@MontoMaxPedido <= (@MontoTotal + @GapAgregar))
+            BEGIN
+                SET @CumpleParametria = 1;
+
+                SELECT @MontoMeta = MontoMeta
                 FROM OfertaFinalMontoMeta WITH (NOLOCK)
                 WHERE CampaniaId = @CampaniaID
-                      AND ConsultoraId = @ConsultoraId
-            );
+                      AND ConsultoraId = @ConsultoraId;
 
-            IF (ISNULL(@MontoMeta, 0) = 0)
-                EXECUTE InsertarOfertaFinalRegaloSorpresa @CampaniaID,
-                                                          @ConsultoraId,
-                                                          @MontoTotal,
-                                                          @Algoritmo,
-                                                          @MontoMeta OUTPUT;
+                IF (ISNULL(@MontoMeta, 0) = 0)
+                    EXECUTE InsertarOfertaFinalRegaloSorpresa @CampaniaID,
+                                                              @ConsultoraId,
+                                                              @MontoTotal,
+                                                              @Algoritmo,
+                                                              @MontoMeta OUTPUT;
 
-            IF (@MontoTotal >= @MontoMeta AND @MontoMeta != 0)
-            BEGIN
-                SET @TipoMeta = 'GM';
-                SET @PrecioMinimo =
-                (
-                    SELECT TOP 1
-                        PrecioMinimo
-                    FROM OfertaFinalParametria WITH (NOLOCK)
-                    WHERE Tipo = 'GM'
-                          AND Algoritmo = @Algoritmo
-                );
-                IF (ISNULL(@PrecioMinimo, 0) >= 0)
-                    SET @CumpleParametria = 1;
+                IF (@MontoMeta != 0)
+                BEGIN
+                    IF (@MontoTotal >= @MontoMeta)
+                    BEGIN
+                        SET @TipoMeta = 'GM';
+
+                        SELECT TOP 1
+                            @PrecioMinimo = PrecioMinimo
+                        FROM OfertaFinalParametria WITH (NOLOCK)
+                        WHERE Tipo = 'GM'
+                              AND Algoritmo = @Algoritmo;
+
+                        IF (ISNULL(@PrecioMinimo, 0) >= 0)
+                            SET @CumpleParametria = 1;
+                        ELSE
+                            SET @CumpleParametria = 0;
+                    END;
+                END;
                 ELSE
                     SET @CumpleParametria = 0;
             END;
+            ELSE
+                SET @CumpleParametria = 0;
         END;
     END;
     ELSE
@@ -3976,9 +4074,7 @@ BEGIN
                    AND op.CUV = tc.CUV;
 
         IF (@TipoMeta = 'GM')
-        BEGIN
             SET @MontoFaltante = 0;
-        END;
 
         -- PASO 5 (completar datos)
         SELECT DISTINCT
@@ -4053,6 +4149,7 @@ BEGIN
 
     END;
 END;
+
 GO
 
 USE BelcorpVenezuela
@@ -4090,7 +4187,8 @@ BEGIN
             @MontoFaltante DECIMAL(18, 2),
             @PrecioMinimo DECIMAL(18, 2),
             @TipoMeta CHAR(2),
-            @MontoMeta DECIMAL(18, 2);
+            @MontoMeta DECIMAL(18, 2),
+            @GapAgregar DECIMAL(18, 2);
 
     SET @CumpleParametria = 0;
 
@@ -4098,58 +4196,66 @@ BEGIN
     BEGIN
         PRINT 'RANGO';
 
-        IF EXISTS
-        (
-            SELECT 1
-            FROM OfertaFinalParametria WITH (NOLOCK)
-            WHERE Tipo LIKE 'RG%'
-                  AND @MontoTotal >= GapMinimo
-                  AND @MontoTotal <= GapMaximo
-                  AND Algoritmo = @Algoritmo
-        )
+        SELECT @GapAgregar = ISNULL(PrecioMinimo, 0)
+        FROM OfertaFinalParametria WITH (NOLOCK)
+        WHERE Tipo LIKE 'RG%'
+              AND @MontoTotal >= GapMinimo
+              AND @MontoTotal <= GapMaximo
+              AND Algoritmo = @Algoritmo;
+
+        IF (@GapAgregar != 0)
         BEGIN
             SET @TipoMeta = 'RG';
             SET @PrecioMinimo = 0;
-            SET @CumpleParametria = 1;
+            --SET @CumpleParametria = 1;
 
-            DECLARE @ConsultoraId INT;
-            SET @ConsultoraId =
-            (
-                SELECT ConsultoraId
-                FROM ods.Consultora WITH (NOLOCK)
-                WHERE Codigo = @CodigoConsultora
-            );
-            SET @MontoMeta =
-            (
-                SELECT MontoMeta
+            DECLARE @ConsultoraId INT,
+                    @MontoMaxPedido DECIMAL(18, 2);
+
+            SELECT @ConsultoraId = ConsultoraId,
+                   @MontoMaxPedido = ISNULL(MontoMaximoPedido, 0)
+            FROM ods.Consultora WITH (NOLOCK)
+            WHERE Codigo = @CodigoConsultora;
+
+            IF (@MontoMaxPedido <= (@MontoTotal + @GapAgregar))
+            BEGIN
+                SET @CumpleParametria = 1;
+
+                SELECT @MontoMeta = MontoMeta
                 FROM OfertaFinalMontoMeta WITH (NOLOCK)
                 WHERE CampaniaId = @CampaniaID
-                      AND ConsultoraId = @ConsultoraId
-            );
+                      AND ConsultoraId = @ConsultoraId;
 
-            IF (ISNULL(@MontoMeta, 0) = 0)
-                EXECUTE InsertarOfertaFinalRegaloSorpresa @CampaniaID,
-                                                          @ConsultoraId,
-                                                          @MontoTotal,
-                                                          @Algoritmo,
-                                                          @MontoMeta OUTPUT;
+                IF (ISNULL(@MontoMeta, 0) = 0)
+                    EXECUTE InsertarOfertaFinalRegaloSorpresa @CampaniaID,
+                                                              @ConsultoraId,
+                                                              @MontoTotal,
+                                                              @Algoritmo,
+                                                              @MontoMeta OUTPUT;
 
-            IF (@MontoTotal >= @MontoMeta AND @MontoMeta != 0)
-            BEGIN
-                SET @TipoMeta = 'GM';
-                SET @PrecioMinimo =
-                (
-                    SELECT TOP 1
-                        PrecioMinimo
-                    FROM OfertaFinalParametria WITH (NOLOCK)
-                    WHERE Tipo = 'GM'
-                          AND Algoritmo = @Algoritmo
-                );
-                IF (ISNULL(@PrecioMinimo, 0) >= 0)
-                    SET @CumpleParametria = 1;
+                IF (@MontoMeta != 0)
+                BEGIN
+                    IF (@MontoTotal >= @MontoMeta)
+                    BEGIN
+                        SET @TipoMeta = 'GM';
+
+                        SELECT TOP 1
+                            @PrecioMinimo = PrecioMinimo
+                        FROM OfertaFinalParametria WITH (NOLOCK)
+                        WHERE Tipo = 'GM'
+                              AND Algoritmo = @Algoritmo;
+
+                        IF (ISNULL(@PrecioMinimo, 0) >= 0)
+                            SET @CumpleParametria = 1;
+                        ELSE
+                            SET @CumpleParametria = 0;
+                    END;
+                END;
                 ELSE
                     SET @CumpleParametria = 0;
             END;
+            ELSE
+                SET @CumpleParametria = 0;
         END;
     END;
     ELSE
@@ -4314,9 +4420,7 @@ BEGIN
                    AND op.CUV = tc.CUV;
 
         IF (@TipoMeta = 'GM')
-        BEGIN
             SET @MontoFaltante = 0;
-        END;
 
         -- PASO 5 (completar datos)
         SELECT DISTINCT
@@ -4391,4 +4495,5 @@ BEGIN
 
     END;
 END;
+
 GO
