@@ -40,7 +40,7 @@ namespace Portal.Consultoras.Entities
             this.MarcaID = solicitudClienteDetalleAppCatalogo.MarcaID;
             this.DescripcionProducto = solicitudClienteDetalleAppCatalogo.DescripcionProducto;
             this.Precio = solicitudClienteDetalleAppCatalogo.Precio;
-            this.Tono= solicitudClienteDetalleAppCatalogo.Tono;
+            this.Tono = solicitudClienteDetalleAppCatalogo.Tono;
             this.Url = solicitudClienteDetalleAppCatalogo.UrlImgProducto;
         }
     }

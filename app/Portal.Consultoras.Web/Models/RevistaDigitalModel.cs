@@ -44,5 +44,7 @@ namespace Portal.Consultoras.Web.Models
         public RevistaDigitalSuscripcionModel SuscripcionAnterior1Model { get; set; }
         //public List<EstrategiaPedidoModel> ListaProductoLan { get; set; }
         //public List<EstrategiaPedidoModel> ListaProductoNoLan { get; set; }
+
+        public bool BloqueroRevistaImpresa { get; set; }
     }
 }

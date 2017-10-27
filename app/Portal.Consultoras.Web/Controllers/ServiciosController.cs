@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Portal.Consultoras.Web.ServiceSAC;
-using Portal.Consultoras.Web.ServiceZonificacion;
+﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using AutoMapper;
+using Portal.Consultoras.Web.ServiceSAC;
+using Portal.Consultoras.Web.ServiceZonificacion;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.ServiceModel;
-using System.Configuration; //R2161
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -393,7 +391,7 @@ namespace Portal.Consultoras.Web.Controllers
                         item[0].VE = (ISOPais == "VE" ? Estado : item[0].VE);
                     }
                 }
-                
+
                 if (CampaniaFinalId == "0")
                     Session["ListaIndividual"] = lista;
                 else
@@ -756,7 +754,7 @@ namespace Portal.Consultoras.Web.Controllers
                            select new
                            {
                                id = a.ServicioId.ToString(),
-                               cell = new string[] 
+                               cell = new string[]
                                {
                                    a.ServicioId.ToString(),
                                    a.Descripcion,
@@ -843,7 +841,7 @@ namespace Portal.Consultoras.Web.Controllers
                            select new
                            {
                                id = a.ServicioId.ToString(),
-                               cell = new string[] 
+                               cell = new string[]
                                {
                                    a.ServicioId.ToString(),
                                    a.Descripcion,
@@ -910,7 +908,7 @@ namespace Portal.Consultoras.Web.Controllers
                     rows = from a in items
                            select new
                            {
-                               cell = new string[] 
+                               cell = new string[]
                                {
                                    a.Correlativo.ToString(),
                                    a.ServicioId.ToString(),
@@ -979,7 +977,7 @@ namespace Portal.Consultoras.Web.Controllers
                            select new
                            {
                                id = ServicioId.ToString(),
-                               cell = new string[] 
+                               cell = new string[]
                                {
                                    a.AR.ToString(),
                                    a.BO.ToString(),
@@ -1115,7 +1113,7 @@ namespace Portal.Consultoras.Web.Controllers
                            select new
                            {
                                id = ServicioId.ToString(),
-                               cell = new string[] 
+                               cell = new string[]
                                {
                                    a.AR.ToString(),
                                    a.BO.ToString(),

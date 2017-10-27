@@ -107,18 +107,19 @@ namespace Portal.Consultoras.Web.Controllers
                                 var param_querystring = Util.EncriptarQueryString(new string[] { userData.CodigoUsuario, userData.PaisID.ToString(), userData.CodigoISO, model.Email });
 
                                 //1774 
-                                    bool tipopais=ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(userData.CodigoISO);
-                                    string nomconsultora = string.Empty;
+                                bool tipopais = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(userData.CodigoISO);
+                                string nomconsultora = string.Empty;
 
-                                        if (String.IsNullOrEmpty(userData.Sobrenombre)) {
-                                            nomconsultora = userData.PrimerNombre;
-                                                }
-                                        else
-                                        {
-                                            nomconsultora = userData.Sobrenombre;
-                                        }
+                                if (String.IsNullOrEmpty(userData.Sobrenombre))
+                                {
+                                    nomconsultora = userData.PrimerNombre;
+                                }
+                                else
+                                {
+                                    nomconsultora = userData.Sobrenombre;
+                                }
 
-                                var cadena =MailUtilities.CuerpoMensajePersonalizado(Util.GetUrlHost(this.HttpContext.Request).ToString(), nomconsultora, param_querystring, tipopais);
+                                var cadena = MailUtilities.CuerpoMensajePersonalizado(Util.GetUrlHost(this.HttpContext.Request).ToString(), nomconsultora, param_querystring, tipopais);
 
                                 Util.EnviarMail("no-responder@somosbelcorp.com", model.Email, "Confirmación de Correo", cadena, true, userData.NombreConsultora);
                                 message += "-Se ha enviado un correo electrónico de verificación a la dirección ingresada.";
@@ -167,7 +168,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-       
+
         //1796
         [HttpPost]
         public JsonResult RechazarInvitacionFlexipago()

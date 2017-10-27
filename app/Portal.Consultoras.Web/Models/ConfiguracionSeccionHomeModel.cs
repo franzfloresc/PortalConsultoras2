@@ -17,11 +17,13 @@ namespace Portal.Consultoras.Web.Models
         public string SubTitulo { get; set; }
         public int TipoPresentacion { get; set; }
         public string TipoEstrategia { get; set; }
+        public int CantidadMostrar { get; set; }
         public int CantidadProductos { get; set; }
         public string UrlObtenerProductos { get; set; }
         public string UrlLandig { get; set; }
         public string TemplateProducto { get; set; }
         public string TemplatePresentacion { get; set; }
         public bool VerMas { get; set; }
+        public int OrigenPedido { get; set; }
     }
 }

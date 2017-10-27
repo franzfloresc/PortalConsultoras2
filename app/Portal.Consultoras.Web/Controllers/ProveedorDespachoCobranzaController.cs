@@ -1,23 +1,18 @@
-﻿using System;
+﻿using AutoMapper;
+using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServiceSAC;
+using Portal.Consultoras.Web.ServiceZonificacion;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Portal.Consultoras.Web.Models;
 using System.ServiceModel;
-using Portal.Consultoras.Web.ServiceZonificacion;
-using Portal.Consultoras.Web.ServicePedido;
-using AutoMapper;
-using Portal.Consultoras.Common;
-using System.IO;
-using Portal.Consultoras.Web.ServiceSAC;
-
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
     public class ProveedorDespachoCobranzaController : BaseController
     {
-
         public ActionResult Index()
         {
             if (!UsuarioModel.HasAcces(ViewBag.Permiso, "ProveedorDespachoCobranza/Index"))
@@ -125,7 +120,7 @@ namespace Portal.Consultoras.Web.Controllers
                                select new
                                {
                                    id = a.ProveedorDespachoCobranzaID,
-                                   cell = new string[] 
+                                   cell = new string[]
                                     {
                                        a.ProveedorDespachoCobranzaID.ToString(),
                                        a.NombreComercial.ToString(),
@@ -450,7 +445,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-
         public ActionResult ConsultarMnto(string sidx, string sord, int page, int rows, int ProveedorDespachoCobranzaId, int CampoID)
         {
             if (ModelState.IsValid)
@@ -509,7 +503,7 @@ namespace Portal.Consultoras.Web.Controllers
                            select new
                            {
                                id = a.ProveedorDespachoCobranzaID,
-                               cell = new string[] 
+                               cell = new string[]
                                {
                                    a.ProveedorDespachoCobranzaID.ToString(),
                                    a.NombreComercial.ToString(),

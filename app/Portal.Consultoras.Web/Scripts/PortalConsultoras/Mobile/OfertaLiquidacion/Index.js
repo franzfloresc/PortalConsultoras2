@@ -293,10 +293,6 @@ function HorarioRestringido() {
     });
     return horarioRestringido;
 }
-function maxLengthCheck(object, cantidadMaxima) {
-    if (object.value.length > cantidadMaxima)
-        object.value = object.value.slice(0, cantidadMaxima);
-}
 function ActualizarCantidadTotalPedido() {
     jQuery.ajax({
         type: 'POST',

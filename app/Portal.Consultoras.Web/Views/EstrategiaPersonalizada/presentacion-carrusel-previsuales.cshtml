@@ -1,11 +1,11 @@
 ﻿
 @model Portal.Consultoras.Web.Models.ConfiguracionSeccionHomeModel
-<div class="bc_slider previsualizales-ofertas">
-    @if (Model.Titulo != "")
-    {
-        <div class="titulo">
-            <h2>@Model.Titulo</h2>
+<div class="bc_slider previsualizales-ofertas parche_presentacion_contenedor" data-plantilla="carrusel-previsuales">
+    <div class="bloque-titulo">
+        <div class="seccion-titulo">
+            <span>@Model.Titulo</span>
         </div>
-    }
-    <div class="content_slider_ept" data-OrigenPedidoWeb="" data-seccion-productos=""></div>
+        <div class="parche_clear"></div>
+    </div>
+    <div class="content_slider_ept" data-seccion-productos="" style="max-width: 700px !important;"></div>
 </div>

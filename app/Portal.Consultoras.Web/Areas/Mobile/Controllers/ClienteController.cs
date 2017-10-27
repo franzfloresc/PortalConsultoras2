@@ -1,12 +1,12 @@
-﻿using System;
+﻿using AutoMapper;
+using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Areas.Mobile.Models;
+using Portal.Consultoras.Web.ServiceCliente;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
-using AutoMapper;
-using Portal.Consultoras.Web.Areas.Mobile.Models;
-using Portal.Consultoras.Web.ServiceCliente;
-using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
