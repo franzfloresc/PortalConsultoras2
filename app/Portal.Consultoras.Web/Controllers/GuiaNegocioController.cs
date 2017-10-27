@@ -1,10 +1,6 @@
-﻿using AutoMapper;
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServicePedido;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -15,7 +11,10 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                return ViewLanding();
+                if (GNDValidarAcceso())
+                {
+                    return ViewLanding();
+                }
             }
             catch (Exception ex)
             {
@@ -30,7 +29,16 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-               
+                if (!GNDValidarAcceso())
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "",
+                        data = ""
+                    });
+                }
+
                 var listaFinal1 = ConsultarEstrategiasModel("", 0, Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada);
                 var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1);
 

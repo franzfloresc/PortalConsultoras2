@@ -3375,6 +3375,9 @@ namespace Portal.Consultoras.Web.Controllers
                 switch (entConf.ConfiguracionPais.Codigo)
                 {
                     case Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada:
+                        if (!GNDValidarAcceso())
+                            continue;
+
                         seccion.UrlLandig = "/GuiaNegocio";
                         seccion.UrlObtenerProductos = "";
                         seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.GNDMobileLanding : Constantes.OrigenPedidoWeb.GNDDesktopLanding;
@@ -3811,6 +3814,12 @@ namespace Portal.Consultoras.Web.Controllers
                         continue;
                 }
 
+                if (confiModel.Codigo == Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada)
+                {
+                    if (!GNDValidarAcceso())
+                        continue;
+                }
+
                 var config = confiModel;
 
                 if (confiModel.Codigo == Constantes.ConfiguracionPais.RevistaDigitalSuscripcion
@@ -3938,6 +3947,21 @@ namespace Portal.Consultoras.Web.Controllers
 
             confi.DesktopTituloBanner += ", DESCUBRE TU NUEVA REVISTA ONLINE PERSONALIZADA";
             confi.DesktopSubTituloBanner = "ENCUENTRA OFERTAS, BONIFICACIONES, Y LANZAMIENTOS DE LAS 3 MARCAS. TODOS LOS PRODUCTOS TAMBIÉN SUMAN PUNTOS.";
+        }
+        #endregion
+
+        #region Guia de Negocio Digitalizada
+        public bool GNDValidarAcceso()
+        {
+            var acceso = true;
+            if (revistaDigital.TieneRDC)
+            {
+                if (revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
+                {
+                    acceso = false;
+                }
+            }
+            return acceso;
         }
         #endregion
 
