@@ -3796,12 +3796,10 @@ namespace Portal.Consultoras.Web.Controllers
                         if (!userData.TieneOfertaDelDia)
                             continue;
                         break;
-                }
-
-                if (confiModel.Codigo == Constantes.ConfiguracionPais.Lanzamiento)
-                {
-                    if (!revistaDigital.TieneRDC && !revistaDigital.TieneRDR)
-                        continue;
+                    case Constantes.ConfiguracionPais.Lanzamiento:
+                        if (!revistaDigital.TieneRDC && !revistaDigital.TieneRDR)
+                            continue;
+                        break;
                 }
 
                 if (confiModel.Codigo == Constantes.ConfiguracionPais.OfertasParaTi)
