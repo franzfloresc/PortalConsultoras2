@@ -28,12 +28,6 @@ namespace Portal.Consultoras.Entities.Incentivo
         [Column("TextoLibre")]
         public string TextoLibre { get; set; }
         [DataMember]
-        [Column("DescripcionPack")]
-        public string DescripcionPack { get; set; }
-        [DataMember]
-        [Column("PrecioPack")]
-        public decimal PrecioPack { get; set; }
-        [DataMember]
         [Column("Ganancia")]
         public decimal Ganancia { get; set; }
         [DataMember]
