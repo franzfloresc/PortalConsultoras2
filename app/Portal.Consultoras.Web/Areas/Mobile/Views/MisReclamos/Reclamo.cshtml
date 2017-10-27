@@ -4,8 +4,8 @@
 @model Portal.Consultoras.Web.Models.MisReclamosModel
 
 @{
-    ViewBag.Title = "Cambios y Devoluciones";
-    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+    var layout = ViewContext.MobileLayout();
+    Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
 }
 
 @section styles

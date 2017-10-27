@@ -426,9 +426,8 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/flexslider.css"
             ));
 
-            bundles.Add(new ScriptBundle("~/bundles/Mobile/CDRWeb").Include(
-                "~/Scripts/jquery-{version}.js",
-                "~/Scripts/jquery-ui-1.9.2.custom.js",
+            bundles.Add(new ScriptBundle("~/bundles/JsMobile/CDRWeb").Include(
+                "~/Scripts/General.js",
                 "~/Scripts/PortalConsultoras/Mobile/MisReclamos/Index.js"
             ));
 

@@ -3,8 +3,8 @@
 @using Portal.Consultoras.Web.Helpers
 @model Portal.Consultoras.Web.Models.MisReclamosModel
 @{
-    ViewBag.Title = "Cambios y Devoluciones";
-    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+    var layout = ViewContext.MobileLayout();
+    Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
 }
 
 @section styles
@@ -152,7 +152,8 @@
     }
 
 </div>
-@Scripts.Render("~/bundles/Mobile/CDRWeb")
+@Scripts.Render("~/Scripts/MobileLayout")
+@Scripts.Render("~/bundles/JsMobile/CDRWeb") 
 <script type="text/javascript">
     var mensajeGestionCdrInhabilitada = '@Html.Raw(Model.MensajeGestionCdrInhabilitada)';
     var urlReclamo = '@Url.Action("Reclamo", "MisReclamos", new { area = "Mobile" } )';
