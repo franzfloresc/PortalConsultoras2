@@ -328,5 +328,22 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
+
+        /// <summary>
+        /// Actualizar el precio del CUV del pedido web facturado
+        /// </summary>
+        /// <param name="PedidoWebFacturadoID">Id de tabla</param>
+        /// <param name="PrecioUnidad">Precio del CUV</param>
+        /// <param name="ImporteTotal">Importe total del CUV</param>
+        /// <returns></returns>
+        public int UpdPedidoWebFacturado(long PedidoWebFacturadoID, decimal PrecioUnidad, decimal ImporteTotal)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdPedidoWebFacturado");
+            Context.Database.AddInParameter(command, "@PedidoWebFacturadoID", DbType.Int64, PedidoWebFacturadoID);
+            Context.Database.AddInParameter(command, "@PrecioUnidad", DbType.Decimal, PrecioUnidad);
+            Context.Database.AddInParameter(command, "@ImporteTotal", DbType.Decimal, ImporteTotal);
+
+            return Context.ExecuteNonQuery(command);
+        }
     }
 }

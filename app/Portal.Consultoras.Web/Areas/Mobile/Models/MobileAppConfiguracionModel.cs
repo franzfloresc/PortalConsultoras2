@@ -21,6 +21,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         /// </summary>
         public bool EsAppMobile { get; set; }
 
+        /// <summary>
+        /// Obtiene o establece el tiempo que se guardara las variables de session
+        /// </summary>
+        public int TimeOutSession { get; set; }
+        
         public MobileAppConfiguracionModel()
         {
             MostrarBotonAtras = true;
