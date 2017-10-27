@@ -3792,12 +3792,10 @@ namespace Portal.Consultoras.Web.Controllers
                         if (Session["EsShowRoom"] == null || (Session["EsShowRoom"] != null && Session["EsShowRoom"].ToString() != "1"))
                             continue;
                         break;
-                }
-
-                if (confiModel.Codigo == Constantes.ConfiguracionPais.OfertaDelDia)
-                {
-                    if (!userData.TieneOfertaDelDia)
-                        continue;
+                    case Constantes.ConfiguracionPais.OfertaDelDia:
+                        if (!userData.TieneOfertaDelDia)
+                            continue;
+                        break;
                 }
 
                 if (confiModel.Codigo == Constantes.ConfiguracionPais.Lanzamiento)
