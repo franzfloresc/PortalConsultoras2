@@ -471,10 +471,11 @@ function EstrategiaAgregar(event, popup, limite) {
                 if (typeof CargarCarouselEstrategias != "undefined")
                     CargarCarouselEstrategias(cuv);
 
-                //if (tieneMasVendidos == 1 && typeof CargarCarouselEstrategias != "undefined") {
-                if (tieneMasVendidos === 1) {
-                    if(typeof CargarCarouselEstrategias != "undefined")
-                        CargarCarouselMasVendidos('desktop');
+                if (tieneMasVendidos != "undefined") {
+                    if (tieneMasVendidos === 1) {
+                        if (typeof CargarCarouselEstrategias != "undefined")
+                            CargarCarouselMasVendidos('desktop');
+                    }
                 }
             }
             else if (tipoOrigenEstrategia == 11) {
