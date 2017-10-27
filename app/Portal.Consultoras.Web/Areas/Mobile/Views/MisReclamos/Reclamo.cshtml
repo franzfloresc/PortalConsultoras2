@@ -40,7 +40,7 @@
 <div class="pestana_esika"></div><!--PESTANA ESIKA-->
 <div class="pestana_lbel"></div><!--PESTANA LBEL-->
 
-<div class="wrapper_resumen_mobile pt-50">
+<div id="wrpMobile" class="wrapper_resumen_mobile pt-50">
     <div class="texto-mensaje-cdr">
         <span class="mensaje_vista_cdr tipografia_lato_bold">
             Queremos verte siempre satisfecha con nuestros productos y servicio.
@@ -190,11 +190,11 @@
                 <div id="listaMotivos" class="lista_opciones_motivo_cdr">
                 </div>
             </div>
-            <!-- INICIO BOTÓN VER SOLICITUDES ANTERIORES -->
-            <span class="icono_arrow_left">
-                <img src="@Url.Content("~/Content/Images/mobile/left-arrow.png")" alt="Ver solicitudes anteriores" />
-            </span>
+            <!-- INICIO BOTÓN VER SOLICITUDES ANTERIORES -->            
             <a class="btn_agrega_otro_reclamo" href="@Url.Action("Index")" title="Ver solicitudes anteriores">
+                <span class="icono_arrow_left">
+                    <img src="@Url.Content("~/Content/Images/mobile/left-arrow.png")" alt="Ver solicitudes anteriores" />
+                </span>
                 <span>VER SOLICITUDES ANTERIORES</span>
             </a>
             <!-- FIN BOTÓN VER SOLICITUDES ANTERIORES -->

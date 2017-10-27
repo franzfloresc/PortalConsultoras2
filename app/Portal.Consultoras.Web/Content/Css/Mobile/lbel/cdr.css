@@ -17,6 +17,10 @@
     padding-top:78px!important;
 }
 
+.pb-120 {
+    padding-bottom: 120px;
+}
+
 .btn_agrega_otro_reclamo{
     display: block;
     margin-top: 41px;
