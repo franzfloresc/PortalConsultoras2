@@ -539,6 +539,7 @@ namespace Portal.Consultoras.Web.Controllers
                         || estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas)
                         && (revistaDigital.TieneRDC || revistaDigital.TieneRDR))
                     || tipo == 1
+                    || tipo == 2
                     ? "revistadigital-landing" : "";
                 prodModel.FotoProducto01 = estrategia.FotoProducto01;
                 prodModel.ImagenURL = estrategia.ImagenURL;

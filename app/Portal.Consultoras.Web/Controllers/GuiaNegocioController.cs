@@ -40,7 +40,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 var listaFinal1 = ConsultarEstrategiasModel("", 0, Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada);
-                var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1);
+                var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1, 2);
 
                 int cantidadTotal = listModel.Count;
                 
