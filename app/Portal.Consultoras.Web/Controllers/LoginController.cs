@@ -1570,15 +1570,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public ActionResult checkExternalUser(string codigoISO, string proveedor, string appid)
         {
-            if (codigoISO != Constantes.CodigosISOPais.Peru)
-            {
-                return Json(new
-                {
-                    success = false,
-                    message = "Error al procesar la solicitud"
-                });
-            }
-
             pasoLog = "Login.POST.checkExternalUser";
             BEUsuarioExterno beUsuarioExt = null;
             bool f = false;
