@@ -1262,5 +1262,10 @@ namespace Portal.Consultoras.Common
             public const string OfertaDelDia = "/ofertadeldia";
             public const string OfertaDelDiaIndex = "/ofertadeldia/index";
         }
+
+        public class Canal {
+            public const string Mobile = "M";
+            public const string Desktop = "W";
+        }
     }
 }
