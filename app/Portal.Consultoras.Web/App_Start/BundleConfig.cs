@@ -441,6 +441,11 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/flexslider.css"
             ));
 
+            bundles.Add(new ScriptBundle("~/bundles/JsMobile/CDRWeb").Include(
+                "~/Scripts/General.js",
+                "~/Scripts/PortalConsultoras/Mobile/MisReclamos/Index.js"
+            ));
+
 #if DEBUG
             BundleTable.EnableOptimizations = false;
 #else
