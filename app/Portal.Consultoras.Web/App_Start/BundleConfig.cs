@@ -97,8 +97,9 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/menu.js",
                 "~/Scripts/General.js",
                 "~/Scripts/PortalConsultoras/Mobile/Shared/MobileLayout.js",
-                "~/Scripts/PortalConsultoras/Shared/MenuContenedor.js",
-                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js"
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js",
+                "~/Scripts/PortalConsultoras/Shared/MenuContenedor.js"
+                
             ));
 
             bundles.Add(new StyleBundle("~/bundles/CSSFuzemodal").Include(
@@ -187,6 +188,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Shared/MainLayout.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
                 "~/Scripts/PortalConsultoras/Shared/Menu.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js",
                 "~/Scripts/PortalConsultoras/Shared/MenuContenedor.js",
                 "~/Scripts/PortalConsultoras/Shared/TrackingJetlore.js",
                 "~/Scripts/LogError.js",
