@@ -4949,12 +4949,12 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 
 .descripcion_ofertaFinal{
     display:block;
-    font-size: 17px;
-    font-weight:700;
+    font-size: 14px;
+    font-weight:400;
     text-align:center;
     margin-bottom: 18px;
     /*margin-top: 18px;*/
-    TEXT-TRANSFORM: uppercase;
+    text-transform: uppercase;
 }
 .texto_complemento_oferta{
     text-transform:uppercase;
@@ -5033,7 +5033,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 .icono_terminar_pedido{
     background:url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/eFrB5kIPNXTjyJd/icono-reserva.png) no-repeat;
-    background-size:22px;
+    background-size:27px;
     padding-left: 40px;
     background-position: 10px 14px;
 }
@@ -35925,11 +35925,13 @@ h1#penmostreo .campana {
     padding-right:25px;
 }
 .fondo_blanco_regalo{
-    width:240px;
-    min-height:294px;
+    display:block;
+    width: 260px;
+    min-height: 308px;
     margin:0 auto;
     background:white;  
-    padding-top:18px;  
+    /*padding-top:18px;*/
+    padding-bottom: 13px;  
 }
 .titulo_regalo_sorpresa{
     font-family:'Lato';
@@ -35949,6 +35951,7 @@ h1#penmostreo .campana {
     margin-bottom:15px;
     padding-left:10px;
     padding-right:10px;
+    padding-top:21px;
     line-height:16px;
 }
 .content_imagen_sorpresa{
@@ -35970,29 +35973,48 @@ h1#penmostreo .campana {
 .descripcion_regalo a{
     display:block;
     text-decoration:underline;
-    margin-top:4px;
+    margin-top:7px;
 }
 .content_detalle_monto{
-   font-family: 'Lato';
+    font-family: 'Lato';
     font-weight: 300;
-    font-size: 12px;
-    line-height: 15px;
+    font-size: 14px;
+    line-height: 22px;
     letter-spacing: 0.5px;
     color: white;
     background: black;
+    position:relative;
     padding-left: 10px;
     padding-right: 10px;
-    padding-top: 4px;
-    width: 240px;
+    padding-top: 6px;
+    width: 100%;
     margin: 0 auto;
-    min-height: 40px;
+    min-height: 58px;
+}
+.content_detalle_monto:after {
+	top: 100%;
+    left: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(0, 0, 0, 0);
+    border-top-color: #000;
+    border-width: 9px;
+    margin-left: -7px;
+    z-index: 5;
+}
+#of-regalo-montosaldo{
+    font-size:18px;
 }
 .icono_regalo_sorpresa {
     width: 85px;
     height: 55px;
     background: url("/Content/Images/gif-regalo-blanco.png");
     margin: 0 auto;
-    margin-top: 26px;
+    margin-top: 13px;
 }
 .titulo_regalo_2{
     font-family: 'Lato';

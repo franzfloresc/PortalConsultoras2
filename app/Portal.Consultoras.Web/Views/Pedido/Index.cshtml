@@ -1891,16 +1891,16 @@ else
         <div class="titulo_regalo_2" id="of-regalo-msg2" style="display: none;">FELICIDADES @ViewBag.NombreConsultora <br /><span class="font_32">¡GANASTE!</span></div>
         <div class="titulo_regalo_2" id="of-regalo-msg3" style="display: none;">¡FELICIDADES @ViewBag.NombreConsultora <span class="bold_900">ESTE PREMIO YA ES TUYO!</span></div>
         <div class="fondo_blanco_regalo">
+            <div class="content_detalle_monto" id="of-regalo-montos" style="display: none;">
+                TU META ES <span id="of-regalo-montometa">$200.000</span><br />
+                <b>¡AGREGA <span id="of-regalo-montosaldo">$23.999</span> Y LISTO!</b>
+            </div>
             <div class="titulo_regalo_producto" id="of-regalo-descripcion">Bicicleta Rockrider 340 Azul</div>
             <div class="content_imagen_sorpresa"><img id="of-regalo-imagen" src="" alt="" /></div>
             <div class="descripcion_regalo">
                 <span id="of-regalo-descripcion-larga">Pedalier de acero con triple plato, con protección de plástico de color azul. Tamaño 80cm x 120cm.</span>
                 <a target="_blank" href="@ViewBag.UrlTerminosOfertaFinalRegalo" id="of-regalo-terminos">*Leer términos y condiciones</a>
             </div>
-        </div>
-        <div class="content_detalle_monto" id="of-regalo-montos" style="display: none;">
-            MONTO A ALCANZAR: <span id="of-regalo-montometa">$200.000</span><br />
-            <b>TE FALTA AGREGAR: <span id="of-regalo-montosaldo">$23.999</span></b>
         </div>
     </div>
     <div class="popup_ofertaFinal" data-meta="{{TipoMeta}}" data-meta-total="{{TotalPedido}}" data-popup-body="" style="height:580px;">
@@ -2028,9 +2028,9 @@ else
 
                         </div>
                     </div>
-                    <button id="id_btn_noGracias_agregarProductos" name="btn_noGracias_agregarProductos" class="btn_noGracias_agregarProductos btnNoGraciasOfertaFinal icono_terminar_pedido" id="btnNoGraciasOfertaFinal" style="display:{{#iff TipoMeta '==' 'MM'}}none;{{else}}block;{{/iff}}" onclick="of_google_analytics_cerrar_popup()">
+                    <a id="id_btn_noGracias_agregarProductos" name="btn_noGracias_agregarProductos" class="btn_noGracias_agregarProductos btnNoGraciasOfertaFinal icono_terminar_pedido" id="btnNoGraciasOfertaFinal" style="display:{{#iff TipoMeta '==' 'MM'}}none;{{else}}block;{{/iff}}; line-height:51px; font-size:12px; width:170px;" onclick="of_google_analytics_cerrar_popup()">
                         RESERVA TU PEDIDO
-                    </button>
+                    </a>
                 </div>
                 <div style="display: none;" id="txt-disclaimer-pn" class="txt-ayuda1-pn"></div>
 
