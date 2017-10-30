@@ -20,5 +20,6 @@ namespace Portal.Consultoras.Web.Models
         public string UrlS3 { get; set; }
         public bool habilitarNemotecnico { get; set; }
         public string ExpValidacionNemotecnico { get; set; }
+        public int TipoVistaEstrategia { get; set; }
     }
 }
