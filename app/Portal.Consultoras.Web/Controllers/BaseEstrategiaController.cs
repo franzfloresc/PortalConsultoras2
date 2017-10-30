@@ -6,7 +6,6 @@ using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -206,10 +205,9 @@ namespace Portal.Consultoras.Web.Controllers
                 joinCuv = joinCuv.Substring(separador.Length, joinCuv.Length - separador.Length * 2);
 
                 var listaAppCatalogo = new List<Producto>();
-                var numeroCampanias = Convert.ToInt32(ConfigurationManager.AppSettings["NumeroCampanias"]);
                 using (ProductoServiceClient svc = new ProductoServiceClient())
                 {
-                    listaAppCatalogo = svc.ObtenerProductosPorCampaniasBySap(userData.CodigoISO, estrategiaModelo.CampaniaID, joinCuv, numeroCampanias).ToList();
+                    listaAppCatalogo = svc.ObtenerProductosByCodigoSap(userData.CodigoISO, estrategiaModelo.CampaniaID, joinCuv).ToList();
                 }
 
                 if (!listaAppCatalogo.Any()) return estrategiaModelo;
