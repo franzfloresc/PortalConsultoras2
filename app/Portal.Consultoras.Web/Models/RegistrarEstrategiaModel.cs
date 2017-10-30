@@ -50,5 +50,7 @@ namespace Portal.Consultoras.Web.Models
         public string Ganancia { get; set; }
         public bool EsOfertaIndependiente { get; set; }
 
+        public string RutaImagenCompleta { get; set; }
+
     }
 }

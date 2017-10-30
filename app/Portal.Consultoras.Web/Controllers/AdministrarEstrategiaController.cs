@@ -15,6 +15,7 @@ using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
+using ImageMagick;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -688,6 +689,32 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                //Probando imagen                
+                
+                using (MagickImage imagen = new MagickImage(model.RutaImagenCompleta))
+                {
+                    string soloImagen = model.ImagenURL.Split('.')[0];
+                    string soloExtension = model.ImagenURL.Split('.')[1];
+
+                    MagickGeometry size = new MagickGeometry(150, 150);
+                    size.IgnoreAspectRatio = true;
+
+                    imagen.Resize(size);
+                    
+                    // Save the result
+                    string rutaTemporalGuardar = Path.Combine(Globals.RutaTemporales, "imagen_demo.png");
+                    imagen.Write(rutaTemporalGuardar);
+
+                    //ConfigS3.SetFileS3(Path.Combine(Globals.RutaTemporales, tempImage01), carpetaPais, newfilename);
+
+                    return Json(new
+                    {
+                        success = true,
+                        message = "Se grabó con éxito la estrategia.",
+                        extra = ""
+                    });
+                }
+
                 string _nroPedido = Util.Trim(model.NumeroPedido);
 
                 if (_nroPedido.Contains(",")) model.NumeroPedido = "0";

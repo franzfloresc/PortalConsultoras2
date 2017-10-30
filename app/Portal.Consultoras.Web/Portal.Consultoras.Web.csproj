@@ -97,6 +97,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Binaries\LithiumSSOClient.dll</HintPath>
     </Reference>
+    <Reference Include="Magick.NET-Q16-AnyCPU, Version=7.0.0.0, Culture=neutral, PublicKeyToken=2004825badfa91ec, processorArchitecture=MSIL">
+      <HintPath>..\packages\Magick.NET-Q16-AnyCPU.7.0.7.700\lib\net40\Magick.NET-Q16-AnyCPU.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.RedisSessionStateProvider, Version=2.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Web.RedisSessionStateProvider.2.2.2\lib\net40\Microsoft.Web.RedisSessionStateProvider.dll</HintPath>
