@@ -3987,7 +3987,7 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
 
         #region Guia de Negocio Digitalizada
-        public bool GNDValidarAcceso()
+        public virtual bool GNDValidarAcceso()
         {
             var acceso = true;
             if (revistaDigital.TieneRDC)

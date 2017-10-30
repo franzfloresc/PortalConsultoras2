@@ -47,10 +47,15 @@ namespace Portal.Consultoras.Web.UnitTest.AreasMobile.Mobile
                 {
                     this.logManager = logManager;
                 }
+
+                public override bool GNDValidarAcceso()
+                {
+                    return true;
+                }
             }
 
             [TestMethod]
-            public void Index_WhenRenderIndexThrowException_LogsErrorAndRedirectsToBienvenida()
+            public void Index_WhenGNDValidarAccesoReturnTrueWhenRenderIndexThrowException_LogsErrorAndRedirectsToBienvenida()
             {
                 //Arrange
                 var controller = new GuiaNegocioControllerStub01(logManager.Object);
