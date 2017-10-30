@@ -47,9 +47,7 @@
             <span class="mensaje_vista_cdr tipografia_lato_regular">
                 Si tuviste inconvenientes con algún producto y estás dentro del <a href="@Model.UrlPoliticaCdr" class="plazo_permitido" title="Detalle de plazo permitido" target="_blank">plazo permitido</a> sigue estos pasos:
             </span>
-            <a title="Registrar Solicitud" class="btn_registrar_solicitud_cdr tipografia_lato_bold" id="IrPaso1">
-                REGISTRAR SOLICITUD
-            </a>
+            <input type="button" title="Registrar Solicitud" class="btn_registrar_solicitud_cdr tipografia_lato_bold" value="REGISTRAR SOLICITUD" id="IrPaso1">
             @if (@Model.ListaCDRWeb.Count() > 1)
             {
                 <span class="mensaje_vista_cdr tipografia_lato_regular">Actualmente tienes @Model.ListaCDRWeb.Count() solicitudes registradas :</span>
@@ -58,7 +56,6 @@
             {
                 <span class="mensaje_vista_cdr tipografia_lato_regular">Actualmente tienes @Model.ListaCDRWeb.Count() solicitud registrada :</span>
             }
-
         </div>
         <div class="grilla_registros_solicitud_cdr">
             @foreach (var item in Model.ListaCDRWeb)
