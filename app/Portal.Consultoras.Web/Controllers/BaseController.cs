@@ -3378,7 +3378,7 @@ namespace Portal.Consultoras.Web.Controllers
                         if (!GNDValidarAcceso())
                             continue;
 
-                        seccion.UrlLandig = "/GuiaNegocio";
+                        seccion.UrlLandig = (isMobile ? "/Mobile" : "") + "/GuiaNegocio";
                         seccion.UrlObtenerProductos = "";
                         seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.GNDMobileLanding : Constantes.OrigenPedidoWeb.GNDDesktopLanding;
                         break;
