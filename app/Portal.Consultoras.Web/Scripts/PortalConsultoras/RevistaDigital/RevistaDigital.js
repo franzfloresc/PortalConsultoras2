@@ -294,6 +294,9 @@ function OfertaArmarEstrategias(response) {
     }
     var htmlDiv = SetHandlebars("#producto-landing-template", modeloTemp);
     divProd.find('#divOfertaProductos').append(htmlDiv);
+    if (response.cantidadTotal == 0) {
+        divProd.find('#no-productos').show();
+    }
     //ResizeBoxContnet();
     divProd.find("#spnCantidadFiltro").html(cantProdFiltros);
     divProd.find("#spnCantidadTotal").html(response.cantidadTotal);
