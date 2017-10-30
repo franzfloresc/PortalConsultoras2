@@ -17,7 +17,7 @@
 
 .bc_plantilla_estrategia_personalizada .titulo {
     display: block;
-    padding: 4% 6%;
+    padding: 4% 2.5% 2% 2.5%;
     text-align: center;
     padding-bottom: 5px;
     margin-bottom: 15px !important;
@@ -333,18 +333,11 @@
     right: -9.5% !important;
 }
 
-.previsualizales-ofertas {
-    max-width: 700px !important;
-}
 .previsualizales-ofertas .titulo {
-    display: block;
-    /* padding-top: 40px; */
-    text-align: center;
-    position: absolute;
-    /*left: 18%;*/
-    left:0%;
-    /* padding: 0 18%; */
-    padding: 0 11%;
+    width: 901px;
+    text-align: left;
+    margin: auto;
+    padding: 0 2%;
 }
 
 
@@ -404,7 +397,7 @@
 .seccion-content-contenedor {
     font-family: 'Lato' !important;
     display: none;
-    height: 500px; 
+    min-height: 500px; 
     overflow: hidden;
 }
 .seccion-loading-contenedor {
@@ -438,4 +431,64 @@
     left: 0;
     bottom: 0;
     right: 0;
+}
+
+.parche_presentacion_contenedor {
+max-width: 980px;
+margin: auto;
+}
+.parche_presentacion_contenedor .bloque-titulo {
+width: 100%;
+padding-top: 30px;
+padding-bottom: 20px;
+}
+.parche_presentacion_contenedor .bloque-titulo .seccion-titulo {
+float: left;
+width: 50%;
+margin: 0;
+font-size: 20px;
+font-weight: bolder !important;
+letter-spacing: 1px;
+font-family: 'Lato';
+color: #b52e36;
+text-transform: uppercase;
+border: 1px solid transparent;
+padding-left: 60px;
+}
+.parche_presentacion_contenedor .bloque-titulo .seccion-titulo span{
+position: relative;
+top: 6px;
+}
+.parche_presentacion_contenedor .bloque-titulo .cantidad{
+float:left;
+width:25%;
+font-family: 'Lato';
+font-size: 13px;
+text-align:right;
+border: 1px solid transparent;
+}
+.parche_presentacion_contenedor .bloque-titulo .cantidad > span{
+position: relative;
+top: 11px;
+}
+.parche_presentacion_contenedor .bloque-titulo .ir{
+float:left;
+width:25%;
+}
+.parche_presentacion_contenedor .bloque-titulo .ir a {
+background: #b52e36;
+color: white;
+display: block;
+width: 210px;
+text-align: center;
+padding: 10px 0px;
+/* margin: auto 164px; */
+/* display: none; */
+font-size: 14px;
+float: right;
+letter-spacing: 1px;
+font-family: 'Lato';
+}
+.parche_presentacion_contenedor .parche_clear{
+clear:both;
 }

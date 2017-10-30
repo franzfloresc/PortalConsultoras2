@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 
-namespace Portal.Consultoras.Web.Models 
+namespace Portal.Consultoras.Web.Models
 {
     [Serializable]
     public class ConfiguracionPaisModel : ICloneable
@@ -38,6 +37,12 @@ namespace Portal.Consultoras.Web.Models
         public int CampaniaId { get; set; }
 
         public int OrdenBpt { get; set; }
+
+        public bool BloqueoRevistaImpresa { get; set; }
+
+        //BPT 353
+        public int MobileOrden { get; set; }
+        public int MobileOrdenBPT { get; set; }
 
         public object Clone()
         {

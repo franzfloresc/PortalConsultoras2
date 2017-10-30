@@ -63,30 +63,30 @@ namespace Portal.Consultoras.Web.Controllers
             string sortorder = lista[12];
             string rowNum = lista[13];
 
-            IEnumerable<PaisModel> listaPaises = new List<PaisModel>() { 
+            IEnumerable<PaisModel> listaPaises = new List<PaisModel>() {
                                 new PaisModel() {
-                                    PaisID = Convert.ToInt32(Paisddl_val), 
-                                    Nombre = Paisddl 
+                                    PaisID = Convert.ToInt32(Paisddl_val),
+                                    Nombre = Paisddl
                                 }
             };
 
-            IEnumerable<CampaniaModel> lstCampania = new List<CampaniaModel>() { 
+            IEnumerable<CampaniaModel> lstCampania = new List<CampaniaModel>() {
                                 new CampaniaModel() {
-                                    CampaniaID = Convert.ToInt32((string.IsNullOrEmpty(Campaniaddl_val) ? "0" : Campaniaddl_val)), 
-                                    NombreCorto = Campaniaddl 
-                                } 
+                                    CampaniaID = Convert.ToInt32((string.IsNullOrEmpty(Campaniaddl_val) ? "0" : Campaniaddl_val)),
+                                    NombreCorto = Campaniaddl
+                                }
             };
-            IEnumerable<RegionModel> lstRegion = new List<RegionModel>() { 
+            IEnumerable<RegionModel> lstRegion = new List<RegionModel>() {
                                 new RegionModel() {
-                                    RegionID = Convert.ToInt32((string.IsNullOrEmpty(Regionddl_val) ? "0" :Regionddl_val )), 
-                                    Codigo = Regionddl 
-                                } 
+                                    RegionID = Convert.ToInt32((string.IsNullOrEmpty(Regionddl_val) ? "0" :Regionddl_val )),
+                                    Codigo = Regionddl
+                                }
             };
-            IEnumerable<ZonaModel> lstZona = new List<ZonaModel>() { 
+            IEnumerable<ZonaModel> lstZona = new List<ZonaModel>() {
                                 new ZonaModel() {
-                                    ZonaID = Convert.ToInt32((string.IsNullOrEmpty(Zonaddl_val) ? "0" :Zonaddl_val)), 
-                                    Codigo = Zonaddl 
-                                } 
+                                    ZonaID = Convert.ToInt32((string.IsNullOrEmpty(Zonaddl_val) ? "0" :Zonaddl_val)),
+                                    Codigo = Zonaddl
+                                }
             };
 
             #endregion
@@ -193,7 +193,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         //R2073
-		public ActionResult ConsultarPedidoCampania(string sidx, string sord, int page, int rows, string vPaisID, string vCampania, string vRegion, string vZona, string vConsultora)
+        public ActionResult ConsultarPedidoCampania(string sidx, string sord, int page, int rows, string vPaisID, string vCampania, string vRegion, string vZona, string vConsultora)
         {
             if (ModelState.IsValid)
             {
@@ -223,14 +223,14 @@ namespace Portal.Consultoras.Web.Controllers
                     using (SACServiceClient client = new SACServiceClient())
                     {
                         lista = client.GetPedidosFacturadosDetalle(UserData().PaisID, vCampania, vRegion, vZona, vConsultora, 0).ToList();
-                }
+                    }
                 }
                 catch (Exception ex)
                 {
                     LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-                }                
+                }
                 if (lista == null)
-                {   
+                {
                     lst = new List<ReportePedidoCampaniaModel>(); ;
                 }
                 else
@@ -343,7 +343,7 @@ namespace Portal.Consultoras.Web.Controllers
                     rows = from a in items
                            select new
                            {
-                               cell = new string[] 
+                               cell = new string[]
                                {
                                    a.CodigoConsultora,
                                    a.Territorio,
@@ -367,7 +367,7 @@ namespace Portal.Consultoras.Web.Controllers
             return monto.ToString("#,##0").Replace(',', '.');
         }
 
-		//R2073
+        //R2073
         public ActionResult ExportarExcel(string vPaisID, string vCampania, string vRegion, string vZona, string vConsultora)
         {
             List<ReportePedidoCampaniaModel> lst = new List<ReportePedidoCampaniaModel>();
@@ -471,7 +471,8 @@ namespace Portal.Consultoras.Web.Controllers
                                     else
                                         ws.Cell(row, col).Style.NumberFormat.Format = "@";
 
-                                    if (UserData().PaisID == 4) { // validación pais colombia req. 1478
+                                    if (UserData().PaisID == 4)
+                                    { // validación pais colombia req. 1478
                                         if (col == 6)
                                         {
                                             string valorDecimal = Convert.ToDecimal(System.Web.UI.DataBinder.GetPropertyValue(dataItem, property.Name, null)).ToString("#,##0").Replace(',', '.');
@@ -481,7 +482,9 @@ namespace Portal.Consultoras.Web.Controllers
                                         {
                                             ws.Cell(row, col).Value = System.Web.UI.DataBinder.GetPropertyValue(dataItem, property.Name, null);
                                         }
-                                    } else {
+                                    }
+                                    else
+                                    {
                                         ws.Cell(row, col).Value = System.Web.UI.DataBinder.GetPropertyValue(dataItem, property.Name, null);
                                     }
                                 }

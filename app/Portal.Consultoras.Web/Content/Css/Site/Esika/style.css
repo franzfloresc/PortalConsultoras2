@@ -1,11 +1,11 @@
 ﻿/* CSS Document */
-
 * {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    
 }
 
 @font-face {
@@ -23,8 +23,8 @@
     font-weight: normal;
     font-style: normal;
 }
-body{
-    font-family:Arial;
+body {
+    font-family: 'Lato', sans-serif !important;
 }
 body > img {
     display: none;
@@ -21176,10 +21176,10 @@ label.checkpop.c_on {
     padding-bottom: 15px;
 }
 .content_item_carrusel {
-    position: relative; 
-    float: left; 
-    width: 248px; 
-    margin-right: 25px; 
+    position: relative;
+    /* float: left; */
+    /* width: 248px; */
+    /* margin-right: 25px; */
     min-height: 305px;
     margin-bottom: 15px;
     margin-left: 7%;
@@ -32774,8 +32774,7 @@ h1#penmostreo .campana {
     color: white;
     text-align: center;
     margin-bottom: 5px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    text-overflow: ellipsis;    
     overflow: hidden;
     /* display: block; */
     height: 20px;

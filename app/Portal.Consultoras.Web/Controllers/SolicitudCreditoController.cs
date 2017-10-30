@@ -37,7 +37,8 @@ namespace Portal.Consultoras.Web.Controllers
             return View(model);
         }
 
-        public ActionResult ReporteActualizacionDatos() {
+        public ActionResult ReporteActualizacionDatos()
+        {
             if (!UsuarioModel.HasAcces(ViewBag.Permiso, "SolicitudCredito/ReporteActualizacionDatos"))
                 return RedirectToAction("Index", "Bienvenida");
             var model = new SolicitudCreditoModel();
@@ -56,7 +57,7 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
             }
             return View(model);
-        
+
         }
 
         public IEnumerable<ZonaModel> DropDownZonas(int PaisID)
@@ -194,7 +195,7 @@ namespace Portal.Consultoras.Web.Controllers
                         };
                         lst = srv.GetSolicitudCreditos(solicitud).ToList();
                     }
-                                     
+
                 }
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
@@ -293,7 +294,7 @@ namespace Portal.Consultoras.Web.Controllers
                                                                         a.SolicitudCreditoID.ToString(),
                                                                         a.CodigoConsultoraRecomienda,
                                                                         a.NombreConsultoraRecomienda,
-                                                                        (a.NumeroDocumento == null) ? "" :(UserData().CodigoISO == Constantes.CodigosISOPais.PuertoRico) ? a.NumeroDocumento = string.Format("*****{0}",a.NumeroDocumento.Remove(0,5)) : a.NumeroDocumento ,                                                                       
+                                                                        (a.NumeroDocumento == null) ? "" :(UserData().CodigoISO == Constantes.CodigosISOPais.PuertoRico) ? a.NumeroDocumento = string.Format("*****{0}",a.NumeroDocumento.Remove(0,5)) : a.NumeroDocumento ,
                                                                         a.CodigoConsultora,
                                                                         (a.FechaCreacion == null
                                                                              ? ""
@@ -352,8 +353,8 @@ namespace Portal.Consultoras.Web.Controllers
                             CodigoConsultora = vDocumento
                         };
 
-                        listaSolicitudes = srv.GetSolicitudCreditos(solicitud);                        
-                    }                                          
+                        listaSolicitudes = srv.GetSolicitudCreditos(solicitud);
+                    }
                 }
             }
             catch (Exception)
@@ -696,22 +697,22 @@ namespace Portal.Consultoras.Web.Controllers
                 model.ListaTipoNacionalidad = sv.GetTablaLogicaDatos(UserData().PaisID, 41).ToList();
             }
 
-            List<InfoGenerica> listaAvenidaCalle = new List<InfoGenerica>() { 
+            List<InfoGenerica> listaAvenidaCalle = new List<InfoGenerica>() {
                 new InfoGenerica(){ Valor="AV", Texto="Avenida" },
                 new InfoGenerica(){ Valor="CL", Texto="Calle" }
             };
 
-            List<InfoGenerica> listaCasaEdificio = new List<InfoGenerica>() { 
+            List<InfoGenerica> listaCasaEdificio = new List<InfoGenerica>() {
                 new InfoGenerica(){ Valor="CAS", Texto="Casa" },
                 new InfoGenerica(){ Valor="EDF", Texto="Edificio" }
             };
 
-            List<InfoGenerica> listaUrbanizacionSector = new List<InfoGenerica>() { 
+            List<InfoGenerica> listaUrbanizacionSector = new List<InfoGenerica>() {
                 new InfoGenerica(){ Valor="URB", Texto="Urbanización" },
                 new InfoGenerica(){ Valor="SEC", Texto="Sector" }
             };
 
-            List<InfoGenerica> listaApartamentoCasa = new List<InfoGenerica>() { 
+            List<InfoGenerica> listaApartamentoCasa = new List<InfoGenerica>() {
                 new InfoGenerica(){ Valor="APTO", Texto="N° Apartamento" },
                 new InfoGenerica(){ Valor="CASA", Texto="N° Casa" }
             };

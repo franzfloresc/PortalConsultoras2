@@ -1,11 +1,8 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
-using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Entities
 {
@@ -91,7 +88,7 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public List<BEPedidoWebDetalle> olstBEPedidoWebDetalle { get; set; }
-        
+
         [DataMember]
         public decimal Flete { get; set; }
 
@@ -162,7 +159,7 @@ namespace Portal.Consultoras.Entities
             if (row.HasColumn("CDRWebEstado") && row["CDRWebEstado"] != DBNull.Value)
                 CDRWebEstado = Convert.ToInt32(row["CDRWebEstado"]);
             if (row.HasColumn("NumeroPedido") && row["NumeroPedido"] != DBNull.Value)
-                NumeroPedido = Convert.ToInt32(row["NumeroPedido"]);            
+                NumeroPedido = Convert.ToInt32(row["NumeroPedido"]);
         }
     }
 }

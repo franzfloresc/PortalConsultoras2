@@ -480,8 +480,9 @@ function ObservacionesProducto(item) {
     }
     if (item.TieneStock === true) {
     	if (item.EsExpoOferta == true) MostrarMensaje("mensajeEsExpoOferta");
-        if (item.CUVRevista.length != 0 && item.DesactivaRevistaGana == 0) {
-            MostrarMensaje("mensajeCUVOfertaEspecial");
+    	if (item.CUVRevista.length != 0 && item.DesactivaRevistaGana == 0) {
+    	    if (!item.TieneRDC)
+    	        MostrarMensaje("mensajeCUVOfertaEspecial");
         };
 
         var tipoOferta = $("#hdTipoOfertaSisID").val();
@@ -710,7 +711,7 @@ function AgregarProductoListado() {
     var param = ({
         MarcaID: 0,
         CUV: CUV,
-        PrecioUnidad: 0,
+        PrecioUnidad: $("#hdfPrecioUnidad").val(),
         Descripcion: 0,
         Cantidad: Cantidad,
         IndicadorMontoMinimo: 0,
@@ -1010,11 +1011,6 @@ function MostrarDetalleGanancia() {
     div[0].children[5].children[0].innerHTML = $('#hdePieEscala').val();
 
     $('#popupGanancias').show();
-}
-
-function maxLengthCheck(object, cantidadMaxima) {
-    if (object.value.length > cantidadMaxima)
-        object.value = object.value.slice(0, cantidadMaxima);
 }
 
 function ProcesarActualizacionMostrarContenedorCupon() {

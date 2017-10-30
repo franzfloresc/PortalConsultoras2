@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Portal.Consultoras.Web.ServiceZonificacion;
-using Portal.Consultoras.Web.ServiceSAC;
+﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using AutoMapper;
+using Portal.Consultoras.Web.ServiceSAC;
+using Portal.Consultoras.Web.ServiceZonificacion;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.ServiceModel;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -109,7 +108,7 @@ namespace Portal.Consultoras.Web.Controllers
                     // UPDATE: los dias de duracion del cronograma se obtienen por zona
                     //BEConfiguracionValidacionZona configuracionValidacionZona = sv.GetConfiguracionValidacionZona(UserData().PaisID, Convert.ToInt32("201301"),UserData().ZonaID);
                     //DateTime fechaFinFacturacion = Convert.ToDateTime(FechaFacturacion).AddDays(configuracionValidacionZona.DiasDuracionCronograma - 1);
-                    
+
                     lst = sv.UpdLogActualizacionFacturacion(UserData().PaisID, CampaniaCodigo, codigos, Convert.ToInt32(Tipo), Convert.ToDateTime(FechaFacturacion), Convert.ToDateTime(FechaReFacturacion), UserData().CodigoUsuario).ToList();
                     sv.UpdateCronogramaDD(UserData().PaisID, CampaniaCodigo, codigos, Convert.ToInt32(Tipo), Convert.ToDateTime(FechaFacturacion), fechaFinFacturacion, Convert.ToDateTime(FechaReFacturacion), UserData().CodigoUsuario);
                 }
@@ -134,6 +133,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -250,7 +250,7 @@ namespace Portal.Consultoras.Web.Controllers
                            select new
                            {
                                id = a.ZonaID,
-                               cell = new string[] 
+                               cell = new string[]
                                {
                                    a.CampaniaID.ToString(),
                                    a.ZonaID.ToString(),
@@ -358,7 +358,7 @@ namespace Portal.Consultoras.Web.Controllers
                     rows = from a in items
                            select new
                            {
-                               cell = new string[] 
+                               cell = new string[]
                                {
                                    a.CodigosZonaRegion,
                                    a.CodigoUsuario,
@@ -455,7 +455,7 @@ namespace Portal.Consultoras.Web.Controllers
                            select new
                            {
                                id = a.ZonaID,
-                               cell = new string[] 
+                               cell = new string[]
                                {
                                    a.CampaniaID.ToString(),
                                    a.CodigoZona.ToString(),
@@ -663,7 +663,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 entidad.CodigoUsuarioModificacion = UserData().CodigoUsuario;
 
-                
+
                 using (SACServiceClient sv = new SACServiceClient())
                 {
                     sv.DeleteCronogramaAnticipado(entidad);
@@ -675,7 +675,7 @@ namespace Portal.Consultoras.Web.Controllers
                     message = "La zona fue eliminada satisfactoriamente del Cronograma.",
                     extra = ""
                 });
-               
+
             }
             catch (FaultException ex)
             {
@@ -803,7 +803,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             BEConfiguracionConsultoraDA configuracionConsultoraDA = new BEConfiguracionConsultoraDA();
             configuracionConsultoraDA.ZonaID = UserData().ZonaID;
-            configuracionConsultoraDA.ConsultoraID =  Convert.ToInt32(UserData().ConsultoraID);
+            configuracionConsultoraDA.ConsultoraID = Convert.ToInt32(UserData().ConsultoraID);
             configuracionConsultoraDA.TipoConfiguracion = Convert.ToByte(tipoConfiguracion);
             configuracionConsultoraDA.CampaniaID = Convert.ToString(UserData().CampaniaID);
             configuracionConsultoraDA.CodigoUsuario = Convert.ToString(UserData().CodigoUsuario); //R20160302
@@ -812,8 +812,8 @@ namespace Portal.Consultoras.Web.Controllers
             using (SACServiceClient sv = new SACServiceClient())
             {
 
-                validar = sv.InsConfiguracionConsultoraDA(UserData().PaisID,configuracionConsultoraDA);
-              
+                validar = sv.InsConfiguracionConsultoraDA(UserData().PaisID, configuracionConsultoraDA);
+
             }
 
             int paisID = UserData().PaisID;
@@ -834,8 +834,9 @@ namespace Portal.Consultoras.Web.Controllers
         {
 
             bool validar = false;
-            string mensajeFechaDA = null; 
-            if (UserData().EsquemaDAConsultora == true){ //SI EXISTE EL ESQUEMA EN PAIS
+            string mensajeFechaDA = null;
+            if (UserData().EsquemaDAConsultora == true)
+            { //SI EXISTE EL ESQUEMA EN PAIS
 
                 if (UserData().EsZonaDemAnti == 1)
                 {
@@ -850,7 +851,7 @@ namespace Portal.Consultoras.Web.Controllers
                         configuracionConsultoraDA.ZonaID = UserData().ZonaID;
 
                         consultoraDA = sv.GetConfiguracionConsultoraDA(UserData().PaisID, configuracionConsultoraDA);
-                       
+
                         if (consultoraDA == 0)
                         {
                             BECronograma cronograma;
@@ -871,13 +872,13 @@ namespace Portal.Consultoras.Web.Controllers
                                 case "Tuesday":
                                     diasemana = "Martes";
                                     break;
-                                case "Wednesday": 
+                                case "Wednesday":
                                     diasemana = "Miércoles";
                                     break;
-                                case "Thursday": 
+                                case "Thursday":
                                     diasemana = "Jueves";
                                     break;
-                                case "Friday": 
+                                case "Friday":
                                     diasemana = "Viernes";
                                     break;
                                 case "Saturday":

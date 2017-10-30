@@ -1,8 +1,11 @@
-﻿body {
+﻿/* CSS Document */
+
+body {
     background: #f3f3f3;
     font-weight: 400;
     font-size: 15px;
     color: #6b7f8e;
+    font-family: 'Lato', sans-serif !important;
 }
 
 hr {
@@ -10053,7 +10056,7 @@ span.icon-advertencia{
     letter-spacing:0.3px;
     /*margin-bottom:2px;*/
 }
-.precio_tachado_048{
+.precio_tachado_048 span{
    color: black;
     font-size: 13.5px;
     /* font-weight: 300; */

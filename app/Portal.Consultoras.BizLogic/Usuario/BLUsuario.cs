@@ -533,7 +533,6 @@ namespace Portal.Consultoras.BizLogic
         public string IsConsultoraExist(int paisID, string CodigoConsultora)
         {
             var DAUsuario = new DAUsuario(paisID);
-            var existe = false;
             string retorno = string.Empty;
             
             retorno = "0|0";
@@ -1280,6 +1279,7 @@ namespace Portal.Consultoras.BizLogic
             }
             catch (Exception ex)
             {
+                LogManager.SaveLog(ex, codigoUsuario, paisIso);
                 resultado = false;
             }
 
@@ -1624,6 +1624,7 @@ namespace Portal.Consultoras.BizLogic
             }
             catch (Exception ex)
             {
+                LogManager.SaveLog(ex, numeroDocumento, paisID.ToString());
             }
 
             return r;
@@ -1644,6 +1645,7 @@ namespace Portal.Consultoras.BizLogic
             }
             catch (Exception ex)
             {
+                LogManager.SaveLog(ex, numeroDocumento, paisID.ToString());
             }
 
             return postulante;

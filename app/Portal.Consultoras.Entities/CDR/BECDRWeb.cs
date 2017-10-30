@@ -53,13 +53,13 @@ namespace Portal.Consultoras.Entities.CDR
         [DataMember]
         public int CantidadRechazados { get; set; }
 
-        public bool? TipoDespacho { get; set; }        
+        public bool? TipoDespacho { get; set; }
         [DataMember]
-        public decimal FleteDespacho { get; set; }        
+        public decimal FleteDespacho { get; set; }
         [DataMember]
         public string MensajeDespacho { get; set; }
         //EPD-1919 FIN
-        
+
         [DataMember]
         public bool EsMovilOrigen { get; set; }
 

@@ -17,18 +17,19 @@ $(document).ready(function () {
         MensajeEstadoPedido();
     }
 
-    if (tieneOfertaDelDia == "True") {
-        window.OfertaDelDia.CargarODD();
+    if (!esContenedorOfertas) {
+        if (tieneOfertaDelDia == "True") {
+            window.OfertaDelDia.CargarODD();
+        }
+    } else {
+        if (mostrarOfertaDelDiaContenedor == "True") {
+            window.OfertaDelDia.CargarODD();
+        }
     }
+    
     
     $(document).keyup(function (e) {
         if (e.keyCode == 27) {
-            if ($('#PopOfertaDia').is(':visible')) {
-                $('#PopOfertaDia').slideUp();
-                $('.circulo_hoy span').html('+');
-                showDisplayODD = 0;
-            }
-
             if ($('#PopFichaProductoNueva').is(':visible')) {
                 CerrarPopup('#PopFichaProductoNueva');
             }

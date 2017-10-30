@@ -206,8 +206,9 @@ namespace Portal.Consultoras.BizLogic
                     nombreCliente, emailCliente, telefonoCliente, nuevaConsultora);
                 return registro;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
+                LogManager.SaveLog(ex, consultoraId.ToString(), paisID.ToString());
                 return 0;
             }
 
