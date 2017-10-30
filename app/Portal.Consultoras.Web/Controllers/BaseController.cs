@@ -3723,6 +3723,16 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 listMenu = listMenu.Where(e => e.Codigo != Constantes.ConfiguracionPais.OfertasParaTi).ToList();
             }
+            if (menuActivo.CampaniaId == userData.CampaniaID &&
+                !(Session[Constantes.ConstSession.TieneOpm] != null ? Session[Constantes.ConstSession.TieneOpm].ToBool() : false))
+            {
+                listMenu = listMenu.Where(e => e.Codigo != Constantes.ConfiguracionPais.RevistaDigital).ToList();
+            }
+            if (menuActivo.CampaniaId != userData.CampaniaID &&
+                !(Session[Constantes.ConstSession.TieneOpmX1] != null ? Session[Constantes.ConstSession.TieneOpmX1].ToBool() : false))
+            {
+                listMenu = listMenu.Where(e => e.Codigo != Constantes.ConfiguracionPais.RevistaDigital).ToList();
+            }
             return listMenu;
         }
 

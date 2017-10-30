@@ -204,6 +204,7 @@ function SeccionMostrarProductos(data) {
             
         } else {
             $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeOut();
+            UpdateSessionState(data.Seccion.Codigo, data.campaniaId);
         }
     } else if (data.Seccion.Codigo === CONS_CODIGO_SECCION.SR) {
         if (data.Seccion.TipoPresentacion === CONS_TIPO_PRESENTACION.ShowRoom.toString()) {

@@ -131,10 +131,14 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (campaniaId == userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.Lanzamiento))
                     Session[Constantes.ConstSession.TieneLan] = false;
-                else if (campaniaId == userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.OfertasParaTi))
-                    Session[Constantes.ConstSession.TieneOpt] = false;
                 else if (campaniaId != userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.Lanzamiento))
                     Session[Constantes.ConstSession.TieneLanX1] = false;
+                else if (campaniaId == userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.OfertasParaTi))
+                    Session[Constantes.ConstSession.TieneOpt] = false;
+                else if (campaniaId == userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.RevistaDigital))
+                    Session[Constantes.ConstSession.TieneOpm] = false;
+                else if (campaniaId != userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.RevistaDigital))
+                    Session[Constantes.ConstSession.TieneOpmX1] = false;
                 return Json(new
                 {
                     estado = "Ok"
