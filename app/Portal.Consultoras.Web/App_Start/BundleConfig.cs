@@ -29,8 +29,7 @@ namespace Portal.Consultoras.Web
                "~/Scripts/jquery.unobtrusive-ajax.js",
                "~/Scripts/jquery-ui-1.9.2.custom.js",
                "~/Scripts/HojaInscripcion/validations.js",
-               "~/Scripts/donetyping.js",
-                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js"
+               "~/Scripts/donetyping.js"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/JQGridJs").Include(
