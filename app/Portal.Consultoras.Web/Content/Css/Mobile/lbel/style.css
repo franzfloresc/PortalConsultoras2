@@ -6017,8 +6017,7 @@ input[type="checkbox"]:checked + span:after {
 }
 .exclamacion_icono_mobile{
     background: url("../../../Images/Lbel/icono_exclamacion_lbel.png") no-repeat;
-    background-size: cover;
-   
+    background-size: cover;   
 }
 .icono_alerta img{
     width:100%;
@@ -8682,6 +8681,10 @@ span.icon-advertencia{
     padding: 41px 0 0px 0;
 }
 
+.popup_ofertaFinal.fondo_gris_popup{
+    background:#ededed;
+}
+
 .popup_ofertaFinal .cerrar_popMobile{
     position: absolute;
     top: 17px;
@@ -8712,12 +8715,12 @@ span.icon-advertencia{
     font-family: 'Lato';
     font-size: 13px;
     text-align: center;
-    /*font-weight: bold;*/
+    font-weight: 400;
     padding: 0 19px;
 }
 
 .contenedor_carruselOfertaFinal{
-    background: #f5f5f5;
+    /*background: #f5f5f5;*/
     padding: 22px 5px 40px 5px;
 }
 
@@ -8850,8 +8853,9 @@ span.icon-advertencia{
 
 .icono_terminar_pedido{
     background:url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/eFrB5kIPNXTjyJd/icono-reserva.png) no-repeat;
-    background-size:22px;
-    padding-left: 40px;    
+    background-size:27px;
+    padding-left: 40px;   
+    height:28px; 
 }
 
 /* FIN POPUP OFERTA FINAL */
@@ -12514,7 +12518,7 @@ box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
     position: absolute;
     width: 95%;
     max-width: 400px;
-    min-height: 802px;
+    min-height: 815px;
     top: 0;
     background:#002e5b url(../../../Images/Esika/bg_regalo_mobile_chile.png) no-repeat center top;
    
@@ -12537,7 +12541,7 @@ box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
     width:85px;
     height:55px;
     margin:0 auto;
-    margin-top:30px;
+    margin-top:39px;
     margin-bottom:14px;
     background:url(../../../Images/gif-regalo-blanco.png) no-repeat; 
 }
@@ -12564,9 +12568,13 @@ box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
     background:white;
     width:90%;
     max-width:280px;
-    min-height:333px;
+    min-height:347px;
     margin:0 auto;
-    padding:22px 14px 5px 14px;
+    padding: 0 0 5px 0;
+}
+.content_info_regalo{
+    display:block;
+    padding:22px 10px 0 10px;
 }
 .titulo_regalo_producto{
     font-family: 'Lato';
@@ -12579,8 +12587,8 @@ box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
     margin-bottom: 10px;
 }
 .content_imagen_sorpresa{
-   height: auto;
-    width: 218px;
+    height: auto;
+    width: 100%;
     margin: 0 auto;
     text-align: center;
 }
@@ -12591,23 +12599,42 @@ box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
 .descripcion_regalo{
     font-family: 'Lato';   
     font-size: 11px;
-    margin-top: 14px;
-    margin-bottom:16px;
+    margin-top: 16px;
+    margin-bottom:14px;
     text-align:center;
 }
 .content_detalle_monto{
-    margin:0 auto;
-    background:#f5f5f5;
-    font-family: 'Lato';   
-    font-size: 13px;
-    text-align:center;
-    line-height:18px;
-    padding-top:10px;
-    padding-bottom:10px; 
-    width:90%;
-    max-width:280px;   
-    border-top: 1px solid #d0cbcb;
-    letter-spacing:0.5px;
+    margin: 0 auto;
+    background: #000;
+    font-family: 'Lato';
+    font-size: 14px;
+    text-align: center;
+    line-height: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 100%;
+    letter-spacing: 0.5px;
+    color: #FFF;
+    position:relative;
+    box-sizing:border-box;
+}
+.content_detalle_monto:after {
+	top: 100%;
+    left: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(0, 0, 0, 0);
+    border-top-color: #000;
+    border-width: 9px;
+    margin-left: -7px;
+    z-index: 5;
+}
+#of-regalo-montosaldo{
+    font-size:18px;
 }
 .btn_sigue_comprando{
     margin:0 auto;
