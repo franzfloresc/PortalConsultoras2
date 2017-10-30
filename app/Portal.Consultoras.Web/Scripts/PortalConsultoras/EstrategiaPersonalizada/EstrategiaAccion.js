@@ -471,9 +471,9 @@ function EstrategiaAgregar(event, popup, limite) {
                 if (typeof CargarCarouselEstrategias != "undefined")
                     CargarCarouselEstrategias(cuv);
 
-                if (tieneMasVendidos != "undefined") {
+                if (typeof tieneMasVendidos != "undefined") {
                     if (tieneMasVendidos === 1) {
-                        if (typeof CargarCarouselEstrategias != "undefined")
+                        if (typeof CargarCarouselMasVendidos != "undefined")
                             CargarCarouselMasVendidos('desktop');
                     }
                 }
