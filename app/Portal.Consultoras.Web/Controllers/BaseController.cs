@@ -3770,6 +3770,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                         confiModel.Logo = IsMobile() ? "/Content/Images/Mobile/" + paisCarpeta + "/Contenedor/inicio_normal.png" : "/Content/Images/" + paisCarpeta + "/Contenedor/inicio_normal.png";
                         confiModel.Descripcion = "";
+
                         break;
                     case Constantes.ConfiguracionPais.Inicio:
                         if (revistaDigital.TieneRDC || revistaDigital.TieneRDR)
