@@ -517,7 +517,7 @@
                             }
                         }
                         else if (data.wsprecio == -1) {
-                            $("#txtPrecio2")[0].disabled = true;
+                            $("#txtPrecio2")[0].disabled = false;
                             alert("No se pudo  obtener el precio del producto. Por favor, comunicarse con Soporte Digital Consultoras");
                         }
                         else if (data.wsprecio == -2) {
