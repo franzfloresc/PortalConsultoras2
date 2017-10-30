@@ -1678,8 +1678,12 @@
                     if ($.trim($("#txtPrecio2").val()) == "" || $.isNumeric($("#txtPrecio2").val()) == false) {
                         m += "- Digite un valor correspondiente para el precio." + "\n";
                     }
-                    if ($("#txtPrecio2").val() <= 0) {
-                        m += "- Ingrese un valor para el precio mayor a cero." + "\n";
+                    var aux3 = $('#ddlTipoEstrategia').find(':selected').data('codigo');
+                    if(aux3 != TipoEstrategiaIncentivosProgramaNuevas)
+                    {
+                        if ($("#txtPrecio2").val() <= 0) {
+                            m += "- Ingrese un valor para el precio mayor a cero." + "\n";
+                        }
                     }
                     if (m != "") {
                         alert(m);
@@ -1702,8 +1706,8 @@
                         alert("Seleccione una imagen a mostrar.");
                         return false;
                     }
+
                     var aux2 = $('#ddlTipoEstrategia').find(':selected').data('id');
-                    var aux3 = $('#ddlTipoEstrategia').find(':selected').data('codigo');
                     if (aux2 !== 4 && aux2 !== 7 && aux2 !== 20 && aux2 !== 9 && aux2 !== 10 && aux2 !== 11) {
                         if ($.trim($("#txtOrden").val()) == "" || $.isNumeric($("#txtOrden").val()) == false) {
                             alert("Ingrese un orden para mostrar.");
