@@ -1188,3 +1188,11 @@
     margin-top: 10px;
     font-size: 13px;
 }
+
+.numcampsubraya {
+    text-decoration: underline;
+}
+
+.numsolsubraya {
+    text-decoration: underline;
+}
