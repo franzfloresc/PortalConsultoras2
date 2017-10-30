@@ -512,6 +512,11 @@ namespace Portal.Consultoras.Common
             /// </summary>
             public const int AppEsikaparamiLandingCarruselFicha = 4731;
 
+            /// <summary>
+            /// App/Incentivos/Programa Nuevas
+            /// </summary>
+            public const int AppIncentivosProgramaNuevas = 4741;
+
             // Mas Vendidos
             public const int DesktopHomeMasVendidosCarrusel = 1151;
             public const int DesktopMasVendidosProductPageFicha = 1611;
