@@ -330,6 +330,8 @@ namespace Portal.Consultoras.Common
             public const string TieneLan = "TieneLan";
             public const string TieneLanX1 = "TieneLanX1";
             public const string TieneOpt = "TieneOpt";
+            public const string TieneOpm = "TieneOpm";
+            public const string TieneOpmX1 = "TieneOpmX1";
         }
 
         public class TipoOfertaFinalCatalogoPersonalizado
