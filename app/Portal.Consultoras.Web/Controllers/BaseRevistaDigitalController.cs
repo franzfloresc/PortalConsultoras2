@@ -1,10 +1,8 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceSAC;
-using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -40,13 +38,13 @@ namespace Portal.Consultoras.Web.Controllers
             model.FiltersBySorting.Add(new BETablaLogicaDatos { Codigo = Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.Predefinido, Descripcion = model.IsMobile ? "ORDENAR POR" : "ORDENAR POR PRECIO" });
             model.FiltersBySorting.Add(new BETablaLogicaDatos { Codigo = Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor, Descripcion = model.IsMobile ? "MENOR PRECIO" : "MENOR A MAYOR PRECIO" });
             model.FiltersBySorting.Add(new BETablaLogicaDatos { Codigo = Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor, Descripcion = model.IsMobile ? "MAYOR PRECIO" : "MAYOR A MENOR PRECIO" });
-            
+
             model.FiltersByBrand = new List<BETablaLogicaDatos>();
             model.FiltersByBrand.Add(new BETablaLogicaDatos { Codigo = "-", Descripcion = model.IsMobile ? "MARCAS" : "FILTRAR POR MARCA" });
             model.FiltersByBrand.Add(new BETablaLogicaDatos { Codigo = "CYZONE", Descripcion = "CYZONE" });
             model.FiltersByBrand.Add(new BETablaLogicaDatos { Codigo = "ÉSIKA", Descripcion = "ÉSIKA" });
             model.FiltersByBrand.Add(new BETablaLogicaDatos { Codigo = "LBEL", Descripcion = "LBEL" });
-            
+
             model.Success = true;
             ViewBag.TieneProductosPerdio = TieneProductosPerdio(model.CampaniaID);
             ViewBag.NombreConsultora = userData.Sobrenombre;
@@ -60,11 +58,11 @@ namespace Portal.Consultoras.Web.Controllers
             return PartialView("template-Landing", model);
         }
 
-        public ActionResult DetalleModel(string cuv,int campaniaId)
+        public ActionResult DetalleModel(string cuv, int campaniaId)
         {
             //modelo = modelo ?? new EstrategiaPersonalizadaProductoModel();
             var modelo = (EstrategiaPersonalizadaProductoModel)Session[Constantes.ConstSession.ProductoTemporal];
-            if (modelo == null || modelo.EstrategiaID == 0 || modelo.CUV2 != cuv  || modelo.CampaniaID != campaniaId)
+            if (modelo == null || modelo.EstrategiaID == 0 || modelo.CUV2 != cuv || modelo.CampaniaID != campaniaId)
             {
                 return RedirectToAction("Index", "RevistaDigital", new { area = IsMobile() ? "Mobile" : "" });
             }
@@ -93,7 +91,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.CampaniaMasDos = AddCampaniaAndNumero(campaniaX2, 2) % 100;
             ViewBag.Campania = campaniaId;
             return View(modelo);
-           
+
         }
 
         public bool EsCampaniaFalsa(int campaniaId)
@@ -101,7 +99,7 @@ namespace Portal.Consultoras.Web.Controllers
             return (campaniaId < userData.CampaniaID || campaniaId > AddCampaniaAndNumero(userData.CampaniaID, 1));
         }
 
-       public MensajeProductoBloqueadoModel MensajeProductoBloqueado()
+        public MensajeProductoBloqueadoModel MensajeProductoBloqueado()
         {
             var model = new MensajeProductoBloqueadoModel();
             model.IsMobile = IsMobile();
@@ -110,15 +108,15 @@ namespace Portal.Consultoras.Web.Controllers
                 if (revistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
                 {
                     model.MensajeIconoSuperior = true;
-                    model.MensajeTitulo = model.IsMobile 
-                        ? "PODRÁS AGREGARLA EN LA PRÓXIMA CAMPAÑA" 
+                    model.MensajeTitulo = model.IsMobile
+                        ? "PODRÁS AGREGARLA EN LA PRÓXIMA CAMPAÑA"
                         : "PODRÁS AGREGAR ESTA OFERTA A PARTIR DE LA PRÓXIMA CAMPAÑA";
                     model.BtnInscribirse = false;
                 }
                 else
                 {
                     model.MensajeIconoSuperior = false;
-                    model.MensajeTitulo = model.IsMobile 
+                    model.MensajeTitulo = model.IsMobile
                         ? "INSCRÍBETE HOY EN ÉSIKA PARA MÍ Y NO TE PIERDAS EN C-" + AddCampaniaAndNumero(userData.CampaniaID, 2).Substring(4, 2) + "<br />OFERTAS COMO ESTA"
                         : "INSCRÍBETE HOY EN ÉSIKA PARA MÍ Y NO TE PIERDAS EN CAMPAÑA " + AddCampaniaAndNumero(userData.CampaniaID, 2).Substring(4, 2) + " OFERTAS COMO ESTA";
                     model.BtnInscribirse = true;
@@ -152,7 +150,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (revistaDigital.TieneRDC &&
                 revistaDigital.SuscripcionAnterior2Model.EstadoRegistro != Constantes.EstadoRDSuscripcion.Activo &&
                 campaniaID == userData.CampaniaID)
-                return  true;
+                return true;
             return false;
         }
 

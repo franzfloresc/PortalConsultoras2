@@ -59,9 +59,9 @@ function VerDetalleEstrategia(e) {
         var contentIndex = $(objHtmlEvent).parents("[data-tab-index]").attr("data-tab-index");
         
         if (contentIndex !== undefined && contentIndex !== null && contentIndex.toString() === "2") {
-            VerDetalleBloqueadaRDAnalytics(campania, (estrategia.DescripcionResumen + " " + estrategia.DescripcionCortada).trim());
+            rdAnalyticsModule.VerDetalleBloqueada(campania, (estrategia.DescripcionResumen + " " + estrategia.DescripcionCortada).trim());
         } else if (origenPedido !== undefined && origenPedido !== null && origenPedido.indexOf("7") !== -1) {
-            VerDetalleComprarRDAnalytics(origenPedido, estrategia);
+            rdAnalyticsModule.VerDetalleComprar(origenPedido, estrategia);
         } else {
             dataLayer.push({
                 'event': 'productClick',
@@ -162,7 +162,7 @@ function EstrategiaVerDetalleGeneral(estrategia) {
 
         EstrategiaGuardarTemporal(estrategia);
 
-        estrategia.Detalle = EstrategiaVerDetalleSet(estrategia.CUV2);
+        estrategia.Detalle = EstrategiaCargarCuv(estrategia.CUV2);
         AbrirLoad();
         estrategia.Linea = "0px";
         if (estrategia.Detalle.length > 0) {
@@ -224,26 +224,6 @@ function EstrategiaVerDetalleGeneral(estrategia) {
     EstrategiaMostrarMasTonos(true);
     TrackingJetloreView(estrategia.CUV2, $("#hdCampaniaCodigo").val());
 
-}
-
-function EstrategiaVerDetalleSet(cuv) {
-    AbrirLoad();
-    var detalle = new Array();
-    $.ajax({
-        type: 'GET',
-        url: baseUrl + 'OfertasParaTi/ConsultarEstrategiaSet?cuv=' + cuv,
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        async: false,
-        success: function (data) {
-            detalle = data || new Array();
-        },
-        error: function (error, x) {
-            console.log(error, x);
-        }
-    });
-    CerrarLoad();
-    return detalle;
 }
 
 function EstrategiaMostrarMasTonos(menos) {
@@ -351,7 +331,7 @@ function EstrategiaAgregar(event, popup, limite) {
 
     if (EstrategiaValidarBloqueada(objInput, estrategia)) {
         try {
-            AgregarProductoDeshabilitadoRDAnalytics(
+            rdAnalyticsModule.AgregarProductoDeshabilitado(
                 origenPedidoWebEstrategia, campania, (estrategia.DescripcionResumen +
                     " " +
                     estrategia.DescripcionCortada).trim(), popup);
@@ -362,7 +342,6 @@ function EstrategiaAgregar(event, popup, limite) {
     if (EstrategiaValidarSeleccionTono(objInput)) {
         return false;
     }
-
    
     limite = limite || 0;
     var cantidad = (limite > 0) ? limite
@@ -521,7 +500,7 @@ function EstrategiaAgregar(event, popup, limite) {
 
             try {
                 if (origenPedidoWebEstrategia !== undefined && origenPedidoWebEstrategia.indexOf("7") !== -1) {
-                    AgregarProductoRDAnalytics(origenPedidoWebEstrategia, estrategia, popup);
+                    rdAnalyticsModule.AgregarProducto(origenPedidoWebEstrategia, estrategia, popup);
                 } else {
                     TagManagerClickAgregarProductoOfertaParaTI(estrategia);  
                 }

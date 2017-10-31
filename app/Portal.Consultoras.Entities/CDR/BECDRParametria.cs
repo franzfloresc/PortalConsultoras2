@@ -13,7 +13,7 @@ namespace Portal.Consultoras.Entities.CDR
         public string DescripcionParametria { get; set; }
         [DataMember]
         public string ValorParametria { get; set; }
-        
+
         public BECDRParametria()
         { }
 

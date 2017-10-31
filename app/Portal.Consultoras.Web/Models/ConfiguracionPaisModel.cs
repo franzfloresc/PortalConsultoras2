@@ -38,6 +38,12 @@ namespace Portal.Consultoras.Web.Models
 
         public int OrdenBpt { get; set; }
 
+        public bool BloqueoRevistaImpresa { get; set; }
+
+        //BPT 353
+        public int MobileOrden { get; set; }
+        public int MobileOrdenBPT { get; set; }
+
         public object Clone()
         {
             return this.MemberwiseClone();

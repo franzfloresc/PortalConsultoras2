@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
+﻿using OpenSource.Library.DataAccess;
 using System.Runtime.Serialization;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
-using OpenSource.Library.DataAccess;
-using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Entities.ShowRoom
 {
@@ -25,7 +17,7 @@ namespace Portal.Consultoras.Entities.ShowRoom
 
         [DataMember]
         public int Stock { get; set; }
-      
+
         [DataMember]
         public decimal PrecioOferta { get; set; }
 
@@ -47,10 +39,10 @@ namespace Portal.Consultoras.Entities.ShowRoom
         [DataMember]
         [ViewProperty]
         public string ISOPais { get; set; }
-        
+
         public BEShowRoomOferta2()
         {
-                   
+
         }
     }
 }

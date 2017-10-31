@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Runtime.Serialization;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Data;
-using Portal.Consultoras.Common;
+using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities
 {
@@ -22,10 +18,10 @@ namespace Portal.Consultoras.Entities
         public BEZona() { }
         public BEZona(IDataRecord row)
         {
-	        miZonaID = Convert.ToInt32(row["ZonaID"]);
-	        miRegionID = Convert.ToInt32(row["RegionID"]);
-	        msCodigo = row["Codigo"].ToString();
-	        msNombre = row["Nombre"].ToString();
+            miZonaID = Convert.ToInt32(row["ZonaID"]);
+            miRegionID = Convert.ToInt32(row["RegionID"]);
+            msCodigo = row["Codigo"].ToString();
+            msNombre = row["Nombre"].ToString();
             msNombreGerenteZona = row["NombreGerenteZona"] == null ? "" : row["NombreGerenteZona"].ToString();
             if (DataRecord.HasColumn(row, "CantidadDias") && row["CantidadDias"] != DBNull.Value)
                 msCantidadDias = row["CantidadDias"] == null ? 0 : Convert.ToInt32(row["CantidadDias"]);

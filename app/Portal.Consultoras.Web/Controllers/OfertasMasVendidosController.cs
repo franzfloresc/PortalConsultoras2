@@ -1,10 +1,6 @@
-﻿using AutoMapper;
-using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.Controllers;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServicePedido;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -12,9 +8,8 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class OfertasMasVendidosController : BaseEstrategiaController
     {
-               
         [HttpGet]
-        public JsonResult ObtenerOfertas() 
+        public JsonResult ObtenerOfertas()
         {
             try
             {
@@ -25,7 +20,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.Lista = listModel;
 
                 model = ActualizarPosicion(model);
-                model = ActualizarPrecioFormateado(model);                
+                model = ActualizarPrecioFormateado(model);
 
                 return Json(new { success = true, data = model }, JsonRequestBehavior.AllowGet);
             }
@@ -39,7 +34,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (model != null)
             {
-                for (int i =0;i <= model.Lista.Count - 1; i++)
+                for (int i = 0; i <= model.Lista.Count - 1; i++)
                 {
                     model.Lista[i].Posicion = i + 1;
                 }

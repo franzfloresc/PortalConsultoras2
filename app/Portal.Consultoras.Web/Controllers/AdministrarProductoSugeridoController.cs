@@ -9,7 +9,6 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.ServiceModel;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -223,14 +222,14 @@ namespace Portal.Consultoras.Web.Controllers
                 pais = sv.SelectPais(paisID);
                 nroCampanias = sv.GetPaisNumeroCampaniasByPaisID(paisID);
             }
-            if(nroCampanias == -1) return Json(new { success = false, message = "Ocurrió un error al intentar cargar las imágenes del CUV" }, JsonRequestBehavior.AllowGet);
+            if (nroCampanias == -1) return Json(new { success = false, message = "Ocurrió un error al intentar cargar las imágenes del CUV" }, JsonRequestBehavior.AllowGet);
 
             BEMatrizComercial matriz = null;
             List<BEMatrizComercialImagen> imagenes = null;
             using (var sv = new PedidoServiceClient())
             {
                 matriz = sv.GetMatrizComercialByCampaniaAndCUV(paisID, campaniaID, cuv);
-                if(matriz != null && matriz.IdMatrizComercial!=0)
+                if (matriz != null && matriz.IdMatrizComercial != 0)
                 {
                     imagenes = sv.GetMatrizComercialImagenByIdMatrizImagen(paisID, matriz.IdMatrizComercial, 1, 10).ToList();
                 }
@@ -239,17 +238,18 @@ namespace Portal.Consultoras.Web.Controllers
             MatrizComercialResultadoModel model = null;
 
             int totalImagenes = 0;
-            if(matriz != null)
+            if (matriz != null)
             {
                 model = Mapper.Map<MatrizComercialResultadoModel>(matriz);
 
-                if(imagenes != null)
+                if (imagenes != null)
                 {
                     var data = MapImages(imagenes, paisID);
 
                     model.Imagenes = data;
                     totalImagenes = imagenes.Any() ? imagenes[0].TotalRegistros : 0;
-                }else
+                }
+                else
                 {
                     model.Imagenes = new List<MatrizComercialImagen>();
                 }
@@ -445,7 +445,7 @@ namespace Portal.Consultoras.Web.Controllers
             Producto[] arrayProducto = null;
             using (ProductoServiceClient sv = new ProductoServiceClient())
             {
-                arrayProducto = sv.ObtenerProductosPorCampaniasBySap(userData.CodigoISO, campaniaID, codigoSAP, nroCampaniasAtras);                
+                arrayProducto = sv.ObtenerProductosPorCampaniasBySap(userData.CodigoISO, campaniaID, codigoSAP, nroCampaniasAtras);
             }
             if (arrayProducto == null || arrayProducto.Length == 0) return null;
             return arrayProducto[0].Imagen;

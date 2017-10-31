@@ -79,7 +79,7 @@ namespace Portal.Consultoras.Entities.ShowRoom
                 FechaModificacion = DbConvert.ToDateTime(datarec["FechaModificacion"]);
             if (DataRecord.HasColumn(datarec, "UsuarioModificacion") && datarec["UsuarioModificacion"] != DBNull.Value)
                 UsuarioModificacion = DbConvert.ToString(datarec["UsuarioModificacion"]);
-            
+
             if (DataRecord.HasColumn(datarec, "Suscripcion") && datarec["Suscripcion"] != DBNull.Value)
                 Suscripcion = DbConvert.ToBoolean(datarec["Suscripcion"]);
             if (DataRecord.HasColumn(datarec, "Envio") && datarec["Envio"] != DBNull.Value)

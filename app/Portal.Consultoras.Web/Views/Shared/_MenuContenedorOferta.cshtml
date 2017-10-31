@@ -45,24 +45,24 @@
         {
             <div class="op_menu-horizontal" data-layout-menu1="">
                 <ul>
-                    <li data-campania="@menuActivo.CampaniaX0" 
-                        onclick="menuModule.menuClick(this, '@Url.Action("Index", "Ofertas", new { action = "index" })')" >
+                    <li data-campania="@menuActivo.CampaniaX0" data-codigo="1"
+                        onclick="menuModule.tabClick(this, '@Url.Action("Index", "Ofertas")')" >
                         <a class="@classMenuX">
                             <img src="@Url.Content("~/Content/Images/carrito.png")" alt="" class="default">
                             <img src="@Url.Content("~/Content/Images/carrito-hover.png")" alt="" class="hover" style="display:none;">
                             <img src="@Url.Content("~/Content/Images/carrito-hover.png")" alt="" class="click-menu" style="display:none;">
                             <span>COMPRAR C-@(menuActivo.CampaniaX0 % 100)</span>
                         </a>
-                    </li><li data-campania="@menuActivo.CampaniaX1"
-                        onclick="menuModule.menuClick(this, '@Url.Action("Revisar", "Ofertas")')" >
+                    </li><li data-campania="@menuActivo.CampaniaX1" data-codigo="2"
+                        onclick="menuModule.tabClick(this, '@Url.Action("Revisar", "Ofertas")')" >
                         <a class="@classMenuX1">
                             <img src="@Url.Content("~/Content/Images/ojito.png")" alt="" class="default">
                             <img src="@Url.Content("~/Content/Images/ojito-hover.png")" alt="" class="hover" style="display:none;">
                             <img src="@Url.Content("~/Content/Images/ojito-hover.png")" alt="" class="click-menu" style="display:none;">
                             <span>REVISAR C-@(menuActivo.CampaniaX1 % 100)</span>
                         </a>
-                    </li><li data-campania="0" data-url=""
-                        onclick="menuModule.menuClick(this, '@Url.Action("Informacion", "RevistaDigital")')" >
+                    </li><li data-campania="0" data-codigo="3"
+                        onclick="menuModule.tabClick(this, '@Url.Action("Informacion", "RevistaDigital")')" >
                         <a class="@classMenuInfo">
                             <span>SABER MÁS DE ÉSIKA PARA MÍ</span>
                         </a>

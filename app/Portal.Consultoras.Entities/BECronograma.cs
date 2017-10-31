@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Runtime.Serialization;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Data;
-using Portal.Consultoras.Common;
+using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities
 {
@@ -75,7 +71,7 @@ namespace Portal.Consultoras.Entities
                 ZonaNombre = Convert.ToString(row["ZonaNombre"]);
             if (DataRecord.HasColumn(row, "CodigoZona"))
                 CodigoZona = Convert.ToString(row["CodigoZona"]);
-            
+
         }
     }
 
@@ -96,8 +92,8 @@ namespace Portal.Consultoras.Entities
         public string Campania { get; set; }
 
         public Cronograma()
-        { 
-        
+        {
+
         }
 
         public Cronograma(IDataRecord row)
