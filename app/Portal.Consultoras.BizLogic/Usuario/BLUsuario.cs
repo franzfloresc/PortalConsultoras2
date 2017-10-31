@@ -378,8 +378,14 @@ namespace Portal.Consultoras.BizLogic
             var destinatariosFeedBack = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetTablaLogicaDatos(paisID, Constantes.TablaLogica.CorreoFeedbackAppConsultora));
             var gprBannerTask = Task.Run(() => this.GetGPRBanner(usuario));
             var usuarioConsultoraTask = Task.Run(() => this.GetUsuarioConsultora(usuario));
+            var consultoraAniversarioTask = Task.Run(() => this.GetConsultoraAniversario(usuario));
 
-            Task.WaitAll(usuarioLoginExternoTask, terminosCondicionesTask, destinatariosFeedBack, gprBannerTask, usuarioConsultoraTask);
+            Task.WaitAll(usuarioLoginExternoTask, 
+                            terminosCondicionesTask, 
+                            destinatariosFeedBack, 
+                            gprBannerTask, 
+                            usuarioConsultoraTask,
+                            consultoraAniversarioTask);
 
             usuario.FotoPerfil = (usuarioLoginExternoTask.Result == null ? string.Empty : usuarioLoginExternoTask.Result.FotoPerfil);
             usuario.AceptaTerminosCondiciones = (terminosCondicionesTask.Result == null ? false : terminosCondicionesTask.Result.Aceptado);
@@ -393,6 +399,8 @@ namespace Portal.Consultoras.BizLogic
 
             usuario.DiasCierre = usuarioConsultoraTask.Result.DiasCierre;
             usuario.FechaVencimiento = usuarioConsultoraTask.Result.FechaVencimiento;
+
+            usuario.EsAniversario = consultoraAniversarioTask.Result;
 
             return usuario;
         }
@@ -502,6 +510,30 @@ namespace Portal.Consultoras.BizLogic
             }
 
             return beConfiguracionCampania;
+        }
+
+        private bool GetConsultoraAniversario(BEUsuario usuario)
+        {
+            bool esAniversario = false;
+
+            if(usuario.RolID == Constantes.Rol.Consultora)
+            {
+                if (usuario.ConsultoraNueva != Constantes.ConsultoraNueva.Sicc && usuario.ConsultoraNueva != Constantes.ConsultoraNueva.Fox)
+                {
+                    if (usuario.CampaniaDescripcion != null && usuario.AnoCampaniaIngreso.Trim() != "")
+                    {
+                        int campaniaActual = int.Parse(usuario.CampaniaDescripcion);
+                        int campaniaIngreso = int.Parse(usuario.AnoCampaniaIngreso);
+                        int diferencia = campaniaActual - campaniaIngreso;
+                        if (diferencia >= 12)
+                        {
+                            if (usuario.AnoCampaniaIngreso.Trim().EndsWith(usuario.CampaniaDescripcion.Trim().Substring(4))) esAniversario = true;
+                        }
+                    }
+                }
+            }
+
+            return esAniversario;
         }
 
         public string GetUsuarioAsociado(int paisID, string codigoConsultora)

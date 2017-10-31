@@ -557,6 +557,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int SegmentoID { get; set; }
         [DataMember]
+        [Column("FechaNacimiento")]
         public DateTime FechaNacimiento { get; set; }
 
         [Column("FechaLimitePago")]
@@ -941,6 +942,7 @@ namespace Portal.Consultoras.Entities
         }
 
         [DataMember]
+        [Column("AnoCampanaIngreso")]
         public string AnoCampaniaIngreso
         {
             get { return mAnoCampaniaIngreso; }
@@ -1361,5 +1363,7 @@ namespace Portal.Consultoras.Entities
         public string FechaVencimiento { get; set; }
         [DataMember]
         public int DiasCierre { get; set; }
+        [DataMember]
+        public bool EsAniversario{ get; set; }
     }
 }
