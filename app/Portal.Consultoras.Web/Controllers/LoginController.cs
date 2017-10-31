@@ -1670,6 +1670,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [AllowAnonymous]
+        [HttpGet]
         public ActionResult IngresoExterno(string token)
         {
             this.SetUniqueKeyAvoiding(Guid.NewGuid());
