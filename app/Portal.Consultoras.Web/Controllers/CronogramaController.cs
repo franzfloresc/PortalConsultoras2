@@ -152,13 +152,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.SelectCampanias(PaisID);
             }
-            Mapper.CreateMap<BECampania, CampaniaModel>()
-                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo))
-                    .ForMember(t => t.Anio, f => f.MapFrom(c => c.Anio))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto))
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Activo, f => f.MapFrom(c => c.Activo));
 
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
         }
@@ -502,18 +495,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                Mapper.CreateMap<CronogramaModel, BECronograma>()
-                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                    .ForMember(t => t.ZonaID, f => f.MapFrom(c => c.ZonaID))
-                    .ForMember(t => t.TipoCronogramaID, f => f.MapFrom(c => c.TipoCronogramaID))
-                    .ForMember(t => t.FechaInicioWeb, f => f.MapFrom(c => c.FechaInicioWeb))
-                    .ForMember(t => t.FechaFinWeb, f => f.MapFrom(c => c.FechaFinWeb))
-                    .ForMember(t => t.FechaInicioDD, f => f.MapFrom(c => c.FechaInicioDD))
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.FechaFinDD, f => f.MapFrom(c => c.FechaFinDD))
-                    .ForMember(t => t.CodigoZona, f => f.MapFrom(c => c.CodigoZona))
-                    .ForMember(t => t.CodigoCampania, f => f.MapFrom(c => c.CodigoCampania));
-
                 BECronograma entidad = Mapper.Map<CronogramaModel, BECronograma>(model);
 
                 entidad.CodigoUsuarioModificacion = UserData().CodigoUsuario;
@@ -591,18 +572,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                Mapper.CreateMap<CronogramaModel, BECronograma>()
-                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                    .ForMember(t => t.ZonaID, f => f.MapFrom(c => c.ZonaID))
-                    .ForMember(t => t.TipoCronogramaID, f => f.MapFrom(c => c.TipoCronogramaID))
-                    .ForMember(t => t.FechaInicioWeb, f => f.MapFrom(c => c.FechaInicioWeb))
-                    .ForMember(t => t.FechaFinWeb, f => f.MapFrom(c => c.FechaFinWeb))
-                    .ForMember(t => t.FechaInicioDD, f => f.MapFrom(c => c.FechaInicioDD))
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.FechaFinDD, f => f.MapFrom(c => c.FechaFinDD))
-                    .ForMember(t => t.CodigoZona, f => f.MapFrom(c => c.CodigoZona))
-                    .ForMember(t => t.CodigoCampania, f => f.MapFrom(c => c.CodigoCampania));
-
                 BECronograma entidad = Mapper.Map<CronogramaModel, BECronograma>(model);
 
                 entidad.CodigoUsuarioModificacion = UserData().CodigoUsuario;
@@ -644,21 +613,8 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult Delete(CronogramaModel model)
         {
-
             try
             {
-                Mapper.CreateMap<CronogramaModel, BECronograma>()
-                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                    .ForMember(t => t.ZonaID, f => f.MapFrom(c => c.ZonaID))
-                    .ForMember(t => t.TipoCronogramaID, f => f.MapFrom(c => c.TipoCronogramaID))
-                    .ForMember(t => t.FechaInicioWeb, f => f.MapFrom(c => c.FechaInicioWeb))
-                    .ForMember(t => t.FechaFinWeb, f => f.MapFrom(c => c.FechaFinWeb))
-                    .ForMember(t => t.FechaInicioDD, f => f.MapFrom(c => c.FechaInicioDD))
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.FechaFinDD, f => f.MapFrom(c => c.FechaFinDD))
-                    .ForMember(t => t.CodigoZona, f => f.MapFrom(c => c.CodigoZona))
-                    .ForMember(t => t.CodigoCampania, f => f.MapFrom(c => c.CodigoCampania));
-
                 BECronograma entidad = Mapper.Map<CronogramaModel, BECronograma>(model);
 
                 entidad.CodigoUsuarioModificacion = UserData().CodigoUsuario;
@@ -752,10 +708,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
             }
-            Mapper.CreateMap<BEPais, PaisModel>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }

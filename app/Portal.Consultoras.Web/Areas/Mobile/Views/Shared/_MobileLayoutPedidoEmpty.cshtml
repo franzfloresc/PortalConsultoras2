@@ -237,7 +237,11 @@
         'seccion': '@ViewBag.AnalyticsSeccion',
         'pais': '@ViewBag.AnalyticsPais',
         'codigoConsultora': '@ViewBag.AnalyticsCodigoConsultora'
-    };
+	};
+
+	belcorp.settings.initialize({
+		isAppMobile : @Html.MobileAppConfiguracion().EsAppMobile.ToString().ToLower()
+	});
 </script>
 
 <script type="text/javascript">

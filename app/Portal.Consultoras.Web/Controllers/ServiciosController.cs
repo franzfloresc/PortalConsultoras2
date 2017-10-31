@@ -84,11 +84,6 @@ namespace Portal.Consultoras.Web.Controllers
             int vValidation = 0;
             try
             {
-                Mapper.CreateMap<ServicioModel, BEServicio>()
-                    .ForMember(t => t.ServicioId, f => f.MapFrom(c => c.ServicioId))
-                    .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
-                    .ForMember(t => t.Url, f => f.MapFrom(c => c.Url));
-
                 BEServicio entidad = Mapper.Map<ServicioModel, BEServicio>(model);
 
                 using (SACServiceClient sv = new SACServiceClient())
@@ -142,11 +137,6 @@ namespace Portal.Consultoras.Web.Controllers
             int vValidation = 0;
             try
             {
-                Mapper.CreateMap<ServicioModel, BEServicio>()
-                    .ForMember(t => t.ServicioId, f => f.MapFrom(c => c.ServicioId))
-                    .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
-                    .ForMember(t => t.Url, f => f.MapFrom(c => c.Url));
-
                 BEServicio entidad = Mapper.Map<ServicioModel, BEServicio>(model);
 
                 using (SACServiceClient sv = new SACServiceClient())
@@ -1213,10 +1203,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.SelectParametros().ToList();
             }
-            Mapper.CreateMap<BEParametro, ParametroModel>()
-                    .ForMember(t => t.ParametroId, f => f.MapFrom(c => c.ParametroId))
-                    .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
-                    .ForMember(t => t.Abreviatura, f => f.MapFrom(c => c.Abreviatura));
 
             return Mapper.Map<IList<BEParametro>, IEnumerable<ParametroModel>>(lst);
         }
@@ -1365,10 +1351,6 @@ namespace Portal.Consultoras.Web.Controllers
                 lst = sv.GetServicioCampaniaSegmentoZonaAsignados(ServicioId, PaisId, Tipo).ToList();
             }
 
-            Mapper.CreateMap<BEServicioSegmentoZona, PaisModel>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisId))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.NombrePais))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombrePais));
             return Mapper.Map<IList<BEServicioSegmentoZona>, IEnumerable<PaisModel>>(lst);
         }
 
@@ -1381,10 +1363,6 @@ namespace Portal.Consultoras.Web.Controllers
                 lst = sv.GetServicioCampaniaSegmentoZonaAsignados(ServicioId, PaisId, Tipo).ToList();
             }
 
-            Mapper.CreateMap<BEServicioSegmentoZona, CampaniaModel>()
-                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaId))
-                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.DesCampania))
-                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.DesCampania));
             return Mapper.Map<IList<BEServicioSegmentoZona>, IEnumerable<CampaniaModel>>(lst);
 
         }

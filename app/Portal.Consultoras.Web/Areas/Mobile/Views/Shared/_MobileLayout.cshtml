@@ -424,7 +424,10 @@
         }
 
         var ViewIndicadorGPRSB = '@ViewBag.IndicadorGPRSB';
-        var MensajePedidoMobile = '@ViewBag.MensajePedidoMobile';
+		var MensajePedidoMobile = '@ViewBag.MensajePedidoMobile';
+		belcorp.settings.initialize({
+			isAppMobile : @Html.MobileAppConfiguracion().EsAppMobile.ToString().ToLower()
+		});
     </script>
 
     @if (ViewBag.MostrarOfertaDelDiaContenedor == true)

@@ -176,7 +176,7 @@ namespace Portal.Consultoras.Web.Controllers
                 //Setear el IdPais para los que coincidan
                 foreach (BEPais itemPais in lstPais)
                 {
-                    lstGrupoConsultora.Where(x => x.PaisCodigo == itemPais.CodigoISO).Each(y => y.PaisID = itemPais.PaisID);
+                    lstGrupoConsultora.Where(x => x.PaisCodigo == itemPais.CodigoISO).Update(y => y.PaisID = itemPais.PaisID);
                 }
                 //Los que no coinciden los eliminamos
                 lstGrupoConsultora.RemoveAll(x => x.PaisID == 0);
@@ -849,10 +849,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.SelectPaises().ToList();
             }
-            Mapper.CreateMap<BEPais, PaisModel>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
@@ -1094,10 +1090,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.GetBannerPaisesAsignados(CampaniaId, BannerId).ToList();
             }
-            Mapper.CreateMap<BEBannerSegmentoZona, PaisModel>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisId))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.NombrePais))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombrePais));
 
             return Mapper.Map<IList<BEBannerSegmentoZona>, IEnumerable<PaisModel>>(lst);
         }

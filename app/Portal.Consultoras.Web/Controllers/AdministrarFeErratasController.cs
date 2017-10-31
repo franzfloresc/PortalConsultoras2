@@ -62,10 +62,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
             }
-            Mapper.CreateMap<BEPais, PaisModel>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
@@ -78,9 +74,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.SelectCampanias(PaisID);
             }
-            Mapper.CreateMap<BECampania, CampaniaModel>()
-                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo));
 
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
         }
@@ -199,15 +192,6 @@ namespace Portal.Consultoras.Web.Controllers
             var listaEntradas = Session["entradas"] as List<AdministrarFeErratasModel>;
             if (listaEntradas != null && listaEntradas.Count > 0)
             {
-                // se realiza el mapeo
-                Mapper.CreateMap<AdministrarFeErratasModel, BEFeErratas>()
-                   .ForMember(t => t.FeErratasID, f => f.MapFrom(c => c.FeErratasID))
-                   .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                   .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                   .ForMember(t => t.Titulo, f => f.MapFrom(c => c.Titulo))
-                   .ForMember(t => t.Pagina, f => f.MapFrom(c => c.Pagina))
-                   .ForMember(t => t.Dice, f => f.MapFrom(c => c.Dice))
-                   .ForMember(t => t.DebeDecir, f => f.MapFrom(c => c.DebeDecir));
                 var updateErratas = listaEntradas.Where(x => !x.Eliminar).Select(Mapper.Map<AdministrarFeErratasModel, BEFeErratas>).ToArray();
                 foreach (var item in updateErratas)
                 {
@@ -327,12 +311,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         lst = sv.SelectFeErratasEntradas(vpaisID, vCampaniaID, vTitulo).ToList();
                     }
-                    // se hace el mapeo de la colección
-                    Mapper.CreateMap<BEFeErratas, AdministrarFeErratasModel>()
-                       .ForMember(t => t.FeErratasID, f => f.MapFrom(c => c.FeErratasID))
-                       .ForMember(t => t.Pagina, f => f.MapFrom(c => c.Pagina))
-                       .ForMember(t => t.Dice, f => f.MapFrom(c => c.Dice))
-                       .ForMember(t => t.DebeDecir, f => f.MapFrom(c => c.DebeDecir));
+
                     List<AdministrarFeErratasModel> entidades = Mapper.Map<IEnumerable<BEFeErratas>, List<AdministrarFeErratasModel>>(lst);
                     listaEntradas = new List<AdministrarFeErratasModel>();
                     listaEntradas.AddRange(entidades);

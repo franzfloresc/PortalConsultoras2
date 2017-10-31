@@ -53,8 +53,16 @@
     <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
       <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="AutoMapper">
-      <HintPath>..\Binaries\AutoMapper.dll</HintPath>
+    <Reference Include="Autofac, Version=4.6.2.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.6.2\lib\net45\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Autofac.Integration.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.Mvc5.4.0.2\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper, Version=6.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.1.1\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="BouncyCastle.Crypto, Version=1.6.1.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
       <SpecificVersion>False</SpecificVersion>
@@ -116,6 +124,8 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.identitymodel.services" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Web" />
@@ -126,31 +136,26 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.Helpers.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.0\lib\net45\System.Web.Helpers.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Mvc, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.0.0\lib\net45\System.Web.Mvc.dll</HintPath>
+    <Reference Include="System.Web.Mvc, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.1.0\lib\net45\System.Web.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.Optimization">
       <HintPath>..\Binaries\System.Web.Optimization.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Razor.3.0.0\lib\net45\System.Web.Razor.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.1.0\lib\net45\System.Web.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.0\lib\net45\System.Web.WebPages.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.0\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
@@ -180,6 +185,7 @@
     <Compile Include="Annotations\ExpressionRequiredIfAttribute.cs" />
     <Compile Include="Annotations\RequiredIfAttribute.cs" />
     <Compile Include="Annotations\RequiredIfPropertiesNotNullAttribute.cs" />
+    <Compile Include="App_Start\AutofacConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs">
       <SubType>Code</SubType>
@@ -250,6 +256,9 @@
     <Compile Include="Areas\Mobile\Models\ProductosDestacadosMobilModel.cs" />
     <Compile Include="Areas\Mobile\Models\SeguimientoMobileModel.cs" />
     <Compile Include="Areas\Mobile\Models\ShowRoomModel.cs" />
+    <Compile Include="Autofac\ProviderModuleResolver.cs" />
+    <Compile Include="Models\ConfiguracionLogicaModel.cs" />
+    <Compile Include="Models\Pedido\PedidoRechazadoBannerModel.cs" />
     <Compile Include="Controllers\ABCProductoController.cs" />
     <Compile Include="Controllers\AccesorizateController.cs" />
     <Compile Include="Controllers\ActualizarDatosController.cs" />
@@ -411,9 +420,9 @@
     <Compile Include="Models\AdministrarPalancaModel.cs" />
     <Compile Include="Models\AdministrarProductoSugerido.cs" />
     <Compile Include="Models\AsesoraOnlineModel.cs" />
-    <Compile Include="Models\AutoMapper\AutoMapperConfiguration.cs" />
-    <Compile Include="Models\AutoMapper\ModelToDomainMappingProfile.cs" />
-    <Compile Include="Models\AutoMapper\DomainToModelMappingProfile.cs" />
+    <Compile Include="AutoMapper\AutoMapperConfiguration.cs" />
+    <Compile Include="AutoMapper\ModelToDomainMappingProfile.cs" />
+    <Compile Include="AutoMapper\DomainToModelMappingProfile.cs" />
     <Compile Include="Models\BannerInfoModel.cs" />
     <Compile Include="Models\BarraConsultoraEscalaDescuentoModel.cs" />
     <Compile Include="Models\BaseVM.cs" />
@@ -429,6 +438,7 @@
     <Compile Include="Models\FichaProductoModel.cs" />
     <Compile Include="Models\OfertaFinalModel.cs" />
     <Compile Include="Models\MensajesCDRExpressModel.cs" />
+    <Compile Include="Models\Pedido\PedidoRechazadoModel.cs" />
     <Compile Include="Models\ProductoComentarioModel.cs" />
     <Compile Include="Models\CompartirRedesSocialesModel.cs" />
     <Compile Include="Models\ComunModel.cs" />
@@ -573,7 +583,7 @@
     <Compile Include="Models\ProductoCompartidoModel.cs" />
     <Compile Include="Models\ProductoFaltanteModel.cs" />
     <Compile Include="Models\ProveedorDespachoCobranzaModel.cs" />
-    <Compile Include="Models\RechazoModel.cs" />
+    <Compile Include="Models\PedidoRechazoUsuarioModel.cs" />
     <Compile Include="Models\RegaloOfertaFinalModel.cs" />
     <Compile Include="Models\RegionModel.cs" />
     <Compile Include="Models\RegistrarEstrategiaModel.cs" />
@@ -616,6 +626,7 @@
     <Compile Include="Models\UsuarioExternoModel.cs" />
     <Compile Include="Models\UsuarioModel.cs" />
     <Compile Include="Models\UsuarioRolModel.cs" />
+    <Compile Include="Models\Usuario\HanaModel.cs" />
     <Compile Include="Models\ValidacionAutomaticaModel.cs" />
     <Compile Include="Models\ValidacionStockModel.cs" />
     <Compile Include="Models\ValidacionTelefonicaModel.cs" />
@@ -633,6 +644,22 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Providers\ConfiguracionDatosProvider.cs" />
+    <Compile Include="Providers\ConfiguracionPaisProvider.cs" />
+    <Compile Include="Providers\FlexiPagoProvider.cs" />
+    <Compile Include="Providers\Interfaces\IConfiguracionDatosProvider.cs" />
+    <Compile Include="Providers\Interfaces\IConfiguracionPaisProvider.cs" />
+    <Compile Include="Providers\Interfaces\IFlexiPagoProvider.cs" />
+    <Compile Include="Providers\Interfaces\INotificacionProvider.cs" />
+    <Compile Include="Providers\Interfaces\IPedidoProvider.cs" />
+    <Compile Include="Providers\Interfaces\IPedidoRechazadoProvider.cs" />
+    <Compile Include="Providers\Interfaces\IProgramaNuevasProvider.cs" />
+    <Compile Include="Providers\Interfaces\IRevistaDigitalProvider.cs" />
+    <Compile Include="Providers\Interfaces\IUserProvider.cs" />
+    <Compile Include="Providers\NotificacionProvider.cs" />
+    <Compile Include="Providers\PedidoRechazadoProvider.cs" />
+    <Compile Include="Providers\RevistaDigitalProvider.cs" />
+    <Compile Include="Providers\UserProvider.cs" />
     <Compile Include="Service References\HojaInscripcionBelcorpPais\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

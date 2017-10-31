@@ -112,10 +112,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<UsuarioRolModel, ServiceSeguridad.BEUsuarioRol>()
-                    .ForMember(t => t.RolID, f => f.MapFrom(c => c.RolID))
-                    .ForMember(t => t.CodigoUsuario, f => f.MapFrom(c => c.CodigoUsuario));
-
                 ServiceSeguridad.BEUsuarioRol entidad = Mapper.Map<UsuarioRolModel, ServiceSeguridad.BEUsuarioRol>(model);
                 entidad.paisID = UserData().PaisID;
 
@@ -173,9 +169,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<UsuarioRolModel, ServiceUsuario.BEUsuarioRol>()
-                    .ForMember(t => t.CodigoUsuario, f => f.MapFrom(c => c.CodigoUsuario))
-                    .ForMember(t => t.RolID, f => f.MapFrom(c => c.RolID));
 
                 int retorno;
 
@@ -239,10 +232,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<ConsultoraFicticiaModel, BEUsuario>()
-                    .ForMember(t => t.CodigoUsuario, f => f.MapFrom(c => c.CodigoUsuario))
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID));
-
                 BEUsuario entidad = Mapper.Map<ConsultoraFicticiaModel, BEUsuario>(model);
 
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
@@ -323,12 +312,7 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = new List<BEPais>();
                     lst.Add(sv.SelectPais(UserData().PaisID));
                 }
-
             }
-            Mapper.CreateMap<BEPais, PaisModel>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }

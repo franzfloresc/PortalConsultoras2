@@ -2,6 +2,12 @@
 var formatDecimalPais = formatDecimalPais || new Object();
 var finishLoadCuponContenedorInfo = false;
 
+var belcorp = belcorp || {};
+belcorp.settings = belcorp.settings || {};
+belcorp.settings.initialize = function (settings) {
+	this.isAppMobile = settings.isAppMobile;
+}
+
 jQuery(document).ready(function () {
     CreateLoading();
     $("body").on("click", "[data-compartir]", function (e) {

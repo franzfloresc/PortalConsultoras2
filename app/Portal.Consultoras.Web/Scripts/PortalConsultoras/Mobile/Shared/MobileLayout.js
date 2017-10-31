@@ -28,8 +28,9 @@
         $(this).parent(".alert-top").slideUp();
     });
 
-    CargarCantidadProductosPedidos(true);
-    CargarCantidadNotificacionesSinLeer();
+	CargarCantidadProductosPedidos(true);
+	if (!belcorp.settings.isAppMobile)
+		CargarCantidadNotificacionesSinLeer();
 
     $("body").on("keyup", ".ValidaNumeral", function (evt) {
         var theEvent = evt || window.event;

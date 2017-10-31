@@ -1,12 +1,12 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.Models.AutoMapper;
 using System;
 using System.Configuration;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Portal.Consultoras.Web.AutoMapper;
 
 namespace Portal.Consultoras.Web
 {
@@ -50,6 +50,7 @@ namespace Portal.Consultoras.Web
             Globals.UrlNavidadConsultora = ConfigurationManager.AppSettings["NavidadConsultora"];
 
             AutoMapperConfiguration.Configure();
+            AutofacConfig.Configure();
         }
         
         protected void Session_Start(object sender, EventArgs e)

@@ -41,11 +41,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
             }
-            Mapper.CreateMap<BEPais, PaisModel>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
-
+           
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
 
@@ -63,13 +59,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<ConfiguracionOfertaModel, BEConfiguracionOferta>()
-                    .ForMember(t => t.ConfiguracionOfertaID, f => f.MapFrom(c => c.ConfiguracionOfertaID))
-                    .ForMember(t => t.TipoOfertaSisID, f => f.MapFrom(c => c.TipoOfertaSisID))
-                    .ForMember(t => t.CodigoOferta, f => f.MapFrom(c => c.CodigoOferta))
-                    .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
-                    .ForMember(t => t.EstadoRegistro, f => f.MapFrom(c => c.EstadoRegistro));
-
                 BEConfiguracionOferta entidad = Mapper.Map<ConfiguracionOfertaModel, BEConfiguracionOferta>(model);
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -113,12 +102,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<ConfiguracionOfertaModel, BEConfiguracionOferta>()
-                    .ForMember(t => t.TipoOfertaSisID, f => f.MapFrom(c => c.TipoOfertaSisID))
-                    .ForMember(t => t.CodigoOferta, f => f.MapFrom(c => c.CodigoOferta))
-                    .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
-                    .ForMember(t => t.EstadoRegistro, f => f.MapFrom(c => c.EstadoRegistro));
-
                 BEConfiguracionOferta entidad = Mapper.Map<ConfiguracionOfertaModel, BEConfiguracionOferta>(model);
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())

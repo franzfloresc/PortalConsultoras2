@@ -3225,23 +3225,19 @@ namespace Portal.Consultoras.Common
     {
         public static bool HasColumn(this IDataRecord r, string columnName)
         {
-            try
+            if (r == null) return false;
+
+            columnName = columnName.Trim();
+
+            if (string.IsNullOrEmpty(columnName)) return false;
+
+            for (int i = 0; i < r.FieldCount; i++)
             {
-                if (r == null) return false;
-
-                columnName = columnName ?? "";
-                columnName = columnName.Trim();
-                if (columnName == "") return false;
-
-                if (r.GetOrdinal(columnName) >= 0)
-                    return r[columnName] != DBNull.Value;
-
-                return false;
+                if (columnName.Equals(r.GetName(i), StringComparison.InvariantCultureIgnoreCase))
+                    return r[columnName] != DBNull.Value;                           
             }
-            catch (IndexOutOfRangeException)
-            {
-                return false;
-            }
+
+            return false;
         }
 
         public static IList<string> GetAllNames(this IDataRecord record)

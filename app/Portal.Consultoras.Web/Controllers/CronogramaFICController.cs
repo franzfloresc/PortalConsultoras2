@@ -424,11 +424,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                Mapper.CreateMap<CronogramaFICModel, BECronogramaFIC>()
-                    .ForMember(t => t.Zona, f => f.MapFrom(c => c.Zona))
-                    .ForMember(t => t.Campania, f => f.MapFrom(c => c.Campania))
-                    .ForMember(t => t.FechaFin, f => f.MapFrom(c => c.FechaFin));
-
                 BECronogramaFIC entidad = Mapper.Map<CronogramaFICModel, BECronogramaFIC>(model);
 
                 using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
@@ -477,10 +472,6 @@ namespace Portal.Consultoras.Web.Controllers
                     lst.Add(sv.SelectPais(UserData().PaisID));
                 }
             }
-            Mapper.CreateMap<BEPais, PaisModel>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
@@ -502,10 +493,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.SelectZonasActivasFIC(PaisID, CampaniaID).ToList();
             }
-            Mapper.CreateMap<BEZona, ZonaModel>()
-                    .ForMember(t => t.ZonaID, f => f.MapFrom(c => c.ZonaID))
-                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre));
 
             return Mapper.Map<IList<BEZona>, List<ZonaModel>>(lst);
         }
@@ -518,10 +505,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.SelectZonasInactivasFIC(PaisID, CampaniaID).ToList();
             }
-            Mapper.CreateMap<BEZona, ZonaModel>()
-                    .ForMember(t => t.ZonaID, f => f.MapFrom(c => c.ZonaID))
-                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre));
 
             return Mapper.Map<IList<BEZona>, List<ZonaModel>>(lst);
         }
@@ -572,10 +555,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (IsCorrect && lista != null)
                 {
-                    Mapper.CreateMap<CronogramaFICModel, BECronogramaFIC>()
-                   .ForMember(t => t.CodigoConsultora, f => f.MapFrom(c => c.CodigoConsultora))
-                   .ForMember(t => t.Zona, f => f.MapFrom(c => c.Zona));
-
                     var lst = Mapper.Map<IList<CronogramaFICModel>, IEnumerable<BECronogramaFIC>>(lista);
 
                     using (ZonificacionServiceClient srv = new ZonificacionServiceClient())

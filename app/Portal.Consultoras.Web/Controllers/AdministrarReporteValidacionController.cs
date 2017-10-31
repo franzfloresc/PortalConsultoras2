@@ -48,11 +48,6 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst = new List<BEPais>();
             lst.Add(new BEPais { PaisID = 0, Nombre = "Todos", NombreCorto = "Todos" });
 
-            Mapper.CreateMap<BEPais, PaisModel>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
-
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
 
@@ -67,9 +62,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.GetEtiquetas(entidad);
             }
-            Mapper.CreateMap<BEEtiqueta, EtiquetaModel>()
-                    .ForMember(t => t.EtiquetaID, f => f.MapFrom(c => c.EtiquetaID))
-                    .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion));
 
             return Mapper.Map<IList<BEEtiqueta>, IEnumerable<EtiquetaModel>>(lst);
         }
@@ -92,13 +84,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.SelectCampanias(PaisID);
             }
-            Mapper.CreateMap<BECampania, CampaniaModel>()
-                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo))
-                    .ForMember(t => t.Anio, f => f.MapFrom(c => c.Anio))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto))
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Activo, f => f.MapFrom(c => c.Activo));
 
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
         }

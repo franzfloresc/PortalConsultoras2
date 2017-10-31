@@ -477,13 +477,13 @@ namespace Portal.Consultoras.Web.Controllers
             string mensaje = "";
             resul = false;
             try
-            {                
+            {
                 if (userData.TieneValidacionMontoMaximo)
                 {
                     if (userData.MontoMaximo == Convert.ToDecimal(9999999999.00)) /*monto sin limites*/
                         mensaje = "";
                     else
-                    {                        
+                    {
                         var listaProducto = ObtenerPedidoWebDetalle();
 
                         var totalPedido = listaProducto.Sum(p => p.ImporteTotal);
@@ -494,7 +494,7 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             resul = true;
                         }
-                        
+
                         if (listaProducto.Count() > 0)
                             descuentoProl = listaProducto[0].DescuentoProl;
 
@@ -889,11 +889,6 @@ namespace Portal.Consultoras.Web.Controllers
                 lstTemp_2 = lstTemp_1.Where(p => p.ConfiguracionZona == string.Empty || p.ConfiguracionZona.Contains(userData.ZonaID.ToString())).ToList();
                 lst = lstTemp_2.Where(p => p.Segmento == "-1" || p.Segmento == SegmentoServicio.ToString()).ToList();
 
-                Mapper.CreateMap<ServiceSAC.BEServicioCampania, ServicioCampaniaModel>()
-                        .ForMember(x => x.ServicioId, t => t.MapFrom(c => c.ServicioId))
-                        .ForMember(x => x.Descripcion, t => t.MapFrom(c => c.Descripcion))
-                        .ForMember(x => x.Url, t => t.MapFrom(c => c.Url));
-
                 userData.MenuService = Mapper.Map<IList<ServiceSAC.BEServicioCampania>, List<ServicioCampaniaModel>>(lst);
             }
             return userData.MenuService;
@@ -1008,7 +1003,7 @@ namespace Portal.Consultoras.Web.Controllers
             #region Cargar variables
 
             if (!model.CargoEntidadesShowRoom) CargarEntidadesShowRoom(model);
-            
+
             model.UsuarioNombre = string.IsNullOrEmpty(model.Sobrenombre) ? model.NombreConsultora : model.Sobrenombre;
             ViewBag.UsuarioNombre = (Util.Trim(model.Sobrenombre) == "" ? model.NombreConsultora : model.Sobrenombre);
             ViewBag.Usuario = "Hola, " + model.UsuarioNombre;
@@ -3482,7 +3477,7 @@ namespace Portal.Consultoras.Web.Controllers
                         break;
                 }
 
-                if (seccion.TemplatePresentacion == "") continue;                
+                if (seccion.TemplatePresentacion == "") continue;
 
                 modelo.Add(seccion);
             }
@@ -3551,11 +3546,12 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 newPath += "/" + pathStrings[1];
-                newPath += "/" + pathStrings[2];
+                if (pathStrings.Length > 2)
+                    newPath += "/" + pathStrings[2];
             }
             catch (Exception)
             {
-                // ignored
+                // ignored //todo: esto es un atentado, refactorizar
             }
 
             try
@@ -3570,7 +3566,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception)
             {
-                // ignored
+                // ignored //todo: esto es un atentado, refactorizar
             }
 
             newPath = newPath.EndsWith("/") ? newPath.Substring(0, newPath.Length - 1) : newPath;

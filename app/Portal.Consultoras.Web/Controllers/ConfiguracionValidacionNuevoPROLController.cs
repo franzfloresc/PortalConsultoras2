@@ -76,10 +76,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
             }
-            Mapper.CreateMap<BEPais, PaisModel>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
@@ -91,9 +87,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.GetConfiguracionValidacionNuevoPROL(PaisID, 1);
             }
-            Mapper.CreateMap<BEConfiguracionValidacionNuevoPROL, ZonaModel>()
-                    .ForMember(t => t.ZonaID, f => f.MapFrom(c => c.ZonaID))
-                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.CodigoZona));
 
             return Mapper.Map<IList<BEConfiguracionValidacionNuevoPROL>, IEnumerable<ZonaModel>>(lst);
         }
@@ -105,9 +98,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.GetConfiguracionValidacionNuevoPROL(PaisID, 2);
             }
-            Mapper.CreateMap<BEConfiguracionValidacionNuevoPROL, ZonaModel>()
-                    .ForMember(t => t.ZonaID, f => f.MapFrom(c => c.ZonaID))
-                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.CodigoZona));
 
             return Mapper.Map<IList<BEConfiguracionValidacionNuevoPROL>, IEnumerable<ZonaModel>>(lst);
         }

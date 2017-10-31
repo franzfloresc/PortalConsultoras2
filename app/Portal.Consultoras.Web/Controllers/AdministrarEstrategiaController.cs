@@ -61,10 +61,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
             }
-            Mapper.CreateMap<BEPais, PaisModel>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
@@ -90,9 +86,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.GetEtiquetas(entidad);
             }
-            Mapper.CreateMap<BEEtiqueta, EtiquetaModel>()
-                    .ForMember(t => t.EtiquetaID, f => f.MapFrom(c => c.EtiquetaID))
-                    .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion));
 
             return Mapper.Map<IList<BEEtiqueta>, IEnumerable<EtiquetaModel>>(lst);
         }
@@ -115,13 +108,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.SelectCampanias(PaisID);
             }
-            Mapper.CreateMap<BECampania, CampaniaModel>()
-                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo))
-                    .ForMember(t => t.Anio, f => f.MapFrom(c => c.Anio))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto))
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Activo, f => f.MapFrom(c => c.Activo));
 
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
         }
@@ -140,17 +126,7 @@ namespace Portal.Consultoras.Web.Controllers
                             && a.Codigo == (TipoVistaEstrategia == Constantes.TipoVistaEstrategia.ProgramaNuevas ? Constantes.TipoEstrategiaCodigo.IncentivosProgramaNuevas : a.Codigo)
                             select a);
 
-                Mapper.CreateMap<BETipoEstrategia, TipoEstrategiaModel>()
-                    .ForMember(t => t.TipoEstrategiaID, f => f.MapFrom(c => c.TipoEstrategiaID))
-                    .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.DescripcionEstrategia))
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.FlagNueva, f => f.MapFrom(c => c.FlagNueva))
-                    .ForMember(t => t.FlagRecoPerfil, f => f.MapFrom(c => c.FlagRecoPerfil))
-                    .ForMember(t => t.FlagRecoProduc, f => f.MapFrom(c => c.FlagRecoProduc))
-                    .ForMember(t => t.Imagen, f => f.MapFrom(c => c.ImagenEstrategia))
-                    .ForMember(t => t.CodigoPrograma, f => f.MapFrom(c => c.CodigoPrograma));
-
-                return Mapper.Map<IEnumerable<BETipoEstrategia>, IEnumerable<TipoEstrategiaModel>>(lista);
+				return Mapper.Map<IEnumerable<BETipoEstrategia>, IEnumerable<TipoEstrategiaModel>>(lista);
             }
 
             return null;
@@ -524,7 +500,7 @@ namespace Portal.Consultoras.Web.Controllers
                 int resultado = -1, tipo = -1;
                 if (FlagRecoProduc == "1") tipo = 0;
                 if (FlagRecoPerfil == "1") tipo = 1;
-                
+
                 List<BEEstrategia> lst;
                 var entidad = new BEEstrategia
                 {
@@ -536,7 +512,7 @@ namespace Portal.Consultoras.Web.Controllers
                     Activo = Convert.ToInt32(flag),
                     Cantidad = tipo
                 };
-                
+
                 using (var sv = new PedidoServiceClient())
                 {
                     lst = sv.GetOfertaByCUV(entidad).ToList();
@@ -550,7 +526,7 @@ namespace Portal.Consultoras.Web.Controllers
                 int enMatrizComercial = 1, idMatrizComercial = 0;
 
                 if (lst.Count <= 0) throw new Exception("No se econtro el CUV ingresado.");
-                
+
                 if (tipo != 1)
                 {
                     if (resultado == 0)
@@ -574,7 +550,7 @@ namespace Portal.Consultoras.Web.Controllers
                 using (var svs = new WsGestionWeb())
                 {
                     //svs.Url = ConfigurarUrlServiceProl();
-                    var preciosEstrategia =  svs.ObtenerPrecioEstrategia(CUV2, userData.CodigoISO, CampaniaID);
+                    var preciosEstrategia = svs.ObtenerPrecioEstrategia(CUV2, userData.CodigoISO, CampaniaID);
                     wspreciopack = preciosEstrategia.montotal;
                     ganancia = preciosEstrategia.montoganacia;
                 }
@@ -1122,17 +1098,6 @@ namespace Portal.Consultoras.Web.Controllers
                     }, JsonRequestBehavior.AllowGet);
                 }
 
-                Mapper.CreateMap<PedidoDetalleModel, BEPedidoWebDetalle>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                    .ForMember(t => t.ConsultoraID, f => f.MapFrom(c => c.ConsultoraID))
-                    .ForMember(t => t.MarcaID, f => f.MapFrom(c => c.MarcaID))
-                    .ForMember(t => t.Cantidad, f => f.MapFrom(c => c.Cantidad))
-                    .ForMember(t => t.PrecioUnidad, f => f.MapFrom(c => c.PrecioUnidad))
-                    .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
-                    .ForMember(t => t.ConfiguracionOfertaID, f => f.MapFrom(c => c.ConfiguracionOfertaID))
-                    .ForMember(t => t.TipoOfertaSisID, f => f.MapFrom(c => c.TipoOfertaSisID));
-
                 BEPedidoWebDetalle entidad = Mapper.Map<PedidoDetalleModel, BEPedidoWebDetalle>(model);
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
@@ -1365,8 +1330,8 @@ namespace Portal.Consultoras.Web.Controllers
                      estrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi ||
                      estrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertaDelDia ||
                      estrategiaCodigo == Constantes.TipoEstrategiaCodigo.LosMasVendidos);
-                    
-                    
+
+
                     foreach (var opt in listBeEstrategias)
                     {
                         #region precioOferta
@@ -1397,7 +1362,7 @@ namespace Portal.Consultoras.Web.Controllers
                         try
                         {
                             var productoEstrategias = new List<RptProductoEstrategia>();
-                           
+
                             if (tono)
                             {
                                 opt.CampaniaID = campaniaId;

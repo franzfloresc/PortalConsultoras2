@@ -1320,7 +1320,7 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string GPRBannerTituloField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Portal.Consultoras.Web.ServiceUsuario.EnumeradoresRechazoBannerUrl GPRBannerUrlField;
+        private Portal.Consultoras.Common.Enumeradores.RechazoBannerUrl GPRBannerUrlField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool GPRMostrarBannerRechazoField;
@@ -2510,7 +2510,7 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Portal.Consultoras.Web.ServiceUsuario.EnumeradoresRechazoBannerUrl GPRBannerUrl {
+        public Portal.Consultoras.Common.Enumeradores.RechazoBannerUrl GPRBannerUrl {
             get {
                 return this.GPRBannerUrlField;
             }
@@ -3856,20 +3856,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
             }
         }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Enumeradores.RechazoBannerUrl", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common")]
-    public enum EnumeradoresRechazoBannerUrl : int {
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Ninguna = 0,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Deuda = 1,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        ModificaPedido = 2,
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]

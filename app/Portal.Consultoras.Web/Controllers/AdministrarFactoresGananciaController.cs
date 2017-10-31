@@ -50,10 +50,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
             }
-            Mapper.CreateMap<BEPais, PaisModel>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
@@ -196,13 +192,6 @@ namespace Portal.Consultoras.Web.Controllers
             //int vValidation = 0;
             try
             {
-                Mapper.CreateMap<AdministrarFactoresGananciaModel, BEFactorGanancia>()
-                   .ForMember(t => t.FactorGananciaID, f => f.MapFrom(c => c.FactorGananciaID))
-                   .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                   .ForMember(t => t.RangoMinimo, f => f.MapFrom(c => c.RangoMinimo))
-                   .ForMember(t => t.RangoMaximo, f => f.MapFrom(c => c.RangoMaximo))
-                   .ForMember(t => t.Porcentaje, f => f.MapFrom(c => c.Porcentaje));
-
                 BEFactorGanancia entidad = Mapper.Map<AdministrarFactoresGananciaModel, BEFactorGanancia>(model);
                 int RangoValido = 0;
                 using (SACServiceClient sv = new SACServiceClient())
@@ -252,13 +241,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<AdministrarFactoresGananciaModel, BEFactorGanancia>()
-                    .ForMember(t => t.FactorGananciaID, f => f.MapFrom(c => c.FactorGananciaID))
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.RangoMinimo, f => f.MapFrom(c => c.RangoMinimo))
-                    .ForMember(t => t.RangoMaximo, f => f.MapFrom(c => c.RangoMaximo))
-                    .ForMember(t => t.Porcentaje, f => f.MapFrom(c => c.Porcentaje));
-
                 BEFactorGanancia entidad = Mapper.Map<AdministrarFactoresGananciaModel, BEFactorGanancia>(model);
                 int RangoValido = 0;
                 using (SACServiceClient sv = new SACServiceClient())
