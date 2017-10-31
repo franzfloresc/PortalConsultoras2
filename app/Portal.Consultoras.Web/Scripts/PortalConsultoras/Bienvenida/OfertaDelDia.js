@@ -55,9 +55,10 @@ $(document).ready(function () {
         if (props.EsPaginaIntriga) {
             return false;
         }
-        
+
         if (props.TipoOrigenPantallaODD == CONS_TIPO_ORIGEN.MOBILE_HOME) {
             self.CargarODDMobile();
+            odd_mobile_google_analytics_promotion_impresion();
         }
 
         if (props.TipoOrigenPantallaODD == CONS_TIPO_ORIGEN.ESCRITORIO_HOME) {
@@ -101,11 +102,10 @@ $(document).ready(function () {
             error: function (err) {
                 checkTimeout(err);
             }
-        });
+        });        
     }
 
     function MostrarRelojOfertaDelDia(totalSegundos) {
-
         $('.clock').each(function (index, elem) {
             $(elem).FlipClock(totalSegundos, {
                 clockFace: 'HourlyCounter',
@@ -365,6 +365,29 @@ $(document).ready(function () {
                             'position': positionName,
                             'creative': creative
                         }]
+                    }
+                }
+            });
+        }
+    }
+
+    function odd_mobile_google_analytics_promotion_impresion() {
+        if ($('#banner-odd-mobile').length > 0) {
+            var id = $('#banner-odd-mobile').find("#estrategia-id-odd").val();
+            var name = "Oferta del día - " + $('#banner-odd-mobile').find("#nombre-odd").val();
+            var creative = $('#banner-odd-mobile').find("#nombre-odd").val() + " - " + $('#banner-odd-mobile').find("#cuv2-odd").val();
+            var positionName = props.OrigenDesktopODD == 1 ? CONS_POSICION_BANNER.BANNER_HOME : props.OrigenDesktopODD == 2 ? CONS_POSICION_BANNER.BANNER_PEDIDO : "";
+            dataLayer.push({
+                'event': 'promotionView',
+                'ecommerce': {
+                    'promoView': {
+                        'promotions': [
+                            {
+                                'id': id,
+                                'name': name,
+                                'position': positionName,
+                                'creative': creative
+                            }]
                     }
                 }
             });
