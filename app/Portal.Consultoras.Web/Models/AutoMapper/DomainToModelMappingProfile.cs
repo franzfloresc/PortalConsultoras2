@@ -133,11 +133,6 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.CUVPedidoNombre, f => f.MapFrom(c => c.NombreCUVPedido))
                 .ForMember(t => t.CodigoProducto, f => f.MapFrom(c => c.CodigoSap));
 
-            Mapper.CreateMap<ProductoModel, Producto>()
-                .ForMember(t => t.IdMarca, f => f.MapFrom(c => c.MarcaID))
-                .ForMember(t => t.Cuv, f => f.MapFrom(c => c.CUV))
-                .ForMember(t => t.NombreMarca, f => f.MapFrom(c => c.DescripcionMarca));
-
             Mapper.CreateMap<BECDRWeb, CDRWebModel>();
 
             Mapper.CreateMap<BELogCDRWeb, CDRWebModel>()
