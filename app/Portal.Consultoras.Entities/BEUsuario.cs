@@ -1365,5 +1365,7 @@ namespace Portal.Consultoras.Entities
         public int DiasCierre { get; set; }
         [DataMember]
         public bool EsAniversario{ get; set; }
+        [DataMember]
+        public bool EsCumpleanio { get; set; }
     }
 }

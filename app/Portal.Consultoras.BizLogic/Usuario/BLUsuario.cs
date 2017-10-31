@@ -379,13 +379,15 @@ namespace Portal.Consultoras.BizLogic
             var gprBannerTask = Task.Run(() => this.GetGPRBanner(usuario));
             var usuarioConsultoraTask = Task.Run(() => this.GetUsuarioConsultora(usuario));
             var consultoraAniversarioTask = Task.Run(() => this.GetConsultoraAniversario(usuario));
+            var consultoraCumpleanioTask = Task.Run(() => this.GetConsultoraCumpleanio(usuario));
 
             Task.WaitAll(usuarioLoginExternoTask, 
                             terminosCondicionesTask, 
                             destinatariosFeedBack, 
                             gprBannerTask, 
                             usuarioConsultoraTask,
-                            consultoraAniversarioTask);
+                            consultoraAniversarioTask,
+                            consultoraCumpleanioTask);
 
             usuario.FotoPerfil = (usuarioLoginExternoTask.Result == null ? string.Empty : usuarioLoginExternoTask.Result.FotoPerfil);
             usuario.AceptaTerminosCondiciones = (terminosCondicionesTask.Result == null ? false : terminosCondicionesTask.Result.Aceptado);
@@ -401,6 +403,7 @@ namespace Portal.Consultoras.BizLogic
             usuario.FechaVencimiento = usuarioConsultoraTask.Result.FechaVencimiento;
 
             usuario.EsAniversario = consultoraAniversarioTask.Result;
+            usuario.EsCumpleanio = consultoraCumpleanioTask.Result;
 
             return usuario;
         }
@@ -534,6 +537,18 @@ namespace Portal.Consultoras.BizLogic
             }
 
             return esAniversario;
+        }
+
+        private bool GetConsultoraCumpleanio(BEUsuario usuario)
+        {
+            bool esCumpleanio = false;
+
+            if (usuario.FechaNacimiento.Date != DateTime.Now.Date)
+            {
+                if (usuario.FechaNacimiento.Month == DateTime.Now.Month && usuario.FechaNacimiento.Day == DateTime.Now.Day) esCumpleanio = true;
+            }
+
+            return esCumpleanio;
         }
 
         public string GetUsuarioAsociado(int paisID, string codigoConsultora)
