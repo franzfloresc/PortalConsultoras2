@@ -42,9 +42,9 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var filterByBrand = new List<BETablaLogicaDatos>();
             filterByBrand.Add(new BETablaLogicaDatos { Codigo = Constantes.GuiaNegocioMarca.ValorPrecio.Predefinido, Descripcion = IsMobile() ? "MARCA" : "FILTRAR POR MARCA" });
-            filterByBrand.Add(new BETablaLogicaDatos { Codigo = Constantes.GuiaNegocioMarca.ValorPrecio.Cyzone, Descripcion = IsMobile() ? "CYZONE" : "CYZONE" });
-            filterByBrand.Add(new BETablaLogicaDatos { Codigo = Constantes.GuiaNegocioMarca.ValorPrecio.Esika, Descripcion = IsMobile() ? "ÉSIKA" : "ÉSIKA" });
-            filterByBrand.Add(new BETablaLogicaDatos { Codigo = Constantes.GuiaNegocioMarca.ValorPrecio.LBel, Descripcion = IsMobile() ? "LBEL" : "LBEL" });
+            filterByBrand.Add(new BETablaLogicaDatos { Codigo = Constantes.GuiaNegocioMarca.ValorPrecio.Cyzone, Descripcion = "CYZONE" });
+            filterByBrand.Add(new BETablaLogicaDatos { Codigo = Constantes.GuiaNegocioMarca.ValorPrecio.Esika, Descripcion = "ÉSIKA" });
+            filterByBrand.Add(new BETablaLogicaDatos { Codigo = Constantes.GuiaNegocioMarca.ValorPrecio.LBel, Descripcion = "LBEL" });
             return filterByBrand;
         }
 
