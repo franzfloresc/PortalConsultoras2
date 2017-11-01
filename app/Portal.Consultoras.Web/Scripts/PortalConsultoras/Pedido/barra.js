@@ -1,6 +1,12 @@
 ﻿var listaEscalaDescuento = listaEscalaDescuento || new Array();
 var listaMensajeMeta = listaMensajeMeta || new Array();
 var dataBarra = dataBarra || new Object();
+var belcorp = belcorp || {};
+belcorp.barra = belcorp.barra || {};
+belcorp.barra.settings = belcorp.barra.settings || {};
+belcorp.barra.settings = {
+    isMobile : isMobile()
+}
 
 function GetWidthTotalBase() {
     return $("[data-barra-width]").outerWidth();
@@ -130,6 +136,7 @@ function MostrarBarra(datax, destino) {
         }
 
         var textoPunto2 = '<div style="font-weight: bold;">{titulo}</div><div style="font-size: 11px;">{detalle}</div>';
+        var textoApp = '<div>{titulo}</div><div>{detalle}</div>';
         $.each(listaEscala, function (ind, monto) {
             var montox = ind == 0 ? monto : listaEscala[ind - 1];
             listaLimite.push({
@@ -137,6 +144,9 @@ function MostrarBarra(datax, destino) {
                     .replace("{titulo}", monto.PorDescuento + "% DSCTO")
                     .replace("{detalle}", (ind == 0 ? "M. mínimo: " : "") + vbSimbolo + " " + (ind == 0 ? data.MontoMinimoStr : montox.MontoHastaStr)),
                 nombre2: textoPunto2.replace("{titulo}", monto.PorDescuento + "% {DSCTO}"),
+                nombreApp: textoApp
+                    .replace("{titulo}", "<span>" + monto.PorDescuento + "</span>" + "% DSCTO")
+                    .replace("{detalle}", vbSimbolo + " " + (ind === 0 ? data.MontoMinimoStr : montox.MontoHastaStr)),
                 width: ind == 0 ? wPrimer : null,
                 widthR: ind == listaEscala.length - 1 ? wmin : null,
                 tipoMensaje: 'EscalaDescuento',
@@ -192,8 +202,10 @@ function MostrarBarra(datax, destino) {
     var vLimite = listaLimite[indPuntoLimite].valor;
 
     $("#divBarra").show();
-    $("#divBarra #divBarraPosicion").css("width", wTotal);
-    $("#divBarra").css("width", wTotal);
+    if (!belcorp.barra.settings.isMobile) {
+        $("#divBarra #divBarraPosicion").css("width", wTotal);
+        $("#divBarra").css("width", wTotal);
+    }
 
     var styleMin = 'style="margin-left: 6px;"';
     var htmlPunto = '<div id="punto_{punto}" data-punto="{select}">'
@@ -470,7 +482,7 @@ function MostrarBarra(datax, destino) {
         return true;
     }
 
-    if (mn == 0 && vLogro == 0) {
+	if (mn == 0 && vLogro == 0 && !belcorp.barra.settings.isMobile) {
         $("#divBarra #divBarraMensajeLogrado").hide();
         return false;
     }
@@ -494,11 +506,17 @@ function MostrarBarra(datax, destino) {
     $("#divBarra #divBarraMensajeLogrado").show();
     $("#divBarra #divBarraMensajeLogrado .mensaje_barra").html(objMsg.Titulo.replace("#porcentaje", valPor).replace("#valor", valorMonto));
     $("#divBarra #divBarraMensajeLogrado .agrega_barra").html(objMsg.Mensaje.replace("#porcentaje", valPor).replace("#valor", (mt < mn ? valorMonto : valorMontoEsacalaDescuento)));
+    if (belcorp.barra.settings.isMobile) {
+        $("#divBarra #divBarraMensajeLogrado .descuento_pedido").html(listaLimite[indPuntoLimite].nombreApp || listaLimite[indPuntoLimite].nombre);
+    }
+
     $("#divBarraMensajeLogrado").css("width", "");
     var wMsgTexto = $("#divBarra #divBarraMensajeLogrado > div").width() + 1;
     wMsgTexto = wLogro + wMsgTexto >= wTotal ? wTotal : (wLogro + wMsgTexto);
-    $("#divBarra #divBarraMensajeLogrado").css("width", wMsgTexto);
-
+    if (!belcorp.barra.settings.isMobile) {
+        $("#divBarra #divBarraMensajeLogrado").css("width", wMsgTexto);
+    }
+    
     return true;
 }
 
