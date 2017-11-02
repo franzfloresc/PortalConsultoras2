@@ -40,7 +40,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.origenPedidoWebEstrategia = origen;
             if (origenPantalla == Enumeradores.PantallaOrigenPedidoWeb.Default)
             {
-                ViewBag.origenPedidoWebEstrategia = Constantes.OrigenPedidoWeb.MobileOfertasParaTiDetalle;
+                ViewBag.origenPedidoWebEstrategia = Constantes.OrigenPedidoWeb.OfertasParaTiMobileDetalle;
             }
 
             if (origenPantalla == Enumeradores.PantallaOrigenPedidoWeb.RevistaDigital)

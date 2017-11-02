@@ -1748,7 +1748,7 @@
         <div class="clear"></div>
         <!-- FIN PASE PEDIDO INSCRITAS C-11 -->
         @Html.Partial("~/Views/Pedido/template-seccion-opt.cshtml",
-            new ViewDataDictionary{{"Source", 2}, { "NombreConsultora", Model.SobreNombre}, { "Origen", Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi } });
+            new ViewDataDictionary{{"Source", 2}, { "NombreConsultora", Model.SobreNombre}, { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiDesktopPedido } });
     }
     else if (revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == 1)
     {
@@ -1771,7 +1771,8 @@
                 </div>
             </div>
             <hr class="clear" />
-            <div class="content_carrusel_ofertas content_carrusel_agregado" id="divListadoEstrategia" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi" style="padding-bottom: 25px;"></div>
+            <div class="content_carrusel_ofertas content_carrusel_agregado" id="divListadoEstrategia" style="padding-bottom: 25px;"
+                 data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion" ></div>
             <hr class="clear" />
         </div>
         <!-- FIN PASE PEDIDO INSCRITAS C-12 -->
@@ -1799,7 +1800,7 @@
         <div class="clear"></div>
         <!-- FIN PASE PEDIDO INSCRITAS C-11 -->
         @Html.Partial("~/Views/Pedido/template-seccion-opt.cshtml",
-            new ViewDataDictionary{{"Source", 2}, { "NombreConsultora", Model.SobreNombre}, { "Origen", Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi } });
+            new ViewDataDictionary{{"Source", 2}, { "NombreConsultora", Model.SobreNombre}, { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiDesktopPedido } });
     }
 }
 else if (revistaDigital.TieneRDR)
@@ -1829,7 +1830,8 @@ else if (revistaDigital.TieneRDR)
             <hr class="clear" />
             <div class="contenedor_productos">
                 <div id="cierreCarousel" class="background_carousel" style="display:none;"></div>
-                <div class="contenedor_carousel_productos content_carrusel_agregado slider center" id="divListadoEstrategia">
+                <div class="contenedor_carousel_productos content_carrusel_agregado slider center" id="divListadoEstrategia"
+                     data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion" >
                 </div>
             </div>
             <div class="boxoffer boxOfferPedido" style="cursor: pointer;" 
@@ -1844,7 +1846,7 @@ else if (revistaDigital.TieneRDR)
 else
 {
     @Html.Partial("~/Views/Pedido/template-seccion-opt.cshtml",
-        new ViewDataDictionary{{"Source", 1}, { "NombreConsultora", ViewBag.NombreConsultora }, { "Origen", Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi } });
+        new ViewDataDictionary{{"Source", 1}, { "NombreConsultora", ViewBag.NombreConsultora }, { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiDesktopPedido } });
 }
 </script>
 
@@ -2161,8 +2163,8 @@ else
         else var mensajeCUVOfertaEspecial = '@Constantes.MensajeEstaEnRevista.LbelWeb';
         var origenPagina = 2;
         var tipoOrigenEstrategia = 11;
-        var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTi;
-        var origenPedidoWebFichaProducto = @Constantes.OrigenPedidoWeb.DesktopPedidoVirtualCoach;
+        var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.OfertasParaTiDesktopPedido;
+        var origenPedidoWebFichaProducto = @Constantes.OrigenPedidoWeb.VirtualCoachDesktopPedido;
         var mobileDevice = false;
         var indicadorGPRSB = '@Model.IndicadorGPRSB';
         var viewBagCampaniaActual = '@Model.CampaniaActual';

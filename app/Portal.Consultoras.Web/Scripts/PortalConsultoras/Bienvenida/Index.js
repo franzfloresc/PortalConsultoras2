@@ -1334,8 +1334,7 @@ function AgregarCUVBannerPedidoNo() {
 function InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido) {
     var item = {
         CUV: CUVpedido,
-        CantCUVpedido: CantCUVpedido,
-        origenPedidoWeb: DesktopHomeBanners
+        CantCUVpedido: CantCUVpedido
     };
     var categoriacad = "";
     var variantcad = "";
@@ -1386,7 +1385,7 @@ function InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido) {
                         'products': [
                             {
                                 'name': result.oPedidoDetalle.DescripcionProd,
-                                'price': result.oPedidoDetalle.PrecioUnidad.toString(),
+                                'price': $.trim(result.oPedidoDetalle.PrecioUnidad),
                                 'brand': result.oPedidoDetalle.DescripcionLarga,
                                 'id': CUVpedido,
                                 'category': categoriacad,
