@@ -26,8 +26,19 @@ $(document).ready(function () {
                 $(document).on('click', '#btnAceptarNoHayProducto', me.Funciones.IrASeccionBienvenida);
             },
             Ready: function () {
+                debugger;
                 if (!window.hasOwnProperty('detalleFichaProducto'))
                     FichaProducto.Funciones.ObtenerProducto();
+
+                if (isMobile()) {
+                    
+                    var cabecera = document.getElementsByTagName("head")[0];
+                    var nuevoScript = document.createElement('script');
+                    nuevoScript.type = 'text/javascript';
+                    nuevoScript.src = "https://ok383.infusionsoft.com/app/webTracking/getTrackingCode";
+                    nuevoScript.id = "infusionsoft";
+                    cabecera.appendChild(nuevoScript);
+                }
             },
             AlertaMensajeProductoNotFound: function () {
                 alert_msg("El producto que estás buscando no se encuentra en esta campaña!", "¡UPSS!", function () {
@@ -117,7 +128,28 @@ $(document).ready(function () {
                     $.when(fichaPromise).then(function (response) {
                         if (checkTimeout(response)) {
                             if (response !== null) {
-                                me.globals.Producto = response;                                
+                                
+                                var cabecera = document.getElementsByTagName("head")[0];
+                                var nuevoScript = document.createElement('script');
+                                nuevoScript.type = 'text/javascript';
+                                nuevoScript.src = "https://ok383.infusionsoft.com/app/webTracking/getTrackingCode";
+                                nuevoScript.id = "infusionsoft";
+                                cabecera.appendChild(nuevoScript);
+                                me.globals.Producto = response; 
+                                dataLayer.push({
+                                    'event': 'promotionView',
+                                    'ecommerce': {
+                                        'promoView': {
+                                            'promotions': [
+                                                {
+                                                    'id': 'contenedor_popup_detalleCarousel',
+                                                    'name': 'Coach Virtual – Ficha de producto',
+                                                    'position': 'Home pop-up',
+                                                    'creative': 'Banner'
+                                                }]
+                                        }
+                                    }
+                                }); 
                                 me.Funciones.VerDetalleFichaProducto(response);
                             } else {
                                 me.Funciones.AlertaMensajeProductoNotFound();
@@ -261,6 +293,25 @@ $(document).ready(function () {
                             me.Funciones.CloseLoading();
                             return false;
                         }
+                        dataLayer.push({
+                            'event': 'addToCart',
+                            'ecommerce': {
+                                'currencyCode': 'PEN',
+                                'add': {
+                                    'actionField': { 'list': 'Coach Virtual – Pop Up' },
+                                    'products': [{
+                                        'name': ficha.Descripcion,
+                                        'price': '19.90',
+                                        'brand': 'Esika',
+                                        'id': '13223',
+                                        'category': 'Maquillaje > Cuerpo',
+                                        'variant': 'Fucsia Vibrante',
+                                        'quantity': 2
+                                    }]
+                                }
+                            }
+                        })
+
 
                         if (data.success === false) {
                             me.Funciones.AlertaMensaje(data.message);
