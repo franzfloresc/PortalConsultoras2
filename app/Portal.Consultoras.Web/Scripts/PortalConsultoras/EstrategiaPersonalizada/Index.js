@@ -208,6 +208,7 @@ function SeccionMostrarProductos(data) {
         }
     } else if (data.Seccion.Codigo === CONS_CODIGO_SECCION.SR) {
         if (data.Seccion.TipoPresentacion === CONS_TIPO_PRESENTACION.ShowRoom.toString()) {
+            data.data = data.data || [];
             if (data.data.length == 0) {
                 $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor .bloque-titulo .cantidad > span").hide();
             }
