@@ -29,6 +29,9 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         private string ApellidoClienteField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CantidadPedidoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int CantidadProductosField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -114,6 +117,19 @@ namespace Portal.Consultoras.Web.ServiceCliente {
                 if ((object.ReferenceEquals(this.ApellidoClienteField, value) != true)) {
                     this.ApellidoClienteField = value;
                     this.RaisePropertyChanged("ApellidoCliente");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CantidadPedido {
+            get {
+                return this.CantidadPedidoField;
+            }
+            set {
+                if ((this.CantidadPedidoField.Equals(value) != true)) {
+                    this.CantidadPedidoField = value;
+                    this.RaisePropertyChanged("CantidadPedido");
                 }
             }
         }
@@ -1290,6 +1306,9 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         private bool EsKitNuevaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsOfertaIndependienteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EsSugeridoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1744,6 +1763,19 @@ namespace Portal.Consultoras.Web.ServiceCliente {
                 if ((this.EsKitNuevaField.Equals(value) != true)) {
                     this.EsKitNuevaField = value;
                     this.RaisePropertyChanged("EsKitNueva");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsOfertaIndependiente {
+            get {
+                return this.EsOfertaIndependienteField;
+            }
+            set {
+                if ((this.EsOfertaIndependienteField.Equals(value) != true)) {
+                    this.EsOfertaIndependienteField = value;
+                    this.RaisePropertyChanged("EsOfertaIndependiente");
                 }
             }
         }
@@ -2804,6 +2836,9 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         private string ApellidosField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CantidadPedidoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int CantidadProductosField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -2907,6 +2942,19 @@ namespace Portal.Consultoras.Web.ServiceCliente {
                 if ((object.ReferenceEquals(this.ApellidosField, value) != true)) {
                     this.ApellidosField = value;
                     this.RaisePropertyChanged("Apellidos");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CantidadPedido {
+            get {
+                return this.CantidadPedidoField;
+            }
+            set {
+                if ((this.CantidadPedidoField.Equals(value) != true)) {
+                    this.CantidadPedidoField = value;
+                    this.RaisePropertyChanged("CantidadPedido");
                 }
             }
         }
@@ -4448,6 +4496,224 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEMovimientoDetalle", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cliente")]
+    [System.SerializableAttribute()]
+    public partial class BEMovimientoDetalle : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CantidadField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal ImporteTotalField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MessageField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private long PedidoWebFacturadoIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal PrecioUnidadField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Cantidad {
+            get {
+                return this.CantidadField;
+            }
+            set {
+                if ((this.CantidadField.Equals(value) != true)) {
+                    this.CantidadField = value;
+                    this.RaisePropertyChanged("Cantidad");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Code {
+            get {
+                return this.CodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodeField, value) != true)) {
+                    this.CodeField = value;
+                    this.RaisePropertyChanged("Code");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal ImporteTotal {
+            get {
+                return this.ImporteTotalField;
+            }
+            set {
+                if ((this.ImporteTotalField.Equals(value) != true)) {
+                    this.ImporteTotalField = value;
+                    this.RaisePropertyChanged("ImporteTotal");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Message {
+            get {
+                return this.MessageField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MessageField, value) != true)) {
+                    this.MessageField = value;
+                    this.RaisePropertyChanged("Message");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public long PedidoWebFacturadoID {
+            get {
+                return this.PedidoWebFacturadoIDField;
+            }
+            set {
+                if ((this.PedidoWebFacturadoIDField.Equals(value) != true)) {
+                    this.PedidoWebFacturadoIDField = value;
+                    this.RaisePropertyChanged("PedidoWebFacturadoID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal PrecioUnidad {
+            get {
+                return this.PrecioUnidadField;
+            }
+            set {
+                if ((this.PrecioUnidadField.Equals(value) != true)) {
+                    this.PrecioUnidadField = value;
+                    this.RaisePropertyChanged("PrecioUnidad");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ResponseTypeOfArrayOfBEMovimientoDetalleGaf1LoLd", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Framework")]
+    [System.SerializableAttribute()]
+    public partial class ResponseTypeOfArrayOfBEMovimientoDetalleGaf1LoLd : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Portal.Consultoras.Web.ServiceCliente.BEMovimientoDetalle[] DataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MessageField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool SuccessField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Code {
+            get {
+                return this.CodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodeField, value) != true)) {
+                    this.CodeField = value;
+                    this.RaisePropertyChanged("Code");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Portal.Consultoras.Web.ServiceCliente.BEMovimientoDetalle[] Data {
+            get {
+                return this.DataField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DataField, value) != true)) {
+                    this.DataField = value;
+                    this.RaisePropertyChanged("Data");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Message {
+            get {
+                return this.MessageField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MessageField, value) != true)) {
+                    this.MessageField = value;
+                    this.RaisePropertyChanged("Message");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Success {
+            get {
+                return this.SuccessField;
+            }
+            set {
+                if ((this.SuccessField.Equals(value) != true)) {
+                    this.SuccessField = value;
+                    this.RaisePropertyChanged("Success");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceCliente.IClienteService")]
     public interface IClienteService {
@@ -4681,6 +4947,12 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClienteService/NotaEliminar", ReplyAction="http://tempuri.org/IClienteService/NotaEliminarResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCliente.ResponseTypeOfboolean> NotaEliminarAsync(int paisId, short clienteId, long consultoraId, long clienteNotaId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClienteService/MovimientoDetalleActualizar", ReplyAction="http://tempuri.org/IClienteService/MovimientoDetalleActualizarResponse")]
+        Portal.Consultoras.Web.ServiceCliente.ResponseTypeOfArrayOfBEMovimientoDetalleGaf1LoLd MovimientoDetalleActualizar(int paisId, Portal.Consultoras.Web.ServiceCliente.BEMovimientoDetalle[] movimientoDetalle);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClienteService/MovimientoDetalleActualizar", ReplyAction="http://tempuri.org/IClienteService/MovimientoDetalleActualizarResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCliente.ResponseTypeOfArrayOfBEMovimientoDetalleGaf1LoLd> MovimientoDetalleActualizarAsync(int paisId, Portal.Consultoras.Web.ServiceCliente.BEMovimientoDetalle[] movimientoDetalle);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -5012,6 +5284,14 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCliente.ResponseTypeOfboolean> NotaEliminarAsync(int paisId, short clienteId, long consultoraId, long clienteNotaId) {
             return base.Channel.NotaEliminarAsync(paisId, clienteId, consultoraId, clienteNotaId);
+        }
+        
+        public Portal.Consultoras.Web.ServiceCliente.ResponseTypeOfArrayOfBEMovimientoDetalleGaf1LoLd MovimientoDetalleActualizar(int paisId, Portal.Consultoras.Web.ServiceCliente.BEMovimientoDetalle[] movimientoDetalle) {
+            return base.Channel.MovimientoDetalleActualizar(paisId, movimientoDetalle);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCliente.ResponseTypeOfArrayOfBEMovimientoDetalleGaf1LoLd> MovimientoDetalleActualizarAsync(int paisId, Portal.Consultoras.Web.ServiceCliente.BEMovimientoDetalle[] movimientoDetalle) {
+            return base.Channel.MovimientoDetalleActualizarAsync(paisId, movimientoDetalle);
         }
     }
 }
