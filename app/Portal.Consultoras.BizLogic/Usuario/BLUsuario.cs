@@ -543,8 +543,8 @@ namespace Portal.Consultoras.BizLogic
         {
             bool esCumpleanio = false;
 
-            var uFechaNacimiento = usuario.FechaNacimiento.ToUniversalTime();
-            var uFechaActual = DateTime.Now.ToUniversalTime();
+            var uFechaNacimiento = usuario.FechaNacimiento;
+            var uFechaActual = DateTime.UtcNow;
 
             if (uFechaNacimiento != uFechaActual)
             {
