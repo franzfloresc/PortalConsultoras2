@@ -159,7 +159,7 @@ namespace Portal.Consultoras.Web.Controllers
                         : "";
 
                 var listaFinal1 = ConsultarEstrategiasModel("", model.CampaniaID, palanca);
-                var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1, 1);
+                var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1, 2);
                 
                 listModel = listModel.Where(e => e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
 
