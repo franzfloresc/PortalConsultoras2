@@ -1,6 +1,10 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
+using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.Pedido;
+using Portal.Consultoras.Web.Models.Usuario;
 using Portal.Consultoras.Web.ServiceCDR;
+using Portal.Consultoras.Web.ServiceCliente;
 using Portal.Consultoras.Web.ServiceContenido;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServicePedidoRechazado;
@@ -10,10 +14,6 @@ using Portal.Consultoras.Web.ServiceSeguridad;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
-using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.Models.Pedido;
-using Portal.Consultoras.Web.Models.Usuario;
-using Portal.Consultoras.Web.ServiceCliente;
 using BEParametro = Portal.Consultoras.Web.ServiceSAC.BEParametro;
 using BEPedidoWebDetalle = Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle;
 
@@ -27,7 +27,7 @@ namespace Portal.Consultoras.Web.AutoMapper
             get { return "DomainToModelMappings"; }
         }
 
-        public DomainToModelMappingProfile()
+        protected override void Configure()
         {
             CreateMap<BEPedidoWebDetalle, PedidoWebDetalleModel>()
                 .ForMember(t => t.IPUsuario, f => f.MapFrom(c => c.IPUsuario))

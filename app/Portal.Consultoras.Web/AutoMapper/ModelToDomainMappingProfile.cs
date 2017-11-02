@@ -19,7 +19,7 @@ namespace Portal.Consultoras.Web.AutoMapper
             get { return "ModelToDomainMappings"; }
         }
 
-        public ModelToDomainMappingProfile()
+        protected override void Configure()
         {
             CreateMap<PedidoDetalleModel, ServiceCliente.BECliente>()
                 .ForMember(t => t.eMail, f => f.MapFrom(c => c.eMail))
