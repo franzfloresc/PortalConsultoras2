@@ -2832,7 +2832,7 @@ namespace Portal.Consultoras.Web.Controllers
                 datos = new List<BETablaLogicaDatos>();
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-                    datos = sv.GetTablaLogicaDatos(userData.PaisID, tablaLogicaId).ToList();
+                    datos = sv.GetTablaLogicaDatos(paisID, tablaLogicaId).ToList();
                 }
                 datos = datos ?? new List<BETablaLogicaDatos>();
 

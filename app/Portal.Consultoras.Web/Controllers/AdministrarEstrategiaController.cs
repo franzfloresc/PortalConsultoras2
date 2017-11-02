@@ -686,35 +686,10 @@ namespace Portal.Consultoras.Web.Controllers
 
         [HttpPost]
         public JsonResult RegistrarEstrategia(RegistrarEstrategiaModel model)
-        {
+        {           
             try
             {
-                //Probando imagen                
-                
-                using (MagickImage imagen = new MagickImage(model.RutaImagenCompleta))
-                {
-                    string soloImagen = model.ImagenURL.Split('.')[0];
-                    string soloExtension = model.ImagenURL.Split('.')[1];
-
-                    MagickGeometry size = new MagickGeometry(150, 150);
-                    size.IgnoreAspectRatio = true;
-
-                    imagen.Resize(size);
-                    
-                    // Save the result
-                    string rutaTemporalGuardar = Path.Combine(Globals.RutaTemporales, "imagen_demo.png");
-                    imagen.Write(rutaTemporalGuardar);
-
-                    //ConfigS3.SetFileS3(Path.Combine(Globals.RutaTemporales, tempImage01), carpetaPais, newfilename);
-
-                    return Json(new
-                    {
-                        success = true,
-                        message = "Se grabó con éxito la estrategia.",
-                        extra = ""
-                    });
-                }
-
+                string mensajeImagenesResize = "";
                 string _nroPedido = Util.Trim(model.NumeroPedido);
 
                 if (_nroPedido.Contains(",")) model.NumeroPedido = "0";
@@ -768,6 +743,15 @@ namespace Portal.Consultoras.Web.Controllers
                                 entidad = VerficarArchivos(entidad, estrategiaDetalle);
                             }
                         }
+
+                        #region Imagen Resize                                                
+
+                        var resultadoImagenesResize = GuardarImagenesResize(userData.CodigoISO, model.RutaImagenCompleta, model.ImagenURL);
+
+                        mensajeImagenesResize = resultadoImagenesResize ? "" : "No se generaron las imagenes Small y Medium, favor volver a guardar.";
+
+                        #endregion
+
                         entidad.EstrategiaID = sv.InsertarEstrategia(entidad);
                     }
                 }
@@ -788,7 +772,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = true,
-                    message = "Se grabó con éxito la estrategia.",
+                    message = "Se grabó con éxito la estrategia. " + mensajeImagenesResize,
                     extra = ""
                 });
             }
@@ -813,6 +797,75 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
+
+        #region Resize Imagen
+
+        private bool GuardarImagenesResize(string codigoIso, string rutaImagenOriginal, string nombreImagenOriginal)
+        {
+            var resultado = false;
+
+            try
+            {
+                var listaValoresImagenesResize = ObtenerParametrosTablaLogica(11, Constantes.TablaLogica.ValoresImagenesResize, true);
+
+                if (Util.ExisteUrlRemota(rutaImagenOriginal))
+                {
+                    string soloImagen = nombreImagenOriginal.Split('.')[0];
+                    string soloExtension = nombreImagenOriginal.Split('.')[1];
+                                        
+                    var extensionNombreImagenSmall = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall;
+                    var rutaImagenSmall = rutaImagenOriginal.Clone().ToString();
+                    rutaImagenSmall = rutaImagenSmall.Replace(soloImagen, soloImagen + extensionNombreImagenSmall);                   
+                    if (!Util.ExisteUrlRemota(rutaImagenSmall))
+                    {
+                        var imagenSmall = soloImagen + extensionNombreImagenSmall + "." + soloExtension;
+
+                        var widthSmallString = ObtenerValorTablaLogica(listaValoresImagenesResize, Constantes.TablaLogicaDato.ValoresImagenesResizeWitdhSmall);
+                        var widthSmall = 0;
+                        var esIntWidthSmall = int.TryParse(widthSmallString, out widthSmall);
+                        widthSmall = esIntWidthSmall ? widthSmall : Constantes.ConfiguracionImagenResize.WidthImagenSmall;
+
+                        //var heightSmall = Constantes.ConfiguracionImagenResize.HeightImagenSmall;
+                        var heightSmallString = ObtenerValorTablaLogica(listaValoresImagenesResize, Constantes.TablaLogicaDato.ValoresImagenesResizeHeightSmall);
+                        var heightSmall = 0;
+                        var esIntHeightSmall = int.TryParse(heightSmallString, out heightSmall);
+                        widthSmall = esIntHeightSmall ? heightSmall : Constantes.ConfiguracionImagenResize.HeightImagenSmall;
+
+                        MagickNetLibrary.GuardarImagenResize(userData.CodigoISO, rutaImagenOriginal, widthSmall, heightSmall, imagenSmall);
+                    }
+
+                    var extensionNombreImagenMedium = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium;
+                    var rutaImagenMedium = rutaImagenOriginal.Clone().ToString();
+                    rutaImagenMedium = rutaImagenMedium.Replace(soloImagen, soloImagen + extensionNombreImagenMedium);                    
+                    if (!Util.ExisteUrlRemota(rutaImagenMedium))
+                    {
+                        var imagenMedium = soloImagen + extensionNombreImagenMedium + "." + soloExtension;
+                                                
+                        var widthMediumString = ObtenerValorTablaLogica(listaValoresImagenesResize, Constantes.TablaLogicaDato.ValoresImagenesResizeWitdhMedium);
+                        var widthMedium = 0;
+                        var esIntWidthMedium = int.TryParse(widthMediumString, out widthMedium);
+                        widthMedium = esIntWidthMedium ? widthMedium : Constantes.ConfiguracionImagenResize.WidthImagenMedium;
+                        
+                        var heightMediumString = ObtenerValorTablaLogica(listaValoresImagenesResize, Constantes.TablaLogicaDato.ValoresImagenesResizeWitdhMedium);
+                        var heightMedium = 0;
+                        var esIntHeightMedium = int.TryParse(heightMediumString, out heightMedium);
+                        widthMedium = esIntHeightMedium ? heightMedium : Constantes.ConfiguracionImagenResize.HeightImagenMedium;
+
+                        MagickNetLibrary.GuardarImagenResize(userData.CodigoISO, rutaImagenOriginal, widthMedium, heightMedium, imagenMedium);
+                    }
+
+                    resultado = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                resultado = false;
+            }            
+
+            return resultado;
+        }        
+
+        #endregion
 
         private void UpdateCacheListaOfertaFinal(string campania)
         {

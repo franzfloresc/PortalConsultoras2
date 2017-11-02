@@ -3201,6 +3201,37 @@ namespace Portal.Consultoras.Common
             }
             return Result;
         }
+
+        public static bool ExisteUrlRemota(string url)
+        {
+            bool result = false;
+
+            WebRequest webRequest = WebRequest.Create(url);
+            webRequest.Timeout = 1200; // miliseconds
+            webRequest.Method = "HEAD";
+
+            HttpWebResponse response = null;
+
+            try
+            {
+                response = (HttpWebResponse)webRequest.GetResponse();
+                result = true;
+            }
+            catch (WebException webException)
+            {                
+                LogManager.SaveLog(new Exception("URL " + url + " no encontrada"), "", "");
+                result = false;
+            }
+            finally
+            {
+                if (response != null)
+                {
+                    response.Close();
+                }
+            }
+
+            return result;
+        }
     }
 
     public static class DataRecord

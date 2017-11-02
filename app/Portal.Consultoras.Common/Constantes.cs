@@ -214,6 +214,11 @@ namespace Portal.Consultoras.Common
             public const int BusquedaNemotecnicoProductoSugerido = 9853;
             public const int BusquedaNemotecnicoZonaEstrategia = 9854;
             public const int Tonos = 9802;
+
+            public const int ValoresImagenesResizeWitdhSmall = 12101;
+            public const int ValoresImagenesResizeHeightSmall = 12102;
+            public const int ValoresImagenesResizeWitdhMedium = 12103;
+            public const int ValoresImagenesResizeHeightMedium = 12104;
         }
 
         public class ParametrosNames
@@ -980,6 +985,8 @@ namespace Portal.Consultoras.Common
                 /// </summary>
                 public const string NotaCantidadMaxima = "not_max_c";
             }
+
+            public const int ValoresImagenesResize = 121;
         }
 
         public struct MensajesCDRExpress
@@ -1261,6 +1268,16 @@ namespace Portal.Consultoras.Common
             public const string OptDetalle = "/ofertasparati/detalle";
             public const string OfertaDelDia = "/ofertadeldia";
             public const string OfertaDelDiaIndex = "/ofertadeldia/index";
+        }
+
+        public class ConfiguracionImagenResize
+        {
+            public const string ExtensionNombreImagenSmall = "_small";
+            public const string ExtensionNombreImagenMedium = "_medium";
+            public const int WidthImagenSmall = 150;
+            public const int HeightImagenSmall = 150;
+            public const int WidthImagenMedium = 250;
+            public const int HeightImagenMedium = 250;
         }
     }
 }
