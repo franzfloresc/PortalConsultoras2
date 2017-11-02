@@ -333,6 +333,7 @@ namespace Portal.Consultoras.BizLogic
                     usuario.IndicadorGPRSB = configuracion.IndicadorGPRSB;
                     usuario.ValidacionAbierta = configuracion.ValidacionAbierta;
                     usuario.EstadoPedido = configuracion.EstadoPedido;
+                    usuario.FechaActualPais = configuracion.FechaActualPais;
                 }
             }
 
@@ -369,6 +370,7 @@ namespace Portal.Consultoras.BizLogic
                         usuario.IndicadorGPRSB = configuracion.IndicadorGPRSB;
                         usuario.ValidacionAbierta = configuracion.ValidacionAbierta;
                         usuario.EstadoPedido = configuracion.EstadoPedido;
+                        usuario.FechaActualPais = configuracion.FechaActualPais;
                     }
                 }
             }
@@ -543,10 +545,8 @@ namespace Portal.Consultoras.BizLogic
         {
             bool esCumpleanio = false;
 
-            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(string.Format("es-{0}", usuario.CodigoISO));
-
             var uFechaNacimiento = usuario.FechaNacimiento;
-            var uFechaActual = DateTime.Now;
+            var uFechaActual = usuario.FechaActualPais;
 
             if (uFechaNacimiento != uFechaActual)
             {

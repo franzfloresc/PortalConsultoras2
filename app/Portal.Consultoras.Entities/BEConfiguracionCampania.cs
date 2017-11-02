@@ -141,6 +141,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int IndicadorGPRSB { get; set; }
         [DataMember]
+        [Column("FechaActualPais")]
         public DateTime FechaActualPais { get; set; }
 
         [Column("AceptacionConsultoraDA")]
