@@ -98,6 +98,7 @@
                     <input type="button" name="btnBuscar" id="btnBuscar" value="Buscar" />
                     <input type="button" name="btnNuevo" id="btnNuevo" value="Nuevo" />
                     <input type="button" name="btnNuevoMasivo" id="btnNuevoMasivo" value="Nuevo Masivo" />
+                    <input type="button" name="btnDescripcionMasivo" id="btnDescripcionMasivo" value="Descripción Masivo" />
                 </div>
                 <div class="input_modifica_pedido">
                     <input type="button" name="btnActivarDesactivar" id="btnActivarDesactivar" value="Activar/Desactivar" style="display: none;" />
@@ -267,6 +268,62 @@
                 <div id="pagerGrillaCuv2"></div>
             </div>
         </div>
+    </div>
+</div>
+
+<div id="DialogDescMasivo" style="display: none;">
+    <div class="Content_modal">
+        <div class="div-3" style="text-align: center;">
+            <div class="boton_redondo_admcontenido_on" id="divPaso1">1</div>
+            <div class="signo_admcontenido_estrategia">></div>
+            <div class="boton_redondo_admcontenido_off" id="divPaso2">2</div>
+            <div class="signo_admcontenido_estrategia">></div>
+            <div class="boton_redondo_admcontenido_off" id="divPaso3">3</div>
+        </div>
+        <div id="divDescMasivoPaso1">
+            <div class="div-3" style="text-align: center; color: #00A2E8;">
+                Pre Carga de CUVS pendientes por configurar en Zona de Estrategias
+            </div>
+            <div class="container" style="width: auto;">
+                <div class="border-wrapper">
+                    <input type="file"/>
+                </div>
+            </div>
+            <div>
+                <div class="div-3" style="text-align: center; color: #00A2E8; margin-top: 20px;">
+                    ¿Deseas pre cargar la información de los CUVS pendientes por configurar?
+                </div>
+                <div class="div-3">
+                    <div class="input_horizontal" style="text-align: center;">
+                        <input type="button" name="btnAceptarMasivo1" id="btnAceptarDescMasivo1" value="Aceptar" style="float: none;" />
+                        <input type="button" name="btnCancelarMasivo1" id="btnCancelarDescMasivo1" value="Cancelar" style="float: none;" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divDescMasivoPaso2" style="display: none;">
+            <div class="div-3" style="text-align: center; color: #00A2E8;">
+                Grabar información en Zona de Estrategias
+            </div>
+            <div class="container" style="width: auto;">
+                <div class="border-wrapper">
+                    <table id="listCargaDescMasiva"></table>
+                    <div id="pagerCargaDescMasiva"></div>
+                </div>
+            </div>
+            <div>
+                <div class="div-3" style="text-align: center; color: #00A2E8; margin-top: 20px;">
+                    ¿Deseas grabar la información de los CUVS pre cargados correctamente en la Zona de Estrategias? 
+                </div>
+                <div class="div-3">
+                    <div class="input_horizontal" style="text-align: center;">
+                        <input type="button" name="btnAceptarMasivo2" id="btnAceptarMasivo2" value="Aceptar" style="float: none;" />
+                        <input type="button" name="btnCancelarMasivo2" id="btnCancelarMasivo2" value="Cancelar" style="float: none;" />
+                    </div>
+                </div>
+            </div>
+        </div>
+       
     </div>
 </div>
 <div id="loadingScreen"></div>
