@@ -1,4 +1,7 @@
-﻿@using Portal.Consultoras.Common
+﻿
+
+@(new HtmlString(ViewBag.HTMLSACUnete))
+@*@using Portal.Consultoras.Common
 @model Portal.Consultoras.Web.Models.ConsultarUbicacionModel
 @{
     var nro = 0;
@@ -688,13 +691,7 @@
             <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
             <span class="texto_btn_cerrar">CERRAR</span>
         </a>
-    </div>
-
-
-    @*<div class="div-3 caja borde_redondeado" style="padding-left: 5% !important;width: 90%;text-align:left;">
-
-            <span id="modal_title" class="elementsFont" style="font-weight: bold; text-align:center; "></span>
-        </div>*@
+    </div> 
 
 
     <div class="contenido_popUp eliminarCliente">
@@ -717,7 +714,7 @@
                 </span>
             </div>
             <div class="contenedor_formulario_editarDireccion">
-                @*<form method="post" class="formulario_editarDireccion">*@
+             
 
                 @using (Ajax.BeginForm("GrabarDatosDireccion", "Unete", null, new AjaxOptions()
                 {
@@ -730,14 +727,7 @@
                 }, new { @class = "formulario_editarDireccion", @id = "formTemplate" }))
                 {
 
-                    @*@Html.HiddenFor(m => Model.EditarDireccionModel.SolicitudPostulanteID)
-                    @Html.HiddenFor(m => Model.EditarDireccionModel.CodigoPais)
-                    @Html.HiddenFor(m => Model.EditarDireccionModel.NombreLugarNivel1)
-                    @Html.HiddenFor(m => Model.EditarDireccionModel.NombreLugarNivel2)
-                    @Html.HiddenFor(m => Model.EditarDireccionModel.NombreLugarNivel3)
-                    @Html.HiddenFor(m => Model.EditarDireccionModel.NombreLugarNivel4)
-                    @Html.HiddenFor(m => Model.EditarDireccionModel.NombreLugarNivel5)
-                    @Html.HiddenFor(m => Model.EditarDireccionModel.ContaValorNivel3)*@
+     
 
                     <div class="contenedor_datosEditarDireccion">
                         <div class="titulo_ubigeo">
@@ -748,10 +738,10 @@
                     </div>
                 }
 
-                @*</form>*@
+          
             </div>
             <div class="contenedor_mapa_editarDireccion" id="DivConGEO">
-                @*agregar mapa*@
+           
                 <input id="inputSearchBox" class="controls" placeholder="Buscar" type="text" />
 
                 <div id="mapa" class="mapa @(Model.Puntos.Count == 0 ? "" : "height_100")"></div>
@@ -1246,17 +1236,7 @@
         }
     }
     
-    @*@if(Model.EditarDireccionModel.CodigoPais == Constantes.CodigosISOPais.Colombia)
-    { 
-        <text>$('#DivSinGEO').show();</text>
-        <text>$('#DivConGEO').hide();</text>
-        <text>$('#spRegZonaSec').show();</text>
-        <text>$('#divLatLng').show();</text>
-        <text>$('#regionXY').show();</text>
-        <text>$('#btnEditarPosicion').hide();</text>
-        <text>$('#btnGrabarPosicion').html('Aceptar');</text>
-        <text>$('#btnGrabarPosicion').show();</text>
-    }*@
+ 
 
     $(function () {
         setTimeout(cargarMapa, 50);
@@ -1733,8 +1713,7 @@
             modalOpcion.dialog('close');
             @if (Model.Puntos.Count > 0)
             {
-
-               @*<text> $('#mapa').addClass('height_100'); </text>*@
+ 
 		        <text>
 
             $('#DivSinGEO').hide();
@@ -1749,17 +1728,7 @@
             //$('#btnCancelarGrabadoPosicion').removeClass('HabInaButton');
 
             //Nuevo requerimiento Colombia
-            @*@if(Model.EditarDireccionModel.CodigoPais == Constantes.CodigosISOPais.Colombia)
-            { 
-                <text>$('#DivSinGEO').show();</text>
-                <text>$('#DivConGEO').hide();</text>
-                <text>$('#spRegZonaSec').show();</text>
-                <text>$('#divLatLng').show();</text>
-                <text>$('#regionXY').show();</text>
-                <text>$('#btnEditarPosicion').hide();</text>
-                <text>$('#btnGrabarPosicion').html('Aceptar');</text>
-                <text>$('#btnGrabarPosicion').show();</text>
-            }*@
+         
 
             map = new google.maps.Map(document.getElementById('mapa'), {
                 center: new google.maps.LatLng(parseFloat('@Model.Puntos[0].Item1'.replace(",", ".")), parseFloat('@Model.Puntos[0].Item2'.replace(",", ".")))
@@ -1775,14 +1744,7 @@
             };
             var searchBox = new google.maps.places.Autocomplete(document.getElementById('inputSearchBox'), options);
             var nombreIcono = 'icono-maps-lbel.png';
-            @*@if (Model.Puntos.Count > 1)
-            {
-                <text>  nombreIcono = 'icono-maps-esika.png'; </text>
-            }
-            else
-            {
-                <text>  nombreIcono = 'icono-maps-lbel.png'; </text>
-            }*@
+            
             // Markers
             @for (var i = 0; i < Model.Puntos.Count; i++)
                     {
@@ -1807,16 +1769,7 @@
                 MostrarTerritorio(parseFloat(this.position.lat()).toFixed(7), parseFloat(this.position.lng()).toFixed(7));
                 
             });
-            @*@if(!string.IsNullOrEmpty(punto.Item3))
-            {
-                <text>
-                marker.addListener('mouseover', function () {
-          
-                    infowindow.setContent('<div><strong>' + '@punto.Item3' + '</strong></div>');
-                    infowindow.open(map, this);
-                });
-                </text>
-            }*@
+           
             markerBounds.extend(marker.getPosition());
             markers.push(marker);
             </text>
@@ -2095,7 +2048,7 @@
     }
 
     
-</script>
+</script>*@
 
 
 

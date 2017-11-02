@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Entities
 {
-    /* EPD-665 - INICIO */
     [DataContract]
     public class BELogConfirmacionEntrega
     {
@@ -51,5 +46,4 @@ namespace Portal.Consultoras.Entities
         public string Firma { get; set; }
     }
 
-    /* EPD-665 - FIN */
 }

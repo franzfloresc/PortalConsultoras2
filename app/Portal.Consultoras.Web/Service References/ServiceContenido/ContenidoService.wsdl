@@ -34,42 +34,6 @@
       <xsd:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd4" />
     </xsd:schema>
   </wsdl:types>
-  <wsdl:message name="IContenidoService_CopiarPaisPlantillaEmailingSE_InputMessage">
-    <wsdl:part name="parameters" element="tns:CopiarPaisPlantillaEmailingSE" />
-  </wsdl:message>
-  <wsdl:message name="IContenidoService_CopiarPaisPlantillaEmailingSE_OutputMessage">
-    <wsdl:part name="parameters" element="tns:CopiarPaisPlantillaEmailingSEResponse" />
-  </wsdl:message>
-  <wsdl:message name="IContenidoService_CondicionesConsultoraSE_InputMessage">
-    <wsdl:part name="parameters" element="tns:CondicionesConsultoraSE" />
-  </wsdl:message>
-  <wsdl:message name="IContenidoService_CondicionesConsultoraSE_OutputMessage">
-    <wsdl:part name="parameters" element="tns:CondicionesConsultoraSEResponse" />
-  </wsdl:message>
-  <wsdl:message name="IContenidoService_RegistrarLogEnvioAutomatico_InputMessage">
-    <wsdl:part name="parameters" element="tns:RegistrarLogEnvioAutomatico" />
-  </wsdl:message>
-  <wsdl:message name="IContenidoService_RegistrarLogEnvioAutomatico_OutputMessage">
-    <wsdl:part name="parameters" element="tns:RegistrarLogEnvioAutomaticoResponse" />
-  </wsdl:message>
-  <wsdl:message name="IContenidoService_GetPaisZonaHoraria_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetPaisZonaHoraria" />
-  </wsdl:message>
-  <wsdl:message name="IContenidoService_GetPaisZonaHoraria_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetPaisZonaHorariaResponse" />
-  </wsdl:message>
-  <wsdl:message name="IContenidoService_GetPlantillasPais_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetPlantillasPais" />
-  </wsdl:message>
-  <wsdl:message name="IContenidoService_GetPlantillasPais_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetPlantillasPaisResponse" />
-  </wsdl:message>
-  <wsdl:message name="IContenidoService_ObtenerCorreoEmisor_InputMessage">
-    <wsdl:part name="parameters" element="tns:ObtenerCorreoEmisor" />
-  </wsdl:message>
-  <wsdl:message name="IContenidoService_ObtenerCorreoEmisor_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ObtenerCorreoEmisorResponse" />
-  </wsdl:message>
   <wsdl:message name="IContenidoService_SelectBanner_InputMessage">
     <wsdl:part name="parameters" element="tns:SelectBanner" />
   </wsdl:message>
@@ -454,31 +418,43 @@
   <wsdl:message name="IContenidoService_QuitarPaisPlantillaEmailingSE_OutputMessage">
     <wsdl:part name="parameters" element="tns:QuitarPaisPlantillaEmailingSEResponse" />
   </wsdl:message>
+  <wsdl:message name="IContenidoService_CopiarPaisPlantillaEmailingSE_InputMessage">
+    <wsdl:part name="parameters" element="tns:CopiarPaisPlantillaEmailingSE" />
+  </wsdl:message>
+  <wsdl:message name="IContenidoService_CopiarPaisPlantillaEmailingSE_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CopiarPaisPlantillaEmailingSEResponse" />
+  </wsdl:message>
+  <wsdl:message name="IContenidoService_CondicionesConsultoraSE_InputMessage">
+    <wsdl:part name="parameters" element="tns:CondicionesConsultoraSE" />
+  </wsdl:message>
+  <wsdl:message name="IContenidoService_CondicionesConsultoraSE_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CondicionesConsultoraSEResponse" />
+  </wsdl:message>
+  <wsdl:message name="IContenidoService_RegistrarLogEnvioAutomatico_InputMessage">
+    <wsdl:part name="parameters" element="tns:RegistrarLogEnvioAutomatico" />
+  </wsdl:message>
+  <wsdl:message name="IContenidoService_RegistrarLogEnvioAutomatico_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RegistrarLogEnvioAutomaticoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IContenidoService_GetPaisZonaHoraria_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPaisZonaHoraria" />
+  </wsdl:message>
+  <wsdl:message name="IContenidoService_GetPaisZonaHoraria_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPaisZonaHorariaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IContenidoService_GetPlantillasPais_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlantillasPais" />
+  </wsdl:message>
+  <wsdl:message name="IContenidoService_GetPlantillasPais_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlantillasPaisResponse" />
+  </wsdl:message>
+  <wsdl:message name="IContenidoService_ObtenerCorreoEmisor_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerCorreoEmisor" />
+  </wsdl:message>
+  <wsdl:message name="IContenidoService_ObtenerCorreoEmisor_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerCorreoEmisorResponse" />
+  </wsdl:message>
   <wsdl:portType name="IContenidoService">
-    <wsdl:operation name="CopiarPaisPlantillaEmailingSE">
-      <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/CopiarPaisPlantillaEmailingSE" message="tns:IContenidoService_CopiarPaisPlantillaEmailingSE_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/CopiarPaisPlantillaEmailingSEResponse" message="tns:IContenidoService_CopiarPaisPlantillaEmailingSE_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="CondicionesConsultoraSE">
-      <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/CondicionesConsultoraSE" message="tns:IContenidoService_CondicionesConsultoraSE_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/CondicionesConsultoraSEResponse" message="tns:IContenidoService_CondicionesConsultoraSE_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="RegistrarLogEnvioAutomatico">
-      <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/RegistrarLogEnvioAutomatico" message="tns:IContenidoService_RegistrarLogEnvioAutomatico_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/RegistrarLogEnvioAutomaticoResponse" message="tns:IContenidoService_RegistrarLogEnvioAutomatico_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetPaisZonaHoraria">
-      <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/GetPaisZonaHoraria" message="tns:IContenidoService_GetPaisZonaHoraria_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/GetPaisZonaHorariaResponse" message="tns:IContenidoService_GetPaisZonaHoraria_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetPlantillasPais">
-      <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/GetPlantillasPais" message="tns:IContenidoService_GetPlantillasPais_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/GetPlantillasPaisResponse" message="tns:IContenidoService_GetPlantillasPais_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerCorreoEmisor">
-      <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/ObtenerCorreoEmisor" message="tns:IContenidoService_ObtenerCorreoEmisor_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/ObtenerCorreoEmisorResponse" message="tns:IContenidoService_ObtenerCorreoEmisor_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="SelectBanner">
       <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/SelectBanner" message="tns:IContenidoService_SelectBanner_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/SelectBannerResponse" message="tns:IContenidoService_SelectBanner_OutputMessage" />
@@ -735,63 +711,33 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/QuitarPaisPlantillaEmailingSE" message="tns:IContenidoService_QuitarPaisPlantillaEmailingSE_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/QuitarPaisPlantillaEmailingSEResponse" message="tns:IContenidoService_QuitarPaisPlantillaEmailingSE_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="CopiarPaisPlantillaEmailingSE">
+      <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/CopiarPaisPlantillaEmailingSE" message="tns:IContenidoService_CopiarPaisPlantillaEmailingSE_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/CopiarPaisPlantillaEmailingSEResponse" message="tns:IContenidoService_CopiarPaisPlantillaEmailingSE_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CondicionesConsultoraSE">
+      <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/CondicionesConsultoraSE" message="tns:IContenidoService_CondicionesConsultoraSE_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/CondicionesConsultoraSEResponse" message="tns:IContenidoService_CondicionesConsultoraSE_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarLogEnvioAutomatico">
+      <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/RegistrarLogEnvioAutomatico" message="tns:IContenidoService_RegistrarLogEnvioAutomatico_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/RegistrarLogEnvioAutomaticoResponse" message="tns:IContenidoService_RegistrarLogEnvioAutomatico_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPaisZonaHoraria">
+      <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/GetPaisZonaHoraria" message="tns:IContenidoService_GetPaisZonaHoraria_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/GetPaisZonaHorariaResponse" message="tns:IContenidoService_GetPaisZonaHoraria_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPlantillasPais">
+      <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/GetPlantillasPais" message="tns:IContenidoService_GetPlantillasPais_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/GetPlantillasPaisResponse" message="tns:IContenidoService_GetPlantillasPais_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerCorreoEmisor">
+      <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/ObtenerCorreoEmisor" message="tns:IContenidoService_ObtenerCorreoEmisor_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/ObtenerCorreoEmisorResponse" message="tns:IContenidoService_ObtenerCorreoEmisor_OutputMessage" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IContenidoService" type="tns:IContenidoService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="CopiarPaisPlantillaEmailingSE">
-      <soap:operation soapAction="http://tempuri.org/IContenidoService/CopiarPaisPlantillaEmailingSE" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="CondicionesConsultoraSE">
-      <soap:operation soapAction="http://tempuri.org/IContenidoService/CondicionesConsultoraSE" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="RegistrarLogEnvioAutomatico">
-      <soap:operation soapAction="http://tempuri.org/IContenidoService/RegistrarLogEnvioAutomatico" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetPaisZonaHoraria">
-      <soap:operation soapAction="http://tempuri.org/IContenidoService/GetPaisZonaHoraria" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetPlantillasPais">
-      <soap:operation soapAction="http://tempuri.org/IContenidoService/GetPlantillasPais" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerCorreoEmisor">
-      <soap:operation soapAction="http://tempuri.org/IContenidoService/ObtenerCorreoEmisor" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="SelectBanner">
       <soap:operation soapAction="http://tempuri.org/IContenidoService/SelectBanner" style="document" />
       <wsdl:input>
@@ -1361,6 +1307,60 @@
     </wsdl:operation>
     <wsdl:operation name="QuitarPaisPlantillaEmailingSE">
       <soap:operation soapAction="http://tempuri.org/IContenidoService/QuitarPaisPlantillaEmailingSE" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CopiarPaisPlantillaEmailingSE">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/CopiarPaisPlantillaEmailingSE" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CondicionesConsultoraSE">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/CondicionesConsultoraSE" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarLogEnvioAutomatico">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/RegistrarLogEnvioAutomatico" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaisZonaHoraria">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/GetPaisZonaHoraria" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPlantillasPais">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/GetPlantillasPais" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerCorreoEmisor">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/ObtenerCorreoEmisor" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1372,60 +1372,6 @@
   <wsdl:binding name="BasicHttpsBinding_IContenidoService" type="tns:IContenidoService">
     <wsp:PolicyReference URI="#BasicHttpsBinding_IContenidoService_policy" />
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="CopiarPaisPlantillaEmailingSE">
-      <soap:operation soapAction="http://tempuri.org/IContenidoService/CopiarPaisPlantillaEmailingSE" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="CondicionesConsultoraSE">
-      <soap:operation soapAction="http://tempuri.org/IContenidoService/CondicionesConsultoraSE" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="RegistrarLogEnvioAutomatico">
-      <soap:operation soapAction="http://tempuri.org/IContenidoService/RegistrarLogEnvioAutomatico" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetPaisZonaHoraria">
-      <soap:operation soapAction="http://tempuri.org/IContenidoService/GetPaisZonaHoraria" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetPlantillasPais">
-      <soap:operation soapAction="http://tempuri.org/IContenidoService/GetPlantillasPais" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerCorreoEmisor">
-      <soap:operation soapAction="http://tempuri.org/IContenidoService/ObtenerCorreoEmisor" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="SelectBanner">
       <soap:operation soapAction="http://tempuri.org/IContenidoService/SelectBanner" style="document" />
       <wsdl:input>
@@ -1995,6 +1941,60 @@
     </wsdl:operation>
     <wsdl:operation name="QuitarPaisPlantillaEmailingSE">
       <soap:operation soapAction="http://tempuri.org/IContenidoService/QuitarPaisPlantillaEmailingSE" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CopiarPaisPlantillaEmailingSE">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/CopiarPaisPlantillaEmailingSE" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CondicionesConsultoraSE">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/CondicionesConsultoraSE" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarLogEnvioAutomatico">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/RegistrarLogEnvioAutomatico" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaisZonaHoraria">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/GetPaisZonaHoraria" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPlantillasPais">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/GetPlantillasPais" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerCorreoEmisor">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/ObtenerCorreoEmisor" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

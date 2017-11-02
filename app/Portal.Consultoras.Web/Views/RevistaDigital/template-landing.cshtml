@@ -17,9 +17,21 @@
         
         @if (ViewBag.TieneProductosPerdio == false)
         {       
-            <div id="orderby-filter">
+            <div id="orderby-filter" style="padding: 0px 2%;">
                 <div id="divBusquedaFiltros" class="rd-busqueda-filtros">
-                    <div class="rd-seccion2" style=" padding: 0px 0%;">
+                    <div class="rd-seccion2" style=" padding: 0px 0%; height:auto;">
+                        
+
+                        <div id="divCantProductos" class="cantidad_productos_fix cantidad_productos_fav" style="text-align:left;">
+                            <div class="rd-cantidad">
+                                Mostrando <span id="spnCantidadFiltro">0</span> de <span id="spnCantidadTotal">0</span>
+                            </div>
+                            <div class="rd-filtro-limpiar">
+                                <div id="div-delete-filters" style="display: none; margin-right: 0px;">
+                                    <a href="javascript:;" class="link-ffc_landing" data-filtro-tipo="@idBorrar" style="text-decoration: underline;">Borrar Filtros</a>
+                                </div>
+                            </div>
+                        </div>
                         <div id="divFiltros" class="rd-fitlros-fix rd-filtros">
                             @if (Model.FiltersByBrand.Any())
                             {
@@ -40,17 +52,6 @@
                                 </select>
                             }
 
-                        </div>
-
-                        <div id="divCantProductos" class="cantidad_productos_fix cantidad_productos_fav">
-                            <div class="rd-cantidad">
-                                Mostrando <span id="spnCantidadFiltro">0</span> de <span id="spnCantidadTotal">0</span> productos
-                            </div>
-                            <div class="rd-filtro-limpiar">
-                                <div id="div-delete-filters" style="display: none; margin-right: 0px;">
-                                    <a href="javascript:;" class="link-ffc_landing" data-filtro-tipo="@idBorrar" style="text-decoration: underline;">Borrar Filtros</a>
-                                </div>
-                            </div>
                         </div>
                         <div style="clear:both;"></div>
                     </div>

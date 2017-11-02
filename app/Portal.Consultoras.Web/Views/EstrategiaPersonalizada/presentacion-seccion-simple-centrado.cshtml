@@ -5,22 +5,28 @@
         margin-top: 15px !important;
     }
 </style>
-<div class="bc_plantilla_estrategia_personalizada" style="background: url(@Model.ImagenFondo) center center no-repeat;
-    background-position: center !important; min-height: 500px;vertical-align: middle;">
-    <div class="content_estrategia_carrusel">
-        <div class="titulo">
-            @if (Model.Titulo != "")
-            {
-                <h2>@Model.Titulo</h2>
-            }
+<div class="bc_plantilla_estrategia_personalizada" style="background: url(@Model.ImagenFondo) center center no-repeat; background-position: center !important; min-height: 500px;vertical-align: middle;"
+     data-plantilla="simple-centrado">
+    <div class="parche_presentacion_contenedor">
+        <div class="bloque-titulo">
+            <div class="seccion-titulo">
+                <span>@Model.Titulo</span>
+            </div>
+            <div class="cantidad" style="display:none;" data-productos-info="">
+                <span id="divCantProductos">Mostrando <span data-productos-mostrar="">@Model.CantidadMostrar</span> de <span data-productos-total="">@Model.CantidadProductos</span></span>
+            </div>
+
             @if (Model.VerMas)
             {
-                <div class="boton-ir">
+                <div class="ir">
                     <a href="javascript: window.location.href = '@Model.UrlLandig'">VER MÁS OFERTAS</a>
                 </div>
             }
+            <div class="parche_clear"></div>
         </div>
-        <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+    <div class="content_estrategia_carrusel">
         <div class="contenido" data-seccion-productos=""></div>
     </div>
 </div>

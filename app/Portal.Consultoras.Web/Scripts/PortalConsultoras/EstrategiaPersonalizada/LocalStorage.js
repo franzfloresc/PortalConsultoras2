@@ -19,8 +19,9 @@ function LocalStorageListado(key, valor, accion) {
     }
 }
 
-function GetProductoStorage(cuv, campania) {
-    var sl = LocalStorageListado(lsListaRD + campania, '', 1);
+function GetProductoStorage(cuv, campania, nombreKey) {
+    nombreKey = nombreKey || lsListaRD;
+    var sl = LocalStorageListado(nombreKey + campania, '', 1);
     if (sl == null || sl == undefined) {
 
         var model = $("[data-item-cuv=" + cuv + "]").find("[data-estrategia]").attr("data-estrategia");

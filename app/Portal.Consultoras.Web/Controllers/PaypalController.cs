@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -225,7 +224,7 @@ namespace Portal.Consultoras.Web.Controllers
                            select new
                            {
                                id = a.chrRETCodigoTransaccion.ToString(),
-                               cell = new string[] 
+                               cell = new string[]
                                {
                                    a.chrCodigoConsultora.ToString(),
                                    a.vchNombreCompleto.ToString(),
@@ -259,7 +258,7 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-		//R2004
+        //R2004
         public ActionResult ProcesoDescarga()
         {
             if (!UsuarioModel.HasAcces(ViewBag.Permiso, "Paypal/ProcesoDescarga"))
@@ -269,7 +268,7 @@ namespace Portal.Consultoras.Web.Controllers
             return View();
         }
 
-		//R2004 - R2122
+        //R2004 - R2122
         [HttpPost]
         public JsonResult RealizarDescarga(string fechaEjecucion)
         {

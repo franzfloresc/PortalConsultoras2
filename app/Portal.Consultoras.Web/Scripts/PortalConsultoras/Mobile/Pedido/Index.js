@@ -1013,11 +1013,6 @@ function MostrarDetalleGanancia() {
     $('#popupGanancias').show();
 }
 
-function maxLengthCheck(object, cantidadMaxima) {
-    if (object.value.length > cantidadMaxima)
-        object.value = object.value.slice(0, cantidadMaxima);
-}
-
 function ProcesarActualizacionMostrarContenedorCupon() {
     if (paginaOrigenCupon) {
         if (cuponModule) {

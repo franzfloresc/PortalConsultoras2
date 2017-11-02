@@ -225,7 +225,7 @@ namespace Portal.Consultoras.Web.Controllers
                 BarraConsultoraModel dataBarra = new BarraConsultoraModel();
                 try
                 {
-                    sessionManager.SetObservacionesProl( null);
+                    sessionManager.SetObservacionesProl(null);
                     sessionManager.SetDetallesPedido(null);
                     UpdPedidoWebMontosPROL();
                     dataBarra = GetDataBarra();

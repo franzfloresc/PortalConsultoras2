@@ -30,12 +30,6 @@ $(document).ready(function () {
     
     $(document).keyup(function (e) {
         if (e.keyCode == 27) {
-            if ($('#PopOfertaDia').is(':visible')) {
-                $('#PopOfertaDia').slideUp();
-                $('.circulo_hoy span').html('+');
-                showDisplayODD = 0;
-            }
-
             if ($('#PopFichaProductoNueva').is(':visible')) {
                 CerrarPopup('#PopFichaProductoNueva');
             }

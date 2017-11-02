@@ -2,6 +2,7 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServiceCDR;
 using Portal.Consultoras.Web.ServiceCliente;
 using Portal.Consultoras.Web.ServicePedidoRechazado;
 using Portal.Consultoras.Web.ServiceSAC;
@@ -12,7 +13,6 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
-using Portal.Consultoras.Web.ServiceCDR;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -121,6 +121,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
                 catch (Exception ex)
                 {
+                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 }
 
                 var data = new
@@ -132,6 +133,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
             catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+
                 var data = new
                 {
                     success = false,
@@ -187,7 +190,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         }
                         catch (Exception ex)
                         {
-
+                            LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                         }
                     }
                 }

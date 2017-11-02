@@ -219,11 +219,6 @@ function SetMarcaGoogleAnalyticsTermino() {
 
 }
 
-function maxLengthCheck(object, cantidadMaxima) {
-    if (object.value.length > cantidadMaxima)
-        object.value = object.value.slice(0, cantidadMaxima);
-}
-
 function TagManagerOfertaShowRoom() {
     var cadListaofertaShowRoom = $("#hdListaProductosEnShowRoom").val();
     var listaofertaShowRoom = JSON.parse(cadListaofertaShowRoom);

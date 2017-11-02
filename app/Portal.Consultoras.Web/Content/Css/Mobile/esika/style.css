@@ -10825,7 +10825,7 @@ a{
     letter-spacing:0.3px;
     /*margin-bottom:2px;*/
 }
-.precio_tachado_048{
+.precio_tachado_048 span {
     color: black;
     font-size: 13.5px;
     /* font-weight: 300; */
@@ -10833,6 +10833,7 @@ a{
     margin-top: 5px;
     text-decoration: line-through;
 }
+
 .precio_para_ti_048{
     color:black;
     font-size:13px;
@@ -13466,4 +13467,9 @@ a{
     width: 100%;
     max-width: 197px;
     height: 40px;
+}
+
+.precio-oferta-normal {
+    font-size: 12px;
+    text-decoration: line-through;
 }

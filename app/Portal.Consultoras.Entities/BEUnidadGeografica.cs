@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Portal.Consultoras.Entities
 {
-    using Common;
     using System;
     using System.Data;
     using System.Runtime.Serialization;
@@ -14,7 +9,7 @@ namespace Portal.Consultoras.Entities
     [DataContract]
     public class BEUnidadGeografica
     {
-       
+
 
         [DataMember]
         public string CodigoUbigeo { get; set; }
@@ -22,15 +17,15 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string Descripcion { get; set; }
 
-        /*Nuevo*/       
+        /*Nuevo*/
         //public string PadreUbigeoID { get; set; }   
-     
+
         //public string UnidadGeografica { get; set; }
 
         public int NivelUbigeo { get; set; }
 
         [DataMember]
-        public List<BEUnidadGeografica> Ubigeo { get; set; }       
+        public List<BEUnidadGeografica> Ubigeo { get; set; }
 
         public BEUnidadGeografica()
         { }
@@ -71,7 +66,7 @@ namespace Portal.Consultoras.Entities
 
             if (row["UnidadGeografica3"].ToString() != "")
                 Descripcion = Convert.ToString(row["UnidadGeografica3"]);
-            
-        }        
+
+        }
     }
 }

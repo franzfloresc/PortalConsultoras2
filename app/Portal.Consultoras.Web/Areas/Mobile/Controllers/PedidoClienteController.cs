@@ -35,15 +35,16 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 foreach (var item in lista3Ultimos)
                 {
-                    if(item.CampaniaID != 0)
+                    if (item.CampaniaID != 0)
                     {
-                        model.ListaPedidoCliente.Add(new PedidoWebMobilModel{
+                        model.ListaPedidoCliente.Add(new PedidoWebMobilModel
+                        {
                             CampaniaID = item.CampaniaID,
                             ImporteTotal = item.ImporteTotal,
                             Descuento = -item.DescuentoProl
                         });
                     }
-                    
+
                 }
 
                 BEPedidoWebDetalle[] lstPedidoDetalle;
@@ -56,7 +57,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     }
                     foreach (var pedidoDetalle in lstPedidoDetalle)
                     {
-                        pedidoCliente.ListaPedidoWebDetalle.Add(new PedidoWebClienteMobilModel {
+                        pedidoCliente.ListaPedidoWebDetalle.Add(new PedidoWebClienteMobilModel
+                        {
                             ClienteID = pedidoDetalle.ClienteID,
                             Nombre = pedidoDetalle.Nombre,
                             eMail = pedidoDetalle.eMail,
@@ -72,7 +74,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         }
                         foreach (var producto in lstPedidoDetalleProducto)
                         {
-                            pedidoDetalleProducto.ListaPedidoWebDetalleProductos.Add(new PedidoWebDetalleMobilModel {
+                            pedidoDetalleProducto.ListaPedidoWebDetalleProductos.Add(new PedidoWebDetalleMobilModel
+                            {
                                 ClienteID = producto.ClienteID,
                                 Nombre = producto.Nombre,
                                 eMail = producto.eMail,
@@ -89,8 +92,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         pedidoDetalleProducto.ImporteTotalPedido = pedidoDetalleProducto.ListaPedidoWebDetalleProductos.Sum(p => p.ImporteTotal);
                     }
 
-                    pedidoCliente.TieneDescuentoCuv = userData.EstadoSimplificacionCUV && pedidoCliente.ListaPedidoWebDetalle.Any(pedidoWebDetalle => 
-                        pedidoWebDetalle.ListaPedidoWebDetalleProductos.Any(item => 
+                    pedidoCliente.TieneDescuentoCuv = userData.EstadoSimplificacionCUV && pedidoCliente.ListaPedidoWebDetalle.Any(pedidoWebDetalle =>
+                        pedidoWebDetalle.ListaPedidoWebDetalleProductos.Any(item =>
                             string.IsNullOrEmpty(item.ObservacionPROL) && item.IndicadorOfertaCUV
                         )
                     );
@@ -100,7 +103,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         pedidoCliente.ImporteTotal = pedidoCliente.Subtotal + pedidoCliente.Descuento;
                     }
 
-                    if(userData.PaisID == 4)
+                    if (userData.PaisID == 4)
                     {
                         pedidoCliente.SubtotalString = pedidoCliente.Subtotal.ToString("n0", new System.Globalization.CultureInfo("es-CO"));
                         pedidoCliente.DescuentoString = pedidoCliente.Descuento.ToString("n0", new System.Globalization.CultureInfo("es-CO"));
@@ -150,7 +153,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     }
 
                     #region Mensaje a Enviar
-                    
+
                     var mailBody = string.Empty;
                     mailBody = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">";
                     mailBody += "<div style='font-size:12px;'>Hola,</div> <br />";
@@ -173,7 +176,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     mailBody += "Precio Total";
                     mailBody += "</td>";
                     mailBody += "</tr>";
-                    
+
                     for (var i = 0; i < lst.Count; i++)
                     {
                         mailBody += "<tr>";
@@ -186,7 +189,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         mailBody += "<td style='font-size:11px; width: 124px; text-align: center;'>";
                         mailBody += "" + lst[i].Cantidad.ToString() + "";
                         mailBody += "</td>";
-                        if (UserData().PaisID == 4) 
+                        if (UserData().PaisID == 4)
                         {
                             mailBody += "<td style='font-size:11px; width: 182px; text-align: center;'>";
                             mailBody += "" + userData.Simbolo + string.Format("{0:#,##0}", lst[i].PrecioUnidad).Replace(',', '.') + "";
@@ -207,13 +210,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         mailBody += "</tr>";
                         total += lst[i].ImporteTotal;
                     }
-                    
+
                     mailBody += "<tr>";
                     mailBody += "<td colspan='4' style='font-size:11px; text-align: right; font-weight: bold'>";
                     mailBody += "Total :";
                     mailBody += "</td>";
                     mailBody += "<td style='font-size:11px; text-align: center; font-weight: bold'>";
-                    if (UserData().PaisID == 4) 
+                    if (UserData().PaisID == 4)
                     {
                         mailBody += "" + userData.Simbolo + string.Format("{0:#,##0}", total).Replace(',', '.') + "";
                     }
@@ -242,7 +245,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     #endregion
 
                     Util.EnviarMailMobile("no-responder@somosbelcorp.com", ClientId.ToString().Equals("0") ? userData.EMail : Email, "(" + userData.CodigoISO + ") Pedido Solicitado", mailBody, true, userData.NombreConsultora);
-                    
+
                     return Json(new
                     {
                         success = true,
@@ -378,7 +381,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     }
 
                     #region Mensaje a Enviar
-                    
+
                     var mailBody = string.Empty;
                     mailBody = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">";
                     mailBody += "<div style='font-size:12px;'>Hola,</div> <br />";
@@ -423,7 +426,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                             mailBody += "<td style='font-size:11px; width: 124px; text-align: center;'>";
                             mailBody += "" + item2.Cantidad.ToString() + "";
                             mailBody += "</td>";
-                            if (userData.PaisID == 4) 
+                            if (userData.PaisID == 4)
                             {
                                 mailBody += "<td style='font-size:11px; width: 182px; text-align: center;'>";
                                 mailBody += "" + userData.Simbolo + string.Format("{0:#,##0}", item2.PrecioUnidad).Replace(',', '.') + "";
@@ -491,7 +494,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     #endregion
 
                     Util.EnviarMailMobile("no-responder@somosbelcorp.com", userData.EMail, "(" + userData.CodigoISO + ") Pedido Solicitado", mailBody, true, userData.NombreConsultora);
-                    
+
                     return Json(new
                     {
                         success = true,

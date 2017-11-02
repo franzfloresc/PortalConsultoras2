@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Runtime.Serialization;
-using System.Data;
-using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Entities
 {
@@ -32,6 +30,6 @@ namespace Portal.Consultoras.Entities
         public BEProductoComentarioFilter()
         { }
 
-        
+
     }
 }

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
-using OpenSource.Library.DataAccess;
+﻿using OpenSource.Library.DataAccess;
 using Portal.Consultoras.Common;
+using System;
+using System.Data;
+using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities
 {
@@ -90,7 +86,7 @@ namespace Portal.Consultoras.Entities
         {
         }
     }
-    /* 1957 - Inicio */
+
     [DataContract]
     public class BETablaTemType
     {
@@ -104,5 +100,5 @@ namespace Portal.Consultoras.Entities
         public int ZonaID { set; get; }
 
     }
-    /* 1957 - Fin */
+
 }
