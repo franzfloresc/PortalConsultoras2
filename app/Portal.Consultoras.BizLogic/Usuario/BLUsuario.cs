@@ -543,9 +543,12 @@ namespace Portal.Consultoras.BizLogic
         {
             bool esCumpleanio = false;
 
-            if (usuario.FechaNacimiento.Date != DateTime.Now.Date)
+            var uFechaNacimiento = usuario.FechaNacimiento;
+            var uFechaActual = DateTime.UtcNow;
+
+            if (uFechaNacimiento != uFechaActual)
             {
-                if (usuario.FechaNacimiento.Month == DateTime.Now.Month && usuario.FechaNacimiento.Day == DateTime.Now.Day) esCumpleanio = true;
+                if (uFechaNacimiento.Month == uFechaActual.Month && uFechaNacimiento.Day == uFechaActual.Day) esCumpleanio = true;
             }
 
             return esCumpleanio;
