@@ -541,7 +541,7 @@
             </a>
             <!---->
             <div class="content_texto_OPT">
-                <div class="icono_alerta {{ofIconoSuperior}}" id="ofIconoSuperior" style="margin-top:10px; margin-bottom:10px;"></div>
+                <div class="icono_alerta {{ofIconoSuperior}}" id="ofIconoSuperior" style="margin-top:10px; margin-bottom:10px; width:60px; height:60px;"></div>
 
                 <h1 class="ofertaFinal_titulo" id="spnTituloOfertaFinal">
                     {{#if_eq TipoMeta 'MM'}}
@@ -562,7 +562,7 @@
                     <span>APROVECHA ESTAS OFERTAS Y <br><b>GANA MÁS</b> ESTA CAMPAÑA</span>
                     {{/iff}}
                     {{else if_eq TipoMeta 'RG'}}
-                    <span>@ViewBag.NombreConsultora APROVECHA ESTAS OFERTAS Y <b>GANA PREMIOS INCREÍBLES</b></span>
+                    <span class="mensaje_premios_increibles">@ViewBag.NombreConsultora APROVECHA ESTAS OFERTAS Y <b>GANA PREMIOS INCREÍBLES</b></span>
                     {{else}}    <!--se espera escala de dscto-->
                     <span>ALCANZA EL <b style="font-size:23px;">{{MetaPorcentaje}}%</b> DSCTO AGREGANDO {{Simbolo}} <span data-monto="">{{MetaMontoStr}}</span> DE ESTAS OFERTAS</span>
                     {{/if_eq}}
@@ -643,7 +643,7 @@
                         {{/each}}
                     </div>
                 </div>
-                <button class="enlace_btnNoGracias btnNoGraciasOfertaFinal icono_terminar_pedido" id="btnNoGraciasOfertaFinal" style="display:{{#iff TipoMeta '==' 'MM'}}none;{{else}}block;{{/iff}}" onclick="of_google_analytics_cerrar_popup()">
+                <button class="enlace_btnNoGracias btnNoGraciasOfertaFinal icono_terminar_pedido" id="btnNoGraciasOfertaFinal" style="display:{{#iff TipoMeta '==' 'MM'}}none;{{else}}block;{{/iff}}; font-size:12px;" onclick="of_google_analytics_cerrar_popup()">
                     RESERVA TU PEDIDO
                 </button>
             </div>

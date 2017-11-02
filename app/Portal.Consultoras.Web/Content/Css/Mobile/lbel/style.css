@@ -8672,7 +8672,7 @@ span.icon-advertencia{
 
 .popup_ofertaFinal{
     display: block;
-    margin: 1% auto 5% auto;
+    margin: 4% auto 5% auto;
     position: relative;
     background: #fff;
     width: 95%;
@@ -8719,9 +8719,13 @@ span.icon-advertencia{
     padding: 0 19px;
 }
 
+.mensaje_premios_increibles b{
+    color:#642f80;
+}
+
 .contenedor_carruselOfertaFinal{
     /*background: #f5f5f5;*/
-    padding: 22px 5px 40px 5px;
+    padding: 22px 5px 20px 5px;
 }
 
 .ofertaFinal_info {
@@ -8854,9 +8858,12 @@ span.icon-advertencia{
 .icono_terminar_pedido{
     background:url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/eFrB5kIPNXTjyJd/icono-reserva.png) no-repeat;
     background-size:27px;
-    padding-left: 40px;   
-    height:28px; 
+    background-position: 0;
+    padding-left:40px;   
+    height:28px;
+    font-size:12px; 
 }
+
 
 /* FIN POPUP OFERTA FINAL */
 .texto_valorTurno {
@@ -12549,13 +12556,16 @@ box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
     font-family: 'Lato';
     /*font-weight: 700;*/
     color: white;
-    font-size: 18px;
+    font-size: 15px;
     letter-spacing: 1px;
     padding-left:20px;
     padding-right:20px;
     text-align:center;
     line-height:22px;
     margin-bottom:19px;
+}
+#of-regalo-msg1 b{
+    font-size:18px;
 }
 .font_700_regalo{
     display: block;

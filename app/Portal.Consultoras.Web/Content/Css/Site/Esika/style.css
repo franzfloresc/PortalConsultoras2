@@ -4904,19 +4904,18 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 
 .popup_ofertaFinal{
-    display:inline-block;
-    position:relative;
-    
-    margin:0 auto;
-    background:#FFF;
-    
-    width:850px;
-    height:auto;
-    padding-top:40px;
-    box-sizing:border-box;
-    font-family:'Lato';
-    margin-top:50px;
-    vertical-align:top;
+    display: inline-block;
+    position: relative;
+    margin: 0 auto;
+    background: #fff;
+    width: 850px;
+    min-height: 570px;
+    height: auto;
+    padding-top: 40px;
+    box-sizing: border-box;
+    font-family: 'Lato';
+    margin-top: 35px;
+    vertical-align: top;
 }
 .center_text{
     text-align:center;
@@ -4942,7 +4941,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     font-family:'Lato';
     font-size:23px;
     color:#000;
-    font-weight:300!important;
+    font-weight:300 !important;
     text-align:center;
     margin-bottom:3px;
 }
@@ -5033,7 +5032,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 .icono_terminar_pedido{
     background:url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/eFrB5kIPNXTjyJd/icono-reserva.png) no-repeat;
-    background-size:27px;
+    background-size:25px;
     padding-left: 40px;
     background-position: 10px 14px;
 }
@@ -33426,7 +33425,7 @@ h1#penmostreo .campana {
     font-size:14px;
     line-height:18px;
     text-align:center;
-    margin-bottom:20px;
+    margin-bottom:16px;
     margin-top:5px;
 }
 .compartir_redes_ficha{
@@ -35913,14 +35912,14 @@ h1#penmostreo .campana {
     display:inline-block;
     width:310px;
     height:580px;
-    margin-top: 50px;
+    margin-top: 35px;
     background:url(../../../Images/Esika/bg_regalo_chile.png) no-repeat;
     background-size: 100% 100%;
     vertical-align:top;
     margin-right: -25px;
     z-index: 21;
     position: relative;
-    padding-top:30px;
+    padding-top:25px;
     padding-left:25px;
     padding-right:25px;
 }
@@ -35930,18 +35929,21 @@ h1#penmostreo .campana {
     min-height: 308px;
     margin:0 auto;
     background:white;  
-    /*padding-top:18px;*/
-    padding-bottom: 13px;  
+    /*padding-top:18px;*/ 
+    padding-bottom: 13px; 
 }
 .titulo_regalo_sorpresa{
     font-family:'Lato';
-    font-size:17px;
+    font-size:15px;
     letter-spacing:1px;
     margin-bottom: 22px;
     text-align:center;
     margin-top:7px;
     color:white;
     line-height: 22px;
+}
+#of-regalo-msg1 b{
+    font-size:18px;
 }
 .titulo_regalo_producto{
     font-family:'Lato';
