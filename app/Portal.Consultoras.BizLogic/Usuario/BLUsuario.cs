@@ -333,6 +333,7 @@ namespace Portal.Consultoras.BizLogic
                     usuario.IndicadorGPRSB = configuracion.IndicadorGPRSB;
                     usuario.ValidacionAbierta = configuracion.ValidacionAbierta;
                     usuario.EstadoPedido = configuracion.EstadoPedido;
+                    usuario.FechaActualPais = configuracion.FechaActualPais;
                 }
             }
 
@@ -369,6 +370,7 @@ namespace Portal.Consultoras.BizLogic
                         usuario.IndicadorGPRSB = configuracion.IndicadorGPRSB;
                         usuario.ValidacionAbierta = configuracion.ValidacionAbierta;
                         usuario.EstadoPedido = configuracion.EstadoPedido;
+                        usuario.FechaActualPais = configuracion.FechaActualPais;
                     }
                 }
             }
@@ -543,9 +545,12 @@ namespace Portal.Consultoras.BizLogic
         {
             bool esCumpleanio = false;
 
-            if (usuario.FechaNacimiento.Date != DateTime.Now.Date)
+            var uFechaNacimiento = usuario.FechaNacimiento;
+            var uFechaActual = usuario.FechaActualPais;
+
+            if (uFechaNacimiento != uFechaActual)
             {
-                if (usuario.FechaNacimiento.Month == DateTime.Now.Month && usuario.FechaNacimiento.Day == DateTime.Now.Day) esCumpleanio = true;
+                if (uFechaNacimiento.Month == uFechaActual.Month && uFechaNacimiento.Day == uFechaActual.Day) esCumpleanio = true;
             }
 
             return esCumpleanio;
