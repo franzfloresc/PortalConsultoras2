@@ -1155,6 +1155,7 @@ namespace Portal.Consultoras.Web.Controllers
                     Session[Constantes.ConstSession.TieneOpt] = true;
                     Session[Constantes.ConstSession.TieneOpm] = true;
                     Session[Constantes.ConstSession.TieneOpmX1] = true;
+                    Session[Constantes.ConstSession.TieneRdr] = true;
                 }
 
                 Session["UserData"] = model;
