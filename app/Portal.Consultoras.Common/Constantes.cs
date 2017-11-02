@@ -1274,8 +1274,8 @@ namespace Portal.Consultoras.Common
         {
             public const string ExtensionNombreImagenSmall = "_small";
             public const string ExtensionNombreImagenMedium = "_medium";
-            public const int WidthImagenSmall = 150;
-            public const int HeightImagenSmall = 150;
+            public const int WidthImagenSmall = 125;
+            public const int HeightImagenSmall = 125;
             public const int WidthImagenMedium = 250;
             public const int HeightImagenMedium = 250;
         }

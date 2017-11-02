@@ -689,7 +689,7 @@ namespace Portal.Consultoras.Web.Controllers
         {           
             try
             {
-                string mensajeImagenesResize = "";
+                string mensajeErrorImagenResize = "";
                 string _nroPedido = Util.Trim(model.NumeroPedido);
 
                 if (_nroPedido.Contains(",")) model.NumeroPedido = "0";
@@ -744,11 +744,40 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                         }
 
-                        #region Imagen Resize                                                
+                        #region Imagen Resize  
+                        
+                        string soloImagen = Path.GetFileNameWithoutExtension(model.RutaImagenCompleta);
 
-                        var resultadoImagenesResize = GuardarImagenesResize(userData.CodigoISO, model.RutaImagenCompleta, model.ImagenURL);
+                        var rutaImagenSmall = model.RutaImagenCompleta.Clone().ToString();
+                        var extensionNombreImagenSmall = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall;
+                        rutaImagenSmall = rutaImagenSmall.Replace(soloImagen, soloImagen + extensionNombreImagenSmall);
 
-                        mensajeImagenesResize = resultadoImagenesResize ? "" : "No se generaron las imagenes Small y Medium, favor volver a guardar.";
+                        var rutaImagenMedium = model.RutaImagenCompleta.Clone().ToString();
+                        var extensionNombreImagenMedium = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium;
+                        rutaImagenMedium = rutaImagenMedium.Replace(soloImagen, soloImagen + extensionNombreImagenMedium);
+
+                        var listaImagenesResize = new List<EntidadResize>();
+                        EntidadResize entidadResize = new EntidadResize();
+                        entidadResize.RutaImagenOriginal = model.RutaImagenCompleta;
+                        entidadResize.RutaImagenResize = rutaImagenSmall;
+                        entidadResize.TablaLogicaDatosIdWidth = Constantes.TablaLogicaDato.ValoresImagenesResizeWitdhSmall;
+                        entidadResize.TablaLogicaDatosIdHeight = Constantes.TablaLogicaDato.ValoresImagenesResizeHeightSmall;
+                        entidadResize.WidthDefault = Constantes.ConfiguracionImagenResize.WidthImagenSmall;
+                        entidadResize.HeightDefault = Constantes.ConfiguracionImagenResize.HeightImagenSmall;
+                        entidadResize.TipoImagen = "SMALL";
+                        listaImagenesResize.Add(entidadResize);
+
+                        entidadResize = new EntidadResize();
+                        entidadResize.RutaImagenOriginal = model.RutaImagenCompleta;
+                        entidadResize.RutaImagenResize = rutaImagenMedium;
+                        entidadResize.TablaLogicaDatosIdWidth = Constantes.TablaLogicaDato.ValoresImagenesResizeWitdhMedium;
+                        entidadResize.TablaLogicaDatosIdHeight = Constantes.TablaLogicaDato.ValoresImagenesResizeHeightMedium;
+                        entidadResize.WidthDefault = Constantes.ConfiguracionImagenResize.WidthImagenMedium;
+                        entidadResize.HeightDefault = Constantes.ConfiguracionImagenResize.HeightImagenMedium;
+                        entidadResize.TipoImagen = "MEDIUM";
+                        listaImagenesResize.Add(entidadResize);
+
+                        mensajeErrorImagenResize = CargarImagenesResize(listaImagenesResize);
 
                         #endregion
 
@@ -772,7 +801,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = true,
-                    message = "Se grabó con éxito la estrategia. " + mensajeImagenesResize,
+                    message = "Se grabó con éxito la estrategia. " + mensajeErrorImagenResize,
                     extra = ""
                 });
             }
@@ -800,70 +829,57 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region Resize Imagen
 
-        private bool GuardarImagenesResize(string codigoIso, string rutaImagenOriginal, string nombreImagenOriginal)
+        private class EntidadResize
         {
-            var resultado = false;
+            public string RutaImagenOriginal { get; set; } 
+            public string RutaImagenResize { get; set; }
+            public int Width { get; set; }
+            public int Height { get; set; }
+            public short TablaLogicaDatosIdWidth { get; set; }
+            public short TablaLogicaDatosIdHeight { get; set; }
+            public int WidthDefault { get; set; }
+            public int HeightDefault { get; set; }
+            public string TipoImagen { get; set; }
 
-            try
+        }
+
+        private string CargarImagenesResize(List<EntidadResize> lista)
+        {
+            var resultado = "";
+
+            var listaValoresImagenesResize = ObtenerParametrosTablaLogica(Constantes.PaisID.Peru, Constantes.TablaLogica.ValoresImagenesResize, true);
+
+            foreach (var item in lista)
             {
-                var listaValoresImagenesResize = ObtenerParametrosTablaLogica(11, Constantes.TablaLogica.ValoresImagenesResize, true);
-
-                if (Util.ExisteUrlRemota(rutaImagenOriginal))
+                if (!Util.ExisteUrlRemota(item.RutaImagenResize))
                 {
-                    string soloImagen = nombreImagenOriginal.Split('.')[0];
-                    string soloExtension = nombreImagenOriginal.Split('.')[1];
-                                        
-                    var extensionNombreImagenSmall = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall;
-                    var rutaImagenSmall = rutaImagenOriginal.Clone().ToString();
-                    rutaImagenSmall = rutaImagenSmall.Replace(soloImagen, soloImagen + extensionNombreImagenSmall);                   
-                    if (!Util.ExisteUrlRemota(rutaImagenSmall))
-                    {
-                        var imagenSmall = soloImagen + extensionNombreImagenSmall + "." + soloExtension;
+                    int width = ObtenerTablaLogicaDimensionImagen(listaValoresImagenesResize, item.TablaLogicaDatosIdWidth);
+                    int height = ObtenerTablaLogicaDimensionImagen(listaValoresImagenesResize, item.TablaLogicaDatosIdHeight);
+                    width = width == 0 ? item.WidthDefault : width;
+                    height = height == 0 ? item.HeightDefault : height;
 
-                        var widthSmallString = ObtenerValorTablaLogica(listaValoresImagenesResize, Constantes.TablaLogicaDato.ValoresImagenesResizeWitdhSmall);
-                        var widthSmall = 0;
-                        var esIntWidthSmall = int.TryParse(widthSmallString, out widthSmall);
-                        widthSmall = esIntWidthSmall ? widthSmall : Constantes.ConfiguracionImagenResize.WidthImagenSmall;
+                    var nombreImagen = Path.GetFileName(item.RutaImagenResize);
+                    var resultadoImagenResize = MagickNetLibrary.GuardarImagenResize(userData.CodigoISO, item.RutaImagenOriginal, nombreImagen, width, height);
 
-                        //var heightSmall = Constantes.ConfiguracionImagenResize.HeightImagenSmall;
-                        var heightSmallString = ObtenerValorTablaLogica(listaValoresImagenesResize, Constantes.TablaLogicaDato.ValoresImagenesResizeHeightSmall);
-                        var heightSmall = 0;
-                        var esIntHeightSmall = int.TryParse(heightSmallString, out heightSmall);
-                        widthSmall = esIntHeightSmall ? heightSmall : Constantes.ConfiguracionImagenResize.HeightImagenSmall;
-
-                        MagickNetLibrary.GuardarImagenResize(userData.CodigoISO, rutaImagenOriginal, widthSmall, heightSmall, imagenSmall);
-                    }
-
-                    var extensionNombreImagenMedium = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium;
-                    var rutaImagenMedium = rutaImagenOriginal.Clone().ToString();
-                    rutaImagenMedium = rutaImagenMedium.Replace(soloImagen, soloImagen + extensionNombreImagenMedium);                    
-                    if (!Util.ExisteUrlRemota(rutaImagenMedium))
-                    {
-                        var imagenMedium = soloImagen + extensionNombreImagenMedium + "." + soloExtension;
-                                                
-                        var widthMediumString = ObtenerValorTablaLogica(listaValoresImagenesResize, Constantes.TablaLogicaDato.ValoresImagenesResizeWitdhMedium);
-                        var widthMedium = 0;
-                        var esIntWidthMedium = int.TryParse(widthMediumString, out widthMedium);
-                        widthMedium = esIntWidthMedium ? widthMedium : Constantes.ConfiguracionImagenResize.WidthImagenMedium;
-                        
-                        var heightMediumString = ObtenerValorTablaLogica(listaValoresImagenesResize, Constantes.TablaLogicaDato.ValoresImagenesResizeWitdhMedium);
-                        var heightMedium = 0;
-                        var esIntHeightMedium = int.TryParse(heightMediumString, out heightMedium);
-                        widthMedium = esIntHeightMedium ? heightMedium : Constantes.ConfiguracionImagenResize.HeightImagenMedium;
-
-                        MagickNetLibrary.GuardarImagenResize(userData.CodigoISO, rutaImagenOriginal, widthMedium, heightMedium, imagenMedium);
-                    }
-
-                    resultado = true;
+                    resultado += resultadoImagenResize
+                        ? ""
+                        : "No se genero la imagen " + item.TipoImagen + ", favor volver a guardar.";
                 }
             }
-            catch (Exception ex)
-            {
-                resultado = false;
-            }            
 
             return resultado;
-        }        
+        }
+
+        private int ObtenerTablaLogicaDimensionImagen(List<BETablaLogicaDatos> lista, short tablaLogicaDatosId)
+        {
+            int resultado = 0;
+            var resultadoString = ObtenerValorTablaLogica(lista, tablaLogicaDatosId);
+            
+            var esInt = int.TryParse(resultadoString, out resultado);
+
+            return esInt ? resultado : 0;
+        }
+        
 
         #endregion
 
