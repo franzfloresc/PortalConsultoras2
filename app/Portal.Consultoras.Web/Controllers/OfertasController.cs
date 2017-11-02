@@ -134,6 +134,8 @@ namespace Portal.Consultoras.Web.Controllers
                     Session[Constantes.ConstSession.TieneOpm] = false;
                 else if (campaniaId != userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.RevistaDigital))
                     Session[Constantes.ConstSession.TieneOpmX1] = false;
+                else if (campaniaId == userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.RevistaDigitalReducida))
+                    Session[Constantes.ConstSession.TieneRdr] = false;
                 return Json(new
                 {
                     estado = "Ok"

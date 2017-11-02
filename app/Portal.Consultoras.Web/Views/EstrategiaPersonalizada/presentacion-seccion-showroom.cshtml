@@ -40,7 +40,14 @@
         }
     </div>
     <div class="clear"></div>
-    <div class="contenido" data-seccion-productos=""></div>
+    @if (mostrarPopupIntriga)
+    {
+        <div data-seccion-productos=""></div>
+    }
+    else
+    {
+        <div class="contenido" data-seccion-productos=""></div>
+    }
 </div>
 
 
