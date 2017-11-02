@@ -3646,6 +3646,7 @@ a.subir_carousel, a.bajar_carousel {
     letter-spacing: 0.2px;
     text-align: center;
     position: relative;
+    overflow: hidden;
 }
 
     .producto_nombre_descripcion h6 {
