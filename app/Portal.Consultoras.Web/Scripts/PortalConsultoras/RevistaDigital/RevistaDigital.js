@@ -110,9 +110,11 @@ $(document).ready(function () {
     $(".flecha_scroll_mob").on('click', function (e) {
 
         e.preventDefault();
-        $('html, body').animate({
-            scrollTop: $('#divTopFiltros').position().top - 60
-        }, 1000, 'swing');
+        if ($('#divTopFiltros').length > 0) {
+            $('html, body').animate({
+                scrollTop: $('#divTopFiltros').position().top - 60
+            }, 1000, 'swing');
+        }
     });
 
     $('.tit_pregunta_ept').click(function (e) {
