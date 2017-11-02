@@ -543,8 +543,10 @@ namespace Portal.Consultoras.BizLogic
         {
             bool esCumpleanio = false;
 
+            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(string.Format("es-{0}", usuario.CodigoISO));
+
             var uFechaNacimiento = usuario.FechaNacimiento;
-            var uFechaActual = DateTime.UtcNow;
+            var uFechaActual = DateTime.Now;
 
             if (uFechaNacimiento != uFechaActual)
             {
