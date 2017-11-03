@@ -24,5 +24,4 @@
     width: -moz-calc(100% -765px);
     width: calc(100% - 765px);
     width: -webkit-calc(100% - 765px);
-    width: -webkit-calc(~'100% - 765px');
 }

@@ -1,8 +1,9 @@
 ﻿@using Portal.Consultoras.Web.Areas.Mobile.Models
 @using Portal.Consultoras.Web.Helpers
 @{
-    ViewBag.Title = "Cambios y Devoluciones";
-    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+
+    var layout = ViewContext.MobileLayout();
+    Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
 }
 
 @section styles
@@ -17,7 +18,7 @@
     }
 }
 
-<div class="titulo_mobile">
+<div class="titulo_mobile fijarTituloMobile">
     @{
         var mobileConfiguracion = Html.MobileAppConfiguracion();
         if (mobileConfiguracion.MostrarBotonAtras)
@@ -33,7 +34,7 @@
 
 @if (ViewBag.Origen == "0")
 {
-    <div class="wrapper_resumen_mobile tipografia_lato bloqueCDRRegistro">
+    <div class="wrapper_resumen_mobile tipografia_lato bloqueCDRRegistro pt-50">
 
         <!-- VISTA SOLICITUD ENVIADA -->
         <div class="content_mensaje_solicitud_enviada">
@@ -165,7 +166,7 @@
 else if (ViewBag.Origen == "1")
 {
     <!-- INICIO VISTA DETALLE SOLICITUD CDR -->
-    <div class="datos_solicitud_cdr_consulta tipografia_lato bloqueCDRDetalle">
+    <div class="datos_solicitud_cdr_consulta tipografia_lato bloqueCDRDetalle pt-78">
         <div class="wrapper_resumen_mobile">
             <div class="datos_solicitud_cdr_titulo tipografia_lato_bold">
                 Solicitud de cambios y devoluciones

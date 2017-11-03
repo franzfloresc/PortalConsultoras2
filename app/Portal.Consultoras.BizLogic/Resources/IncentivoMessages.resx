@@ -123,4 +123,7 @@
   <data name="UrlBannerPremiosProgramaNuevas" xml:space="preserve">
     <value>{0}AppConsultora/{1}/ProgramaNuevas/{2}/Premio{3}.jpg</value>
   </data>
+  <data name="UrlImagenCUV" xml:space="preserve">
+    <value>{0}Matriz/{1}/{2}</value>
+  </data>
 </root>

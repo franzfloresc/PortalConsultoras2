@@ -65,6 +65,7 @@
     <Compile Include="BEEventoFestivo.cs" />
     <Compile Include="BEGPRBanner.cs" />
     <Compile Include="BEGPRUsuario.cs" />
+    <Compile Include="Cliente\BEMovimientoDetalle.cs" />
     <Compile Include="Incentivo\BEIncentivoConcurso.cs" />
     <Compile Include="Incentivo\BEIncentivoNivel.cs" />
     <Compile Include="Incentivo\BEIncentivoPremio.cs" />
@@ -107,8 +108,14 @@
     <Compile Include="Framework\ResponseType.cs" />
     <Compile Include="Framework\StatusEnum.cs" />
     <Compile Include="Incentivo\BEIncentivoProgramaNuevasCupon.cs" />
+    <Compile Include="Incentivo\BEIncentivoProgramaNuevasNivel.cs" />
     <Compile Include="Incentivo\BEIncentivoProgramaNuevasPremio.cs" />
     <Compile Include="Mobile\BEApp.cs" />
+    <Compile Include="Pedido\BEMisPedidosCampania.cs" />
+    <Compile Include="Pedido\BEMisPedidosFacturados.cs" />
+    <Compile Include="Pedido\BEMisPedidosFacturadosDetalle.cs" />
+    <Compile Include="Pedido\BEMisPedidosIngresados.cs" />
+    <Compile Include="Pedido\BEMisPedidosIngresadosDetalle.cs" />
     <Compile Include="ReservaProl\BEPedidoObservacion.cs" />
     <Compile Include="ReservaProl\BEInputReservaProl.cs" />
     <Compile Include="BEPedidoWebDetalleInvariant.cs" />
