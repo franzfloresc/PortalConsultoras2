@@ -362,6 +362,10 @@ namespace Portal.Consultoras.Common
             // Cuarto Dígito
             // 1. Sin popUp                 2. Con popUp
 
+
+            public const int DesktopPedido = 12;
+            public const int MobilePedido = 22;
+
             public const int DesktopHomeBanners = 1111;
             public const int DesktopHomeOfertasParaTi = 1121;
             public const int DesktopHomeOfertasParaTiPopUp = 1122;
