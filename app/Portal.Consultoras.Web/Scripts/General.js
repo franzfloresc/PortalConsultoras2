@@ -1608,25 +1608,25 @@ function odd_google_analytics_product_click(name, id, price, brand, variant, pos
     if (variant == null || variant == "")
         variant = "Estándar";
     dataLayer.push({
-	    'event': 'productClick',
-	    'ecommerce':
-		{
-		    'click':
-			{
-			    'actionField': { 'list': 'Oferta del día' },
-			    'products':
-				[{
-				    'name': name,
-				    'id': id,
-				    'price': price,
-				    'brand': brand,
-				    'category': 'No disponible',
-				    'variant': variant,
-				    'position': position
-				}]
-			}
-		}
-	});
+        'event': 'productClick',
+        'ecommerce':
+        {
+            'click':
+            {
+                'actionField': { 'list': 'Oferta del día' },
+                'products':
+                [{
+                    'name': name,
+                    'id': id,
+                    'price': price,
+                    'brand': brand,
+                    'category': 'No disponible',
+                    'variant': variant,
+                    'position': position
+                }]
+            }
+        }
+    });
 }
 
 function GuardarIndicadorPedidoAutentico() {
@@ -1782,3 +1782,39 @@ Object.defineProperty(Object.prototype, "in", {
     enumerable: false,
     writable: true
 });
+var registerEvent = function (eventName) {
+    var self = this;
+    if (self[eventName]) {
+        console.log("event already exists");
+    }
+
+    self[eventName] = self[eventName] || {};
+    self[eventName].callBacks = [];
+    self[eventName].subscribe = function (cb) {
+        if (!!cb && typeof cb == "function") {
+            self[eventName].callBacks.push(cb);
+            return;
+        }
+
+        console.log("invalid callback " + cb);
+    }
+
+    self.subscribe = function (event, cb) {
+        if (!!event) {
+            if (self[event]) {
+                self[event].subscribe(cb);
+                return;
+            }
+        }
+
+        console.log("no event exists " + event);
+    }
+
+    self.applyChanges = function (event, args) {
+        if (self[event]) {
+            self[event].callBacks.forEach(function (cb) {
+                cb.call(undefined, args);
+            });
+        }
+    }
+}

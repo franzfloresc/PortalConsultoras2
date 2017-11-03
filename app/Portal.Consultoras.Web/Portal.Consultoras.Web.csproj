@@ -27,7 +27,7 @@
     <RestorePackages>true</RestorePackages>
     <DeployOnBuild Condition=" '$(DeployWEB)'!='' ">$(DeployWEB)</DeployOnBuild>
     <UseGlobalApplicationHostFile />
-    <IISExpressSSLPort>44393</IISExpressSSLPort>
+    <IISExpressSSLPort>41615</IISExpressSSLPort>
     <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -231,6 +231,11 @@
     <Compile Include="Areas\Mobile\Models\ClienteMobileModel.cs" />
     <Compile Include="Areas\Mobile\Models\EstadoCuentaMobilModel.cs" />
     <Compile Include="Areas\Mobile\Models\MenuMobileModel.cs" />
+    <Compile Include="Areas\Mobile\Models\MisPedidosCampaniaModel.cs" />
+    <Compile Include="Areas\Mobile\Models\MisPedidosFacturadosDetalleModel.cs" />
+    <Compile Include="Areas\Mobile\Models\MisPedidosFacturadosModel.cs" />
+    <Compile Include="Areas\Mobile\Models\MisPedidosIngresadosDetalleModel.cs" />
+    <Compile Include="Areas\Mobile\Models\MisPedidosIngresadosModel.cs" />
     <Compile Include="Areas\Mobile\Models\NotificacionesMobileModel.cs" />
     <Compile Include="Areas\Mobile\Models\OfertaProductoMobilModel.cs" />
     <Compile Include="Areas\Mobile\Models\OfertaProductoPrincipalMobileModel.cs" />
@@ -373,6 +378,7 @@
     <Compile Include="Controllers\UneteController.cs" />
     <Compile Include="Controllers\UpdatePassSACController.cs" />
     <Compile Include="Controllers\UsuarioRolController.cs" />
+    <Compile Include="CustomFilters\ClearSessionMobileAppAttribute.cs" />
     <Compile Include="CustomFilters\LogErrorAttribute.cs" />
     <Compile Include="CustomFilters\LogActionFilter.cs" />
     <Compile Include="CustomFilters\LogActionFilterProvider.cs" />
@@ -397,7 +403,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ControllerExtensions.cs" />
+    <Compile Include="Helpers\RouteExtensions.cs" />
+    <Compile Include="Helpers\SessionExtensions.cs" />
     <Compile Include="Helpers\ViewExtensions.cs" />
+    <Compile Include="Infraestructure\Settings.cs" />
     <Compile Include="Infraestructure\UniqueRoute.cs" />
     <Compile Include="LogManager\ILogManager.cs" />
     <Compile Include="LogManager\LogManager.cs" />
@@ -3379,9 +3388,7 @@
     <Content Include="Areas\Mobile\Views\Shared\_MobileLayout.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\_MobileMenuFooter.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\_MobileMenuLateral.cshtml" />
-    <Content Include="Areas\Mobile\Views\Web.config">
-      <SubType>Designer</SubType>
-    </Content>
+    <Content Include="Areas\Mobile\Views\Web.config" />
     <Content Include="Areas\Mobile\Views\NovedadesCampania\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\Catalogo\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\Cliente\Index.cshtml" />
@@ -3598,6 +3605,9 @@
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloquePopupSesionFinalizada.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloquePopupPostulante.cshtml" />
     <Content Include="Areas\Mobile\Views\GuiaNegocio\Index.cshtml" />
+    <Content Include="Content\FAQ\CodigoEticaCAPEVEDI_PE.pdf" />
+    <Content Include="Content\FAQ\QUIZCAPEVEDI_PE.pdf" />
+    <Content Include="Areas\Mobile\Views\Shared\_MobileLayoutPedidoEmpty.cshtml" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>
@@ -3727,6 +3737,12 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServicePedido\PedidoService10.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServicePedido\PedidoService11.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServicePedido\PedidoService111.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServicePedido\PedidoService2.xsd">
@@ -4425,6 +4441,7 @@
     <Content Include="Views\GuiaNegocio\Index.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\template-producto-landing.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-descargables-navidenos.cshtml" />
+    <Content Include="Areas\Mobile\Views\Util\_barra.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

@@ -21,6 +21,9 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
+using Portal.Consultoras.PublicService.Cryptography;
+using Portal.Consultoras.Web.Helpers;
+using WebGrease.Css.Extensions;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -781,7 +784,7 @@ namespace Portal.Consultoras.Web.Controllers
                         model.EsUsuarioComunidad = EsUsuarioComunidad(oBEUsuario.PaisID, oBEUsuario.CodigoUsuario);
                     }
 
-                    model.SegmentoConstancia = oBEUsuario.SegmentoConstancia ?? "";
+                    model.SegmentoConstancia = oBEUsuario.SegmentoConstancia;
                     model.SeccionAnalytics = oBEUsuario.SeccionAnalytics;
                     model.DescripcionNivel = oBEUsuario.DescripcionNivel;
                     model.esConsultoraLider = oBEUsuario.esConsultoraLider;
@@ -1570,15 +1573,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public ActionResult checkExternalUser(string codigoISO, string proveedor, string appid)
         {
-            if (codigoISO != Constantes.CodigosISOPais.Peru)
-            {
-                return Json(new
-                {
-                    success = false,
-                    message = "Error al procesar la solicitud"
-                });
-            }
-
             pasoLog = "Login.POST.checkExternalUser";
             BEUsuarioExterno beUsuarioExt = null;
             bool f = false;
@@ -1679,19 +1673,10 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [AllowAnonymous]
+        [HttpGet]
         public ActionResult IngresoExterno(string token)
         {
-            if (!RouteData.Values.ContainsKey("guid"))
-            {
-                return RedirectToRoute("UniqueRoute",
-                     new RouteValueDictionary(new
-                     {
-                         Controller = "Login",
-                         Action = "IngresoExterno",
-                         guid = Guid.NewGuid().ToString(),
-                         token = token
-                     }));
-            }
+            this.SetUniqueKeyAvoiding(Guid.NewGuid());
 
             IngresoExternoModel model = null;
             try
@@ -1715,110 +1700,54 @@ namespace Portal.Consultoras.Web.Controllers
                     MostrarBotonAtras = !model.EsAppMobile,
                     ClienteID = model.ClienteID,
                     MostrarHipervinculo = !model.EsAppMobile,
-                    EsAppMobile = model.EsAppMobile
+                    EsAppMobile = model.EsAppMobile,
+                    TimeOutSession = (int)FormsAuthentication.Timeout.TotalMinutes
                 });
 
                 this.SetUniqueSession("IngresoExterno", model.Version ?? "");
 
                 if (!string.IsNullOrEmpty(model.Identifier))
-                {
                     Session.Add("TokenPedidoAutentico", AESAlgorithm.Encrypt(model.Identifier));
-                }
+
+                Session["StartSession"] = DateTime.Now;
 
                 switch (model.Pagina.ToUpper())
                 {
                     case Constantes.IngresoExternoPagina.EstadoCuenta:
-                        return RedirectToRoute("UniqueRoute",
-                            new RouteValueDictionary(new
-                            {
-                                Controller = "EstadoCuenta",
-                                Action = "Index",
-                                guid = this.GetUniqueKey()
-                            }));
+                        return RedirectToUniqueRoute("EstadoCuenta", "Index", null);
                     case Constantes.IngresoExternoPagina.SeguimientoPedido:
-                        return RedirectToRoute("UniqueRoute",
-                            new RouteValueDictionary(new
-                            {
-                                Controller = "SeguimientoPedido",
-                                Action = "Index",
-                                guid = this.GetUniqueKey(),
-                                campania = model.Campania,
-                                numeroPedido = model.NumeroPedido
-                            }));
+                        return RedirectToUniqueRoute("SeguimientoPedido", "Index",
+                            new { campania = model.Campania, numeroPedido = model.NumeroPedido });
                     case Constantes.IngresoExternoPagina.PedidoDetalle:
                         var listTrue = new List<string> { "1", bool.TrueString };
                         bool autoReservar = listTrue.Any(s => s.Equals(model.AutoReservar, StringComparison.OrdinalIgnoreCase));
-                        return RedirectToRoute("UniqueRoute",
-                            new RouteValueDictionary(new
-                            {
-                                Controller = "Pedido",
-                                Action = "Detalle",
-                                guid = this.GetUniqueKey(),
-                                autoReservar = autoReservar
-                            }));
+                        return RedirectToUniqueRoute("Pedido", "Detalle", new { autoReservar = autoReservar });
                     case Constantes.IngresoExternoPagina.NotificacionesValidacionAuto:
-                        return RedirectToRoute("UniqueRoute",
-                            new RouteValueDictionary(new
-                            {
-                                Controller = "Notificaciones",
-                                Action = "ListarObservaciones",
-                                guid = this.GetUniqueKey(),
-                                ProcesoId = model.ProcesoId,
-                                TipoOrigen = 1
-                            }));
+                        return RedirectToUniqueRoute("Notificaciones", "ListarObservaciones",
+                            new { ProcesoId = model.ProcesoId, TipoOrigen = 1 });
                     case Constantes.IngresoExternoPagina.Pedido:
-                        return RedirectToRoute("UniqueRoute",
-                            new RouteValueDictionary(new
+                        return RedirectToUniqueRoute("Pedido", "Index",
+                            new
                             {
-                                Controller = "Pedido",
-                                Action = "Index",
-                                guid = this.GetUniqueKey(),
                                 ProcesoId = model.ProcesoId,
                                 TipoOrigen = 1
-                            }));
+                            });
                     case Constantes.IngresoExternoPagina.CompartirCatalogo:
-                        return RedirectToRoute("UniqueRoute",
-                            new RouteValueDictionary(new
+                        return RedirectToUniqueRoute("Compartir", "CompartirEnChatBot",
+                            new
                             {
-                                Controller = "Compartir",
-                                Action = "CompartirEnChatBot",
-                                guid = this.GetUniqueKey(),
                                 campania = model.Campania,
                                 tipoCatalogo = model.TipoCatalogo,
                                 url = model.UrlCatalogo
-                            }));
+                            });
                     case Constantes.IngresoExternoPagina.MisPedidos:
-                        return RedirectToRoute("UniqueRoute",
-                            new RouteValueDictionary(new
-                            {
-                                Controller = "MisPedidos",
-                                Action = "Index",
-                                guid = this.GetUniqueKey()
-                            }));
+                        return RedirectToUniqueRoute("MisPedidos", "Index", null);
                     case Constantes.IngresoExternoPagina.ShowRoom:
-                        return RedirectToRoute("UniqueRoute",
-                            new RouteValueDictionary(new
-                            {
-                                Controller = "ShowRoom",
-                                Action = "Procesar",
-                                guid = this.GetUniqueKey()
-                            }));
+                        return RedirectToUniqueRoute("ShowRoom", "Procesar", null);
                     case Constantes.IngresoExternoPagina.ProductosAgotados:
-                        return RedirectToRoute("UniqueRoute",
-                            new RouteValueDictionary(new
-                            {
-                                Controller = "ProductosAgotados",
-                                Action = "Index",
-                                guid = this.GetUniqueKey()
-                            }));
+                        return RedirectToUniqueRoute("ProductosAgotados", "Index", null);
                     case Constantes.IngresoExternoPagina.Ofertas:
-                        return RedirectToRoute("UniqueRoute",
-                            new RouteValueDictionary(new
-                            {
-                                Controller = "Ofertas",
-                                Action = "Index",
-                                guid = this.GetUniqueKey()
-                            }));
+                        return RedirectToUniqueRoute("Ofertas", "Index", null);
                 }
             }
             catch (Exception ex)
@@ -1906,5 +1835,25 @@ namespace Portal.Consultoras.Web.Controllers
             return (anioCampaniaResult * 100) + nroCampaniaResult;
         }
 
+        private RedirectToRouteResult RedirectToUniqueRoute(string controller, string action, object routeData)
+        {
+            var route = new RouteValueDictionary(new
+            {
+                Controller = controller,
+                Action = action,
+                guid = this.GetUniqueKey()
+            });
+
+            if (routeData != null)
+            {
+                var routeDataAditional = new RouteValueDictionary(routeData);
+                routeDataAditional.ForEach(item =>
+                {
+                    route.Add(item.Key, item.Value);
+                });
+            }
+
+            return RedirectToRoute("UniqueRoute", route);
+        }
     }
 }
