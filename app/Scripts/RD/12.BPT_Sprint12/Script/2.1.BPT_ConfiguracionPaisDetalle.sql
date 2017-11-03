@@ -1,4 +1,6 @@
 
+Use BelcorpPeru
+
 GO
 
 declare @idConfiPaisDetalle int = 0
@@ -16,10 +18,22 @@ insert into ConfiguracionPaisDetalle (
 )
 values (
 	@idConfiPaisDetalle,
-	'60', NULL,
+	'70', NULL,
 	NULL, NULL,
 	1, NULL
 )
 
+insert into ConfiguracionPaisDetalle (
+	ConfiguracionPaisID,
+	CodigoRegion, CodigoZona,
+	CodigoSeccion, CodigoConsultora,
+	Estado, BloqueoRevistaImpresa
+)
+values (
+	@idConfiPaisDetalle,
+	'80', NULL,
+	NULL, NULL,
+	1, NULL
+)
 
 GO
