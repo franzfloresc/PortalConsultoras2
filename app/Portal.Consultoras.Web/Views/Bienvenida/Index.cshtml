@@ -2343,7 +2343,7 @@
         var contadorFondoPopUp = 0;
         var viewBagVioVideo = '@Model.VioVideoBienvenidaModel';
         var viewBagVioTutorial = '@Model.VioTutorialDesktop';
-        var sessionIsContrato = '@Session["IsContrato"]';
+        var sessionIsContrato = '@Portal.Consultoras.Web.SessionManager.SessionManager.Instance.GetIsContrato()';
         var paisISO = '@ViewBag.CodigoISODL';
         var UrlImgMiAcademia = '@ViewBag.UrlImgMiAcademia';
         var primeraVezVideo = true;
@@ -2427,5 +2427,5 @@
         var verSeccion = '@ViewBag.VerSeccion' || '';
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
-    @{ Session["IsContrato"] = 0; }
+    @{ Portal.Consultoras.Web.SessionManager.SessionManager.Instance.SetIsContrato(0); }
 }

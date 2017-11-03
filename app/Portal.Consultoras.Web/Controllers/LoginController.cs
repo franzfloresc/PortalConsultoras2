@@ -575,7 +575,7 @@ namespace Portal.Consultoras.Web.Controllers
         private UsuarioModel GetUserData(int PaisID, string CodigoUsuario, int refrescarDatos = 0)
         {
             pasoLog = "Login.GetUserData";
-            Session["IsContrato"] = 1;
+            sessionManager.SetIsContrato(1);
             Session["IsOfertaPack"] = 1;
 
             UsuarioModel model = null;

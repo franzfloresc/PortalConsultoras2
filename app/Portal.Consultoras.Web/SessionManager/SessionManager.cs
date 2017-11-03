@@ -105,5 +105,15 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return (RevistaDigitalModel)HttpContext.Current.Session[Constantes.ConstSession.RevistaDigital];
         }
+
+        void ISessionManager.SetIsContrato(int isContrato)
+        {
+            HttpContext.Current.Session["IsContrato"] = isContrato;
+        }
+
+        int ISessionManager.GetIsContrato()
+        {
+            return (int)HttpContext.Current.Session["IsContrato"];
+        }
     }
 }
