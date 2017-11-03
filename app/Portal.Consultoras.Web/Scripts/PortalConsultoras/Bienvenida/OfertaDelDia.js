@@ -32,7 +32,7 @@ $(document).ready(function () {
         UrlAgregarProducto: 'Pedido/AgregarProductoZE',
         EsPaginaIntriga: (window.location.href.toLowerCase().indexOf("intriga") > 0),
         TipoOrigenPantallaODD: TipoOrigenPantallaODD,
-        OrigenDesktopODD: OrigenDesktopODD
+        OrigenDesktopODD: OrigenDesktopODD //para Analytics
     };
 
     var CONS_POSICION_BANNER = {

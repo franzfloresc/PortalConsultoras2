@@ -136,9 +136,9 @@ namespace Portal.Consultoras.Web.Controllers
                 lst.Update(x => x.ImagenEstrategia = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenEstrategia, Globals.RutaImagenesMatriz + "/" + UserData().CodigoISO));
 
                 var lista = (from a in lst
-                            where a.FlagActivo == 1
-                            && a.Codigo == (TipoVistaEstrategia == Constantes.TipoVistaEstrategia.ProgramaNuevas ? Constantes.TipoEstrategiaCodigo.IncentivosProgramaNuevas : a.Codigo)
-                            select a);
+                             where a.FlagActivo == 1
+                             && a.Codigo == (TipoVistaEstrategia == Constantes.TipoVistaEstrategia.ProgramaNuevas ? Constantes.TipoEstrategiaCodigo.IncentivosProgramaNuevas : a.Codigo)
+                             select a);
 
                 Mapper.CreateMap<BETipoEstrategia, TipoEstrategiaModel>()
                     .ForMember(t => t.TipoEstrategiaID, f => f.MapFrom(c => c.TipoEstrategiaID))
@@ -524,7 +524,7 @@ namespace Portal.Consultoras.Web.Controllers
                 int resultado = -1, tipo = -1;
                 if (FlagRecoProduc == "1") tipo = 0;
                 if (FlagRecoPerfil == "1") tipo = 1;
-                
+
                 List<BEEstrategia> lst;
                 var entidad = new BEEstrategia
                 {
@@ -536,7 +536,7 @@ namespace Portal.Consultoras.Web.Controllers
                     Activo = Convert.ToInt32(flag),
                     Cantidad = tipo
                 };
-                
+
                 using (var sv = new PedidoServiceClient())
                 {
                     lst = sv.GetOfertaByCUV(entidad).ToList();
@@ -550,7 +550,7 @@ namespace Portal.Consultoras.Web.Controllers
                 int enMatrizComercial = 1, idMatrizComercial = 0;
 
                 if (lst.Count <= 0) throw new Exception("No se econtro el CUV ingresado.");
-                
+
                 if (tipo != 1)
                 {
                     if (resultado == 0)
@@ -574,7 +574,7 @@ namespace Portal.Consultoras.Web.Controllers
                 using (var svs = new WsGestionWeb())
                 {
                     //svs.Url = ConfigurarUrlServiceProl();
-                    var preciosEstrategia =  svs.ObtenerPrecioEstrategia(CUV2, userData.CodigoISO, CampaniaID);
+                    var preciosEstrategia = svs.ObtenerPrecioEstrategia(CUV2, userData.CodigoISO, CampaniaID);
                     wspreciopack = preciosEstrategia.montotal;
                     ganancia = preciosEstrategia.montoganacia;
                 }
@@ -1366,8 +1366,8 @@ namespace Portal.Consultoras.Web.Controllers
                      estrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertaDelDia ||
                      estrategiaCodigo == Constantes.TipoEstrategiaCodigo.LosMasVendidos ||
                      estrategiaCodigo == Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada);
-                    
-                    
+
+
                     foreach (var opt in listBeEstrategias)
                     {
                         #region precioOferta
@@ -1398,7 +1398,7 @@ namespace Portal.Consultoras.Web.Controllers
                         try
                         {
                             var productoEstrategias = new List<RptProductoEstrategia>();
-                           
+
                             if (tono)
                             {
                                 opt.CampaniaID = campaniaId;
