@@ -180,8 +180,15 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var ip = string.Empty;
 
-            var request = new HttpRequestWrapper(System.Web.HttpContext.Current.Request);
-            ip = request.ClientIPFromRequest(skipPrivate: true);
+            try
+            {
+                var request = new HttpRequestWrapper(System.Web.HttpContext.Current.Request);
+                ip = request.ClientIPFromRequest(skipPrivate: true);
+            }
+            catch (Exception ex)
+            {
+                logManager.LogErrorWebServicesBusWrap(ex, string.Empty, string.Empty, "LoginController.GetIpCliente");
+            }
 
             return ip;
         }
@@ -609,23 +616,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (string.IsNullOrEmpty(codigoUsuario))
                     throw new ArgumentException("Parámetro codigoUsuario no puede ser vacío.");
 
-                using (var usuarioServiceClient = new UsuarioServiceClient())
-                {
-                    usuario = usuarioServiceClient.GetSesionUsuario(paisId, codigoUsuario);
-
-                    if (usuario != null && refrescarDatos == 0)
-                    {
-                        try
-                        {
-                            usuarioServiceClient.InsLogIngresoPortal(paisId, usuario.CodigoConsultora, GetIpCliente(), 1, usuario.CampaniaID.ToString());
-                        }
-                        catch (Exception ex)
-                        {
-                            logManager.LogErrorWebServicesBusWrap(ex, usuario.CodigoConsultora, paisId.ToString(),string.Empty);
-                            pasoLog = "Ocurrió un error al registrar log de ingreso al portal";
-                        }
-                    }
-                }
+                usuario = GetUsuarioAndLogsIngresoPortal(paisId, codigoUsuario, refrescarDatos);
 
                 if (usuario != null)
                 {
@@ -866,10 +857,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                             if (usuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
                             {
-                                using (ContenidoServiceClient sv = new ContenidoServiceClient())
-                                {
-                                    usuarioModel.MontoDeuda = sv.GetMontoDeuda(usuarioModel.PaisID, usuarioModel.CampaniaID, usuarioModel.ConsultoraID, usuarioModel.CodigoUsuario, false);
-                                }
+                                usuarioModel.MontoDeuda = GetMontoDeuda(usuarioModel);
                             }
 
                             usuarioModel.IndicadorFlexiPago = usuario.IndicadorFlexiPago;
@@ -879,11 +867,9 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 if (usuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
                                 {
-                                    using (PedidoServiceClient svc = new PedidoServiceClient())
-                                    {
-                                        BEOfertaFlexipago beOfertaFlexipago = svc.GetLineaCreditoFlexipago(usuarioModel.PaisID, usuarioModel.CodigoConsultora, usuarioModel.CampaniaID);
-                                        usuarioModel.MontoMinimoFlexipago = string.Format("{0:#,##0.00}", (beOfertaFlexipago.MontoMinimoFlexipago < 0 ? 0M : beOfertaFlexipago.MontoMinimoFlexipago));
-                                    }
+                                    var ofertaFlexipago = GetLineaCreditoFlexipago(usuarioModel);
+                                    usuarioModel.MontoMinimoFlexipago = string.Format("{0:#,##0.00}", (ofertaFlexipago.MontoMinimoFlexipago < 0 ? 0M : ofertaFlexipago.MontoMinimoFlexipago));
+
                                 }
                             }
                         }
@@ -1191,18 +1177,77 @@ namespace Portal.Consultoras.Web.Controllers
             return usuarioModel;
         }
 
-        public List<TipoLinkModel> GetLinksPorPais(int PaisID)
+        private static BEOfertaFlexipago GetLineaCreditoFlexipago(UsuarioModel usuarioModel)
         {
-            List<BETipoLink> listModel = new List<BETipoLink>();
-            using (ContenidoServiceClient sv = new ContenidoServiceClient())
+            BEOfertaFlexipago ofertaFlexipago;
+            using (var svc = new PedidoServiceClient())
             {
-                listModel = sv.GetLinksPorPais(PaisID).ToList();
+                ofertaFlexipago = svc.GetLineaCreditoFlexipago(usuarioModel.PaisID, usuarioModel.CodigoConsultora, usuarioModel.CampaniaID);
             }
 
-            Mapper.CreateMap<BETipoLink, TipoLinkModel>()
-                  .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                  .ForMember(t => t.TipoLinkID, f => f.MapFrom(c => c.TipoLinkID))
-                  .ForMember(t => t.Url, f => f.MapFrom(c => c.Url));
+            return ofertaFlexipago;
+        }
+
+        private decimal GetMontoDeuda(UsuarioModel usuarioModel)
+        {
+            var montoDeuda = 0.0M;
+
+            try
+            {
+                using (var contenidoServiceClient = new ContenidoServiceClient())
+                {
+                    montoDeuda = contenidoServiceClient.GetMontoDeuda(usuarioModel.PaisID, usuarioModel.CampaniaID, usuarioModel.ConsultoraID, usuarioModel.CodigoUsuario, false);
+                }
+            }
+            catch (Exception ex)
+            {
+                logManager.LogErrorWebServicesBusWrap(ex, usuarioModel.CodigoConsultora, usuarioModel.PaisID.ToString(), "LoginController.GetMontoDeuda");
+            }
+
+            return montoDeuda;
+        }
+
+        protected virtual ServiceUsuario.BEUsuario GetUsuarioAndLogsIngresoPortal(int paisId, string codigoUsuario, int refrescarDatos)
+        {
+            ServiceUsuario.BEUsuario usuario;
+            using (var usuarioServiceClient = new UsuarioServiceClient())
+            {
+                usuario = usuarioServiceClient.GetSesionUsuario(paisId, codigoUsuario);
+
+                if (usuario != null && refrescarDatos == 0)
+                {
+                    try
+                    {
+                        usuarioServiceClient.InsLogIngresoPortal(paisId, usuario.CodigoConsultora, GetIpCliente(), 1, usuario.CampaniaID.ToString());
+                    }
+                    catch (Exception ex)
+                    {
+                        logManager.LogErrorWebServicesBusWrap(ex, usuario.CodigoConsultora, paisId.ToString(), string.Empty);
+                        pasoLog = "Ocurrió un error al registrar log de ingreso al portal";
+                    }
+                }
+            }
+
+            return usuario;
+        }
+
+        protected virtual List<TipoLinkModel> GetLinksPorPais(int paisId)
+        {
+            List<BETipoLink> listModel;
+
+            try
+            {
+                using (var contenidoServiceClient = new ContenidoServiceClient())
+                {
+                    listModel = contenidoServiceClient.GetLinksPorPais(paisId).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                listModel = new List<BETipoLink>();
+                logManager.LogErrorWebServicesBusWrap(ex, string.Empty, paisId.ToString(), "LoginController.GetLinksPorPais");
+            }
+            
 
             return Mapper.Map<IList<BETipoLink>, List<TipoLinkModel>>(listModel);
         }
