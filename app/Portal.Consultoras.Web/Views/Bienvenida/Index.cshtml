@@ -11,6 +11,7 @@
         .contenedorCuponInfo .contenedor-texto-agregar {
             display: inline-block;
         }
+        
     </style>
 }
 
@@ -2220,7 +2221,7 @@
 </div>
 <!--FIN-->
 <!--NUEVO POP UP DE SHOWROOM Venta-->
-<div class="Content_general_pop_up" style="display: none;" id="PopShowroomVenta" data-popup-main="" data-popup-function-hide="SRPopupCerrar('V')">
+<!--<div class="Content_general_pop_up"  id="PopShowroomVenta" data-popup-main="" data-popup-function-hide="SRPopupCerrar('V')">
     <div class="content_pop_up_intriga" data-popup-body>
         <input type="hidden" id="hdEventoIDShowRoomVenta" />
         <input type="hidden" id="spnShowRoomEventoVenta" />
@@ -2238,6 +2239,26 @@
         <img class="imagen_dias_intriga" src="@Url.Content("~/Content/Images/showroom/POPUP_COMPRAR.png")" onclick="VerShowRoomVenta()" style="cursor: pointer;" />
     </div>
 
+</div>-->
+<div class="Content_general_pop_up" id="PopRDSuscripcion" data-popup-main="" style="font-family: 'Lato' !important; display: block !important;" data-popup-function-hide="RDPopupCerrar(0)">
+    <div class="content_pop_up_intriga" data-popup-body>
+        <div class="contenido-popup-nuevo-2017">
+            <div class="centrar-estructura">
+                <div class="centrar-vertical-contenido">
+                    <p class="primer-texto">
+                        DILE ADIÓS A
+                        LOS CÓDIGOS…
+                    </p>
+                    <p class="segundo-texto">
+                        ¡DILE SÍ A
+                        OFERTAS GANA +!
+                    </p>
+                    <a href="" class="btn-popup">ENTÉRATE AQUÍ</a>
+                </div>
+                <a class="cerrar-popup"><img src="@Url.Content("~/Content/Images/close-icon.svg")" alt=""></a>
+            </div>
+        </div>
+    </div>
 </div>
 <!--FIN-->
 <!--POP UP DE CUPON-->
@@ -2250,7 +2271,7 @@
 <!-- POPUP REVISTA DIGITAL Suscripcion -->
 @if (Model.RevistaDigital.TieneRDS == true)
 {
-    <div class="Content_general_pop_up" id="PopRDSuscripcion" data-popup-main="" style="font-family: 'Lato' !important" data-popup-function-hide="RDPopupCerrar(0)">
+    <div class="Content_general_pop_up" id="PopRDSuscripcion" data-popup-main="" style="font-family: 'Lato' !important;" data-popup-function-hide="RDPopupCerrar(0)">
         <div class="popup_rd rd_inscripcion" style="width: 940px;" data-popup-body="">
             <a class="cerrar_fichaProducto" style="position: absolute; top:0px; right: 65px;" data-popup-close="">
                 <img src="/Content/Images/cerrar_04_blanco.png" alt="Cerrar">
@@ -2290,28 +2311,29 @@
             </div>
         </div>
     </div>
-    <!-- FIN POPUP REVISTA DIGITAL Suscripcion -->
-    <!-- POPUP INSCRITA A REVISTA DIGITAL -->
-    @Html.Partial("~/Views/RevistaDigital/template-mensaje-inscrita.cshtml", (int)Model.CampaniaMasDos)
-}
-<!-- FIN POPUP INSCRITA A REVISTA DIGITAL -->
-<!--FIN REVISTA DIGITAL-->
-<!--EPD-1204 INICIO-->
-<script id="js-LugaresPago" type="text/x-handlebars-template">
-    {{#each this.listaLugaresPago as |lugar|}}
-    <div>
-        <a href="{{lugar.UrlSitio}}" class="logos_bancos" target="_blank" onclick="EventoAnalytics('{{lugar.Nombre}}', 2)">
-            <img src='{{lugar.ArchivoLogo}}' alt="Logo Lugar de Pago" />
-        </a>
-    </div>
-    {{/each}}
-</script>
+        
+        <!-- FIN POPUP REVISTA DIGITAL Suscripcion -->
+        <!-- POPUP INSCRITA A REVISTA DIGITAL -->
+        @Html.Partial("~/Views/RevistaDigital/template-mensaje-inscrita.cshtml", (int)Model.CampaniaMasDos)
+        }
+        <!-- FIN POPUP INSCRITA A REVISTA DIGITAL -->
+        <!--FIN REVISTA DIGITAL-->
+        <!--EPD-1204 INICIO-->
+        <script id="js-LugaresPago" type="text/x-handlebars-template">
+            {{#each this.listaLugaresPago as |lugar|}}
+            <div>
+                <a href="{{lugar.UrlSitio}}" class="logos_bancos" target="_blank" onclick="EventoAnalytics('{{lugar.Nombre}}', 2)">
+                    <img src='{{lugar.ArchivoLogo}}' alt="Logo Lugar de Pago" />
+                </a>
+            </div>
+            {{/each}}
+        </script>
 
-@System.Web.Optimization.Scripts.Render("~/Scripts/PortalConsultoras/Bienvenida/AsesoraOnline.js")
+        @System.Web.Optimization.Scripts.Render("~/Scripts/PortalConsultoras/Bienvenida/AsesoraOnline.js")
 
-<!--EPD-1204 FIN-->
-@section scripts{
-    <script type="text/javascript">
+        <!--EPD-1204 FIN-->
+        @section scripts{
+            <script type="text/javascript">
         var viewBagInscritaFlexipago = '@Model.InscritaFlexipago';
         var viewBagPrimeraVezSession = '@Model.PrimeraVezSession';
         var viewBagPrimeraVez = '@Model.PrimeraVez';
@@ -2424,7 +2446,7 @@
 
         asesoraOnlineObj.asignarEventos(paisISO, viewBagCodigoConsultora);
         var verSeccion = '@ViewBag.VerSeccion' || '';
-    </script>
-    @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
-    @{ Session["IsContrato"] = 0; }
-}
+            </script>
+            @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
+            @{ Session["IsContrato"] = 0; }
+        }
