@@ -19,19 +19,19 @@ $(document).ready(function () {
             campana: VirtualCoachCampana || 0
         };
         me.globals = {
-            Producto : null
+            Producto: null
         };
         me.Funciones = {
             InicializarEventos: function () {
                 $(document).on('click', '#btnAceptarNoHayProducto', me.Funciones.IrASeccionBienvenida);
             },
             Ready: function () {
-                debugger;
+                
                 if (!window.hasOwnProperty('detalleFichaProducto'))
                     FichaProducto.Funciones.ObtenerProducto();
 
                 if (isMobile()) {
-                    
+
                     var cabecera = document.getElementsByTagName("head")[0];
                     var nuevoScript = document.createElement('script');
                     nuevoScript.type = 'text/javascript';
@@ -48,12 +48,12 @@ $(document).ready(function () {
             AlertaMensaje: function (mensaje) {
                 alert_msg(mensaje);
             },
-            IrASeccionBienvenida: function () {                
+            IrASeccionBienvenida: function () {
                 if (!window.hasOwnProperty("seccionMisOfertas")) {
                     Object.defineProperty(window, 'seccionMisOfertas', { value: 'MisOfertas' });
                 }
                 var url = "/Bienvenida?verSeccion=" + seccionMisOfertas;
-                window.location = url;              
+                window.location = url;
             },
             VerDetalleFichaProducto: function (ficha) {
                 ficha.Posicion = 1;
@@ -122,20 +122,21 @@ $(document).ready(function () {
                 me.Funciones.CloseLoading();
             },
             ObtenerProducto: function () {
+               
                 if (me.settings.cuv !== "") {
                     var fichaPromise = me.Funciones.ObtenerProductoPromise(me.settings.cuv, me.settings.campana);
 
                     $.when(fichaPromise).then(function (response) {
                         if (checkTimeout(response)) {
                             if (response !== null) {
-                                
+                              
                                 var cabecera = document.getElementsByTagName("head")[0];
                                 var nuevoScript = document.createElement('script');
                                 nuevoScript.type = 'text/javascript';
                                 nuevoScript.src = "https://ok383.infusionsoft.com/app/webTracking/getTrackingCode";
                                 nuevoScript.id = "infusionsoft";
                                 cabecera.appendChild(nuevoScript);
-                                me.globals.Producto = response; 
+                                me.globals.Producto = response;
                                 dataLayer.push({
                                     'event': 'promotionView',
                                     'ecommerce': {
@@ -149,7 +150,7 @@ $(document).ready(function () {
                                                 }]
                                         }
                                     }
-                                }); 
+                                });
                                 me.Funciones.VerDetalleFichaProducto(response);
                             } else {
                                 me.Funciones.AlertaMensajeProductoNotFound();
@@ -158,7 +159,7 @@ $(document).ready(function () {
                     });
                 }
             },
-            ObtenerProductoPromise: function (cuv,campaniaId) {
+            ObtenerProductoPromise: function (cuv, campaniaId) {
                 var d = $.Deferred();
 
                 var promise = $.ajax({
@@ -194,15 +195,15 @@ $(document).ready(function () {
 
                 }
                 $("#popupDetalleCarousel_lanzamiento [data-tono-div]").css("height", Math.max(h, w) + 5);
-                
+
 
             },
-            ProductoAgregar: function (event, popup, limite) {                
+            ProductoAgregar: function (event, popup, limite) {
                 var obj = {};
                 var htmlObj = $("[data-item=" + VirtualCoachCuv + "]").find("[data-ficha]").attr("data-ficha");
                 if (isMobile() && htmlObj)
                     obj = JSON.parse(htmlObj);
-                
+
                 var ficha = me.globals.Producto || obj;
 
                 var objInput = $(event.target);
@@ -240,7 +241,7 @@ $(document).ready(function () {
                 }
 
                 me.Funciones.ShowLoading();
-                
+
                 var cuvs = "";
                 var CodigoVariante = ficha.CodigoVariante;
                 if ((CodigoVariante == "2001" || CodigoVariante == "2003") && popup) {
@@ -261,11 +262,11 @@ $(document).ready(function () {
 
                 if (!origenPedidoWebFichaProducto) {
                     origenPedidoWebFichaProducto =
-                       $(objInput).parents("[data-item]").find("input.OrigenPedidoWeb").val()
-                      || $(objInput).parents("[data-item]").attr("OrigenPedidoWeb")
-                      || $(objInput).parents("[data-item]").attr("data-OrigenPedidoWeb")
-                      || $(objInput).parents("[data-OrigenPedidoWeb]").attr("data-OrigenPedidoWeb")
-                      || origenPedidoWebFichaProducto;
+                        $(objInput).parents("[data-item]").find("input.OrigenPedidoWeb").val()
+                        || $(objInput).parents("[data-item]").attr("OrigenPedidoWeb")
+                        || $(objInput).parents("[data-item]").attr("data-OrigenPedidoWeb")
+                        || $(objInput).parents("[data-OrigenPedidoWeb]").attr("data-OrigenPedidoWeb")
+                        || origenPedidoWebFichaProducto;
                 }
 
                 var tipoEstrategiaImagen = $(objInput).parents("[data-item]").attr("data-tipoestrategiaimagenmostrar");
@@ -293,6 +294,7 @@ $(document).ready(function () {
                             me.Funciones.CloseLoading();
                             return false;
                         }
+                        
                         dataLayer.push({
                             'event': 'addToCart',
                             'ecommerce': {
@@ -300,13 +302,13 @@ $(document).ready(function () {
                                 'add': {
                                     'actionField': { 'list': 'Coach Virtual – Pop Up' },
                                     'products': [{
-                                        'name': ficha.Descripcion,
-                                        'price': '19.90',
-                                        'brand': 'Esika',
-                                        'id': '13223',
-                                        'category': 'Maquillaje > Cuerpo',
-                                        'variant': 'Fucsia Vibrante',
-                                        'quantity': 2
+                                        'name': $.trim(ficha.DescripcionCompleta),
+                                        'price': $.trim(ficha.PrecioVenta),
+                                        'brand': $.trim(ficha.DescripcionMarca),
+                                        'id': $.trim(ficha.CUV2),
+                                        //'category': 'Maquillaje > Cuerpo',
+                                        //'variant': 'Fucsia Vibrante',
+                                        'quantity': $.trim(cantidad)
                                     }]
                                 }
                             }
@@ -340,7 +342,7 @@ $(document).ready(function () {
                             HideDialog("divVistaPrevia");
                             CargarDetallePedido();
                         }
-   
+
                         me.Funciones.CloseLoading();
                         if (popup) {
                             CerrarPopup('#popupDetalleCarousel_lanzamiento');
