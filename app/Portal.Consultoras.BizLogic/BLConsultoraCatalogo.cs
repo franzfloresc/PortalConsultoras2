@@ -17,10 +17,7 @@ namespace Portal.Consultoras.BizLogic
 
             using (IDataReader reader = daConsultoraCatalogo.GetConsultoraCatalogo(paisID, codigoConsultora, parametroEsDocumento, tipoFiltroUbigeo))
             {
-                if (reader.Read())
-                {
-                    beConsultoraCatalogo = new BEConsultoraCatalogo(reader);
-                }
+                if (reader.Read()) beConsultoraCatalogo = new BEConsultoraCatalogo(reader);
             }
 
             int estadoInfoPreLogin = new BLUsuario().GetInfoPreLoginConsultoraCatalogo(paisID, beConsultoraCatalogo.CodigoUsuario);
@@ -40,7 +37,8 @@ namespace Portal.Consultoras.BizLogic
             List<BEConsultoraCatalogo> listaConsultoraCatalogo = new List<BEConsultoraCatalogo>();
             BEConsultoraCatalogo consultoraCatalogo;
             DAConsultora oDAConsultora = new DAConsultora(paisId);
-            
+
+            int nroCampanias = new BLZonificacion().GetPaisNumeroCampaniasByPaisID(paisId);
             BLTablaLogicaDatos oBLTablaLogicaDatos = new BLTablaLogicaDatos();
             List<BETablaLogicaDatos> tabla_Retirada = oBLTablaLogicaDatos.GetTablaLogicaDatos(paisId, 12);
             List<BETablaLogicaDatos> tabla_Reingresada = oBLTablaLogicaDatos.GetTablaLogicaDatos(paisId, 18);
@@ -51,7 +49,7 @@ namespace Portal.Consultoras.BizLogic
                 while (reader.Read()) 
                 {
                     consultoraCatalogo = new BEConsultoraCatalogo(reader);
-                    consultoraCatalogo.Estado = this.GetConsultoraCatalogoEstado(paisId, consultoraCatalogo, tabla_Retirada, tabla_Reingresada, tabla_Egresada);
+                    consultoraCatalogo.Estado = this.GetConsultoraCatalogoEstado(paisId, nroCampanias, consultoraCatalogo, tabla_Retirada, tabla_Reingresada, tabla_Egresada);
                     if (consultoraCatalogo.Estado == 1) listaConsultoraCatalogo.Add(consultoraCatalogo); 
                 }
             }
@@ -62,7 +60,7 @@ namespace Portal.Consultoras.BizLogic
                 while (reader.Read())
                 {
                     consultoraCatalogo = new BEConsultoraCatalogo(reader);
-                    consultoraCatalogo.Estado = this.GetConsultoraCatalogoEstado(paisId, consultoraCatalogo, tabla_Retirada, tabla_Reingresada, tabla_Egresada);
+                    consultoraCatalogo.Estado = this.GetConsultoraCatalogoEstado(paisId, nroCampanias, consultoraCatalogo, tabla_Retirada, tabla_Reingresada, tabla_Egresada);
                     if (consultoraCatalogo.Estado == 1) listaConsultoraCatalogo.Add(consultoraCatalogo);
                 }
             }
@@ -73,7 +71,7 @@ namespace Portal.Consultoras.BizLogic
                 while (reader.Read())
                 {
                     consultoraCatalogo = new BEConsultoraCatalogo(reader);
-                    consultoraCatalogo.Estado = this.GetConsultoraCatalogoEstado(paisId, consultoraCatalogo, tabla_Retirada, tabla_Reingresada, tabla_Egresada);
+                    consultoraCatalogo.Estado = this.GetConsultoraCatalogoEstado(paisId, nroCampanias, consultoraCatalogo, tabla_Retirada, tabla_Reingresada, tabla_Egresada);
                     if (consultoraCatalogo.Estado == 1) listaConsultoraCatalogo.Add(consultoraCatalogo);
                 }
             }
@@ -127,6 +125,7 @@ namespace Portal.Consultoras.BizLogic
 
         private void SetConsultorasCatalogosEstado(int paisID, List<BEConsultoraCatalogo> consultorasCatalogos)
         {
+            int nroCampanias = new BLZonificacion().GetPaisNumeroCampaniasByPaisID(paisID);
             BLTablaLogicaDatos oBLTablaLogicaDatos = new BLTablaLogicaDatos();
             List<BETablaLogicaDatos> tabla_Retirada = oBLTablaLogicaDatos.GetTablaLogicaDatos(paisID, 12);
             List<BETablaLogicaDatos> tabla_Reingresada = oBLTablaLogicaDatos.GetTablaLogicaDatos(paisID, 18);
@@ -134,11 +133,11 @@ namespace Portal.Consultoras.BizLogic
 
             foreach (BEConsultoraCatalogo consultoraCatalogo in consultorasCatalogos)
             {
-                consultoraCatalogo.Estado = this.GetConsultoraCatalogoEstado(paisID, consultoraCatalogo, tabla_Retirada, tabla_Reingresada, tabla_Egresada);
+                consultoraCatalogo.Estado = this.GetConsultoraCatalogoEstado(paisID, nroCampanias, consultoraCatalogo, tabla_Retirada, tabla_Reingresada, tabla_Egresada);
             }
         }
 
-        private int GetConsultoraCatalogoEstado(int paisID, BEConsultoraCatalogo consultoraCatalogo, List<BETablaLogicaDatos> tabla_Retirada, List<BETablaLogicaDatos> tabla_Reingresada, List<BETablaLogicaDatos> tabla_Egresada)
+        private int GetConsultoraCatalogoEstado(int paisID, int nroCampanias, BEConsultoraCatalogo consultoraCatalogo, List<BETablaLogicaDatos> tabla_Retirada, List<BETablaLogicaDatos> tabla_Reingresada, List<BETablaLogicaDatos> tabla_Egresada)
         {
             if (string.IsNullOrEmpty(consultoraCatalogo.CodigoUsuario)) return -1;
             if (string.IsNullOrEmpty(consultoraCatalogo.AutorizaPedido)) return -1; //Se asume para usuarios del tipo SAC
@@ -163,24 +162,13 @@ namespace Portal.Consultoras.BizLogic
                 {
                     if (paisID == 3)
                     {
-                        int ultimaCampania = consultoraCatalogo.UltimaCampania;
-                        int campaniaActual = consultoraCatalogo.CampaniaActual;
-
                         //Se valida las campañas que no ha ingresado
-                        if (ultimaCampania != 0 && campaniaActual.ToString().Length == 6 && ultimaCampania.ToString().Length == 6)
+                        int campaniaSinIngresar = 0;
+                        if (consultoraCatalogo.CampaniaActual.ToString().Length == 6 && consultoraCatalogo.UltimaCampania.ToString().Length == 6)
                         {
-                            string CA = campaniaActual.ToString().Substring(0, 4);
-                            string UC = ultimaCampania.ToString().Substring(0, 4);
-                            if (CA != UC)
-                            {
-                                CA = campaniaActual.ToString().Substring(4, 2);
-                                UC = ultimaCampania.ToString().Substring(4, 2);
-                                campaniaActual = Convert.ToInt32(UC) + Convert.ToInt16(CA);
-                                ultimaCampania = Convert.ToInt32(UC);
-                            }
+                            campaniaSinIngresar = consultoraCatalogo.CampaniaActual - Util.AddCampaniaAndNumero(consultoraCatalogo.UltimaCampania, 3, nroCampanias);
                         }
-
-                        if (campaniaActual - ultimaCampania > 3 && ultimaCampania != 0) return 0;
+                        if (campaniaSinIngresar > 0) return 0;
                     }
                     else if (paisID == 4) return 0; //Caso Colombia
                 }

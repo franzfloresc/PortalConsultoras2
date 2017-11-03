@@ -2,6 +2,9 @@ using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Data.Hana;
 using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.Pedido;
+using Portal.Consultoras.PublicService.Cryptography;
+
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -9,13 +12,11 @@ using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Transactions;
-using Portal.Consultoras.PublicService.Cryptography;
 
 namespace Portal.Consultoras.BizLogic
 {
-    public class BLPedidoWeb
+    public class BLPedidoWeb : IPedidoWebBusinessLogic
     {
         public int ValidarCargadePedidos(int paisID, int TipoCronograma, int MarcaPedido, DateTime FechaFactura)
         {
@@ -1771,7 +1772,7 @@ namespace Portal.Consultoras.BizLogic
             return listaPedidosFacturados;
         }
 
-        public List<BEPedidoWeb> GetPedidosIngresadoFacturado(int paisID, int consultoraID, int campaniaID, string codigoConsultora)
+        public List<BEPedidoWeb> GetPedidosIngresadoFacturado(int paisID, int consultoraID, int campaniaID, string codigoConsultora, int top)
         {
             var listaPedidosFacturados = new List<BEPedidoWeb>();
 
@@ -1781,7 +1782,7 @@ namespace Portal.Consultoras.BizLogic
 
             if (!BLPais.EsPaisHana(paisID)) // Validar si informacion de pais es de origen Normal o Hana
             {
-                using (IDataReader reader = DAPedidoWeb.GetPedidosIngresadoFacturado(consultoraID, campaniaID))
+                using (IDataReader reader = DAPedidoWeb.GetPedidosIngresadoFacturado(consultoraID, campaniaID, top))
                     while (reader.Read())
                     {
                         var entidad = new BEPedidoWeb(reader);
@@ -2135,6 +2136,58 @@ namespace Portal.Consultoras.BizLogic
             }
             return entidad;
         }
+
+        #region MisPedidos
+        public List<BEMisPedidosCampania> GetMisPedidosByCampania(int paisID, long ConsultoraID, int CampaniaID, int ClienteID, int Top)
+        {
+            var pedidos = new List<BEMisPedidosCampania>();
+
+            using (IDataReader reader = new DAPedidoWeb(paisID).GetMisPedidosByCampania(ConsultoraID, CampaniaID, ClienteID, Top))
+            {
+                pedidos = reader.MapToCollection<BEMisPedidosCampania>();
+            }
+
+            return pedidos;
+        }
+        public List<BEMisPedidosIngresados> GetMisPedidosIngresados(int paisID, long ConsultoraID, int CampaniaID, int ClienteID, string NombreConsultora)
+        {
+            var pedidos = new List<BEMisPedidosIngresados>();
+            var detallepedidos = new List<BEMisPedidosIngresadosDetalle>();
+
+            using (IDataReader reader = new DAPedidoWeb(paisID).GetMisPedidosIngresados(ConsultoraID, CampaniaID, ClienteID, NombreConsultora))
+            {
+                pedidos = reader.MapToCollection<BEMisPedidosIngresados>();
+
+                if (reader.NextResult()) detallepedidos = reader.MapToCollection<BEMisPedidosIngresadosDetalle>();
+
+                foreach (var pedido in pedidos)
+                {
+                    pedido.Detalle = detallepedidos.Where(x => x.ClienteID == pedido.ClienteID).ToList();
+                }
+            }
+
+            return pedidos;
+        }
+        public List<BEMisPedidosFacturados> GetMisPedidosFacturados(int paisID, long ConsultoraID, int CampaniaID, int ClienteID, string NombreConsultora)
+        {
+            var pedidos = new List<BEMisPedidosFacturados>();
+            var detallepedidos = new List<BEMisPedidosFacturadosDetalle>();
+
+            using (IDataReader reader = new DAPedidoWeb(paisID).GetMisPedidosFacturados(ConsultoraID, CampaniaID, ClienteID, NombreConsultora))
+            {
+                pedidos = reader.MapToCollection<BEMisPedidosFacturados>();
+
+                if (reader.NextResult()) detallepedidos = reader.MapToCollection<BEMisPedidosFacturadosDetalle>();
+
+                foreach (var pedido in pedidos)
+                {
+                    pedido.Detalle = detallepedidos.Where(x => x.ClienteID == pedido.ClienteID).ToList();
+                }
+            }
+
+            return pedidos;
+        }
+        #endregion
     }
 
     internal class TemplateField
