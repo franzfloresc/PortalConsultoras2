@@ -167,8 +167,8 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Mobile/esika/misDatos.css",
                "~/Content/Css/Mobile/Esika/revistaDigital.css",
                "~/Content/Css/Mobile/esika/cdr.css",
+               "~/Content/Css/Mobile/Esika/seccion-descarga-imprime.css"
                "~/Content/Css/Mobile/calc.css",
-               "~/Content/Css/Mobile/Esika/revistaDigital.css"              
                ));
 
             bundles.Add(new StyleBundle("~/Content/Css/Mobile/lbel/CssSB2Mobile").Include(
@@ -182,6 +182,7 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Mobile/lbel/misDatos.css",
                "~/Content/Css/Mobile/Lbel/revistaDigital.css",
                "~/Content/Css/Mobile/lbel/cdr.css",
+               "~/Content/Css/Mobile/Lbel/seccion-descarga-imprime.css"
                "~/Content/Css/Mobile/calc.css"
                ));
 
@@ -323,7 +324,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/OfertaDelDia.js",
                 "~/Scripts/PortalConsultoras/TagManager/Home-Pedido.js",
-                "~/Scripts/PortalConsultoras/Cupon/Cupon.js"
+                "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/Descargables.js"
             ));
 
             bundles.Add(new StyleBundle("~/bundles/css/Site/ccsOfertas").Include(

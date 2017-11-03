@@ -2287,7 +2287,7 @@ namespace Portal.Consultoras.Web.Controllers
             //
             model.ListaOfertas = userData.OfertasDelDia;
             //
-            short posicion = 0;
+            short posicion = 1;
             var tiposEstrategia = sessionManager.GetTiposEstrategia();
             if (tiposEstrategia == null)
             {

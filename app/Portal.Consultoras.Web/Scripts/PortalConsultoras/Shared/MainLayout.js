@@ -1162,6 +1162,6 @@ function odd_desktop_google_analytics_cerrar_banner(nombreProducto) {
             'event': 'virtualEvent',
             'category': 'Oferta del día',
             'action': 'Cerrar Banner',
-            'label': 'nombreProducto'
+            'label': nombreProducto
         });
 }
