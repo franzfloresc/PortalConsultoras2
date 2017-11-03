@@ -38,6 +38,7 @@ $(document).ready(function () {
                     nuevoScript.src = "https://ok383.infusionsoft.com/app/webTracking/getTrackingCode";
                     nuevoScript.id = "infusionsoft";
                     cabecera.appendChild(nuevoScript);
+                    me.Funciones.Marcador();
                 }
             },
             AlertaMensajeProductoNotFound: function () {
@@ -137,20 +138,7 @@ $(document).ready(function () {
                                 nuevoScript.id = "infusionsoft";
                                 cabecera.appendChild(nuevoScript);
                                 me.globals.Producto = response;
-                                dataLayer.push({
-                                    'event': 'promotionView',
-                                    'ecommerce': {
-                                        'promoView': {
-                                            'promotions': [
-                                                {
-                                                    'id': 'contenedor_popup_detalleCarousel',
-                                                    'name': 'Coach Virtual – Ficha de producto',
-                                                    'position': 'Home pop-up',
-                                                    'creative': 'Banner'
-                                                }]
-                                        }
-                                    }
-                                });
+                                me.Funciones.Marcador();
                                 me.Funciones.VerDetalleFichaProducto(response);
                             } else {
                                 me.Funciones.AlertaMensajeProductoNotFound();
@@ -382,6 +370,23 @@ $(document).ready(function () {
                     closeWaitingDialog();
                 }
             },
+            Marcador: function () {
+                
+                dataLayer.push({
+                    'event': 'promotionView',
+                    'ecommerce': {
+                        'promoView': {
+                            'promotions': [
+                                {
+                                    'id': 'contenedor_popup_detalleCarousel',
+                                    'name': 'Coach Virtual – Ficha de producto',
+                                    'position': 'Home pop-up',
+                                    'creative': 'Banner'
+                                }]
+                        }
+                    }
+                });
+            }
         };
         me.Eventos = {
         };
