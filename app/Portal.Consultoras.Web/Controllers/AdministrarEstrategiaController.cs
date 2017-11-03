@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.ServiceModel;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
@@ -1787,6 +1788,58 @@ namespace Portal.Consultoras.Web.Controllers
             var newfilename = UserData().CodigoISO + "_" + time + "_" + FileManager.RandomString() + ".png";
             ConfigS3.SetFileS3(path, carpetaPais, newfilename);
             return newfilename;
+        }
+
+        [HttpPost]
+        public ActionResult UploadCvs(DescripcionMasivoModel model)
+        {
+            try
+            {
+                var httpPostedFile = model.Documento;
+                if (model.Documento.ContentLength <= 0) throw new Exception("El archivo esta vacio.");
+                if (!model.Documento.FileName.EndsWith(".csv")) throw new Exception("El archivo no tiene la extencion correcta");
+                
+                var fileContent = new List<BEDescripcionEstrategia>();
+                var sd = new StreamReader(model.Documento.InputStream);
+
+                var readLine = sd.ReadLine();
+                if (readLine != null)
+                {
+                    var arraySplitHeader = readLine.Split(',');
+                    if (!arraySplitHeader[0].ToLower().Equals("cuv") || 
+                        !arraySplitHeader[1].ToLower().Equals("descripcion"))
+                    {
+                        throw new Exception("Verificar los titulos de las columnas del archivo.");
+                    }
+                }
+                
+                do
+                {
+                    readLine = sd.ReadLine();
+                    if (readLine == null) continue;
+                    
+                    var arraySplit = readLine.Split(',');
+                    if (arraySplit[0] != "")
+                    {
+                        fileContent.Add(new BEDescripcionEstrategia
+                        {
+                            Cuv = arraySplit[0],
+                            Descripcion = arraySplit[1]
+                        });
+                    }
+                }
+                while (readLine != null);
+
+                using (var svc = new SACServiceClient())
+                {
+                    svc.ActualizarDescripcionEstrategia(model.Pais.ToInt(), model.CampaniaId.ToInt(), model.TipoEstrategia.ToInt(), fileContent.ToArray());
+                }
+                return Json(new { success = true, name = "" }, "text/html");
+            }
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, ex.Message);
+            }
         }
     }
 }

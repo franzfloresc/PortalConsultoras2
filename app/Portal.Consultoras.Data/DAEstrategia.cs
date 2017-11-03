@@ -581,8 +581,22 @@ namespace Portal.Consultoras.Data
             }
             return result;
         }
-
         #endregion
 
-    }
+        #region ActualizarDescripcion
+        public IDataReader ActualizarDescripcionEstrategia(int campaniaId, int tipoEstrategiaId, List<BEDescripcionEstrategia> listaDescripcionEstrategias)
+        {
+            var command =
+                new SqlCommand("dbo.ActualizaDescripcionEstrategia") { CommandType = CommandType.StoredProcedure };
+
+            command.Parameters.Add(new SqlParameter("@ListaEstrategias", SqlDbType.Structured) {
+                    TypeName = "dbo.DescripcionEstrategiaType",
+                    Value = new GenericDataReader<BEDescripcionEstrategia>(listaDescripcionEstrategias)
+                });
+            command.Parameters.Add(new SqlParameter("@CampaniaId", SqlDbType.Int) { Value = campaniaId });
+            command.Parameters.Add(new SqlParameter("@TipoEstrategiaId", SqlDbType.Int) { Value = tipoEstrategiaId });
+            return Context.ExecuteReader(command);
+        }
+        #endregion
+    }   
 }

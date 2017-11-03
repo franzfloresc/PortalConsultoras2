@@ -27,7 +27,7 @@
     <RestorePackages>true</RestorePackages>
     <DeployOnBuild Condition=" '$(DeployWEB)'!='' ">$(DeployWEB)</DeployOnBuild>
     <UseGlobalApplicationHostFile />
-    <IISExpressSSLPort>44393</IISExpressSSLPort>
+    <IISExpressSSLPort>41615</IISExpressSSLPort>
     <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -418,6 +418,8 @@
     <Compile Include="Models\ClienteOnlineDetalleModel.cs" />
     <Compile Include="Models\ClienteSb2Model.cs" />
     <Compile Include="Models\BarraConsultoraModel.cs" />
+    <Compile Include="Models\DescripcionEstrategiaModel.cs" />
+    <Compile Include="Models\DescripcionMasivoModel.cs" />
     <Compile Include="Models\EventoFestivoDataModel.cs" />
     <Compile Include="Models\EventoFestivoModel.cs" />
     <Compile Include="Models\FichaProductoDetalleModel.cs" />
@@ -3306,6 +3308,7 @@
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-Suscripcion.js" />
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital.js" />
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-DataLayer.js" />
+    <Content Include="Scripts\PortalConsultoras\RevistaImpresa\index.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\LoginLayout.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\MenuContenedor.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\TrackingJetlore.js" />
@@ -3379,9 +3382,7 @@
     <Content Include="Areas\Mobile\Views\Shared\_MobileLayout.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\_MobileMenuFooter.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\_MobileMenuLateral.cshtml" />
-    <Content Include="Areas\Mobile\Views\Web.config">
-      <SubType>Designer</SubType>
-    </Content>
+    <Content Include="Areas\Mobile\Views\Web.config" />
     <Content Include="Areas\Mobile\Views\NovedadesCampania\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\Catalogo\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\Cliente\Index.cshtml" />
@@ -3597,7 +3598,10 @@
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloquePopupComunidad.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloquePopupSesionFinalizada.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloquePopupPostulante.cshtml" />
+    <Content Include="Areas\Mobile\Views\RevistaDigital\Revista.cshtml" />
     <Content Include="Areas\Mobile\Views\GuiaNegocio\Index.cshtml" />
+    <Content Include="Content\FAQ\CodigoEticaCAPEVEDI_PE.pdf" />
+    <Content Include="Content\FAQ\QUIZCAPEVEDI_PE.pdf" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>
@@ -4421,6 +4425,7 @@
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpDialogErrorMainLayout.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpDialogMensajes.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpTemplateResumenCampania.cshtml" />
+    <Content Include="Views\RevistaDigital\Revista.cshtml" />
     <Content Include="Views\AdministrarGuiaNegocioDigitalizada\Index.cshtml" />
     <Content Include="Views\GuiaNegocio\Index.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\template-producto-landing.cshtml" />
