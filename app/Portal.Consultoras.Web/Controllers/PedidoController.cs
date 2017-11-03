@@ -1820,7 +1820,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult InsertarPedidoCuvBanner(string CUV, int CantCUVpedido, int origenPedidoWeb)
+        public JsonResult InsertarPedidoCuvBanner(string CUV, int CantCUVpedido)
         {
             List<BEProducto> olstProducto = new List<BEProducto>();
             List<ProductoModel> olstProductoModel = new List<ProductoModel>();
@@ -1875,7 +1875,7 @@ namespace Portal.Consultoras.Web.Controllers
                 oBEPedidoWebDetalle.DescripcionEstrategia = olstProducto[0].DescripcionEstrategia;
                 oBEPedidoWebDetalle.Categoria = olstProducto[0].DescripcionCategoria;
 
-                oBEPedidoWebDetalle.OrigenPedidoWeb = origenPedidoWeb;
+                oBEPedidoWebDetalle.OrigenPedidoWeb = Constantes.OrigenPedidoWeb.BannerDesktopHome;
 
                 IList<BEPedidoWebService> olstCuvMarquesina = null;
                 using (PedidoServiceClient sv = new PedidoServiceClient())

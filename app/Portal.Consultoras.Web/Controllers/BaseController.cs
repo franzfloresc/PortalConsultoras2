@@ -3384,7 +3384,7 @@ namespace Portal.Consultoras.Web.Controllers
                         break;
                     case Constantes.ConfiguracionPais.OfertasParaTi:
                         seccion.UrlObtenerProductos = "OfertasParaTi/ConsultarEstrategiasOPT";
-                        seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding : Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding;
+                        seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome : Constantes.OrigenPedidoWeb.OfertasParaTiDesktopHome;
                         seccion.VerMas = false;
                         break;
                     case Constantes.ConfiguracionPais.Lanzamiento:
@@ -3689,8 +3689,8 @@ namespace Portal.Consultoras.Web.Controllers
                     case Constantes.OrigenPedidoWeb.RevistaDigitalMobilePedidoSeccion:
                         codigo = revistaDigital.TieneRDC ? Constantes.ConfiguracionPais.RevistaDigital : Constantes.ConfiguracionPais.RevistaDigitalReducida;
                         break;
-                    case Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTi:
-                    case Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTi:
+                    case Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome:
+                    case Constantes.OrigenPedidoWeb.OfertasParaTiMobilePedido:
                         codigo = Constantes.ConfiguracionPais.OfertasParaTi;
                         break;
                 }

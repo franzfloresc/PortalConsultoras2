@@ -163,8 +163,6 @@ namespace Portal.Consultoras.Web.Controllers
                 var carpetaPais = Globals.UrlFileConsultoras + "/" + paisISO;
                 string urlS3 = ConfigS3.GetUrlS3(carpetaPais) + FileName;
 
-                //return File(urlS3, "application/pdf", FileName);
-
                 return Json(new
                 {
                     Result = true,

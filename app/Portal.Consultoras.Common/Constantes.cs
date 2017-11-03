@@ -359,46 +359,61 @@ namespace Portal.Consultoras.Common
                 public const int POPUP_INICIO = 3;
                 public const int POPUP_TAMANO = 1;
             }
-                // Primer Dígito -- Plataforma
-                // 1: Desktop                   2: Mobile
 
-                // Segundo Dígito -- Pantalla
-                // 1: Home                      2: Pedido
-                // 3: Liquidacion               4: Catalogo Personalizado
-                // 5: ShowRoom                  6: OfertaParaTi
-                // 7: RevistaDigital            8: GuiaNegocioDigital
-                // 9: General
+            // Primer Dígito -- Plataforma
+            // 1: Desktop                   2: Mobile
 
-                // Tercer Dígito -- Sección dentro de la Pantalla
-                // 1: Banners                   2: Ofertas para ti
-                // 3: Catalogo Personalizado    4: Liquidacion
-                // 5: Producto Sugerido         6: Oferta Final
-                // 7: ShowRoom                  8: Consultora Online
-                // 9: Oferta del dia            0: Revista Digital
-                // 1: index
-                // 2: OfertaParaTi Detalle
+            // Segundo Dígito -- Pantalla
+            // 1: Home                      2: Pedido
+            // 3: Liquidacion               4: Catalogo Personalizado
+            // 5: ShowRoom                  6: OfertaParaTi
+            // 7: RevistaDigital            8: GuiaNegocioDigital
+            // 9: General
 
-                // Cuarto Dígito
-                // 1. Sin popUp                 2. Con popUp
+            // Tercer Dígito -- Sección dentro de la Pantalla
+            // 1: Banners                   2: Ofertas para ti
+            // 3: Catalogo Personalizado    4: Liquidacion
+            // 5: Producto Sugerido         6: Oferta Final
+            // 7: ShowRoom                  8: Consultora Online
+            // 9: Oferta del dia            0: Revista Digital
+            // 1: index
+            // 2: OfertaParaTi Detalle
 
-                public const int DesktopHomeBanners = 1111;
-            public const int DesktopHomeOfertasParaTi = 1121;
-            public const int DesktopHomeOfertasParaTiPopUp = 1122;
-            public const int DesktopHomeCatalogoPersonalizado = 1131;
-            public const int DesktopHomeCatalogoPersonalizadoPopUp = 1132;
+            // Cuarto Dígito
+            // 1. Sin popUp                 2. Con popUp
+
+            public const int BannerDesktopHome = 1111;
+
+            #region OfertasParaTi
+            public const int OfertasParaTiDesktopHome = 1121;
+            public const int OfertasParaTiDesktopHomePopUp = 1122; // Debe utilizarse
+            public const int OfertasParaTiDesktopPedido = 1221;
+            public const int OfertasParaTiDesktopPedidoPopUp = 1222; // Debe utilizarse
+            public const int OfertasParaTiMobileHome = 2121;
+            public const int OfertasParaTiMobilePedido = 2221;
+            public const int OfertasParaTiMobileDetalle = 2621;
+            #endregion
+
+            #region CatalogoPersonalizado
+            public const int CatalogoPersonalizadoDesktopHome = 1131;
+            public const int CatalogoPersonalizadoDesktopHomePopUp = 1132;
+            public const int CatalogoPersonalizadoDesktop = 1431;
+            public const int CatalogoPersonalizadoDesktopPopUp = 1432;
+            public const int CatalogoPersonalizadoMobile = 2431;
+            public const int CatalogoPersonalizadoMobilePopUp = 2432;
+            #endregion
+
             public const int DesktopHomeLiquidacion = 1141;
-
-            public const int DesktopPedidoOfertasParaTi = 1221;
-            public const int DesktopPedidoOfertasParaTiPopUp = 1222;
-            public const int DesktopPedidoSugerido = 1251;
-            public const int DesktopPedidoOfertaFinal = 1261;
-
             public const int DesktopLiquidacion = 1341;
+            public const int MobileLiquidacion = 2341;
 
-            public const int DesktopCatalogoPersonalizado = 1431;
-            public const int DesktopCatalogoPersonalizadoPopUp = 1432;
+            public const int DesktopPedidoSugerido = 1251;
+            public const int MobilePedidoSugerido = 2251;
 
-            /*Para ShowRoom Aplica nuevo formato*/
+            public const int DesktopPedidoOfertaFinal = 1261;
+            public const int MobilePedidoOfertaFinal = 2261;
+
+            #region ShowRoom
             public const int DesktopShowRoomLandingIntriga = 1511;
             public const int DesktopShowRoomLandingCompra = 1521;
             public const int DesktopShowRoomLandingCompraTactica = 1522;
@@ -413,33 +428,19 @@ namespace Portal.Consultoras.Common
             public const int MobileShowRoomProductPage = 2531;
             public const int MobileShowRoomProductPageCarrusel = 2532;
             public const int MobileShowRoomProductPageTactica = 2533;
-
-            public const int MobileHomeOfertasParaTi = 2121;
-            public const int MobileHomeMasVendidos = 2123;
-
-            public const int MobilePedidoOfertasParaTi = 2221;
-            public const int MobilePedidoSugerido = 2251;
-            public const int MobilePedidoOfertaFinal = 2261;
-
-            public const int MobileOfertasParaTiIndex = 2611;
-            public const int MobileOfertasParaTiDetalle = 2621;
-
             public const int MobileShowRoom = 2571;
+            #endregion
 
-            public const int MobileLiquidacion = 2341;
+            #region OfertaDelDia
+            public const int OfertaDelDiaDesktopHomeBanner = 1191;
+            public const int OfertaDelDiaDesktopHomeDisplay = 1192;
+            public const int OfertaDelDiaDesktopPedidoBanner = 1291;
+            public const int OfertaDelDiaDesktopPedidoDisplay = 1292;
+            public const int OfertaDelDiaDesktopGeneralBanner = 1991;
+            public const int OfertaDelDiaDesktopGeneralDisplay = 1992;
+            #endregion
 
-            public const int MobileCatalogoPersonalizado = 2431;
-            public const int MobileCatalogoPersonalizadoPopUp = 2432;
-
-            /*PL20-1227*/
-            public const int DesktopHomeBannerOfertaDelDia = 1191;
-            public const int DesktopHomeDisplayOfertaDelDia = 1192;
-            public const int DesktopPedidoBannerOfertaDelDia = 1291;
-            public const int DesktopPedidoDisplayOfertaDelDia = 1292;
-            public const int DesktopGeneralBannerOfertaDelDia = 1991;
-            public const int DesktopGeneralDisplayOfertaDelDia = 1992;
-
-            /* Revista Digital */
+            #region RevistaDigital
             public const int RevistaDigitalDesktopLanding = 1711;
             public const int RevistaDigitalDesktopLandingCarrusel = 1721;
             public const int RevistaDigitalDesktopLandingPopUp = 1712;
@@ -469,8 +470,9 @@ namespace Portal.Consultoras.Common
 
             public const int RevistaDigitalDesktopCatalogoSeccion = 1401;
             public const int RevistaDigitalMobileCatalogoSeccion = 2401;
-            /* FIN Revista Digital */
+            #endregion
 
+            #region App
             /// <summary>
             /// App/Pedido/Digitación de Pedido
             /// </summary>
@@ -530,24 +532,28 @@ namespace Portal.Consultoras.Common
             /// App/Pedido/Esika para mi/Landing/Carrusel Ficha
             /// </summary>
             public const int AppEsikaparamiLandingCarruselFicha = 4731;
+            #endregion
 
-            // Mas Vendidos
-            public const int DesktopHomeMasVendidosCarrusel = 1151;
-            public const int DesktopMasVendidosProductPageFicha = 1611;
-            public const int DesktopMasVendidosProductPageCarrusel = 1612;
-            public const int MobileHomeMasVendidosCarrusel = 2151;
-            public const int MobileMasVendidosProductPageFicha = 2611;
+            #region MasVendidos
+            public const int MasVendidosDesktopHomeCarrusel = 1151;
+            public const int MasVendidosDesktopProductPageFicha = 1611;
+            public const int MasVendidosDesktopProductPageCarrusel = 1612;
+            public const int MasVendidosMobileHomeCarrusel = 2151;
+            public const int MasVendidosMobileProductPageFicha = 2611;
+            public const int MasVendidosMobileHome = 2123;
+            #endregion
 
-            //FichaProducto VirtualCoach
-            public const int DesktopPedidoVirtualCoach = 1231;
-            public const int MobilePedidoVirtualCoach = 2231;
+            #region VirtualCoach
+            public const int VirtualCoachDesktopPedido = 1231;
+            public const int VirtualCoachMobilePedido = 2231;
+            #endregion
 
-            // Guía de Negocio Digitalizada
+            #region Guía de Negocio Digitalizada
             public const int GNDDesktopLanding = 1811;
             public const int GNDDesktopLandingPopUp = 1812;
-            //
             public const int GNDMobileLanding = 2811;
             public const int GNDMobileProductPage = 2812;
+            #endregion
         }
 
         public class TipoTutorial
