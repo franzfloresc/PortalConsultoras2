@@ -3,6 +3,7 @@ using Portal.Consultoras.Common;
 using Portal.Consultoras.PublicService.Cryptography;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Helpers;
+using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceContenido;
 using Portal.Consultoras.Web.ServicePedido;
@@ -32,6 +33,7 @@ namespace Portal.Consultoras.Web.Controllers
         private readonly int USUARIO_VALIDO = 3;
 
         protected ISessionManager sessionManager = SessionManager.SessionManager.Instance;
+        protected ILogManager logManager = LogManager.LogManager.Instance;
 
         public LoginController()
         {
@@ -40,6 +42,12 @@ namespace Portal.Consultoras.Web.Controllers
 
         public LoginController(ISessionManager sessionManager)
         {
+            this.sessionManager = sessionManager;
+        }
+
+        public LoginController(ILogManager logManager, ISessionManager sessionManager)
+        {
+            this.logManager = logManager;
             this.sessionManager = sessionManager;
         }
 
@@ -97,7 +105,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, ip, iso, "Login.GET.Index");
+                logManager.LogErrorWebServicesBusWrap(ex, ip, iso, "Login.GET.Index");
             }
 
             ViewBag.FBAppId = ConfigurationManager.AppSettings.Get("FB_AppId");
@@ -156,7 +164,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, Campania.ToString() + " - " + Alcance, paisID.ToString());
+                logManager.LogErrorWebServicesBusWrap(ex, Campania.ToString() + " - " + Alcance, paisID.ToString(),string.Empty);
                 lst = new List<BEEventoFestivo>(); ;
             }
             return Mapper.Map<IList<BEEventoFestivo>, List<EventoFestivoModel>>(lst);
@@ -352,7 +360,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, model.CodigoUsuario, model.CodigoISO, pasoLog);
+                logManager.LogErrorWebServicesBusWrap(ex, model.CodigoUsuario, model.CodigoISO, pasoLog);
 
                 if (Request.IsAjaxRequest())
                 {
@@ -374,7 +382,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                LogManager.LogManager.LogErrorWebServicesBus(new Exception(mensaje), codigoUsuario, paisISO, "Login.SaveLogErrorLogin");
+                logManager.LogErrorWebServicesBusWrap(new Exception(mensaje), codigoUsuario, paisISO, "Login.SaveLogErrorLogin");
 
                 return Json(new
                 {
@@ -554,7 +562,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     catch (Exception ex)
                     {
-                        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoUsuario, userData.CodigoISO);
+                        logManager.LogErrorWebServicesBusWrap(ex, userData.CodigoUsuario, userData.CodigoISO, string.Empty);
                     }
                 }
             }
@@ -595,6 +603,12 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
+                if (paisId == 0)
+                    throw new ArgumentException("Parámetro paisId no puede ser cero.");
+
+                if (string.IsNullOrEmpty(codigoUsuario))
+                    throw new ArgumentException("Parámetro codigoUsuario no puede ser vacío.");
+
                 using (var usuarioServiceClient = new UsuarioServiceClient())
                 {
                     usuario = usuarioServiceClient.GetSesionUsuario(paisId, codigoUsuario);
@@ -607,7 +621,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         catch (Exception ex)
                         {
-                            LogManager.LogManager.LogErrorWebServicesBus(ex, usuario.CodigoConsultora, paisId.ToString());
+                            logManager.LogErrorWebServicesBusWrap(ex, usuario.CodigoConsultora, paisId.ToString(),string.Empty);
                             pasoLog = "Ocurrió un error al registrar log de ingreso al portal";
                         }
                     }
@@ -1059,7 +1073,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         catch (Exception ex)
                         {
-                            LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.PaisID.ToString());
+                            logManager.LogErrorWebServicesBusWrap(ex, usuarioModel.CodigoConsultora, usuarioModel.PaisID.ToString(), string.Empty);
                             pasoLog = "Ocurrió un error al cargar ConfiguracionPais";
                             sessionManager.SetRevistaDigital(new RevistaDigitalModel());
                             Session[Constantes.ConstSession.ConfiguracionPaises] = new List<ConfiguracionPaisModel>();
@@ -1098,7 +1112,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         catch (Exception ex)
                         {
-                            LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.PaisID.ToString());
+                            logManager.LogErrorWebServicesBusWrap(ex, usuarioModel.CodigoConsultora, usuarioModel.PaisID.ToString(), string.Empty);
                             pasoLog = "Ocurrió un error al cargar Eventofestivo";
                             Session[Constantes.ConstSession.EventoFestivo] = new EventoFestivoDataModel();
                         }
@@ -1125,7 +1139,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         catch (Exception ex)
                         {
-                            LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
+                            logManager.LogErrorWebServicesBusWrap(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO, string.Empty);
                         }
                         #endregion
                     }
@@ -1170,7 +1184,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, codigoUsuario, paisId.ToString());
+                logManager.LogErrorWebServicesBusWrap(ex, codigoUsuario, paisId.ToString(),string.Empty);
                 pasoLog = "Error: " + ex.Message;
                 throw;
             }
@@ -1231,7 +1245,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, CodigoConsultora, PaisId.ToString());
+                logManager.LogErrorWebServicesBusWrap(ex, CodigoConsultora, PaisId.ToString(), string.Empty);
             }
             return sFecha;
         }
@@ -1254,7 +1268,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, CodigoUsuario, PaisId.ToString());
+                logManager.LogErrorWebServicesBusWrap(ex, CodigoUsuario, PaisId.ToString(), string.Empty);
             }
 
             return result == null ? false : true;
@@ -1533,7 +1547,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, correo, Util.GetPaisISO(paisId));
+                logManager.LogErrorWebServicesBusWrap(ex, correo, Util.GetPaisISO(paisId), string.Empty);
 
                 return Json(new
                 {
@@ -1617,7 +1631,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, "", codigoISO, pasoLog);
+                logManager.LogErrorWebServicesBusWrap(ex, "", codigoISO, pasoLog);
             }
 
             return Json(new
@@ -1671,7 +1685,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, "", codigoISO, pasoLog);
+                logManager.LogErrorWebServicesBusWrap(ex, "", codigoISO, pasoLog);
 
                 return Json(new
                 {
@@ -1833,11 +1847,11 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (model != null)
                 {
-                    LogManager.LogManager.LogErrorWebServicesBus(ex, model.CodigoUsuario, model.Pais, token);
+                    logManager.LogErrorWebServicesBusWrap(ex, model.CodigoUsuario, model.Pais, token);
                 }
                 else
                 {
-                    LogManager.LogManager.LogErrorWebServicesBus(ex, token, "");
+                    logManager.LogErrorWebServicesBusWrap(ex, token, "", string.Empty);
                 }
 
                 return HttpNotFound("Error: " + ex.Message);
@@ -1891,7 +1905,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, model.CodigoConsultora, model.CodigoISO, pasoLog);
+                logManager.LogErrorWebServicesBusWrap(ex, model.CodigoConsultora, model.CodigoISO, pasoLog);
             }
 
             return result;
