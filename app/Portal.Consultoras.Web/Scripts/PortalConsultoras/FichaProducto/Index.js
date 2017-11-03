@@ -28,6 +28,16 @@ $(document).ready(function () {
             Ready: function () {
                 if (!window.hasOwnProperty('detalleFichaProducto'))
                     FichaProducto.Funciones.ObtenerProducto();
+
+                if (isMobile()) {
+                    
+                    var cabecera = document.getElementsByTagName("head")[0];
+                    var nuevoScript = document.createElement('script');
+                    nuevoScript.type = 'text/javascript';
+                    nuevoScript.src = "https://ok383.infusionsoft.com/app/webTracking/getTrackingCode";
+                    nuevoScript.id = "infusionsoft";
+                    cabecera.appendChild(nuevoScript);
+                }
             },
             AlertaMensajeProductoNotFound: function () {
                 alert_msg("El producto que estás buscando no se encuentra en esta campaña!", "¡UPSS!", function () {
@@ -117,6 +127,13 @@ $(document).ready(function () {
                     $.when(fichaPromise).then(function (response) {
                         if (checkTimeout(response)) {
                             if (response !== null) {
+                                
+                                var cabecera = document.getElementsByTagName("head")[0];
+                                var nuevoScript = document.createElement('script');
+                                nuevoScript.type = 'text/javascript';
+                                nuevoScript.src = "https://ok383.infusionsoft.com/app/webTracking/getTrackingCode";
+                                nuevoScript.id = "infusionsoft";
+                                cabecera.appendChild(nuevoScript);
                                 me.globals.Producto = response;                                
                                 me.Funciones.VerDetalleFichaProducto(response);
                             } else {
