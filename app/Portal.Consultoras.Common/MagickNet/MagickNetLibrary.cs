@@ -6,15 +6,40 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Portal.Consultoras.Common
+namespace Portal.Consultoras.Common.MagickNet
 {
     public static class MagickNetLibrary
     {
+        /// <summary>
+        /// Genera imagenes con el tamaño especificado en cada item de la lista enviada como parámetro
+        /// </summary>
+        /// <param name="lista">Lista con los valores de cada imagen a generar</param>
+        /// <returns>Proceso correctamente retorna vacio, sino retorna un mensaje de error</returns>
+        public static string CargarImagenesResize(List<EntidadMagickResize> lista)
+        {
+            var resultado = "";
+
+            foreach (var item in lista)
+            {
+                if (!Util.ExisteUrlRemota(item.RutaImagenResize))
+                {
+                    var nombreImagen = Path.GetFileName(item.RutaImagenResize);
+                    var resultadoImagenResize = GuardarImagenResize(item.CodigoIso, item.RutaImagenOriginal, nombreImagen, item.Width, item.Height);
+
+                    resultado += resultadoImagenResize
+                        ? ""
+                        : "No se genero la imagen " + item.TipoImagen + ", favor volver a guardar.";
+                }
+            }
+
+            return resultado;
+        }
+
         public static bool GuardarImagenResize(string codigoIso, string rutaImagenOriginal, string nombreImagenGuardar, int width, int height)
         {
             var resultado = true;
 
-            string soloImagen = Path.GetFileName(rutaImagenOriginal);            
+            string soloImagen = Path.GetFileName(rutaImagenOriginal);
 
             var rutaImagenResize = rutaImagenOriginal.Clone().ToString();
             rutaImagenResize = rutaImagenResize.Replace(soloImagen, nombreImagenGuardar);
@@ -45,7 +70,7 @@ namespace Portal.Consultoras.Common
                     imagen.Resize(size);
 
                     // Guardar la imagen resize a carpeta temporal                                                               
-                    imagen.Write(rutaTemporalGuardar);                    
+                    imagen.Write(rutaTemporalGuardar);
                 }
 
                 //Guardar la imagen resize a Amazon

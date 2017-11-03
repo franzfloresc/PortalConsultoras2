@@ -145,7 +145,8 @@
     <Compile Include="Globals.cs" />
     <Compile Include="LogManager\LogError.cs" />
     <Compile Include="LogManager\LogManager.cs" />
-    <Compile Include="MagickNetLibrary.cs" />
+    <Compile Include="MagickNet\EntidadMagickResize.cs" />
+    <Compile Include="MagickNet\MagickNetLibrary.cs" />
     <Compile Include="MailUtilities.cs" />
     <Compile Include="MandrillMail.cs" />
     <Compile Include="MapUtil.cs" />
