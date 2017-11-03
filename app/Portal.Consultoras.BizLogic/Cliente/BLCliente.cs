@@ -340,6 +340,7 @@ namespace Portal.Consultoras.BizLogic
                                 Saldo = tblClienteDetalle.Saldo,
                                 CantidadProductos = tblClienteDetalle.CantidadProductos,
                                 MontoPedido = tblClienteDetalle.MontoPedido,
+                                CantidadPedido = tblClienteDetalle.CantidadPedido,
                                 Contactos = tblConsultoraCliente.Contactos,
                                 Recordatorios = recordatorios.Where(r => r.ClienteId == tblConsultoraCliente.ClienteID).ToList(),
                                 Notas = notas.Data.Where(r => r.ClienteId == tblConsultoraCliente.ClienteID).ToList()

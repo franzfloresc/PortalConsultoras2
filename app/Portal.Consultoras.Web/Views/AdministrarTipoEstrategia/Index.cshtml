@@ -178,9 +178,10 @@
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
-            colNames: ['TipoEstrategiaID', 'Tipo de Estrategia', 'Ofertas', 'Orden', 'Imagen', 'OfertaID', 'Acción', '', '', '', 'CodigoPrograma', 'FlagMostrarImg', 'MostrarImgOfertaIndependiente','ImagenOfertaIndependiente'],
+            colNames: ['TipoEstrategiaID', 'Código de Estrategia', 'Tipo de Estrategia', 'Ofertas', 'Orden', 'Imagen', 'OfertaID', 'Acción', '', '', '', 'CodigoPrograma', 'FlagMostrarImg', 'MostrarImgOfertaIndependiente','ImagenOfertaIndependiente'],
             colModel: [
                 { name: 'TipoEstrategiaID', index: 'TipoEstrategiaID', width: 20, editable: true, resizable: false, hidden: true },
+                { name: 'Codigo', index: 'Codigo', width: 100, editable: true, resizable: false, hidden: false },
                 { name: 'DescripcionEstrategia', index: 'DescripcionEstrategia', width: 180, editable: true, resizable: false, hidden: false },
                 { name: 'DescripcionOferta', index: 'DescripcionOferta', width: 180, editable: true, hidden: false, formatter: ShowOferta },
                 { name: 'Orden', index: 'Orden', width: 40, editable: true, align: 'center', resizable: false },
@@ -288,7 +289,7 @@
 
     function ShowActions(cellvalue, options, rowObject) {
         var cellValueInt = parseInt(cellvalue);
-        var Des = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + rowObject[0] + "','" + rowObject[1] + "','" + rowObject[3] + "','" + rowObject[4] + "','" + rowObject[5] + "','" + rowObject[6] + "','" + rowObject[10] + "','" + rowObject[11] + "','" + rowObject[12] + "','" + rowObject[13]+ "');\" >" + "<img src='@Url.Content("~/Content/Images/Edit.png")' alt='Editar Mensaje' title='Editar Mensaje' border='0' /></a>";
+        var Des = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + rowObject[0] + "','" + rowObject[1] + "','" + rowObject[2] + "','" + rowObject[4] + "','" + rowObject[5] + "','" + rowObject[6] + "','" + rowObject[7] + "','" + rowObject[11] + "','" + rowObject[12] + "','" + rowObject[13] + "','" + rowObject[14] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Edit.png")' alt='Editar Mensaje' title='Editar Mensaje' border='0' /></a>";
         Des += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + rowObject[0] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Delete.png")' alt='Eliminar Mensaje' title='Eliminar Mensaje' border='0' /></a>";
         return Des;
     }
@@ -433,12 +434,7 @@
 
                     ofertaID = $("#hdofertas").val();
 
-                    if (ofertaID.length > 0) {
-                        ofertaID = ofertaID.substring(0, ofertaID.length - 1);
-                    } else {
-                        alert("No se ha seleccionado una oferta.");
-                        return false;
-                    }
+                    if (ofertaID.length > 0) ofertaID = ofertaID.substring(0, ofertaID.length - 1);
 
                     if ($("#chkMostrarImg").attr("checked")) {
                         if ($("#img01").attr("src") == "" || ($("#img01").attr("src").indexOf('prod_grilla_vacio.png') >= 0)) {
@@ -460,7 +456,7 @@
                     var codigoPrograma = flagNueva ? $("#txtCodigoPrograma").val() : null;
                     var flagMostrarImg = ($("#chkMostrarImg").attr("checked")) ? "1" : "0";
                     var flagMostrarImgIndependiente = ($("#chkMostrarImgIndependiente").attr("checked")) ? true : false;
-
+                    var codigo = $("#txCodigoOriginalModal").val();
 
                     var params = {
                         TipoEstrategiaID: tipoEstrategiaID,
@@ -477,7 +473,8 @@
                         FlagMostrarImg: flagMostrarImg,
                         MostrarImgOfertaIndependiente: flagMostrarImgIndependiente,
                         ImagenOfertaIndependiente: imagenOfertaIndependiente,
-                        ImagenOfertaIndependienteAnterior: imagenOfertaIndependienteAnterior
+                        ImagenOfertaIndependienteAnterior: imagenOfertaIndependienteAnterior,
+                        Codigo: codigo
                     };
 
                     jQuery.ajax({
@@ -542,11 +539,11 @@
     }
 
     $.jgrid.extend({
-        Editar: function (id, descripcion, orden, imagen, ofertas, flagactivo, codigoPrograma, flagMostrarImg, MostrarImgOfertaIndependiente, ImagenOfertaIndependiente) {
+        Editar: function (id, codigo, descripcion, orden, imagen, ofertas, flagactivo, codigoPrograma, flagMostrarImg, MostrarImgOfertaIndependiente, ImagenOfertaIndependiente) {
             if (id) {
-
                 $("#txtPaisModal").val($("#ddlPais option:selected").html());
                 $("#hdPais").val($("#ddlPais").val());
+                $("#txCodigoOriginalModal").val(codigo)
                 $("#txtDescripcionOriginalModal").val(descripcion);
                 $("#txtOrden").val(orden);
                 $("#txtPaisOferta").val($("#ddlPais option:selected").html());
@@ -695,13 +692,19 @@
             </div>
         </div>
         <div class="div-3">
-            <div class="titB">Descripción:</div>
+            <div class="titB">Código:</div>
             <div class="selectP2 borde_redondeado">
-                <input type="text" id="txtDescripcionOriginalModal" />
+                <input type="text" id="txCodigoOriginalModal" />
             </div>
             <div class="titB">Activo:</div>
             <div class="selectCheck borde_redondeado">
                 <input type="checkbox" id="chkActivo" />
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titB">Descripción:</div>
+            <div class="selectP2 borde_redondeado" style="width:535px">
+                <input type="text" id="txtDescripcionOriginalModal" style="width:100%" />
             </div>
         </div>
         <div class="div-3">

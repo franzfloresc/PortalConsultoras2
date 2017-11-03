@@ -592,4 +592,19 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="MovimientoDetalleActualizar">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisId" type="xs:int" />
+        <xs:element xmlns:q42="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cliente" minOccurs="0" name="movimientoDetalle" nillable="true" type="q42:ArrayOfBEMovimientoDetalle" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="MovimientoDetalleActualizarResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q43="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Framework" minOccurs="0" name="MovimientoDetalleActualizarResult" nillable="true" type="q43:ResponseTypeOfArrayOfBEMovimientoDetalleGaf1LoLd" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>
