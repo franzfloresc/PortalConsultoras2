@@ -35,9 +35,12 @@ $(document).ready(function () {
             }
            
             if ($('#popupDetalleCarousel_lanzamiento').is(':visible')) {
+                
                 if ($(".content_ficha_producto_nueva").is(':visible')) {
-                    document.getElementsByTagName('head')[0].removeChild(document.getElementById('infusionsoft'));
-                    dataLayerFichaProducto();
+                    if (document.getElementById('infusionsoft') != null) {
+                        document.getElementsByTagName('head')[0].removeChild(document.getElementById('infusionsoft'));
+                        dataLayerFichaProducto();
+                    }
                 }
                 CerrarPopup('#popupDetalleCarousel_lanzamiento');
             }
@@ -113,10 +116,13 @@ $(document).ready(function () {
        
         var functionHide = $.trim($(popupClose).attr("data-popup-function-hide"));
         FuncionEjecutar(functionHide);
-
+        
         if (popupClose.find(".content_ficha_producto_nueva").length > 0) {
-            document.getElementsByTagName('head')[0].removeChild(document.getElementById('infusionsoft'));
-            dataLayerFichaProducto();
+            
+            if (document.getElementById('infusionsoft') != null) {
+                document.getElementsByTagName('head')[0].removeChild(document.getElementById('infusionsoft'));
+                dataLayerFichaProducto();
+            }
         }
         CerrarPopup(popupClose);
     });
