@@ -458,10 +458,8 @@
         var campaniaCodigo = '@ViewBag.CampaniaCodigo';
         var campaniaAnio = parseInt(parseInt(campaniaCodigo) / 100);
         var campaniaNro = parseInt(campaniaCodigo) - campaniaAnio * 100;
-        var DesktopHomeLiquidacion = @Constantes.OrigenPedidoWeb.DesktopHomeLiquidacion;
         var DesktopPedidoSugerido = @Constantes.OrigenPedidoWeb.DesktopPedidoSugerido;
         var DesktopPedidoOfertaFinal = @Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinal;
-        var DesktopLiquidacion = @Constantes.OrigenPedidoWeb.DesktopLiquidacion;
         var sesionEsShowRoom = '@Portal.Consultoras.Web.SessionManager.SessionManager.Instance.GetEsShowRoom().ToString().ToLower()' === 'true';
         var EfectoTutorialSalvavidas = '@ViewBag.Efecto_TutorialSalvavidas';
         var ViewBagEsMobile = '@ViewBag.EsMobile';
