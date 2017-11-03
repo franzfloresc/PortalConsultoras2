@@ -22,6 +22,6 @@ begin
 		'Encuentra aquí todas las ofertas de tu revista física y no te pierdas ninguna oferta.', 'Encuentra aquí todas las ofertas de tu revista física y no te pierdas ninguna oferta.',
 		'', '',
 		'', '',
-		'GuiaNegocio', null)
+		'', null)
 end
 GO
