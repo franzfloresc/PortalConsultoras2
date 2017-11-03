@@ -576,7 +576,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             pasoLog = "Login.GetUserData";
             sessionManager.SetIsContrato(1);
-            Session["IsOfertaPack"] = 1;
+            sessionManager.SetIsOfertaPack(1);
 
             UsuarioModel model = null;
             ServiceUsuario.BEUsuario oBEUsuario = null;

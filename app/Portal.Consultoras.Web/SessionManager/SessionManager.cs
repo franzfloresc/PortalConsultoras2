@@ -115,5 +115,15 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return (int)HttpContext.Current.Session["IsContrato"];
         }
+
+        void ISessionManager.SetIsOfertaPack(int isOfertaPack)
+        {
+            HttpContext.Current.Session["IsOfertaPack"] = isOfertaPack;
+        }
+
+        int ISessionManager.GetIsOfertaPack()
+        {
+            return (int)HttpContext.Current.Session["IsOfertaPack"];
+        }
     }
 }

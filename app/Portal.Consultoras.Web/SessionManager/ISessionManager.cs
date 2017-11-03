@@ -45,5 +45,9 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetIsContrato(int isContrato);
 
         int GetIsContrato();
+
+        void SetIsOfertaPack(int isOfertaPack);
+
+        int GetIsOfertaPack();
     }
 }
