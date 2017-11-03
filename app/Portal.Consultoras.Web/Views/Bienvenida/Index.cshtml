@@ -2202,25 +2202,45 @@
 
 <input type="hidden" id="hdDataBarra" value="@Newtonsoft.Json.JsonConvert.SerializeObject(Model.DataBarra)" />
 
-<!--NUEVO POP UP DE SHOWROOM INTRIGA-->
-<div class="Content_general_pop_up" style="display: none;" id="PopShowroomIntriga" data-popup-main="" data-popup-function-hide="SRPopupCerrar('I')">
+<!--NUEVO POP UP DE SHOWROOM Venta-->
+<!--<div class="Content_general_pop_up"  id="PopShowroomVenta" data-popup-main="" data-popup-function-hide="SRPopupCerrar('V')">
     <div class="content_pop_up_intriga" data-popup-body>
-        <input type="hidden" id="hdEventoIDShowRoom" />
-        <input type="hidden" id="spnShowRoomEvento" />
-        <input type="hidden" id="spnShowRoomEventoDescripcion" />
+        <input type="hidden" id="hdEventoIDShowRoomVenta" />
+        <input type="hidden" id="spnShowRoomEventoVenta" />
+        <input type="hidden" id="spnShowRoomEventoDescripcionVenta" />
         <a class="cerrar_fichaProducto" style="top:20px; right:-25px;" href="javascript:;" data-popup-close="">
             <img src="/Content/Images/cerrar_04_blanco.png" alt="">
         </a>
-        <div class="saludo_consultora_showroom">Valeria prepárate para la</div>
-        <div class="dias_intriga_home">FALTAN 5 DÍAS</div>
+        <div class="saludo_consultora_showroom">Valeria YA COMENZÓ LA</div>
+
         <div class="check_01">
             <label class="checkpop2">
-                <a id="cbNoMostrarPopupShowRoomIntriga" onclick="NoMostrarPopupShowRoomIntrigaVenta('I');">NO QUIERO VOLVER A VER &Eacute;STE COMUNICADO</a>
+                <a id="cbNoMostrarPopupShowRoomVenta" onclick="NoMostrarPopupShowRoomIntrigaVenta('V')">NO VOLVER A VER ESTE ANUNCIO</a>
             </label>
         </div>
-        <img class="imagen_dias_intriga" src="@Url.Content("~/Content/Images/showroom/popup_intriga.png")" onclick="VerShowRoomIntriga()" style="cursor: pointer;" />
+        <img class="imagen_dias_intriga" src="@Url.Content("~/Content/Images/showroom/POPUP_COMPRAR.png")" onclick="VerShowRoomVenta()" style="cursor: pointer;" />
     </div>
 
+</div>-->
+<div class="Content_general_pop_up" id="PopRDSuscripcion" data-popup-main="" style="font-family: 'Lato' !important; display: block !important;" data-popup-function-hide="RDPopupCerrar(0)">
+    <div class="content_pop_up_intriga" data-popup-body>
+        <div class="contenido-popup-nuevo-2017">
+            <div class="centrar-estructura">
+                <div class="centrar-vertical-contenido">
+                    <p class="primer-texto">
+                        DILE ADIÓS A
+                        LOS CÓDIGOS…
+                    </p>
+                    <p class="segundo-texto">
+                        ¡DILE SÍ A
+                        OFERTAS GANA +!
+                    </p>
+                    <a href="" class="btn-popup">ENTÉRATE AQUÍ</a>
+                </div>
+                <a class="cerrar-popup"><img src="@Url.Content("~/Content/Images/close-icon.svg")" alt=""></a>
+            </div>
+        </div>
+    </div>
 </div>
 <!--FIN-->
 <!--NUEVO POP UP DE SHOWROOM Venta-->
