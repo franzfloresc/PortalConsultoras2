@@ -5,6 +5,7 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="Activo" type="xs:boolean" />
       <xs:element minOccurs="0" name="ApellidoCliente" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CantidadPedido" type="xs:int" />
       <xs:element minOccurs="0" name="CantidadProductos" type="xs:int" />
       <xs:element minOccurs="0" name="Celular" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ClienteID" type="xs:int" />
@@ -117,6 +118,7 @@
       <xs:element minOccurs="0" name="EsBackOrder" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsCompraPorCompra" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsKitNueva" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EsOfertaIndependiente" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsSugerido" type="xs:boolean" />
       <xs:element minOccurs="0" name="EstadoItem" type="xs:short" />
       <xs:element minOccurs="0" name="FechaCreacion" type="xs:dateTime" />
@@ -232,6 +234,7 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="Alias" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Apellidos" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CantidadPedido" type="xs:int" />
       <xs:element minOccurs="0" name="CantidadProductos" type="xs:int" />
       <xs:element minOccurs="0" name="ClienteID" type="xs:int" />
       <xs:element minOccurs="0" name="CodigoCliente" type="xs:long" />

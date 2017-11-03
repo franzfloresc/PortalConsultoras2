@@ -81,4 +81,21 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEClienteDeudaRecordatorio" nillable="true" type="tns:BEClienteDeudaRecordatorio" />
+  <xs:complexType name="ArrayOfBEMovimientoDetalle">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEMovimientoDetalle" nillable="true" type="tns:BEMovimientoDetalle" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEMovimientoDetalle" nillable="true" type="tns:ArrayOfBEMovimientoDetalle" />
+  <xs:complexType name="BEMovimientoDetalle">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
+      <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImporteTotal" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PedidoWebFacturadoID" type="xs:long" />
+      <xs:element minOccurs="0" name="PrecioUnidad" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEMovimientoDetalle" nillable="true" type="tns:BEMovimientoDetalle" />
 </xs:schema>

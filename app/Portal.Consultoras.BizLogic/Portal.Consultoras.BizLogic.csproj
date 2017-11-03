@@ -172,6 +172,7 @@
     <Compile Include="BLPedidoFacturado.cs" />
     <Compile Include="BLPedidoFICDetalle.cs" />
     <Compile Include="Incentivo\IConsultoraConcursoBusinessLogic.cs" />
+    <Compile Include="Pedido\IPedidoWebBusinessLogic.cs" />
     <Compile Include="Resources\IncentivoMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -186,7 +187,7 @@
     <Compile Include="Usuario\IUsuarioBusinessLogic.cs" />
     <Compile Include="Pedido\BLPedidoRechazado.cs" />
     <Compile Include="BLPedidoReporteLider.cs" />
-    <Compile Include="BLPedidoWeb.cs" />
+    <Compile Include="Pedido\BLPedidoWeb.cs" />
     <Compile Include="BLPedidoWebAnteriores.cs" />
     <Compile Include="BLPedidoWebDetalle.cs" />
     <Compile Include="BLPedidoWebDetalleManager.cs" />
