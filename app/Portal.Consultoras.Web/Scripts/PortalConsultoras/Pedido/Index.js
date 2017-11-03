@@ -2048,6 +2048,7 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
             ProcesarActualizacionMostrarContenedorCupon();
 
             ActualizarLocalStorageAgregado("rd", data.data.CUV, false);
+            ActualizarLocalStorageAgregado("gn", data.data.CUV, false);
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
@@ -2571,6 +2572,7 @@ function EliminarPedido() {
             CerrarSplash();
 
             ActualizarLocalStorageAgregado("rd", "todo", false);
+            ActualizarLocalStorageAgregado("gn", "todo", false);
             location.href = baseUrl + 'Pedido/Index';
         },
         error: function (data, error) {

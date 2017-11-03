@@ -239,6 +239,12 @@ namespace Portal.Consultoras.BizLogic
                         while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
                     }
                     break;
+                case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
+                    using (var reader = daEstrategia.GetEstrategiaGuiaDeNegocioDigitalizada(entidad))
+                    {
+                        while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
+                    }
+                    break;
                 default:
                     using (var reader = daEstrategia.GetEstrategiaPedido(entidad))
                     {

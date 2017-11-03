@@ -18,13 +18,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     ListaSeccion = ObtenerConfiguracionSeccion(),
                     MensajeProductoBloqueado = MensajeProductoBloqueado()
-                    
                 };
-
-                var listaShowRoom = (List<BEShowRoomOferta>)Session[Constantes.ConstSession.ListaProductoShowRoom] ?? new List<BEShowRoomOferta>();
-                ViewBag.xlistaProductoSR = listaShowRoom.Count(x => x.EsSubCampania == false);
                 
-
                 return View(modelo);
             }
             catch (Exception ex)
@@ -131,10 +126,16 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (campaniaId == userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.Lanzamiento))
                     Session[Constantes.ConstSession.TieneLan] = false;
-                else if (campaniaId == userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.OfertasParaTi))
-                    Session[Constantes.ConstSession.TieneOpt] = false;
                 else if (campaniaId != userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.Lanzamiento))
                     Session[Constantes.ConstSession.TieneLanX1] = false;
+                else if (campaniaId == userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.OfertasParaTi))
+                    Session[Constantes.ConstSession.TieneOpt] = false;
+                else if (campaniaId == userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.RevistaDigital))
+                    Session[Constantes.ConstSession.TieneOpm] = false;
+                else if (campaniaId != userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.RevistaDigital))
+                    Session[Constantes.ConstSession.TieneOpmX1] = false;
+                else if (campaniaId == userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.RevistaDigitalReducida))
+                    Session[Constantes.ConstSession.TieneRdr] = false;
                 return Json(new
                 {
                     estado = "Ok"
