@@ -5167,7 +5167,7 @@ body{
     position:relative;
     margin:0 auto 54px auto;
     border:1px solid #e7e1e1;
-    padding:18px 31px;
+    padding:18px 15px;
     width:203.3px;
     height:auto;
     border-radius:4px;
@@ -8678,7 +8678,7 @@ span.icon-advertencia{
     width: 95%;
     max-width: 400px;
     height: auto;
-    padding: 41px 0 0px 0;
+    padding: 41px 0 0 0;
 }
 
 .popup_ofertaFinal.fondo_gris_popup{
@@ -12527,8 +12527,7 @@ box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
     max-width: 400px;
     min-height: 815px;
     top: 0;
-    background:#002e5b url(../../../Images/Esika/bg_regalo_mobile_chile.png) no-repeat center top;
-   
+    background:#002e5b url(../../../Images/Esika/bg_regalo_mobile_chile.png) no-repeat center top;   
     z-index: 6;
 }
 .btn_regresa_OF{
