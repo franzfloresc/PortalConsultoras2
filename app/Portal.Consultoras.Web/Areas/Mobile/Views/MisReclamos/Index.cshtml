@@ -3,8 +3,8 @@
 @using Portal.Consultoras.Web.Helpers
 @model Portal.Consultoras.Web.Models.MisReclamosModel
 @{
-    ViewBag.Title = "Cambios y Devoluciones";
-    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+    var layout = ViewContext.MobileLayout();
+    Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
 }
 
 @section styles
@@ -19,7 +19,7 @@
     }
 }
 
-<div class="titulo_mobile">
+<div class="titulo_mobile fijarTituloMobile">
     @{
         var mobileConfiguracion = Html.MobileAppConfiguracion();
         if (mobileConfiguracion.MostrarBotonAtras)
@@ -33,7 +33,7 @@
 <div class="pestana_esika"></div><!--PESTANA ESIKA-->
 <div class="pestana_lbel"></div><!--PESTANA LBEL-->
 
-<div class="wrapper_resumen_mobile">
+<div class="wrapper_resumen_mobile pt-50">
     @if (!string.IsNullOrEmpty(Model.MensajeGestionCdrInhabilitada) && Model.ListaCDRWeb.Count <= 0)
     {
         <div class="mensaje_vista_cdr">@Html.Raw(Model.MensajeGestionCdrInhabilitada)</div>
@@ -47,9 +47,7 @@
             <span class="mensaje_vista_cdr tipografia_lato_regular">
                 Si tuviste inconvenientes con algún producto y estás dentro del <a href="@Model.UrlPoliticaCdr" class="plazo_permitido" title="Detalle de plazo permitido" target="_blank">plazo permitido</a> sigue estos pasos:
             </span>
-            <a title="Registrar Solicitud" class="btn_registrar_solicitud_cdr tipografia_lato_bold" id="IrPaso1">
-                REGISTRAR SOLICITUD
-            </a>
+            <input type="button" title="Registrar Solicitud" class="btn_registrar_solicitud_cdr tipografia_lato_bold" value="REGISTRAR SOLICITUD" id="IrPaso1">
             @if (@Model.ListaCDRWeb.Count() > 1)
             {
                 <span class="mensaje_vista_cdr tipografia_lato_regular">Actualmente tienes @Model.ListaCDRWeb.Count() solicitudes registradas :</span>
@@ -58,7 +56,6 @@
             {
                 <span class="mensaje_vista_cdr tipografia_lato_regular">Actualmente tienes @Model.ListaCDRWeb.Count() solicitud registrada :</span>
             }
-
         </div>
         <div class="grilla_registros_solicitud_cdr">
             @foreach (var item in Model.ListaCDRWeb)
@@ -115,14 +112,14 @@
                     <input type="hidden" class="cdrweb_CantidadAprobados" value="@item.CantidadAprobados" />
                     <input type="hidden" class="cdrweb_CantidadRechazados" value="@item.CantidadRechazados" />
 
-                    <div class="datos_solicitud_cdr">
+                    <div class="datos_solicitud_cdr abrir_detallemb">
                         <div class="fecha_solicitud tipografia_lato_light">
                             @formatoFechaAtencion
                         </div>
-                        <div class="num_campania tipografia_lato_bold">
+                        <div class="num_campania tipografia_lato_bold numcampsubraya">
                             CAMPAÑA @formatoCampania
                         </div>
-                        <div class="num_solicitud tipografia_lato_regular">
+                        <div class="num_solicitud tipografia_lato_regular numsolsubraya">
                             SOLICITUD N° - <span>@item.CDRWebID</span>
                         </div>
                         <div class="resumen_resolucion tipografia_lato_light">
@@ -152,8 +149,8 @@
     }
 
 </div>
-@Scripts.Render("~/Scripts/Mobile")
-<script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/MisReclamos/Index.js")"></script>
+@Scripts.Render("~/Scripts/MobileLayout")
+@Scripts.Render("~/bundles/JsMobile/CDRWeb") 
 <script type="text/javascript">
     var mensajeGestionCdrInhabilitada = '@Html.Raw(Model.MensajeGestionCdrInhabilitada)';
     var urlReclamo = '@Url.Action("Reclamo", "MisReclamos", new { area = "Mobile" } )';

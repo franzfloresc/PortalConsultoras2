@@ -2,6 +2,31 @@
 
 /* INICIO VISTA LISTA DE SOLICITUDES CDR */
 
+.fijarTituloMobile{
+    position:fixed;
+    z-index:2000;
+    padding-left: 8px;
+    box-sizing:border-box;
+}
+
+.pt-50{
+    padding-top:50px;
+}
+
+.pt-78{
+    padding-top:78px!important;
+}
+
+.pb-120 {
+    padding-bottom: 120px;
+}
+
+.btn_agrega_otro_reclamo{
+    display: block;
+    margin-top: 41px;
+    margin-bottom: 95px;
+}
+
 .mensaje_vista_cdr, .btn_registrar_solicitud_cdr {
     display: block;
     font-family: 'Lato';
@@ -345,7 +370,7 @@
 
 .contenedor_campo_cantidad_productos {
     width: 281px;
-    margin: 0 auto 70px auto;
+    margin: 0 auto;
 }
 
 .enlace_solicitudes_anteriores, .enlace_quiero_ver_otra_alternativa {
@@ -408,13 +433,13 @@
         display: none;
     }
 
-        .motivo_cdr input[type="radio"] + label span {
+        .motivo_cdr input[type="radio"] + label span:first-child {
             width: 16px;
             height: 16px;
             background: #e4e4e4;
             border-radius: 100%;
             margin-top: -2px;
-            margin-right: 25px;
+            margin-right: 13px;
             transition: all 0.3s ease;
             -moz-transition: all 0.3s ease;
             -o-transition: all 0.3s ease;
@@ -422,16 +447,17 @@
             -webkit-transition: all 0.3s ease;
         }
 
-        .motivo_cdr input[type="radio"]:checked + label span {
+        .motivo_cdr input[type="radio"]:checked + label span:first-child {
             background: #642f80;
         }
 
-        .motivo_cdr input[type="radio"] + label span, .motivo_cdr label {
+        .motivo_cdr input[type="radio"] + label span:first-child, .motivo_cdr label {
             display: inline-block;
             vertical-align: middle;
         }
 
     .motivo_cdr label {
+        width:100%;
         font-size: 13px;
     }
 
@@ -596,10 +622,10 @@
 }
 
 .contenedor_info_cdr {
-    width: 100%;
+    width: 87%;
     max-width: 243px;
     text-align: left;
-    font-size: 15px;
+    font-size: 14px;
 }
 
 .icono_eliminar_solic_cdr {
@@ -607,8 +633,8 @@
     width: 17px;
     height: 20px;
     position: absolute;
-    top: 16px;
-    right: 11px;
+    top: 9px;
+    right: 5px;
 }
 
     .icono_eliminar_solic_cdr a {
@@ -641,7 +667,7 @@
 .validacion_seccion_datos div label, .validacion_seccion_datos div input[type="text"] {
     display: block;
     color: #888;
-    font-size: 15px;
+    font-size: 14px;
 }
 
 .validacion_seccion_datos div input[type="text"] {
@@ -679,7 +705,7 @@
             background-position: center center;
             border-radius: 100%;
             position: relative;
-            top: 1px;
+            top: -5px;
             margin-right: 7px;
             transition: background-color 0.3s ease;
             -moz-transition: background-color 0.3s ease;
@@ -867,11 +893,11 @@
     }
 
         .detalle_tipo_solicitud_titulo > div:first-child {
-            width: 70%;
+            width: 63%;
         }
 
         .detalle_tipo_solicitud_titulo > div:last-child {
-            width: 29%;
+            width: 36%;
         }
 
 .estado_solic_cdr {
@@ -1029,7 +1055,7 @@
 
     .enlace_ir_al_final .icono_flecha_mi_solicitud {
         left: -5px;
-        top: 1px;
+        top: -1px;
     }
 
     .enlace_ir_al_final a {
@@ -1160,5 +1186,13 @@
 .saldo_actualizado {
     margin-top: 10px;
     font-size: 13px;
+}
+
+.numcampsubraya {
+    text-decoration: underline;
+}
+
+.numsolsubraya {
+    text-decoration: underline;
 }
 
