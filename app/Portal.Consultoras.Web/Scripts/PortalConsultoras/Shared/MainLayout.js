@@ -33,7 +33,7 @@ $(document).ready(function () {
             if ($('#PopFichaProductoNueva').is(':visible')) {
                 CerrarPopup('#PopFichaProductoNueva');
             }
-
+           
             if ($('#popupDetalleCarousel_lanzamiento').is(':visible')) {
                 if ($(".content_ficha_producto_nueva").is(':visible')) {
                     document.getElementsByTagName('head')[0].removeChild(document.getElementById('infusionsoft'));
@@ -77,6 +77,7 @@ $(document).ready(function () {
     });
 
     $('.contenedor_popup_detalleCarousel, .Content_general_pop_up').click(function (e) {
+       
         if (!$(e.target).closest('[data-popup-body]').length) {
             if ($(e.target).parent().attr("id") == "contentmain") {
                 if ($(e.target).is(':visible')) {
@@ -109,10 +110,10 @@ $(document).ready(function () {
         var popupClose = $("#" + $(this).attr("data-popup-close"));// || $(this).parent("[data-popup-main]");
         popupClose = popupClose.length > 0 ? popupClose : $(this).parents("[data-popup-main]");
         popupClose = popupClose.length > 0 ? popupClose : $(this).parents("[data-popup-body]").parent();
-
+       
         var functionHide = $.trim($(popupClose).attr("data-popup-function-hide"));
         FuncionEjecutar(functionHide);
-
+        if (popupClose.find(".content_ficha_producto_nueva").length> 0) {
         if (popupClose.find(".content_ficha_producto_nueva").length > 0) {
             document.getElementsByTagName('head')[0].removeChild(document.getElementById('infusionsoft'));
             dataLayerFichaProducto();

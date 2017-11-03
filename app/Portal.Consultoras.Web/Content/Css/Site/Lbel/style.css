@@ -23596,7 +23596,6 @@ body {
 
     .percepcion_campania select, .pedidosFacturados_campania select {
         display: block;
-        width: 107px;
         height: 41px;
         border: 1px solid #CCC;
         padding-left: 10px;
@@ -23606,6 +23605,8 @@ body {
         color: #000;
         font-weight: bold;
     }
+    .percepcion_campania select { width: 107px; }
+    .pedidosFacturados_campania select { width: 172px; }
 
 .datos_cliente {
     display: inline-block;

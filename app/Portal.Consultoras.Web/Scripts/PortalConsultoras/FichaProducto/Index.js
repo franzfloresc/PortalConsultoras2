@@ -38,6 +38,7 @@ $(document).ready(function () {
                     nuevoScript.src = "https://ok383.infusionsoft.com/app/webTracking/getTrackingCode";
                     nuevoScript.id = "infusionsoft";
                     cabecera.appendChild(nuevoScript);
+                    
                     me.Funciones.Marcador();
                 }
             },
