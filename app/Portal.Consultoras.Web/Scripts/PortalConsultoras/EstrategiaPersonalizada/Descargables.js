@@ -1,5 +1,4 @@
-﻿function Descargables(url) {
-    var nombre = "descargables_Navideños"
+﻿function Descargables(url, nombre) {
     var link = document.createElement("a");
         link.setAttribute("id", "dwnarchivo")
         link.setAttribute("target", "_blank");

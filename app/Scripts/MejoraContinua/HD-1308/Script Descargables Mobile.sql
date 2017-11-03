@@ -7,7 +7,7 @@ BEGIN
 	SELECT @ConfiguracionPaisID = ConfiguracionPaisID FROM ConfiguracionPais WHERE Codigo = 'DES-NAV'
 
 	UPDATE [dbo].[ConfiguracionPais] SET MobileTituloMenu = 'Descarga e Imprime', MobileOrden = 7, MobileOrdenBPT = 7 where Codigo = 'DES-NAV'
-	UPDATE [dbo].[ConfiguracionOfertasHome] SET MobileTitulo = 'Descarga e Imprime', MobileTipoPresentacion = 7, MobileActivo = 1, MobileOrdenBpt = 100 where ConfiguracionPaisID = @ConfiguracionPaisID
+	UPDATE [dbo].[ConfiguracionOfertasHome] SET MobileOrden = 7, MobileTitulo = 'Descarga e Imprime', MobileTipoPresentacion = 7, MobileActivo = 1, MobileOrdenBpt = 100 where ConfiguracionPaisID = @ConfiguracionPaisID
 END
 GO
 
@@ -20,7 +20,7 @@ BEGIN
 	SELECT @ConfiguracionPaisID = ConfiguracionPaisID FROM ConfiguracionPais WHERE Codigo = 'DES-NAV'
 
 	UPDATE [dbo].[ConfiguracionPais] SET MobileTituloMenu = 'Descarga e Imprime', MobileOrden = 7, MobileOrdenBPT = 7 where Codigo = 'DES-NAV'
-	UPDATE [dbo].[ConfiguracionOfertasHome] SET MobileTitulo = 'Descarga e Imprime', MobileTipoPresentacion = 7, MobileActivo = 1, MobileOrdenBpt = 100 where ConfiguracionPaisID = @ConfiguracionPaisID
+	UPDATE [dbo].[ConfiguracionOfertasHome] SET MobileOrden = 7, MobileTitulo = 'Descarga e Imprime', MobileTipoPresentacion = 7, MobileActivo = 1, MobileOrdenBpt = 100 where ConfiguracionPaisID = @ConfiguracionPaisID
 END
 GO
 
@@ -33,7 +33,7 @@ BEGIN
 	SELECT @ConfiguracionPaisID = ConfiguracionPaisID FROM ConfiguracionPais WHERE Codigo = 'DES-NAV'
 
 	UPDATE [dbo].[ConfiguracionPais] SET MobileTituloMenu = 'Descarga e Imprime', MobileOrden = 7, MobileOrdenBPT = 7 where Codigo = 'DES-NAV'
-	UPDATE [dbo].[ConfiguracionOfertasHome] SET MobileTitulo = 'Descarga e Imprime', MobileTipoPresentacion = 7, MobileActivo = 1, MobileOrdenBpt = 100 where ConfiguracionPaisID = @ConfiguracionPaisID
+	UPDATE [dbo].[ConfiguracionOfertasHome] SET MobileOrden = 7, MobileTitulo = 'Descarga e Imprime', MobileTipoPresentacion = 7, MobileActivo = 1, MobileOrdenBpt = 100 where ConfiguracionPaisID = @ConfiguracionPaisID
 END
 GO
 
@@ -46,7 +46,7 @@ BEGIN
 	SELECT @ConfiguracionPaisID = ConfiguracionPaisID FROM ConfiguracionPais WHERE Codigo = 'DES-NAV'
 
 	UPDATE [dbo].[ConfiguracionPais] SET MobileTituloMenu = 'Descarga e Imprime', MobileOrden = 7, MobileOrdenBPT = 7 where Codigo = 'DES-NAV'
-	UPDATE [dbo].[ConfiguracionOfertasHome] SET MobileTitulo = 'Descarga e Imprime', MobileTipoPresentacion = 7, MobileActivo = 1, MobileOrdenBpt = 100 where ConfiguracionPaisID = @ConfiguracionPaisID
+	UPDATE [dbo].[ConfiguracionOfertasHome] SET MobileOrden = 7, MobileTitulo = 'Descarga e Imprime', MobileTipoPresentacion = 7, MobileActivo = 1, MobileOrdenBpt = 100 where ConfiguracionPaisID = @ConfiguracionPaisID
 END
 GO
 
@@ -59,7 +59,7 @@ BEGIN
 	SELECT @ConfiguracionPaisID = ConfiguracionPaisID FROM ConfiguracionPais WHERE Codigo = 'DES-NAV'
 
 	UPDATE [dbo].[ConfiguracionPais] SET MobileTituloMenu = 'Descarga e Imprime', MobileOrden = 7, MobileOrdenBPT = 7 where Codigo = 'DES-NAV'
-	UPDATE [dbo].[ConfiguracionOfertasHome] SET MobileTitulo = 'Descarga e Imprime', MobileTipoPresentacion = 7, MobileActivo = 1, MobileOrdenBpt = 100 where ConfiguracionPaisID = @ConfiguracionPaisID
+	UPDATE [dbo].[ConfiguracionOfertasHome] SET MobileOrden = 7, MobileTitulo = 'Descarga e Imprime', MobileTipoPresentacion = 7, MobileActivo = 1, MobileOrdenBpt = 100 where ConfiguracionPaisID = @ConfiguracionPaisID
 END
 GO
 
@@ -72,7 +72,7 @@ BEGIN
 	SELECT @ConfiguracionPaisID = ConfiguracionPaisID FROM ConfiguracionPais WHERE Codigo = 'DES-NAV'
 
 	UPDATE [dbo].[ConfiguracionPais] SET MobileTituloMenu = 'Descarga e Imprime', MobileOrden = 7, MobileOrdenBPT = 7 where Codigo = 'DES-NAV'
-	UPDATE [dbo].[ConfiguracionOfertasHome] SET MobileTitulo = 'Descarga e Imprime', MobileTipoPresentacion = 7, MobileActivo = 1, MobileOrdenBpt = 100 where ConfiguracionPaisID = @ConfiguracionPaisID
+	UPDATE [dbo].[ConfiguracionOfertasHome] SET MobileOrden = 7, MobileTitulo = 'Descarga e Imprime', MobileTipoPresentacion = 7, MobileActivo = 1, MobileOrdenBpt = 100 where ConfiguracionPaisID = @ConfiguracionPaisID
 END
 GO
 
@@ -85,7 +85,7 @@ BEGIN
 	SELECT @ConfiguracionPaisID = ConfiguracionPaisID FROM ConfiguracionPais WHERE Codigo = 'DES-NAV'
 
 	UPDATE [dbo].[ConfiguracionPais] SET MobileTituloMenu = 'Descarga e Imprime', MobileOrden = 7, MobileOrdenBPT = 7 where Codigo = 'DES-NAV'
-	UPDATE [dbo].[ConfiguracionOfertasHome] SET MobileTitulo = 'Descarga e Imprime', MobileTipoPresentacion = 7, MobileActivo = 1, MobileOrdenBpt = 100 where ConfiguracionPaisID = @ConfiguracionPaisID
+	UPDATE [dbo].[ConfiguracionOfertasHome] SET MobileOrden = 7, MobileTitulo = 'Descarga e Imprime', MobileTipoPresentacion = 7, MobileActivo = 1, MobileOrdenBpt = 100 where ConfiguracionPaisID = @ConfiguracionPaisID
 END
 GO
 
@@ -98,7 +98,7 @@ BEGIN
 	SELECT @ConfiguracionPaisID = ConfiguracionPaisID FROM ConfiguracionPais WHERE Codigo = 'DES-NAV'
 
 	UPDATE [dbo].[ConfiguracionPais] SET MobileTituloMenu = 'Descarga e Imprime', MobileOrden = 7, MobileOrdenBPT = 7 where Codigo = 'DES-NAV'
-	UPDATE [dbo].[ConfiguracionOfertasHome] SET MobileTitulo = 'Descarga e Imprime', MobileTipoPresentacion = 7, MobileActivo = 1, MobileOrdenBpt = 100 where ConfiguracionPaisID = @ConfiguracionPaisID
+	UPDATE [dbo].[ConfiguracionOfertasHome] SET MobileOrden = 7, MobileTitulo = 'Descarga e Imprime', MobileTipoPresentacion = 7, MobileActivo = 1, MobileOrdenBpt = 100 where ConfiguracionPaisID = @ConfiguracionPaisID
 END
 GO
 
@@ -111,7 +111,7 @@ BEGIN
 	SELECT @ConfiguracionPaisID = ConfiguracionPaisID FROM ConfiguracionPais WHERE Codigo = 'DES-NAV'
 
 	UPDATE [dbo].[ConfiguracionPais] SET MobileTituloMenu = 'Descarga e Imprime', MobileOrden = 7, MobileOrdenBPT = 7 where Codigo = 'DES-NAV'
-	UPDATE [dbo].[ConfiguracionOfertasHome] SET MobileTitulo = 'Descarga e Imprime', MobileTipoPresentacion = 7, MobileActivo = 1, MobileOrdenBpt = 100 where ConfiguracionPaisID = @ConfiguracionPaisID
+	UPDATE [dbo].[ConfiguracionOfertasHome] SET MobileOrden = 7, MobileTitulo = 'Descarga e Imprime', MobileTipoPresentacion = 7, MobileActivo = 1, MobileOrdenBpt = 100 where ConfiguracionPaisID = @ConfiguracionPaisID
 END
 GO
 
@@ -124,7 +124,7 @@ BEGIN
 	SELECT @ConfiguracionPaisID = ConfiguracionPaisID FROM ConfiguracionPais WHERE Codigo = 'DES-NAV'
 
 	UPDATE [dbo].[ConfiguracionPais] SET MobileTituloMenu = 'Descarga e Imprime', MobileOrden = 7, MobileOrdenBPT = 7 where Codigo = 'DES-NAV'
-	UPDATE [dbo].[ConfiguracionOfertasHome] SET MobileTitulo = 'Descarga e Imprime', MobileTipoPresentacion = 7, MobileActivo = 1, MobileOrdenBpt = 100 where ConfiguracionPaisID = @ConfiguracionPaisID
+	UPDATE [dbo].[ConfiguracionOfertasHome] SET MobileOrden = 7, MobileTitulo = 'Descarga e Imprime', MobileTipoPresentacion = 7, MobileActivo = 1, MobileOrdenBpt = 100 where ConfiguracionPaisID = @ConfiguracionPaisID
 END
 GO
 
