@@ -1262,5 +1262,12 @@ namespace Portal.Consultoras.Common
             public const string OfertaDelDia = "/ofertadeldia";
             public const string OfertaDelDiaIndex = "/ofertadeldia/index";
         }
+
+        public class ArchivosDescargables
+        {
+            public const string TARJETA_NAVIDENA = "2017_Navidad_Tarjeta.pdf";
+            public const string PAPEL_REGALO_DORADO = "2017_Navidad_Regalo1.pdf";
+            public const string PAPEL_REGALO_ROJO = "2017_Navidad_Regalo2.pdf";
+        }
     }
 }

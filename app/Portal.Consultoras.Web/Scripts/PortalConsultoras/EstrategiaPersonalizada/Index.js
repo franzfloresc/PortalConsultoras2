@@ -337,38 +337,3 @@ function VerificarSecciones() {
         $("#no-productos").fadeIn();
     }
 }
-
-function Descargables(Filename) {
-    var NombreArchivo = Filename;
-
-    $.ajax({
-        type: 'POST',
-        url: baseUrl + "Ofertas/Descargables",
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify({ FileName: NombreArchivo }),
-        success: function (data) {
-           
-            if (checkTimeout()) {
-                if (data.Result) {
-                    var url = data.UrlS3;
-                    var nombre = NombreArchivo;
-
-                    var link = document.createElement("a");
-                    link.setAttribute("id", "dwnarchivo")
-                    link.setAttribute("target", "_blank");
-                    link.setAttribute('style', 'display:none;');
-                    link.download = nombre;
-                    link.href = url;                    
-                    document.body.appendChild(link);
-                    link.click();
-
-                    document.body.removeChild(link);
-                }
-            }            
-        },
-        error: function (error, x) {
-            console.log(error, x);
-        }
-    });
-}
