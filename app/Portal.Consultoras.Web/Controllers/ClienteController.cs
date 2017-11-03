@@ -32,25 +32,20 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpGet]
         public PartialViewResult Detalle(ClienteModel cliente)
         {
-            ModelState.Clear();
-
-            using (var sv = new ClienteServiceClient())
+            if (cliente.ClienteID != 0)
             {
-                var clienteService = sv.SelectByConsultoraByCodigo(userData.PaisID, userData.ConsultoraID, cliente.ClienteID, 0);
-
-                cliente = new ClienteModel()
+                try
                 {
-                    ClienteID = clienteService.ClienteID,
-                    CodigoCliente = clienteService.CodigoCliente,
-                    Nombre = clienteService.Nombre,
-                    NombreCliente = clienteService.NombreCliente,
-                    ApellidoCliente = clienteService.ApellidoCliente,
-                    Celular = clienteService.Celular,
-                    Telefono = clienteService.Telefono,
-                    eMail = clienteService.eMail,
-                };
+                    ModelState.Clear();
+                    using (var sv = new ClienteServiceClient())
+                    {
+                        var clienteService = sv.SelectByConsultoraByCodigo(userData.PaisID, userData.ConsultoraID, cliente.ClienteID, 0);
+                        cliente = Mapper.Map<ClienteModel>(clienteService);
+                    }
+                }
+                catch (FaultException ex) { LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO); }
+                catch (Exception ex) { LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO); }
             }
-
             return PartialView(cliente);
         }
 
