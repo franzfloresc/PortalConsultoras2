@@ -1059,13 +1059,13 @@ namespace Portal.Consultoras.Web.Controllers
 
                             eventoFestivoDataModel.ListaGifMenuContenedorOfertas = ObtenerEventoFestivo(usuarioModel.PaisID, Constantes.EventoFestivoAlcance.MENU_SOMOS_BELCORP, usuarioModel.CampaniaID);
 
-                            Session[Constantes.ConstSession.EventoFestivo] = eventoFestivoDataModel;
+                            sessionManager.SetEventoFestivoDataModel(eventoFestivoDataModel);
                         }
                         catch (Exception ex)
                         {
                             logManager.LogErrorWebServicesBusWrap(ex, usuarioModel.CodigoConsultora, usuarioModel.PaisID.ToString(), string.Empty);
                             pasoLog = "Ocurrió un error al cargar Eventofestivo";
-                            Session[Constantes.ConstSession.EventoFestivo] = new EventoFestivoDataModel();
+                            sessionManager.SetEventoFestivoDataModel(new EventoFestivoDataModel());
                         }
                         #endregion
 
@@ -1117,14 +1117,11 @@ namespace Portal.Consultoras.Web.Controllers
                             Session["ListFiltersFAV"] = lstFiltersFAV;
                         }
                     }
-
-                        if (ConfigurationManager.AppSettings.Get("paisesLBel").Contains(usuarioModel.CodigoISO))
-                        {
-                            usuarioModel.EsLebel = true;
-                        }
-                    
                     //Para paises lebelizados.
-                    
+                    if (ConfigurationManager.AppSettings.Get("paisesLBel").Contains(usuarioModel.CodigoISO))
+                    {
+                        usuarioModel.EsLebel = true;
+                    }
 
                     Session[Constantes.ConstSession.TieneLan] = true;
                     Session[Constantes.ConstSession.TieneLanX1] = true;

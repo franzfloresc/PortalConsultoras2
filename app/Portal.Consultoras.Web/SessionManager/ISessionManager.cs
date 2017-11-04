@@ -57,5 +57,9 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetOfertaFinalModel(OfertaFinalModel ofertaFinalModel);
 
         OfertaFinalModel GetOfertaFinalModel();
+
+        void SetEventoFestivoDataModel(EventoFestivoDataModel eventoFestivoDataModel);
+
+        EventoFestivoDataModel GetEventoFestivoDataModel();
     }
 }

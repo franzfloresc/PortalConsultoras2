@@ -145,5 +145,15 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return (OfertaFinalModel)HttpContext.Current.Session[Constantes.ConstSession.OfertaFinal];
         }
+
+        void ISessionManager.SetEventoFestivoDataModel(EventoFestivoDataModel eventoFestivoDataModel)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.EventoFestivo] = eventoFestivoDataModel;
+        }
+
+        EventoFestivoDataModel ISessionManager.GetEventoFestivoDataModel()
+        {
+            return (EventoFestivoDataModel)HttpContext.Current.Session[Constantes.ConstSession.EventoFestivo];
+        }
     }
 }
