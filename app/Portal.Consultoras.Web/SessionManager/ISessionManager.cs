@@ -49,5 +49,13 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetIsOfertaPack(int isOfertaPack);
 
         int GetIsOfertaPack();
+
+        void SetConfiguracionesPaisModel(List<ConfiguracionPaisModel> configuracionesPais);
+
+        List<ConfiguracionPaisModel> GetConfiguracionesPaisModel();
+
+        void SetOfertaFinalModel(OfertaFinalModel ofertaFinalModel);
+
+        OfertaFinalModel GetOfertaFinalModel();
     }
 }

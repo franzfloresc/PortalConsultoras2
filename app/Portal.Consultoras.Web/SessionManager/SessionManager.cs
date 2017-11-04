@@ -125,5 +125,25 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return (int)HttpContext.Current.Session["IsOfertaPack"];
         }
+
+        void ISessionManager.SetConfiguracionesPaisModel(List<ConfiguracionPaisModel> configuracionesPais)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.ConfiguracionPaises] = configuracionesPais;
+        }
+
+        List<ConfiguracionPaisModel> ISessionManager.GetConfiguracionesPaisModel()
+        {
+            return (List<ConfiguracionPaisModel>)HttpContext.Current.Session[Constantes.ConstSession.ConfiguracionPaises];
+        }
+
+        void ISessionManager.SetOfertaFinalModel(OfertaFinalModel ofertaFinalModel)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.OfertaFinal] = ofertaFinalModel;
+        }
+
+        OfertaFinalModel ISessionManager.GetOfertaFinalModel()
+        {
+            return (OfertaFinalModel)HttpContext.Current.Session[Constantes.ConstSession.OfertaFinal];
+        }
     }
 }

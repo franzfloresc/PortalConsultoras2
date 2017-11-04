@@ -4114,7 +4114,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public List<ConfiguracionPaisModel> ListConfiguracionPais()
         {
-            return GetSession(Constantes.ConstSession.ConfiguracionPaises) as List<ConfiguracionPaisModel> ??
+            return sessionManager.GetConfiguracionesPaisModel() ??
                    new List<ConfiguracionPaisModel>();
         }
 
@@ -4135,7 +4135,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public OfertaFinalModel GetOfertaFinal()
         {
-            return GetSession(Constantes.ConstSession.OfertaFinal) as OfertaFinalModel ??
+            return sessionManager.GetOfertaFinalModel() ??
                    new OfertaFinalModel();
         }
 
