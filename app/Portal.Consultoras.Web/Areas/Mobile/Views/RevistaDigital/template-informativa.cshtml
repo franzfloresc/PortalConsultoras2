@@ -11,7 +11,7 @@
 @section styles{
     @System.Web.Optimization.Styles.Render("~/bundles/css/Mobile/Site/RevistaDigital-Info")
 }
-<div class="content_320 ingresoPedidom" data-estadoregistro="@Model.EstadoSuscripcion">
+<div class="content_320 ingresoPedidom" style="display:none;" data-estadoregistro="@Model.EstadoSuscripcion">
     <div class="box_beneficios_ept">
         <div class="tit_preguntas">INGRESA A ÉSIKA PARA MÍ EN LA PRÓXIMA CAMPAÑA Y CRECE EN MÁS DE 20%* TUS GANANCIAS:</div>
         <div class="beneficios_ept">
@@ -78,7 +78,7 @@
     </div>
 </div>
 
-<div id="divCambiosEstadoRegistro">
+<div id="divCambiosEstadoRegistro" style="display:none;">
     @if (Model.EstadoSuscripcion == Constantes.EstadoRDSuscripcion.SinRegistroDB || Model.EstadoSuscripcion == Constantes.EstadoRDSuscripcion.NoPopUp)
     {
         <div class="box_cancelarInscripcion_ept" id="divSuscripcion" data-estadoregistro0="" style="display: none">
@@ -124,6 +124,116 @@
         <div class="legal_gana_mas"></div>
     </div>
 
+</div>
+
+<div class="back-to">
+    <img src="@Url.Content("~/Content/Images/RevistaDigital/triangle.png")" alt="">VOLVER
+</div>
+<div class="show-gana" style="background: url(@Url.Content("~/Content/Images/RevistaDigital/marquesina-landing.jpg"));">
+    <div class="contenedor">
+
+        <div class="img-descriptiva">
+            <img src="https://loremflickr.com/200/200/tech" alt="">
+        </div>
+        <div class="texto-descriptivo">
+            <div>
+                <p class="nombre">
+                    DANIELA, LLEGÓ
+                </p>
+                <p class="gana-mas">
+                    GANA +
+                </p>
+                <span class="txt-descriptivo">
+                    UN ESPACIO ONLINE CREADO SOLO PARA TÍ
+                </span>
+            </div>
+        </div>
+        <div class="clear"></div>
+
+
+    </div>
+</div>
+<div class="que-ofrecemos">
+    <div class="nuevo_contenedor_informativo">
+        <p class="titulo-ofrece">
+            ¿QUÉ TE OFRECE?
+        </p>
+        <div class="ofrece-bloque">
+            <div class="icono">
+                <div class="img">
+                    <img src="@Url.Content("~/Content/Images/RevistaDigital/offer-suscription-icon.svg")" alt="">
+                </div>
+            </div>
+            <div class="texto">
+                <p class="titulo">
+                    + OFERTAS EXCLUSIVAS
+                </p>
+                <span class="descripcion">
+                    Packs y productos de tus productos favoritos ¡y con precios exclusivos para ti!
+                </span>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="ofrece-bloque">
+            <div class="icono">
+                <div class="img">
+                    <img src="@Url.Content("~/Content/Images/RevistaDigital/speed-suscription-icon.svg")" alt="">
+                </div>
+            </div>
+            <div class="texto">
+                <p class="titulo">
+                    + FACILIDAD Y RAPIDEZ
+                </p>
+                <span class="descripcion">
+                    ¡Adiós errores! Ya no tendrás que digitar códigos.
+                </span>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="ofrece-bloque">
+            <div class="icono">
+                <div class="img">
+                    <img src="@Url.Content("~/Content/Images/RevistaDigital/money-suscription-icon.svg")" alt="">
+                </div>
+            </div>
+            <div class="texto">
+                <p class="titulo">
+                    + TIPS PARA GANAR
+                </p>
+                <span class="descripcion">
+                    La información que necesitas de cada producto para venderlo ¡al instante!
+                </span>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+
+<div class="como-funciona">
+    <div class="nuevo_contenedor_informativo">
+        <p class="titulo-ofrece">
+            ¿CÓMO FUNCIONA?
+        </p>
+        <div class="funciona-asi">
+            1. En la C10 te suscribes a <b>GANA +</b> y podrás visualizar ofertas únicas para ti.
+        </div>
+        <div class="funciona-asi">
+            2. En la C11, <b>dejarás de recibir la revista impresa</b> y podrás comprar y disfrutar de GANA +
+        </div>
+        <div class="clear"></div>
+        <img src="@Url.Content("~/Content/Images/RevistaDigital/android-EPM-mockup.png")" alt="">
+    </div>
+</div>
+
+<div class="suscribete-gratis">
+    <div class="nuevo_contenedor_informativo">
+        <span class="info">
+            CON GANA + DISFRUTA DE TUS OFERTAS EXCLUSIVAS EL DÍA QUE QUIERAS, <b>¡EN EL MOMENTO QUE QUIERAS!</b>
+        </span>
+        <a href="" class="callto">
+            SUSCRÍBETE GRATIS AQUÍ
+        </a>
+    </div>
 </div>
 
 @section scripts{

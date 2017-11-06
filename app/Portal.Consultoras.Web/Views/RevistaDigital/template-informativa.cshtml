@@ -4,7 +4,7 @@
 @model Portal.Consultoras.Web.Models.RevistaDigitalModel
 @{
     ViewBag.Title = "ÉSIKA PARA MÍ";
-    Layout = ViewBag.TipoLayout == 2 ? "~/Views/Shared/_MainLayout.cshtml" : "~/Views/Shared/_MainLayoutContenedor.cshtml";
+    Layout = "~/Views/Shared/_MainLayoutContenedor.cshtml";
 }
 @section styles{
     @System.Web.Optimization.Styles.Render("~/bundles/css/Site/RevistaDigital-Info")
@@ -136,10 +136,7 @@
 <div class="back-to">
     <img src="@Url.Content("~/Content/Images/RevistaDigital/triangle.png")" alt="">VOLVER
 </div>
-<div class="show-gana" style=" background: url(@Url.Content("~/Content/Images/marquesina-landing.jpg"));
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center">
+<div class="show-gana" style="background:url(@Url.Content("~/Content/Images/marquesina-landing.jpg"));">
     <div class="contenedor">
         <div class="img-descriptiva">
             <img src="@Url.Content("~/Content/Images/RevistaDigital/GIF-4.0.gif")" alt="">

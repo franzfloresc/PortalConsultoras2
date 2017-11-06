@@ -2796,10 +2796,13 @@
 	  	margin-right: 10px;
 	 }
 	 /**/
-	 .show-gana{
-	 	       width: 100%;
+.show-gana {
+    width: 100%;
     height: auto;
-	 }
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    background-position: center center !important;
+}
 	 .show-gana::before{
 	 	background: black;
 	 	content:"";
@@ -3022,3 +3025,5 @@ width: 50%;
 		    margin-left: -10px;
 		}
 	}
+
+/* fin nuevo landing de revista 6.11.2017 */
