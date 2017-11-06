@@ -134,9 +134,9 @@ namespace Portal.Consultoras.Web.Controllers
                 else if (campaniaId != userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.Lanzamiento))
                     sessionManager.SetTieneLanX1(false);
                 else if (campaniaId == userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.OfertasParaTi))
-                    sessionManager.SetTieneOpt8 false);
+                    sessionManager.SetTieneOpt(false);
                 else if (campaniaId == userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.RevistaDigital))
-                    Session[Constantes.ConstSession.TieneOpm] = false;
+                    sessionManager.SetTieneOpm(false);
                 else if (campaniaId != userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.RevistaDigital))
                     Session[Constantes.ConstSession.TieneOpmX1] = false;
                 return Json(new

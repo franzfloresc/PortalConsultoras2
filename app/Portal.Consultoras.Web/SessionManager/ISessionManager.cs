@@ -73,5 +73,9 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetTieneOpt(bool tieneOpt);
 
         bool GetTieneOpt();
+
+        void SetTieneOpm(bool tieneOpm);
+
+        bool GetTieneOpm();
     }
 }

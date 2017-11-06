@@ -1150,7 +1150,7 @@ namespace Portal.Consultoras.Web.Controllers
                     sessionManager.SetTieneLan(true);
                     sessionManager.SetTieneLanX1(true);
                     sessionManager.SetTieneOpt( true);
-                    Session[Constantes.ConstSession.TieneOpm] = true;
+                    sessionManager.SetTieneOpm(true);
                     Session[Constantes.ConstSession.TieneOpmX1] = true;
                 }
 

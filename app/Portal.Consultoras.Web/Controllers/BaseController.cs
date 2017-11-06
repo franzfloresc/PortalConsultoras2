@@ -3722,7 +3722,7 @@ namespace Portal.Consultoras.Web.Controllers
                 listMenu = listMenu.Where(e => e.Codigo != Constantes.ConfiguracionPais.OfertasParaTi).ToList();
             }
             if (menuActivo.CampaniaId == userData.CampaniaID &&
-                !(Session[Constantes.ConstSession.TieneOpm] != null ? Session[Constantes.ConstSession.TieneOpm].ToBool() : false))
+                !sessionManager.GetTieneOpm())
             {
                 listMenu = listMenu.Where(e => e.Codigo != Constantes.ConfiguracionPais.RevistaDigital).ToList();
             }
