@@ -434,7 +434,7 @@ namespace Portal.Consultoras.Web.Controllers
                         cantidadNotificaciones = sv.GetNotificacionesSinLeer(userData.PaisID, userData.ConsultoraID, userData.IndicadorBloqueoCDR);
                     }
 
-                    Session["fechaGetNotificacionesSinLeer"] = DateTime.Now;
+                    Session["fechaGetNotificacionesSinLeer"] = DateTime.Now.Ticks;
                     Session["cantidadGetNotificacionesSinLeer"] = cantidadNotificaciones;
                 }
             }
@@ -461,8 +461,9 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (Session["fechaGetNotificacionesSinLeer"] != null &&
                 Session["cantidadGetNotificacionesSinLeer"] != null)
-            {
-                var fecha = Convert.ToDateTime(Session["fechaGetNotificacionesSinLeer"]);
+            {                
+                var ticks = Convert.ToInt64(Session["fechaGetNotificacionesSinLeer"]);
+                var fecha = new DateTime(ticks);
                 var diferencia = DateTime.Now - fecha;
                 if (diferencia.TotalMinutes > 30)
                     return false;

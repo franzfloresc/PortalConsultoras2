@@ -22,13 +22,16 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index(bool showPopupMisDatos = false, string verSeccion = "")
         {
+            var model = new BienvenidaHomeModel { ShowPopupMisDatos = showPopupMisDatos };
+
+            if (userData.RolID != Constantes.Rol.Consultora)
+                return View("IndexSAC", model);
+
             if (Request.Browser.IsMobileDevice)
                 if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
                 {
                     return RedirectToAction("Index", "Bienvenida", new { area = "Mobile", verSeccion = verSeccion });
-                }
-
-            var model = new BienvenidaHomeModel { ShowPopupMisDatos = showPopupMisDatos };
+                }            
 
             try
             {
@@ -42,22 +45,20 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.UrlImagenFAVHome = string.Format(ConfigurationManager.AppSettings.Get("UrlImagenFAVHome"), userData.CodigoISO);
 
                 #region Montos
-                //EPD-2058
-                if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
+                
+                var bePedidoWeb = ObtenerPedidoWeb();
+                if (bePedidoWeb != null)
                 {
-                    var bePedidoWeb = ObtenerPedidoWeb();
-                    if (bePedidoWeb != null)
-                    {
-                        model.MontoAhorroCatalogo = bePedidoWeb.MontoAhorroCatalogo;
-                        model.MontoAhorroRevista = bePedidoWeb.MontoAhorroRevista;
-                    }
-
-                    var bePedidoWebDetalle = ObtenerPedidoWebDetalle();
-                    if (bePedidoWebDetalle != null)
-                    {
-                        model.MontoPedido = bePedidoWebDetalle.Sum(p => p.ImporteTotal);
-                    }
+                    model.MontoAhorroCatalogo = bePedidoWeb.MontoAhorroCatalogo;
+                    model.MontoAhorroRevista = bePedidoWeb.MontoAhorroRevista;
                 }
+
+                var bePedidoWebDetalle = ObtenerPedidoWebDetalle();
+                if (bePedidoWebDetalle != null)
+                {
+                    model.MontoPedido = bePedidoWebDetalle.Sum(p => p.ImporteTotal);
+                }
+                
                 #endregion
 
                 var fechaVencimientoTemp = userData.FechaLimPago;
@@ -170,11 +171,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.ValidaDatosActualizados = 0;
                 }
 
-                if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
-                {
-                    model.ImagenUsuario = ConfigS3.GetUrlFileS3("ConsultoraImagen", userData.CodigoISO + "-" + userData.CodigoConsultora + ".png", "");
-                }
-
+                model.ImagenUsuario = ConfigS3.GetUrlFileS3("ConsultoraImagen", userData.CodigoISO + "-" + userData.CodigoConsultora + ".png", "");               
 
                 int Visualizado = 1, ComunicadoVisualizado = 1;
 
@@ -238,7 +235,6 @@ namespace Portal.Consultoras.Web.Controllers
                     model.TipoPopUpMostrar = ObtenerTipoPopUpMostrar(model, popupForzado);
                 }
 
-
                 #endregion
 
                 if (Session[Constantes.ConstSession.IngresoPortalConsultoras] == null)
@@ -246,9 +242,7 @@ namespace Portal.Consultoras.Web.Controllers
                     RegistrarLogDynamoDB(Constantes.LogDynamoDB.AplicacionPortalConsultoras, Constantes.LogDynamoDB.RolConsultora, "HOME", "INGRESAR");
                     Session[Constantes.ConstSession.IngresoPortalConsultoras] = true;
                 }
-
-
-
+                
                 // validar si se muestra Show Room en Bienvenida
                 model.ShowRoomMostrarLista = ValidarPermiso(Constantes.MenuCodigo.CatalogoPersonalizado) ? 0 : 1;
                 model.ShowRoomBannerUrl = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.BannerLateralBienvenida, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
@@ -261,18 +255,7 @@ namespace Portal.Consultoras.Web.Controllers
                 TempData.Keep("MostrarPopupCuponGanaste");
 
                 ViewBag.VerSeccion = verSeccion;
-            }
-            catch (FaultException ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
-            }
 
-            try
-            {
                 model.RevistaDigital = revistaDigital;
             }
             catch (FaultException ex)
@@ -283,13 +266,8 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
             }
-
-            if (userData.RolID == Constantes.Rol.Consultora)
-            {
-                return View("Index", model);
-            }
-
-            return View("IndexSAC", model);
+            
+            return View("Index", model);           
         }
 
         public ActionResult IndexVC()
