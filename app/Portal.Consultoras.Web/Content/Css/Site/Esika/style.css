@@ -35996,7 +35996,7 @@ h1#penmostreo .campana {
 .content_regalo_sorpresa{
     display:inline-block;
     width:310px;
-    height:580px;
+    min-height:574px;
     margin-top: 35px;
     background:url(../../../Images/Esika/bg_regalo_chile.png) no-repeat;
     background-size: 100% 100%;

@@ -8940,8 +8940,8 @@ span.title-app-b {
     margin: 4% auto 5% auto;
     position: relative;
     background: #fff;
-    width: auto;
-    max-width: 350px;
+    width: 95%;
+    max-width: 400px;
     height: auto;
     padding: 41px 0 10px 0;
 }
@@ -13408,13 +13408,13 @@ a{
     right: 0;
     left: 0;
     position: absolute;
-    width: 97%;
-    max-width: 350px;
-    min-height: 746px;
+    width: 95%;
+    max-width: 400px;
+    min-height: 815px;
     top: 0;
     /*background:#002e5b url(../../../Images/Esika/bg_regalo_mobile_chile.png) no-repeat center top;*/
     background-repeat:no-repeat!important;
-    z-index: 6;
+    z-index: 1000;
 }
 .btn_regresa_OF{
     background: url(../../../Images/Esika/regresar.png) no-repeat; 
