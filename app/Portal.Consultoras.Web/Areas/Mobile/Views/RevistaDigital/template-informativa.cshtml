@@ -4,7 +4,7 @@
 @model Portal.Consultoras.Web.Models.RevistaDigitalModel
 
 @{
-    Layout = ViewBag.TipoLayout == 2 ? "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml" : "~/Areas/Mobile/Views/Shared/_MobileLayoutContenedor.cshtml";
+    Layout = ViewBag.TipoLayout == "2" ? "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml" : "~/Areas/Mobile/Views/Shared/_MobileLayoutContenedor.cshtml";
     var urlDomain = Util.GetUrlHost(Request);
 }
 
