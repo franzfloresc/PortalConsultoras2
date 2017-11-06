@@ -2,10 +2,11 @@
 
     var _config = {
         enviarFormularioUrl: config.enviarFormularioUrl || '',
-        irAModificarMisDatosUrl : config.irAModificarMisDatosUrl || ''
+        irAModificarMisDatosUrl: config.irAModificarMisDatosUrl || ''
     };
 
     var _irAModificarMisDatos = function () {
+        _dataLayerVC("Banner Confirmación", "Click botón Modificar mis datos");
         window.location = _config.irAModificarMisDatosUrl;
     };
 
@@ -24,6 +25,8 @@
     };
 
     var _enviarFormulario = function () {
+       
+        _dataLayerVC("Suscripción Exitosa", "(not available)");
         var respuesta1 = $("#revisar-catalogo-clientes:checked").val();
         var respuesta2 = $("#dejar-catalogo-clientes:checked").val();
         var respuesta3 = $("#mis-clientes-vienen:checked").val();
@@ -36,7 +39,7 @@
             setTimeout(function () { $("#AcepteTYC").hide(); }, 3000);
             return false
         }
-        
+
         var params = {
             Respuesta1: typeof respuesta1 === "undefined" ? 0 : respuesta1,
             Respuesta2: typeof respuesta2 === "undefined" ? 0 : respuesta2,
@@ -53,15 +56,19 @@
             data: JSON.stringify(params),
             async: true,
             success: function (data) {
-                if (data.success && data.resultado == 1) {
-                    _showAndsetPopupValues(data, "#popup-felicitaciones", "#correo_consultora", "#telefono_consultora", "#nombre_consultora");
+                if (data.success) {
+                    switch (data.resultado) {
+                        case -1:
+                            _showAndsetPopupValues(data, "#popup-consultora-ya-registrada-coach-virtual", "#correo_consultora_registrada_coach",
+                                "#telefono_consultora_registrada_coach", "#nombre_consultora_registrada_coach");
+                            break;
+                        case 1:
+                            _showAndsetPopupValues(data, "#popup-felicitaciones", "#correo_consultora", "#telefono_consultora", "#nombre_consultora");
+                            break;
+                    }
                     _clearElements();
                 }
-                if (data.success && data.resultado == -1) {
-                    _showAndsetPopupValues(data, "#popup-consultora-ya-registrada-coach-virtual", "#correo_consultora_registrada_coach",
-                        "#telefono_consultora_registrada_coach", "#nombre_consultora_registrada_coach");
-                    _clearElements();
-                }
+
             },
             error: function (data, error) {
                 alert(data.message);
@@ -71,9 +78,16 @@
         return false;
 
     };
-
+    var _dataLayerVC = function (action, label) {
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Coach Virtual',
+            'action': action,
+            'label': label
+        });
+    }
     return {
-        enviarFormulario : _enviarFormulario,
+        enviarFormulario: _enviarFormulario,
         irAModificarMisDatos: _irAModificarMisDatos
     }
 }

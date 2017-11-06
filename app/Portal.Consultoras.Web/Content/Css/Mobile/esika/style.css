@@ -13511,3 +13511,277 @@ a{
     font-size: 12px;
     text-decoration: line-through;
 }
+/*ESTILOS EMBEBER APP (APPCONS-1099)*/
+.app-tabs
+{
+    text-align: center;
+    font-size: 12px;
+    border-bottom: solid 1px #dfdfdf;
+    margin-bottom:20px
+}
+.app-tabs a {
+    border-bottom: 4px solid #f8f8f8;
+    width: 33%;
+    display: inline-block;
+    padding: 8px 0 8px 5px;
+    margin-left: -2px;
+    margin-right: -2px;
+    color: black;
+    text-decoration: none;
+    font-family: 'Lato';
+}
+.app-tabs a.active {
+    border-bottom: 4px solid #e81c36;
+}
+.app-tabs a:hover {
+    border-bottom: 4px solid #e81c36;
+}
+
+.app-panels {
+    margin-bottom:0px !important;
+    background: #fff !important;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border:0px !important;
+    border-left:solid 4px #d9d9d9 !important;
+    box-shadow: 0 3px 5px 0 rgba(217,217,217,.8) !important;
+    -webkit-box-shadow:0 3px 5px 0 rgba(217,217,217,.8) !important;
+    border-radius:0px !important;
+}
+.app-panels.active {
+    border-left:solid 4px #e81c36 !important;
+}
+.app-panels .panel-heading{
+    padding:10px;
+    height:80px;
+    cursor:pointer;
+    display: flex;
+    align-items: center;
+}
+.app-panels .panel-body{
+    padding:0;
+    padding-top:20px;
+    background:#f8f8f8;
+    padding:10px;
+    font-size:13px
+}
+.app-panels .sections-1,  .app-panels .sections-2,  .app-panels .sections-3,  .app-panels .sections-4{
+    display: inline-block;
+    margin-left: -2px;
+    margin-right: -2px;
+    vertical-align:middle;
+}
+.app-panels .sections-1 {
+    width:60%;
+}
+.app-panels .sections-2 {
+    width:40%;
+}
+.app-panels .sections-3 {
+    width:70%;
+}
+.app-panels .sections-4 {
+    width:30%;
+    text-align:right;
+}
+.app-panels .sections-client {
+    color:#1d1d26;
+    font-size:15px;
+    text-transform:uppercase
+}
+.app-panels .sections-subtitle{
+    color:#979797;
+    font-size:12px
+}
+.app-panels .sections-price {
+    display:table-cell;
+    width:100%;
+    text-align:right;
+    padding-right:20px;
+    font-size:16px
+}
+.app-panels .sections-arrow{
+    display:table-cell;
+    vertical-align:top
+}
+.app-panels .sections-arrow img{
+    -moz-transition: transform 0.5s;
+    -webkit-transition: transform 0.5s;
+    transition: transform 0.5s;
+}
+.app-panels-flip {
+  transform: rotate(-180deg);
+}
+.app-panels hr{
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #979797;
+    margin: 1em 0;
+    padding: 0; 
+}
+.app-panels .codigo-producto {
+    font-weight:bold
+}
+.app-panels .producto-cantidad{
+    color: #979797
+}
+.app-panels .producto-precio{
+    color: #979797
+}
+
+.app-footer{
+    width: 100%;
+    height: 54px;
+    line-height: 54px;
+    font-family: 'Lato';
+    color: #1d1d26;
+    text-align: center;
+    display: block;
+    margin-top: 30px;
+    background: #fff;
+    box-shadow: 0 -6px 9px 0 rgba(217,217,217,.8);
+    position:fixed;
+    bottom:0%;
+    z-index:1001
+}
+.app-footer .sections-1{
+    width:50%;
+    display: inline-block;
+    margin-left: -2px;
+    margin-right: -2px;
+    vertical-align:middle;
+    text-align:right;
+    font-size:17px
+}
+.app-footer .sections-2{
+    width:50%;
+    display: inline-block;
+    margin-left: -2px;
+    margin-right: -2px;
+    vertical-align:middle;
+    text-align:center;
+    font-size:19px
+}
+/*FIN ESTILOS EMBEBER APP (APPCONS-1099)*/
+
+/* APPCONS-1098 */
+.ajustePosicionFlecha{
+    left:14px;
+}
+
+.alineaIzquierda{
+    text-align:left;
+}
+
+.pl-49{
+    padding-left:49px;
+}
+
+.agregarSombraInferior{
+    position:relative;
+    z-index:2;
+    box-shadow:0 0 10px 2px rgba(0,0,0,0.5);
+    -moz-box-shadow:0 0 10px 2px rgba(0,0,0,0.5);
+    -o-box-shadow:0 0 10px 2px rgba(0,0,0,0.5);
+    -ms-box-shadow:0 0 10px 2px rgba(0,0,0,0.5);
+    -webkit-box-shadow: 0 0 10px 2px rgba(0,0,0,0.5);
+}
+
+.nuevaAlturaBanner{
+    height:auto;
+    padding-bottom:27px;
+    background-size:cover!important;
+}
+
+.contenedor_barra_ganancia{
+    display: block;
+    height: auto;
+    background: #FFF;
+    position: relative;
+    z-index: 1;
+    padding: 13px 15px 9px 15px;
+    font-family: 'Lato';
+}
+
+.barra_ganancia{
+    display:block;
+    width:100%;
+    height:20px;
+    position:relative;
+    background: rgba(255,255,255,1);
+    background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(216,216,216,1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,255,255,1)), color-stop(100%, rgba(216,216,216,1)));
+    background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(216,216,216,1) 100%);
+    background: -o-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(216,216,216,1) 100%);
+    background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(216,216,216,1) 100%);
+    background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(216,216,216,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#d8d8d8', GradientType=0 );
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    overflow: hidden;
+    /*border: solid 1px rgb(234,234,234);*/
+}
+
+.barra_ganancia_espacio_limite, .barra_ganancia_espacio_logrado{
+    display:block;
+    position:relative;
+    height:100%;
+}
+
+/*.barra_ganancia_espacio_limite{
+    width:80%;
+    background: rgba(168,166,168,1);
+    background: -moz-linear-gradient(top, rgba(168,166,168,1) 0%, rgba(255,255,255,1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(168,166,168,1)), color-stop(100%, rgba(255,255,255,1)));
+    background: -webkit-linear-gradient(top, rgba(168,166,168,1) 0%, rgba(255,255,255,1) 100%);
+    background: -o-linear-gradient(top, rgba(168,166,168,1) 0%, rgba(255,255,255,1) 100%);
+    background: -ms-linear-gradient(top, rgba(168,166,168,1) 0%, rgba(255,255,255,1) 100%);
+    background: linear-gradient(to bottom, rgba(168,166,168,1) 0%, rgba(255,255,255,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a8a6a8', endColorstr='#ffffff', GradientType=0 );
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+}*/
+
+.barra_ganancia_espacio_logrado{
+    width:85%;
+    background: rgba(97,60,135,1);
+    background: -moz-linear-gradient(left, rgba(97,60,135,1) 0%, rgba(232,28,54,1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(97,60,135,1)), color-stop(100%, rgba(232,28,54,1)));
+    background: -webkit-linear-gradient(left, rgba(97,60,135,1) 0%, rgba(232,28,54,1) 100%);
+    background: -o-linear-gradient(left, rgba(97,60,135,1) 0%, rgba(232,28,54,1) 100%);
+    background: -ms-linear-gradient(left, rgba(97,60,135,1) 0%, rgba(232,28,54,1) 100%);
+    background: linear-gradient(to right, rgba(97,60,135,1) 0%, rgba(232,28,54,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#613c87', endColorstr='#e81c36', GradientType=1 );
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+}
+
+.meta_descuento, .descuento_pedido{
+    display:inline-block;
+    vertical-align:middle;
+    font-weight:400;
+    font-size:12px;
+    margin-bottom:7px;
+}
+
+.meta_descuento{
+    width:61%;
+    text-align:left;
+}
+
+.descuento_pedido{
+    width:38%;
+    text-align:right;
+}
+
+.meta_cantidad_porcentaje_descuento{
+    font-weight:700;
+    color:#e81c36;
+    text-transform:uppercase;
+}
+/* FIN APPCONS-1098 */
