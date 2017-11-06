@@ -8,14 +8,16 @@
 
     var estadoPostulantes = ViewBag.EstadoPostulantes as SelectList;
 }
-@*<script async defer type="text/javascript" src="https://maps-api-ssl.google.com/maps/api/js?v3.exp"></script>*@
+ 
 <script async defer type="text/javascript" src="https://maps-api-ssl.google.com/maps/api/js?v3.exp&key=AIzaSyDlzZQgypPc7OctIyO8oxrhcptOmltoKrg&amp;libraries=places"></script>
 
 <script src="~/Scripts/handlebars.js"></script>
 <script src="~/Scripts/General.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Lato:400,700italic,300,700,900" rel="stylesheet" type="text/css" />
 
-<style>
+@(new HtmlString(ViewBag.HTMLSACUnete))
+
+@*<style>
     .ui-widget-content.ui-dialog {
         behavior: url('@Url.Content("~/Content/Css/Pie/PIE.htc)")') !important;
     }
@@ -90,6 +92,7 @@
 @Html.HiddenFor(m => Model.PrefijoISOPais)
 <div class="wrap_cab">
     <div class="filtros2">
+        
         <div class="elements" style="margin: 0 300px 0px 300px !important;">
             <div class="div-2" style="letter-spacing: 2.1px;
     font-size: 25px;
@@ -101,7 +104,7 @@
                 Herramienta de <b> Gesti&oacute;n</b>
             </div>
             <div class="div-3">
-
+                
                 <div class="filterDistr">
                     <div class="selectP2 seleccion_pagina txtFiltro fechaGrillaPrincipal">
                         @Html.TextBoxFor(m => Model.FechaDesde, new { @class = "textEbel ", @placeholder = "Fecha desde" })
@@ -115,7 +118,7 @@
                 <div style="width:25%; display:inline-block">
 
                     <input type="submit" name="" id="btnBuscar" style="padding:0px !important; float:left !important;width: 100px  !important; background: #642f80; color: #FFF;border: none;  font-weight:bold !important; height: 40px;   padding: 0px;    margin: 0px;" class="btnbusuqeda" value="Aceptar" />
-                    @*<button type="button" id="btnAceptar" data-direccion-correcta="si" disabled class="btn_noEliminarCliente btnConsUbi">Aceptar</button>*@
+                     
                 </div>
             </div>
             <div class="div-3">
@@ -148,13 +151,13 @@
 
                 <div class="filterDistr">
                     <div class="selectP2 seleccion_pagina txtFiltro">
-                        @*@Html.DropDownListFor(m => Model.CodigoRegion, ListaRegiones, new { @class = "textEbel ", @placeholder = "Region" })*@
+                        
                         @Html.TextBoxFor(m => Model.CodigoRegion, new { @id = "CodigoRegionFiltro", @class = "textEbel ", @placeholder = "Región" })
                     </div>
                 </div>
                 <div class="filterDistr">
                     <div class="selectP2 seleccion_pagina txtFiltro" style="height: 18px;padding-top: 3px;padding-bottom: 15px;">
-                        @*@Html.CheckBoxListFor(m => Model.PostedFuenteIngreso.SelectedIds, m => Model.FuenteIngresoListAvailable, entity => entity.ID, entity => entity.Descripcion, entity => entity.IsSelected, m => Model.FuenteIngresoListSelected)*@
+                        
                         <table>
                             <tr>
                                 @foreach (var item in Model.FuenteIngresoListAvailable)
@@ -190,7 +193,7 @@
         <div class="cellGrid  headerGrid headerGridSort" onclick="OrderListByColumnn(this, 'FechaCreacion')" data-colName="FechaCreacion">Fecha<br />Registro</div>
         <div class="cellGrid  headerGrid" data-colName="CampanaRegistro">Campaña<br />Registro</div>
         <div class="cellGrid  headerGrid headerGridSort" onclick="OrderListByColumnn(this, 'FuenteIngreso')" data-colName="FuenteIngreso">Fuente</div>
-        @*<div class="cellGrid  headerGrid" data-colname="MalaZonificacion">Mala<br />Zonificacion</div>*@
+        
         <div class="cellGrid  headerGrid" data-colName="Tipo">Tipo</div>
         <div class="cellGrid  headerGrid headerGridSort" onclick="OrderListByColumnn(this, 'NombreCompleto')" data-colName="NombreCompleto">Nombre</div>
         <div class="cellGrid  headerGrid" data-colName="TipoDocumento">Tipo<br />Doc</div>
@@ -259,9 +262,9 @@
 
 <script id="cliente-template" type="text/x-handlebars-template">
     {{#each this }}
-    <div class="content_listado_notificaciones{{PintarMalaZonificacion}}  {{ClaseRechazoZonaSeccion}}">
+    <div class="content_listado_notificaciones{{PintarMalaZonificacion}}  {{ClaseRechazoZonaSeccion}} {{ClasePostulantesNuevasApp}}" {{#iff ClasePostulantesNuevasApp '!=' ''}} title="{{TituloPostulantesNuevasApp}}" {{/iff}}>
         <!-- Inicio - Si existe mala zonificación mostrar -->
-        <div class="icono_malaZonificacion  {{PopupRechazoZonaSeccion}}  "></div>
+        <div class="icono_malaZonificacion  {{PopupRechazoZonaSeccion}}" ></div>
         <!-- Fin - Si existe mala zonificación mostrar -->
         <div class="cellGrid " data-colname="FechaCreacion">
             <span>{{FechaCreacion}}</span>
@@ -270,7 +273,7 @@
         <div class="cellGrid " data-colname="FuenteIngreso">{{FuenteIngreso}}</div>
         <div class="cellGrid " data-colname="Tipo">{{Tipo}}</div>
         <div class="cellGrid " data-colname="NombreCompleto"><a href="javascript:void(0);" class="enlaceNombreCompleto" onclick="verHistorialPostulante('{{SolicitudPostulanteID}}', '{{NombreCompleto}}', '{{FechaCreacion}}')">{{NombreCompleto}}</a></div>
-        @*<div class="cellGrid " data-colname="NombreCompleto">{{NombreCompleto}}</div>*@
+        
         <div class="cellGrid " data-colname="TipoDocumento">{{TipoDocumento}}</div>
         <div class="cellGrid " data-colname="NumeroDocumento">{{NumeroDocumento}}</div>
         <div class="cellGrid " data-colname="Correo" style="font-size:10px !important;word-wrap: break-word;">{{Correo}}</div>
@@ -1086,8 +1089,13 @@
                             <ul id="list01" style="list-style:none; "></ul>
                         </div>
                         <div class="style2">
-                            <img id="image01Visor" src='' height='350' />
-
+                            <img class="xzoom4 flip" id="image01Visor" src='' xoriginal='' height='350' />     
+                            <button id="fliper" type="button" style="text-align: center !important;" class="btn_noEliminarCliente rotate turn-left">
+                                
+                            </button>     
+                            <button type="button" style="text-align: center !important;" class="btn_noEliminarCliente print" onclick="javascript: PrintImage(this);">
+                                
+                            </button>                    
                         </div>
                     </div>
                     <div class="tab02Content tabDocContent" style="display:none">
@@ -1095,8 +1103,13 @@
                             <ul id="list02" style="list-style:none; "></ul>
                         </div>
                         <div class="style2">
-                            <img id="image02Visor" src='' height='350' />
-
+                            <img class="xzoom4 flip" id="image02Visor" src='' xoriginal='' height='350' />
+                            <button id="fliper2" type="button" style="text-align: center !important;" class="btn_noEliminarCliente rotate turn-left">
+                                
+                            </button>
+                            <button type="button" style="text-align: center !important;" class="btn_noEliminarCliente print" onclick="javascript: PrintImage(this);">
+                                
+                            </button> 
                         </div>
                     </div>
 
@@ -1105,7 +1118,7 @@
             </div>
 
             <div class="btn_grupo_eliminarCliente" style="width:90%; margin-left:5%; display:inline-block; margin-top:10px;">
-
+                
                 <button type="button" name="btn_noEliminarCliente" style="text-align: center !important;" class="btn_noEliminarCliente" onclick="CerrarDiv(3);">
                     Cerrar
                 </button>
@@ -1238,6 +1251,7 @@
         $("#" + element).parent().hide();
         if (image != '') {
             $("#" + element).attr("src", image);
+            $("#" + element).attr("xoriginal", image);
             $("#" + element).parent().show();
         }
     }
@@ -1249,6 +1263,7 @@
         $.post('@Url.Action("ConsultarAdjuntoImageSource", "Unete")', { nombreArchivo: nombreArchivo, tipo: tipo }, function (img) {
 
             setImageSrc('image01Visor', img);
+            xZoomSetup.Funciones.InicializarImage('fliper','image01Visor');
             generalCloseLoading();
         }).done(function () {
 
@@ -1263,6 +1278,7 @@
         $.post('@Url.Action("ConsultarAdjuntoImageSource", "Unete")', { nombreArchivo: nombreArchivo, tipo: tipo }, function (img) {
 
             setImageSrc('image02Visor', img);
+            xZoomSetup.Funciones.InicializarImage('fliper2','image02Visor');
             generalCloseLoading();
         }).done(function () {
 
@@ -1331,6 +1347,15 @@
             setImageSrc('image02Visor', '');
         }
 
+    }
+
+    function PrintImage(element) {
+        element = $(element);
+        var img = element.parents('.style2').find('img');
+        var src = img.attr('src');
+        var win = window.open('');
+        win.document.write('<img src="' + src + '" onload="window.print();window.close()" />');
+        win.focus();
     }
 </script>
 <script>
@@ -2198,7 +2223,10 @@
    
 
 </script>
-
+<script type="text/javascript" src="~/Scripts/ImageHelper/sizzle.js"></script>
+<script type="text/javascript" src="~/Scripts/ImageHelper/xzoom.js"></script>
+<script type="text/javascript" src="~/Scripts/ImageHelper/jquery.hammer.min.js"></script>
+<link href="~/Content/ImageHelper/xzoom.css" rel="stylesheet" />
 <style>
     .buttonGrid {
         font-weight: 600;
@@ -2395,9 +2423,13 @@
         background: #ec9313;
     }
 
-    .estiloMalaZonificacionZona, .estiloMalaZonificacionSeccion {
+    .estiloMalaZonificacionZona, .estiloMalaZonificacionSeccion, .estiloPostulantesNuevasApp {
         margin-bottom: 0px;
         position: relative;
+    }
+
+    .estiloPostulantesNuevasApp .icono_malaZonificacion {
+        background: #8b847a;
     }
 
     .estiloMalaZonificacionZona {
@@ -2408,6 +2440,9 @@
         border-bottom: 1px solid #ec9313;
     }
 
+    .estiloPostulantesNuevasApp {
+        border-bottom: 1px solid #8b847a;
+    }
     .nombre_cliente_sb {
         width: 15%;
         display: inline-block;
@@ -3068,6 +3103,28 @@
         margin: 0 auto;
         border: 0px;
     }
+    .turn-left {
+        background:#FFF url(/Content/Images/turn_left.png) center no-repeat;
+        background-size:20px;
+        color:transparent;
+    }
+    .turn-left:hover {
+        color: #FFF;        
+    }
+    .turn-left:hover:before {
+        content: 'Girar';  
+    }
+    .print {
+        background:#FFF url(/Content/Images/ico_print.png) center no-repeat;
+        background-size:20px;
+        color:transparent;
+    }
+    .print:hover {
+        color: #FFF;        
+    }
+    .print:hover:before {
+        content: 'Imprimir';     
+    }
 </style>
 <style>
     .textboxSB {
@@ -3127,4 +3184,6 @@
     cursor:pointer;
         z-index: 3;
     }
-</style>
+</style>*@
+
+<script type="text/javascript" src="~/Scripts/ImageHelper/xzoomSetup.js"></script>

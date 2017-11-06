@@ -38,11 +38,7 @@ namespace Portal.Consultoras.BizLogic.Cliente
             var daPedidoDetalle = new DAPedidoWebDetalle(paisId);
 
             using (var reader = daCliente.MovimientosListar(clienteId, consultoraId))
-                while (reader.Read())
-                {
-                    var movimiento = new BEMovimiento(reader);
-                    movimientos.Add(movimiento);
-                }
+                movimientos = reader.MapToCollection<BEMovimiento>();
 
             foreach (var movimiento in movimientos)
             {
@@ -171,6 +167,60 @@ namespace Portal.Consultoras.BizLogic.Cliente
             clienteDb.Movimientos = movimientosResponse.Data;
 
             return movimientosResponse;
+        }
+
+        public ResponseType<List<BEMovimientoDetalle>> ActualizarDetalle(int paisId, List<BEMovimientoDetalle> movimientos)
+        {
+            var daPedidoWebDetalle = new DAPedidoWebDetalle(paisId);
+
+            foreach (var movimientoDetalle in movimientos)
+            {
+                this.ValidarMovimientoDetalle(movimientoDetalle);
+                if (movimientoDetalle.Code != Constantes.ClienteValidacion.Code.SUCCESS) continue;
+
+                movimientoDetalle.ImporteTotal = movimientoDetalle.Cantidad * movimientoDetalle.PrecioUnidad;
+                var result = daPedidoWebDetalle.UpdPedidoWebFacturado(movimientoDetalle.PedidoWebFacturadoID, movimientoDetalle.PrecioUnidad, movimientoDetalle.ImporteTotal);
+
+                if (result == 0)
+                {
+                    movimientoDetalle.Code = Constantes.ClienteValidacion.Code.ERROR_MOVIMIENTODETALLE_NOACTUALIZADO;
+                    movimientoDetalle.Message = Constantes.ClienteValidacion.Message[Constantes.ClienteValidacion.Code.ERROR_MOVIMIENTODETALLE_NOACTUALIZADO];
+                    continue;
+                }
+
+                movimientoDetalle.Code = Constantes.ClienteValidacion.Code.SUCCESS;
+                movimientoDetalle.Message = Constantes.ClienteValidacion.Message[Constantes.ClienteValidacion.Code.SUCCESS];
+            }
+
+            if (movimientos.Any(m => m.Code != Constantes.ClienteValidacion.Code.SUCCESS))
+                return ResponseType<List<BEMovimientoDetalle>>.Build(false, Constantes.ClienteValidacion.Code.ERROR_MOVIMIENTODETALLE_NOACTUALIZADO, Constantes.ClienteValidacion.Message[Constantes.ClienteValidacion.Code.ERROR_MOVIMIENTODETALLE_NOACTUALIZADO], movimientos);
+
+            return ResponseType<List<BEMovimientoDetalle>>.Build(true, Constantes.ClienteValidacion.Code.SUCCESS, Constantes.ClienteValidacion.Message[Constantes.ClienteValidacion.Code.SUCCESS], movimientos);
+        }
+
+        private void ValidarMovimientoDetalle(BEMovimientoDetalle detalle)
+        {
+            if (detalle.PedidoWebFacturadoID == 0)
+            {
+                detalle.Code = Constantes.ClienteValidacion.Code.ERROR_MOVIMIENTODETALLE_PEDIDOWEBFACTURADOID_NOENVIADO;
+                detalle.Message = Constantes.ClienteValidacion.Message[Constantes.ClienteValidacion.Code.ERROR_MOVIMIENTODETALLE_PEDIDOWEBFACTURADOID_NOENVIADO];
+                return;
+            }
+            else if (detalle.Cantidad == 0)
+            {
+                detalle.Code = Constantes.ClienteValidacion.Code.ERROR_MOVIMIENTODETALLE_CANTIDAD_NOENVIADO;
+                detalle.Message = Constantes.ClienteValidacion.Message[Constantes.ClienteValidacion.Code.ERROR_MOVIMIENTODETALLE_CANTIDAD_NOENVIADO];
+                return;
+            }
+            else if (detalle.PrecioUnidad == 0)
+            {
+                detalle.Code = Constantes.ClienteValidacion.Code.ERROR_MOVIMIENTODETALLE_PRECIOUNIDAD_NOENVIADO;
+                detalle.Message = Constantes.ClienteValidacion.Message[Constantes.ClienteValidacion.Code.ERROR_MOVIMIENTODETALLE_PRECIOUNIDAD_NOENVIADO];
+                return;
+            }
+
+            detalle.Code = Constantes.ClienteValidacion.Code.SUCCESS;
+            detalle.Message = Constantes.ClienteValidacion.Message[Constantes.ClienteValidacion.Code.SUCCESS];
         }
     }
 }

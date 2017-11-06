@@ -19,6 +19,7 @@
 <input type="hidden" id="hdTotalProductos" value="@Model.ListaShowRoomOferta.Count" />
 <!--MAQUETADO NUEVO-->
 <div class="catalogoPersonalizadoBloque">
+   
     @*<div class="content_banner_intriga">
         <img src="@ViewBag.BannerImagenVenta" alt="" />
     </div>*@
@@ -120,6 +121,8 @@
 
     </div>
 
+    <div class="popup_banner_especial" id="PopupBannerEspecial"> </div>
+
     <hr class="clear" />
     @if (Model.TieneSubCampania)
     {
@@ -149,10 +152,13 @@
                             <img src="@listaSubCampania[0].ImagenMini">
                         </div>
                         <div class="content_set_precio_especial">
-                            @descripcion<br />
+                            <span style="font-size: 12px;">@descripcion</span>
+                            <br />
                             A SÓLO <span class="precio_set_especial">@Model.Simbolo @precioOferta</span>
                         </div>
-                        <a href="#" class="btn_descubre_set_especial" id="VerOfertaEspecial"><span>@Model.TextoBotonVerMasOfertaSubCampania</span></a>
+                        <div style="float:right; right: 0;">
+                            <a href="#" class="btn_descubre_set_especial" id="VerOfertaEspecial"><span>@Model.TextoBotonVerMasOfertaSubCampania</span></a>
+                        </div>
                     </div>
                     <a href="#" class="btn_descubre_set_especial info_desplegable" id="BajarOfertaEspecial"></a>
 
@@ -267,7 +273,7 @@
                                 <div class="liquidacion_rango_home" data-cantidad-contenedor="">
                                     <input type="text" value="1" min="1" max="99" size="2" maxlength="2"
                                            class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
-                                           oninput="maxLengthCheck(this, 2)" onkeypress=" return FuncionesGenerales.ValidarSoloNumeros(event); "
+                                           oninput="FuncionesGenerales.MaxLengthCheck(this, 2)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);"
                                            data-input="cantidad" data-cantidad-input="-">
                                     <div class="liquidacion_rango_right_pedido">
                                         <a class="mas" data-cantidad-agregar="+" href="javascript:;"><img src="/Content/Images/Esika/mas.png" alt=""></a>
@@ -300,7 +306,7 @@
     <div class="div_bonotes_producto">
         <div class="child_center_botones">
             <a class="volver_set" id="btnCerrarSet">VOLVER A SETS</a>
-            <a class="volver_set2" href="@Url.Action("Index","Pedido")" id="btnIrMipedido">VER MI PEDIDO</a>
+            <a class="volver_set2" href="@Url.Action("Index", "Pedido")" id="btnIrMipedido">VER MI PEDIDO</a>
         </div>
     </div>
 </div>
@@ -352,7 +358,7 @@
                     @*<input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup">*@
                     <input type="text" value="1" min="1" max="99" size="2" maxlength="2" id="txtCantidad"
                            class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
-                           oninput="maxLengthCheck(this, 2)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);"
+                           oninput="FuncionesGenerales.MaxLengthCheck(this, 2)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);"
                            data-input="cantidad" data-cantidad-input="-">
                     <div class="liquidacion_rango_right_pedido js-no-popup">
                         <a class="mas js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
@@ -411,7 +417,7 @@
             <div class="liquidacion_rango_home" data-cantidad-contenedor="">
                 <input type="text" value="1" min="1" max="99" size="2" maxlength="2"
                        class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
-                       oninput="maxLengthCheck(this, 2)" onkeypress=" return FuncionesGenerales.ValidarSoloNumeros(event); "
+                       oninput="FuncionesGenerales.MaxLengthCheck(this, 2)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event); "
                        data-input="cantidad" data-cantidad-input="-">
                 <div class="liquidacion_rango_right_pedido">
                     <a class="mas" data-cantidad-agregar="+" href="javascript:;"><img src="/Content/Images/Esika/mas.png" alt=""></a>

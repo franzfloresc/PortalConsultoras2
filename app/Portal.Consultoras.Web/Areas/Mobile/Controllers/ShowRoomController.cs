@@ -1,4 +1,3 @@
-using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Controllers;
 using Portal.Consultoras.Web.Models;
@@ -10,6 +9,8 @@ using System.Configuration;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
+using System.Web.Routing;
+using Portal.Consultoras.Web.Helpers;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -53,7 +54,21 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 esShowRoom = true && OfertaShowRoom() != null;
             }
 
-            return RedirectToAction(esShowRoom ? "Index" : "Intriga");
+            return esShowRoom ?
+                RedirectToRoute("UniqueRoute",
+                            new RouteValueDictionary(new
+                            {
+                                Controller = "ShowRoom",
+                                Action = "Index",
+                                guid = this.GetUniqueKey()
+                            })) :
+                RedirectToRoute("UniqueRoute",
+                    new RouteValueDictionary(new
+                    {
+                        Controller = "ShowRoom",
+                        Action = "Intriga",
+                        guid = this.GetUniqueKey()
+                    }));
         }
 
         public ActionResult Index(string query)
@@ -68,7 +83,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 return RedirectToAction("Intriga", "ShowRoom", new { area = "Mobile" });
             }
- 
+
             ActionExecutingMobile();
             var showRoomEventoModel = OfertaShowRoom();
 
@@ -131,7 +146,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
 
                 ActualizarUrlImagenes(ofertasShowRoom);
-                
+
                 var model = ObtenerPrimeraOfertaShowRoom(ofertasShowRoom);
 
                 model.Simbolo = userData.Simbolo;

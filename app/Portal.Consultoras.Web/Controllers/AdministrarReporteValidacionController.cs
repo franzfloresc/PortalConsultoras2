@@ -1,4 +1,4 @@
-﻿﻿using AutoMapper;
+﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
@@ -6,7 +6,6 @@ using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -262,8 +261,8 @@ namespace Portal.Consultoras.Web.Controllers
                 Nombre = x.Nombre,
                 Descripcion1 = x.Descripcion1,
                 Descripcion2 = x.Descripcion2,
-                Descripcion3 = x.Descripcion3
-
+                Descripcion3 = x.Descripcion3,
+                FlagImagenCargada = Convert.ToInt32(x.FlagImagenCargada)
             }));
 
             lst.Add(listSRCampaniaModel);

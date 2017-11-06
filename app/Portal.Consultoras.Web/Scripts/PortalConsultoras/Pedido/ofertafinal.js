@@ -1230,7 +1230,7 @@ function GetRegaloProgramaNuevas() {
 function of_google_analytics_cargar_productos(origen, meta) {
     var pageUrl = "";
     if (origen == 1) { pageUrl = "/desktop/ofertafinal/"; }
-    if (origen == 2) { pageUrl = "/mobile/ofertafinal/"; }
+    if (origen == 2) { pageUrl = getMobilePrefixUrl() + "/ofertafinal/"; }
 
     var pageName = "Oferta Final - ";
     if (meta == "MM") { pageName = pageName + "Pedido Mínimo"; }

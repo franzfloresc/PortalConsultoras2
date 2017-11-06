@@ -93,7 +93,7 @@ $(document).ready(function () {
 
             },
             error: function (err) {
-                console.log(err);
+                checkTimeout(err);
             }
         });
     }
@@ -198,7 +198,16 @@ $(document).ready(function () {
                 //$(".flip-clock-wrapper ul li a div div.inn").css("text-shadow", "0 1px 2px" + "black");
                 //$(".flip-clock-wrapper ul li a div div.inn").css("background-color", "black");
 
-                $(contenedorOfertas).css('background', 'url("' + _data.ImagenFondo1 + '")');
+                var url = window.location.href.toLowerCase() + "/";
+                url = url.replace("#", "/");
+                if (url.indexOf("/ofertas/") >= 0) {
+                    $(contenedorOfertas).css('background-color', _data.ColorFondo1);
+                }
+                else {
+                    $(contenedorOfertas).css('background', 'url("' + _data.ImagenFondo1 + '")');
+                }
+
+                SetHandlebars("#ofertadeldia-template-style", _data, "#styleRelojOdd");
 
                 $('#banner-odd').css('background-color', _data.ColorFondo1);
                 $('#PopOfertaDia').css('background-color', _data.ColorFondo2);
@@ -225,7 +234,7 @@ $(document).ready(function () {
                 }
             },
             error: function (err) {
-                console.log(err);
+                checkTimeout(err);
             }
         });
 
@@ -444,9 +453,7 @@ $(document).ready(function () {
                 return false;
             }
             var promiseAgregarProducto = AgregarProducto(producto);
-            $.when(promiseAgregarProducto).then(function (responseAgregarProd) {
-                ResetearCantidadEnMobile();
-
+            $.when(promiseAgregarProducto).then(function (responseAgregarProd) {               
                 if (!checkTimeout(responseAgregarProd)) {
                     CerrarLoad();
                     return false;
@@ -460,6 +467,9 @@ $(document).ready(function () {
 
                 CargarCantidadProductosPedidos();
                 CerrarLoad();
+                odd_mobile_google_analytics_addtocart();
+
+                ResetearCantidadEnMobile();
                 AbrirMensaje('Producto agregado satisfactoriamente', 'ÉXITO', null, 2);
             });
         });
@@ -653,7 +663,7 @@ $(document).ready(function () {
                 }
             },
             error: function (err) {
-                console.log(err);
+                checkTimeout(err);
             }
         });
 
@@ -759,7 +769,7 @@ $(document).ready(function () {
                 }
             },
             error: function (err) {
-                console.log(err);
+                checkTimeout(err);
             }
         });
 
@@ -818,6 +828,37 @@ $(document).ready(function () {
         });
 
         return listaOfertasConClases;
+    }
+
+    function odd_mobile_google_analytics_addtocart() {
+        var element = $("#OfertasDiaMobile").find(".slick-current").attr("data-slick-index");
+        var id = $('#OfertasDiaMobile').find("[data-slick-index=" + element + "]").find(".cuv2-odd").val();
+        var name = $('#OfertasDiaMobile').find("[data-slick-index=" + element + "]").find(".nombre-odd").val();
+        var price = $('#OfertasDiaMobile').find("[data-slick-index=" + element + "]").find(".precio-odd").val();
+        var marca = $('#OfertasDiaMobile').find("[data-slick-index=" + element + "]").find(".MarcaNombre").val();
+        var variant = $('#OfertasDiaMobile').find("[data-slick-index=" + element + "]").find(".DescripcionEstrategia").val();
+        var quantity = $('#pop_oferta_mobile').find("#txtCantidad").val();
+        if (variant == "")
+            variant = "Estándar";
+        dataLayer.push({
+            'event': 'addToCart',
+            'ecommerce': {
+                'add': {
+                    'actionField': { 'list': 'Oferta del día' },
+                    'products': [{
+                        'name': name,
+                        'price': price,
+                        'brand': marca,
+                        'id': id,
+                        'category': 'No disponible',
+                        'variant': variant,
+                        'quantity': quantity,
+                        'dimension15': '100',
+                        'dimension16': 'Oferta del día - Detalle'
+                    }]
+                }
+            }
+        });
     }
 
     $(elements.ContenedorInternoSliderOfertaDelDiaMobileHome + ", " + elements.ContenedorInternoSliderOfertaDelDiaMobile).click(function () {

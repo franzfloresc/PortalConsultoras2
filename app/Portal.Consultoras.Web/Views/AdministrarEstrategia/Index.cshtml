@@ -1,4 +1,6 @@
-﻿@model Portal.Consultoras.Web.Models.EstrategiaModel
+﻿@using Portal.Consultoras.Common
+
+@model Portal.Consultoras.Web.Models.EstrategiaModel
 @{
     ViewBag.Title = "Administración de Estrategias";
     string imagenVacia = "prod_grilla_vacio.png";
@@ -32,7 +34,7 @@
     <div class="filtros2">
         <div class="elements">
             <div class="div-2">
-                <h1><span>Zona de Estrategias</span></h1>
+                <h1><span>Zona de Estrategias @(Model.TipoVistaEstrategia == Constantes.TipoVistaEstrategia.ProgramaNuevas ? "- Programa de Nuevas" : string.Empty)</span></h1>
             </div>
             <div class="div-3">
                 <div class="titG">País:</div>
@@ -54,13 +56,13 @@
                             for (int i = 0; i < Model.ListaTipoEstrategia.Count(); i++)
                             {
                             <option flag-nueva="@Model.ListaTipoEstrategia.ToList()[i].FlagNueva"
-                                        flag-recoproduct="@Model.ListaTipoEstrategia.ToList()[i].FlagRecoProduc"
-                                        flag-recoperfil="@Model.ListaTipoEstrategia.ToList()[i].FlagRecoPerfil"
-                                        codigo-programa="@Model.ListaTipoEstrategia.ToList()[i].CodigoPrograma"
-                                        imagen-tipo="@Model.ListaTipoEstrategia.ToList()[i].Imagen"
-                                        value="@Model.ListaTipoEstrategia.ToList()[i].TipoEstrategiaID"
-                                        data-id="@Model.ListaTipoEstrategia.ToList()[i].CodigoGeneral"
-                                        data-codigo="@Model.ListaTipoEstrategia.ToList()[i].Codigo">
+                                    flag-recoproduct="@Model.ListaTipoEstrategia.ToList()[i].FlagRecoProduc"
+                                    flag-recoperfil="@Model.ListaTipoEstrategia.ToList()[i].FlagRecoPerfil"
+                                    codigo-programa="@Model.ListaTipoEstrategia.ToList()[i].CodigoPrograma"
+                                    imagen-tipo="@Model.ListaTipoEstrategia.ToList()[i].Imagen"
+                                    value="@Model.ListaTipoEstrategia.ToList()[i].TipoEstrategiaID"
+                                    data-id="@Model.ListaTipoEstrategia.ToList()[i].CodigoGeneral"
+                                    data-codigo="@Model.ListaTipoEstrategia.ToList()[i].Codigo">
                                 @Model.ListaTipoEstrategia.ToList()[i].Descripcion
                             </option>
                             }
@@ -75,13 +77,13 @@
 
             <div class="div-3">
                 <div class="titG">Tiene imagen?:</div>
-                 <div class="selectA borde_redondeado">
+                <div class="selectA borde_redondeado">
                     <select id="ddlTieneImagen" name="ddlTieneImagen">
                         <option value="-1" selected>-- Seleccionar --</option>
                         <option value="1">Si</option>
                         <option value="0">No</option>
                     </select>
-                </div>   
+                </div>
                 <div class="titG">Oferta Activa?:</div>
                 <div class="selectA borde_redondeado">
                     <select id="ddlOfertaActiva" name="ddlOfertaActiva">
@@ -97,9 +99,14 @@
                 <div class="input_horizontal">
                     <input type="button" name="btnBuscar" id="btnBuscar" value="Buscar" />
                     <input type="button" name="btnNuevo" id="btnNuevo" value="Nuevo" />
-                    <input type="button" name="btnNuevoMasivo" id="btnNuevoMasivo" value="Nuevo Masivo" />
-                    </div>
-                <div class="input_modifica_pedido">                    
+                    @{ 
+                        if (Model.TipoVistaEstrategia == Constantes.TipoVistaEstrategia.Todos)
+                        {
+                            <input type="button" name="btnNuevoMasivo" id="btnNuevoMasivo" value="Nuevo Masivo" />
+                        }
+                    }
+                </div>
+                <div class="input_modifica_pedido">
                     <input type="button" name="btnActivarDesactivar" id="btnActivarDesactivar" value="Activar/Desactivar" style="display: none;" />
                 </div>
             </div>
@@ -131,9 +138,9 @@
             <div class="titH">
                 <input type="checkbox" id="chkSeleccionar" />Seleccionar todo
             </div>
-            </div>
         </div>
     </div>
+</div>
 <div id="DialogEditarTallaColor" style="display: none;">
     <div class="Content_modal">
         <div class="div-3">
@@ -297,6 +304,8 @@
     var urlS3 = "@Model.UrlS3";
     var estrategiaObj;
     var habilitarNemoTecnico = @Json.Encode(Model.habilitarNemotecnico);
+    var TipoEstrategiaIncentivosProgramaNuevas = '@Constantes.TipoEstrategiaCodigo.IncentivosProgramaNuevas';
+
     jQuery(document).ready(function () {
         fnGrilla();
         IniDialog();
@@ -311,7 +320,7 @@
             habilitarNemotecnico: @Json.Encode(Model.habilitarNemotecnico),
             expValidacionNemotecnico: @Html.Raw(Model.ExpValidacionNemotecnico),
             actualizarDescripcionComercialAction: '@Url.Action("ActualizarDescripcionComercial", "MatrizComercial")'
-        }); 
+        });
 
         if(habilitarNemoTecnico) {
             $("#matriz-busqueda-nemotecnico").show();
@@ -329,6 +338,9 @@
 
         $("#btnNuevo").click(function () {
             isNuevo = true;
+
+            var tieneFlagNueva = $("#ddlTipoEstrategia option:selected").attr("flag-nueva");
+            (tieneFlagNueva == "1") ? $(".chkEsOfertaIndependiente").show() : $(".chkEsOfertaIndependiente").hide();
 
             $.jstree._reference($("#arbolRegionZona")).check_all();
 
@@ -351,22 +363,23 @@
             PedidoAsociadoChecks();
 
             $("#hdEstrategiaIDConsulta").val($("#ddlTipoEstrategia").val());
-                $("#hdEstrategiaID").val("0");
-                $("#hdCampania").val($("#ddlCampania").val());
-                $("#hdTipoEstrategiaID").val($("#ddlTipoEstrategia").val());
-                $("#txtAlcance").val($("#ddlPais option:selected").html());
-                $("#spanCampania").val($("#ddlCampania option:selected").html());
-                $("#spanTipoEstrategia").val($("#ddlTipoEstrategia option:selected").html().trim());
-                $('#chkHabilitarOferta').attr('checked', false);
+            $("#hdEstrategiaID").val("0");
+            $("#hdCampania").val($("#ddlCampania").val());
+            $("#hdTipoEstrategiaID").val($("#ddlTipoEstrategia").val());
+            $("#txtAlcance").val($("#ddlPais option:selected").html());
+            $("#spanCampania").val($("#ddlCampania option:selected").html());
+            $("#spanTipoEstrategia").val($("#ddlTipoEstrategia option:selected").html().trim());
+            $('#chkHabilitarOferta').attr('checked', false);
+            $('#chkEsOfertaIndependiente').attr('checked', false);
             $('#chkOfertaUltimoMinuto').attr('checked', false);
-                $('#hdZonas').val('');
+            $('#hdZonas').val('');
 
             $('#txtCUV2').val('');
             $('#txtPrecio2').val('');
             $('#txtCUV').val('');
             $('#txtPrecio').val('');
             $('#txtDescripcion').val('');
-
+            $('#txtGanancia').val('');
             $('#matriz-imagenes-paginacion').empty();
             $('#matriz-comercial-images').empty();
             $('#file-upload').hide();
@@ -383,47 +396,47 @@
             $("#divInformacionAdicionalEstrategia").css("background", "#D0D0D0");
             $("#txtTextoLibre").val("");
 
-                $('#hdColorFondo').val("#FFF");
-                ActivarDesactivarChecks();
-                $('#mensajeErrorCUV').val("");
-                $('#mensajeErrorCUV2').val("");
-                $("#linkAlcance").click();
-                $(".checksPedidosAsociados").html('');
+            $('#hdColorFondo').val("#FFF");
+            ActivarDesactivarChecks();
+            $('#mensajeErrorCUV').val("");
+            $('#mensajeErrorCUV2').val("");
+            $("#linkAlcance").click();
+            $(".checksPedidosAsociados").html('');
 
-                var aux1 = $('#ddlTipoEstrategia').find(':selected').data('id');
+            var aux1 = $('#ddlTipoEstrategia').find(':selected').data('id');
             var aux2 = $('#ddlTipoEstrategia').find(':selected').data('codigo');
-           //$("#btnActivarDesactivar").hide();
+            //$("#btnActivarDesactivar").hide();
 
-                if (aux1 == "4" || aux2 == "005" || aux2 == "007" || aux2 == "008") {
-                    $("#txtOrden").val("");
-                    $('#div-orden').hide();
+            if (aux1 == "4" || aux2 == "005" || aux2 == "007" || aux2 == "008") {
+                $("#txtOrden").val("");
+                $('#div-orden').hide();
 
-                    $('#txt1-estrella').html('Oferta de Último Minuto');
-                    $('#txt2-estrella').hide();
-               // $("#btnActivarDesactivar").show();
-                }
-                else {
-                    $('#div-orden').show();
+                $('#txt1-estrella').html('Oferta de Último Minuto');
+                $('#txt2-estrella').hide();
+                // $("#btnActivarDesactivar").show();
+            }
+            else {
+                $('#div-orden').show();
 
-                    $('#txt1-estrella').html('Mostrar estrella');
-                    $('#txt2-estrella').show();
-                }
+                $('#txt1-estrella').html('Mostrar estrella');
+                $('#txt2-estrella').show();
+            }
 
-                $("#ddlEtiqueta1").children('option').show();
-                $("#ddlEtiqueta2").children('option').show();
+            $("#ddlEtiqueta1").children('option').show();
+            $("#ddlEtiqueta2").children('option').show();
 
-                if (aux1 == "2") {
-                    $("#ddlEtiqueta1").children('option').hide();
-                    $("#ddlEtiqueta1").children("option[data-id='4']").show();
+            if (aux1 == "2") {
+                $("#ddlEtiqueta1").children('option').hide();
+                $("#ddlEtiqueta1").children("option[data-id='4']").show();
 
                 $("#hdnEtiqueta1").val('4');
-                }
-                else if (aux1 == "4" || aux1 == "5" || aux2 == "005" || aux2 == "007" || aux2 == "008") {
+            }
+            else if (aux1 == "4" || aux1 == "5" || aux2 == "005" || aux2 == "007" || aux2 == "008") {
 
                 $("#hdnEtiqueta1").val('1');
                 $("#hdnEtiqueta2").val('3');
 
-                } else if (aux1 == "0" || aux1 == '6') {
+            } else if (aux1 == "0" || aux1 == '6') {
                 $("#ddlEtiqueta1").children("option[data-id='5']").hide();
                 $("#ddlEtiqueta2").children("option[data-id='5']").hide();
                 $("#hdnEtiqueta1").val('5');
@@ -464,8 +477,13 @@
             $("#url-video-desktop").val("");
             $("#url-video-mobile").val("");
 
-                HideDialog("DialogZona");
-                showDialog("DialogAdministracionEstrategia");
+            if(aux2 == TipoEstrategiaIncentivosProgramaNuevas)
+                $("#divPrecioValorizado").html("Ganancia");
+            else
+                $("#divPrecioValorizado").html("Precio Valorizado");
+
+            HideDialog("DialogZona");
+            showDialog("DialogAdministracionEstrategia");
         });
         $("#btnActivarDesactivar").click(function () {
 
@@ -757,6 +775,7 @@
             var cuvIngresado = $(this).val();
             $("#imgSeleccionada").attr("src", rutaImagenVacia);
             $("#imgSeleccionada").attr("data-id", "0");
+
             estrategiaObj.mostrarInformacionCUV(cuvIngresado, isNuevo);
         });
 
@@ -839,7 +858,7 @@
             var params = {
                 campaniaId: parseInt($("#ddlCampania").val()),
                 tipoConfigurado: 2,
-                estrategiaID: $('#ddlTipoEstrategia').find(':selected').data('id'),
+                estrategiaCodigo: $('#ddlTipoEstrategia').find(':selected').data('codigo'),
                 habilitarNemotecnico: estrategiaObj.habilitarNemotecnico
             };
 
@@ -1155,6 +1174,9 @@
         var flagNueva = $("#ddlTipoEstrategia option:selected").attr("flag-nueva");
         var flagRecoProduc = $("#ddlTipoEstrategia option:selected").attr("flag-recoproduct");
         var flagRecoPerfil = $("#ddlTipoEstrategia option:selected").attr("flag-recoperfil");
+        var codigo = $('#ddlTipoEstrategia').find(':selected').data('codigo');;
+
+        (flagNueva == "1") ? $(".chkEsOfertaIndependiente").show() : $(".chkEsOfertaIndependiente").hide();
 
         $("#ddlCampaniaFin").val("");
         $("#list").jqGrid('hideCol', ["NumeroPedido"]);
@@ -1163,9 +1185,23 @@
             $(".OcultarNuevas").css({ visibility: "hidden" });
             $("#txtLimite").val("1");
             $("#list").jqGrid('showCol', ["NumeroPedido"]);
+            $(".DatosNuevas .checksPedidosAsociados").prev().css("display", "");
+            $(".DatosNuevas .checksPedidosAsociados").css("display", "");
         } else {
-            $(".DatosNuevas").hide();
-            $(".OcultarNuevas").css({ visibility: "visible" });
+            if(codigo == TipoEstrategiaIncentivosProgramaNuevas)
+            {
+                $(".DatosNuevas").show();
+                $(".OcultarNuevas").css({ visibility: "hidden" });
+                $(".DatosNuevas .checksPedidosAsociados").prev().css("display", "none");
+                $(".DatosNuevas .checksPedidosAsociados").css("display", "none");
+            }
+            else
+            {
+                $(".DatosNuevas").hide();
+                $(".OcultarNuevas").css({ visibility: "visible" });
+                $(".DatosNuevas .checksPedidosAsociados").prev().css("display", "");
+                $(".DatosNuevas .checksPedidosAsociados").css("display", "");
+            }
             $("#txtLimite").val("99");
         }
         if (flagRecoProduc == "1" || flagRecoPerfil == "1") {
@@ -1294,7 +1330,7 @@
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
             multiselect: (tipo == '4' || tipo == '7' || tipo == '20' || codigo == "005" || codigo == "007" || codigo == "008") ? true : false,
-            colNames: ['EstrategiaID', 'Orden', '#', 'Pedido Asociado', 'Precio', 'CUV2', 'Descripción', 'Limite Venta', 'Código SAP', 'ImagenURL', 'Foto', ''],
+            colNames: ['EstrategiaID', 'Orden', '#', 'Pedido Asociado', 'Precio', 'CUV2', 'Descripción', 'Limite Venta', 'Código SAP', 'ImagenURL', 'Foto', '','EsOfertaIndependiente'],
             colModel: [
                 { name: 'EstrategiaID', index: 'EstrategiaID', width: 20, editable: true, resizable: false, hidden: true },
                 { name: 'Orden', index: 'Orden', width: 20, editable: true, resizable: false, hidden: false, sortable: false },
@@ -1307,7 +1343,8 @@
                 { name: 'CodigoProducto', index: 'CodigoProducto', width: 70, align: 'center', editable: true, resizable: false, sortable: true },
                 { name: 'ImagenURL', index: 'ImagenURL', hidden: true },
                 { name: 'ImagenProducto', index: 'ImagenProducto', width: 70, align: 'center', editable: true, resizable: false, sortable: false, formatter: ShowImage },
-                { name: 'Activo', index: 'Activo', width: 30, align: 'center', editable: true, resizable: false, sortable: false, formatter: ShowActions }
+                { name: 'Activo', index: 'Activo', width: 30, align: 'center', editable: true, resizable: false, sortable: false, formatter: ShowActions },
+                { name: 'EsOfertaIndependiente', index: 'EsOfertaIndependiente', width: 0, editable: true, hidden:true }
             ],
             jsonReader:
             {
@@ -1466,7 +1503,7 @@
         var parametros = {
             campaniaId: parseInt($("#ddlCampania").val()),
             tipoConfigurado: parseInt(tipo),
-            estrategiaID: $('#ddlTipoEstrategia').find(':selected').data('id')
+            estrategiaCodigo: $('#ddlTipoEstrategia').find(':selected').data('codigo')
         };
 
         $('#listGrillaCuv1').setGridParam({ postData: parametros });
@@ -1607,7 +1644,6 @@
                         alert($('#mensajeErrorCUV2').val());
                         return false;
                     }
-
                     if ($(".DatosNuevas").css("display") == "block") {
                         if ($("#ddlCampaniaFin").val() == "") {
                             alert("Seleccione la campaña de vigencia hasta.");
@@ -1741,6 +1777,9 @@
                     var imgFichaFondoMobile = $("#nombre-img-ficha-fondo-mobile").val();
                     var imgHomeDesktop = $("#nombre-img-home-desktop").val();
                     var imgHomeMobile = $("#nombre-img-home-mobile").val();
+                    var ganancia = $("#txtGanancia").val();
+                    var esOfertaIndependiente = ($("#chkEsOfertaIndependiente").attr("checked")) ? true : false;
+
                     var params = {
                         EstrategiaID: EstrategiaID,
                         TipoEstrategiaID: TipoEstrategiaID,
@@ -1780,7 +1819,9 @@
                         ImgFichaFondoMobile: imgFichaFondoMobile,
                         ImgHomeDesktop: imgHomeDesktop,
                         ImgHomeMobile: imgHomeMobile,
-                        PrecioAnt: $('#hdEstrategiaPrecioAnt').val()
+                        PrecioAnt: $('#hdEstrategiaPrecioAnt').val(),
+                        EsOfertaIndependiente: esOfertaIndependiente,
+                        Ganancia: ganancia
                     };
                     jQuery.ajax({
                         type: 'POST',

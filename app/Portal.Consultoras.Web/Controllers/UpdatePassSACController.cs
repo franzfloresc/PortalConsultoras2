@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
-using AutoMapper;
-using System.Web.Script.Serialization;
-using System.ServiceModel;
+using System;
+using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
+using System.ServiceModel;
+using System.Web.Mvc;
+using System.Web.Script.Serialization;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -92,7 +91,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                    items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
                 pag = Paginador(grid, lst);
 
@@ -105,7 +104,7 @@ namespace Portal.Consultoras.Web.Controllers
                     rows = from a in items
                            select new
                            {
-                               cell = new string[] 
+                               cell = new string[]
                                {
                                    a.PaisID.ToString(),
                                    a.CodigoUsuario,

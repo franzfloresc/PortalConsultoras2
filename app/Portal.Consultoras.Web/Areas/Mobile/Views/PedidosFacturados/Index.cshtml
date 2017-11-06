@@ -1,9 +1,10 @@
-﻿@model Portal.Consultoras.Web.Areas.Mobile.Models.PedidoWebClientePrincipalMobilModel
+﻿@using Portal.Consultoras.Web.Helpers
+@model Portal.Consultoras.Web.Areas.Mobile.Models.PedidoWebClientePrincipalMobilModel
 @{
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
 }
 <div class="titulo_mobile">
-    @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel() : (Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+    @{  var mobileConfiguracion = Html.MobileAppConfiguracion();
         if (mobileConfiguracion.MostrarBotonAtras)
         {
             <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
@@ -43,7 +44,7 @@ else
         @for (int i = 0; i < Model.ListaPedidoCliente.Count; i++)
         {
             <div class="col-xs-12">
-                <div id="divListaPedidoDetalle_@Model.ListaPedidoCliente[i].CampaniaID" style="@( i > 0 ? "display:none;" : "" )">
+                <div id="divListaPedidoDetalle_@(Model.ListaPedidoCliente[i].CampaniaID)_@(Model.ListaPedidoCliente[i].PedidoId)" style="@( i > 0 ? "display:none;" : "" )">
                 </div>
             </div>
         }
@@ -51,31 +52,28 @@ else
 }
 @section scripts{
     <script type="text/javascript">
-
         var primerEnvio = 0;
-        var campaniaActual = "";
-        var campaniasCargadas = new Array();
+        var pedidoActual = "";
+        var pedidosCargados = new Array();
 
         $(document).ready(function () {
-
             $(".mytab").click(function () {
-
                 $('.mytab.active').removeClass("active");
                 $(this).addClass("active");
 
                 var campaniaSeleccionada = $(this).attr("data-campania");
-                var pedidoId = $(this).attr("data-idpedido");
+                var pedidoIdSeleccionado = $(this).attr("data-idpedido");
+                pedidoSeleccionado = campaniaSeleccionada + '_' + pedidoIdSeleccionado;
 
-                if (campaniaActual != campaniaSeleccionada) {
-                    $("#divListaPedidoDetalle_" + campaniaActual).hide();
-                    $("#divListaPedidoDetalle_" + campaniaSeleccionada).show();
+                if (pedidoActual != pedidoSeleccionado) {
+                    $('#divListaPedidoDetalle_' + pedidoActual).hide();
+                    $('#divListaPedidoDetalle_' + pedidoSeleccionado).show();
 
-                    if (campaniasCargadas.indexOf(campaniaSeleccionada) > -1) {
-                        campaniaActual = campaniaSeleccionada;
+                    if (pedidosCargados.indexOf(pedidoSeleccionado) > -1) {
+                        pedidoActual = pedidoSeleccionado;
                         dataLayer.push({ 'event': 'virtualPage', 'pageUrl': '@Url.Action("", "PedidosFacturados", new {area = "Mobile"})' + '/' + campaniaSeleccionada, 'pageName': 'Pedidos Facturados - ' + campaniaSeleccionada });
-                    } else {
-                        cargarDetallePedido(campaniaSeleccionada, pedidoId);
                     }
+                    else cargarDetallePedido(campaniaSeleccionada, pedidoIdSeleccionado);
                 }
             });
             $('.mytab.active').trigger("click");
@@ -95,13 +93,14 @@ else
                 data: JSON.stringify({ campaniaID: campaniaID, pedidoId: pedidoId }),
                 async: true,
                 success: function (html) {
-                    $("#divListaPedidoDetalle_" + campaniaID).html(html);
-                    campaniaActual = campaniaID;
+                    pedidoActual = campaniaID + '_' + pedidoId;
+                    $("#divListaPedidoDetalle_" + pedidoActual).html(html);
                     if (primerEnvio != 0) {
-                        dataLayer.push({ 'event': 'virtualPage', 'pageUrl': '@Url.Action("", "PedidosFacturados", new {area = "Mobile"})' + '/' + campaniaActual, 'pageName': 'Pedidos Facturados - ' + campaniaActual });
+                        dataLayer.push({ 'event': 'virtualPage', 'pageUrl': '@Url.Action("", "PedidosFacturados", new {area = "Mobile"})' + '/' + campaniaID, 'pageName': 'Pedidos Facturados - ' + campaniaID });
                     }
                     primerEnvio++;
-                    campaniasCargadas.push(campaniaID);
+
+                    pedidosCargados.push(pedidoActual);
                     CloseLoading();
                 },
                 error: function (data, error) {

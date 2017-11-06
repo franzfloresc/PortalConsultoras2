@@ -1,5 +1,6 @@
 ﻿@using System.Configuration
 @using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Helpers
 
 @model Portal.Consultoras.Web.Models.EstrategiaPersonalizadaModel
 @{
@@ -18,7 +19,7 @@
          data-templateProducto="@seccion.TemplateProducto"
          data-tipoPresentacion="@seccion.TipoPresentacion"
          data-tipoEstrategia="@seccion.TipoEstrategia"
-         data-cantidadProductos="@seccion.CantidadProductos"
+         data-cantidadProductos="@seccion.CantidadMostrar"
          id="@seccion.Codigo" >
         <div data-seccion-content="" class="seccion-content-contenedor">
             @Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/presentacion-" + seccion.TemplatePresentacion + ".cshtml", seccion)

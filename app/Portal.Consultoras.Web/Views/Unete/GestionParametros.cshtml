@@ -1,4 +1,9 @@
-﻿@using Portal.Consultoras.Web.HojaInscripcionBelcorpPais
+﻿@{
+    Layout = "~/Views/Shared/_SACLayout.cshtml";
+    ViewBag.Title = "Configuración de Parámetros";
+}
+@(new HtmlString(ViewBag.HTMLSACUnete))
+@*@using Portal.Consultoras.Web.HojaInscripcionBelcorpPais
 @model Portal.Consultoras.Web.Models.GestionParametroPageModel
 @{
     Layout = "~/Views/Shared/_SACLayout.cshtml";
@@ -376,4 +381,4 @@
             <li>Recuerde que al activar, a partir de ahora todas las postulantes si requerirán validar la condición</li>
         </ul>
     </div>
-</div>
+</div>*@

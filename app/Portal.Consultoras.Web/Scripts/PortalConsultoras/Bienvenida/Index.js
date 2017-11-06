@@ -13,8 +13,14 @@ var timeoutTooltipTutorial;
 var popupCantidadInicial = popupCantidadInicial || 1;
 var popupListaPrioridad = popupListaPrioridad || new Array();
 var showRoomMostrarLista = showRoomMostrarLista || 0;
+var dataBarra = dataBarra || {};
 
-$(document).ready(function () { 
+$(document).ready(function () {
+    var hdDataBarra = $("#hdDataBarra").val();
+    if ($.trim(hdDataBarra) != "") {
+        dataBarra = JSON.parse(hdDataBarra);
+    }
+
     $("#hdDataBarra").val("");
 
     if (vbFotoPerfil != null && vbFotoPerfil != "") {
@@ -70,6 +76,10 @@ $(document).ready(function () {
                 $('#fondoComunPopUp').hide();
             }
             if ($('#popupMisDatos').is(':visible')) {
+                if (showPopupMisDatos == '1') {
+                    dataLayerVC("Banner Actualizar Datos", "Cerrar popup");
+                    showPopupMisDatos = '0';
+                }
                 $('#fondoComunPopUp').hide();
             }
         }
@@ -113,6 +123,10 @@ $(document).ready(function () {
             }
             //EPD-1564
             if ($('#popupMisDatos').is(':visible')) {
+                if (showPopupMisDatos == '1') {
+                    dataLayerVC("Banner Actualizar Datos", "Cerrar popup");
+                    showPopupMisDatos = '0';
+                }
                 PopupCerrar('popupMisDatos');
             }
 
@@ -267,6 +281,11 @@ $(document).ready(function () {
         return false;
     });
     $("#cerrarPopupMisDatos").click(function () {
+        
+        if (showPopupMisDatos == '1') {
+            dataLayerVC("Banner Actualizar Datos", "Cerrar popup");
+            showPopupMisDatos = '0';
+        }
         PopupCerrar('popupMisDatos');
         return false;
     });
@@ -1610,7 +1629,7 @@ function CambiarContrasenia() {
 }
 
 function ActualizarMD() {
-
+    
     if (viewBagPaisID != 4) {
 
         if (jQuery.trim($('#txtEMailMD').val()) == "") {
@@ -1684,7 +1703,11 @@ function ActualizarMD() {
             CompartirDatos: false,
             AceptoContrato: $('#chkAceptoContratoMD').is(':checked')
     };
-
+    
+    if (showPopupMisDatos == '1') {
+        dataLayerVC("Banner Actualizar Datos", "Click botón Actualizar");
+        showPopupMisDatos = '0';
+    }
     if (viewBagPaisID != 4) {
 
         jQuery.ajax({
@@ -1695,6 +1718,7 @@ function ActualizarMD() {
             data: JSON.stringify(item),
             async: true,
             success: function (data) {
+                
                 if (checkTimeout(data)) {
                     closeWaitingDialog();
                     PopupCerrar('popupMisDatos');
@@ -1973,6 +1997,7 @@ function DownloadAttachPDFTerminos() {
     $('#hrefTerminos').attr('href', UrlPdfTerminosyCondiciones);
 };
 function CerrarPopupActualizacionDatos() {
+   
     var ClaveSecreta = $('#txtActualizarClaveSecreta').val();
     var ConfirmarClaveSecreta = $('#txtConfirmarClaveSecreta').val();
 
@@ -3257,7 +3282,7 @@ function MostrarPopupInicial() {
             break;
         case popupRevistaDigitalSuscripcion:
             PopupMostrar('PopRDSuscripcion');
-            MostrarPopupRDAnalytics();
+            rdAnalyticsModule.MostrarPopup();
             break;
         case popupCupon:
             cuponModule.mostrarPopupGana();
@@ -3292,8 +3317,23 @@ function VerSeccionBienvenida(seccion) {
     }
 
     if (id != "") {
-        $("html, body").animate({
-            scrollTop: $(id).offset().top - 60
-        }, 1000);
+        if ($(id).length) {
+            var topOf = $(id).offset().top - 60;
+            if (id == ".flexslider")
+                topOf = 0;
+
+            $("html, body").animate({
+                scrollTop: topOf
+            }, 1000);
+        }        
     }
+}
+
+function dataLayerVC(action, label) {
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Coach Virtual',
+        'action': action,
+        'label': label
+    });
 }

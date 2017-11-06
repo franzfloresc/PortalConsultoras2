@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Runtime.Serialization;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Data;
-using Portal.Consultoras.Common;
+using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities
 {
@@ -24,7 +20,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public byte TipoConfiguracion { get; set; }
         [DataMember]
-        public string CodigoUsuario { set; get; } // R20160302
+        public string CodigoUsuario { set; get; }
 
         public BEConfiguracionConsultoraDA(IDataRecord row)
         {
@@ -40,8 +36,8 @@ namespace Portal.Consultoras.Entities
                 TipoConfiguracion = Convert.ToByte(row["TipoConfiguracion"]);
             if (DataRecord.HasColumn(row, "CodigoUsuario") && row["CodigoUsuario"] != DBNull.Value)
                 CodigoUsuario = row["CodigoUsuario"].ToString(); // R20160302
-        } 
-         
+        }
+
 
     }
 }

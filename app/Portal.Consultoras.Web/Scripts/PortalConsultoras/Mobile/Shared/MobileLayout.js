@@ -2,6 +2,8 @@
 
     LayoutHeader();
 
+    var ventanaChat = null;
+
     SetFormatDecimalPais(formatDecimalPaisMain);
 
     if (mostrarBannerPostulante == 'True') {
@@ -121,6 +123,38 @@
         $('body').css({ 'overflow-y': 'scroll' });
     });
 
+    $("#belcorpChat a_").click(function () {
+        if (this.href.indexOf('#') != -1) {
+            messageInfoError("Por el momento el chat no se encuentra disponible. Volver a intentarlo más tarde");
+        }
+    });
+
+    $("body").on('click', '.belcorpChat, .indicador_ayuda', function (e) {
+        e.preventDefault();
+
+        var URL = location.protocol + "//" + location.host + "/Mobile/Bienvenida/ChatBelcorp";
+        var PopUpChatOpened = localStorage.getItem('PopUpChatOpened');
+       
+        if (typeof PopUpChatOpened == 'undefined' ||
+            PopUpChatOpened == null ||
+            PopUpChatOpened == 'false') {
+            localStorage.setItem('PopUpChatOpened', 'true');
+            ventanaChat = open(URL, 'ventanaChat');
+            ventanaChat.focus();
+        } else {
+
+            ventanaChat = open('', 'ventanaChat');
+            console.log(ventanaChat.location);
+            if (ventanaChat.location == "about:blank") {
+                URL = location.protocol + "//" + location.host + "/Mobile/Bienvenida/ChatBelcorp";
+                ventanaChat = open(URL, 'ventanaChat');
+            }
+            ventanaChat.focus();
+        }
+        return false;
+
+    });
+
     $("#btn_cerrar_oferta_mobile").click(function () {
         //$('.header_slider').slideUp();
         $('.header_slider').hide();
@@ -175,6 +209,10 @@
         if ($('#flexslidertop ul.slides li').length == 0) {
             $("#contentmobile").css({ 'margin-top': '63px' });
         }
+    }
+
+    if (URLactual.indexOf('/g/') > 0) {
+        $("#contentmobile").css({ 'margin-top': '0px' });
     }
 
     $(".bannersi").on("click", function () {
@@ -286,8 +324,7 @@ function loadBannerLP20() {
         $("#contentmobile").css("margin-top", "0px");
         $('#content_slider_banner').show();
 
-        if ($('#BloqueMobileOfertaDia').length > 0)
-        {
+        if ($('#BloqueMobileOfertaDia').length > 0) {
             $('#content_slider_banner').css('background-color', $('#BloqueMobileOfertaDia').css('background-color'));
         }
 
@@ -760,7 +797,7 @@ function messageInfoError(message, fnAceptar) {
 
     $('#popupInformacionSB2Error .btn_ok_mobile').on('click', function () {
         $('#popupInformacionSB2Error').hide();
-        fnAceptar();
+        //fnAceptar();
     });
 
     //if ($.isFunction(fnAceptar)) {
@@ -778,6 +815,15 @@ function messageInfoValidado(message, fnAceptar) {
     }
 }
 
+function messageConfirmacion(message, fnAceptar) {
+    $('#mensajeInformacionConfirmacion').html(message);
+    $('#popupInformacionConfirmacion').show();
+    if ($.isFunction(fnAceptar)) {
+        $('#popupInformacionConfirmacion .aceptar-mobile').off('click');
+        $('#popupInformacionConfirmacion .aceptar-mobile').on('click', fnAceptar);
+    }
+}
+
 function CargarCantidadProductosPedidos(noMostrarEfecto) {
     noMostrarEfecto = noMostrarEfecto || false;
 
@@ -785,7 +831,7 @@ function CargarCantidadProductosPedidos(noMostrarEfecto) {
         type: 'POST',
         url: urlGetCantidadProductos,
         dataType: 'json',
-        data: JSON.stringify({ soloCantidad : true }),
+        data: JSON.stringify({ soloCantidad: true }),
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
             if (checkTimeout(data)) {
@@ -895,7 +941,7 @@ function SeparadorMiles(pnumero) {
 
     if (numero.indexOf(",") >= 0) nuevoNumero = nuevoNumero.substring(0, nuevoNumero.indexOf(","));
 
-    for (var j, i = nuevoNumero.length - 1, j = 0; i >= 0; i--, j++)
+    for (var j, i = nuevoNumero.length - 1, j = 0; i >= 0; i-- , j++)
         resultado = nuevoNumero.charAt(i) + ((j > 0) && (j % 3 == 0) ? "." : "") + resultado;
 
     if (numero.indexOf(",") >= 0) resultado += numero.substring(numero.indexOf(","));

@@ -1,10 +1,12 @@
-﻿@using Portal.Consultoras.Web.Models
+﻿@using Portal.Consultoras.Web.Helpers
+@using Portal.Consultoras.Web.Models
 
 @model PedidoDetalleModel
 
 @{
-    var layout = Session["IngresoExterno"] == null ? "_MobileLayout" : "_MobileLayoutEmpty";
+    var layout = ViewContext.MobileLayout();
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
+    var mobileConfiguracion = Html.MobileAppConfiguracion();
 }
 
 @section styles{
@@ -14,16 +16,15 @@
         }
     </style>
 }
-<div class="titulo_mobile">
-    @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel() : (Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
-        if (mobileConfiguracion.MostrarBotonAtras)
-        {
+@{
+    if (!mobileConfiguracion.EsAppMobile)
+    {
+        <div class="titulo_mobile">
             <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
-        } 
+            &nbsp;&nbsp;&nbsp;&nbsp;PRODUCTOS AGOTADOS
+        </div>
     }
-    &nbsp;&nbsp;&nbsp;&nbsp;PRODUCTOS AGOTADOS
-</div>
-
+}
 <div class="pestana_esika"></div><!--PESTANA ESIKA-->
 <div class="pestana_lbel"></div><!--PESTANA LBEL-->
 <br />

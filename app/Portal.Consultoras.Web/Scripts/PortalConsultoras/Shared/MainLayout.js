@@ -17,23 +17,28 @@ $(document).ready(function () {
         MensajeEstadoPedido();
     }
 
-    if (tieneOfertaDelDia == "True") {
-        window.OfertaDelDia.CargarODD();
+    if (!esContenedorOfertas) {
+        if (tieneOfertaDelDia == "True") {
+            window.OfertaDelDia.CargarODD();
+        }
+    } else {
+        if (mostrarOfertaDelDiaContenedor == "True") {
+            window.OfertaDelDia.CargarODD();
+        }
     }
+    
     
     $(document).keyup(function (e) {
         if (e.keyCode == 27) {
-            if ($('#PopOfertaDia').is(':visible')) {
-                $('#PopOfertaDia').slideUp();
-                $('.circulo_hoy span').html('+');
-                showDisplayODD = 0;
-            }
-
             if ($('#PopFichaProductoNueva').is(':visible')) {
                 CerrarPopup('#PopFichaProductoNueva');
             }
-
+           
             if ($('#popupDetalleCarousel_lanzamiento').is(':visible')) {
+                if ($(".content_ficha_producto_nueva").is(':visible')) {
+                    document.getElementsByTagName('head')[0].removeChild(document.getElementById('infusionsoft'));
+                }
+
                 CerrarPopup('#popupDetalleCarousel_lanzamiento');
             }
 
@@ -72,11 +77,16 @@ $(document).ready(function () {
     });
 
     $('.contenedor_popup_detalleCarousel, .Content_general_pop_up').click(function (e) {
+       
         if (!$(e.target).closest('[data-popup-body]').length) {
             if ($(e.target).parent().attr("id") == "contentmain") {
                 if ($(e.target).is(':visible')) {
                     var functionHide = $.trim($(this).attr("data-popup-function-hide"));
                     FuncionEjecutar(functionHide);
+                   
+                    if ($(e.target).parents().find(".content_ficha_producto_nueva").length>0) {
+                        document.getElementsByTagName('head')[0].removeChild(document.getElementById('infusionsoft'));
+                    }
                     CerrarPopup(e.target);
                 }
             }
@@ -100,10 +110,12 @@ $(document).ready(function () {
         var popupClose = $("#" + $(this).attr("data-popup-close"));// || $(this).parent("[data-popup-main]");
         popupClose = popupClose.length > 0 ? popupClose : $(this).parents("[data-popup-main]");
         popupClose = popupClose.length > 0 ? popupClose : $(this).parents("[data-popup-body]").parent();
-
+       
         var functionHide = $.trim($(popupClose).attr("data-popup-function-hide"));
         FuncionEjecutar(functionHide);
-
+        if (popupClose.find(".content_ficha_producto_nueva").length> 0) {
+            document.getElementsByTagName('head')[0].removeChild(document.getElementById('infusionsoft'));
+        }
         CerrarPopup(popupClose);
     });
 
@@ -287,7 +299,6 @@ $(document).ready(function () {
         return false;
     });
 
-    Scrolling();
     setInterval(animacionFlechaScroll, 1000);
 
 });
@@ -369,15 +380,10 @@ function CargarResumenCampaniaHeader(showPopup) {
                        
                     }
                 }
-                else {
-                    console.error("Ocurrio un error con el Resumen de Campaña.");
-                }
             }
         },
         error: function (data, error) {
-            if (checkTimeout(data)) {
-                console.error(data, error);
-            }
+            checkTimeout(data);
         }
     });
 };
@@ -412,48 +418,14 @@ function CargarCantidadNotificacionesSinLeer() {
                 };
 
                 data.mensaje = data.mensaje || "";
-                if (data.mensaje != '') {
-                    console.log(data.mensaje);
-                }
             };
         },
         error: function (data, error) {
-            if (checkTimeout(data)) {
-                console.error(data, error);
-            }
+            checkTimeout(data);
         }
     });
 };
-function Scrolling() {
-    var y = $(window).scrollTop();
-    $('#toUp').hide();
-    $('#toUp').attr("style", "top: 580px !important");
-    $('#toDown').click(function () {
-        y = $(window).scrollTop() + $(window).height() - 50;
-        $('html, body').animate({ scrollTop: y }, 1000);
-    });
-    $('#toUp').click(function () {
-        $('html, body').animate({ scrollTop: 0 }, 1000);
-    });
 
-    var altura = $('header').offset().top;
-
-    $(window).on('scroll', function () {
-        if ($(window).scrollTop() >= altura + 50) {
-            $('.logo_esika_tam').attr('src', baseUrl + 'Content/Images/Esika/logo_menu_esika.png');
-        } else {
-            $('.logo_esika_tam').attr('src', baseUrl + 'Content/Images/Esika/logo_esika.png');
-        }
-
-        if ($(window).scrollTop() + $(window).height() === $(document).height()) {
-            $('#toDown').hide("slow");
-            $('#toUp').show("slow");
-        } else {
-            $('#toDown').show("slow");
-            $('#toUp').hide("slow");
-        }
-    });
-};
 function AbrirModalFeErratas() {
     waitingDialog({});
 
@@ -870,7 +842,6 @@ function MostrarShowRoomBannerLateral() {
             error: function (response, error) {
                 if (checkTimeout(response)) {
                     closeWaitingDialog();
-                    console.log("Ocurrió un error en ShowRoom");
                 }
             }
         });
@@ -1111,7 +1082,7 @@ function checkCountdownODD() {
             }
         },
         error: function (err) {
-            console.log(err);
+            checkTimeout(err);
         }
     });
 
@@ -1135,7 +1106,7 @@ function getQtyPedidoDetalleByCuvODD(cuv2, tipoEstrategiaID) {
             }
         },
         error: function (err) {
-            console.log(err);
+            checkTimeout(err);
         }
     });
 
@@ -1181,7 +1152,7 @@ function closeOfertaDelDia(sender) {
             }
         },
         error: function (err) {
-            console.log(err);
+            checkTimeout(err);
         }
     });
 }

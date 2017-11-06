@@ -1,11 +1,12 @@
-﻿@model Portal.Consultoras.Web.Models.MisPedidosDetalleModel
+﻿@using Portal.Consultoras.Web.Helpers
+@model Portal.Consultoras.Web.Models.MisPedidosDetalleModel
 
 @{
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
 }
 
 <div class="titulo_mobile">
-    @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel() : (Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+    @{  var mobileConfiguracion = Html.MobileAppConfiguracion();
         if (mobileConfiguracion.MostrarBotonAtras)
         {
             <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
@@ -266,8 +267,8 @@
 @section scripts {
     <script type="text/javascript">
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
-        var urlPendientes = '@Url.Action("Pendientes","ConsultoraOnline")';
-        var urlPedido = '@Url.Action("Index","Pedido")';
+        var urlPendientes = '@Url.Action("Pendientes", "ConsultoraOnline")';
+        var urlPedido = '@Url.Action("Index", "Pedido")';
         var urlClienteDetalle = "@Url.Action("AgregarCliente", "Cliente", new { area = "Mobile" })";
     </script>
 

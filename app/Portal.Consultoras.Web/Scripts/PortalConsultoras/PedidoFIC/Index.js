@@ -403,7 +403,9 @@ function ValidarDescripcion() {
     }
 }
 
-function PreValidarCUV() {
+function PreValidarCUV(event) {
+    event = event || window.event;
+
     if (event.keyCode == 13) {
         if ($("#btnAgregar")[0].disabled == false) {
             AgregarProductoListado();
@@ -423,7 +425,9 @@ function ValidarCliente() {
     }
 }
 
-function ValidarClienteFocus() {
+function ValidarClienteFocus(event) {
+    event = event || window.event;
+
     if (event.keyCode == 9) {
         if ($("#btnAgregar")[0].disabled == true) {
             if (event.preventDefault)
@@ -435,7 +439,9 @@ function ValidarClienteFocus() {
     }
 }
 
-function Tabular() {
+function Tabular(event) {
+    event = event || window.event;
+
     if (event.keyCode == 9) {
         if (event.preventDefault)
             event.preventDefault();

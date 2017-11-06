@@ -57,13 +57,11 @@ namespace Portal.Consultoras.BizLogic
                 string catalogoLbel = "lbel." + catalogoCampania;
                 string catalogoEsika = "esika." + catalogoCampania;
                 string catalogoCyzone = "cyzone." + catalogoCampania;
-                string catalogoFinart = "finart." + catalogoCampania;
 
                 var url = urlISSUUSearch +
                     "docname:" + catalogoLbel + "+OR+" +
                     "docname:" + catalogoEsika + "+OR+" +
-                    "docname:" + catalogoCyzone + "+OR+" +
-                    "docname:" + catalogoFinart + "&jsonCallback=?";
+                    "docname:" + catalogoCyzone + "&jsonCallback=?";
 
                 string response = "";
                 using (var wc = new WebClient())
@@ -88,7 +86,6 @@ namespace Portal.Consultoras.BizLogic
                     if (docName == catalogoLbel) catalogos.Add(new BECatalogoIssuu { MarcaID = 1, CodigoIssuu = documentId, UrlVisor = urlISSUUVisor + docName });
                     else if (docName == catalogoEsika) catalogos.Add(new BECatalogoIssuu { MarcaID = 2, CodigoIssuu = documentId, UrlVisor = urlISSUUVisor + docName });
                     else if (docName == catalogoCyzone) catalogos.Add(new BECatalogoIssuu { MarcaID = 3, CodigoIssuu = documentId, UrlVisor = urlISSUUVisor + docName });
-                    else if (docName == catalogoFinart) catalogos.Add(new BECatalogoIssuu { MarcaID = 4, CodigoIssuu = documentId, UrlVisor = urlISSUUVisor + docName });
                 }
             }
             catch (Exception) { catalogos = new List<BECatalogoIssuu>(); }
@@ -119,7 +116,7 @@ namespace Portal.Consultoras.BizLogic
             try
             {
                 SetCatalogoRevistaMostrar(paisISO, campania, listCatalogoRevista);
-                SetCatalogoRevistaCodigoIssuu(paisISO, codigoZona, campania, listCatalogoRevista);                
+                SetCatalogoRevistaCodigoIssuu(paisISO, codigoZona, campania, listCatalogoRevista);
                 SetCatalogoRevistaFieldsInOembedIssuu(paisISO, listCatalogoRevista);
                 AjusteRevistaTituloDescripcion(paisISO, campania, listCatalogoRevista);
             }
@@ -149,7 +146,7 @@ namespace Portal.Consultoras.BizLogic
                     this.AjusteRevistaTituloDescripcion(catalogoRevista);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 LogManager.SaveLog(ex, "", paisISO);
             }
@@ -210,17 +207,12 @@ namespace Portal.Consultoras.BizLogic
                     MarcaDescripcion = "Cyzone",
                     UrlImagen = Constantes.CatalogoImagenDefault.Catalogo,
                     UrlVisor = Constantes.CatalogoUrlDefault.Cyzone
-                },
-                new BECatalogoRevista
-                {
-                    MarcaID = Constantes.Marca.Finart,
-                    MarcaDescripcion = "Finart",
-                    UrlImagen = Constantes.CatalogoImagenDefault.Catalogo
                 }
+
             };
         }
 
-        private List<BECatalogoRevista> GetAllCatalogoRevista(string paisISO,string campanias)
+        private List<BECatalogoRevista> GetAllCatalogoRevista(string paisISO, string campanias)
         {
             var lstCampania = campanias.Split('|');
 
@@ -267,22 +259,13 @@ namespace Portal.Consultoras.BizLogic
                     CampaniaID = Convert.ToInt32(itemCampania),
                     PaisISO = paisISO
                 });
-
-                lstCatalogoRevista.Add(new BECatalogoRevista
-                {
-                    MarcaID = Constantes.Marca.Finart,
-                    MarcaDescripcion = "Finart",
-                    UrlImagen = Constantes.CatalogoImagenDefault.Catalogo,
-                    CampaniaID = Convert.ToInt32(itemCampania),
-                    PaisISO = paisISO
-                });
             }
 
             return lstCatalogoRevista;
         }
 
         private void SetCatalogoRevistaMostrar(string paisISO, int campania, List<BECatalogoRevista> listCatalogoRevista)
-        {            
+        {
             var listCatalogoConfiguracion = this.GetCatalogoConfiguracion(Util.GetPaisID(paisISO)).ToList();
 
             foreach (var catalogoRevista in listCatalogoRevista)
@@ -335,7 +318,7 @@ namespace Portal.Consultoras.BizLogic
             int campaniaInicio = Convert.ToInt32(paisCamp[1]);
             return campania >= campaniaInicio;
         }
-        
+
         private void SetCatalogoRevistaCodigoIssuu(string paisISO, string codigoZona, int campania, List<BECatalogoRevista> listCatalogoRevista)
         {
             string nombreCatalogoConfig = null, codigo;
@@ -386,10 +369,10 @@ namespace Portal.Consultoras.BizLogic
             for (int i = 0; i < listCatalogoRevista.Count; i++)
             {
                 queryString += "docname:" + listCatalogoRevista[i].CodigoIssuu;
-                if(i < listCatalogoRevista.Count - 1) queryString += "+OR+";
+                if (i < listCatalogoRevista.Count - 1) queryString += "+OR+";
                 else queryString += "&jsonCallback=?";
             }
-            
+
             string urlISSUUSearch = "http://search.issuu.com/api/2_0/document?username=somosbelcorp&q=";
             var url = urlISSUUSearch + queryString;
             string response = "";
@@ -421,7 +404,7 @@ namespace Portal.Consultoras.BizLogic
             foreach (var doc in jsonReponse["response"]["docs"])
             {
                 catalogoRevista = listCatalogoRevista.FirstOrDefault(cr => cr.CodigoIssuu == doc["docname"]);
-                if(catalogoRevista != null)
+                if (catalogoRevista != null)
                 {
                     catalogoRevista.UrlVisor = string.Format(urlIssuuVisor, catalogoRevista.CodigoIssuu);
                     catalogoRevista.UrlImagen = string.Format(UrlIssuuImage, doc["documentId"], tamanioImagen);
@@ -437,6 +420,9 @@ namespace Portal.Consultoras.BizLogic
             foreach (var catalogoRevista in listCatalogoRevista)
             {
                 url = urlISSUUSearch + catalogoRevista.CodigoIssuu;
+                //Si el codigo de la revista es nulo el bucle continua en el siguiente objeto
+                if (string.IsNullOrEmpty(catalogoRevista.CodigoIssuu)) continue;
+
                 response = "";
                 try
                 {
@@ -464,10 +450,12 @@ namespace Portal.Consultoras.BizLogic
             }
         }
         private void SetCatalogoRevistaFieldsInOembedIssuu(BECatalogoRevista catalogoRevista)
-        {
-            string urlISSUUSearch = "https://issuu.com/oembed?url=https://issuu.com/somosbelcorp/docs/";
-            string url = string.Format("{0}{1}", urlISSUUSearch, catalogoRevista.CodigoIssuu);
-            string response = string.Empty;
+        {            
+            if (!string.IsNullOrEmpty(catalogoRevista.CodigoIssuu))
+            {
+                string urlISSUUSearch = "https://issuu.com/oembed?url=https://issuu.com/somosbelcorp/docs/";
+                string url = string.Format("{0}{1}", urlISSUUSearch, catalogoRevista.CodigoIssuu);
+                string response = string.Empty;
 
             try
             {
@@ -477,23 +465,24 @@ namespace Portal.Consultoras.BizLogic
                     wc.Proxy = null;
                     response = wc.DownloadString(url);
                 }
-                
+
                 if (!string.IsNullOrEmpty(response))
                 {
                     if (response.Substring(0, 2) == "?(") response = response.Substring(2, response.Length - 3);
 
-                    dynamic jsonReponse = Newtonsoft.Json.Linq.JObject.Parse(response);
+                        dynamic jsonReponse = Newtonsoft.Json.Linq.JObject.Parse(response);
 
-                    string urlIssuuVisor = ConfigurationManager.AppSettings["UrlIssuu"] ?? "";
-                    catalogoRevista.UrlVisor = string.Format(urlIssuuVisor, catalogoRevista.CodigoIssuu);
-                    catalogoRevista.UrlImagen = jsonReponse.thumbnail_url;
-                    catalogoRevista.CatalogoTitulo = jsonReponse.title;
-                    catalogoRevista.CatalogoDescripcion = jsonReponse.description;
+                        string urlIssuuVisor = ConfigurationManager.AppSettings["UrlIssuu"] ?? "";
+                        catalogoRevista.UrlVisor = string.Format(urlIssuuVisor, catalogoRevista.CodigoIssuu);
+                        catalogoRevista.UrlImagen = jsonReponse.thumbnail_url;
+                        catalogoRevista.CatalogoTitulo = jsonReponse.title;
+                        catalogoRevista.CatalogoDescripcion = jsonReponse.description;
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                LogManager.SaveLog(ex, "", catalogoRevista.PaisISO);
+                catch (Exception ex)
+                {
+                    LogManager.SaveLog(ex, "", catalogoRevista.PaisISO);
+                }
             }
         }
 

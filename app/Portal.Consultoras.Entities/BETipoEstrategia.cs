@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Runtime.Serialization;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Data;
-using Portal.Consultoras.Common;
+using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities
 {
@@ -45,9 +41,9 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int FlagNueva { get; set; }
 
-	    [DataMember]
+        [DataMember]
         public int FlagRecoPerfil { get; set; }
-		
+
         [DataMember]
         public int FlagRecoProduc { get; set; }
 
@@ -55,13 +51,20 @@ namespace Portal.Consultoras.Entities
         public string CodigoPrograma { get; set; }
 
         [DataMember]
-        public int FlagMostrarImg { get; set; }      // SB2-353 
+        public int FlagMostrarImg { get; set; }
 
         [DataMember]
         public int CodigoGeneral { get; set; }
 
         [DataMember]
         public string Codigo { get; set; }
+        //INICIO-HD1130
+        [DataMember]
+        public bool MostrarImgOfertaIndependiente { get; set; }
+
+        [DataMember]
+        public string ImagenOfertaIndependiente { get; set; }
+        //FIN-HD1130
 
         public BETipoEstrategia(IDataRecord row)
         {
@@ -94,7 +97,7 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "FlagRecoProduc") && row["FlagRecoProduc"] != DBNull.Value)
                 FlagRecoProduc = Convert.ToInt32(row["FlagRecoProduc"]);
 
-            if(DataRecord.HasColumn(row, "CodigoPrograma") && row["CodigoPrograma"] != DBNull.Value)
+            if (DataRecord.HasColumn(row, "CodigoPrograma") && row["CodigoPrograma"] != DBNull.Value)
                 CodigoPrograma = Convert.ToString(row["CodigoPrograma"]);
 
             // SB2-353
@@ -106,6 +109,13 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "Codigo") && row["Codigo"] != DBNull.Value)
                 Codigo = Convert.ToString(row["Codigo"]);
+            //INICIO-HD1130
+            if (DataRecord.HasColumn(row, "MostrarImgOfertaIndependiente") && row["MostrarImgOfertaIndependiente"] != DBNull.Value)
+                MostrarImgOfertaIndependiente = Convert.ToBoolean(row["MostrarImgOfertaIndependiente"]);
+
+            if (DataRecord.HasColumn(row, "ImagenOfertaIndependiente") && row["ImagenOfertaIndependiente"] != DBNull.Value)
+                ImagenOfertaIndependiente = row["ImagenOfertaIndependiente"].ToString();
+            //FIN-HD1130
         }
 
     }

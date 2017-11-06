@@ -87,7 +87,7 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEClienteDB> SaveDB(int paisID, List<BEClienteDB> clientes);
 
         [OperationContract]
-        IList<BEClienteDB> SelectByConsultoraDB(int paisID, long consultoraID, int campaniaID);
+        IList<BEClienteDB> SelectByConsultoraDB(int paisID, long consultoraID, int campaniaID, int clienteID);
         #endregion
 
         [OperationContract]
@@ -103,16 +103,16 @@ namespace Portal.Consultoras.ServiceContracts
         Tuple<bool, string> MovimientoEliminar(int paisId, long consultoraId, short clienteId, int movimientoId);
 
         [OperationContract]
-        int RecordatorioInsertar(int paisId, BEClienteRecordatorio recordatorio);
+        ResponseType<int> RecordatorioInsertar(int paisId, BEClienteRecordatorio recordatorio);
 
         [OperationContract]
         IEnumerable<BEClienteRecordatorio> RecordatoriosObtenerPorCliente(int paisId, long consultoraId);
 
         [OperationContract]
-        bool RecordatorioActualizar(int paisId, BEClienteRecordatorio recordatorio);
+        ResponseType<bool> RecordatorioActualizar(int paisId, BEClienteRecordatorio recordatorio);
 
         [OperationContract]
-        bool RecordatorioEliminar(int paisId, short clienteId, long consultoraId, int recordatorioId);
+        ResponseType<bool> RecordatorioEliminar(int paisId, short clienteId, long consultoraId, int recordatorioId);
 
         [OperationContract]
         IEnumerable<BEClienteDeudaRecordatorio> ObtenerDeudores(int paisId, long consultoraId);
@@ -128,5 +128,8 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         ResponseType<bool> NotaEliminar(int paisId, short clienteId, long consultoraId, long clienteNotaId);
+
+        [OperationContract]
+        ResponseType<List<BEMovimientoDetalle>> MovimientoDetalleActualizar(int paisId, List<BEMovimientoDetalle> movimientoDetalle);
     }
 }

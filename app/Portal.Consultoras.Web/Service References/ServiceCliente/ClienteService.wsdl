@@ -1,13 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ClienteService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="BasicHttpsBinding_IClienteService_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost:41615/ClienteService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost:41615/ClienteService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:41615/ClienteService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
       <xsd:import schemaLocation="http://localhost:41615/ClienteService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cliente" />
-      <xsd:import schemaLocation="http://localhost:41615/ClienteService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
-      <xsd:import schemaLocation="http://localhost:41615/ClienteService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/System" />
+      <xsd:import schemaLocation="http://localhost:41615/ClienteService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Framework" />
+      <xsd:import schemaLocation="http://localhost:41615/ClienteService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
+      <xsd:import schemaLocation="http://localhost:41615/ClienteService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/System" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IClienteService_Insert_InputMessage">
@@ -124,6 +150,12 @@
   <wsdl:message name="IClienteService_GetListCatalogoRevistaPublicadoWithTitulo_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetListCatalogoRevistaPublicadoWithTituloResponse" />
   </wsdl:message>
+  <wsdl:message name="IClienteService_GetCatalogoRevista_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCatalogoRevista" />
+  </wsdl:message>
+  <wsdl:message name="IClienteService_GetCatalogoRevista_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCatalogoRevistaResponse" />
+  </wsdl:message>
   <wsdl:message name="IClienteService_GetPedidosWebAnterioresByConsultora_InputMessage">
     <wsdl:part name="parameters" element="tns:GetPedidosWebAnterioresByConsultora" />
   </wsdl:message>
@@ -154,12 +186,6 @@
   <wsdl:message name="IClienteService_SelectByConsultoraDB_OutputMessage">
     <wsdl:part name="parameters" element="tns:SelectByConsultoraDBResponse" />
   </wsdl:message>
-  <wsdl:message name="IClienteService_ValidateTelefonoByConsultoraDB_InputMessage">
-    <wsdl:part name="parameters" element="tns:ValidateTelefonoByConsultoraDB" />
-  </wsdl:message>
-  <wsdl:message name="IClienteService_ValidateTelefonoByConsultoraDB_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ValidateTelefonoByConsultoraDBResponse" />
-  </wsdl:message>
   <wsdl:message name="IClienteService_MovimientoInsertar_InputMessage">
     <wsdl:part name="parameters" element="tns:MovimientoInsertar" />
   </wsdl:message>
@@ -177,6 +203,12 @@
   </wsdl:message>
   <wsdl:message name="IClienteService_MovimientoActualizar_OutputMessage">
     <wsdl:part name="parameters" element="tns:MovimientoActualizarResponse" />
+  </wsdl:message>
+  <wsdl:message name="IClienteService_MovimientoEliminar_InputMessage">
+    <wsdl:part name="parameters" element="tns:MovimientoEliminar" />
+  </wsdl:message>
+  <wsdl:message name="IClienteService_MovimientoEliminar_OutputMessage">
+    <wsdl:part name="parameters" element="tns:MovimientoEliminarResponse" />
   </wsdl:message>
   <wsdl:message name="IClienteService_RecordatorioInsertar_InputMessage">
     <wsdl:part name="parameters" element="tns:RecordatorioInsertar" />
@@ -214,11 +246,11 @@
   <wsdl:message name="IClienteService_NotaInsertar_OutputMessage">
     <wsdl:part name="parameters" element="tns:NotaInsertarResponse" />
   </wsdl:message>
-  <wsdl:message name="IClienteService_NotasObtenerPorCliente_InputMessage">
-    <wsdl:part name="parameters" element="tns:NotasObtenerPorCliente" />
+  <wsdl:message name="IClienteService_NotaListar_InputMessage">
+    <wsdl:part name="parameters" element="tns:NotaListar" />
   </wsdl:message>
-  <wsdl:message name="IClienteService_NotasObtenerPorCliente_OutputMessage">
-    <wsdl:part name="parameters" element="tns:NotasObtenerPorClienteResponse" />
+  <wsdl:message name="IClienteService_NotaListar_OutputMessage">
+    <wsdl:part name="parameters" element="tns:NotaListarResponse" />
   </wsdl:message>
   <wsdl:message name="IClienteService_NotaActualizar_InputMessage">
     <wsdl:part name="parameters" element="tns:NotaActualizar" />
@@ -231,6 +263,12 @@
   </wsdl:message>
   <wsdl:message name="IClienteService_NotaEliminar_OutputMessage">
     <wsdl:part name="parameters" element="tns:NotaEliminarResponse" />
+  </wsdl:message>
+  <wsdl:message name="IClienteService_MovimientoDetalleActualizar_InputMessage">
+    <wsdl:part name="parameters" element="tns:MovimientoDetalleActualizar" />
+  </wsdl:message>
+  <wsdl:message name="IClienteService_MovimientoDetalleActualizar_OutputMessage">
+    <wsdl:part name="parameters" element="tns:MovimientoDetalleActualizarResponse" />
   </wsdl:message>
   <wsdl:portType name="IClienteService">
     <wsdl:operation name="Insert">
@@ -309,6 +347,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IClienteService/GetListCatalogoRevistaPublicadoWithTitulo" message="tns:IClienteService_GetListCatalogoRevistaPublicadoWithTitulo_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IClienteService/GetListCatalogoRevistaPublicadoWithTituloResponse" message="tns:IClienteService_GetListCatalogoRevistaPublicadoWithTitulo_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetCatalogoRevista">
+      <wsdl:input wsaw:Action="http://tempuri.org/IClienteService/GetCatalogoRevista" message="tns:IClienteService_GetCatalogoRevista_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IClienteService/GetCatalogoRevistaResponse" message="tns:IClienteService_GetCatalogoRevista_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetPedidosWebAnterioresByConsultora">
       <wsdl:input wsaw:Action="http://tempuri.org/IClienteService/GetPedidosWebAnterioresByConsultora" message="tns:IClienteService_GetPedidosWebAnterioresByConsultora_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IClienteService/GetPedidosWebAnterioresByConsultoraResponse" message="tns:IClienteService_GetPedidosWebAnterioresByConsultora_OutputMessage" />
@@ -329,10 +371,6 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IClienteService/SelectByConsultoraDB" message="tns:IClienteService_SelectByConsultoraDB_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IClienteService/SelectByConsultoraDBResponse" message="tns:IClienteService_SelectByConsultoraDB_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="ValidateTelefonoByConsultoraDB">
-      <wsdl:input wsaw:Action="http://tempuri.org/IClienteService/ValidateTelefonoByConsultoraDB" message="tns:IClienteService_ValidateTelefonoByConsultoraDB_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IClienteService/ValidateTelefonoByConsultoraDBResponse" message="tns:IClienteService_ValidateTelefonoByConsultoraDB_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="MovimientoInsertar">
       <wsdl:input wsaw:Action="http://tempuri.org/IClienteService/MovimientoInsertar" message="tns:IClienteService_MovimientoInsertar_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IClienteService/MovimientoInsertarResponse" message="tns:IClienteService_MovimientoInsertar_OutputMessage" />
@@ -344,6 +382,10 @@
     <wsdl:operation name="MovimientoActualizar">
       <wsdl:input wsaw:Action="http://tempuri.org/IClienteService/MovimientoActualizar" message="tns:IClienteService_MovimientoActualizar_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IClienteService/MovimientoActualizarResponse" message="tns:IClienteService_MovimientoActualizar_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="MovimientoEliminar">
+      <wsdl:input wsaw:Action="http://tempuri.org/IClienteService/MovimientoEliminar" message="tns:IClienteService_MovimientoEliminar_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IClienteService/MovimientoEliminarResponse" message="tns:IClienteService_MovimientoEliminar_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="RecordatorioInsertar">
       <wsdl:input wsaw:Action="http://tempuri.org/IClienteService/RecordatorioInsertar" message="tns:IClienteService_RecordatorioInsertar_InputMessage" />
@@ -369,9 +411,9 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IClienteService/NotaInsertar" message="tns:IClienteService_NotaInsertar_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IClienteService/NotaInsertarResponse" message="tns:IClienteService_NotaInsertar_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="NotasObtenerPorCliente">
-      <wsdl:input wsaw:Action="http://tempuri.org/IClienteService/NotasObtenerPorCliente" message="tns:IClienteService_NotasObtenerPorCliente_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IClienteService/NotasObtenerPorClienteResponse" message="tns:IClienteService_NotasObtenerPorCliente_OutputMessage" />
+    <wsdl:operation name="NotaListar">
+      <wsdl:input wsaw:Action="http://tempuri.org/IClienteService/NotaListar" message="tns:IClienteService_NotaListar_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IClienteService/NotaListarResponse" message="tns:IClienteService_NotaListar_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="NotaActualizar">
       <wsdl:input wsaw:Action="http://tempuri.org/IClienteService/NotaActualizar" message="tns:IClienteService_NotaActualizar_InputMessage" />
@@ -380,6 +422,10 @@
     <wsdl:operation name="NotaEliminar">
       <wsdl:input wsaw:Action="http://tempuri.org/IClienteService/NotaEliminar" message="tns:IClienteService_NotaEliminar_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IClienteService/NotaEliminarResponse" message="tns:IClienteService_NotaEliminar_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="MovimientoDetalleActualizar">
+      <wsdl:input wsaw:Action="http://tempuri.org/IClienteService/MovimientoDetalleActualizar" message="tns:IClienteService_MovimientoDetalleActualizar_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IClienteService/MovimientoDetalleActualizarResponse" message="tns:IClienteService_MovimientoDetalleActualizar_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IClienteService" type="tns:IClienteService">
@@ -555,6 +601,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetCatalogoRevista">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/GetCatalogoRevista" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetPedidosWebAnterioresByConsultora">
       <soap:operation soapAction="http://tempuri.org/IClienteService/GetPedidosWebAnterioresByConsultora" style="document" />
       <wsdl:input>
@@ -600,15 +655,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ValidateTelefonoByConsultoraDB">
-      <soap:operation soapAction="http://tempuri.org/IClienteService/ValidateTelefonoByConsultoraDB" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="MovimientoInsertar">
       <soap:operation soapAction="http://tempuri.org/IClienteService/MovimientoInsertar" style="document" />
       <wsdl:input>
@@ -629,6 +675,15 @@
     </wsdl:operation>
     <wsdl:operation name="MovimientoActualizar">
       <soap:operation soapAction="http://tempuri.org/IClienteService/MovimientoActualizar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MovimientoEliminar">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/MovimientoEliminar" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -690,8 +745,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="NotasObtenerPorCliente">
-      <soap:operation soapAction="http://tempuri.org/IClienteService/NotasObtenerPorCliente" style="document" />
+    <wsdl:operation name="NotaListar">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/NotaListar" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -717,10 +772,377 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="MovimientoDetalleActualizar">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/MovimientoDetalleActualizar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="BasicHttpsBinding_IClienteService" type="tns:IClienteService">
+    <wsp:PolicyReference URI="#BasicHttpsBinding_IClienteService_policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Insert">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/Insert" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertById">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/InsertById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Update">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/Update" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Delete">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/Delete" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectByConsultora">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/SelectByConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectByConsultoraByCodigo">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/SelectByConsultoraByCodigo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectById">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/SelectById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectByNombre">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/SelectByNombre" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckClienteByConsultora">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/CheckClienteByConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetExisteClienteConsultora">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/GetExisteClienteConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UndoCliente">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/UndoCliente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPedidosWebByConsultora">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/GetPedidosWebByConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetClientesByCampania">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/GetClientesByCampania" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetClientesByCampaniaByClienteID">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/GetClientesByCampaniaByClienteID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPedidoWebDetalleByCliente">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/GetPedidoWebDetalleByCliente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCatalogosByCampania">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/GetCatalogosByCampania" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCatalogoConfiguracion">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/GetCatalogoConfiguracion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetListCatalogoRevistaPublicado">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/GetListCatalogoRevistaPublicado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetListCatalogoRevistaPublicadoWithTitulo">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/GetListCatalogoRevistaPublicadoWithTitulo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCatalogoRevista">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/GetCatalogoRevista" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPedidosWebAnterioresByConsultora">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/GetPedidosWebAnterioresByConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPedidoProductosByCampania">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/GetPedidoProductosByCampania" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsCatalogoCampania">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/InsCatalogoCampania" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveDB">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/SaveDB" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectByConsultoraDB">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/SelectByConsultoraDB" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MovimientoInsertar">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/MovimientoInsertar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListarMovimientosPorCliente">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/ListarMovimientosPorCliente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MovimientoActualizar">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/MovimientoActualizar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MovimientoEliminar">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/MovimientoEliminar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecordatorioInsertar">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/RecordatorioInsertar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecordatoriosObtenerPorCliente">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/RecordatoriosObtenerPorCliente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecordatorioActualizar">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/RecordatorioActualizar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecordatorioEliminar">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/RecordatorioEliminar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDeudores">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/ObtenerDeudores" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotaInsertar">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/NotaInsertar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotaListar">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/NotaListar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotaActualizar">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/NotaActualizar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotaEliminar">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/NotaEliminar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MovimientoDetalleActualizar">
+      <soap:operation soapAction="http://tempuri.org/IClienteService/MovimientoDetalleActualizar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="ClienteService">
     <wsdl:port name="BasicHttpBinding_IClienteService" binding="tns:BasicHttpBinding_IClienteService">
       <soap:address location="http://localhost:41615/ClienteService.svc" />
+    </wsdl:port>
+    <wsdl:port name="BasicHttpsBinding_IClienteService" binding="tns:BasicHttpsBinding_IClienteService">
+      <soap:address location="https://localhost:44300/ClienteService.svc" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

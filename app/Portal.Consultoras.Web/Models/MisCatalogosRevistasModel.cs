@@ -16,5 +16,7 @@
         public string NombreClasews { get; set; }
 
         public bool MostrarRevistaDigital { get; set; }
+
+        public RevistaDigitalModel RevistaDigital { get; set; }
     }
 }

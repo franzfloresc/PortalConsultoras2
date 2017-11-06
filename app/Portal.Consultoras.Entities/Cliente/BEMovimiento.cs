@@ -1,45 +1,57 @@
-﻿using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Entities.Framework;
 using System;
 using System.Collections.Generic;
-using System.Data;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
-using Portal.Consultoras.Entities.Framework;
 
 namespace Portal.Consultoras.Entities.Cliente
 {
+    /// <summary>
+    /// Entidad Movimiento
+    /// </summary>
     [DataContract]
     public class BEMovimiento
     {
         /// <summary>
         /// No necesario para la insercion, es identity
         /// </summary>
+        [Column("ClienteMovimientoId")]
         [DataMember]
         public int ClienteMovimientoId { get; set; }
 
+        [Column("Monto")]
         [DataMember]
         public decimal Monto { get; set; }
 
+        [Column("Descripcion")]
         [DataMember]
         public string Descripcion { get; set; }
 
+        [Column("Nota")]
         [DataMember]
         public string Nota { get; set; }
 
+        [Column("Fecha")]
         [DataMember]
         public DateTime Fecha { get; set; }
 
+        [Column("TipoMovimiento")]
         [DataMember]
         public string TipoMovimiento { get; set; }
 
+        [Column("ClienteId")]
         [DataMember]
         public short ClienteId { get; set; }
 
+        [Column("ConsultoraId")]
         [DataMember]
         public long ConsultoraId { get; set; }
 
+        [Column("CodigoCliente")]
         [DataMember]
         public long? CodigoCliente { get; set; }
 
+        [Column("CampaniaCodigo")]
         [DataMember]
         public string CodigoCampania { get; set; }
 
@@ -53,40 +65,12 @@ namespace Portal.Consultoras.Entities.Cliente
         [DataMember]
         public string Message { get; set; }
 
+
         [DataMember]
         public StatusEnum StatusEnum { get; set; }
 
-        public BEMovimiento(IDataReader row)
+        public BEMovimiento()
         {
-            if (row.HasColumn("ClienteMovimientoId"))
-                ClienteMovimientoId = row.GetValue<int>("ClienteMovimientoId");
-
-            if (row.HasColumn("ClienteId"))
-                ClienteId = row.GetValue<short>("ClienteId");
-
-            if (row.HasColumn("ConsultoraId"))
-                ConsultoraId = row.GetValue<long>("ConsultoraId");
-
-            if (row.HasColumn("CodigoCliente"))
-                CodigoCliente = row.GetValue<long>("CodigoCliente");
-
-            if (row.HasColumn("Monto"))
-                Monto = row.GetValue<decimal>("Monto");
-
-            if (row.HasColumn("TipoMovimiento"))
-                TipoMovimiento = row.GetValue<string>("TipoMovimiento");
-
-            if (row.HasColumn("Fecha"))
-                Fecha = row.GetValue<DateTime>("Fecha");
-
-            if (row.HasColumn("Descripcion"))
-                Descripcion = row.GetValue<string>("Descripcion");
-
-            if (row.HasColumn("Nota"))
-                Nota = row.GetValue<string>("Nota");
-
-            if (row.HasColumn("CampaniaCodigo"))
-                CodigoCampania = row.GetValue<string>("CampaniaCodigo");
         }
     }
 }

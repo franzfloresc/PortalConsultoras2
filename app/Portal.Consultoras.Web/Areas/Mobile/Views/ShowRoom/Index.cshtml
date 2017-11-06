@@ -1,13 +1,11 @@
 ﻿@{
     ViewBag.Title = "Index";
-    //var layout = Session["IngresoExterno"] == null ? "_MobileLayout" : "_MobileLayoutEmpty";
-    //Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
-
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayoutContenedor.cshtml";
 }
 
 @using Newtonsoft.Json
 @using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Helpers
 @model Portal.Consultoras.Web.Models.ShowRoomEventoModel
 
 @section styles{
@@ -24,7 +22,7 @@
 }
 <!--  MAQUETADO NUEVO-->
 @*<div class="content_banner_header_showroom">*@
-    @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel() : (Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+    @{  var mobileConfiguracion = Html.MobileAppConfiguracion();
         @*if (mobileConfiguracion.MostrarBotonAtras)
         {
             <a href="@Request.UrlReferrer" class="enlace_regresar ingresoP" title="Regresar" style="top:26%;"></a>
@@ -50,7 +48,7 @@
         <hr class="clear">
         <div id="summary-filters">
             <div id="div-result-number" style="margin-left: 0; float: left; width: 65%; font-size: 13px;">
-                <span id="result-number">Mostrando <span id="spnCantidadFiltro">0</span> de <span id="spnCantidadTotal">0</span> productos</span>
+                <span id="result-number">Mostrando <span id="spnCantidadFiltro">0</span> de <span id="spnCantidadTotal">0</span></span>
             </div>
 
             <div id="div-delete-filters" style="display: none; margin-right: 0px;">
@@ -259,11 +257,11 @@
     {
         <!--SUB OFERTAS SHOWROOM-->
         <div class="content_sub_oferta_showroom" id="content_sub_oferta_showroom">
-            <div class="content_titulo_sub_oferta" style="background: @Model.ColorFondoTituloOfertaSubCampania">
+            <div class="content_titulo_sub_oferta">
                 <hr class="clear" />
                 <div class="content_titulo_texto_sw" style="color: @Model.ColorTextoInicialOfertaSubCampania">
-                    @Model.TextoInicialOfertaSubCampania
-                    <span class="titulo_banner_showroom" style="color: @Model.ColorTextoTituloOfertaSubCampania">@Model.TextoTituloOfertaSubCampania</span>
+                    <span style="font-size: 12px;">@Model.TextoInicialOfertaSubCampania</span> 
+                    <span class="titulo_banner_showroom" style="font-size=11px;color: @Model.ColorTextoTituloOfertaSubCampania">@Model.TextoTituloOfertaSubCampania</span>
                 </div>
                 <a href="#" class="btn_descubre_set_especial" id="btn_descubre_mobile"></a>
             </div>
@@ -272,7 +270,7 @@
         </div>
         <div class="content_display_set_suboferta">
             <div class="content_header_sub">
-                <div class="content_titulo_sub_oferta" style="background: @Model.ColorFondoTituloOfertaSubCampania">
+                <div class="content_titulo_sub_oferta">
                     <hr class="clear" />
                     <div class="content_titulo_texto_sw" style="color: @Model.ColorTextoInicialOfertaSubCampania">
                         @Model.TextoInicialOfertaSubCampania
@@ -450,7 +448,7 @@ else
         </div>
         <div class="set_oferta_content">
             <div class="producto_img_mobile" data-img="">
-                <img src="{{oferta.ImagenProducto}}" alt="Solo Hoy" id="img-display-odd">
+                <img src="{{oferta.ImagenProducto}}" alt="" id="img-display-odd">
             </div>
             <div class="nombre_set_display">{{oferta.Descripcion}}</div>
             <div class="precio_valorizado_mobile">VALORIZADO EN <span>@ViewBag.Simbolo {{oferta.FormatoPrecioValorizado}}</span></div>
@@ -473,9 +471,9 @@ else
 </script>
 
 @section scripts{
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/ShowRoom/Index.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/CatalogoPersonalizado/bootstrap-slider.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/ShowRoom/Index.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js")"></script>    
     <script type="text/javascript">
         var urlEnHorarioRestringido = '@Url.Action("EnHorarioRestringido", "Pedido", new {area = ""})';
         var urlValidarUnidadesPermitidasPedidoProducto = '@Url.Action("ValidarUnidadesPermitidasPedidoProducto", "ShowRoom", new { area = "" })';

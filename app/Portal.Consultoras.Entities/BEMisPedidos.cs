@@ -38,9 +38,9 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public DateTime? FechaModificacion { get; set; }
         [DataMember]
-        public string FlagMedio { get; set; } // GR-1385
+        public string FlagMedio { get; set; }
         [DataMember]
-        public bool FlagConsultora { get; set; } // GR-1385
+        public bool FlagConsultora { get; set; }
 
         [DataMember]
         public string MedioContacto { get; set; }
@@ -64,7 +64,7 @@ namespace Portal.Consultoras.Entities
         public int PedidoWebID { get; set; }
 
         [DataMember]
-        public List<BEMisPedidosDetalle> DetallePedido  { get; set; }
+        public List<BEMisPedidosDetalle> DetallePedido { get; set; }
 
         public BEMisPedidos(IDataRecord row)
         {
@@ -90,9 +90,9 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "FechaModificacion") && row["FechaModificacion"] != DBNull.Value)
                 this.FechaModificacion = Convert.ToDateTime(row["FechaModificacion"]);
             if (DataRecord.HasColumn(row, "FlagMedio") && row["FlagMedio"] != DBNull.Value)
-                this.FlagMedio = Convert.ToString(row["FlagMedio"]); //GR-1385
+                this.FlagMedio = Convert.ToString(row["FlagMedio"]);
             if (DataRecord.HasColumn(row, "FlagConsultora") && row["FlagConsultora"] != DBNull.Value)
-                this.FlagConsultora = Convert.ToBoolean(row["FlagConsultora"]); //GR-1385
+                this.FlagConsultora = Convert.ToBoolean(row["FlagConsultora"]);
 
             if (DataRecord.HasColumn(row, "MContacto") && row["MContacto"] != DBNull.Value)
                 this.MedioContacto = Convert.ToString(row["MContacto"]);
@@ -154,9 +154,7 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public int PedidoWebDetalleID { get; set; }
-        
-        //[DataMember]
-        //public int Estado;
+
         public BEMisPedidosDetalle()
         {
         }
@@ -172,9 +170,7 @@ namespace Portal.Consultoras.Entities
             this.PrecioUnitario = Convert.ToDouble(row["Precio"]);
             this.Cantidad = Convert.ToInt32(row["Cantidad"]);
             this.PrecioTotal = this.PrecioUnitario * this.Cantidad;
-            //this.Estado = Convert.ToInt32(row["Estado"]);
 
-            //gr-1012
             if (DataRecord.HasColumn(row, "MarcaID") && row["MarcaID"] != DBNull.Value)
                 this.MarcaID = Convert.ToInt32(row["MarcaID"]);
 

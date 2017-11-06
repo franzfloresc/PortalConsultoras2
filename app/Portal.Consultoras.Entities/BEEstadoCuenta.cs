@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data; //R2073
-using System.Linq;
+﻿using Portal.Consultoras.Common;
+using System;
+using System.Data;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
-using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Entities
 {
@@ -24,7 +20,6 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public decimal Abono { get; set; }
 
-        // R2073 - Inicio
         [DataMember]
         public string CodigoConsultora { get; set; }
 
@@ -39,8 +34,8 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public decimal Cargo { get; set; }
-        
-		[DataMember]
+
+        [DataMember]
         public int Orden { get; set; }
 
         [DataMember]
@@ -72,6 +67,6 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "Orden") && row["Orden"] != DBNull.Value)
                 Orden = Convert.ToInt32(row["Orden"]);
         }
-        // R2073 - Fin
+
     }
 }

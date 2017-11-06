@@ -1,7 +1,15 @@
 ﻿
 var _toastHelper = ToastHelper();
 var _listPalanca = ['LAN', 'RDR', 'RD', 'OPT'];
+var _palanca = {
+    showroom: "SR",
+    odd: "ODD"
+}
 
+var _tipopresentacion = {
+    showroom: "5",
+    odd: "6"
+}
 jQuery(document).ready(function () {
     UpdateGrillaOfertas();
     UpdateGrillaPalanca();
@@ -173,7 +181,10 @@ function IniDialogs() {
                     DesktopLogoBanner : $("#nombre-desktop-logo-banner").val(),
                     MobileFondoBanner : $("#nombre-mobile-fondo-banner").val(),
                     MobileLogoBanner: $("#nombre-mobile-logo-banner").val(),
-                    UrlMenu: $("#UrlMenu").val()
+                    UrlMenu : $("#UrlMenu").val(),
+                    OrdenBpt : $("#OrdenBpt").val(),
+                    MobileOrden : $("#MobileOrden").val(),
+                    MobileOrdenBpt : $("#MobileOrdenBpt").val()
                 };
                 jQuery.ajax({
                     type: 'POST',
@@ -241,27 +252,39 @@ function IniDialogs() {
                     _toastHelper.error("El valor de cantidad de productos debe ser numérico.");
                     return false;
                 }
+                var desktopTipoPresentacion = $("#ddlDesktopTipoPresentacionOfertas").val();
+                var mobileTipoPresentacion = $("#ddlMobileTipoPresentacionOfertas").val();
+                if ($("#ddlConfiguracionIdOfertas").find('option:selected').attr("data-codigo") === _palanca.showroom) {
+                    desktopTipoPresentacion = _tipopresentacion.showroom;
+                    mobileTipoPresentacion = _tipopresentacion.showroom;
+                }
+                if ($("#ddlConfiguracionIdOfertas").find('option:selected').attr("data-codigo") === _palanca.odd) {
+                    desktopTipoPresentacion = _tipopresentacion.odd;
+                    mobileTipoPresentacion = _tipopresentacion.odd;
+                }
                 var params = {
                     ConfiguracionOfertasHomeID: $("#ConfiguracionOfertasHomeID").val(),
                     ConfiguracionPaisID: $("#ddlConfiguracionIdOfertas").val(),
                     CampaniaID: $("#ddlCampaniaOfertas").val(),
                     DesktopOrden: $("#DesktopOrden").val(),
-                    //MobileOrden: $("#").val(),
+                    MobileOrden: $("#MobileOrden").val(),
                     DesktopImagenFondo: $("#nombre-fondo-desktop").val(),
                     MobileImagenFondo: $("#nombre-fondo-mobile").val(),
                     DesktopTitulo: $("#DesktopTitulo").val(),
                     MobileTitulo: $("#MobileTitulo").val(),
                     DesktopSubTitulo: $("#DesktopSubTitulo").val(),
                     MobileSubTitulo: $("#MobileSubTitulo").val(),
-                    DesktopTipoPresentacion: $("#ddlDesktopTipoPresentacionOfertas").val(),
-                    MobileTipoPresentacion: $("#ddlMobileTipoPresentacionOfertas").val(),
+                    DesktopTipoPresentacion: desktopTipoPresentacion,
+                    MobileTipoPresentacion: mobileTipoPresentacion,
                     DesktopTipoEstrategia: GetStringEstrategia("desktop-tipo-estrategia"),
                     MobileTipoEstrategia: GetStringEstrategia("mobile-tipo-estrategia"),
                     DesktopCantidadProductos: $("#DesktopCantidadProductos").val(),
                     MobileCantidadProductos: $("#MobileCantidadProductos").val(),
                     DesktopActivo: $("#DesktopActivo").is(':checked'),
                     MobileActivo: $("#MobileActivo").is(':checked'),
-                    UrlSeccion: $('#UrlSeccion').val()
+                    UrlSeccion: $('#UrlSeccion').val(),
+                    DesktopOrdenBpt: $('#DesktopOrdenBpt').val(),
+                    MobileOrdenBpt: $('#MobileOrdenBpt').val()
                 };
                 jQuery.ajax({
                     type: 'POST',

@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Data;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
-using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Entities
 {
@@ -109,7 +105,7 @@ namespace Portal.Consultoras.Entities
         public bool IndicadorOfertaCUV { get; set; } /*R20150701*/
         [DataMember]
         public decimal MontoTotalProl { get; set; }   /*R20150701*/
-        
+
         [DataMember]
         public string NombreCliente { get; set; } //R2584
 
@@ -118,7 +114,7 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public bool EsKitNueva { get; set; }
-        
+
         [DataMember]
         public int OrdenPedidoWD { get; set; }
 
@@ -144,8 +140,12 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public BEIndicadorPedidoAutentico IndicadorPedidoAutentico { get; set; }
+
         [DataMember]
         public int CodigoCatalago { get; set; }
+
+        [DataMember]
+        public bool EsOfertaIndependiente { get; set; }
 
         public BEPedidoWebDetalle()
         { }
@@ -217,7 +217,7 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "MontoTotalProl"))
                 MontoTotalProl = row["MontoTotalProl"] == DBNull.Value ? 0 : Convert.ToDecimal(row["MontoTotalProl"]);
-            
+
             //2584
             if (DataRecord.HasColumn(row, "NombreCliente"))
                 NombreCliente = Convert.ToString(row["NombreCliente"]);
@@ -252,6 +252,8 @@ namespace Portal.Consultoras.Entities
                 EsCompraPorCompra = row["EsCompraPorCompra"] == DBNull.Value ? false : Convert.ToBoolean(row["EsCompraPorCompra"]);
             if (DataRecord.HasColumn(row, "CodigoCatalago"))
                 CodigoCatalago = row["CodigoCatalago"] == DBNull.Value ? 0 : Convert.ToInt32(row["CodigoCatalago"]);
+            if (DataRecord.HasColumn(row, "EsOfertaIndependiente"))
+                EsOfertaIndependiente = row["EsOfertaIndependiente"] == DBNull.Value ? false : Convert.ToBoolean(row["EsOfertaIndependiente"]);
         }
 
         public BEPedidoWebDetalle(IDataRecord row, string Consultora)
@@ -309,13 +311,11 @@ namespace Portal.Consultoras.Entities
             else
                 SubTipoOfertaSisID = 0;
 
-
             if (DataRecord.HasColumn(row, "TipoPedido"))
                 TipoPedido = Convert.ToString(row["TipoPedido"]);
 
             if (DataRecord.HasColumn(row, "DescripcionOferta"))
                 DescripcionOferta = Convert.ToString(row["DescripcionOferta"]);
-
             //CCSS_JZ_PROL2
             if (DataRecord.HasColumn(row, "ObservacionPROL"))
                 ObservacionPROL = Convert.ToString(row["ObservacionPROL"]);
@@ -329,26 +329,20 @@ namespace Portal.Consultoras.Entities
             // 2621
             if (DataRecord.HasColumn(row, "TipoEstrategiaID"))
                 TipoEstrategiaID = row["TipoEstrategiaID"] == DBNull.Value ? 0 : Convert.ToInt32(row["TipoEstrategiaID"]);
-
             /*R20150701*/
             if (DataRecord.HasColumn(row, "IndicadorOfertaCUV"))
                 IndicadorOfertaCUV = row["IndicadorOfertaCUV"] == DBNull.Value ? false : Convert.ToBoolean(row["IndicadorOfertaCUV"]);
             if (DataRecord.HasColumn(row, "MontoTotalProl"))
                 MontoTotalProl = row["MontoTotalProl"] == DBNull.Value ? 0 : Convert.ToDecimal(row["MontoTotalProl"]);
-            
             //2584
             if (DataRecord.HasColumn(row, "NombreCliente"))
                 NombreCliente = Convert.ToString(row["NombreCliente"]);
-
             if (DataRecord.HasColumn(row, "EsSugerido"))
                 EsSugerido = row["EsSugerido"] == DBNull.Value ? false : Convert.ToBoolean(row["EsSugerido"]);
-
             if (DataRecord.HasColumn(row, "EsKitNueva"))
                 EsKitNueva = row["EsKitNueva"] == DBNull.Value ? false : Convert.ToBoolean(row["EsKitNueva"]);
-
             if (DataRecord.HasColumn(row, "OrdenPedidoWD"))
                 OrdenPedidoWD = row["OrdenPedidoWD"] == DBNull.Value ? 0 : Convert.ToInt32(row["OrdenPedidoWD"]);
-
             if (DataRecord.HasColumn(row, "DescuentoProl"))
                 DescuentoProl = row["DescuentoProl"] == DBNull.Value ? 0 : Convert.ToDecimal(row["DescuentoProl"]);
             if (DataRecord.HasColumn(row, "FlagConsultoraOnline"))
@@ -359,7 +353,6 @@ namespace Portal.Consultoras.Entities
                 MontoAhorroCatalogo = row["MontoAhorroCatalogo"] == DBNull.Value ? 0 : Convert.ToDecimal(row["MontoAhorroCatalogo"]);
             if (DataRecord.HasColumn(row, "MontoAhorroRevista"))
                 MontoAhorroRevista = row["MontoAhorroRevista"] == DBNull.Value ? 0 : Convert.ToDecimal(row["MontoAhorroRevista"]);
-
             if (DataRecord.HasColumn(row, "OrigenPedidoWeb"))
                 OrigenPedidoWeb = row["OrigenPedidoWeb"] == DBNull.Value ? 0 : Convert.ToInt32(row["OrigenPedidoWeb"]);
             if (DataRecord.HasColumn(row, "EsBackOrder"))
@@ -370,7 +363,9 @@ namespace Portal.Consultoras.Entities
                 EsCompraPorCompra = row["EsCompraPorCompra"] == DBNull.Value ? false : Convert.ToBoolean(row["EsCompraPorCompra"]);
             if (DataRecord.HasColumn(row, "CodigoCatalago"))
                 CodigoCatalago = row["CodigoCatalago"] == DBNull.Value ? 0 : Convert.ToInt32(row["CodigoCatalago"]);
+            if (DataRecord.HasColumn(row, "EsOfertaIndependiente"))
+                EsOfertaIndependiente = row["EsOfertaIndependiente"] == DBNull.Value ? false : Convert.ToBoolean(row["EsOfertaIndependiente"].ToString());
         }
     }
-    
+
 }

@@ -1,5 +1,4 @@
-﻿using OpenSource.Library.DataAccess;
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
 using System;
 using System.Data;
 using System.Runtime.Serialization;
@@ -54,7 +53,7 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "FechaRegistro") && row["FechaRegistro"] != DBNull.Value)
                 FechaRegistro = Convert.ToDateTime(row["FechaRegistro"]);
             if (DataRecord.HasColumn(row, "TotalRegistros") && row["TotalRegistros"] != DBNull.Value)
-                TotalRegistros = Convert.ToInt32(row["TotalRegistros"]);            
+                TotalRegistros = Convert.ToInt32(row["TotalRegistros"]);
         }
     }
 }

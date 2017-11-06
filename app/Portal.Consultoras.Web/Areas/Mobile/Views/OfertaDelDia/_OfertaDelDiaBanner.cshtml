@@ -1,4 +1,13 @@
 ﻿@model Portal.Consultoras.Web.Models.OfertaDelDiaModel
+<style>
+    .flip-clock-wrapper .flip{
+        box-shadow: 0 2px 5px @Model.ColorFondo1 !important;
+    }
+    .flip-clock-wrapper ul li a div div.inn {
+        text-shadow: 0 1px 2px @Model.ColorFondo1 !important;
+        background-color: @Model.ColorFondo1 !important;
+    }
+</style>
 <div id="BloqueMobileOfertaDia" class="BloqueOfertaDia bloqueOfertaDia_vistaOfertas" style="background-color:@Model.ColorFondo1; height:190px;">
     <div style="width:290px; margin:0 auto;" id="content_oferta_dia_mobile">
         <div class="solo_hoy_mobile">
@@ -7,7 +16,7 @@
         <div class="clock" data-total-seconds="@Model.TeQuedan.TotalSeconds"></div>
 
         <div class="imagen_set_oferta_mobile">
-            <img src="@Model.ImagenBanner" alt="Solo Hoy" id="img-banner-odd" />
+            <img src="@Model.ImagenBanner" alt="" id="img-banner-odd" />
         </div>
 
 
