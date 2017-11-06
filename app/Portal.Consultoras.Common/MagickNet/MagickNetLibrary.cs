@@ -15,7 +15,7 @@ namespace Portal.Consultoras.Common.MagickNet
         /// </summary>
         /// <param name="lista">Lista con los valores de cada imagen a generar</param>
         /// <returns>Proceso correctamente retorna vacio, sino retorna un mensaje de error</returns>
-        public static string CargarImagenesResize(List<EntidadMagickResize> lista)
+        public static string GuardarImagenesResize(List<EntidadMagickResize> lista)
         {
             var resultado = "";
 

@@ -26,6 +26,8 @@ using System.Text;
 using System.Web.Mvc;
 using System.Web.Security;
 using Portal.Consultoras.Web.Helpers;
+using Portal.Consultoras.Common.MagickNet;
+using System.IO;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -4059,6 +4061,68 @@ namespace Portal.Consultoras.Web.Controllers
             return GetSession(Constantes.ConstSession.MenuContenedorActivo) as MenuContenedorModel ??
                    new MenuContenedorModel();
         }
+        #endregion
+
+        #region Resize Imagen Default       
+
+        public List<EntidadMagickResize> ObtenerListaImagenesResize(string rutaImagen)
+        {
+            var listaImagenesResize = new List<EntidadMagickResize>();
+
+            if (Util.ExisteUrlRemota(rutaImagen))
+            {
+                string soloImagen = Path.GetFileNameWithoutExtension(rutaImagen);
+
+                var rutaImagenSmall = rutaImagen.Clone().ToString();
+                var extensionNombreImagenSmall = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall;
+                rutaImagenSmall = rutaImagenSmall.Replace(soloImagen, soloImagen + extensionNombreImagenSmall);
+
+                var rutaImagenMedium = rutaImagen.Clone().ToString();
+                var extensionNombreImagenMedium = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium;
+                rutaImagenMedium = rutaImagenMedium.Replace(soloImagen, soloImagen + extensionNombreImagenMedium);
+
+                var listaValoresImagenesResize = ObtenerParametrosTablaLogica(Constantes.PaisID.Peru, Constantes.TablaLogica.ValoresImagenesResize, true);                
+
+                EntidadMagickResize entidadResize;
+                if (!Util.ExisteUrlRemota(rutaImagenSmall))
+                {
+                    entidadResize = new EntidadMagickResize();
+                    entidadResize.RutaImagenOriginal = rutaImagen;
+                    entidadResize.RutaImagenResize = rutaImagenSmall;
+                    entidadResize.Width = ObtenerTablaLogicaDimensionImagen(listaValoresImagenesResize, Constantes.TablaLogicaDato.ValoresImagenesResizeWitdhSmall);
+                    entidadResize.Height = ObtenerTablaLogicaDimensionImagen(listaValoresImagenesResize, Constantes.TablaLogicaDato.ValoresImagenesResizeHeightSmall);
+                    entidadResize.TipoImagen = Constantes.ConfiguracionImagenResize.TipoImagenSmall;
+                    entidadResize.CodigoIso = userData.CodigoISO;
+                    listaImagenesResize.Add(entidadResize);
+                }
+
+                if (!Util.ExisteUrlRemota(rutaImagenMedium))
+                {
+                    entidadResize = new EntidadMagickResize();
+                    entidadResize.RutaImagenOriginal = rutaImagen;
+                    entidadResize.RutaImagenResize = rutaImagenMedium;
+                    entidadResize.Width = ObtenerTablaLogicaDimensionImagen(listaValoresImagenesResize, Constantes.TablaLogicaDato.ValoresImagenesResizeWitdhMedium);
+                    entidadResize.Height = ObtenerTablaLogicaDimensionImagen(listaValoresImagenesResize, Constantes.TablaLogicaDato.ValoresImagenesResizeHeightMedium);
+                    entidadResize.TipoImagen = Constantes.ConfiguracionImagenResize.TipoImagenMedium;
+                    entidadResize.CodigoIso = userData.CodigoISO;
+                    listaImagenesResize.Add(entidadResize);
+                }
+            }            
+
+            return listaImagenesResize;
+        }
+
+        public int ObtenerTablaLogicaDimensionImagen(List<BETablaLogicaDatos> lista, short tablaLogicaDatosId)
+        {
+            int resultado = 0;
+            var resultadoString = ObtenerValorTablaLogica(lista, tablaLogicaDatosId);
+
+            var esInt = int.TryParse(resultadoString, out resultado);
+
+            return esInt ? resultado : 0;
+        }
+
+
         #endregion
     }
 }

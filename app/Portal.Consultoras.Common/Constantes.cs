@@ -1278,6 +1278,9 @@ namespace Portal.Consultoras.Common
             public const int HeightImagenSmall = 125;
             public const int WidthImagenMedium = 250;
             public const int HeightImagenMedium = 250;
+            public const string TipoImagenSmall = "SMALL";
+            public const string TipoImagenMedium = "MEDIUM";
+            public const string ValorTextoDefaultAppCatalogo = "appcatalogo";
         }
     }
 }

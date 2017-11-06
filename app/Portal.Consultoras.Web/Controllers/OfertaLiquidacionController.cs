@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Common.MagickNet;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceZonificacion;
@@ -740,6 +741,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult InsertOfertaWeb(OfertaProductoModel model)
         {
+            string mensajeErrorImagenResize = "";
             try
             {
                 Mapper.CreateMap<OfertaProductoModel, BEOfertaProducto>()
@@ -759,24 +761,28 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    //string tempNombreImagenFondo = model.ImagenProducto;
-                    //if (model.FlagImagen == 1)
-                    //{
-                    //    entidad.ImagenProducto = FileManager.CopyImagesOfertas(Globals.RutaImagenesOfertasLiquidacion + "\\" + userData.CodigoISO + "\\" + model.CodigoCampania, tempNombreImagenFondo, Globals.RutaImagenesTempOfertas, userData.CodigoISO, model.CodigoCampania, model.CUV);
-                    //    FileManager.DeleteImagesInFolder(Globals.RutaImagenesTempOfertas);
-                    //}
-                    //else
-                    //    entidad.ImagenProducto = string.Empty;
                     entidad.PaisID = model.PaisID;
                     entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.Liquidacion;
                     entidad.ConfiguracionOfertaID = lstConfiguracion.Find(x => x.CodigoOferta == model.CodigoTipoOferta).ConfiguracionOfertaID;
                     entidad.UsuarioRegistro = userData.CodigoConsultora;
+
+                    #region Imagen Resize 
+
+                    var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+                    var rutaImagenCompleta = ConfigS3.GetUrlFileS3(carpetaPais, entidad.ImagenProducto);
+
+                    var listaImagenesResize = ObtenerListaImagenesResize(rutaImagenCompleta);
+                    if (listaImagenesResize != null && listaImagenesResize.Count > 0)
+                        mensajeErrorImagenResize = MagickNetLibrary.GuardarImagenesResize(listaImagenesResize);
+
+                    #endregion                    
+
                     sv.InsOfertaProducto(entidad);
                 }
                 return Json(new
                 {
                     success = true,
-                    message = "Se actualizó la Oferta Liquidación satisfactoriamente.",
+                    message = "Se actualizó la Oferta Liquidación satisfactoriamente." + mensajeErrorImagenResize,
                     extra = ""
                 });
             }
@@ -805,6 +811,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult UpdateOfertaWeb(OfertaProductoModel model)
         {
+            string mensajeErrorImagenResize = "";
             try
             {
                 Mapper.CreateMap<OfertaProductoModel, BEOfertaProducto>()
@@ -824,29 +831,28 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    //string tempNombreImagenFondo = model.ImagenProducto;
-                    //string imgAnterior = System.IO.Path.GetFileName(model.ImagenProductoAnterior).ToString().Trim();
-                    //string img = System.IO.Path.GetFileName(model.ImagenProducto);
-                    //if (model.FlagImagen == 1)
-                    //{
-                    //    FileManager.DeleteImage(Globals.RutaImagenesOfertasLiquidacion + "\\" + userData.CodigoISO + "\\" + model.CodigoCampania, imgAnterior);
-                    //    entidad.ImagenProducto = FileManager.CopyImagesOfertas(Globals.RutaImagenesOfertasLiquidacion + "\\" + userData.CodigoISO + "\\" + model.CodigoCampania, tempNombreImagenFondo, Globals.RutaImagenesTempOfertas, userData.CodigoISO, model.CodigoCampania, model.CUV);
-                    //    FileManager.DeleteImagesInFolder(Globals.RutaImagenesTempOfertas);
-                    //}
-                    //else
-                    //    entidad.ImagenProducto = (img == "prod_grilla_vacio.png" ? string.Empty : img);
                     entidad.PaisID = model.PaisID;
                     entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.Liquidacion;
                     entidad.ConfiguracionOfertaID = lstConfiguracion.Find(x => x.CodigoOferta == model.CodigoTipoOferta).ConfiguracionOfertaID;
                     entidad.UsuarioModificacion = userData.CodigoConsultora;
-                    //entidad.Stock = model.Cantida;
+
+                    #region Imagen Resize 
+
+                    var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+                    var rutaImagenCompleta = ConfigS3.GetUrlFileS3(carpetaPais, entidad.ImagenProducto);
+
+                    var listaImagenesResize = ObtenerListaImagenesResize(rutaImagenCompleta);
+                    if (listaImagenesResize != null && listaImagenesResize.Count > 0)
+                        mensajeErrorImagenResize = MagickNetLibrary.GuardarImagenesResize(listaImagenesResize);
+
+                    #endregion                    
+
                     sv.UpdOfertaProducto(entidad);
-                    //sv.UpdOfertaProductoStock()
                 }
                 return Json(new
                 {
                     success = true,
-                    message = "Se actualizó la Oferta Liquidación satisfactoriamente.",
+                    message = "Se actualizó la Oferta Liquidación satisfactoriamente." + mensajeErrorImagenResize,
                     extra = ""
                 });
             }

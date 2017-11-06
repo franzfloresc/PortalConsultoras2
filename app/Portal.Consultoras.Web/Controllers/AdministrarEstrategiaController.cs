@@ -748,7 +748,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                         var listaImagenesResize = ObtenerListaImagenesResize(model.RutaImagenCompleta);
                         if (listaImagenesResize != null && listaImagenesResize.Count > 0)
-                            mensajeErrorImagenResize = MagickNetLibrary.CargarImagenesResize(listaImagenesResize);
+                            mensajeErrorImagenResize = MagickNetLibrary.GuardarImagenesResize(listaImagenesResize);
 
                         #endregion
 
@@ -796,66 +796,7 @@ namespace Portal.Consultoras.Web.Controllers
                     extra = ""
                 });
             }
-        }
-
-        #region Resize Imagen        
-
-        private List<EntidadMagickResize> ObtenerListaImagenesResize(string rutaImagen)
-        {
-            string soloImagen = Path.GetFileNameWithoutExtension(rutaImagen);
-
-            var rutaImagenSmall = rutaImagen.Clone().ToString();
-            var extensionNombreImagenSmall = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall;
-            rutaImagenSmall = rutaImagenSmall.Replace(soloImagen, soloImagen + extensionNombreImagenSmall);
-
-            var rutaImagenMedium = rutaImagen.Clone().ToString();
-            var extensionNombreImagenMedium = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium;
-            rutaImagenMedium = rutaImagenMedium.Replace(soloImagen, soloImagen + extensionNombreImagenMedium);
-
-            var listaValoresImagenesResize = ObtenerParametrosTablaLogica(Constantes.PaisID.Peru, Constantes.TablaLogica.ValoresImagenesResize, true);
-
-            var listaImagenesResize = new List<EntidadMagickResize>();
-
-            EntidadMagickResize entidadResize;
-            if (!Util.ExisteUrlRemota(rutaImagenSmall))
-            {
-                entidadResize = new EntidadMagickResize();
-                entidadResize.RutaImagenOriginal = rutaImagen;
-                entidadResize.RutaImagenResize = rutaImagenSmall;
-                entidadResize.Width = ObtenerTablaLogicaDimensionImagen(listaValoresImagenesResize, Constantes.TablaLogicaDato.ValoresImagenesResizeWitdhSmall);
-                entidadResize.Height = ObtenerTablaLogicaDimensionImagen(listaValoresImagenesResize, Constantes.TablaLogicaDato.ValoresImagenesResizeHeightSmall);
-                entidadResize.TipoImagen = "SMALL";
-                entidadResize.CodigoIso = userData.CodigoISO;
-                listaImagenesResize.Add(entidadResize);
-            }
-
-            if (!Util.ExisteUrlRemota(rutaImagenMedium))
-            {
-                entidadResize = new EntidadMagickResize();
-                entidadResize.RutaImagenOriginal = rutaImagen;
-                entidadResize.RutaImagenResize = rutaImagenMedium;
-                entidadResize.Width = ObtenerTablaLogicaDimensionImagen(listaValoresImagenesResize, Constantes.TablaLogicaDato.ValoresImagenesResizeWitdhMedium);
-                entidadResize.Height = ObtenerTablaLogicaDimensionImagen(listaValoresImagenesResize, Constantes.TablaLogicaDato.ValoresImagenesResizeHeightMedium);
-                entidadResize.TipoImagen = "MEDIUM";
-                entidadResize.CodigoIso = userData.CodigoISO;
-                listaImagenesResize.Add(entidadResize);
-            }            
-
-            return listaImagenesResize;
-        }
-
-        private int ObtenerTablaLogicaDimensionImagen(List<BETablaLogicaDatos> lista, short tablaLogicaDatosId)
-        {
-            int resultado = 0;
-            var resultadoString = ObtenerValorTablaLogica(lista, tablaLogicaDatosId);
-            
-            var esInt = int.TryParse(resultadoString, out resultado);
-
-            return esInt ? resultado : 0;
-        }
-        
-
-        #endregion
+        }        
 
         private void UpdateCacheListaOfertaFinal(string campania)
         {
