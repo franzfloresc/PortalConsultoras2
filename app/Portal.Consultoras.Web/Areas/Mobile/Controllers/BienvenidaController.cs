@@ -22,6 +22,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var model = new BienvenidaModel();
             try
             {
+                model.RevistaDigital = revistaDigital;
+                // mostrar popup de revista digital....
+                model.RevistaDigitalPopUpMostrar = revistaDigital.NoVolverMostrar;                
+
                 if (base.ObtenerPedidoWeb() != null)
                 {
                     model.MontoAhorroCatalogo = base.ObtenerPedidoWeb().MontoAhorroCatalogo;
@@ -84,11 +88,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 ViewBag.paisISO = userData.CodigoISO;
                 ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("BUCKET_NAME") ?? string.Empty;
-                ViewBag.NombreConsultora = model.NombreConsultora;
-
-                // mostrar popup de revista digital....
-                model.RevistaDigitalPopUpMostrar = revistaDigital.NoVolverMostrar;
-                model.RevistaDigital = revistaDigital;
+                ViewBag.NombreConsultora = model.NombreConsultora;                
 
                 ViewBag.NombreConsultoraFAV = ObtenerNombreConsultoraFav();
                 ViewBag.UrlImagenFAVMobile = string.Format(ConfigurationManager.AppSettings.Get("UrlImagenFAVMobile"), userData.CodigoISO);
