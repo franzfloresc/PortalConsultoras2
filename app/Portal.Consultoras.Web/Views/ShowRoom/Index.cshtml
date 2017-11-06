@@ -14,53 +14,53 @@
     <link href="@Url.Content("~/Content/Css/Site/jquery.range.css")" rel="stylesheet" />
     <link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet" />
 }
- 
+
 <input type="hidden" id="hdListaProductosEnShowRoom" value="@JsonConvert.SerializeObject(Model.ListaShowRoomOferta)" />
 <input type="hidden" id="hdTotalProductos" value="@Model.ListaShowRoomOferta.Count" />
 <!--MAQUETADO NUEVO-->
 <div class="catalogoPersonalizadoBloque">
-   
+
     @*<div class="content_banner_intriga">
-        <img src="@ViewBag.BannerImagenVenta" alt="" />
-    </div>*@
+            <img src="@ViewBag.BannerImagenVenta" alt="" />
+        </div>*@
     <div class="content_belcorp">
         @*<div class="content_filtros_left" style="display:none;">
-            <span class="titulo_filtro_fav">FILTROS</span>
-            <div class="linea_separadora" style="height: 3px;"></div>
-            <div id="divBorrarFiltros" class="texto_fav_filtro" style="cursor: pointer; display: none;"> BORRAR FILTROS</div>
-            <div id="limiteFlt" class="linea_separadora"></div>
+                <span class="titulo_filtro_fav">FILTROS</span>
+                <div class="linea_separadora" style="height: 3px;"></div>
+                <div id="divBorrarFiltros" class="texto_fav_filtro" style="cursor: pointer; display: none;"> BORRAR FILTROS</div>
+                <div id="limiteFlt" class="linea_separadora"></div>
 
-            <!--PRIMER FILTRO-->
-            @if (Model.TieneCategoria)
-            {
-                if (Model.ListaCategoria != null && Model.ListaCategoria.Count > 0)
+                <!--PRIMER FILTRO-->
+                @if (Model.TieneCategoria)
                 {
-                    <span class="titulo_filtro_fav">CATEGORÍAS</span>
-                    <hr class="clear">
+                    if (Model.ListaCategoria != null && Model.ListaCategoria.Count > 0)
+                    {
+                        <span class="titulo_filtro_fav">CATEGORÍAS</span>
+                        <hr class="clear">
 
-                    <div id="div-filter-category">
-                        @foreach (var itemCategoria in Model.ListaCategoria)
-                        {
-                            if (!string.IsNullOrEmpty(itemCategoria.Descripcion))
+                        <div id="div-filter-category">
+                            @foreach (var itemCategoria in Model.ListaCategoria)
                             {
-                                <div data-filtro-categoria="" class="seleccion_filtro_fav" data-categoriacodigo="@itemCategoria.Codigo">@itemCategoria.Descripcion</div>
-                                <input type="hidden" id="hdatacategoriadescripcion" value="@itemCategoria.Descripcion" />
+                                if (!string.IsNullOrEmpty(itemCategoria.Descripcion))
+                                {
+                                    <div data-filtro-categoria="" class="seleccion_filtro_fav" data-categoriacodigo="@itemCategoria.Codigo">@itemCategoria.Descripcion</div>
+                                    <input type="hidden" id="hdatacategoriadescripcion" value="@itemCategoria.Descripcion" />
+                                }
                             }
-                        }
-                    </div>
-                    <div class="linea_separadora"></div>
+                        </div>
+                        <div class="linea_separadora"></div>
+                    }
                 }
-            }
 
-            <!--TERCER FILTRO-->
-            <span class="titulo_filtro_fav">RANGO DE PRECIO</span>
-            <div class="content_filtro_range">
-                <input class="range-slider" value="" style="width: 100%; display: none;" />
-            </div>
+                <!--TERCER FILTRO-->
+                <span class="titulo_filtro_fav">RANGO DE PRECIO</span>
+                <div class="content_filtro_range">
+                    <input class="range-slider" value="" style="width: 100%; display: none;" />
+                </div>
 
-            <hr class="clear" />
+                <hr class="clear" />
 
-        </div>*@
+            </div>*@
         <div class="content-left-item content_new_showroom">
             <div style="float:left;">
                 <div id="divCantProductos" class="cantidad_productos_resultado">
@@ -215,9 +215,9 @@
                     </div>
                     @*<a class="btn_cerrar_ofertaDia" href="javascript:;" onclick="closeCompraPorCompra();" style="color: black;">x</a>*@
                 </div>
-            }
-        }
-    }
+                                }
+                            }
+                        }
 
 </div>
 
@@ -464,6 +464,6 @@
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/nieve.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.range.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/Index.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js")"></script>
+    @System.Web.Optimization.Scripts.Render("~/Scripts/PortalConsultoras/ShowRoom/ShowRoomJs")
+
 }
