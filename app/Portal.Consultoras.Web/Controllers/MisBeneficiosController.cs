@@ -18,7 +18,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpGet]
         public JsonResult GetJsonProgramasBelcorp()
         {
-            if (Session["UserData"] != null)
+            if (sessionManager.GetUserData() != null)
             {
                 int Campaniaid = userData.CampaniaID;
                 IList<ServiceSAC.BEServicioCampania> lstTemp_1 = new List<ServiceSAC.BEServicioCampania>();

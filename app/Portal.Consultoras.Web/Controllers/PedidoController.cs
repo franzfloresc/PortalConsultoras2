@@ -3399,7 +3399,7 @@ namespace Portal.Consultoras.Web.Controllers
         public int BuildFechaNoHabil()
         {
             int result = 0;
-            if (Session["UserData"] != null)
+            if (sessionManager.GetUserData() != null)
             {
                 int PaisID = userData.PaisID;
                 int RolID = userData.RolID;
@@ -4039,7 +4039,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 userData.CloseOfertaDelDia = true;
-                Session["UserData"] = userData;
+                sessionManager.SetUserData(userData);
 
                 return Json(new
                 {
@@ -4100,7 +4100,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 userData.CloseBannerPL20 = true;
 
-                Session["UserData"] = userData;
+                sessionManager.SetUserData(userData);
 
                 return Json(new
                 {

@@ -18,7 +18,7 @@ namespace Portal.Consultoras.Web.Controllers
     {
         protected void ActionExecutingMobile()
         {
-            if (Session["UserData"] == null) return;
+            if (sessionManager.GetUserData() == null) return;
 
             var userData = UserData();
             ViewBag.CodigoCampania = userData.CampaniaID.ToString();
@@ -153,7 +153,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private void CargarValoresGenerales(UsuarioModel userData)
         {
-            if (Session["UserData"] != null)
+            if (sessionManager.GetUserData() != null)
             {
                 ViewBag.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre).ToUpper();
                 int j = ViewBag.NombreConsultora.Trim().IndexOf(' ');

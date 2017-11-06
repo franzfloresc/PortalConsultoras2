@@ -484,7 +484,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (hizoLoginExterno)
             {
                 usuario.HizoLoginExterno = true;
-                Session["UserData"] = usuario;
+                sessionManager.SetUserData(usuario);
             }
 
             var decodedUrl = string.Empty;
@@ -563,7 +563,7 @@ namespace Portal.Consultoras.Web.Controllers
         private ActionResult CerrarSesion()
         {
             int tipoUsuario = 0;
-            var userData = ((UsuarioModel)Session["UserData"]);
+            var userData = sessionManager.GetUserData();
 
             if (userData != null)
             {
@@ -598,7 +598,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
 
-            Session["UserData"] = null;
+            sessionManager.SetUserData(null);
             Session.Clear();
             Session.Abandon();
 
@@ -1154,7 +1154,7 @@ namespace Portal.Consultoras.Web.Controllers
                     sessionManager.SetTieneOpmX1(true);
                 }
 
-                Session["UserData"] = usuarioModel;
+                sessionManager.SetUserData(usuarioModel);
             }
             catch (Exception ex)
             {
@@ -1595,7 +1595,7 @@ namespace Portal.Consultoras.Web.Controllers
             if ((sessionCookie != null) && (sessionCookie.IndexOf("ASP.NET_SessionId") >= 0))
             {
                 // if exists UserData in Session
-                if (HttpContext.Session["UserData"] != null)
+                if (sessionManager.GetUserData() != null)
                 {
                     res = 1;
                 }
@@ -1847,7 +1847,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model = JWT.JsonWebToken.DecodeToObject<IngresoExternoModel>(token, secretKey);
                 if (model == null) return RedirectToAction("UserUnknown", "Login", new { area = "" });
 
-                var userData = (UsuarioModel)Session["UserData"];
+                var userData = sessionManager.GetUserData();
                 if (userData == null || string.Compare(userData.CodigoUsuario, model.CodigoUsuario, StringComparison.OrdinalIgnoreCase) != 0)
                 {
                     Session.Clear();

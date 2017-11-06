@@ -434,7 +434,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (userData == null)
                 {
                     mensaje = "Se sessión expiró, por favor vuelva a loguearse.";
-                    HttpContext.Session["UserData"] = null;
+                    sessionManager.SetUserData(null);
                     HttpContext.Session.Clear();
                     HttpContext.Session.Abandon();
                     return true;
@@ -979,7 +979,7 @@ namespace Portal.Consultoras.Web.Controllers
         #region UserData        
         protected void SetUserData(UsuarioModel model)
         {
-            Session["UserData"] = model;
+            sessionManager.SetUserData(model);
         }
 
         public UsuarioModel UserData()
@@ -988,7 +988,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                model = (UsuarioModel)Session["UserData"];
+                model = sessionManager.GetUserData();
             }
             catch (Exception)
             {

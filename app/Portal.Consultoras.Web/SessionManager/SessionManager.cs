@@ -209,5 +209,15 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return (bool)(HttpContext.Current.Session[Constantes.ConstSession.TieneOpmX1] ?? false);
         }
+
+        void ISessionManager.SetUserData(UsuarioModel usuario)
+        {
+            HttpContext.Current.Session["UserData"] = usuario;
+        }
+
+        UsuarioModel ISessionManager.GetUserData()
+        {
+            return (UsuarioModel)HttpContext.Current.Session["UserData"];
+        }
     }
 }
