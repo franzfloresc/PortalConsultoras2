@@ -65,5 +65,9 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetTieneLan(bool tieneLan);
 
         bool GetTieneLan();
+
+        void SetTieneLanX1(bool tieneLanX1);
+
+        bool GetTieneLanX1();
     }
 }

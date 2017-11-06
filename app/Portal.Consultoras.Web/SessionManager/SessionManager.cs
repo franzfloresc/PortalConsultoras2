@@ -165,5 +165,16 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return (bool)(HttpContext.Current.Session[Constantes.ConstSession.TieneLan] ?? false);
         }
+
+        void ISessionManager.SetTieneLanX1(bool tieneLanX1)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.TieneLanX1] = tieneLanX1;
+        }
+
+        bool ISessionManager.GetTieneLanX1()
+        {
+            return (bool)(HttpContext.Current.Session[Constantes.ConstSession.TieneLanX1] ?? false);
+        }
+
     }
 }
