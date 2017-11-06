@@ -227,12 +227,36 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected string GetPaisesEsikaFromConfig()
         {
-            return ConfigurationManager.AppSettings.Get("PaisesEsika") ?? string.Empty;
+
+            var result = string.Empty;
+
+            try
+            {
+                result = ConfigurationManager.AppSettings.Get("PaisesEsika") ?? string.Empty ?? string.Empty;
+            }
+            catch (Exception ex)
+            {
+                logManager.LogErrorWebServicesBusWrap(ex, string.Empty, string.Empty, "LoginController.GetPaisesEsikaFromConfig");
+            }
+
+            return result;
         }
 
         protected string GetPaisesLbelFromConfig()
         {
-            return ConfigurationManager.AppSettings.Get("paisesLBel") ?? string.Empty;
+            var result = string.Empty;
+
+            try
+            {
+                result = ConfigurationManager.AppSettings.Get("paisesLBel") ?? string.Empty;
+            }
+            catch (Exception ex)
+            {
+                logManager.LogErrorWebServicesBusWrap(ex, string.Empty, string.Empty, "LoginController.GetPaisesLbelFromConfig");
+            }
+
+            return result;
+            
         }
 
         protected virtual void AsignarUrlRetorno(string returnUrl)
@@ -1118,7 +1142,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                     }
                     //Para paises lebelizados.
-                    if (ConfigurationManager.AppSettings.Get("paisesLBel").Contains(usuarioModel.CodigoISO))
+                    if (GetPaisesLbelFromConfig().Contains(usuarioModel.CodigoISO))
                     {
                         usuarioModel.EsLebel = true;
                     }
