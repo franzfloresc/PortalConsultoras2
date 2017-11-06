@@ -239,8 +239,11 @@ function RenderCarruselPrevisuales(divProd) {
     if (typeof divProd == "undefined")
         return false;
     
+    EstablecerLazyCarrusel(divProd.find(sElementos.listadoProductos));
+
     divProd.find(sElementos.listadoProductos + '.slick-initialized').slick('unslick');
     divProd.find(sElementos.listadoProductos).not('.slick-initialized').slick({
+        lazyLoad: 'ondemand',
         vertical: false,
         dots: false,
         infinite: true,
@@ -292,8 +295,11 @@ function RenderCarruselSimple(divProd) {
     if (typeof divProd == "undefined")
         return false;
 
+    EstablecerLazyCarrusel(divProd.find(sElementos.listadoProductos));
+
     divProd.find(sElementos.listadoProductos + '.slick-initialized').slick('unslick');
     divProd.find(sElementos.listadoProductos).not('.slick-initialized').slick({
+        lazyLoad: 'ondemand',
         infinite: true,
         vertical: false,
         slidesToShow: isMobile() ? 1 : 3,

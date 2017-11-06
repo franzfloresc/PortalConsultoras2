@@ -1908,3 +1908,54 @@ var registerEvent = function (eventName) {
         }
     }
 }
+
+function EstablecerLazyCarrusel(elementoHtml) {
+    if (!$(elementoHtml).length) {
+        return false;
+    }
+    var listaImagenes = $(elementoHtml).find("img[data-img-lazy='1']");
+
+    $.each(listaImagenes, function (index, value) {
+        var rutaImagen = $(value).attr("src");
+
+        if (typeof rutaImagen !== typeof undefined && rutaImagen !== false) {
+            $(value).attr("data-lazy", rutaImagen);
+            $(value).removeAttr("src");
+        }
+        else {
+            rutaImagen = $(value).attr("data-src");
+            if (typeof rutaImagen !== typeof undefined && rutaImagen !== false) {
+                $(value).attr("data-lazy", rutaImagen);
+                $(value).removeAttr("data-src");
+            }
+        }
+        
+    });
+
+    //return $(nombreElementoHtml).html();
+}
+
+function EstablecerAccionLazyImagen(nombreAtributo, withTimeout) {
+    //Si se requiere esperar un momento, withTimeout = true
+    if (withTimeout == undefined || withTimeout == null)
+        withTimeout = true;
+
+    if (nombreAtributo == undefined || nombreAtributo == null || nombreAtributo == "")
+        return;
+
+    if (withTimeout)
+        setTimeout(function () {
+            $(nombreAtributo).lazy();
+        }, 500);
+    else
+        $(nombreAtributo).lazy();
+}
+
+function EstablecerAccionLazyImagenAll(nombreAtributo) {
+    if (nombreAtributo == undefined || nombreAtributo == null || nombreAtributo == "")
+        return;
+
+    $(nombreAtributo).lazy({
+        delay: 0
+    });
+}

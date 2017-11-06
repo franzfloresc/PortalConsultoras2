@@ -29,7 +29,8 @@ namespace Portal.Consultoras.Web
                "~/Scripts/jquery.unobtrusive-ajax.js",
                "~/Scripts/jquery-ui-1.9.2.custom.js",
                "~/Scripts/HojaInscripcion/validations.js",
-               "~/Scripts/donetyping.js"
+               "~/Scripts/donetyping.js",
+               "~/Scripts/jquery.lazy.js"
             ));
 
             bundles.Add(new ScriptBundle("~/bundles/JQGridJs").Include(
@@ -73,6 +74,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/flipclock.js",
                 "~/Scripts/jquery.flexslider.js",
                 "~/Scripts/slick.js",
+                "~/Scripts/jquery.lazy.js",
                 "~/Scripts/PortalConsultoras/Shared/TrackingJetlore.js",
                 "~/Scripts/LogError.js",
                 "~/Scripts/menu.js",
@@ -91,6 +93,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/flipclock.js",
                 "~/Scripts/jquery.flexslider.js",
                 "~/Scripts/slick.js",
+                "~/Scripts/jquery.lazy.js",
                 "~/Scripts/PortalConsultoras/Shared/TrackingJetlore.js",
                 "~/Scripts/LogError.js",
                 "~/Scripts/menu.js",
@@ -167,8 +170,6 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Site/slick.css",
                "~/Content/Css/Site/asesora-online.css",
                "~/Content/Css/Mobile/esika/misDatos.css",
-               "~/Content/Css/Mobile/Esika/revistaDigital.css",
-               "~/Content/Css/Mobile/esika/cdr.css",
                "~/Content/Css/Mobile/Esika/seccion-descarga-imprime.css",
                "~/Content/Css/Mobile/calc.css"
                ));
@@ -183,7 +184,6 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Site/slick.css",
                "~/Content/Css/Mobile/lbel/misDatos.css",
                "~/Content/Css/Mobile/Lbel/revistaDigital.css",
-               "~/Content/Css/Mobile/lbel/cdr.css",
                "~/Content/Css/Mobile/Lbel/seccion-descarga-imprime.css",
                "~/Content/Css/Mobile/calc.css"
                ));

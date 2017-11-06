@@ -33,11 +33,11 @@
     <div class="contenedor-tutorial-lbel">
         <div class="flexsliderTutorialMobile">
             <ul class="slides">
-                <li><img src="~/Content/Images/Lbel/tutorial/tuto1.png" /></li>
-                <li><img src="~/Content/Images/Lbel/tutorial/tuto2.png" /></li>
-                <li><img src="~/Content/Images/Lbel/tutorial/tuto3.png" /></li>
-                <li><img src="~/Content/Images/Lbel/tutorial/tuto4.png" /></li>
-                <li><img src="~/Content/Images/Lbel/tutorial/tuto5.png" /></li>
+                <li><img data-src="/Content/Images/Lbel/tutorial/tuto1.png" data-lazy-seccion-tutorial=""/></li>
+                <li><img data-src="/Content/Images/Lbel/tutorial/tuto2.png" data-lazy-seccion-tutorial=""/></li>
+                <li><img data-src="/Content/Images/Lbel/tutorial/tuto3.png" data-lazy-seccion-tutorial=""/></li>
+                <li><img data-src="/Content/Images/Lbel/tutorial/tuto4.png" data-lazy-seccion-tutorial=""/></li>
+                <li><img data-src="/Content/Images/Lbel/tutorial/tuto5.png" data-lazy-seccion-tutorial=""/></li>
             </ul>
         </div>
 
@@ -52,14 +52,14 @@
     <div class="contenedor-tutorial-esika">
         <div class="flexsliderTutorialMobile">
             <ul class="slides">
-                <li><img src="~/Content/Images/Esika/tutorial/tuto1.png" /></li>
-                <li><img src="~/Content/Images/Esika/tutorial/tuto2.png" /></li>
-                <li><img src="~/Content/Images/Esika/tutorial/tuto3.png" /></li>
-                <li><img src="~/Content/Images/Esika/tutorial/tuto4.png" /></li>
-                <li><img src="~/Content/Images/Esika/tutorial/tuto5.png" /></li>
+                <li><img data-src="/Content/Images/Esika/tutorial/tuto1.png" data-lazy-seccion-tutorial=""/></li>
+                <li><img data-src="/Content/Images/Esika/tutorial/tuto2.png" data-lazy-seccion-tutorial=""/></li>
+                <li><img data-src="/Content/Images/Esika/tutorial/tuto3.png" data-lazy-seccion-tutorial=""/></li>
+                <li><img data-src="/Content/Images/Esika/tutorial/tuto4.png" data-lazy-seccion-tutorial=""/></li>
+                <li><img data-src="/Content/Images/Esika/tutorial/tuto5.png" data-lazy-seccion-tutorial=""/></li>
                 @if (Model.CatalogoPersonalizadoMobile != 0 && Model.EsCatalogoPersonalizadoZonaValida)
                 {
-                    <li><img src="~/Content/Images/Esika/Tutorial/tuto6.jpg" /></li>
+                    <li><img data-src="/Content/Images/Esika/Tutorial/tuto6.jpg" data-lazy-seccion-tutorial=""/></li>
                 }
             </ul>
         </div>
@@ -350,7 +350,7 @@
         </div>
         <a role="link" region="Central" parent="App de Catálogos" title="Entérate Más"
            class="btn_compartelos" href="@Url.Action("EnterateMas", "Catalogo", new { area = "Mobile" })">
-            <div class="imagen_catalogo celular_esika"><img src="@Model.UrlImagenAppCatalogo" alt="-" /></div>
+            <div class="imagen_catalogo celular_esika"><img data-src="@Model.UrlImagenAppCatalogo" alt="-" data-lazy-seccion-banner-home=""/></div>
         </a>
         <hr class="clear" />
         <div class="linea_separadora_mobile"></div>
@@ -366,7 +366,7 @@
         <div class="nueva_seccion_fav" onclick="mostrarCatalogoPersonalizado();" style="cursor: pointer;">
             <div class="content_banner_fav">
                 <div class="content_imagen_banner_fav">
-                    <img src="@ViewBag.UrlImagenFAVMobile" alt="favoritos" />
+                    <img data-src="@ViewBag.UrlImagenFAVMobile" alt="favoritos" data-lazy-seccion-banner-home=""/>
                 </div>
                 <div class="texto_fav_banner">
                     @ViewBag.NombreConsultoraFAV, estos son los
@@ -396,7 +396,7 @@
     </div>
     <a role="link" region="Central" parent="Entra A Mi Academia" title="Entra a Mi Academia" class="btn_compartelos" href="@Url.Action("Index", "MiAcademia", new { area = "" })">
         <div class="imagen_catalogo video_esika">
-            <img src="@Model.UrlImagenMiAcademia" alt="-" />
+            <img data-src="@Model.UrlImagenMiAcademia" alt="-" data-lazy-seccion-banner-home=""/>
         </div>
     </a>
     <hr class="clear" />
@@ -412,7 +412,7 @@
         </div>
         <div class="imagen_catalogo liquidacion_esika">
             <a href="@Url.Action("Index", "OfertaLiquidacion", new { area = "Mobile" })">
-                <img src="@Model.UrlImagenLiquidaciones" alt="-" />
+                <img data-src="@Model.UrlImagenLiquidaciones" alt="-" data-lazy-seccion-banner-home=""/>
             </a>
         </div>
         <hr class="clear" />
@@ -651,29 +651,6 @@
         <a class="cerrar_video" href="javascript:;" id="cerrarVideoIntroductorio"><img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Icono Check" /></a>
         <div id="divPlayer">
         </div>
-        <script type="text/javascript">
-            var tag = document.createElement("script");
-            tag.src = "https://www.youtube.com/iframe_api";
-
-            var firstScriptTag = document.getElementsByTagName("script")[0];
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-            var player;
-
-            function onYouTubeIframeAPIReady(playerId) {
-                var videoIdMostrar;
-                if (isEsika) {
-                    videoIdMostrar = "jNoP8OoMmW4"; //Video Esika
-                }
-                else {
-                    videoIdMostrar = "djSn0tFcQ0w"; //Video Lbel
-                }
-                player = new YT.Player("divPlayer", {
-                    width: "100%",
-                    videoId: videoIdMostrar,
-                    playerVars: { rel: 0 }
-                });
-            };
-        </script>
     </div>
 </div>
 <!-- FIN POPUP VIDEO INTRODUCTORIO -->

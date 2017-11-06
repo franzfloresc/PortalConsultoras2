@@ -256,11 +256,11 @@
                             <div class="content_imagen_compra" data-img="">
                                 @if (item.ImagenProducto != "")
                                 {
-                                    <img src="@item.ImagenProducto" class="imagen_producto">
+                                    <img data-src="@item.ImagenProducto" class="imagen_producto" data-img-lazy="1" />
                                 }
                                 else
                                 {
-                                    <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" />
+                                    <img data-src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" data-img-lazy="1"/>
                                 }
                             </div>
 
@@ -335,7 +335,7 @@
         </div>
         <div class="content_item_carrusel">
             <div class="producto_img_home" data-img="">
-                <img src="{{producto.ImagenProducto}}" class="imagen_producto">
+                <img src="{{producto.ImagenProducto}}" class="imagen_producto" data-img-lazy="1"/>
             </div>
             <div class="content_info_set_especial">
                 <div class="titulo_set_especial">{{producto.Descripcion}}</div>
@@ -401,9 +401,9 @@
 
         <div class="producto_img_home mini" data-img="" onclick="click_producto_showroow('{{Descripcion}}','{{CUV}}','{{PrecioOferta}}','{{DescripcionMarca}}','{{Posicion}}')">
             {{#IsNullOrEmpty ImagenProducto '=='}}
-            <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" />
+            <img data-src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" data-lazy-seccion-showroom="" />
             {{else}}
-            <img src="{{ImagenProducto}}" alt="" style="width: auto; height: 100%;" class="imagen_producto" />
+            <img data-src="{{ImagenProducto}}" alt="" style="width: auto; height: 100%;" class="imagen_producto" data-lazy-seccion-showroom="" />
             {{/IsNullOrEmpty}}
 
             <a class="ver_detalle_carrusel" href="{{UrlDetalle}}">VER DETALLE</a>

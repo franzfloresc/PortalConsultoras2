@@ -470,6 +470,7 @@ $(document).ready(function () {
     CargarAutocomplete();
     MostrarBarra();
     CargarDialogMesajePostulantePedido();
+    EstablecerAccionLazyImagen("img[data-lazy-seccion-banner-pedido]");
 });
 
 function CargarDetallePedido(page, rows) {
