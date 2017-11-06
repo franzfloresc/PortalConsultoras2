@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using Portal.Consultoras.Web.Providers;
-using Portal.Consultoras.Web.Providersx;
 
 namespace Portal.Consultoras.Web.Autofac
 {
