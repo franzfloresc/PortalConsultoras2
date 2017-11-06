@@ -5056,8 +5056,7 @@ a.subir_carousel, a.bajar_carousel {
     margin: 0 auto;
     background: #fff;
     width: 850px;
-    min-height: 570px;
-    height: auto;
+    height: 608px;
     padding-top: 40px;
     box-sizing: border-box;
     font-family: 'Lato';
@@ -37336,7 +37335,7 @@ h1#penmostreo .campana {
 .content_regalo_sorpresa{
     display:inline-block;
     width:310px;
-    min-height:574px;
+    min-height:608px;
     margin-top: 35px;
     /*background:url(../../../Images/Esika/bg_regalo.png) no-repeat;*/
     background-size: 100% 100%;
@@ -37345,7 +37344,7 @@ h1#penmostreo .campana {
     z-index: 21;
     position: relative;
     padding-top:25px;
-    padding-left:25px;
+    padding-left:32px;
     padding-right:25px;
 }
 .fondo_blanco_regalo{
@@ -37401,6 +37400,7 @@ h1#penmostreo .campana {
 .descripcion_regalo .oferta_final_descripcion{
     display: block;
     margin-bottom: 7px;
+    overflow-wrap:break-word;
 }
 .descripcion_regalo a{
     display:block;
