@@ -599,7 +599,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         private int BuildFechaNoHabil()
         {
             int result = 0;
-            if (Session["UserData"] != null)
+            if (sessionManager.GetUserData() != null)
             {
                 using (var sv = new PedidoServiceClient())
                 {

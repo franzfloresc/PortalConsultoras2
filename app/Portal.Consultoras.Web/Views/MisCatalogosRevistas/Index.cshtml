@@ -2,7 +2,12 @@
 @using Portal.Consultoras.Web.Models
 @model MisCatalogosRevistasModel
 @{
-    ViewBag.Title = "Catálogos y Revistas";
+    var title = "Catálogos y Revistas";
+    if(Portal.Consultoras.Web.SessionManager.SessionManager.Instance.GetUserData().TieneGND)
+    {
+        title = "Catálogos";
+    }
+    ViewBag.Title = title;
     var revistaDigital = Model.RevistaDigital ?? new RevistaDigitalModel();
 }
 
@@ -17,9 +22,9 @@
 <div class="fondo_f9f9f9">
     <div class="content_belcorp">
         <div class="fondo_negro_lateral"></div>
-        <div class="titulo_interiores">MIS <span>CATÁLOGOS Y REVISTAS</span></div>
+        <div class="titulo_interiores">MIS <span>@title</span></div>
     </div>
-    <hr class="clear" />
+    <hr class="clear" />    
     <div class="linea_separadora" style="margin-top:-1px"></div>
 </div>
 <div class="content_belcorp">
@@ -62,6 +67,7 @@
             if (revistaDigital.SuscripcionAnterior2Model.EstadoRegistro != 1 &&
                 revistaDigital.SuscripcionAnterior1Model.EstadoRegistro == 1)
             {
+                
                 @Html.Partial("~/Views/MisCatalogosRevistas/template-revista-slide.cshtml")
                 <!-- INSCRITAS C-11 -->
                 <div class="revista_content" id="contentRevistaDigital" style="position: relative;">
@@ -112,7 +118,11 @@
             }
             else
             {
-                @Html.Partial("~/Views/MisCatalogosRevistas/template-revista-slide.cshtml")
+                if (!Portal.Consultoras.Web.SessionManager.SessionManager.Instance.GetUserData().TieneGND)
+                {
+                    @Html.Partial("~/Views/MisCatalogosRevistas/template-revista-slide.cshtml")
+                }
+                
                 <div class="revista_content" id="contentRevistaDigital" style="position: relative;">
                     <div class="home_block_rd home_rd1 rd_catalogos">
                         <div class="rd_logo">
@@ -158,7 +168,10 @@
         }
         else
         {
-            @Html.Partial("~/Views/MisCatalogosRevistas/template-revista-slide.cshtml")
+            if (!Portal.Consultoras.Web.SessionManager.SessionManager.Instance.GetUserData().TieneGND)
+            {
+                @Html.Partial("~/Views/MisCatalogosRevistas/template-revista-slide.cshtml")
+            }
         }
 
         <span id="spNroCampania" style="display: none;">@Model.CampaniaActual</span>

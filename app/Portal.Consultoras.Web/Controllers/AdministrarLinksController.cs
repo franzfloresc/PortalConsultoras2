@@ -359,7 +359,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private List<PermisoModel> BuildMenuConsultoras()
         {
-            //if (Session["UserData"] != null)
+            //if (sessionManager.GetUserData() != null)
             //{
             int PaisID = UserData().PaisID;
             // se quiere ver el menú para la consultora
@@ -395,7 +395,7 @@ namespace Portal.Consultoras.Web.Controllers
         private List<ServicioCampaniaModel> BuildMenuServiceConsultoras()
         {
             // TODO: que campaña pasar?
-            if (Session["UserData"] != null)
+            if (sessionManager.GetUserData() != null)
             {
                 int Campaniaid = UserData().CampaniaID;
                 IList<ServiceSAC.BEServicioCampania> lst = new List<ServiceSAC.BEServicioCampania>();

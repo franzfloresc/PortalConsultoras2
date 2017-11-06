@@ -3,6 +3,7 @@ using Portal.Consultoras.Common;
 using Portal.Consultoras.PublicService.Cryptography;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Helpers;
+using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceContenido;
 using Portal.Consultoras.Web.ServicePedido;
@@ -32,6 +33,7 @@ namespace Portal.Consultoras.Web.Controllers
         private readonly int USUARIO_VALIDO = 3;
 
         protected ISessionManager sessionManager = SessionManager.SessionManager.Instance;
+        protected ILogManager logManager = LogManager.LogManager.Instance;
 
         public LoginController()
         {
@@ -40,6 +42,12 @@ namespace Portal.Consultoras.Web.Controllers
 
         public LoginController(ISessionManager sessionManager)
         {
+            this.sessionManager = sessionManager;
+        }
+
+        public LoginController(ILogManager logManager, ISessionManager sessionManager)
+        {
+            this.logManager = logManager;
             this.sessionManager = sessionManager;
         }
 
@@ -97,7 +105,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, ip, iso, "Login.GET.Index");
+                logManager.LogErrorWebServicesBusWrap(ex, ip, iso, "Login.GET.Index");
             }
 
             ViewBag.FBAppId = ConfigurationManager.AppSettings.Get("FB_AppId");
@@ -156,7 +164,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, Campania.ToString() + " - " + Alcance, paisID.ToString());
+                logManager.LogErrorWebServicesBusWrap(ex, Campania.ToString() + " - " + Alcance, paisID.ToString(),string.Empty);
                 lst = new List<BEEventoFestivo>(); ;
             }
             return Mapper.Map<IList<BEEventoFestivo>, List<EventoFestivoModel>>(lst);
@@ -172,8 +180,15 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var ip = string.Empty;
 
-            var request = new HttpRequestWrapper(System.Web.HttpContext.Current.Request);
-            ip = request.ClientIPFromRequest(skipPrivate: true);
+            try
+            {
+                var request = new HttpRequestWrapper(System.Web.HttpContext.Current.Request);
+                ip = request.ClientIPFromRequest(skipPrivate: true);
+            }
+            catch (Exception ex)
+            {
+                logManager.LogErrorWebServicesBusWrap(ex, string.Empty, string.Empty, "LoginController.GetIpCliente");
+            }
 
             return ip;
         }
@@ -212,12 +227,36 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected string GetPaisesEsikaFromConfig()
         {
-            return ConfigurationManager.AppSettings.Get("PaisesEsika") ?? string.Empty;
+
+            var result = string.Empty;
+
+            try
+            {
+                result = ConfigurationManager.AppSettings.Get("PaisesEsika") ?? string.Empty ?? string.Empty;
+            }
+            catch (Exception ex)
+            {
+                logManager.LogErrorWebServicesBusWrap(ex, string.Empty, string.Empty, "LoginController.GetPaisesEsikaFromConfig");
+            }
+
+            return result;
         }
 
         protected string GetPaisesLbelFromConfig()
         {
-            return ConfigurationManager.AppSettings.Get("paisesLBel") ?? string.Empty;
+            var result = string.Empty;
+
+            try
+            {
+                result = ConfigurationManager.AppSettings.Get("paisesLBel") ?? string.Empty;
+            }
+            catch (Exception ex)
+            {
+                logManager.LogErrorWebServicesBusWrap(ex, string.Empty, string.Empty, "LoginController.GetPaisesLbelFromConfig");
+            }
+
+            return result;
+            
         }
 
         protected virtual void AsignarUrlRetorno(string returnUrl)
@@ -352,7 +391,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, model.CodigoUsuario, model.CodigoISO, pasoLog);
+                logManager.LogErrorWebServicesBusWrap(ex, model.CodigoUsuario, model.CodigoISO, pasoLog);
 
                 if (Request.IsAjaxRequest())
                 {
@@ -374,7 +413,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                LogManager.LogManager.LogErrorWebServicesBus(new Exception(mensaje), codigoUsuario, paisISO, "Login.SaveLogErrorLogin");
+                logManager.LogErrorWebServicesBusWrap(new Exception(mensaje), codigoUsuario, paisISO, "Login.SaveLogErrorLogin");
 
                 return Json(new
                 {
@@ -445,7 +484,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (hizoLoginExterno)
             {
                 usuario.HizoLoginExterno = true;
-                Session["UserData"] = usuario;
+                sessionManager.SetUserData(usuario);
             }
 
             var decodedUrl = string.Empty;
@@ -524,7 +563,7 @@ namespace Portal.Consultoras.Web.Controllers
         private ActionResult CerrarSesion()
         {
             int tipoUsuario = 0;
-            var userData = ((UsuarioModel)Session["UserData"]);
+            var userData = sessionManager.GetUserData();
 
             if (userData != null)
             {
@@ -554,12 +593,12 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     catch (Exception ex)
                     {
-                        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoUsuario, userData.CodigoISO);
+                        logManager.LogErrorWebServicesBusWrap(ex, userData.CodigoUsuario, userData.CodigoISO, string.Empty);
                     }
                 }
             }
 
-            Session["UserData"] = null;
+            sessionManager.SetUserData(null);
             Session.Clear();
             Session.Abandon();
 
@@ -595,23 +634,13 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                using (var usuarioServiceClient = new UsuarioServiceClient())
-                {
-                    usuario = usuarioServiceClient.GetSesionUsuario(paisId, codigoUsuario);
+                if (paisId == 0)
+                    throw new ArgumentException("Parámetro paisId no puede ser cero.");
 
-                    if (usuario != null && refrescarDatos == 0)
-                    {
-                        try
-                        {
-                            usuarioServiceClient.InsLogIngresoPortal(paisId, usuario.CodigoConsultora, GetIpCliente(), 1, usuario.CampaniaID.ToString());
-                        }
-                        catch (Exception ex)
-                        {
-                            LogManager.LogManager.LogErrorWebServicesBus(ex, usuario.CodigoConsultora, paisId.ToString());
-                            pasoLog = "Ocurrió un error al registrar log de ingreso al portal";
-                        }
-                    }
-                }
+                if (string.IsNullOrEmpty(codigoUsuario))
+                    throw new ArgumentException("Parámetro codigoUsuario no puede ser vacío.");
+
+                usuario = GetUsuarioAndLogsIngresoPortal(paisId, codigoUsuario, refrescarDatos);
 
                 if (usuario != null)
                 {
@@ -852,10 +881,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                             if (usuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
                             {
-                                using (ContenidoServiceClient sv = new ContenidoServiceClient())
-                                {
-                                    usuarioModel.MontoDeuda = sv.GetMontoDeuda(usuarioModel.PaisID, usuarioModel.CampaniaID, usuarioModel.ConsultoraID, usuarioModel.CodigoUsuario, false);
-                                }
+                                usuarioModel.MontoDeuda = GetMontoDeuda(usuarioModel);
                             }
 
                             usuarioModel.IndicadorFlexiPago = usuario.IndicadorFlexiPago;
@@ -865,11 +891,9 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 if (usuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
                                 {
-                                    using (PedidoServiceClient svc = new PedidoServiceClient())
-                                    {
-                                        BEOfertaFlexipago beOfertaFlexipago = svc.GetLineaCreditoFlexipago(usuarioModel.PaisID, usuarioModel.CodigoConsultora, usuarioModel.CampaniaID);
-                                        usuarioModel.MontoMinimoFlexipago = string.Format("{0:#,##0.00}", (beOfertaFlexipago.MontoMinimoFlexipago < 0 ? 0M : beOfertaFlexipago.MontoMinimoFlexipago));
-                                    }
+                                    var ofertaFlexipago = GetLineaCreditoFlexipago(usuarioModel);
+                                    usuarioModel.MontoMinimoFlexipago = string.Format("{0:#,##0.00}", (ofertaFlexipago.MontoMinimoFlexipago < 0 ? 0M : ofertaFlexipago.MontoMinimoFlexipago));
+
                                 }
                             }
                         }
@@ -879,32 +903,14 @@ namespace Portal.Consultoras.Web.Controllers
                         usuarioModel.IndicadorGPRSB = usuario.IndicadorGPRSB;
                         if (usuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
                         {
-                            using (var sv = new ServicePedidoRechazado.PedidoRechazadoServiceClient())
+                            var gprBanner = GetMotivoRechazo(usuario, usuarioModel.MontoDeuda);
+                            if (gprBanner != null)
                             {
-                                var beGPRUsuario = new ServicePedidoRechazado.BEGPRUsuario()
-                                {
-                                    IndicadorGPRSB = usuario.IndicadorGPRSB,
-                                    CampaniaID = usuario.CampaniaID,
-                                    PaisID = usuario.PaisID,
-                                    ConsultoraID = usuario.ConsultoraID,
-                                    MontoDeuda = usuarioModel.MontoDeuda,
-                                    Simbolo = usuario.Simbolo,
-                                    CodigoISO = usuario.CodigoISO,
-                                    MontoMinimoPedido = usuario.MontoMinimoPedido,
-                                    MontoMaximoPedido = usuario.MontoMaximoPedido,
-                                    ValidacionAbierta = usuario.ValidacionAbierta,
-                                    EstadoPedido = usuario.EstadoPedido
-                                };
-
-                                var beGPRBanner = sv.GetMotivoRechazo(beGPRUsuario);
-                                if (beGPRBanner != null)
-                                {
-                                    usuarioModel.GPRBannerUrl = beGPRBanner.BannerUrl;
-                                    usuarioModel.GPRBannerTitulo = beGPRBanner.BannerTitulo;
-                                    usuarioModel.GPRBannerMensaje = beGPRBanner.BannerMensaje;
-                                    usuarioModel.RechazadoXdeuda = beGPRBanner.RechazadoXdeuda;
-                                    usuarioModel.MostrarBannerRechazo = beGPRBanner.MostrarBannerRechazo;
-                                }
+                                usuarioModel.GPRBannerUrl = gprBanner.BannerUrl;
+                                usuarioModel.GPRBannerTitulo = gprBanner.BannerTitulo;
+                                usuarioModel.GPRBannerMensaje = gprBanner.BannerMensaje;
+                                usuarioModel.RechazadoXdeuda = gprBanner.RechazadoXdeuda;
+                                usuarioModel.MostrarBannerRechazo = gprBanner.MostrarBannerRechazo;
                             }
                         }
                         #endregion
@@ -914,13 +920,11 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             usuarioModel.OfertasDelDia = GetOfertaDelDiaModel(usuarioModel);
                             usuarioModel.TieneOfertaDelDia = usuarioModel.OfertasDelDia.Any();
-                            //model.OfertaDelDia = model.OfertasDelDia[0];
                         }
                         #endregion
 
                         #region RegaloPN
-                        var regaloProgramaNuevasFlag = ConfigurationManager.AppSettings.Get("RegaloProgramaNuevasFlag");
-                        if (regaloProgramaNuevasFlag == "1")
+                        if (GetRegaloProgramaNuevasFlag() == "1")
                         {
                             DateTime fechaHoy = DateTime.Now.AddHours(usuarioModel.ZonaHoraria).Date;
                             var esDiasFacturacion = fechaHoy >= usuarioModel.FechaInicioCampania.Date && fechaHoy <= usuarioModel.FechaFinCampania.Date;
@@ -935,14 +939,15 @@ namespace Portal.Consultoras.Web.Controllers
                         #region LoginFB
                         if (usuario.TieneLoginExterno)
                         {
-                            usuarioModel.TieneLoginExterno = true;
-                            using (ServiceUsuario.UsuarioServiceClient svc = new UsuarioServiceClient())
+                            usuarioModel.TieneLoginExterno = usuario.TieneLoginExterno;
+                            List<BEUsuarioExterno> lstLoginExterno;
+                            using (var usuarioServiceClient = new UsuarioServiceClient())
                             {
-                                List<BEUsuarioExterno> lstLoginExterno = svc.GetListaLoginExterno(usuario.PaisID, usuario.CodigoUsuario).ToList();
-                                if (lstLoginExterno.Any())
-                                {
-                                    usuarioModel.ListaLoginExterno = Mapper.Map<List<BEUsuarioExterno>, List<UsuarioExternoModel>>(lstLoginExterno);
-                                }
+                                 lstLoginExterno = usuarioServiceClient.GetListaLoginExterno(usuario.PaisID, usuario.CodigoUsuario).ToList();
+                            }
+                            if (lstLoginExterno != null && lstLoginExterno.Any())
+                            {
+                                usuarioModel.ListaLoginExterno = Mapper.Map<List<BEUsuarioExterno>, List<UsuarioExternoModel>>(lstLoginExterno);
                             }
                         }
                         #endregion
@@ -951,39 +956,20 @@ namespace Portal.Consultoras.Web.Controllers
 
                         try
                         {
-                            RevistaDigitalModel revistaDigitalModel = new RevistaDigitalModel();
-                            List<ConfiguracionPaisModel> configuracionPaisModels;
-                            OfertaFinalModel ofertaFinalModel = new OfertaFinalModel();
+                            if (usuarioModel.TipoUsuario == Constantes.TipoUsuario.Postulante)
+                                throw new Exception("No se asigna configuracion pais para los Postulantes.");
 
+                            var revistaDigitalModel = new RevistaDigitalModel();
+                            var ofertaFinalModel = new OfertaFinalModel();
                             revistaDigitalModel.NoVolverMostrar = true;
-                            if (usuarioModel.TipoUsuario == Constantes.TipoUsuario.Postulante) throw new Exception("No se asigna configuracion pais para los Postulantes.");
 
-                            var config = new ServiceUsuario.BEConfiguracionPais
-                            {
-                                DesdeCampania = usuarioModel.CampaniaID,
-                                Detalle = new ServiceUsuario.BEConfiguracionPaisDetalle
-                                {
-                                    PaisID = usuarioModel.PaisID,
-                                    CodigoConsultora = usuarioModel.CodigoConsultora,
-                                    CodigoRegion = usuarioModel.CodigorRegion,
-                                    CodigoZona = usuarioModel.CodigoZona,
-                                    CodigoSeccion = usuarioModel.SeccionAnalytics
-                                }
-                            };
-
-                            using (UsuarioServiceClient sv = new UsuarioServiceClient())
-                            {
-                                //verificar si se tiene registrado RD o RDS en la tabla ConfiguracionPais
-                                var listaConfigPais = sv.GetConfiguracionPais(config);
-                                configuracionPaisModels = Mapper.Map<IList<ServiceUsuario.BEConfiguracionPais>, List<ConfiguracionPaisModel>>(listaConfigPais);
-                            }
-
-                            if (configuracionPaisModels.Any())
+                            var configuracionesPaisModels = GetConfiguracionPais(usuarioModel);
+                            if (configuracionesPaisModels.Any())
                             {
                                 revistaDigitalModel.EstadoSuscripcion = 0;
                                 var rds = new BERevistaDigitalSuscripcion { PaisID = usuarioModel.PaisID, CodigoConsultora = usuarioModel.CodigoConsultora };
 
-                                foreach (var c in configuracionPaisModels)
+                                foreach (var c in configuracionesPaisModels)
                                 {
                                     switch (c.Codigo)
                                     {
@@ -1040,6 +1026,9 @@ namespace Portal.Consultoras.Web.Controllers
                                                 usuarioModel.EsOfertaFinalZonaValida = true;
                                             }
                                             break;
+                                        case Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada:
+                                            usuarioModel.TieneGND = true;
+                                            break;
                                     }
 
                                     if (c.Codigo.EndsWith("GM") && c.Codigo.StartsWith("OF"))
@@ -1052,18 +1041,18 @@ namespace Portal.Consultoras.Web.Controllers
                                 revistaDigitalModel.CampaniaMasDos = AddCampaniaAndNumero(Convert.ToInt32(usuarioModel.CampaniaID), 2, usuarioModel.NroCampanias) % 100;
 
                                 sessionManager.SetRevistaDigital(revistaDigitalModel);
-                                Session[Constantes.ConstSession.ConfiguracionPaises] = configuracionPaisModels;
-                                Session[Constantes.ConstSession.OfertaFinal] = ofertaFinalModel;
+                                sessionManager.SetConfiguracionesPaisModel(configuracionesPaisModels);
+                                sessionManager.SetOfertaFinalModel(ofertaFinalModel);
                             }
 
                         }
                         catch (Exception ex)
                         {
-                            LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.PaisID.ToString());
+                            logManager.LogErrorWebServicesBusWrap(ex, usuarioModel.CodigoConsultora, usuarioModel.PaisID.ToString(), string.Empty);
                             pasoLog = "Ocurrió un error al cargar ConfiguracionPais";
                             sessionManager.SetRevistaDigital(new RevistaDigitalModel());
-                            Session[Constantes.ConstSession.ConfiguracionPaises] = new List<ConfiguracionPaisModel>();
-                            Session[Constantes.ConstSession.OfertaFinal] = new OfertaFinalModel();
+                            sessionManager.SetConfiguracionesPaisModel(new List<ConfiguracionPaisModel>());
+                            sessionManager.SetOfertaFinalModel(new OfertaFinalModel());
                         }
 
 
@@ -1094,13 +1083,13 @@ namespace Portal.Consultoras.Web.Controllers
 
                             eventoFestivoDataModel.ListaGifMenuContenedorOfertas = ObtenerEventoFestivo(usuarioModel.PaisID, Constantes.EventoFestivoAlcance.MENU_SOMOS_BELCORP, usuarioModel.CampaniaID);
 
-                            Session[Constantes.ConstSession.EventoFestivo] = eventoFestivoDataModel;
+                            sessionManager.SetEventoFestivoDataModel(eventoFestivoDataModel);
                         }
                         catch (Exception ex)
                         {
-                            LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.PaisID.ToString());
+                            logManager.LogErrorWebServicesBusWrap(ex, usuarioModel.CodigoConsultora, usuarioModel.PaisID.ToString(), string.Empty);
                             pasoLog = "Ocurrió un error al cargar Eventofestivo";
-                            Session[Constantes.ConstSession.EventoFestivo] = new EventoFestivoDataModel();
+                            sessionManager.SetEventoFestivoDataModel(new EventoFestivoDataModel());
                         }
                         #endregion
 
@@ -1125,7 +1114,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         catch (Exception ex)
                         {
-                            LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
+                            logManager.LogErrorWebServicesBusWrap(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO, string.Empty);
                         }
                         #endregion
                     }
@@ -1152,43 +1141,185 @@ namespace Portal.Consultoras.Web.Controllers
                             Session["ListFiltersFAV"] = lstFiltersFAV;
                         }
                     }
-
                     //Para paises lebelizados.
-                    if (ConfigurationManager.AppSettings.Get("paisesLBel").Contains(usuarioModel.CodigoISO))
+                    if (GetPaisesLbelFromConfig().Contains(usuarioModel.CodigoISO))
                     {
                         usuarioModel.EsLebel = true;
                     }
 
-                    Session[Constantes.ConstSession.TieneLan] = true;
-                    Session[Constantes.ConstSession.TieneLanX1] = true;
-                    Session[Constantes.ConstSession.TieneOpt] = true;
-                    Session[Constantes.ConstSession.TieneOpm] = true;
-                    Session[Constantes.ConstSession.TieneOpmX1] = true;
+                    sessionManager.SetTieneLan(true);
+                    sessionManager.SetTieneLanX1(true);
+                    sessionManager.SetTieneOpt( true);
+                    sessionManager.SetTieneOpm(true);
+                    sessionManager.SetTieneOpmX1(true);
                 }
 
-                Session["UserData"] = usuarioModel;
+                sessionManager.SetUserData(usuarioModel);
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, codigoUsuario, paisId.ToString());
+                logManager.LogErrorWebServicesBusWrap(ex, codigoUsuario, paisId.ToString(),string.Empty);
                 pasoLog = "Error: " + ex.Message;
                 throw;
             }
             return usuarioModel;
         }
 
-        public List<TipoLinkModel> GetLinksPorPais(int PaisID)
+        protected virtual List<ConfiguracionPaisModel> GetConfiguracionPais(UsuarioModel usuarioModel)
         {
-            List<BETipoLink> listModel = new List<BETipoLink>();
-            using (ContenidoServiceClient sv = new ContenidoServiceClient())
+            IList<ServiceUsuario.BEConfiguracionPais> listaConfigPais;
+
+            try
             {
-                listModel = sv.GetLinksPorPais(PaisID).ToList();
+                var config = new ServiceUsuario.BEConfiguracionPais
+                {
+                    DesdeCampania = usuarioModel.CampaniaID,
+                    Detalle = new ServiceUsuario.BEConfiguracionPaisDetalle
+                    {
+                        PaisID = usuarioModel.PaisID,
+                        CodigoConsultora = usuarioModel.CodigoConsultora,
+                        CodigoRegion = usuarioModel.CodigorRegion,
+                        CodigoZona = usuarioModel.CodigoZona,
+                        CodigoSeccion = usuarioModel.SeccionAnalytics
+                    }
+                };
+                using (UsuarioServiceClient sv = new UsuarioServiceClient())
+                {
+                    listaConfigPais = sv.GetConfiguracionPais(config);
+                }
+            }
+            catch (Exception ex)
+            {
+                listaConfigPais = new List<ServiceUsuario.BEConfiguracionPais>();
+                logManager.LogErrorWebServicesBusWrap(ex, usuarioModel.CodigoUsuario, usuarioModel.PaisID.ToString(), "LoginController.GetConfiguracionPais");
+            }
+                       
+
+            return Mapper.Map<IList<ServiceUsuario.BEConfiguracionPais>, List<ConfiguracionPaisModel>>(listaConfigPais);
+        }
+
+        private  string GetRegaloProgramaNuevasFlag()
+        {
+            string result = string.Empty;
+
+            try
+            {
+                result = ConfigurationManager.AppSettings.Get("RegaloProgramaNuevasFlag");
+            }
+            catch (Exception ex)
+            {
+                logManager.LogErrorWebServicesBusWrap(ex, string.Empty, string.Empty, "LoginController.GetRegaloProgramaNuevasFlag");
             }
 
-            Mapper.CreateMap<BETipoLink, TipoLinkModel>()
-                  .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                  .ForMember(t => t.TipoLinkID, f => f.MapFrom(c => c.TipoLinkID))
-                  .ForMember(t => t.Url, f => f.MapFrom(c => c.Url));
+            return result;
+        }
+
+        private ServicePedidoRechazado.BEGPRBanner GetMotivoRechazo(ServiceUsuario.BEUsuario usuario, decimal montoDeuda)
+        {
+            ServicePedidoRechazado.BEGPRBanner gprBanner = null ;
+
+            try
+            {
+                using (var sv = new ServicePedidoRechazado.PedidoRechazadoServiceClient())
+                {
+                    var gprUsuario = new ServicePedidoRechazado.BEGPRUsuario()
+                    {
+                        IndicadorGPRSB = usuario.IndicadorGPRSB,
+                        CampaniaID = usuario.CampaniaID,
+                        PaisID = usuario.PaisID,
+                        ConsultoraID = usuario.ConsultoraID,
+                        MontoDeuda = montoDeuda,
+                        Simbolo = usuario.Simbolo,
+                        CodigoISO = usuario.CodigoISO,
+                        MontoMinimoPedido = usuario.MontoMinimoPedido,
+                        MontoMaximoPedido = usuario.MontoMaximoPedido,
+                        ValidacionAbierta = usuario.ValidacionAbierta,
+                        EstadoPedido = usuario.EstadoPedido
+                    };
+
+                    gprBanner = sv.GetMotivoRechazo(gprUsuario);
+                }
+            }
+            catch (Exception ex)
+            {
+                logManager.LogErrorWebServicesBusWrap(ex, usuario.CodigoConsultora, usuario.PaisID.ToString(), "LoginController.GetMotivoRechazo");
+            }
+            
+
+            return gprBanner;
+        }
+
+        private static BEOfertaFlexipago GetLineaCreditoFlexipago(UsuarioModel usuarioModel)
+        {
+            BEOfertaFlexipago ofertaFlexipago;
+            using (var svc = new PedidoServiceClient())
+            {
+                ofertaFlexipago = svc.GetLineaCreditoFlexipago(usuarioModel.PaisID, usuarioModel.CodigoConsultora, usuarioModel.CampaniaID);
+            }
+
+            return ofertaFlexipago;
+        }
+
+        private decimal GetMontoDeuda(UsuarioModel usuarioModel)
+        {
+            var montoDeuda = 0.0M;
+
+            try
+            {
+                using (var contenidoServiceClient = new ContenidoServiceClient())
+                {
+                    montoDeuda = contenidoServiceClient.GetMontoDeuda(usuarioModel.PaisID, usuarioModel.CampaniaID, usuarioModel.ConsultoraID, usuarioModel.CodigoUsuario, false);
+                }
+            }
+            catch (Exception ex)
+            {
+                logManager.LogErrorWebServicesBusWrap(ex, usuarioModel.CodigoConsultora, usuarioModel.PaisID.ToString(), "LoginController.GetMontoDeuda");
+            }
+
+            return montoDeuda;
+        }
+
+        protected virtual ServiceUsuario.BEUsuario GetUsuarioAndLogsIngresoPortal(int paisId, string codigoUsuario, int refrescarDatos)
+        {
+            ServiceUsuario.BEUsuario usuario;
+            using (var usuarioServiceClient = new UsuarioServiceClient())
+            {
+                usuario = usuarioServiceClient.GetSesionUsuario(paisId, codigoUsuario);
+
+                if (usuario != null && refrescarDatos == 0)
+                {
+                    try
+                    {
+                        usuarioServiceClient.InsLogIngresoPortal(paisId, usuario.CodigoConsultora, GetIpCliente(), 1, usuario.CampaniaID.ToString());
+                    }
+                    catch (Exception ex)
+                    {
+                        logManager.LogErrorWebServicesBusWrap(ex, usuario.CodigoConsultora, paisId.ToString(), string.Empty);
+                        pasoLog = "Ocurrió un error al registrar log de ingreso al portal";
+                    }
+                }
+            }
+
+            return usuario;
+        }
+
+        protected virtual List<TipoLinkModel> GetLinksPorPais(int paisId)
+        {
+            List<BETipoLink> listModel;
+
+            try
+            {
+                using (var contenidoServiceClient = new ContenidoServiceClient())
+                {
+                    listModel = contenidoServiceClient.GetLinksPorPais(paisId).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                listModel = new List<BETipoLink>();
+                logManager.LogErrorWebServicesBusWrap(ex, string.Empty, paisId.ToString(), "LoginController.GetLinksPorPais");
+            }
+            
 
             return Mapper.Map<IList<BETipoLink>, List<TipoLinkModel>>(listModel);
         }
@@ -1231,7 +1362,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, CodigoConsultora, PaisId.ToString());
+                logManager.LogErrorWebServicesBusWrap(ex, CodigoConsultora, PaisId.ToString(), string.Empty);
             }
             return sFecha;
         }
@@ -1254,7 +1385,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, CodigoUsuario, PaisId.ToString());
+                logManager.LogErrorWebServicesBusWrap(ex, CodigoUsuario, PaisId.ToString(), string.Empty);
             }
 
             return result == null ? false : true;
@@ -1310,6 +1441,9 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var ofertasDelDiaModel = new List<OfertaDelDiaModel>();
 
+            try
+            {
+
             var ofertasDelDia = ObtenerOfertasDelDia(model);
             if (!ofertasDelDia.Any())
                 return ofertasDelDiaModel;
@@ -1353,6 +1487,11 @@ namespace Portal.Consultoras.Web.Controllers
                 oddModel.Orden = oferta.Orden;
 
                 ofertasDelDiaModel.Add(oddModel);
+            }
+            }
+            catch (Exception ex)
+            {
+                logManager.LogErrorWebServicesBusWrap(ex, model.CodigoUsuario, model.PaisID.ToString(), "LoginController.GetOfertaDelDiaModel");
             }
 
             return ofertasDelDiaModel;
@@ -1456,7 +1595,7 @@ namespace Portal.Consultoras.Web.Controllers
             if ((sessionCookie != null) && (sessionCookie.IndexOf("ASP.NET_SessionId") >= 0))
             {
                 // if exists UserData in Session
-                if (HttpContext.Session["UserData"] != null)
+                if (sessionManager.GetUserData() != null)
                 {
                     res = 1;
                 }
@@ -1533,7 +1672,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, correo, Util.GetPaisISO(paisId));
+                logManager.LogErrorWebServicesBusWrap(ex, correo, Util.GetPaisISO(paisId), string.Empty);
 
                 return Json(new
                 {
@@ -1617,7 +1756,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, "", codigoISO, pasoLog);
+                logManager.LogErrorWebServicesBusWrap(ex, "", codigoISO, pasoLog);
             }
 
             return Json(new
@@ -1671,7 +1810,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, "", codigoISO, pasoLog);
+                logManager.LogErrorWebServicesBusWrap(ex, "", codigoISO, pasoLog);
 
                 return Json(new
                 {
@@ -1708,7 +1847,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model = JWT.JsonWebToken.DecodeToObject<IngresoExternoModel>(token, secretKey);
                 if (model == null) return RedirectToAction("UserUnknown", "Login", new { area = "" });
 
-                var userData = (UsuarioModel)Session["UserData"];
+                var userData = sessionManager.GetUserData();
                 if (userData == null || string.Compare(userData.CodigoUsuario, model.CodigoUsuario, StringComparison.OrdinalIgnoreCase) != 0)
                 {
                     Session.Clear();
@@ -1833,11 +1972,11 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (model != null)
                 {
-                    LogManager.LogManager.LogErrorWebServicesBus(ex, model.CodigoUsuario, model.Pais, token);
+                    logManager.LogErrorWebServicesBusWrap(ex, model.CodigoUsuario, model.Pais, token);
                 }
                 else
                 {
-                    LogManager.LogManager.LogErrorWebServicesBus(ex, token, "");
+                    logManager.LogErrorWebServicesBusWrap(ex, token, "", string.Empty);
                 }
 
                 return HttpNotFound("Error: " + ex.Message);
@@ -1891,7 +2030,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, model.CodigoConsultora, model.CodigoISO, pasoLog);
+                logManager.LogErrorWebServicesBusWrap(ex, model.CodigoConsultora, model.CodigoISO, pasoLog);
             }
 
             return result;
