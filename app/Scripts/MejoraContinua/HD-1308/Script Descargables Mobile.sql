@@ -4,23 +4,22 @@ GO
 IF EXISTS (SELECT 1 FROM ConfiguracionPais WHERE Codigo = 'DES-NAV')
 BEGIN
 	DECLARE @ConfiguracionPaisID INT = 0
+	DECLARE @MobileOrden INT = 0
+	DECLARE @MobileOrdenBPT INT = 0
+	DECLARE @MobileOrden2 INT = 0
+	DECLARE @MobileOrdenBpt2 INT = 0
+
+
 	SELECT @ConfiguracionPaisID = ConfiguracionPaisID FROM ConfiguracionPais WHERE Codigo = 'DES-NAV'
 
-	UPDATE [dbo].[ConfiguracionPais] SET MobileTituloMenu = 'Descarga e Imprime', MobileOrden = 7, MobileOrdenBPT = 7 where Codigo = 'DES-NAV'
-	UPDATE [dbo].[ConfiguracionOfertasHome] SET MobileOrden = 7, MobileTitulo = 'Descarga e Imprime', MobileTipoPresentacion = 7, MobileActivo = 1, MobileOrdenBpt = 100 where ConfiguracionPaisID = @ConfiguracionPaisID
-END
-GO
+	select @MobileOrden = max(MobileOrden) + 1 from ConfiguracionPais
+	select @MobileOrdenBPT = max(MobileOrdenBPT) + 1 from ConfiguracionPais
+	select @MobileOrden2 = max(MobileOrden) + 1 from ConfiguracionOfertasHome
+	select @MobileOrdenBpt2 = max(MobileOrdenBpt) + 1 from ConfiguracionOfertasHome
 
-USE BelcorpMexico
-GO
 
-IF EXISTS (SELECT 1 FROM ConfiguracionPais WHERE Codigo = 'DES-NAV')
-BEGIN
-	DECLARE @ConfiguracionPaisID INT = 0
-	SELECT @ConfiguracionPaisID = ConfiguracionPaisID FROM ConfiguracionPais WHERE Codigo = 'DES-NAV'
-
-	UPDATE [dbo].[ConfiguracionPais] SET MobileTituloMenu = 'Descarga e Imprime', MobileOrden = 7, MobileOrdenBPT = 7 where Codigo = 'DES-NAV'
-	UPDATE [dbo].[ConfiguracionOfertasHome] SET MobileOrden = 7, MobileTitulo = 'Descarga e Imprime', MobileTipoPresentacion = 7, MobileActivo = 1, MobileOrdenBpt = 100 where ConfiguracionPaisID = @ConfiguracionPaisID
+	UPDATE [dbo].[ConfiguracionPais] SET MobileTituloMenu = 'Descarga e Imprime', MobileOrden = @MobileOrden, MobileOrdenBPT = @MobileOrdenBPT where Codigo = 'DES-NAV'
+	UPDATE [dbo].[ConfiguracionOfertasHome] SET MobileOrden = @MobileOrden2, MobileTitulo = 'Descarga e Imprime', MobileTipoPresentacion = 7, MobileActivo = 1, MobileOrdenBpt = @MobileOrdenBpt2 where ConfiguracionPaisID = @ConfiguracionPaisID
 END
 GO
 
@@ -30,10 +29,22 @@ GO
 IF EXISTS (SELECT 1 FROM ConfiguracionPais WHERE Codigo = 'DES-NAV')
 BEGIN
 	DECLARE @ConfiguracionPaisID INT = 0
+	DECLARE @MobileOrden INT = 0
+	DECLARE @MobileOrdenBPT INT = 0
+	DECLARE @MobileOrden2 INT = 0
+	DECLARE @MobileOrdenBpt2 INT = 0
+
+
 	SELECT @ConfiguracionPaisID = ConfiguracionPaisID FROM ConfiguracionPais WHERE Codigo = 'DES-NAV'
 
-	UPDATE [dbo].[ConfiguracionPais] SET MobileTituloMenu = 'Descarga e Imprime', MobileOrden = 7, MobileOrdenBPT = 7 where Codigo = 'DES-NAV'
-	UPDATE [dbo].[ConfiguracionOfertasHome] SET MobileOrden = 7, MobileTitulo = 'Descarga e Imprime', MobileTipoPresentacion = 7, MobileActivo = 1, MobileOrdenBpt = 100 where ConfiguracionPaisID = @ConfiguracionPaisID
+	select @MobileOrden = max(MobileOrden) + 1 from ConfiguracionPais
+	select @MobileOrdenBPT = max(MobileOrdenBPT) + 1 from ConfiguracionPais
+	select @MobileOrden2 = max(MobileOrden) + 1 from ConfiguracionOfertasHome
+	select @MobileOrdenBpt2 = max(MobileOrdenBpt) + 1 from ConfiguracionOfertasHome
+
+
+	UPDATE [dbo].[ConfiguracionPais] SET MobileTituloMenu = 'Descarga e Imprime', MobileOrden = @MobileOrden, MobileOrdenBPT = @MobileOrdenBPT where Codigo = 'DES-NAV'
+	UPDATE [dbo].[ConfiguracionOfertasHome] SET MobileOrden = @MobileOrden2, MobileTitulo = 'Descarga e Imprime', MobileTipoPresentacion = 7, MobileActivo = 1, MobileOrdenBpt = @MobileOrdenBpt2 where ConfiguracionPaisID = @ConfiguracionPaisID
 END
 GO
 
@@ -43,10 +54,22 @@ GO
 IF EXISTS (SELECT 1 FROM ConfiguracionPais WHERE Codigo = 'DES-NAV')
 BEGIN
 	DECLARE @ConfiguracionPaisID INT = 0
+	DECLARE @MobileOrden INT = 0
+	DECLARE @MobileOrdenBPT INT = 0
+	DECLARE @MobileOrden2 INT = 0
+	DECLARE @MobileOrdenBpt2 INT = 0
+
+
 	SELECT @ConfiguracionPaisID = ConfiguracionPaisID FROM ConfiguracionPais WHERE Codigo = 'DES-NAV'
 
-	UPDATE [dbo].[ConfiguracionPais] SET MobileTituloMenu = 'Descarga e Imprime', MobileOrden = 7, MobileOrdenBPT = 7 where Codigo = 'DES-NAV'
-	UPDATE [dbo].[ConfiguracionOfertasHome] SET MobileOrden = 7, MobileTitulo = 'Descarga e Imprime', MobileTipoPresentacion = 7, MobileActivo = 1, MobileOrdenBpt = 100 where ConfiguracionPaisID = @ConfiguracionPaisID
+	select @MobileOrden = max(MobileOrden) + 1 from ConfiguracionPais
+	select @MobileOrdenBPT = max(MobileOrdenBPT) + 1 from ConfiguracionPais
+	select @MobileOrden2 = max(MobileOrden) + 1 from ConfiguracionOfertasHome
+	select @MobileOrdenBpt2 = max(MobileOrdenBpt) + 1 from ConfiguracionOfertasHome
+
+
+	UPDATE [dbo].[ConfiguracionPais] SET MobileTituloMenu = 'Descarga e Imprime', MobileOrden = @MobileOrden, MobileOrdenBPT = @MobileOrdenBPT where Codigo = 'DES-NAV'
+	UPDATE [dbo].[ConfiguracionOfertasHome] SET MobileOrden = @MobileOrden2, MobileTitulo = 'Descarga e Imprime', MobileTipoPresentacion = 7, MobileActivo = 1, MobileOrdenBpt = @MobileOrdenBpt2 where ConfiguracionPaisID = @ConfiguracionPaisID
 END
 GO
 
@@ -56,10 +79,22 @@ GO
 IF EXISTS (SELECT 1 FROM ConfiguracionPais WHERE Codigo = 'DES-NAV')
 BEGIN
 	DECLARE @ConfiguracionPaisID INT = 0
+	DECLARE @MobileOrden INT = 0
+	DECLARE @MobileOrdenBPT INT = 0
+	DECLARE @MobileOrden2 INT = 0
+	DECLARE @MobileOrdenBpt2 INT = 0
+
+
 	SELECT @ConfiguracionPaisID = ConfiguracionPaisID FROM ConfiguracionPais WHERE Codigo = 'DES-NAV'
 
-	UPDATE [dbo].[ConfiguracionPais] SET MobileTituloMenu = 'Descarga e Imprime', MobileOrden = 7, MobileOrdenBPT = 7 where Codigo = 'DES-NAV'
-	UPDATE [dbo].[ConfiguracionOfertasHome] SET MobileOrden = 7, MobileTitulo = 'Descarga e Imprime', MobileTipoPresentacion = 7, MobileActivo = 1, MobileOrdenBpt = 100 where ConfiguracionPaisID = @ConfiguracionPaisID
+	select @MobileOrden = max(MobileOrden) + 1 from ConfiguracionPais
+	select @MobileOrdenBPT = max(MobileOrdenBPT) + 1 from ConfiguracionPais
+	select @MobileOrden2 = max(MobileOrden) + 1 from ConfiguracionOfertasHome
+	select @MobileOrdenBpt2 = max(MobileOrdenBpt) + 1 from ConfiguracionOfertasHome
+
+
+	UPDATE [dbo].[ConfiguracionPais] SET MobileTituloMenu = 'Descarga e Imprime', MobileOrden = @MobileOrden, MobileOrdenBPT = @MobileOrdenBPT where Codigo = 'DES-NAV'
+	UPDATE [dbo].[ConfiguracionOfertasHome] SET MobileOrden = @MobileOrden2, MobileTitulo = 'Descarga e Imprime', MobileTipoPresentacion = 7, MobileActivo = 1, MobileOrdenBpt = @MobileOrdenBpt2 where ConfiguracionPaisID = @ConfiguracionPaisID
 END
 GO
 
@@ -69,10 +104,22 @@ GO
 IF EXISTS (SELECT 1 FROM ConfiguracionPais WHERE Codigo = 'DES-NAV')
 BEGIN
 	DECLARE @ConfiguracionPaisID INT = 0
+	DECLARE @MobileOrden INT = 0
+	DECLARE @MobileOrdenBPT INT = 0
+	DECLARE @MobileOrden2 INT = 0
+	DECLARE @MobileOrdenBpt2 INT = 0
+
+
 	SELECT @ConfiguracionPaisID = ConfiguracionPaisID FROM ConfiguracionPais WHERE Codigo = 'DES-NAV'
 
-	UPDATE [dbo].[ConfiguracionPais] SET MobileTituloMenu = 'Descarga e Imprime', MobileOrden = 7, MobileOrdenBPT = 7 where Codigo = 'DES-NAV'
-	UPDATE [dbo].[ConfiguracionOfertasHome] SET MobileOrden = 7, MobileTitulo = 'Descarga e Imprime', MobileTipoPresentacion = 7, MobileActivo = 1, MobileOrdenBpt = 100 where ConfiguracionPaisID = @ConfiguracionPaisID
+	select @MobileOrden = max(MobileOrden) + 1 from ConfiguracionPais
+	select @MobileOrdenBPT = max(MobileOrdenBPT) + 1 from ConfiguracionPais
+	select @MobileOrden2 = max(MobileOrden) + 1 from ConfiguracionOfertasHome
+	select @MobileOrdenBpt2 = max(MobileOrdenBpt) + 1 from ConfiguracionOfertasHome
+
+
+	UPDATE [dbo].[ConfiguracionPais] SET MobileTituloMenu = 'Descarga e Imprime', MobileOrden = @MobileOrden, MobileOrdenBPT = @MobileOrdenBPT where Codigo = 'DES-NAV'
+	UPDATE [dbo].[ConfiguracionOfertasHome] SET MobileOrden = @MobileOrden2, MobileTitulo = 'Descarga e Imprime', MobileTipoPresentacion = 7, MobileActivo = 1, MobileOrdenBpt = @MobileOrdenBpt2 where ConfiguracionPaisID = @ConfiguracionPaisID
 END
 GO
 
@@ -82,10 +129,22 @@ GO
 IF EXISTS (SELECT 1 FROM ConfiguracionPais WHERE Codigo = 'DES-NAV')
 BEGIN
 	DECLARE @ConfiguracionPaisID INT = 0
+	DECLARE @MobileOrden INT = 0
+	DECLARE @MobileOrdenBPT INT = 0
+	DECLARE @MobileOrden2 INT = 0
+	DECLARE @MobileOrdenBpt2 INT = 0
+
+
 	SELECT @ConfiguracionPaisID = ConfiguracionPaisID FROM ConfiguracionPais WHERE Codigo = 'DES-NAV'
 
-	UPDATE [dbo].[ConfiguracionPais] SET MobileTituloMenu = 'Descarga e Imprime', MobileOrden = 7, MobileOrdenBPT = 7 where Codigo = 'DES-NAV'
-	UPDATE [dbo].[ConfiguracionOfertasHome] SET MobileOrden = 7, MobileTitulo = 'Descarga e Imprime', MobileTipoPresentacion = 7, MobileActivo = 1, MobileOrdenBpt = 100 where ConfiguracionPaisID = @ConfiguracionPaisID
+	select @MobileOrden = max(MobileOrden) + 1 from ConfiguracionPais
+	select @MobileOrdenBPT = max(MobileOrdenBPT) + 1 from ConfiguracionPais
+	select @MobileOrden2 = max(MobileOrden) + 1 from ConfiguracionOfertasHome
+	select @MobileOrdenBpt2 = max(MobileOrdenBpt) + 1 from ConfiguracionOfertasHome
+
+
+	UPDATE [dbo].[ConfiguracionPais] SET MobileTituloMenu = 'Descarga e Imprime', MobileOrden = @MobileOrden, MobileOrdenBPT = @MobileOrdenBPT where Codigo = 'DES-NAV'
+	UPDATE [dbo].[ConfiguracionOfertasHome] SET MobileOrden = @MobileOrden2, MobileTitulo = 'Descarga e Imprime', MobileTipoPresentacion = 7, MobileActivo = 1, MobileOrdenBpt = @MobileOrdenBpt2 where ConfiguracionPaisID = @ConfiguracionPaisID
 END
 GO
 
@@ -95,10 +154,22 @@ GO
 IF EXISTS (SELECT 1 FROM ConfiguracionPais WHERE Codigo = 'DES-NAV')
 BEGIN
 	DECLARE @ConfiguracionPaisID INT = 0
+	DECLARE @MobileOrden INT = 0
+	DECLARE @MobileOrdenBPT INT = 0
+	DECLARE @MobileOrden2 INT = 0
+	DECLARE @MobileOrdenBpt2 INT = 0
+
+
 	SELECT @ConfiguracionPaisID = ConfiguracionPaisID FROM ConfiguracionPais WHERE Codigo = 'DES-NAV'
 
-	UPDATE [dbo].[ConfiguracionPais] SET MobileTituloMenu = 'Descarga e Imprime', MobileOrden = 7, MobileOrdenBPT = 7 where Codigo = 'DES-NAV'
-	UPDATE [dbo].[ConfiguracionOfertasHome] SET MobileOrden = 7, MobileTitulo = 'Descarga e Imprime', MobileTipoPresentacion = 7, MobileActivo = 1, MobileOrdenBpt = 100 where ConfiguracionPaisID = @ConfiguracionPaisID
+	select @MobileOrden = max(MobileOrden) + 1 from ConfiguracionPais
+	select @MobileOrdenBPT = max(MobileOrdenBPT) + 1 from ConfiguracionPais
+	select @MobileOrden2 = max(MobileOrden) + 1 from ConfiguracionOfertasHome
+	select @MobileOrdenBpt2 = max(MobileOrdenBpt) + 1 from ConfiguracionOfertasHome
+
+
+	UPDATE [dbo].[ConfiguracionPais] SET MobileTituloMenu = 'Descarga e Imprime', MobileOrden = @MobileOrden, MobileOrdenBPT = @MobileOrdenBPT where Codigo = 'DES-NAV'
+	UPDATE [dbo].[ConfiguracionOfertasHome] SET MobileOrden = @MobileOrden2, MobileTitulo = 'Descarga e Imprime', MobileTipoPresentacion = 7, MobileActivo = 1, MobileOrdenBpt = @MobileOrdenBpt2 where ConfiguracionPaisID = @ConfiguracionPaisID
 END
 GO
 
@@ -108,10 +179,22 @@ GO
 IF EXISTS (SELECT 1 FROM ConfiguracionPais WHERE Codigo = 'DES-NAV')
 BEGIN
 	DECLARE @ConfiguracionPaisID INT = 0
+	DECLARE @MobileOrden INT = 0
+	DECLARE @MobileOrdenBPT INT = 0
+	DECLARE @MobileOrden2 INT = 0
+	DECLARE @MobileOrdenBpt2 INT = 0
+
+
 	SELECT @ConfiguracionPaisID = ConfiguracionPaisID FROM ConfiguracionPais WHERE Codigo = 'DES-NAV'
 
-	UPDATE [dbo].[ConfiguracionPais] SET MobileTituloMenu = 'Descarga e Imprime', MobileOrden = 7, MobileOrdenBPT = 7 where Codigo = 'DES-NAV'
-	UPDATE [dbo].[ConfiguracionOfertasHome] SET MobileOrden = 7, MobileTitulo = 'Descarga e Imprime', MobileTipoPresentacion = 7, MobileActivo = 1, MobileOrdenBpt = 100 where ConfiguracionPaisID = @ConfiguracionPaisID
+	select @MobileOrden = max(MobileOrden) + 1 from ConfiguracionPais
+	select @MobileOrdenBPT = max(MobileOrdenBPT) + 1 from ConfiguracionPais
+	select @MobileOrden2 = max(MobileOrden) + 1 from ConfiguracionOfertasHome
+	select @MobileOrdenBpt2 = max(MobileOrdenBpt) + 1 from ConfiguracionOfertasHome
+
+
+	UPDATE [dbo].[ConfiguracionPais] SET MobileTituloMenu = 'Descarga e Imprime', MobileOrden = @MobileOrden, MobileOrdenBPT = @MobileOrdenBPT where Codigo = 'DES-NAV'
+	UPDATE [dbo].[ConfiguracionOfertasHome] SET MobileOrden = @MobileOrden2, MobileTitulo = 'Descarga e Imprime', MobileTipoPresentacion = 7, MobileActivo = 1, MobileOrdenBpt = @MobileOrdenBpt2 where ConfiguracionPaisID = @ConfiguracionPaisID
 END
 GO
 
@@ -121,10 +204,22 @@ GO
 IF EXISTS (SELECT 1 FROM ConfiguracionPais WHERE Codigo = 'DES-NAV')
 BEGIN
 	DECLARE @ConfiguracionPaisID INT = 0
+	DECLARE @MobileOrden INT = 0
+	DECLARE @MobileOrdenBPT INT = 0
+	DECLARE @MobileOrden2 INT = 0
+	DECLARE @MobileOrdenBpt2 INT = 0
+
+
 	SELECT @ConfiguracionPaisID = ConfiguracionPaisID FROM ConfiguracionPais WHERE Codigo = 'DES-NAV'
 
-	UPDATE [dbo].[ConfiguracionPais] SET MobileTituloMenu = 'Descarga e Imprime', MobileOrden = 7, MobileOrdenBPT = 7 where Codigo = 'DES-NAV'
-	UPDATE [dbo].[ConfiguracionOfertasHome] SET MobileOrden = 7, MobileTitulo = 'Descarga e Imprime', MobileTipoPresentacion = 7, MobileActivo = 1, MobileOrdenBpt = 100 where ConfiguracionPaisID = @ConfiguracionPaisID
+	select @MobileOrden = max(MobileOrden) + 1 from ConfiguracionPais
+	select @MobileOrdenBPT = max(MobileOrdenBPT) + 1 from ConfiguracionPais
+	select @MobileOrden2 = max(MobileOrden) + 1 from ConfiguracionOfertasHome
+	select @MobileOrdenBpt2 = max(MobileOrdenBpt) + 1 from ConfiguracionOfertasHome
+
+
+	UPDATE [dbo].[ConfiguracionPais] SET MobileTituloMenu = 'Descarga e Imprime', MobileOrden = @MobileOrden, MobileOrdenBPT = @MobileOrdenBPT where Codigo = 'DES-NAV'
+	UPDATE [dbo].[ConfiguracionOfertasHome] SET MobileOrden = @MobileOrden2, MobileTitulo = 'Descarga e Imprime', MobileTipoPresentacion = 7, MobileActivo = 1, MobileOrdenBpt = @MobileOrdenBpt2 where ConfiguracionPaisID = @ConfiguracionPaisID
 END
 GO
 
