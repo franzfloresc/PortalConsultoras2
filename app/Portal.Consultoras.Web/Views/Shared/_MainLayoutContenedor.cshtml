@@ -201,6 +201,7 @@
                     || controllerAction == "showroomindex"
                     || controllerAction == "showroomintriga"
                     || ("/" + controllerAction).Contains("revistadigital")
+                    || ("/" + controllerAction).Contains("guianegocio")
                 )
                 && (@ViewBag.Title != "" && @ViewBag.Title != null))
                 {
@@ -397,7 +398,7 @@
                     <div id="divOddCarrusel">
                         {{#each this.ListaOfertas  as |detalle|}}
                         <div data-item="" data-item-position="{{detalle.ID}}" style="float:left; overflow:hidden;">
-                            <div class="content_item_carrusel_ODD" onclick="odd_google_analytics_product_click('{{detalle.NombreOferta}}', '{{detalle.CUV2}}', {{detalle.PrecioOferta}}, '{{DescripcionMarca}}', '', {{Position}});">
+                            <div class="content_item_carrusel_ODD">
                                 <div style="display:none;" data-item-campos="">
                                     <input type="hidden" class="tipoestrategia-id-odd" value="{{detalle.TipoEstrategiaID}}" />
                                     <input type="hidden" class="estrategia-id-odd" value="{{detalle.EstrategiaID}}" />
@@ -418,7 +419,7 @@
                                     <div style="height:139px;">
                                         <img src="{{detalle.ImagenDisplay}}" alt="" id="img-display-odd" class="imagen_producto" />
                                     </div>
-                                    <a class="ver_detalle_carrusel" style="top: 80px;">VER DETALLE</a>
+                                    <a class="ver_detalle_carrusel" style="top: 80px;" onclick="odd_google_analytics_product_click('{{detalle.NombreOferta}}', '{{detalle.CUV2}}', {{detalle.PrecioOferta}}, '{{DescripcionMarca}}', '', {{Position}}, 'Oferta del día - Slider Productos');">VER DETALLE</a>
                                     <div class="titulo_carrusel_ODD">{{detalle.NombreOferta}}</div>
                                     {{#iff detalle.PrecioCatalogo '>' 0}}
                                     <div class="valorizado_carrusel_ODD">VALORIZADO EN <span>{{{../Simbolo}}} {{detalle.PrecioCatalogoFormat}}</span></div>
@@ -497,6 +498,7 @@
         var clock;
         var TipoOrigenPantallaODD = 1;
         var ViewIndicadorGPRSB = '@ViewBag.IndicadorGPRSB';
+        var OrigenDesktopODD = 0;
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2")
     <script type='text/javascript'>
