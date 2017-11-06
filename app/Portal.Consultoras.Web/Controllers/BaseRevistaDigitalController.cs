@@ -21,6 +21,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             revistaDigital.EstadoSuscripcion = revistaDigital.SuscripcionModel.EstadoRegistro;
             revistaDigital.NumeroContacto = Util.Trim(ConfigurationManager.AppSettings["BelcorpRespondeTEL_" + userData.CodigoISO]);
+            revistaDigital.Nombre = userData.UsuarioNombre;
             return View("template-informativa", revistaDigital);
         }
 

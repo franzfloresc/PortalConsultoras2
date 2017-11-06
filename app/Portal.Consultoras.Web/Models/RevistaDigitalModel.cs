@@ -25,6 +25,7 @@ namespace Portal.Consultoras.Web.Models
         public bool NoVolverMostrar { get; set; }
         //public decimal PrecioMin { get; set; }
         //public decimal PrecioMax { get; set; }
+        public string Nombre { get; set; }
         public string NombreRevista { get; set; }
         public string Titulo { get; set; }
         public string TituloDescripcion { get; set; }
