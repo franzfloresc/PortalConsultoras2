@@ -15,11 +15,9 @@ namespace Portal.Consultoras.Service
 
         public List<BEConsultoraUbigeo> GetConsultorasPorUbigeo(string codigoPais, string codigoUbigeo, string campania, int marcaId)
         {
-
             if (codigoPais == null) codigoPais = "";
             if (codigoUbigeo == null) codigoUbigeo = "";
             if (campania == null) campania = "";
-
 
             int idPais = GetPaisID(codigoPais);
             if (codigoPais.Length > 5) throw new Exception("El campo Pais recibido tiene más de 5 caracteres");

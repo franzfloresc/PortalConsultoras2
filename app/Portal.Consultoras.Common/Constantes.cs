@@ -267,8 +267,8 @@ namespace Portal.Consultoras.Common
             public const string PackAltoDesembolso = "008";
             public const string RevistaDigital = "101"; // No tiene referecia con BD, es un grupo de estrategias
             public const string LosMasVendidos = "020";
+            public const string IncentivosProgramaNuevas = "021";
             public const string OfertaDelDia = "009";
-
         }
 
         public class ConstSession
@@ -1084,7 +1084,12 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_NOTAINVALIDA = "15";
                 public const string ERROR_MOVIMIENTOINVALIDO = "16";
                 public const string ERROR_NOTACANTIDADMAXIMA = "17";
-                public const string ERROR_RECORDATORIOINVALIDA = "18";
+
+                public const string ERROR_MOVIMIENTODETALLE_NOACTUALIZADO = "18";
+                public const string ERROR_MOVIMIENTODETALLE_PEDIDOWEBFACTURADOID_NOENVIADO = "19";
+                public const string ERROR_MOVIMIENTODETALLE_CANTIDAD_NOENVIADO = "20";
+                public const string ERROR_MOVIMIENTODETALLE_PRECIOUNIDAD_NOENVIADO = "21";
+                public const string ERROR_RECORDATORIOINVALIDA = "22"; //todo: 
             }
 
             public static Dictionary<string, string> Message
@@ -1110,7 +1115,12 @@ namespace Portal.Consultoras.Common
                         {Code.ERROR_TIPOCONTACTOREPETIDO, "El contacto se encuentra repetido para el cliente."},
                         {Code.ERROR_NOTAINVALIDA, "Nota invalida, no se pudo procesar"},
                         {Code.ERROR_MOVIMIENTOINVALIDO, "Movimiento invalido, no se pudo procesar"},
-                        {Code.ERROR_RECORDATORIOINVALIDA, "Recordatorio invalido, no se pudo procesar"}
+                        {Code.ERROR_RECORDATORIOINVALIDA, "Recordatorio invalido, no se pudo procesar"},
+
+                        {Code.ERROR_MOVIMIENTODETALLE_NOACTUALIZADO, "El detalle de movimiento no fue actualizado."},
+                        {Code.ERROR_MOVIMIENTODETALLE_PEDIDOWEBFACTURADOID_NOENVIADO, "El campo PedidoWebFacturadoID debe ser mayor que 0(cero)."},
+                        {Code.ERROR_MOVIMIENTODETALLE_CANTIDAD_NOENVIADO, "El campo Cantidad debe ser mayor que 0(cero)."},
+                        {Code.ERROR_MOVIMIENTODETALLE_PRECIOUNIDAD_NOENVIADO, "El campo PrecioUnidad debe ser mayor que 0(cero)."},
                     });
                 }
             }
@@ -1261,6 +1271,12 @@ namespace Portal.Consultoras.Common
             public const string OptDetalle = "/ofertasparati/detalle";
             public const string OfertaDelDia = "/ofertadeldia";
             public const string OfertaDelDiaIndex = "/ofertadeldia/index";
+        }
+
+        public class TipoVistaEstrategia
+        {
+            public const int Todos = 0;
+            public const int ProgramaNuevas = 1;
         }
     }
 }

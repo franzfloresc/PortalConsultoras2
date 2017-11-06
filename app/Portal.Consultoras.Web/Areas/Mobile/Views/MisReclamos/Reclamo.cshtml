@@ -4,8 +4,8 @@
 @model Portal.Consultoras.Web.Models.MisReclamosModel
 
 @{
-    ViewBag.Title = "Cambios y Devoluciones";
-    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+    var layout = ViewContext.MobileLayout();
+    Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
 }
 
 @section styles
@@ -26,13 +26,13 @@
     }
 </style>
 
-<div class="titulo_mobile">
+<div class="titulo_mobile fijarTituloMobile">
     @{
         var mobileConfiguracion = Html.MobileAppConfiguracion();
         if (mobileConfiguracion.MostrarBotonAtras)
         {
-        <a class="enlace_regresar catalogosR" title="Regresar" style="display:none;"></a>
-    }
+            <a class="enlace_regresar catalogosR" title="Regresar" style="display:none;"></a>
+        }
     }
     CAMBIOS Y DEVOLUCIONES
 </div>
@@ -40,7 +40,7 @@
 <div class="pestana_esika"></div><!--PESTANA ESIKA-->
 <div class="pestana_lbel"></div><!--PESTANA LBEL-->
 
-<div class="wrapper_resumen_mobile">
+<div id="wrpMobile" class="wrapper_resumen_mobile pt-50">
     <div class="texto-mensaje-cdr">
         <span class="mensaje_vista_cdr tipografia_lato_bold">
             Queremos verte siempre satisfecha con nuestros productos y servicio.
@@ -127,10 +127,6 @@
                 <input id="cuvmobile" class="tipografia_lato tipografia_lato_regular ValidaNumeral ValidaPasteNumeral valid" type="text" value="" placeholder="Código del producto" />
                 <!-- FIN CAMPO PARA INGRESAR CÓDIGO PRODUCTO -->
 
-
-
-
-
                 <!-- INICIO SE MUESTRA CUANDO SE TIENE EL CASO DE QUE UNA CONSULTORA TIENE EL MISMO PRODUCTO EN 2 O MÁS PEDIDOS -->
                 <div class="content_eligeTuPedido" id="divPopupPedido" style="display:none;">
                     <div class="titulo_eligeTuPedido tipografia_lato_bold">ELIGE UN PEDIDO</div>
@@ -146,7 +142,7 @@
                 <div id="DescripcionCuv" class="producto_cdr" style="font-size:13px; display:none;">
                     <span id="txtCuv" class="codigo_producto_cdr tipografia_lato_bold">00411</span>
                     - <span id="txtDescripcionCuv" class="nom_producto_cdr tipografia_lato_bold">Berrylicious shampoo rojo 375ml</span>
-                    <a id="aCambiarProducto" class="enlace_cambiar_producto tipografia_lato_regular" title="Cambiar producto">CAMBIAR PRODUCTO</a>
+                    <a id="aCambiarProducto" class="enlace_cambiar_producto tipografia_lato_regular" title="Cambiar producto">MODIFICAR PRODUCTO</a>
                 </div>
                 <div class="contenedor_cantidadProductos contenedor_campo_cantidad_productos">
                     <span class="texto_cantidad_productos tipografia_lato tipografia_lato_regular">Cantidad:</span>
@@ -162,10 +158,10 @@
             <!-- INICIO BOTÓN VER SOLICITUDES ANTERIORES -->
             @*<a href="@Request.UrlReferrer" class="enlace_solicitudes_anteriores tipografia_lato tipografia_lato_regular" title="Agrega otro producto a la solicitud">
             *@
-            <span class="icono_arrow_left">
-                <img src="@Url.Content("~/Content/Images/mobile/left-arrow.png")" alt="Ver solicitudes anteriores" />
-            </span>
             <a class="btn_agrega_otro_reclamo" href="@Url.Action("Index")" title="Ver solicitudes anteriores">
+                <span class="icono_arrow_left">
+                    <img src="@Url.Content("~/Content/Images/mobile/left-arrow.png")" alt="Ver solicitudes anteriores" />
+                </span>
                 <span>VER SOLICITUDES ANTERIORES</span>
             </a>
             <!-- FIN BOTÓN VER SOLICITUDES ANTERIORES -->
@@ -194,6 +190,14 @@
                 <div id="listaMotivos" class="lista_opciones_motivo_cdr">
                 </div>
             </div>
+            <!-- INICIO BOTÓN VER SOLICITUDES ANTERIORES -->            
+            <a class="btn_agrega_otro_reclamo" href="@Url.Action("Index")" title="Ver solicitudes anteriores">
+                <span class="icono_arrow_left">
+                    <img src="@Url.Content("~/Content/Images/mobile/left-arrow.png")" alt="Ver solicitudes anteriores" />
+                </span>
+                <span>VER SOLICITUDES ANTERIORES</span>
+            </a>
+            <!-- FIN BOTÓN VER SOLICITUDES ANTERIORES -->
         </div>
         <!-- FIN VISTA CUÁL FUE EL INCONVENIENTE -->
         <!-- INICIO VISTA SOLUCIÓN REFERENTE AL CAMBIO O DEVOLUCIÓN -->
@@ -226,7 +230,7 @@
                     <span id="txtCuv2" class="codigo_producto_cdr tipografia_lato_bold">00411</span>
                     - <span id="txtDescripcionCuv2" class="nom_producto_cdr tipografia_lato_bold">Berrylicious shampoo rojo 375ml</span><br />
                     <span id="spnSimboloMonedaCuv2"></span> <span id="txtPrecioCuv2">0.00</span>
-                    <a id="aCambiarProducto2" class="enlace_cambiar_producto tipografia_lato_regular" title="Cambiar producto">CAMBIAR PRODUCTO</a>
+                    <a id="aCambiarProducto2" class="enlace_cambiar_producto tipografia_lato_regular" title="Cambiar producto">MODIFICAR PRODUCTO</a>
                 </div>
                 <div class="contenedor_cantidadProductos contenedor_campo_cantidad_productos">
                     <span class="texto_cantidad_productos tipografia_lato tipografia_lato_regular">Cantidad:</span>
@@ -264,10 +268,10 @@
                 QUIERO VER OTRA ALTERNATIVA
             </a>
             <!-- FIN ENLACE QUIERO VER OTRA ALTERNATIVA -->
-            <span class="icono_arrow_left">
-                <img src="@Url.Content("~/Content/Images/mobile/left-arrow.png")" alt="Ver solicitudes anteriores" />
-            </span>
             <a class="btn_agrega_otro_reclamo" href="@Url.Action("Index")" title="Ver solicitudes anteriores">
+                <span class="icono_arrow_left">
+                    <img src="@Url.Content("~/Content/Images/mobile/left-arrow.png")" alt="Ver solicitudes anteriores" />
+                </span>
                 <span>VER SOLICITUDES ANTERIORES</span>
             </a>
         </div>
@@ -350,7 +354,7 @@
                 Si tuviste otro inconveniente en la misma campaña repórtalo ahora.
             </span>
         </div>
-        <div class="AceptarSolucion listado_soluciones_cdr tipografia_lato" style="display:none;margin-top:15px;">
+        <div class="AceptarSolucion listado_soluciones_cdr tipografia_lato" style="display:none;margin-top:15px; margin-bottom:85px;">
             <a class="btn_agrega_otro_reclamo solucion_cdr tipografia_lato_bold" id="IrSolicitudInicial" title="Agrega otro producto a la solicitud">
                 <span>AGREGA OTRO PRODUCTO A LA SOLICITUD</span>
             </a>
@@ -654,7 +658,7 @@
         <input id="{{item.CodigoReclamo}}" type="radio" name="motivo-cdr" />
         <label for="{{item.CodigoReclamo}}" class="tipografia_lato_regular">
             <span></span>
-            {{item.DescripcionReclamo}}
+            <span style="display:inline-block; vertical-align:middle; width:86%; position:relative; top:-1px;">{{item.DescripcionReclamo}}</span>
         </label>
     </div>
     {{/each}}
@@ -678,7 +682,7 @@
         <span class="cant_producto_agregado tipografia_lato_regular">{{item.Cantidad2}} unidades</span>
         <div class="icono_eliminar_solic_cdr">
             <a class="icono_eliminar_solic_cdr eliminar-solicitud" data-pedidodetalleid="{{item.CDRWebDetalleID}}" data-accion="x"
-               style="background-image: url('/Content/Images/mobile/icono-eliminar-cdr.png'); background-repeat:no-repeat; width: 17px; height: 22px; margin: 0 auto;"
+               style="background-image: url('/Content/Images/mobile/icono-eliminar-cdr.png'); background-repeat:no-repeat; width: 17px; height: 22px; margin: 0 auto; top:4px;"
                title="Eliminar solicitud"></a>
         </div>
         @*<span class="icono_eliminar_producto_agregado" data-pedidodetalleid="{{item.CDRWebDetalleID}}" data-accion="x">
