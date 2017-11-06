@@ -12,6 +12,10 @@ namespace Portal.Consultoras.Web.SessionManager
     {
         private static ISessionManager _instance;
 
+        public SessionManager()
+        {
+        }
+
         public static ISessionManager Instance
         {
             get
@@ -176,5 +180,14 @@ namespace Portal.Consultoras.Web.SessionManager
             return (bool)(HttpContext.Current.Session[Constantes.ConstSession.TieneLanX1] ?? false);
         }
 
+        void ISessionManager.SetTieneOpt(bool tieneOpt)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.TieneOpt] = tieneOpt;
+        }
+
+        bool ISessionManager.GetTieneOpt()
+        {
+            return (bool)(HttpContext.Current.Session[Constantes.ConstSession.TieneOpt] ?? false);
+        }
     }
 }
