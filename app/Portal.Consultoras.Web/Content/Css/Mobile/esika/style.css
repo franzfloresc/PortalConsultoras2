@@ -11289,14 +11289,14 @@ a{
 .numero_pedido_fondo {
     width: auto;
     float: left;
-    height: 42px;
+    height: 51px;
 }
 
 .numero_pedido_fondo img {
     position: absolute;
     float: left;
     width: auto;
-    height: 42px;
+    height: 100%;
 }
 
 .content-texto-numero-pedido {
@@ -11306,6 +11306,7 @@ a{
     float: left;
     margin-left: 1.8%;
     margin-top: -1.3%;
+    padding-left:8px;
 }
 
 .numero_pd {
@@ -11315,6 +11316,7 @@ a{
     font-style: italic;
     line-height: 0.43;
     letter-spacing: 1px;
+    margin-right: -3px;
 }
 
 .posicion_pd {
