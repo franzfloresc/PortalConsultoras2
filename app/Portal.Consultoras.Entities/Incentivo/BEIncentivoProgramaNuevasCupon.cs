@@ -36,6 +36,15 @@ namespace Portal.Consultoras.Entities.Incentivo
         [DataMember]
         [Column("NumeroCampanasVigentes")]
         public int NumeroCampanasVigentes { get; set; }
+        [DataMember]
+        [Column("TextoLibre")]
+        public string TextoLibre { get; set; }
+        [DataMember]
+        [Column("Ganancia")]
+        public decimal Ganancia { get; set; }
+        [DataMember]
+        [Column("ImagenURL")]
+        public string ImagenURL { get; set; }
 
         public BEIncentivoProgramaNuevasCupon()
         {
