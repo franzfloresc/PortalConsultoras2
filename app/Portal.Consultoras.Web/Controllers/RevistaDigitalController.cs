@@ -26,10 +26,11 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Index", "Bienvenida");
         }
 
-        public ActionResult Informacion()
+        public ActionResult Informacion(string tipo)
         {
             try
             {
+                ViewBag.TipoLayout = tipo;
                 return IndexModel();
             }
             catch (Exception ex)
