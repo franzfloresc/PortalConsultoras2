@@ -151,6 +151,7 @@ function RDRedireccionarInformacion(seccion) {
     var url = (isMobile() ? "/Mobile" : "") + "/RevistaDigital/Informacion";
 
     if (seccion == 1) url += "#divCambiosEstadoRegistro";
+    else if (seccion == 2) url += "?tipo=" + seccion;
     
     var urlLocal = $.trim(window.location).toLowerCase() + "/";
     window.location = url;

@@ -4,7 +4,7 @@
 @model Portal.Consultoras.Web.Models.RevistaDigitalModel
 @{
     ViewBag.Title = "ÉSIKA PARA MÍ";
-    Layout = "~/Views/Shared/_MainLayoutContenedor.cshtml";
+    Layout = ViewBag.TipoLayout == 2 ? "~/Views/Shared/_MainLayout.cshtml" : "~/Views/Shared/_MainLayoutContenedor.cshtml";
 }
 @section styles{
     @System.Web.Optimization.Styles.Render("~/bundles/css/Site/RevistaDigital-Info")
