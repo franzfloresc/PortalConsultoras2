@@ -19,7 +19,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
 
 
-        public ActionResult Index()
+        public ActionResult Index(bool vc = false)
         {
             BEUsuario beusuario = new BEUsuario();
             ViewBag.DatosIniciales = new BienvenidaHomeModel();
@@ -111,6 +111,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
             }
 
+            ViewBag.VC_Datos = vc;
             return View(model);
         }
 

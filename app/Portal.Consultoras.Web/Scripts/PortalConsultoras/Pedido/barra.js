@@ -482,7 +482,7 @@ function MostrarBarra(datax, destino) {
         return true;
     }
 
-    if (mn == 0 && vLogro == 0) {
+	if (mn == 0 && vLogro == 0 && !belcorp.barra.settings.isMobile) {
         $("#divBarra #divBarraMensajeLogrado").hide();
         return false;
     }
