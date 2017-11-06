@@ -1147,7 +1147,7 @@ namespace Portal.Consultoras.Web.Controllers
                         usuarioModel.EsLebel = true;
                     }
 
-                    Session[Constantes.ConstSession.TieneLan] = true;
+                    sessionManager.SetTieneLan(true);
                     Session[Constantes.ConstSession.TieneLanX1] = true;
                     Session[Constantes.ConstSession.TieneOpt] = true;
                     Session[Constantes.ConstSession.TieneOpm] = true;

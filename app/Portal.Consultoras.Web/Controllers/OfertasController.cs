@@ -130,7 +130,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 if (campaniaId == userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.Lanzamiento))
-                    Session[Constantes.ConstSession.TieneLan] = false;
+                    sessionManager.SetTieneLan(false);
                 else if (campaniaId != userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.Lanzamiento))
                     Session[Constantes.ConstSession.TieneLanX1] = false;
                 else if (campaniaId == userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.OfertasParaTi))

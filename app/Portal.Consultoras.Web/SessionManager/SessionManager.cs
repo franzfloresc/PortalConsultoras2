@@ -155,5 +155,15 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return (EventoFestivoDataModel)HttpContext.Current.Session[Constantes.ConstSession.EventoFestivo];
         }
+
+        void ISessionManager.SetTieneLan(bool tieneLan)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.TieneLan] = tieneLan;
+        }
+
+        bool ISessionManager.GetTieneLan()
+        {
+            return (bool)(HttpContext.Current.Session[Constantes.ConstSession.TieneLan] ?? false);
+        }
     }
 }

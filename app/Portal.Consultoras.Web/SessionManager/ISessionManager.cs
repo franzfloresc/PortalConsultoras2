@@ -61,5 +61,9 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetEventoFestivoDataModel(EventoFestivoDataModel eventoFestivoDataModel);
 
         EventoFestivoDataModel GetEventoFestivoDataModel();
+
+        void SetTieneLan(bool tieneLan);
+
+        bool GetTieneLan();
     }
 }
