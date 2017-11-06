@@ -35,6 +35,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
+                model.RevistaDigital = revistaDigital;
+
                 ViewBag.UrlImgMiAcademia = ConfigurationManager.AppSettings["UrlImgMiAcademia"].ToString() + "/" + userData.CodigoISO + "/academia.png";
                 ViewBag.RutaImagenNoDisponible = ConfigurationManager.AppSettings.Get("rutaImagenNotFoundAppCatalogo");
 
@@ -254,9 +256,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("BUCKET_NAME") ?? string.Empty;
                 TempData.Keep("MostrarPopupCuponGanaste");
 
-                ViewBag.VerSeccion = verSeccion;
-
-                model.RevistaDigital = revistaDigital;
+                ViewBag.VerSeccion = verSeccion;                
             }
             catch (FaultException ex)
             {
