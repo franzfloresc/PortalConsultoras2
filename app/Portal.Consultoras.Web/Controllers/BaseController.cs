@@ -4129,7 +4129,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public EventoFestivoDataModel GetEventoFestivoData()
         {
-            return GetSession(Constantes.ConstSession.EventoFestivo) as EventoFestivoDataModel ??
+            return sessionManager.GetEventoFestivoDataModel() ??
                    new EventoFestivoDataModel();
         }
 
