@@ -138,7 +138,7 @@ namespace Portal.Consultoras.Web.Controllers
                 else if (campaniaId == userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.RevistaDigital))
                     sessionManager.SetTieneOpm(false);
                 else if (campaniaId != userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.RevistaDigital))
-                    Session[Constantes.ConstSession.TieneOpmX1] = false;
+                    sessionManager.SetTieneOpmX1(false);
                 return Json(new
                 {
                     estado = "Ok"

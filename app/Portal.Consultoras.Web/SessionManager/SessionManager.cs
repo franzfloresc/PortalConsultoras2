@@ -199,5 +199,15 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return (bool)(HttpContext.Current.Session[Constantes.ConstSession.TieneOpm] ?? false);
         }
+
+        void ISessionManager.SetTieneOpmX1(bool tieneOpmX1)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.TieneOpmX1] = tieneOpmX1;
+        }
+
+        bool ISessionManager.GetTieneOpmX1()
+        {
+            return (bool)(HttpContext.Current.Session[Constantes.ConstSession.TieneOpmX1] ?? false);
+        }
     }
 }

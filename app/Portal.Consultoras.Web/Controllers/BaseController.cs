@@ -3727,7 +3727,7 @@ namespace Portal.Consultoras.Web.Controllers
                 listMenu = listMenu.Where(e => e.Codigo != Constantes.ConfiguracionPais.RevistaDigital).ToList();
             }
             if (menuActivo.CampaniaId != userData.CampaniaID &&
-                !(Session[Constantes.ConstSession.TieneOpmX1] != null ? Session[Constantes.ConstSession.TieneOpmX1].ToBool() : false))
+                !sessionManager.GetTieneOpmX1())
             {
                 listMenu = listMenu.Where(e => e.Codigo != Constantes.ConfiguracionPais.RevistaDigital).ToList();
             }

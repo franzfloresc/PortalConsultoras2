@@ -1151,7 +1151,7 @@ namespace Portal.Consultoras.Web.Controllers
                     sessionManager.SetTieneLanX1(true);
                     sessionManager.SetTieneOpt( true);
                     sessionManager.SetTieneOpm(true);
-                    Session[Constantes.ConstSession.TieneOpmX1] = true;
+                    sessionManager.SetTieneOpmX1(true);
                 }
 
                 Session["UserData"] = usuarioModel;
