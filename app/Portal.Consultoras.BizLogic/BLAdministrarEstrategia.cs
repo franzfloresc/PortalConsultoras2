@@ -17,7 +17,7 @@ namespace Portal.Consultoras.BizLogic
             var DAEstrategia = new DAEstrategia(paisId);
             using (var reader = DAEstrategia.ActualizarDescripcionEstrategia(campaniaId, tipoEstrategiaId, listaDescripcionEstrategias))
             {
-                if (reader.Read())
+                while (reader.Read())
                 {
                     listdDescripcionEstrategias.Add(new BEDescripcionEstrategia(reader));
                 }

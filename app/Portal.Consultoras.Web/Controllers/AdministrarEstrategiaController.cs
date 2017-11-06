@@ -1829,12 +1829,20 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
                 while (readLine != null);
-
+                List<BEDescripcionEstrategia> beDescripcionEstrategias;
                 using (var svc = new SACServiceClient())
                 {
-                    svc.ActualizarDescripcionEstrategia(model.Pais.ToInt(), model.CampaniaId.ToInt(), model.TipoEstrategia.ToInt(), fileContent.ToArray());
+                    beDescripcionEstrategias = svc.ActualizarDescripcionEstrategia(model.Pais.ToInt(), model.CampaniaId.ToInt(), model.TipoEstrategia.ToInt(), fileContent.ToArray()).ToList();
                 }
-                return Json(new { success = true, name = "" }, "text/html");
+                var descripcionEstrategiaModels =
+                    Mapper.Map<List<BEDescripcionEstrategia>, List<DescripcionEstrategiaModel>>(
+                        beDescripcionEstrategias);
+                return Json(new
+                {
+                    success = true,
+                    listActualizado = descripcionEstrategiaModels.Where(x => x.Estado == 1),
+                    listNoActualizado = descripcionEstrategiaModels.Where(x => x.Estado != 1)
+                });
             }
             catch (Exception ex)
             {

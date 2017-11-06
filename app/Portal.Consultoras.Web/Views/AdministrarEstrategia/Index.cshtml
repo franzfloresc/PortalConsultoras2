@@ -296,24 +296,49 @@
             </div>
         </div>
         <div id="divDescMasivoPaso2" style="display: none;">
-            <div class="div-3" style="text-align: center; color: #00A2E8;">
-                Grabar información en Zona de Estrategias
+            <div class="div-3" style="text-align: center;">
+                Resultado de la actualización: 
             </div>
-            <div class="container" style="width: auto;">
+            <div class="container" style="margin: 15px auto; width: auto;">                
                 <div class="border-wrapper">
                     <table id="listCargaDescMasiva"></table>
                     <div id="pagerCargaDescMasiva"></div>
                 </div>
             </div>
-            <div>
-                <div class="div-3" style="text-align: center; color: #00A2E8; margin-top: 20px;">
-                    ¿Deseas grabar la información de los CUVS pre cargados correctamente en la Zona de Estrategias? 
+            <div class="div-3">
+                <div class="input_horizontal" style="text-align: center;">
+                    <input type="button" name="btnCancelarMasivo2" onclick="HideDialog('DialogDescMasivo')" value="Cerrar" style="float: none;" />
                 </div>
-                <div class="div-3">
-                    <div class="input_horizontal" style="text-align: center;">
-                        <input type="button" name="btnCancelarMasivo2" id="btnCerrarDescMasivo" value="Cerrar" style="float: none;" />
-                    </div>
-                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="DialogDescActualizada">
+    <div class="Content_modal">
+        <div class="container" style="margin: 15px auto; width: auto;">
+            <div class="border-wrapper">
+                <table id="listDescActualizada"></table>
+                <div id="pagerDescActualizada"></div>
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="input_horizontal" style="text-align: center;">
+                <input type="button" name="btnCancelarMasivo2" onclick="HideDialog('DialogDescActualizada')" value="Volver" style="float: none;" />
+            </div>
+        </div>
+    </div>
+</div>
+<div id="DialogDescNoActualizada">
+    <div class="Content_modal">
+        <div class="container" style="margin: 15px auto; width: auto;">
+            <div class="border-wrapper">
+                <table id="listDescNoActualizada"></table>
+                <div id="pagerDescNoActualizada"></div>
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="input_horizontal" style="text-align: center;">
+                <input type="button" name="btnCancelarMasivo2" onclick="HideDialog('DialogDescNoActualizada')" value="Volver" style="float: none;" />
             </div>
         </div>
     </div>
@@ -929,6 +954,8 @@
         });
 
         $("#btnAceptarDescMasivo1").click(function () {
+            $("#divDescMasivoPaso1").show();
+            $("#divDescMasivoPaso2").hide();
             UploadFileCvs();
         });
         
@@ -2134,6 +2161,26 @@
             draggable: false,
             title: "Carga Masiva de descripciones de Estrategias"
         });
+
+        $('#DialogDescActualizada').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 600,
+            draggable: false,
+            title: "Resultado de estrategias actualizadas"
+        });
+
+        $('#DialogDescNoActualizada').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 600,
+            draggable: false,
+            title: "Resultado de estrategias no actualizadas"
+        });
     }
 
     function UploadFileLanzamineto(divId) {
@@ -2179,7 +2226,40 @@
             contentType: false,
             processData: false,
             success: function (data) {
-                alert(data);
+                $("#listCargaDescMasiva").jqGrid("GridUnload");
+                var gridJson = { page: 1, total: 2, records: 10, rows: [
+                    { Descripcion: "CUVs Actualizados", Cantidad: data.listActualizado.length + " <a href='#' onclick=showDialog(\'DialogDescActualizada\')> Ver </a>"},
+                    { Descripcion: "CUVs no Actualizados", Cantidad: data.listNoActualizado.length + " <a href='#' onclick=showDialog(\'DialogDescNoActualizada\')> Ver </a>"}]
+                };
+ 
+                $("#listCargaDescMasiva").empty().jqGrid({
+                    datatype: 'jsonstring',
+                    datastr: gridJson,
+                    colNames: ['Descripcion', 'Cantidad'],
+                    colModel: [{ name: 'Descripcion', index: 'Descripcion', sortable: false},
+                        {
+                            name: 'Cantidad', index: 'Cantidad', width: 30, sortable: false
+                        }],
+                    pager: false,
+                    jsonReader: {
+                        repeatitems: false
+                    },
+                    width: 540,
+                    height: "auto",
+                    scrollOffset: 20,
+                    rowNum: 10,
+                    rowList: [10, 15, 20, 25],
+                    sortname: 'Label',
+                    sortorder: "asc",
+                    viewrecords: true,
+                    hoverrows: false,
+                    caption: "",    
+                });
+                createGridUpdated(data.listActualizado);
+                createGridNotUpdated(data.listNoActualizado);
+                $("#divDescMasivoPaso1").fadeOut(function() {
+                    $("#divDescMasivoPaso2").fadeIn();
+                });
             },
             error: function(data){
                 _toastHelper.error(data.statusText);
@@ -2194,5 +2274,58 @@
 
     function editarDescripcionComercial(idImagen) {
         estrategiaObj.editarDescripcionComercial(idImagen);
+    }
+
+    function createGridUpdated(list) {
+        var gridJson = { page: 1, total: 2, records: 10, rows: list };
+        $("#listDescActualizada").jqGrid("GridUnload");
+        $("#listDescActualizada").empty().jqGrid({
+            datatype: 'jsonstring',
+            datastr: gridJson,
+            colNames: ['CUV', 'Descripcion'],
+            colModel: [{ name: 'Cuv', index: 'Cuv', width: 30, sortable: false},
+                { name: 'Descripcion', index: 'Descripcion', sortable: false }],
+            pager: jQuery('#pagerDescActualizada'),
+            jsonReader: {
+                repeatitems: false
+            },
+            width: 540,
+            height: "auto",
+            scrollOffset: 20,
+            rowNum: 10,
+            rowList: [10, 15, 20, 25],
+            sortname: 'Label',
+            sortorder: "asc",
+            viewrecords: true,
+            hoverrows: false,
+            caption: "",           
+            beforeSelectRow: function (rowid, e) { return false; } //this disables row being highlighted when clicked
+        });
+    }
+    function createGridNotUpdated(list) {
+        var gridJson = { page: 1, total: 2, records: 10, rows: list };
+        $("#listDescNoActualizada").jqGrid("GridUnload");
+        $("#listDescNoActualizada").empty().jqGrid({
+            datatype: 'jsonstring',
+            datastr: gridJson,
+            colNames: ['CUV', 'Descripcion'],
+            colModel: [{ name: 'Cuv', index: 'Cuv', width: 30, sortable: false },
+                { name: 'Descripcion', index: 'Descripcion', sortable: false }],
+            pager: jQuery('#pagerDescNoActualizada'),
+            jsonReader: {
+                repeatitems: false
+            },
+            width: 540,
+            height: "auto",
+            scrollOffset: 20,
+            rowNum: 10,
+            rowList: [10, 15, 20, 25],
+            sortname: 'Label',
+            sortorder: "asc",
+            viewrecords: true,
+            hoverrows: false,
+            caption: "",           
+            beforeSelectRow: function (rowid, e) { return false; } //this disables row being highlighted when clicked
+        });
     }
 </script>

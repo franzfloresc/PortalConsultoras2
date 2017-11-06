@@ -587,9 +587,9 @@ namespace Portal.Consultoras.Data
         public IDataReader ActualizarDescripcionEstrategia(int campaniaId, int tipoEstrategiaId, List<BEDescripcionEstrategia> listaDescripcionEstrategias)
         {
             var command =
-                new SqlCommand("dbo.ActualizaDescripcionEstrategia") { CommandType = CommandType.StoredProcedure };
+                new SqlCommand("dbo.ActualizarDescripcionEstrategia") { CommandType = CommandType.StoredProcedure };
 
-            command.Parameters.Add(new SqlParameter("@ListaEstrategias", SqlDbType.Structured) {
+            command.Parameters.Add(new SqlParameter("@DescripcionEstrategia", SqlDbType.Structured) {
                     TypeName = "dbo.DescripcionEstrategiaType",
                     Value = new GenericDataReader<BEDescripcionEstrategia>(listaDescripcionEstrategias)
                 });
