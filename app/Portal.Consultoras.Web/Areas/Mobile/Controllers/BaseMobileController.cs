@@ -18,7 +18,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             base.OnActionExecuting(filterContext);
 
-            if (Session["UserData"] == null) return;
+            if (sessionManager.GetUserData() == null) return;
 
             if (Request.IsAjaxRequest())
             {
@@ -140,7 +140,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private void CargarValoresGenerales(UsuarioModel userData)
         {
-            if (Session["UserData"] != null)
+            if (sessionManager.GetUserData() != null)
             {
                 ViewBag.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre).ToUpper();
                 int j = ViewBag.NombreConsultora.Trim().IndexOf(' ');

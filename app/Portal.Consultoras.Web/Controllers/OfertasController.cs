@@ -130,15 +130,17 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 if (campaniaId == userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.Lanzamiento))
-                    Session[Constantes.ConstSession.TieneLan] = false;
+                    sessionManager.SetTieneLan(false);
                 else if (campaniaId != userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.Lanzamiento))
-                    Session[Constantes.ConstSession.TieneLanX1] = false;
+                    sessionManager.SetTieneLanX1(false);
                 else if (campaniaId == userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.OfertasParaTi))
-                    Session[Constantes.ConstSession.TieneOpt] = false;
+                    sessionManager.SetTieneOpt(false);
                 else if (campaniaId == userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.RevistaDigital))
-                    Session[Constantes.ConstSession.TieneOpm] = false;
+                    sessionManager.SetTieneOpm(false);
                 else if (campaniaId != userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.RevistaDigital))
-                    Session[Constantes.ConstSession.TieneOpmX1] = false;
+                    sessionManager.SetTieneOpmX1(false);
+                else if (campaniaId == userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.RevistaDigitalReducida))
+                    sessionManager.SetTieneRdr(false);
                 return Json(new
                 {
                     estado = "Ok"
@@ -162,8 +164,6 @@ namespace Portal.Consultoras.Web.Controllers
                 string paisISO = Util.GetPaisISO(userData.PaisID);
                 var carpetaPais = Globals.UrlFileConsultoras + "/" + paisISO;
                 string urlS3 = ConfigS3.GetUrlS3(carpetaPais) + FileName;
-
-                //return File(urlS3, "application/pdf", FileName);
 
                 return Json(new
                 {

@@ -99,7 +99,7 @@ namespace Portal.Consultoras.Web.Controllers
                 List<BELogActualizacionFacturacion> lst;
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-                    UsuarioModel usuarioModel = Session["UserData"] as UsuarioModel;
+                    UsuarioModel usuarioModel = sessionManager.GetUserData();
 
                     // se obtiene la fecha de fin de facturacion (fecha de inicio + dias de duracion del cronograma)
                     BEConfiguracionValidacion configuracionValidacion = sv.GetConfiguracionValidacion(UserData().PaisID, Convert.ToInt32("201301"))[0];

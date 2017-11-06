@@ -254,6 +254,11 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<ServiceUsuario.BEEventoFestivo, EventoFestivoModel>();
 
             Mapper.CreateMap<BETracking, SeguimientoMobileModel>();
+            Mapper.CreateMap<BEDescripcionEstrategia, DescripcionEstrategiaModel>();
+            Mapper.CreateMap<BETipoLink, TipoLinkModel>()
+                  .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                  .ForMember(t => t.TipoLinkID, f => f.MapFrom(c => c.TipoLinkID))
+                  .ForMember(t => t.Url, f => f.MapFrom(c => c.Url));
         }
     }
 }

@@ -1820,7 +1820,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult InsertarPedidoCuvBanner(string CUV, int CantCUVpedido, int origenPedidoWeb)
+        public JsonResult InsertarPedidoCuvBanner(string CUV, int CantCUVpedido)
         {
             List<BEProducto> olstProducto = new List<BEProducto>();
             List<ProductoModel> olstProductoModel = new List<ProductoModel>();
@@ -1875,7 +1875,7 @@ namespace Portal.Consultoras.Web.Controllers
                 oBEPedidoWebDetalle.DescripcionEstrategia = olstProducto[0].DescripcionEstrategia;
                 oBEPedidoWebDetalle.Categoria = olstProducto[0].DescripcionCategoria;
 
-                oBEPedidoWebDetalle.OrigenPedidoWeb = origenPedidoWeb;
+                oBEPedidoWebDetalle.OrigenPedidoWeb = Constantes.OrigenPedidoWeb.BannerDesktopHome;
 
                 IList<BEPedidoWebService> olstCuvMarquesina = null;
                 using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -3399,7 +3399,7 @@ namespace Portal.Consultoras.Web.Controllers
         public int BuildFechaNoHabil()
         {
             int result = 0;
-            if (Session["UserData"] != null)
+            if (sessionManager.GetUserData() != null)
             {
                 int PaisID = userData.PaisID;
                 int RolID = userData.RolID;
@@ -4039,7 +4039,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 userData.CloseOfertaDelDia = true;
-                Session["UserData"] = userData;
+                sessionManager.SetUserData(userData);
 
                 return Json(new
                 {
@@ -4100,7 +4100,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 userData.CloseBannerPL20 = true;
 
-                Session["UserData"] = userData;
+                sessionManager.SetUserData(userData);
 
                 return Json(new
                 {

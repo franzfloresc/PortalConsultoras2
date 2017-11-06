@@ -1,4 +1,5 @@
-﻿@model Portal.Consultoras.Web.Models.ActualizarDatosModel
+﻿@using Portal.Consultoras.Common
+@model Portal.Consultoras.Web.Models.ActualizarDatosModel
 
 @{
     ViewBag.Title = "Liquidación Web";
@@ -187,5 +188,9 @@
 </script>
 
 @section scripts{
+    <script type="text/javascript">
+        var DesktopLiquidacion = @Constantes.OrigenPedidoWeb.DesktopLiquidacion;
+        var MobileLiquidacion = @Constantes.OrigenPedidoWeb.MobileLiquidacion;
+    </script>
     <script type="text/javascript" src="~/Scripts/PortalConsultoras/OfertaLiquidacion/Index.js"></script>
 }

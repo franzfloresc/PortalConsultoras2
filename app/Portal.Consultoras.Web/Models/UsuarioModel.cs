@@ -385,6 +385,7 @@ namespace Portal.Consultoras.Web.Models
 
         public string ClaseLogoSB { get; set; }
         public bool PopupBienvenidaCerrado { get; set; }
+        public bool TieneGND { get; set; }
         //HD-817 Evento Festivo
         //public List<EventoFestivoModel> ListaEventoFestivo { get; set; } 
         //public string EfRutaPedido { get; set; }
