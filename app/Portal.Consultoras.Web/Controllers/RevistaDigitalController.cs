@@ -311,9 +311,8 @@ namespace Portal.Consultoras.Web.Controllers
                     revistaDigital.EstadoSuscripcion = revistaDigital.SuscripcionModel.EstadoRegistro;
                     userData.MenuMobile = null;
                     userData.Menu = null;
+                    SetUserData(userData);
                 }
-
-                SetUserData(userData);
 
                 return Json(new
                 {
@@ -382,9 +381,9 @@ namespace Portal.Consultoras.Web.Controllers
                     revistaDigital.EstadoSuscripcion = revistaDigital.SuscripcionModel.EstadoRegistro;
                     userData.MenuMobile = null;
                     userData.Menu = null;
-                }
 
-                SetUserData(userData);
+                    SetUserData(userData);
+                }
 
                 return Json(new
                 {
@@ -428,7 +427,6 @@ namespace Portal.Consultoras.Web.Controllers
                         revistaDigital.SuscripcionModel.EstadoRegistro = Constantes.EstadoRDSuscripcion.NoPopUp;
                     }
                 }
-                SetUserData(userData);
 
                 return Json(new
                 {
@@ -454,7 +452,6 @@ namespace Portal.Consultoras.Web.Controllers
                 revistaDigital.NoVolverMostrar = true;
                 revistaDigital.EstadoSuscripcion = Constantes.EstadoRDSuscripcion.NoPopUp;
                 Session[Constantes.ConstSession.TipoPopUpMostrar] = Constantes.TipoPopUp.Ninguno;
-                SetUserData(userData);
 
                 return Json(new
                 {
