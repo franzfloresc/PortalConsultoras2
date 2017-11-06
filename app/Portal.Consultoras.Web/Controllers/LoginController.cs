@@ -1152,6 +1152,7 @@ namespace Portal.Consultoras.Web.Controllers
                     sessionManager.SetTieneOpt( true);
                     sessionManager.SetTieneOpm(true);
                     sessionManager.SetTieneOpmX1(true);
+                    sessionManager.SetTieneRdr(true);
                 }
 
                 sessionManager.SetUserData(usuarioModel);

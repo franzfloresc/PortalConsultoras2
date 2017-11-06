@@ -210,6 +210,16 @@ namespace Portal.Consultoras.Web.SessionManager
             return (bool)(HttpContext.Current.Session[Constantes.ConstSession.TieneOpmX1] ?? false);
         }
 
+        public void SetTieneRdr(bool tieneRdr)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.TieneRdr] = tieneRdr;
+        }
+
+        public bool GetTieneRdr()
+        {
+            return (bool)(HttpContext.Current.Session[Constantes.ConstSession.TieneRdr] ?? false);
+        }
+
         void ISessionManager.SetUserData(UsuarioModel usuario)
         {
             HttpContext.Current.Session["UserData"] = usuario;

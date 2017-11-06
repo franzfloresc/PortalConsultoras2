@@ -82,6 +82,10 @@ namespace Portal.Consultoras.Web.SessionManager
 
         bool GetTieneOpmX1();
 
+        void SetTieneRdr(bool tieneRdr);
+
+        bool GetTieneRdr();
+        
         void SetUserData(UsuarioModel usuario);
 
         UsuarioModel GetUserData();

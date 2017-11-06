@@ -3502,7 +3502,10 @@ namespace Portal.Consultoras.Web.Controllers
                         ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.ImagenBannerContenedorOfertasVenta,
                                                             Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
                 }
-
+                
+                var listaShowRoom = (List<BEShowRoomOferta>)Session[Constantes.ConstSession.ListaProductoShowRoom] ?? new List<BEShowRoomOferta>();
+                seccion.CantidadProductos = listaShowRoom.Count(x => x.EsSubCampania == false);
+                seccion.CantidadMostrar = Math.Min(3, seccion.CantidadProductos);
             }
         }
 
@@ -3730,6 +3733,11 @@ namespace Portal.Consultoras.Web.Controllers
                 !sessionManager.GetTieneOpmX1())
             {
                 listMenu = listMenu.Where(e => e.Codigo != Constantes.ConfiguracionPais.RevistaDigital).ToList();
+            }
+            if(menuActivo.CampaniaId == userData.CampaniaID &&
+              !sessionManager.GetTieneRdr())
+            {
+                listMenu = listMenu.Where(e => e.Codigo != Constantes.ConfiguracionPais.RevistaDigitalReducida).ToList();
             }
             return listMenu;
         }
