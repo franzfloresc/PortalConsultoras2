@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.PublicService.Cryptography;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
+using Portal.Consultoras.Web.Helpers;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceContenido;
 using Portal.Consultoras.Web.ServicePedido;
@@ -8,6 +10,7 @@ using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
+using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -20,6 +23,7 @@ using System.Web.Routing;
 using System.Web.Security;
 using Portal.Consultoras.PublicService.Cryptography;
 using Portal.Consultoras.Web.Helpers;
+using WebGrease.Css.Extensions;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -29,6 +33,8 @@ namespace Portal.Consultoras.Web.Controllers
         private readonly string IP_DEFECTO = "190.187.154.154";
         private readonly string ISO_DEFECTO = "PE";
         private readonly int USUARIO_VALIDO = 3;
+
+        protected ISessionManager sessionManager = SessionManager.SessionManager.Instance;
 
         [AllowAnonymous]
         public ActionResult Index(string returnUrl = null)
@@ -143,6 +149,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, Campania.ToString() + " - " + Alcance, paisID.ToString());
                 lst = new List<BEEventoFestivo>(); ;
             }
             return Mapper.Map<IList<BEEventoFestivo>, List<EventoFestivoModel>>(lst);
@@ -777,7 +784,7 @@ namespace Portal.Consultoras.Web.Controllers
                         model.EsUsuarioComunidad = EsUsuarioComunidad(oBEUsuario.PaisID, oBEUsuario.CodigoUsuario);
                     }
 
-                    model.SegmentoConstancia = oBEUsuario.SegmentoConstancia ?? "";
+                    model.SegmentoConstancia = oBEUsuario.SegmentoConstancia;
                     model.SeccionAnalytics = oBEUsuario.SeccionAnalytics;
                     model.DescripcionNivel = oBEUsuario.DescripcionNivel;
                     model.esConsultoraLider = oBEUsuario.esConsultoraLider;
@@ -976,11 +983,14 @@ namespace Portal.Consultoras.Web.Controllers
                                     {
                                         case Constantes.ConfiguracionPais.RevistaDigital:
                                             revistaDigitalModel.TieneRDC = true;
+                                            revistaDigitalModel.BloqueroRevistaImpresa = c.BloqueoRevistaImpresa;
                                             using (PedidoServiceClient sv1 = new PedidoServiceClient())
                                             {
                                                 revistaDigitalModel.SuscripcionModel = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
+                                                //
                                                 rds.CampaniaID = AddCampaniaAndNumero(model.CampaniaID, -1, model.NroCampanias);
                                                 revistaDigitalModel.SuscripcionAnterior1Model = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
+                                                //
                                                 rds.CampaniaID = AddCampaniaAndNumero(model.CampaniaID, -2, model.NroCampanias);
                                                 revistaDigitalModel.SuscripcionAnterior2Model = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
                                             }
@@ -1035,7 +1045,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 revistaDigitalModel.CampaniaMasUno = AddCampaniaAndNumero(Convert.ToInt32(model.CampaniaID), 1, model.NroCampanias) % 100;
                                 revistaDigitalModel.CampaniaMasDos = AddCampaniaAndNumero(Convert.ToInt32(model.CampaniaID), 2, model.NroCampanias) % 100;
 
-                                Session[Constantes.ConstSession.RevistaDigital] = revistaDigitalModel;
+                                sessionManager.SetRevistaDigital(revistaDigitalModel);
                                 Session[Constantes.ConstSession.ConfiguracionPaises] = configuracionPaisModels;
                                 Session[Constantes.ConstSession.OfertaFinal] = ofertaFinalModel;
                             }
@@ -1045,7 +1055,7 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             LogManager.LogManager.LogErrorWebServicesBus(ex, model.CodigoConsultora, model.PaisID.ToString());
                             pasoLog = "Ocurrió un error al cargar ConfiguracionPais";
-                            Session[Constantes.ConstSession.RevistaDigital] = new RevistaDigitalModel();
+                            sessionManager.SetRevistaDigital(new RevistaDigitalModel());
                             Session[Constantes.ConstSession.ConfiguracionPaises] = new List<ConfiguracionPaisModel>();
                             Session[Constantes.ConstSession.OfertaFinal] = new OfertaFinalModel();
                         }
@@ -1406,8 +1416,7 @@ namespace Portal.Consultoras.Web.Controllers
             imgSh = imgSh.Substring(0, imgSh.Length - exte.Length - 1) + (cantidadOfertas > 1 ? "s" : "") + "." + exte;
             return imgSh;
         }
-
-
+        
         [AllowAnonymous]
         public ActionResult SesionExpirada(string returnUrl)
         {
@@ -1661,19 +1670,10 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [AllowAnonymous]
+        [HttpGet]
         public ActionResult IngresoExterno(string token)
         {
-            if (!RouteData.Values.ContainsKey("guid"))
-            {
-                return RedirectToRoute("UniqueRoute",
-                     new RouteValueDictionary(new
-                     {
-                         Controller = "Login",
-                         Action = "IngresoExterno",
-                         guid = Guid.NewGuid().ToString(),
-                         token = token
-                     }));
-            }
+            this.SetUniqueKeyAvoiding(Guid.NewGuid());
 
             IngresoExternoModel model = null;
             try
@@ -1697,110 +1697,54 @@ namespace Portal.Consultoras.Web.Controllers
                     MostrarBotonAtras = !model.EsAppMobile,
                     ClienteID = model.ClienteID,
                     MostrarHipervinculo = !model.EsAppMobile,
-                    EsAppMobile = model.EsAppMobile
+                    EsAppMobile = model.EsAppMobile,
+                    TimeOutSession = (int)FormsAuthentication.Timeout.TotalMinutes
                 });
 
                 this.SetUniqueSession("IngresoExterno", model.Version ?? "");
 
                 if (!string.IsNullOrEmpty(model.Identifier))
-                {
                     Session.Add("TokenPedidoAutentico", AESAlgorithm.Encrypt(model.Identifier));
-                }
+
+                Session["StartSession"] = DateTime.Now;
 
                 switch (model.Pagina.ToUpper())
                 {
                     case Constantes.IngresoExternoPagina.EstadoCuenta:
-                        return RedirectToRoute("UniqueRoute",
-                            new RouteValueDictionary(new
-                            {
-                                Controller = "EstadoCuenta",
-                                Action = "Index",
-                                guid = this.GetUniqueKey()
-                            }));
+                        return RedirectToUniqueRoute("EstadoCuenta", "Index", null);
                     case Constantes.IngresoExternoPagina.SeguimientoPedido:
-                        return RedirectToRoute("UniqueRoute",
-                            new RouteValueDictionary(new
-                            {
-                                Controller = "SeguimientoPedido",
-                                Action = "Index",
-                                guid = this.GetUniqueKey(),
-                                campania = model.Campania,
-                                numeroPedido = model.NumeroPedido
-                            }));
+                        return RedirectToUniqueRoute("SeguimientoPedido", "Index",
+                            new { campania = model.Campania, numeroPedido = model.NumeroPedido });
                     case Constantes.IngresoExternoPagina.PedidoDetalle:
                         var listTrue = new List<string> { "1", bool.TrueString };
                         bool autoReservar = listTrue.Any(s => s.Equals(model.AutoReservar, StringComparison.OrdinalIgnoreCase));
-                        return RedirectToRoute("UniqueRoute",
-                            new RouteValueDictionary(new
-                            {
-                                Controller = "Pedido",
-                                Action = "Detalle",
-                                guid = this.GetUniqueKey(),
-                                autoReservar = autoReservar
-                            }));
+                        return RedirectToUniqueRoute("Pedido", "Detalle", new { autoReservar = autoReservar });
                     case Constantes.IngresoExternoPagina.NotificacionesValidacionAuto:
-                        return RedirectToRoute("UniqueRoute",
-                            new RouteValueDictionary(new
-                            {
-                                Controller = "Notificaciones",
-                                Action = "ListarObservaciones",
-                                guid = this.GetUniqueKey(),
-                                ProcesoId = model.ProcesoId,
-                                TipoOrigen = 1
-                            }));
+                        return RedirectToUniqueRoute("Notificaciones", "ListarObservaciones",
+                            new { ProcesoId = model.ProcesoId, TipoOrigen = 1 });
                     case Constantes.IngresoExternoPagina.Pedido:
-                        return RedirectToRoute("UniqueRoute",
-                            new RouteValueDictionary(new
+                        return RedirectToUniqueRoute("Pedido", "Index",
+                            new
                             {
-                                Controller = "Pedido",
-                                Action = "Index",
-                                guid = this.GetUniqueKey(),
                                 ProcesoId = model.ProcesoId,
                                 TipoOrigen = 1
-                            }));
+                            });
                     case Constantes.IngresoExternoPagina.CompartirCatalogo:
-                        return RedirectToRoute("UniqueRoute",
-                            new RouteValueDictionary(new
+                        return RedirectToUniqueRoute("Compartir", "CompartirEnChatBot",
+                            new
                             {
-                                Controller = "Compartir",
-                                Action = "CompartirEnChatBot",
-                                guid = this.GetUniqueKey(),
                                 campania = model.Campania,
                                 tipoCatalogo = model.TipoCatalogo,
                                 url = model.UrlCatalogo
-                            }));
+                            });
                     case Constantes.IngresoExternoPagina.MisPedidos:
-                        return RedirectToRoute("UniqueRoute",
-                            new RouteValueDictionary(new
-                            {
-                                Controller = "MisPedidos",
-                                Action = "Index",
-                                guid = this.GetUniqueKey()
-                            }));
+                        return RedirectToUniqueRoute("MisPedidos", "Index", null);
                     case Constantes.IngresoExternoPagina.ShowRoom:
-                        return RedirectToRoute("UniqueRoute",
-                            new RouteValueDictionary(new
-                            {
-                                Controller = "ShowRoom",
-                                Action = "Procesar",
-                                guid = this.GetUniqueKey()
-                            }));
+                        return RedirectToUniqueRoute("ShowRoom", "Procesar", null);
                     case Constantes.IngresoExternoPagina.ProductosAgotados:
-                        return RedirectToRoute("UniqueRoute",
-                            new RouteValueDictionary(new
-                            {
-                                Controller = "ProductosAgotados",
-                                Action = "Index",
-                                guid = this.GetUniqueKey()
-                            }));
+                        return RedirectToUniqueRoute("ProductosAgotados", "Index", null);
                     case Constantes.IngresoExternoPagina.Ofertas:
-                        return RedirectToRoute("UniqueRoute",
-                            new RouteValueDictionary(new
-                            {
-                                Controller = "Ofertas",
-                                Action = "Index",
-                                guid = this.GetUniqueKey()
-                            }));
+                        return RedirectToUniqueRoute("Ofertas", "Index", null);
                 }
             }
             catch (Exception ex)
@@ -1888,5 +1832,25 @@ namespace Portal.Consultoras.Web.Controllers
             return (anioCampaniaResult * 100) + nroCampaniaResult;
         }
 
+        private RedirectToRouteResult RedirectToUniqueRoute(string controller, string action, object routeData)
+        {
+            var route = new RouteValueDictionary(new
+            {
+                Controller = controller,
+                Action = action,
+                guid = this.GetUniqueKey()
+            });
+
+            if (routeData != null)
+            {
+                var routeDataAditional = new RouteValueDictionary(routeData);
+                routeDataAditional.ForEach(item =>
+                {
+                    route.Add(item.Key, item.Value);
+                });
+            }
+
+            return RedirectToRoute("UniqueRoute", route);
+        }
     }
 }

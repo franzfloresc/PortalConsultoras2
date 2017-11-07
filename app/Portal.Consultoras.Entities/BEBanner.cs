@@ -189,7 +189,7 @@ namespace Portal.Consultoras.Entities
             get { return miCantCUVpedido; }
             set { miCantCUVpedido = value; }
         }
-        //RQ_SB - R2133
+
         [DataMember]
         public BEBannerSegmentoZona[] PaisesSegZona { get; set; }
     }

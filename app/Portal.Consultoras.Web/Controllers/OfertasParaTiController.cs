@@ -1,7 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -10,17 +9,10 @@ namespace Portal.Consultoras.Web.Controllers
     public class OfertasParaTiController : BaseEstrategiaController
     {
         [HttpGet]
-        public JsonResult ConsultarEstrategiaSet(string cuv)
-        {
-            var modelo = EstrategiaGetDetalleCuv(cuv);
-            return Json(modelo.Hermanos, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpGet]
         public JsonResult ConsultarEstrategiaCuv(string cuv)
         {
             var modelo = EstrategiaGetDetalleCuv(cuv);
-            return Json(modelo, JsonRequestBehavior.AllowGet);
+            return Json(modelo.Hermanos, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
@@ -33,7 +25,7 @@ namespace Portal.Consultoras.Web.Controllers
                 // solo se llama en Home y Pedido, desktop y mobile, para los carruseles de opt o rd
 
                 var codAgrupa = revistaDigital.TieneRDR ||
-                    (revistaDigital.TieneRDC && revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == 1) ?
+                    (revistaDigital.TieneRDC && revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo) ?
                     Constantes.TipoEstrategiaCodigo.RevistaDigital : "";
 
                 var listModel = ConsultarEstrategiasHomePedido(cuv, codAgrupa);
@@ -98,7 +90,6 @@ namespace Portal.Consultoras.Web.Controllers
                 success = false
             });
         }
-
 
     }
 }

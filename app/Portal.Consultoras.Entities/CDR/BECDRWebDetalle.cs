@@ -61,9 +61,9 @@ namespace Portal.Consultoras.Entities.CDR
 
         [DataMember]
         public string FormatoPrecio2 { get; set; }
-        
+
         public BECDRWebDetalle()
-        { }   
+        { }
 
         public BECDRWebDetalle(IDataRecord row)
         {

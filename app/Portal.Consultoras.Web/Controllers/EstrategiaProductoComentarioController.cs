@@ -6,8 +6,6 @@ using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
 
-using System.Globalization;
-
 namespace Portal.Consultoras.Web.Controllers
 {
     public class EstrategiaProductoComentarioController : BaseController
@@ -130,7 +128,7 @@ namespace Portal.Consultoras.Web.Controllers
                 NombreConsultora = modelBE.NombreConsultora
             };
         }
-        
+
         #endregion
     }
 }

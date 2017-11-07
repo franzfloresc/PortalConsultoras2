@@ -157,7 +157,7 @@ namespace Portal.Consultoras.Web.Controllers
                                select new
                                {
                                    id = a.CampaniaID,
-                                   cell = new string[] 
+                                   cell = new string[]
                                {
                                    DescripcionCampania(a.CampaniaID.ToString()),
                                    (UserData().Simbolo + " " +  string.Format("{0:#,##0}",a.ImporteTotal).Replace(',','.')),
@@ -181,7 +181,7 @@ namespace Portal.Consultoras.Web.Controllers
                                select new
                                {
                                    id = a.CampaniaID,
-                                   cell = new string[] 
+                                   cell = new string[]
                                {
                                    DescripcionCampania(a.CampaniaID.ToString()),
                                    (UserData().Simbolo + " " +  string.Format("{0:#,##0.00}",a.ImporteTotal)),
@@ -207,6 +207,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 DesCamp = CampaniaID;
             }
             return DesCamp;
@@ -269,7 +270,7 @@ namespace Portal.Consultoras.Web.Controllers
                            select new
                            {
                                id = a.ClienteID,
-                               cell = new string[] 
+                               cell = new string[]
                                {
                                    a.Nombre,
                                    a.ClienteID.ToString(),
@@ -367,7 +368,7 @@ namespace Portal.Consultoras.Web.Controllers
                                select new
                                {
                                    id = a.PedidoDetalleID,
-                                   cell = new string[] 
+                                   cell = new string[]
                                    {
                                        a.CUV,
                                        a.DescripcionProd,
@@ -377,7 +378,7 @@ namespace Portal.Consultoras.Web.Controllers
                                        a.ImporteTotal.ToString("#0.00"),
                                        a.IndicadorOfertaCUV.ToString()
                                     }
-                                }
+                               }
                     };
                     return Json(data, JsonRequestBehavior.AllowGet);
                 }
@@ -391,11 +392,11 @@ namespace Portal.Consultoras.Web.Controllers
                         records = pag.RecordCount,
                         totalSum = string.Format("{0:#,##0.00}", (from req in lst select req.ImporteTotal).Sum()),
                         rows = from a in items
-                                select new
-                                {
-                                    id = a.PedidoDetalleID,
-                                    cell = new string[] 
-                                    {
+                               select new
+                               {
+                                   id = a.PedidoDetalleID,
+                                   cell = new string[]
+                                   {
                                         a.CUV,
                                         a.DescripcionProd,
                                         a.Cantidad.ToString(),
@@ -403,8 +404,8 @@ namespace Portal.Consultoras.Web.Controllers
                                         (UserData().Simbolo + " " + string.Format("{0:#,##0.00}",a.ImporteTotal)),
                                         a.ImporteTotal.ToString("#0.00"),
                                        a.IndicadorOfertaCUV.ToString()
-                                    }
-                                }
+                                   }
+                               }
                     };
                     return Json(data, JsonRequestBehavior.AllowGet);
                 }
@@ -800,7 +801,7 @@ namespace Portal.Consultoras.Web.Controllers
                     index = keyvalue.Key + 1;
                     SourceDetails.RemoveRange(0, index);
                 }
-                
+
                 if (tieneDescuentoCuv)
                 {
                     ws.Range(row + 1, col - 2, row + 3, col - 1).Style.Font.Bold = true;

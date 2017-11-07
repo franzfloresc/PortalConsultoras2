@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.Serialization;
-using System.Data;
-using System.ComponentModel.DataAnnotations.Schema;
-
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities.Cliente;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data;
+using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities
 {
@@ -213,6 +212,10 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         [Column("MontoPedido")]
         public decimal MontoPedido { get; set; }
+
+        [DataMember]
+        [Column("CantidadPedido")]
+        public int CantidadPedido { get; set; }
 
         [DataMember]
         public string Origen { get; set; }

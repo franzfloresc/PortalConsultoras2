@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Data;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
-using Portal.Consultoras.Common;
-using OpenSource.Library.DataAccess;
 
 namespace Portal.Consultoras.Entities
 {
@@ -165,14 +160,5 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "CodigoUbigeo") && row["CodigoUbigeo"] != DBNull.Value)
                 CodigoUbigeo = Convert.ToString(row["CodigoUbigeo"]);
         }
-
-
     }
-
-
-    
-
-
-
-
 }

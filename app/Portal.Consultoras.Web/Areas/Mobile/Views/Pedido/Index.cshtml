@@ -1,55 +1,47 @@
 ﻿@using Portal.Consultoras.Common
-@using Portal.Consultoras.Web.Areas.Mobile.Controllers
 @using Portal.Consultoras.Web.Areas.Mobile.Models
 @using Portal.Consultoras.Web.Models
 @using Portal.Consultoras.Web.Helpers;
 
 @model PedidoMobileModel
 @{
-    var layout = ViewContext.MobileLayout();
+    var layout = ViewContext.MobilePedidoLayout();
     ViewBag.SourcePage = 2;
 
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
     var revistaDigital = Model.RevistaDigital ?? new RevistaDigitalModel();
-}
-@section styles
-{
-    <link href="~/Content/Css/Mobile/esika/revistaDigital.css" rel="stylesheet" />
-    <style>
-        #divAgregarCliente {
-            display:none
-        }
-    </style>
+    var mobileConfiguracion = Html.MobileAppConfiguracion();
 }
 <div class="wrapper_resumen_mobile sin_padding">
+    @if (!mobileConfiguracion.EsAppMobile)
+    {
+        <div class="titulo_mobile alineaIzquierda pl-49 agregarSombraInferior">
+            <a href="@Request.UrlReferrer" class="enlace_regresar ajustePosicionFlecha" style="display:normal" title="Regresar"></a>
+            INGRESAR PEDIDO C@(Model.CampaniaNro)
+        </div>
+    }
+    
+    @*@if (mobileConfiguracion.EsAppMobile)
+    {
+        @Html.Partial("~/Areas/Mobile/Views/Util/_barra.cshtml")
+        <input type="hidden" id="hdfSimbolo" value="@Model.Simbolo" />
+        <input type="hidden" id="hdfTotal" value="@Model.Total" />
+    }*@
+
     <!-- BANNERS INGRESO DE PEDIDO -->
-    <div class="banner_ingresoPedido" style="background: #000 url(@ViewBag.UrlFranjaNegra) no-repeat center center;">
-        <div class="content_320 ingresoPedido">            
-            @{  var mobileConfiguracion = Html.MobileAppConfiguracion();
-                if (mobileConfiguracion.MostrarBotonAtras)
-                {
-                    <a href="@Request.UrlReferrer" class="enlace_regresar ingresoP" style="display:normal" title="Regresar"></a>
-                }
-            }
-            <h1>INGRESA TU PEDIDO C@(Model.CampaniaNro)</h1>
+    <div class="banner_ingresoPedido nuevaAlturaBanner" style="background: #000 url(@ViewBag.UrlFranjaNegra) no-repeat center center;">
+        <div class="content_320 ingresoPedido">
             <form>
                 @Html.Hidden("txtClienteId", Model.ClienteId)
                 @if (ViewBag.MobileApp && Model.ClienteId > 0)
-                { 
+                {
                     <input type="text" id="txtClienteNombre" placeholder="Cliente" class="PedidoClienteNombre" disabled value="@Model.Nombre" />
                 }
                 else
                 {
                     <input type="text" id="txtClienteNombre" placeholder="Cliente" class="PedidoClienteNombre" />
                 }
-                @*@if (string.IsNullOrEmpty(Model.Nombre))
-                {
-                    @Html.DropDownListFor(model => model.Nombre, new SelectList(Model.ListaClientes, "ClienteID", "Nombre"), new { id = "ddlClientes", @required = "required", @class="PedidoClienteCombo" })
-                }
-                else
-                {
-                    @Html.DropDownListFor(model => model.Nombre, new SelectList(Model.ListaClientes, "ClienteID", "Nombre"), new { id = "ddlClientes", @required = "required", @class="PedidoClienteCombo",  @disabled = "disabled" })
-                }*@
+               
                 <input type="tel" name="codigoProducto" value="" placeholder="Código" id="txtCodigoProducto" oninput="maxLengthCheck(this, 5)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
             </form>
         </div>
@@ -101,7 +93,7 @@
                                 <img src="/Content/Images/Mobile/Esika/menos.png">
                             </span>
                             <div class="campo_cantidadProductos">
-                                <input type="tel" name="cantidad" value="1" id="txtCantidad" min="1" max="99" maxlength="2" oninput="maxLengthCheck(this,2)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
+                                <input type="tel" name="cantidad" value="1" id="txtCantidad" min="1" max="99" maxlength="2" oninput="FuncionesGenerales.MaxLengthCheck(this,2);" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
                             </div>
                             <span class="signo_mas" id="suma">
                                 <img src="/Content/Images/Mobile/Esika/mas.png">
@@ -109,121 +101,104 @@
                             <div class="clear"></div>
                         </div>
                     </div>
-                    @*<div class="contenedor_seleccionCliente">*@
-                        @*@if (string.IsNullOrEmpty(Model.Nombre))
-                        {
-                            @Html.DropDownListFor(model => model.Nombre, new SelectList(Model.ListaClientes, "ClienteID", "Nombre"), new { id = "ddlClientes", @required = "required" })
-                            <a href="javascript:;" class="btn_agregarCliente" id="linkAgregarCliente">
-                                AGREGAR CLIENTE <span>+</span>
-                            </a>
-                        }
-                        else
-                        {
-                            @Html.DropDownListFor(model => model.Nombre, new SelectList(Model.ListaClientes, "ClienteID", "Nombre"), new { id = "ddlClientes", @required = "required", @disabled = "disabled" })
-                        }*@
-                        @*@Html.DropDownListFor(model => model.Nombre, new SelectList(Model.ListaClientes, "ClienteID", "Nombre"), new { id = "ddlClientes", @required = "required" })
-                        <a href="javascript:;" class="btn_agregarCliente" id="linkAgregarCliente">
-                            AGREGAR CLIENTE <span>+</span>
-                        </a>*@
-                    @*</div>*@
                 </div>
             </div>
             <!-- FIN CONTENIDO INGRESO DE PEDIDO -->
             <!-- SECCIÓN CONTENIDO RESUMEN DE PEDIDO -->
             <div id="divResumenPedido">
                 <div class="contenedor_resumenPedido montosIngresoPedido">
-                        <div class="textos_resumen">
-                            <span id="lblProductosResumen" style="margin-left: 30px;">HE AGREGADO :</span>
-                            <span id="lblTotalResumen">
+                    <div class="textos_resumen">
+                        <span id="lblProductosResumen" style="margin-left: 30px;">HE AGREGADO :</span>
+                        <span id="lblTotalResumen">
 
-                                <div class="info_validado">
-                                    <img src="/Content/Images/Esika/info-copy.png" />
-                                    <!--TOOLTIP-->
-                                    <div class="tooltip_validado_importe">
-                                        <div class="left_reservado">
-                                            <div class="datos_Reservado">
-                                                <span>Total sin Dscto. </span>
-                                                <span>Dscto por niveles</span>
-                                            </div>
+                            <div class="info_validado">
+                                <img src="/Content/Images/Esika/info-copy.png" />
+                                <!--TOOLTIP-->
+                                <div class="tooltip_validado_importe">
+                                    <div class="left_reservado">
+                                        <div class="datos_Reservado">
+                                            <span>Total sin Dscto. </span>
+                                            <span>Dscto por niveles</span>
                                         </div>
-                                        <div class="right_reservado">
-                                            <div class="datos_Reservado">
-                                                <span data-pedidototal="">@Model.Simbolo @Model.DescripcionTotal</span>
-                                                <span data-montodescuento="">@Model.Simbolo @Model.DescuentoStr</span>
-                                            </div>
+                                    </div>
+                                    <div class="right_reservado">
+                                        <div class="datos_Reservado">
+                                            <span data-pedidototal="">@Model.Simbolo @Model.DescripcionTotal</span>
+                                            <span data-montodescuento="">@Model.Simbolo @Model.DescuentoStr</span>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
 
 
-                                MONTO TOTAL :
-                            </span>
-                            @{
-                                string cabezaEscala = null, pieEscala = null;
-                                string lbl1Ganancia = null, lbl2Ganancia = null;
+                            MONTO TOTAL :
+                        </span>
+                        @{
+                            string cabezaEscala = null, pieEscala = null;
+                            string lbl1Ganancia = null, lbl2Ganancia = null;
 
-                                if (Model.CodigoIso == Constantes.CodigosISOPais.Peru ||
-                                            Model.CodigoIso == Constantes.CodigosISOPais.Colombia ||
-                                            Model.CodigoIso == Constantes.CodigosISOPais.Ecuador ||
-                                            Model.CodigoIso == Constantes.CodigosISOPais.Guatemala ||
-                                            Model.CodigoIso == Constantes.CodigosISOPais.Salvador ||
-                                            Model.CodigoIso == Constantes.CodigosISOPais.Dominicana ||
-                                            Model.CodigoIso == Constantes.CodigosISOPais.PuertoRico)    //PE,CO,EC,GT.SV,PR,DO
-                                {
-                                    cabezaEscala = "Ganancia estimada total";
-                                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
-                                    lbl1Ganancia = "Mis descuentos";
-                                    lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
-                                }
-                                else if (Model.CodigoIso == Constantes.CodigosISOPais.Mexico || Model.CodigoIso == Constantes.CodigosISOPais.Panama)    //PA,MX
-                                {
-                                    cabezaEscala = "Ganancia estimada total";
-                                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
-                                    lbl1Ganancia = "Mis descuentos";
-                                    lbl2Ganancia = "Ganancia estimada *(Revista y otros)";
-                                }
-                                else if (Model.CodigoIso == Constantes.CodigosISOPais.Chile)// CH
-                                {
-                                    cabezaEscala = "Comisión y ahorro total";
-                                    pieEscala = "*Comisión = Ganancia estimada proveniente de tus descuentos por compras en catálogo; <br>Ahorro = Ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
-                                    lbl1Ganancia = "Mis descuentos (-)10% retencion comisión liquida";
-                                    lbl2Ganancia = "Ahorro estimado *(Guia de negocio y otros)";
-                                }
-                                else if (Model.CodigoIso == Constantes.CodigosISOPais.Venezuela)// VE
-                                {
-                                    cabezaEscala = "Oportunidad de ahorro total";
-                                    pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
-                                    lbl1Ganancia = "Por tus compras de productos de catalogo";
-                                    lbl2Ganancia = "Por tus comprar de productos de revista";
-                                }
-                                else if (Model.CodigoIso == Constantes.CodigosISOPais.Bolivia)// BO
-                                {
-                                    cabezaEscala = "Ganancia total";
-                                    pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros";
-                                    lbl1Ganancia = "Mis descuentos";
-                                    lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
-                                }
-                                else if (Model.CodigoIso == Constantes.CodigosISOPais.CostaRica)// CR
-                                {
-                                    cabezaEscala = "Oportunidad de ahorro total";
-                                    pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
-                                    lbl1Ganancia = "Mis descuentos";
-                                    lbl2Ganancia = "Oportunidad de ahorro *(Revista y otros)";
-                                }
-                                
+                            if (Model.CodigoIso == Constantes.CodigosISOPais.Peru ||
+                                        Model.CodigoIso == Constantes.CodigosISOPais.Colombia ||
+                                        Model.CodigoIso == Constantes.CodigosISOPais.Ecuador ||
+                                        Model.CodigoIso == Constantes.CodigosISOPais.Guatemala ||
+                                        Model.CodigoIso == Constantes.CodigosISOPais.Salvador ||
+                                        Model.CodigoIso == Constantes.CodigosISOPais.Dominicana ||
+                                        Model.CodigoIso == Constantes.CodigosISOPais.PuertoRico)    //PE,CO,EC,GT.SV,PR,DO
+                            {
+                                cabezaEscala = "Ganancia estimada total";
+                                pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
+                                lbl1Ganancia = "Mis descuentos";
+                                lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
                             }
-                            <input type="hidden" id="hdeCabezaEscala" value="@cabezaEscala" />
-                            <input type="hidden" id="hdePieEscala" value="@pieEscala" />
-                            <input type="hidden" id="hdeLbl1Ganancia" value="@lbl1Ganancia" />
-                            <input type="hidden" id="hdeLbl2Ganancia" value="@lbl2Ganancia" />
-                            <span class="mi_ganancia" style=" margin-left: 30px;">@(cabezaEscala.ToUpper().Trim()) :</span>
-                        </div>
+                            else if (Model.CodigoIso == Constantes.CodigosISOPais.Mexico || Model.CodigoIso == Constantes.CodigosISOPais.Panama)    //PA,MX
+                            {
+                                cabezaEscala = "Ganancia estimada total";
+                                pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
+                                lbl1Ganancia = "Mis descuentos";
+                                lbl2Ganancia = "Ganancia estimada *(Revista y otros)";
+                            }
+                            else if (Model.CodigoIso == Constantes.CodigosISOPais.Chile)// CH
+                            {
+                                cabezaEscala = "Comisión y ahorro total";
+                                pieEscala = "*Comisión = Ganancia estimada proveniente de tus descuentos por compras en catálogo; <br>Ahorro = Ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
+                                lbl1Ganancia = "Mis descuentos (-)10% retencion comisión liquida";
+                                lbl2Ganancia = "Ahorro estimado *(Guia de negocio y otros)";
+                            }
+                            else if (Model.CodigoIso == Constantes.CodigosISOPais.Venezuela)// VE
+                            {
+                                cabezaEscala = "Oportunidad de ahorro total";
+                                pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
+                                lbl1Ganancia = "Por tus compras de productos de catalogo";
+                                lbl2Ganancia = "Por tus comprar de productos de revista";
+                            }
+                            else if (Model.CodigoIso == Constantes.CodigosISOPais.Bolivia)// BO
+                            {
+                                cabezaEscala = "Ganancia total";
+                                pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros";
+                                lbl1Ganancia = "Mis descuentos";
+                                lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
+                            }
+                            else if (Model.CodigoIso == Constantes.CodigosISOPais.CostaRica)// CR
+                            {
+                                cabezaEscala = "Oportunidad de ahorro total";
+                                pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
+                                lbl1Ganancia = "Mis descuentos";
+                                lbl2Ganancia = "Oportunidad de ahorro *(Revista y otros)";
+                            }
 
-                        <div class="montos_resumen">
-                            <span><b data-cantidadproducto="">@Model.CantidadProductos</b>&nbsp;&nbsp;UNIDADES</span>
-                            <span><b>@Model.Simbolo&nbsp;&nbsp;</b><b data-pedidocondescuento="">@Model.MontoConDsctoStr</b></span>
-                            <span class="mi_ganancia"><b>@Model.Simbolo&nbsp;&nbsp;</b><b data-ganancia="">@Model.GananciaFormat</b></span>
-                        </div>
+                        }
+                        <input type="hidden" id="hdeCabezaEscala" value="@cabezaEscala" />
+                        <input type="hidden" id="hdePieEscala" value="@pieEscala" />
+                        <input type="hidden" id="hdeLbl1Ganancia" value="@lbl1Ganancia" />
+                        <input type="hidden" id="hdeLbl2Ganancia" value="@lbl2Ganancia" />
+                        <span class="mi_ganancia" style="margin-left:30px;">@(cabezaEscala.ToUpper().Trim()) :</span>
+                    </div>
+
+                    <div class="montos_resumen">
+                        <span><b data-cantidadproducto="">@Model.CantidadProductos</b>&nbsp;&nbsp;UNIDADES</span>
+                        <span><b>@Model.Simbolo&nbsp;&nbsp;</b><b data-pedidocondescuento="">@Model.MontoConDsctoStr</b></span>
+                        <span class="mi_ganancia"><b>@Model.Simbolo&nbsp;&nbsp;</b><b data-ganancia="">@Model.GananciaFormat</b></span>
+                    </div>
                 </div>
                 <button type="button" class="btn_verMiPedido">
                     VER MI PEDIDO
@@ -237,7 +212,7 @@
     <!--CONSULTORA ONLINE-->
     @if (ViewBag.CantPedidosPendientes > 0)
     {
-        <div class="content_320" style="padding-top:0">       
+        <div class="content_320" style="padding-top:0">
             <div style="float:left; max-width:185px;">
                 <div class="titulo_tooltip_p">Tienes @ViewBag.CantPedidosPendientes pedido(s) pendiente(s) del <span>App de Catálogos</span></div>
                 <div class="hora_tooltip_p">Te quedan <b>@ViewBag.TeQuedanConsultoraOnline</b> horas</div>
@@ -249,10 +224,9 @@
         </div>
     }
     <!--FIN-->
-
     <!--INICIO CARRUSEL-->
     <div id="divListaEstrategias" style="display:none">
-        <div id="contenedor_template_estrategia_cabecera"></div> 
+        <div id="contenedor_template_estrategia_cabecera"></div>
     </div>
 
     <!--FIN CARRUSEL-->
@@ -312,7 +286,6 @@
     </div>
 </div>
 <!-- DIV PARA FUNCIONALIDAD DE AGREGAR PRODUCTO DESDE CAROUSEL HORIZONTAL-->
-
 <!--POP UP PRODUCTO SUGERIDO-->
 <div class="MensajeAlertaMobile" id="PopSugerido" style="display:none;">
     <div class="content_mensajeAlerta">
@@ -332,9 +305,7 @@
 
 </div>
 <!--FIN-->
-
 <!--SB20-483 - INICIO -->
-
 <!-- POPUP MIS GANANCIAS -->
 
 <div class="contenedor_fondo_popup" id="popupGanancias" style="display:none;">
@@ -368,46 +339,13 @@
 
 <!-- FIN POPUP MIS GANANCIAS -->
 <!--SB20-483 - FIN -->
-
 <!-- POPUP AGREGAR CLIENTE -->
-<div class="contenedor_popup_clientes modal" id="divAgregarCliente">
+<div class="contenedor_popup_clientes modal" id="divAgregarCliente" style="display: none;">
     <div class="popup_agregarCliente">
         <div id="divDetalleCliente"></div>
     </div>
 </div>
-@*<div class="contenedor_popup_clientes" id="divAgregarClientePedido">
-    <div class="popup_agregarCliente">
-        <div class="btn_cerrar_agregarUnidades">
-            <a href="javascript:;" onclick="CerrarMantenerCliente();">
-                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
-                <span class="texto_btn_cerrar">CERRAR</span>
-            </a>
-        </div>
-        <h6>AGREGAR <b>CLIENTE</b></h6>
-        <input type="text" name="nombre" id="Nombres" value="" placeholder="Ingresa su nombre" maxlength="50" class="ValidaAlfabeto" />
-        <div class="noti mensaje_producto_noExiste" id="divNotiNombre">
-            <div class="noti_message red_texto_size">
-                <span class="icono_advertencia_notificacion"></span>
-                <span class="descripcion_mensaje">
-                    Por favor ingresa un nombre válido.
-                </span>
-            </div>
-        </div>
-        <input type="email" name="correoelectronico" value="" placeholder="Correo Electrónico (Opcional)" maxlength="80" id="Correo" />
-        <div class="noti mensaje_producto_noExiste" id="divNotiEmail">
-            <div class="noti_message red_texto_size">
-                <span class="icono_advertencia_notificacion"></span>
-                <span class="descripcion_mensaje">
-                    El correo ingresado <b>no existe.</b><br />
-                    Por favor ingresa un correo válido.
-                </span>
-            </div>
-        </div>
-        <input type="button" class="btnCliente_agregar" name="agregarCliente" value="GUARDAR" onclick="AgregarMantenerCliente();" />
-    </div>
-</div>*@
 <!-- FIN POPUP AGREGAR CLIENTE -->
-
 <!-- POPUP CLIENTE AGREGADO -->
 <div id="popupClienteIngresado" class="MensajeAlertaMobile" style="display:none;">
     <div class="content_mensajeAlerta">
@@ -516,7 +454,7 @@
         var urlValidarUnidadesPermitidasPedidoProducto = '@Url.Action("ValidarUnidadesPermitidasPedidoProducto", "Accesorizate", new {area = ""})';
         var urlObtenerStockActualProducto = '@Url.Action("ObtenerStockActualProducto", "Accesorizate", new {area = ""})';
         var urlEnHorarioRestringido = '@Url.Action("EnHorarioRestringido", "Pedido", new {area = ""})';
-        var urlSesionExperirada = '@Url.Action("SesionExpirada", "Login")';
+        var urlSesionExperirada = '@Url.Action("SesionExpirada", "Login", new { area = "" })';
         var paisIDSesion = '@Model.PaisId';
 
         var urlValidadoPedido = '@Url.Action("Validado", "Pedido", new { area = "Mobile" })';
@@ -532,11 +470,10 @@
         var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTi;
 
         var urlClienteDetalle = "@Url.Action("AgregarCliente", "Cliente", new { area = "Mobile" })";
-        var lstClientes = @Html.Raw(@Json.Encode(Model.ListaClientes))
+        var lstClientes = @Html.Raw(@Json.Encode(Model.ListaClientes));
         var urlImagenListaCliente = '@Url.Content("~/Content/Images/arrow.png")';
 
         var tieneCupon = '@Model.TieneCupon';
-        //var tieneOfertaLog = '@Model.TieneOfertaLog';
         var paginaOrigenCupon = 21;
         var tieneMasVendidos = @Model.TieneMasVendidos;
         var esEmailActivo = '@Model.EmailActivo';
@@ -553,7 +490,21 @@
 
         var VirtualCoachCuv = '@ViewBag.VirtualCoachCuv';
         var VirtualCoachCampana = '@ViewBag.VirtualCoachCampana' || 0;
+        var dataBarra = JSON.parse('@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.DataBarra))');
+        var listaMensajeMeta = dataBarra.ListaMensajeMeta;
     </script>
-    @System.Web.Optimization.Scripts.Render("~/bundles/JsMobile/Pedido")
 
+    @if (mobileConfiguracion.EsAppMobile)
+    {
+        <script>
+            $(document).ready(function() {
+                belcorp.estrategia.initialize();
+                belcorp.pedido.initialize();
+                belcorp.pedido.subscribe("onProductoAgregado", MostrarBarra);
+                belcorp.estrategia.subscribe("onProductoAgregado", MostrarBarra);
+            });
+        </script>
+    }
+
+    @Scripts.Render("~/bundles/JsMobile/Pedido")
 }

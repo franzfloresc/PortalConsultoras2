@@ -77,5 +77,14 @@ namespace Portal.Consultoras.BizLogic.Resources {
                 return ResourceManager.GetString("UrlBannerPremiosProgramaNuevas", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}Matriz/{1}/{2}.
+        /// </summary>
+        internal static string UrlImagenCUV {
+            get {
+                return ResourceManager.GetString("UrlImagenCUV", resourceCulture);
+            }
+        }
     }
 }

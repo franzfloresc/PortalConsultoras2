@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.ServiceModel;
-using System.Web.Mvc;
-using AutoMapper;
+﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceZonificacion;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -97,11 +95,11 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult TraerRegiones(int pais)
         {
             JsTreeModel[] tree = null;
-            tree = new JsTreeModel[] 
+            tree = new JsTreeModel[]
                 {
                     new JsTreeModel { data = "Confirm Application", attr = new JsTreeAttribute { id = 10, selected = true } },
-                    new JsTreeModel 
-                    { 
+                    new JsTreeModel
+                    {
                         data = "Things",
                         attr = new JsTreeAttribute { id = 20 },
                         children = new JsTreeModel[]
@@ -109,14 +107,14 @@ namespace Portal.Consultoras.Web.Controllers
                                 new JsTreeModel { data = "Thing 1", attr = new JsTreeAttribute { id = 21, selected = true } },
                                 new JsTreeModel { data = "Thing 2", attr = new JsTreeAttribute { id = 22 } },
                                 new JsTreeModel { data = "Thing 3", attr = new JsTreeAttribute { id = 23 } },
-                                new JsTreeModel 
-                                { 
-                                    data = "Thing 4", 
+                                new JsTreeModel
+                                {
+                                    data = "Thing 4",
                                     attr = new JsTreeAttribute { id = 24 },
-                                    children = new JsTreeModel[] 
-                                    { 
-                                        new JsTreeModel { data = "Thing 4.1", attr = new JsTreeAttribute { id = 241 } }, 
-                                        new JsTreeModel { data = "Thing 4.2", attr = new JsTreeAttribute { id = 242 } }, 
+                                    children = new JsTreeModel[]
+                                    {
+                                        new JsTreeModel { data = "Thing 4.1", attr = new JsTreeAttribute { id = 241 } },
+                                        new JsTreeModel { data = "Thing 4.2", attr = new JsTreeAttribute { id = 242 } },
                                         new JsTreeModel { data = "Thing 4.3", attr = new JsTreeAttribute { id = 243 } }
                                     },
                                 },
@@ -289,7 +287,7 @@ namespace Portal.Consultoras.Web.Controllers
                        select new
                        {
                            id = a.CodigoUsuario.ToString(),
-                           cell = new string[] 
+                           cell = new string[]
                                {
                                    a.CodigoUsuario,
                                    a.Fecha.ToString(),

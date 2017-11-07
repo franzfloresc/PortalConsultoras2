@@ -3,6 +3,8 @@ using Portal.Consultoras.Entities.Cupon;
 using Portal.Consultoras.Entities.ReservaProl;
 using Portal.Consultoras.Entities.RevistaDigital;
 using Portal.Consultoras.Entities.ShowRoom;
+using Portal.Consultoras.Entities.Pedido;
+
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -474,7 +476,7 @@ namespace Portal.Consultoras.ServiceContracts
         #region Tracking
 
         [OperationContract]
-        List<BETracking> GetPedidosByConsultora(int paisID, string codigoConsultora);
+        List<BETracking> GetPedidosByConsultora(int paisID, string codigoConsultora, int top);
 
         [OperationContract]
         BETracking GetPedidoByConsultoraAndCampania(int paisID, string codigoConsultora, int campania);
@@ -999,7 +1001,7 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEPedidoWeb> GetPedidosFacturados(int paisId, string codigoConsultora);
 
         [OperationContract]
-        List<BEPedidoWeb> GetPedidosIngresadoFacturado(int paisID, int consultoraID, int campaniaID, string codigoConsultora);
+        List<BEPedidoWeb> GetPedidosIngresadoFacturado(int paisID, int consultoraID, int campaniaID, string codigoConsultora, int top);
 
         [OperationContract]
         List<BEPedidoWeb> GetPedidosIngresadoFacturadoWebMobile(int paisID, int consultoraID, int campaniaID, int clienteID, int top, string codigoConsultora);
@@ -1039,7 +1041,7 @@ namespace Portal.Consultoras.ServiceContracts
         int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado, int estrategiaId);
 
         [OperationContract]
-        List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, int estrategiaId);
+        List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, string estrategiaCodigo);
 
         [OperationContract]
         int InsertEstrategiaTemporal(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario);
@@ -1194,7 +1196,7 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         List<BEConsultoraConcurso> ListConcursosByCampania(int paisId, string codigoCampaniaActual, string codigoCampania, string tipoConcurso, string codigoConsultora);
         [OperationContract]
-        List<BEIncentivoConcurso> ObtenerIncentivosConsultora(int paisID, string codigoConsultora, int codigoCampania);
+        List<BEIncentivoConcurso> ObtenerIncentivosConsultora(int paisID, string codigoConsultora, int codigoCampania, long ConsultoraID);
         [OperationContract]
         List<BEIncentivoConcurso> ObtenerIncentivosHistorico(int paisID, string codigoConsultora, int codigoCampania);
         #endregion
@@ -1223,6 +1225,15 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         List<BEFichaProducto> GetFichaProducto(BEFichaProducto entidad);
 
+        #endregion
+
+        #region MisPedidos
+        [OperationContract]
+        List<BEMisPedidosCampania> GetMisPedidosByCampania(int paisID, long ConsultoraID, int CampaniaID, int ClienteID, int Top);
+        [OperationContract]
+        List<BEMisPedidosIngresados> GetMisPedidosIngresados(int paisID, long ConsultoraID, int CampaniaID, int ClienteID, string NombreConsultora);
+        [OperationContract]
+        List<BEMisPedidosFacturados> GetMisPedidosFacturados(int paisID, long ConsultoraID, int CampaniaID, int ClienteID, string NombreConsultora);
         #endregion
     }
 }

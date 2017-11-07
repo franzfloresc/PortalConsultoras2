@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
@@ -57,7 +56,7 @@ namespace Portal.Consultoras.Web.Controllers
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                
+
                 BEPager pag = new BEPager();
                 IEnumerable<BEZona> items = lst;
 
@@ -111,7 +110,7 @@ namespace Portal.Consultoras.Web.Controllers
                            select new
                            {
                                id = a.ZonaID.ToString(),
-                               cell = new string[] 
+                               cell = new string[]
                                {
                                    a.ZonaID.ToString(),
                                    a.Codigo,

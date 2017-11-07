@@ -1,4 +1,6 @@
-﻿@using Portal.Consultoras.Web.ServiceEvaluacionCrediticia;
+﻿@(new HtmlString(ViewBag.HTMLSACUnete))
+
+@*@using Portal.Consultoras.Web.ServiceEvaluacionCrediticia;
 
 @model Portal.Consultoras.Web.Models.ConsultarEstadoCrediticiaModel
 
@@ -30,7 +32,7 @@
             <div id="opcionManual" class="div-3 caja borde_redondeado" style="padding-left: 10% !important;width: 80%;display: none; ">
                 <div style="text-align:left; margin-bottom:15px;">
                     <span class="elementsFont" style="text-align:left;">Debes seleccionar una respuesta manualmente que te asignar&aacute; a est&aacute; postulante.</span><br />
-                    @*<span class="elementsFont" style="text-align:left;">Respuesta:</span><br />*@
+ 
                 </div> 
                 <div class="selectP2 seleccion_pagina selectUbicacion" >
                     @Html.DropDownList("EstadoBuroIDServicio", ViewBag.EstadosEvaluacionCrediticia as SelectList, "Seleccione", new { @style = "color:black" })
@@ -224,4 +226,4 @@ input, textarea, keygen, select, button, meter, progress {
     setTimeout(function() {
         $('.boton_celeste').css('behavior', 'url("@Url.Content("~/Content/Css/Pie/PIE.htc)")")');
     }, 10);        
-</script>
+</script>*@

@@ -1,19 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using AutoMapper;
-using Portal.Consultoras.Web.ServiceZonificacion;
 using Portal.Consultoras.Web.ServiceContenido;
-using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceSAC;
-using System.IO;
+using Portal.Consultoras.Web.ServiceUsuario;
+using Portal.Consultoras.Web.ServiceZonificacion;
+using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
+using System.Linq;
 using System.ServiceModel;
-using System.Configuration;//R2133
+using System.Web;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -29,15 +28,15 @@ namespace Portal.Consultoras.Web.Controllers
                     return RedirectToAction("Index", "Bienvenida");
                 model.DropDownListCampania = CargarCampania();
                 model.DropDownListCampania.Insert(0, new BECampania() { CampaniaID = 0, Codigo = "-- Seleccionar --" });
-                model.DropDownListTipoContenido = new List<BETipoContenido>() { new BETipoContenido { TipoContenido = 0, TipoContenidoNombre = "URL" }, 
+                model.DropDownListTipoContenido = new List<BETipoContenido>() { new BETipoContenido { TipoContenido = 0, TipoContenidoNombre = "URL" },
                                                                                 new BETipoContenido { TipoContenido = 1, TipoContenidoNombre = "Mensaje" }};
                 //new BETipoContenido { TipoContenido = 2, TipoContenidoNombre = "Curso" }};
 
-                model.DropDownListTipoAccion = new List<BETipoAccion>() { new BETipoAccion { TipoAccion = 0, TipoAccionNombre = "URL Destino" }, 
+                model.DropDownListTipoAccion = new List<BETipoAccion>() { new BETipoAccion { TipoAccion = 0, TipoAccionNombre = "URL Destino" },
                                                                           new BETipoAccion { TipoAccion = 1, TipoAccionNombre = "Agregar CUV al Pedido" },
                                                                           new BETipoAccion { TipoAccion = 2, TipoAccionNombre = "Curso" }};
 
-                model.DropDownListPaginaNueva = new List<BEPaginaNueva>() { new BEPaginaNueva { PaginaNueva = 0, PaginaNuevaNombre = "NO" }, 
+                model.DropDownListPaginaNueva = new List<BEPaginaNueva>() { new BEPaginaNueva { PaginaNueva = 0, PaginaNuevaNombre = "NO" },
                                                                                 new BEPaginaNueva { PaginaNueva = 1, PaginaNuevaNombre = "SI" }};
 
             }
@@ -322,7 +321,7 @@ namespace Portal.Consultoras.Web.Controllers
                                select new
                                {
                                    id = a.GrupoBannerID,
-                                   cell = new string[] 
+                                   cell = new string[]
                                {
                                    a.GrupoBannerID.ToString(),
                                    a.TiempoRotacion.ToString(),
@@ -572,9 +571,9 @@ namespace Portal.Consultoras.Web.Controllers
                 if (lstBannerInfo.Count > 0)
                 {
                     lstFinalInfo.AddRange(lstBannerInfo.Where(x => x.GrupoBannerID == 150).OrderBy(x => x.Orden).ToList());
-                    lstFinalInfo.AddRange(lstBannerInfo.Where(x => x.GrupoBannerID == -5 ).OrderBy(x => x.Orden).ToList());
-                    lstFinalInfo.AddRange(lstBannerInfo.Where(x => x.GrupoBannerID == -6 ).OrderBy(x => x.Orden).ToList());
-                    lstFinalInfo.AddRange(lstBannerInfo.Where(x => x.GrupoBannerID == -7 ).OrderBy(x => x.Orden).ToList());
+                    lstFinalInfo.AddRange(lstBannerInfo.Where(x => x.GrupoBannerID == -5).OrderBy(x => x.Orden).ToList());
+                    lstFinalInfo.AddRange(lstBannerInfo.Where(x => x.GrupoBannerID == -6).OrderBy(x => x.Orden).ToList());
+                    lstFinalInfo.AddRange(lstBannerInfo.Where(x => x.GrupoBannerID == -7).OrderBy(x => x.Orden).ToList());
                 }
                 #endregion
 
@@ -597,7 +596,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             var lstFinalModel = Mapper.Map<List<BannerInfoModel>>(lstFinalInfo);
 
-            lstFinalModel.ForEach(item=> {
+            lstFinalModel.ForEach(item =>
+            {
                 item.Clase = "";
                 if (item.Titulo.ToLower() == "c" + userData.CampaniaNro + "_revistadigital_" + userData.CodigoISO.ToLower())
                 {
@@ -632,7 +632,7 @@ namespace Portal.Consultoras.Web.Controllers
                 data = lstFinalModel
             });
         }
-        
+
         [HttpPost]
         public ActionResult ImageMatrizUpload(string qqfile)
         {

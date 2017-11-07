@@ -1,17 +1,11 @@
 ﻿using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.Areas.Mobile.Models;
-using Portal.Consultoras.Web.ServicePedido;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
     public class EstrategiaProductoComentarioController : BaseMobileController
     {
-        Web.Controllers.EstrategiaProductoComentarioController controllerDesktop = 
+        Web.Controllers.EstrategiaProductoComentarioController controllerDesktop =
             new Web.Controllers.EstrategiaProductoComentarioController();
 
         public ActionResult Index()

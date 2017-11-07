@@ -33,7 +33,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    listaPedidoFacturados = sv.GetPedidosIngresadoFacturado(userData.PaisID, Convert.ToInt32(userData.ConsultoraID), userData.CampaniaID, userData.CodigoConsultora).ToList();
+                    listaPedidoFacturados = sv.GetPedidosIngresadoFacturado(userData.PaisID, Convert.ToInt32(userData.ConsultoraID), userData.CampaniaID, userData.CodigoConsultora, 6).ToList();
                 }
                 using (SC.ClienteServiceClient sv = new SC.ClienteServiceClient())
                 {
@@ -225,7 +225,7 @@ namespace Portal.Consultoras.Web.Controllers
                 BarraConsultoraModel dataBarra = new BarraConsultoraModel();
                 try
                 {
-                    sessionManager.SetObservacionesProl( null);
+                    sessionManager.SetObservacionesProl(null);
                     sessionManager.SetDetallesPedido(null);
                     UpdPedidoWebMontosPROL();
                     dataBarra = GetDataBarra();

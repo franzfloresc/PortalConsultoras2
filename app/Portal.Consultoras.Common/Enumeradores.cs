@@ -100,7 +100,7 @@
             LugarNivel2 = 6,
             LugarNivel3 = 7,
             LugarNivel4 = 8,
-            LugarNivel5 = 9,          
+            LugarNivel5 = 9,
             PrefijosCelular = 13,
             Validaciones = 14,
             EstadoTelefonico = 15,
