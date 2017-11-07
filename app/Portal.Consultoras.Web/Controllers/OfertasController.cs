@@ -101,27 +101,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return model;
         }
-
-        [HttpPost]
-        public JsonResult ObtenerSeccion(string codigo, int campaniaId)
-        {
-            try
-            {
-                var seccion = ObtenerSeccionHomePalanca(codigo, campaniaId);
-
-                return Json(new
-                {
-                    seccion = seccion
-                }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-
-                return Json(new ConfiguracionSeccionHomeModel());
-            }
-        }
-
+        
         [HttpPost]
         public JsonResult ActualizarSession(string codigo, int campaniaId)
         {

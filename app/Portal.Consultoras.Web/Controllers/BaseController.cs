@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
+using Portal.Consultoras.Web.Helpers;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Layout;
@@ -26,7 +26,6 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Web.Mvc;
 using System.Web.Security;
-using Portal.Consultoras.Web.Helpers;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -3526,20 +3525,7 @@ namespace Portal.Consultoras.Web.Controllers
                 seccion.CantidadMostrar = Math.Min(3, seccion.CantidadProductos);
             }
         }
-
-        public ConfiguracionSeccionHomeModel ObtenerSeccionHomePalanca(string codigo, int campaniaId)
-        {
-            var seccion = new ConfiguracionSeccionHomeModel();
-            var modelo = ObtenerConfiguracionSeccion();
-            if (codigo != "") modelo = modelo.Where(m => m.Codigo == codigo).ToList();
-            if (campaniaId > -1)
-            {
-                var modeloX = modelo.Where(m => m.CampaniaID <= campaniaId).OrderByDescending(m => m.CampaniaID).ToList();
-                if (modeloX.Any()) seccion = modeloX[0];
-            }
-            return seccion;
-        }
-
+        
         public bool RDObtenerTitulosSeccion(ref string titulo, ref string subtitulo, string codigo)
         {
             if (codigo == Constantes.ConfiguracionPais.RevistaDigital)
