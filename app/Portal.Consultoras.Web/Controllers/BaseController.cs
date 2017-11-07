@@ -3334,6 +3334,8 @@ namespace Portal.Consultoras.Web.Controllers
                 entConf.ConfiguracionPais.Codigo = Util.Trim(entConf.ConfiguracionPais.Codigo).ToUpper();
 
                 string titulo = "", subTitulo = "";
+                
+                #region Pre Validacion
 
                 if (entConf.ConfiguracionPais.Codigo != "")
                 {
@@ -3370,6 +3372,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (menuActivo.CampaniaId != userData.CampaniaID) entConf.UrlSeccion = "Revisar/" + entConf.UrlSeccion;
                 }
+                
+                #endregion
 
                 RemplazarTagNombreConfiguracionOferta(ref entConf);
 
@@ -3389,6 +3393,8 @@ namespace Portal.Consultoras.Web.Controllers
                 };
 
                 seccion.ImagenFondo = ConfigS3.GetUrlFileS3(carpetaPais, seccion.ImagenFondo);
+
+                #region ConfiguracionPais.Codigo
 
                 switch (entConf.ConfiguracionPais.Codigo)
                 {
@@ -3416,9 +3422,9 @@ namespace Portal.Consultoras.Web.Controllers
                         seccion.UrlLandig = (isMobile ? "/Mobile/" : "/") + (menuActivo.CampaniaId > userData.CampaniaID ? "RevistaDigital/Revisar" : "RevistaDigital/Comprar");
                         seccion.UrlObtenerProductos = "RevistaDigital/RDObtenerProductos";
                         seccion.OrigenPedido = isMobile ? 0 : Constantes.OrigenPedidoWeb.RevistaDigitalDesktopContenedor;
+                        seccion.OrigenPedidoPopup = isMobile ? 0 : Constantes.OrigenPedidoWeb.RevistaDigitalDesktopContenedorPopup;
                         break;
                     case Constantes.ConfiguracionPais.ShowRoom:
-                        
                         ConfiguracionSeccionShowRoom(ref seccion);
                         if (seccion.UrlLandig == "")
                             continue;
@@ -3432,6 +3438,9 @@ namespace Portal.Consultoras.Web.Controllers
                     default:
                         break;
                 }
+                #endregion
+
+                #region TipoPresentacion
 
                 seccion.TemplatePresentacion = "";
                 seccion.TemplateProducto = "";
@@ -3469,7 +3478,8 @@ namespace Portal.Consultoras.Web.Controllers
                         break;
                 }
 
-                if (seccion.TemplatePresentacion == "") continue;                
+                if (seccion.TemplatePresentacion == "") continue;
+                #endregion
 
                 modelo.Add(seccion);
             }
