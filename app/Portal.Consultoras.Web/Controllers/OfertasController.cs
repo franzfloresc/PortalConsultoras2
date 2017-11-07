@@ -18,13 +18,11 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     ListaSeccion = ObtenerConfiguracionSeccion(),
                     MensajeProductoBloqueado = MensajeProductoBloqueado()
-                    
                 };
 
                 var listaShowRoom = (List<BEShowRoomOferta>)Session[Constantes.ConstSession.ListaProductoShowRoom] ?? new List<BEShowRoomOferta>();
                 ViewBag.xlistaProductoSR = listaShowRoom.Count(x => x.EsSubCampania == false);
                 
-
                 return View(modelo);
             }
             catch (Exception ex)
@@ -125,7 +123,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult ActualiarSession(string codigo, int campaniaId)
+        public JsonResult ActualizarSession(string codigo, int campaniaId)
         {
             try
             {
