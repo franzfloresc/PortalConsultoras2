@@ -390,9 +390,16 @@ namespace Portal.Consultoras.Common
             public const int OfertasParaTiDesktopHomePopUp = 1122; // Debe utilizarse
             public const int OfertasParaTiDesktopPedido = 1221;
             public const int OfertasParaTiDesktopPedidoPopUp = 1222; // Debe utilizarse
-            public const int OfertasParaTiMobileHome = 2121;
-            public const int OfertasParaTiMobilePedido = 2221;
+            public const int OfertasParaTiDesktopContenedor	= 1821;
+            public const int OfertasParaTiDesktopContenedorPopup = 1822;
             public const int OfertasParaTiMobileDetalle = 2621;
+            public const int OfertasParaTiMobileHome = 2121;
+            public const int OfertasParaTiMobileHomePopUp = 2122;
+            public const int OfertasParaTiMobilePedido = 2221;
+            public const int OfertasParaTiMobilePedidoPopUp = 2222;
+            public const int OfertasParaTiMobileContenedor = 2821;
+            public const int OfertasParaTiMobileContenedorPopup = 2822;
+
             #endregion
 
             #region CatalogoPersonalizado
@@ -423,6 +430,7 @@ namespace Portal.Consultoras.Common
             public const int DesktopShowRoomProductPageTactica = 1533;
             public const int DesktopShowRoomBienvenida = 1541;
             public const int DesktopShowRoomSubCampanias = 1524;
+            public const int DesktopShowRoomContenedor = 1871;
             public const int MobileShowRoomSubCampanias = 2524;
             public const int MobileShowRoomLandingIntriga = 2511;
             public const int MobileShowRoomLandingCompraTactica = 2522;
@@ -471,6 +479,13 @@ namespace Portal.Consultoras.Common
 
             public const int RevistaDigitalDesktopCatalogoSeccion = 1401;
             public const int RevistaDigitalMobileCatalogoSeccion = 2401;
+
+            public const int RevistaDigitalDesktopContenedor = 1801;
+            public const int RevistaDigitalDesktopContenedorPopup = 1802;
+
+            public const int LanzamientoDesktopContenedor = 1803;
+            public const int LanzamientoDesktopContenedorPopup = 0;
+
             #endregion
 
             #region App
