@@ -45,7 +45,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             if (origenPantalla == Enumeradores.PantallaOrigenPedidoWeb.RevistaDigital)
             {
-                ViewBag.origenPedidoWebEstrategia = Constantes.OrigenPedidoWeb.RevistaDigitalMobileProductPage;
+                ViewBag.origenPedidoWebEstrategia = Constantes.OrigenPedidoWeb.LanzamientoMobileProductPage;
                 ViewBag.Codigo = Constantes.ConfiguracionPais.RevistaDigital;
             }
 

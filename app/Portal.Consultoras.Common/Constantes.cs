@@ -399,7 +399,6 @@ namespace Portal.Consultoras.Common
             public const int OfertasParaTiMobilePedidoPopUp = 2222;
             public const int OfertasParaTiMobileContenedor = 2821;
             public const int OfertasParaTiMobileContenedorPopup = 2822;
-
             #endregion
 
             #region CatalogoPersonalizado
@@ -451,41 +450,44 @@ namespace Portal.Consultoras.Common
 
             #region RevistaDigital
             public const int RevistaDigitalDesktopLanding = 1711;
-            public const int RevistaDigitalDesktopLandingCarrusel = 1721;
             public const int RevistaDigitalDesktopLandingPopUp = 1712;
-            public const int RevistaDigitalDesktopProductPage = 1731;
             public const int RevistaDigitalMobileLanding = 2711;
-            public const int RevistaDigitalMobileLandingCarrusel = 2721;
             public const int RevistaDigitalMobileLandingPopUp = 2712;
-            public const int RevistaDigitalMobileProductPage = 2731;
 
             public const int RevistaDigitalDesktopHomeSeccion = 1101;
             public const int RevistaDigitalDesktopHomePopUp = 1102;
-            public const int RevistaDigitalDesktopHomeLanzamiento = 1103;
-
             public const int RevistaDigitalMobileHomeSeccion = 2101;
             public const int RevistaDigitalMobileHomePopUp = 2102;
-            public const int RevistaDigitalMobileHomeLanzamiento = 2103;
-            public const int RevistaDigitalMobileHomeSeccionOfertas = 2104;
-            public const int RevistaDigitalMobileHomeSeccionMasOfertas = 2105;
 
             public const int RevistaDigitalDesktopPedidoSeccion = 1201;
             public const int RevistaDigitalDesktopPedidoPopUp = 1202;
-            public const int RevistaDigitalDesktopPedidoLanzamiento = 1203;
-
             public const int RevistaDigitalMobilePedidoSeccion = 2201;
             public const int RevistaDigitalMobilePedidoPopUp = 2202;
+            
+            public const int RevistaDigitalDesktopContenedor = 1801;
+            public const int RevistaDigitalDesktopContenedorPopup = 1802;
+            
+            public const int RevistaDigitalDesktopLandingCarrusel = 1721;
+            public const int RevistaDigitalDesktopHomeLanzamiento = 1103;
+            public const int RevistaDigitalMobileHomeLanzamiento = 2103;
+            public const int RevistaDigitalDesktopPedidoLanzamiento = 1203;
             public const int RevistaDigitalMobilePedidoLanzamiento = 2203;
+
+            public const int RevistaDigitalMobileHomeSeccionOfertas = 2104;
+            public const int RevistaDigitalMobileHomeSeccionMasOfertas = 2105;
 
             public const int RevistaDigitalDesktopCatalogoSeccion = 1401;
             public const int RevistaDigitalMobileCatalogoSeccion = 2401;
+            #endregion 
 
-            public const int RevistaDigitalDesktopContenedor = 1801;
-            public const int RevistaDigitalDesktopContenedorPopup = 1802;
+            #region Lanzamiento
+            public const int LanzamientoDesktopProductPage = 1731;
+            public const int LanzamientoMobileProductPage = 2731;
 
             public const int LanzamientoDesktopContenedor = 1803;
-            public const int LanzamientoDesktopContenedorPopup = 0;
-
+            public const int LanzamientoDesktopContenedorPopup = 1804;
+            public const int LanzamientoMobileContenedor = 2721;
+            public const int LanzamientoMobileContenedorPopup = 0;
             #endregion
 
             #region App
@@ -568,7 +570,7 @@ namespace Portal.Consultoras.Common
             public const int GNDDesktopLanding = 1811;
             public const int GNDDesktopLandingPopUp = 1812;
             public const int GNDMobileLanding = 2811;
-            public const int GNDMobileProductPage = 2812;
+            public const int GNDMobileLandingPopup = 2812;
             #endregion
         }
 
