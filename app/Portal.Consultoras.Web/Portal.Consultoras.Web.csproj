@@ -2945,6 +2945,8 @@
     <Content Include="Content\Images\Pop Up Navidad 2-06.png" />
     <Content Include="Content\Images\popup-inscripcion-animacion.gif" />
     <Content Include="Content\Images\popup_esika\gmail.png" />
+    <Content Include="Content\Images\popup_pedido\numero_pedido_mobile_bg.png" />
+    <Content Include="Content\Images\popup_pedido\numero_pedido_site_bg.png" />
     <Content Include="Content\Images\Pop_Up_Navidad_2_01.png" />
     <Content Include="Content\Images\preloader.gif" />
     <Content Include="Content\Images\preview_banner_com.png" />
@@ -3231,6 +3233,8 @@
     <Content Include="Scripts\jquery.custom-scrollbar.js" />
     <Content Include="Scripts\jquery.custom-scrollbar.min.js" />
     <Content Include="Scripts\jquery.easy-pie-chart.js" />
+    <Content Include="Scripts\jquery.lazy.js" />
+    <Content Include="Scripts\jquery.lazy.min.js" />
     <Content Include="Scripts\jquery.maskedinput.min.js" />
     <Content Include="Scripts\jquery.paging.min.js" />
     <Content Include="Scripts\jquery.range.js" />
@@ -3774,7 +3778,7 @@
     </None>
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService1.wsdl" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService11.wsdl" />
-    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService12.wsdl" />
+    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService2.wsdl" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService3.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -3793,22 +3797,21 @@
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService35.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService36.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService37.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService38.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService2.disco" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.disco" />
     <None Include="Service References\ServiceAsesoraOnline\configuration91.svcinfo" />
     <None Include="Service References\ServiceAsesoraOnline\configuration.svcinfo" />
     <None Include="Service References\ServiceAsesoraOnline\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService6.xsd">
+      <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceSAC\SACService.wsdl" />
     <None Include="Service References\ServiceSAC\SACService.xsd">
@@ -3851,6 +3854,7 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService2.disco" />
     <Content Include="Service References\ServiceSeguridad\SeguridadService.wsdl" />
     <None Include="Service References\ServiceSeguridad\SeguridadService.xsd">
       <SubType>Designer</SubType>

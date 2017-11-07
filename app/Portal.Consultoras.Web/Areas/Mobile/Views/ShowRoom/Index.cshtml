@@ -336,11 +336,11 @@ else
                                 <div class="content_imagen_carrusel_compra">
                                     @if (item.ImagenProducto != "")
                                     {
-                                        <img src="@item.ImagenProducto" class="imagen_producto">
+                                        <img data-src="@item.ImagenProducto" class="imagen_producto" data-img-lazy="1" />
                                     }
                                     else
                                     {
-                                        <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" />
+                                        <img data-src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" data-img-lazy="1"/>
                                     }
                                 </div>
                                 <div style="height: 130px;">
@@ -383,9 +383,9 @@ else
             <div class="producto_img_mobile swproddetcompra">
                 <a class="btnVerDetalleOfertaShowRoom swproddetcompraimg" href="{{UrlDetalle}}">
                     {{#IsNullOrEmpty ImagenProducto '=='}}
-                    <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" />
+                    <img data-src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" data-lazy-seccion-showroom=""/>
                     {{else}}
-                    <img src="{{ImagenProducto}}" alt="" onclick="click_producto_showroow('{{Descripcion}}','{{CUV}}','{{PrecioOferta}}','{{DescripcionMarca}}','{{Posicion}}')" />
+                    <img data-src="{{ImagenProducto}}" alt="" onclick="click_producto_showroow('{{Descripcion}}','{{CUV}}','{{PrecioOferta}}','{{DescripcionMarca}}','{{Posicion}}')" data-lazy-seccion-showroom=""/>
                     {{/IsNullOrEmpty}}
                 </a>
             </div>
@@ -448,7 +448,7 @@ else
         </div>
         <div class="set_oferta_content">
             <div class="producto_img_mobile" data-img="">
-                <img src="{{oferta.ImagenProducto}}" alt="" id="img-display-odd">
+                <img src="{{oferta.ImagenProducto}}" alt="Solo Hoy" id="img-display-odd" data-img-lazy="1"/>
             </div>
             <div class="nombre_set_display">{{oferta.Descripcion}}</div>
             <div class="precio_valorizado_mobile">VALORIZADO EN <span>@ViewBag.Simbolo {{oferta.FormatoPrecioValorizado}}</span></div>

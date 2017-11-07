@@ -9,7 +9,7 @@
                         {{#iff lan.TipoEstrategiaDetalle.ImgFichaMobile '!=' ''}}
                         <div>
                             <div class="etiqueta_nuevo_ept">
-                                <img src="{{lan.TipoEstrategiaDetalle.ImgFichaMobile}}" alt="" style="max-height:50px;" />
+                                <img src="{{lan.TipoEstrategiaDetalle.ImgFichaMobile}}" alt="" style="max-height:50px;"/>
                             </div>
                         </div>
                         {{/iff}}
@@ -17,7 +17,7 @@
                         {{#iff lan.TipoEstrategiaDetalle.ImgFichaDesktop '!=' ''}}
                         <div>
                             <div class="etiqueta_nuevo_ept">
-                                <img src="{{lan.TipoEstrategiaDetalle.ImgFichaDesktop}}" alt="" style="max-height:50px;" />
+                                <img src="{{lan.TipoEstrategiaDetalle.ImgFichaDesktop}}" alt="" style="max-height:50px;"/>
                             </div>
                         </div>
                         {{/iff}}
@@ -26,12 +26,12 @@
                     {{#if ../Mobile}} 
                     <div class="content_set_imagen_banner" data-item-tag="foto"
                         onclick="javascript: VerDetalleEstrategia(event);">
-                        <img src="{{lan.FotoProducto01}}" alt="" />
+                        <img src="{{lan.FotoProducto01}}" alt="" data-img-lazy="1"/>
                     </div>
                     {{else}}
                     <div class="content_set_imagen_banner producto_img_home" data-item-tag="foto" style="cursor:pointer"
                         onclick="javascript: VerDetalleEstrategia(event);">
-                        <img src="{{lan.FotoProducto01}}" alt="" />
+                        <img src="{{lan.FotoProducto01}}" alt="" data-img-lazy="1"/>
                         <a href="javascript:;" class="ver_detalle_carrusel" data-item-tag="verdetalle">VER DETALLE</a>
                     </div>
                     {{/if}}
