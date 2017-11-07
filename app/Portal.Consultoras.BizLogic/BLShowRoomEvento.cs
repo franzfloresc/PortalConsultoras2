@@ -86,10 +86,10 @@ namespace Portal.Consultoras.BizLogic
         }
          * */
 
-        public int CargarMasivaDescripcionSets(int paisID, int campaniaID, string usuarioCreacion, List<BEShowRoomOfertaDetalle> listaShowRoomOfertaDetalle)
+        public int CargarMasivaDescripcionSets(int paisID, int campaniaID, string usuarioCreacion, List<BEShowRoomOfertaDetalle> listaShowRoomOfertaDetalle, string nombreArchivoCargado, string nombreArchivoGuardado)
         {
             var dataAccess = new DAShowRoomEvento(paisID);
-            return dataAccess.CargarMasivaDescripcionSets(campaniaID, usuarioCreacion, listaShowRoomOfertaDetalle);
+            return dataAccess.CargarMasivaDescripcionSets(campaniaID, usuarioCreacion, listaShowRoomOfertaDetalle, nombreArchivoCargado, nombreArchivoGuardado);
         }
 
         public int CargarProductoCpc(int paisId, int eventoId, string usuarioCreacion, List<BEShowRoomCompraPorCompra> listaShowRoomCompraPorCompra)
