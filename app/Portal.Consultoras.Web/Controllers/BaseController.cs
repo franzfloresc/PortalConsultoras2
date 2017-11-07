@@ -703,6 +703,22 @@ namespace Portal.Consultoras.Web.Controllers
             ValidateConsultoraOnlineMenu(userData, lst);
 
             var listadoMenu = Mapper.Map<List<MenuMobileModel>>(lst);
+
+            const int MenuMobileRevistasYCatalogos = 1002;
+            if (userData.TieneGND && listadoMenu.Any(x => x.MenuMobileID == MenuMobileRevistasYCatalogos))
+            {
+                var menu = listadoMenu.First(x => x.MenuMobileID == MenuMobileRevistasYCatalogos);
+                IList<BETablaLogicaDatos> revistaDigitalTaablaLogica;
+                using(var sacServiceClient = new SACServiceClient())
+                {
+                    revistaDigitalTaablaLogica = sacServiceClient.GetTablaLogicaDatos(userData.PaisID, Constantes.TablaLogica.RevistaDigital);
+                }
+                if(revistaDigitalTaablaLogica != null && revistaDigitalTaablaLogica.Any())
+                {
+                    menu.Descripcion = revistaDigitalTaablaLogica.First().Codigo;
+                }
+            }
+
             var listadoMenuFinal = new List<MenuMobileModel>();
             foreach (var menu in listadoMenu)
             {
@@ -710,7 +726,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 menu.UrlItem = Util.Trim(menu.UrlItem);
                 menu.UrlImagen = Util.Trim(menu.UrlImagen);
+
                 menu.Descripcion = Util.Trim(menu.Descripcion);
+
                 menu.MenuPadreDescripcion = Util.Trim(menu.MenuPadreDescripcion);
                 menu.Posicion = Util.Trim(menu.Posicion);
 
