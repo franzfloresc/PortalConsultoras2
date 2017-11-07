@@ -25,5 +25,6 @@ namespace Portal.Consultoras.Web.Models
         public string TemplatePresentacion { get; set; }
         public bool VerMas { get; set; }
         public int OrigenPedido { get; set; }
+        public int OrigenPedidoPopup { get; set; }
     }
 }
