@@ -125,31 +125,25 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected virtual IEnumerable<PaisModel> ObtenerPaises()
         {
-            List<BEPais> lst;
+            List<BEPais> paises;
 
             try
             {
                 using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
                 {
-                    lst = sv.SelectPaises().ToList();
+                    paises = sv.SelectPaises().ToList();
                 }
 
-                lst.RemoveAll(p => p.CodigoISO == Constantes.CodigosISOPais.Argentina);
-
-                Mapper.CreateMap<BEPais, PaisModel>()
-                        .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                        .ForMember(t => t.CodigoISO, f => f.MapFrom(c => c.CodigoISO))
-                        .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                        .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
+                paises.RemoveAll(p => p.CodigoISO == Constantes.CodigosISOPais.Argentina);
             }
             catch (Exception ex)
             {
                 Common.LogManager.SaveLog(ex, "ObtenerPaises", "ObtenerPaises");
-                lst = new List<BEPais>();
-                lst.Add(new BEPais { PaisID = -1, Nombre = ex.Message + " - StackTrace => " + ex.StackTrace + " - InnerException => " + ex.InnerException });
+                paises = new List<BEPais>();
+                paises.Add(new BEPais { PaisID = -1, Nombre = ex.Message + " - StackTrace => " + ex.StackTrace + " - InnerException => " + ex.InnerException });
             }
-
-            return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
+            var paisesModel = Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(paises);
+            return paisesModel;
         }
 
         protected List<EventoFestivoModel> ObtenerEventoFestivo(int paisID, string Alcance, int Campania)
