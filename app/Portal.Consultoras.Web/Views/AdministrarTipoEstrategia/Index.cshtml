@@ -454,12 +454,23 @@
                         }
                     }
 
+					// BPT-369
+					if ($("#chkValImg").attr("checked")) {
+                        if ($("#txtPesoMaximoImagen").val() == "" || $("#txtPesoMaximoImagen").val() == "0") {
+                            alert("Debe Ingresar un tamaño en Kb mayor a 0 de la imagen a validar.");
+                            return false;
+                        }
+                    }
+
+					
                     var flagNueva = ($("#chkNueva").attr("checked")) ? "1" : "0";
                     var flagRecoPerfil = ($("#chkRecoPerfil").attr("checked")) ? "1" : "0";
                     var flagRecoProduc = ($("#chkRecoProduc").attr("checked")) ? "1" : "0";
                     var codigoPrograma = flagNueva ? $("#txtCodigoPrograma").val() : null;
                     var flagMostrarImg = ($("#chkMostrarImg").attr("checked")) ? "1" : "0";
                     var flagMostrarImgIndependiente = ($("#chkMostrarImgIndependiente").attr("checked")) ? true : false;
+					var flagValidarImagen = ($("#chkValImg").attr("checked")) ? "1" : "0";
+					var pesoMaximoImagen = flagValidarImagen ? $("#txtPesoMaximoImagen").val() : "0";
 
 
                     var params = {
@@ -475,6 +486,8 @@
                         FlagRecoProduc: flagRecoProduc,
                         CodigoPrograma: codigoPrograma,
                         FlagMostrarImg: flagMostrarImg,
+						FlagValidarImagen: flagValidarImagen,
+						PesoMaximoImagen: pesoMaximoImagen,
                         MostrarImgOfertaIndependiente: flagMostrarImgIndependiente,
                         ImagenOfertaIndependiente: imagenOfertaIndependiente,
                         ImagenOfertaIndependienteAnterior: imagenOfertaIndependienteAnterior

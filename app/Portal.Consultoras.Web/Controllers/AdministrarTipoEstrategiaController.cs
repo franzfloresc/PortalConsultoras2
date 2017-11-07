@@ -284,14 +284,18 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         /* SB2-353 - INICIO */
+        // Cambio en la firma de la accion se añadieron 2 parametros FlagValidarImagen y PesoMaximoImagen BPT-369
         [HttpPost]
         public JsonResult Registrar(string TipoEstrategiaID, string DescripcionEstrategia,
                         string ImagenEstrategia, string Orden,
                         string FlagActivo, string OfertaID, string imagenAnterior,
                         string FlagNueva, string FlagRecoProduc, string FlagRecoPerfil,
                         string CodigoPrograma, string FlagMostrarImg,
+                        string FlagValidarImagen,
+                        string PesoMaximoImagen,
                         bool MostrarImgOfertaIndependiente = false, string ImagenOfertaIndependiente = "", 
-                        string ImagenOfertaIndependienteAnterior = "")
+                        string ImagenOfertaIndependienteAnterior = ""
+                        )
         {
             int resultado = 0;
             string operacion = "registró";
@@ -314,8 +318,10 @@ namespace Portal.Consultoras.Web.Controllers
                 entidad.FlagMostrarImg = Convert.ToInt32(FlagMostrarImg);    // SB20-353
                 entidad.MostrarImgOfertaIndependiente = MostrarImgOfertaIndependiente;
                 entidad.ImagenOfertaIndependiente = ImagenOfertaIndependiente;
+                entidad.FlagValidarImagen = Convert.ToInt32(FlagValidarImagen); // BPT-369
+                entidad.PesoMaximoImagen = Convert.ToInt32(PesoMaximoImagen); // BPT-369
 
-                //entidad
+
                 if (ImagenEstrategia != "")
                 {
                     if (imagenAnterior != ImagenEstrategia)
