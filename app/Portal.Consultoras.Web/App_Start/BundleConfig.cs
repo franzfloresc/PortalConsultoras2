@@ -180,7 +180,6 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Site/asesora-online.css",
                "~/Content/Css/Mobile/Esika/misDatos.css",
                "~/Content/Css/Mobile/Esika/revistaDigital.css",
-               "~/Content/Css/Mobile/Esika/cdr.css",
                "~/Content/Css/Mobile/Esika/seccion-descarga-imprime.css",
                "~/Content/Css/Mobile/calc.css"
                ));
@@ -195,7 +194,6 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Site/slick.css",
                "~/Content/Css/Mobile/lbel/misDatos.css",
                "~/Content/Css/Mobile/Lbel/revistaDigital.css",
-               "~/Content/Css/Mobile/Lbel/cdr.css",
                "~/Content/Css/Mobile/Lbel/seccion-descarga-imprime.css",
                "~/Content/Css/Mobile/calc.css"
                ));
