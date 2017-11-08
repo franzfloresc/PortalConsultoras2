@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Portal.Consultoras.Web.ServicesCalculosPROL;
 
 namespace Portal.Consultoras.Web.SessionManager
 {
@@ -229,6 +230,16 @@ namespace Portal.Consultoras.Web.SessionManager
         UsuarioModel ISessionManager.GetUserData()
         {
             return (UsuarioModel)HttpContext.Current.Session["UserData"];
+        }
+        
+        void ISessionManager.SetMontosProl(List<ObjMontosProl> montosProl)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.PROL_CalculoMontosProl] = montosProl;
+        }
+
+        List<ObjMontosProl> ISessionManager.GetMontosProl()
+        {
+            return (List<ObjMontosProl>)HttpContext.Current.Session[Constantes.ConstSession.PROL_CalculoMontosProl];
         }
     }
 }

@@ -1762,8 +1762,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                     sv.InsPedidoWebDetalleOferta(entidad);
 
-                    Session["PedidoWeb"] = null;
-                    Session["PedidoWebDetalle"] = null;
+                    sessionManager.SetPedidoWeb(null);
+                    sessionManager.SetDetallesPedido(null);
                 }
 
                 UpdPedidoWebMontosPROL();
@@ -1863,8 +1863,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                     sv.InsPedidoWebDetalleOferta(entidad);
 
-                    Session["PedidoWeb"] = null;
-                    Session["PedidoWebDetalle"] = null;
+                    sessionManager.SetPedidoWeb(null);
+                    sessionManager.SetDetallesPedido(null);
                 }
 
                 UpdPedidoWebMontosPROL();
@@ -2656,10 +2656,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
             }
-            Mapper.CreateMap<BEPais, PaisModel>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
@@ -3486,8 +3482,8 @@ namespace Portal.Consultoras.Web.Controllers
             if (listaShowRoomOferta != null)
             {
                 List<Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle> detalle = new List<Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle>();
-                if (Session["PedidoWebDetalle"] != null)
-                    detalle = (List<Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle>)Session["PedidoWebDetalle"];
+                if (sessionManager.GetDetallesPedido() != null)
+                    detalle = sessionManager.GetDetallesPedido();
                 if (detalle.Count > 0)
                 {
                     for (int i = 0; i <= listaShowRoomOferta.Count - 1; i++)

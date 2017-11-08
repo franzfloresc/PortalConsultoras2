@@ -48,11 +48,6 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst = new List<BEPais>();
             lst.Add(new BEPais { PaisID = 0, Nombre = "Todos", NombreCorto = "Todos" });
 
-            Mapper.CreateMap<BEPais, PaisModel>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
-
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
 

@@ -18,13 +18,11 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     ListaSeccion = ObtenerConfiguracionSeccion(),
                     MensajeProductoBloqueado = MensajeProductoBloqueado()
-                    
                 };
 
                 var listaShowRoom = (List<BEShowRoomOferta>)Session[Constantes.ConstSession.ListaProductoShowRoom] ?? new List<BEShowRoomOferta>();
                 ViewBag.xlistaProductoSR = listaShowRoom.Count(x => x.EsSubCampania == false);
                 
-
                 return View(modelo);
             }
             catch (Exception ex)
@@ -103,29 +101,9 @@ namespace Portal.Consultoras.Web.Controllers
 
             return model;
         }
-
+        
         [HttpPost]
-        public JsonResult ObtenerSeccion(string codigo, int campaniaId)
-        {
-            try
-            {
-                var seccion = ObtenerSeccionHomePalanca(codigo, campaniaId);
-
-                return Json(new
-                {
-                    seccion = seccion
-                }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-
-                return Json(new ConfiguracionSeccionHomeModel());
-            }
-        }
-
-        [HttpPost]
-        public JsonResult ActualiarSession(string codigo, int campaniaId)
+        public JsonResult ActualizarSession(string codigo, int campaniaId)
         {
             try
             {

@@ -65,7 +65,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
                 if (isInsert > 0)
                 {
-                    Session["PedidoWebDetalle"] = null;
+                    sessionManager.SetDetallesPedido(null);
                     lstPedidoWebDetalle = ObtenerPedidoWebDetalle();
 
                     UpdPedidoWebMontosPROL();
