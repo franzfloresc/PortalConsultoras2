@@ -36018,7 +36018,7 @@ h1#penmostreo .campana {
     min-height: 308px;
     margin:0 auto;
     background:white;  
-    padding-top:18px;  
+    /*padding-top:18px;*/  
 }
 .titulo_regalo_sorpresa{
     font-family:'Lato';
