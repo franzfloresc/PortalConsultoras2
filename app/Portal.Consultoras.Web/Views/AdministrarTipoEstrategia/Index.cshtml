@@ -34,12 +34,17 @@
             $("#hdImagenOfertaIndependiente").val("");
             $("#hdImagenOfertaIndependienteAnterior").val("");
 
+
             $("#hdTipoEstrategiaID").val("0");
             $("#txtCodigoPrograma").prop('disabled', true).val("");
 
             $("#chkMostrarImg").attr("checked", false);
             $("#chkMostrarImgIndependiente").attr("checked", false);
             $(".divOfertaIndependiente").hide();
+
+			//BPT-369
+			$("#chkValImg").attr("checked", false);
+			$("#txtPesoMaximoImagen").val("");
 
             fnGrillaOfertas('0');
             showDialog("DialogAdministracionTipoEstrategia");
@@ -93,6 +98,20 @@
                 $("#txtCodigoPrograma").val(null);
             }
         });
+
+		//BPT-369
+		$("#chkValImg").click(function () {
+            if ($("#chkValImg").attr('checked')) {
+                $("#txtPesoMaximoImagen").attr('disabled', false);
+                $("#txtPesoMaximoImagen").val(null);
+            }
+			else
+			{
+				$("#txtPesoMaximoImagen").attr('disabled', true);
+			}
+        });
+
+
         $("#btnAgregarOferta").click(function () {
 
             var ofertaID = $("#hdofertaid").val();
@@ -178,7 +197,7 @@
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
-            colNames: ['TipoEstrategiaID', 'Tipo de Estrategia', 'Ofertas', 'Orden', 'Imagen', 'OfertaID', 'Acción', '', '', '', 'CodigoPrograma', 'FlagMostrarImg', 'MostrarImgOfertaIndependiente','ImagenOfertaIndependiente'],
+            colNames: ['TipoEstrategiaID', 'Tipo de Estrategia', 'Ofertas', 'Orden', 'Imagen', 'OfertaID', 'Acción', '', '', '', 'CodigoPrograma', 'FlagMostrarImg', 'MostrarImgOfertaIndependiente','ImagenOfertaIndependiente','FlagValidarImagen', 'PesoMaximoImagen'],
             colModel: [
                 { name: 'TipoEstrategiaID', index: 'TipoEstrategiaID', width: 20, editable: true, resizable: false, hidden: true },
                 { name: 'DescripcionEstrategia', index: 'DescripcionEstrategia', width: 180, editable: true, resizable: false, hidden: false },
@@ -193,7 +212,9 @@
                 { name: 'CodigoPrograma', index: 'CodigoPrograma', width: 0, editable: true, resizable: false, hidden: true },
                 { name: 'FlagMostrarImg', index: 'FlagMostrarImg', width: 0, editable: true, resizable: false, hidden: true },
                 { name: 'MostrarImgOfertaIndependiente', index: 'MostrarImgOfertaIndependiente', width: 0, editable: false, resizable: false, hidden: true },
-                { name: 'ImagenOfertaIndependiente', index: 'ImagenOfertaIndependiente', width: 0, editable: false, resizable: false, hidden: true, formatter: ShowImage  }
+                { name: 'ImagenOfertaIndependiente', index: 'ImagenOfertaIndependiente', width: 0, editable: false, resizable: false, hidden: true, formatter: ShowImage  },
+				{ name: 'FlagValidarImagen', index: 'FlagValidarImagen', width: 0, editable: true, resizable: false, hidden: true },
+				{ name: 'PesoMaximoImagen', index: 'PesoMaximoImagen', width: 180, editable: true, resizable: false, hidden: true },
             ],
             jsonReader:
             {
@@ -288,7 +309,8 @@
 
     function ShowActions(cellvalue, options, rowObject) {
         var cellValueInt = parseInt(cellvalue);
-        var Des = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + rowObject[0] + "','" + rowObject[1] + "','" + rowObject[3] + "','" + rowObject[4] + "','" + rowObject[5] + "','" + rowObject[6] + "','" + rowObject[10] + "','" + rowObject[11] + "','" + rowObject[12] + "','" + rowObject[13]+ "');\" >" + "<img src='@Url.Content("~/Content/Images/Edit.png")' alt='Editar Mensaje' title='Editar Mensaje' border='0' /></a>";
+        //var Des = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + rowObject[0] + "','" + rowObject[1] + "','" + rowObject[3] + "','" + rowObject[4] + "','" + rowObject[5] + "','" + rowObject[6] + "','" + rowObject[10] + "','" + rowObject[11] + "','" + rowObject[12] + "','" + rowObject[13]+ "');\" >" + "<img src='@Url.Content("~/Content/Images/Edit.png")' alt='Editar Mensaje' title='Editar Mensaje' border='0' /></a>";
+		var Des = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + rowObject[0] + "','" + rowObject[1] + "','" + rowObject[3] + "','" + rowObject[4] + "','" + rowObject[5] + "','" + rowObject[6] + "','" + rowObject[10] + "','" + rowObject[11] + "','" + rowObject[12] + "','" + rowObject[13]+ "','" + rowObject[14]+ "','" + rowObject[15]+ "');\" >" + "<img src='@Url.Content("~/Content/Images/Edit.png")' alt='Editar Mensaje' title='Editar Mensaje' border='0' /></a>";
         Des += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + rowObject[0] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Delete.png")' alt='Eliminar Mensaje' title='Eliminar Mensaje' border='0' /></a>";
         return Des;
     }
@@ -555,7 +577,7 @@
     }
 
     $.jgrid.extend({
-        Editar: function (id, descripcion, orden, imagen, ofertas, flagactivo, codigoPrograma, flagMostrarImg, MostrarImgOfertaIndependiente, ImagenOfertaIndependiente) {
+        Editar: function (id, descripcion, orden, imagen, ofertas, flagactivo, codigoPrograma, flagMostrarImg, MostrarImgOfertaIndependiente, ImagenOfertaIndependiente, flagValidarImagen, pesoMaximoImagen) {
             if (id) {
 
                 $("#txtPaisModal").val($("#ddlPais option:selected").html());
@@ -578,6 +600,17 @@
 
                 imgOfertaIndependiente = imgOfertaIndependiente.replace(/^.*[\\\/]/, '');
 
+
+				
+				//BPT 369
+				var flagValidarImagen = jQuery("#list").jqGrid('getCell', id, 'FlagValidarImagen');
+				$("#chkValImg").attr("checked", (flagValidarImagen == "1") ? true : false);
+
+				//BPT 369
+				$("#txtPesoMaximoImagen").val(pesoMaximoImagen);
+
+				
+
                 if (imgOfertaIndependiente.length > 0) {
                     $('#hdImagenOfertaIndependiente').val(imgOfertaIndependiente);
                     $('#hdImagenOfertaIndependienteAnterior').val(imgOfertaIndependiente);
@@ -587,6 +620,7 @@
                 var flagRecoProduc = jQuery("#list").jqGrid('getCell', id, 'FlagRecoProduc');
                 var flagRecoPerfil = jQuery("#list").jqGrid('getCell', id, 'FlagRecoPerfil');
                 var flagImagenOfertaIndependiente = jQuery("#list").jqGrid('getCell', id, 'MostrarImgOfertaIndependiente');
+
 
                 $('#chkNueva').attr("checked", (flagNueva == "1") ? true : false);
                 $('#chkRecoProduc').attr("checked", (flagRecoProduc == "1") ? true : false);
@@ -612,6 +646,13 @@
                     $(".divOfertaIndependiente").show();
                 } else {
                     $(".divOfertaIndependiente").hide();
+                }
+
+				//BPT-369
+				if (flagValidarImagen == "1") {
+                   $("#txtPesoMaximoImagen").prop('disabled', false);
+                } else {
+                    $("#txtPesoMaximoImagen").prop('disabled', true);
                 }
 
                 fnGrillaOfertas(id);
@@ -740,6 +781,20 @@
                 <input type="text" id="txtCodigoPrograma" />
             </div>
         </div>
+
+		<div class="div-3">
+		    <div class="titB">Validar Tamaño :</div>
+                <div class="selectCheck borde_redondeado">
+                <input type="checkbox" id="chkValImg" />
+            </div>
+            <div class="titB">Tamaño (Kb):</div>
+                <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtPesoMaximoImagen" />
+            </div>
+
+        </div>
+
+
         <div class="div-3">
             <div class="titA"></div>
             <div class="titG">

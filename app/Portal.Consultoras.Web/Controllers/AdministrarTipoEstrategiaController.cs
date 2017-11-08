@@ -49,7 +49,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     lst = new List<BETipoEstrategia>();
                 }
-
+                
                 string carpetapais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
 
                 if (lst != null && lst.Count > 0)
@@ -124,7 +124,9 @@ namespace Portal.Consultoras.Web.Controllers
                                    string.IsNullOrEmpty( a.CodigoPrograma) ? string.Empty: a.CodigoPrograma.ToString(),
                                    a.FlagMostrarImg.ToString(),     // SB20-353
                                    a.MostrarImgOfertaIndependiente.ToInt().ToString(),
-                                   a.ImagenOfertaIndependiente
+                                   a.ImagenOfertaIndependiente,
+                                   a.FlagValidarImagen.ToString(),
+                                   a.PesoMaximoImagen.ToString()
                                 }
                            }
                 };
