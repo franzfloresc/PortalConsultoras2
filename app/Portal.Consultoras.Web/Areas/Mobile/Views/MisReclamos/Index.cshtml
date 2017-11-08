@@ -47,6 +47,9 @@
             <span class="mensaje_vista_cdr tipografia_lato_regular">
                 Si tuviste inconvenientes con algún producto y estás dentro del <a href="@Model.UrlPoliticaCdr" class="plazo_permitido" title="Detalle de plazo permitido" target="_blank">plazo permitido</a> sigue estos pasos:
             </span>
+            <span class="mensaje_test_IOS">
+                Este es un span para probar funcionalidad IOS
+            </span>
             <input type="button" title="Registrar Solicitud" class="btn_registrar_solicitud_cdr tipografia_lato_bold" value="REGISTRAR SOLICITUD" id="IrPaso1">
             @if (@Model.ListaCDRWeb.Count() > 1)
             {
@@ -112,7 +115,7 @@
                     <input type="hidden" class="cdrweb_CantidadAprobados" value="@item.CantidadAprobados" />
                     <input type="hidden" class="cdrweb_CantidadRechazados" value="@item.CantidadRechazados" />
 
-                    <a class="datos_solicitud_cdr abrir_detallemb">
+                    <div class="datos_solicitud_cdr abrir_detallemb" style="background-color:blue;">
                         <div class="fecha_solicitud tipografia_lato_light">
                             @formatoFechaAtencion
                         </div>
@@ -132,13 +135,13 @@
                                 <span class="productos_rechazados">@cantRechazados</span>
                             }
                         </div>
-                    </a>
+                    </div>
                     <!-- ESTADO SOLICITUD PENDIENTE -->
-                    <a class="estado_registro_solicitud_cdr abrir_detallemb @claseEstado">
+                    <div class="estado_registro_solicitud_cdr abrir_detallemb @claseEstado" style="background-color:red;">
                         @item.EstadoDescripcion
-                    </a>
+                    </div>
                     <!-- FIN ESTADO SOLICITUD PENDIENTE -->
-                    <div class="icono_busqueda abrir_detallemb">
+                    <div class="icono_busqueda abrir_detallemb" style="background-color:yellow;">
                         <a title="Ver solicitud" class="enlace_ver_solicitud_cdr">
                             <img src="~/Content/Images/icono_lupa.png" alt="Ver solicitud" />
                         </a>

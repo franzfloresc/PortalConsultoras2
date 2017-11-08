@@ -39,51 +39,53 @@ $(document).ready(function () {
                 });
 
                 $(document).on("click", me.Variables.VerDetalleCDR, function () {
-                    var elemento = $(this);
-                    var parent = $(elemento).parents(".registro_solicitud_cdr");
-                    var _OrigenDetalle = "1";
-                    var _CDRWebID = $(parent).find(me.Variables.cdrweb_id).val();
-                    var _PedidoID = $(parent).find(me.Variables.cdrweb_pedidoid).val();
-                    var _Estado = $(parent).find(me.Variables.cdrweb_estado).val();
-                    var _FechaCulminado = $(parent).find(me.Variables.cdrweb_formatoFechaCulminado).val();
-                    var _Campania = $(parent).find(me.Variables.cdrweb_formatocampania).val();
-                    var _CantidadAprobados = $(parent).find(me.Variables.cdrweb_CantidadAprobados).val();
-                    var _CantidadRechazados = $(parent).find(me.Variables.cdrweb_CantidadRechazados).val();
+                    $('.mensaje_test_IOS').text('reconoce el click');
+                    $('.mensaje_test_IOS').text($(this).html());
+                    //var elemento = $(this);
+                    //var parent = $(elemento).parents(".registro_solicitud_cdr");
+                    //var _OrigenDetalle = "1";
+                    //var _CDRWebID = $(parent).find(me.Variables.cdrweb_id).val();
+                    //var _PedidoID = $(parent).find(me.Variables.cdrweb_pedidoid).val();
+                    //var _Estado = $(parent).find(me.Variables.cdrweb_estado).val();
+                    //var _FechaCulminado = $(parent).find(me.Variables.cdrweb_formatoFechaCulminado).val();
+                    //var _Campania = $(parent).find(me.Variables.cdrweb_formatocampania).val();
+                    //var _CantidadAprobados = $(parent).find(me.Variables.cdrweb_CantidadAprobados).val();
+                    //var _CantidadRechazados = $(parent).find(me.Variables.cdrweb_CantidadRechazados).val();
 
-                    if (_Estado === "1") {
-                        window.location.href = urlReclamo + "?pedidoId=" + _PedidoID;
-                    } else {
-                        var obj = {
-                            OrigenCDRDetalle: _OrigenDetalle,
-                            CDRWebID: _CDRWebID,
-                            PedidoID: _PedidoID,
-                            FormatoFechaCulminado: _FechaCulminado,
-                            FormatoCampaniaID: _Campania,
-                            CantidadAprobados: _CantidadAprobados,
-                            CantidadRechazados: _CantidadRechazados
-                        };
+                    //if (_Estado === "1") {
+                    //    window.location.href = urlReclamo + "?pedidoId=" + _PedidoID;
+                    //} else {
+                    //    var obj = {
+                    //        OrigenCDRDetalle: _OrigenDetalle,
+                    //        CDRWebID: _CDRWebID,
+                    //        PedidoID: _PedidoID,
+                    //        FormatoFechaCulminado: _FechaCulminado,
+                    //        FormatoCampaniaID: _Campania,
+                    //        CantidadAprobados: _CantidadAprobados,
+                    //        CantidadRechazados: _CantidadRechazados
+                    //    };
 
-                        ShowLoading();
-                        $.ajax({
-                            type: 'Post',
-                            url: urlValidarCargaDetalle,
-                            data: JSON.stringify(obj),
-                            dataType: 'json',
-                            contentType: 'application/json; charset=utf-8',
-                            success: function (data) {
-                                CloseLoading();
-                                if (checkTimeout(data)) {
-                                    if (data.success == true)
-                                        window.location.href = baseUrl + "Mobile/MisReclamos/Detalle";
-                                }
-                            },
-                            error: function (data, error) {
-                                CloseLoading();
-                                if (checkTimeout(data))
-                                    cerrarRechazado = '0';
-                            }
-                        });
-                    }
+                    //    ShowLoading();
+                    //    $.ajax({
+                    //        type: 'Post',
+                    //        url: urlValidarCargaDetalle,
+                    //        data: JSON.stringify(obj),
+                    //        dataType: 'json',
+                    //        contentType: 'application/json; charset=utf-8',
+                    //        success: function (data) {
+                    //            CloseLoading();
+                    //            if (checkTimeout(data)) {
+                    //                if (data.success == true)
+                    //                    window.location.href = baseUrl + "Mobile/MisReclamos/Detalle";
+                    //            }
+                    //        },
+                    //        error: function (data, error) {
+                    //            CloseLoading();
+                    //            if (checkTimeout(data))
+                    //                cerrarRechazado = '0';
+                    //        }
+                    //    });
+                    //}
                 });
             }
         };
