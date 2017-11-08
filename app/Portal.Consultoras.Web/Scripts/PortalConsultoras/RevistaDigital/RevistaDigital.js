@@ -299,6 +299,10 @@ function OfertaArmarEstrategias(response) {
     if (response.cantidadTotal == 0) {
         divProd.find('#no-productos').show();
     }
+
+    /*Logica para agregar atributos para el EfectoLazy*/
+    EstablecerAccionLazyImagen("img[data-lazy-seccion-revista-digital]");
+
     //ResizeBoxContnet();
     divProd.find("#spnCantidadFiltro").html(cantProdFiltros);
     divProd.find("#spnCantidadTotal").html(response.cantidadTotal);

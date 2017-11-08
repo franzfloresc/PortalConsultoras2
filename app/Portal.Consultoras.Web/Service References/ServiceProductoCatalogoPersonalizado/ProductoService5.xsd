@@ -84,6 +84,7 @@
       <xs:element minOccurs="0" name="MontoPedido" type="xs:double" />
       <xs:element minOccurs="0" name="RegaloDescripcion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="RegaloImagenUrl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoRango" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="RegaloOfertaFinal" nillable="true" type="tns:RegaloOfertaFinal" />

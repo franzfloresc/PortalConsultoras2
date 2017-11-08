@@ -20,6 +20,7 @@ namespace Portal.Consultoras.Web.Controllers
                     MensajeProductoBloqueado = MensajeProductoBloqueado()
                 };
                 
+                ViewBag.IconoLLuvia = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
                 return View(modelo);
             }
             catch (Exception ex)

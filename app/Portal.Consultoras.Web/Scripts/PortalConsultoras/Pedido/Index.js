@@ -470,6 +470,7 @@ $(document).ready(function () {
     CargarAutocomplete();
     MostrarBarra();
     CargarDialogMesajePostulantePedido();
+    EstablecerAccionLazyImagen("img[data-lazy-seccion-banner-pedido]");
 });
 
 function CargarDetallePedido(page, rows) {
@@ -2211,6 +2212,7 @@ function EjecutarServicioPROL() {
 
                 var codigoMensajeProl = response.data.CodigoMensajeProl;
                 var cumpleOferta;
+
                 if (response.data.Reserva == true) {
                     if (response.data.ZonaValida == true) {
                         if (response.data.ObservacionInformativa == false) {
