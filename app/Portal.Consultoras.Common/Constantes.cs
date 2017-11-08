@@ -439,7 +439,8 @@ namespace Portal.Consultoras.Common
             public const int MobileShowRoom = 2571;
             #endregion
 
-            #region OfertaDelDia
+            #region OfertaDelDia 
+            // no tulizan estas variables, todo estos estan en la logica en ofertaDelDia.js
             public const int OfertaDelDiaDesktopHomeBanner = 1191;
             public const int OfertaDelDiaDesktopHomeDisplay = 1192;
             public const int OfertaDelDiaDesktopPedidoBanner = 1291;
