@@ -170,15 +170,17 @@ namespace Portal.Consultoras.Web
             bundles.Add(new StyleBundle("~/Content/Css/Site/Lbel/Contenedor").Include("~/Content/Css/Site/Lbel/Contenedor.css"));
 
             bundles.Add(new StyleBundle("~/Content/Css/Mobile/esika/CssSB2Mobile").Include(
-               "~/Content/Css/Mobile/esika/icomon.css",
-               "~/Content/Css/Mobile/esika/menu.css",
-               "~/Content/Css/Mobile/esika/style.css",
-               "~/Content/Css/Mobile/esika/theme.css",
+               "~/Content/Css/Mobile/Esika/icomon.css",
+               "~/Content/Css/Mobile/Esika/menu.css",
+               "~/Content/Css/Mobile/Esika/style.css",
+               "~/Content/Css/Mobile/Esika/theme.css",
                "~/Content/Css/Mobile/flexslider.css",
                "~/Content/Css/Mobile/flipclock.css",
                "~/Content/Css/Site/slick.css",
                "~/Content/Css/Site/asesora-online.css",
-               "~/Content/Css/Mobile/esika/misDatos.css",
+               "~/Content/Css/Mobile/Esika/misDatos.css",
+               "~/Content/Css/Mobile/Esika/revistaDigital.css",
+               "~/Content/Css/Mobile/Esika/cdr.css",
                "~/Content/Css/Mobile/Esika/seccion-descarga-imprime.css",
                "~/Content/Css/Mobile/calc.css"
                ));
@@ -193,12 +195,13 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Site/slick.css",
                "~/Content/Css/Mobile/lbel/misDatos.css",
                "~/Content/Css/Mobile/Lbel/revistaDigital.css",
+               "~/Content/Css/Mobile/Lbel/cdr.css",
                "~/Content/Css/Mobile/Lbel/seccion-descarga-imprime.css",
                "~/Content/Css/Mobile/calc.css"
                ));
 
             bundles.Add(new StyleBundle("~/Content/Css/Site/CssBienvenida").Include(
-                "~/Content/Css/Mobile/esika/bootstrap-slider.min.css",
+                "~/Content/Css/Mobile/Esika/bootstrap-slider.min.css",
                 "~/Content/Css/Site/jquery.rateyo.css",
                 "~/Content/Css/Site/flexslider.css"
             ));
