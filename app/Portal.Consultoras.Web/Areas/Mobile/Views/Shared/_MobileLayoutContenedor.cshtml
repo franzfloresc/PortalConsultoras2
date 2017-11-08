@@ -46,6 +46,10 @@
 
     @RenderSection("styles", required: false)
 
+    @if (TempData.ContainsKey("PixelCodigoIso"))
+    {
+        <noscript id="noscript-pixel-image"></noscript>
+    }
 </head>
 <body>
     <!-- Google Tag Manager -->
@@ -623,5 +627,14 @@
     </script>
     @RenderSection("scripts", required: false)
     @{Html.PlaceScripts();}
+    @if (TempData.ContainsKey("PixelCodigoIso"))
+    {
+        @System.Web.Optimization.Scripts.Render("~/bundles/JS-Login-Header")
+        <script>
+            var pixelAnalytics = Analytics();
+            pixelAnalytics.invocarEventoPixelById('@(TempData["PixelMarcacion"])', '@(TempData["PixelId"])');
+        </script>
+        @TempData.Remove("PixelCodigoIso");
+    }
 </body>
 </html>

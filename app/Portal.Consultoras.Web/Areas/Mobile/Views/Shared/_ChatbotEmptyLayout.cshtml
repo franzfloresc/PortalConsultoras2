@@ -25,6 +25,11 @@
         var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))' == "True";
     </script>
     @RenderSection("styles", required: false)
+
+    @if (TempData.ContainsKey("PixelCodigoIso"))
+    {
+        <noscript id="noscript-pixel-image"></noscript>
+    }
 </head>
 <body>
     <!-- Google Tag Manager -->
@@ -307,5 +312,14 @@
         var usuarioNombre = '@ViewBag.UsuarioNombre';
     </script>
     @RenderSection("scripts", required: false)
+    @if (TempData.ContainsKey("PixelCodigoIso"))
+    {
+        @System.Web.Optimization.Scripts.Render("~/bundles/JS-Login-Header")
+        <script>
+            var pixelAnalytics = Analytics();
+            pixelAnalytics.invocarEventoPixelById('@(TempData["PixelMarcacion"])', '@(TempData["PixelId"])');
+        </script>
+        @TempData.Remove("PixelCodigoIso");
+    }
 </body>
 </html>
