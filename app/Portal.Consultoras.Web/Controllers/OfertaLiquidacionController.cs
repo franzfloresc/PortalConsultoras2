@@ -221,7 +221,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     sv.InsPedidoWebDetalleOferta(entidad);
 
-                    Session["PedidoWeb"] = null;
+                    sessionManager.SetPedidoWeb(null);
                     sessionManager.SetDetallesPedido(null);
                 }
 

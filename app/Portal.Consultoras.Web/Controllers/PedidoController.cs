@@ -1040,7 +1040,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 if (EliminacionMasiva)
                 {
-                    Session["PedidoWeb"] = null;
+                    sessionManager.SetPedidoWeb(null);
                     sessionManager.SetDetallesPedido(null);
                     Session[Constantes.ConstSession.ListaEstrategia] = null;
 
