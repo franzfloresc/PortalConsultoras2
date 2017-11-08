@@ -244,10 +244,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.SelectPaises();
             }
-            Mapper.CreateMap<BEPais, PaisModel>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
