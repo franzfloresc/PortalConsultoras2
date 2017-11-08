@@ -214,7 +214,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             List<BEPedidoWebDetalle> listaPedidoWebDetalle = new List<BEPedidoWebDetalle>();
 
-            if (Session["PedidoWebDetalle"] == null)
+            if (sessionManager.GetDetallesPedido() == null)
             {
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
@@ -223,7 +223,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             else
             {
-                listaPedidoWebDetalle = (List<BEPedidoWebDetalle>)Session["PedidoWebDetalle"];
+                listaPedidoWebDetalle = sessionManager.GetDetallesPedido();
             }
 
             return (listaPedidoWebDetalle.Any(x => x.CodigoCatalago == Constantes.TipoOfertasPlan20.OfertaFinal || x.CodigoCatalago == Constantes.TipoOfertasPlan20.Showroom || x.CodigoCatalago == Constantes.TipoOfertasPlan20.OPT || x.CodigoCatalago == Constantes.TipoOfertasPlan20.ODD));

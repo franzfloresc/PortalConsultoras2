@@ -221,8 +221,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                     sv.InsPedidoWebDetalleOferta(entidad);
 
-                    Session["PedidoWeb"] = null;
-                    Session["PedidoWebDetalle"] = null;
+                    sessionManager.SetPedidoWeb(null);
+                    sessionManager.SetDetallesPedido(null);
                 }
 
                 UpdPedidoWebMontosPROL();
@@ -481,10 +481,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
             }
-            Mapper.CreateMap<BEPais, PaisModel>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }

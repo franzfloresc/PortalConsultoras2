@@ -437,7 +437,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         if (userData.CambioClave == 0 && userData.IndicadorContrato == 0 && userData.CodigoISO.Equals(Constantes.CodigosISOPais.Colombia))
                         {
-                            if (Session["IsContrato"] != null && Convert.ToInt32(Session["IsContrato"]) == 1)
+                            if (sessionManager.GetIsContrato() == 1)
                             {
                                 TipoPopUpMostrar = Constantes.TipoPopUp.AceptacionContrato;
                                 break;
@@ -1708,10 +1708,6 @@ namespace Portal.Consultoras.Web.Controllers
                     lst.Add(sv.SelectPais(UserData().PaisID));
                 }
             }
-            Mapper.CreateMap<BEPais, PaisModel>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }

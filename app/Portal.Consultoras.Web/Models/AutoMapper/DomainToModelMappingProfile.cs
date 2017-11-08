@@ -222,7 +222,13 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             
             Mapper.CreateMap<BEConfiguracionOfertasHome, ConfiguracionSeccionHomeModel>();
 
-            Mapper.CreateMap<BEPais, PaisModel>();
+            Mapper.CreateMap<BEPais, PaisModel>()
+                .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
+                .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto))
+                .ForMember(t => t.CodigoISO, f => f.MapFrom(c => c.CodigoISO))
+                ;
+
             Mapper.CreateMap<BECampania, CampaniaModel>();
             Mapper.CreateMap<RegaloOfertaFinal, RegaloOfertaFinalModel>();
             
@@ -254,6 +260,11 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<ServiceUsuario.BEEventoFestivo, EventoFestivoModel>();
 
             Mapper.CreateMap<BETracking, SeguimientoMobileModel>();
+            Mapper.CreateMap<BEDescripcionEstrategia, DescripcionEstrategiaModel>();
+            Mapper.CreateMap<BETipoLink, TipoLinkModel>()
+                  .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                  .ForMember(t => t.TipoLinkID, f => f.MapFrom(c => c.TipoLinkID))
+                  .ForMember(t => t.Url, f => f.MapFrom(c => c.Url));
         }
     }
 }

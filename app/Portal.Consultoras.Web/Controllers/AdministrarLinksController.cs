@@ -61,10 +61,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
             }
-            Mapper.CreateMap<BEPais, PaisModel>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
@@ -359,7 +355,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private List<PermisoModel> BuildMenuConsultoras()
         {
-            //if (Session["UserData"] != null)
+            //if (sessionManager.GetUserData() != null)
             //{
             int PaisID = UserData().PaisID;
             // se quiere ver el menú para la consultora
@@ -395,7 +391,7 @@ namespace Portal.Consultoras.Web.Controllers
         private List<ServicioCampaniaModel> BuildMenuServiceConsultoras()
         {
             // TODO: que campaña pasar?
-            if (Session["UserData"] != null)
+            if (sessionManager.GetUserData() != null)
             {
                 int Campaniaid = UserData().CampaniaID;
                 IList<ServiceSAC.BEServicioCampania> lst = new List<ServiceSAC.BEServicioCampania>();

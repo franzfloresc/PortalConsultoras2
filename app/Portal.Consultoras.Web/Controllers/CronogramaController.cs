@@ -99,7 +99,7 @@ namespace Portal.Consultoras.Web.Controllers
                 List<BELogActualizacionFacturacion> lst;
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-                    UsuarioModel usuarioModel = Session["UserData"] as UsuarioModel;
+                    UsuarioModel usuarioModel = sessionManager.GetUserData();
 
                     // se obtiene la fecha de fin de facturacion (fecha de inicio + dias de duracion del cronograma)
                     BEConfiguracionValidacion configuracionValidacion = sv.GetConfiguracionValidacion(UserData().PaisID, Convert.ToInt32("201301"))[0];
@@ -752,10 +752,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
             }
-            Mapper.CreateMap<BEPais, PaisModel>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }

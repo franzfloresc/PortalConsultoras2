@@ -1,0 +1,2 @@
+-- para desktop y mobile
+-- delete from MenuMobile where  Essb2 = 0

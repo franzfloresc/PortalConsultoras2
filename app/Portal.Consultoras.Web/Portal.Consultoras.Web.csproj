@@ -196,7 +196,6 @@
     <Compile Include="Areas\Mobile\Controllers\MiAsesorBellezaController.cs" />
     <Compile Include="Areas\Mobile\Controllers\MisPedidosController.cs" />
     <Compile Include="Areas\Mobile\Controllers\MisReclamosController.cs" />
-    <Compile Include="Areas\Mobile\Controllers\NovedadesCampaniaController.cs" />
     <Compile Include="Areas\Mobile\Controllers\BaseMobileController.cs" />
     <Compile Include="Areas\Mobile\Controllers\BienvenidaController.cs" />
     <Compile Include="Areas\Mobile\Controllers\CatalogoController.cs" />
@@ -418,6 +417,8 @@
     <Compile Include="Models\ClienteOnlineDetalleModel.cs" />
     <Compile Include="Models\ClienteSb2Model.cs" />
     <Compile Include="Models\BarraConsultoraModel.cs" />
+    <Compile Include="Models\DescripcionEstrategiaModel.cs" />
+    <Compile Include="Models\DescripcionMasivoModel.cs" />
     <Compile Include="Models\EventoFestivoDataModel.cs" />
     <Compile Include="Models\EventoFestivoModel.cs" />
     <Compile Include="Models\FichaProductoDetalleModel.cs" />
@@ -3381,7 +3382,6 @@
     <Content Include="Areas\Mobile\Views\Shared\_MobileMenuFooter.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\_MobileMenuLateral.cshtml" />
     <Content Include="Areas\Mobile\Views\Web.config" />
-    <Content Include="Areas\Mobile\Views\NovedadesCampania\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\Catalogo\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\Cliente\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\Paypal\Index.cshtml" />
@@ -3578,7 +3578,6 @@
     <Content Include="Areas\Mobile\Views\Shared\_MobileLayoutContenedor.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\_MenuContenedorOferta.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-simple-centrado.cshtml" />
-    <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-carrusel-previsuales.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-showroom.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-banner.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-oferta-del-dia.cshtml" />
@@ -3598,6 +3597,7 @@
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloquePopupPostulante.cshtml" />
     <Content Include="Areas\Mobile\Views\RevistaDigital\Revista.cshtml" />
     <Content Include="Areas\Mobile\Views\GuiaNegocio\Index.cshtml" />
+    <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-carrusel-previsuales.cshtml" />
     <Content Include="Content\FAQ\CodigoEticaCAPEVEDI_PE.pdf" />
     <Content Include="Content\FAQ\QUIZCAPEVEDI_PE.pdf" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
@@ -4395,7 +4395,6 @@
     <Content Include="Views\AdministrarPalanca\Index.cshtml" />
     <Content Include="Views\AdministrarPalanca\Partials\MantenimientoPalanca.cshtml" />
     <Content Include="Views\Shared\_MainLayoutContenedor.cshtml" />
-    <Content Include="Views\EstrategiaPersonalizada\presentacion-carrusel-previsuales.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-simple-centrado.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\presentacion-carrusel-previsuales-producto.cshtml" />
     <Content Include="Views\AdministrarPalanca\Partials\MantenimientoOfertasHome.cshtml" />
@@ -4428,6 +4427,7 @@
     <Content Include="Views\GuiaNegocio\Index.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\template-producto-landing.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-descargables-navidenos.cshtml" />
+    <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-carrusel-previsuales.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

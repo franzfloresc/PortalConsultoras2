@@ -5,12 +5,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Portal.Consultoras.Web.ServicesCalculosPROL;
 
 namespace Portal.Consultoras.Web.SessionManager
 {
     public class SessionManager : ISessionManager
     {
         private static ISessionManager _instance;
+
+        public SessionManager()
+        {
+        }
 
         public static ISessionManager Instance
         {
@@ -104,6 +109,136 @@ namespace Portal.Consultoras.Web.SessionManager
         RevistaDigitalModel ISessionManager.GetRevistaDigital()
         {
             return (RevistaDigitalModel)HttpContext.Current.Session[Constantes.ConstSession.RevistaDigital];
+        }
+
+        void ISessionManager.SetIsContrato(int isContrato)
+        {
+            HttpContext.Current.Session["IsContrato"] = isContrato;
+        }
+
+        int ISessionManager.GetIsContrato()
+        {
+            return (int)HttpContext.Current.Session["IsContrato"];
+        }
+
+        void ISessionManager.SetIsOfertaPack(int isOfertaPack)
+        {
+            HttpContext.Current.Session["IsOfertaPack"] = isOfertaPack;
+        }
+
+        int ISessionManager.GetIsOfertaPack()
+        {
+            return (int)HttpContext.Current.Session["IsOfertaPack"];
+        }
+
+        void ISessionManager.SetConfiguracionesPaisModel(List<ConfiguracionPaisModel> configuracionesPais)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.ConfiguracionPaises] = configuracionesPais;
+        }
+
+        List<ConfiguracionPaisModel> ISessionManager.GetConfiguracionesPaisModel()
+        {
+            return (List<ConfiguracionPaisModel>)HttpContext.Current.Session[Constantes.ConstSession.ConfiguracionPaises];
+        }
+
+        void ISessionManager.SetOfertaFinalModel(OfertaFinalModel ofertaFinalModel)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.OfertaFinal] = ofertaFinalModel;
+        }
+
+        OfertaFinalModel ISessionManager.GetOfertaFinalModel()
+        {
+            return (OfertaFinalModel)HttpContext.Current.Session[Constantes.ConstSession.OfertaFinal];
+        }
+
+        void ISessionManager.SetEventoFestivoDataModel(EventoFestivoDataModel eventoFestivoDataModel)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.EventoFestivo] = eventoFestivoDataModel;
+        }
+
+        EventoFestivoDataModel ISessionManager.GetEventoFestivoDataModel()
+        {
+            return (EventoFestivoDataModel)HttpContext.Current.Session[Constantes.ConstSession.EventoFestivo];
+        }
+
+        void ISessionManager.SetTieneLan(bool tieneLan)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.TieneLan] = tieneLan;
+        }
+
+        bool ISessionManager.GetTieneLan()
+        {
+            return (bool)(HttpContext.Current.Session[Constantes.ConstSession.TieneLan] ?? false);
+        }
+
+        void ISessionManager.SetTieneLanX1(bool tieneLanX1)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.TieneLanX1] = tieneLanX1;
+        }
+
+        bool ISessionManager.GetTieneLanX1()
+        {
+            return (bool)(HttpContext.Current.Session[Constantes.ConstSession.TieneLanX1] ?? false);
+        }
+
+        void ISessionManager.SetTieneOpt(bool tieneOpt)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.TieneOpt] = tieneOpt;
+        }
+
+        bool ISessionManager.GetTieneOpt()
+        {
+            return (bool)(HttpContext.Current.Session[Constantes.ConstSession.TieneOpt] ?? false);
+        }
+
+        void ISessionManager.SetTieneOpm(bool tieneOpm)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.TieneOpm] = tieneOpm;
+        }
+
+        bool ISessionManager.GetTieneOpm()
+        {
+            return (bool)(HttpContext.Current.Session[Constantes.ConstSession.TieneOpm] ?? false);
+        }
+
+        void ISessionManager.SetTieneOpmX1(bool tieneOpmX1)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.TieneOpmX1] = tieneOpmX1;
+        }
+
+        bool ISessionManager.GetTieneOpmX1()
+        {
+            return (bool)(HttpContext.Current.Session[Constantes.ConstSession.TieneOpmX1] ?? false);
+        }
+
+        public void SetTieneRdr(bool tieneRdr)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.TieneRdr] = tieneRdr;
+        }
+
+        public bool GetTieneRdr()
+        {
+            return (bool)(HttpContext.Current.Session[Constantes.ConstSession.TieneRdr] ?? false);
+        }
+
+        void ISessionManager.SetUserData(UsuarioModel usuario)
+        {
+            HttpContext.Current.Session["UserData"] = usuario;
+        }
+
+        UsuarioModel ISessionManager.GetUserData()
+        {
+            return (UsuarioModel)HttpContext.Current.Session["UserData"];
+        }
+        
+        void ISessionManager.SetMontosProl(List<ObjMontosProl> montosProl)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.PROL_CalculoMontosProl] = montosProl;
+        }
+
+        List<ObjMontosProl> ISessionManager.GetMontosProl()
+        {
+            return (List<ObjMontosProl>)HttpContext.Current.Session[Constantes.ConstSession.PROL_CalculoMontosProl];
         }
     }
 }

@@ -98,44 +98,24 @@ namespace Portal.Consultoras.Web.Controllers
 
             return model;
         }
-
+        
         [HttpPost]
-        public JsonResult ObtenerSeccion(string codigo, int campaniaId)
-        {
-            try
-            {
-                var seccion = ObtenerSeccionHomePalanca(codigo, campaniaId);
-
-                return Json(new
-                {
-                    seccion = seccion
-                }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-
-                return Json(new ConfiguracionSeccionHomeModel());
-            }
-        }
-
-        [HttpPost]
-        public JsonResult ActualiarSession(string codigo, int campaniaId)
+        public JsonResult ActualizarSession(string codigo, int campaniaId)
         {
             try
             {
                 if (campaniaId == userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.Lanzamiento))
-                    Session[Constantes.ConstSession.TieneLan] = false;
+                    sessionManager.SetTieneLan(false);
                 else if (campaniaId != userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.Lanzamiento))
-                    Session[Constantes.ConstSession.TieneLanX1] = false;
+                    sessionManager.SetTieneLanX1(false);
                 else if (campaniaId == userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.OfertasParaTi))
-                    Session[Constantes.ConstSession.TieneOpt] = false;
+                    sessionManager.SetTieneOpt(false);
                 else if (campaniaId == userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.RevistaDigital))
-                    Session[Constantes.ConstSession.TieneOpm] = false;
+                    sessionManager.SetTieneOpm(false);
                 else if (campaniaId != userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.RevistaDigital))
-                    Session[Constantes.ConstSession.TieneOpmX1] = false;
+                    sessionManager.SetTieneOpmX1(false);
                 else if (campaniaId == userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.RevistaDigitalReducida))
-                    Session[Constantes.ConstSession.TieneRdr] = false;
+                    sessionManager.SetTieneRdr(false);
                 return Json(new
                 {
                     estado = "Ok"

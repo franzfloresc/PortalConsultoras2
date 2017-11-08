@@ -1451,5 +1451,13 @@ namespace Portal.Consultoras.Service
             return bl.GetListarSeccion(paisId, campaniaId);
         }
         #endregion
+
+        #region DescripcionEstrategia
+        public List<BEDescripcionEstrategia> ActualizarDescripcionEstrategia(int paisId, int campaniaId, int tipoEstrategiaId, List<BEDescripcionEstrategia> listaDescripcionEstrategias)
+        {
+            var bl = new BLAdministrarEstrategia();
+            return bl.ActualizarDescripcionEstrategia(paisId, campaniaId, tipoEstrategiaId, listaDescripcionEstrategias);
+        }
+        #endregion
     }
 }

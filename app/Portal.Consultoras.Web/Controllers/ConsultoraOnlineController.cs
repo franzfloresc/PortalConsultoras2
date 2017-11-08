@@ -1168,7 +1168,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }// foreach
                 }
 
-                Session["PedidoWebDetalle"] = null;
+                sessionManager.SetDetallesPedido(null);
                 string emailDe = ConfigurationManager.AppSettings["ConsultoraOnlineEmailDe"];
 
                 //Inicio GR-1385
@@ -1430,7 +1430,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                var pedidoWebDetalleNula = Session["PedidoWebDetalle"] == null;
+                var pedidoWebDetalleNula = sessionManager.GetDetallesPedido() == null;
 
                 olstTempListado = ObtenerPedidoWebDetalle();
 
@@ -1541,7 +1541,7 @@ namespace Portal.Consultoras.Web.Controllers
                         //    break;
                 }
 
-                Session["PedidoWebDetalle"] = null;
+                sessionManager.SetDetallesPedido(null);
 
                 olstTempListado = ObtenerPedidoWebDetalle();
                 ErrorServer = false;

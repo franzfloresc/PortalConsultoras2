@@ -913,7 +913,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                List<BEPedidoWebDetalle> ListaPedidoWebDetalle = (List<BEPedidoWebDetalle>)Session["PedidoWebDetalle"] ?? new List<BEPedidoWebDetalle>();
+                List<BEPedidoWebDetalle> ListaPedidoWebDetalle = sessionManager.GetDetallesPedido() ?? new List<BEPedidoWebDetalle>();
                 BEPedidoWebDetalle pedidoEliminado = ListaPedidoWebDetalle.FirstOrDefault(x => x.CUV == CUV);
                 if (pedidoEliminado == null) return ErrorJson(Constantes.MensajesError.DeletePedido_CuvNoExiste);
 
@@ -1040,8 +1040,8 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 if (EliminacionMasiva)
                 {
-                    Session["PedidoWeb"] = null;
-                    Session["PedidoWebDetalle"] = null;
+                    sessionManager.SetPedidoWeb(null);
+                    sessionManager.SetDetallesPedido(null);
                     Session[Constantes.ConstSession.ListaEstrategia] = null;
 
                     UpdPedidoWebMontosPROL();
@@ -1101,7 +1101,7 @@ namespace Portal.Consultoras.Web.Controllers
                 decimal totalCliente = 0;
                 string formatoTotalCliente = "";
 
-                Session["PedidoWebDetalle"] = null;
+                sessionManager.SetDetallesPedido(null);
                 var olstPedidoWebDetalle = ObtenerPedidoWebDetalle();
                 total = olstPedidoWebDetalle.Sum(p => p.ImporteTotal);
                 formatoTotal = Util.DecimalToStringFormat(total, userData.CodigoISO);
@@ -1393,7 +1393,7 @@ namespace Portal.Consultoras.Web.Controllers
                         DeletePedido(item);
                     }
                 }
-                Session["PedidoWebDetalle"] = null;
+                sessionManager.SetDetallesPedido(null);
             }
         }
         #endregion
@@ -1820,7 +1820,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult InsertarPedidoCuvBanner(string CUV, int CantCUVpedido, int origenPedidoWeb)
+        public JsonResult InsertarPedidoCuvBanner(string CUV, int CantCUVpedido)
         {
             List<BEProducto> olstProducto = new List<BEProducto>();
             List<ProductoModel> olstProductoModel = new List<ProductoModel>();
@@ -1875,7 +1875,7 @@ namespace Portal.Consultoras.Web.Controllers
                 oBEPedidoWebDetalle.DescripcionEstrategia = olstProducto[0].DescripcionEstrategia;
                 oBEPedidoWebDetalle.Categoria = olstProducto[0].DescripcionCategoria;
 
-                oBEPedidoWebDetalle.OrigenPedidoWeb = origenPedidoWeb;
+                oBEPedidoWebDetalle.OrigenPedidoWeb = Constantes.OrigenPedidoWeb.BannerDesktopHome;
 
                 IList<BEPedidoWebService> olstCuvMarquesina = null;
                 using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -2191,12 +2191,18 @@ namespace Portal.Consultoras.Web.Controllers
                 sessionManager.SetDetallesPedido(null);
                 if (resultado.RefreshMontosProl)
                 {
-                    Session[Constantes.ConstSession.PROL_CalculoMontosProl] = new List<ObjMontosProl> { new ObjMontosProl {
-                    AhorroCatalogo = resultado.MontoAhorroCatalogo.ToString(),
-                    AhorroRevista = resultado.MontoAhorroRevista.ToString(),
-                    MontoTotalDescuento = resultado.MontoDescuento.ToString(),
-                    MontoEscala = resultado.MontoEscala.ToString()
-                } };
+                    sessionManager.SetMontosProl(
+                        new List<ObjMontosProl>
+                        {
+                            new ObjMontosProl
+                            {
+                                AhorroCatalogo = resultado.MontoAhorroCatalogo.ToString(),
+                                AhorroRevista = resultado.MontoAhorroRevista.ToString(),
+                                MontoTotalDescuento = resultado.MontoDescuento.ToString(),
+                                MontoEscala = resultado.MontoEscala.ToString()
+                            }
+                        }
+                    );
                 }
                 if (resultado.ResultadoReservaEnum != EnumeradoresResultadoReserva.ReservaNoDisponible)
                 {
@@ -3040,7 +3046,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                var pedidoWebDetalleNula = Session["PedidoWebDetalle"] == null;
+                var pedidoWebDetalleNula = sessionManager.GetDetallesPedido() == null;
 
                 olstTempListado = ObtenerPedidoWebDetalle();
 
@@ -3399,7 +3405,7 @@ namespace Portal.Consultoras.Web.Controllers
         public int BuildFechaNoHabil()
         {
             int result = 0;
-            if (Session["UserData"] != null)
+            if (sessionManager.GetUserData() != null)
             {
                 int PaisID = userData.PaisID;
                 int RolID = userData.RolID;
@@ -3624,7 +3630,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         if (isInsert > 0)
                         {
-                            Session["PedidoWebDetalle"] = null;
+                            sessionManager.SetDetallesPedido(null);
                             listaDetalle = ObtenerPedidoWebDetalle();
 
                             UpdPedidoWebMontosPROL();
@@ -4039,7 +4045,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 userData.CloseOfertaDelDia = true;
-                Session["UserData"] = userData;
+                sessionManager.SetUserData(userData);
 
                 return Json(new
                 {
@@ -4100,7 +4106,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 userData.CloseBannerPL20 = true;
 
-                Session["UserData"] = userData;
+                sessionManager.SetUserData(userData);
 
                 return Json(new
                 {
