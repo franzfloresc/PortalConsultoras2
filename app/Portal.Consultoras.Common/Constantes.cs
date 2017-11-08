@@ -449,10 +449,6 @@ namespace Portal.Consultoras.Common
             #endregion
 
             #region RevistaDigital
-            public const int RevistaDigitalDesktopLanding = 1711;
-            public const int RevistaDigitalDesktopLandingPopUp = 1712;
-            public const int RevistaDigitalMobileLanding = 2711;
-            public const int RevistaDigitalMobileLandingPopUp = 2712;
 
             public const int RevistaDigitalDesktopHomeSeccion = 1101;
             public const int RevistaDigitalDesktopHomePopUp = 1102;
@@ -464,16 +460,21 @@ namespace Portal.Consultoras.Common
             public const int RevistaDigitalMobilePedidoSeccion = 2201;
             public const int RevistaDigitalMobilePedidoPopUp = 2202;
             
+            public const int RevistaDigitalDesktopLanding = 1711;
+            public const int RevistaDigitalDesktopLandingPopUp = 1712;
+            public const int RevistaDigitalMobileLanding = 2711;
+            public const int RevistaDigitalMobileLandingPopUp = 2712;
+
             public const int RevistaDigitalDesktopContenedor = 1801;
             public const int RevistaDigitalDesktopContenedorPopup = 1802;
             
             public const int RevistaDigitalDesktopLandingCarrusel = 1721;
             public const int RevistaDigitalDesktopHomeLanzamiento = 1103;
-            public const int RevistaDigitalMobileHomeLanzamiento = 2103;
+            public const int RevistaDigitalMobileHomeLanzamiento = 2103; // para rediccecionar a Mobile/OfertasParaTi/Detalle
             public const int RevistaDigitalDesktopPedidoLanzamiento = 1203;
             public const int RevistaDigitalMobilePedidoLanzamiento = 2203;
 
-            public const int RevistaDigitalMobileHomeSeccionOfertas = 2104;
+            public const int RevistaDigitalMobileHomeSeccionOfertas = 2104; // para rediccecionar metodo RedireccionarContenedorComprar
             public const int RevistaDigitalMobileHomeSeccionMasOfertas = 2105;
 
             public const int RevistaDigitalDesktopCatalogoSeccion = 1401;
@@ -486,8 +487,9 @@ namespace Portal.Consultoras.Common
 
             public const int LanzamientoDesktopContenedor = 1803;
             public const int LanzamientoDesktopContenedorPopup = 1804;
+            public const int LanzamientoMobileHomePopup = 2104; // inserta a pedido
             public const int LanzamientoMobileContenedor = 2721;
-            public const int LanzamientoMobileContenedorPopup = 0;
+            public const int LanzamientoMobileContenedorPopup = 2722;
             #endregion
 
             #region App

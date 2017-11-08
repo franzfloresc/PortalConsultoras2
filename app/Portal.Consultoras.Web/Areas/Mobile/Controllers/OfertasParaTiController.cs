@@ -29,26 +29,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var origenPantalla = GetPantallaOrigenPedidoWeb(origen);
 
             if (modelo == null || modelo.EstrategiaID <= 0)
-            {
                 return GetRedirectTo(origenPantalla);
-            }
 
             ViewBag.OrigenUrl = GetActionTo(origenPantalla);
             ViewBag.EstadoSuscripcion = revistaDigital.SuscripcionModel.EstadoRegistro;
             ViewBag.CampaniaMasDos = AddCampaniaAndNumero(userData.CampaniaID, 2) % 100;
 
-            ViewBag.origenPedidoWebEstrategia = origen;
-            if (origenPantalla == Enumeradores.PantallaOrigenPedidoWeb.Default)
-            {
-                ViewBag.origenPedidoWebEstrategia = Constantes.OrigenPedidoWeb.OfertasParaTiMobileDetalle;
-            }
-
-            if (origenPantalla == Enumeradores.PantallaOrigenPedidoWeb.RevistaDigital)
-            {
-                ViewBag.origenPedidoWebEstrategia = Constantes.OrigenPedidoWeb.LanzamientoMobileProductPage;
-                ViewBag.Codigo = Constantes.ConfiguracionPais.RevistaDigital;
-            }
-
+            ViewBag.origenPedidoWebEstrategia = GetOrigenPedidoWebDetalle(origen);
             return View(modelo);
         }
 
@@ -62,9 +49,56 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             var pantalla = Enumeradores.PantallaOrigenPedidoWeb.Default;
 
-            Enum.TryParse<Enumeradores.PantallaOrigenPedidoWeb>(pantallaString,out pantalla);
+            Enum.TryParse<Enumeradores.PantallaOrigenPedidoWeb>(pantallaString, out pantalla);
 
             return pantalla;
+        }
+        
+        public virtual int GetOrigenPedidoWebDetalle(int origenPantalla)
+        {
+            var result = 0;
+
+            switch (origenPantalla)
+            {
+                case Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome:
+                    result = Constantes.OrigenPedidoWeb.OfertasParaTiMobileHomePopUp;
+                    break;
+                case Constantes.OrigenPedidoWeb.OfertasParaTiMobilePedido:
+                    result = Constantes.OrigenPedidoWeb.OfertasParaTiMobilePedidoPopUp;
+                    break;
+                case Constantes.OrigenPedidoWeb.OfertasParaTiMobileContenedor:
+                    result = Constantes.OrigenPedidoWeb.OfertasParaTiMobileContenedorPopup;
+                    break;
+
+                case Constantes.OrigenPedidoWeb.CatalogoPersonalizadoMobile:
+                    result = Constantes.OrigenPedidoWeb.CatalogoPersonalizadoMobilePopUp;
+                    break;
+
+                case Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion:
+                    result = Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomePopUp;
+                    break;
+                case Constantes.OrigenPedidoWeb.RevistaDigitalMobilePedidoSeccion:
+                    result = Constantes.OrigenPedidoWeb.RevistaDigitalMobilePedidoPopUp;
+                    break;
+                case Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding:
+                    result = Constantes.OrigenPedidoWeb.RevistaDigitalMobileLandingPopUp;
+                    break;
+
+                case Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeLanzamiento:
+                    result = Constantes.OrigenPedidoWeb.LanzamientoMobileHomePopup;
+                    break;
+                case Constantes.OrigenPedidoWeb.LanzamientoMobileContenedor:
+                    result = Constantes.OrigenPedidoWeb.LanzamientoMobileContenedorPopup;
+                    break;
+
+                case Constantes.OrigenPedidoWeb.GNDMobileLanding:
+                    result = Constantes.OrigenPedidoWeb.GNDMobileLandingPopup;
+                    break;
+            }
+            
+            result = result == 0 ? Constantes.OrigenPedidoWeb.OfertasParaTiMobileDetalle : result;
+
+            return result;
         }
 
         public virtual ActionResult GetRedirectTo(Enumeradores.PantallaOrigenPedidoWeb origenPantalla)

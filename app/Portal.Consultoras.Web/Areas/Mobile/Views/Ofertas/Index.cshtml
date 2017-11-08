@@ -13,13 +13,15 @@
 }
 @foreach (var seccion in Model.ListaSeccion)
 {
-    <div data-seccion="@seccion.Codigo" 
+    <div data-seccion="@seccion.Codigo"
          data-campania="@seccion.CampaniaID"
          data-url="@seccion.UrlObtenerProductos"
          data-templateProducto="@seccion.TemplateProducto"
          data-tipoPresentacion="@seccion.TipoPresentacion"
          data-tipoEstrategia="@seccion.TipoEstrategia"
          data-cantidadProductos="@seccion.CantidadMostrar"
+         data-OrigenPedidoWeb="@seccion.OrigenPedido"
+         data-OrigenPedidoWeb-popup="@seccion.OrigenPedidoPopup"
          id="@seccion.Codigo" >
         <div data-seccion-content="" class="seccion-content-contenedor">
             @Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/presentacion-" + seccion.TemplatePresentacion + ".cshtml", seccion)
