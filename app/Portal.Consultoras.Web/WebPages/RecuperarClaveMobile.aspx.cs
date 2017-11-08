@@ -227,7 +227,7 @@ namespace Portal.Consultoras.Web.WebPages
                 }
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return serializer.Serialize(new
                 {

@@ -1,17 +1,16 @@
-﻿using Portal.Consultoras.Web.Models;
+﻿using AutoMapper;
+using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServiceContenido;
+using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServiceUsuario;
+using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.ServiceContenido;
-using Portal.Consultoras.Web.ServiceZonificacion;
-using AutoMapper;
 using System.Net;
-using Portal.Consultoras.Web.ServiceUsuario;
 using System.ServiceModel;
-using Portal.Consultoras.Web.ServicePedido;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -26,7 +25,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!UsuarioModel.HasAcces(ViewBag.Permiso, "GestionContenido/Index"))
                     return RedirectToAction("Index", "Bienvenida");
             }
-            catch (FaultException ex) 
+            catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
             }
@@ -56,7 +55,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 Entidad = entidad
             }, JsonRequestBehavior.AllowGet);
-              
+
         }
 
         public ActionResult FondoLogin()
@@ -188,12 +187,12 @@ namespace Portal.Consultoras.Web.Controllers
                 pedidoWebDetalle
                     .Take(CANTIDAD_ULTIMOS_DETALLES_PEDIDO)
                     .Each(d => ultimosTresPedidos.Add(new PedidoDetalleCarritoModel
-                {
-                    Cantidad = d.Cantidad,
-                    DescripcionLarga = d.DescripcionLarga,
-                    DescripcionProd = d.DescripcionProd,
-                    ImporteTotal = d.ImporteTotal
-                }));
+                    {
+                        Cantidad = d.Cantidad,
+                        DescripcionLarga = d.DescripcionLarga,
+                        DescripcionProd = d.DescripcionProd,
+                        ImporteTotal = d.ImporteTotal
+                    }));
             }
 
             return ultimosTresPedidos;
@@ -797,7 +796,7 @@ namespace Portal.Consultoras.Web.Controllers
                            select new
                            {
                                id = a.FormularioDatoID,
-                               cell = new string[] 
+                               cell = new string[]
                                {
                                    a.Descripcion,
                                    a.URL

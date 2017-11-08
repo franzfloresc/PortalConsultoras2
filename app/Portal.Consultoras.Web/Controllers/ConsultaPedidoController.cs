@@ -10,10 +10,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Reflection;
 using System.ServiceModel;
-using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 
@@ -29,10 +27,10 @@ namespace Portal.Consultoras.Web.Controllers
             var model = new ConsultaPedidoModel();
             try
             {
-                IEnumerable<CampaniaModel> lstCampania = new List<CampaniaModel>() { 
+                IEnumerable<CampaniaModel> lstCampania = new List<CampaniaModel>() {
                                 new CampaniaModel() {
-                                    CampaniaID = 0, 
-                                    Codigo = "-- Seleccionar --" 
+                                    CampaniaID = 0,
+                                    Codigo = "-- Seleccionar --"
                                 }};
                 IEnumerable<RegionModel> lstRegion = new List<RegionModel>();
                 //{ 
@@ -119,28 +117,28 @@ namespace Portal.Consultoras.Web.Controllers
                 string sortorder = lista[20];
                 string rowNum = lista[21];
 
-                IEnumerable<CampaniaModel> lstCampania = new List<CampaniaModel>() { 
+                IEnumerable<CampaniaModel> lstCampania = new List<CampaniaModel>() {
                                 new CampaniaModel() {
-                                    CampaniaID = Convert.ToInt32((string.IsNullOrEmpty(Campaniaddl_val) ? "0" : Campaniaddl_val)), 
-                                    Codigo = Campaniaddl 
-                                } 
+                                    CampaniaID = Convert.ToInt32((string.IsNullOrEmpty(Campaniaddl_val) ? "0" : Campaniaddl_val)),
+                                    Codigo = Campaniaddl
+                                }
             };
-                IEnumerable<RegionModel> lstRegion = new List<RegionModel>() { 
+                IEnumerable<RegionModel> lstRegion = new List<RegionModel>() {
                                 new RegionModel() {
-                                    RegionID = Convert.ToInt32((string.IsNullOrEmpty(Regionddl_val) ? "0" :Regionddl_val )), 
-                                    Codigo = Regionddl 
-                                } 
+                                    RegionID = Convert.ToInt32((string.IsNullOrEmpty(Regionddl_val) ? "0" :Regionddl_val )),
+                                    Codigo = Regionddl
+                                }
             };
-                IEnumerable<ZonaModel> lstZona = new List<ZonaModel>() { 
+                IEnumerable<ZonaModel> lstZona = new List<ZonaModel>() {
                                 new ZonaModel() {
-                                    ZonaID = Convert.ToInt32((string.IsNullOrEmpty(Zonaddl_val) ? "0" :Zonaddl_val)), 
-                                    Codigo = Zonaddl 
-                                } 
+                                    ZonaID = Convert.ToInt32((string.IsNullOrEmpty(Zonaddl_val) ? "0" :Zonaddl_val)),
+                                    Codigo = Zonaddl
+                                }
             };
-                IEnumerable<PaisModel> listaPaises = new List<PaisModel>() { 
+                IEnumerable<PaisModel> listaPaises = new List<PaisModel>() {
                                 new PaisModel() {
-                                    PaisID = Convert.ToInt32(Paisddl_val), 
-                                    Nombre = Paisddl 
+                                    PaisID = Convert.ToInt32(Paisddl_val),
+                                    Nombre = Paisddl
                                 }
             };
                 model = new ConsultaPedidoModel()
@@ -437,7 +435,7 @@ namespace Portal.Consultoras.Web.Controllers
                                            a.Cantidad.ToString(),
                                            (UserData().PaisID == 4)? a.PrecioUnidad.ToString("#,##0").Replace(',','.') : a.PrecioUnidad.ToString("0.00"), // Validación colombia req. 1478
                                            (UserData().PaisID == 4)? a.ImporteTotal.ToString("#,##0").Replace(',','.') : a.ImporteTotal.ToString("0.00")
-                                           
+
                                        }
                            }
                 };

@@ -81,7 +81,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.ActivacionAppCatalogoWhastUp = ObtenerActivacionAppCatalogoWhastUp();
                 model.CampaniaMasDos = AddCampaniaAndNumero(Convert.ToInt32(model.NumeroCampania), 2);
                 model.ShowRoomMostrarLista = ValidarPermiso(Constantes.MenuCodigo.CatalogoPersonalizado) ? 0 : 1;
-                
+
                 ViewBag.paisISO = userData.CodigoISO;
                 ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("BUCKET_NAME") ?? string.Empty;
                 ViewBag.NombreConsultora = model.NombreConsultora;
@@ -236,7 +236,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             nombreConsultoraFAV = nombreConsultoraFAV.First().ToString().ToUpper() + nombreConsultoraFAV.ToLower().Substring(1);
             return nombreConsultoraFAV;
         }
-        
+
         [HttpPost]
         public JsonResult ValidacionConsultoraDA()
         {
@@ -321,7 +321,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
             }
             ViewBag.UrlBelcorpChatPais = url;
-            return Redirect(url);           
+            return Redirect(url);
         }
 
         [HttpGet]

@@ -3,7 +3,6 @@ using System;
 using System.Data;
 using System.Runtime.Serialization;
 
-// RQ 2295 Mejoras en Catalogos Belcorp
 namespace Portal.Consultoras.Entities
 {
     [DataContract]

@@ -2,7 +2,7 @@
 @model Portal.Consultoras.Web.Models.EstrategiaModel
 @{
     ViewBag.Title = "Administración de Estrategias";
-    string imagenVacia = "prod_grilla_vacio.png";
+    const string imagenVacia = "prod_grilla_vacio.png";
 }
 
 <div id="DialogAdministracionEstrategia" style="display: none;">
@@ -40,7 +40,7 @@
                 <div style="display: inline-block; width: 48%; text-align: center; padding: 8px; background: #00A2E8; border-top-left-radius: 10px;">
                     Información CUV Oferta
                 </div>
-                <div style="display: inline-block; width: 47%; text-align: center; padding: 8px; background: #00A2E8; margin-left: -3px; border-left: 1px #D0D0D0 solid; border-top-right-radius: 10px;">
+                <div id="divPrecioValorizado" style="display: inline-block; width: 47%; text-align: center; padding: 8px; background: #00A2E8; margin-left: -3px; border-left: 1px #D0D0D0 solid; border-top-right-radius: 10px;">
                     Precio Valorizado
                 </div>
             </div>
@@ -56,14 +56,22 @@
                     </div>
                 </div>
                 <div style="display: inline-block; width: 47%; text-align: center; padding: 8px; margin-right: -3px;">
-                    <div style="display: inline-block;">CUV:</div>
+                    <div style="display: inline-block;">Ganancia: </div>
+                    <div style="display: inline-block; width: 90px;">
+                        <input type="text" id="txtGanancia" class="ValidaNumeral" style="width: 60px;" />
+                    </div>
+                    <div style="display: inline-block; padding-left: 40px;">Valorizado:</div>
+                    <div style="display: inline-block;">
+                        <input type="text" id="txtPrecio" style="width: 60px;"/>
+                    </div>
+                    @*<div style="display: inline-block;">CUV:</div>
                     <div style="display: inline-block;">
                         <input type="text" id="txtCUV" maxlength="5" class="ValidaNumeral" style="width: 60px;" />
                     </div>
                     <div style="display: inline-block;">Precio:</div>
                     <div style="display: inline-block;">
                         <input type="text" id="txtPrecio" style="width: 60px;" />
-                    </div>
+                    </div>*@
                 </div>
             </div>
         </div>

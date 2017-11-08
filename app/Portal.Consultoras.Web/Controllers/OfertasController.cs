@@ -1,7 +1,10 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServicePedido;
+using System.Collections.Generic;
 using System;
 using System.Web.Mvc;
+using System.Linq;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -15,7 +18,12 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     ListaSeccion = ObtenerConfiguracionSeccion(),
                     MensajeProductoBloqueado = MensajeProductoBloqueado()
+                    
                 };
+
+                var listaShowRoom = (List<BEShowRoomOferta>)Session[Constantes.ConstSession.ListaProductoShowRoom] ?? new List<BEShowRoomOferta>();
+                ViewBag.xlistaProductoSR = listaShowRoom.Count(x => x.EsSubCampania == false);
+                
 
                 return View(modelo);
             }
@@ -95,7 +103,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return model;
         }
-        
+
         [HttpPost]
         public JsonResult ObtenerSeccion(string codigo, int campaniaId)
         {

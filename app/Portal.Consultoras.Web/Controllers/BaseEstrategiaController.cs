@@ -6,6 +6,7 @@ using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -41,10 +42,10 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             listEstrategia = listEstrategia ?? new List<BEEstrategia>();
-            
+
             //if (campaniaId > 0 || codAgrupacion == Constantes.TipoEstrategiaCodigo.RevistaDigital)
             //    return listEstrategia;
-            
+
             //Session[varSession] = listEstrategia;
             return listEstrategia;
         }
@@ -87,7 +88,7 @@ namespace Portal.Consultoras.Web.Controllers
                     listEstrategia = sv.GetEstrategiasPedido(entidad).ToList();
                 }
                 listEstrategia = listEstrategia ?? new List<BEEstrategia>();
-                
+
                 if (campaniaId == userData.CampaniaID)
                 {
                     if (tipo == Constantes.TipoEstrategiaCodigo.PackNuevas
@@ -138,14 +139,13 @@ namespace Portal.Consultoras.Web.Controllers
                 listEstrategia = sv.GetMasVendidos(entidad).ToList();
             }
             listEstrategia = listEstrategia ?? new List<BEEstrategia>();
-            
+
             return listEstrategia;
         }
 
         public EstrategiaPersonalizadaProductoModel EstrategiaGetDetalle(int id, string cuv = "")
         {
             var estrategiaModelo = new EstrategiaPersonalizadaProductoModel();
-            estrategiaModelo.Hermanos = new List<ProductoModel>();
 
             try
             {
@@ -206,9 +206,10 @@ namespace Portal.Consultoras.Web.Controllers
                 joinCuv = joinCuv.Substring(separador.Length, joinCuv.Length - separador.Length * 2);
 
                 var listaAppCatalogo = new List<Producto>();
+                var numeroCampanias = Convert.ToInt32(ConfigurationManager.AppSettings["NumeroCampanias"]);
                 using (ProductoServiceClient svc = new ProductoServiceClient())
                 {
-                    listaAppCatalogo = svc.ObtenerProductosByCodigoSap(userData.CodigoISO, estrategiaModelo.CampaniaID, joinCuv).ToList();
+                    listaAppCatalogo = svc.ObtenerProductosPorCampaniasBySap(userData.CodigoISO, estrategiaModelo.CampaniaID, joinCuv, numeroCampanias).ToList();
                 }
 
                 if (!listaAppCatalogo.Any()) return estrategiaModelo;
@@ -220,6 +221,7 @@ namespace Portal.Consultoras.Web.Controllers
                     listaHermanos.ForEach(h =>
                     {
                         h.CUV = Util.Trim(h.CUV);
+                        h.FactorCuadre = 1;
                     });
                     listaHermanos = listaHermanos.OrderBy(h => h.Orden).ToList();
                 }
@@ -252,6 +254,7 @@ namespace Portal.Consultoras.Web.Controllers
                         prod.Digitable = item.Digitable;
                         prod.CUV = Util.Trim(item.CUV);
                         prod.Cantidad = item.Cantidad;
+                        prod.FactorCuadre = item.FactorCuadre > 0 ? item.FactorCuadre : 1;
                         listaHermanosX.Add(prod);
                         idPk = prod.ID;
                     }
@@ -292,7 +295,27 @@ namespace Portal.Consultoras.Web.Controllers
 
                 }
 
-                estrategiaModelo.Hermanos = listaHermanos ?? new List<ProductoModel>();
+                #region Factor Cuadre
+
+                var listaHermanosCuadre = new List<ProductoModel>();
+
+                foreach (var hermano in listaHermanos)
+                {
+                    listaHermanosCuadre.Add((ProductoModel)hermano.Clone());
+
+                    if (hermano.FactorCuadre > 1)
+                    {
+                        for (int i = 0; i < hermano.FactorCuadre - 1; i++)
+                        {
+                            listaHermanosCuadre.Add((ProductoModel)hermano.Clone());
+                        }
+                    }
+                }
+
+                #endregion
+
+                //estrategiaModelo.Hermanos = listaHermanos ?? new List<ProductoModel>();
+                estrategiaModelo.Hermanos = listaHermanosCuadre ?? new List<ProductoModel>();
             }
             catch (Exception ex)
             {
@@ -335,8 +358,8 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 #region Validar Tipo RD
-                
-                if (revistaDigital.TieneRDR || (revistaDigital.TieneRDC && revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == 1))
+
+                if (revistaDigital.TieneRDR || (revistaDigital.TieneRDC && revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo))
                 {
                     var estrategiaLanzamiento = listModel.FirstOrDefault(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento) ?? new BEEstrategia();
 
@@ -354,13 +377,13 @@ namespace Portal.Consultoras.Web.Controllers
                     var cantMax = 8;
                     var cantPack = listaPackNueva.Any() ? 1 : 0;
                     var top = Math.Min(cantMax - cantPack, listaRevista.Count());
-                    
+
                     if (listaRevista.Count() > top)
                         listaRevista.RemoveRange(top, listaRevista.Count() - top);
-                    
+
                     if (listaRevista.Count() > cantMax - top)
                         listaPackNueva.RemoveRange(cantMax - top, listaPackNueva.Count() - (cantMax - top));
-                    
+
                     listModel = new List<BEEstrategia>();
                     if (estrategiaLanzamiento.EstrategiaID > 0)
                         listModel.Add(estrategiaLanzamiento);
@@ -542,6 +565,10 @@ namespace Portal.Consultoras.Web.Controllers
                 prodModel.TienePaginaProducto = estrategia.PuedeVerDetalle;
                 prodModel.TienePaginaProductoMob = estrategia.PuedeVerDetalleMob;
                 prodModel.TieneVerDetalle = true;
+                prodModel.PrecioPublico = estrategia.PrecioPublico;
+                prodModel.Ganancia = estrategia.Ganancia;
+                prodModel.GananciaString = estrategia.GananciaString;
+
                 //estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas
                 //|| estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertaParaTi
                 //|| estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento

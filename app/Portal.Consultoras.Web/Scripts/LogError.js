@@ -45,8 +45,13 @@ $(document).ajaxError(function (event, jqxhr, settings, thrownError) {
     // No se registra errores por Sesión expirada
     if (jQuery.type(jqxhr.responseText) === "string") {
         if ((jqxhr.responseText.indexOf('<input type="hidden" id="PaginaLogin" />') > -1) ||
-            (jqxhr.responseText.indexOf('<input type="hidden" id="PaginaSesionExpirada" />') > -1))
+            (jqxhr.responseText.indexOf('<input type="hidden" id="PaginaSesionExpirada" />') > -1)) {
+            if (!checkTimeout(jqxhr))
+                return;
+
             return;
+        }
+            
     }
 
     // Jquery Ajax
@@ -101,7 +106,6 @@ $(document).ajaxError(function (event, jqxhr, settings, thrownError) {
 });
 
 function registrarLogError(objError) {
-    console.log(objError);
 
     if (!urlLogDynamo) return;
 

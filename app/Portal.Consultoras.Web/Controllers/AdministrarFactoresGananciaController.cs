@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.ServiceModel;
-using System.Web;
-using System.Web.Mvc;
-using AutoMapper;
+﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceZonificacion;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.ServiceModel;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -135,7 +134,7 @@ namespace Portal.Consultoras.Web.Controllers
                            select new
                            {
                                id = a.FactorGananciaID.ToString(),
-                               cell = new string[] 
+                               cell = new string[]
                                {
                                    a.FactorGananciaID.ToString(),
                                    a.PaisID.ToString(),
@@ -254,7 +253,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 Mapper.CreateMap<AdministrarFactoresGananciaModel, BEFactorGanancia>()
-                    .ForMember(t => t.FactorGananciaID, f=> f.MapFrom(c => c.FactorGananciaID))
+                    .ForMember(t => t.FactorGananciaID, f => f.MapFrom(c => c.FactorGananciaID))
                     .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
                     .ForMember(t => t.RangoMinimo, f => f.MapFrom(c => c.RangoMinimo))
                     .ForMember(t => t.RangoMaximo, f => f.MapFrom(c => c.RangoMaximo))

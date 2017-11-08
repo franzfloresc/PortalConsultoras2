@@ -1,19 +1,12 @@
 ﻿using AutoMapper;
-using Newtonsoft.Json.Linq;
-using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
+using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Net;
-using System.ServiceModel;
-using System.Text.RegularExpressions;
-using System.Web;
 using System.Web.Mvc;
-using Portal.Consultoras.Web.ServiceZonificacion;
-using Portal.Consultoras.Web.ServiceSAC;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -52,8 +45,8 @@ namespace Portal.Consultoras.Web.Controllers
             List<BETablaLogicaDatos> list_segmentos = new List<BETablaLogicaDatos>();
             string CodConsultora = "", NombreCompleto = "", CodigoZona = "", CodigorRegion = "", EstadoActividad = "", Segmento = "", FechaNacimiento = "",
                     EstadoCivil = "", KtiNueva = "", AutorizaPedido = "", EMail = "", MontoUltimoPedido = "", MontoFlexipago = "", UltimaCampanaFacturada = "",
-                    MontoMaximoPedido = "", MontoMinimoPedido = "", FechaIngreso = "", MontoSaldoActual = "", PasePedidoWeb = "", TipoOferta2 = "", IndicadorDupla = "",
-                    CompraOfertaEspecial = "", Simbolo = "", NombrePais = "", Telefono = "", Celular = "", CompraKitDupla = "", CompraOfertaDupla = "",
+                    MontoMaximoPedido = "", MontoMinimoPedido = "", FechaIngreso = "", MontoSaldoActual = "", PasePedidoWeb = "", TipoOferta2 = "",
+                    Simbolo = "", NombrePais = "", Telefono = "", Celular = "",
                     EstablecidaDupla = "", NuevaComproOfertaEspecial = "", EnviaCatalogo = "";
             int segmento_nueva, segmento_top;
 

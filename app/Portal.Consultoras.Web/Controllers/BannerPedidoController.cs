@@ -1,16 +1,16 @@
-﻿using System;
+﻿using AutoMapper;
+using Newtonsoft.Json;
+using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServiceSAC;
+using Portal.Consultoras.Web.ServiceZonificacion;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
 using System.Web;
 using System.Web.Mvc;
-using AutoMapper;
-using Newtonsoft.Json;
-using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServiceSAC;
-using Portal.Consultoras.Web.ServiceZonificacion;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -208,7 +208,7 @@ namespace Portal.Consultoras.Web.Controllers
                            select new
                            {
                                id = a.BannerPedidoID.ToString(),
-                               cell = new string[] 
+                               cell = new string[]
                                {
                                    a.BannerPedidoID.ToString(),
                                    a.PaisID.ToString(),
@@ -224,7 +224,7 @@ namespace Portal.Consultoras.Web.Controllers
                                    a.TipoUrl,
                                    string.Empty,
                                    a.Url,
-                                   a.Archivo                                   
+                                   a.Archivo
                                 }
                            }
                 };
@@ -266,11 +266,11 @@ namespace Portal.Consultoras.Web.Controllers
                         if (listado.CampaniaIDInicio > 0)
                         {
                             return Json(new
-                           {
-                               success = false,
-                               message = "No se puedo registrar el banner de pedido, porque ya existe un banner en la posición " + listado.Posicion,
-                               extra = ""
-                           });
+                            {
+                                success = false,
+                                message = "No se puedo registrar el banner de pedido, porque ya existe un banner en la posición " + listado.Posicion,
+                                extra = ""
+                            });
                         }
                     }
 
@@ -384,7 +384,7 @@ namespace Portal.Consultoras.Web.Controllers
                                  where a.CampaniaIDInicio == model.CampaniaIDInicio && a.Posicion == model.PosicionBannerPedido && a.BannerPedidoID == model.BannerPedidoID
                                  select a;
 
-                   
+
 
                     if (lista1.Count() == 0)
                     {

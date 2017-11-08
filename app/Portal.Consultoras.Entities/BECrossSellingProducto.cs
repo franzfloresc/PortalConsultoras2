@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Data;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
-using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Entities
 {
@@ -47,9 +43,9 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string MarcaID { get; set; }
         [DataMember]
-        public int SubTipoOfertaSisID { get; set; } //1513
+        public int SubTipoOfertaSisID { get; set; }
         [DataMember]
-        public string EtiquetaPrecio { get; set; }//1673CC
+        public string EtiquetaPrecio { get; set; }
 
         public BECrossSellingProducto(IDataRecord row)
         {

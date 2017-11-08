@@ -1,10 +1,9 @@
-﻿using System;
+﻿using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServicePedido;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServicePedido;
 
 //R2073 - Toda la clase
 namespace Portal.Consultoras.Web.Controllers
@@ -55,7 +54,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 string MensajeRespuesta = string.Empty;
 
-                switch(Respuesta)
+                switch (Respuesta)
                 {
                     case -1:
                         MensajeRespuesta = "El proceso de PROL Automático ha iniciado. (COD. 001)";
