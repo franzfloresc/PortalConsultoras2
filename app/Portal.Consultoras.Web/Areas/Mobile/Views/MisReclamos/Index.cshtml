@@ -112,7 +112,7 @@
                     <input type="hidden" class="cdrweb_CantidadAprobados" value="@item.CantidadAprobados" />
                     <input type="hidden" class="cdrweb_CantidadRechazados" value="@item.CantidadRechazados" />
 
-                    <div class="datos_solicitud_cdr abrir_detallemb">
+                    <a class="datos_solicitud_cdr abrir_detallemb">
                         <div class="fecha_solicitud tipografia_lato_light">
                             @formatoFechaAtencion
                         </div>
@@ -132,11 +132,11 @@
                                 <span class="productos_rechazados">@cantRechazados</span>
                             }
                         </div>
-                    </div>
+                    </a>
                     <!-- ESTADO SOLICITUD PENDIENTE -->
-                    <div class="estado_registro_solicitud_cdr abrir_detallemb @claseEstado">
+                    <a class="estado_registro_solicitud_cdr abrir_detallemb @claseEstado">
                         @item.EstadoDescripcion
-                    </div>
+                    </a>
                     <!-- FIN ESTADO SOLICITUD PENDIENTE -->
                     <div class="icono_busqueda abrir_detallemb">
                         <a title="Ver solicitud" class="enlace_ver_solicitud_cdr">
