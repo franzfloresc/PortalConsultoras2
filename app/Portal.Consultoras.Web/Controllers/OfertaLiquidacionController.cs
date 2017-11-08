@@ -222,7 +222,7 @@ namespace Portal.Consultoras.Web.Controllers
                     sv.InsPedidoWebDetalleOferta(entidad);
 
                     Session["PedidoWeb"] = null;
-                    Session["PedidoWebDetalle"] = null;
+                    sessionManager.SetDetallesPedido(null);
                 }
 
                 UpdPedidoWebMontosPROL();

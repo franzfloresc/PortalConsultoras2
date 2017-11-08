@@ -913,7 +913,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                List<BEPedidoWebDetalle> ListaPedidoWebDetalle = (List<BEPedidoWebDetalle>)Session["PedidoWebDetalle"] ?? new List<BEPedidoWebDetalle>();
+                List<BEPedidoWebDetalle> ListaPedidoWebDetalle = sessionManager.GetDetallesPedido() ?? new List<BEPedidoWebDetalle>();
                 BEPedidoWebDetalle pedidoEliminado = ListaPedidoWebDetalle.FirstOrDefault(x => x.CUV == CUV);
                 if (pedidoEliminado == null) return ErrorJson(Constantes.MensajesError.DeletePedido_CuvNoExiste);
 
@@ -1041,7 +1041,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (EliminacionMasiva)
                 {
                     Session["PedidoWeb"] = null;
-                    Session["PedidoWebDetalle"] = null;
+                    sessionManager.SetDetallesPedido(null);
                     Session[Constantes.ConstSession.ListaEstrategia] = null;
 
                     UpdPedidoWebMontosPROL();
@@ -1101,7 +1101,7 @@ namespace Portal.Consultoras.Web.Controllers
                 decimal totalCliente = 0;
                 string formatoTotalCliente = "";
 
-                Session["PedidoWebDetalle"] = null;
+                sessionManager.SetDetallesPedido(null);
                 var olstPedidoWebDetalle = ObtenerPedidoWebDetalle();
                 total = olstPedidoWebDetalle.Sum(p => p.ImporteTotal);
                 formatoTotal = Util.DecimalToStringFormat(total, userData.CodigoISO);
@@ -1393,7 +1393,7 @@ namespace Portal.Consultoras.Web.Controllers
                         DeletePedido(item);
                     }
                 }
-                Session["PedidoWebDetalle"] = null;
+                sessionManager.SetDetallesPedido(null);
             }
         }
         #endregion
@@ -3040,7 +3040,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                var pedidoWebDetalleNula = Session["PedidoWebDetalle"] == null;
+                var pedidoWebDetalleNula = sessionManager.GetDetallesPedido() == null;
 
                 olstTempListado = ObtenerPedidoWebDetalle();
 
@@ -3624,7 +3624,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         if (isInsert > 0)
                         {
-                            Session["PedidoWebDetalle"] = null;
+                            sessionManager.SetDetallesPedido(null);
                             listaDetalle = ObtenerPedidoWebDetalle();
 
                             UpdPedidoWebMontosPROL();
