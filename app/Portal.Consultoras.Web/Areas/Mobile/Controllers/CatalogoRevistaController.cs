@@ -229,8 +229,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             try
             {
-                WebClient client = new WebClient();
-                string getString = client.DownloadString(string.Format("https://issuu.com/oembed?url=https://issuu.com/somosbelcorp/docs/{0}", codigoRevista));
+                string getString;
+                using (WebClient client = new WebClient())
+                {
+                    getString = client.DownloadString(string.Format("https://issuu.com/oembed?url=https://issuu.com/somosbelcorp/docs/{0}", codigoRevista));
+                }
+
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 dynamic item = serializer.Deserialize<object>(getString);
                 url = item["thumbnail_url"];
