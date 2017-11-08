@@ -468,7 +468,7 @@
             if (auxOD == '7') {
                 flagOD = '4';
             }
-            else if (auxOD == '9' || auxOD == '10' || auxOD == '11') {
+            else if (auxOD == '9' || auxOD == '10' || auxOD == '11' || auxOD == '12') {
                 flagOD = auxOD;
             }
             else if (!isNuevo) {

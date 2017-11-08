@@ -59,7 +59,7 @@ namespace Portal.Consultoras.Data.Hana
                     listBE.Add(bePedidoWeb);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 listBE = new List<BEPedidoWeb>();
             }
