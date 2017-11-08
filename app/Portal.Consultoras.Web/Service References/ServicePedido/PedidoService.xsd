@@ -393,12 +393,14 @@
       <xs:element minOccurs="0" name="FlagNueva" type="xs:int" />
       <xs:element minOccurs="0" name="FlagRecoPerfil" type="xs:int" />
       <xs:element minOccurs="0" name="FlagRecoProduc" type="xs:int" />
+      <xs:element minOccurs="0" name="FlagValidarImagen" type="xs:int" />
       <xs:element minOccurs="0" name="ImagenEstrategia" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImagenOfertaIndependiente" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MostrarImgOfertaIndependiente" type="xs:boolean" />
       <xs:element minOccurs="0" name="OfertaID" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Orden" type="xs:int" />
       <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+      <xs:element minOccurs="0" name="PesoMaximoImagen" type="xs:int" />
       <xs:element minOccurs="0" name="TipoEstrategiaID" type="xs:int" />
       <xs:element minOccurs="0" name="UsuarioModificacion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UsuarioRegistro" nillable="true" type="xs:string" />
