@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServicesCalculosPROL;
 
 namespace Portal.Consultoras.Web.SessionManager
 {
@@ -89,5 +90,9 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetUserData(UsuarioModel usuario);
 
         UsuarioModel GetUserData();
+
+        void SetMontosProl(List<ObjMontosProl> montosProl);
+
+        List<ObjMontosProl> GetMontosProl();
     }
 }

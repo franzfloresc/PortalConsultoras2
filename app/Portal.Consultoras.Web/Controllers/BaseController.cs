@@ -305,12 +305,9 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected List<ObjMontosProl> ServicioProl_CalculoMontosProl(bool session = true)
         {
-            if (Session[Constantes.ConstSession.PROL_CalculoMontosProl] != null)
+            if (session && sessionManager.GetMontosProl() != null)
             {
-                if (session)
-                {
-                    return (List<ObjMontosProl>)Session[Constantes.ConstSession.PROL_CalculoMontosProl];
-                }
+                return sessionManager.GetMontosProl();
             }
 
             List<BEPedidoWebDetalle> listProducto = ObtenerPedidoWebDetalle();
@@ -335,7 +332,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             rtpa = rtpa ?? new List<ObjMontosProl>();
-            Session[Constantes.ConstSession.PROL_CalculoMontosProl] = rtpa;
+            sessionManager.SetMontosProl(rtpa);
             return rtpa;
         }
 

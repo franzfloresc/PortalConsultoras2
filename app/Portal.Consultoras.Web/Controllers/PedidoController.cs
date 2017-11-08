@@ -2191,12 +2191,18 @@ namespace Portal.Consultoras.Web.Controllers
                 sessionManager.SetDetallesPedido(null);
                 if (resultado.RefreshMontosProl)
                 {
-                    Session[Constantes.ConstSession.PROL_CalculoMontosProl] = new List<ObjMontosProl> { new ObjMontosProl {
-                    AhorroCatalogo = resultado.MontoAhorroCatalogo.ToString(),
-                    AhorroRevista = resultado.MontoAhorroRevista.ToString(),
-                    MontoTotalDescuento = resultado.MontoDescuento.ToString(),
-                    MontoEscala = resultado.MontoEscala.ToString()
-                } };
+                    sessionManager.SetMontosProl(
+                        new List<ObjMontosProl>
+                        {
+                            new ObjMontosProl
+                            {
+                                AhorroCatalogo = resultado.MontoAhorroCatalogo.ToString(),
+                                AhorroRevista = resultado.MontoAhorroRevista.ToString(),
+                                MontoTotalDescuento = resultado.MontoDescuento.ToString(),
+                                MontoEscala = resultado.MontoEscala.ToString()
+                            }
+                        }
+                    );
                 }
                 if (resultado.ResultadoReservaEnum != EnumeradoresResultadoReserva.ReservaNoDisponible)
                 {
