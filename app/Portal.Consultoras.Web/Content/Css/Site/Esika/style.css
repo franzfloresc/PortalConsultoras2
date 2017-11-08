@@ -3523,6 +3523,10 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     overflow: hidden;
 }
 
+.producto_nombre_descripcion.pb-16{
+    padding-bottom:16px;
+}
+
 .producto_nombre_descripcion h6{
     margin:0px;
     padding:0px;
@@ -36014,8 +36018,7 @@ h1#penmostreo .campana {
     min-height: 308px;
     margin:0 auto;
     background:white;  
-    /*padding-top:18px;*/ 
-    padding-bottom: 13px; 
+    padding-top:18px;  
 }
 .titulo_regalo_sorpresa{
     font-family:'Lato';
@@ -36056,7 +36059,7 @@ h1#penmostreo .campana {
     line-height: 12px;
     padding-left:10px;
     padding-right:10px;
-    padding-bottom:13px;
+    padding-bottom:18px;
 }
 .descripcion_regalo .oferta_final_descripcion{
     display: block;
