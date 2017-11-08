@@ -305,17 +305,20 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected List<ObjMontosProl> ServicioProl_CalculoMontosProl(bool session = true)
         {
+            var montosProl = new List<ObjMontosProl>();
+            montosProl.Add(new ObjMontosProl());
+
             if (session && sessionManager.GetMontosProl() != null)
             {
                 return sessionManager.GetMontosProl();
             }
 
-            List<BEPedidoWebDetalle> listProducto = ObtenerPedidoWebDetalle();
-            var rtpa = new List<ObjMontosProl>();
-            if (listProducto.Any())
+            var detallesPedidoWeb = ObtenerPedidoWebDetalle();
+
+            if (detallesPedidoWeb.Any())
             {
-                string ListaCUVS = string.Join("|", listProducto.Select(p => p.CUV).ToArray());
-                string ListaCantidades = string.Join("|", listProducto.Select(p => p.Cantidad).ToArray());
+                var cuvs = string.Join("|", detallesPedidoWeb.Select(p => p.CUV).ToArray());
+                var cantidades = string.Join("|", detallesPedidoWeb.Select(p => p.Cantidad).ToArray());
 
                 var ambiente = ConfigurationManager.AppSettings["Ambiente"] ?? "";
                 var keyWeb = ambiente.ToUpper() == "QA" ? "QA_Prol_ServicesCalculos" : "PR_Prol_ServicesCalculos";
@@ -323,17 +326,15 @@ namespace Portal.Consultoras.Web.Controllers
                 using (var sv = new ServicesCalculoPrecioNiveles())
                 {
                     sv.Url = ConfigurationManager.AppSettings[keyWeb]; // Se envían los codigos de concurso.
-                    rtpa = sv.CalculoMontosProlxIncentivos(userData.CodigoISO, userData.CampaniaID.ToString(), userData.CodigoConsultora, userData.CodigoZona, ListaCUVS, ListaCantidades, userData.CodigosConcursos).ToList();
+                    montosProl = sv.CalculoMontosProlxIncentivos(userData.CodigoISO, userData.CampaniaID.ToString(), userData.CodigoConsultora, userData.CodigoZona, cuvs, cantidades, userData.CodigosConcursos).ToList();
                 }
             }
-            else
-            {
-                rtpa.Add(new ObjMontosProl());
-            }
 
-            rtpa = rtpa ?? new List<ObjMontosProl>();
-            sessionManager.SetMontosProl(rtpa);
-            return rtpa;
+            montosProl = montosProl ?? new List<ObjMontosProl>();
+
+            sessionManager.SetMontosProl(montosProl);
+
+            return montosProl;
         }
 
         protected void InsIndicadorPedidoAutentico(BEIndicadorPedidoAutentico indPedidoAutentico, string cuv)
@@ -440,7 +441,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     var result = sv.ValidacionModificarPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, userData.UsuarioPrueba == 1, userData.AceptacionConsultoraDA);
                     mensaje = result.Mensaje;
-                    return result.MotivoPedidoLock != EnumeradoresMotivoPedidoLock.Ninguno;
+                    return result.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno;
                 }
             }
             catch (Exception ex)
