@@ -137,13 +137,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.RevistaDigital = revistaDigital;
 
             ViewBag.paisISO = userData.CodigoISO;
-            ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("BUCKET_NAME") ?? string.Empty;
+            ViewBag.Ambiente = GetBucketNameFromConfig();
             ViewBag.UrlFranjaNegra = GetUrlFranjaNegra();
 
             return View("Index", model);
         }
-
-        
 
         public ActionResult virtualCoach(string param = "")
         {
@@ -332,7 +330,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.EMail = userData.EMail;
             model.Celular = userData.Celular;
             ViewBag.paisISO = userData.CodigoISO;
-            ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("BUCKET_NAME") ?? string.Empty;
+            ViewBag.Ambiente = GetBucketNameFromConfig();
 
             ViewBag.NombreConsultora = userData.Sobrenombre;
             if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
