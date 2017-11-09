@@ -45,19 +45,12 @@ namespace Portal.Consultoras.BizLogic
 
         public IList<BEProducto> SelectProductoByCodigoDescripcion(int paisID, int campaniaID, string codigoDescripcion, int criterio, int rowCount)
         {
-            IList<BEProducto> productos;
-            if (true) //TODO: Validar cache
-            {
-                productos = new List<BEProducto>();
-                var DAProducto = new DAProducto(paisID);
+            IList<BEProducto> productos = new List<BEProducto>();
+            var DAProducto = new DAProducto(paisID);
 
-                using (IDataReader reader = DAProducto.GetProductoComercialByCampania(campaniaID))
-                {
-                    while (reader.Read())
-                    {
-                        productos.Add(new BEProducto(reader));
-                    }
-                }
+            using (IDataReader reader = DAProducto.GetProductoComercialByCampania(campaniaID))
+            {
+                while (reader.Read()) productos.Add(new BEProducto(reader));
             }
 
             var productosSel = new List<BEProducto>();
