@@ -1386,7 +1386,7 @@ namespace Portal.Consultoras.Web.Controllers
                 logManager.LogErrorWebServicesBusWrap(ex, CodigoUsuario, PaisId.ToString(), string.Empty);
             }
 
-            return result == null ? false : true;
+            return result != null;
         }
 
         private void ActualizarDatosHana(ref UsuarioModel model)

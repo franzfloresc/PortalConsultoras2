@@ -2995,7 +2995,7 @@ function mostrarComunicadosPopup() {
         return false;
     });
 
-    return (j > 0) ? false : true;
+    return (j <= 0);
 }
 
 function centrarComunicadoPopup(ID) {

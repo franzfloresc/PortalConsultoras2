@@ -376,7 +376,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     int ind = (item.Valor1.Contains(",")) ? -1 : 0;
                                     if (ind == 0)
                                     {
-                                        bool er = (item.Valor1 == "SC") ? false : true;
+                                        bool er = item.Valor1 != "SC";
                                         lstProductoModelFilter = lstProductoModelFilter.Where(x => x.TieneOfertaEnRevista == er).ToList();
                                     }
                                 }
