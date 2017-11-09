@@ -3025,7 +3025,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 Result.Add(item);
                 var items = ListadoPedidos.Where(p => p.PedidoDetalleIDPadre == item.PedidoDetalleID);
-                if (items.Count() != 0)
+                if (items.Any())
                     Result.AddRange(items);
             }
 

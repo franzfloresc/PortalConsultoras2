@@ -257,7 +257,7 @@ namespace Portal.Consultoras.Web.Controllers
                 else
                 {
                     //Registro de productos faltantes
-                    if (zonasValidas.Count() != 0)
+                    if (zonasValidas.Any())
                     {
                         //Por zona-producto
                         foreach (BEZona zona in zonasValidas)
@@ -279,7 +279,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     using (SACServiceClient sv = new SACServiceClient())
                     {
-                        if (zonasValidas.Count() != 0)
+                        if (zonasValidas.Any())
                             sv.InsProductoFaltante(paisID, paisISO, CodigoUsuario, productosFaltantes.ToArray(), faltanteUltimoMin == 1 ? true : false);
                         else
                             sv.InsProductoFaltanteMasivo(paisID, paisISO, CodigoUsuario, campaniaID, productosFaltantes.ToArray(), faltanteUltimoMin == 1 ? true : false);

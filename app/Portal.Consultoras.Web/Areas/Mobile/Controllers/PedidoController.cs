@@ -665,7 +665,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 result.Add(item);
                 var items = listadoPedidos.Where(p => p.PedidoDetalleIDPadre == item.PedidoDetalleID);
-                if (items.Count() != 0)
+                if (items.Any())
                     result.AddRange(items);
             }
 
