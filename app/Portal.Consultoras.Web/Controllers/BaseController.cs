@@ -491,7 +491,7 @@ namespace Portal.Consultoras.Web.Controllers
                             resul = true;
                         }
 
-                        if (listaProducto.Count() > 0)
+                        if (listaProducto.Any())
                             descuentoProl = listaProducto[0].DescuentoProl;
 
                         decimal montoActual = (montoCuv * Cantidad) + (_dTotalPedido - descuentoProl);

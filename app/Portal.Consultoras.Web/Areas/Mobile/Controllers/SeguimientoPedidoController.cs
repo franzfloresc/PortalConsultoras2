@@ -24,7 +24,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 {
                     arrayTracking = sv.GetPedidosByConsultora(userData.PaisID, userData.CodigoConsultora, 3);
                 }
-                if(arrayTracking != null && arrayTracking.Count() > 0)
+                if(arrayTracking != null && arrayTracking.Any())
                 {
                     model.ListaEstadoSeguimiento = Mapper.Map<List<SeguimientoMobileModel>>(arrayTracking);
 

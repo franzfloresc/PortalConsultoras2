@@ -183,7 +183,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 if (!string.IsNullOrEmpty(infoEstrategia))
                                 {
                                     var listSplit = infoEstrategia.Split('|');
-                                    descripcion = listSplit.Count() > 0 ? listSplit[0] : "";
+                                    descripcion = listSplit.Any() ? listSplit[0] : "";
                                     string imagen = listSplit.Count() > 1 ? listSplit[1] : "";
 
                                     if (!string.IsNullOrEmpty(beProducto.ImagenProductoSugerido))
@@ -256,7 +256,7 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion
 
                 var listaPedido = ObtenerPedidoWebDetalle();
-                listaProductoModel.Update(c => c.IsAgregado = listaPedido.Where(p => p.CUV == c.CUV).Count() > 0);
+                listaProductoModel.Update(c => c.IsAgregado = listaPedido.Where(p => p.CUV == c.CUV).Any());
 
                 #region filtros
                 //SB20-1197

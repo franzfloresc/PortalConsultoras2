@@ -388,7 +388,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     where a.CampaniaIDInicio == model.CampaniaIDInicio && a.Posicion == model.PosicionBannerPedido
                                     select a;
 
-                        if (lista.Count() > 0)
+                        if (lista.Any())
                         {
                             foreach (BEBannerPedido listado in lista)
                             {

@@ -2490,7 +2490,7 @@ namespace Portal.Consultoras.Web.Controllers
                 //int paisId, int campaniaId, int pedidoId, decimal totalPedido                
                 ViewBag.PedidoProductoMovil = lstPedidoWebDetalle
                     .Where(p => p.TipoPedido.ToUpper().Trim() == "PNV")
-                    .ToList().Count() > 0 ? 1 : 0;
+                    .ToList().Any() ? 1 : 0;
 
                 if (userData.PedidoID == 0)
                 {
