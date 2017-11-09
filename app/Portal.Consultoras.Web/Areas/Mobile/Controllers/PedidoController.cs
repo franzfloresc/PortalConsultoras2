@@ -52,12 +52,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 UpdPedidoWebMontosPROL();
             }
 
-            BEPedidoWeb bePedidoWebByCampania = ObtenerPedidoWeb() ?? new BEPedidoWeb(); ;
+            detallesPedidoWeb = detallesPedidoWeb ?? new List<BEPedidoWebDetalle>();
+            BEPedidoWeb pedidoWeb = ObtenerPedidoWeb() ?? new BEPedidoWeb(); ;
 
-            model.MontoAhorroCatalogo = bePedidoWebByCampania.MontoAhorroCatalogo;
-            model.MontoAhorroRevista = bePedidoWebByCampania.MontoAhorroRevista;
+            model.MontoAhorroCatalogo = pedidoWeb.MontoAhorroCatalogo;
+            model.MontoAhorroRevista = pedidoWeb.MontoAhorroRevista;
 
-            if (userData.PedidoID == 0 && lstPedidoWebDetalle.Count > 0)
+            if (userData.PedidoID == 0 && detallesPedidoWeb.Count > 0)
             {
                 userData.PedidoID = detallesPedidoWeb[0].PedidoID;
                 SetUserData(userData);
