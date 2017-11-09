@@ -1058,7 +1058,7 @@ namespace Portal.Consultoras.Common
                 public const string NotaCantidadMaxima = "not_max_c";
             }
 
-            public const short RevistaDigital = 121;
+            public const short RevistaDigital = 131;
         }
 
         public struct MensajesCDRExpress
