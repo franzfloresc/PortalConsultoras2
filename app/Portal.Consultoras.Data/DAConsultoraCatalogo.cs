@@ -8,7 +8,6 @@ namespace Portal.Consultoras.Data
         public DAConsultoraCatalogo(int paisID)
             : base(paisID, EDbSource.Portal)
         {
-            //
         }
 
         public IDataReader GetConsultoraCatalogo(int pais, string codigoConsultora, bool parametroEsDocumento, int tipoFiltroUbigeo)

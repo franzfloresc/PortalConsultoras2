@@ -197,9 +197,10 @@
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
-            colNames: ['TipoEstrategiaID', 'Tipo de Estrategia', 'Ofertas', 'Orden', 'Imagen', 'OfertaID', 'Acción', '', '', '', 'CodigoPrograma', 'FlagMostrarImg', 'MostrarImgOfertaIndependiente','ImagenOfertaIndependiente','FlagValidarImagen', 'PesoMaximoImagen'],
+            colNames: ['TipoEstrategiaID', 'Código de Estrategia', 'Tipo de Estrategia', 'Ofertas', 'Orden', 'Imagen', 'OfertaID', 'Acción', '', '', '', 'CodigoPrograma', 'FlagMostrarImg', 'MostrarImgOfertaIndependiente','ImagenOfertaIndependiente','FlagValidarImagen', 'PesoMaximoImagen'],
             colModel: [
                 { name: 'TipoEstrategiaID', index: 'TipoEstrategiaID', width: 20, editable: true, resizable: false, hidden: true },
+                { name: 'Codigo', index: 'Codigo', width: 100, editable: true, resizable: false, hidden: false },
                 { name: 'DescripcionEstrategia', index: 'DescripcionEstrategia', width: 180, editable: true, resizable: false, hidden: false },
                 { name: 'DescripcionOferta', index: 'DescripcionOferta', width: 180, editable: true, hidden: false, formatter: ShowOferta },
                 { name: 'Orden', index: 'Orden', width: 40, editable: true, align: 'center', resizable: false },
@@ -491,9 +492,9 @@
                     var codigoPrograma = flagNueva ? $("#txtCodigoPrograma").val() : null;
                     var flagMostrarImg = ($("#chkMostrarImg").attr("checked")) ? "1" : "0";
                     var flagMostrarImgIndependiente = ($("#chkMostrarImgIndependiente").attr("checked")) ? true : false;
+                    var codigo = $("#txCodigoOriginalModal").val();
 					var flagValidarImagen = ($("#chkValImg").attr("checked")) ? "1" : "0";
 					var pesoMaximoImagen = flagValidarImagen ? $("#txtPesoMaximoImagen").val() : "0";
-
 
                     var params = {
                         TipoEstrategiaID: tipoEstrategiaID,
@@ -512,7 +513,8 @@
 						PesoMaximoImagen: pesoMaximoImagen,
                         MostrarImgOfertaIndependiente: flagMostrarImgIndependiente,
                         ImagenOfertaIndependiente: imagenOfertaIndependiente,
-                        ImagenOfertaIndependienteAnterior: imagenOfertaIndependienteAnterior
+                        ImagenOfertaIndependienteAnterior: imagenOfertaIndependienteAnterior,
+                        Codigo: codigo
                     };
 
                     jQuery.ajax({
@@ -577,11 +579,11 @@
     }
 
     $.jgrid.extend({
-        Editar: function (id, descripcion, orden, imagen, ofertas, flagactivo, codigoPrograma, flagMostrarImg, MostrarImgOfertaIndependiente, ImagenOfertaIndependiente, flagValidarImagen, pesoMaximoImagen) {
+        Editar: function (id, codigo, descripcion, orden, imagen, ofertas, flagactivo, codigoPrograma, flagMostrarImg, MostrarImgOfertaIndependiente, ImagenOfertaIndependiente, flagValidarImagen, pesoMaximoImagen) {
             if (id) {
-
                 $("#txtPaisModal").val($("#ddlPais option:selected").html());
                 $("#hdPais").val($("#ddlPais").val());
+                $("#txCodigoOriginalModal").val(codigo)
                 $("#txtDescripcionOriginalModal").val(descripcion);
                 $("#txtOrden").val(orden);
                 $("#txtPaisOferta").val($("#ddlPais option:selected").html());
@@ -604,7 +606,7 @@
 				
 				//BPT 369
 				var flagValidarImagen = jQuery("#list").jqGrid('getCell', id, 'FlagValidarImagen');
-				$("#chkValImg").attr("checked", (flagValidarImagen == "1") ? true : false);
+				$("#chkValImg").attr("checked", (flagValidarImagen == "1"));
 
 				//BPT 369
 				$("#txtPesoMaximoImagen").val(pesoMaximoImagen);
@@ -622,10 +624,10 @@
                 var flagImagenOfertaIndependiente = jQuery("#list").jqGrid('getCell', id, 'MostrarImgOfertaIndependiente');
 
 
-                $('#chkNueva').attr("checked", (flagNueva == "1") ? true : false);
-                $('#chkRecoProduc').attr("checked", (flagRecoProduc == "1") ? true : false);
-                $('#chkRecoPerfil').attr("checked", (flagRecoPerfil == "1") ? true : false);
-                $('#chkMostrarImgIndependiente').attr("checked", (flagImagenOfertaIndependiente == "1") ? true : false);
+                $('#chkNueva').attr("checked", (flagNueva == "1"));
+                $('#chkRecoProduc').attr("checked", (flagRecoProduc == "1"));
+                $('#chkRecoPerfil').attr("checked", (flagRecoPerfil == "1"));
+                $('#chkMostrarImgIndependiente').attr("checked", (flagImagenOfertaIndependiente == "1"));
 
                 $("#hdTipoEstrategiaID").val(id);
                 $("#hdofertas").val(ofertas + ',');
@@ -749,13 +751,19 @@
             </div>
         </div>
         <div class="div-3">
-            <div class="titB">Descripción:</div>
+            <div class="titB">Código:</div>
             <div class="selectP2 borde_redondeado">
-                <input type="text" id="txtDescripcionOriginalModal" />
+                <input type="text" id="txCodigoOriginalModal" />
             </div>
             <div class="titB">Activo:</div>
             <div class="selectCheck borde_redondeado">
                 <input type="checkbox" id="chkActivo" />
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titB">Descripción:</div>
+            <div class="selectP2 borde_redondeado" style="width:535px">
+                <input type="text" id="txtDescripcionOriginalModal" style="width:100%" />
             </div>
         </div>
         <div class="div-3">

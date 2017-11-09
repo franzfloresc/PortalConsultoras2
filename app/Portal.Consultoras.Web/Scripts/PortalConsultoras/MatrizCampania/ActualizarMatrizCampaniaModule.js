@@ -334,7 +334,7 @@ var actualizarMatrizCampaniaModule = (function () {
             paisID: $(_elements.ddlPais).val(),
             codigoSAP: $(_elements.hdnSap).val(),
             maxConnections: $(_elements.hdnIdMatrizComercial).val() == '0' ? 1 : 3,
-            multiple: $(_elements.hdnIdMatrizComercial).val() == '0' ? false : true,
+            multiple: $(_elements.hdnIdMatrizComercial).val() != '0',
             onComplete: _uploadComplete
         };
         _matrizFileUploaderComponent.crearFileUpload(data);

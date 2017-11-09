@@ -53,7 +53,7 @@ namespace Portal.Consultoras.Data
             Context.ExecuteNonQuery(command);
             return Convert.ToInt32(command.Parameters["@PedidoID"].Value);
         }
-        /*GR2089*/
+
         public int InsertarLogPedidoWeb(int CampaniaID, string CodigoConsultora, int PedidoID, string Accion, string CodigoUsuario)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertarLogPedidoWeb");
@@ -134,7 +134,6 @@ namespace Portal.Consultoras.Data
 
                 if (dtPedidosDetalle.Rows.Count > 0)
                 {
-                    //Ingresamos el log del detalle
                     SqlBulkCopy oSqlBulkCopy_Detalle = new SqlBulkCopy(Context.Database.ConnectionString);
                     oSqlBulkCopy_Detalle.DestinationTableName = "LogCargaPedidoDetalle";
 
@@ -160,7 +159,6 @@ namespace Portal.Consultoras.Data
 
                 if (dtPedidosCabecera.Rows.Count != 0)
                 {
-                    //Ingresamos el log de la cabecera
                     SqlBulkCopy oSqlBulkCopy_Cabecera = new SqlBulkCopy(Context.Database.ConnectionString);
                     oSqlBulkCopy_Cabecera.DestinationTableName = "LogCargaPedido";
 
@@ -614,8 +612,7 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
-
-        //R2154
+        
         public int ValidarDesactivaRevistaGana(int campaniaID, string codigoZona)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarDesactivaRevistaGana");
@@ -655,11 +652,12 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
         
-        public IDataReader GetPedidosIngresadoFacturado(int consultoraID, int campaniaID)
+        public IDataReader GetPedidosIngresadoFacturado(int consultoraID, int campaniaID, int top)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidosIngresadoFacturado_SB2");
             Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int32, consultoraID);
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
+            Context.Database.AddInParameter(command, "@top", DbType.Int32, top);
 
             return Context.ExecuteReader(command);
         }
@@ -731,7 +729,6 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
         
-        /*EPD-1025*/
         public IDataReader ObtenerUltimaDescargaPedido()
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerUltimaDescargaPedido");
@@ -742,14 +739,12 @@ namespace Portal.Consultoras.Data
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.DesmarcarUltimaDescargaPedido");            
             return Context.ExecuteReader(command);
         }
-        /*EPD-1025*/
+
         public IDataReader ObtenerUltimaDescargaExitosa() {
             DbCommand Command = Context.Database.GetStoredProcCommand("dbo.ObtenerUltimaDescargaExitosa");
             return Context.ExecuteReader(Command);
         }
 
-
-        /*EPD-2248*/
         public int InsIndicadorPedidoAutentico(BEIndicadorPedidoAutentico entidad)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsIndicadorPedidoAutentico");
@@ -803,7 +798,6 @@ namespace Portal.Consultoras.Data
 
             return Convert.ToString(Context.ExecuteScalar(command));
         }
-        /*EPD-2248*/
 
         public IDataReader GetResumenPorCampania(int consultoraId, int codigoCampania)
         {
@@ -821,7 +815,36 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CodigoRegion", DbType.AnsiString, codigoRegion);
             Context.Database.AddInParameter(command, "@CodigoZona", DbType.AnsiString, codigoZona);
             return Context.ExecuteReader(command);
-        }        
-        
+        }
+
+        #region MisPedidos
+        public IDataReader GetMisPedidosByCampania(long ConsultoraID, int CampaniaID, int ClienteID, int Top)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetMisPedidosByCampania");
+            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, ConsultoraID);
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
+            Context.Database.AddInParameter(command, "@ClienteID", DbType.Int16, ClienteID);
+            Context.Database.AddInParameter(command, "@Top", DbType.Int32, Top);
+            return Context.ExecuteReader(command);
+        }
+        public IDataReader GetMisPedidosIngresados(long ConsultoraID, int CampaniaID, int ClienteID, string NombreConsultora)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetMisPedidosIngresados");
+            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, ConsultoraID);
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
+            Context.Database.AddInParameter(command, "@ClienteID", DbType.Int16, ClienteID);
+            Context.Database.AddInParameter(command, "@NombreConsultora", DbType.AnsiString, NombreConsultora);
+            return Context.ExecuteReader(command);
+        }
+        public IDataReader GetMisPedidosFacturados(long ConsultoraID, int CampaniaID, int ClienteID, string NombreConsultora)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetMisPedidosFacturados");
+            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, ConsultoraID);
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
+            Context.Database.AddInParameter(command, "@ClienteID", DbType.Int16, ClienteID);
+            Context.Database.AddInParameter(command, "@NombreConsultora", DbType.AnsiString, NombreConsultora);
+            return Context.ExecuteReader(command);
+        }
+        #endregion
     }
 }

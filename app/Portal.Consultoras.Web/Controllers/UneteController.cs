@@ -2246,7 +2246,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             model.CodigoISO = CodigoISO;
             var response = PostHTMLSACUnete("ProcesarParametro", model);
-            return Json(response == "true" ? true : false, JsonRequestBehavior.AllowGet);
+            return Json(response == "true", JsonRequestBehavior.AllowGet);
 
 
 
@@ -2335,7 +2335,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult DevolverSolicitud(int id, string observacion)
         {
             var response = getHTMLSACUnete("DevolverSolicitud", "&id=" + id + "&observacion=" + observacion);
-            return Json(response == "true" ? true : false, JsonRequestBehavior.AllowGet);
+            return Json(response == "true", JsonRequestBehavior.AllowGet);
 
             //var response = false;
 
@@ -2373,7 +2373,7 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult ReactivarPostulante(string id)
         {
             var response = getHTMLSACUnete("ReactivarPostulante2", "&id=" + id);
-            return Json(response == "true" ? true : false, JsonRequestBehavior.AllowGet);
+            return Json(response == "true", JsonRequestBehavior.AllowGet);
             //using (var sv = new PortalServiceClient())
             //{
             //    var solicitudPostulante = sv.ObtenerSolicitudPostulante(CodigoISO, int.Parse(id));
@@ -2410,7 +2410,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult RechazarPostulante(RechazoModel model)
         {
             var response = PostHTMLSACUnete("RechazarPostulante", model);
-            return Json(response == "true" ? true : false, JsonRequestBehavior.AllowGet);
+            return Json(response == "true", JsonRequestBehavior.AllowGet);
             //if (ModelState.IsValid)
             //{
             //    using (var sv = new PortalServiceClient())

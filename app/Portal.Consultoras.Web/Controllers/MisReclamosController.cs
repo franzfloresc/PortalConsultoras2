@@ -233,7 +233,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             var listaPedidoFacturados = CargarPedidoCUV(model);
 
-            if (listaPedidoFacturados.Count() == 0)
+            if (!listaPedidoFacturados.Any())
                 return false;
 
             var pedido = listaPedidoFacturados.FirstOrDefault(p => p.PedidoID == model.PedidoID) ?? new BEPedidoWeb();
@@ -521,7 +521,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return false;
 
             var cdrWebs = CargarBECDRWeb(model);
-            if (cdrWebs.Count() != 1)
+            if (cdrWebs.Count != 1)
                 return rpta;
 
             var cdrWeb = cdrWebs[0];

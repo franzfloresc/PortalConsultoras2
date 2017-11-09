@@ -22,12 +22,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 BETracking[] arrayTracking;
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    arrayTracking = sv.GetPedidosByConsultora(userData.PaisID, userData.CodigoConsultora);
+                    arrayTracking = sv.GetPedidosByConsultora(userData.PaisID, userData.CodigoConsultora, 3);
                 }
-                if(arrayTracking != null && arrayTracking.Count() > 0)
+                if(arrayTracking != null && arrayTracking.Any())
                 {
                     model.ListaEstadoSeguimiento = Mapper.Map<List<SeguimientoMobileModel>>(arrayTracking);
-                    if (model.ListaEstadoSeguimiento.Count > 3) model.ListaEstadoSeguimiento = model.ListaEstadoSeguimiento.Take(3).ToList();
 
                     var pedidoSeleccionado = model.ListaEstadoSeguimiento.FirstOrDefault(p => p.Campana == campania && (p.NumeroPedido ?? "") == (numeroPedido ?? ""));
                     if (pedidoSeleccionado == null) pedidoSeleccionado = model.ListaEstadoSeguimiento.FirstOrDefault(p => TieneDetalles(p));
@@ -58,7 +57,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 BETracking[] listaPedidos;
                 using (var service = new PedidoServiceClient())
                 {
-                    listaPedidos = service.GetPedidosByConsultora(userData.PaisID, codigoConsultora);
+                    listaPedidos = service.GetPedidosByConsultora(userData.PaisID, codigoConsultora, 3);
                 }
 
                 BETracking pedidoSeleccionado = null;

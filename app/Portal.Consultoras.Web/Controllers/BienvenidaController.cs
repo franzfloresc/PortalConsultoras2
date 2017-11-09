@@ -257,7 +257,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.EMail = userData.EMail;
                 model.Celular = userData.Celular;
                 model.EmailActivo = userData.EMailActivo;
-                ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("BUCKET_NAME") ?? string.Empty;
+                ViewBag.Ambiente = GetBucketNameFromConfig();
                 TempData.Keep("MostrarPopupCuponGanaste");
 
                 ViewBag.VerSeccion = verSeccion;
@@ -304,13 +304,14 @@ namespace Portal.Consultoras.Web.Controllers
                         Session[Constantes.ConstSession.TipoPopUpMostrar] = Constantes.TipoPopUp.Ninguno;
                     }
                 }
+                
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
-
-            if (Request.Browser.IsMobileDevice) return RedirectToAction("Index", "MisDatos", new { area = "Mobile" });
+            
+            if (Request.Browser.IsMobileDevice) return RedirectToAction("Index", "MisDatos", new { area = "Mobile",vc=true });
             return RedirectToAction("Index", new { showPopupMisDatos = true });
         }
 

@@ -13,8 +13,11 @@ var origenPedidoWebEstrategia = origenPedidoWebEstrategia || "";
 var divAgregado = null;
 var _campania = "";
 
-// Copiar el $(document).ready de Estrategia.js, en caso no hacer caso al archivo Estrategia.JS
-//$(document).ready(function () {});
+var belcorp = belcorp || {};
+belcorp.estrategia = belcorp.estrategia || new Object();
+belcorp.estrategia.initialize = function () {
+    registerEvent.call(this, "onProductoAgregado");
+}
 
 function EstrategiaObtenerObj(e) {
     var objHtmlEvent = $(e.target);
@@ -59,7 +62,7 @@ function VerDetalleEstrategia(e) {
     _campania = $(objHtmlEvent).parents("[data-tag-html]").attr("data-tag-html");
     try {
         var contentIndex = $(objHtmlEvent).parents("[data-tab-index]").attr("data-tab-index");
-        
+
         if (contentIndex !== undefined && contentIndex !== null && contentIndex.toString() === "2") {
             rdAnalyticsModule.VerDetalleBloqueada(campania, (estrategia.DescripcionResumen + " " + estrategia.DescripcionCortada).trim());
         } else if (origenPedido !== undefined && origenPedido !== null && origenPedido.indexOf("7") !== -1) {
@@ -84,8 +87,8 @@ function VerDetalleEstrategia(e) {
             });
         }
 
-        
-    } catch (e) {console.log(e)}
+
+    } catch (e) { console.log(e) }
 
     if (isMobile()) {
         EstrategiaVerDetalleMobile(estrategia, origenPedido);
@@ -123,7 +126,7 @@ function EstrategiaVerDetalleMobile(estrategia, origen) {
         if (typeof EstrategiaGuardarTemporal == "function" && typeof GetProductoStorage == "function") {
             var campania = $("[data-item=" + id + "]").parents("[data-tag-html]").attr("data-tag-html");
             var cuv = $("[data-item=" + id + "]").attr("data-item-cuv");
-            var obj  = {};
+            var obj = {};
             if (typeof cuv == "undefined" || typeof campania == "undefined") {
                 obj = JSON.parse($("[data-item=" + id + "]").find("[data-estrategia]").attr("data-estrategia"));
             }
@@ -251,7 +254,7 @@ function EstrategiaMostrarMasTonos(menos) {
     else {
         $("#popupDetalleCarousel_lanzamiento [data-tono-div]").css("height", "auto");
     }
-    
+
 }
 
 function EstrategiaGuardarTemporal(obj) {
@@ -337,17 +340,17 @@ function EstrategiaAgregar(event, popup, limite) {
                 origenPedidoWebEstrategia, campania, (estrategia.DescripcionResumen +
                     " " +
                     estrategia.DescripcionCortada).trim(), popup);
-        } catch (e) {console.log(e)} 
+        } catch (e) { console.log(e) }
         return false;
     }
 
     if (EstrategiaValidarSeleccionTono(objInput)) {
         return false;
     }
-   
+
     limite = limite || 0;
     var cantidad = (limite > 0) ? limite
-        :(
+        : (
             $(".btn_agregar_ficha_producto ").parents("[data-item]").find("input.liquidacion_rango_cantidad_pedido").val()
             || $(objInput).parents("[data-item]").find("input.rango_cantidad_pedido").val()
             || $(objInput).parents("[data-item]").find("[data-input='cantidad']").val()
@@ -437,7 +440,7 @@ function EstrategiaAgregar(event, popup, limite) {
                 CerrarLoad();
                 return false;
             }
-            
+
             if (!isMobile() && !agregoAlCarro) {
                 agregarProductoAlCarrito(objInput);
                 agregoAlCarro = true;
@@ -514,7 +517,7 @@ function EstrategiaAgregar(event, popup, limite) {
                 if (origenPedidoWebEstrategia !== undefined && origenPedidoWebEstrategia.indexOf("7") !== -1) {
                     rdAnalyticsModule.AgregarProducto(origenPedidoWebEstrategia, estrategia, popup);
                 } else {
-                    TagManagerClickAgregarProductoOfertaParaTI(estrategia);  
+                    TagManagerClickAgregarProductoOfertaParaTI(estrategia);
                 }
                 TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
             } catch (e) { console.log(e); }
@@ -529,6 +532,9 @@ function EstrategiaAgregar(event, popup, limite) {
             ActualizarLocalStorageAgregado("gn", params.listaCuvTonos || params.cuv, true);
 
             ProcesarActualizacionMostrarContenedorCupon();
+
+            if (belcorp.estrategia.applyChanges)
+                belcorp.estrategia.applyChanges("onProductoAgregado", data);
         },
         error: function (data, error) {
             console.log(data, error);
@@ -604,3 +610,5 @@ function AbrirMensajeEstrategia(txt) {
         alert_msg(txt);
     }
 }
+
+

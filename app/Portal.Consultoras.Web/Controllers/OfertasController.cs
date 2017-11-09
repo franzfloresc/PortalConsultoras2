@@ -19,6 +19,8 @@ namespace Portal.Consultoras.Web.Controllers
                     ListaSeccion = ObtenerConfiguracionSeccion(),
                     MensajeProductoBloqueado = MensajeProductoBloqueado()
                 };
+                
+                ViewBag.IconoLLuvia = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
 
                 var listaShowRoom = (List<BEShowRoomOferta>)Session[Constantes.ConstSession.ListaProductoShowRoom] ?? new List<BEShowRoomOferta>();
                 ViewBag.xlistaProductoSR = listaShowRoom.Count(x => x.EsSubCampania == false);
@@ -134,31 +136,5 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-
-        public ActionResult Descargables(string FileName)
-        {
-            try
-            {
-                string paisISO = Util.GetPaisISO(userData.PaisID);
-                var carpetaPais = Globals.UrlFileConsultoras + "/" + paisISO;
-                string urlS3 = ConfigS3.GetUrlS3(carpetaPais) + FileName;
-
-                return Json(new
-                {
-                    Result = true,
-                    UrlS3 = urlS3
-                });
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    Result = true,
-                    UrlS3 = ""
-                });
-            }
-        }
-
     }
 }

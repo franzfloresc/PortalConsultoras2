@@ -382,13 +382,13 @@ namespace Portal.Consultoras.Web.Controllers
 
 
 
-                    if (lista1.Count() == 0)
+                    if (!lista1.Any())
                     {
                         var lista = from a in lst
                                     where a.CampaniaIDInicio == model.CampaniaIDInicio && a.Posicion == model.PosicionBannerPedido
                                     select a;
 
-                        if (lista.Count() > 0)
+                        if (lista.Any())
                         {
                             foreach (BEBannerPedido listado in lista)
                             {

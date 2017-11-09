@@ -82,7 +82,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var productoComentarioFilter = ObtenerProductoComentarioFilter(page, rows, estadoComentarioID, tipoComentarioID, SAP, CUV, campaniaID);
                 var listaProductoComentario = ListarProductoComentario(paisID, productoComentarioFilter);
 
-                var totalRows = listaProductoComentario.Count() == 0 ? 0 : listaProductoComentario.FirstOrDefault().RowsCount;
+                var totalRows = !listaProductoComentario.Any() ? 0 : listaProductoComentario.FirstOrDefault().RowsCount;
                 var nro = (page - 1) * rows + 1;
                 var data = new
                 {

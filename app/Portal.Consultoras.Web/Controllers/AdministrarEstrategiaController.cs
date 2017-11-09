@@ -1,4 +1,5 @@
 using AutoMapper;
+
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceGestionWebPROL;
@@ -7,6 +8,7 @@ using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceZonificacion;
+
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -22,7 +24,7 @@ namespace Portal.Consultoras.Web.Controllers
     public class AdministrarEstrategiaController : BaseController
     {
 
-        public ActionResult Index()
+        public ActionResult Index(int TipoVistaEstrategia = 0)
         {
             if (!UsuarioModel.HasAcces(ViewBag.Permiso, "AdministrarEstrategia/Index"))
                 return RedirectToAction("Index", "Bienvenida");
@@ -37,11 +39,12 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 listaCampania = new List<CampaniaModel>(),
                 listaPaises = DropDowListPaises(),
-                ListaTipoEstrategia = DropDowListTipoEstrategia(),
+                ListaTipoEstrategia = DropDowListTipoEstrategia(TipoVistaEstrategia),
                 ListaEtiquetas = DropDowListEtiqueta(),
                 UrlS3 = urlS3,
                 habilitarNemotecnico = habilitarNemotecnico == "1",
-                ExpValidacionNemotecnico = ConfigurationManager.AppSettings["ExpresionValidacionNemotecnico"]
+                ExpValidacionNemotecnico = ConfigurationManager.AppSettings["ExpresionValidacionNemotecnico"],
+                TipoVistaEstrategia = TipoVistaEstrategia
             };
             return View(EstrategiaModel);
         }
@@ -122,7 +125,7 @@ namespace Portal.Consultoras.Web.Controllers
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
         }
 
-        private IEnumerable<TipoEstrategiaModel> DropDowListTipoEstrategia()
+        private IEnumerable<TipoEstrategiaModel> DropDowListTipoEstrategia(int TipoVistaEstrategia = 0)
         {
             var lst = GetTipoEstrategias();
 
@@ -130,13 +133,13 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
                 lst.Update(x => x.ImagenEstrategia = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenEstrategia, Globals.RutaImagenesMatriz + "/" + UserData().CodigoISO));
-            }
 
-            var lista = from a in lst
-                        where a.FlagActivo == 1
-                        select a;
+                var lista = (from a in lst
+                             where a.FlagActivo == 1
+                             && a.Codigo == (TipoVistaEstrategia == Constantes.TipoVistaEstrategia.ProgramaNuevas ? Constantes.TipoEstrategiaCodigo.IncentivosProgramaNuevas : a.Codigo)
+                             select a);
 
-            Mapper.CreateMap<BETipoEstrategia, TipoEstrategiaModel>()
+                Mapper.CreateMap<BETipoEstrategia, TipoEstrategiaModel>()
                     .ForMember(t => t.TipoEstrategiaID, f => f.MapFrom(c => c.TipoEstrategiaID))
                     .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.DescripcionEstrategia))
                     .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
@@ -146,7 +149,10 @@ namespace Portal.Consultoras.Web.Controllers
                     .ForMember(t => t.Imagen, f => f.MapFrom(c => c.ImagenEstrategia))
                     .ForMember(t => t.CodigoPrograma, f => f.MapFrom(c => c.CodigoPrograma));
 
-            return Mapper.Map<IList<BETipoEstrategia>, IEnumerable<TipoEstrategiaModel>>(lista.ToList());
+                return Mapper.Map<IEnumerable<BETipoEstrategia>, IEnumerable<TipoEstrategiaModel>>(lista);
+            }
+
+            return null;
         }
 
         public class BEConfiguracionValidacionZERegionIDComparer : IEqualityComparer<BEConfiguracionValidacionZE>
@@ -516,7 +522,7 @@ namespace Portal.Consultoras.Web.Controllers
                 int resultado = -1, tipo = -1;
                 if (FlagRecoProduc == "1") tipo = 0;
                 if (FlagRecoPerfil == "1") tipo = 1;
-                
+
                 List<BEEstrategia> lst;
                 var entidad = new BEEstrategia
                 {
@@ -528,7 +534,7 @@ namespace Portal.Consultoras.Web.Controllers
                     Activo = Convert.ToInt32(flag),
                     Cantidad = tipo
                 };
-                
+
                 using (var sv = new PedidoServiceClient())
                 {
                     lst = sv.GetOfertaByCUV(entidad).ToList();
@@ -542,7 +548,7 @@ namespace Portal.Consultoras.Web.Controllers
                 int enMatrizComercial = 1, idMatrizComercial = 0;
 
                 if (lst.Count <= 0) throw new ArgumentException("No se econtro el CUV ingresado.");
-                
+
                 if (tipo != 1)
                 {
                     if (resultado == 0)
@@ -564,7 +570,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (var svs = new WsGestionWeb())
                 {
-                    var preciosEstrategia =  svs.ObtenerPrecioEstrategia(CUV2, userData.CodigoISO, CampaniaID);
+                    var preciosEstrategia = svs.ObtenerPrecioEstrategia(CUV2, userData.CodigoISO, CampaniaID);
                     wspreciopack = preciosEstrategia.montotal;
                     ganancia = preciosEstrategia.montoganacia;
                 }
@@ -1329,8 +1335,8 @@ namespace Portal.Consultoras.Web.Controllers
                     estrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertaDelDia ||
                     estrategiaCodigo == Constantes.TipoEstrategiaCodigo.LosMasVendidos ||
                     estrategiaCodigo == Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada;
-                    
-                    
+
+
                     foreach (var opt in listBeEstrategias)
                     {
                         #region precioOferta
@@ -1361,7 +1367,7 @@ namespace Portal.Consultoras.Web.Controllers
                         try
                         {
                             var productoEstrategias = new List<RptProductoEstrategia>();
-                           
+
                             if (tono)
                             {
                                 opt.CampaniaID = campaniaId;

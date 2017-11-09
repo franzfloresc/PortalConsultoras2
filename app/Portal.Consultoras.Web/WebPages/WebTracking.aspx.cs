@@ -304,6 +304,10 @@ namespace Portal.Consultoras.Web.WebPages
                     pPostVenta.Visible = true;
                     CargarPostVenta(paisID, codigoConsultora);
                 }
+                else
+                {
+                    lnkPoliticasVenta.Visible = false;
+                }
 
                 MostrarAyuda(mostrarAyuda);
             }
@@ -350,7 +354,7 @@ namespace Portal.Consultoras.Web.WebPages
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                pedidos = sv.GetPedidosByConsultora(paisID, codigo);
+                pedidos = sv.GetPedidosByConsultora(paisID, codigo, 6);
             }
 
             listaPedidos.AddRange(pedidos);

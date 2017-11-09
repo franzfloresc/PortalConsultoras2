@@ -32,12 +32,13 @@
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cupon" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Incentivo" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ReservaProl" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd10" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ReservaProl" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd10" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd11" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IPedidoService_CrearCupon_InputMessage">
@@ -195,6 +196,24 @@
   </wsdl:message>
   <wsdl:message name="IPedidoService_GetFichaProducto_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetFichaProductoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetMisPedidosByCampania_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetMisPedidosByCampania" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetMisPedidosByCampania_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetMisPedidosByCampaniaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetMisPedidosIngresados_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetMisPedidosIngresados" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetMisPedidosIngresados_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetMisPedidosIngresadosResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetMisPedidosFacturados_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetMisPedidosFacturados" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetMisPedidosFacturados_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetMisPedidosFacturadosResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_ValidarUnidadesPermitidasEnPedidoShowRoom_InputMessage">
     <wsdl:part name="parameters" element="tns:ValidarUnidadesPermitidasEnPedidoShowRoom" />
@@ -2341,6 +2360,18 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetFichaProducto" message="tns:IPedidoService_GetFichaProducto_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetFichaProductoResponse" message="tns:IPedidoService_GetFichaProducto_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetMisPedidosByCampania">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetMisPedidosByCampania" message="tns:IPedidoService_GetMisPedidosByCampania_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetMisPedidosByCampaniaResponse" message="tns:IPedidoService_GetMisPedidosByCampania_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMisPedidosIngresados">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetMisPedidosIngresados" message="tns:IPedidoService_GetMisPedidosIngresados_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetMisPedidosIngresadosResponse" message="tns:IPedidoService_GetMisPedidosIngresados_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMisPedidosFacturados">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetMisPedidosFacturados" message="tns:IPedidoService_GetMisPedidosFacturados_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetMisPedidosFacturadosResponse" message="tns:IPedidoService_GetMisPedidosFacturados_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="ValidarUnidadesPermitidasEnPedidoShowRoom">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ValidarUnidadesPermitidasEnPedidoShowRoom" message="tns:IPedidoService_ValidarUnidadesPermitidasEnPedidoShowRoom_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ValidarUnidadesPermitidasEnPedidoShowRoomResponse" message="tns:IPedidoService_ValidarUnidadesPermitidasEnPedidoShowRoom_OutputMessage" />
@@ -3931,6 +3962,33 @@
     </wsdl:operation>
     <wsdl:operation name="GetFichaProducto">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetFichaProducto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMisPedidosByCampania">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetMisPedidosByCampania" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMisPedidosIngresados">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetMisPedidosIngresados" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMisPedidosFacturados">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetMisPedidosFacturados" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -7236,6 +7294,33 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetMisPedidosByCampania">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetMisPedidosByCampania" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMisPedidosIngresados">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetMisPedidosIngresados" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMisPedidosFacturados">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetMisPedidosFacturados" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ValidarUnidadesPermitidasEnPedidoShowRoom">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ValidarUnidadesPermitidasEnPedidoShowRoom" style="document" />
       <wsdl:input>
@@ -10302,7 +10387,7 @@
       <soap:address location="http://localhost:41615/PedidoService.svc" />
     </wsdl:port>
     <wsdl:port name="BasicHttpsBinding_IPedidoService" binding="tns:BasicHttpsBinding_IPedidoService">
-      <soap:address location="https://localhost:44300/PedidoService.svc" />
+      <soap:address location="https://localhost:44392/PedidoService.svc" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

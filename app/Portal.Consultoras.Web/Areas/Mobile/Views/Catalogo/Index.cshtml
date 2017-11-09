@@ -107,7 +107,15 @@
 {
     <!--TAB REVISTA-->
     <div id="tab_revistas_mobile" data-tag-html="Revistas" style="display:none;">
+        @if (!revistaDigital.TieneRDC && !revistaDigital.TieneRDR && !tieneGND)
+        {
         <div class="titulo_catalogo" data-titulo="">REVISTAS C-@Util.SubStr(Model.CampaniaActual.ToString(), 4, 2)</div>
+        }
+        else
+        {
+        <br />
+        }
+
         <div class="content_revistas_mob">
             @if (revistaDigital.TieneRDC)
                 {

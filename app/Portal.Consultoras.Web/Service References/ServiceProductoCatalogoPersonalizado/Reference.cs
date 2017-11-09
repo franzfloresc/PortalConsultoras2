@@ -983,6 +983,9 @@ namespace Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string RegaloImagenUrlField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TipoRangoField;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -1145,6 +1148,19 @@ namespace Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado {
                 if ((object.ReferenceEquals(this.RegaloImagenUrlField, value) != true)) {
                     this.RegaloImagenUrlField = value;
                     this.RaisePropertyChanged("RegaloImagenUrl");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TipoRango {
+            get {
+                return this.TipoRangoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TipoRangoField, value) != true)) {
+                    this.TipoRangoField = value;
+                    this.RaisePropertyChanged("TipoRango");
                 }
             }
         }
