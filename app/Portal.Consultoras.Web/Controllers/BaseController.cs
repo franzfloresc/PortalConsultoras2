@@ -374,29 +374,25 @@ namespace Portal.Consultoras.Web.Controllers
 
             userData.EjecutaProl = false;
 
-            var lista = ServicioProl_CalculoMontosProl(false);
-
-            if (lista != null)
+            var lista = ServicioProl_CalculoMontosProl(false) ?? new List<ObjMontosProl>();
+            
+            if (lista.Any())
             {
-                if (lista.Count > 0)
+                oRespuestaProl = lista[0] ?? new ObjMontosProl();
+
+                Decimal.TryParse(oRespuestaProl.AhorroCatalogo, out montoAhorroCatalogo);
+                Decimal.TryParse(oRespuestaProl.AhorroRevista, out montoAhorroRevista);
+                Decimal.TryParse(oRespuestaProl.MontoTotalDescuento, out montoDescuento);
+                Decimal.TryParse(oRespuestaProl.MontoEscala, out montoEscala);
+                
+                if (oRespuestaProl.ListaConcursoIncentivos != null)
                 {
-                    oRespuestaProl = lista[0];
-
-                    Decimal.TryParse(oRespuestaProl.AhorroCatalogo, out montoAhorroCatalogo);
-                    Decimal.TryParse(oRespuestaProl.AhorroRevista, out montoAhorroRevista);
-                    Decimal.TryParse(oRespuestaProl.MontoTotalDescuento, out montoDescuento);
-                    Decimal.TryParse(oRespuestaProl.MontoEscala, out montoEscala);
-
-                    if (oRespuestaProl != null)
-                    {
-                        if (oRespuestaProl.ListaConcursoIncentivos != null)
-                        {
-                            Puntajes = string.Join("|", oRespuestaProl.ListaConcursoIncentivos.Select(c => c.puntajeconcurso.Split('|')[0]).ToArray());
-                            PuntajesExigidos = string.Join("|", oRespuestaProl.ListaConcursoIncentivos.Select(c => (c.puntajeconcurso.IndexOf('|') > -1 ? c.puntajeconcurso.Split('|')[1] : "0")).ToArray());
-                        }
-                    }
+                    Puntajes = string.Join("|", oRespuestaProl.ListaConcursoIncentivos.Select(c => c.puntajeconcurso.Split('|')[0]).ToArray());
+                    PuntajesExigidos = string.Join("|", oRespuestaProl.ListaConcursoIncentivos.Select(c => (c.puntajeconcurso.IndexOf('|') > -1 ? c.puntajeconcurso.Split('|')[1] : "0")).ToArray());
                 }
+                
             }
+            
 
             BEPedidoWeb bePedidoWeb = new BEPedidoWeb();
             bePedidoWeb.PaisID = userData.PaisID;
@@ -2072,7 +2068,7 @@ namespace Portal.Consultoras.Web.Controllers
                 objR.TotalPedidoStr = Util.DecimalToStringFormat(objR.TotalPedido, userData.CodigoISO);
 
                 objR.CantidadProductos = listProducto.Sum(p => p.Cantidad);
-                objR.CantidadCuv = listProducto.Count();
+                objR.CantidadCuv = listProducto.Count;
 
                 #region listaEscalaDescuento
                 var listaEscalaDescuento = new List<BEEscalaDescuento>();
