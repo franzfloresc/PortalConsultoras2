@@ -4339,8 +4339,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                string mensaje = "", urlRedireccionar = "",
-                area = IsMobile() ? "Mobile" : "";
+                string mensaje = "", urlRedireccionar = "";
 
                 #region SesiónExpirada
                 if (userData == null)
@@ -4610,8 +4609,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                string mensaje = "", urlRedireccionar = "",
-                area = IsMobile() ? "Mobile" : "";
+                string mensaje = "", urlRedireccionar = "";
 
                 #region SesiónExpirada
                 if (userData == null)

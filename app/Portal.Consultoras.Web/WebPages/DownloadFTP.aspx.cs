@@ -62,11 +62,7 @@ namespace Portal.Consultoras.Web.WebPages
             }
             catch (WebException)
             {
-                
-            }
-            catch (Exception)
-            {
-                
+
             }
 
         }
