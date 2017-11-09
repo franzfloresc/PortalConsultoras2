@@ -98,14 +98,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             try
             {
-                string getString;
-                using (WebClient client = new WebClient())
-                {
-                    getString = client.DownloadString(string.Format("https://issuu.com/oembed?url=https://issuu.com/somosbelcorp/docs/{0}", codigoRevista));
-                }
-
-                JavaScriptSerializer serializer = new JavaScriptSerializer();
-                dynamic item = serializer.Deserialize<object>(getString);
+                string stringIssuuRevista = GetStringIssuRevista(codigoRevista);
+                dynamic item = new JavaScriptSerializer().Deserialize<object>(stringIssuuRevista);
                 url = item["thumbnail_url"];
             }
             catch (FaultException faulException)
@@ -120,6 +114,18 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
 
             return Json(url);
+        }
+
+        private string GetStringIssuRevista(string codigoRevista)
+        {
+            var stringIssuuRevista = string.Empty;
+            using (var client = new WebClient())
+            {
+                var urlIssuuRevista = string.Format("https://issuu.com/oembed?url=https://issuu.com/somosbelcorp/docs/{0}", codigoRevista);
+                stringIssuuRevista = client.DownloadString(urlIssuuRevista);
+            }
+
+            return stringIssuuRevista;
         }
 
         public ActionResult MiRevista(string campaniaRevista)

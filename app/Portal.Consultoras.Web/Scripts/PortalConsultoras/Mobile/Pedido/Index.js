@@ -219,10 +219,7 @@ $(document).ready(function () {
         //}
         //if (!clienteValido) return false;
 
-        var cantidadProductos = $.trim($("#txtCantidad").val()) || 0;
-        if (cantidadProductos > 0) {
-            AgregarProductoListado();
-        };
+        AgregarProductoListado();
     });
 
     $("body").on("click", ".btnAgregarSugerido", function () {
@@ -779,13 +776,13 @@ function AgregarProductoListado() {
         async: true,
         success: function (datos) {
             if (checkTimeout(datos)) {
-            if (!datos.result) {
-                MostrarMensaje("mensajeCUVCantidadMaxima", datos.message);
-                CloseLoading();
-            } else {
-                InsertarProducto();
-                return true;
-            }
+                if (!datos.result) {
+                    MostrarMensaje("mensajeCUVCantidadMaxima", datos.message);
+                    CloseLoading();
+                } else {
+                    InsertarProducto();
+                    return true;
+                }
             }
         },
         error: function (data, error) {
@@ -808,7 +805,6 @@ function InsertarProducto() {
     }
 
     if (!esOfertaNueva) {
-
         if ($.trim($("#txtClienteNombre").val()) == "") $("#txtClienteId").val("0");
 
         model = {
@@ -832,6 +828,7 @@ function InsertarProducto() {
             PrecioUnidad: $("#hdfPrecioUnidad").val(),
             DescripcionProd: $("#divNombreProducto").html(),
             Cantidad: $("#txtCantidad").val(),
+            OrigenPedidoWeb: origenPedidoWebMobilePedido,
             //ClienteID: $("#ddlClientes").val(),
             //ClienteDescripcion: $("#ddlClientes option:selected").text()
             ClienteID: $("#txtClienteId").val(),
@@ -847,7 +844,8 @@ function InsertarProducto() {
             Cantidad: $("#txtCantidad").val(),
             IndicadorMontoMinimo: $("#hdfIndicadorMontoMinimo").val(),
             TipoOferta: $("#hdTipoOfertaSisID").val(),
-            tipoEstrategiaImagen: esOfertaNueva ? 2 : $("#hdfValorFlagNueva").val()
+            tipoEstrategiaImagen: esOfertaNueva ? 2 : $("#hdfValorFlagNueva").val(),
+            OrigenPedidoWeb: origenPedidoWebMobilePedido
         };
     }
 

@@ -465,16 +465,26 @@ function EstrategiaAgregar(event, popup, limite) {
             var cuv = estrategia.CUV2;
 
             if (tipoOrigenEstrategia == 1) {
-                MostrarBarra(data, '1');
-                ActualizarGanancia(data.DataBarra);
-                CargarCarouselEstrategias(cuv);
-                if (tieneMasVendidos === 1) {
-                    CargarCarouselMasVendidos('desktop');
+                if (typeof MostrarBarra != "undefined")
+                    MostrarBarra(data, '1');
+                
+                if (typeof ActualizarGanancia != "undefined")
+                    ActualizarGanancia(data.DataBarra);
+                
+                if (typeof CargarCarouselEstrategias != "undefined")
+                    CargarCarouselEstrategias(cuv);
+
+                if (typeof tieneMasVendidos != "undefined") {
+                    if (tieneMasVendidos === 1) {
+                        if (typeof CargarCarouselMasVendidos != "undefined")
+                            CargarCarouselMasVendidos('desktop');
+                    }
                 }
             }
             else if (tipoOrigenEstrategia == 11) {
 
                 $("#hdErrorInsertarProducto").val(data.errorInsertarProducto);
+
 
                 cierreCarouselEstrategias();
                 CargarCarouselEstrategias(cuv);
@@ -517,6 +527,7 @@ function EstrategiaAgregar(event, popup, limite) {
             }
 
             ActualizarLocalStorageAgregado("rd", params.listaCuvTonos || params.cuv, true);
+            ActualizarLocalStorageAgregado("gn", params.listaCuvTonos || params.cuv, true);
 
             ProcesarActualizacionMostrarContenedorCupon();
 

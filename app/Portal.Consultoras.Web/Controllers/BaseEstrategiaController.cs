@@ -21,7 +21,8 @@ namespace Portal.Consultoras.Web.Controllers
             codAgrupacion = Util.Trim(codAgrupacion);
             var listEstrategia = new List<BEEstrategia>();
 
-            if (codAgrupacion != Constantes.TipoEstrategiaCodigo.Lanzamiento)
+            if (codAgrupacion != Constantes.TipoEstrategiaCodigo.Lanzamiento 
+                && codAgrupacion != Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada)
             {
                 listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.PackNuevas, campaniaId));
                 listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.OfertaWeb, campaniaId));
@@ -35,6 +36,9 @@ namespace Portal.Consultoras.Web.Controllers
                     break;
                 case Constantes.TipoEstrategiaCodigo.Lanzamiento:
                     listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.Lanzamiento, campaniaId));
+                    break;
+                case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
+                    listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada, campaniaId));
                     break;
                 default:
                     listEstrategia.AddRange(ConsultarEstrategiasPorTipo(Constantes.TipoEstrategiaCodigo.OfertaParaTi, campaniaId));
@@ -468,7 +472,7 @@ namespace Portal.Consultoras.Web.Controllers
                 else
                 {
                     estrategia.DescripcionCortada = Util.SubStrCortarNombre(estrategia.DescripcionCUV2, 40);
-                };
+                }
 
                 estrategia.ID = estrategia.EstrategiaID;
                 if (estrategia.FlagMostrarImg == 1)
@@ -537,6 +541,7 @@ namespace Portal.Consultoras.Web.Controllers
                         || estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas)
                         && (revistaDigital.TieneRDC || revistaDigital.TieneRDR))
                     || tipo == 1
+                    || tipo == 2
                     ? "revistadigital-landing" : "";
                 prodModel.FotoProducto01 = estrategia.FotoProducto01;
                 prodModel.ImagenURL = estrategia.ImagenURL;

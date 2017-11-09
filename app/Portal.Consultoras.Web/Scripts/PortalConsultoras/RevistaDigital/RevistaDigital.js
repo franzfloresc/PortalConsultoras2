@@ -110,9 +110,11 @@ $(document).ready(function () {
     $(".flecha_scroll_mob").on('click', function (e) {
 
         e.preventDefault();
-        $('html, body').animate({
-            scrollTop: $('#divTopFiltros').position().top - 60
-        }, 1000, 'swing');
+        if ($('#divTopFiltros').length > 0) {
+            $('html, body').animate({
+                scrollTop: $('#divTopFiltros').position().top - 60
+            }, 1000, 'swing');
+        }
     });
 
     $('.tit_pregunta_ept').click(function (e) {
@@ -294,6 +296,13 @@ function OfertaArmarEstrategias(response) {
     }
     var htmlDiv = SetHandlebars("#producto-landing-template", modeloTemp);
     divProd.find('#divOfertaProductos').append(htmlDiv);
+    if (response.cantidadTotal == 0) {
+        divProd.find('#no-productos').show();
+    }
+
+    /*Logica para agregar atributos para el EfectoLazy*/
+    EstablecerAccionLazyImagen("img[data-lazy-seccion-revista-digital]");
+
     //ResizeBoxContnet();
     divProd.find("#spnCantidadFiltro").html(cantProdFiltros);
     divProd.find("#spnCantidadTotal").html(response.cantidadTotal);
