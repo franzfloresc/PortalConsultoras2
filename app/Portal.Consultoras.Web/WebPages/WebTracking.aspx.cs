@@ -304,6 +304,10 @@ namespace Portal.Consultoras.Web.WebPages
                     pPostVenta.Visible = true;
                     CargarPostVenta(paisID, codigoConsultora);
                 }
+                else
+                {
+                    lnkPoliticasVenta.Visible = false;
+                }
 
                 MostrarAyuda(mostrarAyuda);
             }

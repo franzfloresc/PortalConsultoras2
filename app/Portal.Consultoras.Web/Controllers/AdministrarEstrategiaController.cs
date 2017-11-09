@@ -1329,7 +1329,8 @@ namespace Portal.Consultoras.Web.Controllers
                      estrategiaCodigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso ||
                      estrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi ||
                      estrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertaDelDia ||
-                     estrategiaCodigo == Constantes.TipoEstrategiaCodigo.LosMasVendidos);
+                     estrategiaCodigo == Constantes.TipoEstrategiaCodigo.LosMasVendidos ||
+                     estrategiaCodigo == Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada);
 
 
                     foreach (var opt in listBeEstrategias)

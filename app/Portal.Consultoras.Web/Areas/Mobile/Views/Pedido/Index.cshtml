@@ -21,12 +21,12 @@
         </div>
     }
     
-    @if (mobileConfiguracion.EsAppMobile)
+    @*@if (mobileConfiguracion.EsAppMobile)
     {
         @Html.Partial("~/Areas/Mobile/Views/Util/_barra.cshtml")
         <input type="hidden" id="hdfSimbolo" value="@Model.Simbolo" />
         <input type="hidden" id="hdfTotal" value="@Model.Total" />
-    }
+    }*@
 
     <!-- BANNERS INGRESO DE PEDIDO -->
     <div class="banner_ingresoPedido nuevaAlturaBanner" style="background: #000 url(@ViewBag.UrlFranjaNegra) no-repeat center center;">
@@ -466,7 +466,6 @@
         var productoSugerido = false;
         var productoAgotado = false;
 
-        var tipoOrigenEstrategia = 21;
         var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTi;
 
         var urlClienteDetalle = "@Url.Action("AgregarCliente", "Cliente", new { area = "Mobile" })";
@@ -482,6 +481,7 @@
         var tipoOrigenEstrategia = 21;
         var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTi;
         var origenPedidoWebFichaProducto = @Constantes.OrigenPedidoWeb.MobilePedidoVirtualCoach;
+        var origenPedidoWebMobilePedido = @Constantes.OrigenPedidoWeb.MobilePedido;
         var paisISO = '@ViewBag.paisISO';
         var viewBagAmbiente = '@ViewBag.Ambiente';
         var correo = '@Model.EMail';

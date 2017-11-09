@@ -2,6 +2,7 @@
 @using Portal.Consultoras.Web.Models;
 @using Portal.Consultoras.Web.Areas.Mobile.Helpers
 @using Newtonsoft.Json;
+@using Portal.Consultoras.Web.Helpers
 
 @{
     ShowRoomBannerLateralModel showRoomBannerLateral = new ShowRoomBannerLateralModel();
@@ -424,7 +425,8 @@
         }
 
         var ViewIndicadorGPRSB = '@ViewBag.IndicadorGPRSB';
-		var MensajePedidoMobile = '@ViewBag.MensajePedidoMobile';
+        var MensajePedidoMobile = '@ViewBag.MensajePedidoMobile';
+        var OrigenDesktopODD = 0;
 		belcorp.settings.initialize({
 			isAppMobile : @Html.MobileAppConfiguracion().EsAppMobile.ToString().ToLower()
 		});

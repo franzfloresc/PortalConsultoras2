@@ -125,7 +125,7 @@ namespace Portal.Consultoras.ServiceContracts
         void UpdateIndicadorAyudaWebTracking(int paisID, string codigoConsultora, bool indicador);
 
         [OperationContract]
-        void InsLogIngresoPortal(int paisID, string CodigoConsultora, string IPOrigen, byte Tipo, string DetalleError);
+        void InsLogIngresoPortal(int paisID, string CodigoConsultora, string IPOrigen, byte Tipo, string DetalleError, string Canal);
 
         [OperationContract]
         String AceptarContrato(BEUsuario usuario);

@@ -304,7 +304,8 @@
             'pais': '@ViewBag.PaisAnalytics',
             'codigoConsultora': '@ViewBag.CodigoConsultoraDL'
         };
-		var usuarioNombre = '@ViewBag.UsuarioNombre';
+        var usuarioNombre = '@ViewBag.UsuarioNombre';
+        var OrigenDesktopODD = 0;
 
 		belcorp.settings.initialize({
 			isAppMobile : @Html.MobileAppConfiguracion().EsAppMobile.ToString().ToLower()

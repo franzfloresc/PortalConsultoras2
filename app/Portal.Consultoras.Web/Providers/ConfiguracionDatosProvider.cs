@@ -6,7 +6,7 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Providers.Interfaces;
 using Portal.Consultoras.Web.ServiceSAC;
 
-namespace Portal.Consultoras.Web.Providersx
+namespace Portal.Consultoras.Web.Providers
 {
     public class ConfiguracionDatosProvider : IConfiguracionDatosProvider
     {

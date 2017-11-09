@@ -189,6 +189,7 @@
     <Compile Include="App_Start\RouteConfig.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Areas\Mobile\Controllers\GuiaNegocioController.cs" />
     <Compile Include="Areas\Mobile\Controllers\MisDatosController.cs" />
     <Compile Include="Areas\Mobile\Controllers\CompartirController.cs" />
     <Compile Include="Areas\Mobile\Controllers\CatalogoRevistaController.cs" />
@@ -282,10 +283,12 @@
     <Compile Include="Controllers\AdministrarTipoEstrategiaController.cs" />
     <Compile Include="Controllers\AsesoraOnlineController.cs" />
     <Compile Include="Controllers\BaseControllerUnete.cs" />
+    <Compile Include="Controllers\BaseGuiaNegocioController.cs" />
     <Compile Include="Controllers\BaseRevistaDigitalController.cs" />
     <Compile Include="Controllers\BaseEstrategiaController.cs" />
     <Compile Include="Controllers\BaseShowRoomController.cs" />
     <Compile Include="Controllers\CampaniaController.cs" />
+    <Compile Include="Controllers\DescargablesController.cs" />
     <Compile Include="Controllers\EstrategiaProductoComentarioController.cs" />
     <Compile Include="Controllers\CatalogosBelcorpController.cs" />
     <Compile Include="Controllers\OfertasController.cs" />
@@ -371,6 +374,7 @@
     <Compile Include="Controllers\ReportePedidoDDWebController.cs" />
     <Compile Include="Controllers\ReportePedidoFICController.cs" />
     <Compile Include="Controllers\ReservaSAPController.cs" />
+    <Compile Include="Controllers\GuiaNegocioController.cs" />
     <Compile Include="Controllers\RevistaDigitalController.cs" />
     <Compile Include="Controllers\RolController.cs" />
     <Compile Include="Controllers\RVDigitalController.cs" />
@@ -414,6 +418,7 @@
     <Compile Include="Helpers\ViewExtensions.cs" />
     <Compile Include="Infraestructure\Settings.cs" />
     <Compile Include="Infraestructure\UniqueRoute.cs" />
+    <Compile Include="LogManager\ILogManager.cs" />
     <Compile Include="LogManager\LogManager.cs" />
     <Compile Include="Models\AdmCuponModel.cs" />
     <Compile Include="Models\AdministrarOfertasHomeModel.cs" />
@@ -432,6 +437,7 @@
     <Compile Include="Models\ClienteOnlineDetalleModel.cs" />
     <Compile Include="Models\ClienteSb2Model.cs" />
     <Compile Include="Models\BarraConsultoraModel.cs" />
+    <Compile Include="Models\DescargablesModel.cs" />
     <Compile Include="Models\EventoFestivoDataModel.cs" />
     <Compile Include="Models\EventoFestivoModel.cs" />
     <Compile Include="Models\FichaProductoDetalleModel.cs" />
@@ -1221,6 +1227,7 @@
     <Content Include="Content\Css\Mobile\esika\menu.css" />
     <Content Include="Content\Css\Mobile\esika\misDatos.css" />
     <Content Include="Content\Css\Mobile\esika\revistaDigital.css" />
+    <Content Include="Content\Css\Mobile\esika\seccion-descarga-imprime.css" />
     <Content Include="Content\Css\Mobile\esika\slick.css" />
     <Content Include="Content\Css\Mobile\esika\style.css" />
     <Content Include="Content\Css\Mobile\esika\theme.css" />
@@ -1238,6 +1245,7 @@
     <Content Include="Content\Css\Mobile\lbel\menu.css" />
     <Content Include="Content\Css\Mobile\lbel\misDatos.css" />
     <Content Include="Content\Css\Mobile\lbel\revistaDigital.css" />
+    <Content Include="Content\Css\Mobile\lbel\seccion-descarga-imprime.css" />
     <Content Include="Content\Css\Mobile\lbel\slick.css" />
     <Content Include="Content\Css\Mobile\lbel\style.css" />
     <Content Include="Content\Css\Mobile\lbel\theme.css" />
@@ -1272,23 +1280,20 @@
     <Content Include="Content\Images\Esika\Contenedor\fondo-seccion-descarga-imprime.jpg" />
     <Content Include="Content\Images\Esika\Contenedor\icono-descarga-e-imprime-hover.svg" />
     <Content Include="Content\Images\Esika\Contenedor\icono-descarga-e-imprime.svg" />
+    <Content Include="Content\Images\Esika\Contenedor\inicio_hover.svg" />
+    <Content Include="Content\Images\Esika\Contenedor\inicio_normal.svg" />
     <Content Include="Content\Images\Esika\Contenedor\papel-de-regalo.png" />
     <Content Include="Content\Images\Esika\Contenedor\tarjetas-navidenias.png" />
     <Content Include="Content\Images\Lbel\Contenedor\fondo-seccion-descarga-imprime.jpg" />
     <Content Include="Content\Images\Lbel\Contenedor\icono-descarga-e-imprime-hover.svg" />
     <Content Include="Content\Images\Lbel\Contenedor\icono-descarga-e-imprime.svg" />
-    <Content Include="Content\Images\Lbel\Contenedor\inicio_hover.png" />
-    <Content Include="Content\Images\Lbel\Contenedor\inicio_normal.png" />
+    <Content Include="Content\Images\Lbel\Contenedor\inicio_hover.svg" />
+    <Content Include="Content\Images\Lbel\Contenedor\inicio_normal.svg" />
     <Content Include="Content\Images\Lbel\Contenedor\papel-de-regalo.png" />
     <Content Include="Content\Images\Lbel\Contenedor\tarjetas-navidenias.png" />
-    <Content Include="Content\Images\mobile\Esika\Contenedor\casita_hover.png" />
-    <Content Include="Content\Images\mobile\Esika\Contenedor\inicio_hover.png" />
-    <Content Include="Content\Images\mobile\Esika\Contenedor\inicio_normal.png" />
     <Content Include="Content\Images\check-acepto-terminos.png" />
     <Content Include="Content\Images\Esika\bg_regalo.png" />
     <Content Include="Content\Images\bg_esika.png" />
-    <Content Include="Content\Images\Esika\Contenedor\inicio_normal.png" />
-    <Content Include="Content\Images\Esika\Contenedor\inicio_hover.png" />
     <Content Include="Content\Images\Esika\bg_regalo_chile.png" />
     <Content Include="Content\Images\Esika\bg_regalo_mobile.png" />
     <Content Include="Content\Images\Esika\bg_regalo_mobile_chile.png" />
@@ -2969,6 +2974,8 @@
     <Content Include="Content\Images\Pop Up Navidad 2-06.png" />
     <Content Include="Content\Images\popup-inscripcion-animacion.gif" />
     <Content Include="Content\Images\popup_esika\gmail.png" />
+    <Content Include="Content\Images\popup_pedido\numero_pedido_mobile_bg.png" />
+    <Content Include="Content\Images\popup_pedido\numero_pedido_site_bg.png" />
     <Content Include="Content\Images\Pop_Up_Navidad_2_01.png" />
     <Content Include="Content\Images\preloader.gif" />
     <Content Include="Content\Images\preview_banner_com.png" />
@@ -3255,6 +3262,8 @@
     <Content Include="Scripts\jquery.custom-scrollbar.js" />
     <Content Include="Scripts\jquery.custom-scrollbar.min.js" />
     <Content Include="Scripts\jquery.easy-pie-chart.js" />
+    <Content Include="Scripts\jquery.lazy.js" />
+    <Content Include="Scripts\jquery.lazy.min.js" />
     <Content Include="Scripts\jquery.maskedinput.min.js" />
     <Content Include="Scripts\jquery.paging.min.js" />
     <Content Include="Scripts\jquery.range.js" />
@@ -3293,6 +3302,7 @@
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaProgramaNuevas\Detalle.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaProgramaNuevas\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\EstrategiaPersonalizada\Descargables.js" />
     <Content Include="Scripts\PortalConsultoras\MatrizCampania\ActualizarMatrizCampaniaModule.js" />
     <Content Include="Scripts\PortalConsultoras\FichaProducto\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\SeguimientoPedido\Index.js" />
@@ -3631,9 +3641,11 @@
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloquePopupComunidad.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloquePopupSesionFinalizada.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloquePopupPostulante.cshtml" />
+    <Content Include="Areas\Mobile\Views\GuiaNegocio\Index.cshtml" />
     <Content Include="Content\FAQ\CodigoEticaCAPEVEDI_PE.pdf" />
     <Content Include="Content\FAQ\QUIZCAPEVEDI_PE.pdf" />
     <Content Include="Areas\Mobile\Views\Shared\_MobileLayoutPedidoEmpty.cshtml" />
+    <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-descargables-navidenos.cshtml" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>
@@ -3794,7 +3806,7 @@
     </None>
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService1.wsdl" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService11.wsdl" />
-    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService12.wsdl" />
+    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService2.wsdl" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService3.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -3813,22 +3825,21 @@
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService35.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService36.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService37.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService38.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService2.disco" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.disco" />
     <None Include="Service References\ServiceAsesoraOnline\configuration91.svcinfo" />
     <None Include="Service References\ServiceAsesoraOnline\configuration.svcinfo" />
     <None Include="Service References\ServiceAsesoraOnline\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService6.xsd">
+      <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceSAC\SACService.wsdl" />
     <None Include="Service References\ServiceSAC\SACService.xsd">
@@ -3871,6 +3882,7 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService2.disco" />
     <Content Include="Service References\ServiceSeguridad\SeguridadService.wsdl" />
     <None Include="Service References\ServiceSeguridad\SeguridadService.xsd">
       <SubType>Designer</SubType>
@@ -4429,7 +4441,6 @@
     <Content Include="Views\Unete\_MotivoRechazo.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\template-producto-verdetalle.cshtml" />
     <Content Include="Views\Ofertas\Index.cshtml" />
-    <Content Include="Views\EstrategiaPersonalizada\template-lanzamiento-carrusel.cshtml" />
     <Content Include="Views\AdministrarPalanca\Index.cshtml" />
     <Content Include="Views\AdministrarPalanca\Partials\MantenimientoPalanca.cshtml" />
     <Content Include="Views\Shared\_MainLayoutContenedor.cshtml" />
@@ -4462,11 +4473,13 @@
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpDialogMensajes.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpTemplateResumenCampania.cshtml" />
     <Content Include="Views\AdministrarGuiaNegocioDigitalizada\Index.cshtml" />
+    <Content Include="Views\GuiaNegocio\Index.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\template-producto-landing.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-descargables-navidenos.cshtml" />
     <Content Include="Areas\Mobile\Views\Util\_barra.cshtml" />
     <Content Include="Views\AdministrarEstrategia\ProgramaNuevas.cshtml" />
     <Content Include="Views\AdministrarEstrategia\ProgramaNuevasDetalle.cshtml" />
+    <Content Include="Views\Descargables\Descargables.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -4943,6 +4956,9 @@
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
@@ -4958,13 +4974,14 @@
           <DevelopmentServerPort>20267</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:20267/</IISUrl>
-          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
-          <IISAppRootUrl>http://localhost:20267/</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
           </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+          <servers defaultServer="SelfHostServer">
+            <server name="SelfHostServer" exePath="" cmdArgs="" url="http://localhost:20267/" workingDir="" />
+          </servers>
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>

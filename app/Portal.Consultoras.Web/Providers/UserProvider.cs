@@ -23,11 +23,11 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
-        public async Task RegistrarIngresoAlPortal(int paisId, string codigoConsultora, string ipCliente, byte tipo, string campaniaId)
+        public async Task RegistrarIngresoAlPortal(int paisId, string codigoConsultora, string ipCliente, byte tipo, string campaniaId, string canal)
         {
             using (var client = new UsuarioServiceClient())
             {
-                await client.InsLogIngresoPortalAsync(paisId, codigoConsultora, ipCliente, tipo, campaniaId);
+                await client.InsLogIngresoPortalAsync(paisId, codigoConsultora, ipCliente, tipo, campaniaId, canal);
             }
         }
 

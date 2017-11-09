@@ -37,7 +37,7 @@ namespace Portal.Consultoras.Data.Hana
                     listBE.Add(beEscalaDescuento);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 listBE = new List<BEEscalaDescuento>();
             }            
