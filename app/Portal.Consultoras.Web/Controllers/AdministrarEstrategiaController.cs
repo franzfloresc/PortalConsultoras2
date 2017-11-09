@@ -1791,9 +1791,10 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var httpPostedFile = model.Documento;
-                if (model.Documento.ContentLength <= 0) throw new Exception("El archivo esta vacio.");
-                if (!model.Documento.FileName.EndsWith(".csv")) throw new Exception("El archivo no tiene la extencion correcta");
+                
+                if (model.Documento == null || model.Documento.ContentLength <= 0) throw new Exception("El archivo esta vacio.");
+                if (!model.Documento.FileName.EndsWith(".csv")) throw new Exception("El archivo no tiene la extencion correcta.");
+                if (model.Documento.ContentLength > 4*1024*1024 ) throw new Exception("El archivo es demasiado extenso para ser procesado.");
                 
                 var fileContent = new List<BEDescripcionEstrategia>();
                 var sd = new StreamReader(model.Documento.InputStream);
@@ -1835,7 +1836,6 @@ namespace Portal.Consultoras.Web.Controllers
                         beDescripcionEstrategias);
                 return Json(new
                 {
-                    success = true,
                     listActualizado = descripcionEstrategiaModels.Where(x => x.Estado == 1),
                     listNoActualizado = descripcionEstrategiaModels.Where(x => x.Estado != 1)
                 });
