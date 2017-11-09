@@ -137,13 +137,13 @@ namespace Portal.Consultoras.Web.AutoMapper
                 .ForMember(t => t.DescripcionMarca, f => f.MapFrom(c => c.NombreMarca))
                 .ForMember(t => t.CUVPedidoImagen, f => f.MapFrom(c => c.ImagenCUVPedido))
                 .ForMember(t => t.CUVPedidoNombre, f => f.MapFrom(c => c.NombreCUVPedido))
-                .ForMember(t => t.CodigoProducto, f => f.MapFrom(c => c.CodigoSap));
-
-            CreateMap<ProductoModel, Producto>()
-                .ForMember(t => t.IdMarca, f => f.MapFrom(c => c.MarcaID))
-                .ForMember(t => t.Cuv, f => f.MapFrom(c => c.CUV))
-                .ForMember(t => t.NombreMarca, f => f.MapFrom(c => c.DescripcionMarca));
-
+                .ForMember(t => t.CodigoProducto, f => f.MapFrom(c => c.CodigoSap))
+                .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.NombreComercial))
+                .ForMember(t => t.DescripcionComercial, f => f.MapFrom(c => c.Descripcion))
+                .ForMember(t => t.ImagenProductoSugerido, f => f.MapFrom(c => c.Imagen))
+                .ForMember(t => t.NombreBulk, f => f.MapFrom(c => c.NombreBulk))
+                .ForMember(t => t.ImagenBulk, f => f.MapFrom(c => c.ImagenBulk));
+            
             CreateMap<BECDRWeb, CDRWebModel>();
 
             CreateMap<BELogCDRWeb, CDRWebModel>()
@@ -263,6 +263,8 @@ namespace Portal.Consultoras.Web.AutoMapper
             CreateMap<ServiceUsuario.BEEventoFestivo, EventoFestivoModel>();
 
             CreateMap<BETracking, SeguimientoMobileModel>();
+
+            CreateMap<BECliente, ClienteModel>();
 
             CreateMap<BECliente, ClienteMobileModel>()
                  .ForMember(t => t.Email, f => f.MapFrom(c => c.eMail))

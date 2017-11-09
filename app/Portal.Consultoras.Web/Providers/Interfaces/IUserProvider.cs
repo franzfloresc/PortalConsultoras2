@@ -12,7 +12,7 @@ namespace Portal.Consultoras.Web.Providers.Interfaces
     {
         Task<UsuarioModel> ObtenerInformacionAsync(int paisId, string codigoUsuario);
 
-        Task RegistrarIngresoAlPortal(int paisId, string codigoConsultora, string ipCliente, byte tipo, string campaniaId);
+        Task RegistrarIngresoAlPortal(int paisId, string codigoConsultora, string ipCliente, byte tipo, string campaniaId, string canal);
         
         Task<HanaModel> ObtenerDatosConsultoraHanaAsync(int paisId, string codigoUsuario, int campaniaId);
 

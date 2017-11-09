@@ -122,9 +122,9 @@ namespace Portal.Consultoras.Web.Controllers
                 lst.Update(x => x.ImagenEstrategia = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenEstrategia, Globals.RutaImagenesMatriz + "/" + UserData().CodigoISO));
 
                 var lista = (from a in lst
-                            where a.FlagActivo == 1
-                            && a.Codigo == (TipoVistaEstrategia == Constantes.TipoVistaEstrategia.ProgramaNuevas ? Constantes.TipoEstrategiaCodigo.IncentivosProgramaNuevas : a.Codigo)
-                            select a);
+                             where a.FlagActivo == 1
+                             && a.Codigo == (TipoVistaEstrategia == Constantes.TipoVistaEstrategia.ProgramaNuevas ? Constantes.TipoEstrategiaCodigo.IncentivosProgramaNuevas : a.Codigo)
+                             select a);
 
 				return Mapper.Map<IEnumerable<BETipoEstrategia>, IEnumerable<TipoEstrategiaModel>>(lista);
             }
@@ -1329,7 +1329,8 @@ namespace Portal.Consultoras.Web.Controllers
                      estrategiaCodigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso ||
                      estrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi ||
                      estrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertaDelDia ||
-                     estrategiaCodigo == Constantes.TipoEstrategiaCodigo.LosMasVendidos);
+                     estrategiaCodigo == Constantes.TipoEstrategiaCodigo.LosMasVendidos ||
+                     estrategiaCodigo == Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada);
 
 
                     foreach (var opt in listBeEstrategias)

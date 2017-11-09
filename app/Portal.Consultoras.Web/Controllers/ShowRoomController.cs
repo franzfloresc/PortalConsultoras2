@@ -185,10 +185,8 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 var xlistaShowRoom = showRoomEventoModel.ListaShowRoomOferta.Where(x => x.EsSubCampania == false).ToList();
-                //ViewBag.PrecioMin = showRoomEventoModel.ListaShowRoomOferta.Min(p => p.PrecioOferta);
-                //ViewBag.PrecioMax = showRoomEventoModel.ListaShowRoomOferta.Max(p => p.PrecioOferta);
-                ViewBag.PrecioMin = xlistaShowRoom.Min(p => p.PrecioOferta);
-                ViewBag.PrecioMax = xlistaShowRoom.Max(p => p.PrecioOferta);
+                ViewBag.PrecioMin = xlistaShowRoom.Any() ? xlistaShowRoom.Min(p => p.PrecioOferta) : Convert.ToDecimal(0);
+                ViewBag.PrecioMax = xlistaShowRoom.Any() ? xlistaShowRoom.Max(p => p.PrecioOferta) : Convert.ToDecimal(0);
 
                 ViewBag.CloseBannerCompraPorCompra = userData.CloseBannerCompraPorCompra;
 
@@ -2612,6 +2610,7 @@ namespace Portal.Consultoras.Web.Controllers
             modelo.TieneCompraXcompra = userData.BeShowRoom.TieneCompraXcompra;
 
             ViewBag.ImagenFondoProductPage = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.ImagenFondoProductPage, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+            ViewBag.IconoLLuvia = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
 
             return View("DetalleSet", modelo);
 

@@ -1092,10 +1092,10 @@ namespace Portal.Consultoras.BizLogic
             DAUsuario.UpdateIndicadorAyudaWebTracking(codigoConsultora, indicador);
         }
 
-        public void InsLogIngresoPortal(int paisID, string CodigoConsultora, string IPOrigen, byte Tipo, string DetalleError)
+        public void InsLogIngresoPortal(int paisID, string CodigoConsultora, string IPOrigen, byte Tipo, string DetalleError, string Canal)
         {
             var DAUsuario = new DAUsuario(paisID);
-            DAUsuario.InsLogIngresoPortal(CodigoConsultora, IPOrigen, Tipo, DetalleError);
+            DAUsuario.InsLogIngresoPortal(CodigoConsultora, IPOrigen, Tipo, DetalleError, Canal);
         }
 
         public BEUsuario GetSesionUsuarioLoginDD(int paisID, string codigoUsuario, string claveSecreta)

@@ -42,7 +42,7 @@ namespace Portal.Consultoras.Data.Hana
                     break;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 programaNueva = new BEConfiguracionProgramaNuevas();
             }

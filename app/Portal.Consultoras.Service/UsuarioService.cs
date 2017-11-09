@@ -255,10 +255,10 @@ namespace Portal.Consultoras.Service
             BLUsuario.UpdateIndicadorAyudaWebTracking(paisID, codigoConsultora, indicador);
         }
 
-        public void InsLogIngresoPortal(int paisID, string CodigoConsultora, string IPOrigen, byte Tipo, string DetalleError)
+        public void InsLogIngresoPortal(int paisID, string CodigoConsultora, string IPOrigen, byte Tipo, string DetalleError, string Canal)
         {
             var BLUsuario = new BLUsuario();
-            BLUsuario.InsLogIngresoPortal(paisID, CodigoConsultora, IPOrigen, Tipo, DetalleError);
+            BLUsuario.InsLogIngresoPortal(paisID, CodigoConsultora, IPOrigen, Tipo, DetalleError, Canal);
         }
         public int AceptarContratoAceptacion(int paisID, long consultoraid, string codigoConsultora)
         {

@@ -3258,6 +3258,17 @@ namespace Portal.Consultoras.Common
 
             return false;
         }
+        public static bool HasColumn(this DataRow row, string columnName)
+        {
+            if (row == null) return false;
+
+            columnName = (columnName ?? "").Trim();
+            if (columnName == "") return false;
+
+            if (row.Table.Columns.Contains(columnName)) return row[columnName] != DBNull.Value;
+
+            return false;
+        }
 
         public static IList<string> GetAllNames(this IDataRecord record)
         {

@@ -235,8 +235,9 @@
             'seccion': '@ViewBag.AnalyticsSeccion',
             'pais': '@ViewBag.AnalyticsPais',
             'codigoConsultora': '@ViewBag.AnalyticsCodigoConsultora'
-		};
-
+        };
+        var OrigenDesktopODD = 0;
+        
 		belcorp.settings.initialize({
 			isAppMobile : @Html.MobileAppConfiguracion().EsAppMobile.ToString().ToLower()
 		});
