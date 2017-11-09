@@ -45,6 +45,7 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "@FlagMostrarImg", DbType.Int32, entidad.FlagMostrarImg);     // SB2-353
                 Context.Database.AddInParameter(command, "@MostrarImgOfertaIndependiente", DbType.Boolean, entidad.MostrarImgOfertaIndependiente);
                 Context.Database.AddInParameter(command, "@ImagenOfertaIndependiente", DbType.String, entidad.ImagenOfertaIndependiente);
+                Context.Database.AddInParameter(command, "@Codigo", DbType.String, entidad.Codigo);
                 Context.Database.AddInParameter(command, "@FlagValidarImagen", DbType.Int32, entidad.FlagValidarImagen); //BPT-369
                 Context.Database.AddInParameter(command, "@PesoMaximoImagen", DbType.Int32, entidad.PesoMaximoImagen); //BPT-369
                 result = Context.ExecuteNonQuery(command);

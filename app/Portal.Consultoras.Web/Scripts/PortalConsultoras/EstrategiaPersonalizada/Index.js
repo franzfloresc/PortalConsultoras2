@@ -208,6 +208,10 @@ function SeccionMostrarProductos(data) {
         }
     } else if (data.Seccion.Codigo === CONS_CODIGO_SECCION.SR) {
         if (data.Seccion.TipoPresentacion === CONS_TIPO_PRESENTACION.ShowRoom.toString()) {
+            data.data = data.data || [];
+            if (data.data.length == 0) {
+                $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor .bloque-titulo .cantidad > span").hide();
+            }
             $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
         } else {
             $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeOut();
@@ -235,8 +239,11 @@ function RenderCarruselPrevisuales(divProd) {
     if (typeof divProd == "undefined")
         return false;
     
+    EstablecerLazyCarrusel(divProd.find(sElementos.listadoProductos));
+
     divProd.find(sElementos.listadoProductos + '.slick-initialized').slick('unslick');
     divProd.find(sElementos.listadoProductos).not('.slick-initialized').slick({
+        lazyLoad: 'ondemand',
         vertical: false,
         dots: false,
         infinite: true,
@@ -288,8 +295,11 @@ function RenderCarruselSimple(divProd) {
     if (typeof divProd == "undefined")
         return false;
 
+    EstablecerLazyCarrusel(divProd.find(sElementos.listadoProductos));
+
     divProd.find(sElementos.listadoProductos + '.slick-initialized').slick('unslick');
     divProd.find(sElementos.listadoProductos).not('.slick-initialized').slick({
+        lazyLoad: 'ondemand',
         infinite: true,
         vertical: false,
         slidesToShow: isMobile() ? 1 : 3,
@@ -342,39 +352,4 @@ function VerificarSecciones() {
     if (visibles == 0) {
         $("#no-productos").fadeIn();
     }
-}
-
-function Descargables(Filename) {
-    var NombreArchivo = Filename;
-
-    $.ajax({
-        type: 'POST',
-        url: baseUrl + "Ofertas/Descargables",
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify({ FileName: NombreArchivo }),
-        success: function (data) {
-           
-            if (checkTimeout()) {
-                if (data.Result) {
-                    var url = data.UrlS3;
-                    var nombre = NombreArchivo;
-
-                    var link = document.createElement("a");
-                    link.setAttribute("id", "dwnarchivo")
-                    link.setAttribute("target", "_blank");
-                    link.setAttribute('style', 'display:none;');
-                    link.download = nombre;
-                    link.href = url;                    
-                    document.body.appendChild(link);
-                    link.click();
-
-                    document.body.removeChild(link);
-                }
-            }            
-        },
-        error: function (error, x) {
-            console.log(error, x);
-        }
-    });
 }
