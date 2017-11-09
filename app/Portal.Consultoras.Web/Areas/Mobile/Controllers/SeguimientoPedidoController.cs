@@ -92,7 +92,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         var estadoSeguimiento = Mapper.Map<SeguimientoMobileModel>(item);
                         if (item.Fecha.HasValue)
                         {
-                            var strFecha = item.Fecha.Value.TimeOfDay.TotalHours == 0 ? item.Fecha.Value.ToString("dd/MM/yyyy") : item.Fecha.Value.ToString();
                             estadoSeguimiento.DiaMes = item.Fecha.Value.ToString("dd/MM");
                             estadoSeguimiento.HoraMinuto = item.Fecha.Value.ToString("hh:mm tt");
 

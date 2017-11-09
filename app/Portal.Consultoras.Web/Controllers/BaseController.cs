@@ -3474,7 +3474,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 
                 var listaShowRoom = (List<BEShowRoomOferta>)Session[Constantes.ConstSession.ListaProductoShowRoom] ?? new List<BEShowRoomOferta>();
-                seccion.CantidadProductos = listaShowRoom.Count(x => x.EsSubCampania == false);
+                seccion.CantidadProductos = listaShowRoom.Count(x => !x.EsSubCampania);
                 seccion.CantidadMostrar = Math.Min(3, seccion.CantidadProductos);
             }
         }

@@ -378,12 +378,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 beConfiguracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.ZonaID, userData.RegionID);
             }
-            if (beConfiguracionCampania != null)
-            {
-                if (beConfiguracionCampania.CampaniaID > userData.CampaniaID)
-                    return RedirectToAction("Index");
-            }
 
+            beConfiguracionCampania = beConfiguracionCampania ?? new BEConfiguracionCampania();
+            
+            if (beConfiguracionCampania.CampaniaID > userData.CampaniaID)
+                return RedirectToAction("Index");
+            
             if (beConfiguracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado
                 && (beConfiguracionCampania.ModificaPedidoReservado
                 || beConfiguracionCampania.ValidacionAbierta))

@@ -831,7 +831,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             bool validar = false;
             string mensajeFechaDA = null;
-            if (UserData().EsquemaDAConsultora == true)
+            if (UserData().EsquemaDAConsultora)
             { //SI EXISTE EL ESQUEMA EN PAIS
 
                 if (UserData().EsZonaDemAnti == 1)
