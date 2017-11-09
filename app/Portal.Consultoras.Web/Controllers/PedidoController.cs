@@ -344,23 +344,13 @@ namespace Portal.Consultoras.Web.Controllers
                 model.EmailActivo = userData.EMailActivo;
                 #endregion
                 ViewBag.paisISO = userData.CodigoISO;
-                ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("BUCKET_NAME") ?? string.Empty;
+                ViewBag.Ambiente = GetBucketNameFromConfig();
                 ViewBag.CodigoConsultora = userData.CodigoConsultora;
                 model.TieneMasVendidos = userData.TieneMasVendidos;
                 var ofertaFinal = GetOfertaFinal();
                 ViewBag.OfertaFinalEstado = ofertaFinal.Estado;
                 ViewBag.OfertaFinalAlgoritmo = ofertaFinal.Algoritmo;
-                #region EventoFestivo
-                var eventofestivo = GetEventoFestivoData();
-                if (string.IsNullOrEmpty(eventofestivo.EfRutaPedido))
-                {
-                    ViewBag.UrlFranjaNegra = "../../../Content/Images/Esika/background_pedido.png";
-                }
-                else
-                {
-                    ViewBag.UrlFranjaNegra = eventofestivo.EfRutaPedido;
-                }
-                #endregion
+                ViewBag.UrlFranjaNegra = GetUrlFranjaNegra();
             }
             catch (FaultException ex)
             {
@@ -2666,15 +2656,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             #endregion
 
-            var eventofestivo = GetEventoFestivoData();
-            if (eventofestivo.EfRutaPedido == null || eventofestivo.EfRutaPedido == "")
-            {
-                ViewBag.UrlFranjaNegra = "../../../Content/Images/Esika/background_pedido.png";
-            }
-            else
-            {
-                ViewBag.UrlFranjaNegra = eventofestivo.EfRutaPedido;
-            }
+            ViewBag.UrlFranjaNegra = GetUrlFranjaNegra();
 
             return View(model);
         }

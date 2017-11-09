@@ -115,7 +115,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 /*** FIN EPD 2170 ***/
 
-                ViewBag.UrlRaizS3 = string.Format("{0}/{1}/{2}/", ConfigurationManager.AppSettings["URL_S3"], ConfigurationManager.AppSettings["BUCKET_NAME"], ConfigurationManager.AppSettings["ROOT_DIRECTORY"]);
+                ViewBag.UrlRaizS3 = string.Format("{0}/{1}/{2}/", ConfigurationManager.AppSettings["URL_S3"], GetBucketNameFromConfig(), ConfigurationManager.AppSettings["ROOT_DIRECTORY"]);
 
                 ViewBag.ServiceController = (ConfigurationManager.AppSettings["ServiceController"] == null) ? "" : ConfigurationManager.AppSettings["ServiceController"].ToString();
                 ViewBag.ServiceAction = (ConfigurationManager.AppSettings["ServiceAction"] == null) ? "" : ConfigurationManager.AppSettings["ServiceAction"].ToString();
@@ -4142,5 +4142,20 @@ namespace Portal.Consultoras.Web.Controllers
                    new MenuContenedorModel();
         }
         #endregion
+
+        protected string GetUrlFranjaNegra()
+        {
+            var urlFranjaNegra = GetEventoFestivoData().EfRutaPedido;
+
+            if (string.IsNullOrEmpty(urlFranjaNegra))
+                urlFranjaNegra = "../../../Content/Images/Esika/background_pedido.png";
+
+            return urlFranjaNegra;
+        }
+
+        protected string GetBucketNameFromConfig()
+        {
+            return ConfigurationManager.AppSettings.Get("BUCKET_NAME") ?? string.Empty;
+        }
     }
 }
