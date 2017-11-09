@@ -18,13 +18,13 @@
     {
         <link href="@Url.Content("~/Content/Images/Esika/favicon.ico")" rel="shortcut icon" type="image/x-icon" />
         @System.Web.Optimization.Styles.Render("~/Content/Css/Site/Esika/CssSB2")
-        <link href="@Url.Content("~/Content/Css/Site/Esika/Contenedor.css")" rel="stylesheet" type="text/css" />
+        @System.Web.Optimization.Styles.Render("~/Content/Css/Site/Esika/Contenedor")
     }
     else
     {
         <link href="@Url.Content("~/Content/Images/icons/favicon_lbel.ico")" rel="shortcut icon" type="image/x-icon" />
         @System.Web.Optimization.Styles.Render("~/Content/Css/Site/Lbel/CssSB2")
-        <link href="@Url.Content("~/Content/Css/Site/Lbel/Contenedor.css")" rel="stylesheet" type="text/css" />
+        @System.Web.Optimization.Styles.Render("~/Content/Css/Site/Lbel/Contenedor")
     }
     <link href="@Url.Content("~/Content/Css/Site/calc.css")" rel="stylesheet" type="text/css" />
 
@@ -123,12 +123,12 @@
     }
 
     <script type="text/javascript">
-        if (!String.prototype.startsWith) {
-            String.prototype.startsWith = function (searchString, position) {
-                position = position || 0;
-                return this.indexOf(searchString, position) === position;
-            };
-        }
+            if (!String.prototype.startsWith) {
+                String.prototype.startsWith = function (searchString, position) {
+                    position = position || 0;
+                    return this.indexOf(searchString, position) === position;
+                };
+            }
     </script>
 
     @if (ViewBag.Rol == Constantes.Rol.Consultora)
@@ -204,14 +204,14 @@
                     || ("/" + controllerAction).Contains("guianegocio")
                 )
                 && (@ViewBag.Title != "" && @ViewBag.Title != null))
-                {
+            {
                 <div class="SubHeader">
                     <div class="ubicacion_web">
                         <span><a href="@Url.Action("Index", "Bienvenida")">Home</a></span>
                         <span> | @ViewBag.Title</span>
                     </div>
                 </div>
-                }
+            }
 
             @RenderBody()
             @if (ViewBag.TerminoMostrar == 1)
@@ -231,7 +231,7 @@
     <!-- end contenedor -->
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpFeDeErratas.cshtml")
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpRegistroComunidad.cshtml")
-    
+
     <input type="hidden" id="hdCampaniaCodigo" value="@ViewBag.CampaniaCodigo" />
     <input type="hidden" id="hdTipoOfertaFinal" value="@ViewBag.OfertaFinal" />
     <input type="hidden" id="hdTipoCatalogoPersonalizado" value="@ViewBag.CatalogoPersonalizado" />
@@ -241,26 +241,26 @@
     <input type="hidden" id="hdFlagValidacionReserva" value="0" />
     <input type="hidden" id="hdEsCatalogoPersonalizadoZonaValida" value="@Convert.ToString(ViewBag.EsCatalogoPersonalizadoZonaValida)" />
     <input type="hidden" id="hdCodigoEstrategia" value="@Util.Trim(ViewBag.CodigoEstrategia)" />
-    
+
     <!-- Div Banner Lateral ShowRoom -->
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpBannerLateralShowRoom.cshtml")
 
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpDialogMensajes.cshtml")
-    
+
     <!-- POPUP MENSAJE ERROR - exclamacion  -->
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpDialogErrorMainLayout.cshtml")
-    
+
     <!-- POPUP SESIÓN FINALIZADA - exclamacion  -->
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpDialogSesionMainLayout.cshtml")
-    
+
     <!-- POPUP MENSAJE USUARIO POSTULANTE -->
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpDialogMensajePostulante.cshtml")
-    
+
     <!-- POPUP PEDIDO RESERVADO -->
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpDialogPedidoReservado.cshtml")
-    
+
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTemplateResumenCampania.cshtml")
-    
+
     <!--OFERTA DEL DIA -->
     <script id="ofertadeldia-template" type="text/x-handlebars-template">
         <div data-odd-tipoventana="baner">
@@ -281,7 +281,7 @@
                     <input type="hidden" Class="marca-descripcion-odd" value="{{DescripcionMarca}}" />
                     <input type="hidden" Class="tipoestrategia-descripcion-odd" value="{{TipoEstrategiaDescripcion}}" />
                 </div>
-                <div class="solo_hoy" >
+                <div class="solo_hoy">
                     <div style="height:42px; overflow:hidden;"><img src="{{ImagenSoloHoy}}" id="img-solohoy-odd" alt="" /></div>
                     <div class="clock"></div>
                     <div class="message"></div>
@@ -304,7 +304,7 @@
             </div>
             <a class="btn_cerrar_ofertaDia" href="javascript:;" onclick="closeOfertaDelDia(this);" style="display: none;">x</a>
         </div>
-        <div class="content_pop_oferta_dia {{ClassDimension}}" id="PopOfertaDia">  
+        <div class="content_pop_oferta_dia {{ClassDimension}}" id="PopOfertaDia">
             <div class="solo_hoy content_landing_odd" style="width:100%; margin-top:4px;margin-bottom: 12px;">
                 <a class="regresar_carrusel" href="javascript: void(0);" data-odd-accion="regresar" style="display:none;">REGRESAR</a> <!--SOLO SE MUESTRA CUANDO SE VA AL DETALLE DE UN PRODUCTO-->
                 <div id="imgSoloHoy" style="height:42px; overflow:hidden;float:left;margin-top: 19px; margin-left:47px"><img src="{{ImagenSoloHoy}}" alt="" style="width:74%" /></div>
@@ -376,7 +376,7 @@
                                     </div>
                                 </div>
                                 <div class="imagen_set_Oferta_pop">
-                                    <img src="{{detalle.ImagenDisplay}}" alt="" id="img-display-odd" class="imagen_producto" />
+                                    <img src="{{detalle.ImagenDisplay}}" alt="" id="img-display-odd" class="imagen_producto" data-img-lazy="1"/>                                 
                                     <div class="compartir_redes_ficha" style="margin-top:10px;">
                                         <div class="texto_compartelo" style="color:#fff;">Comparte la oferta con tus clientes</div>
                                         <a class="btn_compartir_facebook_ficha" href="javascript: void(0);" data-compartir="FB">
@@ -398,7 +398,7 @@
                     <div id="divOddCarrusel">
                         {{#each this.ListaOfertas  as |detalle|}}
                         <div data-item="" data-item-position="{{detalle.ID}}" style="float:left; overflow:hidden;">
-                            <div class="content_item_carrusel_ODD" onclick="odd_google_analytics_product_click('{{detalle.NombreOferta}}', '{{detalle.CUV2}}', {{detalle.PrecioOferta}}, '{{DescripcionMarca}}', '', {{Position}});">
+                            <div class="content_item_carrusel_ODD">
                                 <div style="display:none;" data-item-campos="">
                                     <input type="hidden" class="tipoestrategia-id-odd" value="{{detalle.TipoEstrategiaID}}" />
                                     <input type="hidden" class="estrategia-id-odd" value="{{detalle.EstrategiaID}}" />
@@ -417,9 +417,9 @@
                                 </div>
                                 <div class="content_img_carrusel_ODD" data-odd-accion="verdetalle">
                                     <div style="height:139px;">
-                                        <img src="{{detalle.ImagenDisplay}}" alt="" id="img-display-odd" class="imagen_producto" />
+                                        <img src="{{detalle.ImagenDisplay}}" alt="" id="img-display-odd" class="imagen_producto" data-img-lazy="1"/>
                                     </div>
-                                    <a class="ver_detalle_carrusel" style="top: 80px;">VER DETALLE</a>
+                                    <a class="ver_detalle_carrusel" style="top: 80px;" onclick="odd_google_analytics_product_click('{{detalle.NombreOferta}}', '{{detalle.CUV2}}', {{detalle.PrecioOferta}}, '{{DescripcionMarca}}', '', {{Position}}, 'Oferta del día - Slider Productos');">VER DETALLE</a>
                                     <div class="titulo_carrusel_ODD">{{detalle.NombreOferta}}</div>
                                     {{#iff detalle.PrecioCatalogo '>' 0}}
                                     <div class="valorizado_carrusel_ODD">VALORIZADO EN <span>{{{../Simbolo}}} {{detalle.PrecioCatalogoFormat}}</span></div>
@@ -485,6 +485,7 @@
         var clock;
         var TipoOrigenPantallaODD = 1;
         var ViewIndicadorGPRSB = '@ViewBag.IndicadorGPRSB';
+        var OrigenDesktopODD = 0;
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2")
     <script type='text/javascript'>

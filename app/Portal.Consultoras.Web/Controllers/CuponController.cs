@@ -212,6 +212,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private bool TieneOfertasPlan20()
         {
+            var flag = false;
             List<BEPedidoWebDetalle> listaPedidoWebDetalle = new List<BEPedidoWebDetalle>();
 
             if (sessionManager.GetDetallesPedido() == null)
@@ -226,7 +227,20 @@ namespace Portal.Consultoras.Web.Controllers
                 listaPedidoWebDetalle = sessionManager.GetDetallesPedido();
             }
 
-            return (listaPedidoWebDetalle.Any(x => x.CodigoCatalago == Constantes.TipoOfertasPlan20.OfertaFinal || x.CodigoCatalago == Constantes.TipoOfertasPlan20.Showroom || x.CodigoCatalago == Constantes.TipoOfertasPlan20.OPT || x.CodigoCatalago == Constantes.TipoOfertasPlan20.ODD));
+            //return (listaPedidoWebDetalle.Any(x => x.CodigoCatalago == Constantes.TipoOfertasPlan20.OfertaFinal || x.CodigoCatalago == Constantes.TipoOfertasPlan20.Showroom || x.CodigoCatalago == Constantes.TipoOfertasPlan20.OPT || x.CodigoCatalago == Constantes.TipoOfertasPlan20.ODD));
+            List<BETablaLogicaDatos> lstCodigosOfertas = new List<BETablaLogicaDatos>();
+            using (SACServiceClient svc = new SACServiceClient())
+            {
+                lstCodigosOfertas = svc.GetTablaLogicaDatos(userData.PaisID, Constantes.TipoOfertasPlan20.TablaLogicaId).ToList();
+            }
+
+            if (listaPedidoWebDetalle.Any()  && lstCodigosOfertas.Any())
+            {
+                var lstTmp = listaPedidoWebDetalle.Where(x => lstCodigosOfertas.Any(y => x.CodigoCatalago == int.Parse(y.Codigo)));
+                flag = lstTmp.Any();
+            }
+
+            return flag;
         }
 
         private void ValidarPopupDelGestorPopups()

@@ -477,13 +477,13 @@ namespace Portal.Consultoras.Web.Controllers
             string mensaje = "";
             resul = false;
             try
-            {                
+            {
                 if (userData.TieneValidacionMontoMaximo)
                 {
                     if (userData.MontoMaximo == Convert.ToDecimal(9999999999.00)) /*monto sin limites*/
                         mensaje = "";
                     else
-                    {                        
+                    {
                         var listaProducto = ObtenerPedidoWebDetalle();
 
                         var totalPedido = listaProducto.Sum(p => p.ImporteTotal);
@@ -494,7 +494,7 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             resul = true;
                         }
-                        
+
                         if (listaProducto.Count() > 0)
                             descuentoProl = listaProducto[0].DescuentoProl;
 
@@ -1026,7 +1026,7 @@ namespace Portal.Consultoras.Web.Controllers
             #region Cargar variables
 
             if (!model.CargoEntidadesShowRoom) CargarEntidadesShowRoom(model);
-            
+
             model.UsuarioNombre = string.IsNullOrEmpty(model.Sobrenombre) ? model.NombreConsultora : model.Sobrenombre;
             ViewBag.UsuarioNombre = (Util.Trim(model.Sobrenombre) == "" ? model.NombreConsultora : model.Sobrenombre);
             ViewBag.Usuario = "Hola, " + model.UsuarioNombre;
@@ -1988,26 +1988,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected int AddCampaniaAndNumero(int campania, int numero)
         {
-            return AddCampaniaAndNumero(campania, numero, userData.NroCampanias);
-        }
-
-        protected int AddCampaniaAndNumero(int campania, int numero, int nroCampanias)
-        {
-            if (campania <= 0 || nroCampanias <= 0) return 0;
-
-            int anioCampania = campania / 100;
-            int nroCampania = campania % 100;
-
-            int sumNroCampania = (nroCampania + numero) - 1;
-            int anioCampaniaResult = anioCampania + (sumNroCampania / nroCampanias);
-            int nroCampaniaResult = (sumNroCampania % nroCampanias) + 1;
-
-            if (nroCampaniaResult < 1)
-            {
-                anioCampaniaResult = anioCampaniaResult - 1;
-                nroCampaniaResult = nroCampaniaResult + nroCampanias;
-            }
-            return (anioCampaniaResult * 100) + nroCampaniaResult;
+            return Util.AddCampaniaAndNumero(campania, numero, userData.NroCampanias);
         }
 
         public string FormatearHora(TimeSpan hora)
@@ -2324,7 +2305,7 @@ namespace Portal.Consultoras.Web.Controllers
             //
             model.ListaOfertas = userData.OfertasDelDia;
             //
-            short posicion = 0;
+            short posicion = 1;
             var tiposEstrategia = sessionManager.GetTiposEstrategia();
             if (tiposEstrategia == null)
             {
@@ -2819,7 +2800,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public virtual bool  IsMobile()
+        public virtual bool IsMobile()
         {
             //// todo: better aproach HttpContext.Request.Browser.IsMobileDevice;
             var url = string.Empty;
@@ -3290,7 +3271,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (menuActivo.CampaniaId <= 0)
                 menuActivo.CampaniaId = userData.CampaniaID;
-            
+
             var sessionNombre = Constantes.ConstSession.ListadoSeccionPalanca + menuActivo.CampaniaId;
 
             var listaEntidad = new List<BEConfiguracionOfertasHome>();
@@ -3799,14 +3780,14 @@ namespace Portal.Consultoras.Web.Controllers
                         confiModel.MobileTituloBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_SI_M_TituloBanner, confiModel.MobileTituloBanner);
                         confiModel.MobileSubTituloBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_SI_M_SubTituloBanner, confiModel.MobileSubTituloBanner);
 
-                        confiModel.Logo = IsMobile() ? "/Content/Images/Mobile/" + paisCarpeta + "/Contenedor/inicio_normal.png" : "/Content/Images/" + paisCarpeta + "/Contenedor/inicio_normal.png";
+                        confiModel.Logo = "/Content/Images/" + paisCarpeta + "/Contenedor/inicio_normal.svg";
                         confiModel.Descripcion = "";
 
                         break;
                     case Constantes.ConfiguracionPais.Inicio:
                         if (revistaDigital.TieneRDC || revistaDigital.TieneRDR)
                             continue;
-                        
+
                         confiModel.UrlMenu = "Ofertas";
 
                         confiModel.DesktopFondoBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_NO_D_ImagenFondo, confiModel.DesktopFondoBanner);
@@ -3819,7 +3800,7 @@ namespace Portal.Consultoras.Web.Controllers
                         confiModel.MobileTituloBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_NO_M_TituloBanner, confiModel.MobileTituloBanner);
                         confiModel.MobileSubTituloBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_NO_M_SubTituloBanner, confiModel.MobileSubTituloBanner);
 
-                        confiModel.Logo = IsMobile() ? "/Content/Images/Mobile/" + paisCarpeta + "/Contenedor/inicio_normal.png" : "/Content/Images/" + paisCarpeta + "/Contenedor/inicio_normal.png";
+                        confiModel.Logo = "/Content/Images/" + paisCarpeta + "/Contenedor/inicio_normal.svg";
                         confiModel.Descripcion = "";
                         break;
                     case Constantes.ConfiguracionPais.ShowRoom:
@@ -3843,7 +3824,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         if (confiModel.UrlMenu == "")
                             continue;
-                        
+
                         break;
                     case Constantes.ConfiguracionPais.OfertaDelDia:
                         if (!userData.TieneOfertaDelDia)
@@ -4145,7 +4126,7 @@ namespace Portal.Consultoras.Web.Controllers
             codigo = Util.Trim(codigo).ToUpper();
             var listado = ListConfiguracionPais();
             var entidad = listado.FirstOrDefault(c => c.Codigo == codigo) ?? new ConfiguracionPaisModel();
-            
+
             return entidad;
         }
 

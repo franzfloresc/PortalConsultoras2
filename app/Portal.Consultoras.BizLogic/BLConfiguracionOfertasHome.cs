@@ -64,13 +64,12 @@ namespace Portal.Consultoras.BizLogic
         
         public IList<BEConfiguracionOfertasHome> GetListarSeccion(int paisId, int campaniaId)
         {
-            IList<BEConfiguracionOfertasHome> lista = CacheManager<BEConfiguracionOfertasHome>.GetData(paisId, 
+            IList<BEConfiguracionOfertasHome> lista = CacheManager<BEConfiguracionOfertasHome>.GetData(paisId,
                 ECacheItem.SeccionConfiguracionOfertasHome, campaniaId.ToString());
+            //IList<BEConfiguracionOfertasHome> lista = new List<BEConfiguracionOfertasHome>();
 
             if (lista == null || lista.Count == 0)
             {
-                //var lista = new List<BEConfiguracionOfertasHome>();
-
                 try
                 {
                     var da = new DAConfiguracionOfertasHome(paisId);

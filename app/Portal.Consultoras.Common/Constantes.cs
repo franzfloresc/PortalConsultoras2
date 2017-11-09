@@ -267,9 +267,9 @@ namespace Portal.Consultoras.Common
             public const string PackAltoDesembolso = "008";
             public const string RevistaDigital = "101"; // No tiene referecia con BD, es un grupo de estrategias
             public const string LosMasVendidos = "020";
+            public const string IncentivosProgramaNuevas = "021";
             public const string OfertaDelDia = "009";
             public const string GuiaDeNegocioDigitalizada = "010";
-
         }
 
         public class ConstSession
@@ -384,6 +384,9 @@ namespace Portal.Consultoras.Common
             // 1. Sin popUp                 2. Con popUp
 
             public const int BannerDesktopHome = 1111;
+            public const int DesktopPedido = 12;
+            public const int MobilePedido = 22;
+
 
             #region OfertasParaTi
             public const int OfertasParaTiDesktopHome = 1121;
@@ -979,6 +982,7 @@ namespace Portal.Consultoras.Common
             public const int Showroom = 44;
             public const int OPT = 45;
             public const int ODD = 46;
+            public const int TablaLogicaId = 130;
         }
 
         public class TipoBusqueda
@@ -1058,7 +1062,7 @@ namespace Portal.Consultoras.Common
                 public const string NotaCantidadMaxima = "not_max_c";
             }
 
-            public const short RevistaDigital = 121;
+            public const short RevistaDigital = 131;
         }
 
         public struct MensajesCDRExpress
@@ -1163,7 +1167,12 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_NOTAINVALIDA = "15";
                 public const string ERROR_MOVIMIENTOINVALIDO = "16";
                 public const string ERROR_NOTACANTIDADMAXIMA = "17";
-                public const string ERROR_RECORDATORIOINVALIDA = "18";
+
+                public const string ERROR_MOVIMIENTODETALLE_NOACTUALIZADO = "18";
+                public const string ERROR_MOVIMIENTODETALLE_PEDIDOWEBFACTURADOID_NOENVIADO = "19";
+                public const string ERROR_MOVIMIENTODETALLE_CANTIDAD_NOENVIADO = "20";
+                public const string ERROR_MOVIMIENTODETALLE_PRECIOUNIDAD_NOENVIADO = "21";
+                public const string ERROR_RECORDATORIOINVALIDA = "22"; //todo: 
             }
 
             public static Dictionary<string, string> Message
@@ -1189,7 +1198,12 @@ namespace Portal.Consultoras.Common
                         {Code.ERROR_TIPOCONTACTOREPETIDO, "El contacto se encuentra repetido para el cliente."},
                         {Code.ERROR_NOTAINVALIDA, "Nota invalida, no se pudo procesar"},
                         {Code.ERROR_MOVIMIENTOINVALIDO, "Movimiento invalido, no se pudo procesar"},
-                        {Code.ERROR_RECORDATORIOINVALIDA, "Recordatorio invalido, no se pudo procesar"}
+                        {Code.ERROR_RECORDATORIOINVALIDA, "Recordatorio invalido, no se pudo procesar"},
+
+                        {Code.ERROR_MOVIMIENTODETALLE_NOACTUALIZADO, "El detalle de movimiento no fue actualizado."},
+                        {Code.ERROR_MOVIMIENTODETALLE_PEDIDOWEBFACTURADOID_NOENVIADO, "El campo PedidoWebFacturadoID debe ser mayor que 0(cero)."},
+                        {Code.ERROR_MOVIMIENTODETALLE_CANTIDAD_NOENVIADO, "El campo Cantidad debe ser mayor que 0(cero)."},
+                        {Code.ERROR_MOVIMIENTODETALLE_PRECIOUNIDAD_NOENVIADO, "El campo PrecioUnidad debe ser mayor que 0(cero)."},
                     });
                 }
             }
@@ -1342,6 +1356,24 @@ namespace Portal.Consultoras.Common
             public const string OfertaDelDiaIndex = "/ofertadeldia/index";
             public const string GuiaDeNegocio = "/guianegocio";
             public const string GuiaDeNegocioIndex = "/guianegocio/index";
+        }
+
+        public class TipoVistaEstrategia
+        {
+            public const int Todos = 0;
+            public const int ProgramaNuevas = 1;
+        }
+
+        public class Canal {
+            public const string Mobile = "M";
+            public const string Desktop = "W";
+        }
+
+        public class ArchivosDescargables
+        {
+            public const string TARJETA_NAVIDENA = "2017_Navidad_Tarjeta.pdf";
+            public const string PAPEL_REGALO_DORADO = "2017_Navidad_Regalo1.pdf";
+            public const string PAPEL_REGALO_ROJO = "2017_Navidad_Regalo2.pdf";
         }
     }
 }
