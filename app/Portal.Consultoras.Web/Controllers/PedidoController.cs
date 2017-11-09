@@ -349,17 +349,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var ofertaFinal = GetOfertaFinal();
                 ViewBag.OfertaFinalEstado = ofertaFinal.Estado;
                 ViewBag.OfertaFinalAlgoritmo = ofertaFinal.Algoritmo;
-                #region EventoFestivo
-                var eventofestivo = GetEventoFestivoData();
-                if (string.IsNullOrEmpty(eventofestivo.EfRutaPedido))
-                {
-                    ViewBag.UrlFranjaNegra = "../../../Content/Images/Esika/background_pedido.png";
-                }
-                else
-                {
-                    ViewBag.UrlFranjaNegra = eventofestivo.EfRutaPedido;
-                }
-                #endregion
+                ViewBag.UrlFranjaNegra = GetUrlFranjaNegra();
             }
             catch (FaultException ex)
             {
