@@ -258,6 +258,7 @@
     <Compile Include="Areas\Mobile\Models\ShowRoomModel.cs" />
     <Compile Include="Autofac\ProviderModuleResolver.cs" />
     <Compile Include="Models\ConfiguracionLogicaModel.cs" />
+    <Compile Include="Models\ConfiguracionProgramaNuevasAppModel.cs" />
     <Compile Include="Models\EstrategiaProgramaNuevasModel.cs" />
     <Compile Include="Models\Pedido\PedidoRechazadoBannerModel.cs" />
     <Compile Include="Controllers\ABCProductoController.cs" />
@@ -3780,6 +3781,12 @@
     <None Include="Service References\ServicePedido\PedidoService11.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServicePedido\PedidoService111.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServicePedido\PedidoService112.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServicePedido\PedidoService2.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -4480,6 +4487,7 @@
     <Content Include="Views\AdministrarEstrategia\ProgramaNuevas.cshtml" />
     <Content Include="Views\AdministrarEstrategia\ProgramaNuevasDetalle.cshtml" />
     <Content Include="Views\Descargables\Descargables.cshtml" />
+    <Content Include="Views\AdministrarEstrategia\ProgramaNuevasMensaje.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

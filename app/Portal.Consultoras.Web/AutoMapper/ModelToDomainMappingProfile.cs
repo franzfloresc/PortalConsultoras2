@@ -448,6 +448,8 @@ namespace Portal.Consultoras.Web.AutoMapper
                 .ForMember(t => t.MontoMaximoPedido, f => f.MapFrom(c => c.MontoMaximoPedido))
                 .ForMember(t => t.ValidacionAbierta, f => f.MapFrom(c => c.EsValidacionAbierta))
                 .ForMember(t => t.EstadoPedido, f => f.MapFrom(c => c.EstadoPedido));
+
+            CreateMap<ConfiguracionProgramaNuevasAppModel, BEConfiguracionProgramaNuevasApp>();
         }
     }
 }

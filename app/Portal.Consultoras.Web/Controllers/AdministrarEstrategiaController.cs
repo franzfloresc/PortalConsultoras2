@@ -15,6 +15,7 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 
@@ -1759,6 +1760,8 @@ namespace Portal.Consultoras.Web.Controllers
             ConfigS3.SetFileS3(path, carpetaPais, newfilename);
             return newfilename;
         }
+
+        #region ProgramaNuevas
         [HttpGet]
         public ViewResult ProgramaNuevas()
         {
@@ -1839,11 +1842,92 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult ProgramaNuevasDetalle(EstrategiaProgramaNuevasModel inModel)
+        public PartialViewResult ProgramaNuevasDetalle(EstrategiaProgramaNuevasModel inModel)
         {
             ViewBag.ddlCampania = DropDowListCampanias(userData.PaisID);
 
             return PartialView(inModel);
         }
+
+        [HttpGet]
+        public PartialViewResult ProgramaNuevasMensaje()
+        {
+            return PartialView();
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> ProgramaNuevasMensajeConsultar(string CodigoPrograma)
+        {
+            var lst = new List<BEConfiguracionProgramaNuevasApp>();
+
+            try
+            {
+                if (string.IsNullOrEmpty(CodigoPrograma))
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "No se envió el codigo de programa",
+                        data = lst
+                    }, JsonRequestBehavior.AllowGet);
+                }
+
+                using (var sv = new PedidoServiceClient())
+                {
+                    var resultado = await sv.GetConfiguracionProgramaNuevasAppAsync(userData.PaisID, CodigoPrograma);
+                    lst = resultado.ToList();
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    message = string.Empty,
+                    data = lst.FirstOrDefault()
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+
+                return Json(new
+                {
+                    success = false,
+                    message = "Ocurrió un problema al intentar obtener los datos",
+                    data = lst
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        [HttpPost]
+        public async Task<JsonResult> ProgramaNuevasMensajeInsertar(ConfiguracionProgramaNuevasAppModel inModel)
+        {
+            string resultado = string.Empty;
+
+            try
+            {
+                var entidad = Mapper.Map<ConfiguracionProgramaNuevasAppModel, BEConfiguracionProgramaNuevasApp>(inModel);
+
+                using (var sv = new PedidoServiceClient())
+                {
+                    resultado = await sv.InsConfiguracionProgramaNuevasAppAsync(userData.PaisID, entidad);
+                }
+
+                return Json(new
+                {
+                    success = string.IsNullOrEmpty(resultado),
+                    message = string.IsNullOrEmpty(resultado) ? "Se grabó con éxito los datos." : resultado
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+
+                return Json(new
+                {
+                    success = false,
+                    message = "Ocurrió un problema al intentar registrar los datos"
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        #endregion
     }
 }
