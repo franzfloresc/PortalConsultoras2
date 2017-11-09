@@ -2352,7 +2352,7 @@
         var tipoOrigenEstrategia = 1;
         var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi';
 
-        var urlOfertasIndex = '@Url.Action("Index", "Ofertas")';
+        var urlOfertasIndex = '@Url.Action("Index", "ShowRoom")';
         var urlShowRoomIntriga = '@Url.Action("Intriga", "ShowRoom")';
         var urlShowRoomVenta = '@Url.Action("Index", "ShowRoom")';
         var urlDetalleShowRoom = '@Url.Action("DetalleOferta", "ShowRoom")';
@@ -2394,6 +2394,7 @@
 
         asesoraOnlineObj.asignarEventos(paisISO, viewBagCodigoConsultora);
         var verSeccion = '@ViewBag.VerSeccion' || '';
+        var OrigenDesktopODD = 1;
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
     @{ Session["IsContrato"] = 0; }

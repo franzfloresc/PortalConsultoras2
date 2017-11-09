@@ -24,7 +24,7 @@
                             <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
                             <a class=" cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                         </div>
-                        <a id="btnAgregarMobile" href="#" class="btn_agregar_ficha_producto" data-odd-accion="agregar">AGRÉGALO</a>
+                        <a id="btnAgregarMobile" href="#" class="btn_agregar_ficha_producto" data-odd-accion="agregar" onclick="odd_mobile_google_analytics_addtocart()">AGRÉGALO</a>
                         <hr class="clear">
                     </div>
                 </div>
@@ -98,5 +98,16 @@
             
         </div>
         {{/each}}
+    </script>
+}
+
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if ('@ViewBag.MostrarOfertaDelDiaContenedor' == "True") {
+                window.OfertaDelDia.CargarODD();
+            }
+        });
+        var OrigenDesktopODD = 3;
     </script>
 }

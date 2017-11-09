@@ -2902,6 +2902,24 @@ namespace Portal.Consultoras.Common
         /// </summary>
         /// <param name="valor">Monto a formatear</param>
         /// <param name="pais">CodigoISO del Pais. Ejm PE</param>
+        /// <param name="simbolo">Simbolo monetario del Pais. Ejm S/.</param>
+        /// <returns></returns>
+        public static string DecimalToStringFormat(decimal valor, string pais, string simbolo)
+        {
+            if (string.IsNullOrEmpty(pais)) return "";
+
+            var importe = string.Format("{0:#,##0.00}", valor);
+            string listaPaises = ParseString(ConfigurationManager.AppSettings["KeyPaisFormatDecimal"] ?? "");
+            if (listaPaises.Contains(pais)) importe = importe.Split('.')[0].Replace(",", ".");
+
+            return string.Format("{0} {1}", simbolo, importe);
+        }
+
+        /// <summary>
+        /// Convierte el decimal a string con el formato segun el pais
+        /// </summary>
+        /// <param name="valor">Monto a formatear</param>
+        /// <param name="pais">CodigoISO del Pais. Ejm PE</param>
         /// <returns></returns>
         public static string DecimalToStringFormat(string valor, string pais)
         {
@@ -3202,6 +3220,25 @@ namespace Portal.Consultoras.Common
             return Result;
         }
 
+        public static int AddCampaniaAndNumero(int campania, int numero, int nroCampanias)
+        {
+            if (campania <= 0 || nroCampanias <= 0) return 0;
+
+            int anioCampania = campania / 100;
+            int nroCampania = campania % 100;
+
+            int sumNroCampania = (nroCampania + numero) - 1;
+            int anioCampaniaResult = anioCampania + (sumNroCampania / nroCampanias);
+            int nroCampaniaResult = (sumNroCampania % nroCampanias) + 1;
+
+            if (nroCampaniaResult < 1)
+            {
+                anioCampaniaResult = anioCampaniaResult - 1;
+                nroCampaniaResult = nroCampaniaResult + nroCampanias;
+            }
+            return (anioCampaniaResult * 100) + nroCampaniaResult;
+        }
+
         public static bool ExisteUrlRemota(string url)
         {
             bool result = false;
@@ -3255,6 +3292,17 @@ namespace Portal.Consultoras.Common
             {
                 return false;
             }
+        }
+        public static bool HasColumn(this DataRow row, string columnName)
+        {
+            if (row == null) return false;
+
+            columnName = (columnName ?? "").Trim();
+            if (columnName == "") return false;
+
+            if (row.Table.Columns.Contains(columnName)) return row[columnName] != DBNull.Value;
+
+            return false;
         }
 
         public static IList<string> GetAllNames(this IDataRecord record)

@@ -88,6 +88,12 @@
         };
        
         _obtenerFiltrarEstrategia(_editData, id).done(function (data) {
+            var TipoEstrategiaCodigo = $('#ddlTipoEstrategia').find(':selected').data('codigo');
+            if (TipoEstrategiaCodigo == TipoEstrategiaIncentivosProgramaNuevas)
+                $("#divPrecioValorizado").html("Ganancia");
+            else
+                $("#divPrecioValorizado").html("Precio Valorizado");
+
             showDialog("DialogAdministracionEstrategia");
             _editData.IdMatrizComercial = data.IdMatrizComercial;
             _editData.CUV2 = data.CUV2;
@@ -462,7 +468,7 @@
             if (auxOD == '7') {
                 flagOD = '4';
             }
-            else if (auxOD == '9' || auxOD == '10' || auxOD == '11') {
+            else if (auxOD == '9' || auxOD == '10' || auxOD == '11' || auxOD == '12') {
                 flagOD = auxOD;
             }
             else if (!isNuevo) {
@@ -493,7 +499,7 @@
                 success: function (data) {
                     var objPreview, objChkImagen, idImagen, dataImagen, imgFormat;
                     $('#mensajeErrorCUV').val("");
-                   
+
                     if (data.message == "OK") {
                         $("#txtDescripcion").val(data.descripcion);
 

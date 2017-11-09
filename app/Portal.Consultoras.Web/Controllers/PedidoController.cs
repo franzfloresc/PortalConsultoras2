@@ -370,7 +370,14 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
             }
 
-            ViewBag.UrlTerminosOfertaFinalRegalo = string.Format("{0}/SomosBelcorp/FileConsultoras/{1}/Flyer_Regalo_Sorpresa.pdf", ConfigurationManager.AppSettings.Get("oferta_final_regalo_url_s3"), userData.CodigoISO);
+            ViewBag.UrlTerminosOfertaFinalRegalo = string.Format(ConfigurationManager.AppSettings.Get("oferta_final_regalo_url_s3"), userData.CodigoISO);
+
+            if (Session["EsShowRoom"] != null && Session["EsShowRoom"].ToString() == "1")
+            {
+                ViewBag.ImagenFondoOFRegalo = ObtenerValorPersonalizacionShowRoom("ImagenFondoOfertaFinalRegalo", "Desktop");
+                ViewBag.Titulo1OFRegalo = ObtenerValorPersonalizacionShowRoom("Titulo1OfertaFinalRegalo", "Desktop");
+            }
+
             return View("Index", model);
         }
 
@@ -410,11 +417,11 @@ namespace Portal.Consultoras.Web.Controllers
                 string cuv = String.Empty;
                 string campanaId = "0";
                 int campana = 0;
-                if (param.Length == 11)
-                {
+                //if (param.Length == 11)
+                //{
                     cuv = param.Substring(0, 5);
                     campanaId = param.Substring(5, 6);
-                }
+                //}
                 campana = Convert.ToInt32(campanaId);
                 ViewBag.VirtualCoachCuv = cuv;
                 ViewBag.VirtualCoachCampana = campanaId;
@@ -2198,7 +2205,7 @@ namespace Portal.Consultoras.Web.Controllers
                     MontoEscala = resultado.MontoEscala.ToString()
                 } };
                 }
-                if (resultado.ResultadoReservaEnum != EnumeradoresResultadoReserva.ReservaNoDisponible)
+                if (resultado.ResultadoReservaEnum != Enumeradores.ResultadoReserva.ReservaNoDisponible)
                 {
                     if (resultado.Reserva) CambioBannerGPR(true);
                     sessionManager.SetObservacionesProl(listObservacionModel);
@@ -3278,7 +3285,7 @@ namespace Portal.Consultoras.Web.Controllers
                     using (var sv = new PedidoServiceClient())
                     {
                         var result = sv.ValidacionModificarPedidoSelectiva(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, userData.UsuarioPrueba == 1, userData.AceptacionConsultoraDA, false, false, true);
-                        if (result.MotivoPedidoLock == EnumeradoresMotivoPedidoLock.HorarioRestringido)
+                        if (result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.HorarioRestringido)
                         {
                             mensaje = result.Mensaje;
                             estado = true;
@@ -3321,8 +3328,8 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         result = sv.ValidacionModificarPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, userData.UsuarioPrueba == 1, userData.AceptacionConsultoraDA);
                     }
-                    pedidoReservado = result.MotivoPedidoLock == EnumeradoresMotivoPedidoLock.Reservado;
-                    estado = result.MotivoPedidoLock != EnumeradoresMotivoPedidoLock.Ninguno;
+                    pedidoReservado = result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Reservado;
+                    estado = result.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno;
                     mensaje = result.Mensaje;
                 }
 
@@ -4501,8 +4508,8 @@ namespace Portal.Consultoras.Web.Controllers
                     result = sv.ValidacionModificarPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, userData.UsuarioPrueba == 1, userData.AceptacionConsultoraDA);
                 }
 
-                estado = result.MotivoPedidoLock != EnumeradoresMotivoPedidoLock.Ninguno;
-                bool pedidoReservado = result.MotivoPedidoLock == EnumeradoresMotivoPedidoLock.Reservado;
+                estado = result.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno;
+                bool pedidoReservado = result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Reservado;
 
                 if (estado)
                 {
