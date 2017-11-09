@@ -100,10 +100,9 @@
                 <div class="input_horizontal">
                     <input type="button" name="btnBuscar" id="btnBuscar" value="Buscar" />
                     <input type="button" name="btnNuevo" id="btnNuevo" value="Nuevo" />
-                    @{ 
-                        if (Model.TipoVistaEstrategia == Constantes.TipoVistaEstrategia.Todos)
-                        {
-                            <input type="button" name="btnNuevoMasivo" id="btnNuevoMasivo" value="Nuevo Masivo" />
+                    @if (Model.TipoVistaEstrategia == Constantes.TipoVistaEstrategia.Todos)
+                    { 
+                        <input type="button" name="btnNuevoMasivo" id="btnNuevoMasivo" value="Nuevo Masivo" />
                     }
                     <input type="button" name="btnDescripcionMasivo" id="btnDescripcionMasivo" value="Desc. Masivo" />
                 </div>
