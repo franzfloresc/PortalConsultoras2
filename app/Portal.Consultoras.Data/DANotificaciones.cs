@@ -74,24 +74,16 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@ValidacionStockProlId", DbType.Int64, ValAutomaticaPROLLogId);
             return Context.ExecuteReader(command);
         }
-   
+
         public String GetFechaPromesaCronogramaByCampania(int CampaniaId, string CodigoConsultora, DateTime Fechafact)
         {
-            String Result = "";
-            try
-            {
-                DbCommand command = Context.Database.GetStoredProcCommand("GetFechaPromesaCronogramaByCampania");
-                Context.Database.AddInParameter(command, "@CampaniaId", DbType.Int32, CampaniaId);
-                Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, CodigoConsultora);
-                Context.Database.AddInParameter(command, "@Fechafact", DbType.Date, Fechafact);
-                Result = Convert.ToString(Context.ExecuteScalar(command));
-            }
-            catch
-            {
+            DbCommand command = Context.Database.GetStoredProcCommand("GetFechaPromesaCronogramaByCampania");
+            Context.Database.AddInParameter(command, "@CampaniaId", DbType.Int32, CampaniaId);
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, CodigoConsultora);
+            Context.Database.AddInParameter(command, "@Fechafact", DbType.Date, Fechafact);
+            var Result = Convert.ToString(Context.ExecuteScalar(command));
 
-            }
             return Result;
-
         }
     }
 }
