@@ -1051,7 +1051,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.RegionAnalytics = model.CodigorRegion;
             ViewBag.SegmentoAnalytics = model.Segmento != null && model.Segmento != "" ?
                 (string.IsNullOrEmpty(model.Segmento) ? string.Empty : model.Segmento.ToString().Trim()) : "(not available)";
-            ViewBag.esConsultoraLiderAnalytics = model.esConsultoraLider == true ? "Socia" : model.RolDescripcion;
+            ViewBag.esConsultoraLiderAnalytics = model.esConsultoraLider ? "Socia" : model.RolDescripcion;
             ViewBag.SeccionAnalytics = model.SeccionAnalytics != null && model.SeccionAnalytics != "" ? model.SeccionAnalytics : "(not available)";
             ViewBag.CodigoConsultoraDL = model.CodigoConsultora != null && model.CodigoConsultora != "" ? model.CodigoConsultora : "(not available)";
             ViewBag.SegmentoConstancia = model.SegmentoConstancia != null && model.SegmentoConstancia != "" ? model.SegmentoConstancia.Trim() : "(not available)";

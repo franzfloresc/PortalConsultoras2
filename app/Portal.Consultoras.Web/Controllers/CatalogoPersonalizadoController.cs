@@ -122,7 +122,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
             //tipoOfertaFinal: 1 -> ARP; 2 -> Jetlore
-            var lista = new List<Producto>();
+            List<Producto> lista;
             var listaProductoModel = new List<ProductoModel>();
             int flt = 0;
 
@@ -184,7 +184,6 @@ namespace Portal.Consultoras.Web.Controllers
                                 {
                                     var listSplit = infoEstrategia.Split('|');
                                     descripcion = listSplit.Any() ? listSplit[0] : "";
-                                    string imagen = listSplit.Count() > 1 ? listSplit[1] : "";
 
                                     if (!string.IsNullOrEmpty(beProducto.ImagenProductoSugerido))
                                     {
