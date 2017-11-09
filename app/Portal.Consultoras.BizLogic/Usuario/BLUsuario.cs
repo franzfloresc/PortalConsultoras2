@@ -1532,16 +1532,13 @@ namespace Portal.Consultoras.BizLogic
 
                                 if (consultoraEmail != null)
                                 {
-                                    string asuntoEmail = consultoraEmail.EsPostulante ? "Creacion de cuenta de Somos Belcorp" : "Mensaje de bienvenida";
+                                    var asuntoEmail = consultoraEmail.EsPostulante ? "Creacion de cuenta de Somos Belcorp" : "Mensaje de bienvenida";
                                     string[] PaisesLbel = { "MX", "CR", "PA", "PR" };
 
-                                    bool eslbel = false;
-                                    if (PaisesLbel.Contains(paisISO))
-                                    {
-                                        eslbel = true;
-                                    }
+                                    var eslbel = PaisesLbel.Contains(paisISO);
+                                    
 
-                                    string pathTemplate = AppDomain.CurrentDomain.BaseDirectory + "bin\\Templates\\esika_email_consultora.html";
+                                    var pathTemplate = AppDomain.CurrentDomain.BaseDirectory + "bin\\Templates\\esika_email_consultora.html";
                                     if (eslbel)
                                     {
                                         pathTemplate = AppDomain.CurrentDomain.BaseDirectory + "bin\\Templates\\lbel_email_consultora.html";
@@ -1555,20 +1552,9 @@ namespace Portal.Consultoras.BizLogic
 
                                     if (!string.IsNullOrEmpty(htmlTemplate))
                                     {
-                                        //string[] configuracionCorreo = ConfiguracionCorreo(PaisISO);
-                                        //string UrlValidacion = Settings.Default.UrlValidacion;
-                                        //string UrlPortal = Settings.Default.UrlPortal;
-
-                                        //string telefono1 = configuracionCorreo[1];
-                                        //string msgbox_nombre = Consultora.GerenteZonaNombre.Length > 0 ? Consultora.GerenteZonaNombre : "";
-                                        //string msgbox_email = Consultora.GerenteZonaEmail.Length > 0 ? Consultora.GerenteZonaEmail : "";
-                                        //string param_querystring = login.Substring(2) + "," + ObtenerPaisIDByISO(PaisISO) + "," + PaisISO + "," + email;
-                                        //param_querystring = encriptar(param_querystring).Replace("+", "ABCDE");
-
                                         string gznombre = consultoraEmail.GerenteZonaNombre.Length > 0 ? consultoraEmail.GerenteZonaNombre : "";
                                         string gzemail = consultoraEmail.GerenteZonaEmail.Length > 0 ? consultoraEmail.GerenteZonaEmail : "";
                                         string telefono1 = ConfigurationManager.AppSettings.Get("TelefonoCentroAtencion").ToString();
-                                        //string codusuario = consultoraEmail.Codigo.Substring(2);
                                         string codusuario = consultoraEmail.Codigo;
 
                                         if (eslbel)
@@ -1585,8 +1571,6 @@ namespace Portal.Consultoras.BizLogic
 
                                         htmlTemplate = htmlTemplate.Replace("#TELEFONO1#", telefono1);
                                         htmlTemplate = htmlTemplate.Replace("#TELEFONO2#", "");
-                                        //htmlTemplate = htmlTemplate.Replace("#CODIGO_USUARIO#", codusuario);
-                                        //htmlTemplate = htmlTemplate.Replace("#PASSWORD#", consultoraEmail.Clave);
                                         htmlTemplate = htmlTemplate.Replace("#PRIMER_NOMBRE#", consultoraEmail.NombreCompleto);
                                         htmlTemplate = htmlTemplate.Replace("#NOMBRE_CONTACTO#", gznombre);
                                         htmlTemplate = htmlTemplate.Replace("#EMAIL_CONTACTO#", gzemail);
@@ -1601,7 +1585,7 @@ namespace Portal.Consultoras.BizLogic
                                     }
                                     else
                                     {
-                                        throw new Exception("No se encontro la ruta del template: " + pathTemplate);
+                                        throw new ArgumentException("No se encontro la ruta del template: " + pathTemplate);
                                     }
                                 }// consultoraEmail
                             }
@@ -1620,14 +1604,14 @@ namespace Portal.Consultoras.BizLogic
 
         public int DelUsuarioPostulante(int paisID, string numeroDocumento)
         {
-            int r = 0;
+            var r = 0;
 
             try
             {
                 if (!string.IsNullOrEmpty(numeroDocumento))
                 {
                     var DAUsuario = new DAUsuario(paisID);
-                    int r1 = DAUsuario.DelUsuarioPostulante(numeroDocumento);
+                    var r1 = DAUsuario.DelUsuarioPostulante(numeroDocumento);
                     r = (r1 > 0) ? 1 : 0;
                 }
             }

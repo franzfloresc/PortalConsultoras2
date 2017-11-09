@@ -951,7 +951,7 @@ namespace Portal.Consultoras.Web.Controllers
                         try
                         {
                             if (usuarioModel.TipoUsuario == Constantes.TipoUsuario.Postulante)
-                                throw new Exception("No se asigna configuracion pais para los Postulantes.");
+                                throw new ArgumentException("No se asigna configuracion pais para los Postulantes.");
 
                             var revistaDigitalModel = new RevistaDigitalModel();
                             var ofertaFinalModel = new OfertaFinalModel();

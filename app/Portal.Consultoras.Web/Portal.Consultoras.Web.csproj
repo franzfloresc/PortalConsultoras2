@@ -4426,6 +4426,7 @@
     <Content Include="Views\EstrategiaPersonalizada\template-producto-landing.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-descargables-navidenos.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-carrusel-previsuales.cshtml" />
+    <Content Include="Views\Shared\VistaParcialMainLayout\_vpTagManager.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
