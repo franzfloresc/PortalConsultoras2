@@ -18,13 +18,9 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     ListaSeccion = ObtenerConfiguracionSeccion(),
                     MensajeProductoBloqueado = MensajeProductoBloqueado()
-                    
                 };
-
-                var listaShowRoom = (List<BEShowRoomOferta>)Session[Constantes.ConstSession.ListaProductoShowRoom] ?? new List<BEShowRoomOferta>();
-                ViewBag.xlistaProductoSR = listaShowRoom.Count(x => x.EsSubCampania == false);
                 
-
+                ViewBag.IconoLLuvia = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
                 return View(modelo);
             }
             catch (Exception ex)
@@ -131,10 +127,16 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (campaniaId == userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.Lanzamiento))
                     Session[Constantes.ConstSession.TieneLan] = false;
-                else if (campaniaId == userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.OfertasParaTi))
-                    Session[Constantes.ConstSession.TieneOpt] = false;
                 else if (campaniaId != userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.Lanzamiento))
                     Session[Constantes.ConstSession.TieneLanX1] = false;
+                else if (campaniaId == userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.OfertasParaTi))
+                    Session[Constantes.ConstSession.TieneOpt] = false;
+                else if (campaniaId == userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.RevistaDigital))
+                    Session[Constantes.ConstSession.TieneOpm] = false;
+                else if (campaniaId != userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.RevistaDigital))
+                    Session[Constantes.ConstSession.TieneOpmX1] = false;
+                else if (campaniaId == userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.RevistaDigitalReducida))
+                    Session[Constantes.ConstSession.TieneRdr] = false;
                 return Json(new
                 {
                     estado = "Ok"
@@ -150,33 +152,5 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-
-        public ActionResult Descargables(string FileName)
-        {
-            try
-            {
-                string paisISO = Util.GetPaisISO(userData.PaisID);
-                var carpetaPais = Globals.UrlFileConsultoras + "/" + paisISO;
-                string urlS3 = ConfigS3.GetUrlS3(carpetaPais) + FileName;
-
-                //return File(urlS3, "application/pdf", FileName);
-
-                return Json(new
-                {
-                    Result = true,
-                    UrlS3 = urlS3
-                });
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    Result = true,
-                    UrlS3 = ""
-                });
-            }
-        }
-
     }
 }

@@ -269,6 +269,7 @@ namespace Portal.Consultoras.Common
             public const string LosMasVendidos = "020";
             public const string IncentivosProgramaNuevas = "021";
             public const string OfertaDelDia = "009";
+            public const string GuiaDeNegocioDigitalizada = "010";
         }
 
         public class ConstSession
@@ -329,6 +330,9 @@ namespace Portal.Consultoras.Common
             public const string TieneLan = "TieneLan";
             public const string TieneLanX1 = "TieneLanX1";
             public const string TieneOpt = "TieneOpt";
+            public const string TieneOpm = "TieneOpm";
+            public const string TieneOpmX1 = "TieneOpmX1";
+            public const string TieneRdr = "TieneRdr";
         }
 
         public class TipoOfertaFinalCatalogoPersonalizado
@@ -340,29 +344,49 @@ namespace Portal.Consultoras.Common
 
         public class OrigenPedidoWeb
         {
-            // Primer Dígito -- Plataforma
-            // 1: Desktop                   2: Mobile
+            public class Campos
+            {
+                // Primer Dígito
+                public const int PLATAFORMA_INICIO = 0;
+                public const int PLATAFORMA_TAMANO = 1;
+                //  Segundo Dígito
+                public const int PANTALLA_INICIO = 1;
+                public const int PANTALLA_TAMANO = 1;
+                // Tercer Dígito
+                public const int SECCION_DENTRO_DE_PANTALLA_INICIO = 2;
+                public const int SECCION_DENTRO_DE_PANTALLA_TAMANO = 1;
 
-            // Segundo Dígito -- Pantalla
-            // 1: Home                      2: Pedido
-            // 3: Liquidacion               4: Catalogo Personalizado
-            // 5: ShowRoom                  9: General
-            // 6: OfertaParaTi
-            // 7: RevistaDigital
+                // Cuarto Dígito
+                public const int POPUP_INICIO = 3;
+                public const int POPUP_TAMANO = 1;
+            }
+                // Primer Dígito -- Plataforma
+                // 1: Desktop                   2: Mobile
 
-            // Tercer Dígito -- Sección dentro de la Pantalla
-            // 1: Banners                   2: Ofertas para ti
-            // 3: Catalogo Personalizado    4: Liquidacion
-            // 5: Producto Sugerido         6: Oferta Final
-            // 7: ShowRoom                  8: Consultora Online
-            // 9: Oferta del dia            0: Revista Digital
-            // 1: index
-            // 2: OfertaParaTi Detalle
+                // Segundo Dígito -- Pantalla
+                // 1: Home                      2: Pedido
+                // 3: Liquidacion               4: Catalogo Personalizado
+                // 5: ShowRoom                  6: OfertaParaTi
+                // 7: RevistaDigital            8: GuiaNegocioDigital
+                // 9: General
 
-            // Cuarto Dígito
-            // 1. Sin popUp                 2. Con popUp
+                // Tercer Dígito -- Sección dentro de la Pantalla
+                // 1: Banners                   2: Ofertas para ti
+                // 3: Catalogo Personalizado    4: Liquidacion
+                // 5: Producto Sugerido         6: Oferta Final
+                // 7: ShowRoom                  8: Consultora Online
+                // 9: Oferta del dia            0: Revista Digital
+                // 1: index
+                // 2: OfertaParaTi Detalle
 
-            public const int DesktopHomeBanners = 1111;
+                // Cuarto Dígito
+                // 1. Sin popUp                 2. Con popUp
+
+
+            public const int DesktopPedido = 12;
+            public const int MobilePedido = 22;
+
+                public const int DesktopHomeBanners = 1111;
             public const int DesktopHomeOfertasParaTi = 1121;
             public const int DesktopHomeOfertasParaTiPopUp = 1122;
             public const int DesktopHomeCatalogoPersonalizado = 1131;
@@ -522,6 +546,13 @@ namespace Portal.Consultoras.Common
             //FichaProducto VirtualCoach
             public const int DesktopPedidoVirtualCoach = 1231;
             public const int MobilePedidoVirtualCoach = 2231;
+
+            // Guía de Negocio Digitalizada
+            public const int GNDDesktopLanding = 1811;
+            public const int GNDDesktopLandingPopUp = 1812;
+            //
+            public const int GNDMobileLanding = 2811;
+            public const int GNDMobileProductPage = 2812;
         }
 
         public class TipoTutorial
@@ -741,6 +772,29 @@ namespace Portal.Consultoras.Common
             }
         }
 
+        public class GuiaNegocioTipoOrdenamiento
+        {
+            public const string Precio = "PRECIO";
+            public class ValorPrecio
+            {
+                public const string Predefinido = "01";
+                public const string MenorAMayor = "02";
+                public const string MayorAMenor = "03";
+            }
+        }
+
+        public class GuiaNegocioMarca
+        {
+            public const string Precio = "MARCA";
+            public class ValorPrecio
+            {
+                public const string Predefinido = "-";
+                public const string Cyzone = "CYZONE";
+                public const string Esika = "ÉSIKA";
+                public const string LBel = "LBEL";
+            }
+        }
+
         public class MatrizNemotecnicoMensajes
         {
             public const string TooltipInformacionFormatoBusqueda = "Formato de búsqueda de Nemotécnico: &lt;SAP_1&gt;#&lt;Cantidad_1&gt;&amp;&lt;SAP_2&gt;#&lt;Cantidad_2&gt;&amp;...&lt;SAP_N&gt;#&lt;Cantidad_N&gt; , ejemplos: 210080203, 210080203#01, 200083988 210080203, 200083988&210080203, 200083988#02&210080203#01";
@@ -865,6 +919,7 @@ namespace Portal.Consultoras.Common
             public const string OfertaDelDia = "ODD";
             public const string Informacion = "INFO";
             public const string Descargables = "DES-NAV";
+            public const string GuiaDeNegocioDigitalizada = "GND";
         }
 
         public class ConfiguracionSeccion
@@ -902,6 +957,7 @@ namespace Portal.Consultoras.Common
             public const int Showroom = 44;
             public const int OPT = 45;
             public const int ODD = 46;
+            public const int TablaLogicaId = 130;
         }
 
         public class TipoBusqueda
@@ -1271,12 +1327,26 @@ namespace Portal.Consultoras.Common
             public const string OptDetalle = "/ofertasparati/detalle";
             public const string OfertaDelDia = "/ofertadeldia";
             public const string OfertaDelDiaIndex = "/ofertadeldia/index";
+            public const string GuiaDeNegocio = "/guianegocio";
+            public const string GuiaDeNegocioIndex = "/guianegocio/index";
         }
 
         public class TipoVistaEstrategia
         {
             public const int Todos = 0;
             public const int ProgramaNuevas = 1;
+        }
+
+        public class Canal {
+            public const string Mobile = "M";
+            public const string Desktop = "W";
+        }
+
+        public class ArchivosDescargables
+        {
+            public const string TARJETA_NAVIDENA = "2017_Navidad_Tarjeta.pdf";
+            public const string PAPEL_REGALO_DORADO = "2017_Navidad_Regalo1.pdf";
+            public const string PAPEL_REGALO_ROJO = "2017_Navidad_Regalo2.pdf";
         }
     }
 }
