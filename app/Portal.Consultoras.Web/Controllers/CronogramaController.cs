@@ -817,7 +817,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return Json(new
             {
-                success = validar != 0 ? true : false,
+                success = validar != 0,
                 paisID = paisID,
                 codigoUsuario = codigoUsuario
             });
@@ -919,7 +919,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return Json(new
             {
-                success = validar == 1 ? true : false
+                success = validar == 1
             });
 
         }

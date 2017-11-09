@@ -606,7 +606,7 @@
 				
 				//BPT 369
 				var flagValidarImagen = jQuery("#list").jqGrid('getCell', id, 'FlagValidarImagen');
-				$("#chkValImg").attr("checked", (flagValidarImagen == "1") ? true : false);
+				$("#chkValImg").attr("checked", (flagValidarImagen == "1"));
 
 				//BPT 369
 				$("#txtPesoMaximoImagen").val(pesoMaximoImagen);
@@ -624,10 +624,10 @@
                 var flagImagenOfertaIndependiente = jQuery("#list").jqGrid('getCell', id, 'MostrarImgOfertaIndependiente');
 
 
-                $('#chkNueva').attr("checked", (flagNueva == "1") ? true : false);
-                $('#chkRecoProduc').attr("checked", (flagRecoProduc == "1") ? true : false);
-                $('#chkRecoPerfil').attr("checked", (flagRecoPerfil == "1") ? true : false);
-                $('#chkMostrarImgIndependiente').attr("checked", (flagImagenOfertaIndependiente == "1") ? true : false);
+                $('#chkNueva').attr("checked", (flagNueva == "1"));
+                $('#chkRecoProduc').attr("checked", (flagRecoProduc == "1"));
+                $('#chkRecoPerfil').attr("checked", (flagRecoPerfil == "1"));
+                $('#chkMostrarImgIndependiente').attr("checked", (flagImagenOfertaIndependiente == "1"));
 
                 $("#hdTipoEstrategiaID").val(id);
                 $("#hdofertas").val(ofertas + ',');

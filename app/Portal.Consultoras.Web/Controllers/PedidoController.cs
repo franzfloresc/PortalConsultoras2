@@ -2422,7 +2422,7 @@ namespace Portal.Consultoras.Web.Controllers
             // GPR - Si tiene GPR activo: ocultar el banner de rechazados.               
             if (userData.IndicadorGPRSB == 2)
             {
-                userData.MostrarBannerRechazo = userData.RechazadoXdeuda ? true : false;
+                userData.MostrarBannerRechazo = userData.RechazadoXdeuda;
                 userData.CerrarRechazado = userData.RechazadoXdeuda ? 0 : 1;
                 //ObtenerMotivoRechazo(usuario);
                 return true;

@@ -280,9 +280,9 @@ namespace Portal.Consultoras.Web.Controllers
                     using (SACServiceClient sv = new SACServiceClient())
                     {
                         if (zonasValidas.Any())
-                            sv.InsProductoFaltante(paisID, paisISO, CodigoUsuario, productosFaltantes.ToArray(), faltanteUltimoMin == 1 ? true : false);
+                            sv.InsProductoFaltante(paisID, paisISO, CodigoUsuario, productosFaltantes.ToArray(), faltanteUltimoMin == 1);
                         else
-                            sv.InsProductoFaltanteMasivo(paisID, paisISO, CodigoUsuario, campaniaID, productosFaltantes.ToArray(), faltanteUltimoMin == 1 ? true : false);
+                            sv.InsProductoFaltanteMasivo(paisID, paisISO, CodigoUsuario, campaniaID, productosFaltantes.ToArray(), faltanteUltimoMin == 1);
                     }
 
                     jsonData = new
@@ -416,7 +416,7 @@ namespace Portal.Consultoras.Web.Controllers
                         CUV = CUV,
                         ZonaID = ZonaID,
                         Zona = Zona,
-                        FaltanteUltimoMinuto = FaltanteUM == "SI" ? true : false
+                        FaltanteUltimoMinuto = FaltanteUM == "SI"
                     };
 
                     rslt = SACsrv.DelProductoFaltante(UserData().PaisID, UserData().CodigoISO, UserData().CodigoUsuario, producto);
