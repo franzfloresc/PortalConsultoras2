@@ -521,7 +521,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return false;
 
             var cdrWebs = CargarBECDRWeb(model);
-            if (cdrWebs.Count() != 1)
+            if (cdrWebs.Count != 1)
                 return rpta;
 
             var cdrWeb = cdrWebs[0];

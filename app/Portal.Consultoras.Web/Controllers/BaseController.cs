@@ -1957,10 +1957,12 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                BEConfiguracionProgramaNuevas oBEConfiguracionProgramaNuevas = new BEConfiguracionProgramaNuevas();
-                oBEConfiguracionProgramaNuevas.CampaniaInicio = userData.CampaniaID.ToString();
-                oBEConfiguracionProgramaNuevas.CodigoRegion = userData.CodigorRegion;
-                oBEConfiguracionProgramaNuevas.CodigoZona = userData.CodigoZona;
+                BEConfiguracionProgramaNuevas oBEConfiguracionProgramaNuevas = new BEConfiguracionProgramaNuevas()
+                {
+                    CampaniaInicio = userData.CampaniaID.ToString(),
+                    CodigoRegion = userData.CodigorRegion,
+                    CodigoZona = userData.CodigoZona
+                };
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
                     oBEConfiguracionProgramaNuevas = sv.GetConfiguracionProgramaNuevas(userData.PaisID, oBEConfiguracionProgramaNuevas);
@@ -3223,9 +3225,6 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     return (List<BECDRWeb>)Session[Constantes.ConstSession.CDRWeb];
                 }
-
-                //if (model.PedidoID * model.CampaniaID <= 0)
-                //    return entidadLista;
 
                 var entidad = new BECDRWeb();
                 entidad.CampaniaID = model.CampaniaID;

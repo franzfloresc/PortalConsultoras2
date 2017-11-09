@@ -564,8 +564,7 @@ namespace Portal.Consultoras.Web.Controllers
                     detCuv.CUV = Util.SubStr(detCuv.CUV, 0);
                     if (detCuv.CUV != "")
                     {
-                        BEConfiguracionProgramaNuevas oBEConfiguracionProgramaNuevas = new BEConfiguracionProgramaNuevas();
-                        oBEConfiguracionProgramaNuevas = GetConfiguracionProgramaNuevas("ConfiguracionProgramaNuevas");
+                        BEConfiguracionProgramaNuevas oBEConfiguracionProgramaNuevas = GetConfiguracionProgramaNuevas("ConfiguracionProgramaNuevas");
                         if (oBEConfiguracionProgramaNuevas.IndProgObli == "1" && oBEConfiguracionProgramaNuevas.CUVKit == model.CUV)
                         {
                             return Json(new
@@ -3548,14 +3547,12 @@ namespace Portal.Consultoras.Web.Controllers
                 Session["ConfiguracionProgramaNuevas"] = new BEConfiguracionProgramaNuevas();
                 return;
             }
-
-            BEConfiguracionProgramaNuevas oBEConfiguracionProgramaNuevas = new BEConfiguracionProgramaNuevas();
-
+            
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
                 try
                 {
-                    oBEConfiguracionProgramaNuevas = GetConfiguracionProgramaNuevas("ConfiguracionProgramaNuevas");
+                    BEConfiguracionProgramaNuevas oBEConfiguracionProgramaNuevas = GetConfiguracionProgramaNuevas("ConfiguracionProgramaNuevas");
 
                     if (oBEConfiguracionProgramaNuevas == null)
                     {
@@ -3574,7 +3571,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (det.PedidoDetalleID > 0) return;
 
-                    List<BEProducto> olstProducto = new List<BEProducto>();
+                    List<BEProducto> olstProducto;
                     using (ODSServiceClient svOds = new ODSServiceClient())
                     {
                         olstProducto = svOds.SelectProductoToKitInicio(userData.PaisID, userData.CampaniaID, oBEConfiguracionProgramaNuevas.CUVKit).ToList();
@@ -3645,7 +3642,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
 
                     page = 1;
-                    rows = listaDetalle.Count();
+                    rows = listaDetalle.Count;
                 }
 
                 decimal total = listaDetalle.Sum(p => p.ImporteTotal);
