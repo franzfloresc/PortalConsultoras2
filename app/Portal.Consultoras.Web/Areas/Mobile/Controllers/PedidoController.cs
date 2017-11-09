@@ -72,14 +72,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
             }
 
-            BEPedidoWeb bePedidoWebByCampania = ObtenerPedidoWeb();
-
-            if (bePedidoWebByCampania != null)
-            {
-                model.MontoAhorroCatalogo = bePedidoWebByCampania.MontoAhorroCatalogo;
-                model.MontoAhorroRevista = bePedidoWebByCampania.MontoAhorroRevista;
-            }
-
+            BEPedidoWeb bePedidoWebByCampania = ObtenerPedidoWeb() ?? new BEPedidoWeb();
+            
+            model.MontoAhorroCatalogo = bePedidoWebByCampania.MontoAhorroCatalogo;
+            model.MontoAhorroRevista = bePedidoWebByCampania.MontoAhorroRevista;
+            
             if (userData.PedidoID == 0 && lstPedidoWebDetalle.Count > 0)
             {
                 userData.PedidoID = lstPedidoWebDetalle[0].PedidoID;
@@ -98,7 +95,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.MontoConDsctoStr = Util.DecimalToStringFormat(model.Total - bePedidoWebByCampania.DescuentoProl, userData.CodigoISO);
             model.DescuentoStr = (bePedidoWebByCampania.DescuentoProl > 0 ? "-" : "") + Util.DecimalToStringFormat(bePedidoWebByCampania.DescuentoProl, userData.CodigoISO);
             model.ListaProductos = lstPedidoWebDetalle.ToList();
-            model.CantidadProductos = lstPedidoWebDetalle.ToList().Sum(p => p.Cantidad);
+            model.CantidadProductos = lstPedidoWebDetalle.Sum(p => p.Cantidad);
 
             model.GananciaFormat = Util.DecimalToStringFormat(model.MontoAhorroCatalogo + model.MontoAhorroRevista, userData.CodigoISO);
             model.FormatoMontoAhorroCatalogo = Util.DecimalToStringFormat(model.MontoAhorroCatalogo, userData.CodigoISO);
