@@ -53,7 +53,6 @@ namespace Portal.Consultoras.Data
         public int UpdConfiguracionParametroCargaPedido(BEConfiguracionParametroCarga entidad)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdConfiguracionParametroCargaPedido");
-            //Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
             Context.Database.AddInParameter(command, "@ZonaID", DbType.Int32, entidad.ZonaID);
             Context.Database.AddInParameter(command, "@DiasParametroCarga", DbType.Int16, entidad.DiasParametroCarga);
 

@@ -146,7 +146,6 @@ namespace Portal.Consultoras.Data
             return Convert.ToInt32(Context.ExecuteScalar(command));
         }
 
-        //RQ_PBS - R2161
         public IDataReader GetServicioCampaniaSegmentoZona(int ServicioId, int CampaniaId, int PaisId)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetServicioCampaniaSegmentoZona");
@@ -156,7 +155,6 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        //RQ_PBS - R2161
         public IDataReader GetServicioCampaniaSegmentoZonaAsignados(int ServicioId, int PaisId, int Tipo)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetServicioCampaniaSegmentoZonaAsignados");
@@ -166,8 +164,6 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        //RQ_PBS - R2161
-        /*RE2544 - CS - Agregando nuevo parametro*/    
         public void UpdServicioCampaniaSegmentoZona(int ServicioId, int CampaniaId, int PaisId, int Segmento, string ConfiguracionZona, string SegmentoInterno)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdServicioCampaniaSegmentoZona");
