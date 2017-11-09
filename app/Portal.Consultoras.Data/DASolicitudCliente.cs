@@ -276,15 +276,9 @@ namespace Portal.Consultoras.Data
         public IDataReader ReporteAfiliados(DateTime FechaInicio, DateTime FechaFin)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetReporteAfiliados");
-            if (FechaInicio == null)
-                Context.Database.AddInParameter(command, "@FechaInicio", DbType.DateTime, DBNull.Value);
-            else
-                Context.Database.AddInParameter(command, "@FechaInicio", DbType.DateTime, FechaInicio);
 
-            if (FechaFin == null)
-                Context.Database.AddInParameter(command, "@FechaFin", DbType.DateTime, DBNull.Value);
-            else
-                Context.Database.AddInParameter(command, "@FechaFin", DbType.DateTime, FechaFin);
+            Context.Database.AddInParameter(command, "@FechaInicio", DbType.DateTime, FechaInicio);
+            Context.Database.AddInParameter(command, "@FechaFin", DbType.DateTime, FechaFin);
 
             return Context.ExecuteReader(command);
         }
@@ -292,38 +286,20 @@ namespace Portal.Consultoras.Data
         public IDataReader ReportePedidos(DateTime FechaInicio, DateTime FechaFin, int estado, string marca, string campania)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetReportePedidos");
-            if (FechaInicio == null)
-                Context.Database.AddInParameter(command, "@FechaInicio", DbType.DateTime, DBNull.Value);
-            else
-                Context.Database.AddInParameter(command, "@FechaInicio", DbType.DateTime, FechaInicio);
 
-            if (FechaFin == null)
-                Context.Database.AddInParameter(command, "@FechaFin", DbType.DateTime, DBNull.Value);
-            else
-                Context.Database.AddInParameter(command, "@FechaFin", DbType.DateTime, FechaFin);
-
-
-            if (estado == 0 || estado == -1)
-                Context.Database.AddInParameter(command, "@estado", DbType.Int16, DBNull.Value);
-            else
-                Context.Database.AddInParameter(command, "@estado", DbType.Int16, estado);
-
-
-            if (marca == null || marca == string.Empty)
-                Context.Database.AddInParameter(command, "@marca", DbType.String, DBNull.Value);
-            else
-                Context.Database.AddInParameter(command, "@marca", DbType.String, marca);
-
-
-            if (campania == null || campania == string.Empty)
-                Context.Database.AddInParameter(command, "@campania", DbType.String, DBNull.Value);
-            else
-                Context.Database.AddInParameter(command, "@campania", DbType.String, campania);
+            Context.Database.AddInParameter(command, "@FechaInicio", DbType.DateTime, FechaInicio);
+            Context.Database.AddInParameter(command, "@FechaFin", DbType.DateTime, FechaFin);
+            
+            if (estado == 0 || estado == -1) Context.Database.AddInParameter(command, "@estado", DbType.Int16, DBNull.Value);
+            else Context.Database.AddInParameter(command, "@estado", DbType.Int16, estado);
+            
+            if (marca == null || marca == string.Empty) Context.Database.AddInParameter(command, "@marca", DbType.String, DBNull.Value);
+            else Context.Database.AddInParameter(command, "@marca", DbType.String, marca);
+            
+            if (string.IsNullOrEmpty(campania)) Context.Database.AddInParameter(command, "@campania", DbType.String, DBNull.Value);
+            else Context.Database.AddInParameter(command, "@campania", DbType.String, campania);
 
             return Context.ExecuteReader(command);
-        }   
-
-
-
+        }
     }
 }
