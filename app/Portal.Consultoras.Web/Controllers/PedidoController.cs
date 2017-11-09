@@ -51,7 +51,7 @@ namespace Portal.Consultoras.Web.Controllers
                 sessionManager.SetDetallesPedido(null);
 
                 AgregarKitNuevas();
-
+                
                 #region Flexipago
                 if (PaisTieneFlexiPago(userData.CodigoISO))
                 {
@@ -326,6 +326,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #endregion
 
+                ViewBag.UrlTerminosOfertaFinalRegalo = string.Format(ConfigurationManager.AppSettings.Get("oferta_final_regalo_url_s3"), userData.CodigoISO);
                 ViewBag.CUVOfertaProl = TempData["CUVOfertaProl"];
                 ViewBag.MensajePedidoDesktop = userData.MensajePedidoDesktop;
                 model.RevistaDigital = revistaDigital;
@@ -369,9 +370,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
             }
-
-            ViewBag.UrlTerminosOfertaFinalRegalo = string.Format(ConfigurationManager.AppSettings.Get("oferta_final_regalo_url_s3"), userData.CodigoISO);
-
+            
             if (Session["EsShowRoom"] != null && Session["EsShowRoom"].ToString() == "1")
             {
                 ViewBag.ImagenFondoOFRegalo = ObtenerValorPersonalizacionShowRoom("ImagenFondoOfertaFinalRegalo", "Desktop");
@@ -3361,25 +3360,25 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ObtenerProductosRecomendados(string CUV)
         {
-            List<BECrossSellingProducto> lst = new List<BECrossSellingProducto>();
+            List<BECrossSellingProducto> lst;
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
                 lst = sv.GetProductosRecomendadosByCUVCampaniaPortal(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, CUV).ToList();
             }
-
+            lst = lst ?? new List<BECrossSellingProducto>();
             string Marca = string.Empty;
-            if (lst != null && lst.Count > 0)
+            if (lst.Any())
             {
                 Marca = GetDescripcionMarca(string.IsNullOrEmpty(lst[0].MarcaID) ? 0 : Convert.ToInt32(lst[0].MarcaID));
                 // 1664
                 var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
                 lst.Update(x => x.ImagenProducto = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO));
-            }
 
-            if (lst.Count > 1)
-            {
-                Marca = Marca + "," + GetDescripcionMarca(string.IsNullOrEmpty(lst[1].MarcaID) ? 0 : Convert.ToInt32(lst[1].MarcaID));
+                if (lst.Count > 1)
+                {
+                    Marca = Marca + "," + GetDescripcionMarca(string.IsNullOrEmpty(lst[1].MarcaID) ? 0 : Convert.ToInt32(lst[1].MarcaID));
+                }
             }
             //lst.Update(x=> x.PrecioOferta = x.PrecioOferta.ToString(""))
             return Json(new
