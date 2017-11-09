@@ -1,7 +1,9 @@
 ﻿using Portal.Consultoras.Common;
+
 using System;
 using System.Data;
 using System.Runtime.Serialization;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Portal.Consultoras.Entities
 {
@@ -13,22 +15,30 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string ConsultoraID { get; set; }
         [DataMember]
+        [Column("EstrategiaID")]
         public int EstrategiaID { get; set; }
         [DataMember]
+        [Column("CampaniaID")]
         public int CampaniaID { get; set; }
         [DataMember]
+        [Column("CampaniaIDFin")]
         public int CampaniaIDFin { get; set; }
         [DataMember]
+        [Column("NumeroPedido")]
         public int NumeroPedido { get; set; }
         [DataMember]
         public int TipoEstrategiaID { get; set; }
         [DataMember]
+        [Column("Orden")]
         public int Orden { get; set; }
         [DataMember]
+        [Column("ID")]
         public int ID { get; set; }
         [DataMember]
+        [Column("Precio")]
         public decimal Precio { get; set; }
         [DataMember]
+        [Column("Precio2")]
         public decimal Precio2 { get; set; }
         [DataMember]
         public decimal PrecioUnitario { get; set; }
@@ -41,16 +51,34 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string CUV1 { get; set; }
         [DataMember]
+        [Column("CUV2")]
         public string CUV2 { get; set; }
         [DataMember]
+        [Column("DescripcionCUV2")]
         public string DescripcionCUV2 { get; set; }
+        [Column("Activo")]
+        public bool activo { get; set; }
+        private int _Activo;
         [DataMember]
-        public int Activo { get; set; }
+        public int Activo
+        {
+            get
+            {
+                return (activo ? 1 : _Activo);
+            }
+            set
+            {
+                _Activo = value;
+            }
+        }
         [DataMember]
+        [Column("LimiteVenta")]
         public int LimiteVenta { get; set; }
         [DataMember]
+        [Column("CodigoProducto")]
         public string CodigoProducto { get; set; }
         [DataMember]
+        [Column("ImagenURL")]
         public string ImagenURL { get; set; }
         [DataMember]
         public int EtiquetaID { get; set; }
@@ -61,6 +89,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string EtiquetaDescripcion2 { get; set; }
         [DataMember]
+        [Column("TextoLibre")]
         public string TextoLibre { get; set; }
         [DataMember]
         public int Cantidad { get; set; }
@@ -197,6 +226,7 @@ namespace Portal.Consultoras.Entities
         public int PromValorizado { get; set; }
 
         [DataMember]
+        [Column("EsOfertaIndependiente")]
         public bool EsOfertaIndependiente { get; set; }
 
         [DataMember]
@@ -207,10 +237,15 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public decimal PrecioPublico { get; set; }
         [DataMember]
+        [Column("Ganancia")]
         public decimal Ganancia { get; set; }
 
         [DataMember]
         public DateTime FechaInicioFacturacion { get; set; }
+
+        [DataMember]
+        [Column("CodigoPrograma")]
+        public string CodigoPrograma { get; set; }
 
         public BEEstrategia()
         { }
@@ -252,54 +287,6 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "MostrarImgOfertaIndependiente"))
                 MostrarImgOfertaIndependiente = Convert.ToBoolean(row["MostrarImgOfertaIndependiente"].ToString());
-        }
-
-        public BEEstrategia(IDataRecord row, int liteVersion)
-        {
-            if (DataRecord.HasColumn(row, "EstrategiaID") && row["EstrategiaID"] != DBNull.Value)
-                EstrategiaID = Convert.ToInt32(row["EstrategiaID"]);
-
-            if (DataRecord.HasColumn(row, "Precio2") && row["Precio2"] != DBNull.Value)
-                Precio2 = Convert.ToDecimal(row["Precio2"]);
-
-            if (DataRecord.HasColumn(row, "NumeroPedido") && row["NumeroPedido"] != DBNull.Value)
-                NumeroPedido = Convert.ToInt32(row["NumeroPedido"]);
-
-            if (DataRecord.HasColumn(row, "CUV2") && row["CUV2"] != DBNull.Value)
-                CUV2 = row["CUV2"].ToString();
-
-            if (DataRecord.HasColumn(row, "DescripcionCUV2") && row["DescripcionCUV2"] != DBNull.Value)
-                DescripcionCUV2 = row["DescripcionCUV2"].ToString();
-
-            if (DataRecord.HasColumn(row, "Activo") && row["Activo"] != DBNull.Value)
-                Activo = Convert.ToInt32(row["Activo"]);
-
-            if (DataRecord.HasColumn(row, "ImagenURL") && row["ImagenURL"] != DBNull.Value)
-                ImagenURL = row["ImagenURL"].ToString();
-
-            if (DataRecord.HasColumn(row, "LimiteVenta") && row["LimiteVenta"] != DBNull.Value)
-                LimiteVenta = Convert.ToInt32(row["LimiteVenta"]);
-
-            if (DataRecord.HasColumn(row, "CodigoProducto") && row["CodigoProducto"] != DBNull.Value)
-                CodigoProducto = row["CodigoProducto"].ToString();
-
-            PrecioPublico = DataRecord.GetColumn<decimal>(row, "PrecioPublico");
-            Ganancia = DataRecord.GetColumn<decimal>(row, "Ganancia");
-
-            if (DataRecord.HasColumn(row, "EsOfertaIndependiente"))
-                EsOfertaIndependiente = Convert.ToBoolean(row["EsOfertaIndependiente"].ToString());
-
-            if (DataRecord.HasColumn(row, "ImagenOfertaIndependiente"))
-                ImagenOfertaIndependiente = row["ImagenOfertaIndependiente"].ToString();
-
-            if (DataRecord.HasColumn(row, "MostrarImgOfertaIndependiente"))
-                MostrarImgOfertaIndependiente = Convert.ToBoolean(row["MostrarImgOfertaIndependiente"].ToString());
-
-            if (DataRecord.HasColumn(row, "Orden"))
-                Orden = Convert.ToInt32(row["Orden"]);
-
-            if (DataRecord.HasColumn(row, "ID"))
-                ID = Convert.ToInt32(row["ID"]);
         }
 
         public BEEstrategia(IDataRecord row)

@@ -123,8 +123,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var lista = (from a in lst
                             where a.FlagActivo == 1
-                            && a.Codigo == (TipoVistaEstrategia == Constantes.TipoVistaEstrategia.ProgramaNuevas ? Constantes.TipoEstrategiaCodigo.IncentivosProgramaNuevas : a.Codigo)
-                            select a);
+                            && a.Codigo != Constantes.TipoEstrategiaCodigo.IncentivosProgramaNuevas
+                             select a);
 
 				return Mapper.Map<IEnumerable<BETipoEstrategia>, IEnumerable<TipoEstrategiaModel>>(lista);
             }
@@ -1757,6 +1757,92 @@ namespace Portal.Consultoras.Web.Controllers
             var newfilename = UserData().CodigoISO + "_" + time + "_" + FileManager.RandomString() + ".png";
             ConfigS3.SetFileS3(path, carpetaPais, newfilename);
             return newfilename;
+        }
+        [HttpGet]
+        public ViewResult ProgramaNuevas()
+        {
+            try
+            {
+                ViewBag.hdnPaisISO = userData.CodigoISO;
+                ViewBag.hdnPaisID = userData.PaisID;
+                ViewBag.ddlCampania = DropDowListCampanias(userData.PaisID);
+
+                var tipoEstrategias = GetTipoEstrategias();
+                ViewBag.hdnTipoEstrategiaID = tipoEstrategias.Where(x => x.Codigo == Constantes.TipoEstrategiaCodigo.IncentivosProgramaNuevas).First().TipoEstrategiaID;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult ProgramaNuevasConsultar(string sidx, string sord, int page, int rows, string CampaniaID,
+            string CUV, int Imagen, int Activo, string CodigoPrograma, int TipoEstrategiaID)
+        {
+            var lst = new List<BEEstrategia>();
+            var pag = new BEPager();
+
+            try
+            {
+                if(string.IsNullOrEmpty(CampaniaID)) return RedirectToAction("ProgramaNuevas", "AdministrarEstrategia");
+
+                var entidad = new BEEstrategia()
+                {
+                    PaisID = userData.PaisID,
+                    TipoEstrategiaID = TipoEstrategiaID,
+                    CUV2 = (string.IsNullOrEmpty(CUV) ? "0" : CUV),
+                    CampaniaID = Convert.ToInt32(CampaniaID),
+                    Activo = Activo,
+                    Imagen = Imagen,
+                    CodigoPrograma = CodigoPrograma
+                };
+
+                using (var sv = new PedidoServiceClient())
+                {
+                    lst = sv.GetEstrategias(entidad).ToList();
+                    lst = lst ?? new List<BEEstrategia>();
+                }
+
+                string carpetapais = string.Format("{0}/{1}", Globals.UrlMatriz, userData.CodigoISO);
+                lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL, carpetapais));
+
+                var grid = new BEGrid()
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
+
+                var items = lst.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                pag = Util.PaginadorGenerico(grid, lst);
+
+                var data = new
+                {
+                    total = pag.PageCount,
+                    page = pag.CurrentPage,
+                    records = pag.RecordCount,
+                    rows = items
+                };
+
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return RedirectToAction("ProgramaNuevas", "AdministrarEstrategia");
+            }
+        }
+
+        [HttpGet]
+        public ActionResult ProgramaNuevasDetalle(EstrategiaProgramaNuevasModel inModel)
+        {
+            ViewBag.ddlCampania = DropDowListCampanias(userData.PaisID);
+
+            return PartialView(inModel);
         }
     }
 }

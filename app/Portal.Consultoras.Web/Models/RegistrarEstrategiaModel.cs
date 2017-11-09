@@ -49,6 +49,6 @@ namespace Portal.Consultoras.Web.Models
         public string PrecioAnt { get; set; }
         public string Ganancia { get; set; }
         public bool EsOfertaIndependiente { get; set; }
-
+        public string CodigoPrograma { get; set; }
     }
 }
