@@ -1179,6 +1179,31 @@ namespace Portal.Consultoras.Common
             return pag;
         }
 
+        /// <summary>
+        /// Metodo que permite llenar la entidad de páginación segun la cantidad de registros total
+        /// </summary>
+        /// <param name="item">Entidad</param>
+        /// <param name="RecordCount">Cantidad de registros total</param>
+        /// <returns></returns>
+        public static BEPager PaginadorGenerico(BEGrid item, int RecordCount)
+        {
+            BEPager pag = new BEPager();
+
+            item.PageSize = item.PageSize <= 0 ? 1 : item.PageSize;
+
+            int PageCount = RecordCount / item.PageSize;
+            PageCount = PageCount < 1 ? 1 : PageCount;
+            PageCount += RecordCount > (PageCount * item.PageSize) ? 1 : 0;
+
+            pag.RecordCount = RecordCount;
+            pag.PageCount = PageCount;
+
+            int CurrentPage = item.CurrentPage;
+            pag.CurrentPage = CurrentPage > PageCount ? PageCount : CurrentPage;
+
+            return pag;
+        }
+
         public static bool IsDate(string strValor)
         {
             try { DateTime.Parse(strValor); }

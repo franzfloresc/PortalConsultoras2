@@ -540,27 +540,39 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult GetImagesByCodigoSAP(int paisID, string codigoSAP, int pagina)
         {
-            List<BEMatrizComercialImagen> lst;
-            using (PedidoServiceClient sv = new PedidoServiceClient())
-            {
-                lst = sv.GetImagenesByCodigoSAPPaginado(paisID, codigoSAP, pagina, 10).ToList();
-            }
-
+            var lst = new List<BEMatrizComercialImagen>();
             int totalRegistros = 0;
             int idMatrizComercial = 0;
+            int rows = 10;
+            int pageCount = 0;
             var data = new List<MatrizComercialImagen>();
+
+            using (PedidoServiceClient sv = new PedidoServiceClient())
+            {
+                lst = sv.GetImagenesByCodigoSAPPaginado(paisID, codigoSAP, pagina, rows).ToList();
+            }
+
             if (lst.Any())
             {
                 var tieneImagenes = lst.First().IdMatrizComercialImagen != 0;
                 idMatrizComercial = lst.First().IdMatrizComercial;
+
                 if (tieneImagenes)
                 {
                     totalRegistros = lst.First().TotalRegistros;
                     data = MapImages(lst, paisID);
                 }
+
+                var grid = new BEGrid()
+                {
+                    PageSize = rows,
+                    CurrentPage = pagina,
+                };
+                var pag = Util.PaginadorGenerico(grid, totalRegistros);
+                pageCount = pag.PageCount;
             }
 
-            return Json(new { imagenes = data, idMatrizComercial = idMatrizComercial, totalRegistros = totalRegistros });
+            return Json(new { imagenes = data, idMatrizComercial = idMatrizComercial, totalRegistros = totalRegistros, totalPaginas = pageCount });
         }
 
         public JsonResult GetImagesByNemotecnico(int paisID, int idMatrizComercial, string nemoTecnico, int tipoBusqueda, int pagina)
