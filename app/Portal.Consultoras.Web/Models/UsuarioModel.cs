@@ -69,14 +69,11 @@ namespace Portal.Consultoras.Web.Models
             this.TipoCasoPromesa = string.Empty;
             this.DiasCasoPromesa = 0;
             this.SegmentoAbreviatura = string.Empty;
-            //this.RevistaDigital = new RevistaDigital();
             this.MensajePedidoDesktop = 0;
             this.MensajePedidoMobile = 0;
-            //this.OfertaFinalModel = new OfertaFinalModel();
             this.EsLebel = false;
             this.TieneCDRExpress = false;
             this.PopupBienvenidaCerrado = false;
-            //this.ConfiguracionPais = new List<ConfiguracionPaisModel>();
         }
 
         public string Celular { get; set; }

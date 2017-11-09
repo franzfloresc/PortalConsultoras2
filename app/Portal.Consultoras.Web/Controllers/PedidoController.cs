@@ -269,8 +269,6 @@ namespace Portal.Consultoras.Web.Controllers
                 model.CampaniaId = userData.CampaniaID;
                 model.Dias = ViewBag.Dias;
                 model.MensajeCierreCampania = ViewBag.MensajeCierreCampania;
-                model.TieneFechaPromesa = ViewBag.TieneFechaPromesa;
-                model.MensajeFechaPromesa = ViewBag.MensajeFechaPromesa;
                 model.CodigoZona = userData.CodigoZona;
                 model.FechaFacturacionPedido = ViewBag.FechaFacturacionPedido;
 

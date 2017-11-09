@@ -202,10 +202,6 @@ namespace Portal.Consultoras.Web.Models
 
         public string MensajeCierreCampania { get; set; }
 
-        public int TieneFechaPromesa { get; set; }
-
-        public string MensajeFechaPromesa { get; set; }
-
         public string CodigoZona { get; set; }
 
         public string FechaFacturacionPedido { get; set; }

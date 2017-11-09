@@ -23,18 +23,19 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             try
             {
                 model.RevistaDigital = revistaDigital;
-                // mostrar popup de revista digital....
-                model.RevistaDigitalPopUpMostrar = revistaDigital.NoVolverMostrar;                
+                model.RevistaDigitalPopUpMostrar = revistaDigital.NoVolverMostrar;
 
-                if (base.ObtenerPedidoWeb() != null)
+                var pedidoWeb = base.ObtenerPedidoWeb();
+                if (pedidoWeb != null)
                 {
-                    model.MontoAhorroCatalogo = base.ObtenerPedidoWeb().MontoAhorroCatalogo;
-                    model.MontoAhorroRevista = base.ObtenerPedidoWeb().MontoAhorroRevista;
+                    model.MontoAhorroCatalogo = pedidoWeb.MontoAhorroCatalogo;
+                    model.MontoAhorroRevista = pedidoWeb.MontoAhorroRevista;
                 }
 
-                if (base.ObtenerPedidoWebDetalle() != null)
+                var pedidoWebDetalle = base.ObtenerPedidoWebDetalle();
+                if (pedidoWebDetalle != null)
                 {
-                    model.MontoPedido = base.ObtenerPedidoWebDetalle().Sum(p => p.ImporteTotal);
+                    model.MontoPedido = pedidoWebDetalle.Sum(p => p.ImporteTotal);
                 }
 
                 model.Saludo = ObtenerSaludo();
@@ -48,9 +49,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.NumeroCampania = userData.CampaniaID == 0 ? "" : userData.CampaniaID.ToString().Substring(4);
                 model.DiasParaCierre = ViewBag.Dias;
                 model.MensajeCierreCampania = ViewBag.MensajeCierreCampania;
-                model.TieneFechaPromesa = ViewBag.TieneFechaPromesa;
-                model.DiaFechaPromesa = (ViewBag.DiaFechaPromesa == null ? 0 : ViewBag.DiaFechaPromesa);
-                model.MensajeFechaPromesa = ViewBag.MensajeFechaPromesa;
                 model.IndicadorPermisoFIC = ViewBag.IndicadorPermisoFIC;
                 model.InscritaFlexipago = userData.InscritaFlexipago;
                 model.InvitacionRechazada = userData.InvitacionRechazada;

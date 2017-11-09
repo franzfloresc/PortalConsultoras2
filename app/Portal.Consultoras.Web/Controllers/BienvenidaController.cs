@@ -25,13 +25,7 @@ namespace Portal.Consultoras.Web.Controllers
             var model = new BienvenidaHomeModel { ShowPopupMisDatos = showPopupMisDatos };
 
             if (userData.RolID != Constantes.Rol.Consultora)
-                return View("IndexSAC", model);
-
-            if (Request.Browser.IsMobileDevice)
-                if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
-                {
-                    return RedirectToAction("Index", "Bienvenida", new { area = "Mobile", verSeccion = verSeccion });
-                }            
+                return View("IndexSAC", model);            
 
             try
             {
