@@ -133,23 +133,17 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.CampaniaActual = userData.CampaniaID.ToString();
             model.EMail = userData.EMail;
             model.Celular = userData.Celular;
-            ViewBag.paisISO = userData.CodigoISO;
-            ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("BUCKET_NAME") ?? string.Empty;
             model.TieneMasVendidos = userData.TieneMasVendidos;
-            //model.TieneOfertaLog = userData.TieneOfertaLog;
-            ViewBag.DataBarra = GetDataBarra(true, true);
-
             model.RevistaDigital = revistaDigital;
 
-            #region EventoFestivo
-            var eventofestivo = GetEventoFestivoData();
-            ViewBag.UrlFranjaNegra = string.IsNullOrEmpty(eventofestivo.EfRutaPedido) ?
-                "../../../Content/Images/Esika/background_pedido.png" :
-                eventofestivo.EfRutaPedido;
-            #endregion
+            ViewBag.paisISO = userData.CodigoISO;
+            ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("BUCKET_NAME") ?? string.Empty;
+            ViewBag.UrlFranjaNegra = GetUrlFranjaNegra();
 
             return View("Index", model);
         }
+
+        
 
         public ActionResult virtualCoach(string param = "")
         {

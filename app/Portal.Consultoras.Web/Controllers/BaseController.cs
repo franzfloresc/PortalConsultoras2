@@ -4142,5 +4142,15 @@ namespace Portal.Consultoras.Web.Controllers
                    new MenuContenedorModel();
         }
         #endregion
+
+        protected string GetUrlFranjaNegra()
+        {
+            var urlFranjaNegra = GetEventoFestivoData().EfRutaPedido;
+
+            if (string.IsNullOrEmpty(urlFranjaNegra))
+                urlFranjaNegra = "../../../Content/Images/Esika/background_pedido.png";
+
+            return urlFranjaNegra;
+        }
     }
 }
