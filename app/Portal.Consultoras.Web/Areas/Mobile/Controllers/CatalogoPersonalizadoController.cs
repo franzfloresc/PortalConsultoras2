@@ -1,4 +1,5 @@
-﻿using Portal.Consultoras.Common;
+﻿using AutoMapper;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
@@ -49,87 +50,70 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public ActionResult Producto(FichaProductoFAVModel model)
         {
             if (string.IsNullOrEmpty(model.CUVFP))
-            {
                 return RedirectToAction("Index");
-            }
 
-            var productoModel = new ProductoModel();
+            var listaProductoModel = (List<ProductoModel>)Session["ProductosCatalogoPersonalizado"];
+            //
+            if (listaProductoModel == null)
+                return RedirectToAction("Index");
+            //
+            if( !listaProductoModel.Any((x => x.CUV == model.CUVFP)))
+                return RedirectToAction("Index");
 
-            if (Session["ProductosCatalogoPersonalizado"] != null)
+            var productoModel = listaProductoModel.FirstOrDefault(x => x.CUV == model.CUVFP);
+
+            if (productoModel.EsMaquillaje && productoModel.Hermanos == null)
             {
-                var listaProductoModel = new List<ProductoModel>();
-                listaProductoModel = (List<ProductoModel>)Session["ProductosCatalogoPersonalizado"] ?? new List<ProductoModel>();
+                var listaHermanos = GetListBrothersByCUV(userData, model);
 
-                if (listaProductoModel.Any())
+                if (listaHermanos != null && listaHermanos.Any())
                 {
-                    productoModel = listaProductoModel.Where(x => x.CUV == model.CUVFP).FirstOrDefault();
+                    var cuvs = string.Join(",", listaHermanos.Select(x => x.CUV));
+                    var productosAppCatalogo = ObtenerProductosAppCatalogoByListaCUV(userData, cuvs);
 
-                    if (productoModel != null)
+                    if (productosAppCatalogo != null && productosAppCatalogo.Any())
                     {
-                        if (productoModel.EsMaquillaje)
-                        {
-                            if (productoModel.Hermanos == null)
-                            {
-                                var listaHermanos = new List<BEProducto>();
-                                using (ODSServiceClient svc = new ODSServiceClient())
-                                {
-                                    listaHermanos = svc.GetListBrothersByCUV(userData.PaisID, userData.CampaniaID, model.CUVFP).ToList();
-                                }
-
-                                if (listaHermanos.Any())
-                                {
-                                    string codigosCuv = string.Join(",", listaHermanos.Select(x => x.CUV));
-
-                                    var listaAppCatalogo = new List<Producto>();
-                                    using (ProductoServiceClient svc = new ProductoServiceClient())
-                                    {
-                                        listaAppCatalogo = svc.ObtenerProductosAppCatalogoByListaCUV(userData.CodigoISO, userData.CampaniaID, codigosCuv).ToList();
-                                    }
-
-                                    if (listaAppCatalogo.Any())
-                                    {
-                                        productoModel.Hermanos = new List<ProductoModel>();
-
-                                        foreach (var item in listaAppCatalogo)
-                                        {
-                                            productoModel.Hermanos.Add(new ProductoModel
-                                            {
-                                                CUV = item.Cuv,
-                                                CodigoProducto = item.CodigoSap,
-                                                Descripcion = item.NombreComercial,
-                                                DescripcionComercial = item.Descripcion,
-                                                ImagenProductoSugerido = item.Imagen,
-                                                NombreBulk = item.NombreBulk,
-                                                ImagenBulk = item.ImagenBulk
-                                            });
-                                        }
-
-                                        var ListaTonos = productoModel.Hermanos.OrderBy(e => e.NombreBulk).ToList();
-                                        productoModel.Tonos = ListaTonos;
-                                    }
-                                    else
-                                    {
-                                        productoModel.EsMaquillaje = false;
-                                    }
-
-                                    Session["ProductosCatalogoPersonalizadoFilter"] = listaProductoModel;
-                                }
-                            }
-
-                        }// EsMaquillaje
+                        productoModel.Hermanos = Mapper.Map<List<Producto>, List<ProductoModel>>(productosAppCatalogo);
+                        productoModel.Tonos = productoModel.Hermanos.OrderBy(e => e.NombreBulk).ToList();
                     }
+                    else
+                    {
+                        productoModel.EsMaquillaje = false;
+                    }
+
+                    Session["ProductosCatalogoPersonalizadoFilter"] = listaProductoModel;
                 }
             }
 
-            if (string.IsNullOrEmpty(productoModel.CUV))
+            productoModel.FBRuta = GetUrlCompartirFB();
+            ViewBag.RutaImagenNoDisponible = ConfigurationManager.AppSettings.Get("rutaImagenNotFoundAppCatalogo");
+            ViewBag.EsLebel = userData.EsLebel;
+
+            return View(productoModel);
+        }
+
+        private List<Producto> ObtenerProductosAppCatalogoByListaCUV(UsuarioModel userData, string cuvs)
+        {
+            List<Producto> productosAppCatalogo;
+
+            using (var productoServiceClient = new ProductoServiceClient())
             {
-                return RedirectToAction("Index");
+                productosAppCatalogo = productoServiceClient.ObtenerProductosAppCatalogoByListaCUV(userData.CodigoISO, userData.CampaniaID, cuvs).ToList();
             }
 
-            ViewBag.RutaImagenNoDisponible = ConfigurationManager.AppSettings.Get("rutaImagenNotFoundAppCatalogo");
-            productoModel.FBRuta = GetUrlCompartirFB();
-            ViewBag.EsLebel = userData.EsLebel;
-            return View(productoModel);
+            return productosAppCatalogo;
+        }
+
+        private List<BEProducto> GetListBrothersByCUV(UsuarioModel userData, FichaProductoFAVModel model)
+        {
+            List<BEProducto> listaHermanos;
+
+            using (var odsServiceClient = new ODSServiceClient())
+            {
+                listaHermanos = odsServiceClient.GetListBrothersByCUV(userData.PaisID, userData.CampaniaID, model.CUVFP).ToList();
+            }
+
+            return listaHermanos;
         }
     }
 }

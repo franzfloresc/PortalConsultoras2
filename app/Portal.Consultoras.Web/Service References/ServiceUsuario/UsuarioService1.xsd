@@ -914,6 +914,7 @@
         <xs:element minOccurs="0" name="IPOrigen" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="Tipo" type="xs:unsignedByte" />
         <xs:element minOccurs="0" name="DetalleError" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Canal" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
