@@ -1,15 +1,16 @@
 ﻿var arrayOfertasParaTi = [];
 
-$(document).ready(function () {
+//youtube
+var tag = null;
+var firstScriptTag = null;
+var player;
+
+$(document).ready(function () {        
     $(".termino_condiciones_intriga").click(function () {
         $(this).toggleClass('check_intriga');
         if (typeof intrigaAceptoTerminos !== 'undefined') {
             intrigaAceptoTerminos = !intrigaAceptoTerminos;
         }
-    });
-
-    $('.flexsliderTutorialMobile').flexslider({
-        animation: "slide"
     });
     $(".contenedor-tutorial-lbel .otromomento").click(function () {
         $('#tutorialesMobile').hide();
@@ -19,9 +20,7 @@ $(document).ready(function () {
         $('#tutorialesMobile').hide();
         $('.btn_agregarPedido').show();
     });
-    $(".footer-page").css({ "margin-bottom": "54px" });
-
-    mostrarTutorialMobile();
+    $(".footer-page").css({ "margin-bottom": "54px" });    
 
     $(".cerrar").click(function () {
         UpdateUsuarioTutorialMobile();
@@ -29,13 +28,20 @@ $(document).ready(function () {
         $('.btn_agregarPedido').show();
     });
     $("#tutorialFooterMobile").click(function () {
-        $('.btn_agregarPedido').hide();
-        $('#tutorialesMobile').show();
-        setTimeout(function (){ $(window).resize(); }, 50);
+        VerTutorialMobile();
     });
-    $(".ver_video_introductorio").click(function () {
+    $(".ver_video_introductorio").click(function () {        
         $('#VideoIntroductorio').show();
+
+        ConfigurarYoutube();
+
         setTimeout(function () { playVideo(); }, 500);
+
+        setTimeout(function () {
+            if (player.playVideo) {
+                player.playVideo();
+            }
+        }, 2000);
     });
     $("#cerrarVideoIntroductorio").click(function () {
         stopVideo();
@@ -46,6 +52,9 @@ $(document).ready(function () {
 
     });
 
+    if (viewBagVioTutorial == "0") {
+        VerTutorialMobile();
+    }
 
     CargarCarouselEstrategias("");
 
@@ -96,6 +105,7 @@ $(document).ready(function () {
     });
    
     ObtenerComunicadosPopup();
+    EstablecerAccionLazyImagen("img[data-lazy-seccion-banner-home]");    
 });
 $(window).load(function () {
     VerSeccionBienvenida(verSeccion);
@@ -266,16 +276,6 @@ function AgregarTagManagerShowRoomCheckBox() {
         'label': '(not available)'
     });
 }
-
-function mostrarTutorialMobile() {
-    if (viewBagVioTutorial == "0") {
-        $('#tutorialesMobile').show();
-        $('.btn_agregarPedido').hide();
-        setTimeout(function () {
-            $(window).resize();
-        }, 300);
-    }
-};
 
 function stopVideo() {
     if (player) {
@@ -693,3 +693,46 @@ function VerSeccionBienvenida(seccion) {
         }, 1000);
     }
 }
+
+function VerTutorialMobile() {
+    if (isEsika) {
+        $("#tutorialesMobile .contenedor-tutorial-lbel .slides img").removeAttr("data-lazy-seccion-tutorial");
+    } else {
+        $("#tutorialesMobile .contenedor-tutorial-esika .slides img").removeAttr("data-lazy-seccion-tutorial");
+    }
+
+    $('.btn_agregarPedido').hide();
+    $('.flexsliderTutorialMobile').flexslider({
+        animation: "slide"
+    });
+
+    EstablecerAccionLazyImagenAll("img[data-lazy-seccion-tutorial]");
+    $('#tutorialesMobile').show();
+
+    setTimeout(function () { $(window).resize(); }, 50);
+}
+
+function ConfigurarYoutube() {
+    if (tag == null) {
+        tag = document.createElement("script");
+        tag.src = "https://www.youtube.com/iframe_api";
+
+        firstScriptTag = document.getElementsByTagName("script")[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    }
+}
+
+function onYouTubeIframeAPIReady(playerId) {
+    var videoIdMostrar;
+    if (isEsika) {
+        videoIdMostrar = "jNoP8OoMmW4"; //Video Esika
+    }
+    else {
+        videoIdMostrar = "djSn0tFcQ0w"; //Video Lbel
+    }
+    player = new YT.Player("divPlayer", {
+        width: "100%",
+        videoId: videoIdMostrar,
+        playerVars: { rel: 0 }
+    });
+};

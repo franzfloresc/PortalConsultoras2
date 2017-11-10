@@ -275,6 +275,16 @@ namespace Portal.Consultoras.Data
             }
         }
 
+        public IDataReader GetEstrategiaGuiaDeNegocioDigitalizada(BEEstrategia entidad)
+        {
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarEstrategiasGuiaDeNegocioDigitalizada"))
+            {
+                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
+                Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, entidad.ConsultoraID);
+                return Context.ExecuteReader(command);
+            }
+        }
+
         public IDataReader GetMasVendidos(BEEstrategia entidad)
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarOfertasMasVendidos"))

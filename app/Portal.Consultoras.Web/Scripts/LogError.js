@@ -31,6 +31,9 @@ window.onerror = function (msg, url, line, col, error) {
         Origen: 'Cliente',
         TipoTrace: 'ScriptError'
     };
+
+    console.log(objError);
+
     registrarLogError(objError);
 
     var suppressErrorAlert = true;

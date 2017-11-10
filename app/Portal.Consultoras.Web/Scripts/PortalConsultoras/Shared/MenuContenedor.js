@@ -232,7 +232,9 @@ var menuModule = (function () {
         if (window.location.pathname.toLowerCase() === url.toLowerCase()) return;
         var campania = $(element).data("campania") || "";
         var codigo = $(element).data("codigo") || "";
-        rdAnalyticsModule.Tabs(codigo, campania);
+        if (typeof rdAnalyticsModule !== "undefined") {
+            rdAnalyticsModule.Tabs(codigo, campania);
+        }
         window.location = window.location.origin + url;
     }
     function setCarrouselMenu() {

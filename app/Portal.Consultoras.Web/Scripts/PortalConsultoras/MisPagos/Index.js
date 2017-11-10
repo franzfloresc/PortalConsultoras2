@@ -227,6 +227,7 @@ function getLugarPago() {
         success: function (data) {
             if (checkTimeout(data)) {
                 SetHandlebars("#js-LugaresPago", data, "#divContenidoLugarPago");
+                EstablecerAccionLazyImagen("img[data-lazy-seccion-lugar-pago]");
             }
         },
         error: function (data, error) {

@@ -27,7 +27,6 @@ $(document).ready(function () {
         }
     }
 
-
     $(document).keyup(function (e) {
         if (e.keyCode == 27) {
             if ($('#PopFichaProductoNueva').is(':visible')) {
@@ -1168,7 +1167,7 @@ function odd_desktop_google_analytics_cerrar_banner(nombreProducto) {
         'event': 'virtualEvent',
         'category': 'Oferta del día',
         'action': 'Cerrar Banner',
-        'label': 'nombreProducto'
+        'label': nombreProducto
     });
 }
 
