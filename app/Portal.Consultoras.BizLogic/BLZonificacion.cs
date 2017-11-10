@@ -282,7 +282,6 @@ namespace Portal.Consultoras.BizLogic
             return territorios;
         }
 
-        //RQ_BS - R2133
         public IList<BESegmentoBanner> GetSegmentoBanner(int PaisID)
         {
             var ListaSegmentoBanner = new List<BESegmentoBanner>();
@@ -295,7 +294,6 @@ namespace Portal.Consultoras.BizLogic
             return ListaSegmentoBanner;
         }
 
-        //RQ_BS - R2133
         public IList<BEZonificacionJerarquia> GetZonificacionJerarquia(int PaisID)
         {
             var ListaJerarquia = new List<BEZonificacionJerarquia>();
@@ -307,7 +305,6 @@ namespace Portal.Consultoras.BizLogic
 
             return ListaJerarquia;
         }
-        /* CGI(CSR) – REQ – 2544 – INICIO – 12/05/2015 – Creacion de Metodo GetSegmentoInternoBanner para Segmento en los Banners*/
         public IList<BESegmentoBanner> GetSegmentoInternoBanner(int PaisID)
         {
             var ListaSegmentoBanner = new List<BESegmentoBanner>();    
@@ -318,9 +315,6 @@ namespace Portal.Consultoras.BizLogic
                     ListaSegmentoBanner.Add(new BESegmentoBanner(reader));
             return ListaSegmentoBanner;
         }
-        /* CGI(CSR) – REQ – 2544 – FIN */
-
-        //R2015121 - Parámetro
 
         public IList<BEGetRegionByPaisParametroCarga> GetRegionByPaisParametroCarga(int paisID)
         {
@@ -344,8 +338,5 @@ namespace Portal.Consultoras.BizLogic
             }
             return zonas;
         }
-
-
-        //R20151221 Fín Parámetro
     }
 }
