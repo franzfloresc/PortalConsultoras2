@@ -110,13 +110,11 @@ namespace Portal.Consultoras.BizLogic
             DAUsuario.UpdUsuario(usuario);
         }
         
-        //1796 Inicio
         public int UpdUsuarioRechazarInvitacion(int PaisID, string CodigoUsuario)
         {
             var DAUsuario = new DAUsuario(PaisID);
             return DAUsuario.UpdUsuarioRechazarInvitacion(CodigoUsuario);
         }
-        //1796 Fin
 
         public void UpdateDatos(BEUsuario usuario, string CorreoAnterior)
         {
@@ -219,14 +217,14 @@ namespace Portal.Consultoras.BizLogic
                         usuario.FechaFinFIC = configuracion.FechaFinFIC;
                         usuario.IndicadorOfertaFIC = configuracion.IndicadorOfertaFIC;
                         usuario.ImagenURLOfertaFIC = configuracion.ImagenURLOfertaFIC;
-                        usuario.PROLSinStock = configuracion.PROLSinStock; //1510
-                        usuario.NuevoPROL = configuracion.NuevoPROL; //RQ_NP - R2133
-                        usuario.ZonaNuevoPROL = configuracion.ZonaNuevoPROL; //RQ_NP - R2133
-                        usuario.EstadoSimplificacionCUV = configuracion.EstadoSimplificacionCUV; /*R20150701*/
+                        usuario.PROLSinStock = configuracion.PROLSinStock;
+                        usuario.NuevoPROL = configuracion.NuevoPROL;
+                        usuario.ZonaNuevoPROL = configuracion.ZonaNuevoPROL;
+                        usuario.EstadoSimplificacionCUV = configuracion.EstadoSimplificacionCUV;
                         usuario.EsquemaDAConsultora = configuracion.EsquemaDAConsultora;
-                        usuario.HoraCierreZonaDemAntiCierre = configuracion.HoraCierreZonaDemAntiCierre; //R20151126
-                        usuario.ValidacionInteractiva = configuracion.ValidacionInteractiva; //R20160306
-                        usuario.MensajeValidacionInteractiva = configuracion.MensajeValidacionInteractiva; //R20160306
+                        usuario.HoraCierreZonaDemAntiCierre = configuracion.HoraCierreZonaDemAntiCierre;
+                        usuario.ValidacionInteractiva = configuracion.ValidacionInteractiva;
+                        usuario.MensajeValidacionInteractiva = configuracion.MensajeValidacionInteractiva;
                         usuario.IndicadorGPRSB = configuracion.IndicadorGPRSB;
                         usuario.FechaActualPais = configuracion.FechaActualPais;
                         usuario.EstadoPedido = configuracion.EstadoPedido;
@@ -235,7 +233,6 @@ namespace Portal.Consultoras.BizLogic
                     }
                 }
 
-                // EPD-2058
                 if (usuario.TipoUsuario == Constantes.TipoUsuario.Postulante)
                 {
                     BEUsuarioPostulante postulante = null;
@@ -252,7 +249,6 @@ namespace Portal.Consultoras.BizLogic
                         usuario.RegionID = postulante.RegionID;
                         usuario.ConsultoraID = postulante.ConsultoraID;
 
-                        //EPD-2311 (Mostrar mensaje al ingresar al pase de pedido)
                         usuario.MensajePedidoDesktop = postulante.MensajeDesktop;
                         usuario.MensajePedidoMobile = postulante.MensajeMobile;
 
@@ -590,7 +586,6 @@ namespace Portal.Consultoras.BizLogic
             return DAUsuario.GetNroDocumentoConsultora(CodigoConsultora);
         }
 
-        /*EPD-1012*/
         public BEValidaLoginSB2 GetValidarLoginSB2(int paisID, string codigoUsuario, string contrasenia)
         {
             BEValidaLoginSB2 validaLogin = null;
@@ -617,9 +612,6 @@ namespace Portal.Consultoras.BizLogic
             return validaLogin;
         }
          
-        /*EPD-1012*/
-
-        /*EPD-2340*/
         public BEValidaLoginSB2 GetValidarAutoLogin(int paisID, string codigoUsuario, string proveedor)
         {
             BEValidaLoginSB2 validaLogin = null;
@@ -652,7 +644,6 @@ namespace Portal.Consultoras.BizLogic
 
             return DAUsuario.InsUsuarioExternoPais(entidad);
         }
-        /*EPD-2340*/
 
         public int GetInfoPreLogin(int paisID, string CodigoUsuario)
         {
@@ -1108,7 +1099,6 @@ namespace Portal.Consultoras.BizLogic
             var DAUsuario = new DAUsuario(usuario.PaisID);
             DAUsuario.UpdUsuarioDD(usuario);
         }
-        /*2116 -inicio*/
         public int SelectDatosActualizados(int paisID, string codigoUsuario)
         {
             var DAUsuario = new DAUsuario(paisID);
@@ -1142,9 +1132,7 @@ namespace Portal.Consultoras.BizLogic
             var DAUsuario = new DAUsuario(PaisID);
             return DAUsuario.UpdUsuarioDatosPrimeraVezMexico(CodigoUsuario, Nombre, Apellidos, Telefono, TelefonoTrabajo, Celular, Email, IdConsultora, CodigoConsultora, CampaniaID_Actual, CampaniaID_UltimaF, RegionID, ZonaID, EmailAnterior);
         }
-        /*2116-fin */
 
-        /* R2392 - AHAA - LIDERES - INICIO */
         public int ValidarEstadoSubscripcion(int PaisID, string CodigoUsuario, int NroDiasPermitidos)
         {
             var DAUsuario = new DAUsuario(PaisID);
@@ -1210,17 +1198,10 @@ namespace Portal.Consultoras.BizLogic
             }
             return usuariosLideres;
         }
-        /* R2392 - AHAA - LIDERES - FIN */
-
-        /*R2520 - JICM - LIDERES - INI*/
 
         public List<BEUsuario> ObtenerResultadoEncuesta(int paisID, int campaniaInicio, int campaniaFin)
         {
             List<BEUsuario> usuariosLideres = new List<BEUsuario>();
-            /*R2520 - ICM Lider - Solo conectará a la Base de Datos BelcorpPerú,
-             Para la consulta hacia la tabla Líderes.Encuesta,
-             Pero el filtro si se realizará por el pais que se esté
-             enviando como parámetro.*/
             DAUsuario DAUsuario = new DAUsuario(11);
             using (IDataReader reader = DAUsuario.GenerarReporteResultadoEncuesta(paisID, campaniaInicio, campaniaFin))
             {
@@ -1233,8 +1214,6 @@ namespace Portal.Consultoras.BizLogic
             return usuariosLideres;
 
         }  
-
-        /*R2520 - JICM - LIDERES - FIN*/
 
         public void GuardarContrasenia(int paisID, string codigoUsuario, string contrasenia)
         {
@@ -1343,7 +1322,7 @@ namespace Portal.Consultoras.BizLogic
                     }
                     else
                     {
-                        correo = lst[0].Descripcion;// contiene el correo del destinatario
+                        correo = lst[0].Descripcion;
                         if (correo.Trim() == "")
                         {
                             resultado = "0" + "|" + "2";
@@ -1420,8 +1399,7 @@ namespace Portal.Consultoras.BizLogic
                             string nomconsultora = (string.IsNullOrEmpty(usuario.Sobrenombre) ? usuario.PrimerNombre : usuario.Sobrenombre);
 
                             string[] parametros = new string[] { usuario.CodigoUsuario, usuario.PaisID.ToString(), usuario.CodigoISO, usuario.EMail };
-                            string param_querystring = Common.Util.Encrypt(string.Join(";", parametros)); // Common.Util.EncriptarQueryString(parametros);
-                            //este Log para hacer verificar error al DesencriptarQueryString
+                            string param_querystring = Common.Util.Encrypt(string.Join(";", parametros));
                             LogManager.SaveLog(new Exception(), usuario.CodigoUsuario + " | data=" + param_querystring, string.Join("|", parametros));
                             bool esEsika = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(usuario.CodigoISO);
                             string logo = (esEsika ? "http://www.genesis-peru.com/mailing-belcorp/logo.png" : "https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/jG6i4d6VUyIaUwi/logod.png");
@@ -1465,7 +1443,6 @@ namespace Portal.Consultoras.BizLogic
             return resultado;
         }
 
-        //EPD-1836
         public int InsUsuarioPostulante(int paisID, string paisISO, BEUsuarioPostulante entidad)
         {
             int r = 0;
@@ -1635,7 +1612,6 @@ namespace Portal.Consultoras.BizLogic
             return postulante;
         }
 
-        /*EPD-1837*/
         public int InsertUsuarioExterno(int paisID, BEUsuarioExterno usuarioExterno)
         {
             var DAUsuario = new DAUsuario(paisID);
@@ -1802,7 +1778,6 @@ namespace Portal.Consultoras.BizLogic
         #endregion
 
         #region EventoFestivo
-        /*HD-817*/
         public IList<BEEventoFestivo> GetEventoFestivo(int paisId, string alcance, int campaniaId)
         {
             if (paisId == 0)
@@ -1813,8 +1788,6 @@ namespace Portal.Consultoras.BizLogic
             string customKey = alcance + "_" + campaniaId;
             IList<BEEventoFestivo> listaEvento = CacheManager<BEEventoFestivo>.GetData(paisId,
                 ECacheItem.ConfiguracionEventoFestivo, customKey);
-
-            //IList<BEEventoFestivo> evento = new List<BEEventoFestivo>();
 
             if (listaEvento == null || listaEvento.Count == 0)
             {
