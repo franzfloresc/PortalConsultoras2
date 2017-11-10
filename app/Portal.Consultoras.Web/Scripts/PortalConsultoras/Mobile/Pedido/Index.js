@@ -3,6 +3,12 @@
 var AutocompleteLastLI = null;
 var AutocompleteClick = false;
 
+var belcorp = belcorp || {};
+belcorp.pedido = belcorp.pedido || {};
+belcorp.pedido.initialize = function() {
+    registerEvent.call(this, "onProductoAgregado");
+}
+
 $(document).ready(function () {
     $('#txtClienteNombre').click(function (e) {
         if ($(this).prop('disabled')) return;
@@ -213,10 +219,7 @@ $(document).ready(function () {
         //}
         //if (!clienteValido) return false;
 
-        var cantidadProductos = $.trim($("#txtCantidad").val()) || 0;
-        if (cantidadProductos > 0) {
-            AgregarProductoListado();
-        };
+        AgregarProductoListado();
     });
 
     $("body").on("click", ".btnAgregarSugerido", function () {
@@ -292,9 +295,52 @@ $(document).ready(function () {
     }
 
     CargarDialogMesajePostulantePedido();
+
+    CargarDetallePedido();
 });
 
 var ClienteDetalleOK = null;
+
+function CargarDetallePedido(page, rows) {
+    var clienteId = $("#ddlClientes").val() || -1;
+    var obj = {
+        sidx: "",
+        sord: "",
+        page: page || 1,
+        rows: rows || $($('[data-paginacion="rows"]')[0]).val() || 20,
+        clienteId: clienteId
+    };
+
+    $.ajax({
+        type: 'POST',
+        url: baseUrl + 'Pedido/CargarDetallePedido',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(obj),
+        async: true,
+        success: function (response) {
+            if (checkTimeout(response)) {
+                var data = response.data;
+                ActualizarMontosPedido(data.FormatoTotal, data.Total, data.TotalCliente);
+                MostrarBarra(response);
+            }
+        },
+        error: function (response, error) {
+            checkTimeout(response);
+        }
+    });
+}
+
+function ActualizarMontosPedido(formatoTotal, total, formatoTotalCliente) {
+    if (formatoTotal != undefined) {}
+
+    if (total != undefined)
+        $("#hdfTotal").val(total);
+
+    if (formatoTotalCliente != undefined)
+        $("#hdfTotalCliente").val(formatoTotalCliente);
+}
+
 function showClienteDetalle(pcliente) {
     var url = urlClienteDetalle;
 
@@ -682,6 +728,9 @@ function InsertarProductoSugerido(marcaID, cuv, precioUnidad, descripcion, canti
             $("#txtCodigoProducto").val("");
             $("#hdCuvEnSession").val("");
             if (data.modificoBackOrder) messageInfo('Recuerda que debes volver a validar tu pedido.');
+
+            if (belcorp.pedido.applyChanges)
+                belcorp.pedido.applyChanges("onProductoAgregado", data);
         },
         error: function (data, error) {
             CloseLoading();
@@ -727,13 +776,13 @@ function AgregarProductoListado() {
         async: true,
         success: function (datos) {
             if (checkTimeout(datos)) {
-            if (!datos.result) {
-                MostrarMensaje("mensajeCUVCantidadMaxima", datos.message);
-                CloseLoading();
-            } else {
-                InsertarProducto();
-                return true;
-            }
+                if (!datos.result) {
+                    MostrarMensaje("mensajeCUVCantidadMaxima", datos.message);
+                    CloseLoading();
+                } else {
+                    InsertarProducto();
+                    return true;
+                }
             }
         },
         error: function (data, error) {
@@ -756,7 +805,6 @@ function InsertarProducto() {
     }
 
     if (!esOfertaNueva) {
-
         if ($.trim($("#txtClienteNombre").val()) == "") $("#txtClienteId").val("0");
 
         model = {
@@ -780,6 +828,7 @@ function InsertarProducto() {
             PrecioUnidad: $("#hdfPrecioUnidad").val(),
             DescripcionProd: $("#divNombreProducto").html(),
             Cantidad: $("#txtCantidad").val(),
+            OrigenPedidoWeb: origenPedidoWebMobilePedido,
             //ClienteID: $("#ddlClientes").val(),
             //ClienteDescripcion: $("#ddlClientes option:selected").text()
             ClienteID: $("#txtClienteId").val(),
@@ -795,7 +844,8 @@ function InsertarProducto() {
             Cantidad: $("#txtCantidad").val(),
             IndicadorMontoMinimo: $("#hdfIndicadorMontoMinimo").val(),
             TipoOferta: $("#hdTipoOfertaSisID").val(),
-            tipoEstrategiaImagen: esOfertaNueva ? 2 : $("#hdfValorFlagNueva").val()
+            tipoEstrategiaImagen: esOfertaNueva ? 2 : $("#hdfValorFlagNueva").val(),
+            OrigenPedidoWeb: origenPedidoWebMobilePedido
         };
     }
 
@@ -886,6 +936,9 @@ function InsertarProducto() {
                     }
                 }
             });
+
+            if (belcorp.pedido.applyChanges)
+                belcorp.pedido.applyChanges("onProductoAgregado", data);
         },
         error: function (data, error) {
             CloseLoading();

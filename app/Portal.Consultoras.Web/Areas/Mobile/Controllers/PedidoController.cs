@@ -140,6 +140,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("BUCKET_NAME") ?? string.Empty;
             model.TieneMasVendidos = userData.TieneMasVendidos;
             //model.TieneOfertaLog = userData.TieneOfertaLog;
+            ViewBag.DataBarra = GetDataBarra(true, true);
+
             model.RevistaDigital = revistaDigital;
 
             #region EventoFestivo
@@ -159,11 +161,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             int campana = 0;
             try
             {
-                if (param.Length == 11)
-                {
+                //if (param.Length == 11)
+                //{
                     cuv = param.Substring(0, 5);
                     campanaId = param.Substring(5, 6);
-                }
+                //}
                 campana = Convert.ToInt32(campanaId);
             }
             catch (Exception ex)
@@ -347,7 +349,15 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var ofertaFinalModel = GetOfertaFinal();
             ViewBag.OfertaFinalEstado = ofertaFinalModel.Estado;
             ViewBag.OfertaFinalAlgoritmo = ofertaFinalModel.Algoritmo;
-            ViewBag.UrlTerminosOfertaFinalRegalo = string.Format("{0}/SomosBelcorp/FileConsultoras/{1}/Flyer_Regalo_Sorpresa.pdf", ConfigurationManager.AppSettings.Get("oferta_final_regalo_url_s3"), userData.CodigoISO);
+            ViewBag.UrlTerminosOfertaFinalRegalo = string.Format(ConfigurationManager.AppSettings.Get("oferta_final_regalo_url_s3"), userData.CodigoISO);
+
+            if (Session["EsShowRoom"] != null && Session["EsShowRoom"].ToString() == "1")
+            {
+                ViewBag.ImagenFondoOFRegalo = ObtenerValorPersonalizacionShowRoom("ImagenFondoOfertaFinalRegalo", "Mobile");
+                ViewBag.Titulo1OFRegalo = ObtenerValorPersonalizacionShowRoom("Titulo1OfertaFinalRegalo", "Mobile");
+                ViewBag.ColorFondo1OFRegalo = ObtenerValorPersonalizacionShowRoom("ColorFondo1OfertaFinalRegalo", "Mobile");
+            }
+
             return View(model);
         }
 

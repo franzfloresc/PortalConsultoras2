@@ -294,6 +294,12 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "MostrarImgOfertaIndependiente"))
                 MostrarImgOfertaIndependiente = Convert.ToBoolean(row["MostrarImgOfertaIndependiente"].ToString());
+
+            if (DataRecord.HasColumn(row, "Orden"))
+                Orden = Convert.ToInt32(row["Orden"]);
+
+            if (DataRecord.HasColumn(row, "ID"))
+                ID = Convert.ToInt32(row["ID"]);
         }
 
         public BEEstrategia(IDataRecord row)

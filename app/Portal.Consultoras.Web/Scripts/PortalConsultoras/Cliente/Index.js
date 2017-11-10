@@ -150,8 +150,7 @@ function ArmarListaClientePaginador(data) {
 }
 
 var ClienteDetalleOK = null;
-function showClienteDetalle(fila)
-{
+function showClienteDetalle(fila) {
     if (gTipoUsuario == '2') {
         var mesg = "Por el momento esta sección no está habilitada, te encuentras en una sesión de prueba. Una vez recibas tu código de consultora, podrás acceder a todos los beneficios de Somos Belcorp.";
         $('#dialog_MensajePostulante #tituloContenido').text("LO SENTIMOS");
@@ -160,35 +159,25 @@ function showClienteDetalle(fila)
         return false;
     }
 
-    var cliente = {};
-    
+    var cliente = {};    
     if (fila != null)
     {
         var div = $(fila).parents('.content_listado_notificaciones');
-        var id = $(div).find('.cliente_id').html();
-        var codigo = $(div).find('.codigo_cliente').html();
-        var nombre = $(div).find('.nombre_cliente_sb').html();
-        var correo = $(div).find('.correo_clientes').html();
-        var telefono = $(div).find('.telefonofijo_cliente_sb').html();
-        var celular = $(div).find('.celular_cliente_sb').html();
 
-        cliente.ClienteID = id;
-        cliente.CodigoCliente = codigo;
-        cliente.Nombre = nombre;
-        cliente.eMail = correo;
-        cliente.Telefono = telefono;
-        cliente.Celular = celular;
+        cliente.ClienteID = $(div).find('.cliente_id').html();
+        cliente.CodigoCliente = $(div).find('.codigo_cliente').html();
+        cliente.NombreCliente = $(div).find('.nombre_cliente_sb').html();
+        cliente.Nombre = cliente.NombreCliente;
+        cliente.eMail = $(div).find('.correo_clientes').html();
+        cliente.Telefono = $(div).find('.telefonofijo_cliente_sb').html();
+        cliente.Celular = $(div).find('.celular_cliente_sb').html();
     }
-
-    var url = baseUrl + "Cliente/Detalle";
-
-    AbrirSplash();
 
     $.ajax({
         type: 'GET',
         dataType: 'html',
         cache: false,
-        url: url,
+        url: baseUrl + "Cliente/Detalle",
         data: cliente,
         success: function (data) {
             CerrarSplash();

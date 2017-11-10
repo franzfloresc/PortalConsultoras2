@@ -413,13 +413,14 @@ namespace Portal.Consultoras.Data
             Context.ExecuteScalar(command);
         }
 
-        public void InsLogIngresoPortal(string CodigoConsultora, string IPOrigen, byte Tipo, string DetalleError)
+        public void InsLogIngresoPortal(string CodigoConsultora, string IPOrigen, byte Tipo, string DetalleError, string Canal)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsLogIngresoPortal");
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, CodigoConsultora);
             Context.Database.AddInParameter(command, "@IPOrigen", DbType.AnsiString, IPOrigen);
             Context.Database.AddInParameter(command, "@Tipo", DbType.Byte, Tipo);
             Context.Database.AddInParameter(command, "@DetalleError", DbType.AnsiString, DetalleError);
+            Context.Database.AddInParameter(command, "@Canal", DbType.AnsiString, Canal);
 
             Context.ExecuteNonQuery(command);
         }
