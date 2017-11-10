@@ -3,8 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace Portal.Consultoras.Common.MagickNet
 {
@@ -44,11 +46,42 @@ namespace Portal.Consultoras.Common.MagickNet
             var rutaImagenResize = rutaImagenOriginal.Clone().ToString();
             rutaImagenResize = rutaImagenResize.Replace(soloImagen, nombreImagenGuardar);
 
+            var nombreImagenOriginal = Path.GetFileName(rutaImagenOriginal);
+
             if (!Util.ExisteUrlRemota(rutaImagenResize))
             {
-                var esOk = GuardarImagen(codigoIso, rutaImagenOriginal, width, height, nombreImagenGuardar);
+                string rutaImagenTemporal = Path.Combine(Globals.RutaTemporales, nombreImagenOriginal);
+
+                var esOk = GuardarImagenToTemporal(codigoIso, rutaImagenOriginal, rutaImagenTemporal);
+
+                if (esOk)
+                    esOk = GuardarImagen(codigoIso, rutaImagenTemporal, width, height, nombreImagenGuardar);
+
+                File.Delete(rutaImagenTemporal);
 
                 resultado = esOk;
+            }
+
+            return resultado;
+        }
+
+        private static bool GuardarImagenToTemporal(string codigoIso, string rutaImagenOriginal, string rutaImagenTemporal)
+        {
+            var resultado = true;
+
+            WebClient webClient = new WebClient();
+            try
+            {
+                webClient.DownloadFile(rutaImagenOriginal, rutaImagenTemporal);
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, "", codigoIso);
+                resultado = false;
+            }
+            finally
+            {
+                webClient.Dispose();
             }
 
             return resultado;
