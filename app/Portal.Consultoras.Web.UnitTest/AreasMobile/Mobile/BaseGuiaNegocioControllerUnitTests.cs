@@ -1,0 +1,115 @@
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Portal.Consultoras.Web.Areas.Mobile.Controllers;
+using System.Web.Mvc;
+using Moq;
+using Portal.Consultoras.Web.SessionManager;
+using Portal.Consultoras.Web.LogManager;
+using Portal.Consultoras.Web.Controllers;
+using Portal.Consultoras.Common;
+
+namespace Portal.Consultoras.Web.UnitTest.AreasMobile.Mobile
+{
+    [TestClass]
+    public class BaseGuiaNegocioControllerUnitTests
+    {
+        [TestClass]
+        public class Base
+        {
+            //public Mock<ISessionManager> sessionManager;
+            //public Mock<ILogManager> logManager;
+
+            [TestInitialize]
+            public void Test_Initialize()
+            {
+                //sessionManager = new Mock<ISessionManager>();
+                //logManager = new Mock<ILogManager>();
+
+            }
+
+            [TestCleanup]
+            public void Test_Cleanup()
+            {
+                //sessionManager = null;
+                //logManager = null;
+            }
+        }
+
+        [TestClass]
+        public class ViewLanding : Base
+        {
+            public class BaseGuiaNegocioControllerStub01 : BaseGuiaNegocioController
+            {
+                public override bool IsMobile()
+                {
+                    return true;
+                }
+            }
+
+            [TestMethod]
+            public void ViewLanding_WhenIsMobile_ReturnPartialNamedIndexAndNotNullModel()
+            {
+                var controller = new BaseGuiaNegocioControllerStub01();
+
+                var result = controller.ViewLanding() as PartialViewResult;
+
+                Assert.AreEqual("Index", result.ViewName);
+                Assert.IsNotNull(result.Model);
+            }
+        }
+
+        [TestClass]
+        public class GetFiltersBySorting : Base
+        {
+            public class BaseGuiaNegocioControllerStub01 : BaseGuiaNegocioController
+            {
+                public override bool IsMobile()
+                {
+                    return true;
+                }
+            }
+
+            [TestMethod]
+            public void GetFiltersBySorting_WhenIsMobile_ReturnsAlistWith03Elements()
+            {
+                var controller = new BaseGuiaNegocioControllerStub01();
+
+                var filters = controller.GetFiltersBySorting();
+
+                Assert.AreEqual(3, filters.Count);
+                //
+                Assert.AreEqual(Constantes.GuiaNegocioTipoOrdenamiento.ValorPrecio.Predefinido, filters[0].Codigo);
+                Assert.AreEqual(Constantes.GuiaNegocioTipoOrdenamiento.ValorPrecio.MenorAMayor, filters[1].Codigo);
+                Assert.AreEqual(Constantes.GuiaNegocioTipoOrdenamiento.ValorPrecio.MayorAMenor, filters[2].Codigo);
+            }
+        }
+
+
+        [TestClass]
+        public class GetFiltersByBrand : Base
+        {
+            public class BaseGuiaNegocioControllerStub01 : BaseGuiaNegocioController
+            {
+                public override bool IsMobile()
+                {
+                    return true;
+                }
+            }
+
+            [TestMethod]
+            public void GetFiltersByBrand_WhenIsMobile_ReturnsAlistWith04Elements()
+            {
+                var controller = new BaseGuiaNegocioControllerStub01();
+
+                var filters = controller.GetFiltersByBrand();
+
+                Assert.AreEqual(4, filters.Count);
+                //
+                Assert.AreEqual(Constantes.GuiaNegocioMarca.ValorPrecio.Predefinido, filters[0].Codigo);
+                Assert.AreEqual(Constantes.GuiaNegocioMarca.ValorPrecio.Cyzone, filters[1].Codigo);
+                Assert.AreEqual(Constantes.GuiaNegocioMarca.ValorPrecio.Esika, filters[2].Codigo);
+                Assert.AreEqual(Constantes.GuiaNegocioMarca.ValorPrecio.LBel, filters[3].Codigo);
+            }
+        }
+    }
+}

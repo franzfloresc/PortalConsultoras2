@@ -46,7 +46,7 @@ namespace Portal.Consultoras.BizLogic
         void Insert(BEUsuario usuario);
         bool InsertTerminosCondiciones(BETerminosCondiciones terminos);
         int InsertUsuarioExterno(int paisID, BEUsuarioExterno usuarioExterno);
-        void InsLogIngresoPortal(int paisID, string CodigoConsultora, string IPOrigen, byte Tipo, string DetalleError);
+        void InsLogIngresoPortal(int paisID, string CodigoConsultora, string IPOrigen, byte Tipo, string DetalleError, string Canal);
         int InsUsuarioExternoPais(int paisID, BEUsuarioExternoPais entidad);
         int InsUsuarioPostulante(int paisID, string paisISO, BEUsuarioPostulante entidad);
         bool IsUserExist(int paisID, string CodigoUsuario);

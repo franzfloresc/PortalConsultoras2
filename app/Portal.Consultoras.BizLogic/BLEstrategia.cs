@@ -239,6 +239,20 @@ namespace Portal.Consultoras.BizLogic
                         while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
                     }
                     break;
+                case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
+
+                    var items = (IList<BEEstrategia>)CacheManager<BEMenuMobile>.GetData(entidad.PaisID, ECacheItem.GNDEstrategia);
+                    if (items == null || !items.Any())
+                    {
+                        using (var reader = daEstrategia.GetEstrategiaGuiaDeNegocioDigitalizada(entidad))
+                        {
+                            while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
+                        }
+
+                        CacheManager<BEEstrategia>.AddData(entidad.PaisID, ECacheItem.GNDEstrategia, estrategias);
+                    }
+
+                    break;
                 default:
                     using (var reader = daEstrategia.GetEstrategiaPedido(entidad))
                     {

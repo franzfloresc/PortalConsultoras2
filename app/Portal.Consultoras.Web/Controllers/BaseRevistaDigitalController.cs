@@ -29,7 +29,7 @@ namespace Portal.Consultoras.Web.Controllers
             var id = tipo == 1 ? userData.CampaniaID : AddCampaniaAndNumero(userData.CampaniaID, 1);
 
             var model = new RevistaDigitalLandingModel();
-            if (EsCampaniaFalsa(id)) return PartialView("template-Landing", model);
+            if (EsCampaniaFalsa(id)) return PartialView("template-landing", model);
 
             model.CampaniaID = id;
             model.IsMobile = IsMobile();
@@ -55,7 +55,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.MensajeProductoBloqueado = MensajeProductoBloqueado();
             model.UrlTerminosCondicionesRD = Util.Trim(ConfigurationManager.AppSettings["UrlTerminosCondicionesRD"]);
             model.CantidadFilas = 10;
-            return PartialView("template-Landing", model);
+            return PartialView("template-landing", model);
         }
 
         public ActionResult DetalleModel(string cuv, int campaniaId)
