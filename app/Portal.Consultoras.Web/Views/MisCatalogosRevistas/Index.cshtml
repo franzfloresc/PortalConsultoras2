@@ -121,27 +121,27 @@
                 if (!Portal.Consultoras.Web.SessionManager.SessionManager.Instance.GetUserData().TieneGND)
                 {
                     @Html.Partial("~/Views/MisCatalogosRevistas/template-revista-slide.cshtml")
-                }
-                
-                <div class="revista_content" id="contentRevistaDigital" style="position: relative;">
-                    <div class="home_block_rd home_rd1 rd_catalogos">
-                        <div class="rd_logo">
-                            <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="45">
-                        </div>
-                        <div class="hblock_text">
-                            <div class="hblock_tit"> @ViewBag.NombreConsultora, YA LLEGÓ TU NUEVA REVISTA ONLINE</div>
-                            <div>¿YA VISTE TUS <b>OFERTAS EN ÉSIKA PARA MÍ</b>?
+                    <div class="revista_content" id="contentRevistaDigital" style="position: relative;">
+                        <div class="home_block_rd home_rd1 rd_catalogos">
+                            <div class="rd_logo">
+                                <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="45">
                             </div>
-                            <div class="btn_diagonal btn_stroke_white">
-                                <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
-                                    VER TODAS MIS OFERTAS
-                                    <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
-                                    <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
-                                </a>
+                            <div class="hblock_text">
+                                <div class="hblock_tit"> @ViewBag.NombreConsultora, YA LLEGÓ TU NUEVA REVISTA ONLINE</div>
+                                <div>
+                                    ¿YA VISTE TUS <b>OFERTAS EN ÉSIKA PARA MÍ</b>?
+                                </div>
+                                <div class="btn_diagonal btn_stroke_white">
+                                    <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
+                                        VER TODAS MIS OFERTAS
+                                        <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
+                                        <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                }
             }
         }
         else if (revistaDigital.TieneRDR)
