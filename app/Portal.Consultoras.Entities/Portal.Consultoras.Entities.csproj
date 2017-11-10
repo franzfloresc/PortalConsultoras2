@@ -66,6 +66,7 @@
     <Compile Include="BEGPRBanner.cs" />
     <Compile Include="BEGPRUsuario.cs" />
     <Compile Include="Cliente\BEMovimientoDetalle.cs" />
+    <Compile Include="Estrategia\BEConfiguracionProgramaNuevasApp.cs" />
     <Compile Include="Incentivo\BEIncentivoConcurso.cs" />
     <Compile Include="Incentivo\BEIncentivoNivel.cs" />
     <Compile Include="Incentivo\BEIncentivoPremio.cs" />
@@ -192,7 +193,7 @@
     <Compile Include="BEEstadoCuenta.cs" />
     <Compile Include="BEEstadoServicio.cs" />
     <Compile Include="BEEstadoSolicitudCliente.cs" />
-    <Compile Include="BEEstrategia.cs" />
+    <Compile Include="Estrategia\BEEstrategia.cs" />
     <Compile Include="BEEtiqueta.cs" />
     <Compile Include="BEFechaNoHabilFacturacion.cs" />
     <Compile Include="BEFeErratas.cs" />

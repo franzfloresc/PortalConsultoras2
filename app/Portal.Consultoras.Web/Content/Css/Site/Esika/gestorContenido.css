@@ -22,6 +22,9 @@
     font-weight:bold !important;
     text-align:right !important
 }
+.titG.multiline{
+    padding-top:0 !important
+}
 .selectA input[type="text"]{
     width:100% !important;
     font-family:Arial !important;
@@ -40,7 +43,9 @@ input[type="button"], .qq-upload-button{
     height:45px;
     font-size:13px;
     margin-right:10px;
-    font-weight:bold
+    font-weight:bold;
+    white-space: normal;
+    float:left
 }
 .required{
     color:#e81c36;

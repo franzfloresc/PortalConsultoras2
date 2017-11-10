@@ -4,6 +4,7 @@ using Portal.Consultoras.Entities.ReservaProl;
 using Portal.Consultoras.Entities.RevistaDigital;
 using Portal.Consultoras.Entities.ShowRoom;
 using Portal.Consultoras.Entities.Pedido;
+using Estrategia = Portal.Consultoras.Entities.Estrategia;
 
 using System;
 using System.Collections.Generic;
@@ -1234,6 +1235,15 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEMisPedidosIngresados> GetMisPedidosIngresados(int paisID, long ConsultoraID, int CampaniaID, int ClienteID, string NombreConsultora);
         [OperationContract]
         List<BEMisPedidosFacturados> GetMisPedidosFacturados(int paisID, long ConsultoraID, int CampaniaID, int ClienteID, string NombreConsultora);
+        #endregion
+
+        #region ConfiguracionProgramaNuevasApp
+        [OperationContract]
+        List<Estrategia.BEConfiguracionProgramaNuevasApp> GetConfiguracionProgramaNuevasApp(int paisID, string CodigoPrograma);
+        [OperationContract]
+        string InsConfiguracionProgramaNuevasApp(int paisID, Estrategia.BEConfiguracionProgramaNuevasApp entidad);
+        [OperationContract]
+        bool DelConfiguracionProgramaNuevasApp(int paisID, int ConfiguracionProgramaNuevasAppID);
         #endregion
     }
 }

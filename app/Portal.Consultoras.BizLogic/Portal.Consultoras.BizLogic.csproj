@@ -91,6 +91,7 @@
     <Compile Include="BLAsesoraOnline.cs" />
     <Compile Include="BLCupon.cs" />
     <Compile Include="Cliente\BLClienteDB.cs" />
+    <Compile Include="Estrategia\IConfiguracionProgramaNuevasBusinessLogic.cs" />
     <Compile Include="ICatalogoBusinessLogic.cs" />
     <Compile Include="Incentivo\BLConsultoraConcurso.cs" />
     <Compile Include="BLFichaProducto.cs" />
@@ -116,7 +117,7 @@
     <Compile Include="BLConfiguracionCampania.cs" />
     <Compile Include="BLConfiguracionParametroCarga.cs" />
     <Compile Include="BLConfiguracionPortal.cs" />
-    <Compile Include="BLConfiguracionProgramaNuevas.cs" />
+    <Compile Include="Estrategia\BLConfiguracionProgramaNuevas.cs" />
     <Compile Include="BLConfiguracionTipoProcesoCargaPedidos.cs" />
     <Compile Include="BLConfiguracionValidacion.cs" />
     <Compile Include="BLConfiguracionValidacionNuevoPROL.cs" />

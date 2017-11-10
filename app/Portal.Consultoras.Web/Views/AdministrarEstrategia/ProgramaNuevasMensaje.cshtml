@@ -1,0 +1,125 @@
+﻿<input type="hidden" id="ConfiguracionProgramaNuevasAppID" />
+<div class="Content_modal">
+    <div class="div-3">
+        <div class="titG"><span class="required">(*)</span>Cod. programa:</div>
+        <div class="selectA" style="width:200px">
+            <input type="text" id="CodigoPrograma" autocomplete="off" maxlength="3" />
+        </div>
+    </div>
+    <div class="div-3">
+        <div class="titG">Texto cupón:</div>
+        <div class="selectA" style="width:450px">
+            <input type="text" id="TextoCupon" autocomplete="off" maxlength="500" />
+        </div>
+    </div>
+    <div class="div-3">
+        <div class="titG multiline">Texto cupón independiente:</div>
+        <div class="selectA" style="width:450px">
+            <input type="text" id="TextoCuponIndependiente" autocomplete="off" maxlength="500" />
+        </div>
+    </div>
+    <div class="div-3">
+        <div class="EstrategiaRequerido"><span class="required">(*)</span>Campos obligatorios</div>
+        <div class="EstrategiaBotones">
+            <input type="button" id="btnGuardar" value="GUARDAR" />
+            <input type="button" id="btnCancelar" value="CANCELAR" class="EstrategiaBotonSecundario" />
+        </div>
+    </div>
+</div>
+<script>
+    $("#btnCancelar").click(function (e) {
+        e.preventDefault();
+        HideDialog("divConfigMensaje");
+    });
+
+    $("#CodigoPrograma").keyup(function () {
+        var codigoPrograma = $(this).val();
+        if (codigoPrograma.length == 3) {
+            waitingDialog({});
+
+            $("#ConfiguracionProgramaNuevasAppID").val("");
+            $("#TextoCupon").val("");
+            $("#TextoCuponIndependiente").val("");
+
+            jQuery.ajax({
+                type: 'GET',
+                cache: false,
+                url: baseUrl + 'AdministrarEstrategia/ProgramaNuevasMensajeConsultar?CodigoPrograma=' + codigoPrograma,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                async: true,
+                success: function (response) {
+                    closeWaitingDialog();
+
+                    if (response.success) {
+                        if (response.data != null) {
+                            $("#ConfiguracionProgramaNuevasAppID").val(response.data.ConfiguracionProgramaNuevasAppID);
+                            $("#TextoCupon").val(response.data.TextoCupon);
+                            $("#TextoCuponIndependiente").val(response.data.TextoCuponIndependiente);
+                        }
+                    } else {
+                        alert(response.message);
+                    }
+
+                    $("#TextoCupon").focus();
+                },
+                error: function (data, error) {
+                    closeWaitingDialog();
+                    alert(data.message);
+                }
+            });
+        }
+    });
+
+    $("#btnGuardar").click(function (e) {
+        e.preventDefault();
+
+        var ConfiguracionProgramaNuevasAppID = $("#ConfiguracionProgramaNuevasAppID").val();
+        var CodigoPrograma = $.trim($("#CodigoPrograma").val());
+        var TextoCupon = $.trim($("#TextoCupon").val());
+        var TextoCuponIndependiente = $.trim($("#TextoCuponIndependiente").val());
+
+        if (CodigoPrograma == "") {
+            alert("Ingrese el valor del código de programa");
+            $("#CodigoPrograma").focus();
+            return;
+        }
+        if (TextoCupon == "" && TextoCuponIndependiente == "") {
+            alert("Debe ingresar por lo menos un texto.");
+            $("#TextoCupon").focus();
+            return;
+        }
+
+        var params = {
+            ConfiguracionProgramaNuevasAppID: ConfiguracionProgramaNuevasAppID,
+            CodigoPrograma: CodigoPrograma,
+            TextoCupon: TextoCupon,
+            TextoCuponIndependiente: TextoCuponIndependiente
+        };
+
+        waitingDialog({});
+
+        jQuery.ajax({
+            type: 'POST',
+            url: baseUrl + 'AdministrarEstrategia/ProgramaNuevasMensajeInsertar',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(params),
+            async: true,
+            success: function (data) {
+                closeWaitingDialog();
+
+                if (data.success) {
+                    alert(data.message);
+                    HideDialog("divConfigMensaje");
+                } else {
+                    alert(data.message);
+                }
+            },
+            error: function (data, error) {
+                closeWaitingDialog();
+                alert(data.message);
+            }
+        });
+    });
+</script>
