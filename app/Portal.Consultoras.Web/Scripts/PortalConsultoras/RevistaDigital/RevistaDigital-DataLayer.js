@@ -86,7 +86,8 @@ var rdAnalyticsModule = (function () {
         roInscribirme: "Revista Online - Inscribirme a Ésika para mí",
         banner: "Banner",
         popup: "Home pop-up - 1",
-        notAvailable: "(not available)"
+        notAvailable: "(not available)", 
+        contenedor: "Contendor"
     },
     _action = {
         clickBanner: "Click banner Ver todas mis ofertas",
@@ -264,13 +265,13 @@ var rdAnalyticsModule = (function () {
         try {
             switch (codigo.toString()) {
                 case _tabCode.comprar:
-                    _virtualEventPush(_text.epm, _action.clickTab, _text.comprarCampania + campaniaId);
+                    _virtualEventPush(_text.contenedor, _action.clickTab, _text.comprarCampania + campaniaId);
                     break;
                 case _tabCode.ver:
-                    _virtualEventPush(_text.epm, _action.clickTab, _text.verCampania + campaniaId);
+                    _virtualEventPush(_text.contenedor, _action.clickTab, _text.verCampania + campaniaId);
                     break;
                 case _tabCode.saberMas:
-                    _virtualEventPush(_text.epm, _action.clickTab, _text.saberMas);
+                    _virtualEventPush(_text.contenedor, _action.clickTab, _text.saberMas);
                     break;
             }
         } catch (e) {
