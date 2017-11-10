@@ -498,12 +498,6 @@ var actualizarMatrizCampaniaModule = (function () {
         });
     };
 
-    var _hasDecimalPlacefunction = function  (value, decimalDigits) {
-        var decimalPointIndex = value.indexOf('.');
-        var stringLenght = value.length
-        return decimalPointIndex >= 0 && decimalPointIndex < stringLenght - decimalDigits;
-    }
-
     return {
         ini: function (settings) {
             _initializer(settings);
