@@ -1367,5 +1367,9 @@ namespace Portal.Consultoras.Entities
         public bool EsAniversario{ get; set; }
         [DataMember]
         public bool EsCumpleanio { get; set; }
+        [DataMember]
+        public string CodigosConcursos { get; set; }
+        [DataMember]
+        public string CodigosProgramaNuevas { get; set; }
     }
 }

@@ -16,13 +16,16 @@ namespace Portal.Consultoras.BizLogic
     public partial class BLUsuario : IUsuarioBusinessLogic
     {
         private readonly ITablaLogicaDatosBusinessLogic _tablaLogicaDatosBusinessLogic;
+        private readonly IConsultoraConcursoBusinessLogic _consultoraConcursoBusinessLogic;
 
-        public BLUsuario() : this(new BLTablaLogicaDatos())
+        public BLUsuario() : this(new BLTablaLogicaDatos(), new BLConsultoraConcurso())
         { }
 
-        public BLUsuario(ITablaLogicaDatosBusinessLogic tablaLogicaDatosBusinessLogic)
+        public BLUsuario(ITablaLogicaDatosBusinessLogic tablaLogicaDatosBusinessLogic, 
+                        IConsultoraConcursoBusinessLogic consultoraConcursoBusinessLogic)
         {
             _tablaLogicaDatosBusinessLogic = tablaLogicaDatosBusinessLogic;
+            _consultoraConcursoBusinessLogic = consultoraConcursoBusinessLogic;
         }
 
         public BEUsuario Select(int paisID, string codigoUsuario)
@@ -382,6 +385,7 @@ namespace Portal.Consultoras.BizLogic
             var usuarioConsultoraTask = Task.Run(() => this.GetUsuarioConsultora(usuario));
             var consultoraAniversarioTask = Task.Run(() => this.GetConsultoraAniversario(usuario));
             var consultoraCumpleanioTask = Task.Run(() => this.GetConsultoraCumpleanio(usuario));
+            var IncentivosConcursosTask = Task.Run(() => this.GetIncentivosConcursos(usuario));
 
             Task.WaitAll(usuarioLoginExternoTask, 
                             terminosCondicionesTask, 
@@ -389,7 +393,8 @@ namespace Portal.Consultoras.BizLogic
                             gprBannerTask, 
                             usuarioConsultoraTask,
                             consultoraAniversarioTask,
-                            consultoraCumpleanioTask);
+                            consultoraCumpleanioTask,
+                            IncentivosConcursosTask);
 
             usuario.FotoPerfil = (usuarioLoginExternoTask.Result == null ? string.Empty : usuarioLoginExternoTask.Result.FotoPerfil);
             usuario.AceptaTerminosCondiciones = (terminosCondicionesTask.Result == null ? false : terminosCondicionesTask.Result.Aceptado);
@@ -406,6 +411,9 @@ namespace Portal.Consultoras.BizLogic
 
             usuario.EsAniversario = consultoraAniversarioTask.Result;
             usuario.EsCumpleanio = consultoraCumpleanioTask.Result;
+
+            usuario.CodigosConcursos = IncentivosConcursosTask.Result.Count == 2 ? IncentivosConcursosTask.Result[0] : string.Empty;
+            usuario.CodigosProgramaNuevas = IncentivosConcursosTask.Result.Count == 2 ? IncentivosConcursosTask.Result[1] : string.Empty;
 
             return usuario;
         }
@@ -554,6 +562,26 @@ namespace Portal.Consultoras.BizLogic
             }
 
             return esCumpleanio;
+        }
+
+        private List<string> GetIncentivosConcursos(BEUsuario usuario)
+        {
+            var lstConcursos = new List<string>();
+
+            var arrCalculoPuntos = Constantes.Incentivo.CalculoPuntos.Split(';');
+
+            var result = _consultoraConcursoBusinessLogic.ObtenerConcursosXConsultora(usuario.PaisID, usuario.CampaniaDescripcion, usuario.CodigoConsultora, usuario.CodigorRegion, usuario.CodigoZona);
+
+            if (result.Any())
+            {
+                var Concursos = result.Where(x => arrCalculoPuntos.Contains(x.TipoConcurso));
+                lstConcursos.Add(string.Join("|", Concursos.Select(c => c.CodigoConcurso)));
+
+                var ProgramaNuevas = result.Where(x => !arrCalculoPuntos.Contains(x.TipoConcurso));
+                lstConcursos.Add(string.Join("|", ProgramaNuevas.Select(c => c.CodigoConcurso)));
+            }
+
+            return lstConcursos;
         }
 
         public string GetUsuarioAsociado(int paisID, string codigoConsultora)
