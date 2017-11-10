@@ -968,20 +968,20 @@ namespace Portal.Consultoras.Web.Controllers
             return model;
         }
 
-        private bool CumpleOfertaDelDia(UsuarioModel model)
+        private bool CumpleOfertaDelDia()
         {
             var result = false;
             if (!NoMostrarBannerODD())
             {
-                result = model.TieneOfertaDelDia
+                result = userData.TieneOfertaDelDia
                     && (
                         !(
-                            (!model.ValidacionAbierta && model.EstadoPedido == 202 && model.IndicadorGPRSB == 2)
-                            || model.IndicadorGPRSB == 0)
-                        || model.CloseOfertaDelDia
+                            (!userData.ValidacionAbierta && userData.EstadoPedido == 202 && userData.IndicadorGPRSB == 2)
+                            || userData.IndicadorGPRSB == 0)
+                        || userData.CloseOfertaDelDia
                     )
                     ? false
-                    : model.TieneOfertaDelDia;
+                    : userData.TieneOfertaDelDia;
             }
 
             return result;
@@ -4060,8 +4060,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.ApellidoC = userData.PrimerApellido;
             ViewBag.Lider = userData.Lider;
             ViewBag.PortalLideres = userData.PortalLideres;
-            ViewBag.TokenAtento = ConfigurationManager.AppSettings["TokenAtento_" + userData.CodigoISO];
-            ViewBag.IdbelcorpChat = "belcorpChat" + userData.CodigoISO;
+            ViewBag.TokenAtento = ConfigurationManager.AppSettings["TokenAtento_" + userData.CodigoISO];            
             ViewBag.FormatDecimalPais = GetFormatDecimalPais(userData.CodigoISO);
             ViewBag.OfertaFinal = userData.OfertaFinal;
             ViewBag.CatalogoPersonalizado = userData.CatalogoPersonalizado;
@@ -4091,7 +4090,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.GPRBannerMensaje = userData.GPRBannerMensaje ?? "";
                 ViewBag.GPRBannerUrl = userData.GPRBannerUrl;
 
-                ViewBag.TieneOfertaDelDia = CumpleOfertaDelDia(userData);
+                ViewBag.TieneOfertaDelDia = CumpleOfertaDelDia();
                 ViewBag.MostrarOfertaDelDiaContenedor = userData.TieneOfertaDelDia;
 
                 var configuracionPaisOdd = ListConfiguracionPais().FirstOrDefault(p => p.Codigo == Constantes.ConfiguracionPais.OfertaDelDia);
