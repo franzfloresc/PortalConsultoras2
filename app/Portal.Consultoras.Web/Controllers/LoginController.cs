@@ -632,7 +632,7 @@ namespace Portal.Consultoras.Web.Controllers
                         try
                         {
                             //El campo DetalleError, se reutiliza para enviar la campania de la consultora.
-                            sv.InsLogIngresoPortal(PaisID, oBEUsuario.CodigoConsultora, GetIpCliente(), 1, oBEUsuario.CampaniaID.ToString());
+                            sv.InsLogIngresoPortal(PaisID, oBEUsuario.CodigoConsultora, GetIpCliente(), 1, oBEUsuario.CampaniaID.ToString(), EsDispositivoMovil() ? Constantes.Canal.Mobile : Constantes.Canal.Desktop);
                         }
                         catch (Exception ex)
                         {
@@ -1191,6 +1191,9 @@ namespace Portal.Consultoras.Web.Controllers
                     Session[Constantes.ConstSession.TieneLan] = true;
                     Session[Constantes.ConstSession.TieneLanX1] = true;
                     Session[Constantes.ConstSession.TieneOpt] = true;
+                    Session[Constantes.ConstSession.TieneOpm] = true;
+                    Session[Constantes.ConstSession.TieneOpmX1] = true;
+                    Session[Constantes.ConstSession.TieneRdr] = true;
                 }
 
                 Session["UserData"] = model;
@@ -1451,7 +1454,7 @@ namespace Portal.Consultoras.Web.Controllers
             imgSh = imgSh.Substring(0, imgSh.Length - exte.Length - 1) + (cantidadOfertas > 1 ? "s" : "") + "." + exte;
             return imgSh;
         }
-        
+
         [AllowAnonymous]
         public ActionResult SesionExpirada(string returnUrl)
         {

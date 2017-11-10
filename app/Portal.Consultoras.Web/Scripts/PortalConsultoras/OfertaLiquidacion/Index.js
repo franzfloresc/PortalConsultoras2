@@ -411,6 +411,7 @@ function ArmarCarouselLiquidaciones(data) {
     data = EstructurarDataCarouselLiquidaciones(data);
     var htmlDiv = SetHandlebars("#OfertasLiquidacion-template", data);
     $('#htmlListado').append(htmlDiv);
+    EstablecerAccionLazyImagen("img[data-lazy-seccion-liquidacion]");
 
     var arrayOfertas = [];
     $.each(data, function (i, item) {

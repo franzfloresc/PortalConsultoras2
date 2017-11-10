@@ -470,6 +470,7 @@ $(document).ready(function () {
     CargarAutocomplete();
     MostrarBarra();
     CargarDialogMesajePostulantePedido();
+    EstablecerAccionLazyImagen("img[data-lazy-seccion-banner-pedido]");
 });
 
 function CargarDetallePedido(page, rows) {
@@ -1179,12 +1180,10 @@ function showClienteDetalle(cliente, pClienteDetalleOK, pClienteDetalleCANCEL) {
         return false;
     }
 
-    var url = baseUrl + "Cliente/Detalle";
-
     if (cliente == null) {
         cliente = {};
         var NombreCliente = jQuery.trim($('#txtClienteDescripcion').val());
-        if (NombreCliente.length > 0) cliente.Nombre = NombreCliente;
+        if (NombreCliente.length > 0) cliente.NombreCliente = NombreCliente;
     }
 
     flagClienteDetalle = true;
@@ -1195,7 +1194,7 @@ function showClienteDetalle(cliente, pClienteDetalleOK, pClienteDetalleCANCEL) {
         type: 'GET',
         dataType: 'html',
         cache: false,
-        url: url,
+        url: baseUrl + "Cliente/Detalle",
         data: cliente,
         success: function (data) {
             CerrarSplash();
@@ -2050,6 +2049,7 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
             ProcesarActualizacionMostrarContenedorCupon();
 
             ActualizarLocalStorageAgregado("rd", data.data.CUV, false);
+            ActualizarLocalStorageAgregado("gn", data.data.CUV, false);
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
@@ -2212,6 +2212,7 @@ function EjecutarServicioPROL() {
 
                 var codigoMensajeProl = response.data.CodigoMensajeProl;
                 var cumpleOferta;
+
                 if (response.data.Reserva == true) {
                     if (response.data.ZonaValida == true) {
                         if (response.data.ObservacionInformativa == false) {
@@ -2573,6 +2574,7 @@ function EliminarPedido() {
             CerrarSplash();
 
             ActualizarLocalStorageAgregado("rd", "todo", false);
+            ActualizarLocalStorageAgregado("gn", "todo", false);
             location.href = baseUrl + 'Pedido/Index';
         },
         error: function (data, error) {

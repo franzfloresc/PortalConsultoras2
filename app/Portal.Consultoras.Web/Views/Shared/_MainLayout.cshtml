@@ -344,7 +344,7 @@
                             </div>
                             <div class="content_set_pop_hoy">
                                 <div class="imagen_set_Oferta_pop">
-                                    <img src="{{detalle.ImagenDisplay}}" alt="" id="img-display-odd" class="imagen_producto" />
+                                    <img src="{{detalle.ImagenDisplay}}" alt="" id="img-display-odd" class="imagen_producto" data-img-lazy="1"/>  
                                     <div class="compartir_redes_ficha">
                                         <div class="texto_compartelo" style="color:#fff;">Comparte la oferta con tus clientes</div>
                                         <a class="btn_compartir_facebook_ficha" href="javascript: void(0);" data-compartir="FB">
@@ -388,7 +388,7 @@
                     <div id="divOddCarrusel">
                         {{#each this.ListaOfertas  as |detalle|}}
                         <div data-item="" data-item-position="{{detalle.ID}}" style="float:left; overflow:hidden;">
-                            <div class="content_item_carrusel_ODD" onclick = "odd_google_analytics_product_click('{{detalle.NombreOferta}}', '{{detalle.CUV2}}', {{detalle.PrecioOferta}}, '{{DescripcionMarca}}', '', {{Position}});">
+                            <div class="content_item_carrusel_ODD">
                                 <div style="display:none;" data-item-campos="">
                                     <input type="hidden" class="tipoestrategia-id-odd" value="{{detalle.TipoEstrategiaID}}" />
                                     <input type="hidden" class="estrategia-id-odd" value="{{detalle.EstrategiaID}}" />
@@ -406,8 +406,8 @@
                                     <input type="hidden" Class="tipoestrategia-descripcion-odd" value="{{TipoEstrategiaDescripcion}}" />
                                 </div>
                                 <div class="content_img_carrusel_ODD" data-odd-accion="verdetalle">
-                                    <img src="{{detalle.ImagenDisplay}}" alt="" id="img-display-odd" class="imagen_producto" />
-                                    <a class="ver_detalle_carrusel" style="top: 80px;">VER DETALLE</a>
+                                    <img src="{{detalle.ImagenDisplay}}" alt="" id="img-display-odd" class="imagen_producto" data-img-lazy="1"/>
+                                    <a class="ver_detalle_carrusel" onclick = "odd_google_analytics_product_click('{{detalle.NombreOferta}}', '{{detalle.CUV2}}', {{detalle.PrecioOferta}}, '{{DescripcionMarca}}', '', {{Position}}, 'Oferta del día - Banner');" style="top: 80px;">VER DETALLE</a>
                                     <div class="titulo_carrusel_ODD">{{detalle.NombreOferta}}</div>
                                     {{#iff detalle.PrecioCatalogo '>' 0}}
                                     <div class="valorizado_carrusel_ODD">VALORIZADO EN <span>{{{../Simbolo}}} {{detalle.PrecioCatalogoFormat}}</span></div>
@@ -487,6 +487,7 @@
         var TipoOrigenPantallaODD = 1;
         var ViewIndicadorGPRSB = '@ViewBag.IndicadorGPRSB';
         var codigoAnclaOdd = '@ViewBag.CodigoAnclaOdd';
+        var OrigenDesktopODD = 0;
      </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2")
     <script type='text/javascript'>
