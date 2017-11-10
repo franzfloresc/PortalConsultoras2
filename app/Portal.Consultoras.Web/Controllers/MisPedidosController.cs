@@ -777,7 +777,7 @@ namespace Portal.Consultoras.Web.Controllers
             BEGrid grid = SetGrid(sidx, sord, page, rows);
 
             List<BEPedidoWebDetalle> lst = GetDetallePorEstado(CampaniaId, estado, pedidoId);
-            var pedidoWeb = lst.Count() > 0 ? lst[0] : new BEPedidoWebDetalle();
+            var pedidoWeb = lst.Any() ? lst[0] : new BEPedidoWebDetalle();
 
             var listaCliente = (from item in lst
                                 select new ServiceCliente.BECliente { ClienteID = item.ClienteID, Nombre = string.IsNullOrEmpty(item.Nombre) ? userData.NombreConsultora : item.Nombre }

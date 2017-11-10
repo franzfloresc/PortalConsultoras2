@@ -954,7 +954,7 @@ namespace Portal.Consultoras.Web.Controllers
                         try
                         {
                             if (usuarioModel.TipoUsuario == Constantes.TipoUsuario.Postulante)
-                                throw new Exception("No se asigna configuracion pais para los Postulantes.");
+                                throw new ArgumentException("No se asigna configuracion pais para los Postulantes.");
 
                             var revistaDigitalModel = new RevistaDigitalModel();
                             var ofertaFinalModel = new OfertaFinalModel();
@@ -1386,7 +1386,7 @@ namespace Portal.Consultoras.Web.Controllers
                 logManager.LogErrorWebServicesBusWrap(ex, CodigoUsuario, PaisId.ToString(), string.Empty);
             }
 
-            return result == null ? false : true;
+            return result != null;
         }
 
         private void ActualizarDatosHana(ref UsuarioModel model)

@@ -69,14 +69,11 @@ namespace Portal.Consultoras.Web.Models
             this.TipoCasoPromesa = string.Empty;
             this.DiasCasoPromesa = 0;
             this.SegmentoAbreviatura = string.Empty;
-            //this.RevistaDigital = new RevistaDigital();
             this.MensajePedidoDesktop = 0;
             this.MensajePedidoMobile = 0;
-            //this.OfertaFinalModel = new OfertaFinalModel();
             this.EsLebel = false;
             this.TieneCDRExpress = false;
             this.PopupBienvenidaCerrado = false;
-            //this.ConfiguracionPais = new List<ConfiguracionPaisModel>();
         }
 
         public string Celular { get; set; }
@@ -295,9 +292,6 @@ namespace Portal.Consultoras.Web.Models
 
         public int ShowRoomNivelId { get; set; }
 
-       
-        
-
         public int CatalogoPersonalizado { get; set; }
 
         public bool EjecutaProl { get; set; }
@@ -351,16 +345,11 @@ namespace Portal.Consultoras.Web.Models
         public bool EsDiasFacturacion { get; set; }
         /*PL20-1226*/
 
-        //MC-EPD1837
         public bool HizoLoginExterno { get; set; }
         public bool TieneLoginExterno { get; set; }
         public List<UsuarioExternoModel> ListaLoginExterno { get; set; }
 
         public bool CloseBannerCompraPorCompra { get; set; }
-
-        //public RevistaDigital RevistaDigital { get; set; }
-        //public List<ConfiguracionPaisModel> ConfiguracionPais { get; set; }
-        
         public bool EsLebel { get; set; }
         public int AceptacionConsultoraDA { get; set; }
         public int MensajePedidoDesktop { get; set; }
@@ -371,25 +360,14 @@ namespace Portal.Consultoras.Web.Models
         public List<MenuMobileModel> MenuMobile { get; set; }
 
         public int OfertaFinal { get; set; }
-        
         public bool TieneValidacionMontoMaximo { get; set; } //EPD-2337
-
         public bool EsOfertaFinalZonaValida { get; set; }
         public bool EsOFGanaMasZonaValida { get; set; }
         public int OfertaFinalGanaMas { get; set; }
-
-        //public OfertaFinalModel OfertaFinalModel { get; set; }
-
         public string CodigosConcursos { get; set; }
         public string CodigosProgramaNuevas { get; set; }
-
         public string ClaseLogoSB { get; set; }
         public bool PopupBienvenidaCerrado { get; set; }
         public bool TieneGND { get; set; }
-        //HD-817 Evento Festivo
-        //public List<EventoFestivoModel> ListaEventoFestivo { get; set; } 
-        //public string EfRutaPedido { get; set; }
-        //public string EfSaludo { get; set; }
-        //public List<EventoFestivoModel> ListaGifMenuContenedorOfertas{ get; set; }
     }
 }

@@ -31,20 +31,17 @@ namespace Portal.Consultoras.Data
                 command.Parameters.Add("@CodigoConsultora", SqlDbType.VarChar, 30).Value = DBNull.Value;
             else
                 command.Parameters.Add("@CodigoConsultora", SqlDbType.VarChar, 30).Value = entidadSolicitud.CodigoConsultora;
-            // 2319 - 20012015 - Inicio
-            // R2319 - Correcciones QA - JICM  - CodigoConsultora Incorrecto  - > ConsultoraID Correcto
+
             if (entidadSolicitud.ConsultoraID == 0)
                 command.Parameters.Add("@ConsultoraID", SqlDbType.BigInt).Value = DBNull.Value;
             else
                 command.Parameters.Add("@ConsultoraID", SqlDbType.BigInt).Value = entidadSolicitud.ConsultoraID;
 
-            // R2319 - Correcciones QA - JICM  - CodigoConsultora Incorrecto  - > CodigoUbigeo Correcto
-
             if (string.IsNullOrEmpty(entidadSolicitud.CodigoUbigeo))
                 command.Parameters.Add("@CodigoUbigeo", SqlDbType.VarChar, 40).Value = DBNull.Value;
             else
                 command.Parameters.Add("@CodigoUbigeo", SqlDbType.VarChar, 40).Value = entidadSolicitud.CodigoUbigeo;
-            // 2319 - 20012015 - Fin
+
             if (entidadSolicitud.NombreCompleto == null)
                 command.Parameters.Add("@NombreCompleto", SqlDbType.VarChar, 110).Value = DBNull.Value;
             else
@@ -149,7 +146,7 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
-        /*R2613-LR*/
+
         public IDataReader GetConsultoraSolicitudCliente(int ConsultoraID, string Codigo, int MarcaID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.SP_GetConsultoraMailSolicitudCliente");
@@ -223,9 +220,7 @@ namespace Portal.Consultoras.Data
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetMotivosRechazo_SB2");
             return Context.ExecuteReader(command);
         }
-
-
-        /* R2319 - AAHA 02022015 - Parte 6 - Inicio */
+        
         public int EnviarSolicitudClienteaGZ(BESolicitudCliente entidadSolicitudCliente)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.EnviarSolicitudaGerenteZona");
@@ -265,7 +260,6 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
-        /* R2319 - AAHA 02022015 - Parte 6 - Fin */
 
         public IDataReader GetEstadoSolicitudCliente()
         {

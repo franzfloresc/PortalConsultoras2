@@ -59,15 +59,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                var eventofestivo = GetEventoFestivoData();
-                if (eventofestivo.EfRutaPedido == null || eventofestivo.EfRutaPedido == "")
-                {
-                    ViewBag.UrlFranjaNegra = "../../../Content/Images/Esika/background_pedido.png";
-                }
-                else
-                {
-                    ViewBag.UrlFranjaNegra = eventofestivo.EfRutaPedido;
-                }
+                ViewBag.UrlFranjaNegra = GetUrlFranjaNegra();
 
                 return View(PedidoModelo);
             }

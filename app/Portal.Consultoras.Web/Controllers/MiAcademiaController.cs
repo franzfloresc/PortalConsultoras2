@@ -27,7 +27,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string eMail = userData.EMail.ToString().Trim() == string.Empty ? eMailNoExiste : userData.EMail.ToString();
                 bool exito = false;
 
-                string CampaniaVenta = GetCampaniaLider(userData.PaisID, userData.ConsultoraID, userData.CodigoISO);
+                //string CampaniaVenta = GetCampaniaLider(userData.PaisID, userData.ConsultoraID, userData.CodigoISO);
                 string NivelProyectado = "";
                 string SeccionGestionLider = "";
                 DataSet parametros = null;
@@ -102,7 +102,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string eMail = userData.EMail.ToString().Trim() == string.Empty ? eMailNoExiste : userData.EMail.ToString();
                 bool exito = false;
 
-                string CampaniaVenta = GetCampaniaLider(userData.PaisID, userData.ConsultoraID, userData.CodigoISO);
+                //string CampaniaVenta = GetCampaniaLider(userData.PaisID, userData.ConsultoraID, userData.CodigoISO);
                 string NivelProyectado = "";
                 string SeccionGestionLider = "";
                 DataSet parametros = null;

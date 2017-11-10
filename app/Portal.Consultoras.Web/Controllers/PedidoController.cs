@@ -51,7 +51,7 @@ namespace Portal.Consultoras.Web.Controllers
                 sessionManager.SetDetallesPedido(null);
 
                 AgregarKitNuevas();
-
+                
                 #region Flexipago
                 if (PaisTieneFlexiPago(userData.CodigoISO))
                 {
@@ -326,6 +326,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #endregion
 
+                ViewBag.UrlTerminosOfertaFinalRegalo = string.Format(ConfigurationManager.AppSettings.Get("oferta_final_regalo_url_s3"), userData.CodigoISO);
                 ViewBag.CUVOfertaProl = TempData["CUVOfertaProl"];
                 ViewBag.MensajePedidoDesktop = userData.MensajePedidoDesktop;
                 model.RevistaDigital = revistaDigital;
@@ -343,23 +344,13 @@ namespace Portal.Consultoras.Web.Controllers
                 model.EmailActivo = userData.EMailActivo;
                 #endregion
                 ViewBag.paisISO = userData.CodigoISO;
-                ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("BUCKET_NAME") ?? string.Empty;
+                ViewBag.Ambiente = GetBucketNameFromConfig();
                 ViewBag.CodigoConsultora = userData.CodigoConsultora;
                 model.TieneMasVendidos = userData.TieneMasVendidos;
                 var ofertaFinal = GetOfertaFinal();
                 ViewBag.OfertaFinalEstado = ofertaFinal.Estado;
                 ViewBag.OfertaFinalAlgoritmo = ofertaFinal.Algoritmo;
-                #region EventoFestivo
-                var eventofestivo = GetEventoFestivoData();
-                if (string.IsNullOrEmpty(eventofestivo.EfRutaPedido))
-                {
-                    ViewBag.UrlFranjaNegra = "../../../Content/Images/Esika/background_pedido.png";
-                }
-                else
-                {
-                    ViewBag.UrlFranjaNegra = eventofestivo.EfRutaPedido;
-                }
-                #endregion
+                ViewBag.UrlFranjaNegra = GetUrlFranjaNegra();
             }
             catch (FaultException ex)
             {
@@ -369,9 +360,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
             }
-
-            ViewBag.UrlTerminosOfertaFinalRegalo = string.Format(ConfigurationManager.AppSettings.Get("oferta_final_regalo_url_s3"), userData.CodigoISO);
-
+            
             if (Session["EsShowRoom"] != null && Session["EsShowRoom"].ToString() == "1")
             {
                 ViewBag.ImagenFondoOFRegalo = ObtenerValorPersonalizacionShowRoom("ImagenFondoOfertaFinalRegalo", "Desktop");
@@ -564,8 +553,7 @@ namespace Portal.Consultoras.Web.Controllers
                     detCuv.CUV = Util.SubStr(detCuv.CUV, 0);
                     if (detCuv.CUV != "")
                     {
-                        BEConfiguracionProgramaNuevas oBEConfiguracionProgramaNuevas = new BEConfiguracionProgramaNuevas();
-                        oBEConfiguracionProgramaNuevas = GetConfiguracionProgramaNuevas("ConfiguracionProgramaNuevas");
+                        BEConfiguracionProgramaNuevas oBEConfiguracionProgramaNuevas = GetConfiguracionProgramaNuevas("ConfiguracionProgramaNuevas");
                         if (oBEConfiguracionProgramaNuevas.IndProgObli == "1" && oBEConfiguracionProgramaNuevas.CUVKit == model.CUV)
                         {
                             return Json(new
@@ -2423,7 +2411,7 @@ namespace Portal.Consultoras.Web.Controllers
             // GPR - Si tiene GPR activo: ocultar el banner de rechazados.               
             if (userData.IndicadorGPRSB == 2)
             {
-                userData.MostrarBannerRechazo = userData.RechazadoXdeuda ? true : false;
+                userData.MostrarBannerRechazo = userData.RechazadoXdeuda;
                 userData.CerrarRechazado = userData.RechazadoXdeuda ? 0 : 1;
                 //ObtenerMotivoRechazo(usuario);
                 return true;
@@ -2490,7 +2478,7 @@ namespace Portal.Consultoras.Web.Controllers
                 //int paisId, int campaniaId, int pedidoId, decimal totalPedido                
                 ViewBag.PedidoProductoMovil = lstPedidoWebDetalle
                     .Where(p => p.TipoPedido.ToUpper().Trim() == "PNV")
-                    .ToList().Count() > 0 ? 1 : 0;
+                    .ToList().Any() ? 1 : 0;
 
                 if (userData.PedidoID == 0)
                 {
@@ -2668,15 +2656,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             #endregion
 
-            var eventofestivo = GetEventoFestivoData();
-            if (eventofestivo.EfRutaPedido == null || eventofestivo.EfRutaPedido == "")
-            {
-                ViewBag.UrlFranjaNegra = "../../../Content/Images/Esika/background_pedido.png";
-            }
-            else
-            {
-                ViewBag.UrlFranjaNegra = eventofestivo.EfRutaPedido;
-            }
+            ViewBag.UrlFranjaNegra = GetUrlFranjaNegra();
 
             return View(model);
         }
@@ -3025,7 +3005,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 Result.Add(item);
                 var items = ListadoPedidos.Where(p => p.PedidoDetalleIDPadre == item.PedidoDetalleID);
-                if (items.Count() != 0)
+                if (items.Any())
                     Result.AddRange(items);
             }
 
@@ -3362,25 +3342,25 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ObtenerProductosRecomendados(string CUV)
         {
-            List<BECrossSellingProducto> lst = new List<BECrossSellingProducto>();
+            List<BECrossSellingProducto> lst;
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
                 lst = sv.GetProductosRecomendadosByCUVCampaniaPortal(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, CUV).ToList();
             }
-
+            lst = lst ?? new List<BECrossSellingProducto>();
             string Marca = string.Empty;
-            if (lst != null && lst.Count > 0)
+            if (lst.Any())
             {
                 Marca = GetDescripcionMarca(string.IsNullOrEmpty(lst[0].MarcaID) ? 0 : Convert.ToInt32(lst[0].MarcaID));
                 // 1664
                 var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
                 lst.Update(x => x.ImagenProducto = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO));
-            }
 
-            if (lst.Count > 1)
-            {
-                Marca = Marca + "," + GetDescripcionMarca(string.IsNullOrEmpty(lst[1].MarcaID) ? 0 : Convert.ToInt32(lst[1].MarcaID));
+                if (lst.Count > 1)
+                {
+                    Marca = Marca + "," + GetDescripcionMarca(string.IsNullOrEmpty(lst[1].MarcaID) ? 0 : Convert.ToInt32(lst[1].MarcaID));
+                }
             }
             //lst.Update(x=> x.PrecioOferta = x.PrecioOferta.ToString(""))
             return Json(new
@@ -3548,14 +3528,12 @@ namespace Portal.Consultoras.Web.Controllers
                 Session["ConfiguracionProgramaNuevas"] = new BEConfiguracionProgramaNuevas();
                 return;
             }
-
-            BEConfiguracionProgramaNuevas oBEConfiguracionProgramaNuevas = new BEConfiguracionProgramaNuevas();
-
+            
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
                 try
                 {
-                    oBEConfiguracionProgramaNuevas = GetConfiguracionProgramaNuevas("ConfiguracionProgramaNuevas");
+                    BEConfiguracionProgramaNuevas oBEConfiguracionProgramaNuevas = GetConfiguracionProgramaNuevas("ConfiguracionProgramaNuevas");
 
                     if (oBEConfiguracionProgramaNuevas == null)
                     {
@@ -3574,7 +3552,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (det.PedidoDetalleID > 0) return;
 
-                    List<BEProducto> olstProducto = new List<BEProducto>();
+                    List<BEProducto> olstProducto;
                     using (ODSServiceClient svOds = new ODSServiceClient())
                     {
                         olstProducto = svOds.SelectProductoToKitInicio(userData.PaisID, userData.CampaniaID, oBEConfiguracionProgramaNuevas.CUVKit).ToList();
@@ -3645,7 +3623,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
 
                     page = 1;
-                    rows = listaDetalle.Count();
+                    rows = listaDetalle.Count;
                 }
 
                 decimal total = listaDetalle.Sum(p => p.ImporteTotal);
@@ -4342,8 +4320,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                string mensaje = "", urlRedireccionar = "",
-                area = IsMobile() ? "Mobile" : "";
+                string mensaje = "", urlRedireccionar = "";
 
                 #region SesiónExpirada
                 if (userData == null)
@@ -4613,8 +4590,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                string mensaje = "", urlRedireccionar = "",
-                area = IsMobile() ? "Mobile" : "";
+                string mensaje = "", urlRedireccionar = "";
 
                 #region SesiónExpirada
                 if (userData == null)

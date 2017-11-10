@@ -311,10 +311,6 @@ namespace Portal.Consultoras.Data
             return result;
         }
 
-
-
-        /////////////////////////////////////
-
         public int InsPedidoFIC(BEPedidoFIC pedidoweb)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsPedidoFIC");

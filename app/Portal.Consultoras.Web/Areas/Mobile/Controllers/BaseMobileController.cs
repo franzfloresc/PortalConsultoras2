@@ -49,7 +49,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     if (userData.CloseBannerPL20) mostrarBanner = false;
                 }
 
-                bool mostrarBannerTop = NuncaMostrarBannerTopPL20() || userData.IndicadorGPRSB == 1 ? false : true;
+                bool mostrarBannerTop = !(NuncaMostrarBannerTopPL20() || userData.IndicadorGPRSB == 1);
 
                 ViewBag.MostrarBannerTopPL20 = mostrarBannerTop;
 

@@ -296,7 +296,7 @@ namespace Portal.Consultoras.Web.Controllers
                 entidad.IsoPais = userData.CodigoISO;
                 entidad.EMail = userData.EMail;
                 if (entidad.CodigoConsultora == "")
-                    throw new Exception("El codigo de la consultora no puede ser nulo.");
+                    throw new ArgumentException("El codigo de la consultora no puede ser nulo.");
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {

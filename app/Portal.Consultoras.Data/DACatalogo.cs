@@ -26,7 +26,6 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        // RQ 2295 Mejoras en Catalogos Belcorp
         public IDataReader GetCatalogoConfiguracion()
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCatalogoConfiguracion");
