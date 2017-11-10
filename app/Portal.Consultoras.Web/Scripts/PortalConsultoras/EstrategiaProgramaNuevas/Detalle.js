@@ -8,8 +8,6 @@ $("#CUV").keyup(function () {
     if (cuvIngresado.length == 5) {
         waitingDialog({});
 
-        $.ajaxSetup({ cache: false });
-
         var params = {
             CampaniaID: $("#CampaniaInicio").val(),
             CUV2: $("#CUV").val(),
@@ -29,6 +27,7 @@ $("#CUV").keyup(function () {
 
         jQuery.ajax({
             type: 'POST',
+            cache: false,
             url: baseUrl + 'AdministrarEstrategia/GetOfertaByCUV',
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
