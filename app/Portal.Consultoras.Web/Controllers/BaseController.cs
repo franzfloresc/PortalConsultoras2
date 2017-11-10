@@ -836,7 +836,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     else
                     {
-                        SegmentoID = userData.SegmentoInternoID.HasValue ? userData.SegmentoInternoID.Value : userData.SegmentoID;
+                        SegmentoID = userData.SegmentoInternoID ?? userData.SegmentoID;
                     }
                 }
                 /*** FIN EPD 2170 ***/
@@ -2117,10 +2117,10 @@ namespace Portal.Consultoras.Web.Controllers
             if (!string.IsNullOrEmpty(codigo)) return codigo;
 
             codigo = ConfigurationManager.AppSettings["CodigoCatalogoIssuu"].ToString();
-            return string.Format(codigo, nombreCatalogoIssuu, getPaisNombreByISO(userData.CodigoISO), campania.Substring(4, 2), campania.Substring(0, 4));
+            return string.Format(codigo, nombreCatalogoIssuu, GetPaisNombreByISO(userData.CodigoISO), campania.Substring(4, 2), campania.Substring(0, 4));
         }
 
-        protected string getPaisNombreByISO(string paisISO)
+        protected string GetPaisNombreByISO(string paisISO)
         {
             switch (paisISO)
             {
@@ -4154,7 +4154,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else
                 {
-                    ViewBag.SegmentoConsultoraMenu = userData.SegmentoInternoID.HasValue ? userData.SegmentoInternoID.Value : userData.SegmentoID;
+                    ViewBag.SegmentoConsultoraMenu = userData.SegmentoInternoID ?? userData.SegmentoID;
                 }
             }
 
