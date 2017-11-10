@@ -4050,11 +4050,8 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.EsUsuarioComunidad = userData.EsUsuarioComunidad ? 1 : 0;
             ViewBag.NombreC = userData.PrimerNombre;
             ViewBag.ApellidoC = userData.PrimerApellido;
-            ViewBag.CorreoC = userData.EMail;
             ViewBag.Lider = userData.Lider;
             ViewBag.PortalLideres = userData.PortalLideres;
-            ViewBag.LogOutComunidad = ConfigurationManager.AppSettings["URL_COM_LO"] + "&dest_url=" + ConfigurationManager.AppSettings["URL_SB"] + "/WebPages/ComunidadLogout.aspx";
-            ViewBag.LogOutSB = ConfigurationManager.AppSettings["URL_SB"] + "/WebPages/ComunidadLogout.aspx";
             ViewBag.TokenAtento = ConfigurationManager.AppSettings["TokenAtento_" + userData.CodigoISO];
             ViewBag.IdbelcorpChat = "belcorpChat" + userData.CodigoISO;
             ViewBag.FormatDecimalPais = GetFormatDecimalPais(userData.CodigoISO);
