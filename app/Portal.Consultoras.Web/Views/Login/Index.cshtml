@@ -306,6 +306,11 @@
         </div>
         <div class="text_bienvenida_esika">
             ¡Bienvenida a la Compañía de Belleza con la que puedes <span> ganar más! </span>
+
+            @if (Model.ListPaisAnalytics != null && Model.ListPaisAnalytics.Count > 0)
+            {
+                <div id="div-analytics-image" style="display:inline;"></div>
+            }
         </div>
         <div class="title">
             <img src="~/Content/Images/Login2/logo_welcome.png" alt="" />
@@ -677,10 +682,5 @@
 
 @section scripts {
     @System.Web.Optimization.Scripts.Render("~/bundles/JS-Login")
-
-    @if (Model.ListPaisAnalytics != null && Model.ListPaisAnalytics.Count > 0)
-    {
-        <div id="div-analytics-image" style="display:inline;"></div>
-    }
 }
 
