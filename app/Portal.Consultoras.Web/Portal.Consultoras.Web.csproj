@@ -397,7 +397,6 @@
     <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaMexico.cs" />
     <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaPeru.cs" />
     <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaPuertoRico.cs" />
-    <Compile Include="GestionPasos\GestionPais.cs" />
     <Compile Include="GestionPasos\HtmlHelpers.cs" />
     <Compile Include="GestionPasos\IEvaluacionCrediticia.cs" />
     <Compile Include="Global.asax.cs">
