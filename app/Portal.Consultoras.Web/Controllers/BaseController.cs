@@ -66,7 +66,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 userData = UserData();
                 revistaDigital = sessionManager.GetRevistaDigital() ?? new RevistaDigitalModel();
-                if (userData == null || userData == default(UsuarioModel))
+                if (userData == null)
                 {
                     string URLSignOut = string.Empty;
                     if (Request.UrlReferrer != null && Request.UrlReferrer.ToString().Contains(Request.Url.Host))
@@ -87,7 +87,7 @@ namespace Portal.Consultoras.Web.Controllers
                     base.OnActionExecuting(filterContext);
                     return;
                 }
-
+                ViewBag.EstadoInscripcionEpm = GetEstadoRd();
                 ViewBag.MenuContenedorActivo = GetMenuActivo();
                 ViewBag.MenuContenedor = ObtenerMenuContenedor();
 
@@ -143,6 +143,15 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
+        }
+
+        private string GetEstadoRd()
+        {
+            if (revistaDigital != null && revistaDigital.TieneRDC)
+            {
+                return revistaDigital.EstadoSuscripcion.ToString();
+            }
+            return "(not available)";
         }
 
         #endregion
@@ -1050,8 +1059,8 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.SeccionAnalytics = !string.IsNullOrEmpty(model.SeccionAnalytics) ? model.SeccionAnalytics : "(not available)";
             ViewBag.CodigoConsultoraDL = !string.IsNullOrEmpty(model.CodigoConsultora) ? model.CodigoConsultora : "(not available)";
             ViewBag.SegmentoConstancia = !string.IsNullOrEmpty(model.SegmentoConstancia) ? model.SegmentoConstancia.Trim() : "(not available)";
-            ViewBag.DescripcionNivelAnalytics = revistaDigital.EstadoSuscripcion;
-            ViewBag.ConsultoraAsociada = model.ConsultoraAsociada; //Validar el estado de la consultora RD
+            ViewBag.DescripcionNivelAnalytics = !string.IsNullOrEmpty(model.DescripcionNivel) ? model.DescripcionNivel : "(not available)";
+            ViewBag.ConsultoraAsociada = model.ConsultoraAsociada; 
 
             if (model.RolID == Constantes.Rol.Consultora)
             {
