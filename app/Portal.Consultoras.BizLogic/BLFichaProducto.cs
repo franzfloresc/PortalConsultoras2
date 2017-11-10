@@ -34,7 +34,6 @@ namespace Portal.Consultoras.BizLogic
 
             if (esFacturacion)
             {
-                /*Obtener si tiene stock de PROL por CodigoSAP*/
                 var listaTieneStock = new List<Lista>();
                 try
                 {
@@ -75,7 +74,7 @@ namespace Portal.Consultoras.BizLogic
             }
             else fichasProductosResult.AddRange(fichasProductos);
 
-            var carpetaPais = Globals.UrlMatriz + "/" + codigoIso; //pais ISO
+            var carpetaPais = Globals.UrlMatriz + "/" + codigoIso;
             fichasProductosResult.ForEach(ficha =>
             {
                 ficha.CampaniaID = entidad.CampaniaID;

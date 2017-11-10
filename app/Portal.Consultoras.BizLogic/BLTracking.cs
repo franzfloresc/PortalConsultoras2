@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 using System.Data;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Data;
-
-/* EPD-665 - INICIO */
 using Portal.Consultoras.Common;
 using System.Configuration;
-/* EPD-665 - FIN */
 
 
 namespace Portal.Consultoras.BizLogic
@@ -73,7 +70,6 @@ namespace Portal.Consultoras.BizLogic
             var pedidos = new List<BETracking>();
             var DATracking = new DATracking(paisID);
 
-            //using (IDataReader reader = DATracking.GetTrackingByPedido(codigo, campana, fecha))
             using (IDataReader reader = DATracking.GetTrackingByPedido(codigo, campana, nropedido))
             {
                 while (reader.Read())
@@ -87,8 +83,6 @@ namespace Portal.Consultoras.BizLogic
             return pedidos;
         }
 
-
-        //1793
         public List<BENovedadTracking> GetNovedadesTracking(int paisID, string NumeroPedido)
         {
             var novedades = new List<BENovedadTracking>();
@@ -106,8 +100,6 @@ namespace Portal.Consultoras.BizLogic
             return novedades;
         }
 
-
-        // Req. 1717 - Inicio
         public int InsConfirmacionEntrega(int paisID, BEConfirmacionEntrega oBEConfirmacionEntrega)
         {
             var DATracking = new DATracking(paisID);
@@ -117,7 +109,6 @@ namespace Portal.Consultoras.BizLogic
             {
                 Result = DATracking.InsConfirmacionEntrega(oBEConfirmacionEntrega);
 
-                /* EPD-665 - INICIO */
                 if (ConfigurationManager.AppSettings["PaisLogConfirmacionEntrega"].Contains(oBEConfirmacionEntrega.PaisISO) &&
                     ConfigurationManager.AppSettings["SaveLogConfirmacionEntrega"] == "1")
                 {
@@ -141,11 +132,9 @@ namespace Portal.Consultoras.BizLogic
 
                     DATracking.InsLogConfirmacionEntrega(oBELogConfirmacionEntrega);
                 }
-                /* EPD-665 - FIN */
             }
             catch (Exception ex)
             {
-                /* EPD-665 */
                 LogManager.SaveLog(ex, "ConfirmacionEntrega", oBEConfirmacionEntrega.PaisISO);
             }
 
@@ -161,7 +150,6 @@ namespace Portal.Consultoras.BizLogic
             {
                 Result = DATracking.UpdConfirmacionEntrega(oBEConfirmacionEntrega);
 
-                /* EPD-665 - INICIO */
                 if (ConfigurationManager.AppSettings["PaisLogConfirmacionEntrega"].Contains(oBEConfirmacionEntrega.PaisISO) &&
                     ConfigurationManager.AppSettings["SaveLogConfirmacionEntrega"] == "1")
                 {
@@ -176,18 +164,15 @@ namespace Portal.Consultoras.BizLogic
 
                     DATracking.InsLogConfirmacionEntrega(oBELogConfirmacionEntrega);
                 }
-                /* EPD-665 - FIN */
             }
             catch (Exception ex)
             {
-                /* EPD-665 */
                 LogManager.SaveLog(ex, "ConfirmacionEntrega", oBEConfirmacionEntrega.PaisISO);
             }
 
             return Result;
         }
 
-        //R2004
         public BENovedadFacturacion GetPedidoRechazadoByConsultora(int PaisID, string CampaniaId, string CodigoConsultora, DateTime Fecha)
         {
             BENovedadFacturacion entidad = null;
@@ -204,7 +189,6 @@ namespace Portal.Consultoras.BizLogic
             return entidad;
         }
 
-        //R2004
         public BENovedadFacturacion GetPedidoAnuladoByConsultora(int PaisID, string CampaniaId, string CodigoConsultora, DateTime Fecha, string NumeroPedido)
         {
             BENovedadFacturacion entidad = null;
@@ -221,7 +205,6 @@ namespace Portal.Consultoras.BizLogic
             return entidad;
         }
 
-        //RQ 20150711 - Inicio
         public int InsConfirmacionRecojo(int paisID, BEConfirmacionRecojo oBEConfirmacionRecoja)
         {
             var DATracking = new DATracking(paisID);
@@ -287,7 +270,5 @@ namespace Portal.Consultoras.BizLogic
 
             return recojos;
         }
-        //RQ 20150711 - Fin
-
     }
 }

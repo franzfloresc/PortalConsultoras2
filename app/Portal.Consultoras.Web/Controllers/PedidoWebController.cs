@@ -46,12 +46,12 @@ namespace Portal.Consultoras.Web.Controllers
             model.CodigoZona = userData.CodigoZona;
             model.Simbolo = userData.Simbolo;
 
-            List<ServicePedido.BEPedidoWebDetalle> olstPedido = new List<ServicePedido.BEPedidoWebDetalle>();
+            List<ServicePedido.BEPedidoWebDetalle> olstPedido;
             using (ServicePedido.PedidoServiceClient sv = new ServicePedido.PedidoServiceClient())
             {
                 olstPedido = sv.SelectByCampania(userData.PaisID, model.CampaniaID, ObtenerConsultoraId(), "", EsOpt()).ToList();//ITG 1793 HFMG
             }
-
+            olstPedido = olstPedido ?? new List<ServicePedido.BEPedidoWebDetalle>();
             model.TieneDescuentoCuv = userData.EstadoSimplificacionCUV && olstPedido != null &&
                 olstPedido.Any(item => string.IsNullOrEmpty(item.ObservacionPROL) && item.IndicadorOfertaCUV);
 
