@@ -8454,10 +8454,10 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         System.Threading.Tasks.Task UpdateIndicadorAyudaWebTrackingAsync(int paisID, string codigoConsultora, bool indicador);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/InsLogIngresoPortal", ReplyAction="http://tempuri.org/IUsuarioService/InsLogIngresoPortalResponse")]
-        void InsLogIngresoPortal(int paisID, string CodigoConsultora, string IPOrigen, byte Tipo, string DetalleError);
+        void InsLogIngresoPortal(int paisID, string CodigoConsultora, string IPOrigen, byte Tipo, string DetalleError, string Canal);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/InsLogIngresoPortal", ReplyAction="http://tempuri.org/IUsuarioService/InsLogIngresoPortalResponse")]
-        System.Threading.Tasks.Task InsLogIngresoPortalAsync(int paisID, string CodigoConsultora, string IPOrigen, byte Tipo, string DetalleError);
+        System.Threading.Tasks.Task InsLogIngresoPortalAsync(int paisID, string CodigoConsultora, string IPOrigen, byte Tipo, string DetalleError, string Canal);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/AceptarContrato", ReplyAction="http://tempuri.org/IUsuarioService/AceptarContratoResponse")]
         string AceptarContrato(Portal.Consultoras.Web.ServiceUsuario.BEUsuario usuario);
@@ -9253,12 +9253,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.UpdateIndicadorAyudaWebTrackingAsync(paisID, codigoConsultora, indicador);
         }
         
-        public void InsLogIngresoPortal(int paisID, string CodigoConsultora, string IPOrigen, byte Tipo, string DetalleError) {
-            base.Channel.InsLogIngresoPortal(paisID, CodigoConsultora, IPOrigen, Tipo, DetalleError);
+        public void InsLogIngresoPortal(int paisID, string CodigoConsultora, string IPOrigen, byte Tipo, string DetalleError, string Canal) {
+            base.Channel.InsLogIngresoPortal(paisID, CodigoConsultora, IPOrigen, Tipo, DetalleError, Canal);
         }
         
-        public System.Threading.Tasks.Task InsLogIngresoPortalAsync(int paisID, string CodigoConsultora, string IPOrigen, byte Tipo, string DetalleError) {
-            return base.Channel.InsLogIngresoPortalAsync(paisID, CodigoConsultora, IPOrigen, Tipo, DetalleError);
+        public System.Threading.Tasks.Task InsLogIngresoPortalAsync(int paisID, string CodigoConsultora, string IPOrigen, byte Tipo, string DetalleError, string Canal) {
+            return base.Channel.InsLogIngresoPortalAsync(paisID, CodigoConsultora, IPOrigen, Tipo, DetalleError, Canal);
         }
         
         public string AceptarContrato(Portal.Consultoras.Web.ServiceUsuario.BEUsuario usuario) {

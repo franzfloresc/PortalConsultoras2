@@ -63,7 +63,7 @@ namespace Portal.Consultoras.Data.Hana
                     listBE.Add(beEstadoCuenta);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 listBE = new List<BEEstadoCuenta>();
             }            

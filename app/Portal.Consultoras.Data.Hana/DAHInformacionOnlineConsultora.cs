@@ -64,7 +64,7 @@ namespace Portal.Consultoras.Data.Hana
                     break;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 beUsuario = null;
             }

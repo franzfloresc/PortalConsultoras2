@@ -37,7 +37,7 @@ $(document).ready(function () {
         $(this).hide();
     });
 
-    if (isPagina("revistadigital")) {
+    if (isPagina("revistadigital") || isPagina("guianegocio")) {
         OfertaCargarProductos(null);
     }
 
@@ -187,7 +187,7 @@ function OfertaCargarProductos(busquedaModel, clear, objSeccion) {
 
     busquedaModel = busquedaModel || Clone(filtroIni);
     objSeccion = objSeccion || {};
-    busquedaModel.CampaniaID = busquedaModel.CampaniaID || objSeccion.CampaniaId || campaniaId || 0;
+    busquedaModel.CampaniaID = busquedaModel.CampaniaID || objSeccion.CampaniaId || campaniaId || campaniaCodigo || 0;
 
     if (busquedaModel.CampaniaID <= 0) return false;
 

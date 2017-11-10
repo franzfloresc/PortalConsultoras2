@@ -7,7 +7,7 @@
             <div style="display:none;"><div data-estrategia="{{JSON2string item}}"></div></div>
             <div data-item-tag="contenido" {{#iff TieneVerDetalle }} onclick="javascript: VerDetalleEstrategia(event);" {{/iff}}>
                 <div class="producto_img_home" data-item-tag="foto">
-                    <img src="{{FotoProducto01}}" class="imagen_producto" style="max-width: 100% !important;" />
+                <img class="imagen_producto" style="max-width: 100% !important;" data-src="{{FotoProducto01}}" data-img-lazy="1" data-lazy-seccion-revista-digital=""/>
                     {{#iff TieneVerDetalle}}
                     <a href="javascript:;" class="ver_detalle_carrusel" data-item-tag="verdetalle">VER DETALLE</a>
                     {{/iff}}
@@ -21,7 +21,7 @@
                 {{else}}
                 {{#iff ImagenURL '!=' ''}}
                 <div class="etiqueta_producto" data-item-tag="etiqueta">
-                    <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+                <img alt="Etiqueta Producto" data-src="{{ImagenURL}}" data-img-lazy="1" data-lazy-seccion-revista-digital=""/>
                 </div>
                 {{/iff}}
                 {{/iff}}
