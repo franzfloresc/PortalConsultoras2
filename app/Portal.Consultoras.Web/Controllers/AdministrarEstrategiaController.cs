@@ -142,7 +142,9 @@ namespace Portal.Consultoras.Web.Controllers
                     .ForMember(t => t.FlagRecoPerfil, f => f.MapFrom(c => c.FlagRecoPerfil))
                     .ForMember(t => t.FlagRecoProduc, f => f.MapFrom(c => c.FlagRecoProduc))
                     .ForMember(t => t.Imagen, f => f.MapFrom(c => c.ImagenEstrategia))
-                    .ForMember(t => t.CodigoPrograma, f => f.MapFrom(c => c.CodigoPrograma));
+                    .ForMember(t => t.CodigoPrograma, f => f.MapFrom(c => c.CodigoPrograma))
+                    .ForMember(t => t.FlagValidarImagen, f => f.MapFrom(c => c.FlagValidarImagen))
+                    .ForMember(t => t.PesoMaximoImagen, f => f.MapFrom(c => c.PesoMaximoImagen));
 
             return Mapper.Map<IList<BETipoEstrategia>, IEnumerable<TipoEstrategiaModel>>(lista.ToList());
         }
@@ -294,7 +296,10 @@ namespace Portal.Consultoras.Web.Controllers
                                        a.CodigoProducto.ToString(),
                                        a.ImagenURL.ToString(),
                                        a.Activo.ToString(),
-                                       a.EsOfertaIndependiente.ToString()
+                                       a.EsOfertaIndependiente.ToString(),
+                                       a.FlagValidarImagen.ToString(),
+                                       a.PesoMaximoImagen.ToString()
+
                                     }
                                }
                     };
@@ -1161,7 +1166,7 @@ namespace Portal.Consultoras.Web.Controllers
                 JSONdata = new
                 {
                     success = true,
-                    message = "Se agregó la estrategia satisfactoriamente.",
+                    message = "Se agrego la estrategia satisfactoriamente.",
                     extra = ""
                 };
 

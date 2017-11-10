@@ -61,7 +61,9 @@
                                     imagen-tipo="@Model.ListaTipoEstrategia.ToList()[i].Imagen"
                                     value="@Model.ListaTipoEstrategia.ToList()[i].TipoEstrategiaID"
                                     data-id="@Model.ListaTipoEstrategia.ToList()[i].CodigoGeneral"
-                                    data-codigo="@Model.ListaTipoEstrategia.ToList()[i].Codigo">
+                                    data-codigo="@Model.ListaTipoEstrategia.ToList()[i].Codigo"
+									data-FValidarImagen = "@Model.ListaTipoEstrategia.ToList()[i].FlagValidarImagen"
+									data-PesoMaximo = "@Model.ListaTipoEstrategia.ToList()[i].PesoMaximoImagen" >
                                 @Model.ListaTipoEstrategia.ToList()[i].Descripcion
                             </option>
                             }
@@ -740,6 +742,10 @@
                 var flagRecoProduc = $("#ddlTipoEstrategia option:selected").attr("flag-recoproduct");
                 var flagRecoPerfil = $("#ddlTipoEstrategia option:selected").attr("flag-recoperfil");
                 var auxOD = $('#ddlTipoEstrategia').find(':selected').data('id');
+				//BPT-369
+				//var fValidarImagen =  = $("#ddlTipoEstrategia option:selected").attr("data-FValidarImagen");
+				//var PesoMaximo =  = $("#ddlTipoEstrategia option:selected").attr("data-PesoMaximo");
+ 
 
                 var flagOD = "";
                 if (auxOD == '7' || auxOD == '4') {
@@ -813,6 +819,7 @@
                     FlagNueva: flagNueva,
                     FlagRecoProduc: flagRecoProduc,
                     FlagRecoPerfil: flagRecoPerfil
+
                 };
 
                 jQuery.ajax({
@@ -1279,6 +1286,9 @@
         var flagNueva = $("#ddlTipoEstrategia option:selected").attr("flag-nueva");
         var flagRecoProduc = $("#ddlTipoEstrategia option:selected").attr("flag-recoproduct");
         var flagRecoPerfil = $("#ddlTipoEstrategia option:selected").attr("flag-recoperfil");
+		//BPT-369
+		//var fValidarImagen =  = $("#ddlTipoEstrategia option:selected").attr("data-FValidarImagen");
+		//var pesoMaximo =  = $("#ddlTipoEstrategia option:selected").attr("data-PesoMaximo");
 
         (flagNueva == "1") ? $(".chkEsOfertaIndependiente").show() : $(".chkEsOfertaIndependiente").hide();
 

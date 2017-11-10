@@ -291,6 +291,9 @@ namespace Portal.Consultoras.Web.Controllers
                 //sube la imagen selecciona a carpeta temporales
                 new UploadHelper().UploadFile(Request, nombreArchivo);
 
+                var intTotalBytes = ((System.Web.HttpRequestWrapper)Request).TotalBytes;
+           
+
                 string nombreArchivoSinExtension = null;
                 if (model.NemotecnicoActivo)
                 {

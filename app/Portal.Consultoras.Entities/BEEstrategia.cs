@@ -212,6 +212,15 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public DateTime FechaInicioFacturacion { get; set; }
 
+
+        /* BPT-369 */
+        [DataMember]
+        public int FlagValidarImagen { get; set; }
+
+        [DataMember]
+        public int PesoMaximoImagen { get; set; }
+        /* BPT-369 */
+
         public BEEstrategia()
         { }
 
@@ -294,6 +303,16 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "MostrarImgOfertaIndependiente"))
                 MostrarImgOfertaIndependiente = Convert.ToBoolean(row["MostrarImgOfertaIndependiente"].ToString());
+
+            //BPT-369
+            if (DataRecord.HasColumn(row, "FlagValidarImagen"))
+                FlagValidarImagen = int.Parse((row["FlagValidarImagen"].ToString()));
+
+            if (DataRecord.HasColumn(row, "PesoMaximoImagen"))
+                PesoMaximoImagen = int.Parse((row["PesoMaximoImagen"].ToString()));
+
+
+
         }
 
         public BEEstrategia(IDataRecord row)
