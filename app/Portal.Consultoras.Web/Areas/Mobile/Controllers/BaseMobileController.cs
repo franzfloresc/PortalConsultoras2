@@ -31,13 +31,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             try
             {
-                ViewBag.EsMobile = 2;//EPD-1780
+                ViewBag.EsMobile = 2;
                 BuildMenuMobile(userData);
                 CargarValoresGenerales(userData);
 
                 ShowRoomModel ShowRoom = new ShowRoomModel();
 
-                /*INICIO: PL20-1289*/
                 bool mostrarBanner, permitirCerrarBanner = false;
                 if (SiempreMostrarBannerPL20()) mostrarBanner = true;
                 else if (NuncaMostrarBannerPL20()) mostrarBanner = false;
@@ -108,8 +107,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
 
                 ViewBag.MostrarODD = NoMostrarBannerODD();
-
-                /*FIN: PL20-1289*/
             }
             catch (Exception ex)
             {

@@ -44,7 +44,6 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult Detalle(int campania)
         {
             string ISO = userData.CodigoISO;
-            // RQ 2295 Mejoras en Catalogos Belcorp
             List<BECatalogoConfiguracion> lstCatalogoConfiguracion = new List<BECatalogoConfiguracion>();
             using (ClienteServiceClient sv = new ClienteServiceClient())
             {
@@ -189,7 +188,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     else
                     {
-                        CampaniaID = Campania; // CalcularCampaniaSiguiente(userData.CampaniaID.ToString());
+                        CampaniaID = Campania;
                         using (UsuarioServiceClient sv = new UsuarioServiceClient())
                         {
                             FechaFacturacion = sv.GetFechaFacturacion(CampaniaID, userData.ZonaID, userData.PaisID).ToShortDateString();
@@ -219,34 +218,8 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-                //string catalogoUnificado = "0";
-                //string ISO = userData.CodigoISO;
-
-                //if (ConfigurationManager.AppSettings["PaisesCatalogoUnificado"].Contains(ISO))
-                //{
-                //    string[] paises = ConfigurationManager.AppSettings["PaisesCatalogoUnificado"].Split(';');
-                //    if (paises.Length > 0)
-                //    {
-                //        foreach (var pais in paises)
-                //        {
-                //            if (pais.Contains(ISO))
-                //            {
-                //                string[] PaisCamp = pais.Split(',');
-                //                if (PaisCamp.Length > 0)
-                //                {
-                //                    int CampaniaInicio = Convert.ToInt32(PaisCamp[1]);
-                //                    if (Convert.ToInt32(CampaniaID) >= CampaniaInicio)
-                //                        catalogoUnificado = "1";
-                //                }
-                //            }
-                //        }
-                //    }
-                //}
-
                 string RutaPublicaImagen = "";
                 string nombrecorto = userData.NombreCorto;
-                //Mejora - Correo
-                //string nomPais = Util.ObtenerNombrePaisPorISO(userData.CodigoISO);
                 string CorreosInvalidos = string.Empty;
 
                 Catalogo catalogoLbel = catalogos.FirstOrDefault(x => x.IdMarcaCatalogo == Constantes.Marca.LBel);
@@ -254,7 +227,6 @@ namespace Portal.Consultoras.Web.Controllers
                 Catalogo catalogoCyZone = catalogos.FirstOrDefault(x => x.IdMarcaCatalogo == Constantes.Marca.Cyzone);
                 Catalogo catalogoFinart = catalogos.FirstOrDefault(x => x.IdMarcaCatalogo == Constantes.Marca.Finart);
 
-                /*EPD-1003*/
                 DateTime dd = DateTime.Parse(FechaFacturacion, new CultureInfo("es-ES"));
                 string fdf = dd.ToString("dd", new CultureInfo("es-ES"));
                 string fmf = dd.ToString("MMMM", new CultureInfo("es-ES"));
@@ -503,7 +475,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                     #endregion
                 }
-                /*EPD-1003*/
 
                 using (ClienteServiceClient sv = new ClienteServiceClient())
                 {

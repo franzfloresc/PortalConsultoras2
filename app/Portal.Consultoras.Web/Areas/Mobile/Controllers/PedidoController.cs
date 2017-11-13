@@ -211,7 +211,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             ValidarStatusCampania(beConfiguracionCampania);
 
-            /* SB20-287 - INICIO */
             TimeSpan HoraCierrePortal = userData.EsZonaDemAnti == 0 ? userData.HoraCierreZonaNormal : userData.HoraCierreZonaDemAnti;
             DateTime diaActual = DateTime.Today.Add(HoraCierrePortal);
             var fechaFacturacionFormat = userData.FechaInicioCampania.Day + " de " + NombreMes(userData.FechaInicioCampania.Month);
@@ -287,9 +286,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 }
             }
-            /* SB20-287 - FIN */
 
-            /* SB20-483 - INICIO */
             var pedidoWeb = ObtenerPedidoWeb();
             ViewBag.MontoAhorroCatalogo = Util.DecimalToStringFormat(pedidoWeb.MontoAhorroCatalogo, userData.CodigoISO);
             ViewBag.MontoAhorroRevista = Util.DecimalToStringFormat(pedidoWeb.MontoAhorroRevista, userData.CodigoISO);
@@ -297,7 +294,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.GananciaEstimada = Util.DecimalToStringFormat(pedidoWeb.MontoAhorroCatalogo + pedidoWeb.MontoAhorroRevista, userData.CodigoISO);
 
             model.PaisID = userData.PaisID;
-            /* SB20-483 - FIN */
 
             //Se desactiva dado que el mensaje de Guardar por MM no va en países SICC
             if (userData.CodigoISO == Constantes.CodigosISOPais.Colombia)
@@ -314,7 +310,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
             }
 
-            /* SB20-565 - INICIO */
             var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
             bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
             model.EsFacturacion = esFacturacion;
@@ -329,11 +324,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.MontoMinimo = userData.MontoMinimo;
             model.MontoMaximo = userData.MontoMaximo;
             model.Total = pedidoWeb.ImporteTotal;
-            //var dataBarra = GetDataBarra(true, true);
-            //AutoMapper.Mapper.CreateMap<BarraConsultoraModel, BarraConsultoraMobileModel>();
-            //var dataBarraMobile = AutoMapper.Mapper.Map<BarraConsultoraModel, BarraConsultoraMobileModel>(dataBarra);
             model.DataBarra = GetDataBarra(true, true);
-            /* SB20-565 - FIN */
 
             ViewBag.CUVOfertaProl = TempData["CUVOfertaProl"];
             model.TieneCupon = userData.TieneCupon;
@@ -426,13 +417,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.GanaciaEstimada = model.MontoAhorroCatalogo + model.MontoAhorroRevista;
             model.DescripcionGanaciaEstimada = Util.DecimalToStringFormat(model.GanaciaEstimada, model.CodigoISO);
 
-            /* SB20-483 - INICIO */
             ViewBag.MontoAhorroCatalogo = Util.DecimalToStringFormat(model.MontoAhorroCatalogo, userData.CodigoISO);
             ViewBag.MontoAhorroRevista = Util.DecimalToStringFormat(model.MontoAhorroRevista, userData.CodigoISO);
-            //ViewBag.MontoDescuento = Util.DecimalToStringFormat(0, userData.CodigoISO);
-            //ViewBag.GananciaEstimada = Util.DecimalToStringFormat(ViewBag.MontoAhorroCatalogo + ViewBag.MontoAhorroRevista, userData.CodigoISO);
             model.PaisID = userData.PaisID;
-            /* SB20-483 - FIN */
 
             if (lstPedidoWebDetalle.Count != 0)
             {
@@ -444,7 +431,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.Email = userData.EMail;
             }
 
-            /* SB20-287 - INICIO */
             TimeSpan HoraCierrePortal = userData.EsZonaDemAnti == 0 ? userData.HoraCierreZonaNormal : userData.HoraCierreZonaDemAnti;
             DateTime diaActual = DateTime.Today.Add(HoraCierrePortal);
             var fechaFacturacionFormat = userData.FechaInicioCampania.Day + " de " + NombreMes(userData.FechaInicioCampania.Month);
@@ -508,7 +494,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     }
                 }
             }
-            /* SB20-287 - FIN */
 
             #region kitNueva
             BEKitNueva[] kitNueva;
@@ -554,8 +539,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             int horaCierre = userData.EsZonaDemAnti;
             TimeSpan sp = horaCierre == 0 ? userData.HoraCierreZonaNormal : userData.HoraCierreZonaDemAnti;
-            //model.HoraCierre = new DateTime(sp.Ticks).ToString("HH:mm");
-            //model.HoraCierre = new DateTime(sp.Ticks).ToString("hh:mm tt");
             model.HoraCierre = FormatearHora(sp);
             model.ModificacionPedidoProl = userData.NuevoPROL && userData.ZonaNuevoPROL ? 0 : 1;
 
@@ -727,7 +710,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         #endregion
 
-        /* SB20-565 - INICIO */
         private List<BEEscalaDescuento> GetParametriaOfertaFinal()
         {
             List<BEEscalaDescuento> listaParametriaOfertaFinal = new List<BEEscalaDescuento>();
@@ -765,6 +747,5 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return resultado;
         }
 
-        /* SB20-565 - FIN */
     }
 }

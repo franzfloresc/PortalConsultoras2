@@ -127,12 +127,10 @@ namespace Portal.Consultoras.Web.Controllers
                   .ForMember(t => t.MarcaID, f => f.MapFrom(c => c.MarcaID))
                   .ForMember(t => t.OfertaProductoID, f => f.MapFrom(c => c.OfertaProductoID))
                   .ForMember(t => t.DescripcionLegal, f => f.MapFrom(c => c.DescripcionLegal))
-                  /*RQ 2505 DC*/
                   .ForMember(t => t.DescripcionMarca, f => f.MapFrom(c => c.DescripcionMarca))
                   .ForMember(t => t.DescripcionCategoria, f => f.MapFrom(c => c.DescripcionCategoria))
                   .ForMember(t => t.DescripcionEstrategia, f => f.MapFrom(c => c.DescripcionEstrategia));
 
-            // 1664
             if (lst != null && lst.Count > 0)
             {
                 var carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;

@@ -53,9 +53,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             CargarInformacion();
             model.ListaCampania = (List<CampaniaModel>)Session[Constantes.ConstSession.CDRCampanias];
-            /*EPD-1339*/
             if (model.ListaCampania.Count <= 1) return RedirectToAction("Index");
-            /*EPD-1339*/
 
             if (pedidoId != 0)
             {

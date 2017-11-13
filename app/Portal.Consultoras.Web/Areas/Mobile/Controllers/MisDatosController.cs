@@ -98,7 +98,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         model.NombreConsultoraAsociada = sv.GetNombreConsultoraAsociada(userData.PaisID, userData.CodigoUsuario) + " (" + sv.GetCodigoConsultoraAsociada(userData.PaisID, userData.CodigoUsuario) + ")";
                     }
                 }
-                /*EPD-1068*/
                 model.CodigoUsuario = userData.CodigoUsuario + " (Zona: " + userData.CodigoZona + ")";
                 string PaisesDigitoControl = ConfigurationManager.AppSettings["PaisesDigitoControl"].ToString();
                 model.DigitoVerificador = string.Empty;

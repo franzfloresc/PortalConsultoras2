@@ -125,8 +125,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
 
-        /*R2442 - JICM - Método Registrar ActualizarDatosController*/
-
         [HttpPost]
         public JsonResult Registrar(ConsultoraFicticiaModel model)
         {

@@ -98,7 +98,6 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.ProgramaBelcorpMenu = BuildMenuService();
                 ViewBag.codigoISOMenu = userData.CodigoISO;
 
-                /*** EPD 2170 ***/
                 if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
                 {
                     ViewBag.SegmentoConsultoraMenu = 1;
@@ -114,7 +113,6 @@ namespace Portal.Consultoras.Web.Controllers
                         ViewBag.SegmentoConsultoraMenu = userData.SegmentoInternoID.HasValue ? userData.SegmentoInternoID.Value : userData.SegmentoID;
                     }
                 }
-                /*** FIN EPD 2170 ***/
 
                 ViewBag.UrlRaizS3 = string.Format("{0}/{1}/{2}/", ConfigurationManager.AppSettings["URL_S3"], GetBucketNameFromConfig(), ConfigurationManager.AppSettings["ROOT_DIRECTORY"]);
 
@@ -124,7 +122,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ObtenerPedidoWeb();
                 ObtenerPedidoWebDetalle();
 
-                ViewBag.EsMobile = 1;//EPD-1780
+                ViewBag.EsMobile = 1;
 
                 if (userData.TieneLoginExterno)
                 {
@@ -474,7 +472,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (userData.TieneValidacionMontoMaximo)
                 {
-                    if (userData.MontoMaximo == Convert.ToDecimal(9999999999.00)) /*monto sin limites*/
+                    if (userData.MontoMaximo == Convert.ToDecimal(9999999999.00)) 
                         mensaje = "";
                     else
                     {
@@ -874,7 +872,6 @@ namespace Portal.Consultoras.Web.Controllers
                     lstTemp_1 = sv.GetServicioByCampaniaPais(userData.PaisID, userData.CampaniaID).ToList();
                 }
 
-                /*** EPD 2170 ***/
                 int SegmentoID;
                 if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
                 {
@@ -891,7 +888,6 @@ namespace Portal.Consultoras.Web.Controllers
                         SegmentoID = userData.SegmentoInternoID.HasValue ? userData.SegmentoInternoID.Value : userData.SegmentoID;
                     }
                 }
-                /*** FIN EPD 2170 ***/
 
                 int SegmentoServicio = userData.EsJoven == 1 ? 99 : SegmentoID;
 
@@ -1154,7 +1150,7 @@ namespace Portal.Consultoras.Web.Controllers
                     TextoPromesa += model.DiasCasoPromesa.ToString() + (model.DiasCasoPromesa == 1 ? " día." : " días.");
 
                 }
-                else if (("2 3 4").Contains(model.TipoCasoPromesa) && model.DiasCasoPromesa != -1) //casos 2,3 y 4
+                else if (("2 3 4").Contains(model.TipoCasoPromesa) && model.DiasCasoPromesa != -1)
                 {
                     model.FechaPromesaEntrega = FechaHoraActual.AddDays(model.DiasCasoPromesa);
                     if (TextoPromesaEspecial)
@@ -1313,13 +1309,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public string GetIPCliente()
         {
-            //string IP = string.Empty;
-            //try
-            //{
-            //    IP = HttpContext.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
-            //}
-            //catch { }
-            //return IP;
             string IP = string.Empty;
             try
             {
@@ -1470,11 +1459,9 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var tieneShowRoom = false;
             if (string.IsNullOrEmpty(codigoIsoPais))
-                // ReSharper disable once ConditionIsAlwaysTrueOrFalse
                 return tieneShowRoom;
             var paisesShowRoom = ConfigurationManager.AppSettings["PaisesShowRoom"];
             tieneShowRoom = paisesShowRoom.Contains(codigoIsoPais);
-            //
             return tieneShowRoom;
         }
 
@@ -2229,8 +2216,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public TimeSpan CountdownODD(UsuarioModel model)
         {
-            //DateTime hoy = DateTime.Now;
-            //DateTime d1 = new DateTime(hoy.Year, hoy.Month, hoy.Day, 0, 0, 0);
             DateTime hoy;
 
             using (SACServiceClient svc = new SACServiceClient())
@@ -2241,7 +2226,7 @@ namespace Portal.Consultoras.Web.Controllers
             DateTime d1 = new DateTime(hoy.Year, hoy.Month, hoy.Day, 0, 0, 0);
             DateTime d2;
 
-            if (model.EsDiasFacturacion)  // dias de facturacion
+            if (model.EsDiasFacturacion)
             {
                 TimeSpan t1 = model.HoraCierreZonaNormal;
                 d2 = new DateTime(hoy.Year, hoy.Month, hoy.Day, t1.Hours, t1.Minutes, t1.Seconds);
@@ -2266,9 +2251,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return null;
 
             var model = userData.OfertasDelDia.First().Clone();
-            //
             model.ListaOfertas = userData.OfertasDelDia;
-            //
             short posicion = 1;
             var tiposEstrategia = sessionManager.GetTiposEstrategia();
             if (tiposEstrategia == null)
@@ -2448,19 +2431,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return Mapper.Map<IList<BEZona>, IEnumerable<ZonaModel>>(lst);
         }
-
-        //EPD-2598 INICIO
-
-        //protected IEnumerable<EstadoActividadModel> DropDownListEstadoActividad(int PaisID)
-        //{
-        //    IList<BEConsultorasProgramaNuevas> lst;
-        //    using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-        //    {
-        //        lst = sv.sele(PaisID);
-        //    }
-        //    return Mapper.Map<IList<BEZona>, IEnumerable<EstadoActividadModel>>(lst);
-        //}
-        //EPD-2598  FIN
 
         public JsonResult ObtenerZonasByRegion(int PaisID, int RegionID)
         {
@@ -3051,8 +3021,6 @@ namespace Portal.Consultoras.Web.Controllers
             DateTime fechaFinCampania = pedido.FechaRegistro.Date;
             TimeSpan diferencia = fechaSys - fechaFinCampania;
             int differenceInDays = diferencia.Days;
-            //Para Pruebas
-            //differenceInDays = 30;
 
             if (differenceInDays <= 0) return new List<BECDRWebMotivoOperacion>();
 
@@ -3064,9 +3032,7 @@ namespace Portal.Consultoras.Web.Controllers
         protected BECDRWebDescripcion ObtenerDescripcion(string codigoSsic, string tipo)
         {
             codigoSsic = Util.SubStr(codigoSsic, 0);
-            //codigoSsic = codigoSsic.ToLower();
             tipo = Util.SubStr(tipo, 0);
-            //tipo = tipo.ToLower();
             var listaDescripcion = CargarDescripcion();
             var desc = listaDescripcion.FirstOrDefault(d => d.CodigoSSIC == codigoSsic && d.Tipo == tipo) ?? new BECDRWebDescripcion();
 
@@ -3093,7 +3059,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 lista = lista ?? new List<BECDRWebDescripcion>();
-                //lista.Update(d => d.Tipo = d.Tipo.ToLower());
                 Session[Constantes.ConstSession.CDRDescripcion] = lista;
                 return lista;
             }
