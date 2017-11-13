@@ -33,8 +33,10 @@ namespace Portal.Consultoras.BizLogic
             using (IDataReader reader = DAPedidoWeb.GetPedidosWebByConsultora(consultoraID))
                 while (reader.Read())
                 {
-                    var entidad = new BEPedidoWeb(reader);
-                    entidad.PaisID = paisID;
+                    var entidad = new BEPedidoWeb(reader)
+                    {
+                        PaisID = paisID
+                    };
                     pedidoWeb.Add(entidad);
                 }
 
@@ -611,8 +613,10 @@ namespace Portal.Consultoras.BizLogic
 
                 //----- Log Pedidos
 
-                TransactionOptions transactionOptions = new TransactionOptions();
-                transactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
+                TransactionOptions transactionOptions = new TransactionOptions
+                {
+                    IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted
+                };
                 using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
                 {
                     this.ConfigurarDTCargaWebDD(dsPedidosWeb, dsPedidosDD, fechaFacturacion, nroLote, usuario, codigoPais);
@@ -1731,10 +1735,7 @@ namespace Portal.Consultoras.BizLogic
                     (int) Enumeradores.TypeDocPais.DO,
                     (int) Enumeradores.TypeDocPais.EC
                 };
-            //listaPais.Add((int)Enumeradores.TypeDocPais.CL); //R2140  – ECM - Se solicito que no se implemente la funcionalidad para este país
-            //listaPais.Add((int)Enumeradores.TypeDocPais.GT);//R2140  – ECM - Se solicito que no se implemente la funcionalidad para este país
-            //listaPais.Add((int)Enumeradores.TypeDocPais.SV);//R2140  – ECM - Se solicito que no se implemente la funcionalidad para este país
-            //listaPais.Add((int)Enumeradores.TypeDocPais.CR);//R2140  – ECM - Se solicito que no se implemente la funcionalidad para este país
+            
             return listaPais;
         }
 
@@ -1752,8 +1753,10 @@ namespace Portal.Consultoras.BizLogic
             using (IDataReader reader = DAPedidoWeb.GetPedidosWebByConsultoraCampania(consultoraID, campaniaID))
                 if (reader.Read())
                 {
-                    pedidoWeb = new BEPedidoWeb(reader);
-                    pedidoWeb.PaisID = paisID;
+                    pedidoWeb = new BEPedidoWeb(reader)
+                    {
+                        PaisID = paisID
+                    };
                 }
             return pedidoWeb;
         }

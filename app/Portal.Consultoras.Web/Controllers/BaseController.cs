@@ -353,15 +353,17 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
 
-            BEPedidoWeb bePedidoWeb = new BEPedidoWeb();
-            bePedidoWeb.PaisID = userData.PaisID;
-            bePedidoWeb.CampaniaID = userData.CampaniaID;
-            bePedidoWeb.ConsultoraID = userData.ConsultoraID;
-            bePedidoWeb.CodigoConsultora = userData.CodigoConsultora;
-            bePedidoWeb.MontoAhorroCatalogo = montoAhorroCatalogo;
-            bePedidoWeb.MontoAhorroRevista = montoAhorroRevista;
-            bePedidoWeb.DescuentoProl = montoDescuento;
-            bePedidoWeb.MontoEscala = montoEscala;
+            BEPedidoWeb bePedidoWeb = new BEPedidoWeb
+            {
+                PaisID = userData.PaisID,
+                CampaniaID = userData.CampaniaID,
+                ConsultoraID = userData.ConsultoraID,
+                CodigoConsultora = userData.CodigoConsultora,
+                MontoAhorroCatalogo = montoAhorroCatalogo,
+                MontoAhorroRevista = montoAhorroRevista,
+                DescuentoProl = montoDescuento,
+                MontoEscala = montoEscala
+            };
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
@@ -834,7 +836,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     else
                     {
-                        SegmentoID = userData.SegmentoInternoID.HasValue ? userData.SegmentoInternoID.Value : userData.SegmentoID;
+                        SegmentoID = userData.SegmentoInternoID ?? userData.SegmentoID;
                     }
                 }
                 /*** FIN EPD 2170 ***/
@@ -1243,43 +1245,45 @@ namespace Portal.Consultoras.Web.Controllers
 
             listaProductoModel.ForEach(fichaProducto =>
             {
-                var prodModel = new FichaProductoDetalleModel();
-                prodModel.CampaniaID = fichaProducto.CampaniaID;
-                prodModel.EstrategiaID = fichaProducto.EstrategiaID;
-                prodModel.CUV2 = fichaProducto.CUV2;
-                prodModel.TipoEstrategiaImagenMostrar = fichaProducto.TipoEstrategiaImagenMostrar;
-                prodModel.CodigoEstrategia = fichaProducto.TipoEstrategia.Codigo;
-                prodModel.CodigoVariante = fichaProducto.CodigoEstrategia;
-                prodModel.FotoProducto01 = fichaProducto.FotoProducto01;
-                prodModel.ImagenURL = fichaProducto.ImagenURL;
-                prodModel.DescripcionMarca = fichaProducto.DescripcionMarca;
-                prodModel.DescripcionResumen = fichaProducto.DescripcionResumen;
-                prodModel.DescripcionCortada = fichaProducto.DescripcionCortada;
-                prodModel.DescripcionDetalle = fichaProducto.DescripcionDetalle;
-                prodModel.DescripcionCompleta = fichaProducto.DescripcionCUV2.Split('|')[0];
-                prodModel.Simbolo = userData.Simbolo;
-                prodModel.Precio = fichaProducto.Precio;
-                prodModel.Precio2 = fichaProducto.Precio2;
-                prodModel.PrecioTachado = fichaProducto.PrecioTachado;
-                prodModel.PrecioVenta = fichaProducto.PrecioString;
-                //prodModel.ClaseBloqueada = (fichaProducto.CampaniaID > 0 && fichaProducto.CampaniaID != userData.CampaniaID) ? "btn_desactivado_general" : "";
-                prodModel.ProductoPerdio = false;
-                prodModel.TipoEstrategiaID = fichaProducto.TipoEstrategiaID;
-                prodModel.FlagNueva = fichaProducto.FlagNueva;
-                prodModel.IsAgregado = listaPedido.Any(p => p.CUV == fichaProducto.CUV2.Trim());
-                prodModel.ArrayContenidoSet = fichaProducto.FlagNueva == 1 ? fichaProducto.DescripcionCUV2.Split('|').Skip(1).ToList() : new List<string>();
-                prodModel.ListaDescripcionDetalle = fichaProducto.ListaDescripcionDetalle ?? new List<string>();
-                prodModel.TextoLibre = Util.Trim(fichaProducto.TextoLibre);
+                var prodModel = new FichaProductoDetalleModel
+                {
+                    CampaniaID = fichaProducto.CampaniaID,
+                    EstrategiaID = fichaProducto.EstrategiaID,
+                    CUV2 = fichaProducto.CUV2,
+                    TipoEstrategiaImagenMostrar = fichaProducto.TipoEstrategiaImagenMostrar,
+                    CodigoEstrategia = fichaProducto.TipoEstrategia.Codigo,
+                    CodigoVariante = fichaProducto.CodigoEstrategia,
+                    FotoProducto01 = fichaProducto.FotoProducto01,
+                    ImagenURL = fichaProducto.ImagenURL,
+                    DescripcionMarca = fichaProducto.DescripcionMarca,
+                    DescripcionResumen = fichaProducto.DescripcionResumen,
+                    DescripcionCortada = fichaProducto.DescripcionCortada,
+                    DescripcionDetalle = fichaProducto.DescripcionDetalle,
+                    DescripcionCompleta = fichaProducto.DescripcionCUV2.Split('|')[0],
+                    Simbolo = userData.Simbolo,
+                    Precio = fichaProducto.Precio,
+                    Precio2 = fichaProducto.Precio2,
+                    PrecioTachado = fichaProducto.PrecioTachado,
+                    PrecioVenta = fichaProducto.PrecioString,
+                    //prodModel.ClaseBloqueada = (fichaProducto.CampaniaID > 0 && fichaProducto.CampaniaID != userData.CampaniaID) ? "btn_desactivado_general" : "";
+                    ProductoPerdio = false,
+                    TipoEstrategiaID = fichaProducto.TipoEstrategiaID,
+                    FlagNueva = fichaProducto.FlagNueva,
+                    IsAgregado = listaPedido.Any(p => p.CUV == fichaProducto.CUV2.Trim()),
+                    ArrayContenidoSet = fichaProducto.FlagNueva == 1 ? fichaProducto.DescripcionCUV2.Split('|').Skip(1).ToList() : new List<string>(),
+                    ListaDescripcionDetalle = fichaProducto.ListaDescripcionDetalle ?? new List<string>(),
+                    TextoLibre = Util.Trim(fichaProducto.TextoLibre),
 
-                prodModel.MarcaID = fichaProducto.MarcaID;
-                prodModel.UrlCompartir = fichaProducto.UrlCompartir;
+                    MarcaID = fichaProducto.MarcaID,
+                    UrlCompartir = fichaProducto.UrlCompartir,
 
-                prodModel.TienePaginaProducto = fichaProducto.PuedeVerDetalle;
-                prodModel.TienePaginaProductoMob = fichaProducto.PuedeVerDetalleMob;
-                prodModel.TieneVerDetalle = true;
+                    TienePaginaProducto = fichaProducto.PuedeVerDetalle,
+                    TienePaginaProductoMob = fichaProducto.PuedeVerDetalleMob,
+                    TieneVerDetalle = true,
 
-                prodModel.TipoAccionAgregar = fichaProducto.TieneVariedad == 0 ? fichaProducto.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas ? 1 : 2 : 3;
-                prodModel.LimiteVenta = fichaProducto.LimiteVenta;
+                    TipoAccionAgregar = fichaProducto.TieneVariedad == 0 ? fichaProducto.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas ? 1 : 2 : 3,
+                    LimiteVenta = fichaProducto.LimiteVenta
+                };
                 listaRetorno.Add(prodModel);
             });
 
@@ -1549,8 +1553,10 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                fichaProductoModelo = new FichaProductoDetalleModel();
-                fichaProductoModelo.Hermanos = new List<ProductoModel>();
+                fichaProductoModelo = new FichaProductoDetalleModel
+                {
+                    Hermanos = new List<ProductoModel>()
+                };
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
             return fichaProductoModelo;
@@ -1614,11 +1620,13 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected BEGrid SetGrid(string sidx, string sord, int page, int rows)
         {
-            BEGrid grid = new BEGrid();
-            grid.PageSize = rows <= 0 ? 10 : rows;
-            grid.CurrentPage = page <= 0 ? 1 : page;
-            grid.SortColumn = sidx ?? "";
-            grid.SortOrder = sord ?? "asc";
+            BEGrid grid = new BEGrid
+            {
+                PageSize = rows <= 0 ? 10 : rows,
+                CurrentPage = page <= 0 ? 1 : page,
+                SortColumn = sidx ?? "",
+                SortOrder = sord ?? "asc"
+            };
             return grid;
         }
 
@@ -2109,10 +2117,10 @@ namespace Portal.Consultoras.Web.Controllers
             if (!string.IsNullOrEmpty(codigo)) return codigo;
 
             codigo = ConfigurationManager.AppSettings["CodigoCatalogoIssuu"].ToString();
-            return string.Format(codigo, nombreCatalogoIssuu, getPaisNombreByISO(userData.CodigoISO), campania.Substring(4, 2), campania.Substring(0, 4));
+            return string.Format(codigo, nombreCatalogoIssuu, GetPaisNombreByISO(userData.CodigoISO), campania.Substring(4, 2), campania.Substring(0, 4));
         }
 
-        protected string getPaisNombreByISO(string paisISO)
+        protected string GetPaisNombreByISO(string paisISO)
         {
             switch (paisISO)
             {
@@ -4145,7 +4153,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else
                 {
-                    ViewBag.SegmentoConsultoraMenu = userData.SegmentoInternoID.HasValue ? userData.SegmentoInternoID.Value : userData.SegmentoID;
+                    ViewBag.SegmentoConsultoraMenu = userData.SegmentoInternoID ?? userData.SegmentoID;
                 }
             }
 
