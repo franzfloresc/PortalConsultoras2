@@ -53,16 +53,6 @@ namespace Portal.Consultoras.Data
             }
             return result;
         }
-
-        public bool DelConfiguracionProgramaNuevasApp(int ConfiguracionProgramaNuevasAppID)
-        {
-            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.DelConfiguracionProgramaNuevasApp"))
-            {
-                Context.Database.AddInParameter(command, "@ConfiguracionProgramaNuevasAppID", DbType.Int32, ConfiguracionProgramaNuevasAppID);
-
-                return Context.ExecuteNonQuery(command) > 0;
-            }
-        }
         #endregion
     }
 }

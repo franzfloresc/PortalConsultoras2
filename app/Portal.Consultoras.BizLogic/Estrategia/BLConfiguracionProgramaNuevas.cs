@@ -46,10 +46,6 @@ namespace Portal.Consultoras.BizLogic
         {
             return new DAConfiguracionProgramaNuevas(paisID).InsConfiguracionProgramaNuevasApp(entidad);
         }
-        public bool DelConfiguracionProgramaNuevasApp(int paisID, int ConfiguracionProgramaNuevasAppID)
-        {
-            return new DAConfiguracionProgramaNuevas(paisID).DelConfiguracionProgramaNuevasApp(ConfiguracionProgramaNuevasAppID);
-        }
         #endregion
     }
 }

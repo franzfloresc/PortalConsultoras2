@@ -31573,12 +31573,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsConfiguracionProgramaNuevasApp", ReplyAction="http://tempuri.org/IPedidoService/InsConfiguracionProgramaNuevasAppResponse")]
         System.Threading.Tasks.Task<string> InsConfiguracionProgramaNuevasAppAsync(int paisID, Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevasApp entidad);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/DelConfiguracionProgramaNuevasApp", ReplyAction="http://tempuri.org/IPedidoService/DelConfiguracionProgramaNuevasAppResponse")]
-        bool DelConfiguracionProgramaNuevasApp(int paisID, int ConfiguracionProgramaNuevasAppID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/DelConfiguracionProgramaNuevasApp", ReplyAction="http://tempuri.org/IPedidoService/DelConfiguracionProgramaNuevasAppResponse")]
-        System.Threading.Tasks.Task<bool> DelConfiguracionProgramaNuevasAppAsync(int paisID, int ConfiguracionProgramaNuevasAppID);
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ValidarUnidadesPermitidasEnPedidoShowRoom", ReplyAction="http://tempuri.org/IPedidoService/ValidarUnidadesPermitidasEnPedidoShowRoomRespon" +
             "se")]
         int ValidarUnidadesPermitidasEnPedidoShowRoom(int PaisID, int CampaniaID, string CUV, long ConsultoraID);
@@ -33927,14 +33921,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public System.Threading.Tasks.Task<string> InsConfiguracionProgramaNuevasAppAsync(int paisID, Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevasApp entidad) {
             return base.Channel.InsConfiguracionProgramaNuevasAppAsync(paisID, entidad);
-        }
-        
-        public bool DelConfiguracionProgramaNuevasApp(int paisID, int ConfiguracionProgramaNuevasAppID) {
-            return base.Channel.DelConfiguracionProgramaNuevasApp(paisID, ConfiguracionProgramaNuevasAppID);
-        }
-        
-        public System.Threading.Tasks.Task<bool> DelConfiguracionProgramaNuevasAppAsync(int paisID, int ConfiguracionProgramaNuevasAppID) {
-            return base.Channel.DelConfiguracionProgramaNuevasAppAsync(paisID, ConfiguracionProgramaNuevasAppID);
         }
         
         public int ValidarUnidadesPermitidasEnPedidoShowRoom(int PaisID, int CampaniaID, string CUV, long ConsultoraID) {
