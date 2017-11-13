@@ -16,6 +16,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.ServiceModel;
+using System.Text;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 
@@ -1776,7 +1777,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (model.Documento.ContentLength > 4*1024*1024 ) throw new ArgumentException("El archivo es demasiado extenso para ser procesado.");
                 
                 var fileContent = new List<BEDescripcionEstrategia>();
-                var sd = new StreamReader(model.Documento.InputStream);
+                var sd = new StreamReader(model.Documento.InputStream, Encoding.UTF8);
 
                 var readLine = sd.ReadLine();
                 if (readLine != null)
