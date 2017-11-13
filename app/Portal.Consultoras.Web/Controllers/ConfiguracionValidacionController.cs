@@ -116,7 +116,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         private IEnumerable<ConfiguracionValidacionZonaModel> DropDowListZonasActivas(int PaisID)
         {
-            //PaisID = 11;
             IList<BEConfiguracionValidacionZona> lst;
             using (SACServiceClient sv = new SACServiceClient())
             {
@@ -131,7 +130,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         private IEnumerable<ConfiguracionValidacionModel> GetConfiguracionValidacionLista(int PaisID)
         {
-            //PaisID = 11;
             IList<BEConfiguracionValidacion> lst;
             using (SACServiceClient sv = new SACServiceClient())
             {

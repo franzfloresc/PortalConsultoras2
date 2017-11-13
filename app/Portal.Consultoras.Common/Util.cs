@@ -754,11 +754,13 @@ namespace Portal.Consultoras.Common
             });
 
             byte[] bytes_;
-            using (MemoryStream ms = new MemoryStream())
+            using (var img = Image.FromFile(HttpContext.Current.Request.MapPath("../Content/Images/Logo.gif")))
             {
-                using (var img = System.Drawing.Image.FromFile(HttpContext.Current.Request.MapPath("../Content/Images/Logo.gif")))
-                    img.Save(ms, System.Drawing.Imaging.ImageFormat.Gif);
-                bytes_ = ms.ToArray();
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    img.Save(ms, ImageFormat.Gif);
+                    bytes_ = ms.ToArray();
+                }
             }
 
             List<Images> Images_ = new List<Images>();

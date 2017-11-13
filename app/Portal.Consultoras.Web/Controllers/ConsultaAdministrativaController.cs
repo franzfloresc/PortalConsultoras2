@@ -12,9 +12,6 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class ConsultaAdministrativaController : BaseController
     {
-        //
-        // GET: /ConsultaAdministrativa/
-
         public ActionResult Index()
         {
             return View();

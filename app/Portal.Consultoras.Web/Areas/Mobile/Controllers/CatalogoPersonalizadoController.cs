@@ -20,7 +20,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
             }
 
-            var model = new CatalogoPersonalizadoModel(); //PL20-1273
+            var model = new CatalogoPersonalizadoModel();
 
             if (!userData.EsCatalogoPersonalizadoZonaValida)
             {
@@ -30,7 +30,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.Simbolo = userData.Simbolo;
             ViewBag.RutaImagenNoDisponible = ConfigurationManager.AppSettings.Get("rutaImagenNotFoundAppCatalogo");
 
-            //PL20-1273
             if (Session["ListFiltersFAV"] != null)
             {
                 var lst = (List<BETablaLogicaDatos>)Session["ListFiltersFAV"] ?? new List<BETablaLogicaDatos>();
@@ -39,9 +38,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.FiltersByBrand = lst.Where(x => x.TablaLogicaID == 96).ToList();
                 model.FiltersByPublished = lst.Where(x => x.TablaLogicaID == 97).ToList();
             }
-            //PL20-1273
 
-            //PL20-1284
             ViewBag.UrlImagenFAVMobile = string.Format(ConfigurationManager.AppSettings.Get("UrlImagenFAVMobile"), userData.CodigoISO);
             ViewBag.EsLebel = userData.EsLebel;
             return View(model);
@@ -53,10 +50,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 return RedirectToAction("Index");
 
             var listaProductoModel = (List<ProductoModel>)Session["ProductosCatalogoPersonalizado"];
-            //
             if (listaProductoModel == null)
                 return RedirectToAction("Index");
-            //
             if( !listaProductoModel.Any((x => x.CUV == model.CUVFP)))
                 return RedirectToAction("Index");
 

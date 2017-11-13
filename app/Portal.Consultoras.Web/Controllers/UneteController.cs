@@ -3023,72 +3023,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             ViewBag.HTMLSACUnete = getHTMLSACUnete("ConsultarEstadoCrediticia", "&id="+id);
             return PartialView("_ConsultarEstadoCrediticia");
-
-            //var model = new ConsultarEstadoCrediticiaModel();
-            //var IdEstadosEvalCreditoParaCAM = new List<int>() { 30, 3, 32, 31, 2 };
-            //var PaisesCAM = new List<string>() { Pais.CostaRica, Pais.Panama, Pais.Salvador, Pais.Guatemala };
-            //var portalSV = new PortalServiceClient();
-
-            //var solicitudPostulante = portalSV.ObtenerSolicitudPostulante(CodigoISO, id);
-            //model.SolicitudPostulanteID = id;
-
-            //if (solicitudPostulante != null)
-            //{
-            //    var evaluacionCrediticaBE = GestionPais.EvaluacionCrediticia[CodigoISO].Evaluar(CodigoISO,
-            //        solicitudPostulante);
-
-            //    ViewBag.MotivoRechazo = string.Empty;
-
-            //    model.EstadoBuroCrediticioID = Convert.ToInt32(evaluacionCrediticaBE.EnumEstadoCrediticio);
-            //    model.Mensaje = evaluacionCrediticaBE.Mensaje;
-
-            //    if (CodigoISO == Pais.Dominicana)
-            //    {
-            //        if (evaluacionCrediticaBE.EnumEstadoCrediticio == EnumsEstadoBurocrediticio.SinConsultar)
-            //        {
-            //            if (evaluacionCrediticaBE.RespuestaServicio != null)
-            //            {
-            //                model.Mensaje = string.Format("{0} - {1}", model.Mensaje, evaluacionCrediticaBE.RespuestaServicio);
-            //            }
-
-            //        }
-            //        else if (evaluacionCrediticaBE.EnumEstadoCrediticio == EnumsEstadoBurocrediticio.NoPuedeSerConsultora)
-            //        {
-            //            ViewBag.MotivoRechazo = evaluacionCrediticaBE.RespuestaServicio;
-            //        }
-
-            //    }
-
-            //    var estadosEvaluacionCrediticia = portalSV.ObtenerParametrosUnete(CodigoISO,
-            //        EnumsTipoParametro.EstadoBurocrediticio, 0);
-
-
-            //    if (PaisesCAM.FirstOrDefault(x => x == CodigoISO) != null)
-            //    {
-
-            //        var estados = estadosEvaluacionCrediticia.Where(x => x.Valor.HasValue).Where(x => IdEstadosEvalCreditoParaCAM.Contains(x.Valor.Value)).ToList();
-
-            //        if (estados != null)
-            //        {
-            //            ViewBag.EstadosEvaluacionCrediticia = new SelectList(estados, "Valor", "Nombre");
-            //        }
-            //    }
-            //    else
-            //    {
-            //        var estados =
-            //                      estadosEvaluacionCrediticia.Where(
-            //              e =>
-            //      e.Valor.HasValue && e.Valor.Value > Convert.ToInt32(EnumsEstadoBurocrediticio.SinConsultar) &&
-            //      e.Valor.Value < Convert.ToInt32(EnumsEstadoBurocrediticio.ErrorConsumoIntegracion)).ToList();
-            //        ViewBag.EstadosEvaluacionCrediticia = new SelectList(estados, "Valor", "Nombre");
-            //    }
-
-
-            //}
-
-            //portalSV.Close();
-
-            //return PartialView("_ConsultarEstadoCrediticia", model);
         }
 
         [HttpPost]
@@ -3800,14 +3734,14 @@ namespace Portal.Consultoras.Web.Controllers
                     if (model.Puntos.Count == 1)
                     {
                         var punto = model.Puntos.First();
-                        var noEncontroDireccion = false; //punto.Item3.Contains("");
+                        //var noEncontroDireccion = false; //punto.Item3.Contains("");
 
-                        if (noEncontroDireccion)
-                        {
+                        //if (noEncontroDireccion)
+                        //{
 
-                        }
-                        else
-                        {
+                        //}
+                        //else
+                        //{
 
                             if (CodigoISO == Pais.Colombia)
                             {
@@ -3818,7 +3752,7 @@ namespace Portal.Consultoras.Web.Controllers
 
 
                             GetLocationInfo(ref model);
-                        }
+                        //}
                     }
 
                     #endregion

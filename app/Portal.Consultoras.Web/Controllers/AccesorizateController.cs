@@ -83,7 +83,6 @@ namespace Portal.Consultoras.Web.Controllers
             usuario.HoraInicioPreReserva = oBEConfiguracionCampania.HoraInicioNoFacturable;
             usuario.HoraFinPreReserva = oBEConfiguracionCampania.HoraCierreNoFacturable;
             usuario.DiasCampania = oBEConfiguracionCampania.DiasAntes;
-            //usuario.DiaPROL = ValidarPROL(usuario);
             usuario.NombreCorto = oBEConfiguracionCampania.CampaniaDescripcion;
             usuario.CampaniaID = oBEConfiguracionCampania.CampaniaID;
             usuario.ZonaHoraria = oBEConfiguracionCampania.ZonaHoraria;
@@ -127,12 +126,10 @@ namespace Portal.Consultoras.Web.Controllers
                   .ForMember(t => t.MarcaID, f => f.MapFrom(c => c.MarcaID))
                   .ForMember(t => t.OfertaProductoID, f => f.MapFrom(c => c.OfertaProductoID))
                   .ForMember(t => t.DescripcionLegal, f => f.MapFrom(c => c.DescripcionLegal))
-                  /*RQ 2505 DC*/
                   .ForMember(t => t.DescripcionMarca, f => f.MapFrom(c => c.DescripcionMarca))
                   .ForMember(t => t.DescripcionCategoria, f => f.MapFrom(c => c.DescripcionCategoria))
                   .ForMember(t => t.DescripcionEstrategia, f => f.MapFrom(c => c.DescripcionEstrategia));
 
-            // 1664
             if (lst != null && lst.Count > 0)
             {
                 var carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
@@ -444,7 +441,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ObtenterCampaniasPorPais(int PaisID)
         {
-            //PaisID = 11;
             IEnumerable<CampaniaModel> lst = DropDowListCampanias(PaisID);
             IEnumerable<ConfiguracionOfertaModel> lstConfig = DropDowListConfiguracion(PaisID);
             return Json(new
@@ -533,13 +529,11 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = sv.GetProductosByTipoOferta(PaisID, Constantes.ConfiguracionOferta.Accesorizate, CampaniaID, codigoOferta).ToList();
                 }
 
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                //int buscar = int.Parse(txtBuscar);
                 BEPager pag = new BEPager();
                 IEnumerable<BEOfertaProducto> items = lst;
 
@@ -618,10 +612,8 @@ namespace Portal.Consultoras.Web.Controllers
                 pag = Util.PaginadorGenerico(grid, lst);
                 string ISO = Util.GetPaisISO(PaisID);
                 var carpetaPais = Globals.UrlMatriz + "/" + ISO;
-                // lst.Update(x => x.ImagenProducto = (x.ImagenProducto.ToString().Equals(string.Empty) ? string.Empty : (ISO + "/" + x.ImagenProducto)));
                 lst.Update(x => x.ImagenProducto = (x.ImagenProducto.ToString().Equals(string.Empty) ? string.Empty : ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.RutaImagenesMatriz + "/" + ISO)));
                 lst.Update(x => x.ISOPais = ISO);
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,
@@ -683,14 +675,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    //string tempNombreImagenFondo = model.ImagenProducto;
-                    //if (model.FlagImagen == 1)
-                    //{
-                    //    entidad.ImagenProducto = FileManager.CopyImagesOfertas(Globals.RutaImagenesOfertasLiquidacion + "\\" + UserData().CodigoISO + "\\" + model.CodigoCampania, tempNombreImagenFondo, Globals.RutaImagenesTempOfertas, UserData().CodigoISO, model.CodigoCampania, model.CUV);
-                    //    FileManager.DeleteImagesInFolder(Globals.RutaImagenesTempOfertas);
-                    //}
-                    //else
-                    //    entidad.ImagenProducto = string.Empty;
                     entidad.PaisID = model.PaisID;
                     entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.Accesorizate;
                     entidad.ConfiguracionOfertaID = lstConfiguracion.Find(x => x.CodigoOferta == model.CodigoTipoOferta).ConfiguracionOfertaID;
@@ -748,24 +732,11 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    //string tempNombreImagenFondo = model.ImagenProducto;
-                    //string imgAnterior = System.IO.Path.GetFileName(model.ImagenProductoAnterior).ToString().Trim();
-                    //string img = System.IO.Path.GetFileName(model.ImagenProducto);
-                    //if (model.FlagImagen == 1)
-                    //{
-                    //    FileManager.DeleteImage(Globals.RutaImagenesOfertasLiquidacion + "\\" + UserData().CodigoISO + "\\" + model.CodigoCampania, imgAnterior);
-                    //    entidad.ImagenProducto = FileManager.CopyImagesOfertas(Globals.RutaImagenesOfertasLiquidacion + "\\" + UserData().CodigoISO + "\\" + model.CodigoCampania, tempNombreImagenFondo, Globals.RutaImagenesTempOfertas, UserData().CodigoISO, model.CodigoCampania, model.CUV);
-                    //    FileManager.DeleteImagesInFolder(Globals.RutaImagenesTempOfertas);
-                    //}
-                    //else
-                    //    entidad.ImagenProducto = (img == "prod_grilla_vacio.png" ? string.Empty : img);
                     entidad.PaisID = model.PaisID;
                     entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.Accesorizate;
                     entidad.ConfiguracionOfertaID = lstConfiguracion.Find(x => x.CodigoOferta == model.CodigoTipoOferta).ConfiguracionOfertaID;
                     entidad.UsuarioModificacion = UserData().CodigoConsultora;
-                    //entidad.Stock = model.Cantida;
                     sv.UpdOfertaProducto(entidad);
-                    //sv.UpdOfertaProductoStock()
                 }
                 return Json(new
                 {

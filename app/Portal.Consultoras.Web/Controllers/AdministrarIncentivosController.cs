@@ -61,7 +61,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         private IEnumerable<CampaniaModel> DropDowListCampanias(int PaisID)
         {
-            //PaisID = 11;
             IList<BECampania> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
@@ -94,20 +93,17 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = sv.SelectIncentivos(vpaisID, vCampaniaID).ToList();
                 }
 
-                // 1664
                 if (lst != null)
                 {
                     var carpetaPais = Globals.UrlIncentivos + "/" + UserData().CodigoISO;
                     if (lst.Count > 0) { lst.Update(x => x.ArchivoPortada = ConfigS3.GetUrlFileS3(carpetaPais, x.ArchivoPortada, Globals.RutaImagenesIncentivos + "/" + UserData().CodigoISO)); }
                 }
 
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                //int buscar = int.Parse(txtBuscar);
                 BEPager pag = new BEPager();
                 IEnumerable<BEIncentivo> items = lst;
 
@@ -116,9 +112,6 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     switch (sidx)
                     {
-                        //case "PaisNombre":
-                        //    items = lst.OrderBy(x => x.PaisNombre);
-                        //    break;
                         case "NombreCortoInicio":
                             items = lst.OrderBy(x => x.NombreCortoInicio);
                             break;
@@ -146,9 +139,6 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     switch (sidx)
                     {
-                        //case "PaisNombre":
-                        //    items = lst.OrderByDescending(x => x.PaisNombre);
-                        //    break;
                         case "NombreCortoInicio":
                             items = lst.OrderByDescending(x => x.NombreCortoInicio);
                             break;
@@ -178,7 +168,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 pag = Util.PaginadorGenerico(grid, lst);
 
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,
@@ -256,15 +245,12 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     fileName = Path.GetFileName(flArchivoPDF.FileName);
 
-                    // string pathBanner = Server.MapPath("~/Content/FileConsultoras");
-                    // 1664
                     string pathBanner = Globals.RutaTemporales;
                     if (!Directory.Exists(pathBanner))
                         Directory.CreateDirectory(pathBanner);
                     finalPath = Path.Combine(pathBanner, fileName);
                     flArchivoPDF.SaveAs(finalPath);
 
-                    // 1664
                     var carpetaPais = Globals.UrlFileConsultoras + "/" + UserData().CodigoISO;
                     ConfigS3.SetFileS3(finalPath, carpetaPais, fileName);
 
@@ -283,8 +269,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (!string.IsNullOrEmpty(tempImage01))
                     {
-                        // entidad.ArchivoPortada = FileManager.CopyImagesMatriz(Globals.RutaImagenesIncentivos + "\\" + ISO, tempImage01, Globals.RutaImagenesTempIncentivos, ISO, model.CampaniaIDInicio.ToString() + "_" + model.CampaniaIDFin.ToString(), "01");
-                        // 1664
                         string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
                         var newfilename = ISO + "_" + model.CampaniaIDInicio.ToString() + "_" + model.CampaniaIDFin.ToString() + "_" + time + "_" + "01" + "_" + FileManager.RandomString() + ".png";
 
@@ -297,7 +281,6 @@ namespace Portal.Consultoras.Web.Controllers
                         entidad.ArchivoPortada = string.Empty;
 
                     sv.InsertIncentivo(entidad);
-                    // FileManager.DeleteImage(Globals.RutaImagenesTempIncentivos, tempImage01);
                 }
                 return Json(new
                 {
@@ -353,30 +336,24 @@ namespace Portal.Consultoras.Web.Controllers
                 switch (model.grupoUrlPDF.ToLower())
                 {
                     case "url":
-                        // no es pdf
                         entidad.ArchivoPDF = string.Empty;
                         break;
                     case "pdf":
-                        // si hay pdf se guarda
                         if (flArchivoPDF != null)
                         {
                             fileName = Path.GetFileName(flArchivoPDF.FileName);
 
-                            // string pathBanner = Server.MapPath("~/Content/FileConsultoras");
-                            // 1664
                             string pathBanner = Globals.RutaTemporales;
                             if (!Directory.Exists(pathBanner))
                                 Directory.CreateDirectory(pathBanner);
                             finalPath = Path.Combine(pathBanner, fileName);
                             flArchivoPDF.SaveAs(finalPath);
 
-                            // 1664
                             var carpetaPais = Globals.UrlFileConsultoras + "/" + UserData().CodigoISO;
                             ConfigS3.SetFileS3(finalPath, carpetaPais, fileName);
 
                             entidad.ArchivoPDF = fileName;
                         }
-                        // no es url
                         entidad.Url = string.Empty;
                         break;
 
@@ -390,13 +367,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (tempImage01 != tempImagenLogoAnterior01)
                     {
-                        //if (!model.ImagenProducto01.ToString().Trim().Equals("prod_grilla_vacio.png"))
-                        /*
-                        entidad.ArchivoPortada = FileManager.CopyImagesMatriz(Globals.RutaImagenesIncentivos + "\\" + ISO, tempImage01, Globals.RutaImagenesTempIncentivos, ISO, model.CampaniaIDInicio.ToString() + "_" + model.CampaniaIDFin.ToString(), "01");
-                        FileManager.DeleteImage(Globals.RutaImagenesIncentivos + "\\" + ISO, tempImagenLogoAnterior01);
-                        */
-
-                        // 1664
                         string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
                         var newfilename = ISO + "_" + model.CampaniaIDInicio.ToString() + "_" + model.CampaniaIDFin.ToString() + "_" + time + "_" + "01" + "_" + FileManager.RandomString() + ".png";
 
@@ -411,7 +381,6 @@ namespace Portal.Consultoras.Web.Controllers
                         entidad.ArchivoPortada = string.Empty;
 
                     sv.UpdateIncentivo(entidad);
-                    // FileManager.DeleteImage(Globals.RutaImagenesTempIncentivos, tempImage01);
                 }
                 return Json(new
                 {

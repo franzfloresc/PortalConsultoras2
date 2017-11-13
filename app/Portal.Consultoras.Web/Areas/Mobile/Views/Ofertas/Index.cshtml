@@ -11,6 +11,7 @@
 @System.Web.Optimization.Styles.Render("~/bundles/css/Site/ccsOfertasMobile")
 
 }
+
 @foreach (var seccion in Model.ListaSeccion)
 {
     <div data-seccion="@seccion.Codigo"
@@ -50,6 +51,5 @@
     var urlOfertaDetalleProducto = '@Url.Action("Detalle", "RevistaDigital", new { area = "Mobile" })';
     var OrigenDesktopODD = 0;
 </script>
-
 @System.Web.Optimization.Scripts.Render("~/bundles/JsMobile/JsSB2-Ofertas")
 }

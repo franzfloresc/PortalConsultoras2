@@ -16,6 +16,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.ServiceModel;
+using System.Text;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 
@@ -175,13 +176,11 @@ namespace Portal.Consultoras.Web.Controllers
             if (pais.GetValueOrDefault() == 0)
                 return Json(null, JsonRequestBehavior.AllowGet);
 
-            // consultar las regiones y zonas
             IList<BEConfiguracionValidacionZE> lst;
             using (var sv = new PedidoServiceClient())
             {
                 lst = sv.GetRegionZonaZE(pais.GetValueOrDefault(), region.GetValueOrDefault(), zona.GetValueOrDefault());
             }
-            // se crea el arbol de nodos para el control de la vista
             var tree = lst.Distinct<BEConfiguracionValidacionZE>(new BEConfiguracionValidacionZERegionIDComparer()).Select(
                                     r => new JsTreeModel
                                     {
@@ -279,7 +278,6 @@ namespace Portal.Consultoras.Web.Controllers
                     items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
                     pag = Util.PaginadorGenerico(grid, lst);
 
-                    // Creamos la estructura
                     var data = new
                     {
                         total = pag.PageCount,
@@ -351,7 +349,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var pag = Util.PaginadorGenerico(grid, lst);
 
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,
@@ -481,7 +478,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                // req. 1664 - Unificando todo en una unica carpeta temporal
                 var inputStream = Request.InputStream;
                 var fileBytes = ReadFully(inputStream);
                 var ffFileName = qqfile; 
@@ -523,7 +519,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                // agregar parametros para validar el tipo de recomendación (CUV o PERFIL)
                 int resultado = -1, tipo = -1;
                 if (FlagRecoProduc == "1") tipo = 0;
                 if (FlagRecoPerfil == "1") tipo = 1;
@@ -955,7 +950,6 @@ namespace Portal.Consultoras.Web.Controllers
                 lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL, carpetapais));
                 lst.Update(x => x.Simbolo = UserData().Simbolo);
             }
-            //R2469 - JICM - ViewBag Marcacion Detalle Producto
             ViewBag.ProductoDestacadoDetalle = lst[0];
             return Json(new
             {
@@ -1214,7 +1208,6 @@ namespace Portal.Consultoras.Web.Controllers
                     ValorOpcional = "2"
                 });
 
-                // Usamos el modelo para obtener los datos
                 var grid = new BEGrid
                 {
                     PageSize = rows,
@@ -1222,7 +1215,6 @@ namespace Portal.Consultoras.Web.Controllers
                     SortColumn = sidx,
                     SortOrder = sord
                 };
-                //int buscar = int.Parse(txtBuscar);
                 var pag = new BEPager();
                 IEnumerable<ComunModel> items = lst;
 
@@ -1230,7 +1222,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 pag = Util.PaginadorGenerico(grid, lst);
 
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,
@@ -1273,7 +1264,6 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = new List<BEEstrategia>();
                 }
 
-                // Usamos el modelo para obtener los datos
                 var grid = new BEGrid
                 {
                     PageSize = rows,
@@ -1281,7 +1271,6 @@ namespace Portal.Consultoras.Web.Controllers
                     SortColumn = sidx,
                     SortOrder = sord
                 };
-                //int buscar = int.Parse(txtBuscar);
                 var pag = new BEPager();
                 IEnumerable<BEEstrategia> items = lst;
 
@@ -1289,7 +1278,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 pag = Util.PaginadorGenerico(grid, lst);
 
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,
@@ -1332,7 +1320,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }, JsonRequestBehavior.AllowGet);
                     }
 
-                    var tono = //opt.Activo == 1 &&
+                    var tono =
                     estrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertaParaTi ||
                     estrategiaCodigo == Constantes.TipoEstrategiaCodigo.Lanzamiento ||
                     estrategiaCodigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso ||
@@ -1521,7 +1509,6 @@ namespace Portal.Consultoras.Web.Controllers
                     ValorOpcional = "2"
                 });
 
-                // Usamos el modelo para obtener los datos
                 var grid = new BEGrid
                 {
                     PageSize = rows,
@@ -1529,7 +1516,6 @@ namespace Portal.Consultoras.Web.Controllers
                     SortColumn = sidx,
                     SortOrder = sord
                 };
-                //int buscar = int.Parse(txtBuscar);
                 var pag = new BEPager();
                 IEnumerable<ComunModel> items = lst;
 
@@ -1537,7 +1523,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 pag = Util.PaginadorGenerico(grid, lst);
 
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,
@@ -1580,7 +1565,6 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = new List<BEEstrategia>();
                 }
 
-                // Usamos el modelo para obtener los datos
                 var grid = new BEGrid
                 {
                     PageSize = rows,
@@ -1588,7 +1572,6 @@ namespace Portal.Consultoras.Web.Controllers
                     SortColumn = sidx,
                     SortOrder = sord
                 };
-                //int buscar = int.Parse(txtBuscar);
                 var pag = new BEPager();
                 IEnumerable<BEEstrategia> items = lst;
 
@@ -1596,7 +1579,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 pag = Util.PaginadorGenerico(grid, lst);
 
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,
@@ -1781,7 +1763,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (model.Documento.ContentLength > 4*1024*1024 ) throw new ArgumentException("El archivo es demasiado extenso para ser procesado.");
                 
                 var fileContent = new List<BEDescripcionEstrategia>();
-                var sd = new StreamReader(model.Documento.InputStream);
+                var sd = new StreamReader(model.Documento.InputStream, Encoding.UTF8);
 
                 var readLine = sd.ReadLine();
                 if (readLine != null)

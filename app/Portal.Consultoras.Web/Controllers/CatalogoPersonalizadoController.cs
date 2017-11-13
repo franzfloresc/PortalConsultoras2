@@ -32,7 +32,6 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.Simbolo = userData.Simbolo;
             ViewBag.RutaImagenNoDisponible = ConfigurationManager.AppSettings.Get("rutaImagenNotFoundAppCatalogo");
 
-            //PL20-1234
             if (Session["ListFiltersFAV"] != null)
             {
                 var lst = (List<BETablaLogicaDatos>)Session["ListFiltersFAV"] ?? new List<BETablaLogicaDatos>();
@@ -41,16 +40,13 @@ namespace Portal.Consultoras.Web.Controllers
                 model.FiltersByBrand = lst.Where(x => x.TablaLogicaID == 96).ToList();
                 model.FiltersByPublished = lst.Where(x => x.TablaLogicaID == 97).ToList();
             }
-            //PL20-1234
 
-            //PL20-1270
             var listaProductoModel = (List<ProductoModel>)Session["ProductosCatalogoPersonalizado"] ?? new List<ProductoModel>();
             if (listaProductoModel.Any())
             {
                 ViewBag.PrecioMin = listaProductoModel.OrderBy(x => x.PrecioCatalogo).FirstOrDefault().PrecioCatalogoString;
                 ViewBag.PrecioMax = listaProductoModel.OrderByDescending(x => x.PrecioCatalogo).FirstOrDefault().PrecioCatalogoString;
 
-                //PL20-1283
                 var sobrenombre = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
                 ViewBag.NombreConsultoraFAV = sobrenombre.First().ToString().ToUpper() + sobrenombre.ToLower().Substring(1);
                 ViewBag.UrlImagenFAVLanding = string.Format(ConfigurationManager.AppSettings.Get("UrlImagenFAVLanding"), userData.CodigoISO);
@@ -136,8 +132,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                     using (ProductoServiceClient ps = new ProductoServiceClient())
                     {
-                        //((BasicHttpBinding)ps.Endpoint.Binding).MaxReceivedMessageSize = int.MaxValue;
-
                         var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
                         bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
 
@@ -234,7 +228,6 @@ namespace Portal.Consultoras.Web.Controllers
                                     TipoOfertaRevista = beProducto.TipoOfertaRevista,
                                     Volumen = producto.Volumen,
                                     EsMaquillaje = producto.EsMaquillaje,
-                                    //DescripcionComercial = producto.DescripcionComercial,
                                     DescripcionComercial = producto.Descripcion,
                                     CodigoIso = userData.CodigoISO,
                                     Relevancia = producto.Relevancia,
@@ -242,11 +235,11 @@ namespace Portal.Consultoras.Web.Controllers
                                     CodigoMarca = producto.CodigoMarca
                                 });
                             }
-                        }// for
+                        }
 
                         Session["ProductosCatalogoPersonalizado"] = listaProductoModel;
 
-                    }// lista
+                    }
                 }
                 else
                 {
@@ -258,14 +251,11 @@ namespace Portal.Consultoras.Web.Controllers
                 listaProductoModel.Update(c => c.IsAgregado = listaPedido.Any(p => p.CUV == c.CUV));
 
                 #region filtros
-                //SB20-1197
-                //var totalRegistros = listaProductoModel.Count;
                 var totalRegistros = int.Parse(ConfigurationManager.AppSettings.Get("LimiteJetloreCatalogoPersonalizado"));
                 var precioMinimo = listaProductoModel.OrderBy(x => x.PrecioCatalogo).FirstOrDefault().PrecioCatalogoString;
                 var precioMaximo = listaProductoModel.OrderByDescending(x => x.PrecioCatalogo).FirstOrDefault().PrecioCatalogoString;
                 var totalRegistrosFilter = totalRegistros;
 
-                // PL20-1270
                 if (lstFilters == null && tipoOrigen == 1)
                 {
                     if (Session["UserFiltersFAV"] != null)
@@ -274,7 +264,6 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                //Contador de Filtros
                 if (lstFilters != null)
                 {
                     string v1 = "";
@@ -318,7 +307,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 changedFilters = true;
                                 break;
                             }
-                        }// for
+                        }
                     }
                     else
                     {
@@ -381,7 +370,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     }
                                 }
                             }
-                        }// for
+                        }
 
                         Session["UserFiltersFAV"] = lstFilters;
                         Session["ProductosCatalogoPersonalizadoFilter"] = lstProductoModelFilter;
@@ -444,7 +433,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #region nombre de los pack
 
-                //dataPROL.lista_ObjNivel = dataPROL.lista_ObjNivel ?? new ObjNivel[0];
                 dataPROL.lista_oObjPack = dataPROL.lista_oObjPack ?? new ObjPack[0];
 
                 if (dataPROL.lista_oObjPack.Length > 0)
@@ -464,7 +452,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #region para la imagen
 
-                string listaSap = "|"; // "0000000|00000000|000003"
+                string listaSap = "|";
                 string caracterSepara = "|";
 
                 dataPROL.lista_oObjGratis = dataPROL.lista_oObjGratis ?? new ObjGratis[0];
@@ -593,7 +581,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
 
-        //PL20-1237
         public JsonResult InsertarProductoCompartido(ProductoCompartidoModel ProCompModel)
         {
             try
@@ -638,7 +625,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        //PL20-1268
         public JsonResult GetInfoFichaProductoFAV(string cuv)
         {
             try
@@ -661,14 +647,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 productoModel.UrlCompartirFB = GetUrlCompartirFB();
-
-                //if (productoModel != null)
-                //{
-                //    if (productoModel.EsMaquillaje)
-                //    {
-                //        if (productoModel.Hermanos == null)
-                //        {
-
+                
                 var listaHermanos = new List<BEProducto>();
                 using (ODSServiceClient svc = new ODSServiceClient())
                 {
@@ -719,10 +698,6 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     productoModel.EsMaquillaje = false;
                 }
-
-                //        }
-                //    }// EsMaquillaje
-                //}
 
                 productoModel.FBRuta = GetUrlCompartirFB();
                 return Json(new

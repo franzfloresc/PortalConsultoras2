@@ -67,7 +67,8 @@
     <div class="pestana_esika"></div><!--PESTANA ESIKA-->
     <div class="pestana_lbel"></div><!--PESTANA LBEL-->
     <ul class="tabs_pagos" data-tab="tab" style="margin-bottom:0">
-        @if (!revistaDigital.TieneRDC && !revistaDigital.TieneRDR && !tieneGND)
+        @if ((!revistaDigital.TieneRDC && !revistaDigital.TieneRDR && !tieneGND) ||
+            (revistaDigital.SuscripcionModel.EstadoRegistro == 1 && revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == 1 && tieneGND))
         {
             <li class="one">
                 <a href="javascript:;" data-tag="Catalogos">
@@ -101,11 +102,20 @@
 
     </div>
     <!--FIN-->
-    @if (!revistaDigital.TieneRDC && !revistaDigital.TieneRDR && !tieneGND)
+    @if ((!revistaDigital.TieneRDC && !revistaDigital.TieneRDR && !tieneGND) ||
+        (revistaDigital.SuscripcionModel.EstadoRegistro == 1 && revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == 1 && tieneGND))
     {
     <!--TAB REVISTA-->
         <div id="tab_revistas_mobile" data-tag-html="Revistas" style="display:none;">
-            <div class="titulo_catalogo" data-titulo="">REVISTAS C-@Util.SubStr(Model.CampaniaActual.ToString(), 4, 2)</div>
+            @if (!tieneGND)
+            {
+                <div class="titulo_catalogo" data-titulo="">REVISTAS C-@Util.SubStr(Model.CampaniaActual.ToString(), 4, 2)</div>
+            }
+            else
+            {
+                <br/>
+            }
+
             <div class="content_revistas_mob">
                 @if (revistaDigital.TieneRDC)
                 {
