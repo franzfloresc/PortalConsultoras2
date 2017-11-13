@@ -63,7 +63,9 @@
                                     imagen-tipo="@Model.ListaTipoEstrategia.ToList()[i].Imagen"
                                     value="@Model.ListaTipoEstrategia.ToList()[i].TipoEstrategiaID"
                                     data-id="@Model.ListaTipoEstrategia.ToList()[i].CodigoGeneral"
-                                    data-codigo="@Model.ListaTipoEstrategia.ToList()[i].Codigo">
+                                    data-codigo="@Model.ListaTipoEstrategia.ToList()[i].Codigo"
+									data-FValidarImagen = "@Model.ListaTipoEstrategia.ToList()[i].FlagValidarImagen"
+									data-PesoMaximo = "@Model.ListaTipoEstrategia.ToList()[i].PesoMaximoImagen" >
                                 @Model.ListaTipoEstrategia.ToList()[i].Descripcion
                             </option>
                             }
@@ -824,6 +826,7 @@
                     FlagNueva: flagNueva,
                     FlagRecoProduc: flagRecoProduc,
                     FlagRecoPerfil: flagRecoPerfil
+
                 };
 
                 jQuery.ajax({

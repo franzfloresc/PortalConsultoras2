@@ -83,8 +83,10 @@
             paisID: $("#ddlPais").val(),
             imagenes: [],
             imagen: _obtenerImagenGrilla(id),
-            descripcionOriginal: jQuery("#list").jqGrid('getCell', _idImagen, 'DescripcionCUV2')
-            //EsOfertaIndependiente: true //jQuery("#list").jqGrid('getCell', id, 'EsOfertaIndependiente')
+            descripcionOriginal: jQuery("#list").jqGrid('getCell', _idImagen, 'DescripcionCUV2'),
+            //EsOfertaIndependiente: true //jQuery("#list").jqGrid('getCell', id, 'EsOfertaIndependiente'), BPT-369
+            ValidarImagen: data.ValidarImagen,
+            PesoMaximo: data.PesoMaximo
         };
        
         _obtenerFiltrarEstrategia(_editData, id).done(function (data) {
@@ -616,7 +618,9 @@
                 var params = {
                     EstrategiaID: $("#hdEstrategiaID").val(),
                     TipoEstrategiaID: $("#ddlTipoEstrategia").val(),
-                    CampaniaID: $("#ddlCampania").val()
+                    CampaniaID: $("#ddlCampania").val(),
+                    ValidarImagen: $("#ddlTipoEstrategia option:selected").attr("data-FValidarImagen"),
+                    PesoMaximo: $("#ddlTipoEstrategia option:selected").attr("data-PesoMaximo")
                 };
 
                 _idImagen = id;

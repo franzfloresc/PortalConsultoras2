@@ -13,6 +13,18 @@ var MatrizComercialFileUpload = function (config) {
         var sinExtension = fileName.substring(0, fileName.lastIndexOf('.'));
         return _nemotecnico.validarNemotecnico(sinExtension);
     };
+    var _validarTamano = function () {
+
+        var tamanoMaximo = $("#ddlTipoEstrategia option:selected").attr("data-PesoMaximo");
+
+        if ($("#ddlTipoEstrategia option:selected").attr("data-FValidarImagen") == "1") {
+            return tamanoMaximo;
+        }
+        else
+        {
+            return 0;
+        }
+    }
 
     var _onFileSubmit = function (id, fileName) {
         if (_config.habilitarNemotecnico && !_validarNemotecnico(fileName)) {
@@ -40,6 +52,7 @@ var MatrizComercialFileUpload = function (config) {
                 DescripcionComercial: data.descripcionOriginal,
                 NemotecnicoActivo: _config.habilitarNemotecnico
             },
+            sizeLimit: _validarTamano(),
             onComplete: data.onComplete,
             onSubmit: _onFileSubmit,
             onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },

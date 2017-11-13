@@ -769,6 +769,7 @@
           <xs:element minOccurs="0" name="FlagMostrarImg" type="xs:int" />
           <xs:element minOccurs="0" name="FlagNueva" type="xs:int" />
           <xs:element minOccurs="0" name="FlagTextoLibre" type="xs:int" />
+          <xs:element minOccurs="0" name="FlagValidarImagen" type="xs:int" />
           <xs:element minOccurs="0" name="FotoProducto01" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="Ganancia" type="xs:decimal" />
           <xs:element minOccurs="0" name="GananciaString" nillable="true" type="xs:string" />
@@ -794,6 +795,7 @@
           <xs:element minOccurs="0" name="NumeroPedido" type="xs:int" />
           <xs:element minOccurs="0" name="OfertaUltimoMinuto" type="xs:int" />
           <xs:element minOccurs="0" name="Orden" type="xs:int" />
+          <xs:element minOccurs="0" name="PesoMaximoImagen" type="xs:int" />
           <xs:element minOccurs="0" name="Precio" type="xs:decimal" />
           <xs:element minOccurs="0" name="Precio2" type="xs:decimal" />
           <xs:element minOccurs="0" name="PrecioPublico" type="xs:decimal" />
