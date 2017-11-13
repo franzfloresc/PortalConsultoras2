@@ -55,7 +55,6 @@ namespace Portal.Consultoras.Web.Controllers
                     lst.Update(x => x.ImagenOfertaIndependiente = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenOfertaIndependiente, carpetapais));
                 }
 
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
@@ -95,7 +94,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 pag = Util.PaginadorGenerico(grid, lst);
 
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,
@@ -146,7 +144,6 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = sv.GetOfertas(entidad).ToList();
                 }
 
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
@@ -159,7 +156,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 pag = Util.PaginadorGenerico(grid, lst);
 
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,
@@ -306,14 +302,13 @@ namespace Portal.Consultoras.Web.Controllers
                 entidad.FlagRecoPerfil = Convert.ToInt32(FlagRecoPerfil);
                 entidad.FlagRecoProduc = Convert.ToInt32(FlagRecoProduc);
                 entidad.CodigoPrograma = CodigoPrograma;
-                entidad.FlagMostrarImg = Convert.ToInt32(FlagMostrarImg);    // SB20-353
+                entidad.FlagMostrarImg = Convert.ToInt32(FlagMostrarImg);
                 entidad.MostrarImgOfertaIndependiente = MostrarImgOfertaIndependiente;
                 entidad.ImagenOfertaIndependiente = ImagenOfertaIndependiente;
                 entidad.Codigo = Codigo;
-                entidad.FlagValidarImagen = Convert.ToInt32(FlagValidarImagen); // BPT-369
-                entidad.PesoMaximoImagen = Convert.ToInt32(PesoMaximoImagen); // BPT-369
-
-
+                entidad.FlagValidarImagen = Convert.ToInt32(FlagValidarImagen);
+                entidad.PesoMaximoImagen = Convert.ToInt32(PesoMaximoImagen);
+                
                 if (ImagenEstrategia != "")
                 {
                     if (imagenAnterior != ImagenEstrategia)

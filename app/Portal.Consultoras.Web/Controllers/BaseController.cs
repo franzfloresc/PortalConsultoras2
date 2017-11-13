@@ -323,7 +323,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (var sv = new ServicesCalculoPrecioNiveles())
                 {
-                    sv.Url = ConfigurationManager.AppSettings[keyWeb]; // Se envían los codigos de concurso.
+                    sv.Url = ConfigurationManager.AppSettings[keyWeb];
                     montosProl = sv.CalculoMontosProlxIncentivos(userData.CodigoISO, userData.CampaniaID.ToString(), userData.CodigoConsultora, userData.CodigoZona, cuvs, cantidades, userData.CodigosConcursos).ToList();
                 }
             }
@@ -405,12 +405,10 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 sv.UpdateMontosPedidoWeb(bePedidoWeb);
 
-                // Insertar/Actualizar los puntos de la consultora.
                 if (!string.IsNullOrEmpty(userData.CodigosConcursos))
                     sv.ActualizarInsertarPuntosConcurso(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID.ToString(), userData.CodigosConcursos, Puntajes, PuntajesExigidos);
             }
 
-            // poner en Session
             sessionManager.SetPedidoWeb(null);
             userData.EjecutaProl = true;
             ObtenerPedidoWeb();
@@ -654,7 +652,6 @@ namespace Portal.Consultoras.Web.Controllers
                 lstModel.Add(permiso);
             }
 
-            // Separar los datos obtenidos y para generar el 
             userData.Menu = lstModel;
 
             ViewBag.ClaseLogoSB = userData.ClaseLogoSB;
@@ -780,9 +777,7 @@ namespace Portal.Consultoras.Web.Controllers
                 listadoMenuFinal.Add(menu);
             }
 
-            //Agregamos los menú Padre
             var lstModel = listadoMenuFinal.Where(item => item.MenuPadreID == 0).OrderBy(item => item.OrdenItem).ToList();
-            //Agregamos los items para cada menú Padre
             foreach (var item in lstModel)
             {
                 var subItems = listadoMenuFinal.Where(p => p.MenuPadreID == item.MenuMobileID).OrderBy(p => p.OrdenItem);
@@ -823,10 +818,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         private List<PermisoModel> SepararItemsMenu(List<PermisoModel> menuOriginal)
         {
-            // Crear lista resultante
             var menu = new List<PermisoModel>();
 
-            // Separar los items desde la raiz (0)
             SepararItemsMenu(ref menu, menuOriginal, 0);
 
             return menu;
@@ -834,12 +827,10 @@ namespace Portal.Consultoras.Web.Controllers
 
         private void SepararItemsMenu(ref List<PermisoModel> menu, List<PermisoModel> menuOriginal, int idPadre)
         {
-            // Asignar los hijos
             menu = menuOriginal.Where(x => x.IdPadre == idPadre && (x.Descripcion != "" || x.UrlItem != "" || x.UrlImagen != ""))
                 .OrderBy(x => x.Posicion)
                 .ToList();
 
-            // Por cada uno buscar si se tienen hijos y agregarlos
             foreach (var itemMenu in menu)
             {
                 var temp = new List<PermisoModel>();
@@ -1085,7 +1076,6 @@ namespace Portal.Consultoras.Web.Controllers
             DateTime FechaHoraActual = DateTime.Now.AddHours(model.ZonaHoraria);
             TimeSpan HoraCierrePortal = model.EsZonaDemAnti == 0 ? model.HoraCierreZonaNormal : model.HoraCierreZonaDemAnti;
 
-            //Mensaje Cierre Campania y Fecha Promesa
             #region mensaje fecha promesa
             var TextoPromesaEspecial = false;
             var TextoPromesa = ".";
@@ -1197,14 +1187,12 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                // Postulante
                 ViewBag.MostrarBannerPostulante = false;
                 if (model.TipoUsuario == 2 && model.CerrarBannerPostulante == 0)
                 {
                     ViewBag.MostrarBannerPostulante = true;
                 }
 
-                //GPR
                 ViewBag.IndicadorGPRSB = model.IndicadorGPRSB;      //0=OK,1=Facturando,2=Rechazado
                 ViewBag.CerrarRechazado = model.CerrarRechazado;
                 ViewBag.MostrarBannerRechazo = model.MostrarBannerRechazo;
@@ -1213,7 +1201,6 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.GPRBannerMensaje = model.GPRBannerMensaje ?? "";
                 ViewBag.GPRBannerUrl = model.GPRBannerUrl;
 
-                // ODD
                 ViewBag.TieneOfertaDelDia = CumpleOfertaDelDia(model);
                 ViewBag.MostrarOfertaDelDiaContenedor = model.TieneOfertaDelDia;
 
@@ -2504,68 +2491,58 @@ namespace Portal.Consultoras.Web.Controllers
             var deuda = LogsGPRValidacion.Where(x => x.MotivoRechazo.Equals(Constantes.GPRMotivoRechazo.ActualizacionDeuda));
             model.CuerpoMensaje1 = "Luego de haber revisado tu pedido, te informamos que este no se ha podido facturar por:";
 
-            // Monto mínimo - deuda
             var items = LogsGPRValidacion.Where(l => l.MotivoRechazo.Equals(Constantes.GPRMotivoRechazo.MontoMinino));
             if (items.Any() && deuda.Any())
             {
-                //TextoMotivoRechazo.Append(string.Format("Luego de haber revisado tu pedido, te informamos que este no se ha podido facturar porque no cumple con el <b>monto mínimo</b> de {0} {1} y adicionalmente por tener una <b>deuda pendiente</b> con nosotros de {0} {2}. <br>Te invitamos a añadir más productos, cancelar el saldo pendiente y reservar tu pedido el día de hoy para que sea facturado exitosamente.", userData.Simbolo, userData.MontoMinimo, deuda.FirstOrDefault().Valor));
                 model.CuerpoDetalles.Add(string.Format("No cumplir con el <b>monto mínimo</b> de {0} {1}", userData.Simbolo, Util.DecimalToStringFormat(userData.MontoMinimo, userData.CodigoISO)));
                 model.CuerpoDetalles.Add(string.Format("Tener una <b>deuda</b> de {0} {1}", userData.Simbolo, Util.DecimalToStringFormat(deuda.FirstOrDefault().Valor, userData.CodigoISO)));
                 model.CuerpoMensaje2 = "Te invitamos a <b>añadir</b> más productos, <b>cancelar</b> el saldo pendiente y <b>reservar</b> tu pedido el día de hoy para que sea facturado exitosamente.";
                 model.MotivoRechazo = Constantes.GPRMotivoRechazo.Mostrar2OpcionesNotificacion;
                 return;
             }
-            if (items.Any()) // Monto mínimo
+            if (items.Any())
             {
-                //TextoMotivoRechazo.Append(string.Format("Luego de haber revisado tu pedido, te informamos que este no se ha podido facturar porque no cumple con el <b>monto mínimo</b> de {0} {1}. <br>Te invitamos a añadir más productos y reservar tu pedido el día de hoy para que sea facturado exitosamente.", userData.Simbolo, userData.MontoMinimo));
                 model.CuerpoDetalles.Add(string.Format("No cumplir con el <b>monto mínimo</b> de  {0} {1}", userData.Simbolo, Util.DecimalToStringFormat(userData.MontoMinimo, userData.CodigoISO)));
                 model.CuerpoMensaje2 = "Te invitamos a <b>añadir</b> más productos y <b>reservar</b> tu pedido el día de hoy para que sea facturado exitosamente.";
                 model.MotivoRechazo = Constantes.GPRMotivoRechazo.MontoMinino;
                 return;
             }
 
-            //Monto máximo - deuda:
             items = LogsGPRValidacion.Where(l => l.MotivoRechazo.Contains(Constantes.GPRMotivoRechazo.MontoMaximo));
             if (items.Any() && deuda.Any())
             {
-                //TextoMotivoRechazo.Append(string.Format("Luego de haber revisado tu pedido, te informamos que este no se ha podido facturar por superar el <b>monto máximo</b> permitido de {0} {1} y adicionalmente por tener una <b>deuda pendiente</b> con nosotros de {0} {2}. <br>Te invitamos a modificar tu pedido, cancelar el saldo pendiente y reservar tu pedido el día de hoy para que sea facturado exitosamente.", userData.Simbolo, userData.MontoMaximo, deuda.FirstOrDefault().Valor));
                 model.CuerpoDetalles.Add(string.Format("No cumplir con el <b>monto máximo</b> de {0} {1} ", userData.Simbolo, Util.DecimalToStringFormat(userData.MontoMaximo, userData.CodigoISO)));
                 model.CuerpoDetalles.Add(string.Format("Tener una <b>deuda</b> de {0} {1} ", userData.Simbolo, Util.DecimalToStringFormat(deuda.FirstOrDefault().Valor, userData.CodigoISO)));
                 model.CuerpoMensaje2 = "Te invitamos a <b>modificar</b> tu pedido, <b>cancelar</b> el saldo pendiente y <b>reservar</b> tu pedido el día de hoy para que sea facturado exitosamente.";
                 model.MotivoRechazo = Constantes.GPRMotivoRechazo.Mostrar2OpcionesNotificacion;
                 return;
             }
-            if (items.Any())//Monto máximo
+            if (items.Any())
             {
-                //TextoMotivoRechazo.Append(string.Format("Luego de haber revisado tu pedido, te informamos que este no se ha podido facturar por superar el <b>monto máximo</b> permitido de {0} {1}. <br>Te invitamos a modificar y reservar tu pedido el día de hoy para que sea facturado exitosamente.", userData.Simbolo, userData.MontoMaximo));
                 model.CuerpoDetalles.Add(string.Format("No cumplir con el <b>monto máximo</b> de {0} {1}", userData.Simbolo, Util.DecimalToStringFormat(userData.MontoMaximo, userData.CodigoISO)));
                 model.CuerpoMensaje2 = "Te invitamos a <b>modificar</b> y <b>reservar</b> tu pedido el día de hoy para que sea facturado exitosamente.";
                 model.MotivoRechazo = Constantes.GPRMotivoRechazo.MontoMaximo;
                 return;
             }
-            //Monto mínimo stock + deuda:
             items = LogsGPRValidacion.Where(l => l.MotivoRechazo.Contains(Constantes.GPRMotivoRechazo.ValidacionMontoMinimoStock));
             if (items.Any() && deuda.Any())
             {
-                //TextoMotivoRechazo.Append(string.Format("Luego de haber revisado tu pedido, te informamos que este no se ha podido facturar porque no cumple con el <b>monto mínimo</b> debido a que no contamos con stock de algunos productos, y adicionalmente por tener una <b>deuda pendiente</b> con nosotros de {0} {1}. <br>Te invitamos a añadir más productos, cancelar el saldo pendiente y reservar tu pedido el día de hoy para que sea facturado exitosamente.", userData.Simbolo, deuda.FirstOrDefault().Valor));
                 model.CuerpoDetalles.Add("No cumplir con el <b>monto mínimo</b>");
                 model.CuerpoDetalles.Add(string.Format("Tener una <b>deuda</b> de {0} {1}", userData.Simbolo, Util.DecimalToStringFormat(deuda.FirstOrDefault().Valor, userData.CodigoISO)));
                 model.CuerpoMensaje2 = "Te invitamos a <b>añadir</b> más productos, <b>cancelar</b> el saldo pendiente y <b>reservar</b> tu pedido el día de hoy para que sea facturado exitosamente.";
                 model.MotivoRechazo = Constantes.GPRMotivoRechazo.Mostrar2OpcionesNotificacion;
                 return;
             }
-            if (items.Any())//Monto mínimo stock
+            if (items.Any())
             {
-                //TextoMotivoRechazo.Append("Luego de haber revisado tu pedido, te informamos que este no se ha podido facturar porque no cumple con el <b>monto mínimo</b> debido a que no contamos con stock de algunos productos. <br> Te invitamos a añadir más productos y reservar tu pedido el día de hoy para que sea facturado exitosamente.");
                 model.CuerpoDetalles.Add("No cumplir con el <b>monto mínimo</b>");
                 model.CuerpoMensaje2 = "Te invitamos a <b>añadir</b> más productos y <b>reservar</b> tu pedido el día de hoy para que sea facturado exitosamente.";
                 model.MotivoRechazo = Constantes.GPRMotivoRechazo.ValidacionMontoMinimoStock;
                 return;
             }
 
-            if (deuda.Any()) //Deuda
+            if (deuda.Any())
             {
-                //TextoMotivoRechazo.Append(string.Format("Lamentamos informarte que tu pedido no se ha podido facturar porque tiene una <b>deuda pendiente</b> con nosotros de {0} {1} <br>Te invitamos a cancelar el saldo pendiente y reservar tu pedido el día de hoy para que sea facturado exitosamente.", userData.Simbolo, deuda.FirstOrDefault().Valor));
                 model.CuerpoDetalles.Add(string.Format("Tener una <b>deuda</b> de {0} {1}", userData.Simbolo, Util.DecimalToStringFormat(deuda.FirstOrDefault().Valor, userData.CodigoISO)));
                 model.CuerpoMensaje2 = "Te invitamos a <b>cancelar</b> el saldo pendiente y <b>reservar</b> tu pedido el día de hoy para que sea facturado exitosamente.";
                 model.MotivoRechazo = Constantes.GPRMotivoRechazo.ActualizacionDeuda;
@@ -2729,7 +2706,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public virtual bool IsMobile()
         {
-            //// todo: better aproach HttpContext.Request.Browser.IsMobileDevice;
             var url = string.Empty;
 
             url = HttpContext.Request.UrlReferrer != null ?
@@ -3358,8 +3334,6 @@ namespace Portal.Consultoras.Web.Controllers
                         break;
                     case Constantes.ConfiguracionSeccion.TipoPresentacion.Banners:
                         seccion.TemplatePresentacion = "seccion-banner";
-                        //seccion.Titulo = "";
-                        //seccion.SubTitulo = "";
                         seccion.CantidadMostrar = 0;
                         break;
                     case Constantes.ConfiguracionSeccion.TipoPresentacion.ShowRoom:
@@ -3467,7 +3441,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             path = path.ToLower().Replace("/mobile", "");
 
-            //// guid length + /g/ length
             if (path.IndexOf("/g/", StringComparison.OrdinalIgnoreCase) >= 0)
                 path = path.Substring(path.IndexOf("/g/", StringComparison.OrdinalIgnoreCase) + 39);
 
@@ -3482,7 +3455,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception)
             {
-                // ignored
             }
 
             try
@@ -3497,7 +3469,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception)
             {
-                // ignored
             }
 
             newPath = newPath.EndsWith("/") ? newPath.Substring(0, newPath.Length - 1) : newPath;

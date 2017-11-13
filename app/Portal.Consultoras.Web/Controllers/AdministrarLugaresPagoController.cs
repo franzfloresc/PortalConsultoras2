@@ -66,7 +66,6 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = sv.SelectLugarPago(vpaisID).ToList();
                 }
 
-                // 1664
                 if (lst != null)
                 {
                     var carpetaPais = Globals.UrlLugaresPago + "/" + UserData().CodigoISO;
@@ -74,7 +73,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
 
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
@@ -137,7 +135,6 @@ namespace Portal.Consultoras.Web.Controllers
                 items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize).OrderBy(x => x.Posicion);
                 pag = Util.PaginadorGenerico(grid, lst);
 
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,

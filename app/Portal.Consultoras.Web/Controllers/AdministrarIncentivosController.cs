@@ -99,7 +99,6 @@ namespace Portal.Consultoras.Web.Controllers
                     if (lst.Count > 0) { lst.Update(x => x.ArchivoPortada = ConfigS3.GetUrlFileS3(carpetaPais, x.ArchivoPortada, Globals.RutaImagenesIncentivos + "/" + UserData().CodigoISO)); }
                 }
 
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
@@ -113,9 +112,6 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     switch (sidx)
                     {
-                        //case "PaisNombre":
-                        //    items = lst.OrderBy(x => x.PaisNombre);
-                        //    break;
                         case "NombreCortoInicio":
                             items = lst.OrderBy(x => x.NombreCortoInicio);
                             break;
@@ -143,9 +139,6 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     switch (sidx)
                     {
-                        //case "PaisNombre":
-                        //    items = lst.OrderByDescending(x => x.PaisNombre);
-                        //    break;
                         case "NombreCortoInicio":
                             items = lst.OrderByDescending(x => x.NombreCortoInicio);
                             break;
@@ -175,7 +168,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 pag = Util.PaginadorGenerico(grid, lst);
 
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,

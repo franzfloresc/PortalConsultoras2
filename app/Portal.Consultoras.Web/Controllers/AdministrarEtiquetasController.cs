@@ -13,9 +13,6 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class AdministrarEtiquetasController : BaseController
     {
-        //
-        // GET: /AdministrarEtiquetas/
-
         public ActionResult Index(EtiquetaModel model)
         {
             try
@@ -70,13 +67,11 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = new List<BEEtiqueta>();
                 }
 
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                //int buscar = int.Parse(txtBuscar);
                 BEPager pag = new BEPager();
                 IEnumerable<BEEtiqueta> items = lst;
 
@@ -111,7 +106,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 pag = Util.PaginadorGenerico(grid, lst);
 
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,

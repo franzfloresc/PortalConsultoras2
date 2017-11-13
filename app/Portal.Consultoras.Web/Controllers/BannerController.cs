@@ -99,7 +99,7 @@ namespace Portal.Consultoras.Web.Controllers
                 obeBanner.Archivo = httpPath.Length > 0 ? httpPath : System.Net.WebUtility.UrlDecode(model.Archivo);
                 obeBanner.URL = model.URL == null ? string.Empty : model.URL;
                 obeBanner.FlagGrupoConsultora = model.FlagGrupoConsultora;
-                obeBanner.UdpSoloBanner = true; // solo actualizar el banner y no los paises
+                obeBanner.UdpSoloBanner = true;
                 obeBanner.TipoContenido = model.TipoContenido;
                 obeBanner.PaginaNueva = model.PaginaNueva;
                 obeBanner.TituloComentario = model.TituloComentario;
@@ -148,23 +148,19 @@ namespace Portal.Consultoras.Web.Controllers
                     finalPath = Path.Combine(pathBanner, fileName);
                     flConsultoras.SaveAs(finalPath);
 
-                    //Leer excel file
                     BEGrupoConsultora obeGrupoConsultora = new BEGrupoConsultora();
                     lstGrupoConsultora = Util.ReadXmlFile(finalPath, obeGrupoConsultora, false, ref IsCorrect);
                 }
 
-                //Obtener los paises
                 List<BEPais> lstPais;
                 using (ZonificacionServiceClient svc = new ZonificacionServiceClient())
                 {
                     lstPais = svc.SelectPaises().OrderBy(x => x.PaisID).ToList();
                 }
-                //Setear el IdPais para los que coincidan
                 foreach (BEPais itemPais in lstPais)
                 {
                     lstGrupoConsultora.Where(x => x.PaisCodigo == itemPais.CodigoISO).Each(y => y.PaisID = itemPais.PaisID);
                 }
-                //Los que no coinciden los eliminamos
                 lstGrupoConsultora.RemoveAll(x => x.PaisID == 0);
 
                 BEGrupoBanner obeGrupo = new BEGrupoBanner();
@@ -201,7 +197,7 @@ namespace Portal.Consultoras.Web.Controllers
                 lstBanner.ForEach(item =>
                 {
                     item.Archivo = System.Net.WebUtility.UrlDecode(item.Archivo);
-                    item.UdpSoloBanner = false; // Actualizar los paises de cada banner
+                    item.UdpSoloBanner = false;
                     item.URL = item.URL == null ? string.Empty : item.URL;
                     item.Archivo = item.Archivo == null ? string.Empty : item.Archivo;
                 });
@@ -392,7 +388,6 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Index", "Bienvenida");
         }
 
-        // Estructura para crear el ColModel dinamicamente de la Grilla
         struct Model
         {
             public string name;
@@ -410,7 +405,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             List<BEPais> lstPais;
 
-            //Columnas por defecto
             List<string> colNames = new List<string>();
             colNames.Add("BannerID");
             colNames.Add("GrupoBannerID");
@@ -425,7 +419,6 @@ namespace Portal.Consultoras.Web.Controllers
             colNames.Add("TipoAccion");
             colNames.Add("CuvPedido");
             colNames.Add("CantCuvPedido");
-            //Model por defecto                       
             List<Model> colModel = new List<Model>();
             colModel.Add(new Model { name = "BannerID", index = "BannerID", width = 150, key = true, sortable = false, hidden = true });
             colModel.Add(new Model { name = "GrupoBannerID", index = "GrupoBannerID", width = 150, key = true, sortable = false, hidden = true });
@@ -442,7 +435,6 @@ namespace Portal.Consultoras.Web.Controllers
             colModel.Add(new Model { name = "CuvPedido", index = "CuvPedido", width = 0, key = true, sortable = false, hidden = true });
             colModel.Add(new Model { name = "CantCuvPedido", index = "CantCuvPedido", width = 0, key = true, sortable = false, hidden = true });
 
-            //Configurar Columnas y model
             using (ZonificacionServiceClient svc = new ZonificacionServiceClient())
             {
                 lstPais = svc.SelectPaises().OrderBy(x => x.PaisID).ToList();
@@ -453,7 +445,6 @@ namespace Portal.Consultoras.Web.Controllers
                 colModel.Add(new Model { name = item.CodigoISO, index = item.CodigoISO, width = 20, key = false, sortable = false, align = "center", formatter = "CustomCheckBox" });
             }
 
-            //Ultima Columna y Model por defecto
             colNames.Add("Grp.Cons");
             colNames.Add("Nva.Cons");
             colNames.Add("Opciones");
@@ -634,7 +625,6 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     Stream inputStream = Request.InputStream;
                     byte[] fileBytes = ReadFully(inputStream);
-                    // string ffFileName = Request.Headers["X-File-Name"];
                     string ffFileName = qqfile;
                     var path = Path.Combine(Globals.RutaTemporales, ffFileName);
                     if (!System.IO.File.Exists(Globals.RutaTemporales))
@@ -685,22 +675,21 @@ namespace Portal.Consultoras.Web.Controllers
                     List<int> lstIdPais = obe.Paises.ToList();
                     if (obe.Paises != null && lstIdPais.Exists(x => x == obePais.PaisID))
                     {
-                        lstCell.Add("1|" + obePais.PaisID.ToString()); //Si existe el Pais en el Array => 1: Checked
+                        lstCell.Add("1|" + obePais.PaisID.ToString());
                     }
                     else
                     {
-                        lstCell.Add("0|" + obePais.PaisID.ToString()); //Si no existe el Pais en el Array => 0: Unchecked
+                        lstCell.Add("0|" + obePais.PaisID.ToString());
                     }
                 }
                 else
                 {
-                    lstCell.Add("0|" + obePais.PaisID.ToString()); //Si no existe el Pais en el Array => 0: Unchecked
+                    lstCell.Add("0|" + obePais.PaisID.ToString());
                 }
             }
 
             if (obe.GrupoBannerID != 2 && obe.GrupoBannerID != 3 && obe.GrupoBannerID != 4 && obe.GrupoBannerID != 5 && obe.GrupoBannerID != 11 && obe.GrupoBannerID != 12 && obe.GrupoBannerID != 13 && obe.GrupoBannerID != 14 && obe.GrupoBannerID != 151 && obe.GrupoBannerID != 16 && obe.GrupoBannerID != 17 && obe.GrupoBannerID != 18 && obe.GrupoBannerID != 19 && obe.GrupoBannerID != 20 && obe.GrupoBannerID != 21 && obe.GrupoBannerID != 22)
             {
-                //Valor de la ultima columna
                 lstCell.Add(obe.FlagGrupoConsultora.ToString().ToLower());
                 lstCell.Add(obe.FlagConsultoraNueva.ToString().ToLower());
             }
@@ -936,13 +925,11 @@ namespace Portal.Consultoras.Web.Controllers
             if (pais.GetValueOrDefault() == 0)
                 return Json(null, JsonRequestBehavior.AllowGet);
 
-            // consultar las regiones y zonas
             IList<BEZonificacionJerarquia> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
                 lst = sv.GetZonificacionJerarquia(pais.GetValueOrDefault());
             }
-            // se crea el arbol de nodos para el control de la vista
             JsTreeModel[] tree = lst.Distinct<BEZonificacionJerarquia>(new BEZonificacionJerarquiaComparer()).Select(
                                     r => new JsTreeModel
                                     {

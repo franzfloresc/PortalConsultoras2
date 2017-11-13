@@ -117,7 +117,6 @@ namespace Portal.Consultoras.Web.Controllers
                 if (lst != null)
                     if (lst.Count > 0) lst.Update(x => x.ArchivoPortada = ConfigS3.GetUrlFileS3(carpetaPais, x.ArchivoPortada, Globals.RutaImagenesIncentivos + "/" + UserData().CodigoISO));
 
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
@@ -131,9 +130,6 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     switch (sidx)
                     {
-                        //case "PaisNombre":
-                        //    items = lst.OrderBy(x => x.PaisNombre);
-                        //    break;
                         case "NombreCortoInicio":
                             items = lst.OrderBy(x => x.NombreCortoInicio);
                             break;
@@ -155,9 +151,6 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     switch (sidx)
                     {
-                        //case "PaisNombre":
-                        //    items = lst.OrderByDescending(x => x.PaisNombre);
-                        //    break;
                         case "NombreCortoInicio":
                             items = lst.OrderByDescending(x => x.NombreCortoInicio);
                             break;
@@ -181,7 +174,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 pag = Util.PaginadorGenerico(grid, lst);
 
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,
@@ -313,7 +305,6 @@ namespace Portal.Consultoras.Web.Controllers
                     entidad.ArchivoPortada = newfilename;
                     entidad.UsuarioCreacion = UserData().CodigoUsuario;
                     sv.InsertBannerPedido(entidad);
-                    // FileManager.DeleteImage(Globals.RutaImagenesTempIncentivos, tempImage01);
                 }
                 return Json(new
                 {
@@ -413,8 +404,7 @@ namespace Portal.Consultoras.Web.Controllers
                         if (flArchivoPDF != null)
                         {
                             fileName = Path.GetFileName(flArchivoPDF.FileName);
-                            // string pathBanner = Server.MapPath("~/Content/FileConsultoras");
-                            string pathBanner = Globals.RutaTemporales; // 1664
+                            string pathBanner = Globals.RutaTemporales;
                             if (!Directory.Exists(pathBanner))
                                 Directory.CreateDirectory(pathBanner);
                             finalPath = Path.Combine(pathBanner, fileName);
@@ -456,7 +446,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                     entidad.UsuarioModificacion = UserData().CodigoUsuario;
                     sv.UpdateBannerPedido(entidad);
-                    // FileManager.DeleteImage(Globals.RutaImagenesTempIncentivos, tempImage01);
                 }
                 return Json(new
                 {

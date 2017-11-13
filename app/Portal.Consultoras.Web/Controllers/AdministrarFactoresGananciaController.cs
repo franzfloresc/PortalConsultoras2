@@ -64,13 +64,11 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = sv.SelectFactorGanancia(UserData().PaisID).ToList();
                 }
 
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                //int buscar = int.Parse(txtBuscar);
                 BEPager pag = new BEPager();
                 IEnumerable<BEFactorGanancia> items = lst;
 
@@ -120,7 +118,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 pag = Paginador(grid, vBusqueda);
 
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,
@@ -189,7 +186,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult Insertar(AdministrarFactoresGananciaModel model)
         {
-            //int vValidation = 0;
             try
             {
                 Mapper.CreateMap<AdministrarFactoresGananciaModel, BEFactorGanancia>()

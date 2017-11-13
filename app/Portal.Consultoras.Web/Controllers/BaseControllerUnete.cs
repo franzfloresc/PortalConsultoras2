@@ -40,7 +40,6 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var codigoISO = string.Empty;
-                //var ip = ObtenerIPPublicaRouter(); // USAR ESTE MÉTODO SOLO PARA PROBAR EN LOCALHOST
                 var ip = ObtenerIPPublica();
 
                 using (var webClient = new WebClient())
@@ -67,7 +66,6 @@ namespace Portal.Consultoras.Web.Controllers
         public JObject ConsumirServicio(string metodo, object data)
         {
             var urlBase = ConfigurationManager.AppSettings[AppSettingsKeys.WSGEO_Url];
-            //var bytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(data));
             var dataJson = JsonConvert.SerializeObject(data);
 
             return BaseUtilities.ConsumirServicio<dynamic>(dataJson, urlBase, metodo) as JObject;
@@ -88,13 +86,10 @@ namespace Portal.Consultoras.Web.Controllers
 
         public string RenderViewAsString(string viewName, object model)
         {
-            // Create a string writer to receive the HTML code
             StringWriter stringWriter = new StringWriter();
 
-            // Get the view to render
             ViewEngineResult viewResult = ViewEngines.Engines.FindView(ControllerContext, viewName, null);
 
-            // Create a context to render a view based on a model
             ViewContext viewContext = new ViewContext(
                         ControllerContext,
                         viewResult.View,
@@ -103,10 +98,8 @@ namespace Portal.Consultoras.Web.Controllers
                         stringWriter
                     );
 
-            // Render the view to a HTML code
             viewResult.View.Render(viewContext, stringWriter);
 
-            // return the HTML code
             return stringWriter.ToString();
         }
 
@@ -124,7 +117,6 @@ namespace Portal.Consultoras.Web.Controllers
             var sv = new ODSServiceClient();
             var consultora = sv.ObtenerConsultoraPorZonaYSeccionUnete(codigoISO, consultoraLider.ConsultoraID.ToInt());
             sv.Close();
-            //Se crea la entidad para el envío de correo
             var mailVM = new MailVM()
             {
                 NombreCandidata = solicitudPostulante.PrimerNombre,
@@ -144,7 +136,6 @@ namespace Portal.Consultoras.Web.Controllers
                 UrlSite = ConfigurationManager.AppSettings.AllKeys.Contains(AppSettingsKeys.UrlSiteSE) && ConfigurationManager.AppSettings[AppSettingsKeys.UrlSiteSE] != null ? ConfigurationManager.AppSettings[AppSettingsKeys.UrlSiteSE] : "#"
             };
 
-            // Se envía el correo a la SE
             var html = RenderViewAsString("_MailNotificacionSE", mailVM);
             var result = MailUtilities.EnviarMailMandrillJson(new List<ToWithType>
             {
@@ -157,7 +148,6 @@ namespace Portal.Consultoras.Web.Controllers
             }, html, ImagenesMailNotificacionSE());
 
 
-            // Se envía el correo a la GZ
             mailVM.NombreDestinatario = zona.GerenteZona;
             mailVM.CorreoElectronicoDestinatario = zona.GZEmail;
             mailVM.ParaGZ = true;

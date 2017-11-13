@@ -451,7 +451,6 @@ namespace Portal.Consultoras.Web.Controllers
             modelo.FBRuta = GetUrlCompartirFB();
             modelo.FBMensaje = ""; 
 
-            // agrupar por marca
             modelo.ListaDetalleOfertaShowRoom = modelo.ListaDetalleOfertaShowRoom.OrderBy(d => d.MarcaProducto).ToList();
             var nombreMarca = "";
             modelo.ListaDetalleOfertaShowRoom.Update(d =>
