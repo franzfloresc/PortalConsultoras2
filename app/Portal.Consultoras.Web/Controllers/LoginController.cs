@@ -462,17 +462,20 @@ namespace Portal.Consultoras.Web.Controllers
             pasoLog = "Login.Redireccionar";
             var usuario = GetUserData(paisId, codigoUsuario);
 
-            if (usuario == null && Request.IsAjaxRequest())
-                return Json(new
-                {
-                    success = false,
-                    redirectTo = "Error al procesar la solicitud"
-                });
-
-            if (usuario == null && !Request.IsAjaxRequest())
+            if (usuario == null)
             {
-                var url = GetUrlUsuarioDesconocido();
-                return Redirect(url);
+                if (Request.IsAjaxRequest())
+                    return Json(new
+                    {
+                        success = false,
+                        redirectTo = "Error al procesar la solicitud"
+                    });
+
+                else
+                {
+                    var url = GetUrlUsuarioDesconocido();
+                    return Redirect(url);
+                }
             }
 
             pasoLog = "Login.Redireccionar.SetAuthCookie";
