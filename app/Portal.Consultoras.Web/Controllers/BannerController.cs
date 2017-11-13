@@ -168,7 +168,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 //Obtener los paises
-                List<BEPais> lstPais = new List<BEPais>();
+                List<BEPais> lstPais;
                 using (ZonificacionServiceClient svc = new ZonificacionServiceClient())
                 {
                     lstPais = svc.SelectPaises().OrderBy(x => x.PaisID).ToList();
@@ -185,7 +185,7 @@ namespace Portal.Consultoras.Web.Controllers
                 obeGrupo.CampaniaID = model.CampaniaID;
                 obeGrupo.GrupoBannerID = model.GrupoBannerID;
                 obeGrupo.TiempoRotacion = model.TiempoRotacion;
-                obeGrupo.Consultoras = lstGrupoConsultora != null ? lstGrupoConsultora.ToArray() : null;
+                obeGrupo.Consultoras = lstGrupoConsultora.ToArray();
                 using (ContenidoServiceClient svc = new ContenidoServiceClient())
                 {
                     svc.SaveGrupoBanner(obeGrupo);
