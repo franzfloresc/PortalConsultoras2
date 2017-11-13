@@ -74,22 +74,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.Telefono = userData.Celular;
             model.MontoMinimo = userData.MontoMinimo;
 
-            #region CDR_Express
-            //EPD-1919
-            //model.TieneCDRExpress = userData.TieneCDRExpress;
-            //model.EsConsultoraNueva = userData.EsConsecutivoNueva;
-            //model.FleteDespacho = GetValorFleteExpress();
-            //model.MensajesExpress = new MensajesCDRExpressModel
-            //{
-            //    RegularPrincipal = GetMensajeCDRExpress(Constantes.MensajesCDRExpress.RegularPrincipal),
-            //    RegularAdicional = GetMensajeCDRExpress(Constantes.MensajesCDRExpress.RegularAdicional),
-            //    ExpressPrincipal = GetMensajeCDRExpress(Constantes.MensajesCDRExpress.ExpressPrincipal),
-            //    ExpressAdicional = GetMensajeCDRExpress(Constantes.MensajesCDRExpress.ExpressAdicional),
-            //    Nuevas = GetMensajeCDRExpress(Constantes.MensajesCDRExpress.Nuevas)
-            //};
-            //model.MensajesExpress.ExpressFlete = SetMensajeFleteExpress(model.FleteDespacho);
-            #endregion
-
             if (userData.PaisID == 9)
             {
                 model.limiteMinimoTelef = 5;

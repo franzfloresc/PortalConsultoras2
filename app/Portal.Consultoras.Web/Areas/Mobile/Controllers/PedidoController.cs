@@ -92,7 +92,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.Celular = userData.Celular;
             model.TieneMasVendidos = userData.TieneMasVendidos;
             model.RevistaDigital = revistaDigital;
-            //
             var isMobileApp = this.GetUniqueSession<MobileAppConfiguracionModel>("MobileAppConfiguracion", false) != null;
             var mobileConfiguracion = this.GetUniqueSession<MobileAppConfiguracionModel>("MobileAppConfiguracion");
             model.ClienteId = mobileConfiguracion.ClienteID;
@@ -132,7 +131,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             bePedidoWeb.PaisID = userData.PaisID;
             bePedidoWeb.IPUsuario = userData.IPUsuario;
             bePedidoWeb.CodigoUsuarioCreacion = userData.CodigoUsuario;
-            //
             using (var sv = new PedidoServiceClient())
             {
                 seInsertoProductosAutomaticos = sv.GetProductoCUVsAutomaticosToInsert(bePedidoWeb) > 0;
@@ -163,11 +161,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             int campana = 0;
             try
             {
-                //if (param.Length == 11)
-                //{
-                    cuv = param.Substring(0, 5);
-                    campanaId = param.Substring(5, 6);
-                //}
+                cuv = param.Substring(0, 5);
+                campanaId = param.Substring(5, 6);
                 campana = Convert.ToInt32(campanaId);
             }
             catch (Exception ex)
@@ -452,7 +447,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 if (userData.NuevoPROL && userData.ZonaNuevoPROL)   // PROL 2
                 {
                     model.Prol = "MODIFICA TU PEDIDO";
-                    model.ProlTooltip = "Modifica tu pedido sin perder lo que ya reservaste."; //EPD-2561
+                    model.ProlTooltip = "Modifica tu pedido sin perder lo que ya reservaste.";
 
                     if (diaActual <= userData.FechaInicioCampania)
                     {
@@ -460,7 +455,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     }
                     else
                     {
-                        model.ProlTooltip += string.Format("|Hazlo antes de las {0} para facturarlo.", diaActual.ToString("hh:mm tt")); //EPD-2561
+                        model.ProlTooltip += string.Format("|Hazlo antes de las {0} para facturarlo.", diaActual.ToString("hh:mm tt"));
                     }
                 }
                 else // PROL 1
@@ -558,8 +553,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             usuario.ZonaValida = beConfiguracionCampania.ZonaValida;
             usuario.FechaInicioCampania = beConfiguracionCampania.FechaInicioFacturacion;
 
-            // Se calcula la fecha de fin de campaña sumando la fecha de inicio mas los dias de duración del cronograma
-            //usuario.FechaFinCampania = oBEConfiguracionCampania.FechaFinFacturacion;
             usuario.FechaFinCampania = beConfiguracionCampania.FechaFinFacturacion;
 
             usuario.HoraInicioReserva = beConfiguracionCampania.HoraInicio;
