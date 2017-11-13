@@ -14,7 +14,6 @@ namespace Portal.Consultoras.Web.Helpers
         /// <returns>Guid or Null</returns>
         public static string GetUniqueKey(this Controller controller)
         {
-            //todo: should evaluate rest of RouteData ie. queryString?
             return controller.RouteData.GetUniqueRoute(UniqueRoute.IdentifierKey);
         }
 
