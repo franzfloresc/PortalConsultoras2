@@ -40,7 +40,6 @@ namespace Portal.Consultoras.Web.Controllers
                 if (lista != null && lista.Count > 0)
                 {
                     lista.Update(x => x.DescripcionMarca = GetDescripcionMarca(x.MarcaID));
-                    // 1664
                     var carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
                     lista.Update(x => x.ImagenProducto = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.RutaImagenesMatriz + "/" + UserData().CodigoISO));
                 }
@@ -87,7 +86,6 @@ namespace Portal.Consultoras.Web.Controllers
             usuario.HoraInicioPreReserva = oBEConfiguracionCampania.HoraInicioNoFacturable;
             usuario.HoraFinPreReserva = oBEConfiguracionCampania.HoraCierreNoFacturable;
             usuario.DiasCampania = oBEConfiguracionCampania.DiasAntes;
-            //usuario.DiaPROL = ValidarPROL(usuario);
             usuario.NombreCorto = oBEConfiguracionCampania.CampaniaDescripcion;
             usuario.CampaniaID = oBEConfiguracionCampania.CampaniaID;
             usuario.ZonaHoraria = oBEConfiguracionCampania.ZonaHoraria;
@@ -174,7 +172,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                     UpdPedidoWebMontosPROL();
 
-                    //EPD-2248
                     if (entidad != null)
                     {
                         BEIndicadorPedidoAutentico indPedidoAutentico = new BEIndicadorPedidoAutentico();
@@ -187,7 +184,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                         InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);
                     }
-                    //EPD-2248
 
                     JSONdata = new
                     {
@@ -372,7 +368,6 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult ObtenerImagenesByCodigoSAP(int paisID, string codigoSAP)
         {
             List<BEMatrizComercial> lst = new List<BEMatrizComercial>();
-            // 1664
             var carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
             List<BEMatrizComercial> lstFinal = new List<BEMatrizComercial>();
 
@@ -408,7 +403,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ObtenterCampaniasPorPais(int PaisID)
         {
-            //PaisID = 11;
             IEnumerable<CampaniaModel> lst = DropDowListCampanias(PaisID);
             IEnumerable<ConfiguracionOfertaModel> lstConfig = DropDowListConfiguracion(PaisID);
             return Json(new
@@ -447,15 +441,13 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 string ISO = Util.GetPaisISO(PaisID);
-                var carpetaPais = Globals.UrlMatriz + "/" + ISO; // 1664
+                var carpetaPais = Globals.UrlMatriz + "/" + ISO;
 
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                //int buscar = int.Parse(txtBuscar);
                 BEPager pag = new BEPager();
                 IEnumerable<BEOfertaProducto> items = lst;
 
@@ -519,9 +511,7 @@ namespace Portal.Consultoras.Web.Controllers
                 items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
                 pag = Util.PaginadorGenerico(grid, lst);
-                //lst.Update(x => x.ImagenProducto = (x.ImagenProducto.ToString().Equals(string.Empty) ? string.Empty : (ISO + "/" + x.ImagenProducto)));
                 lst.Update(x => x.ISOPais = ISO);
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,
@@ -541,8 +531,7 @@ namespace Portal.Consultoras.Web.Controllers
                                    a.PrecioOferta.ToString("#0.00"),
                                    a.Orden.ToString(),
                                    a.Stock.ToString(),
-                                   // a.ImagenProducto.ToString(),
-                                   ConfigS3.GetUrlFileS3(carpetaPais, a.ImagenProducto.ToString(), Globals.RutaImagenesMatriz + "/" + UserData().CodigoISO), // 1664
+                                   ConfigS3.GetUrlFileS3(carpetaPais, a.ImagenProducto.ToString(), Globals.RutaImagenesMatriz + "/" + UserData().CodigoISO),
                                    a.CampaniaID.ToString() ,
                                    a.Stock.ToString(),
                                    a.UnidadesPermitidas.ToString(),
@@ -584,14 +573,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    //string tempNombreImagenFondo = model.ImagenProducto;
-                    //if (model.FlagImagen == 1)
-                    //{
-                    //    entidad.ImagenProducto = FileManager.CopyImagesOfertas(Globals.RutaImagenesOfertasWeb + "\\" + UserData().CodigoISO + "\\" + model.CodigoCampania, tempNombreImagenFondo, Globals.RutaImagenesTempOfertas, UserData().CodigoISO, model.CodigoCampania, model.CUV);
-                    //    FileManager.DeleteImagesInFolder(Globals.RutaImagenesTempOfertas);
-                    //}
-                    //else
-                    //    entidad.ImagenProducto = string.Empty;
                     entidad.PaisID = model.PaisID;
                     entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.Web;
                     entidad.ConfiguracionOfertaID = lstConfiguracion.Find(x => x.CodigoOferta == model.CodigoTipoOferta).ConfiguracionOfertaID;
@@ -681,17 +662,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    //string tempNombreImagenFondo = model.ImagenProducto;
-                    //string imgAnterior = System.IO.Path.GetFileName(model.ImagenProductoAnterior).ToString().Trim();
-                    //string img = System.IO.Path.GetFileName(model.ImagenProducto);
-                    //if (model.FlagImagen == 1)
-                    //{
-                    //    FileManager.DeleteImage(Globals.RutaImagenesOfertasWeb + "\\" + UserData().CodigoISO + "\\" + model.CodigoCampania, imgAnterior);
-                    //    entidad.ImagenProducto = FileManager.CopyImagesOfertas(Globals.RutaImagenesOfertasWeb + "\\" + UserData().CodigoISO + "\\" + model.CodigoCampania, tempNombreImagenFondo, Globals.RutaImagenesTempOfertas, UserData().CodigoISO, model.CodigoCampania, model.CUV);
-                    //    FileManager.DeleteImagesInFolder(Globals.RutaImagenesTempOfertas);
-                    //}
-                    //else
-                    //    entidad.ImagenProducto = (img == "prod_grilla_vacio.png" ? string.Empty : img);
                     entidad.PaisID = model.PaisID;
                     entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.Web;
                     entidad.ConfiguracionOfertaID = lstConfiguracion.Find(x => x.CodigoOferta == model.CodigoTipoOferta).ConfiguracionOfertaID;

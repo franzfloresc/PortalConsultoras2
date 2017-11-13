@@ -22,8 +22,6 @@ namespace Portal.Consultoras.Web.Controllers
             var model = new EstrategiaOutModel();
             try
             {
-                // solo se llama en Home y Pedido, desktop y mobile, para los carruseles de opt o rd
-
                 var codAgrupa = revistaDigital.TieneRDR ||
                     (revistaDigital.TieneRDC && revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo) ?
                     Constantes.TipoEstrategiaCodigo.RevistaDigital : "";

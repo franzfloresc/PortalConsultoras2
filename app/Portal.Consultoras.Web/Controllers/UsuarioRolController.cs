@@ -14,9 +14,6 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class UsuarioRolController : BaseController
     {
-        //
-        // GET: /UsuarioRol/
-
         public ActionResult Index()
         {
             try
@@ -43,13 +40,11 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = sv.SelectUsuarioRol(UserData().PaisID, vRolDescripcion, vNombreUsuario).ToList();
                 }
 
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                //int buscar = int.Parse(txtBuscar);
                 BEPager pag = new BEPager();
                 IEnumerable<ServiceUsuario.BEUsuarioRol> items = lst;
 
@@ -84,7 +79,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 pag = Paginador(grid, lst);
 
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,
