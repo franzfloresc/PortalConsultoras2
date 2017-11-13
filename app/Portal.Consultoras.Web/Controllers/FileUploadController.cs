@@ -86,7 +86,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (String.IsNullOrEmpty(Request["qqfile"]))
                 {
-                    // req. 1664 - Unificando todo en una unica carpeta temporal
                     HttpPostedFileBase postedFile = Request.Files[0];
                     var fileName = Path.GetFileName(postedFile.FileName);
                     var path = Path.Combine(Globals.RutaTemporales, fileName);
@@ -123,7 +122,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 Stream inputStream = Request.InputStream;
                 byte[] fileBytes = ReadFully(inputStream);
-                string ffFileName = qqfile; // qqfile;
+                string ffFileName = qqfile;
                 var time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
                 var path = Path.Combine(Globals.RutaTemporales, time + ffFileName);
                 System.IO.File.WriteAllBytes(path, fileBytes);
@@ -182,7 +181,6 @@ namespace Portal.Consultoras.Web.Controllers
             string FileName = string.Empty;
             try
             {
-                // 1664
                 if (String.IsNullOrEmpty(Request["qqfile"]))
                 {
                     HttpPostedFileBase postedFile = Request.Files[0];

@@ -162,7 +162,6 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = sv.SelectByConsultora(userData.PaisID, userData.ConsultoraID).ToList();
                 }
 
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
@@ -223,7 +222,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 pag = Paginador(grid, vBusqueda);
 
-                // Creamos la estructura
                 var data = new
                 {
                     Registros = grid.PageSize.ToString(),
@@ -508,12 +506,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                 HttpContext.Response.ClearHeaders();
                 HttpContext.Response.Clear();
-                //HttpContext.Current.Response.SetCookie("Cache-Control", "private");
                 HttpContext.Response.Buffer = false;
                 HttpContext.Response.AddHeader("Content-disposition", "attachment; filename=" + originalFileName);
                 HttpContext.Response.Charset = "UTF-8";
                 HttpContext.Response.Cache.SetCacheability(HttpCacheability.Private);
-                //HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
                 HttpContext.Response.ContentType = "application/octet-stream";
                 HttpContext.Response.BinaryWrite(stream.ToArray());
                 HttpContext.Response.Flush();

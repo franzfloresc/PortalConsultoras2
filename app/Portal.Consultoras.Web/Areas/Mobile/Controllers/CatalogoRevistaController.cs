@@ -89,13 +89,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         private string CalcularCampaniaAnterior(string CampaniaActual)
         {
             if (CampaniaActual.Substring(4, 2) == "01")
-                return (Convert.ToInt32(CampaniaActual.Substring(0, 4)) - 1) + NroCampanias.ToString()
+                return (Convert.ToInt32(CampaniaActual.Substring(0, 4)) - 1) + NroCampanias.ToString();
             return CampaniaActual.Substring(0, 4) + (Convert.ToInt32(CampaniaActual.Substring(4, 2)) - 1).ToString().PadLeft(2, '0');
         }
 
         private string CalcularCampaniaSiguiente(string CampaniaActual)
         {
-            if (CampaniaActual.Substring(4, 2) == NroCampanias.ToString()
+            if (CampaniaActual.Substring(4, 2) == NroCampanias.ToString())
                 return (Convert.ToInt32(CampaniaActual.Substring(0, 4)) + 1) + "01";
             return CampaniaActual.Substring(0, 4) + (Convert.ToInt32(CampaniaActual.Substring(4, 2)) + 1).ToString().PadLeft(2, '0');
         }

@@ -143,7 +143,7 @@ namespace Portal.Consultoras.Web.Controllers
                             mensaje = "El proceso de carga de pedidos ha finalizado satisfactoriamente.",
                             cabecera = System.IO.Path.GetFileName(file[0]),
                             detalle = System.IO.Path.GetFileName(file[1]),
-                            detalleAct = System.IO.Path.GetFileName(file[2]),//CGI VVA 2450
+                            detalleAct = System.IO.Path.GetFileName(file[2]),
 
                             rutac = file[0],
                             rutad = file[1],
