@@ -77,7 +77,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var mostrarShowRoomProductosExpiro = sessionManager.GetMostrarShowRoomProductosExpiro();
 
             bool mostrarPopupIntriga = !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
-            //bool mostrarPopupVenta = mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;                
 
             if (mostrarPopupIntriga)
             {

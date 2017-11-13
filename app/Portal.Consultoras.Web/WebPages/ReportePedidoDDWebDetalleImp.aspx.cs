@@ -42,61 +42,15 @@ namespace Portal.Consultoras.Web.WebPages
             lblCampaniaCod.Text = CampaniaCod;
             lblConsultoraCod.Text = ConsultoraCod;
             lblConsultoraNombre.Text = ConsultoraNombre;
-            //lblUsuarioNombre.Text = UsuarioNombre;
             lblOrigen.Text = Origen;
             lblValidado.Text = Validado;
             lblSaldo.Text = Saldo;
             lblMotivoRechazo.Text = MotivoRechazo;
-            /* Los importes ya vienen formateados */
             lblImporte.Text = Importe;
             lblImporteConDescuento.Text = ImporteConDescuento;
-            /* Los importes ya vienen formateados */
-
-            //lblImporte.Text = Importe;
-            //if (vZonaID == "" || vZonaID == "-- Todas --") vZonaID = "0";
-            //if (vConsultora == "") vConsultora = "0";
 
             List<BEPedidoDDWebDetalle> lstDetalle = new List<BEPedidoDDWebDetalle>();
-
-            //ServiceOSBBelcorp.BusinessService BusinessService = new BusinessService();
-            //ServiceOSBBelcorp.pedidoWebAnteriorDetalleBean[] lista;
-            //PedidoBS BusinessService = new PedidoBS();
-            //ServiceOSBBelcorpPedido.pedidoWebAnteriorDetalleBean[] lista;
-            //lista = BusinessService.obtenerPedidoClienteDD("ECL", 201302, "4376323", "0", "0", "0");
-            //lista = BusinessService.obtenerPedidoWebAnteriorDetalle("201303", "PE", "0", "0", "032054889");
-
-            //string ISOWS = string.Empty;
-            //if (PaisISO.Equals("PE"))
-            //    ISOWS = "PE";
-            //else if (PaisISO.Equals("CL"))
-            //    ISOWS = "CLE";
-            //else if (PaisISO.Equals("EC"))
-            //    ISOWS = "ECL";
-
-            //if (lst[17] == "SRV")
-            //{
-            //    lista = BusinessService.obtenerPedidoWebAnteriorDetalle(CampaniaCod, PaisISO, "0", "0", ConsultoraCod);
-
-            //    if (lista != null)
-            //    {
-            //        foreach (var pedidoWebAnteriorDetalleBean in lista)
-            //        {
-            //            if (string.IsNullOrEmpty(pedidoWebAnteriorDetalleBean.cuv.Trim()) == false)
-            //            {
-            //                lstDetalle.Add(new BEPedidoDDWebDetalle
-            //                {
-            //                    CUV = pedidoWebAnteriorDetalleBean.cuv,
-            //                    Descripcion = pedidoWebAnteriorDetalleBean.descripcion,
-            //                    Cantidad = pedidoWebAnteriorDetalleBean.cantidad,
-            //                    PrecioUnitario = Convert.ToDecimal(pedidoWebAnteriorDetalleBean.precioUnidad),
-            //                    PrecioTotal = Convert.ToDecimal(pedidoWebAnteriorDetalleBean.importeTotal),
-            //                });
-            //            }
-            //        }
-            //    }
-            //}
-            //else
-            //{
+            
             List<BEPedidoDDWebDetalle> lstPedidosDDWebNoFacturados;
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
@@ -116,7 +70,6 @@ namespace Portal.Consultoras.Web.WebPages
                                   PrecioTotal = c.PrecioTotal
                               }).ToList();
             }
-            //}
 
             imgBandera.ImageUrl = "../Content/Banderas/" + lst[15];
             imgLogoResponde.ImageUrl = "../Content/Images/logo_responde_" + lst[15];
@@ -132,7 +85,6 @@ namespace Portal.Consultoras.Web.WebPages
                 sb.Append("<td>" + item.CUV + "</td>");
                 sb.Append("<td>" + item.Descripcion + "</td>");
                 sb.Append("<td><span>" + item.Cantidad + "</span></td>");
-                // validación pais colombia req. 1478
                 if (PaisID == 4)
                 {
                     sb.Append("<td>" + simbolo + " " + item.PrecioUnitario.ToString("#,##0").Replace(',','.') + "</td>");

@@ -406,11 +406,8 @@ namespace Portal.Consultoras.Web.Controllers
                 string cuv = String.Empty;
                 string campanaId = "0";
                 int campana = 0;
-                //if (param.Length == 11)
-                //{
-                    cuv = param.Substring(0, 5);
-                    campanaId = param.Substring(5, 6);
-                //}
+                cuv = param.Substring(0, 5);
+                campanaId = param.Substring(5, 6);
                 campana = Convert.ToInt32(campanaId);
                 ViewBag.VirtualCoachCuv = cuv;
                 ViewBag.VirtualCoachCampana = campanaId;
@@ -442,18 +439,13 @@ namespace Portal.Consultoras.Web.Controllers
         private void ActualizarUserDataConInformacionCampania(BEConfiguracionCampania configuracionCampania)
         {
             UsuarioModel usuario = userData;
-            //
             usuario.ZonaValida = configuracionCampania.ZonaValida;
-            //
             usuario.FechaInicioCampania = configuracionCampania.FechaInicioFacturacion;
             usuario.FechaFinCampania = configuracionCampania.FechaFinFacturacion;
-            //
             usuario.HoraInicioReserva = configuracionCampania.HoraInicio;
             usuario.HoraFinReserva = configuracionCampania.HoraFin;
-            //
             usuario.HoraInicioPreReserva = configuracionCampania.HoraInicioNoFacturable;
             usuario.HoraFinPreReserva = configuracionCampania.HoraCierreNoFacturable;
-            //
             usuario.DiasCampania = configuracionCampania.DiasAntes;
             ActualizarEsDiaPROLyMostrarBotonValidarPedido(usuario);
             usuario.NombreCorto = configuracionCampania.CampaniaDescripcion;
@@ -3096,9 +3088,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                     }
                 }
-                /*EPD-1252*/
 
-                //EPD-2248
                 Portal.Consultoras.Web.ServicePedido.BEIndicadorPedidoAutentico indPedidoAutentico = new Portal.Consultoras.Web.ServicePedido.BEIndicadorPedidoAutentico();
                 indPedidoAutentico.PedidoID = oBEPedidoWebDetalle.PedidoID;
                 indPedidoAutentico.CampaniaID = oBEPedidoWebDetalle.CampaniaID;
@@ -3106,9 +3096,7 @@ namespace Portal.Consultoras.Web.Controllers
                 indPedidoAutentico.IndicadorIPUsuario = GetIPCliente();
                 indPedidoAutentico.IndicadorFingerprint = "";
                 indPedidoAutentico.IndicadorToken = (Session["TokenPedidoAutentico"] != null) ? Session["TokenPedidoAutentico"].ToString() : "";
-
                 oBEPedidoWebDetalle.IndicadorPedidoAutentico = indPedidoAutentico;
-                //EPD-2248
                 oBEPedidoWebDetalle.OrigenPedidoWeb = ProcesarOrigenPedido(oBEPedidoWebDetalle.OrigenPedidoWeb);
 
                 switch (TipoAdm)

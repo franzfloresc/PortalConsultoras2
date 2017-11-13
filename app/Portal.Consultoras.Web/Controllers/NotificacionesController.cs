@@ -131,9 +131,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return PartialView("ListadoDetalleSolicitud", model);
         }
-
-        /*20150802*/
-
+        
         public ActionResult ListarDetalleSolicitudClienteCatalogo(long SolicitudId)
         {
             NotificacionesModel model = new NotificacionesModel();
@@ -146,7 +144,6 @@ namespace Portal.Consultoras.Web.Controllers
             return PartialView("ListadoDetalleCatalogo", model);
         }
 
-        //R2319 - JLCS
         public JsonResult AceptarSolicitud(long SolicitudId, long ConsultoraID, string Marca, string emailCliente, string NombreCliente, string MensajeaCliente)
         {
             int paisId = UserData().PaisID;
@@ -174,7 +171,6 @@ namespace Portal.Consultoras.Web.Controllers
                     sc.Insert(beCliente);
                 }
 
-                //R2548 - CS
                 String titulo = "(" + UserData().CodigoISO + ") Consultora que atenderá tu pedido de " + HttpUtility.HtmlDecode(Marca);
                 StringBuilder mensaje = new StringBuilder();
                 mensaje.AppendFormat("<p>Hola {0},</br><br /><br />", HttpUtility.HtmlDecode(NombreCliente));
