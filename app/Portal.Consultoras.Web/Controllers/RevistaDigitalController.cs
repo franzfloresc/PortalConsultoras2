@@ -159,7 +159,7 @@ namespace Portal.Consultoras.Web.Controllers
                         : "";
 
                 var listaFinal1 = ConsultarEstrategiasModel("", model.CampaniaID, palanca);
-                var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1);
+                var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1, 2);
                 
                 listModel = listModel.Where(e => e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
 
@@ -296,7 +296,7 @@ namespace Portal.Consultoras.Web.Controllers
                 entidad.IsoPais = userData.CodigoISO;
                 entidad.EMail = userData.EMail;
                 if (entidad.CodigoConsultora == "")
-                    throw new Exception("El codigo de la consultora no puede ser nulo.");
+                    throw new ArgumentException("El codigo de la consultora no puede ser nulo.");
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {

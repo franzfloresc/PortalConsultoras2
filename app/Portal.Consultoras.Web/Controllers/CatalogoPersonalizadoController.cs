@@ -122,7 +122,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
             //tipoOfertaFinal: 1 -> ARP; 2 -> Jetlore
-            var lista = new List<Producto>();
+            List<Producto> lista;
             var listaProductoModel = new List<ProductoModel>();
             int flt = 0;
 
@@ -183,8 +183,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 if (!string.IsNullOrEmpty(infoEstrategia))
                                 {
                                     var listSplit = infoEstrategia.Split('|');
-                                    descripcion = listSplit.Count() > 0 ? listSplit[0] : "";
-                                    string imagen = listSplit.Count() > 1 ? listSplit[1] : "";
+                                    descripcion = listSplit.Any() ? listSplit[0] : "";
 
                                     if (!string.IsNullOrEmpty(beProducto.ImagenProductoSugerido))
                                     {
@@ -256,7 +255,7 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion
 
                 var listaPedido = ObtenerPedidoWebDetalle();
-                listaProductoModel.Update(c => c.IsAgregado = listaPedido.Where(p => p.CUV == c.CUV).Count() > 0);
+                listaProductoModel.Update(c => c.IsAgregado = listaPedido.Any(p => p.CUV == c.CUV));
 
                 #region filtros
                 //SB20-1197
@@ -377,7 +376,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     int ind = (item.Valor1.Contains(",")) ? -1 : 0;
                                     if (ind == 0)
                                     {
-                                        bool er = (item.Valor1 == "SC") ? false : true;
+                                        bool er = item.Valor1 != "SC";
                                         lstProductoModelFilter = lstProductoModelFilter.Where(x => x.TieneOfertaEnRevista == er).ToList();
                                     }
                                 }
@@ -501,63 +500,13 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     listaSap = Util.SubStr(listaSap, 1, listaSap.Length - 2);
 
-                    var listaProductoBySap = new List<Producto>();
+                    List<Producto> listaProductoBySap;
                     using (ProductoServiceClient ps = new ProductoServiceClient())
                     {
                         listaProductoBySap = ps.ObtenerProductosByCodigoSap(userData.CodigoISO, userData.CampaniaID, listaSap).ToList();
                     }
                     listaProductoBySap = listaProductoBySap ?? new List<Producto>();
-
-                    /* SB20-1198 - INICIO */
-                    //List<string> lstCodSap = new List<string>();
-                    //foreach (var itemSap in listaProductoBySap)
-                    //{
-                    //    if (string.IsNullOrEmpty(itemSap.NombreComercial))
-                    //    {
-                    //        lstCodSap.Add(itemSap.CodigoSap);
-                    //    }
-                    //}
-
-                    //if (lstCodSap.Count > 0)
-                    //{
-                    //    List<string> lstCuvSap = new List<string>();
-
-                    //    if (dataPROL.lista_oObjGratis.Length > 0)
-                    //    {
-                    //        foreach (var codsap in lstCodSap)
-                    //        {
-                    //            foreach (var objGrati in dataPROL.lista_oObjGratis)
-                    //            {
-                    //                if (codsap == objGrati.codsap_nivel_gratis)
-                    //                {
-                    //                    //lstCuvSap.Add("");
-                    //                }
-                    //            }
-                    //        }
-                    //    }
-
-                    //    string lstFindCuv = String.Join("|", lstCuvSap);
-
-                    //    using (ODSServiceClient svc = new ODSServiceClient())
-                    //    {
-                    //        var lstNombresProductos048 = svc.GetNombreProducto048ByListaCUV(userData.PaisID, userData.CampaniaID, lstFindCuv);
-
-                    //        if (lstNombresProductos048.Length > 0)
-                    //        {
-                    //            foreach (var itemProd in lstNombresProductos048)
-                    //            {
-                    //                var itemSap = listaProductoBySap.Where(x => x.Cuv == itemProd.Cuv).First();
-                    //                if (itemSap != null)
-                    //                {
-                    //                    itemSap.NombreComercial = itemProd.NombreComercial;
-                    //                }
-                    //            }
-                    //        }
-                    //    }
-                    //}
-
-                    /* SB20-1198 - FIN */
-
+                    
                     foreach (var itemSap in listaProductoBySap)
                     {
                         if (dataPROL.lista_oObjGratis.Length > 0)

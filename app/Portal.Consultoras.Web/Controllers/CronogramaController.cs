@@ -817,7 +817,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return Json(new
             {
-                success = validar != 0 ? true : false,
+                success = validar != 0,
                 paisID = paisID,
                 codigoUsuario = codigoUsuario
             });
@@ -831,7 +831,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             bool validar = false;
             string mensajeFechaDA = null;
-            if (UserData().EsquemaDAConsultora == true)
+            if (UserData().EsquemaDAConsultora)
             { //SI EXISTE EL ESQUEMA EN PAIS
 
                 if (UserData().EsZonaDemAnti == 1)
@@ -919,7 +919,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return Json(new
             {
-                success = validar == 1 ? true : false
+                success = validar == 1
             });
 
         }

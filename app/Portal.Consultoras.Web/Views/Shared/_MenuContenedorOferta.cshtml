@@ -86,12 +86,12 @@
                         onclick="menuModule.menuClick(this, '@menuhijo.UrlMenu')">
                         
                         <div class="contenedorMenu">
-                            <a href="javascript:;" class="@claseActivo">
+                            <a href="javascript:;" class="@claseActivo" role="menu" region="Lateral" parent="Contenedor" title="@menuhijo.DesktopSubTituloMenu">
                                 <div class="contenedorInformacion">
                                     @if (!string.IsNullOrEmpty(menuhijo.Logo))
                                     {
                                         <div class="contenedorImagen">
-                                            <img style="display:inline;" src="@menuhijo.Logo" />
+                                            <img style="display:inline;" src="@menuhijo.Logo" role="menu" region="Lateral" parent="Contenedor" title="@menuhijo.DesktopSubTituloMenu" alt=""/>
                                         </div>
                                     }
                                     @if (!string.IsNullOrEmpty(menuhijo.DesktopTituloMenu))

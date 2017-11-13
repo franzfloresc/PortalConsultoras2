@@ -257,7 +257,7 @@ namespace Portal.Consultoras.Web.Controllers
                 else
                 {
                     //Registro de productos faltantes
-                    if (zonasValidas.Count() != 0)
+                    if (zonasValidas.Any())
                     {
                         //Por zona-producto
                         foreach (BEZona zona in zonasValidas)
@@ -279,10 +279,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                     using (SACServiceClient sv = new SACServiceClient())
                     {
-                        if (zonasValidas.Count() != 0)
-                            sv.InsProductoFaltante(paisID, paisISO, CodigoUsuario, productosFaltantes.ToArray(), faltanteUltimoMin == 1 ? true : false);
+                        if (zonasValidas.Any())
+                            sv.InsProductoFaltante(paisID, paisISO, CodigoUsuario, productosFaltantes.ToArray(), faltanteUltimoMin == 1);
                         else
-                            sv.InsProductoFaltanteMasivo(paisID, paisISO, CodigoUsuario, campaniaID, productosFaltantes.ToArray(), faltanteUltimoMin == 1 ? true : false);
+                            sv.InsProductoFaltanteMasivo(paisID, paisISO, CodigoUsuario, campaniaID, productosFaltantes.ToArray(), faltanteUltimoMin == 1);
                     }
 
                     jsonData = new
@@ -416,7 +416,7 @@ namespace Portal.Consultoras.Web.Controllers
                         CUV = CUV,
                         ZonaID = ZonaID,
                         Zona = Zona,
-                        FaltanteUltimoMinuto = FaltanteUM == "SI" ? true : false
+                        FaltanteUltimoMinuto = FaltanteUM == "SI"
                     };
 
                     rslt = SACsrv.DelProductoFaltante(UserData().PaisID, UserData().CodigoISO, UserData().CodigoUsuario, producto);

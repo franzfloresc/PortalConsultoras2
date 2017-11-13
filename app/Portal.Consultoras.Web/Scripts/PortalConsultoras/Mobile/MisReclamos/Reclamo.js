@@ -105,11 +105,15 @@ $(document).ready(function () {
             modificarPrecioMas: ".modificarPrecioMas",
             modificarPrecioMenos: ".modificarPrecioMenos",
             hdCuvPrecio2: "#hdCuvPrecio2",
-            enlace_quiero_ver_otra_alternativa: ".enlace_quiero_ver_otra_alternativa"
+            enlace_quiero_ver_otra_alternativa: ".enlace_quiero_ver_otra_alternativa",
+            footer_page: ".footer-page",
+            wrpMobile: "#wrpMobile",
+            pb120: "pb-120"
         };
 
         me.Eventos = {
             bindEvents: function () {
+                $(me.Variables.footer_page).hide();
 
                 var pedidoId = parseInt($(me.Variables.hdPedidoID).val());
                 if (pedidoId != 0) {
@@ -320,6 +324,7 @@ $(document).ready(function () {
                 $(me.Variables.btnAceptarSolucion).click(function () {
                     me.Funciones.DetalleGuardar();
 
+                    $(me.Variables.wrpMobile).removeClass(me.Variables.pb120);
                     $(me.Variables.Cambio3).hide();
                     $(me.Variables.Registro4).hide();
                     $(me.Variables.btnAceptarSolucion).hide();
@@ -912,6 +917,7 @@ $(document).ready(function () {
                     me.Funciones.CambioPaso2(); //CambioPaso2
                     $("[data-tipo-confirma='canje']").hide();
                     $("[data-tipo-confirma=cambio]").show();
+                    $(me.Variables.wrpMobile).addClass(me.Variables.pb120);
 
                     $(me.Variables.spnSimboloMonedaReclamo).html(vbSimbolo);
 
@@ -933,7 +939,7 @@ $(document).ready(function () {
                     $(me.Variables.btnCambioProducto).show();
 
                     me.Funciones.ObtenerValorParametria(id);
-                    me.Funciones.CargarPropuesta(id);
+                    me.Funciones.CargarPropuesta(id);                    
                 }
             },
 

@@ -1,4 +1,6 @@
-﻿@model Portal.Consultoras.Web.Models.EstrategiaModel
+﻿@using Portal.Consultoras.Common
+
+@model Portal.Consultoras.Web.Models.EstrategiaModel
 @{
     ViewBag.Title = "Administración de Estrategias";
     var imagenVacia = "prod_grilla_vacio.png";
@@ -33,7 +35,7 @@
     <div class="filtros2">
         <div class="elements">
             <div class="div-2">
-                <h1><span>Zona de Estrategias</span></h1>
+                <h1><span>Zona de Estrategias @(Model.TipoVistaEstrategia == Constantes.TipoVistaEstrategia.ProgramaNuevas ? "- Programa de Nuevas" : string.Empty)</span></h1>
             </div>
             <div class="div-3">
                 <div class="titG">País:</div>
@@ -100,7 +102,10 @@
                 <div class="input_horizontal">
                     <input type="button" name="btnBuscar" id="btnBuscar" value="Buscar" />
                     <input type="button" name="btnNuevo" id="btnNuevo" value="Nuevo" />
-                    <input type="button" name="btnNuevoMasivo" id="btnNuevoMasivo" value="Nuevo Masivo" />
+                    @if (Model.TipoVistaEstrategia == Constantes.TipoVistaEstrategia.Todos)
+                    { 
+                        <input type="button" name="btnNuevoMasivo" id="btnNuevoMasivo" value="Nuevo Masivo" />
+                    }
                     <input type="button" name="btnDescripcionMasivo" id="btnDescripcionMasivo" value="Desc. Masivo" />
                 </div>
                 <div class="input_modifica_pedido">
@@ -372,6 +377,7 @@
     var urlS3 = "@Model.UrlS3";
     var estrategiaObj;
     var habilitarNemoTecnico = @Json.Encode(Model.habilitarNemotecnico);
+    var TipoEstrategiaIncentivosProgramaNuevas = '@Constantes.TipoEstrategiaCodigo.IncentivosProgramaNuevas';
     var CodigoOfertaParaTi = "001";
     var CodigoPackNuevas = "002"; // Oferta Nueva Esika
     var CodigoOfertaWeb = "003";
@@ -440,16 +446,16 @@
             PedidoAsociadoChecks();
 
             $("#hdEstrategiaIDConsulta").val($("#ddlTipoEstrategia").val());
-                $("#hdEstrategiaID").val("0");
-                $("#hdCampania").val($("#ddlCampania").val());
-                $("#hdTipoEstrategiaID").val($("#ddlTipoEstrategia").val());
-                $("#txtAlcance").val($("#ddlPais option:selected").html());
-                $("#spanCampania").val($("#ddlCampania option:selected").html());
-                $("#spanTipoEstrategia").val($("#ddlTipoEstrategia option:selected").html().trim());
-                $('#chkHabilitarOferta').attr('checked', false);
-                $('#chkEsOfertaIndependiente').attr('checked', false);
-                $('#chkOfertaUltimoMinuto').attr('checked', false);
-                $('#hdZonas').val('');
+            $("#hdEstrategiaID").val("0");
+            $("#hdCampania").val($("#ddlCampania").val());
+            $("#hdTipoEstrategiaID").val($("#ddlTipoEstrategia").val());
+            $("#txtAlcance").val($("#ddlPais option:selected").html());
+            $("#spanCampania").val($("#ddlCampania option:selected").html());
+            $("#spanTipoEstrategia").val($("#ddlTipoEstrategia option:selected").html().trim());
+            $('#chkHabilitarOferta').attr('checked', false);
+            $('#chkEsOfertaIndependiente').attr('checked', false);
+            $('#chkOfertaUltimoMinuto').attr('checked', false);
+            $('#hdZonas').val('');
 
             $('#txtCUV2').val('');
             $('#txtPrecio2').val('');
@@ -473,47 +479,47 @@
             $("#divInformacionAdicionalEstrategia").css("background", "#D0D0D0");
             $("#txtTextoLibre").val("");
 
-                $('#hdColorFondo').val("#FFF");
-                ActivarDesactivarChecks();
-                $('#mensajeErrorCUV').val("");
-                $('#mensajeErrorCUV2').val("");
-                $("#linkAlcance").click();
-                $(".checksPedidosAsociados").html('');
+            $('#hdColorFondo').val("#FFF");
+            ActivarDesactivarChecks();
+            $('#mensajeErrorCUV').val("");
+            $('#mensajeErrorCUV2').val("");
+            $("#linkAlcance").click();
+            $(".checksPedidosAsociados").html('');
 
-                var aux1 = $('#ddlTipoEstrategia').find(':selected').data('id');
+            var aux1 = $('#ddlTipoEstrategia').find(':selected').data('id');
             var aux2 = $('#ddlTipoEstrategia').find(':selected').data('codigo');
-           //$("#btnActivarDesactivar").hide();
+            //$("#btnActivarDesactivar").hide();
 
-                if (aux1 == "4" || aux2 == "005" || aux2 == "007" || aux2 == "008") {
-                    $("#txtOrden").val("");
-                    $('#div-orden').hide();
+            if (aux1 == "4" || aux2 == "005" || aux2 == "007" || aux2 == "008") {
+                $("#txtOrden").val("");
+                $('#div-orden').hide();
 
-                    $('#txt1-estrella').html('Oferta de Último Minuto');
-                    $('#txt2-estrella').hide();
-               // $("#btnActivarDesactivar").show();
-                }
-                else {
-                    $('#div-orden').show();
+                $('#txt1-estrella').html('Oferta de Último Minuto');
+                $('#txt2-estrella').hide();
+                // $("#btnActivarDesactivar").show();
+            }
+            else {
+                $('#div-orden').show();
 
-                    $('#txt1-estrella').html('Mostrar estrella');
-                    $('#txt2-estrella').show();
-                }
+                $('#txt1-estrella').html('Mostrar estrella');
+                $('#txt2-estrella').show();
+            }
 
-                $("#ddlEtiqueta1").children('option').show();
-                $("#ddlEtiqueta2").children('option').show();
+            $("#ddlEtiqueta1").children('option').show();
+            $("#ddlEtiqueta2").children('option').show();
 
-                if (aux1 == "2") {
-                    $("#ddlEtiqueta1").children('option').hide();
-                    $("#ddlEtiqueta1").children("option[data-id='4']").show();
+            if (aux1 == "2") {
+                $("#ddlEtiqueta1").children('option').hide();
+                $("#ddlEtiqueta1").children("option[data-id='4']").show();
 
                 $("#hdnEtiqueta1").val('4');
-                }
-                else if (aux1 == "4" || aux1 == "5" || aux2 == "005" || aux2 == "007" || aux2 == "008") {
+            }
+            else if (aux1 == "4" || aux1 == "5" || aux2 == "005" || aux2 == "007" || aux2 == "008") {
 
                 $("#hdnEtiqueta1").val('1');
                 $("#hdnEtiqueta2").val('3');
 
-                } else if (aux1 == "0" || aux1 == '6') {
+            } else if (aux1 == "0" || aux1 == '6') {
                 $("#ddlEtiqueta1").children("option[data-id='5']").hide();
                 $("#ddlEtiqueta2").children("option[data-id='5']").hide();
                 $("#hdnEtiqueta1").val('5');
@@ -554,8 +560,13 @@
             $("#url-video-desktop").val("");
             $("#url-video-mobile").val("");
 
-                HideDialog("DialogZona");
-                showDialog("DialogAdministracionEstrategia");
+            if(aux2 == TipoEstrategiaIncentivosProgramaNuevas)
+                $("#divPrecioValorizado").html("Ganancia");
+            else
+                $("#divPrecioValorizado").html("Precio Valorizado");
+
+            HideDialog("DialogZona");
+            showDialog("DialogAdministracionEstrategia");
         });
         $("#btnActivarDesactivar").click(function () {
 
@@ -742,10 +753,6 @@
                 var flagRecoProduc = $("#ddlTipoEstrategia option:selected").attr("flag-recoproduct");
                 var flagRecoPerfil = $("#ddlTipoEstrategia option:selected").attr("flag-recoperfil");
                 var auxOD = $('#ddlTipoEstrategia').find(':selected').data('id');
-				//BPT-369
-				//var fValidarImagen =  = $("#ddlTipoEstrategia option:selected").attr("data-FValidarImagen");
-				//var PesoMaximo =  = $("#ddlTipoEstrategia option:selected").attr("data-PesoMaximo");
- 
 
                 var flagOD = "";
                 if (auxOD == '7' || auxOD == '4') {
@@ -852,6 +859,7 @@
             var cuvIngresado = $(this).val();
             $("#imgSeleccionada").attr("src", rutaImagenVacia);
             $("#imgSeleccionada").attr("data-id", "0");
+
             estrategiaObj.mostrarInformacionCUV(cuvIngresado, isNuevo);
         });
 
@@ -1286,9 +1294,7 @@
         var flagNueva = $("#ddlTipoEstrategia option:selected").attr("flag-nueva");
         var flagRecoProduc = $("#ddlTipoEstrategia option:selected").attr("flag-recoproduct");
         var flagRecoPerfil = $("#ddlTipoEstrategia option:selected").attr("flag-recoperfil");
-		//BPT-369
-		//var fValidarImagen =  = $("#ddlTipoEstrategia option:selected").attr("data-FValidarImagen");
-		//var pesoMaximo =  = $("#ddlTipoEstrategia option:selected").attr("data-PesoMaximo");
+        var codigo = $('#ddlTipoEstrategia').find(':selected').data('codigo');;
 
         (flagNueva == "1") ? $(".chkEsOfertaIndependiente").show() : $(".chkEsOfertaIndependiente").hide();
 
@@ -1299,9 +1305,23 @@
             $(".OcultarNuevas").css({ visibility: "hidden" });
             $("#txtLimite").val("1");
             $("#list").jqGrid('showCol', ["NumeroPedido"]);
+            $(".DatosNuevas .checksPedidosAsociados").prev().css("display", "");
+            $(".DatosNuevas .checksPedidosAsociados").css("display", "");
         } else {
-            $(".DatosNuevas").hide();
-            $(".OcultarNuevas").css({ visibility: "visible" });
+            if(codigo == TipoEstrategiaIncentivosProgramaNuevas)
+            {
+                $(".DatosNuevas").show();
+                $(".OcultarNuevas").css({ visibility: "hidden" });
+                $(".DatosNuevas .checksPedidosAsociados").prev().css("display", "none");
+                $(".DatosNuevas .checksPedidosAsociados").css("display", "none");
+            }
+            else
+            {
+                $(".DatosNuevas").hide();
+                $(".OcultarNuevas").css({ visibility: "visible" });
+                $(".DatosNuevas .checksPedidosAsociados").prev().css("display", "");
+                $(".DatosNuevas .checksPedidosAsociados").css("display", "");
+            }
             $("#txtLimite").val("99");
         }
         if (flagRecoProduc == "1" || flagRecoPerfil == "1") {
@@ -1429,7 +1449,7 @@
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
-            multiselect: (tipo == '4' || tipo == '7' || tipo == '20' || codigo == "005" || codigo == "007" || codigo == "008" || codigo == "010") ? true : false,
+            multiselect: (tipo == '4' || tipo == '7' || tipo == '20' || codigo == "005" || codigo == "007" || codigo == "008" || codigo == "010"),
             colNames: ['EstrategiaID', 'Orden', '#', 'Pedido Asociado', 'Precio', 'CUV2', 'Descripción', 'Limite Venta', 'Código SAP', 'ImagenURL', 'Foto', '','EsOfertaIndependiente'],
             colModel: [
                 { name: 'EstrategiaID', index: 'EstrategiaID', width: 20, editable: true, resizable: false, hidden: true },
@@ -1744,7 +1764,6 @@
                         alert($('#mensajeErrorCUV2').val());
                         return false;
                     }
-
                     if ($(".DatosNuevas").css("display") == "block") {
                         if ($("#ddlCampaniaFin").val() == "") {
                             alert("Seleccione la campaña de vigencia hasta.");

@@ -22,6 +22,9 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
+using Portal.Consultoras.PublicService.Cryptography;
+using Portal.Consultoras.Web.Helpers;
+using WebGrease.Css.Extensions;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -951,7 +954,7 @@ namespace Portal.Consultoras.Web.Controllers
                         try
                         {
                             if (usuarioModel.TipoUsuario == Constantes.TipoUsuario.Postulante)
-                                throw new Exception("No se asigna configuracion pais para los Postulantes.");
+                                throw new ArgumentException("No se asigna configuracion pais para los Postulantes.");
 
                             var revistaDigitalModel = new RevistaDigitalModel();
                             var ofertaFinalModel = new OfertaFinalModel();
@@ -961,7 +964,11 @@ namespace Portal.Consultoras.Web.Controllers
                             if (configuracionesPaisModels.Any())
                             {
                                 revistaDigitalModel.EstadoSuscripcion = 0;
-                                var rds = new BERevistaDigitalSuscripcion { PaisID = usuarioModel.PaisID, CodigoConsultora = usuarioModel.CodigoConsultora };
+                                var rds = new BERevistaDigitalSuscripcion
+                                {
+                                    PaisID = usuarioModel.PaisID,
+                                    CodigoConsultora = usuarioModel.CodigoConsultora
+                                };
 
                                 foreach (var c in configuracionesPaisModels)
                                 {
@@ -980,6 +987,8 @@ namespace Portal.Consultoras.Web.Controllers
                                                 rds.CampaniaID = AddCampaniaAndNumero(usuarioModel.CampaniaID, -2, usuarioModel.NroCampanias);
                                                 revistaDigitalModel.SuscripcionAnterior2Model = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
                                             }
+                                            revistaDigitalModel.EstadoRdcAnalytics =
+                                                GetEstadoRdAnalytics(revistaDigitalModel);
                                             break;
                                         case Constantes.ConfiguracionPais.RevistaDigitalSuscripcion:
                                             if (DateTime.Now.AddHours(usuarioModel.ZonaHoraria).Date >= usuarioModel.FechaInicioCampania.Date.AddDays(revistaDigitalModel.DiasAntesFacturaHoy))
@@ -1025,10 +1034,8 @@ namespace Portal.Consultoras.Web.Controllers
                                             break;
                                     }
 
-                                    if (c.Codigo.EndsWith("GM") && c.Codigo.StartsWith("OF"))
-                                    {
-                                        if (c.Estado) usuarioModel.OfertaFinalGanaMas = 1;
-                                    }
+                                    if (c.Codigo.EndsWith("GM") && c.Codigo.StartsWith("OF") && c.Estado)
+                                        usuarioModel.OfertaFinalGanaMas = 1;
                                 }
                                 revistaDigitalModel.Campania = usuarioModel.CampaniaID % 100;
                                 revistaDigitalModel.CampaniaMasUno = AddCampaniaAndNumero(Convert.ToInt32(usuarioModel.CampaniaID), 1, usuarioModel.NroCampanias) % 100;
@@ -1285,7 +1292,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     try
                     {
-                        usuarioServiceClient.InsLogIngresoPortal(paisId, usuario.CodigoConsultora, GetIpCliente(), 1, usuario.CampaniaID.ToString());
+                        usuarioServiceClient.InsLogIngresoPortal(paisId, usuario.CodigoConsultora, GetIpCliente(), 1, usuario.CampaniaID.ToString(), EsDispositivoMovil() ? Constantes.Canal.Mobile : Constantes.Canal.Desktop);
                     }
                     catch (Exception ex)
                     {
@@ -1383,7 +1390,7 @@ namespace Portal.Consultoras.Web.Controllers
                 logManager.LogErrorWebServicesBusWrap(ex, CodigoUsuario, PaisId.ToString(), string.Empty);
             }
 
-            return result == null ? false : true;
+            return result != null;
         }
 
         private void ActualizarDatosHana(ref UsuarioModel model)
@@ -1558,7 +1565,7 @@ namespace Portal.Consultoras.Web.Controllers
             imgSh = imgSh.Substring(0, imgSh.Length - exte.Length - 1) + (cantidadOfertas > 1 ? "s" : "") + "." + exte;
             return imgSh;
         }
-        
+
         [AllowAnonymous]
         public ActionResult SesionExpirada(string returnUrl)
         {
@@ -1712,15 +1719,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public ActionResult checkExternalUser(string codigoISO, string proveedor, string appid)
         {
-            if (codigoISO != Constantes.CodigosISOPais.Peru)
-            {
-                return Json(new
-                {
-                    success = false,
-                    message = "Error al procesar la solicitud"
-                });
-            }
-
             pasoLog = "Login.POST.checkExternalUser";
             BEUsuarioExterno beUsuarioExt = null;
             bool f = false;
@@ -1821,19 +1819,10 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [AllowAnonymous]
+        [HttpGet]
         public ActionResult IngresoExterno(string token)
         {
-            if (!RouteData.Values.ContainsKey("guid"))
-            {
-                return RedirectToRoute("UniqueRoute",
-                     new RouteValueDictionary(new
-                     {
-                         Controller = "Login",
-                         Action = "IngresoExterno",
-                         guid = Guid.NewGuid().ToString(),
-                         token = token
-                     }));
-            }
+            this.SetUniqueKeyAvoiding(Guid.NewGuid());
 
             IngresoExternoModel model = null;
             try
@@ -1857,110 +1846,54 @@ namespace Portal.Consultoras.Web.Controllers
                     MostrarBotonAtras = !model.EsAppMobile,
                     ClienteID = model.ClienteID,
                     MostrarHipervinculo = !model.EsAppMobile,
-                    EsAppMobile = model.EsAppMobile
+                    EsAppMobile = model.EsAppMobile,
+                    TimeOutSession = (int)FormsAuthentication.Timeout.TotalMinutes
                 });
 
                 this.SetUniqueSession("IngresoExterno", model.Version ?? "");
 
                 if (!string.IsNullOrEmpty(model.Identifier))
-                {
                     Session.Add("TokenPedidoAutentico", AESAlgorithm.Encrypt(model.Identifier));
-                }
+
+                Session["StartSession"] = DateTime.Now;
 
                 switch (model.Pagina.ToUpper())
                 {
                     case Constantes.IngresoExternoPagina.EstadoCuenta:
-                        return RedirectToRoute("UniqueRoute",
-                            new RouteValueDictionary(new
-                            {
-                                Controller = "EstadoCuenta",
-                                Action = "Index",
-                                guid = this.GetUniqueKey()
-                            }));
+                        return RedirectToUniqueRoute("EstadoCuenta", "Index", null);
                     case Constantes.IngresoExternoPagina.SeguimientoPedido:
-                        return RedirectToRoute("UniqueRoute",
-                            new RouteValueDictionary(new
-                            {
-                                Controller = "SeguimientoPedido",
-                                Action = "Index",
-                                guid = this.GetUniqueKey(),
-                                campania = model.Campania,
-                                numeroPedido = model.NumeroPedido
-                            }));
+                        return RedirectToUniqueRoute("SeguimientoPedido", "Index",
+                            new { campania = model.Campania, numeroPedido = model.NumeroPedido });
                     case Constantes.IngresoExternoPagina.PedidoDetalle:
                         var listTrue = new List<string> { "1", bool.TrueString };
                         bool autoReservar = listTrue.Any(s => s.Equals(model.AutoReservar, StringComparison.OrdinalIgnoreCase));
-                        return RedirectToRoute("UniqueRoute",
-                            new RouteValueDictionary(new
-                            {
-                                Controller = "Pedido",
-                                Action = "Detalle",
-                                guid = this.GetUniqueKey(),
-                                autoReservar = autoReservar
-                            }));
+                        return RedirectToUniqueRoute("Pedido", "Detalle", new { autoReservar = autoReservar });
                     case Constantes.IngresoExternoPagina.NotificacionesValidacionAuto:
-                        return RedirectToRoute("UniqueRoute",
-                            new RouteValueDictionary(new
-                            {
-                                Controller = "Notificaciones",
-                                Action = "ListarObservaciones",
-                                guid = this.GetUniqueKey(),
-                                ProcesoId = model.ProcesoId,
-                                TipoOrigen = 1
-                            }));
+                        return RedirectToUniqueRoute("Notificaciones", "ListarObservaciones",
+                            new { ProcesoId = model.ProcesoId, TipoOrigen = 1 });
                     case Constantes.IngresoExternoPagina.Pedido:
-                        return RedirectToRoute("UniqueRoute",
-                            new RouteValueDictionary(new
+                        return RedirectToUniqueRoute("Pedido", "Index",
+                            new
                             {
-                                Controller = "Pedido",
-                                Action = "Index",
-                                guid = this.GetUniqueKey(),
                                 ProcesoId = model.ProcesoId,
                                 TipoOrigen = 1
-                            }));
+                            });
                     case Constantes.IngresoExternoPagina.CompartirCatalogo:
-                        return RedirectToRoute("UniqueRoute",
-                            new RouteValueDictionary(new
+                        return RedirectToUniqueRoute("Compartir", "CompartirEnChatBot",
+                            new
                             {
-                                Controller = "Compartir",
-                                Action = "CompartirEnChatBot",
-                                guid = this.GetUniqueKey(),
                                 campania = model.Campania,
                                 tipoCatalogo = model.TipoCatalogo,
                                 url = model.UrlCatalogo
-                            }));
+                            });
                     case Constantes.IngresoExternoPagina.MisPedidos:
-                        return RedirectToRoute("UniqueRoute",
-                            new RouteValueDictionary(new
-                            {
-                                Controller = "MisPedidos",
-                                Action = "Index",
-                                guid = this.GetUniqueKey()
-                            }));
+                        return RedirectToUniqueRoute("MisPedidos", "Index", null);
                     case Constantes.IngresoExternoPagina.ShowRoom:
-                        return RedirectToRoute("UniqueRoute",
-                            new RouteValueDictionary(new
-                            {
-                                Controller = "ShowRoom",
-                                Action = "Procesar",
-                                guid = this.GetUniqueKey()
-                            }));
+                        return RedirectToUniqueRoute("ShowRoom", "Procesar", null);
                     case Constantes.IngresoExternoPagina.ProductosAgotados:
-                        return RedirectToRoute("UniqueRoute",
-                            new RouteValueDictionary(new
-                            {
-                                Controller = "ProductosAgotados",
-                                Action = "Index",
-                                guid = this.GetUniqueKey()
-                            }));
+                        return RedirectToUniqueRoute("ProductosAgotados", "Index", null);
                     case Constantes.IngresoExternoPagina.Ofertas:
-                        return RedirectToRoute("UniqueRoute",
-                            new RouteValueDictionary(new
-                            {
-                                Controller = "Ofertas",
-                                Action = "Index",
-                                guid = this.GetUniqueKey()
-                            }));
+                        return RedirectToUniqueRoute("Ofertas", "Index", null);
                 }
             }
             catch (Exception ex)
@@ -2048,5 +1981,35 @@ namespace Portal.Consultoras.Web.Controllers
             return (anioCampaniaResult * 100) + nroCampaniaResult;
         }
 
+        private RedirectToRouteResult RedirectToUniqueRoute(string controller, string action, object routeData)
+        {
+            var route = new RouteValueDictionary(new
+            {
+                Controller = controller,
+                Action = action,
+                guid = this.GetUniqueKey()
+            });
+
+            if (routeData != null)
+            {
+                var routeDataAditional = new RouteValueDictionary(routeData);
+                routeDataAditional.ForEach(item =>
+                {
+                    route.Add(item.Key, item.Value);
+                });
+            }
+
+            return RedirectToRoute("UniqueRoute", route);
+        }
+
+        private static string GetEstadoRdAnalytics(RevistaDigitalModel revistaDigital)
+        {
+            if (revistaDigital == null || !revistaDigital.TieneRDC) return "(not available)";
+            if (revistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
+            {
+                return revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo ? "Inscrita Activa" : "Inscrita No Activa";
+            }
+            return revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo ? "No Inscrita Activa" : "No Inscrita No Activa";
+        }
     }
 }

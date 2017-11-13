@@ -94,7 +94,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 return Json(new
                 {
-                    success = resultado == 1 ? true : false,
+                    success = resultado == 1,
                     message = operacion
                 });
             }

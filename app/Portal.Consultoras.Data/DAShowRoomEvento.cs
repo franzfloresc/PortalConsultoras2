@@ -117,23 +117,6 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteNonQuery(command);
         }
 
-        /*
-        public int InsOfertaShowRoomCargaMasiva(IEnumerable<BEShowRoomOferta2> stockProductos)
-        {
-            var ofertaShowRoomReader = new GenericDataReader<BEShowRoomOferta2>(stockProductos);
-
-            var command = new SqlCommand("ShowRoom.CargaMasivaOfertaShowRoom");
-            command.CommandType = CommandType.StoredProcedure;
-
-            var parameter = new SqlParameter("@CargaOfertaShowRoom", SqlDbType.Structured);
-            parameter.TypeName = "ShowRoom.CargaMasivaOfertaShowRoomType";
-            parameter.Value = ofertaShowRoomReader;
-            command.Parameters.Add(parameter);
-
-            return Context.ExecuteNonQuery(command);
-        }
-        */
-
         public int CargarMasivaDescripcionSets(int campaniaID, string usuarioCreacion, List<BEShowRoomOfertaDetalle> listaShowRoomOfertaDetalle)
         {
             var ofertaShowRoomReader = new GenericDataReader<BEShowRoomOfertaDetalle>(listaShowRoomOfertaDetalle);

@@ -68,8 +68,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult ConsultarEstrategiasOPT()
         {
-            var model = new EstrategiaOutModel();
-
             try
             {
                 var listModel = ConsultarEstrategiasFormatearModelo(ConsultarEstrategiasModel());

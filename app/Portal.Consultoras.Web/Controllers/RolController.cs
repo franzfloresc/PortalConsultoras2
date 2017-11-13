@@ -297,7 +297,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (permisos.FindAll(delegate (BEPermiso m) { return m.IdPadre == perm.PermisoID && m.Mostrar == true; }).Count == 0)
                 {
-                    //tree[index] = new JsTreeModel { data = perm.Descripcion, attr = new JsTreeAttribute { id = perm.PermisoID, selected = (perm.RolId > 0 ? true : false) } };
+                    //tree[index] = new JsTreeModel { data = perm.Descripcion, attr = new JsTreeAttribute { id = perm.PermisoID, selected = (perm.RolId > 0) } };
                     tree[index] = new JsTreeModel { data = perm.Descripcion, attr = new JsTreeAttribute { id = perm.PermisoID, @class = (perm.RolId > 0 ? "jstree-checked" : "jstree-unchecked") } };
                 }
                 else
@@ -328,7 +328,7 @@ namespace Portal.Consultoras.Web.Controllers
                     nodo[index] = new JsTreeModel
                     {
                         data = perm.Descripcion,
-                        //attr = new JsTreeAttribute { id = perm.PermisoID, selected = (perm.RolId > 0 ? true : false) },
+                        //attr = new JsTreeAttribute { id = perm.PermisoID, selected = (perm.RolId > 0) },
                         attr = new JsTreeAttribute { id = perm.PermisoID, @class = (perm.RolId > 0 ? (filtrados.FindAll(x => x.IdPadre == perm.PermisoID).Count == 0 ? "jstree-checked" : "jstree-unchecked") : "jstree-unchecked") },
                         children = CargarSubMenus(new JsTreeModel(), perm, permisos)
                     };

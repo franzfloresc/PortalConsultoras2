@@ -318,7 +318,7 @@ namespace Portal.Consultoras.Data
                 return Context.ExecuteScalar(command).ToString();
             }
         }
-        // 1747 - Inicio
+
         public IDataReader GetRegionZonaZE(int RegionID, int ZonaID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetRegionZonaZE");
@@ -327,7 +327,6 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
-		// 1747 - Fin
         
         public string GetImagenOfertaPersonalizadaOF(int campaniaID, string cuv)
         {
@@ -464,8 +463,7 @@ namespace Portal.Consultoras.Data
             command.Parameters.Add(parameter2);
             return Context.ExecuteNonQuery(command);
         }
-
-        /*PL20-1226*/
+        
         public IDataReader GetEstrategiaODD(int codCampania, string codConsultora, DateTime fechaInicioFact)
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarEstrategiasODD"))

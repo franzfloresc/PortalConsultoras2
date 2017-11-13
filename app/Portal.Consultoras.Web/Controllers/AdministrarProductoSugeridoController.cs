@@ -418,7 +418,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (r != "")
             {
                 var list = r.Split('|');
-                nro = list.Count() > 0 ? list[0] : "";
+                nro = list.Any() ? list[0] : "";
                 txt = list.Count() > 1 ? list[1] : "";
 
                 int x;

@@ -51,7 +51,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                bool mostrarBannerTop = NuncaMostrarBannerTopPL20() ? false : true;
+                bool mostrarBannerTop = !NuncaMostrarBannerTopPL20();
                 ViewBag.MostrarBannerTopPL20 = mostrarBannerTop;
 
                 if (mostrarBanner || mostrarBannerTop)

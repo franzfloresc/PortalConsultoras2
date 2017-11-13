@@ -4,7 +4,6 @@ GO
 IF EXISTS ( SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'ActualizarDescripcionEstrategia') AND type IN ( N'P', N'PC' ) ) 
 DROP PROCEDURE dbo.ActualizarDescripcionEstrategia
 GO
-
 CREATE PROCEDURE dbo.ActualizarDescripcionEstrategia
 	@DescripcionEstrategia dbo.DescripcionEstrategiaType readonly,
 	@CampaniaId int,
@@ -13,19 +12,23 @@ AS
 BEGIN
 	declare @TableType dbo.DescripcionEstrategiaType;
 	INSERT INTO @TableType SELECT * FROM @DescripcionEstrategia;
+	select * from @TableType
+	print @TipoEstrategiaId
 
 	UPDATE Estrategia 
 	SET	DescripcionCUV2 = et.Descripcion
 	FROM Estrategia e
-	JOIN @DescripcionEstrategia et ON e.CUV2 = et.Cuv
-	WHERE TipoEstrategiaID = @TipoEstrategiaId
+		JOIN @DescripcionEstrategia et ON e.CUV2 = et.Cuv 
+	WHERE e.CampaniaID = @CampaniaId 
+		and e.TipoEstrategiaID = @TipoEstrategiaId
 	
 
 	UPDATE @TableType 
 	SET	Estado = 1, Mensaje = 'Actualizado'
 	FROM Estrategia e
-	JOIN @TableType et ON e.CUV2 = et.Cuv
-	WHERE TipoEstrategiaID = @TipoEstrategiaId
+		JOIN @TableType et ON e.CUV2 = et.Cuv 
+	WHERE e.CampaniaID = @CampaniaId
+		and e.TipoEstrategiaID = @TipoEstrategiaId
 
 	SELECT * FROM @TableType
 END
@@ -45,19 +48,23 @@ AS
 BEGIN
 	declare @TableType dbo.DescripcionEstrategiaType;
 	INSERT INTO @TableType SELECT * FROM @DescripcionEstrategia;
+	select * from @TableType
+	print @TipoEstrategiaId
 
 	UPDATE Estrategia 
 	SET	DescripcionCUV2 = et.Descripcion
 	FROM Estrategia e
-	JOIN @DescripcionEstrategia et ON e.CUV2 = et.Cuv
-	WHERE TipoEstrategiaID = @TipoEstrategiaId
+		JOIN @DescripcionEstrategia et ON e.CUV2 = et.Cuv 
+	WHERE e.CampaniaID = @CampaniaId 
+		and e.TipoEstrategiaID = @TipoEstrategiaId
 	
 
 	UPDATE @TableType 
 	SET	Estado = 1, Mensaje = 'Actualizado'
 	FROM Estrategia e
-	JOIN @TableType et ON e.CUV2 = et.Cuv
-	WHERE TipoEstrategiaID = @TipoEstrategiaId
+		JOIN @TableType et ON e.CUV2 = et.Cuv 
+	WHERE e.CampaniaID = @CampaniaId
+		and e.TipoEstrategiaID = @TipoEstrategiaId
 
 	SELECT * FROM @TableType
 END
@@ -77,19 +84,23 @@ AS
 BEGIN
 	declare @TableType dbo.DescripcionEstrategiaType;
 	INSERT INTO @TableType SELECT * FROM @DescripcionEstrategia;
+	select * from @TableType
+	print @TipoEstrategiaId
 
 	UPDATE Estrategia 
 	SET	DescripcionCUV2 = et.Descripcion
 	FROM Estrategia e
-	JOIN @DescripcionEstrategia et ON e.CUV2 = et.Cuv
-	WHERE TipoEstrategiaID = @TipoEstrategiaId
+		JOIN @DescripcionEstrategia et ON e.CUV2 = et.Cuv 
+	WHERE e.CampaniaID = @CampaniaId 
+		and e.TipoEstrategiaID = @TipoEstrategiaId
 	
 
 	UPDATE @TableType 
 	SET	Estado = 1, Mensaje = 'Actualizado'
 	FROM Estrategia e
-	JOIN @TableType et ON e.CUV2 = et.Cuv
-	WHERE TipoEstrategiaID = @TipoEstrategiaId
+		JOIN @TableType et ON e.CUV2 = et.Cuv 
+	WHERE e.CampaniaID = @CampaniaId
+		and e.TipoEstrategiaID = @TipoEstrategiaId
 
 	SELECT * FROM @TableType
 END
@@ -109,19 +120,23 @@ AS
 BEGIN
 	declare @TableType dbo.DescripcionEstrategiaType;
 	INSERT INTO @TableType SELECT * FROM @DescripcionEstrategia;
+	select * from @TableType
+	print @TipoEstrategiaId
 
 	UPDATE Estrategia 
 	SET	DescripcionCUV2 = et.Descripcion
 	FROM Estrategia e
-	JOIN @DescripcionEstrategia et ON e.CUV2 = et.Cuv
-	WHERE TipoEstrategiaID = @TipoEstrategiaId
+		JOIN @DescripcionEstrategia et ON e.CUV2 = et.Cuv 
+	WHERE e.CampaniaID = @CampaniaId 
+		and e.TipoEstrategiaID = @TipoEstrategiaId
 	
 
 	UPDATE @TableType 
 	SET	Estado = 1, Mensaje = 'Actualizado'
 	FROM Estrategia e
-	JOIN @TableType et ON e.CUV2 = et.Cuv
-	WHERE TipoEstrategiaID = @TipoEstrategiaId
+		JOIN @TableType et ON e.CUV2 = et.Cuv 
+	WHERE e.CampaniaID = @CampaniaId
+		and e.TipoEstrategiaID = @TipoEstrategiaId
 
 	SELECT * FROM @TableType
 END
@@ -141,19 +156,23 @@ AS
 BEGIN
 	declare @TableType dbo.DescripcionEstrategiaType;
 	INSERT INTO @TableType SELECT * FROM @DescripcionEstrategia;
+	select * from @TableType
+	print @TipoEstrategiaId
 
 	UPDATE Estrategia 
 	SET	DescripcionCUV2 = et.Descripcion
 	FROM Estrategia e
-	JOIN @DescripcionEstrategia et ON e.CUV2 = et.Cuv
-	WHERE TipoEstrategiaID = @TipoEstrategiaId
+		JOIN @DescripcionEstrategia et ON e.CUV2 = et.Cuv 
+	WHERE e.CampaniaID = @CampaniaId 
+		and e.TipoEstrategiaID = @TipoEstrategiaId
 	
 
 	UPDATE @TableType 
 	SET	Estado = 1, Mensaje = 'Actualizado'
 	FROM Estrategia e
-	JOIN @TableType et ON e.CUV2 = et.Cuv
-	WHERE TipoEstrategiaID = @TipoEstrategiaId
+		JOIN @TableType et ON e.CUV2 = et.Cuv 
+	WHERE e.CampaniaID = @CampaniaId
+		and e.TipoEstrategiaID = @TipoEstrategiaId
 
 	SELECT * FROM @TableType
 END
@@ -173,19 +192,23 @@ AS
 BEGIN
 	declare @TableType dbo.DescripcionEstrategiaType;
 	INSERT INTO @TableType SELECT * FROM @DescripcionEstrategia;
+	select * from @TableType
+	print @TipoEstrategiaId
 
 	UPDATE Estrategia 
 	SET	DescripcionCUV2 = et.Descripcion
 	FROM Estrategia e
-	JOIN @DescripcionEstrategia et ON e.CUV2 = et.Cuv
-	WHERE TipoEstrategiaID = @TipoEstrategiaId
+		JOIN @DescripcionEstrategia et ON e.CUV2 = et.Cuv 
+	WHERE e.CampaniaID = @CampaniaId 
+		and e.TipoEstrategiaID = @TipoEstrategiaId
 	
 
 	UPDATE @TableType 
 	SET	Estado = 1, Mensaje = 'Actualizado'
 	FROM Estrategia e
-	JOIN @TableType et ON e.CUV2 = et.Cuv
-	WHERE TipoEstrategiaID = @TipoEstrategiaId
+		JOIN @TableType et ON e.CUV2 = et.Cuv 
+	WHERE e.CampaniaID = @CampaniaId
+		and e.TipoEstrategiaID = @TipoEstrategiaId
 
 	SELECT * FROM @TableType
 END
@@ -205,19 +228,23 @@ AS
 BEGIN
 	declare @TableType dbo.DescripcionEstrategiaType;
 	INSERT INTO @TableType SELECT * FROM @DescripcionEstrategia;
+	select * from @TableType
+	print @TipoEstrategiaId
 
 	UPDATE Estrategia 
 	SET	DescripcionCUV2 = et.Descripcion
 	FROM Estrategia e
-	JOIN @DescripcionEstrategia et ON e.CUV2 = et.Cuv
-	WHERE TipoEstrategiaID = @TipoEstrategiaId
+		JOIN @DescripcionEstrategia et ON e.CUV2 = et.Cuv 
+	WHERE e.CampaniaID = @CampaniaId 
+		and e.TipoEstrategiaID = @TipoEstrategiaId
 	
 
 	UPDATE @TableType 
 	SET	Estado = 1, Mensaje = 'Actualizado'
 	FROM Estrategia e
-	JOIN @TableType et ON e.CUV2 = et.Cuv
-	WHERE TipoEstrategiaID = @TipoEstrategiaId
+		JOIN @TableType et ON e.CUV2 = et.Cuv 
+	WHERE e.CampaniaID = @CampaniaId
+		and e.TipoEstrategiaID = @TipoEstrategiaId
 
 	SELECT * FROM @TableType
 END
@@ -237,19 +264,23 @@ AS
 BEGIN
 	declare @TableType dbo.DescripcionEstrategiaType;
 	INSERT INTO @TableType SELECT * FROM @DescripcionEstrategia;
+	select * from @TableType
+	print @TipoEstrategiaId
 
 	UPDATE Estrategia 
 	SET	DescripcionCUV2 = et.Descripcion
 	FROM Estrategia e
-	JOIN @DescripcionEstrategia et ON e.CUV2 = et.Cuv
-	WHERE TipoEstrategiaID = @TipoEstrategiaId
+		JOIN @DescripcionEstrategia et ON e.CUV2 = et.Cuv 
+	WHERE e.CampaniaID = @CampaniaId 
+		and e.TipoEstrategiaID = @TipoEstrategiaId
 	
 
 	UPDATE @TableType 
 	SET	Estado = 1, Mensaje = 'Actualizado'
 	FROM Estrategia e
-	JOIN @TableType et ON e.CUV2 = et.Cuv
-	WHERE TipoEstrategiaID = @TipoEstrategiaId
+		JOIN @TableType et ON e.CUV2 = et.Cuv 
+	WHERE e.CampaniaID = @CampaniaId
+		and e.TipoEstrategiaID = @TipoEstrategiaId
 
 	SELECT * FROM @TableType
 END
@@ -269,19 +300,23 @@ AS
 BEGIN
 	declare @TableType dbo.DescripcionEstrategiaType;
 	INSERT INTO @TableType SELECT * FROM @DescripcionEstrategia;
+	select * from @TableType
+	print @TipoEstrategiaId
 
 	UPDATE Estrategia 
 	SET	DescripcionCUV2 = et.Descripcion
 	FROM Estrategia e
-	JOIN @DescripcionEstrategia et ON e.CUV2 = et.Cuv
-	WHERE TipoEstrategiaID = @TipoEstrategiaId
+		JOIN @DescripcionEstrategia et ON e.CUV2 = et.Cuv 
+	WHERE e.CampaniaID = @CampaniaId 
+		and e.TipoEstrategiaID = @TipoEstrategiaId
 	
 
 	UPDATE @TableType 
 	SET	Estado = 1, Mensaje = 'Actualizado'
 	FROM Estrategia e
-	JOIN @TableType et ON e.CUV2 = et.Cuv
-	WHERE TipoEstrategiaID = @TipoEstrategiaId
+		JOIN @TableType et ON e.CUV2 = et.Cuv 
+	WHERE e.CampaniaID = @CampaniaId
+		and e.TipoEstrategiaID = @TipoEstrategiaId
 
 	SELECT * FROM @TableType
 END
@@ -301,19 +336,23 @@ AS
 BEGIN
 	declare @TableType dbo.DescripcionEstrategiaType;
 	INSERT INTO @TableType SELECT * FROM @DescripcionEstrategia;
+	select * from @TableType
+	print @TipoEstrategiaId
 
 	UPDATE Estrategia 
 	SET	DescripcionCUV2 = et.Descripcion
 	FROM Estrategia e
-	JOIN @DescripcionEstrategia et ON e.CUV2 = et.Cuv
-	WHERE TipoEstrategiaID = @TipoEstrategiaId
+		JOIN @DescripcionEstrategia et ON e.CUV2 = et.Cuv 
+	WHERE e.CampaniaID = @CampaniaId 
+		and e.TipoEstrategiaID = @TipoEstrategiaId
 	
 
 	UPDATE @TableType 
 	SET	Estado = 1, Mensaje = 'Actualizado'
 	FROM Estrategia e
-	JOIN @TableType et ON e.CUV2 = et.Cuv
-	WHERE TipoEstrategiaID = @TipoEstrategiaId
+		JOIN @TableType et ON e.CUV2 = et.Cuv 
+	WHERE e.CampaniaID = @CampaniaId
+		and e.TipoEstrategiaID = @TipoEstrategiaId
 
 	SELECT * FROM @TableType
 END
@@ -333,19 +372,23 @@ AS
 BEGIN
 	declare @TableType dbo.DescripcionEstrategiaType;
 	INSERT INTO @TableType SELECT * FROM @DescripcionEstrategia;
+	select * from @TableType
+	print @TipoEstrategiaId
 
 	UPDATE Estrategia 
 	SET	DescripcionCUV2 = et.Descripcion
 	FROM Estrategia e
-	JOIN @DescripcionEstrategia et ON e.CUV2 = et.Cuv
-	WHERE TipoEstrategiaID = @TipoEstrategiaId
+		JOIN @DescripcionEstrategia et ON e.CUV2 = et.Cuv 
+	WHERE e.CampaniaID = @CampaniaId 
+		and e.TipoEstrategiaID = @TipoEstrategiaId
 	
 
 	UPDATE @TableType 
 	SET	Estado = 1, Mensaje = 'Actualizado'
 	FROM Estrategia e
-	JOIN @TableType et ON e.CUV2 = et.Cuv
-	WHERE TipoEstrategiaID = @TipoEstrategiaId
+		JOIN @TableType et ON e.CUV2 = et.Cuv 
+	WHERE e.CampaniaID = @CampaniaId
+		and e.TipoEstrategiaID = @TipoEstrategiaId
 
 	SELECT * FROM @TableType
 END
@@ -365,19 +408,23 @@ AS
 BEGIN
 	declare @TableType dbo.DescripcionEstrategiaType;
 	INSERT INTO @TableType SELECT * FROM @DescripcionEstrategia;
+	select * from @TableType
+	print @TipoEstrategiaId
 
 	UPDATE Estrategia 
 	SET	DescripcionCUV2 = et.Descripcion
 	FROM Estrategia e
-	JOIN @DescripcionEstrategia et ON e.CUV2 = et.Cuv
-	WHERE TipoEstrategiaID = @TipoEstrategiaId
+		JOIN @DescripcionEstrategia et ON e.CUV2 = et.Cuv 
+	WHERE e.CampaniaID = @CampaniaId 
+		and e.TipoEstrategiaID = @TipoEstrategiaId
 	
 
 	UPDATE @TableType 
 	SET	Estado = 1, Mensaje = 'Actualizado'
 	FROM Estrategia e
-	JOIN @TableType et ON e.CUV2 = et.Cuv
-	WHERE TipoEstrategiaID = @TipoEstrategiaId
+		JOIN @TableType et ON e.CUV2 = et.Cuv 
+	WHERE e.CampaniaID = @CampaniaId
+		and e.TipoEstrategiaID = @TipoEstrategiaId
 
 	SELECT * FROM @TableType
 END
@@ -397,19 +444,23 @@ AS
 BEGIN
 	declare @TableType dbo.DescripcionEstrategiaType;
 	INSERT INTO @TableType SELECT * FROM @DescripcionEstrategia;
+	select * from @TableType
+	print @TipoEstrategiaId
 
 	UPDATE Estrategia 
 	SET	DescripcionCUV2 = et.Descripcion
 	FROM Estrategia e
-	JOIN @DescripcionEstrategia et ON e.CUV2 = et.Cuv
-	WHERE TipoEstrategiaID = @TipoEstrategiaId
+		JOIN @DescripcionEstrategia et ON e.CUV2 = et.Cuv 
+	WHERE e.CampaniaID = @CampaniaId 
+		and e.TipoEstrategiaID = @TipoEstrategiaId
 	
 
 	UPDATE @TableType 
 	SET	Estado = 1, Mensaje = 'Actualizado'
 	FROM Estrategia e
-	JOIN @TableType et ON e.CUV2 = et.Cuv
-	WHERE TipoEstrategiaID = @TipoEstrategiaId
+		JOIN @TableType et ON e.CUV2 = et.Cuv 
+	WHERE e.CampaniaID = @CampaniaId
+		and e.TipoEstrategiaID = @TipoEstrategiaId
 
 	SELECT * FROM @TableType
 END

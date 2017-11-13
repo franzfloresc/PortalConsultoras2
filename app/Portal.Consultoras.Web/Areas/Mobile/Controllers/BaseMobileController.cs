@@ -12,6 +12,7 @@ using System.Web.Routing;
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
     [UniqueSession("UniqueRoute", UniqueRoute.IdentifierKey, "/g/")]
+    [ClearSessionMobileApp(UniqueRoute.IdentifierKey, "MobileAppConfiguracion", "StartSession")]
     public class BaseMobileController : BaseController
     {
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
@@ -48,7 +49,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     if (userData.CloseBannerPL20) mostrarBanner = false;
                 }
 
-                bool mostrarBannerTop = NuncaMostrarBannerTopPL20() || userData.IndicadorGPRSB == 1 ? false : true;
+                bool mostrarBannerTop = !(NuncaMostrarBannerTopPL20() || userData.IndicadorGPRSB == 1);
 
                 ViewBag.MostrarBannerTopPL20 = mostrarBannerTop;
 
@@ -260,7 +261,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (!routeValues.ContainsKey("action"))
                 routeValues.Add("action", actionName);
 
-           
+
             if (!routeValues.ContainsKey(uniqueSessionAttribute.IdentifierKey))
                 routeValues.Add(uniqueSessionAttribute.IdentifierKey, uniqueKey);
 
