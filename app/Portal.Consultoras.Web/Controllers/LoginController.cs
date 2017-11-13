@@ -1779,11 +1779,10 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         validaLogin = svc.GetValidarAutoLogin(beUsuarioExt.PaisID, beUsuarioExt.CodigoUsuario, proveedor);
                     }
-
-                    if (validaLogin != null && validaLogin.Result == 3)
-                    {
+                    validaLogin = validaLogin ?? new BEValidaLoginSB2();
+                    if (validaLogin.Result == 3)
                         return Redireccionar(beUsuarioExt.PaisID, beUsuarioExt.CodigoUsuario, returnUrl, true);
-                    }
+                    
                     return Json(new
                     {
                         success = false,

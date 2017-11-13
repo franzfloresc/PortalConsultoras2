@@ -3800,14 +3800,14 @@ namespace Portal.Consultoras.Web.Controllers
                     if (model.Puntos.Count == 1)
                     {
                         var punto = model.Puntos.First();
-                        var noEncontroDireccion = false; //punto.Item3.Contains("");
+                        //var noEncontroDireccion = false; //punto.Item3.Contains("");
 
-                        if (noEncontroDireccion)
-                        {
+                        //if (noEncontroDireccion)
+                        //{
 
-                        }
-                        else
-                        {
+                        //}
+                        //else
+                        //{
 
                             if (CodigoISO == Pais.Colombia)
                             {
@@ -3818,7 +3818,7 @@ namespace Portal.Consultoras.Web.Controllers
 
 
                             GetLocationInfo(ref model);
-                        }
+                        //}
                     }
 
                     #endregion
