@@ -146,6 +146,8 @@
         }
         else if (revistaDigital.TieneRDR)
         {
+            if (!Portal.Consultoras.Web.SessionManager.SessionManager.Instance.GetUserData().TieneGND)
+            {
             @Html.Partial("~/Views/MisCatalogosRevistas/template-revista-slide.cshtml")
             <!-- Agregar revista -->
             <div class="revista_content" id="contentRevistaDigital" style="height: 300px; position: relative;">
@@ -165,6 +167,7 @@
                     </div>
                 </div>
             </div>
+            }
         }
         else
         {
