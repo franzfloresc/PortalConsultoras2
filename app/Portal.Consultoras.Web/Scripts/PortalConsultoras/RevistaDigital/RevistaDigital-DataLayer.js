@@ -461,6 +461,9 @@ var rdAnalyticsModule = (function () {
         _virtualEventPush(_text.epm, _action.cancelarInscripcion, _text.notAvailable);
     }
 
+    function ContendorSection(titulo) {
+        _virtualEventPush(_text.contenedor, titulo + " – Ver Todo", _text.notAvailable);
+    }
     return { //rdAnalyticsModule
         CancelarSuscripcion: CancelarSuscripcion,
         IrCancelarSuscripcion: IrCancelarSuscripcion,
@@ -476,6 +479,7 @@ var rdAnalyticsModule = (function () {
         AgregarProducto: AgregarProducto,
         FiltrarProducto: FiltrarProducto,
         Tabs: Tabs,
-        Access: Access
+        Access: Access,
+        ContendorSection: ContendorSection
     };
 })();
