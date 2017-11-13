@@ -29,7 +29,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.ModPedido = "display:none;";
                 ViewBag.NombreConsultora = userData.NombreConsultora;
                 ViewBag.PedidoFIC = "C" + AddCampaniaAndNumero(userData.CampaniaID, 1);
-                ViewBag.MensajeFIC = "antes del " + userData.FechaFinFIC.Day + " de " + NombreMes(userData.FechaFinFIC.Month);//1501
+                ViewBag.MensajeFIC = "antes del " + userData.FechaFinFIC.Day + " de " + NombreMes(userData.FechaFinFIC.Month);
 
                 List<BEPedidoFICDetalle> olstPedidoFICDetalle = new List<BEPedidoFICDetalle>();
                 olstPedidoFICDetalle = ObtenerPedidoFICDetalle();
@@ -41,14 +41,13 @@ namespace Portal.Consultoras.Web.Controllers
                 PedidoModelo.Total = string.Format("{0:N2}", olstPedidoFICDetalle.Sum(p => p.ImporteTotal));
                 ViewBag.Simbolo = PedidoModelo.Simbolo;
                 ViewBag.Total = PedidoModelo.Total;
-                ViewBag.IndicadorOfertaFIC = userData.IndicadorOfertaFIC; //SSAP CGI(Id Solicitud=1402)
+                ViewBag.IndicadorOfertaFIC = userData.IndicadorOfertaFIC;
 
-                // Req. 1664 - Gestion de contenido S3
                 var carpetaPais = Globals.UrlOfertasFic + "/" + userData.CodigoISO;
                 var url = ConfigS3.GetUrlFileS3(carpetaPais, userData.ImagenURLOfertaFIC, "");
 
-                ViewBag.ImagenUrlOfertaFIC = url; //SSAP CGI(Id Solicitud=1402)
-                ViewBag.PaisID = userData.PaisID; //1501
+                ViewBag.ImagenUrlOfertaFIC = url;
+                ViewBag.PaisID = userData.PaisID;
 
                 if (olstPedidoFICDetalle.Count != 0)
                 {
@@ -168,7 +167,6 @@ namespace Portal.Consultoras.Web.Controllers
             oBEPedidoFICDetalle.PedidoID = userData.PedidoID;
             oBEPedidoFICDetalle.OfertaWeb = false;
             oBEPedidoFICDetalle.IndicadorMontoMinimo = Convert.ToInt32(model.IndicadorMontoMinimo);
-            //oBEPedidoFICDetalle.TipoOfertaSisID = model.TipoOfertaSisID;
 
             if (model.Tipo != 2)
             {
@@ -220,7 +218,6 @@ namespace Portal.Consultoras.Web.Controllers
             oBEPedidoFICDetalle.PrecioUnidad = model.PrecioUnidad;
             oBEPedidoFICDetalle.ClienteID = string.IsNullOrEmpty(model.ClienteID) ? (short)0 : Convert.ToInt16(model.ClienteID);
 
-            //Cambios para Oferta de Liquidación
             oBEPedidoFICDetalle.CUV = model.CUV;
             oBEPedidoFICDetalle.TipoOfertaSisID = model.TipoOfertaSisID;
             oBEPedidoFICDetalle.Stock = model.Stock;
@@ -274,7 +271,6 @@ namespace Portal.Consultoras.Web.Controllers
             obe.Cantidad = Cantidad;
 
             string mensaje = string.Empty;
-            // se valida si esta en horario restringido
             if (ReservadoEnHorarioRestringido(out mensaje))
             {
                 return Json(new
@@ -417,7 +413,6 @@ namespace Portal.Consultoras.Web.Controllers
                         CUVRevista = item.CUVRevista.Trim(),
                         CUVComplemento = item.CUVComplemento.Trim(),
                         IndicadorMontoMinimo = item.IndicadorMontoMinimo.ToString().Trim(),
-                        //CUVComplemento = item.CUVComplemento.Trim(),
                         TipoOfertaSisID = item.TipoOfertaSisID,
                         ConfiguracionOfertaID = item.ConfiguracionOfertaID
                     });
@@ -462,7 +457,6 @@ namespace Portal.Consultoras.Web.Controllers
                         CUVRevista = olstProducto[0].CUVRevista.Trim(),
                         CUVComplemento = olstProducto[0].CUVComplemento.Trim(),
                         IndicadorMontoMinimo = olstProducto[0].IndicadorMontoMinimo.ToString().Trim(),
-                        //CUVComplemento = olstProducto[0].CUVComplemento.Trim(),
                         TipoOfertaSisID = olstProducto[0].TipoOfertaSisID,
                         ConfiguracionOfertaID = olstProducto[0].ConfiguracionOfertaID
                     });
@@ -509,7 +503,6 @@ namespace Portal.Consultoras.Web.Controllers
                         CUVComplemento = item.CUVComplemento.Trim(),
                         TipoOfertaSisID = item.TipoOfertaSisID,
                         ConfiguracionOfertaID = item.ConfiguracionOfertaID,
-                        //CUVComplemento = item.CUVComplemento.Trim(),
                         IndicadorMontoMinimo = olstProducto[0].IndicadorMontoMinimo.ToString().Trim(),
                     });
                 }

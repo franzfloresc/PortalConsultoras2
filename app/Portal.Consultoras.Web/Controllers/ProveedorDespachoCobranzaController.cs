@@ -71,13 +71,11 @@ namespace Portal.Consultoras.Web.Controllers
                         lst = srv.GetProveedorDespachoCobranza(paisID).ToList();
                     }
 
-                    // Usamos el modelo para obtener los datos
                     BEGrid grid = new BEGrid();
                     grid.PageSize = rows;
                     grid.CurrentPage = page;
                     grid.SortColumn = sidx;
                     grid.SortOrder = sord;
-                    //int buscar = int.Parse(txtBuscar);
                     BEPager pag = new BEPager();
                     IEnumerable<ServiceSAC.BEProveedorDespachoCobranza> items = lst;
 
@@ -106,7 +104,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                     pag = Util.PaginadorGenerico(grid, lst.ToList());
 
-                    // Creamos la estructura
                     var data = new
                     {
                         total = pag.PageCount,
@@ -503,8 +500,6 @@ namespace Portal.Consultoras.Web.Controllers
                                {
                                    a.ProveedorDespachoCobranzaID.ToString(),
                                    a.NombreComercial.ToString(),
-//                                   a.RazonSocial.ToString(),
-//                                   a.RFC.ToString()
                                    a.CampoId.ToString(),
                                    a.NombreCampo,
                                    a.Valor

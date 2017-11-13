@@ -30,27 +30,11 @@ namespace Portal.Consultoras.Web.Controllers
 
     public class ParametroDiasCargaPedidoController : BaseController
     {
-        //
-        // GET: /ParametroDiasCargaPedido/
 
         public ActionResult Index()
         {
-            //try
-            //{
-            //    if (!UsuarioModel.HasAcces(ViewBag.Permiso, "ModificacionCronograma/Index"))
-            //        return RedirectToAction("Index", "Bienvenida");
-            //}
-            //catch (FaultException ex)
-            //{
-            //    LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-            //}
-
-            //await Task.Run(() => LoadConsultorasCache(11));
-            //var listaCampanias = DropDowListCampanias(11);
-
             var parametroDiasCargaPedidoModel = new ParametroDiasCargaPedidoModel()
             {
-                //listaCampanias = new List<CampaniaModel>(),
                 listaPaises = DropDowListPaises(),
                 listaRegiones = new List<RegionModel>(),
                 listaZonas = new List<ZonaModel>()
@@ -60,14 +44,12 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ObtenerRegionesPorPais(int PaisID)
         {
-            //PaisID = 11;
             IEnumerable<RegionModel> lstRegiones = DropDownListRegiones(PaisID);
             IEnumerable<ZonaModel> lstZonas = DropDownListZonas(PaisID);
 
             return Json(new
             {
                 lstRegiones = lstRegiones.OrderBy(x => x.Codigo)
-                //listaZonas = lstZonas.OrderBy(x => x.Codigo)
             }, JsonRequestBehavior.AllowGet);
         }
 
@@ -125,13 +107,11 @@ namespace Portal.Consultoras.Web.Controllers
             if (pais.GetValueOrDefault() == 0)
                 return Json(null, JsonRequestBehavior.AllowGet);
 
-            // consultar las regiones y zonas
             IList<BEConfiguracionParametroCarga> lst;
             using (SACServiceClient sv = new SACServiceClient())
             {
                 lst = sv.GetRegionZonaDiasParametroCarga(pais.GetValueOrDefault(), region.GetValueOrDefault(), zona.GetValueOrDefault());
             }
-            // se crea el arbol de nodos para el control de la vista
             JsTreeModel[] tree = lst.Distinct<BEConfiguracionParametroCarga>(new BEConfiguracionParametroCargaRegionIDComparer()).Select(
                                     r => new JsTreeModel
                                     {
@@ -161,12 +141,9 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                // se hace la actualizacion de modificación de cronograma
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-                    // grabar en el log cada cambio
                     sv.InsLogParametroDiasCargaPedido(UserData().PaisID, UserData().CodigoUsuario, EntradasLog.ToArray());
-                    // update de la zona para el nuevo valor de dias de duracion de cronograma
                     sv.UpdConfiguracionParametroCargaPedido(UserData().PaisID, EntradasConfiguracionParametroCarga.ToArray());
                 }
                 return Json(new
@@ -188,10 +165,8 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        //public ActionResult ExportarExcel(string PaisID, string RegionID, string ZonaID, string vConsultora)
         public ActionResult ExportarExcel(int PaisID)
         {
-            // consulta toda la data de ConfiguracionValidacionZona
             IList<BEConfiguracionParametroCarga> lst;
             using (SACServiceClient sv = new SACServiceClient())
             {
@@ -209,21 +184,17 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ConsultarLog(string sidx, string sord, int page, int rows, string vBusqueda)
         {
-            //if (ModelState.IsValid)
-            //{
             IList<BELogParametroDiasCargaPedido> lst;
             using (SACServiceClient sv = new SACServiceClient())
             {
                 lst = sv.GetLogParametroDiasCargaPedido(UserData().PaisID);
             }
 
-            // Usamos el modelo para obtener los datos
             BEGrid grid = new BEGrid();
             grid.PageSize = rows;
             grid.CurrentPage = page;
             grid.SortColumn = sidx;
             grid.SortOrder = sord;
-            //int buscar = int.Parse(txtBuscar);
             BEPager pag = new BEPager();
             IEnumerable<BELogParametroDiasCargaPedido> items = lst;
 
@@ -273,7 +244,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             pag = Paginador(grid, vBusqueda);
 
-            // Creamos la estructura
             var data = new
             {
                 total = pag.PageCount,
@@ -293,8 +263,6 @@ namespace Portal.Consultoras.Web.Controllers
                        }
             };
             return Json(data, JsonRequestBehavior.AllowGet);
-            //}
-            //return RedirectToAction("Index", "ModificacionCronograma");
         }
 
         public BEPager Paginador(BEGrid item, string vBusqueda)
@@ -309,7 +277,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             int RecordCount;
 
-            // TODO: probar si es necesario el valor de 'vBusqueda'
             if (string.IsNullOrEmpty(vBusqueda))
                 RecordCount = lst.Count;
             else
