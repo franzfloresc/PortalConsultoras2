@@ -248,8 +248,11 @@ var menuModule = (function () {
             });
         }
     }
-    function sectionClick(url) {
-        
+    function sectionClick(url, titulo) {
+        if (typeof rdAnalyticsModule !== "undefined") {
+            rdAnalyticsModule.ContendorSection(titulo);
+        }
+        window.location.href = url;
     }
     return {
         init: init,
