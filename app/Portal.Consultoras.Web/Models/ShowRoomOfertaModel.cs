@@ -90,25 +90,21 @@ namespace Portal.Consultoras.Web.Models
         public string DescripcionCategoria { get; set; }
         public string TextoCondicionCompraCpc { get; set; }
         public string TextoDescripcionLegalCpc { get; set; }
-
-        // no se utiliza
-        //public decimal Gana {
-        //    set
-        //    {
-        //        this.Gana = value;
-        //    }
-        //    get
-        //    {
-        //        return Math.Abs(PrecioValorizado - PrecioOferta);
-        //    }
-        //}
-        //public string FormatoGana
-        //{
-        //    get
-        //    {
-        //        return Util.DecimalToStringFormat(Gana, CodigoISO);
-        //    }
-        //}
+        
+        public decimal Gana
+        {
+            get
+            {
+                return Math.Abs(PrecioValorizado - PrecioOferta);
+            }
+        }
+        public string FormatoGana
+        {
+            get
+            {
+                return Util.DecimalToStringFormat(Gana, CodigoISO);
+            }
+        }
 
         public string FormatoPrecioValorizado
         {

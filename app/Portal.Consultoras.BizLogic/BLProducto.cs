@@ -45,9 +45,8 @@ namespace Portal.Consultoras.BizLogic
 
         public IList<BEProducto> SelectProductoByCodigoDescripcion(int paisID, int campaniaID, string codigoDescripcion, int criterio, int rowCount)
         {
-            IList<BEProducto> productos;
+            IList<BEProducto> productos = new List<BEProducto>();
 
-            productos = new List<BEProducto>();
             var DAProducto = new DAProducto(paisID);
 
             using (IDataReader reader = DAProducto.GetProductoComercialByCampania(campaniaID))
