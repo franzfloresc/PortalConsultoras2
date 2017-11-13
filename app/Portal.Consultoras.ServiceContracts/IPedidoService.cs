@@ -1242,8 +1242,6 @@ namespace Portal.Consultoras.ServiceContracts
         List<Estrategia.BEConfiguracionProgramaNuevasApp> GetConfiguracionProgramaNuevasApp(int paisID, string CodigoPrograma);
         [OperationContract]
         string InsConfiguracionProgramaNuevasApp(int paisID, Estrategia.BEConfiguracionProgramaNuevasApp entidad);
-        [OperationContract]
-        bool DelConfiguracionProgramaNuevasApp(int paisID, int ConfiguracionProgramaNuevasAppID);
         #endregion
     }
 }

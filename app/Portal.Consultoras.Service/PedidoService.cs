@@ -2283,10 +2283,6 @@ namespace Portal.Consultoras.Service
         {
             return _configuracionProgramaNuevasBusinessLogic.InsConfiguracionProgramaNuevasApp(paisID, entidad);
         }
-        public bool DelConfiguracionProgramaNuevasApp(int paisID, int ConfiguracionProgramaNuevasAppID)
-        {
-            return _configuracionProgramaNuevasBusinessLogic.DelConfiguracionProgramaNuevasApp(paisID, ConfiguracionProgramaNuevasAppID);
-        }
         #endregion
     }
 }
