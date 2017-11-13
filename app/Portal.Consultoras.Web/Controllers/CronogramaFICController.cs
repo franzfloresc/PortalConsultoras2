@@ -14,9 +14,6 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class CronogramaFICController : BaseController
     {
-        //
-        // GET: /CronogramaFIC/
-
         public ActionResult Index()
         {
             if (!UsuarioModel.HasAcces(ViewBag.Permiso, "CronogramaFIC/Index"))
@@ -36,7 +33,6 @@ namespace Portal.Consultoras.Web.Controllers
             CronogramaFICModel model = new CronogramaFICModel();
             model.listaPaises = DropDowListPaises();
             model.DropDownListCampania = CargarCampania();
-            //model.DropDownListCampania.Insert(0, new BECampania() { CampaniaID = 0, Codigo = "-- Seleccionar --" });
             return View(model);
         }
 
@@ -89,7 +85,6 @@ namespace Portal.Consultoras.Web.Controllers
                         lst = sv.GetCronogramaFICByCampania(Convert.ToInt32(PaisID), CampaniaID).ToList();
                     }
                 }
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
@@ -135,7 +130,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 pag = Util.PaginadorGenerico(grid, lst);
 
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,
@@ -149,7 +143,6 @@ namespace Portal.Consultoras.Web.Controllers
                                {
                                    a.Campania.ToString(),
                                    a.Zona.ToString(),
-                                   //a.FechaFin == null ? "" : Convert.ToDateTime(a.FechaFin.ToString()).ToShortDateString(),
                                    a.FechaFin == null ? "" : Convert.ToDateTime(a.FechaFin.ToString()).Day.ToString() + " de " + NombreMes(Convert.ToDateTime(a.FechaFin.ToString()).Month),
                                    a.ZonaID.ToString(),
                                    a.CampaniaID.ToString()
@@ -210,15 +203,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                //using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-                //{
-                //    sv.InsInsCronogramaFIC(PaisID, CampaniaID.ToString(), ZonaCodigo);
-                //}
-
-                //issuccess = true;
-                //lstZonasActivas = ObtenerZonasActivas(PaisID, CampaniaID);
-                //lstZonasInactivas = ObtenerZonasInactivas(PaisID, CampaniaID);
-
                 lstZonasActivas = (List<ZonaModel>)Session["lstZonasActivas"];
                 lstZonasInactivas = (List<ZonaModel>)Session["lstZonasInactivas"];
 
@@ -230,7 +214,6 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             lstZonasActivas.Add(item);
                             lstZonasInactivasEliminar.Add(item);
-                            //lstZonasInactivas.Remove(item);
                         }
                     }
                 }
@@ -281,15 +264,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                //using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-                //{
-                //    sv.DelCronogramaFIC(PaisID, CampaniaID.ToString(), ZonaCodigo);
-                //}
-
-                //lstZonasActivas = ObtenerZonasActivas(PaisID, CampaniaID);
-                //lstZonasInactivas = ObtenerZonasInactivas(PaisID, CampaniaID);
-                //issuccess = true;
-
                 lstZonasActivas = (List<ZonaModel>)Session["lstZonasActivas"];
                 lstZonasInactivas = (List<ZonaModel>)Session["lstZonasInactivas"];
 
@@ -301,7 +275,6 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             lstZonasInactivas.Add(item);
                             lstZonasActivasEliminar.Add(item);
-                            //lstZonasInactivas.Remove(item);
                         }
                     }
                 }
@@ -348,7 +321,6 @@ namespace Portal.Consultoras.Web.Controllers
             string mensaje;
             try
             {
-                //ZonaCodigoEliminar = Session["ZonaCodigoEliminar"].ToString();
                 using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
                 {
                     sv.InsInsCronogramaFIC(PaisID, CampaniaID.ToString(), ZonaCodigoInsertar);
@@ -433,7 +405,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
                 {
-                    //entidad.PaisID = 11;
                     sv.UpdCronogramaFIC(model.PaisID, entidad.Campania, entidad.Zona, entidad.FechaFin);
                 }
                 return Json(new
@@ -492,7 +463,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         private List<ZonaModel> ObtenerZonasActivas(int PaisID, int CampaniaID)
         {
-            //PaisID = 11;
             IList<BEZona> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
@@ -508,7 +478,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         private List<ZonaModel> ObtenerZonasInactivas(int PaisID, int CampaniaID)
         {
-            //PaisID = 11;
             IList<BEZona> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
@@ -530,19 +499,16 @@ namespace Portal.Consultoras.Web.Controllers
             string message = string.Empty;
             try
             {
-                // valida que el archivo exista
                 if (uplArchivo == null)
                 {
                     return message = "El archivo especificado no existe.";
                 }
 
-                // valida la extensión del archivo
                 if (!Util.isFileExtension(uplArchivo.FileName, Enumeradores.TypeDocExtension.Excel))
                 {
                     return message = "El archivo especificado no es un documento de tipo MS-Excel.";
                 }
 
-                //Guarda el archivo en una ruta del servidor
                 string finalPath = string.Empty, httpPath = string.Empty;
                 string fileextension = Path.GetExtension(uplArchivo.FileName);
 
@@ -563,7 +529,6 @@ namespace Portal.Consultoras.Web.Controllers
                 CronogramaFICModel prod = new CronogramaFICModel();
                 IList<CronogramaFICModel> lista = Util.ReadXmlFile(finalPath, prod, false, ref IsCorrect);
 
-                //elimina el documento, una vez que haya sido procesado
                 System.IO.File.Delete(finalPath);
 
                 if (IsCorrect && lista != null)
@@ -605,7 +570,6 @@ namespace Portal.Consultoras.Web.Controllers
             if (ZonaID == "" || ZonaID == null)
                 ZonaID = "x";
 
-            // consultar las regiones y zonas
             List<BECronogramaFIC> lst = new List<BECronogramaFIC>();
             List<String> zonas;
 
@@ -620,7 +584,6 @@ namespace Portal.Consultoras.Web.Controllers
             zonas = (from item in zonas
                      select item).Distinct().ToList();
 
-            // se crea el arbol de nodos para el control de la vista
             JsTreeModel2[] tree = zonas.Select(
                                  r => new JsTreeModel2
                                  {

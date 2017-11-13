@@ -93,7 +93,6 @@
 
                 lst = EstadodeCuenta(codigoConsultora);
 
-                ///Totales
                 string fechaVencimiento;
                 string montoPagar;
                 string simbolo;
@@ -131,7 +130,6 @@
                     lst.RemoveAt(lst.Count - 1);
                 }
 
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
@@ -186,7 +184,6 @@
                 items.Where(x => x.Glosa == null).Update(r => r.Glosa = string.Empty);
 
 
-                // Creamos la estructura
                 if (userData.PaisID == 4)
                 {
                     var data = new
@@ -271,11 +268,8 @@
                         string[] parametros = pedido.EstadoPedido.Split(';');
                         if (parametros.Length >= 3)
                         {
-                            //Se utilizará el campo para enviar la información de Origen
                             oBEPedidoWeb.EstadoPedidoDesc = OrigenDescripcion(parametros[0]);
-                            //Se utilizará el campo para enviar la información de Flete
                             oBEPedidoWeb.Direccion = parametros[1] == string.Empty ? "0" : parametros[1];
-                            //Se utilizará el campo para enviar la fecha de Facturación
                             oBEPedidoWeb.CodigoUsuarioCreacion = parametros[2] == string.Empty ? "" : Convert.ToDateTime(parametros[2]).ToShortDateString();
                         }
 
@@ -285,7 +279,6 @@
                     lst.Add(oBEPedidoWeb);
                 }
 
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
@@ -338,7 +331,6 @@
 
                 pag = Util.PaginadorGenerico(grid, lst);
 
-                // Creamos la estructura
                 if (userData.PaisID == 4)
                 {
                     var data = new
@@ -446,12 +438,10 @@
                             Cantidad = pedido.Cantidad,
                             PrecioUnidad = pedido.PrecioUnidad,
                             ImporteTotal = pedido.ImporteTotal,
-                            //Se esta reutilizando este campo para devolver el descuente correspondiente al CUV
                             ImporteTotalPedido = pedido.MontoDescuento
                         });
                 }
 
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
@@ -518,7 +508,6 @@
 
                 pag = Util.PaginadorGenerico(grid, lst);
 
-                // Creamos la estructura
                 if (userData.PaisID == 4)
                 {
                     var data = new
@@ -594,9 +583,7 @@
                 List<ServicePedido.BEPedidoWebDetalle> olstPedido = new List<ServicePedido.BEPedidoWebDetalle>();
                 using (ServicePedido.PedidoServiceClient sv = new ServicePedido.PedidoServiceClient())
                 {
-                    //Inicio ITG 1793 HFMG
                     olstPedido = sv.SelectByCampania(userData.PaisID, int.Parse(campaniaId), long.Parse(consultoraId), "", EsOpt()).ToList();
-                    //Fin ITG 1793 HFMG
                 }
 
                 decimal Total = 0;
@@ -608,7 +595,7 @@
                 }
 
                 if (userData.PaisID == 4)
-                { // Validación pais Colombia Req. 1478
+                {
                     TotalPW = string.Format("{0:#,##0}", Total).Replace(',', '.');
                 }
                 else
@@ -623,7 +610,6 @@
                     lst = sv.GetClientesByCampania(userData.PaisID, int.Parse(campaniaId), long.Parse(consultoraId)).ToList();
                 }
 
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
@@ -658,7 +644,6 @@
 
                 pag = Util.PaginadorGenerico(grid, lst);
 
-                // Creamos la estructura
                 var data = new
                 {
                     totalPW = TotalPW,
@@ -690,12 +675,9 @@
                 List<ServiceCliente.BEPedidoWebDetalle> lst;
                 using (ClienteServiceClient sv = new ClienteServiceClient())
                 {
-                    //Inicio ITG 1793 HFMG
                     lst = sv.GetPedidoWebDetalleByCliente(userData.PaisID, int.Parse(campaniaId), long.Parse(consultoraId), int.Parse(clientId)).ToList();
-                    //Fin ITG 1793 HFMG
                 }
 
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
@@ -754,7 +736,6 @@
 
                 pag = Util.PaginadorGenerico(grid, lst);
 
-                // Creamos la estructura
                 if (userData.PaisID == 4)
                 {
                     var data = new
@@ -836,8 +817,6 @@
 
 
                     #region Mensaje a Enviar
-                    //Mejora - Correo
-                    //string nomPais = Util.ObtenerNombrePaisPorISO(userData.CodigoISO);
                     string mailBody = string.Empty;
                     mailBody = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">";
                     mailBody += "<div style='font-size:12px;'>Hola,</div> <br />";
@@ -860,7 +839,7 @@
                     mailBody += "Precio Total";
                     mailBody += "</td>";
                     mailBody += "</tr>";
-                    /* Armado de Data */
+
                     for (int i = 0; i < lst.Count; i++)
                     {
 
@@ -874,7 +853,7 @@
                         mailBody += "<td style='font-size:11px; width: 124px; text-align: center;'>";
                         mailBody += "" + lst[i].Cantidad.ToString() + "";
                         mailBody += "</td>";
-                        if (userData.PaisID == 4) // validación para colombia req. 1478
+                        if (userData.PaisID == 4)
                         {
                             mailBody += "<td style='font-size:11px; width: 182px; text-align: center;'>";
                             mailBody += "" + userData.Simbolo + string.Format("{0:#,##0}", lst[i].PrecioUnidad).Replace(',', '.') + "";
@@ -897,13 +876,12 @@
                         Total += lst[i].ImporteTotal;
 
                     }
-                    /* Fin de Armado de Data*/
                     mailBody += "<tr>";
                     mailBody += "<td colspan='4' style='font-size:11px; text-align: right; font-weight: bold'>";
                     mailBody += "Total :";
                     mailBody += "</td>";
                     mailBody += "<td style='font-size:11px; text-align: center; font-weight: bold'>";
-                    if (userData.PaisID == 4) // validación para colombia req. 1478
+                    if (userData.PaisID == 4)
                     {
                         mailBody += "" + userData.Simbolo + string.Format("{0:#,##0}", Total).Replace(',', '.') + "";
                     }
@@ -926,23 +904,12 @@
                     mailBody += "<td style='text-align: center; font-size:12px;'>";
                     mailBody += "<strong>" + userData.NombreConsultora + "</strong> <br />";
                     mailBody += "<strong>Consultora</strong>";
-                    //Mejora - Correo
-                    //mailBody += "</td>";
-                    //mailBody += "</tr>";
-                    //mailBody += "</table>";
-                    //mailBody += "<table border='0' style='width: 80%;'>";
-                    //mailBody += "<tr>";
-                    //mailBody += "<td style='font-family:Arial, Helvetica, sans-serif, serif; font-weight:bold; font-size:12px; text-align:right; padding-top:8px;'>";
-                    //mailBody += "Belcorp - " + nomPais;
                     mailBody += "</td>";
                     mailBody += "</tr>";
                     mailBody += "</table>";
 
                     #endregion
 
-                    //Mejora - Correo
-                    //Util.EnviarMail("no-responder@somosbelcorp.com", ClientId.ToString().Equals("0") ? userData.EMail : Email, "Pedido Solicitado", mailBody, true, string.Format("{0} - Pedido total", Util.SinAcentosCaracteres(nomPais.ToUpper())));
-                    //Util.EnviarMail(Globals.EmailCatalogos, ClientId.ToString().Equals("0") ? userData.EMail : Email, "Pedido Solicitado", mailBody, true, userData.NombreConsultora);
                     Util.EnviarMail("no-responder@somosbelcorp.com", ClientId.ToString().Equals("0") ? userData.EMail : Email, "(" + userData.CodigoISO + ") Pedido Solicitado", mailBody, true, userData.NombreConsultora);
 
 
@@ -953,7 +920,6 @@
                         extra = ""
                     });
                 }
-                //Fin ITG 1793 HFMG
             }
             catch (Exception ex)
             {
@@ -1020,7 +986,6 @@
             
             pag = Paginador(grid, campania, lst);
 
-            // Creamos la estructura
             var data = new
             {
                 total = pag.PageCount,
@@ -1153,9 +1118,7 @@
             UsuarioModel usuario = userData;
             string Marca;
             string NombrePais = DevolverNombrePais(codigo, out Marca);
-            //var complain = new RVDPDFParam { Pais = NombrePais, tipo = "Paq Doc Consultora", docIdentidad = "", consultora = ((usuario.UsuarioPrueba == 1) ? usuario.ConsultoraAsociada : codigo), marca = Marca, Campana = campania };
             var complain = new RVDWebCampaniasParam { Pais = usuario.CodigoISO, Tipo = "1", CodigoConsultora = ((usuario.UsuarioPrueba == 1) ? usuario.ConsultoraAsociada : codigo), Campana = campania };
-            //Fin ITG 1793 HFMG
             List<RVPRFModel> lstRVPRFModel = new List<RVPRFModel>();
             ErrorServicio = false;
             ErrorCode = string.Empty;

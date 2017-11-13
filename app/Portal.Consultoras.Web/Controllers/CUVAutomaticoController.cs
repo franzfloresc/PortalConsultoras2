@@ -60,7 +60,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         private IEnumerable<CampaniaModel> DropDowListCampanias(int PaisID)
         {
-            //PaisID = 11;
             IList<BECampania> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
@@ -130,7 +129,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 List<ServiceODS.BEProductoDescripcion> productosValidos = new List<ServiceODS.BEProductoDescripcion>();
 
-                //Productos a validar
                 if (productosAValidar.Length != 0)
                 {
                     List<string> productosNoValidos = new List<string>();
@@ -172,8 +170,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else
                 {
-                    //Registro de productos faltantes
-
                     foreach (ServiceODS.BEProductoDescripcion producto in productosValidos)
                     {
                         cuvautomaticos.Add(new BECUVAutomatico() { CampaniaID = campaniaID, CUV = producto.CUV, PaisISO = paisISO, UsuarioRegistro = CodigoUsuario });

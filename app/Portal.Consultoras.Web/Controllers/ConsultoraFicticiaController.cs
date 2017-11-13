@@ -15,9 +15,6 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class ConsultoraFicticiaController : BaseController
     {
-        //
-        // GET: /ConsultoraFicticia/
-
         public ActionResult Index()
         {
             try
@@ -37,38 +34,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult ValidarConsultora(ConsultoraFicticiaModel model)
         {
-            //try
-            //{
-            //    Mapper.CreateMap<ConsultoraFicticiaModel, BEConsultora>()
-            //        .ForMember(t => t.Codigo, f => f.MapFrom(c => c.CodigoConsultora))
-            //        .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID));
-
-            //    BEConsultora entidad = Mapper.Map<ConsultoraFicticiaModel, BEConsultora>(model);
-
-            //    using (ODSServiceClient sv = new ODSServiceClient())
-            //    {
-            //        List<BEConsultoraCodigo> lst = new List<BEConsultoraCodigo>();
-            //        lst = sv.SelectConsultoraByCodigo(entidad.PaisID, entidad.Codigo).ToList();
-
-            //        if (lst.Count == 0)
-            //        {
-            //            return Json(new
-            //            {
-            //                success = false,
-            //                message = "el código ingresado no es válido.",
-            //                extra = ""
-            //            });
-            //        }
-            //        else
-            //        {
-            //            return Json(new
-            //            {
-            //                success = true,
-            //                ConsultoraID = lst[0].ConsultoraID
-            //            });
-            //        }
-            //    }
-            //}
             try
             {
                 Mapper.CreateMap<ConsultoraFicticiaModel, BEUsuario>()
@@ -374,13 +339,11 @@ namespace Portal.Consultoras.Web.Controllers
                         lst = sv.SelectConsultoraFicticia(Convert.ToInt32(vPaisID), vCodigoUsuario, vNombreCompleto).ToList();
                     }
 
-                    // Usamos el modelo para obtener los datos
                     BEGrid grid = new BEGrid();
                     grid.PageSize = rows;
                     grid.CurrentPage = page;
                     grid.SortColumn = sidx;
                     grid.SortOrder = sord;
-                    //int buscar = int.Parse(txtBuscar);
                     BEPager pag = new BEPager();
                     IEnumerable<BEConsultoraFicticia> items = lst;
 
@@ -433,7 +396,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                     pag = Paginador(grid, lst);
 
-                    // Creamos la estructura
                     var data = new
                     {
                         total = pag.PageCount,
@@ -460,13 +422,11 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     List<BEConsultoraFicticia> lst = new List<BEConsultoraFicticia>();
 
-                    // Usamos el modelo para obtener los datos
                     BEGrid grid = new BEGrid();
                     grid.PageSize = rows;
                     grid.CurrentPage = page;
                     grid.SortColumn = sidx;
                     grid.SortOrder = sord;
-                    //int buscar = int.Parse(txtBuscar);
                     BEPager pag = new BEPager();
                     IEnumerable<BEConsultoraFicticia> items = lst;
 
@@ -519,7 +479,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                     pag = Paginador(grid, lst);
 
-                    // Creamos la estructura
                     var data = new
                     {
                         total = pag.PageCount,
