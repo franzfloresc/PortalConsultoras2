@@ -741,13 +741,11 @@ namespace Portal.Consultoras.Web.Controllers
                         lst = sv.SelectFormularioDatoByPais(PaisID, ETipoFormulario.LugaresPago).ToList();
                 }
 
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                //int buscar = int.Parse(txtBuscar);
                 BEPager pag = new BEPager();
                 IEnumerable<BEFormularioDato> items = lst;
 
@@ -782,7 +780,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 pag = Util.PaginadorGenerico(grid, lst);
 
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,
@@ -873,7 +870,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lista = servicezona.SelectCampanias(PaisID).ToList();
             }
-            //lista.Insert(0, new BECampania() { CampaniaID = 0, NombreCorto = "-- Seleccionar --" });
             Mapper.CreateMap<BECampania, CampaniaModel>()
                 .ForMember(x => x.CampaniaID, t => t.MapFrom(c => c.CampaniaID))
                 .ForMember(x => x.NombreCorto, t => t.MapFrom(c => c.NombreCorto))

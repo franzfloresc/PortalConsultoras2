@@ -13,7 +13,6 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class CronogramaController : BaseController
     {
-        //static int CampaniaID = 201301;
 
         #region Actions
 
@@ -42,8 +41,8 @@ namespace Portal.Consultoras.Web.Controllers
             var cronogramaModel = new CronogramaModel()
             {
                 listaPaises = DropDowListPaises(),
-                listaCampania = DropDowListCampanias(PaisId), //new List<CampaniaModel>(),
-                listaZonas = DropDownListZonas(PaisId), //new List<ZonaModel>(),
+                listaCampania = DropDowListCampanias(PaisId),
+                listaZonas = DropDownListZonas(PaisId),
                 PaisID = PaisId,
                 CampaniaID = CampaniaIDActual
             };
@@ -72,7 +71,6 @@ namespace Portal.Consultoras.Web.Controllers
         }
         public JsonResult ObtenterCampaniasPorPais(int PaisID)
         {
-            //PaisID = 11;
             IEnumerable<CampaniaModel> lst = DropDowListCampanias(PaisID);
             IEnumerable<ZonaModel> lstZonas = DropDownListZonas(PaisID);
 
@@ -101,13 +99,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     UsuarioModel usuarioModel = sessionManager.GetUserData();
 
-                    // se obtiene la fecha de fin de facturacion (fecha de inicio + dias de duracion del cronograma)
                     BEConfiguracionValidacion configuracionValidacion = sv.GetConfiguracionValidacion(UserData().PaisID, Convert.ToInt32("201301"))[0];
                     DateTime fechaFinFacturacion = Convert.ToDateTime(FechaFacturacion).AddDays(usuarioModel.DiasDuracionCronograma - 1);
-
-                    // UPDATE: los dias de duracion del cronograma se obtienen por zona
-                    //BEConfiguracionValidacionZona configuracionValidacionZona = sv.GetConfiguracionValidacionZona(UserData().PaisID, Convert.ToInt32("201301"),UserData().ZonaID);
-                    //DateTime fechaFinFacturacion = Convert.ToDateTime(FechaFacturacion).AddDays(configuracionValidacionZona.DiasDuracionCronograma - 1);
 
                     lst = sv.UpdLogActualizacionFacturacion(UserData().PaisID, CampaniaCodigo, codigos, Convert.ToInt32(Tipo), Convert.ToDateTime(FechaFacturacion), Convert.ToDateTime(FechaReFacturacion), UserData().CodigoUsuario).ToList();
                     sv.UpdateCronogramaDD(UserData().PaisID, CampaniaCodigo, codigos, Convert.ToInt32(Tipo), Convert.ToDateTime(FechaFacturacion), fechaFinFacturacion, Convert.ToDateTime(FechaReFacturacion), UserData().CodigoUsuario);
@@ -181,13 +174,11 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = new List<BECronograma>();
                 }
 
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                //int buscar = int.Parse(txtBuscar);
                 BEPager pag = new BEPager();
                 IEnumerable<BECronograma> items = lst;
 
@@ -240,7 +231,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 pag = Util.PaginadorGenerico(grid, lst);
 
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,
@@ -258,7 +248,6 @@ namespace Portal.Consultoras.Web.Controllers
                                    Convert.ToDateTime(a.FechaInicioWeb.ToString()).ToShortDateString(),
                                    Convert.ToDateTime(a.FechaFinWeb.ToString()).ToShortDateString(),
                                    Convert.ToDateTime(a.FechaInicioDD.ToString()).ToShortDateString(),
-                                   //Convert.ToDateTime(a.FechaFinDD.ToString()).ToShortDateString(),
                                    a.ZonaID.ToString()
                                 }
                            }
@@ -278,13 +267,11 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = sv.LogActualizacionFacturacion(UserData().PaisID).ToList();
                 }
 
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                //int buscar = int.Parse(txtBuscar);
                 BEPager pag = new BEPager();
                 IEnumerable<BELogActualizacionFacturacion> items = lst;
 
@@ -349,7 +336,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 pag = Util.PaginadorGenerico(grid, lst);
 
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,
@@ -386,13 +372,11 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = sv.GetCronogramaByCampaniaAnticipado(PaisID == string.Empty ? 11 : int.Parse(PaisID), CampaniaID == "" ? -1 : int.Parse(CampaniaID), ZonaID.Equals(string.Empty) ? -1 : int.Parse(ZonaID), Int16.Parse(TipoCronogramaID)).ToList();
                 }
 
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                //int buscar = int.Parse(txtBuscar);
                 BEPager pag = new BEPager();
                 IEnumerable<BECronograma> items = lst;
 
@@ -445,7 +429,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 pag = Util.PaginadorGenerico(grid, lst);
 
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,
@@ -460,9 +443,7 @@ namespace Portal.Consultoras.Web.Controllers
                                    a.CampaniaID.ToString(),
                                    a.CodigoZona.ToString(),
                                    Convert.ToDateTime(a.FechaInicioWeb.ToString()).ToShortDateString(),
-                                   //Convert.ToDateTime(a.FechaFinWeb.ToString()).ToShortDateString(),
                                    Convert.ToDateTime(a.FechaInicioDD.ToString()).ToShortDateString(),
-                                   //Convert.ToDateTime(a.FechaFinDD.ToString()).ToShortDateString(),
                                    a.ZonaID.ToString()
                                 }
                            }
@@ -481,12 +462,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (model.FechaInicioWeb.ToShortDateString() == "01/01/0001")
                 mensaje += "La Fecha de Inicio de Facturación no tiene el formato correcto, verifique dd/MM/yyyy. \n";
-            //if (model.FechaFinWeb.ToShortDateString() == "01/01/0001")
-            //    mensaje += "La Fecha Fin de Facturación no tiene el formato correcto, verifique dd/MM/yyyy. \n";
             if (model.FechaInicioDD.ToShortDateString() == "01/01/0001")
                 mensaje += "La Fecha de Inicio de Refacturación no tiene el formato correcto, verifique dd/MM/yyyy. \n";
-            //if (model.FechaFinDD.ToShortDateString() == "01/01/0001")
-            //    mensaje += "La Fecha Fin de Refacturación no tiene el formato correcto, verifique dd/MM/yyyy. \n";
 
             if (!mensaje.Equals(string.Empty))
             {
@@ -570,12 +547,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (model.FechaInicioWeb.ToShortDateString() == "01/01/0001")
                 mensaje += "La Fecha de Inicio de Facturación no tiene el formato correcto, verifique dd/MM/yyyy. \n";
-            //if (model.FechaFinWeb.ToShortDateString() == "01/01/0001")
-            //    mensaje += "La Fecha Fin de Facturación no tiene el formato correcto, verifique dd/MM/yyyy. \n";
             if (model.FechaInicioDD.ToShortDateString() == "01/01/0001")
                 mensaje += "La Fecha de Inicio de Refacturación no tiene el formato correcto, verifique dd/MM/yyyy. \n";
-            //if (model.FechaFinDD.ToShortDateString() == "01/01/0001")
-            //    mensaje += "La Fecha Fin de Refacturación no tiene el formato correcto, verifique dd/MM/yyyy. \n";
 
             if (!mensaje.Equals(string.Empty))
             {
@@ -609,7 +582,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-                    //entidad.PaisID = 11;
                     sv.UpdateCronogramaAnticipado(entidad);
                 }
                 return Json(new
@@ -802,7 +774,7 @@ namespace Portal.Consultoras.Web.Controllers
             configuracionConsultoraDA.ConsultoraID = Convert.ToInt32(UserData().ConsultoraID);
             configuracionConsultoraDA.TipoConfiguracion = Convert.ToByte(tipoConfiguracion);
             configuracionConsultoraDA.CampaniaID = Convert.ToString(UserData().CampaniaID);
-            configuracionConsultoraDA.CodigoUsuario = Convert.ToString(UserData().CodigoUsuario); //R20160302
+            configuracionConsultoraDA.CodigoUsuario = Convert.ToString(UserData().CodigoUsuario);
 
             int validar = 0;
             using (SACServiceClient sv = new SACServiceClient())
@@ -832,8 +804,7 @@ namespace Portal.Consultoras.Web.Controllers
             bool validar = false;
             string mensajeFechaDA = null;
             if (UserData().EsquemaDAConsultora)
-            { //SI EXISTE EL ESQUEMA EN PAIS
-
+            {
                 if (UserData().EsZonaDemAnti == 1)
                 {
 
@@ -854,7 +825,6 @@ namespace Portal.Consultoras.Web.Controllers
                             cronograma = sv.GetCronogramaByCampaniaAnticipado(UserData().PaisID, UserData().CampaniaID, UserData().ZonaID, 2).FirstOrDefault();
                             DateTime fechaDA = (DateTime)cronograma.FechaInicioWeb;
 
-                            //R20151123 Inicio
                             TimeSpan sp = UserData().HoraCierreZonaDemAntiCierre;
                             var cierrezonademanti = new DateTime(sp.Ticks).ToString("HH:mm") + " hrs";
                             var diasemana = "";
@@ -884,7 +854,6 @@ namespace Portal.Consultoras.Web.Controllers
                                     diasemana = "Domingo";
                                     break;
                             }
-                            //R20151123 Fín
 
                             mensajeFechaDA = diasemana.ToString() + " " + fechaDA.Day.ToString() + " de " + NombreMes(fechaDA.Month) + " (" + cierrezonademanti + ")";
 

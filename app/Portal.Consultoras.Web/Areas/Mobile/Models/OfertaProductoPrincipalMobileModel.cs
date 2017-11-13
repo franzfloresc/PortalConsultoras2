@@ -31,12 +31,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public string ISOPais { get; set; }
         public string DescripcionMarca { get; set; }
         public string TallaColor { get; set; }
-        //public string UsuarioModificacion { get; set; }
-        //R2469 - JICM - Marcacion Zonificacion 2505 DCG
         public string DescripcionCategoria { get; set; }
         public string DescripcionEstrategia { get; set; }
-        //public string TipoOferta { get; set; }
-        //public int FlagTransaccion { get; set; }
         public string CodigoTipoOferta { get; set; }
         public IEnumerable<AdministracionOfertaProductoModel> lstAdministracionOferta { get; set; }
         public IEnumerable<StockCargaLogModel> lstStockCarga { get; set; }

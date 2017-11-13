@@ -67,7 +67,6 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-                // 2382 - Inicio
                 string fechaproceso;
                 if (model.TipoCronogramaID == 5)
                 {
@@ -100,7 +99,6 @@ namespace Portal.Consultoras.Web.Controllers
                         mensaje = "El proceso de generación de lideres ha finalizado satisfactoriamente."
                     });
 
-                    // 2382 - Fin
                 }
                 else
                 {
@@ -125,14 +123,9 @@ namespace Portal.Consultoras.Web.Controllers
                             });
                         }
                     }
-                    //return Json(new
-                    //{
-                    //    success = true,
-                    //    mensaje = "Se inició el proceso de Carga de Pedidos, espere unos minutos a que se procese la información y luego verifique en la ruta correspondiente."
-                    //});
+
                     bool fox = false;
-                    //if (file.Length != 2)
-                    if (file.Length != 3) //CGI VVA 2450
+                    if (file.Length != 3)
                     {
                         return Json(new
                         {
@@ -142,8 +135,6 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     else
                     {
-                        //if (UserData().CodigoISO.Equals("BO") ||
-                        //    UserData().CodigoISO.Equals("MX"))
                         fox = true;
 
                         return Json(new
@@ -152,11 +143,11 @@ namespace Portal.Consultoras.Web.Controllers
                             mensaje = "El proceso de carga de pedidos ha finalizado satisfactoriamente.",
                             cabecera = System.IO.Path.GetFileName(file[0]),
                             detalle = System.IO.Path.GetFileName(file[1]),
-                            detalleAct = System.IO.Path.GetFileName(file[2]),//CGI VVA 2450
+                            detalleAct = System.IO.Path.GetFileName(file[2]),
 
                             rutac = file[0],
                             rutad = file[1],
-                            rutae = file[2], // CGI VVA 2450
+                            rutae = file[2],
                             IsFox = fox
                         });
                     }
@@ -165,7 +156,6 @@ namespace Portal.Consultoras.Web.Controllers
             catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-                //throw ex.InnerException
                 return Json(new
                 {
                     success = false,
@@ -173,7 +163,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-        // R20151003 - Inicio
         [HttpPost]
         public JsonResult RealizarDescargaDDParcial(DescargarPedidoModel model)
         {
@@ -254,7 +243,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-        // R20151003 - Inicio
 
         [HttpPost]
         public JsonResult RealizarDescargaFIC(DescargarPedidoModel model)
@@ -314,7 +302,6 @@ namespace Portal.Consultoras.Web.Controllers
             catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-                //throw ex.InnerException
                 return Json(new
                 {
                     success = false,
@@ -366,7 +353,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             return View();
         }
-        /*EPD-1025*/
         public ActionResult ObtenerUltimaDescargaPedido()
         {
             if (ModelState.IsValid)
@@ -418,8 +404,7 @@ namespace Portal.Consultoras.Web.Controllers
                 mensaje = "Se desmarcó correctamente la última descarga."
             });
         }
-        /*EPD-1025*/
-        /*EPD1973*/
+
         public ActionResult ObtenerUltimaDescargaExitosa()
         {
             BEPedidoDescarga UltimaDescarga = new BEPedidoDescarga();

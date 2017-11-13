@@ -462,17 +462,20 @@ namespace Portal.Consultoras.Web.Controllers
             pasoLog = "Login.Redireccionar";
             var usuario = GetUserData(paisId, codigoUsuario);
 
-            if (usuario == null && Request.IsAjaxRequest())
-                return Json(new
-                {
-                    success = false,
-                    redirectTo = "Error al procesar la solicitud"
-                });
-
-            if (usuario == null && !Request.IsAjaxRequest())
+            if (usuario == null)
             {
-                var url = GetUrlUsuarioDesconocido();
-                return Redirect(url);
+                if (Request.IsAjaxRequest())
+                    return Json(new
+                    {
+                        success = false,
+                        redirectTo = "Error al procesar la solicitud"
+                    });
+
+                else
+                {
+                    var url = GetUrlUsuarioDesconocido();
+                    return Redirect(url);
+                }
             }
 
             pasoLog = "Login.Redireccionar.SetAuthCookie";
@@ -720,11 +723,9 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.InscritaFlexipago = usuario.InscritaFlexipago;
                     usuarioModel.InvitacionRechazada = usuario.InvitacionRechazada;
 
-                    // OGA: agregado el campo para determinar el inicio del rango
                     usuarioModel.DiasAntes = usuario.DiasAntes;
                     usuarioModel.DiasDuracionCronograma = usuario.DiasDuracionCronograma;
 
-                    // OGA: se calcula el fin de campañia sumando el nº de dias que dura el cronograma
                     switch (usuario.RolID)
                     {
                         case Constantes.Rol.Administrador:
@@ -758,7 +759,6 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         usuarioModel.IndicadorPermisoFlexipago = GetPermisoFlexipago(usuarioModel.PaisID, usuarioModel.CodigoISO, usuarioModel.CodigoConsultora, usuarioModel.CampaniaID);
                     }
-                    //EPD-2311 (Mostrar mensaje al ingresar al pase de pedido)
                     if (usuario.TipoUsuario == Constantes.TipoUsuario.Postulante)
                     {
                         usuarioModel.MensajePedidoDesktop = usuario.MensajePedidoDesktop;
@@ -828,7 +828,6 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.ValidacionInteractiva = usuario.ValidacionInteractiva;
                     usuarioModel.MensajeValidacionInteractiva = usuario.MensajeValidacionInteractiva;
 
-                    // Pago Online CO - CL - PR
                     usuarioModel.IndicadorPagoOnline = usuarioModel.PaisID == 4 || usuarioModel.PaisID == 3 || usuarioModel.PaisID == 12 ? 1 : 0;
                     usuarioModel.UrlPagoOnline = usuarioModel.PaisID == 4 ? "https://www.zonapagos.com/pagosn2/LoginCliente"
                         : usuarioModel.PaisID == 3 ? "https://www.belcorpchile.cl/BotonesPagoRedireccion/PagoConsultora.aspx"
@@ -853,10 +852,9 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.TieneCupon = usuario.TieneCupon;
                     usuarioModel.TieneMasVendidos = usuario.TieneMasVendidos;
                     usuarioModel.TieneAsesoraOnline = usuario.TieneAsesoraOnline;
-                    //model.TieneOfertaLog = oBEUsuario.TieneOfertaLog;
 
-                    usuarioModel.TieneCDRExpress = usuario.TieneCDRExpress; //EPD-1919 
-                    usuarioModel.EsConsecutivoNueva = usuario.EsConsecutivoNueva; //EPD-1919
+                    usuarioModel.TieneCDRExpress = usuario.TieneCDRExpress;
+                    usuarioModel.EsConsecutivoNueva = usuario.EsConsecutivoNueva;
 
                     #endregion
 
@@ -980,10 +978,8 @@ namespace Portal.Consultoras.Web.Controllers
                                             using (PedidoServiceClient sv1 = new PedidoServiceClient())
                                             {
                                                 revistaDigitalModel.SuscripcionModel = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
-                                                //
                                                 rds.CampaniaID = AddCampaniaAndNumero(usuarioModel.CampaniaID, -1, usuarioModel.NroCampanias);
                                                 revistaDigitalModel.SuscripcionAnterior1Model = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
-                                                //
                                                 rds.CampaniaID = AddCampaniaAndNumero(usuarioModel.CampaniaID, -2, usuarioModel.NroCampanias);
                                                 revistaDigitalModel.SuscripcionAnterior2Model = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
                                             }
@@ -1142,7 +1138,6 @@ namespace Portal.Consultoras.Web.Controllers
                             Session["ListFiltersFAV"] = lstFiltersFAV;
                         }
                     }
-                    //Para paises lebelizados.
                     if (GetPaisesLbelFromConfig().Contains(usuarioModel.CodigoISO))
                     {
                         usuarioModel.EsLebel = true;
@@ -1354,7 +1349,6 @@ namespace Portal.Consultoras.Web.Controllers
         private string GetFechaPromesaEntrega(int PaisId, int CampaniaId, string CodigoConsultora, DateTime FechaFact)
         {
             string sFecha = Convert.ToDateTime("2000-01-01").ToString();
-            //DateTime Fecha = Convert.ToDateTime("2000-01-01");
             try
             {
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
@@ -1413,8 +1407,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         private TimeSpan CountdownODD(UsuarioModel model)
         {
-            //DateTime hoy = DateTime.Now;
-            //DateTime d1 = new DateTime(hoy.Year, hoy.Month, hoy.Day, 0, 0, 0);
             DateTime hoy;
 
             using (SACServiceClient svc = new SACServiceClient())
@@ -1425,7 +1417,7 @@ namespace Portal.Consultoras.Web.Controllers
             DateTime d1 = new DateTime(hoy.Year, hoy.Month, hoy.Day, 0, 0, 0);
             DateTime d2;
 
-            if (model.EsDiasFacturacion)  // dias de facturacion
+            if (model.EsDiasFacturacion)
             {
                 TimeSpan t1 = model.HoraCierreZonaNormal;
                 d2 = new DateTime(hoy.Year, hoy.Month, hoy.Day, t1.Hours, t1.Minutes, t1.Seconds);
@@ -1578,7 +1570,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             int res = 0;
 
-            // If session exists
             if (HttpContext.Session != null)
             {
                 res = SessionExists(res);
@@ -1592,11 +1583,9 @@ namespace Portal.Consultoras.Web.Controllers
 
         private int SessionExists(int res)
         {
-            //if cookie exists and sessionid index is greater than zero
             var sessionCookie = HttpContext.Request.Headers["Cookie"];
             if ((sessionCookie != null) && (sessionCookie.IndexOf("ASP.NET_SessionId") >= 0))
             {
-                // if exists UserData in Session
                 if (sessionManager.GetUserData() != null)
                 {
                     res = 1;
@@ -1647,7 +1636,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (exito == "1")
                 {
-                    //mostrar popup2
                     return Json(new
                     {
                         success = true,

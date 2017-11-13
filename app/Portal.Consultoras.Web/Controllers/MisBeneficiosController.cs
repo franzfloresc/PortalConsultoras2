@@ -30,7 +30,6 @@ namespace Portal.Consultoras.Web.Controllers
                     lstTemp_1 = sv.GetServicioByCampaniaPais(userData.PaisID, userData.CampaniaID).ToList();
                 }
 
-                /*RE2544 - CS*/
                 int SegmentoID;
                 if (userData.CodigoISO == "VE")
                 {
@@ -40,7 +39,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     SegmentoID = (userData.SegmentoInternoID == null) ? userData.SegmentoID : (int)userData.SegmentoInternoID;
                 }
-                int SegmentoServicio = userData.EsJoven == 1 ? 99 : SegmentoID;/*RE2544 - CS*/ //R2161
+                int SegmentoServicio = userData.EsJoven == 1 ? 99 : SegmentoID;
 
                 lstTemp_2 = lstTemp_1.Where(p => p.ConfiguracionZona == string.Empty || p.ConfiguracionZona.Contains(userData.ZonaID.ToString())).ToList();
                 lst = lstTemp_2.Where(p => p.Segmento == "-1" || p.Segmento == SegmentoServicio.ToString()).ToList();

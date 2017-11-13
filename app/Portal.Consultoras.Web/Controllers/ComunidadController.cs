@@ -10,13 +10,8 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class ComunidadController : BaseController
     {
-        //
-        // GET: /Comunidad/
-
         public ActionResult Index(string Url)
         {
-            //Validacion Inicio
-
             int TipoUsuario = 2;
             //2: Consultora
             //3: Colaborador
@@ -40,9 +35,6 @@ namespace Portal.Consultoras.Web.Controllers
                     TipoUsuario = 3;
                 }
             }
-
-            //Validacion Final
-
 
             BEUsuarioComunidad usuario = null;
             using (ComunidadServiceClient sv = new ComunidadServiceClient())
@@ -71,7 +63,6 @@ namespace Portal.Consultoras.Web.Controllers
                 Hashtable settingsMap = new Hashtable();
                 settingsMap.Add("profile.name_first", UsuarioSesion.PrimerNombre);
                 settingsMap.Add("profile.name_last", UsuarioSesion.PrimerApellido);
-                //Datos Consultora
                 settingsMap.Add("profile.codigo_consultora", UsuarioSesion.CodigoConsultora);
                 settingsMap.Add("profile.pais", UsuarioSesion.CodigoISO);
                 settingsMap.Add("profile.zona", UsuarioSesion.CodigoZona);

@@ -31,7 +31,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 ShowRoomModel ShowRoom = new ShowRoomModel();
 
-                /*INICIO: PL20-1289*/
                 bool mostrarBanner, permitirCerrarBanner = false;
                 if (SiempreMostrarBannerPL20()) mostrarBanner = true;
                 else if (NuncaMostrarBannerPL20()) mostrarBanner = false;
@@ -110,7 +109,6 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                /*FIN: PL20-1289*/
             }
             catch (Exception ex)
             {
@@ -132,9 +130,6 @@ namespace Portal.Consultoras.Web.Controllers
             string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
             string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
 
-            //if (controllerName == "CatalogoPersonalizado" && actionName == "Index") return true;
-            //if (controllerName == "CatalogoPersonalizado" && actionName == "Producto") return true;
-            //if (controllerName == "ShowRoom") return true;
             if (controllerName == "Pedido") return true;
             if (controllerName == "CatalogoPersonalizado") return true;
             if (controllerName == "ShowRoom") return true;
@@ -188,9 +183,6 @@ namespace Portal.Consultoras.Web.Controllers
             string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
             string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
 
-            //if (controllerName == "CatalogoPersonalizado" && actionName == "Index") return true;
-            //if (controllerName == "CatalogoPersonalizado" && actionName == "Producto") return true;
-            //if (controllerName == "ShowRoom") return true;
             if (controllerName == "Bienvenida" && actionName == "Index") return true;
             if (controllerName == "Pedido") return true;
             if (controllerName == "CatalogoPersonalizado") return true;
@@ -235,7 +227,6 @@ namespace Portal.Consultoras.Web.Controllers
         public List<ShowRoomOfertaModel> ObtenerListaProductoShowRoom(int campaniaId, string codigoConsultora, bool esFacturacion = false)
         {
             var listaShowRoomOferta = new List<BEShowRoomOferta>();
-            //var listaShowRoomOfertaModel = new List<ShowRoomOfertaModel>();
             var listaShowRoomOfertaFinal = new List<BEShowRoomOferta>();
             var tienePersonalizacion = TienePersonalizacion();
 
@@ -320,7 +311,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
 
-            //Session[Constantes.ConstSession.ListaProductoShowRoom] = null;
             Session[Constantes.ConstSession.ListaProductoShowRoom] = listaShowRoomOfertaFinal;
 
             var listadoOfertasTodasModel1 = Mapper.Map<List<BEShowRoomOferta>, List<ShowRoomOfertaModel>>(listaShowRoomOfertaFinal);
@@ -428,7 +418,6 @@ namespace Portal.Consultoras.Web.Controllers
                         item.ImagenProducto = beCatalogoPro.Imagen;
                         item.Descripcion = beCatalogoPro.NombreComercial;
                         item.DescripcionLegal = beCatalogoPro.Descripcion;
-                        //item.PrecioOferta = beCatalogoPro.PrecioValorizado;
                     }
                 }
 
@@ -459,15 +448,9 @@ namespace Portal.Consultoras.Web.Controllers
             var listaDetalle = ObtenerPedidoWebDetalle();
             modelo.ListaOfertaShowRoom.Update(o => o.Agregado = (listaDetalle.Find(p => p.CUV == o.CUV) ?? new BEPedidoWebDetalle()).PedidoDetalleID > 0 ? "block" : "none");
 
-            // redes sociales
             modelo.FBRuta = GetUrlCompartirFB();
-            //var mensaje = "";
-            //modelo.ListaDetalleOfertaShowRoom.ToList().ForEach(d => mensaje += d.NombreProducto + " + ");
-            //mensaje = Util.Trim(mensaje);
-            //mensaje = mensaje.EndsWith("+") ? mensaje.Substring(0, mensaje.Length - 1) : mensaje;
-            modelo.FBMensaje = ""; //modelo.Descripcion + ": " + Util.Trim(mensaje);
+            modelo.FBMensaje = ""; 
 
-            // agrupar por marca
             modelo.ListaDetalleOfertaShowRoom = modelo.ListaDetalleOfertaShowRoom.OrderBy(d => d.MarcaProducto).ToList();
             var nombreMarca = "";
             modelo.ListaDetalleOfertaShowRoom.Update(d =>
@@ -496,7 +479,6 @@ namespace Portal.Consultoras.Web.Controllers
         public ShowRoomOfertaModel GetOfertaConDetalle(int idOferta)
         {
             var ofertaShowRoomModelo = new ShowRoomOfertaModel();
-            //var modelo = new ShowRoomOfertaModel();
             ofertaShowRoomModelo.ListaDetalleOfertaShowRoom = new List<ShowRoomOfertaDetalleModel>();
 
             if (idOferta <= 0) return ofertaShowRoomModelo;
@@ -504,8 +486,6 @@ namespace Portal.Consultoras.Web.Controllers
             var listadoOfertasTodasModel = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora);
 
             ofertaShowRoomModelo = listadoOfertasTodasModel.Find(o => o.OfertaShowRoomID == idOferta) ?? new ShowRoomOfertaModel();
-
-            //modelo = (ShowRoomOfertaModel) ofertaShowRoomModelo.Clone();            
 
             if (ofertaShowRoomModelo.OfertaShowRoomID <= 0) return ofertaShowRoomModelo;
 
@@ -574,9 +554,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var listaShowRoomOferta = ObtenerListaProductoShowRoom(userData.CampaniaID, codigoConsultora, esFacturacion);
                 showRoomEventoModel.ListaShowRoomOferta = listaShowRoomOferta;
-
-                //var listaDetalle = ObtenerPedidoWebDetalle();
-                //showRoomEventoModel.ListaShowRoomOferta.Update(o => o.Agregado = (listaDetalle.Find(p => p.CUV == o.CUV) ?? new BEPedidoWebDetalle()).PedidoDetalleID > 0 ? "block" : "none");
 
                 var listaCompraPorCompra = GetProductosCompraPorCompra(esFacturacion, showRoomEventoModel.EventoID,
                     showRoomEventoModel.CampaniaID);

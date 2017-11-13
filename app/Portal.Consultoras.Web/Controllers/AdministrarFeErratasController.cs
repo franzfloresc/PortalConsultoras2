@@ -68,7 +68,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         private IEnumerable<CampaniaModel> DropDowListCampanias(int PaisID)
         {
-            //PaisID = 11;
             IList<BECampania> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
@@ -101,13 +100,11 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = sv.SelectFeErratas(vpaisID, vCampaniaID).ToList();
                 }
 
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                //int buscar = int.Parse(txtBuscar);
                 BEPager pag = new BEPager();
                 IEnumerable<BEFeErratas> items = lst;
 
@@ -160,7 +157,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 pag = Util.PaginadorGenerico(grid, lst);
 
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,
@@ -191,11 +187,9 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult Mantener(AdministrarFeErratasModel model)
         {
-            // se lee la lista de Session
             var listaEntradas = Session["entradas"] as List<AdministrarFeErratasModel>;
             if (listaEntradas != null && listaEntradas.Count > 0)
             {
-                // se realiza el mapeo
                 Mapper.CreateMap<AdministrarFeErratasModel, BEFeErratas>()
                    .ForMember(t => t.FeErratasID, f => f.MapFrom(c => c.FeErratasID))
                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
@@ -213,7 +207,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 try
                 {
-                    // se itera en cada elemento para realizar o bien una inserción o una actualización, según corresponda
                     using (var sv = new SACServiceClient())
                     {
                         sv.SaveChangesFeErratas(model.PaisID, updateErratas, listaEntradas.Where(x => x.Eliminar).Select(Mapper.Map<AdministrarFeErratasModel, BEFeErratas>).ToArray());
@@ -240,7 +233,6 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
             }
-            // se limpia la variable de Session
             Session.Remove("entradas");
             return Json(new
             {
@@ -289,33 +281,16 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        // trae de sesión + bd las entradas que corresponden a determinado Pais+Campaña+Titulo
         public ActionResult ConsultarEntradas(string sidx, string sord, int page, int rows, int vpaisID, int vCampaniaID, string vTitulo)
         {
             if (ModelState.IsValid)
             {
                 List<AdministrarFeErratasModel> listaEntradas = null;
-
-                // se consulta si los criterios de búsqueda son diferentes, en cuyo caso se limpia el Session de entradas
-                //if ((Session["criterios"] != null) && 
-                //    Session["criterios"].ToString().Split(new char[] { ';' })[2] == "default")
-                //{
-                //    Session["criterios"] = string.Join(";", new Object[] { vpaisID, vCampaniaID, vTitulo });
-                //}
-                //string criterios = string.Join(";", new Object[] { vpaisID, vCampaniaID, vTitulo });
-                //if ((Session["criterios"] == null) || 
-                //    (Session["criterios"].ToString() != criterios))
-                //{
-                //    Session.Remove("entradas");
-                //}
-
-                // se valida si existe Session
-                // si ya existe: se leen las entradas de alli, sin considerar las marcadas para eliminación
+                
                 if (Session["entradas"] != null)
                 {
                     listaEntradas = (Session["entradas"] as List<AdministrarFeErratasModel>).Where(e => e.Eliminar == false).ToList();
                 }
-                // de lo contrario: se traen de la bd y se ponen en Session
                 else
                 {
                     List<BEFeErratas> lst;
@@ -323,7 +298,6 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         lst = sv.SelectFeErratasEntradas(vpaisID, vCampaniaID, vTitulo).ToList();
                     }
-                    // se hace el mapeo de la colección
                     Mapper.CreateMap<BEFeErratas, AdministrarFeErratasModel>()
                        .ForMember(t => t.FeErratasID, f => f.MapFrom(c => c.FeErratasID))
                        .ForMember(t => t.Pagina, f => f.MapFrom(c => c.Pagina))
@@ -335,16 +309,11 @@ namespace Portal.Consultoras.Web.Controllers
                     Session["entradas"] = listaEntradas;
                 }
 
-                // se guardan los criterios de búsqueda
-                //Session["criterios"] = string.Join(";", new Object[] { vpaisID, vCampaniaID, vTitulo });
-
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                //int buscar = int.Parse(txtBuscar);
                 BEPager pag = new BEPager();
                 IEnumerable<AdministrarFeErratasModel> items = listaEntradas;
 
@@ -385,7 +354,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 pag = Util.PaginadorGenerico(grid, listaEntradas);
 
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,
@@ -414,13 +382,11 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                // se agrega la entrada a la lista de Session
                 if (Session["entradas"] == null)
                 {
                     Session["entradas"] = new List<AdministrarFeErratasModel>();
                 }
                 List<AdministrarFeErratasModel> listaEntradas = Session["entradas"] as List<AdministrarFeErratasModel>;
-                // calcula el id para la nueva entrada
                 int nuevoId = (listaEntradas.Count + 1) * -1;
                 model.FeErratasID = nuevoId;
                 listaEntradas.Add(model);
@@ -460,9 +426,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                // se obtiene la lista de Session
                 List<AdministrarFeErratasModel> listaEntradas = Session["entradas"] as List<AdministrarFeErratasModel>;
-                // se ubica la entrada en la lista y se actualiza
                 AdministrarFeErratasModel entrada = listaEntradas.SingleOrDefault(e => e.FeErratasID == model.FeErratasID);
                 entrada.Pagina = model.Pagina;
                 entrada.Dice = model.Dice;
@@ -503,20 +467,16 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                // se obtiene la lista de entradas de Session
                 List<AdministrarFeErratasModel> listaEntradas = Session["entradas"] as List<AdministrarFeErratasModel>;
-                // si la entrada es nueva (id negativo) se elimina de la lista en Session
                 AdministrarFeErratasModel entrada = listaEntradas.SingleOrDefault(e => e.FeErratasID == FeErratasID);
                 if (entrada.FeErratasID < 0)
                 {
                     listaEntradas.RemoveAll(e => e.FeErratasID == FeErratasID);
                 }
-                // de lo contrario se marca para eliminación
                 else
                 {
                     entrada.Eliminar = true;
                 }
-                // se actualiza la lista en Session
                 Session["entradas"] = listaEntradas;
 
                 return Json(new

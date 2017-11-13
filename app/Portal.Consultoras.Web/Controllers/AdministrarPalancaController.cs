@@ -15,7 +15,6 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class AdministrarPalancaController : BaseController
     {
-        // GET: AdministrarEstrategiaPerfil
         public ActionResult Index()
         {
             AdministrarPalancaModel model = new AdministrarPalancaModel();
@@ -84,9 +83,6 @@ namespace Portal.Consultoras.Web.Controllers
                 var list = ListarConfiguracionPais();
                 var data = new
                 {
-                    //total = pag.PageCount,
-                    //page = pag.CurrentPage,
-                    //records = pag.RecordCount,
                     rows = from a in list
                            select new
                            {
@@ -326,7 +322,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private AdministrarPalancaModel UpdateFilesPalanca(AdministrarPalancaModel model)
         {
-            if (model.ConfiguracionPaisID != 0) //update
+            if (model.ConfiguracionPaisID != 0)
             {
                 var entidad = new BEConfiguracionPais();
                 using (SACServiceClient sv = new SACServiceClient())
@@ -350,7 +346,7 @@ namespace Portal.Consultoras.Web.Controllers
                     (String.IsNullOrEmpty(entidad.Logo) || model.Logo != entidad.Logo))
                     model.Logo = SaveFileS3(model.Logo);
             }
-            else //create
+            else
             {
                 model.DesktopFondoBanner = string.IsNullOrEmpty(model.DesktopFondoBanner) ? "" : SaveFileS3(model.DesktopFondoBanner);
                 model.MobileFondoBanner = string.IsNullOrEmpty(model.MobileFondoBanner) ? "" : SaveFileS3(model.MobileFondoBanner);
@@ -364,7 +360,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private AdministrarOfertasHomeModel UpdateFilesOfertas(AdministrarOfertasHomeModel model)
         {
-            if (model.ConfiguracionPaisID != 0) //update
+            if (model.ConfiguracionPaisID != 0)
             {
                 var entidad = new BEConfiguracionOfertasHome();
                 using (SACServiceClient sv = new SACServiceClient())
@@ -380,7 +376,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.MobileImagenFondo = SaveFileS3(model.MobileImagenFondo);
 
             }
-            else //create
+            else
             {
                 model.DesktopImagenFondo = SaveFileS3(model.DesktopImagenFondo);
                 model.MobileImagenFondo = SaveFileS3(model.MobileImagenFondo);

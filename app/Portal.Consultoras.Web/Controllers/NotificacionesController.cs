@@ -30,7 +30,6 @@ namespace Portal.Consultoras.Web.Controllers
             return View(model);
         }
 
-        //R2073
         public ActionResult ListarNotificaciones(long ProcesoId, int TipoOrigen)
         {
             NotificacionesModel model = new NotificacionesModel();
@@ -38,18 +37,17 @@ namespace Portal.Consultoras.Web.Controllers
             int PaisId = userData.PaisID;
             using (UsuarioServiceClient sv = new UsuarioServiceClient())
             {
-                //R2319 - JLCS
                 if (TipoOrigen == 4)
                 {
                     sv.UpdNotificacionSolicitudClienteVisualizacion(PaisId, ProcesoId);
-                }//R20150802
+                }
                 if (TipoOrigen == 5)
                 {
-                    sv.UpdNotificacionSolicitudClienteCatalogoVisualizacion(PaisId, ProcesoId);// Revisar  debería ir el CodigoConsultora.
+                    sv.UpdNotificacionSolicitudClienteCatalogoVisualizacion(PaisId, ProcesoId);
                 }
                 else
                 {
-                    sv.UpdNotificacionesConsultoraVisualizacion(PaisId, ProcesoId, TipoOrigen); //R2073
+                    sv.UpdNotificacionesConsultoraVisualizacion(PaisId, ProcesoId, TipoOrigen);
                 }
                 olstNotificaciones = sv.GetNotificacionesConsultora(userData.PaisID, userData.ConsultoraID, userData.IndicadorBloqueoCDR).ToList();
             }
@@ -87,7 +85,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        //R2319 - JLCS
         public ActionResult ListarDetalleSolicitudCliente(long SolicitudId)
         {
             SolicitudClienteConsultoraModel model = new SolicitudClienteConsultoraModel();
@@ -131,9 +128,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return PartialView("ListadoDetalleSolicitud", model);
         }
-
-        /*20150802*/
-
+        
         public ActionResult ListarDetalleSolicitudClienteCatalogo(long SolicitudId)
         {
             NotificacionesModel model = new NotificacionesModel();
@@ -146,7 +141,6 @@ namespace Portal.Consultoras.Web.Controllers
             return PartialView("ListadoDetalleCatalogo", model);
         }
 
-        //R2319 - JLCS
         public JsonResult AceptarSolicitud(long SolicitudId, long ConsultoraID, string Marca, string emailCliente, string NombreCliente, string MensajeaCliente)
         {
             int paisId = UserData().PaisID;
@@ -174,7 +168,6 @@ namespace Portal.Consultoras.Web.Controllers
                     sc.Insert(beCliente);
                 }
 
-                //R2548 - CS
                 String titulo = "(" + UserData().CodigoISO + ") Consultora que atenderá tu pedido de " + HttpUtility.HtmlDecode(Marca);
                 StringBuilder mensaje = new StringBuilder();
                 mensaje.AppendFormat("<p>Hola {0},</br><br /><br />", HttpUtility.HtmlDecode(NombreCliente));
