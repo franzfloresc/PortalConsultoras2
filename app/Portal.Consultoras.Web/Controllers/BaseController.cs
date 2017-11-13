@@ -37,8 +37,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected UsuarioModel userData;
         protected RevistaDigitalModel revistaDigital;
-        protected ISessionManager sessionManager = SessionManager.SessionManager.Instance;
-        protected ILogManager logManager = LogManager.LogManager.Instance;
+        protected ISessionManager sessionManager;
+        protected ILogManager logManager;
 
         #endregion
 
@@ -48,6 +48,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             userData = new UsuarioModel();
             logManager = LogManager.LogManager.Instance;
+            sessionManager = SessionManager.SessionManager.Instance;
         }
 
         public BaseController(ISessionManager sessionManager)
@@ -68,7 +69,7 @@ namespace Portal.Consultoras.Web.Controllers
                 revistaDigital = sessionManager.GetRevistaDigital() ?? new RevistaDigitalModel();
                 if (userData == null)
                 {
-                    string URLSignOut = string.Empty;
+                    string URLSignOut;
                     if (Request.UrlReferrer != null && Request.UrlReferrer.ToString().Contains(Request.Url.Host))
                         URLSignOut = "/Login/SesionExpirada";
                     else
@@ -87,7 +88,7 @@ namespace Portal.Consultoras.Web.Controllers
                     base.OnActionExecuting(filterContext);
                     return;
                 }
-                ViewBag.EstadoInscripcionEpm = GetEstadoRd();
+                ViewBag.EstadoInscripcionEpm = revistaDigital.EstadoRdcAnalytics;
                 ViewBag.MenuContenedorActivo = GetMenuActivo();
                 ViewBag.MenuContenedor = ObtenerMenuContenedor();
 
@@ -144,16 +145,6 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
         }
-
-        private string GetEstadoRd()
-        {
-            if (revistaDigital != null && revistaDigital.TieneRDC)
-            {
-                return revistaDigital.EstadoSuscripcion.ToString();
-            }
-            return "(not available)";
-        }
-
         #endregion
 
         #region Métodos
@@ -2626,15 +2617,10 @@ namespace Portal.Consultoras.Web.Controllers
 
         public String GetUrlCompartirFB()
         {
-            //var urlWs = "";
             string urlBase_fb = "";
             if (System.Web.HttpContext.Current.Request.UserAgent != null)
             {
                 var request = HttpContext.Request;
-
-                //var urlBase_wsp = request.Url.Scheme + "://" + request.Url.Authority + "/Pdto.aspx?id=" + userData.CodigoISO + "_[valor]";
-                //urlWs = urlBase_wsp; //"whatsapp://send?text=" + urlBase_wsp;
-
                 urlBase_fb = request.Url.Scheme + "://" + request.Url.Authority + "/Pdto.aspx?id=" + userData.CodigoISO + "_[valor]";
             }
             return urlBase_fb;
@@ -2642,15 +2628,10 @@ namespace Portal.Consultoras.Web.Controllers
 
         public String GetUrlCompartirFB(int id = 0)
         {
-            //var urlWs = "";
             string urlBase_fb = "";
             if (System.Web.HttpContext.Current.Request.UserAgent != null)
             {
                 var request = HttpContext.Request;
-
-                //var urlBase_wsp = request.Url.Scheme + "://" + request.Url.Authority + "/Pdto.aspx?id=" + userData.CodigoISO + "_[valor]";
-                //urlWs = urlBase_wsp; //"whatsapp://send?text=" + urlBase_wsp;
-
                 urlBase_fb = request.Url.Scheme + "://" + request.Url.Authority + "/Pdto.aspx?id=" + userData.CodigoISO + "_" + (id > 0 ? id.ToString() : "[valor]");
             }
             return urlBase_fb;
@@ -2679,15 +2660,18 @@ namespace Portal.Consultoras.Web.Controllers
 
         private bool NoMostrarBannerODD()
         {
-            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
-            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
-
-            if (controllerName == "OfertaLiquidacion") return true;
-            if (controllerName == "CatalogoPersonalizado") return true;
-            //if (controllerName == "MisPedidos") return true;
-            //if (controllerName == "Pedido") return true;
-            if (controllerName == "ShowRoom") return true;
-            return false;
+            var controllerName = ControllerContext.RouteData.Values["controller"].ToString();
+            switch (controllerName)
+            {
+                case "OfertaLiquidacion":
+                    return true;
+                case "CatalogoPersonalizado":
+                    return true;
+                case "ShowRoom":
+                    return true;
+                default:
+                    return false;
+            }
         }
 
         public string ObtenerValorPersonalizacionShowRoom(string codigoAtributo, string tipoAplicacion)
@@ -3490,15 +3474,9 @@ namespace Portal.Consultoras.Web.Controllers
         
         public bool RDObtenerTitulosSeccion(ref string titulo, ref string subtitulo, string codigo)
         {
-            if (codigo == Constantes.ConfiguracionPais.RevistaDigital)
-            {
-                if (!revistaDigital.TieneRDC) return false;
-            }
+            if (codigo == Constantes.ConfiguracionPais.RevistaDigital && !revistaDigital.TieneRDC) return false;
 
-            if (codigo == Constantes.ConfiguracionPais.RevistaDigitalReducida)
-            {
-                if (!revistaDigital.TieneRDR) return false;
-            }
+            if (codigo == Constantes.ConfiguracionPais.RevistaDigitalReducida && !revistaDigital.TieneRDR) return false;
 
             titulo = "OFERTAS ÉSIKA PARA MÍ";
             subtitulo = userData.Sobrenombre.ToUpper() + ", PRUEBA LAS VENTAJAS DE COMPRAR OFERTAS PERSONALIZADAS";

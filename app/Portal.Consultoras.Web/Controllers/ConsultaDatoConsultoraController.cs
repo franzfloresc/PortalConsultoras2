@@ -424,7 +424,7 @@
 
 
                 List<Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle> lst = new List<Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle>();
-                List<BEPedidoFacturado> lista = new List<BEPedidoFacturado>();
+                List<BEPedidoFacturado> lista;
                 try
                 {
                     using (SACServiceClient client = new SACServiceClient())
@@ -437,6 +437,8 @@
                     Web.LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                     lista = null;
                 }
+
+                lista = lista ?? new List<BEPedidoFacturado>();
 
                 foreach (var pedido in lista)
                 {

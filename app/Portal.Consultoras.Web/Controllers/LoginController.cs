@@ -964,7 +964,11 @@ namespace Portal.Consultoras.Web.Controllers
                             if (configuracionesPaisModels.Any())
                             {
                                 revistaDigitalModel.EstadoSuscripcion = 0;
-                                var rds = new BERevistaDigitalSuscripcion { PaisID = usuarioModel.PaisID, CodigoConsultora = usuarioModel.CodigoConsultora };
+                                var rds = new BERevistaDigitalSuscripcion
+                                {
+                                    PaisID = usuarioModel.PaisID,
+                                    CodigoConsultora = usuarioModel.CodigoConsultora
+                                };
 
                                 foreach (var c in configuracionesPaisModels)
                                 {
@@ -983,6 +987,8 @@ namespace Portal.Consultoras.Web.Controllers
                                                 rds.CampaniaID = AddCampaniaAndNumero(usuarioModel.CampaniaID, -2, usuarioModel.NroCampanias);
                                                 revistaDigitalModel.SuscripcionAnterior2Model = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
                                             }
+                                            revistaDigitalModel.EstadoRdcAnalytics =
+                                                GetEstadoRdAnalytics(revistaDigitalModel);
                                             break;
                                         case Constantes.ConfiguracionPais.RevistaDigitalSuscripcion:
                                             if (DateTime.Now.AddHours(usuarioModel.ZonaHoraria).Date >= usuarioModel.FechaInicioCampania.Date.AddDays(revistaDigitalModel.DiasAntesFacturaHoy))
@@ -1028,10 +1034,8 @@ namespace Portal.Consultoras.Web.Controllers
                                             break;
                                     }
 
-                                    if (c.Codigo.EndsWith("GM") && c.Codigo.StartsWith("OF"))
-                                    {
-                                        if (c.Estado) usuarioModel.OfertaFinalGanaMas = 1;
-                                    }
+                                    if (c.Codigo.EndsWith("GM") && c.Codigo.StartsWith("OF") && c.Estado)
+                                        usuarioModel.OfertaFinalGanaMas = 1;
                                 }
                                 revistaDigitalModel.Campania = usuarioModel.CampaniaID % 100;
                                 revistaDigitalModel.CampaniaMasUno = AddCampaniaAndNumero(Convert.ToInt32(usuarioModel.CampaniaID), 1, usuarioModel.NroCampanias) % 100;
@@ -1775,11 +1779,10 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         validaLogin = svc.GetValidarAutoLogin(beUsuarioExt.PaisID, beUsuarioExt.CodigoUsuario, proveedor);
                     }
-
-                    if (validaLogin != null && validaLogin.Result == 3)
-                    {
+                    validaLogin = validaLogin ?? new BEValidaLoginSB2();
+                    if (validaLogin.Result == 3)
                         return Redireccionar(beUsuarioExt.PaisID, beUsuarioExt.CodigoUsuario, returnUrl, true);
-                    }
+                    
                     return Json(new
                     {
                         success = false,
@@ -1996,6 +1999,16 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return RedirectToRoute("UniqueRoute", route);
+        }
+
+        private static string GetEstadoRdAnalytics(RevistaDigitalModel revistaDigital)
+        {
+            if (revistaDigital == null || !revistaDigital.TieneRDC) return "(not available)";
+            if (revistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
+            {
+                return revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo ? "Inscrita Activa" : "Inscrita No Activa";
+            }
+            return revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo ? "No Inscrita Activa" : "No Inscrita No Activa";
         }
     }
 }

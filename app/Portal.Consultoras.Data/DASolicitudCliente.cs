@@ -270,12 +270,12 @@ namespace Portal.Consultoras.Data
         public IDataReader ReporteAfiliados(DateTime FechaInicio, DateTime FechaFin)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetReporteAfiliados");
-            if (FechaInicio == null)
+            if (FechaInicio == default(DateTime))
                 Context.Database.AddInParameter(command, "@FechaInicio", DbType.DateTime, DBNull.Value);
             else
                 Context.Database.AddInParameter(command, "@FechaInicio", DbType.DateTime, FechaInicio);
 
-            if (FechaFin == null)
+            if (FechaFin == default(DateTime))
                 Context.Database.AddInParameter(command, "@FechaFin", DbType.DateTime, DBNull.Value);
             else
                 Context.Database.AddInParameter(command, "@FechaFin", DbType.DateTime, FechaFin);
@@ -286,12 +286,12 @@ namespace Portal.Consultoras.Data
         public IDataReader ReportePedidos(DateTime FechaInicio, DateTime FechaFin, int estado, string marca, string campania)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetReportePedidos");
-            if (FechaInicio == null)
+            if (FechaInicio == default(DateTime))
                 Context.Database.AddInParameter(command, "@FechaInicio", DbType.DateTime, DBNull.Value);
             else
                 Context.Database.AddInParameter(command, "@FechaInicio", DbType.DateTime, FechaInicio);
 
-            if (FechaFin == null)
+            if (FechaFin == default(DateTime))
                 Context.Database.AddInParameter(command, "@FechaFin", DbType.DateTime, DBNull.Value);
             else
                 Context.Database.AddInParameter(command, "@FechaFin", DbType.DateTime, FechaFin);

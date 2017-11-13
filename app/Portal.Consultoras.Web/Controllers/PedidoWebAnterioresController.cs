@@ -273,7 +273,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (ModelState.IsValid)
             {
                 List<BEPedidoWebDetalle> lst = new List<BEPedidoWebDetalle>();
-                List<BEPedidoFacturado> lista = new List<BEPedidoFacturado>();
+                List<BEPedidoFacturado> lista;
                 try
                 {
                     using (SACServiceClient client = new SACServiceClient())
@@ -286,6 +286,7 @@ namespace Portal.Consultoras.Web.Controllers
                     LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
                     lista = null;
                 }
+                lista = lista ?? new List<BEPedidoFacturado>();
 
                 foreach (var pedido in lista)
                 {
@@ -438,7 +439,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             List<KeyValuePair<int, string>> dicCabeceras = new List<KeyValuePair<int, string>>();
             List<BEPedidoWebDetalle> lst = new List<BEPedidoWebDetalle>();
-            List<BEPedidoFacturado> lista = new List<BEPedidoFacturado>();
+            List<BEPedidoFacturado> lista;
             try
             {
                 using (SACServiceClient client = new SACServiceClient())
@@ -451,6 +452,7 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
                 lista = null;
             }
+            lista = lista ?? new List<BEPedidoFacturado>();
 
             foreach (var item in lista)
             {

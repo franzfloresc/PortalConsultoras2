@@ -258,15 +258,16 @@ namespace Portal.Consultoras.Web.Controllers
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
                 listaShowRoomOferta = sv.GetShowRoomOfertasConsultora(userData.PaisID, campaniaId, codigoConsultora, tienePersonalizacion).ToList();
-                var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-
-                if (listaShowRoomOferta != null)
-                {
-                    listaShowRoomOferta.Update(x => x.ImagenProducto = string.IsNullOrEmpty(x.ImagenProducto)
-                                    ? "" : ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.UrlMatriz + "/" + userData.CodigoISO));
-                    listaShowRoomOferta.Update(x => x.ImagenMini = string.IsNullOrEmpty(x.ImagenMini)
-                                    ? "" : ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenMini, Globals.UrlMatriz + "/" + userData.CodigoISO));
-                }
+                
+            }
+            var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+            listaShowRoomOferta = listaShowRoomOferta ?? new List<BEShowRoomOferta>();
+            if (listaShowRoomOferta.Any())
+            {
+                listaShowRoomOferta.Update(x => x.ImagenProducto = string.IsNullOrEmpty(x.ImagenProducto)
+                                ? "" : ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.UrlMatriz + "/" + userData.CodigoISO));
+                listaShowRoomOferta.Update(x => x.ImagenMini = string.IsNullOrEmpty(x.ImagenMini)
+                                ? "" : ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenMini, Globals.UrlMatriz + "/" + userData.CodigoISO));
             }
 
             var listaTieneStock = new List<Lista>();
