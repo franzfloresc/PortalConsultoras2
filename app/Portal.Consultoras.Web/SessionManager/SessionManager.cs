@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.CertificadoComercial;
 using Portal.Consultoras.Web.ServicePedido;
 using System;
 using System.Collections.Generic;
@@ -104,6 +105,16 @@ namespace Portal.Consultoras.Web.SessionManager
         RevistaDigitalModel ISessionManager.GetRevistaDigital()
         {
             return (RevistaDigitalModel)HttpContext.Current.Session[Constantes.ConstSession.RevistaDigital];
+        }
+
+        void ISessionManager.SetCertificadoComercial(List<CertificadoComercialModel> lista)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.CertificadoComercial] = lista;
+        }
+
+        List<CertificadoComercialModel> ISessionManager.GetCertificadoComercial()
+        {
+            return (List<CertificadoComercialModel>)HttpContext.Current.Session[Constantes.ConstSession.CertificadoComercial];
         }
     }
 }
