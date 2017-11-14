@@ -141,12 +141,13 @@ namespace Portal.Consultoras.Web.Controllers
         [ValidateInput(false)]
         public FileResult Export()
         {
-            var model = new List<CertificadoComercialModel>();
-            //var view = "~/Views/CertificadoComercial/NoAdeudoPDF.cshtml";
-            var view = "~/Views/CertificadoComercial/ComercialPDF.cshtml";
+            var model = new CertificadoComercialModel();
+            model.CertificadoComercialId = 999999;
+            
+            var view = "~/Views/CertificadoComercial/NoAdeudoPDF.cshtml";
+            //var view = "~/Views/CertificadoComercial/ComercialPDF.cshtml";
 
-            string html = RenderViewToString(ControllerContext,
-                view, model, true);
+            string html = RenderViewToString(ControllerContext, view, model, true);
 
             using (MemoryStream stream = new System.IO.MemoryStream())
             {
