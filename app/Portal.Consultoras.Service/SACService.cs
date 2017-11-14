@@ -1147,6 +1147,11 @@ namespace Portal.Consultoras.Service
             return BLEstadoCuenta.GetEstadoCuentaConsultora(PaisId, consultoraId);
         }
 
+        public string GetDeudaActualConsultora(int PaisId, long consultoraId)
+        {
+            return BLEstadoCuenta.GetDeudaActualConsultora(PaisId, consultoraId);
+        }
+
         public List<BEPedidoFacturado> GetPedidosFacturadosCabecera(int PaisId, string CodigoConsultora)
         {
             return BLPedidoFacturado.GetPedidosFacturadosCabecera(PaisId, CodigoConsultora);
