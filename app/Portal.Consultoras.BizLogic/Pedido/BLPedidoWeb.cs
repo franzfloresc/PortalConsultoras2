@@ -2188,6 +2188,12 @@ namespace Portal.Consultoras.BizLogic
             return pedidos;
         }
         #endregion
+
+        public bool TieneCampaniaConsecutivas(int paisId, int campaniaId, int cantidadCampaniaConsecutiva, long consultoraId)
+        {
+            var DAPedidoWeb = new DAPedidoWeb(paisId);
+            return DAPedidoWeb.TieneCampaniaConsecutivas(campaniaId, cantidadCampaniaConsecutiva, consultoraId);
+        }
     }
 
     internal class TemplateField
