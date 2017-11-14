@@ -1250,6 +1250,7 @@
     <Content Include="Content\Css\Mobile\lbel\slick.css" />
     <Content Include="Content\Css\Mobile\lbel\style.css" />
     <Content Include="Content\Css\Mobile\lbel\theme.css" />
+    <Content Include="Content\Css\Mobile\pedido.css" />
     <Content Include="Content\Css\Mobile\svg\circle.svg" />
     <Content Include="Content\Css\Pie\PIE.htc" />
     <Content Include="Content\Css\Site\ActualizarDatos.css" />
