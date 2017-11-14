@@ -37,7 +37,7 @@ namespace Portal.Consultoras.Web.Controllers
         protected ISessionManager sessionManager = SessionManager.SessionManager.Instance;
 
         [AllowAnonymous]
-        public ActionResult Index(string returnUrl = null, bool pruebaPixel = false)
+        public ActionResult Index(string returnUrl = null)
         {
             if (EsUsuarioAutenticado())
             {
@@ -76,7 +76,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 AsignarViewBagPorIso(iso);
                 AsignarUrlRetorno(returnUrl);
-                if(pruebaPixel) model.ListPaisAnalytics = GetLoginAnalyticsModel();
+                model.ListPaisAnalytics = GetLoginAnalyticsModel();
             }
             catch (FaultException ex)
             {
