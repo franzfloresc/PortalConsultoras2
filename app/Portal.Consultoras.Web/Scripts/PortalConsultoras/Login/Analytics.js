@@ -5,6 +5,13 @@ var Analytics = function (config) {
     var _listImagenAnalyticsId = [], _listScriptAnalyticsId = [], _callingScriptAnalytics = false;
     var _listImagenPixelId = [];
 
+    var _consoleLog = function(variable){
+        if (!window.console) return;
+        if (!window.console.log) return;
+
+        console.log(variable);
+    }
+
     var _crearImagenAnalyticsWithId = function (id) {
         if ($.inArray(id, _listImagenAnalyticsId) > -1) return;
 
@@ -29,7 +36,7 @@ var Analytics = function (config) {
         _callingScriptAnalytics = true;
         $.getScript("//www.googleadservices.com/pagead/conversion.js").done(function() {
             _listScriptAnalyticsId.shift();
-            console.log('Cargó analytics Id: ' + google_conversion_id);
+            _consoleLog('Cargó analytics Id: ' + google_conversion_id);
             _callingScriptAnalytics = false;
             _invocarScriptAnalytics();
         });
@@ -68,7 +75,7 @@ var Analytics = function (config) {
         }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
 
         window.fbq('init', id);
-        console.log('Cargó Pixel Id: ' + id);
+        _consoleLog('Cargó Pixel Id: ' + id);
     }
     var _limpiarPixelFacebook = function () {
         window.fbq = window._fbq = null;
@@ -77,7 +84,7 @@ var Analytics = function (config) {
         if (!window.fbq) return;
 
         window.fbq('track', 'PageView');
-        console.log('Pixel PageView');
+        _consoleLog('Pixel PageView');
     }
 
     var _invocarAnalyticsByCodigoIso = function (codigoIso) {
@@ -102,7 +109,7 @@ var Analytics = function (config) {
         if (!window.fbq) return;
 
         window.fbq('trackCustom', 'Convert', { 'link': link });
-        console.log('Pixel Convert: ' + link);
+        _consoleLog('Pixel Convert: ' + link);
     }
 
     var _invocarEventoPixelById = function (link, id) {
