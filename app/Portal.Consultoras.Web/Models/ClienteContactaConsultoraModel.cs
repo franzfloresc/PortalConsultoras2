@@ -12,7 +12,6 @@ namespace Portal.Consultoras.Web.Models
         public string NombreConsultora { get; set; }
         public bool Afiliado { get; set; }
         public bool EsPrimeraVez { get; set; }
-        //R2442 - JICM - Agregando nuevos campos     
         public bool EmailActivo { get; set; }       
         public string NombreCompleto { get; set; }
         [Required(ErrorMessage = "Ingresar el correo electrónico")]
@@ -23,11 +22,7 @@ namespace Portal.Consultoras.Web.Models
         public string Celular { get; set; }
         [RegularExpression("([0-9]+)", ErrorMessage = "Ingresar solo numeros")] 
         public string Telefono { get; set; }
-        //[Compare("Email", ErrorMessage = "Verifica que ambos correos coincidan.")]
         public string EmailConfirmacion { get; set; }
-        //R2442 - FIN
-
-
 
         public string Usuario { get; set; }
         public string Nombres { get; set; }
@@ -45,12 +40,10 @@ namespace Portal.Consultoras.Web.Models
         public string ActualizarClave { get; set; }
         public string ConfirmarClave { get; set; }
         public string CorreoAnterior { get; set; }
-        public bool AceptoContrato { get; set; } //2532 EGL
+        public bool AceptoContrato { get; set; }
 
-        //R2116
         public string m_Apellidos { get; set; }
         public string m_Nombre { get; set; }
-        //R2116
 
     }
 }

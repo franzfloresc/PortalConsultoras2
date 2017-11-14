@@ -20,8 +20,8 @@ namespace Portal.Consultoras.Web.Models
         public int CodigoGeneral { get; set; }
         public string Codigo { get; set; }
 
-        public int FlagValidarImagen { get; set; }         /* BPT-369 */
-        public int PesoMaximoImagen { get; set; }          /* BPT-369 */
+        public int FlagValidarImagen { get; set; }
+        public int PesoMaximoImagen { get; set; } 
 
     }
 }

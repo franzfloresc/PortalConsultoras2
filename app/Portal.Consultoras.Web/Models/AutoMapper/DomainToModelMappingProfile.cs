@@ -199,7 +199,6 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
 
             Mapper.CreateMap<BEConsultoraRegaloProgramaNuevas, ConsultoraRegaloProgramaNuevasModel>()
                 .ForMember(t => t.CodigoNivel, f => f.MapFrom(c => c.CodigoNivel))
-                //.ForMember(t => t.CodigoPrograma, f => f.MapFrom(c => c.CodigoPrograma))
                 .ForMember(t => t.TippingPoint, f => f.MapFrom(c => c.TippingPoint))
                 .ForMember(t => t.CUVPremio, f => f.MapFrom(c => c.CUVPremio))
                 .ForMember(t => t.DescripcionPremio, f => f.MapFrom(c => c.DescripcionPremio))
@@ -237,7 +236,6 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<AdministrarLugaresPagoModel, BELugarPago>()
                    .ForMember(t => t.LugarPagoID, f => f.MapFrom(c => c.LugarPagoID))
                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                   //.ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
                    .ForMember(t => t.UrlSitio, f => f.MapFrom(c => c.UrlSitio))
                    .ForMember(t => t.ArchivoLogo, f => f.MapFrom(c => c.ArchivoLogo))
