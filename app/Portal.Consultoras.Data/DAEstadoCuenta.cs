@@ -26,9 +26,17 @@ namespace Portal.Consultoras.Data
 
         public string GetDeudaActualConsultora(long consultoraId)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetDeudaActualConsultora");
-            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int32, consultoraId);
-            return Convert.ToString(Context.ExecuteScalar(command));
+            try
+            {
+                DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetDeudaActualConsultora");
+                Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int32, consultoraId);
+                return Convert.ToString(Context.ExecuteScalar(command));
+            }
+            catch (Exception ex)
+            {
+                return "";
+                throw ex;
+            }
         }
     }
 }
