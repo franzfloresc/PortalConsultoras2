@@ -333,6 +333,8 @@ namespace Portal.Consultoras.Common
             public const string TieneOpm = "TieneOpm";
             public const string TieneOpmX1 = "TieneOpmX1";
             public const string TieneRdr = "TieneRdr";
+
+            public const string CertificadoComercial = "CertificadoComercial";
         }
 
         public class TipoOfertaFinalCatalogoPersonalizado

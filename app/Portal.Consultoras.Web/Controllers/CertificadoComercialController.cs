@@ -28,18 +28,29 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!UsuarioModel.HasAcces(ViewBag.Permiso, "CertificadoComercial/Index"))
                     return RedirectToAction("Index", "Bienvenida");
 
-                var certificadoNoAdeudo = ObtenerCertificadoNoAdeudo();
-                listaCertificados.Add(certificadoNoAdeudo);
+                listaCertificados = ObtenerCertificados();                
 
-                var certificadoComercial = ObtenerCertificadoComercial();
-                listaCertificados.Add(certificadoComercial);
+                sessionManager.SetCertificadoComercial(listaCertificados);
             }
             catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
-            }
+            }            
 
             return View(listaCertificados);
+        }
+
+        private List<CertificadoComercialModel> ObtenerCertificados()
+        {
+            var listaCertificados = new List<CertificadoComercialModel>();
+
+            var certificadoNoAdeudo = ObtenerCertificadoNoAdeudo();
+            listaCertificados.Add(certificadoNoAdeudo);
+
+            var certificadoComercial = ObtenerCertificadoComercial();
+            listaCertificados.Add(certificadoComercial);
+
+            return listaCertificados;
         }
 
         #region Certificado Paz y Salvo / No Adeudo
@@ -47,13 +58,15 @@ namespace Portal.Consultoras.Web.Controllers
         {          
             var certificado = new CertificadoComercialModel();
 
-            var certificadoComercialId = 0;
+            var certificadoComercialId = 99;
             var nombre = "";
             var mensajeError = "";
 
             switch (userData.PaisID)
             {
                 case Constantes.PaisID.Colombia:
+                    nombre = "Paz y Salvo";
+
                     if (userData.MontoDeuda > 0)
                     {
                         mensajeError = "Tu cuenta tiene saldo pendiente, no es posible expedir un Paz y Salvo";
@@ -61,19 +74,17 @@ namespace Portal.Consultoras.Web.Controllers
                     }
 
                     certificadoComercialId = 1;
-                    nombre = "Paz y Salvo";
-
-
                     break;
                 case Constantes.PaisID.Ecuador:
+                    nombre = "No Adeudo";
+
                     if (userData.MontoDeuda > 0)
                     {
                         mensajeError = "Tu cuenta tiene saldo pendiente, no es posible expedir un No Adeudo";
                         break;
                     }
 
-                    certificadoComercialId = 1;
-                    nombre = "No Adeudo";
+                    certificadoComercialId = 1;                    
                     break;
                 default:
                     certificado.Nombre = "";
@@ -83,6 +94,7 @@ namespace Portal.Consultoras.Web.Controllers
             certificado.CertificadoComercialId = certificadoComercialId;
             certificado.Nombre = nombre;
             certificado.MensajeError = mensajeError;
+            certificado.NombreVista = "~/Views/CertificadoComercial/NoAdeudoPDF.cshtml";
 
             return certificado;            
         }
@@ -104,7 +116,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 case Constantes.PaisID.Colombia:
                 case Constantes.PaisID.Ecuador:
-                    certificadoComercialId = 1;
                     nombre = "Certificación Comercial";
 
                     bool tieneCampaniaConsecutivas = false;
@@ -121,7 +132,6 @@ namespace Portal.Consultoras.Web.Controllers
                     }
 
                     certificadoComercialId = 2;
-                    nombre = "Certificación Comercial";
 
                     break;
                 default:
@@ -132,6 +142,7 @@ namespace Portal.Consultoras.Web.Controllers
             certificado.CertificadoComercialId = certificadoComercialId;
             certificado.Nombre = nombre;
             certificado.MensajeError = mensajeError;
+            certificado.NombreVista = "~/Views/CertificadoComercial/ComercialPDF.cshtml";
 
             return certificado;
         }
@@ -139,26 +150,30 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
 
         [ValidateInput(false)]
-        public FileResult Export()
+        public FileResult Export(int id)
         {
-            var model = new CertificadoComercialModel();
-            model.CertificadoComercialId = 999999;
-            
-            var view = "~/Views/CertificadoComercial/NoAdeudoPDF.cshtml";
-            //var view = "~/Views/CertificadoComercial/ComercialPDF.cshtml";
+            var model = ObtenerCertificadoById(id);
 
-            string html = RenderViewToString(ControllerContext, view, model, true);
-
-            using (MemoryStream stream = new System.IO.MemoryStream())
+            if(model.CertificadoComercialId != 0)
             {
-                StringReader sr = new StringReader(html);
-                Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 100f, 0f);
-                PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
-                pdfDoc.Open();
-                XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, sr);
-                pdfDoc.Close();
-                return File(stream.ToArray(), "application/pdf", "Report.pdf");
+                var view = model.NombreVista;
+            
+                string html = RenderViewToString(ControllerContext,
+                    view, model, true);
+
+                using (MemoryStream stream = new System.IO.MemoryStream())
+                {
+                    StringReader sr = new StringReader(html);
+                    Document pdfDoc = new Document(PageSize.A4, 10, 10, 100, 0);
+                    PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
+                    pdfDoc.Open();
+                    XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, sr);
+                    pdfDoc.Close();
+                    return File(stream.ToArray(), "application/pdf", "Report" + model.CertificadoComercialId + ".pdf");
+                }
             }
+
+            return null;                       
         }
 
         private string RenderViewToString(ControllerContext context,
@@ -193,6 +208,15 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return result;
+        }
+
+        private CertificadoComercialModel ObtenerCertificadoById(int id)
+        {            
+            var listaCertificados = sessionManager.GetCertificadoComercial() ?? new List<CertificadoComercialModel>();
+
+            var certificado = listaCertificados.FirstOrDefault(p => p.CertificadoComercialId == id) ?? new CertificadoComercialModel();
+
+            return certificado;
         }
     }
 }
