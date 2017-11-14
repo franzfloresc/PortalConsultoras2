@@ -120,6 +120,28 @@ namespace Portal.Consultoras.Web.Controllers
 
         #endregion
 
+        [ValidateInput(false)]
+        public FileResult Export()
+        {
+            var model = new List<CertificadoComercialModel>();
+            //var view = "~/Views/CertificadoComercial/NoAdeudoPDF.cshtml";
+            var view = "~/Views/CertificadoComercial/ComercialPDF.cshtml";
+
+            string html = RenderViewToString(ControllerContext,
+                view, model, true);
+
+            using (MemoryStream stream = new System.IO.MemoryStream())
+            {
+                StringReader sr = new StringReader(html);
+                Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 100f, 0f);
+                PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
+                pdfDoc.Open();
+                XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, sr);
+                pdfDoc.Close();
+                return File(stream.ToArray(), "application/pdf", "Report.pdf");
+            }
+        }
+
         private string RenderViewToString(ControllerContext context,
                                     string viewPath,
                                     object model = null,

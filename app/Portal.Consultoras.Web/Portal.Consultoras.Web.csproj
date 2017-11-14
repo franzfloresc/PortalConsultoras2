@@ -4459,6 +4459,8 @@
     <Content Include="Areas\Mobile\Views\Util\_barra.cshtml" />
     <Content Include="Views\Descargables\Descargables.cshtml" />
     <Content Include="Views\CertificadoComercial\Index.cshtml" />
+    <Content Include="Views\CertificadoComercial\NoAdeudoPDF.cshtml" />
+    <Content Include="Views\CertificadoComercial\ComercialPDF.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
