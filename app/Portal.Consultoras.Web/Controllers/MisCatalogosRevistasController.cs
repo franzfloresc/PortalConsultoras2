@@ -81,7 +81,7 @@ namespace Portal.Consultoras.Web.Controllers
         public List<Catalogo> GetCatalogosPublicados(string paisISO, string campaniaId)
         {
             List<Catalogo> catalogos = new List<Catalogo>();
-            string urlISSUUSearch = "http://search.issuu.com/api/2_0/document?username=somosbelcorp&q=";
+            string urlISSUUSearch = "http:" + Constantes.CatalogoUrlIssu.Buscador;
             string urlISSUUVisor = ConfigurationManager.AppSettings["UrlIssuu"];
 
             try
