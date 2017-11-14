@@ -853,5 +853,15 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
         #endregion
+
+        public bool TieneCampaniaConsecutivas(int campaniaId, int cantidadCampaniaConsecutiva, long consultoraId)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.TieneCampaniaConsecutivas");
+            Context.Database.AddInParameter(command, "@CampaniaId", DbType.AnsiString, campaniaId);
+            Context.Database.AddInParameter(command, "@CantidadCampaniaConsecutiva", DbType.Int32, cantidadCampaniaConsecutiva);
+            Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int64, consultoraId);
+
+            return Convert.ToBoolean(Context.ExecuteScalar(command));
+        }
     }
 }

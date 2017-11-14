@@ -1,6 +1,7 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.CertificadoComercial;
+using Portal.Consultoras.Web.ServicePedido;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,7 @@ namespace Portal.Consultoras.Web.Controllers
                 listaCertificados.Add(certificadoNoAdeudo);
 
                 var certificadoComercial = ObtenerCertificadoComercial();
+                listaCertificados.Add(certificadoComercial);
             }
             catch (FaultException ex)
             {
@@ -90,6 +92,7 @@ namespace Portal.Consultoras.Web.Controllers
             var certificadoComercialId = 0;
             var nombre = "";
             var mensajeError = "";
+            const int cantidadCampaniaConsecutiva = 3;
 
             switch (userData.PaisID)
             {
@@ -98,6 +101,21 @@ namespace Portal.Consultoras.Web.Controllers
                     certificadoComercialId = 1;
                     nombre = "Certificación Comercial";
 
+                    bool tieneCampaniaConsecutivas = false;
+                    using (PedidoServiceClient ps = new PedidoServiceClient())
+                    {
+                        tieneCampaniaConsecutivas = ps.TieneCampaniaConsecutivas(userData.PaisID, userData.CampaniaID, cantidadCampaniaConsecutiva, userData.ConsultoraID);
+                    }
+
+                    if (!tieneCampaniaConsecutivas)
+                    {
+                        mensajeError = "No has sido constante en las últimas " + cantidadCampaniaConsecutiva +
+                            " campañas, no es posible expedir un certificado comercial.";
+                        break;
+                    }
+
+                    certificadoComercialId = 2;
+                    nombre = "Certificación Comercial";
 
                     break;
                 default:
