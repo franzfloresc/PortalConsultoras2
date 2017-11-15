@@ -853,5 +853,34 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
         #endregion
+
+        #region ProductosPrecargados
+        public int GetFlagProductosPrecargados(string codigoConsultora, int CampaniaID)
+        {
+            try
+            {
+                DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetMostradoProductosPrecargados");
+                Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, codigoConsultora);
+                Context.Database.AddInParameter(command, "@CampaniaID ", DbType.Int32, CampaniaID);
+                return Convert.ToInt32(Context.ExecuteScalar(command));
+            }
+            catch (Exception ex)
+            {
+                return 1;
+                throw ex;
+            }
+
+        }
+
+        public void UpdateMostradoProductosPrecargados(int CampaniaID, long ConsultoraID, string IPUsuario)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdateMostradoProductosPrecargados");
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
+            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int32, ConsultoraID);
+            Context.Database.AddInParameter(command, "@IPUsuario", DbType.Decimal, IPUsuario);
+
+            Context.ExecuteNonQuery(command);
+        }
+        #endregion
     }
 }
