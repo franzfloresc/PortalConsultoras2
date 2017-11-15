@@ -174,7 +174,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 campana = 0;
                 LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
             }
-            return RedirectToAction("Detalle", new RouteValueDictionary(new { controller = "FichaProducto", area = "Mobile", cuv = cuv, campanaId = campana }));
+            return RedirectToAction("Detalle", new RouteValueDictionary(new { controller = "FichaProducto", area = "Mobile", param=param }));
         }
 
         public ActionResult Detalle(bool autoReservar = false)
