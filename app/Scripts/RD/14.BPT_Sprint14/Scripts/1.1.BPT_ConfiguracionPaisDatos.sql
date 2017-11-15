@@ -7,10 +7,10 @@ CREATE TABLE [dbo].[ConfiguracionPaisDatos](
 	[ConfiguracionPaisID] [int] NOT NULL,
 	[Codigo] [varchar](50) NOT NULL,
 	[CampaniaID] [int] NOT NULL,
-	[Valor1] [varchar](800),
-	[Valor2] [varchar](800),
-	[Valor3] [varchar](800),
-	[Descripcion] [varchar](800),
+	[Valor1] [varchar](800) NULL,
+	[Valor2] [varchar](800) NULL,
+	[Valor3] [varchar](800) NULL,
+	[Descripcion] [varchar](800) NULL,
 	[Estado] [bit] NOT NULL,
 )
 GO
