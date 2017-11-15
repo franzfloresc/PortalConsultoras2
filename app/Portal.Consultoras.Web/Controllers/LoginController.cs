@@ -974,7 +974,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     {
                                         case Constantes.ConfiguracionPais.RevistaDigital:
                                             revistaDigitalModel.TieneRDC = true;
-                                            revistaDigitalModel.BloqueroRevistaImpresa = c.BloqueoRevistaImpresa;
+                                            revistaDigitalModel.BloqueoRevistaImpresa = c.BloqueoRevistaImpresa;
                                             using (PedidoServiceClient sv1 = new PedidoServiceClient())
                                             {
                                                 revistaDigitalModel.SuscripcionModel = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));

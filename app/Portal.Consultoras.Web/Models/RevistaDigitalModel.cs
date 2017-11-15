@@ -36,7 +36,7 @@ namespace Portal.Consultoras.Web.Models
         public RevistaDigitalSuscripcionModel SuscripcionModel { get; set; }
         public RevistaDigitalSuscripcionModel SuscripcionAnterior2Model { get; set; }
         public RevistaDigitalSuscripcionModel SuscripcionAnterior1Model { get; set; }
-        public bool BloqueroRevistaImpresa { get; set; }
+        public bool BloqueoRevistaImpresa { get; set; }
         public string EstadoRdcAnalytics { get; set; }
     }
 }
