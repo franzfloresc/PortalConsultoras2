@@ -4164,8 +4164,8 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                return flag;
-                throw ex;
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return flag;                
             }
         }
     }
