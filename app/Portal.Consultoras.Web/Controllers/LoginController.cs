@@ -961,6 +961,10 @@ namespace Portal.Consultoras.Web.Controllers
                             var configuracionesPaisModels = GetConfiguracionPais(usuarioModel);
                             if (configuracionesPaisModels.Any())
                             {
+                                #region ConfiguracionPaisDatos
+                                var listaPaisDatos = ConfiguracionPaisDatos(usuarioModel);
+                                #endregion
+
                                 revistaDigitalModel.EstadoSuscripcion = 0;
                                 var rds = new BERevistaDigitalSuscripcion
                                 {
@@ -973,18 +977,8 @@ namespace Portal.Consultoras.Web.Controllers
                                     switch (c.Codigo)
                                     {
                                         case Constantes.ConfiguracionPais.RevistaDigital:
-                                            revistaDigitalModel.TieneRDC = true;
+                                            revistaDigitalModel = ConfiguracionPaisRevistaDigital(usuarioModel, revistaDigitalModel);
                                             revistaDigitalModel.BloqueroRevistaImpresa = c.BloqueoRevistaImpresa;
-                                            using (PedidoServiceClient sv1 = new PedidoServiceClient())
-                                            {
-                                                revistaDigitalModel.SuscripcionModel = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
-                                                rds.CampaniaID = AddCampaniaAndNumero(usuarioModel.CampaniaID, -1, usuarioModel.NroCampanias);
-                                                revistaDigitalModel.SuscripcionAnterior1Model = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
-                                                rds.CampaniaID = AddCampaniaAndNumero(usuarioModel.CampaniaID, -2, usuarioModel.NroCampanias);
-                                                revistaDigitalModel.SuscripcionAnterior2Model = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
-                                            }
-                                            revistaDigitalModel.EstadoRdcAnalytics =
-                                                GetEstadoRdAnalytics(revistaDigitalModel);
                                             break;
                                         case Constantes.ConfiguracionPais.RevistaDigitalSuscripcion:
                                             if (DateTime.Now.AddHours(usuarioModel.ZonaHoraria).Date >= usuarioModel.FechaInicioCampania.Date.AddDays(revistaDigitalModel.DiasAntesFacturaHoy))
@@ -1193,6 +1187,58 @@ namespace Portal.Consultoras.Web.Controllers
                        
 
             return Mapper.Map<IList<ServiceUsuario.BEConfiguracionPais>, List<ConfiguracionPaisModel>>(listaConfigPais);
+        }
+
+        private List<ConfiguracionPaisDatosModel> ConfiguracionPaisDatos(UsuarioModel usuarioModel)
+        {
+            var listaDatos = new List<ConfiguracionPaisDatosModel>();
+
+            var entidad = new BEConfiguracionPaisDatos
+            {
+                PaisID = usuarioModel.PaisID,
+                CampaniaID = usuarioModel.CampaniaID,
+                ConfiguracionPais = new ServiceUsuario.BEConfiguracionPais
+                {
+                    Detalle = new ServiceUsuario.BEConfiguracionPaisDetalle
+                    {
+                        CodigoConsultora = usuarioModel.CodigoConsultora,
+                        CodigoRegion = usuarioModel.CodigorRegion,
+                        CodigoZona = usuarioModel.CodigoZona,
+                        CodigoSeccion = usuarioModel.SeccionAnalytics
+                    }
+                }
+            };
+            List<BEConfiguracionPaisDatos> listaEntidad;
+            using (UsuarioServiceClient sv = new UsuarioServiceClient())
+            {
+                listaEntidad = sv.GetConfiguracionPaisDatos(entidad).ToList();
+            }
+
+            listaEntidad = listaEntidad ?? new List<BEConfiguracionPaisDatos>();
+            
+            return listaDatos;
+        }
+
+        private RevistaDigitalModel ConfiguracionPaisRevistaDigital(UsuarioModel usuarioModel, RevistaDigitalModel revistaDigitalModel)
+        {
+            revistaDigitalModel.TieneRDC = true;
+            var rds = new BERevistaDigitalSuscripcion
+            {
+                PaisID = usuarioModel.PaisID,
+                CodigoConsultora = usuarioModel.CodigoConsultora
+            };
+            using (PedidoServiceClient sv1 = new PedidoServiceClient())
+            {
+                revistaDigitalModel.SuscripcionModel = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
+                rds.CampaniaID = AddCampaniaAndNumero(usuarioModel.CampaniaID, -1, usuarioModel.NroCampanias);
+                revistaDigitalModel.SuscripcionAnterior1Model = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
+                rds.CampaniaID = AddCampaniaAndNumero(usuarioModel.CampaniaID, -2, usuarioModel.NroCampanias);
+                revistaDigitalModel.SuscripcionAnterior2Model = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
+            }
+            revistaDigitalModel.EstadoRdcAnalytics =
+                GetEstadoRdAnalytics(revistaDigitalModel);
+
+            return revistaDigitalModel;
         }
 
         private  string GetRegaloProgramaNuevasFlag()

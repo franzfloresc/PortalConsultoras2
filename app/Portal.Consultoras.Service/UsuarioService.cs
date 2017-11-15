@@ -689,6 +689,12 @@ namespace Portal.Consultoras.Service
             return bl.Validar(entidad);
         }
         
+        public List<BEConfiguracionPaisDatos> GetConfiguracionPaisDatos(BEConfiguracionPaisDatos entidad)
+        {
+            var bl = new BLConfiguracionPaisDatos();
+            return bl.GetList(entidad);
+        }
+
         //EPD-1836
         public int RegistrarUsuarioPostulante(string paisISO, BEUsuarioPostulante entidad)
         {

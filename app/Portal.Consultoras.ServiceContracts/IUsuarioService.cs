@@ -301,6 +301,9 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         bool ValidarConfiguracionPaisDetalle(BEConfiguracionPaisDetalle entidad);
         
+        [OperationContract]
+        List<BEConfiguracionPaisDatos> GetConfiguracionPaisDatos(BEConfiguracionPaisDatos entidad);
+
         //EPD-1836
         [OperationContract]
         int RegistrarUsuarioPostulante(string paisISO, BEUsuarioPostulante entidad);
