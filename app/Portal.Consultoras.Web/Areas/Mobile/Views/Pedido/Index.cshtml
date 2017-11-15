@@ -508,14 +508,12 @@
         </script>
     }
 
-    @if (Model.MostrarPopupPrecargados == 0 && Model.CodigoIso == "BO")
+    @Scripts.Render("~/bundles/JsMobile/Pedido")
+
+    @if (Model.MostrarPopupPrecargados)
     {
         <script>
-            $(document).ready(function () {
-                
-            });
+            $(document).ready(function () { messageInfoValidado('@Html.Raw(Constantes.RecuperacionPedido.Mensaje)'); });
         </script>
     }
-
-    @Scripts.Render("~/bundles/JsMobile/Pedido")
 }
