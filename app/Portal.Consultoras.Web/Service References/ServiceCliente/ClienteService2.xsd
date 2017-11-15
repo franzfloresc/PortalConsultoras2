@@ -5,12 +5,14 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="Activo" type="xs:boolean" />
       <xs:element minOccurs="0" name="ApellidoCliente" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CantidadPedido" type="xs:int" />
       <xs:element minOccurs="0" name="CantidadProductos" type="xs:int" />
       <xs:element minOccurs="0" name="Celular" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ClienteID" type="xs:int" />
       <xs:element minOccurs="0" name="CodigoCliente" type="xs:long" />
       <xs:element minOccurs="0" name="ConsultoraID" type="xs:long" />
       <xs:element minOccurs="0" name="Favorito" type="xs:short" />
+      <xs:element minOccurs="0" name="MontoPedido" type="xs:decimal" />
       <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NombreCliente" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Origen" nillable="true" type="xs:string" />
@@ -116,6 +118,7 @@
       <xs:element minOccurs="0" name="EsBackOrder" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsCompraPorCompra" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsKitNueva" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EsOfertaIndependiente" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsSugerido" type="xs:boolean" />
       <xs:element minOccurs="0" name="EstadoItem" type="xs:short" />
       <xs:element minOccurs="0" name="FechaCreacion" type="xs:dateTime" />
@@ -231,6 +234,7 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="Alias" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Apellidos" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CantidadPedido" type="xs:int" />
       <xs:element minOccurs="0" name="CantidadProductos" type="xs:int" />
       <xs:element minOccurs="0" name="ClienteID" type="xs:int" />
       <xs:element minOccurs="0" name="CodigoCliente" type="xs:long" />
@@ -244,6 +248,7 @@
       <xs:element minOccurs="0" name="Foto" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Insertado" type="xs:boolean" />
       <xs:element minOccurs="0" name="MensajeRespuesta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MontoPedido" type="xs:decimal" />
       <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cliente" minOccurs="0" name="Movimientos" nillable="true" type="q2:ArrayOfBEMovimiento" />
       <xs:element minOccurs="0" name="NombreCompleto" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Nombres" nillable="true" type="xs:string" />

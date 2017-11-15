@@ -1,36 +1,32 @@
-﻿using System;
+﻿using Belcorp.Security.Federation.Connections;
+using ClosedXML.Excel;
+using MaxMind.Db;
+using MaxMind.Util;
+using Microsoft.IdentityModel.Protocols.WSIdentity;
+using Microsoft.IdentityModel.Protocols.WSTrust;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.OleDb;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
-using System.Text;
-using System.Configuration;
-using System.Web;
-using System.Data;
 using System.Net.Mime;
-using System.Data.OleDb;
-using System.IO;
-using ClosedXML.Excel;
-using DocumentFormat.OpenXml;
 using System.Reflection;
-using TSHAK;
 using System.Security.Cryptography;
-using System.ComponentModel;
-using System.Threading.Tasks;
-using System.Threading;
-using System.Web.Mvc;
-using System.Web.Script.Serialization;
-using System.Drawing.Imaging;
-using System.Drawing;
-using Belcorp.Security.Federation.Connections;
-using MaxMind.Util;
-using MaxMind.Db;
-using Microsoft.IdentityModel.Protocols.WSIdentity;
-using Microsoft.IdentityModel.Protocols.WSTrust;
 using System.ServiceModel;
 using System.ServiceModel.Security;
+using System.Text;
+using System.Threading;
+using System.Web;
+using System.Web.Mvc;
 using System.Web.Routing;
+using System.Web.Script.Serialization;
 
 namespace Portal.Consultoras.Common
 {
@@ -1453,7 +1449,6 @@ namespace Portal.Consultoras.Common
                 HttpContext.Current.Response.BinaryWrite(stream.ToArray());
                 HttpContext.Current.Response.Flush();
                 HttpContext.Current.Response.End();
-                stream = null;
 
                 return true;
             }
@@ -1527,7 +1522,7 @@ namespace Portal.Consultoras.Common
                         }
                         row++;
                     }
-                    ws.Range(1, 1, 1, index - 1).AddToNamed("Titles");                    
+                    ws.Range(1, 1, 1, index - 1).AddToNamed("Titles");
                 }
 
                 //ws.Row(1).Style.Font.Bold = true;
@@ -1557,7 +1552,6 @@ namespace Portal.Consultoras.Common
                 HttpContext.Current.Response.BinaryWrite(stream.ToArray());
                 HttpContext.Current.Response.Flush();
                 HttpContext.Current.Response.End();
-                stream = null;
 
                 return true;
             }
@@ -1656,7 +1650,6 @@ namespace Portal.Consultoras.Common
                 HttpContext.Current.Response.BinaryWrite(stream.ToArray());
                 HttpContext.Current.Response.Flush();
                 HttpContext.Current.Response.End();
-                stream = null;
 
                 return true;
             }
@@ -1760,7 +1753,6 @@ namespace Portal.Consultoras.Common
                 HttpContext.Current.Response.BinaryWrite(stream.ToArray());
                 HttpContext.Current.Response.Flush();
                 HttpContext.Current.Response.End();
-                stream = null;
 
                 return true;
             }
@@ -1858,7 +1850,6 @@ namespace Portal.Consultoras.Common
                 HttpContext.Current.Response.BinaryWrite(stream.ToArray());
                 HttpContext.Current.Response.Flush();
                 HttpContext.Current.Response.End();
-                stream = null;
 
                 return true;
             }
@@ -1998,7 +1989,6 @@ namespace Portal.Consultoras.Common
                 HttpContext.Current.Response.BinaryWrite(stream.ToArray());
                 HttpContext.Current.Response.Flush();
                 HttpContext.Current.Response.End();
-                stream = null;
 
                 return true;
             }
@@ -2299,7 +2289,6 @@ namespace Portal.Consultoras.Common
                 //String baseUrl = string.Format("{0}://{1}/{2}", request.Url.Scheme, hostHeader,"Portal");
 
                 var rd = controller.RouteData;
-                var Action = rd.GetRequiredString("action");
                 var Controller = rd.GetRequiredString("controller");
 
                 baseUrl = string.Format(baseUrl + "/{0}/{1}?parametros={2}", Controller, stActionIndex, enviar);
@@ -2829,7 +2818,6 @@ namespace Portal.Consultoras.Common
                 HttpContext.Current.Response.BinaryWrite(stream.ToArray());
                 HttpContext.Current.Response.Flush();
                 HttpContext.Current.Response.End();
-                stream = null;
 
                 return true;
             }
@@ -2914,6 +2902,24 @@ namespace Portal.Consultoras.Common
         /// </summary>
         /// <param name="valor">Monto a formatear</param>
         /// <param name="pais">CodigoISO del Pais. Ejm PE</param>
+        /// <param name="simbolo">Simbolo monetario del Pais. Ejm S/.</param>
+        /// <returns></returns>
+        public static string DecimalToStringFormat(decimal valor, string pais, string simbolo)
+        {
+            if (string.IsNullOrEmpty(pais)) return "";
+
+            var importe = string.Format("{0:#,##0.00}", valor);
+            string listaPaises = ParseString(ConfigurationManager.AppSettings["KeyPaisFormatDecimal"] ?? "");
+            if (listaPaises.Contains(pais)) importe = importe.Split('.')[0].Replace(",", ".");
+
+            return string.Format("{0} {1}", simbolo, importe);
+        }
+
+        /// <summary>
+        /// Convierte el decimal a string con el formato segun el pais
+        /// </summary>
+        /// <param name="valor">Monto a formatear</param>
+        /// <param name="pais">CodigoISO del Pais. Ejm PE</param>
         /// <returns></returns>
         public static string DecimalToStringFormat(string valor, string pais)
         {
@@ -2938,17 +2944,17 @@ namespace Portal.Consultoras.Common
         public static string ValidaMontoMaximo(string monto)
         {
             var montoval = string.IsNullOrEmpty(monto) ? "" : monto.Trim();
-            if (montoval != "")
-            {
-                if (montoval == "0" || montoval == "0.00" || montoval == "0,00"
-                    || montoval == "99999999" || montoval == "99999999.00" || montoval == "99999999,00"
-                    || montoval == "99,999,999.00" || montoval == "99.999.999"
-                    || montoval == "999,999,999.00" || montoval == "999.999.999"
-                    || montoval == "9,999,999,999.00" || montoval == "9.999.999.999"
-                    || montoval == "99,999,999,999.00" || montoval == "99.999.999.999"
-                    || montoval == "999,999,999,999.00" || montoval == "999.999.999.999")
-                    return "";
-            }
+            if (montoval != "" &&
+                (montoval == "0" || montoval == "0.00" || montoval == "0,00"
+                || montoval == "99999999" || montoval == "99999999.00" || montoval == "99999999,00"
+                || montoval == "99,999,999.00" || montoval == "99.999.999"
+                || montoval == "999,999,999.00" || montoval == "999.999.999"
+                || montoval == "9,999,999,999.00" || montoval == "9.999.999.999"
+                || montoval == "99,999,999,999.00" || montoval == "99.999.999.999"
+                || montoval == "999,999,999,999.00" || montoval == "999.999.999.999")
+            )
+                return "";
+
             return montoval;
         }
 
@@ -3113,7 +3119,7 @@ namespace Portal.Consultoras.Common
                     mensaje = "Ocurrió un error durante la validación ADFS.";
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 codigoMensaje = "001";  //CodigosMensajesError.CodigoExcepcion;
                 mensaje = "Ocurrió un error durante la validación ADFS.";
@@ -3213,6 +3219,25 @@ namespace Portal.Consultoras.Common
             }
             return Result;
         }
+
+        public static int AddCampaniaAndNumero(int campania, int numero, int nroCampanias)
+        {
+            if (campania <= 0 || nroCampanias <= 0) return 0;
+
+            int anioCampania = campania / 100;
+            int nroCampania = campania % 100;
+
+            int sumNroCampania = (nroCampania + numero) - 1;
+            int anioCampaniaResult = anioCampania + (sumNroCampania / nroCampanias);
+            int nroCampaniaResult = (sumNroCampania % nroCampanias) + 1;
+
+            if (nroCampaniaResult < 1)
+            {
+                anioCampaniaResult = anioCampaniaResult - 1;
+                nroCampaniaResult = nroCampaniaResult + nroCampanias;
+            }
+            return (anioCampaniaResult * 100) + nroCampaniaResult;
+        }
     }
 
     public static class DataRecord
@@ -3228,9 +3253,7 @@ namespace Portal.Consultoras.Common
                 if (columnName == "") return false;
 
                 if (r.GetOrdinal(columnName) >= 0)
-                {
                     return r[columnName] != DBNull.Value;
-                }
 
                 return false;
             }
@@ -3238,6 +3261,17 @@ namespace Portal.Consultoras.Common
             {
                 return false;
             }
+        }
+        public static bool HasColumn(this DataRow row, string columnName)
+        {
+            if (row == null) return false;
+
+            columnName = (columnName ?? "").Trim();
+            if (columnName == "") return false;
+
+            if (row.Table.Columns.Contains(columnName)) return row[columnName] != DBNull.Value;
+
+            return false;
         }
 
         public static IList<string> GetAllNames(this IDataRecord record)
@@ -3250,7 +3284,7 @@ namespace Portal.Consultoras.Common
             return result;
         }
 
-        public static dynamic GetColumn<T>(IDataRecord lector, string name, T tipoDato)
+        public static T GetColumn<T>(IDataRecord lector, string name)
         {
             try
             {

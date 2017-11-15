@@ -72,7 +72,7 @@
     };
 
     var _editar = function (data, id) {
-
+       
         _editData = {
             EstrategiaID: data.EstrategiaID,
             CUV2: data.CUV2,
@@ -84,9 +84,16 @@
             imagenes: [],
             imagen: _obtenerImagenGrilla(id),
             descripcionOriginal: jQuery("#list").jqGrid('getCell', _idImagen, 'DescripcionCUV2')
+            //EsOfertaIndependiente: true //jQuery("#list").jqGrid('getCell', id, 'EsOfertaIndependiente')
         };
-
+       
         _obtenerFiltrarEstrategia(_editData, id).done(function (data) {
+            var TipoEstrategiaCodigo = $('#ddlTipoEstrategia').find(':selected').data('codigo');
+            if (TipoEstrategiaCodigo == TipoEstrategiaIncentivosProgramaNuevas)
+                $("#divPrecioValorizado").html("Ganancia");
+            else
+                $("#divPrecioValorizado").html("Precio Valorizado");
+
             showDialog("DialogAdministracionEstrategia");
             _editData.IdMatrizComercial = data.IdMatrizComercial;
             _editData.CUV2 = data.CUV2;
@@ -101,7 +108,7 @@
             alert(data.message);
             closeWaitingDialog();
         }
-        );
+            );
 
         _descripcionComercial.actualizarPais(_editData.paisID);
 
@@ -121,9 +128,9 @@
                 closeWaitingDialog();
                 return false;
             }
-
+           
             $("#hdSimbolo").val(data.Simbolo);
-
+            
             if (data.Activo == "1") $("#chkHabilitarOferta").attr("checked", true);
             else $("#chkHabilitarOferta").attr("checked", false);
 
@@ -144,6 +151,10 @@
 
             if (data.ColorFondo != "") $("#hdColorFondo").val(data.ColorFondo);
             else $("#hdColorFondo").val("#FFF");
+            
+            if (data.EsOfertaIndependiente == "1") $("#chkEsOfertaIndependiente").attr('checked', true);
+            else $("#chkEsOfertaIndependiente").attr('checked', false);
+
             ActivarDesactivarChecks();
 
             $("#hdCampania").val($("#ddlCampania").val());
@@ -178,16 +189,16 @@
             $("#ddlEtiqueta1").val(data.EtiquetaID);
             if (data.Precio != "0") {
                 $("#txtPrecio").val(parseFloat(data.Precio).toFixed(2));
-            $("#hdEstrategiaPrecioAnt").val(parseFloat(data.Precio2).toFixed(2));
+                $("#hdEstrategiaPrecioAnt").val(parseFloat(data.Precio2).toFixed(2));
             } else {
-                $("#txtPrecio").val('');
+                $("#txtPrecio").val('0.00');
             }
             $("#txtCUV2").val(data.CUV2);
             $("#ddlEtiqueta2").val(data.EtiquetaID2);
             if (data.Precio2 != "0") {
                 $("#txtPrecio2").val(parseFloat(data.Precio2).toFixed(2));
             } else {
-                $("#txtPrecio2").val('');
+                $("#txtPrecio2").val('0.00');
             }
             $("#txtTextoLibre").val(data.TextoLibre);
             $("#txtCantidad").val(data.Cantidad);
@@ -252,7 +263,7 @@
             }
 
             $('#file-upload').show();
-          
+
             _editData.imagen = _obtenerImagenGrilla(id);
 
             if (data.FlagEstrella == "1") $("#chkOfertaUltimoMinuto").attr("checked", true);
@@ -270,7 +281,8 @@
             _agregarCamposLanzamiento('img-home-mobile', data.ImgHomeMobile);
             $("#url-video-desktop").val(data.UrlVideoDesktop);
             $("#url-video-mobile").val(data.UrlVideoMobile);
-
+            $("#txtPrecioPublico").val(data.PrecioPublico);
+            $("#txtGanancia").val(data.Ganancia);
             closeWaitingDialog();
 
             return data;
@@ -423,6 +435,8 @@
         _limpiarCamposLanzamiento('img-home-mobile');
         $("#url-video-desktop").val("");
         $("#url-video-mobile").val("");
+        $("#txtPrecioPublico").val("");
+        $("#txtGanancia").val("");
         if ($("#hdEstrategiaCodigo").val() === '005') $('#div-revista-digital').show();
         else $('#div-revista-digital').hide();
 
@@ -454,7 +468,7 @@
             if (auxOD == '7') {
                 flagOD = '4';
             }
-            else if (auxOD == '9' || auxOD == '10' || auxOD == '11') {
+            else if (auxOD == '9' || auxOD == '10' || auxOD == '11' || auxOD == '12') {
                 flagOD = auxOD;
             }
             else if (!isNuevo) {
@@ -491,9 +505,11 @@
 
                         if (data.wsprecio > 0) {
                             $("#txtPrecio2").val(parseFloat(data.wsprecio).toFixed(2));
+                            $("#txtPrecio").val(data.precio);
+                            $("#txtGanancia").val(data.ganancia);
                         }
-                        else if (data.wsprecio == 0) {
-                            if (data.precio == 0) {
+                        else if (data.wsprecio === 0.0) {
+                            if (data.precio === 0.0) {
                                 $("#txtPrecio2").val(parseFloat(data.precio).toFixed(2));
                             }
                             else {

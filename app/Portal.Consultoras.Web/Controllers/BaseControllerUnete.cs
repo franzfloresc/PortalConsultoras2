@@ -1,23 +1,20 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.HojaInscripcionODS;
+using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ValidacionesUnete;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Web;
-using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Routing;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Org.BouncyCastle.Asn1.Ocsp;
-using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.HojaInscripcionBelcorpPais;
-using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ValidacionesUnete;
-using Portal.Consultoras.Web.HojaInscripcionODS;
+
 namespace Portal.Consultoras.Web.Controllers
 {
     public class BaseControllerUnete : BaseController
@@ -75,8 +72,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return BaseUtilities.ConsumirServicio<dynamic>(dataJson, urlBase, metodo) as JObject;
         }
-     
-
+        
         public bool CodigoISOActivo(string codigoISO)
         {
             if (string.IsNullOrWhiteSpace(codigoISO))
@@ -113,6 +109,7 @@ namespace Portal.Consultoras.Web.Controllers
             // return the HTML code
             return stringWriter.ToString();
         }
+
         public void EnviarCorreoNotificacion(
             string codigoISO,
             Portal.Consultoras.Web.ServiceUnete.SolicitudPostulante solicitudPostulante,

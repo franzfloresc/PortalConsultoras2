@@ -1,7 +1,10 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServicePedido;
+using System.Collections.Generic;
 using System;
 using System.Web.Mvc;
+using System.Linq;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -16,7 +19,8 @@ namespace Portal.Consultoras.Web.Controllers
                     ListaSeccion = ObtenerConfiguracionSeccion(),
                     MensajeProductoBloqueado = MensajeProductoBloqueado()
                 };
-
+                
+                ViewBag.IconoLLuvia = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
                 return View(modelo);
             }
             catch (Exception ex)
@@ -51,12 +55,12 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var model = new MensajeProductoBloqueadoModel();
 
-            if (!userData.RevistaDigital.TieneRDC) return model;
+            if (!revistaDigital.TieneRDC) return model;
 
             model.IsMobile = IsMobile();
-            if (userData.RevistaDigital.SuscripcionAnterior1Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
+            if (revistaDigital.SuscripcionAnterior1Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
             {
-                if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
+                if (revistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
                 {
                     model.MensajeIconoSuperior = true;
                     model.MensajeTitulo = model.IsMobile
@@ -75,7 +79,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             else
             {
-                if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
+                if (revistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
                 {
                     model.MensajeIconoSuperior = true;
                     model.MensajeTitulo = model.IsMobile
@@ -95,7 +99,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return model;
         }
-        
+
         [HttpPost]
         public JsonResult ObtenerSeccion(string codigo, int campaniaId)
         {
@@ -121,9 +125,18 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (campaniaId == userData.CampaniaID && codigo.Equals("LAN")) Session["TieneLan"] = false;
-                else if (campaniaId == userData.CampaniaID && codigo.Equals("OPT")) Session["TieneOpt"] = false;
-                else if (campaniaId != userData.CampaniaID && codigo.Equals("LAN")) Session["TieneLanX1"] = false;
+                if (campaniaId == userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.Lanzamiento))
+                    Session[Constantes.ConstSession.TieneLan] = false;
+                else if (campaniaId != userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.Lanzamiento))
+                    Session[Constantes.ConstSession.TieneLanX1] = false;
+                else if (campaniaId == userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.OfertasParaTi))
+                    Session[Constantes.ConstSession.TieneOpt] = false;
+                else if (campaniaId == userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.RevistaDigital))
+                    Session[Constantes.ConstSession.TieneOpm] = false;
+                else if (campaniaId != userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.RevistaDigital))
+                    Session[Constantes.ConstSession.TieneOpmX1] = false;
+                else if (campaniaId == userData.CampaniaID && codigo.Equals(Constantes.ConfiguracionPais.RevistaDigitalReducida))
+                    Session[Constantes.ConstSession.TieneRdr] = false;
                 return Json(new
                 {
                     estado = "Ok"
@@ -138,7 +151,6 @@ namespace Portal.Consultoras.Web.Controllers
                     estado = ex.Message
                 }, JsonRequestBehavior.AllowGet);
             }
-}
-
+        }
     }
 }

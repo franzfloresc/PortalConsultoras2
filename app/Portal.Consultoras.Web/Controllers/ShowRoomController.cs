@@ -1,10 +1,14 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServiceGestionWebPROL;
 using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServiceSAC;
+using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.IO;
 using System.Linq;
@@ -12,12 +16,6 @@ using System.ServiceModel;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
-using Portal.Consultoras.Web.ServiceSAC;
-using Switch = System.Diagnostics.Switch;
-using Portal.Consultoras.Web.ServiceUsuario;
-using System.Configuration;
-
-using Portal.Consultoras.Web.ServiceGestionWebPROL;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -128,76 +126,74 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 //else
                 //{
-                    if (!ValidarIngresoShowRoom(false))
-                        return RedirectToAction("Index", "Bienvenida");
+                if (!ValidarIngresoShowRoom(false))
+                    return RedirectToAction("Index", "Bienvenida");
 
-                    //actualizar showroom.eventoconsultora. campo recibido.
+                //actualizar showroom.eventoconsultora. campo recibido.
 
-                    if (query != null)
+                if (query != null)
+                {
+                    if (Request.Browser.IsMobileDevice)
                     {
-                        if (Request.Browser.IsMobileDevice)
+                        return RedirectToAction("Index", "ShowRoom", new { area = "Mobile", query = query });
+                    }
+
+                    string param = Util.Decrypt(query);
+                    string[] lista = param.Split(new char[] { ';' });
+
+                    if (lista[2] != userData.CodigoConsultora && lista[1] != userData.CodigoISO)
+                    {
+                        return RedirectToAction("Index", "Bienvenida");
+                    }
+
+                    if (lista[0] == CodigoProceso)
+                    {
+                        using (PedidoServiceClient sv = new PedidoServiceClient())
                         {
-                            return RedirectToAction("Index", "ShowRoom", new { area = "Mobile", query = query });
+                            blnRecibido = Convert.ToBoolean(sv.GetEventoConsultoraRecibido(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID));
                         }
 
-                        string param = Util.Decrypt(query);
-                        string[] lista = param.Split(new char[] { ';' });
-
-                        if (lista[2] != userData.CodigoConsultora && lista[1] != userData.CodigoISO)
+                        if (Convert.ToInt32(lista[3]) == userData.CampaniaID && blnRecibido == false)
                         {
-                            return RedirectToAction("Index", "Bienvenida");
-                        }
+                            BEShowRoomEventoConsultora Entidad = new BEShowRoomEventoConsultora();
 
-                        if (lista[0] == CodigoProceso)
-                        {
+                            Entidad.CodigoConsultora = lista[2];
+                            Entidad.CampaniaID = Convert.ToInt32(lista[3]);
+
                             using (PedidoServiceClient sv = new PedidoServiceClient())
                             {
-                                blnRecibido = Convert.ToBoolean(sv.GetEventoConsultoraRecibido(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID));
+                                sv.UpdShowRoomEventoConsultoraEmailRecibido(userData.PaisID, Entidad);
                             }
-
-                            if (Convert.ToInt32(lista[3]) == userData.CampaniaID && blnRecibido == false)
-                            {
-                                BEShowRoomEventoConsultora Entidad = new BEShowRoomEventoConsultora();
-
-                                Entidad.CodigoConsultora = lista[2];
-                                Entidad.CampaniaID = Convert.ToInt32(lista[3]);
-
-                                using (PedidoServiceClient sv = new PedidoServiceClient())
-                                {
-                                    sv.UpdShowRoomEventoConsultoraEmailRecibido(userData.PaisID, Entidad);
-                                }
-                            }
-                        }
-                        else
-                        {
-                            return RedirectToAction("Index", "Bienvenida");
                         }
                     }
-
-
-                    var showRoomEventoModel = CargarValoresModel();
-                    showRoomEventoModel.ListaShowRoomOferta = ValidarUnidadesPermitidas(showRoomEventoModel.ListaShowRoomOferta);
-                    showRoomEventoModel.ListaShowRoomOferta = showRoomEventoModel.ListaShowRoomOferta ?? new List<ShowRoomOfertaModel>();
-                    if (!showRoomEventoModel.ListaShowRoomOferta.Any())
-                        return RedirectToAction("Index", "Bienvenida");
-
-                    using (SACServiceClient svc = new SACServiceClient())
+                    else
                     {
-                        showRoomEventoModel.FiltersBySorting = svc.GetTablaLogicaDatos(userData.PaisID, 99).ToList();
+                        return RedirectToAction("Index", "Bienvenida");
                     }
+                }
 
-                    var xlistaShowRoom = showRoomEventoModel.ListaShowRoomOferta.Where(x => x.EsSubCampania == false).ToList();
-                    //ViewBag.PrecioMin = showRoomEventoModel.ListaShowRoomOferta.Min(p => p.PrecioOferta);
-                    //ViewBag.PrecioMax = showRoomEventoModel.ListaShowRoomOferta.Max(p => p.PrecioOferta);
-                    ViewBag.PrecioMin = xlistaShowRoom.Min(p => p.PrecioOferta);
-                    ViewBag.PrecioMax = xlistaShowRoom.Max(p => p.PrecioOferta);
 
-                    ViewBag.CloseBannerCompraPorCompra = userData.CloseBannerCompraPorCompra;
+                var showRoomEventoModel = CargarValoresModel();
+                showRoomEventoModel.ListaShowRoomOferta = ValidarUnidadesPermitidas(showRoomEventoModel.ListaShowRoomOferta);
+                showRoomEventoModel.ListaShowRoomOferta = showRoomEventoModel.ListaShowRoomOferta ?? new List<ShowRoomOfertaModel>();
+                if (!showRoomEventoModel.ListaShowRoomOferta.Any())
+                    return RedirectToAction("Index", "Bienvenida");
 
-                    ViewBag.BannerImagenVenta = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.BannerImagenVenta, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
-                    ViewBag.IconoLLuvia = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+                using (SACServiceClient svc = new SACServiceClient())
+                {
+                    showRoomEventoModel.FiltersBySorting = svc.GetTablaLogicaDatos(userData.PaisID, 99).ToList();
+                }
 
-                    return View(showRoomEventoModel);
+                var xlistaShowRoom = showRoomEventoModel.ListaShowRoomOferta.Where(x => x.EsSubCampania == false).ToList();
+                ViewBag.PrecioMin = xlistaShowRoom.Any() ? xlistaShowRoom.Min(p => p.PrecioOferta) : Convert.ToDecimal(0);
+                ViewBag.PrecioMax = xlistaShowRoom.Any() ? xlistaShowRoom.Max(p => p.PrecioOferta) : Convert.ToDecimal(0);
+
+                ViewBag.CloseBannerCompraPorCompra = userData.CloseBannerCompraPorCompra;
+
+                ViewBag.BannerImagenVenta = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.BannerImagenVenta, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+                ViewBag.IconoLLuvia = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+
+                return View(showRoomEventoModel);
                 //}                
 
             }
@@ -1780,7 +1776,7 @@ namespace Portal.Consultoras.Web.Controllers
                     indPedidoAutentico.CampaniaID = entidad.CampaniaID;
                     indPedidoAutentico.PedidoDetalleID = entidad.PedidoDetalleID;
                     indPedidoAutentico.IndicadorIPUsuario = GetIPCliente();
-                    indPedidoAutentico.IndicadorFingerprint = (Session["Fingerprint"] != null) ? Session["Fingerprint"].ToString() : "";
+                    indPedidoAutentico.IndicadorFingerprint = "";
                     indPedidoAutentico.IndicadorToken = (Session["TokenPedidoAutentico"] != null) ? Session["TokenPedidoAutentico"].ToString() : ""; ;
 
                     InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);
@@ -1881,7 +1877,7 @@ namespace Portal.Consultoras.Web.Controllers
                     indPedidoAutentico.CampaniaID = entidad.CampaniaID;
                     indPedidoAutentico.PedidoDetalleID = entidad.PedidoDetalleID;
                     indPedidoAutentico.IndicadorIPUsuario = GetIPCliente();
-                    indPedidoAutentico.IndicadorFingerprint = (Session["Fingerprint"] != null) ? Session["Fingerprint"].ToString() : "";
+                    indPedidoAutentico.IndicadorFingerprint = "";
                     indPedidoAutentico.IndicadorToken = (Session["TokenPedidoAutentico"] != null) ? Session["TokenPedidoAutentico"].ToString() : ""; ;
 
                     InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);
@@ -2775,6 +2771,7 @@ namespace Portal.Consultoras.Web.Controllers
             modelo.TieneCompraXcompra = userData.BeShowRoom.TieneCompraXcompra;
 
             ViewBag.ImagenFondoProductPage = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.ImagenFondoProductPage, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+            ViewBag.IconoLLuvia = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
 
             return View("DetalleSet", modelo);
 
@@ -2874,13 +2871,15 @@ namespace Portal.Consultoras.Web.Controllers
                 var productosShowRoom = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, esFacturacion);
                 productosShowRoom.ForEach(p => p.UrlCompartir = urlCompartir);
 
-                if (model.Limite > 0) {
+                if (model.Limite > 0)
+                {
                     if (productosShowRoom.Count > 0)
                         productosShowRoom = productosShowRoom.Where(x => x.EsSubCampania == false).Take(model.Limite).ToList();
                 }
 
                 var index = 0;
-                productosShowRoom.Each(x => {
+                productosShowRoom.Each(x =>
+                {
                     x.Posicion = index++;
                     x.UrlDetalle = Url.Action("DetalleOferta", new { id = x.OfertaShowRoomID });
                 });
@@ -3121,6 +3120,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -3178,7 +3178,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = true,
-                    message =   "- Sus datos se actualizaron correctamente.\n "  + 
+                    message = "- Sus datos se actualizaron correctamente.\n " +
                                 "- Se ha enviado un correo electrónico de verificación a la dirección ingresada.",
                     emailValidado = userData.EMailActivo
                 });
@@ -3398,6 +3398,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -3439,6 +3440,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -3470,6 +3472,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,

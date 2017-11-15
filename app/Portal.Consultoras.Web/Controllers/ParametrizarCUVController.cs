@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Portal.Consultoras.Web.ServiceZonificacion;
-using Portal.Consultoras.Web.ServiceSAC;
-using Portal.Consultoras.Web.ServiceODS;
+﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using AutoMapper;
+using Portal.Consultoras.Web.ServiceODS;
+using Portal.Consultoras.Web.ServiceZonificacion;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.ServiceModel;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -24,11 +22,11 @@ namespace Portal.Consultoras.Web.Controllers
                 return RedirectToAction("Index", "Bienvenida");
 
             var parametrizarCUVModel = new ParametrizarCUVModel()
-                {
-                    listaCampania = new List<CampaniaModel>(),
-                    listaZonas = new List<ZonaModel>(),
-                    listaPaises = DropDowListPaises()
-                };
+            {
+                listaCampania = new List<CampaniaModel>(),
+                listaZonas = new List<ZonaModel>(),
+                listaPaises = DropDowListPaises()
+            };
 
             return View(parametrizarCUVModel);
         }
@@ -53,7 +51,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
-        
+
         public ActionResult Consultar(string sidx, string sord, int page, int rows, string CampaniaID, string PaisID, string Consulta)
         {
             if (ModelState.IsValid)
@@ -123,7 +121,7 @@ namespace Portal.Consultoras.Web.Controllers
                            select new
                            {
                                a.ParametroID,
-                               cell = new string[] 
+                               cell = new string[]
                                {
                                    a.ParametroID.ToString(),
                                    a.PaisID.ToString(),
@@ -193,7 +191,7 @@ namespace Portal.Consultoras.Web.Controllers
 
 
                 using (ODSServiceClient sv = new ODSServiceClient())
-                {                    
+                {
                     sv.DeleteMensajesCUVsByPaisAndCampania(Convert.ToInt32(ParametroID), (PaisID.Trim() == string.Empty) ? UserData().PaisID : Convert.ToInt32(PaisID));
                 }
                 return Json(new

@@ -24,7 +24,7 @@ namespace Portal.Consultoras.Entities
                 Titulo = DbConvert.ToString(datarec["Titulo"]);
             if (DataRecord.HasColumn(datarec, "Mensaje") && datarec["Mensaje"] != DBNull.Value)
                 Mensaje = DbConvert.ToString(datarec["Mensaje"]);
-            
+
         }
     }
 }

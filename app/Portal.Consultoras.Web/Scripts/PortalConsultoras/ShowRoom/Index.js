@@ -11,9 +11,10 @@ $(document).ready(function () {
         $('#BajarOfertaEspecial').show();
         //$('.promocion_especial_header').css("background", "#fff6f4");
         $('.content_set_oferta_especial').slideDown();
-
+       
         $('#contenedor-showroom-subcampanias.slick-initialized').slick('unslick');
         $('#contenedor-showroom-subcampanias').not('.slick-initialized').slick({
+            lazyLoad: 'ondemand',
             slidesToShow: 3,
             dots: false,
             vertical: false,
@@ -112,7 +113,11 @@ $(document).ready(function () {
 
     $("#btnVerDetalleCompraPorCompra").click(function () {
         $("#PopDetalleCompra").show();
+
+        EstablecerLazyCarrusel($('.content_carrusel_pop_compra'));
+
         $('.content_carrusel_pop_compra').not('.slick-initialized').slick({
+            lazyLoad: 'ondemand',
             dots: false,
             infinite: true,
             vertical: false,
@@ -448,11 +453,6 @@ function closeCompraPorCompra() {
             }
         }
     });    
-}
-
-function maxLengthCheck(object, cantidadMaxima) {
-    if (object.value.length > cantidadMaxima)
-        object.value = object.value.slice(0, cantidadMaxima);
 }
 
 function TagManagerOfertaShowRoom() {

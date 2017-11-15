@@ -1,8 +1,19 @@
-﻿body {
+﻿/* CSS Document */
+
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
     background: #f3f3f3;
     font-weight: 400;
     font-size: 15px;
     color: #6b7f8e;
+    font-family: 'Lato', sans-serif !important;
 }
 
 hr {
@@ -5840,7 +5851,7 @@ body {
     position: relative;
     margin: 0 auto 54px auto;
     border: 1px solid #e7e1e1;
-    padding: 18px 31px;
+    padding: 18px 15px;
     width: 203.3px;
     height: auto;
     border-radius: 4px;
@@ -6725,9 +6736,10 @@ input[type="checkbox"]:checked + span:after {
 }
 
 .check_icono_mobile_gano {
-    width: 60px;
-    height: 60px;
-    background: url("../../../Images/mobile/Esika/gift-rojo-2.png") no-repeat;  
+    width: 60px!important;
+    height: 60px!important;
+    background: url("../../../Images/mobile/Esika/gift-rojo-2.png") no-repeat;
+    background-position: center;
 }
 
 .exclamacion_icono_mobile {
@@ -7218,8 +7230,10 @@ input[type="checkbox"]:checked + span:after {
 }
 
 .tooltip_validado {
-    width: 300px;
-    height: 86px;
+    width: 100%;
+    max-width:300px;
+    min-height: 86px;
+    height:auto;
     margin: 0 auto;
     margin-top: 30px;
     background: white;
@@ -7227,7 +7241,7 @@ input[type="checkbox"]:checked + span:after {
     -moz-box-shadow: 0px 7px 23px 2px rgba(179,173,179,1);
     box-shadow: 0px 7px 23px 2px rgba(179,173,179,1);
     position: relative;
-    padding: 17px;
+    padding: 16px;
 }
 
     .tooltip_validado:before {
@@ -8923,21 +8937,26 @@ span.title-app-b {
 
 .popup_ofertaFinal{
     display: block;
-    margin: 1% auto 5% auto;
+    margin: 4% auto 5% auto;
     position: relative;
     background: #fff;
     width: 95%;
     max-width: 400px;
     height: auto;
-    padding: 41px 0 0px 0;
-    }
+    padding: 41px 0 10px 0;
+}
+
+.popup_ofertaFinal.fondo_gris_popup{
+    background:#ededed;
+}
 
 .popup_ofertaFinal .cerrar_popMobile{
     position: absolute;
-    top: 17px;
-    right: 17px;
+    top: 11px;
+    right: 11px;
     float: none;
-    }
+    z-index:1000;
+}
 
 .popup_ofertaFinal .icono_aprobacion{
     width:60px;
@@ -8949,26 +8968,32 @@ span.title-app-b {
     margin: 0 0 8px 0;
     padding: 0 28px;
     font-family: 'Lato';
-    font-size: 21px;
-    font-weight: 300;
+    font-size: 18px;
+    font-weight: bold;
     text-align: center;
-    line-height: 29.38px;
-    color: #000;
+    line-height: 27px;
+    color: #000000;
+    margin-bottom:14px;
 }
 
 .ofertaFinal_descripcion{
     display: block;
-    margin: 0 0 22px 0;
     font-family: 'Lato';
-    font-size: 14px;
+    font-size: 13px;
+    line-height: 1.23;
+    letter-spacing: 0.5px;
     text-align: center;
-    font-weight: bold;
-    padding: 0 19px;
+    font-weight: 400;
+    padding:0 16px;
+}
+
+.mensaje_premios_increibles b{
+    color:#e81c36;
 }
 
 .contenedor_carruselOfertaFinal{
-    background: #f5f5f5;
-    padding: 22px 5px 40px 5px;
+    /*background: #f5f5f5;*/
+    padding: 22px 5px 20px 5px;
 }
 
 .ofertaFinal_info {
@@ -9100,8 +9125,12 @@ span.title-app-b {
 
 .icono_terminar_pedido{
     background:url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/eFrB5kIPNXTjyJd/icono-reserva.png) no-repeat;
-    background-size:22px;
-    padding-left: 40px;
+    background-size:27px;
+    background-position: 0;
+    padding-left: 46px;
+    height:28px;
+    font-size:12px;
+    margin-bottom:5px; 
 }
 /* FIN POPUP OFERTA FINAL */
 
@@ -10814,7 +10843,7 @@ a{
     letter-spacing:0.3px;
     /*margin-bottom:2px;*/
 }
-.precio_tachado_048{
+.precio_tachado_048 span {
     color: black;
     font-size: 13.5px;
     /* font-weight: 300; */
@@ -10822,6 +10851,7 @@ a{
     margin-top: 5px;
     text-decoration: line-through;
 }
+
 .precio_para_ti_048{
     color:black;
     font-size:13px;
@@ -11250,9 +11280,68 @@ a{
     margin-bottom:27px;
 }
 
+.numero_pedido {
+    position: relative;
+    margin-top: -41px;
+    margin-bottom: 13px;
+}
+
+.numero_pedido_fondo {
+    width: auto;
+    float: left;
+    height: 51px;
+}
+
+.numero_pedido_fondo img {
+    position: absolute;
+    float: left;
+    width: auto;
+    height: 100%;
+}
+
+.content-texto-numero-pedido {
+    width: auto;
+    position: absolute;
+    color: white;
+    float: left;
+    margin-left: 1.8%;
+    margin-top: -1.3%;
+    padding-left:8px;
+}
+
+.numero_pd {
+    font-family: 'Austin';
+    font-size: 28px;
+    font-weight: normal;
+    font-style: italic;
+    line-height: 0.43;
+    letter-spacing: 1px;
+    margin-right: -3px;
+}
+
+.posicion_pd {
+    font-family: 'Austin';
+    font-size: 16px;
+    font-weight: normal;
+    font-style: italic;
+    line-height: 0.75;
+    letter-spacing: 1px;
+}
+
+.texto_pd {
+    font-family: 'Lato';
+    font-size: 11px;
+    font-weight: bold;
+    line-height: 1.09;
+}
+
 /*NUEVO OF*/
 .content_texto_OPT{
-    margin-bottom:70px;
+    margin-bottom:0;
+}
+
+.margenSuperiorProgramaNuevas{
+    margin-top:-40px;
 }
 
 .texto_comple_ficha{
@@ -12747,34 +12836,30 @@ a{
 /*SPRINT 13*/
 
 .content_producto_alternativo{   
-    margin-top: -26px;
     text-align:center;
-    min-height:52px;
-    background:white;
-    width:100%;
-    -webkit-box-shadow: 0px -5px 22px -6px rgba(0,0,0,0.25);
-    -moz-box-shadow: 0px -5px 22px -6px rgba(0,0,0,0.25);
-    box-shadow: 0px -5px 22px -6px rgba(0,0,0,0.25);
+    height: auto;
+    margin-top:20px;
 }
 .content_imagen_alternativo{
-    width:45px;
-    height:auto;
+    width: 55px;
+    height: 55px;
     display:inline-block;
-    vertical-align:middle
+    vertical-align:middle;
 }
 .content_imagen_alternativo img{
-    width:100%;
+    width: 55px;
+    height: 55px;
 }
 .content-texto-producto-alternativo{
     display:inline-block;
-    /*padding-left:10px;*/
     font-family:'Lato';
-    font-size:11.5px;
-    max-width: 242px;
-    color:black;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    color: #000000;
     vertical-align:middle;
+    text-align: left;
     padding-top:5px;
-    
+    max-width: 259px;
 }
 .content-texto-producto-alternativo b{
     font-weight:900 !important;
@@ -12784,11 +12869,15 @@ a{
 }
 
 .txt-ayuda1-pn{
-    font-size:11px;
     font-family:'Lato';
-    color:#979797;
-    text-align: left;
-    padding-left: 5px;
+    font-size: 11px;
+    text-align:center;
+    line-height: 1.09;
+    letter-spacing: 0.2px;
+    color: #000000;
+    max-width: 255px;
+    height: auto;
+    margin: 14px auto;
 }
 
 /*SPRINT 14*/
@@ -13272,9 +13361,9 @@ a{
 }
 /*SPRINT 19 PL20*/
 .btn_regalo_sorpresa{
-    background: #e81c36 url(../../../Images/mobile/icono_regalo.png) no-repeat; 
-    min-width: 255px;
-    text-transform:uppercase;
+    background: #e81c36 url(../../../Images/mobile/icono_regalo.png) no-repeat;
+    max-width: 258px;
+    text-transform: uppercase;
     height: 40px;
     font-family: 'Lato';
     font-weight: 700;
@@ -13283,12 +13372,14 @@ a{
     letter-spacing: 1px;
     line-height: 39px;
     padding-left: 40px;
-    position: absolute;
+    position: relative;
     top: 0;
+    margin-bottom: 16px;
 }
 .btn_regalo_sorpresa_gano{
     background: #e81c36 url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/ZF23HX54ijtrL6t/icono_regalo_estrella.png) no-repeat; 
-    min-width: 255px;
+    min-width: 238px;
+    max-width: 258px;
     text-transform:uppercase;
     height: 40px;
     font-family: 'Lato';
@@ -13298,8 +13389,9 @@ a{
     letter-spacing: 1px;
     line-height: 39px;
     padding-left: 40px;
-    position: absolute;
+    position: relative;
     top: 0;
+    margin-bottom: 16px;
 }
 .btn_regalo_sorpresa:before{
     content: "";
@@ -13314,20 +13406,20 @@ a{
 }
 .ContentSorpresaMobile{
     display: none;
-    margin: 1% auto 5% auto;
+    margin: 4% auto 5% auto;
     right: 0;
     left: 0;
     position: absolute;
     width: 95%;
     max-width: 400px;
-    min-height: 802px;
+    min-height: 815px;
     top: 0;
-    background:#002e5b url(../../../Images/Esika/bg_regalo_mobile_chile.png) no-repeat center top;
-    /*background-size: 100%;*/
-    z-index: 6;
+    /*background:#002e5b url(../../../Images/Esika/bg_regalo_mobile_chile.png) no-repeat center top;*/
+    background-repeat:no-repeat!important;
+    z-index: 1000;
 }
 .btn_regresa_OF{
-    background: #e81c36 url(../../../Images/Esika/regresar.png) no-repeat; 
+    background: url(../../../Images/Esika/regresar.png) no-repeat; 
     background-position: 15px 8px;
     text-transform:uppercase;
     height: 40px;
@@ -13343,7 +13435,7 @@ a{
     width:85px;
     height:55px;
     margin:0 auto;
-    margin-top:30px;
+    margin-top:14px!important;
     margin-bottom:14px;
     background:url(../../../Images/gif-regalo-blanco.png) no-repeat; 
 }
@@ -13351,13 +13443,16 @@ a{
     font-family: 'Lato';
     /*font-weight: 700;*/
     color: white;
-    font-size: 18px;
+    font-size: 15px;
     letter-spacing: 1px;
     padding-left:20px;
     padding-right:20px;
     text-align:center;
     line-height:22px;
     margin-bottom:19px;
+}
+#of-regalo-msg1 b{
+    font-size:18px;
 }
 .font_700_regalo{
     display: block;
@@ -13370,9 +13465,13 @@ a{
     background:white;
     width:90%;
     max-width:280px;
-    min-height:308px;
+    min-height:347px;
     margin:0 auto;
-    padding:22px 14px 5px 14px;
+    padding: 0 0 5px 0;
+}
+.content_info_regalo{
+    display:block;
+    padding:22px 10px 0 10px;
 }
 .titulo_regalo_producto{
     font-family: 'Lato';
@@ -13386,7 +13485,7 @@ a{
 }
 .content_imagen_sorpresa{
     height: auto;
-    width: 218px;
+    width: 100%;
     margin: 0 auto;
     text-align: center;
 }
@@ -13397,27 +13496,46 @@ a{
 .descripcion_regalo{
     font-family: 'Lato';   
     font-size: 11px;
-    margin-top: 14px;
-    margin-bottom:16px;
+    margin-top: 16px;
+    margin-bottom:14px;
     text-align:center;
 }
 .content_detalle_monto{
-    margin:0 auto;
-    background:#f5f5f5;
-    font-family: 'Lato';   
-    font-size: 13px;
-    text-align:center;
-    line-height:18px;
-    padding-top:10px;
-    padding-bottom:10px; 
-    width:90%;
-    max-width:280px;   
-    border-top: 1px solid #d0cbcb;
-    letter-spacing:0.5px;
+    margin: 0 auto;
+    background: #000;
+    font-family: 'Lato';
+    font-size: 14px;
+    text-align: center;
+    line-height: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 100%;
+    letter-spacing: 0.5px;
+    color: #FFF;
+    position:relative;
+    box-sizing:border-box;
+}
+.content_detalle_monto:after {
+	top: 100%;
+    left: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(0, 0, 0, 0);
+    border-top-color: #000;
+    border-width: 9px;
+    margin-left: -7px;
+    z-index: 5;
+}
+#of-regalo-montosaldo{
+    font-size:18px;
 }
 .btn_sigue_comprando{
     margin:0 auto;
-    margin-top:20px;
+    margin-top:16px;
     height:45px;
     width:90%;
     max-width:280px;
@@ -13428,12 +13546,12 @@ a{
     font-size: 14px;
     padding-left:50px;
     font-weight:700;
-    margin-bottom:50px;
+    margin-bottom:0;
     background:black url(../../../Images/Esika/regresar.png) no-repeat; 
     background-position: 26px 11px;
 }
 .btn_legal_RS{
-    margin-top:15px;
+    margin-top:36px;
     font-family: 'Lato';   
     font-size: 13px;
     display:block;
@@ -13456,3 +13574,282 @@ a{
     max-width: 197px;
     height: 40px;
 }
+
+.precio-oferta-normal {
+    font-size: 12px;
+    text-decoration: line-through;
+}
+/*ESTILOS EMBEBER APP (APPCONS-1099)*/
+.app-tabs
+{
+    text-align: center;
+    font-size: 12px;
+    border-bottom: solid 1px #dfdfdf;
+    margin-bottom:20px
+}
+.app-tabs a {
+    border-bottom: 4px solid #f8f8f8;
+    width: 33%;
+    display: inline-block;
+    padding: 8px 0 8px 5px;
+    margin-left: -2px;
+    margin-right: -2px;
+    color: black;
+    text-decoration: none;
+    font-family: 'Lato';
+}
+.app-tabs a.active {
+    border-bottom: 4px solid #e81c36;
+}
+.app-tabs a:hover {
+    border-bottom: 4px solid #e81c36;
+}
+
+.app-panels {
+    margin-bottom:0px !important;
+    background: #fff !important;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border:0px !important;
+    border-left:solid 4px #d9d9d9 !important;
+    box-shadow: 0 3px 5px 0 rgba(217,217,217,.8) !important;
+    -webkit-box-shadow:0 3px 5px 0 rgba(217,217,217,.8) !important;
+    border-radius:0px !important;
+}
+.app-panels.active {
+    border-left:solid 4px #e81c36 !important;
+}
+.app-panels .panel-heading{
+    padding:10px;
+    height:80px;
+    cursor:pointer;
+    display: flex;
+    align-items: center;
+}
+.app-panels .panel-body{
+    padding:0;
+    padding-top:20px;
+    background:#f8f8f8;
+    padding:10px;
+    font-size:13px
+}
+.app-panels .sections-1,  .app-panels .sections-2,  .app-panels .sections-3,  .app-panels .sections-4{
+    display: inline-block;
+    margin-left: -2px;
+    margin-right: -2px;
+    vertical-align:middle;
+}
+.app-panels .sections-1 {
+    width:60%;
+}
+.app-panels .sections-2 {
+    width:40%;
+}
+.app-panels .sections-3 {
+    width:70%;
+}
+.app-panels .sections-4 {
+    width:30%;
+    text-align:right;
+}
+.app-panels .sections-client {
+    color:#1d1d26;
+    font-size:15px;
+    text-transform:uppercase
+}
+.app-panels .sections-subtitle{
+    color:#979797;
+    font-size:12px
+}
+.app-panels .sections-price {
+    display:table-cell;
+    width:100%;
+    text-align:right;
+    padding-right:20px;
+    font-size:16px
+}
+.app-panels .sections-arrow{
+    display:table-cell;
+    vertical-align:top
+}
+.app-panels .sections-arrow img{
+    -moz-transition: transform 0.5s;
+    -webkit-transition: transform 0.5s;
+    transition: transform 0.5s;
+}
+.app-panels-flip {
+  transform: rotate(-180deg);
+}
+.app-panels hr{
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #979797;
+    margin: 1em 0;
+    padding: 0; 
+}
+.app-panels .codigo-producto {
+    font-weight:bold
+}
+.app-panels .producto-cantidad{
+    color: #979797
+}
+.app-panels .producto-precio{
+    color: #979797
+}
+
+.app-footer{
+    width: 100%;
+    height: 54px;
+    line-height: 54px;
+    font-family: 'Lato';
+    color: #1d1d26;
+    text-align: center;
+    display: block;
+    margin-top: 30px;
+    background: #fff;
+    box-shadow: 0 -6px 9px 0 rgba(217,217,217,.8);
+    position:fixed;
+    bottom:0%;
+    z-index:1001
+}
+.app-footer .sections-1{
+    width:50%;
+    display: inline-block;
+    margin-left: -2px;
+    margin-right: -2px;
+    vertical-align:middle;
+    text-align:right;
+    font-size:17px
+}
+.app-footer .sections-2{
+    width:50%;
+    display: inline-block;
+    margin-left: -2px;
+    margin-right: -2px;
+    vertical-align:middle;
+    text-align:center;
+    font-size:19px
+}
+/*FIN ESTILOS EMBEBER APP (APPCONS-1099)*/
+
+/* APPCONS-1098 */
+.ajustePosicionFlecha{
+    left:14px;
+}
+
+.alineaIzquierda{
+    text-align:left;
+}
+
+.pl-49{
+    padding-left:49px;
+}
+
+.agregarSombraInferior{
+    position:relative;
+    z-index:2;
+    box-shadow:0 0 10px 2px rgba(0,0,0,0.5);
+    -moz-box-shadow:0 0 10px 2px rgba(0,0,0,0.5);
+    -o-box-shadow:0 0 10px 2px rgba(0,0,0,0.5);
+    -ms-box-shadow:0 0 10px 2px rgba(0,0,0,0.5);
+    -webkit-box-shadow: 0 0 10px 2px rgba(0,0,0,0.5);
+}
+
+.nuevaAlturaBanner{
+    height:auto;
+    padding-bottom:27px;
+    background-size:cover!important;
+}
+
+.contenedor_barra_ganancia{
+    display: block;
+    height: auto;
+    background: #FFF;
+    position: relative;
+    z-index: 1;
+    padding: 13px 15px 9px 15px;
+    font-family: 'Lato';
+}
+
+.barra_ganancia{
+    display:block;
+    width:100%;
+    height:20px;
+    position:relative;
+    background: rgba(255,255,255,1);
+    background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(216,216,216,1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,255,255,1)), color-stop(100%, rgba(216,216,216,1)));
+    background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(216,216,216,1) 100%);
+    background: -o-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(216,216,216,1) 100%);
+    background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(216,216,216,1) 100%);
+    background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(216,216,216,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#d8d8d8', GradientType=0 );
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    overflow: hidden;
+    /*border: solid 1px rgb(234,234,234);*/
+}
+
+.barra_ganancia_espacio_limite, .barra_ganancia_espacio_logrado{
+    display:block;
+    position:relative;
+    height:100%;
+}
+
+/*.barra_ganancia_espacio_limite{
+    width:80%;
+    background: rgba(168,166,168,1);
+    background: -moz-linear-gradient(top, rgba(168,166,168,1) 0%, rgba(255,255,255,1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(168,166,168,1)), color-stop(100%, rgba(255,255,255,1)));
+    background: -webkit-linear-gradient(top, rgba(168,166,168,1) 0%, rgba(255,255,255,1) 100%);
+    background: -o-linear-gradient(top, rgba(168,166,168,1) 0%, rgba(255,255,255,1) 100%);
+    background: -ms-linear-gradient(top, rgba(168,166,168,1) 0%, rgba(255,255,255,1) 100%);
+    background: linear-gradient(to bottom, rgba(168,166,168,1) 0%, rgba(255,255,255,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a8a6a8', endColorstr='#ffffff', GradientType=0 );
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+}*/
+
+.barra_ganancia_espacio_logrado{
+    width:85%;
+    background: rgba(97,60,135,1);
+    background: -moz-linear-gradient(left, rgba(97,60,135,1) 0%, rgba(232,28,54,1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(97,60,135,1)), color-stop(100%, rgba(232,28,54,1)));
+    background: -webkit-linear-gradient(left, rgba(97,60,135,1) 0%, rgba(232,28,54,1) 100%);
+    background: -o-linear-gradient(left, rgba(97,60,135,1) 0%, rgba(232,28,54,1) 100%);
+    background: -ms-linear-gradient(left, rgba(97,60,135,1) 0%, rgba(232,28,54,1) 100%);
+    background: linear-gradient(to right, rgba(97,60,135,1) 0%, rgba(232,28,54,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#613c87', endColorstr='#e81c36', GradientType=1 );
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+}
+
+.meta_descuento, .descuento_pedido{
+    display:inline-block;
+    vertical-align:middle;
+    font-weight:400;
+    font-size:12px;
+    margin-bottom:7px;
+}
+
+.meta_descuento{
+    width:61%;
+    text-align:left;
+}
+
+.descuento_pedido{
+    width:38%;
+    text-align:right;
+}
+
+.meta_cantidad_porcentaje_descuento{
+    font-weight:700;
+    color:#e81c36;
+    text-transform:uppercase;
+}
+/* FIN APPCONS-1098 */

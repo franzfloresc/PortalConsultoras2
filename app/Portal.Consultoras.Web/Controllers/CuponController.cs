@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using svUsuario = Portal.Consultoras.Web.ServiceUsuario;
@@ -128,7 +127,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }, JsonRequestBehavior.AllowGet); }
         }
-        
+
         private CuponConsultoraModel ObtenerDatosCupon()
         {
             CuponConsultoraModel cuponModel;
@@ -213,6 +212,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private bool TieneOfertasPlan20()
         {
+            var flag = false;
             List<BEPedidoWebDetalle> listaPedidoWebDetalle = new List<BEPedidoWebDetalle>();
 
             if (Session["PedidoWebDetalle"] == null)
@@ -227,7 +227,20 @@ namespace Portal.Consultoras.Web.Controllers
                 listaPedidoWebDetalle = (List<BEPedidoWebDetalle>)Session["PedidoWebDetalle"];
             }
 
-            return (listaPedidoWebDetalle.Any(x => x.CodigoCatalago == Constantes.TipoOfertasPlan20.OfertaFinal || x.CodigoCatalago == Constantes.TipoOfertasPlan20.Showroom || x.CodigoCatalago == Constantes.TipoOfertasPlan20.OPT || x.CodigoCatalago == Constantes.TipoOfertasPlan20.ODD));
+            //return (listaPedidoWebDetalle.Any(x => x.CodigoCatalago == Constantes.TipoOfertasPlan20.OfertaFinal || x.CodigoCatalago == Constantes.TipoOfertasPlan20.Showroom || x.CodigoCatalago == Constantes.TipoOfertasPlan20.OPT || x.CodigoCatalago == Constantes.TipoOfertasPlan20.ODD));
+            List<BETablaLogicaDatos> lstCodigosOfertas = new List<BETablaLogicaDatos>();
+            using (SACServiceClient svc = new SACServiceClient())
+            {
+                lstCodigosOfertas = svc.GetTablaLogicaDatos(userData.PaisID, Constantes.TipoOfertasPlan20.TablaLogicaId).ToList();
+            }
+
+            if (listaPedidoWebDetalle.Any()  && lstCodigosOfertas.Any())
+            {
+                var lstTmp = listaPedidoWebDetalle.Where(x => lstCodigosOfertas.Any(y => x.CodigoCatalago == int.Parse(y.Codigo)));
+                flag = lstTmp.Any();
+            }
+
+            return flag;
         }
 
         private void ValidarPopupDelGestorPopups()
@@ -242,12 +255,13 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
         }
-        
+
         private CuponConsultoraModel MapearBECuponConsultoraACuponConsultoraModel(BECuponConsultora cuponBE)
         {
             var codigoISO = userData.CodigoISO;
 
-            return new CuponConsultoraModel(codigoISO) {
+            return new CuponConsultoraModel(codigoISO)
+            {
                 CuponConsultoraId = cuponBE.CuponConsultoraId,
                 CodigoConsultora = cuponBE.CodigoConsultora,
                 CampaniaId = cuponBE.CampaniaId,

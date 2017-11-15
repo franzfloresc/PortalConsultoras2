@@ -533,7 +533,6 @@ namespace Portal.Consultoras.BizLogic
         public string IsConsultoraExist(int paisID, string CodigoConsultora)
         {
             var DAUsuario = new DAUsuario(paisID);
-            var existe = false;
             string retorno = string.Empty;
             
             retorno = "0|0";
@@ -720,7 +719,7 @@ namespace Portal.Consultoras.BizLogic
                                     }
                                     else
                                     {
-                                        //Para bolivia (FOX) se hace la validaciÃ³n del campo AutorizaPedido
+                                        //Para bolivia (FOX) se hace la validación del campo AutorizaPedido
                                         if (paisID == 2)
                                         {
                                             if (AutorizaPedido == "N")
@@ -742,7 +741,7 @@ namespace Portal.Consultoras.BizLogic
                                     {
                                         if (paisID == 3)
                                         {
-                                            //Se valida las campaÃ±as que no ha ingresado
+                                            //Se valida las campañas que no ha ingresado
                                             if (UltimaCampania != 0 && CampaniaActual.ToString().Length == 6 && UltimaCampania.ToString().Length == 6)
                                             {
                                                 string CA = CampaniaActual.ToString().Substring(0, 4);
@@ -836,7 +835,7 @@ namespace Portal.Consultoras.BizLogic
                                     }
                                     else
                                     {
-                                        //Se valida las campaÃ±as que no ha ingresado
+                                        //Se valida las campañas que no ha ingresado
                                         //if (CampaniaActual - UltimaCampania > 100 && UltimaCampania != 0)
                                         //    return 2;
                                         //else
@@ -940,6 +939,7 @@ namespace Portal.Consultoras.BizLogic
             //2: Usuario Esta dentro de la Lista / Autoriza Pedido NULL o N
             //3: Usuario OK
 
+            int nroCampanias = new BLZonificacion().GetPaisNumeroCampaniasByPaisID(paisID);
             BLTablaLogicaDatos oBLTablaLogicaDatos = new BLTablaLogicaDatos();
             List<BETablaLogicaDatos> tabla_Retirada = oBLTablaLogicaDatos.GetTablaLogicaDatos(paisID, 12);
             List<BETablaLogicaDatos> tabla_Reingresada = oBLTablaLogicaDatos.GetTablaLogicaDatos(paisID, 18);
@@ -967,21 +967,13 @@ namespace Portal.Consultoras.BizLogic
                 {
                     if (paisID == 3)
                     {
-                        //Se valida las campaÃ±as que no ha ingresado
-                        if (UltimaCampania != 0 && CampaniaActual.ToString().Length == 6 && UltimaCampania.ToString().Length == 6)
+                        //Se valida las campañas que no ha ingresado
+                        int campaniaSinIngresar = 0;
+                        if (CampaniaActual.ToString().Length == 6 && UltimaCampania.ToString().Length == 6)
                         {
-                            string CA = CampaniaActual.ToString().Substring(0, 4);
-                            string UC = UltimaCampania.ToString().Substring(0, 4);
-                            if (CA != UC)
-                            {
-                                CA = CampaniaActual.ToString().Substring(4, 2);
-                                UC = UltimaCampania.ToString().Substring(4, 2);
-                                CampaniaActual = Convert.ToInt32(UC) + Convert.ToInt16(CA);
-                                UltimaCampania = Convert.ToInt32(UC);
-                            }
+                            campaniaSinIngresar = CampaniaActual - Common.Util.AddCampaniaAndNumero(UltimaCampania, 3, nroCampanias);
                         }
-
-                        if (CampaniaActual - UltimaCampania > 3 && UltimaCampania != 0) return 2;
+                        if (campaniaSinIngresar > 0) return 2;
                     }
                     else if (paisID == 4) return 2; //Caso Colombia
                 }
@@ -1048,10 +1040,10 @@ namespace Portal.Consultoras.BizLogic
             DAUsuario.UpdateIndicadorAyudaWebTracking(codigoConsultora, indicador);
         }
 
-        public void InsLogIngresoPortal(int paisID, string CodigoConsultora, string IPOrigen, byte Tipo, string DetalleError)
+        public void InsLogIngresoPortal(int paisID, string CodigoConsultora, string IPOrigen, byte Tipo, string DetalleError, string Canal)
         {
             var DAUsuario = new DAUsuario(paisID);
-            DAUsuario.InsLogIngresoPortal(CodigoConsultora, IPOrigen, Tipo, DetalleError);
+            DAUsuario.InsLogIngresoPortal(CodigoConsultora, IPOrigen, Tipo, DetalleError, Canal);
         }
 
         public BEUsuario GetSesionUsuarioLoginDD(int paisID, string codigoUsuario, string claveSecreta)
@@ -1141,7 +1133,6 @@ namespace Portal.Consultoras.BizLogic
             int tiempo = 0;
             if (DAUsuario.GetTiempo().Read())
             {
-
                 tiempo = 1;
             }
             return tiempo;
@@ -1223,14 +1214,13 @@ namespace Portal.Consultoras.BizLogic
 
         /*R2520 - JICM - LIDERES - INI*/
 
-
         public List<BEUsuario> ObtenerResultadoEncuesta(int paisID, int campaniaInicio, int campaniaFin)
         {
             List<BEUsuario> usuariosLideres = new List<BEUsuario>();
-            /*R2520 - ICM Lider - Solo conectarÃ¡ a la Base de Datos BelcorpPerÃº,
-             Para la consulta hacia la tabla LÃ­deres.Encuesta,
-             Pero el filtro si se realizarÃ¡ por el pais que se estÃ©
-             enviando como parÃ¡metro.*/
+            /*R2520 - ICM Lider - Solo conectará a la Base de Datos BelcorpPerú,
+             Para la consulta hacia la tabla Líderes.Encuesta,
+             Pero el filtro si se realizará por el pais que se esté
+             enviando como parámetro.*/
             DAUsuario DAUsuario = new DAUsuario(11);
             using (IDataReader reader = DAUsuario.GenerarReporteResultadoEncuesta(paisID, campaniaInicio, campaniaFin))
             {
@@ -1289,6 +1279,7 @@ namespace Portal.Consultoras.BizLogic
             }
             catch (Exception ex)
             {
+                LogManager.SaveLog(ex, codigoUsuario, paisIso);
                 resultado = false;
             }
 
@@ -1381,7 +1372,7 @@ namespace Portal.Consultoras.BizLogic
 
                     string emailFrom = "no-responder@somosbelcorp.com";
                     string emailTo = correo;
-                    string titulo = "(" + lst[0].CodigoISO + ") Cambio de contraseÃ±a de Somosbelcorp";
+                    string titulo = "(" + lst[0].CodigoISO + ") Cambio de contraseña de Somosbelcorp";
                     string logo = (esEsika ? "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Correo/logo_esika.png" : "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Correo/logo_lbel.png");
                     string nombrecorreo = lst[0].Nombre.Trim().Split(' ').First();
                     string fondo = (esEsika ? "e81c36" : "642f80");
@@ -1413,7 +1404,7 @@ namespace Portal.Consultoras.BizLogic
 
                     if (cantidad > 0)
                     {
-                        resultado = string.Format("{0}|{1}|{2}|{3}", "0", "1", "La direcciÃ³n de correo electrÃ³nico ingresada ya pertenece a otra Consultora.", cantidad);
+                        resultado = string.Format("{0}|{1}|{2}|{3}", "0", "1", "La dirección de correo electrónico ingresada ya pertenece a otra Consultora.", cantidad);
                     }
                     else
                     {
@@ -1423,7 +1414,7 @@ namespace Portal.Consultoras.BizLogic
                         {
                             string emailFrom = "no-responder@somosbelcorp.com";
                             string emailTo = usuario.EMail;
-                            string titulo = "ConfirmaciÃ³n de Correo";
+                            string titulo = "Confirmación de Correo";
                             string displayname = usuario.Nombre;
                             string url = ConfigurationManager.AppSettings["CONTEXTO_BASE"];
                             string nomconsultora = (string.IsNullOrEmpty(usuario.Sobrenombre) ? usuario.PrimerNombre : usuario.Sobrenombre);
@@ -1438,7 +1429,7 @@ namespace Portal.Consultoras.BizLogic
 
                             MailUtilities.EnviarMailProcesoActualizaMisDatos(emailFrom, emailTo, titulo, displayname, logo, nomconsultora, url, fondo, param_querystring);
 
-                            resultado = string.Format("{0}|{1}|{2}|0", "1", "2", "- Sus datos se actualizaron correctamente.\n - Se ha enviado un correo electrÃ³nico de verificaciÃ³n a la direcciÃ³n ingresada.");
+                            resultado = string.Format("{0}|{1}|{2}|0", "1", "2", "- Sus datos se actualizaron correctamente.\n - Se ha enviado un correo electrónico de verificación a la dirección ingresada.");
                         }
                         else
                         {
@@ -1449,7 +1440,7 @@ namespace Portal.Consultoras.BizLogic
             }
             catch (Exception ex)
             {
-                resultado = string.Format("{0}|{1}|{2}|0", "0", "4", "OcurriÃ³ un error al acceder al servicio, intente nuevamente.");
+                resultado = string.Format("{0}|{1}|{2}|0", "0", "4", "Ocurrió un error al acceder al servicio, intente nuevamente.");
                 LogManager.SaveLog(ex, usuario.CodigoUsuario, string.Empty);
             }
 
@@ -1467,7 +1458,7 @@ namespace Portal.Consultoras.BizLogic
             }
             catch (Exception ex)
             {
-                resultado = string.Format("{0}|{1}|{2}|0", "0", "4", "OcurriÃ³ un error al acceder al servicio, intente nuevamente.");
+                resultado = string.Format("{0}|{1}|{2}|0", "0", "4", "Ocurrió un error al acceder al servicio, intente nuevamente.");
                 LogManager.SaveLog(ex, usuario.CodigoUsuario, string.Empty);
             }
 
@@ -1633,6 +1624,7 @@ namespace Portal.Consultoras.BizLogic
             }
             catch (Exception ex)
             {
+                LogManager.SaveLog(ex, numeroDocumento, paisID.ToString());
             }
 
             return r;
@@ -1653,6 +1645,7 @@ namespace Portal.Consultoras.BizLogic
             }
             catch (Exception ex)
             {
+                LogManager.SaveLog(ex, numeroDocumento, paisID.ToString());
             }
 
             return postulante;

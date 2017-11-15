@@ -31,6 +31,20 @@ namespace Portal.Consultoras.Web.WebPages
 
             if (campania == null) CargarTablasMaestras();
             else CargarPedidoEspecifico(campania, nroPedido);
+
+            try
+            {
+                if (ConfigurationManager.AppSettings["Ambiente"].ToString() != "PR")
+                {
+                    lnkPoliticasVenta.NavigateUrl = "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/SeguimientoPedido/" + Convert.ToString(ViewState["PAISISO"]) + "/Politica.pdf";
+                }
+                else
+                {
+                    lnkPoliticasVenta.NavigateUrl = "https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/SeguimientoPedido/" + Convert.ToString(ViewState["PAISISO"]) + "/Politica.pdf";
+                }
+            }
+            catch  {}
+
         }
 
         protected void gridPedidos_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -290,6 +304,10 @@ namespace Portal.Consultoras.Web.WebPages
                     pPostVenta.Visible = true;
                     CargarPostVenta(paisID, codigoConsultora);
                 }
+                else
+                {
+                    lnkPoliticasVenta.Visible = false;
+                }
 
                 MostrarAyuda(mostrarAyuda);
             }
@@ -336,7 +354,7 @@ namespace Portal.Consultoras.Web.WebPages
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                pedidos = sv.GetPedidosByConsultora(paisID, codigo);
+                pedidos = sv.GetPedidosByConsultora(paisID, codigo, 6);
             }
 
             listaPedidos.AddRange(pedidos);

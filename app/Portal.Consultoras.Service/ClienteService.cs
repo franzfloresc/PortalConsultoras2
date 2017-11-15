@@ -196,7 +196,7 @@ namespace Portal.Consultoras.Service
             return new Tuple<bool, string>(result.Success, result.Message);
         }
 
-        public int RecordatorioInsertar(int paisId, BEClienteRecordatorio recordatorio)
+        public ResponseType<int> RecordatorioInsertar(int paisId, BEClienteRecordatorio recordatorio)
         {
             return _recordatorioBusinessLogic.Insertar(paisId, recordatorio);
         }
@@ -206,12 +206,12 @@ namespace Portal.Consultoras.Service
             return _recordatorioBusinessLogic.Listar(paisId, consultoraId);
         }
 
-        public bool RecordatorioActualizar(int paisId, BEClienteRecordatorio recordatorio)
+        public ResponseType<bool> RecordatorioActualizar(int paisId, BEClienteRecordatorio recordatorio)
         {
             return _recordatorioBusinessLogic.Actualizar(paisId, recordatorio);
         }
 
-        public bool RecordatorioEliminar(int paisId, short clienteId, long consultoraId, int recordatorioId)
+        public ResponseType<bool> RecordatorioEliminar(int paisId, short clienteId, long consultoraId, int recordatorioId)
         {
             return _recordatorioBusinessLogic.Eliminar(paisId, clienteId, consultoraId, recordatorioId);
         }
@@ -239,6 +239,11 @@ namespace Portal.Consultoras.Service
         public ResponseType<bool> NotaEliminar(int paisId, short clienteId, long consultoraId, long clienteNotaId)
         {
             return _notasBusinessLogic.Eliminar(paisId, clienteId, consultoraId, clienteNotaId);
+        }
+
+        public ResponseType<List<BEMovimientoDetalle>> MovimientoDetalleActualizar(int paisId,List<BEMovimientoDetalle> movimientoDetalle)
+        {
+            return _movimientoBusinessLogic.ActualizarDetalle(paisId, movimientoDetalle);
         }
     }
 }

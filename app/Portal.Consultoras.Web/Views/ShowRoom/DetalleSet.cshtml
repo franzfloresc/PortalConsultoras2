@@ -6,10 +6,10 @@
     Layout = "~/Views/Shared/_MainLayoutContenedor.cshtml";
 }
 @section styles{
-    <link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet"/>
+    <link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet" />
     <style>
-        .SubHeader{
-            display:none;
+        .SubHeader {
+            display: none;
         }
     </style>
 }
@@ -34,7 +34,7 @@
 }
 
 <div class="fondo_set" style="background:url(@ViewBag.ImagenFondoProductPage) no-repeat; background-size: contain;height:340px;">
-    <div class="content_belcorp" >
+    <div class="content_belcorp">
         <div class="rd_volver" style="margin-left: 145px; position: absolute; top: -20px;">
             <a href="@Url.Action("Index", "Showroom")">
                 <img class="previous_volver" src="@Url.Content("~/Content/Images/RevistaDigital/previous_volver.png")" style="width: 8px" />
@@ -43,18 +43,18 @@
         </div>
         <div class="content_solo_ficha_set" data-posicion="0" data-item="@Model.OfertaShowRoomID">
             <div data-compartir-campos="" style="display: none;">
-                <input type="hidden" id="hcuv" class="CUV" value="@Model.CUV"/>
-                <input type="hidden" class="rsFBMensaje" value="@Model.FBMensaje"/>
-                <input type="hidden" class="rsFBRuta" value="@Model.FBRuta"/>
-                <input type="hidden" class="rsWAMensaje" value="@Model.FBMensaje"/>
-                <input type="hidden" class="rsWARuta" value="@Model.FBRuta"/>
-                <input type="hidden" class="rsFBRutaImagen" value="@Model.ImagenProducto"/>
-                <input type="hidden" class="rsWARutaImagen" value="@Model.ImagenProducto"/>
+                <input type="hidden" id="hcuv" class="CUV" value="@Model.CUV" />
+                <input type="hidden" class="rsFBMensaje" value="@Model.FBMensaje" />
+                <input type="hidden" class="rsFBRuta" value="@Model.FBRuta" />
+                <input type="hidden" class="rsWAMensaje" value="@Model.FBMensaje" />
+                <input type="hidden" class="rsWARuta" value="@Model.FBRuta" />
+                <input type="hidden" class="rsFBRutaImagen" value="@Model.ImagenProducto" />
+                <input type="hidden" class="rsWARutaImagen" value="@Model.ImagenProducto" />
                 <input type="hidden" id="hnombrecuv" class="Nombre" value="@Model.Descripcion" />
-                <input type="hidden" class="MarcaID" value="@Model.MarcaID"/>
-                <input type="hidden" id="hmarca" class="MarcaNombre" value="@Model.DescripcionMarca"/>
-                <input type="hidden" class="ProductoDescripcion" value="@Model.Descripcion"/>
-                <input type="hidden" class="Palanca" value="SR"/>
+                <input type="hidden" class="MarcaID" value="@Model.MarcaID" />
+                <input type="hidden" id="hmarca" class="MarcaNombre" value="@Model.DescripcionMarca" />
+                <input type="hidden" class="ProductoDescripcion" value="@Model.Descripcion" />
+                <input type="hidden" class="Palanca" value="SR" />
             </div>
             <div class="content_producto_set">
                 <div data-img="">
@@ -89,7 +89,7 @@
                     <div class="precio_oferta_venta">
                         Precio para ti <b>@Model.Simbolo @Model.FormatoPrecioOferta</b>
                     </div>
-                    
+
                     <div class="ganancia_showroom">Gana @Model.Simbolo @Model.FormatoGana</div>
                 </div>
                 <hr class="clear" />
@@ -143,13 +143,13 @@
 
                             <div data-posicion="@posicionCpcVertical" data-item="@item.OfertaShowRoomID" style="height: 430px !important;">
                                 <div data-campos="">
-                                    <input type="hidden" class="hdOfertaShowRoomID" value="@item.OfertaShowRoomID"/>
-                                    <input type="hidden" class="valorCuv" value="@item.CUV"/>
-                                    <input type="hidden" class="claseMarcaID" value="@item.MarcaID"/>
-                                    <input type="hidden" class="clasePrecioUnidad" value="@item.PrecioOferta"/>
-                                    <input type="hidden" class="DescripcionProd" value="@item.Descripcion"/>
-                                    <input type="hidden" class="DescripcionMarca" value="@item.DescripcionMarca"/>
-                                    <input type="hidden" class="posicionEstrategia" value="@posicionCpcVertical"/>
+                                    <input type="hidden" class="hdOfertaShowRoomID" value="@item.OfertaShowRoomID" />
+                                    <input type="hidden" class="valorCuv" value="@item.CUV" />
+                                    <input type="hidden" class="claseMarcaID" value="@item.MarcaID" />
+                                    <input type="hidden" class="clasePrecioUnidad" value="@item.PrecioOferta" />
+                                    <input type="hidden" class="DescripcionProd" value="@item.Descripcion" />
+                                    <input type="hidden" class="DescripcionMarca" value="@item.DescripcionMarca" />
+                                    <input type="hidden" class="posicionEstrategia" value="@posicionCpcVertical" />
                                 </div>
                                 <div style="height: 350px;">
                                     <div class="titulo_compra_POP" style="font-size: 21px; color: #bda571;">PROMOCIÓN</div>
@@ -161,11 +161,11 @@
                                     <div class="content_imagen_carrusel_compra" data-img="" style="cursor: auto;">
                                         @if (item.ImagenProducto != "")
                                         {
-                                            <img src="@item.ImagenProducto" class="imagen_producto">
+                                            <img data-src="@item.ImagenProducto" class="imagen_producto" data-img-lazy="1">
                                         }
                                         else
                                         {
-                                            <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" class="imagen_producto"/>
+                                            <img data-src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" class="imagen_producto" data-img-lazy="1"/>
                                         }
                                     </div>
                                     <div class="precio_set_compra" style="font-size: 14px; line-height: 17px;">@Model.TextoCondicionCompraCpc</div>
@@ -173,7 +173,7 @@
                                     @*<div class="descripcion_producto_compra" style="text-align: center;">@item.DescripcionLegal</div>*@
                                 </div>
 
-                                <hr class="clear"/>
+                                <hr class="clear" />
                                 <a class="btn_agrega_carrusel_compra verDetalleCompraPorCompra">VER PROMOCIÓN</a>
                             </div>
                             {
@@ -185,66 +185,66 @@
             }
         </div>        
         <hr class="clear" />
-    </div>    
+    </div>
 </div>
 <hr class="clear" />
 <div class="catalogoPersonalizadoBloque" style="margin-top:85px; padding-bottom: 30px; overflow:hidden;">
-   <div class="content_belcorp" style="width: 85%">
-       <div class="titulo_carrusel_showroom"><b>VER MÁS SETS </b>EXCLUSIVOS PARA TI</div>
-       <!--CARRUSEL-->
-       <div class="responsive" style="margin-left: 10em;">
-           @{ var posicionx = 1; }
-           @foreach (var oferta in Model.ListaOfertaShowRoom)
-           {
-               var descripcion = oferta.Descripcion;
-               if (descripcion != null && descripcion.Length > 41)
-               {
-                   descripcion = descripcion.Substring(0, 40) + " ...";
-               }
-               <div class="set-productos-showroom-carrusel" data-item="@oferta.OfertaShowRoomID">
-                   <div data-campos="">
-                       <input type="hidden" class="hdOfertaShowRoomID" value="@oferta.OfertaShowRoomID"/>
-                       <input type="hidden" id="hcuv" class="valorCuv" value="@oferta.CUV"/>
-                       <input type="hidden" class="claseMarcaID" value="@oferta.MarcaID"/>
-                       <input type="hidden" id="hprecio" class="clasePrecioUnidad" value="@oferta.PrecioOferta"/>
-                       <input type="hidden" class="claseConfiguracionOfertaID" value="@oferta.ConfiguracionOfertaID"/>
-                       <input type="hidden" id="hnombrecuv" class="DescripcionProd" value="@oferta.Descripcion"/>
-                       <input type="hidden" id="hmarca" class="DescripcionMarca" value="@oferta.DescripcionMarca"/>
-                       <input type="hidden" class="posicionEstrategia" value="@posicionx"/>
-                   </div>
-                   <div class="producto_img_home mini" data-img="">
-                       <img src="@oferta.ImagenProducto" style="width: auto; height: 100%;" class="imagen_producto">
-                       <a class="ver_detalle_carrusel" href="@Url.Action("DetalleOferta", "ShowRoom", new {id = oferta.OfertaShowRoomID})">VER DETALLE</a>
-                   </div>
-                   <div class="producto_nombre_descripcion">
-                       <p class="nombre-producto-set">@descripcion</p>
-                       <div class="producto_precio" style="margin-bottom: 3px;">
-                           <span class="precio-oferta-normal">@oferta.Simbolo @oferta.FormatoPrecioValorizado</span>
-                           <span class="precio-oferta-venta"><b>@oferta.Simbolo @oferta.FormatoPrecioOferta</b></span>
-                       </div>
-                       <div class="liquidacion_rango_home" data-cantidad-contenedor="">
-                           <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
-                           <div class="liquidacion_rango_right_pedido">
-                               <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                               <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
-                           </div>
-                       </div>
-                       <a class="boton_Agregalo_home" data-btn-agregar-sr="">AGRÉGALO</a>
-                       <div class="clear"></div>
-                       <div style="padding-top: 9px; height: 30px;">
-                           <div class="agregado product-add" data-btn-agregar-sr="" style="text-align: right; display: @oferta.Agregado;">
-                               AGREGADO
-                               <div class="icono"></div>
-                           </div>
-                       </div>
-                   </div>
-               </div>
-               {
-                   posicionx++;
-               }
-           }
-       </div>
-   </div>
+    <div class="content_belcorp" style="width: 85%">
+        <div class="titulo_carrusel_showroom"><b>VER MÁS SETS </b>EXCLUSIVOS PARA TI</div>
+        <!--CARRUSEL-->
+        <div class="responsive" style="margin-left: 10em;">
+            @{ var posicionx = 1; }
+            @foreach (var oferta in Model.ListaOfertaShowRoom)
+            {
+                var descripcion = oferta.Descripcion;
+                if (descripcion != null && descripcion.Length > 41)
+                {
+                    descripcion = descripcion.Substring(0, 40) + " ...";
+                }
+                <div class="set-productos-showroom-carrusel" data-item="@oferta.OfertaShowRoomID">
+                    <div data-campos="">
+                        <input type="hidden" class="hdOfertaShowRoomID" value="@oferta.OfertaShowRoomID" />
+                        <input type="hidden" id="hcuv" class="valorCuv" value="@oferta.CUV" />
+                        <input type="hidden" class="claseMarcaID" value="@oferta.MarcaID" />
+                        <input type="hidden" id="hprecio" class="clasePrecioUnidad" value="@oferta.PrecioOferta" />
+                        <input type="hidden" class="claseConfiguracionOfertaID" value="@oferta.ConfiguracionOfertaID" />
+                        <input type="hidden" id="hnombrecuv" class="DescripcionProd" value="@oferta.Descripcion" />
+                        <input type="hidden" id="hmarca" class="DescripcionMarca" value="@oferta.DescripcionMarca" />
+                        <input type="hidden" class="posicionEstrategia" value="@posicionx" />
+                    </div>
+                    <div class="producto_img_home mini" data-img="">
+                        <img src="@oferta.ImagenProducto" style="width: auto; height: 100%;" class="imagen_producto" data-img-lazy="1">
+                        <a class="ver_detalle_carrusel" href="@Url.Action("DetalleOferta", "ShowRoom", new {id = oferta.OfertaShowRoomID})">VER DETALLE</a>
+                    </div>
+                    <div class="producto_nombre_descripcion">
+                        <p class="nombre-producto-set">@descripcion</p>
+                        <div class="producto_precio" style="margin-bottom: 3px;">
+                            <span class="precio-oferta-normal">@oferta.Simbolo @oferta.FormatoPrecioValorizado</span>
+                            <span class="precio-oferta-venta"><b>@oferta.Simbolo @oferta.FormatoPrecioOferta</b></span>
+                        </div>
+                        <div class="liquidacion_rango_home" data-cantidad-contenedor="">
+                            <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
+                            <div class="liquidacion_rango_right_pedido">
+                                <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                                <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                            </div>
+                        </div>
+                        <a class="boton_Agregalo_home" data-btn-agregar-sr="">AGRÉGALO</a>
+                        <div class="clear"></div>
+                        <div style="padding-top: 9px; height: 30px;">
+                            <div class="agregado product-add" data-btn-agregar-sr="" style="text-align: right; display: @oferta.Agregado;">
+                                AGREGADO
+                                <div class="icono"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {
+                    posicionx++;
+                }
+            }
+        </div>
+    </div>
 </div>
 @if (!string.IsNullOrEmpty(Model.TipNegocio))
 {
@@ -273,30 +273,30 @@
                         <div class="titulo_compra_POP" style="letter-spacing: 4.6px; height: 65px; margin-top: -10px;">PROMOCIÓN</div>
                     </div>
                 </div>
-                               
+
                 <div class="content_carrusel_pop_compra">
                     @{ var posicionCpc = 1; }
                     @foreach (var item in Model.ListaShowRoomCompraPorCompra)
                     {
                         <div data-posicion="@posicionCpc" data-item="@item.OfertaShowRoomID">
                             <div data-campos="">
-                                <input type="hidden" class="hdOfertaShowRoomID" value="@item.OfertaShowRoomID"/>
-                                <input type="hidden" class="valorCuv" value="@item.CUV"/>
-                                <input type="hidden" class="claseMarcaID" value="@item.MarcaID"/>
-                                <input type="hidden" class="clasePrecioUnidad" value="@item.PrecioOferta"/>
-                                <input type="hidden" class="DescripcionProd" value="@item.Descripcion"/>
-                                <input type="hidden" class="DescripcionMarca" value="@item.DescripcionMarca"/>
-                                <input type="hidden" class="posicionEstrategia" value="@posicionCpc"/>
+                                <input type="hidden" class="hdOfertaShowRoomID" value="@item.OfertaShowRoomID" />
+                                <input type="hidden" class="valorCuv" value="@item.CUV" />
+                                <input type="hidden" class="claseMarcaID" value="@item.MarcaID" />
+                                <input type="hidden" class="clasePrecioUnidad" value="@item.PrecioOferta" />
+                                <input type="hidden" class="DescripcionProd" value="@item.Descripcion" />
+                                <input type="hidden" class="DescripcionMarca" value="@item.DescripcionMarca" />
+                                <input type="hidden" class="posicionEstrategia" value="@posicionCpc" />
                             </div>
 
                             <div class="content_imagen_compra" data-img="">
                                 @if (item.ImagenProducto != "")
                                 {
-                                    <img src="@item.ImagenProducto" class="imagen_producto">
+                                    <img data-src="@item.ImagenProducto" class="imagen_producto" data-img-lazy="1">
                                 }
                                 else
                                 {
-                                    <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" class="imagen_producto"/>
+                                    <img data-src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" class="imagen_producto" data-img-lazy="1"/>
                                 }
                             </div>
 
@@ -309,7 +309,7 @@
                                 <div class="liquidacion_rango_home" data-cantidad-contenedor="">
                                     <input type="text" value="1" min="1" max="99" size="2" maxlength="2"
                                            class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
-                                           oninput="maxLengthCheck(this, 2)" onkeypress=" return FuncionesGenerales.ValidarSoloNumeros(event); "
+                                           oninput="FuncionesGenerales.MaxLengthCheck(this, 2)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);"
                                            data-input="cantidad" data-cantidad-input="-">
                                     <div class="liquidacion_rango_right_pedido">
                                         <a class="mas" data-cantidad-agregar="+" href="javascript:;"><img src="/Content/Images/Esika/mas.png" alt=""></a>
@@ -319,9 +319,9 @@
                                 <a data-btn-agregar-cpc="" class="boton_Agregalo_home btn_aregar_set" onclick="" style="width: 70%;">
                                     AGRÉGALO
                                 </a>
-                                <hr class="clear"/>
+                                <hr class="clear" />
                             </div>
-                            <hr class="clear"/>
+                            <hr class="clear" />
                         </div>
                         {
                             posicionCpc++;
@@ -343,6 +343,8 @@
         var origenPedidoWeb = '@Constantes.OrigenPedidoWeb.DesktopShowRoomProductPage';
         var origenPedidoWebTactica = '@Constantes.OrigenPedidoWeb.DesktopShowRoomProductPageTactica';
         var origenPedidoWebCarrusel = '@Constantes.OrigenPedidoWeb.DesktopShowRoomProductPageCarrusel';
+        var iconoLluvia = '@ViewBag.IconoLLuvia';
 
     </script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/nieve.js")"></script>
 }

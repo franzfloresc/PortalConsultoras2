@@ -1,4 +1,3 @@
-using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Controllers;
 using Portal.Consultoras.Web.Models;
@@ -55,22 +54,21 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 esShowRoom = true && OfertaShowRoom() != null;
             }
 
-            //return esShowRoom ?
-            //    RedirectToRoute("UniqueRoute",
-            //                new RouteValueDictionary(new
-            //                {
-            //                    Controller = "ShowRoom",
-            //                    Action = "Index",
-            //                    guid = this.GetUniqueKey()
-            //                })) :
-            //    RedirectToRoute("UniqueRoute",
-            //        new RouteValueDictionary(new
-            //        {
-            //            Controller = "ShowRoom",
-            //            Action = "Intriga",
-            //            guid = this.GetUniqueKey()
-            //        }));
-            return RedirectToAction(esShowRoom ? "Index" : "Intriga");
+            return esShowRoom ?
+                RedirectToRoute("UniqueRoute",
+                            new RouteValueDictionary(new
+                            {
+                                Controller = "ShowRoom",
+                                Action = "Index",
+                                guid = this.GetUniqueKey()
+                            })) :
+                RedirectToRoute("UniqueRoute",
+                    new RouteValueDictionary(new
+                    {
+                        Controller = "ShowRoom",
+                        Action = "Intriga",
+                        guid = this.GetUniqueKey()
+                    }));
         }
 
         public ActionResult Index(string query)
@@ -85,7 +83,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 return RedirectToAction("Intriga", "ShowRoom", new { area = "Mobile" });
             }
- 
+
             ActionExecutingMobile();
             var showRoomEventoModel = OfertaShowRoom();
 
@@ -226,16 +224,16 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
 
                 var xlistaShowRoom = showRoomEventoModel.ListaShowRoomOferta.Where(x => x.EsSubCampania == false).ToList();
+                ViewBag.PrecioMin = xlistaShowRoom.Any() ? xlistaShowRoom.Min(p => p.PrecioOferta) : Convert.ToDecimal(0);
+                ViewBag.PrecioMax = xlistaShowRoom.Any() ? xlistaShowRoom.Max(p => p.PrecioOferta) : Convert.ToDecimal(0);
 
-                ViewBag.PrecioMin = xlistaShowRoom.Min(p => p.PrecioOferta);
-                ViewBag.PrecioMax = xlistaShowRoom.Max(p => p.PrecioOferta);
                 ViewBag.BannerImagenVenta = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.BannerImagenVenta, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
 
                 return showRoomEventoModel;
             }
-            catch (FaultException ex)
+            catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
 
             return null;

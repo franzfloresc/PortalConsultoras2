@@ -6,6 +6,9 @@ using Portal.Consultoras.Entities.ReservaProl;
 using Portal.Consultoras.Entities.RevistaDigital;
 using Portal.Consultoras.Entities.ShowRoom;
 using Portal.Consultoras.ServiceContracts;
+using Portal.Consultoras.BizLogic.Pedido;
+using Portal.Consultoras.Entities.Pedido;
+
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -42,8 +45,9 @@ namespace Portal.Consultoras.Service
         private BLFichaProducto blFichaProducto;
 
         private readonly IConsultoraConcursoBusinessLogic _consultoraConcursoBusinessLogic;
+        private readonly IPedidoWebBusinessLogic _pedidoWebBusinessLogic;
 
-        public PedidoService() : this(new BLConsultoraConcurso())
+        public PedidoService() : this(new BLConsultoraConcurso(), new BLPedidoWeb())
         {
             BLPedidoWebDetalle = new BLPedidoWebDetalle();
             BLPedidoWeb = new BLPedidoWeb();
@@ -71,9 +75,10 @@ namespace Portal.Consultoras.Service
             blFichaProducto = new BLFichaProducto();
         }
 
-        public PedidoService(IConsultoraConcursoBusinessLogic consultoraConcursoBusinessLogic)
+        public PedidoService(IConsultoraConcursoBusinessLogic consultoraConcursoBusinessLogic, IPedidoWebBusinessLogic pedidoWebBusinessLogic)
         {
             _consultoraConcursoBusinessLogic = consultoraConcursoBusinessLogic;
+            _pedidoWebBusinessLogic = pedidoWebBusinessLogic;
         }
 
         #region Reporte Lider
@@ -878,9 +883,9 @@ namespace Portal.Consultoras.Service
 
         #region Tracking
 
-        public List<BETracking> GetPedidosByConsultora(int paisID, string codigoConsultora)
+        public List<BETracking> GetPedidosByConsultora(int paisID, string codigoConsultora, int top)
         {
-            return BLTracking.GetPedidosByConsultora(paisID, codigoConsultora);
+            return BLTracking.GetPedidosByConsultora(paisID, codigoConsultora, top);
         }
 
         public BETracking GetPedidoByConsultoraAndCampania(int paisID, string codigoConsultora, int campania)
@@ -1231,10 +1236,6 @@ namespace Portal.Consultoras.Service
             return new BLEstrategia().GetRegionZonaZE(PaisID, RegionID, ZonaID);
         }
 
-        public string GetCodeEstrategiaByCUV(int paisID, string cuv, int campaniaID)
-        {
-            return new BLEstrategia().GetCodeEstrategiaByCUV(paisID, cuv, campaniaID);
-        }
         // 1747 - Fin
         public void InsPedidoWebDetallePROLv2(int PaisID, int CampaniaID, int PedidoID, short EstadoPedido, List<BEPedidoWebDetalle> olstPedidoWebDetalle, bool ValidacionAbierta, string CodigoUsuario, decimal MontoTotalProl, decimal DescuentoProl)
         {
@@ -1845,9 +1846,9 @@ namespace Portal.Consultoras.Service
             return BLPedidoWeb.GetPedidosFacturados(paisId, codigoConsultora);
         }
 
-        public List<BEPedidoWeb> GetPedidosIngresadoFacturado(int paisID, int consultoraID, int campaniaID, string codigoConsultora)
+        public List<BEPedidoWeb> GetPedidosIngresadoFacturado(int paisID, int consultoraID, int campaniaID, string codigoConsultora, int top)
         {
-            return BLPedidoWeb.GetPedidosIngresadoFacturado(paisID, consultoraID, campaniaID, codigoConsultora);
+            return BLPedidoWeb.GetPedidosIngresadoFacturado(paisID, consultoraID, campaniaID, codigoConsultora, top);
         }
 
         public List<BEPedidoWeb> GetPedidosIngresadoFacturadoWebMobile(int paisID, int consultoraID, int campaniaID, int clienteID, int top, string codigoConsultora)
@@ -1928,9 +1929,9 @@ namespace Portal.Consultoras.Service
             return new BLEstrategia().GetCantidadOfertasParaTi(paisId, campaniaId, tipoConfigurado, estrategiaId);
         }
 
-        public List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, int estrategiaId)
+        public List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, string estrategiaCodigo)
         {
-            return new BLEstrategia().GetOfertasParaTiByTipoConfigurado(paisId, campaniaId, tipoConfigurado, estrategiaId);
+            return new BLEstrategia().GetOfertasParaTiByTipoConfigurado(paisId, campaniaId, tipoConfigurado, estrategiaCodigo);
         }
 
         public int InsertEstrategiaTemporal(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario)
@@ -2204,9 +2205,9 @@ namespace Portal.Consultoras.Service
         {
             return _consultoraConcursoBusinessLogic.ListConcursosByCampania(paisId, codigoCampania, codigoCampania, tipoConcurso, codigoConsultora);
         }
-        public List<BEIncentivoConcurso> ObtenerIncentivosConsultora(int paisID, string codigoConsultora, int codigoCampania)
+        public List<BEIncentivoConcurso> ObtenerIncentivosConsultora(int paisID, string codigoConsultora, int codigoCampania, long ConsultoraID)
         {
-            return _consultoraConcursoBusinessLogic.ObtenerIncentivosConsultora(paisID, codigoConsultora, codigoCampania);
+            return _consultoraConcursoBusinessLogic.ObtenerIncentivosConsultora(paisID, codigoConsultora, codigoCampania, ConsultoraID);
         }
 
         public List<BEIncentivoConcurso> ObtenerIncentivosHistorico(int paisID, string codigoConsultora, int codigoCampania)
@@ -2252,6 +2253,21 @@ namespace Portal.Consultoras.Service
         public List<BEFichaProducto> GetFichaProducto(BEFichaProducto entidad)
         {
             return blFichaProducto.GetFichaProducto(entidad);
+        }
+        #endregion
+
+        #region MisPedidos
+        public List<BEMisPedidosCampania> GetMisPedidosByCampania(int paisID, long ConsultoraID, int CampaniaID, int ClienteID, int Top)
+        {
+            return _pedidoWebBusinessLogic.GetMisPedidosByCampania(paisID, ConsultoraID, CampaniaID, ClienteID, Top);
+        }
+        public List<BEMisPedidosIngresados> GetMisPedidosIngresados(int paisID, long ConsultoraID, int CampaniaID, int ClienteID, string NombreConsultora)
+        {
+            return _pedidoWebBusinessLogic.GetMisPedidosIngresados(paisID, ConsultoraID, CampaniaID, ClienteID, NombreConsultora);
+        }
+        public List<BEMisPedidosFacturados> GetMisPedidosFacturados(int paisID, long ConsultoraID, int CampaniaID, int ClienteID, string NombreConsultora)
+        {
+            return _pedidoWebBusinessLogic.GetMisPedidosFacturados(paisID, ConsultoraID, CampaniaID, ClienteID, NombreConsultora);
         }
         #endregion
     }

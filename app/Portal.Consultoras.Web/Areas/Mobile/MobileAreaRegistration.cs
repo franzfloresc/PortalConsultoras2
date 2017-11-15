@@ -17,7 +17,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile
             context.MapRoute(
                 "Mobile_default",
                 "Mobile/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional },
+                new { controller = "Bienvenida", action = "Index", id = UrlParameter.Optional },
                 new[] { "Portal.Consultoras.Web.Areas.Mobile.Controllers" }
             );
         }

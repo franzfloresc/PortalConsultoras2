@@ -28,6 +28,38 @@
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="Status" nillable="true" type="tns:Status" />
+  <xs:complexType name="ResponseTypeOfint">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="ResponseTypeOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Framework" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="int" Namespace="http://www.w3.org/2001/XMLSchema" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Data" type="xs:int" />
+      <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Success" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ResponseTypeOfint" nillable="true" type="tns:ResponseTypeOfint" />
+  <xs:complexType name="ResponseTypeOfboolean">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="ResponseTypeOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Framework" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="boolean" Namespace="http://www.w3.org/2001/XMLSchema" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Data" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Success" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ResponseTypeOfboolean" nillable="true" type="tns:ResponseTypeOfboolean" />
   <xs:complexType name="ResponseTypeOflong">
     <xs:annotation>
       <xs:appinfo>
@@ -60,20 +92,20 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ResponseTypeOfArrayOfBENotaGaf1LoLd" nillable="true" type="tns:ResponseTypeOfArrayOfBENotaGaf1LoLd" />
-  <xs:complexType name="ResponseTypeOfboolean">
+  <xs:complexType name="ResponseTypeOfArrayOfBEMovimientoDetalleGaf1LoLd">
     <xs:annotation>
       <xs:appinfo>
         <GenericType Name="ResponseTypeOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Framework" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
-          <GenericParameter Name="boolean" Namespace="http://www.w3.org/2001/XMLSchema" />
+          <GenericParameter Name="ArrayOfBEMovimientoDetalle" Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cliente" />
         </GenericType>
       </xs:appinfo>
     </xs:annotation>
     <xs:sequence>
       <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Data" type="xs:boolean" />
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cliente" minOccurs="0" name="Data" nillable="true" type="q2:ArrayOfBEMovimientoDetalle" />
       <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Success" type="xs:boolean" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="ResponseTypeOfboolean" nillable="true" type="tns:ResponseTypeOfboolean" />
+  <xs:element name="ResponseTypeOfArrayOfBEMovimientoDetalleGaf1LoLd" nillable="true" type="tns:ResponseTypeOfArrayOfBEMovimientoDetalleGaf1LoLd" />
 </xs:schema>

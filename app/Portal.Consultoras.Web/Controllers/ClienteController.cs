@@ -1,14 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Portal.Consultoras.Web.ServiceCliente;
+﻿using AutoMapper;
+using ClosedXML.Excel;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using System.ServiceModel;
+using Portal.Consultoras.Web.ServiceCliente;
+using System;
+using System.Collections.Generic;
 using System.IO;
-using ClosedXML.Excel;
+using System.Linq;
+using System.ServiceModel;
+using System.Web;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -32,25 +33,20 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpGet]
         public PartialViewResult Detalle(ClienteModel cliente)
         {
-            ModelState.Clear();
-
-            using (var sv = new ClienteServiceClient())
+            if (cliente.ClienteID != 0)
             {
-                var clienteService = sv.SelectByConsultoraByCodigo(userData.PaisID, userData.ConsultoraID, cliente.ClienteID, 0);
-
-                cliente = new ClienteModel()
+                try
                 {
-                    ClienteID = clienteService.ClienteID,
-                    CodigoCliente = clienteService.CodigoCliente,
-                    Nombre = clienteService.Nombre,
-                    NombreCliente = clienteService.NombreCliente,
-                    ApellidoCliente = clienteService.ApellidoCliente,
-                    Celular = clienteService.Celular,
-                    Telefono = clienteService.Telefono,
-                    eMail = clienteService.eMail,
-                };
+                    ModelState.Clear();
+                    using (var sv = new ClienteServiceClient())
+                    {
+                        var clienteService = sv.SelectByConsultoraByCodigo(userData.PaisID, userData.ConsultoraID, cliente.ClienteID, 0);
+                        cliente = Mapper.Map<ClienteModel>(clienteService);
+                    }
+                }
+                catch (FaultException ex) { LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO); }
+                catch (Exception ex) { LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO); }
             }
-
             return PartialView(cliente);
         }
 
@@ -90,7 +86,7 @@ namespace Portal.Consultoras.Web.Controllers
                     contactos.Add(new BEClienteContactoDB()
                     {
                         ClienteID = model.ClienteID,
-                        Estado =  Constantes.ClienteEstado.Activo,
+                        Estado = Constantes.ClienteEstado.Activo,
                         TipoContactoID = Constantes.ClienteTipoContacto.Correo,
                         Valor = model.eMail
                     });
@@ -397,7 +393,7 @@ namespace Portal.Consultoras.Web.Controllers
                 };
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
-            return RedirectToAction("Index","Bienvenida");
+            return RedirectToAction("Index", "Bienvenida");
         }
 
         public JsonResult Eliminar(int ClienteID)
@@ -519,7 +515,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #endregion
-        
+
         public JsonResult ObtenerTodosClientes()
         {
             try
@@ -549,8 +545,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult ExportarExcelMisClientes()
         {
-            decimal cargo = 0;
-            decimal abono = 0;
             List<BECliente> lst;
             using (ClienteServiceClient sv = new ClienteServiceClient())
             {
@@ -655,12 +649,12 @@ namespace Portal.Consultoras.Web.Controllers
                                 ws.Cell(row, col).Style.NumberFormat.Format = "@";
                                 ws.Cell(row, col).Value = arr[0] + source.eMail;
                                 ws.Cell(row, col).Style.Fill.BackgroundColor = XLColor.FromHtml("#F0F6F8");
-                            }                            
+                            }
                             col++;
                         }
                         row++;
                         i++;
-                    }                    
+                    }
                     row++;
                     index = keyvalue.Key;
                     SourceDetails.RemoveRange(0, index);

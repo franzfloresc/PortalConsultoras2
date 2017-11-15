@@ -1,27 +1,27 @@
 ﻿@model Portal.Consultoras.Web.Models.MisDatosModel
 
 @{
-Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
 }
 
 @*<div class="content_slider_home">
-    <div id="sliderHomeLoading" class="center">
-        <br />
-        <img src="@Url.Content("~/Content/Images/Loading.gif")" /> Cargando...
-        <br />
-    </div>
-    <div class="flexslider">
-        <ul class="slides"></ul>
-    </div>
-</div>*@
+        <div id="sliderHomeLoading" class="center">
+            <br />
+            <img src="@Url.Content("~/Content/Images/Loading.gif")" /> Cargando...
+            <br />
+        </div>
+        <div class="flexslider">
+            <ul class="slides"></ul>
+        </div>
+    </div>*@
 
 <div class="wrapper_resumen_mobile wrapper_actualizarMisDatos">
 
     <h1 class="titulo_actualizarMisDatos titulo_misDatos">MIS&nbsp;<b>DATOS</b></h1>
-            <input type="hidden" id="hdn_CorreoMD" value="@Model.EMail" />
-            <input type="hidden" id="hdn_CodigoUsuarioMD" value="@Model.CodigoUsuario" />
-            <input type="hidden" id="hdn_NombreCompletoMD" value="@Model.NombreCompleto" /> 
-            <input type="hidden" id="hdn_CaracterMinimo" value="@ViewBag.limiteMinimoTelef" />
+    <input type="hidden" id="hdn_CorreoMD" value="@Model.EMail" />
+    <input type="hidden" id="hdn_CodigoUsuarioMD" value="@Model.CodigoUsuario" />
+    <input type="hidden" id="hdn_NombreCompletoMD" value="@Model.NombreCompleto" />
+    <input type="hidden" id="hdn_CaracterMinimo" value="@ViewBag.limiteMinimoTelef" />
 
     <form class="formulario_actualizar_datos">
         <div class="datos_consultora">
@@ -54,12 +54,12 @@ Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
                 <label>@ViewBag.DatosIniciales.TextoSobrenombre</label>
                 @if (ViewBag.PaisID == 4)
             {
-                    <input type="text" disabled="disabled" readonly name="txtSobrenombre" id="txtSobrenombreMD" value="@Model.Sobrenombre" />
-            }
-            else
-            {
-                    <input type="text" name="txtSobrenombre" id="txtSobrenombreMD" value="@Model.Sobrenombre"/>
-            }
+                <input type="text" disabled="disabled" readonly name="txtSobrenombre" id="txtSobrenombreMD" value="@Model.Sobrenombre" />
+                }
+                else
+                {
+                <input type="text" name="txtSobrenombre" id="txtSobrenombreMD" value="@Model.Sobrenombre" />
+                }
             </div>
             <div>
                 <label>
@@ -68,135 +68,135 @@ Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
         </label>
         @if (ViewBag.PaisId == 4)
         {
-            <input type="text" disabled="disabled" readonly name="txtEMailMD" id="txtEMailMD" value="@Model.EMail" onkeydown="return limitarMaximo(event,this.value,100,'txtEMailMD')" />
+                <input type="text" disabled="disabled" readonly name="txtEMailMD" id="txtEMailMD" value="@Model.EMail" onkeydown="return limitarMaximo(event,this.value,100,'txtEMailMD')" />
         }
         else
         {
-            <input type="text" name="txtEMailMD" id="txtEMailMD" value="@Model.EMail" onkeydown="return limitarMaximo(event,this.value,100,'txtEMailMD')" />
+                <input type="text" name="txtEMailMD" id="txtEMailMD" value="@Model.EMail" onkeydown="return limitarMaximo(event,this.value,100,'txtEMailMD')" />
         }
     </div>
 </div>
-        <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
-            <div>
-                <label>
-                    @if (ViewBag.PaisID != 4)
-                    {<span class="asterisco_actualizar_datos">(*)&nbsp;</span>}@ViewBag.DatosIniciales.TextoTelefono
-                </label>
-                @if (ViewBag.PaisID == 4)
-                {
-                    <input type="text" disabled="disabled" readonly name="txtTelefonoMD" id="txtTelefonoMD" value="@Model.Telefono" onkeydown="return limitarMaximo(event,this.value,@ViewBag.limiteMaximoTelef,'txtTelefonoMD')" />
-                }
-                else
-                {
-                    <input type="text" name="txtTelefonoMD" id="txtTelefonoMD" value="@Model.Telefono" onkeydown="return limitarMaximo(event,this.value,@ViewBag.limiteMaximoTelef,'txtTelefonoMD')" />
-                }
+<div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
+    <div>
+        <label>
+            @if (ViewBag.PaisID != 4)
+            {<span class="asterisco_actualizar_datos">(*)&nbsp;</span>}@ViewBag.DatosIniciales.TextoTelefono
+        </label>
+        @if (ViewBag.PaisID == 4)
+        {
+        <input type="text" disabled="disabled" readonly name="txtTelefonoMD" id="txtTelefonoMD" value="@Model.Telefono" onkeydown="return limitarMaximo(event,this.value,@ViewBag.limiteMaximoTelef,'txtTelefonoMD')" />
+        }
+        else
+        {
+        <input type="text" name="txtTelefonoMD" id="txtTelefonoMD" value="@Model.Telefono" onkeydown="return limitarMaximo(event,this.value,@ViewBag.limiteMaximoTelef,'txtTelefonoMD')" />
+        }
 
-            </div>
-            <div>
-                <label>
-                    @if (ViewBag.PaisID != 4)
-                {<span class="asterisco_actualizar_datos">(*)&nbsp;</span>}@ViewBag.DatosIniciales.TextoCelular
-            </label>
+    </div>
+    <div>
+        <label>
+            @if (ViewBag.PaisID != 4)
+            {<span class="asterisco_actualizar_datos">(*)&nbsp;</span>}@ViewBag.DatosIniciales.TextoCelular
+        </label>
+        @if (ViewBag.PaisId == 4)
+            {
+        <input type="text" disabled="disabled" readonly name="txtCelularMD" id="txtCelularMD" value="@Model.Celular" onkeydown="return limitarMaximo(event,this.value,@ViewBag.limiteMaximoTelef,'txtCelularMD')" />
+        }
+        else
+        {
+        <input type="text" name="txtCelularMD" id="txtCelularMD" value="@Model.Celular" onkeydown="return limitarMaximo(event,this.value,@ViewBag.limiteMaximoTelef,'txtCelularMD')" />
+        }
+
+    </div>
+</div>
+<div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
+    <div>
+        <label>Otro teléfono:</label>
+        @if (ViewBag.PaisId == 4)
+        {
+        <input type="text" disabled="disabled" readonly name="txtTelefonoTrabajoMD" id="txtTelefonoTrabajoMD" value="@Model.TelefonoTrabajo" onkeydown="return limitarMaximo(event,this.value,@ViewBag.limiteMaximoTelef,'txtTelefonoTrabajoMD')" />
+        }
+        else
+        {
+        <input type="text" name="txtTelefonoTrabajoMD" id="txtTelefonoTrabajoMD" value="@Model.TelefonoTrabajo" onkeydown="return limitarMaximo(event,this.value,@ViewBag.limiteMaximoTelef,'txtTelefonoTrabajoMD')" />
+        }
+    </div>
+</div>
+<div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
+    <div class="checkbox_condiciones">
+        <input type="checkbox" name="condiciones" id="chkAceptoContratoMD" />
+        <label for="chkAceptoContratoMD" class="texto_terminosCondiciones">
             @if (ViewBag.PaisId == 4)
             {
-                <input type="text" disabled="disabled" readonly name="txtCelularMD" id="txtCelularMD" value="@Model.Celular" onkeydown="return limitarMaximo(event,this.value,@ViewBag.limiteMaximoTelef,'txtCelularMD')" />
+            <span class="asterisco_actualizar_datos">(*)&nbsp;</span><span>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminosMD">términos y condiciones</a></span> sobre Protección de  Datos Personales y recepción de la factura a través de medios electrónicos, y que me encuentro de acuerdo con los mismos.</span>
             }
             else
             {
-                <input type="text" name="txtCelularMD" id="txtCelularMD" value="@Model.Celular" onkeydown="return limitarMaximo(event,this.value,@ViewBag.limiteMaximoTelef,'txtCelularMD')" />
+            <span class="asterisco_actualizar_datos">(*)&nbsp;</span><span>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminosMD">términos y condiciones</a></span> sobre Protección de  Datos Personales y que me encuentro de acuerdo con los mismos.</span>
             }
-
-        </div>
-        </div>
-        <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
-            <div>
-                <label>Otro teléfono:</label>
-                @if (ViewBag.PaisId == 4)
-                    {
-                    <input type="text" disabled="disabled" readonly name="txtTelefonoTrabajoMD" id="txtTelefonoTrabajoMD" value="@Model.TelefonoTrabajo" onkeydown="return limitarMaximo(event,this.value,@ViewBag.limiteMaximoTelef,'txtTelefonoTrabajoMD')" />
-                    }
-                    else
-                    {
-                    <input type="text" name="txtTelefonoTrabajoMD" id="txtTelefonoTrabajoMD" value="@Model.TelefonoTrabajo" onkeydown="return limitarMaximo(event,this.value,@ViewBag.limiteMaximoTelef,'txtTelefonoTrabajoMD')" />
-                    }
-            </div>
-        </div>
-        <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
-            <div class="checkbox_condiciones">
-                <input type="checkbox" name="condiciones" id="chkAceptoContratoMD" />
-                <label for="chkAceptoContratoMD" class="texto_terminosCondiciones">
-                    @if (ViewBag.PaisId == 4)
-                        {
-                        <span class="asterisco_actualizar_datos">(*)&nbsp;</span><span>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminosMD">términos y condiciones</a></span> sobre Protección de  Datos Personales y recepción de la factura a través de medios electrónicos, y que me encuentro de acuerdo con los mismos.</span>
-                        }
-                        else
-                        {
-                        <span class="asterisco_actualizar_datos">(*)&nbsp;</span><span>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminosMD">términos y condiciones</a></span> sobre Protección de  Datos Personales y que me encuentro de acuerdo con los mismos.</span>
-                        }
-                </label>
-            </div>
-        </div>
-        <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
-            @if (ViewBag.PaisId == 4)
+        </label>
+    </div>
+</div>
+<div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
+    @if (ViewBag.PaisId == 4)
             {
-                <div class="datos_obligatorios">
-                    Modifica tus datos comunicándote al 5948060 en Bogotá y 018000937452 a nivel nacional.
-                </div>
-                <div class="contenedor_boton_actualizar">
-                    <button type="button" name="btn_actualizarMisDatos" class="btn_actualizarMisDatos" id="btnActualizarMD">
-                        ACEPTAR
-                    </button>
-                </div>
-            }
-            else
-            {
-                <div class="datos_obligatorios">
-                    <span class="asterisco_actualizar_datos">(*)&nbsp;</span>Datos obligatorios
-                </div>
-                <div class="contenedor_boton_actualizar">
-                    <button type="button" name="btn_actualizarMisDatos" class="btn_actualizarMisDatos" id="btnActualizarMD">
-                        ACTUALIZAR
-                    </button>
-                </div>
-            }
+    <div class="datos_obligatorios">
+        Modifica tus datos comunicándote al 5948060 en Bogotá y 018000937452 a nivel nacional.
+    </div>
+    <div class="contenedor_boton_actualizar">
+        <button type="button" name="btn_actualizarMisDatos" class="btn_actualizarMisDatos" id="btnActualizarMD">
+            ACEPTAR
+        </button>
+    </div>
+    }
+    else
+    {
+    <div class="datos_obligatorios">
+        <span class="asterisco_actualizar_datos">(*)&nbsp;</span>Datos obligatorios
+    </div>
+    <div class="contenedor_boton_actualizar">
+        <button type="button" name="btn_actualizarMisDatos" class="btn_actualizarMisDatos" id="btnActualizarMD">
+            ACTUALIZAR
+        </button>
+    </div>
+    }
 
-        </div>
-        <div class="grupo_input_actualizarMisDatos campos_cambiarContrasenia">
-            <div>
-                <label>Tu contraseña</label>
-                <input type="password" name="txtContraseniaAnterior" id="txtContraseniaAnterior" />
-            </div>
-        </div>
-        <div class="grupo_input_actualizarMisDatos campos_cambiarContrasenia">
-            <div>
-                <label>Nueva contraseña</label>
-                <input type="password" name="txtNuevaContrasenia01" id="txtNuevaContrasenia01" />
-            </div>
-            <div>
-                <label>Repite la nueva contraseña</label>
-                <input type="password" name="txtNuevaContrasenia02" id="txtNuevaContrasenia02" />
-            </div>
-        </div>
-        <div class="grupo_input_actualizarMisDatos campos_cambiarContrasenia">
-            <div class="contenedor_boton_actualizar misDatos">
-                <button type="button" name="btn_actualizarMisDatos" class="btn_actualizarMisDatos" id="btnCambiarContrasenaMD">
-                    GUARDAR
-                </button>
-            </div>
-            <div class="contenedor_boton_cancelar misDatos">
-                <button type="button" name="btn_cancelar" class="btn_cancelar" id="btnCancelarMD">
-                    CANCELAR
-                </button>
-            </div>
-        </div>
-    </form>
+</div>
+<div class="grupo_input_actualizarMisDatos campos_cambiarContrasenia">
+    <div>
+        <label>Tu contraseña</label>
+        <input type="password" name="txtContraseniaAnterior" id="txtContraseniaAnterior" />
+    </div>
+</div>
+<div class="grupo_input_actualizarMisDatos campos_cambiarContrasenia">
+    <div>
+        <label>Nueva contraseña</label>
+        <input type="password" name="txtNuevaContrasenia01" id="txtNuevaContrasenia01" />
+    </div>
+    <div>
+        <label>Repite la nueva contraseña</label>
+        <input type="password" name="txtNuevaContrasenia02" id="txtNuevaContrasenia02" />
+    </div>
+</div>
+<div class="grupo_input_actualizarMisDatos campos_cambiarContrasenia">
+    <div class="contenedor_boton_actualizar misDatos">
+        <button type="button" name="btn_actualizarMisDatos" class="btn_actualizarMisDatos" id="btnCambiarContrasenaMD">
+            GUARDAR
+        </button>
+    </div>
+    <div class="contenedor_boton_cancelar misDatos">
+        <button type="button" name="btn_cancelar" class="btn_cancelar" id="btnCancelarMD">
+            CANCELAR
+        </button>
+    </div>
+</div>
+</form>
 
 </div>
 
 @section scripts
-{
+    {
     <script type="text/javascript">
-
+        var VC_Datos = '@ViewBag.VC_Datos'
         $(".misDatosContraseniaEnlace").click(function () {
             if ($(".campos_cambiarContrasenia").is(":visible")) {
                 $(".campos_cambiarContrasenia").fadeOut(200);
@@ -219,107 +219,117 @@ Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
 
         $("#btnActualizarMD").click(ActualizarMD);
 
-    function ActualizarMD() {
-        ShowLoading();
-        var viewBagPaisID = '@ViewBag.PaisID';
+        function ActualizarMD() {
 
-        if (!$('#chkAceptoContratoMD').is(':checked')) {
-		    AbrirMensaje("Debe aceptar los términos y condiciones para poder actualizar sus datos.");  
-            return false;
-        }
-        if (viewBagPaisID != 4) {
-            if (jQuery.trim($('#txtEMailMD').val()) == "") {
-                $('#txtEMailMD').focus(); 
-			      AbrirMensaje("Debe ingresar EMail.\n");
+            ShowLoading();
+            var viewBagPaisID = '@ViewBag.PaisID';
+
+            if (!$('#chkAceptoContratoMD').is(':checked')) {
+                AbrirMensaje("Debe aceptar los términos y condiciones para poder actualizar sus datos.");
                 return false;
             }
+            if (viewBagPaisID != 4) {
+                if (jQuery.trim($('#txtEMailMD').val()) == "") {
+                    $('#txtEMailMD').focus();
+                    AbrirMensaje("Debe ingresar EMail.\n");
+                    return false;
+                }
 
-            if (!validateEmail(jQuery.trim($('#txtEMailMD').val()))) {
-                $('#txtEMailMD').focus();
-			     AbrirMensaje("El formato del correo electrónico ingresado no es correcto.\n"); 
-                return false;
-            }
+                if (!validateEmail(jQuery.trim($('#txtEMailMD').val()))) {
+                    $('#txtEMailMD').focus();
+                    AbrirMensaje("El formato del correo electrónico ingresado no es correcto.\n");
+                    return false;
+                }
 
-            if (($('#txtTelefonoMD').val() == null || $.trim($('#txtTelefonoMD').val()) == "") &&
+                if (($('#txtTelefonoMD').val() == null || $.trim($('#txtTelefonoMD').val()) == "") &&
                     ($('#txtCelularMD').val() == null || $.trim($('#txtCelularMD').val()) == "")) {
-                $('#txtTelefonoMD').focus();
-			    AbrirMensaje("Debe ingresar al menos un número de contacto: celular o teléfono."); 
-                return false;
-            }
-
-            if (jQuery.trim($('#txtCelularMD').val()) != "") { 
-                if (!ValidarTelefono($("#txtCelularMD").val())) {
-			    AbrirMensaje("El número telefónico ya se encuentra registrado.");  
+                    $('#txtTelefonoMD').focus();
+                    AbrirMensaje("Debe ingresar al menos un número de contacto: celular o teléfono.");
                     return false;
                 }
-            }
 
-            //Validando cantidad de caracteres minimos.
-            var MinCaracterCelular = limitarMinimo($('#txtCelularMD').val(), $("#hdn_CaracterMinimo").val(), 2);
-            if (!MinCaracterCelular) {
-                $('#txtCelularMD').focus();
-			    AbrirMensaje("El número telefónico ya se encuentra registrado.");  
-                return false;
-            }
+                if (jQuery.trim($('#txtCelularMD').val()) != "") {
+                    if (!ValidarTelefono($("#txtCelularMD").val())) {
+                        AbrirMensaje("El número telefónico ya se encuentra registrado.");
+                        return false;
+                    }
+                }
 
-            /*
-            if (viewBagPaisID == 4) {//Validacion solo para Colombia, numero de celular debe empezar con 3.
-                if ($('#txtCelularMD').val().substr(0, 1) != "3") { 
-				    AbrirMensaje("Número de celular tiene formato incorrecto.");  
+                //Validando cantidad de caracteres minimos.
+                var MinCaracterCelular = limitarMinimo($('#txtCelularMD').val(), $("#hdn_CaracterMinimo").val(), 2);
+                if (!MinCaracterCelular) {
                     $('#txtCelularMD').focus();
+                    AbrirMensaje("El número telefónico ya se encuentra registrado.");
                     return false;
                 }
-            }
-            */
 
-            if ($("#txtTelefonoTrabajoMD").val().trim() != "") {
-                var MinCaracterOtroTelefono = limitarMinimo($('#txtTelefonoTrabajoMD').val(), $("#hdn_CaracterMinimo").val(), 3);
-                if (!MinCaracterOtroTelefono) {
-                    return false;
+                /*
+                if (viewBagPaisID == 4) {//Validacion solo para Colombia, numero de celular debe empezar con 3.
+                    if ($('#txtCelularMD').val().substr(0, 1) != "3") {
+                        AbrirMensaje("Número de celular tiene formato incorrecto.");
+                        $('#txtCelularMD').focus();
+                        return false;
+                    }
+                }
+                */
+
+                if ($("#txtTelefonoTrabajoMD").val().trim() != "") {
+                    var MinCaracterOtroTelefono = limitarMinimo($('#txtTelefonoTrabajoMD').val(), $("#hdn_CaracterMinimo").val(), 3);
+                    if (!MinCaracterOtroTelefono) {
+                        return false;
+                    }
                 }
             }
-        } 
 
-        var item = {
-            CodigoUsuario: jQuery('#hdn_CodigoUsuarioMD').val(),
-            EMail: $.trim(jQuery('#txtEMailMD').val()),
+            var item = {
+                CodigoUsuario: jQuery('#hdn_CodigoUsuarioMD').val(),
+                EMail: $.trim(jQuery('#txtEMailMD').val()),
             Telefono: $.trim(jQuery('#txtTelefonoMD').val()),
             TelefonoTrabajo: $.trim(jQuery('#txtTelefonoTrabajoMD').val()),
             Celular: $.trim(jQuery('#txtCelularMD').val()),
             Sobrenombre: $.trim(jQuery('#txtSobrenombreMD').val()),
-            CorreoAnterior: $.trim(jQuery('#hdn_CorreoMD').val()),
-            NombreCompleto: jQuery('#hdn_NombreCompletoMD').val(),
-            CompartirDatos: false,
-            AceptoContrato: $('#chkAceptoContratoMD').is(':checked')
-        };
-
-        if (viewBagPaisID != 4) {
-	        ShowLoading();
-            jQuery.ajax({
-                type: 'POST',
-                url: '@Url.Action("ActualizarDatos", "MisDatos", new { area = "Mobile" })',
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(item),
-                async: true,
-                success: function (data) {
-                    if (checkTimeout(data)) {
-                        CloseLoading(); 
-                        AbrirMensaje(data.message, null, function () {
-                            ShowLoading();
-                            location.href = '@Url.Action("Index", "Bienvenida", new { area = "Mobile" })';
-                        });
+                CorreoAnterior: $.trim(jQuery('#hdn_CorreoMD').val()),
+                NombreCompleto: jQuery('#hdn_NombreCompletoMD').val(),
+                CompartirDatos: false,
+                AceptoContrato: $('#chkAceptoContratoMD').is(':checked')
+            };
+            
+            if (VC_Datos) {
+                dataLayer.push({
+                    'event': 'virtualEvent',
+                    'category': 'Coach Virtual',
+                    'action': 'Banner Actualizar Datos',
+                    'label': 'Click botón Actualizar'
+                });
+                VC_Datos = false;
+            }
+            if (viewBagPaisID != 4) {
+                ShowLoading();
+                jQuery.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("ActualizarDatos", "MisDatos", new { area = "Mobile" })',
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(item),
+                    async: true,
+                    success: function (data) {
+                        if (checkTimeout(data)) {
+                            CloseLoading();
+                            AbrirMensaje(data.message, null, function () {
+                                ShowLoading();
+                                location.href = '@Url.Action("Index", "Bienvenida", new { area = "Mobile" })';
+                            });
+                        }
+                    },
+                    error: function (data, error) {
+                        if (checkTimeout(data)) {
+                            CloseLoading();
+                            AbrirMensaje("ERROR");
+                        }
                     }
-                },
-                error: function (data, error) {
-                    if (checkTimeout(data)) {
-                        CloseLoading();
-                        AbrirMensaje("ERROR");   
-                    }
-                }
-            });
-        }  
-    }
+                });
+            }
+        }
 
        $("#txtTelefono, #txtTelefonoMD").keypress(function (evt) {
         var charCode = (evt.which) ? evt.which : window.event.keyCode;
@@ -344,7 +354,7 @@ Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
         }
     });
     $("#txtCelular, #txtCelularMD").keypress(function (evt) {
-        var charCode = (evt.which) ? evt.which : window.event.keyCode; 
+        var charCode = (evt.which) ? evt.which : window.event.keyCode;
         if (charCode <= 13) {
             return false;
         }
@@ -377,7 +387,7 @@ Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
             return re.test(keyChar);
         }
     });
-	 
+
 	function limitarMaximo(e, contenido, caracteres, id) {
 		var unicode = e.keyCode ? e.keyCode : e.charCode;
 		if (unicode == 8 || unicode == 46 || unicode == 13 || unicode == 9 || unicode == 37 ||
@@ -397,7 +407,7 @@ Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
 		}
 		return true;
 	}
- 
+
 function ValidarTelefono(celular) {
     var resultado = false;
 	ShowLoading();;
@@ -406,7 +416,7 @@ function ValidarTelefono(celular) {
     };
 
     jQuery.ajax({
-        type: 'POST', 
+        type: 'POST',
 		url: '@Url.Action("ValidadTelefonoConsultora", "MisDatos", new { area = "Mobile" })',
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
@@ -431,7 +441,7 @@ function ValidarTelefono(celular) {
 function limitarMinimo(contenido, caracteres, a) {
     if (contenido.length < caracteres && contenido.trim() != "")
     {
-        var texto = a == 1 ? "teléfono" : a == 2 ? "celular" : "otro teléfono"; 
+        var texto = a == 1 ? "teléfono" : a == 2 ? "celular" : "otro teléfono";
 		AbrirMensaje('El número de ' + texto + ' debe tener como mínimo ' + caracteres + ' números.');
         return false;
     }
@@ -443,85 +453,85 @@ function ValidateOnlyNums(id) {
 
 $("#btnCambiarContrasenaMD").click(function () { CambiarContrasenia(); });
 
- 
-function CambiarContrasenia() {
-    var oldPassword = $("#txtContraseniaAnterior").val();
-    var newPassword01 = $("#txtNuevaContrasenia01").val();
-    var newPassword02 = $("#txtNuevaContrasenia02").val();
-    var vMessage = "";
-	ShowLoading();;
-    if (oldPassword == "")
-        vMessage += "- Debe ingresar la Contraseña Anterior.\n";
 
-    if (newPassword01 == "")
-        vMessage += "- Debe ingresar la Nueva Contraseña.\n";
+        function CambiarContrasenia() {
+            var oldPassword = $("#txtContraseniaAnterior").val();
+            var newPassword01 = $("#txtNuevaContrasenia01").val();
+            var newPassword02 = $("#txtNuevaContrasenia02").val();
+            var vMessage = "";
+            ShowLoading();;
+            if (oldPassword == "")
+                vMessage += "- Debe ingresar la Contraseña Anterior.\n";
 
-    if (newPassword02 == "")
-        vMessage += "- Debe repetir la Nueva Contraseña.\n";
+            if (newPassword01 == "")
+                vMessage += "- Debe ingresar la Nueva Contraseña.\n";
 
-    if (newPassword01.length <= 3)
-        vMessage += "- La Nueva Contraseña debe de tener mas de 6 caracteres.\n";
+            if (newPassword02 == "")
+                vMessage += "- Debe repetir la Nueva Contraseña.\n";
 
-    if (newPassword01 != "" && newPassword02 != "") {
-        if (newPassword01 != newPassword02)
-            vMessage += "- Los campos de la nueva contraseña deben ser iguales, verifique.\n";
-    }
+            if (newPassword01.length <= 3)
+                vMessage += "- La Nueva Contraseña debe de tener mas de 6 caracteres.\n";
 
-    if (vMessage != "") {
-	    AbrirMensaje(vMessage);  
-        return false;
-    } else {
-
-        var item = {
-            OldPassword: oldPassword,
-            NewPassword: newPassword01
-        };
-
-        ShowLoading();;
-        jQuery.ajax({
-            type: 'POST', 
-			url: '@Url.Action("CambiarContrasenia", "MisDatos", new { area = "Mobile" })',
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(item),
-            async: true,
-            success: function (data) {
-                if (checkTimeout(data)) {
-                    CloseLoading();
-                    if (data.success == true) {
-                        if (data.message == "0") {
-                            $("#txtContraseniaAnterior").val('');
-                            $("#txtNuevaContrasenia01").val('');
-                            $("#txtNuevaContrasenia02").val(''); 
-							AbrirMensaje("La contraseña anterior ingresada es inválida");  
-                        } else if (data.message == "1") {
-                            $("#txtContraseniaAnterior").val('');
-                            $("#txtNuevaContrasenia01").val('');
-                            $("#txtNuevaContrasenia02").val(''); 
-							AbrirMensaje("Hubo un error al intentar cambiar la contraseña, por favor intente nuevamente.");   
-                        } else if (data.message == "2") {
-                            $("#txtContraseniaAnterior").val('');
-                            $("#txtNuevaContrasenia01").val('');
-                            $("#txtNuevaContrasenia02").val('');
-                            $(".campos_cambiarContrasenia").fadeOut(200);
-                            $(".popup_actualizarMisDatos").removeClass("incremento_altura_misDatos");
-                            $(".campos_actualizarDatos").delay(200);
-                            $(".campos_actualizarDatos").fadeIn(200);
-							 AbrirMensaje("Se cambió satisfactoriamente la contraseña.");    
-                        }
-                        return false;
-                    }
-                }
-            },
-            error: function (data, error) {
-                if (checkTimeout(data)) {
-                    CloseLoading();
-                    AbrirMensaje("Error en el Cambio de Contraseña");
-                }
+            if (newPassword01 != "" && newPassword02 != "") {
+                if (newPassword01 != newPassword02)
+                    vMessage += "- Los campos de la nueva contraseña deben ser iguales, verifique.\n";
             }
-        });
-    }
-} 
- </script> 
- 
+
+            if (vMessage != "") {
+                AbrirMensaje(vMessage);
+                return false;
+            } else {
+
+                var item = {
+                    OldPassword: oldPassword,
+                    NewPassword: newPassword01
+                };
+
+                ShowLoading();;
+                jQuery.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("CambiarContrasenia", "MisDatos", new { area = "Mobile" })',
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(item),
+                    async: true,
+                    success: function (data) {
+                        if (checkTimeout(data)) {
+                            CloseLoading();
+                            if (data.success == true) {
+                                if (data.message == "0") {
+                                    $("#txtContraseniaAnterior").val('');
+                                    $("#txtNuevaContrasenia01").val('');
+                                    $("#txtNuevaContrasenia02").val('');
+                                    AbrirMensaje("La contraseña anterior ingresada es inválida");
+                                } else if (data.message == "1") {
+                                    $("#txtContraseniaAnterior").val('');
+                                    $("#txtNuevaContrasenia01").val('');
+                                    $("#txtNuevaContrasenia02").val('');
+                                    AbrirMensaje("Hubo un error al intentar cambiar la contraseña, por favor intente nuevamente.");
+                                } else if (data.message == "2") {
+                                    $("#txtContraseniaAnterior").val('');
+                                    $("#txtNuevaContrasenia01").val('');
+                                    $("#txtNuevaContrasenia02").val('');
+                                    $(".campos_cambiarContrasenia").fadeOut(200);
+                                    $(".popup_actualizarMisDatos").removeClass("incremento_altura_misDatos");
+                                    $(".campos_actualizarDatos").delay(200);
+                                    $(".campos_actualizarDatos").fadeIn(200);
+                                    AbrirMensaje("Se cambió satisfactoriamente la contraseña.");
+                                }
+                                return false;
+                            }
+                        }
+                    },
+                    error: function (data, error) {
+                        if (checkTimeout(data)) {
+                            CloseLoading();
+                            AbrirMensaje("Error en el Cambio de Contraseña");
+                        }
+                    }
+                });
+            }
+        }
+    </script>
+
 }

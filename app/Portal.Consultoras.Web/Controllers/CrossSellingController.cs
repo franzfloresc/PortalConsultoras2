@@ -1,16 +1,13 @@
-﻿using System;
+﻿using AutoMapper;
+using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServiceZonificacion;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
-using Portal.Consultoras.Web.Models;
 using System.ServiceModel;
-using Portal.Consultoras.Web.ServiceZonificacion;
-using Portal.Consultoras.Web.ServicePedido;
-using AutoMapper;
-using Portal.Consultoras.Common;
-using System.IO;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -153,7 +150,7 @@ namespace Portal.Consultoras.Web.Controllers
                            select new
                            {
                                id = a.CampaniaID,
-                               cell = new string[] 
+                               cell = new string[]
                                {
                                    a.Pais,
                                    a.CampaniaID.ToString(),
@@ -247,7 +244,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 // 1664
                 var carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
-                if(lst != null)
+                if (lst != null)
                     if (lst.Count > 0) // 1664
                         lst.Update(x => x.ImagenProducto = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.RutaImagenesMatriz + "/" + UserData().CodigoISO));
 
@@ -317,7 +314,7 @@ namespace Portal.Consultoras.Web.Controllers
                            select new
                            {
                                id = a.NroOrden,
-                               cell = new string[] 
+                               cell = new string[]
                                {
                                    a.CodigoProducto,
                                    a.CodigoCampania.ToString(),
@@ -670,7 +667,7 @@ namespace Portal.Consultoras.Web.Controllers
                                select new
                                {
                                    id = a.NroOrden,
-                                   cell = new string[] 
+                                   cell = new string[]
                                {
                                    a.CodigoCampania.ToString(),
                                    a.CUV.ToString(),
@@ -754,7 +751,7 @@ namespace Portal.Consultoras.Web.Controllers
                                    select new
                                    {
                                        id = a.NroOrden,
-                                       cell = new string[] 
+                                       cell = new string[]
                                {
                                    CampaniaID.ToString(),
                                    a.CodigoSegmento.ToString(),
@@ -765,7 +762,7 @@ namespace Portal.Consultoras.Web.Controllers
                         };
                         return Json(data, JsonRequestBehavior.AllowGet);
 
-                    #endregion
+                        #endregion
                     }
                 }
 
@@ -787,7 +784,7 @@ namespace Portal.Consultoras.Web.Controllers
                     .ForMember(t => t.CUVAsociado, f => f.MapFrom(c => c.CUVAsociado))
                     .ForMember(t => t.CUVAsociado2, f => f.MapFrom(c => c.CUVAsociado2))
                     .ForMember(t => t.CodigoSegmento, f => f.MapFrom(c => c.CodigoSegmento))
-					.ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
+                    .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
                     .ForMember(t => t.EtiquetaPrecio, f => f.MapFrom(c => c.EtiquetaPrecio));//1673CC
 
                 BECrossSellingAsociacion entidad = Mapper.Map<CrossSellingAsociacionModel, BECrossSellingAsociacion>(model);
@@ -837,7 +834,7 @@ namespace Portal.Consultoras.Web.Controllers
                     .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
                     .ForMember(t => t.CUVAsociado, f => f.MapFrom(c => c.CUVAsociado))
                     .ForMember(t => t.CUVAsociado2, f => f.MapFrom(c => c.CUVAsociado2))
-					.ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
+                    .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
                     .ForMember(t => t.EtiquetaPrecio, f => f.MapFrom(c => c.EtiquetaPrecio));//1673CC
 
                 BECrossSellingAsociacion entidad = Mapper.Map<CrossSellingAsociacionModel, BECrossSellingAsociacion>(model);
@@ -934,7 +931,7 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-		public ActionResult ObtenerCUVAsociado_Perfil(string sidx, string sord, int page, int rows,
+        public ActionResult ObtenerCUVAsociado_Perfil(string sidx, string sord, int page, int rows,
         int CampaniaID, string CodigoSegmento, string CrossSellingAsociacionID)
         {
             if (ModelState.IsValid)
@@ -1011,13 +1008,13 @@ namespace Portal.Consultoras.Web.Controllers
                            select new
                            {
                                id = a.NroOrden,
-                               cell = new string[] 
+                               cell = new string[]
                                {
                                    CampaniaID.ToString(),
                                    a.CUV.ToString(),
                                    a.Descripcion.ToString(),
                                    a.EtiquetaPrecio.ToString(),//1673CC                                  
-                                   a.CrossSellingAsociacionID.ToString()                       
+                                   a.CrossSellingAsociacionID.ToString()
                                 }
                            }
                 };

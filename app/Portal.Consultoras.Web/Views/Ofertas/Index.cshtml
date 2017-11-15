@@ -19,7 +19,8 @@
              data-templateProducto="@seccion.TemplateProducto"
              data-tipoPresentacion="@seccion.TipoPresentacion"
              data-tipoEstrategia="@seccion.TipoEstrategia"
-             data-cantidadProductos="@seccion.CantidadProductos"
+             data-cantidadProductos="@seccion.CantidadMostrar"
+             data-OrigenPedidoWeb="@seccion.OrigenPedido"
              id="@seccion.Codigo" 
              class="seccion-estrategia-contenido">
             <div data-seccion-content="" class="seccion-content-contenedor">
@@ -74,6 +75,7 @@
     var tipoOrigenPantalla = 1;
     var TipoOrigenPantallaODD = 111;
     var tipoOrigenEstrategia = 107;
+    var OrigenDesktopODD = 3;
 </script>
 
 @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Ofertas")

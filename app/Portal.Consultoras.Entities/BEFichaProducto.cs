@@ -97,15 +97,13 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string Mensaje { get; set; }
 
-        //R2469 - JICM - Agregando más campos para la Marcación de los Pedidos
         [DataMember]
         public string DescripcionMarca { get; set; }
         [DataMember]
         public string DescripcionCategoria { get; set; }
         [DataMember]
         public string DescripcionEstrategia { get; set; }
-        // FIN 
-        /*R2621 -LR - Se añade la propiedad FlagNueva*/
+
         [DataMember]
         public int FlagNueva { get; set; }
 
@@ -116,7 +114,7 @@ namespace Portal.Consultoras.Entities
         public bool TieneStockProl { get; set; }
 
         [DataMember]
-        public int FlagMostrarImg { get; set; }      // SB2-353     
+        public int FlagMostrarImg { get; set; }
 
         [DataMember]
         public int OfertaUltimoMinuto { get; set; }
@@ -141,10 +139,6 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public BETipoEstrategia TipoEstrategia { get; set; }
 
-
-        /// <summary>
-        /// Url para compartir
-        /// </summary>
         [DataMember]
         public string URLCompartir { get; set; }
 
@@ -155,15 +149,8 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool ValidarPeriodoFacturacion { get; set; }
 
-        /// <summary>
-        /// [Filtro] del usuario
-        /// </summary>
         [DataMember]
         public double ZonaHoraria { get; set; }
-
-        /// <summary>
-        /// [Filtro] del usuario
-        /// </summary>
 
         [DataMember]
         public int IdMatrizComercial { get; set; }
@@ -364,7 +351,6 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "Mensaje") && row["Mensaje"] != DBNull.Value)
                 Mensaje = row["Mensaje"].ToString();
 
-            //R2469 - JICM - Agregando más campos para la Marcación de los Pedidos
             if (DataRecord.HasColumn(row, "DescripcionMarca") && row["DescripcionMarca"] != DBNull.Value)
                 DescripcionMarca = row["DescripcionMarca"].ToString();
 
@@ -373,8 +359,7 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "DescripcionEstrategia") && row["DescripcionEstrategia"] != DBNull.Value)
                 DescripcionEstrategia = row["DescripcionEstrategia"].ToString();
-            //FIN 
-            /*R2621LR - Flag Nueva*/
+
             if (DataRecord.HasColumn(row, "FlagNueva") && row["FlagNueva"] != DBNull.Value)
                 FlagNueva = Convert.ToInt32(row["FlagNueva"].ToString());
 
@@ -384,7 +369,6 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "TieneStockProl") && row["TieneStockProl"] != DBNull.Value)
                 TieneStockProl = Convert.ToBoolean(row["TieneStockProl"].ToString());
 
-            // SB2-353
             if (DataRecord.HasColumn(row, "FlagMostrarImg") && row["FlagMostrarImg"] != DBNull.Value)
                 FlagMostrarImg = Convert.ToInt32(row["FlagMostrarImg"]);
 
@@ -408,7 +392,7 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "FotoProducto01") && row["FotoProducto01"] != DBNull.Value)
                 FotoProducto01 = row["FotoProducto01"].ToString();
-            
+
             if (DataRecord.HasColumn(row, "ProdComentarioId"))
                 ProdComentarioId = Convert.ToInt32(row["ProdComentarioId"]);
 

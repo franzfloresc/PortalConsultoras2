@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using AutoMapper;
+using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServiceSAC;
+using Portal.Consultoras.Web.ServiceUsuario;
+using Portal.Consultoras.Web.ServiceZonificacion;
+using System;
+using System.Configuration;
 using System.Linq;
 using System.ServiceModel;
-using System.Web;
 using System.Web.Mvc;
-using AutoMapper;
-using Portal.Consultoras.Web.Areas.Mobile.Models;
-using Portal.Consultoras.Web.ServiceCliente;
-using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.ServiceUsuario;
-using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServiceUsuario;
-using System.Configuration;
-using Portal.Consultoras.Web.ServiceZonificacion;
-using Portal.Consultoras.Web.ServiceSAC;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -22,9 +17,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         //
         // GET: /MisDatos/
 
-       
 
-        public ActionResult Index()
+
+        public ActionResult Index(bool vc = false)
         {
             BEUsuario beusuario = new BEUsuario();
             ViewBag.DatosIniciales = new BienvenidaHomeModel();
@@ -62,7 +57,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 ViewBag.limiteMinimoTelef = 0;
                 ViewBag.limiteMaximoTelef = 15;
             }
-             
+
 
             using (UsuarioServiceClient sv = new UsuarioServiceClient())
             {
@@ -115,7 +110,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     }
                 }
             }
-          
+
+            ViewBag.VC_Datos = vc;
             return View(model);
         }
 
@@ -342,9 +338,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
         }
         public JsonResult ValidadTelefonoConsultora(string Telefono)
-        { 
+        {
             try
-            { 
+            {
                 int cantidad = 0;
                 using (UsuarioServiceClient svr = new UsuarioServiceClient())
                 {
@@ -369,6 +365,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
             catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,

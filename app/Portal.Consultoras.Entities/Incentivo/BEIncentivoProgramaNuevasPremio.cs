@@ -1,5 +1,5 @@
-﻿using System.Runtime.Serialization;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities.Incentivo
 {
@@ -24,6 +24,15 @@ namespace Portal.Consultoras.Entities.Incentivo
         [DataMember]
         [Column("PrecioUnitario")]
         public decimal PrecioUnitario { get; set; }
+        [DataMember]
+        [Column("TextoLibre")]
+        public string TextoLibre { get; set; }
+        [DataMember]
+        [Column("Ganancia")]
+        public decimal Ganancia { get; set; }
+        [DataMember]
+        [Column("ImagenURL")]
+        public string ImagenURL { get; set; }
 
         public BEIncentivoProgramaNuevasPremio()
         {

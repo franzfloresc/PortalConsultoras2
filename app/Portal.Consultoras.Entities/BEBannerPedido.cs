@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
+﻿using OpenSource.Library.DataAccess;
 using Portal.Consultoras.Common;
-using OpenSource.Library.DataAccess;
+using System;
+using System.Data;
+using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities
 {
     [DataContract]
     public class BEBannerPedido
     {
-         [DataMember]
+        [DataMember]
         public int BannerPedidoID { set; get; }
         [DataMember]
         public int PaisID { set; get; }
@@ -48,7 +44,7 @@ namespace Portal.Consultoras.Entities
         public string UsuarioModificacion { set; get; }
 
         public BEBannerPedido()
-        {            
+        {
             this.Url = string.Empty;
         }
 

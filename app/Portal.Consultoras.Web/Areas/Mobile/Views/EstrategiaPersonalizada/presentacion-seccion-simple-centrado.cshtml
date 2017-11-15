@@ -1,12 +1,13 @@
 ﻿
 @model Portal.Consultoras.Web.Models.ConfiguracionSeccionHomeModel
 
-@if (@Model.Titulo != "")
-{
-    <div class="titulo" style="text-align: center;">
-        <h2>@Model.Titulo</h2>
-    </div>
-}
-<div class="bc_plantilla_estrategia_personalizada" style="padding: 0 10%;">
+
+<div class="bc_plantilla_estrategia_personalizada" style="padding: 0 10%;" data-plantilla="simple-centrado">
+    @if (@Model.Titulo != "")
+    {
+        <div class="titulo" style="text-align: center;">
+            <h2>@Model.Titulo</h2>
+        </div>
+    }
     <div class="contenido" data-seccion-productos="" ></div>
 </div>

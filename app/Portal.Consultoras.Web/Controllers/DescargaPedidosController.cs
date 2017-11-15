@@ -1,18 +1,15 @@
 ﻿using AutoMapper;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlTypes;
 using System.Linq;
+using System.ServiceModel;
 using System.Web;
 using System.Web.Mvc;
-using System.Threading;
-using System.Threading.Tasks;
-using System.ServiceModel;
-using Portal.Consultoras.Web.ServicePedido;
-using System.Configuration;
-using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -78,7 +75,6 @@ namespace Portal.Consultoras.Web.Controllers
                 string fechaproceso;
                 if (model.TipoCronogramaID == 5)
                 {
-                    int resultado;
                     string isoPais = UserData().CodigoISO;
 
                     using (ServiceSAC.SACServiceClient sv = new ServiceSAC.SACServiceClient())
@@ -421,10 +417,10 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return Json(new
-                  {
-                      success = true,
-                      mensaje = "Se desmarcó correctamente la última descarga."
-                  });
+            {
+                success = true,
+                mensaje = "Se desmarcó correctamente la última descarga."
+            });
         }
         /*EPD-1025*/
         /*EPD1973*/
@@ -440,10 +436,10 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 success = true,
                 descarga = new
-                    {
-                        FechaEnvio = UltimaDescarga.FechaEnvio.ToString(),
-                        FechaProceso = UltimaDescarga.FechaProceso.ToString()
-                    }
+                {
+                    FechaEnvio = UltimaDescarga.FechaEnvio.ToString(),
+                    FechaProceso = UltimaDescarga.FechaProceso.ToString()
+                }
             });
         }
     }

@@ -1,27 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using AutoMapper;
-using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceSAC;
-using PE = Portal.Consultoras.Web.ServiceActualizaDatosConsultoraPeru;
-using CL = Portal.Consultoras.Web.ServiceActualizaDatosConsultoraChile;
-using EC = Portal.Consultoras.Web.ServiceActualizaDatosConsultoraEcuador;
+using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
+using System;
 using System.Configuration;
+using System.Linq;
 using System.ServiceModel;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
     public class MisDatosController : BaseController
     {
-        //
-        // GET: /MisDatos/
-
         #region Actions
 
         public ActionResult Index()

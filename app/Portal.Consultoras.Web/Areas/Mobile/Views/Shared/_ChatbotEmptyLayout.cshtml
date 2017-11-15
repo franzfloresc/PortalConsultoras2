@@ -90,9 +90,7 @@
             </div>
         </div>
     </div>
-    @Scripts.Render("~/Scripts/Mobile")
-    <script type="text/javascript" src="@Url.Content("~/Scripts/handlebars.min.js")"></script>
-    <script src="@Url.Content("~/Scripts/PortalConsultoras/Shared/TrackingJetlore.js")"></script>
+    @Scripts.Render("~/Scripts/MobileLayout")
     <script type="text/javascript">
         var baseUrl = "@Url.Content("~")";
         var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
@@ -307,6 +305,7 @@
             'codigoConsultora': '@ViewBag.CodigoConsultoraDL'
         };
         var usuarioNombre = '@ViewBag.UsuarioNombre';
+        var OrigenDesktopODD = 0;
     </script>
     @RenderSection("scripts", required: false)
 </body>
