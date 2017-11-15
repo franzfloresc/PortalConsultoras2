@@ -20,7 +20,7 @@ select pr.ConsultoraID, pr.CodigoConsultora, pr.CampaniaID,
 	z.ZonaID, z.Codigo,
 	prd.CUV, prd.Cantidad
 from (
-	select top 10 * from PedidoRecuperacion with(nolock)
+	select * from PedidoRecuperacion with(nolock)
 ) pr
 inner join PedidoRecuperacionDetalle prd with(nolock) on
 	pr.PedidoRecuperacionId = prd.PedidoRecuperacionId
