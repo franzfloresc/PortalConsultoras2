@@ -175,11 +175,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                string CorreoAnterior = UserData().EMail;
+                string CorreoAnterior = userData.EMail;
 
                 var entidad = new BEUsuario()
                 {
-                    CodigoUsuario = UserData().CodigoUsuario,
+                    CodigoUsuario = userData.CodigoUsuario,
                     EMail = (model.EMail == null ? string.Empty : model.EMail),
                     Telefono = (model.Telefono == null ? string.Empty : model.Telefono),
                     TelefonoTrabajo = (model.TelefonoTrabajo == null ? string.Empty : model.TelefonoTrabajo),
@@ -187,10 +187,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     Sobrenombre = (model.Sobrenombre == null ? string.Empty : model.Sobrenombre),
                     CompartirDatos = model.CompartirDatos,
                     AceptoContrato = model.AceptoContrato,
-                    PaisID = UserData().PaisID,
-                    CodigoISO = UserData().CodigoISO,
+                    PaisID = userData.PaisID,
+                    CodigoISO = userData.CodigoISO,
                     PrimerNombre = userData.PrimerNombre,
-                    Nombre = UserData().NombreConsultora
+                    Nombre = userData.NombreConsultora
                 };
 
                 using (UsuarioServiceClient svr = new UsuarioServiceClient())
