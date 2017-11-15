@@ -297,6 +297,6 @@ namespace Portal.Consultoras.Web.Models
         public RevistaDigitalModel RevistaDigital { get; set; }
         public bool EsOfertaIndependiente { get; set; }
 
-        public int MostrarPopupPrecargados { get; set; }
+        public bool MostrarPopupPrecargados { get; set; }
     }
 }

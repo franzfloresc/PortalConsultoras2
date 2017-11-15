@@ -151,7 +151,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 eventofestivo.EfRutaPedido;
             #endregion
             
-            model.MostrarPopupPrecargados = GetMostradoPopupPrecargados();
+            model.MostrarPopupPrecargados = (GetMostradoPopupPrecargados() == 0);
 
             return View("Index", model);
         }
@@ -200,6 +200,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 && !beConfiguracionCampania.ModificaPedidoReservado
                 && !beConfiguracionCampania.ValidacionAbierta)
                 return RedirectToAction("Validado", "Pedido", new { area = "Mobile" });
+
             var model = new PedidoDetalleMobileModel();
             model.AutoReservar = autoReservar;
             model.CodigoISO = userData.CodigoISO;
@@ -359,6 +360,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 ViewBag.Titulo1OFRegalo = ObtenerValorPersonalizacionShowRoom("Titulo1OfertaFinalRegalo", "Mobile");
                 ViewBag.ColorFondo1OFRegalo = ObtenerValorPersonalizacionShowRoom("ColorFondo1OfertaFinalRegalo", "Mobile");
             }
+            model.MostrarPopupPrecargados = (GetMostradoPopupPrecargados() == 0);
 
             return View(model);
         }

@@ -1003,7 +1003,7 @@
 
 
 <!--POPUP PRODUCTOS PRECARGADOS - HD1399 -->
-@if (Model.MostrarPopupPrecargados == 0 && Model.CodigoIso == "BO")
+@if (Model.MostrarPopupPrecargados)
 {
     <div class="contenedor_popup_agregarUnidades" id="dialog_mensajeProductosPrecargados" style="display: block;">
         <div class="popup_agregarUnidades">
@@ -1016,8 +1016,7 @@
                 <div class="icono_exclamacion" id="apro_o_excla_1"></div>
                 <h1 class="titulo_agregarUnidades"><b>IMPORTANTE</b></h1>
                 <span class="mensaje_agregarUnidades">
-                    Nos es grato comunicarte que hemos podido recuperar productos de la anterior campaña con el precio original.
-                    Están agregados en tu pedido bajo la descripción RECUPC16. Puedes mantenerlos para recibirlos con tu caja de C17 o borrarlos de tu pedido si ya no los necesitas.
+                    @Html.Raw(Constantes.RecuperacionPedido.Mensaje)
                 </span>
                 <button type="button" class="btn_ok ok_aceptaPedido" onclick="$('#dialog_mensajeProductosPrecargados').hide()">
                     Aceptar
