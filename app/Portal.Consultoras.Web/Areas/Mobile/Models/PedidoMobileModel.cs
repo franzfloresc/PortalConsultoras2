@@ -68,5 +68,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public int TieneMasVendidos { get; set; }
         public int TieneOfertaLog { get; set; }
         public RevistaDigitalModel RevistaDigital { get; set; }
+
+        public int MostrarPopupPrecargados { get; set; }
     }
 }

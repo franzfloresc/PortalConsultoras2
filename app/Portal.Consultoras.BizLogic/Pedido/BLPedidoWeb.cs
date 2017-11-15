@@ -2190,10 +2190,10 @@ namespace Portal.Consultoras.BizLogic
         #endregion
 
         #region ProductosPrecargados
-        public int GetFlagProductosPrecargados(int paisID, string CodigoConsultora)
+        public int GetFlagProductosPrecargados(int paisID, string CodigoConsultora, int CampaniaID)
         {
             var DAPedidoWeb = new DAPedidoWeb(paisID);
-            return DAPedidoWeb.GetFlagProductosPrecargados(CodigoConsultora);
+            return DAPedidoWeb.GetFlagProductosPrecargados(CodigoConsultora, CampaniaID);
         }
         #endregion
 

@@ -1238,7 +1238,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         #region ProductosPrecargados
         [OperationContract]
-        int GetFlagProductosPrecargados(int paisID, string CodigoConsultora);
+        int GetFlagProductosPrecargados(int paisID, string CodigoConsultora, int CampaniaID);
         #endregion
     }
 }

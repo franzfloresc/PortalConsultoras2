@@ -330,11 +330,11 @@ namespace Portal.Consultoras.Web.Controllers
                 //MostrarPopup = 1 --> No muestra popup de productos precargados
                 //MostrarPopup = 0 --> Si muestra popup de productos precargados
                 int MostrarPopup = 1;
-                if (userData.CodigoISO == "BO")
+                if (userData.CodigoISO == "BO" && userData.CampaniaID == 201717)
                 {                    
                     using (PedidoServiceClient sv = new PedidoServiceClient())
                     {
-                        MostrarPopup = sv.GetFlagProductosPrecargados(userData.PaisID, userData.CodigoConsultora);
+                        MostrarPopup = sv.GetFlagProductosPrecargados(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID);
                     }                    
                 }
                 model.MostrarPopupPrecargados = MostrarPopup;

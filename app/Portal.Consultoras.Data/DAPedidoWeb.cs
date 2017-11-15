@@ -855,12 +855,13 @@ namespace Portal.Consultoras.Data
         #endregion
 
         #region ProductosPrecargados
-        public int GetFlagProductosPrecargados(string codigoConsultora)
+        public int GetFlagProductosPrecargados(string codigoConsultora, int CampaniaID)
         {
             try
             {
                 DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetMostradoProductosPrecargados");
                 Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, codigoConsultora);
+                Context.Database.AddInParameter(command, "@CampaniaID ", DbType.Int32, CampaniaID);
                 return Convert.ToInt32(Context.ExecuteScalar(command));
             }
             catch (Exception ex)

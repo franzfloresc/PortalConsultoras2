@@ -2272,9 +2272,9 @@ namespace Portal.Consultoras.Service
         #endregion
 
         #region ProductosPrecargados
-        public int GetFlagProductosPrecargados(int paisID, string CodigoConsultora)
+        public int GetFlagProductosPrecargados(int paisID, string CodigoConsultora, int CampaniaID)
         {
-            return BLPedidoWeb.GetFlagProductosPrecargados(paisID, CodigoConsultora);
+            return BLPedidoWeb.GetFlagProductosPrecargados(paisID, CodigoConsultora, CampaniaID);
         }
         #endregion  
     }

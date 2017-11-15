@@ -337,6 +337,8 @@
     </div>
 </div>
 
+
+
 <!-- FIN POPUP MIS GANANCIAS -->
 <!--SB20-483 - FIN -->
 <!-- POPUP AGREGAR CLIENTE -->
@@ -502,6 +504,15 @@
                 belcorp.pedido.initialize();
                 belcorp.pedido.subscribe("onProductoAgregado", MostrarBarra);
                 belcorp.estrategia.subscribe("onProductoAgregado", MostrarBarra);
+            });
+        </script>
+    }
+
+    @if (Model.MostrarPopupPrecargados == 0 && Model.CodigoIso == "BO")
+    {
+        <script>
+            $(document).ready(function () {
+                
             });
         </script>
     }

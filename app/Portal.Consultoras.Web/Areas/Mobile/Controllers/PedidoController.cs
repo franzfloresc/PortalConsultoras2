@@ -151,6 +151,18 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 eventofestivo.EfRutaPedido;
             #endregion
 
+            #region ProductosPrecargados
+            int MostrarPopup = 1;
+            if (userData.CodigoISO == "BO" && userData.CampaniaID == 201717)
+            {
+                using (PedidoServiceClient sv = new PedidoServiceClient())
+                {
+                    MostrarPopup = sv.GetFlagProductosPrecargados(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID);
+                }
+            }
+            model.MostrarPopupPrecargados = MostrarPopup;
+            #endregion
+
             return View("Index", model);
         }
 
