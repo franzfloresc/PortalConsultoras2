@@ -337,7 +337,7 @@ namespace Portal.Consultoras.BizLogic
             {
                 if (estrategia.Precio <= estrategia.Precio2)
                     estrategia.Precio = Convert.ToDecimal(0.0);
-
+                
                 estrategia.CampaniaID = entidad.CampaniaID;
                 estrategia.ImagenURL = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.ImagenURL, carpetaPais);
                 estrategia.Simbolo = entidad.Simbolo;
@@ -346,6 +346,8 @@ namespace Portal.Consultoras.BizLogic
                 estrategia.PrecioTachado = Util.DecimalToStringFormat(estrategia.Precio, codigoIso);
                 estrategia.GananciaString = Util.DecimalToStringFormat(estrategia.Ganancia, codigoIso);
                 estrategia.FotoProducto01 = string.IsNullOrEmpty(estrategia.FotoProducto01) ? string.Empty : ConfigS3.GetUrlFileS3(carpetaPais, estrategia.FotoProducto01, carpetaPais);
+                estrategia.FotoProductoSmall = string.IsNullOrEmpty(estrategia.FotoProducto01) ? string.Empty : ConfigS3.GetUrlFileS3(carpetaPais, estrategia.FotoProducto01.Substring(0, estrategia.FotoProducto01.LastIndexOf('.')) + "_small.png", carpetaPais);
+                estrategia.FotoProductoMedium = string.IsNullOrEmpty(estrategia.FotoProducto01) ? string.Empty : ConfigS3.GetUrlFileS3(carpetaPais, estrategia.FotoProducto01.Substring(0, estrategia.FotoProducto01.LastIndexOf('.')) + "_medium.png", carpetaPais);
                 estrategia.URLCompartir = Util.GetUrlCompartirFB(codigoIso);
                 estrategia.CodigoEstrategia = Util.Trim(estrategia.CodigoEstrategia);
             });
