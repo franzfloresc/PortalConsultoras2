@@ -175,21 +175,23 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                BEUsuario entidad = Mapper.Map<MisDatosModel, BEUsuario>(model);
-                string CorreoAnterior = model.CorreoAnterior;
+                string CorreoAnterior = userData.EMail;
 
-                entidad.CodigoUsuario = (entidad.CodigoUsuario == null) ? "" : UserData().CodigoUsuario;
-                entidad.EMail = (entidad.EMail == null) ? "" : entidad.EMail;
-                entidad.Telefono = (entidad.Telefono == null) ? "" : entidad.Telefono;
-                entidad.TelefonoTrabajo = (entidad.TelefonoTrabajo == null) ? "" : entidad.TelefonoTrabajo;
-                entidad.Celular = (entidad.Celular == null) ? "" : entidad.Celular;
-                entidad.Sobrenombre = (entidad.Sobrenombre == null) ? "" : entidad.Sobrenombre;
-                entidad.ZonaID = UserData().ZonaID;
-                entidad.RegionID = UserData().RegionID;
-                entidad.ConsultoraID = UserData().ConsultoraID;
-                entidad.PaisID = UserData().PaisID;
-                entidad.PrimerNombre = userData.PrimerNombre;
-                entidad.CodigoISO = UserData().CodigoISO;
+                var entidad = new BEUsuario()
+                {
+                    CodigoUsuario = userData.CodigoUsuario,
+                    EMail = (model.EMail == null ? string.Empty : model.EMail),
+                    Telefono = (model.Telefono == null ? string.Empty : model.Telefono),
+                    TelefonoTrabajo = (model.TelefonoTrabajo == null ? string.Empty : model.TelefonoTrabajo),
+                    Celular = (model.Celular == null ? string.Empty : model.Celular),
+                    Sobrenombre = (model.Sobrenombre == null ? string.Empty : model.Sobrenombre),
+                    CompartirDatos = model.CompartirDatos,
+                    AceptoContrato = model.AceptoContrato,
+                    PaisID = userData.PaisID,
+                    CodigoISO = userData.CodigoISO,
+                    PrimerNombre = userData.PrimerNombre,
+                    Nombre = userData.NombreConsultora
+                };
 
                 using (UsuarioServiceClient svr = new UsuarioServiceClient())
                 {
