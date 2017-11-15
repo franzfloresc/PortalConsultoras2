@@ -40,7 +40,7 @@ namespace Portal.Consultoras.Web.Controllers
         protected UsuarioModel userData;
         protected RevistaDigitalModel revistaDigital;
         protected ISessionManager sessionManager = SessionManager.SessionManager.Instance;
-        protected ILogManager logManager = LogManager.LogManager.Instance;
+        protected ILogManager logManager;
 
         #endregion
 
