@@ -1,7 +1,8 @@
-﻿@model List<Portal.Consultoras.Web.Models.CertificadoComercial.CertificadoComercialModel>
+﻿
+@model List<Portal.Consultoras.Web.Models.MisCertificados.CertificadoModel>
 
 @{
-    ViewBag.Title = "Certificados Comerciales";   
+    ViewBag.Title = "Certificados Comerciales";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 
@@ -18,17 +19,17 @@
 {
     <div data-item="">
         <div data-campos="" style="display:none;">
-            <input type="hidden" class="certificadoComercialId" value="@certificado.CertificadoComercialId"/>
-            <input type="hidden" class="mensajeError" value="@certificado.MensajeError"/>
+            <input type="hidden" class="certificadoComercialId" value="@certificado.CertificadoComercialId" />
+            <input type="hidden" class="mensajeError" value="@certificado.MensajeError" />
         </div>
-        <a data-certificado="" >Generar Certificado @certificado.Nombre</a>
+        <a data-certificado="">Generar Certificado @certificado.Nombre</a>
     </div>
 }
 
 
 @section scripts{
     <script type="text/javascript">
-        var urlExportar = '@Url.Action("Export", "CertificadoComercial")';
+        var urlExportar = '@Url.Action("Export", "MisCertificados")';
 
         $(document).ready(function () {
             $("a[data-certificado]").click(function () {
@@ -36,7 +37,7 @@
                 var parametros = $(parent).find("[data-campos]");
 
                 var certificadoComercialId = $(parametros).find(".certificadoComercialId").val();
-                
+
                 if (parseInt(certificadoComercialId) === 0) {
                     var error = $(parametros).find(".mensajeError").val();
 
@@ -50,5 +51,5 @@
                 e.preventDefault();
             });
         });
-    </script>    
+    </script>
 }

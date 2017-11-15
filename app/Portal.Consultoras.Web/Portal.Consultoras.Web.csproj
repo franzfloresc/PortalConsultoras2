@@ -285,10 +285,10 @@
     <Compile Include="Controllers\BaseEstrategiaController.cs" />
     <Compile Include="Controllers\BaseShowRoomController.cs" />
     <Compile Include="Controllers\CampaniaController.cs" />
-    <Compile Include="Controllers\CertificadoComercialController.cs" />
     <Compile Include="Controllers\DescargablesController.cs" />
     <Compile Include="Controllers\EstrategiaProductoComentarioController.cs" />
     <Compile Include="Controllers\CatalogosBelcorpController.cs" />
+    <Compile Include="Controllers\MisCertificadosController.cs" />
     <Compile Include="Controllers\OfertasController.cs" />
     <Compile Include="Controllers\FichaProductoController.cs" />
     <Compile Include="Controllers\ProductoComentarioController.cs" />
@@ -432,7 +432,7 @@
     <Compile Include="Models\BusquedaProductoModel.cs" />
     <Compile Include="Models\CatalogoPersonalizadoModel.cs" />
     <Compile Include="Models\CDRWebModel.cs" />
-    <Compile Include="Models\CertificadoComercial\CertificadoComercialModel.cs" />
+    <Compile Include="Models\MisCertificados\CertificadoModel.cs" />
     <Compile Include="Models\ClienteOnlineDetalleModel.cs" />
     <Compile Include="Models\ClienteSb2Model.cs" />
     <Compile Include="Models\BarraConsultoraModel.cs" />
@@ -4458,9 +4458,9 @@
     <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-descargables-navidenos.cshtml" />
     <Content Include="Areas\Mobile\Views\Util\_barra.cshtml" />
     <Content Include="Views\Descargables\Descargables.cshtml" />
-    <Content Include="Views\CertificadoComercial\Index.cshtml" />
-    <Content Include="Views\CertificadoComercial\NoAdeudoPDF.cshtml" />
-    <Content Include="Views\CertificadoComercial\ComercialPDF.cshtml" />
+    <Content Include="Views\MisCertificados\Index.cshtml" />
+    <Content Include="Views\MisCertificados\ComercialPDF.cshtml" />
+    <Content Include="Views\MisCertificados\NoAdeudoPDF.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
