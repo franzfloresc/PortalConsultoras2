@@ -1,5 +1,4 @@
-﻿using Portal.Consultoras.Web.ServiceSAC;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Models
@@ -35,6 +34,9 @@ namespace Portal.Consultoras.Web.Models
         public bool TieneRDS { get; set; }
         public int DiasAntesFacturaHoy { get; set; }
         public RevistaDigitalSuscripcionModel SuscripcionModel { get; set; }
+        public RevistaDigitalSuscripcionModel SuscripcionModelEfectiva { get; set; }
+        public ConfiguracionPaisDatosModel ConfiguracionPaisDatos { get; set; }
+
         public RevistaDigitalSuscripcionModel SuscripcionAnterior2Model { get; set; }
         public RevistaDigitalSuscripcionModel SuscripcionAnterior1Model { get; set; }
         public bool BloqueroRevistaImpresa { get; set; }
