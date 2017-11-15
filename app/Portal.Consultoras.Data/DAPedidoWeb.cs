@@ -853,5 +853,23 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
         #endregion
+
+        #region ProductosPrecargados
+        public int GetFlagProductosPrecargados(string codigoConsultora)
+        {
+            try
+            {
+                DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetMostradoProductosPrecargados");
+                Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, codigoConsultora);
+                return Convert.ToInt32(Context.ExecuteScalar(command));
+            }
+            catch (Exception ex)
+            {
+                return 1;
+                throw ex;
+            }
+
+        }
+        #endregion
     }
 }

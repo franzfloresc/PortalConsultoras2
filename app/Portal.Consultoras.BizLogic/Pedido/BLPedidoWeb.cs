@@ -2188,6 +2188,15 @@ namespace Portal.Consultoras.BizLogic
             return pedidos;
         }
         #endregion
+
+        #region ProductosPrecargados
+        public int GetFlagProductosPrecargados(int paisID, string CodigoConsultora)
+        {
+            var DAPedidoWeb = new DAPedidoWeb(paisID);
+            return DAPedidoWeb.GetFlagProductosPrecargados(CodigoConsultora);
+        }
+        #endregion
+
     }
 
     internal class TemplateField
@@ -2212,5 +2221,4 @@ namespace Portal.Consultoras.BizLogic
             get { return size; }
         }
     }
-
 }

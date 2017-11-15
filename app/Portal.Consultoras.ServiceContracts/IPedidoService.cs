@@ -1235,5 +1235,10 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         List<BEMisPedidosFacturados> GetMisPedidosFacturados(int paisID, long ConsultoraID, int CampaniaID, int ClienteID, string NombreConsultora);
         #endregion
+
+        #region ProductosPrecargados
+        [OperationContract]
+        int GetFlagProductosPrecargados(int paisID, string CodigoConsultora);
+        #endregion
     }
 }
