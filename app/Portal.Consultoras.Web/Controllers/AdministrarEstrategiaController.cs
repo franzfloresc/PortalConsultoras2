@@ -1774,5 +1774,64 @@ namespace Portal.Consultoras.Web.Controllers
             ConfigS3.SetFileS3(path, carpetaPais, newfilename);
             return newfilename;
         }
+
+        #region CargaMasivaImagenes
+
+        public JsonResult CargaMasivaImagenes(int campaniaId)
+        {
+            try
+            {
+                var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+                var listaEstrategias = new List<BEEstrategia>();
+
+                using (PedidoServiceClient ps = new PedidoServiceClient())
+                {
+                    listaEstrategias = ps.GetListaImagenesEstrategiasByCampania(userData.PaisID, campaniaId).ToList();
+                }
+                
+                var cantidadImagenesGeneradas = 0;
+                var cuvNoGenerados = "";
+
+                foreach (var estrategia in listaEstrategias)
+                {                    
+                    var rutaImagenCompleta = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.ImagenURL);
+                    var mensajeError = "";
+                    var listaImagenesResize = ObtenerListaImagenesResize(rutaImagenCompleta);
+                    if (listaImagenesResize != null && listaImagenesResize.Count > 0)
+                        mensajeError = MagickNetLibrary.GuardarImagenesResize(listaImagenesResize);
+
+                    if (mensajeError == "")
+                        cantidadImagenesGeneradas++;
+                    else
+                        cuvNoGenerados += estrategia.CUV2 + ",";
+                }
+
+                var mensaje = "Se generaron las imagenes SMALL y MEDIUM de todas las imagenes.";
+                if (cuvNoGenerados != "")
+                {
+                    mensaje += " Excepto de los siguientes Cuvs: " + cuvNoGenerados;
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    message = mensaje,
+                    extra = ""
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    extra = ""
+                }, JsonRequestBehavior.AllowGet);
+            }            
+        }
+
+        #endregion
+
     }
 }

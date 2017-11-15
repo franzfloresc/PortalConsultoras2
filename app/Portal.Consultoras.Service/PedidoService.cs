@@ -2270,5 +2270,14 @@ namespace Portal.Consultoras.Service
             return _pedidoWebBusinessLogic.GetMisPedidosFacturados(paisID, ConsultoraID, CampaniaID, ClienteID, NombreConsultora);
         }
         #endregion
+
+        #region CargaMasivaImagenes
+
+        public List<BEEstrategia> GetListaImagenesEstrategiasByCampania(int paisId, int campaniaId)
+        {
+            return blEstrategia.GetListaImagenesEstrategiasByCampania(paisId, campaniaId);
+        }
+
+        #endregion
     }
 }

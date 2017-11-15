@@ -635,5 +635,25 @@ namespace Portal.Consultoras.BizLogic
         }
 
         #endregion
+
+        #region CargaMasivaImagenes
+
+        public List<BEEstrategia> GetListaImagenesEstrategiasByCampania(int paisId, int campaniaId)
+        {
+            var lista = new List<BEEstrategia>();
+            var daEstrategia = new DAEstrategia(paisId);
+
+            using (var reader = daEstrategia.GetListaImagenesEstrategiasByCampania(campaniaId))
+            {
+                while (reader.Read())
+                {
+                    lista.Add(new BEEstrategia(reader));
+                }
+            }
+
+            return lista;
+        }
+
+        #endregion
     }
 }

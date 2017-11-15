@@ -215,6 +215,12 @@
   <wsdl:message name="IPedidoService_GetMisPedidosFacturados_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetMisPedidosFacturadosResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_GetListaImagenesEstrategiasByCampania_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetListaImagenesEstrategiasByCampania" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetListaImagenesEstrategiasByCampania_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetListaImagenesEstrategiasByCampaniaResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_ValidarUnidadesPermitidasEnPedidoShowRoom_InputMessage">
     <wsdl:part name="parameters" element="tns:ValidarUnidadesPermitidasEnPedidoShowRoom" />
   </wsdl:message>
@@ -2372,6 +2378,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetMisPedidosFacturados" message="tns:IPedidoService_GetMisPedidosFacturados_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetMisPedidosFacturadosResponse" message="tns:IPedidoService_GetMisPedidosFacturados_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetListaImagenesEstrategiasByCampania">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetListaImagenesEstrategiasByCampania" message="tns:IPedidoService_GetListaImagenesEstrategiasByCampania_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetListaImagenesEstrategiasByCampaniaResponse" message="tns:IPedidoService_GetListaImagenesEstrategiasByCampania_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="ValidarUnidadesPermitidasEnPedidoShowRoom">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ValidarUnidadesPermitidasEnPedidoShowRoom" message="tns:IPedidoService_ValidarUnidadesPermitidasEnPedidoShowRoom_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ValidarUnidadesPermitidasEnPedidoShowRoomResponse" message="tns:IPedidoService_ValidarUnidadesPermitidasEnPedidoShowRoom_OutputMessage" />
@@ -3989,6 +3999,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetMisPedidosFacturados">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetMisPedidosFacturados" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetListaImagenesEstrategiasByCampania">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetListaImagenesEstrategiasByCampania" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -7314,6 +7333,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetMisPedidosFacturados">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetMisPedidosFacturados" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetListaImagenesEstrategiasByCampania">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetListaImagenesEstrategiasByCampania" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

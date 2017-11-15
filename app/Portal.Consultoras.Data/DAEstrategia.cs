@@ -584,5 +584,18 @@ namespace Portal.Consultoras.Data
 
         #endregion
 
+        #region CargaMasivaImagenes
+
+        public IDataReader GetListaImagenesEstrategiasByCampania(int campaniaId)
+        {
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetListaImagenesEstrategiasByCampania"))
+            {
+                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
+                return Context.ExecuteReader(command);
+            }
+        }
+
+        #endregion
+
     }
 }
