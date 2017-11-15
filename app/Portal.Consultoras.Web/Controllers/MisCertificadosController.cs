@@ -157,7 +157,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (model.CertificadoComercialId != 0)
             {
                 var view = model.NombreVista;
-
+            
                 string html = RenderViewToString(ControllerContext,
                     view, model, true);
 
