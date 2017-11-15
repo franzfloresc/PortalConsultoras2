@@ -337,6 +337,8 @@
     </div>
 </div>
 
+
+
 <!-- FIN POPUP MIS GANANCIAS -->
 <!--SB20-483 - FIN -->
 <!-- POPUP AGREGAR CLIENTE -->
@@ -507,4 +509,11 @@
     }
 
     @Scripts.Render("~/bundles/JsMobile/Pedido")
+
+    @if (Model.MostrarPopupPrecargados)
+    {
+        <script>
+            $(document).ready(function () { messageInfoValidado('@Html.Raw(Constantes.RecuperacionPedido.Mensaje)'); });
+        </script>
+    }
 }
