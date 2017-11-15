@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -7,15 +6,12 @@ namespace Portal.Consultoras.Web.Models
     public class ConfiguracionPaisDatosModel : ICloneable
     {
         public int ConfiguracionPaisID { get; set; }
-        public int CampaniaId { get; set; }
-        public int BloquearDiasAntesFacturar { get; set; }
-        public int CantidadCampaniaEfectiva { get; set; }
-        public string NombreComercialActiva { get; set; }
-        public string NombreComercialNoActiva { get; set; }
-        public string LogoComercialActiva { get; set; }
-        public string LogoComercialNoActiva { get; set; }
-
-        public IList<ConfiguracionPaisDatosDetalleModel> ConfiguracionPaisDatosDetalle { get; set; }
+        public int CampaniaID { get; set; }
+        public string Codigo { get; set; }
+        public string Valor1 { get; set; }
+        public string Valor2 { get; set; }
+        public string Valor3 { get; set; }
+        public string Descripcion { get; set; }
 
         public object Clone()
         {

@@ -977,7 +977,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     switch (c.Codigo)
                                     {
                                         case Constantes.ConfiguracionPais.RevistaDigital:
-                                            revistaDigitalModel = ConfiguracionPaisRevistaDigital(usuarioModel, revistaDigitalModel);
+                                            revistaDigitalModel = ConfiguracionPaisRevistaDigital(usuarioModel, revistaDigitalModel, listaPaisDatos.Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID).ToList());
                                             revistaDigitalModel.BloqueroRevistaImpresa = c.BloqueoRevistaImpresa;
                                             break;
                                         case Constantes.ConfiguracionPais.RevistaDigitalSuscripcion:
@@ -1189,10 +1189,8 @@ namespace Portal.Consultoras.Web.Controllers
             return Mapper.Map<IList<ServiceUsuario.BEConfiguracionPais>, List<ConfiguracionPaisModel>>(listaConfigPais);
         }
 
-        private List<ConfiguracionPaisDatosModel> ConfiguracionPaisDatos(UsuarioModel usuarioModel)
+        private List<BEConfiguracionPaisDatos> ConfiguracionPaisDatos(UsuarioModel usuarioModel)
         {
-            var listaDatos = new List<ConfiguracionPaisDatosModel>();
-
             var entidad = new BEConfiguracionPaisDatos
             {
                 PaisID = usuarioModel.PaisID,
@@ -1216,12 +1214,14 @@ namespace Portal.Consultoras.Web.Controllers
 
             listaEntidad = listaEntidad ?? new List<BEConfiguracionPaisDatos>();
             
-            return listaDatos;
+            return listaEntidad;
         }
 
-        private RevistaDigitalModel ConfiguracionPaisRevistaDigital(UsuarioModel usuarioModel, RevistaDigitalModel revistaDigitalModel)
+        private RevistaDigitalModel ConfiguracionPaisRevistaDigital(UsuarioModel usuarioModel, RevistaDigitalModel revistaDigitalModel, List<BEConfiguracionPaisDatos> listaDatos)
         {
             revistaDigitalModel.TieneRDC = true;
+            revistaDigitalModel.ConfiguracionPaisDatos = ConfiguracionPaisDatosRevistaDigital(listaDatos);
+
             var rds = new BERevistaDigitalSuscripcion
             {
                 PaisID = usuarioModel.PaisID,
@@ -1230,15 +1230,47 @@ namespace Portal.Consultoras.Web.Controllers
             using (PedidoServiceClient sv1 = new PedidoServiceClient())
             {
                 revistaDigitalModel.SuscripcionModel = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
-                rds.CampaniaID = AddCampaniaAndNumero(usuarioModel.CampaniaID, -1, usuarioModel.NroCampanias);
-                revistaDigitalModel.SuscripcionAnterior1Model = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
-                rds.CampaniaID = AddCampaniaAndNumero(usuarioModel.CampaniaID, -2, usuarioModel.NroCampanias);
-                revistaDigitalModel.SuscripcionAnterior2Model = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
+
+                rds.CampaniaID = AddCampaniaAndNumero(usuarioModel.CampaniaID, -1 * revistaDigitalModel.ConfiguracionPaisDatos.CampaniaID, usuarioModel.NroCampanias);
+                revistaDigitalModel.SuscripcionEfectiva = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
             }
-            revistaDigitalModel.EstadoRdcAnalytics =
-                GetEstadoRdAnalytics(revistaDigitalModel);
+
+            revistaDigitalModel.EstadoRdcAnalytics = GetEstadoRdAnalytics(revistaDigitalModel);
 
             return revistaDigitalModel;
+        }
+
+        private ConfiguracionPaisDatosRDModel ConfiguracionPaisDatosRevistaDigital(List<BEConfiguracionPaisDatos> listaDatos)
+        {
+            var confiDatos = new ConfiguracionPaisDatosRDModel();
+
+            if (!listaDatos.Any())
+            {
+                confiDatos.ConfiguracionPaisDatosDetalle = new List<ConfiguracionPaisDatosModel>();
+                return confiDatos;
+            }
+
+            confiDatos = new ConfiguracionPaisDatosRDModel {
+                BloquearDiasAntesFacturar = Convert.ToInt32(listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.BloquearDiasAntesFacturar).Valor1),
+                CantidadCampaniaEfectiva = Convert.ToInt32(listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.CantidadCampaniaEfectiva).Valor1),
+                NombreComercialActiva = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.NombreComercialActiva).Valor1,
+                NombreComercialNoActiva = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.NombreComercialNoActiva).Valor1,
+                LogoComercialActiva = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.LogoComercialActiva).Valor1,
+                LogoComercialNoActiva = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.LogoComercialNoActiva).Valor1
+            };
+
+            listaDatos.RemoveAll(d =>
+                d.Codigo == Constantes.ConfiguracionPaisDatos.BloquearDiasAntesFacturar
+                || d.Codigo == Constantes.ConfiguracionPaisDatos.CantidadCampaniaEfectiva
+                || d.Codigo == Constantes.ConfiguracionPaisDatos.NombreComercialActiva
+                || d.Codigo == Constantes.ConfiguracionPaisDatos.NombreComercialNoActiva
+                || d.Codigo == Constantes.ConfiguracionPaisDatos.LogoComercialActiva
+                || d.Codigo == Constantes.ConfiguracionPaisDatos.LogoComercialNoActiva
+            );
+
+            confiDatos.ConfiguracionPaisDatosDetalle = Mapper.Map<List<ConfiguracionPaisDatosModel>>(listaDatos) ?? new List<ConfiguracionPaisDatosModel>();
+
+            return confiDatos;
         }
 
         private  string GetRegaloProgramaNuevasFlag()

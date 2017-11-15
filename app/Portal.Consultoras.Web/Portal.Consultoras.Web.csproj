@@ -426,7 +426,7 @@
     <Compile Include="Models\ClienteOnlineDetalleModel.cs" />
     <Compile Include="Models\ClienteSb2Model.cs" />
     <Compile Include="Models\BarraConsultoraModel.cs" />
-    <Compile Include="Models\ConfiguracionPaisDatosDetalleModel.cs" />
+    <Compile Include="Models\ConfiguracionPaisDatosRDModel.cs" />
     <Compile Include="Models\ConfiguracionPaisDatosModel.cs" />
     <Compile Include="Models\DescripcionEstrategiaModel.cs" />
     <Compile Include="Models\DescargablesModel.cs" />
