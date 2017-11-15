@@ -42,7 +42,7 @@ namespace Portal.Consultoras.Data.Hana
                     listBE.Add(beProductoFaltante);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 listBE = new List<BEProductoFaltante>();
             }

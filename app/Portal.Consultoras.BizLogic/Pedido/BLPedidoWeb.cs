@@ -796,7 +796,7 @@ namespace Portal.Consultoras.BizLogic
                         {
                             foreach (DataRow row in dtPedidosWeb.Rows)
                             {
-                                streamWriter.WriteLine(HeaderLine_FIC(headerTemplate, row, codigoPaisProd, fechaProceso, fechaFactura, lote, "W"));
+                                streamWriter.WriteLine(HeaderLine(headerTemplate, row, codigoPaisProd, fechaProceso, fechaFactura, lote, "W"));
                             }
                         }
                     }
@@ -808,7 +808,7 @@ namespace Portal.Consultoras.BizLogic
                         {
                             foreach (DataRow row in dtPedidosWeb.Rows)
                             {
-                                streamWriter.WriteLine(DetailLine_FIC(detailTemplate, row, codigoPaisProd, lote));
+                                streamWriter.WriteLine(DetailLine(detailTemplate, row, codigoPaisProd, lote));
                             }
                         }
                     }
@@ -942,12 +942,10 @@ namespace Portal.Consultoras.BizLogic
         }
 
         private string HeaderLine(TemplateField[] template, DataRow row, string codigoPais, string fechaProceso, string fechaFactura, string lote, string origen)
-        {
-            
+        {            
             string line = string.Empty;
             foreach (TemplateField field in template)
-            {
-                
+            {                
                 string item;
                 switch (field.FieldName)
                 {
@@ -968,45 +966,13 @@ namespace Portal.Consultoras.BizLogic
                     case "LOTE": item = lote; break;
                     case "ORIGEN": item = origen; break;
                     case "VALIDADO": item = row["Validado"].ToString(); break;
-                    case "COMPARTAMOS": item = (row["bitAsistenciaCompartamos"] == DBNull.Value ? string.Empty : row["bitAsistenciaCompartamos"].ToString()); break;
-                    case "METODOENVIO": item = (row["chrShippingMethod"] == DBNull.Value ? string.Empty : row["chrShippingMethod"].ToString()); break;
-                    case "IPUSUARIO": item = (row["IPUsuario"] == DBNull.Value ? string.Empty : row["IPUsuario"].ToString()); break;
-                    case "TIPOCUPON": item = (row["TipoCupon"] == DBNull.Value ? string.Empty : row["TipoCupon"].ToString()); break;
-                    case "VALORCUPON": item = (row["ValorCupon"] == DBNull.Value ? string.Empty : row["ValorCupon"].ToString()); break;
+                    case "COMPARTAMOS": item = (DataRecord.HasColumn(row, "bitAsistenciaCompartamos") ? row["bitAsistenciaCompartamos"].ToString() : string.Empty); break;
+                    case "METODOENVIO": item = (DataRecord.HasColumn(row, "chrShippingMethod") ? row["chrShippingMethod"].ToString() : string.Empty); break;
+                    case "IPUSUARIO": item = (DataRecord.HasColumn(row, "IPUsuario") ? row["IPUsuario"].ToString() : string.Empty); break;
+                    case "TIPOCUPON": item = (DataRecord.HasColumn(row, "TipoCupon") ? row["TipoCupon"].ToString() : string.Empty); break;
+                    case "VALORCUPON": item = (DataRecord.HasColumn(row, "ValorCupon") ? row["ValorCupon"].ToString() : string.Empty); break;
                     default: item = string.Empty; break;
                 }
-                line += item.PadRight(field.Size);
-            }
-            return line;
-        }
-        private string HeaderLine_FIC(TemplateField[] template, DataRow row, string codigoPais, string fechaProceso, string fechaFactura, string lote, string origen)
-        {
-            string line = string.Empty;
-            foreach (TemplateField field in template)
-            {
-                string item;
-                switch (field.FieldName)
-                {
-                    case "PAIS": item = codigoPais; break;
-                    case "CAMPANIA": item = row["CampaniaID"].ToString(); break;
-                    case "CONSULTORA": item = row["CodigoConsultora"].ToString(); break;
-                    case "PREIMPRESO": item = row["PedidoID"].ToString(); break;
-                    case "CLIENTES": item = row["Clientes"].ToString(); break;
-                    case "FECHAPROCESO": item = fechaProceso; break;
-                    case "FECHAFACTURA": item = fechaFactura; break;
-                    case "REGION": item = row["CodigoRegion"].ToString(); break;
-                    case "ZONA":
-                        if (!ConfigurationManager.AppSettings["IsSICCFOX"].Contains(codigoPais))
-                            item = row["CodigoZona"].ToString();
-                        else
-                            item = row["CodigoZona"].ToString().Substring(0, 4);
-                        break;
-                    case "LOTE": item = lote; break;
-                    case "ORIGEN": item = origen; break;
-                    case "VALIDADO": item = row["Validado"].ToString(); break;
-                    default: item = string.Empty; break;
-                }
-
                 line += item.PadRight(field.Size);
             }
             return line;
@@ -1027,29 +993,7 @@ namespace Portal.Consultoras.BizLogic
                     case "CANTIDAD": item = row["Cantidad"].ToString(); break;
                     case "CODIGOPRODUCTO": item = row["CodigoProducto"].ToString(); break;
                     case "LOTE": item = lote; break;
-                    case "ORIGENPEDIDOWEB": item = row["OrigenPedidoWeb"].ToString(); break;
-                    default: item = string.Empty; break;
-                }
-                line += item.PadRight(field.Size);
-            }
-            return line;
-        }
-        private string DetailLine_FIC(TemplateField[] template, DataRow row, string codigoPais, string lote)
-        {
-            string line = string.Empty;
-            foreach (TemplateField field in template)
-            {
-                string item;
-                switch (field.FieldName)
-                {
-                    case "PAIS": item = codigoPais; break;
-                    case "CAMPANIA": item = row["CampaniaID"].ToString(); break;
-                    case "CONSULTORA": item = row["CodigoConsultora"].ToString(); break;
-                    case "PREIMPRESO": item = row["PedidoID"].ToString(); break;
-                    case "CODIGOVENTA": item = row["CodigoVenta"].ToString(); break;
-                    case "CANTIDAD": item = row["Cantidad"].ToString(); break;
-                    case "CODIGOPRODUCTO": item = row["CodigoProducto"].ToString(); break;
-                    case "LOTE": item = lote; break;
+                    case "ORIGENPEDIDOWEB": item = (DataRecord.HasColumn(row, "OrigenPedidoWeb") ? row["OrigenPedidoWeb"].ToString() : "0"); break;
                     default: item = string.Empty; break;
                 }
                 line += item.PadRight(field.Size);
