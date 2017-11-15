@@ -2276,6 +2276,11 @@ namespace Portal.Consultoras.Service
         {
             return BLPedidoWeb.GetFlagProductosPrecargados(paisID, CodigoConsultora, CampaniaID);
         }
+
+        public void UpdateMostradoProductosPrecargados(int paisID, int CampaniaID, long ConsultoraID, string IPUsuario)
+        {
+            BLPedidoWeb.UpdateMostradoProductosPrecargados(paisID, CampaniaID, ConsultoraID, IPUsuario);
+        }
         #endregion  
     }
 }

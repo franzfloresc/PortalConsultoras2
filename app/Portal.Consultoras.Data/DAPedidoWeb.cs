@@ -871,6 +871,16 @@ namespace Portal.Consultoras.Data
             }
 
         }
+
+        public void UpdateMostradoProductosPrecargados(int CampaniaID, long ConsultoraID, string IPUsuario)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdateMostradoProductosPrecargados");
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
+            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int32, ConsultoraID);
+            Context.Database.AddInParameter(command, "@IPUsuario", DbType.Decimal, IPUsuario);
+
+            Context.ExecuteNonQuery(command);
+        }
         #endregion
     }
 }

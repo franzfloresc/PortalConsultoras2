@@ -2195,6 +2195,13 @@ namespace Portal.Consultoras.BizLogic
             var DAPedidoWeb = new DAPedidoWeb(paisID);
             return DAPedidoWeb.GetFlagProductosPrecargados(CodigoConsultora, CampaniaID);
         }
+
+
+        public void UpdateMostradoProductosPrecargados(int paisID, int CampaniaID, long ConsultoraID, string IPUsuario)
+        {
+            var DAPedidoWeb = new DAPedidoWeb(paisID);
+            DAPedidoWeb.UpdateMostradoProductosPrecargados(CampaniaID, ConsultoraID, IPUsuario);
+        }
         #endregion
 
     }

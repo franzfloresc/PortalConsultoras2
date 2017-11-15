@@ -1239,6 +1239,9 @@ namespace Portal.Consultoras.ServiceContracts
         #region ProductosPrecargados
         [OperationContract]
         int GetFlagProductosPrecargados(int paisID, string CodigoConsultora, int CampaniaID);
+
+        [OperationContract]
+        void UpdateMostradoProductosPrecargados(int paisID, int CampaniaID, long ConsultoraID, string IPUsuario);
         #endregion
     }
 }

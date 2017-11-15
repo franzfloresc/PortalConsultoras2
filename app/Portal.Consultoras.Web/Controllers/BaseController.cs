@@ -4137,14 +4137,36 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected int GetMostradoPopupPrecargados()
         {
-            if (userData.CodigoISO == "BO" && userData.CampaniaID == 201717)
+            int flag = 1;
+            try
             {
-                using (PedidoServiceClient sv = new PedidoServiceClient())
+                if (userData.CodigoISO == "BO" && userData.CampaniaID == 201717)
                 {
-                    return sv.GetFlagProductosPrecargados(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID);
+                    using (PedidoServiceClient sv = new PedidoServiceClient())
+                    {
+                        flag = sv.GetFlagProductosPrecargados(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID);
+                    }
+
+                    if (flag == 0)
+                    {
+                        using (PedidoServiceClient sv = new PedidoServiceClient())
+                        {
+                            sv.UpdateMostradoProductosPrecargados(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.IPUsuario);
+                        }
+
+                        Session["PedidoWeb"] = null;
+                        Session["PedidoWebDetalle"] = null;
+                        UpdPedidoWebMontosPROL();
+                    }                   
                 }
+
+                return flag;
             }
-            return 1;
+            catch (Exception ex)
+            {
+                return flag;
+                throw ex;
+            }
         }
     }
 }
