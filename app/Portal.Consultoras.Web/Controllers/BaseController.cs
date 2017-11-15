@@ -4134,5 +4134,17 @@ namespace Portal.Consultoras.Web.Controllers
                    new MenuContenedorModel();
         }
         #endregion
+
+        protected int GetMostradoPopupPrecargados()
+        {
+            if (userData.CodigoISO == "BO" && userData.CampaniaID == 201717)
+            {
+                using (PedidoServiceClient sv = new PedidoServiceClient())
+                {
+                    return sv.GetFlagProductosPrecargados(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID);
+                }
+            }
+            return 1;
+        }
     }
 }

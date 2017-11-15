@@ -325,21 +325,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 #endregion
-
-                #region ProductosPrecargados
-                //MostrarPopup = 1 --> No muestra popup de productos precargados
-                //MostrarPopup = 0 --> Si muestra popup de productos precargados
-                int MostrarPopup = 1;
-                if (userData.CodigoISO == "BO" && userData.CampaniaID == 201717)
-                {                    
-                    using (PedidoServiceClient sv = new PedidoServiceClient())
-                    {
-                        MostrarPopup = sv.GetFlagProductosPrecargados(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID);
-                    }                    
-                }
-                model.MostrarPopupPrecargados = MostrarPopup;
-                #endregion
-
+                
+                model.MostrarPopupPrecargados = GetMostradoPopupPrecargados();
+                
                 ViewBag.CUVOfertaProl = TempData["CUVOfertaProl"];
                 ViewBag.MensajePedidoDesktop = userData.MensajePedidoDesktop;
                 model.RevistaDigital = revistaDigital;
