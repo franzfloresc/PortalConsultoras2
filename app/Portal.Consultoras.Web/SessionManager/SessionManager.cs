@@ -1,6 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.Models.CertificadoComercial;
+using Portal.Consultoras.Web.Models.MisCertificados;
 using Portal.Consultoras.Web.ServicePedido;
 using System;
 using System.Collections.Generic;
@@ -107,14 +107,14 @@ namespace Portal.Consultoras.Web.SessionManager
             return (RevistaDigitalModel)HttpContext.Current.Session[Constantes.ConstSession.RevistaDigital];
         }
 
-        void ISessionManager.SetCertificadoComercial(List<CertificadoComercialModel> lista)
+        void ISessionManager.SetMisCertificados(List<CertificadoModel> lista)
         {
-            HttpContext.Current.Session[Constantes.ConstSession.CertificadoComercial] = lista;
+            HttpContext.Current.Session[Constantes.ConstSession.MisCertificados] = lista;
         }
 
-        List<CertificadoComercialModel> ISessionManager.GetCertificadoComercial()
+        List<CertificadoModel> ISessionManager.GetMisCertificados()
         {
-            return (List<CertificadoComercialModel>)HttpContext.Current.Session[Constantes.ConstSession.CertificadoComercial];
+            return (List<CertificadoModel>)HttpContext.Current.Session[Constantes.ConstSession.MisCertificados];
         }
     }
 }

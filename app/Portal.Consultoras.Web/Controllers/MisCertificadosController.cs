@@ -1,6 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.Models.CertificadoComercial;
+using Portal.Consultoras.Web.Models.MisCertificados;
 using Portal.Consultoras.Web.ServicePedido;
 using System;
 using System.Collections.Generic;
@@ -17,32 +17,32 @@ using iTextSharp.text.html.simpleparser;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class CertificadoComercialController : BaseController
+    public class MisCertificadosController : BaseController
     {
         public ActionResult Index()
         {
-            var listaCertificados = new List<CertificadoComercialModel>();
+            var listaCertificados = new List<CertificadoModel>();
 
             try
             {
-                if (!UsuarioModel.HasAcces(ViewBag.Permiso, "CertificadoComercial/Index"))
+                if (!UsuarioModel.HasAcces(ViewBag.Permiso, "MisCertificados/Index"))
                     return RedirectToAction("Index", "Bienvenida");
 
-                listaCertificados = ObtenerCertificados();                
+                listaCertificados = ObtenerCertificados();
 
-                sessionManager.SetCertificadoComercial(listaCertificados);
+                sessionManager.SetMisCertificados(listaCertificados);
             }
             catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
-            }            
+            }
 
             return View(listaCertificados);
         }
 
-        private List<CertificadoComercialModel> ObtenerCertificados()
+        private List<CertificadoModel> ObtenerCertificados()
         {
-            var listaCertificados = new List<CertificadoComercialModel>();
+            var listaCertificados = new List<CertificadoModel>();
 
             var certificadoNoAdeudo = ObtenerCertificadoNoAdeudo();
             listaCertificados.Add(certificadoNoAdeudo);
@@ -54,9 +54,9 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #region Certificado Paz y Salvo / No Adeudo
-        private CertificadoComercialModel ObtenerCertificadoNoAdeudo()
-        {          
-            var certificado = new CertificadoComercialModel();
+        private CertificadoModel ObtenerCertificadoNoAdeudo()
+        {
+            var certificado = new CertificadoModel();
 
             var certificadoComercialId = 99;
             var nombre = "";
@@ -84,7 +84,7 @@ namespace Portal.Consultoras.Web.Controllers
                         break;
                     }
 
-                    certificadoComercialId = 1;                    
+                    certificadoComercialId = 1;
                     break;
                 default:
                     certificado.Nombre = "";
@@ -94,18 +94,18 @@ namespace Portal.Consultoras.Web.Controllers
             certificado.CertificadoComercialId = certificadoComercialId;
             certificado.Nombre = nombre;
             certificado.MensajeError = mensajeError;
-            certificado.NombreVista = "~/Views/CertificadoComercial/NoAdeudoPDF.cshtml";
+            certificado.NombreVista = "~/Views/MisCertificados/NoAdeudoPDF.cshtml";
 
-            return certificado;            
+            return certificado;
         }
 
         #endregion
 
         #region Certificado Comercial
 
-        private CertificadoComercialModel ObtenerCertificadoComercial()
+        private CertificadoModel ObtenerCertificadoComercial()
         {
-            var certificado = new CertificadoComercialModel();
+            var certificado = new CertificadoModel();
 
             var certificadoComercialId = 0;
             var nombre = "";
@@ -142,7 +142,7 @@ namespace Portal.Consultoras.Web.Controllers
             certificado.CertificadoComercialId = certificadoComercialId;
             certificado.Nombre = nombre;
             certificado.MensajeError = mensajeError;
-            certificado.NombreVista = "~/Views/CertificadoComercial/ComercialPDF.cshtml";
+            certificado.NombreVista = "~/Views/MisCertificados/ComercialPDF.cshtml";
 
             return certificado;
         }
@@ -154,7 +154,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var model = ObtenerCertificadoById(id);
 
-            if(model.CertificadoComercialId != 0)
+            if (model.CertificadoComercialId != 0)
             {
                 var view = model.NombreVista;
 
@@ -173,7 +173,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
 
-            return null;                       
+            return null;
         }
 
         private string RenderViewToString(ControllerContext context,
@@ -210,11 +210,11 @@ namespace Portal.Consultoras.Web.Controllers
             return result;
         }
 
-        private CertificadoComercialModel ObtenerCertificadoById(int id)
-        {            
-            var listaCertificados = sessionManager.GetCertificadoComercial() ?? new List<CertificadoComercialModel>();
+        private CertificadoModel ObtenerCertificadoById(int id)
+        {
+            var listaCertificados = sessionManager.GetMisCertificados() ?? new List<CertificadoModel>();
 
-            var certificado = listaCertificados.FirstOrDefault(p => p.CertificadoComercialId == id) ?? new CertificadoComercialModel();
+            var certificado = listaCertificados.FirstOrDefault(p => p.CertificadoComercialId == id) ?? new CertificadoModel();
 
             return certificado;
         }

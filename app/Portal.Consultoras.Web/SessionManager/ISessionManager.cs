@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.Models.CertificadoComercial;
+using Portal.Consultoras.Web.Models.MisCertificados;
 
 namespace Portal.Consultoras.Web.SessionManager
 {
@@ -43,8 +43,8 @@ namespace Portal.Consultoras.Web.SessionManager
 
         RevistaDigitalModel GetRevistaDigital();
 
-        void SetCertificadoComercial(List<CertificadoComercialModel> lista);
+        void SetMisCertificados(List<CertificadoModel> lista);
 
-        List<CertificadoComercialModel> GetCertificadoComercial();
+        List<CertificadoModel> GetMisCertificados();
     }
 }
