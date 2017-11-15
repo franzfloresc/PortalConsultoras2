@@ -2049,3 +2049,339 @@ height: 100%;
     letter-spacing: 2px;
     display: block;
 }
+.nuevo_contenedor_informativo {
+    max-width: 1189px;
+    margin: auto;
+}
+
+/*NUEVO LANDGIN*/
+
+.back-to {
+    background: black;
+    color: white;
+    padding: 13.5px 20px;
+    font-size: 11px;
+    letter-spacing: 1px;
+}
+
+    .back-to img {
+        margin-right: 10px;
+    }
+
+/* NUEVO LANDING SUSCRIPCION MOBILE */
+
+.show-gana {
+    width: 100%;
+    height: auto;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    background-position: center center !important;
+}
+
+    .show-gana::before {
+        background: black;
+        content: "";
+    }
+
+    .show-gana .contenedor {
+        padding: 20pt;
+    }
+
+        .show-gana .contenedor .img-descriptiva {
+            width: 50%;
+            float: left;
+        }
+
+            .show-gana .contenedor .img-descriptiva img {
+                width: 200px;
+                /* display: block; */
+                /* height: 130px; */
+                display: block;
+                margin: auto;
+            }
+
+        .show-gana .contenedor .txt-descriptivo {
+            display: block;
+            text-align: center;
+            display: block;
+            margin: auto;
+            margin-top: 20pt;
+            color: white;
+            font-size: 13px;
+            letter-spacing: 1px;
+            width: 187px;
+            width: 50%;
+            float: left;
+        }
+
+        .show-gana .contenedor .texto-descriptivo > div {
+            display: table-cell;
+            vertical-align: middle;
+            height: 200px;
+        }
+
+        .show-gana .contenedor .clear {
+            clear: both;
+        }
+
+        .show-gana .contenedor .texto-descriptivo {
+            display: table;
+            height: 200px;
+            width: 40%;
+        }
+
+            .show-gana .contenedor .texto-descriptivo p {
+                color: white;
+                text-align: left;
+            }
+
+                .show-gana .contenedor .texto-descriptivo p.nombre {
+                    letter-spacing: 0.5px;
+                    font-size: 11px;
+                    display: block;
+                    margin-bottom: 0px;
+                    text-align: left;
+                    margin-top: 0;
+                    width: initial;
+                    position: initial;
+                    float: initial;
+                    padding:0;
+                    background:none;
+                }
+
+                .show-gana .contenedor .texto-descriptivo p.gana-mas {
+                    display: block;
+                    text-align: left;
+                    letter-spacing: 1px;
+                    font-size: 25px;
+                    margin-bottom: 0;
+                    margin-top: 0;
+                    font-weight: 900;
+                    margin-bottom: 2px;
+                }
+
+            .show-gana .contenedor .texto-descriptivo span.txt-descriptivo {
+                letter-spacing: 1px;
+                margin-top: 0px;
+                color: white;
+                font-size: 13px;
+                display: block;
+                text-align: left;
+                width: 100%;
+                line-height: 16px;
+            }
+
+.que-ofrecemos {
+    padding: 20pt;
+}
+
+    .que-ofrecemos p.titulo-ofrece {
+        letter-spacing: 1px;
+        text-align: center;
+        display: block;
+        font-weight: 900;
+        margin-bottom: 20pt;
+        color: #e81c36;
+        font-size: 13px;
+        margin-top: 0px;
+    }
+
+    .que-ofrecemos .ofrece-bloque {
+        margin-bottom: 10pt;
+    }
+
+        .que-ofrecemos .ofrece-bloque .icono {
+            float: left;
+            width: 13%;
+            display: table;
+            height: 36.66px;
+        }
+
+            .que-ofrecemos .ofrece-bloque .icono .img {
+                display: table-cell;
+                vertical-align: middle;
+                text-align: center;
+            }
+
+            .que-ofrecemos .ofrece-bloque .icono img {
+                width: 34px;
+            }
+
+        .que-ofrecemos .ofrece-bloque .texto {
+            float: left;
+            width: 82%;
+            margin-left: 5%;
+        }
+
+            .que-ofrecemos .ofrece-bloque .texto p.titulo {
+                display: block;
+                margin-top: 0px;
+                font-weight: 900;
+                text-align: left;
+                letter-spacing: 1px;
+                margin-bottom: 5pt;
+            }
+
+            .que-ofrecemos .ofrece-bloque .texto span.txt-descriptivo {
+                display: block;
+                word-wrap: break-word;
+                text-align: left;
+                letter-spacing: 0.5px;
+                font-size: 11px;
+            }
+
+        .que-ofrecemos .ofrece-bloque .clear {
+            clear: both;
+        }
+
+.como-funciona {
+    padding: 20pt;
+    background: #f5f5f5;
+}
+
+    .como-funciona p.titulo-ofrece {
+        letter-spacing: 1px;
+        text-align: center;
+        display: block;
+        font-weight: 900;
+        margin-bottom: 20pt;
+        color: #e81c36;
+        font-size: 13px;
+        margin-top: 0px;
+    }
+
+    .como-funciona .funciona-asi {
+        width: 44%;
+        float: left;
+        letter-spacing: 0.5px;
+        font-size: 11px;
+        padding: 0 3%;
+    }
+
+    .como-funciona .clear {
+        clear: both;
+    }
+
+    .como-funciona img {
+        width: 120px;
+        margin: auto;
+        display: block;
+        margin-top: 20pt;
+    }
+
+.suscribete-gratis {
+    padding: 20pt;
+}
+
+    .suscribete-gratis p.titulo-ofrece {
+        letter-spacing: 1px;
+        text-align: center;
+        display: block;
+        font-weight: 900;
+        margin-bottom: 20pt;
+        color: #e81c36;
+        font-size: 13px;
+        margin-top: 0px;
+    }
+
+    .suscribete-gratis .info {
+        display: block;
+        text-align: center;
+        letter-spacing: 1px;
+        font-size: 13px;
+        margin-bottom: 20pt;
+    }
+
+    .suscribete-gratis a.callto {
+        background: #e81c36;
+        color: white;
+        text-align: center;
+        max-width: 280px;
+        display: block;
+        font-size: 13px;
+        text-decoration: none;
+        padding: 12px 0px;
+        letter-spacing: 1px;
+        margin: auto;
+        font-size: 13px;
+        box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.30);
+    }
+
+@media (max-width: 1200px) {
+    .que-ofrecemos .ofrece-bloque .icono img {
+        padding-top: 5px;
+    }
+
+    .que-ofrecemos .ofrece-bloque .icono .img {
+        text-align: right;
+    }
+}
+
+@media (max-width: 600px) {
+    .que-ofrecemos .ofrece-bloque .icono img {
+        padding-top: 5px;
+    }
+
+    .que-ofrecemos .ofrece-bloque .icono .img {
+        text-align: center;
+    }
+}
+
+@media (max-width: 550px) {
+    .que-ofrecemos .ofrece-bloque .icono img {
+        padding-top: 0px;
+    }
+
+    .show-gana .contenedor .img-descriptiva img {
+        width: 170px;
+    }
+
+    .show-gana .contenedor .texto-descriptivo {
+        height: 170px;
+    }
+
+        .show-gana .contenedor .texto-descriptivo > div {
+            height: auto;
+        }
+}
+
+@media (max-width: 550px) {
+    .show-gana .contenedor .texto-descriptivo {
+        padding-left: 5%;
+    }
+}
+
+@media (max-width: 400px) {
+    .que-ofrecemos .ofrece-bloque .icono img {
+        width: 34px;
+        position: relative;
+        right: 9px;
+    }
+
+    .show-gana .contenedor .texto-descriptivo {
+        height: 133.33px;
+    }
+
+    .show-gana .contenedor .img-descriptiva img {
+        width: 133.34px;
+    }
+
+    .show-gana .contenedor .texto-descriptivo span.txt-descriptivo {
+        font-size: 9px;
+    }
+
+    .show-gana .contenedor .texto-descriptivo p.gana-mas {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 550px) {
+    .que-ofrecemos .ofrece-bloque .icono {
+        float: left;
+        width: 13%;
+        display: table;
+        height: 66.66px;
+    }
+}
+
+/* FIN NUEVO LANDING SUSCRIPCION MOBILE */

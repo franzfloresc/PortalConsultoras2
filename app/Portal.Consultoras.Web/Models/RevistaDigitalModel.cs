@@ -22,6 +22,7 @@ namespace Portal.Consultoras.Web.Models
         public int EstadoAccion { get; set; }
         public List<ComunModel> ListaTabs { get; set; }
         public bool NoVolverMostrar { get; set; }
+        public string Nombre { get; set; }
         public string NombreRevista { get; set; }
         public string Titulo { get; set; }
         public string TituloDescripcion { get; set; }

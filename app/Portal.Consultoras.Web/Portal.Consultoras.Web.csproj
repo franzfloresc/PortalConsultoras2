@@ -1240,6 +1240,7 @@
     <Content Include="Content\Css\Site\Login2\style_esika.min.css" />
     <Content Include="Content\Css\Site\Login2\style_lbel.min.css" />
     <Content Include="Content\ImageHelper\xzoom.css" />
+    <Content Include="Content\Images\android-EPM-mockup.png" />
     <Content Include="Content\Images\arrow-down.svg" />
     <Content Include="Content\Images\arrow.png" />
     <Content Include="Content\Css\Site\jquery.rateyo.css" />
@@ -1248,6 +1249,7 @@
     <Content Include="Content\FileCargaCuponConsultora\test.html" />
     <Content Include="Content\Images\carrito-hover.png" />
     <Content Include="Content\Images\carrito.png" />
+    <Content Include="Content\Images\close-icon.svg" />
     <Content Include="Content\Images\Esika\Contenedor\fondo-seccion-descarga-imprime.jpg" />
     <Content Include="Content\Images\Esika\Contenedor\icono-descarga-e-imprime-hover.svg" />
     <Content Include="Content\Images\Esika\Contenedor\icono-descarga-e-imprime.svg" />
@@ -1255,6 +1257,7 @@
     <Content Include="Content\Images\Esika\Contenedor\inicio_normal.svg" />
     <Content Include="Content\Images\Esika\Contenedor\papel-de-regalo.png" />
     <Content Include="Content\Images\Esika\Contenedor\tarjetas-navidenias.png" />
+    <Content Include="Content\Images\GIF-4.0.gif" />
     <Content Include="Content\Images\Lbel\Contenedor\fondo-seccion-descarga-imprime.jpg" />
     <Content Include="Content\Images\Lbel\Contenedor\icono-descarga-e-imprime-hover.svg" />
     <Content Include="Content\Images\Lbel\Contenedor\icono-descarga-e-imprime.svg" />
@@ -1262,6 +1265,7 @@
     <Content Include="Content\Images\Lbel\Contenedor\inicio_normal.svg" />
     <Content Include="Content\Images\Lbel\Contenedor\papel-de-regalo.png" />
     <Content Include="Content\Images\Lbel\Contenedor\tarjetas-navidenias.png" />
+    <Content Include="Content\Images\marquesina-landing.jpg" />
     <Content Include="Content\Images\check-acepto-terminos.png" />
     <Content Include="Content\Images\Esika\bg_regalo.png" />
     <Content Include="Content\Images\bg_esika.png" />
@@ -2866,6 +2870,7 @@
     <Content Include="Content\Images\mobile\Tarjeta_MasterCard.png" />
     <Content Include="Content\Images\mobile\Tarjeta_Visa.png" />
     <Content Include="Content\Images\modelo-popup-revista.png" />
+    <Content Include="Content\Images\money-suscription-icon.svg" />
     <Content Include="Content\Images\MontoMinimoBannerVE.jpg" />
     <Content Include="Content\Images\MontoMinimoBannerVEC4.jpg" />
     <Content Include="Content\Images\more.png" />
@@ -2883,6 +2888,7 @@
     <Content Include="Content\Images\nuevo-producto.png" />
     <Content Include="Content\Images\oferta-ultimo-minuto.png" />
     <Content Include="Content\Images\oferta.png" />
+    <Content Include="Content\Images\offer-suscription-icon.svg" />
     <Content Include="Content\Images\ojito-hover.png" />
     <Content Include="Content\Images\ojito.png" />
     <Content Include="Content\Images\ojos.svg" />
@@ -2964,6 +2970,7 @@
     <Content Include="Content\Images\regalo_microefecto_esika.png" />
     <Content Include="Content\Images\regalo_microefecto_lbel.png" />
     <Content Include="Content\Images\remove.png" />
+    <Content Include="Content\Images\RevistaDigital\android-EPM-mockup.png" />
     <Content Include="Content\Images\RevistaDigital\barra-mis-ofertas.png" />
     <Content Include="Content\Images\RevistaDigital\bc_barra_top.png" />
     <Content Include="Content\Images\RevistaDigital\bc_logo.svg" />
@@ -2986,6 +2993,7 @@
     <Content Include="Content\Images\RevistaDigital\fondo_popup.jpg" />
     <Content Include="Content\Images\RevistaDigital\fondo_repeat.png" />
     <Content Include="Content\Images\RevistaDigital\fondo_titulo.png" />
+    <Content Include="Content\Images\RevistaDigital\GIF-4.0.gif" />
     <Content Include="Content\Images\RevistaDigital\group.png" />
     <Content Include="Content\Images\RevistaDigital\HOME_NEGRO.svg" />
     <Content Include="Content\Images\RevistaDigital\HOME_ROJO.svg" />
@@ -2997,11 +3005,14 @@
     <Content Include="Content\Images\RevistaDigital\fondo_srd2.svg" />
     <Content Include="Content\Images\RevistaDigital\Kadiavisual2.png" />
     <Content Include="Content\Images\RevistaDigital\logo_EPT.png" />
+    <Content Include="Content\Images\RevistaDigital\marquesina-landing.jpg" />
     <Content Include="Content\Images\RevistaDigital\mob_rd_consultora.png" />
+    <Content Include="Content\Images\RevistaDigital\money-suscription-icon.svg" />
     <Content Include="Content\Images\RevistaDigital\mpopup_inscripcion.png" />
     <Content Include="Content\Images\RevistaDigital\next.png" />
     <Content Include="Content\Images\RevistaDigital\next_mob.png" />
     <Content Include="Content\Images\RevistaDigital\nuevo.png" />
+    <Content Include="Content\Images\RevistaDigital\offer-suscription-icon.svg" />
     <Content Include="Content\Images\RevistaDigital\ojos.svg" />
     <Content Include="Content\Images\RevistaDigital\ojos_BLANCO.svg" />
     <Content Include="Content\Images\RevistaDigital\ojos_negro.svg" />
@@ -3027,8 +3038,11 @@
     <Content Include="Content\Images\RevistaDigital\rd_lanzamiento.jpg" />
     <Content Include="Content\Images\RevistaDigital\revista_izquierda.png" />
     <Content Include="Content\Images\RevistaDigital\shoppingcard_blanco.svg" />
+    <Content Include="Content\Images\RevistaDigital\speed-suscription-icon.svg" />
+    <Content Include="Content\Images\RevistaDigital\triangle.png" />
     <Content Include="Content\Images\RevistaDigital\Vector.png" />
     <Content Include="Content\Images\RevistaDigital\VectorUP.png" />
+    <Content Include="Content\Images\RevistaDigital\visualo.png" />
     <Content Include="Content\Images\revista_no_disponible.jpg" />
     <Content Include="Content\Images\sac.png" />
     <Content Include="Content\Images\scotiabank.png" />
@@ -3097,6 +3111,7 @@
     <Content Include="Content\Images\sombra_login.png" />
     <Content Include="Content\Images\sombra_superior.png" />
     <Content Include="Content\Images\somos_belcorp.png" />
+    <Content Include="Content\Images\speed-suscription-icon.svg" />
     <Content Include="Content\Images\star_reco.png" />
     <Content Include="Content\Images\stok.png" />
     <Content Include="Content\Images\subirimagen.png" />
@@ -3117,6 +3132,7 @@
     <Content Include="Content\Images\total.png" />
     <Content Include="Content\Images\trash.png" />
     <Content Include="Content\Images\trash_e.png" />
+    <Content Include="Content\Images\triangle.png" />
     <Content Include="Content\Images\turn_left.png" />
     <Content Include="Content\Images\Undo.png" />
     <Content Include="Content\Images\unificado_lb_es.png" />
@@ -3127,6 +3143,7 @@
     <Content Include="Content\Images\ver-mas-flecha-vertical.svg" />
     <Content Include="Content\Images\vista_footer.png" />
     <Content Include="Content\Images\vista_header.png" />
+    <Content Include="Content\Images\visualo.png" />
     <Content Include="Content\Images\webtracking\box.png" />
     <Content Include="Content\Images\webtracking\boxGrande.png" />
     <Content Include="Content\Images\webtracking\busqueda.png" />

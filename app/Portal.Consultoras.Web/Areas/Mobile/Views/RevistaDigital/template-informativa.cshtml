@@ -4,14 +4,14 @@
 @model Portal.Consultoras.Web.Models.RevistaDigitalModel
 
 @{
-    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayoutContenedor.cshtml";
+    Layout = ViewBag.TipoLayout == "2" ? "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml" : "~/Areas/Mobile/Views/Shared/_MobileLayoutContenedor.cshtml";
     var urlDomain = Util.GetUrlHost(Request);
 }
 
 @section styles{
     @System.Web.Optimization.Styles.Render("~/bundles/css/Mobile/Site/RevistaDigital-Info")
 }
-<div class="content_320 ingresoPedidom" data-estadoregistro="@Model.EstadoSuscripcion">
+<div class="content_320 ingresoPedidom" style="display:none;">
     <div class="box_beneficios_ept">
         <div class="tit_preguntas">INGRESA A ÉSIKA PARA MÍ EN LA PRÓXIMA CAMPAÑA Y CRECE EN MÁS DE 20%* TUS GANANCIAS:</div>
         <div class="beneficios_ept">
@@ -52,33 +52,9 @@
             </div>
         </div>
     </div>
-    <div class="box_preguntas_ept">
-        <div class="tit_light_ept">PREGUNTAS FRECUENTES</div>
-        <div class="ept_preguntasRespuestas_accordion">
-            <div class="box_pregunta_ept">
-                <div class="tit_pregunta_ept">¿Qué es “Ésika para mí”? </div>
-                <div class="text_respuesta_ept">Es tu revista online personalizada, con las mejores y exclusivas ofertas que se acomodan a tus preferencias y de tu negocio. Son las ofertas que sí o sí tus clientes te pedirán.</div>
-            </div>
-            <div class="box_pregunta_ept">
-                <div class="tit_pregunta_ept">¿Las ofertas de “Ésika para mí” tienen algún descuento adicional? ¿O es su precio final lo que sale en el momento de la compra?</div>
-                <div class="text_respuesta_ept">El precio que ves en “Ésika para mí” es el precio neto consultora, es el precio que deberás pagar una vez facturado tu pedido.</div>
-            </div>
-            <div class="box_pregunta_ept">
-                <div class="tit_pregunta_ept">¿Las ofertas de “Ésika para mí” suman puntos a mi pedido? ¿Cuántos?</div>
-                <div class="text_respuesta_ept">Sí, todas tus compras de ofertas en “Ésika para mí” suman puntos para los concursos y bonificaciones vigentes que tengas en ese momento.</div>
-            </div>
-            <div class="box_pregunta_ept">
-                <div class="tit_pregunta_ept">¿Por qué cancelaron mi revista impresa?</div>
-                <div class="text_respuesta_ept">Si no has recibido la revista impresa, es porque te debes haber suscrito por algunos de nuestros medios. En caso no desees recibir los beneficios de “Esika para mí”, puedes desafiliarte directamente desde Somosbelcorp. com en la sección ¿Qué és Ésika para mí? o llamando al call center de tu país. Una vez solicites retirarte de “Ésika para mí”, recibirás tu revista regular 2 campañas después.</div>
-            </div>
-        </div>
-        <div class="descargarPreguntasRespuestas">
-            <a href="@ConfigurationManager.AppSettings["UrlPreguntasFrecuentesRD"].Trim()" target="_blank">+ DESCARGA AQUÍ TODAS LAS PREGUNTAS FRECUENTES</a>
-        </div>
-    </div>
 </div>
 
-<div id="divCambiosEstadoRegistro">
+<div id="divCambiosEstadoRegistro" style="display:none;">
     @if (Model.EstadoSuscripcion == Constantes.EstadoRDSuscripcion.SinRegistroDB || Model.EstadoSuscripcion == Constantes.EstadoRDSuscripcion.NoPopUp)
     {
         <div class="box_cancelarInscripcion_ept" id="divSuscripcion" data-estadoregistro0="" style="display: none">
@@ -124,6 +100,193 @@
         <div class="legal_gana_mas"></div>
     </div>
 
+</div>
+
+<div class="back-to">
+    <img src="@Url.Content("~/Content/Images/RevistaDigital/triangle.png")" alt="">VOLVER
+</div>
+<div class="show-gana" style="background: url(@Url.Content("~/Content/Images/RevistaDigital/marquesina-landing.jpg"));">
+    <div class="contenedor">
+
+        <div class="img-descriptiva">
+            <img src="" alt="">
+        </div>
+        <div class="texto-descriptivo">
+            <div>
+                <p class="nombre">
+                    @Model.Nombre, LLEGÓ
+                </p>
+                <p class="gana-mas">
+                    GANA +
+                </p>
+                <span class="txt-descriptivo">
+                    UN ESPACIO ONLINE CREADO SOLO PARA TÍ
+                </span>
+            </div>
+        </div>
+        <div class="clear"></div>
+
+
+    </div>
+</div>
+<div class="que-ofrecemos">
+    <div class="nuevo_contenedor_informativo">
+        <p class="titulo-ofrece">
+            ¿QUÉ TE OFRECE?
+        </p>
+        <div class="ofrece-bloque">
+            <div class="icono">
+                <div class="img">
+                    <img src="@Url.Content("~/Content/Images/RevistaDigital/offer-suscription-icon.svg")" alt="">
+                </div>
+            </div>
+            <div class="texto">
+                <p class="titulo">
+                    + OFERTAS EXCLUSIVAS
+                </p>
+                <span class="descripcion">
+                    Packs y productos de tus productos favoritos ¡y con precios exclusivos para ti!
+                </span>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="ofrece-bloque">
+            <div class="icono">
+                <div class="img">
+                    <img src="@Url.Content("~/Content/Images/RevistaDigital/speed-suscription-icon.svg")" alt="">
+                </div>
+            </div>
+            <div class="texto">
+                <p class="titulo">
+                    + FACILIDAD Y RAPIDEZ
+                </p>
+                <span class="descripcion">
+                    ¡Adiós errores! Ya no tendrás que digitar códigos.
+                </span>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="ofrece-bloque">
+            <div class="icono">
+                <div class="img">
+                    <img src="@Url.Content("~/Content/Images/RevistaDigital/money-suscription-icon.svg")" alt="">
+                </div>
+            </div>
+            <div class="texto">
+                <p class="titulo">
+                    + TIPS PARA GANAR
+                </p>
+                <span class="descripcion">
+                    La información que necesitas de cada producto para venderlo ¡al instante!
+                </span>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+
+<div class="como-funciona">
+    <div class="nuevo_contenedor_informativo">
+        <p class="titulo-ofrece">
+            ¿CÓMO FUNCIONA?
+        </p>
+        <div class="funciona-asi">
+            1. En la C-@Model.CampaniaMasUno te suscribes a <b>GANA +</b> y podrás visualizar ofertas únicas para ti.
+        </div>
+        <div class="funciona-asi">
+            2. En la C-@Model.CampaniaMasDos, <b>dejarás de recibir la revista impresa</b> y podrás comprar y disfrutar de GANA +
+        </div>
+        <div class="clear"></div>
+        <img src="@Url.Content("~/Content/Images/RevistaDigital/android-EPM-mockup.png")" alt="">
+    </div>
+</div>
+
+<div class="suscribete-gratis" style="display:none;">
+    <div class="nuevo_contenedor_informativo">
+        <span class="info">
+            CON GANA + DISFRUTA DE TUS OFERTAS EXCLUSIVAS EL DÍA QUE QUIERAS, <b>¡EN EL MOMENTO QUE QUIERAS!</b>
+        </span>
+        <a href="javascript: RDSuscripcion(2);" class="callto">
+            SUSCRÍBETE GRATIS AQUÍ
+        </a>
+    </div>
+</div>
+
+<div id="divCambiosEstadoRegistro" class="suscribete-gratis" data-estadoregistro="@Model.EstadoSuscripcion">
+    @if (Model.EstadoSuscripcion == Constantes.EstadoRDSuscripcion.SinRegistroDB || Model.EstadoSuscripcion == Constantes.EstadoRDSuscripcion.NoPopUp)
+    {
+        <div class="nuevo_contenedor_informativo" id="divSuscripcion" data-estadoregistro0="" style="display: none">
+            <span class="info">
+                CON GANA + DISFRUTA DE TUS OFERTAS EXCLUSIVAS EL DÍA QUE QUIERAS, <b>¡EN EL MOMENTO QUE QUIERAS!</b>
+            </span>
+            <a href="javascript: RDSuscripcion(2);" class="btn_inscribirse">SUSCRÍBETE GRATIS AQUÍ</a>
+            <hr class="clear" />
+            <div class="texto_inscribirse">Al inscribirte estas aceptando los <a href="javascript: MostrarTerminos();" class="terminos_inscribirse">términos y condiciones</a></div>
+        </div>
+    }
+
+    <div class="nuevo_contenedor_informativo" id="divAnularSuscripcion" data-estadoregistro1="" style="display: none">
+        <div class="content_320 ingresoPedidom">
+            <div class="tit_preguntas">¿YA NO QUIERES ESTAR INSCRITA A ÉSIKA PARA MÍ?</div>
+            <p> Tienes hasta el cierre de campaña para cancelar tu inscripción. Al cancelar tu inscripción dejarás de recibir tu revista online y <b>volverás a recibir tu revista impresa en 2 campañas.</b></p>
+            <p>
+                Cualquier duda llama a @Model.NumeroContacto o haz click
+                <a href="@Url.Action("ChatBelcorp", "Bienvenida", new {area = "Mobile"})" target="_blank"
+                   style="display:inline-block; text-decoration:underline;">aquí</a>
+            </p>
+        </div>
+        <div class="btn_cancelarInscripcion_ept">
+            <a href="javascript: RDDesuscripcion(2);">CANCELAR MI INSCRIPCIÓN</a>
+        </div>
+        <hr class="clear" />
+        <div class="texto_inscribirse">Al inscribirte estas aceptando los <a href="javascript: MostrarTerminos();" class="terminos_inscribirse">términos y condiciones</a></div>
+        <hr class="clear" />
+        <div class="text_legal_ept">*Comparación vs. consultoras que no compraron ofertas digitales de www.somosbelcorp.com. Período evaluado: Dic. 2016 – Abr. 2017 (Perú y Chile).</div>
+    </div>
+
+    <div class="nuevo_contenedor_informativo" id="divMensajeAnularSuscripcion" data-estadoregistro2="" style="display: none">
+        <div class="content_320 ingresoPedidom">
+            <div class="tit_preguntas" style="text-transform: uppercase">
+                haz anulado tu inscripción con éxito
+            </div>
+            <p style="text-transform: uppercase">
+                al cancelar tu inscripción dejarás de recibir tu revista online <b>ésika para mí</b> Y volverás a recibir tu revista impresa en 2 campañas.
+                <br />
+                Puedes volver a inscribirte.
+            </p>
+            <a href="javascript: RDSuscripcion(2);" class="btn_inscribirse">SUSCRÍBETE GRATIS AQUÍ</a>
+            <hr class="clear" />
+            <div class="texto_inscribirse">Al inscribirte estas aceptando los <a href="javascript: MostrarTerminos();" class="terminos_inscribirse">términos y condiciones</a></div>
+        </div>
+    </div>
+
+</div>
+
+<div class="content_320 ingresoPedidom">
+    <div class="box_preguntas_ept">
+        <div class="tit_light_ept">PREGUNTAS FRECUENTES</div>
+        <div class="ept_preguntasRespuestas_accordion">
+            <div class="box_pregunta_ept">
+                <div class="tit_pregunta_ept">¿Qué es “Ésika para mí”? </div>
+                <div class="text_respuesta_ept">Es tu revista online personalizada, con las mejores y exclusivas ofertas que se acomodan a tus preferencias y de tu negocio. Son las ofertas que sí o sí tus clientes te pedirán.</div>
+            </div>
+            <div class="box_pregunta_ept">
+                <div class="tit_pregunta_ept">¿Las ofertas de “Ésika para mí” tienen algún descuento adicional? ¿O es su precio final lo que sale en el momento de la compra?</div>
+                <div class="text_respuesta_ept">El precio que ves en “Ésika para mí” es el precio neto consultora, es el precio que deberás pagar una vez facturado tu pedido.</div>
+            </div>
+            <div class="box_pregunta_ept">
+                <div class="tit_pregunta_ept">¿Las ofertas de “Ésika para mí” suman puntos a mi pedido? ¿Cuántos?</div>
+                <div class="text_respuesta_ept">Sí, todas tus compras de ofertas en “Ésika para mí” suman puntos para los concursos y bonificaciones vigentes que tengas en ese momento.</div>
+            </div>
+            <div class="box_pregunta_ept">
+                <div class="tit_pregunta_ept">¿Por qué cancelaron mi revista impresa?</div>
+                <div class="text_respuesta_ept">Si no has recibido la revista impresa, es porque te debes haber suscrito por algunos de nuestros medios. En caso no desees recibir los beneficios de “Esika para mí”, puedes desafiliarte directamente desde Somosbelcorp. com en la sección ¿Qué és Ésika para mí? o llamando al call center de tu país. Una vez solicites retirarte de “Ésika para mí”, recibirás tu revista regular 2 campañas después.</div>
+            </div>
+        </div>
+        <div class="descargarPreguntasRespuestas">
+            <a href="@ConfigurationManager.AppSettings["UrlPreguntasFrecuentesRD"].Trim()" target="_blank">+ DESCARGA AQUÍ TODAS LAS PREGUNTAS FRECUENTES</a>
+        </div>
+    </div>
 </div>
 
 @section scripts{

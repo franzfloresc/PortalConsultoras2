@@ -4,13 +4,13 @@
 @model Portal.Consultoras.Web.Models.RevistaDigitalModel
 @{
     ViewBag.Title = "ÉSIKA PARA MÍ";
-    Layout = "~/Views/Shared/_MainLayoutContenedor.cshtml";
+    Layout = ViewBag.TipoLayout == "2" ? "~/Views/Shared/_MainLayout.cshtml" : "~/Views/Shared/_MainLayoutContenedor.cshtml";
 }
 @section styles{
     @System.Web.Optimization.Styles.Render("~/bundles/css/Site/RevistaDigital-Info")
 }
 
-<div class="content_gana_mas" data-estadoregistro="@Model.EstadoSuscripcion">
+<div class="content_gana_mas" style="display:none;" data-estadoregistro="@Model.EstadoSuscripcion">
     <div class="content_revista_izquierda"><img src="@Url.Content("~/Content/Images/RevistaDigital/revista_izquierda.png")" /></div>
     <div class="content_revista_derecha"><img src="@Url.Content("~/Content/Images/RevistaDigital/celular_revista.png")" /></div>
     <div class="content_texto_gana">
@@ -35,7 +35,7 @@
     </div>
     <hr class="clear" />
 </div>
-<div class="content_funciona_esika">
+<div class="content_funciona_esika" style="display:none;">
     <div class="content_belcorp">
         <div class="titulo_funciona">¿cómo funciona ésika para mí?</div>
         <div style="overflow: hidden;padding: 0 5%;">
@@ -56,6 +56,166 @@
     </div>
     <hr class="clear" />
 </div>
+
+<div class="back-to">
+    <img src="@Url.Content("~/Content/Images/RevistaDigital/triangle.png")" alt="">VOLVER
+</div>
+<div class="show-gana" style="background:url(@Url.Content("~/Content/Images/marquesina-landing.jpg"));">
+    <div class="contenedor">
+        <div class="img-descriptiva">
+            <img src="@Url.Content("~/Content/Images/RevistaDigital/GIF-4.0.gif")" alt="">
+        </div>
+        <div class="texto-descriptivo">
+            <div>
+                <p class="nombre">
+                    @Model.Nombre, LLEGÓ
+                </p>
+                <p class="gana-mas">
+                    GANA +
+                </p>
+                <span class="txt-descriptivo">
+                    UN ESPACIO ONLINE CREADO <b>SOLO PARA TI</b>
+                </span>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+<div class="que-ofrecemos">
+    <div class="nuevo_contenedor_informativo">
+        <p class="titulo-ofrece">
+            ¿QUÉ TE OFRECE?
+        </p>
+        <div class="ofrece-bloque">
+            <div class="icono">
+                <div class="img">
+                    <img src="@Url.Content("~/Content/Images/RevistaDigital/offer-suscription-icon.svg")" alt="">
+                </div>
+            </div>
+            <div class="texto">
+                <p class="titulo">
+                    + OFERTAS EXCLUSIVAS
+                </p>
+                <span class="descripcion">
+                    Packs y productos de tus productos favoritos ¡y con precios exclusivos para ti!
+                </span>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="ofrece-bloque">
+            <div class="icono">
+                <div class="img">
+                    <img src="@Url.Content("~/Content/Images/RevistaDigital/speed-suscription-icon.svg")" alt="">
+                </div>
+            </div>
+            <div class="texto">
+                <p class="titulo">
+                    + FACILIDAD Y RAPIDEZ
+                </p>
+                <span class="descripcion">
+                    ¡Adiós errores! Ya no tendrás que digitar códigos.
+                </span>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="ofrece-bloque">
+            <div class="icono">
+                <div class="img">
+                    <img src="@Url.Content("~/Content/Images/RevistaDigital/money-suscription-icon.svg")" alt="">
+                </div>
+            </div>
+            <div class="texto">
+                <p class="titulo">
+                    + TIPS PARA GANAR
+                </p>
+                <span class="descripcion">
+                    La información que necesitas de cada producto para venderlo ¡al instante!
+                </span>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+
+<div class="como-funciona">
+    <div class="nuevo_contenedor_informativo">
+        <div class="funciona-asi">
+            <div class="funciona-tal">
+                <p class="titulo-ofrece">
+                    ¿CÓMO FUNCIONA?
+                </p>
+                <span class="info-funciona">
+                    1. En la C-@Model.CampaniaMasUno te suscribes a <b>GANA +</b> y podrás visualizar ofertas únicas para ti. <br>
+                    2. En la C-@Model.CampaniaMasDos, <b>dejarás de recibir la revista impresa</b> y podrás comprar y disfrutar de GANA +
+                </span>
+            </div>
+        </div>
+        <div class="funciona-asi">
+            <img src="@Url.Content("~/Content/Images/RevistaDigital/visualo.png")" alt="">
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+
+<div class="suscribete-gratis" style="display:none;">
+    <span class="info2">
+        CON GANA + DISFRUTA DE TUS OFERTAS EXCLUSIVAS EL DÍA QUE QUIERAS, <b>¡EN EL MOMENTO QUE QUIERAS!</b>
+    </span>
+    <a href="javascript: RDSuscripcion(2)" class="callto">
+        SUSCRÍBETE GRATIS AQUÍ
+    </a>
+</div>
+
+<div class="suscribete-gratis" data-estadoregistro="@Model.EstadoSuscripcion">
+
+    <div id="divCambiosEstadoRegistro">
+
+        @if (Model.EstadoSuscripcion == Constantes.EstadoRDSuscripcion.SinRegistroDB || Model.EstadoSuscripcion == Constantes.EstadoRDSuscripcion.NoPopUp)
+        {
+            <div id="divSuscripcion" style="display:none;" data-estadoregistro0="">
+                <span class="info2">
+                    CON GANA + DISFRUTA DE TUS OFERTAS EXCLUSIVAS EL DÍA QUE QUIERAS, <b>¡EN EL MOMENTO QUE QUIERAS!</b>
+                </span>
+                <a href="javascript: RDSuscripcion(2)" class="callto">
+                    SUSCRÍBETE GRATIS AQUÍ
+                </a>
+                <hr class="clear" />
+                <div class="legal_gana_mas">Al inscribirte estás aceptando los <a href="javascript: MostrarTerminos();">Términos y Condiciones.</a>.</div>
+            </div>
+        }
+
+        <div id="divAnularSuscripcion" style="display:none;" data-estadoregistro1="">
+            <div class="titulo_no_inscrita">¿ya no quieres estar inscrita a ésika para mí?</div>
+            <div class="texto_no_inscrita">al cancelar tu inscripción dejarás de recibir tu revista online <b>ésika para mí</b> Y volverás a recibir tu revista impresa en 2 campañas.</div>
+            <div class="advertencia_no_inscrita">
+                Tienes hasta el cierre de campaña para cancelar tu inscripción y garantizar la recepción de tu revista impresa dentro de dos campañas.
+                Cualquier duda llama a @Model.NumeroContacto o haz click
+                <a href="javascript:;" style="display: inline-block; text-decoration: underline;" class="belcorpChat">aquí</a>
+            </div>
+            <div class="btn_diagonal btn_stroke"> <a class="" href="javascript: RDDesuscripcion(2);">CANCELAR MI SUSCRIPCIÓN</a> </div>
+            <hr class="clear" />
+            <div class="legal_gana_mas">Al inscribirte estás aceptando los <a href="javascript: MostrarTerminos();">Términos y Condiciones.</a>.</div>
+            <hr class="clear" />
+            <div class="legal_gana_mas">*Comparación vs. consultoras que no compraron ofertas digitales de www.somosbelcorp.com. <br />Período evaluado: Dic. 2016 – Abr. 2017 (Perú y Chile).</div>
+        </div>
+        <div id="divMensajeAnularSuscripcion" style="display: none" data-estadoregistro2="">
+            <div class="titulo_no_inscrita">haz anulado tu inscripción con éxito</div>
+            <div class="texto_no_inscrita">
+                al cancelar tu inscripción dejarás de recibir tu revista online <b>ésika para mí</b> Y volverás a recibir tu revista impresa en 2 campañas.
+                <br />
+                Puedes volver a inscribirte.
+            </div>
+            <hr class="clear" />
+            <div class="btn_diagonal rd_btn_rojo"><a href="javascript: RDSuscripcion(2)">SUSCRÍBETE GRATIS AQUÍ</a></div>
+            <hr class="clear" />
+            <div class="legal_gana_mas">Al inscribirte estás aceptando los <a href="javascript: MostrarTerminos();">Términos y Condiciones.</a>.</div>
+            <hr class="clear" />
+        </div>
+
+    </div>
+</div>
+
 <div class="content_belcorp">
     <div class="titulo_funciona">preguntas frecuentes</div>
     <div class="ept_preguntasRespuestas_accordion">
@@ -90,46 +250,6 @@
 
     <div class="descargarPreguntasRespuestas">
         <a href="@ConfigurationManager.AppSettings["UrlPreguntasFrecuentesRD"].Trim()" target="_blank">+ MÁS PREGUNTAS FRECUENTES</a>
-    </div>
-
-    <div id="divCambiosEstadoRegistro">
-
-       @if (Model.EstadoSuscripcion == Constantes.EstadoRDSuscripcion.SinRegistroDB || Model.EstadoSuscripcion == Constantes.EstadoRDSuscripcion.NoPopUp)
-       {
-            <div id="divSuscripcion" style="display:none;" data-estadoregistro0="">
-                <div class="titulo_no_inscrita">INSCRÍBETE A TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
-                <div class="texto_no_inscrita">INCREMENTA TUS GANANCIAS EN MÁS DE 20% REEMPLAZANDO TU REVISTA IMPRESA POR TU REVISTA ONLINE.</div>
-                <div class="btn_diagonal rd_btn_rojo"><a href="javascript: RDSuscripcion(2)">INSCRIBIRME A ÉSIKA PARA MÍ</a></div>
-                <hr class="clear" />
-                <div class="legal_gana_mas">Al inscribirte estás aceptando los <a href="javascript: MostrarTerminos();">Términos y Condiciones.</a>.</div>
-            </div>
-        }
-
-        <div id="divAnularSuscripcion" style="display:none;" data-estadoregistro1="">
-            <div class="titulo_no_inscrita">¿ya no quieres estar inscrita a ésika para mí?</div>
-            <div class="texto_no_inscrita">al cancelar tu inscripción dejarás de recibir tu revista online <b>ésika para mí</b> Y volverás a recibir tu revista impresa en 2 campañas.</div>
-            <div class="advertencia_no_inscrita">
-                Tienes hasta el cierre de campaña para cancelar tu inscripción y garantizar la recepción de tu revista impresa dentro de dos campañas.
-                Cualquier duda llama a @Model.NumeroContacto o haz click
-                <a href="javascript:;" style="display: inline-block; text-decoration: underline;" class="belcorpChat">aquí</a>
-            </div>
-            <div class="btn_diagonal btn_stroke"> <a class="" href="javascript: RDDesuscripcion(2);">CANCELAR MI INSCRIPCIÓN</a> </div>
-            <hr class="clear" />
-            <div class="legal_gana_mas">*Comparación vs. consultoras que no compraron ofertas digitales de www.somosbelcorp.com. <br />Período evaluado: Dic. 2016 – Abr. 2017 (Perú y Chile).</div>
-        </div>
-        <div id="divMensajeAnularSuscripcion" style="display: none" data-estadoregistro2="">
-            <div class="titulo_no_inscrita">haz anulado tu inscripción con éxito</div>
-            <div class="texto_no_inscrita">
-                al cancelar tu inscripción dejarás de recibir tu revista online <b>ésika para mí</b> Y volverás a recibir tu revista impresa en 2 campañas.
-                <br/>
-                Puedes volver a inscribirte.
-            </div>
-            <hr class="clear" />
-            <div class="btn_diagonal rd_btn_rojo"><a href="javascript: RDSuscripcion(2)">INSCRIBIRME A ÉSIKA PARA MÍ</a></div>
-            <hr class="clear" />
-            <div class="legal_gana_mas"></div>
-        </div>
-
     </div>
 </div>
 
