@@ -11,17 +11,15 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult IndexModel()
         {
-            if (!revistaDigital.TieneRDC && !revistaDigital.TieneRDR)
-            {
-                if (!revistaDigital.TieneRDS)
-                    return RedirectToAction("Index", "Bienvenida", new { area = IsMobile() ? "Mobile" : "" });
+            if (revistaDigital.TieneRDR)
+                return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
+            
+            if (!revistaDigital.TieneRDC && !revistaDigital.TieneRDS)
+                return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
 
-                if (revistaDigital.SuscripcionModel.EstadoRegistro != Constantes.EstadoRDSuscripcion.Activo)
-                    return RedirectToAction("Index", "Bienvenida", new { area = IsMobile() ? "Mobile" : "" });
-            }
             revistaDigital.EstadoSuscripcion = revistaDigital.SuscripcionModel.EstadoRegistro;
             revistaDigital.NumeroContacto = Util.Trim(ConfigurationManager.AppSettings["BelcorpRespondeTEL_" + userData.CodigoISO]);
-            revistaDigital.Nombre = userData.UsuarioNombre;
+            revistaDigital.NombreConsultora = userData.UsuarioNombre;
             return View("template-informativa", revistaDigital);
         }
 
