@@ -981,6 +981,8 @@ namespace Portal.Consultoras.Web.Controllers
                     Session[Constantes.ConstSession.TieneLan] = true;
                     Session[Constantes.ConstSession.TieneLanX1] = true;
                     Session[Constantes.ConstSession.TieneOpt] = true;
+
+                    model.FotoPerfil = oBEUsuario.FotoPerfil;
                 }
 
                 Session["UserData"] = model;

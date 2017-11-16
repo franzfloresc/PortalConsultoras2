@@ -3263,6 +3263,12 @@ namespace Portal.Consultoras.Common
             }
             return (anioCampaniaResult * 100) + nroCampaniaResult;
         }
+
+        public static bool IsUrl(string url)
+        {
+            Uri uriResult;
+            return Uri.TryCreate(url, UriKind.Absolute, out uriResult);
+        }
     }
 
     public static class DataRecord

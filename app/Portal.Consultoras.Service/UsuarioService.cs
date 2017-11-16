@@ -789,5 +789,10 @@ namespace Portal.Consultoras.Service
             return BLUsuario.GetEventoFestivo(paisID, Alcance, Campania);
         }
         #endregion
+
+        public int UpdUsuarioFotoPerfil(int paisID, string codigoUsuario, string fileName)
+        {
+            return _usuarioBusinessLogic.UpdUsuarioFotoPerfil(paisID, codigoUsuario, fileName);
+        }
     }
 }

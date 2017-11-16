@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Newtonsoft.Json;
+
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.LogManager;
@@ -16,6 +17,8 @@ using Portal.Consultoras.Web.ServiceSeguridad;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using Portal.Consultoras.Web.SessionManager;
+using Portal.Consultoras.Web.Helpers;
+
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -26,7 +29,6 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Web.Mvc;
 using System.Web.Security;
-using Portal.Consultoras.Web.Helpers;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -125,14 +127,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 ViewBag.EsMobile = 1;//EPD-1780
 
-                if (userData.TieneLoginExterno)
-                {
-                    var loginFacebook = userData.ListaLoginExterno.Where(x => x.Proveedor == "Facebook").FirstOrDefault();
-                    if (loginFacebook != null)
-                    {
-                        ViewBag.FotoPerfil = loginFacebook.FotoPerfil;
-                    }
-                }
+                ViewBag.FotoPerfil = userData.FotoPerfil;
 
                 ViewBag.TokenPedidoAutenticoOk = (Session["TokenPedidoAutentico"] != null) ? 1 : 0;
                 ViewBag.CodigoEstrategia = GetCodigoEstrategia();

@@ -86,5 +86,6 @@ namespace Portal.Consultoras.BizLogic
         int ValidarTelefonoConsultora(int PaisID, string Telefono, string CodigoUsuario);
         bool ValidarUsuario(int paisId, string codigoUsuario, string clave);
         int ValidarUsuarioPrueba(string CodigoUsuario, int paisID);
+        int UpdUsuarioFotoPerfil(int paisID, string codigoUsuario, string fileName);
     }
 }
