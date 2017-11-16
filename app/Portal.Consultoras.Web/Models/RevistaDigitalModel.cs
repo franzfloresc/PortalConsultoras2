@@ -10,7 +10,6 @@ namespace Portal.Consultoras.Web.Models
         {
             SuscripcionModel = new RevistaDigitalSuscripcionModel();
             SuscripcionEfectiva = new RevistaDigitalSuscripcionModel();
-            ConfiguracionPaisDatos = new ConfiguracionPaisDatosRDModel();
             ListaTabs = new List<ComunModel>();
             NombreRevista = "SABER MÁS DE {0}ÉSIKA PARA MÍ";
             EstadoRdcAnalytics = "(not available)";
@@ -18,6 +17,17 @@ namespace Portal.Consultoras.Web.Models
             SuscripcionAnterior2Model = new RevistaDigitalSuscripcionModel();
             SuscripcionAnterior1Model = new RevistaDigitalSuscripcionModel();
         }
+
+        public int ConfiguracionPaisID { get; set; }
+        public int CampaniaID { get; set; }
+        public int BloquearDiasAntesFacturar { get; set; }
+        public int CantidadCampaniaEfectiva { get; set; }
+        public string NombreComercialActiva { get; set; }
+        public string NombreComercialNoActiva { get; set; }
+        public string LogoComercialActiva { get; set; }
+        public string LogoComercialNoActiva { get; set; }
+
+        public IList<ConfiguracionPaisDatosModel> ConfiguracionPaisDatos { get; set; }
 
         public int EstadoSuscripcion { get; set; }
         public int EstadoAccion { get; set; }
@@ -36,10 +46,8 @@ namespace Portal.Consultoras.Web.Models
         public bool TieneRDS { get; set; }
         public bool EsActiva { get; set; }
         public bool EsSuscrita { get; set; }
-        public int DiasAntesFacturaHoy { get; set; }
         public RevistaDigitalSuscripcionModel SuscripcionModel { get; set; }
         public RevistaDigitalSuscripcionModel SuscripcionEfectiva { get; set; }
-        public ConfiguracionPaisDatosRDModel ConfiguracionPaisDatos { get; set; }
         public bool BloqueoRevistaImpresa { get; set; }
         public string EstadoRdcAnalytics { get; set; }
 

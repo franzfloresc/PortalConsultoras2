@@ -522,16 +522,17 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else if (popup.CodigoPopup == Constantes.TipoPopUp.RevistaDigitalSuscripcion)
                 {
-                    if (!revistaDigital.NoVolverMostrar)
-                    {
-                        if (revistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.SinRegistroDB
-                            || revistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Desactivo)
-                        {
-                            TipoPopUpMostrar = Constantes.TipoPopUp.RevistaDigitalSuscripcion;
-                            break;
-                        }
-                    }
-                    continue;
+                    if (revistaDigital.NoVolverMostrar)
+                        continue;
+
+                    if (revistaDigital.EsSuscrita)
+                        continue;
+                    
+                    if (revistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.NoPopUp)
+                        continue;
+                    
+                    TipoPopUpMostrar = Constantes.TipoPopUp.RevistaDigitalSuscripcion;
+                    break;
                 }
                 else if (popup.CodigoPopup == Constantes.TipoPopUp.Cupon)
                 {

@@ -275,7 +275,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }, JsonRequestBehavior.AllowGet);
                 }
 
-                var diasAntesFactura = revistaDigital.DiasAntesFacturaHoy;
+                var diasAntesFactura = revistaDigital.BloquearDiasAntesFacturar;
                 var diasFaltanFactura = GetDiasFaltantesFacturacion(userData.FechaInicioCampania, userData.ZonaHoraria);
                 if (diasFaltanFactura <= -1 * diasAntesFactura)
                 {
@@ -347,7 +347,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }, JsonRequestBehavior.AllowGet);
                 }
 
-                var diasAntesFactura = revistaDigital.DiasAntesFacturaHoy;
+                var diasAntesFactura = revistaDigital.BloquearDiasAntesFacturar;
                 var diasFaltanFactura = GetDiasFaltantesFacturacion(userData.FechaInicioCampania, userData.ZonaHoraria);
                 if (diasFaltanFactura <= -1 * diasAntesFactura)
                 {
