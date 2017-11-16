@@ -11,7 +11,6 @@ namespace Portal.Consultoras.Web.Models
             SuscripcionModel = new RevistaDigitalSuscripcionModel();
             SuscripcionEfectiva = new RevistaDigitalSuscripcionModel();
             ListaTabs = new List<ComunModel>();
-            NombreRevista = "SABER MÁS DE {0}ÉSIKA PARA MÍ";
             EstadoRdcAnalytics = "(not available)";
 
             SuscripcionAnterior2Model = new RevistaDigitalSuscripcionModel();
@@ -34,7 +33,6 @@ namespace Portal.Consultoras.Web.Models
         public List<ComunModel> ListaTabs { get; set; }
         public bool NoVolverMostrar { get; set; }
         public string Nombre { get; set; }
-        public string NombreRevista { get; set; }
         public string Titulo { get; set; }
         public string TituloDescripcion { get; set; }
         public int Campania { get; set; }

@@ -355,12 +355,9 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 TipoPopUpMostrar = Convert.ToInt32(Session[Constantes.ConstSession.TipoPopUpMostrar]);
 
-                if (TipoPopUpMostrar == Constantes.TipoPopUp.RevistaDigitalSuscripcion)
-                {
-                    if (revistaDigital.NoVolverMostrar)
-                        TipoPopUpMostrar = 0;
-
-                }
+                if (TipoPopUpMostrar == Constantes.TipoPopUp.RevistaDigitalSuscripcion && revistaDigital.NoVolverMostrar)
+                    TipoPopUpMostrar = 0;
+                
                 return TipoPopUpMostrar;
             }
 

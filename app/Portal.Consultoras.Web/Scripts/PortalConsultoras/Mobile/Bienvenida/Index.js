@@ -382,7 +382,6 @@ function CargarPopupsConsultora() {
     
     MostrarDemandaAnticipada();
     if (viewBagVioTutorial != '0' && noMostrarPopUpRevistaDig == 'False') {
-        //$("#PopRDSuscripcion").show();
         AbrirPopupFade("#PopRDSuscripcion");
         rdAnalyticsModule.MostrarPopup();
     }
