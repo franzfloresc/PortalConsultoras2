@@ -1190,67 +1190,7 @@ namespace Portal.Consultoras.Web.Controllers
             return listaEntidad;
         }
 
-        private RevistaDigitalModel ConfiguracionPaisRevistaDigital(UsuarioModel usuarioModel, RevistaDigitalModel revistaDigitalModel)
-        {
-            revistaDigitalModel.TieneRDC = true;
-            revistaDigitalModel.TieneRDS = true;
-
-            var rds = new BERevistaDigitalSuscripcion
-            {
-                PaisID = usuarioModel.PaisID,
-                CodigoConsultora = usuarioModel.CodigoConsultora
-            };
-
-            using (PedidoServiceClient sv1 = new PedidoServiceClient())
-            {
-                revistaDigitalModel.SuscripcionModel = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
-                
-                rds.CampaniaID = AddCampaniaAndNumero(usuarioModel.CampaniaID, -1 * revistaDigitalModel.ConfiguracionPaisDatos.CantidadCampaniaEfectiva, usuarioModel.NroCampanias);
-                revistaDigitalModel.SuscripcionEfectiva = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
-            }
-
-            revistaDigitalModel.DiasAntesFacturaHoy = revistaDigitalModel.ConfiguracionPaisDatos.BloquearDiasAntesFacturar;
-
-            revistaDigitalModel.EstadoRdcAnalytics = GetEstadoRdAnalytics(revistaDigitalModel);
-
-            #region Estados Es Activas y Es Suscrita
-            switch (revistaDigitalModel.SuscripcionEfectiva.EstadoRegistro)
-            {
-                case Constantes.EstadoRDSuscripcion.Activo:
-                    revistaDigitalModel.EsActiva = true;
-                    break;
-            }
-            switch (revistaDigitalModel.SuscripcionModel.EstadoRegistro)
-            {
-                case Constantes.EstadoRDSuscripcion.Activo:
-                    revistaDigitalModel.EsSuscrita = true;
-                    break;
-            }
-            #endregion
-
-            #region DiasAntesFacturaHoy
-            if (DateTime.Now.AddHours(usuarioModel.ZonaHoraria).Date >= usuarioModel.FechaInicioCampania.Date.AddDays(revistaDigitalModel.DiasAntesFacturaHoy))
-                return revistaDigitalModel;
-
-            switch (revistaDigitalModel.SuscripcionModel.EstadoRegistro)
-            {
-                case Constantes.EstadoRDSuscripcion.Activo:
-                    revistaDigitalModel.NoVolverMostrar = true;
-                    break;
-                case Constantes.EstadoRDSuscripcion.Desactivo:
-                    revistaDigitalModel.NoVolverMostrar = false;
-                    break;
-                case Constantes.EstadoRDSuscripcion.NoPopUp:
-                    revistaDigitalModel.NoVolverMostrar = revistaDigitalModel.SuscripcionModel.CampaniaID == usuarioModel.CampaniaID;
-                    break;
-                default:
-                    revistaDigitalModel.NoVolverMostrar = revistaDigitalModel.SuscripcionModel.RevistaDigitalSuscripcionID > 0;
-                    break;
-            }
-            #endregion
-
-            return revistaDigitalModel;
-        }
+        #region ConfiguracioRevistaDigital
 
         private ConfiguracionPaisDatosRDModel ConfiguracionPaisDatosRevistaDigital(List<BEConfiguracionPaisDatos> listaDatos)
         {
@@ -1285,7 +1225,80 @@ namespace Portal.Consultoras.Web.Controllers
             return confiDatos;
         }
 
-        private  string GetRegaloProgramaNuevasFlag()
+        private RevistaDigitalModel ConfiguracionPaisRevistaDigital(UsuarioModel usuarioModel, RevistaDigitalModel revistaDigitalModel)
+        {
+            revistaDigitalModel.TieneRDC = true;
+            revistaDigitalModel.TieneRDS = true;
+
+            var rds = new BERevistaDigitalSuscripcion
+            {
+                PaisID = usuarioModel.PaisID,
+                CodigoConsultora = usuarioModel.CodigoConsultora
+            };
+
+            using (PedidoServiceClient sv1 = new PedidoServiceClient())
+            {
+                revistaDigitalModel.SuscripcionModel = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
+                
+                rds.CampaniaID = AddCampaniaAndNumero(usuarioModel.CampaniaID, -1 * revistaDigitalModel.ConfiguracionPaisDatos.CantidadCampaniaEfectiva, usuarioModel.NroCampanias);
+                revistaDigitalModel.SuscripcionEfectiva = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
+            }
+
+            revistaDigitalModel.DiasAntesFacturaHoy = revistaDigitalModel.ConfiguracionPaisDatos.BloquearDiasAntesFacturar;
+
+            #region Estados Es Activas y Es Suscrita
+            switch (revistaDigitalModel.SuscripcionEfectiva.EstadoRegistro)
+            {
+                case Constantes.EstadoRDSuscripcion.Activo:
+                    revistaDigitalModel.EsActiva = true;
+                    break;
+            }
+            switch (revistaDigitalModel.SuscripcionModel.EstadoRegistro)
+            {
+                case Constantes.EstadoRDSuscripcion.Activo:
+                    revistaDigitalModel.EsSuscrita = true;
+                    break;
+            }
+            #endregion
+
+            revistaDigitalModel.EstadoRdcAnalytics = GetEstadoRdAnalytics(revistaDigitalModel);
+            
+            #region DiasAntesFacturaHoy
+            if (DateTime.Now.AddHours(usuarioModel.ZonaHoraria).Date >= usuarioModel.FechaInicioCampania.Date.AddDays(revistaDigitalModel.DiasAntesFacturaHoy))
+                return revistaDigitalModel;
+
+            switch (revistaDigitalModel.SuscripcionModel.EstadoRegistro)
+            {
+                case Constantes.EstadoRDSuscripcion.Activo:
+                    revistaDigitalModel.NoVolverMostrar = true;
+                    break;
+                case Constantes.EstadoRDSuscripcion.Desactivo:
+                    revistaDigitalModel.NoVolverMostrar = false;
+                    break;
+                case Constantes.EstadoRDSuscripcion.NoPopUp:
+                    revistaDigitalModel.NoVolverMostrar = revistaDigitalModel.SuscripcionModel.CampaniaID == usuarioModel.CampaniaID;
+                    break;
+                default:
+                    revistaDigitalModel.NoVolverMostrar = revistaDigitalModel.SuscripcionModel.RevistaDigitalSuscripcionID > 0;
+                    break;
+            }
+            #endregion
+
+            return revistaDigitalModel;
+        }
+
+        private static string GetEstadoRdAnalytics(RevistaDigitalModel revistaDigital)
+        {
+            if (revistaDigital == null || !revistaDigital.TieneRDC) return "(not available)";
+            if (revistaDigital.EsSuscrita)
+                return revistaDigital.EsActiva ? "Inscrita Activa" : "Inscrita No Activa";
+
+            return revistaDigital.EsActiva ? "No Inscrita Activa" : "No Inscrita No Activa";
+        }
+        
+        #endregion
+
+        private string GetRegaloProgramaNuevasFlag()
         {
             string result = string.Empty;
 
@@ -2079,14 +2092,5 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToRoute("UniqueRoute", route);
         }
 
-        private static string GetEstadoRdAnalytics(RevistaDigitalModel revistaDigital)
-        {
-            if (revistaDigital == null || !revistaDigital.TieneRDC) return "(not available)";
-            if (revistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
-            {
-                return revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo ? "Inscrita Activa" : "Inscrita No Activa";
-            }
-            return revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo ? "No Inscrita Activa" : "No Inscrita No Activa";
-        }
     }
 }
