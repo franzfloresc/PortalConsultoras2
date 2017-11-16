@@ -22426,7 +22426,7 @@ hr {
     margin-right:10px;
     width:40px;
     height:40px;
-    background-image:url("/Content/Images/Lbel/Contenedor/icono-descarga-e-imprime.svg");
+    background-image:url("/Content/Images/Lbel/icono-descarga.svg");
     transition: all 0.3s ease;
     -moz-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
@@ -22435,7 +22435,7 @@ hr {
 }
 
 .certificado_digital:hover a span.icono_descarga_tarjetas{
-    background-image:url("/Content/Images/Lbel/Contenedor/icono-descarga-e-imprime-hover.svg");
+    background-image:url("/Content/Images/Lbel/icono-descarga-hover.svg");
 }
 
 .certificado_digital a span.nombre_certificado{

@@ -2316,6 +2316,8 @@
     <Content Include="Content\Images\Lbel\icono-campanias.jpg" />
     <Content Include="Content\Images\Lbel\icono-campanias.png" />
     <Content Include="Content\Images\Lbel\icono-campanias.svg" />
+    <Content Include="Content\Images\Lbel\icono-descarga-hover.svg" />
+    <Content Include="Content\Images\Lbel\icono-descarga.svg" />
     <Content Include="Content\Images\Lbel\icono_acordion_despliegue.png" />
     <Content Include="Content\Images\Lbel\icono_advertencia_notificacion.png" />
     <Content Include="Content\Images\Lbel\icono_advertencia_notificacion.svg" />
