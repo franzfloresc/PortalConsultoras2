@@ -595,6 +595,24 @@ namespace Portal.Consultoras.Data
             }
         }
 
+        public IDataReader GetListaImagenesOfertaLiquidacionByCampania(int campaniaId)
+        {
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetListaImagenesOfertaLiquidacionByCampania"))
+            {
+                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
+                return Context.ExecuteReader(command);
+            }
+        }
+
+        public IDataReader GetListaImagenesProductoSugeridoByCampania(int campaniaId)
+        {
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetListaImagenesProductoSugeridoByCampania"))
+            {
+                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
+                return Context.ExecuteReader(command);
+            }
+        }
+
         #endregion
 
     }

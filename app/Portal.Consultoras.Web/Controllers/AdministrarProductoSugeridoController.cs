@@ -526,5 +526,82 @@ namespace Portal.Consultoras.Web.Controllers
             if (arrayProducto == null || arrayProducto.Length == 0) return null;
             return arrayProducto[0].Imagen;
         }
+
+        #region CargaMasivaImagenes
+
+        public JsonResult CargaMasivaImagenes(int campaniaId)
+        {
+            try
+            {
+                var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+                var lista = new List<BECargaMasivaImagenes>();
+
+                using (PedidoServiceClient ps = new PedidoServiceClient())
+                {
+                    lista = ps.GetListaImagenesProductoSugeridoByCampania(userData.PaisID, campaniaId).ToList();
+                }
+                //listaEstrategias = listaEstrategias.Take(5).ToList();
+                var cantidadImagenesGeneradas = 0;
+                var cuvNoGenerados = "";
+                var cuvNoExistentes = "";
+
+                foreach (var item in lista)
+                {                    
+                    var mensajeError = "";
+
+                    var listaImagenesResize = new List<EntidadMagickResize>();
+
+                    string rutaImagen = item.RutaImagen.Clone().ToString() ?? "";
+                    var valorAppCatalogo = Constantes.ConfiguracionImagenResize.ValorTextoDefaultAppCatalogo;
+                    if (rutaImagen.ToLower().Contains(valorAppCatalogo))
+                    {
+                        listaImagenesResize = ObtenerListaImagenesResizeAppCatalogo(item.RutaImagen);
+                    }
+                    else
+                    {
+                        listaImagenesResize = ObtenerListaImagenesResize(item.RutaImagen);
+                    }
+
+                    if (listaImagenesResize != null && listaImagenesResize.Count > 0)
+                        mensajeError = MagickNetLibrary.GuardarImagenesResize(listaImagenesResize);                    
+                    else
+                        cuvNoExistentes += item.Cuv + ",";
+
+                    if (mensajeError == "")
+                        cantidadImagenesGeneradas++;
+                    else
+                        cuvNoGenerados += item.Cuv + ",";
+                }
+
+                var mensaje = "Se generaron las imagenes SMALL y MEDIUM de todas las imagenes.";
+                if (cuvNoGenerados != "")
+                {
+                    mensaje += " Excepto los siguientes Cuvs: " + cuvNoGenerados;
+                }
+                if (cuvNoExistentes != "")
+                {
+                    mensaje += " Excepto los siguientes Cuvs (imagen orignal no encontrada o ya existen): " + cuvNoExistentes;
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    message = mensaje,
+                    extra = ""
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    extra = ""
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        #endregion
     }
 }

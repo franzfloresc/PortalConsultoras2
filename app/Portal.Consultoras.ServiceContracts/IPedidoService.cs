@@ -1242,6 +1242,12 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         List<BECargaMasivaImagenes> GetListaImagenesEstrategiasByCampania(int paisId, int campaniaId);
 
+        [OperationContract]
+        List<BECargaMasivaImagenes> GetListaImagenesOfertaLiquidacionByCampania(int paisId, int campaniaId);
+
+        [OperationContract]
+        List<BECargaMasivaImagenes> GetListaImagenesProductoSugeridoByCampania(int paisId, int campaniaId);
+
         #endregion
     }
 }

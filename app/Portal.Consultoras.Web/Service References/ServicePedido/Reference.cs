@@ -31519,6 +31519,22 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetListaImagenesEstrategiasByCampania", ReplyAction="http://tempuri.org/IPedidoService/GetListaImagenesEstrategiasByCampaniaResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BECargaMasivaImagenes[]> GetListaImagenesEstrategiasByCampaniaAsync(int paisId, int campaniaId);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetListaImagenesOfertaLiquidacionByCampania", ReplyAction="http://tempuri.org/IPedidoService/GetListaImagenesOfertaLiquidacionByCampaniaResp" +
+            "onse")]
+        Portal.Consultoras.Web.ServicePedido.BECargaMasivaImagenes[] GetListaImagenesOfertaLiquidacionByCampania(int paisId, int campaniaId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetListaImagenesOfertaLiquidacionByCampania", ReplyAction="http://tempuri.org/IPedidoService/GetListaImagenesOfertaLiquidacionByCampaniaResp" +
+            "onse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BECargaMasivaImagenes[]> GetListaImagenesOfertaLiquidacionByCampaniaAsync(int paisId, int campaniaId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetListaImagenesProductoSugeridoByCampania", ReplyAction="http://tempuri.org/IPedidoService/GetListaImagenesProductoSugeridoByCampaniaRespo" +
+            "nse")]
+        Portal.Consultoras.Web.ServicePedido.BECargaMasivaImagenes[] GetListaImagenesProductoSugeridoByCampania(int paisId, int campaniaId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetListaImagenesProductoSugeridoByCampania", ReplyAction="http://tempuri.org/IPedidoService/GetListaImagenesProductoSugeridoByCampaniaRespo" +
+            "nse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BECargaMasivaImagenes[]> GetListaImagenesProductoSugeridoByCampaniaAsync(int paisId, int campaniaId);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ValidarUnidadesPermitidasEnPedidoShowRoom", ReplyAction="http://tempuri.org/IPedidoService/ValidarUnidadesPermitidasEnPedidoShowRoomRespon" +
             "se")]
         int ValidarUnidadesPermitidasEnPedidoShowRoom(int PaisID, int CampaniaID, string CUV, long ConsultoraID);
@@ -33859,6 +33875,22 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BECargaMasivaImagenes[]> GetListaImagenesEstrategiasByCampaniaAsync(int paisId, int campaniaId) {
             return base.Channel.GetListaImagenesEstrategiasByCampaniaAsync(paisId, campaniaId);
+        }
+        
+        public Portal.Consultoras.Web.ServicePedido.BECargaMasivaImagenes[] GetListaImagenesOfertaLiquidacionByCampania(int paisId, int campaniaId) {
+            return base.Channel.GetListaImagenesOfertaLiquidacionByCampania(paisId, campaniaId);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BECargaMasivaImagenes[]> GetListaImagenesOfertaLiquidacionByCampaniaAsync(int paisId, int campaniaId) {
+            return base.Channel.GetListaImagenesOfertaLiquidacionByCampaniaAsync(paisId, campaniaId);
+        }
+        
+        public Portal.Consultoras.Web.ServicePedido.BECargaMasivaImagenes[] GetListaImagenesProductoSugeridoByCampania(int paisId, int campaniaId) {
+            return base.Channel.GetListaImagenesProductoSugeridoByCampania(paisId, campaniaId);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BECargaMasivaImagenes[]> GetListaImagenesProductoSugeridoByCampaniaAsync(int paisId, int campaniaId) {
+            return base.Channel.GetListaImagenesProductoSugeridoByCampaniaAsync(paisId, campaniaId);
         }
         
         public int ValidarUnidadesPermitidasEnPedidoShowRoom(int PaisID, int CampaniaID, string CUV, long ConsultoraID) {

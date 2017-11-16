@@ -1788,9 +1788,10 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     listaEstrategias = ps.GetListaImagenesEstrategiasByCampania(userData.PaisID, campaniaId).ToList();
                 }
-                listaEstrategias = listaEstrategias.Take(5).ToList();
+                //listaEstrategias = listaEstrategias.Take(5).ToList();
                 var cantidadImagenesGeneradas = 0;
                 var cuvNoGenerados = "";
+                var cuvNoExistentes = "";
 
                 foreach (var estrategia in listaEstrategias)
                 {                    
@@ -1799,6 +1800,8 @@ namespace Portal.Consultoras.Web.Controllers
                     var listaImagenesResize = ObtenerListaImagenesResize(rutaImagenCompleta);
                     if (listaImagenesResize != null && listaImagenesResize.Count > 0)
                         mensajeError = MagickNetLibrary.GuardarImagenesResize(listaImagenesResize);
+                    else
+                        cuvNoExistentes += estrategia.Cuv + ",";
 
                     if (mensajeError == "")
                         cantidadImagenesGeneradas++;
@@ -1809,7 +1812,11 @@ namespace Portal.Consultoras.Web.Controllers
                 var mensaje = "Se generaron las imagenes SMALL y MEDIUM de todas las imagenes.";
                 if (cuvNoGenerados != "")
                 {
-                    mensaje += " Excepto de los siguientes Cuvs: " + cuvNoGenerados;
+                    mensaje += " Excepto los siguientes Cuvs: " + cuvNoGenerados;
+                }
+                if(cuvNoExistentes != "")
+                {
+                    mensaje += " Excepto los siguientes Cuvs (imagen orignal no encontrada o ya existen): " + cuvNoExistentes;
                 }
 
                 return Json(new

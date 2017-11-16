@@ -2279,6 +2279,16 @@ namespace Portal.Consultoras.Service
             return blEstrategia.GetListaImagenesEstrategiasByCampania(paisId, campaniaId);
         }
 
+        public List<BECargaMasivaImagenes> GetListaImagenesOfertaLiquidacionByCampania(int paisId, int campaniaId)
+        {
+            return blEstrategia.GetListaImagenesOfertaLiquidacionByCampania(paisId, campaniaId);
+        }
+
+        public List<BECargaMasivaImagenes> GetListaImagenesProductoSugeridoByCampania(int paisId, int campaniaId)
+        {
+            return blEstrategia.GetListaImagenesProductoSugeridoByCampania(paisId, campaniaId);
+        }
+
         #endregion
     }
 }

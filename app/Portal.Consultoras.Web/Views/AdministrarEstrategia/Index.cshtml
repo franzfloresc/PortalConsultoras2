@@ -108,7 +108,7 @@
                 </div>
                 <div class="input_modifica_pedido">
                     <input type="button" name="btnActivarDesactivar" id="btnActivarDesactivar" value="Activar/Desactivar" style="display: none;" />
-                    <input type="button" name="btnCargaMasivaImagenes" id="btnCargaMasivaImagenes" value="Cargar Imagenes" style="display: none;" />
+                    <input type="button" name="btnCargaMasivaImagenes" id="btnCargaMasivaImagenes" value="Cargar Imagenes" />
                 </div>
             </div>
         </div>
@@ -994,6 +994,7 @@
                 campaniaID: campaniaId
             };
 
+            waitingDialog({});
             jQuery.ajax({
                 type: 'POST',
                 url: baseUrl + 'AdministrarEstrategia/CargaMasivaImagenes',
@@ -1002,6 +1003,8 @@
                 data: JSON.stringify(params),
                 async: true,
                 success: function (data) {
+                    //if(data.success)
+                    closeWaitingDialog();
                     alert(data.message);                    
                 },
                 error: function (data, error) {

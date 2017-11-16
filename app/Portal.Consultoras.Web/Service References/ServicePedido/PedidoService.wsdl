@@ -222,6 +222,18 @@
   <wsdl:message name="IPedidoService_GetListaImagenesEstrategiasByCampania_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetListaImagenesEstrategiasByCampaniaResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_GetListaImagenesOfertaLiquidacionByCampania_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetListaImagenesOfertaLiquidacionByCampania" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetListaImagenesOfertaLiquidacionByCampania_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetListaImagenesOfertaLiquidacionByCampaniaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetListaImagenesProductoSugeridoByCampania_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetListaImagenesProductoSugeridoByCampania" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetListaImagenesProductoSugeridoByCampania_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetListaImagenesProductoSugeridoByCampaniaResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_ValidarUnidadesPermitidasEnPedidoShowRoom_InputMessage">
     <wsdl:part name="parameters" element="tns:ValidarUnidadesPermitidasEnPedidoShowRoom" />
   </wsdl:message>
@@ -2383,6 +2395,14 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetListaImagenesEstrategiasByCampania" message="tns:IPedidoService_GetListaImagenesEstrategiasByCampania_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetListaImagenesEstrategiasByCampaniaResponse" message="tns:IPedidoService_GetListaImagenesEstrategiasByCampania_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetListaImagenesOfertaLiquidacionByCampania">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetListaImagenesOfertaLiquidacionByCampania" message="tns:IPedidoService_GetListaImagenesOfertaLiquidacionByCampania_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetListaImagenesOfertaLiquidacionByCampaniaResponse" message="tns:IPedidoService_GetListaImagenesOfertaLiquidacionByCampania_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetListaImagenesProductoSugeridoByCampania">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetListaImagenesProductoSugeridoByCampania" message="tns:IPedidoService_GetListaImagenesProductoSugeridoByCampania_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetListaImagenesProductoSugeridoByCampaniaResponse" message="tns:IPedidoService_GetListaImagenesProductoSugeridoByCampania_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="ValidarUnidadesPermitidasEnPedidoShowRoom">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ValidarUnidadesPermitidasEnPedidoShowRoom" message="tns:IPedidoService_ValidarUnidadesPermitidasEnPedidoShowRoom_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ValidarUnidadesPermitidasEnPedidoShowRoomResponse" message="tns:IPedidoService_ValidarUnidadesPermitidasEnPedidoShowRoom_OutputMessage" />
@@ -4009,6 +4029,24 @@
     </wsdl:operation>
     <wsdl:operation name="GetListaImagenesEstrategiasByCampania">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetListaImagenesEstrategiasByCampania" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetListaImagenesOfertaLiquidacionByCampania">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetListaImagenesOfertaLiquidacionByCampania" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetListaImagenesProductoSugeridoByCampania">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetListaImagenesProductoSugeridoByCampania" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -7343,6 +7381,24 @@
     </wsdl:operation>
     <wsdl:operation name="GetListaImagenesEstrategiasByCampania">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetListaImagenesEstrategiasByCampania" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetListaImagenesOfertaLiquidacionByCampania">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetListaImagenesOfertaLiquidacionByCampania" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetListaImagenesProductoSugeridoByCampania">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetListaImagenesProductoSugeridoByCampania" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
