@@ -1379,7 +1379,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var userModel = userData;
                 productos = SelectProductoByCodigoDescripcionSearchRegionZona(term, userModel, 10, CRITERIO_BUSQUEDA_CUV_PRODUCTO);
 
-                if (sessionManager.GetRevistaDigital().BloqueroRevistaImpresa &&
+                if (sessionManager.GetRevistaDigital().BloqueoRevistaImpresa &&
                     revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
                 {
                     productos = productos.Where(x => x.CodigoCatalogo != CODIGO_REVISTA_IMPRESA).ToList();
@@ -1520,7 +1520,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(productosModel, JsonRequestBehavior.AllowGet);
                 }
 
-                if (sessionManager.GetRevistaDigital().BloqueroRevistaImpresa && 
+                if (sessionManager.GetRevistaDigital().BloqueoRevistaImpresa && 
                     revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
                 {
                     productos = productos.Where(x => x.CodigoCatalogo != CODIGO_REVISTA_IMPRESA).ToList();
@@ -1892,7 +1892,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var userModel = userData;
                 productos = SelectProductoByCodigoDescripcionSearchRegionZona(term, userModel, 10, CRITERIO_BUSQUEDA_DESC_PRODUCTO);
 
-                if (sessionManager.GetRevistaDigital().BloqueroRevistaImpresa &&
+                if (sessionManager.GetRevistaDigital().BloqueoRevistaImpresa &&
                     revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
                 {
                     productos = productos.Where(x => x.CodigoCatalogo != CODIGO_REVISTA_IMPRESA).ToList();
