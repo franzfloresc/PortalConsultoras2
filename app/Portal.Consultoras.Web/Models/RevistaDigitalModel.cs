@@ -1,4 +1,5 @@
-﻿using Portal.Consultoras.Web.ServiceSAC;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.ServiceSAC;
 using System;
 using System.Collections.Generic;
 
@@ -38,5 +39,27 @@ namespace Portal.Consultoras.Web.Models
         public RevistaDigitalSuscripcionModel SuscripcionAnterior1Model { get; set; }
         public bool BloqueoRevistaImpresa { get; set; }
         public string EstadoRdcAnalytics { get; set; }
+
+        public bool EsSuscritaInactiva()
+        {
+            return TieneRDC &&
+                SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo &&
+                SuscripcionAnterior1Model.EstadoRegistro != Constantes.EstadoRDSuscripcion.Desactivo &&
+                SuscripcionAnterior2Model.EstadoRegistro != Constantes.EstadoRDSuscripcion.Activo;
+            ;
+        }
+
+        public bool EsSuscritaActiva()
+        {
+            return TieneRDC &&
+                SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo;
+        }
+
+        public bool EsNoSuscrita()
+        {
+            return TieneRDC &&
+                SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Desactivo &&
+                SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Desactivo; ;
+        }
     }
 }
