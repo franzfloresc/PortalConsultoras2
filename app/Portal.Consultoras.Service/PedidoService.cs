@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.ServiceModel;
+using Portal.Consultoras.Entities.CargaMasiva;
 
 namespace Portal.Consultoras.Service
 {
@@ -2273,7 +2274,7 @@ namespace Portal.Consultoras.Service
 
         #region CargaMasivaImagenes
 
-        public List<BEEstrategia> GetListaImagenesEstrategiasByCampania(int paisId, int campaniaId)
+        public List<BECargaMasivaImagenes> GetListaImagenesEstrategiasByCampania(int paisId, int campaniaId)
         {
             return blEstrategia.GetListaImagenesEstrategiasByCampania(paisId, campaniaId);
         }

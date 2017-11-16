@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.ServiceModel;
+using Portal.Consultoras.Entities.CargaMasiva;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -1239,7 +1240,7 @@ namespace Portal.Consultoras.ServiceContracts
         #region CargaMasivaImagenes
 
         [OperationContract]
-        List<BEEstrategia> GetListaImagenesEstrategiasByCampania(int paisId, int campaniaId);
+        List<BECargaMasivaImagenes> GetListaImagenesEstrategiasByCampania(int paisId, int campaniaId);
 
         #endregion
     }

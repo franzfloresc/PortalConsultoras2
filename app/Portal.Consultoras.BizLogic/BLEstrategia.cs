@@ -2,6 +2,7 @@
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Data.ServicePROLConsultas;
 using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.CargaMasiva;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -638,16 +639,16 @@ namespace Portal.Consultoras.BizLogic
 
         #region CargaMasivaImagenes
 
-        public List<BEEstrategia> GetListaImagenesEstrategiasByCampania(int paisId, int campaniaId)
+        public List<BECargaMasivaImagenes> GetListaImagenesEstrategiasByCampania(int paisId, int campaniaId)
         {
-            var lista = new List<BEEstrategia>();
+            var lista = new List<BECargaMasivaImagenes>();
             var daEstrategia = new DAEstrategia(paisId);
 
             using (var reader = daEstrategia.GetListaImagenesEstrategiasByCampania(campaniaId))
             {
                 while (reader.Read())
                 {
-                    lista.Add(new BEEstrategia(reader));
+                    lista.Add(new BECargaMasivaImagenes(reader));
                 }
             }
 

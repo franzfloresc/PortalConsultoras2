@@ -1782,19 +1782,19 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                var listaEstrategias = new List<BEEstrategia>();
+                var listaEstrategias = new List<BECargaMasivaImagenes>();
 
                 using (PedidoServiceClient ps = new PedidoServiceClient())
                 {
                     listaEstrategias = ps.GetListaImagenesEstrategiasByCampania(userData.PaisID, campaniaId).ToList();
                 }
-                
+                listaEstrategias = listaEstrategias.Take(5).ToList();
                 var cantidadImagenesGeneradas = 0;
                 var cuvNoGenerados = "";
 
                 foreach (var estrategia in listaEstrategias)
                 {                    
-                    var rutaImagenCompleta = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.ImagenURL);
+                    var rutaImagenCompleta = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.RutaImagen);
                     var mensajeError = "";
                     var listaImagenesResize = ObtenerListaImagenesResize(rutaImagenCompleta);
                     if (listaImagenesResize != null && listaImagenesResize.Count > 0)
@@ -1803,7 +1803,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (mensajeError == "")
                         cantidadImagenesGeneradas++;
                     else
-                        cuvNoGenerados += estrategia.CUV2 + ",";
+                        cuvNoGenerados += estrategia.Cuv + ",";
                 }
 
                 var mensaje = "Se generaron las imagenes SMALL y MEDIUM de todas las imagenes.";

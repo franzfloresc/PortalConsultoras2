@@ -3752,6 +3752,9 @@
     <None Include="Service References\ServicePedido\PedidoService111.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServicePedido\PedidoService112.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServicePedido\PedidoService2.xsd">
       <SubType>Designer</SubType>
     </None>
