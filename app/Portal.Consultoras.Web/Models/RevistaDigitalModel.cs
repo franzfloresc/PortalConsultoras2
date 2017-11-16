@@ -9,12 +9,14 @@ namespace Portal.Consultoras.Web.Models
         public RevistaDigitalModel()
         {
             SuscripcionModel = new RevistaDigitalSuscripcionModel();
-            SuscripcionAnterior2Model = new RevistaDigitalSuscripcionModel();
-            SuscripcionAnterior1Model = new RevistaDigitalSuscripcionModel();
+            SuscripcionEfectiva = new RevistaDigitalSuscripcionModel();
+            ConfiguracionPaisDatos = new ConfiguracionPaisDatosRDModel();
             ListaTabs = new List<ComunModel>();
             NombreRevista = "SABER MÁS DE {0}ÉSIKA PARA MÍ";
-            DiasAntesFacturaHoy = -1;
             EstadoRdcAnalytics = "(not available)";
+
+            SuscripcionAnterior2Model = new RevistaDigitalSuscripcionModel();
+            SuscripcionAnterior1Model = new RevistaDigitalSuscripcionModel();
         }
 
         public int EstadoSuscripcion { get; set; }
@@ -32,14 +34,16 @@ namespace Portal.Consultoras.Web.Models
         public bool TieneRDR { get; set; }
         public bool TieneRDC { get; set; }
         public bool TieneRDS { get; set; }
+        public bool EsActiva { get; set; }
+        public bool EsSuscrita { get; set; }
         public int DiasAntesFacturaHoy { get; set; }
         public RevistaDigitalSuscripcionModel SuscripcionModel { get; set; }
         public RevistaDigitalSuscripcionModel SuscripcionEfectiva { get; set; }
         public ConfiguracionPaisDatosRDModel ConfiguracionPaisDatos { get; set; }
+        public bool BloqueoRevistaImpresa { get; set; }
+        public string EstadoRdcAnalytics { get; set; }
 
         public RevistaDigitalSuscripcionModel SuscripcionAnterior2Model { get; set; }
         public RevistaDigitalSuscripcionModel SuscripcionAnterior1Model { get; set; }
-        public bool BloqueroRevistaImpresa { get; set; }
-        public string EstadoRdcAnalytics { get; set; }
     }
 }

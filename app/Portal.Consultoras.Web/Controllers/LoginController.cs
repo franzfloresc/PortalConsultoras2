@@ -961,46 +961,19 @@ namespace Portal.Consultoras.Web.Controllers
                             var configuracionesPaisModels = GetConfiguracionPais(usuarioModel);
                             if (configuracionesPaisModels.Any())
                             {
-                                #region ConfiguracionPaisDatos
                                 var listaPaisDatos = ConfiguracionPaisDatos(usuarioModel);
-                                #endregion
-
-                                revistaDigitalModel.EstadoSuscripcion = 0;
-                                var rds = new BERevistaDigitalSuscripcion
-                                {
-                                    PaisID = usuarioModel.PaisID,
-                                    CodigoConsultora = usuarioModel.CodigoConsultora
-                                };
-
+         
                                 foreach (var c in configuracionesPaisModels)
                                 {
                                     switch (c.Codigo)
                                     {
+                                        //case Constantes.ConfiguracionPais.RevistaDigitalSuscripcion:
                                         case Constantes.ConfiguracionPais.RevistaDigital:
-                                            revistaDigitalModel = ConfiguracionPaisRevistaDigital(usuarioModel, revistaDigitalModel, listaPaisDatos.Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID).ToList());
-                                            revistaDigitalModel.BloqueroRevistaImpresa = c.BloqueoRevistaImpresa;
-                                            break;
-                                        case Constantes.ConfiguracionPais.RevistaDigitalSuscripcion:
-                                            if (DateTime.Now.AddHours(usuarioModel.ZonaHoraria).Date >= usuarioModel.FechaInicioCampania.Date.AddDays(revistaDigitalModel.DiasAntesFacturaHoy))
-                                                break;
-
-                                            revistaDigitalModel.TieneRDS = true;
-                                            using (PedidoServiceClient sv1 = new PedidoServiceClient())
-                                            {
-                                                revistaDigitalModel.SuscripcionModel = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
-                                            }
-
-                                            switch (revistaDigitalModel.SuscripcionModel.EstadoRegistro)
-                                            {
-                                                case Constantes.EstadoRDSuscripcion.Activo: revistaDigitalModel.NoVolverMostrar = true; break;
-                                                case Constantes.EstadoRDSuscripcion.Desactivo: revistaDigitalModel.NoVolverMostrar = false; break;
-                                                case Constantes.EstadoRDSuscripcion.NoPopUp:
-                                                    revistaDigitalModel.NoVolverMostrar = revistaDigitalModel.SuscripcionModel.CampaniaID == usuarioModel.CampaniaID;
-                                                    break;
-                                                default:
-                                                    revistaDigitalModel.NoVolverMostrar = revistaDigitalModel.SuscripcionModel.RevistaDigitalSuscripcionID > 0;
-                                                    break;
-                                            }
+                                            
+                                            revistaDigitalModel.ConfiguracionPaisDatos = ConfiguracionPaisDatosRevistaDigital(listaPaisDatos.Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID).ToList());
+                                            revistaDigitalModel = ConfiguracionPaisRevistaDigital(usuarioModel, revistaDigitalModel);
+                                            revistaDigitalModel.BloqueoRevistaImpresa = c.BloqueoRevistaImpresa;
+                                            
                                             break;
                                         case Constantes.ConfiguracionPais.RevistaDigitalReducida:
                                             revistaDigitalModel.TieneRDR = true;
@@ -1217,25 +1190,64 @@ namespace Portal.Consultoras.Web.Controllers
             return listaEntidad;
         }
 
-        private RevistaDigitalModel ConfiguracionPaisRevistaDigital(UsuarioModel usuarioModel, RevistaDigitalModel revistaDigitalModel, List<BEConfiguracionPaisDatos> listaDatos)
+        private RevistaDigitalModel ConfiguracionPaisRevistaDigital(UsuarioModel usuarioModel, RevistaDigitalModel revistaDigitalModel)
         {
             revistaDigitalModel.TieneRDC = true;
-            revistaDigitalModel.ConfiguracionPaisDatos = ConfiguracionPaisDatosRevistaDigital(listaDatos);
+            revistaDigitalModel.TieneRDS = true;
 
             var rds = new BERevistaDigitalSuscripcion
             {
                 PaisID = usuarioModel.PaisID,
                 CodigoConsultora = usuarioModel.CodigoConsultora
             };
+
             using (PedidoServiceClient sv1 = new PedidoServiceClient())
             {
                 revistaDigitalModel.SuscripcionModel = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
-
-                rds.CampaniaID = AddCampaniaAndNumero(usuarioModel.CampaniaID, -1 * revistaDigitalModel.ConfiguracionPaisDatos.CampaniaID, usuarioModel.NroCampanias);
+                
+                rds.CampaniaID = AddCampaniaAndNumero(usuarioModel.CampaniaID, -1 * revistaDigitalModel.ConfiguracionPaisDatos.CantidadCampaniaEfectiva, usuarioModel.NroCampanias);
                 revistaDigitalModel.SuscripcionEfectiva = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
             }
 
+            revistaDigitalModel.DiasAntesFacturaHoy = revistaDigitalModel.ConfiguracionPaisDatos.BloquearDiasAntesFacturar;
+
             revistaDigitalModel.EstadoRdcAnalytics = GetEstadoRdAnalytics(revistaDigitalModel);
+
+            #region Estados Es Activas y Es Suscrita
+            switch (revistaDigitalModel.SuscripcionEfectiva.EstadoRegistro)
+            {
+                case Constantes.EstadoRDSuscripcion.Activo:
+                    revistaDigitalModel.EsActiva = true;
+                    break;
+            }
+            switch (revistaDigitalModel.SuscripcionModel.EstadoRegistro)
+            {
+                case Constantes.EstadoRDSuscripcion.Activo:
+                    revistaDigitalModel.EsSuscrita = true;
+                    break;
+            }
+            #endregion
+
+            #region DiasAntesFacturaHoy
+            if (DateTime.Now.AddHours(usuarioModel.ZonaHoraria).Date >= usuarioModel.FechaInicioCampania.Date.AddDays(revistaDigitalModel.DiasAntesFacturaHoy))
+                return revistaDigitalModel;
+
+            switch (revistaDigitalModel.SuscripcionModel.EstadoRegistro)
+            {
+                case Constantes.EstadoRDSuscripcion.Activo:
+                    revistaDigitalModel.NoVolverMostrar = true;
+                    break;
+                case Constantes.EstadoRDSuscripcion.Desactivo:
+                    revistaDigitalModel.NoVolverMostrar = false;
+                    break;
+                case Constantes.EstadoRDSuscripcion.NoPopUp:
+                    revistaDigitalModel.NoVolverMostrar = revistaDigitalModel.SuscripcionModel.CampaniaID == usuarioModel.CampaniaID;
+                    break;
+                default:
+                    revistaDigitalModel.NoVolverMostrar = revistaDigitalModel.SuscripcionModel.RevistaDigitalSuscripcionID > 0;
+                    break;
+            }
+            #endregion
 
             return revistaDigitalModel;
         }
