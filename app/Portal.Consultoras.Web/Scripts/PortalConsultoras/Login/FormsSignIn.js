@@ -3,7 +3,6 @@ var _kiq = _kiq || [];
 var activarHover = true;
 var val_comboLogin = "";
 var temp = "";
-var openloginPopup = false;
 
 
 var CodigoISO;
