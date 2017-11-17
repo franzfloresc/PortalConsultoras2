@@ -991,6 +991,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     if (c.Codigo.EndsWith("GM") && c.Codigo.StartsWith("OF") && c.Estado)
                                         usuarioModel.OfertaFinalGanaMas = 1;
                                 }
+                                revistaDigitalModel.TieneRDR = !revistaDigitalModel.TieneRDC && revistaDigitalModel.TieneRDR;
                                 revistaDigitalModel.Campania = usuarioModel.CampaniaID % 100;
                                 revistaDigitalModel.CampaniaMasUno = AddCampaniaAndNumero(Convert.ToInt32(usuarioModel.CampaniaID), 1, usuarioModel.NroCampanias) % 100;
                                 revistaDigitalModel.CampaniaMasDos = AddCampaniaAndNumero(Convert.ToInt32(usuarioModel.CampaniaID), 2, usuarioModel.NroCampanias) % 100;
@@ -1225,6 +1226,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             revistaDigitalModel.TieneRDC = true;
             revistaDigitalModel.TieneRDS = true;
+            revistaDigitalModel.TieneRDR = false;
 
             var rds = new BERevistaDigitalSuscripcion
             {
@@ -1239,7 +1241,12 @@ namespace Portal.Consultoras.Web.Controllers
                 rds.CampaniaID = AddCampaniaAndNumero(usuarioModel.CampaniaID, -1 * revistaDigitalModel.CantidadCampaniaEfectiva, usuarioModel.NroCampanias);
                 revistaDigitalModel.SuscripcionEfectiva = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
             }
-            
+
+            revistaDigitalModel.CampaniaActual = Util.SubStr(usuarioModel.CampaniaID.ToString(), 4, 2);
+            revistaDigitalModel.CampaniaSuscripcion = Util.SubStr(revistaDigitalModel.SuscripcionModel.CampaniaID.ToString(), 4, 2);
+            revistaDigitalModel.CampaniaActiva = Util.SubStr(AddCampaniaAndNumero(revistaDigitalModel.SuscripcionModel.CampaniaID, revistaDigitalModel.CantidadCampaniaEfectiva, usuarioModel.NroCampanias).ToString(), 4, 2);
+            revistaDigitalModel.CampaniaFuturoActiva = Util.SubStr(AddCampaniaAndNumero(usuarioModel.CampaniaID, revistaDigitalModel.CantidadCampaniaEfectiva, usuarioModel.NroCampanias).ToString(), 4, 2);
+
             #region Estados Es Activas y Es Suscrita
             revistaDigitalModel.EsActiva = revistaDigitalModel.SuscripcionEfectiva.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo;
             revistaDigitalModel.EsSuscrita = revistaDigitalModel.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo;

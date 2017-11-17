@@ -4,19 +4,22 @@ GO
 
 CREATE PROCEDURE dbo.ListConfiguracionPaisDatos
 	@ConfiguracionPaisID int = 0
-	,@DesdeCampania int = 0
+	,@CampaniaID int = 0
 	,@Codigo varchar(100) = ''
-	,@CodigoRegion varchar(100) = '60'
+	,@CodigoRegion varchar(100) = ''
 	,@CodigoZona varchar(100) = ''
 	,@CodigoSeccion varchar(100) = ''
 	,@CodigoConsultora varchar(100) = ''
 AS
 BEGIN
-	SET @DesdeCampania = ISNULL(@DesdeCampania, 0)
+	SET @CampaniaID = ISNULL(@CampaniaID, 0)
 
-	SELECT @Codigo = Codigo
-	FROM ConfiguracionPais
-	WHERE ConfiguracionPaisID = @ConfiguracionPaisID
+	if @ConfiguracionPaisID > 0
+	begin
+		SELECT @Codigo = Codigo
+		FROM ConfiguracionPais
+		WHERE ConfiguracionPaisID = @ConfiguracionPaisID
+	end
 
 	SELECT 
 		  D.ConfiguracionPaisID
@@ -38,7 +41,7 @@ BEGIN
 				@CodigoSeccion,
 				@CodigoConsultora
 				) as c
-				WHERE (C.DesdeCampania <= @DesdeCampania OR @DesdeCampania = 0)
+				WHERE (C.DesdeCampania <= @CampaniaID OR @CampaniaID = 0)
 		) P
 			ON P.ConfiguracionPaisID = D.ConfiguracionPaisID
 END

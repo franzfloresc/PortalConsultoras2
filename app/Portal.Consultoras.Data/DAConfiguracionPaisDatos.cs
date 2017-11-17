@@ -14,10 +14,11 @@ namespace Portal.Consultoras.Data
 
         public IDataReader GetList(BEConfiguracionPaisDatos entity)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ConfiguracionPaisDatos_GetAll");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListConfiguracionPaisDatos");
             Context.Database.AddInParameter(command, "CampaniaID", DbType.Int32, entity.CampaniaID);
             Context.Database.AddInParameter(command, "ConfiguracionPaisID", DbType.String, entity.ConfiguracionPaisID);
 
+            Context.Database.AddInParameter(command, "Codigo", DbType.String, entity.ConfiguracionPais.Codigo);
             Context.Database.AddInParameter(command, "CodigoRegion", DbType.String, entity.ConfiguracionPais.Detalle.CodigoRegion);
             Context.Database.AddInParameter(command, "CodigoZona", DbType.String, entity.ConfiguracionPais.Detalle.CodigoZona);
             Context.Database.AddInParameter(command, "CodigoSeccion", DbType.String, entity.ConfiguracionPais.Detalle.CodigoSeccion);

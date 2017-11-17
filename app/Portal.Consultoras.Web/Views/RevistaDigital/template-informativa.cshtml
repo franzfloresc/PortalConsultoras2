@@ -10,53 +10,6 @@
     @System.Web.Optimization.Styles.Render("~/bundles/css/Site/RevistaDigital-Info")
 }
 
-<div class="content_gana_mas" style="display:none;" data-estadoregistro="@Model.EstadoSuscripcion">
-    <div class="content_revista_izquierda"><img src="@Url.Content("~/Content/Images/RevistaDigital/revista_izquierda.png")" /></div>
-    <div class="content_revista_derecha"><img src="@Url.Content("~/Content/Images/RevistaDigital/celular_revista.png")" /></div>
-    <div class="content_texto_gana">
-        <div style="width:406px;margin:0 auto;">
-            <div class="titulo_gana_landing">INCREMENTA EN MÁS DE 20%* TUS GANANCIAS CON TU REVISTA ONLINE: </div>
-            <div>
-                <div class="texto_resaltante_gana">GANA+</div>
-                <div class="texto_descripcion_resaltante">Hasta 65% dscto todas las campañas.</div>
-            </div>
-            <div>
-                <div class="texto_resaltante_gana">VENDE+</div>
-                <div class="texto_descripcion_resaltante">Encuentra los productos que tus clientes siempre te piden.</div>
-            </div>
-            <div>
-                <div class="texto_resaltante_gana">PUNTOS+</div>
-                <div class="texto_descripcion_resaltante">Todos los productos que compras en Ésika para mí también suman puntos.</div>
-            </div>
-        </div>
-        <div style="display:none;" data-estadoregistro0="" data-estadoregistro2="">
-            <div class="btn_diagonal rd_btn_rojo"><a href="javascript: RDSuscripcion(2)">INSCRIBIRME A ÉSIKA PARA MÍ</a></div>
-        </div>
-    </div>
-    <hr class="clear" />
-</div>
-<div class="content_funciona_esika" style="display:none;">
-    <div class="content_belcorp">
-        <div class="titulo_funciona">¿cómo funciona ésika para mí?</div>
-        <div style="overflow: hidden;padding: 0 5%;">
-            <div class="bloque_respuesta">
-                <img src="@Url.Content("~/Content/Images/RevistaDigital/icono1.png")" /><br />
-                <b>En esta campaña</b> te inscribes a Ésika para mí, tu nueva revista online personalizada.
-            </div>
-            <div class="bloque_respuesta">
-                <img src="@Url.Content("~/Content/Images/RevistaDigital/icono2.png")" /><br />
-                En C-@Model.CampaniaMasUno podrás visualizar las ofertas de la C-@Model.CampaniaMasDos e ir planificando el pedido de la próxima campaña.
-
-            </div>
-            <div class="bloque_respuesta">
-                <img src="@Url.Content("~/Content/Images/RevistaDigital/icono3.png")" /><br />
-                <b>En C-@Model.CampaniaMasDos </b>podrás comprar tus ofertas de Ésika para mí y disfrutar todos sus beneficios.
-            </div>
-        </div>
-    </div>
-    <hr class="clear" />
-</div>
-
 <div class="back-to">
     <img src="@Url.Content("~/Content/Images/RevistaDigital/triangle.png")" alt="">VOLVER
 </div>
@@ -68,7 +21,7 @@
         <div class="texto-descriptivo">
             <div>
                 <p class="nombre">
-                    @Model.Nombre, LLEGÓ
+                    @Model.NombreConsultora, LLEGÓ
                 </p>
                 <p class="gana-mas">
                     GANA +
@@ -146,8 +99,8 @@
                     ¿CÓMO FUNCIONA?
                 </p>
                 <span class="info-funciona">
-                    1. En la C-@Model.CampaniaMasUno te suscribes a <b>GANA +</b> y podrás visualizar ofertas únicas para ti. <br>
-                    2. En la C-@Model.CampaniaMasDos, <b>dejarás de recibir la revista impresa</b> y podrás comprar y disfrutar de GANA +
+                    1. En la C-@Model.CampaniaActual te suscribes a <b>GANA +</b> y podrás visualizar ofertas únicas para ti. <br>
+                    2. En la C-@Model.CampaniaFuturoActiva, <b>dejarás de recibir la revista impresa</b> y podrás comprar y disfrutar de GANA +
                 </span>
             </div>
         </div>
@@ -257,15 +210,8 @@
     <script type="text/javascript">
         var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
         var tipoOrigenPantalla = 1;
-        var urlOfertaCargarProductos = '@Url.Action("RDObtenerProductos", "RevistaDigital")';
-        var urlOfertaDetalleProducto = '@Url.Action("Detalle", "RevistaDigital")';
-        var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital")';
         var urlTerminosCondicionesRD = '@ConfigurationManager.AppSettings["UrlTerminosCondicionesRD"].Trim()';
         var urlRevistaDigital = '@Url.Action("Comprar", "RevistaDigital")';
-        var tipoOrigenEstrategia = 17;
-        var mayormenor = '@Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor';
-        var menormayor = '@Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor';
-        var tieneMasVendidos = 0;
         var isScroll = false;
     </script>
 
