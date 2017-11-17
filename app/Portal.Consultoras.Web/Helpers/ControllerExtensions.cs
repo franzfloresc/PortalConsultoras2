@@ -15,6 +15,11 @@ namespace Portal.Consultoras.Web.Helpers
         public static string GetUniqueKey(this Controller controller)
         {
             //todo: should evaluate rest of RouteData ie. queryString?
+            var uniqueKey = controller.Request.Headers[UniqueRoute.IdentifierKey];
+            //todo: check if is a guid?
+            if (uniqueKey != null)
+                return uniqueKey;
+
             return controller.RouteData.GetUniqueRoute(UniqueRoute.IdentifierKey);
         }
 

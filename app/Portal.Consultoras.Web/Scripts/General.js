@@ -16,6 +16,25 @@ jQuery(document).ready(function () {
     if (typeof (tokenPedidoAutenticoOk) !== 'undefined') {
         GuardarIndicadorPedidoAutentico();
     }
+
+    if (isMobile()) {
+        var posibleGuid = getMobilePrefixUrl();
+        if (FuncionesGenerales.IsGuid(posibleGuid)) {
+            $.ajaxSetup({
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("guid", posibleGuid);
+                }
+            });
+
+            $.ajaxPrefilter(function (options) {
+                if (!options.beforeSend) {
+                    options.beforeSend = function (xhr) {
+                        xhr.setRequestHeader("guid", posibleGuid);
+                    }
+                }
+            });
+        }
+    }
 });
 (function ($) {
     $.fn.Readonly = function (val) {
@@ -865,6 +884,10 @@ FuncionesGenerales = {
         if (object.value.length > cantidadMaxima)
             object.value = object.value.slice(0, cantidadMaxima);
     },
+    IsGuid: function(input) {
+        var guidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+        return guidRegex.test(input);
+    }
 };
 
 function InsertarLogDymnamo(pantallaOpcion, opcionAccion, esMobile, extra) {
