@@ -65,6 +65,7 @@
     <Compile Include="BEEventoFestivo.cs" />
     <Compile Include="BEGPRBanner.cs" />
     <Compile Include="BEGPRUsuario.cs" />
+    <Compile Include="BEMiCertificado.cs" />
     <Compile Include="Cliente\BEMovimientoDetalle.cs" />
     <Compile Include="Incentivo\BEIncentivoConcurso.cs" />
     <Compile Include="Incentivo\BEIncentivoNivel.cs" />

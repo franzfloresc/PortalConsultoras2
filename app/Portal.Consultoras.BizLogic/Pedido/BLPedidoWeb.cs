@@ -2194,6 +2194,21 @@ namespace Portal.Consultoras.BizLogic
             var DAPedidoWeb = new DAPedidoWeb(paisId);
             return DAPedidoWeb.TieneCampaniaConsecutivas(campaniaId, cantidadCampaniaConsecutiva, consultoraId);
         }
+
+        public BEMiCertificado GetMiCertificado(int paisId, int campaniaId, long consultoraId, Int16 tipoCert)
+        {
+            BEMiCertificado entidad = null;
+            DAPedidoWeb DAPedidoWeb = new DAPedidoWeb(paisId);
+
+            using (IDataReader reader = DAPedidoWeb.GetMiCertificado(campaniaId, consultoraId, tipoCert))
+            {
+                while (reader.Read())
+                {
+                    entidad = new BEMiCertificado(reader);
+                }
+            }
+            return entidad;
+        }
     }
 
     internal class TemplateField

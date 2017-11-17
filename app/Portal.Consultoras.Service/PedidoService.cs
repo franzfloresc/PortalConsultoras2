@@ -2274,6 +2274,11 @@ namespace Portal.Consultoras.Service
         public bool TieneCampaniaConsecutivas(int paisId, int campaniaId, int cantidadCampaniaConsecutiva, long consultoraId)
         {
             return BLPedidoWeb.TieneCampaniaConsecutivas(paisId, campaniaId, cantidadCampaniaConsecutiva, consultoraId);
-        }        
+        }
+
+        public BEMiCertificado ObtenerMiCertificado(int paisId, int campaniaId, long consultoraId, Int16 tipoCert)
+        {
+            return BLPedidoWeb.GetMiCertificado(paisId, campaniaId, consultoraId, tipoCert);
+        }
     }
 }
