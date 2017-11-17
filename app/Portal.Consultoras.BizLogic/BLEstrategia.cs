@@ -240,7 +240,7 @@ namespace Portal.Consultoras.BizLogic
                     break;
                 case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
 
-                    var items = (IList<BEEstrategia>)CacheManager<BEMenuMobile>.GetData(entidad.PaisID, ECacheItem.GNDEstrategia);
+                    var items = CacheManager<BEEstrategia>.GetData(entidad.PaisID, ECacheItem.GNDEstrategia);
                     if (items == null || !items.Any())
                     {
                         using (var reader = daEstrategia.GetEstrategiaGuiaDeNegocioDigitalizada(entidad))
