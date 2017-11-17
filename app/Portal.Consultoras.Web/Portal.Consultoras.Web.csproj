@@ -201,6 +201,7 @@
     <Compile Include="Areas\Mobile\Controllers\EstrategiaProductoController.cs" />
     <Compile Include="Areas\Mobile\Controllers\MiAsesorBellezaController.cs" />
     <Compile Include="Areas\Mobile\Controllers\MisPedidosController.cs" />
+    <Compile Include="Areas\Mobile\Controllers\MisCertificadosController.cs" />
     <Compile Include="Areas\Mobile\Controllers\MisReclamosController.cs" />
     <Compile Include="Areas\Mobile\Controllers\NovedadesCampaniaController.cs" />
     <Compile Include="Areas\Mobile\Controllers\BaseMobileController.cs" />
@@ -1263,6 +1264,7 @@
     <Content Include="Content\Images\Esika\Contenedor\inicio_normal.svg" />
     <Content Include="Content\Images\Esika\Contenedor\papel-de-regalo.png" />
     <Content Include="Content\Images\Esika\Contenedor\tarjetas-navidenias.png" />
+    <Content Include="Content\Images\Esika\mis_certificados_icono.png" />
     <Content Include="Content\Images\Lbel\Contenedor\fondo-seccion-descarga-imprime.jpg" />
     <Content Include="Content\Images\Lbel\Contenedor\icono-descarga-e-imprime-hover.svg" />
     <Content Include="Content\Images\Lbel\Contenedor\icono-descarga-e-imprime.svg" />
@@ -2315,6 +2317,8 @@
     <Content Include="Content\Images\Lbel\icono-campanias.jpg" />
     <Content Include="Content\Images\Lbel\icono-campanias.png" />
     <Content Include="Content\Images\Lbel\icono-campanias.svg" />
+    <Content Include="Content\Images\Lbel\icono-descarga-hover.svg" />
+    <Content Include="Content\Images\Lbel\icono-descarga.svg" />
     <Content Include="Content\Images\Lbel\icono_acordion_despliegue.png" />
     <Content Include="Content\Images\Lbel\icono_advertencia_notificacion.png" />
     <Content Include="Content\Images\Lbel\icono_advertencia_notificacion.svg" />
@@ -3623,6 +3627,7 @@
     <Content Include="Content\FAQ\QUIZCAPEVEDI_PE.pdf" />
     <Content Include="Areas\Mobile\Views\Shared\_MobileLayoutPedidoEmpty.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-descargables-navidenos.cshtml" />
+    <Content Include="Areas\Mobile\Views\MisCertificados\Index.cshtml" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>

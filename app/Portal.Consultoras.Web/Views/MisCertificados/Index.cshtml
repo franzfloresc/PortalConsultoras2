@@ -1,55 +1,72 @@
 ﻿
 @model List<Portal.Consultoras.Web.Models.MisCertificados.CertificadoModel>
 
-@{
-    ViewBag.Title = "Certificados Comerciales";
-    Layout = "~/Views/Shared/_MainLayout.cshtml";
-}
+    @{
+        ViewBag.Title = "Mis Certificados";
+        Layout = "~/Views/Shared/_MainLayout.cshtml";
+    }
 
-<div class="fondo_f9f9f9">
-    <div class="content_belcorp">
-        <div class="fondo_negro_lateral"></div>
-        <div class="titulo_interiores">MIS <span>CERTIFICADOS</span></div>
-    </div>
-    <hr class="clear" />
-    <div class="linea_separadora" style="margin-top:-1px"></div>
-</div>
-
-@foreach (var certificado in Model)
-{
-    <div data-item="">
-        <div data-campos="" style="display:none;">
-            <input type="hidden" class="certificadoComercialId" value="@certificado.CertificadoComercialId" />
-            <input type="hidden" class="mensajeError" value="@certificado.MensajeError" />
+    <div class="fondo_f9f9f9">
+        <div class="content_belcorp">
+            <div class="fondo_negro_lateral"></div>
+            <div class="titulo_interiores">MIS <span>CERTIFICADOS</span></div>
         </div>
-        <a data-certificado="">Generar Certificado @certificado.Nombre</a>
+        <hr class="clear" />
+        <div class="linea_separadora" style="margin-top:-1px"></div>
     </div>
-}
+
+    <div class="content_belcorp">
+        <div class="pestana_lbel" style="margin-bottom:0;"></div>
+        <div class="titulo_mis_certificados mt-45">
+            <div class="titulo_mis_certificados_img"></div>
+            <div>MIS<b> CERTIFICADOS DIGITALES</b></div>
+        </div>
+        <div class="texto_descripcion" style="margin-top:23px; margin-bottom:17px;">
+            Genera e imprime tus certificados digitales aquí :
+        </div>
+        <div class="contenedor_lista_certificados">
+            @foreach (var certificado in Model)
+            {
+                <div class="certificado_digital" data-item="">
+                    <div data-campos="" style="display:none;">
+                        <input type="hidden" class="certificadoComercialId" value="@certificado.CertificadoComercialId" />
+                        <input type="hidden" class="mensajeError" value="@certificado.MensajeError" />
+                    </div>
+                    <a data-certificado="">
+                        <span class="icono_descarga_tarjetas"></span>
+                        <span class="nombre_certificado">
+                            @certificado.Nombre
+                        </span>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
 
 
-@section scripts{
-    <script type="text/javascript">
-        var urlExportar = '@Url.Action("Export", "MisCertificados")';
+    @section scripts{
+        <script type="text/javascript">
+            var urlExportar = '@Url.Action("Export", "MisCertificados")';
 
-        $(document).ready(function () {
-            $("a[data-certificado]").click(function () {
-                var parent = $(this).parents("[data-item]");
-                var parametros = $(parent).find("[data-campos]");
+            $(document).ready(function () {
+                $("a[data-certificado]").click(function () {
+                    var parent = $(this).parents("[data-item]");
+                    var parametros = $(parent).find("[data-campos]");
 
-                var certificadoComercialId = $(parametros).find(".certificadoComercialId").val();
+                    var certificadoComercialId = $(parametros).find(".certificadoComercialId").val();
 
-                if (parseInt(certificadoComercialId) === 0) {
-                    var error = $(parametros).find(".mensajeError").val();
+                    if (parseInt(certificadoComercialId) === 0) {
+                        var error = $(parametros).find(".mensajeError").val();
 
-                    AbrirMensaje(error);
-                }
-                else {
-                    //AbrirMensaje("Aun no esta implementado el PDF lol XD");
-                    window.open(urlExportar + "/" + certificadoComercialId, 'blank');
-                }
+                        AbrirMensaje(error);
+                    }
+                    else {
+                        //AbrirMensaje("Aun no esta implementado el PDF lol XD");
+                        window.open(urlExportar + "/" + certificadoComercialId, 'blank');
+                    }
 
-                e.preventDefault();
+                    e.preventDefault();
+                });
             });
-        });
-    </script>
-}
+        </script>
+    }
