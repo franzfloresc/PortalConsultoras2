@@ -1247,6 +1247,7 @@ namespace Portal.Consultoras.Web.Controllers
                 revistaDigitalModel.SuscripcionEfectiva = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
             }
 
+            revistaDigitalModel.EstadoSuscripcion = revistaDigitalModel.SuscripcionModel.EstadoRegistro;
             revistaDigitalModel.CampaniaActual = Util.SubStr(usuarioModel.CampaniaID.ToString(), 4, 2);
             revistaDigitalModel.CampaniaSuscripcion = Util.SubStr(revistaDigitalModel.SuscripcionModel.CampaniaID.ToString(), 4, 2);
             revistaDigitalModel.CampaniaActiva = Util.SubStr(AddCampaniaAndNumero(revistaDigitalModel.SuscripcionModel.CampaniaID, revistaDigitalModel.CantidadCampaniaEfectiva, usuarioModel.NroCampanias).ToString(), 4, 2);
@@ -1270,7 +1271,7 @@ namespace Portal.Consultoras.Web.Controllers
             revistaDigitalModel.EstadoRdcAnalytics = GetEstadoRdAnalytics(revistaDigitalModel);
             
             #region DiasAntesFacturaHoy
-            if (DateTime.Now.AddHours(usuarioModel.ZonaHoraria).Date >= usuarioModel.FechaInicioCampania.Date.AddDays(revistaDigitalModel.BloquearDiasAntesFacturar))
+            if (DateTime.Now.AddHours(usuarioModel.ZonaHoraria).Date >= usuarioModel.FechaInicioCampania.Date.AddDays(-1 * revistaDigitalModel.BloquearDiasAntesFacturar))
                 return revistaDigitalModel;
 
             switch (revistaDigitalModel.SuscripcionModel.EstadoRegistro)
