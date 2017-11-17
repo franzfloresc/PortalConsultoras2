@@ -902,13 +902,17 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .content_bg_contraseniaEnviada {
-    width: 35%;
-    top: 25%;
+    display: block;
+    width: 43%;
+    max-width: 580px;
+    min-height: 345px;
+    top: 24%;
     margin: 0 auto;
     position: relative;
     background: white;
-    padding-bottom: 50px;
+    padding-bottom: 34px;
     padding-top: 10px;
+    box-sizing: border-box;
 }
 
 #header {
@@ -966,7 +970,7 @@ h1, h2, h3, h4, h5, h6 {
 .mensaje_pop_up_contraseniaEnviada h1 {
     margin-top: 56px;
     margin-bottom: 0px;
-    font-size: 16pt;
+    font-size: 19px;
     color: black;
     margin-left: 15%;
     margin-right: 15%;
@@ -977,14 +981,15 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .mensaje_pop_up_contraseniaEnviada p {
-    font-size: 11pt;
+    font-size: 14px;
     FONT-FAMILY: LATO;
     color: black;
     text-align: center;
+    margin-bottom:8px;
 }
 
 .mensaje_pop_up_contraseniaEnviada strong {
-    font-size: 13pt;
+    font-size: 14px;
     FONT-FAMILY: LATO;
     color: black;
 }
@@ -2128,4 +2133,233 @@ h1, h2, h3, h4, h5, h6 {
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover
+}
+
+/* HD-1254 - OLVIDÉ CONTRASEÑA DESKTOP Y MOBILE */
+
+.content_bg_opciones_recuperacion_contrasenia {
+    width: 43%;
+    max-width: 580px;
+    min-height: 306px;
+    top: 22%;
+    margin: 0 auto;
+    position: relative;
+    background: white;
+    padding-bottom: 15px;
+}
+
+.content_bg_opciones_recuperacion_contrasenia #header{
+    font-weight:300;
+    width:88%;
+    padding-left:35px;
+    transform: scaleY(-1);
+    -moz-transform: scaleY(-1);
+    -o-transform: scaleY(-1);
+    -ms-transform: scaleY(-1);
+    -webkit-transform: scaleY(-1);
+}
+
+.content_bg_opciones_recuperacion_contrasenia #header span{
+    display:block;
+    transform: scaleY(-1);
+    -moz-transform: scaleY(-1);
+    -o-transform: scaleY(-1);
+    -ms-transform: scaleY(-1);
+    -webkit-transform: scaleY(-1);
+    letter-spacing:1px;
+}
+
+.content_bg_opciones_recuperacion_contrasenia .mensaje_pop_up2{
+    margin-top: 26.5px;
+    margin-bottom: 25px;
+    font-size:14px;
+}
+
+.opciones_recuperacion_contrasenia{
+    display: block;
+    text-align:center;
+    margin-bottom: 25px;
+}
+
+.content_bg_opciones_recuperacion_contrasenia .mensaje_pop_up2,
+.opciones_recuperacion_contrasenia,
+.info_mas_opciones{
+    margin-left: 6%;
+    margin-right: 6%;
+}
+
+.opcion_recuperacion_contrasenia {
+    display: inline-block;
+    vertical-align: top;
+    width: 230px;
+    margin-right: 22px;
+    background: #FFF;
+    text-align: center;
+    font-size: 13px;
+    color: #000;
+    box-sizing: border-box;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+}
+
+a.opcion_recuperacion_contrasenia{
+    border: 1px solid #e7e1e1;
+    height: 160px;
+    padding-top: 25px;
+}
+
+.opcion_recuperacion_contrasenia:hover {
+    border-color: #642f80;
+}
+
+.opcion_recuperacion_contrasenia:last-child{
+    margin-right:0;
+}
+
+.icono_correo_electronico,
+.icono_sms,
+.icono_chatea_con_nosotros,
+.icono_llamada{
+    display: block;
+    margin: 0 auto;
+    background: #CCC;
+}
+
+.icono_correo_electronico,
+.icono_sms{
+    width: 55.6px;
+    height: 45px;
+    margin-bottom:25px;
+}
+
+.icono_chatea_con_nosotros,
+.icono_llamada{
+    width:62.8px;
+    height:42.1px;
+}
+
+.icono_correo_electronico.mb-15,
+.icono_sms.mb-15,
+.icono_chatea_con_nosotros,
+.icono_llamada{
+    margin-bottom:15px;
+}
+
+.titulo_opcion_correo,
+.titulo_opcion_sms,
+.titulo_opcion_chatea_con_nosotros,
+.titulo_opcion_llamada{
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+}
+
+.titulo_opcion_correo,
+.titulo_opcion_sms,
+.titulo_opcion_chatea_con_nosotros{
+    margin-bottom:6px;
+}
+
+.titulo_opcion_llamada{
+    margin-bottom:10px;
+}
+
+.correo_electronico,
+.numero_celular,
+.horarios_atencion,
+.telefonos_central{
+    font-weight:bold;
+    letter-spacing:0.2px;
+}
+
+.telefonos_central > span{
+    display:block;
+    margin-bottom:3px;
+}
+
+.btn_enviar_email,
+.btn_enviar_sms,
+.btn_ingresar_chat{
+    display: block;
+    margin: 15px auto 0 auto;
+    border: none;
+    text-transform: uppercase;
+    background: #642f80;
+    color: #FFF;
+    width: 100%;
+    max-width: 250px;
+    height: 45px;
+    font-family: 'Lato';
+    font-weight: bold;
+    font-size: 13px;
+    letter-spacing: 1px;
+    opacity:1;
+    cursor:pointer;
+    transition:all 0.3s ease;
+    -moz-transition:all 0.3s ease;
+    -o-transition:all 0.3s ease;
+    -ms-transition:all 0.3s ease;
+    -webkit-transition:all 0.3s ease;
+}
+
+.btn_enviar_email:hover,
+.btn_enviar_sms:hover,
+.btn_ingresar_chat:hover{
+    opacity:0.8;
+}
+
+.info_mas_opciones{
+    text-align:center;
+    color:#000;
+    font-size:13px;
+    letter-spacing:0.5px;
+}
+
+.info_mas_opciones a,
+.accion_alternativa_posterior_envio_password{
+    color:#642f80;
+    text-decoration:underline;
+    font-weight:600;
+    opacity:1;
+    transition:all 0.3s ease;
+    -moz-transition:all 0.3s ease;
+    -o-transition:all 0.3s ease;
+    -ms-transition:all 0.3s ease;
+    -webkit-transition:all 0.3s ease;
+}
+
+.info_mas_opciones a:hover,
+.accion_alternativa_posterior_envio_password:hover{
+    opacity:0.8;
+}
+
+#correoDestino{
+    margin-bottom:47px;
+}
+
+.accion_alternativa_posterior_envio_password {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 198px;
+    text-align: center;
+}
+
+.btn_regresar_ver_otras_opciones {
+    display: block;
+    height: 24px;
+    width: auto;
+    position: absolute;
+    z-index: 3;
+    left: 19px;
+    top: 18px;
+    font-size: 13px;
+    font-weight: bold;
+    color: #000;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
