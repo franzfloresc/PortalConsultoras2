@@ -6,6 +6,7 @@ var MatrizComercialFileUpload = function (config) {
         habilitarNemotecnico: config.habilitarNemotecnico || false       
     };
 
+    var _validarImagen = '1';
     var _nemotecnico = config.nemotecnico; //|| Nemotecnico({})
     var _uploader = '';
 
@@ -19,7 +20,7 @@ var MatrizComercialFileUpload = function (config) {
 
         var tamanoMaximo = $("#ddlTipoEstrategia option:selected").attr("data-PesoMaximo");
 
-        if ($("#ddlTipoEstrategia option:selected").attr("data-FValidarImagen") == "1") {
+        if ($("#ddlTipoEstrategia option:selected").attr("data-FValidarImagen") == _validarImagen) {
             return tamanoMaximo;
         }
         else
