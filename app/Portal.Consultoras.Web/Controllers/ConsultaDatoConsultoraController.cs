@@ -101,7 +101,14 @@
 
         public ActionResult EstadoCuenta(string sidx, string sord, int page, int rows, string codigoConsultora)
         {
-            ActualizarDatosLogDynamoDB(null, "CONSULTA DATOS CONSULTORA|MIS DATOS", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Consulta", codigoConsultora, "Estado de Cuenta"); //HD-881
+            try
+            {
+                ActualizarDatosLogDynamoDB(null, "CONSULTA DATOS CONSULTORA|MIS DATOS", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Consulta", codigoConsultora, "Estado de Cuenta"); //HD-881
+            }
+            catch (Exception ex)
+            {
+                Web.LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }            
 
             if (ModelState.IsValid)
             {
@@ -263,7 +270,14 @@
 
         public ActionResult PedidoFacturado(string sidx, string sord, int page, int rows, string codigoConsultora)
         {
-            ActualizarDatosLogDynamoDB(null, "CONSULTA DATOS CONSULTORA|MIS DATOS", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Consulta", codigoConsultora, "Pedido Facturado"); //HD-881
+            try
+            {
+                ActualizarDatosLogDynamoDB(null, "CONSULTA DATOS CONSULTORA|MIS DATOS", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Consulta", codigoConsultora, "Pedido Facturado"); //HD-881
+            }
+            catch (Exception ex)
+            {
+                Web.LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
 
             if (ModelState.IsValid) //
             {
@@ -996,19 +1010,35 @@
         public ActionResult SeguimientoPedido(string codigo)
         {
             string url = "";
-            string paisID = userData.PaisID.ToString();
-            string codigoConsultora = codigo;
-            string mostrarAyudaWebTracking = Convert.ToInt32(true).ToString();
-            string paisISO = userData.CodigoISO.Trim();
-            string campanhaID = userData.CampaniaID.ToString();
-            url = "/WebPages/WebTracking.aspx?data=" + Util.EncriptarQueryString(paisID, codigoConsultora, mostrarAyudaWebTracking, paisISO, campanhaID);
-            ActualizarDatosLogDynamoDB(null, "CONSULTA DATOS CONSULTORA|MIS DATOS", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Consulta", codigoConsultora, "Seguimiento Pedido"); //HD-881
-            return Json(url, JsonRequestBehavior.AllowGet);
+            try
+            {                
+                string paisID = userData.PaisID.ToString();
+                string codigoConsultora = codigo;
+                string mostrarAyudaWebTracking = Convert.ToInt32(true).ToString();
+                string paisISO = userData.CodigoISO.Trim();
+                string campanhaID = userData.CampaniaID.ToString();
+                url = "/WebPages/WebTracking.aspx?data=" + Util.EncriptarQueryString(paisID, codigoConsultora, mostrarAyudaWebTracking, paisISO, campanhaID);
+                ActualizarDatosLogDynamoDB(null, "CONSULTA DATOS CONSULTORA|MIS DATOS", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Consulta", codigoConsultora, "Seguimiento Pedido"); //HD-881
+                return Json(url, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                Web.LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json("", JsonRequestBehavior.AllowGet);
+            }           
         }
 
         public ActionResult PaqueteDocumentario(string sidx, string sord, int page, int rows, string campania, string codigo)
         {
-            ActualizarDatosLogDynamoDB(null, "CONSULTA DATOS CONSULTORA|MIS DATOS", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Consulta", codigo, "Paquete Documentario"); //HD-881
+            try
+            {
+                ActualizarDatosLogDynamoDB(null, "CONSULTA DATOS CONSULTORA|MIS DATOS", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Consulta", codigo, "Paquete Documentario"); //HD-881
+            }
+            catch (Exception ex)
+            {
+                Web.LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+            
 
             BEGrid grid = new BEGrid();
             grid.PageSize = rows;
