@@ -58,7 +58,7 @@ function RDSuscripcion(accion) {
             }
 
             accion = accion || 0;
-            if (accion == 2) {
+            if (accion === 2) {
                 $("[data-estadoregistro]").attr("data-estadoregistro", "1");
                 $("[data-estadoregistro0]").hide();
                 $("[data-estadoregistro2]").hide();
