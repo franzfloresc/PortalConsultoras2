@@ -42,7 +42,7 @@
                 consultoraDato = new BEConsultoraDatoSAC();
 
                 consultoraDato = consultora.DatoConsultoraSAC(paisID, codigoConsultora, documento);   
-                if (consultoraDato != null) ActualizarDatosLogDynamoDB(null, "CONSULTA DATOS CONSULTORA|MIS DATOS", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Consulta", codigoConsultora);
+                if (consultoraDato != null) ActualizarDatosLogDynamoDB(null, "CONSULTA DATOS CONSULTORA|MIS DATOS", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Consulta", codigoConsultora, "Datos de Consultora");
 
                 //UserData().PaisID = 0;
                 v_retorno = Json(consultoraDato, JsonRequestBehavior.AllowGet);
@@ -62,6 +62,7 @@
             {
                 ServiceUsuario.UsuarioServiceClient consultora = new ServiceUsuario.UsuarioServiceClient();
                 BEConsultoraEstadoSAC consultoraEstado = consultora.ConsultoraEstadoSAC(paisID, codigoConsultora);
+                ActualizarDatosLogDynamoDB(null, "CONSULTA DATOS CONSULTORA|MIS DATOS", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Consulta", codigoConsultora, "Estado de Consultora"); //HD-881
                 return Json(consultoraEstado, JsonRequestBehavior.AllowGet);
             }
             catch
@@ -100,6 +101,8 @@
 
         public ActionResult EstadoCuenta(string sidx, string sord, int page, int rows, string codigoConsultora)
         {
+            ActualizarDatosLogDynamoDB(null, "CONSULTA DATOS CONSULTORA|MIS DATOS", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Consulta", codigoConsultora, "Estado de Cuenta"); //HD-881
+
             if (ModelState.IsValid)
             {
                 List<EstadoCuentaModel> lst;
@@ -252,6 +255,7 @@
                 }
 
             }
+            
             return RedirectToAction("Index", "Bienvenida");
         }
 
@@ -259,7 +263,9 @@
 
         public ActionResult PedidoFacturado(string sidx, string sord, int page, int rows, string codigoConsultora)
         {
-            if (ModelState.IsValid)
+            ActualizarDatosLogDynamoDB(null, "CONSULTA DATOS CONSULTORA|MIS DATOS", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Consulta", codigoConsultora, "Pedido Facturado"); //HD-881
+
+            if (ModelState.IsValid) //
             {
                 List<Portal.Consultoras.Web.ServicePedido.BEPedidoWeb> lst = new List<Portal.Consultoras.Web.ServicePedido.BEPedidoWeb>();
                 List<BEPedidoFacturado> lista = new List<BEPedidoFacturado>();
@@ -406,6 +412,7 @@
                     return Json(data, JsonRequestBehavior.AllowGet);
                 }
             }
+
             return RedirectToAction("Index", "Bienvenida");
         }
 
@@ -995,11 +1002,14 @@
             string paisISO = userData.CodigoISO.Trim();
             string campanhaID = userData.CampaniaID.ToString();
             url = "/WebPages/WebTracking.aspx?data=" + Util.EncriptarQueryString(paisID, codigoConsultora, mostrarAyudaWebTracking, paisISO, campanhaID);
+            ActualizarDatosLogDynamoDB(null, "CONSULTA DATOS CONSULTORA|MIS DATOS", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Consulta", codigoConsultora, "Seguimiento Pedido"); //HD-881
             return Json(url, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult PaqueteDocumentario(string sidx, string sord, int page, int rows, string campania, string codigo)
         {
+            ActualizarDatosLogDynamoDB(null, "CONSULTA DATOS CONSULTORA|MIS DATOS", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Consulta", codigo, "Paquete Documentario"); //HD-881
+
             BEGrid grid = new BEGrid();
             grid.PageSize = rows;
             grid.CurrentPage = page;
@@ -1063,6 +1073,7 @@
 
                        }
             };
+            
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 

@@ -2554,7 +2554,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        protected void ActualizarDatosLogDynamoDB(MisDatosModel p_modelo, string p_origen, string p_aplicacion, string p_Accion, string p_CodigoConsultoraBuscado = "")
+        protected void ActualizarDatosLogDynamoDB(MisDatosModel p_modelo, string p_origen, string p_aplicacion, string p_Accion, string p_CodigoConsultoraBuscado = "", string p_Seccion = "")
         {                      
             object data = null;
             string v_campomodificacion = string.Empty;
@@ -2568,25 +2568,22 @@ namespace Portal.Consultoras.Web.Controllers
                 apinombre = "Api/LogActualizaciones";
 
                 //Data actual viene del Model       => model
-                //Data anterior viene del userData  => userData
-                
-                if (string.IsNullOrEmpty(userData.Sobrenombre)) userData.Sobrenombre = "";
-                if (string.IsNullOrEmpty(userData.EMail)) userData.EMail = "";
-                if (string.IsNullOrEmpty(userData.Telefono)) userData.Telefono = "";
-                if (string.IsNullOrEmpty(userData.Celular)) userData.Celular = "";
-                if (string.IsNullOrEmpty(userData.TelefonoTrabajo)) userData.TelefonoTrabajo = "";
+                //Data anterior viene del userData  => userData 
 
-                if (p_modelo != null)
+                if (userData != null && p_modelo != null && p_Accion.Trim().ToUpper() == "MODIFICACION")
                 {
+                    if (string.IsNullOrEmpty(userData.Sobrenombre)) userData.Sobrenombre = "";
+                    if (string.IsNullOrEmpty(userData.EMail)) userData.EMail = "";
+                    if (string.IsNullOrEmpty(userData.Telefono)) userData.Telefono = "";
+                    if (string.IsNullOrEmpty(userData.Celular)) userData.Celular = "";
+                    if (string.IsNullOrEmpty(userData.TelefonoTrabajo)) userData.TelefonoTrabajo = "";
+
                     if (string.IsNullOrEmpty(p_modelo.Sobrenombre)) p_modelo.Sobrenombre = "";
                     if (string.IsNullOrEmpty(p_modelo.EMail)) p_modelo.EMail = "";
                     if (string.IsNullOrEmpty(p_modelo.Telefono)) p_modelo.Telefono = "";
                     if (string.IsNullOrEmpty(p_modelo.Celular)) p_modelo.Celular = "";
                     if (string.IsNullOrEmpty(p_modelo.TelefonoTrabajo)) p_modelo.TelefonoTrabajo = "";
-                }
 
-                if (userData != null && p_modelo != null && p_Accion.Trim().ToUpper() == "MODIFICACION")
-                {                    
                     if (userData.Sobrenombre.ToString().Trim().ToUpper() != p_modelo.Sobrenombre.ToString().Trim().ToUpper())
                     {
                         v_campomodificacion = "SOBRENOMBRE";
@@ -2636,7 +2633,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else if (p_Accion.Trim().ToUpper() == "CONSULTA")
                 {
-                    EjecutarLogDynamoDB(data, apinombre, "", "", "", p_origen, p_aplicacion, p_Accion, p_CodigoConsultoraBuscado);
+                    EjecutarLogDynamoDB(data, apinombre, "", "", "", p_origen, p_aplicacion, p_Accion, p_CodigoConsultoraBuscado, p_Seccion);
                 }                                
             }
             catch (Exception ex)
@@ -2645,11 +2642,15 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        protected void EjecutarLogDynamoDB(object data, string requestUrl, string campomodificacion, string valoractual, string valoranterior, string origen, string aplicacion, string accion, string codigoconsultorabuscado)
+        protected void EjecutarLogDynamoDB(object data, string requestUrl, string campomodificacion, string valoractual, string valoranterior, string origen, string aplicacion, string accion, string codigoconsultorabuscado, string seccion = "")
         {
             string dataString = string.Empty;
             string urlApi = string.Empty;
             bool noQuitar = false;
+
+            /*** Se registra sección Solo para Perú HD-881 ***/
+            if (userData.CodigoISO != "PE")
+                seccion = "";
 
             try
             {
@@ -2666,7 +2667,8 @@ namespace Portal.Consultoras.Web.Controllers
                     Rol = userData.RolDescripcion,
                     Dispositivo = Request.Browser.IsMobileDevice ? "MOBILE" : "WEB",
                     Accion = accion,
-                    UsuarioConsultado = codigoconsultorabuscado
+                    UsuarioConsultado = codigoconsultorabuscado,
+                    Seccion = seccion
                 };
 
                 urlApi = ConfigurationManager.AppSettings.Get("UrlLogDynamo");
