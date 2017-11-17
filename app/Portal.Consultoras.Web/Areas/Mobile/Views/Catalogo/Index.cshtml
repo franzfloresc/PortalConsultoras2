@@ -71,7 +71,7 @@
             ((revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsSuscritaInactiva()  && !tieneGND) ||
             ((revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsNoSuscrita() && !tieneGND) ||
             (!revistaDigital.TieneRDC && !revistaDigital.TieneRDR && !tieneGND) ||
-            ((revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsSuscritaActiva()) ||
+            ((revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsSuscritaActiva() && !tieneGND) ||
             (revistaDigital.TieneRDR && !tieneGND)
             )
         {
