@@ -318,24 +318,6 @@ namespace Portal.Consultoras.Web.Controllers
                     mailBody += "<table id=\"tableForOutlook\"><tr><td>";
                     mailBody += "<![endif]-->";
                     mailBody += "<tbody>";
-                    //mailBody += "<tr>";
-                    //mailBody += "<td style=\"width:29.3%; display: table-cell; padding-left:2%; padding-right:2%;\">";
-                    //mailBody += "<a href=\"#\" style=\"width:100%; display:block;\">";
-                    //mailBody += "<img width=\"100%\" display=\"block\" src=\"http://www.genesis-peru.com/mailing-belcorp/revista.png\" alt=\"Revista\" />";
-                    //mailBody += "</a>";
-                    //mailBody += "</td>";
-                    //mailBody += "<td style=\"width:29.3%; display: table-cell; padding-left:2%; padding-right:2%;\">";
-                    //mailBody += "<a href=\"#\" style=\"width:100%; display:block;\">";
-                    //mailBody += "<img width=\"100%\" display=\"block\" src=\"http://www.genesis-peru.com/mailing-belcorp/revista.png\" alt=\"Revista\" />";
-                    //mailBody += "</a>";
-                    //mailBody += "</td>";
-                    //mailBody += "<td style=\"width:29.3%; display: table-cell; padding-left:2%; padding-right:2%;\">";
-                    //mailBody += "<a href=\"#\" style=\"width:100%; display:block;\">";
-                    //mailBody += "<img width=\"100%\" display=\"block\" src=\"http://www.genesis-peru.com/mailing-belcorp/revista.png\" alt=\"Revista\" />";
-                    //mailBody += "</a>";
-                    //mailBody += "</td>";
-                    //mailBody += "</tr>";
-
                     mailBody += "<tr>";
 
                     if (item.LBel == "1")

@@ -15,8 +15,6 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class SolicitudClienteController : BaseController
     {
-        //
-        // GET: /SolicitudCliente/
         public ActionResult Index(string Campania, string Estado, string paginacion)
         {
             if (!UsuarioModel.HasAcces(ViewBag.Permiso, "SolicitudCliente/Index"))
@@ -89,7 +87,7 @@ namespace Portal.Consultoras.Web.Controllers
             BEEstadoSolicitudCliente estadoSeleccione = new BEEstadoSolicitudCliente();
             estadoSeleccione.EstadoSolicitudClienteID = -1;
             estadoSeleccione.Descripcion = "-- Selecione Estado --";
-            estadoSeleccione.TipoEstado = ""; //"Carga Todos los estados"
+            estadoSeleccione.TipoEstado = "";
             estadoSeleccione.Activo = true;
             listaEstadoSolicitudCliente.Add(estadoSeleccione);
 
@@ -97,7 +95,7 @@ namespace Portal.Consultoras.Web.Controllers
             BEEstadoSolicitudCliente estadoSolicitudCliente = new BEEstadoSolicitudCliente();
             estadoSolicitudCliente.EstadoSolicitudClienteID = 0;
             estadoSolicitudCliente.Descripcion = "Todos";
-            estadoSolicitudCliente.TipoEstado = "T"; //"Carga Todos los estados"
+            estadoSolicitudCliente.TipoEstado = "T";
             estadoSolicitudCliente.Activo = true;
             listaEstadoSolicitudCliente.Add(estadoSolicitudCliente);
 
@@ -117,7 +115,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var paramSolicitudCliente = new BESolicitudCliente();
                 paramSolicitudCliente.SolicitudClienteID = Convert.ToInt64(SolicitudClienteId);
-                //paramSolicitudCliente.EstadoSolicitudClienteId = int.Parse(Estado);
                 entidadCliente = sv.DetalleSolicitudAnuladasRechazadas(UserData().PaisID, paramSolicitudCliente);
             }
 
@@ -149,18 +146,15 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.Simbolo = UserData().Simbolo;
             ViewBag.MontoTotal = sumaTotal.ToString();
             ViewBag.MarcaID = entidadCliente.MarcaID;
-            //ViewBag.Tono¿entidadCliente.to
             ViewBag.TieneDetalle = (entidadCliente.DetalleSolicitud != null) ? entidadCliente.DetalleSolicitud.ToList().Count : 0;
 
             string tipoDistribucion = String.Format("_{0}", modelSolicitudCliente.TipoDistribucion >= 1 ? modelSolicitudCliente.TipoDistribucion : 1);
-            //R2319 - JICM - Se Obtiene la descripción de etiquetas correspondiente al pais logueado.
             string desConfig = "DES_UBIGEO_" + UserData().CodigoISO.ToString() + tipoDistribucion;
             string descripcionUnidad = ConfigurationManager.AppSettings.Get(desConfig) ?? string.Empty;
             string[] arrayUnidades = descripcionUnidad.Split(',');
             ViewBag.UnidadGeografica1 = arrayUnidades[0].ToString() + ":";
             ViewBag.UnidadGeografica2 = arrayUnidades[1].ToString() + ":";
             ViewBag.UnidadGeografica3 = arrayUnidades[2].ToString() + ":";
-            //R2319 - JICM - FIN
 
             return View("Detalle", modelSolicitudCliente);
 
@@ -194,13 +188,11 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = new List<BESolicitudCliente>();
                 }
 
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                //int buscar = int.Parse(txtBuscar);
                 BEPager pag = new BEPager();
 
                 IEnumerable<BESolicitudCliente> items = lst;
@@ -263,7 +255,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 pag = Util.PaginadorGenerico(grid, lst);
 
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,
@@ -307,20 +298,17 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = sv.DetalleSolicitudAnuladasRechazadas(UserData().PaisID, paramSolicitudCliente).DetalleSolicitud.ToList();
                 }
 
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                //int buscar = int.Parse(txtBuscar);
                 BEPager pag = new BEPager();
                 IEnumerable<BESolicitudClienteDetalle> items = lst;
                 items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
                 pag = Util.PaginadorGenerico(grid, lst);
 
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,
@@ -369,7 +357,6 @@ namespace Portal.Consultoras.Web.Controllers
                     entidadCliente = sv.DetalleSolicitudAnuladasRechazadas(UserData().PaisID, solicitudCliente);
                 }
 
-                /* Envío de correo a la gerente de zona */
                 string cuerpoCorreo = ConstruirCorreo(entidadCliente);
                 string asunto = String.Format("({0}) Nuevo Pedido {1}", UserData().CodigoISO, entidadCliente.MarcaNombre);
                 Util.EnviarMail("no-responder@somosbelcorp.com", EmailGZ, correoOculto, asunto, cuerpoCorreo, true, "SomosBelcorp");
@@ -458,7 +445,6 @@ namespace Portal.Consultoras.Web.Controllers
 
 
             string tipoDistribucion = String.Format("_{0}", entidadSolicitud.TipoDistribucion >= 1 ? entidadSolicitud.TipoDistribucion : 1);
-            //R2319 - JICM - Se Obtiene la descripción de etiquetas correspondiente al pais logueado.
             string desConfig = "DES_UBIGEO_" + UserData().CodigoISO.ToString() + tipoDistribucion;
             string descripcionUnidad = ConfigurationManager.AppSettings.Get(desConfig) ?? string.Empty;
             string[] arrayUnidades = descripcionUnidad.Split(',');
@@ -567,7 +553,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             List<BETablaLogicaDatos> listaColumna = ConsultarTipodeUnidadGeografica().ToList();
             ViewBag.UnidadGeografica1 = listaColumna.Where(l => l.Codigo == "01").Select(c => c.Descripcion).FirstOrDefault();
-            //ViewBag.UnidadGeografica1 = listaColumna.Select(x => { x.Codigo = "01"; return x.Descripcion; }).First();
             ViewBag.UnidadGeografica2 = listaColumna.Where(l => l.Codigo == "02").Select(c => c.Descripcion).FirstOrDefault();
             ViewBag.UnidadGeografica3 = listaColumna.Where(l => l.Codigo == "03").Select(c => c.Descripcion).FirstOrDefault();
             ViewBag.HdConsulta = 0;
@@ -597,14 +582,11 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = new List<BEReporteAfiliados>();
                 }
 
-
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                //int buscar = int.Parse(txtBuscar);
                 BEPager pag = new BEPager();
                 IEnumerable<BEReporteAfiliados> items = lst;
 
@@ -691,7 +673,6 @@ namespace Portal.Consultoras.Web.Controllers
                 items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
                 pag = Util.PaginadorGenerico(grid, lst);
 
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,
@@ -714,8 +695,6 @@ namespace Portal.Consultoras.Web.Controllers
                                    Convert.ToString(a.AnoCampanaIngreso),
                                    a.FechaCreacionString.ToString(),
                                    a.FechaModificacionString.ToString()
-                                   //Convert.ToDateTime(a.FechaCreacion.ToString()).ToShortDateString(),
-                                   //Convert.ToDateTime(a.FechaModificacion.ToString()).ToShortDateString()
                                 }
                            }
                 };
@@ -796,7 +775,6 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = sv.GetReportePedidos(fechaInicioSolicitud, fechaFinSolicitud, estado, marca, campania, UserData().PaisID).ToList();
                 }
 
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
@@ -943,7 +921,6 @@ namespace Portal.Consultoras.Web.Controllers
                 items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
                 pag = Util.PaginadorGenerico(grid, lst);
 
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,

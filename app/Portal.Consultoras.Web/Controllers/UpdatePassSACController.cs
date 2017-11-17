@@ -15,13 +15,8 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class UpdatePassSACController : BaseController
     {
-        //
-        // GET: /UpdatePassSAC/
-
         public ActionResult Index()
         {
-            //if (!UsuarioModel.HasAcces(ViewBag.Permiso, "UsuarioRol/Index"))
-            //    return RedirectToAction("Index", "Bienvenida");
             var model = new UpdatePassSACModel();
             model.listaPaises = DropDowListPaises();
             return View(model);
@@ -54,13 +49,11 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = sv.SelectByNombre(Convert.ToInt32(vPaisID), vCodigoConsultora).ToList();
                 }
 
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                //int buscar = int.Parse(txtBuscar);
                 BEPager pag = new BEPager();
                 IEnumerable<BEUsuario> items = lst;
 
@@ -95,7 +88,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 pag = Paginador(grid, lst);
 
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,
@@ -154,7 +146,6 @@ namespace Portal.Consultoras.Web.Controllers
                     int resultExiste;
                     bool result;
 
-                    //el valor de CodigoConsultora es en realidad el codigo de usuario.
                     resultExiste = sv.ExisteUsuario(model.PaisID, model.CodigoConsultora, "");
 
                     if (resultExiste == Constantes.ValidacionExisteUsuario.Existe)

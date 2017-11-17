@@ -69,7 +69,6 @@ namespace Portal.Consultoras.Web.Controllers
                 lst.RemoveAt(lst.Count - 1);
             }
 
-            // Usamos el modelo para obtener los datos
             BEGrid grid = new BEGrid();
             grid.PageSize = rows;
             grid.CurrentPage = page;
@@ -154,8 +153,6 @@ namespace Portal.Consultoras.Web.Controllers
                                       "</tr>";
                 }
 
-                //R2524 - JICM - Eliminando FEcha Vencimiento,Por ahora Si no existen movimientos no se mostrará 0 en la etiqueta
-                //Total a pagar si no que mostrará el valor del Monto Total a Pagar.
                 if (lst.Count > 0)
                 {
                     string fechaVencimiento = string.Empty;
@@ -163,8 +160,6 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         fechaVencimiento = lst[lst.Count - 1].Fecha.ToString("dd/MM/yyyy");
                     }
-                    //R2524 - JICM - Formateando decimal y Eliminando Fecha Vencimiento
-                    //R2524 - JICM - CC - Validación Cargo y Abono para el envío de Mail
                     if (Math.Abs(lst[lst.Count - 1].Cargo) > 0)
                     {
 
@@ -290,7 +285,6 @@ namespace Portal.Consultoras.Web.Controllers
                 lst = sv.SelectComprobantePercepcion(userData.PaisID, userData.ConsultoraID).ToList();
             }
 
-            // Usamos el modelo para obtener los datos
             BEGrid grid = new BEGrid();
             grid.PageSize = rows;
             grid.CurrentPage = page;
@@ -342,7 +336,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             pag = PaginadorPercepcion(grid, lst);
 
-            // Creamos la estructura
             var data = new
             {
                 total = pag.PageCount,
@@ -419,7 +412,6 @@ namespace Portal.Consultoras.Web.Controllers
                 lst = sv.SelectComprobantePercepcionDetalle(UserData().PaisID, Convert.ToInt32(IdComprobantePercepcion)).ToList();
             }
 
-            // Usamos el modelo para obtener los datos
             BEGrid grid = new BEGrid();
             grid.PageSize = rows;
             grid.CurrentPage = page;
@@ -511,7 +503,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             pag = PaginadorDetallePercepcion(grid, lst);
 
-            // Creamos la estructura
             var data = new
             {
                 total = pag.PageCount,
@@ -804,12 +795,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                 HttpContext.Response.ClearHeaders();
                 HttpContext.Response.Clear();
-                //HttpContext.Current.Response.SetCookie("Cache-Control", "private");
                 HttpContext.Response.Buffer = false;
                 HttpContext.Response.AddHeader("Content-disposition", "attachment; filename=" + originalFileName);
                 HttpContext.Response.Charset = "UTF-8";
                 HttpContext.Response.Cache.SetCacheability(HttpCacheability.Private);
-                //HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
                 HttpContext.Response.ContentType = "application/octet-stream";
                 HttpContext.Response.BinaryWrite(stream.ToArray());
                 HttpContext.Response.Flush();

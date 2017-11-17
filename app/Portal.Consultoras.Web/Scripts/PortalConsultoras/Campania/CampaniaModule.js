@@ -23,7 +23,6 @@
             url: (setting.BaseUrl + setting.UrlListarCampanias),
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
-            //data: { paisId: paisId },
             async: true
         });
 

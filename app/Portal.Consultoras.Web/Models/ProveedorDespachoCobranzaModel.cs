@@ -5,7 +5,6 @@ using System.Web;
 
 namespace Portal.Consultoras.Web.Models
 {
-    //I R20151202
     public class ProveedorDespachoCobranzaModel
     {
         public int PaisID { get; set; }

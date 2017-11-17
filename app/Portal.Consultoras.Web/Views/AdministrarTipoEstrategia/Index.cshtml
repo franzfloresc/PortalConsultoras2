@@ -310,8 +310,23 @@
 
     function ShowActions(cellvalue, options, rowObject) {
         var cellValueInt = parseInt(cellvalue);
-        //var Des = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + rowObject[0] + "','" + rowObject[1] + "','" + rowObject[3] + "','" + rowObject[4] + "','" + rowObject[5] + "','" + rowObject[6] + "','" + rowObject[10] + "','" + rowObject[11] + "','" + rowObject[12] + "','" + rowObject[13]+ "');\" >" + "<img src='@Url.Content("~/Content/Images/Edit.png")' alt='Editar Mensaje' title='Editar Mensaje' border='0' /></a>";
-		var Des = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + rowObject[0] + "','" + rowObject[1] + "','" + rowObject[3] + "','" + rowObject[4] + "','" + rowObject[5] + "','" + rowObject[6] + "','" + rowObject[10] + "','" + rowObject[11] + "','" + rowObject[12] + "','" + rowObject[13]+ "','" + rowObject[14]+ "','" + rowObject[15]+ "');\" >" + "<img src='@Url.Content("~/Content/Images/Edit.png")' alt='Editar Mensaje' title='Editar Mensaje' border='0' /></a>";
+        var Des = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('"
+            + rowObject[0]
+            + "','" + rowObject[1]
+            + "','" + rowObject[2]
+            + "','" + rowObject[4]
+            + "','" + rowObject[5]
+            + "','" + rowObject[6]
+            + "','" + rowObject[7]
+            + "','" + rowObject[11]
+            + "','" + rowObject[12]
+            + "','" + rowObject[13]
+            + "','" + rowObject[14]
+            + "','" + rowObject[15]
+            + "','" + rowObject[16]
+            + "');\" >"
+            + "<img src='@Url.Content("~/Content/Images/Edit.png")' alt='Editar Mensaje' title='Editar Mensaje' border='0' /></a>";
+
         Des += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + rowObject[0] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Delete.png")' alt='Eliminar Mensaje' title='Eliminar Mensaje' border='0' /></a>";
         return Des;
     }
@@ -377,7 +392,7 @@
 
     function ShowOferta(cellvalue, options, rowObject) {
         var cellValueInt = parseInt(cellvalue);
-        var Des = rowObject[2].replace(/,/g, '<br />');
+        var Des = rowObject[3].replace(/,/g, '<br />');
         return Des;
     }
 
@@ -485,7 +500,7 @@
                         }
                     }
 
-					
+
                     var flagNueva = ($("#chkNueva").attr("checked")) ? "1" : "0";
                     var flagRecoPerfil = ($("#chkRecoPerfil").attr("checked")) ? "1" : "0";
                     var flagRecoProduc = ($("#chkRecoProduc").attr("checked")) ? "1" : "0";
@@ -603,7 +618,7 @@
                 imgOfertaIndependiente = imgOfertaIndependiente.replace(/^.*[\\\/]/, '');
 
 
-				
+
 				var flagValidarImagen = jQuery("#list").jqGrid('getCell', id, 'FlagValidarImagen');
 				$("#chkValImg").attr("checked", (flagValidarImagen == "1"));
 

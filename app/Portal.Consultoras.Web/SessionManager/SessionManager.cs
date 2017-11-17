@@ -213,13 +213,12 @@ namespace Portal.Consultoras.Web.SessionManager
 
         public void SetTieneRdr(bool tieneRdr)
         {
-           // HttpContext.Current.Session[Constantes.ConstSession.TieneRdr] = tieneRdr;
+           HttpContext.Current.Session[Constantes.ConstSession.TieneRdr] = tieneRdr;
         }
 
         public bool GetTieneRdr()
         {
-           // return (bool)(HttpContext.Current.Session[Constantes.ConstSession.TieneRdr] ?? false);
-            return false;
+           return (bool)(HttpContext.Current.Session[Constantes.ConstSession.TieneRdr] ?? false);
         }
 
         void ISessionManager.SetUserData(UsuarioModel usuario)

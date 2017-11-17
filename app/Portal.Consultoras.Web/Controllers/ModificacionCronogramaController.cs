@@ -31,22 +31,8 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index()
         {
-            //try
-            //{
-            //    if (!UsuarioModel.HasAcces(ViewBag.Permiso, "ModificacionCronograma/Index"))
-            //        return RedirectToAction("Index", "Bienvenida");
-            //}
-            //catch (FaultException ex)
-            //{
-            //    LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-            //}
-
-            //await Task.Run(() => LoadConsultorasCache(11));
-            //var listaCampanias = DropDowListCampanias(11);
-
             var modificacionCronogramaModel = new ModificacionCronogramaModel()
             {
-                //listaCampanias = new List<CampaniaModel>(),
                 listaPaises = DropDowListPaises(),
                 listaRegiones = new List<RegionModel>(),
                 listaZonas = new List<ZonaModel>()
@@ -56,7 +42,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ObtenerRegionesPorPais(int PaisID)
         {
-            //PaisID = 11;
             IEnumerable<RegionModel> lstRegiones = DropDownListRegiones(PaisID);
             IEnumerable<ZonaModel> lstZonas = DropDownListZonas(PaisID);
 
@@ -121,13 +106,11 @@ namespace Portal.Consultoras.Web.Controllers
             if (pais.GetValueOrDefault() == 0)
                 return Json(null, JsonRequestBehavior.AllowGet);
 
-            // consultar las regiones y zonas
             IList<BEConfiguracionValidacionZona> lst;
             using (SACServiceClient sv = new SACServiceClient())
             {
                 lst = sv.GetRegionZonaDiasDuracionCronograma(pais.GetValueOrDefault(), region.GetValueOrDefault(), zona.GetValueOrDefault());
             }
-            // se crea el arbol de nodos para el control de la vista
             JsTreeModel[] tree = lst.Distinct<BEConfiguracionValidacionZona>(new BEConfiguracionValidacionZonaRegionIDComparer()).Select(
                                     r => new JsTreeModel
                                     {
@@ -153,19 +136,13 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        //public JsonResult GrabarZonas(List<BELogModificacionCronograma> EntradasLog, List<BEConfiguracionValidacionZona> EntradasConfiguracionValidacionZona, int DiasDuracionCronograma)
         public JsonResult GrabarZonas(List<BELogConfiguracionCronograma> EntradasLog, List<BEConfiguracionValidacionZona> EntradasConfiguracionValidacionZona, int DiasDuracionCronograma)
         {
             try
             {
-                // se hace la actualizacion de modificación de cronograma
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-                    // grabar en el log cada cambio
-                    //sv.InsLogModificacionCronogramaMasivo(UserData().PaisID, UserData().CodigoUsuario, EntradasLog.ToArray());
                     sv.InsLogConfiguracionCronogramaMasivo(UserData().PaisID, UserData().CodigoUsuario, EntradasLog.ToArray());
-
-                    // update de la zona para el nuevo valor de dias de duracion de cronograma
                     sv.UpdConfiguracionValidacionZonaCronograma(UserData().PaisID, EntradasConfiguracionValidacionZona.ToArray());
                 }
                 return Json(new
@@ -187,10 +164,8 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        //public ActionResult ExportarExcel(string PaisID, string RegionID, string ZonaID, string vConsultora)
         public ActionResult ExportarExcel(int PaisID)
         {
-            // consulta toda la data de ConfiguracionValidacionZona
             IList<BEConfiguracionValidacionZona> lst;
             using (SACServiceClient sv = new SACServiceClient())
             {
@@ -207,21 +182,17 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ConsultarLog(string sidx, string sord, int page, int rows, string vBusqueda)
         {
-            //if (ModelState.IsValid)
-            //{
             IList<BELogModificacionCronograma> lst;
             using (SACServiceClient sv = new SACServiceClient())
             {
                 lst = sv.GetLogModificacionCronograma(UserData().PaisID);
             }
 
-            // Usamos el modelo para obtener los datos
             BEGrid grid = new BEGrid();
             grid.PageSize = rows;
             grid.CurrentPage = page;
             grid.SortColumn = sidx;
             grid.SortOrder = sord;
-            //int buscar = int.Parse(txtBuscar);
             BEPager pag = new BEPager();
             IEnumerable<BELogModificacionCronograma> items = lst;
 
@@ -277,7 +248,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             pag = Paginador(grid, vBusqueda);
 
-            // Creamos la estructura
             var data = new
             {
                 total = pag.PageCount,
@@ -298,8 +268,6 @@ namespace Portal.Consultoras.Web.Controllers
                        }
             };
             return Json(data, JsonRequestBehavior.AllowGet);
-            //}
-            //return RedirectToAction("Index", "ModificacionCronograma");
         }
 
         public BEPager Paginador(BEGrid item, string vBusqueda)
@@ -314,7 +282,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             int RecordCount;
 
-            // TODO: probar si es necesario el valor de 'vBusqueda'
             if (string.IsNullOrEmpty(vBusqueda))
                 RecordCount = lst.Count;
             else

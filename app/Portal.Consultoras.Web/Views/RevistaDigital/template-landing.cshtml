@@ -12,7 +12,10 @@
     @System.Web.Optimization.Styles.Render("~/bundles/css/Site/RevistaDigital-Landing")
 }
 
-<div class="BloqueLandingRD" data-listado-campania="@Model.CampaniaID"  data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding">
+<div class="BloqueLandingRD" data-listado-campania="@Model.CampaniaID"  
+     data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding"
+     data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLandingPopUp">
+
     <div class="content_belcorp" data-listado-content="" style="margin: 0 80px 0 180px;">
         
         @if (ViewBag.TieneProductosPerdio == false)
@@ -58,7 +61,10 @@
                 </div>
             </div>
         }
-        <div id="RDListado" data-content-item="@Model.CampaniaID" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding">
+        <div id="RDListado" data-content-item="@Model.CampaniaID" 
+             data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding"
+             data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLandingPopUp">
+
             <div id="divOfertaProductos"  style="text-align: center;"></div>
             <hr class="clear" />
             @if (ViewBag.TieneProductosPerdio)

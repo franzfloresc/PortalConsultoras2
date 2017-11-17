@@ -48,7 +48,6 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = sv.GetMatrizComercialByCodigoSAP(paisID, codigoSAP).ToList();
                 }
 
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
@@ -93,7 +92,6 @@ namespace Portal.Consultoras.Web.Controllers
                 items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
                 pag = Util.PaginadorGenerico(grid, lst);
-                // Creamos la estructura
                 string ISO = Util.GetPaisISO(paisID);
                 var carpetaPais = Globals.UrlMatriz + "/" + ISO;
 
@@ -276,7 +274,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 var nombreArchivo = Request["qqfile"];
-                //sube la imagen selecciona a carpeta temporales
                 new UploadHelper().UploadFile(Request, nombreArchivo);
 
                 var intTotalBytes = ((System.Web.HttpRequestWrapper)Request).TotalBytes;
@@ -303,7 +300,6 @@ namespace Portal.Consultoras.Web.Controllers
                 if (model.IdMatrizComercialImagen == 0)
                 {
                     isNewImage = true;
-                    //subir imagen temporal al S3
                     entity.Foto = this.UploadFoto(nombreArchivo, formatoArchivo.PreFileName, formatoArchivo.CarpetaPais);
                     using (PedidoServiceClient sv = new PedidoServiceClient())
                     {
@@ -315,7 +311,6 @@ namespace Portal.Consultoras.Web.Controllers
                     using (PedidoServiceClient sv = new PedidoServiceClient())
                     {
                         entity.IdMatrizComercialImagen = model.IdMatrizComercialImagen;
-                        //crear nueva foto y borrar la anterior en S3
                         entity.Foto = this.ReplaceFoto(nombreArchivo, model.Foto, formatoArchivo.PreFileName, formatoArchivo.CarpetaPais);
                         sv.UpdMatrizComercialImagen(entity);
                     }

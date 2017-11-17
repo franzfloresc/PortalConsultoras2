@@ -3,7 +3,7 @@ using Newtonsoft.Json.Linq;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceCliente;
-using Portal.Consultoras.Web.ServiceSAC; //R2073
+using Portal.Consultoras.Web.ServiceSAC;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -43,7 +43,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (UserData().PaisID == 4)
             {
-                // Validación pais Colombia Req. 1478
                 ViewBag.Flete = string.Format("{0:#,##0}", Flete).Replace(',', '.');
                 ViewBag.Total = string.Format("{0:#,##0}", Total).Replace(',', '.');
                 ViewBag.Parcial = string.Format("{0:#,##0}", Total - Flete).Replace(',', '.');
@@ -99,7 +98,6 @@ namespace Portal.Consultoras.Web.Controllers
             return result;
         }
 
-        //R2073
         public ActionResult ConsultarPedidoWebAnteriores(string sidx, string sord, int page, int rows)
         {
             if (ModelState.IsValid)
@@ -129,11 +127,8 @@ namespace Portal.Consultoras.Web.Controllers
                         string[] parametros = pedido.EstadoPedido.Split(';');
                         if (parametros.Length >= 3)
                         {
-                            //Se utilizará el campo para enviar la información de Origen
                             oBEPedidoWeb.EstadoPedidoDesc = OrigenDescripcion(parametros[0]);
-                            //Se utilizará el campo para enviar la información de Flete
                             oBEPedidoWeb.Direccion = parametros[1] == string.Empty ? "0" : parametros[1];
-                            //Se utilizará el campo para enviar la fecha de Facturación
                             oBEPedidoWeb.CodigoUsuarioCreacion = parametros[2] == string.Empty ? "" : Convert.ToDateTime(parametros[2]).ToShortDateString();
                         }
 
@@ -143,13 +138,11 @@ namespace Portal.Consultoras.Web.Controllers
                     lst.Add(oBEPedidoWeb);
                 }
 
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                //int buscar = int.Parse(txtBuscar);
                 BEPager pag = new BEPager();
                 IEnumerable<BEPedidoWeb> items = lst;
 
@@ -197,8 +190,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 pag = Util.PaginadorGenerico(grid, lst);
 
-                // Creamos la estructura
-                if (UserData().PaisID == 4) // validación pais colombia req. 1478
+                if (UserData().PaisID == 4)
                 {
                     var data = new
                     {
@@ -267,7 +259,6 @@ namespace Portal.Consultoras.Web.Controllers
             return DesCamp;
         }
 
-        //R2073
         public ActionResult ConsultarPedidoWebAnterioresProductos(string sidx, string sord, int page, int rows, string CampaniaId)
         {
             if (ModelState.IsValid)
@@ -299,12 +290,10 @@ namespace Portal.Consultoras.Web.Controllers
                             Cantidad = pedido.Cantidad,
                             PrecioUnidad = pedido.PrecioUnidad,
                             ImporteTotal = pedido.ImporteTotal,
-                            //Se esta reutilizando este campo para devolver el descuente correspondiente al CUV
                             ImporteTotalPedido = pedido.MontoDescuento
                         });
                 }
 
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
@@ -371,16 +360,15 @@ namespace Portal.Consultoras.Web.Controllers
 
                 pag = Util.PaginadorGenerico(grid, lst);
 
-                // Creamos la estructura
                 if (UserData().PaisID == 4)
-                { // validación país colombia req. 1478
+                {
                     var data = new
                     {
                         simbolo = UserData().Simbolo,
                         total = pag.PageCount,
                         page = pag.CurrentPage,
                         records = pag.RecordCount,
-                        totalSum = "0",//string.Format("{0:#,##0.00}", Math.Truncate((from req in lst select req.ImporteTotal - req.ImporteTotalPedido).Sum()*100)/100),
+                        totalSum = "0",
                         rows = from a in items
                                select new
                                {
@@ -409,7 +397,7 @@ namespace Portal.Consultoras.Web.Controllers
                         total = pag.PageCount,
                         page = pag.CurrentPage,
                         records = pag.RecordCount,
-                        totalSum = "0",//string.Format("{0:#,##0.00}", Math.Truncate((from req in lst select req.ImporteTotal - req.ImporteTotalPedido).Sum()*100)/100),
+                        totalSum = "0",
                         rows = from a in items
                                select new
                                {
@@ -434,7 +422,6 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Index", "Bienvenida");
         }
 
-        //R2073
         public ActionResult ExportarExcel(string vCampaniaID, string vTotalParcial, string vFlete, string vTotalFacturado)
         {
             List<KeyValuePair<int, string>> dicCabeceras = new List<KeyValuePair<int, string>>();
@@ -521,15 +508,10 @@ namespace Portal.Consultoras.Web.Controllers
                 ws.Range(string.Format("A{0}:E{1}", 4, 4)).Row(1).Merge();
                 ws.Cell(4, 1).Style.Font.Bold = true;
 
-                //decimal TotalPedido = 0;
                 string Simbolo = UserData().Simbolo;
 
                 foreach (KeyValuePair<int, string> keyvalue in columnHeaderDefinition)
                 {
-                    //Establece las columnas
-                    //ws.Cell(row, 1).Value = keyvalue.Value;
-                    //ws.Range(string.Format("A{0}:E{1}", row, row)).Row(1).Merge();
-                    //ws.Cell(row, 1).Style.Font.Bold = true;
                     col2 = 1;
                     foreach (KeyValuePair<string, string> keyvalue2 in columnDetailDefinition)
                     {
@@ -550,17 +532,11 @@ namespace Portal.Consultoras.Web.Controllers
 
                     row += 2;
                     while (i < keyvalue.Key)
-                    // ( i < ; i++)
                     {
                         col = 1;
-                        foreach (string column in Columns) // itera las columnas del detalle
+                        foreach (string column in Columns)
                         {
-                            //Establece el valor para esa columna
                             BEPedidoWebDetalle source = SourceDetails[i];
-                            //foreach (PropertyInfo property in source.GetType().GetProperties())
-                            //{
-                            //for (int m = 0; m < 5; m++)
-                            //{
                             string[] arr = new string[2];
                             if (column.Contains("#"))
                                 arr = column.Split('#');
@@ -592,7 +568,7 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 string importeTotal = "";
                                 if (UserData().PaisID == 4)
-                                { // validación para pais colombia req. 1478
+                                {
                                     importeTotal = source.ImporteTotal.ToString("#,##0").Replace(',', '.');
                                 }
                                 else
@@ -608,7 +584,7 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 string precioUnidad = "";
                                 if (UserData().PaisID == 4)
-                                { // validación para pais colombia req. 1478
+                                {
                                     precioUnidad = source.PrecioUnidad.ToString("#,##0").Replace(',', '.');
                                 }
                                 else
@@ -623,7 +599,7 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 string importeTotalPedido = "";
                                 if (UserData().PaisID == 4)
-                                { // validación para pais colombia req. 1478
+                                {
                                     importeTotalPedido = source.ImporteTotalPedido.ToString("#,##0").Replace(',', '.');
                                 }
                                 else
@@ -638,7 +614,7 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 string importePagar = "";
                                 if (UserData().PaisID == 4)
-                                { // validación para pais colombia req. 1478
+                                {
                                     importePagar = (source.ImporteTotal - source.ImporteTotalPedido).ToString("#,##0").Replace(',', '.');
                                 }
                                 else
@@ -649,32 +625,13 @@ namespace Portal.Consultoras.Web.Controllers
                                 ws.Cell(row, col).Style.Fill.BackgroundColor = XLColor.FromHtml("#DED2F1");
                                 ws.Cell(row, col).Style.Fill.BackgroundColor = XLColor.FromHtml("#DED2F1");
                             }
-                            //}
                             col++;
                         }
                         row++;
                         i++;
                     }
-                    //Columns = new List<string>();
-                    //if (arrTotal.Length > 0)
-                    //{
-                    //    ws.Range(row, 1, row, col - 1).AddToNamed("Totals");
-                    //    var titlesStyle = wb.Style;
-                    //    titlesStyle.Font.Bold = true;
-                    //    titlesStyle.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
-                    //    titlesStyle.Fill.BackgroundColor = XLColor.NoColor;
-                    //    titlesStyleh.Font.FontColor = XLColor.FromHtml("#000000");
-                    //    wb.NamedRanges.NamedRange("Totals").Ranges.Style = titlesStyle;
 
-                    //    ws.Cell(row, col - 2).Value = arrTotal[0]; //Total:
-                    //    ws.Cell(row, col - 1).Value = arrTotal[1].Split('#')[0] + ((BEPedidoWebDetalle)SourceDetails[i]).ImporteTotalPedido.ToString("0.00");
-
-
-                    //    //TotalPedido += ((BEPedidoWebDetalle)SourceDetails[i]).ImporteTotalPedido;
-                    //}
                     row++;
-                    //index = keyvalue.Key + 1;
-                    //SourceDetails.RemoveRange(0, index);
                 }
 
                 ws.Cell(row + 1, col - 2).Value = "Importe Total: ";
@@ -699,12 +656,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                 HttpContext.Response.ClearHeaders();
                 HttpContext.Response.Clear();
-                //HttpContext.Current.Response.SetCookie("Cache-Control", "private");
                 HttpContext.Response.Buffer = false;
                 HttpContext.Response.AddHeader("Content-disposition", "attachment; filename=" + originalFileName);
                 HttpContext.Response.Charset = "UTF-8";
                 HttpContext.Response.Cache.SetCacheability(HttpCacheability.Private);
-                //HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
                 HttpContext.Response.ContentType = "application/octet-stream";
                 HttpContext.Response.BinaryWrite(stream.ToArray());
                 HttpContext.Response.Flush();
