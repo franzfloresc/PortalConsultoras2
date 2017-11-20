@@ -1154,30 +1154,37 @@ namespace Portal.Consultoras.Web.Controllers
             return Mapper.Map<IList<ServiceUsuario.BEConfiguracionPais>, List<ConfiguracionPaisModel>>(listaConfigPais);
         }
 
-        private List<BEConfiguracionPaisDatos> ConfiguracionPaisDatos(UsuarioModel usuarioModel)
+        protected virtual List<BEConfiguracionPaisDatos> ConfiguracionPaisDatos(UsuarioModel usuarioModel)
         {
-            var entidad = new BEConfiguracionPaisDatos
-            {
-                PaisID = usuarioModel.PaisID,
-                CampaniaID = usuarioModel.CampaniaID,
-                ConfiguracionPais = new ServiceUsuario.BEConfiguracionPais
-                {
-                    Detalle = new ServiceUsuario.BEConfiguracionPaisDetalle
-                    {
-                        CodigoConsultora = usuarioModel.CodigoConsultora,
-                        CodigoRegion = usuarioModel.CodigorRegion,
-                        CodigoZona = usuarioModel.CodigoZona,
-                        CodigoSeccion = usuarioModel.SeccionAnalytics
-                    }
-                }
-            };
             List<BEConfiguracionPaisDatos> listaEntidad;
-            using (var sv = new UsuarioServiceClient())
-            {
-                listaEntidad = sv.GetConfiguracionPaisDatos(entidad).ToList();
-            }
 
-            listaEntidad = listaEntidad ?? new List<BEConfiguracionPaisDatos>();
+            try
+            {
+                var entidad = new BEConfiguracionPaisDatos
+                {
+                    PaisID = usuarioModel.PaisID,
+                    CampaniaID = usuarioModel.CampaniaID,
+                    ConfiguracionPais = new ServiceUsuario.BEConfiguracionPais
+                    {
+                        Detalle = new ServiceUsuario.BEConfiguracionPaisDetalle
+                        {
+                            CodigoConsultora = usuarioModel.CodigoConsultora,
+                            CodigoRegion = usuarioModel.CodigorRegion,
+                            CodigoZona = usuarioModel.CodigoZona,
+                            CodigoSeccion = usuarioModel.SeccionAnalytics
+                        }
+                    }
+                };
+            using (var sv = new UsuarioServiceClient())
+                {
+                    listaEntidad = sv.GetConfiguracionPaisDatos(entidad).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                listaEntidad = new List<BEConfiguracionPaisDatos>();
+                logManager.LogErrorWebServicesBusWrap(ex, usuarioModel.CodigoUsuario, usuarioModel.PaisID.ToString(), "LoginController.ConfiguracionPaisDatos");
+            }
             
             return listaEntidad;
         }
