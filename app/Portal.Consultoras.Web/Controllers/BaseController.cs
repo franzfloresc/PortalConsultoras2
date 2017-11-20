@@ -3490,8 +3490,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             var pathStrings = path.Split('/');
             var newPath = "";
-            newPath += "/" + (pathStrings.Length > 0 ? pathStrings[1] : "");
-            newPath += "/" + (pathStrings.Length > 1 ? pathStrings[2] : "");
+            newPath += "/" + (pathStrings.Length > 1 ? pathStrings[1] : "");
+            newPath += "/" + (pathStrings.Length > 2 ? pathStrings[2] : "");
             
             var menuActivo = new MenuContenedorModel { CampaniaId = userData.CampaniaID, ConfiguracionPais = new ConfiguracionPaisModel() };
 
