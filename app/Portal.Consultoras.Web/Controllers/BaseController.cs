@@ -93,7 +93,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.MenuContenedor = ObtenerMenuContenedor();
 
                 ViewBag.MenuMobile = BuildMenuMobile(userData);
-                ViewBag.Permiso = BuildMenu(userData);
+                ViewBag.Permiso = BuildMenu(userData,revistaDigital);
 
                 ViewBag.ProgramaBelcorpMenu = BuildMenuService();
                 ViewBag.codigoISOMenu = userData.CodigoISO;
@@ -511,10 +511,13 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region Menú
 
-        protected List<PermisoModel> BuildMenu(UsuarioModel userData)
+        public List<PermisoModel> BuildMenu(UsuarioModel userData,RevistaDigitalModel revistaDigital)
         {
             if (userData == null)
                 throw new ArgumentNullException("userData");
+
+            if (revistaDigital == null)
+                throw new ArgumentNullException("revistaDigital");
 
             if (userData.Menu != null)
             {
@@ -525,23 +528,33 @@ namespace Portal.Consultoras.Web.Controllers
             var permisos = GetPermisosByRol(userData.PaisID, userData.RolID);
 
             bool mostrarClienteOnline = GetMostrarPedidosPendientesFromConfig() && GetPaisesConConsultoraOnlineFromConfig().Contains(userData.CodigoISO);
-            if (!mostrarClienteOnline)
+            if (!mostrarClienteOnline &&
+                permisos.Any(p => p.UrlItem.ToLower() == "consultoraonline/index"))
+            {
                 permisos.Remove(permisos.FirstOrDefault(p => p.UrlItem.ToLower() == "consultoraonline/index"));
+            }
 
-            if (!userData.PedidoFICActivo)
+            if (!userData.PedidoFICActivo 
+                && permisos.Any(m => m.Codigo == Constantes.MenuCodigo.PedidoFIC))
+            {
                 permisos.Where(m => m.Codigo == Constantes.MenuCodigo.PedidoFIC).ToList().ForEach(m => permisos.Remove(m));
+            }
 
-            if (userData.IndicadorPermisoFIC == 0)
+            if (userData.IndicadorPermisoFIC == 0 &&
+                permisos.Any(p => p.UrlItem.ToLower() == "pedidofic/index"))
+            {
                 permisos.Remove(permisos.FirstOrDefault(p => p.UrlItem.ToLower() == "pedidofic/index"));
+            }
 
-            if (userData.CatalogoPersonalizado == 0 || !userData.EsCatalogoPersonalizadoZonaValida)
+            if( (userData.CatalogoPersonalizado == 0 || !userData.EsCatalogoPersonalizadoZonaValida) && 
+                permisos.Any(p => p.UrlItem.ToLower() == "catalogopersonalizado/index"))
+            {
                 permisos.Remove(permisos.FirstOrDefault(p => p.UrlItem.ToLower() == "catalogopersonalizado/index"));
-
-            var permisosModel = Mapper.Map<List<PermisoModel>>(permisos);
+            }
 
             var lstMenuModel = new List<PermisoModel>();
 
-            foreach (var permiso in permisosModel)
+            foreach (var permiso in permisos)
             {
                 if (permiso.Codigo == Constantes.MenuCodigo.CatalogoPersonalizado.ToLower() &&
                     (revistaDigital.TieneRDC || revistaDigital.TieneRDR))
@@ -672,7 +685,7 @@ namespace Portal.Consultoras.Web.Controllers
             return mostrarPedidoAppSetting == "1";
         }
 
-        private IList<BEPermiso> GetPermisosByRol(int paisID, int rolID)
+        protected virtual IList<PermisoModel> GetPermisosByRol(int paisID, int rolID)
         {
             IList<BEPermiso> permisos;
 
@@ -682,7 +695,7 @@ namespace Portal.Consultoras.Web.Controllers
                 permisos = sv.GetPermisosByRol(paisID, rolID).ToList();
             }
 
-            return permisos;
+            return Mapper.Map<List<PermisoModel>>(permisos);
         }
 
         public List<MenuMobileModel> BuildMenuMobile(UsuarioModel userData)
