@@ -13742,6 +13742,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
     public partial class BERevistaDigitalSuscripcion : Portal.Consultoras.Web.ServicePedido.BaseEntidad {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CampaniaEfectivaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int CampaniaIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -13770,6 +13773,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int RevistaDigitalSuscripcionIDField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CampaniaEfectiva {
+            get {
+                return this.CampaniaEfectivaField;
+            }
+            set {
+                if ((this.CampaniaEfectivaField.Equals(value) != true)) {
+                    this.CampaniaEfectivaField = value;
+                    this.RaisePropertyChanged("CampaniaEfectiva");
+                }
+            }
+        }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public int CampaniaID {

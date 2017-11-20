@@ -23,6 +23,7 @@ namespace Portal.Consultoras.Data.RevistaDigital
             Context.Database.AddInParameter(command, "IsoPais", DbType.String, entity.IsoPais);
             Context.Database.AddInParameter(command, "CodigoZona", DbType.String, entity.CodigoZona);
             Context.Database.AddInParameter(command, "EMail", DbType.String, entity.EMail);
+            Context.Database.AddInParameter(command, "CampaniaEfectiva", DbType.Int32, entity.CampaniaEfectiva);
             Context.Database.AddOutParameter(command, "RetornoID", DbType.Int32, 0);
             
             Context.ExecuteNonQuery(command);
@@ -41,6 +42,7 @@ namespace Portal.Consultoras.Data.RevistaDigital
             Context.Database.AddInParameter(command, "IsoPais", DbType.String, entity.IsoPais);
             Context.Database.AddInParameter(command, "CodigoZona", DbType.String, entity.CodigoZona);
             Context.Database.AddInParameter(command, "EMail", DbType.String, entity.EMail);
+            Context.Database.AddInParameter(command, "CampaniaEfectiva", DbType.Int32, entity.CampaniaEfectiva);
             Context.Database.AddOutParameter(command, "RetornoID", DbType.Int32, 10);
 
             Context.ExecuteNonQuery(command);
