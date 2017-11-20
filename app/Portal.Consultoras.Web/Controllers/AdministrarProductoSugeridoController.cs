@@ -143,7 +143,7 @@ namespace Portal.Consultoras.Web.Controllers
                 Int32.TryParse(ConfigurationManager.AppSettings["ProductoSugeridoAppCatalogosNroCampaniasAtras"] ?? "", out nroCampaniasAtras);
                 if (nroCampaniasAtras <= 0) nroCampaniasAtras = 3;
 
-                string paisesCCC = ConfigurationManager.AppSettings["Permisos_CCC"] ?? "";
+                string paisesCCC = GetPaisesConConsultoraOnlineFromConfig();
                 if (paisesCCC.Contains(pais.CodigoISO)) model.FotoProductoAppCatalogo = ImagenAppCatalogo(campaniaID, model.CodigoSAP, nroCampaniasAtras);
             }
             return Json(new { success = true, matriz = model, totalImagenes = totalImagenes }, JsonRequestBehavior.AllowGet);
