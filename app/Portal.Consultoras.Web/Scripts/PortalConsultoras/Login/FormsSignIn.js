@@ -150,11 +150,11 @@ $(document).ready(function () {
         else $("#cargarBandera2").css("background", "url('/Content/Images/Login2/Banderas/" + ISOPais + ".png') top -7px left -10px no-repeat");
 
         if (valorComboCC == "4") { //Colombia
-            $('#txtCorreoElectronico').attr("placeholder", "Número de Cédula");
+            $('#txtCorreoElectronico').attr("placeholder", "Código de consultora");
             $('#txtCorreoElectronico').parent().css("background-image", "url('')");
         }
         else {
-            $("#txtCorreoElectronico").attr("placeholder", "Correo electrónico");
+            $("#txtCorreoElectronico").attr("placeholder", "Código de consultora o DNI");
             $('#txtCorreoElectronico').parent().css("background-image", "");
         }
 

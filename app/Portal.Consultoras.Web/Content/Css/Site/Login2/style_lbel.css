@@ -233,11 +233,13 @@ span {
     }
 
 .boxform {
+    display: block;
     overflow: hidden;
     height: 100%;
 }
 
 .formcontrol {
+    display: block;
     border-bottom: 1px solid #959595;
     width: 80%;
     height: 30px;
@@ -253,7 +255,7 @@ span {
     .formcontrol .email .inputFormEmail {
         height: 30px;
         padding: 0;
-        background: 0 0;
+        background: transparent;
         width: 80%;
         border: none;
         font-size: 13px;
@@ -265,7 +267,7 @@ span {
 
     .formcontrol .inputForm, .formcontrol select {
         height: 30px;
-        background: 0 0;
+        background: transparent;
         border: none;
         color: #fff;
         font-family: lato;
@@ -318,7 +320,17 @@ span {
 .formbtn {
     text-align: right;
     float: left;
+    transition:all 0.3s ease;
+    -moz-transition:all 0.3s ease;
+    -o-transition:all 0.3s ease;
+    -ms-transition:all 0.3s ease;
+    -webkit-transition:all 0.3s ease;
+    opacity:1;
 }
+
+    .formbtn:hover{
+        opacity:0.8;
+    }
 
     .formbtn .btnCrear {
         width: 100%;
@@ -840,7 +852,7 @@ h1, h2, h3, h4, h5, h6 {
 /*  Main Navigation
 /* -------------------------------------------------- */
 
-#bg_1, #popup_olvidasteContrasenia {
+#bg_1, #popup_olvidasteContrasenia, #popup_opciones_recuperacion_contrasenia {
     font-family: lato;
     /* height: 463px; */
     /* width: 868px; */
@@ -867,21 +879,40 @@ h1, h2, h3, h4, h5, h6 {
     width: 100%;
 }
 
+
+        #popup_olvidasteContrasenia .formcontrol input::-webkit-input-placeholder {
+            color: #959595;
+        }
+
+        #popup_olvidasteContrasenia .formcontrol input:-moz-placeholder {
+            color: #959595;
+        }
+
+        #popup_olvidasteContrasenia .formcontrol input::-moz-placeholder {
+            color: #959595;
+        }
+
+        #popup_olvidasteContrasenia .formcontrol input:-ms-input-placeholder {
+            color: #959595;
+        }
+
     #popup_olvidasteContrasenia .formcontrol input::-webkit-input-placeholder {
-        color: black;
+        color: #959595;
     }
 
     #popup_olvidasteContrasenia .formcontrol input:-moz-placeholder {
-        color: black;
+        color: #959595;
     }
 
     #popup_olvidasteContrasenia .formcontrol input::-moz-placeholder {
-        color: black;
+    	color: #959595;
     }
 
     #popup_olvidasteContrasenia .formcontrol input:-ms-input-placeholder {
-        color: black;
+        color: #959595;
     }
+
+
 
 .content_bg_1 {
     width: 40%;
@@ -893,51 +924,62 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .content_bg_olvidasteContrasenia {
-    width: 35%;
-    top: 13.5%;
+    width: 87%;
+    max-width: 588px;
+    min-height: 306px;
+    top: 20%;
     margin: 0 auto;
     position: relative;
     background: white;
-    padding-bottom: 55px;
+    padding-top:29px;
+    padding-bottom: 44px;
 }
 
 .content_bg_contraseniaEnviada {
     display: block;
     width: 43%;
     max-width: 580px;
-    min-height: 345px;
-    top: 24%;
+    min-height: 324px;
+    top: 21%;
     margin: 0 auto;
     position: relative;
     background: white;
+    padding-left:3%;
+    padding-right:3%;
     padding-bottom: 34px;
     padding-top: 10px;
     box-sizing: border-box;
+    text-align:center;
 }
 
 #header {
-    /* height: 55px; */
+    height: 55px;
     width: 100%;
-    /* background: black url(../Images/popup_esika/fondo_header.png) top left no-repeat; */
-    /* background-position: right; */
-    FONT-FAMILY: LATO;
+    /*background: black url(../Images/popup_esika/fondo_header.png) top left no-repeat;
+    background-position: right;*/
+    font-family:'Lato';
     color: black;
     line-height: 55px;
     text-align: left;
-    padding-top: 29px;
-    padding-left: 15%;
+    padding-left: 20.2%;
     box-sizing: border-box;
-    font-weight: 700;
+    font-weight: 300;
     letter-spacing: 0.4px;
     font-size: 11pt;
+    position:relative;
     border-bottom: 1px solid black;
+}
+
+#header span{
+    display:block;
+    letter-spacing:1px;
 }
 
 .indicador_lbel {
     background: white url(../Images/popup_esika/bg_lbel.png) top left no-repeat;
     width: 23px;
     height: 15px;
-    margin-left: 20%;
+    margin-left: 1%;
     margin-top: -1px;
 }
 
@@ -948,20 +990,20 @@ h1, h2, h3, h4, h5, h6 {
     color: black;
     margin-left: 15%;
     margin-right: 15%;
-    FONT-FAMILY: LATO;
+    font-family:'Lato';
     line-height: 15pt;
     font-weight: 400;
     text-align: left;
 }
 
 .mensaje_pop_up2 {
-    margin-top: 56px;
-    margin-bottom: 41px;
+    margin-top: 39px;
+    margin-bottom:26px;
     font-size: 11pt;
     color: black;
-    margin-left: 15%;
-    margin-right: 15%;
-    FONT-FAMILY: LATO;
+    margin-left: 20.2%;
+    margin-right: 20.2%;
+    font-family:'Lato';
     line-height: 15pt;
     font-weight: 400;
     text-align: left;
@@ -970,27 +1012,27 @@ h1, h2, h3, h4, h5, h6 {
 .mensaje_pop_up_contraseniaEnviada h1 {
     margin-top: 56px;
     margin-bottom: 0px;
-    font-size: 19px;
+    font-size: 20px;
     color: black;
-    margin-left: 15%;
-    margin-right: 15%;
-    FONT-FAMILY: LATO;
-    line-height: 15pt;
+    font-family:'Lato';
+    line-height: 25px;
     font-weight: 400;
     text-align: center;
 }
 
 .mensaje_pop_up_contraseniaEnviada p {
     font-size: 14px;
-    FONT-FAMILY: LATO;
+    font-family:'Lato';
     color: black;
     text-align: center;
-    margin-bottom:8px;
+    display:block;
+    margin:0 auto 3px auto;
+    padding:0;
 }
 
 .mensaje_pop_up_contraseniaEnviada strong {
     font-size: 14px;
-    FONT-FAMILY: LATO;
+    font-family:'Lato';
     color: black;
 }
 
@@ -1005,8 +1047,8 @@ h1, h2, h3, h4, h5, h6 {
     }
 
 #popup_olvidasteContrasenia .formCont {
-    margin-left: 15%;
-    margin-right: 15%;
+    margin-left: 20.2%;
+    margin-right: 20.2%;
 }
 
 .logo_gmail {
@@ -1468,7 +1510,26 @@ h1, h2, h3, h4, h5, h6 {
         }
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width:991px){
+
+    .mensaje_pop_up2 {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+
+    #popup_olvidasteContrasenia .formCont {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+
+    #header{
+        padding-left: 6.3%!important;
+    }
+
+}
+
+@media only screen and (max-width : 768px) {
+
     #pop-up-body {
         margin: 0 auto;
     }
@@ -1488,6 +1549,7 @@ h1, h2, h3, h4, h5, h6 {
     .content_bg_contraseniaEnviada {
         width: 65%;
     }
+
 }
 
 @media only screen and (max-width : 595px) {
@@ -1508,18 +1570,8 @@ h1, h2, h3, h4, h5, h6 {
             font-size: 10pt;
         }
 
-    .mensaje_pop_up2 {
-        margin-left: 10%;
-        margin-right: 10%;
-    }
-
-    #popup_olvidasteContrasenia .formCont {
-        margin-left: 10%;
-        margin-right: 10%;
-    }
-
     .content_bg_contraseniaEnviada {
-        width: 94%;
+        width: 90%;
     }
 
     #titulo1 {
@@ -2138,41 +2190,41 @@ h1, h2, h3, h4, h5, h6 {
 /* HD-1254 - OLVIDÉ CONTRASEÑA DESKTOP Y MOBILE */
 
 .content_bg_opciones_recuperacion_contrasenia {
-    width: 43%;
+    width: 87%;
     max-width: 580px;
     min-height: 306px;
     top: 22%;
     margin: 0 auto;
     position: relative;
     background: white;
-    padding-bottom: 15px;
+    padding-bottom: 30px;
 }
 
 .content_bg_opciones_recuperacion_contrasenia #header{
-    font-weight:300;
-    width:88%;
-    padding-left:35px;
-    transform: scaleY(-1);
-    -moz-transform: scaleY(-1);
-    -o-transform: scaleY(-1);
-    -ms-transform: scaleY(-1);
-    -webkit-transform: scaleY(-1);
+    padding-left: 35px;
 }
 
-.content_bg_opciones_recuperacion_contrasenia #header span{
-    display:block;
-    transform: scaleY(-1);
-    -moz-transform: scaleY(-1);
-    -o-transform: scaleY(-1);
-    -ms-transform: scaleY(-1);
-    -webkit-transform: scaleY(-1);
-    letter-spacing:1px;
+.fondo_sesgado{
+    display: none;
+    position: absolute;
+    top: 0;
+    right: -13px;
+    background: #000;
+    width: 80%;
+    height: 100%;
+    transform: skew(15deg);
+    -moz-transform: skew(15deg);
+    -o-transform: skew(15deg);
+    -ms-transform: skew(15deg);
+    -webkit-transform: skew(15deg);
 }
 
 .content_bg_opciones_recuperacion_contrasenia .mensaje_pop_up2{
     margin-top: 26.5px;
     margin-bottom: 25px;
     font-size:14px;
+    margin-left:15%;
+    margin-right:15%;
 }
 
 .opciones_recuperacion_contrasenia{
@@ -2192,7 +2244,8 @@ h1, h2, h3, h4, h5, h6 {
     display: inline-block;
     vertical-align: top;
     width: 230px;
-    margin-right: 22px;
+    margin-left:11px;
+    margin-right: 11px;
     background: #FFF;
     text-align: center;
     font-size: 13px;
@@ -2206,24 +2259,28 @@ h1, h2, h3, h4, h5, h6 {
     -webkit-transition: all 0.3s ease;
 }
 
-a.opcion_recuperacion_contrasenia{
+.opcion_recuperacion_contrasenia.opcionCorreo,
+.opcion_recuperacion_contrasenia.opcionSms{
     border: 1px solid #e7e1e1;
     height: 160px;
     padding-top: 25px;
+    box-shadow: 0 10px 15px -9px rgba(0,0,0,0.3);
+    -moz-box-shadow: 0 10px 15px -9px rgba(0,0,0,0.3);
+    -o-box-shadow: 0 10px 15px -9px rgba(0,0,0,0.3);
+    -ms-box-shadow: 0 10px 15px -9px rgba(0,0,0,0.3);
+    -webkit-box-shadow: 0 10px 15px -9px rgba(0,0,0,0.3);
 }
 
 .opcion_recuperacion_contrasenia:hover {
     border-color: #642f80;
 }
 
-.opcion_recuperacion_contrasenia:last-child{
-    margin-right:0;
-}
-
 .icono_correo_electronico,
 .icono_sms,
 .icono_chatea_con_nosotros,
-.icono_llamada{
+.icono_llamada,
+.icono_reloj,
+.icono_reloj_2{
     display: block;
     margin: 0 auto;
     background: #CCC;
@@ -2242,25 +2299,46 @@ a.opcion_recuperacion_contrasenia{
     height:42.1px;
 }
 
+.icono_reloj,
+.icono_reloj_2{
+    width:60px;
+    height:60px;
+}
+
 .icono_correo_electronico.mb-15,
 .icono_sms.mb-15,
 .icono_chatea_con_nosotros,
-.icono_llamada{
+.icono_llamada,
+.icono_reloj.mb-15,
+.icono_reloj_2.mb-15{
     margin-bottom:15px;
+}
+
+.contenedor_info_datos,
+.contenedor_solo_una_opcion,
+.opcionLlamada_desktop{
+    display:block;
+}
+
+.opcionLlamada_mobile{
+    display:none;
 }
 
 .titulo_opcion_correo,
 .titulo_opcion_sms,
 .titulo_opcion_chatea_con_nosotros,
-.titulo_opcion_llamada{
+.titulo_opcion_llamada,
+.titulo_opcion_horarios_atencion{
     text-transform:uppercase;
     letter-spacing:0.5px;
+    color:#000;
 }
 
 .titulo_opcion_correo,
 .titulo_opcion_sms,
-.titulo_opcion_chatea_con_nosotros{
-    margin-bottom:6px;
+.titulo_opcion_chatea_con_nosotros,
+.titulo_opcion_horarios_atencion{
+    margin-bottom:8px;
 }
 
 .titulo_opcion_llamada{
@@ -2270,9 +2348,18 @@ a.opcion_recuperacion_contrasenia{
 .correo_electronico,
 .numero_celular,
 .horarios_atencion,
+.horarios_atencion_2,
 .telefonos_central{
+    display: block;
     font-weight:bold;
     letter-spacing:0.2px;
+    color:#000;
+}
+
+.horarios_atencion .mb-3,
+.horarios_atencion_2 .mb-3{
+    margin-bottom:3px;
+    letter-spacing: 0.2px;
 }
 
 .telefonos_central > span{
@@ -2331,6 +2418,17 @@ a.opcion_recuperacion_contrasenia{
     -webkit-transition:all 0.3s ease;
 }
 
+.texto_no_llego_mensaje,
+.accion_alternativa_posterior_envio_password{
+    display:inline-block;
+    vertical-align:middle;
+}
+
+.texto_no_llego_mensaje{
+    color:#000;
+    font-weight:400;
+}
+
 .info_mas_opciones a:hover,
 .accion_alternativa_posterior_envio_password:hover{
     opacity:0.8;
@@ -2341,10 +2439,7 @@ a.opcion_recuperacion_contrasenia{
 }
 
 .accion_alternativa_posterior_envio_password {
-    display: block;
-    margin: 0 auto;
-    width: 100%;
-    max-width: 198px;
+    width: auto;
     text-align: center;
 }
 
@@ -2362,4 +2457,249 @@ a.opcion_recuperacion_contrasenia{
     text-decoration: none;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+}
+
+.mensaje_pop_up_contraseniaEnviada p.texto_informativo_ingreso_codigo{
+    margin-bottom:8px!important;
+}
+
+.ingreso_codigo{
+    display: block;
+    margin: 0 auto 34px auto;
+    width: 100%;
+    max-width: 112px;
+    position: relative;
+    text-align:center;
+}
+
+.codigoSms{
+    display: inline-block;
+    vertical-align: bottom;
+    margin-right: 7px;
+    width: 16px;
+    height: 25px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid #000;
+    color: #000;
+    font-family: 'Lato';
+    font-size: 25px;
+    font-weight: 500;
+    text-align: center;
+    padding-top: 5px;
+}
+
+.tiempo_validez_codigoSms{
+    display: block;
+    position: absolute;
+    right: -31px;
+    top: 16px;
+    font-size: 13px;
+    font-weight: 400;
+    text-align: left;
+    color: #959595;
+    letter-spacing: 0.5px;
+}
+
+.mensaje_error_codigo{
+    display:block;
+    margin:6px auto 0 auto;
+    width:100%;
+    max-width:110px;
+    text-align:center;
+    font-size:11px;
+    font-weight:400;
+    color:#000;
+}
+
+.mb-34{
+    margin-bottom:34px!important;
+    line-height:23px!important;
+}
+
+.texto_disculpa_2{
+    display:block;
+}
+
+@media screen and (max-width:678px){
+
+    .content_bg_opciones_recuperacion_contrasenia{
+        width:90%;
+        top:9%;
+        margin-bottom:5%;
+    }
+
+    #header {
+        width: 78%!important;
+    }
+
+    .content_bg_opciones_recuperacion_contrasenia .mensaje_pop_up2 b{
+        display:block;
+    }
+
+    .opcion_recuperacion_contrasenia{
+        width:100%;
+        margin:0;
+    }
+
+    .opcion_recuperacion_contrasenia.opcionCorreo,
+    .opcion_recuperacion_contrasenia.opcionSms{
+        display: block;
+        width: 100%;
+        height: auto;
+        margin-left: 0;
+        margin-right: 0;
+        padding: 18px 16px;
+        text-align:left;
+    }
+
+    .opcion_recuperacion_contrasenia.opcionCorreo{
+        margin-bottom:15px;
+    }
+
+    .opcion_recuperacion_contrasenia.opcionSms{
+        margin-bottom:27px;
+    }
+
+    .contenedor_solo_una_opcion{
+        width: 100%;
+        height: auto;
+        border: 1px solid #e7e1e1;
+        padding: 17px 13px 18px 13px;
+        box-sizing: border-box;
+        text-align: left;
+    }
+
+    .opcionLlamada_desktop{
+        display:none;
+    }
+
+    .opcionLlamada_mobile{
+        display:block;
+        border:none;
+        text-align:center;
+        padding: 12px 0;
+    }
+
+    .icono_correo_electronico,
+    .icono_sms,
+    .contenedor_info_datos,
+    .icono_chatea_con_nosotros,
+    .central_telefonica,
+    .icono_reloj,
+    .horarios_atencion{
+        display:inline-block;
+        vertical-align:middle;
+        margin:0;
+    }
+
+    .icono_correo_electronico,
+    .icono_sms{
+        margin-right:19px;
+    }
+
+    .icono_correo_electronico.mb-15,
+    .icono_sms.mb-15,
+    .icono_chatea_con_nosotros{
+        margin-bottom:0;
+    }
+
+    .icono_chatea_con_nosotros{
+        width:23px;
+    }
+
+    .icono_chatea_con_nosotros{
+        margin-right:17px;
+    }
+
+    .icono_reloj{
+        width:25px;
+        height:25px;
+        margin-bottom:0!important;
+        margin-right:11px;
+    }
+
+    .titulo_opcion_horarios_atencion{
+        display:none;
+    }
+
+    .horarios_atencion{
+        font-weight:400;
+    }
+
+    .btn_enviar_email,
+    .btn_enviar_sms,
+    .btn_ingresar_chat{
+        width:100%;
+        max-width:none;
+    }
+
+    .grupo_centrales_telefonicas_disponibles{
+        display:block;
+    }
+
+    .central_telefonica{
+        width:73px;
+        margin-right:25px;
+        text-decoration:none;
+        border:none;
+        color:#000;
+    }
+
+    .central_telefonica:last-child{
+        margin-right:0;
+    }
+
+    .icono_llamada{
+        width:50px;
+        height:50px;
+        background:#642f80;
+        border-radius:100%;
+        margin-bottom:12px;
+    }
+
+    .texto_opcion_llamada{
+        display:block;
+        text-transform:uppercase;
+        color:#000;
+        font-size:12px;
+        font-weight:400;
+        text-align:center;
+        font-weight:14px;
+    }
+
+    .mensaje_pop_up_contraseniaEnviada h1{
+        font-size:18px;
+    }
+
+    .mensaje_pop_up_contraseniaEnviada p{
+        margin: 0 auto 31px auto;
+    }
+
+    .mensaje_pop_up_contraseniaEnviada p strong{
+        display:block;
+        margin-top:5px;
+    }
+
+    .texto_disculpa.
+    .icono_reloj_2{
+        display:block;
+    }
+
+    .icono_reloj_2{
+        width:45px;
+        height:45px;
+    }
+
+    .texto_disculpa_2{
+        text-align: left!important;
+        padding: 0 3%;
+        line-height: 22px!important;
+    }
+
+    .horarios_atencion_2{
+        font-size:17px;
+    }
+
 }
