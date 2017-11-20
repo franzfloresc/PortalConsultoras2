@@ -253,36 +253,13 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (!revistaDigital.TieneRDC)
-                {
-                    if (!revistaDigital.TieneRDS)
-                    {
-                        return Json(new
-                        {
-                            success = false,
-                            message = "Por el momento no está habilitada la suscripción a ÉSIKA PARA MÍ, gracias."
-                        }, JsonRequestBehavior.AllowGet);
-
-                    }
-                }
-
-                if (revistaDigital.EstadoSuscripcion == 1)
+                var mensaje = RegistroSuscripcion(Constantes.EstadoRDSuscripcion.Activo);
+                if (mensaje != "")
                 {
                     return Json(new
                     {
                         success = false,
-                        message = "Usted ya está suscrito a ÉSIKA PARA MÍ, gracias."
-                    }, JsonRequestBehavior.AllowGet);
-                }
-
-                var diasAntesFactura = revistaDigital.BloquearDiasAntesFacturar;
-                var diasFaltanFactura = GetDiasFaltantesFacturacion(userData.FechaInicioCampania, userData.ZonaHoraria);
-                if (diasFaltanFactura <= -1 * diasAntesFactura)
-                {
-                    return Json(new
-                    {
-                        success = false,
-                        message = "Lo sentimos no puede suscribirse, porque " + (diasFaltanFactura == 0 ? "hoy" : diasFaltanFactura == 1 ? "mañana" : "en " + diasFaltanFactura + " días ") + " es cierre de campaña."
+                        message = mensaje
                     }, JsonRequestBehavior.AllowGet);
                 }
 
@@ -295,8 +272,6 @@ namespace Portal.Consultoras.Web.Controllers
                 entidad.EstadoEnvio = 0;
                 entidad.IsoPais = userData.CodigoISO;
                 entidad.EMail = userData.EMail;
-                if (entidad.CodigoConsultora == "")
-                    throw new ArgumentException("El codigo de la consultora no puede ser nulo.");
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
@@ -338,23 +313,13 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (revistaDigital.SuscripcionModel.EstadoRegistro != Constantes.EstadoRDSuscripcion.Activo)
+                var mensaje = RegistroSuscripcion(Constantes.EstadoRDSuscripcion.Activo);
+                if (mensaje != "")
                 {
                     return Json(new
                     {
                         success = false,
-                        message = "Lo sentimos no se puede ejecutar la acción, gracias."
-                    }, JsonRequestBehavior.AllowGet);
-                }
-
-                var diasAntesFactura = revistaDigital.BloquearDiasAntesFacturar;
-                var diasFaltanFactura = GetDiasFaltantesFacturacion(userData.FechaInicioCampania, userData.ZonaHoraria);
-                if (diasFaltanFactura <= -1 * diasAntesFactura)
-                {
-                    return Json(new
-                    {
-                        success = false,
-                        message = "Lo sentimos no puede desuscribirse, porque " + (diasFaltanFactura == 0 ? "hoy" : diasFaltanFactura == 1 ? "mañana" : "en " + diasFaltanFactura + " días ") + " es cierre de campaña."
+                        message = mensaje
                     }, JsonRequestBehavior.AllowGet);
                 }
 
@@ -441,6 +406,49 @@ namespace Portal.Consultoras.Web.Controllers
                     message = ""
                 }, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        private string RegistroSuscripcion(int tipo)
+        {
+            if (userData.CodigoConsultora == "")
+                throw new ArgumentException("El codigo de la consultora no puede ser nulo.");
+
+            if (tipo == Constantes.EstadoRDSuscripcion.Activo)
+            {
+                if (!revistaDigital.TieneRDC)
+                    return "Por el momento no está habilitada la suscripción a ÉSIKA PARA MÍ, gracias.";
+
+                if (revistaDigital.EsSuscrita)
+                    return "Usted ya está suscrito a ÉSIKA PARA MÍ, gracias.";
+
+
+                var diasFaltanFactura = GetDiasFaltantesFacturacion(userData.FechaInicioCampania, userData.ZonaHoraria);
+                if (diasFaltanFactura <= revistaDigital.BloquearDiasAntesFacturar)
+                {
+                    return "Lo sentimos no puede suscribirse, porque "
+                        + (diasFaltanFactura == 0 ? "hoy" : diasFaltanFactura == 1 ? "mañana" : "en " + diasFaltanFactura + " días ")
+                        + " es cierre de campaña.";
+                }
+
+            }
+            else if (tipo == Constantes.EstadoRDSuscripcion.Desactivo)
+            {
+                if (!revistaDigital.TieneRDC)
+                    return "Por el momento no está habilitada la desuscripción a ÉSIKA PARA MÍ, gracias.";
+                
+                if (!revistaDigital.EsSuscrita)
+                    return "Lo sentimos no se puede ejecutar la acción, gracias.";
+
+                var diasFaltanFactura = GetDiasFaltantesFacturacion(userData.FechaInicioCampania, userData.ZonaHoraria);
+                if (diasFaltanFactura <= revistaDigital.BloquearDiasAntesFacturar)
+                {
+                    return "Lo sentimos no puede desuscribirse, porque "
+                        + (diasFaltanFactura == 0 ? "hoy" : diasFaltanFactura == 1 ? "mañana" : "en " + diasFaltanFactura + " días ")
+                        + " es cierre de campaña.";
+                }
+
+            }
+            return "";
         }
 
         [HttpPost]

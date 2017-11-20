@@ -17,7 +17,6 @@ namespace Portal.Consultoras.Web.Controllers
             if (!revistaDigital.TieneRDC && !revistaDigital.TieneRDS)
                 return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
 
-            revistaDigital.EstadoSuscripcion = revistaDigital.SuscripcionModel.EstadoRegistro;
             revistaDigital.NumeroContacto = Util.Trim(ConfigurationManager.AppSettings["BelcorpRespondeTEL_" + userData.CodigoISO]);
             revistaDigital.NombreConsultora = userData.UsuarioNombre;
             return View("template-informativa", revistaDigital);
