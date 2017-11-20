@@ -93,7 +93,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.MenuContenedor = ObtenerMenuContenedor();
 
                 ViewBag.MenuMobile = BuildMenuMobile(userData);
-                ViewBag.Permiso = BuildMenu();
+                ViewBag.Permiso = BuildMenu(userData);
 
                 ViewBag.ProgramaBelcorpMenu = BuildMenuService();
                 ViewBag.codigoISOMenu = userData.CodigoISO;
@@ -511,8 +511,11 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region Menú
 
-        protected List<PermisoModel> BuildMenu()
+        protected List<PermisoModel> BuildMenu(UsuarioModel userData)
         {
+            if (userData == null)
+                throw new ArgumentNullException("userData");
+
             if (userData.Menu != null)
             {
                 ViewBag.ClaseLogoSB = userData.ClaseLogoSB;
@@ -521,19 +524,32 @@ namespace Portal.Consultoras.Web.Controllers
 
             var permisos = GetPermisosByRol(userData.PaisID, userData.RolID);
 
-            string strpaises = GetPaisesConConsultoraOnlineFromConfig();
-            bool mostrarClienteOnline = (GetMostrarPedidosPendientesFromConfig() && strpaises.Contains(userData.CodigoISO));
-            if (!mostrarClienteOnline) permisos.Remove(permisos.FirstOrDefault(p => p.UrlItem.ToLower() == "consultoraonline/index"));
-            if (!userData.PedidoFICActivo) permisos.Where(m => m.Codigo == Constantes.MenuCodigo.PedidoFIC).ToList().ForEach(m => permisos.Remove(m));
-            if (userData.IndicadorPermisoFIC == 0) permisos.Remove(permisos.FirstOrDefault(p => p.UrlItem.ToLower() == "pedidofic/index"));
-            if (userData.CatalogoPersonalizado == 0 || !userData.EsCatalogoPersonalizadoZonaValida) permisos.Remove(permisos.FirstOrDefault(p => p.UrlItem.ToLower() == "catalogopersonalizado/index"));
+            bool mostrarClienteOnline = GetMostrarPedidosPendientesFromConfig() && GetPaisesConConsultoraOnlineFromConfig().Contains(userData.CodigoISO);
+            if (!mostrarClienteOnline)
+                permisos.Remove(permisos.FirstOrDefault(p => p.UrlItem.ToLower() == "consultoraonline/index"));
 
-            var lista1 = Mapper.Map<List<PermisoModel>>(permisos);
+            if (!userData.PedidoFICActivo)
+                permisos.Where(m => m.Codigo == Constantes.MenuCodigo.PedidoFIC).ToList().ForEach(m => permisos.Remove(m));
 
-            List<PermisoModel> lstModel = new List<PermisoModel>();
+            if (userData.IndicadorPermisoFIC == 0)
+                permisos.Remove(permisos.FirstOrDefault(p => p.UrlItem.ToLower() == "pedidofic/index"));
 
-            foreach (var permiso in lista1)
+            if (userData.CatalogoPersonalizado == 0 || !userData.EsCatalogoPersonalizadoZonaValida)
+                permisos.Remove(permisos.FirstOrDefault(p => p.UrlItem.ToLower() == "catalogopersonalizado/index"));
+
+            var permisosModel = Mapper.Map<List<PermisoModel>>(permisos);
+
+            var lstMenuModel = new List<PermisoModel>();
+
+            foreach (var permiso in permisosModel)
             {
+                if (permiso.Codigo == Constantes.MenuCodigo.CatalogoPersonalizado.ToLower() &&
+                    (revistaDigital.TieneRDC || revistaDigital.TieneRDR))
+                {
+                    continue;
+                }
+                
+
                 permiso.Codigo = Util.Trim(permiso.Codigo).ToLower();
                 permiso.Descripcion = Util.Trim(permiso.Descripcion);
                 permiso.UrlItem = Util.Trim(permiso.UrlItem);
@@ -560,11 +576,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                if (permiso.Codigo == Constantes.MenuCodigo.CatalogoPersonalizado.ToLower())
-                {
-                    if (revistaDigital.TieneRDC || revistaDigital.TieneRDR)
-                        continue;
-                }
+                
 
                 // por ahora esta en header, ponerlo para tambien para el Footer
                 // Objetivo que el Html este limpio, la logica no deberia estar en la vista
@@ -637,20 +649,20 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                     }
 
-                    lstModel.Add(permiso);
+                    lstMenuModel.Add(permiso);
 
                     continue;
                 }
                 #endregion
 
-                lstModel.Add(permiso);
+                lstMenuModel.Add(permiso);
             }
 
-            userData.Menu = lstModel;
+            userData.Menu = lstMenuModel;
 
             ViewBag.ClaseLogoSB = userData.ClaseLogoSB;
 
-            return SepararItemsMenu(lstModel);
+            return SepararItemsMenu(lstMenuModel);
         }
 
         protected bool GetMostrarPedidosPendientesFromConfig()
@@ -985,6 +997,7 @@ namespace Portal.Consultoras.Web.Controllers
             valor = valor == "" ? Util.Trim(valorBase) : valor;
             return valor;
         }
+
         #endregion
 
         #region UserData        
