@@ -77,7 +77,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.URLWebTracking = url;
                 ViewBag.PaisISO = userData.CodigoISO;
 
-                string strpaises = ConfigurationManager.AppSettings.Get("Permisos_CCC");
+                string strpaises = GetPaisesConConsultoraOnlineFromConfig();
                 model.MostrarClienteOnline = (GetMostrarPedidosPendientesFromConfig() && strpaises.Contains(userData.CodigoISO));
                 if (model.MostrarClienteOnline)
                 {

@@ -521,7 +521,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             var permisos = GetPermisosByRol(userData.PaisID, userData.RolID);
 
-            string strpaises = ConfigurationManager.AppSettings.Get("Permisos_CCC");
+            string strpaises = GetPaisesConConsultoraOnlineFromConfig();
             bool mostrarClienteOnline = (GetMostrarPedidosPendientesFromConfig() && strpaises.Contains(userData.CodigoISO));
             if (!mostrarClienteOnline) permisos.Remove(permisos.FirstOrDefault(p => p.UrlItem.ToLower() == "consultoraonline/index"));
             if (!userData.PedidoFICActivo) permisos.Where(m => m.Codigo == Constantes.MenuCodigo.PedidoFIC).ToList().ForEach(m => permisos.Remove(m));
@@ -923,7 +923,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var menuConsultoraOnlinePadre = lst.FirstOrDefault(m => m.Descripcion.ToLower().Trim() == "app de catálogos" && m.MenuPadreID == 0);
             var menuConsultoraOnlineHijo = lst.FirstOrDefault(m => m.Descripcion.ToLower().Trim() == "app de catálogos" && m.MenuPadreID != 0);
-            string strpaises = ConfigurationManager.AppSettings.Get("Permisos_CCC");
+            string strpaises = GetPaisesConConsultoraOnlineFromConfig();
             bool mostrarClienteOnline = (GetMostrarPedidosPendientesFromConfig() && strpaises.Contains(userData.CodigoISO));
 
             if (!mostrarClienteOnline)
@@ -959,6 +959,11 @@ namespace Portal.Consultoras.Web.Controllers
                     menuConsultoraOnlineHijo.UrlItem = arrayUrlConsultoraOnlineHijo[esConsultoraOnline == -1 ? 0 : arrayUrlConsultoraOnlineHijo.Length - 1];
                 }
             }
+        }
+
+        protected string GetPaisesConConsultoraOnlineFromConfig()
+        {
+            return ConfigurationManager.AppSettings.Get("Permisos_CCC") ?? string.Empty;
         }
 
         #endregion

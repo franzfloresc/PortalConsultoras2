@@ -295,7 +295,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (GetMostrarPedidosPendientesFromConfig())
                 {
-                    string paisesConsultoraOnline = ConfigurationManager.AppSettings.Get("Permisos_CCC");
+                    string paisesConsultoraOnline = GetPaisesConConsultoraOnlineFromConfig();
                     if (paisesConsultoraOnline.Contains(userData.CodigoISO))
                     {
                         if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
