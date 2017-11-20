@@ -521,9 +521,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             var permisos = GetPermisosByRol(userData.PaisID, userData.RolID);
 
-            string mostrarPedidosPendientes = ConfigurationManager.AppSettings.Get("MostrarPedidosPendientes");
             string strpaises = ConfigurationManager.AppSettings.Get("Permisos_CCC");
-            bool mostrarClienteOnline = (mostrarPedidosPendientes == "1" && strpaises.Contains(userData.CodigoISO));
+            bool mostrarClienteOnline = (GetMostrarPedidosPendientesFromConfig() && strpaises.Contains(userData.CodigoISO));
             if (!mostrarClienteOnline) permisos.Remove(permisos.FirstOrDefault(p => p.UrlItem.ToLower() == "consultoraonline/index"));
             if (!userData.PedidoFICActivo) permisos.Where(m => m.Codigo == Constantes.MenuCodigo.PedidoFIC).ToList().ForEach(m => permisos.Remove(m));
             if (userData.IndicadorPermisoFIC == 0) permisos.Remove(permisos.FirstOrDefault(p => p.UrlItem.ToLower() == "pedidofic/index"));
@@ -654,16 +653,24 @@ namespace Portal.Consultoras.Web.Controllers
             return SepararItemsMenu(lstModel);
         }
 
-        private static IList<BEPermiso> GetPermisosByRol(int paisID, int rolID)
+        protected bool GetMostrarPedidosPendientesFromConfig()
         {
-            IList<BEPermiso> lst;
+            string mostrarPedidoAppSetting = ConfigurationManager.AppSettings.Get("MostrarPedidosPendientes") ?? string.Empty;
+
+            return mostrarPedidoAppSetting == "1";
+        }
+
+        private IList<BEPermiso> GetPermisosByRol(int paisID, int rolID)
+        {
+            IList<BEPermiso> permisos;
+
             using (var sv = new SeguridadServiceClient())
             {
 
-                lst = sv.GetPermisosByRol(paisID, rolID).ToList();
+                permisos = sv.GetPermisosByRol(paisID, rolID).ToList();
             }
 
-            return lst;
+            return permisos;
         }
 
         public List<MenuMobileModel> BuildMenuMobile(UsuarioModel userData)
@@ -916,9 +923,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var menuConsultoraOnlinePadre = lst.FirstOrDefault(m => m.Descripcion.ToLower().Trim() == "app de catálogos" && m.MenuPadreID == 0);
             var menuConsultoraOnlineHijo = lst.FirstOrDefault(m => m.Descripcion.ToLower().Trim() == "app de catálogos" && m.MenuPadreID != 0);
-            string mostrarPedidosPendientes = ConfigurationManager.AppSettings.Get("MostrarPedidosPendientes");
             string strpaises = ConfigurationManager.AppSettings.Get("Permisos_CCC");
-            bool mostrarClienteOnline = (mostrarPedidosPendientes == "1" && strpaises.Contains(userData.CodigoISO));
+            bool mostrarClienteOnline = (GetMostrarPedidosPendientesFromConfig() && strpaises.Contains(userData.CodigoISO));
 
             if (!mostrarClienteOnline)
             {
