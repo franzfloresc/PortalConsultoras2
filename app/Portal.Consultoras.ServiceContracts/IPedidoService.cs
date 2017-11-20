@@ -1117,6 +1117,9 @@ namespace Portal.Consultoras.ServiceContracts
         BERevistaDigitalSuscripcion RDGetSuscripcion(BERevistaDigitalSuscripcion entidad);
 
         [OperationContract]
+        BERevistaDigitalSuscripcion RDGetSuscripcionActiva(BERevistaDigitalSuscripcion entidad);
+
+        [OperationContract]
         int InsertarDesglose(BEInputReservaProl input);
 
         [OperationContract]
