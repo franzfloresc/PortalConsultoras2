@@ -15,13 +15,16 @@
 
             <div class="clock" data-total-seconds="@Model.TeQuedan.TotalSeconds" style="top:-48px; left:102px;"></div>
         </div>
-        @if (Model.ListaOfertas.Count > 1)
+        @if (Model.ListaOfertas != null)
         {
-            <a class="btn_compralo_ahora cabecera-no-home" href="#">VER OFERTAS</a>
-        }
-        else
-        {
-            <a class="btn_compralo_ahora cabecera-no-home" href="#">VER OFERTA</a>
+            if (Model.ListaOfertas.Count > 1)
+            {
+                <a class="btn_compralo_ahora cabecera-no-home" href="#">VER OFERTAS</a>
+            }
+            else
+            {
+                <a class="btn_compralo_ahora cabecera-no-home" href="#">VER OFERTA</a>
+            }
         }
         <div class="imagen_set_oferta_mobile" style="float:right;width:78px; margin-right:13px; margin-top:-2px;">
             <img style="width:83%;" src="@Model.ImagenBanner" alt="" />
