@@ -355,5 +355,8 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         IList<BEEventoFestivo> GetEventoFestivo(int paisID, string Alcance, int Campania);
         #endregion
+
+        [OperationContract]
+        int UpdUsuarioFotoPerfil(int paisID, string codigoUsuario, string fileName);
     }
 }

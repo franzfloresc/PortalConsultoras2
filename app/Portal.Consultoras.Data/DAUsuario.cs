@@ -780,7 +780,7 @@ namespace Portal.Consultoras.Data
         
         public int UpdUsuarioExterno(BEUsuarioExterno usuarioexterno)
         {            
-            DbCommand command = command = Context.Database.GetStoredProcCommand("dbo.UpdUsuarioExterno"); ;            
+            DbCommand command = command = Context.Database.GetStoredProcCommand("dbo.UpdUsuarioExterno");
             Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, usuarioexterno.CodigoUsuario);
             Context.Database.AddInParameter(command, "@FotoPerfil", DbType.AnsiString, usuarioexterno.FotoPerfil);
             
@@ -797,5 +797,14 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
         #endregion
+
+        public int UpdUsuarioFotoPerfil(string codigoUsuario, string fotoPerfil)
+        {
+            DbCommand command = command = Context.Database.GetStoredProcCommand("dbo.UpdUsuarioFotoPerfil");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, codigoUsuario);
+            Context.Database.AddInParameter(command, "@FotoPerfil", DbType.AnsiString, fotoPerfil);
+
+            return Context.ExecuteNonQuery(command);
+        }
     }
 }

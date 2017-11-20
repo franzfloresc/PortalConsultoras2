@@ -3,6 +3,7 @@ using Portal.Consultoras.Data;
 using Portal.Consultoras.Data.Hana;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.PublicService.Cryptography;
+
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -304,6 +305,9 @@ namespace Portal.Consultoras.BizLogic
                 }
             }
 
+            if (!Common.Util.IsUrl(usuario.FotoPerfil) && !string.IsNullOrEmpty(usuario.FotoPerfil))
+                usuario.FotoPerfil = string.Concat(ConfigS3.GetUrlS3("fotoperfil"), usuario.FotoPerfil);
+
             return usuario;
         }
 
@@ -376,7 +380,6 @@ namespace Portal.Consultoras.BizLogic
                 }
             }
 
-            var usuarioLoginExternoTask = Task.Run(() => this.GetUsuarioExterno(usuario, Constantes.ProveedorAutenticacion.Facebook));
             var terminosCondicionesTask = Task.Run(() => this.GetTerminosCondiciones(paisID, usuario.CodigoConsultora, Constantes.TipoTerminosCondiciones.App));
             var destinatariosFeedBack = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetTablaLogicaDatos(paisID, Constantes.TablaLogica.CorreoFeedbackAppConsultora));
             var gprBannerTask = Task.Run(() => this.GetGPRBanner(usuario));
@@ -385,16 +388,18 @@ namespace Portal.Consultoras.BizLogic
             var consultoraCumpleanioTask = Task.Run(() => this.GetConsultoraCumpleanio(usuario));
             var IncentivosConcursosTask = Task.Run(() => this.GetIncentivosConcursos(usuario));
 
-            Task.WaitAll(usuarioLoginExternoTask,
-                            terminosCondicionesTask,
-                            destinatariosFeedBack,
-                            gprBannerTask,
+            Task.WaitAll(
+                            terminosCondicionesTask, 
+                            destinatariosFeedBack, 
+                            gprBannerTask, 
                             usuarioConsultoraTask,
                             consultoraAniversarioTask,
                             consultoraCumpleanioTask,
                             IncentivosConcursosTask);
 
-            usuario.FotoPerfil = (usuarioLoginExternoTask.Result == null ? string.Empty : usuarioLoginExternoTask.Result.FotoPerfil);
+            if (!Common.Util.IsUrl(usuario.FotoPerfil) && !string.IsNullOrEmpty(usuario.FotoPerfil))
+                usuario.FotoPerfil = string.Concat(ConfigS3.GetUrlS3("fotoperfil"), usuario.FotoPerfil);
+            
             usuario.AceptaTerminosCondiciones = (terminosCondicionesTask.Result == null ? false : terminosCondicionesTask.Result.Aceptado);
             usuario.DestinatariosFeedback = string.Join(";", destinatariosFeedBack.Result.Select(x => x.Descripcion));
 
@@ -1717,7 +1722,8 @@ namespace Portal.Consultoras.BizLogic
         public int InsertUsuarioExterno(int paisID, BEUsuarioExterno usuarioExterno)
         {
             var DAUsuario = new DAUsuario(paisID);
-            return DAUsuario.InsUsuarioExterno(usuarioExterno);
+            DAUsuario.InsUsuarioExterno(usuarioExterno);
+            return DAUsuario.UpdUsuarioFotoPerfil(usuarioExterno.CodigoUsuario, usuarioExterno.FotoPerfil);
         }
 
         public BEUsuarioExterno GetUsuarioExternoByCodigoUsuario(int paisID, string codigoUsuario)
@@ -1755,8 +1761,7 @@ namespace Portal.Consultoras.BizLogic
                     DAUsuarioPais = new DAUsuario(entidad1.PaisID);
                     using (IDataReader reader = DAUsuarioPais.GetUsuarioExternoByProveedorAndIdApp(proveedor, idAplicacion))
                     {
-                        if (reader.Read())
-                            entidad2 = new BEUsuarioExterno(reader);
+                        entidad2 = reader.MapToObject<BEUsuarioExterno>();
                     }
 
                     entidad2.PaisID = entidad1.PaisID;
@@ -1766,7 +1771,10 @@ namespace Portal.Consultoras.BizLogic
                     {
                         entidad2.FotoPerfil = fotoPerfil;
                         DAUsuarioPais.UpdUsuarioExterno(entidad2);
-                    }
+
+                        if (Common.Util.IsUrl(entidad2.UsuarioFotoPerfil))
+                            DAUsuarioPais.UpdUsuarioFotoPerfil(entidad2.CodigoUsuario, entidad2.FotoPerfil);
+                    }   
                 }
             }
             catch (Exception ex)
@@ -1913,5 +1921,10 @@ namespace Portal.Consultoras.BizLogic
             return listaEvento;
         }
         #endregion
+
+        public int UpdUsuarioFotoPerfil(int paisID, string codigoUsuario, string fileName)
+        {
+            return new DAUsuario(paisID).UpdUsuarioFotoPerfil(codigoUsuario, fileName);
+        }
     }
 }
