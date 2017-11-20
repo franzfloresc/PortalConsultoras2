@@ -410,9 +410,10 @@ namespace Portal.Consultoras.Web.Controllers
             entidad.EstadoEnvio = 0;
             entidad.IsoPais = userData.CodigoISO;
             entidad.EMail = userData.EMail;
+            //453-11
             entidad.CampaniaEfectiva = AddCampaniaAndNumero(userData.CampaniaID, revistaDigital.CantidadCampaniaEfectiva);
 
-            //453-11
+            
             if (tipo == Constantes.EstadoRDSuscripcion.Desactivo)
             {
                 using (PedidoServiceClient sv = new PedidoServiceClient())
