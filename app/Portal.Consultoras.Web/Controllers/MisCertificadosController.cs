@@ -29,13 +29,17 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!UsuarioModel.HasAcces(ViewBag.Permiso, "MisCertificados/Index"))
                     return RedirectToAction("Index", "Bienvenida");
 
-                listaCertificados = ObtenerCertificados();
+                listaCertificados = sessionManager.GetMisCertificados() ?? new List<MiCertificadoModel>();
 
-                sessionManager.SetMisCertificados(listaCertificados);
+                if (!listaCertificados.Any())
+                {
+                    listaCertificados = ObtenerCertificados();
+                    sessionManager.SetMisCertificados(listaCertificados);
+                }
             }
-            catch (FaultException ex)
+            catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
 
             return View(listaCertificados);
@@ -198,9 +202,9 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
             }
-            catch (FaultException ex)
+            catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
 
             return null;
