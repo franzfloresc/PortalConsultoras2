@@ -15,7 +15,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             return RedirectToAction("Informacion", "ConsultoraOnline");
 
-            string strpaises = ConfigurationManager.AppSettings.Get("Permisos_CCC");
+            string strpaises = GetPaisesConConsultoraOnlineFromConfig();
             if (strpaises.Contains(UserData().CodigoISO))
             { }
             else

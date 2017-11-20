@@ -5,10 +5,10 @@ IF NOT EXISTS(
 		ON C.[OBJECT_ID] = O.[OBJECT_ID]
 	WHERE  O.TYPE = 'U'
 	AND O.NAME = 'RevistaDigitalSuscripcion'
-	AND C.NAME = 'CantidadCampaniaEfectiva'
+	AND C.NAME = 'CampaniaEfectiva'
 	)
 BEGIN
 	ALTER TABLE RevistaDigitalSuscripcion
-	ADD CantidadCampaniaEfectiva [INT]
-	CONSTRAINT COST_RevistaDigiralSuscripcion_Cantidad DEFAULT 0
+	ADD CampaniaEfectiva [INT]
+	CONSTRAINT COST_RevistaDigiralSuscripcion_CampaniaEfectiva DEFAULT 0
 END

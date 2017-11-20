@@ -1237,25 +1237,50 @@ namespace Portal.Consultoras.Web.Controllers
             using (var sv1 = new PedidoServiceClient())
             {
                 revistaDigitalModel.SuscripcionModel = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
-                
-                rds.CampaniaID = AddCampaniaAndNumero(usuarioModel.CampaniaID, -1 * revistaDigitalModel.CantidadCampaniaEfectiva, usuarioModel.NroCampanias);
-                revistaDigitalModel.SuscripcionEfectiva = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
+
+                rds.CampaniaID = usuarioModel.CampaniaID;
+                revistaDigitalModel.SuscripcionEfectiva = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcionActiva(rds));
             }
+
+            #region Campanias y Estados Es Activas - Es Suscrita
 
             revistaDigitalModel.EstadoSuscripcion = revistaDigitalModel.SuscripcionModel.EstadoRegistro;
             revistaDigitalModel.CampaniaActual = Util.SubStr(usuarioModel.CampaniaID.ToString(), 4, 2);
-            revistaDigitalModel.CampaniaSuscripcion = Util.SubStr(revistaDigitalModel.SuscripcionModel.CampaniaID.ToString(), 4, 2);
-            revistaDigitalModel.CampaniaActiva = Util.SubStr(AddCampaniaAndNumero(revistaDigitalModel.SuscripcionModel.CampaniaID, revistaDigitalModel.CantidadCampaniaEfectiva, usuarioModel.NroCampanias).ToString(), 4, 2);
             revistaDigitalModel.CampaniaFuturoActiva = Util.SubStr(AddCampaniaAndNumero(usuarioModel.CampaniaID, revistaDigitalModel.CantidadCampaniaEfectiva, usuarioModel.NroCampanias).ToString(), 4, 2);
 
-            #region Estados Es Activas y Es Suscrita
-            revistaDigitalModel.EsActiva = revistaDigitalModel.SuscripcionEfectiva.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo;
+            revistaDigitalModel.CampaniaSuscripcion = Util.SubStr(revistaDigitalModel.SuscripcionModel.CampaniaID.ToString(), 4, 2);
+
+            if (revistaDigitalModel.SuscripcionEfectiva.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
+            {
+                var ca = AddCampaniaAndNumero(revistaDigitalModel.SuscripcionEfectiva.CampaniaID, revistaDigitalModel.CantidadCampaniaEfectiva, usuarioModel.NroCampanias);
+
+                if (ca >= revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva)
+                    ca = revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva;
+
+                revistaDigitalModel.CampaniaActiva = Util.SubStr(ca.ToString(), 4, 2);
+
+                revistaDigitalModel.EsActiva = ca == usuarioModel.CampaniaID;
+
+            }
+            else
+            {
+                var ca = AddCampaniaAndNumero(revistaDigitalModel.SuscripcionEfectiva.CampaniaID, revistaDigitalModel.CantidadCampaniaEfectiva, usuarioModel.NroCampanias);
+
+                if (ca < revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva)
+                    ca = revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva;
+
+                revistaDigitalModel.CampaniaActiva = Util.SubStr(ca.ToString(), 4, 2);
+
+                revistaDigitalModel.EsActiva = ca != usuarioModel.CampaniaID;
+            }
+
             revistaDigitalModel.EsSuscrita = revistaDigitalModel.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo;
+            
             #endregion
 
             revistaDigitalModel.EstadoRdcAnalytics = GetEstadoRdAnalytics(revistaDigitalModel);
-            
-            #region DiasAntesFacturaHoy
+
+            #region DiasAntesFacturaHoy - NoVolverMostrar
             if (DateTime.Now.AddHours(usuarioModel.ZonaHoraria).Date >= usuarioModel.FechaInicioCampania.Date.AddDays(-1 * revistaDigitalModel.BloquearDiasAntesFacturar))
                 return revistaDigitalModel;
 

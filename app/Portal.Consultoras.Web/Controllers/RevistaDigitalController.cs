@@ -263,31 +263,6 @@ namespace Portal.Consultoras.Web.Controllers
                     }, JsonRequestBehavior.AllowGet);
                 }
 
-                var entidad = new BERevistaDigitalSuscripcion();
-                entidad.PaisID = userData.PaisID;
-                entidad.CodigoConsultora = userData.CodigoConsultora;
-                entidad.CampaniaID = userData.CampaniaID;
-                entidad.CodigoZona = userData.CodigoZona;
-                entidad.EstadoRegistro = Constantes.EstadoRDSuscripcion.Activo;
-                entidad.EstadoEnvio = 0;
-                entidad.IsoPais = userData.CodigoISO;
-                entidad.EMail = userData.EMail;
-
-                using (PedidoServiceClient sv = new PedidoServiceClient())
-                {
-                    entidad.RevistaDigitalSuscripcionID = sv.RDSuscripcion(entidad);
-                }
-
-                if (entidad.RevistaDigitalSuscripcionID > 0)
-                {
-                    revistaDigital.SuscripcionModel = Mapper.Map<BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>(entidad);
-                    revistaDigital.NoVolverMostrar = true;
-                    revistaDigital.EstadoSuscripcion = revistaDigital.SuscripcionModel.EstadoRegistro;
-                    userData.MenuMobile = null;
-                    userData.Menu = null;
-                    SetUserData(userData);
-                }
-
                 return Json(new
                 {
                     success = revistaDigital.EstadoSuscripcion > 0,
@@ -313,7 +288,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var mensaje = RegistroSuscripcion(Constantes.EstadoRDSuscripcion.Activo);
+                var mensaje = RegistroSuscripcion(Constantes.EstadoRDSuscripcion.Desactivo);
                 if (mensaje != "")
                 {
                     return Json(new
@@ -322,33 +297,7 @@ namespace Portal.Consultoras.Web.Controllers
                         message = mensaje
                     }, JsonRequestBehavior.AllowGet);
                 }
-
-                var entidad = new BERevistaDigitalSuscripcion();
-                entidad.PaisID = userData.PaisID;
-                entidad.CodigoConsultora = userData.CodigoConsultora;
-                entidad.CampaniaID = userData.CampaniaID;
-                entidad.CodigoZona = userData.CodigoZona;
-                entidad.EstadoRegistro = Constantes.EstadoRDSuscripcion.Desactivo;
-                entidad.EstadoEnvio = 0;
-                entidad.IsoPais = userData.CodigoISO;
-                entidad.EMail = userData.EMail;
-
-                using (PedidoServiceClient sv = new PedidoServiceClient())
-                {
-                    entidad.RevistaDigitalSuscripcionID = sv.RDDesuscripcion(entidad);
-                }
-
-                if (entidad.RevistaDigitalSuscripcionID > 0)
-                {
-                    revistaDigital.SuscripcionModel = Mapper.Map<BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>(entidad);
-                    revistaDigital.NoVolverMostrar = true;
-                    revistaDigital.EstadoSuscripcion = revistaDigital.SuscripcionModel.EstadoRegistro;
-                    userData.MenuMobile = null;
-                    userData.Menu = null;
-
-                    SetUserData(userData);
-                }
-
+                
                 return Json(new
                 {
                     success = revistaDigital.EstadoSuscripcion > 0,
@@ -420,8 +369,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (revistaDigital.EsSuscrita)
                     return "Usted ya está suscrito a ÉSIKA PARA MÍ, gracias.";
-
-
+                
                 var diasFaltanFactura = GetDiasFaltantesFacturacion(userData.FechaInicioCampania, userData.ZonaHoraria);
                 if (diasFaltanFactura <= revistaDigital.BloquearDiasAntesFacturar)
                 {
@@ -448,6 +396,37 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
             }
+            else
+            {
+                return "Lo sentimos no se puede ejecutar la acción, gracias.";
+            }
+            
+            var entidad = new BERevistaDigitalSuscripcion();
+            entidad.PaisID = userData.PaisID;
+            entidad.CodigoConsultora = userData.CodigoConsultora;
+            entidad.CampaniaID = userData.CampaniaID;
+            entidad.CodigoZona = userData.CodigoZona;
+            entidad.EstadoRegistro = tipo;
+            entidad.EstadoEnvio = 0;
+            entidad.IsoPais = userData.CodigoISO;
+            entidad.EMail = userData.EMail;
+
+            using (PedidoServiceClient sv = new PedidoServiceClient())
+            {
+                entidad.RevistaDigitalSuscripcionID = sv.RDDesuscripcion(entidad);
+            }
+
+            if (entidad.RevistaDigitalSuscripcionID > 0)
+            {
+                revistaDigital.SuscripcionModel = Mapper.Map<BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>(entidad);
+                revistaDigital.NoVolverMostrar = true;
+                revistaDigital.EstadoSuscripcion = revistaDigital.SuscripcionModel.EstadoRegistro;
+                sessionManager.SetRevistaDigital(revistaDigital);
+                userData.MenuMobile = null;
+                userData.Menu = null;
+                SetUserData(userData);
+            }
+
             return "";
         }
 

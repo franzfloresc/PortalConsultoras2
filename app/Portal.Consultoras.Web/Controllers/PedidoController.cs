@@ -293,9 +293,9 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.MostrarPedidosPendientes = "0";
                 ViewBag.LanzarTabConsultoraOnline = (lanzarTabConsultoraOnline) ? "1" : "0";
 
-                if (ConfigurationManager.AppSettings.Get("MostrarPedidosPendientes") == "1")
+                if (GetMostrarPedidosPendientesFromConfig())
                 {
-                    string paisesConsultoraOnline = ConfigurationManager.AppSettings.Get("Permisos_CCC");
+                    string paisesConsultoraOnline = GetPaisesConConsultoraOnlineFromConfig();
                     if (paisesConsultoraOnline.Contains(userData.CodigoISO))
                     {
                         if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
