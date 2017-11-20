@@ -611,7 +611,8 @@
             var aux2 = $('#ddlTipoEstrategia').find(':selected').data('codigo');
             $("#btnActivarDesactivar").hide();
             $("#btnNuevoMasivo").hide();
-
+            $("#btnDescripcionMasivo").hide();
+            
             if (aux2.in(CodigoOfertaParaTi, CodigoOfertaDelDia, CodigoLosMasVendidos, CodigoLanzamiento,
                         CodigoOfertasParaMi, CodigoPackAltoDesembolso, CodigoGuiaDeNegocio)) {
                 $("#btnActivarDesactivar").show();
