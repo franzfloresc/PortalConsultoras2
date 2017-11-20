@@ -1238,5 +1238,8 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         bool TieneCampaniaConsecutivas(int paisId, int campaniaId, int cantidadCampaniaConsecutiva, long consultoraId);
+
+        [OperationContract]
+        BEMiCertificado ObtenerCertificadoDigital(int paisId, int campaniaId, long consultoraId, Int16 tipo);
     }
 }

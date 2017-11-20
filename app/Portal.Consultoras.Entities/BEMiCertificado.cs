@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using System.Runtime.Serialization;
 using Portal.Consultoras.Common;
@@ -53,6 +49,8 @@ namespace Portal.Consultoras.Entities
         public Int16 TipoCertificado { get; set; }
         [DataMember]
         public Int16 NumeroVeces { get; set; }
+        [DataMember]
+        public Int16 Result { get; set; }
 
         public BEMiCertificado()
         {
@@ -96,7 +94,8 @@ namespace Portal.Consultoras.Entities
                 TipoCertificado = Convert.ToInt16(row["TipoCertificado"]);
             if (DataRecord.HasColumn(row, "NumeroVeces"))
                 NumeroVeces = Convert.ToInt16(row["NumeroVeces"]);
-
+            if (DataRecord.HasColumn(row, "Result"))
+                Result = Convert.ToInt16(row["Result"]);
         }
     }
 

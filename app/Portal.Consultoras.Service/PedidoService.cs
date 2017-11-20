@@ -2276,9 +2276,9 @@ namespace Portal.Consultoras.Service
             return BLPedidoWeb.TieneCampaniaConsecutivas(paisId, campaniaId, cantidadCampaniaConsecutiva, consultoraId);
         }
 
-        public BEMiCertificado ObtenerMiCertificado(int paisId, int campaniaId, long consultoraId, Int16 tipoCert)
+        public BEMiCertificado ObtenerCertificadoDigital(int paisId, int campaniaId, long consultoraId, Int16 tipo)
         {
-            return BLPedidoWeb.GetMiCertificado(paisId, campaniaId, consultoraId, tipoCert);
+            return BLPedidoWeb.ObtenerCertificadoDigital(paisId, campaniaId, consultoraId, tipo);
         }
     }
 }

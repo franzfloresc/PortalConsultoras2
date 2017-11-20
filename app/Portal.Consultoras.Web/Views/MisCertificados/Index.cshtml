@@ -1,5 +1,5 @@
 ﻿
-@model List<Portal.Consultoras.Web.Models.MisCertificados.CertificadoModel>
+@model List<Portal.Consultoras.Web.Models.MisCertificados.MiCertificadoModel>
 
     @{
         ViewBag.Title = "Mis Certificados";
@@ -29,7 +29,7 @@
             {
                 <div class="certificado_digital" data-item="">
                     <div data-campos="" style="display:none;">
-                        <input type="hidden" class="certificadoComercialId" value="@certificado.CertificadoComercialId" />
+                        <input type="hidden" class="certificadoId" value="@certificado.CertificadoId" />
                         <input type="hidden" class="mensajeError" value="@certificado.MensajeError" />
                     </div>
                     <a data-certificado="">
@@ -40,6 +40,9 @@
                     </a>
                 </div>
             }
+        </div>
+        <div>
+            <p>*El documento que se emitirá a través de este canal puede no tener validez legal para ciertas entidades que exigen un sello o firma física del mismo. Para estos casos, usted deberá realizar la solicitud de su Certificado directamente en las oficinas de Belcorp Ecuador</p>
         </div>
     </div>
 
@@ -53,16 +56,16 @@
                     var parent = $(this).parents("[data-item]");
                     var parametros = $(parent).find("[data-campos]");
 
-                    var certificadoComercialId = $(parametros).find(".certificadoComercialId").val();
+                    var certificadoId = $(parametros).find(".certificadoId").val();
 
-                    if (parseInt(certificadoComercialId) === 0) {
+                    if (parseInt(certificadoId) === 0) {
                         var error = $(parametros).find(".mensajeError").val();
 
                         AbrirMensaje(error);
                     }
                     else {
                         //AbrirMensaje("Aun no esta implementado el PDF lol XD");
-                        window.open(urlExportar + "/" + certificadoComercialId, 'blank');
+                        window.open(urlExportar + "/" + certificadoId, 'blank');
                     }
 
                     e.preventDefault();

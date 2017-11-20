@@ -21,8 +21,6 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
-using Portal.Consultoras.PublicService.Cryptography;
-using Portal.Consultoras.Web.Helpers;
 using WebGrease.Css.Extensions;
 
 namespace Portal.Consultoras.Web.Controllers

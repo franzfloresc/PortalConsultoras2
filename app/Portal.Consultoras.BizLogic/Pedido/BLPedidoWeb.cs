@@ -2195,12 +2195,12 @@ namespace Portal.Consultoras.BizLogic
             return DAPedidoWeb.TieneCampaniaConsecutivas(campaniaId, cantidadCampaniaConsecutiva, consultoraId);
         }
 
-        public BEMiCertificado GetMiCertificado(int paisId, int campaniaId, long consultoraId, Int16 tipoCert)
+        public BEMiCertificado ObtenerCertificadoDigital(int paisId, int campaniaId, long consultoraId, Int16 tipo)
         {
             BEMiCertificado entidad = null;
             DAPedidoWeb DAPedidoWeb = new DAPedidoWeb(paisId);
 
-            using (IDataReader reader = DAPedidoWeb.GetMiCertificado(campaniaId, consultoraId, tipoCert))
+            using (IDataReader reader = DAPedidoWeb.ObtenerCertificadoDigital(campaniaId, consultoraId, tipo))
             {
                 while (reader.Read())
                 {

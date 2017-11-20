@@ -864,12 +864,12 @@ namespace Portal.Consultoras.Data
             return Convert.ToBoolean(Context.ExecuteScalar(command));
         }
 
-        public IDataReader GetMiCertificado(int campaniaId, long consultoraId, Int16 tipoCert)
+        public IDataReader ObtenerCertificadoDigital(int campaniaId, long consultoraId, Int16 tipo)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsMisCertificadosLog");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerCertificadoDigital");
             Context.Database.AddInParameter(command, "@CampaniaId", DbType.Int32, campaniaId);
             Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int64, consultoraId);
-            Context.Database.AddInParameter(command, "@TipoCertificado", DbType.Int16, tipoCert);
+            Context.Database.AddInParameter(command, "@TipoCertificado", DbType.Int16, tipo);
 
             return Context.ExecuteReader(command);
         }

@@ -107,14 +107,14 @@ namespace Portal.Consultoras.Web.SessionManager
             return (RevistaDigitalModel)HttpContext.Current.Session[Constantes.ConstSession.RevistaDigital];
         }
 
-        void ISessionManager.SetMisCertificados(List<CertificadoModel> lista)
+        void ISessionManager.SetMisCertificados(List<MiCertificadoModel> lista)
         {
             HttpContext.Current.Session[Constantes.ConstSession.MisCertificados] = lista;
         }
 
-        List<CertificadoModel> ISessionManager.GetMisCertificados()
+        List<MiCertificadoModel> ISessionManager.GetMisCertificados()
         {
-            return (List<CertificadoModel>)HttpContext.Current.Session[Constantes.ConstSession.MisCertificados];
+            return (List<MiCertificadoModel>)HttpContext.Current.Session[Constantes.ConstSession.MisCertificados];
         }
     }
 }

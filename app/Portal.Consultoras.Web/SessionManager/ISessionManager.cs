@@ -43,8 +43,8 @@ namespace Portal.Consultoras.Web.SessionManager
 
         RevistaDigitalModel GetRevistaDigital();
 
-        void SetMisCertificados(List<CertificadoModel> lista);
+        void SetMisCertificados(List<MiCertificadoModel> lista);
 
-        List<CertificadoModel> GetMisCertificados();
+        List<MiCertificadoModel> GetMisCertificados();
     }
 }

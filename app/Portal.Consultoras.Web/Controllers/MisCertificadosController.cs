@@ -14,6 +14,7 @@ using iTextSharp.text;
 using iTextSharp.text.pdf;
 using iTextSharp.tool.xml;
 using iTextSharp.text.html.simpleparser;
+using AutoMapper;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -21,7 +22,7 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index()
         {
-            var listaCertificados = new List<CertificadoModel>();
+            var listaCertificados = new List<MiCertificadoModel>();
 
             try
             {
@@ -40,9 +41,9 @@ namespace Portal.Consultoras.Web.Controllers
             return View(listaCertificados);
         }
 
-        private List<CertificadoModel> ObtenerCertificados()
+        private List<MiCertificadoModel> ObtenerCertificados()
         {
-            var listaCertificados = new List<CertificadoModel>();
+            var listaCertificados = new List<MiCertificadoModel>();
 
             var certificadoNoAdeudo = ObtenerCertificadoNoAdeudo();
             listaCertificados.Add(certificadoNoAdeudo);
@@ -54,11 +55,11 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #region Certificado Paz y Salvo / No Adeudo
-        private CertificadoModel ObtenerCertificadoNoAdeudo()
+        private MiCertificadoModel ObtenerCertificadoNoAdeudo()
         {
-            var certificado = new CertificadoModel();
+            var certificado = new MiCertificadoModel();
 
-            var certificadoComercialId = 99;
+            var certificadoId = 99;
             var nombre = "";
             var mensajeError = "";
 
@@ -73,7 +74,7 @@ namespace Portal.Consultoras.Web.Controllers
                         break;
                     }
 
-                    certificadoComercialId = 1;
+                    certificadoId = 1;
                     break;
                 case Constantes.PaisID.Ecuador:
                     nombre = "No Adeudo";
@@ -84,14 +85,25 @@ namespace Portal.Consultoras.Web.Controllers
                         break;
                     }
 
-                    certificadoComercialId = 1;
+                    certificadoId = 1;
                     break;
                 default:
                     certificado.Nombre = "";
                     break;
             }
 
-            certificado.CertificadoComercialId = certificadoComercialId;
+            BEMiCertificado beCertificado = null;
+            using (PedidoServiceClient svc = new PedidoServiceClient())
+            {
+                beCertificado = svc.ObtenerCertificadoDigital(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, 1);
+            }
+
+            if (beCertificado != null && beCertificado.Result == 1)
+            {
+                certificado = Mapper.Map<MiCertificadoModel>(beCertificado);
+            }
+
+            certificado.CertificadoId = certificadoId;
             certificado.Nombre = nombre;
             certificado.MensajeError = mensajeError;
             certificado.NombreVista = "~/Views/MisCertificados/NoAdeudoPDF.cshtml";
@@ -103,11 +115,11 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region Certificado Comercial
 
-        private CertificadoModel ObtenerCertificadoComercial()
+        private MiCertificadoModel ObtenerCertificadoComercial()
         {
-            var certificado = new CertificadoModel();
+            var certificado = new MiCertificadoModel();
 
-            var certificadoComercialId = 0;
+            var certificadoId = 0;
             var nombre = "";
             var mensajeError = "";
             const int cantidadCampaniaConsecutiva = 3;
@@ -131,7 +143,7 @@ namespace Portal.Consultoras.Web.Controllers
                         break;
                     }
 
-                    certificadoComercialId = 2;
+                    certificadoId = 2;
 
                     break;
                 default:
@@ -139,7 +151,18 @@ namespace Portal.Consultoras.Web.Controllers
                     break;
             }
 
-            certificado.CertificadoComercialId = certificadoComercialId;
+            BEMiCertificado beCertificado = null;
+            using (PedidoServiceClient svc = new PedidoServiceClient())
+            {
+                beCertificado = svc.ObtenerCertificadoDigital(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, 2);
+            }
+
+            if (beCertificado != null && beCertificado.Result == 1)
+            {
+                certificado = Mapper.Map<MiCertificadoModel>(beCertificado);
+            }
+
+            certificado.CertificadoId = certificadoId;
             certificado.Nombre = nombre;
             certificado.MensajeError = mensajeError;
             certificado.NombreVista = "~/Views/MisCertificados/ComercialPDF.cshtml";
@@ -152,25 +175,32 @@ namespace Portal.Consultoras.Web.Controllers
         [ValidateInput(false)]
         public FileResult Export(int id)
         {
-            var model = ObtenerCertificadoById(id);
-
-            if (model.CertificadoComercialId != 0)
+            try
             {
-                var view = model.NombreVista;
-            
-                string html = RenderViewToString(ControllerContext,
-                    view, model, true);
+                var model = ObtenerCertificadoById(id);
 
-                using (MemoryStream stream = new System.IO.MemoryStream())
+                if (model.CertificadoId != 0)
                 {
-                    StringReader sr = new StringReader(html);
-                    Document pdfDoc = new Document(PageSize.A4, 10, 10, 100, 0);
-                    PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
-                    pdfDoc.Open();
-                    XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, sr);
-                    pdfDoc.Close();
-                    return File(stream.ToArray(), "application/pdf", "Report" + model.CertificadoComercialId + ".pdf");
+                    var view = model.NombreVista;
+
+                    string html = RenderViewToString(ControllerContext,
+                        view, model, true);
+
+                    using (MemoryStream stream = new System.IO.MemoryStream())
+                    {
+                        StringReader sr = new StringReader(html);
+                        Document pdfDoc = new Document(PageSize.A4, 10, 10, 100, 0);
+                        PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
+                        pdfDoc.Open();
+                        XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, sr);
+                        pdfDoc.Close();
+                        return File(stream.ToArray(), "application/pdf", "Cert_" + model.CertificadoId + ".pdf");
+                    }
                 }
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
 
             return null;
@@ -210,11 +240,11 @@ namespace Portal.Consultoras.Web.Controllers
             return result;
         }
 
-        private CertificadoModel ObtenerCertificadoById(int id)
+        private MiCertificadoModel ObtenerCertificadoById(int id)
         {
-            var listaCertificados = sessionManager.GetMisCertificados() ?? new List<CertificadoModel>();
+            var listaCertificados = sessionManager.GetMisCertificados() ?? new List<MiCertificadoModel>();
 
-            var certificado = listaCertificados.FirstOrDefault(p => p.CertificadoComercialId == id) ?? new CertificadoModel();
+            var certificado = listaCertificados.FirstOrDefault(p => p.CertificadoId == id) ?? new MiCertificadoModel();
 
             return certificado;
         }
