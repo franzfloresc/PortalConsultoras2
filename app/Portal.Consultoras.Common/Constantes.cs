@@ -955,6 +955,14 @@ namespace Portal.Consultoras.Common
             public const string NombreComercialNoActiva = "NombreComercialNoActiva";
             public const string LogoComercialActiva = "LogoComercialActiva";
             public const string LogoComercialNoActiva = "LogoComercialNoActiva";
+            public const string DBienvenidaInscritaActiva = "DBienvenidaInscritaActiva";
+            public const string DBienvenidaInscritaNoActiva = "DBienvenidaInscritaNoActiva";
+            public const string DBienvenidaNoInscritaActiva = "DBienvenidaNoInscritaActiva";
+            public const string DBienvenidaNoInscritaNoActiva = "DBienvenidaNoInscritaNoActiva";
+            public const string MBienvenidaInscritaActiva = "MBienvenidaInscritaActiva";
+            public const string MBienvenidaInscritaNoActiva = "MBienvenidaInscritaNoActiva";
+            public const string MBienvenidaNoInscritaActiva = "MBienvenidaNoInscritaActiva";
+            public const string MBienvenidaNoInscritaNoActiva = "MBienvenidaNoInscritaNoActiva";
         }
 
         public static class ConfiguracionSeccion
@@ -1384,6 +1392,15 @@ namespace Portal.Consultoras.Common
             public const string TARJETA_NAVIDENA = "2017_Navidad_Tarjeta.pdf";
             public const string PAPEL_REGALO_DORADO = "2017_Navidad_Regalo1.pdf";
             public const string PAPEL_REGALO_ROJO = "2017_Navidad_Regalo2.pdf";
+        }
+        
+        public static class TagCadenaRd
+        {
+            public const string Nombre = "#NOMBRE";
+            public const string CampaniaActual = "#CX";
+            public const string CampaniaVer = "#CX1";
+            public const string CampaniaSuscripcion = "#CS";
+            public const string CampaniaActiva = "#CS1";
         }
     }
 }
