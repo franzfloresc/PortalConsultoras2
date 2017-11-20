@@ -46,12 +46,10 @@ namespace Portal.Consultoras.Web.Controllers
             model.Success = true;
             ViewBag.TieneProductosPerdio = TieneProductosPerdio(model.CampaniaID);
             ViewBag.NombreConsultora = userData.Sobrenombre;
-            var campaniaX2 = revistaDigital.SuscripcionAnterior1Model.CampaniaID > 0 && revistaDigital.SuscripcionAnterior1Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo
-                ? revistaDigital.SuscripcionAnterior1Model.CampaniaID : userData.CampaniaID;
-            ViewBag.CampaniaMasDos = AddCampaniaAndNumero(campaniaX2, 2) % 100;
+            
             ViewBag.EstadoSuscripcion = revistaDigital.SuscripcionModel.EstadoRegistro;
+
             model.MensajeProductoBloqueado = MensajeProductoBloqueado();
-            model.UrlTerminosCondicionesRD = Util.Trim(ConfigurationManager.AppSettings["UrlTerminosCondicionesRD"]);
             model.CantidadFilas = 10;
             return PartialView("template-landing", model);
         }
@@ -144,10 +142,10 @@ namespace Portal.Consultoras.Web.Controllers
 
         public bool TieneProductosPerdio(int campaniaID)
         {
-            if (revistaDigital.TieneRDC &&
-                revistaDigital.SuscripcionAnterior2Model.EstadoRegistro != Constantes.EstadoRDSuscripcion.Activo &&
+            if (!revistaDigital.EsActiva &&
                 campaniaID == userData.CampaniaID)
                 return true;
+
             return false;
         }
 
