@@ -410,10 +410,24 @@ namespace Portal.Consultoras.Web.Controllers
             entidad.EstadoEnvio = 0;
             entidad.IsoPais = userData.CodigoISO;
             entidad.EMail = userData.EMail;
+            entidad.CampaniaEfectiva = AddCampaniaAndNumero(userData.CampaniaID, revistaDigital.CantidadCampaniaEfectiva);
 
-            using (PedidoServiceClient sv = new PedidoServiceClient())
+            //453-11
+            if (tipo == Constantes.EstadoRDSuscripcion.Desactivo)
             {
-                entidad.RevistaDigitalSuscripcionID = sv.RDDesuscripcion(entidad);
+                using (PedidoServiceClient sv = new PedidoServiceClient())
+                {
+                    entidad.RevistaDigitalSuscripcionID = sv.RDDesuscripcion(entidad);
+                }
+
+            }
+            if (tipo == Constantes.EstadoRDSuscripcion.Activo)
+            {
+                using (PedidoServiceClient sv = new PedidoServiceClient())
+                {
+                    entidad.RevistaDigitalSuscripcionID = sv.RDSuscripcion(entidad);
+                }
+
             }
 
             if (entidad.RevistaDigitalSuscripcionID > 0)

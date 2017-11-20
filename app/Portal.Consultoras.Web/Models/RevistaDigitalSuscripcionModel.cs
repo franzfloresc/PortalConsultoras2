@@ -15,5 +15,6 @@ namespace Portal.Consultoras.Web.Models
         public string IsoPais { get; set; }
         public string CodigoZona { get; set; }
         public string EMail { get; set; }
+
     }
 }
