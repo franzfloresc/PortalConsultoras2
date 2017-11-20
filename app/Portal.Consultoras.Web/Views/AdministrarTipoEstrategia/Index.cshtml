@@ -44,7 +44,7 @@
 
 			//BPT-369
 			$("#chkValImg").attr("checked", false);
-			$("#txtPesoMaximoImagen").val("");
+			$("#txtPesoMaximoImagen").val("0");
 
             fnGrillaOfertas('0');
             showDialog("DialogAdministracionTipoEstrategia");
@@ -103,12 +103,12 @@
 		$("#chkValImg").click(function () {
             if ($("#chkValImg").attr('checked')) {
                 $("#txtPesoMaximoImagen").attr('disabled', false);
-                $("#txtPesoMaximoImagen").val(null);
+                $("#txtPesoMaximoImagen").val("0");
             }
 			else
 			{
 				$("#txtPesoMaximoImagen").attr('disabled', true);
-				$("#txtPesoMaximoImagen").val(null);
+				$("#txtPesoMaximoImagen").val("0");
 			}
         });
 
