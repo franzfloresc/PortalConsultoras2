@@ -1,6 +1,9 @@
 ﻿
 var formatDecimalPais = formatDecimalPais || new Object();
 var finishLoadCuponContenedorInfo = false;
+var belcorp = belcorp || {};
+belcorp.settings = belcorp.settings || {}
+belcorp.settings.uniquePrefix = "/g/";
 
 jQuery(document).ready(function () {
     CreateLoading();
@@ -18,7 +21,7 @@ jQuery(document).ready(function () {
     }
 
     if (isMobile()) {
-        var posibleGuid = getMobilePrefixUrl();
+        var posibleGuid = getMobilePrefixUrl().substring(belcorp.settings.uniquePrefix.length);
         if (FuncionesGenerales.IsGuid(posibleGuid)) {
             $.ajaxSetup({
                 beforeSend: function (xhr) {
@@ -657,7 +660,7 @@ function isMobile() {
 }
 
 function getMobilePrefixUrl() {
-    var uniquePrefix = "/g/";
+    var uniquePrefix = belcorp.settings.uniquePrefix;
     var currentUrl = $.trim(location.href).toLowerCase();
     var uniqueIndexOfUrl = currentUrl.indexOf(uniquePrefix);
     var isUniqueUrl = uniqueIndexOfUrl > 0;
