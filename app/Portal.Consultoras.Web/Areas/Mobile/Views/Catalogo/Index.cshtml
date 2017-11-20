@@ -124,7 +124,7 @@
                     {
                         @Html.Partial("~/Areas/Mobile/Views/Catalogo/template-carrusel-issue.cshtml")
                         <hr class="clear" />
-                <!-- CATÁLOGOS INSCRITAS C-11-->
+                        <!-- CATÁLOGOS INSCRITAS C-11-->
                         <div class="wrapper_resumen_mobile">
                             <div class="banner_pedido_rd">
                                 <div class="cabecera_pedido_rd">
@@ -146,11 +146,11 @@
                                 </div>
                             </div>
                         </div>
-                <!-- FIN CATÁLOGOS INSCRITAS C-11-->
+                        <!-- FIN CATÁLOGOS INSCRITAS C-11-->
                     }
                     else if (revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == 1)
                     {
-                <!-- CATÁLOGOS INSCRITAS C-12-->
+                        <!-- CATÁLOGOS INSCRITAS C-12-->
                         <div class="wrapper_resumen_mobile">
                             <div class="banner_pedido_rd">
                                 <div class="cabecera_pedido_rd">
@@ -172,7 +172,7 @@
                                 </div>
                             </div>
                         </div>
-                <!-- FIN CATÁLOGOS INSCRITAS C-12-->
+                        <!-- FIN CATÁLOGOS INSCRITAS C-12-->
                     }
                     else
                     {
@@ -180,12 +180,12 @@
                         {
                             @Html.Partial("~/Areas/Mobile/Views/Catalogo/template-carrusel-issue.cshtml")
                         }
-                <!-- CATÁLOGOS INSCRITAS C-12-->
+                        <!-- CATÁLOGOS NO INSCRITAS-->
                         <div class="wrapper_resumen_mobile">
                             <div class="banner_pedido_rd">
                                 <div class="cabecera_pedido_rd">
                                     <div class="rd_logo">
-                                        <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="40">
+                                        <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="40" alt="">
                                     </div>
                                     <div class="cabecera_pedido_text">TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
                                 </div>
@@ -202,7 +202,7 @@
                                 </div>
                             </div>
                         </div>
-                <!-- FIN CATÁLOGOS INSCRITAS C-12-->
+                        <!-- FIN CATÁLOGOS NO INSCRITAS-->
                     }
                 }
                 else if (revistaDigital.TieneRDR)
@@ -210,7 +210,7 @@
                     @Html.Partial("~/Areas/Mobile/Views/Catalogo/template-carrusel-issue.cshtml")
                     <hr class="clear" />
 
-            <!-- INICIO SECCION REVISTA REDUCIDA -->
+                    <!-- INICIO SECCION REVISTA REDUCIDA -->
                     <div id="tab_revistasdigital_mobile">
                         <div class="contenedor_seccionRevistaDigital">
                             <div class="seccionRevistaDigital_logo_marca">
@@ -230,7 +230,7 @@
                             </div>
                         </div>
                     </div>
-            <!-- FIN SECCION REVISTA REDUCIDA-->
+                    <!-- FIN SECCION REVISTA REDUCIDA-->
                 }
                 else
                 {
