@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
-using DocumentFormat.OpenXml.Drawing;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Infraestructure;
 
 namespace Portal.Consultoras.Web.Helpers
@@ -15,14 +15,14 @@ namespace Portal.Consultoras.Web.Helpers
         public static string GetUniqueKey(this Controller controller)
         {
             var uniqueKey = controller.Request.Headers[UniqueRoute.IdentifierKey];
-            if (uniqueKey != null)
+            if (uniqueKey.IsGuid())
                 return uniqueKey;
 
             if (controller.Request.UrlReferrer != null)
             {
                 var indexOfUnique = controller.Request.UrlReferrer.AbsolutePath.IndexOf("/g/");
-                var uniqueKeyReferrer = indexOfUnique > 0 ? controller.Request.UrlReferrer.AbsolutePath.Substring(indexOfUnique, 36) : "";
-                if (!string.IsNullOrEmpty(uniqueKeyReferrer))
+                var uniqueKeyReferrer = indexOfUnique > 0 ? controller.Request.UrlReferrer.AbsolutePath.Substring(indexOfUnique, 39) : string.Empty;
+                if (uniqueKeyReferrer.IsGuid())
                     return uniqueKeyReferrer;
             }
 
