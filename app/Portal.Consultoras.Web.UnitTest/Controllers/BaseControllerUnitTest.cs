@@ -32,31 +32,38 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             }
         }
 
-        [TestMethod]
-        public void Base_BuildMenuMobile_ConsultoraOnline_ViewBagExists() {
-            BaseController controller = new BaseController();
-            var testController = new TestControllerBuilder();
-            testController.InitializeController(controller);
+        [TestClass]
+        public class BuildMenuMobile : Base
+        {
+            [TestMethod]
+            public void Base_BuildMenuMobile_ConsultoraOnline_ViewBagExists()
+            {
+                BaseController controller = new BaseController();
+                var testController = new TestControllerBuilder();
+                testController.InitializeController(controller);
 
-            var userData = new UsuarioModel {
-                RolID = Constantes.Rol.Consultora,
-                MenuMobile = new List<MenuMobileModel>()
-            };
-            try { controller.BuildMenuMobile(userData); }
-            catch { }
+                var userData = new UsuarioModel
+                {
+                    RolID = Constantes.Rol.Consultora,
+                    MenuMobile = new List<MenuMobileModel>()
+                };
+                try { controller.BuildMenuMobile(userData); }
+                catch { }
 
-            bool existeTipoMenuConsultoraOnline = controller.ViewBag.TipoMenuConsultoraOnline != null;
-            bool existeCantPedidosPendientes = controller.ViewBag.CantPedidosPendientes != null;
-            bool existeTeQuedanConsultoraOnline = controller.ViewBag.TeQuedanConsultoraOnline != null;
-            bool existeMenuHijoIDConsultoraOnline = controller.ViewBag.MenuHijoIDConsultoraOnline != null;
-            bool existeMenuPadreIDConsultoraOnline = controller.ViewBag.MenuPadreIDConsultoraOnline != null;
+                bool existeTipoMenuConsultoraOnline = controller.ViewBag.TipoMenuConsultoraOnline != null;
+                bool existeCantPedidosPendientes = controller.ViewBag.CantPedidosPendientes != null;
+                bool existeTeQuedanConsultoraOnline = controller.ViewBag.TeQuedanConsultoraOnline != null;
+                bool existeMenuHijoIDConsultoraOnline = controller.ViewBag.MenuHijoIDConsultoraOnline != null;
+                bool existeMenuPadreIDConsultoraOnline = controller.ViewBag.MenuPadreIDConsultoraOnline != null;
 
-            Assert.AreEqual(true, existeTipoMenuConsultoraOnline);
-            Assert.AreEqual(true, existeCantPedidosPendientes);
-            Assert.AreEqual(true, existeTeQuedanConsultoraOnline);
-            Assert.AreEqual(true, existeMenuHijoIDConsultoraOnline);
-            Assert.AreEqual(true, existeMenuPadreIDConsultoraOnline);
+                Assert.AreEqual(true, existeTipoMenuConsultoraOnline);
+                Assert.AreEqual(true, existeCantPedidosPendientes);
+                Assert.AreEqual(true, existeTeQuedanConsultoraOnline);
+                Assert.AreEqual(true, existeMenuHijoIDConsultoraOnline);
+                Assert.AreEqual(true, existeMenuPadreIDConsultoraOnline);
+            }
         }
+
 
         //[TestClass]
         //public class ObtenerPedidoWeb : Base
