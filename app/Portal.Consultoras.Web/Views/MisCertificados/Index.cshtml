@@ -29,7 +29,7 @@
             {
                 <div class="certificado_digital" data-item="">
                     <div data-campos="" style="display:none;">
-                        <input type="hidden" class="certificadoId" value="@certificado.CertificadoId" />
+                        <input type="hidden" class="certificadoId" value="@certificado.CertificadoId" data-available="@certificado.Result" />
                         <input type="hidden" class="mensajeError" value="@certificado.MensajeError" />
                     </div>
                     <a data-certificado="">
@@ -57,8 +57,9 @@
                     var parametros = $(parent).find("[data-campos]");
 
                     var certificadoId = $(parametros).find(".certificadoId").val();
+                    var available = $(parametros).find("[data-available]").val();
 
-                    if (parseInt(certificadoId) === 0) {
+                    if (parseInt(certificadoId) === 0 || parseInt(available) === 0) {
                         var error = $(parametros).find(".mensajeError").val();
 
                         AbrirMensaje(error);

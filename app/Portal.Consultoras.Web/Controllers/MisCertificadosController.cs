@@ -63,7 +63,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var certificado = new MiCertificadoModel();
 
-            var certificadoId = 99;
+            var certificadoId = 0;
             var nombre = "";
             var mensajeError = "";
 
@@ -132,7 +132,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 case Constantes.PaisID.Colombia:
                 case Constantes.PaisID.Ecuador:
-                    nombre = "Certificación Comercial";
+                    nombre = "Certificado Comercial";
 
                     bool tieneCampaniaConsecutivas = false;
                     using (PedidoServiceClient ps = new PedidoServiceClient())
