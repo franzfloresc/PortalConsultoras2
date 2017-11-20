@@ -107,9 +107,10 @@ namespace Portal.Consultoras.Web.Controllers
             var estado = false;
             try
             {
+                var cantidad = origen == "OfertaLiquidacion" ? cantidadregistros * 2 : cantidadregistros;
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    lst = origen == "OfertaLiquidacion" ? sv.GetOfertaProductosPortal2(userData.PaisID, Constantes.ConfiguracionOferta.Liquidacion, 1, userData.CampaniaID, offset, cantidadregistros * 2).ToList() : sv.GetOfertaProductosPortal2(userData.PaisID, Constantes.ConfiguracionOferta.Liquidacion, 1, userData.CampaniaID, offset, cantidadregistros).ToList();
+                    lst = sv.GetOfertaProductosPortal2(userData.PaisID, Constantes.ConfiguracionOferta.Liquidacion, 1, userData.CampaniaID, offset, cantidad).ToList();
                 }
                 ViewBag.Simbolo = userData.Simbolo.ToString().Trim();
 
@@ -123,8 +124,16 @@ namespace Portal.Consultoras.Web.Controllers
 
                     lst = lst.Take(cantidadregistros).ToList();
                     var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                    lst.Update(x => x.ImagenProducto = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.UrlMatriz + "/" + userData.CodigoISO));
-                    lst.Update(x => x.PrecioString = Util.DecimalToStringFormat(x.PrecioOferta, userData.CodigoISO));
+                    var extensionNombreImagenSmall = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall;
+                    var extensionNombreImagenMedium = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium;
+
+                    foreach (var item in lst)
+                    {
+                        item.ImagenProducto = ConfigS3.GetUrlFileS3(carpetaPais, item.ImagenProducto, Globals.UrlMatriz + "/" + userData.CodigoISO);                                                
+                        item.ImagenProductoSmall = string.IsNullOrEmpty(item.ImagenProducto) ? string.Empty : Util.GenerarRutaImagenResize(item.ImagenProducto, extensionNombreImagenSmall);
+                        item.ImagenProductoMedium = string.IsNullOrEmpty(item.ImagenProducto) ? string.Empty : Util.GenerarRutaImagenResize(item.ImagenProducto, extensionNombreImagenMedium);
+                        item.PrecioString = Util.DecimalToStringFormat(item.PrecioOferta, userData.CodigoISO);
+                    }
                 }
             }
             catch (Exception ex)

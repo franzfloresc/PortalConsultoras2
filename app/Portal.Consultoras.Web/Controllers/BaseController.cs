@@ -3839,15 +3839,11 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (Util.ExisteUrlRemota(rutaImagen))
             {
-                string soloImagen = Path.GetFileNameWithoutExtension(rutaImagen);
-
-                var rutaImagenSmall = rutaImagen.Clone().ToString();
                 var extensionNombreImagenSmall = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall;
-                rutaImagenSmall = rutaImagenSmall.Replace(soloImagen, soloImagen + extensionNombreImagenSmall);
-
-                var rutaImagenMedium = rutaImagen.Clone().ToString();
+                var rutaImagenSmall = Util.GenerarRutaImagenResize(rutaImagen, extensionNombreImagenSmall);                               
+                
                 var extensionNombreImagenMedium = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium;
-                rutaImagenMedium = rutaImagenMedium.Replace(soloImagen, soloImagen + extensionNombreImagenMedium);
+                var rutaImagenMedium = Util.GenerarRutaImagenResize(rutaImagen, extensionNombreImagenMedium);
 
                 var listaValoresImagenesResize = ObtenerParametrosTablaLogica(Constantes.PaisID.Peru, Constantes.TablaLogica.ValoresImagenesResize, true);                
 
@@ -3888,8 +3884,7 @@ namespace Portal.Consultoras.Web.Controllers
             var esInt = int.TryParse(resultadoString, out resultado);
 
             return esInt ? resultado : 0;
-        }
-
+        }        
 
         #endregion
 

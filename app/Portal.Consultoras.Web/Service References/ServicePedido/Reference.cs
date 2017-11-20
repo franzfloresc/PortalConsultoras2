@@ -6227,6 +6227,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string ImagenProductoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ImagenProductoMediumField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ImagenProductoSmallField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int MarcaIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -6569,6 +6575,32 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.ImagenProductoField, value) != true)) {
                     this.ImagenProductoField = value;
                     this.RaisePropertyChanged("ImagenProducto");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ImagenProductoMedium {
+            get {
+                return this.ImagenProductoMediumField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ImagenProductoMediumField, value) != true)) {
+                    this.ImagenProductoMediumField = value;
+                    this.RaisePropertyChanged("ImagenProductoMedium");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ImagenProductoSmall {
+            get {
+                return this.ImagenProductoSmallField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ImagenProductoSmallField, value) != true)) {
+                    this.ImagenProductoSmallField = value;
+                    this.RaisePropertyChanged("ImagenProductoSmall");
                 }
             }
         }

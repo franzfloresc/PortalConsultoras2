@@ -3269,6 +3269,20 @@ namespace Portal.Consultoras.Common
 
             return result;
         }
+
+        public static string GenerarRutaImagenResize(string rutaImagen, string rutaNombreExtension)
+        {            
+            if (string.IsNullOrEmpty(rutaImagen))
+                return "";            
+
+            string soloImagen = Path.GetFileNameWithoutExtension(rutaImagen);
+
+            var ruta = rutaImagen.Clone().ToString();
+
+            ruta = ruta.Replace(soloImagen, soloImagen + rutaNombreExtension);
+
+            return ruta;
+        }
     }
 
     public static class DataRecord

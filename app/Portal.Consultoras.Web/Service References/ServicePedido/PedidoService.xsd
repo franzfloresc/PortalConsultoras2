@@ -435,6 +435,8 @@
       <xs:element minOccurs="0" name="IDAux" type="xs:int" />
       <xs:element minOccurs="0" name="ISOPais" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImagenProducto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImagenProductoMedium" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImagenProductoSmall" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MarcaID" type="xs:int" />
       <xs:element minOccurs="0" name="NroOrden" type="xs:int" />
       <xs:element minOccurs="0" name="OfertaProductoID" type="xs:int" />

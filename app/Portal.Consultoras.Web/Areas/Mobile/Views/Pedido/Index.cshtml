@@ -42,7 +42,7 @@
                     <input type="text" id="txtClienteNombre" placeholder="Cliente" class="PedidoClienteNombre" />
                 }
                
-                <input type="tel" name="codigoProducto" value="" placeholder="Código" id="txtCodigoProducto" oninput="maxLengthCheck(this, 5)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
+                <input type="tel" name="codigoProducto" value="" placeholder="Código" id="txtCodigoProducto" oninput="FuncionesGenerales.MaxLengthCheck(this, 5)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
             </form>
         </div>
     </div>
@@ -384,7 +384,7 @@
 
         <div class="content_item_home">
             <div class="producto_img_mobile">
-                <img src="{{ImagenProductoSugerido}}">
+                <img src="{{ImagenProductoSugeridoSmall}}">
             </div>
             <div class="producto_nombre_descripcion">
                 <h6>{{DescripcionMarca}}</h6>
