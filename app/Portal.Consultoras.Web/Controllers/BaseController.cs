@@ -511,7 +511,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region Menú
 
-        private List<PermisoModel> BuildMenu()
+        protected List<PermisoModel> BuildMenu()
         {
             if (userData.Menu != null)
             {
@@ -519,22 +519,17 @@ namespace Portal.Consultoras.Web.Controllers
                 return SepararItemsMenu(userData.Menu);
             }
 
-            IList<BEPermiso> lst = new List<BEPermiso>();
-
-            using (SeguridadServiceClient sv = new SeguridadServiceClient())
-            {
-                lst = sv.GetPermisosByRol(userData.PaisID, userData.RolID).ToList();
-            }
+            var permisos = GetPermisosByRol(userData.PaisID, userData.RolID);
 
             string mostrarPedidosPendientes = ConfigurationManager.AppSettings.Get("MostrarPedidosPendientes");
             string strpaises = ConfigurationManager.AppSettings.Get("Permisos_CCC");
             bool mostrarClienteOnline = (mostrarPedidosPendientes == "1" && strpaises.Contains(userData.CodigoISO));
-            if (!mostrarClienteOnline) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "consultoraonline/index"));
-            if (!userData.PedidoFICActivo) lst.Where(m => m.Codigo == Constantes.MenuCodigo.PedidoFIC).ToList().ForEach(m => lst.Remove(m));
-            if (userData.IndicadorPermisoFIC == 0) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "pedidofic/index"));
-            if (userData.CatalogoPersonalizado == 0 || !userData.EsCatalogoPersonalizadoZonaValida) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "catalogopersonalizado/index"));
+            if (!mostrarClienteOnline) permisos.Remove(permisos.FirstOrDefault(p => p.UrlItem.ToLower() == "consultoraonline/index"));
+            if (!userData.PedidoFICActivo) permisos.Where(m => m.Codigo == Constantes.MenuCodigo.PedidoFIC).ToList().ForEach(m => permisos.Remove(m));
+            if (userData.IndicadorPermisoFIC == 0) permisos.Remove(permisos.FirstOrDefault(p => p.UrlItem.ToLower() == "pedidofic/index"));
+            if (userData.CatalogoPersonalizado == 0 || !userData.EsCatalogoPersonalizadoZonaValida) permisos.Remove(permisos.FirstOrDefault(p => p.UrlItem.ToLower() == "catalogopersonalizado/index"));
 
-            var lista1 = Mapper.Map<List<PermisoModel>>(lst);
+            var lista1 = Mapper.Map<List<PermisoModel>>(permisos);
 
             List<PermisoModel> lstModel = new List<PermisoModel>();
 
@@ -657,6 +652,18 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.ClaseLogoSB = userData.ClaseLogoSB;
 
             return SepararItemsMenu(lstModel);
+        }
+
+        private static IList<BEPermiso> GetPermisosByRol(int paisID, int rolID)
+        {
+            IList<BEPermiso> lst;
+            using (var sv = new SeguridadServiceClient())
+            {
+
+                lst = sv.GetPermisosByRol(paisID, rolID).ToList();
+            }
+
+            return lst;
         }
 
         public List<MenuMobileModel> BuildMenuMobile(UsuarioModel userData)
