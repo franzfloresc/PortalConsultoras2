@@ -3490,29 +3490,17 @@ namespace Portal.Consultoras.Web.Controllers
 
             var pathStrings = path.Split('/');
             var newPath = "";
-            var pathOrigen = "";
+            newPath += "/" + (pathStrings.Length > 0 ? pathStrings[1] : "");
+            newPath += "/" + (pathStrings.Length > 1 ? pathStrings[2] : "");
+            
             var menuActivo = new MenuContenedorModel { CampaniaId = userData.CampaniaID, ConfiguracionPais = new ConfiguracionPaisModel() };
-            try
-            {
-                newPath += "/" + pathStrings[1];
-                newPath += "/" + pathStrings[2];
-            }
-            catch (Exception)
-            {
-            }
 
-            try
+            int campaniaid = 0;
+            var campaniaIdStr = Util.Trim(Request.QueryString["campaniaid"]);
+            var pathOrigen = Util.Trim(Request.QueryString["origen"]);
+            if (Int32.TryParse(campaniaIdStr, out campaniaid))
             {
-                int campaniaid = 0;
-                var campaniaIdStr = Util.Trim(Request.QueryString["campaniaid"]);
-                pathOrigen = Util.Trim(Request.QueryString["origen"]);
-                if (Int32.TryParse(campaniaIdStr, out campaniaid))
-                {
-                    menuActivo.CampaniaId = Int32.Parse(campaniaIdStr);
-                }
-            }
-            catch (Exception)
-            {
+                menuActivo.CampaniaId = Int32.Parse(campaniaIdStr);
             }
 
             newPath = newPath.EndsWith("/") ? newPath.Substring(0, newPath.Length - 1) : newPath;
