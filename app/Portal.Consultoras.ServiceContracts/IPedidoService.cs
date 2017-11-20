@@ -1249,5 +1249,13 @@ namespace Portal.Consultoras.ServiceContracts
         List<BECargaMasivaImagenes> GetListaImagenesProductoSugeridoByCampania(int paisId, int campaniaId);
 
         #endregion
+
+        #region ProductosPrecargados
+        [OperationContract]
+        int GetFlagProductosPrecargados(int paisID, string CodigoConsultora, int CampaniaID);
+
+        [OperationContract]
+        void UpdateMostradoProductosPrecargados(int paisID, int CampaniaID, long ConsultoraID, string IPUsuario);
+        #endregion
     }
 }

@@ -6092,67 +6092,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BECargaMasivaImagenes", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CargaMasiva")]
-    [System.SerializableAttribute()]
-    public partial class BECargaMasivaImagenes : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CuvField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string RutaImagenField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Cuv {
-            get {
-                return this.CuvField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CuvField, value) != true)) {
-                    this.CuvField = value;
-                    this.RaisePropertyChanged("Cuv");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string RutaImagen {
-            get {
-                return this.RutaImagenField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.RutaImagenField, value) != true)) {
-                    this.RutaImagenField = value;
-                    this.RaisePropertyChanged("RutaImagen");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="BEOfertaProducto", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
     [System.SerializableAttribute()]
     public partial class BEOfertaProducto : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -6225,12 +6164,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ImagenProductoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string ImagenProductoMediumField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string ImagenProductoSmallField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int MarcaIDField;
@@ -6575,32 +6508,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.ImagenProductoField, value) != true)) {
                     this.ImagenProductoField = value;
                     this.RaisePropertyChanged("ImagenProducto");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string ImagenProductoMedium {
-            get {
-                return this.ImagenProductoMediumField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.ImagenProductoMediumField, value) != true)) {
-                    this.ImagenProductoMediumField = value;
-                    this.RaisePropertyChanged("ImagenProductoMedium");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string ImagenProductoSmall {
-            get {
-                return this.ImagenProductoSmallField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.ImagenProductoSmallField, value) != true)) {
-                    this.ImagenProductoSmallField = value;
-                    this.RaisePropertyChanged("ImagenProductoSmall");
                 }
             }
         }
@@ -12302,12 +12209,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string FotoProducto01Field;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string FotoProductoMediumField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string FotoProductoSmallField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal GananciaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -12947,32 +12848,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.FotoProducto01Field, value) != true)) {
                     this.FotoProducto01Field = value;
                     this.RaisePropertyChanged("FotoProducto01");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string FotoProductoMedium {
-            get {
-                return this.FotoProductoMediumField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.FotoProductoMediumField, value) != true)) {
-                    this.FotoProductoMediumField = value;
-                    this.RaisePropertyChanged("FotoProductoMedium");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string FotoProductoSmall {
-            get {
-                return this.FotoProductoSmallField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.FotoProductoSmallField, value) != true)) {
-                    this.FotoProductoSmallField = value;
-                    this.RaisePropertyChanged("FotoProductoSmall");
                 }
             }
         }
@@ -31545,27 +31420,17 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetMisPedidosFacturados", ReplyAction="http://tempuri.org/IPedidoService/GetMisPedidosFacturadosResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEMisPedidosFacturados[]> GetMisPedidosFacturadosAsync(int paisID, long ConsultoraID, int CampaniaID, int ClienteID, string NombreConsultora);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetListaImagenesEstrategiasByCampania", ReplyAction="http://tempuri.org/IPedidoService/GetListaImagenesEstrategiasByCampaniaResponse")]
-        Portal.Consultoras.Web.ServicePedido.BECargaMasivaImagenes[] GetListaImagenesEstrategiasByCampania(int paisId, int campaniaId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetFlagProductosPrecargados", ReplyAction="http://tempuri.org/IPedidoService/GetFlagProductosPrecargadosResponse")]
+        int GetFlagProductosPrecargados(int paisID, string CodigoConsultora, int CampaniaID);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetListaImagenesEstrategiasByCampania", ReplyAction="http://tempuri.org/IPedidoService/GetListaImagenesEstrategiasByCampaniaResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BECargaMasivaImagenes[]> GetListaImagenesEstrategiasByCampaniaAsync(int paisId, int campaniaId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetFlagProductosPrecargados", ReplyAction="http://tempuri.org/IPedidoService/GetFlagProductosPrecargadosResponse")]
+        System.Threading.Tasks.Task<int> GetFlagProductosPrecargadosAsync(int paisID, string CodigoConsultora, int CampaniaID);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetListaImagenesOfertaLiquidacionByCampania", ReplyAction="http://tempuri.org/IPedidoService/GetListaImagenesOfertaLiquidacionByCampaniaResp" +
-            "onse")]
-        Portal.Consultoras.Web.ServicePedido.BECargaMasivaImagenes[] GetListaImagenesOfertaLiquidacionByCampania(int paisId, int campaniaId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/UpdateMostradoProductosPrecargados", ReplyAction="http://tempuri.org/IPedidoService/UpdateMostradoProductosPrecargadosResponse")]
+        void UpdateMostradoProductosPrecargados(int paisID, int CampaniaID, long ConsultoraID, string IPUsuario);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetListaImagenesOfertaLiquidacionByCampania", ReplyAction="http://tempuri.org/IPedidoService/GetListaImagenesOfertaLiquidacionByCampaniaResp" +
-            "onse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BECargaMasivaImagenes[]> GetListaImagenesOfertaLiquidacionByCampaniaAsync(int paisId, int campaniaId);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetListaImagenesProductoSugeridoByCampania", ReplyAction="http://tempuri.org/IPedidoService/GetListaImagenesProductoSugeridoByCampaniaRespo" +
-            "nse")]
-        Portal.Consultoras.Web.ServicePedido.BECargaMasivaImagenes[] GetListaImagenesProductoSugeridoByCampania(int paisId, int campaniaId);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetListaImagenesProductoSugeridoByCampania", ReplyAction="http://tempuri.org/IPedidoService/GetListaImagenesProductoSugeridoByCampaniaRespo" +
-            "nse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BECargaMasivaImagenes[]> GetListaImagenesProductoSugeridoByCampaniaAsync(int paisId, int campaniaId);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/UpdateMostradoProductosPrecargados", ReplyAction="http://tempuri.org/IPedidoService/UpdateMostradoProductosPrecargadosResponse")]
+        System.Threading.Tasks.Task UpdateMostradoProductosPrecargadosAsync(int paisID, int CampaniaID, long ConsultoraID, string IPUsuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ValidarUnidadesPermitidasEnPedidoShowRoom", ReplyAction="http://tempuri.org/IPedidoService/ValidarUnidadesPermitidasEnPedidoShowRoomRespon" +
             "se")]
@@ -33901,28 +33766,20 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.GetMisPedidosFacturadosAsync(paisID, ConsultoraID, CampaniaID, ClienteID, NombreConsultora);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BECargaMasivaImagenes[] GetListaImagenesEstrategiasByCampania(int paisId, int campaniaId) {
-            return base.Channel.GetListaImagenesEstrategiasByCampania(paisId, campaniaId);
+        public int GetFlagProductosPrecargados(int paisID, string CodigoConsultora, int CampaniaID) {
+            return base.Channel.GetFlagProductosPrecargados(paisID, CodigoConsultora, CampaniaID);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BECargaMasivaImagenes[]> GetListaImagenesEstrategiasByCampaniaAsync(int paisId, int campaniaId) {
-            return base.Channel.GetListaImagenesEstrategiasByCampaniaAsync(paisId, campaniaId);
+        public System.Threading.Tasks.Task<int> GetFlagProductosPrecargadosAsync(int paisID, string CodigoConsultora, int CampaniaID) {
+            return base.Channel.GetFlagProductosPrecargadosAsync(paisID, CodigoConsultora, CampaniaID);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BECargaMasivaImagenes[] GetListaImagenesOfertaLiquidacionByCampania(int paisId, int campaniaId) {
-            return base.Channel.GetListaImagenesOfertaLiquidacionByCampania(paisId, campaniaId);
+        public void UpdateMostradoProductosPrecargados(int paisID, int CampaniaID, long ConsultoraID, string IPUsuario) {
+            base.Channel.UpdateMostradoProductosPrecargados(paisID, CampaniaID, ConsultoraID, IPUsuario);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BECargaMasivaImagenes[]> GetListaImagenesOfertaLiquidacionByCampaniaAsync(int paisId, int campaniaId) {
-            return base.Channel.GetListaImagenesOfertaLiquidacionByCampaniaAsync(paisId, campaniaId);
-        }
-        
-        public Portal.Consultoras.Web.ServicePedido.BECargaMasivaImagenes[] GetListaImagenesProductoSugeridoByCampania(int paisId, int campaniaId) {
-            return base.Channel.GetListaImagenesProductoSugeridoByCampania(paisId, campaniaId);
-        }
-        
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BECargaMasivaImagenes[]> GetListaImagenesProductoSugeridoByCampaniaAsync(int paisId, int campaniaId) {
-            return base.Channel.GetListaImagenesProductoSugeridoByCampaniaAsync(paisId, campaniaId);
+        public System.Threading.Tasks.Task UpdateMostradoProductosPrecargadosAsync(int paisID, int CampaniaID, long ConsultoraID, string IPUsuario) {
+            return base.Channel.UpdateMostradoProductosPrecargadosAsync(paisID, CampaniaID, ConsultoraID, IPUsuario);
         }
         
         public int ValidarUnidadesPermitidasEnPedidoShowRoom(int PaisID, int CampaniaID, string CUV, long ConsultoraID) {
