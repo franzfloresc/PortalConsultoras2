@@ -448,6 +448,8 @@ Image .nav0:hover {
         font-size: 20px;
         text-align: left;
         color: #949494;
+        font-weight:600;
+        margin-top:4px;
         margin-right: 7px;
         float: left;
     }
@@ -1051,6 +1053,7 @@ h1, h2, h3, h4, h5, h6 {
     width: 100%;
     height: 100%;
     background: url(../Images/popup_esika/fondo_pop_up.png);
+    overflow-y:scroll;
 }
 
 .content_bg_1 {
@@ -1088,6 +1091,7 @@ h1, h2, h3, h4, h5, h6 {
     padding-top: 10px;
     box-sizing: border-box;
     text-align:center;
+    margin-bottom:30px;
 }
 
 #header {
@@ -1178,7 +1182,12 @@ h1, h2, h3, h4, h5, h6 {
 
 .icono_correo {
     margin: 0 auto;
-    width: 94px;
+    width: 120px;
+    height:75px;
+    background-image:url(../../../Images/Login2/Icons/icono-nuevo-correo-esika.svg);
+    background-position:center;
+    background-repeat:no-repeat;
+    background-size:100%;
 }
 
     .icono_correo img {
@@ -2309,6 +2318,13 @@ h1, h2, h3, h4, h5, h6 {
 
 /* HD-1254 - OLVIDÉ CONTRASEÑA DESKTOP Y MOBILE */
 
+.campoPais{
+    width:93%!important;
+    background-image:url(../../../Images/Login2/Icons/arrow-select.svg)!important;
+    background-position:99% center!important;
+    background-repeat:no-repeat!important;
+}
+
 .content_bg_opciones_recuperacion_contrasenia {
     width: 87%;
     max-width: 580px;
@@ -2317,7 +2333,7 @@ h1, h2, h3, h4, h5, h6 {
     margin: 0 auto;
     position: relative;
     background: white;
-    padding-bottom: 15px;
+    padding-bottom: 25px;
 }
 
 .content_bg_opciones_recuperacion_contrasenia #header{
@@ -2391,38 +2407,31 @@ h1, h2, h3, h4, h5, h6 {
     -webkit-box-shadow: 0 10px 15px -9px rgba(0,0,0,0.3);
 }
 
+.opcion_desactivada {
+    opacity: 0.5;
+    background: #f1f1f1;
+    pointer-events:none;
+}
+
 .opcion_recuperacion_contrasenia:hover {
     border-color: #e81c36;
 }
 
 .icono_correo_electronico,
 .icono_sms,
+.icono_mensaje_sms,
 .icono_chatea_con_nosotros,
 .icono_llamada,
 .icono_reloj,
 .icono_reloj_2{
     display: block;
     margin: 0 auto;
-    background: #CCC;
-}
-
-.icono_correo_electronico,
-.icono_sms{
-    width: 55.6px;
-    height: 45px;
-    margin-bottom:25px;
 }
 
 .icono_chatea_con_nosotros,
 .icono_llamada{
     width:62.8px;
     height:42.1px;
-}
-
-.icono_reloj,
-.icono_reloj_2{
-    width:60px;
-    height:60px;
 }
 
 .icono_correo_electronico.mb-15,
@@ -2432,6 +2441,86 @@ h1, h2, h3, h4, h5, h6 {
 .icono_reloj.mb-15,
 .icono_reloj_2.mb-15{
     margin-bottom:15px;
+}
+
+.icono_correo_electronico{
+    width:57.6px;
+    background-image:url(../../../Images/Login2/Icons/icono-mail-esika.svg);
+    background-position:center;
+    background-repeat:no-repeat;
+    background-size:100%;
+}
+
+.icono_sms{
+    width: 55.6px;
+    background-image:url(../../../Images/Login2/Icons/icono-mensaje-sms-esika.svg);
+    background-position:center;
+    background-repeat:no-repeat;
+    background-size:100%;
+}
+
+.icono_correo_electronico,
+.icono_sms{
+    height:45px;
+    margin-bottom:19px;
+}
+
+.icono_chatea_con_nosotros{
+    width:42.1px;
+    height:61.8px;
+    background-image:url(../../../Images/Login2/Icons/icono-chatea-con-nosotros-esika.svg);
+    background-position:center;
+    background-repeat:no-repeat;
+    background-size:100%;
+}
+
+.icono_llamada{
+    width:51.9px;
+    height:51.7px;
+    background-image:url(../../../Images/Login2/Icons/icono-llamanos-esika.svg);
+    background-position:center;
+    background-repeat:no-repeat;
+    background-size:100%;
+}
+
+.icono_reloj,
+.icono_reloj_2{
+    background-image:url(../../../Images/Login2/Icons/icono-reloj-esika.svg);
+    background-position:center;
+    background-repeat:no-repeat;
+    background-size:100%;
+}
+
+.icono_reloj{
+    width:60px;
+    height:60px;
+}
+
+.icono_reloj_2{
+    width:54px;
+    height:54px;
+}
+
+.icono_mensaje_sms{
+    width:77px;
+    height:62px;
+    background-image:url(../../../Images/Login2/Icons/icono-sms-esika.svg);
+    background-position:center;
+    background-repeat:no-repeat;
+    background-size:100%;
+}
+
+.icono_alerta_error{
+    display:inline-block;
+    vertical-align:middle;
+    width:10px;
+    height:10px;
+    margin-left: -8px;
+    margin-right: 2px;
+    margin-bottom: 3px;
+    background-image:url(../../../Images/Login2/Icons/icono-alerta-error-esika.png);
+    background-repeat:no-repeat;
+    background-size:100%;
 }
 
 .contenedor_info_datos,
@@ -2561,6 +2650,19 @@ h1, h2, h3, h4, h5, h6 {
 .accion_alternativa_posterior_envio_password {
     width: auto;
     text-align: center;
+    margin-bottom:3px;
+}
+
+.flecha_ver_mas_opciones{
+    display:inline-block;
+    vertical-align:middle;
+    width:6px;
+    height:10px;
+    margin-left:1px;
+    margin-bottom:1px;
+    background-image:url(../../../Images/Login2/Icons/flecha-ver-mas-opciones-esika.svg);
+    background-repeat:no-repeat;
+    background-size:100%;
 }
 
 .btn_regresar_ver_otras_opciones {
@@ -2577,6 +2679,31 @@ h1, h2, h3, h4, h5, h6 {
     text-decoration: none;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    opacity:1;
+    transition:all 0.3s ease;
+    -moz-transition:all 0.3s ease;
+    -o-transition:all 0.3s ease;
+    -ms-transition:all 0.3s ease;
+    -webkit-transition:all 0.3s ease;
+}
+
+.btn_regresar_ver_otras_opciones:hover span:last-child{
+    text-decoration:underline;
+    opacity:0.8;
+}
+
+.icono_regresar_ver_otras_opciones{
+    display:inline-block;
+    vertical-align:middle;
+    margin-right:3px;
+    margin-bottom:3px;
+    width:6px;
+    height:11px;
+}
+
+.icono_regresar_ver_otras_opciones img{
+    width:100%;
+    height:auto;
 }
 
 .mensaje_pop_up_contraseniaEnviada p.texto_informativo_ingreso_codigo{
@@ -2642,7 +2769,80 @@ h1, h2, h3, h4, h5, h6 {
     display:block;
 }
 
+@media screen and (max-width:1093px){
+
+    .campoPais{
+        width:90%!important;
+    }
+
+}
+
+@media screen and (max-width:991px){
+
+    .opcionLlamada_desktop{
+        display:none;
+    }
+
+    .opcionLlamada_mobile{
+        display:block;
+        border:none!important;
+        text-align:center!important;
+        padding: 12px 0!important;
+    }
+
+    .opcion_recuperacion_contrasenia.sinMargenesMobile{
+        width:100%;
+        margin-left:0;
+        margin-right:0;
+    }
+
+    .grupo_centrales_telefonicas_disponibles{
+        display:block;
+    }
+
+    .central_telefonica{
+        display:inline-block;
+        vertical-align:middle;
+        margin:0;
+        width:73px;
+        margin-right:25px;
+        text-decoration:none;
+        border:none;
+        color:#000;
+    }
+
+    .central_telefonica:last-child{
+        margin-right:0;
+    }
+
+    .icono_llamada{
+        width:50px;
+        height:50px;
+        background:#d12a35;
+        border-radius:100%;
+        margin-bottom:12px;
+        background-image:url(../../../Images/Login2/Icons/icono-llamada-mobile.svg);
+        background-repeat:no-repeat;
+        background-position:center;
+    }
+
+    .texto_opcion_llamada{
+        display:block;
+        text-transform:uppercase;
+        color:#000;
+        font-size:12px;
+        font-weight:400;
+        text-align:center;
+        font-weight:14px;
+    }
+
+}
+
 @media screen and (max-width:678px){
+
+    .campoPais{
+        width:91%!important;
+    }
 
     .content_bg_opciones_recuperacion_contrasenia{
         width:90%;
@@ -2691,22 +2891,10 @@ h1, h2, h3, h4, h5, h6 {
         text-align: left;
     }
 
-    .opcionLlamada_desktop{
-        display:none;
-    }
-
-    .opcionLlamada_mobile{
-        display:block;
-        border:none;
-        text-align:center;
-        padding: 12px 0;
-    }
-
     .icono_correo_electronico,
     .icono_sms,
     .contenedor_info_datos,
     .icono_chatea_con_nosotros,
-    .central_telefonica,
     .icono_reloj,
     .horarios_atencion{
         display:inline-block;
@@ -2725,11 +2913,19 @@ h1, h2, h3, h4, h5, h6 {
         margin-bottom:0;
     }
 
-    .icono_chatea_con_nosotros{
-        width:23px;
+    .icono_correo_electronico{
+        width:27.3px;
+        height:16px;
+    }
+
+    .icono_sms{
+        width:24.7px;
+        height:20px;
     }
 
     .icono_chatea_con_nosotros{
+        width:23px;
+        height:32px;
         margin-right:17px;
     }
 
@@ -2753,40 +2949,6 @@ h1, h2, h3, h4, h5, h6 {
     .btn_ingresar_chat{
         width:100%;
         max-width:none;
-    }
-
-    .grupo_centrales_telefonicas_disponibles{
-        display:block;
-    }
-
-    .central_telefonica{
-        width:73px;
-        margin-right:25px;
-        text-decoration:none;
-        border:none;
-        color:#000;
-    }
-
-    .central_telefonica:last-child{
-        margin-right:0;
-    }
-
-    .icono_llamada{
-        width:50px;
-        height:50px;
-        background:#d12a35;
-        border-radius:100%;
-        margin-bottom:12px;
-    }
-
-    .texto_opcion_llamada{
-        display:block;
-        text-transform:uppercase;
-        color:#000;
-        font-size:12px;
-        font-weight:400;
-        text-align:center;
-        font-weight:14px;
     }
 
     .mensaje_pop_up_contraseniaEnviada h1{
@@ -2820,6 +2982,14 @@ h1, h2, h3, h4, h5, h6 {
 
     .horarios_atencion_2{
         font-size:17px;
+    }
+
+}
+
+@media screen and (max-width:480px){
+
+    .campoPais{
+        width:90%!important;
     }
 
 }
