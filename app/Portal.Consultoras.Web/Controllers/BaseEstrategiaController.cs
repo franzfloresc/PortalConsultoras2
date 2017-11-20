@@ -355,7 +355,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #region Validar Tipo RD
 
-                if (revistaDigital.TieneRDR || (revistaDigital.TieneRDC && revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo))
+                if (revistaDigital.TieneRDR || (revistaDigital.TieneRDC && revistaDigital.EsActiva))
                 {
                     var estrategiaLanzamiento = listModel.FirstOrDefault(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento) ?? new BEEstrategia();
 
