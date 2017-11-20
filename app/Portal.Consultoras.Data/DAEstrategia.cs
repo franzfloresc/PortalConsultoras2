@@ -131,6 +131,8 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "@Ganancia", DbType.Decimal, entidad.Ganancia);
                 Context.Database.AddInParameter(command, "@EsOfertaIndependiente", DbType.Boolean, entidad.EsOfertaIndependiente);
                 Context.Database.AddInParameter(command, "@CodigoPrograma", DbType.String, entidad.CodigoPrograma);
+                Context.Database.AddInParameter(command, "@CodigoConcurso", DbType.String, entidad.CodigoConcurso);
+                Context.Database.AddInParameter(command, "@TipoConcurso", DbType.String, entidad.TipoConcurso);
                 Context.Database.AddOutParameter(command, "@Retorno", DbType.Int32, 1000);
                 Context.ExecuteNonQuery(command);
                 result = Convert.ToInt32(command.Parameters["@Retorno"].Value);

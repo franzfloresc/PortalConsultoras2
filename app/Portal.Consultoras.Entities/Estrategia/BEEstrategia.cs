@@ -246,6 +246,12 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         [Column("CodigoPrograma")]
         public string CodigoPrograma { get; set; }
+        [DataMember]
+        [Column("CodigoConcurso")]
+        public string CodigoConcurso { get; set; }
+        [DataMember]
+        [Column("TipoConcurso")]
+        public string TipoConcurso { get; set; }
 
         public BEEstrategia()
         { }

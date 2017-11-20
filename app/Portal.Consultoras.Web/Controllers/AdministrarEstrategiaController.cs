@@ -1929,5 +1929,99 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
         #endregion
+
+        #region Incentivos
+        [HttpGet]
+        public ViewResult Incentivos()
+        {
+            try
+            {
+                ViewBag.hdnPaisISO = userData.CodigoISO;
+                ViewBag.hdnPaisID = userData.PaisID;
+                ViewBag.ddlCampania = DropDowListCampanias(userData.PaisID);
+
+                var tipoEstrategias = GetTipoEstrategias();
+                ViewBag.hdnTipoEstrategiaID = tipoEstrategias.Where(x => x.Codigo == Constantes.TipoEstrategiaCodigo.Incentivos).First().TipoEstrategiaID;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult IncentivosConsultar(string sidx, string sord, int page, int rows, string CampaniaID,
+            string CUV, int Imagen, int Activo, string CodigoConcurso, int TipoEstrategiaID)
+        {
+            var lst = new List<BEEstrategia>();
+            var pag = new BEPager();
+
+            try
+            {
+                if (string.IsNullOrEmpty(CampaniaID)) return RedirectToAction("Incentivos", "AdministrarEstrategia");
+
+                var entidad = new BEEstrategia()
+                {
+                    PaisID = userData.PaisID,
+                    TipoEstrategiaID = TipoEstrategiaID,
+                    CUV2 = (string.IsNullOrEmpty(CUV) ? "0" : CUV),
+                    CampaniaID = Convert.ToInt32(CampaniaID),
+                    Activo = Activo,
+                    Imagen = Imagen,
+                    CodigoConcurso = CodigoConcurso
+                };
+
+                using (var sv = new PedidoServiceClient())
+                {
+                    lst = sv.GetEstrategias(entidad).ToList();
+                    lst = lst ?? new List<BEEstrategia>();
+                }
+
+                string carpetapais = string.Format("{0}/{1}", Globals.UrlMatriz, userData.CodigoISO);
+                lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL, carpetapais));
+
+                var grid = new BEGrid()
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
+
+                var items = lst.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                pag = Util.PaginadorGenerico(grid, lst);
+
+                var data = new
+                {
+                    total = pag.PageCount,
+                    page = pag.CurrentPage,
+                    records = pag.RecordCount,
+                    rows = items
+                };
+
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return RedirectToAction("Incentivos", "AdministrarEstrategia");
+            }
+        }
+
+        [HttpGet]
+        public PartialViewResult IncentivosDetalle(EstrategiaIncentivosModel inModel)
+        {
+            ViewBag.ddlCampania = DropDowListCampanias(userData.PaisID);
+            ViewBag.ddlTipoConcurso = new List<Object>()
+            {
+                new { value = "X", text = "RxP" },
+                new { value = "K", text = "Constancia" }
+            };
+
+            return PartialView(inModel);
+        }
+        #endregion
     }
 }
