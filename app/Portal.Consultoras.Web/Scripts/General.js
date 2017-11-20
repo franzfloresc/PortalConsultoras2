@@ -1878,6 +1878,12 @@ Object.defineProperty(Object.prototype, "in", {
     enumerable: false,
     writable: true
 });
+
+/**
+ * Crea eventos en el objeto con metodos de subscribe y applyChanges
+ * ussage: registerEvent.call(this, "nombreEvento"");
+ * @param {string} eventName nombre del evento
+ */
 var registerEvent = function (eventName) {
     var self = this;
     if (self[eventName]) {
