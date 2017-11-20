@@ -83,7 +83,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public ActionResult Informacion()
         {
             var userData = UserData();
-            var strpaises = ConfigurationManager.AppSettings.Get("Permisos_CCC");
+            var strpaises = GetPaisesConConsultoraOnlineFromConfig();
             if (!strpaises.Contains(userData.CodigoISO))
                 return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
 
@@ -326,7 +326,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             var userData = UserData();
 
-            var strpaises = ConfigurationManager.AppSettings.Get("Permisos_CCC");
+            var strpaises = GetPaisesConConsultoraOnlineFromConfig();
             if (!strpaises.Contains(userData.CodigoISO))
                 return Json(new
                 {

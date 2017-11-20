@@ -36,9 +36,18 @@ namespace Portal.Consultoras.Web.Models
 
         public string NombreConsultora { get; set; }
         public string CampaniaActual { get; set; }
+        /// <summary>
+        /// campaña que realizo la suscripcion o desuscripcion
+        /// </summary>
         public string CampaniaSuscripcion { get; set; }
-        public string CampaniaActiva { get; set; } // CampaniaSuscripcion + CantidadCampaniaEfectiva
-        public string CampaniaFuturoActiva { get; set; } // CampaniaActual + CantidadCampaniaEfectiva
+        /// <summary>
+        /// campaña que se tomara efecto la suscripción
+        /// </summary>
+        public string CampaniaActiva { get; set; }
+        /// <summary>
+        /// CampaniaActual + CantidadCampaniaEfectiva
+        /// </summary>
+        public string CampaniaFuturoActiva { get; set; }
 
         public bool NoVolverMostrar { get; set; }
         public int EstadoSuscripcion { get; set; }

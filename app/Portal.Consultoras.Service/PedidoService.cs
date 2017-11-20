@@ -2169,6 +2169,11 @@ namespace Portal.Consultoras.Service
             return BLRevistaDigitalSuscripcion.Single(entidad);
         }
 
+        public BERevistaDigitalSuscripcion RDGetSuscripcionActiva(BERevistaDigitalSuscripcion entidad)
+        {
+            return BLRevistaDigitalSuscripcion.SingleActiva(entidad);
+        }
+
         public BEConsultoraResumen ObtenerResumen(int paisId, int codigoCampania, long consultoraId)
         {
             return BLPedidoWeb.GetResumen(paisId, (int)consultoraId, codigoCampania);
