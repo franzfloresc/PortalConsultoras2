@@ -8,7 +8,6 @@
 }
 
 @section styles{
-    @*<link href="@Url.Content("~/Content/Css/Site/Esika/revistaDigital.css")" rel="stylesheet" />*@
     @System.Web.Optimization.Styles.Render("~/Content/Css/Site/CssPedido")
 }
 <div class="franja_negra" style="background: #000 url(@ViewBag.UrlFranjaNegra) no-repeat center bottom;"></div>
@@ -105,7 +104,6 @@
                 <input type="text" name="ClienteDescripcion" id="txtClienteDescripcion" onblur="ValidarCliente();" onkeydown="ValidarClienteFocus(event);"
                        maxlength="50" class="ValidaAlfanumerico" placeholder="Cliente (Opcional)" />
                 <span class="pedido_ingreso_datos_icono_mas">+</span>
-                @*<a class="pedidos_cliente" onclick="AbrirModalCliente();">*@
                 <a class="pedidos_cliente" onclick="showClienteDetalle(null);">
                     AGREGAR NUEVO CLIENTE
                 </a>
@@ -853,7 +851,6 @@
             </a>
         </div>
         <div class="contenido_popUp">
-            @*<span class="icono_exclamacion"></span>*@
             <div class="icono_mensaje_alerta icono_check_alerta" id="ofIconoSuperior" style="margin-bottom: 20px;"></div>
             <h1 class="titulo_agregarUnidades"><b>¡LO LOGRASTE!</b></h1>
             <div id="mensajedivReservaSatisfactoria" class="mensaje_agregarUnidades">

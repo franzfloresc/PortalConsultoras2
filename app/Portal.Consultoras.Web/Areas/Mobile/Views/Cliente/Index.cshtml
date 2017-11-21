@@ -99,15 +99,6 @@
                                 </div>
                             </div>
 
-                            @*<div class="table-width" style="margin-left:40px">
-                                    <div>
-                                        <strong class="upper clienteNombre">@cliente.Nombre</strong>
-                                    </div>
-                                    <div class="mt-10">Correo: <span class="clienteEmail">@cliente.Email</span></div>
-                                    <input type="hidden" class="clienteId" value="@cliente.ClienteID" />
-                                </div>
-                                <a href='javascript:;' class="cli-ac-edit text-primary actualizarCliente">EDITAR</a>
-                                <a href='javascript:;' class="cli-ac-delete text-primary" onclick="return EliminarCliente(@cliente.ClienteID);"><i class="icon-delete icon-lg"></i></a>*@
                         </div>
                     </li>
                                         }
@@ -136,16 +127,6 @@
         </div>
     </div>
     <!-- end modal -->
-    @*<div id="agregarCliente" class="modal fade">
-            <div class="modal-dialog modal-alert ">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        @Html.Partial("AgregarCliente", new ClienteMobileModel())
-                    </div>
-                </div>
-            </div>
-        </div>*@
-
     <div class="contenedor_popup_clientes modal" id="divAgregarCliente">
         <div class="popup_agregarCliente">
             <div id="divDetalleCliente"></div>

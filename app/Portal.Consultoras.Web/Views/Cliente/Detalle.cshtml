@@ -34,15 +34,6 @@
     @Html.HiddenFor(model => model.ClienteID)
     @Html.HiddenFor(model => model.CodigoCliente)
 
-    @*@Html.TextBoxFor(model => model.Nombre, new { placeholder = "Nombres y Apellidos", maxlength = "50", @class = "input-nombre", autocomplete = "off" })
-    <div class="noti mensaje_producto_noExiste" id="divNotiNombre">
-        <div class="noti_message red_texto_size">
-            <span class="icono_advertencia_notificacion"></span>
-            <span class="descripcion_mensaje">
-                Por favor ingresa un nombre válido.
-            </span>
-        </div>
-    </div>*@
     @Html.TextBoxFor(model => model.NombreCliente, new { placeholder = "Nombres", maxlength = "100", @class = "input-nombre", autocomplete = "off" })
     <div class="noti mensaje_producto_noExiste" id="divNotiNombre">
         <div class="noti_message red_texto_size">

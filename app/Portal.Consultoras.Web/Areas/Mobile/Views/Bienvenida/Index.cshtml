@@ -78,13 +78,6 @@
     <div class="content_320" style="text-align:center;">
         <!--QUITAR CENTER CUANDO HAY FOTO-->
         <div class="content_foto">
-            @*<div class="foto_usuaria_mobile">
-                    <img src="@Url.Content("~/Content/Images/mobile/Esika/user.jpg")" alt="-" />
-                    <div class="tooltip_foto">
-                        Prepara tu foto, pronto podrás subirla a tu portal.
-                    </div>
-                </div>*@
-
             @if (!string.IsNullOrEmpty(ViewBag.FotoPerfil))
             {
                 <div class="foto_usuaria_mobile">
@@ -95,7 +88,6 @@
         </div>
         <!--RESUMEN DATOS CONSULTORA Y CAMPAÑA-->
         <div class="content_resumen_dato_mobile" style="text-align:left">
-            @*<div class="saludo_mobile">¡Hola&nbsp;</div>*@
             @if (!string.IsNullOrEmpty(ViewBag.MensajeAniversario))
             {
                 <div class="saludo_mobile" style="width: 63%;">¡Feliz Aniversario&nbsp;</div>
@@ -261,7 +253,6 @@
             }
             else if (Model.PaisID == 6 || Model.PaisID == 11)
             {
-                @*<a class="boton_facturacion_e btn_100_facturacion" href="@Url.Action("Index", "FacturaElectronica")" target="_blank"> FACTURACI&Oacute;N ELECTR&Oacute;NICA</a>*@
             }
         </div>
         <!--FIN ITEM 2-->
