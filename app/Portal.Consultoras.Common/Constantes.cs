@@ -1336,7 +1336,8 @@ namespace Portal.Consultoras.Common
             public const string SALUDO = "SALUDO";
             public const string FONDO_INGPED = "FONDO_INGPED";
             public const string GIF_MENU_OFERTAS = "GIF_MENU_OFERTAS";
-            public const string GIF_MENU_OFERTAS_BPT = "GIF_MENU_OFERTAS_BPT";
+            public const string GIF_MENU_OFERTAS_BPT_GANA_MAS = "GIF_MENU_OFERTAS_BPT_GANA_MAS";
+            public const string GIF_MENU_OFERTAS_BPT_CLUB_GANA_MAS = "GIF_MENU_OFERTAS_BPT_CLUB_GANA_MAS";
             public const string RD_SI_D_ImagenLogo = "RD_SI_D_ImagenLogo";
             public const string RD_SI_D_ImagenFondo = "RD_SI_D_ImagenFondo";
             public const string RD_SI_D_TituloBanner = "RD_SI_D_TituloBanner";
