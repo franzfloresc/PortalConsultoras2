@@ -112,6 +112,19 @@
 			}
         });
 
+		$(document).ready(function() {
+			$("#txtPesoMaximoImagen").keydown(function (e) {
+				if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+					(e.keyCode == 65 &amp;&amp; e.ctrlKey === true) || 
+					(e.keyCode >= 35 &amp;&amp; e.keyCode <= 39)) {
+						 return;
+				}
+ 
+				if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) &amp;&amp; (e.keyCode < 96 || e.keyCode > 105)) {
+					e.preventDefault();
+				}
+			});
+		});
 
         $("#btnAgregarOferta").click(function () {
 
@@ -811,7 +824,7 @@
             </div>
             <div class="titB">Tamaño (Kb):</div>
                 <div class="selectP2 borde_redondeado">
-                <input type="text" id="txtPesoMaximoImagen" />
+                <input type="number" id="txtPesoMaximoImagen" />
             </div>
 
         </div>
