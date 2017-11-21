@@ -1697,7 +1697,7 @@ function odd_mobile_google_analytics_addtocart() {
     var variant = $('#OfertasDiaMobile').find("[data-slick-index=" + element + "]").find(".DescripcionEstrategia").val();
     var quantity = $('#pop_oferta_mobile').find("#txtCantidad").val();
     if (variant == "")
-        variant = "Estándar";
+        variant = "Oferta del Día";
     dataLayer.push({
         'event': 'addToCart',
         'ecommerce': {
