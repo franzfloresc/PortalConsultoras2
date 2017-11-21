@@ -529,6 +529,8 @@ function RDDetalleObtener() {
     });
 
     SetHandlebars("#producto-landing-template", obj, "#divOfertaProductos");
+    EstablecerAccionLazyImagen("img[data-lazy-seccion-revista-digital]");
+
     $("#divOfertaProductos").find('[data-item-accion="verdetalle"]').removeAttr("onclick");
     $("#divOfertaProductos").find('[data-item-accion="verdetalle"]').removeAttr("data-item-accion");
 
