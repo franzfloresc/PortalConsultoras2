@@ -7,14 +7,12 @@ IF EXISTS (select * from dbo.sysobjects where id = object_id('[dbo].[FlagValidar
 	and OBJECTPROPERTY(id, 'IsConstraint') = 1)
 	BEGIN
 		ALTER TABLE TipoEstrategia DROP CONSTRAINT FlagValidarImagen_def
-		GO
 	END
 
  	IF EXISTS (select * from dbo.sysobjects where id = object_id('[dbo].[PesoMaximoImagen_def]') 
 	and OBJECTPROPERTY(id, 'IsConstraint') = 1)
 	BEGIN
 		ALTER TABLE TipoEstrategia DROP CONSTRAINT PesoMaximoImagen_def 
-		GO
 	END     
 
     IF EXISTS(
@@ -23,8 +21,7 @@ IF EXISTS (select * from dbo.sysobjects where id = object_id('[dbo].[FlagValidar
         WHERE TABLE_NAME = 'TipoEstrategia' AND COLUMN_NAME = 'FlagValidarImagen'
     )
     	BEGIN
-		ALTER TABLE TipoEstrategia  DROP COLUMN FlagValidarImagen;
-		GO 
+		ALTER TABLE TipoEstrategia  DROP COLUMN FlagValidarImagen; 
 	END
 
     IF EXISTS(
@@ -33,8 +30,7 @@ IF EXISTS (select * from dbo.sysobjects where id = object_id('[dbo].[FlagValidar
         WHERE TABLE_NAME = 'TipoEstrategia' AND COLUMN_NAME = 'PesoMaximoImagen'
     )
     	BEGIN
-		ALTER TABLE TipoEstrategia  DROP COLUMN PesoMaximoImagen; 
-		GO
+		ALTER TABLE TipoEstrategia  DROP COLUMN PesoMaximoImagen;
 	END
 GO
 
@@ -47,14 +43,12 @@ IF EXISTS (select * from dbo.sysobjects where id = object_id('[dbo].[FlagValidar
 	and OBJECTPROPERTY(id, 'IsConstraint') = 1)
 	BEGIN
 		ALTER TABLE TipoEstrategia DROP CONSTRAINT FlagValidarImagen_def
-		GO
 	END
 
  	IF EXISTS (select * from dbo.sysobjects where id = object_id('[dbo].[PesoMaximoImagen_def]') 
 	and OBJECTPROPERTY(id, 'IsConstraint') = 1)
 	BEGIN
 		ALTER TABLE TipoEstrategia DROP CONSTRAINT PesoMaximoImagen_def 
-		GO
 	END     
 
     IF EXISTS(
@@ -63,8 +57,7 @@ IF EXISTS (select * from dbo.sysobjects where id = object_id('[dbo].[FlagValidar
         WHERE TABLE_NAME = 'TipoEstrategia' AND COLUMN_NAME = 'FlagValidarImagen'
     )
     	BEGIN
-		ALTER TABLE TipoEstrategia  DROP COLUMN FlagValidarImagen;
-		GO 
+		ALTER TABLE TipoEstrategia  DROP COLUMN FlagValidarImagen; 
 	END
 
     IF EXISTS(
@@ -73,8 +66,7 @@ IF EXISTS (select * from dbo.sysobjects where id = object_id('[dbo].[FlagValidar
         WHERE TABLE_NAME = 'TipoEstrategia' AND COLUMN_NAME = 'PesoMaximoImagen'
     )
     	BEGIN
-		ALTER TABLE TipoEstrategia  DROP COLUMN PesoMaximoImagen; 
-		GO
+		ALTER TABLE TipoEstrategia  DROP COLUMN PesoMaximoImagen;
 	END
 GO
 
@@ -87,14 +79,12 @@ IF EXISTS (select * from dbo.sysobjects where id = object_id('[dbo].[FlagValidar
 	and OBJECTPROPERTY(id, 'IsConstraint') = 1)
 	BEGIN
 		ALTER TABLE TipoEstrategia DROP CONSTRAINT FlagValidarImagen_def
-		GO
 	END
 
  	IF EXISTS (select * from dbo.sysobjects where id = object_id('[dbo].[PesoMaximoImagen_def]') 
 	and OBJECTPROPERTY(id, 'IsConstraint') = 1)
 	BEGIN
 		ALTER TABLE TipoEstrategia DROP CONSTRAINT PesoMaximoImagen_def 
-		GO
 	END     
 
     IF EXISTS(
@@ -103,8 +93,7 @@ IF EXISTS (select * from dbo.sysobjects where id = object_id('[dbo].[FlagValidar
         WHERE TABLE_NAME = 'TipoEstrategia' AND COLUMN_NAME = 'FlagValidarImagen'
     )
     	BEGIN
-		ALTER TABLE TipoEstrategia  DROP COLUMN FlagValidarImagen;
-		GO 
+		ALTER TABLE TipoEstrategia  DROP COLUMN FlagValidarImagen; 
 	END
 
     IF EXISTS(
@@ -113,8 +102,7 @@ IF EXISTS (select * from dbo.sysobjects where id = object_id('[dbo].[FlagValidar
         WHERE TABLE_NAME = 'TipoEstrategia' AND COLUMN_NAME = 'PesoMaximoImagen'
     )
     	BEGIN
-		ALTER TABLE TipoEstrategia  DROP COLUMN PesoMaximoImagen; 
-		GO
+		ALTER TABLE TipoEstrategia  DROP COLUMN PesoMaximoImagen;
 	END
 GO
 
@@ -127,14 +115,12 @@ IF EXISTS (select * from dbo.sysobjects where id = object_id('[dbo].[FlagValidar
 	and OBJECTPROPERTY(id, 'IsConstraint') = 1)
 	BEGIN
 		ALTER TABLE TipoEstrategia DROP CONSTRAINT FlagValidarImagen_def
-		GO
 	END
 
  	IF EXISTS (select * from dbo.sysobjects where id = object_id('[dbo].[PesoMaximoImagen_def]') 
 	and OBJECTPROPERTY(id, 'IsConstraint') = 1)
 	BEGIN
 		ALTER TABLE TipoEstrategia DROP CONSTRAINT PesoMaximoImagen_def 
-		GO
 	END     
 
     IF EXISTS(
@@ -143,8 +129,7 @@ IF EXISTS (select * from dbo.sysobjects where id = object_id('[dbo].[FlagValidar
         WHERE TABLE_NAME = 'TipoEstrategia' AND COLUMN_NAME = 'FlagValidarImagen'
     )
     	BEGIN
-		ALTER TABLE TipoEstrategia  DROP COLUMN FlagValidarImagen;
-		GO 
+		ALTER TABLE TipoEstrategia  DROP COLUMN FlagValidarImagen; 
 	END
 
     IF EXISTS(
@@ -153,8 +138,7 @@ IF EXISTS (select * from dbo.sysobjects where id = object_id('[dbo].[FlagValidar
         WHERE TABLE_NAME = 'TipoEstrategia' AND COLUMN_NAME = 'PesoMaximoImagen'
     )
     	BEGIN
-		ALTER TABLE TipoEstrategia  DROP COLUMN PesoMaximoImagen; 
-		GO
+		ALTER TABLE TipoEstrategia  DROP COLUMN PesoMaximoImagen;
 	END
 GO
 
@@ -167,14 +151,12 @@ IF EXISTS (select * from dbo.sysobjects where id = object_id('[dbo].[FlagValidar
 	and OBJECTPROPERTY(id, 'IsConstraint') = 1)
 	BEGIN
 		ALTER TABLE TipoEstrategia DROP CONSTRAINT FlagValidarImagen_def
-		GO
 	END
 
  	IF EXISTS (select * from dbo.sysobjects where id = object_id('[dbo].[PesoMaximoImagen_def]') 
 	and OBJECTPROPERTY(id, 'IsConstraint') = 1)
 	BEGIN
 		ALTER TABLE TipoEstrategia DROP CONSTRAINT PesoMaximoImagen_def 
-		GO
 	END     
 
     IF EXISTS(
@@ -183,8 +165,7 @@ IF EXISTS (select * from dbo.sysobjects where id = object_id('[dbo].[FlagValidar
         WHERE TABLE_NAME = 'TipoEstrategia' AND COLUMN_NAME = 'FlagValidarImagen'
     )
     	BEGIN
-		ALTER TABLE TipoEstrategia  DROP COLUMN FlagValidarImagen;
-		GO 
+		ALTER TABLE TipoEstrategia  DROP COLUMN FlagValidarImagen; 
 	END
 
     IF EXISTS(
@@ -193,8 +174,7 @@ IF EXISTS (select * from dbo.sysobjects where id = object_id('[dbo].[FlagValidar
         WHERE TABLE_NAME = 'TipoEstrategia' AND COLUMN_NAME = 'PesoMaximoImagen'
     )
     	BEGIN
-		ALTER TABLE TipoEstrategia  DROP COLUMN PesoMaximoImagen; 
-		GO
+		ALTER TABLE TipoEstrategia  DROP COLUMN PesoMaximoImagen;
 	END
 GO
 
@@ -207,14 +187,12 @@ IF EXISTS (select * from dbo.sysobjects where id = object_id('[dbo].[FlagValidar
 	and OBJECTPROPERTY(id, 'IsConstraint') = 1)
 	BEGIN
 		ALTER TABLE TipoEstrategia DROP CONSTRAINT FlagValidarImagen_def
-		GO
 	END
 
  	IF EXISTS (select * from dbo.sysobjects where id = object_id('[dbo].[PesoMaximoImagen_def]') 
 	and OBJECTPROPERTY(id, 'IsConstraint') = 1)
 	BEGIN
 		ALTER TABLE TipoEstrategia DROP CONSTRAINT PesoMaximoImagen_def 
-		GO
 	END     
 
     IF EXISTS(
@@ -223,8 +201,7 @@ IF EXISTS (select * from dbo.sysobjects where id = object_id('[dbo].[FlagValidar
         WHERE TABLE_NAME = 'TipoEstrategia' AND COLUMN_NAME = 'FlagValidarImagen'
     )
     	BEGIN
-		ALTER TABLE TipoEstrategia  DROP COLUMN FlagValidarImagen;
-		GO 
+		ALTER TABLE TipoEstrategia  DROP COLUMN FlagValidarImagen; 
 	END
 
     IF EXISTS(
@@ -233,8 +210,7 @@ IF EXISTS (select * from dbo.sysobjects where id = object_id('[dbo].[FlagValidar
         WHERE TABLE_NAME = 'TipoEstrategia' AND COLUMN_NAME = 'PesoMaximoImagen'
     )
     	BEGIN
-		ALTER TABLE TipoEstrategia  DROP COLUMN PesoMaximoImagen; 
-		GO
+		ALTER TABLE TipoEstrategia  DROP COLUMN PesoMaximoImagen;
 	END
 GO
 
@@ -247,14 +223,12 @@ IF EXISTS (select * from dbo.sysobjects where id = object_id('[dbo].[FlagValidar
 	and OBJECTPROPERTY(id, 'IsConstraint') = 1)
 	BEGIN
 		ALTER TABLE TipoEstrategia DROP CONSTRAINT FlagValidarImagen_def
-		GO
 	END
 
  	IF EXISTS (select * from dbo.sysobjects where id = object_id('[dbo].[PesoMaximoImagen_def]') 
 	and OBJECTPROPERTY(id, 'IsConstraint') = 1)
 	BEGIN
 		ALTER TABLE TipoEstrategia DROP CONSTRAINT PesoMaximoImagen_def 
-		GO
 	END     
 
     IF EXISTS(
@@ -263,8 +237,7 @@ IF EXISTS (select * from dbo.sysobjects where id = object_id('[dbo].[FlagValidar
         WHERE TABLE_NAME = 'TipoEstrategia' AND COLUMN_NAME = 'FlagValidarImagen'
     )
     	BEGIN
-		ALTER TABLE TipoEstrategia  DROP COLUMN FlagValidarImagen;
-		GO 
+		ALTER TABLE TipoEstrategia  DROP COLUMN FlagValidarImagen; 
 	END
 
     IF EXISTS(
@@ -273,8 +246,7 @@ IF EXISTS (select * from dbo.sysobjects where id = object_id('[dbo].[FlagValidar
         WHERE TABLE_NAME = 'TipoEstrategia' AND COLUMN_NAME = 'PesoMaximoImagen'
     )
     	BEGIN
-		ALTER TABLE TipoEstrategia  DROP COLUMN PesoMaximoImagen; 
-		GO
+		ALTER TABLE TipoEstrategia  DROP COLUMN PesoMaximoImagen;
 	END
 GO
 
@@ -287,14 +259,12 @@ IF EXISTS (select * from dbo.sysobjects where id = object_id('[dbo].[FlagValidar
 	and OBJECTPROPERTY(id, 'IsConstraint') = 1)
 	BEGIN
 		ALTER TABLE TipoEstrategia DROP CONSTRAINT FlagValidarImagen_def
-		GO
 	END
 
  	IF EXISTS (select * from dbo.sysobjects where id = object_id('[dbo].[PesoMaximoImagen_def]') 
 	and OBJECTPROPERTY(id, 'IsConstraint') = 1)
 	BEGIN
 		ALTER TABLE TipoEstrategia DROP CONSTRAINT PesoMaximoImagen_def 
-		GO
 	END     
 
     IF EXISTS(
@@ -303,8 +273,7 @@ IF EXISTS (select * from dbo.sysobjects where id = object_id('[dbo].[FlagValidar
         WHERE TABLE_NAME = 'TipoEstrategia' AND COLUMN_NAME = 'FlagValidarImagen'
     )
     	BEGIN
-		ALTER TABLE TipoEstrategia  DROP COLUMN FlagValidarImagen;
-		GO 
+		ALTER TABLE TipoEstrategia  DROP COLUMN FlagValidarImagen; 
 	END
 
     IF EXISTS(
@@ -313,8 +282,7 @@ IF EXISTS (select * from dbo.sysobjects where id = object_id('[dbo].[FlagValidar
         WHERE TABLE_NAME = 'TipoEstrategia' AND COLUMN_NAME = 'PesoMaximoImagen'
     )
     	BEGIN
-		ALTER TABLE TipoEstrategia  DROP COLUMN PesoMaximoImagen; 
-		GO
+		ALTER TABLE TipoEstrategia  DROP COLUMN PesoMaximoImagen;
 	END
 GO
 
@@ -327,14 +295,12 @@ IF EXISTS (select * from dbo.sysobjects where id = object_id('[dbo].[FlagValidar
 	and OBJECTPROPERTY(id, 'IsConstraint') = 1)
 	BEGIN
 		ALTER TABLE TipoEstrategia DROP CONSTRAINT FlagValidarImagen_def
-		GO
 	END
 
  	IF EXISTS (select * from dbo.sysobjects where id = object_id('[dbo].[PesoMaximoImagen_def]') 
 	and OBJECTPROPERTY(id, 'IsConstraint') = 1)
 	BEGIN
 		ALTER TABLE TipoEstrategia DROP CONSTRAINT PesoMaximoImagen_def 
-		GO
 	END     
 
     IF EXISTS(
@@ -343,8 +309,7 @@ IF EXISTS (select * from dbo.sysobjects where id = object_id('[dbo].[FlagValidar
         WHERE TABLE_NAME = 'TipoEstrategia' AND COLUMN_NAME = 'FlagValidarImagen'
     )
     	BEGIN
-		ALTER TABLE TipoEstrategia  DROP COLUMN FlagValidarImagen;
-		GO 
+		ALTER TABLE TipoEstrategia  DROP COLUMN FlagValidarImagen; 
 	END
 
     IF EXISTS(
@@ -353,8 +318,7 @@ IF EXISTS (select * from dbo.sysobjects where id = object_id('[dbo].[FlagValidar
         WHERE TABLE_NAME = 'TipoEstrategia' AND COLUMN_NAME = 'PesoMaximoImagen'
     )
     	BEGIN
-		ALTER TABLE TipoEstrategia  DROP COLUMN PesoMaximoImagen; 
-		GO
+		ALTER TABLE TipoEstrategia  DROP COLUMN PesoMaximoImagen;
 	END
 GO
 
@@ -367,14 +331,12 @@ IF EXISTS (select * from dbo.sysobjects where id = object_id('[dbo].[FlagValidar
 	and OBJECTPROPERTY(id, 'IsConstraint') = 1)
 	BEGIN
 		ALTER TABLE TipoEstrategia DROP CONSTRAINT FlagValidarImagen_def
-		GO
 	END
 
  	IF EXISTS (select * from dbo.sysobjects where id = object_id('[dbo].[PesoMaximoImagen_def]') 
 	and OBJECTPROPERTY(id, 'IsConstraint') = 1)
 	BEGIN
 		ALTER TABLE TipoEstrategia DROP CONSTRAINT PesoMaximoImagen_def 
-		GO
 	END     
 
     IF EXISTS(
@@ -383,8 +345,7 @@ IF EXISTS (select * from dbo.sysobjects where id = object_id('[dbo].[FlagValidar
         WHERE TABLE_NAME = 'TipoEstrategia' AND COLUMN_NAME = 'FlagValidarImagen'
     )
     	BEGIN
-		ALTER TABLE TipoEstrategia  DROP COLUMN FlagValidarImagen;
-		GO 
+		ALTER TABLE TipoEstrategia  DROP COLUMN FlagValidarImagen; 
 	END
 
     IF EXISTS(
@@ -393,8 +354,7 @@ IF EXISTS (select * from dbo.sysobjects where id = object_id('[dbo].[FlagValidar
         WHERE TABLE_NAME = 'TipoEstrategia' AND COLUMN_NAME = 'PesoMaximoImagen'
     )
     	BEGIN
-		ALTER TABLE TipoEstrategia  DROP COLUMN PesoMaximoImagen; 
-		GO
+		ALTER TABLE TipoEstrategia  DROP COLUMN PesoMaximoImagen;
 	END
 GO
 
@@ -407,14 +367,12 @@ IF EXISTS (select * from dbo.sysobjects where id = object_id('[dbo].[FlagValidar
 	and OBJECTPROPERTY(id, 'IsConstraint') = 1)
 	BEGIN
 		ALTER TABLE TipoEstrategia DROP CONSTRAINT FlagValidarImagen_def
-		GO
 	END
 
  	IF EXISTS (select * from dbo.sysobjects where id = object_id('[dbo].[PesoMaximoImagen_def]') 
 	and OBJECTPROPERTY(id, 'IsConstraint') = 1)
 	BEGIN
 		ALTER TABLE TipoEstrategia DROP CONSTRAINT PesoMaximoImagen_def 
-		GO
 	END     
 
     IF EXISTS(
@@ -423,8 +381,7 @@ IF EXISTS (select * from dbo.sysobjects where id = object_id('[dbo].[FlagValidar
         WHERE TABLE_NAME = 'TipoEstrategia' AND COLUMN_NAME = 'FlagValidarImagen'
     )
     	BEGIN
-		ALTER TABLE TipoEstrategia  DROP COLUMN FlagValidarImagen;
-		GO 
+		ALTER TABLE TipoEstrategia  DROP COLUMN FlagValidarImagen; 
 	END
 
     IF EXISTS(
@@ -433,8 +390,7 @@ IF EXISTS (select * from dbo.sysobjects where id = object_id('[dbo].[FlagValidar
         WHERE TABLE_NAME = 'TipoEstrategia' AND COLUMN_NAME = 'PesoMaximoImagen'
     )
     	BEGIN
-		ALTER TABLE TipoEstrategia  DROP COLUMN PesoMaximoImagen; 
-		GO
+		ALTER TABLE TipoEstrategia  DROP COLUMN PesoMaximoImagen;
 	END
 GO
 
@@ -447,14 +403,12 @@ IF EXISTS (select * from dbo.sysobjects where id = object_id('[dbo].[FlagValidar
 	and OBJECTPROPERTY(id, 'IsConstraint') = 1)
 	BEGIN
 		ALTER TABLE TipoEstrategia DROP CONSTRAINT FlagValidarImagen_def
-		GO
 	END
 
  	IF EXISTS (select * from dbo.sysobjects where id = object_id('[dbo].[PesoMaximoImagen_def]') 
 	and OBJECTPROPERTY(id, 'IsConstraint') = 1)
 	BEGIN
 		ALTER TABLE TipoEstrategia DROP CONSTRAINT PesoMaximoImagen_def 
-		GO
 	END     
 
     IF EXISTS(
@@ -463,8 +417,7 @@ IF EXISTS (select * from dbo.sysobjects where id = object_id('[dbo].[FlagValidar
         WHERE TABLE_NAME = 'TipoEstrategia' AND COLUMN_NAME = 'FlagValidarImagen'
     )
     	BEGIN
-		ALTER TABLE TipoEstrategia  DROP COLUMN FlagValidarImagen;
-		GO 
+		ALTER TABLE TipoEstrategia  DROP COLUMN FlagValidarImagen; 
 	END
 
     IF EXISTS(
@@ -473,8 +426,7 @@ IF EXISTS (select * from dbo.sysobjects where id = object_id('[dbo].[FlagValidar
         WHERE TABLE_NAME = 'TipoEstrategia' AND COLUMN_NAME = 'PesoMaximoImagen'
     )
     	BEGIN
-		ALTER TABLE TipoEstrategia  DROP COLUMN PesoMaximoImagen; 
-		GO
+		ALTER TABLE TipoEstrategia  DROP COLUMN PesoMaximoImagen;
 	END
 GO
 
@@ -487,14 +439,12 @@ IF EXISTS (select * from dbo.sysobjects where id = object_id('[dbo].[FlagValidar
 	and OBJECTPROPERTY(id, 'IsConstraint') = 1)
 	BEGIN
 		ALTER TABLE TipoEstrategia DROP CONSTRAINT FlagValidarImagen_def
-		GO
 	END
 
  	IF EXISTS (select * from dbo.sysobjects where id = object_id('[dbo].[PesoMaximoImagen_def]') 
 	and OBJECTPROPERTY(id, 'IsConstraint') = 1)
 	BEGIN
 		ALTER TABLE TipoEstrategia DROP CONSTRAINT PesoMaximoImagen_def 
-		GO
 	END     
 
     IF EXISTS(
@@ -503,8 +453,7 @@ IF EXISTS (select * from dbo.sysobjects where id = object_id('[dbo].[FlagValidar
         WHERE TABLE_NAME = 'TipoEstrategia' AND COLUMN_NAME = 'FlagValidarImagen'
     )
     	BEGIN
-		ALTER TABLE TipoEstrategia  DROP COLUMN FlagValidarImagen;
-		GO 
+		ALTER TABLE TipoEstrategia  DROP COLUMN FlagValidarImagen; 
 	END
 
     IF EXISTS(
@@ -513,8 +462,7 @@ IF EXISTS (select * from dbo.sysobjects where id = object_id('[dbo].[FlagValidar
         WHERE TABLE_NAME = 'TipoEstrategia' AND COLUMN_NAME = 'PesoMaximoImagen'
     )
     	BEGIN
-		ALTER TABLE TipoEstrategia  DROP COLUMN PesoMaximoImagen; 
-		GO
+		ALTER TABLE TipoEstrategia  DROP COLUMN PesoMaximoImagen;
 	END
 GO
 
