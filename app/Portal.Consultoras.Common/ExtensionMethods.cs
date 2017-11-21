@@ -234,5 +234,14 @@ namespace Portal.Consultoras.Common
             if (obj.Trim() == string.Empty) return true;
             return false;
         }
+
+        public static bool IsGuid(this string guid)
+        {
+            if (string.IsNullOrEmpty(guid))
+                return false;
+
+            Guid tryGuid;
+            return Guid.TryParse(guid, out tryGuid);
+        }
     }
 }
