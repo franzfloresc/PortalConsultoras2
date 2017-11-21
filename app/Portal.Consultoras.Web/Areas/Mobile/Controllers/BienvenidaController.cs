@@ -22,6 +22,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var model = new BienvenidaModel();
             try
             {
+                if (userData.RolID != Constantes.Rol.Consultora)
+                    return RedirectToAction("Index", "Bienvenida", new { area = "" });
+
                 if (base.ObtenerPedidoWeb() != null)
                 {
                     model.MontoAhorroCatalogo = base.ObtenerPedidoWeb().MontoAhorroCatalogo;
