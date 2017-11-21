@@ -92,8 +92,15 @@
             if (ModelState.IsValid)
             {
                 List<EstadoCuentaModel> lst;
+                string DeudaActualConultora = "0.00";
 
-                lst = EstadodeCuenta(codigoConsultora);
+                long ConsulID = ObtenerConsultoraId(codigoConsultora);
+                lst = EstadodeCuenta(ConsulID);
+
+                using (SACServiceClient client = new SACServiceClient())
+                {
+                    DeudaActualConultora = client.GetDeudaActualConsultora(userData.PaisID, ConsulID);
+                }
 
                 ///Totales
                 string fechaVencimiento;
@@ -119,11 +126,11 @@
                         fechaVencimiento = string.Empty;
                     if (userData.PaisID == 4) // Validación para país colombia req. 1478
                     {
-                        montoPagar = string.Format("{0:#,##0}", lst[lst.Count - 1].Cargo).Replace(',', '.');
+                        montoPagar = string.Format("{0:#,##0}", DeudaActualConultora.Replace(',', '.'));//lst[lst.Count - 1].Cargo).Replace(',', '.');
                     }
                     else
                     {
-                        montoPagar = string.Format("{0:#,##0.00}", lst[lst.Count - 1].Cargo);
+                        montoPagar = string.Format("{0:#,##0.00}", DeudaActualConultora); //lst[lst.Count - 1].Cargo);
                     }
                 }
                 simbolo = string.Format("{0} ", userData.Simbolo);
@@ -1352,11 +1359,22 @@
             return fecha;
         }
 
-        private List<EstadoCuentaModel> EstadodeCuenta(string codigoConsultora)
+        private List<EstadoCuentaModel> EstadodeCuenta(long ConsultoraID)
         {
-            List<EstadoCuentaModel> lst = ObtenerEstadoCuenta();
+            List<EstadoCuentaModel> lst = ObtenerEstadoCuenta(ConsultoraID);
 
             return lst;
+        }
+
+        public long ObtenerConsultoraId(string codigoConsultora)
+        {
+            long ConsultoraIdmetodo;
+            using (ServiceODS.ODSServiceClient sv = new ServiceODS.ODSServiceClient())
+            {
+                ConsultoraIdmetodo = sv.GetConsultoraIdByCodigo(userData.PaisID, codigoConsultora);
+            }
+
+            return ConsultoraIdmetodo;
         }
 
         public BEPager Paginador(BEGrid item, List<EstadoCuentaModel> lst)
