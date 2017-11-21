@@ -7,11 +7,7 @@
         <div class="div-3">
             <div class="titG"><span class="required">(*)</span>Cod. concurso:</div>
             <div class="selectA" style="width:150px">
-                @Html.TextBoxFor(model => model.CodigoConcurso, new { autocomplete = "off", maxlength = "3" })
-            </div>
-            <div class="titG"><span class="required">(*)</span>Tipo concurso:</div>
-            <div class="selectA" style="width:150px">
-                @Html.DropDownListFor(model => model.TipoConcurso, new SelectList(ViewBag.ddlTipoConcurso, "value", "text"), "-- Seleccionar --")
+                @Html.TextBoxFor(model => model.CodigoConcurso, new { autocomplete = "off", maxlength = "6" })
             </div>
         </div>
         <div class="div-3">

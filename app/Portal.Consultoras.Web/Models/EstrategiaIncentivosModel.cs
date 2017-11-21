@@ -5,7 +5,6 @@ namespace Portal.Consultoras.Web.Models
     {
         public int EstrategiaID { get; set; }
         public string CodigoConcurso { get; set; }
-        public string TipoConcurso { get; set; }
         public int CampaniaInicio { get; set; }
         public int CampaniaFin { get; set; }
         public string CUV { get; set; }

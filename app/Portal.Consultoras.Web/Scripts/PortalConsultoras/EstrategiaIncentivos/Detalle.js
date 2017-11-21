@@ -160,11 +160,6 @@ $("#btnGuardar").click(function (e) {
         $("#CodigoConcurso").focus();
         return;
     }
-    if ($.trim($("#TipoConcurso").val()) == "") {
-        alert("Seleccione un tipo de concurso");
-        $("#TipoConcurso").focus();
-        return;
-    }
     if ($("#CampaniaFin").val() == "") {
         alert("Seleccione la campaña de vigencia final.");
         $("#CampaniaFin").focus();
@@ -251,8 +246,7 @@ $("#btnGuardar").click(function (e) {
         PrecioAnt: "",
         EsOfertaIndependiente: "0",
         Ganancia: "0",
-        CodigoConcurso: $.trim($("#CodigoConcurso").val()),
-        TipoConcurso: $("#TipoConcurso").val()
+        CodigoConcurso: $.trim($("#CodigoConcurso").val())
     };
 
     waitingDialog({});
