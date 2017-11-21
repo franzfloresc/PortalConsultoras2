@@ -77,38 +77,8 @@
     }
 </head>
 <body>
-    <!-- Google Tag Manager -->
-    <script type="text/javascript">
-        dataLayer = [{
-            'campana': '@ViewBag.CampaniaCodigo',
-            'segmento': '@ViewBag.SegmentoAnalytics',
-            'edad': '@ViewBag.EdadAnalytics',
-            'zona': '@ViewBag.ZonaAnalytics',
-            'pais': '@ViewBag.PaisAnalytics',
-            'rol': '@ViewBag.esConsultoraLiderAnalytics',
-            'region': '@ViewBag.RegionAnalytics',
-            'seccion': '@ViewBag.SeccionAnalytics',
-            'codigoconsultora': '@ViewBag.CodigoConsultoraDL',
-            'periodo': '@ViewBag.PeriodoAnalytics',
-            'segmentoconstancia': '@ViewBag.SegmentoConstancia',
-            'socianivel': '@ViewBag.DescripcionNivelAnalytics',
-            'semana-periodo': '@ViewBag.SemanaAnalytics'
-        }];
-    </script>
-    <noscript>
-        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-M8QMC8" height="0" width="0" style="display: none; visibility: hidden;"></iframe>
-    </noscript>
-    <script>
-        (function (w, d, s, l, i) {
-            w[l] = w[l] || []; w[l].push({
-                'gtm.start':
-                new Date().getTime(), event: 'gtm.js'
-            }); var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-                    '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-M8QMC8');
-    </script>
-    <!-- End Google Tag Manager -->
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManager.cshtml")
+
     @if (ViewBag.PaisesConTrackingJetlore == "1")
     {
         <script type="text/javascript" src="https://assets.jetlore.com/js/jltracking.js"></script>
@@ -462,19 +432,6 @@
         var campaniaCodigo = '@ViewBag.CampaniaCodigo';
         var campaniaAnio = parseInt(parseInt(campaniaCodigo) / 100);
         var campaniaNro = parseInt(campaniaCodigo) - campaniaAnio * 100;
-        var DesktopHomeBanners = @Constantes.OrigenPedidoWeb.DesktopHomeBanners;
-        var DesktopHomeOfertasParaTi = @Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi;
-        var DesktopHomeOfertasParaTiPopUp = @Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiPopUp;
-        var DesktopHomeCatalogoPersonalizado = @Constantes.OrigenPedidoWeb.DesktopHomeCatalogoPersonalizado;
-        var DesktopHomeCatalogoPersonalizadoPopUp = @Constantes.OrigenPedidoWeb.DesktopHomeCatalogoPersonalizadoPopUp;
-        var DesktopHomeLiquidacion = @Constantes.OrigenPedidoWeb.DesktopHomeLiquidacion;
-        var DesktopPedidoOfertasParaTi = @Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTi;
-        var DesktopPedidoOfertasParaTiPopUp = @Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTiPopUp;
-        var DesktopPedidoSugerido = @Constantes.OrigenPedidoWeb.DesktopPedidoSugerido;
-        var DesktopPedidoOfertaFinal = @Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinal;
-        var DesktopLiquidacion = @Constantes.OrigenPedidoWeb.DesktopLiquidacion;
-        var DesktopCatalogoPersonalizadoPopUp = @Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizadoPopUp;
-        var DesktopCatalogoPersonalizado = @Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizado;
         var sesionEsShowRoom = '@Portal.Consultoras.Web.SessionManager.SessionManager.Instance.GetEsShowRoom().ToString().ToLower()' === 'true';
         var EfectoTutorialSalvavidas = '@ViewBag.Efecto_TutorialSalvavidas';
         var ViewBagEsMobile = '@ViewBag.EsMobile';

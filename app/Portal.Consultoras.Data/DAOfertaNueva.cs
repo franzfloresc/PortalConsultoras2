@@ -74,7 +74,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@FlagImagenActiva", DbType.Int16, oBe.FlagImagenActiva);
             Context.Database.AddInParameter(command, "@FlagHabilitarOferta", DbType.Boolean, oBe.FlagHabilitarOferta);
             Context.Database.AddInParameter(command, "@UsuarioRegistro", DbType.AnsiString, oBe.UsuarioRegistro);
-            Context.Database.AddInParameter(command, "@ganahasta", DbType.Decimal, oBe.ganahasta);//1731
+            Context.Database.AddInParameter(command, "@ganahasta", DbType.Decimal, oBe.ganahasta);
 
             return Context.ExecuteNonQuery(command);
         }
@@ -96,7 +96,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@FlagImagenActiva", DbType.Int16, oBe.FlagImagenActiva);
             Context.Database.AddInParameter(command, "@FlagHabilitarOferta", DbType.Boolean, oBe.FlagHabilitarOferta);
             Context.Database.AddInParameter(command, "@UsuarioModificacion", DbType.AnsiString, oBe.UsuarioModificacion);
-            Context.Database.AddInParameter(command, "@ganahasta", DbType.Decimal, oBe.ganahasta);//1731
+            Context.Database.AddInParameter(command, "@ganahasta", DbType.Decimal, oBe.ganahasta);
             return Context.ExecuteNonQuery(command);
         }
 
@@ -136,7 +136,6 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        //1487
         public IDataReader GetProductosOfertaConsultoraNueva(int CampaniaID, int consultoraid)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetProductosOfertaConsultoraNueva");

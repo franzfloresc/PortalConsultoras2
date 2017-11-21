@@ -696,7 +696,6 @@ function checkTimeout(data) {
         }
 
         if (!thereIsStillTime) {
-            //window.location.href = "/Login/SesionExpirada";
 
             var message = "Tu sesión ha finalizado por inactividad. Por favor, ingresa nuevamente.";
             if (ViewBagEsMobile == 1) {/*1 Desktop, 2 Mobile*/
@@ -965,7 +964,6 @@ function xMensajeEstadoPedido(estado) {
         ResizeMensajeEstadoPedido();
     }
     else {
-        //$("#bloquemensajesPedido").slideUp();
         $("#bloquemensajesPedido").hide();
     }
     LayoutHeader();
@@ -976,26 +974,11 @@ function LayoutHeader() {
     $(document).ajaxStop(function () {
         LayoutHeaderFin();
     });
-    //setTimeout(function () {
-    //    var wtop = $("header").innerHeight();
-    //    $("[data-content]").animate({ "margin-top": (wtop) + "px" });
-    //}, 350);
 }
 
 function LayoutHeaderFin() {
     var wtop = $("header").innerHeight();
     $("[data-content]").css("margin-top", (wtop) + "px");
-
-    //$("[data-content] div[data-layout-menu2]").css("top", (wtop) + "px");
-    //if ($('[data-content] div[data-layout-menu2]').is(':visible')) {
-    //    wtop = $(window).innerWidth() * 0.12;
-    //    $("[data-content] div[data-layout-menu2]").css("width", (wtop) + "px");
-    //    $("[data-content] div[data-layout-body]").css("margin-left", (wtop) + "px");
-    //}
-    //else {
-    //    $("[data-content] div[data-layout-body]").css("width", "100%");
-    //    $("[data-content] div[data-layout-body]").css("margin-left", "");
-    //}
 }
 
 function LayoutMenu() {
@@ -1131,7 +1114,6 @@ function cerrarMensajePostulante() {
     $.ajax({
         type: 'POST',
         url: baseUrl + 'Bienvenida/CerrarMensajePostulante',
-        //data: '',
         cache: false,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
@@ -1257,7 +1239,6 @@ function AnalyticsRedesSociales(tipoRedes, ruta) {
 }
 
 function CompartirRedesSocialesInsertar(article, tipoRedes, ruta) {
-    //AbrirLoad();
 
     var _rutaImagen = $.trim($(article).find(".rs" + tipoRedes + "RutaImagen").val());
     var _mensaje = $.trim($(article).find(".rs" + tipoRedes + "Mensaje").val());
@@ -1273,9 +1254,6 @@ function CompartirRedesSocialesInsertar(article, tipoRedes, ruta) {
         pcDetalle += "|" + _vol + "|" + _descProd;
     }
     try {
-        //if (_palanca === "LAN") {
-        //    CompartirProductoRDAnalytics(tipoRedes, ruta, _nombre);
-        //}
     } catch (e) { console.log(e); }
 
     var Item = {
@@ -1293,7 +1271,6 @@ function CompartirRedesSocialesInsertar(article, tipoRedes, ruta) {
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(Item),
         success: function (response) {
-            //CloseLoading();
             if (checkTimeout(response)) {
                 if (response.success) {
                     CompartirRedesSocialesAbrirVentana(response.data.id, tipoRedes, ruta, _mensaje, _nombre);
@@ -1386,7 +1363,6 @@ function ConfirmarModificarPedido() {
         success: function (data) {
             if (checkTimeout(data)) {
                 if (data.success == true) {
-                    //location.href = urlIngresarPedido;
                     CloseLoading();
                     $('#popupInformacion2').hide();
                 } else {
@@ -1404,7 +1380,6 @@ function ConfirmarModificarPedido() {
     });
 }
 
-/*** EPD-1682 ***/
 function AbrirPopupPedidoReservado(pMensaje, pTipoOrigen) {
     if (pTipoOrigen == '2' || pTipoOrigen == '21') { //mobile | 21 -> Showroom
         if (ViewIndicadorGPRSB == '0') {
@@ -1958,7 +1933,6 @@ function EstablecerLazyCarrusel(elementoHtml) {
         
     });
 
-    //return $(nombreElementoHtml).html();
 }
 
 function EstablecerAccionLazyImagen(nombreAtributo, withTimeout) {

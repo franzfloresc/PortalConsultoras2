@@ -53,9 +53,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             CargarInformacion();
             model.ListaCampania = (List<CampaniaModel>)Session[Constantes.ConstSession.CDRCampanias];
-            /*EPD-1339*/
             if (model.ListaCampania.Count <= 1) return RedirectToAction("Index");
-            /*EPD-1339*/
 
             if (pedidoId != 0)
             {
@@ -75,22 +73,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.Email = userData.EMail;
             model.Telefono = userData.Celular;
             model.MontoMinimo = userData.MontoMinimo;
-
-            #region CDR_Express
-            //EPD-1919
-            //model.TieneCDRExpress = userData.TieneCDRExpress;
-            //model.EsConsultoraNueva = userData.EsConsecutivoNueva;
-            //model.FleteDespacho = GetValorFleteExpress();
-            //model.MensajesExpress = new MensajesCDRExpressModel
-            //{
-            //    RegularPrincipal = GetMensajeCDRExpress(Constantes.MensajesCDRExpress.RegularPrincipal),
-            //    RegularAdicional = GetMensajeCDRExpress(Constantes.MensajesCDRExpress.RegularAdicional),
-            //    ExpressPrincipal = GetMensajeCDRExpress(Constantes.MensajesCDRExpress.ExpressPrincipal),
-            //    ExpressAdicional = GetMensajeCDRExpress(Constantes.MensajesCDRExpress.ExpressAdicional),
-            //    Nuevas = GetMensajeCDRExpress(Constantes.MensajesCDRExpress.Nuevas)
-            //};
-            //model.MensajesExpress.ExpressFlete = SetMensajeFleteExpress(model.FleteDespacho);
-            #endregion
 
             if (userData.PaisID == 9)
             {

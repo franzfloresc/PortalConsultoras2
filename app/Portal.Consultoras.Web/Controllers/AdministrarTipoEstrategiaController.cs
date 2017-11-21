@@ -15,9 +15,6 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class AdministrarTipoEstrategiaController : BaseController
     {
-        //
-        // GET: /AdministrarTipoEstrategia/
-
         public ActionResult Index(TipoEstrategiaModel model)
         {
             try
@@ -49,7 +46,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     lst = new List<BETipoEstrategia>();
                 }
-
+                
                 string carpetapais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
 
                 if (lst != null && lst.Count > 0)
@@ -58,13 +55,11 @@ namespace Portal.Consultoras.Web.Controllers
                     lst.Update(x => x.ImagenOfertaIndependiente = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenOfertaIndependiente, carpetapais));
                 }
 
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                //int buscar = int.Parse(txtBuscar);
                 BEPager pag = new BEPager();
                 IEnumerable<BETipoEstrategia> items = lst;
 
@@ -99,7 +94,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 pag = Util.PaginadorGenerico(grid, lst);
 
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,
@@ -123,9 +117,11 @@ namespace Portal.Consultoras.Web.Controllers
                                    a.FlagRecoProduc.ToString(),
                                    a.FlagRecoPerfil.ToString(),
                                    string.IsNullOrEmpty( a.CodigoPrograma) ? string.Empty: a.CodigoPrograma.ToString(),
-                                   a.FlagMostrarImg.ToString(),     // SB20-353
+                                   a.FlagMostrarImg.ToString(),
                                    a.MostrarImgOfertaIndependiente.ToInt().ToString(),
-                                   a.ImagenOfertaIndependiente
+                                   a.ImagenOfertaIndependiente,
+                                   a.FlagValidarImagen.ToString(),
+                                   a.PesoMaximoImagen.ToString()
                                 }
                            }
                 };
@@ -148,13 +144,11 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = sv.GetOfertas(entidad).ToList();
                 }
 
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                //int buscar = int.Parse(txtBuscar);
                 BEPager pag = new BEPager();
                 IEnumerable<BEOferta> items = lst;
 
@@ -162,7 +156,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 pag = Util.PaginadorGenerico(grid, lst);
 
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,
@@ -198,10 +191,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
             }
-            Mapper.CreateMap<BEPais, PaisModel>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
@@ -283,14 +272,15 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-
-        /* SB2-353 - INICIO */
+        
         [HttpPost]
         public JsonResult Registrar(string TipoEstrategiaID, string DescripcionEstrategia,
                         string ImagenEstrategia, string Orden,
                         string FlagActivo, string OfertaID, string imagenAnterior,
                         string FlagNueva, string FlagRecoProduc, string FlagRecoPerfil,
                         string CodigoPrograma, string FlagMostrarImg,
+                        string FlagValidarImagen,
+                        string PesoMaximoImagen,
                         bool MostrarImgOfertaIndependiente = false, string ImagenOfertaIndependiente = "", 
                         string ImagenOfertaIndependienteAnterior = "", string Codigo = "")
         {
@@ -312,12 +302,13 @@ namespace Portal.Consultoras.Web.Controllers
                 entidad.FlagRecoPerfil = Convert.ToInt32(FlagRecoPerfil);
                 entidad.FlagRecoProduc = Convert.ToInt32(FlagRecoProduc);
                 entidad.CodigoPrograma = CodigoPrograma;
-                entidad.FlagMostrarImg = Convert.ToInt32(FlagMostrarImg);    // SB20-353
+                entidad.FlagMostrarImg = Convert.ToInt32(FlagMostrarImg);
                 entidad.MostrarImgOfertaIndependiente = MostrarImgOfertaIndependiente;
                 entidad.ImagenOfertaIndependiente = ImagenOfertaIndependiente;
                 entidad.Codigo = Codigo;
-
-                //entidad
+                entidad.FlagValidarImagen = Convert.ToInt32(FlagValidarImagen);
+                entidad.PesoMaximoImagen = Convert.ToInt32(PesoMaximoImagen);
+                
                 if (ImagenEstrategia != "")
                 {
                     if (imagenAnterior != ImagenEstrategia)
@@ -384,7 +375,6 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-        /* SB2-353 - FIN */
 
         [HttpPost]
         public JsonResult Eliminar(string PaisID, string TipoEstrategiaID)
@@ -436,10 +426,9 @@ namespace Portal.Consultoras.Web.Controllers
             string FileName = string.Empty;
             try
             {
-                // req. 1664 - Unificando todo en una unica carpeta temporal
                 Stream inputStream = Request.InputStream;
                 byte[] fileBytes = ReadFully(inputStream);
-                string ffFileName = qqfile; // qqfile;
+                string ffFileName = qqfile;
                 var path = Path.Combine(Globals.RutaTemporales, ffFileName);
                 System.IO.File.WriteAllBytes(path, fileBytes);
                 if (!System.IO.File.Exists(Globals.RutaTemporales))

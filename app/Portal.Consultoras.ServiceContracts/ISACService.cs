@@ -722,5 +722,11 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         IList<BEConfiguracionOfertasHome> ListarSeccionConfiguracionOfertasHome(int paisId, int campaniaId);
         #endregion
+
+        #region DescripcionEstrategia
+        [OperationContract]
+        List<BEDescripcionEstrategia> ActualizarDescripcionEstrategia(int paisId, int campaniaId, int tipoEstrategiaId,
+            List<BEDescripcionEstrategia> listaDescripcionEstrategias);
+        #endregion
     }
 }

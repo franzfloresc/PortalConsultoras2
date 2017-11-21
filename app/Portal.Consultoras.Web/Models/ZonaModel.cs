@@ -30,14 +30,10 @@ namespace Portal.Consultoras.Web.Models
             set;
         }
 
-        //R20151221 - view
-
         public int DiasParametroCarga
         {
             get;
             set;
         }
-
-        //R20151221 - Fín
     }
 }

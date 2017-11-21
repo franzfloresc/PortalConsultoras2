@@ -2,7 +2,13 @@
 @using Portal.Consultoras.Web.Models
 @model MisCatalogosRevistasModel
 @{
-    ViewBag.Title = "Catálogos y Revistas";
+    var title = "Catálogos y Revistas";
+    bool tieneGND = Portal.Consultoras.Web.SessionManager.SessionManager.Instance.GetUserData().TieneGND;
+    if (tieneGND)
+    {
+        title = "Catálogos";
+    }
+    ViewBag.Title = title;
     var revistaDigital = Model.RevistaDigital ?? new RevistaDigitalModel();
 }
 
@@ -17,9 +23,9 @@
 <div class="fondo_f9f9f9">
     <div class="content_belcorp">
         <div class="fondo_negro_lateral"></div>
-        <div class="titulo_interiores">MIS <span>CATÁLOGOS Y REVISTAS</span></div>
+        <div class="titulo_interiores">MIS <span>@title</span></div>
     </div>
-    <hr class="clear" />
+    <hr class="clear" />    
     <div class="linea_separadora" style="margin-top:-1px"></div>
 </div>
 <div class="content_belcorp">
@@ -62,6 +68,7 @@
             if (revistaDigital.SuscripcionAnterior2Model.EstadoRegistro != 1 &&
                 revistaDigital.SuscripcionAnterior1Model.EstadoRegistro == 1)
             {
+                
                 @Html.Partial("~/Views/MisCatalogosRevistas/template-revista-slide.cshtml")
                 <!-- INSCRITAS C-11 -->
                 <div class="revista_content" id="contentRevistaDigital" style="position: relative;">
@@ -87,6 +94,8 @@
             }
             else if (revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == 1)
             {
+                if (!tieneGND)
+                {
                 <!-- INSCRITAS C-12 -->
                 <div class="home_block_rd home_rd1" style="background-color: transparent; text-align: left;">
                     <div class="content_belcorp" style="background-color: black;">
@@ -109,33 +118,40 @@
                 <hr class="clear" />
                 <div style="height: 35px; background: #fff;"></div>
                 <!-- FIN INSCRITAS C-12 -->
+                }
             }
             else
             {
-                @Html.Partial("~/Views/MisCatalogosRevistas/template-revista-slide.cshtml")
-                <div class="revista_content" id="contentRevistaDigital" style="position: relative;">
-                    <div class="home_block_rd home_rd1 rd_catalogos">
-                        <div class="rd_logo">
-                            <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="45">
-                        </div>
-                        <div class="hblock_text">
-                            <div class="hblock_tit"> @ViewBag.NombreConsultora, YA LLEGÓ TU NUEVA REVISTA ONLINE</div>
-                            <div>¿YA VISTE TUS <b>OFERTAS EN ÉSIKA PARA MÍ</b>?
+                if (!Portal.Consultoras.Web.SessionManager.SessionManager.Instance.GetUserData().TieneGND)
+                {
+                    @Html.Partial("~/Views/MisCatalogosRevistas/template-revista-slide.cshtml")
+                    <div class="revista_content" id="contentRevistaDigital" style="position: relative;">
+                        <div class="home_block_rd home_rd1 rd_catalogos">
+                            <div class="rd_logo">
+                                <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="45">
                             </div>
-                            <div class="btn_diagonal btn_stroke_white">
-                                <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
-                                    VER TODAS MIS OFERTAS
-                                    <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
-                                    <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
-                                </a>
+                            <div class="hblock_text">
+                                <div class="hblock_tit"> @ViewBag.NombreConsultora, YA LLEGÓ TU NUEVA REVISTA ONLINE</div>
+                                <div>
+                                    ¿YA VISTE TUS <b>OFERTAS EN ÉSIKA PARA MÍ</b>?
+                                </div>
+                                <div class="btn_diagonal btn_stroke_white">
+                                    <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
+                                        VER TODAS MIS OFERTAS
+                                        <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
+                                        <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                }
             }
         }
         else if (revistaDigital.TieneRDR)
         {
+            if (!Portal.Consultoras.Web.SessionManager.SessionManager.Instance.GetUserData().TieneGND)
+            {
             @Html.Partial("~/Views/MisCatalogosRevistas/template-revista-slide.cshtml")
             <!-- Agregar revista -->
             <div class="revista_content" id="contentRevistaDigital" style="height: 300px; position: relative;">
@@ -155,10 +171,14 @@
                     </div>
                 </div>
             </div>
+            }
         }
         else
         {
-            @Html.Partial("~/Views/MisCatalogosRevistas/template-revista-slide.cshtml")
+            if (!Portal.Consultoras.Web.SessionManager.SessionManager.Instance.GetUserData().TieneGND)
+            {
+                @Html.Partial("~/Views/MisCatalogosRevistas/template-revista-slide.cshtml")
+            }
         }
 
         <span id="spNroCampania" style="display: none;">@Model.CampaniaActual</span>

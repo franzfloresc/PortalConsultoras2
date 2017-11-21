@@ -1,7 +1,4 @@
-﻿@using System.Configuration
-@using Portal.Consultoras.Common
-
-
+﻿
 @model Portal.Consultoras.Web.Models.EstrategiaPersonalizadaModel
 @{
     Layout = "~/Views/Shared/_MainLayoutContenedor.cshtml";
@@ -11,6 +8,7 @@
 }
 
 <div class="bc_estrategia_contenido" id="seccion-estrategia-contenido">
+    
     @foreach (var seccion in Model.ListaSeccion)
     {
         <div data-seccion="@seccion.Codigo" 
@@ -21,6 +19,7 @@
              data-tipoEstrategia="@seccion.TipoEstrategia"
              data-cantidadProductos="@seccion.CantidadMostrar"
              data-OrigenPedidoWeb="@seccion.OrigenPedido"
+             data-OrigenPedidoWeb-popup="@seccion.OrigenPedidoPopup"
              id="@seccion.Codigo" 
              class="seccion-estrategia-contenido">
             <div data-seccion-content="" class="seccion-content-contenedor">

@@ -80,7 +80,6 @@ $(document).ready(function () {
         };
 
         me.Inicializar = function () {
-            //me.Funciones.removerEnlace();
             me.Funciones.inicializarEventos();
             $("#terminos-condiciones").prop("checked", true);
         };

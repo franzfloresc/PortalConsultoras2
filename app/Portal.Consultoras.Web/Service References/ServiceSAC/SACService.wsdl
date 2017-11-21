@@ -156,6 +156,12 @@
   <wsdl:message name="ISACService_ListarSeccionConfiguracionOfertasHome_OutputMessage">
     <wsdl:part name="parameters" element="tns:ListarSeccionConfiguracionOfertasHomeResponse" />
   </wsdl:message>
+  <wsdl:message name="ISACService_ActualizarDescripcionEstrategia_InputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarDescripcionEstrategia" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_ActualizarDescripcionEstrategia_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarDescripcionEstrategiaResponse" />
+  </wsdl:message>
   <wsdl:message name="ISACService_UpdateBelcorpNoticia_InputMessage">
     <wsdl:part name="parameters" element="tns:UpdateBelcorpNoticia" />
   </wsdl:message>
@@ -1257,6 +1263,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ListarSeccionConfiguracionOfertasHome" message="tns:ISACService_ListarSeccionConfiguracionOfertasHome_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/ListarSeccionConfiguracionOfertasHomeResponse" message="tns:ISACService_ListarSeccionConfiguracionOfertasHome_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ActualizarDescripcionEstrategia">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ActualizarDescripcionEstrategia" message="tns:ISACService_ActualizarDescripcionEstrategia_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/ActualizarDescripcionEstrategiaResponse" message="tns:ISACService_ActualizarDescripcionEstrategia_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="UpdateBelcorpNoticia">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdateBelcorpNoticia" message="tns:ISACService_UpdateBelcorpNoticia_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpdateBelcorpNoticiaResponse" message="tns:ISACService_UpdateBelcorpNoticia_OutputMessage" />
@@ -2113,6 +2123,15 @@
     </wsdl:operation>
     <wsdl:operation name="ListarSeccionConfiguracionOfertasHome">
       <soap:operation soapAction="http://tempuri.org/ISACService/ListarSeccionConfiguracionOfertasHome" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarDescripcionEstrategia">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ActualizarDescripcionEstrategia" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3834,6 +3853,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ActualizarDescripcionEstrategia">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ActualizarDescripcionEstrategia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="UpdateBelcorpNoticia">
       <soap:operation soapAction="http://tempuri.org/ISACService/UpdateBelcorpNoticia" style="document" />
       <wsdl:input>
@@ -5370,7 +5398,7 @@
       <soap:address location="http://localhost:41615/SACService.svc" />
     </wsdl:port>
     <wsdl:port name="BasicHttpsBinding_ISACService" binding="tns:BasicHttpsBinding_ISACService">
-      <soap:address location="https://localhost:44353/SACService.svc" />
+      <soap:address location="https://localhost:44392/SACService.svc" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

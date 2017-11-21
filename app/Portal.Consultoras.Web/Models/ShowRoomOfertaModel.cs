@@ -101,7 +101,6 @@ namespace Portal.Consultoras.Web.Models
         public string UrlTerminosCondiciones { get; set; }
 
         public bool EsSubCampania { get; set; }
-        //public int Orden { get; set; }
         public string UrlCompartir { get; set; }
         public int UnidadesPermitidasRestantes { get; set; }
 
