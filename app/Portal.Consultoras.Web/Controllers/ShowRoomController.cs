@@ -1048,7 +1048,8 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 try
                                 {
-                                    registros += sv.CargarMasivaDescripcionSets(paisID, hdCargaDescripcionSetsCampaniaID, userData.CodigoConsultora, listaDescripcionSets.ToArray());
+                                    registros += sv.CargarMasivaDescripcionSets(
+                                        paisID, hdCargaDescripcionSetsCampaniaID, userData.CodigoConsultora, listaDescripcionSets.ToArray(), fileName, newfileName);
                                 }
                                 catch (FaultException ex)
                                 {

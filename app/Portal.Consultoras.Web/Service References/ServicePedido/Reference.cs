@@ -32395,10 +32395,10 @@ namespace Portal.Consultoras.Web.ServicePedido {
         System.Threading.Tasks.Task<int> UpdOfertaShowRoomStockMasivoAsync(int paisID, Portal.Consultoras.Web.ServicePedido.BEShowRoomOferta[] stockProductos);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/CargarMasivaDescripcionSets", ReplyAction="http://tempuri.org/IPedidoService/CargarMasivaDescripcionSetsResponse")]
-        int CargarMasivaDescripcionSets(int paisID, int campaniaID, string usuarioCreacion, Portal.Consultoras.Web.ServicePedido.BEShowRoomOfertaDetalle[] listaShowRoomOfertaDetalle);
+        int CargarMasivaDescripcionSets(int paisID, int campaniaID, string usuarioCreacion, Portal.Consultoras.Web.ServicePedido.BEShowRoomOfertaDetalle[] listaShowRoomOfertaDetalle, string nombreArchivoCargado, string nombreArchivoGuardado);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/CargarMasivaDescripcionSets", ReplyAction="http://tempuri.org/IPedidoService/CargarMasivaDescripcionSetsResponse")]
-        System.Threading.Tasks.Task<int> CargarMasivaDescripcionSetsAsync(int paisID, int campaniaID, string usuarioCreacion, Portal.Consultoras.Web.ServicePedido.BEShowRoomOfertaDetalle[] listaShowRoomOfertaDetalle);
+        System.Threading.Tasks.Task<int> CargarMasivaDescripcionSetsAsync(int paisID, int campaniaID, string usuarioCreacion, Portal.Consultoras.Web.ServicePedido.BEShowRoomOfertaDetalle[] listaShowRoomOfertaDetalle, string nombreArchivoCargado, string nombreArchivoGuardado);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/CargarProductoCpc", ReplyAction="http://tempuri.org/IPedidoService/CargarProductoCpcResponse")]
         int CargarProductoCpc(int paisId, int eventoId, string usuarioCreacion, Portal.Consultoras.Web.ServicePedido.BEShowRoomCompraPorCompra[] listaShowRoomCompraPorCompra);
@@ -35046,12 +35046,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.UpdOfertaShowRoomStockMasivoAsync(paisID, stockProductos);
         }
         
-        public int CargarMasivaDescripcionSets(int paisID, int campaniaID, string usuarioCreacion, Portal.Consultoras.Web.ServicePedido.BEShowRoomOfertaDetalle[] listaShowRoomOfertaDetalle) {
-            return base.Channel.CargarMasivaDescripcionSets(paisID, campaniaID, usuarioCreacion, listaShowRoomOfertaDetalle);
+        public int CargarMasivaDescripcionSets(int paisID, int campaniaID, string usuarioCreacion, Portal.Consultoras.Web.ServicePedido.BEShowRoomOfertaDetalle[] listaShowRoomOfertaDetalle, string nombreArchivoCargado, string nombreArchivoGuardado) {
+            return base.Channel.CargarMasivaDescripcionSets(paisID, campaniaID, usuarioCreacion, listaShowRoomOfertaDetalle, nombreArchivoCargado, nombreArchivoGuardado);
         }
         
-        public System.Threading.Tasks.Task<int> CargarMasivaDescripcionSetsAsync(int paisID, int campaniaID, string usuarioCreacion, Portal.Consultoras.Web.ServicePedido.BEShowRoomOfertaDetalle[] listaShowRoomOfertaDetalle) {
-            return base.Channel.CargarMasivaDescripcionSetsAsync(paisID, campaniaID, usuarioCreacion, listaShowRoomOfertaDetalle);
+        public System.Threading.Tasks.Task<int> CargarMasivaDescripcionSetsAsync(int paisID, int campaniaID, string usuarioCreacion, Portal.Consultoras.Web.ServicePedido.BEShowRoomOfertaDetalle[] listaShowRoomOfertaDetalle, string nombreArchivoCargado, string nombreArchivoGuardado) {
+            return base.Channel.CargarMasivaDescripcionSetsAsync(paisID, campaniaID, usuarioCreacion, listaShowRoomOfertaDetalle, nombreArchivoCargado, nombreArchivoGuardado);
         }
         
         public int CargarProductoCpc(int paisId, int eventoId, string usuarioCreacion, Portal.Consultoras.Web.ServicePedido.BEShowRoomCompraPorCompra[] listaShowRoomCompraPorCompra) {
