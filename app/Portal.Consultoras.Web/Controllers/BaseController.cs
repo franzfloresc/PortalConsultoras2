@@ -4137,5 +4137,39 @@ namespace Portal.Consultoras.Web.Controllers
                    new MenuContenedorModel();
         }
         #endregion
+
+        protected int GetMostradoPopupPrecargados()
+        {
+            int flag = 1;
+            try
+            {
+                if (userData.CodigoISO == "BO" && userData.CampaniaID == 201717)
+                {
+                    using (PedidoServiceClient sv = new PedidoServiceClient())
+                    {
+                        flag = sv.GetFlagProductosPrecargados(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID);
+                    }
+
+                    if (flag == 0)
+                    {
+                        using (PedidoServiceClient sv = new PedidoServiceClient())
+                        {
+                            sv.UpdateMostradoProductosPrecargados(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.IPUsuario);
+                        }
+
+                        Session["PedidoWeb"] = null;
+                        Session["PedidoWebDetalle"] = null;
+                        UpdPedidoWebMontosPROL();
+                    }                   
+                }
+
+                return flag;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return flag;                
+            }
+        }
     }
 }
