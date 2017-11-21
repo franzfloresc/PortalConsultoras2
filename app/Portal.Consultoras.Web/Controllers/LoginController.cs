@@ -931,7 +931,7 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                  lstLoginExterno = usuarioServiceClient.GetListaLoginExterno(usuario.PaisID, usuario.CodigoUsuario).ToList();
                             }
-                            if (lstLoginExterno != null && lstLoginExterno.Any())
+                            if (lstLoginExterno.Any())
                             {
                                 usuarioModel.ListaLoginExterno = Mapper.Map<List<BEUsuarioExterno>, List<UsuarioExternoModel>>(lstLoginExterno);
                             }
@@ -939,7 +939,6 @@ namespace Portal.Consultoras.Web.Controllers
                         #endregion
 
                         #region ConfiguracionPais
-
                         try
                         {
                             if (usuarioModel.TipoUsuario == Constantes.TipoUsuario.Postulante)
@@ -960,13 +959,16 @@ namespace Portal.Consultoras.Web.Controllers
                                     {
                                         //case Constantes.ConfiguracionPais.RevistaDigitalSuscripcion:
                                         case Constantes.ConfiguracionPais.RevistaDigital:
-                                            revistaDigitalModel = ConfiguracionPaisRevistaDigital(usuarioModel, revistaDigitalModel);
-                                            revistaDigitalModel = ConfiguracionPaisDatosRevistaDigital(revistaDigitalModel, listaPaisDatos.Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID).ToList());
-                                            
+                                            ConfiguracionPaisDatosRevistaDigital(ref revistaDigitalModel, 
+                                                listaPaisDatos.Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID).ToList());
+                                            ConfiguracionPaisRevistaDigital(ref revistaDigitalModel, usuarioModel);
+                                            FormatTextConfiguracionPaisDatosModel(ref revistaDigitalModel, usuarioModel.NombreCorto);
                                             revistaDigitalModel.BloqueoRevistaImpresa = c.BloqueoRevistaImpresa;
-                                            
                                             break;
                                         case Constantes.ConfiguracionPais.RevistaDigitalReducida:
+                                            revistaDigitalModel.ConfiguracionPaisDatos = Mapper.Map<List<ConfiguracionPaisDatosModel>>
+                                                (listaPaisDatos.Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID).ToList());
+                                            FormatTextConfiguracionPaisDatosModel(ref revistaDigitalModel, usuarioModel.NombreCorto);
                                             revistaDigitalModel.TieneRDR = true;
                                             break;
                                         case Constantes.ConfiguracionPais.ValidacionMontoMaximo:
@@ -1000,7 +1002,6 @@ namespace Portal.Consultoras.Web.Controllers
                                 sessionManager.SetConfiguracionesPaisModel(configuracionesPaisModels);
                                 sessionManager.SetOfertaFinalModel(ofertaFinalModel);
                             }
-
                         }
                         catch (Exception ex)
                         {
@@ -1010,8 +1011,6 @@ namespace Portal.Consultoras.Web.Controllers
                             sessionManager.SetConfiguracionesPaisModel(new List<ConfiguracionPaisModel>());
                             sessionManager.SetOfertaFinalModel(new OfertaFinalModel());
                         }
-
-
                         #endregion
 
                         #region EventoFestivo
@@ -1083,13 +1082,8 @@ namespace Portal.Consultoras.Web.Controllers
                             for (var i = 94; i <= 97; i++)
                             {
                                 var lstItems = svc.GetTablaLogicaDatos(usuarioModel.PaisID, (short)i);
-                                if (lstItems.Any())
-                                {
-                                    foreach (var item in lstItems)
-                                    {
-                                        lstFiltersFAV.Add(item);
-                                    }
-                                }
+                                if (!lstItems.Any()) continue;
+                                lstFiltersFAV.AddRange(lstItems);
                             }
                         }
                         if (lstFiltersFAV.Any())
@@ -1191,21 +1185,32 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region ConfiguracioRevistaDigital
 
-        private RevistaDigitalModel ConfiguracionPaisDatosRevistaDigital(RevistaDigitalModel revistaDigitalModel, List<BEConfiguracionPaisDatos> listaDatos)
+        private void ConfiguracionPaisDatosRevistaDigital( ref RevistaDigitalModel revistaDigitalModel, List<BEConfiguracionPaisDatos> listaDatos)
         {
             try
             {
                 revistaDigitalModel.ConfiguracionPaisDatos = new List<ConfiguracionPaisDatosModel>();
 
                 if (listaDatos == null || !listaDatos.Any())
-                    return revistaDigitalModel;
+                    return;
 
-                revistaDigitalModel.BloquearDiasAntesFacturar = Convert.ToInt32(listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.BloquearDiasAntesFacturar).Valor1);
-                revistaDigitalModel.CantidadCampaniaEfectiva = Convert.ToInt32(listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.CantidadCampaniaEfectiva).Valor1);
-                revistaDigitalModel.NombreComercialActiva = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.NombreComercialActiva).Valor1;
-                revistaDigitalModel.NombreComercialNoActiva = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.NombreComercialNoActiva).Valor1;
-                revistaDigitalModel.LogoComercialActiva = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.LogoComercialActiva).Valor1;
-                revistaDigitalModel.LogoComercialNoActiva = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.LogoComercialNoActiva).Valor1;
+                var value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.BloquearDiasAntesFacturar);
+                if (value1 != null) revistaDigitalModel.BloquearDiasAntesFacturar = Convert.ToInt32(value1.Valor1);
+
+                var value2 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.CantidadCampaniaEfectiva);
+                if (value2 != null) revistaDigitalModel.CantidadCampaniaEfectiva = Convert.ToInt32(value2.Valor1);
+
+                var value3 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.NombreComercialActiva);
+                if (value3 != null) revistaDigitalModel.NombreComercialActiva = value3.Valor1;
+
+                var value4 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.NombreComercialNoActiva);
+                if (value4 != null) revistaDigitalModel.NombreComercialNoActiva = value4.Valor1;
+                
+                var value5 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.LogoComercialActiva);
+                if (value5 != null) revistaDigitalModel.LogoComercialActiva = value5.Valor1;
+                
+                var value6 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.LogoComercialNoActiva);
+                if (value6 != null) revistaDigitalModel.LogoComercialNoActiva = value6.Valor1;
 
                 listaDatos.RemoveAll(d =>
                     d.Codigo == Constantes.ConfiguracionPaisDatos.BloquearDiasAntesFacturar
@@ -1217,19 +1222,14 @@ namespace Portal.Consultoras.Web.Controllers
                 );
 
                 revistaDigitalModel.ConfiguracionPaisDatos = Mapper.Map<List<ConfiguracionPaisDatosModel>>(listaDatos) ?? new List<ConfiguracionPaisDatosModel>();
-                foreach (var configuracionPaisDato in revistaDigitalModel.ConfiguracionPaisDatos)
-                {
-                    //configuracionPaisDato.Valor1;
-                }
             }
             catch (Exception ex)
             {
                 logManager.LogErrorWebServicesBusWrap(ex, string.Empty, string.Empty, "LoginController.ConfiguracionPaisDatosRevistaDigital");
             }
-            return revistaDigitalModel;
         }
 
-        private RevistaDigitalModel ConfiguracionPaisRevistaDigital(UsuarioModel usuarioModel, RevistaDigitalModel revistaDigitalModel)
+        private void ConfiguracionPaisRevistaDigital(ref RevistaDigitalModel revistaDigitalModel, UsuarioModel usuarioModel)
         {
             revistaDigitalModel.TieneRDC = true;
             revistaDigitalModel.TieneRDS = true;
@@ -1289,7 +1289,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             #region DiasAntesFacturaHoy - NoVolverMostrar
             if (DateTime.Now.AddHours(usuarioModel.ZonaHoraria).Date >= usuarioModel.FechaInicioCampania.Date.AddDays(-1 * revistaDigitalModel.BloquearDiasAntesFacturar))
-                return revistaDigitalModel;
+                return;
 
             switch (revistaDigitalModel.SuscripcionModel.EstadoRegistro)
             {
@@ -1307,8 +1307,6 @@ namespace Portal.Consultoras.Web.Controllers
                     break;
             }
             #endregion
-
-            return revistaDigitalModel;
         }
 
         private static string GetEstadoRdAnalytics(RevistaDigitalModel revistaDigital)
@@ -2116,14 +2114,18 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToRoute("UniqueRoute", route);
         }
 
-        private void RemplazaTag(ref string cadena, string nombre)
+        private void FormatTextConfiguracionPaisDatosModel(ref RevistaDigitalModel revistaDigital, string nombreConsultora)
         {
-            cadena = cadena.ToUpper().Replace(Constantes.TagCadenaRd.Nombre, nombre);
+            foreach (var configuracionPaisDato in revistaDigital.ConfiguracionPaisDatos)
+            {
+                configuracionPaisDato.Valor1 = RemplazaTagNombre(configuracionPaisDato.Valor1, nombreConsultora);
+                configuracionPaisDato.Valor2 = RemplazaTagNombre(configuracionPaisDato.Valor2, nombreConsultora);
+            }
         }
 
-        private void RemplazaTagNombre(ref string cadena, string nombre)
+        private string RemplazaTagNombre(string cadena, string nombre)
         {
-            cadena = cadena.ToUpper().Replace(Constantes.TagCadenaRd.Nombre, nombre);
+            return cadena.ToUpper().Replace(Constantes.TagCadenaRd.Nombre, nombre);
         }
 
         private void RemplazaTagCampania(ref string cadena, string campania)

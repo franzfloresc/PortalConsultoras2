@@ -187,7 +187,15 @@ begin
 	'#Nombre, ¿YA VISTE TUS <b>OFERTAS DE LA C-#Cx EN ÉSIKA PARA MÍ?</b>', 
 	'black', 'Textos de bienvenida para un consultora Inscrita activa')
 	END
+END
+GO
 
+declare @ConfiguracionPaisID int = 0
+select @ConfiguracionPaisID = ConfiguracionPaisID
+from ConfiguracionPais
+where Codigo = 'RDR'
+
+BEGIN
 	-- RDR Textos desktop
 	BEGIN
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Valor3, Descripcion)
@@ -229,5 +237,4 @@ begin
 	'Conoce ahora tus ofertas y aumenta tus ganancias', 
 	'black', 'Textos de Ctalogo para un consultora plan 20+')
 	END
-
 end
