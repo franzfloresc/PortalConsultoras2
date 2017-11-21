@@ -1403,5 +1403,13 @@ namespace Portal.Consultoras.Common
             public const string CampaniaSuscripcion = "#CS";
             public const string CampaniaActiva = "#CS1";
         }
+
+        public class RecuperacionPedido
+        {
+            public const string Mensaje = "Nos es grato comunicarte que hemos podido recuperar productos de la anterior campaña con el precio original. " +
+                "Están agregados en tu pedido bajo la descripción RECUPC16.Puedes mantenerlos para recibirlos con tu caja de C17 o borrarlos de tu pedido si ya no los necesitas.";
+            public const string PAPEL_REGALO_DORADO = "2017_Navidad_Regalo1.pdf";
+            public const string PAPEL_REGALO_ROJO = "2017_Navidad_Regalo2.pdf";
+        }
     }
 }

@@ -42,7 +42,7 @@
                     <input type="text" id="txtClienteNombre" placeholder="Cliente" class="PedidoClienteNombre" />
                 }
                
-                <input type="tel" name="codigoProducto" value="" placeholder="Código" id="txtCodigoProducto" oninput="maxLengthCheck(this, 5)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
+                <input type="tel" name="codigoProducto" value="" placeholder="Código" id="txtCodigoProducto" oninput="FuncionesGenerales.MaxLengthCheck(this, 5)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
             </form>
         </div>
     </div>
@@ -337,6 +337,8 @@
     </div>
 </div>
 
+
+
 <!-- FIN POPUP MIS GANANCIAS -->
 <!--SB20-483 - FIN -->
 <!-- POPUP AGREGAR CLIENTE -->
@@ -508,4 +510,11 @@
     }
 
     @Scripts.Render("~/bundles/JsMobile/Pedido")
+
+    @if (Model.MostrarPopupPrecargados)
+    {
+        <script>
+            $(document).ready(function () { messageInfoValidado('@Html.Raw(Constantes.RecuperacionPedido.Mensaje)'); });
+        </script>
+    }
 }
