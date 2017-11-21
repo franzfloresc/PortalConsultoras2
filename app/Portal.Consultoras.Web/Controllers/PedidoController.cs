@@ -319,8 +319,10 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 #endregion
-
+                
                 ViewBag.UrlTerminosOfertaFinalRegalo = string.Format(ConfigurationManager.AppSettings.Get("oferta_final_regalo_url_s3"), userData.CodigoISO);
+                model.MostrarPopupPrecargados = (GetMostradoPopupPrecargados() == 0);
+                
                 ViewBag.CUVOfertaProl = TempData["CUVOfertaProl"];
                 ViewBag.MensajePedidoDesktop = userData.MensajePedidoDesktop;
                 model.RevistaDigital = revistaDigital;
@@ -355,6 +357,9 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
             }
             
+
+            ViewBag.UrlTerminosOfertaFinalRegalo = string.Format(ConfigurationManager.AppSettings.Get("oferta_final_regalo_url_s3"), userData.CodigoISO);
+
             if (Session["EsShowRoom"] != null && Session["EsShowRoom"].ToString() == "1")
             {
                 ViewBag.ImagenFondoOFRegalo = ObtenerValorPersonalizacionShowRoom("ImagenFondoOfertaFinalRegalo", "Desktop");
