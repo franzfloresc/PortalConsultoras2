@@ -241,13 +241,11 @@
                                 <hr class="clear" />
                                 <hr class="separador_montos" />
                                 <div class="caja_montos_textos">
-                                    <!--SB20-483 - INICIO -->
                                     <div class="caja_montos_textos_sinDescuento">
                                         <span>TOTAL SIN DSCTO.</span>
                                         <span class="dscto_ofertasNiveles">(-) Dscto. Ofertas Por Niveles</span>
                                     </div>
                                     <br />
-                                    <!--SB20-483 - FIN -->
                                     <p class="monto_con_descuento pMontoCliente" style="display: none;">
                                         <span id="spnNombreCliente"></span>
                                     </p>
@@ -259,7 +257,6 @@
                                         <div class="info_extra_Validado abrir_popupMisGanancias">
                                             <img src="/Content/Images/Esika/info-copy.png" onclick="MostrarDetalleGanancia();">
                                         </div>
-                                        <!--SB20-483 - INICIO -->
                                         @{
                                             string cabezaEscala = null, pieEscala = null;
                                             string lbl1Ganancia = null, lbl2Ganancia = null;
@@ -321,17 +318,14 @@
                                         <input type="hidden" id="hdePieEscala" value="@pieEscala" />
                                         <input type="hidden" id="hdeLbl1Ganancia" value="@lbl1Ganancia" />
                                         <input type="hidden" id="hdeLbl2Ganancia" value="@lbl2Ganancia" />
-                                        <!--SB20-483 - FIN -->
                                     </div>
                                 </div>
                                 <div class="caja_montos_cantidades">
 
-                                    <!--SB20-483 - INICIO -->
                                     <div class="caja_montos_cantidades_sinDescuento">
                                         <span data-pedidototal>@Model.Simbolo @Model.FormatoTotal</span>
                                         <span data-montodescuento>@Model.Simbolo @Model.FormatoMontoDescuento</span>
                                     </div>
-                                    <!--SB20-483 - FIN -->
 
                                     <p class="monto_con_descuento pMontoCliente" style="display: none;">
                                         <span id="spnTotalCliente"></span>
@@ -426,7 +420,6 @@
                 </p>
             </div>
 
-            <!--14082016 - INICIO -->
             <div class="contenedor_banners">
                 <ul>
                     <li data-id="1" data-name="Productos Descontinuados" data-position="pedido-inferior-1">
@@ -472,7 +465,6 @@
                 </ul>
                 <div class="clear"></div>
             </div>
-            <!--14082016 - FIN -->
             @if (ViewBag.MostrarPedidosPendientes == "1")
             {
                 <div id="infoPendientes" style="background:white; display: none;">
@@ -510,7 +502,6 @@
         </div>
     </div>
 
-    <!--14092016 - INICIO -->
     <div class="flexiPago_belcorp">
         @if (Model.IndicadorFlexiPago == 1)
         {
@@ -537,7 +528,6 @@
             }
         }
     </div>
-    <!--14092016 - FIN -->
 
     <div id="divListaEstrategias" class="caja_carousel_productos">
         @if (ViewBag.MostrarPedidosPendientes == "1")
