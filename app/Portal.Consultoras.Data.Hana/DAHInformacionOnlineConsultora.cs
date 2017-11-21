@@ -41,16 +41,15 @@ namespace Portal.Consultoras.Data.Hana
                     bool esMontoMaximo = decimal.TryParse(informacionOnlineConsultoraHana.MontoMaximoPedido, out montoMaximo);
                     beUsuario.MontoMaximoPedido = esMontoMaximo ? montoMaximo : 0;
                                        
-                    beUsuario.MontoDeuda = informacionOnlineConsultoraHana.SALDOTOTALCAM;// esMontoDeuda ? montoDeuda : 0;
+                    beUsuario.MontoDeuda = informacionOnlineConsultoraHana.SALDOTOTALCAM;
 
                     beUsuario.IndicadorFlexiPago = informacionOnlineConsultoraHana.Indicador_Activa;
 
                     decimal montoMinimoFlexipago;
                     bool esMontoMinimoFlexipago = decimal.TryParse(informacionOnlineConsultoraHana.IMP_MONT_MINI, out montoMinimoFlexipago);
                     beUsuario.MontoMinimoFlexipago = esMontoMinimoFlexipago ? montoMinimoFlexipago : 0;
-
-                    //por confirmar para que sirven estos campos o cuales son sus equivalentes.
-                    /*
+                    
+                    /* por confirmar para que sirven estos campos o cuales son sus equivalentes.
                      * AutorizaPedido           no se usa
                      * FECHAVENCAM              no se usa
                      * FEC_CREA                 no se usa

@@ -154,7 +154,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var palanca = model.CampaniaID != userData.CampaniaID || revistaDigital.TieneRDR
                     ? Constantes.TipoEstrategiaCodigo.RevistaDigital
-                    : revistaDigital.TieneRDC && revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo
+                    : revistaDigital.TieneRDC && revistaDigital.EsActiva
                         ? Constantes.TipoEstrategiaCodigo.RevistaDigital
                         : "";
 
@@ -215,12 +215,8 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 var listaFinal1 = ConsultarEstrategiasModel("", model.CampaniaID, Constantes.TipoEstrategiaCodigo.Lanzamiento);
-
-                var perdio = model.CampaniaID != userData.CampaniaID || revistaDigital.TieneRDR
-                    ? 0
-                    : revistaDigital.TieneRDC && revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo
-                        ? 0
-                        : 1;
+                
+                var perdio = revistaDigital.TieneRDR ? 0 : TieneProductosPerdio(model.CampaniaID) ? 1 : 0;
 
                 var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1, perdio);
 

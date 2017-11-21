@@ -31,13 +31,13 @@ namespace Portal.Consultoras.Service
             BETablaLogicaDatos longitudUbigeo = vListaTablaLogicaDatos.Find(x => x.TablaLogicaDatosID == 5801);
             if (longitudUbigeo != null)
             {
-                int limiteInferior = 6;//por default
+                int limiteInferior = 6;
                 int.TryParse(longitudUbigeo.Codigo, out limiteInferior);
                 int factorUbigeo = 3;
                 vListaTablaLogicaDatos = new BLTablaLogicaDatos().GetTablaLogicaDatos(idPais, 67);
                 BETablaLogicaDatos configFactorUbigeo = vListaTablaLogicaDatos.Find(x => x.TablaLogicaDatosID == 6701);
                 int.TryParse(configFactorUbigeo.Codigo, out factorUbigeo); 
-                limiteInferior *= factorUbigeo;// se multiplica por 3
+                limiteInferior *= factorUbigeo;
                 string MensajeValidacion = string.Format("La longitud del parámetro CodigoUbigeo debe tener como valor mínimo {0}", limiteInferior);
                 if (codigoUbigeo.Length < limiteInferior) throw new Exception(MensajeValidacion);
             }

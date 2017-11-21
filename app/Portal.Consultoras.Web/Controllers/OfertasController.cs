@@ -55,48 +55,30 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Index", "Bienvenida");
         }
 
-        public MensajeProductoBloqueadoModel MensajeProductoBloqueado()
+        private MensajeProductoBloqueadoModel MensajeProductoBloqueado()
         {
             var model = new MensajeProductoBloqueadoModel();
 
             if (!revistaDigital.TieneRDC) return model;
 
             model.IsMobile = IsMobile();
-            if (revistaDigital.SuscripcionAnterior1Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
+            
+            if (!revistaDigital.EsActiva)
             {
-                if (revistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
+                if (revistaDigital.EsSuscrita)
                 {
                     model.MensajeIconoSuperior = true;
                     model.MensajeTitulo = model.IsMobile
-                        ? "PODRÁS AGREGARLA EN LA PRÓXIMA CAMPAÑA"
-                        : "PODRÁS AGREGAR ESTA OFERTA A PARTIR DE LA PRÓXIMA CAMPAÑA";
+                        ? "PODRÁS AGREGARLA EN LA CAMPAÑA " + revistaDigital.CampaniaActiva
+                        : "PODRÁS AGREGAR OFERTAS COMO ESTA EN LA CAMPAÑA " + revistaDigital.CampaniaActiva;
                     model.BtnInscribirse = false;
                 }
                 else
                 {
                     model.MensajeIconoSuperior = false;
                     model.MensajeTitulo = model.IsMobile
-                        ? "INSCRÍBETE HOY EN ÉSIKA PARA MÍ Y NO TE PIERDAS EN C-" + AddCampaniaAndNumero(userData.CampaniaID, 2).Substring(4, 2) + "<br />OFERTAS COMO ESTA"
-                        : "INSCRÍBETE HOY EN ÉSIKA PARA MÍ Y NO TE PIERDAS EN CAMPAÑA " + AddCampaniaAndNumero(userData.CampaniaID, 2).Substring(4, 2) + " OFERTAS COMO ESTA";
-                    model.BtnInscribirse = true;
-                }
-            }
-            else
-            {
-                if (revistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
-                {
-                    model.MensajeIconoSuperior = true;
-                    model.MensajeTitulo = model.IsMobile
-                        ? "PODRÁS AGREGARLA EN LA CAMPAÑA " + AddCampaniaAndNumero(userData.CampaniaID, 2).Substring(4, 2)
-                        : "PODRÁS AGREGAR OFERTAS COMO ESTA EN LA CAMPAÑA " + AddCampaniaAndNumero(userData.CampaniaID, 2).Substring(4, 2);
-                    model.BtnInscribirse = false;
-                }
-                else
-                {
-                    model.MensajeIconoSuperior = false;
-                    model.MensajeTitulo = model.IsMobile
-                        ? "INSCRÍBETE HOY EN ÉSIKA PARA MÍ Y NO TE PIERDAS EN C-" + AddCampaniaAndNumero(userData.CampaniaID, 2).Substring(4, 2) + "<br />OFERTAS COMO ESTA"
-                        : "INSCRÍBETE HOY EN ÉSIKA PARA MÍ Y NO TE PIERDAS EN CAMPAÑA " + AddCampaniaAndNumero(userData.CampaniaID, 2).Substring(4, 2) + " OFERTAS COMO ESTA";
+                        ? "INSCRÍBETE HOY EN ÉSIKA PARA MÍ Y NO TE PIERDAS EN C-" + revistaDigital.CampaniaActiva + "<br />OFERTAS COMO ESTA"
+                        : "INSCRÍBETE HOY EN ÉSIKA PARA MÍ Y NO TE PIERDAS EN CAMPAÑA " + revistaDigital.CampaniaActiva + " OFERTAS COMO ESTA";
                     model.BtnInscribirse = true;
                 }
             }
