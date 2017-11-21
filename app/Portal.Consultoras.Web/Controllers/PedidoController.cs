@@ -325,7 +325,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 #endregion
-
+                
+                model.MostrarPopupPrecargados = (GetMostradoPopupPrecargados() == 0);
+                
                 ViewBag.CUVOfertaProl = TempData["CUVOfertaProl"];
                 ViewBag.MensajePedidoDesktop = userData.MensajePedidoDesktop;
                 model.RevistaDigital = revistaDigital;
