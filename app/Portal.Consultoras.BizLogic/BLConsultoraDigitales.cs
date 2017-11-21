@@ -18,7 +18,7 @@ namespace Portal.Consultoras.BizLogic
         public void GetConsultoraDigitalesDescarga(int PaisId, string PaisISO, string FechaProceso, string Usuario)
         {
             int nroLote = 0;
-            DAConsultoraDigitales DAConsultoraDigitales = null;
+            DAConsultoraDigitales DAConsultoraDigitales = new DAConsultoraDigitales(PaisId);
 
             string headerFile = null, NombreCabecera = null; string NombreArchivo = null;
 
@@ -29,10 +29,7 @@ namespace Portal.Consultoras.BizLogic
 
                 string OrderTemplate = element.ConsDigTemplate;
                 TemplateField[] headerTemplate = ParseTemplate(ConfigurationManager.AppSettings[OrderTemplate]);
-
-
-                DAConsultoraDigitales = new DAConsultoraDigitales(PaisId);
-
+                
                 DataSet dsCursoLider;
                 DataTable dtCursoLider;
 

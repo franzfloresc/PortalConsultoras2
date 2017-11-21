@@ -42,10 +42,12 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "@FlagRecoPerfil", DbType.String, entidad.FlagRecoPerfil);
                 Context.Database.AddInParameter(command, "@FlagRecoProduc", DbType.String, entidad.FlagRecoProduc);
                 Context.Database.AddInParameter(command, "@CodigoPrograma", DbType.String, entidad.CodigoPrograma);
-                Context.Database.AddInParameter(command, "@FlagMostrarImg", DbType.Int32, entidad.FlagMostrarImg);     // SB2-353
+                Context.Database.AddInParameter(command, "@FlagMostrarImg", DbType.Int32, entidad.FlagMostrarImg);
                 Context.Database.AddInParameter(command, "@MostrarImgOfertaIndependiente", DbType.Boolean, entidad.MostrarImgOfertaIndependiente);
                 Context.Database.AddInParameter(command, "@ImagenOfertaIndependiente", DbType.String, entidad.ImagenOfertaIndependiente);
                 Context.Database.AddInParameter(command, "@Codigo", DbType.String, entidad.Codigo);
+                Context.Database.AddInParameter(command, "@FlagValidarImagen", DbType.Int32, entidad.FlagValidarImagen);
+                Context.Database.AddInParameter(command, "@PesoMaximoImagen", DbType.Int32, entidad.PesoMaximoImagen);
                 result = Context.ExecuteNonQuery(command);
             }
             return result;

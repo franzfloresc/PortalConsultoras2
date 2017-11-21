@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenSource.Library.DataAccess;
 
-//R2004
 namespace Portal.Consultoras.Data
 {
     public class DAPayPalPagos : DataAccess

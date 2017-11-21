@@ -98,7 +98,7 @@
              data-item-cuv="@Model.CUV2"
              data-estrategia="@Json.Encode(Model)"
              >
-            <div id="divOfertaProductos" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopProductPage"></div>
+            <div id="divOfertaProductos" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.LanzamientoDesktopProductPage"></div>
         </div>
         @if ((Model.TipoEstrategiaDetalle.UrlVideoDesktop ?? "") != "")
         {
@@ -151,7 +151,7 @@
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
 @section scripts{
     <script type="text/javascript">
-        var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopProductPage';
+        var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.LanzamientoDesktopProductPage';
         var tipoOrigenEstrategia = 172;
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/RevistaDigital-Detalle")

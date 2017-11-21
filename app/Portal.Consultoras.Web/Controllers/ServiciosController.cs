@@ -13,9 +13,6 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class ServiciosController : BaseController
     {
-        //
-        // GET: /Servicios/
-
         public ActionResult AdministrarServicios()
         {
             if (!UsuarioModel.HasAcces(ViewBag.Permiso, "Servicios/AdministrarServicios"))
@@ -697,13 +694,11 @@ namespace Portal.Consultoras.Web.Controllers
                         lst = sv.GetServicios(vDescripcion).ToList();
                 }
 
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                //int buscar = int.Parse(txtBuscar);
                 BEPager pag = new BEPager();
                 IEnumerable<BEServicio> items = lst;
 
@@ -744,7 +739,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 pag = Paginador(grid, lst);
 
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,
@@ -784,13 +778,11 @@ namespace Portal.Consultoras.Web.Controllers
                         lst = sv.GetServicios(vDescripcion).ToList();
                 }
 
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                //int buscar = int.Parse(txtBuscar);
                 BEPager pag = new BEPager();
                 IEnumerable<BEServicio> items = lst;
 
@@ -831,7 +823,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 pag = Paginador(grid, lst);
 
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,
@@ -864,13 +855,11 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = sv.GetParametrosbyServicio(ServicioId).ToList();
                 }
 
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                //int buscar = int.Parse(txtBuscar);
                 BEPager pag = new BEPager();
                 IEnumerable<BEServicioParametro> items = lst;
 
@@ -899,7 +888,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 pag = PaginadorDetalle(grid, lst);
 
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,
@@ -932,13 +920,11 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = sv.GetEstadoServiciobyPais(ServicioId, CampaniaId).ToList();
                 }
 
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                //int buscar = int.Parse(txtBuscar);
                 BEPager pag = new BEPager();
                 IEnumerable<BEEstadoServicio> items = lst;
 
@@ -967,7 +953,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 pag = PaginadorEstado(grid, lst);
 
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,
@@ -1068,13 +1053,11 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                //int buscar = int.Parse(txtBuscar);
                 BEPager pag = new BEPager();
                 IEnumerable<BEEstadoServicio> items = lst;
 
@@ -1103,7 +1086,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 pag = PaginadorEstado(grid, lst);
 
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,
@@ -1249,19 +1231,16 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
 
-        //RQ_BS - R2161
         public JsonResult CargarArbolRegionesZonas(int? pais)
         {
             if (pais.GetValueOrDefault() == 0)
                 return Json(null, JsonRequestBehavior.AllowGet);
 
-            // consultar las regiones y zonas
             IList<BEZonificacionJerarquia> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
                 lst = sv.GetZonificacionJerarquia(pais.GetValueOrDefault());
             }
-            // se crea el arbol de nodos para el control de la vista
             JsTreeModel[] tree = lst.Distinct<BEZonificacionJerarquia>(new BEZonificacionJerarquiaComparer()).Select(
                                     r => new JsTreeModel
                                     {
@@ -1285,7 +1264,6 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(tree, JsonRequestBehavior.AllowGet);
         }
 
-        //RQ_BS - R2161
         public JsonResult CargarServicioPaises(int ServicioId)
         {
             IEnumerable<PaisModel> lst = DropDowListPaisesByServicioId(ServicioId, 0, 1);
@@ -1295,7 +1273,6 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        //RQ_BS - R2161
         public JsonResult CargarServicioCampanias(int ServicioId, int PaisId)
         {
             IEnumerable<CampaniaModel> lst = DropDowListCampaniasByServicioId(ServicioId, PaisId, 2);
@@ -1305,21 +1282,18 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        //RQ_BS - R2161
         public JsonResult CargarSegmentoPais(int PaisId)
         {
             IEnumerable<BESegmentoBanner> lst = null;
 
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                /*RE2544 - CS(CGI) - 13/05/2015 */
                 if (PaisId == 14)
                 {
                     lst = sv.GetSegmentoBanner(PaisId);
                 }
                 else
                 {
-                    /*RE2544 - CS(CGI) - 13/05/2015 */
                     lst = sv.GetSegmentoInternoBanner(PaisId);
                 }
             }
@@ -1330,7 +1304,6 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        //RQ_BS - R2161
         public JsonResult ObtenerSegmentoZona(int ServicioId, int CampaniaId, int PaisId)
         {
             BEServicioSegmentoZona oBEServicioSegmentoZona = null;
@@ -1356,7 +1329,6 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        //RQ_BS - R2161
         private IEnumerable<PaisModel> DropDowListPaisesByServicioId(int ServicioId, int PaisId, int Tipo)
         {
             List<BEServicioSegmentoZona> lst;
@@ -1372,7 +1344,6 @@ namespace Portal.Consultoras.Web.Controllers
             return Mapper.Map<IList<BEServicioSegmentoZona>, IEnumerable<PaisModel>>(lst);
         }
 
-        //RQ_BS - R2161
         private IEnumerable<CampaniaModel> DropDowListCampaniasByServicioId(int ServicioId, int PaisId, int Tipo)
         {
             List<BEServicioSegmentoZona> lst;
@@ -1389,8 +1360,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
 
-        //RQ_BS - R2161
-        /* RE2544 - CS - Agregando nuevo parametro SegmentoInterno */
         public JsonResult UpdServicioCampaniaSegmentoZona(int ServicioId, int CampaniaId, int PaisId, int Segmento, string ConfiguracionZona, string SegmentoInternoId)
         {
             string Mensaje = string.Empty;
@@ -1414,7 +1383,6 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        //RQ_BS - R2161
         public void EliminarCacheServicio(int CampaniaId, int PaisId)
         {
             try
@@ -1430,7 +1398,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        /*CGI(RSA) - REQ 2544 INICIO*/
         public JsonResult ObtenerServicioCampaniaSegmentoZona(int CampaniaId, int ServicioId, int PaisId)
         {
             BEServicioSegmentoZona servicio = null;
@@ -1445,6 +1412,5 @@ namespace Portal.Consultoras.Web.Controllers
                 Servicio = servicio
             }, JsonRequestBehavior.AllowGet);
         }
-        /*CGI(RSA) - REQ 2544 FIN*/
     }
 }

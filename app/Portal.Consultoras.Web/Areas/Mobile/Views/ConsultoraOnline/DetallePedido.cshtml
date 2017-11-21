@@ -344,7 +344,7 @@
                 <div class="row text-left">
                     <div class="col-xs-12">
                         <div class="mb-10 text-center"><small>Si no tienes los productos en stock, no te olvides de agregarlos a tu pedido.</small></div>
-                        @if (Model.DetallePedido.Count() > 0)
+                        @if (Model.DetallePedido.Any())
                         {
                             <div class="list-table-new fz-14">
                                 <ul class="list-table-title upper">

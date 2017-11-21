@@ -8,7 +8,6 @@ using System.Data.Common;
 using OpenSource.Library.DataAccess;
 using Portal.Consultoras.Entities;
 
-//R2004
 namespace Portal.Consultoras.Data
 {
     public class DAComunicado : DataAccess
@@ -34,8 +33,7 @@ namespace Portal.Consultoras.Data
 
             Context.ExecuteNonQuery(command);
         }
-
-        /*GR-1209*/
+        
         public IDataReader ObtenerComunicadoPorConsultora(string CodigoConsultora, short TipoDispositivo)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerComunicadoPorConsultora");

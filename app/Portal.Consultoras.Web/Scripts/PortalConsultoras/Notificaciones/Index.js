@@ -1,6 +1,5 @@
 ﻿function VisualizarPopup(ProcesoId, Observaciones, Estado, FacturaHoy, DiaFact, MesFact, Visualizado, Asunto, Proceso, EsMontoMinimo, obj) {
     waitingDialog({});
-
     var TipoOrigen;
     switch (Proceso) {
         case "VALAUTO": TipoOrigen = 1; break;
@@ -52,6 +51,7 @@
         $.ajaxSetup({ cache: false });
         $.get(baseUrl + "Notificaciones/ListarObservacionesStock?ValStockId=" + Observaciones).success(function (data) {
             if (checkTimeout(data)) {
+                
                 $('#divListadoObservaciones').html(data);
                 $('#divObservaciones').show();
                 $('.content_left_pagos').hide();
@@ -64,6 +64,7 @@
         $.ajaxSetup({ cache: false });
         $.get(baseUrl + "Notificaciones/ListarDetalleCdr?solicitudId=" + ProcesoId).success(function (data) {
             if (checkTimeout(data)) {
+               
                 $('#divListadoObservaciones').html(data);
                 $('#divObservaciones').show();
                 $('.content_left_pagos').hide();
@@ -76,6 +77,7 @@
         $.ajaxSetup({ cache: false });
         $.get(baseUrl + "Notificaciones/ListarDetalleCdrCulminado?solicitudId=" + ProcesoId).success(function (data) {
             if (checkTimeout(data)) {
+                
                 $('#divListadoObservaciones').html(data);
                 $('#divObservaciones').show();
                 $('.content_left_pagos').hide();
@@ -88,32 +90,39 @@
         $.ajaxSetup({ cache: false });
         $.get(baseUrl + "Notificaciones/ListarObservaciones?ProcesoId=" + ProcesoId + "&TipoOrigen=" + TipoOrigen).success(function (data) {
             if (checkTimeout(data)) {
+                
                 $('#divListadoObservaciones').html(data);
                 $('#divObservaciones').show();
                 $('.content_left_pagos').hide();
                 switch (Estado) {
                     case "2":
                         $('#sMensajePedidoPROL').html(Observaciones);
+                        $('#sTituloNotificacion').html("PEDIDO NO RESERVADO");
                         $('#SaltoLinea').html('&nbsp;');
                         if (EsMontoMinimo == "True") {
                             $('#sMensajeFacturacion').html('Añade más productos y no pierdas la oportunidad de hacer crecer tu negocio con Belcorp.');
                         }
+                        $('#sMontoTotal').html($('#sMontoTotal2').html());
                         break;
                     case "3":
                         $('#sMensajePedidoPROL').html(Observaciones);
+                        $('#sTituloNotificacion').html("PEDIDO NO RESERVADO");
                         $('#sMensajeFacturacion').html('Añade más productos y no pierdas la oportunidad de hacer crecer tu negocio con Belcorp.');
+                        $('#sMontoTotal').html($('#sMontoTotal2').html());
                         break;
                     case "4":
                         $('#sFelicitaciones').html('¡Lo lograste!');
                         $('#sMensajePedidoPROL').html(Observaciones);
                         var Mensaje = "Será enviado a Belcorp " + DescripcionFacturacion(FacturaHoy, DiaFact, MesFact) + ", siempre y cuando cumplas con el monto mínimo y no tengas deuda pendiente.";
                         $('#sMensajeFacturacion').html(Mensaje);
+                        $('#sMontoTotal').html($('#sMontoTotal2').html());
                         break;
                     case "5":
                         $('#sFelicitaciones').html('¡Lo lograste!');
                         $('#sMensajePedidoPROL').html(Observaciones);
                         var Mensaje = "Será enviado a Belcorp " + DescripcionFacturacion(FacturaHoy, DiaFact, MesFact) + ", siempre y cuando cumplas con el monto mínimo y no tengas deuda pendiente.";
                         $('#sMensajeFacturacion').html(Mensaje);
+                        $('#sMontoTotal').html($('#sMontoTotal2').html());
                         break;
                 }
                 CargarCantidadNotificacionesSinLeer()

@@ -124,12 +124,7 @@ namespace Portal.Consultoras.Web.WebPages
                             numero = lst[0].Descripcion
                         });
                     else
-                    {
-
-                        bool result = true;
-
-                        if (result)
-                        {
+                    {   
                             Session["email"] = correo;
 
                             string urlportal = ConfigurationManager.AppSettings["URLSite"];
@@ -213,16 +208,7 @@ namespace Portal.Consultoras.Web.WebPages
                                 mensaje = "Te hemos enviado una nueva clave a tu correo: " + correo + "."
 
                             });
-                        }
-                        else
-                        {
-                            return serializer.Serialize(new
-                            {
-                                succes = false,
-                                pais = codigoPais,
-                                estado = "0"
-                            });
-                        }
+                        
                     }
                 }
 

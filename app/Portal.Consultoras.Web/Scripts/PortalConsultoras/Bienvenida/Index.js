@@ -494,7 +494,6 @@ function limitarMinimo(contenido, caracteres, a) {
     }
     return true;
 }
-/*** FIN EPD-1089 ***/
 
 function CargarCamara() {
     //https://github.com/jhuckaby/webcamjs
@@ -722,8 +721,6 @@ function mostrarVideoIntroductorio() {
             return true;
         }
 
-        //if (viewBagVioTutorial == 0) {
-        //    if (viewBagVioTutorialSalvavidas == '0') {
         if (viewBagMostrarUbicacionTutorial == '0') {
             mostrarUbicacionTutorial(false, true);
         } else {
@@ -731,16 +728,10 @@ function mostrarVideoIntroductorio() {
         }
         primeraVezVideo = false;
         return true;
-        //}
 
         if (viewBagVioTutorialSalvavidas == '0') {
             mostrarUbicacionTutorial(false, false);
         }
-        //else {
-        //    if (viewBagVerComunicado != '-1') {
-        //        mostrarComunicadosPopup();
-        //    }
-        //}
     } catch (e) {
 
     }
@@ -1375,8 +1366,7 @@ function AgregarCUVBannerPedidoNo() {
 function InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido) {
     var item = {
         CUV: CUVpedido,
-        CantCUVpedido: CantCUVpedido,
-        origenPedidoWeb: DesktopHomeBanners
+        CantCUVpedido: CantCUVpedido
     };
     var categoriacad = "";
     var variantcad = "";
@@ -1427,7 +1417,7 @@ function InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido) {
                         'products': [
                             {
                                 'name': result.oPedidoDetalle.DescripcionProd,
-                                'price': result.oPedidoDetalle.PrecioUnidad.toString(),
+                                'price': $.trim(result.oPedidoDetalle.PrecioUnidad),
                                 'brand': result.oPedidoDetalle.DescripcionLarga,
                                 'id': CUVpedido,
                                 'category': categoriacad,
@@ -2996,7 +2986,7 @@ function mostrarComunicadosPopup() {
         return false;
     });
 
-    return (j > 0) ? false : true;
+    return (j <= 0);
 }
 
 function centrarComunicadoPopup(ID) {

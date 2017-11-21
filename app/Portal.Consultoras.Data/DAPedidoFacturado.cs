@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-// R2073 - Toda la clase
 namespace Portal.Consultoras.Data
 {
     public class DAPedidoFacturado : DataAccess
