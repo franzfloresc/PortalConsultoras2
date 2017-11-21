@@ -73,24 +73,22 @@ namespace Portal.Consultoras.Web.Models
 
         public bool EsSuscritaInactiva()
         {
-            return TieneRDC &&
-                SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo &&
-                SuscripcionAnterior1Model.EstadoRegistro != Constantes.EstadoRDSuscripcion.Desactivo &&
-                SuscripcionAnterior2Model.EstadoRegistro != Constantes.EstadoRDSuscripcion.Activo;
-            ;
+            return TieneRDC && EsSuscrita && !EsActiva;
         }
 
         public bool EsSuscritaActiva()
         {
-            return TieneRDC &&
-                SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo;
+            return TieneRDC && EsSuscrita && EsActiva;
         }
 
-        public bool EsNoSuscrita()
+        public bool EsNoSuscritaInactiva()
         {
-            return TieneRDC &&
-                SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Desactivo &&
-                SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Desactivo; ;
+            return TieneRDC && !EsSuscrita && !EsActiva;
+        }
+        
+        public bool EsNoSuscritaActiva()
+        {
+            return TieneRDC && !EsSuscrita && EsActiva;
         }
     }
 }

@@ -132,7 +132,7 @@ namespace Portal.Consultoras.Web.UnitTest.Models
                 var rd = new RevistaDigitalModel();
                 rd.TieneRDC = false;
 
-                bool result = rd.EsNoSuscrita();
+                bool result = rd.EsNoSuscritaInactiva();
 
                 Assert.AreEqual(false, result);
             }
@@ -145,7 +145,7 @@ namespace Portal.Consultoras.Web.UnitTest.Models
                 rd.SuscripcionModel = new RevistaDigitalSuscripcionModel { EstadoRegistro = Constantes.EstadoRDSuscripcion.Desactivo };
                 rd.SuscripcionAnterior2Model = new RevistaDigitalSuscripcionModel { EstadoRegistro = Constantes.EstadoRDSuscripcion.Activo };
 
-                bool result = rd.EsNoSuscrita();
+                bool result = rd.EsNoSuscritaInactiva();
 
                 Assert.AreEqual(false, result);
             }
@@ -158,7 +158,7 @@ namespace Portal.Consultoras.Web.UnitTest.Models
                 rd.SuscripcionModel = new RevistaDigitalSuscripcionModel { EstadoRegistro = Constantes.EstadoRDSuscripcion.Desactivo };
                 rd.SuscripcionAnterior2Model = new RevistaDigitalSuscripcionModel { EstadoRegistro = Constantes.EstadoRDSuscripcion.Desactivo };
 
-                bool result = rd.EsNoSuscrita();
+                bool result = rd.EsNoSuscritaInactiva();
 
                 Assert.AreEqual(true, result);
             }
