@@ -215,6 +215,18 @@
   <wsdl:message name="IPedidoService_GetMisPedidosFacturados_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetMisPedidosFacturadosResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_GetFlagProductosPrecargados_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetFlagProductosPrecargados" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetFlagProductosPrecargados_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetFlagProductosPrecargadosResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_UpdateMostradoProductosPrecargados_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateMostradoProductosPrecargados" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_UpdateMostradoProductosPrecargados_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateMostradoProductosPrecargadosResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_ValidarUnidadesPermitidasEnPedidoShowRoom_InputMessage">
     <wsdl:part name="parameters" element="tns:ValidarUnidadesPermitidasEnPedidoShowRoom" />
   </wsdl:message>
@@ -2372,6 +2384,14 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetMisPedidosFacturados" message="tns:IPedidoService_GetMisPedidosFacturados_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetMisPedidosFacturadosResponse" message="tns:IPedidoService_GetMisPedidosFacturados_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetFlagProductosPrecargados">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetFlagProductosPrecargados" message="tns:IPedidoService_GetFlagProductosPrecargados_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetFlagProductosPrecargadosResponse" message="tns:IPedidoService_GetFlagProductosPrecargados_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateMostradoProductosPrecargados">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/UpdateMostradoProductosPrecargados" message="tns:IPedidoService_UpdateMostradoProductosPrecargados_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/UpdateMostradoProductosPrecargadosResponse" message="tns:IPedidoService_UpdateMostradoProductosPrecargados_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="ValidarUnidadesPermitidasEnPedidoShowRoom">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ValidarUnidadesPermitidasEnPedidoShowRoom" message="tns:IPedidoService_ValidarUnidadesPermitidasEnPedidoShowRoom_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ValidarUnidadesPermitidasEnPedidoShowRoomResponse" message="tns:IPedidoService_ValidarUnidadesPermitidasEnPedidoShowRoom_OutputMessage" />
@@ -3989,6 +4009,24 @@
     </wsdl:operation>
     <wsdl:operation name="GetMisPedidosFacturados">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetMisPedidosFacturados" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFlagProductosPrecargados">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetFlagProductosPrecargados" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateMostradoProductosPrecargados">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdateMostradoProductosPrecargados" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -7321,6 +7359,24 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetFlagProductosPrecargados">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetFlagProductosPrecargados" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateMostradoProductosPrecargados">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdateMostradoProductosPrecargados" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ValidarUnidadesPermitidasEnPedidoShowRoom">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ValidarUnidadesPermitidasEnPedidoShowRoom" style="document" />
       <wsdl:input>
@@ -10387,7 +10443,7 @@
       <soap:address location="http://localhost:41615/PedidoService.svc" />
     </wsdl:port>
     <wsdl:port name="BasicHttpsBinding_IPedidoService" binding="tns:BasicHttpsBinding_IPedidoService">
-      <soap:address location="https://localhost:44392/PedidoService.svc" />
+      <soap:address location="https://localhost:44353/PedidoService.svc" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

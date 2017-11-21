@@ -456,6 +456,37 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetFlagProductosPrecargados">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetFlagProductosPrecargadosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetFlagProductosPrecargadosResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateMostradoProductosPrecargados">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="ConsultoraID" type="xs:long" />
+        <xs:element minOccurs="0" name="IPUsuario" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateMostradoProductosPrecargadosResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
   <xs:element name="ValidarUnidadesPermitidasEnPedidoShowRoom">
     <xs:complexType>
       <xs:sequence>
