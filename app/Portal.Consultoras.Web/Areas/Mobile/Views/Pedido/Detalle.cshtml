@@ -862,5 +862,10 @@
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsMobile/PedidoDetalle")
 
-    
+    @if (Model.MostrarPopupPrecargados)
+    {
+        <script>
+            $(document).ready(function () { messageInfoValidado('@Html.Raw(Constantes.RecuperacionPedido.Mensaje)'); });
+        </script>
+    }    
 }
