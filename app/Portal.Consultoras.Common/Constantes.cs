@@ -65,79 +65,34 @@ namespace Portal.Consultoras.Common
 
         public static class PaisID
         {
-            /// <summary>
-            /// 1
-            /// </summary>
             public const int Argentina = 1;
-
-            /// <summary>
-            /// 2
-            /// </summary>
+            
             public const int Bolivia = 2;
-
-            /// <summary>
-            /// 3
-            /// </summary>
+            
             public const int Chile = 3;
-
-            /// <summary>
-            /// 4
-            /// </summary>
+            
             public const int Colombia = 4;
-
-            /// <summary>
-            /// 5
-            /// </summary>
+            
             public const int CostaRica = 5;
-
-            /// <summary>
-            /// 6
-            /// </summary>
+            
             public const int Ecuador = 6;
-
-            /// <summary>
-            /// 7
-            /// </summary>
+            
             public const int ElSalvador = 7;
-
-            /// <summary>
-            /// 8
-            /// </summary>
+            
             public const int Guatemala = 8;
-
-            /// <summary>
-            /// 9
-            /// </summary>
+            
             public const int Mexico = 9;
-
-            /// <summary>
-            /// 10
-            /// </summary>
+            
             public const int Panama = 10;
-
-            /// <summary>
-            /// 11
-            /// </summary>
+            
             public const int Peru = 11;
-
-            /// <summary>
-            /// 12
-            /// </summary>
+            
             public const int PuertoRico = 12;
-
-            /// <summary>
-            /// 13
-            /// </summary>
+            
             public const int RepublicaDominicana = 13;
-
-            /// <summary>
-            /// 14
-            /// </summary>
+            
             public const int Venezuela = 14;
-
-            /// <summary>
-            /// 15
-            /// </summary>
+            
             public const int Brasil = 15;
         }
 
@@ -189,7 +144,7 @@ namespace Portal.Consultoras.Common
             public const int Flexipago = 6;
             public const int Accesorizate = 7;
         }
-        //2:SICC - 1:FOX
+
         public static class ConsultoraNueva
         {
             public const int Sicc = 2;
@@ -311,6 +266,7 @@ namespace Portal.Consultoras.Common
 
             //AsesoraOnline
             public const string EmailAsesoraOnline = "EmailAsesoraOnline";
+
             // Configuracion Seccion Home Contenedor de Palancas
             public const string ListadoSeccionPalanca = "ListadoSeccionPalanca";
 
@@ -674,14 +630,13 @@ namespace Portal.Consultoras.Common
             public const int AsesoraOnline = 12;
         }
 
-        // Constantes de los motivos de GPR.
         public static class GPRMotivoRechazo
         {
-            public const string MontoMinino = "OCC-16"; //MONTO MINIMO
-            public const string MontoMaximo = "OCC-17"; // MONTO MAXIMO
-            public const string ActualizacionDeuda = "OCC-19"; //ACTUALIZACION DE DEUDA
-            public const string ValidacionMontoMinimoStock = "OCC-51"; //VALIDACION MONTO MINIMO STOCK
-            public const string Mostrar2OpcionesNotificacion = "1"; // Flag para mostrar dos opciones en notificaciones.
+            public const string MontoMinino = "OCC-16";
+            public const string MontoMaximo = "OCC-17";
+            public const string ActualizacionDeuda = "OCC-19";
+            public const string ValidacionMontoMinimoStock = "OCC-51";
+            public const string Mostrar2OpcionesNotificacion = "1";
         }
 
         public static class ValidacionExisteUsuario
