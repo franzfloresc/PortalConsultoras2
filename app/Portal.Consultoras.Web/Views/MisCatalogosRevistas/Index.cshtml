@@ -68,7 +68,8 @@
             if (revistaDigital.SuscripcionAnterior2Model.EstadoRegistro != 1 &&
                 revistaDigital.SuscripcionAnterior1Model.EstadoRegistro == 1)
             {
-                
+                if (!tieneGND)
+                {
                 @Html.Partial("~/Views/MisCatalogosRevistas/template-revista-slide.cshtml")
                 <!-- INSCRITAS C-11 -->
                 <div class="revista_content" id="contentRevistaDigital" style="position: relative;">
@@ -77,7 +78,7 @@
                             <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="45">
                         </div>
                         <div class="hblock_text">
-                            <div class="hblock_tit">@ViewBag.NombreConsultora, YA LLEGÓ TU NUEVA REVISTA ONLINE</div>
+                            <div class="hblock_tit">@ViewBag.NombreConsultora, YA LLEGÓ TU NUEVA REVISTA ONLINE :P</div>
                             <div>¿YA VISTE TUS <b>OFERTAS EN ÉSIKA PARA MÍ</b>?
                             </div>
                             <div class="btn_diagonal btn_stroke_white">
@@ -91,6 +92,7 @@
                     </div>
                 </div>
                 <!-- FIN INSCRITAS C-11 -->
+                }
             }
             else if (revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == 1)
             {
