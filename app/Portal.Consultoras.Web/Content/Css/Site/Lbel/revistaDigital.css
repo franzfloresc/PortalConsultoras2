@@ -82,7 +82,7 @@
 	margin-top: 35px;
 }
 .revistadigital .revistadigital-desc span {
-	color: #e81c36;
+	color: #613c87;
 	font-family: 'Lato-Bold';
 }
 .revistadigital .revistadigital-baj {
@@ -91,14 +91,14 @@
 }
 .revistadigital .revistadigital-baj a {
 	text-decoration: underline;
-	color: #e81c36;
+	color: #613c87;
 }
 .revistadigital .arrow-right {
 	width: 0;
 	height: 0;
 	border-top: 5px solid transparent;
 	border-bottom: 5px solid transparent;
-	border-left: 5px solid #e81c36;
+	border-left: 5px solid #613c87;
 	left: 415px;
 	position: absolute;
 	top: 153px;
@@ -158,7 +158,7 @@
 .revistadigital .boxoffer .fondo_boton {
     width: 100%;
     height: 80px;
-    background: #e81c36;
+    background: #613c87;
     transform: skewX(-14deg);
     position: absolute;
     left: -14px;
@@ -594,7 +594,7 @@
     font-family:'Lato';
     font-size:13px;
     text-align:center;
-    color:#e81c36;
+    color:#613c87;
     margin-top:5px;
 }
 .detalle_set_banner_ept{
@@ -768,7 +768,7 @@
     line-height:40px;
     color:white;
     float:left;
-    background:#e81c36;
+    background:#613c87;
     font-size:12px;
     text-align:center;
     padding-right:15px;
@@ -1480,7 +1480,7 @@
 .rd_tit {
 	font-size: 22px;
 	font-weight: 900;
-	color: #e81c36;
+	color: #613c87;
 	letter-spacing: 1.5px;
 }
 .rd_tit span {
@@ -1517,7 +1517,7 @@
 }
 /* boton rojo */
 .rd_btn_rojo {
-    background: #e81c36;
+    background: #613c87;
     width: 260px;
     left: 50%;
     margin-left: -130px;
@@ -1527,7 +1527,7 @@
 }
 
 .rd_btn_rojo_right {
-    background: #e81c36;
+    background: #613c87;
     width: 220px;
     right: 0;
     border: 0px solid;
@@ -1690,7 +1690,7 @@
 	left: 230px;
 }
 .rd_inscripcion .popup_rd_content .btn_diagonal {
-	background: #e81c36;
+	background: #613c87;
 	width: 260px;
 	bottom: 0;
 }
@@ -2869,7 +2869,7 @@ width: 50%;
     display: block;
     font-weight: 900;
     margin-bottom: 30px;
-    color: #e81c36;
+    color: #613c87;
     font-size: 17px;
     margin-top: 0px;
 	}
@@ -2944,7 +2944,7 @@ width: 50%;
     display: block;
     font-weight: 900;
         margin-bottom: 30px;
-    color: #e81c36;
+    color: #613c87;
     font-size: 17px;
     margin-top: 0px;
 	}
@@ -2981,7 +2981,7 @@ width: 50%;
     display: block;
     font-weight: 900;
     margin-bottom: 20pt;
-    color: #e81c36;
+    color: #613c87;
     font-size: 13px;
     margin-top: 0px;
 	}
@@ -2997,7 +2997,7 @@ width: 50%;
         margin-bottom: 30px;
 	}
 	.suscribete-gratis a.callto{
-		      background: #e81c36;
+		      background: #613c87;
     color: white;
     text-align: center;
     max-width: 300px;
