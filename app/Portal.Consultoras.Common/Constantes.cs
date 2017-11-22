@@ -946,6 +946,29 @@ namespace Portal.Consultoras.Common
             public const string MPedidoRdr = "MPedidoRdr";
             public const string MCatalogoRdr = "MCatalogoRdr";
 
+            #region Revista Digital Popup Bloqueado
+            public const string DPopupBloqueadoNoActivaNoSuscrita = "DPopupBloqueadoNoActivaNoSuscrita";
+            public const string DPopupBloqueadoNoActivaSuscrita = "DPopupBloqueadoNoActivaSuscrita";
+            public const string MPopupBloqueadoNoActivaNoSuscrita = "MPopupBloqueadoNoActivaNoSuscrita";
+            public const string MPopupBloqueadoNoActivaSuscrita = "MPopupBloqueadoNoActivaSuscrita";
+            #endregion
+
+            #region Revista Digital Lo que te perdiste
+            public const string DPerdiste = "DPerdiste";
+            public const string MPerdiste = "MPerdiste";
+            #endregion
+
+            #region Revista Digital Landing Productos - Banner
+            public const string DLandingBannerNoActivaNoSuscrita = "DLandingBannerNoActivaNoSuscrita";
+            public const string DLandingBannerNoActivaSuscrita = "DLandingBannerNoActivaSuscrita";
+            public const string DLandingBannerActivaNoSuscrita = "DLandingBannerActivaNoSuscrita";
+            public const string DLandingBannerActivaSuscrita = "DLandingBannerActivaSuscrita";
+            public const string MLandingBannerNoActivaNoSuscrita = "MLandingBannerNoActivaNoSuscrita";
+            public const string MLandingBannerNoActivaSuscrita = "MLandingBannerNoActivaSuscrita";
+            public const string MLandingBannerActivaNoSuscrita = "MLandingBannerActivaNoSuscrita";
+            public const string MLandingBannerActivaSuscrita = "MLandingBannerActivaSuscrita";
+            #endregion
+
         }
 
         public static class ConfiguracionSeccion
