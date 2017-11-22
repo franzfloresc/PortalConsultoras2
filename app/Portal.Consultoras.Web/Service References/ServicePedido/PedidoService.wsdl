@@ -37,8 +37,9 @@
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cupon" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Incentivo" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd10" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd11" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd10" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Estrategia" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd11" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd12" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IPedidoService_ValidacionModificarPedido_InputMessage">
@@ -334,6 +335,30 @@
   </wsdl:message>
   <wsdl:message name="IPedidoService_GetMisPedidosFacturados_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetMisPedidosFacturadosResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetFlagProductosPrecargados_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetFlagProductosPrecargados" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetFlagProductosPrecargados_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetFlagProductosPrecargadosResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_UpdateMostradoProductosPrecargados_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateMostradoProductosPrecargados" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_UpdateMostradoProductosPrecargados_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateMostradoProductosPrecargadosResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetConfiguracionProgramaNuevasApp_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetConfiguracionProgramaNuevasApp" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetConfiguracionProgramaNuevasApp_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetConfiguracionProgramaNuevasAppResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_InsConfiguracionProgramaNuevasApp_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsConfiguracionProgramaNuevasApp" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_InsConfiguracionProgramaNuevasApp_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsConfiguracionProgramaNuevasAppResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_CantidadPedidoByConsultoraShowRoom_InputMessage">
     <wsdl:part name="parameters" element="tns:CantidadPedidoByConsultoraShowRoom" />
@@ -2452,6 +2477,22 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetMisPedidosFacturados" message="tns:IPedidoService_GetMisPedidosFacturados_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetMisPedidosFacturadosResponse" message="tns:IPedidoService_GetMisPedidosFacturados_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetFlagProductosPrecargados">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetFlagProductosPrecargados" message="tns:IPedidoService_GetFlagProductosPrecargados_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetFlagProductosPrecargadosResponse" message="tns:IPedidoService_GetFlagProductosPrecargados_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateMostradoProductosPrecargados">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/UpdateMostradoProductosPrecargados" message="tns:IPedidoService_UpdateMostradoProductosPrecargados_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/UpdateMostradoProductosPrecargadosResponse" message="tns:IPedidoService_UpdateMostradoProductosPrecargados_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionProgramaNuevasApp">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetConfiguracionProgramaNuevasApp" message="tns:IPedidoService_GetConfiguracionProgramaNuevasApp_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetConfiguracionProgramaNuevasAppResponse" message="tns:IPedidoService_GetConfiguracionProgramaNuevasApp_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsConfiguracionProgramaNuevasApp">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsConfiguracionProgramaNuevasApp" message="tns:IPedidoService_InsConfiguracionProgramaNuevasApp_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsConfiguracionProgramaNuevasAppResponse" message="tns:IPedidoService_InsConfiguracionProgramaNuevasApp_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="CantidadPedidoByConsultoraShowRoom">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/CantidadPedidoByConsultoraShowRoom" message="tns:IPedidoService_CantidadPedidoByConsultoraShowRoom_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/CantidadPedidoByConsultoraShowRoomResponse" message="tns:IPedidoService_CantidadPedidoByConsultoraShowRoom_OutputMessage" />
@@ -4169,6 +4210,42 @@
     </wsdl:operation>
     <wsdl:operation name="GetMisPedidosFacturados">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetMisPedidosFacturados" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFlagProductosPrecargados">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetFlagProductosPrecargados" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateMostradoProductosPrecargados">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdateMostradoProductosPrecargados" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionProgramaNuevasApp">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetConfiguracionProgramaNuevasApp" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsConfiguracionProgramaNuevasApp">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsConfiguracionProgramaNuevasApp" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -7494,6 +7571,42 @@
     </wsdl:operation>
     <wsdl:operation name="GetMisPedidosFacturados">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetMisPedidosFacturados" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFlagProductosPrecargados">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetFlagProductosPrecargados" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateMostradoProductosPrecargados">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdateMostradoProductosPrecargados" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionProgramaNuevasApp">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetConfiguracionProgramaNuevasApp" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsConfiguracionProgramaNuevasApp">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsConfiguracionProgramaNuevasApp" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

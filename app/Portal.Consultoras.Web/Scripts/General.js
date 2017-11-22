@@ -1,6 +1,9 @@
 ﻿
 var formatDecimalPais = formatDecimalPais || new Object();
 var finishLoadCuponContenedorInfo = false;
+var belcorp = belcorp || {};
+belcorp.settings = belcorp.settings || {}
+belcorp.settings.uniquePrefix = "/g/";
 
 var belcorp = belcorp || {};
 belcorp.settings = belcorp.settings || {};
@@ -21,6 +24,25 @@ jQuery(document).ready(function () {
 
     if (typeof (tokenPedidoAutenticoOk) !== 'undefined') {
         GuardarIndicadorPedidoAutentico();
+    }
+
+    if (isMobile()) {
+        var posibleGuid = getMobilePrefixUrl().substring(belcorp.settings.uniquePrefix.length);
+        if (FuncionesGenerales.IsGuid(posibleGuid)) {
+            $.ajaxSetup({
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("guid", posibleGuid);
+                }
+            });
+
+            $.ajaxPrefilter(function (options) {
+                if (!options.beforeSend) {
+                    options.beforeSend = function (xhr) {
+                        xhr.setRequestHeader("guid", posibleGuid);
+                    }
+                }
+            });
+        }
     }
 });
 (function ($) {
@@ -644,7 +666,7 @@ function isMobile() {
 }
 
 function getMobilePrefixUrl() {
-    var uniquePrefix = "/g/";
+    var uniquePrefix = belcorp.settings.uniquePrefix;
     var currentUrl = $.trim(location.href).toLowerCase();
     var uniqueIndexOfUrl = currentUrl.indexOf(uniquePrefix);
     var isUniqueUrl = uniqueIndexOfUrl > 0;
@@ -871,6 +893,10 @@ FuncionesGenerales = {
         if (object.value.length > cantidadMaxima)
             object.value = object.value.slice(0, cantidadMaxima);
     },
+    IsGuid: function(input) {
+        var guidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+        return guidRegex.test(input);
+    }
 };
 
 function InsertarLogDymnamo(pantallaOpcion, opcionAccion, esMobile, extra) {

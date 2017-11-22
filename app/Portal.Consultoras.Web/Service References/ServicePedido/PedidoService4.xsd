@@ -30,10 +30,13 @@
       <xs:element minOccurs="0" name="CodigoNivel" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoVenta" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DescripcionProducto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Ganancia" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ImagenURL" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="IndicadorCuponIndependiente" type="xs:boolean" />
       <xs:element minOccurs="0" name="IndicadorKit" type="xs:boolean" />
       <xs:element minOccurs="0" name="NumeroCampanasVigentes" type="xs:int" />
       <xs:element minOccurs="0" name="PrecioUnitario" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TextoLibre" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UnidadesMaximas" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
@@ -50,8 +53,11 @@
       <xs:element minOccurs="0" name="CodigoConcurso" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoNivel" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DescripcionProducto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Ganancia" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ImagenURL" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="IndicadorKitNuevas" type="xs:boolean" />
       <xs:element minOccurs="0" name="PrecioUnitario" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TextoLibre" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEIncentivoProgramaNuevasPremio" nillable="true" type="tns:BEIncentivoProgramaNuevasPremio" />

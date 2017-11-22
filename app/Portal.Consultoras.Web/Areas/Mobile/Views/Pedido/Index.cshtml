@@ -28,11 +28,11 @@
                 @Html.Hidden("txtClienteId", Model.ClienteId)
                 @if (ViewBag.MobileApp && Model.ClienteId > 0)
                 {
-                <input type="text" id="txtClienteNombre" placeholder="Cliente" class="PedidoClienteNombre" disabled value="@Model.Nombre" />
+                	<input type="text" id="txtClienteNombre" placeholder="Cliente" class="PedidoClienteNombre" disabled value="@Model.Nombre" />
                 }
                 else
                 {
-                <input type="text" id="txtClienteNombre" placeholder="Cliente" class="PedidoClienteNombre" />
+                	<input type="text" id="txtClienteNombre" placeholder="Cliente" class="PedidoClienteNombre" />
                 }
 
                 <input type="tel" name="codigoProducto" value="" placeholder="Código" id="txtCodigoProducto" oninput="FuncionesGenerales.MaxLengthCheck(this, 5)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
@@ -339,6 +339,8 @@
     </div>
 </div>
 
+
+
 <!-- FIN POPUP MIS GANANCIAS -->
 <!--SB20-483 - FIN -->
 <!-- POPUP AGREGAR CLIENTE -->
@@ -512,4 +514,11 @@
     }
 
     @Scripts.Render("~/bundles/JsMobile/Pedido")
+
+    @if (Model.MostrarPopupPrecargados)
+    {
+        <script>
+            $(document).ready(function () { messageInfoValidado('@Html.Raw(Constantes.RecuperacionPedido.Mensaje)'); });
+        </script>
+    }
 }
