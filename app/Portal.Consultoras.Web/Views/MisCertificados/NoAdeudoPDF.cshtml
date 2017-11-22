@@ -1,64 +1,134 @@
 ﻿
-@model Portal.Consultoras.Web.Models.MisCertificados.CertificadoModel
+@model Portal.Consultoras.Web.Models.MisCertificados.MiCertificadoModel
 
-<div id="div-report">
-    <table border="1">
-        <tr>
-            <td colspan="2"></td>
-            <td style="text-align: left;">No. @Model.CertificadoComercialId</td>
-        </tr>
-        <tr>
-            <td>Quito, 27 de Setiembre de 2017</td>
-            <td colspan="2"></td>
-        </tr>
-        <tr>
-            <td colspan="3" rowspan="3"><p>&nbsp;</p></td>
-        </tr>
-        <tr>
-            <td colspan="2" style="text-align: center;">A QUIEN PUEDA INTERESAR</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td><b>Asunto:</b>Certidicado de no adeudo</td>
-            <td colspan="2"></td>
-        </tr>
-        <tr>
-            <td colspan="2" style="text-align: center;">La suscrita se permite CERTIFICAR que:</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                La señora Maria Mercedes Perez Gonzales Identificado con la celula de <br />
-                ciudadania No. 0405060708 es consultora Belcorp (compradora) y a la fecha <br />
-                no mantiene deuda con la Compañia GRUPO TRANSBEL S.A.
-            </td>
-            <td></td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                La presente se expide al 27 del Mes de Setiembre de dos mil diecisiete <br />
-                (2017).
-            </td>
-            <td></td>
-        </tr>
-        <tr>
-            <td colspan="3" rowspan="3"><p>&nbsp;</p></td>
-        </tr>
-        <tr>
-            <td><b>Atentamente</b></td>
-            <td colspan="2"></td>
-        </tr>
-        <tr>
-            <td colspan="3" rowspan="3"><p>&nbsp;</p></td>
-        </tr>
-        <tr>
-            <td>
-                Xavier Garces Tomish <br />
-                JEFE DE COBRANZAS <br />
-                <b>Grupo Transbel S.A.</b>
-            </td>
-            <td colspan="2"></td>
-        </tr>
-    </table>
+<div>
+    <p style="margin-top:0pt; margin-bottom:0pt; text-align:right; line-height:115%; font-size:12pt">
+        <span style="width:35.4pt; display:inline-block">&#xa0;</span>
+        <span style="width:35.4pt; display:inline-block">&#xa0;</span>
+        <span style="width:35.4pt; display:inline-block">&#xa0;</span>
+        <span style="width:35.4pt; display:inline-block">&#xa0;</span>
+        <span style="width:35.4pt; display:inline-block">&#xa0;</span>
+        <span style="width:35.4pt; display:inline-block">&#xa0;</span>
+        <span style="width:35.4pt; display:inline-block">&#xa0;</span>
+        <span style="width:35.4pt; display:inline-block">&#xa0;</span>
+        <span style="width:35.4pt; display:inline-block">&#xa0;</span>
+        <span style="font-family:Arial">No. @Model.NumeroSecuencia</span>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+        <span style="font-family: Arial;">@Model.Ciudad,</span>
+        <span style="font-family: Arial;">@Model.FechaCreacion</span>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+        <span style="font-family: Arial;">&nbsp;</span>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+        <span style="font-family: Arial;">&nbsp;</span>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+        <span style="font-family: Arial;">&nbsp;</span>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: center; line-height: 115%; font-size: 12pt;">
+        <span style="font-family: Arial;">A QUIEN PUEDA INTERESAR</span>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+        <span style="font-family: Arial;">&nbsp;</span>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+        <span style="font-family: Arial;">&nbsp;</span>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+        <span style="font-family: Arial;">&nbsp;</span>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-indent: 35.4pt; line-height: 115%; font-size: 12pt;">
+        <strong><em><span style="font-family: Arial;">Asunto</span></em></strong>
+        <em><span style="font-family: Arial;">: @Model.Asunto</span></em>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+        <span style="font-family: Arial;">&nbsp;</span>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+        <span style="font-family: Arial;">&nbsp;</span>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: center; line-height: 115%; font-size: 12pt;">
+        <span style="font-family: Arial;">La suscrita se permite CERTIFICAR que:</span>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: center; line-height: 115%; font-size: 12pt;">
+        <span style="font-family: Arial;">&nbsp;</span>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+        <span style="font-family: Arial;">&nbsp;</span>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+        <span style="font-family: Arial;">La se&ntilde;ora </span>
+        <span style="font-family: Arial;">@Model.NombreCompleto</span>
+        <span style="font-family: Arial;"> identificada con la c&eacute;dula de ciudadan&iacute;a No. </span>
+        <span style="font-family: Arial;">@Model.NumeroDocumento</span>
+        <span style="font-family: Arial;"> es Consultora Belcorp (compradora) y a la fecha </span>
+        <span style="font-family: Arial; text-transform: uppercase;">@Model.DescripcionEstado</span>
+        <span style="font-family: Arial;"> con la Compa&ntilde;&iacute;a @Model.RazonSocial</span>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+        <span style="font-family: Arial;">&nbsp;</span>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+        <span style="font-family: Arial;">&nbsp;</span>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+        <span style="font-family: Arial;">La presente se expide al </span>
+        <span style="font-family: Arial;">@Model.FechaCreacionTexto</span>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+        <span style="font-family: Arial;">&nbsp;</span>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+        <span style="font-family: Arial;">&nbsp;</span>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+        <span style="font-family: Arial;">&nbsp;</span>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+        <span style="font-family: Arial;">&nbsp;</span>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+        <span style="font-family: Arial;">&nbsp;</span>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+        <strong><span style="font-family: Arial;">Atentamente,</span></strong>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+        <strong><span style="font-family: Arial;">&nbsp;</span></strong>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+        <strong><span style="font-family: Arial;">&nbsp;</span></strong>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+        <strong><span style="font-family: Arial;">&nbsp;</span></strong>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+        <img src="@Model.UrlFirma" alt="" width="266" height="64" />
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+        <span style="font-family: Arial;">__________________________</span>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 14pt;">
+        <strong><span style="font-family: Arial;">@Model.Responsable</span></strong>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 14pt;">
+        <strong><span style="font-family: Arial;">@Model.Cargo</span></strong>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 14pt;">
+        <strong><span style="font-family: Arial;">@Model.RazonSocial</span></strong>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 10pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+        <span style="font-family: Arial;">&nbsp;</span>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+        <span style="font-family: Arial;">&nbsp;</span>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 0pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+        <span style="font-family: Arial;">&nbsp;</span>
+    </p>
+    <p style="margin-top: 0pt; margin-bottom: 10pt; text-align: justify; line-height: 115%; font-size: 12pt;">
+        <span style="font-family: Arial;">&nbsp;</span>
+    </p>
 </div>
-

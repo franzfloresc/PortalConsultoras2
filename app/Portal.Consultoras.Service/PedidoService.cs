@@ -2269,16 +2269,18 @@ namespace Portal.Consultoras.Service
         {
             return _pedidoWebBusinessLogic.GetMisPedidosFacturados(paisID, ConsultoraID, CampaniaID, ClienteID, NombreConsultora);
         }
-        #endregion        
+        #endregion
 
+        #region Certificado Digital
         public bool TieneCampaniaConsecutivas(int paisId, int campaniaId, int cantidadCampaniaConsecutiva, long consultoraId)
         {
             return BLPedidoWeb.TieneCampaniaConsecutivas(paisId, campaniaId, cantidadCampaniaConsecutiva, consultoraId);
         }
 
-        public BEMiCertificado ObtenerCertificadoDigital(int paisId, int campaniaId, long consultoraId, Int16 tipo)
+        public BEMiCertificado ObtenerCertificadoDigital(int paisId, int campaniaId, long consultoraId, Int16 tipoCert)
         {
-            return BLPedidoWeb.ObtenerCertificadoDigital(paisId, campaniaId, consultoraId, tipo);
+            return BLPedidoWeb.ObtenerCertificadoDigital(paisId, campaniaId, consultoraId, tipoCert);
         }
+        #endregion
     }
 }

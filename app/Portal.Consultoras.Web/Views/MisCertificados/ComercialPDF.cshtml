@@ -1,59 +1,104 @@
 ﻿
-@model Portal.Consultoras.Web.Models.MisCertificados.CertificadoModel
+@model Portal.Consultoras.Web.Models.MisCertificados.MiCertificadoModel
 
-<div id="div-report">
-    <table>
-        <tr>
-            <td colspan="2">No. @Model.CertificadoComercialId</td>
-        </tr>
-        <tr>
-            <td>Quito, 31 de Agosto de 2017</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>
-                GRUPO TRANSBEL S.A. <br />
-                RUC 1791412540001
-            </td>
-        </tr>
-        <tr>
-            <td>Se permite Certificar que:</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                La señora <b>JOHANNA SISSIBEL GOMEZ RIVADENEIRA</b> identificada con celula <br />
-                de ciudadania numero <b>1308566734</b> es compradora de esta Compañia desde el <br />
-                dia <b>27 de Abril de 2017</b> y a la fecha cuenta con un promedio de compra de <br />
-                muchos productos igual a $ 500 durante las ultimas 3 campañas.
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                La presente referencia se expide a solicitud de la interesada en Quito, al 31 de <br />
-                Agosto de dos mil diecisiete (2017).
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                En caso de requerir confirmacion del presente documento se pueden comunicar <br />
-                a las lineas 023935900
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2"><p>&nbsp;</p></td>
-        </tr>
-        <tr>
-            <td><b>Atentamente</b></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>
-                Veronica Velasco H. <br />
-                Jefe de Servicio al Cliente <br />
-                <b>Grupo Transbel S.A.</b>
-            </td>
-        </tr>
-    </table>
+<div>
+    <p style="margin-top:0pt; margin-bottom:0pt; text-align:right; line-height:115%; font-size:12pt">
+        <span style="width:35.4pt; display:inline-block">&#xa0;</span>
+        <span style="width:35.4pt; display:inline-block">&#xa0;</span>
+        <span style="width:35.4pt; display:inline-block">&#xa0;</span>
+        <span style="width:35.4pt; display:inline-block">&#xa0;</span>
+        <span style="width:35.4pt; display:inline-block">&#xa0;</span>
+        <span style="width:35.4pt; display:inline-block">&#xa0;</span>
+        <span style="width:35.4pt; display:inline-block">&#xa0;</span>
+        <span style="width:35.4pt; display:inline-block">&#xa0;</span>
+        <span style="width:35.4pt; display:inline-block">&#xa0;</span>
+        <span style="font-family:Arial">No. @Model.NumeroSecuencia</span>
+    </p>
+    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:115%; font-size:12pt">
+        <span style="font-family:Arial">&#xa0;</span>
+    </p>
+    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:115%; font-size:12pt">
+        <span style="font-family:Arial">&#xa0;</span>
+    </p>
+    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:115%; font-size:12pt">
+        <span style="font-family:Arial">&#xa0;</span>
+    </p>
+    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:115%; font-size:12pt">
+        <span style="font-family:Arial">@Model.Ciudad, </span>
+        <span style="font-family:Arial;">@Model.FechaCreacion</span>
+    </p>
+    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:115%; font-size:12pt">
+        <span style="font-family:Arial">&#xa0;</span>
+    </p>
+    <p style="margin-top:0pt; margin-bottom:10pt; text-align:center; line-height:115%; font-size:12pt">
+        <span style="font-family:Arial">&#xa0;</span>
+    </p>
+    <p style="margin-top:0pt; margin-bottom:10pt; text-align:center; line-height:115%; font-size:12pt">
+        <span style="font-family:Arial">&#xa0;</span>
+    </p>
+    <p style="margin-top:0pt; margin-bottom:10pt; text-align:center; line-height:115%; font-size:12pt">
+        <span style="font-family:Arial">@Model.RazonSocial</span>
+    </p>
+    <p style="margin-top:0pt; margin-bottom:10pt; text-align:center; line-height:115%; font-size:12pt">
+        <span style="font-family:Arial">@Model.Ruc</span>
+    </p>
+    <p style="margin-top:0pt; margin-bottom:10pt; text-align:center; line-height:115%; font-size:12pt">
+        <span style="font-family:Arial">&#xa0;</span>
+    </p>
+    <p style="margin-top:0pt; margin-bottom:10pt; text-align:center; line-height:115%; font-size:12pt">
+        <span style="font-family:Arial">Se permite Certificar que: </span>
+    </p>
+    <p style="margin-top:0pt; margin-bottom:10pt; text-align:center; line-height:115%; font-size:12pt">
+        <span style="font-family:Arial">&#xa0;</span>
+    </p>
+    <p style="margin-top:0pt; margin-bottom:10pt; text-align:justify; line-height:115%; font-size:12pt">
+        <span style="font-family:Arial">La señora </span><span style="font-family:Arial;">@Model.NombreCompleto</span>
+        <span style="font-family:Arial"> identificada con cédula de ciudadanía número </span>
+        <span style="font-family:Arial;">@Model.NumeroDocumento</span>
+        <span style="font-family:Arial">, es compradora de esta Compañía desde el día </span>
+        <span style="font-family:Arial;">@Model.FechaIngresoConsultora</span>
+        <span style="font-family:Arial"> y a la fecha cuenta con un promedio de compra de nuestros productos igual a @Model.Moneda</span>
+        <span style="font-family:Arial;">@Model.PromedioVentas</span>
+        <span style="font-family:Arial">, durante las últimas 3 campañas.</span>
+    </p>
+    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:115%; font-size:12pt">
+        <span style="font-family:Arial">La presente referencia se expide a solicitud de la interesada en @Model.Ciudad, al </span>
+        <span style="font-family:Arial;">@Model.FechaCreacionTexto</span>
+    </p>
+    <p style="margin-top:0pt; margin-bottom:10pt; line-height:115%; font-size:12pt">
+        <span style="font-family:Arial">&#xa0;</span>
+    </p>
+    <p style="margin-top:0pt; margin-bottom:10pt; text-align:justify; line-height:115%; font-size:12pt">
+        <span style="font-family:Arial">En caso de requerir confirmación del presente documento se pueden comunicar a las Líneas @Model.Telefono.</span>
+    </p>
+    <p style="margin-top:0pt; margin-bottom:10pt; text-align:justify; line-height:115%; font-size:12pt">
+        <span style="font-family:Arial">&#xa0;</span>
+    </p>
+    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:115%; font-size:12pt">
+        <strong><span style="font-family:Arial; ">Atentamente</span></strong>
+    </p>
+    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:115%; font-size:12pt">
+        <strong><span style="font-family:Arial; ">&#xa0;</span></strong>
+    </p>
+    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:115%; font-size:12pt">
+        <strong><span style="font-family:Arial; ">&#xa0;</span></strong>
+    </p>
+    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:115%; font-size:12pt">
+        <strong><span style="font-family:Arial; ">&#xa0;</span></strong>
+    </p>
+    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:115%; font-size:12pt">
+        <img src="@Model.UrlFirma" alt="" width="266" height="64" />
+    </p>
+    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:115%; font-size:12pt">
+        <span style="font-family:Arial">___________________________</span>
+    </p>
+    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:115%; font-size:14pt">
+        <strong><span style="font-family:Arial; ">@Model.Responsable</span></strong>
+    </p>
+    <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:115%; font-size:14pt">
+        <strong><span style="font-family:Arial; ">@Model.Cargo</span></strong>
+    </p>
+    <p style="margin-top:0pt; margin-bottom:10pt; text-align:justify; line-height:115%; font-size:14pt">
+        <strong><span style="font-family:Arial; ">@Model.RazonSocial</span></strong>
+    </p>
 </div>
-

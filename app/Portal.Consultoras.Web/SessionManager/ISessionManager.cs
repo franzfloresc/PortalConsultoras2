@@ -46,5 +46,10 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetMisCertificados(List<MiCertificadoModel> lista);
 
         List<MiCertificadoModel> GetMisCertificados();
+
+        void SetMisCertificadosData(List<BEMiCertificado> lista);
+
+        List<BEMiCertificado> GetMisCertificadosData();
+
     }
 }

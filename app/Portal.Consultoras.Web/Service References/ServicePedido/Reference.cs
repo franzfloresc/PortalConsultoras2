@@ -12627,6 +12627,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string CiudadField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private long ConsultoraIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DescripcionEstadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -12639,7 +12642,7 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string NumeroDocumentoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string NumeroSecuencialField;
+        private string NumeroSecuenciaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private short NumeroVecesField;
@@ -12663,7 +12666,7 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string TelefonoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private short TipoCertificadoField;
+        private short TipoCertField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TipoDocumentoField;
@@ -12734,6 +12737,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public long ConsultoraId {
+            get {
+                return this.ConsultoraIdField;
+            }
+            set {
+                if ((this.ConsultoraIdField.Equals(value) != true)) {
+                    this.ConsultoraIdField = value;
+                    this.RaisePropertyChanged("ConsultoraId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string DescripcionEstado {
             get {
                 return this.DescripcionEstadoField;
@@ -12786,14 +12802,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string NumeroSecuencial {
+        public string NumeroSecuencia {
             get {
-                return this.NumeroSecuencialField;
+                return this.NumeroSecuenciaField;
             }
             set {
-                if ((object.ReferenceEquals(this.NumeroSecuencialField, value) != true)) {
-                    this.NumeroSecuencialField = value;
-                    this.RaisePropertyChanged("NumeroSecuencial");
+                if ((object.ReferenceEquals(this.NumeroSecuenciaField, value) != true)) {
+                    this.NumeroSecuenciaField = value;
+                    this.RaisePropertyChanged("NumeroSecuencia");
                 }
             }
         }
@@ -12890,14 +12906,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public short TipoCertificado {
+        public short TipoCert {
             get {
-                return this.TipoCertificadoField;
+                return this.TipoCertField;
             }
             set {
-                if ((this.TipoCertificadoField.Equals(value) != true)) {
-                    this.TipoCertificadoField = value;
-                    this.RaisePropertyChanged("TipoCertificado");
+                if ((this.TipoCertField.Equals(value) != true)) {
+                    this.TipoCertField = value;
+                    this.RaisePropertyChanged("TipoCert");
                 }
             }
         }
@@ -31884,10 +31900,10 @@ namespace Portal.Consultoras.Web.ServicePedido {
         System.Threading.Tasks.Task<bool> TieneCampaniaConsecutivasAsync(int paisId, int campaniaId, int cantidadCampaniaConsecutiva, long consultoraId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerCertificadoDigital", ReplyAction="http://tempuri.org/IPedidoService/ObtenerCertificadoDigitalResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEMiCertificado ObtenerCertificadoDigital(int paisId, int campaniaId, long consultoraId, short tipo);
+        Portal.Consultoras.Web.ServicePedido.BEMiCertificado ObtenerCertificadoDigital(int paisId, int campaniaId, long consultoraId, short tipoCert);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerCertificadoDigital", ReplyAction="http://tempuri.org/IPedidoService/ObtenerCertificadoDigitalResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEMiCertificado> ObtenerCertificadoDigitalAsync(int paisId, int campaniaId, long consultoraId, short tipo);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEMiCertificado> ObtenerCertificadoDigitalAsync(int paisId, int campaniaId, long consultoraId, short tipoCert);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/CantidadPedidoByConsultoraShowRoom", ReplyAction="http://tempuri.org/IPedidoService/CantidadPedidoByConsultoraShowRoomResponse")]
         int CantidadPedidoByConsultoraShowRoom(Portal.Consultoras.Web.ServicePedido.BEOfertaProducto entidad);
@@ -34267,12 +34283,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.TieneCampaniaConsecutivasAsync(paisId, campaniaId, cantidadCampaniaConsecutiva, consultoraId);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEMiCertificado ObtenerCertificadoDigital(int paisId, int campaniaId, long consultoraId, short tipo) {
-            return base.Channel.ObtenerCertificadoDigital(paisId, campaniaId, consultoraId, tipo);
+        public Portal.Consultoras.Web.ServicePedido.BEMiCertificado ObtenerCertificadoDigital(int paisId, int campaniaId, long consultoraId, short tipoCert) {
+            return base.Channel.ObtenerCertificadoDigital(paisId, campaniaId, consultoraId, tipoCert);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEMiCertificado> ObtenerCertificadoDigitalAsync(int paisId, int campaniaId, long consultoraId, short tipo) {
-            return base.Channel.ObtenerCertificadoDigitalAsync(paisId, campaniaId, consultoraId, tipo);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEMiCertificado> ObtenerCertificadoDigitalAsync(int paisId, int campaniaId, long consultoraId, short tipoCert) {
+            return base.Channel.ObtenerCertificadoDigitalAsync(paisId, campaniaId, consultoraId, tipoCert);
         }
         
         public int CantidadPedidoByConsultoraShowRoom(Portal.Consultoras.Web.ServicePedido.BEOfertaProducto entidad) {

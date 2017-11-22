@@ -854,6 +854,8 @@ namespace Portal.Consultoras.Data
         }
         #endregion
 
+
+        #region Certificado Digital
         public bool TieneCampaniaConsecutivas(int campaniaId, int cantidadCampaniaConsecutiva, long consultoraId)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.TieneCampaniaConsecutivas");
@@ -864,14 +866,16 @@ namespace Portal.Consultoras.Data
             return Convert.ToBoolean(Context.ExecuteScalar(command));
         }
 
-        public IDataReader ObtenerCertificadoDigital(int campaniaId, long consultoraId, Int16 tipo)
+        public IDataReader ObtenerCertificadoDigital(int campaniaId, long consultoraId, Int16 tipoCert)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerCertificadoDigital");
             Context.Database.AddInParameter(command, "@CampaniaId", DbType.Int32, campaniaId);
             Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int64, consultoraId);
-            Context.Database.AddInParameter(command, "@TipoCertificado", DbType.Int16, tipo);
+            Context.Database.AddInParameter(command, "@TipoCert", DbType.Int16, tipoCert);
 
             return Context.ExecuteReader(command);
         }
+
+        #endregion
     }
 }

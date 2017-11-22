@@ -15,6 +15,7 @@ using iTextSharp.text.pdf;
 using iTextSharp.tool.xml;
 using iTextSharp.text.html.simpleparser;
 using AutoMapper;
+using System.Globalization;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -67,6 +68,8 @@ namespace Portal.Consultoras.Web.Controllers
             var nombre = "";
             var mensajeError = "";
 
+            //userData.MontoDeuda = 0;    // test
+
             switch (userData.PaisID)
             {
                 case Constantes.PaisID.Colombia:
@@ -96,21 +99,10 @@ namespace Portal.Consultoras.Web.Controllers
                     break;
             }
 
-            BEMiCertificado beCertificado = null;
-            using (PedidoServiceClient svc = new PedidoServiceClient())
-            {
-                beCertificado = svc.ObtenerCertificadoDigital(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, 1);
-            }
-
-            if (beCertificado != null && beCertificado.Result == 1)
-            {
-                certificado = Mapper.Map<MiCertificadoModel>(beCertificado);
-            }
-
             certificado.CertificadoId = certificadoId;
             certificado.Nombre = nombre;
             certificado.MensajeError = mensajeError;
-            certificado.NombreVista = "~/Views/MisCertificados/NoAdeudoPDF.cshtml";
+            certificado.NombreVista = "~/Views/MisCertificados/NoAdeudoPdf.cshtml";
 
             return certificado;
         }
@@ -140,6 +132,7 @@ namespace Portal.Consultoras.Web.Controllers
                         tieneCampaniaConsecutivas = ps.TieneCampaniaConsecutivas(userData.PaisID, userData.CampaniaID, cantidadCampaniaConsecutiva, userData.ConsultoraID);
                     }
 
+                    //tieneCampaniaConsecutivas = true;   // test
                     if (!tieneCampaniaConsecutivas)
                     {
                         mensajeError = "No has sido constante en las últimas " + cantidadCampaniaConsecutiva +
@@ -155,21 +148,10 @@ namespace Portal.Consultoras.Web.Controllers
                     break;
             }
 
-            BEMiCertificado beCertificado = null;
-            using (PedidoServiceClient svc = new PedidoServiceClient())
-            {
-                beCertificado = svc.ObtenerCertificadoDigital(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, 2);
-            }
-
-            if (beCertificado != null && beCertificado.Result == 1)
-            {
-                certificado = Mapper.Map<MiCertificadoModel>(beCertificado);
-            }
-
             certificado.CertificadoId = certificadoId;
             certificado.Nombre = nombre;
             certificado.MensajeError = mensajeError;
-            certificado.NombreVista = "~/Views/MisCertificados/ComercialPDF.cshtml";
+            certificado.NombreVista = "~/Views/MisCertificados/ComercialPdf.cshtml";
 
             return certificado;
         }
@@ -185,20 +167,80 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (model.CertificadoId != 0)
                 {
-                    var view = model.NombreVista;
+                    var tmp = model;
+                    var tipo = Convert.ToInt16(id);
 
-                    string html = RenderViewToString(ControllerContext,
-                        view, model, true);
+                    var listaData = sessionManager.GetMisCertificadosData() ?? new List<BEMiCertificado>();
+                    BEMiCertificado beMiCertificado = null;
+                    var existsData = false;
 
-                    using (MemoryStream stream = new System.IO.MemoryStream())
+                    if (listaData.Any())
                     {
-                        StringReader sr = new StringReader(html);
-                        Document pdfDoc = new Document(PageSize.A4, 10, 10, 100, 0);
-                        PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
-                        pdfDoc.Open();
-                        XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, sr);
-                        pdfDoc.Close();
-                        return File(stream.ToArray(), "application/pdf", "Cert_" + model.CertificadoId + ".pdf");
+                        foreach(var item in listaData)
+                        {
+                            if (item.TipoCert == tipo)
+                            {
+                                existsData = true;
+                            }
+                        }
+                    }
+
+                    if (!listaData.Any() || !existsData)
+                    {
+                        using (PedidoServiceClient svc = new PedidoServiceClient())
+                        {
+                            beMiCertificado = svc.ObtenerCertificadoDigital(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, tipo);
+                        }
+
+                        if (beMiCertificado != null && beMiCertificado.Result == 1)
+                        {
+                            listaData.Add(beMiCertificado);
+                            sessionManager.SetMisCertificadosData(listaData);
+                            model = Mapper.Map<MiCertificadoModel>(beMiCertificado);
+                        }
+                    }
+                    else
+                    {
+                        beMiCertificado = listaData.Where(x => x.TipoCert == tipo).FirstOrDefault();
+                        model = Mapper.Map<MiCertificadoModel>(beMiCertificado);
+                    }
+
+                    model.CertificadoId = tmp.CertificadoId;
+                    model.Nombre = tmp.Nombre;
+                    model.MensajeError = tmp.MensajeError;
+                    model.NombreVista = tmp.NombreVista;
+
+                    if (beMiCertificado != null)
+                    {
+                        var dt = DateTime.Now;
+                        var nombreMes = dt.ToString("MMMM", new CultureInfo("es-ES"));
+                        var format1 = @"dd \de MMMM \de yyyy";
+                        var letrasAnio = Conversores.NumeroALetras(dt.Year).ToLower();
+                        var ff1 = dt.ToString("dd") + " del mes de " + nombreMes + " de " + letrasAnio + " (" + dt.Year.ToString() + ").";
+                        var ff2 = beMiCertificado.FechaIngresoConsultora.ToString(format1, new CultureInfo("es-ES"));
+                        model.FechaCreacion = dt.ToString(format1);
+                        model.FechaCreacionTexto = ff1;
+                        model.FechaIngresoConsultora = ff2;
+                        model.Moneda = userData.Simbolo;
+                        //model.UrlFirma = "";
+
+                        var view = model.NombreVista;
+
+                        string html = RenderViewToString(ControllerContext,
+                            view, model, true);
+
+                        var nameFile = userData.CodigoISO + "_" + "Certificado_" + model.CertificadoId + ".pdf";
+
+                        using (MemoryStream stream = new System.IO.MemoryStream())
+                        {
+                            StringReader sr = new StringReader(html);
+                            Document pdfDoc = new Document(PageSize.A4, 50f, 50f, 70f, 0f);
+                            PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
+                            pdfDoc.Open();
+                            XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, sr);
+                            pdfDoc.Close();
+                            return File(stream.ToArray(), "application/pdf", nameFile);
+                        }
                     }
                 }
             }

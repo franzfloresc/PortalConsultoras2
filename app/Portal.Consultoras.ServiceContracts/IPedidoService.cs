@@ -1236,10 +1236,14 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEMisPedidosFacturados> GetMisPedidosFacturados(int paisID, long ConsultoraID, int CampaniaID, int ClienteID, string NombreConsultora);
         #endregion
 
+        #region Certificado Digital
         [OperationContract]
         bool TieneCampaniaConsecutivas(int paisId, int campaniaId, int cantidadCampaniaConsecutiva, long consultoraId);
 
         [OperationContract]
-        BEMiCertificado ObtenerCertificadoDigital(int paisId, int campaniaId, long consultoraId, Int16 tipo);
+        BEMiCertificado ObtenerCertificadoDigital(int paisId, int campaniaId, long consultoraId, Int16 tipoCert);
+
+        #endregion
+
     }
 }

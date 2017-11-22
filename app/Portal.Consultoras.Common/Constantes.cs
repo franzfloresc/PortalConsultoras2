@@ -335,6 +335,7 @@ namespace Portal.Consultoras.Common
             public const string TieneRdr = "TieneRdr";
 
             public const string MisCertificados = "MisCertificados";
+            public const string MisCertificadosData = "MisCertificadosData";
         }
 
         public class TipoOfertaFinalCatalogoPersonalizado

@@ -16,15 +16,16 @@ namespace Portal.Consultoras.Web.Models.MisCertificados
 
         #region Propiedades PDF
 
-        public string NumeroSecuencial { get; set; }
-        public DateTime FechaCreacion { get; set; }
+        public string NumeroSecuencia { get; set; }
+        public string FechaCreacion { get; set; }
         public string Ciudad { get; set; }
         public string Asunto { get; set; }
         public string NombreCompleto { get; set; }
         public string TipoDocumento { get; set; }
         public string NumeroDocumento { get; set; }
         public string DescripcionEstado { get; set; }
-        public DateTime FechaIngresoConsultora { get; set; }
+        public string FechaIngresoConsultora { get; set; }
+        public string Moneda { get; set; }
         public decimal PromedioVentas { get; set; }
         public string RazonSocial { get; set; }
         public string Ruc { get; set; }

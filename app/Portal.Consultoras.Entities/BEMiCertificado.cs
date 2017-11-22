@@ -12,9 +12,9 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int Campania { get; set; }
         [DataMember]
-        public string NumeroSecuencial { get; set; }
-        //[DataMember]
-        //public DateTime FechaCreacion { get; set; }
+        public long ConsultoraId { get; set; }
+        [DataMember]
+        public string NumeroSecuencia { get; set; }
         [DataMember]
         public string Ciudad { get; set; }
         [DataMember]
@@ -35,8 +35,6 @@ namespace Portal.Consultoras.Entities
         public string RazonSocial { get; set; }
         [DataMember]
         public string Ruc { get; set; }
-        //[DataMember]
-        //public string FechaCreacionTexto { get; set; }
         [DataMember]
         public string Telefono { get; set; }
         [DataMember]
@@ -46,7 +44,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string Cargo { get; set; }
         [DataMember]
-        public Int16 TipoCertificado { get; set; }
+        public Int16 TipoCert { get; set; }
         [DataMember]
         public Int16 NumeroVeces { get; set; }
         [DataMember]
@@ -58,10 +56,14 @@ namespace Portal.Consultoras.Entities
 
         public BEMiCertificado(IDataRecord row)
         {
+            if (DataRecord.HasColumn(row, "Result"))
+                Result = Convert.ToInt16(row["Result"]);
             if (DataRecord.HasColumn(row, "Campania"))
                 Campania = Convert.ToInt32(row["Campania"]);
-            if (DataRecord.HasColumn(row, "NumeroSecuencial"))
-                NumeroSecuencial = Convert.ToString(row["NumeroSecuencial"]);
+            if (DataRecord.HasColumn(row, "ConsultoraId"))
+                ConsultoraId = Convert.ToInt64(row["ConsultoraId"]);
+            if (DataRecord.HasColumn(row, "NumeroSecuencia"))
+                NumeroSecuencia = Convert.ToString(row["NumeroSecuencia"]);
             if (DataRecord.HasColumn(row, "Ciudad"))
                 Ciudad = Convert.ToString(row["Ciudad"]);
             if (DataRecord.HasColumn(row, "Asunto"))
@@ -90,12 +92,10 @@ namespace Portal.Consultoras.Entities
                 Responsable = Convert.ToString(row["Responsable"]);
             if (DataRecord.HasColumn(row, "Cargo"))
                 Cargo = Convert.ToString(row["Cargo"]);
-            if (DataRecord.HasColumn(row, "TipoCertificado"))
-                TipoCertificado = Convert.ToInt16(row["TipoCertificado"]);
+            if (DataRecord.HasColumn(row, "TipoCert"))
+                TipoCert = Convert.ToInt16(row["TipoCert"]);
             if (DataRecord.HasColumn(row, "NumeroVeces"))
                 NumeroVeces = Convert.ToInt16(row["NumeroVeces"]);
-            if (DataRecord.HasColumn(row, "Result"))
-                Result = Convert.ToInt16(row["Result"]);
         }
     }
 

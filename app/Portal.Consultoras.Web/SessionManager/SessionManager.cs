@@ -116,5 +116,15 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return (List<MiCertificadoModel>)HttpContext.Current.Session[Constantes.ConstSession.MisCertificados];
         }
+
+        void ISessionManager.SetMisCertificadosData(List<BEMiCertificado> lista)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.MisCertificadosData] = lista;
+        }
+
+        List<BEMiCertificado> ISessionManager.GetMisCertificadosData()
+        {
+            return (List<BEMiCertificado>)HttpContext.Current.Session[Constantes.ConstSession.MisCertificadosData];
+        }
     }
 }

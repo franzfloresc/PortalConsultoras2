@@ -2189,18 +2189,20 @@ namespace Portal.Consultoras.BizLogic
         }
         #endregion
 
+
+        #region Certificado Digital
         public bool TieneCampaniaConsecutivas(int paisId, int campaniaId, int cantidadCampaniaConsecutiva, long consultoraId)
         {
             var DAPedidoWeb = new DAPedidoWeb(paisId);
             return DAPedidoWeb.TieneCampaniaConsecutivas(campaniaId, cantidadCampaniaConsecutiva, consultoraId);
         }
 
-        public BEMiCertificado ObtenerCertificadoDigital(int paisId, int campaniaId, long consultoraId, Int16 tipo)
+        public BEMiCertificado ObtenerCertificadoDigital(int paisId, int campaniaId, long consultoraId, Int16 tipoCert)
         {
             BEMiCertificado entidad = null;
             DAPedidoWeb DAPedidoWeb = new DAPedidoWeb(paisId);
 
-            using (IDataReader reader = DAPedidoWeb.ObtenerCertificadoDigital(campaniaId, consultoraId, tipo))
+            using (IDataReader reader = DAPedidoWeb.ObtenerCertificadoDigital(campaniaId, consultoraId, tipoCert))
             {
                 while (reader.Read())
                 {
@@ -2209,6 +2211,8 @@ namespace Portal.Consultoras.BizLogic
             }
             return entidad;
         }
+
+        #endregion
     }
 
     internal class TemplateField
