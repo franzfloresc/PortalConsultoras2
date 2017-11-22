@@ -4,7 +4,6 @@
 
 @{
     ViewBag.Title = "Ingresa tu Pedido";
-    var revistaDigital = Model.RevistaDigital ?? new RevistaDigitalModel();
 }
 
 @section styles{
@@ -534,7 +533,7 @@
         {
             <div class="truco_bloqueo sim2"></div>
         }
-        <div id="contenedor_template_estrategia_cabecera"></div>
+        @Html.Partial("~/Views/Pedido/_PartialSectionBpt.cshtml", Model.RevistaDigital)
     </div>
         
     <div class="clear"></div>
@@ -926,63 +925,62 @@
 </div>
 <!-- FIN POPUP OFERTA FINAL -->
 <!--POP UP ESCALA DE DESCUENTO FICHA-->
-        <div class="contenedor_popup_ofertaFinal" id="contenedor_popup_ofertaFinalVerDetalle" style="display: none;">
-            
-            <div class="popup_ofertaFinal" style="padding:35px;">
-                <a class="btn_cerrar_escala" href="javascript:;" onclick="javascript: $('#contenedor_popup_ofertaFinal').hide();">REGRESAR</a>
+<div class="contenedor_popup_ofertaFinal" id="contenedor_popup_ofertaFinalVerDetalle" style="display: none;">
+    <div class="popup_ofertaFinal" style="padding:35px;">
+        <a class="btn_cerrar_escala" href="javascript:;" onclick="javascript: $('#contenedor_popup_ofertaFinal').hide();">REGRESAR</a>
+        <hr class="clear" />
+        <div class="content_left_ficha">
+            <div class="content_ficha_producto" style="width:97%; height:auto; margin:0 auto;">
+                <img id="fav_imagen_prod" class="imagen_producto" src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201703/L/productos/PE_200074844.jpg" alt="PRODUCTO">
+            </div>
+            <div class="compartir_redes_ficha">
+                <div class="texto_compartelo">Compártelo con tus clientes</div>
+                <a class="btn_compartir_facebook_ficha"><img src="@Url.Content("~/Content/Images/Mobile/Esika/facebook.png")" /></a>
+                <a class="btn_compartir_facebook_ficha"><img src="@Url.Content("~/Content/Images/Esika/mensaje_ficha.png")" /></a>
                 <hr class="clear" />
-                <div class="content_left_ficha">
-                    <div class="content_ficha_producto" style="width:97%; height:auto; margin:0 auto;">
-                        <img id="fav_imagen_prod" class="imagen_producto" src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201703/L/productos/PE_200074844.jpg" alt="PRODUCTO">
-                    </div>
-                    <div class="compartir_redes_ficha">
-                        <div class="texto_compartelo">Compártelo con tus clientes</div>
-                        <a class="btn_compartir_facebook_ficha"><img src="@Url.Content("~/Content/Images/Mobile/Esika/facebook.png")" /></a>
-                        <a class="btn_compartir_facebook_ficha"><img src="@Url.Content("~/Content/Images/Esika/mensaje_ficha.png")" /></a>
-                        <hr class="clear" />
-                    </div>
-                </div>
-                <div class="content_right_ficha">
-                    <div style="height:130px;">
-                        <div class="titulo_ficha_producto">Essential Limpiadora. Cutis Graso</div>
-                        <div class="peso_ficha_producto">180 ml e 6 fl. oz</div>
-                        <div class="descripcion_ficha_producto" style="margin-top:10px;">Liso absoluto todo el día con exquisita fragancia a jazmín.</div>
-                        <div class="precio_ficha_producto">
-                            <span class="precio_tachado_ficha">S/. 70.00</span>S/. 49.00
-                        </div>
-                    </div>
-                    <div style="height:196px;">
-                        <div class="opcion_escala_descuento">
-                            <div class="texto_producto_relacionado">
-                                Cómpralo porque ya tienes <b>Shampoo Essens para cabello liso</b>   en tu pedido
-                            </div>
-                            <div class="imagen_relacionada">
-                                <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201703/L/productos/PE_200074844.jpg" alt="PRODUCTO">
-                            </div>
-                            <hr class="clear" />
-                        </div>
-                    </div>
-                    <div class="liquidacion_rango_home">
-                        <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
-                        <div class="liquidacion_rango_right_pedido">
-                            <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                            <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
-                        </div>
-                    </div>
-                    <a class="boton_Agregalo_home ficha_btn_agregar" style="width:238px;">
-                        AGRÉGALO
-                    </a>
-                </div>
-                <hr class="clear" /> 
-             </div>
+            </div>
         </div>
-        <!--FIN-->
-        <!-- POPUP DETALLE CARRUSEL OFERTAS PARA TI LANZAMIENTO -->
-        <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento"></div>
-        <!-- FIN POPUP DETALLE CARRUSEL OFERTAS PARA TI LANZAMIENTO -->
-        <!-- POPUP DETALLE CARRUSEL OFERTAS PARA TI PACK NUEVAS -->
-        <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_packNuevas"></div>
-        <!-- FIN POPUP DETALLE CARRUSEL OFERTAS PARA TI PACK NUEVAS -->
+        <div class="content_right_ficha">
+            <div style="height:130px;">
+                <div class="titulo_ficha_producto">Essential Limpiadora. Cutis Graso</div>
+                <div class="peso_ficha_producto">180 ml e 6 fl. oz</div>
+                <div class="descripcion_ficha_producto" style="margin-top:10px;">Liso absoluto todo el día con exquisita fragancia a jazmín.</div>
+                <div class="precio_ficha_producto">
+                    <span class="precio_tachado_ficha">S/. 70.00</span>S/. 49.00
+                </div>
+            </div>
+            <div style="height:196px;">
+                <div class="opcion_escala_descuento">
+                    <div class="texto_producto_relacionado">
+                        Cómpralo porque ya tienes <b>Shampoo Essens para cabello liso</b>   en tu pedido
+                    </div>
+                    <div class="imagen_relacionada">
+                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201703/L/productos/PE_200074844.jpg" alt="PRODUCTO">
+                    </div>
+                    <hr class="clear" />
+                </div>
+            </div>
+            <div class="liquidacion_rango_home">
+                <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
+                <div class="liquidacion_rango_right_pedido">
+                    <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                    <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                </div>
+            </div>
+            <a class="boton_Agregalo_home ficha_btn_agregar" style="width:238px;">
+                AGRÉGALO
+            </a>
+        </div>
+        <hr class="clear" /> 
+        </div>
+</div>
+<!--FIN-->
+<!-- POPUP DETALLE CARRUSEL OFERTAS PARA TI LANZAMIENTO -->
+<div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento"></div>
+<!-- FIN POPUP DETALLE CARRUSEL OFERTAS PARA TI LANZAMIENTO -->
+<!-- POPUP DETALLE CARRUSEL OFERTAS PARA TI PACK NUEVAS -->
+<div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_packNuevas"></div>
+<!-- FIN POPUP DETALLE CARRUSEL OFERTAS PARA TI PACK NUEVAS -->
 
 @Html.Partial("~/Views/Shared/Cupon/popupCuponGana.cshtml")
 @Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmar.cshtml")
@@ -1145,7 +1143,7 @@
                         <h1 class="titulo_mensajeMotivoRechazo"><b>¡CUÉNTANOS PORQUÉ LO RECHAZASTE!</b></h1>
 
                         @foreach (var motivoRechazo in ViewBag.MotivosRechazo)
-                {
+                        {
                             <div class="optionsRechazo" data-id="@motivoRechazo.MotivoSolicitudID">@motivoRechazo.Motivo</div>
                         }
 
@@ -1733,138 +1731,6 @@
             {{/IsNullOrEmpty}}
             {{/each}}
         </script>
-
-
-<script id="template-estrategia-header" type="text/x-handlebars-template">
-@if (revistaDigital.TieneRDC)
-{
-    if (revistaDigital.SuscripcionAnterior2Model.EstadoRegistro != 1 &&
-        revistaDigital.SuscripcionAnterior1Model.EstadoRegistro == 1)
-    {
-        <!-- PASE PEDIDO INSCRITAS C-11 -->
-        <div class="banner_pedido_rd">
-            <div class="cabecera_pedido_rd">
-                <div class="rd_logo">
-                    <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="40">
-                </div>
-                <div class="cabecera_pedido_text">TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
-            </div>
-            <div class="banner_pedido_masofertas">
-                <div class="banner_pedido_text">@ViewBag.NombreConsultora, ¿YA VISTE TUS <b>OFERTAS PERSONALIZADAS DE CAMPAÑA @revistaDigital.CampaniaMasUno</b>?</div>
-                <div class="btn_diagonal btn_stroke">
-                    <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
-                        VER TODAS MIS OFERTAS
-                        <img src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="clear"></div>
-        <!-- FIN PASE PEDIDO INSCRITAS C-11 -->
-        @Html.Partial("~/Views/Pedido/template-seccion-opt.cshtml",
-            new ViewDataDictionary{{"Source", 2}, { "NombreConsultora", Model.SobreNombre}, { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiDesktopPedido } });
-    }
-    else if (revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == 1)
-    {
-        <!-- PASE PEDIDO INSCRITAS C-12 -->
-        <div class="banner_pedido_rd" style="box-shadow: none;">
-            <div class="cabecera_pedido_rd">
-                <div class="rd_logo">
-                    <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="40">
-                </div>
-                <div class="cabecera_pedido_text">TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
-            </div>
-            <div class="banner_pedido_masofertas" style="padding-bottom:0;">
-                <div class="banner_pedido_text">@ViewBag.NombreConsultora, ¿YA VISTE TUS <b>OFERTAS PERSONALIZADAS DE CAMPAÑA @revistaDigital.Campania</b>?</div>
-                <div class="btn_diagonal btn_stroke" style="position:relative; left: 0; margin-left: 0; margin: auto !important; width:80%;">
-                    <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
-                        VER TODAS MIS OFERTAS
-                        <img class="rd_arrowright"  src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
-                        <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
-                    </a>
-                </div>
-            </div>
-            <hr class="clear" />
-            <div class="content_carrusel_ofertas content_carrusel_agregado" id="divListadoEstrategia" style="padding-bottom: 25px;"
-                 data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion"
-                 data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoPopUp" ></div>
-            <hr class="clear" />
-        </div>
-        <!-- FIN PASE PEDIDO INSCRITAS C-12 -->
-    }
-    else
-    {
-        <!-- PASE PEDIDO NO INSCRITAS C-11 -->
-        <div class="banner_pedido_rd">
-            <div class="cabecera_pedido_rd">
-                <div class="rd_logo">
-                    <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="40">
-                </div>
-                <div class="cabecera_pedido_text">TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
-            </div>
-            <div class="banner_pedido_masofertas">
-                <div class="banner_pedido_text">@ViewBag.NombreConsultora, CONOCE LAS OFERTAS CON HASTA 65% DE DESCUENTO</div>
-                <div class="btn_diagonal btn_stroke">
-                    <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
-                        VER TODAS MIS OFERTAS
-                        <img src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="clear"></div>
-        <!-- FIN PASE PEDIDO INSCRITAS C-11 -->
-        @Html.Partial("~/Views/Pedido/template-seccion-opt.cshtml",
-            new ViewDataDictionary{{"Source", 2}, { "NombreConsultora", Model.SobreNombre}, { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiDesktopPedido } });
-    }
-}
-else if (revistaDigital.TieneRDR)
-{
-    <div class="revistadigital">
-        @if (ViewBag.MostrarPedidosPendientes == "1")
-        {
-            <div class="truco_bloqueo sim2"></div>
-        }
-        <div class="revistadigital-content pedido">
-            <div>
-                <div class="revistadigital-title overflowContenido">
-                    <div class="contenedor_cabecera_revistaDigital">
-                        <div class="fondo_franja"></div>
-                        <div class="contenedor_contenido_cabecera">
-                            <div class="cabecera_contenedor_logoMarca">
-                                <img src="/Content/Images/esika-para-mi-img-blanco.svg" alt="Ésika Para Mí">
-                            </div>
-                            <div class="cabecera_texto">{{Titulo}}</div>
-                        </div>
-                    </div>
-                    <div class="texto_ofertas_bonificaciones">
-                        {{TituloDescripcion}}
-                    </div>
-                </div>
-            </div>
-            <hr class="clear" />
-            <div class="contenedor_productos">
-                <div id="cierreCarousel" class="background_carousel" style="display:none;"></div>
-                <div class="contenedor_carousel_productos content_carrusel_agregado slider center" id="divListadoEstrategia"
-                    data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion"
-                    data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoPopUp" >
-                </div>
-            </div>
-            <div class="boxoffer boxOfferPedido" style="cursor: pointer;" 
-                 onclick="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
-                <div class="fondo_boton"></div>
-                <span class="texto_boton">VER M&Aacute;S OFERTAS PARA M&Iacute;</span>
-            </div>
-            <hr class="clear" />
-        </div>
-    </div>
-}
-else
-{
-    @Html.Partial("~/Views/Pedido/template-seccion-opt.cshtml",
-        new ViewDataDictionary{{"Source", 1}, { "NombreConsultora", ViewBag.NombreConsultora }, { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiDesktopPedido } });
-}
-</script>
 
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-verdetalle.cshtml")

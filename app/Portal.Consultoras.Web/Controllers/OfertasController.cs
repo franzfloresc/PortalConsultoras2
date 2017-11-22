@@ -54,37 +54,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             return RedirectToAction("Index", "Bienvenida");
         }
-
-        private MensajeProductoBloqueadoModel MensajeProductoBloqueado()
-        {
-            var model = new MensajeProductoBloqueadoModel();
-
-            if (!revistaDigital.TieneRDC) return model;
-
-            model.IsMobile = IsMobile();
-            
-            if (!revistaDigital.EsActiva)
-            {
-                if (revistaDigital.EsSuscrita)
-                {
-                    model.MensajeIconoSuperior = true;
-                    model.MensajeTitulo = model.IsMobile
-                        ? "PODRÁS AGREGARLA EN LA CAMPAÑA " + revistaDigital.CampaniaActiva
-                        : "PODRÁS AGREGAR OFERTAS COMO ESTA EN LA CAMPAÑA " + revistaDigital.CampaniaActiva;
-                    model.BtnInscribirse = false;
-                }
-                else
-                {
-                    model.MensajeIconoSuperior = false;
-                    model.MensajeTitulo = model.IsMobile
-                        ? "INSCRÍBETE HOY EN ÉSIKA PARA MÍ Y NO TE PIERDAS EN C-" + revistaDigital.CampaniaActiva + "<br />OFERTAS COMO ESTA"
-                        : "INSCRÍBETE HOY EN ÉSIKA PARA MÍ Y NO TE PIERDAS EN CAMPAÑA " + revistaDigital.CampaniaActiva + " OFERTAS COMO ESTA";
-                    model.BtnInscribirse = true;
-                }
-            }
-
-            return model;
-        }
         
         [HttpPost]
         public JsonResult ActualizarSession(string codigo, int campaniaId)

@@ -997,7 +997,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 revistaDigitalModel.Campania = usuarioModel.CampaniaID % 100;
                                 revistaDigitalModel.CampaniaMasUno = AddCampaniaAndNumero(Convert.ToInt32(usuarioModel.CampaniaID), 1, usuarioModel.NroCampanias) % 100;
                                 revistaDigitalModel.CampaniaMasDos = AddCampaniaAndNumero(Convert.ToInt32(usuarioModel.CampaniaID), 2, usuarioModel.NroCampanias) % 100;
-
+                                revistaDigitalModel.NombreConsultora = usuarioModel.NombreCorto;
                                 sessionManager.SetRevistaDigital(revistaDigitalModel);
                                 sessionManager.SetConfiguracionesPaisModel(configuracionesPaisModels);
                                 sessionManager.SetOfertaFinalModel(ofertaFinalModel);
@@ -1194,31 +1194,39 @@ namespace Portal.Consultoras.Web.Controllers
                 if (listaDatos == null || !listaDatos.Any())
                     return;
 
-                var value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.BloquearDiasAntesFacturar);
+                var value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BloquearDiasAntesFacturar);
                 if (value1 != null) revistaDigitalModel.BloquearDiasAntesFacturar = Convert.ToInt32(value1.Valor1);
 
-                var value2 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.CantidadCampaniaEfectiva);
-                if (value2 != null) revistaDigitalModel.CantidadCampaniaEfectiva = Convert.ToInt32(value2.Valor1);
+                value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.CantidadCampaniaEfectiva);
+                if (value1 != null) revistaDigitalModel.CantidadCampaniaEfectiva = Convert.ToInt32(value1.Valor1);
 
-                var value3 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.NombreComercialActiva);
-                if (value3 != null) revistaDigitalModel.NombreComercialActiva = value3.Valor1;
+                value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.NombreComercialActiva);
+                if (value1 != null) revistaDigitalModel.NombreComercialActiva = value1.Valor1;
 
-                var value4 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.NombreComercialNoActiva);
-                if (value4 != null) revistaDigitalModel.NombreComercialNoActiva = value4.Valor1;
+                value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.NombreComercialNoActiva);
+                if (value1 != null) revistaDigitalModel.NombreComercialNoActiva = value1.Valor1;
                 
-                var value5 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.LogoComercialActiva);
-                if (value5 != null) revistaDigitalModel.LogoComercialActiva = value5.Valor1;
+                value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoComercialActiva);
+                if (value1 != null) revistaDigitalModel.LogoComercialActiva = value1.Valor1;
                 
-                var value6 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.LogoComercialNoActiva);
-                if (value6 != null) revistaDigitalModel.LogoComercialNoActiva = value6.Valor1;
+                value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoComercialNoActiva);
+                if (value1 != null) revistaDigitalModel.LogoComercialNoActiva = value1.Valor1;
+
+                var value7 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoMenuOfertasActiva);
+                if (value7 != null) revistaDigitalModel.LogoComercialActiva = value7.Valor1;
+
+                var value8 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoMenuOfertasNoActiva);
+                if (value8 != null) revistaDigitalModel.LogoComercialNoActiva = value8.Valor1;
 
                 listaDatos.RemoveAll(d =>
-                    d.Codigo == Constantes.ConfiguracionPaisDatos.BloquearDiasAntesFacturar
-                    || d.Codigo == Constantes.ConfiguracionPaisDatos.CantidadCampaniaEfectiva
-                    || d.Codigo == Constantes.ConfiguracionPaisDatos.NombreComercialActiva
-                    || d.Codigo == Constantes.ConfiguracionPaisDatos.NombreComercialNoActiva
-                    || d.Codigo == Constantes.ConfiguracionPaisDatos.LogoComercialActiva
-                    || d.Codigo == Constantes.ConfiguracionPaisDatos.LogoComercialNoActiva
+                    d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BloquearDiasAntesFacturar
+                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.CantidadCampaniaEfectiva
+                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.NombreComercialActiva
+                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.NombreComercialNoActiva
+                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoComercialActiva
+                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoComercialNoActiva
+                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoMenuOfertasActiva
+                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoMenuOfertasNoActiva
                 );
 
                 revistaDigitalModel.ConfiguracionPaisDatos = Mapper.Map<List<ConfiguracionPaisDatosModel>>(listaDatos) ?? new List<ConfiguracionPaisDatosModel>();
