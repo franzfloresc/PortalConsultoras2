@@ -2764,7 +2764,6 @@ namespace Portal.Consultoras.Web.Controllers
             var datos = sesion ? (List<BETablaLogicaDatos>)Session[Constantes.ConstSession.TablaLogicaDatos + tablaLogicaId.ToString()] : null;
             if (datos == null)
             {
-                datos = new List<BETablaLogicaDatos>();
                 using (SACServiceClient sv = new SACServiceClient())
                 {
                     datos = sv.GetTablaLogicaDatos(userData.PaisID, tablaLogicaId).ToList();
