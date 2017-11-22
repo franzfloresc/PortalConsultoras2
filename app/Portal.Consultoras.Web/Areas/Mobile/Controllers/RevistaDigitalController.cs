@@ -29,7 +29,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                ViewBag.CampaniaMasDosX = AddCampaniaAndNumero(userData.CampaniaID, 2) % 100;
                 return DetalleModel(cuv, campaniaId);
             }
             catch (Exception ex)
@@ -40,10 +39,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return RedirectToAction("Index", "RevistaDigital", new { area = "Mobile" });
         }
 
-        public ActionResult Informacion()
+        public ActionResult Informacion(string tipo)
         {
             try
             {
+                ViewBag.TipoLayout = tipo;
                 return IndexModel();
             }
             catch (Exception ex)

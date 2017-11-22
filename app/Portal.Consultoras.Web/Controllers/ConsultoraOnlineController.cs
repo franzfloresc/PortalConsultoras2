@@ -74,7 +74,7 @@ namespace Portal.Consultoras.Web.Controllers
         #region Informacion
         public ActionResult Informacion()
         {
-            string strpaises = ConfigurationManager.AppSettings.Get("Permisos_CCC");
+            string strpaises = GetPaisesConConsultoraOnlineFromConfig();
             if (!strpaises.Contains(UserData().CodigoISO))
                 return RedirectToAction("Index", "Bienvenida");
 
@@ -242,7 +242,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult EnviaCorreo()
         {
-            string strpaises = ConfigurationManager.AppSettings.Get("Permisos_CCC");
+            string strpaises = GetPaisesConConsultoraOnlineFromConfig();
             if (!strpaises.Contains(UserData().CodigoISO))
                 return RedirectToAction("Index", "Bienvenida");
 

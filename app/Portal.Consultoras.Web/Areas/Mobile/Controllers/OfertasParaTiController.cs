@@ -33,7 +33,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             ViewBag.OrigenUrl = GetActionTo(origenPantalla);
             ViewBag.EstadoSuscripcion = revistaDigital.SuscripcionModel.EstadoRegistro;
-            ViewBag.CampaniaMasDos = AddCampaniaAndNumero(userData.CampaniaID, 2) % 100;
 
             ViewBag.origenPedidoWebEstrategia = GetOrigenPedidoWebDetalle(origen);
             return View(modelo);

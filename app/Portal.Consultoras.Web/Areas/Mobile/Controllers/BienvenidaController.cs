@@ -86,7 +86,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 ViewBag.Ambiente = GetBucketNameFromConfig();
                 ViewBag.NombreConsultora = model.NombreConsultora;
 
-                model.RevistaDigitalPopUpMostrar = revistaDigital.NoVolverMostrar;
                 model.RevistaDigital = revistaDigital;
 
                 ViewBag.NombreConsultoraFAV = ObtenerNombreConsultoraFav();
