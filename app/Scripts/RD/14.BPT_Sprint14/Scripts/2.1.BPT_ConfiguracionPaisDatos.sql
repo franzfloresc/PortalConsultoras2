@@ -20,11 +20,11 @@ begin
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'NombreComercialNoActiva', 'Gana +', 'Nombre comercial cuando el estado es no activa que se asignara en todo sb2')
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Descripcion)
-	values (@ConfiguracionPaisID, 1, 0, 'LogoComercialActiva', 'ClubGanaMas.jpg', 'Logo comercial cuando el estado es activa que se asignara en todo sb2')
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Descripcion)
+	values (@ConfiguracionPaisID, 1, 0, 'LogoComercialActiva', 'ClubGanaMas.jpg', 'ClubGanaMasMobile.jpg', 'Logo comercial cuando el estado es activa que se asignara en todo sb2')
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Descripcion)
-	values (@ConfiguracionPaisID, 1, 0, 'LogoComercialNoActiva', 'GanaMas.jpg', 'Logo comercial cuando el estado es no activa que se asignara en todo sb2')
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Descripcion)
+	values (@ConfiguracionPaisID, 1, 0, 'LogoComercialNoActiva', 'GanaMas.jpg', 'GanaMasMobile.jpg', 'Logo comercial cuando el estado es no activa que se asignara en todo sb2')
 
 	-- RD Textos desktop Bienvenida 
 	BEGIN 
@@ -187,6 +187,114 @@ begin
 	'#Nombre, ¿YA VISTE TUS <b>OFERTAS DE LA C-#Cx EN ÉSIKA PARA MÍ?</b>', 
 	'black', 'Textos de bienvenida para un consultora Inscrita activa')
 	END
+
+	-- RD Popup Producto Bloqueado
+	BEGIN
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
+		Valor1, Valor2, Valor3, Descripcion)
+	values (@ConfiguracionPaisID, 1, 0, 'DPopupBloqueadoNoActivaNoSuscrita', 
+	'Disfruta de esta y más ofertas suscribiéndote a Gana+', 
+	'', '', 'Desktop Popup producto Bloqueado No Activa y No Suscrita')
+	
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
+		Valor1, Valor2, Valor3, Descripcion)
+	values (@ConfiguracionPaisID, 1, 0, 'DPopupBloqueadoNoActivaSuscrita', 
+	'A partir de la próxima campaña podrás disfrutar de esta y más ofertas.', 
+	'', '', 'Desktop Popup producto Bloqueado No Activa y Suscrita')
+	
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
+		Valor1, Valor2, Valor3, Descripcion)
+	values (@ConfiguracionPaisID, 1, 0, 'MPopupBloqueadoNoActivaNoSuscrita', 
+	'Disfruta de esta y más ofertas suscribiéndote a Gana+',
+	'', '', 'Mobile Popup producto Bloqueado No Activa y No Suscrita')
+	
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
+		Valor1, Valor2, Valor3, Descripcion)
+	values (@ConfiguracionPaisID, 1, 0, 'MPopupBloqueadoNoActivaSuscrita', 
+	'A partir de la próxima campaña podrás disfrutar de esta y más ofertas.', 
+	'', '', 'Mobile Popup producto Bloqueado No Activa y Suscrita')
+
+	END
+
+	-- RD Perdiste
+	BEGIN
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
+		Valor1, Valor2, Valor3, Descripcion)
+	values (@ConfiguracionPaisID, 1, 0, 'DPerdiste', 
+	'#Nombre ¡No te lo vuelvas a perder!', 
+	'Con Gana+ tendrás ofertas exclusivas y más beneficios.', 
+	'', 'Desktop perdiste ofertas')
+	
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
+		Valor1, Valor2, Valor3, Descripcion)
+	values (@ConfiguracionPaisID, 1, 0, 'MPerdiste', 
+	'#Nombre ¡No te lo vuelvas a perder!', 
+	'Con Gana+ tendrás ofertas exclusivas y más beneficios.', 
+	'', 'Mobile perdiste ofertas')
+	END
+
+	
+	-- RD Banner Landing Comprar y Revisar
+	BEGIN
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
+		Valor1, Valor2, Valor3, Descripcion)
+	values (@ConfiguracionPaisID, 1, 0, 'DLandingBannerNoActivaNoSuscrita', 
+	'#Nombre Bienvenida a Gana+ tu nuevo espacio online de ofertas exclusivas', 
+	'Encuentra packs únicos, pasa tu pedido sin digitar códigos ¡y mucho más!', 
+	'', 'Desktop Banner Landing Productos Comprar y Revisar, No Activas y No Suscritas')
+	
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
+		Valor1, Valor2, Valor3, Descripcion)
+	values (@ConfiguracionPaisID, 1, 0, 'DLandingBannerNoActivaSuscrita', 
+	'#Nombre ya estás suscrita a Gana+', 
+	'Ingresa a Gana+ y a partir de la próxima campaña descubre ofertas ¡que te harán ganar más!', 
+	'', 'Desktop Banner Landing Productos Comprar y Revisar, No Activas y Suscritas')
+	
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
+		Valor1, Valor2, Valor3, Descripcion)
+	values (@ConfiguracionPaisID, 1, 0, 'DLandingBannerActivaNoSuscrita', 
+	'#Nombre llegó Gana+: tu nuevo espacio de ofertas exclusivas',
+	'Encuentra packs únicos, pasa tu pedido sin digitar códigos ¡y mucho más!', 
+	'', 'Desktop Banner Landing Productos Comprar y Revisar, Activas y No Suscritas')
+
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
+		Valor1, Valor2, Valor3, Descripcion)
+	values (@ConfiguracionPaisID, 1, 0, 'DLandingBannerActivaSuscrita', 
+	'#Nombre llegó Gana+: tu nuevo espacio de ofertas exclusivas',
+	'Encuentra packs únicos, pasa tu pedido sin digitar códigos ¡y mucho más!', 
+	'', 'Desktop Banner Landing Productos Comprar y Revisar, Activas y Suscritas')
+
+	
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
+		Valor1, Valor2, Valor3, Descripcion)
+	values (@ConfiguracionPaisID, 1, 0, 'MLandingBannerNoActivaNoSuscrita', 
+	'#Nombre Bienvenida a Gana+ tu nuevo espacio online de ofertas exclusivas', 
+	'Disfruta de packs a tu medida y  pasa tu pedido sin digitar códigos.', 
+	'', 'Mobile Banner Landing Productos Comprar y Revisar, No Activas y No Suscritas')
+	
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
+		Valor1, Valor2, Valor3, Descripcion)
+	values (@ConfiguracionPaisID, 1, 0, 'MLandingBannerNoActivaSuscrita', 
+	'#Nombre ya estás suscrita a Gana+', 
+	'Encuentra packs únicos, pasa tu pedido sin digitar códigos ¡y mucho más!', 
+	'', 'Mobile Banner Landing Productos Comprar y Revisar, No Activas y Suscritas')
+	
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
+		Valor1, Valor2, Valor3, Descripcion)
+	values (@ConfiguracionPaisID, 1, 0, 'MLandingBannerActivaNoSuscrita', 
+	'#Nombre llegó Gana+: tu nuevo espacio de ofertas exclusivas',
+	'Disfruta de packs a tu medida y  pasa tu pedido sin digitar códigos.', 
+	'', 'Mobile Banner Landing Productos Comprar y Revisar, Activas y No Suscritas')
+
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
+		Valor1, Valor2, Valor3, Descripcion)
+	values (@ConfiguracionPaisID, 1, 0, 'MLandingBannerActivaSuscrita', 
+	'#Nombre llegó Gana+: tu nuevo espacio de ofertas exclusivas',
+	'Disfruta de packs a tu medida y  pasa tu pedido sin digitar códigos.', 
+	'', 'Mobile Banner Landing Productos Comprar y Revisar, Activas y Suscritas')
+
+	END
+
 END
 GO
 
@@ -196,6 +304,9 @@ from ConfiguracionPais
 where Codigo = 'RDR'
 
 BEGIN
+
+	delete from ConfiguracionPaisDatos where ConfiguracionPaisID = @ConfiguracionPaisID
+
 	-- RDR Textos desktop
 	BEGIN
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Valor3, Descripcion)

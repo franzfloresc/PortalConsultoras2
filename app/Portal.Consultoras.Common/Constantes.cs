@@ -946,6 +946,29 @@ namespace Portal.Consultoras.Common
             public const string MPedidoRdr = "MPedidoRdr";
             public const string MCatalogoRdr = "MCatalogoRdr";
 
+            #region Revista Digital Popup Bloqueado
+            public const string DPopupBloqueadoNoActivaNoSuscrita = "DPopupBloqueadoNoActivaNoSuscrita";
+            public const string DPopupBloqueadoNoActivaSuscrita = "DPopupBloqueadoNoActivaSuscrita";
+            public const string MPopupBloqueadoNoActivaNoSuscrita = "MPopupBloqueadoNoActivaNoSuscrita";
+            public const string MPopupBloqueadoNoActivaSuscrita = "MPopupBloqueadoNoActivaSuscrita";
+            #endregion
+
+            #region Revista Digital Lo que te perdiste
+            public const string DPerdiste = "DPerdiste";
+            public const string MPerdiste = "MPerdiste";
+            #endregion
+
+            #region Revista Digital Landing Productos - Banner
+            public const string DLandingBannerNoActivaNoSuscrita = "DLandingBannerNoActivaNoSuscrita";
+            public const string DLandingBannerNoActivaSuscrita = "DLandingBannerNoActivaSuscrita";
+            public const string DLandingBannerActivaNoSuscrita = "DLandingBannerActivaNoSuscrita";
+            public const string DLandingBannerActivaSuscrita = "DLandingBannerActivaSuscrita";
+            public const string MLandingBannerNoActivaNoSuscrita = "MLandingBannerNoActivaNoSuscrita";
+            public const string MLandingBannerNoActivaSuscrita = "MLandingBannerNoActivaSuscrita";
+            public const string MLandingBannerActivaNoSuscrita = "MLandingBannerActivaNoSuscrita";
+            public const string MLandingBannerActivaSuscrita = "MLandingBannerActivaSuscrita";
+            #endregion
+
         }
 
         public static class ConfiguracionSeccion
@@ -1313,7 +1336,8 @@ namespace Portal.Consultoras.Common
             public const string SALUDO = "SALUDO";
             public const string FONDO_INGPED = "FONDO_INGPED";
             public const string GIF_MENU_OFERTAS = "GIF_MENU_OFERTAS";
-            public const string GIF_MENU_OFERTAS_BPT = "GIF_MENU_OFERTAS_BPT";
+            public const string GIF_MENU_OFERTAS_BPT_GANA_MAS = "GIF_MENU_OFERTAS_BPT_GANA_MAS";
+            public const string GIF_MENU_OFERTAS_BPT_CLUB_GANA_MAS = "GIF_MENU_OFERTAS_BPT_CLUB_GANA_MAS";
             public const string RD_SI_D_ImagenLogo = "RD_SI_D_ImagenLogo";
             public const string RD_SI_D_ImagenFondo = "RD_SI_D_ImagenFondo";
             public const string RD_SI_D_TituloBanner = "RD_SI_D_TituloBanner";

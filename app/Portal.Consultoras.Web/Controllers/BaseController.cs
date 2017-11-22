@@ -572,24 +572,46 @@ namespace Portal.Consultoras.Web.Controllers
                 if (permiso.Codigo == Constantes.MenuCodigo.ContenedorOfertas.ToLower())
                 {
                     permiso.EsSoloImagen = true;
-                    string imagenContenedorOfertasDefault = ConfigurationManager.AppSettings.Get("GIF_MENU_DEFAULT_OFERTAS");
-                    string imagenContenedorOfertasDefaultBpt = ConfigurationManager.AppSettings.Get("GIF_MENU_DEFAULT_OFERTAS_BPT");
 
-                    bool tieneRevistaDigital = revistaDigital.TieneRDC || revistaDigital.TieneRDR;
-                    string urlGifContenedorOfertas = tieneRevistaDigital ? imagenContenedorOfertasDefaultBpt : imagenContenedorOfertasDefault;
-                    var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-
-                    permiso.UrlImagen = ConfigS3.GetUrlFileS3(carpetaPais, urlGifContenedorOfertas);
-
-                    if (GetEventoFestivoData().ListaGifMenuContenedorOfertas.Any())
+                    var urlImagen = string.Empty;
+                    var tieneRevistaDigital = revistaDigital.TieneRDC || revistaDigital.TieneRDR;
+                    var tieneEventoFestivoData = sessionManager.GetEventoFestivoDataModel() != null && 
+                        sessionManager.GetEventoFestivoDataModel().ListaGifMenuContenedorOfertas != null;
+                    if (!tieneRevistaDigital)
                     {
-                        permiso.UrlImagen = tieneRevistaDigital
-                            ? EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.GIF_MENU_OFERTAS_BPT, permiso.UrlImagen)
-                            : EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.GIF_MENU_OFERTAS, permiso.UrlImagen);
+                        urlImagen = GetDefaultGifMenuOfertas();
+                        urlImagen = ConfigS3.GetUrlFileS3(Globals.UrlMatriz + "/" + userData.CodigoISO, urlImagen);
+                        if(tieneEventoFestivoData)
+                        {
+                            urlImagen = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.GIF_MENU_OFERTAS, urlImagen);
+                        }
                     }
+
+                    if(tieneRevistaDigital && !revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
+                    {
+                        urlImagen = revistaDigital.LogoComercialNoActiva;
+                        urlImagen = ConfigS3.GetUrlFileS3(Globals.UrlMatriz + "/" + userData.CodigoISO, urlImagen);
+                        if (tieneEventoFestivoData)
+                        {
+                            urlImagen = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.GIF_MENU_OFERTAS_BPT_GANA_MAS, urlImagen);
+                        }
+
+                    }
+
+                    if (tieneRevistaDigital && (revistaDigital.EsSuscrita || revistaDigital.EsActiva))
+                    {
+                        urlImagen = revistaDigital.LogoComercialActiva;
+                        urlImagen = ConfigS3.GetUrlFileS3(Globals.UrlMatriz + "/" + userData.CodigoISO, urlImagen);
+                        if (tieneEventoFestivoData)
+                        {
+                            urlImagen = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.GIF_MENU_OFERTAS_BPT_CLUB_GANA_MAS, urlImagen);
+                        }
+                    }
+
+                    permiso.UrlImagen = urlImagen;
                 }
 
-                
+
 
                 // por ahora esta en header, ponerlo para tambien para el Footer
                 // Objetivo que el Html este limpio, la logica no deberia estar en la vista
@@ -676,6 +698,11 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.ClaseLogoSB = userData.ClaseLogoSB;
 
             return SepararItemsMenu(lstMenuModel);
+        }
+
+        protected virtual string GetDefaultGifMenuOfertas()
+        {
+            return ConfigurationManager.AppSettings.Get("GIF_MENU_DEFAULT_OFERTAS") ?? string.Empty;
         }
 
         protected bool GetMostrarPedidosPendientesFromConfig()
@@ -789,12 +816,12 @@ namespace Portal.Consultoras.Web.Controllers
                     var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
 
                     menu.UrlImagen = ConfigS3.GetUrlFileS3(carpetaPais, urlGifContenedorOfertas);
-                    var eventofestivo = GetEventoFestivoData();
+                    var eventofestivo = sessionManager.GetEventoFestivoDataModel();
                     if (eventofestivo.ListaGifMenuContenedorOfertas.Any())
                     {
                         if (tieneRevistaDigital)
                         {
-                            var eventoFestivoGifBpt = eventofestivo.ListaGifMenuContenedorOfertas.FirstOrDefault(p => p.Nombre == Constantes.EventoFestivoNombre.GIF_MENU_OFERTAS_BPT);
+                            var eventoFestivoGifBpt = eventofestivo.ListaGifMenuContenedorOfertas.FirstOrDefault(p => p.Nombre == Constantes.EventoFestivoNombre.GIF_MENU_OFERTAS_BPT_GANA_MAS);
 
                             if (eventoFestivoGifBpt != null)
                             {
@@ -1000,7 +1027,7 @@ namespace Portal.Consultoras.Web.Controllers
             var eventoFestivo = new EventoFestivoModel();
             try
             {
-                eventoFestivo = GetEventoFestivoData().ListaGifMenuContenedorOfertas.FirstOrDefault(p => p.Nombre == nombre) ?? new EventoFestivoModel();
+                eventoFestivo = sessionManager.GetEventoFestivoDataModel().ListaGifMenuContenedorOfertas.FirstOrDefault(p => p.Nombre == nombre) ?? new EventoFestivoModel();
             }
             catch (Exception ex)
             {
@@ -1008,6 +1035,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             var valor = Util.Trim(eventoFestivo.Personalizacion);
             valor = valor == "" ? Util.Trim(valorBase) : valor;
+
             return valor;
         }
 
@@ -1280,7 +1308,7 @@ namespace Portal.Consultoras.Web.Controllers
             #endregion
 
             #region EventoFestivo
-            ViewBag.SaludoFestivo = GetEventoFestivoData().EfSaludo;
+            ViewBag.SaludoFestivo = sessionManager.GetEventoFestivoDataModel().EfSaludo;
             #endregion
 
             #endregion
@@ -3773,7 +3801,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 confiModel.UrlMenuMobile = "/Mobile/" + confiModel.UrlMenu;
-                confiModel.EsAncla = confiModel.UrlMenu == null ? false : confiModel.UrlMenu.Contains("#");
+                confiModel.EsAncla = !(confiModel.UrlMenu == null) && confiModel.UrlMenu.Contains("#");
 
                 var config = confiModel;
 
@@ -4006,13 +4034,7 @@ namespace Portal.Consultoras.Web.Controllers
             var entidad = listado.FirstOrDefault(c => c.Codigo == codigo) ?? new ConfiguracionPaisModel();
 
             return entidad;
-        }
-
-        public EventoFestivoDataModel GetEventoFestivoData()
-        {
-            return sessionManager.GetEventoFestivoDataModel() ??
-                   new EventoFestivoDataModel();
-        }
+        }       
 
         public OfertaFinalModel GetOfertaFinal()
         {
@@ -4029,7 +4051,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected string GetUrlFranjaNegra()
         {
-            var urlFranjaNegra = GetEventoFestivoData().EfRutaPedido;
+            var urlFranjaNegra = sessionManager.GetEventoFestivoDataModel().EfRutaPedido;
 
             if (string.IsNullOrEmpty(urlFranjaNegra))
                 urlFranjaNegra = "../../../Content/Images/Esika/background_pedido.png";
