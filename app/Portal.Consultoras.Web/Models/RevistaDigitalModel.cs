@@ -26,6 +26,8 @@ namespace Portal.Consultoras.Web.Models
         public string NombreComercialNoActiva { get; set; }
         public string LogoComercialActiva { get; set; }
         public string LogoComercialNoActiva { get; set; }
+        public string LogoMenuOfertasActiva { get; set; }
+        public string LogoMenuOfertasNoActiva { get; set; }
 
         public string EstadoRdcAnalytics { get; set; }
 

@@ -1212,6 +1212,12 @@ namespace Portal.Consultoras.Web.Controllers
                 value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.LogoComercialNoActiva);
                 if (value1 != null) revistaDigitalModel.LogoComercialNoActiva = value1.Valor1;
 
+                var value7 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.LogoMenuOfertasActiva);
+                if (value7 != null) revistaDigitalModel.LogoComercialActiva = value7.Valor1;
+
+                var value8 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.LogoMenuOfertasNoActiva);
+                if (value8 != null) revistaDigitalModel.LogoComercialNoActiva = value8.Valor1;
+
                 listaDatos.RemoveAll(d =>
                     d.Codigo == Constantes.ConfiguracionPaisDatos.BloquearDiasAntesFacturar
                     || d.Codigo == Constantes.ConfiguracionPaisDatos.CantidadCampaniaEfectiva
@@ -1219,6 +1225,8 @@ namespace Portal.Consultoras.Web.Controllers
                     || d.Codigo == Constantes.ConfiguracionPaisDatos.NombreComercialNoActiva
                     || d.Codigo == Constantes.ConfiguracionPaisDatos.LogoComercialActiva
                     || d.Codigo == Constantes.ConfiguracionPaisDatos.LogoComercialNoActiva
+                    || d.Codigo == Constantes.ConfiguracionPaisDatos.LogoMenuOfertasActiva
+                    || d.Codigo == Constantes.ConfiguracionPaisDatos.LogoMenuOfertasNoActiva
                 );
 
                 revistaDigitalModel.ConfiguracionPaisDatos = Mapper.Map<List<ConfiguracionPaisDatosModel>>(listaDatos) ?? new List<ConfiguracionPaisDatosModel>();
