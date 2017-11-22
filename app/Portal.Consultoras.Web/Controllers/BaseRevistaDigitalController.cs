@@ -3,6 +3,7 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceSAC;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -44,14 +45,11 @@ namespace Portal.Consultoras.Web.Controllers
             model.FiltersByBrand.Add(new BETablaLogicaDatos { Codigo = "LBEL", Descripcion = "LBEL" });
 
             model.Success = true;
-            model.ProductosPerdio = TieneProductosPerdio(model.CampaniaID);
-
-            if (model.ProductosPerdio)
-            {
-                model.PerdioTitulo = revistaDigital.NombreConsultora + ", POR SI TE LO PERDISTE";
-                model.PerdioSubTitulo = "GANA MÁS CON OFERTAS PARA SUSCRIPTORAS DESDE C-" + revistaDigital.CampaniaActiva;
-            }
-
+            var dato = ObtenerPerdio(model.CampaniaID);
+            model.ProductosPerdio = dato.Estado;
+            model.PerdioTitulo = dato.Valor1;
+            model.PerdioSubTitulo = dato.Valor2;
+            
             model.MensajeProductoBloqueado = MensajeProductoBloqueado();
             model.CantidadFilas = 10;
             return PartialView("template-landing", model);
@@ -82,13 +80,12 @@ namespace Portal.Consultoras.Web.Controllers
             modelo.ListaDescripcionDetalle = modelo.ListaDescripcionDetalle ?? new List<string>();
 
             ViewBag.EstadoSuscripcion = revistaDigital.SuscripcionModel.EstadoRegistro;
-            ViewBag.TieneProductosPerdio = TieneProductosPerdio(modelo.CampaniaID);
-            if (ViewBag.TieneProductosPerdio)
-            {
-                ViewBag.PerdioTitulo = revistaDigital.NombreConsultora + ", POR SI TE LO PERDISTE";
-                ViewBag.PerdioSubTitulo = "GANA MÁS CON OFERTAS PARA SUSCRIPTORAS DESDE C-" + revistaDigital.CampaniaActiva;
-            }
 
+            var dato = ObtenerPerdio(modelo.CampaniaID);
+            ViewBag.TieneProductosPerdio = dato.Estado;
+            ViewBag.PerdioTitulo = dato.Valor1;
+            ViewBag.PerdioSubTitulo = dato.Valor2;
+            
             ViewBag.Campania = campaniaId;
             return View(modelo);
 
@@ -99,37 +96,6 @@ namespace Portal.Consultoras.Web.Controllers
             return (campaniaId < userData.CampaniaID || campaniaId > AddCampaniaAndNumero(userData.CampaniaID, 1));
         }
 
-        public MensajeProductoBloqueadoModel MensajeProductoBloqueado()
-        {
-            var model = new MensajeProductoBloqueadoModel();
-
-            if (!revistaDigital.TieneRDC) return model;
-
-            model.IsMobile = IsMobile();
-
-            if (!revistaDigital.EsActiva)
-            {
-                if (revistaDigital.EsSuscrita)
-                {
-                    model.MensajeIconoSuperior = true;
-                    model.MensajeTitulo = model.IsMobile
-                        ? "PODRÁS AGREGARLA EN LA CAMPAÑA " + revistaDigital.CampaniaActiva
-                        : "PODRÁS AGREGAR OFERTAS COMO ESTA EN LA CAMPAÑA " + revistaDigital.CampaniaActiva;
-                    model.BtnInscribirse = false;
-                }
-                else
-                {
-                    model.MensajeIconoSuperior = false;
-                    model.MensajeTitulo = model.IsMobile
-                        ? "INSCRÍBETE HOY EN ÉSIKA PARA MÍ Y NO TE PIERDAS EN C-" + revistaDigital.CampaniaActiva + "<br />OFERTAS COMO ESTA"
-                        : "INSCRÍBETE HOY EN ÉSIKA PARA MÍ Y NO TE PIERDAS EN CAMPAÑA " + revistaDigital.CampaniaActiva + " OFERTAS COMO ESTA";
-                    model.BtnInscribirse = true;
-                }
-            }
-
-            return model;
-        }
-
         public bool TieneProductosPerdio(int campaniaID)
         {
             if (!revistaDigital.EsActiva &&
@@ -137,6 +103,21 @@ namespace Portal.Consultoras.Web.Controllers
                 return true;
 
             return false;
+        }
+
+        private ConfiguracionPaisDatosModel ObtenerPerdio(int campaniaId)
+        {
+            var dato = new ConfiguracionPaisDatosModel();
+            if (TieneProductosPerdio(campaniaId))
+            {
+                dato = revistaDigital.ConfiguracionPaisDatos
+                    .FirstOrDefault(d => d.Codigo == (IsMobile() ? Constantes.ConfiguracionPaisDatos.RD.MPerdiste : Constantes.ConfiguracionPaisDatos.RD.DPerdiste));
+                dato = dato ?? new ConfiguracionPaisDatosModel();
+                dato.Estado = true;
+            }
+            dato.Valor1 = Util.Trim(dato.Valor1);
+            dato.Valor2 = Util.Trim(dato.Valor2);
+            return dato;
         }
 
     }

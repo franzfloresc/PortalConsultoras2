@@ -904,70 +904,77 @@ namespace Portal.Consultoras.Common
         
         public static class ConfiguracionPaisDatos
         {
-            public const string BloquearDiasAntesFacturar = "BloquearDiasAntesFacturar";
-            public const string CantidadCampaniaEfectiva = "CantidadCampaniaEfectiva";
-            public const string NombreComercialActiva = "NombreComercialActiva";
-            public const string NombreComercialNoActiva = "NombreComercialNoActiva";
-            public const string LogoComercialActiva = "LogoComercialActiva";
-            public const string LogoComercialNoActiva = "LogoComercialNoActiva";
-            
-            public const string DBienvenidaInscritaActiva = "DBienvenidaInscritaActiva";
-            public const string DBienvenidaInscritaNoActiva = "DBienvenidaInscritaNoActiva";
-            public const string DBienvenidaNoInscritaActiva = "DBienvenidaNoInscritaActiva";
-            public const string DBienvenidaNoInscritaNoActiva = "DBienvenidaNoInscritaNoActiva";
-            public const string MBienvenidaInscritaActiva = "MBienvenidaInscritaActiva";
-            public const string MBienvenidaInscritaNoActiva = "MBienvenidaInscritaNoActiva";
-            public const string MBienvenidaNoInscritaActiva = "MBienvenidaNoInscritaActiva";
-            public const string MBienvenidaNoInscritaNoActiva = "MBienvenidaNoInscritaNoActiva";
+            public static class RD
+            {
+                public const string BloquearDiasAntesFacturar = "BloquearDiasAntesFacturar";
+                public const string CantidadCampaniaEfectiva = "CantidadCampaniaEfectiva";
+                public const string NombreComercialActiva = "NombreComercialActiva";
+                public const string NombreComercialNoActiva = "NombreComercialNoActiva";
+                public const string LogoComercialActiva = "LogoComercialActiva";
+                public const string LogoComercialNoActiva = "LogoComercialNoActiva";
 
-            public const string DPedidoInscritaActiva = "DPedidoInscritaActiva";
-            public const string DPedidoInscritaNoActiva = "DPedidoInscritaNoActiva";
-            public const string DPedidoNoInscritaActiva = "DPedidoNoInscritaActiva";
-            public const string DPedidoNoInscritaNoActiva = "DPedidoNoInscritaNoActiva";
-            public const string MPedidoInscritaActiva = "MPedidoInscritaActiva";
-            public const string MPedidoInscritaNoActiva = "MPedidoInscritaNoActiva";
-            public const string MPedidoNoInscritaActiva = "MPedidoNoInscritaActiva";
-            public const string MPedidoNoInscritaNoActiva = "MPedidoNoInscritaNoActiva";
-            
-            public const string DCatalogoInscritaActiva = "DCatalogoInscritaActiva";
-            public const string DCatalogoInscritaNoActiva = "DCatalogoInscritaNoActiva";
-            public const string DCatalogoNoInscritaActiva = "DCatalogoNoInscritaActiva";
-            public const string DCatalogoNoInscritaNoActiva = "DCatalogoNoInscritaNoActiva";
-            public const string MCatalogoInscritaActiva = "MCatalogoInscritaActiva";
-            public const string MCatalogoInscritaNoActiva = "MCatalogoInscritaNoActiva";
-            public const string MCatalogoNoInscritaActiva = "MCatalogoNoInscritaActiva";
-            public const string MCatalogoNoInscritaNoActiva = "MCatalogoNoInscritaNoActiva";
+                public const string DBienvenidaInscritaActiva = "DBienvenidaInscritaActiva";
+                public const string DBienvenidaInscritaNoActiva = "DBienvenidaInscritaNoActiva";
+                public const string DBienvenidaNoInscritaActiva = "DBienvenidaNoInscritaActiva";
+                public const string DBienvenidaNoInscritaNoActiva = "DBienvenidaNoInscritaNoActiva";
+                public const string MBienvenidaInscritaActiva = "MBienvenidaInscritaActiva";
+                public const string MBienvenidaInscritaNoActiva = "MBienvenidaInscritaNoActiva";
+                public const string MBienvenidaNoInscritaActiva = "MBienvenidaNoInscritaActiva";
+                public const string MBienvenidaNoInscritaNoActiva = "MBienvenidaNoInscritaNoActiva";
+
+                public const string DPedidoInscritaActiva = "DPedidoInscritaActiva";
+                public const string DPedidoInscritaNoActiva = "DPedidoInscritaNoActiva";
+                public const string DPedidoNoInscritaActiva = "DPedidoNoInscritaActiva";
+                public const string DPedidoNoInscritaNoActiva = "DPedidoNoInscritaNoActiva";
+                public const string MPedidoInscritaActiva = "MPedidoInscritaActiva";
+                public const string MPedidoInscritaNoActiva = "MPedidoInscritaNoActiva";
+                public const string MPedidoNoInscritaActiva = "MPedidoNoInscritaActiva";
+                public const string MPedidoNoInscritaNoActiva = "MPedidoNoInscritaNoActiva";
+
+                public const string DCatalogoInscritaActiva = "DCatalogoInscritaActiva";
+                public const string DCatalogoInscritaNoActiva = "DCatalogoInscritaNoActiva";
+                public const string DCatalogoNoInscritaActiva = "DCatalogoNoInscritaActiva";
+                public const string DCatalogoNoInscritaNoActiva = "DCatalogoNoInscritaNoActiva";
+                public const string MCatalogoInscritaActiva = "MCatalogoInscritaActiva";
+                public const string MCatalogoInscritaNoActiva = "MCatalogoInscritaNoActiva";
+                public const string MCatalogoNoInscritaActiva = "MCatalogoNoInscritaActiva";
+                public const string MCatalogoNoInscritaNoActiva = "MCatalogoNoInscritaNoActiva";
 
 
-            public const string DBienvenidaRdr = "DBienvenidaRdr";
-            public const string DPedidoRdr = "DPedidoRdr";
-            public const string DCatalogoRdr = "DCatalogoRdr";
-            public const string MBienvenidaRdr = "MBienvenidaRdr";
-            public const string MPedidoRdr = "MPedidoRdr";
-            public const string MCatalogoRdr = "MCatalogoRdr";
+                #region Revista Digital Popup Bloqueado
+                public const string DPopupBloqueadoNoActivaNoSuscrita = "DPopupBloqueadoNoActivaNoSuscrita";
+                public const string DPopupBloqueadoNoActivaSuscrita = "DPopupBloqueadoNoActivaSuscrita";
+                public const string MPopupBloqueadoNoActivaNoSuscrita = "MPopupBloqueadoNoActivaNoSuscrita";
+                public const string MPopupBloqueadoNoActivaSuscrita = "MPopupBloqueadoNoActivaSuscrita";
+                #endregion
 
-            #region Revista Digital Popup Bloqueado
-            public const string DPopupBloqueadoNoActivaNoSuscrita = "DPopupBloqueadoNoActivaNoSuscrita";
-            public const string DPopupBloqueadoNoActivaSuscrita = "DPopupBloqueadoNoActivaSuscrita";
-            public const string MPopupBloqueadoNoActivaNoSuscrita = "MPopupBloqueadoNoActivaNoSuscrita";
-            public const string MPopupBloqueadoNoActivaSuscrita = "MPopupBloqueadoNoActivaSuscrita";
-            #endregion
+                #region Revista Digital Lo que te perdiste
+                public const string DPerdiste = "DPerdiste";
+                public const string MPerdiste = "MPerdiste";
+                #endregion
 
-            #region Revista Digital Lo que te perdiste
-            public const string DPerdiste = "DPerdiste";
-            public const string MPerdiste = "MPerdiste";
-            #endregion
+                #region Revista Digital Landing Productos - Banner
+                public const string DLandingBannerNoActivaNoSuscrita = "DLandingBannerNoActivaNoSuscrita";
+                public const string DLandingBannerNoActivaSuscrita = "DLandingBannerNoActivaSuscrita";
+                public const string DLandingBannerActivaNoSuscrita = "DLandingBannerActivaNoSuscrita";
+                public const string DLandingBannerActivaSuscrita = "DLandingBannerActivaSuscrita";
+                public const string MLandingBannerNoActivaNoSuscrita = "MLandingBannerNoActivaNoSuscrita";
+                public const string MLandingBannerNoActivaSuscrita = "MLandingBannerNoActivaSuscrita";
+                public const string MLandingBannerActivaNoSuscrita = "MLandingBannerActivaNoSuscrita";
+                public const string MLandingBannerActivaSuscrita = "MLandingBannerActivaSuscrita";
+                #endregion
+            }
 
-            #region Revista Digital Landing Productos - Banner
-            public const string DLandingBannerNoActivaNoSuscrita = "DLandingBannerNoActivaNoSuscrita";
-            public const string DLandingBannerNoActivaSuscrita = "DLandingBannerNoActivaSuscrita";
-            public const string DLandingBannerActivaNoSuscrita = "DLandingBannerActivaNoSuscrita";
-            public const string DLandingBannerActivaSuscrita = "DLandingBannerActivaSuscrita";
-            public const string MLandingBannerNoActivaNoSuscrita = "MLandingBannerNoActivaNoSuscrita";
-            public const string MLandingBannerNoActivaSuscrita = "MLandingBannerNoActivaSuscrita";
-            public const string MLandingBannerActivaNoSuscrita = "MLandingBannerActivaNoSuscrita";
-            public const string MLandingBannerActivaSuscrita = "MLandingBannerActivaSuscrita";
-            #endregion
+            public static class RDR
+            {
+                public const string DBienvenidaRdr = "DBienvenidaRdr";
+                public const string DPedidoRdr = "DPedidoRdr";
+                public const string DCatalogoRdr = "DCatalogoRdr";
+                public const string MBienvenidaRdr = "MBienvenidaRdr";
+                public const string MPedidoRdr = "MPedidoRdr";
+                public const string MCatalogoRdr = "MCatalogoRdr";
+                public const string RDRLandingBanner = "RDRLandingBanner";
+            }
 
         }
 

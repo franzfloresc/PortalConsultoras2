@@ -3800,7 +3800,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 confiModel.UrlMenuMobile = "/Mobile/" + confiModel.UrlMenu;
-                confiModel.EsAncla = !(confiModel.UrlMenu == null) && confiModel.UrlMenu.Contains("#");
+                confiModel.EsAncla = confiModel.UrlMenu != null && confiModel.UrlMenu.Contains("#");
 
                 var config = confiModel;
 
@@ -3873,31 +3873,67 @@ namespace Portal.Consultoras.Web.Controllers
             if (revistaDigital.SuscripcionModel.CampaniaID > userData.CampaniaID)
                 return;
 
+            var codigo = "";
+            var ismobil = IsMobile();
             if (revistaDigital.TieneRDC)
             {
                 if (revistaDigital.EsActiva)
                 {
-                    confi.DesktopTituloBanner += ", LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA";
-                    confi.DesktopSubTituloBanner = "ENCUENTRA OFERTAS, BONIFICACIONES Y LANZAMIENTOS DE LAS 3 MARCAS. TODOS LOS PRODUCTOS TAMBIÉN SUMAN PUNTOS.";
-                    return;
-                }
-
-                if (revistaDigital.EsSuscrita)
-                {
-                    confi.DesktopTituloBanner += ", YA ESTÁS INSCRITA A TU NUEVA REVISTA ONLINE PERSONALIZADA";
-                    confi.DesktopSubTituloBanner = "INGRESA A ÉSIKA PARA MÍ A PARTIR DE LA CAMPAÑA " + revistaDigital.CampaniaActiva + "Y DESCUBRE TODAS LAS OFERTAS QUE TENEMOS ÚNICAMENTE PARA TI";
+                    codigo = ismobil
+                        ? revistaDigital.EsSuscrita ? Constantes.ConfiguracionPaisDatos.RD.MLandingBannerActivaSuscrita : Constantes.ConfiguracionPaisDatos.RD.MLandingBannerActivaNoSuscrita
+                        : revistaDigital.EsSuscrita ? Constantes.ConfiguracionPaisDatos.RD.DLandingBannerActivaSuscrita : Constantes.ConfiguracionPaisDatos.RD.DLandingBannerActivaNoSuscrita;
                 }
                 else
                 {
-                    confi.DesktopTituloBanner += ", BIENVENIDA A ÉSIKA PARA MÍ TU NUEVA REVISTA ONLINE PRESONALIZADA";
-                    confi.DesktopSubTituloBanner = "ENCUENTRA LAS MEJORES OFERTAS Y BONIFICACIONES EXTRAS. INSCRÍBETE PARA DISFRUTAR DE TODAS ELLAS";
+                    codigo = ismobil
+                        ? revistaDigital.EsSuscrita ? Constantes.ConfiguracionPaisDatos.RD.MLandingBannerNoActivaSuscrita : Constantes.ConfiguracionPaisDatos.RD.MLandingBannerNoActivaNoSuscrita
+                        : revistaDigital.EsSuscrita ? Constantes.ConfiguracionPaisDatos.RD.DLandingBannerNoActivaSuscrita : Constantes.ConfiguracionPaisDatos.RD.DLandingBannerNoActivaNoSuscrita;
                 }
             }
             else if (revistaDigital.TieneRDR)
             {
-                confi.DesktopTituloBanner += ", DESCUBRE TU NUEVA REVISTA ONLINE PERSONALIZADA";
-                confi.DesktopSubTituloBanner = "ENCUENTRA OFERTAS, BONIFICACIONES Y LANZAMIENTOS DE LAS 3 MARCAS. TODOS LOS PRODUCTOS TAMBIÉN SUMAN PUNTOS.";
+                codigo = Constantes.ConfiguracionPaisDatos.RDR.RDRLandingBanner;
             }
+
+            if (codigo != "")
+            {
+                var dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo) ?? new ConfiguracionPaisDatosModel();
+                confi.DesktopTituloBanner = Util.Trim(dato.Valor1);
+                confi.DesktopSubTituloBanner = Util.Trim(dato.Valor2);
+            }
+        }
+        #endregion
+
+        #region RD
+        public MensajeProductoBloqueadoModel MensajeProductoBloqueado()
+        {
+            var model = new MensajeProductoBloqueadoModel();
+
+            if (!revistaDigital.TieneRDC) return model;
+
+            model.IsMobile = IsMobile();
+
+            if (!revistaDigital.EsActiva)
+            {
+                var codigo = "";
+                if (revistaDigital.EsSuscrita)
+                {
+                    model.MensajeIconoSuperior = true;
+                    codigo = model.IsMobile ? Constantes.ConfiguracionPaisDatos.RD.MPopupBloqueadoNoActivaSuscrita : Constantes.ConfiguracionPaisDatos.RD.DPopupBloqueadoNoActivaSuscrita;
+                    model.BtnInscribirse = false;
+                }
+                else
+                {
+                    model.MensajeIconoSuperior = false;
+                    codigo = model.IsMobile ? Constantes.ConfiguracionPaisDatos.RD.MPopupBloqueadoNoActivaNoSuscrita : Constantes.ConfiguracionPaisDatos.RD.DPopupBloqueadoNoActivaNoSuscrita;
+                    model.BtnInscribirse = true;
+                }
+
+                var dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo);
+                model.MensajeTitulo = dato == null ? "" : Util.Trim(dato.Valor1);
+            }
+
+            return model;
         }
         #endregion
 
