@@ -184,7 +184,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     TieneRDR = false,
                     EsSuscrita = false,
                     EsActiva = false,
-                    LogoComercialNoActiva = "gana-mas.gif"
+                    LogoMenuOfertasNoActiva = "gana-mas.gif"
                 };
 
                 var menuOferta = controller.BuildMenu(userData, revistaDigital).First();
@@ -229,7 +229,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     EsSuscrita = true,
                     EsActiva = false,
                     //
-                    LogoComercialActiva = "club-gana-mas.gif"
+                    LogoMenuOfertasActiva = "club-gana-mas.gif"
                 };
 
                 var menuOferta = controller.BuildMenu(userData, revistaDigital).First();
@@ -274,7 +274,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     EsSuscrita = true,
                     EsActiva = true,
                     //
-                    LogoComercialActiva = "club-gana-mas.gif"
+                    LogoMenuOfertasActiva = "club-gana-mas.gif"
                 };
 
                 var menuOferta = controller.BuildMenu(userData, revistaDigital).First();
@@ -319,7 +319,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     EsSuscrita = false,
                     EsActiva = true,
                     //
-                    LogoComercialActiva = "club-gana-mas.gif"
+                    LogoMenuOfertasActiva = "club-gana-mas.gif"
                 };
 
                 var menuOferta = controller.BuildMenu(userData, revistaDigital).First();
@@ -571,6 +571,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 Assert.IsTrue(menuOferta.UrlImagen.Contains("evento-festivo-ofertas-club-gana-mas.gif"));
             }
         }
+
         //[TestClass]
         //public class ObtenerPedidoWeb : Base
         //{

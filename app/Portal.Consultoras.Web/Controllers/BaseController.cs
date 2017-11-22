@@ -589,7 +589,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if(tieneRevistaDigital && !revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
                     {
-                        urlImagen = revistaDigital.LogoComercialNoActiva;
+                        urlImagen = revistaDigital.LogoMenuOfertasNoActiva;
                         urlImagen = ConfigS3.GetUrlFileS3(Globals.UrlMatriz + "/" + userData.CodigoISO, urlImagen);
                         if (tieneEventoFestivoData)
                         {
@@ -600,7 +600,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (tieneRevistaDigital && (revistaDigital.EsSuscrita || revistaDigital.EsActiva))
                     {
-                        urlImagen = revistaDigital.LogoComercialActiva;
+                        urlImagen = revistaDigital.LogoMenuOfertasActiva;
                         urlImagen = ConfigS3.GetUrlFileS3(Globals.UrlMatriz + "/" + userData.CodigoISO, urlImagen);
                         if (tieneEventoFestivoData)
                         {
