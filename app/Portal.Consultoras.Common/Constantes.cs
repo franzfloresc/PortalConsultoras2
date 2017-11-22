@@ -964,6 +964,33 @@ namespace Portal.Consultoras.Common
             public const string MBienvenidaInscritaNoActiva = "MBienvenidaInscritaNoActiva";
             public const string MBienvenidaNoInscritaActiva = "MBienvenidaNoInscritaActiva";
             public const string MBienvenidaNoInscritaNoActiva = "MBienvenidaNoInscritaNoActiva";
+
+            public const string DPedidoInscritaActiva = "DPedidoInscritaActiva";
+            public const string DPedidoInscritaNoActiva = "DPedidoInscritaNoActiva";
+            public const string DPedidoNoInscritaActiva = "DPedidoNoInscritaActiva";
+            public const string DPedidoNoInscritaNoActiva = "DPedidoNoInscritaNoActiva";
+            public const string MPedidoInscritaActiva = "MPedidoInscritaActiva";
+            public const string MPedidoInscritaNoActiva = "MPedidoInscritaNoActiva";
+            public const string MPedidoNoInscritaActiva = "MPedidoNoInscritaActiva";
+            public const string MPedidoNoInscritaNoActiva = "MPedidoNoInscritaNoActiva";
+            
+            public const string DCatalogoInscritaActiva = "DCatalogoInscritaActiva";
+            public const string DCatalogoInscritaNoActiva = "DCatalogoInscritaNoActiva";
+            public const string DCatalogoNoInscritaActiva = "DCatalogoNoInscritaActiva";
+            public const string DCatalogoNoInscritaNoActiva = "DCatalogoNoInscritaNoActiva";
+            public const string MCatalogoInscritaActiva = "MCatalogoInscritaActiva";
+            public const string MCatalogoInscritaNoActiva = "MCatalogoInscritaNoActiva";
+            public const string MCatalogoNoInscritaActiva = "MCatalogoNoInscritaActiva";
+            public const string MCatalogoNoInscritaNoActiva = "MCatalogoNoInscritaNoActiva";
+
+
+            public const string DBienvenidaRdr = "DBienvenidaRdr";
+            public const string DPedidoRdr = "DPedidoRdr";
+            public const string DCatalogoRdr = "DCatalogoRdr";
+            public const string MBienvenidaRdr = "MBienvenidaRdr";
+            public const string MPedidoRdr = "MPedidoRdr";
+            public const string MCatalogoRdr = "MCatalogoRdr";
+
         }
 
         public static class ConfiguracionSeccion

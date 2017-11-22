@@ -1,0 +1,108 @@
+﻿@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Models
+@model RevistaDigitalModel
+
+@{
+    ConfiguracionPaisDatosModel configuracionPaisDatosModel;
+}
+@if (Model.TieneRDC)
+{
+    if (Model.EsActiva)
+    {
+        if (Model.EsSuscrita)
+        {
+            configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.DCatalogoInscritaActiva) ?? new ConfiguracionPaisDatosModel();
+        }
+        else
+        {
+            configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.DCatalogoNoInscritaActiva) ?? new ConfiguracionPaisDatosModel();
+        }
+        <div class="home_block_rd home_rd1" style="background-color: transparent; text-align: left;">
+            <div class="content_belcorp" style="background-color: black;">
+                <div class="rd_logo">
+                    <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="70">
+                </div>
+                <div class="hblock_text" style="padding-top: 34px;">
+                    <div class="hblock_tit" style="font-size: 14px;"> @Html.Raw(configuracionPaisDatosModel.Valor1)</div>
+                    <div style="max-width: 70%; font-size: 18px;">@Html.Raw(configuracionPaisDatosModel.Valor2)</div>
+                    <div class="btn_diagonal">
+                        <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
+                            VER TODAS MIS OFERTAS
+                            <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
+                            <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="clear" />
+        <div style="height: 35px; background: #fff;"></div>
+    }
+    else
+    {
+        if (!Portal.Consultoras.Web.SessionManager.SessionManager.Instance.GetUserData().TieneGND)
+        {
+            if (Model.EsSuscrita)
+            {
+                configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.DCatalogoInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
+            }
+            else
+            {
+                configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.DCatalogoNoInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
+            }
+            
+            @Html.Partial("~/Views/MisCatalogosRevistas/template-revista-slide.cshtml")
+            <div class="revista_content" id="contentRevistaDigital" style="position: relative;">
+                <div class="home_block_rd home_rd1 rd_catalogos">
+                    <div class="rd_logo">
+                        <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="45">
+                    </div>
+                    <div class="hblock_text">
+                        <div class="hblock_tit">@Html.Raw(configuracionPaisDatosModel.Valor1)</div>
+                        <div>@Html.Raw(configuracionPaisDatosModel.Valor2)</div>
+                        <div class="btn_diagonal btn_stroke_white">
+                            <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
+                                VER TODAS MIS OFERTAS
+                                <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
+                                <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+}
+else if (Model.TieneRDR)
+{
+    if (!Portal.Consultoras.Web.SessionManager.SessionManager.Instance.GetUserData().TieneGND)
+    {
+        configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.DCatalogoRdr) ?? new ConfiguracionPaisDatosModel();
+        @Html.Partial("~/Views/MisCatalogosRevistas/template-revista-slide.cshtml")
+        <div class="revista_content" id="contentRevistaDigital" style="height: 300px; position: relative;">
+            <div>
+                <div style="height: 127px; top: 40px; position: relative; margin-bottom: 16px;">
+                    <img src="/Content/Images/esika-para-mi-img.svg" alt="Alternate Text" style="height: 100%; float: left;" />
+                </div>
+                <div>
+                    <span style="display: block; font-size: 18px; font-weight: bold; padding-left: 0;">@Html.Raw(configuracionPaisDatosModel.Valor1)</span>
+                    <span style="display: block; font-size: 15px; font-weight: bold; padding-left: 10px;">@Html.Raw(configuracionPaisDatosModel.Valor2)</span>
+                </div>
+                <div class="revistadigital revistaDigital_catalogosRevistas">
+                    <div class="boxoffer" onclick="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital');">
+                        <div class="fondo_boton"></div>
+                        <span class="texto_boton">VER M&Aacute;S OFERTAS PARA M&Iacute;</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+else
+{
+    if (!Portal.Consultoras.Web.SessionManager.SessionManager.Instance.GetUserData().TieneGND)
+    {
+        @Html.Partial("~/Views/MisCatalogosRevistas/template-revista-slide.cshtml")
+    }
+}
+

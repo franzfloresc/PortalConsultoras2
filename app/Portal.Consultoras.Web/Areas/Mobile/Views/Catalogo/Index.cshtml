@@ -12,7 +12,6 @@
     var textApp = userAgent.Contains("iphone;") ? "Gratis en App Store" : "Gratis en Play Store";
     var revistaDigital = Model.RevistaDigital ?? new RevistaDigitalModel();
 
-    //
     var tieneGND = Portal.Consultoras.Web.SessionManager.SessionManager.Instance.GetUserData().TieneGND;
     var titulo = "MIS CATÁLOGOS Y REVISTAS";
     if (tieneGND)

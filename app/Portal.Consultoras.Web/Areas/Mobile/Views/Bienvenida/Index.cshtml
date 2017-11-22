@@ -26,7 +26,7 @@
             margin:0;
         }
     </style>
-    @System.Web.Optimization.Styles.Render("~/bundles/Css/Site/CcsBienvenida")   
+    @Styles.Render("~/bundles/Css/Site/CcsBienvenida")
 }
 
 <div id="tutorialesMobile" style="display:none;">
@@ -292,7 +292,7 @@
 
 <!--INICIO CARRUSEL-->
 <div id="divListaEstrategias" style="display: none;">
-    <div id="contenedor_template_estrategia_cabecera"></div>
+    @Html.Partial("~/Views/Bienvenida/_PartialSectionBpt.cshtml", Model.RevistaDigital) 
 </div>
 <!--FIN CARRUSEL-->
 
@@ -680,7 +680,7 @@
     </div>
 }
 <!-- FIN POPUP INSCRITA A REVISTA DIGITAL -->
-@Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-header-mobile.cshtml", Model.RevistaDigital)
+
 @Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-bpt-seccion.cshtml")
 @Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
 

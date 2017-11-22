@@ -7,9 +7,7 @@
 @{
     var layout = ViewContext.MobilePedidoLayout();
     ViewBag.SourcePage = 2;
-
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
-    var revistaDigital = Model.RevistaDigital ?? new RevistaDigitalModel();
     var mobileConfiguracion = Html.MobileAppConfiguracion();
 }
 <div class="wrapper_resumen_mobile sin_padding">
@@ -20,13 +18,6 @@
             INGRESAR PEDIDO C@(Model.CampaniaNro)
         </div>
     }
-    
-    @*@if (mobileConfiguracion.EsAppMobile)
-    {
-        @Html.Partial("~/Areas/Mobile/Views/Util/_barra.cshtml")
-        <input type="hidden" id="hdfSimbolo" value="@Model.Simbolo" />
-        <input type="hidden" id="hdfTotal" value="@Model.Total" />
-    }*@
 
     <!-- BANNERS INGRESO DE PEDIDO -->
     <div class="banner_ingresoPedido nuevaAlturaBanner" style="background: #000 url(@ViewBag.UrlFranjaNegra) no-repeat center center;">

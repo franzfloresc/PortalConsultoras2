@@ -3633,6 +3633,9 @@
     <Content Include="Content\FAQ\QUIZCAPEVEDI_PE.pdf" />
     <Content Include="Areas\Mobile\Views\Shared\_MobileLayoutPedidoEmpty.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-descargables-navidenos.cshtml" />
+    <Content Include="Areas\Mobile\Views\Bienvenida\_PartialSectionBpt.cshtml" />
+    <Content Include="Areas\Mobile\Views\Pedido\_PartialSectionBpt.cshtml" />
+    <Content Include="Areas\Mobile\Views\Catalogo\_PartialSectionBpt.cshtml" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>
@@ -4470,6 +4473,9 @@
     <Content Include="Areas\Mobile\Views\Util\_barra.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpTagManager.cshtml" />
     <Content Include="Views\Descargables\Descargables.cshtml" />
+    <Content Include="Views\Bienvenida\_PartialSectionBpt.cshtml" />
+    <Content Include="Views\Pedido\_PartialSectionBpt.cshtml" />
+    <Content Include="Views\MisCatalogosRevistas\_PartialSectionBpt.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

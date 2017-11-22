@@ -997,7 +997,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 revistaDigitalModel.Campania = usuarioModel.CampaniaID % 100;
                                 revistaDigitalModel.CampaniaMasUno = AddCampaniaAndNumero(Convert.ToInt32(usuarioModel.CampaniaID), 1, usuarioModel.NroCampanias) % 100;
                                 revistaDigitalModel.CampaniaMasDos = AddCampaniaAndNumero(Convert.ToInt32(usuarioModel.CampaniaID), 2, usuarioModel.NroCampanias) % 100;
-
+                                revistaDigitalModel.NombreConsultora = usuarioModel.NombreCorto;
                                 sessionManager.SetRevistaDigital(revistaDigitalModel);
                                 sessionManager.SetConfiguracionesPaisModel(configuracionesPaisModels);
                                 sessionManager.SetOfertaFinalModel(ofertaFinalModel);
