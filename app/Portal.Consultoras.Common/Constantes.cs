@@ -912,6 +912,8 @@ namespace Portal.Consultoras.Common
                 public const string NombreComercialNoActiva = "NombreComercialNoActiva";
                 public const string LogoComercialActiva = "LogoComercialActiva";
                 public const string LogoComercialNoActiva = "LogoComercialNoActiva";
+                public const string LogoMenuOfertasActiva = "LogoMenuOfertasActiva";
+                public const string LogoMenuOfertasNoActiva = "LogoMenuOfertasNoActiva";
 
                 public const string DBienvenidaInscritaActiva = "DBienvenidaInscritaActiva";
                 public const string DBienvenidaInscritaNoActiva = "DBienvenidaInscritaNoActiva";
