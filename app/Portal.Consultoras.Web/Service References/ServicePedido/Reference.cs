@@ -1538,6 +1538,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private int PuntosNivelField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TextoCuponField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TextoCuponIndependienteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TipoConcursoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1760,6 +1766,32 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.PuntosNivelField.Equals(value) != true)) {
                     this.PuntosNivelField = value;
                     this.RaisePropertyChanged("PuntosNivel");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TextoCupon {
+            get {
+                return this.TextoCuponField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TextoCuponField, value) != true)) {
+                    this.TextoCuponField = value;
+                    this.RaisePropertyChanged("TextoCupon");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TextoCuponIndependiente {
+            get {
+                return this.TextoCuponIndependienteField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TextoCuponIndependienteField, value) != true)) {
+                    this.TextoCuponIndependienteField = value;
+                    this.RaisePropertyChanged("TextoCuponIndependiente");
                 }
             }
         }
@@ -12215,6 +12247,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string CodigoAgrupacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoConcursoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigoEstrategiaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -12416,6 +12451,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private int TieneVariedadField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TipoConcursoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Portal.Consultoras.Web.ServicePedido.BETipoEstrategia TipoEstrategiaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -12567,6 +12605,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.CodigoAgrupacionField, value) != true)) {
                     this.CodigoAgrupacionField = value;
                     this.RaisePropertyChanged("CodigoAgrupacion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoConcurso {
+            get {
+                return this.CodigoConcursoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoConcursoField, value) != true)) {
+                    this.CodigoConcursoField = value;
+                    this.RaisePropertyChanged("CodigoConcurso");
                 }
             }
         }
@@ -13438,6 +13489,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.TieneVariedadField.Equals(value) != true)) {
                     this.TieneVariedadField = value;
                     this.RaisePropertyChanged("TieneVariedad");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TipoConcurso {
+            get {
+                return this.TipoConcursoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TipoConcursoField, value) != true)) {
+                    this.TipoConcursoField = value;
+                    this.RaisePropertyChanged("TipoConcurso");
                 }
             }
         }
@@ -15845,6 +15909,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string CodigorRegionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigosConcursosField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigosProgramaNuevasField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool CompartirDatosField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -16596,6 +16666,32 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.CodigorRegionField, value) != true)) {
                     this.CodigorRegionField = value;
                     this.RaisePropertyChanged("CodigorRegion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigosConcursos {
+            get {
+                return this.CodigosConcursosField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigosConcursosField, value) != true)) {
+                    this.CodigosConcursosField = value;
+                    this.RaisePropertyChanged("CodigosConcursos");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigosProgramaNuevas {
+            get {
+                return this.CodigosProgramaNuevasField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigosProgramaNuevasField, value) != true)) {
+                    this.CodigosProgramaNuevasField = value;
+                    this.RaisePropertyChanged("CodigosProgramaNuevas");
                 }
             }
         }
