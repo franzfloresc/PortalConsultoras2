@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Models
@@ -69,5 +70,25 @@ namespace Portal.Consultoras.Web.Models
 
         public RevistaDigitalSuscripcionModel SuscripcionAnterior2Model { get; set; }
         public RevistaDigitalSuscripcionModel SuscripcionAnterior1Model { get; set; }
+
+        public bool EsSuscritaInactiva()
+        {
+            return TieneRDC && EsSuscrita && !EsActiva;
+        }
+
+        public bool EsSuscritaActiva()
+        {
+            return TieneRDC && EsSuscrita && EsActiva;
+        }
+
+        public bool EsNoSuscritaInactiva()
+        {
+            return TieneRDC && !EsSuscrita && !EsActiva;
+        }
+        
+        public bool EsNoSuscritaActiva()
+        {
+            return TieneRDC && !EsSuscrita && EsActiva;
+        }
     }
 }

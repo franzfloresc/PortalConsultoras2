@@ -3,7 +3,8 @@
 @model MisCatalogosRevistasModel
 @{
     var title = "Catálogos y Revistas";
-    if(Portal.Consultoras.Web.SessionManager.SessionManager.Instance.GetUserData().TieneGND)
+    bool tieneGND = Portal.Consultoras.Web.SessionManager.SessionManager.Instance.GetUserData().TieneGND;
+    if (tieneGND)
     {
         title = "Catálogos";
     }
@@ -27,7 +28,7 @@
     <div class="linea_separadora" style="margin-top:-1px"></div>
 </div>
 <div class="content_belcorp">
-    <div class="pestana_lbel"></div><!--PESTAÑA PARA DARLE ESTILO CON LBEL-->
+    <div class="pestana_lbel"></div>
     <div class="texto_revisa_catalogos">Revisa y comparte los catálogos con tus clientes</div>
 
     <!-- CATALOGO -->
@@ -61,6 +62,8 @@
 
     <div class="expoferta_revista">
         @Html.Partial("~/Views/MisCatalogosRevistas/_PartialSectionBpt.cshtml", Model.RevistaDigital)
+                if (!tieneGND)
+                {
         <span id="spNroCampania" style="display: none;">@Model.CampaniaActual</span>
         <div class="titulo_central" id="numero_campania" hidden="hidden">@Model.CampaniaActual</div>
 
@@ -165,7 +168,6 @@
     <link href="~/Content/Css/Site/Esika/revistaDigital.css" rel="stylesheet" />
 }
 @section scripts{
-    @*<script src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>*@
     <script src="@Url.Content("~/Scripts/Tag/jquery.tags.input.js")"></script>
     <script type="text/javascript" id="js-ready-Catalogo">        
         var imgNoDisponible = '@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")';

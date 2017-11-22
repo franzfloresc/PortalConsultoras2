@@ -63,11 +63,16 @@
 </div>
 
 <div class="fondo_f2f2f2">
-    <div class="pestana_esika"></div><!--PESTANA ESIKA-->
-    <div class="pestana_lbel"></div><!--PESTANA LBEL-->
+    <div class="pestana_esika"></div>
+    <div class="pestana_lbel"></div>
     <ul class="tabs_pagos" data-tab="tab" style="margin-bottom:0">
-        @if ((!revistaDigital.TieneRDC && !revistaDigital.TieneRDR && !tieneGND) ||
-            (revistaDigital.SuscripcionModel.EstadoRegistro == 1 && revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == 1 && tieneGND))
+        @if(
+            ((revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsSuscritaInactiva()  && !tieneGND) ||
+            ((revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsNoSuscritaInactiva() && !tieneGND) ||
+            (!revistaDigital.TieneRDC && !revistaDigital.TieneRDR && !tieneGND) ||
+            ((revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsSuscritaActiva() && !tieneGND) ||
+            (revistaDigital.TieneRDR && !tieneGND)
+            )
         {
             <li class="one">
                 <a href="javascript:;" data-tag="Catalogos">
@@ -83,6 +88,7 @@
             </li>
             <hr id="barCursor">
         }
+
 
     </ul>
     <hr class="clear" />
@@ -101,28 +107,37 @@
 
     </div>
     <!--FIN-->
-    @if ((!revistaDigital.TieneRDC && !revistaDigital.TieneRDR && !tieneGND) ||
-        (revistaDigital.SuscripcionModel.EstadoRegistro == 1 && revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == 1 && tieneGND))
-    {
+    
     <!--TAB REVISTA-->
         <div id="tab_revistas_mobile" data-tag-html="Revistas" style="display:none;">
-            @if (!tieneGND)
+            @if (
+                /*(!revistaDigital.TieneRDC && !revistaDigital.TieneRDR && !tieneGND)||*/
+                 ((revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsSuscritaActiva())
+                 )
+            {
+                <br />
+            }
+
+            @if (
+                ((revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsSuscritaInactiva() && !tieneGND) ||
+                ((revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsNoSuscritaInactiva() && !tieneGND) ||
+                (!revistaDigital.TieneRDC && !revistaDigital.TieneRDR && !tieneGND) ||
+                !((revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsSuscritaActiva()) ||
+                (revistaDigital.TieneRDR && !tieneGND)
+                )
             {
                 <div class="titulo_catalogo" data-titulo="">REVISTAS C-@Util.SubStr(Model.CampaniaActual.ToString(), 4, 2)</div>
             }
-            else
-            {
-                <br/>
-            }
+          
 
             <div class="content_revistas_mob">
                 @if (revistaDigital.TieneRDC)
+            {
+                if (revistaDigital.SuscripcionAnterior2Model.EstadoRegistro != 1 &&
+                    revistaDigital.SuscripcionAnterior1Model.EstadoRegistro == 1)
                 {
-                    if (revistaDigital.SuscripcionAnterior2Model.EstadoRegistro != 1 &&
-                        revistaDigital.SuscripcionAnterior1Model.EstadoRegistro == 1)
-                    {
-                        @Html.Partial("~/Areas/Mobile/Views/Catalogo/template-carrusel-issue.cshtml")
-                        <hr class="clear" />
+                    @Html.Partial("~/Areas/Mobile/Views/Catalogo/template-carrusel-issue.cshtml")
+                    <hr class="clear" />
                         <!-- CATÁLOGOS INSCRITAS C-11-->
                         <div class="wrapper_resumen_mobile">
                             <div class="banner_pedido_rd">
@@ -242,7 +257,6 @@
             </div>
         </div>
     <!--FIN TAB REVISTA-->
-    }
 </div>
 
 <!--POP UP COMPARTIR CATALOGO-->

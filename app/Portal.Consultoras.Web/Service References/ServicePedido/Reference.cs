@@ -31506,6 +31506,18 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetMisPedidosFacturados", ReplyAction="http://tempuri.org/IPedidoService/GetMisPedidosFacturadosResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEMisPedidosFacturados[]> GetMisPedidosFacturadosAsync(int paisID, long ConsultoraID, int CampaniaID, int ClienteID, string NombreConsultora);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetFlagProductosPrecargados", ReplyAction="http://tempuri.org/IPedidoService/GetFlagProductosPrecargadosResponse")]
+        int GetFlagProductosPrecargados(int paisID, string CodigoConsultora, int CampaniaID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetFlagProductosPrecargados", ReplyAction="http://tempuri.org/IPedidoService/GetFlagProductosPrecargadosResponse")]
+        System.Threading.Tasks.Task<int> GetFlagProductosPrecargadosAsync(int paisID, string CodigoConsultora, int CampaniaID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/UpdateMostradoProductosPrecargados", ReplyAction="http://tempuri.org/IPedidoService/UpdateMostradoProductosPrecargadosResponse")]
+        void UpdateMostradoProductosPrecargados(int paisID, int CampaniaID, long ConsultoraID, string IPUsuario);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/UpdateMostradoProductosPrecargados", ReplyAction="http://tempuri.org/IPedidoService/UpdateMostradoProductosPrecargadosResponse")]
+        System.Threading.Tasks.Task UpdateMostradoProductosPrecargadosAsync(int paisID, int CampaniaID, long ConsultoraID, string IPUsuario);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ValidarUnidadesPermitidasEnPedidoShowRoom", ReplyAction="http://tempuri.org/IPedidoService/ValidarUnidadesPermitidasEnPedidoShowRoomRespon" +
             "se")]
         int ValidarUnidadesPermitidasEnPedidoShowRoom(int PaisID, int CampaniaID, string CUV, long ConsultoraID);
@@ -33846,6 +33858,22 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEMisPedidosFacturados[]> GetMisPedidosFacturadosAsync(int paisID, long ConsultoraID, int CampaniaID, int ClienteID, string NombreConsultora) {
             return base.Channel.GetMisPedidosFacturadosAsync(paisID, ConsultoraID, CampaniaID, ClienteID, NombreConsultora);
+        }
+        
+        public int GetFlagProductosPrecargados(int paisID, string CodigoConsultora, int CampaniaID) {
+            return base.Channel.GetFlagProductosPrecargados(paisID, CodigoConsultora, CampaniaID);
+        }
+        
+        public System.Threading.Tasks.Task<int> GetFlagProductosPrecargadosAsync(int paisID, string CodigoConsultora, int CampaniaID) {
+            return base.Channel.GetFlagProductosPrecargadosAsync(paisID, CodigoConsultora, CampaniaID);
+        }
+        
+        public void UpdateMostradoProductosPrecargados(int paisID, int CampaniaID, long ConsultoraID, string IPUsuario) {
+            base.Channel.UpdateMostradoProductosPrecargados(paisID, CampaniaID, ConsultoraID, IPUsuario);
+        }
+        
+        public System.Threading.Tasks.Task UpdateMostradoProductosPrecargadosAsync(int paisID, int CampaniaID, long ConsultoraID, string IPUsuario) {
+            return base.Channel.UpdateMostradoProductosPrecargadosAsync(paisID, CampaniaID, ConsultoraID, IPUsuario);
         }
         
         public int ValidarUnidadesPermitidasEnPedidoShowRoom(int PaisID, int CampaniaID, string CUV, long ConsultoraID) {

@@ -2155,5 +2155,17 @@ namespace Portal.Consultoras.Service
             return _pedidoWebBusinessLogic.GetMisPedidosFacturados(paisID, ConsultoraID, CampaniaID, ClienteID, NombreConsultora);
         }
         #endregion
+
+        #region ProductosPrecargados
+        public int GetFlagProductosPrecargados(int paisID, string CodigoConsultora, int CampaniaID)
+        {
+            return BLPedidoWeb.GetFlagProductosPrecargados(paisID, CodigoConsultora, CampaniaID);
+        }
+
+        public void UpdateMostradoProductosPrecargados(int paisID, int CampaniaID, long ConsultoraID, string IPUsuario)
+        {
+            BLPedidoWeb.UpdateMostradoProductosPrecargados(paisID, CampaniaID, ConsultoraID, IPUsuario);
+        }
+        #endregion  
     }
 }

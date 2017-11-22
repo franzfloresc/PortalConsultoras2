@@ -78,13 +78,6 @@
     <div class="content_320" style="text-align:center;">
         <!--QUITAR CENTER CUANDO HAY FOTO-->
         <div class="content_foto">
-            @*<div class="foto_usuaria_mobile">
-                    <img src="@Url.Content("~/Content/Images/mobile/Esika/user.jpg")" alt="-" />
-                    <div class="tooltip_foto">
-                        Prepara tu foto, pronto podrás subirla a tu portal.
-                    </div>
-                </div>*@
-
             @if (!string.IsNullOrEmpty(ViewBag.FotoPerfil))
             {
                 <div class="foto_usuaria_mobile">
@@ -95,7 +88,6 @@
         </div>
         <!--RESUMEN DATOS CONSULTORA Y CAMPAÑA-->
         <div class="content_resumen_dato_mobile" style="text-align:left">
-            @*<div class="saludo_mobile">¡Hola&nbsp;</div>*@
             @if (!string.IsNullOrEmpty(ViewBag.MensajeAniversario))
             {
                 <div class="saludo_mobile" style="width: 63%;">¡Feliz Aniversario&nbsp;</div>
@@ -157,8 +149,8 @@
 @if (ViewBag.CantPedidosPendientes > 0)
 {
     <div class="content_320" style="padding-top:0">
-        <div class="pestana_lbel"></div><!--PESTAÑA PARA DARLE ESTILO CON LBEL-->
-        <div class="triangulo_home"></div><!--PESTAÑA PARA DARLE ESTILO CON ESIKA-->
+        <div class="pestana_lbel"></div>
+        <div class="triangulo_home"></div>
         <div style="float:left; max-width:185px;">
             <div class="titulo_tooltip_p">Tienes @ViewBag.CantPedidosPendientes pedido(s) pendiente(s) del <span>App de Catálogos</span></div>
             <div class="hora_tooltip_p">Te quedan <b>@ViewBag.TeQuedanConsultoraOnline</b> horas</div>
@@ -174,8 +166,8 @@
 <div class="fondo_faf5e6">
     @if (ViewBag.CantPedidosPendientes <= 0)
     {
-        <div class="pestana_lbel"></div><!--PESTAÑA PARA DARLE ESTILO CON LBEL--> <!--QUITAR LAS PESTAÑAS SI HAY CONSULTORA ONLINE-->
-        <div class="triangulo_home"></div><!--PESTAÑA PARA DARLE ESTILO CON ESIKA--> <!--QUITAR LAS PESTAÑAS SI HAY CONSULTORA ONLINE-->
+        <div class="pestana_lbel"></div>
+        <div class="triangulo_home"></div>
     }
 
     @if (ViewBag.CantPedidosPendientes > 0)
@@ -261,7 +253,6 @@
             }
             else if (Model.PaisID == 6 || Model.PaisID == 11)
             {
-                @*<a class="boton_facturacion_e btn_100_facturacion" href="@Url.Action("Index", "FacturaElectronica")" target="_blank"> FACTURACI&Oacute;N ELECTR&Oacute;NICA</a>*@
             }
         </div>
         <!--FIN ITEM 2-->
@@ -790,11 +781,11 @@
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
         var contadorFondoPopUp = 0;
         var viewBagVioTutorial = '@Model.VioTutorial';
-        var origenPagina = 1;//PL20-1233
+        var origenPagina = 1;
         var urlUpdatePopupShowRoom = '@Url.Action("UpdatePopupShowRoom", "ShowRoom", new { area = "" })';
         var urlMostrarShowRoomPopup = '@Url.Action("MostrarShowRoomPopup", "Bienvenida", new { area = "" })';
         var urlShowRoomBienvenida = '@Url.Action("Index", "ShowRoom", new { area = "Mobile" })';
-        var urlInsertarProductoCompartido = '@Url.Action("InsertarProductoCompartido", "CatalogoPersonalizado", new { area = "" })'; //PL20-1266
+        var urlInsertarProductoCompartido = '@Url.Action("InsertarProductoCompartido", "CatalogoPersonalizado", new { area = "" })';
         var urlCatalogoPersonalizado = '@Url.Action("Index", "CatalogoPersonalizado", new { area = "Mobile" })';
         var urlInformacionSuscripcion = '@Url.Action("Index", "RevistaDigital", new { area = "Mobile" })';
         var urlRevistaDigital = '@Url.Action("Comprar", "RevistaDigital", new { area = "Mobile" })';
@@ -804,7 +795,6 @@
         var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome';
         var noMostrarPopUpRevistaDig = '@Model.RevistaDigital.NoVolverMostrar';
 
-        //EPD-1837
         var vbFotoPerfil = '@ViewBag.FotoPerfil';
         if (vbFotoPerfil != null && vbFotoPerfil != "") {
             $('.content_foto').show();

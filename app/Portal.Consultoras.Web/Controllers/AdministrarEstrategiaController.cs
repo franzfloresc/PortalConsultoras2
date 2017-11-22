@@ -1758,12 +1758,12 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 
-                if (model.Documento == null || model.Documento.ContentLength <= 0) throw new ArgumentException("El archivo esta vacio.");
-                if (!model.Documento.FileName.EndsWith(".csv")) throw new ArgumentException("El archivo no tiene la extencion correcta.");
+                if (model.Documento == null || model.Documento.ContentLength <= 0) throw new ArgumentException("El archivo esta vacío.");
+                if (!model.Documento.FileName.EndsWith(".csv")) throw new ArgumentException("El archivo no tiene la extensión correcta.");
                 if (model.Documento.ContentLength > 4*1024*1024 ) throw new ArgumentException("El archivo es demasiado extenso para ser procesado.");
                 
                 var fileContent = new List<BEDescripcionEstrategia>();
-                var sd = new StreamReader(model.Documento.InputStream, Encoding.UTF8);
+                var sd = new StreamReader(model.Documento.InputStream, Encoding.Default);
 
                 var readLine = sd.ReadLine();
                 if (readLine != null)
@@ -1772,7 +1772,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (!arraySplitHeader[0].ToLower().Equals("cuv") || 
                         !arraySplitHeader[1].ToLower().Equals("descripcion"))
                     {
-                        throw new ArgumentException("Verificar los titulos de las columnas del archivo.");
+                        throw new ArgumentException("Verificar los títulos de las columnas del archivo.");
                     }
                 }
                 

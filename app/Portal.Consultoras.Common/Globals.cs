@@ -16,12 +16,12 @@ namespace Portal.Consultoras.Common
         #endregion
 
         #region Propiedades
-        public static string RutaTemporales { get; set; } // 1664
-        public static string UrlBanner { get; set; } // 1664 
-        public static string UrlNavidadConsultora { get; set; } // 2106 
-        public static string UrlFileConsultoras { get; set; } // 1664
-        public static string UrlIncentivos { get; set; } // 1664
-        public static string UrlLugaresPago { get; set; } // 1664
+        public static string RutaTemporales { get; set; } 
+        public static string UrlBanner { get; set; }
+        public static string UrlNavidadConsultora { get; set; }
+        public static string UrlFileConsultoras { get; set; }
+        public static string UrlIncentivos { get; set; }
+        public static string UrlLugaresPago { get; set; }
 
         public static string UrlMatriz
         {
@@ -35,12 +35,12 @@ namespace Portal.Consultoras.Common
                 return _urlMatriz;
             }
             set { _urlMatriz = value; }
-        } // 1664
+        }
 
-        public static string UrlOfertasNuevas { get; set; } // 1664
-        public static string UrlRevistaGana { get; set; } // 1664
-        public static string UrlEscalaDescuentos { get; set; } // 1664
-        public static string UrlOfertasFic { get; set; } // 1664
+        public static string UrlOfertasNuevas { get; set; }
+        public static string UrlRevistaGana { get; set; }
+        public static string UrlEscalaDescuentos { get; set; }
+        public static string UrlOfertasFic { get; set; }
 
         public static string RutaImagenesTemp { get; set; }
         public static string RutaImagenesTempOfertas { get; set; }
