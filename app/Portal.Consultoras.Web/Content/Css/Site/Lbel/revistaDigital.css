@@ -541,7 +541,7 @@
 .content_slider_ept{
     max-width:929px;    
     margin:0 auto;
-    padding-top:50px;
+    padding-top:10px;
     position:relative;
 }
 .imagen_fondo{
@@ -778,7 +778,6 @@
    width: auto;
    padding : 0 20px 25px 20px;
    display:inline-block;
-   overflow: hidden;
 }
 
 .revistadigital-landing .content_item_carrusel{   

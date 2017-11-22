@@ -1735,7 +1735,10 @@ height: 100%;
     position: relative;
     margin-bottom: 10px;
 }
-
+.box_producto_mobile_fix {
+    margin-left: 4%;
+    margin-right: 4%;
+}
 .producto_img_mobile_bpt {
     height: 125px;
     overflow: hidden;
@@ -1876,7 +1879,7 @@ height: 100%;
 .btn_red a {
         color: #e81c36;
         text-decoration: none;
-        padding: 15px 25px;
+        padding: 15px;
         border: 1px solid #e81c36;
         font-size: 13px;
         font-weight: 700;

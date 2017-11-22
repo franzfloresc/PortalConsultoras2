@@ -203,8 +203,9 @@ function UpdateLiquidacionSegunTipoOfertaSis(CampaniaID, PedidoID, PedidoDetalle
                         CargarPedido();
                         return false;
                     }
-
                     Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, EsBackOrder);
+                    if (datos.message.length > 3)
+                        messageInfoMalo(datos.message);
                 }
             },
             error: function (data, error) {
@@ -271,7 +272,8 @@ function UpdateLiquidacionTipoOfertaSis(urls, CampaniaID, PedidoID, PedidoDetall
             CloseLoading();
             messageInfoMalo(data.message);
             CargarPedido();
-            return false;
+            if (!data.result)
+                return false;
         }
 
         var Saldo = data.Saldo;
@@ -467,6 +469,7 @@ function EliminarPedido(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, 
                 messageDelete('El producto fue Eliminado.');
                 
                 ActualizarLocalStorageAgregado("rd", data.data.CUV, false);
+                ActualizarLocalStorageAgregado("gn", data.data.CUV, false);
             },
             error: function (data, error) {
                 CloseLoading();
@@ -607,6 +610,7 @@ function PedidoDetalleEliminarTodo() {
             messageDelete("Se eliminaron todos productos del pedido.");
 
             ActualizarLocalStorageAgregado("rd", "todo", false);
+            ActualizarLocalStorageAgregado("gn", "todo", false);
 
             location.reload();
           

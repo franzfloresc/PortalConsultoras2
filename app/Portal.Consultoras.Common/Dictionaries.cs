@@ -104,7 +104,7 @@ namespace Portal.Consultoras.Common
             { "SV", 0 },
             { "VE", 0 }
         };
-        
+
         /// <summary>
         /// Formatos de los numeros de documento para guardar en BD, key: Codigo del país, value: Func<string, string> 
         /// </summary>
@@ -469,6 +469,32 @@ namespace Portal.Consultoras.Common
             { "VE", "" }
         };
 
+        public static Dictionary<string, string> IncentivoProgramaNuevasNiveles = new Dictionary<string, string>
+        {
+            { "01", "PrimerPedido" },
+            { "02", "SegundoPedido" },
+            { "03", "TercerPedido" },
+            { "04", "CuartoPedido" },
+            { "05", "QuintoPedido" },
+            { "06", "SextoPedido" }
+        };
+
+        public static Dictionary<string, string> TemplatDatosAval = new Dictionary<string, string>
+        {
+            { "BO", "TemplatesDatosAval/_DatosAvalGrupo1" },
+            { "CL", "TemplatesDatosAval/_DatosAvalGrupo1" },
+            { "CO", "TemplatesDatosAval/_DatosAvalGrupo1" },
+            { "CR", "TemplatesDatosAval/_DatosAvalGrupo1" },
+            { "DO", "TemplatesDatosAval/_DatosAvalGrupo1" },
+            { "EC", "TemplatesDatosAval/_DatosAvalGrupo1" },
+            { "GT", "TemplatesDatosAval/_DatosAvalGrupo1" },
+            { "MX", "TemplatesDatosAval/_DatosAvalGrupo1" },
+            { "PA", "TemplatesDatosAval/_DatosAvalGrupo1" },
+            { "PE", "TemplatesDatosAval/_DatosAvalGrupo1" },
+            { "PR", "TemplatesDatosAval/_DatosAvalGrupo1" },
+            { "SV", "TemplatesDatosAval/_DatosAvalGrupo1" },
+            { "VE", "TemplatesDatosAval/_DatosAvalGrupo1" },
+        };
 
     }
 

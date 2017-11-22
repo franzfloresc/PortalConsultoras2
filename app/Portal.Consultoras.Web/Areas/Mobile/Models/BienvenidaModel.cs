@@ -1,4 +1,6 @@
-﻿namespace Portal.Consultoras.Web.Areas.Mobile.Models
+﻿using Portal.Consultoras.Web.Models;
+
+namespace Portal.Consultoras.Web.Areas.Mobile.Models
 {
     public class BienvenidaModel
     {
@@ -52,5 +54,6 @@
         public int TieneMasVendidos { get; set; }
         public short PrimeraVezSession { get; set; }
         public int TieneAsesoraOnline { get; set; }
+        public RevistaDigitalModel RevistaDigital { get; set; }
     }
 }

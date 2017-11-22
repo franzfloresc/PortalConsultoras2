@@ -6,9 +6,25 @@ using System.ServiceModel;
 
 namespace Portal.Consultoras.Web.LogManager
 {
-    public static class LogManager
+    public class LogManager : ILogManager
     {
-        private static string pathFile = ConfigurationManager.AppSettings["LogPath"].ToString() + "SB2\\";
+        private static ILogManager _instance;
+
+        public static ILogManager Instance
+        {
+            get
+            {
+                if (_instance == null)
+                    _instance = new LogManager();
+
+                return _instance;
+            }
+        }
+
+        private static string PathFile()
+        {
+            return ConfigurationManager.AppSettings["LogPath"].ToString() + "SB2\\";
+        }
 
         public static void LogErrorWebServicesPortal(FaultException exception, string usuario, string pais)
         {
@@ -19,7 +35,7 @@ namespace Portal.Consultoras.Web.LogManager
                 IsoPais = pais,
                 Origen = "ServidorWeb",
                 Titulo = "Seguimiento de Errores Servicio Portal"
-            }, pathFile);
+            }, PathFile());
         }
 
         public static void LogErrorWebServicesBus(Exception exception, string usuario, string pais, string adicional = "")
@@ -32,15 +48,15 @@ namespace Portal.Consultoras.Web.LogManager
                 InformacionAdicional = adicional,
                 Origen = "ServidorWeb",
                 Titulo = "Seguimiento de Errores Web Portal"
-            }, pathFile);
+            }, PathFile());
         }
 
         public static void LogActions(ErrorsLog model)
         {
-            if (!Directory.Exists(pathFile))
-                Directory.CreateDirectory(pathFile);
+            if (!Directory.Exists(PathFile()))
+                Directory.CreateDirectory(PathFile());
 
-            string path = string.Format("{0}Log_{1}.portal", pathFile, DateTime.Now.ToString("yyyy-MM-dd"));
+            string path = string.Format("{0}Log_{1}.portal", PathFile(), DateTime.Now.ToString("yyyy-MM-dd"));
 
             using (StreamWriter oStream = new StreamWriter(path, true))
             {
@@ -49,5 +65,11 @@ namespace Portal.Consultoras.Web.LogManager
                 oStream.WriteLine(string.Empty);
             }
         }
+
+        void ILogManager.LogErrorWebServicesBusWrap(Exception exception, string usuario, string pais, string adicional)
+        {
+            LogErrorWebServicesBus(exception, usuario, pais, adicional);
+        }
+
     }
 }

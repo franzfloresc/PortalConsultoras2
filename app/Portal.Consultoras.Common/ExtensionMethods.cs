@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Routing;
 
 namespace Portal.Consultoras.Common
 {
@@ -236,6 +233,15 @@ namespace Portal.Consultoras.Common
             if (obj == null) return true;
             if (obj.Trim() == string.Empty) return true;
             return false;
+        }
+
+        public static bool IsGuid(this string guid)
+        {
+            if (string.IsNullOrEmpty(guid))
+                return false;
+
+            Guid tryGuid;
+            return Guid.TryParse(guid, out tryGuid);
         }
     }
 }

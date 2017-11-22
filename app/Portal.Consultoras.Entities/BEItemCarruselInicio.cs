@@ -1,16 +1,12 @@
 ﻿using Portal.Consultoras.Common;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Entities
 {
     [DataContract]
-    public class BEItemCarruselInicio // Modificación TiSmart 2014/12/12 - 2014/12/17
+    public class BEItemCarruselInicio
     {
         [DataMember]
         public int ItemCarruselInicioID { get; set; }

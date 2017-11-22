@@ -1,11 +1,8 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
-using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Entities
 {
@@ -91,7 +88,7 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public List<BEPedidoWebDetalle> olstBEPedidoWebDetalle { get; set; }
-        
+
         [DataMember]
         public decimal Flete { get; set; }
 
@@ -109,33 +106,20 @@ namespace Portal.Consultoras.Entities
 
         public BEPedidoWeb(IDataRecord row)
         {
-            if (row.HasColumn("CampaniaID"))
-                CampaniaID = Convert.ToInt32(row["CampaniaID"]);
-            if (row.HasColumn("PedidoID"))
-                PedidoID = Convert.ToInt32(row["PedidoID"]);
-            if (row.HasColumn("ConsultoraID"))
-                ConsultoraID = Convert.ToInt64(row["ConsultoraID"]);
-            if (row.HasColumn("Clientes"))
-                Clientes = Convert.ToInt16(row["Clientes"]);
-            if (row.HasColumn("ImporteTotal"))
-                ImporteTotal = Convert.ToDecimal(row["ImporteTotal"]);
-            if (row.HasColumn("ImporteCredito"))
-                ImporteCredito = Convert.ToDecimal(row["ImporteCredito"]);
+            if (row.HasColumn("CampaniaID")) CampaniaID = Convert.ToInt32(row["CampaniaID"]);
+            if (row.HasColumn("PedidoID")) PedidoID = Convert.ToInt32(row["PedidoID"]);
+            if (row.HasColumn("ConsultoraID")) ConsultoraID = Convert.ToInt64(row["ConsultoraID"]);
+            if (row.HasColumn("Clientes")) Clientes = Convert.ToInt16(row["Clientes"]);
+            if (row.HasColumn("ImporteTotal")) ImporteTotal = Convert.ToDecimal(row["ImporteTotal"]);
+            if (row.HasColumn("ImporteCredito")) ImporteCredito = Convert.ToDecimal(row["ImporteCredito"]);
             if (row.HasColumn("EstadoPedido")) EstadoPedido = Convert.ToByte(row["EstadoPedido"]);
-            if (row.HasColumn("EstadoPedidoDesc"))
-                EstadoPedidoDesc = Convert.ToString(row["EstadoPedidoDesc"]);
-            if (row.HasColumn("MotivoCreditoID"))
-                MotivoCreditoID = Convert.ToInt16(row["MotivoCreditoID"]);
-            if (row.HasColumn("PaisID"))
-                PaisID = Convert.ToInt32(row["PaisID"]);
-            if (row.HasColumn("CantidadProductos"))
-                CantidadProductos = Convert.ToInt32(row["CantidadProductos"]);
-            if (row.HasColumn("Bloqueado") && row["Bloqueado"] != DBNull.Value)
-                Bloqueado = Convert.ToInt16(row["Bloqueado"]);
-            if (row.HasColumn("Nombres"))
-                Nombres = Convert.ToString(row["Nombres"]);
-            if (row.HasColumn("DescripcionBloqueo") && row["DescripcionBloqueo"] != DBNull.Value)
-                DescripcionBloqueo = Convert.ToString(row["DescripcionBloqueo"]);
+            if (row.HasColumn("EstadoPedidoDesc")) EstadoPedidoDesc = Convert.ToString(row["EstadoPedidoDesc"]);
+            if (row.HasColumn("MotivoCreditoID")) MotivoCreditoID = Convert.ToInt16(row["MotivoCreditoID"]);
+            if (row.HasColumn("PaisID")) PaisID = Convert.ToInt32(row["PaisID"]);
+            if (row.HasColumn("CantidadProductos")) CantidadProductos = Convert.ToInt32(row["CantidadProductos"]);
+            if (row.HasColumn("Bloqueado")) Bloqueado = Convert.ToInt16(row["Bloqueado"]);
+            if (row.HasColumn("Nombres")) Nombres = Convert.ToString(row["Nombres"]);
+            if (row.HasColumn("DescripcionBloqueo")) DescripcionBloqueo = Convert.ToString(row["DescripcionBloqueo"]);
             if (row.HasColumn("CodigoZona"))
                 CodigoZona = Convert.ToString(row["CodigoZona"]);
             if (row.HasColumn("CodigoConsultora"))
@@ -175,7 +159,7 @@ namespace Portal.Consultoras.Entities
             if (row.HasColumn("CDRWebEstado") && row["CDRWebEstado"] != DBNull.Value)
                 CDRWebEstado = Convert.ToInt32(row["CDRWebEstado"]);
             if (row.HasColumn("NumeroPedido") && row["NumeroPedido"] != DBNull.Value)
-                NumeroPedido = Convert.ToInt32(row["NumeroPedido"]);            
+                NumeroPedido = Convert.ToInt32(row["NumeroPedido"]);
         }
     }
 }

@@ -81,22 +81,15 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.ActivacionAppCatalogoWhastUp = ObtenerActivacionAppCatalogoWhastUp();
                 model.CampaniaMasDos = AddCampaniaAndNumero(Convert.ToInt32(model.NumeroCampania), 2);
                 model.ShowRoomMostrarLista = ValidarPermiso(Constantes.MenuCodigo.CatalogoPersonalizado) ? 0 : 1;
-                
+
                 ViewBag.paisISO = userData.CodigoISO;
                 ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("BUCKET_NAME") ?? string.Empty;
                 ViewBag.NombreConsultora = model.NombreConsultora;
 
                 // mostrar popup de revista digital....
-                model.RevistaDigitalPopUpMostrar = userData.RevistaDigital.NoVolverMostrar;
-                ViewBag.TieneRDC = userData.RevistaDigital.TieneRDC;
-                ViewBag.TieneRDR = userData.RevistaDigital.TieneRDR;
-                ViewBag.TieneRDS = userData.RevistaDigital.TieneRDS;
-                ViewBag.EstadoSucripcionRD = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
-                ViewBag.EstadoSucripcionRDAnterior1 = userData.RevistaDigital.SuscripcionAnterior1Model.EstadoRegistro;
-                ViewBag.EstadoSucripcionRDAnterior2 = userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro;
-                ViewBag.NumeroCampania = userData.CampaniaID % 100;
-                ViewBag.NumeroCampaniaMasUno = AddCampaniaAndNumero(Convert.ToInt32(userData.CampaniaID), 1) % 100;
-                ViewBag.NombreConsultora = model.NombreConsultora;
+                model.RevistaDigitalPopUpMostrar = revistaDigital.NoVolverMostrar;
+                model.RevistaDigital = revistaDigital;
+
                 ViewBag.NombreConsultoraFAV = ObtenerNombreConsultoraFav();
                 ViewBag.UrlImagenFAVMobile = string.Format(ConfigurationManager.AppSettings.Get("UrlImagenFAVMobile"), userData.CodigoISO);
 
@@ -243,7 +236,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             nombreConsultoraFAV = nombreConsultoraFAV.First().ToString().ToUpper() + nombreConsultoraFAV.ToLower().Substring(1);
             return nombreConsultoraFAV;
         }
-        
+
         [HttpPost]
         public JsonResult ValidacionConsultoraDA()
         {
@@ -303,7 +296,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
 
             ViewBag.UrlBelcorpChatPais = url;
-            return Redirect(url);           
+            return Redirect(url);
         }
 
         [HttpGet]

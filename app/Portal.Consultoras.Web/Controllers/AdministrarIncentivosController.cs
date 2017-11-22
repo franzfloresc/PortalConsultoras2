@@ -1,16 +1,16 @@
-﻿using System;
+﻿using AutoMapper;
+using Newtonsoft.Json;
+using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServiceSAC;
+using Portal.Consultoras.Web.ServiceZonificacion;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
 using System.Web;
 using System.Web.Mvc;
-using AutoMapper;
-using Newtonsoft.Json;
-using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServiceSAC;
-using Portal.Consultoras.Web.ServiceZonificacion;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -193,7 +193,7 @@ namespace Portal.Consultoras.Web.Controllers
                            select new
                            {
                                id = a.IncentivoID.ToString(),
-                               cell = new string[] 
+                               cell = new string[]
                                {
                                    a.IncentivoID.ToString(),
                                    a.PaisID.ToString(),
@@ -225,7 +225,7 @@ namespace Portal.Consultoras.Web.Controllers
             result = model.IncentivoID == 0 ? Insertar(flArchivoPDF, model) : Actualizar(flArchivoPDF, model);
             if (Request.IsAjaxRequest())
             {
-               return result;
+                return result;
             }
             return Content(JsonConvert.SerializeObject(result.Data), "text/html");
         }
@@ -365,15 +365,15 @@ namespace Portal.Consultoras.Web.Controllers
                         if (flArchivoPDF != null)
                         {
                             fileName = Path.GetFileName(flArchivoPDF.FileName);
-                            
+
                             // string pathBanner = Server.MapPath("~/Content/FileConsultoras");
                             // 1664
                             string pathBanner = Globals.RutaTemporales;
                             if (!Directory.Exists(pathBanner))
                                 Directory.CreateDirectory(pathBanner);
                             finalPath = Path.Combine(pathBanner, fileName);
-                            flArchivoPDF.SaveAs(finalPath); 
-                             
+                            flArchivoPDF.SaveAs(finalPath);
+
                             // 1664
                             var carpetaPais = Globals.UrlFileConsultoras + "/" + UserData().CodigoISO;
                             ConfigS3.SetFileS3(finalPath, carpetaPais, fileName);
@@ -383,7 +383,7 @@ namespace Portal.Consultoras.Web.Controllers
                         // no es url
                         entidad.Url = string.Empty;
                         break;
-                        
+
                 }
 
                 using (SACServiceClient sv = new SACServiceClient())

@@ -91,8 +91,8 @@
     <Compile Include="BLConfiguracionOfertasHome.cs" />
     <Compile Include="BLAsesoraOnline.cs" />
     <Compile Include="BLCupon.cs" />
-    <Compile Include="BLClienteDB.cs" />
-    <Compile Include="BLConsultoraConcurso.cs" />
+    <Compile Include="Cliente\BLClienteDB.cs" />
+    <Compile Include="Incentivo\BLConsultoraConcurso.cs" />
     <Compile Include="BLFichaProducto.cs" />
     <Compile Include="BLPalabraInvalida.cs" />
     <Compile Include="BLProductoPalabra.cs" />
@@ -110,7 +110,7 @@
     <Compile Include="BLBelcorpNoticia.cs" />
     <Compile Include="BLBelcorpResponde.cs" />
     <Compile Include="BLCatalogo.cs" />
-    <Compile Include="BLCliente.cs" />
+    <Compile Include="Cliente\BLCliente.cs" />
     <Compile Include="BLComprobantePercepcion.cs" />
     <Compile Include="BLComunicado.cs" />
     <Compile Include="BLConfiguracionCampania.cs" />
@@ -172,9 +172,23 @@
     <Compile Include="BLPedidoDDDetalle.cs" />
     <Compile Include="BLPedidoFacturado.cs" />
     <Compile Include="BLPedidoFICDetalle.cs" />
-    <Compile Include="BLPedidoRechazado.cs" />
+    <Compile Include="Incentivo\IConsultoraConcursoBusinessLogic.cs" />
+    <Compile Include="Pedido\IPedidoWebBusinessLogic.cs" />
+    <Compile Include="Resources\IncentivoMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IncentivoMessages.resx</DependentUpon>
+    </Compile>
+    <Compile Include="TablaLogicaDatos\ITablaLogicaDatosBusinessLogic.cs" />
+    <Compile Include="Resources\MotivoRechazoMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MotivoRechazoMessages.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Usuario\IUsuarioBusinessLogic.cs" />
+    <Compile Include="Pedido\BLPedidoRechazado.cs" />
     <Compile Include="BLPedidoReporteLider.cs" />
-    <Compile Include="BLPedidoWeb.cs" />
+    <Compile Include="Pedido\BLPedidoWeb.cs" />
     <Compile Include="BLPedidoWebAnteriores.cs" />
     <Compile Include="BLPedidoWebDetalle.cs" />
     <Compile Include="BLPedidoWebDetalleManager.cs" />
@@ -196,12 +210,11 @@
     <Compile Include="BLSolicitudClienteCatalogo.cs" />
     <Compile Include="BLSolicitudCredito.cs" />
     <Compile Include="BLSuenioNavidad.cs" />
-    <Compile Include="BLTablaLogicaDatos.cs" />
+    <Compile Include="TablaLogicaDatos\BLTablaLogicaDatos.cs" />
     <Compile Include="BLTipoEstrategia.cs" />
     <Compile Include="BLTipoMeta.cs" />
     <Compile Include="BLTracking.cs" />
     <Compile Include="BLUbigeo.cs" />
-    <Compile Include="BLUsuario.cs" />
     <Compile Include="BLValidacionAutomatica.cs" />
     <Compile Include="BLZonificacion.cs" />
     <Compile Include="CacheManager.cs" />
@@ -224,7 +237,9 @@
     <Compile Include="Cliente\INotasBusinessLogic.cs" />
     <Compile Include="Cliente\IRecordatorioBusinessLogic.cs" />
     <Compile Include="FtpConfiguration.cs" />
+    <Compile Include="Cliente\IClienteDBBusinessLogic.cs" />
     <Compile Include="Mobile\BLApp.cs" />
+    <Compile Include="Pedido\IPedidoRechazadoBusinessLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\ClienteValidationMessages.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -237,6 +252,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PedidoInsertMessages.resx</DependentUpon>
     </Compile>
+    <Compile Include="Usuario\BLUsuario.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Portal.Consultoras.Common\Portal.Consultoras.Common.csproj">
@@ -289,6 +305,11 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ClienteValidationMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\IncentivoMessages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>IncentivoMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MotivoRechazoMessages.resx" />
     <EmbeddedResource Include="Resources\PedidoInsertMessages.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>PedidoInsertMessages.Designer.cs</LastGenOutput>

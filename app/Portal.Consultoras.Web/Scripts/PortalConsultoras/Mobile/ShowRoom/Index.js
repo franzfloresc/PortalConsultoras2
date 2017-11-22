@@ -20,8 +20,11 @@
         $('#PopCompra').show();
         var id = $("#LlamarPopCompra").data("promotion-impresion-id");
         var name = $("#LlamarPopCompra").data("promotion-impresion-name");
-        odd_mobile_promotion_impression(id,name);
+        odd_mobile_promotion_impression(id, name);
+
+        EstablecerLazyCarrusel($('.content_pop_compra'));
         $('.content_pop_compra').slick({
+            lazyLoad: 'ondemand',
             dots: false,
             infinite: true,
             vertical: false,
@@ -217,11 +220,6 @@ function CargarFiltroRangoPrecio() {
 function SetMarcaGoogleAnalyticsTermino() {
     dataLayer.push({ 'event': 'virtualEvent', 'category': 'Ofertas Showroom', 'action': 'Click enlace', 'label': 'Términos y Condiciones' });
 
-}
-
-function maxLengthCheck(object, cantidadMaxima) {
-    if (object.value.length > cantidadMaxima)
-        object.value = object.value.slice(0, cantidadMaxima);
 }
 
 function TagManagerOfertaShowRoom() {

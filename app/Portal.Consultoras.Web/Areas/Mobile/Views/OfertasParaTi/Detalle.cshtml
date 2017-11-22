@@ -1,8 +1,9 @@
 ﻿@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Helpers
 @model Portal.Consultoras.Web.Models.EstrategiaPersonalizadaProductoModel
 
 @{
-    var layout = Session["IngresoExterno"] == null ? "_MobileLayoutContenedor" : "_MobileLayoutEmpty";
+    var layout =  ViewContext.MobileLayout();
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
     var codigo = ViewBag.Codigo ?? "";
 }
@@ -34,7 +35,7 @@
 }
 
 <div class="titulo_mobile" style="display:none;">
-    @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel() : (Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+    @{  var mobileConfiguracion = Html.MobileAppConfiguracion();
         if (mobileConfiguracion.MostrarBotonAtras)
         {
             <a href="@Request.UrlReferrer" class="enlace_regresar catalogosP" title="Regresar" style="z-index: 10;"></a>
@@ -85,23 +86,14 @@
             <div class="marca_oferta048">@Model.DescripcionMarca</div>
             <div id="fav_nombre_prod" class="titulo_ficha_producto">@Model.DescripcionCompleta</div>
 
-            @if (codigo == Constantes.ConfiguracionPais.RevistaDigital)
+            @if (Model.Precio > 0)
             {
-
-                <div class="precio_bpt">
-                    @if (Model.Precio > 0){
-                        <span class="precio_tachado_bpt">@Model.Simbolo @Model.PrecioTachado</span>
-                    }
-                    <b>@Model.Simbolo @Model.PrecioVenta</b>
-                </div>
+                    <div class="precio_tachado_048"> Valorizado a: <span>@Model.Simbolo @Model.PrecioTachado</span></div>
             }
-            else
+            <div class="precio_para_ti_048">Precio para ti: <b>@Model.Simbolo @Model.PrecioVenta</b></div>
+            @if (Model.Ganancia > 0)
             {
-                if (Model.Precio > 0)
-                {
-                    <div class="precio_tachado_048">@Model.Simbolo @Model.PrecioTachado</div>
-                }
-                <div class="precio_para_ti_048">Precio para ti <b>@Model.Simbolo @Model.PrecioVenta</b></div>
+                <div class="gana_048">Gana: @Model.Simbolo @Model.GananciaString</div>
             }
             <div data-compartir-campos="" style="display:none;">
                 <input type="hidden" class="CUV" value="@Model.CUV2" />
@@ -284,12 +276,7 @@
         var origenRetorno = $.trim('@ViewBag.OrigenUrl') || '@Url.Action("Index", "Bienvenida", new { area = "Mobile" })';
         var urlRetorno = '@Url.Action("Index", "Ofertas", new { area = "Mobile" })';
     </script>
-
-<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js")"></script>
+    
+    @System.Web.Optimization.Scripts.Render("~/bundles/Mobile/OfertaParaTi-Detalle")
 
 }

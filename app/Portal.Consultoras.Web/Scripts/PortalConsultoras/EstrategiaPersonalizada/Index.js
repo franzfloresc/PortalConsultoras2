@@ -20,7 +20,8 @@ var CONS_CODIGO_SECCION = {
     RDR: "RDR",
     SR: "SR",
     ODD: "ODD",
-    OPT: "OPT"
+    OPT: "OPT",
+    DES: "DES-NAV"
 };
 
 var listaSeccion = {};
@@ -80,10 +81,20 @@ function SeccionObtenerSeccion(seccion) {
 function SeccionCargarProductos(objConsulta) {
     objConsulta = objConsulta || {};
     objConsulta.UrlObtenerProductos = $.trim(objConsulta.UrlObtenerProductos);
-
-    if (isMobile() && objConsulta.Codigo === CONS_CODIGO_SECCION.ODD) {
+    var mob = isMobile();
+    if (mob && objConsulta.Codigo === CONS_CODIGO_SECCION.ODD) {
         $("#ODD").find(".seccion-loading-contenedor").fadeOut();
         $("#ODD").find(".seccion-content-contenedor").fadeIn();   
+    }
+
+    if (objConsulta.Codigo === CONS_CODIGO_SECCION.DES) {
+        $("#" + objConsulta.Codigo).find(".seccion-loading-contenedor").fadeOut();
+        $("#" + objConsulta.Codigo).find(".seccion-content-contenedor").fadeIn();
+    }
+
+    if (objConsulta.TipoPresentacion == CONS_TIPO_PRESENTACION.Banners) {
+            $("#" + objConsulta.Codigo).find(".seccion-loading-contenedor").fadeOut();
+            $("#" + objConsulta.Codigo).find(".seccion-content-contenedor").fadeIn();
     }
 
     if (objConsulta.UrlObtenerProductos === "")
@@ -91,8 +102,7 @@ function SeccionCargarProductos(objConsulta) {
 
     listaSeccion[objConsulta.Codigo + "-" + objConsulta.CampaniaId] = objConsulta;
 
-    if (objConsulta.Codigo === CONS_CODIGO_SECCION.LAN
-        || objConsulta.Codigo === CONS_CODIGO_SECCION.RDR
+    if (objConsulta.Codigo === CONS_CODIGO_SECCION.RDR
         || objConsulta.Codigo === CONS_CODIGO_SECCION.RD) {
         if (!varContenedor.CargoRevista) {
             varContenedor.CargoRevista = true;
@@ -162,44 +172,59 @@ function SeccionMostrarProductos(data) {
         return false;
     }
 
-    if (data.Seccion !== undefined && data.Seccion.Codigo === CONS_CODIGO_SECCION.LAN) {
+    if (data.Seccion === undefined)
+        return false;
+
+    if (data.Seccion.Codigo != undefined) {
+        $("#" + data.Seccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
+    }
+
+    if (data.Seccion.Codigo === CONS_CODIGO_SECCION.LAN) {
         if (data.listaLan !== undefined && data.listaLan.length > 0) {
-            $("#" + data.Seccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
+            RDLocalStorageListado(lsListaRD + data.campaniaId, data, CONS_CODIGO_SECCION.LAN);
             $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
         } else {
-            $("#" + data.Seccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
-            $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeOut();
-            UpdateSessionState(data.Seccion.Codigo, data.CampaniaID);
-        }
-    } else if (data.Seccion !== undefined && data.Seccion.Codigo === CONS_CODIGO_SECCION.OPT) {
-        if (data.lista !== undefined && data.lista.length > 0) {
-            $("#" + data.Seccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
-            $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
-        } else {
-            $("#" + data.Seccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
             $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeOut();
             UpdateSessionState(data.Seccion.Codigo, data.campaniaId);
         }
-    } else if (data.Seccion !== undefined && (data.Seccion.Codigo === CONS_CODIGO_SECCION.RD || data.Seccion.Codigo === CONS_CODIGO_SECCION.RDR) ) {
+    } else if (data.Seccion.Codigo === CONS_CODIGO_SECCION.OPT) {
         if (data.lista !== undefined && data.lista.length > 0) {
-            $("#" + data.Seccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
             $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
-        $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeIn();
         } else {
-            $("#" + data.Seccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
             $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeOut();
+            UpdateSessionState(data.Seccion.Codigo, data.campaniaId);
         }
-    } else if (data.Seccion !== undefined && data.Seccion.Codigo === CONS_CODIGO_SECCION.SR) {
+    } else if (data.Seccion.Codigo === CONS_CODIGO_SECCION.RD || data.Seccion.Codigo === CONS_CODIGO_SECCION.RDR) {
+        if (data.lista !== undefined && data.lista.length > 0) {
+            $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
+            $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeIn();
+
+            $("#" + data.Seccion.Codigo).find("[data-productos-info] [data-productos-total]").html(data.CantidadProductos);
+            $("#" + data.Seccion.Codigo).find("[data-productos-info]").fadeIn();
+            
+        } else {
+            $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeOut();
+            UpdateSessionState(data.Seccion.Codigo, data.campaniaId);
+        }
+    } else if (data.Seccion.Codigo === CONS_CODIGO_SECCION.SR) {
         if (data.Seccion.TipoPresentacion === CONS_TIPO_PRESENTACION.ShowRoom.toString()) {
-            $("#" + data.Seccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
+            data.data = data.data || [];
+            if (data.data.length == 0) {
+                $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor .bloque-titulo .cantidad > span").hide();
+            }
             $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
         } else {
-            $("#" + data.Seccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
             $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeOut();
         }
     }
 
+    data.Mobile = isMobile();
+
     SetHandlebars(data.Seccion.TemplateProducto, data, divListadoProductos);
+
+    if (data.Seccion.TemplateProducto == "#producto-landing-template") {
+        EstablecerAccionLazyImagen("img[data-lazy-seccion-revista-digital]");
+    }
     
     if (data.Seccion.TipoPresentacion == CONS_TIPO_PRESENTACION.CarruselPrevisuales) {
         if (isMobile()) {
@@ -218,8 +243,11 @@ function RenderCarruselPrevisuales(divProd) {
     if (typeof divProd == "undefined")
         return false;
     
+    EstablecerLazyCarrusel(divProd.find(sElementos.listadoProductos));
+
     divProd.find(sElementos.listadoProductos + '.slick-initialized').slick('unslick');
     divProd.find(sElementos.listadoProductos).not('.slick-initialized').slick({
+        lazyLoad: 'ondemand',
         vertical: false,
         dots: false,
         infinite: true,
@@ -271,8 +299,11 @@ function RenderCarruselSimple(divProd) {
     if (typeof divProd == "undefined")
         return false;
 
+    EstablecerLazyCarrusel(divProd.find(sElementos.listadoProductos));
+
     divProd.find(sElementos.listadoProductos + '.slick-initialized').slick('unslick');
     divProd.find(sElementos.listadoProductos).not('.slick-initialized').slick({
+        lazyLoad: 'ondemand',
         infinite: true,
         vertical: false,
         slidesToShow: isMobile() ? 1 : 3,

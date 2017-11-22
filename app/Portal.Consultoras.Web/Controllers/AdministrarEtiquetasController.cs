@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using AutoMapper;
-using Portal.Consultoras.Web.ServiceZonificacion;
-using Portal.Consultoras.Web.ServiceContenido;
-using Portal.Consultoras.Web.ServiceUsuario;
-using Portal.Consultoras.Web.ServiceSAC;
-using System.IO;
-using System.Drawing;
-using System.ServiceModel;
 using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServiceZonificacion;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.ServiceModel;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -131,7 +125,7 @@ namespace Portal.Consultoras.Web.Controllers
                            select new
                            {
                                a.EtiquetaID,
-                               cell = new string[] 
+                               cell = new string[]
                                {
                                    a.EtiquetaID.ToString(),
                                    a.Descripcion.ToString(),
@@ -143,7 +137,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return RedirectToAction("Index", "AdministrarEtiquetas");
         }
-        
+
         [HttpPost]
         public JsonResult Eliminar(string PaisID, string EtiquetaID)
         {
@@ -155,7 +149,7 @@ namespace Portal.Consultoras.Web.Controllers
                 entidad.EtiquetaID = Convert.ToInt32(EtiquetaID);
                 entidad.PaisID = Convert.ToInt32(PaisID);
                 entidad.Estado = 0;
-                
+
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
                     resultado = sv.InsertarEtiqueta(entidad);

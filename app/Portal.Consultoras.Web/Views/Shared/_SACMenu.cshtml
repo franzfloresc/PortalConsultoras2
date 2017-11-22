@@ -2,8 +2,8 @@
     List<Portal.Consultoras.Web.Models.PermisoModel> permisoList = ViewBag.Permiso;
     string ServiceController = ViewBag.ServiceController;
     string ServiceAction = ViewBag.ServiceAction;
-    int IndicadorPermisoFIC = ViewBag.IndicadorPermisoFIC;
-    bool IndicadorPermisoFlexipago = ViewBag.IndicadorPermisoFlexipago;
+    int IndicadorPermisoFIC = ViewBag.IndicadorPermisoFIC ?? 0;
+    bool IndicadorPermisoFlexipago = ViewBag.IndicadorPermisoFlexipago ?? false;
 
     // Asignar permisosList con los elementos solo de la cabecera
     permisoList = permisoList != null

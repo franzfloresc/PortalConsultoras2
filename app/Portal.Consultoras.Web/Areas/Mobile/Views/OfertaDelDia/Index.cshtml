@@ -1,14 +1,16 @@
-﻿@using Portal.Consultoras.Web.Models;
+﻿@using Portal.Consultoras.Web.Helpers
+@using Portal.Consultoras.Web.Models;
 
 @{
     ViewBag.Title = "OfertaDelDia";
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayoutContenedor.cshtml";
 
+    var mobileConfiguracion = Html.MobileAppConfiguracion();
     OfertaDelDiaModel ofertaDelDia = new OfertaDelDiaModel();
     if (ViewBag.MostrarOfertaDelDia == true) { ofertaDelDia = ViewBag.OfertaDelDia; }
 }
 
-@if (ViewBag.MostrarOfertaDelDia == true)
+@if (ViewBag.MostrarOfertaDelDiaContenedor == true)
 {
     <div id="pop_oferta_mobile" class="content_pop_oferta_mobile">
         <div>
@@ -72,7 +74,7 @@
                 {{/iff}}
             </div>
             <div class="producto_img_mobile">
-                <img src="{{oferta.ImagenDisplay}}" alt="Solo Hoy" id="img-display-odd" />
+                <img src="{{oferta.ImagenDisplay}}" alt="Solo Hoy" id="img-display-odd" data-img-lazy="1"/>
             </div>
             <div class="nombre_set_display">{{oferta.NombreOferta}}</div>
             <div class="precio_valorizado_mobile">VALORIZADO EN <span>@ViewBag.Simbolo {{oferta.PrecioCatalogoFormat}}</span></div>
@@ -84,12 +86,16 @@
             <div class="titulo_contenido">CONTENIDO</div>
             <div class="nombre_set_producto_hoy">{{{oferta.DescripcionOferta}}}</div>
             {{/IsNullOrEmpty}}
-
-            <div class="content_redes_ficha" data-item="">
-                <div class="texto_redes">Comparte este producto con tus clientes:</div>
-                <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
-                <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB"><img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
-            </div>
+            
+            @if (mobileConfiguracion.MostrarHipervinculo)
+            {
+                <div class="content_redes_ficha" data-item="">
+                    <div class="texto_redes">Comparte este producto con tus clientes:</div>
+                    <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
+                    <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB"><img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
+                </div>
+            }
+            
         </div>
         {{/each}}
     </script>
@@ -98,9 +104,10 @@
 @section scripts {
     <script type="text/javascript">
         $(document).ready(function () {
-            if (mostrarOfertaDelDia) {
+            if ('@ViewBag.MostrarOfertaDelDiaContenedor' == "True") {
                 window.OfertaDelDia.CargarODD();
             }
         });
+        var OrigenDesktopODD = 3;
     </script>
 }

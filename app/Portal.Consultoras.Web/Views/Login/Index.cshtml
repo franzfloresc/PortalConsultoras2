@@ -907,9 +907,9 @@
 {
     <script type="text/javascript">
         var errorLogin = '@TempData["errorLogin"]';
-        var serverPaisId = '@TempData["serverPaisId"]'
-        var serverPaisISO = '@TempData["serverPaisISO"]'
-        var serverCodigoUsuario = '@TempData["serverCodigoUsuario"]'
+        var serverPaisId = '@TempData["serverPaisId"]';
+        var serverPaisISO = '@TempData["serverPaisISO"]';
+        var serverCodigoUsuario = '@TempData["serverCodigoUsuario"]';
     </script>
 }
 
@@ -919,6 +919,7 @@
         var usuarioValidado = '@TempData["usuarioValidado"]';
     </script>
 }
+
 @section scripts {
     <script src="~/Scripts/handlebars.js"></script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JS-Login")

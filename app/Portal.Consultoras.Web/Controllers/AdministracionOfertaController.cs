@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Portal.Consultoras.Web.ServicePedido;
+﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using AutoMapper;
-using System.ServiceModel;
+using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceZonificacion;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.ServiceModel;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -230,7 +229,7 @@ namespace Portal.Consultoras.Web.Controllers
                            select new
                            {
                                id = a.ConfiguracionOfertaID,
-                               cell = new string[] 
+                               cell = new string[]
                                {
                                    a.TipoOfertaSisID.ToString(),
                                    a.CodigoOferta,

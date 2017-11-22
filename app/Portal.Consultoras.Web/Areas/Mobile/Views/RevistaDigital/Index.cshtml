@@ -1,10 +1,11 @@
 ﻿@using System.Configuration
 @using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Helpers
 
 @model Portal.Consultoras.Web.Models.RevistaDigitalModel
 
 @{
-    var layout = Session["IngresoExterno"] == null ? "_MobileLayout" : "_MobileLayoutEmpty";
+    var layout =  ViewContext.MobileLayout();
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
     var urlDomain = Util.GetUrlHost(Request);
     int indexTab = 0;
@@ -66,7 +67,6 @@
 @Html.Partial("~/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model.MensajeProductoBloqueado)
 <div data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding"></div>
 
-@Html.Partial("~/Views/EstrategiaPersonalizada/template-lanzamiento-carrusel.cshtml")
 @Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
 
 @section scripts{

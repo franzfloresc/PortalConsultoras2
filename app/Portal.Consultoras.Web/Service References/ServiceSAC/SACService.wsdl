@@ -5370,7 +5370,7 @@
       <soap:address location="http://localhost:41615/SACService.svc" />
     </wsdl:port>
     <wsdl:port name="BasicHttpsBinding_ISACService" binding="tns:BasicHttpsBinding_ISACService">
-      <soap:address location="https://localhost:44353/SACService.svc" />
+      <soap:address location="https://localhost:44300/SACService.svc" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

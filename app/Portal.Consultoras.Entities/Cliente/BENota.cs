@@ -1,8 +1,7 @@
-﻿using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Entities.Framework;
 using System;
-using System.Data;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
-using Portal.Consultoras.Entities.Framework;
 
 namespace Portal.Consultoras.Entities.Cliente
 {
@@ -12,24 +11,30 @@ namespace Portal.Consultoras.Entities.Cliente
         /// <summary>
         /// Autogenerado - Identity
         /// </summary>
+        [Column("ClienteNotaId")]
         [DataMember]
         public long ClienteNotaId { get; set; }
 
+        [Column("ConsultoraId")]
         [DataMember]
         public long ConsultoraId { get; set; }
 
+        [Column("ClienteId")]
         [DataMember]
         public short ClienteId { get; set; }
 
+        [Column("Descripcion")]
         [DataMember]
         public string Descripcion { get; set; }
 
+        [Column("FechaRecordatorio")]
         [DataMember]
         public DateTime? FechaRecordatorio { get; set; }
 
         /// <summary>
         /// Campo auditoria
         /// </summary>
+        [Column("Fecha")]
         [DataMember]
         public DateTime? Fecha { get; set; }
 
@@ -44,26 +49,5 @@ namespace Portal.Consultoras.Entities.Cliente
 
         public BENota()
         { }
-
-        public BENota(IDataRecord row)
-        {
-            if (row.HasColumn("ClienteNotaId"))
-                ClienteNotaId = row.GetValue<long>("ClienteNotaId");
-
-            if (row.HasColumn("ConsultoraId"))
-                ConsultoraId = row.GetValue<long>("ConsultoraId");
-
-            if (row.HasColumn("ClienteId"))
-                ClienteId = row.GetValue<short>("ClienteId");
-
-            if (row.HasColumn("Descripcion"))
-                Descripcion = row.GetValue<string>("Descripcion");
-
-            if (row.HasColumn("Fecha"))
-                Fecha = row.GetValue<DateTime>("Fecha");
-            
-            if (row.HasColumn("FechaRecordatorio"))
-                FechaRecordatorio = row.GetValue<DateTime>("FechaRecordatorio");
-        }
     }
 }

@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Portal.Consultoras.Common;
-using System.Configuration;
-using System.Text;
-using System.IO;
-using Portal.Consultoras.Web.Models;
+﻿using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
-using Portal.Consultoras.Web.ServiceSAC;
-using System.Security.Cryptography;
+using System;
+using System.Configuration;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -54,10 +47,10 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
             }
-            else 
+            else
             {
                 return RedirectToAction("Index", "Bienvenida");
-            }                     
+            }
             //string Url = Common.NeoGridCipher.CreateProductionURL("0016718829");
             return Redirect(Url);
         }

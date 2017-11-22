@@ -1,6 +1,7 @@
 ﻿@using Newtonsoft.Json
 @using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Areas.Mobile.Models
+@using Portal.Consultoras.Web.Helpers
 
 @model  OfertaProductoPrincipalMobileModel
 
@@ -19,7 +20,7 @@
 <div class="wrapper_resumen_mobile sin_padding">
 
     <div class="encabezado_liquidacion">
-        @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel() : (Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+        @{  var mobileConfiguracion = Html.MobileAppConfiguracion();
             if (mobileConfiguracion.MostrarBotonAtras)
             {
                 <a href="@Request.UrlReferrer" class="enlace_regresar" title="Regresar"></a>
@@ -77,7 +78,7 @@
             <input type="hidden" class="DescripcionEstrategia" value="{{DescripcionEstrategia}}" />
             <input type="hidden" class="posicionEstrategia" value="{{Posicion}}" />
             <div class="producto_img_mobile">
-                <img src="{{ImagenProducto}}" />
+                <img data-src="{{ImagenProducto}}" data-lazy-seccion-liquidacion=""/>
             </div>
             <div class="producto_nombre_descripcion">
                 <h6>{{DescripcionMarca}}</h6>

@@ -71,7 +71,13 @@ namespace Portal.Consultoras.ServiceContracts
         BEUsuario GetSesionUsuario(int paisID, string codigoUsuario);
 
         [OperationContract]
+        BEUsuario GetSesionUsuarioWS(int paisID, string codigoUsuario);
+
+        [OperationContract]
         bool IsUserExist(int paisID, string CodigoUsuario);
+
+        [OperationContract]
+        string IsConsultoraExist(int paisID, string CodigoConsultora);
 
         [OperationContract]
         bool ChangePasswordUser(int paisID, string codigoUsuarioAutenticado, string emailCodigoUsuarioModificado, string password, string emailUsuarioModificado, EAplicacionOrigen origen);
@@ -119,7 +125,7 @@ namespace Portal.Consultoras.ServiceContracts
         void UpdateIndicadorAyudaWebTracking(int paisID, string codigoConsultora, bool indicador);
 
         [OperationContract]
-        void InsLogIngresoPortal(int paisID, string CodigoConsultora, string IPOrigen, byte Tipo, string DetalleError);
+        void InsLogIngresoPortal(int paisID, string CodigoConsultora, string IPOrigen, byte Tipo, string DetalleError, string Canal);
 
         [OperationContract]
         String AceptarContrato(BEUsuario usuario);
@@ -348,8 +354,6 @@ namespace Portal.Consultoras.ServiceContracts
         #region TerminosCondiciones
         [OperationContract]
         bool InsertTerminosCondiciones(BETerminosCondiciones terminos);
-        [OperationContract]
-        BETerminosCondiciones GetTerminosCondiciones(int PaisID, string CodigoConsultora, short Tipo);
         #endregion
 
         #region EventoFestivo

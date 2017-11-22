@@ -1,6 +1,30 @@
 ﻿
 @model Portal.Consultoras.Web.Models.ConfiguracionSeccionHomeModel
 
-<div class="bc_plantilla-banner" onclick="javascript: window.location.href = '@Model.UrlLandig'">
-    <img src="@Model.ImagenFondo" alt="">
+<div class="parche_presentacion_contenedor" 
+     onclick="javascript: window.location.href = '@Model.UrlLandig'" 
+     style="background: url(@Model.ImagenFondo);
+            height: 500px;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;"
+     data-plantilla="Banner">
+
+    <div class="bloque-titulo">
+        <div class="seccion-titulo">
+            <span>@Model.Titulo</span>
+        </div>
+        <div class="cantidad">
+            <span style="display:none;">Mostrando 3 de 161</span>
+        </div>
+
+        @if (Model.VerMas)
+        {
+            <div class="ir">
+                <a href="javascript:void(0);">VER MÁS OFERTAS</a>
+            </div>
+        }
+        <div class="parche_clear"></div>
+    </div>
+    <div class="bloque-contenido"></div>
 </div>

@@ -47,6 +47,7 @@
       <HintPath>..\Binaries\OpenSource.Library.DataAccess.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
@@ -63,9 +64,12 @@
     <Compile Include="BEAPISB2Response.cs" />
     <Compile Include="BEHorario.cs" />
     <Compile Include="BEEventoFestivo.cs" />
-    <Compile Include="BEIncentivoConcurso.cs" />
-    <Compile Include="BEIncentivoNivel.cs" />
-    <Compile Include="BEIncentivoPremio.cs" />
+    <Compile Include="BEGPRBanner.cs" />
+    <Compile Include="BEGPRUsuario.cs" />
+    <Compile Include="Cliente\BEMovimientoDetalle.cs" />
+    <Compile Include="Incentivo\BEIncentivoConcurso.cs" />
+    <Compile Include="Incentivo\BEIncentivoNivel.cs" />
+    <Compile Include="Incentivo\BEIncentivoPremio.cs" />
     <Compile Include="BETerminosCondiciones.cs" />
     <Compile Include="BEConfiguracionOfertasHome.cs" />
     <Compile Include="BEUsuarioChatEmtelco.cs" />
@@ -74,7 +78,7 @@
     <Compile Include="BEConfiguracionPais.cs" />
     <Compile Include="BEConfiguracionPaisDetalle.cs" />
     <Compile Include="Cliente\BEMovimiento.cs" />
-    <Compile Include="BEConsultoraConcurso.cs" />
+    <Compile Include="Incentivo\BEConsultoraConcurso.cs" />
     <Compile Include="BEConsultoraResumen.cs" />
     <Compile Include="BEPremio.cs" />
     <Compile Include="Cliente\BENota.cs" />
@@ -88,8 +92,8 @@
     <Compile Include="BEProductoComentario.cs" />
     <Compile Include="BEProductoComentarioDetalleFilter.cs" />
     <Compile Include="BEProductoComentarioDetalle.cs" />
-    <Compile Include="BEClienteContactoDB.cs" />
-    <Compile Include="BEClienteDB.cs" />
+    <Compile Include="Cliente\BEClienteContactoDB.cs" />
+    <Compile Include="Cliente\BEClienteDB.cs" />
     <Compile Include="BEReporteValidacion.cs" />
     <Compile Include="BEEstrategiaDetalle.cs" />
     <Compile Include="BEMatrizComercialImagen.cs" />
@@ -105,7 +109,15 @@
     <Compile Include="BEMenuApp.cs" />
     <Compile Include="Framework\ResponseType.cs" />
     <Compile Include="Framework\StatusEnum.cs" />
+    <Compile Include="Incentivo\BEIncentivoProgramaNuevasCupon.cs" />
+    <Compile Include="Incentivo\BEIncentivoProgramaNuevasNivel.cs" />
+    <Compile Include="Incentivo\BEIncentivoProgramaNuevasPremio.cs" />
     <Compile Include="Mobile\BEApp.cs" />
+    <Compile Include="Pedido\BEMisPedidosCampania.cs" />
+    <Compile Include="Pedido\BEMisPedidosFacturados.cs" />
+    <Compile Include="Pedido\BEMisPedidosFacturadosDetalle.cs" />
+    <Compile Include="Pedido\BEMisPedidosIngresados.cs" />
+    <Compile Include="Pedido\BEMisPedidosIngresadosDetalle.cs" />
     <Compile Include="ReservaProl\BEPedidoObservacion.cs" />
     <Compile Include="ReservaProl\BEInputReservaProl.cs" />
     <Compile Include="BEPedidoWebDetalleInvariant.cs" />
@@ -126,7 +138,7 @@
     <Compile Include="BECatalogoConfiguracion.cs" />
     <Compile Include="BECatalogoIssuu.cs" />
     <Compile Include="BECiudad.cs" />
-    <Compile Include="BECliente.cs" />
+    <Compile Include="Cliente\BECliente.cs" />
     <Compile Include="BEComprobantePercepcion.cs" />
     <Compile Include="BEComprobantePercepcionDetalle.cs" />
     <Compile Include="BEComunicado.cs" />

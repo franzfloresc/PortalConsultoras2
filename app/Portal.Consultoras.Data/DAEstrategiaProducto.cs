@@ -33,6 +33,7 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "@Digitable", DbType.Int32, entidad.Digitable);
                 Context.Database.AddInParameter(command, "@CodigoError", DbType.Int32, entidad.CodigoError);
                 Context.Database.AddInParameter(command, "@CodigoErrorObs", DbType.Int32, entidad.CodigoErrorObs);
+                Context.Database.AddInParameter(command, "@FactorCuadre", DbType.Int32, entidad.FactorCuadre);
                 Context.ExecuteNonQuery(command);
 
                 result = Convert.ToInt32(command.Parameters["@Retorno"].Value);

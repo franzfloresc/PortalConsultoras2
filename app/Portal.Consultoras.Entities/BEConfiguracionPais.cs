@@ -54,11 +54,20 @@ namespace Portal.Consultoras.Entities
         public string UrlMenu { get; set; }
         [DataMember]
         public int OrdenBpt { get; set; }
+        [DataMember]
+        public bool BloqueoRevistaImpresa { get; set; }
+
+        //BPT 353
+        [DataMember]
+        public int MobileOrden { get; set; }
+        [DataMember]
+        public int MobileOrdenBpt { get; set; }
 
         [DataMember]
-        public BEConfiguracionPaisDetalle Detalle  { get; set; }
+        public BEConfiguracionPaisDetalle Detalle { get; set; }
 
-        public BEConfiguracionPais() {
+        public BEConfiguracionPais()
+        {
             Detalle = new BEConfiguracionPaisDetalle();
         }
 
@@ -85,6 +94,10 @@ namespace Portal.Consultoras.Entities
             if (row.HasColumn("MobileLogoBanner")) MobileLogoBanner = Convert.ToString(row["MobileLogoBanner"]);
             if (row.HasColumn("UrlMenu")) UrlMenu = Convert.ToString(row["UrlMenu"]);
             if (row.HasColumn("OrdenBpt")) OrdenBpt = Convert.ToInt32(row["OrdenBpt"]);
+            if (row.HasColumn("BloqueoRevistaImpresa")) BloqueoRevistaImpresa = Convert.ToBoolean(row["BloqueoRevistaImpresa"]);
+            //BPT 353
+            if (row.HasColumn("MobileOrden")) MobileOrden = Convert.ToInt32(row["MobileOrden"]);
+            if (row.HasColumn("MobileOrdenBPT")) MobileOrdenBpt = Convert.ToInt32(row["MobileOrdenBPT"]);
             Detalle = new BEConfiguracionPaisDetalle();
         }
     }

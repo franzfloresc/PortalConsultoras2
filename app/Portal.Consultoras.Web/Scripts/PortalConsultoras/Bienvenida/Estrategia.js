@@ -1,9 +1,9 @@
-ï»¿
+
 // 1: escritorio Home    11 : escritorio Pedido 
 // 2: mobile  Home       21 : mobile pedido
 var tipoOrigenEstrategia = tipoOrigenEstrategia || "";
 
-// Cuarto DÃ­gito
+// Cuarto Dígito
 // 0. Sin popUp         1. Con popUp
 var conPopup = conPopup || "";
 
@@ -253,19 +253,28 @@ function PintarEstrellas(listaMasVendidos) {
 }
 
 function _pintarEstrellas(item) {
-    var xdiv = "#star-" + item.EstrategiaID.toString();
-    var rating = '';
-    rating = item.PromValorizado.toString() + '%';
-    $(xdiv).rateYo({
-        rating: rating,
-        numStars: 5,
-        precision: 2,
-        minValue: 1,
-        maxValue: 5,
-        starWidth: "17px",
-        readOnly: true
-    });
-    $(xdiv).show();
+    if (item != null && item != undefined) {
+        item.EstrategiaID = item.EstrategiaID || 0;
+        item.PromValorizado = item.PromValorizado || 0;
+
+        var xdiv = "#star-" + item.EstrategiaID.toString();
+        var rating = '';
+        rating = item.PromValorizado.toString() + '%';
+
+        if ($(xdiv).length) {
+            $(xdiv).rateYo({
+                rating: rating,
+                numStars: 5,
+                precision: 2,
+                minValue: 1,
+                maxValue: 5,
+                starWidth: "17px",
+                readOnly: true
+            });
+            $(xdiv).show();
+        }
+    }
+    
 }
 
 function ArmarCarouselEstrategias(data) {
@@ -302,6 +311,12 @@ function ArmarCarouselEstrategias(data) {
         if ($.trim($('#divListadoEstrategia2').html()).length > 0) {
             $('#divListaEstrategias').show();
             //return false;
+            if ($.trim($('#divListadoEstrategia2 #bc_promo').html()).length === 0) {
+                $('#divListadoEstrategia2 #bc_promo').remove();
+                $('#divListadoEstrategia2 .bc_productos').css("width", "90%");
+                $('#divListadoEstrategia2 .bc_productos').css("float", "none");
+                $('#divListadoEstrategia2 .bc_productos').css("margin", "0 auto");
+            }
         }
     } catch (e) {
         console.log(e);
@@ -325,17 +340,23 @@ function ArmarCarouselEstrategias(data) {
     RevisarMostrarContenedorCupon();
 
     if (tipoOrigenEstrategia == 1) {
-        var cantProCarrusel = $("#divListadoEstrategia2").length > 0 ?  1 : 4;
+        var cantProCarrusel = $("#divListadoEstrategia2").length > 0 ? 3 : 4;
+        var esVariableWidth = $("#divListadoEstrategia2").length > 0;        
+
         $('#divListaEstrategias #divListadoEstrategia [data-item] > div').attr("class", "content_item_carrusel");
         $('#divListaEstrategias').show();
+
+        EstablecerLazyCarrusel($('#divListadoEstrategia'));
+
         $('#divListadoEstrategia').not('.slick-initialized').slick({
+            lazyLoad: 'ondemand',
             infinite: true,
             vertical: false,
             slidesToShow: cantProCarrusel,
             slidesToScroll: 1,
             autoplay: false,
+            variableWidth: esVariableWidth,
             speed: 260,
-            variableWidth: cantProCarrusel > 1 ? false : true,
             prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: 0;margin-left: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
             nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: 0;margin-right: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>',
             responsive: [
@@ -366,7 +387,11 @@ function ArmarCarouselEstrategias(data) {
         var cant = parseInt(heightReference / hCar);
         cant = cant < 3 ? 3 : cant > 5 ? 5 : cant;
         cant = data.CodigoEstrategia == "101" ? (data.Lista.length > 4 ? 4 : data.Lista.length) : cant;
+
+        EstablecerLazyCarrusel($('#divListadoEstrategia'));
+
         $('#divListadoEstrategia').not('.slick-initialized').slick({
+            lazyLoad: 'ondemand',
             infinite: true,
             vertical: true,
             centerMode: false,
@@ -391,14 +416,17 @@ function ArmarCarouselEstrategias(data) {
         $('#div-linea-OPT').show();
         $("#divListaEstrategias").show();
 
+        EstablecerLazyCarrusel($('#divListadoEstrategia'));
+
         $('#divListadoEstrategia').slick({
+            lazyLoad: 'ondemand',
             infinite: true,
             vertical: false,
-            slidesToShow: 4,
+            slidesToShow: 1,
             slidesToScroll: 1,
             autoplay: false,
-            prevArrow: '<a class="previous_ofertas_mobile js-slick-prev" href="javascript:void(0);" style="margin-left:-12%; text-align:left;"><img src="' + baseUrl + 'Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="" /></a>',
-            nextArrow: '<a class="previous_ofertas_mobile js-slick-next" href="javascript:void(0);" style="margin-right:-12%; text-align:right; right:0"><img src="' + baseUrl + 'Content/Images/mobile/Esika/next.png")" alt="" /></a>',
+            prevArrow: '<a class="previous_ofertas_mobile js-slick-prev" href="javascript:void(0);" style="margin-left:-12%; padding-top:150px; text-align:left;"><img src="' + baseUrl + 'Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="" /></a>',
+            nextArrow: '<a class="previous_ofertas_mobile js-slick-next" href="javascript:void(0);" style="margin-right:-12%; padding-top:150px; text-align:right; right:0"><img src="' + baseUrl + 'Content/Images/mobile/Esika/next.png")" alt="" /></a>',
             responsive: [
                 {
                     breakpoint: 1200,
@@ -419,13 +447,17 @@ function ArmarCarouselEstrategias(data) {
     }
     else if (tipoOrigenEstrategia == 21) {
         $("#divListaEstrategias").show();
+
+        EstablecerLazyCarrusel($('#divListadoEstrategia'));
+
         $('#divListadoEstrategia').slick({
-            slidesToShow: 4,
+            lazyLoad: 'ondemand',
+            slidesToShow: 1,
             slidesToScroll: 1,
             autoplay: false,
             dots: false,
-            prevArrow: '<a class="previous_ofertas_mobile js-slick-prev" href="javascript:void(0);" id="slick-prev" style="margin-left:-13%;"><img src="' + urlCarruselPrev + '")" alt="-"/></a>',
-            nextArrow: '<a class="previous_ofertas_mobile js-slick-next" href="javascript:void(0);" id="slick-next" style="margin-right:-13%; text-align:right; right:0;"><img src="' + urlCarruselNext + '" alt="-"/></a>',
+            prevArrow: '<a class="previous_ofertas_mobile js-slick-prev" href="javascript:void(0);" id="slick-prev" style="margin-left:-13%; padding-top:150px;"><img src="' + urlCarruselPrev + '")" alt="-"/></a>',
+            nextArrow: '<a class="previous_ofertas_mobile js-slick-next" href="javascript:void(0);" id="slick-next" style="margin-right:-13%; padding-top:150px; text-align:right; right:0;"><img src="' + urlCarruselNext + '" alt="-"/></a>',
             infinite: true,
             speed: 300,
             responsive: [
@@ -479,7 +511,7 @@ function EstrategiaCarouselOn(event, slick, currentSlide, nextSlide) {
             'brand': recomendado.DescripcionMarcaEstrategiaAgregarProducto,
             'category': 'NO DISPONIBLE',
             'variant': recomendado.DescripcionEstrategia,
-            'list': 'Ofertas para ti â€“ ' + origen,
+            'list': 'Ofertas para ti – ' + origen,
             'position': recomendado.Posicion
         };
 
@@ -511,7 +543,7 @@ function EstrategiaCarouselOn(event, slick, currentSlide, nextSlide) {
             'brand': recomendado.DescripcionMarca,
             'category': 'NO DISPONIBLE',
             'variant': recomendado.DescripcionEstrategia,
-            'list': 'Ofertas para ti â€“ ' + origen,
+            'list': 'Ofertas para ti – ' + origen,
             'position': recomendado.Posicion
         };
 
@@ -567,7 +599,7 @@ function EstrategiaVerDetalle(id, origen) {
         origen = $("#divListadoEstrategia").attr("data-OrigenPedidoWeb") || origenPedidoWebEstrategia || 0;
     }
     origen = $.trim(origen) || 0;
-    var url = "/Mobile/OfertasParaTi/Detalle?id=" + id + "&&origen=" + origen;
+    var url = getMobilePrefixUrl() + "/OfertasParaTi/Detalle?id=" + id + "&&origen=" + origen;
     try {
         if (typeof GuardarProductoTemporal == "function" && typeof GetProductoStorage == "function") {
             var campania = $("[data-item=" + id + "]").parents("[data-tag-html]").attr("data-tag-html");
@@ -591,116 +623,6 @@ function EstrategiaVerDetalle(id, origen) {
     }
     window.location = url;
 }
-
-function CargarEstrategiasEspeciales(objInput, e) {
-
-    if (!($(e.target).attr('class') === undefined || $(e.target).attr('class').indexOf('js-no-popup') == -1)) {
-        return false;
-    }
-    AbrirLoad();
-    var origen = tipoOrigenEstrategia == 1 ? "Home" : tipoOrigenEstrategia == 11 ? "Pedidos" : "";
-
-    var estrategia = EstrategiaObtenerObj(e); // JSON.parse($(e.target).parents("[data-estrategia]").attr("data-estrategia"));
-    estrategia.ContentItem = $(e.target).parents("[data-content-item]").attr("data-content-item");
-    if (estrategia.TipoEstrategiaImagenMostrar == '2' && $.trim(tipoOrigenEstrategia)[0] == "1") {
-        SetHandlebars("#packnuevas-template", estrategia, '#popupDetalleCarousel_packNuevas');
-        $('#popupDetalleCarousel_packNuevas').show();
-        TrackingJetloreView(estrategia.CUV2, $("#hdCampaniaCodigo").val());
-    } else if (estrategia.TipoEstrategiaImagenMostrar == '5' || estrategia.TipoEstrategiaImagenMostrar == '3') {
-        estrategia.DescripcionCompleta = estrategia.DescripcionCUV2.split('|')[0];
-        estrategia.Posicion = 1;
-        estrategia.TextoLibre = $.trim(estrategia.TextoLibre);
-        estrategia.MostrarTextoLibre = estrategia.TextoLibre.length > 0;
-
-        estrategia.CodigoEstrategia = $.trim(estrategia.CodigoEstrategia);
-        estrategia.Detalle = new Array();
-        var btnDesabled = 0;
-        if (estrategia.CodigoEstrategia != "") {
-
-            GuardarProductoTemporal(estrategia);
-
-            estrategia.Detalle = CargarEstrategiaSet(estrategia.CUV2);
-            AbrirLoad();
-            estrategia.Linea = "0px";
-            if (estrategia.Detalle.length > 0) {
-                $.each(estrategia.Detalle, function (i, item) {
-                    item.Hermanos = item.Hermanos || new Array();
-                    //item.CUVSelect = i == 0 ? item.CUV : "";
-                    item.CUVSelect = "";
-                    item.ImagenBulkSelect = i == 0 ? item.ImagenBulk : "";
-                    item.NombreBulkSelect = i == 0 ? item.NombreBulk : "";
-
-                    if (estrategia.CodigoEstrategia == "2001")
-                        btnDesabled = 1;
-
-                    if (item.Hermanos.length > 0) {
-                        $.each(item.Hermanos, function (i, itemH) {
-                            itemH.CUVSelect = "";
-                        });
-                        //item.CUVSelect = item.Hermanos[0].CUV;
-                        item.ImagenBulkSelect = item.Hermanos[0].ImagenBulk;
-                        item.NombreBulkSelect = item.Hermanos[0].NombreBulk;
-
-                        item.Hermanos[0].CUVSelect = item.Hermanos[0].CUV;
-                        item.Hermanos[0].ImagenBulkSelect = item.Hermanos[0].ImagenBulk;
-                        item.Hermanos[0].NombreBulkSelect = item.Hermanos[0].NombreBulk;
-
-                        item.NombreComercial = item.Hermanos[0].NombreComercial;
-
-                        estrategia.Linea = "1px solid #ccc";
-                        btnDesabled = 1;
-                    }
-                });
-                //estrategia.CUVSelect = estrategia.Detalle[0].CUVSelect;
-                estrategia.ImagenBulkSelect = estrategia.Detalle[0].ImagenBulkSelect;
-                estrategia.NombreBulkSelect = estrategia.Detalle[0].NombreBulkSelect;
-            }
-            else {
-                estrategia.CodigoEstrategia = "";
-            }
-        }
-        
-        var popupId = '#popupDetalleCarousel_lanzamiento';
-
-        SetHandlebars("#lanzamiento-template", estrategia, popupId);
-
-        if (btnDesabled == 0) {
-            btnDesabled = $(popupId).find("#tbnAgregarProducto").attr("data-bloqueada") || "";
-            if (btnDesabled == "") {
-                $(popupId).find("#tbnAgregarProducto").removeClass("btn_desactivado_general");
-            }
-        }
-        else {
-            $(popupId).find("#tbnAgregarProducto").addClass("btn_desactivado_general");
-        }
-
-        AbrirPopup(popupId);
-        $(".indicador_tono").click();
-        $(".indicador_tono").click();
-
-        EstrategiaMostrarMasTonos(true);
-        TrackingJetloreView(estrategia.CUV2, $("#hdCampaniaCodigo").val());
-    };
-    dataLayer.push({
-        'event': 'productClick',
-        'ecommerce': {
-            'click': {
-                'actionField': { 'list': 'Ofertas para ti â€“ ' + origen },
-                'products': [{
-                    'id': estrategia.CUV2,
-                    'name': (estrategia.DescripcionCUVSplit == undefined || estrategia.DescripcionCUVSplit == '') ? estrategia.DescripcionCompleta : estrategia.DescripcionCUVSplit,
-                    'price': $.trim(estrategia.Precio2),
-                    'brand': estrategia.DescripcionMarca,
-                    'category': 'NO DISPONIBLE',
-                    'variant': estrategia.DescripcionEstrategia,
-                    'position': estrategia.Posicion
-                }]
-            }
-        }
-    });
-    CerrarLoad();
-    return true;
-};
 
 function EstrategiaMostrarMasTonos(menos) {
     if (tipoOrigenEstrategia == 2 || tipoOrigenEstrategia == 21) {
@@ -727,46 +649,6 @@ function EstrategiaMostrarMasTonos(menos) {
     }
 }
 
-function CargarEstrategiaSet(cuv) {
-    AbrirLoad();
-    var detalle = new Array();
-    $.ajax({
-        type: 'GET',
-        url: baseUrl + 'OfertasParaTi/ConsultarEstrategiaSet?cuv=' + cuv,
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        async: false,
-        success: function (data) {
-            detalle = data || new Array();
-        },
-        error: function (error, x) {
-            console.log(error, x);
-            //$('#divListadoEstrategia').html('<div style="text-align: center;">Ocurrio un error al cargar los productos.</div>');
-        }
-    });
-    CerrarLoad();
-    return detalle;
-}
-
-function CargarEstrategiaCuv(cuv) {
-    AbrirLoad();
-    var detalle = new Array();
-    $.ajax({
-        type: 'GET',
-        url: baseUrl + 'OfertasParaTi/ConsultarEstrategiaCuv?cuv=' + cuv,
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        async: false,
-        success: function (data) {
-            detalle = data || new Array();
-        },
-        error: function (error, x) {
-            console.log(error, x);
-        }
-    });
-    CerrarLoad();
-    return detalle;
-}
 function CargarProductoDestacado(objParameter, objInput, popup, limite) {
     if ($.trim($(objInput).attr("data-bloqueada")) != "") {
         if (isMobile()) {
@@ -1059,7 +941,7 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
     }
 
     if (!$.isNumeric(cantidad)) {
-        AbrirMensajeEstrategia("Ingrese un valor numÃ©rico.");
+        AbrirMensajeEstrategia("Ingrese un valor numérico.");
         $('.liquidacion_rango_cantidad_pedido').val(1);
         CerrarLoad();
         return false;
@@ -1071,7 +953,7 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
         return false;
     }
     if (parseInt(cantidad) > parseInt(cantidadLimite)) {
-        AbrirMensajeEstrategia("La cantidad no debe ser mayor que la cantidad lÃ­mite ( " + cantidadLimite + " ).");
+        AbrirMensajeEstrategia("La cantidad no debe ser mayor que la cantidad límite ( " + cantidadLimite + " ).");
         CerrarLoad();
         return false;
     }
@@ -1097,11 +979,6 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
         data: JSON.stringify(param),
         async: false,
         success: function (datos) {
-            //if (datos.message.length > 0) {                
-            //    AbrirMensajeEstrategia(datos.message);
-            //    CerrarLoad();
-            //    return false;
-            //}
             if (!datos.result) {
                 if (datos.message.length > 0) {
                     AbrirMensajeEstrategia(datos.message);
@@ -1190,6 +1067,7 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                         }
 
                         ActualizarLocalStorageAgregado("rd", param.CUV, true);
+                        ActualizarLocalStorageAgregado("gn", param.CUV, true);
 
                         ProcesarActualizacionMostrarContenedorCupon();
                     },

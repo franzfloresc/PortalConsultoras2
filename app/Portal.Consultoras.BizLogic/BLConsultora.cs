@@ -308,7 +308,6 @@ namespace Portal.Consultoras.BizLogic
 
         public List<BEConsultora> GetConsultorasPorUbigeo(int paisId, string codigoUbigeo, string campania, int marcaId, int tipoFiltroUbigeo)
         {
-
             var vConsultora = new BEConsultora();
             var vListaConsultora = new List<BEConsultora>();
 

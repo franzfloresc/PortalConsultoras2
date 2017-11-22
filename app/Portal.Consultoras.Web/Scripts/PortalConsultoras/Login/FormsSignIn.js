@@ -453,7 +453,7 @@ function LugarMensaje() {
 
     var wiu = $("a.helper.huno") == null ? 0 : parseInt($("a.helper.huno").offset().left);
     if (wiu > 0) {
-        wiu = wiu + ($("a.helper.huno").parent().outerWidth())
+        wiu = wiu + ($("a.helper.huno").parent().outerWidth());
     }
     if ($(window).width() < 1093) {
         $(".content-alerta-red-user").css("left", 75 + "px");

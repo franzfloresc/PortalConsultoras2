@@ -1,17 +1,15 @@
-﻿using System;
+﻿using AutoMapper;
+using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServiceSAC;
+using Portal.Consultoras.Web.ServiceZonificacion;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
-using System.Web;
 using System.Web.Mvc;
-using AutoMapper;
-using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServiceSAC;
-using Portal.Consultoras.Web.ServiceZonificacion;
-using System.Globalization;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -48,7 +46,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return View(solicitudClienteModel);
         }
-        
+
         private IEnumerable<PaisModel> DropDowListPaises()
         {
             List<BEPais> lst;
@@ -69,7 +67,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
-        
+
         private IEnumerable<CampaniaModel> DropDowListCampanias(int PaisID)
         {
             IList<BECampania> lst;
@@ -116,7 +114,7 @@ namespace Portal.Consultoras.Web.Controllers
             return listaEstadoSolicitudCliente;
         }
 
-        public ActionResult Detalle(string SolicitudClienteId,string Estado, string paginacion)
+        public ActionResult Detalle(string SolicitudClienteId, string Estado, string paginacion)
         {
             var entidadCliente = new BESolicitudCliente();
             using (SACServiceClient sv = new SACServiceClient())
@@ -169,16 +167,16 @@ namespace Portal.Consultoras.Web.Controllers
             //R2319 - JICM - FIN
 
             return View("Detalle", modelSolicitudCliente);
-           
+
         }
-        
+
         public ActionResult Consultar(string sidx, string sord, int page, int rows, string CampaniaID, string PaisID, string Consulta, int Estado, string Paginacion)
         {
             if (ModelState.IsValid)
             {
-                if (Paginacion != null && Paginacion != string.Empty )
+                if (Paginacion != null && Paginacion != string.Empty)
                 {
-                    if (page==1 && int.Parse(Paginacion) > 0)
+                    if (page == 1 && int.Parse(Paginacion) > 0)
                     {
                         page = int.Parse(Paginacion);
                     }
@@ -208,9 +206,9 @@ namespace Portal.Consultoras.Web.Controllers
                 grid.SortOrder = sord;
                 //int buscar = int.Parse(txtBuscar);
                 BEPager pag = new BEPager();
-                
+
                 IEnumerable<BESolicitudCliente> items = lst;
-               if (sord == "asc")
+                if (sord == "asc")
                 {
                     switch (sidx)
                     {
@@ -279,7 +277,7 @@ namespace Portal.Consultoras.Web.Controllers
                            select new
                            {
                                a.SolicitudClienteID,
-                               cell = new string[] 
+                               cell = new string[]
                                {
                                    a.SolicitudClienteID.ToString(),
                                    a.Campania,
@@ -298,7 +296,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return RedirectToAction("Index", "SolicitudCliente");
         }
-        
+
         public ActionResult Obtener(string sidx, string sord, int page, int rows, string SolicitudClienteID)
         {
             if (ModelState.IsValid)
@@ -336,7 +334,7 @@ namespace Portal.Consultoras.Web.Controllers
                            select new
                            {
                                a.CUV,
-                               cell = new string[] 
+                               cell = new string[]
                                {
                                    a.CUV,
                                    a.DescripcionProducto,
@@ -417,38 +415,38 @@ namespace Portal.Consultoras.Web.Controllers
             string cssColumnaFinal = "style=\"border-right-color: #8064A2;\"";
             cuerpoMensaje.Append("<style type=\"text/css\">");
             cuerpoMensaje.Append("p, table, div {");
-	        cuerpoMensaje.Append("    font-family: Arial;");
-	        cuerpoMensaje.Append("    font-size: 13px;");
+            cuerpoMensaje.Append("    font-family: Arial;");
+            cuerpoMensaje.Append("    font-size: 13px;");
             cuerpoMensaje.Append("}");
             cuerpoMensaje.Append("#tblProducto{");
-	        cuerpoMensaje.Append("    border-collapse: collapse;");
+            cuerpoMensaje.Append("    border-collapse: collapse;");
             cuerpoMensaje.Append("}");
             cuerpoMensaje.Append("#tblProducto td, #tblProducto th{");
-	        cuerpoMensaje.Append("    border-width: 1px;");
-	        cuerpoMensaje.Append("    border-style: solid;");
-	        cuerpoMensaje.Append("    height: 30px;");
-	        cuerpoMensaje.Append("    padding-left: 5px;");
+            cuerpoMensaje.Append("    border-width: 1px;");
+            cuerpoMensaje.Append("    border-style: solid;");
+            cuerpoMensaje.Append("    height: 30px;");
+            cuerpoMensaje.Append("    padding-left: 5px;");
             cuerpoMensaje.Append("}");
             cuerpoMensaje.Append("#tblProducto th{");
-	        cuerpoMensaje.Append("    background-color: #8064A2;");
-	        cuerpoMensaje.Append("    color: #FFF;");
-	        cuerpoMensaje.Append("    text-align: left;");
-	        cuerpoMensaje.Append("    border-top-color: #8064A2;");
-	        cuerpoMensaje.Append("    border-bottom-color: #8064A2;");
-	        cuerpoMensaje.Append("    border-left-color: #8064A2;");
-	        cuerpoMensaje.Append("    border-right-color: #8064A2;");
+            cuerpoMensaje.Append("    background-color: #8064A2;");
+            cuerpoMensaje.Append("    color: #FFF;");
+            cuerpoMensaje.Append("    text-align: left;");
+            cuerpoMensaje.Append("    border-top-color: #8064A2;");
+            cuerpoMensaje.Append("    border-bottom-color: #8064A2;");
+            cuerpoMensaje.Append("    border-left-color: #8064A2;");
+            cuerpoMensaje.Append("    border-right-color: #8064A2;");
             cuerpoMensaje.Append("}");
             cuerpoMensaje.Append("#tblProducto td{");
-	        cuerpoMensaje.Append("    border-top-color: #8064A2;");
-	        cuerpoMensaje.Append("    border-bottom-color: #8064A2;");
-	        cuerpoMensaje.Append("    border-left-color: #FFF;");
-	        cuerpoMensaje.Append("    border-right-color: #FFF;");
+            cuerpoMensaje.Append("    border-top-color: #8064A2;");
+            cuerpoMensaje.Append("    border-bottom-color: #8064A2;");
+            cuerpoMensaje.Append("    border-left-color: #FFF;");
+            cuerpoMensaje.Append("    border-right-color: #FFF;");
             cuerpoMensaje.Append("}");
             cuerpoMensaje.Append("#filaUltima td{");
-	        cuerpoMensaje.Append("    border-top-color: #8064A2;");
-	        cuerpoMensaje.Append("    border-bottom-color: #FFF;");
-	        cuerpoMensaje.Append("    border-left-color: #FFF;");
-	        cuerpoMensaje.Append("    border-right-color: #FFF;");
+            cuerpoMensaje.Append("    border-top-color: #8064A2;");
+            cuerpoMensaje.Append("    border-bottom-color: #FFF;");
+            cuerpoMensaje.Append("    border-left-color: #FFF;");
+            cuerpoMensaje.Append("    border-right-color: #FFF;");
             cuerpoMensaje.Append("}");
             cuerpoMensaje.Append("</style>");
 
@@ -476,7 +474,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (arrayUnidades[2] != "")
                 cuerpoMensaje.Append(String.Format("{1}: {0}<br />", entidadSolicitud.UnidadGeografica3, arrayUnidades[2]));
 
-            cuerpoMensaje.Append(String.Format("Dirección: {0}<br />",entidadSolicitud.Direccion));
+            cuerpoMensaje.Append(String.Format("Dirección: {0}<br />", entidadSolicitud.Direccion));
             cuerpoMensaje.Append(String.Format("Marca: {0}<br />", entidadSolicitud.MarcaNombre));
             cuerpoMensaje.Append(String.Format("Campaña: {0}<br />", entidadSolicitud.Campania));
             cuerpoMensaje.Append(String.Format("Mensaje del cliente: <br /> {0}</p>", entidadSolicitud.Mensaje));
@@ -534,14 +532,14 @@ namespace Portal.Consultoras.Web.Controllers
         {
             List<BESolicitudCliente> lst;
 
-                using (SACServiceClient sv = new SACServiceClient())
-                {
-                    var paramSolicitudCliente = new BESolicitudCliente();
-                    paramSolicitudCliente.Campania = CampaniaID;
-                    paramSolicitudCliente.EstadoSolicitudClienteId = Estado;
+            using (SACServiceClient sv = new SACServiceClient())
+            {
+                var paramSolicitudCliente = new BESolicitudCliente();
+                paramSolicitudCliente.Campania = CampaniaID;
+                paramSolicitudCliente.EstadoSolicitudClienteId = Estado;
 
-                    lst = sv.BuscarSolicitudAnuladasRechazadas(UserData().PaisID, paramSolicitudCliente).ToList();
-                }
+                lst = sv.BuscarSolicitudAnuladasRechazadas(UserData().PaisID, paramSolicitudCliente).ToList();
+            }
 
 
             Dictionary<string, string> dic = new Dictionary<string, string>();
@@ -707,7 +705,7 @@ namespace Portal.Consultoras.Web.Controllers
                            select new
                            {
                                id = a.CodigoConsultora,
-                               cell = new string[] 
+                               cell = new string[]
                                {
                                    a.CodigoConsultora.ToString(),
                                    a.CodigoUbigeo,
@@ -766,7 +764,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult ReportePedidos(string Campania)
         {
-            
+
             var solicitudClienteModel = new SolicitudClienteModel();
 
             solicitudClienteModel.listaEstadoSolicitudCliente = DropDowListEstado(UserData().PaisID);
@@ -793,7 +791,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (ModelState.IsValid)
             {
                 List<BEReportePedidos> lst;
-                
+
                 DateTime fechaInicioSolicitud = Convert.ToDateTime(fechaInicio);
                 DateTime fechaFinSolicitud = Convert.ToDateTime(fechaFin);
 
@@ -808,7 +806,7 @@ namespace Portal.Consultoras.Web.Controllers
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                
+
                 BEPager pag = new BEPager();
                 IEnumerable<BEReportePedidos> items = lst;
 
@@ -959,7 +957,7 @@ namespace Portal.Consultoras.Web.Controllers
                            select new
                            {
                                id = a.CodigoConsultora,
-                               cell = new string[] 
+                               cell = new string[]
                                {
                                    a.SolicitudClienteID.ToString(),
                                    a.Estado.ToString(),
