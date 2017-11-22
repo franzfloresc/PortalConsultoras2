@@ -68,7 +68,8 @@
             if (revistaDigital.SuscripcionAnterior2Model.EstadoRegistro != 1 &&
                 revistaDigital.SuscripcionAnterior1Model.EstadoRegistro == 1)
             {
-                
+                if (!tieneGND)
+                {
                 @Html.Partial("~/Views/MisCatalogosRevistas/template-revista-slide.cshtml")
                 <!-- INSCRITAS C-11 -->
                 <div class="revista_content" id="contentRevistaDigital" style="position: relative;">
@@ -91,6 +92,7 @@
                     </div>
                 </div>
                 <!-- FIN INSCRITAS C-11 -->
+                }
             }
             else if (revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == 1)
             {
