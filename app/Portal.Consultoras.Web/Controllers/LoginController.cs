@@ -851,7 +851,7 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             if (oBEUsuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
                             {
-                                _userProvider.ActualizarDatosHana(ref model);
+                                await _userProvider.ActualizarDatosHana(model);
                             }
                         }
                         else
@@ -874,10 +874,9 @@ namespace Portal.Consultoras.Web.Controllers
                             if (model.IndicadorFlexiPago > 0 &&
                                 oBEUsuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
                             {
-                                var ofertaFlexipago = _flexiPagoProvider.ObtenerLineaCreditoFlexipagoAsync(model.PaisID, model.CodigoConsultora, model.CampaniaID);
-                                Task.WaitAll(ofertaFlexipago);
+                                var ofertaFlexipago = await _flexiPagoProvider.ObtenerLineaCreditoFlexipagoAsync(model.PaisID, model.CodigoConsultora, model.CampaniaID);
                                 if (ofertaFlexipago != null)
-                                    model.MontoMinimoFlexipago = string.Format("{0:#,##0.00}", (ofertaFlexipago.Result.MontoMinimoFlexipago < 0 ? 0M : ofertaFlexipago.Result.MontoMinimoFlexipago));
+                                    model.MontoMinimoFlexipago = string.Format("{0:#,##0.00}", (ofertaFlexipago.MontoMinimoFlexipago < 0 ? 0M : ofertaFlexipago.MontoMinimoFlexipago));
                             }
 
                         }
@@ -1102,7 +1101,7 @@ namespace Portal.Consultoras.Web.Controllers
                         if (model.TieneHana == 1)
                         {
                             if (model.TipoUsuario == Constantes.TipoUsuario.Consultora)
-                                _userProvider.ActualizarDatosHana(ref model);
+                                await _userProvider.ActualizarDatosHana(model);
                         }
                         else
                         {

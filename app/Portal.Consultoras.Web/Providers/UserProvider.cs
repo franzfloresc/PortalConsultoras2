@@ -44,11 +44,9 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
-        public void ActualizarDatosHana(ref UsuarioModel model)
+        public async Task ActualizarDatosHana(UsuarioModel model)
         {
-            var datosHanna = ObtenerDatosConsultoraHanaAsync(model.PaisID, model.CodigoUsuario, model.CampaniaID);
-
-            var datosConsultoraHana = datosHanna.Result;
+            var datosConsultoraHana = await ObtenerDatosConsultoraHanaAsync(model.PaisID, model.CodigoUsuario, model.CampaniaID);
 
             if (datosConsultoraHana != null)
             {

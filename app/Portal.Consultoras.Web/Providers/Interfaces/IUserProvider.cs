@@ -16,6 +16,6 @@ namespace Portal.Consultoras.Web.Providers.Interfaces
         
         Task<HanaModel> ObtenerDatosConsultoraHanaAsync(int paisId, string codigoUsuario, int campaniaId);
 
-        void ActualizarDatosHana(ref UsuarioModel model);
+        Task ActualizarDatosHana(UsuarioModel model);
     }
 }
