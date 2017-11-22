@@ -9,6 +9,7 @@
         title = "Catálogos";
     }
     ViewBag.Title = title;
+    
 }
 
 <input type="hidden" id="hdPaisNombre" value="@Model.PaisNombre" />
@@ -62,8 +63,6 @@
 
     <div class="expoferta_revista">
         @Html.Partial("~/Views/MisCatalogosRevistas/_PartialSectionBpt.cshtml", Model.RevistaDigital)
-                if (!tieneGND)
-                {
         <span id="spNroCampania" style="display: none;">@Model.CampaniaActual</span>
         <div class="titulo_central" id="numero_campania" hidden="hidden">@Model.CampaniaActual</div>
 
