@@ -4,6 +4,7 @@
 
 @{
     ConfiguracionPaisDatosModel configuracionPaisDatosModel;
+    var tieneGnd = Portal.Consultoras.Web.SessionManager.SessionManager.Instance.GetUserData().TieneGND;
 }
 @if (Model.TieneRDC)
 {
@@ -40,7 +41,7 @@
     }
     else
     {
-        if (!Portal.Consultoras.Web.SessionManager.SessionManager.Instance.GetUserData().TieneGND)
+        if (!tieneGnd)
         {
             if (Model.EsSuscrita)
             {
@@ -75,7 +76,7 @@
 }
 else if (Model.TieneRDR)
 {
-    if (!Portal.Consultoras.Web.SessionManager.SessionManager.Instance.GetUserData().TieneGND)
+    if (!tieneGnd)
     {
         configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.DCatalogoRdr) ?? new ConfiguracionPaisDatosModel();
         @Html.Partial("~/Views/MisCatalogosRevistas/template-revista-slide.cshtml")
