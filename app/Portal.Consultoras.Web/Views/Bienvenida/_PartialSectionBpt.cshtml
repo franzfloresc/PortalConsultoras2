@@ -13,11 +13,11 @@
     {
         if (Model.EsSuscrita)
         {
-            configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.DBienvenidaInscritaActiva) ?? new ConfiguracionPaisDatosModel();
+            configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DBienvenidaInscritaActiva) ?? new ConfiguracionPaisDatosModel();
         }
         else
         {
-            configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.DBienvenidaNoInscritaActiva) ?? new ConfiguracionPaisDatosModel();
+            configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DBienvenidaNoInscritaActiva) ?? new ConfiguracionPaisDatosModel();
         }
         <div class="home_block_rd home_rd" style="position:relative; z-index:1">
             <div class="hblock"></div>
@@ -46,11 +46,11 @@
     {
         if (Model.EsSuscrita)
         {
-            configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.DBienvenidaInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
+            configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DBienvenidaInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
         }
         else
         {
-            configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.DBienvenidaNoInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
+            configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DBienvenidaNoInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
         }
         <div class="home_block_rd home_rd1">
             <div class="content_belcorp" style="background-color: black;">
@@ -79,7 +79,7 @@
 }
 else if (Model.TieneRDR)
 {
-    configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.DBienvenidaRdr) ?? new ConfiguracionPaisDatosModel();
+    configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDR.DBienvenidaRdr) ?? new ConfiguracionPaisDatosModel();
     <div class="home_block_rd home_rd" style="position:relative; z-index:1">
         <div class="hblock"></div>
         <div class="content_belcorp" style="background-color: black;">

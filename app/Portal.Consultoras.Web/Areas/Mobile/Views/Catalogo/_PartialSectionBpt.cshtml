@@ -12,11 +12,11 @@
         {
             if (Model.EsSuscrita)
             {
-                configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.MCatalogoInscritaActiva) ?? new ConfiguracionPaisDatosModel();
+                configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.MCatalogoInscritaActiva) ?? new ConfiguracionPaisDatosModel();
             }
             else
             {
-                configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.MCatalogoNoInscritaActiva) ?? new ConfiguracionPaisDatosModel();
+                configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.MCatalogoNoInscritaActiva) ?? new ConfiguracionPaisDatosModel();
             }
             <div class="wrapper_resumen_mobile">
                 <div class="banner_pedido_rd">
@@ -48,11 +48,11 @@
             }
             if (Model.EsSuscrita)
             {
-                configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.MCatalogoInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
+                configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.MCatalogoInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
             }
             else
             {
-                configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.MCatalogoNoInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
+                configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.MCatalogoNoInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
             }
             <div class="wrapper_resumen_mobile">
                 <div class="banner_pedido_rd">
@@ -80,7 +80,7 @@
     else if (Model.TieneRDR)
     {
         @Html.Partial("~/Areas/Mobile/Views/Catalogo/template-carrusel-issue.cshtml")
-        configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.MCatalogoRdr) ?? new ConfiguracionPaisDatosModel();
+        configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDR.MCatalogoRdr) ?? new ConfiguracionPaisDatosModel();
         <hr class="clear" />
         <div id="tab_revistasdigital_mobile">
             <div class="contenedor_seccionRevistaDigital">

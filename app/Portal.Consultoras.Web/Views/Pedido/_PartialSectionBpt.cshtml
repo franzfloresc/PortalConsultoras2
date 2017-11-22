@@ -12,11 +12,11 @@
     {
         if (Model.EsSuscrita)
         {
-            configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.DPedidoInscritaActiva) ?? new ConfiguracionPaisDatosModel();
+            configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DPedidoInscritaActiva) ?? new ConfiguracionPaisDatosModel();
         }
         else
         {
-            configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.DPedidoNoInscritaActiva) ?? new ConfiguracionPaisDatosModel();
+            configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DPedidoNoInscritaActiva) ?? new ConfiguracionPaisDatosModel();
         }
         <!-- PASE PEDIDO INSCRITAS C-12 -->
         <div class="banner_pedido_rd" style="box-shadow: none;">
@@ -48,11 +48,11 @@
     {
         if (Model.EsSuscrita)
         {
-            configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.DPedidoInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
+            configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DPedidoInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
         }
         else
         {
-            configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.DPedidoNoInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
+            configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DPedidoNoInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
         }
         <!-- PASE PEDIDO NO INSCRITAS C-11 -->
         <div class="banner_pedido_rd">
@@ -80,7 +80,7 @@
 }
 else if (Model.TieneRDR)
 {
-    configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.DPedidoRdr) ?? new ConfiguracionPaisDatosModel();
+    configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDR.DPedidoRdr) ?? new ConfiguracionPaisDatosModel();
     <div class="revistadigital">
         <div class="revistadigital-content pedido">
             <div>

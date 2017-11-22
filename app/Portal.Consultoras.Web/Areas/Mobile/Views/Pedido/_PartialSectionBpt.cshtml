@@ -11,11 +11,11 @@
     {
         if (Model.EsSuscrita)
         {
-            configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.MPedidoInscritaActiva) ?? new ConfiguracionPaisDatosModel();
+            configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.MPedidoInscritaActiva) ?? new ConfiguracionPaisDatosModel();
         }
         else
         {
-            configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.MPedidoNoInscritaActiva) ?? new ConfiguracionPaisDatosModel();
+            configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.MPedidoNoInscritaActiva) ?? new ConfiguracionPaisDatosModel();
         }
             
         <div class="mob_home_bpt">
@@ -48,11 +48,11 @@
     {
         if (Model.EsSuscrita)
         {
-            configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.MPedidoInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
+            configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.MPedidoInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
         }
         else
         {
-            configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.MPedidoNoInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
+            configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.MPedidoNoInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
         }
             
         <div class="wrapper_resumen_mobile">
@@ -81,7 +81,7 @@
 }
 else if (Model.TieneRDR)
 {
-    configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.MPedidoRdr) ?? new ConfiguracionPaisDatosModel();
+    configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDR.MPedidoRdr) ?? new ConfiguracionPaisDatosModel();
     <div class="mob_home_bpt">
         <div class="banner_pedido_rd" style="margin-bottom:0 !important;">
             <div class="cabecera_pedido_rd">
