@@ -6,7 +6,6 @@
     var mostrarShowRoomProductosExpiro = Portal.Consultoras.Web.SessionManager.SessionManager.Instance.GetMostrarShowRoomProductosExpiro();
 
     var mostrarPopupIntriga = !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
-    //var mostrarPopupVenta = mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
 
     var backgroundVenta = mostrarPopupIntriga ? "" : "background: url(" + @Model.ImagenFondo + ") center center no-repeat;";
     var urlToAction = mostrarPopupIntriga ? "/Mobile/ShowRoom/Intriga" : "/Mobile/ShowRoom";

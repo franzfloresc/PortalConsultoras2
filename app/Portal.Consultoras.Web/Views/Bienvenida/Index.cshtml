@@ -138,7 +138,7 @@
             string clasePagoUltMovVZ = "";
 
             if (verUltmPagos == "1") { ultPg = "display: block;"; vermas = "display:none;"; } else { ultPg = "display:none;"; vermas = "display: block;"; }
-            if (Model.PaisID == 14) { clasePagoUltMovVZ = "boton_ultimos_movimientosVZ"; clasePagoOnlineVZ = "margin-top: 0px;"; } //EPD-1204
+            if (Model.PaisID == 14) { clasePagoUltMovVZ = "boton_ultimos_movimientosVZ"; clasePagoOnlineVZ = "margin-top: 0px;"; }
         }
 
         <div class="titulo_home_img"></div>
@@ -175,7 +175,7 @@
         {
             <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Facturación Electrónica" class="boton_facturacion_e btn_100_facturacion" href="@Url.Action("Index", "FacturaElectronica")" target="_blank"> FACTURACI&Oacute;N ELECTR&Oacute;NICA</a> <!-- AGREGAR LA CLASES="btn_100_facturacion"-->
         }
-        else if (Model.PaisID == 14) //Venezuela EPD-1204
+        else if (Model.PaisID == 14) //Venezuela
         {
             <a role="link" region="Cuerpo" parent="Mi estado de cuenta"
                title="Pago en Línea" class="btn_paga_online btn_100_paga"

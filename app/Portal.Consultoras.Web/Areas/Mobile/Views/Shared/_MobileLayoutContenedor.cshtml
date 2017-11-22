@@ -298,7 +298,7 @@
         var ViewBagEsMobile = '@ViewBag.EsMobile';
 
         var tokenPedidoAutenticoOk = '@ViewBag.TokenPedidoAutenticoOk';
-        var _ModificacionPedidoProl = '@ViewBag.ModificarPedidoProl'; //EPD-1682
+        var _ModificacionPedidoProl = '@ViewBag.ModificarPedidoProl';
         var urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
         var userData = {
             'aplicacion': '@(Constantes.LogDynamoDB.AplicacionPortalConsultoras)',
@@ -424,14 +424,12 @@
                         $("#lnkConoceMasShowRoomBannerLateralHoy, #lnkConoceMasShowRoomBannerLateralImagenHoy").click(function () {
                             AgregarTagManagerShowRoomBannerLateralConocesMas(true);
                         });
-                        //AgregarTagManagerShowRoomBannerLateral(true);
                     }
                     else {
                         $("#lnkConoceMasShowRoomBannerLateral").click(function () {
                             AgregarTagManagerShowRoomBannerLateralConocesMas(false);
                         });
                         AgregarTimerShowRoom(showRoomDiasFaltantes, showRoomMesFaltante, showRoomAnioFaltante);
-                        //AgregarTagManagerShowRoomBannerLateral(false);
                     }
                 }
 
@@ -508,7 +506,6 @@
                         minutes = minutes - (days * 24 * 60) - (hours * 60);
                         seconds = seconds - (days * 24 * 60 * 60) - (hours * 60 * 60) - (minutes * 60);
 
-                        //$("#time").text("Time until new year:\nDays: " + days + " Hours: " + hours + " Minutes: " + minutes + " Seconds: " + seconds);
                         $(".clsDia").html(days);
                         $(".clsHora").html(hours);
                         $(".clsMinuto").html(minutes);

@@ -105,7 +105,6 @@
         $('#divNotiNombre').hide();
         $('#divNotiCorreo').hide();
 
-        //if (jQuery.trim($(div).find('#Nombre').val()) == "") {
         if (jQuery.trim($(div).find('#NombreCliente').val()) == "") {
             vcont++;
             $('#divNotiNombre').show();
@@ -128,7 +127,6 @@
 
         var id = $(div).find('#ClienteID').val();
         var codigo = $(div).find('#CodigoCliente').val();
-        //var nombre = $(div).find('#Nombre').val();
         var nombreCliente = jQuery.trim($(div).find('#NombreCliente').val());
         var apellidoCliente = jQuery.trim($(div).find('#ApellidoCliente').val());
         var correo = jQuery.trim($(div).find('#eMail').val());
@@ -138,7 +136,6 @@
         var item = {
             ClienteID: id,
             CodigoCliente: codigo,
-            //Nombre: nombre,
             NombreCliente: nombreCliente,
             ApellidoCliente: apellidoCliente,
             Nombre: jQuery.trim(nombreCliente + " " + apellidoCliente),

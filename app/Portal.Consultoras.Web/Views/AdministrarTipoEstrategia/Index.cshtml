@@ -42,7 +42,6 @@
             $("#chkMostrarImgIndependiente").attr("checked", false);
             $(".divOfertaIndependiente").hide();
 
-			//BPT-369
 			$("#chkValImg").attr("checked", false);
 			$("#txtPesoMaximoImagen").val("0");
 
@@ -99,7 +98,6 @@
             }
         });
 
-		//BPT-369
 		$("#chkValImg").click(function () {
             if ($("#chkValImg").attr('checked')) {
                 $("#txtPesoMaximoImagen").attr('disabled', false);
@@ -506,7 +504,6 @@
                         }
                     }
 
-					// BPT-369
 					if ($("#chkValImg").attr("checked")) {
                         if ($("#txtPesoMaximoImagen").val() == "" || $("#txtPesoMaximoImagen").val() == "0") {
                             alert("Debe Ingresar un tamaño en Kb mayor a 0 de la imagen a validar.");
@@ -677,7 +674,6 @@
                     $(".divOfertaIndependiente").hide();
                 }
 
-				//BPT-369
 				if (flagValidarImagen == "1") {
                    $("#txtPesoMaximoImagen").prop('disabled', false);
                 } else {
