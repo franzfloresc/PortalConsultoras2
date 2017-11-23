@@ -1,7 +1,7 @@
 ﻿
 @model Portal.Consultoras.Web.Models.MisCertificados.MiCertificadoModel
 
-<div style="background-image:url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4830182/nzdPSx3uQKRMhNR/mis-certificados-marca-de-agua-logos.png); background-repeat:no-repeat; background-position:right 16px;">
+<div style="display:block; width:510px; float:left;">
     <p style="margin-top:0pt; margin-bottom:0pt; text-align:right; line-height:115%; font-size:12pt">
         <span style="width:35.4pt; display:inline-block">&#xa0;</span>
         <span style="width:35.4pt; display:inline-block">&#xa0;</span>
@@ -40,7 +40,7 @@
         <span style="font-family:Arial">@Model.RazonSocial</span>
     </p>
     <p style="margin-top:0pt; margin-bottom:10pt; text-align:center; line-height:115%; font-size:12pt">
-        <span style="font-family:Arial">@Model.Ruc</span>
+        <span style="font-family:Arial">RUC @Model.Ruc</span>
     </p>
     <p style="margin-top:0pt; margin-bottom:10pt; text-align:center; line-height:115%; font-size:12pt">
         <span style="font-family:Arial">&#xa0;</span>
@@ -52,14 +52,11 @@
         <span style="font-family:Arial">&#xa0;</span>
     </p>
     <p style="margin-top:0pt; margin-bottom:10pt; text-align:justify; line-height:115%; font-size:12pt">
-        <span style="font-family:Arial">La señora </span><span style="font-family:Arial;">@Model.NombreCompleto</span>
+        <span style="font-family:Arial">La señora </span><span style="font-family:Arial;">@Model.NombreCompleto.Trim()</span>
         <span style="font-family:Arial"> identificada con cédula de ciudadanía número </span>
-        <span style="font-family:Arial;">@Model.NumeroDocumento</span>
-        <span style="font-family:Arial">, es compradora de esta Compañía desde el día </span>
+        <span style="font-family:Arial;">@Model.NumeroDocumento.Trim()</span><span style="font-family:Arial">, es compradora de esta Compañía desde el día </span>
         <span style="font-family:Arial;">@Model.FechaIngresoConsultora</span>
-        <span style="font-family:Arial"> y a la fecha cuenta con un promedio de compra de nuestros productos igual a @Model.Moneda</span>
-        <span style="font-family:Arial;">@Model.PromedioVentas</span>
-        <span style="font-family:Arial">, durante las últimas 3 campañas.</span>
+        <span style="font-family:Arial"> y a la fecha cuenta con un promedio de compra de nuestros productos igual a @Model.Moneda </span><span style="font-family:Arial;">@Model.PromedioVentas</span><span style="font-family:Arial">, durante las últimas 3 campañas.</span>
     </p>
     <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:115%; font-size:12pt">
         <span style="font-family:Arial">La presente referencia se expide a solicitud de la interesada en @Model.Ciudad, al </span>
@@ -93,12 +90,15 @@
         <span style="font-family:Arial">___________________________</span>
     </p>
     <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:115%; font-size:14pt">
-        <strong><span style="font-family:Arial; ">@Model.Responsable</span></strong>
+        <strong><span style="font-family:Arial; ">@Model.Responsable.Trim()</span></strong>
     </p>
     <p style="margin-top:0pt; margin-bottom:0pt; text-align:justify; line-height:115%; font-size:14pt">
-        <strong><span style="font-family:Arial; ">@Model.Cargo</span></strong>
+        <strong><span style="font-family:Arial; ">@Model.Cargo.Trim()</span></strong>
     </p>
     <p style="margin-top:0pt; margin-bottom:10pt; text-align:justify; line-height:115%; font-size:14pt">
         <strong><span style="font-family:Arial; ">@Model.RazonSocial</span></strong>
     </p>
+</div>
+<div style="display:block; float:right; width:145px; height:204px; margin-top:20px;">
+    <img style="display:block; width:145px; height:204px;" src="http://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/EC/marcadeagua-belcorp.png" alt="" />
 </div>

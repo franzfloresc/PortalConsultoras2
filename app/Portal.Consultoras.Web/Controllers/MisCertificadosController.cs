@@ -213,14 +213,19 @@ namespace Portal.Consultoras.Web.Controllers
                     if (beMiCertificado != null)
                     {
                         var dt = DateTime.Now;
-                        var nombreMes = dt.ToString("MMMM", new CultureInfo("es-ES"));
-                        var format1 = @"dd \de MMMM \de yyyy";
+                        var nombreMes1 = dt.ToString("MMMM", new CultureInfo("es-ES"));
+                        //var format = @"dd \de MMMM \de yyyy";
                         var letrasAnio = Conversores.NumeroALetras(dt.Year).ToLower();
-                        var ff1 = dt.ToString("dd") + " del mes de " + nombreMes + " de " + letrasAnio + " (" + dt.Year.ToString() + ").";
-                        var ff2 = beMiCertificado.FechaIngresoConsultora.ToString(format1, new CultureInfo("es-ES"));
-                        model.FechaCreacion = dt.ToString(format1);
-                        model.FechaCreacionTexto = ff1;
-                        model.FechaIngresoConsultora = ff2;
+                        var ff1 = dt.ToString("dd") + " de " + nombreMes1.ToUpper(1) + " de " + dt.ToString("yyyy");
+                        var ff2 = dt.ToString("dd") + " del mes de " + nombreMes1.ToUpper(1) + " de " + letrasAnio + " (" + dt.Year.ToString() + ").";
+                        var fi = beMiCertificado.FechaIngresoConsultora;
+                        //var ff3 = beMiCertificado.FechaIngresoConsultora.ToString(format1, new CultureInfo("es-ES"));
+                        var nombreMes2 = fi.ToString("MMMM", new CultureInfo("es-ES"));
+                        var ff3 = fi.ToString("dd") + " de " + nombreMes2.ToUpper(1) + " de " + fi.ToString("yyyy");
+
+                        model.FechaCreacion = ff1;
+                        model.FechaCreacionTexto = ff2;
+                        model.FechaIngresoConsultora = ff3;
                         model.Moneda = userData.Simbolo;
                         //model.UrlFirma = "";
 

@@ -52,7 +52,7 @@
             var urlExportar = '@Url.Action("Export", "MisCertificados")';
 
             $(document).ready(function () {
-                $("a[data-certificado]").click(function () {
+                $("a[data-certificado]").click(function (e) {
                     var parent = $(this).parents("[data-item]");
                     var parametros = $(parent).find("[data-campos]");
 
