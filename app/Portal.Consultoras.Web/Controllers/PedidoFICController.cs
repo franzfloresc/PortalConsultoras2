@@ -45,18 +45,15 @@ namespace Portal.Consultoras.Web.Controllers
 
                 // Req. 1664 - Gestion de contenido S3
                 var carpetaPais = Globals.UrlOfertasFic + "/" + userData.CodigoISO;
-                var url = ConfigS3.GetUrlFileS3(carpetaPais, userData.ImagenURLOfertaFIC, "");
+                var url = ConfigS3.GetUrlFileCdn(carpetaPais, userData.ImagenURLOfertaFIC);
 
                 ViewBag.ImagenUrlOfertaFIC = url; //SSAP CGI(Id Solicitud=1402)
                 ViewBag.PaisID = userData.PaisID; //1501
 
-                if (olstPedidoFICDetalle.Count != 0)
+                if (olstPedidoFICDetalle.Count != 0 && userData.PedidoID == 0)
                 {
-                    if (userData.PedidoID == 0)
-                    {
-                        userData.PedidoID = olstPedidoFICDetalle[0].PedidoID;
-                        SetUserData(userData);
-                    }
+                    userData.PedidoID = olstPedidoFICDetalle[0].PedidoID;
+                    SetUserData(userData);
                 }
 
                 var eventofestivo = GetEventoFestivoData();

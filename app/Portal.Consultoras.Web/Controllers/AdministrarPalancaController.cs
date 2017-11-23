@@ -290,8 +290,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (lst != null && lst.Count > 0)
             {
-                var carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
-                lst.Update(x => x.ImagenEstrategia = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenEstrategia, Globals.RutaImagenesMatriz + "/" + UserData().CodigoISO));
+                var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+                lst.Update(x => x.ImagenEstrategia = ConfigS3.GetUrlFileCdn(carpetaPais, x.ImagenEstrategia));
             }
 
             var lista = from a in lst

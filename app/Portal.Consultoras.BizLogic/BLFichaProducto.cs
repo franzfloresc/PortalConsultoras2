@@ -79,12 +79,12 @@ namespace Portal.Consultoras.BizLogic
             fichasProductosResult.ForEach(ficha =>
             {
                 ficha.CampaniaID = entidad.CampaniaID;
-                ficha.ImagenURL = ConfigS3.GetUrlFileS3(carpetaPais, ficha.ImagenURL, carpetaPais);
+                ficha.ImagenURL = ConfigS3.GetUrlFileCdn(carpetaPais, ficha.ImagenURL);
                 ficha.Simbolo = entidad.Simbolo;
                 ficha.TieneStockProl = true;
                 ficha.PrecioString = Util.DecimalToStringFormat(ficha.Precio2, codigoIso);
                 ficha.PrecioTachado = Util.DecimalToStringFormat(ficha.Precio, codigoIso);
-                ficha.FotoProducto01 = string.IsNullOrEmpty(ficha.FotoProducto01) ? string.Empty : ficha.FotoProducto01.StartsWith("http") ? ficha.FotoProducto01 : ConfigS3.GetUrlFileS3(carpetaPais, ficha.FotoProducto01, carpetaPais);
+                ficha.FotoProducto01 = string.IsNullOrEmpty(ficha.FotoProducto01) ? string.Empty : ficha.FotoProducto01.StartsWith("http") ? ficha.FotoProducto01 : ConfigS3.GetUrlFileCdn(carpetaPais, ficha.FotoProducto01);
                 ficha.URLCompartir = Util.GetUrlCompartirFB(codigoIso);
                 ficha.CodigoEstrategia = Util.Trim(ficha.CodigoEstrategia);
             });

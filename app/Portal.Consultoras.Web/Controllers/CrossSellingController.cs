@@ -243,10 +243,12 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = sv.GetCrossSellingProductosAdministracion(PaisID, CampaniaID).ToList();
                 }
                 // 1664
-                var carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
-                if (lst != null)
-                    if (lst.Count > 0) // 1664
-                        lst.Update(x => x.ImagenProducto = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.RutaImagenesMatriz + "/" + UserData().CodigoISO));
+                
+                if (lst != null && lst.Count > 0)
+                {
+                    var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+                    lst.Update(x => x.ImagenProducto = ConfigS3.GetUrlFileCdn(carpetaPais, x.ImagenProducto));
+                }                                            
 
                 string ISO = Util.GetPaisISO(PaisID);
 
@@ -302,7 +304,7 @@ namespace Portal.Consultoras.Web.Controllers
                 items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
                 pag = Util.PaginadorGenerico(grid, lst);
-                // lst.Update(x => x.ImagenProducto = (x.ImagenProducto.ToString().Equals(string.Empty) ? string.Empty : (ISO + "/" + x.ImagenProducto)));
+                
                 lst.Update(x => x.ISOPais = ISO);
                 // Creamos la estructura
                 var data = new

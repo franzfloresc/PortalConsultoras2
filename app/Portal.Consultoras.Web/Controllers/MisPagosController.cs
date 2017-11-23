@@ -662,9 +662,12 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             string iso = userData.CodigoISO;
-            var carpetaPais = Globals.UrlLugaresPago + "/" + iso;
+            
             if (lst.Any())
-                lst.Update(x => x.ArchivoLogo = ConfigS3.GetUrlFileS3(carpetaPais, x.ArchivoLogo, Globals.RutaImagenesLugaresPago + "/" + iso));
+            {
+                var carpetaPais = Globals.UrlLugaresPago + "/" + iso;
+                lst.Update(x => x.ArchivoLogo = ConfigS3.GetUrlFileCdn(carpetaPais, x.ArchivoLogo));
+            }                
 
             var lugaresPagoModel = new LugaresPagoModel()
             {

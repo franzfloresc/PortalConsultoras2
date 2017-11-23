@@ -98,12 +98,11 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 // 1664
-                if (lst != null)
+                if (lst != null && lst.Count > 0)
                 {
-                    var carpetaPais = Globals.UrlLugaresPago + "/" + UserData().CodigoISO;
-                    if (lst.Count > 0) { lst.Update(x => x.ArchivoLogo = ConfigS3.GetUrlFileS3(carpetaPais, x.ArchivoLogo, Globals.RutaImagenesLugaresPago + "/" + UserData().CodigoISO)); }
+                    var carpetaPais = Globals.UrlLugaresPago + "/" + userData.CodigoISO;
+                    lst.Update(x => x.ArchivoLogo = ConfigS3.GetUrlFileCdn(carpetaPais, x.ArchivoLogo));
                 }
-
 
                 // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();

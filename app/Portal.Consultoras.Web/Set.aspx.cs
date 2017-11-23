@@ -54,10 +54,8 @@ namespace Portal.Consultoras.Web
                 }
                 else
                 {
-                    ofertaShowRoom.ImagenMini = ConfigS3.GetUrlFileS3(carpetaPais, ofertaShowRoom.ImagenMini,
-                        Globals.UrlMatriz + "/" + codigoIso);
-                    ofertaShowRoom.ImagenProducto = ConfigS3.GetUrlFileS3(carpetaPais, ofertaShowRoom.ImagenProducto,
-                        Globals.UrlMatriz + "/" + codigoIso);
+                    ofertaShowRoom.ImagenMini = ConfigS3.GetUrlFileCdn(carpetaPais, ofertaShowRoom.ImagenMini);
+                    ofertaShowRoom.ImagenProducto = ConfigS3.GetUrlFileCdn(carpetaPais, ofertaShowRoom.ImagenProducto);
                 }
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())

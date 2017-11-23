@@ -38,7 +38,7 @@ namespace Portal.Consultoras.Web.WebPages
                         }
                         var carpetaPais = Globals.UrlNavidadConsultora;
                         registro = resultado.FirstOrDefault();
-                        modelo.UrlImagen = ConfigS3.GetUrlFileS3(carpetaPais, registro.NombreImg, "");
+                        modelo.UrlImagen = ConfigS3.GetUrlFileCdn(carpetaPais, registro.NombreImg);
                         modelo.ImagenId = registro.ImagenId;
 
                         HtmlMeta metaImage = new HtmlMeta();

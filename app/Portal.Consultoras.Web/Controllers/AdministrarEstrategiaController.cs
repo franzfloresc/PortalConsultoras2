@@ -132,8 +132,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (lst != null && lst.Count > 0)
             {
-                var carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
-                lst.Update(x => x.ImagenEstrategia = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenEstrategia, Globals.RutaImagenesMatriz + "/" + UserData().CodigoISO));
+                var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+                lst.Update(x => x.ImagenEstrategia = ConfigS3.GetUrlFileCdn(carpetaPais, x.ImagenEstrategia));
 
                 var lista = (from a in lst
                              where a.FlagActivo == 1
@@ -216,7 +216,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         var entidad = new BEEstrategia
                         {
-                            PaisID = UserData().PaisID,
+                            PaisID = userData.PaisID,
                             TipoEstrategiaID = Convert.ToInt32(TipoEstrategiaID),
                             CUV2 = (CUV != "") ? CUV : "0",
                             CampaniaID = Convert.ToInt32(CampaniaID),
@@ -234,10 +234,10 @@ namespace Portal.Consultoras.Web.Controllers
                         lst = new List<BEEstrategia>();
                     }
 
-                    string carpetapais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
+                    string carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
 
                     if (lst != null && lst.Count > 0)
-                        lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL, carpetapais));
+                        lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileCdn(carpetapais, x.ImagenURL));
 
                     // Usamos el modelo para obtener los datos
                     var grid = new BEGrid
@@ -932,7 +932,7 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEEstrategia> lst;
 
             var entidad = new BEEstrategia();
-            entidad.PaisID = UserData().PaisID;
+            entidad.PaisID = userData.PaisID;
             entidad.EstrategiaID = Convert.ToInt32(EstrategiaID);
             entidad.FlagNueva = FlagNueva;
 
@@ -941,13 +941,12 @@ namespace Portal.Consultoras.Web.Controllers
                 lst = sv.FiltrarEstrategiaPedido(entidad).ToList();
             }
 
-            string carpetapais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
+            string carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
 
             if (lst != null && lst.Count > 0)
-            {
-                lst.Update(x => x.FotoProducto01 = x.FotoProducto01); //ConfigS3.GetUrlFileS3(carpetapais, x.FotoProducto01, carpetapais));
-                lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL, carpetapais));
-                lst.Update(x => x.Simbolo = UserData().Simbolo);
+            {                
+                lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileCdn(carpetapais, x.ImagenURL));
+                lst.Update(x => x.Simbolo = userData.Simbolo);
             }
             //R2469 - JICM - ViewBag Marcacion Detalle Producto
             ViewBag.ProductoDestacadoDetalle = lst[0];

@@ -95,8 +95,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 pag = Util.PaginadorGenerico(grid, lst);
                 // Creamos la estructura
-                string ISO = Util.GetPaisISO(paisID);
-                var carpetaPais = Globals.UrlMatriz + "/" + ISO; // 1664
+                string ISO = Util.GetPaisISO(paisID);                
 
                 var data = new
                 {
@@ -114,17 +113,6 @@ namespace Portal.Consultoras.Web.Controllers
                                    a.CodigoSAP.ToString(),
                                    a.DescripcionOriginal.ToString(),
                                    a.Descripcion.ToString(),
-                                   /*,
-                                   ConfigS3.GetUrlFileS3(carpetaPais, a.FotoProducto01.ToString(), Globals.RutaImagenesMatriz + "/" + ISO), // 1664
-                                   ConfigS3.GetUrlFileS3(carpetaPais, a.FotoProducto02.ToString(), Globals.RutaImagenesMatriz + "/" + ISO), // 1664
-                                   ConfigS3.GetUrlFileS3(carpetaPais, a.FotoProducto03.ToString(), Globals.RutaImagenesMatriz + "/" + ISO), // 1664
-                                   ConfigS3.GetUrlFileS3(carpetaPais, a.FotoProducto04.ToString(), Globals.RutaImagenesMatriz + "/" + ISO),
-                                   ConfigS3.GetUrlFileS3(carpetaPais, a.FotoProducto05.ToString(), Globals.RutaImagenesMatriz + "/" + ISO),
-                                   ConfigS3.GetUrlFileS3(carpetaPais, a.FotoProducto06.ToString(), Globals.RutaImagenesMatriz + "/" + ISO),
-                                   ConfigS3.GetUrlFileS3(carpetaPais, a.FotoProducto07.ToString(), Globals.RutaImagenesMatriz + "/" + ISO),
-                                   ConfigS3.GetUrlFileS3(carpetaPais, a.FotoProducto08.ToString(), Globals.RutaImagenesMatriz + "/" + ISO),
-                                   ConfigS3.GetUrlFileS3(carpetaPais, a.FotoProducto09.ToString(), Globals.RutaImagenesMatriz + "/" + ISO),
-                                   ConfigS3.GetUrlFileS3(carpetaPais, a.FotoProducto10.ToString(), Globals.RutaImagenesMatriz + "/" + ISO)*/
                                 }
                            }
                 };

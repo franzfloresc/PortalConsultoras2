@@ -128,9 +128,12 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 // 1664
-                var carpetaPais = Globals.UrlBanner + "/" + UserData().CodigoISO;
-                if (lst != null)
-                    if (lst.Count > 0) lst.Update(x => x.ArchivoPortada = ConfigS3.GetUrlFileS3(carpetaPais, x.ArchivoPortada, Globals.RutaImagenesIncentivos + "/" + UserData().CodigoISO));
+                
+                if (lst != null && lst.Count > 0)
+                {
+                    var carpetaPais = Globals.UrlBanner + "/" + userData.CodigoISO;
+                    lst.Update(x => x.ArchivoPortada = ConfigS3.GetUrlFileCdn(carpetaPais, x.ArchivoPortada));
+                }                    
 
                 // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();

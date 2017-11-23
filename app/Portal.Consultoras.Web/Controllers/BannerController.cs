@@ -367,9 +367,12 @@ namespace Portal.Consultoras.Web.Controllers
 
 
                     // 1664
-                    var carpetaPais = Globals.UrlBanner;
-                    if (lst != null)
-                        if (lst.Count > 0) lst.Update(x => x.Archivo = ConfigS3.GetUrlFileS3(carpetaPais, x.Archivo, Globals.RutaImagenesBanners));
+                    
+                    if (lst != null && lst.Count > 0)
+                    {
+                        var carpetaPais = Globals.UrlBanner;
+                        lst.Update(x => x.Archivo = ConfigS3.GetUrlFileCdn(carpetaPais, x.Archivo));
+                    }                        
 
                     List<string> lstCell = new List<string>();
 
@@ -590,9 +593,8 @@ namespace Portal.Consultoras.Web.Controllers
                 issuccess = false;
             }
 
-            if (lstFinalInfo != null)
-                if (lstFinalInfo.Any())
-                    lstFinalInfo.ForEach(x => x.Archivo = ConfigS3.GetUrlFileS3(Globals.UrlBanner, x.Archivo, Globals.RutaImagenesBanners));
+            if (lstFinalInfo.Any())
+                lstFinalInfo.ForEach(x => x.Archivo = ConfigS3.GetUrlFileCdn(Globals.UrlBanner, x.Archivo));
 
             var lstFinalModel = Mapper.Map<List<BannerInfoModel>>(lstFinalInfo);
 
@@ -906,13 +908,6 @@ namespace Portal.Consultoras.Web.Controllers
                                      where item.GrupoBannerID == 150
                                      select item).ToList();
                 }
-                //else if (vTipoBanner == "I")
-                //{
-                //    lstBannerInfo = (from item in lstBannerInfo
-                //                     where item.GrupoBannerID != 1 && item.GrupoBannerID != 6 &&
-                //                     item.GrupoBannerID != 7 && item.GrupoBannerID != 8 && item.GrupoBannerID != 9
-                //                     select item).ToList();
-                //}
                 else if (vTipoBanner == "B")
                 {
                     lstBannerInfo = (from item in lstBannerInfo
@@ -927,7 +922,7 @@ namespace Portal.Consultoras.Web.Controllers
                 // 1664 - ObtenerBannerPrevio
                 if (lstBannerInfo != null && lstBannerInfo.Count > 0)
                 {
-                    lstBannerInfo.Update(x => x.Archivo = ConfigS3.GetUrlFileS3(Globals.UrlBanner, x.Archivo, Globals.RutaImagenesBanners));
+                    lstBannerInfo.Update(x => x.Archivo = ConfigS3.GetUrlFileCdn(Globals.UrlBanner, x.Archivo));
                 }
 
                 issuccess = true;

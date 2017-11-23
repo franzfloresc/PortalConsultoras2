@@ -257,15 +257,15 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                listaShowRoomOferta = sv.GetShowRoomOfertasConsultora(userData.PaisID, campaniaId, codigoConsultora, tienePersonalizacion).ToList();
-                var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+                listaShowRoomOferta = sv.GetShowRoomOfertasConsultora(userData.PaisID, campaniaId, codigoConsultora, tienePersonalizacion).ToList();                
 
                 if (listaShowRoomOferta != null)
                 {
+                    var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
                     listaShowRoomOferta.Update(x => x.ImagenProducto = string.IsNullOrEmpty(x.ImagenProducto)
-                                    ? "" : ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.UrlMatriz + "/" + userData.CodigoISO));
+                                    ? "" : ConfigS3.GetUrlFileCdn(carpetaPais, x.ImagenProducto));
                     listaShowRoomOferta.Update(x => x.ImagenMini = string.IsNullOrEmpty(x.ImagenMini)
-                                    ? "" : ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenMini, Globals.UrlMatriz + "/" + userData.CodigoISO));
+                                    ? "" : ConfigS3.GetUrlFileCdn(carpetaPais, x.ImagenMini));
                 }
             }
 
@@ -526,7 +526,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 p.Imagen = string.IsNullOrEmpty(p.Imagen)
                     ? "/Content/Images/showroom/no_disponible.png"
-                    : ConfigS3.GetUrlFileS3(carpetaPais, p.Imagen, Globals.UrlMatriz + "/" + userData.CodigoISO);
+                    : ConfigS3.GetUrlFileCdn(carpetaPais, p.Imagen);
             });
 
             return ofertaShowRoomModelo;
@@ -653,9 +653,9 @@ namespace Portal.Consultoras.Web.Controllers
         protected virtual void ActualizarUrlImagenes(List<BEShowRoomOferta> ofertasShowRoom)
         {
             ofertasShowRoom.Update(x => x.ImagenProducto = string.IsNullOrEmpty(x.ImagenProducto)
-                            ? "" : ConfigS3.GetUrlFileS3(ObtenerCarpetaPais(), x.ImagenProducto, ObtenerCarpetaPais()));
+                            ? "" : ConfigS3.GetUrlFileCdn(ObtenerCarpetaPais(), x.ImagenProducto));
             ofertasShowRoom.Update(x => x.ImagenMini = string.IsNullOrEmpty(x.ImagenMini)
-                ? "" : ConfigS3.GetUrlFileS3(ObtenerCarpetaPais(), x.ImagenMini, ObtenerCarpetaPais()));
+                ? "" : ConfigS3.GetUrlFileCdn(ObtenerCarpetaPais(), x.ImagenMini));
         }
 
         protected virtual string ObtenerCarpetaPais()

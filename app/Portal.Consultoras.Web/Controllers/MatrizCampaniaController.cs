@@ -101,11 +101,10 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var productos = (List<ServiceSAC.BEProductoDescripcion>)null;
+                var productos = (List<BEProductoDescripcion>)null;
                 using (SACServiceClient sv = new SACServiceClient())
                 {
                     productos = sv.GetProductoDescripcionByCUVandCampania(Convert.ToInt32(paisID), Convert.ToInt32(IDCampania), CUV).ToList();
-
                 }
 
                 if (!productos.Any())
@@ -118,13 +117,10 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-
                 if (productos.Count == 2 && !string.IsNullOrEmpty(productos.LastOrDefault().RegaloImagenUrl))
                 {
-                    string carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
-                    productos.LastOrDefault().RegaloImagenUrl = ConfigS3.GetUrlFileS3(carpetaPais,
-                        productos.LastOrDefault().RegaloImagenUrl,
-                        carpetaPais);
+                    string carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+                    productos.LastOrDefault().RegaloImagenUrl = ConfigS3.GetUrlFileCdn(carpetaPais,productos.LastOrDefault().RegaloImagenUrl);
                 }
 
                 return Json(new

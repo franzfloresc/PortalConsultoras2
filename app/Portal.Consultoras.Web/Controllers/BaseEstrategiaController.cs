@@ -438,17 +438,17 @@ namespace Portal.Consultoras.Web.Controllers
                 if (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento)
                 {
                     #region Lanzamiento
-                    estrategia.EstrategiaDetalle.ImgFondoDesktop = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgFondoDesktop);
-                    estrategia.EstrategiaDetalle.ImgPrevDesktop = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgPrevDesktop);
-                    estrategia.EstrategiaDetalle.ImgFichaDesktop = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgFichaDesktop);
-                    estrategia.EstrategiaDetalle.ImgFichaFondoDesktop = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgFichaFondoDesktop);
+                    estrategia.EstrategiaDetalle.ImgFondoDesktop = ConfigS3.GetUrlFileCdn(carpetaPais, estrategia.EstrategiaDetalle.ImgFondoDesktop);
+                    estrategia.EstrategiaDetalle.ImgPrevDesktop = ConfigS3.GetUrlFileCdn(carpetaPais, estrategia.EstrategiaDetalle.ImgPrevDesktop);
+                    estrategia.EstrategiaDetalle.ImgFichaDesktop = ConfigS3.GetUrlFileCdn(carpetaPais, estrategia.EstrategiaDetalle.ImgFichaDesktop);
+                    estrategia.EstrategiaDetalle.ImgFichaFondoDesktop = ConfigS3.GetUrlFileCdn(carpetaPais, estrategia.EstrategiaDetalle.ImgFichaFondoDesktop);
                     estrategia.EstrategiaDetalle.UrlVideoDesktop = Util.Trim(estrategia.EstrategiaDetalle.UrlVideoDesktop);
-                    estrategia.EstrategiaDetalle.ImgFondoMobile = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgFondoMobile);
-                    estrategia.EstrategiaDetalle.ImgFichaMobile = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgFichaMobile);
-                    estrategia.EstrategiaDetalle.ImgFichaFondoMobile = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgFichaFondoMobile);
+                    estrategia.EstrategiaDetalle.ImgFondoMobile = ConfigS3.GetUrlFileCdn(carpetaPais, estrategia.EstrategiaDetalle.ImgFondoMobile);
+                    estrategia.EstrategiaDetalle.ImgFichaMobile = ConfigS3.GetUrlFileCdn(carpetaPais, estrategia.EstrategiaDetalle.ImgFichaMobile);
+                    estrategia.EstrategiaDetalle.ImgFichaFondoMobile = ConfigS3.GetUrlFileCdn(carpetaPais, estrategia.EstrategiaDetalle.ImgFichaFondoMobile);
                     estrategia.EstrategiaDetalle.UrlVideoMobile = Util.Trim(estrategia.EstrategiaDetalle.UrlVideoMobile);
-                    estrategia.EstrategiaDetalle.ImgHomeDesktop = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgHomeDesktop);
-                    estrategia.EstrategiaDetalle.ImgHomeMobile = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgHomeMobile);
+                    estrategia.EstrategiaDetalle.ImgHomeDesktop = ConfigS3.GetUrlFileCdn(carpetaPais, estrategia.EstrategiaDetalle.ImgHomeDesktop);
+                    estrategia.EstrategiaDetalle.ImgHomeMobile = ConfigS3.GetUrlFileCdn(carpetaPais, estrategia.EstrategiaDetalle.ImgHomeMobile);
 
                     var listadescr = estrategia.DescripcionCUV2.Split('|');
                     estrategia.DescripcionResumen = listadescr.Length > 0 ? listadescr[0] : "";
@@ -584,22 +584,22 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento)
                 {
-                    prodModel.TipoEstrategiaDetalle.ImgFondoDesktop = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgFondoDesktop);
-                    prodModel.TipoEstrategiaDetalle.ImgPrevDesktop = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgPrevDesktop);
-                    prodModel.TipoEstrategiaDetalle.ImgFichaDesktop = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgFichaDesktop);
-                    prodModel.TipoEstrategiaDetalle.ImgFichaFondoDesktop = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgFichaFondoDesktop);
+                    prodModel.TipoEstrategiaDetalle.ImgFondoDesktop = ConfigS3.GetUrlFileCdn(carpetaPais, estrategia.EstrategiaDetalle.ImgFondoDesktop);
+                    prodModel.TipoEstrategiaDetalle.ImgPrevDesktop = ConfigS3.GetUrlFileCdn(carpetaPais, estrategia.EstrategiaDetalle.ImgPrevDesktop);
+                    prodModel.TipoEstrategiaDetalle.ImgFichaDesktop = ConfigS3.GetUrlFileCdn(carpetaPais, estrategia.EstrategiaDetalle.ImgFichaDesktop);
+                    prodModel.TipoEstrategiaDetalle.ImgFichaFondoDesktop = ConfigS3.GetUrlFileCdn(carpetaPais, estrategia.EstrategiaDetalle.ImgFichaFondoDesktop);
                     prodModel.TipoEstrategiaDetalle.UrlVideoDesktop = Util.Trim(estrategia.EstrategiaDetalle.UrlVideoDesktop);
-                    prodModel.TipoEstrategiaDetalle.ImgFondoMobile = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgFondoMobile);
-                    prodModel.TipoEstrategiaDetalle.ImgFichaMobile = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgFichaMobile);
-                    prodModel.TipoEstrategiaDetalle.ImgFichaFondoMobile = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgFichaFondoMobile);
+                    prodModel.TipoEstrategiaDetalle.ImgFondoMobile = ConfigS3.GetUrlFileCdn(carpetaPais, estrategia.EstrategiaDetalle.ImgFondoMobile);
+                    prodModel.TipoEstrategiaDetalle.ImgFichaMobile = ConfigS3.GetUrlFileCdn(carpetaPais, estrategia.EstrategiaDetalle.ImgFichaMobile);
+                    prodModel.TipoEstrategiaDetalle.ImgFichaFondoMobile = ConfigS3.GetUrlFileCdn(carpetaPais, estrategia.EstrategiaDetalle.ImgFichaFondoMobile);
                     prodModel.TipoEstrategiaDetalle.UrlVideoMobile = Util.Trim(estrategia.EstrategiaDetalle.UrlVideoMobile);
-                    prodModel.TipoEstrategiaDetalle.ImgHomeDesktop = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgHomeDesktop);
-                    prodModel.TipoEstrategiaDetalle.ImgHomeMobile = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgHomeMobile);
+                    prodModel.TipoEstrategiaDetalle.ImgHomeDesktop = ConfigS3.GetUrlFileCdn(carpetaPais, estrategia.EstrategiaDetalle.ImgHomeDesktop);
+                    prodModel.TipoEstrategiaDetalle.ImgHomeMobile = ConfigS3.GetUrlFileCdn(carpetaPais, estrategia.EstrategiaDetalle.ImgHomeMobile);
                 }
                 if (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas)
                 {
                     prodModel.EsOfertaIndependiente = estrategia.EsOfertaIndependiente;
-                    prodModel.ImagenOfertaIndependiente = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.ImagenOfertaIndependiente);
+                    prodModel.ImagenOfertaIndependiente = ConfigS3.GetUrlFileCdn(carpetaPais, estrategia.ImagenOfertaIndependiente);
                     prodModel.MostrarImgOfertaIndependiente = estrategia.MostrarImgOfertaIndependiente;
                 }
                 listaRetorno.Add(prodModel);

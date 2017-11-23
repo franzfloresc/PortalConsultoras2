@@ -43,7 +43,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 if (lstBannerInfo.Any())
                 {
                     model.AddRange(lstBannerInfo.Where(x => x.GrupoBannerID == 150).OrderBy(x => x.Orden));
-                    model.Update(x => x.Archivo = ConfigS3.GetUrlFileS3(Globals.UrlBanner, x.Archivo, Globals.RutaImagenesBanners));
+                    model.Update(x => x.Archivo = ConfigS3.GetUrlFileCdn(Globals.UrlBanner, x.Archivo));
                 }
             }
             catch (FaultException ex)

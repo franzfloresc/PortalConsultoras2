@@ -23,21 +23,20 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (!UsuarioModel.HasAcces(ViewBag.Permiso, "OfertaFlexipago/OfertasFlexipago"))
                     return RedirectToAction("Index", "Bienvenida");
-                ViewBag.CampaniaID = UserData().CampaniaID.ToString();
-                ViewBag.ISO = UserData().CodigoISO.ToString();
-                ViewBag.Simbolo = UserData().Simbolo.ToString().Trim();
+                ViewBag.CampaniaID = userData.CampaniaID.ToString();
+                ViewBag.ISO = userData.CodigoISO.ToString();
+                ViewBag.Simbolo = userData.Simbolo.ToString().Trim();
                 var lista = GetListadoOfertasFlexipago();
                 if (lista != null && lista.Count > 0)
                 {
+                    var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
                     lista.Update(x => x.DescripcionMarca = GetDescripcionMarca(x.MarcaID));
-                    // 1664
-                    var carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
-                    lista.Update(x => x.ImagenProducto = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.RutaImagenesMatriz + "/" + UserData().CodigoISO));
+                    lista.Update(x => x.ImagenProducto = ConfigS3.GetUrlFileCdn(carpetaPais, x.ImagenProducto));
                 }
                 BEConfiguracionCampania oBEConfiguracionCampania = null;
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    oBEConfiguracionCampania = sv.GetEstadoPedido(UserData().PaisID, UserData().CampaniaID, UserData().ConsultoraID, UserData().ZonaID, UserData().RegionID);
+                    oBEConfiguracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.ZonaID, userData.RegionID);
                 }
                 if (oBEConfiguracionCampania != null)
                     ValidarStatusCampania(oBEConfiguracionCampania);
@@ -46,7 +45,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
             return View();
 
@@ -115,8 +114,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                UnidadesPermitidas = sv.GetUnidadesPermitidasByCuvFlexipago(UserData().PaisID, UserData().CampaniaID, CUV);
-                Saldo = sv.ValidarUnidadesPermitidasEnPedidoFlexipago(UserData().PaisID, UserData().CampaniaID, CUV, UserData().ConsultoraID);
+                UnidadesPermitidas = sv.GetUnidadesPermitidasByCuvFlexipago(userData.PaisID, userData.CampaniaID, CUV);
+                Saldo = sv.ValidarUnidadesPermitidasEnPedidoFlexipago(userData.PaisID, userData.CampaniaID, CUV, userData.ConsultoraID);
             }
 
             return Json(new
@@ -131,8 +130,8 @@ namespace Portal.Consultoras.Web.Controllers
             var lst = new List<BEOfertaFlexipago>();
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                int Cantidad = sv.ObtenerMaximoItemsaMostrarFlexipago(UserData().PaisID);
-                lst = sv.GetOfertaProductosPortalFlexipago(UserData().PaisID, Constantes.ConfiguracionOferta.Flexipago, UserData().CodigoConsultora, UserData().CampaniaID).Take(Cantidad).ToList();
+                int Cantidad = sv.ObtenerMaximoItemsaMostrarFlexipago(userData.PaisID);
+                lst = sv.GetOfertaProductosPortalFlexipago(userData.PaisID, Constantes.ConfiguracionOferta.Flexipago, userData.CodigoConsultora, userData.CampaniaID).Take(Cantidad).ToList();
             }
 
             Mapper.CreateMap<BEOfertaFlexipago, OfertaFlexipagoModel>()
@@ -161,7 +160,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                Stock = sv.GetStockOfertaProductoFlexipago(UserData().PaisID, UserData().CampaniaID, CUV, Constantes.ConfiguracionOferta.Flexipago);
+                Stock = sv.GetStockOfertaProductoFlexipago(userData.PaisID, userData.CampaniaID, CUV, Constantes.ConfiguracionOferta.Flexipago);
             }
 
             return Json(new
@@ -190,13 +189,13 @@ namespace Portal.Consultoras.Web.Controllers
                 BEPedidoWebDetalle entidad = Mapper.Map<PedidoDetalleModel, BEPedidoWebDetalle>(model);
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    entidad.PaisID = UserData().PaisID;
-                    entidad.ConsultoraID = UserData().ConsultoraID;
-                    entidad.CampaniaID = UserData().CampaniaID;
+                    entidad.PaisID = userData.PaisID;
+                    entidad.ConsultoraID = userData.ConsultoraID;
+                    entidad.CampaniaID = userData.CampaniaID;
                     entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.Flexipago;
-                    entidad.IPUsuario = UserData().IPUsuario;
+                    entidad.IPUsuario = userData.IPUsuario;
 
-                    entidad.CodigoUsuarioCreacion = UserData().CodigoConsultora;
+                    entidad.CodigoUsuarioCreacion = userData.CodigoConsultora;
                     entidad.CodigoUsuarioModificacion = entidad.CodigoUsuarioCreacion;
                     entidad.OrigenPedidoWeb = ProcesarOrigenPedido(entidad.OrigenPedidoWeb);
 
@@ -230,7 +229,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -240,7 +239,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -272,12 +271,12 @@ namespace Portal.Consultoras.Web.Controllers
                 BEPedidoWebDetalle entidad = Mapper.Map<PedidoDetalleModel, BEPedidoWebDetalle>(model);
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    entidad.PaisID = UserData().PaisID;
-                    entidad.ConsultoraID = UserData().ConsultoraID;
-                    entidad.CampaniaID = UserData().CampaniaID;
+                    entidad.PaisID = userData.PaisID;
+                    entidad.ConsultoraID = userData.ConsultoraID;
+                    entidad.CampaniaID = userData.CampaniaID;
                     entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.Flexipago;
 
-                    entidad.CodigoUsuarioCreacion = UserData().CodigoConsultora;
+                    entidad.CodigoUsuarioCreacion = userData.CodigoConsultora;
                     entidad.CodigoUsuarioModificacion = entidad.CodigoUsuarioCreacion;
 
                     sv.UpdPedidoWebDetalleOferta(entidad);
@@ -294,7 +293,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -304,7 +303,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -344,7 +343,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
 
             var cronogramaModel = new OfertaFlexipagoModel()
@@ -375,7 +374,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -385,7 +384,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -487,7 +486,7 @@ namespace Portal.Consultoras.Web.Controllers
                                                 ent.CantidadRegistros = registros;
                                                 ent.PaisID = paisID;
                                                 ent.TipoOfertaSisID = Constantes.ConfiguracionOferta.Flexipago;
-                                                ent.UsuarioRegistro = UserData().CodigoConsultora;
+                                                ent.UsuarioRegistro = userData.CodigoConsultora;
                                                 srv.InsStockCargaLog(ent);
                                             }
                                             #endregion
@@ -499,11 +498,11 @@ namespace Portal.Consultoras.Web.Controllers
                                     }
                                     catch (FaultException ex)
                                     {
-                                        LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                                        LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                                     }
                                     catch (Exception ex)
                                     {
-                                        LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                                        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                                     }
                                 }
                             }
@@ -529,7 +528,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 if (tipoCarga.Equals("0"))
                     message = "Se actualizaron solo " + registros + " registro(s), debido a que uno o más ISO's ingresados en el archivo aún no están habilitados.";
                 else
@@ -537,7 +536,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 if (tipoCarga.Equals("0"))
                     message = "Se actualizaron solo " + registros + " registro(s), debido a que uno o más ISO's ingresados en el archivo aún no están habilitados.";
                 else
@@ -560,32 +559,32 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEMatrizComercial> lst = new List<BEMatrizComercial>();
 
             // 1664
-            var carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
+            var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
             List<BEMatrizComercial> lstFinal = new List<BEMatrizComercial>();
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
                 lst = sv.GetImagenesByCodigoSAP(paisID, codigoSAP).ToList();
-            }
-
-            lstFinal.Add(new BEMatrizComercial
-            {
-                IdMatrizComercial = lst[0].IdMatrizComercial,
-                CodigoSAP = lst[0].CodigoSAP,
-                Descripcion = lst[0].Descripcion,
-                PaisID = lst[0].PaisID
-            });
+            }            
 
             if (lst != null && lst.Count > 0)
             {
+                lstFinal.Add(new BEMatrizComercial
+                {
+                    IdMatrizComercial = lst[0].IdMatrizComercial,
+                    CodigoSAP = lst[0].CodigoSAP,
+                    Descripcion = lst[0].Descripcion,
+                    PaisID = lst[0].PaisID
+                });
+
                 if (lst[0].FotoProducto != "")
-                    lstFinal[0].FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                    lstFinal[0].FotoProducto01 = ConfigS3.GetUrlFileCdn(carpetaPais, lst[0].FotoProducto);
 
                 if (lst[1].FotoProducto != "")
-                    lstFinal[0].FotoProducto02 = ConfigS3.GetUrlFileS3(carpetaPais, lst[1].FotoProducto, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                    lstFinal[0].FotoProducto02 = ConfigS3.GetUrlFileCdn(carpetaPais, lst[1].FotoProducto);
 
                 if (lst[2].FotoProducto != "")
-                    lstFinal[0].FotoProducto03 = ConfigS3.GetUrlFileS3(carpetaPais, lst[2].FotoProducto, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                    lstFinal[0].FotoProducto03 = ConfigS3.GetUrlFileCdn(carpetaPais, lst[2].FotoProducto);
             }
 
             return Json(new
@@ -683,11 +682,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 pag = Util.PaginadorGenerico(grid, lst);
                 string ISO = Util.GetPaisISO(PaisID);
-
-                // lst.Update(x => x.ImagenProducto = (x.ImagenProducto.ToString().Equals(string.Empty) ? string.Empty : (ISO + "/" + x.ImagenProducto)));
-                // 1664
+                
                 var carpetaPais = Globals.UrlMatriz + "/" + ISO;
-                lst.Update(x => x.ImagenProducto = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.RutaImagenesMatriz + "/" + UserData().CodigoISO));
+                lst.Update(x => x.ImagenProducto = ConfigS3.GetUrlFileCdn(carpetaPais, x.ImagenProducto));
                 lst.Update(x => x.ISOPais = ISO);
                 lst.Update(x => x.TipoOfertaSisID = Constantes.ConfiguracionOferta.Flexipago);
                 // Creamos la estructura
@@ -755,7 +752,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -765,7 +762,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -790,7 +787,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
 
                     entidad.PaisID = model.PaisID;
-                    entidad.UsuarioRegistro = UserData().CodigoConsultora;
+                    entidad.UsuarioRegistro = userData.CodigoConsultora;
 
                     svc.GuardarLinksOfertaFlexipago(entidad);
                 }
@@ -804,7 +801,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -814,7 +811,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -841,7 +838,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -851,7 +848,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -918,7 +915,7 @@ namespace Portal.Consultoras.Web.Controllers
                     entidad.PaisID = model.PaisID;
                     entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.Flexipago;
                     entidad.ConfiguracionOfertaID = lstConfiguracion.Find(x => x.CodigoOferta == model.CodigoTipoOferta).ConfiguracionOfertaID;
-                    entidad.UsuarioRegistro = UserData().CodigoConsultora;
+                    entidad.UsuarioRegistro = userData.CodigoConsultora;
                     sv.InsOfertaFlexipago(entidad);
                 }
                 return Json(new
@@ -930,7 +927,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -940,7 +937,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -976,7 +973,7 @@ namespace Portal.Consultoras.Web.Controllers
                     entidad.PaisID = model.PaisID;
                     entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.Flexipago;
                     entidad.ConfiguracionOfertaID = lstConfiguracion.Find(x => x.CodigoOferta == model.CodigoTipoOferta).ConfiguracionOfertaID;
-                    entidad.UsuarioModificacion = UserData().CodigoConsultora;
+                    entidad.UsuarioModificacion = userData.CodigoConsultora;
                     //entidad.Stock = model.Cantida;
                     sv.UpdOfertaFlexipago(entidad);
                     //sv.UpdOfertaProductoStock()
@@ -990,7 +987,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -1000,7 +997,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -1033,7 +1030,7 @@ namespace Portal.Consultoras.Web.Controllers
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
                     entidad.PaisID = model.PaisID;
-                    entidad.UsuarioModificacion = UserData().CodigoConsultora.ToString();
+                    entidad.UsuarioModificacion = userData.CodigoConsultora.ToString();
                     entidad.TipoOfertaSisID = model.TipoOfertaSisID;
                     sv.DelOfertaFlexipago(entidad);
                 }
@@ -1047,7 +1044,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -1057,7 +1054,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -1072,11 +1069,11 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                if (UserData().RolID == 2) lst = sv.SelectPaises().ToList();
+                if (userData.RolID == 2) lst = sv.SelectPaises().ToList();
                 else
                 {
                     lst = new List<BEPais>();
-                    lst.Add(sv.SelectPais(UserData().PaisID));
+                    lst.Add(sv.SelectPais(userData.PaisID));
                 }
             }
 

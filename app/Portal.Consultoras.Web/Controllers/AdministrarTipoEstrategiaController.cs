@@ -49,13 +49,12 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     lst = new List<BETipoEstrategia>();
                 }
-
-                string carpetapais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
-
+               
                 if (lst != null && lst.Count > 0)
                 {
-                    lst.Update(x => x.ImagenEstrategia = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenEstrategia, carpetapais));
-                    lst.Update(x => x.ImagenOfertaIndependiente = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenOfertaIndependiente, carpetapais));
+                    string carpetapais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
+                    lst.Update(x => x.ImagenEstrategia = ConfigS3.GetUrlFileCdn(carpetapais, x.ImagenEstrategia));
+                    lst.Update(x => x.ImagenOfertaIndependiente = ConfigS3.GetUrlFileCdn(carpetapais, x.ImagenOfertaIndependiente));
                 }
 
                 // Usamos el modelo para obtener los datos

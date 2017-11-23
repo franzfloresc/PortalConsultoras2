@@ -99,10 +99,10 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 // 1664
-                if (lst != null)
+                if (lst != null && lst.Count > 0)
                 {
-                    var carpetaPais = Globals.UrlIncentivos + "/" + UserData().CodigoISO;
-                    if (lst.Count > 0) { lst.Update(x => x.ArchivoPortada = ConfigS3.GetUrlFileS3(carpetaPais, x.ArchivoPortada, Globals.RutaImagenesIncentivos + "/" + UserData().CodigoISO)); }
+                    var carpetaPais = Globals.UrlIncentivos + "/" + userData.CodigoISO;
+                    lst.Update(x => x.ArchivoPortada = ConfigS3.GetUrlFileCdn(carpetaPais, x.ArchivoPortada));
                 }
 
                 // Usamos el modelo para obtener los datos

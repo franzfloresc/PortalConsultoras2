@@ -339,13 +339,13 @@ namespace Portal.Consultoras.BizLogic
                     estrategia.Precio = Convert.ToDecimal(0.0);
 
                 estrategia.CampaniaID = entidad.CampaniaID;
-                estrategia.ImagenURL = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.ImagenURL, carpetaPais);
+                estrategia.ImagenURL = ConfigS3.GetUrlFileCdn(carpetaPais, estrategia.ImagenURL);
                 estrategia.Simbolo = entidad.Simbolo;
                 estrategia.TieneStockProl = true;
                 estrategia.PrecioString = Util.DecimalToStringFormat(estrategia.Precio2, codigoIso);
                 estrategia.PrecioTachado = Util.DecimalToStringFormat(estrategia.Precio, codigoIso);
                 estrategia.GananciaString = Util.DecimalToStringFormat(estrategia.Ganancia, codigoIso);
-                estrategia.FotoProducto01 = string.IsNullOrEmpty(estrategia.FotoProducto01) ? string.Empty : ConfigS3.GetUrlFileS3(carpetaPais, estrategia.FotoProducto01, carpetaPais);
+                estrategia.FotoProducto01 = string.IsNullOrEmpty(estrategia.FotoProducto01) ? string.Empty : ConfigS3.GetUrlFileCdn(carpetaPais, estrategia.FotoProducto01);
                 estrategia.URLCompartir = Util.GetUrlCompartirFB(codigoIso);
                 estrategia.CodigoEstrategia = Util.Trim(estrategia.CodigoEstrategia);
             });
@@ -502,7 +502,7 @@ namespace Portal.Consultoras.BizLogic
 
             listaEstrategias.ForEach(item =>
             {
-                item.FotoProducto01 = string.IsNullOrEmpty(item.FotoProducto01) ? string.Empty : ConfigS3.GetUrlFileS3(carpetaPais, item.FotoProducto01, carpetaPais);
+                item.FotoProducto01 = string.IsNullOrEmpty(item.FotoProducto01) ? string.Empty : ConfigS3.GetUrlFileCdn(carpetaPais, item.FotoProducto01);
                 item.URLCompartir = Util.GetUrlCompartirFB(codigoIso);
             });
 

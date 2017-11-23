@@ -9,9 +9,9 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Index()
         {
 
-            var fileName = "Landing_escala_dscto_" + UserData().CodigoISO + ".jpg";
-            var carpetaPais = Globals.UrlEscalaDescuentos + "/" + UserData().CodigoISO;
-            ViewBag.Ruta = ConfigS3.GetUrlFileS3(carpetaPais, fileName, "");
+            var fileName = "Landing_escala_dscto_" + userData.CodigoISO + ".jpg";
+            var carpetaPais = Globals.UrlEscalaDescuentos + "/" + userData.CodigoISO;
+            ViewBag.Ruta = ConfigS3.GetUrlFileCdn(carpetaPais, fileName);
 
             return View();
 

@@ -1317,10 +1317,11 @@ namespace Portal.Consultoras.Web.Controllers
             var countdown = CountdownODD(model);
 
             var contOdd = 0;
+
+            var carpetaPais = Globals.UrlMatriz + "/" + model.CodigoISO;
             foreach (var oferta in ofertasDelDia)
-            {
-                var carpetaPais = Globals.UrlMatriz + "/" + model.CodigoISO;
-                oferta.ImagenURL = ConfigS3.GetUrlFileS3(carpetaPais, oferta.ImagenURL, carpetaPais);
+            {                
+                oferta.ImagenURL = ConfigS3.GetUrlFileCdn(carpetaPais, oferta.ImagenURL);
 
                 var oddModel = new OfertaDelDiaModel();
                 oddModel.CodigoIso = model.CodigoISO;

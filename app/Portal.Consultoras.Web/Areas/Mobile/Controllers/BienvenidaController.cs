@@ -54,7 +54,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.PortalLideres = userData.PortalLideres;
                 model.DiaPROL = userData.DiaPROL;
                 model.VioTutorial = userData.VioTutorialModelo;
-                model.UrlEnterateMas = ConfigS3.GetUrlFileS3("Mobile/AppCatalogo/" + userData.CodigoISO, "enteratemas.png", String.Empty);
+                model.UrlEnterateMas = ConfigS3.GetUrlFileCdn("Mobile/AppCatalogo/" + userData.CodigoISO, "enteratemas.png");
                 model.CampaniaActual = userData.CampaniaID;
                 model.CatalogoPersonalizadoMobile = userData.CatalogoPersonalizado;
                 model.RutaChile = ObtenerRutaChile();
@@ -65,10 +65,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.MontoDeuda = userData.MontoDeuda;
                 model.IsConsultoraOnline = ObtenerIsConsultoraOnline();
 
-                model.UrlImagenAppCatalogo = ConfigS3.GetUrlFileS3("Mobile/AppCatalogo/" + userData.CodigoISO, "app.png", String.Empty);
-                model.UrlImagenMiAcademia = ConfigS3.GetUrlFileS3("Mobile/MiAcademia/" + userData.CodigoISO, "miacademia.png", String.Empty);
-                model.UrlImagenLiquidaciones = ConfigS3.GetUrlFileS3("Mobile/Liquidaciones/" + userData.CodigoISO, "liquidaciones.png", String.Empty);
-                model.UrlImagenCatalogoPersonalizado = ConfigS3.GetUrlFileS3("Mobile/CatalogoPersonalizado/" + userData.CodigoISO, "catalogo.png", String.Empty);
+                model.UrlImagenAppCatalogo = ConfigS3.GetUrlFileCdn("Mobile/AppCatalogo/" + userData.CodigoISO, "app.png");
+                model.UrlImagenMiAcademia = ConfigS3.GetUrlFileCdn("Mobile/MiAcademia/" + userData.CodigoISO, "miacademia.png");
+                model.UrlImagenLiquidaciones = ConfigS3.GetUrlFileCdn("Mobile/Liquidaciones/" + userData.CodigoISO, "liquidaciones.png");
+                model.UrlImagenCatalogoPersonalizado = ConfigS3.GetUrlFileCdn("Mobile/CatalogoPersonalizado/" + userData.CodigoISO, "catalogo.png");
                 model.EsCatalogoPersonalizadoZonaValida = userData.EsCatalogoPersonalizadoZonaValida;
                 model.CodigoUsuario = userData.CodigoUsuario; //EPD-1180
                 model.EMail = userData.EMail;
