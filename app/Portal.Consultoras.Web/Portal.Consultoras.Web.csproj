@@ -3005,6 +3005,14 @@
     <Content Include="Content\Images\RevistaDigital\lan-fondo.png" />
     <Content Include="Content\Images\RevistaDigital\fondo_srd2.svg" />
     <Content Include="Content\Images\RevistaDigital\Kadiavisual2.png" />
+    <Content Include="Content\Images\RevistaDigital\logotipo-club-ganamas-blanco.svg" />
+    <Content Include="Content\Images\RevistaDigital\logotipo-club-ganamas-morado.svg" />
+    <Content Include="Content\Images\RevistaDigital\logotipo-club-ganamas-negro.svg" />
+    <Content Include="Content\Images\RevistaDigital\logotipo-club-ganamas-rojo.svg" />
+    <Content Include="Content\Images\RevistaDigital\logotipo-ganamas-blanco.svg" />
+    <Content Include="Content\Images\RevistaDigital\logotipo-ganamas-morado.svg" />
+    <Content Include="Content\Images\RevistaDigital\logotipo-ganamas-negro.svg" />
+    <Content Include="Content\Images\RevistaDigital\logotipo-ganamas-rojo.svg" />
     <Content Include="Content\Images\RevistaDigital\logo_EPT.png" />
     <Content Include="Content\Images\RevistaDigital\marquesina-landing.jpg" />
     <Content Include="Content\Images\RevistaDigital\mob_rd_consultora.png" />
