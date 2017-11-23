@@ -17,13 +17,8 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class RVDigitalController : BaseController
     {
-        //
-        // GET: /RVDigital/
-
         public ActionResult Index()
         {
-            //if (!UsuarioModel.HasAcces(ViewBag.Permiso, "RVDigital/Index"))
-            //    return RedirectToAction("Index", "Bienvenida");
             bool ErrorServicio;
             string ErrorCode;
             string ErrorMessage;
@@ -31,7 +26,6 @@ namespace Portal.Consultoras.Web.Controllers
             if (UserData().PaisID == 4)
             {
                 ContenidoServiceClient sv = new ContenidoServiceClient();
-                //GAA (2062) 270814
                 ViewBag.PaisID = UserData().PaisID;
                 ViewBag.InvitacionPaquete = Convert.ToInt32(sv.ValidarInvitacionPaqueteDocumentario(UserData().PaisID, UserData().CodigoConsultora));
             }
@@ -61,7 +55,6 @@ namespace Portal.Consultoras.Web.Controllers
             grid.CurrentPage = page;
             grid.SortColumn = sidx;
             grid.SortOrder = sord;
-            //int buscar = int.Parse(txtBuscar);
             BEPager pag = new BEPager();
             bool ErrorServicio;
             string ErrorCode;
@@ -99,7 +92,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             pag = Paginador(grid, Campania, lst);
 
-            // Creamos la estructura
             var data = new
             {
                 total = pag.PageCount,
@@ -126,9 +118,7 @@ namespace Portal.Consultoras.Web.Controllers
             UsuarioModel usuario = UserData();
             string Marca;
             string NombrePais = DevolverNombrePais(usuario.CodigoISO, out Marca);
-            //Inicio ITG 1793 HFMG
             var complain = new RVDCampaniasParam { pais = NombrePais, tipo = "Paq Doc Consultora", docIdentidad = "", consultora = ((usuario.UsuarioPrueba == 1) ? usuario.ConsultoraAsociada : usuario.CodigoConsultora), marca = Marca };
-            //Fin ITG 1793 HFMG
             List<CampaniaModel> lstCampaniaModel = new List<CampaniaModel>();
             ErrorServicio = false;
             ErrorCode = string.Empty;
@@ -267,9 +257,7 @@ namespace Portal.Consultoras.Web.Controllers
             UsuarioModel usuario = UserData();
             string Marca;
             string NombrePais = DevolverNombrePais(usuario.CodigoISO, out Marca);
-            //Inicio ITG 1793 HFMG
             var complain = new RVDPDFParam { pais = NombrePais, tipo = "Paq Doc Consultora", docIdentidad = "", consultora = ((usuario.UsuarioPrueba == 1) ? usuario.ConsultoraAsociada : usuario.CodigoConsultora), marca = Marca, Campana = Campania };
-            //Fin ITG 1793 HFMG
             List<RVPRFModel> lstRVPRFModel = new List<RVPRFModel>();
             ErrorServicio = false;
             ErrorCode = string.Empty;
@@ -507,10 +495,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.SelectPaises().ToList().FindAll(x => x.PaisID == UserData().PaisID);
             }
-            Mapper.CreateMap<BEPais, PaisModel>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }

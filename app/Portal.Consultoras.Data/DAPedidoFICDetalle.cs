@@ -111,8 +111,6 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        /////////////////////////////////////////////////////////////////
-
         public IDataReader GetPedidoFICDetalleByCampania(int CampaniaID, long ConsultoraID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidoFICDetalleByCampania");
@@ -163,7 +161,6 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
             Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, PedidoID);
             Context.Database.AddInParameter(command, "@PedidoDetalleID", DbType.Int16, PedidoDetalleID);
-            //Context.Database.AddInParameter(command, "@TipoOfertaSisID", DbType.Int32, TipoOfertaSisID);
 
             int result = Context.ExecuteNonQuery(command);
             return result;

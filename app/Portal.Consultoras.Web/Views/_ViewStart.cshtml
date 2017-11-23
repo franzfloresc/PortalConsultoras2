@@ -1,5 +1,5 @@
 ﻿@{
-    var model = (Portal.Consultoras.Web.Models.UsuarioModel)Session["UserData"];
+    var model = Portal.Consultoras.Web.SessionManager.SessionManager.Instance.GetUserData();
     
     if (model == null)
     {

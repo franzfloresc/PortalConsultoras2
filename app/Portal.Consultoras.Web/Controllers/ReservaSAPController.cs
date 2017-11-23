@@ -5,15 +5,11 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class ReservaSAPController : BaseController
     {
-        //
-        // GET: /ReservaSAP/
-
         public ActionResult Index()
         {
             return View();
         }
 
-        //R2293
         [HttpPost]
         public JsonResult GenerarReserva(DateTime FechaGeneracion)
         {
