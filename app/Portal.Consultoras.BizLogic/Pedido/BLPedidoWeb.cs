@@ -788,6 +788,7 @@ namespace Portal.Consultoras.BizLogic
                 }
                 catch (Exception ex)
                 {
+                    LogManager.SaveLog(ex, "", codigoPais);
                     throw new BizLogicException("No se pudo generar los archivos de descarga de pedidos.", ex);
                 }
 
@@ -800,7 +801,6 @@ namespace Portal.Consultoras.BizLogic
 
                         BLFileManager.CompressFile(headerFile, zipHeaderFile, ftpElement.Header);
                         BLFileManager.CompressFile(detailFile, zipDetailFile, ftpElement.Detail);
-
                     }
                     
                     if (ConfigurationManager.AppSettings["OrderDownloadFtpUpload"] == "1")
@@ -814,6 +814,7 @@ namespace Portal.Consultoras.BizLogic
                         }
                         catch (Exception ex)
                         {
+                            LogManager.SaveLog(ex, "", codigoPais);
                             throw new BizLogicException("No se pudo subir los archivos al destino FTP.", ex);
                         }
                     }
