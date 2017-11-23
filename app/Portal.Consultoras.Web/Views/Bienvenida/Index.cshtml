@@ -2037,7 +2037,7 @@
 <!-- POPUP REVISTA DIGITAL Suscripcion -->
 @if (Model.RevistaDigital.TieneRDS == true)
 {
-    <div class="Content_general_pop_up" id="PopRDSuscripcion" data-popup-main="" style="font-family: 'Lato' !important; display:none;" data-popup-function-hide="RDPopupCerrar(0)">
+    <div class="Content_general_pop_up" id="PopRDSuscripcion" data-popup-main="" style="font-family: 'Lato' !important; display:none;" data-popup-function-hide="RDPopupCerrar()">
         <div class="content_pop_up_intriga" data-popup-body>
             <div class="contenido-popup-nuevo-2017">
                 <div class="centrar-estructura">
@@ -2152,7 +2152,6 @@
         var urlShowRoomIntriga = '@Url.Action("Intriga", "ShowRoom")';
         var urlShowRoomVenta = '@Url.Action("Index", "ShowRoom")';
         var urlDetalleShowRoom = '@Url.Action("DetalleOferta", "ShowRoom")';
-        var urlInformacionSuscripcion = '@Url.Action("Index", "RevistaDigital")';
         var urlRevistaDigital = '@Url.Action("Comprar", "RevistaDigital")';
         var urlRevistaDigitalInformacion = '@Url.Action("Informacion", "RevistaDigital")';
         var urlDetalleRevistaDigital = '@Url.Action("Detalle", "RevistaDigital")';

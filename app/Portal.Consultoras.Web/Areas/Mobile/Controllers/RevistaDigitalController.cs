@@ -36,7 +36,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
 
-            return RedirectToAction("Index", "RevistaDigital", new { area = "Mobile" });
+            return RedirectToAction("Index", "Ofertas", new { area = "Mobile" });
         }
 
         public ActionResult Informacion(string tipo)

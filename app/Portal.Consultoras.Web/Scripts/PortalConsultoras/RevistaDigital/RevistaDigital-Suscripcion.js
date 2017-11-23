@@ -4,19 +4,8 @@ $(document).ready(function () {
     $("[data-campania2]").html(campaniaNro + 2);
 });
 
-function RDPopupCerrar(tipo) {
+function RDPopupCerrar() {
     AbrirLoad();
-    if (tipo == 1) {
-        rdAnalyticsModule.CerrarPopUp('Banner Inscripción Exitosa');
-        location.href = location.href;
-        return false;
-    }
-    if (tipo == 2) {
-        rdAnalyticsModule.CerrarPopUp('Banner Inscripción Exitosa');
-        CerrarPopup("#PopRDSuscripcion");
-        CerrarLoad();
-        return true;
-    }
 
     rdAnalyticsModule.CerrarPopUp('Banner Inscribirme a Ésika para mí');
     
@@ -27,11 +16,9 @@ function RDPopupCerrar(tipo) {
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
             CerrarLoad();
-            CerrarPopup("#PopRDSuscripcion");
         },
         error: function (data, error) {
             CerrarLoad();
-            CerrarPopup("#PopRDSuscripcion");
         }
     });
 }
@@ -56,12 +43,10 @@ function RDSuscripcion() {
             }
 
             rdAnalyticsModule.SuscripcionExistosa();
-            window.location.href = "/Ofertas";
-            return true;
+            window.location.href = (isMobile() ? "/Mobile" : "") + "/Ofertas";
         },
         error: function (data, error) {
             CerrarLoad();
-            
         }
     });
 }
@@ -84,8 +69,7 @@ function RDDesuscripcion() {
                 return false;
             }
 
-            window.location.href = "/Ofertas";
-            
+            window.location.href = (isMobile() ? "/Mobile" : "") + "/Ofertas";
         },
         error: function (data, error) {
             CerrarLoad();
@@ -111,17 +95,12 @@ function RDPopupNoVolverMostrar() {
     });
 }
 
-function RDInformacion() {
-    location.href = urlInformacionSuscripcion;
-}
-
 function RDRedireccionarInformacion(seccion) {
     seccion = seccion || 0;
     rdAnalyticsModule.IrCancelarSuscripcion();
     var url = (isMobile() ? "/Mobile" : "") + "/RevistaDigital/Informacion";
 
-    if (seccion == 1) url += "#divCambiosEstadoRegistro";
-    else if (seccion == 2) url += "?tipo=" + seccion;
+    if (seccion == 2) url += "?tipo=" + seccion;
     
     var urlLocal = $.trim(window.location).toLowerCase() + "/";
     window.location = url;
@@ -146,12 +125,6 @@ function MostrarTerminos() {
         //Browser has blocked it
         console.log("Habilitar mostrar popup");
     }
-}
-
-function RedirectToLandingRD(origenWeb) {
-    // Save analytics before redirect 
-    rdAnalyticsModule.Access(origenWeb);
-    window.location = urlRevistaDigital;
 }
 
 function RedireccionarContenedorComprar(origenWeb, codigo) {
