@@ -42,7 +42,7 @@
             }
         </div>
         <div>
-            <p>*El documento que se emitirá a través de este canal puede no tener validez legal para ciertas entidades que exigen un sello o firma física del mismo. Para estos casos, usted deberá realizar la solicitud de su Certificado directamente en las oficinas de Belcorp Ecuador</p>
+            <p>*El documento que se emitirá a través de este canal puede no tener validez legal para ciertas entidades que exigen un sello o firma física del mismo. Para estos casos, usted deberá realizar la solicitud de su Certificado directamente en las oficinas de Belcorp @ViewBag.NombrePais</p>
         </div>
     </div>
 
@@ -58,8 +58,6 @@
 
                     var certificadoId = $(parametros).find(".certificadoId").val();
                     var available = $(parametros).find("[data-available]").val();
-                    //certificadoId = 1;
-                    //available = 1;
 
                     if (parseInt(certificadoId) === 0 || parseInt(available) === 0) {
                         var error = $(parametros).find(".mensajeError").val();
@@ -67,7 +65,6 @@
                         AbrirMensaje(error);
                     }
                     else {
-                        //AbrirMensaje("Aun no esta implementado el PDF lol XD");
                         window.open(urlExportar + "/" + certificadoId, 'blank');
                     }
 
