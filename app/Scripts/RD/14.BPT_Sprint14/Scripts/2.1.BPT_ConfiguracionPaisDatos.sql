@@ -264,33 +264,32 @@ begin
 	'Encuentra packs únicos, pasa tu pedido sin digitar códigos ¡y mucho más!', 
 	'', 'Desktop Banner Landing Productos Comprar y Revisar, Activas y Suscritas')
 
-	
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
 		Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'MLandingBannerNoActivaNoSuscrita', 
 	'#Nombre Bienvenida a Gana+ tu nuevo espacio online de ofertas exclusivas', 
-	'Disfruta de packs a tu medida y  pasa tu pedido sin digitar códigos.', 
+	'', 
 	'', 'Mobile Banner Landing Productos Comprar y Revisar, No Activas y No Suscritas')
 	
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
 		Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'MLandingBannerNoActivaSuscrita', 
 	'#Nombre ya estás suscrita a Gana+', 
-	'Encuentra packs únicos, pasa tu pedido sin digitar códigos ¡y mucho más!', 
+	'', 
 	'', 'Mobile Banner Landing Productos Comprar y Revisar, No Activas y Suscritas')
 	
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
 		Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'MLandingBannerActivaNoSuscrita', 
 	'#Nombre llegó Gana+: tu nuevo espacio de ofertas exclusivas',
-	'Disfruta de packs a tu medida y  pasa tu pedido sin digitar códigos.', 
+	'', 
 	'', 'Mobile Banner Landing Productos Comprar y Revisar, Activas y No Suscritas')
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
 		Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'MLandingBannerActivaSuscrita', 
 	'#Nombre llegó Gana+: tu nuevo espacio de ofertas exclusivas',
-	'Disfruta de packs a tu medida y  pasa tu pedido sin digitar códigos.', 
+	'', 
 	'', 'Mobile Banner Landing Productos Comprar y Revisar, Activas y Suscritas')
 
 	END
@@ -347,5 +346,20 @@ BEGIN
 	'TU NUEVA REVISTA ONLINE PERSONALIZADA', 
 	'Conoce ahora tus ofertas y aumenta tus ganancias', 
 	'black', 'Textos de Ctalogo para un consultora plan 20+')
+	END
+
+	-- RDR Banner Landing Productos
+	BEGIN
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Valor3, Descripcion)
+	values (@ConfiguracionPaisID, 1, 0, 'DRDRLandingBanner', 
+	'#NOMBRE DESCUBRE CLUB GANA+ TU NUEVO ESPACIO ONLINE DE OFERTAS EXCLUSIVAS.', 
+	'DISFRUTA DE PACKS HECHOS A TU MEDIDA CON TUS PRODUCTOS FAVORITOS, ¡ESOS QUE TÚ Y TUS CLIENTES PREFIEREN!', 
+	'', 'Desktop Banner Landing Productos')
+
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Valor3, Descripcion)
+	values (@ConfiguracionPaisID, 1, 0, 'MRDRLandingBanner', 
+	'#NOMBRE DESCUBRE CLUB GANA+ TU NUEVO ESPACIO ONLINE DE OFERTAS EXCLUSIVAS.', 
+	'', 
+	'', 'Mobile Banner Landing Productos')
 	END
 end
