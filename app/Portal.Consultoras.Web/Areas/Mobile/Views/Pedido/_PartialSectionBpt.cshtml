@@ -3,6 +3,11 @@
 @model RevistaDigitalModel
 @{
     ConfiguracionPaisDatosModel configuracionPaisDatosModel;
+    var urlLogo = Model.LogoComercialNoActiva;
+    if (Model.TieneRDC && Model.EsSuscrita)
+    {
+        urlLogo = Model.LogoComercialActiva;
+    }
 }
 
 @if (Model.TieneRDC)
@@ -22,7 +27,7 @@
             <div class="banner_pedido_rd" style="margin-bottom:0 !important;">
                 <div class="cabecera_pedido_rd">
                     <div class="rd_logo">
-                        <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="40">
+                        <img src="@urlLogo" height="40">
                     </div>
                     <div class="cabecera_pedido_text">@Html.Raw(configuracionPaisDatosModel.Valor1)</div>
                 </div>
@@ -59,7 +64,7 @@
             <div class="banner_pedido_rd">
                 <div class="cabecera_pedido_rd">
                     <div class="rd_logo">
-                        <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="40">
+                        <img src="@urlLogo" height="40">
                     </div>
                     <div class="cabecera_pedido_text">@Html.Raw(configuracionPaisDatosModel.Valor1)</div>
                 </div>
@@ -86,7 +91,7 @@ else if (Model.TieneRDR)
         <div class="banner_pedido_rd" style="margin-bottom:0 !important;">
             <div class="cabecera_pedido_rd">
                 <div class="rd_logo">
-                    <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="40">
+                    <img src="@urlLogo" height="40">
                 </div>
                 <div class="cabecera_pedido_text">@Html.Raw(configuracionPaisDatosModel.Valor1)</div>
             </div>
