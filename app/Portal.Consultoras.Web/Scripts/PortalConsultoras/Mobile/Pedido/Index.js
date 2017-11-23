@@ -1069,6 +1069,9 @@ function ProcesarActualizacionMostrarContenedorCupon() {
 
 function mostrarBarra(accion) {
     accion = accion || false;
+    if (!belcorp.pedido.settings || !belcorp.pedido.settings.barraId)
+        return;
+
     var barraDiv = $("#" + belcorp.pedido.settings.barraId);
     if (barraDiv.length) {
         if (accion)
