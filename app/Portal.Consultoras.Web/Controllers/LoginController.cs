@@ -1885,8 +1885,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpGet]
         public async Task<ActionResult> IngresoExterno(string token)
         {
-            this.SetUniqueKeyAvoiding(Guid.NewGuid());
-
             IngresoExternoModel model = null;
             try
             {
@@ -1899,8 +1897,11 @@ namespace Portal.Consultoras.Web.Controllers
                     Session.Clear();
                     userData = model.EsAppMobile ? await GetUserDataAppAsync(Util.GetPaisID(model.Pais), model.CodigoUsuario)
                         : await GetUserData(Util.GetPaisID(model.Pais), model.CodigoUsuario);
-
                 }
+
+                var guid = Session.TryGetUniqueIdenfier("MobileAppConfiguracion");
+                this.SetUniqueKeyAvoiding(guid == Guid.Empty ? Guid.NewGuid() : guid);
+
                 if (userData == null) return RedirectToAction("UserUnknown", "Login", new { area = "" });
 
                 FormsAuthentication.SetAuthCookie(model.CodigoUsuario, false);
