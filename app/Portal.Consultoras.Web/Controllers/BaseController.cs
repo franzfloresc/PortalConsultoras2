@@ -1045,16 +1045,6 @@ namespace Portal.Consultoras.Web.Controllers
             return userData.MenuService;
         }
 
-        private void SetConsultoraOnlineViewBag(UsuarioModel userData)
-        {
-            userData.ConsultoraOnlineMenuResumen = userData.ConsultoraOnlineMenuResumen ?? new ConsultoraOnlineMenuResumenModel();
-            ViewBag.TipoMenuConsultoraOnline = userData.ConsultoraOnlineMenuResumen.TipoMenuConsultoraOnline;
-            ViewBag.CantPedidosPendientes = userData.ConsultoraOnlineMenuResumen.CantPedidosPendientes;
-            ViewBag.TeQuedanConsultoraOnline = userData.ConsultoraOnlineMenuResumen.TeQuedanConsultoraOnline;
-            ViewBag.MenuHijoIDConsultoraOnline = userData.ConsultoraOnlineMenuResumen.MenuHijoIDConsultoraOnline;
-            ViewBag.MenuPadreIDConsultoraOnline = userData.ConsultoraOnlineMenuResumen.MenuPadreIDConsultoraOnline;
-        }
-
         private void ValidateConsultoraOnlineMenu(UsuarioModel userData, IList<BEMenuMobile> lst)
         {
             var menuConsultoraOnlinePadre = lst.FirstOrDefault(m => m.Descripcion.ToLower().Trim() == "app de catálogos" && m.MenuPadreID == 0);
@@ -1095,11 +1085,6 @@ namespace Portal.Consultoras.Web.Controllers
                     menuConsultoraOnlineHijo.UrlItem = arrayUrlConsultoraOnlineHijo[esConsultoraOnline == -1 ? 0 : arrayUrlConsultoraOnlineHijo.Length - 1];
                 }
             }
-        }
-
-        protected string GetPaisesConConsultoraOnlineFromConfig()
-        {
-            return ConfigurationManager.AppSettings.Get("Permisos_CCC") ?? string.Empty;
         }
 
         #endregion
