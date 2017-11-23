@@ -320,6 +320,19 @@ namespace Portal.Consultoras.Common
 
             public const string BelcorpRespondeTEL = "BelcorpRespondeTEL_{0}";
             public const string DES_UBIGEO = "DES_UBIGEO_";
+            public const string FechaChat = "FechaChat_";
+            public const string PaisesBelcorpChatEMTELCO = "PaisesBelcorpChatEMTELCO";
+            public const string UrlBelcorpChat = "UrlBelcorpChat";
+            public const string UrlChatPA = "UrlChatPA";
+            public const string UrlChatQR = "UrlChatQR";
+            public const string UrlChatSV = "UrlChatSV";
+            public const string UrlChatGT = "UrlChatGT";
+            public const string UrlChatDefault = "UrlChatDefault";
+            public const string TokenAtento = "TokenAtento_";
+
+            public const string EmailCodigoProceso = "EmailCodigoProceso";
+            public const string NumeroCampanias = "NumeroCampanias";
+            public const string RutaServicePROLConsultas = "RutaServicePROLConsultas";
         }
 
         public static class TipoOfertaFinalCatalogoPersonalizado
