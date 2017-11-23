@@ -333,6 +333,11 @@ namespace Portal.Consultoras.Common
             public const string EmailCodigoProceso = "EmailCodigoProceso";
             public const string NumeroCampanias = "NumeroCampanias";
             public const string RutaServicePROLConsultas = "RutaServicePROLConsultas";
+            public const string UrlImgMiAcademia = "UrlImgMiAcademia";
+            public const string NombreCarpetaTC = "NombreCarpetaTC";
+            public const string NombreArchivoTC = "NombreArchivoTC";
+            public const string CarpetaImagenCompartirCatalogo = "CarpetaImagenCompartirCatalogo";
+            public const string NombreImagenCompartirCatalogo = "NombreImagenCompartirCatalogo";
         }
 
         public static class TipoOfertaFinalCatalogoPersonalizado

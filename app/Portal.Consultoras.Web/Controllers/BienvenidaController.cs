@@ -29,11 +29,11 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                ViewBag.UrlImgMiAcademia = ConfigurationManager.AppSettings["UrlImgMiAcademia"].ToString() + "/" + userData.CodigoISO + "/academia.png";
+                ViewBag.UrlImgMiAcademia = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlImgMiAcademia) + "/" + userData.CodigoISO + "/academia.png";
                 ViewBag.RutaImagenNoDisponible = GetConfiguracionManager(Constantes.ConfiguracionManager.rutaImagenNotFoundAppCatalogo);
 
-                var nombreCarpetaTC = WebConfigurationManager.AppSettings["NombreCarpetaTC"];
-                var nombreArchivoTC = WebConfigurationManager.AppSettings["NombreArchivoTC"] + ".pdf";
+                var nombreCarpetaTC = GetConfiguracionManager(Constantes.ConfiguracionManager.NombreCarpetaTC);
+                var nombreArchivoTC = GetConfiguracionManager(Constantes.ConfiguracionManager.NombreArchivoTC) + ".pdf";
                 ViewBag.UrlPdfTerminosyCondiciones = ConfigS3.GetUrlFileS3(nombreCarpetaTC, userData.CodigoISO + "/" + nombreArchivoTC, String.Empty);
 
                 ViewBag.UrlImagenFAVHome = string.Format(GetConfiguracionManager(Constantes.ConfiguracionManager.UrlImagenFAVHome), userData.CodigoISO);
@@ -80,13 +80,12 @@ namespace Portal.Consultoras.Web.Controllers
                 model.Celular = userData.Celular;
                 model.NombreGerenteZonal = userData.NombreGerenteZonal;
 
-                var carpetaPais = WebConfigurationManager.AppSettings["CarpetaImagenCompartirCatalogo"] + userData.CodigoISO;
-                var nombreImagenCatalogo = WebConfigurationManager.AppSettings["NombreImagenCompartirCatalogo"];
+                var carpetaPais = GetConfiguracionManager(Constantes.ConfiguracionManager.CarpetaImagenCompartirCatalogo) + userData.CodigoISO;
+                var nombreImagenCatalogo = GetConfiguracionManager(Constantes.ConfiguracionManager.NombreImagenCompartirCatalogo);
                 model.UrlImagenCompartirCatalogo = ConfigS3.GetUrlFileS3(carpetaPais, nombreImagenCatalogo, String.Empty);
                 model.PrimeraVez = userData.CambioClave;
                 model.Simbolo = userData.Simbolo;
-                model.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
-                ViewBag.NombreConsultoraFAV = model.NombreConsultora.First().ToString().ToUpper() + model.NombreConsultora.ToLower().Substring(1);
+                model.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);ViewBag.NombreConsultoraFAV = model.NombreConsultora.First().ToString().ToUpper() + model.NombreConsultora.ToLower().Substring(1);
                 var j = model.NombreConsultora.Trim().IndexOf(' ');
                 if (j >= 0) model.NombreConsultora = model.NombreConsultora.Substring(0, j).Trim();
 
