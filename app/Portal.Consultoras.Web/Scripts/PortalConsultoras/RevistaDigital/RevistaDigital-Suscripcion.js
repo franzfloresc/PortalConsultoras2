@@ -36,7 +36,7 @@ function RDPopupCerrar(tipo) {
     });
 }
 
-function RDSuscripcion(accion) {
+function RDSuscripcion() {
    
     AbrirLoad();
     rdAnalyticsModule.Inscripcion();
@@ -51,36 +51,13 @@ function RDSuscripcion(accion) {
                 return false;
 
             if (data.success != true) {
-                CerrarPopup("#PopRDSuscripcion");
-                CerrarPopup("#divMensajeBloqueada");
                 AbrirMensaje(data.message);
                 return false;
             }
 
-            accion = accion || 0;
-            if (accion === 2) {
-                $("[data-estadoregistro]").attr("data-estadoregistro", "1");
-                $("[data-estadoregistro0]").hide();
-                $("[data-estadoregistro2]").hide();
-                $("[data-estadoregistro1]").show();
-                rdAnalyticsModule.SuscripcionExistosa();
-                return true;
-            }
-
-            $("#PopRDInscrita [data-usuario]").html($.trim(usuarioNombre).toUpperCase());
-
-            if (accion == 0) {
-                
-                MostrarMenu(data.CodigoMenu);
-                if (!isMobile()) {
-                    CargarBanners();
-                }
-            }
-            else if (accion == 1) {
-                CerrarPopup("#divMensajeBloqueada");
-            }
-            AbrirPopupFade("#PopRDInscrita");
-            rdAnalyticsModule.suscripcionExitosa();
+            rdAnalyticsModule.SuscripcionExistosa();
+            window.location.href = "/Ofertas";
+            return true;
         },
         error: function (data, error) {
             CerrarLoad();
@@ -89,7 +66,7 @@ function RDSuscripcion(accion) {
     });
 }
 
-function RDDesuscripcion(accion) {
+function RDDesuscripcion() {
     AbrirLoad();
     rdAnalyticsModule.CancelarSuscripcion();
     $.ajax({
@@ -107,18 +84,11 @@ function RDDesuscripcion(accion) {
                 return false;
             }
 
-            accion = accion || 0;
-            if (accion == 2) {
-                $("[data-estadoregistro]").attr("data-estadoregistro", "2");
-                $("[data-estadoregistro0]").show();
-                $("#divCambiosEstadoRegistro [data-estadoregistro0]").hide();
-                $("[data-estadoregistro1]").hide();
-                $("[data-estadoregistro2]").show();
-            }
+            window.location.href = "/Ofertas";
+            
         },
         error: function (data, error) {
             CerrarLoad();
-            CerrarPopup("#PopRDSuscripcion");
         }
     });
 }

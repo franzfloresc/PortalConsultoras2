@@ -59,11 +59,13 @@ namespace Portal.Consultoras.Web.Models
         public RevistaDigitalSuscripcionModel SuscripcionModel { get; set; }
         public RevistaDigitalSuscripcionModel SuscripcionEfectiva { get; set; }
 
+        public string Titulo { get; set; }
+        public string SubTitulo { get; set; }
+        public string SubTitulo2 { get; set; }
         public IList<ConfiguracionPaisDatosModel> ConfiguracionPaisDatos { get; set; }
 
         public int EstadoAccion { get; set; }
         public List<ComunModel> ListaTabs { get; set; }
-        public string Titulo { get; set; }
         public string TituloDescripcion { get; set; }
         public int Campania { get; set; }
         public int CampaniaMasUno { get; set; }
