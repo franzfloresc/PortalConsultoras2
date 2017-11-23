@@ -4,10 +4,10 @@ GO
 DECLARE @REVISTA_DIGITAL_ID INT = 3
 --
 DECLARE @LOGO_MENU_OFERTAS_ACTIVA VARCHAR(50) = 'LogoMenuOfertasActiva'
-DECLARE @URL_LOGO_ACTIVA VARCHAR(800) = 'https://preview.ibb.co/jqQcXm/gif_ganamas.gif'
+DECLARE @URL_LOGO_ACTIVA VARCHAR(800) = 'https://preview.ibb.co/mA4FJR/gif_clubganamas.gif'
 --
 DECLARE @LOGO_MENU_OFERTAS_NO_ACTIVA VARCHAR(50) = 'LogoMenuOfertasNoActiva'
-DECLARE @URL_LOGO_NO_ACTIVA VARCHAR(800) = 'https://preview.ibb.co/mA4FJR/gif_clubganamas.gif'
+DECLARE @URL_LOGO_NO_ACTIVA VARCHAR(800) = 'https://preview.ibb.co/jqQcXm/gif_ganamas.gif'
 
 IF NOT EXISTS(
 SELECT 1

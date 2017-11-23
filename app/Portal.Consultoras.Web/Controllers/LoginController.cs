@@ -1213,10 +1213,10 @@ namespace Portal.Consultoras.Web.Controllers
                 if (value1 != null) revistaDigitalModel.LogoComercialNoActiva = value1.Valor1;
 
                 var value7 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoMenuOfertasActiva);
-                if (value7 != null) revistaDigitalModel.LogoComercialActiva = value7.Valor1;
+                if (value7 != null) revistaDigitalModel.LogoMenuOfertasActiva = value7.Valor1;
 
                 var value8 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoMenuOfertasNoActiva);
-                if (value8 != null) revistaDigitalModel.LogoComercialNoActiva = value8.Valor1;
+                if (value8 != null) revistaDigitalModel.LogoMenuOfertasNoActiva= value8.Valor1;
 
                 listaDatos.RemoveAll(d =>
                     d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BloquearDiasAntesFacturar
