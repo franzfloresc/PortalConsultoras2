@@ -862,7 +862,7 @@ header {
     font-family: 'Lato', sans-serif;
     font-weight: 300 !important;
     font-size: 11pt;
-    color: #613c87;
+    color: #e81c36;
 }
 
 .info_c {
@@ -1359,7 +1359,7 @@ header {
         line-height: 18px;
         font-family: 'OldStandard-Italic';
         letter-spacing: -1px;
-        color: #613c87;
+        color: #e81c36;
         position: absolute;
         left: 16px;
         top: 52%;
@@ -1564,7 +1564,7 @@ header {
     .liquidacion_precio span {
         margin-left: 5px;
         font-size: 13pt;
-        color: #613c87;
+        color: #e81c36;
     }
 
 .liquidacion_rango_wrapper {
@@ -1862,7 +1862,7 @@ header {
     width: 115px;
     margin-top: 23px;
     float: left;
-    background: #642F80 /*#613c87 url("../../../Images/Esika/carrito_pedido.png") no-repeat*/;
+    background: #642F80 /*#e81c36 url("../../../Images/Esika/carrito_pedido.png") no-repeat*/;
     background-position: 17px 8px;
     font-family: 'lato';
     font-weight: 700;
@@ -1879,7 +1879,7 @@ header {
     font-family: 'lato';
     font-size: 9.4pt;
     font-weight: 400;
-    color: #613c87;
+    color: #e81c36;
     margin-top: 8px;
 }
 
@@ -6084,7 +6084,7 @@ a.subir_carousel, a.bajar_carousel {
     }
 
         .pedidos_subtitulo a::first-letter {
-            color: #613c87;
+            color: #e81c36;
         }
 
 .pedidos_tabla_titulo {
@@ -6213,7 +6213,7 @@ a.subir_carousel, a.bajar_carousel {
 .pedido_aviso_oferta {
     font-family: 'lato';
     font-weight: 400;
-    background: #613c87;
+    background: #e81c36;
     color: white;
     margin-top: 6px;
     display: inline-block;
@@ -6250,7 +6250,7 @@ a.subir_carousel, a.bajar_carousel {
     .eliminar_todo a {
         margin-left: 5px;
         float: right;
-        color: #613c87;
+        color: #e81c36;
         font-weight: 900;
         font-size: 6.9pt;
         text-decoration: underline;
@@ -6312,7 +6312,7 @@ a.subir_carousel, a.bajar_carousel {
     margin-top: 32px;
     text-align: center;
     padding: 8px;
-    background: #613c87;
+    background: #e81c36;
     float: left;
     font-family: 'lato';
     letter-spacing: 1.5px;
@@ -6564,7 +6564,7 @@ a.subir_carousel, a.bajar_carousel {
     height: 35px;
     letter-spacing: 1.5px;
     padding: 0;
-    background: #613c87;
+    background: #e81c36;
     color: white;
     font-family: 'lato';
     font-size: 10.5px;
@@ -8980,7 +8980,7 @@ ul.tabs {
     line-height: 40px;
     padding: 0;
     margin: 0 10px 0 0;
-    background: #613c87;
+    background: #e81c36;
     color: #fff;
     font-family: 'lato-bold';
     text-transform: uppercase;
@@ -9108,7 +9108,7 @@ ul.tabs {
             .div-1 .box p.azul span {
                 font-family: 'lato-bold';
                 font-size: 18px;
-                color: #613c87;
+                color: #e81c36;
                 padding: 0;
                 margin: 0;
             }
@@ -10346,7 +10346,7 @@ ul.tabs {
     height: 40px;
     line-height: 40px;
     padding: 0;
-    background: #613c87;
+    background: #e81c36;
     /*background: url(../../Images/bg_input4_over_e.png) 0 0 no-repeat;*/
     color: #fff;
     font-size: 11px;
@@ -10497,7 +10497,7 @@ ul.tabs {
     font-family: 'lato-bold';
     letter-spacing: 1px;
     text-transform: uppercase;
-    background: #613c87;
+    background: #e81c36;
     color: #fff;
     font-size: 13px;
     border: 0;
@@ -11124,7 +11124,7 @@ ul.tabs {
     }
 
     .tablediv .ui-jqgrid-htable th.ui-th-column {
-        background: #613c87 !Important;
+        background: #e81c36 !Important;
         color: #FFF !important;
     }
 
@@ -12327,9 +12327,9 @@ ol {
 
         .revista_botones a.activado {
             color: white;
-            border: 1px solid #613c87;
+            border: 1px solid #e81c36;
             /*background: url(../../Images/bg_input4_e.png) 0 0 no-repeat;*/
-            background: #613c87;
+            background: #e81c36;
             position: relative;
         }
 
@@ -18468,7 +18468,7 @@ span.icon-del {
     height: 37px;
     line-height: 37px;
     padding: 0;
-    background: #613c87;
+    background: #e81c36;
     color: #fff;
     font-size: 10px;
     border: 0;
@@ -21093,7 +21093,7 @@ label.checkpop.c_on {
     background: white;
     margin-top: 45px;
     width: 310px;
-    /* border: 1.5px solid #613c87; */
+    /* border: 1.5px solid #e81c36; */
     margin-left: -261px;
     border: 1px solid #ccc;
     -webkit-box-shadow: 1px 6px 15px -4px rgba(166,164,166,1);
@@ -27800,7 +27800,7 @@ input[type="checkbox"]:checked + span:after {
     background: -o-linear-gradient(left, rgba(97,60,135,1) 0%, rgba(232,28,54,1) 100%);
     background: -ms-linear-gradient(left, rgba(97,60,135,1) 0%, rgba(232,28,54,1) 100%);
     background: linear-gradient(to right, rgba(97,60,135,1) 0%, rgba(232,28,54,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#613c87', endColorstr='#613c87', GradientType=1 );
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#613c87', endColorstr='#e81c36', GradientType=1 );
 }
 
 .ml_16 {
@@ -28319,7 +28319,7 @@ input[type="checkbox"]:checked + span:after {
 }
 
     .eliminar_pedidoValidado a {
-        color: #613c87;
+        color: #e81c36;
         display: inline-block;
     }
 
@@ -30001,7 +30001,7 @@ a#cierreMotivoRechazo img {
     font-size: 13px;
     text-align: center;
     line-height: 45px;
-    background: #613c87;
+    background: #e81c36;
     color: #FFF;
     margin: 0 auto;
     border: 0px;
@@ -30457,7 +30457,7 @@ h1#penmostreo .campana {
         }
 
         .mod-ofer1 .cuerpo-mod .contiene-productos .producto_nombre_descripcion span:nth-child(5) {
-            color: #613c87;
+            color: #e81c36;
             font-weight: 800;
         }
 
@@ -30624,7 +30624,7 @@ h1#penmostreo .campana {
             }
 
             .mod-ofer2 .cuerpo-mod .contiene-productos .producto_nombre_descripcion span:nth-child(5) {
-                color: #613c87;
+                color: #e81c36;
                 font-weight: 800;
             }
 
@@ -30683,7 +30683,7 @@ h1#penmostreo .campana {
 
                 .mod-ofer2 .compras .columnas span:nth-child(3) {
                     font-size: 11px;
-                    color: #613c87;
+                    color: #e81c36;
                     font-weight: 600;
                 }
 
@@ -30838,7 +30838,7 @@ h1#penmostreo .campana {
             }
 
             .mod-ofer3 .cuerpo-mod .contiene-productos .producto_nombre_descripcion span:nth-child(5) {
-                color: #613c87;
+                color: #e81c36;
                 font-weight: 800;
             }
 
@@ -30905,7 +30905,7 @@ h1#penmostreo .campana {
 
                 .mod-ofer3 .compras .columnas span:nth-child(4) {
                     font-size: 11px;
-                    color: #613c87;
+                    color: #e81c36;
                     font-weight: 600;
                     margin-bottom: 10px;
                     width: 85%;
@@ -31075,7 +31075,7 @@ h1#penmostreo .campana {
     font-family: 'Lato';
     font-size: 11px;
     font-weight: 700;
-    color: #613c87;
+    color: #e81c36;
     text-transform: uppercase;
     text-align: center;
     margin-top: 3px;
@@ -33245,7 +33245,7 @@ h1#penmostreo .campana {
     font-family: 'Lato';
     font-size: 17px;
     font-weight: 700;
-    color: #613c87;
+    color: #e81c36;
     text-align: center;
     margin-top: -4px;
 }
@@ -33588,7 +33588,7 @@ h1#penmostreo .campana {
 }
 
     .sub_descripcion_oferta_048 p span {
-        color: #613c87;
+        color: #e81c36;
         font-size: 22px;
         /*font-weight:700;*/
         margin-right: 5px;
@@ -33605,7 +33605,7 @@ h1#penmostreo .campana {
     font-family: 'Lato';
     font-weight: 700;
     font-size: 16px;
-    color: #613c87;
+    color: #e81c36;
     text-align: center;
     text-transform: uppercase;
 }
@@ -33764,7 +33764,7 @@ h1#penmostreo .campana {
 }
 
 .titulo_banner_fav {
-    /*background: #613c87;*/
+    /*background: #e81c36;*/
     padding: 55px 17.5%;
     width: 100%;
     font-family: 'Lato';
@@ -35952,7 +35952,7 @@ h1#penmostreo .campana {
     font-family: 'LAto';
     font-size: 10.5px;
     font-weight: 700;
-    color: #613c87;
+    color: #e81c36;
     text-align: center;
     height: 20px;
     width:100%;  
@@ -36336,7 +36336,7 @@ h1#penmostreo .campana {
 }
 
     .descripcion_set_especial b {
-        color: #613c87;
+        color: #e81c36;
     }
 
 .content_info_set_especial {
@@ -37667,7 +37667,7 @@ h1#penmostreo .campana {
             margin: auto;
         }
    .contenido-popup-nuevo-2017 .centrar-estructura{
-        box-shadow: inset 0 0 0 5px #613c87;
+        box-shadow: inset 0 0 0 5px #e81c36;
     padding: 20px;
     height: 390px;
     /* margin-top: 15%; */
@@ -37708,7 +37708,7 @@ h1#penmostreo .campana {
     margin-bottom: 35px;
   }
   .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido a.btn-popup{
-         background: #613c87;
+         background: #e81c36;
     color: white;
     text-align: center;
     max-width: 240px;

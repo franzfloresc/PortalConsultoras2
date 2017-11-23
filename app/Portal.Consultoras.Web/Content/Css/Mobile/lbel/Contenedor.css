@@ -279,7 +279,7 @@ section {
     width: 20px;
     margin: auto;
     display: block;
-    border: 1px solid #613c87;
+    border: 1px solid #e81c36;
 }*/
 .bc_para_ti-menu-opciones ul li a p {
     display: inline;
@@ -296,8 +296,8 @@ section {
 }
 
 .bc_para_ti-menu-opciones ul li a.activo p.activo {
-    border-bottom: 1px solid #613c87;
-    color: #613c87;
+    border-bottom: 1px solid #e81c36;
+    color: #e81c36;
 
 }
 .bc-menu-vertical-prev, .bc-menu-vertical-next{
