@@ -89,7 +89,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.RevistaDigital = revistaDigital;
 
                 ViewBag.NombreConsultoraFAV = ObtenerNombreConsultoraFav();
-                ViewBag.UrlImagenFAVMobile = string.Format(ConfigurationManager.AppSettings.Get("UrlImagenFAVMobile"), userData.CodigoISO);
+                ViewBag.UrlImagenFAVMobile = string.Format(GetConfiguracionManager(Constantes.ConfiguracionManager.UrlImagenFAVMobile), userData.CodigoISO);
 
                 if (Session[Constantes.ConstSession.IngresoPortalConsultoras] == null)
                 {
@@ -160,7 +160,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                     if (userData.CodigoISO == Constantes.CodigosISOPais.Chile)
                     {
-                        rutaChile = ConfigurationManager.AppSettings.Get("UrlPagoLineaChile");
+                        rutaChile = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlPagoLineaChile);
                     }
                     else
                     {
@@ -213,7 +213,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private int ObtenerActivacionAppCatalogoWhastUp()
         {
-            string PaisesCatalogoWhatsUp = ConfigurationManager.AppSettings.Get("PaisesCatalogoWhatsUp") ?? string.Empty;
+            string PaisesCatalogoWhatsUp = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesCatalogoWhatsUp);
 
             int activacionAppCatalogoWhastUp;
             if (PaisesCatalogoWhatsUp.Contains(userData.CodigoISO))

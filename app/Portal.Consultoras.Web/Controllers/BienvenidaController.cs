@@ -30,13 +30,13 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 ViewBag.UrlImgMiAcademia = ConfigurationManager.AppSettings["UrlImgMiAcademia"].ToString() + "/" + userData.CodigoISO + "/academia.png";
-                ViewBag.RutaImagenNoDisponible = ConfigurationManager.AppSettings.Get("rutaImagenNotFoundAppCatalogo");
+                ViewBag.RutaImagenNoDisponible = GetConfiguracionManager(Constantes.ConfiguracionManager.rutaImagenNotFoundAppCatalogo);
 
                 var nombreCarpetaTC = WebConfigurationManager.AppSettings["NombreCarpetaTC"];
                 var nombreArchivoTC = WebConfigurationManager.AppSettings["NombreArchivoTC"] + ".pdf";
                 ViewBag.UrlPdfTerminosyCondiciones = ConfigS3.GetUrlFileS3(nombreCarpetaTC, userData.CodigoISO + "/" + nombreArchivoTC, String.Empty);
 
-                ViewBag.UrlImagenFAVHome = string.Format(ConfigurationManager.AppSettings.Get("UrlImagenFAVHome"), userData.CodigoISO);
+                ViewBag.UrlImagenFAVHome = string.Format(GetConfiguracionManager(Constantes.ConfiguracionManager.UrlImagenFAVHome), userData.CodigoISO);
 
                 #region Montos
                 if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
@@ -105,7 +105,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.IndicadorFlexipago = userData.IndicadorFlexiPago;
                 model.CantProductosCarouselLiq = (configCarouselLiquidacion != null && configCarouselLiquidacion.Count > 0) ? Convert.ToInt32(configCarouselLiquidacion[0].Codigo) : 1;
                 model.BotonAnalytics = (datGaBoton.Count > 0) ? datGaBoton[0].Descripcion : "";
-                model.UrlFlexipagoCL = ConfigurationManager.AppSettings.Get("rutaFlexipagoCL");
+                model.UrlFlexipagoCL = GetConfiguracionManager(Constantes.ConfiguracionManager.rutaFlexipagoCL);
                 model.PopupInicialCerrado = userData.PopupBienvenidaCerrado;
                 if (userData.CodigoISO == Constantes.CodigosISOPais.Chile || userData.CodigoISO == Constantes.CodigosISOPais.Colombia)
                 {
@@ -117,7 +117,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     model.NroCampana = tabla.Find(X => X.TablaLogicaDatosID == 6001).Codigo;
 
-                    model.rutaChile = userData.CodigoISO == Constantes.CodigosISOPais.Chile ? ConfigurationManager.AppSettings.Get("UrlPagoLineaChile") : string.Empty;
+                    model.rutaChile = userData.CodigoISO == Constantes.CodigosISOPais.Chile ? GetConfiguracionManager(Constantes.ConfiguracionManager.UrlPagoLineaChile) : string.Empty;
                 }
                 else
                 {
@@ -883,7 +883,7 @@ namespace Portal.Consultoras.Web.Controllers
             string urlRedirect;
             if (pp.ToString() == "CL")
             {
-                urlRedirect = ConfigurationManager.AppSettings.Get("rutaFlexipagoCL") + "/index.html?PP=" + pp.ToString() + "&CC=" + cc.ToString() + "&CA=" + ca.ToString();
+                urlRedirect = GetConfiguracionManager(Constantes.ConfiguracionManager.rutaFlexipagoCL) + "/index.html?PP=" + pp.ToString() + "&CC=" + cc.ToString() + "&CA=" + ca.ToString();
             }
             else
             {
@@ -2207,7 +2207,7 @@ namespace Portal.Consultoras.Web.Controllers
             var url = (Util.GetUrlHost(this.HttpContext.Request).ToString());
             var montoLimite = ObtenerMontoLimiteDelCupon();
             var cuponModel = ObtenerDatosCupon();
-            var tipopais = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(userData.CodigoISO);
+            var tipopais = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesEsika).Contains(userData.CodigoISO);
             var mailBody = MailUtilities.CuerpoCorreoActivacionCupon(userData.PrimerNombre, userData.CampaniaID.ToString(), userData.Simbolo, cuponModel.ValorAsociado, cuponModel.TipoCupon, url, montoLimite, tipopais);
             var correo = userData.EMail;
             Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", correo, "Activación de Cupón", mailBody, true, userData.NombreConsultora);

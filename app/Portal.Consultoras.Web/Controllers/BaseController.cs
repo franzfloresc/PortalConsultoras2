@@ -702,12 +702,12 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected virtual string GetDefaultGifMenuOfertas()
         {
-            return ConfigurationManager.AppSettings.Get("GIF_MENU_DEFAULT_OFERTAS") ?? string.Empty;
+            return GetConfiguracionManager(Constantes.ConfiguracionManager.GIF_MENU_DEFAULT_OFERTAS);
         }
 
         protected bool GetMostrarPedidosPendientesFromConfig()
         {
-            string mostrarPedidoAppSetting = ConfigurationManager.AppSettings.Get("MostrarPedidosPendientes") ?? string.Empty;
+            string mostrarPedidoAppSetting = GetConfiguracionManager(Constantes.ConfiguracionManager.MostrarPedidosPendientes);
 
             return mostrarPedidoAppSetting == "1";
         }
@@ -809,8 +809,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     bool tieneRevistaDigital = revistaDigital.TieneRDC || revistaDigital.TieneRDR;
 
-                    string imagenContenedorOfertasDefault = ConfigurationManager.AppSettings.Get("GIF_MENU_DEFAULT_OFERTAS");
-                    string imagenContenedorOfertasDefaultBpt = ConfigurationManager.AppSettings.Get("GIF_MENU_DEFAULT_OFERTAS_BPT");
+                    string imagenContenedorOfertasDefault = GetConfiguracionManager(Constantes.ConfiguracionManager.GIF_MENU_DEFAULT_OFERTAS);
+                    string imagenContenedorOfertasDefaultBpt = GetConfiguracionManager(Constantes.ConfiguracionManager.GIF_MENU_DEFAULT_OFERTAS_BPT);
 
                     string urlGifContenedorOfertas = tieneRevistaDigital ? imagenContenedorOfertasDefaultBpt : imagenContenedorOfertasDefault;
                     var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
@@ -1015,7 +1015,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected string GetPaisesConConsultoraOnlineFromConfig()
         {
-            return ConfigurationManager.AppSettings.Get("Permisos_CCC") ?? string.Empty;
+            return GetConfiguracionManager(Constantes.ConfiguracionManager.Permisos_CCC);
         }
 
         #endregion
@@ -1251,7 +1251,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.OfertaFinal = model.OfertaFinal;
             ViewBag.CatalogoPersonalizado = model.CatalogoPersonalizado;
             ViewBag.Simbolo = model.Simbolo;
-            string paisesConTrackingJetlore = ConfigurationManager.AppSettings.Get("PaisesConTrackingJetlore") ?? "";
+            string paisesConTrackingJetlore = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesConTrackingJetlore) ?? "";
             ViewBag.PaisesConTrackingJetlore = paisesConTrackingJetlore.Contains(model.CodigoISO) ? "1" : "0";
             ViewBag.EsCatalogoPersonalizadoZonaValida = model.EsCatalogoPersonalizadoZonaValida;
 
@@ -1286,7 +1286,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             #endregion Banner
 
-            ViewBag.Efecto_TutorialSalvavidas = ConfigurationManager.AppSettings.Get("Efecto_TutorialSalvavidas") ?? "1";
+            ViewBag.Efecto_TutorialSalvavidas = GetConfiguracionManager(Constantes.ConfiguracionManager.Efecto_TutorialSalvavidas) ?? "1";
             ViewBag.ModificarPedidoProl = model.NuevoPROL && model.ZonaNuevoPROL ? 0 : 1;
             ViewBag.TipoUsuario = model.TipoUsuario;
             ViewBag.MensajePedidoDesktop = userData.MensajePedidoDesktop;
@@ -2526,7 +2526,7 @@ namespace Portal.Consultoras.Web.Controllers
                 };
 
 
-                var urlApi = ConfigurationManager.AppSettings.Get("UrlLogDynamo");
+                var urlApi = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlLogDynamo);
 
                 if (string.IsNullOrEmpty(urlApi)) return;
 
@@ -3227,7 +3227,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected string GetPaisesEsikaFromConfig()
         {
-            return ConfigurationManager.AppSettings.Get("PaisesEsika") ?? string.Empty;
+            return GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesEsika);
         }
 
         #region Configuracion Seccion Palanca
@@ -3694,7 +3694,7 @@ namespace Portal.Consultoras.Web.Controllers
             lista = lista.Where(c => c.TienePerfil).ToList();
             var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
 
-            var paisCarpeta = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(userData.CodigoISO) ? "Esika" : "Lbel";
+            var paisCarpeta = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesEsika).Contains(userData.CodigoISO) ? "Esika" : "Lbel";
 
             foreach (var confiModel in lista)
             {
@@ -4084,6 +4084,15 @@ namespace Portal.Consultoras.Web.Controllers
         }
         #endregion
 
+        #region ConfigurationManager
+
+        public string GetConfiguracionManager(string key)
+        {
+            return Util.Trim(ConfigurationManager.AppSettings.Get(key));
+        }
+
+        #endregion
+
         protected string GetUrlFranjaNegra()
         {
             var urlFranjaNegra = sessionManager.GetEventoFestivoDataModel().EfRutaPedido;
@@ -4096,7 +4105,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected string GetBucketNameFromConfig()
         {
-            return ConfigurationManager.AppSettings.Get("BUCKET_NAME") ?? string.Empty;
+            return GetConfiguracionManager(Constantes.ConfiguracionManager.BUCKET_NAME);
         }
         
         protected int GetMostradoPopupPrecargados()
