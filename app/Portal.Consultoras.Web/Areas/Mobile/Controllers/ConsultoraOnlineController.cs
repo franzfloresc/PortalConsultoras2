@@ -31,7 +31,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ConsultoraOnlineController()
         {
-            if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(userData.CodigoISO))
+            if (GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesEsika).Contains(userData.CodigoISO))
             {
                 isEsika = true;
             }
@@ -613,7 +613,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private string mensajeConsultora(string consultora, string url)
         {
-            string tlfBelcorpResponde = ConfigurationManager.AppSettings.Get(String.Format("BelcorpRespondeTEL_{0}", UserData().CodigoISO));
+            string tlfBelcorpResponde = GetConfiguracionManager(String.Format(Constantes.ConfiguracionManager.BelcorpRespondeTEL, UserData().CodigoISO));
             string carpetaPais = "Correo/CCC";
             string spacerGif = ConfigS3.GetUrlFileS3(carpetaPais, "spacer.gif", string.Empty);
             string mailing_03 = ConfigS3.GetUrlFileS3(carpetaPais, "1-Mailing_03.png", string.Empty);
@@ -902,7 +902,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private string mensajeCambioCorreo(string consultora, string url, string correo, string correo_anterior)
         {
-            string tlfBelcorpResponde = ConfigurationManager.AppSettings.Get(String.Format("BelcorpRespondeTEL_{0}", UserData().CodigoISO));
+            string tlfBelcorpResponde = GetConfiguracionManager(String.Format(Constantes.ConfiguracionManager.BelcorpRespondeTEL, UserData().CodigoISO));
             string carpetaPais = "Correo/CCC";
             string spacerGif = ConfigS3.GetUrlFileS3(carpetaPais, "spacer.gif", string.Empty);
             string mailing_01 = ConfigS3.GetUrlFileS3(carpetaPais, "1-Mailing_01.png", string.Empty);

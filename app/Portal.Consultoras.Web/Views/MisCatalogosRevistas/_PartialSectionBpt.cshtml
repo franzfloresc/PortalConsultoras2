@@ -5,6 +5,11 @@
 @{
     ConfiguracionPaisDatosModel configuracionPaisDatosModel;
     var tieneGnd = Portal.Consultoras.Web.SessionManager.SessionManager.Instance.GetUserData().TieneGND;
+    var urlLogo = Model.LogoComercialNoActiva;
+    if (Model.TieneRDC && Model.EsSuscrita)
+    {
+        urlLogo = Model.LogoComercialActiva;
+    }
 }
 @if (Model.TieneRDC)
 {
@@ -21,7 +26,7 @@
         <div class="home_block_rd home_rd1" style="background-color: transparent; text-align: left;">
             <div class="content_belcorp" style="background-color: black;">
                 <div class="rd_logo">
-                    <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="70">
+                    <img src="@urlLogo" height="70">
                 </div>
                 <div class="hblock_text" style="padding-top: 34px;">
                     <div class="hblock_tit" style="font-size: 14px;"> @Html.Raw(configuracionPaisDatosModel.Valor1)</div>
@@ -56,7 +61,7 @@
             <div class="revista_content" id="contentRevistaDigital" style="position: relative;">
                 <div class="home_block_rd home_rd1 rd_catalogos">
                     <div class="rd_logo">
-                        <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="45">
+                        <img src="@urlLogo" height="45">
                     </div>
                     <div class="hblock_text">
                         <div class="hblock_tit">@Html.Raw(configuracionPaisDatosModel.Valor1)</div>
@@ -83,7 +88,7 @@ else if (Model.TieneRDR)
         <div class="revista_content" id="contentRevistaDigital" style="height: 300px; position: relative;">
             <div>
                 <div style="height: 127px; top: 40px; position: relative; margin-bottom: 16px;">
-                    <img src="/Content/Images/esika-para-mi-img.svg" alt="Alternate Text" style="height: 100%; float: left;" />
+                    <img src="@urlLogo" alt="Alternate Text" style="height: 100%; float: left;" />
                 </div>
                 <div>
                     <span style="display: block; font-size: 18px; font-weight: bold; padding-left: 0;">@Html.Raw(configuracionPaisDatosModel.Valor1)</span>

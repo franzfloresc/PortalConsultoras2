@@ -282,7 +282,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         using (var sv = new ServicePROLConsultas.wsConsulta())
                         {
-                            sv.Url = ConfigurationManager.AppSettings["RutaServicePROLConsultas"];
+                            sv.Url = GetConfiguracionManager(Constantes.ConfiguracionManager.RutaServicePROLConsultas);
                             listaTieneStock = sv.ConsultaStock(codigoSap, userData.CodigoISO).ToList();
                         }
                     }
@@ -345,7 +345,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return listadoOfertasTodasModel;
                 }
 
-                var NumeroCampanias = Convert.ToInt32(ConfigurationManager.AppSettings["NumeroCampanias"]);
+                var NumeroCampanias = Convert.ToInt32(GetConfiguracionManager(Constantes.ConfiguracionManager.NumeroCampanias));
                 var listaShowRoomProductoCatalogo = new List<Producto>();
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -373,7 +373,7 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             using (var sv = new ServicePROLConsultas.wsConsulta())
                             {
-                                sv.Url = ConfigurationManager.AppSettings["RutaServicePROLConsultas"];
+                                sv.Url = GetConfiguracionManager(Constantes.ConfiguracionManager.RutaServicePROLConsultas);
                                 listaTieneStock = sv.ConsultaStock(codigoSap, userData.CodigoISO).ToList();
                             }
                         }

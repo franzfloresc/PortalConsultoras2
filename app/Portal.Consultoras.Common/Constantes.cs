@@ -252,7 +252,6 @@ namespace Portal.Consultoras.Common
             public const string CDRExpressMensajes = "CDRExpressMensajes";
 
             // Tabla LOgica
-
             public const string TablaLogicaDatos = "TablaLogicaDatos";
 
             //ShowRoom
@@ -289,6 +288,51 @@ namespace Portal.Consultoras.Common
             public const string TieneOpm = "TieneOpm";
             public const string TieneOpmX1 = "TieneOpmX1";
             public const string TieneRdr = "TieneRdr";
+        }
+
+        public static class ConfiguracionManager
+        {
+            public const string PaisesEsika = "PaisesEsika";
+            public const string PaisesConTrackingJetlore = "PaisesConTrackingJetlore";
+            public const string PaisesCatalogoWhatsUp = "PaisesCatalogoWhatsUp";
+            public const string PaisesConPcm = "PaisesConPcm";
+            public const string PaisesFlexipago = "PaisesFlexipago";
+            public const string rutaFlexipagoCL = "rutaFlexipagoCL";
+            public const string UrlImagenFAVMobile = "UrlImagenFAVMobile";
+            public const string UrlImagenFAVHome = "UrlImagenFAVHome";
+            public const string UrlImagenFAVLanding = "UrlImagenFAVLanding";
+            public const string UrlPagoLineaChile = "UrlPagoLineaChile";
+            public const string UrlPoliticasCDR = "UrlPoliticasCDR";
+            public const string UrlLogDynamo = "UrlLogDynamo";
+            public const string rutaImagenNotFoundAppCatalogo = "rutaImagenNotFoundAppCatalogo";
+            public const string URL_LIDER = "URL_LIDER";
+            public const string oferta_final_regalo_url_s3 = "oferta_final_regalo_url_s3";
+            public const string GIF_MENU_DEFAULT_OFERTAS = "GIF_MENU_DEFAULT_OFERTAS";
+            public const string GIF_MENU_DEFAULT_OFERTAS_BPT = "GIF_MENU_DEFAULT_OFERTAS_BPT";
+            public const string MostrarPedidosPendientes = "MostrarPedidosPendientes";
+            public const string Permisos_CCC = "Permisos_CCC";
+            public const string Efecto_TutorialSalvavidas = "Efecto_TutorialSalvavidas";
+            public const string LimiteJetloreOfertaFinal = "LimiteJetloreOfertaFinal";
+            public const string LimiteJetloreCatalogoPersonalizado = "LimiteJetloreCatalogoPersonalizado";
+            public const string LimiteJetloreCatalogoPersonalizadoHome = "LimiteJetloreCatalogoPersonalizadoHome";
+            public const string BUCKET_NAME = "BUCKET_NAME";
+            public const string FacturaElectronica_EC = "FacturaElectronica_EC";
+
+            public const string BelcorpRespondeTEL = "BelcorpRespondeTEL_{0}";
+            public const string DES_UBIGEO = "DES_UBIGEO_";
+            public const string FechaChat = "FechaChat_";
+            public const string PaisesBelcorpChatEMTELCO = "PaisesBelcorpChatEMTELCO";
+            public const string UrlBelcorpChat = "UrlBelcorpChat";
+            public const string UrlChatPA = "UrlChatPA";
+            public const string UrlChatQR = "UrlChatQR";
+            public const string UrlChatSV = "UrlChatSV";
+            public const string UrlChatGT = "UrlChatGT";
+            public const string UrlChatDefault = "UrlChatDefault";
+            public const string TokenAtento = "TokenAtento_";
+
+            public const string EmailCodigoProceso = "EmailCodigoProceso";
+            public const string NumeroCampanias = "NumeroCampanias";
+            public const string RutaServicePROLConsultas = "RutaServicePROLConsultas";
         }
 
         public static class TipoOfertaFinalCatalogoPersonalizado

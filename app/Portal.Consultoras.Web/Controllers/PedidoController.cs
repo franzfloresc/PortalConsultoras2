@@ -320,7 +320,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #endregion
                 
-                ViewBag.UrlTerminosOfertaFinalRegalo = string.Format(ConfigurationManager.AppSettings.Get("oferta_final_regalo_url_s3"), userData.CodigoISO);
+                ViewBag.UrlTerminosOfertaFinalRegalo = string.Format(GetConfiguracionManager(Constantes.ConfiguracionManager.oferta_final_regalo_url_s3), userData.CodigoISO);
                 model.MostrarPopupPrecargados = (GetMostradoPopupPrecargados() == 0);
                 
                 ViewBag.CUVOfertaProl = TempData["CUVOfertaProl"];
@@ -358,7 +358,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             
 
-            ViewBag.UrlTerminosOfertaFinalRegalo = string.Format(ConfigurationManager.AppSettings.Get("oferta_final_regalo_url_s3"), userData.CodigoISO);
+            ViewBag.UrlTerminosOfertaFinalRegalo = string.Format(GetConfiguracionManager(Constantes.ConfiguracionManager.oferta_final_regalo_url_s3), userData.CodigoISO);
 
             if (Session["EsShowRoom"] != null && Session["EsShowRoom"].ToString() == "1")
             {
@@ -426,7 +426,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string GetPaisesFlexiPago()
         {
-            return ConfigurationManager.AppSettings.Get("PaisesFlexipago") ?? string.Empty;
+            return GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesFlexipago);
         }
 
         private bool PaisTieneFlexiPago(string codigoIso)
@@ -3856,11 +3856,11 @@ namespace Portal.Consultoras.Web.Controllers
         private List<ProductoModel> ObtenerListadoProductosOfertaFinal(int tipoOfertaFinal)
         {
             var lista = new List<Producto>();
-            string paisesConPcm = ConfigurationManager.AppSettings.Get("PaisesConPcm");
+            string paisesConPcm = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesConPcm);
 
             int tipoProductoMostrar = paisesConPcm.Contains(userData.CodigoISO) ? 2 : 1;
 
-            int limiteJetlore = int.Parse(ConfigurationManager.AppSettings.Get("LimiteJetloreOfertaFinal"));
+            int limiteJetlore = int.Parse(GetConfiguracionManager(Constantes.ConfiguracionManager.LimiteJetloreOfertaFinal));
 
             decimal descuentoprol=0;
 

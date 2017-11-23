@@ -37658,89 +37658,100 @@ h1#penmostreo .campana {
     top: 109px;
     font-size: 17px;
 }
-.contenido-popup-nuevo-2017 {
-            display: inline;
-            vertical-align: middle;
-            color: white;
-            text-transform: uppercase;
-            text-align: center;
-            margin: auto;
-        }
-   .contenido-popup-nuevo-2017 .centrar-estructura{
-        box-shadow: inset 0 0 0 5px #613c87;
+.contenido-popup-nuevo-2017{
+        display: table-cell;
+        vertical-align: middle;
+        color:white;
+        text-transform: uppercase;
+        text-align: center;
+
+       }
+       .contenido-popup-nuevo-2017 .centrar-estructura{
+               box-shadow: inset 0 0 0 5px #613c87;
     padding: 20px;
-    height: 390px;
     /* margin-top: 15%; */
     /* margin-bottom: 15%; */
-    width: 390px;
+    width: 432px;
+    height: 432px;
     margin: auto;
     display: table;
-   }
-   .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido{
-    display: table-cell;
-    vertical-align: middle;
-   }
-   .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.primer-texto{
-    font-size: 28px;
-    letter-spacing: 1px;
-    text-align: center;
-    color: white;
-    font-weight: 300;
-    margin-bottom: 0;
-    display: block;
-    width: 280px;
-
-    margin: auto;
-    margin-bottom: 10px;
+       }
+        .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto span.flashit {
+            color: white;
+            -webkit-animation: flash linear 1s infinite;
+            animation: flash linear 1s infinite;
+        }
+        @-webkit-keyframes flash {
+  0% { opacity: 1; }
+  50% { opacity: .1; }
+  100% { opacity: 1; }
   }
-  .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto{
-    font-size: 30px;
-    letter-spacing: 1px;
-    text-align: center;
-    color: white;
-    font-weight: 700;
-    margin-top: 10px;
-    letter-spacing: 1px;
-    margin-bottom: 36px;
-    display: block;
-    width: 280px;
-    margin: auto;
-    margin-bottom: 35px;
+  @keyframes flash {
+    0% { opacity: 1; }
+    50% { opacity: .1; }
+    100% { opacity: 1; }
   }
-  .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido a.btn-popup{
-         background: #613c87;
-    color: white;
-    text-align: center;
-    max-width: 240px;
-    display: block;
-    font-size: 17px;
-    text-decoration: none;
-    padding: 17px 0px;
-    letter-spacing: 1px;
-    margin: auto;
-        box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.30);
-  }
-  .contenido-popup-nuevo-2017 .centrar-estructura a.cerrar-popup{
-        position: absolute;
-    margin-left: 29px;
+       .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido{
+        display: table-cell;
+        vertical-align: middle;
+       }
+        .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.primer-texto {
+            font-size: 28px;
+            letter-spacing: 1px;
+            text-align: center;
+            color: white;
+            font-weight: 300;
+            margin-bottom: 0;
+            display: block;
+            width: 280px;
+            margin: auto;
+            line-height: 30px;
+            margin-bottom: 15px;
+        }
+        .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto {
+            font-size: 30px;
+            letter-spacing: 1px;
+            line-height: 35px;
+            text-align: center;
+            color: white;
+            font-weight: 700;
+            margin-top: 10px;
+            letter-spacing: 1px;
+            margin-bottom: 36px;
+            display: block;
+            width: 280px;
+            margin: auto;
+            margin-bottom: 35px;
+        }
+        .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido a.btn-popup {
+            background: #613c87;
+            color: white;
+            text-align: center;
+            max-width: 240px;
+            display: block;
+            font-size: 13px;
+            text-decoration: none;
+            padding: 17px 0px;
+            letter-spacing: 1px;
+            margin: auto;
+            border: none;
+            box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.30);
+        }
+      .contenido-popup-nuevo-2017 .centrar-estructura a.cerrar-popup{
+            position: absolute;
     margin-top: -20px;
-  }
-    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.primer-texto {
-    font-size: 24px;
-    }
-    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto{
-      font-size: 26px;
-    }
-    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido a.btn-popup {
-        font-size: 13px;
-        border: none;
-        padding: 14.5px 0px;
-    }
-    .contenido-popup-nuevo-2017 .centrar-estructura a.cerrar-popup{
-        position: absolute;
-    margin-left: 0px;
-    margin-top: -49px;
-    }
+    margin-left: 30px;
+      }
+        .contenedor_fondo_popup {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 10000;
+            display:table;
+        }
     .contenido .centrar-estructura{
       height: 80%;
     }
