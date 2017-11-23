@@ -407,10 +407,17 @@ namespace Portal.Consultoras.Web.Controllers
             entidad.IsoPais = userData.CodigoISO;
             entidad.EMail = userData.EMail;
 
-            using (PedidoServiceClient sv = new PedidoServiceClient())
-            {
-                entidad.RevistaDigitalSuscripcionID = sv.RDDesuscripcion(entidad);
-            }
+            if (tipo == Constantes.EstadoRDSuscripcion.Desactivo)
+                using (PedidoServiceClient sv = new PedidoServiceClient())
+                {
+                    entidad.RevistaDigitalSuscripcionID = sv.RDDesuscripcion(entidad);
+                }
+
+            else if (tipo == Constantes.EstadoRDSuscripcion.Activo)
+                using (PedidoServiceClient sv = new PedidoServiceClient())
+                {
+                    entidad.RevistaDigitalSuscripcionID = sv.RDSuscripcion(entidad);
+                }
 
             if (entidad.RevistaDigitalSuscripcionID > 0)
             {
