@@ -306,7 +306,7 @@ namespace Portal.Consultoras.BizLogic
             }
 
             if (!Common.Util.IsUrl(usuario.FotoPerfil) && !string.IsNullOrEmpty(usuario.FotoPerfil))
-                usuario.FotoPerfil = string.Concat(ConfigS3.GetUrlS3("fotoperfil"), usuario.FotoPerfil);
+                usuario.FotoPerfil = string.Concat(ConfigS3.GetUrlS3(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
 
             return usuario;
         }
@@ -398,7 +398,7 @@ namespace Portal.Consultoras.BizLogic
                             IncentivosConcursosTask);
 
             if (!Common.Util.IsUrl(usuario.FotoPerfil) && !string.IsNullOrEmpty(usuario.FotoPerfil))
-                usuario.FotoPerfil = string.Concat(ConfigS3.GetUrlS3("fotoperfil"), usuario.FotoPerfil);
+                usuario.FotoPerfil = string.Concat(ConfigS3.GetUrlS3(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
             
             usuario.AceptaTerminosCondiciones = (terminosCondicionesTask.Result == null ? false : terminosCondicionesTask.Result.Aceptado);
             usuario.DestinatariosFeedback = string.Join(";", destinatariosFeedBack.Result.Select(x => x.Descripcion));
