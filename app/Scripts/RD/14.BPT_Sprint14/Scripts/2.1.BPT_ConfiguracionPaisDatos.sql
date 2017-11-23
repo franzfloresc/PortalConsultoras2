@@ -294,6 +294,55 @@ begin
 
 	END
 
+	-- RD Landing Informativo
+	BEGIN
+	
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
+		Valor1, Valor2, Valor3, Descripcion)
+	values (@ConfiguracionPaisID, 1, 0, 'DInformativoNuncaSuscritaNoInteresa', 
+	'SUSCRÍBETE AL CLUB GANA+: TU NUEVO ESPACIO ONLINE DE OFERTAS EXCLUSIVAS', 
+	'Disfruta de los beneficios que Club Gana+ tiene para ti y haz crecer tu negocio.', 
+	'', 'Desktop estado no me interesa y recien invitada')
+	
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
+		Valor1, Valor2, Valor3, Descripcion)
+	values (@ConfiguracionPaisID, 1, 0, 'DInformativoSuscrita', 
+	'¿DESEAS CANCELAR TU SUSCRIPCIÓN AL CLUB GANA+?', 
+	'Al hacerlo, dejarás de disfrutar de los beneficios del Club Gana+ y volverás a recibir tu guía de negocio impresa a partir de la próxima campaña.', 
+	'Tienes hasta el cierre de esta campaña para cancelar tu suscripción y garantizar la recepción de tu guía de negocio impresa para la siguiente campaña.',
+	'Desktop no suscrita')
+	
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
+		Valor1, Valor2, Valor3, Descripcion)
+	values (@ConfiguracionPaisID, 1, 0, 'DInformativoNoSuscrita', 
+	'HAS CANCELADO TU SUSCRIPCIÓN CON ÉXITO', 
+	'A partir de la próxima campaña, dejarás de disfrutar de los beneficios del Club Gana+ y volverás a recibir tu guía de negocio impresa en la próxima campaña.', 
+	'Puedes volver a suscribirte cuando quieras.',
+	'Desktop no suscrita')
+		
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
+		Valor1, Valor2, Valor3, Descripcion)
+	values (@ConfiguracionPaisID, 1, 0, 'MInformativoNuncaSuscritaNoInteresa', 
+	'SUSCRÍBETE AL CLUB GANA+: TU NUEVO ESPACIO ONLINE DE OFERTAS EXCLUSIVAS', 
+	'Disfruta de los beneficios que Club Gana+ tiene para ti.', 
+	'', 'Mobile estado no me interesa y recien invitada')
+	
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
+		Valor1, Valor2, Valor3, Descripcion)
+	values (@ConfiguracionPaisID, 1, 0, 'MInformativoSuscrita', 
+	'¿DESEAS CANCELAR TU SUSCRIPCIÓN?', 
+	'Al cancelar, dejarás de disfrutar de los beneficios del Club Gana+ y volverás a recibir tu guía de negocio impresa a partir de la próxima campaña.', 
+	'', 'Mobile no suscrita')
+	
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
+		Valor1, Valor2, Valor3, Descripcion)
+	values (@ConfiguracionPaisID, 1, 0, 'MInformativoNoSuscrita', 
+	'HAS CANCELADO TU SUSCRIPCIÓN CON ÉXITO', 
+	'A partir de la próxima campaña, dejarás de disfrutar de los beneficios del Club Gana+ y volverás a recibir tu guía de negocio impresa en la próxima campaña. Puedes volver a suscribirte cuando quieras.', 
+	'', 'Mobile no suscrita')
+
+	END
+
 END
 GO
 

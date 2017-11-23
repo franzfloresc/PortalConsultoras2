@@ -113,67 +113,33 @@
     </div>
 </div>
 
-<div class="suscribete-gratis" style="display:none;">
-    <div class="nuevo_contenedor_informativo">
-        <span class="info">
-            CON GANA + DISFRUTA DE TUS OFERTAS EXCLUSIVAS EL DÍA QUE QUIERAS, <b>¡EN EL MOMENTO QUE QUIERAS!</b>
-        </span>
-        <a href="javascript: RDSuscripcion(2);" class="callto">
-            SUSCRÍBETE GRATIS AQUÍ
-        </a>
-    </div>
-</div>
-
 <div id="divCambiosEstadoRegistro" class="suscribete-gratis" data-estadoregistro="@Model.EstadoSuscripcion">
-    @if (Model.EstadoSuscripcion == Constantes.EstadoRDSuscripcion.SinRegistroDB || Model.EstadoSuscripcion == Constantes.EstadoRDSuscripcion.NoPopUp)
-    {
-        <div class="nuevo_contenedor_informativo" id="divSuscripcion" data-estadoregistro0="" style="display: none">
-            <span class="info">
-                CON GANA + DISFRUTA DE TUS OFERTAS EXCLUSIVAS EL DÍA QUE QUIERAS, <b>¡EN EL MOMENTO QUE QUIERAS!</b>
-            </span>
-            <a href="javascript: RDSuscripcion(2);" class="btn_inscribirse">SUSCRÍBETE GRATIS AQUÍ</a>
-            <hr class="clear" />
-            <div class="texto_inscribirse">Al inscribirte estas aceptando los <a href="javascript: MostrarTerminos();" class="terminos_inscribirse">términos y condiciones</a></div>
-        </div>
-    }
-
-    <div class="nuevo_contenedor_informativo" id="divAnularSuscripcion" data-estadoregistro1="" style="display: none">
+    <div class="nuevo_contenedor_informativo" id="divSuscripcion">
         <div class="content_320 ingresoPedidom">
-            <div class="tit_preguntas">¿YA NO QUIERES ESTAR INSCRITA A ÉSIKA PARA MÍ?</div>
-            <p> Tienes hasta el cierre de campaña para cancelar tu inscripción. Al cancelar tu inscripción dejarás de recibir tu revista online y <b>volverás a recibir tu revista impresa en 2 campañas.</b></p>
+            <div class="tit_preguntas">@Model.Titulo</div>
+            <p>@Model.SubTitulo</p>
             <p>
                 Cualquier duda llama a @Model.NumeroContacto o haz click
                 <a href="@Url.Action("ChatBelcorp", "Bienvenida", new {area = "Mobile"})" target="_blank"
                    style="display:inline-block; text-decoration:underline;">aquí</a>
             </p>
         </div>
-        <div class="btn_cancelarInscripcion_ept">
-            <a href="javascript: RDDesuscripcion(2);">CANCELAR MI INSCRIPCIÓN</a>
-        </div>
+        @if (Model.EsSuscrita)
+        {
+            <div class="btn_cancelarInscripcion_ept">
+                <a href="javascript: RDDesuscripcion();">CANCELAR MI INSCRIPCIÓN</a>
+            </div>
+        }
+        else
+        {
+            <a href="javascript: RDSuscripcion();" class="btn_inscribirse">SUSCRÍBETE GRATIS AQUÍ</a>
+        }
         <hr class="clear" />
         <div class="texto_inscribirse">Al inscribirte estas aceptando los <a href="javascript: MostrarTerminos();" class="terminos_inscribirse">términos y condiciones</a></div>
-        <hr class="clear" />
-        <div class="text_legal_ept">*Comparación vs. consultoras que no compraron ofertas digitales de www.somosbelcorp.com. Período evaluado: Dic. 2016 – Abr. 2017 (Perú y Chile).</div>
     </div>
-
-    <div class="nuevo_contenedor_informativo" id="divMensajeAnularSuscripcion" data-estadoregistro2="" style="display: none">
-        <div class="content_320 ingresoPedidom">
-            <div class="tit_preguntas" style="text-transform: uppercase">
-                haz anulado tu inscripción con éxito
-            </div>
-            <p style="text-transform: uppercase">
-                al cancelar tu inscripción dejarás de recibir tu revista online <b>ésika para mí</b> Y volverás a recibir tu revista impresa en 2 campañas.
-                <br />
-                Puedes volver a inscribirte.
-            </p>
-            <a href="javascript: RDSuscripcion(2);" class="btn_inscribirse">SUSCRÍBETE GRATIS AQUÍ</a>
-            <hr class="clear" />
-            <div class="texto_inscribirse">Al inscribirte estas aceptando los <a href="javascript: MostrarTerminos();" class="terminos_inscribirse">términos y condiciones</a></div>
-        </div>
-    </div>
-
 </div>
 
+<hr class="clear" />
 <div class="content_320 ingresoPedidom">
     <div class="box_preguntas_ept">
         <div class="tit_light_ept">PREGUNTAS FRECUENTES</div>

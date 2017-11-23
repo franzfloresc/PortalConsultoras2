@@ -906,6 +906,7 @@ namespace Portal.Consultoras.Common
         {
             public static class RD
             {
+                #region Data de Cabecera
                 public const string BloquearDiasAntesFacturar = "BloquearDiasAntesFacturar";
                 public const string CantidadCampaniaEfectiva = "CantidadCampaniaEfectiva";
                 public const string NombreComercialActiva = "NombreComercialActiva";
@@ -914,7 +915,9 @@ namespace Portal.Consultoras.Common
                 public const string LogoComercialNoActiva = "LogoComercialNoActiva";
                 public const string LogoMenuOfertasActiva = "LogoMenuOfertasActiva";
                 public const string LogoMenuOfertasNoActiva = "LogoMenuOfertasNoActiva";
+                #endregion
 
+                #region Bienvenida
                 public const string DBienvenidaInscritaActiva = "DBienvenidaInscritaActiva";
                 public const string DBienvenidaInscritaNoActiva = "DBienvenidaInscritaNoActiva";
                 public const string DBienvenidaNoInscritaActiva = "DBienvenidaNoInscritaActiva";
@@ -923,7 +926,9 @@ namespace Portal.Consultoras.Common
                 public const string MBienvenidaInscritaNoActiva = "MBienvenidaInscritaNoActiva";
                 public const string MBienvenidaNoInscritaActiva = "MBienvenidaNoInscritaActiva";
                 public const string MBienvenidaNoInscritaNoActiva = "MBienvenidaNoInscritaNoActiva";
+                #endregion
 
+                #region Pedido
                 public const string DPedidoInscritaActiva = "DPedidoInscritaActiva";
                 public const string DPedidoInscritaNoActiva = "DPedidoInscritaNoActiva";
                 public const string DPedidoNoInscritaActiva = "DPedidoNoInscritaActiva";
@@ -932,7 +937,9 @@ namespace Portal.Consultoras.Common
                 public const string MPedidoInscritaNoActiva = "MPedidoInscritaNoActiva";
                 public const string MPedidoNoInscritaActiva = "MPedidoNoInscritaActiva";
                 public const string MPedidoNoInscritaNoActiva = "MPedidoNoInscritaNoActiva";
+                #endregion
 
+                #region Catalogo
                 public const string DCatalogoInscritaActiva = "DCatalogoInscritaActiva";
                 public const string DCatalogoInscritaNoActiva = "DCatalogoInscritaNoActiva";
                 public const string DCatalogoNoInscritaActiva = "DCatalogoNoInscritaActiva";
@@ -941,7 +948,7 @@ namespace Portal.Consultoras.Common
                 public const string MCatalogoInscritaNoActiva = "MCatalogoInscritaNoActiva";
                 public const string MCatalogoNoInscritaActiva = "MCatalogoNoInscritaActiva";
                 public const string MCatalogoNoInscritaNoActiva = "MCatalogoNoInscritaNoActiva";
-
+                #endregion
 
                 #region Revista Digital Popup Bloqueado
                 public const string DPopupBloqueadoNoActivaNoSuscrita = "DPopupBloqueadoNoActivaNoSuscrita";
@@ -964,6 +971,15 @@ namespace Portal.Consultoras.Common
                 public const string MLandingBannerNoActivaSuscrita = "MLandingBannerNoActivaSuscrita";
                 public const string MLandingBannerActivaNoSuscrita = "MLandingBannerActivaNoSuscrita";
                 public const string MLandingBannerActivaSuscrita = "MLandingBannerActivaSuscrita";
+                #endregion
+
+                #region Landing Informativo
+                public const string DInformativoNuncaSuscritaNoInteresa = "DInformativoNuncaSuscritaNoInteresa";
+                public const string DInformativoSuscrita = "DInformativoSuscrita";
+                public const string DInformativoNoSuscrita = "DInformativoNoSuscrita";
+                public const string MInformativoNuncaSuscritaNoInteresa = "MInformativoNuncaSuscritaNoInteresa";
+                public const string MInformativoSuscrita = "MInformativoSuscrita";
+                public const string MInformativoNoSuscrita = "MInformativoNoSuscrita";
                 #endregion
             }
 
