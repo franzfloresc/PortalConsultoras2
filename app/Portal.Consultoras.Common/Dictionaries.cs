@@ -496,6 +496,18 @@ namespace Portal.Consultoras.Common
             { "VE", "TemplatesDatosAval/_DatosAvalGrupo1" },
         };
 
+        public class FileManager
+        {
+            public class TipoArchivo
+            {
+                public const string FotoPerfilConsultora = "01";
+            }
+
+            public static Dictionary<string, string> Configuracion = new Dictionary<string, string>
+            {
+                { TipoArchivo.FotoPerfilConsultora, "FotoPerfil" }
+            };
+        }
     }
 
     public class RangoEdad
@@ -547,5 +559,4 @@ namespace Portal.Consultoras.Common
         public const string PuertoRico = "PR";
         public const string Bolivia = "BO";
     }
-
 }
