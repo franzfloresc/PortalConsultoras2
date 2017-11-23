@@ -338,6 +338,12 @@ namespace Portal.Consultoras.Common
             public const string NombreArchivoTC = "NombreArchivoTC";
             public const string CarpetaImagenCompartirCatalogo = "CarpetaImagenCompartirCatalogo";
             public const string NombreImagenCompartirCatalogo = "NombreImagenCompartirCatalogo";
+
+            public const string URL_S3 = "URL_S3";
+            public const string ROOT_DIRECTORY = "ROOT_DIRECTORY";
+            public const string ServiceController="ServiceController";
+            public const string ServiceAction = "ServiceAction";
+            public const string Ambiente = "Ambiente";
         }
 
         public static class TipoOfertaFinalCatalogoPersonalizado

@@ -114,10 +114,10 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                ViewBag.UrlRaizS3 = string.Format("{0}/{1}/{2}/", ConfigurationManager.AppSettings["URL_S3"], GetBucketNameFromConfig(), ConfigurationManager.AppSettings["ROOT_DIRECTORY"]);
+                ViewBag.UrlRaizS3 = string.Format("{0}/{1}/{2}/", GetConfiguracionManager(Constantes.ConfiguracionManager.URL_S3), GetBucketNameFromConfig(), GetConfiguracionManager(Constantes.ConfiguracionManager.ROOT_DIRECTORY));
 
-                ViewBag.ServiceController = (ConfigurationManager.AppSettings["ServiceController"] == null) ? "" : ConfigurationManager.AppSettings["ServiceController"].ToString();
-                ViewBag.ServiceAction = (ConfigurationManager.AppSettings["ServiceAction"] == null) ? "" : ConfigurationManager.AppSettings["ServiceAction"].ToString();
+                ViewBag.ServiceController = GetConfiguracionManager(Constantes.ConfiguracionManager.ServiceController);
+                ViewBag.ServiceAction = GetConfiguracionManager(Constantes.ConfiguracionManager.ServiceAction);
 
                 ObtenerPedidoWeb();
                 ObtenerPedidoWebDetalle();
@@ -318,7 +318,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var cuvs = string.Join("|", detallesPedidoWeb.Select(p => p.CUV).ToArray());
                 var cantidades = string.Join("|", detallesPedidoWeb.Select(p => p.Cantidad).ToArray());
 
-                var ambiente = ConfigurationManager.AppSettings["Ambiente"] ?? "";
+                var ambiente = GetConfiguracionManager(Constantes.ConfiguracionManager.Ambiente);
                 var keyWeb = ambiente.ToUpper() == "QA" ? "QA_Prol_ServicesCalculos" : "PR_Prol_ServicesCalculos";
 
                 using (var sv = new ServicesCalculoPrecioNiveles())
@@ -1135,7 +1135,7 @@ namespace Portal.Consultoras.Web.Controllers
             var UrlEMTELCO = "";
             try
             {
-                UrlEMTELCO = ConfigurationManager.AppSettings["UrlBelcorpChat"];
+                UrlEMTELCO = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlBelcorpChat);
             }
             catch (Exception)
             {
@@ -2010,7 +2010,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected string ConfigurarUrlServiceProl()
         {
-            string ambiente = ConfigurationManager.AppSettings["Ambiente"];
+            string ambiente = GetConfiguracionManager(Constantes.ConfiguracionManager.Ambiente);
             string pais = UserData().CodigoISO;
             string key = ambiente.Trim().ToUpper() + "_Prol_" + pais.Trim().ToUpper();
             return ConfigurationManager.AppSettings[key];
