@@ -20,6 +20,25 @@ namespace Portal.Consultoras.Web.Controllers
 
             revistaDigital.NumeroContacto = Util.Trim(ConfigurationManager.AppSettings["BelcorpRespondeTEL_" + userData.CodigoISO]);
             revistaDigital.NombreConsultora = userData.UsuarioNombre;
+            
+            #region Textos para el flujo Suscripcion
+            var codigo = "";
+            if (revistaDigital.EstadoSuscripcion == Constantes.EstadoRDSuscripcion.SinRegistroDB || revistaDigital.EstadoSuscripcion == Constantes.EstadoRDSuscripcion.NoPopUp)
+            {
+                codigo = IsMobile() ? Constantes.ConfiguracionPaisDatos.RD.MInformativoNuncaSuscritaNoInteresa : Constantes.ConfiguracionPaisDatos.RD.DInformativoNuncaSuscritaNoInteresa;
+            }
+            else
+            {
+                codigo = IsMobile() 
+                    ? revistaDigital.EsSuscrita ? Constantes.ConfiguracionPaisDatos.RD.MInformativoSuscrita : Constantes.ConfiguracionPaisDatos.RD.MInformativoNoSuscrita
+                    : revistaDigital.EsSuscrita ? Constantes.ConfiguracionPaisDatos.RD.DInformativoSuscrita : Constantes.ConfiguracionPaisDatos.RD.DInformativoNoSuscrita;
+            }
+            var dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo) ?? new ConfiguracionPaisDatosModel();
+            revistaDigital.Titulo = Util.Trim(dato.Valor1);
+            revistaDigital.SubTitulo = Util.Trim(dato.Valor2);
+            revistaDigital.SubTitulo2 = Util.Trim(dato.Valor3);
+            #endregion
+
             return View("template-informativa", revistaDigital);
         }
 
@@ -60,20 +79,20 @@ namespace Portal.Consultoras.Web.Controllers
             var modelo = (EstrategiaPersonalizadaProductoModel)Session[Constantes.ConstSession.ProductoTemporal];
             if (modelo == null || modelo.EstrategiaID == 0 || modelo.CUV2 != cuv || modelo.CampaniaID != campaniaId)
             {
-                return RedirectToAction("Index", "RevistaDigital", new { area = IsMobile() ? "Mobile" : "" });
+                return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
             }
 
             if (!revistaDigital.TieneRDC && !revistaDigital.TieneRDR)
             {
-                return RedirectToAction("Index", "RevistaDigital", new { area = IsMobile() ? "Mobile" : "" });
+                return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
             }
             if (EsCampaniaFalsa(modelo.CampaniaID))
             {
-                return RedirectToAction("Index", "RevistaDigital", new { area = IsMobile() ? "Mobile" : "" });
+                return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
             }
             if (modelo.EstrategiaID <= 0)
             {
-                return RedirectToAction("Index", "RevistaDigital", new { area = IsMobile() ? "Mobile" : "" });
+                return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
             }
 
             modelo.TipoEstrategiaDetalle = modelo.TipoEstrategiaDetalle ?? new EstrategiaDetalleModelo();

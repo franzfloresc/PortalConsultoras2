@@ -111,7 +111,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 case Enumeradores.PantallaOrigenPedidoWeb.Pedido:
                     return RedirectToAction("Index", "Pedido", new { area = "Mobile" });
                 case Enumeradores.PantallaOrigenPedidoWeb.RevistaDigital:
-                    return RedirectToAction("Index", "RevistaDigital", new { area = "Mobile" });
+                    return RedirectToAction("Comprar", "RevistaDigital", new { area = "Mobile" });
                 case Enumeradores.PantallaOrigenPedidoWeb.GuiaNegocioDigital:
                     return RedirectToAction("Index", "GuiaNegocio", new { area = "Mobile" });
                 case Enumeradores.PantallaOrigenPedidoWeb.Liquidacion:
@@ -140,7 +140,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     result = Url.Action("Index", "Pedido", new { area = "Mobile" });
                     break;
                 case Enumeradores.PantallaOrigenPedidoWeb.RevistaDigital:
-                    result = Url.Action("Index", "RevistaDigital", new { area = "Mobile" });
+                    result = Url.Action("Comprar", "RevistaDigital", new { area = "Mobile" });
                     break;
                 case Enumeradores.PantallaOrigenPedidoWeb.GuiaNegocioDigital:
                     result = Url.Action("Index", "GuiaNegocio", new { area = "Mobile" });

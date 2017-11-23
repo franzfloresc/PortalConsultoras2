@@ -104,7 +104,7 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
 
-            return RedirectToAction("Index", "RevistaDigital");
+            return RedirectToAction("Index", "Ofertas");
         }
 
         public ActionResult _Landing(int id)
@@ -329,12 +329,14 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    if (sv.RDSuscripcion(entidad) > 0)
-                    {
-                        revistaDigital.NoVolverMostrar = true;
-                        revistaDigital.EstadoSuscripcion = Constantes.EstadoRDSuscripcion.NoPopUp;
-                        revistaDigital.SuscripcionModel.EstadoRegistro = Constantes.EstadoRDSuscripcion.NoPopUp;
-                    }
+                    entidad.RevistaDigitalSuscripcionID = sv.RDSuscripcion(entidad);
+                }
+
+                if (entidad.RevistaDigitalSuscripcionID > 0)
+                {
+                    revistaDigital.NoVolverMostrar = true;
+                    revistaDigital.EstadoSuscripcion = Constantes.EstadoRDSuscripcion.NoPopUp;
+                    revistaDigital.SuscripcionModel.EstadoRegistro = Constantes.EstadoRDSuscripcion.NoPopUp;
                 }
 
                 return Json(new
@@ -407,10 +409,17 @@ namespace Portal.Consultoras.Web.Controllers
             entidad.IsoPais = userData.CodigoISO;
             entidad.EMail = userData.EMail;
 
-            using (PedidoServiceClient sv = new PedidoServiceClient())
-            {
-                entidad.RevistaDigitalSuscripcionID = sv.RDDesuscripcion(entidad);
-            }
+            if (tipo == Constantes.EstadoRDSuscripcion.Desactivo)
+                using (PedidoServiceClient sv = new PedidoServiceClient())
+                {
+                    entidad.RevistaDigitalSuscripcionID = sv.RDDesuscripcion(entidad);
+                }
+
+            else
+                using (PedidoServiceClient sv = new PedidoServiceClient())
+                {
+                    entidad.RevistaDigitalSuscripcionID = sv.RDSuscripcion(entidad);
+                }
 
             if (entidad.RevistaDigitalSuscripcionID > 0)
             {
@@ -433,6 +442,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 revistaDigital.NoVolverMostrar = true;
                 revistaDigital.EstadoSuscripcion = Constantes.EstadoRDSuscripcion.NoPopUp;
+                revistaDigital.SuscripcionModel.EstadoRegistro = Constantes.EstadoRDSuscripcion.NoPopUp;
                 Session[Constantes.ConstSession.TipoPopUpMostrar] = Constantes.TipoPopUp.Ninguno;
 
                 return Json(new
