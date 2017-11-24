@@ -28,8 +28,7 @@ namespace Portal.Consultoras.Common
 
             if (fileName.StartsWith("https:/"))
                 return fileName;
-
-            carpetaPais = carpetaPais ?? "";
+            
             if (fileName.Trim() == "") return fileName;
 
             var root = string.IsNullOrEmpty(ROOT_DIRECTORY) ? "" : ROOT_DIRECTORY + "/";
@@ -215,8 +214,7 @@ namespace Portal.Consultoras.Common
 
             if (fileName.StartsWith("https:/"))
                 return fileName;
-
-            carpetaPais = carpetaPais ?? "";
+            
             if (fileName.Trim() == "") return fileName;
             
             var carpeta = string.IsNullOrEmpty(carpetaPais) ? "" : carpetaPais + "/";
