@@ -1185,7 +1185,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region ConfiguracioRevistaDigital
 
-        private void ConfiguracionPaisDatosRevistaDigital( ref RevistaDigitalModel revistaDigitalModel, List<BEConfiguracionPaisDatos> listaDatos)
+        private void ConfiguracionPaisDatosRevistaDigital(ref RevistaDigitalModel revistaDigitalModel, List<BEConfiguracionPaisDatos> listaDatos)
         {
             try
             {
@@ -1205,16 +1205,17 @@ namespace Portal.Consultoras.Web.Controllers
 
                 value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.NombreComercialNoActiva);
                 if (value1 != null) revistaDigitalModel.NombreComercialNoActiva = value1.Valor1;
-                
+
                 value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoComercialActiva);
                 if (value1 != null)
                 {
                     revistaDigitalModel.DLogoComercialActiva = value1.Valor1;
                     revistaDigitalModel.MLogoComercialActiva = value1.Valor2;
                 }
-                
+
                 value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoComercialNoActiva);
-                if (value1 != null) {
+                if (value1 != null)
+                {
                     revistaDigitalModel.DLogoComercialNoActiva = value1.Valor1;
                     revistaDigitalModel.MLogoComercialNoActiva = value1.Valor2;
                 }
@@ -1237,7 +1238,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (value1 != null) revistaDigitalModel.LogoMenuOfertasActiva = value1.Valor1;
 
                 value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoMenuOfertasNoActiva);
-                if (value1 != null) revistaDigitalModel.LogoMenuOfertasNoActiva= value1.Valor1;
+                if (value1 != null) revistaDigitalModel.LogoMenuOfertasNoActiva = value1.Valor1;
 
                 listaDatos.RemoveAll(d =>
                     d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BloquearDiasAntesFacturar
