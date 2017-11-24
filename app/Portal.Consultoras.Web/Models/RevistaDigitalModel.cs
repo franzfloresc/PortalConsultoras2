@@ -30,6 +30,11 @@ namespace Portal.Consultoras.Web.Models
         public string MLogoComercialActiva { get; set; }
         public string MLogoComercialNoActiva { get; set; }
 
+        public string DLogoComercialFondoActiva { get; set; }
+        public string DLogoComercialFondoNoActiva { get; set; }
+        public string MLogoComercialFondoActiva { get; set; }
+        public string MLogoComercialFondoNoActiva { get; set; }
+
         public string LogoMenuOfertasActiva { get; set; }
         public string LogoMenuOfertasNoActiva { get; set; }
 

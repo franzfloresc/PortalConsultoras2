@@ -1219,6 +1219,20 @@ namespace Portal.Consultoras.Web.Controllers
                     revistaDigitalModel.MLogoComercialNoActiva = value1.Valor2;
                 }
 
+                value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoComercialFondoActiva);
+                if (value1 != null)
+                {
+                    revistaDigitalModel.DLogoComercialFondoActiva = value1.Valor1;
+                    revistaDigitalModel.MLogoComercialFondoActiva = value1.Valor2;
+                }
+
+                value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoComercialFondoNoActiva);
+                if (value1 != null)
+                {
+                    revistaDigitalModel.DLogoComercialFondoNoActiva = value1.Valor1;
+                    revistaDigitalModel.MLogoComercialFondoNoActiva = value1.Valor2;
+                }
+
                 value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoMenuOfertasActiva);
                 if (value1 != null) revistaDigitalModel.LogoMenuOfertasActiva = value1.Valor1;
 
