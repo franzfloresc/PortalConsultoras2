@@ -37,6 +37,16 @@ namespace Portal.Consultoras.Common
 
         public static string GetUrlFileRDS3(string carpetaPais, string fileName)
         {
+            fileName = fileName ?? "";
+            if (fileName.StartsWith(URL_S3))
+                return fileName;
+
+            if (fileName.StartsWith("http:/"))
+                return fileName;
+
+            if (fileName.StartsWith("https:/"))
+                return fileName;
+
             return URL_S3 + "/" + BUCKET_NAME + "/" + ROOT_DIRECTORY + "/" + Globals.UrlRevistaDigital + "/" + (carpetaPais != "" ? carpetaPais + "/" : "") + fileName;
         }
         public static void DeleteFileS3(string carpetaPais, string fileName)

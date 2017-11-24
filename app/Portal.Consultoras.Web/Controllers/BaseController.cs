@@ -3972,10 +3972,8 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-
-                confi.MobileLogoBanner = ConfigS3.GetUrlFileRDS3(carpetaPais, revistaDigital.EsSuscrita ? revistaDigital.MLogoComercialFondoActiva : revistaDigital.MLogoComercialFondoNoActiva);
-                confi.DesktopLogoBanner = ConfigS3.GetUrlFileRDS3(carpetaPais, revistaDigital.EsSuscrita ? revistaDigital.DLogoComercialFondoActiva : revistaDigital.DLogoComercialFondoNoActiva);
+                confi.MobileLogoBanner = revistaDigital.EsSuscrita ? revistaDigital.MLogoComercialFondoActiva : revistaDigital.MLogoComercialFondoNoActiva;
+                confi.DesktopLogoBanner = revistaDigital.EsSuscrita ? revistaDigital.DLogoComercialFondoActiva : revistaDigital.DLogoComercialFondoNoActiva;
                 
             }
             else if (revistaDigital.TieneRDR)
@@ -4176,7 +4174,16 @@ namespace Portal.Consultoras.Web.Controllers
 
         public string GetConfiguracionManager(string key)
         {
-            return Util.Trim(ConfigurationManager.AppSettings.Get(key));
+            key = Util.Trim(key);
+            if (key == "")
+                return "";
+
+            key = Util.Trim(ConfigurationManager.AppSettings.Get(key));
+
+            if (key == "")
+                LogManager.LogManager.LogErrorWebServicesBus(new Exception(), userData.CodigoConsultora, userData.CodigoISO, "BaseController.GetConfiguracionManager el key " + key + " no tiene valor");
+
+            return key;
         }
 
         #endregion
