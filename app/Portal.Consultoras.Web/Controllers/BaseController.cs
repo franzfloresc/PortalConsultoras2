@@ -682,19 +682,19 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected virtual bool GetMostrarPedidosPendientesFromConfig()
         {
-            string mostrarPedidoAppSetting = ConfigurationManager.AppSettings.Get("MostrarPedidosPendientes") ?? string.Empty;
+            string mostrarPedidoAppSetting = GetConfiguracionManager(Constantes.ConfiguracionManager.MostrarPedidosPendientes);
 
             return mostrarPedidoAppSetting == "1";
         }
 
         protected string GetPaisesConConsultoraOnlineFromConfig()
         {
-            return ConfigurationManager.AppSettings.Get("Permisos_CCC") ?? string.Empty;
+            return GetConfiguracionManager(Constantes.ConfiguracionManager.Permisos_CCC);
         }
 
         protected virtual string GetDefaultGifMenuOfertas()
         {
-            return ConfigurationManager.AppSettings.Get("GIF_MENU_DEFAULT_OFERTAS") ?? string.Empty;
+            return GetConfiguracionManager(Constantes.ConfiguracionManager.GIF_MENU_DEFAULT_OFERTAS);
         }
 
         public virtual string GetUrlImagenMenuOfertas(UsuarioModel userData, RevistaDigitalModel revistaDigital)

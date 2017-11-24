@@ -57,7 +57,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string XmlPath = Server.MapPath("~/Key");
                 string KeyPath = Path.Combine(XmlPath, GetConfiguracionManager(Constantes.ConfiguracionManager.AMB_COM) == "PRD" ? "sso.cookie.prod.key" : "sso.cookie.key");
 
-                SSOClient.init(KeyPath, GetConfiguracionManager(Constantes.ConfiguracionManager.COM_CLIENT_ID), ConfigurationManager.AppSettings["COM_DOMAIN"]);
+                SSOClient.init(KeyPath, GetConfiguracionManager(Constantes.ConfiguracionManager.COM_CLIENT_ID), GetConfiguracionManager(Constantes.ConfiguracionManager.COM_DOMAIN));
 
                 Models.UsuarioModel UsuarioSesion = UserData();
 

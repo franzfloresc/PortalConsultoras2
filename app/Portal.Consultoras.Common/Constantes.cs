@@ -387,6 +387,7 @@ namespace Portal.Consultoras.Common
             public const string AMB_COM = "AMB_COM";
             public const string COM_CLIENT_ID = "COM_CLIENT_ID";
             public const string URL_COM = "URL_COM";
+            public const string COM_DOMAIN = "COM_DOMAIN";
         }
 
         public static class TipoOfertaFinalCatalogoPersonalizado

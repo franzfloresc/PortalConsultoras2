@@ -1,6 +1,5 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using System.Configuration;
 using System.IO;
 using System.Web.Mvc;
 

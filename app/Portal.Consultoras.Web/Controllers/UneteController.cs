@@ -51,7 +51,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return View();
         }
-        
+
         [HttpPost]
         public JsonResult ConsultarSolicitudesPostulantesSinValidacionTelefonica(ValidacionTelefonicaModel model)
         {
@@ -160,8 +160,6 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
-        
-      
 
         public ActionResult ConsultarValidacionTelefonica(int id)
         {
@@ -186,7 +184,6 @@ namespace Portal.Consultoras.Web.Controllers
             return PartialView("_ConsultarAdjunto", new Tuple<string, string, int>(CodigoISO, nombreArchivo, tipo));
         }
 
-    
         [HttpPost]
         public JsonResult ConsultarValidacionTelefonica(ConsultarValidacionTelefonicaModel model)
         {
@@ -212,10 +209,6 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(true, JsonRequestBehavior.AllowGet);
         }
 
-    
-
-     
-
         public ActionResult AprobarPostulante(int id)
         {
             return PartialView("_AprobarPostulante", id);
@@ -236,7 +229,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             return Json(true, JsonRequestBehavior.AllowGet);
         }
-      
 
         [HttpPost]
         public string NivelesRiesgoInsertar(HttpPostedFileBase uplArchivo, NivelesRiesgoModel model)
@@ -459,7 +451,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return list;
         }
-
 
         public static List<NivelesGeograficosModel> ReadXmlFileNG(string filepath, bool ReadAllSheets, ref bool IsCorrect, string CodigoPais)
         {
@@ -808,8 +799,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-    
-
         public void EnviarAFFVV(string id)
         {
             var solicitudPostulanteId = Convert.ToInt32(id);
@@ -844,8 +833,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
 
-
-      
         public ActionResult ValidacionTelefonica()
         {
             return View("ValidacionTelefonica", new ValidacionTelefonicaModel
@@ -854,8 +841,6 @@ namespace Portal.Consultoras.Web.Controllers
                 FechaHasta = DateTime.Now.ToString("dd/MM/yyyy"),
             });
         }
-
-
 
         public JsonResult ObtenerNombreConsultora(string codigoISO, string codigoConsultora)
         {
@@ -880,7 +865,7 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(consultora != null ? consultora.NombreCompleto : string.Empty, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult ObtenerCodigoPostal(int id, string codigoIso )
+        public ActionResult ObtenerCodigoPostal(int id, string codigoIso)
         {
             var CodigoPostal = string.Empty;
             using (var sv = new BelcorpPaisServiceClient())
@@ -906,7 +891,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var lugaresNivel = sv.ObtenerParametrosUnete(codigoIso, nivel, id);
 
-                var data = lugaresNivel.Select(l => new { Value = l.IdParametroUnete, Text = l.Nombre, CodigoPostalDO=l.Descripcion }).ToList();
+                var data = lugaresNivel.Select(l => new { Value = l.IdParametroUnete, Text = l.Nombre, CodigoPostalDO = l.Descripcion }).ToList();
 
 
                 return Json(data, JsonRequestBehavior.AllowGet);
@@ -929,7 +914,7 @@ namespace Portal.Consultoras.Web.Controllers
                 respuesta = cadena.Substring(0, 1).ToUpper();
                 if (cadena.Length > 1)
                 {
-                    respuesta = respuesta + cadena.Substring(1, cadena.Length - 1).ToLower(); 
+                    respuesta = respuesta + cadena.Substring(1, cadena.Length - 1).ToLower();
                 }
             }
             return respuesta;
@@ -961,9 +946,9 @@ namespace Portal.Consultoras.Web.Controllers
                : numeroDocumento;
         }
 
-     
 
-       
+
+
 
         #endregion
 
@@ -1192,7 +1177,6 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-
         [HttpPost]
         public JsonResult ConsultarTerritorios(decimal latitud, decimal longitud)
         {
@@ -1245,12 +1229,8 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.HTMLSACUnete = getHTMLSACUnete("ConsultarUbicacionCL", "&id=" + id.ToString());
 
             return PartialView("_ConsultarUbicacionCL");
-            
+
         }
-
-
-
-
 
         public ActionResult NivelesRiesgo()
         {
@@ -1258,11 +1238,10 @@ namespace Portal.Consultoras.Web.Controllers
             return View();
         }
 
-
         [HttpPost]
         public JsonResult ConsultarNivelesRiesgo(NivelesRiesgoModelSAC model)
         {
-      
+
 
 
             model.CodigoISO = CodigoISO;
@@ -1272,7 +1251,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var data = sv.ConsultarNivelesRiesgo(model);
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
-            
+
         }
 
         public ActionResult ExportarExcelNivelRiesgo()
@@ -1297,15 +1276,6 @@ namespace Portal.Consultoras.Web.Controllers
             Util.ExportToExcel("ReporteNivelesRiesgo", items, dic);
             return View();
         }
-
-
-
-         
-         
-         
-
-
-
 
         public ActionResult NivelesGeograficos()
         {
@@ -1459,18 +1429,17 @@ namespace Portal.Consultoras.Web.Controllers
             return View();
         }
 
-
         [HttpPost]
         public JsonResult ConsultarNivelesGeograficos(NivelesGeograficosModelSAC model)
         {
             model.CodigoISO = CodigoISO;
             using (var sv = new PortalServiceClient())
             {
-               
-              var  data = sv.ConsultarNivelesGeograficos(model);
+
+                var data = sv.ConsultarNivelesGeograficos(model);
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
-            
+
         }
 
         public ActionResult ExportarExcel(int PrefijoISOPais, string FechaDesde, string FechaHasta, string Nombre,
@@ -1480,8 +1449,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (var sv = new PortalServiceClient())
             {
-                List<SolicitudPostulanteBE> resultado = sv.ObtenerReporteGestionPostulante(  PrefijoISOPais,   FechaDesde,   FechaHasta,   Nombre,
-              Estado,   DocumentoIdentidad,   codigoZona,   CodigoRegion,   FuenteIngreso, CodigoISO).ToList();
+                List<SolicitudPostulanteBE> resultado = sv.ObtenerReporteGestionPostulante(PrefijoISOPais, FechaDesde, FechaHasta, Nombre,
+              Estado, DocumentoIdentidad, codigoZona, CodigoRegion, FuenteIngreso, CodigoISO).ToList();
 
                 Dictionary<string, string> dic = sv.GetDictionaryReporteGestionPostulantes(CodigoISO, Estado);
                 Util.ExportToExcel("ReportePostulantes", resultado, dic);
@@ -1491,29 +1460,24 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-
-
         [HttpPost]
         public JsonResult ProcesarParametro(GestionValidacionesParameter model)
         {
             model.CodigoISO = CodigoISO;
             var response = PostHTMLSACUnete("ProcesarParametro", model);
             return Json(response == "true", JsonRequestBehavior.AllowGet);
-            
+
         }
-         
 
         public ActionResult GestionParametros()
         {
-            ViewBag.HTMLSACUnete = getHTMLSACUnete("GestionParametros",null);
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("GestionParametros", null);
             return View("GestionParametros");
         }
-          
-
 
         public ActionResult DevolverSolicitud(int id)
         {
-            ViewBag.HTMLSACUnete = getHTMLSACUnete("DevolverSolicitud", "&id=" + id  );
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("DevolverSolicitud", "&id=" + id);
             return PartialView("_DevolverSolicitud");
         }
 
@@ -1523,18 +1487,16 @@ namespace Portal.Consultoras.Web.Controllers
             return PartialView("_MotivoRechazo");
         }
 
-
         [HttpPost]
         public ActionResult DevolverSolicitud(int id, string observacion)
         {
             var response = getHTMLSACUnete("DevolverSolicitud", "&id=" + id + "&observacion=" + observacion);
             return Json(response == "true", JsonRequestBehavior.AllowGet);
         }
-        
 
         public ActionResult ReactivarPostulante(int id)
         {
-            ViewBag.HTMLSACUnete = getHTMLSACUnete("ReactivarPostulante", "&id=" + id );
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("ReactivarPostulante", "&id=" + id);
             return PartialView("_ReactivarPostulante");
         }
 
@@ -1544,8 +1506,7 @@ namespace Portal.Consultoras.Web.Controllers
             var response = getHTMLSACUnete("ReactivarPostulante2", "&id=" + id);
             return Json(response == "true", JsonRequestBehavior.AllowGet);
         }
-        
-        
+
         [HttpPost]
         public ActionResult RechazarPostulante(RechazoModel model)
         {
@@ -1553,7 +1514,6 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(response == "true", JsonRequestBehavior.AllowGet);
 
         }
-
 
         public ActionResult RechazarPostulante(int id, string nombre)
         {
@@ -1573,10 +1533,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var response = getHTMLSACUnete("ValidarEdad", "&fechaNacimiento=" + fechaNacimiento + "&codigoISO=" + codigoISO);
             return response;
-            
-        }
-        
 
+        }
 
         [HttpPost]
         public JsonResult ConsultarUbicacion(int id, decimal latitud,
@@ -1596,20 +1554,18 @@ namespace Portal.Consultoras.Web.Controllers
                                        "&codterritorio=" + codterritorio +
                                           "&direccion=" + direccion
                 );
-                 return Json(response=="true"?true:false, JsonRequestBehavior.AllowGet);
+            return Json(response == "true" ? true : false, JsonRequestBehavior.AllowGet);
         }
-
-
 
         public string ObtenerZonas(int regionID)
         {
-            var jsonResponse = getHTMLSACUnete("ObtenerZonas", "&regionID=" + regionID );
+            var jsonResponse = getHTMLSACUnete("ObtenerZonas", "&regionID=" + regionID);
             return jsonResponse;
         }
 
         public string ObtenerSecciones(int regionID, int zonaID)
         {
-            var jsonResponse = getHTMLSACUnete("ObtenerSecciones", "&regionID=" + regionID + "&zonaID=" + zonaID );
+            var jsonResponse = getHTMLSACUnete("ObtenerSecciones", "&regionID=" + regionID + "&zonaID=" + zonaID);
             return jsonResponse;
         }
 
@@ -1618,10 +1574,10 @@ namespace Portal.Consultoras.Web.Controllers
             var jsonResponse = getHTMLSACUnete("ObtenerTerritorios", "&regionID=" + regionID + "&zonaID=" + zonaID + "&seccionID=" + seccionID);
             return jsonResponse;
         }
-        
+
         public ActionResult EditarDireccionManualmente(int id)
         {
-            ViewBag.HTMLSACUnete = getHTMLSACUnete("EditarDireccionManualmente", "&id=" + id );
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("EditarDireccionManualmente", "&id=" + id);
             return PartialView("_EditarDireccionManualmente");
         }
 
@@ -1631,7 +1587,6 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.HTMLSACUnete = PostHTMLSACUnete("EditarDireccionManualmente", model);
             return PartialView("_EditarDireccionManualmente");
         }
-        
 
         public ActionResult VerHistorialPostulante(int id, string nombre, string FechaRegistro)
         {
@@ -1669,8 +1624,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-
-
         public ActionResult Detalle(int id, bool modoLectura)
         {
             ViewBag.HTMLSACUnete = getHTMLSACUnete("Detalle", "&id=" + id + "&modoLectura=" + modoLectura);
@@ -1696,7 +1649,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult ConsultarEstadoCrediticia(int id)
         {
-            ViewBag.HTMLSACUnete = getHTMLSACUnete("ConsultarEstadoCrediticia", "&id="+id);
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("ConsultarEstadoCrediticia", "&id=" + id);
             return PartialView("_ConsultarEstadoCrediticia");
         }
 
@@ -1728,17 +1681,17 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult GrabarDatosDireccion(EditarDireccionModel model)
         {
 
-            ViewBag.HTMLSACUnete =  PostHTMLSACUnete("GrabarDatosDireccion", model);
+            ViewBag.HTMLSACUnete = PostHTMLSACUnete("GrabarDatosDireccion", model);
             return PartialView("_TemplateMensaje");
         }
-         
+
         public ActionResult ConfirmarPosicion(int id, decimal latitud,
             decimal longitud, string direccionCorrecta, string direccionCadena, string region, string comuna,
             string codregion, string codzona, string codseccion, string codterritorio, string direccion)
         {
 
 
-            ViewBag.HTMLSACUnete = getHTMLSACUnete("ConfirmarPosicion", 
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("ConfirmarPosicion",
                 "&id=" + id +
                 "&latitud=" + latitud +
                 "&longitud=" + longitud +
@@ -1751,26 +1704,25 @@ namespace Portal.Consultoras.Web.Controllers
                 "&codseccion=" + codseccion +
                 "&codterritorio=" + codterritorio +
                 "&direccion=" + direccion);
-            
+
             return PartialView("_ConfirmarPosicion");
         }
-        
+
         public ActionResult EditarDireccion(int id)
         {
             ViewBag.HTMLSACUnete = getHTMLSACUnete("EditarDireccion",
-                "&id=" + id );
+                "&id=" + id);
 
             return PartialView("_EditarDireccion");
         }
-        
+
         [HttpPost]
         public ActionResult EditarDireccion(EditarDireccionModel model)
         {
             ViewBag.HTMLSACUnete = PostHTMLSACUnete("EditarDireccion", model);
-            
+
             return PartialView("_EditarDireccion");
-        } 
-         
+        }
 
         private JObject ConsultarServicio(object data, string metodo)
         {
@@ -1843,15 +1795,15 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         var punto = model.Puntos.First();
 
-                            if (CodigoISO == Pais.Colombia)
-                            {
-                                model.Latitud = punto.Item1;
-                                model.Longitud = punto.Item2;
+                        if (CodigoISO == Pais.Colombia)
+                        {
+                            model.Latitud = punto.Item1;
+                            model.Longitud = punto.Item2;
 
-                            }
+                        }
 
 
-                            GetLocationInfo(ref model);
+                        GetLocationInfo(ref model);
                     }
 
                     #endregion
@@ -1873,7 +1825,7 @@ namespace Portal.Consultoras.Web.Controllers
                 pais = CodigoISO,
                 aplicacion = 1
             }).SelectToken("ObtenerTerritorioPorPuntoResult");
-            
+
             if (obtenerTerritorioPorPuntoResult.HasValues &&
                 obtenerTerritorioPorPuntoResult.SelectToken("MensajeRespuesta")
                                                     .ToObject<string>() == "OK" &&
@@ -1912,16 +1864,14 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        
         public ActionResult ConsultarUbicacion(int id, string nombreCompleto, string celular, string pintarMalaZonificacion)
         {
 
 
-            ViewBag.HTMLSACUnete = getHTMLSACUnete("ConsultarUbicacion", "&id=" +id + "&nombreCompleto=" + nombreCompleto + "&celular=" + celular+ "&pintarMalaZonificacion=" + pintarMalaZonificacion);
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("ConsultarUbicacion", "&id=" + id + "&nombreCompleto=" + nombreCompleto + "&celular=" + celular + "&pintarMalaZonificacion=" + pintarMalaZonificacion);
 
             return PartialView("_ConsultarUbicacion");
         }
-
 
         private EnumsEstadoPostulante ObtenerEstadoPostulante(int idEstadoPostulante)
         {
@@ -1947,7 +1897,6 @@ namespace Portal.Consultoras.Web.Controllers
                     return EnumsEstadoPostulante.Todos;
             }
         }
-
 
         public ActionResult GestionaPostulante()
         {
@@ -1995,7 +1944,7 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult ConsultarSolicitudesPostulanteV2(GestionaPostulanteModelSAC model)
         {
             var Result = new paginacionGrid();
-  
+
             try
             {
                 using (var sv = new PortalServiceClient())
@@ -2008,11 +1957,10 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 ErrorUtilities.AddLog(ex);
 
-            } 
+            }
 
             return Json(Result, JsonRequestBehavior.AllowGet);
         }
-
 
         private string CalcularDias(DateTime? fechaCreacion)
         {
@@ -2034,7 +1982,6 @@ namespace Portal.Consultoras.Web.Controllers
             return diferenciaDias.ToString();
 
         }
-
 
         [HttpPost]
         public JsonResult GetReporteFunnelSearch(string CampaniaInicio, string CampaniaFin)
@@ -2156,7 +2103,6 @@ namespace Portal.Consultoras.Web.Controllers
             return View(new ReporteConsolidadoModelSAC { CodigoIso = CodigoISO });
         }
 
-
         [HttpPost]
         public JsonResult GetReporteFuenteIngresoSearch(string CampaniaInicio, string CampaniaFin)
         {
@@ -2203,7 +2149,6 @@ namespace Portal.Consultoras.Web.Controllers
             Util.ExportToExcel(NombreReporte, solicitudes, dic);
             return new EmptyResult();
         }
-
 
         public string getHTMLSACUnete(string Action, string URLParams)
         {
@@ -2259,7 +2204,6 @@ namespace Portal.Consultoras.Web.Controllers
             return responseHTML;
 
         }
-
 
     }
 
