@@ -221,6 +221,10 @@ function SeccionMostrarProductos(data) {
     data.Mobile = isMobile();
 
     SetHandlebars(data.Seccion.TemplateProducto, data, divListadoProductos);
+
+    if (data.Seccion.TemplateProducto == "#producto-landing-template") {
+        EstablecerAccionLazyImagen("img[data-lazy-seccion-revista-digital]");
+    }
     
     if (data.Seccion.TipoPresentacion == CONS_TIPO_PRESENTACION.CarruselPrevisuales) {
         if (isMobile()) {

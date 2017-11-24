@@ -23,6 +23,7 @@ BEGIN
 		,IsoPais
 		,CodigoZona
 		,EMail
+		,CampaniaEfectiva
 	from RevistaDigitalSuscripcion
 	where CodigoConsultora = @CodigoConsultora  
 		and	CampaniaEfectiva <= @CampaniaID

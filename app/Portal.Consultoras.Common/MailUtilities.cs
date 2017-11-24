@@ -109,7 +109,6 @@ namespace Portal.Consultoras.Common
             catch { }
         }
 
-        //1774
         public static string CuerpoMensajePersonalizado(string url, string nombreConsultora, string param_querystring, bool esPaisEsika)
         {
             string s_html = string.Empty;

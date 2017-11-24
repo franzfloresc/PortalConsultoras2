@@ -235,7 +235,6 @@
                         closeWaitingDialog();
                         if (data.success == true) {
                             Result = true;
-                            //alert(data.message);
                             $('#divActualizarDatos').dialog('close');
                             $('#divConfirmaCorreoAfiliado').dialog('open');
                             $('#aviso').html('');
@@ -257,7 +256,7 @@
 
 
             });
-        } //cierre else
+        }
         return Result;
     }
 
@@ -272,7 +271,7 @@
 
         if(divDialogo == 'divFelicitaciones')
         {
-            window.location.href =  '@Url.Action("Index", "Bienvenida")';//R2640 CSR
+            window.location.href =  '@Url.Action("Index", "Bienvenida")';
         }
 
         if(divDialogo == 'divConfirmaCorreoAfiliado')

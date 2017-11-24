@@ -283,8 +283,8 @@ function ArmarCarouselEstrategias(data) {
     $('.js-slick-prev').remove();
     $('.js-slick-next').remove();
     $('#divListadoEstrategia.slick-initialized').slick('unslick');
-    SetHandlebars("#template-estrategia-header", data, '#contenedor_template_estrategia_cabecera');
-    $('#contenedor_template_estrategia_cabecera').show();
+    //SetHandlebars("#template-estrategia-header", data, '#contenedor_template_estrategia_cabecera');
+    //$('#contenedor_template_estrategia_cabecera').show();
 
     if (data.Lista.length == 0) {
         $('#divListaEstrategias').show();

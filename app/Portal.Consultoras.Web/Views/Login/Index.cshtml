@@ -20,7 +20,6 @@
 
             FB.getLoginStatus(function (response) {
                 if (response.status === 'connected') {
-                    //console.log('Logged in.');
                     getInfoFB(1);
                 }
             });
@@ -35,23 +34,15 @@
         }(document, 'script', 'facebook-jssdk'));
 
         function loginFB() {
-            //if (!openloginPopup) {
-               // openloginPopup = true;
                 FB.login(function (response) {
-                    //openloginPopup = false;
                     if (response.status === 'connected') {
-                        //console.log('Logged in.');
                         getInfoFB(2);
                     }
                     else if (response.status === 'not_authorized') {
-                        //console.log('We are not logged in.');
                     }
                     else {
-                        //console.log('You are not logged into Facebook.');
-
                     }
                 }, { scope: 'public_profile,email,user_birthday,user_location' });
-            //}
         }
 
         function getInfoFB(opt) {
@@ -141,7 +132,6 @@
                 dataType: 'json',
                 async: false,
                 success: function (response) {
-                    //console.log(response);
                     closeWaitingDialog();
                     if (response.success) {
                         if (response.exists) {
@@ -150,7 +140,6 @@
                     }
                 },
                 error: function (response) {
-                    //console.log(response);
                     alert("Error al procesar la solicitud");
                 }
             });
@@ -176,14 +165,11 @@
                 contentType: 'application/json; charset=utf-8',
                 dataType: 'json',
                 success: function (response) {
-                    //console.log(response);
                     
                     if (response.success) {
-                        //if (!response.exists) {
                             if (response.redirectTo !== "") {
                                 document.location.href = response.redirectTo;
                             }
-                        //}
                     }
                     else {
                         closeWaitingDialog();
@@ -191,7 +177,6 @@
                     }
                 },
                 error: function (response) {
-                    //console.log(response);
                     closeWaitingDialog();
                     alert("Error al procesar la solicitud");
                 },
@@ -201,12 +186,9 @@
         function mostrarLoginAnterior() {
             $('.webForm').css('padding-bottom', '10px');
             $('#btnfblogin').hide();
-            //$('#cambcuentatext').hide();
-
             $('#cambcuentaboton').fadeIn('slow');
             $('#_olgn').fadeIn('slow');
             $('#loginanterior').fadeIn('slow');
-            //$('#nvobtnfacebook').fadeIn('slow');
         }
 
         function mostrarLoginFB() {
@@ -214,10 +196,7 @@
             $('#cambcuentaboton').hide();
             $('#_olgn').hide();
             $('#loginanterior').hide();
-            //$('#nvobtnfacebook').hide();
-            
             $('#btnfblogin').fadeIn('slow');
-            //$('#cambcuentatext').fadeIn('slow'); 
         }
 
     </script>
@@ -314,17 +293,11 @@
         <div class="formbtn" style="float: none;">
             
             <div id="cambcuentaboton" >
-                @*<div style="margin-bottom:20px;text-align: center">
-                    <img id="imgFotoPerfil" src="" alt="" style="width: 110px; height: 110px;border-radius: 100px; display:none;" />
-                </div>*@
-                
+
                 <div class="content_btn_face">
                     <button id="btnLoginFB" class="loginBtn loginBtn--facebook" onclick="loginFB()" style="width: 100%; height: 48px;display: block;">
                          Ingresa con Facebook
                     </button>
-                    @*<div class="imagen_perfil_facebook" style="display: none;">
-                        <img id="imgFotoPerfilh" src="" alt="" style="width: 50px; height: 50px;" />
-                    </div>*@
                 </div>
 
             </div>
@@ -338,8 +311,6 @@
 
             <!--
             <div class="text_bienvenida_esika" id="divAsociarLoginExterno" style="display: none; margin-bottom: 5px;">
-                @*<b>Registro.</b> Asociando tu cuenta de Facebook a SomosBelcorp.
-                <br /><br />*@
                 <div style="font-size: 14px;">Hola, <span id="spnLoginFB"></span></div>
                 <br />
                 <div style="font-size: 11px;">
@@ -361,20 +332,12 @@
                 <button id="btnLoginFB2" class="loginBtn loginBtn--facebook" onclick="loginFB()" style="width: 100%; height: 48px; display:block;">
                     Ingresa con Facebook
                 </button>
-                @*<div class="imagen_perfil_facebook" style="">
-                    <img id="imgFotoPerfil2" src="" alt="" style="width: 50px; height: 50px;" />
-                </div>*@
             </div>
 
             <div id="cambcuentatext" class="text_bienvenida_esika">
                 <span id="_nomusufb" style="display: inline; font-size:14px;"></span>
             </div>
 
-            @*<div id="_olgn" class="div-o-login">
-                <div class="linea_o"></div>
-                <div class="o_login">ó</div>
-                <div class="linea_o"></div>
-            </div>*@
             <hr class="clear" />
         </div>
 
@@ -382,11 +345,9 @@
         {
             <div id="loginanterior" class="formCont">
                 <input type="hidden" id="hdfContrasenia" />
-                @*@Html.Hidden("returnUrl", @Request.QueryString)*@
                 <input type="hidden" id="returnUrl" name="returnUrl" value="@ViewBag.ReturnURL" />
 
                 <div class="info-userext">
-                    @*@Html.AntiForgeryToken()*@
                     <input type="hidden" id="hdeProveedor" name="UsuarioExterno.Proveedor" />
                     <input type="hidden" id="hdeIdApp" name="UsuarioExterno.IdAplicacion" />
                     <input type="hidden" id="hdeLogin" name="UsuarioExterno.Login" />
@@ -409,7 +370,6 @@
                             <input type="hidden" id="hdfPaisSelect" value="00" />
                             <input type="hidden" id="hdfPaises" value="PE;BO;CL;SV;CR;PA;GT;EC;AR;MX;DO;PR;VE;CO" />
                             <input type="hidden" id="hdfURL" value="https://www2.somosbelcorp.com" />
-                            @*<input type="hidden" id="hdf_AR" value="fondo_default.jpg" />*@
                             <input type="hidden" id="hdf_BO" value="LoginLoveBomb.jpg" />
                             <input type="hidden" id="hdf_CL" value="LoginLoveBomb.jpg" />
                             <input type="hidden" id="hdf_CO" value="LoginLoveBomb.jpg" />
@@ -496,12 +456,7 @@
                 </div>
 
                 <div class="clear"></div>
-
-                @*<div id="nvobtnfacebook" style="cursor:pointer; display:none;">
-                    <img src="~/Content/Images/face_login.png" alt="icoFace" height="16" width="16">
-                    <span class="text_bienvenida_esika" style="font-size:14px;" onclick="mostrarLoginFB()">Iniciar sesión con Facebook</span>
-                </div>*@
-
+                
                 <!-- INGRESA A TU CUENTA -->
                 <div class="boxform">
                     <div class="formbtn">
@@ -612,7 +567,6 @@
 
 
 <script type="text/javascript">
-    //var fbAppId = '@ViewBag.FBAppId';
     var paisesEsika = '@System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika")';
     var paisesLBel = '@System.Configuration.ConfigurationManager.AppSettings.Get("PaisesLBel")';
 

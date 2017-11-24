@@ -3005,6 +3005,14 @@
     <Content Include="Content\Images\RevistaDigital\lan-fondo.png" />
     <Content Include="Content\Images\RevistaDigital\fondo_srd2.svg" />
     <Content Include="Content\Images\RevistaDigital\Kadiavisual2.png" />
+    <Content Include="Content\Images\RevistaDigital\logotipo-club-ganamas-blanco.svg" />
+    <Content Include="Content\Images\RevistaDigital\logotipo-club-ganamas-morado.svg" />
+    <Content Include="Content\Images\RevistaDigital\logotipo-club-ganamas-negro.svg" />
+    <Content Include="Content\Images\RevistaDigital\logotipo-club-ganamas-rojo.svg" />
+    <Content Include="Content\Images\RevistaDigital\logotipo-ganamas-blanco.svg" />
+    <Content Include="Content\Images\RevistaDigital\logotipo-ganamas-morado.svg" />
+    <Content Include="Content\Images\RevistaDigital\logotipo-ganamas-negro.svg" />
+    <Content Include="Content\Images\RevistaDigital\logotipo-ganamas-rojo.svg" />
     <Content Include="Content\Images\RevistaDigital\logo_EPT.png" />
     <Content Include="Content\Images\RevistaDigital\marquesina-landing.jpg" />
     <Content Include="Content\Images\RevistaDigital\mob_rd_consultora.png" />
@@ -3599,7 +3607,6 @@
     <Content Include="Areas\Mobile\Views\EstrategiaProducto\DetalleProducto.cshtml" />
     <Content Include="Areas\Mobile\Views\Bienvenida\template-opt-seccion.cshtml" />
     <Content Include="Areas\Mobile\Views\RevistaDigital\template-mensaje-bloqueado.cshtml" />
-    <Content Include="Areas\Mobile\Views\RevistaDigital\template-mensaje-inscrita.cshtml" />
     <Content Include="Areas\Mobile\Views\Catalogo\template-carrusel-issue.cshtml" />
     <Compile Include="Models\TipoProductoComentarioModel.cs" />
     <Content Include="Areas\Mobile\Views\Bienvenida\template-bpt-seccion.cshtml" />
@@ -3633,6 +3640,9 @@
     <Content Include="Content\FAQ\QUIZCAPEVEDI_PE.pdf" />
     <Content Include="Areas\Mobile\Views\Shared\_MobileLayoutPedidoEmpty.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-descargables-navidenos.cshtml" />
+    <Content Include="Areas\Mobile\Views\Bienvenida\_PartialSectionBpt.cshtml" />
+    <Content Include="Areas\Mobile\Views\Pedido\_PartialSectionBpt.cshtml" />
+    <Content Include="Areas\Mobile\Views\Catalogo\_PartialSectionBpt.cshtml" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>
@@ -4470,6 +4480,9 @@
     <Content Include="Areas\Mobile\Views\Util\_barra.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpTagManager.cshtml" />
     <Content Include="Views\Descargables\Descargables.cshtml" />
+    <Content Include="Views\Bienvenida\_PartialSectionBpt.cshtml" />
+    <Content Include="Views\Pedido\_PartialSectionBpt.cshtml" />
+    <Content Include="Views\MisCatalogosRevistas\_PartialSectionBpt.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -4522,7 +4535,6 @@
     <Content Include="Views\Pedido\template-seccion-opt.cshtml" />
     <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo7.cshtml" />
     <Content Include="Views\MisCatalogosRevistas\template-revista-slide.cshtml" />
-    <Content Include="Views\RevistaDigital\template-mensaje-inscrita.cshtml" />
     <None Include="Web References\ServiceActualizarDatosPrueba\ProcesoMAEPortalConsultoraWebService.wsdl" />
     <Content Include="Web References\ServiceActualizarDatosPrueba\Reference.map" />
     <Content Include="Views\ShowRoom\Intriga.cshtml" />

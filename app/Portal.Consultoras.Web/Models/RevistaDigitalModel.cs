@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Models
@@ -23,8 +24,19 @@ namespace Portal.Consultoras.Web.Models
         public int CantidadCampaniaEfectiva { get; set; }
         public string NombreComercialActiva { get; set; }
         public string NombreComercialNoActiva { get; set; }
-        public string LogoComercialActiva { get; set; }
-        public string LogoComercialNoActiva { get; set; }
+
+        public string DLogoComercialActiva { get; set; }
+        public string DLogoComercialNoActiva { get; set; }
+        public string MLogoComercialActiva { get; set; }
+        public string MLogoComercialNoActiva { get; set; }
+
+        public string DLogoComercialFondoActiva { get; set; }
+        public string DLogoComercialFondoNoActiva { get; set; }
+        public string MLogoComercialFondoActiva { get; set; }
+        public string MLogoComercialFondoNoActiva { get; set; }
+
+        public string LogoMenuOfertasActiva { get; set; }
+        public string LogoMenuOfertasNoActiva { get; set; }
 
         public string EstadoRdcAnalytics { get; set; }
 
@@ -56,11 +68,13 @@ namespace Portal.Consultoras.Web.Models
         public RevistaDigitalSuscripcionModel SuscripcionModel { get; set; }
         public RevistaDigitalSuscripcionModel SuscripcionEfectiva { get; set; }
 
+        public string Titulo { get; set; }
+        public string SubTitulo { get; set; }
+        public string SubTitulo2 { get; set; }
         public IList<ConfiguracionPaisDatosModel> ConfiguracionPaisDatos { get; set; }
 
         public int EstadoAccion { get; set; }
         public List<ComunModel> ListaTabs { get; set; }
-        public string Titulo { get; set; }
         public string TituloDescripcion { get; set; }
         public int Campania { get; set; }
         public int CampaniaMasUno { get; set; }
@@ -69,5 +83,25 @@ namespace Portal.Consultoras.Web.Models
 
         public RevistaDigitalSuscripcionModel SuscripcionAnterior2Model { get; set; }
         public RevistaDigitalSuscripcionModel SuscripcionAnterior1Model { get; set; }
+
+        public bool EsSuscritaInactiva()
+        {
+            return TieneRDC && EsSuscrita && !EsActiva;
+        }
+
+        public bool EsSuscritaActiva()
+        {
+            return TieneRDC && EsSuscrita && EsActiva;
+        }
+
+        public bool EsNoSuscritaInactiva()
+        {
+            return TieneRDC && !EsSuscrita && !EsActiva;
+        }
+        
+        public bool EsNoSuscritaActiva()
+        {
+            return TieneRDC && !EsSuscrita && EsActiva;
+        }
     }
 }

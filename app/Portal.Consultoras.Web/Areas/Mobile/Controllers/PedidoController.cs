@@ -106,6 +106,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.paisISO = userData.CodigoISO;
             ViewBag.Ambiente = GetBucketNameFromConfig();
             ViewBag.UrlFranjaNegra = GetUrlFranjaNegra();
+            
+            model.MostrarPopupPrecargados = (GetMostradoPopupPrecargados() == 0);
 
             return View("Index", model);
         }
@@ -195,6 +197,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 && !beConfiguracionCampania.ModificaPedidoReservado
                 && !beConfiguracionCampania.ValidacionAbierta)
                 return RedirectToAction("Validado", "Pedido", new { area = "Mobile" });
+
             var model = new PedidoDetalleMobileModel();
             model.AutoReservar = autoReservar;
             model.CodigoISO = userData.CodigoISO;
@@ -337,7 +340,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var ofertaFinalModel = GetOfertaFinal();
             ViewBag.OfertaFinalEstado = ofertaFinalModel.Estado;
             ViewBag.OfertaFinalAlgoritmo = ofertaFinalModel.Algoritmo;
-            ViewBag.UrlTerminosOfertaFinalRegalo = string.Format(ConfigurationManager.AppSettings.Get("oferta_final_regalo_url_s3"), userData.CodigoISO);
+            ViewBag.UrlTerminosOfertaFinalRegalo = string.Format(GetConfiguracionManager(Constantes.ConfiguracionManager.oferta_final_regalo_url_s3), userData.CodigoISO);
 
             if (Session["EsShowRoom"] != null && Session["EsShowRoom"].ToString() == "1")
             {
@@ -345,6 +348,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 ViewBag.Titulo1OFRegalo = ObtenerValorPersonalizacionShowRoom("Titulo1OfertaFinalRegalo", "Mobile");
                 ViewBag.ColorFondo1OFRegalo = ObtenerValorPersonalizacionShowRoom("ColorFondo1OfertaFinalRegalo", "Mobile");
             }
+            model.MostrarPopupPrecargados = (GetMostradoPopupPrecargados() == 0);
 
             return View(model);
         }
