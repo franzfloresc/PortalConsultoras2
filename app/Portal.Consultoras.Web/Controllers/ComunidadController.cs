@@ -1,4 +1,5 @@
 ﻿using LithiumSSOClient;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.ServiceComunidad;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System.Collections;
@@ -54,9 +55,9 @@ namespace Portal.Consultoras.Web.Controllers
             if (usuario != null)
             {
                 string XmlPath = Server.MapPath("~/Key");
-                string KeyPath = Path.Combine(XmlPath, ConfigurationManager.AppSettings["AMB_COM"] == "PRD" ? "sso.cookie.prod.key" : "sso.cookie.key");
+                string KeyPath = Path.Combine(XmlPath, GetConfiguracionManager(Constantes.ConfiguracionManager.AMB_COM) == "PRD" ? "sso.cookie.prod.key" : "sso.cookie.key");
 
-                SSOClient.init(KeyPath, ConfigurationManager.AppSettings["COM_CLIENT_ID"], ConfigurationManager.AppSettings["COM_DOMAIN"]);
+                SSOClient.init(KeyPath, GetConfiguracionManager(Constantes.ConfiguracionManager.COM_CLIENT_ID), GetConfiguracionManager(Constantes.ConfiguracionManager.COM_DOMAIN));
 
                 Models.UsuarioModel UsuarioSesion = UserData();
 
@@ -90,9 +91,9 @@ namespace Portal.Consultoras.Web.Controllers
                 SSOClient.writeLithiumCookie(usuario.UsuarioId.ToString(), usuario.CodigoUsuario, usuario.Correo, settingsMap, System.Web.HttpContext.Current.Request, System.Web.HttpContext.Current.Response);
 
                 if (string.IsNullOrEmpty(Url))
-                    Url_Com = ConfigurationManager.AppSettings["URL_COM"];
+                    Url_Com = GetConfiguracionManager(Constantes.ConfiguracionManager.URL_COM);
                 else
-                    Url_Com = ConfigurationManager.AppSettings["URL_COM"] + '/' + Url;
+                    Url_Com = GetConfiguracionManager(Constantes.ConfiguracionManager.URL_COM) + '/' + Url;
             }
 
             return Redirect(string.IsNullOrEmpty(Url_Com) ? HttpContext.Request.UrlReferrer.AbsoluteUri : Url_Com);

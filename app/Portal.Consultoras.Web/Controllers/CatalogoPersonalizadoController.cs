@@ -420,7 +420,7 @@ namespace Portal.Consultoras.Web.Controllers
                 BEProducto productPack = new BEProducto();
                 BEProducto productNivel = new BEProducto();
 
-                var ambiente = ConfigurationManager.AppSettings["Ambiente"] ?? "";
+                var ambiente = GetConfiguracionManager(Constantes.ConfiguracionManager.Ambiente);
                 var keyWeb = ambiente.ToUpper() == "QA" ? "QA_Prol_ServicesCalculos" : "PR_Prol_ServicesCalculos";
 
                 ObjOfertaCatalogos dataPROL;

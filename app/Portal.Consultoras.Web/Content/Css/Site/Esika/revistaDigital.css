@@ -2152,7 +2152,7 @@
 .home_block_rd .rd_logo {
     width: 260px;
     height: 120px;
-    padding-top: 26px;
+    padding-top: 15px;
 }
 .home_block_rd .rd_logo:after {
     border-left: 30px solid transparent;

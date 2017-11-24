@@ -32,7 +32,7 @@ namespace Portal.Consultoras.Web.Controllers
             var model = new MatrizComercialModel()
             {
                 lstPais = DropDowListPaises(),
-                ExpValidacionNemotecnico = ConfigurationManager.AppSettings["ExpresionValidacionNemotecnico"]
+                ExpValidacionNemotecnico = GetConfiguracionManager(Constantes.ConfiguracionManager.ExpresionValidacionNemotecnico)
             };
 
             return View(model);

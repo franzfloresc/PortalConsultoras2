@@ -344,6 +344,50 @@ namespace Portal.Consultoras.Common
             public const string ServiceController="ServiceController";
             public const string ServiceAction = "ServiceAction";
             public const string Ambiente = "Ambiente";
+
+            public const string GZURL = "GZURL";
+            public const string UrlUneteBelcorp = "UrlUneteBelcorp";
+            public const string SMPTURL = "SMPTURL";
+            public const string SMPTPassword = "SMPTPassword";
+            public const string UneteMailFrom = "UneteMailFrom";
+            public const string UneteMailSubject = "UneteMailSubject";
+            public const string WSGEO_Url = "WSGEO_Url";
+            public const string UneteURL = "UneteURL";
+            public const string URL_COM_LO = "URL_COM_LO";
+            public const string URL_SB = "URL_SB";
+            public const string KeyPaisFormatDecimal = "KeyPaisFormatDecimal";
+            public const string PaisesShowRoom = "PaisesShowRoom";
+            public const string RevistaPiloto_Zonas = "RevistaPiloto_Zonas_";
+            public const string RevistaPiloto_Codigo = "RevistaPiloto_Codigo";
+            public const string CodigoRevistaIssuu = "CodigoRevistaIssuu";
+            public const string CodigoCatalogoIssuu = "CodigoCatalogoIssuu";
+            public const string URL_SUPERATE_NUEVO = "URL_SUPERATE_NUEVO";
+            public const string Contrato_ActualizarDatos = "Contrato_ActualizarDatos_";
+            public const string indicadorContrato = "indicadorContrato";
+            public const string PaisesDigitoControl = "PaisesDigitoControl";
+            public const string UrlIssuu = "UrlIssuu";
+            public const string PaisesCatalogoUnificado = "PaisesCatalogoUnificado";
+            public const string WS_RV_Campanias_NEW ="WS_RV_Campanias_NEW";
+            public const string WS_RV_PDF_NEW = "WS_RV_PDF_NEW";
+            public const string WS_RV_Campanias = "WS_RV_Campanias";
+            public const string WS_RV_PDF = "WS_RV_PDF";
+            public const string ExpresionValidacionNemotecnico = "ExpresionValidacionNemotecnico";
+            public const string URL_DUPLACYZONE = "URL_DUPLACYZONE";
+            public const string WebTrackingConfirmacion = "WebTrackingConfirmacion";
+            public const string URL_ABCProductos = "URL_ABCProductos";
+            public const string secret_key = "secret_key";
+            public const string UrlLMS = "UrlLMS";
+            public const string CursosMarquesina = "CursosMarquesina";
+            public const string UrlMisCursos = "UrlMisCursos";
+            public const string TokenMisCursos = "TokenMisCursos";
+            public const string UrlCursoMiAcademia = "UrlCursoMiAcademia";
+            public const string URL_FAMILIAPROTEGIDA_ = "URL_FAMILIAPROTEGIDA_";
+            public const string ProductoSugeridoAppCatalogosNroCampaniasAtras = "ProductoSugeridoAppCatalogosNroCampaniasAtras";
+            public const string ConsultoraOnlineEmailDe = "ConsultoraOnlineEmailDe";
+            public const string AMB_COM = "AMB_COM";
+            public const string COM_CLIENT_ID = "COM_CLIENT_ID";
+            public const string URL_COM = "URL_COM";
+            public const string COM_DOMAIN = "COM_DOMAIN";
         }
 
         public static class TipoOfertaFinalCatalogoPersonalizado
