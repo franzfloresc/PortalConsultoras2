@@ -44,7 +44,63 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             public void BuildMenuMobile_UserDataEsNulo_LanzaExcepcion()
             {
                 var controller = new BaseController();
-                controller.BuildMenuMobile(null);
+                var userData = (UsuarioModel)null;
+                var revistaDigital = (RevistaDigitalModel)null;
+
+                controller.BuildMenuMobile(userData, revistaDigital);
+            }
+
+            [TestMethod]
+            [ExpectedExceptionWithMessage(typeof(ArgumentNullException), "Value cannot be null.\r\nParameter name: revistaDigital")]
+            public void BuildMenuMobile_RevistaDigitalEsNulo_LanzaExcepcion()
+            {
+                var controller = new BaseController();
+                var userData = new UsuarioModel { };
+                var revistaDigital =  (RevistaDigitalModel)null;
+
+                controller.BuildMenuMobile(userData, revistaDigital);
+            }
+
+
+            class BaseControllerStub01: BaseController
+            {
+                public BaseControllerStub01(ISessionManager sessionManager) : base(sessionManager)
+                {
+
+                }
+
+                protected override List<MenuMobileModel> GetMenuMobileModel(int paisID)
+                {
+                    return new List<MenuMobileModel> {
+                        new MenuMobileModel{
+                            Codigo =  Constantes.MenuCodigo.ContenedorOfertas.ToLower(),
+                            UrlItem = string.Empty,
+                            UrlImagen=String.Empty,
+                            Descripcion=string.Empty,
+                            Posicion="Menu",
+                            OnClickFunt=string.Empty
+                        }
+                    };
+                }
+
+                public override string GetUrlImagenMenuOfertas(UsuarioModel userData, RevistaDigitalModel revistaDigital)
+                {
+                    return "UrlImagenMenuOfertasMobile";
+                }
+            }
+            [TestMethod]
+            public void BuildMenuMobile_UserIsConsultoraMenuOfertaGetsItsImageUrl_UrlImagenIsNotNull()
+            {
+                sessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns((EventoFestivoDataModel)null);
+                var controller = new BaseControllerStub01(sessionManager.Object);
+                var userData = new UsuarioModel { RolID = Constantes.Rol.Consultora };
+                var revistaDigital = new RevistaDigitalModel {  };
+
+                var result = controller.BuildMenuMobile(userData, revistaDigital).First();
+
+                Assert.IsNotNull(result);
+                Assert.IsNotNull(result.UrlImagen);
+                Assert.AreEqual("UrlImagenMenuOfertasMobile", result.UrlImagen);
             }
         }
 
