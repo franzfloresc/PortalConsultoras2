@@ -1205,16 +1205,17 @@ namespace Portal.Consultoras.Web.Controllers
 
                 value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.NombreComercialNoActiva);
                 if (value1 != null) revistaDigitalModel.NombreComercialNoActiva = value1.Valor1;
-                
+
                 value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoComercialActiva);
                 if (value1 != null)
                 {
                     revistaDigitalModel.DLogoComercialActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor1);
                     revistaDigitalModel.MLogoComercialActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor2);
                 }
-                
+
                 value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoComercialNoActiva);
-                if (value1 != null) {
+                if (value1 != null)
+                {
                     revistaDigitalModel.DLogoComercialNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor1);
                     revistaDigitalModel.MLogoComercialNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor2);
                 }
