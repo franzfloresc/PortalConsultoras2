@@ -26,6 +26,7 @@ namespace Portal.Consultoras.Data.RevistaDigital
             Context.Database.AddInParameter(command, "CampaniaEfectiva", DbType.Int32, entity.CampaniaEfectiva);
             Context.Database.AddOutParameter(command, "RetornoID", DbType.Int32, 0);
             
+
             Context.ExecuteNonQuery(command);
 
             return Convert.ToInt32(command.Parameters["@RetornoID"].Value);
@@ -44,6 +45,7 @@ namespace Portal.Consultoras.Data.RevistaDigital
             Context.Database.AddInParameter(command, "EMail", DbType.String, entity.EMail);
             Context.Database.AddInParameter(command, "CampaniaEfectiva", DbType.Int32, entity.CampaniaEfectiva);
             Context.Database.AddOutParameter(command, "RetornoID", DbType.Int32, 10);
+            
 
             Context.ExecuteNonQuery(command);
 

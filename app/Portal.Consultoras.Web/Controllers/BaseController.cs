@@ -3974,16 +3974,11 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-
-
                 var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
 
-                confi.MobileLogoBanner = ConfigS3.GetUrlFileS3(carpetaPais, revistaDigital.EsSuscrita ? revistaDigital.MLogoComercialActiva : revistaDigital.MLogoComercialNoActiva);
-                confi.DesktopLogoBanner = ConfigS3.GetUrlFileS3(carpetaPais, revistaDigital.EsSuscrita ? revistaDigital.DLogoComercialActiva : revistaDigital.DLogoComercialNoActiva);
-
-                //confi.MobileFondoBanner = ConfigS3.GetUrlFileS3(carpetaPais, revistaDigital.LogoComercialActiva);
-                //confi.DesktopFondoBanner = ConfigS3.GetUrlFileS3(carpetaPais, revistaDigital.LogoComercialActiva);
-
+                confi.MobileLogoBanner = ConfigS3.GetUrlFileS3(carpetaPais, revistaDigital.EsSuscrita ? revistaDigital.MLogoComercialFondoActiva : revistaDigital.MLogoComercialFondoNoActiva);
+                confi.DesktopLogoBanner = ConfigS3.GetUrlFileS3(carpetaPais, revistaDigital.EsSuscrita ? revistaDigital.DLogoComercialFondoActiva : revistaDigital.DLogoComercialFondoNoActiva);
+                
             }
             else if (revistaDigital.TieneRDR)
             {
