@@ -4,10 +4,10 @@
 @{
     ConfiguracionPaisDatosModel configuracionPaisDatosModel;
     var tieneGND = Portal.Consultoras.Web.SessionManager.SessionManager.Instance.GetUserData().TieneGND;
-    var urlLogo = Model.LogoComercialNoActiva;
+    var urlLogo = Model.MLogoComercialNoActiva;
     if (Model.TieneRDC && Model.EsSuscrita)
     {
-        urlLogo = Model.LogoComercialActiva;
+        urlLogo = Model.MLogoComercialActiva;
     }
 }
 <div class="content_revistas_mob">

@@ -217,7 +217,7 @@
     <!--FIN-->
     <!--INICIO CARRUSEL-->
     <div id="divListaEstrategias" style="display:none">
-        <div id="contenedor_template_estrategia_cabecera"></div>
+        @Html.Partial("~/Areas/Mobile/Views/Pedido/_PartialSectionBpt.cshtml", Model.RevistaDigital) 
     </div>
 
     <!--FIN CARRUSEL-->
@@ -354,7 +354,6 @@
 </div>
 <!-- FIN POPUP CLIENTE AGREGADO -->
 
-@Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-header-mobile.cshtml", Model.RevistaDigital)
 @Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
 
 <script id="js-CarruselSugerido" type="text/x-handlebars-template">
