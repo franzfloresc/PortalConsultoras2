@@ -21,10 +21,10 @@ begin
 	values (@ConfiguracionPaisID, 1, 0, 'NombreComercialNoActiva', 'Gana +', 'Nombre comercial cuando el estado es no activa que se asignara en todo sb2')
 	
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Descripcion)
-	values (@ConfiguracionPaisID, 1, 0, 'LogoComercialActiva', 'ClubGanaMas.png', 'ClubGanaMasMobile.png', 'Logo comercial cuando el estado es activa que se asignara en todo sb2')
+	values (@ConfiguracionPaisID, 1, 0, 'LogoComercialActiva', 'logotipo-club-ganamaplus-blanco.svg', 'logotipo-club-ganamaplus-blanco.svg', 'Logo comercial cuando el estado es activa que se asignara en todo sb2')
 	
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Descripcion)
-	values (@ConfiguracionPaisID, 1, 0, 'LogoComercialNoActiva', 'GanaMas.png', 'GanaMasMobile.png', 'Logo comercial cuando el estado es no activa que se asignara en todo sb2')
+	values (@ConfiguracionPaisID, 1, 0, 'LogoComercialNoActiva', 'logotipo-ganamaplus-blanco.svg', 'logotipo-ganamaplus-blanco.svg', 'Logo comercial cuando el estado es no activa que se asignara en todo sb2')
 	
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'LogoComercialFondoActiva', 'ClubGanaMasFondo.png', 'ClubGanaMasMobileFondo.png', 'Logo comercial cuando el estado es activa que se asignara en todo sb2')
