@@ -21,16 +21,16 @@ begin
 	values (@ConfiguracionPaisID, 1, 0, 'NombreComercialNoActiva', 'Gana +', 'Nombre comercial cuando el estado es no activa que se asignara en todo sb2')
 	
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Descripcion)
-	values (@ConfiguracionPaisID, 1, 0, 'LogoComercialActiva', 'ClubGanaMas.jpg', 'ClubGanaMasMobile.jpg', 'Logo comercial cuando el estado es activa que se asignara en todo sb2')
+	values (@ConfiguracionPaisID, 1, 0, 'LogoComercialActiva', 'ClubGanaMas.png', 'ClubGanaMasMobile.png', 'Logo comercial cuando el estado es activa que se asignara en todo sb2')
 	
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Descripcion)
-	values (@ConfiguracionPaisID, 1, 0, 'LogoComercialNoActiva', 'GanaMas.jpg', 'GanaMasMobile.jpg', 'Logo comercial cuando el estado es no activa que se asignara en todo sb2')
+	values (@ConfiguracionPaisID, 1, 0, 'LogoComercialNoActiva', 'GanaMas.png', 'GanaMasMobile.png', 'Logo comercial cuando el estado es no activa que se asignara en todo sb2')
 	
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Descripcion)
-	values (@ConfiguracionPaisID, 1, 0, 'LogoComercialFondoActiva', 'ClubGanaMasFondo.jpg', 'ClubGanaMasMobileFondo.jpg', 'Logo comercial cuando el estado es activa que se asignara en todo sb2')
+	values (@ConfiguracionPaisID, 1, 0, 'LogoComercialFondoActiva', 'ClubGanaMasFondo.png', 'ClubGanaMasMobileFondo.png', 'Logo comercial cuando el estado es activa que se asignara en todo sb2')
 	
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Descripcion)
-	values (@ConfiguracionPaisID, 1, 0, 'LogoComercialFondoNoActiva', 'GanaMasFondo.jpg', 'GanaMasMobileFondo.jpg', 'Logo comercial cuando el estado es no activa que se asignara en todo sb2')
+	values (@ConfiguracionPaisID, 1, 0, 'LogoComercialFondoNoActiva', 'GanaMasFondo.png', 'GanaMasMobileFondo.png', 'Logo comercial cuando el estado es no activa que se asignara en todo sb2')
 
 	-- RD Textos desktop Bienvenida 
 	BEGIN 

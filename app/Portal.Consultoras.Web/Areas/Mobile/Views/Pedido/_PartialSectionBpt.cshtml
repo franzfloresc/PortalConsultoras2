@@ -3,10 +3,10 @@
 @model RevistaDigitalModel
 @{
     ConfiguracionPaisDatosModel configuracionPaisDatosModel;
-    var urlLogo = Model.LogoComercialNoActiva;
+    var urlLogo = Model.MLogoComercialNoActiva;
     if (Model.TieneRDC && Model.EsSuscrita)
     {
-        urlLogo = Model.LogoComercialActiva;
+        urlLogo = Model.MLogoComercialActiva;
     }
 }
 
