@@ -853,7 +853,13 @@ namespace Portal.Consultoras.Common
             public const string ContenedorOfertas = "ContenedorOfertas";
         }
 
-        public static class BannerCodigo
+        public static class MenuMobileId
+        {
+            public static readonly int CatalogosYRevistas = 1002;
+            public static readonly int NecesitasAyuda = 1039;
+        }
+
+            public static class BannerCodigo
         {
             public const string RevistaDigital = "RevistaDigital";
         }

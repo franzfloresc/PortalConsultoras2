@@ -26,7 +26,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 ViewBag.EsMobile = 2;
-                BuildMenuMobile(userData);
+                BuildMenuMobile(userData,revistaDigital);
                 CargarValoresGenerales(userData);
 
                 ShowRoomModel ShowRoom = new ShowRoomModel();
