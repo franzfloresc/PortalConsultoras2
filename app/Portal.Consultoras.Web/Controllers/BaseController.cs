@@ -3943,21 +3943,58 @@ namespace Portal.Consultoras.Web.Controllers
                 return;
 
             var codigo = "";
+            string logo = "";
+            string fondo;
             var ismobil = IsMobile();
+
             if (revistaDigital.TieneRDC)
             {
                 if (revistaDigital.EsActiva)
                 {
-                    codigo = ismobil
-                        ? revistaDigital.EsSuscrita ? Constantes.ConfiguracionPaisDatos.RD.MLandingBannerActivaSuscrita : Constantes.ConfiguracionPaisDatos.RD.MLandingBannerActivaNoSuscrita
-                        : revistaDigital.EsSuscrita ? Constantes.ConfiguracionPaisDatos.RD.DLandingBannerActivaSuscrita : Constantes.ConfiguracionPaisDatos.RD.DLandingBannerActivaNoSuscrita;
+                    if (revistaDigital.EsSuscrita)
+                    {
+                        codigo = ismobil
+                            ? Constantes.ConfiguracionPaisDatos.RD.MLandingBannerActivaSuscrita
+                            : Constantes.ConfiguracionPaisDatos.RD.DLandingBannerActivaSuscrita;
+                        
+                    }
+                    else
+                    {
+                        codigo = ismobil
+                            ? Constantes.ConfiguracionPaisDatos.RD.MLandingBannerActivaNoSuscrita
+                            : Constantes.ConfiguracionPaisDatos.RD.DLandingBannerActivaNoSuscrita;
+                        
+                    }
                 }
                 else
                 {
-                    codigo = ismobil
-                        ? revistaDigital.EsSuscrita ? Constantes.ConfiguracionPaisDatos.RD.MLandingBannerNoActivaSuscrita : Constantes.ConfiguracionPaisDatos.RD.MLandingBannerNoActivaNoSuscrita
-                        : revistaDigital.EsSuscrita ? Constantes.ConfiguracionPaisDatos.RD.DLandingBannerNoActivaSuscrita : Constantes.ConfiguracionPaisDatos.RD.DLandingBannerNoActivaNoSuscrita;
+                    if (revistaDigital.EsSuscrita)
+                    {
+
+                        codigo = ismobil
+                            ? Constantes.ConfiguracionPaisDatos.RD.MLandingBannerNoActivaSuscrita
+                            : Constantes.ConfiguracionPaisDatos.RD.DLandingBannerNoActivaSuscrita;
+                        
+                    }
+                    else
+                    {
+                        codigo = ismobil
+                            ? Constantes.ConfiguracionPaisDatos.RD.MLandingBannerNoActivaNoSuscrita
+                            : Constantes.ConfiguracionPaisDatos.RD.DLandingBannerNoActivaNoSuscrita;
+                        
+                    }
                 }
+
+
+
+                var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+
+                confi.MobileLogoBanner = ConfigS3.GetUrlFileS3(carpetaPais, revistaDigital.EsSuscrita ? revistaDigital.MLogoComercialActiva : revistaDigital.MLogoComercialNoActiva);
+                confi.DesktopLogoBanner = ConfigS3.GetUrlFileS3(carpetaPais, revistaDigital.EsSuscrita ? revistaDigital.DLogoComercialActiva : revistaDigital.DLogoComercialNoActiva);
+
+                //confi.MobileFondoBanner = ConfigS3.GetUrlFileS3(carpetaPais, revistaDigital.LogoComercialActiva);
+                //confi.DesktopFondoBanner = ConfigS3.GetUrlFileS3(carpetaPais, revistaDigital.LogoComercialActiva);
+
             }
             else if (revistaDigital.TieneRDR)
             {
