@@ -1207,16 +1207,37 @@ namespace Portal.Consultoras.Web.Controllers
                 if (value1 != null) revistaDigitalModel.NombreComercialNoActiva = value1.Valor1;
                 
                 value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoComercialActiva);
-                if (value1 != null) revistaDigitalModel.LogoComercialActiva = value1.Valor1;
+                if (value1 != null)
+                {
+                    revistaDigitalModel.DLogoComercialActiva = value1.Valor1;
+                    revistaDigitalModel.MLogoComercialActiva = value1.Valor2;
+                }
                 
                 value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoComercialNoActiva);
-                if (value1 != null) revistaDigitalModel.LogoComercialNoActiva = value1.Valor1;
+                if (value1 != null) {
+                    revistaDigitalModel.DLogoComercialNoActiva = value1.Valor1;
+                    revistaDigitalModel.MLogoComercialNoActiva = value1.Valor2;
+                }
 
-                var value7 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoMenuOfertasActiva);
-                if (value7 != null) revistaDigitalModel.LogoMenuOfertasActiva = value7.Valor1;
+                value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoComercialFondoActiva);
+                if (value1 != null)
+                {
+                    revistaDigitalModel.DLogoComercialFondoActiva = value1.Valor1;
+                    revistaDigitalModel.MLogoComercialFondoActiva = value1.Valor2;
+                }
 
-                var value8 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoMenuOfertasNoActiva);
-                if (value8 != null) revistaDigitalModel.LogoMenuOfertasNoActiva= value8.Valor1;
+                value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoComercialFondoNoActiva);
+                if (value1 != null)
+                {
+                    revistaDigitalModel.DLogoComercialFondoNoActiva = value1.Valor1;
+                    revistaDigitalModel.MLogoComercialFondoNoActiva = value1.Valor2;
+                }
+
+                value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoMenuOfertasActiva);
+                if (value1 != null) revistaDigitalModel.LogoMenuOfertasActiva = value1.Valor1;
+
+                value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoMenuOfertasNoActiva);
+                if (value1 != null) revistaDigitalModel.LogoMenuOfertasNoActiva= value1.Valor1;
 
                 listaDatos.RemoveAll(d =>
                     d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BloquearDiasAntesFacturar

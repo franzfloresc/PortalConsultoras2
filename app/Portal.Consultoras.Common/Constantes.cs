@@ -338,6 +338,12 @@ namespace Portal.Consultoras.Common
             public const string NombreArchivoTC = "NombreArchivoTC";
             public const string CarpetaImagenCompartirCatalogo = "CarpetaImagenCompartirCatalogo";
             public const string NombreImagenCompartirCatalogo = "NombreImagenCompartirCatalogo";
+
+            public const string URL_S3 = "URL_S3";
+            public const string ROOT_DIRECTORY = "ROOT_DIRECTORY";
+            public const string ServiceController="ServiceController";
+            public const string ServiceAction = "ServiceAction";
+            public const string Ambiente = "Ambiente";
         }
 
         public static class TipoOfertaFinalCatalogoPersonalizado
@@ -847,7 +853,13 @@ namespace Portal.Consultoras.Common
             public const string ContenedorOfertas = "ContenedorOfertas";
         }
 
-        public static class BannerCodigo
+        public static class MenuMobileId
+        {
+            public static readonly int CatalogosYRevistas = 1002;
+            public static readonly int NecesitasAyuda = 1039;
+        }
+
+            public static class BannerCodigo
         {
             public const string RevistaDigital = "RevistaDigital";
         }
@@ -962,6 +974,8 @@ namespace Portal.Consultoras.Common
                 public const string NombreComercialNoActiva = "NombreComercialNoActiva";
                 public const string LogoComercialActiva = "LogoComercialActiva";
                 public const string LogoComercialNoActiva = "LogoComercialNoActiva";
+                public const string LogoComercialFondoActiva = "LogoComercialFondoActiva";
+                public const string LogoComercialFondoNoActiva = "LogoComercialFondoNoActiva";
                 public const string LogoMenuOfertasActiva = "LogoMenuOfertasActiva";
                 public const string LogoMenuOfertasNoActiva = "LogoMenuOfertasNoActiva";
                 #endregion
