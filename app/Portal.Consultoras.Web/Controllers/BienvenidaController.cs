@@ -124,7 +124,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.rutaChile = string.Empty;
                 }
 
-                var nombreArchivoContrato = ConfigurationManager.AppSettings["Contrato_ActualizarDatos_" + userData.CodigoISO].ToString();
+                var nombreArchivoContrato = GetConfiguracionManager(Constantes.ConfiguracionManager.Contrato_ActualizarDatos + userData.CodigoISO);
                 model.ContratoActualizarDatos = nombreArchivoContrato;
 
                 var parametro = userData.CodigoConsultora + "|" + DateTime.Now.ToShortDateString() + " 23:59:59" + "|" + userData.CodigoISO;
@@ -789,7 +789,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     var filePath = string.Empty;
                     filePath = Server.MapPath("~/Content/FAQ/Contrato_CO.pdf");
-                    var indicadorEnvio = ConfigurationManager.AppSettings["indicadorContrato"].ToString();
+                    var indicadorEnvio = GetConfiguracionManager(Constantes.ConfiguracionManager.indicadorContrato);
                     if (indicadorEnvio == "1")
                     {
                         try
@@ -927,7 +927,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.CompartirDatos = beusuario.CompartirDatos;
                 model.AceptoContrato = beusuario.AceptoContrato;
                 model.UsuarioPrueba = userData.UsuarioPrueba;
-                model.NombreArchivoContrato = ConfigurationManager.AppSettings["Contrato_ActualizarDatos_" + userData.CodigoISO].ToString();
+                model.NombreArchivoContrato = GetConfiguracionManager(Constantes.ConfiguracionManager.Contrato_ActualizarDatos + userData.CodigoISO);
 
                 BEZona[] bezona;
                 using (var sv = new ZonificacionServiceClient())
@@ -947,7 +947,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
                 model.CodigoUsuario = userData.CodigoUsuario + " (Zona: " + userData.CodigoZona + ")";
-                var PaisesDigitoControl = ConfigurationManager.AppSettings["PaisesDigitoControl"].ToString();
+                var PaisesDigitoControl = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesDigitoControl);
                 model.DigitoVerificador = string.Empty;
                 if (PaisesDigitoControl.Contains(model.PaisISO))
                 {
@@ -2126,9 +2126,9 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult ChatBelcorp()
         {
             var url = "";
-            var fechaInicioChat = ConfigurationManager.AppSettings["FechaChat_" + userData.CodigoISO].ToString();
+            var fechaInicioChat = GetConfiguracionManager(Constantes.ConfiguracionManager.FechaChat + userData.CodigoISO);
 
-            if (ConfigurationManager.AppSettings["PaisesBelcorpChatEMTELCO"].Contains(userData.CodigoISO) &&
+            if (GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesBelcorpChatEMTELCO).Contains(userData.CodigoISO) &&
                 !String.IsNullOrEmpty(fechaInicioChat))
             {
                 var fechaInicioChatPais = DateTime.ParseExact(fechaInicioChat,
@@ -2136,7 +2136,7 @@ namespace Portal.Consultoras.Web.Controllers
                     CultureInfo.InvariantCulture);
                 if (DateTime.Now >= fechaInicioChatPais)
                 {
-                    url = String.Format(ConfigurationManager.AppSettings["UrlBelcorpChat"],
+                    url = String.Format(GetConfiguracionManager(Constantes.ConfiguracionManager.UrlBelcorpChat),
                         userData.SegmentoAbreviatura.Trim(),
                         userData.CodigoUsuario.Trim(),
                         userData.PrimerNombre.Split(' ').First().Trim(),
@@ -2147,24 +2147,24 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (userData.CodigoISO.Equals("PA"))
                 {
-                    url = ConfigurationManager.AppSettings["UrlChatPA"];
+                    url = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlChatPA);
                 }
                 else if (userData.CodigoISO.Equals("QR"))
                 {
-                    url = ConfigurationManager.AppSettings["UrlChatQR"];
+                    url = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlChatQR);
                 }
                 else if (userData.CodigoISO.Equals("SV"))
                 {
-                    url = ConfigurationManager.AppSettings["UrlChatSV"];
+                    url = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlChatSV);
                 }
                 else if (userData.CodigoISO.Equals("GT"))
                 {
-                    url = ConfigurationManager.AppSettings["UrlChatGT"];
+                    url = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlChatGT);
                 }
                 else
                 {
-                    url = ConfigurationManager.AppSettings["UrlChatDefault"] +
-                        ConfigurationManager.AppSettings["TokenAtento_" + userData.CodigoISO];
+                    url = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlChatDefault) +
+                        GetConfiguracionManager(Constantes.ConfiguracionManager.TokenAtento + userData.CodigoISO);
                 }
             }
             ViewBag.UrlBelcorpChatPais = url;
