@@ -1301,9 +1301,9 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.CorreoC = model.EMail;
             ViewBag.Lider = model.Lider;
             ViewBag.PortalLideres = model.PortalLideres;
-            ViewBag.LogOutComunidad = ConfigurationManager.AppSettings["URL_COM_LO"] + "&dest_url=" + ConfigurationManager.AppSettings["URL_SB"] + "/WebPages/ComunidadLogout.aspx";
-            ViewBag.LogOutSB = ConfigurationManager.AppSettings["URL_SB"] + "/WebPages/ComunidadLogout.aspx";
-            ViewBag.TokenAtento = ConfigurationManager.AppSettings["TokenAtento_" + model.CodigoISO];
+            ViewBag.LogOutComunidad = GetConfiguracionManager(Constantes.ConfiguracionManager.URL_COM_LO) + "&dest_url=" + GetConfiguracionManager(Constantes.ConfiguracionManager.URL_SB) + "/WebPages/ComunidadLogout.aspx";
+            ViewBag.LogOutSB = GetConfiguracionManager(Constantes.ConfiguracionManager.URL_SB) + "/WebPages/ComunidadLogout.aspx";
+            ViewBag.TokenAtento = GetConfiguracionManager(Constantes.ConfiguracionManager.TokenAtento + model.CodigoISO);
             ViewBag.IdbelcorpChat = "belcorpChat" + model.CodigoISO;
             ViewBag.FormatDecimalPais = GetFormatDecimalPais(model.CodigoISO);
             ViewBag.OfertaFinal = model.OfertaFinal;
@@ -1389,7 +1389,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string GetFormatDecimalPais(string isoPais)
         {
-            var listaPaises = ConfigurationManager.AppSettings["KeyPaisFormatDecimal"] ?? "";
+            var listaPaises = GetConfiguracionManager(Constantes.ConfiguracionManager.KeyPaisFormatDecimal);
             if (listaPaises == "" || isoPais == "") return ",|.|2";
             if (listaPaises.Contains(isoPais)) return ".||0";
             return ",|.|2";
@@ -1577,7 +1577,7 @@ namespace Portal.Consultoras.Web.Controllers
             var tieneShowRoom = false;
             if (string.IsNullOrEmpty(codigoIsoPais))
                 return tieneShowRoom;
-            var paisesShowRoom = ConfigurationManager.AppSettings["PaisesShowRoom"];
+            var paisesShowRoom = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesShowRoom);
             tieneShowRoom = paisesShowRoom.Contains(codigoIsoPais);
             return tieneShowRoom;
         }
@@ -2462,12 +2462,12 @@ namespace Portal.Consultoras.Web.Controllers
         {
             string codigo = null;
 
-            string zonas = ConfigurationManager.AppSettings["RevistaPiloto_Zonas_" + userData.CodigoISO + campania] ?? "";
+            string zonas = GetConfiguracionManager(Constantes.ConfiguracionManager.RevistaPiloto_Zonas + userData.CodigoISO + campania);
             bool esRevistaPiloto = zonas.Split(new char[1] { ',' }).Select(zona => zona.Trim()).Contains(userData.CodigoZona);
-            if (esRevistaPiloto) codigo = ConfigurationManager.AppSettings["RevistaPiloto_Codigo_" + userData.CodigoISO + campania];
+            if (esRevistaPiloto) codigo = GetConfiguracionManager(Constantes.ConfiguracionManager.RevistaPiloto_Codigo + userData.CodigoISO + campania);
             if (!string.IsNullOrEmpty(codigo)) return codigo;
 
-            codigo = ConfigurationManager.AppSettings["CodigoRevistaIssuu"].ToString();
+            codigo = GetConfiguracionManager(Constantes.ConfiguracionManager.CodigoRevistaIssuu);
             return string.Format(codigo, userData.CodigoISO.ToLower(), campania.Substring(4, 2), campania.Substring(0, 4));
         }
 
@@ -2499,7 +2499,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (esCatalogoPiloto) codigo = ConfigurationManager.AppSettings[nombreCatalogoConfig + "Piloto_Codigo_" + userData.CodigoISO + campania];
             if (!string.IsNullOrEmpty(codigo)) return codigo;
 
-            codigo = ConfigurationManager.AppSettings["CodigoCatalogoIssuu"].ToString();
+            codigo = GetConfiguracionManager(Constantes.ConfiguracionManager.CodigoCatalogoIssuu);
             return string.Format(codigo, nombreCatalogoIssuu, getPaisNombreByISO(userData.CodigoISO), campania.Substring(4, 2), campania.Substring(0, 4));
         }
 

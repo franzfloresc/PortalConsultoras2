@@ -1692,7 +1692,7 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             using (var sv = new ServicePROLConsultas.wsConsulta())
                             {
-                                sv.Url = ConfigurationManager.AppSettings["RutaServicePROLConsultas"];
+                                sv.Url = GetConfiguracionManager(Constantes.ConfiguracionManager.RutaServicePROLConsultas);
                                 listaTieneStock = sv.ConsultaStock(codigoSap, userData.CodigoISO).ToList();
                             }
                         }
