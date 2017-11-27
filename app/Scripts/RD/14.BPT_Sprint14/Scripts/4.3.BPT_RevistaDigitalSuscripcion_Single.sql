@@ -1,13 +1,9 @@
 
-GO
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[RevistaDigitalSuscripcion_SingleActiva]') AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[RevistaDigitalSuscripcion_SingleActiva]
-GO
 
-CREATE PROCEDURE [dbo].[RevistaDigitalSuscripcion_SingleActiva]
+ALTER PROCEDURE [dbo].[RevistaDigitalSuscripcion_Single]
 (
 	 @CodigoConsultora varchar(20)
-	,@CampaniaID int
+	,@CampaniaID int = 0
 )
 AS
 BEGIN
@@ -26,8 +22,7 @@ BEGIN
 		,EMail
 	from RevistaDigitalSuscripcion
 	where CodigoConsultora = @CodigoConsultora  
-		and	CampaniaEfectiva <= @CampaniaID
+		and	 (CampaniaID <= @CampaniaID or @CampaniaID = 0)
 	order by CampaniaID desc, RevistaDigitalSuscripcionID desc
 END
 
-GO
