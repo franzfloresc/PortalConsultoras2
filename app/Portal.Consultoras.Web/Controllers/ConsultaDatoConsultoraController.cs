@@ -1019,7 +1019,7 @@
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 string output = serializer.Serialize(complain);
 
-                string strUri = ConfigurationManager.AppSettings["WS_RV_Campanias_NEW"];
+                string strUri = GetConfiguracionManager(Constantes.ConfiguracionManager.WS_RV_Campanias_NEW);
                 Uri uri = new Uri(strUri);
                 WebRequest request = WebRequest.Create(uri);
                 request.Method = "POST";
@@ -1128,7 +1128,7 @@
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 string output = serializer.Serialize(complain);
 
-                string strUri = ConfigurationManager.AppSettings["WS_RV_PDF_NEW"];
+                string strUri = GetConfiguracionManager(Constantes.ConfiguracionManager.WS_RV_PDF_NEW);
                 Uri uri = new Uri(strUri);
                 WebRequest request = WebRequest.Create(uri);
                 request.Method = "POST";

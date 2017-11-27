@@ -21,7 +21,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         private const string keyFechaGetCantidadProductos = "fechaGetCantidadProductos";
         private const string keyCantidadGetCantidadProductos = "cantidadGetCantidadProductos";
 
-        private static readonly string CodigoProceso = ConfigurationManager.AppSettings["EmailCodigoProceso"];
+        private static readonly string CodigoProceso = ConfigurationManager.AppSettings[Constantes.ConfiguracionManager.EmailCodigoProceso];
         private int OfertaID = 0;
         private bool blnRecibido = false;
         #endregion

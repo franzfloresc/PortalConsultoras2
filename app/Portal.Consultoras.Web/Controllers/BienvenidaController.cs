@@ -29,11 +29,11 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                ViewBag.UrlImgMiAcademia = ConfigurationManager.AppSettings["UrlImgMiAcademia"].ToString() + "/" + userData.CodigoISO + "/academia.png";
+                ViewBag.UrlImgMiAcademia = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlImgMiAcademia) + "/" + userData.CodigoISO + "/academia.png";
                 ViewBag.RutaImagenNoDisponible = GetConfiguracionManager(Constantes.ConfiguracionManager.rutaImagenNotFoundAppCatalogo);
 
-                var nombreCarpetaTC = WebConfigurationManager.AppSettings["NombreCarpetaTC"];
-                var nombreArchivoTC = WebConfigurationManager.AppSettings["NombreArchivoTC"] + ".pdf";
+                var nombreCarpetaTC = GetConfiguracionManager(Constantes.ConfiguracionManager.NombreCarpetaTC);
+                var nombreArchivoTC = GetConfiguracionManager(Constantes.ConfiguracionManager.NombreArchivoTC) + ".pdf";
                 ViewBag.UrlPdfTerminosyCondiciones = ConfigS3.GetUrlFileS3(nombreCarpetaTC, userData.CodigoISO + "/" + nombreArchivoTC, String.Empty);
 
                 ViewBag.UrlImagenFAVHome = string.Format(GetConfiguracionManager(Constantes.ConfiguracionManager.UrlImagenFAVHome), userData.CodigoISO);
@@ -80,13 +80,13 @@ namespace Portal.Consultoras.Web.Controllers
                 model.Celular = userData.Celular;
                 model.NombreGerenteZonal = userData.NombreGerenteZonal;
 
-                var carpetaPais = WebConfigurationManager.AppSettings["CarpetaImagenCompartirCatalogo"] + userData.CodigoISO;
-                var nombreImagenCatalogo = WebConfigurationManager.AppSettings["NombreImagenCompartirCatalogo"];
+                var carpetaPais = GetConfiguracionManager(Constantes.ConfiguracionManager.CarpetaImagenCompartirCatalogo) + userData.CodigoISO;
+                var nombreImagenCatalogo = GetConfiguracionManager(Constantes.ConfiguracionManager.NombreImagenCompartirCatalogo);
                 model.UrlImagenCompartirCatalogo = ConfigS3.GetUrlFileS3(carpetaPais, nombreImagenCatalogo, String.Empty);
                 model.PrimeraVez = userData.CambioClave;
                 model.Simbolo = userData.Simbolo;
                 model.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
-                ViewBag.NombreConsultoraFAV = model.NombreConsultora.First().ToString().ToUpper() + model.NombreConsultora.ToLower().Substring(1);
+                ViewBag.NombreConsultoraFAV = Util.SubStr(model.NombreConsultora, 0, 1).ToUpper() + Util.SubStr(model.NombreConsultora.ToLower(), 1);
                 var j = model.NombreConsultora.Trim().IndexOf(' ');
                 if (j >= 0) model.NombreConsultora = model.NombreConsultora.Substring(0, j).Trim();
 
@@ -125,7 +125,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.rutaChile = string.Empty;
                 }
 
-                var nombreArchivoContrato = ConfigurationManager.AppSettings["Contrato_ActualizarDatos_" + userData.CodigoISO].ToString();
+                var nombreArchivoContrato = GetConfiguracionManager(Constantes.ConfiguracionManager.Contrato_ActualizarDatos + userData.CodigoISO);
                 model.ContratoActualizarDatos = nombreArchivoContrato;
 
                 var parametro = userData.CodigoConsultora + "|" + DateTime.Now.ToShortDateString() + " 23:59:59" + "|" + userData.CodigoISO;
@@ -790,7 +790,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     var filePath = string.Empty;
                     filePath = Server.MapPath("~/Content/FAQ/Contrato_CO.pdf");
-                    var indicadorEnvio = ConfigurationManager.AppSettings["indicadorContrato"].ToString();
+                    var indicadorEnvio = GetConfiguracionManager(Constantes.ConfiguracionManager.indicadorContrato);
                     if (indicadorEnvio == "1")
                     {
                         try
@@ -928,7 +928,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.CompartirDatos = beusuario.CompartirDatos;
                 model.AceptoContrato = beusuario.AceptoContrato;
                 model.UsuarioPrueba = userData.UsuarioPrueba;
-                model.NombreArchivoContrato = ConfigurationManager.AppSettings["Contrato_ActualizarDatos_" + userData.CodigoISO].ToString();
+                model.NombreArchivoContrato = GetConfiguracionManager(Constantes.ConfiguracionManager.Contrato_ActualizarDatos + userData.CodigoISO);
 
                 BEZona[] bezona;
                 using (var sv = new ZonificacionServiceClient())
@@ -948,7 +948,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
                 model.CodigoUsuario = userData.CodigoUsuario + " (Zona: " + userData.CodigoZona + ")";
-                var PaisesDigitoControl = ConfigurationManager.AppSettings["PaisesDigitoControl"].ToString();
+                var PaisesDigitoControl = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesDigitoControl);
                 model.DigitoVerificador = string.Empty;
                 if (PaisesDigitoControl.Contains(model.PaisISO))
                 {
@@ -2127,9 +2127,9 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult ChatBelcorp()
         {
             var url = "";
-            var fechaInicioChat = ConfigurationManager.AppSettings["FechaChat_" + userData.CodigoISO].ToString();
+            var fechaInicioChat = GetConfiguracionManager(Constantes.ConfiguracionManager.FechaChat + userData.CodigoISO);
 
-            if (ConfigurationManager.AppSettings["PaisesBelcorpChatEMTELCO"].Contains(userData.CodigoISO) &&
+            if (GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesBelcorpChatEMTELCO).Contains(userData.CodigoISO) &&
                 !String.IsNullOrEmpty(fechaInicioChat))
             {
                 var fechaInicioChatPais = DateTime.ParseExact(fechaInicioChat,
@@ -2137,7 +2137,7 @@ namespace Portal.Consultoras.Web.Controllers
                     CultureInfo.InvariantCulture);
                 if (DateTime.Now >= fechaInicioChatPais)
                 {
-                    url = String.Format(ConfigurationManager.AppSettings["UrlBelcorpChat"],
+                    url = String.Format(GetConfiguracionManager(Constantes.ConfiguracionManager.UrlBelcorpChat),
                         userData.SegmentoAbreviatura.Trim(),
                         userData.CodigoUsuario.Trim(),
                         userData.PrimerNombre.Split(' ').First().Trim(),
@@ -2148,24 +2148,24 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (userData.CodigoISO.Equals("PA"))
                 {
-                    url = ConfigurationManager.AppSettings["UrlChatPA"];
+                    url = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlChatPA);
                 }
                 else if (userData.CodigoISO.Equals("QR"))
                 {
-                    url = ConfigurationManager.AppSettings["UrlChatQR"];
+                    url = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlChatQR);
                 }
                 else if (userData.CodigoISO.Equals("SV"))
                 {
-                    url = ConfigurationManager.AppSettings["UrlChatSV"];
+                    url = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlChatSV);
                 }
                 else if (userData.CodigoISO.Equals("GT"))
                 {
-                    url = ConfigurationManager.AppSettings["UrlChatGT"];
+                    url = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlChatGT);
                 }
                 else
                 {
-                    url = ConfigurationManager.AppSettings["UrlChatDefault"] +
-                        ConfigurationManager.AppSettings["TokenAtento_" + userData.CodigoISO];
+                    url = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlChatDefault) +
+                        GetConfiguracionManager(Constantes.ConfiguracionManager.TokenAtento + userData.CodigoISO);
                 }
             }
             ViewBag.UrlBelcorpChatPais = url;

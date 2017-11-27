@@ -40,31 +40,67 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
         public class BuildMenuMobile : Base
         {
             [TestMethod]
-            public void Base_BuildMenuMobile_ConsultoraOnline_ViewBagExists()
+            [ExpectedExceptionWithMessage(typeof(ArgumentNullException), "Value cannot be null.\r\nParameter name: userData")]
+            public void BuildMenuMobile_UserDataEsNulo_LanzaExcepcion()
             {
-                BaseController controller = new BaseController();
-                var testController = new TestControllerBuilder();
-                testController.InitializeController(controller);
+                var controller = new BaseController();
+                var userData = (UsuarioModel)null;
+                var revistaDigital = (RevistaDigitalModel)null;
 
-                var userData = new UsuarioModel
+                controller.BuildMenuMobile(userData, revistaDigital);
+            }
+
+            [TestMethod]
+            [ExpectedExceptionWithMessage(typeof(ArgumentNullException), "Value cannot be null.\r\nParameter name: revistaDigital")]
+            public void BuildMenuMobile_RevistaDigitalEsNulo_LanzaExcepcion()
+            {
+                var controller = new BaseController();
+                var userData = new UsuarioModel { };
+                var revistaDigital =  (RevistaDigitalModel)null;
+
+                controller.BuildMenuMobile(userData, revistaDigital);
+            }
+
+
+            class BaseControllerStub01: BaseController
+            {
+                public BaseControllerStub01(ISessionManager sessionManager) : base(sessionManager)
                 {
-                    RolID = Constantes.Rol.Consultora,
-                    MenuMobile = new List<MenuMobileModel>()
-                };
-                try { controller.BuildMenuMobile(userData); }
-                catch { }
 
-                bool existeTipoMenuConsultoraOnline = controller.ViewBag.TipoMenuConsultoraOnline != null;
-                bool existeCantPedidosPendientes = controller.ViewBag.CantPedidosPendientes != null;
-                bool existeTeQuedanConsultoraOnline = controller.ViewBag.TeQuedanConsultoraOnline != null;
-                bool existeMenuHijoIDConsultoraOnline = controller.ViewBag.MenuHijoIDConsultoraOnline != null;
-                bool existeMenuPadreIDConsultoraOnline = controller.ViewBag.MenuPadreIDConsultoraOnline != null;
+                }
 
-                Assert.AreEqual(true, existeTipoMenuConsultoraOnline);
-                Assert.AreEqual(true, existeCantPedidosPendientes);
-                Assert.AreEqual(true, existeTeQuedanConsultoraOnline);
-                Assert.AreEqual(true, existeMenuHijoIDConsultoraOnline);
-                Assert.AreEqual(true, existeMenuPadreIDConsultoraOnline);
+                protected override List<MenuMobileModel> GetMenuMobileModel(int paisID)
+                {
+                    return new List<MenuMobileModel> {
+                        new MenuMobileModel{
+                            Codigo =  Constantes.MenuCodigo.ContenedorOfertas.ToLower(),
+                            UrlItem = string.Empty,
+                            UrlImagen=String.Empty,
+                            Descripcion=string.Empty,
+                            Posicion="Menu",
+                            OnClickFunt=string.Empty
+                        }
+                    };
+                }
+
+                public override string GetUrlImagenMenuOfertas(UsuarioModel userData, RevistaDigitalModel revistaDigital)
+                {
+                    return "UrlImagenMenuOfertasMobile";
+                }
+            }
+            [TestMethod]
+            public void BuildMenuMobile_UserIsConsultoraMenuOfertaGetsItsImageUrl_UrlImagenIsNotNull()
+            {
+                sessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns((EventoFestivoDataModel)null);
+                var controller = new BaseControllerStub01(sessionManager.Object);
+                var userData = new UsuarioModel { RolID = Constantes.Rol.Consultora };
+                var revistaDigital = new RevistaDigitalModel {  };
+
+                var result = controller.BuildMenuMobile(userData, revistaDigital).First();
+
+                Assert.IsNotNull(result);
+                Assert.IsNotNull(result.UrlImagen);
+                Assert.AreEqual("UrlImagenMenuOfertasMobile", result.UrlImagen);
             }
         }
 
@@ -110,17 +146,11 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 Assert.AreEqual(controller.ViewBag.ClaseLogoSB, "ClaseLogoSB");
             }
 
-
-
-            class BaseControllerStub01 : BaseController
+            class BaseControllerStub03 : BaseController
             {
-                public BaseControllerStub01(ISessionManager sessionManager):base(sessionManager)
+                public BaseControllerStub03(ISessionManager sessionManager) : base(sessionManager)
                 {
 
-                }
-                protected override string GetDefaultGifMenuOfertas()
-                {
-                    return "cualquier-image.gif";
                 }
 
                 protected override IList<PermisoModel> GetPermisosByRol(int paisID, int rolID)
@@ -136,20 +166,53 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                         }
                     };
                 }
+
+                public override string GetUrlImagenMenuOfertas(UsuarioModel userData, RevistaDigitalModel revistaDigital)
+                {
+                    return "url-imagen-menu-oferta.gif";
+                }
             }
             [TestMethod]
-            public void BuildMenu_ConsultoraNoEsikaParaMiSinEventoFestivo_TieneGifPorDefecto()
+            public void BuildMenu_TienePermisoContenedorOfertasGetUrl_MenuOfertasEsSoloImagenTrueYDevuelreUrl()
+            {
+                sessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns((EventoFestivoDataModel)null);
+                var controller = new BaseControllerStub03(sessionManager.Object);
+                var userData = new UsuarioModel { };
+                var revistaDigital = new RevistaDigitalModel{};
+
+                var result = controller.BuildMenu(userData, revistaDigital).First();
+
+                Assert.AreEqual(true, result.EsSoloImagen);
+                Assert.IsNotNull(result.UrlImagen);
+            }
+        }
+
+        [TestClass]
+        public class GetUrlImagenMenuOfertas : Base
+        {
+            class BaseControllerStub01 : BaseController
+            {
+                public BaseControllerStub01(ISessionManager sessionManager) : base(sessionManager)
+                {
+
+                }
+                protected override string GetDefaultGifMenuOfertas()
+                {
+                    return "cualquier-image.gif";
+                }
+            }
+            [TestMethod]
+            public void GetUrlImagenMenuOfertas_ConsultoraNoEsikaParaMiSinEventoFestivo_TieneGifPorDefecto()
             {
                 sessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns((EventoFestivoDataModel)null);
                 var controller = new BaseControllerStub01(sessionManager.Object);
                 var userData = new UsuarioModel { };
                 var revistaDigital = new RevistaDigitalModel { TieneRDC = false, TieneRDR = false };
 
-                var menuOferta = controller.BuildMenu(userData, revistaDigital).First();
+                var url = controller.GetUrlImagenMenuOfertas(userData, revistaDigital);
 
-                Assert.AreEqual(true, menuOferta.EsSoloImagen);
-                Assert.IsNotNull(menuOferta.UrlImagen);
-                Assert.IsTrue(menuOferta.UrlImagen.Contains("cualquier-image.gif"));
+                Assert.IsNotNull(url);
+                Assert.IsTrue(url.Contains("cualquier-image.gif"));
             }
 
             class BaseControllerStub02 : BaseController
@@ -158,28 +221,15 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 {
 
                 }
-
-                protected override IList<PermisoModel> GetPermisosByRol(int paisID, int rolID)
-                {
-                    return new List<PermisoModel> {
-                        new PermisoModel
-                        {
-                            PermisoID=1,
-                            Codigo =  Constantes.MenuCodigo.ContenedorOfertas.ToLower(),
-                            UrlItem = string.Empty,
-                            DescripcionFormateada=string.Empty,
-                            Posicion=string.Empty
-                        }
-                    };
-                }
             }
             [TestMethod]
-            public void BuildMenu_ConsultoraEsikaParaMiNoSuscritaInactivaSinEventoFestivo_TieneGifGanaMas()
+            public void GetUrlImagenMenuOfertas_ConsultoraEsikaParaMiNoSuscritaInactivaSinEventoFestivo_TieneGifGanaMas()
             {
                 sessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns((EventoFestivoDataModel)null);
                 var controller = new BaseControllerStub02(sessionManager.Object);
                 var userData = new UsuarioModel { };
-                var revistaDigital = new RevistaDigitalModel {
+                var revistaDigital = new RevistaDigitalModel
+                {
                     TieneRDC = true,
                     TieneRDR = false,
                     EsSuscrita = false,
@@ -187,11 +237,10 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     LogoMenuOfertasNoActiva = "gana-mas.gif"
                 };
 
-                var menuOferta = controller.BuildMenu(userData, revistaDigital).First();
+                var menuOferta = controller.GetUrlImagenMenuOfertas(userData, revistaDigital);
 
-                Assert.AreEqual(true, menuOferta.EsSoloImagen);
-                Assert.IsNotNull(menuOferta.UrlImagen);
-                Assert.IsTrue(menuOferta.UrlImagen.Contains("gana-mas.gif"));
+                Assert.IsNotNull(menuOferta);
+                Assert.IsTrue(menuOferta.Contains("gana-mas.gif"));
             }
 
             class BaseControllerStub03 : BaseController
@@ -216,10 +265,10 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 }
             }
             [TestMethod]
-            public void BuildMenu_ConsultoraEsikaParaMiSuscritaInactivaSinEventoFestivo_TieneGifClubGanaMas()
+            public void GetUrlImagenMenuOfertas_ConsultoraEsikaParaMiSuscritaInactivaSinEventoFestivo_TieneGifClubGanaMas()
             {
                 sessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns((EventoFestivoDataModel)null);
-                var controller = new BaseControllerStub02(sessionManager.Object);
+                var controller = new BaseControllerStub03(sessionManager.Object);
                 var userData = new UsuarioModel { };
                 var revistaDigital = new RevistaDigitalModel
                 {
@@ -232,11 +281,10 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     LogoMenuOfertasActiva = "club-gana-mas.gif"
                 };
 
-                var menuOferta = controller.BuildMenu(userData, revistaDigital).First();
+                var result = controller.GetUrlImagenMenuOfertas(userData, revistaDigital);
 
-                Assert.AreEqual(true, menuOferta.EsSoloImagen);
-                Assert.IsNotNull(menuOferta.UrlImagen);
-                Assert.IsTrue(menuOferta.UrlImagen.Contains("club-gana-mas.gif"));
+                Assert.IsNotNull(result);
+                Assert.IsTrue(result.Contains("club-gana-mas.gif"));
             }
 
             class BaseControllerStub04 : BaseController
@@ -261,10 +309,10 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 }
             }
             [TestMethod]
-            public void BuildMenu_ConsultoraEsikaParaMiSuscritaActivaSinEventoFestivo_TieneGifClubGanaMas()
+            public void GetUrlImagenMenuOfertas_ConsultoraEsikaParaMiSuscritaActivaSinEventoFestivo_TieneGifClubGanaMas()
             {
                 sessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns((EventoFestivoDataModel)null);
-                var controller = new BaseControllerStub02(sessionManager.Object);
+                var controller = new BaseControllerStub04(sessionManager.Object);
                 var userData = new UsuarioModel { };
                 var revistaDigital = new RevistaDigitalModel
                 {
@@ -277,11 +325,10 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     LogoMenuOfertasActiva = "club-gana-mas.gif"
                 };
 
-                var menuOferta = controller.BuildMenu(userData, revistaDigital).First();
+                var result = controller.GetUrlImagenMenuOfertas(userData, revistaDigital);
 
-                Assert.AreEqual(true, menuOferta.EsSoloImagen);
-                Assert.IsNotNull(menuOferta.UrlImagen);
-                Assert.IsTrue(menuOferta.UrlImagen.Contains("club-gana-mas.gif"));
+                Assert.IsNotNull(result);
+                Assert.IsTrue(result.Contains("club-gana-mas.gif"));
             }
 
             class BaseControllerStub05 : BaseController
@@ -306,7 +353,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 }
             }
             [TestMethod]
-            public void BuildMenu_ConsultoraEsikaParaMiNoSuscritaActivaSinEventoFestivo_TieneGifClubGanaMas()
+            public void GetUrlImagenMenuOfertas_ConsultoraEsikaParaMiNoSuscritaActivaSinEventoFestivo_TieneGifClubGanaMas()
             {
                 sessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns((EventoFestivoDataModel)null);
                 var controller = new BaseControllerStub05(sessionManager.Object);
@@ -322,11 +369,10 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     LogoMenuOfertasActiva = "club-gana-mas.gif"
                 };
 
-                var menuOferta = controller.BuildMenu(userData, revistaDigital).First();
+                var result = controller.GetUrlImagenMenuOfertas(userData, revistaDigital);
 
-                Assert.AreEqual(true, menuOferta.EsSoloImagen);
-                Assert.IsNotNull(menuOferta.UrlImagen);
-                Assert.IsTrue(menuOferta.UrlImagen.Contains("club-gana-mas.gif"));
+                Assert.IsNotNull(result);
+                Assert.IsTrue(result.Contains("club-gana-mas.gif"));
             }
 
 
@@ -354,9 +400,10 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 }
             }
             [TestMethod]
-            public void BuildMenu_ConsultoraNoEsikaParaMiConEventoFestivo_DevuelveGifEventoFestivo()
+            public void GetUrlImagenMenuOfertas_ConsultoraNoEsikaParaMiConEventoFestivo_DevuelveGifEventoFestivo()
             {
-                sessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns(new EventoFestivoDataModel {
+                sessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns(new EventoFestivoDataModel
+                {
                     ListaGifMenuContenedorOfertas = new List<EventoFestivoModel> {
                         new EventoFestivoModel{
                             Nombre=Constantes.EventoFestivoNombre.GIF_MENU_OFERTAS,
@@ -368,11 +415,10 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 var userData = new UsuarioModel { };
                 var revistaDigital = new RevistaDigitalModel { TieneRDC = false, TieneRDR = false };
 
-                var menuOferta = controller.BuildMenu(userData, revistaDigital).First();
+                var result = controller.GetUrlImagenMenuOfertas(userData, revistaDigital);
 
-                Assert.AreEqual(true, menuOferta.EsSoloImagen);
-                Assert.IsNotNull(menuOferta.UrlImagen);
-                Assert.IsTrue(menuOferta.UrlImagen.Contains("evento-festivo-ofertas-no-epm.gif"));
+                Assert.IsNotNull(result);
+                Assert.IsTrue(result.Contains("evento-festivo-ofertas-no-epm.gif"));
             }
 
             class BaseControllerStub07 : BaseController
@@ -397,7 +443,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 }
             }
             [TestMethod]
-            public void BuildMenu_ConsultoraEsikaParaMiNoSuscritaInactivaConEventoFestivo_DevuelveGifEventoFestivoGanaMas()
+            public void GetUrlImagenMenuOfertas_ConsultoraEsikaParaMiNoSuscritaInactivaConEventoFestivo_DevuelveGifEventoFestivoGanaMas()
             {
                 sessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns(new EventoFestivoDataModel
                 {
@@ -412,11 +458,10 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 var userData = new UsuarioModel { };
                 var revistaDigital = new RevistaDigitalModel { TieneRDC = true, TieneRDR = false };
 
-                var menuOferta = controller.BuildMenu(userData, revistaDigital).First();
+                var result = controller.GetUrlImagenMenuOfertas(userData, revistaDigital);
 
-                Assert.AreEqual(true, menuOferta.EsSoloImagen);
-                Assert.IsNotNull(menuOferta.UrlImagen);
-                Assert.IsTrue(menuOferta.UrlImagen.Contains("evento-festivo-ofertas-gana-mas.gif"));
+                Assert.IsNotNull(result);
+                Assert.IsTrue(result.Contains("evento-festivo-ofertas-gana-mas.gif"));
             }
 
             class BaseControllerStub08 : BaseController
@@ -441,7 +486,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 }
             }
             [TestMethod]
-            public void BuildMenu_ConsultoraEsikaParaMiSuscritaInactivaConEventoFestivo_TieneGifEventoFestivoClubGanaMas()
+            public void GetUrlImagenMenuOfertas_ConsultoraEsikaParaMiSuscritaInactivaConEventoFestivo_TieneGifEventoFestivoClubGanaMas()
             {
                 sessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns(new EventoFestivoDataModel
                 {
@@ -454,7 +499,8 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 });
                 var controller = new BaseControllerStub08(sessionManager.Object);
                 var userData = new UsuarioModel { };
-                var revistaDigital = new RevistaDigitalModel {
+                var revistaDigital = new RevistaDigitalModel
+                {
                     TieneRDC = true,
                     TieneRDR = false,
                     //
@@ -462,11 +508,10 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     EsActiva = false,
                 };
 
-                var menuOferta = controller.BuildMenu(userData, revistaDigital).First();
+                var result = controller.GetUrlImagenMenuOfertas(userData, revistaDigital);
 
-                Assert.AreEqual(true, menuOferta.EsSoloImagen);
-                Assert.IsNotNull(menuOferta.UrlImagen);
-                Assert.IsTrue(menuOferta.UrlImagen.Contains("evento-festivo-ofertas-club-gana-mas.gif"));
+                Assert.IsNotNull(result);
+                Assert.IsTrue(result.Contains("evento-festivo-ofertas-club-gana-mas.gif"));
             }
 
             class BaseControllerStub09 : BaseController
@@ -491,7 +536,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 }
             }
             [TestMethod]
-            public void BuildMenu_ConsultoraEsikaParaMiSuscritaActivaConEventoFestivo_TieneGifClubGanaMas()
+            public void GetUrlImagenMenuOfertas_ConsultoraEsikaParaMiSuscritaActivaConEventoFestivo_TieneGifClubGanaMas()
             {
                 sessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns(new EventoFestivoDataModel
                 {
@@ -513,11 +558,10 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     EsActiva = true,
                 };
 
-                var menuOferta = controller.BuildMenu(userData, revistaDigital).First();
+                var result = controller.GetUrlImagenMenuOfertas(userData, revistaDigital);
 
-                Assert.AreEqual(true, menuOferta.EsSoloImagen);
-                Assert.IsNotNull(menuOferta.UrlImagen);
-                Assert.IsTrue(menuOferta.UrlImagen.Contains("evento-festivo-ofertas-club-gana-mas-.gif"));
+                Assert.IsNotNull(result);
+                Assert.IsTrue(result.Contains("evento-festivo-ofertas-club-gana-mas-.gif"));
             }
 
             class BaseControllerStub10 : BaseController
@@ -542,7 +586,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 }
             }
             [TestMethod]
-            public void BuildMenu_ConsultoraEsikaParaMiNoSuscritaActivaConEventoFestivo_TieneGifClubGanaMas()
+            public void GetUrlImagenMenuOfertas_ConsultoraEsikaParaMiNoSuscritaActivaConEventoFestivo_TieneGifClubGanaMas()
             {
                 sessionManager.Setup(x => x.GetEventoFestivoDataModel()).Returns(new EventoFestivoDataModel
                 {
@@ -564,11 +608,10 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     EsActiva = true,
                 };
 
-                var menuOferta = controller.BuildMenu(userData, revistaDigital).First();
+                var result = controller.GetUrlImagenMenuOfertas(userData, revistaDigital);
 
-                Assert.AreEqual(true, menuOferta.EsSoloImagen);
-                Assert.IsNotNull(menuOferta.UrlImagen);
-                Assert.IsTrue(menuOferta.UrlImagen.Contains("evento-festivo-ofertas-club-gana-mas.gif"));
+                Assert.IsNotNull(result);
+                Assert.IsTrue(result.Contains("evento-festivo-ofertas-club-gana-mas.gif"));
             }
         }
 

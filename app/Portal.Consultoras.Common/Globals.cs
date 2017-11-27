@@ -13,6 +13,7 @@ namespace Portal.Consultoras.Common
         private static string _rutaFileLoadTemporal;
         private static int _sizeLimitImageRevista;
         private static string _urlMatriz;
+        private static string _urlRevistaDigital;
         #endregion
 
         #region Propiedades
@@ -157,6 +158,20 @@ namespace Portal.Consultoras.Common
                 return _sizeLimitImageRevista;
             }
             set { _sizeLimitImageRevista = value; }
+        }
+
+        public static string UrlRevistaDigital
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_urlRevistaDigital))
+                {
+                    _urlRevistaDigital = ConfigurationManager.AppSettings["RevistaDigital"];
+                }
+
+                return _urlRevistaDigital;
+            }
+            set { _urlRevistaDigital = value; }
         }
         #endregion
     }

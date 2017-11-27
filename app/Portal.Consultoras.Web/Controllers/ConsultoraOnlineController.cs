@@ -1138,7 +1138,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 sessionManager.SetDetallesPedido(null);
-                string emailDe = ConfigurationManager.AppSettings["ConsultoraOnlineEmailDe"];
+                string emailDe = GetConfiguracionManager(Constantes.ConfiguracionManager.ConsultoraOnlineEmailDe);
 
                 if (_pedido.FlagMedio == "01")
                 {
@@ -1711,7 +1711,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                         try
                         {
-                            string emailDe = ConfigurationManager.AppSettings["ConsultoraOnlineEmailDe"];
+                            string emailDe = GetConfiguracionManager(Constantes.ConfiguracionManager.ConsultoraOnlineEmailDe);
                             if (typeAction == "1")      // desktop
                             {
                                 Common.Util.EnviarMail3(emailDe, pedido.Email, titulocliente, mensajecliente.ToString(), true, pedido.Email);

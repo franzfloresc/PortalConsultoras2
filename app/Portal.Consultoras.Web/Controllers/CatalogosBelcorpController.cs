@@ -80,7 +80,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             List<Catalogo> catalogos = new List<Catalogo>();
             string urlISSUUSearch = "http://search.issuu.com/api/2_0/document?username=somosbelcorp&q=";
-            string urlISSUUVisor = ConfigurationManager.AppSettings["UrlIssuu"];
+            string urlISSUUVisor = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlIssuu);
             List<String> preferences = new List<String> { "LBel", "Esika", "Cyzone" };
 
             try

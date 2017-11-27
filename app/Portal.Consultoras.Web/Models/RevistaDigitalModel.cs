@@ -24,8 +24,17 @@ namespace Portal.Consultoras.Web.Models
         public int CantidadCampaniaEfectiva { get; set; }
         public string NombreComercialActiva { get; set; }
         public string NombreComercialNoActiva { get; set; }
-        public string LogoComercialActiva { get; set; }
-        public string LogoComercialNoActiva { get; set; }
+
+        public string DLogoComercialActiva { get; set; }
+        public string DLogoComercialNoActiva { get; set; }
+        public string MLogoComercialActiva { get; set; }
+        public string MLogoComercialNoActiva { get; set; }
+
+        public string DLogoComercialFondoActiva { get; set; }
+        public string DLogoComercialFondoNoActiva { get; set; }
+        public string MLogoComercialFondoActiva { get; set; }
+        public string MLogoComercialFondoNoActiva { get; set; }
+
         public string LogoMenuOfertasActiva { get; set; }
         public string LogoMenuOfertasNoActiva { get; set; }
 

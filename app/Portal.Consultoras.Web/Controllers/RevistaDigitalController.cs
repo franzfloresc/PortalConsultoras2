@@ -337,6 +337,8 @@ namespace Portal.Consultoras.Web.Controllers
                     revistaDigital.NoVolverMostrar = true;
                     revistaDigital.EstadoSuscripcion = Constantes.EstadoRDSuscripcion.NoPopUp;
                     revistaDigital.SuscripcionModel.EstadoRegistro = Constantes.EstadoRDSuscripcion.NoPopUp;
+                    revistaDigital.EsSuscrita = revistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo;
+                    sessionManager.SetRevistaDigital(revistaDigital);
                 }
 
                 return Json(new
@@ -408,24 +410,29 @@ namespace Portal.Consultoras.Web.Controllers
             entidad.EstadoEnvio = 0;
             entidad.IsoPais = userData.CodigoISO;
             entidad.EMail = userData.EMail;
+            entidad.CampaniaEfectiva = AddCampaniaAndNumero(userData.CampaniaID, revistaDigital.CantidadCampaniaEfectiva);
 
             if (tipo == Constantes.EstadoRDSuscripcion.Desactivo)
+            {
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
                     entidad.RevistaDigitalSuscripcionID = sv.RDDesuscripcion(entidad);
                 }
-
-            else
+            }
+            if (tipo == Constantes.EstadoRDSuscripcion.Activo)
+            {
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
                     entidad.RevistaDigitalSuscripcionID = sv.RDSuscripcion(entidad);
                 }
+            }
 
             if (entidad.RevistaDigitalSuscripcionID > 0)
             {
                 revistaDigital.SuscripcionModel = Mapper.Map<BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>(entidad);
                 revistaDigital.NoVolverMostrar = true;
                 revistaDigital.EstadoSuscripcion = revistaDigital.SuscripcionModel.EstadoRegistro;
+                revistaDigital.EsSuscrita = revistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo;
                 sessionManager.SetRevistaDigital(revistaDigital);
                 userData.MenuMobile = null;
                 userData.Menu = null;
