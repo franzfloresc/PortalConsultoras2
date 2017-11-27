@@ -294,12 +294,12 @@ namespace Portal.Consultoras.Web.Controllers
             dic.Add("CUV PADRE", "CUV2");
             if (tipoEstrategiaID == 4)
             {
-                dic.Add("DESCRIPCIÓN DE LA OFERTA (OPT: NOMBRE OFERTA / OPT: P1 + P2 + P3)", "DescripcionCUV2");
+              dic.Add("DESCRIPCIÓN DE LA OFERTA (OPT: NOMBRE OFERTA / OPT: P1 + P2 + P3)", "DescripcionCUV2");
                 dic.Add("DESCRIPCIÓN VISUALIZACIÓN DE LA CONSULTORA (CORTA)", "DescripcionCorta");
             }
             if (tipoEstrategiaID == 7)
             {
-                dic.Add("DESCRIPCIÓN DE LA OFERTA", "DescripcionCUV2");
+                //dic.Add("DESCRIPCIÓN DE LA OFERTA", "DescripcionCUV2");
                 dic.Add("DESCRIPCIÓN DE LOS COMPONENTES DEL SET", "DescripcionCorta");
             }
             dic.Add("IMAGEN", "ImagenUrl");
