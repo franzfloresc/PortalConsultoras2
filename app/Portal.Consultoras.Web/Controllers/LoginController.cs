@@ -2159,12 +2159,9 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string RemplazaTagNombre(string cadena, string nombre)
         {
-            return cadena.ToUpper().Replace(Constantes.TagCadenaRd.Nombre, nombre);
-        }
-
-        private void RemplazaTagCampania(ref string cadena, string campania)
-        {
-            cadena = cadena.ToUpper().Replace(Constantes.TagCadenaRd.CampaniaActual, campania);
+            return cadena.Replace(Constantes.TagCadenaRd.Nombre, nombre)
+                .Replace(Constantes.TagCadenaRd.Nombre1, nombre)
+                .Replace(Constantes.TagCadenaRd.Nombre2, nombre);
         }
     }
 }
