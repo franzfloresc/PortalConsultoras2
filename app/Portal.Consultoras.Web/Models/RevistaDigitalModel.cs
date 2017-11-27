@@ -103,5 +103,23 @@ namespace Portal.Consultoras.Web.Models
         {
             return TieneRDC && !EsSuscrita && EsActiva;
         }
+
+        public string GetLogo(bool mobile)
+        {
+            if (mobile)
+            {
+                return EsActiva ? MLogoComercialActiva : EsSuscrita ? MLogoComercialActiva : MLogoComercialNoActiva;
+            }
+            return EsActiva ? DLogoComercialActiva : EsSuscrita ? DLogoComercialActiva : DLogoComercialNoActiva;
+        }
+
+        public string GetLogoFondo(bool mobile)
+        {
+            if (mobile)
+            {
+                return EsActiva ? MLogoComercialFondoActiva : EsSuscrita ? MLogoComercialFondoActiva : MLogoComercialFondoNoActiva;
+            }
+            return EsActiva ? DLogoComercialFondoActiva : EsSuscrita ? DLogoComercialFondoActiva : DLogoComercialFondoNoActiva;
+        }
     }
 }

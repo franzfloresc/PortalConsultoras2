@@ -23,7 +23,9 @@ namespace Portal.Consultoras.Web.LogManager
 
         private static string PathFile()
         {
-            return ConfigurationManager.AppSettings["LogPath"].ToString() + "SB2\\";
+            var logPath = ConfigurationManager.AppSettings["LogPath"] ?? string.Empty;
+
+            return logPath + "SB2\\";
         }
 
         public static void LogErrorWebServicesPortal(FaultException exception, string usuario, string pais)
