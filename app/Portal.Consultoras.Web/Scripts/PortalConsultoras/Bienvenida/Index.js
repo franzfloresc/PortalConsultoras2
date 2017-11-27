@@ -13,8 +13,19 @@ var timeoutTooltipTutorial;
 var popupCantidadInicial = popupCantidadInicial || 1;
 var popupListaPrioridad = popupListaPrioridad || new Array();
 var showRoomMostrarLista = showRoomMostrarLista || 0;
+var dataBarra = dataBarra || {};
 
-$(document).ready(function () { 
+//youtube
+var tag = null;
+var firstScriptTag = null;
+var player;
+
+$(document).ready(function () {
+    var hdDataBarra = $("#hdDataBarra").val();
+    if ($.trim(hdDataBarra) != "") {
+        dataBarra = JSON.parse(hdDataBarra);
+    }
+
     $("#hdDataBarra").val("");
 
     if (vbFotoPerfil != null && vbFotoPerfil != "") {
@@ -54,10 +65,17 @@ $(document).ready(function () {
     $(".ver_video_introductorio").click(function () {
         $('#fondoComunPopUp').show();
         contadorFondoPopUp++;
+        ConfigurarYoutube();
         $('#videoIntroductorio').fadeIn(function () {
             $("#videoIntroductorio").delay(200);
             $("#videoIntroductorio").fadeIn(function () {
                 playVideo();
+
+                setTimeout(function () {
+                    if (player.playVideo) {
+                        player.playVideo();
+                    }
+                }, 2000);
             });
         });
     });
@@ -70,6 +88,10 @@ $(document).ready(function () {
                 $('#fondoComunPopUp').hide();
             }
             if ($('#popupMisDatos').is(':visible')) {
+                if (showPopupMisDatos == '1') {
+                    dataLayerVC("Banner Actualizar Datos", "Cerrar popup");
+                    showPopupMisDatos = '0';
+                }
                 $('#fondoComunPopUp').hide();
             }
         }
@@ -113,6 +135,10 @@ $(document).ready(function () {
             }
             //EPD-1564
             if ($('#popupMisDatos').is(':visible')) {
+                if (showPopupMisDatos == '1') {
+                    dataLayerVC("Banner Actualizar Datos", "Cerrar popup");
+                    showPopupMisDatos = '0';
+                }
                 PopupCerrar('popupMisDatos');
             }
 
@@ -133,7 +159,10 @@ $(document).ready(function () {
                 PopupCerrar('popupDemandaAnticipada');
             }
             if ($('#PopShowroomIntriga').is(':visible')) {
-                PopupCerrar('PopShowroomIntriga');
+                SRPopupCerrar('I');
+            }
+            if ($('#PopShowroomVenta').is(':visible')) {
+                SRPopupCerrar('V');
             }
 
             if ($('#PopRDSuscripcion').is(':visible')) {
@@ -264,6 +293,11 @@ $(document).ready(function () {
         return false;
     });
     $("#cerrarPopupMisDatos").click(function () {
+        
+        if (showPopupMisDatos == '1') {
+            dataLayerVC("Banner Actualizar Datos", "Cerrar popup");
+            showPopupMisDatos = '0';
+        }
         PopupCerrar('popupMisDatos');
         return false;
     });
@@ -426,7 +460,9 @@ $(document).ready(function () {
 
     MostrarBarra(null, '1');
 });
-
+$(window).load(function () {
+    VerSeccionBienvenida(verSeccion);
+});
 
 /*** EPD-1089 ***/
 function limitarMaximo(e, contenido, caracteres, id) {
@@ -669,8 +705,20 @@ function ocultarUbicacionTutorial() {
 function mostrarVideoIntroductorio() {
     try {
         if (viewBagVioVideo == "0") {
+            ConfigurarYoutube();            
+
             PopupMostrar('videoIntroductorio');
-            setTimeout(function () { playVideo(); }, 1000);
+
+            setTimeout(function () {
+                playVideo();
+            }, 1000);            
+
+            setTimeout(function () {
+                if (player.playVideo) {
+                    player.playVideo();
+                }
+            }, 2000);
+
             return true;
         }
 
@@ -849,7 +897,10 @@ function ArmarCarouselLiquidaciones(data) {
 
     $('#divCarruselLiquidaciones').empty().html(htmlDiv);
 
+    EstablecerLazyCarrusel($('#divCarruselLiquidaciones'));
+
     $('#divCarruselLiquidaciones').slick({
+        lazyLoad: 'ondemand',
         infinite: false,
         vertical: false,
         slidesToShow: 1,
@@ -990,7 +1041,6 @@ function AgregarProductoLiquidacion(contenedor) {
     }
 
     waitingDialog({});
-
     var item = {
         Cantidad: $(contenedor).find("#txtCantidad").val(),
         MarcaID: $(contenedor).find("#MarcaID").val(),
@@ -1009,7 +1059,12 @@ function AgregarProductoLiquidacion(contenedor) {
         cache: false
     });
 
-    $.getJSON(baseUrl + 'OfertaLiquidacion/ValidarUnidadesPermitidasPedidoProducto', { CUV: item.CUV }, function (data) {
+    $.getJSON(baseUrl + 'OfertaLiquidacion/ValidarUnidadesPermitidasPedidoProducto', { CUV: item.CUV,  Cantidad: item.Cantidad, PrecioUnidad: item.PrecioUnidad}, function (data) {
+        if (data.message.length > 0) {
+            AbrirMensajeEstrategia(data.message);
+            closeWaitingDialog();
+            return false;
+        }
         if (parseInt(data.Saldo) < parseInt(item.Cantidad)) {
             var Saldo = data.Saldo;
             var UnidadesPermitidas = data.UnidadesPermitidas;
@@ -1180,7 +1235,7 @@ function CargarBanners() {
                             var iniHtmlLink = ((dataResult.data[count].URL.length > 0 && dataResult.data[count].TipoAccion == 0) || dataResult.data[count].TipoAccion == 1 || dataResult.data[count].TipoAccion == 2) ? "<a id='bannerMicroefecto" + dataResult.data[count].BannerID + "' href='javascript:;' onclick=\"return EnlaceBanner('" + dataResult.data[count].URL + "','" + dataResult.data[count].Titulo + "','" + dataResult.data[count].TipoAccion + "','" + dataResult.data[count].CuvPedido + "','" + dataResult.data[count].CantCuvPedido + "','" + dataResult.data[count].BannerID + "','" + Posicion + "','" + dataResult.data[count].Titulo + "', this);\" rel='marquesina' >" : "";
                             var finHtmlLink = ((dataResult.data[count].URL.length > 0 && dataResult.data[count].TipoAccion == 0) || dataResult.data[count].TipoAccion == 1 || dataResult.data[count].TipoAccion == 2) ? '</a>' : '';
 
-                            $('.flexslider ul.slides').append('<li><div><div>' + iniHtmlLink + '<img class="imagen_producto" src="' + fileName + '"data-object-fit="none">' + finHtmlLink + '</div></div></li>');
+                            $('.flexslider ul.slides').append('<li><div><div>' + iniHtmlLink + '<img class="imagen_producto" data-src="' + fileName + '"data-object-fit="none" data-lazy-seccion-banner-home="">' + finHtmlLink + '</div></div></li>');
                             delayPrincipal = dataResult.data[count].TiempoRotacion;
                             break;
                         case -5: case -6: case -7: // Seccion Baja 1 SB2.0 
@@ -1188,7 +1243,7 @@ function CargarBanners() {
                             var trackingDesc = dataResult.data[count].TextoComentario;
                             var htmlLink = dataResult.data[count].URL.length > 0 ? "onclick=\"return SetGoogleAnalyticsBannerInferiores('" + dataResult.data[count].URL + "','" + trackingText + "','0','" + dataResult.data[count].BannerID + "','" + countBajos + "','" + dataResult.data[count].Titulo + "');\" target='_blank' rel='banner-inferior' " : "";
 
-                            $('#bannerBajos').append("<a class='enlaces_home' href='javascript:void();' " + htmlLink + "><div class='div-img hidden' style='margin-bottom: 10px;'><img class='banner-img' src='" + fileName + "' /></div><div class='btn_enlaces'>" + trackingText + "</div></a>");
+                            $('#bannerBajos').append("<a class='enlaces_home' href='javascript:void();' " + htmlLink + "><div class='div-img hidden' style='margin-bottom: 10px;'><img class='banner-img' data-src='" + fileName + "' data-lazy-seccion-banner-home=''/></div><div class='btn_enlaces'>" + trackingText + "</div></a>");
                             delaySBaja1 = dataResult.data[count].TiempoRotacion;
                             promotionsBajos.push({
                                 id: dataResult.data[count].BannerID,
@@ -1214,6 +1269,8 @@ function CargarBanners() {
                         'creative': Creative
                     });
                 }
+
+                EstablecerAccionLazyImagen("img[data-lazy-seccion-banner-home]");
 
                 if (promotionsBajos.length > 0) {
                     dataLayer.push({
@@ -1267,8 +1324,6 @@ function CargarBanners() {
                         vpromotionsTagged.push(vpromotions[slider.currentSlide]);
                     }
                 });
-                
-
             }
         }
     });
@@ -1602,7 +1657,7 @@ function CambiarContrasenia() {
 }
 
 function ActualizarMD() {
-
+    
     if (viewBagPaisID != 4) {
 
         if (jQuery.trim($('#txtEMailMD').val()) == "") {
@@ -1658,7 +1713,7 @@ function ActualizarMD() {
     }
 
     if (!$('#chkAceptoContratoMD').is(':checked')) {
-        alert('Debe aceptar los terminos y condiciones para poder actualizar sus datos.');
+        alert('Debe aceptar los términos y condiciones para poder actualizar sus datos.');
         return false;
     }
 
@@ -1676,7 +1731,11 @@ function ActualizarMD() {
             CompartirDatos: false,
             AceptoContrato: $('#chkAceptoContratoMD').is(':checked')
     };
-
+    
+    if (showPopupMisDatos == '1') {
+        dataLayerVC("Banner Actualizar Datos", "Click botón Actualizar");
+        showPopupMisDatos = '0';
+    }
     if (viewBagPaisID != 4) {
 
         jQuery.ajax({
@@ -1687,6 +1746,7 @@ function ActualizarMD() {
             data: JSON.stringify(item),
             async: true,
             success: function (data) {
+                
                 if (checkTimeout(data)) {
                     closeWaitingDialog();
                     PopupCerrar('popupMisDatos');
@@ -1965,6 +2025,7 @@ function DownloadAttachPDFTerminos() {
     $('#hrefTerminos').attr('href', UrlPdfTerminosyCondiciones);
 };
 function CerrarPopupActualizacionDatos() {
+   
     var ClaveSecreta = $('#txtActualizarClaveSecreta').val();
     var ConfirmarClaveSecreta = $('#txtConfirmarClaveSecreta').val();
 
@@ -2575,18 +2636,19 @@ function CrearPopShow() {
 }
 function MostrarShowRoom() {
     if (viewBagRol == 1) {
-        if (sesionEsShowRoom == '0') {
+        if (!sesionEsShowRoom) {
             return;
         }
         $.ajax({
             type: "POST",
             url: baseUrl + "Bienvenida/MostrarShowRoomPopup",
+            data: null,
             contentType: 'application/json',
             success: function (response) {
                 if (checkTimeout(response)) {
                     if (response.success) {
                         var showroomConsultora = response.data;
-                       
+
                         if (!(showroomConsultora.EventoConsultoraID != 0 && showroomConsultora.MostrarPopup)) {
                             return false;
                         }
@@ -2614,43 +2676,39 @@ function MostrarShowRoom() {
 
                         $("#spnShowRoomEvento").html(evento.Tema);
 
-                                if (response.mostrarShowRoomProductos) {
-                                    if (noMostrarShowRoomVenta) {
-                                        
-                                        $("#spnShowRoomEventoVenta").html(eventoNombre);
-                                        $("#spnShowRoomEventoVenta").val(eventoNombre);
-                                        $("#spnShowRoomEventoDescripcionVenta").val(evento.Tema);
-                                        AgregarTagManagerShowRoomPopupAnalytics(eventoID, eventoNombre, evento.Tema, "1");
-                                        $("#hdEventoIDShowRoomVenta").val(eventoID);
-                                        var container = $('#PopShowroomVenta');
-                                        
-                                        var txtSaludoIntriga = response.nombre + ' YA COMENZÓ LA';
-                                        $(container).find('.saludo_consultora_showroom').text(txtSaludoIntriga);
-                                        $(container).find('.imagen_dias_intriga').attr('src', urlImagenPopupVenta);
-                                        $(container).show();
-                                        //venta analytics                                     
-                                    }
-                                } else {
-                                    if (noMostrarShowRoomIntriga) {
-                                        
-                                        $("#spnShowRoomEvento").html(eventoNombre);
-                                        $("#spnShowRoomEvento").val(eventoNombre);
-                                        $("#spnShowRoomEventoDescripcion").val(evento.Tema);
-                                        AgregarTagManagerShowRoomPopupAnalytics(eventoID, eventoNombre, evento.Tema, "0")
-                                        $('#hdEventoIDShowRoom').val(eventoID);
-                                        if (parseInt(response.diasFaltan) > 0) {
-                                            var container = $('#PopShowroomIntriga');
-                                            var txtDiasIntriga = 'FALTAN ' + response.diasFaltan + ' DÍAS';
-                                            if (response.diasFaltan == 1) txtDiasIntriga = 'FALTA 1 DÍA';
-                                            var txtSaludoIntriga = response.nombre + ' prepárate para la';
-                                            $(container).find('.saludo_consultora_showroom').text(txtSaludoIntriga);
-                                            $(container).find('.dias_intriga_home').text(txtDiasIntriga);
-                                            $(container).find('.imagen_dias_intriga').attr('src', urlImagenPopupIntriga);
-                                            $(container).show();
-                                            //intriga analytics
-                                        }
-                                    }
-                                }
+                        if (response.mostrarShowRoomProductos && noMostrarShowRoomVenta) {
+
+                            $("#spnShowRoomEventoVenta").html(eventoNombre);
+                            $("#spnShowRoomEventoVenta").val(eventoNombre);
+                            $("#spnShowRoomEventoDescripcionVenta").val(evento.Tema);
+                            AgregarTagManagerShowRoomPopupAnalytics(eventoID, eventoNombre, evento.Tema, "1");
+                            $("#hdEventoIDShowRoomVenta").val(eventoID);
+                            var container = $('#PopShowroomVenta');
+
+                            var txtSaludoIntriga = '<b>' + response.nombre + '</b>, YA COMENZÓ';
+                            $(container).find('.saludo_consultora_showroom').html(txtSaludoIntriga);
+                            $(container).find('.imagen_dias_intriga').attr('src', urlImagenPopupVenta);
+                            $(container).show();
+                        }
+
+                        if (!response.mostrarShowRoomProductos && noMostrarShowRoomIntriga) {
+
+                            $("#spnShowRoomEvento").html(eventoNombre);
+                            $("#spnShowRoomEvento").val(eventoNombre);
+                            $("#spnShowRoomEventoDescripcion").val(evento.Tema);
+                            AgregarTagManagerShowRoomPopupAnalytics(eventoID, eventoNombre, evento.Tema, "0")
+                            $('#hdEventoIDShowRoom').val(eventoID);
+                            if (parseInt(response.diasFaltan) > 0) {
+                                var container = $('#PopShowroomIntriga');
+                                var txtDiasIntriga = 'FALTAN ' + response.diasFaltan + ' DÍAS';
+                                if (response.diasFaltan == 1) txtDiasIntriga = 'FALTA 1 DÍA';
+                                var txtSaludoIntriga = '<b>' + response.nombre + '</b>, prepárate para';
+                                $(container).find('.saludo_consultora_showroom').html(txtSaludoIntriga);
+                                $(container).find('.dias_intriga_home').text(txtDiasIntriga);
+                                $(container).find('.imagen_dias_intriga').attr('src', urlImagenPopupIntriga);
+                                $(container).show();
+                            }
+                        }
                     }
                 }
             },
@@ -3114,14 +3172,14 @@ function ValidarTelefono(celular) {
 }
 
 function VerShowRoomIntriga() {
-    AgregarTagManagerShowRoomPopupClick(2);
+    //AgregarTagManagerShowRoomPopupClick(2);
     document.location.href = urlShowRoomIntriga;
     $('#PopShowroomIntriga').hide();
 }
 
 function VerShowRoomVenta() {
-    AgregarTagManagerShowRoomPopupClick(1);
-    document.location.href = urlShowRoomVenta;
+    //AgregarTagManagerShowRoomPopupClick(1);
+    document.location.href = urlOfertasIndex;
     $('#PopShowroomVenta').hide();
 }
 
@@ -3175,7 +3233,7 @@ function SRPopupCerrar(tipo) {
             CerrarPopup("#PopShowroomIntriga");
         },
         error: function (data, error) {
-            console.log(data);
+            console.log(data, error);
             CerrarLoad();
             CerrarPopup("#PopShowroomVenta");
             CerrarPopup("#PopShowroomIntriga");
@@ -3252,7 +3310,7 @@ function MostrarPopupInicial() {
             break;
         case popupRevistaDigitalSuscripcion:
             PopupMostrar('PopRDSuscripcion');
-            MostrarPopupRDAnalytics();
+            rdAnalyticsModule.MostrarPopup();
             break;
         case popupCupon:
             cuponModule.mostrarPopupGana();
@@ -3263,5 +3321,86 @@ function MostrarPopupInicial() {
         case popupAsesoraOnline:
             if (popupInicialCerrado == 0) asesoraOnlineObj.mostrar();
             break;
+    }
+}
+
+function VerSeccionBienvenida(seccion) {
+    var id = "";
+    switch (seccion) {
+        case "Belcorp":
+            id = ".content_belcorp";
+            break
+        case "MisOfertas":
+            id = "#contenedor_template_estrategia_cabecera";
+            break;
+        case "MiAcademia":
+            id = "#seccionMiAcademiaLiquidacion";
+            break;
+        case "Footer":
+            id = "footer";
+            break;
+        default://Home
+            id = ".flexslider";
+            break;
+    }
+
+    if (id != "") {
+        if ($(id).length) {
+            var topOf = $(id).offset().top - 60;
+            if (id == ".flexslider")
+                topOf = 0;
+
+            $("html, body").animate({
+                scrollTop: topOf
+            }, 1000);
+        }        
+    }
+}
+
+function dataLayerVC(action, label) {
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Coach Virtual',
+        'action': action,
+        'label': label
+    });
+}
+
+function ConfigurarYoutube() {
+    if (tag == null) {
+        tag = document.createElement("script");
+        tag.src = "https://www.youtube.com/iframe_api";
+
+        firstScriptTag = document.getElementsByTagName("script")[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    }
+}
+
+function onYouTubeIframeAPIReady(playerId) {
+    var videoIdMostrar;
+    if (isEsika) {
+        videoIdMostrar = "jNoP8OoMmW4"; //Video Esika
+    } else {
+        videoIdMostrar = "djSn0tFcQ0w"; //Video Lbel
+    }
+    player = new YT.Player("divPlayer", {
+        width: "100%",
+        videoId: videoIdMostrar,
+        playerVars: { rel: 0 },
+        events: {
+            'onStateChange': onPlayerStateChange
+        }
+    });
+};
+
+function onPlayerStateChange(event) {
+    // track when video ends
+    if (event.data == YT.PlayerState.ENDED) {
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Home',
+            'action': 'Video de Bienvenida: Finalizar video',
+            'label': 'SomosBelcorp.com ¡se renueva para ti!'
+        });
     }
 }

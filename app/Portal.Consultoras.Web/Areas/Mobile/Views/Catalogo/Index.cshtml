@@ -1,14 +1,23 @@
 ﻿@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Helpers
 @using Portal.Consultoras.Web.Models
 @model MisCatalogosRevistasModel
 
 @{
-    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+    var layout = ViewContext.MobileLayout();
+    Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
     var userAgent = HttpContext.Current.Request.UserAgent.ToLower();
     var urlApp = userAgent.Contains("iphone;") ? "https://itunes.apple.com/pe/app/catalogos-esika-lbel-cyzone/id1052948837?mt=8"
                                                                                      : "https://play.google.com/store/apps/details?id=belcorp.modobeta.catalogov2&hl=es_419";
     var textApp = userAgent.Contains("iphone;") ? "Gratis en App Store" : "Gratis en Play Store";
+    var revistaDigital = Model.RevistaDigital ?? new RevistaDigitalModel();
 }
+
+<style type="text/css">
+    #flexslidertop{
+        height:60px;
+    }
+</style>
 
 <input type="hidden" id="hdPaisNombre" value="@Model.PaisNombre" />
 <input type="hidden" id="hdCampaniaAnterior" value="@Model.CampaniaAnterior" />
@@ -23,7 +32,7 @@
 @{
     if (HttpContext.Current.Request.Browser.IsMobileDevice && ViewBag.ActivacionAppCatalogoWhastUp == 1)
     {
-        <div class="wrapper_resumen_mobile">
+        <div class="wrapper_resumen_mobile" style="margin-top:126px;">
             <div class="content_320">
                 <div class="content_app">
                     DESCARGA TU<br />
@@ -37,7 +46,7 @@
     }
 }
 <div class="titulo_mobile">
-    @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel() : (Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+    @{  var mobileConfiguracion = Html.MobileAppConfiguracion();
         if (mobileConfiguracion.MostrarBotonAtras)
         {
             <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
@@ -79,11 +88,12 @@
     <!--FIN-->
     <!--TAB REVISTA-->
     <div id="tab_revistas_mobile" data-tag-html="Revistas" style="display:none;">
-        <div class="titulo_catalogo" data-titulo="">REVISTAS C-@Portal.Consultoras.Common.Util.SubStr(Model.CampaniaActual.ToString(), 4, 2)</div>
+        <div class="titulo_catalogo" data-titulo="">REVISTAS C-@Util.SubStr(Model.CampaniaActual.ToString(), 4, 2)</div>
         <div class="content_revistas_mob">
-        @if (@ViewBag.TieneRDC == true)
+        @if (revistaDigital.TieneRDC)
         {
-            if (ViewBag.EstadoSucripcionRDAnterior2 != 1 && ViewBag.EstadoSucripcionRDAnterior1 == 1)
+            if (revistaDigital.SuscripcionAnterior2Model.EstadoRegistro != 1 &&
+                revistaDigital.SuscripcionAnterior1Model.EstadoRegistro == 1)
             {
                 @Html.Partial("~/Areas/Mobile/Views/Catalogo/template-carrusel-issue.cshtml")
                 <hr class="clear" />
@@ -100,14 +110,17 @@
                             <div class="banner_pedido_text">@ViewBag.NombreConsultora ¿YA VISTE TUS <b>OFERTAS EN ÉSIKA PARA MÍ?</b>
                             </div>
                             <div class="btn_red">
-                                <a href="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion)">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")"></a>
+                                <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
+                                    VER TODAS MIS OFERTAS
+                                    <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")">
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- FIN CATÁLOGOS INSCRITAS C-11-->
             }
-            else if (ViewBag.EstadoSucripcionRDAnterior2 == 1)
+            else if (revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == 1)
             {
                 <!-- CATÁLOGOS INSCRITAS C-12-->
                 <div class="wrapper_resumen_mobile">
@@ -119,10 +132,13 @@
                             <div class="cabecera_pedido_text">TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
                         </div>
                         <div class="banner_pedido_masofertas">
-                            <div class="banner_pedido_text">@ViewBag.NombreConsultora, ¿YA VISTE TUS <b>OFERTAS DE LA C-@ViewBag.NumeroCampania EN ÉSIKA PARA MÍ?</b>
+                            <div class="banner_pedido_text">@ViewBag.NombreConsultora, ¿YA VISTE TUS <b>OFERTAS DE LA C-@revistaDigital.Campania EN ÉSIKA PARA MÍ?</b>
                             </div>
                             <div class="btn_red">
-                                <a href="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion)">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")"></a>
+                                <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigitalReducida')">
+                                    VER TODAS MIS OFERTAS
+                                    <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")">
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -145,7 +161,10 @@
                             <div class="banner_pedido_text">@ViewBag.NombreConsultora, CONOCE AHORA ESTA NOVEDAD Y TUS <b>OFERTAS CON HASTA 65% DE DESCUENTO</b>
                             </div>
                             <div class="btn_red">
-                                <a href="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion)">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")"></a>
+                                <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
+                                    VER TODAS MIS OFERTAS
+                                    <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")">
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -153,7 +172,7 @@
                 <!-- FIN CATÁLOGOS INSCRITAS C-12-->
             }
         }
-        else if (@ViewBag.TieneRDR == true)
+        else if (revistaDigital.TieneRDR)
         {
             @Html.Partial("~/Areas/Mobile/Views/Catalogo/template-carrusel-issue.cshtml")
             <hr class="clear" />
@@ -169,7 +188,8 @@
                         <span>Conoce ahora tus ofertas y aumenta tus ganancias</span>
                     </div>
                     <div class="revistadigital contenedor_botonVerMasOfertas">
-                        <div class="boxoffer" style="cursor: pointer; position: relative !important;" onclick="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion)">
+                        <div class="boxoffer" style="cursor: pointer; position: relative !important;" 
+                             onclick="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital');">
                             <div class="fondo_boton"></div>
                             <span class="texto_boton">VER M&Aacute;S OFERTAS PARA M&Iacute;</span>
                         </div>
@@ -318,7 +338,7 @@
 @section scripts{
     <script type="text/javascript">
         var imgNoDisponible = '@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")';
-        var imgIssuu = '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart01' + '{img}' + '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart02Alternativo'
+        var imgIssuu = '@Constantes.CatalogoUrlParameters.UrlPart01' + '{img}' + '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart02Alternativo';
         var codigoIso = '@ViewBag.CodigoISO';
         var defaultImageRevista = '@Url.Content("~/Content/Images/revista_no_disponible.jpg")';
         var urlObtenerPortadaRevista = '@Url.Action("ObtenerPortadaRevista", "Catalogo", new { area = "Mobile" })';
@@ -332,7 +352,7 @@
             '@Model.CampaniaSiguiente': '@Model.CodigoRevistaSiguiente'
         };
         var urlDetalle = '@Url.Action("Detalle", "MisCatalogosRevistas", new { area = "" })';
-        var urlRevistaDigital = '@Url.Action("Index", "RevistaDigital", new { area = "Mobile" })';
+        var urlRevistaDigital = '@Url.Action("Comprar", "RevistaDigital", new { area = "Mobile" })';
     </script>
     <script src="@Url.Content("~/Scripts/Tag/jquery.tags.input.js")"></script>
     <script src="@Url.Content("~/Scripts/Tag/jquery.tag-editor.js")"></script>

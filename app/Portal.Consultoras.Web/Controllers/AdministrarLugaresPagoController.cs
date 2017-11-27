@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.ServiceModel;
-using System.Web;
-using System.Web.Mvc;
-using AutoMapper;
+﻿using AutoMapper;
 using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceZonificacion;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.ServiceModel;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -167,7 +166,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize).OrderBy(x=>x.Posicion);
+                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize).OrderBy(x => x.Posicion);
                 pag = Util.PaginadorGenerico(grid, lst);
 
                 // Creamos la estructura
@@ -284,7 +283,7 @@ namespace Portal.Consultoras.Web.Controllers
                         entidad.ArchivoLogo = string.Empty;
                     }
 
-                 lintPosicion=   sv.InsertLugarPago(entidad);
+                    lintPosicion = sv.InsertLugarPago(entidad);
                     // FileManager.DeleteImage(Globals.RutaImagenesTempLugaresPago, tempImage01);
                 }
                 return Json(new

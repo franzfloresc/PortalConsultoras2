@@ -1,9 +1,16 @@
 ﻿var arrayOfertasParaTi = [];
 
-$(document).ready(function () {
+//youtube
+var tag = null;
+var firstScriptTag = null;
+var player;
 
-    $('.flexsliderTutorialMobile').flexslider({
-        animation: "slide"
+$(document).ready(function () {        
+    $(".termino_condiciones_intriga").click(function () {
+        $(this).toggleClass('check_intriga');
+        if (typeof intrigaAceptoTerminos !== 'undefined') {
+            intrigaAceptoTerminos = !intrigaAceptoTerminos;
+        }
     });
     $(".contenedor-tutorial-lbel .otromomento").click(function () {
         $('#tutorialesMobile').hide();
@@ -13,9 +20,7 @@ $(document).ready(function () {
         $('#tutorialesMobile').hide();
         $('.btn_agregarPedido').show();
     });
-    $(".footer-page").css({ "margin-bottom": "54px" });
-
-    mostrarTutorialMobile();
+    $(".footer-page").css({ "margin-bottom": "54px" });    
 
     $(".cerrar").click(function () {
         UpdateUsuarioTutorialMobile();
@@ -23,13 +28,20 @@ $(document).ready(function () {
         $('.btn_agregarPedido').show();
     });
     $("#tutorialFooterMobile").click(function () {
-        $('.btn_agregarPedido').hide();
-        $('#tutorialesMobile').show();
-        setTimeout(function (){ $(window).resize(); }, 50);
+        VerTutorialMobile();
     });
-    $(".ver_video_introductorio").click(function () {
+    $(".ver_video_introductorio").click(function () {        
         $('#VideoIntroductorio').show();
+
+        ConfigurarYoutube();
+
         setTimeout(function () { playVideo(); }, 500);
+
+        setTimeout(function () {
+            if (player.playVideo) {
+                player.playVideo();
+            }
+        }, 2000);
     });
     $("#cerrarVideoIntroductorio").click(function () {
         stopVideo();
@@ -40,6 +52,9 @@ $(document).ready(function () {
 
     });
 
+    if (viewBagVioTutorial == "0") {
+        VerTutorialMobile();
+    }
 
     CargarCarouselEstrategias("");
 
@@ -58,6 +73,16 @@ $(document).ready(function () {
             starWidth: "17px"
         }).on("rateyo.change", function (e, data) {
         });
+
+        $('.titulo_estrellas').rateYo({
+            rating: "100%",
+            spacing: "10px",
+            numStars: 5,
+            starWidth: "14px",
+            readOnly: true,
+            ratedFill: "#cca11e"
+        });
+
         CargarCarouselMasVendidos('mobile');
     }
 
@@ -80,8 +105,11 @@ $(document).ready(function () {
     });
    
     ObtenerComunicadosPopup();
+    EstablecerAccionLazyImagen("img[data-lazy-seccion-banner-home]");    
 });
-
+$(window).load(function () {
+    VerSeccionBienvenida(verSeccion);
+});
 function CrearPopShow() {
     /*
     if (typeof gTipoUsuario !== 'undefined') {
@@ -133,7 +161,7 @@ function CrearPopShow() {
 
 function MostrarShowRoom() {
     
-    if (sesionEsShowRoom == '0') {
+    if (!sesionEsShowRoom) {
         return;
     }
     $.ajax({
@@ -249,16 +277,6 @@ function AgregarTagManagerShowRoomCheckBox() {
     });
 }
 
-function mostrarTutorialMobile() {
-    if (viewBagVioTutorial == "0") {
-        $('#tutorialesMobile').show();
-        $('.btn_agregarPedido').hide();
-        setTimeout(function () {
-            $(window).resize();
-        }, 300);
-    }
-};
-
 function stopVideo() {
     if (player) {
         if (player.stopVideo) {
@@ -366,7 +384,7 @@ function CargarPopupsConsultora() {
     if (viewBagVioTutorial != '0' && noMostrarPopUpRevistaDig == 'False') {
         //$("#PopRDSuscripcion").show();
         AbrirPopupFade("#PopRDSuscripcion");
-        MostrarPopupRDAnalytics();
+        rdAnalyticsModule.MostrarPopup();
     }
 };
 
@@ -487,43 +505,14 @@ function odd_mobile_google_analytics_promotion_click() {
     }
 }
 
-function odd_mobile_google_analytics_addtocart() {    
-    var element = $("#OfertasDiaMobile").find(".slick-current").attr("data-slick-index");
-    var id = $('#OfertasDiaMobile').find("[data-slick-index=" + element + "]").find(".cuv2-odd").val();
-    var name = $('#OfertasDiaMobile').find("[data-slick-index=" + element + "]").find(".nombre-odd").val();
-    var price = $('#OfertasDiaMobile').find("[data-slick-index=" + element + "]").find(".precio-odd").val();
-    var marca = $('#OfertasDiaMobile').find("[data-slick-index=" + element + "]").find(".MarcaNombre").val();
-    var variant = $('#OfertasDiaMobile').find("[data-slick-index=" + element + "]").find(".DescripcionEstrategia").val();
-    var quantity = $('#pop_oferta_mobile').find("#txtCantidad").val();
-    if (variant == "")
-        variant = "Estándar";
-    dataLayer.push({
-        'event': 'addToCart',
-        'ecommerce': {
-            'add': {
-                'actionField': { 'list': 'Oferta del día' },
-                'products': [{
-                    'name': name,
-                    'price': price,
-                    'brand': marca,
-                    'id': id,
-                    'category': 'No disponible',
-                    'variant': variant,
-                    'quantity': quantity,
-                    'dimension15': '100',
-                    'dimension16': 'Oferta del día - Detalle'
-                }]
-            }
-        }
-    });
-}
-
 function mostrarCatalogoPersonalizado() {
     document.location.href = urlCatalogoPersonalizado;
 }
 
+var ComunicadoId = 0;
 function ObtenerComunicadosPopup() {
     if (primeraVezSession == 0) return;
+
 
     $(".contenedor_popup_comunicado").click(function (e) {
         grabarComunicadoPopup();
@@ -541,6 +530,12 @@ function ObtenerComunicadosPopup() {
 
     $('.contenedor_popup_comunicado').on('hidden.bs.modal', function () {
         //CERRAR
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'App Consultora',
+            'action': 'Cerrar popup',
+            'label': '{tipoBanner}'
+        });
     });
 
     $(window).resize(function (e) {
@@ -566,6 +561,20 @@ function ObtenerComunicadosPopup() {
         window.open($(this).attr("urlAccion"));
 
         //CLICK
+        dataLayer.push({
+            'event': 'promotionClick',
+            'ecommerce': {
+                'promoView': {
+                    'promotions': [
+                    {
+                        'id': ComunicadoId,
+                        'name': 'App Consultora -  Incentivo descarga',
+                        'position': 'Home pop-up - 1',
+                        'creative': 'Banner'
+                    }]
+                }
+            }
+        });
     });
 
     $(".popup_comunicado .pie_popup_comunicado .check").click(function (e) {
@@ -593,8 +602,7 @@ function ObtenerComunicadosPopup() {
             CloseLoading();
 
             if (checkTimeout(response)) {
-                if (response.success) armarComunicadosPopup(response.extra);
-                else alert(response.message);
+                armarComunicadosPopup(response.data)
             }
         },
         error: function (data, error) {
@@ -603,19 +611,32 @@ function ObtenerComunicadosPopup() {
     });
 }
 
-function armarComunicadosPopup(response){
-    if (response == null) return;
+function armarComunicadosPopup(comunicado){
+    if (comunicado == null)
+        return;
 
-    $(".popup_comunicado .pie_popup_comunicado input[type='checkbox']").val(response.ComunicadoId);
+    $(".popup_comunicado .pie_popup_comunicado input[type='checkbox']").val(comunicado.ComunicadoId);
     $(".popup_comunicado .pie_popup_comunicado input[type='checkbox']").prop('checked', false);
-    $(".popup_comunicado .detalle_popup_comunicado").attr("urlAccion", response.DescripcionAccion);
+    $(".popup_comunicado .detalle_popup_comunicado").attr("urlAccion", comunicado.DescripcionAccion);
 
-    $(".popup_comunicado .detalle_popup_comunicado").css("background-image", "url(" + response.UrlImagen + ")");
+    $(".popup_comunicado .detalle_popup_comunicado").css("background-image", "url(" + comunicado.UrlImagen + ")");
     $(".contenedor_popup_comunicado").modal("show");
 
     $(window).resize();
-
-    //ABRIR
+    dataLayer.push({
+        'event': 'promotionView',
+        'ecommerce': {
+            'promoView': {
+                'promotions': [
+                {
+                    'id': ComunicadoId,
+                    'name': 'App Consultora -  Incentivo descarga',
+                    'position': 'Home pop-up - 1',
+                    'creative': 'Banner'
+                }]
+            }
+        }
+    });
 }
 
 function grabarComunicadoPopup() {
@@ -646,3 +667,72 @@ function grabarComunicadoPopup() {
         }
     });
 }
+
+function VerSeccionBienvenida(seccion) {
+    var id = "";
+    switch (seccion) {
+        case "Belcorp":
+            id = ".content_belcorp";
+            break
+        case "MisOfertas":
+            id = "#divListaEstrategias";
+            break;
+        case "MiAcademia":
+            id = "";
+            break;
+        case "Footer":
+            id = "footer";
+            break;
+        default://Home
+            id = "#contentmobile";
+            break;
+    }
+    if (id != "") {
+        $("html, body").animate({
+            scrollTop: $(id).offset().top - 60
+        }, 1000);
+    }
+}
+
+function VerTutorialMobile() {
+    if (isEsika) {
+        $("#tutorialesMobile .contenedor-tutorial-lbel .slides img").removeAttr("data-lazy-seccion-tutorial");
+    } else {
+        $("#tutorialesMobile .contenedor-tutorial-esika .slides img").removeAttr("data-lazy-seccion-tutorial");
+    }
+
+    $('.btn_agregarPedido').hide();
+    $('.flexsliderTutorialMobile').flexslider({
+        animation: "slide"
+    });
+
+    EstablecerAccionLazyImagenAll("img[data-lazy-seccion-tutorial]");
+    $('#tutorialesMobile').show();
+
+    setTimeout(function () { $(window).resize(); }, 50);
+}
+
+function ConfigurarYoutube() {
+    if (tag == null) {
+        tag = document.createElement("script");
+        tag.src = "https://www.youtube.com/iframe_api";
+
+        firstScriptTag = document.getElementsByTagName("script")[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    }
+}
+
+function onYouTubeIframeAPIReady(playerId) {
+    var videoIdMostrar;
+    if (isEsika) {
+        videoIdMostrar = "jNoP8OoMmW4"; //Video Esika
+    }
+    else {
+        videoIdMostrar = "djSn0tFcQ0w"; //Video Lbel
+    }
+    player = new YT.Player("divPlayer", {
+        width: "100%",
+        videoId: videoIdMostrar,
+        playerVars: { rel: 0 }
+    });
+};

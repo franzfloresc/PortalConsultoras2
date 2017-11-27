@@ -17,9 +17,10 @@ $(document).ready(function () {
 
             $("#PopDetalleCompra").show();
 
-            $('.content_carrusel_pop_compra.slick-initialized').slick('unslick');
-            
+            EstablecerLazyCarrusel($('.content_carrusel_pop_compra'));
+            $('.content_carrusel_pop_compra.slick-initialized').slick('unslick');            
             $('.content_carrusel_pop_compra').not('.slick-initialized').slick({
+                lazyLoad: 'ondemand',
                 dots: false,
                 infinite: true,
                 vertical: false,
@@ -33,7 +34,10 @@ $(document).ready(function () {
             $('.content_carrusel_pop_compra').slick('slickGoTo', parseInt(posicion) - 1);
         });
 
+        EstablecerLazyCarrusel($('.responsive'));
+
         $('.responsive').not('.slick-initialized').slick({
+            lazyLoad: 'ondemand',
             infinite: true,
             vertical: false,
             slidesToShow: 4,
@@ -43,7 +47,10 @@ $(document).ready(function () {
             prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: 0;margin-left: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
             nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: 0;margin-right: -5%;text-align:right"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>'
         });
+
+        EstablecerLazyCarrusel($('.content_ficha_compra'));
         $('.content_ficha_compra').slick({
+            lazyLoad: 'ondemand',
             dots: true,
             infinite: true,
             vertical: true,
@@ -96,9 +103,10 @@ $(document).ready(function () {
             $('body').css({ 'overflow-y': 'hidden' });
             $('#PopCompra').show();
 
+            EstablecerLazyCarrusel($('.content_pop_compra'));
             $('.content_pop_compra.slick-initialized').slick('unslick');
-
             $('.content_pop_compra').slick({
+                lazyLoad: 'ondemand',
                 dots: false,
                 infinite: true,
                 vertical: false,
@@ -120,6 +128,8 @@ $(document).ready(function () {
         $("footer").hide();
         $("#content").css("margin-top", "63px");
 
+        EstablecerLazyCarrusel($('.variable-width'));
+
         $('.variable-width').on('init', function (event, slick) {
             setTimeout(function () {
                 slick.setPosition();
@@ -127,6 +137,7 @@ $(document).ready(function () {
                 $("#divEstrategias").find("[data-posicion-set]").find(".orden_listado_numero").find("[data-posicion-current]").html(2);
             }, 500);
         }).slick({
+            lazyLoad: 'ondemand',
             dots: true,
             infinite: false,
             speed: 300,
@@ -151,7 +162,9 @@ $(document).ready(function () {
             $("#divEstrategias").find("[data-posicion-set]").find(".orden_listado_numero").find("[data-posicion-current]").html(posicion);
         });
 
+        EstablecerLazyCarrusel($('.content_compra_carrusel'));
         $('.content_compra_carrusel').slick({
+            lazyLoad: 'ondemand',
             dots: false,
             infinite: true,
             vertical: false,
@@ -251,6 +264,7 @@ $(document).ready(function () {
         $('body').css({ 'overflow-y': 'auto' });
 
     });
+
 });
 
 function CargarProductosShowRoom(busquedaModel) {
@@ -264,10 +278,13 @@ function CargarProductosShowRoom(busquedaModel) {
 
     $.when(cargarProductosShowRoomPromise)
         .then(function (response) {
-            ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosSubCampanias, busquedaModel);
+            ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosSubCampanias, busquedaModel);            
+            EstablecerAccionLazyImagen("img[data-lazy-seccion-showroom]");
         })
         .fail(function (response) {
             if (busquedaModel.hidden) {
+                var impressions = [];
+
                 if (typeof value != "undefined") {
 
                     var impression = {
@@ -355,7 +372,12 @@ function AgregarOfertaShowRoom(article, cantidad) {
     $.ajaxSetup({
         cache: false
     });
-    $.getJSON(baseUrl + 'ShowRoom/ValidarUnidadesPermitidasPedidoProducto', { CUV: CUV }, function (data) {
+    $.getJSON(baseUrl + 'ShowRoom/ValidarUnidadesPermitidasPedidoProducto', { CUV: CUV, PrecioUnidad: PrecioUnidad, Cantidad: cantidad }, function (data) {
+        //if (data.message.length > 0) {
+        //    AbrirMensajeEstrategia(data.message);
+        //    CerrarLoad();
+        //    return false;
+        //}
         if (parseInt(data.Saldo) < parseInt(cantidad)) {
             var Saldo = data.Saldo;
             var UnidadesPermitidas = data.UnidadesPermitidas;
@@ -573,20 +595,24 @@ function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosS
             $.each(response.listaSubCampania, function (i, v) { v.Descripcion = IfNull(v.Descripcion, '').SubStrToMax(35, true); });
 
             SetHandlebars("#template-showroom-subcampania", response.listaSubCampania, "#contenedor-showroom-subcampanias");
-            $('#contenedor-showroom-subcampanias.slick-initialized').slick('unslick');
-            $('#contenedor-showroom-subcampanias').not('.slick-initialized').slick({
-                slidesToShow: 3,
-                dots: false,
-                vertical: false,
-                infinite: true,
-                speed: 300,
-                centerPadding: '0px',
-                centerMode: true,
-                slidesToScroll: 1,
-                variableWidth: false,
-                prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: -5%; text-align:left; top:10%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
-                nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: -5%; text-align:right; top:10%;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>',
-            });
+
+            EstablecerLazyCarrusel($('#contenedor-showroom-subcampanias'));
+
+            //$('#contenedor-showroom-subcampanias.slick-initialized').slick('unslick');
+            //$('#contenedor-showroom-subcampanias').not('.slick-initialized').slick({
+            //    lazyLoad: 'ondemand',
+            //    slidesToShow: 3,
+            //    dots: false,
+            //    vertical: false,
+            //    infinite: true,
+            //    speed: 300,
+            //    centerPadding: '0px',
+            //    centerMode: true,
+            //    slidesToScroll: 1,
+            //    variableWidth: false,
+            //    prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: -1%; text-align:left; top:10%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
+            //    nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: -1%; text-align:right; top:10%;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>',
+            //});
         }
         
         $.each(response.listaNoSubCampania, function (index, value) {
@@ -637,15 +663,17 @@ function ResolverCargarProductosShowRoomPromiseMobile(response, busquedaModel) {
         $.each(response.listaSubCampania, function (i, v) { v.Descripcion = IfNull(v.Descripcion, '').SubStrToMax(30, true); });
 
         SetHandlebars("#template-showroom-subcampanias-mobile", data, "#contenedor-showroom-subcampanias-mobile");
+        EstablecerLazyCarrusel($('#contenedor-showroom-subcampanias-mobile'));
     }
     else {
         messageInfoError(response.message);
         if (busquedaModel.hidden == true) $("#divProductosShowRoom").hide();
     }
 }
-function ConfigurarSlick() {
+function ConfigurarSlick() {    
     $('#contenedor-showroom-subcampanias-mobile.slick-initialized').slick('unslick');
     $('#contenedor-showroom-subcampanias-mobile').slick({
+        lazyLoad: 'ondemand',
         dots: false,
         infinite: true,
         vertical: false,

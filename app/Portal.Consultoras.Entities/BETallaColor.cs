@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Runtime.Serialization;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Data;
-using Portal.Consultoras.Common;
+using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities
 {
@@ -21,21 +17,21 @@ namespace Portal.Consultoras.Entities
         public int PaisID { get; set; }
         [DataMember]
         public int CampaniaID { get; set; }
-		[DataMember]
+        [DataMember]
         public int ID { get; set; }
         [DataMember]
         public int IDAux { get; set; }
-		[DataMember]
+        [DataMember]
         public string CUV { get; set; }
-		[DataMember]
+        [DataMember]
         public string DescripcionCUV { get; set; }
-		[DataMember]
+        [DataMember]
         public decimal PrecioUnitario { get; set; }
-		[DataMember]
+        [DataMember]
         public string Tipo { get; set; }
-		[DataMember]
+        [DataMember]
         public string DescripcionTipo { get; set; }
-		[DataMember]
+        [DataMember]
         public string DescripcionTallaColor { get; set; }
         [DataMember]
         public string UsuarioRegistro { get; set; }
@@ -54,7 +50,7 @@ namespace Portal.Consultoras.Entities
                 DescripcionCUV = row["DescripcionCUV"].ToString();
 
             if (DataRecord.HasColumn(row, "PrecioUnitario") && row["PrecioUnitario"] != DBNull.Value)
-                PrecioUnitario = Convert.ToDecimal( row["PrecioUnitario"].ToString());
+                PrecioUnitario = Convert.ToDecimal(row["PrecioUnitario"].ToString());
 
             if (DataRecord.HasColumn(row, "Tipo") && row["Tipo"] != DBNull.Value)
                 Tipo = row["Tipo"].ToString();

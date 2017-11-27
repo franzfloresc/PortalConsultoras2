@@ -3,7 +3,6 @@ using ClosedXML.Excel;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceODS;
-//using Portal.Consultoras.Web.ServiceOSBBelcorp;
 using Portal.Consultoras.Web.ServiceOSBBelcorpPedido;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceZonificacion;
@@ -184,6 +183,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 catch (Exception ex)
                 {
+                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                     lst = new List<BEPedidoDDWeb>();
                 }
 
@@ -629,7 +629,7 @@ namespace Portal.Consultoras.Web.Controllers
             dic.Add("MotivoRechazo", "MotivoRechazo");
 
             ExportToExcelDetallePedido("exportar", lst, dic, "DescargaCompleta", "1");
-            return View();
+            return new EmptyResult();
         }
         public ActionResult ExportarExcelDetallePedido(string vPaisID, string vCampania, string vConsultora, string vRegionID, string vZonaID, string vOrigen, string vEstadoValidacion, string vEsRechazado)
         {
@@ -666,7 +666,7 @@ namespace Portal.Consultoras.Web.Controllers
             dic.Add("Cantidad", "Cantidad");
 
             Util.ExportToExcel("PedidoDetalleConsultora", lst, dic, "DescargaCompleta", "1");
-            return View();
+            return new EmptyResult();
         }
 
         public ActionResult ExportarExcelCabecera(string vPaisID, string vCampania, string vConsultora, string vRegionID, string vZonaID, string vOrigen, string vEstadoValidacion, string vEsRechazado)
@@ -719,6 +719,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 lst = new List<BEPedidoDDWeb>();
             }
 
@@ -808,7 +809,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             ExportToCSV("exportar", lista.ToList(), dic, "DescargaCompleta", "1");
             // 2446 - Fin
-            return View();
+            return new EmptyResult();
         }
 
         public bool ExportToExcel<V>(string filename, List<V> Source, Dictionary<string, string> columnDefinition, string cookieName, string valueName)
@@ -1137,7 +1138,7 @@ namespace Portal.Consultoras.Web.Controllers
             lista[17] = UserData().NombrePais; lista[18] = vTipoProceso; lista[19] = UserData().PaisID.ToString(); lista[20] = vMotivoRechazo;
 
             Util.ExportToPdfWebPages(this, "PedidoDDWeb.pdf", "ReportePedidoDDWebDetalleImp", Util.EncriptarQueryString(lista));
-            return View();
+            return new EmptyResult();
         }
 
         #endregion

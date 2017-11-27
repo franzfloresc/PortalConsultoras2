@@ -140,7 +140,12 @@ $(document).ready(function () {
                 cache: false
             });
 
-            $.getJSON(baseUrl + 'OfertaLiquidacion/ValidarUnidadesPermitidasPedidoProducto', { CUV: CUV }, function (data) {
+            $.getJSON(baseUrl + 'OfertaLiquidacion/ValidarUnidadesPermitidasPedidoProducto', { CUV: CUV, Cantidad: Cantidad, PrecioUnidad: PrecioUnidad }, function (data) {
+                if (data.message != "") { /*Validación Pedido Máximo*/
+                    closeWaitingDialog();
+                    AbrirMensaje(data.message);
+                    return false;
+                } 
                 if (parseInt(data.Saldo) < parseInt(Cantidad)) {
                     var Saldo = data.Saldo;
                     var UnidadesPermitidas = data.UnidadesPermitidas;
@@ -265,7 +270,12 @@ $(document).ready(function () {
                 cache: false
             });
 
-            $.getJSON(baseUrl + 'OfertaLiquidacion/ValidarUnidadesPermitidasPedidoProducto', { CUV: CUV }, function (data) {
+            $.getJSON(baseUrl + 'OfertaLiquidacion/ValidarUnidadesPermitidasPedidoProducto', { CUV: CUV, Cantidad: Cantidad, PrecioUnidad: PrecioUnidad}, function (data) {
+                if (data.message != "") { /*Validación Pedido Máximo*/
+                    closeWaitingDialog();
+                    AbrirMensaje(data.message);
+                    return false;
+                } 
                 if (parseInt(data.Saldo) < parseInt(Cantidad)) {
                     var Saldo = data.Saldo;
                     var UnidadesPermitidas = data.UnidadesPermitidas;
@@ -401,6 +411,7 @@ function ArmarCarouselLiquidaciones(data) {
     data = EstructurarDataCarouselLiquidaciones(data);
     var htmlDiv = SetHandlebars("#OfertasLiquidacion-template", data);
     $('#htmlListado').append(htmlDiv);
+    EstablecerAccionLazyImagen("img[data-lazy-seccion-liquidacion]");
 
     var arrayOfertas = [];
     $.each(data, function (i, item) {

@@ -41,6 +41,7 @@
       <xs:element minOccurs="0" name="CUVComplemento" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CUVRevista" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CatalogoDescripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoCatalogo" type="xs:int" />
       <xs:element minOccurs="0" name="CodigoProducto" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoSAP" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ConfiguracionOfertaID" type="xs:int" />
@@ -51,6 +52,7 @@
       <xs:element minOccurs="0" name="DescripcionOferta" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DescripcionProducto" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="EsExpoOferta" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EsOfertaIndependiente" type="xs:boolean" />
       <xs:element minOccurs="0" name="EstaEnRevista" type="xs:boolean" />
       <xs:element minOccurs="0" name="FlagNueva" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImagenOferta" nillable="true" type="xs:string" />
@@ -70,6 +72,7 @@
       <xs:element minOccurs="0" name="TieneOfertaRevista" type="xs:boolean" />
       <xs:element minOccurs="0" name="TieneStock" type="xs:boolean" />
       <xs:element minOccurs="0" name="TieneSugerido" type="xs:int" />
+      <xs:element minOccurs="0" name="TipoEstrategiaCodigo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoEstrategiaID" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoOfertaRevista" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoOfertaSisID" type="xs:int" />

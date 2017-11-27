@@ -1,4 +1,5 @@
 ﻿@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Helpers
 
 <!DOCTYPE html>
 <html lang="es-PE">
@@ -163,7 +164,7 @@
             <div class="icono_alerta exclamacion_icono_mobile"></div>
             <div class="titulo_compartir"><b>SESIÓN FINALIZADA</b></div>
             <div id="mensajeInformacionSB2_SesionFinalizada" class="mensaje_alerta"></div>
-            <a href="javascript:;" onclick="window.location.href='@Url.Action("Index", "Login", new { area = "" })'" class="btn_ok_mobile"><b>OK</b></a>
+            <a href="javascript:;" onclick="window.location.href='/Login'" class="btn_ok_mobile"><b>OK</b></a>
         </div>
     </div>
     <!--FIN-->
@@ -185,10 +186,7 @@
         <a id="HiddenRedesSocialesWA" href="#" data-action="share/whatsapp/share">WA</a>
     </div>
 
-    @Scripts.Render("~/Scripts/Mobile")
     @Scripts.Render("~/Scripts/MobileLayout")
-    <script type="text/javascript" src="@Url.Content("~/Scripts/handlebars.min.js")"></script>
-    <script src="@Url.Content("~/Scripts/PortalConsultoras/Shared/TrackingJetlore.js")"></script>
 
     <script type="text/javascript">
         var baseUrl = "@Url.Content("~")";
@@ -199,12 +197,14 @@
         var vbSimbolo = '@ViewBag.Simbolo';
         var ViewBagEsMobile = '@ViewBag.EsMobile';
         var urlChatbot = '@System.Configuration.ConfigurationManager.AppSettings.Get("UrlChatbot")';
-        var ingresoExterno = '@Session["IngresoExterno"]';
+        var ingresoExterno = '@ViewContext.GetUniqueSession("IngresoExterno")';
         var gTipoUsuario = '@ViewBag.TipoUsuario';
         var usuarioNombre = '@ViewBag.UsuarioNombre';
         var campaniaCodigo = '@ViewBag.CampaniaCodigo';
         var campaniaAnio = parseInt(parseInt(campaniaCodigo) / 100);
         var campaniaNro = parseInt(campaniaCodigo) - campaniaAnio * 100;
+
+        var IsoPais = '@ViewBag.CodigoISODL';
 
         //Postulante
         var mostrarBannerPostulante = '@ViewBag.MostrarBannerPostulante';
@@ -224,7 +224,6 @@
 
         var sesionEsShowRoom = '@Session["EsShowRoom"]';
 
-        var fingerprintOk = '@ViewBag.FingerprintOk';
         var tokenPedidoAutenticoOk = '@ViewBag.TokenPedidoAutenticoOk';
 
         var userData = {
@@ -237,6 +236,7 @@
             'pais': '@ViewBag.AnalyticsPais',
             'codigoConsultora': '@ViewBag.AnalyticsCodigoConsultora'
         };
+        var OrigenDesktopODD = 0;
     </script>
 
     <script type="text/javascript">

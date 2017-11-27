@@ -279,11 +279,11 @@ namespace Portal.Consultoras.Web.Models
         public bool EsConsultoraNueva { get; set; }
 
         public string AccionBoton { get; set; }
-        
+
         public int OrigenPedidoWeb { get; set; }
 
         public int IndicadorGPRSB { get; set; }
-        
+
         public string Celular { get; set; }
         public string EMail { get; set; }
         public bool EmailActivo { get; set; }
@@ -293,5 +293,10 @@ namespace Portal.Consultoras.Web.Models
 
         public int TieneMasVendidos { get; set; }
         public int TieneOfertaLog { get; set; }
+
+        public RevistaDigitalModel RevistaDigital { get; set; }
+        public bool EsOfertaIndependiente { get; set; }
+
+        public bool MostrarPopupPrecargados { get; set; }
     }
 }

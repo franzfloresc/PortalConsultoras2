@@ -3,24 +3,37 @@
 
 @model Portal.Consultoras.Web.Models.RevistaDigitalLandingModel
 @{
+    ViewBag.Title = "ÉSIKA PARA MÍ";
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayoutContenedor.cshtml";
     var nameTagScrollTo = "divTopFiltros" + @Model.CampaniaID;
+    var idBorrar = "borrar" + Model.CampaniaID;
 }
-<div style="background:#F6F6F6">
-    <div class="content_carrusel_landing">
-        <div id="divCarruselLan" class="divCarruselLan" data-content-item="@Model.CampaniaID" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLandingCarrusel">
-           
-        </div>
-    </div>
-</div>
-<div class="arrow_misofertas" onclick="FlechaScrollDown(@Model.CampaniaID)">MÁS<br/>OFERTAS<br/><img style="margin-top: 5px;" alt="" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowdown.svg")" /></div>
-<hr class="clear" />
+
+@section styles{
+    @System.Web.Optimization.Styles.Render("~/bundles/css/Mobile/Site/RevistaDigital-Landing")
+    <style>
+        .slct-box-filtro-mobile {
+            height: 40px;
+            color: black;
+            font-family: 'Lato';
+            padding-left: 7px;
+            font-size: 12px;
+            /* margin-right: 10px; */
+            border: 1px solid rgba(0, 0, 0, 0.21);
+            float: left;
+            margin-left: 1%;
+            margin-right: 1%;
+        }
+    </style>
+}
+
 <div data-listado-campania="@Model.CampaniaID" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding">
     <div data-listado-content="" style="display: none;">
         <div>
         @if (ViewBag.TieneProductosPerdio)
         {
             <div class="rd-busqueda-filtros wrapper_resumen_mobile">
-                <div class="subtitulo_landing">OFERTAS ÉSIKA PARA MÍ</div>
+                <div class="subtitulo_landing" style="display: none;">OFERTAS ÉSIKA PARA MÍ</div>
                 <hr class="clear" />
                 <div class="hblock_title_perdio" style="">
                     @ViewBag.NombreConsultora, PRUEBA LAS VENTAJAS DE COMPRAR OFERTAS PERSONALIZADAS
@@ -29,7 +42,7 @@
         }
         else
         {
-            <div class="subtitulo_landing">OFERTAS ÉSIKA PARA MÍ</div>
+            <div class="subtitulo_landing" style="display: none;">OFERTAS ÉSIKA PARA MÍ</div>
             <hr class="clear" />
             <div class="wrapper_resumen_mobile" id="@nameTagScrollTo">
                 <div id="orderby-filter" style="display: block;">
@@ -37,24 +50,25 @@
                         @*<input  type="text" class="buscar_producto_landing" placeholder="BUSCAR"/>
                             <input id="btnfltm" type="button" class="btn2-ffc" value="FILTROS" onclick="showCustomFilters();">*@
                         <div id="divFiltros">
-                            <select class="btn3-ffc" data-filtro-tipo="fijo" data-filtro-campo="marca">
+                            <select class="btn3-ffc slct-box-filtro-mobile" data-filtro-tipo="fijo" data-filtro-campo="marca" style="width:40%;">
                                 @foreach (var item in Model.FiltersByBrand)
                                 {
                                     <option value="@item.Codigo">@item.Descripcion</option>
                                 }
                             </select>
-                            <select class="btn3-ffc" data-filtro-tipo="fijo" data-filtro-campo="precio" data-filtro-accion="orden" style="float: none;">
+                            <select class="btn3-ffc slct-box-filtro-mobile" data-filtro-tipo="fijo" data-filtro-campo="precio" data-filtro-accion="orden" style="width:56%;">
                                 @foreach (var item1 in Model.FiltersBySorting)
                                 {
                                     <option value="@item1.Codigo">@item1.Descripcion</option>
                                 }
                             </select>
+                            <div style="clear:both;"></div>
                         </div>
                     </div>
                     <hr class="clear">
                     <div id="summary-filters">
                         <div id="div-result-number" style="margin-left: 0; float: left; width: 65%; font-size: 13px;">
-                            <span id="result-number">Mostrando <span id="spnCantidadFiltro"></span> de <span id="spnCantidadTotal"></span> productos</span>
+                            <span id="result-number">Mostrando <span id="spnCantidadFiltro"></span> de <span id="spnCantidadTotal"></span></span>
                         </div>
 
                         <div id="div-delete-filters" style="display: none; margin-right: 0px;">
@@ -84,13 +98,6 @@
                                 <span class="hblock_title_perdio">@ViewBag.NombreConsultora, POR SI TE LO PERDISTE</span>
                                 <span class="hblock_title_perdio2">GANA MÁS CON OFERTAS PARA SUSCRIPTORAS DESDE C-@ViewBag.CampaniaMasDos</span>
                             </div>
-
-                            @*@if (ViewBag.EstadoSuscripcion != Constantes.EstadoRDSuscripcion.Activo)
-                            {
-                                <div class="btn_diagonal rd_btn_rojo_right">
-                                    <a href="javascript: RDPageInformativa();" class="btn_inscribirse">INSCRIBIRME A ÉSIKA PARA MÍ</a>
-                                </div>
-                            }*@
                         </div>
                     </div>
                     <hr class="clear" />
@@ -108,3 +115,28 @@
 </div>
 <!--Fin seccion landing-->
 <hr class="clear" />
+
+@Html.Partial("~/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model.MensajeProductoBloqueado)
+<div data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding"></div>
+
+@Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
+
+@section scripts{
+    <script type="text/javascript">
+        var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
+        var tipoOrigenPantalla = 1;
+        var urlOfertaCargarProductos = '@Url.Action("RDObtenerProductos", "RevistaDigital", new { area = ""})';
+        var urlOfertaDetalleProducto = '@Url.Action("Detalle", "RevistaDigital", new { area = "Mobile" })';
+        var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital", new { area = "" })';
+       var urlTerminosCondicionesRD = '@Model.UrlTerminosCondicionesRD';
+        var urlRevistaDigital = '@Url.Action("Comprar", "RevistaDigital")';
+        var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding';
+        var tipoOrigenEstrategia = 27;
+        var CantidadFilas = @Model.CantidadFilas;
+        var mayormenor = '@Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor';
+        var menormayor = '@Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor';
+        var tieneMasVendidos = 0;
+        var campaniaId = @Model.CampaniaID;
+    </script>
+    @System.Web.Optimization.Scripts.Render("~/bundles/Mobile/RevistaDigital-Landing")
+}

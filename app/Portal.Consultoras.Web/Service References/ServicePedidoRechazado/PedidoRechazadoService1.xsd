@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:41615/PedidoRechazadoService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
   <xs:complexType name="ArrayOfBEPedidoRechazadoSicc">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="BEPedidoRechazadoSicc" nillable="true" type="tns:BEPedidoRechazadoSicc" />
@@ -56,4 +57,31 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BELogGPRValidacionDetalle" nillable="true" type="tns:BELogGPRValidacionDetalle" />
+  <xs:complexType name="BEGPRUsuario">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+      <xs:element minOccurs="0" name="CodigoISO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConsultoraID" type="xs:long" />
+      <xs:element minOccurs="0" name="EstadoPedido" type="xs:int" />
+      <xs:element minOccurs="0" name="IndicadorGPRSB" type="xs:int" />
+      <xs:element minOccurs="0" name="MontoDeuda" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MontoMaximoPedido" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MontoMinimoPedido" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+      <xs:element minOccurs="0" name="Simbolo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ValidacionAbierta" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEGPRUsuario" nillable="true" type="tns:BEGPRUsuario" />
+  <xs:complexType name="BEGPRBanner">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BannerMensaje" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BannerTitulo" nillable="true" type="xs:string" />
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" minOccurs="0" name="BannerUrl" type="q1:Enumeradores.RechazoBannerUrl" />
+      <xs:element minOccurs="0" name="MostrarBannerRechazo" type="xs:boolean" />
+      <xs:element minOccurs="0" name="RechazadoXdeuda" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Textovinculo" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEGPRBanner" nillable="true" type="tns:BEGPRBanner" />
 </xs:schema>

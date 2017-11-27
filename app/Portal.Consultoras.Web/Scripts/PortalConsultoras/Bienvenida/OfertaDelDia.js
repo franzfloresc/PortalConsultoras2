@@ -1,17 +1,21 @@
 ﻿var fechaMostrarBanner = Date.now();
+var codigoAnclaOdd = codigoAnclaOdd || "";
+
 $(document).ready(function () {
     window.OfertaDelDia = window.OfertaDelDia || {};
     var odd_desktop_google_analytics_promotion_impresion_flag = true;
     var odd_desktop_google_analytics_promotion_impresion_fech;
     
-
+   
     var self = window.OfertaDelDia;
 
     var CONS_TIPO_ORIGEN = {
         ESCRITORIO_HOME: 1,
         MOBILE_HOME: 2,
         ESCRITORIO_PEDIDO: 11,
-        MOBILE_PEDIDO: 21
+        MOBILE_PEDIDO: 21,
+        ESCRITORIO_OFERTAS: 111,
+        MOBILE_OFERTAS: 211,
     };
 
     var CONS_TIPO_ACCION = {
@@ -27,11 +31,19 @@ $(document).ready(function () {
         UrlValidarStockEstrategia: 'Pedido/ValidarStockEstrategia',
         UrlAgregarProducto: 'Pedido/AgregarProductoZE',
         EsPaginaIntriga: (window.location.href.toLowerCase().indexOf("intriga") > 0),
-        TipoOrigenPantallaODD: TipoOrigenPantallaODD
+        TipoOrigenPantallaODD: TipoOrigenPantallaODD,
+        OrigenDesktopODD: OrigenDesktopODD //para Analytics
+    };
+
+    var CONS_POSICION_BANNER = {
+        BANNER_HOME: 'Banner Superior Home - 1',
+        BANNER_PEDIDO: 'Banner Superior Pedido - 1'
     };
 
     var elements = {
+        ContenedorOfertaDelDia: '#OfertaDelDia',
         ContenedorOfertaDelDiaMobile: '#OfertasDiaMobile',
+        ContenedorOfertaDelDiaOfertas: '#OfertasDelDiaOfertas',
         ContenedorEstrategiaTemplateCarrusel: '#estrategia-template_carrusel',
         ContenedorInternoSliderOfertaDelDiaMobileHome: '#content_oferta_dia_mobile',
         ContenedorInternoSliderOfertaDelDiaMobile: '.BloqueOfertaDiaHeader',
@@ -39,20 +51,34 @@ $(document).ready(function () {
         TxtCantidadMobile: '#txtCantidad'
     };
 
-    self.CargarODD = function() {
-
+    self.CargarODD = function () {
         if (props.EsPaginaIntriga) {
             return false;
         }
+
         if (props.TipoOrigenPantallaODD == CONS_TIPO_ORIGEN.MOBILE_HOME) {
-            CargarODDMobile();
+            self.CargarODDMobile();
+            odd_mobile_google_analytics_promotion_impresion();
         }
+
         if (props.TipoOrigenPantallaODD == CONS_TIPO_ORIGEN.ESCRITORIO_HOME) {
-            self.CargarODDEscritorio();
+            self.CargarODDEscritorio(props.TipoOrigenPantallaODD);
+        }
+
+        if (props.TipoOrigenPantallaODD == CONS_TIPO_ORIGEN.ESCRITORIO_OFERTAS) {
+            self.CargarODDEscritorio(props.TipoOrigenPantallaODD);
         }
     }
 
-    function CargarODDMobile() {
+
+    self.CargarODDMobile = function () {
+        MostrarRelojOfertaDelDia($('.clock').data('total-seconds'));
+
+        var contenedorOfertas = elements.ContenedorOfertaDelDiaMobile;
+
+        if ($(contenedorOfertas).length == 0)
+            return false;   
+
         $.ajax({
             type: 'GET',
             url: baseUrl + props.UrlGetOfertaDelDia,
@@ -60,157 +86,62 @@ $(document).ready(function () {
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (response) {
-                ResolverGetOfertaDelDiaResponse(response);
                 array_odd = response.data;
-            },
-            error: function (err) {
-                console.log(err);
-            }
-        });
-    }
 
-    self.CargarODDEscritorio = function () {
-        if (($('#OfertaDelDia') || new Array()).length == 0)
-            return false;        
-
-        $.ajax({
-            type: 'GET',
-            url: baseUrl + 'Pedido/GetOfertaDelDia',
-            cache: false,
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            success: function (response) {
-                $('#OfertaDelDia').hide();
-
-                if (!response.success)
+                if (!EsValidoResponseGetOfertaDelDia(response))
                     return false;
-
                 var _data = response.data;
-                var tq = _data.TeQuedan;
-                if (tq.TotalSeconds <= 0)
-                    return false;
+                
+                RenderOfertaDelDiaMobile(_data, contenedorOfertas);
+                MostrarRelojOfertaDelDia(_data.TeQuedan.TotalSeconds);
 
-                array_odd = response.data;
+                $('#txtCantidad').val('1');
+                $('body').css({ 'overflow-y': 'auto' });
 
-                var lista = _data.ListaOfertas || new Array();
-                _data.CantidadProductos = lista.length;
-
-                if (_data.CantidadProductos <= 0)
-                    return false;
-
-                _data.Simbolo = vbSimbolo;
-                _data.ClassDimension = _data.CantidadProductos < 3 ? "content_780_ODD" : "";
-                _data.TextoVerDetalle = _data.CantidadProductos > 1 ? "VER MÁS OFERTAS" : "VER OFERTA";
-                _data.UsuarioNombre = $.trim(usuarioNombre).toUpperCase();
-                var idOdd = '#OfertaDelDia';
-                _data.ListaOfertas = AsignarClaseCssAPalabraGratisDesktop(_data.ListaOfertas);
-                fechaMostrarBanner = Date.now();
-                SetHandlebars("#ofertadeldia-template", _data, idOdd);               
-
-                $(idOdd + ' [data-odd-tipoventana="detalle"]').hide();
-                $(idOdd + ' [data-odd-tipoventana="carrusel"]').hide();
-
-                if (_data.CantidadProductos == 1) {
-                    $(idOdd + ' [data-odd-accion="regresar"]').hide();
-                    $(idOdd + ' [data-odd-tipoventana="detalle"]').show();
-                }
-                else {
-                    $(idOdd + ' [data-odd-accion="regresar"]').show();
-                    $(idOdd + ' [data-odd-tipoventana="carrusel"]').show();
-                }
-
-                $('#OfertaDelDia').css('background', 'url("' + _data.ImagenFondo1 + '") repeat-x');
-                $('#banner-odd').css('background-color', _data.ColorFondo1);
-                $('#PopOfertaDia').css('background', 'url("' + _data.ImagenFondo2 + '") no-repeat');
-                $('#PopOfertaDia').css('background-color', _data.ColorFondo2);
-
-                $('#OfertaDelDia').show();
-                $('#PopOfertaDia').show();
-
-                if (_data.CantidadProductos > 3) {
-                    $('#PopOfertaDia [data-odd-tipoventana="carrusel"]').show();
-                    $('#divOddCarrusel.slick-initialized').slick('unslick');
-                    $('#divOddCarrusel').not('.slick-initialized').slick({
-                        infinite: true,
-                        vertical: false,
-                        slidesToShow: 3,
-                        slidesToScroll: 1,
-                        autoplay: false,
-                        speed: 260,
-                        prevArrow: '<a style="display: block;left: 0;margin-left: -5%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_compra.png")" alt="" /></a>',
-                        nextArrow: '<a style="display: block;right: 0;margin-right: -5%; text-align:right;  top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_compra.png")" alt="" /></a>'
-                    }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
-                        odd_desktop_procesar_evento_before_change(event, slick, currentSlide, nextSlide);
-                    });                    
-                    $('#PopOfertaDia [data-odd-tipoventana="carrusel"]').hide();
-                }
-                else {
-                    var wc = $('#divOddCarrusel').width();
-                    var witem = ((wc) / _data.CantidadProductos);
-                    var witemc = $($('#divOddCarrusel [data-item]>div').get(0)).innerWidth();
-                    witemc = (witem - witemc) / 2;
-                    $('#divOddCarrusel [data-item]').css("width", witem + "px");
-                    $('#divOddCarrusel [data-item]>div').css("margin-left", witemc + "px");
-                    $('#divOddCarrusel [data-item]>div').css("margin-right", witemc + "px");
-                }
-                if (_data.CantidadProductos > 1) {
-                    $('#PopOfertaDia [data-odd-tipoventana="detalle"]').show();
-                    $('#divOddCarruselDetalle.slick-initialized').slick('unslick');
-                    $('#divOddCarruselDetalle').not('.slick-initialized').slick({
-                        infinite: true,
-                        vertical: false,
-                        slidesToShow: 1,
-                        slidesToScroll: 1,
-                        autoplay: false,
-                        speed: 260,
-                        prevArrow: '<a style="display: block;left: 0;margin-left: -5%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_compra.png")" alt="" /></a>',
-                        nextArrow: '<a style="display: block;right: 0;margin-right: -5%; text-align:right;  top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_compra.png")" alt="" /></a>'
-                    });
-                    $('#divOddCarruselDetalle').slick('slickGoTo', 0);
-                    $('#PopOfertaDia [data-odd-tipoventana="detalle"]').hide();
-                }
-
-                $('#PopOfertaDia').hide();
-
-                LayoutHeader();
-
-                var clock = $('.clock').FlipClock(tq.TotalSeconds, {
-                    clockFace: 'HourlyCounter',
-                    countdown: true
-                });
-
-                if (odd_desktop_google_analytics_promotion_impresion_flag) {
-                    odd_desktop_google_analytics_promotion_impresion();
-                    odd_desktop_google_analytics_promotion_impresion_flag = false;
-                    odd_desktop_google_analytics_promotion_impresion_fech = new Date();
-                }
             },
             error: function (err) {
-                console.log(err);
+                checkTimeout(err);
             }
-        });
+        });        
     }
 
-    function odd_desktop_google_analytics_promotion_impresion() {
-        if ($('#banner-odd').length > 0) {
-            var id = $('#banner-odd').find(".estrategia-id-odd").val();
-            var name = "Oferta del día - " + $('#banner-odd').find(".nombre-odd").val();
-            var creative = $('#banner-odd').find(".nombre-odd").val() + " - " + $('#banner-odd').find(".cuv2-odd").val();
-            dataLayer.push({
-                'event': 'promotionView',
-                'ecommerce': {
-                    'promoView': {
-                        'promotions': [
-                        {
-                            'id': id,
-                            'name': name,
-                            'position': 'Banner Superior Home - 1',
-                            'creative': creative
-                        }]
-                    }
-                }
+    function MostrarRelojOfertaDelDia(totalSegundos) {
+        $('.clock').each(function (index, elem) {
+            $(elem).FlipClock(totalSegundos, {
+                clockFace: 'HourlyCounter',
+                countdown: true
             });
-        }
+        });
+
+    }
+
+    function EsValidoResponseGetOfertaDelDia(response) {
+        $("#ODD").find(".seccion-loading-contenedor").fadeOut();
+        if (!response.success)
+            return false;
+
+        if (response.data.TeQuedan.TotalSeconds <= 0)
+            return false;
+
+        if (response.data.ListaOfertas.length <= 0) {
+            $("#ODD").find(".seccion-content-contenedor").fadeOut();
+            return false;
+        } 
+        $("#ODD").find(".seccion-content-contenedor").fadeIn();
+        return true;
+    }
+
+    function RenderOfertaDelDiaMobile(data, contenedorOfertas) {
+        $(contenedorOfertas).hide();
+
+        data.CantidadProductos = data.ListaOfertas.length;
+        data.TextoVerDetalle = data.CantidadProductos > 1 ? "VER MÁS OFERTAS" : "VER OFERTA";
+        data.ListaOfertas = AsignarPosicionAListaOfertas(data.ListaOfertas);
+        data.ListaOfertas = AsignarClaseCssAPalabraGratisMobile(data.ListaOfertas);
+
+        SetHandlebars(elements.ContenedorEstrategiaTemplateCarrusel, data, elements.ContenedorOfertaDelDiaMobile);
+
+        ConfigurarSlick();
     }
 
     function AsignarPosicionAListaOfertas(listaOfertas) {
@@ -226,30 +157,6 @@ $(document).ready(function () {
         return nuevaListaOfertas;
     }
 
-    function ResolverGetOfertaDelDiaResponse(response) {
-        if (response.success) {
-            var _data = response.data;
-
-            var tq = _data.TeQuedan;
-            if (tq.TotalSeconds <= 0)
-                return false;
-
-            var clock = $('.clock').FlipClock(tq.TotalSeconds, {
-                clockFace: 'HourlyCounter',
-                countdown: true
-            });
-
-            $(elements.ContenedorOfertaDelDiaMobile).hide();
-            _data.CantidadProductos = _data.ListaOfertas.length;
-            _data.TextoVerDetalle = _data.CantidadProductos > 1 ? "VER MÁS OFERTAS" : "VER OFERTA";
-            _data.ListaOfertas = AsignarPosicionAListaOfertas(_data.ListaOfertas);
-            _data.ListaOfertas = AsignarClaseCssAPalabraGratisMobile(_data.ListaOfertas);
-            fechaMostrarBanner = Date.now();
-            odd_mobile_google_analytics_promotion_impresion(_data.ListaOfertas, "page_load");
-            SetHandlebars(elements.ContenedorEstrategiaTemplateCarrusel, _data, elements.ContenedorOfertaDelDiaMobile);
-        }
-    }
-
     function ConstruirDescripcionOferta(arrDescripcion) {
         var descripcion = "";
         $.each(arrDescripcion, function (index, value) {
@@ -258,6 +165,239 @@ $(document).ready(function () {
             descripcion += "+ " + value + "<br />";
         });
         return descripcion;
+    }
+
+    var seAtacharonEventosOdd = false;
+    self.CargarODDEscritorio = function (tipoOrigenPantallaODD) {
+        var contenedorOfertas = '';
+
+        if (tipoOrigenPantallaODD == CONS_TIPO_ORIGEN.ESCRITORIO_HOME)
+            contenedorOfertas = elements.ContenedorOfertaDelDia;
+
+        if (tipoOrigenPantallaODD == CONS_TIPO_ORIGEN.ESCRITORIO_OFERTAS)
+            contenedorOfertas = elements.ContenedorOfertaDelDiaOfertas;
+
+        if ($(contenedorOfertas).length == 0)
+            return false;        
+
+        $.ajax({
+            type: 'GET',
+            url: baseUrl + props.UrlGetOfertaDelDia,
+            cache: false,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+
+                array_odd = response.data;
+
+                if (!EsValidoResponseGetOfertaDelDia(response))
+                    return false;
+
+                var _data = response.data;                                               
+
+                RenderOfertaDelDia(_data, contenedorOfertas)
+                
+                MostrarRelojOfertaDelDia(_data.TeQuedan.TotalSeconds);
+
+                ///*Para personalizar el fondo del reloj*/
+                //$(".flip-clock-wrapper .flip").css("box-shadow", "0 2px 5px " + "black");
+                //$(".flip-clock-wrapper ul li a div div.inn").css("text-shadow", "0 1px 2px" + "black");
+                //$(".flip-clock-wrapper ul li a div div.inn").css("background-color", "black");
+
+                var url = window.location.href.toLowerCase() + "/";
+                url = url.replace("#", "/");
+                if (url.indexOf("/ofertas/") >= 0) {
+                    $(contenedorOfertas).css('background-color', _data.ColorFondo1);
+                }
+                else {
+                    $(contenedorOfertas).css('background', 'url("' + _data.ImagenFondo1 + '")');
+                }
+
+                SetHandlebars("#ofertadeldia-template-style", _data, "#styleRelojOdd");
+
+                $('#banner-odd').css('background-color', _data.ColorFondo1);
+                $('#PopOfertaDia').css('background-color', _data.ColorFondo2);
+
+                $(contenedorOfertas).show();
+
+                ConfigurarCarruselProductos(contenedorOfertas, _data.CantidadProductos);
+                ConfigurarCarruselDetalleProductos(contenedorOfertas, _data.CantidadProductos);
+
+                $('#PopOfertaDia').hide();
+
+                if (tipoOrigenPantallaODD == CONS_TIPO_ORIGEN.ESCRITORIO_OFERTAS) {
+                    $('#banner-odd').parent().hide();
+                    $('#PopOfertaDia').show();
+                }
+                
+                if (tipoOrigenPantallaODD == CONS_TIPO_ORIGEN.ESCRITORIO_HOME){
+                    LayoutHeader();
+                    if (odd_desktop_google_analytics_promotion_impresion_flag) {
+                        odd_desktop_google_analytics_promotion_impresion();
+                        odd_desktop_google_analytics_promotion_impresion_flag = false;
+                        odd_desktop_google_analytics_promotion_impresion_fech = new Date();
+                    }
+                }
+            },
+            error: function (err) {
+                checkTimeout(err);
+            }
+        });
+        
+        if (!seAtacharonEventosOdd) {
+            
+            $("body").off("click", contenedorOfertas + " [data-odd-accion]");
+            $("body").on("click", contenedorOfertas + " [data-odd-accion]", function (e) {
+                var accion = $(this).attr("data-odd-accion").toUpperCase();
+                if (accion == CONS_TIPO_ACCION.VEROFERTA) {
+                    var urlOfertas = '/Ofertas' + (codigoAnclaOdd == "" ? '' : '#' + codigoAnclaOdd);
+                    document.location.href = urlOfertas;
+                }
+                else if (accion == CONS_TIPO_ACCION.VERDETALLE) {
+                    $(contenedorOfertas + ' #imgSoloHoy').hide();
+                    $(contenedorOfertas + ' [data-odd-accion="regresar"]').show();
+                    $(contenedorOfertas + ' [data-odd-tipoventana="carrusel"]').hide();
+                    $(contenedorOfertas + ' [data-odd-tipoventana="detalle"]').show();
+                    var posicion = $(this).parents("[data-item]").attr("data-item-position");
+                    $('#divOddCarruselDetalle').slick('slickGoTo', posicion);
+                }
+                else if (accion == CONS_TIPO_ACCION.REGRESAR) {
+
+                    $('#divOddCarrusel').slick('refresh', false);
+                    $(contenedorOfertas + ' #imgSoloHoy').show();
+                    $(contenedorOfertas + ' [data-odd-accion="regresar"]').hide();
+                    $(contenedorOfertas + ' [data-odd-tipoventana="detalle"]').hide();
+                    $(contenedorOfertas + ' [data-odd-tipoventana="carrusel"]').show();
+                }
+                else if (accion == CONS_TIPO_ACCION.AGREGAR) {
+                    OddAgregar(this);
+                }
+            });
+            seAtacharonEventosOdd = true;
+        } 
+    }
+
+    function RenderOfertaDelDia(data, contenedorOfertas) {
+        
+        $(contenedorOfertas).hide();
+        
+        data.CantidadProductos = data.ListaOfertas.length;
+        data.Simbolo = vbSimbolo;
+        data.TextoVerDetalle = data.CantidadProductos > 1 ? "VER MÁS OFERTAS" : "VER OFERTA";
+        data.UsuarioNombre = $.trim(usuarioNombre).toUpperCase();
+        data.ListaOfertas = AsignarClaseCssAPalabraGratisDesktop(data.ListaOfertas);
+
+        SetHandlebars("#ofertadeldia-template", data, contenedorOfertas);        
+        odd_desktop_google_analytics_product_impresion(data, contenedorOfertas);
+    }
+
+    function ConfigurarCarruselProductos(contenedorOfertas,cantidadProductos) {
+        if (cantidadProductos > 1) {
+            $(contenedorOfertas + ' #imgSoloHoy').show();
+            $(contenedorOfertas + ' [data-odd-accion="regresar"]').hide();
+            $(contenedorOfertas + ' [data-odd-tipoventana="carrusel"]').show();
+        }
+
+        if (cantidadProductos <= 3) {
+            var wc = $('#divOddCarrusel').width();
+            var witem = ((wc) / cantidadProductos);
+            var witemc = $($('#divOddCarrusel [data-item]>div').get(0)).innerWidth();
+            witemc = (witem - witemc) / 2;
+            $('#divOddCarrusel [data-item]').css("width", witem + "px");
+            $('#divOddCarrusel [data-item]>div').css("margin-left", witemc + "px");
+            $('#divOddCarrusel [data-item]>div').css("margin-right", witemc + "px");
+        }
+
+        if (cantidadProductos > 3) {
+            EstablecerLazyCarrusel($('#divOddCarrusel'));
+
+            $('#divOddCarrusel.slick-initialized').slick('unslick');
+            $('#divOddCarrusel').not('.slick-initialized').slick({
+                lazyLoad: 'ondemand',
+                infinite: true,
+                vertical: false,
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                autoplay: false,
+                speed: 260,
+                prevArrow: '<a style="display: block;left: 0;margin-left: -5%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_compra.png")" alt="" /></a>',
+                nextArrow: '<a style="display: block;right: 0;margin-right: -5%; text-align:right;  top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_compra.png")" alt="" /></a>'
+            }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
+                odd_desktop_procesar_evento_before_change(event, slick, currentSlide, nextSlide);
+            });
+        }
+    }
+
+    function ConfigurarCarruselDetalleProductos(contenedorOfertas,cantidadProductos) {
+        if (cantidadProductos == 1) {
+            $(contenedorOfertas + ' #imgSoloHoy').show();
+            $(contenedorOfertas + ' [data-odd-accion="regresar"]').hide();
+            $(contenedorOfertas + ' [data-odd-tipoventana="detalle"]').show();
+        }
+
+        if (cantidadProductos > 1) {
+            EstablecerLazyCarrusel($('#divOddCarruselDetalle'));
+
+            $('#divOddCarruselDetalle.slick-initialized').slick('unslick');
+            $('#divOddCarruselDetalle').not('.slick-initialized').slick({
+                lazyLoad: 'ondemand',
+                infinite: true,
+                vertical: false,
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                autoplay: false,
+                speed: 260,
+                prevArrow: '<a style="display: block;left: 0;margin-left: -5%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_compra.png")" alt="" /></a>',
+                nextArrow: '<a style="display: block;right: 0;margin-right: -5%; text-align:right;  top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_compra.png")" alt="" /></a>'
+            });
+            $('#divOddCarruselDetalle').slick('slickGoTo', 0);
+        }
+    }
+
+    function odd_desktop_google_analytics_promotion_impresion() {
+        if ($('#banner-odd').length > 0) {
+            var id = $('#banner-odd').find(".estrategia-id-odd").val();
+            var name = "Oferta del día - " + $('#banner-odd').find(".nombre-odd").val();
+            var creative = $('#banner-odd').find(".nombre-odd").val() + " - " + $('#banner-odd').find(".cuv2-odd").val();
+            var positionName = props.OrigenDesktopODD == 1 ? CONS_POSICION_BANNER.BANNER_HOME : props.OrigenDesktopODD == 2 ? CONS_POSICION_BANNER.BANNER_PEDIDO : "";
+            dataLayer.push({
+                'event': 'promotionView',
+                'ecommerce': {
+                    'promoView': {
+                        'promotions': [
+                        {
+                            'id': id,
+                            'name': name,
+                            'position': positionName,
+                            'creative': creative
+                        }]
+                    }
+                }
+            });
+        }
+    }
+
+    function odd_mobile_google_analytics_promotion_impresion() {
+        if ($('#banner-odd-mobile').length > 0) {
+            var id = $('#banner-odd-mobile').find("#estrategia-id-odd").val();
+            var name = "Oferta del día - " + $('#banner-odd-mobile').find("#nombre-odd").val();
+            var creative = $('#banner-odd-mobile').find("#nombre-odd").val() + " - " + $('#banner-odd-mobile').find("#cuv2-odd").val();
+            var positionName = props.OrigenDesktopODD == 1 ? CONS_POSICION_BANNER.BANNER_HOME : props.OrigenDesktopODD == 2 ? CONS_POSICION_BANNER.BANNER_PEDIDO : "";
+            dataLayer.push({
+                'event': 'promotionView',
+                'ecommerce': {
+                    'promoView': {
+                        'promotions': [
+                            {
+                                'id': id,
+                                'name': name,
+                                'position': positionName,
+                                'creative': creative
+                            }]
+                    }
+                }
+            });
+        }
     }
 
     function EsOddAgregarValido(btn, cantidad) {
@@ -352,9 +492,7 @@ $(document).ready(function () {
                 return false;
             }
             var promiseAgregarProducto = AgregarProducto(producto);
-            $.when(promiseAgregarProducto).then(function (responseAgregarProd) {
-                ResetearCantidadEnMobile();
-
+            $.when(promiseAgregarProducto).then(function (responseAgregarProd) {               
                 if (!checkTimeout(responseAgregarProd)) {
                     CerrarLoad();
                     return false;
@@ -368,6 +506,9 @@ $(document).ready(function () {
 
                 CargarCantidadProductosPedidos();
                 CerrarLoad();
+                odd_mobile_google_analytics_addtocart();
+
+                ResetearCantidadEnMobile();
                 AbrirMensaje('Producto agregado satisfactoriamente', 'ÉXITO', null, 2);
             });
         });
@@ -488,10 +629,11 @@ $(document).ready(function () {
                         if (typeof origenPagina !== 'undefined') {
                             MostrarBarra(data, '1');
                             ActualizarGanancia(data.DataBarra);
-                            var tipo = $(btn).attr('data-odd-accion-type');
-                            var indiceElemeto = $(btn).attr('data-odd-accion-element');
-                            odd_desktop_google_analytics_addtocart(tipo, indiceElemeto);
                         }
+
+                        var tipo = $(btn).attr('data-odd-accion-type');
+                        var indiceElemeto = $(btn).attr('data-odd-accion-element');
+                        odd_desktop_google_analytics_addtocart(tipo, indiceElemeto);
 
                         CargarResumenCampaniaHeader(true);
                         TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv2);
@@ -531,7 +673,12 @@ $(document).ready(function () {
             var perteneceContenedorDetalle = $(btn).parents('div [data-odd-tipoventana="detalle"]').length > 0;
             if (perteneceContenedorDetalle) {
                 var posicion = $(btn).parents("[data-item]").attr("data-item-position");
-                $('#OfertaDelDia [data-odd-tipoventana="carrusel"]').find('[data-item-position="' + posicion + '"]').find(".product-add").css("display", "block");
+                $(btn).parents('.content_pop_oferta_dia ')
+                    .find('[data-odd-tipoventana="carrusel"]')
+                    .find('[data-item-position="' + posicion + '"]')
+                    .find(".product-add")
+                    .css("display", "block");
+
             } else
                 $(item).find(".product-add").css("display", "block");
         }
@@ -541,7 +688,7 @@ $(document).ready(function () {
         var ok = true;
         $.ajax({
             type: 'GET',
-            url: baseUrl + 'Pedido/GetOfertaDelDia',
+            url: baseUrl + props.UrlGetOfertaDelDia,
             async: false,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
@@ -549,15 +696,14 @@ $(document).ready(function () {
                 if (checkTimeout(response)) {
                     if (response.success) {
                         var _data = response.data;
-                        var tq = _data.TeQuedan;
 
-                        if (tq.TotalSeconds <= 0)
+                        if (_data.TeQuedan.TotalSeconds <= 0)
                             ok = false;
                     }
                 }
             },
             error: function (err) {
-                console.log(err);
+                checkTimeout(err);
             }
         });
 
@@ -663,19 +809,12 @@ $(document).ready(function () {
                 }
             },
             error: function (err) {
-                console.log(err);
+                checkTimeout(err);
             }
         });
 
         return qty;
     };
-
-    function MostrarContenedorOverOfertaDelDia() {
-        $('#txtCantidad').val('1');
-        $('body').css({ 'overflow-x': 'hidden' });
-        $('body').css({ 'overflow-y': 'hidden' });
-        $('#pop_oferta_mobile').toggle('slide', { direction: 'Right' }, 500);
-    }
 
     function ResetearCantidadesDelPopup() {
         $("#divOddCarrusel").find(".liquidacion_rango_cantidad_pedido.txtcantidad-odd").val(1);
@@ -688,8 +827,12 @@ $(document).ready(function () {
 
     function ConfigurarSlick() {
         $(elements.ContenedorOfertaDelDiaMobile).show();
+
+        EstablecerLazyCarrusel($(elements.ContenedorOfertaDelDiaMobile));
+
         $(elements.ContenedorOfertaDelDiaMobile + '.slick-initialized').slick('unslick');
         $(elements.ContenedorOfertaDelDiaMobile).slick({
+            lazyLoad: 'ondemand',
             dots: false,
             infinite: true,
             vertical: false,
@@ -707,7 +850,6 @@ $(document).ready(function () {
                 odd_mobile_google_analytics_promotion_impresion(list, evento, index)
         });
         $(elements.ContenedorOfertaDelDiaMobile).slick('slickGoTo', 0);
-
     }
     
     function AsignarClaseCssAPalabraGratisMobile(listaOfertas) {
@@ -732,9 +874,39 @@ $(document).ready(function () {
         return listaOfertasConClases;
     }
 
+    function odd_mobile_google_analytics_addtocart() {
+        var element = $("#OfertasDiaMobile").find(".slick-current").attr("data-slick-index");
+        var id = $('#OfertasDiaMobile').find("[data-slick-index=" + element + "]").find(".cuv2-odd").val();
+        var name = $('#OfertasDiaMobile').find("[data-slick-index=" + element + "]").find(".nombre-odd").val();
+        var price = $('#OfertasDiaMobile').find("[data-slick-index=" + element + "]").find(".precio-odd").val();
+        var marca = $('#OfertasDiaMobile').find("[data-slick-index=" + element + "]").find(".MarcaNombre").val();
+        var variant = $('#OfertasDiaMobile').find("[data-slick-index=" + element + "]").find(".DescripcionEstrategia").val();
+        var quantity = $('#pop_oferta_mobile').find("#txtCantidad").val();
+        if (variant == "")
+            variant = "Estándar";
+        dataLayer.push({
+            'event': 'addToCart',
+            'ecommerce': {
+                'add': {
+                    'actionField': { 'list': 'Oferta del día' },
+                    'products': [{
+                        'name': name,
+                        'price': price,
+                        'brand': marca,
+                        'id': id,
+                        'category': 'No disponible',
+                        'variant': variant,
+                        'quantity': quantity,
+                        'dimension15': '100',
+                        'dimension16': 'Oferta del día - Detalle'
+                    }]
+                }
+            }
+        });
+    }
+
     $(elements.ContenedorInternoSliderOfertaDelDiaMobileHome + ", " + elements.ContenedorInternoSliderOfertaDelDiaMobile).click(function () {
-        MostrarContenedorOverOfertaDelDia();
-        ConfigurarSlick();
+        document.location.href = urlOfertaDelDiaMobile;
     });
 
     $("body").on("click", elements.BtnAgregarMobile, function (e) {
@@ -742,60 +914,6 @@ $(document).ready(function () {
 
         if (accion == CONS_TIPO_ACCION.AGREGAR) {
             OddAgregarMobile(this);
-        }
-    });
-
-    $("body").on("click", "#OfertaDelDia [data-odd-accion]", function (e) {
-        var accion = $(this).attr("data-odd-accion").toUpperCase();
-        if (accion == CONS_TIPO_ACCION.VEROFERTA) {
-            ResetearCantidadesDelPopup();
-            if (showDisplayODD == 0) {
-                var cantidad = parseInt($(this).attr("data-odd-cantidad"));
-                if (cantidad > 3) {
-                    var posicion = "0";
-                    $('#divOddCarrusel').slick('slickGoTo', posicion);
-                    $('#divOddCarruselDetalle').slick('slickGoTo', posicion);
-                }
-                if (cantidad == 1) {
-                    $('#OfertaDelDia [data-odd-tipoventana="detalle"]').show();
-                    $('#OfertaDelDia [data-odd-tipoventana="carrusel"]').hide();
-                }
-                else {
-                    $('#OfertaDelDia [data-odd-tipoventana="detalle"]').hide();
-                    $('#OfertaDelDia [data-odd-tipoventana="carrusel"]').show();
-                }
-                $('#PopOfertaDia').slideDown();
-                $('.circulo_hoy span').html('-');
-                showDisplayODD = 1;
-            }
-            else {
-                $('#PopOfertaDia').slideUp();
-                $('.circulo_hoy span').html('+');
-                showDisplayODD = 0;
-            }
-
-            if ($(this).parents('div [data-odd-tipoventana="detalle"]').length == 1) {
-                $('div [data-odd-tipoventana="detalle"]').show();
-            }
-
-            odd_desktop_google_analytics_product_impresion();
-        }
-        else if (accion == CONS_TIPO_ACCION.VERDETALLE) {
-
-            $('#OfertaDelDia [data-odd-tipoventana="carrusel"]').hide();
-            $('#OfertaDelDia [data-odd-tipoventana="detalle"]').show();
-            var posicion = $(this).parents("[data-item]").attr("data-item-position");
-            $('#divOddCarruselDetalle').slick('slickGoTo', posicion);
-            // asignar valores del ver detalle
-        }
-        else if (accion == CONS_TIPO_ACCION.REGRESAR) {
-
-            $('#divOddCarrusel').slick('refresh', false);
-            $('#OfertaDelDia [data-odd-tipoventana="detalle"]').hide();
-            $('#OfertaDelDia [data-odd-tipoventana="carrusel"]').show();
-        }
-        else if (accion == CONS_TIPO_ACCION.AGREGAR) {
-            OddAgregar(this);
         }
     });
 
@@ -807,8 +925,6 @@ $(document).ready(function () {
     $("body").on("click", ".ver_detalle_carrusel", function (e) {
         $('#divOddCarruselDetalle').find('.liquidacion_rango_cantidad_pedido.txtcantidad-odd').val(1);
     });
-
-    self.CargarODD();
 });
 
 function odd_desktop_procesar_evento_before_change(event, slick, currentSlide, nextSlide) {
@@ -840,7 +956,7 @@ function odd_desktop_procesar_evento_before_change(event, slick, currentSlide, n
         {
             index = index - array_odd.CantidadProductos;
         }
-
+        
         var div = $('#divOddCarrusel').find("[data-item-position=" + index + "]");        
         var name = $(div).find("[data-item-campos]").find(".nombre-odd").val();
         var id = $(div).find("[data-item-campos]").find(".cuv2-odd").val();

@@ -2,10 +2,17 @@
 @using Portal.Consultoras.Common
 
 @model Portal.Consultoras.Web.Models.RevistaDigitalModel
+@{
+    ViewBag.Title = "ÉSIKA PARA MÍ";
+    Layout = "~/Views/Shared/_MainLayoutContenedor.cshtml";
+}
+@section styles{
+    @System.Web.Optimization.Styles.Render("~/bundles/css/Site/RevistaDigital-Info")
+}
 
 <div class="content_gana_mas" data-estadoregistro="@Model.EstadoSuscripcion">
     <div class="content_revista_izquierda"><img src="@Url.Content("~/Content/Images/RevistaDigital/revista_izquierda.png")" /></div>
-
+    <div class="content_revista_derecha"><img src="@Url.Content("~/Content/Images/RevistaDigital/celular_revista.png")" /></div>
     <div class="content_texto_gana">
         <div style="width:406px;margin:0 auto;">
             <div class="titulo_gana_landing">INCREMENTA EN MÁS DE 20%* TUS GANANCIAS CON TU REVISTA ONLINE: </div>
@@ -26,24 +33,25 @@
             <div class="btn_diagonal rd_btn_rojo"><a href="javascript: RDSuscripcion(2)">INSCRIBIRME A ÉSIKA PARA MÍ</a></div>
         </div>
     </div>
-    <div class="content_revista_derecha"><img src="@Url.Content("~/Content/Images/RevistaDigital/celular_revista.png")" /></div>
     <hr class="clear" />
 </div>
 <div class="content_funciona_esika">
     <div class="content_belcorp">
         <div class="titulo_funciona">¿cómo funciona ésika para mí?</div>
-        <div class="bloque_respuesta">
-            <img src="@Url.Content("~/Content/Images/RevistaDigital/icono1.png")" /><br />
-            <b>En esta campaña</b> te inscribes a Ésika para mí, tu nueva revista online personalizada.
-        </div>
-        <div class="bloque_respuesta">
-            <img src="@Url.Content("~/Content/Images/RevistaDigital/icono2.png")" /><br />
-            En C-@Model.CampaniaMasUno podrás visualizar las ofertas de la C-@Model.CampaniaMasDos e ir planificando el pedido de la próxima campaña.
+        <div style="overflow: hidden;padding: 0 5%;">
+            <div class="bloque_respuesta">
+                <img src="@Url.Content("~/Content/Images/RevistaDigital/icono1.png")" /><br />
+                <b>En esta campaña</b> te inscribes a Ésika para mí, tu nueva revista online personalizada.
+            </div>
+            <div class="bloque_respuesta">
+                <img src="@Url.Content("~/Content/Images/RevistaDigital/icono2.png")" /><br />
+                En C-@Model.CampaniaMasUno podrás visualizar las ofertas de la C-@Model.CampaniaMasDos e ir planificando el pedido de la próxima campaña.
 
-        </div>
-        <div class="bloque_respuesta">
-            <img src="@Url.Content("~/Content/Images/RevistaDigital/icono3.png")" /><br />
-            <b>En C-@Model.CampaniaMasDos </b>podrás comprar tus ofertas de Ésika para mí y disfrutar todos sus beneficios.
+            </div>
+            <div class="bloque_respuesta">
+                <img src="@Url.Content("~/Content/Images/RevistaDigital/icono3.png")" /><br />
+                <b>En C-@Model.CampaniaMasDos </b>podrás comprar tus ofertas de Ésika para mí y disfrutar todos sus beneficios.
+            </div>
         </div>
     </div>
     <hr class="clear" />
@@ -124,3 +132,23 @@
 
     </div>
 </div>
+
+@section scripts{
+    <script type="text/javascript">
+        var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
+        var tipoOrigenPantalla = 1;
+        var urlOfertaCargarProductos = '@Url.Action("RDObtenerProductos", "RevistaDigital")';
+        var urlOfertaDetalleProducto = '@Url.Action("Detalle", "RevistaDigital")';
+        var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital")';
+        var urlTerminosCondicionesRD = '@ConfigurationManager.AppSettings["UrlTerminosCondicionesRD"].Trim()';
+        var urlRevistaDigital = '@Url.Action("Comprar", "RevistaDigital")';
+        var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding';
+        var tipoOrigenEstrategia = 17;
+        var mayormenor = '@Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor';
+        var menormayor = '@Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor';
+        var tieneMasVendidos = 0;
+        var isScroll = false;
+    </script>
+
+    @System.Web.Optimization.Scripts.Render("~/bundles/RevistaDigital-Info")
+}

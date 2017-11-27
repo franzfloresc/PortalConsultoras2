@@ -4,6 +4,7 @@ using Portal.Consultoras.Entities.Cliente;
 using System;
 using System.Collections.Generic;
 using System.ServiceModel;
+using Portal.Consultoras.Entities.Framework;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -70,6 +71,9 @@ namespace Portal.Consultoras.ServiceContracts
         IList<BECatalogoRevista> GetListCatalogoRevistaPublicadoWithTitulo(string paisISO, string codigoZona, int campania);
 
         [OperationContract]
+        IList<BECatalogoRevista> GetCatalogoRevista(string paisISO, string codigoZona, string campanias);
+
+        [OperationContract]
         IList<BEPedidoWeb> GetPedidosWebAnterioresByConsultora(int paisID, long consultoraID);
 
         [OperationContract]
@@ -78,14 +82,13 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         void InsCatalogoCampania(int paisID, string CodigoConsultora, int CampaniaID);
 
+        #region ClienteDB
         [OperationContract]
-        List<BEClienteResponse> SaveDB(int paisID, List<BEClienteDB> clientes);
+        List<BEClienteDB> SaveDB(int paisID, List<BEClienteDB> clientes);
 
         [OperationContract]
-        IList<BEClienteDB> SelectByConsultoraDB(int paisID, long consultoraID);
-
-        [OperationContract]
-        BEClienteResponse ValidateTelefonoByConsultoraDB(int paisID, long consultoraID, BEClienteContactoDB contactoCliente);
+        IList<BEClienteDB> SelectByConsultoraDB(int paisID, long consultoraID, int campaniaID, int clienteID);
+        #endregion
 
         [OperationContract]
         int MovimientoInsertar(int paisId, BEMovimiento movimiento);
@@ -97,31 +100,36 @@ namespace Portal.Consultoras.ServiceContracts
         Tuple<bool, string> MovimientoActualizar(int paisId, BEMovimiento movimiento);
 
         [OperationContract]
-        int RecordatorioInsertar(int paisId, BEClienteRecordatorio recordatorio);
+        Tuple<bool, string> MovimientoEliminar(int paisId, long consultoraId, short clienteId, int movimientoId);
+
+        [OperationContract]
+        ResponseType<int> RecordatorioInsertar(int paisId, BEClienteRecordatorio recordatorio);
 
         [OperationContract]
         IEnumerable<BEClienteRecordatorio> RecordatoriosObtenerPorCliente(int paisId, long consultoraId);
 
         [OperationContract]
-        bool RecordatorioActualizar(int paisId, BEClienteRecordatorio recordatorio);
+        ResponseType<bool> RecordatorioActualizar(int paisId, BEClienteRecordatorio recordatorio);
 
         [OperationContract]
-        bool RecordatorioEliminar(int paisId, short clienteId, long consultoraId, int recordatorioId);
+        ResponseType<bool> RecordatorioEliminar(int paisId, short clienteId, long consultoraId, int recordatorioId);
 
         [OperationContract]
         IEnumerable<BEClienteDeudaRecordatorio> ObtenerDeudores(int paisId, long consultoraId);
 
         [OperationContract]
-        long NotaInsertar(int paisId, BENota nota);
+        ResponseType<long> NotaInsertar(int paisId, BENota nota);
 
         [OperationContract]
-        IEnumerable<BENota> NotasObtenerPorCliente(int paisId, long consultoraId);
+        ResponseType<List<BENota>> NotaListar(int paisId, long consultoraId);
 
         [OperationContract]
-        bool NotaActualizar(int paisId, BENota nota);
+        ResponseType<bool> NotaActualizar(int paisId, BENota nota);
 
         [OperationContract]
-        bool NotaEliminar(int paisId, short clienteId, long consultoraId, long clienteNotaId);
+        ResponseType<bool> NotaEliminar(int paisId, short clienteId, long consultoraId, long clienteNotaId);
 
+        [OperationContract]
+        ResponseType<List<BEMovimientoDetalle>> MovimientoDetalleActualizar(int paisId, List<BEMovimientoDetalle> movimientoDetalle);
     }
 }

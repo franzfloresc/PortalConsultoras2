@@ -1,9 +1,12 @@
 ﻿@using Portal.Consultoras.Common
 
+@model Portal.Consultoras.Web.Models.RevistaDigitalModel
+
 <script id="template-estrategia-header" type="text/x-handlebars-template">
-@if (@ViewBag.TieneRDC == true)
+@if (Model.TieneRDC)
 {
-    if (ViewBag.EstadoSucripcionRDAnterior2 != 1 && ViewBag.EstadoSucripcionRDAnterior1 == 1)
+    if (Model.SuscripcionAnterior2Model.EstadoRegistro != 1 &&
+        Model.SuscripcionAnterior1Model.EstadoRegistro == 1)
     {
         <!-- INSCRITAS C-11 -->
         <div class="wrapper_resumen_mobile">
@@ -15,9 +18,12 @@
                 <div class="cabecera_pedido_text">TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
             </div>
             <div class="banner_pedido_masofertas">
-                <div class="banner_pedido_text">@ViewBag.NombreConsultora, YA PUEDES VER TODAS TUS <b>OFERTAS PERSONALIZADAS DE LA C-@ViewBag.NumeroCampaniaMasUno</b></div>
+                <div class="banner_pedido_text">@ViewBag.NombreConsultora, YA PUEDES VER TODAS TUS <b>OFERTAS PERSONALIZADAS DE LA C-@Model.CampaniaMasUno</b></div>
                 <div class="btn_red">
-                    <a href="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion)">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")"></a>
+                    <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
+                        VER TODAS MIS OFERTAS
+                        <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")">
+                    </a>
                 </div>
             </div>
         </div>
@@ -27,7 +33,7 @@
         @Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-seccion.cshtml",
             new ViewDataDictionary{{"Source", 2}, { "NombreConsultora", ViewBag.NombreConsultora }, { "Origen", Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi } });
     }
-    else if (ViewBag.EstadoSucripcionRDAnterior2 == 1)
+    else if (Model.SuscripcionAnterior2Model.EstadoRegistro == 1)
     {
         <!-- INSCRITAS C-12 -->
         if (ViewBag.SourcePage == 1)
@@ -41,15 +47,6 @@
                         <div class="cabecera_pedido_text">@ViewBag.NombreConsultora, LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
                     </div>
                 </div>
-                @*<div class="wrapper_resumen_mobile">
-                    <div class="rd_lanzamiento">
-                        <img class="rd_lanzamiento_producto" src="@Url.Content("~/Content/Images/RevistaDigital/rd_lanzamiento.jpg")">
-                        <div>CONOCE INSTANT PERFECTION 3 EN 1 LA NUEVA BASE DE ÉSIKA PRO</div>
-                        <div class="btn_black_solid"><a href="#">DESCUBRE ESTA NOVEDAD</a></div>
-                        <a href="#">VER MÁS LANZAMIENTOS <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")" /></a>
-                    </div>
-                </div>
-                <hr class="clear" />*@
                 <div id="divContenedorListaEstrategia">
                     <div id="divListadoEstrategia2">
                         <div style="text-align: center;">Cargando Productos Destacados<br><img src="/Content/Images/Loading.gif" /><br /></div>
@@ -63,14 +60,20 @@
                 <hr class="clear" />
                 <div class="mob_carrusel_bpt">
                     <div class="wrapper_resumen_mobile">
-                        <a href="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccionMasOfertas)">VER MÁS OFERTAS <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")" /></a>
+                        <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccionOfertas, '@Constantes.ConfiguracionPais.RevistaDigital')">
+                            VER MÁS OFERTAS
+                            <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")" />
+                        </a>
                     </div>
                 </div>
 
                 <div class="rd_verofertas">
-                    <div>AHORA PUEDES COMPRAR TODAS TUS OFERTAS DE C-@ViewBag.NumeroCampania Y VER LAS DE C-@ViewBag.NumeroCampaniaMasUno</div>
+                    <div>AHORA PUEDES COMPRAR TODAS TUS OFERTAS DE C-@Model.Campania Y VER LAS DE C-@Model.CampaniaMasUno</div>
                     <div class="btn_white_stroke">
-                        <a href="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccionOfertas)">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")" /></a>
+                        <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccionOfertas, '@Constantes.ConfiguracionPais.RevistaDigital')">
+                            VER TODAS MIS OFERTAS
+                            <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")" />
+                        </a>
                     </div>
                 </div>
             </div>
@@ -86,9 +89,12 @@
                         <div class="cabecera_pedido_text">TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
                     </div>
                     <div class="banner_pedido_masofertas">
-                        <div class="banner_pedido_text">@ViewBag.NombreConsultora, ¿YA VISTE TUS <b>OFERTAS PERSONALIZADAS DE CAMPAÑA @ViewBag.NumeroCampania</b>?</div>
+                        <div class="banner_pedido_text">@ViewBag.NombreConsultora, ¿YA VISTE TUS <b>OFERTAS PERSONALIZADAS DE CAMPAÑA @Model.Campania</b>?</div>
                         <div class="btn_red">
-                            <a href="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalMobilePedidoSeccion)">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")"></a>
+                            <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobilePedidoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
+                                VER TODAS MIS OFERTAS
+                                <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")">
+                            </a>
                         </div>
                     </div>
                     <div style="padding-top:20px" id="divContenedorListaEstrategia">
@@ -115,7 +121,10 @@
             <div class="banner_pedido_masofertas">
                 <div class="banner_pedido_text">@ViewBag.NombreConsultora, CONOCE AHORA ESTA NOVEDAD Y TUS <b>OFERTAS CON HASTA 65% DE DESCUENTO</b></div>
                 <div class="btn_red">
-                    <a href="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion)">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")"></a>
+                    <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
+                        VER TODAS MIS OFERTAS
+                        <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")">
+                    </a>
                 </div>
             </div>
         </div>
@@ -126,7 +135,7 @@
             new ViewDataDictionary{{"Source", 2}, { "NombreConsultora", ViewBag.NombreConsultora }, { "Origen", Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi } });
     }
 }
-else if (@ViewBag.TieneRDR == true)
+else if (Model.TieneRDR)
 {
     <!-- INCIO REDUCIDA -->
     if (ViewBag.SourcePage == 1)
@@ -140,15 +149,6 @@ else if (@ViewBag.TieneRDR == true)
                         <div class="cabecera_pedido_text">TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
                     </div>
                 </div>
-                @*<div class="wrapper_resumen_mobile">
-                    <div class="rd_lanzamiento">
-                        <img class="rd_lanzamiento_producto" src="@Url.Content("~/Content/Images/RevistaDigital/rd_lanzamiento.jpg")">
-                        <div>CONOCE INSTANT PERFECTION 3 EN 1 LA NUEVA BASE DE ÉSIKA PRO</div>
-                        <div class="btn_black_solid"><a href="#">DESCUBRE ESTA NOVEDAD</a></div>
-                        <a href="#">VER MÁS LANZAMIENTOS <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")" /></a>
-                    </div>
-                </div>
-                <hr class="clear" />*@
                 <div id="divContenedorListaEstrategia">
                     <div id="divListadoEstrategia2">
                         <div style="text-align: center;">Cargando Productos Destacados<br><img src="/Content/Images/Loading.gif" /><br /></div>
@@ -162,62 +162,51 @@ else if (@ViewBag.TieneRDR == true)
                 <hr class="clear" />
                 <div class="mob_carrusel_bpt">
                     <div class="wrapper_resumen_mobile">
-                        <a href="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion)">VER MÁS OFERTAS <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")" /></a>
+                        <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccionOfertas, '@Constantes.ConfiguracionPais.RevistaDigital')">
+                            VER MÁS OFERTAS 
+                            <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")" />
+                        </a>
                     </div>
                 </div>
 
                 <div class="rd_verofertas">
-                    <div>@ViewBag.NombreConsultora, ¿YA VISTE TUS <b>OFERTAS PERSONALIZADAS DE CAMPAÑA @ViewBag.NumeroCampania</b>?</div>
-                    <div class="btn_white_stroke"><a href="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion)">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")" /></a></div>
+                    <div>@ViewBag.NombreConsultora, ¿YA VISTE TUS <b>OFERTAS PERSONALIZADAS DE CAMPAÑA @Model.Campania</b>?</div>
+                    <div class="btn_white_stroke">
+                        <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigitalReducida')">
+                            VER TODAS MIS OFERTAS
+                            <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")" />
+                        </a>
+                    </div>
                 </div>
             </div>
     }
     else
     {
         <div class="mob_home_bpt">
-                <div class="banner_pedido_rd" style="margin-bottom:0 !important;">
-                    <div class="cabecera_pedido_rd">
-                        <div class="rd_logo">
-                            <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="40">
-                        </div>
-                        <div class="cabecera_pedido_text">TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
+            <div class="banner_pedido_rd" style="margin-bottom:0 !important;">
+                <div class="cabecera_pedido_rd">
+                    <div class="rd_logo">
+                        <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="40">
                     </div>
-                    <div class="banner_pedido_masofertas">
-                        <div class="banner_pedido_text">@ViewBag.NombreConsultora, ¿YA VISTE TUS <b>OFERTAS PERSONALIZADAS DE CAMPAÑA @ViewBag.NumeroCampania</b>?</div>
-                        <div class="btn_red">
-                            <a href="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion)">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")"></a>
-                        </div>
-                    </div>
-                    <div style="padding-top:20px" id="divContenedorListaEstrategia">
-                        <div class="contenedor_carrusel_home content_carrusel_agregado" id="divListadoEstrategia">
-                            <div style="text-align: center;">Cargando Productos Destacados<br><img src="/Content/Images/Loading.gif" /><br /></div>
-                        </div>
+                    <div class="cabecera_pedido_text">TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
+                </div>
+                <div class="banner_pedido_masofertas">
+                    <div class="banner_pedido_text">@ViewBag.NombreConsultora, ¿YA VISTE TUS <b>OFERTAS PERSONALIZADAS DE CAMPAÑA @Model.Campania</b>?</div>
+                    <div class="btn_red">
+                        <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigitalReducida')">
+                            VER TODAS MIS OFERTAS
+                            <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")">
+                        </a>
                     </div>
                 </div>
-            </div>
-    }
-    <!-- FIN REDUCIDA -->
-    @*<div class="mob_home_bpt">
-        <div class="banner_pedido_rd" style="margin-bottom:0 !important;">
-            <div class="cabecera_pedido_rd">
-                <div class="rd_logo">
-                    <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="40">
-                </div>
-                <div class="cabecera_pedido_text">TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
-            </div>
-            <div class="banner_pedido_masofertas">
-                <div class="banner_pedido_text">@ViewBag.NombreConsultora, ¿YA VISTE TUS <b>OFERTAS PERSONALIZADAS DE CAMPAÑA @ViewBag.NumeroCampania</b>?</div>
-                <div class="btn_red">
-                    <a href="@Url.Action("Index", "RevistaDigital",  new { area = "Mobile" })">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")"></a>
-                </div>
-            </div>
-            <div style="padding-top:20px" id="divContenedorListaEstrategia">
-                <div class="contenedor_carrusel_home content_carrusel_agregado" id="divListadoEstrategia">
-                    <div style="text-align: center;">Cargando Productos Destacados<br><img src="/Content/Images/Loading.gif" /><br /></div>
+                <div style="padding-top:20px" id="divContenedorListaEstrategia">
+                    <div class="contenedor_carrusel_home content_carrusel_agregado" id="divListadoEstrategia">
+                        <div style="text-align: center;">Cargando Productos Destacados<br><img src="/Content/Images/Loading.gif" /><br /></div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>*@
+    }
 }
 else
 {

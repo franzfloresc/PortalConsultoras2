@@ -1,7 +1,9 @@
 ﻿@using Portal.Consultoras.Common
-@model Portal.Consultoras.Web.Models.MisCatalogosRevistasModel
+@using Portal.Consultoras.Web.Models
+@model MisCatalogosRevistasModel
 @{
     ViewBag.Title = "Catálogos y Revistas";
+    var revistaDigital = Model.RevistaDigital ?? new RevistaDigitalModel();
 }
 
 <input type="hidden" id="hdPaisNombre" value="@Model.PaisNombre" />
@@ -55,9 +57,10 @@
 
     <div class="expoferta_revista">
        
-        @if (ViewBag.TieneRDC)
+        @if (revistaDigital.TieneRDC)
         {
-            if (ViewBag.EstadoSucripcionRDAnterior2 != 1 && ViewBag.EstadoSucripcionRDAnterior1 == 1)
+            if (revistaDigital.SuscripcionAnterior2Model.EstadoRegistro != 1 &&
+                revistaDigital.SuscripcionAnterior1Model.EstadoRegistro == 1)
             {
                 @Html.Partial("~/Views/MisCatalogosRevistas/template-revista-slide.cshtml")
                 <!-- INSCRITAS C-11 -->
@@ -71,7 +74,7 @@
                             <div>¿YA VISTE TUS <b>OFERTAS EN ÉSIKA PARA MÍ</b>?
                             </div>
                             <div class="btn_diagonal btn_stroke_white">
-                                <a href="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopCatalogoSeccion)">
+                                <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
                                     VER TODAS MIS OFERTAS
                                     <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
                                     <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
@@ -82,7 +85,7 @@
                 </div>
                 <!-- FIN INSCRITAS C-11 -->
             }
-            else if (ViewBag.EstadoSucripcionRDAnterior2 == 1)
+            else if (revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == 1)
             {
                 <!-- INSCRITAS C-12 -->
                 <div class="home_block_rd home_rd1" style="background-color: transparent; text-align: left;">
@@ -92,9 +95,10 @@
                         </div>
                         <div class="hblock_text" style="padding-top: 34px;">
                             <div class="hblock_tit" style="font-size: 14px;"> @ViewBag.NombreConsultora, LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
-                            <div style="max-width: 70%; font-size: 18px;">¿YA VISTE TUS OFERTAS DE LA C-@ViewBag.NumeroCampania EN ÉSIKA PARA MÍ? </div>
+                            <div style="max-width: 70%; font-size: 18px;">¿YA VISTE TUS OFERTAS DE LA C-@revistaDigital.Campania EN ÉSIKA PARA MÍ? </div>
                             <div class="btn_diagonal">
-                                <a href="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopCatalogoSeccion)">VER TODAS MIS OFERTAS
+                                <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
+                                    VER TODAS MIS OFERTAS
                                     <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
                                     <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
                                 </a>
@@ -119,7 +123,8 @@
                             <div>¿YA VISTE TUS <b>OFERTAS EN ÉSIKA PARA MÍ</b>?
                             </div>
                             <div class="btn_diagonal btn_stroke_white">
-                                <a href="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopCatalogoSeccion)">VER TODAS MIS OFERTAS
+                                <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
+                                    VER TODAS MIS OFERTAS
                                     <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
                                     <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
                                 </a>
@@ -129,7 +134,7 @@
                 </div>
             }
         }
-        else if (ViewBag.TieneRDR)
+        else if (revistaDigital.TieneRDR)
         {
             @Html.Partial("~/Views/MisCatalogosRevistas/template-revista-slide.cshtml")
             <!-- Agregar revista -->
@@ -143,7 +148,7 @@
                         <span style="display: block; font-size: 15px; font-weight: bold; padding-left: 10px;">Conoce ahora tus ofertas y aumenta tus ganancias</span>
                     </div>
                     <div class="revistadigital revistaDigital_catalogosRevistas">
-                        <div class="boxoffer" onclick="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopCatalogoSeccion)">
+                        <div class="boxoffer" onclick="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital');">
                             <div class="fondo_boton"></div>
                             <span class="texto_boton">VER M&Aacute;S OFERTAS PARA M&Iacute;</span>
                         </div>
@@ -261,33 +266,11 @@
 @section scripts{
     @*<script src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>*@
     <script src="@Url.Content("~/Scripts/Tag/jquery.tags.input.js")"></script>
-
-    <script type="text/javascript" id="js-ready-Catalogo">
-        var tagLbel = "Lbel";
-        var tagEsika = "Esika";
-        var tagCyzone = "Cyzone";
-
-        var campSelect = "";
-        var campSelectI = 1;
-
-        var aCam = new Array();
-        var linkCat = new Object();
-        var descrCat = new Object();
-        var ordenCat = new Object();
-
-        var cantCat = 3;
-        var cantCam = 3;
-        var cont = 0;
-
+    <script type="text/javascript" id="js-ready-Catalogo">        
         var imgNoDisponible = '@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")';
-        var imgIssuu = '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart01' + '{img}' + '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart02Alternativo'
-        imgIssuu = imgIssuu.startsWith("https") ? imgIssuu.replace("https://", "http://") : imgIssuu;
-
-        var rCampSelect = "";
-        var rCampSelectI = 1;
-        var cantCamRev = 3;
+        var imgIssuu = '@Constantes.CatalogoUrlParameters.UrlPart01' + '{img}' + '@Constantes.CatalogoUrlParameters.UrlPart02Alternativo'
+        imgIssuu = imgIssuu.startsWith("https") ? imgIssuu.replace("https://", "http://") : imgIssuu;        
         var codigoIso = '@ViewBag.CodigoISO';
-        var aCamRev = new Array();
         var urlObtenerPortadaRevista = '@Url.Action("ObtenerPortadaRevista", "Catalogo", new { area = "Mobile" })';
         var defaultImageRevista = '@Url.Content("~/Content/Images/revista_no_disponible.jpg")';
         var urlIconoClienteAutoCompletar = '@Url.Content("~/Content/Images/Esika/user.jpg")';
@@ -299,10 +282,9 @@
         }
         var urlDetalle = '@Url.Action("Detalle", "MisCatalogosRevistas", new { area = "" })';
         var _Pagina = 1;
-        var urlRevistaDigital = '@Url.Action("Index", "RevistaDigital")';
+        var urlRevistaDigital = '@Url.Action("Comprar", "RevistaDigital")';
     </script>
 
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MisCatalogosRevistas/Index.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js")"></script>
 }

@@ -352,6 +352,9 @@ namespace Portal.Consultoras.Web.ServiceODS {
         private string CatalogoDescripcionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CodigoCatalogoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigoProductoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -380,6 +383,9 @@ namespace Portal.Consultoras.Web.ServiceODS {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EsExpoOfertaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsOfertaIndependienteField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EstaEnRevistaField;
@@ -437,6 +443,9 @@ namespace Portal.Consultoras.Web.ServiceODS {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int TieneSugeridoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TipoEstrategiaCodigoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TipoEstrategiaIDField;
@@ -511,6 +520,19 @@ namespace Portal.Consultoras.Web.ServiceODS {
                 if ((object.ReferenceEquals(this.CatalogoDescripcionField, value) != true)) {
                     this.CatalogoDescripcionField = value;
                     this.RaisePropertyChanged("CatalogoDescripcion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CodigoCatalogo {
+            get {
+                return this.CodigoCatalogoField;
+            }
+            set {
+                if ((this.CodigoCatalogoField.Equals(value) != true)) {
+                    this.CodigoCatalogoField = value;
+                    this.RaisePropertyChanged("CodigoCatalogo");
                 }
             }
         }
@@ -641,6 +663,19 @@ namespace Portal.Consultoras.Web.ServiceODS {
                 if ((this.EsExpoOfertaField.Equals(value) != true)) {
                     this.EsExpoOfertaField = value;
                     this.RaisePropertyChanged("EsExpoOferta");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsOfertaIndependiente {
+            get {
+                return this.EsOfertaIndependienteField;
+            }
+            set {
+                if ((this.EsOfertaIndependienteField.Equals(value) != true)) {
+                    this.EsOfertaIndependienteField = value;
+                    this.RaisePropertyChanged("EsOfertaIndependiente");
                 }
             }
         }
@@ -888,6 +923,19 @@ namespace Portal.Consultoras.Web.ServiceODS {
                 if ((this.TieneSugeridoField.Equals(value) != true)) {
                     this.TieneSugeridoField = value;
                     this.RaisePropertyChanged("TieneSugerido");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TipoEstrategiaCodigo {
+            get {
+                return this.TipoEstrategiaCodigoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TipoEstrategiaCodigoField, value) != true)) {
+                    this.TipoEstrategiaCodigoField = value;
+                    this.RaisePropertyChanged("TipoEstrategiaCodigo");
                 }
             }
         }

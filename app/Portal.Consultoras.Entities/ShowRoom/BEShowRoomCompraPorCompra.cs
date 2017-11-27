@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
-using OpenSource.Library.DataAccess;
+﻿using OpenSource.Library.DataAccess;
 using Portal.Consultoras.Common;
+using System;
+using System.Data;
+using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities.ShowRoom
 {
@@ -32,7 +28,7 @@ namespace Portal.Consultoras.Entities.ShowRoom
 
         [DataMember]
         public decimal PrecioValorizado { get; set; }
-        
+
         [DataMember]
         [ViewProperty]
         public DateTime FechaCreacion { get; set; }
@@ -58,7 +54,7 @@ namespace Portal.Consultoras.Entities.ShowRoom
             if (datarec.HasColumn("CUV") && datarec["CUV"] != DBNull.Value)
                 CUV = DbConvert.ToString(datarec["CUV"]);
             if (datarec.HasColumn("SAP") && datarec["SAP"] != DBNull.Value)
-                SAP = DbConvert.ToString(datarec["SAP"]);            
+                SAP = DbConvert.ToString(datarec["SAP"]);
             if (datarec.HasColumn("Orden") && datarec["Orden"] != DBNull.Value)
                 Orden = DbConvert.ToInt32(datarec["Orden"]);
             if (datarec.HasColumn("PrecioValorizado") && datarec["PrecioValorizado"] != DBNull.Value)

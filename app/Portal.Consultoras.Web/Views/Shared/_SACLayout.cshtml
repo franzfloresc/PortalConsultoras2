@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿@using Portal.Consultoras.Common
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -18,6 +20,17 @@
     <link href="@Url.Content("~/Content/Css/Spectrum/spectrum.css")" rel="stylesheet" type="text/css" />
 
     <script type="text/javascript">
+        var userData = {
+            'aplicacion': '@(Constantes.LogDynamoDB.AplicacionPortalConsultoras)',
+            'rol': '@(Constantes.LogDynamoDB.RolConsultora)',
+            'campana': '@ViewBag.CampaniaCodigo',
+            'region': '@ViewBag.RegionAnalytics',
+            'zona': '@ViewBag.ZonaAnalytics',
+            'seccion': '@ViewBag.SeccionAnalytics',
+            'pais': '@ViewBag.PaisAnalytics',
+            'codigoConsultora': '@ViewBag.CodigoConsultoraDL'
+        };
+
         var urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
         window.history.forward();
         function noBack() { window.history.forward(); }

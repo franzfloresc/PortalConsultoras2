@@ -18,7 +18,7 @@ namespace Portal.Consultoras.Common
         /// <param name="customerCode">Customer identification number</param>
         public static String CreateProductionURL(String customerCode)
         {
-            return NEOGRID_PRODUCTION_SERVER + Encrypt(NEOGRID_KEY, customerCode) + "/" + Encrypt(NEOGRID_KEY,CreateTimeStamp());
+            return NEOGRID_PRODUCTION_SERVER + Encrypt(NEOGRID_KEY, customerCode) + "/" + Encrypt(NEOGRID_KEY, CreateTimeStamp());
         }
 
         /// <summary>
@@ -97,6 +97,6 @@ namespace Portal.Consultoras.Common
             }
             return result;
         }
-   
+
     }
 }

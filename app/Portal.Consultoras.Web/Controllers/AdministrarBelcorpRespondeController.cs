@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Portal.Consultoras.Web.ServiceZonificacion;
-using Portal.Consultoras.Web.ServiceSAC;
-using Portal.Consultoras.Web.ServiceContenido;
+﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using AutoMapper;
+using Portal.Consultoras.Web.ServiceContenido;
+using Portal.Consultoras.Web.ServiceZonificacion;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.ServiceModel;
-using System.Configuration;
-
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -35,11 +31,11 @@ namespace Portal.Consultoras.Web.Controllers
                 using (ContenidoServiceClient svc = new ContenidoServiceClient())
                 {
                     lista = svc.GetBelcorpRespondeAdministrador(Convert.ToInt32(paisID)).ToList();
-                    
+
                     var belcorpResponde = lista.FirstOrDefault();
 
                     if (belcorpResponde != null)
-	                {
+                    {
                         model.Chat = belcorpResponde.Chat ?? string.Empty;
                         model.ChatURL = belcorpResponde.ChatURL ?? string.Empty;
                         model.PaisID = belcorpResponde.PaisID;
@@ -51,7 +47,7 @@ namespace Portal.Consultoras.Web.Controllers
                         model.CorreoBcc = belcorpResponde.CorreoBcc ?? string.Empty;
                         model.ParametroPais = belcorpResponde.ParametroPais;
                         model.ParametroCodigoConsultora = belcorpResponde.ParametroCodigoConsultora;
-	                }
+                    }
                 }
             }
             catch (FaultException ex)
@@ -189,11 +185,11 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                        using (ContenidoServiceClient svc = new ContenidoServiceClient())
-                        {
-                            svc.DeleteBelcorpRespondeCache(PaisId);
-                        }
-                    }
+                using (ContenidoServiceClient svc = new ContenidoServiceClient())
+                {
+                    svc.DeleteBelcorpRespondeCache(PaisId);
+                }
+            }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, "", Util.GetPaisISO(PaisId));

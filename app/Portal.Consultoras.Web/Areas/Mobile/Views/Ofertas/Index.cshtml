@@ -1,0 +1,53 @@
+﻿@using System.Configuration
+@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Helpers
+
+@model Portal.Consultoras.Web.Models.EstrategiaPersonalizadaModel
+@{
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayoutContenedor.cshtml";
+}
+@section styles{
+
+@System.Web.Optimization.Styles.Render("~/bundles/css/Site/ccsOfertasMobile")
+
+}
+@foreach (var seccion in Model.ListaSeccion)
+{
+    <div data-seccion="@seccion.Codigo" 
+         data-campania="@seccion.CampaniaID"
+         data-url="@seccion.UrlObtenerProductos"
+         data-templateProducto="@seccion.TemplateProducto"
+         data-tipoPresentacion="@seccion.TipoPresentacion"
+         data-tipoEstrategia="@seccion.TipoEstrategia"
+         data-cantidadProductos="@seccion.CantidadMostrar"
+         id="@seccion.Codigo" >
+        <div data-seccion-content="" class="seccion-content-contenedor">
+            @Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/presentacion-" + seccion.TemplatePresentacion + ".cshtml", seccion)
+        </div>
+        <div data-seccion-load="" class="seccion-loading-contenedor">
+            <br/>
+            <br/>
+            <br/>
+            Cargando @seccion.Titulo
+            <br/>
+            <img src="@Url.Content("~/Content/Images/Loading.gif")"/>
+            <br/>
+            <br/>
+            <br/>
+        </div>
+    </div>
+}
+
+@Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
+@Html.Partial("~/Views/EstrategiaPersonalizada/presentacion-carrusel-previsuales-producto.cshtml")
+
+@section scripts{
+<script type="text/javascript">
+    var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
+    var urlOfertaCargarProductos = '@Url.Action("RDObtenerProductos", "RevistaDigital", new { area = ""})';
+    var urlOfertaDetalleProducto = '@Url.Action("Detalle", "RevistaDigital", new { area = "Mobile" })';
+    var OrigenDesktopODD = 0;
+</script>
+
+@System.Web.Optimization.Scripts.Render("~/bundles/JsMobile/JsSB2-Ofertas")
+}

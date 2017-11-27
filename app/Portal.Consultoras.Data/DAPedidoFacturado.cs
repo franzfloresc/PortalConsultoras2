@@ -24,13 +24,14 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        public IDataReader GetPedidosFacturadosDetalle(string Campania, string Region, string Zona, string CodigoConsultora)
+        public IDataReader GetPedidosFacturadosDetalle(string Campania, string Region, string Zona, string CodigoConsultora, int pedidoId)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidosFacturadosDetalle");
             Context.Database.AddInParameter(command, "@Campania", DbType.AnsiString, Campania);
             Context.Database.AddInParameter(command, "@Region", DbType.AnsiString, Region);
             Context.Database.AddInParameter(command, "@Zona", DbType.AnsiString, Zona);
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, CodigoConsultora);
+            Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, pedidoId);
             return Context.ExecuteReader(command);
         }
 

@@ -1,4 +1,31 @@
-﻿
+﻿var tagLbel = "Lbel";
+var tagEsika = "Esika";
+var tagCyzone = "Cyzone";
+
+var campSelect = "";
+var campSelectI = 1;
+
+var aCam = new Array();
+var linkCat = new Object();
+var descrCat = new Object();
+var ordenCat = new Object();
+
+var cantCat = 3;
+var cantCam = 3;
+var cont = 0;
+
+var listaCorreo = new Array();
+
+var imgIssuu = (imgIssuu == null || imgIssuu == undefined)
+    ? "" : imgIssuu.startsWith("https") ? imgIssuu.replace("https://", "http://") : imgIssuu;
+
+var campaniaEmail = "";
+
+var rCampSelect = "";
+var rCampSelectI = 1;
+var cantCamRev = 3;
+var aCamRev = new Array();
+
 $(document).ready(function () {
     aCam.push($("#hdCampaniaAnterior").val());
     aCam.push($("#hdCampaniaActual").val());
@@ -89,26 +116,6 @@ $(document).ready(function () {
         CatalogoEnviarEmail();
     });
 });
-
-var tagLbel = "Lbel";
-var tagEsika = "Esika";
-var tagCyzone = "Cyzone";
-
-var campSelect = "";
-var campSelectI = 1;
-
-var aCam = new Array();
-var linkCat = new Object();
-var descrCat = new Object();
-var ordenCat = new Object();
-
-var cantCat = 3;
-var cantCam = 3;
-var cont = 0;
-
-var listaCorreo = new Array();
-
-imgIssuu = imgIssuu.startsWith("https") ? imgIssuu.replace("https://", "http://") : imgIssuu;
 
 function InsertarLogCatalogoDynamo(opcionAccion, campaniaCatalogo, marca, cantidad) {
     InsertarLogDymnamo(
@@ -525,7 +532,6 @@ function CatalogoEnviarEmail() {
 
 }
 
-var campaniaEmail = "";
 function AbrirCompartirCorreo(tipoCatalogo, campania) {
     dataLayer.push({
         'event': 'virtualEvent',
@@ -549,12 +555,6 @@ function AbrirCompartirCorreo(tipoCatalogo, campania) {
         $("#divCheckbox [data-cat='" + cat + "']").show();
     }
 }
-
-var rCampSelect = "";
-var rCampSelectI = 1;
-var cantCamRev = 3;
-var aCamRev = new Array();
-
 
 function MostrarRevistaCorrecta(campania) {
     var urlImagen = "";
@@ -628,9 +628,10 @@ function RevistaMostrar(accion, btn) {
 }
 
 function TagManagerPaginasVirtuales() {
+    var urlPrefix = getMobilePrefixUrl();
     dataLayer.push({
         'event': 'virtualPage',
-        'pageUrl': '/Mobile/catalogo/revistas/',
+        'pageUrl': urlPrefix + '/catalogo/revistas/',
         'pageName': 'Catálogo – Revistas | Somos Belcorp'
     });
 }

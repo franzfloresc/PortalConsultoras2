@@ -128,6 +128,8 @@ function ArmarCarouselLiquidaciones(data) {
     data = EstructurarDataCarouselLiquidaciones(data);
     var htmlDiv = SetHandlebars("#OfertasLiquidacionMobile-template", data);
     $('#liquidacionMobile').append(htmlDiv);
+
+    EstablecerAccionLazyImagen("img[data-lazy-seccion-liquidacion]");
 };
 function EstructurarDataCarouselLiquidaciones(array) {
     var contadorLq = 1;
@@ -170,8 +172,12 @@ function AgregarOfertaProducto(article) {
         ShowLoading();
 
         $.ajaxSetup({ cache: false });
-        $.getJSON(urlValidarUnidadesPermitidasPedidoProducto, { CUV: CUV }, function (data) {
-
+        $.getJSON(urlValidarUnidadesPermitidasPedidoProducto, { CUV: CUV, Cantidad: cantidad, PrecioUnidad: PrecioUnidad}, function (data) {
+            if (data.message.length > 0) {
+                CloseLoading();
+                messageInfo(data.message);
+                return false;
+            }
             if (parseInt(data.Saldo) < parseInt(cantidad)) {
                 var Saldo = data.Saldo;
                 var UnidadesPermitidas = data.UnidadesPermitidas;
@@ -288,10 +294,6 @@ function HorarioRestringido() {
         }
     });
     return horarioRestringido;
-}
-function maxLengthCheck(object, cantidadMaxima) {
-    if (object.value.length > cantidadMaxima)
-        object.value = object.value.slice(0, cantidadMaxima);
 }
 function ActualizarCantidadTotalPedido() {
     jQuery.ajax({

@@ -3,9 +3,10 @@
 
 @{
     ViewBag.Title = "Intriga";
+    Layout = "~/Views/Shared/_MainLayoutContenedor.cshtml";
 }
 
-<div class="content_banner_intriga">
+@*<div class="content_banner_intriga">
     <div class="texto_dias_intriga">
         @if (ViewBag.DiasFaltan == 1)
         {
@@ -18,7 +19,7 @@
     </div>
 
     <img src="@ViewBag.urlImagenPopupIntriga" />
-</div>
+</div>*@
 <div class="content_belcorp" style="text-align:center;">
     <div class="content_set_intriga">
 
@@ -116,7 +117,7 @@
     <div class="div_bonotes_producto">
         <div class="child_center_botones">
             <a class="volver_set" id="btnCerrarSet">VOLVER A SETS</a>
-            <a class="volver_set2" href="@Url.Action("Index","Pedido")" id="btnIrMipedido">VER MI PEDIDO</a>
+            <a class="volver_set2" href="@Url.Action("Index", "Pedido")" id="btnIrMipedido">VER MI PEDIDO</a>
         </div>
     </div>
 </div>

@@ -124,7 +124,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private BEProductoComentarioFilter ObtenerProductoComentarioFilter(int page, int rows, int estadoComentarioID, int tipoComentarioID, string SAP, string CUV,int campaniaID)
+        private BEProductoComentarioFilter ObtenerProductoComentarioFilter(int page, int rows, int estadoComentarioID, int tipoComentarioID, string SAP, string CUV, int campaniaID)
         {
             var productoComentarioFilter = new BEProductoComentarioFilter();
 
@@ -166,11 +166,11 @@ namespace Portal.Consultoras.Web.Controllers
                     result = client.AprobarProductoComentarioDetalle(paisId, productoComentarioDetalle);
                 }
 
-                if (result>0)
+                if (result > 0)
                 {
                     var message = "Se {0} el comentario con éxito.";
                     message = (Enumeradores.EstadoProductoComentario)estadoProductoComentarioId == Enumeradores.EstadoProductoComentario.Aprobado ?
-                        string.Format(message, "APROBÓ") : 
+                        string.Format(message, "APROBÓ") :
                         string.Format(message, "RECHAZÓ");
 
                     return Json(new { success = true, message = message }, JsonRequestBehavior.AllowGet);

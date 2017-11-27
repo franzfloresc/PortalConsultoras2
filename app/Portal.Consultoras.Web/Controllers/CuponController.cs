@@ -75,7 +75,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                     Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", correoNuevo, "Confirmación de Correo", cadena, true, userData.NombreConsultora);
 
-
                     return Json(new { success = true, message = "Se envió el correo de confirmar email." });
                 }
                 else
@@ -108,7 +107,8 @@ namespace Portal.Consultoras.Web.Controllers
                 string url = (Util.GetUrlHost(this.HttpContext.Request).ToString());
                 string montoLimite = ObtenerMontoLimiteDelCupon();
                 CuponConsultoraModel cuponModel = ObtenerDatosCupon();
-                string mailBody = MailUtilities.CuerpoCorreoActivacionCupon(userData.PrimerNombre, userData.CampaniaID.ToString(), userData.Simbolo, cuponModel.ValorAsociado, cuponModel.TipoCupon, url, montoLimite);
+                bool tipopais = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(userData.CodigoISO);
+                string mailBody = MailUtilities.CuerpoCorreoActivacionCupon(userData.PrimerNombre, userData.CampaniaID.ToString(), userData.Simbolo, cuponModel.ValorAsociado, cuponModel.TipoCupon, url, montoLimite, tipopais);
                 string correo = userData.EMail;
                 Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", correo, "Activación de Cupón", mailBody, true, userData.NombreConsultora);
 
@@ -127,7 +127,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }, JsonRequestBehavior.AllowGet); }
         }
-        
+
         private CuponConsultoraModel ObtenerDatosCupon()
         {
             CuponConsultoraModel cuponModel;
@@ -212,6 +212,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private bool TieneOfertasPlan20()
         {
+            var flag = false;
             List<BEPedidoWebDetalle> listaPedidoWebDetalle = new List<BEPedidoWebDetalle>();
 
             if (Session["PedidoWebDetalle"] == null)
@@ -226,7 +227,20 @@ namespace Portal.Consultoras.Web.Controllers
                 listaPedidoWebDetalle = (List<BEPedidoWebDetalle>)Session["PedidoWebDetalle"];
             }
 
-            return (listaPedidoWebDetalle.Any(x => x.CodigoCatalago == Constantes.TipoOfertasPlan20.OfertaFinal || x.CodigoCatalago == Constantes.TipoOfertasPlan20.Showroom || x.CodigoCatalago == Constantes.TipoOfertasPlan20.OPT || x.CodigoCatalago == Constantes.TipoOfertasPlan20.ODD));
+            //return (listaPedidoWebDetalle.Any(x => x.CodigoCatalago == Constantes.TipoOfertasPlan20.OfertaFinal || x.CodigoCatalago == Constantes.TipoOfertasPlan20.Showroom || x.CodigoCatalago == Constantes.TipoOfertasPlan20.OPT || x.CodigoCatalago == Constantes.TipoOfertasPlan20.ODD));
+            List<BETablaLogicaDatos> lstCodigosOfertas = new List<BETablaLogicaDatos>();
+            using (SACServiceClient svc = new SACServiceClient())
+            {
+                lstCodigosOfertas = svc.GetTablaLogicaDatos(userData.PaisID, Constantes.TipoOfertasPlan20.TablaLogicaId).ToList();
+            }
+
+            if (listaPedidoWebDetalle.Any()  && lstCodigosOfertas.Any())
+            {
+                var lstTmp = listaPedidoWebDetalle.Where(x => lstCodigosOfertas.Any(y => x.CodigoCatalago == int.Parse(y.Codigo)));
+                flag = lstTmp.Any();
+            }
+
+            return flag;
         }
 
         private void ValidarPopupDelGestorPopups()
@@ -241,12 +255,13 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
         }
-        
+
         private CuponConsultoraModel MapearBECuponConsultoraACuponConsultoraModel(BECuponConsultora cuponBE)
         {
             var codigoISO = userData.CodigoISO;
 
-            return new CuponConsultoraModel(codigoISO) {
+            return new CuponConsultoraModel(codigoISO)
+            {
                 CuponConsultoraId = cuponBE.CuponConsultoraId,
                 CodigoConsultora = cuponBE.CodigoConsultora,
                 CampaniaId = cuponBE.CampaniaId,

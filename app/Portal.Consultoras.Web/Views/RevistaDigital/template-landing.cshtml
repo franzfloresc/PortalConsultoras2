@@ -2,86 +2,64 @@
 @using Portal.Consultoras.Common
 
 @model Portal.Consultoras.Web.Models.RevistaDigitalLandingModel
-
 @{
+    ViewBag.Title = "ÉSIKA PARA MÍ";
+    Layout = "~/Views/Shared/_MainLayoutContenedor.cshtml";
     var idBorrar = "borrar" + Model.CampaniaID;
 }
-@if (Model.Success)
-{
 
-<div class="catalogoPersonalizadoBloque">
-    <div class="content_belcorp">
-        <div class="content_slider_ept" id="divCarruselLan"  
-             data-content-item="@Model.CampaniaID" 
-             data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLandingCarrusel" >
-        </div>
-    </div>
-</div>
-<hr class="clear" />
+@section styles{
+    @System.Web.Optimization.Styles.Render("~/bundles/css/Site/RevistaDigital-Landing")
+}
+
 <div class="BloqueLandingRD" data-listado-campania="@Model.CampaniaID"  data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding">
-    <div class="content_belcorp" data-listado-content="" style="display: none;">
+    <div class="content_belcorp" data-listado-content="" style="margin: 0 80px 0 180px;">
         
-            @if (ViewBag.TieneProductosPerdio)
-            {
-                <div class="rd-busqueda-filtros">
-                    <div class="titulo_pagina">OFERTAS ÉSIKA PARA MÍ</div>
-                    <hr class="clear" />
-                    <div class="hblock_title_perdio" style="">
-                        @ViewBag.NombreConsultora, PRUEBA LAS VENTAJAS DE COMPRAR OFERTAS PERSONALIZADAS
-                    </div>
-                </div>
-            }
-            else
-            {
-                <div id="orderby-filter">
-                    <div id="divBusquedaFiltros" class="rd-busqueda-filtros">
-                        <div class="titulo_pagina">OFERTAS ÉSIKA PARA MÍ</div>
-                        <hr class="clear" />
-                        <div class="rd-seccion2">
-                            <div id="divFiltros" class="rd-filtros">
-                                @if (Model.FiltersByBrand.Any())
-                                {
-                                    <select class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="marca">
-                                        @foreach (var item in Model.FiltersByBrand)
-                                        {
-                                            <option value="@item.Codigo">@item.Descripcion</option>
-                                        }
-                                    </select>
-                                }
-                                @if (Model.FiltersBySorting.Any())
-                                {
-                                    <select class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="precio" data-filtro-accion="orden">
-                                        @foreach (var item1 in Model.FiltersBySorting)
-                                        {
-                                            <option value="@item1.Codigo">@item1.Descripcion</option>
-                                        }
-                                    </select>
-                                }
+        @if (ViewBag.TieneProductosPerdio == false)
+        {       
+            <div id="orderby-filter" style="padding: 0px 2%;">
+                <div id="divBusquedaFiltros" class="rd-busqueda-filtros">
+                    <div class="rd-seccion2" style=" padding: 0px 0%; height:auto;">
+                        
 
+                        <div id="divCantProductos" class="cantidad_productos_fix cantidad_productos_fav" style="text-align:left;">
+                            <div class="rd-cantidad">
+                                Mostrando <span id="spnCantidadFiltro">0</span> de <span id="spnCantidadTotal">0</span>
                             </div>
-                            <hr class="clear" />
-                            <div id="divCantProductos" class="cantidad_productos_fav">
-                                <div class="rd-cantidad">
-                                    Mostrando <span id="spnCantidadFiltro">0</span> de <span id="spnCantidadTotal">0</span> productos
-                                </div>
-                                <div class="rd-filtro-limpiar">
-                                    <div id="div-delete-filters" style="display: none; margin-right: 0px;">
-                                        <a href="javascript:;" class="link-ffc_landing" data-filtro-tipo="@idBorrar" style="text-decoration: underline;">Borrar Filtros</a>
-                                    </div>
+                            <div class="rd-filtro-limpiar">
+                                <div id="div-delete-filters" style="display: none; margin-right: 0px;">
+                                    <a href="javascript:;" class="link-ffc_landing" data-filtro-tipo="@idBorrar" style="text-decoration: underline;">Borrar Filtros</a>
                                 </div>
                             </div>
                         </div>
-                        @*<div class="content_buscador_landing">
-                                <input type="text" placeholder="ESCRIBE AQUÍ EL PRODUCTO QUE BUSCAS">
-                                <a class="buscar_landing_ept">BUSCAR</a>
-                            </div>*@
+                        <div id="divFiltros" class="rd-fitlros-fix rd-filtros">
+                            @if (Model.FiltersByBrand.Any())
+                            {
+                                <select class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="marca">
+                                    @foreach (var item in Model.FiltersByBrand)
+                                    {
+                                        <option value="@item.Codigo">@item.Descripcion</option>
+                                    }
+                                </select>
+                            }
+                            @if (Model.FiltersBySorting.Any())
+                            {
+                                <select class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="precio" data-filtro-accion="orden">
+                                    @foreach (var item1 in Model.FiltersBySorting)
+                                    {
+                                        <option value="@item1.Codigo">@item1.Descripcion</option>
+                                    }
+                                </select>
+                            }
+
+                        </div>
+                        <div style="clear:both;"></div>
                     </div>
                 </div>
-            }
-        <hr class="clear" />
-        <div id="RDListado" data-content-item="@Model.CampaniaID">
-            <hr class="clear" />
-            <div id="divOfertaProductos"  style="text-align: center; overflow: hidden;"></div>
+            </div>
+        }
+        <div id="RDListado" data-content-item="@Model.CampaniaID" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding">
+            <div id="divOfertaProductos"  style="text-align: center;"></div>
             <hr class="clear" />
             @if (ViewBag.TieneProductosPerdio)
             {
@@ -91,12 +69,6 @@
                             <span class="hblock_title_perdio">@ViewBag.NombreConsultora, POR SI TE LO PERDISTE</span><br />
                             <span class="hblock_title_perdio2">GANA MÁS CON OFERTAS PARA SUSCRIPTORAS DESDE C-@ViewBag.CampaniaMasDos</span>
                         </div>
-                        @*@if (ViewBag.EstadoSuscripcion != Constantes.EstadoRDSuscripcion.Activo)
-                        {
-                            <div class="btn_diagonal rd_btn_rojo_right" data-estadoregistro0="">
-                                <a href="javascript: RDPageInformativa();">INSCRIBIRME A ÉSIKA PARA MÍ</a>
-                            </div>
-                        }*@
                     </div>
                 </div>
                 <hr class="clear" />
@@ -110,4 +82,39 @@
     <hr class="clear" />
 </div>
 
+<hr class="clear" />
+
+@Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
+
+<div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento" data-popup-main=""></div>
+@Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-verdetalle.cshtml")
+
+<div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_packNuevas"></div>
+@Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-packnueva.cshtml")
+
+@Html.Partial("~/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model.MensajeProductoBloqueado)
+@Html.Partial("~/Views/RevistaDigital/template-mensaje-inscrita.cshtml", (int)ViewBag.CampaniaMasDos)
+
+<div class="flecha_scroll">
+    <a href="javascript:;" title="Flecha Scroll" class="enlace_scroll"></a>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
+        var tipoOrigenPantalla = 1;
+        var urlOfertaCargarProductos = '@Url.Action("RDObtenerProductos", "RevistaDigital")';
+        var urlOfertaDetalleProducto = '@Url.Action("Detalle", "RevistaDigital")';
+        var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital")';
+        var urlTerminosCondicionesRD = '@Model.UrlTerminosCondicionesRD';
+        var urlRevistaDigital = '@Url.Action("Comprar", "RevistaDigital")';
+        var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding';
+        var tipoOrigenEstrategia = 17;
+        var CantidadFilas = @Model.CantidadFilas;
+        var mayormenor = '@Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor';
+        var menormayor = '@Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor';
+        var tieneMasVendidos = 0;
+        var campaniaId = @Model.CampaniaID;
+    </script>
+    @System.Web.Optimization.Scripts.Render("~/bundles/RevistaDigital-Landing")
 }

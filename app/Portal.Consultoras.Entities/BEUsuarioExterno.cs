@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Data;
-using Portal.Consultoras.Common;
 using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities
@@ -86,7 +81,7 @@ namespace Portal.Consultoras.Entities
                 Genero = Convert.ToString(row["Genero"]);
             if (row.HasColumn("Ubicacion"))
                 Ubicacion = Convert.ToString(row["Ubicacion"]);
-            if (row.HasColumn("LinkPerfil") )
+            if (row.HasColumn("LinkPerfil"))
                 LinkPerfil = Convert.ToString(row["LinkPerfil"]);
             if (row.HasColumn("FotoPerfil"))
                 FotoPerfil = Convert.ToString(row["FotoPerfil"]);

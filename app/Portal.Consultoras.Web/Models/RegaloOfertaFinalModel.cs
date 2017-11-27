@@ -25,7 +25,9 @@ namespace Portal.Consultoras.Web.Models
         public double MontoMeta { get; set; }
 
         public string Cuv { get; set; }
- 
+
+        public string TipoRango { get; set; }
+
         public string Descripcion { get; set; }
 
         public string RegaloDescripcion { get; set; }

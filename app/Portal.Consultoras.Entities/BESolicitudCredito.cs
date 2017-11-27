@@ -113,8 +113,7 @@
 
         [DataMember]
         public string TipoNacionalidad { get; set; }
-
-        // Exlusivos para méxico R2155
+        
         [DataMember]
         public string NumeroRFC { get; set; }
 
@@ -153,8 +152,7 @@
 
         [DataMember]
         public string CodigoPostal { get; set; }
-
-        // Para méxico R2155
+        
         [DataMember]
         public string Colonia { get; set; }
 
@@ -269,8 +267,7 @@
         public string DescripcionMeta { get; set; }
 
         #endregion
-
-        //AOB: CODIGO CONSULTORA
+        
         #region  Propiedades: Retorno generacion codigo
 
         [DataMember]
@@ -579,7 +576,7 @@
                         if (row["Estado"] != DBNull.Value)
                             Estado = Convert.ToString(row["Estado"]);
                         break;
-                    //AOB: CODIGO CONSULTORA 
+
                     case "DescripcionRechazo":
                         if (row["DescripcionRechazo"] != DBNull.Value)
                             DescripcionRechazo = Convert.ToString(row["DescripcionRechazo"]);
@@ -596,7 +593,7 @@
                         if (row["Colonia"] != DBNull.Value)
                             Colonia = Convert.ToString(row["Colonia"]);
                         break;
-                
+
                     default:
                         break;
                 }

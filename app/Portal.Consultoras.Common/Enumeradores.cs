@@ -100,7 +100,7 @@
             LugarNivel2 = 6,
             LugarNivel3 = 7,
             LugarNivel4 = 8,
-            LugarNivel5 = 9,          
+            LugarNivel5 = 9,
             PrefijosCelular = 13,
             Validaciones = 14,
             EstadoTelefonico = 15,
@@ -282,6 +282,20 @@
             Ingresado = 1,
             Aprobado = 2,
             Rechazado = 3
+        }
+
+        public enum PantallaOrigenPedidoWeb
+        {
+            Default=0,
+            Home = 1,
+            Pedido = 2,
+            Liquidacion = 3,
+            CatalogoPersonalizado = 4,
+            ShowRoom = 5,
+            OfertaParaTi = 6,
+            RevistaDigital = 7,
+            GuiaNegocioDigital = 8,
+            General = 9
         }
 
     }

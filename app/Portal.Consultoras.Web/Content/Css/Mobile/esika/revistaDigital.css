@@ -934,11 +934,12 @@ div#tab_revistasdigital_mobile {
     position: relative;
 }
 .texto_usuario_ept:before {
+    display:none;
     content: '';
     position: absolute;
     left: -19px;
     top: 0;
-    z-index: 102;
+    z-index: 9;
     height: 0;
     border-style: solid;
     border-width: 0 0 100px 20px;
@@ -947,7 +948,7 @@ div#tab_revistasdigital_mobile {
 .content_carrusel_landing{
     width:80%;
     margin: 0 auto;
-    padding-top:30px;
+    padding-top:10px;
     padding-bottom:20px;
 }
 
@@ -972,7 +973,7 @@ div#tab_revistasdigital_mobile {
     padding-left: 8%;
     padding-right: 8%;
     font-family: 'Lato';
-    font-size: 14px;
+    font-size: 13px;
     color: #FF1534;
 }
 .detalle_set_banner_ept{
@@ -1203,6 +1204,10 @@ height: 100%;
     top: 35%;
 }
 
+.btn-ofertas-margen-fix {
+    margin-top: 10px;
+}
+
 @media (max-width : 800px) {
     .js-slick-prev {
         padding-right: 10px;
@@ -1221,11 +1226,11 @@ height: 100%;
 
 @media (max-width : 425px) {
     .div-carousel-rd-prev {
-        left: -13%;
+        left: -9% !important;
     }
 
     .div-carousel-rd-next {
-        right: -13%;
+        right: -9% !important;
     }
 }
 
@@ -1580,6 +1585,7 @@ height: 100%;
     font-weight: 700;
     margin-bottom: 50px;
 }
+
 @media (min-width: 700px) {
     .texto_usuario_ept {
         padding-top: 42px;
@@ -1664,7 +1670,7 @@ height: 100%;
     position: absolute;
     right: -25px;
     top: 0;
-    z-index: 102;
+    z-index: 9;
     width: 0;
     height: 0;
     border-style: solid;
@@ -1722,15 +1728,17 @@ height: 100%;
 
 .content_item_home_bpt {
     background: white;
-    border: 1px solid transparent;
-    /*border: 1px #000000 solid;*/
-    /*-webkit-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
+    border: 1px solid #e7e1e1;
+    -webkit-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
     -moz-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
-    box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);*/
+    box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
     position: relative;
     margin-bottom: 10px;
 }
-
+.box_producto_mobile_fix {
+    margin-left: 4%;
+    margin-right: 4%;
+}
 .producto_img_mobile_bpt {
     height: 125px;
     overflow: hidden;
@@ -1741,6 +1749,7 @@ height: 100%;
 .producto_img_mobile_bpt img {
     width: auto;
     height: 100%;
+    max-width: 100% !important;
 }
 
 .producto_nombre_descripcion_bpt {
@@ -1870,7 +1879,7 @@ height: 100%;
 .btn_red a {
         color: #e81c36;
         text-decoration: none;
-        padding: 15px 25px;
+        padding: 15px;
         border: 1px solid #e81c36;
         font-size: 13px;
         font-weight: 700;

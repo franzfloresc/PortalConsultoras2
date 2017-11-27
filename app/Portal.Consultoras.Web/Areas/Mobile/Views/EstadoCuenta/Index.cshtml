@@ -1,14 +1,15 @@
 ﻿@using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Areas.Mobile.Models
+@using Portal.Consultoras.Web.Helpers
 
 @model EstadoCuentaMobilModel
 @{
-    var layout = Session["IngresoExterno"] == null ? "_MobileLayout" : "_MobileLayoutEmpty";
+    var layout =  ViewContext.MobileLayout();
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
 }
 
 <div class="titulo_mobile">
-    @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel() : (Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+    @{  var mobileConfiguracion = Html.MobileAppConfiguracion();
         if (mobileConfiguracion.MostrarBotonAtras)
         {
             <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
@@ -93,7 +94,7 @@
 @section scripts{
     <script type="text/javascript">
         var urlEnviarCorreo = '@Url.Action("EnviarCorreo", "EstadoCuenta", new { area = "Mobile" })';
-        var esIngresoExterno = '@(Session["IngresoExterno"] == null ? 0 : 1)';
+        var esIngresoExterno = '@(ViewContext.GetUniqueSession("IngresoExterno") == null ? 0 : 1)';
 
         $(document).ready(function () {
             if (esIngresoExterno == '1') $("#listaEstadoCuenta").show();
@@ -128,7 +129,7 @@
                 error: function (data, error) {
                     if (checkTimeout(data)) {
                         CloseLoading();
-                        console.log(data);
+                        console.log(data, error);
                     }
                 }
             });
