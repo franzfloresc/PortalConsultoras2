@@ -1537,6 +1537,8 @@ namespace Portal.Consultoras.Common
         public static class TagCadenaRd
         {
             public const string Nombre = "#NOMBRE";
+            public const string Nombre1 = "#Nombre";
+            public const string Nombre2 = "#nombre";
             public const string CampaniaActual = "#CX";
             public const string CampaniaVer = "#CX1";
             public const string CampaniaSuscripcion = "#CS";
