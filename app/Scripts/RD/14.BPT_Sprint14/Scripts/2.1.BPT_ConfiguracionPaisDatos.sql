@@ -36,25 +36,25 @@ begin
 	BEGIN 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'DBienvenidaInscritaActiva', 
-	'#Nombre, ¡Bienvenida al Club Gana +! Tu nuevo espacio online de ofertas exclusivas', 
+	'#Nombre, ¡Bienvenida al tu nuevo espacio online de ofertas exclusivas', 
 	'Compra packs hechos a tu medida, ¡sin digitar códigos!', 
 	'black', 'Textos de bienvenida para un consultora Inscrita activa')
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'DBienvenidaInscritaNoActiva', 
-	'#Nombre, Disfruta de Club Gana+ tu nuevo espacio online de ofertas exclusivas', 
+	'#Nombre, Disfruta de tu nuevo espacio online de ofertas exclusivas', 
 	'En la siguiente campaña, compra packs hechos a tu medida, ¡sin digitar códigos!', 
 	'black', 'Textos de bienvenida para un consultora Inscrita no activa')
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'DBienvenidaNoInscritaActiva', 
-	'#Nombre, Suscríbete a Gana + Tu nuevo espacio online de ofertas exclusivas', 
+	'#Nombre, Suscríbete a tu nuevo espacio online de ofertas exclusivas', 
 	'Disfruta de packs hechos a tu medida de tus productos favoritos.', 
 	'black', 'Textos de bienvenida para un consultora No Inscrita activa')
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'DBienvenidaNoInscritaNoActiva', 
-	'#Nombre, Suscríbete a Gana + Tu nuevo espacio online de ofertas exclusivas', 
+	'#Nombre, Suscríbete a tu nuevo espacio online de ofertas exclusivas', 
 	'Disfruta de packs hechos a tu medida de tus productos favoritos.', 
 	'black', 'Textos de bienvenida para un consultora No Inscrita No activa')
 	END 
@@ -63,25 +63,25 @@ begin
 	BEGIN 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'MBienvenidaInscritaActiva', 
-	'#Nombre, ¡Bienvenida al Club Gana +! Tu nuevo espacio online de ofertas exclusivas', 
+	'#Nombre, ¡Bienvenida al tu nuevo espacio online de ofertas exclusivas', 
 	'Compra packs hechos a tu medida, ¡sin digitar códigos!', 
 	'black', 'Textos de bienvenida mobile para un consultora Inscrita activa')
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'MBienvenidaInscritaNoActiva', 
-	'#Nombre, Disfruta de Club Gana+ tu nuevo espacio online de ofertas exclusivas', 
+	'#Nombre, Disfruta de tu nuevo espacio online de ofertas exclusivas', 
 	'En la siguiente campaña, compra packs hechos a tu medida, ¡sin digitar códigos!', 
 	'black', 'Textos de bienvenida mobile para un consultora Inscrita activa')
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'MBienvenidaNoInscritaActiva', 
-	'#Nombre, Suscríbete a Gana + Tu nuevo espacio online de ofertas exclusivas', 
+	'#Nombre, Suscríbete a tu nuevo espacio online de ofertas exclusivas', 
 	'Disfruta de packs hechos a tu medida de tus productos favoritos.', 
 	'black', 'Textos de bienvenida mobile para un consultora Inscrita activa')
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'MBienvenidaNoInscritaNoActiva', 
-	'#Nombre, Suscríbete a Gana + Tu nuevo espacio online de ofertas exclusivas', 
+	'#Nombre, Suscríbete a tu nuevo espacio online de ofertas exclusivas', 
 	'Disfruta de packs hechos a tu medida de tus productos favoritos.', 
 	'black', 'Textos de bienvenida mobile para un consultora Inscrita activa')
 	END
