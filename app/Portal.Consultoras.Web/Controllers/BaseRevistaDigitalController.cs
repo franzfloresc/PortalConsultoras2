@@ -19,28 +19,14 @@ namespace Portal.Consultoras.Web.Controllers
             if (!revistaDigital.TieneRDC && !revistaDigital.TieneRDS)
                 return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
 
-            revistaDigital.NumeroContacto = GetConfiguracionManager(String.Format(Constantes.ConfiguracionManager.BelcorpRespondeTEL,  userData.CodigoISO));
-            revistaDigital.NombreConsultora = userData.UsuarioNombre;
-            
-            #region Textos para el flujo Suscripcion
-            var codigo = "";
-            if (revistaDigital.EstadoSuscripcion == Constantes.EstadoRDSuscripcion.SinRegistroDB || revistaDigital.EstadoSuscripcion == Constantes.EstadoRDSuscripcion.NoPopUp)
+            var modelo = new RevistaDigitalInformativoModel
             {
-                codigo = IsMobile() ? Constantes.ConfiguracionPaisDatos.RD.MInformativoNuncaSuscritaNoInteresa : Constantes.ConfiguracionPaisDatos.RD.DInformativoNuncaSuscritaNoInteresa;
-            }
-            else
-            {
-                codigo = IsMobile() 
-                    ? revistaDigital.EsSuscrita ? Constantes.ConfiguracionPaisDatos.RD.MInformativoSuscrita : Constantes.ConfiguracionPaisDatos.RD.MInformativoNoSuscrita
-                    : revistaDigital.EsSuscrita ? Constantes.ConfiguracionPaisDatos.RD.DInformativoSuscrita : Constantes.ConfiguracionPaisDatos.RD.DInformativoNoSuscrita;
-            }
-            var dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo) ?? new ConfiguracionPaisDatosModel();
-            revistaDigital.Titulo = Util.Trim(dato.Valor1);
-            revistaDigital.SubTitulo = Util.Trim(dato.Valor2);
-            revistaDigital.SubTitulo2 = Util.Trim(dato.Valor3);
-            #endregion
-
-            return View("template-informativa", revistaDigital);
+                EsSuscrita = revistaDigital.EsSuscrita,
+                EstadoSuscripcion = revistaDigital.EstadoSuscripcion,
+                Video = GetVideoInformativo()
+            };
+                        
+            return View("template-informativa", modelo);
         }
 
         public ActionResult ViewLanding(int tipo)
@@ -138,6 +124,14 @@ namespace Portal.Consultoras.Web.Controllers
             dato.Valor1 = Util.Trim(dato.Valor1);
             dato.Valor2 = Util.Trim(dato.Valor2);
             return dato;
+        }
+
+        private string GetVideoInformativo()
+        {
+            var dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.InformativoVideo) ?? new ConfiguracionPaisDatosModel();
+            var video = IsMobile() ? Util.Trim(dato.Valor2) : Util.Trim(dato.Valor1);
+
+            return "https://www.youtube.com/embed/" + (video) + "?rel=0&amp;controls=1&amp;modestbranding=0";
         }
 
     }

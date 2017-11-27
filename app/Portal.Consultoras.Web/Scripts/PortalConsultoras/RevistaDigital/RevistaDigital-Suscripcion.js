@@ -128,7 +128,9 @@ function MostrarTerminos() {
 }
 
 function RedireccionarContenedorComprar(origenWeb, codigo) {
-    rdAnalyticsModule.Access(origenWeb);
+    if ($.trim(origenWeb) != "")
+        rdAnalyticsModule.Access(origenWeb);
+    
     codigo = $.trim(codigo);
     window.location = (isMobile() ? "/Mobile" : "") + "/Ofertas" + (codigo != "" ? "#" + codigo : "");
 }

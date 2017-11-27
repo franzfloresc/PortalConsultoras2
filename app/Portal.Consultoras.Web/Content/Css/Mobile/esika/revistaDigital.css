@@ -2078,242 +2078,303 @@ height: 100%;
 
 /* NUEVO LANDING SUSCRIPCION MOBILE */
 
-.show-gana {
+.back-to{
+	 	background: black;
+    color: white;
+    padding: 13.5px 20px;
+    font-size: 11px;
+    letter-spacing: 1px;
+	 }
+	 .back-to img{
+	  	margin-right: 10px;
+	 }
+	 /**/
+	 .pack-a-medida, .sin-codigos, .mejores-ofertas, .gana-mas, .suscribete-gratis{
+	 	    margin: 0 5px;
+	 }
+	 /**/
+	 .video-visual{
+	 	width:100%;
+	 	overflow:hidden;
+	 	background:#2e2e2e;
+	 }
+	 .video-visual .video-container {
+		position:relative;
+		padding-bottom:48%;
+		padding-top:30px;
+		height:0;
+		overflow:hidden;
+	}
+
+	.video-visual .video-container iframe, .video-visual .video-container object, .video-visual .video-container embed {
+		position:absolute;
+		top:0;
+		left:0;
+		width:100%;
+		height:100%;
+	}
+	 .video-visual .videobg {
+		  position: relative;
+		  width: 100%; /* Set video container element width here */
+		  height: 100%; /* Set video container element height here */
+		  overflow: hidden;
+		  background: #111; /* bg color, if video is not high enough */
+		}
+
+		/* horizontally center the video */
+		.video-visual .videobg-width {
+		  position: absolute;
+		  width: 100%; /* Change width value to cover more area*/
+		  height: 100%;
+		  left: -9999px;
+		  right: -9999px;
+		  margin: auto;
+		}
+
+		/* set video aspect ratio and vertically center */
+		.video-visual .videobg-aspect {
+		  position: absolute;
+		  width: 100%;
+		  height: 0;
+		  top: -9999px;
+		  bottom: -9999px;
+		  margin: auto;
+		  padding-bottom: 56.25%; /* 16:9 ratio */
+		  overflow: hidden;
+		  
+		}
+
+		.video-visual .videobg-make-height {
+		  position: absolute;
+		  top: 0; right: 0; bottom: 0; left: 0;
+		}
+
+		.video-visual .videobg-hide-controls {
+		  box-sizing: content-box;
+		  position: relative;
+		  height: 100%;
+		  width: 100%;
+		  /* Vimeo timeline and play button are ~55px high */
+		  padding: 55px 97.7777px; /* 16:9 ratio */
+		  top: -55px; 
+		  left: -97.7777px; /* 16:9 ratio */
+		}
+
+		.video-visual .videobg iframe {
+		  position: absolute;
+		  width: 100%;
+		  height: 100%;
+		  top: 0;
+		  left: 0;
+		  border: 0 none;
+		}
+	 /**/
+	 .bloques-gana-mas{
+
+	 }
+	 .gana-mas{
+	 	background:white;
+	 }
+	 .gana-mas img{
+	 	/*margin-top: 25px !important;
+    margin-bottom: 20px !important;*/
+    margin-top: 30px !important;
+    margin-bottom: 20px !important;
+	 }
+	 .gana-mas span{
+	 	display: block;
+	 	text-align: center;
+	 	font-weight: 700;
+	 	letter-spacing: 0.5px;
+	 	font-size: 13px;
+	 	text-transform: uppercase;
+	 	 margin-bottom: 20px;
+	 	 padding: 0 20px;
+	 }
+	 .pack-a-medida{
+	 	background:#e91b37;
+	 }
+	 .sin-codigos{
+	 	background:#67686a;
+	 }
+	 .mejores-ofertas{
+	 	background:#3a3a3c;
+	 }
+	 .como-funciona{
+	 	background:#f5f5f5;
+	 }
+	 .como-funciona img.arrow{
+	 	display: block !important;
+    margin: auto !important;
+    width: 20px;
+    /* margin: 10px 0 !important; */
+    width: 20px !important;
+    margin-bottom: 10px !important;
+	 }
+	 .como-funciona p.titulo{
+	 	font-size: 15px;
+	 	letter-spacing: 0.5;
+	 	font-weight: 700;
+	 	text-align: center;
+	 	display: block;
+	 	color: 	#e81c36 !important;
+	 	margin-bottom: 30px !important;
+	 }
+	 .como-funciona span.recuerda{
+	 	display: inline-block;
+    text-align: center;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: #e81c36;
+        margin-bottom: 10px;
     width: 100%;
-    height: auto;
-    background-repeat: no-repeat !important;
-    background-size: cover !important;
-    background-position: center center !important;
-}
+	 }
+	 .suscribete-gratis{
+	 	background: white;
+	 }
+	 /**/
+	 .bloques-gana-mas .contenedor-mobile-fix{
+		        padding: 20px;
+        margin-bottom: 5px;
+	 }
+	.bloques-gana-mas .contenedor-mobile-fix > .bloque-texto{
+		width:49%;
+		float:left;
+		padding-right: 1%;
+	}
+	.bloques-gana-mas .contenedor-mobile-fix > .bloque-img{
+		width:49%;
+		float:left;
+		padding-left: 1%;
+		max-height: 128px;
+		display: table;
+	}
+	.bloques-gana-mas .contenedor-mobile-fix > .bloque-img .cnt{
+		display: table-cell;
+		vertical-align: middle;
+	}
+	.bloques-gana-mas .contenedor-mobile-fix .clear{
+		clear:both;
+	}
+	.bloques-gana-mas .contenedor-mobile-fix p.titulo{
+		display: block;
+		letter-spacing: 0.5px;
+		font-size: 15px;
+		font-weight: 700;
+		margin:0 0 5pt 0;
+		color:white;
+	}
+	.bloques-gana-mas .contenedor-mobile-fix span.texto{
+		display: block;
+		text-align: left;
+		font-size: 13px;
+		letter-spacing: 0.5px;
+		color:white;
+		font-weight: 300;
+	}
+	.bloques-gana-mas .contenedor-mobile-fix span.nro{
+		float: left;
+    width: 15%;
+    font-weight: 700;
+    text-align: left;
+    font-size: 21px;
 
-    .show-gana::before {
-        background: black;
-        content: "";
-    }
-
-    .show-gana .contenedor {
-        padding: 20pt;
-    }
-
-        .show-gana .contenedor .img-descriptiva {
-            width: 50%;
-            float: left;
-        }
-
-            .show-gana .contenedor .img-descriptiva img {
-                width: 200px;
-                /* display: block; */
-                /* height: 130px; */
-                display: block;
-                margin: auto;
-            }
-
-        .show-gana .contenedor .txt-descriptivo {
-            display: block;
-            text-align: center;
-            display: block;
-            margin: auto;
-            margin-top: 20pt;
-            color: white;
-            font-size: 13px;
-            letter-spacing: 1px;
-            width: 187px;
-            width: 50%;
-            float: left;
-        }
-
-        .show-gana .contenedor .texto-descriptivo > div {
-            display: table-cell;
-            vertical-align: middle;
-            height: 200px;
-        }
-
-        .show-gana .contenedor .clear {
-            clear: both;
-        }
-
-        .show-gana .contenedor .texto-descriptivo {
-            display: table;
-            height: 200px;
-            width: 40%;
-        }
-
-            .show-gana .contenedor .texto-descriptivo p {
-                color: white;
-                text-align: left;
-            }
-
-                .show-gana .contenedor .texto-descriptivo p.nombre {
-                    letter-spacing: 0.5px;
-                    font-size: 11px;
-                    display: block;
-                    margin-bottom: 0px;
-                    text-align: left;
-                    margin-top: 0;
-                    width: initial;
-                    position: initial;
-                    float: initial;
-                    padding:0;
-                    background:none;
-                }
-
-                .show-gana .contenedor .texto-descriptivo p.gana-mas {
-                    display: block;
-                    text-align: left;
-                    letter-spacing: 1px;
-                    font-size: 25px;
-                    margin-bottom: 0;
-                    margin-top: 0;
-                    font-weight: 900;
-                    margin-bottom: 2px;
-                }
-
-            .show-gana .contenedor .texto-descriptivo span.txt-descriptivo {
-                letter-spacing: 1px;
-                margin-top: 0px;
-                color: white;
-                font-size: 13px;
-                display: block;
-                text-align: left;
-                width: 100%;
-                line-height: 16px;
-            }
-
-.que-ofrecemos {
-    padding: 20pt;
-}
-
-    .que-ofrecemos p.titulo-ofrece {
-        letter-spacing: 1px;
-        text-align: center;
-        display: block;
-        font-weight: 900;
-        margin-bottom: 20pt;
-        color: #e81c36;
-        font-size: 13px;
-        margin-top: 0px;
-    }
-
-    .que-ofrecemos .ofrece-bloque {
-        margin-bottom: 10pt;
-    }
-
-        .que-ofrecemos .ofrece-bloque .icono {
-            float: left;
-            width: 13%;
-            display: table;
-            height: 36.66px;
-        }
-
-            .que-ofrecemos .ofrece-bloque .icono .img {
-                display: table-cell;
-                vertical-align: middle;
-                text-align: center;
-            }
-
-            .que-ofrecemos .ofrece-bloque .icono img {
-                width: 34px;
-            }
-
-        .que-ofrecemos .ofrece-bloque .texto {
-            float: left;
-            width: 82%;
-            margin-left: 5%;
-        }
-
-            .que-ofrecemos .ofrece-bloque .texto p.titulo {
-                display: block;
-                margin-top: 0px;
-                font-weight: 900;
-                text-align: left;
-                letter-spacing: 1px;
-                margin-bottom: 5pt;
-            }
-
-            .que-ofrecemos .ofrece-bloque .texto span.txt-descriptivo {
-                display: block;
-                word-wrap: break-word;
-                text-align: left;
-                letter-spacing: 0.5px;
-                font-size: 11px;
-            }
-
-        .que-ofrecemos .ofrece-bloque .clear {
-            clear: both;
-        }
-
-.como-funciona {
-    padding: 20pt;
-    background: #f5f5f5;
-}
-
-    .como-funciona p.titulo-ofrece {
-        letter-spacing: 1px;
-        text-align: center;
-        display: block;
-        font-weight: 900;
-        margin-bottom: 20pt;
-        color: #e81c36;
-        font-size: 13px;
-        margin-top: 0px;
-    }
-
-    .como-funciona .funciona-asi {
-        width: 44%;
-        float: left;
-        letter-spacing: 0.5px;
-        font-size: 11px;
-        padding: 0 3%;
-    }
-
-    .como-funciona .clear {
-        clear: both;
-    }
-
-    .como-funciona img {
-        width: 120px;
-        margin: auto;
-        display: block;
-        margin-top: 20pt;
-    }
-
-.suscribete-gratis {
-    padding: 20pt;
-}
-
-    .suscribete-gratis p.titulo-ofrece {
-        letter-spacing: 1px;
-        text-align: center;
-        display: block;
-        font-weight: 900;
-        margin-bottom: 20pt;
-        color: #e81c36;
-        font-size: 13px;
-        margin-top: 0px;
-    }
-
-    .suscribete-gratis .info {
-        display: block;
-        text-align: center;
-        letter-spacing: 1px;
-        font-size: 13px;
-        margin-bottom: 20pt;
-    }
-
-    .suscribete-gratis a.callto {
-        background: #e81c36;
-        color: white;
-        text-align: center;
-        max-width: 280px;
-        display: block;
-        font-size: 13px;
-        text-decoration: none;
-        padding: 12px 0px;
-        letter-spacing: 1px;
-        margin: auto;
-        font-size: 13px;
-        box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.30);
-    }
+	}
+	.bloques-gana-mas .contenedor-mobile-fix span.txt{
+		    float: left;
+    width: 83%;
+    letter-spacing: 0.5px;
+    text-align: left;
+        margin-bottom: 30px;
+    font-size: 13px;
+    padding-left: 2%;
+	}
+	.bloques-gana-mas .contenedor-mobile-fix .instrucciones{
+		color:black !important;
+		text-align: left !important;
+		font-weight: normal;
+		font-size: 13px !important;
+	}
+	.bloques-gana-mas .contenedor-mobile-fix img{
+		    width: 135px;
+    display: block;
+    margin: auto;
+	}
+	.bloques-gana-mas .contenedor-mobile-fix .mobil-nro-funciona2{
+		display: none;
+	}
+	.suscribete-gratis a.btn-suscribete{
+		 background: #e81c36;
+    color: white;
+    font-weight: 600;
+    text-decoration: none;
+    width: 100%;
+    display: block;
+    text-align: center;
+    padding: 20px 0px;
+    text-transform: uppercase;
+    margin: 30px 0px;
+    font-size: 13px;
+    letter-spacing: 1px;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.30);
+	}
+	.suscribete-gratis a.terminos{
+		display: block;
+    text-align: center;
+    color: black;
+    margin-bottom: 20px;
+    font-size: 13px;
+    font-weight: bold;
+	}
+	.suscribete-gratis p.txt-deseas-cancelar{
+	 	color: #e81c36;
+    font-weight: 700;
+    letter-spacing: 0.5px !important;
+    text-transform: uppercase;
+    margin-left: -8px;
+    display: block;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 700;
+	 }
+	 .suscribete-gratis span.deseas-cancelar {
+    display: block;
+    text-align: center;
+    padding: 0 20px;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    margin-top: 20px;
+	}
+	/**/
+	@media (max-width: 767px) {
+		.bloques-gana-mas .contenedor-mobile-fix img{
+		    width: 120px;
+	    display: block;
+	    margin: auto;
+		}
+		
+	}
+	@media (max-width: 533px) {
+		.bloques-gana-mas .contenedor-mobile-fix > .bloque-img {
+		    
+		    min-height: 80px;
+		}
+		.bloques-gana-mas .contenedor-mobile-fix > .tips-info{
+			min-height: 112px;
+		}
+		.bloques-gana-mas .contenedor-mobile-fix > .sin-codigos{
+			min-height: 100px;
+		}
+		.bloques-gana-mas .contenedor-mobile-fix > .img-pack{
+			min-height: 88px;
+		}
+		.bloques-gana-mas .contenedor-mobile-fix .mobil-nro-funciona{
+			display: none !important;
+		}
+		.bloques-gana-mas .contenedor-mobile-fix .mobil-nro-funciona2{
+			display: initial !important;
+		}
+	}
 
 @media (max-width: 1200px) {
     .que-ofrecemos .ofrece-bloque .icono img {

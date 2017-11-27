@@ -594,6 +594,7 @@
     <Compile Include="Models\ResponseGeoCoDtoTemp.cs" />
     <Compile Include="Models\ResumenCampaniaModel.cs" />
     <Compile Include="Models\RevistaDigitalLandingModel.cs" />
+    <Compile Include="Models\RevistaDigitalInformativoModel.cs" />
     <Compile Include="Models\RevistaDigitalModel.cs" />
     <Compile Include="Models\RevistaDigitalSuscripcionModel.cs" />
     <Compile Include="Models\RolModel.cs" />
@@ -1268,6 +1269,7 @@
     <Content Include="Content\Images\carrito-hover.png" />
     <Content Include="Content\Images\carrito.png" />
     <Content Include="Content\Images\close-icon.svg" />
+    <Content Include="Content\Images\consejos-y-tips-visual.png" />
     <Content Include="Content\Images\Esika\Contenedor\fondo-seccion-descarga-imprime.jpg" />
     <Content Include="Content\Images\Esika\Contenedor\icono-descarga-e-imprime-hover.svg" />
     <Content Include="Content\Images\Esika\Contenedor\icono-descarga-e-imprime.svg" />
@@ -1283,6 +1285,7 @@
     <Content Include="Content\Images\Lbel\Contenedor\inicio_normal.svg" />
     <Content Include="Content\Images\Lbel\Contenedor\papel-de-regalo.png" />
     <Content Include="Content\Images\Lbel\Contenedor\tarjetas-navidenias.png" />
+    <Content Include="Content\Images\logotipo-club-ganamas-rojo.svg" />
     <Content Include="Content\Images\marquesina-landing.jpg" />
     <Content Include="Content\Images\check-acepto-terminos.png" />
     <Content Include="Content\Images\Esika\bg_regalo.png" />
@@ -2898,6 +2901,8 @@
     <Content Include="Content\Images\new_email.png" />
     <Content Include="Content\Images\next_slide_a.png" />
     <Content Include="Content\Images\next_slide_ahover.png" />
+    <Content Include="Content\Images\no-mas-codigo-visual-desktop.png" />
+    <Content Include="Content\Images\no-mas-codigo-visual.png" />
     <Content Include="Content\Images\NoImage.png" />
     <Content Include="Content\Images\NoRevista.png" />
     <Content Include="Content\Images\NotAllowed.png" />
@@ -2916,6 +2921,8 @@
     <Content Include="Content\Images\paypal_error.png" />
     <Content Include="Content\Images\paypal_exito.png" />
     <Content Include="Content\Images\paypal_tarjetas.png" />
+    <Content Include="Content\Images\personalizacion-visual-desktop.gif" />
+    <Content Include="Content\Images\personalizacion-visual-mobile.gif" />
     <Content Include="Content\Images\PE_2014813641_01_pibfepfhqu.jpg" />
     <Content Include="Content\Images\PL20\agenda.png" />
     <Content Include="Content\Images\PL20\agenda_lbel.jpg" />
@@ -3003,6 +3010,7 @@
     <Content Include="Content\Images\RevistaDigital\cerrar_04_blanco.png" />
     <Content Include="Content\Images\RevistaDigital\bg_ficha_kadia.jpg" />
     <Content Include="Content\Images\RevistaDigital\celular_revista.png" />
+    <Content Include="Content\Images\RevistaDigital\consejos-y-tips-visual.png" />
     <Content Include="Content\Images\RevistaDigital\esika-para-mi-blanco.svg" />
     <Content Include="Content\Images\RevistaDigital\esika-para-mi-blanco2.svg" />
     <Content Include="Content\Images\RevistaDigital\exclamacion_blanco.png" />
@@ -3037,11 +3045,14 @@
     <Content Include="Content\Images\RevistaDigital\mpopup_inscripcion.png" />
     <Content Include="Content\Images\RevistaDigital\next.png" />
     <Content Include="Content\Images\RevistaDigital\next_mob.png" />
+    <Content Include="Content\Images\RevistaDigital\no-mas-codigo-visual-desktop.png" />
+    <Content Include="Content\Images\RevistaDigital\no-mas-codigo-visual.png" />
     <Content Include="Content\Images\RevistaDigital\nuevo.png" />
     <Content Include="Content\Images\RevistaDigital\offer-suscription-icon.svg" />
     <Content Include="Content\Images\RevistaDigital\ojos.svg" />
     <Content Include="Content\Images\RevistaDigital\ojos_BLANCO.svg" />
     <Content Include="Content\Images\RevistaDigital\ojos_negro.svg" />
+    <Content Include="Content\Images\RevistaDigital\personalizacion-visual-desktop.gif" />
     <Content Include="Content\Images\RevistaDigital\plantilla1.jpg" />
     <Content Include="Content\Images\RevistaDigital\plantilla1.png" />
     <Content Include="Content\Images\RevistaDigital\plantilla2.png" />
@@ -3065,10 +3076,12 @@
     <Content Include="Content\Images\RevistaDigital\revista_izquierda.png" />
     <Content Include="Content\Images\RevistaDigital\shoppingcard_blanco.svg" />
     <Content Include="Content\Images\RevistaDigital\speed-suscription-icon.svg" />
+    <Content Include="Content\Images\RevistaDigital\tips-y-consejos-visual.png" />
     <Content Include="Content\Images\RevistaDigital\triangle.png" />
     <Content Include="Content\Images\RevistaDigital\Vector.png" />
     <Content Include="Content\Images\RevistaDigital\VectorUP.png" />
     <Content Include="Content\Images\RevistaDigital\visualo.png" />
+    <Content Include="Content\Images\RevistaDigital\visual_de_funcionamiento.png" />
     <Content Include="Content\Images\revista_no_disponible.jpg" />
     <Content Include="Content\Images\sac.png" />
     <Content Include="Content\Images\scotiabank.png" />
@@ -3159,6 +3172,7 @@
     <Content Include="Content\Images\trash.png" />
     <Content Include="Content\Images\trash_e.png" />
     <Content Include="Content\Images\triangle.png" />
+    <Content Include="Content\Images\Triangle.svg" />
     <Content Include="Content\Images\turn_left.png" />
     <Content Include="Content\Images\Undo.png" />
     <Content Include="Content\Images\unificado_lb_es.png" />
@@ -3170,6 +3184,7 @@
     <Content Include="Content\Images\vista_footer.png" />
     <Content Include="Content\Images\vista_header.png" />
     <Content Include="Content\Images\visualo.png" />
+    <Content Include="Content\Images\visual_de_funcionamiento.png" />
     <Content Include="Content\Images\webtracking\box.png" />
     <Content Include="Content\Images\webtracking\boxGrande.png" />
     <Content Include="Content\Images\webtracking\busqueda.png" />

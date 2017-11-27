@@ -339,6 +339,7 @@ namespace Portal.Consultoras.Common
             public const string CarpetaImagenCompartirCatalogo = "CarpetaImagenCompartirCatalogo";
             public const string NombreImagenCompartirCatalogo = "NombreImagenCompartirCatalogo";
 
+            public const string CarpetaRevistaDigital = "CarpetaRevistaDigital";
             public const string URL_S3 = "URL_S3";
             public const string ROOT_DIRECTORY = "ROOT_DIRECTORY";
             public const string ServiceController="ServiceController";
@@ -1081,12 +1082,14 @@ namespace Portal.Consultoras.Common
                 #endregion
 
                 #region Landing Informativo
-                public const string DInformativoNuncaSuscritaNoInteresa = "DInformativoNuncaSuscritaNoInteresa";
-                public const string DInformativoSuscrita = "DInformativoSuscrita";
-                public const string DInformativoNoSuscrita = "DInformativoNoSuscrita";
-                public const string MInformativoNuncaSuscritaNoInteresa = "MInformativoNuncaSuscritaNoInteresa";
-                public const string MInformativoSuscrita = "MInformativoSuscrita";
-                public const string MInformativoNoSuscrita = "MInformativoNoSuscrita";
+                //public const string DInformativoNuncaSuscritaNoInteresa = "DInformativoNuncaSuscritaNoInteresa";
+                //public const string DInformativoSuscrita = "DInformativoSuscrita";
+                //public const string DInformativoNoSuscrita = "DInformativoNoSuscrita";
+                //public const string MInformativoNuncaSuscritaNoInteresa = "MInformativoNuncaSuscritaNoInteresa";
+                //public const string MInformativoSuscrita = "MInformativoSuscrita";
+                //public const string MInformativoNoSuscrita = "MInformativoNoSuscrita";
+
+                public const string InformativoVideo = "InformativoVideo";
                 #endregion
             }
 
