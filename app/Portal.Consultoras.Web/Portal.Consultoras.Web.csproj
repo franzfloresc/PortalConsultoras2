@@ -1268,6 +1268,7 @@
     <Content Include="Content\Images\carrito-hover.png" />
     <Content Include="Content\Images\carrito.png" />
     <Content Include="Content\Images\close-icon.svg" />
+    <Content Include="Content\Images\consejos-y-tips-visual.png" />
     <Content Include="Content\Images\Esika\Contenedor\fondo-seccion-descarga-imprime.jpg" />
     <Content Include="Content\Images\Esika\Contenedor\icono-descarga-e-imprime-hover.svg" />
     <Content Include="Content\Images\Esika\Contenedor\icono-descarga-e-imprime.svg" />
@@ -1283,6 +1284,7 @@
     <Content Include="Content\Images\Lbel\Contenedor\inicio_normal.svg" />
     <Content Include="Content\Images\Lbel\Contenedor\papel-de-regalo.png" />
     <Content Include="Content\Images\Lbel\Contenedor\tarjetas-navidenias.png" />
+    <Content Include="Content\Images\logotipo-club-ganamas-rojo.svg" />
     <Content Include="Content\Images\marquesina-landing.jpg" />
     <Content Include="Content\Images\check-acepto-terminos.png" />
     <Content Include="Content\Images\Esika\bg_regalo.png" />
@@ -2898,6 +2900,8 @@
     <Content Include="Content\Images\new_email.png" />
     <Content Include="Content\Images\next_slide_a.png" />
     <Content Include="Content\Images\next_slide_ahover.png" />
+    <Content Include="Content\Images\no-mas-codigo-visual-desktop.png" />
+    <Content Include="Content\Images\no-mas-codigo-visual.png" />
     <Content Include="Content\Images\NoImage.png" />
     <Content Include="Content\Images\NoRevista.png" />
     <Content Include="Content\Images\NotAllowed.png" />
@@ -2916,6 +2920,8 @@
     <Content Include="Content\Images\paypal_error.png" />
     <Content Include="Content\Images\paypal_exito.png" />
     <Content Include="Content\Images\paypal_tarjetas.png" />
+    <Content Include="Content\Images\personalizacion-visual-desktop.gif" />
+    <Content Include="Content\Images\personalizacion-visual-mobile.gif" />
     <Content Include="Content\Images\PE_2014813641_01_pibfepfhqu.jpg" />
     <Content Include="Content\Images\PL20\agenda.png" />
     <Content Include="Content\Images\PL20\agenda_lbel.jpg" />
@@ -3170,6 +3176,7 @@
     <Content Include="Content\Images\vista_footer.png" />
     <Content Include="Content\Images\vista_header.png" />
     <Content Include="Content\Images\visualo.png" />
+    <Content Include="Content\Images\visual_de_funcionamiento.png" />
     <Content Include="Content\Images\webtracking\box.png" />
     <Content Include="Content\Images\webtracking\boxGrande.png" />
     <Content Include="Content\Images\webtracking\busqueda.png" />
