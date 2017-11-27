@@ -2152,8 +2152,14 @@
 .home_block_rd .rd_logo {
     width: 260px;
     height: 120px;
-    padding-top: 15px;
 }
+
+.home_block_rd .rd_logo img.large{
+    width: 160px;
+    margin-top: 30px;
+    margin-left: -20px;
+}
+
 .home_block_rd .rd_logo:after {
     border-left: 30px solid transparent;
     border-right: 0px solid transparent;
@@ -2169,6 +2175,7 @@
     font-weight: 100;
     padding-top: 24px;
     line-height: 24px;
+    text-transform: uppercase;
 }
 .hblock_tit {
     font-size: 14px;
@@ -2233,7 +2240,7 @@
 .cabecera_pedido_rd .rd_logo {
     width: 120px;
     height: 85px;
-    padding-top: 20px;
+    text-transform: uppercase;
 }
 
 .cabecera_pedido_rd .rd_logo:after {
@@ -2242,15 +2249,22 @@
     border-bottom: 85px solid #000;
 }
 
+.cabecera_pedido_rd .rd_logo img.small {
+    width: 90px;
+    margin-top: 25px;
+    margin-left: -15px;
+}
 .cabecera_pedido_text {
     color: white;
     position: absolute;
-    top: 25px;
+    top: 15px;
     left: 40%;
     font-weight: 700;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
     line-height: 18px;
     font-size: 14px;
+    text-transform: uppercase;
+    padding-right: 10px;
 }
 
 .banner_pedido_masofertas {
@@ -2261,7 +2275,7 @@
 .banner_pedido_text {
     font-size: 16px;
     line-height: 20px;
-    margin-bottom: 70px;
+    margin-bottom: 40px;
     text-transform: uppercase;
 }
 
@@ -2327,7 +2341,7 @@
         background: white;
         width: 240px;
         position: absolute;
-        top: 43px;
+        top: 37px;
         right: 30px;
     }
 

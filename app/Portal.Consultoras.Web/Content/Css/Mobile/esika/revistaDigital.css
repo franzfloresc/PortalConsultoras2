@@ -1838,27 +1838,34 @@ height: 100%;
 }
 
 .cabecera_pedido_rd .rd_logo {
-        width: 120px;
-        height: 85px;
-        padding-top: 20px;
+    width: 120px;
+    height: 85px;
+    text-transform: uppercase;
 }
 
 .cabecera_pedido_rd .rd_logo:after {
-            border-left: 20px solid transparent;
-            border-right: 0px solid transparent;
-            border-bottom: 85px solid #000;
+    border-left: 20px solid transparent;
+    border-right: 0px solid transparent;
+    border-bottom: 85px solid #000;
 }
 
+.cabecera_pedido_rd .rd_logo img.small {
+    width: 80px;
+    margin-top: 22px;
+    margin-left: -20px;
+}
 .cabecera_pedido_text {
     color: white;
     position: absolute;
-    top: 18px;
+    top: 13px;
     left: 130px;
     font-weight: 700;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
     line-height: 18px;
     font-size: 13px;
     text-align: left;
+    text-transform: uppercase;
+    padding-right: 8px;
 }
 
 .banner_pedido_masofertas {
@@ -1984,6 +1991,7 @@ height: 100%;
     color: white;
     padding: 20px;
     text-align: center;
+    text-transform: uppercase;
 }
 .mob_carrusel_bpt {
     background-color: #F2EEF0;

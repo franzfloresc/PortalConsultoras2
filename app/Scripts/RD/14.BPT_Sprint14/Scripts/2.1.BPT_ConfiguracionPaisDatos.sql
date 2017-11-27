@@ -36,14 +36,14 @@ begin
 	BEGIN 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'DBienvenidaInscritaActiva', 
-	'#Nombre, ¡Bienvenida al tu nuevo espacio online de ofertas exclusivas', 
-	'Compra packs hechos a tu medida, ¡sin digitar códigos!', 
+	'#Nombre ¡Bienvenida al tu nuevo espacio online de ofertas exclusivas!', 
+	'Compra packs hechos a tu medida <br/>¡sin digitar códigos!', 
 	'black', 'Textos de bienvenida para un consultora Inscrita activa')
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'DBienvenidaInscritaNoActiva', 
 	'#Nombre, Disfruta de tu nuevo espacio online de ofertas exclusivas', 
-	'En la siguiente campaña, compra packs hechos a tu medida, ¡sin digitar códigos!', 
+	'En la siguiente campaña, compra packs hechos a tu medida <br/>¡sin digitar códigos!', 
 	'black', 'Textos de bienvenida para un consultora Inscrita no activa')
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Valor3, Descripcion)
