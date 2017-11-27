@@ -131,7 +131,9 @@ namespace Portal.Consultoras.Web.Controllers
             var dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.InformativoVideo) ?? new ConfiguracionPaisDatosModel();
             var video = IsMobile() ? Util.Trim(dato.Valor2) : Util.Trim(dato.Valor1);
 
-            return "https://www.youtube.com/embed/" + (video) + "?rel=0&amp;controls=1&amp;modestbranding=0";
+            video = video != "" ? "https://www.youtube.com/embed/" + (video) + "?rel=0&amp;controls=1&amp;modestbranding=0" : "";
+
+            return video;
         }
 
     }

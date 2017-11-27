@@ -13,13 +13,14 @@
 <div class="back-to" onClick="RedireccionarContenedorComprar()">
     <img src="@Url.Content("~/Content/Images/triangle.png")" alt="">VOLVER
 </div>
-<div class="video-visual">
-    <a href="@Url.Action("Index", "Ofertas")">
+@if (Model.Video != "")
+{
+    <div class="video-visual">
         <div class="video-container">
             <iframe src="@Model.Video" frameborder="0" allowfullscreen></iframe>
         </div>
-    </a>
-</div>
+    </div>
+}
 <div class="gana-mas">
     <div class="contenedor-suscripcion" style="text-align: center;">
         <img src="@Url.Content("~/Content/Images/logotipo-club-ganamas-rojo.svg")" alt="" class="logo">

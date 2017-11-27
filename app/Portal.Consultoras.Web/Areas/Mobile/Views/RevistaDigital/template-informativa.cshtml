@@ -15,11 +15,14 @@
 <div class="back-to" onClick="RedireccionarContenedorComprar()">
     <img src="@Url.Content("~/Content/Images/triangle.png")" alt="">VOLVER
 </div>
-<div class="video-visual" id="video_visual">
-    <div class="video-container">
-        <iframe src="@Model.Video" frameborder="0" allowfullscreen></iframe>
+@if (Model.Video != "")
+{
+    <div class="video-visual">
+        <div class="video-container">
+            <iframe src="@Model.Video" frameborder="0" allowfullscreen></iframe>
+        </div>
     </div>
-</div>
+}
 <div class="bloques-gana-mas gana-mas">
     <div class="contenedor-mobile-fix" style="padding: 0;">
         <img src="@Url.Content("~/Content/Images/logotipo-club-ganamas-rojo.svg")" alt="">
