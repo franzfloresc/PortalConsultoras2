@@ -594,6 +594,7 @@
     <Compile Include="Models\ResponseGeoCoDtoTemp.cs" />
     <Compile Include="Models\ResumenCampaniaModel.cs" />
     <Compile Include="Models\RevistaDigitalLandingModel.cs" />
+    <Compile Include="Models\RevistaDigitalInformativoModel.cs" />
     <Compile Include="Models\RevistaDigitalModel.cs" />
     <Compile Include="Models\RevistaDigitalSuscripcionModel.cs" />
     <Compile Include="Models\RolModel.cs" />
@@ -3165,6 +3166,7 @@
     <Content Include="Content\Images\trash.png" />
     <Content Include="Content\Images\trash_e.png" />
     <Content Include="Content\Images\triangle.png" />
+    <Content Include="Content\Images\Triangle.svg" />
     <Content Include="Content\Images\turn_left.png" />
     <Content Include="Content\Images\Undo.png" />
     <Content Include="Content\Images\unificado_lb_es.png" />

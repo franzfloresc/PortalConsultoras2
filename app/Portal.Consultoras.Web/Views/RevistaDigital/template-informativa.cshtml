@@ -1,7 +1,7 @@
 ﻿@using System.Configuration
 @using Portal.Consultoras.Common
 
-@model Portal.Consultoras.Web.Models.RevistaDigitalModel
+@model Portal.Consultoras.Web.Models.RevistaDigitalInformativoModel
 @{
     ViewBag.Title = "ÉSIKA PARA MÍ";
     Layout = ViewBag.TipoLayout == "2" ? "~/Views/Shared/_MainLayout.cshtml" : "~/Views/Shared/_MainLayoutContenedor.cshtml";
@@ -10,13 +10,13 @@
     @System.Web.Optimization.Styles.Render("~/bundles/css/Site/RevistaDigital-Info")
 }
 
-<div class="back-to">
+<div class="back-to" onClick="RedireccionarContenedorComprar()">
     <img src="@Url.Content("~/Content/Images/triangle.png")" alt="">VOLVER
 </div>
 <div class="video-visual">
     <a href="@Url.Action("Index", "Ofertas")">
         <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/PvAWRQUKHqg?rel=0&amp;controls=1&amp;modestbranding=0" frameborder="0" allowfullscreen></iframe>
+            <iframe src="@Model.Video" frameborder="0" allowfullscreen></iframe>
         </div>
     </a>
 </div>
@@ -76,7 +76,7 @@
 </div>
 <div class="como-funciona">
     <div class="contenedor-suscripcion">
-        <img src="img/Triangle.svg" alt="" class="arrow-down">
+        <img src="@Url.Content("~/Content/Images/Triangle.svg")" alt="" class="arrow-down">
         <p class="como-funciona-txt">
             ¿CÓMO FUNCIONA?
         </p>
@@ -98,9 +98,9 @@
             <div class="clear"></div>
             @if (Model.EsSuscrita)
             {
-            <span class="txt recuerda-txt">
-                RECUERDA QUE PUEDES CANCELAR TU SUSCRIPCIÓN CUANDO QUIERAS.
-            </span>
+                <span class="txt recuerda-txt">
+                    RECUERDA QUE PUEDES CANCELAR TU SUSCRIPCIÓN CUANDO QUIERAS.
+                </span>
              }
         </div>
         <div class="caja-img">
