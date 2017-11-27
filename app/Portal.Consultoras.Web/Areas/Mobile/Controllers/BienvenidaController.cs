@@ -79,7 +79,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.TieneMasVendidos = userData.TieneMasVendidos;
                 model.TieneAsesoraOnline = userData.TieneAsesoraOnline;
                 model.ActivacionAppCatalogoWhastUp = ObtenerActivacionAppCatalogoWhastUp();
-                model.CampaniaMasDos = AddCampaniaAndNumero(Convert.ToInt32(model.NumeroCampania), 2);
+                model.CampaniaMasDos = AddCampaniaAndNumero(userData.CampaniaID, 2) % 100;
                 model.ShowRoomMostrarLista = ValidarPermiso(Constantes.MenuCodigo.CatalogoPersonalizado) ? 0 : 1;
 
                 ViewBag.paisISO = userData.CodigoISO;
@@ -105,6 +105,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
 
                 ViewBag.VerSeccion = verSeccion;
+
+                model.TipoPopUpMostrar = ObtenerTipoPopUpMostrar();
             }
             catch (FaultException ex)
             {
@@ -192,7 +194,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 configuracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.ZonaID, userData.RegionID);
             }
 
-            return configuracionCampania;
+            return configuracionCampania ?? new BEConfiguracionCampania();
         }
 
         private string ObtenerFechaVencimiento()
@@ -231,8 +233,44 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         private string ObtenerNombreConsultoraFav()
         {
             var nombreConsultoraFAV = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
-            nombreConsultoraFAV = nombreConsultoraFAV.First().ToString().ToUpper() + nombreConsultoraFAV.ToLower().Substring(1);
+            nombreConsultoraFAV = Util.SubStr(nombreConsultoraFAV, 0, 1).ToUpper() + Util.SubStr(nombreConsultoraFAV.ToLower(), 1);
             return nombreConsultoraFAV;
+        }
+
+        private int ObtenerTipoPopUpMostrar()
+        {
+            var TipoPopUpMostrar = 0;
+            if (Session[Constantes.ConstSession.TipoPopUpMostrar] != null)
+            {
+                TipoPopUpMostrar = Convert.ToInt32(Session[Constantes.ConstSession.TipoPopUpMostrar]);
+
+                if (TipoPopUpMostrar == Constantes.TipoPopUp.RevistaDigitalSuscripcion && revistaDigital.NoVolverMostrar)
+                    TipoPopUpMostrar = 0;
+
+                return TipoPopUpMostrar;
+            }
+
+            // debe tener la misma logica que desktop
+
+            #region Revista Digital
+            if (!revistaDigital.TieneRDS)
+                return TipoPopUpMostrar;
+
+            if (revistaDigital.NoVolverMostrar)
+                return TipoPopUpMostrar;
+
+            if (revistaDigital.EsSuscrita)
+                return TipoPopUpMostrar;
+
+            if (revistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.NoPopUp)
+                return TipoPopUpMostrar;
+
+            TipoPopUpMostrar = Constantes.TipoPopUp.RevistaDigitalSuscripcion;
+            #endregion
+
+            Session[Constantes.ConstSession.TipoPopUpMostrar] = TipoPopUpMostrar;
+
+            return TipoPopUpMostrar;
         }
 
         [HttpPost]
