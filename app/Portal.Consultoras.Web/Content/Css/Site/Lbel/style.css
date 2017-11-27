@@ -37678,8 +37678,8 @@ h1#penmostreo .campana {
        }
         .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto span.flashit {
             color: white;
-            -webkit-animation: flash linear 1s infinite;
-            animation: flash linear 1s infinite;
+            /*-webkit-animation: flash linear 1s infinite;
+            animation: flash linear 1s infinite;*/
         }
         @-webkit-keyframes flash {
   0% { opacity: 1; }
