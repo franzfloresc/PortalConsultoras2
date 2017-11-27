@@ -1295,9 +1295,13 @@ namespace Portal.Consultoras.Web.Controllers
                     ca = revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva;
 
                 revistaDigitalModel.CampaniaActiva = Util.SubStr(ca.ToString(), 4, 2);
-
                 revistaDigitalModel.EsActiva = ca == usuarioModel.CampaniaID;
 
+            }
+            else if (revistaDigitalModel.SuscripcionEfectiva.EstadoRegistro == Constantes.EstadoRDSuscripcion.SinRegistroDB)
+            {
+                revistaDigitalModel.CampaniaActiva = "";
+                revistaDigitalModel.EsActiva = false;
             }
             else
             {
