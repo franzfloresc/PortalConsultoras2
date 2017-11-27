@@ -127,12 +127,11 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        public IDataReader SelectProductoToKitInicio(int CampaniaID, string cuv, string CodigoConsultora)
+        public IDataReader SelectProductoToKitInicio(int CampaniaID, string cuv)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.SelectProductoToKitInicio_SB2");
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
             Context.Database.AddInParameter(command, "@cuv", DbType.String, cuv);
-            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String,CodigoConsultora);
 
             return Context.ExecuteReader(command);
         }

@@ -231,9 +231,9 @@ namespace Portal.Consultoras.Service
 
         #endregion
 
-        public IList<BEProducto> SelectProductoToKitInicio(int paisID, int campaniaID, string cuv, string CodigoConsultora)
+        public IList<BEProducto> SelectProductoToKitInicio(int paisID, int campaniaID, string cuv)
         {
-            return BLProducto.SelectProductoToKitInicio(paisID, campaniaID, cuv, CodigoConsultora);
+            return BLProducto.SelectProductoToKitInicio(paisID, campaniaID, cuv);
         }
 
         public string GetNombreProducto048ByCuv(int paisID, int campaniaId, string cuv)

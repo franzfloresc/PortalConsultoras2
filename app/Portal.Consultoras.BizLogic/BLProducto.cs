@@ -274,12 +274,12 @@ namespace Portal.Consultoras.BizLogic
 
         #endregion
         
-        public IList<BEProducto> SelectProductoToKitInicio(int paisID, int campaniaID, string cuv, string CodigoConsultora)
+        public IList<BEProducto> SelectProductoToKitInicio(int paisID, int campaniaID, string cuv)
         {
             IList<BEProducto> productos = new List<BEProducto>();
             var DAProducto = new DAProducto(paisID);
 
-            using (IDataReader reader = DAProducto.SelectProductoToKitInicio(campaniaID, cuv, CodigoConsultora))
+            using (IDataReader reader = DAProducto.SelectProductoToKitInicio(campaniaID, cuv))
             {
                 while (reader.Read())
                 {
