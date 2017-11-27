@@ -32,7 +32,6 @@ namespace Portal.Consultoras.BizLogic
             DAComunicado.UpdComunicadoByConsultora(CodigoConsultora);
         }
 
-        /**GR 1209 Obtener comunicado configurable en la tabla */
         public List<BEComunicado> ObtenerComunicadoPorConsultora(int paisID, string CodigoConsultora, short TipoDispositivo)
         {
             List<BEComunicado> oBEComunicados = new List<BEComunicado>();

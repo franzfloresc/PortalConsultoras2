@@ -9,9 +9,6 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class FacturaElectronicaController : BaseController
     {
-        //
-        // GET: /FacturaElectronica/
-
         public ActionResult Index()
         {
             string nroDocumento, Url = string.Empty;
@@ -51,7 +48,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 return RedirectToAction("Index", "Bienvenida");
             }
-            //string Url = Common.NeoGridCipher.CreateProductionURL("0016718829");
             return Redirect(Url);
         }
     }

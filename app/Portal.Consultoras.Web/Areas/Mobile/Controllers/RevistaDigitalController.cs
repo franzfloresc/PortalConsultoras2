@@ -16,7 +16,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             try
             {
                 return RedirectToAction("Index", "Ofertas", new { area = "Mobile" });
-                //return IndexModel();
             }
             catch (Exception ex)
             {
@@ -108,6 +107,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
             return PartialView("template-mensaje-bloqueado", new MensajeProductoBloqueadoModel());
         }
-
+        
     }
 }

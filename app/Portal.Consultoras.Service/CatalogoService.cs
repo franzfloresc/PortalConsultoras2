@@ -132,8 +132,8 @@ namespace Portal.Consultoras.Service
         {
             int idPais = GetPaisID(codigoPais ?? "");
             if (idPais == 0) throw new Exception("El código de Pais recibido no es válido.");
-
-            if ((codigoTerritorioGeo ?? "").Length != 13) throw new Exception("El codigo de TerritorioGeo recibido no es válido.");
+            codigoTerritorioGeo = codigoTerritorioGeo ?? "";
+            if (codigoTerritorioGeo.Length != 13) throw new Exception("El codigo de TerritorioGeo recibido no es válido.");
             string codigoRegion = codigoTerritorioGeo.Substring(0, 2);
             string codigoZona = codigoTerritorioGeo.Substring(2, 4);
             string codigoSeccion = codigoTerritorioGeo.Substring(6, 1);

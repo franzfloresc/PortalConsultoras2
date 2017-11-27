@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using System;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -12,10 +13,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             return View();
         }
-        public ActionResult Detalle(string cuv = "", int campanaId = 0)
+        public ActionResult Detalle(string param)
         {
+            string cuv = string.Empty;
+            int campanaId = 0;
             try
             {
+                cuv = param.Substring(0, 5);
+                campanaId = Convert.ToInt32(param.Substring(5, 6));
                 var producto = (FichaProductoDetalleModel)null;
                 if (userData.CampaniaID == campanaId)
                 {

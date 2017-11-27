@@ -15,8 +15,6 @@ namespace Portal.Consultoras.BizLogic
         {
             var DAMisPedidos = new DAConsultoraOnline(PaisID);
             var misPedidos = new List<BEMisPedidos>();
-            //var miPedidoDetalles = new List<BEMisPedidosDetalle>();
-            //using (IDataReader reader = DAMisPedidos.GetMisPedidosConsultoraOnlineCab(ConsultoraId))
             using (IDataReader reader = DAMisPedidos.GetSolicitudesPedido(ConsultoraId, Campania))
             {
                 while (reader.Read())
@@ -24,21 +22,6 @@ namespace Portal.Consultoras.BizLogic
                     var entidad = new BEMisPedidos(reader);
                     misPedidos.Add(entidad);
                 }
-
-                /*
-                reader.NextResult();
-
-                while (reader.Read())
-                {
-                    var entidadHijo = new BEMisPedidosDetalle(reader);
-                    miPedidoDetalles.Add(entidadHijo);
-                }
-
-                foreach (var pedido in misPedidos)
-                {
-                    pedido.DetallePedido = miPedidoDetalles.Where(p => p.PedidoId == pedido.PedidoId).ToList();
-                }
-                 * */
 
                 return misPedidos;
             }
@@ -116,7 +99,6 @@ namespace Portal.Consultoras.BizLogic
             return productos;
         }
 
-        /* SB20-463 - INICIO */
         public int GetCantidadSolicitudesPedido(int PaisID, long ConsultoraId, int Campania)
         {
             var cant = -1;
@@ -146,6 +128,5 @@ namespace Portal.Consultoras.BizLogic
             }
             return saldo;
         }
-        /* SB20-463 - FIN */
     }
 }

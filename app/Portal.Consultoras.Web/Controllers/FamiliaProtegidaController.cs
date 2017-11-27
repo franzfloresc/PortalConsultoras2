@@ -7,9 +7,6 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class FamiliaProtegidaController : BaseController
     {
-        //
-        // GET: /FamiliaProtegida/
-
         public ActionResult Index()
         {
             string nroDocumento;
@@ -28,7 +25,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string DevolverURL(string ISOPais)
         {
-            return ConfigurationManager.AppSettings["URL_FAMILIAPROTEGIDA_" + ISOPais].ToString(); // 2224
+            return ConfigurationManager.AppSettings["URL_FAMILIAPROTEGIDA_" + ISOPais].ToString();
         }
 
     }

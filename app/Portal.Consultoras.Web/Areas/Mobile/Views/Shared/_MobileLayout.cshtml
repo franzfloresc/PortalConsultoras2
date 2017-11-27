@@ -41,43 +41,14 @@
 
     @RenderSection("styles", required: false)
 
+    @if (TempData.ContainsKey("PixelCodigoIso"))
+    {
+        <noscript id="noscript-pixel-image"></noscript>
+    }
 </head>
 <body>
-    <!-- Google Tag Manager -->
-    <script type="text/javascript">
+    @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManager.cshtml")
 
-        dataLayer = [{
-            'campana': '@ViewBag.AnalyticsCampania',
-            'segmento': '@ViewBag.AnalyticsSegmento',
-            'edad': '@ViewBag.AnalyticsEdad',
-            'zona': '@ViewBag.AnalyticsZona',
-            'pais': '@ViewBag.AnalyticsPais',
-            'rol': '@ViewBag.AnalyticsRol',
-            'region': '@ViewBag.AnalyticsRegion',
-            'seccion': '@ViewBag.AnalyticsSeccion',
-            'codigoconsultora': '@ViewBag.AnalyticsCodigoConsultora',
-            'periodo': '@ViewBag.AnalyticsPeriodo',
-            'segmentoconstancia': '@ViewBag.AnalyticsSegmentoConstancia',
-            'socianivel': '@ViewBag.AnalyticsSociaNivel',
-            'semana-periodo': '@ViewBag.SemanaAnalytics'
-        }];
-    </script>
-    <noscript>
-        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-TTK6KS" height="0" width="0" style="display: none; visibility: hidden"></iframe>
-    </noscript>
-    <script>
-        (function (w, d, s, l, i) {
-            w[l] = w[l] || [];
-            w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-            var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s),
-                dl = l != 'dataLayer' ? '&l=' + l : '';
-            j.async = true;
-            j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl;
-            f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-TTK6KS');
-    </script>
-    <!-- End Google Tag Manager -->
     @if (ViewBag.PaisesConTrackingJetlore == "1")
     {
         <script type="text/javascript" src="https://assets.jetlore.com/js/jltracking.js"></script>
@@ -369,10 +340,6 @@
         var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
         var vbSimbolo = '@ViewBag.Simbolo';
         var esPaisTrackingJetlore = '@ViewBag.PaisesConTrackingJetlore';
-        var MobileHomeOfertasParaTi = @Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTi;
-        var MobilePedidoOfertasParaTi = @Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTi;
-        var MobilePedidoSugerido = @Constantes.OrigenPedidoWeb.MobilePedidoSugerido;
-        var MobilePedidoOfertaFinal = @Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal;
         var indicadorEnviadoDescarga = '@ViewBag.IndicadorEnviado';
 
         var IsoPais = '@ViewBag.CodigoISODL';
@@ -397,10 +364,6 @@
         var MostrarBannerOtros = '@ViewBag.MostrarBannerOtros';
         var ocultarBannerTop = '@Session["OcultarBannerTop"]';
         var TipoOrigenPantallaODD = 2;
-        var MobileShowRoom = @Constantes.OrigenPedidoWeb.MobileShowRoom;
-        var MobileLiquidacion = @Constantes.OrigenPedidoWeb.MobileLiquidacion;
-        var MobileCatalogoPersonalizado = @Constantes.OrigenPedidoWeb.MobileCatalogoPersonalizado;
-        var MobileCatalogoPersonalizadoPopUp = @Constantes.OrigenPedidoWeb.MobileCatalogoPersonalizadoPopUp;
 
         var sesionEsShowRoom = '@Session["EsShowRoom"]';
         var EstadoActivo = '@ViewBag.EstadoActivo';
@@ -647,5 +610,14 @@
     </script>
     @RenderSection("scripts", required: false)
     @{Html.PlaceScripts();}
+    @if (TempData.ContainsKey("PixelCodigoIso"))
+    {
+        @System.Web.Optimization.Scripts.Render("~/bundles/JS-Login-Header")
+        <script>
+            var pixelAnalytics = Analytics();
+            pixelAnalytics.invocarEventoPixelById('@(TempData["PixelMarcacion"])', '@(TempData["PixelId"])');
+        </script>
+        @TempData.Remove("PixelCodigoIso");
+    }
 </body>
 </html>
