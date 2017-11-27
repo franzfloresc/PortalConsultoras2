@@ -513,12 +513,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public List<PermisoModel> BuildMenu(UsuarioModel userData,RevistaDigitalModel revistaDigital)
         {
-            if (userData == null)
-                throw new ArgumentNullException("userData");
-
-            if (revistaDigital == null)
-                throw new ArgumentNullException("revistaDigital");
-
             if (userData.Menu != null)
             {
                 ViewBag.ClaseLogoSB = userData.ClaseLogoSB;
@@ -555,13 +549,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             foreach (var permiso in permisos)
             {
-                if (permiso.Codigo == Constantes.MenuCodigo.CatalogoPersonalizado.ToLower() &&
-                    (revistaDigital.TieneRDC || revistaDigital.TieneRDR))
-                {
-                    continue;
-                }
-                
-
                 permiso.Codigo = Util.Trim(permiso.Codigo).ToLower();
                 permiso.Descripcion = Util.Trim(permiso.Descripcion);
                 permiso.UrlItem = Util.Trim(permiso.UrlItem);
@@ -573,7 +560,13 @@ namespace Portal.Consultoras.Web.Controllers
                     permiso.EsSoloImagen = true;
                     permiso.UrlImagen = GetUrlImagenMenuOfertas(userData, revistaDigital);
                 }
-
+                
+                if (permiso.Codigo == Constantes.MenuCodigo.CatalogoPersonalizado.ToLower() &&
+                    (revistaDigital.TieneRDC || revistaDigital.TieneRDR))
+                {
+                    continue;
+                }
+                
                 // por ahora esta en header, ponerlo para tambien para el Footer
                 // Objetivo que el Html este limpio, la logica no deberia estar en la vista
                 #region header
@@ -1357,7 +1350,7 @@ namespace Portal.Consultoras.Web.Controllers
             #endregion
 
             #region EventoFestivo
-            ViewBag.SaludoFestivo = sessionManager.GetEventoFestivoDataModel().EfSaludo;
+            ViewBag.SaludoFestivo = sessionManager.GetEventoFestivoDataModel() != null ? sessionManager.GetEventoFestivoDataModel().EfSaludo : "";
             #endregion
 
             #endregion
