@@ -189,12 +189,6 @@ namespace Portal.Consultoras.Common
             public const int Flexipago = 6;
             public const int Accesorizate = 7;
         }
-        //2:SICC - 1:FOX
-        public class ConsultoraNueva
-        {
-            public const int Sicc = 2;
-            public const int Fox = 1;
-        }
 
         public class RangoCantidadPedido
         {

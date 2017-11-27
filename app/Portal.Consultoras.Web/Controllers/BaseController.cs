@@ -1049,7 +1049,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (model.RolID == Constantes.Rol.Consultora)
             {
-                if (model.ConsultoraNueva != Constantes.ConsultoraNueva.Sicc && model.ConsultoraNueva != Constantes.ConsultoraNueva.Fox)
+                if (model.ConsultoraNueva != Constantes.EstadoActividadConsultora.Registrada && model.ConsultoraNueva != Constantes.EstadoActividadConsultora.Ingreso_Nueva)
                 {
                     if (model.NombreCorto != null && model.AnoCampaniaIngreso.Trim() != "")
                     {

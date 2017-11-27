@@ -33,7 +33,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 using (var service = new ContenidoServiceClient())
                 {
-                    lstBannerInfoTemp = service.SelectBannerByConsultoraBienvenida(userData.PaisID, userData.CampaniaID, userData.CodigoConsultora, userData.ConsultoraNueva == 2);
+                    lstBannerInfoTemp = service.SelectBannerByConsultoraBienvenida(userData.PaisID, userData.CampaniaID, userData.CodigoConsultora, userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Ingreso_Nueva);
                 }
 
                 var lstBannerInfoPorZona = lstBannerInfoTemp.Where(p => p.ConfiguracionZona == string.Empty || p.ConfiguracionZona.Contains(userData.ZonaID.ToString()));

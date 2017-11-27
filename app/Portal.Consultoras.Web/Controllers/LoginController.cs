@@ -629,6 +629,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.BanderaImagen = oBEUsuario.BanderaImagen;
                     model.CambioClave = Convert.ToInt32(oBEUsuario.CambioClave);
                     model.ConsultoraNueva = oBEUsuario.ConsultoraNueva;
+                    model.EsConsultoraNueva = oBEUsuario.EsConsultoraNueva;
                     model.Telefono = oBEUsuario.Telefono;
                     model.TelefonoTrabajo = oBEUsuario.TelefonoTrabajo;
                     model.Celular = oBEUsuario.Celular;
@@ -988,10 +989,10 @@ namespace Portal.Consultoras.Web.Controllers
                                             {
                                                 revistaDigitalModel.SuscripcionModel = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
                                                 //
-                                                rds.CampaniaID = AddCampaniaAndNumero(model.CampaniaID, -1, model.NroCampanias);
+                                                rds.CampaniaID = Util.AddCampaniaAndNumero(model.CampaniaID, -1, model.NroCampanias);
                                                 revistaDigitalModel.SuscripcionAnterior1Model = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
                                                 //
-                                                rds.CampaniaID = AddCampaniaAndNumero(model.CampaniaID, -2, model.NroCampanias);
+                                                rds.CampaniaID = Util.AddCampaniaAndNumero(model.CampaniaID, -2, model.NroCampanias);
                                                 revistaDigitalModel.SuscripcionAnterior2Model = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
                                             }
                                             break;
@@ -1042,8 +1043,8 @@ namespace Portal.Consultoras.Web.Controllers
                                     }
                                 }
                                 revistaDigitalModel.Campania = model.CampaniaID % 100;
-                                revistaDigitalModel.CampaniaMasUno = AddCampaniaAndNumero(Convert.ToInt32(model.CampaniaID), 1, model.NroCampanias) % 100;
-                                revistaDigitalModel.CampaniaMasDos = AddCampaniaAndNumero(Convert.ToInt32(model.CampaniaID), 2, model.NroCampanias) % 100;
+                                revistaDigitalModel.CampaniaMasUno = Util.AddCampaniaAndNumero(Convert.ToInt32(model.CampaniaID), 1, model.NroCampanias) % 100;
+                                revistaDigitalModel.CampaniaMasDos = Util.AddCampaniaAndNumero(Convert.ToInt32(model.CampaniaID), 2, model.NroCampanias) % 100;
 
                                 sessionManager.SetRevistaDigital(revistaDigitalModel);
                                 Session[Constantes.ConstSession.ConfiguracionPaises] = configuracionPaisModels;
@@ -1816,23 +1817,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return result;
-        }
-
-
-        protected int AddCampaniaAndNumero(int campania, int numero, int nroCampanias)
-        {
-            int anioCampania = campania / 100;
-            int nroCampania = campania % 100;
-            int sumNroCampania = (nroCampania + numero) - 1;
-            int anioCampaniaResult = anioCampania + (sumNroCampania / nroCampanias);
-            int nroCampaniaResult = (sumNroCampania % nroCampanias) + 1;
-
-            if (nroCampaniaResult < 1)
-            {
-                anioCampaniaResult = anioCampaniaResult - 1;
-                nroCampaniaResult = nroCampaniaResult + nroCampanias;
-            }
-            return (anioCampaniaResult * 100) + nroCampaniaResult;
         }
 
         private RedirectToRouteResult RedirectToUniqueRoute(string controller, string action, object routeData)

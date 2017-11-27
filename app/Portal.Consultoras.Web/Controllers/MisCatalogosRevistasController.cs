@@ -32,7 +32,7 @@ namespace Portal.Consultoras.Web.Controllers
             clienteModel.CodigoRevistaSiguiente = GetRevistaCodigoIssuu(clienteModel.CampaniaSiguiente);
 
             ViewBag.CodigoISO = userData.CodigoISO;
-            ViewBag.EsConsultoraNueva = EsConsultoraNueva();
+            ViewBag.EsConsultoraNueva = userData.EsConsultoraNueva;
             ViewBag.TextoMensajeSaludoCorreo = TextoMensajeSaludoCorreo;
 
             clienteModel.MostrarRevistaDigital = revistaDigital.TieneRDR;
