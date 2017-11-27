@@ -17,7 +17,7 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index()
         {
-            AdministrarPalancaModel model = new AdministrarPalancaModel();
+            var model = new AdministrarPalancaModel();
             try
             {
                 if (!UsuarioModel.HasAcces(ViewBag.Permiso, "AdministrarPalanca/Index"))
@@ -36,10 +36,10 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult GetPalanca(int idConfiguracionPais)
         {
-            AdministrarPalancaModel model = new AdministrarPalancaModel();
-            using (SACServiceClient sv = new SACServiceClient())
+            AdministrarPalancaModel model;
+            using (var sv = new SACServiceClient())
             {
-                BEConfiguracionPais beConfiguracionPais = sv.GetConfiguracionPais(UserData().PaisID, idConfiguracionPais);
+                var beConfiguracionPais = sv.GetConfiguracionPais(UserData().PaisID, idConfiguracionPais);
                 model = Mapper.Map<BEConfiguracionPais, AdministrarPalancaModel>(beConfiguracionPais);
             }
             model.ListaCampanias = ListCampanias(userData.PaisID);
@@ -59,12 +59,12 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult GetOfertasHome(int idOfertasHome)
         {
-            AdministrarOfertasHomeModel model = new AdministrarOfertasHomeModel();
+            var model = new AdministrarOfertasHomeModel();
             if (idOfertasHome > 0)
             {
-                using (SACServiceClient sv = new SACServiceClient())
+                using (var sv = new SACServiceClient())
                 {
-                    BEConfiguracionOfertasHome beConfiguracionOfertas = sv.GetConfiguracionOfertasHome(UserData().PaisID, idOfertasHome);
+                    var beConfiguracionOfertas = sv.GetConfiguracionOfertasHome(UserData().PaisID, idOfertasHome);
                     model = Mapper.Map<BEConfiguracionOfertasHome, AdministrarOfertasHomeModel>(beConfiguracionOfertas);
                 }
             }
@@ -115,18 +115,18 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var list = ListarConfiguracionOfertasHome(campaniaID);
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
+                var grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
 
 
-                BEPager pag = new BEPager();
-
-                IEnumerable<AdministrarOfertasHomeModel> items = list;
+                var items = list;
                 items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-                pag = Util.PaginadorGenerico(grid, list.ToList());
+                var pag = Util.PaginadorGenerico(grid, list.ToList());
                 var data = new
                 {
                     total = pag.PageCount,
@@ -166,10 +166,10 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 model.PaisID = userData.PaisID;
                 model = UpdateFilesPalanca(model);
-                if (!String.IsNullOrEmpty(model.DesktopSubTituloMenu)) model.DesktopTituloMenu += "|" + model.DesktopSubTituloMenu;
-                if (!String.IsNullOrEmpty(model.MobileSubTituloMenu)) model.MobileTituloMenu += "|" + model.MobileSubTituloMenu;
+                if (!string.IsNullOrEmpty(model.DesktopSubTituloMenu)) model.DesktopTituloMenu += "|" + model.DesktopSubTituloMenu;
+                if (!string.IsNullOrEmpty(model.MobileSubTituloMenu)) model.MobileTituloMenu += "|" + model.MobileSubTituloMenu;
 
-                using (SACServiceClient sv = new SACServiceClient())
+                using (var sv = new SACServiceClient())
                 {
                     var entidad = Mapper.Map<AdministrarPalancaModel, BEConfiguracionPais>(model);
                     sv.UpdateConfiguracionPais(entidad);
@@ -198,7 +198,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 model.PaisID = userData.PaisID;
                 model = UpdateFilesOfertas(model);
-                using (SACServiceClient sv = new SACServiceClient())
+                using (var sv = new SACServiceClient())
                 {
                     var entidad = Mapper.Map<AdministrarOfertasHomeModel, BEConfiguracionOfertasHome>(model);
                     sv.UpdateConfiguracionOfertasHome(entidad);
@@ -223,15 +223,9 @@ namespace Portal.Consultoras.Web.Controllers
         private IEnumerable<PaisModel> ListarPaises()
         {
             List<BEPais> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
+            using (var sv = new ZonificacionServiceClient())
             {
-                if (UserData().RolID == 2) lst = sv.SelectPaises().ToList();
-                else
-                {
-                    lst = new List<BEPais>();
-                    lst.Add(sv.SelectPais(UserData().PaisID));
-                }
-
+                lst = UserData().RolID == 2 ? sv.SelectPaises().ToList() : new List<BEPais> {sv.SelectPais(UserData().PaisID)};
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
@@ -240,7 +234,7 @@ namespace Portal.Consultoras.Web.Controllers
         private IEnumerable<ConfiguracionPaisModel> ListarConfiguracionPais()
         {
             List<ServiceSAC.BEConfiguracionPais> lst;
-            using (SACServiceClient sv = new SACServiceClient())
+            using (var sv = new SACServiceClient())
             {
                 lst = sv.ListConfiguracionPais(UserData().PaisID, true).ToList();
             }
@@ -251,7 +245,7 @@ namespace Portal.Consultoras.Web.Controllers
         private IEnumerable<AdministrarOfertasHomeModel> ListarConfiguracionOfertasHome(int campaniaId = 0)
         {
             List<BEConfiguracionOfertasHome> lst;
-            using (SACServiceClient sv = new SACServiceClient())
+            using (var sv = new SACServiceClient())
             {
                 lst = sv.ListConfiguracionOfertasHome(UserData().PaisID, campaniaId).ToList();
             }
@@ -261,7 +255,7 @@ namespace Portal.Consultoras.Web.Controllers
         private IEnumerable<CampaniaModel> ListCampanias(int PaisID)
         {
             IList<BECampania> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
+            using (var sv = new ZonificacionServiceClient())
             {
                 lst = sv.SelectCampanias(PaisID);
             }
@@ -278,7 +272,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private IEnumerable<TipoEstrategiaModel> ListTipoEstrategia()
         {
-            List<BETipoEstrategia> lst = GetTipoEstrategias();
+            var lst = GetTipoEstrategias();
 
             if (lst != null && lst.Count > 0)
             {
@@ -305,8 +299,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         private IEnumerable<TablaLogicaDatosModel> ListTipoPresentacion()
         {
-            var tabla = new List<BETablaLogicaDatos>();
-            using (SACServiceClient sac = new SACServiceClient())
+            List<BETablaLogicaDatos> tabla;
+            using (var sac = new SACServiceClient())
             {
                 tabla = sac.GetTablaLogicaDatos(userData.PaisID, 120).ToList();
             }
@@ -315,7 +309,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string GetUrlS3()
         {
-            string paisISO = Util.GetPaisISO(userData.PaisID);
+            var paisISO = Util.GetPaisISO(userData.PaisID);
             var carpetaPais = Globals.UrlMatriz + "/" + paisISO;
             return ConfigS3.GetUrlS3(carpetaPais);
         }
@@ -324,26 +318,26 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (model.ConfiguracionPaisID != 0)
             {
-                var entidad = new BEConfiguracionPais();
-                using (SACServiceClient sv = new SACServiceClient())
+                BEConfiguracionPais entidad;
+                using (var sv = new SACServiceClient())
                 {
                     entidad = sv.GetConfiguracionPais(UserData().PaisID, model.ConfiguracionPaisID);
                 }
 
-                if (!String.IsNullOrEmpty(model.DesktopFondoBanner) &&
-                    (String.IsNullOrEmpty(entidad.DesktopFondoBanner) || model.DesktopFondoBanner != entidad.DesktopFondoBanner))
+                if (!string.IsNullOrEmpty(model.DesktopFondoBanner) &&
+                    (string.IsNullOrEmpty(entidad.DesktopFondoBanner) || model.DesktopFondoBanner != entidad.DesktopFondoBanner))
                     model.DesktopFondoBanner = SaveFileS3(model.DesktopFondoBanner);
-                if (!String.IsNullOrEmpty(model.MobileFondoBanner) &&
-                    (String.IsNullOrEmpty(entidad.MobileFondoBanner) || model.MobileFondoBanner != entidad.MobileFondoBanner))
+                if (!string.IsNullOrEmpty(model.MobileFondoBanner) &&
+                    (string.IsNullOrEmpty(entidad.MobileFondoBanner) || model.MobileFondoBanner != entidad.MobileFondoBanner))
                     model.MobileFondoBanner = SaveFileS3(model.MobileFondoBanner);
-                if (!String.IsNullOrEmpty(model.DesktopLogoBanner) &&
-                    (String.IsNullOrEmpty(entidad.DesktopLogoBanner) || model.DesktopLogoBanner != entidad.DesktopLogoBanner))
+                if (!string.IsNullOrEmpty(model.DesktopLogoBanner) &&
+                    (string.IsNullOrEmpty(entidad.DesktopLogoBanner) || model.DesktopLogoBanner != entidad.DesktopLogoBanner))
                     model.DesktopLogoBanner = SaveFileS3(model.DesktopLogoBanner);
-                if (!String.IsNullOrEmpty(model.MobileLogoBanner) &&
-                    (String.IsNullOrEmpty(entidad.MobileLogoBanner) || model.MobileLogoBanner != entidad.MobileLogoBanner))
+                if (!string.IsNullOrEmpty(model.MobileLogoBanner) &&
+                    (string.IsNullOrEmpty(entidad.MobileLogoBanner) || model.MobileLogoBanner != entidad.MobileLogoBanner))
                     model.MobileLogoBanner = SaveFileS3(model.MobileLogoBanner);
-                if (!String.IsNullOrEmpty(model.Logo) &&
-                    (String.IsNullOrEmpty(entidad.Logo) || model.Logo != entidad.Logo))
+                if (!string.IsNullOrEmpty(model.Logo) &&
+                    (string.IsNullOrEmpty(entidad.Logo) || model.Logo != entidad.Logo))
                     model.Logo = SaveFileS3(model.Logo);
             }
             else
@@ -362,17 +356,17 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (model.ConfiguracionPaisID != 0)
             {
-                var entidad = new BEConfiguracionOfertasHome();
-                using (SACServiceClient sv = new SACServiceClient())
+                BEConfiguracionOfertasHome entidad;
+                using (var sv = new SACServiceClient())
                 {
                     entidad = sv.GetConfiguracionOfertasHome(UserData().PaisID, model.ConfiguracionOfertasHomeID);
                 }
 
-                if (!String.IsNullOrEmpty(model.DesktopImagenFondo) &&
-                    (String.IsNullOrEmpty(entidad.DesktopImagenFondo) || model.DesktopImagenFondo != entidad.DesktopImagenFondo))
+                if (!string.IsNullOrEmpty(model.DesktopImagenFondo) &&
+                    (string.IsNullOrEmpty(entidad.DesktopImagenFondo) || model.DesktopImagenFondo != entidad.DesktopImagenFondo))
                     model.DesktopImagenFondo = SaveFileS3(model.DesktopImagenFondo);
-                if (!String.IsNullOrEmpty(model.MobileImagenFondo) &&
-                    (String.IsNullOrEmpty(entidad.MobileImagenFondo) || model.MobileImagenFondo != entidad.MobileImagenFondo))
+                if (!string.IsNullOrEmpty(model.MobileImagenFondo) &&
+                    (string.IsNullOrEmpty(entidad.MobileImagenFondo) || model.MobileImagenFondo != entidad.MobileImagenFondo))
                     model.MobileImagenFondo = SaveFileS3(model.MobileImagenFondo);
 
             }
