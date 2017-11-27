@@ -11,10 +11,9 @@
                                                                                      : "https://play.google.com/store/apps/details?id=belcorp.modobeta.catalogov2&hl=es_419";
     var textApp = userAgent.Contains("iphone;") ? "Gratis en App Store" : "Gratis en Play Store";
     var revistaDigital = Model.RevistaDigital ?? new RevistaDigitalModel();
-
-    var tieneGND = Portal.Consultoras.Web.SessionManager.SessionManager.Instance.GetUserData().TieneGND;
+    
     var titulo = "MIS CATÁLOGOS Y REVISTAS";
-    if (tieneGND)
+    if (Model.TieneGND)
     {
         titulo = "MIS CATÁLOGOS";
     }
@@ -66,11 +65,7 @@
 <div class="fondo_f2f2f2">
     <div class="pestana_esika"></div>
     <div class="pestana_lbel"></div>
-    @if((revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsSuscritaInactiva()  && !tieneGND ||
-    ((revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsNoSuscritaInactiva() && !tieneGND) ||
-    (!revistaDigital.TieneRDC && !revistaDigital.TieneRDR && !tieneGND) ||
-    ((revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsSuscritaActiva() && !tieneGND) ||
-    (revistaDigital.TieneRDR && !tieneGND))
+    @if(Model.MostrarTab)
     {
         <ul class="tabs_pagos" data-tab="tab" style="margin-bottom:0">
       
@@ -114,11 +109,7 @@
                 <br />
             }
 
-            @if ((revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsSuscritaInactiva() && !tieneGND ||
-                ((revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsNoSuscritaInactiva() && !tieneGND) ||
-                (!revistaDigital.TieneRDC && !revistaDigital.TieneRDR && !tieneGND) ||
-                !((revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsSuscritaActiva()) ||
-                (revistaDigital.TieneRDR && !tieneGND))
+            @if (Model.MostrarRevistaDigital)
             {
                 <div class="titulo_catalogo" data-titulo="">REVISTAS C-@Util.SubStr(Model.CampaniaActual.ToString(), 4, 2)</div>
             }

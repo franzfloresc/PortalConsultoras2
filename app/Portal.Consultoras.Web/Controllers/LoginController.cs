@@ -1295,9 +1295,13 @@ namespace Portal.Consultoras.Web.Controllers
                     ca = revistaDigitalModel.SuscripcionEfectiva.CampaniaEfectiva;
 
                 revistaDigitalModel.CampaniaActiva = Util.SubStr(ca.ToString(), 4, 2);
-
                 revistaDigitalModel.EsActiva = ca == usuarioModel.CampaniaID;
 
+            }
+            else if (revistaDigitalModel.SuscripcionEfectiva.EstadoRegistro == Constantes.EstadoRDSuscripcion.SinRegistroDB)
+            {
+                revistaDigitalModel.CampaniaActiva = "";
+                revistaDigitalModel.EsActiva = false;
             }
             else
             {
@@ -2155,12 +2159,9 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string RemplazaTagNombre(string cadena, string nombre)
         {
-            return cadena.ToUpper().Replace(Constantes.TagCadenaRd.Nombre, nombre);
-        }
-
-        private void RemplazaTagCampania(ref string cadena, string campania)
-        {
-            cadena = cadena.ToUpper().Replace(Constantes.TagCadenaRd.CampaniaActual, campania);
+            return cadena.Replace(Constantes.TagCadenaRd.Nombre, nombre)
+                .Replace(Constantes.TagCadenaRd.Nombre1, nombre)
+                .Replace(Constantes.TagCadenaRd.Nombre2, nombre);
         }
     }
 }

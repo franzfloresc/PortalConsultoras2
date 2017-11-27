@@ -1238,13 +1238,13 @@
     <Content Include="Content\Css\Site\Images\arrow-caja.png" />
     <Content Include="Content\Css\Site\Images\bgx.jpg" />
     <Content Include="Content\Css\Site\Images\consejos-y-tips-visual.png" />
-    <Content Include="Content\Css\Site\Images\logotipo-club-ganamás-rojo.svg" />
+    <Content Include="Content\Css\Site\Images\logotipo-club-ganamas-rojo.svg" />
     <Content Include="Content\Css\Site\Images\marquesina-landing.jpg" />
     <Content Include="Content\Css\Site\Images\money-suscription-icon.svg" />
-    <Content Include="Content\Css\Site\Images\no-más-código-visual.png" />
+    <Content Include="Content\Css\Site\Images\no-mas-codigo-visual.png" />
     <Content Include="Content\Css\Site\Images\offer-suscription-icon.svg" />
-    <Content Include="Content\Css\Site\Images\personalización-visual %28mobile%29.gif" />
-    <Content Include="Content\Css\Site\Images\personalización-visual-%28desktop%29.gif" />
+    <Content Include="Content\Css\Site\Images\personalizacion-visual %28mobile%29.gif" />
+    <Content Include="Content\Css\Site\Images\personalizacion-visual-%28desktop%29.gif" />
     <Content Include="Content\Css\Site\Images\productos-exclusivos.png" />
     <Content Include="Content\Css\Site\Images\speed-suscription-icon.svg" />
     <Content Include="Content\Css\Site\Images\tips-y-consejos-visual.png" />

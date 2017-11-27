@@ -12,6 +12,7 @@ namespace Portal.Consultoras.Common
         private static readonly string BUCKET_NAME_QAS = System.Configuration.ConfigurationManager.AppSettings["BUCKET_NAME_QAS"] ?? string.Empty;
         private static readonly string ROOT_DIRECTORY = System.Configuration.ConfigurationManager.AppSettings["ROOT_DIRECTORY"] ?? string.Empty;
         private static readonly string URL_S3 = System.Configuration.ConfigurationManager.AppSettings["URL_S3"] ?? string.Empty;
+        private static readonly string rutaRevistaDigital = System.Configuration.ConfigurationManager.AppSettings[Constantes.ConfiguracionManager.CarpetaRevistaDigital] ?? string.Empty;
 
         public static string GetUrlFileS3(string carpetaPais, string fileName, string carpetaAnterior = "")
         {
@@ -47,7 +48,7 @@ namespace Portal.Consultoras.Common
             if (fileName.StartsWith("https:/"))
                 return fileName;
 
-            return URL_S3 + "/" + BUCKET_NAME + "/" + ROOT_DIRECTORY + "/" + Globals.UrlRevistaDigital + "/" + (carpetaPais != "" ? carpetaPais + "/" : "") + fileName;
+            return URL_S3 + "/" + BUCKET_NAME + "/" + ROOT_DIRECTORY + "/" + rutaRevistaDigital + "/" + (carpetaPais != "" ? carpetaPais + "/" : "") + fileName;
         }
         public static void DeleteFileS3(string carpetaPais, string fileName)
         {
