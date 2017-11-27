@@ -661,7 +661,6 @@ namespace Portal.Consultoras.Web.Controllers
             return SepararItemsMenu(lstMenuModel);
         }
 
-
         protected virtual IList<PermisoModel> GetPermisosByRol(int paisID, int rolID)
         {
             IList<BEPermiso> permisos;
@@ -736,9 +735,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             return urlImagen;
         }
-
-
-
 
         public List<MenuMobileModel> BuildMenuMobile(UsuarioModel userData, RevistaDigitalModel revistaDigital)
         {
@@ -926,7 +922,6 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.MenuPadreIDConsultoraOnline = userData.ConsultoraOnlineMenuResumen.MenuPadreIDConsultoraOnline;
         }
 
-
         protected virtual List<MenuMobileModel> GetMenuMobileModel(int paisID)
         {
             List<BEMenuMobile> lstMenuMobile= null;
@@ -950,10 +945,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             return Mapper.Map<List<MenuMobileModel>>(lstMenuMobile);
         }
-
-
-
-
 
         private List<PermisoModel> SepararItemsMenu(List<PermisoModel> menuOriginal)
         {
@@ -1949,8 +1940,6 @@ namespace Portal.Consultoras.Web.Controllers
             return fichaProductoModelo;
         }
         #endregion
-
-
 
         public string NombreMes(int mes)
         {
@@ -3770,6 +3759,9 @@ namespace Portal.Consultoras.Web.Controllers
                             continue;
 
                         confiModel.UrlMenu = "Ofertas";
+
+                        confiModel.DesktopLogoBanner = revistaDigital.GetLogoFondo(false);
+                        confiModel.MobileLogoBanner = revistaDigital.GetLogoFondo(true);
 
                         confiModel.DesktopFondoBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_SI_D_ImagenFondo, confiModel.DesktopFondoBanner);
                         confiModel.DesktopLogoBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_SI_D_ImagenLogo, confiModel.DesktopLogoBanner);
