@@ -24,9 +24,7 @@ function EstrategiaObtenerObj(e) {
     if (objHtmlEvent.length == 0) objHtmlEvent = $(e);
     var objHtml = objHtmlEvent.parents("[data-item]");
     var objAux = $.trim($(objHtml).find("[data-estrategia]").attr("data-estrategia"));
-    if (objAux != "")
-        estrategia = JSON.parse(objAux);
-    
+    var estrategia = (objAux != "") ? JSON.parse(objAux) : {};
     return estrategia;
 }
 
