@@ -23,7 +23,10 @@ function EstrategiaObtenerObj(e) {
     var objHtmlEvent = $(e.target);
     if (objHtmlEvent.length == 0) objHtmlEvent = $(e);
     var objHtml = objHtmlEvent.parents("[data-item]");
-    var estrategia = JSON.parse($(objHtml).find("[data-estrategia]").attr("data-estrategia"));
+    var objAux = $.trim($(objHtml).find("[data-estrategia]").attr("data-estrategia"));
+    if (objAux != "")
+        estrategia = JSON.parse(objAux);
+    
     return estrategia;
 }
 
@@ -127,17 +130,28 @@ function EstrategiaVerDetalleMobile(estrategia, origen) {
             var campania = $("[data-item=" + id + "]").parents("[data-tag-html]").attr("data-tag-html");
             var cuv = $("[data-item=" + id + "]").attr("data-item-cuv");
             var obj = {};
+            var objAux = "";
             if (typeof cuv == "undefined" || typeof campania == "undefined") {
-                obj = JSON.parse($("[data-item=" + id + "]").find("[data-estrategia]").attr("data-estrategia"));
+                objAux = $.trim($("[data-item=" + id + "]").find("[data-estrategia]").attr("data-estrategia"));
+            }
+
+            if (objAux != "") {
+                obj = JSON.parse(objAux);
             }
             else {
-                obj = GetProductoStorage(cuv, campania);
+                obj = GetProductoStorage(cuv, campania) || {};
             }
+
             obj.CUV2 = $.trim(obj.CUV2);
             if (obj.CUV2 === "") {
-                obj = JSON.parse($("[data-item=" + id + "]").find("[data-estrategia]").attr("data-estrategia"));
-                obj.CUV2 = $.trim(obj.CUV2);
+                objAux = $.trim($("[data-item=" + id + "]").find("[data-estrategia]").attr("data-estrategia"));
+
+                if (objAux != "") {
+                    obj = JSON.parse(objAux);
+                }
             }
+
+            obj.CUV2 = $.trim(obj.CUV2);
             if (obj.CUV2 != "") {
                 if (EstrategiaGuardarTemporal(obj))
                     window.location = url;
