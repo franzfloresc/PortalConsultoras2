@@ -5,7 +5,6 @@ using Portal.Consultoras.Web.ServiceCliente;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -22,7 +21,6 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Index()
         {
             var clienteModel = new MisCatalogosRevistasModel();
-
             clienteModel.PaisNombre = getPaisNombreByISO(userData.CodigoISO);
             clienteModel.CampaniaActual = userData.CampaniaID.ToString();
             clienteModel.CampaniaAnterior = AddCampaniaAndNumero(userData.CampaniaID, -1).ToString();
@@ -31,12 +29,20 @@ namespace Portal.Consultoras.Web.Controllers
             clienteModel.CodigoRevistaAnterior = GetRevistaCodigoIssuu(clienteModel.CampaniaAnterior);
             clienteModel.CodigoRevistaSiguiente = GetRevistaCodigoIssuu(clienteModel.CampaniaSiguiente);
 
+            var tieneGND = userData.TieneGND;
+            clienteModel.TieneGND = tieneGND;
+            clienteModel.MostrarTab =
+                (revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsSuscritaInactiva() && !tieneGND ||
+                ((revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsNoSuscritaInactiva() && !tieneGND) ||
+                (!revistaDigital.TieneRDC && !revistaDigital.TieneRDR && !tieneGND) ||
+                ((revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsSuscritaActiva() && !tieneGND) ||
+                (revistaDigital.TieneRDR && !tieneGND);
+            
+            clienteModel.RevistaDigital = revistaDigital;
+
             ViewBag.CodigoISO = userData.CodigoISO;
             ViewBag.EsConsultoraNueva = EsConsultoraNueva();
             ViewBag.TextoMensajeSaludoCorreo = TextoMensajeSaludoCorreo;
-
-            clienteModel.MostrarRevistaDigital = revistaDigital.TieneRDR;
-            clienteModel.RevistaDigital = revistaDigital;
             ViewBag.NombreConsultora = userData.Sobrenombre;
             return View(clienteModel);
         }

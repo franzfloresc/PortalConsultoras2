@@ -106,7 +106,7 @@ else if (Model.TieneRDR)
 }
 else
 {
-    if (!Portal.Consultoras.Web.SessionManager.SessionManager.Instance.GetUserData().TieneGND)
+    if (!tieneGnd)
     {
         @Html.Partial("~/Views/MisCatalogosRevistas/template-revista-slide.cshtml")
     }

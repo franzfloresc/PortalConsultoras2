@@ -3,13 +3,12 @@
 @model MisCatalogosRevistasModel
 @{
     var title = "Catálogos y Revistas";
-    bool tieneGND = Portal.Consultoras.Web.SessionManager.SessionManager.Instance.GetUserData().TieneGND;
-    if (tieneGND)
+    if (Model.TieneGND)
     {
         title = "Catálogos";
     }
     ViewBag.Title = title;
-    
+
 }
 
 <input type="hidden" id="hdPaisNombre" value="@Model.PaisNombre" />
