@@ -21158,6 +21158,7 @@ label.checkpop.c_on {
     font-family: 'lato';
     PADDING-LEFT: 35PX;
     padding-right: 35px;
+    text-transform: uppercase;
 }
 .texto_exclusivo{
     font-size:17px;
@@ -36435,3 +36436,5 @@ h1#penmostreo .campana {
     .contenido .centrar-estructura{
       height: 80%;
     }
+
+.text-uppercase{text-transform:uppercase}
