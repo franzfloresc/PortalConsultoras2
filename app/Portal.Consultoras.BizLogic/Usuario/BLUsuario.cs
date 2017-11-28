@@ -1786,9 +1786,9 @@ namespace Portal.Consultoras.BizLogic
             }
 
             string customKey = alcance + "_" + campaniaId;
-            IList<BEEventoFestivo> listaEvento = CacheManager<BEEventoFestivo>.GetData(paisId,
-                ECacheItem.ConfiguracionEventoFestivo, customKey);
-
+            //IList<BEEventoFestivo> listaEvento = CacheManager<BEEventoFestivo>.GetData(paisId,
+            //    ECacheItem.ConfiguracionEventoFestivo, customKey);
+            IList<BEEventoFestivo> listaEvento = new List<BEEventoFestivo>();
             if (listaEvento == null || listaEvento.Count == 0)
             {
                 var DAUsuario = new DAUsuario(paisId);
@@ -1802,7 +1802,7 @@ namespace Portal.Consultoras.BizLogic
                     }
                 }
 
-                CacheManager<BEEventoFestivo>.AddData(paisId, ECacheItem.ConfiguracionEventoFestivo, customKey, listaEvento);
+                //CacheManager<BEEventoFestivo>.AddData(paisId, ECacheItem.ConfiguracionEventoFestivo, customKey, listaEvento);
             }
                
             return listaEvento;
