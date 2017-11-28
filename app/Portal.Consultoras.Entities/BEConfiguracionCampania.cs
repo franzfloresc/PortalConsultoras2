@@ -192,7 +192,7 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(datarec, "NroCampanias") && datarec["NroCampanias"] != DBNull.Value)
                 NroCampanias = DbConvert.ToInt32(datarec["NroCampanias"]);
             if (DataRecord.HasColumn(datarec, "PROLSinStock") && datarec["PROLSinStock"] != DBNull.Value)
-                PROLSinStock = Convert.ToBoolean(datarec["PROLSinStock"]); //1510
+                PROLSinStock = Convert.ToBoolean(datarec["PROLSinStock"]);
             else
                 PROLSinStock = false;
 
