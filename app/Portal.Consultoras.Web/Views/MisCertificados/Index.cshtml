@@ -50,6 +50,7 @@
     @section scripts{
         <script type="text/javascript">
             var urlExportar = '@Url.Action("Export", "MisCertificados")';
+            var codigoISO = '@ViewBag.codigoISOMenu';
 
             $(document).ready(function () {
                 $("a[data-certificado]").click(function (e) {
@@ -65,6 +66,16 @@
                         AbrirMensaje(error);
                     }
                     else {
+                        var category = (certificadoId == 1) ? 'No Adeudo' : 'Certificado Comercial';
+                        var label = codigoISO + '_Certificado_' + certificadoId + '.pdf';
+
+                        dataLayer.push({
+                            'event': 'virtualEvent',
+                            'category': category,
+                            'action': 'Descargar',
+                            'label': label
+                        });
+
                         window.open(urlExportar + "/" + certificadoId, 'blank');
                     }
 
