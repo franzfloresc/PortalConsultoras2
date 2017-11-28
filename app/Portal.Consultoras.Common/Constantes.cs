@@ -1082,12 +1082,14 @@ namespace Portal.Consultoras.Common
                 #endregion
 
                 #region Landing Informativo
-                public const string DInformativoNuncaSuscritaNoInteresa = "DInformativoNuncaSuscritaNoInteresa";
-                public const string DInformativoSuscrita = "DInformativoSuscrita";
-                public const string DInformativoNoSuscrita = "DInformativoNoSuscrita";
-                public const string MInformativoNuncaSuscritaNoInteresa = "MInformativoNuncaSuscritaNoInteresa";
-                public const string MInformativoSuscrita = "MInformativoSuscrita";
-                public const string MInformativoNoSuscrita = "MInformativoNoSuscrita";
+                //public const string DInformativoNuncaSuscritaNoInteresa = "DInformativoNuncaSuscritaNoInteresa";
+                //public const string DInformativoSuscrita = "DInformativoSuscrita";
+                //public const string DInformativoNoSuscrita = "DInformativoNoSuscrita";
+                //public const string MInformativoNuncaSuscritaNoInteresa = "MInformativoNuncaSuscritaNoInteresa";
+                //public const string MInformativoSuscrita = "MInformativoSuscrita";
+                //public const string MInformativoNoSuscrita = "MInformativoNoSuscrita";
+
+                public const string InformativoVideo = "InformativoVideo";
                 #endregion
             }
 
