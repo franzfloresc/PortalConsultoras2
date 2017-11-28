@@ -352,6 +352,16 @@ begin
 	values (@ConfiguracionPaisID, 1, 0, 'InformativoVideo', 
 	'PvAWRQUKHqg', 'PvAWRQUKHqg', '', 'Video para la pagina informativa, valo2 es mobile')
 
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
+		Valor1, Valor2, Valor3, Descripcion)
+	values (@ConfiguracionPaisID, 1, 0, 'UrlTerminosCondiciones', 
+	'http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/FileConsultoras/PE/Terminos_y_condiciones_Esika_para_mi.pdf', '', '', 'Url Terminos Condiciones RD')
+	
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
+		Valor1, Valor2, Valor3, Descripcion)
+	values (@ConfiguracionPaisID, 1, 0, 'UrlPreguntasFrecuentes', 
+	'http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/FileConsultoras/PE/Preguntas_Frecuentes_Esika_para_mi.pdf', '', '', 'Url Preguntas Frecuentes RD')
+
 	END
 
 END

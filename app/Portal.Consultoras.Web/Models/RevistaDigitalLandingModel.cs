@@ -20,7 +20,6 @@ namespace Portal.Consultoras.Web.Models
         public int CampaniaID { get; set; }
         public bool PuedeSuscribirse { get; set; }
         public MensajeProductoBloqueadoModel MensajeProductoBloqueado { get; set; }
-        public string UrlTerminosCondicionesRD { get; set; }
         public int CantidadFilas { get; set; }
         public bool ProductosPerdio { get; set; }
         public string PerdioTitulo { get; set; }
