@@ -126,7 +126,6 @@ namespace Portal.Consultoras.Entities
                 FechaModificacion = Convert.ToDateTime(row["FechaModificacion"]);
             if (DataRecord.HasColumn(row, "FechaSolicitud") && row["FechaSolicitud"] != DBNull.Value)
                 FechaSolicitud = Convert.ToDateTime(row["FechaSolicitud"]);
-            /* R2319 - AAHA 02022015 - Inicio */
             if (DataRecord.HasColumn(row, "Seccion") && row["Seccion"] != DBNull.Value)
                 Seccion = Convert.ToString(row["Seccion"]);
             if (DataRecord.HasColumn(row, "NombreConsultoraAsignada") && row["NombreConsultoraAsignada"] != DBNull.Value)
