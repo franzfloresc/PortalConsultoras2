@@ -165,7 +165,7 @@
     <hr class="clear" />
 
     <div class="descargarPreguntasRespuestas">
-        <a href="@ConfigurationManager.AppSettings["UrlPreguntasFrecuentesRD"].Trim()" target="_blank">+ MÁS PREGUNTAS FRECUENTES</a>
+        <a href="@Model.UrlPreguntasFrecuente" target="_blank">+ MÁS PREGUNTAS FRECUENTES</a>
     </div>
 </div>
 
@@ -173,7 +173,7 @@
     <script type="text/javascript">
         var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
         var tipoOrigenPantalla = 1;
-        var urlTerminosCondicionesRD = '@ConfigurationManager.AppSettings["UrlTerminosCondicionesRD"].Trim()';
+        var urlTerminosCondicionesRD = '@Model.UrlTerminosCondiciones';
         var urlRevistaDigital = '@Url.Action("Comprar", "RevistaDigital")';
         var isScroll = false;
     </script>

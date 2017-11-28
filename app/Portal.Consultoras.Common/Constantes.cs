@@ -389,6 +389,9 @@ namespace Portal.Consultoras.Common
             public const string COM_CLIENT_ID = "COM_CLIENT_ID";
             public const string URL_COM = "URL_COM";
             public const string COM_DOMAIN = "COM_DOMAIN";
+
+            public const string RDUrlTerminosCondiciones = "UrlTerminosCondiciones";
+            public const string RDUrlPreguntasFrecuentes = "UrlPreguntasFrecuentes";
         }
 
         public static class TipoOfertaFinalCatalogoPersonalizado

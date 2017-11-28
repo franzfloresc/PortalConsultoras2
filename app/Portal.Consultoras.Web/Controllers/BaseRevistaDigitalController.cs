@@ -24,7 +24,9 @@ namespace Portal.Consultoras.Web.Controllers
                 EsSuscrita = revistaDigital.EsSuscrita,
                 EstadoSuscripcion = revistaDigital.EstadoSuscripcion,
                 Video = GetVideoInformativo(),
-                GifPackTuMedida = GetGifPackMedida()
+                GifPackTuMedida = GetGifPackMedida(),
+                UrlTerminosCondiciones = Getvalor1Dato(Constantes.ConfiguracionManager.RDUrlTerminosCondiciones),
+                UrlPreguntasFrecuentes = Getvalor1Dato(Constantes.ConfiguracionManager.RDUrlPreguntasFrecuentes)
             };
                         
             return View("template-informativa", modelo);
@@ -135,6 +137,12 @@ namespace Portal.Consultoras.Web.Controllers
             video = video != "" ? "https://www.youtube.com/embed/" + (video) + "?rel=0&amp;controls=1&amp;modestbranding=0" : "";
 
             return video;
+        }
+
+        private string Getvalor1Dato(string codigo)
+        {
+            var dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo) ?? new ConfiguracionPaisDatosModel();
+            return Util.Trim(dato.Valor1);
         }
 
         private string GetGifPackMedida()
