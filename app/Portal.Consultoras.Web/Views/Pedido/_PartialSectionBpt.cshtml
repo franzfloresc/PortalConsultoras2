@@ -80,7 +80,7 @@
         <div class="clear"></div>
         <!-- FIN PASE PEDIDO INSCRITAS C-11 -->
         @Html.Partial("~/Views/Pedido/template-seccion-opt.cshtml",
-            new ViewDataDictionary { { "Source", 2 }, { "NombreConsultora", Model.NombreConsultora }, { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiDesktopPedido } });
+            new ViewDataDictionary { { "Source", 2 }, { "NombreConsultora", Model.NombreConsultora }, { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiDesktopPedido }, { "NombrePalanca", Model.NombreComercialNoActiva } });
     }
 }
 else if (Model.TieneRDR)
@@ -124,5 +124,5 @@ else if (Model.TieneRDR)
 else
 {
     @Html.Partial("~/Views/Pedido/template-seccion-opt.cshtml",
-        new ViewDataDictionary { { "Source", 1 }, { "NombreConsultora", ViewBag.NombreConsultora }, { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiDesktopPedido } });
+        new ViewDataDictionary { { "Source", 1 }, { "NombreConsultora", ViewBag.NombreConsultora }, { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiDesktopPedido }, { "NombrePalanca", Model.NombreComercialNoActiva } });
 }

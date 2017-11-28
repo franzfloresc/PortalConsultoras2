@@ -97,7 +97,8 @@
         </div>
         <hr class="clear" />
         @Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-seccion.cshtml",
-        new ViewDataDictionary { { "Source", 2 }, { "NombreConsultora", Model.NombreConsultora }, { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome } });
+        new ViewDataDictionary { { "Source", 2 }, { "NombreConsultora", Model.NombreConsultora },
+            { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome }, {"NombrePalanca" , Model.NombreComercialNoActiva}});
     }
 }
 else if (Model.TieneRDR)
@@ -147,5 +148,6 @@ else if (Model.TieneRDR)
 else
 {
     @Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-seccion.cshtml",
-    new ViewDataDictionary { { "Source", 1 }, { "NombreConsultora", Model.NombreConsultora }, { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome } });
+    new ViewDataDictionary { { "Source", 1 }, { "NombreConsultora", Model.NombreConsultora },
+        { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome }, {"NombrePalanca" , Model.NombreComercialNoActiva}});
 }

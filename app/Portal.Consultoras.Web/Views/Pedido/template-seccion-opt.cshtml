@@ -13,7 +13,7 @@
         <div class="contenedor_carousel">
             @if (ViewBag.Source == 1)
             {
-                <div>
+                <div class="text-uppercase">
                     <h1>
                         OFERTAS <b>PARA TI @ViewBag.NombreConsultora</b>
                     </h1>
@@ -24,9 +24,9 @@
             }
             else
             {
-                <div>
+                <div class="text-uppercase">
                     <h1>
-                        OFERTAS <b style="color: #e81c36">ÉSIKA PARA MÍ</b>
+                        OFERTAS <b style="color: #e81c36">@ViewBag.NombrePalanca</b>
                     </h1>
                     <div class="texto_exclusivo_pedido_bpt">
                         @ViewBag.NombreConsultora, PRUEBA LAS VENTAJAS DE COMPRAR OFERTAS PERSONALIZADAS
