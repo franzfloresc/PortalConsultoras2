@@ -2201,7 +2201,7 @@ height: 100%;
         font-weight: 700;
         text-align: center;
         display: block;
-        color: #e81c36 !important;
+        color: #613c87 !important;
         margin-bottom: 30px !important;
     }
 
@@ -2210,7 +2210,7 @@ height: 100%;
         text-align: center;
         font-weight: 700;
         letter-spacing: 0.5px;
-        color: #e81c36;
+        color: #613c87;
         margin-bottom: 10px;
         width: 100%;
     }
@@ -2326,7 +2326,7 @@ height: 100%;
 }
 
 .suscribete-gratis p.txt-deseas-cancelar {
-    color: #e81c36;
+    color: #613c87;
     font-weight: 700;
     letter-spacing: 0.5px !important;
     text-transform: uppercase;
