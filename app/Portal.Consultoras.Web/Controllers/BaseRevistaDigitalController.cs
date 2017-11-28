@@ -23,7 +23,8 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 EsSuscrita = revistaDigital.EsSuscrita,
                 EstadoSuscripcion = revistaDigital.EstadoSuscripcion,
-                Video = GetVideoInformativo()
+                Video = GetVideoInformativo(),
+                GifPackTuMedida = GetGifPackMedida()
             };
                         
             return View("template-informativa", modelo);
@@ -134,6 +135,18 @@ namespace Portal.Consultoras.Web.Controllers
             video = video != "" ? "https://www.youtube.com/embed/" + (video) + "?rel=0&amp;controls=1&amp;modestbranding=0" : "";
 
             return video;
+        }
+
+        private string GetGifPackMedida()
+        {
+            return IsMobile()
+                ? userData.EsLebel
+                    ? "~/Content/Images/Lbel/personalizacion-visual-mobile.gif"
+                    : "~/Content/Images/Esika/personalizacion-visual-mobile.gif"
+                : userData.EsLebel
+                    ? "~/Content/Images/Lbel/personalizacion-visual-desktop.gif"
+                    : "~/Content/Images/Esika/personalizacion-visual-desktop.gif";
+
         }
 
     }

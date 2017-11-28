@@ -541,11 +541,11 @@
 .content_slider_ept{
     max-width:929px;    
     margin:0 auto;
-    padding-top:10px;
+    padding-top:0;
     position:relative;
 }
 .imagen_fondo{
-    min-height: 532px;
+    min-height: 450px;
     max-width: 929px;
 }
 .imagen_fondo img{
@@ -554,7 +554,7 @@
 .content_item_ept{
     width:100%;
     position:relative;
-    min-height: 532px;
+    min-height: 450px;
 }
 .detalle_set_banner {
     position: absolute;
@@ -2275,7 +2275,7 @@
 .banner_pedido_text {
     font-size: 16px;
     line-height: 20px;
-    margin-bottom: 40px;
+    margin-bottom: 52px;
     text-transform: uppercase;
 }
 

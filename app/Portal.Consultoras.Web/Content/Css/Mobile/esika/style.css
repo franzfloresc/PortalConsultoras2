@@ -4956,6 +4956,7 @@ table > thead > tr > th {
     margin-bottom: 20px;
     font-family: 'lato';
     color: black;
+    text-transform: uppercase;
 }
 
 .texto_exclusivo {
@@ -14015,3 +14016,8 @@ a{
     }
 }
 /* FIN NUEVO POPUP SUSCRIBIRSE RD */
+
+
+.text-uppercase {
+    text-transform: uppercase
+}

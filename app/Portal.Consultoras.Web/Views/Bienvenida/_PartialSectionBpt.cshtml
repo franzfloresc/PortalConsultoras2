@@ -79,7 +79,8 @@
         <hr class="clear" />
         <div style="height: 35px; background: #fff;"></div>
         @Html.Partial("~/Views/Bienvenida/template-seccion-opt.cshtml",
-            new ViewDataDictionary { { "Source", 2 }, { "NombreConsultora", Model.NombreConsultora }, { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiDesktopHome } });
+            new ViewDataDictionary { { "Source", 2 }, { "NombreConsultora", Model.NombreConsultora },
+                { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiDesktopHome }, {"NombrePalanca" , Model.NombreComercialNoActiva} });
     }
 }
 else if (Model.TieneRDR)
@@ -111,5 +112,6 @@ else if (Model.TieneRDR)
 else
 {
     @Html.Partial("~/Views/Bienvenida/template-seccion-opt.cshtml",
-            new ViewDataDictionary { { "Source", 1 }, { "NombreConsultora", Model.NombreConsultora }, { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiDesktopHome } });
+            new ViewDataDictionary { { "Source", 1 }, { "NombreConsultora", Model.NombreConsultora },
+                { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiDesktopHome }, { "NombrePalanca", Model.NombreComercialNoActiva } });
 }

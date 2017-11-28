@@ -541,11 +541,11 @@
 .content_slider_ept{
     max-width:929px;    
     margin:0 auto;
-    padding-top:10px;
+    padding-top:0;
     position:relative;
 }
 .imagen_fondo{
-    min-height: 532px;
+    min-height: 450px;
     max-width: 929px;
 }
 .imagen_fondo img{
@@ -554,7 +554,7 @@
 .content_item_ept{
     width:100%;
     position:relative;
-    min-height: 532px;
+    min-height: 450px;
 }
 .detalle_set_banner {
     position: absolute;
@@ -2943,7 +2943,7 @@
     }
 
     .gana-mas .pack-medida {
-        background: #e81c36;
+        background: #613c87;
     }
 
     .gana-mas .codigos {
@@ -3008,7 +3008,7 @@
     }
 
     .como-funciona p.como-funciona-txt {
-        color: #e81c36;
+        color: #613c87;
         display: block;
         text-align: center;
         font-weight: bold;
