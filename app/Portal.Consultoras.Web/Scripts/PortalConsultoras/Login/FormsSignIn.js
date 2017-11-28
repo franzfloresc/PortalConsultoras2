@@ -926,7 +926,7 @@ function RecuperarClave() {
         alert("Debe ingresar " + nombreDato);
         return false;
     }
-
+    debugger
     waitingDialog();
     jQuery.ajax({
         type: 'POST',

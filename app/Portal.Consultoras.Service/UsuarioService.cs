@@ -54,9 +54,10 @@ namespace Portal.Consultoras.Service
             return BLUsuario.SelectByEmail(Email, PaisID);
         }
         
-        public List<BEUsuarioCorreo> SelectByValorRestauracion(string ValorRestauracion, int PaisID)
+        public BEUsuarioCorreo GetRestaurarClaveByCodUsuario(string ValorRestauracion, int PaisID)
         {
-            return _usuarioBusinessLogic.SelectByValorRestauracion(ValorRestauracion, PaisID);
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.GetRestaurarClaveByCodUsuario(ValorRestauracion, PaisID);
         }
 
         public int DelUsuarioRol(int paisID, string codigoUsuario, int RolID)

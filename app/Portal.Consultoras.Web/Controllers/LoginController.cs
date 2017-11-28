@@ -1464,7 +1464,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult Admin()
+        public ActionResult Admin() 
         {
             return View();
         }
@@ -1475,27 +1475,43 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var respuesta = string.Empty;
+                var objRestaurar = new BEUsuarioCorreo();// string.Empty;
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-                    respuesta = sv.RecuperarContrasenia(paisId, textoRecuperacion);
+                    objRestaurar = sv.GetRestaurarClaveByCodUsuario(textoRecuperacion, paisId);
                 }
-                respuesta = respuesta == null ? "" : respuesta.Trim();
-                if (respuesta == "") return ErrorJson(Constantes.MensajesError.RecuperarContrasenia, true);
-                
-                string[] obj = respuesta.Split('|');
-                string exito = Util.Trim(obj.Length > 0 ? obj[0] : "");
-                string tipomsj = Util.Trim(obj.Length > 1 ? obj[1] : "");
-                if (exito != "1") return ErrorJson(MensajeErrorPais, true);
 
-                string correo = Util.Trim(obj.Length > 2 ? obj[2] : "");
-                string nombreusuario = Util.Trim(obj.Length > 3 ? obj[3] : "");
-                string claveusuario = Util.Trim(obj.Length > 4 ? obj[4] : "");
-                string codigo = Util.Trim(obj.Length > 5 ? obj[5] : "");
-                string contextoBase = Util.Trim(obj.Length > 6 ? obj[6] : "");
                 bool mostrarChat = false;
                 string descripcionHorarioChat = "";
                 bool habilitarChat = false;
+
+                //if (objRestaurar != null)
+                //{
+                    string correo = Util.Trim(objRestaurar.Correo);
+                    string nombreusuario = Util.Trim(objRestaurar.Nombre);
+                    string claveusuario = Util.Trim(objRestaurar.Clave);
+                    string codigo = Util.Trim(objRestaurar.CodigoUsuario);
+                    string contextoBase = Util.Trim("");
+
+                //}
+
+
+                //respuesta = respuesta == null ? "" : respuesta.Trim();
+                //if (respuesta == "") return ErrorJson(Constantes.MensajesError.RecuperarContrasenia, true);
+
+                //string[] obj = respuesta.Split('|');
+                //string exito = Util.Trim(obj.Length > 0 ? obj[0] : "");
+                //string tipomsj = Util.Trim(obj.Length > 1 ? obj[1] : "");
+                //if (exito != "1") return ErrorJson(MensajeErrorPais, true);
+
+                //string correo = Util.Trim(obj.Length > 2 ? obj[2] : "");
+                //string nombreusuario = Util.Trim(obj.Length > 3 ? obj[3] : "");
+                //string claveusuario = Util.Trim(obj.Length > 4 ? obj[4] : "");
+                //string codigo = Util.Trim(obj.Length > 5 ? obj[5] : "");
+                //string contextoBase = Util.Trim(obj.Length > 6 ? obj[6] : "");
+                //bool mostrarChat = false;
+                //string descripcionHorarioChat = "";
+                //bool habilitarChat = false;
 
                 BEHorario horario;
                 using (SACServiceClient sv = new SACServiceClient())
@@ -1513,7 +1529,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = true,
-                    message = exito,
+                    message = "1",
                     correo = correo,
                     nombre = nombreusuario,
                     clave = claveusuario,

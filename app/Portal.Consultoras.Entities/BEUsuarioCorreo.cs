@@ -35,6 +35,9 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int RolID { get; set; }
 
+        [DataMember]
+        public string Celular { get; set; }
+
         public BEUsuarioCorreo()
         { }
 
@@ -54,6 +57,8 @@ namespace Portal.Consultoras.Entities
                 Correo = Convert.ToString(row["Correo"]);
             if (DataRecord.HasColumn(row, "ClaveSecreta"))
                 Clave = Convert.ToString(row["ClaveSecreta"]);
+            if (DataRecord.HasColumn(row, "Celular"))
+                Celular = Convert.ToString(row["Celular"]);
         }
 
     }

@@ -160,6 +160,12 @@
   <wsdl:message name="IUsuarioService_GetUsuarioChatEmtelco_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetUsuarioChatEmtelcoResponse" />
   </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetRestaurarClaveByCodUsuario_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetRestaurarClaveByCodUsuario" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetRestaurarClaveByCodUsuario_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetRestaurarClaveByCodUsuarioResponse" />
+  </wsdl:message>
   <wsdl:message name="IUsuarioService_InsertTerminosCondiciones_InputMessage">
     <wsdl:part name="parameters" element="tns:InsertTerminosCondiciones" />
   </wsdl:message>
@@ -767,6 +773,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetUsuarioChatEmtelco" message="tns:IUsuarioService_GetUsuarioChatEmtelco_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetUsuarioChatEmtelcoResponse" message="tns:IUsuarioService_GetUsuarioChatEmtelco_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetRestaurarClaveByCodUsuario">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetRestaurarClaveByCodUsuario" message="tns:IUsuarioService_GetRestaurarClaveByCodUsuario_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetRestaurarClaveByCodUsuarioResponse" message="tns:IUsuarioService_GetRestaurarClaveByCodUsuario_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="InsertTerminosCondiciones">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/InsertTerminosCondiciones" message="tns:IUsuarioService_InsertTerminosCondiciones_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/InsertTerminosCondicionesResponse" message="tns:IUsuarioService_InsertTerminosCondiciones_OutputMessage" />
@@ -1300,6 +1310,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetUsuarioChatEmtelco">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetUsuarioChatEmtelco" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRestaurarClaveByCodUsuario">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetRestaurarClaveByCodUsuario" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2276,6 +2295,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetUsuarioChatEmtelco">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetUsuarioChatEmtelco" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRestaurarClaveByCodUsuario">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetRestaurarClaveByCodUsuario" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

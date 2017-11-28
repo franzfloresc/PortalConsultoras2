@@ -89,9 +89,9 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        public IDataReader GetValidarValorRestauracion(string CampoRestablecer, int PaisID)
+        public IDataReader GetRestaurarClaveUsuario(string CampoRestablecer, int PaisID)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarValorRestauracionClave");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetRestaurarClaveUsuario");
             Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, CampoRestablecer);
             Context.Database.AddInParameter(command, "@PaisID", DbType.AnsiString, PaisID);
 
