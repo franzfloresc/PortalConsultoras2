@@ -315,6 +315,8 @@
         });
 
     });
+
+    BannerApp();
 });
 
 function loadBannerLP20() {
@@ -1048,4 +1050,52 @@ function odd_get_item_impresion(item) {
         }
     }
     return impresion;
+}
+
+var comunicadoBannerApp;
+function BannerApp() {
+    if (ocultarBannerApp || actionName != "Index" || controllerName != "Bienvenida" || getMobileOperatingSystem() != "Android") {
+        $('.banner_app').hide();
+    }
+
+    $(".banner_app div").click(function (e) {
+        e.preventDefault();
+        $(".banner_app").hide();
+        OcultarBannerApp();
+        return false;
+    });
+
+    $(".banner_app").click(function (e) {
+        window.open(accionBannerApp);
+    });
+
+    $(".banner_app").css("background-image", "url(" + imagenBannerApp + ")");
+}
+
+function OcultarBannerApp() {
+    $.ajax({
+        type: 'GET',
+        url: urlOcultarBannerApp,
+        cache: false,
+        success: function (response) {
+            if (response.success) LayoutHeader();
+        },
+        error: function (err) { console.log(err); }
+    });
+}
+
+function getMobileOperatingSystem() {
+    var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+    if (/windows phone/i.test(userAgent)) {
+        return "Windows Phone";
+    }
+    if (/android/i.test(userAgent)) {
+        return "Android";
+    }
+    if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+        return "iOS";
+    }
+
+    return "unknown";
 }

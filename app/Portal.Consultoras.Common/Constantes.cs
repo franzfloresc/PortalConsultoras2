@@ -1362,5 +1362,10 @@ namespace Portal.Consultoras.Common
             public const string PAPEL_REGALO_DORADO = "2017_Navidad_Regalo1.pdf";
             public const string PAPEL_REGALO_ROJO = "2017_Navidad_Regalo2.pdf";
         }
+
+        public class Comunicado
+        {
+            public const string AppConsultora = "App Consultora";
+        }
     }
 }

@@ -167,6 +167,12 @@
                 </ul>
             </div>
         }
+        else if(ViewBag.MostrarBannerApp == true)
+        {
+            <!--BANNER APP-->
+            <div class="banner_app"><div>X</div></div>
+            <!--END BANNER APP-->
+        }
         <!--END BANNER-->
 
         <div class="container-fluid" style="padding-top:9px; padding-bottom:9px;">
@@ -430,6 +436,13 @@
 		belcorp.settings.initialize({
 			isAppMobile : @Html.MobileAppConfiguracion().EsAppMobile.ToString().ToLower()
 		});
+
+        var ocultarBannerApp = '@Session["OcultarBannerApp"]';
+        var urlOcultarBannerApp = '@Url.Action("OcultarBannerApp", "Bienvenida", new { area = "Mobile" })';
+        var actionName = '@ViewContext.RouteData.GetRequiredString("action")';
+        var controllerName = '@ViewContext.RouteData.GetRequiredString("controller")';
+        var accionBannerApp = '@ViewBag.AccionBannerApp';
+        var imagenBannerApp = '@ViewBag.ImagenBannerApp';
     </script>
 
     @if (ViewBag.MostrarOfertaDelDiaContenedor == true)

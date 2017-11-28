@@ -9175,7 +9175,7 @@ a {
     padding: 11px 11px;
     text-align: left;
     position: relative;
-    top: -5px;
+    /*top: -5px;*/
     z-index: 5;
 }
 
@@ -14243,3 +14243,21 @@ span.icon-advertencia {
     text-transform: uppercase;
 }
 /* FIN APPCONS-1098 */
+
+/*BANNER APP*/
+.banner_app {
+    cursor:pointer;
+    position:relative;
+    height:60px;
+    background-position:center;
+    background-repeat:no-repeat;
+    /*background-image:url('https://S3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_PE_3_Banner_Superior_Venta_Otras_Paginas_20171047540_01_zpwpgvxiwz_2017113499_01_fdoepchxru.jpg')*/
+}
+.banner_app div{
+    position:absolute;
+    top:2px;
+    right:5px;
+    color:#fff;
+    font-size:19px
+}
+/*FIN BANNER APP*/
