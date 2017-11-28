@@ -81,7 +81,8 @@
         </div>
         <hr class="clear" />
         @Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-seccion.cshtml",
-        new ViewDataDictionary { { "Source", 2 }, { "NombreConsultora", ViewBag.NombreConsultora }, { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome } });
+        new ViewDataDictionary { { "Source", 2 }, { "NombreConsultora", ViewBag.NombreConsultora },
+            { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome }, {"NombrePalanca" , Model.NombreComercialNoActiva}, {"NombrePalanca" , Model.NombreComercialNoActiva}});
     }
 }
 else if (Model.TieneRDR)
@@ -100,7 +101,7 @@ else if (Model.TieneRDR)
                 <div class="btn_red">
                     <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigitalReducida')">
                         VER TODAS MIS OFERTAS
-                        <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")">
+                        <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")" alt="">
                     </a>
                 </div>
             </div>
@@ -116,5 +117,6 @@ else if (Model.TieneRDR)
 else
 {
     @Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-seccion.cshtml",
-    new ViewDataDictionary { { "Source", 1 }, { "NombreConsultora", ViewBag.NombreConsultora }, { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome } });
+    new ViewDataDictionary { { "Source", 1 }, { "NombreConsultora", ViewBag.NombreConsultora },
+        { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome }, {"NombrePalanca" , Model.NombreComercialNoActiva}, {"NombrePalanca" , Model.NombreComercialNoActiva}});
 }
