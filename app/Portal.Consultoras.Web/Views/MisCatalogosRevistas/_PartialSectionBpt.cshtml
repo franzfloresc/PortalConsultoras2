@@ -26,7 +26,7 @@
         <div class="home_block_rd home_rd1" style="background-color: transparent; text-align: left;">
             <div class="content_belcorp" style="background-color: black;">
                 <div class="rd_logo">
-                    <img src="@urlLogo" alt="" height="80" width="180">
+                    <img src="@urlLogo" alt="" class="large" >
                 </div>
                 <div class="hblock_text" style="padding-top: 34px;">
                     <div class="hblock_tit" style="font-size: 14px;"> @Html.Raw(configuracionPaisDatosModel.Valor1)</div>
@@ -58,10 +58,11 @@
             }
             
             @Html.Partial("~/Views/MisCatalogosRevistas/template-revista-slide.cshtml")
-            <div class="revista_content" id="contentRevistaDigital" style="position: relative;">
-                <div class="home_block_rd home_rd1 rd_catalogos">
+            <br/>
+            <div class="home_block_rd home_rd1" style="background-color: transparent; text-align: left;">
+                <div class="content_belcorp" style="background-color: black;">
                     <div class="rd_logo">
-                        <img src="@urlLogo" alt="" height="80" width="180">
+                        <img src="@urlLogo" alt="" class="large">
                     </div>
                     <div class="hblock_text">
                         <div class="hblock_tit">@Html.Raw(configuracionPaisDatosModel.Valor1)</div>
@@ -76,6 +77,8 @@
                     </div>
                 </div>
             </div>
+            <hr class="clear" />
+            <div style="height: 35px; background: #fff;"></div>
         }
     }
 }
@@ -85,10 +88,11 @@ else if (Model.TieneRDR)
     {
         configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDR.DCatalogoRdr) ?? new ConfiguracionPaisDatosModel();
         @Html.Partial("~/Views/MisCatalogosRevistas/template-revista-slide.cshtml")
+        <br />
         <div class="revista_content" id="contentRevistaDigital" style="height: 300px; position: relative;">
             <div>
                 <div style="height: 127px; top: 40px; position: relative; margin-bottom: 16px;">
-                    <img src="@urlLogo" alt="Alternate Text" height="80" width="180"/>
+                    <img src="@urlLogo" alt="Alternate Text" class="large"/>
                 </div>
                 <div>
                     <span style="display: block; font-size: 18px; font-weight: bold; padding-left: 0;">@Html.Raw(configuracionPaisDatosModel.Valor1)</span>

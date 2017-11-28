@@ -36,14 +36,14 @@ begin
 	BEGIN 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'DBienvenidaInscritaActiva', 
-	'#Nombre, ¡Bienvenida al tu nuevo espacio online de ofertas exclusivas', 
-	'Compra packs hechos a tu medida, ¡sin digitar códigos!', 
+	'#Nombre ¡Bienvenida al tu nuevo espacio online de ofertas exclusivas!', 
+	'Compra packs hechos a tu medida <br/>¡sin digitar códigos!', 
 	'black', 'Textos de bienvenida para un consultora Inscrita activa')
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'DBienvenidaInscritaNoActiva', 
 	'#Nombre, Disfruta de tu nuevo espacio online de ofertas exclusivas', 
-	'En la siguiente campaña, compra packs hechos a tu medida, ¡sin digitar códigos!', 
+	'En la siguiente campaña, compra packs hechos a tu medida <br/>¡sin digitar códigos!', 
 	'black', 'Textos de bienvenida para un consultora Inscrita no activa')
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Valor3, Descripcion)
@@ -303,49 +303,54 @@ begin
 	-- RD Landing Informativo
 	BEGIN
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
-		Valor1, Valor2, Valor3, Descripcion)
-	values (@ConfiguracionPaisID, 1, 0, 'DInformativoNuncaSuscritaNoInteresa', 
-	'SUSCRÍBETE AL CLUB GANA+: TU NUEVO ESPACIO ONLINE DE OFERTAS EXCLUSIVAS', 
-	'Disfruta de los beneficios que Club Gana+ tiene para ti y haz crecer tu negocio.', 
-	'', 'Desktop estado no me interesa y recien invitada')
+	--insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
+	--	Valor1, Valor2, Valor3, Descripcion)
+	--values (@ConfiguracionPaisID, 1, 0, 'DInformativoNuncaSuscritaNoInteresa', 
+	--'SUSCRÍBETE AL CLUB GANA+: TU NUEVO ESPACIO ONLINE DE OFERTAS EXCLUSIVAS', 
+	--'Disfruta de los beneficios que Club Gana+ tiene para ti y haz crecer tu negocio.', 
+	--'', 'Desktop estado no me interesa y recien invitada')
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
-		Valor1, Valor2, Valor3, Descripcion)
-	values (@ConfiguracionPaisID, 1, 0, 'DInformativoSuscrita', 
-	'¿DESEAS CANCELAR TU SUSCRIPCIÓN AL CLUB GANA+?', 
-	'Al hacerlo, dejarás de disfrutar de los beneficios del Club Gana+ y volverás a recibir tu guía de negocio impresa a partir de la próxima campaña.', 
-	'Tienes hasta el cierre de esta campaña para cancelar tu suscripción y garantizar la recepción de tu guía de negocio impresa para la siguiente campaña.',
-	'Desktop no suscrita')
+	--insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
+	--	Valor1, Valor2, Valor3, Descripcion)
+	--values (@ConfiguracionPaisID, 1, 0, 'DInformativoSuscrita', 
+	--'¿DESEAS CANCELAR TU SUSCRIPCIÓN AL CLUB GANA+?', 
+	--'Al hacerlo, dejarás de disfrutar de los beneficios del Club Gana+ y volverás a recibir tu guía de negocio impresa a partir de la próxima campaña.', 
+	--'Tienes hasta el cierre de esta campaña para cancelar tu suscripción y garantizar la recepción de tu guía de negocio impresa para la siguiente campaña.',
+	--'Desktop no suscrita')
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
-		Valor1, Valor2, Valor3, Descripcion)
-	values (@ConfiguracionPaisID, 1, 0, 'DInformativoNoSuscrita', 
-	'HAS CANCELADO TU SUSCRIPCIÓN CON ÉXITO', 
-	'A partir de la próxima campaña, dejarás de disfrutar de los beneficios del Club Gana+ y volverás a recibir tu guía de negocio impresa en la próxima campaña.', 
-	'Puedes volver a suscribirte cuando quieras.',
-	'Desktop no suscrita')
+	--insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
+	--	Valor1, Valor2, Valor3, Descripcion)
+	--values (@ConfiguracionPaisID, 1, 0, 'DInformativoNoSuscrita', 
+	--'HAS CANCELADO TU SUSCRIPCIÓN CON ÉXITO', 
+	--'A partir de la próxima campaña, dejarás de disfrutar de los beneficios del Club Gana+ y volverás a recibir tu guía de negocio impresa en la próxima campaña.', 
+	--'Puedes volver a suscribirte cuando quieras.',
+	--'Desktop no suscrita')
 		
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
-		Valor1, Valor2, Valor3, Descripcion)
-	values (@ConfiguracionPaisID, 1, 0, 'MInformativoNuncaSuscritaNoInteresa', 
-	'SUSCRÍBETE AL CLUB GANA+: TU NUEVO ESPACIO ONLINE DE OFERTAS EXCLUSIVAS', 
-	'Disfruta de los beneficios que Club Gana+ tiene para ti.', 
-	'', 'Mobile estado no me interesa y recien invitada')
+	--insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
+	--	Valor1, Valor2, Valor3, Descripcion)
+	--values (@ConfiguracionPaisID, 1, 0, 'MInformativoNuncaSuscritaNoInteresa', 
+	--'SUSCRÍBETE AL CLUB GANA+: TU NUEVO ESPACIO ONLINE DE OFERTAS EXCLUSIVAS', 
+	--'Disfruta de los beneficios que Club Gana+ tiene para ti.', 
+	--'', 'Mobile estado no me interesa y recien invitada')
 	
-	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
-		Valor1, Valor2, Valor3, Descripcion)
-	values (@ConfiguracionPaisID, 1, 0, 'MInformativoSuscrita', 
-	'¿DESEAS CANCELAR TU SUSCRIPCIÓN?', 
-	'Al cancelar, dejarás de disfrutar de los beneficios del Club Gana+ y volverás a recibir tu guía de negocio impresa a partir de la próxima campaña.', 
-	'', 'Mobile no suscrita')
+	--insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
+	--	Valor1, Valor2, Valor3, Descripcion)
+	--values (@ConfiguracionPaisID, 1, 0, 'MInformativoSuscrita', 
+	--'¿DESEAS CANCELAR TU SUSCRIPCIÓN?', 
+	--'Al cancelar, dejarás de disfrutar de los beneficios del Club Gana+ y volverás a recibir tu guía de negocio impresa a partir de la próxima campaña.', 
+	--'', 'Mobile no suscrita')
 	
+	--insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
+	--	Valor1, Valor2, Valor3, Descripcion)
+	--values (@ConfiguracionPaisID, 1, 0, 'MInformativoNoSuscrita', 
+	--'HAS CANCELADO TU SUSCRIPCIÓN CON ÉXITO', 
+	--'A partir de la próxima campaña, dejarás de disfrutar de los beneficios del Club Gana+ y volverás a recibir tu guía de negocio impresa en la próxima campaña. Puedes volver a suscribirte cuando quieras.', 
+	--'', 'Mobile no suscrita')
+
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
 		Valor1, Valor2, Valor3, Descripcion)
-	values (@ConfiguracionPaisID, 1, 0, 'MInformativoNoSuscrita', 
-	'HAS CANCELADO TU SUSCRIPCIÓN CON ÉXITO', 
-	'A partir de la próxima campaña, dejarás de disfrutar de los beneficios del Club Gana+ y volverás a recibir tu guía de negocio impresa en la próxima campaña. Puedes volver a suscribirte cuando quieras.', 
-	'', 'Mobile no suscrita')
+	values (@ConfiguracionPaisID, 1, 0, 'InformativoVideo', 
+	'PvAWRQUKHqg', 'PvAWRQUKHqg', '', 'Video para la pagina informativa, valo2 es mobile')
 
 	END
 

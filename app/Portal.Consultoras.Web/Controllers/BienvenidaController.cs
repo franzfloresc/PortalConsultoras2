@@ -225,7 +225,6 @@ namespace Portal.Consultoras.Web.Controllers
                     model.TipoPopUpMostrar = ObtenerTipoPopUpMostrar(model, popupForzado);
                 }
 
-
                 #endregion
 
                 if (Session[Constantes.ConstSession.IngresoPortalConsultoras] == null)
@@ -508,6 +507,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else if (popup.CodigoPopup == Constantes.TipoPopUp.RevistaDigitalSuscripcion)
                 {
+                    if (!revistaDigital.TieneRDS)
+                        continue;
+
                     if (revistaDigital.NoVolverMostrar)
                         continue;
 
@@ -530,18 +532,6 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         TipoPopUpMostrar = Constantes.TipoPopUp.Cupon;
                         break;
-                    }
-                    continue;
-                }
-                else if (popup.CodigoPopup == Constantes.TipoPopUp.RevistaDigitalSuscripcion)
-                {
-                    if (!revistaDigital.NoVolverMostrar)
-                    {
-                        if (revistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.SinRegistroDB)
-                        {
-                            TipoPopUpMostrar = Constantes.TipoPopUp.RevistaDigitalSuscripcion;
-                            break;
-                        }
                     }
                     continue;
                 }
