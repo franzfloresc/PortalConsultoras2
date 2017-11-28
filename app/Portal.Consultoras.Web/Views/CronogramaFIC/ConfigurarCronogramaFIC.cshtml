@@ -167,27 +167,13 @@
             dateFormat: 'dd/mm/yy'
         }).mask('99/99/9999');
     }
-
-    function GetAnioCampaniaPedido(campaniaFIC) {
-        var anioCampaniaFIC = parseInt(campaniaFIC.substr(0, 4), 10);
-        var nroCampaniaFIC = campaniaFIC.substr(4);
-
-        if (nroCampaniaFIC === '01') return anioCampaniaFIC - 1;
-        return anioCampaniaFIC;
-    }
-
+    
     function GuardarCronograma() {
         var vMessage = "";
         var fecha = $.trim($("#txtFecIniFacN").val());
 
         if (fecha == "") vMessage += "- Debe ingresar la fecha límite para el ingreso a Pedido FIC.\n";
         else if (fecha.length != 10) vMessage += "- Debe ingresar una fecha válida para el ingreso a Pedido FIC.\n";
-        else {
-            var anioCampaniaPedido = GetAnioCampaniaPedido($.trim($("#ddlCampania option:selected").text()));
-            var anioFecha = parseInt(fecha.substr(6, 4), 10);
-
-            if (anioCampaniaPedido != anioFecha) vMessage += "- Debe ingresar una fecha correspondiente al año de la Campaña.\n";
-        }
 
         if (vMessage != "") {
             alert(vMessage);
