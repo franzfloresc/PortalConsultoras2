@@ -107,7 +107,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public bool TieneProductosPerdio(int campaniaID)
         {
-            if (!revistaDigital.EsActiva &&
+            if (revistaDigital.TieneRDC && !revistaDigital.EsActiva &&
                 campaniaID == userData.CampaniaID)
                 return true;
 
