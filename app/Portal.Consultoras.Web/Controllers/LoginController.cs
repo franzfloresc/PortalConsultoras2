@@ -966,7 +966,10 @@ namespace Portal.Consultoras.Web.Controllers
                                             revistaDigitalModel.BloqueoRevistaImpresa = c.BloqueoRevistaImpresa;
                                             break;
                                         case Constantes.ConfiguracionPais.RevistaDigitalReducida:
-                                            ConfiguracionPaisDatosRevistaDigital(ref revistaDigitalModel,
+                                            if (revistaDigitalModel.TieneRDC)
+                                                break;
+
+                                            ConfiguracionPaisDatosRevistaDigitalReducida(ref revistaDigitalModel,
                                                 listaPaisDatos.Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID).ToList(), usuarioModel.CodigoISO);
                                             FormatTextConfiguracionPaisDatosModel(ref revistaDigitalModel, usuarioModel.Sobrenombre);
                                             revistaDigitalModel.TieneRDR = true;
@@ -1169,7 +1172,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                     }
                 };
-            using (var sv = new UsuarioServiceClient())
+                using (var sv = new UsuarioServiceClient())
                 {
                     listaEntidad = sv.GetConfiguracionPaisDatos(entidad).ToList();
                 }
@@ -1179,7 +1182,7 @@ namespace Portal.Consultoras.Web.Controllers
                 listaEntidad = new List<BEConfiguracionPaisDatos>();
                 logManager.LogErrorWebServicesBusWrap(ex, usuarioModel.CodigoUsuario, usuarioModel.PaisID.ToString(), "LoginController.ConfiguracionPaisDatos");
             }
-            
+
             return listaEntidad;
         }
 
@@ -1239,6 +1242,48 @@ namespace Portal.Consultoras.Web.Controllers
 
                 value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoMenuOfertasNoActiva);
                 if (value1 != null) revistaDigitalModel.LogoMenuOfertasNoActiva= ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor1);
+
+                listaDatos.RemoveAll(d =>
+                    d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BloquearDiasAntesFacturar
+                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.CantidadCampaniaEfectiva
+                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.NombreComercialActiva
+                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.NombreComercialNoActiva
+                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoComercialActiva
+                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoComercialNoActiva
+                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoMenuOfertasActiva
+                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoMenuOfertasNoActiva
+                );
+
+                revistaDigitalModel.ConfiguracionPaisDatos = Mapper.Map<List<ConfiguracionPaisDatosModel>>(listaDatos) ?? new List<ConfiguracionPaisDatosModel>();
+            }
+            catch (Exception ex)
+            {
+                logManager.LogErrorWebServicesBusWrap(ex, string.Empty, string.Empty, "LoginController.ConfiguracionPaisDatosRevistaDigital");
+            }
+        }
+        
+        private void ConfiguracionPaisDatosRevistaDigitalReducida(ref RevistaDigitalModel revistaDigitalModel, List<BEConfiguracionPaisDatos> listaDatos, string paisIso)
+        {
+            try
+            {
+                revistaDigitalModel.ConfiguracionPaisDatos = new List<ConfiguracionPaisDatosModel>();
+
+                if (listaDatos == null || !listaDatos.Any())
+                    return;
+                
+                var value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RDR.LogoComercial);
+                if (value1 != null)
+                {
+                    revistaDigitalModel.DLogoComercialNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor1);
+                    revistaDigitalModel.MLogoComercialNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor2);
+                }
+
+                value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RDR.LogoComercialFondo);
+                if (value1 != null)
+                {
+                    revistaDigitalModel.DLogoComercialFondoNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor1);
+                    revistaDigitalModel.MLogoComercialFondoNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor2);
+                }
 
                 listaDatos.RemoveAll(d =>
                     d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BloquearDiasAntesFacturar
