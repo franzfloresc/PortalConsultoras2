@@ -2327,6 +2327,11 @@ height: 100%;
 	}
     .bloques-gana-mas .contenedor-mobile-fix span.recuerda-txt {
         color: #e81c36 !important;
+    font-weight: 700;
+    letter-spacing: 1px;
+    display:block;
+    width: 100%;
+    text-align: center;
     }
        
 	.bloques-gana-mas .contenedor-mobile-fix .instrucciones{
