@@ -19,7 +19,7 @@ namespace Portal.Consultoras.BizLogic
         Banners,
         GruposBanner,
         BannersBienvenida,
-        MenuGeneral,
+        //MenuGeneral,
         BelcorpResponde,
         ServiciosBelcorp,
         FactorGanancia,
@@ -35,7 +35,7 @@ namespace Portal.Consultoras.BizLogic
         PalabraInvalida,
         ProductoPalabra,
         SeccionConfiguracionOfertasHome,
-        ConfiguracionEventoFestivo,
+        //ConfiguracionEventoFestivo,
         GNDEstrategia
     }
 

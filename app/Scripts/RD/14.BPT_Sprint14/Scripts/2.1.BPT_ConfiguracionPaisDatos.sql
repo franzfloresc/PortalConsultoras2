@@ -15,7 +15,7 @@ begin
 	values (@ConfiguracionPaisID, 1, 0, 'CantidadCampaniaEfectiva', 1, 'Número de campañas a tomar efectiva la accion de suscribirse o desuscribirse') 
 	
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Descripcion)
-	values (@ConfiguracionPaisID, 1, 0, 'NombreComercialActiva', 'Club Gana +', 'Nombre comercial cuando el estado es activa que se asignara en todo sb2') 
+	values (@ConfiguracionPaisID, 1, 0, 'NombreComercialActiva', 'Club Gana +', 'Nombre comercial cuando el estado es activa que se asignara en todo sb2')
 	
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'NombreComercialNoActiva', 'Gana +', 'Nombre comercial cuando el estado es no activa que se asignara en todo sb2')
@@ -239,7 +239,6 @@ begin
 	'', 'Mobile perdiste ofertas')
 	END
 
-	
 	-- RD Banner Landing Comprar y Revisar
 	BEGIN
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
@@ -375,6 +374,12 @@ where Codigo = 'RDR'
 BEGIN
 
 	delete from ConfiguracionPaisDatos where ConfiguracionPaisID = @ConfiguracionPaisID
+
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Descripcion)
+	values (@ConfiguracionPaisID, 1, 0, 'LogoComercial', 'logotipo-ganamaplus-blanco.svg', 'logotipo-ganamaplus-blanco.svg', 'Logo comercial para reducidas que se asignara en todo sb2')
+	
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Descripcion)
+	values (@ConfiguracionPaisID, 1, 0, 'LogoComercialFondo', 'GanaMasFondo.png', 'GanaMasMobileFondo.png', 'Logo comercial para reducidas que se asignara en todo sb2')
 
 	-- RDR Textos desktop
 	BEGIN

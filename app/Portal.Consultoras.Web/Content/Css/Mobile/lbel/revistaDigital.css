@@ -1512,7 +1512,7 @@ height: 100%;
     line-height: 22px;
 }
 .box_preguntas_ept {
-    margin: 60px 0 40px;
+    margin: 0px 0 40px;
 }
 .box_cancelarInscripcion_ept {
     background: #eeeeee;
@@ -2171,7 +2171,7 @@ height: 100%;
     }
 
 .pack-a-medida {
-    background: #e91b37;
+    background: #613c87;
 }
 
 .sin-codigos {
@@ -2186,13 +2186,15 @@ height: 100%;
     background: #f5f5f5;
 }
 
-    .como-funciona img.arrow {
-        display: block !important;
-        margin: auto !important;
+    .como-funciona .arrow {
+        display: block;
+        margin: auto;
         width: 20px;
-        /* margin: 10px 0 !important; */
-        width: 20px !important;
-        margin-bottom: 10px !important;
+        height: 26px !important;
+        background: url(../../../Images/Lbel/Triangle.svg);
+        background-size: contain;
+        background-position: center center;
+        background-repeat: no-repeat;
     }
 
     .como-funciona p.titulo {
@@ -2225,13 +2227,13 @@ height: 100%;
 }
 
     .bloques-gana-mas .contenedor-mobile-fix > .bloque-texto {
-        width: 49%;
+        width: 75%;
         float: left;
         padding-right: 1%;
     }
 
     .bloques-gana-mas .contenedor-mobile-fix > .bloque-img {
-        width: 49%;
+        width: 25%;
         float: left;
         padding-left: 1%;
         max-height: 128px;
@@ -2241,6 +2243,31 @@ height: 100%;
         .bloques-gana-mas .contenedor-mobile-fix > .bloque-img .cnt {
             display: table-cell;
             vertical-align: middle;
+        }
+
+        .bloques-gana-mas .contenedor-mobile-fix > .bloque-img .cnt-uno {
+            width: 135px;
+            height: 80px !important;
+            background: url(../../../Images/Lbel/personalizacion-visual-desktop.gif);
+            background-size: contain;
+            background-position: center center;
+            background-repeat:no-repeat;
+        }
+        .bloques-gana-mas .contenedor-mobile-fix > .bloque-img .cnt-dos {
+            width: 135px;
+            height: 80px !important;
+            background: url(../../../Images/no-mas-codigo-visual.png);
+            background-size: 40%;
+            background-position: center center;
+            background-repeat: no-repeat;
+        }
+        .bloques-gana-mas .contenedor-mobile-fix > .bloque-img .cnt-tres {
+            width: 135px;
+            height: 80px !important;
+            background: url(../../../Images/Lbel/consejos-y-tips-visual.png);
+            background-size: contain;
+            background-position: center center;
+            background-repeat: no-repeat;
         }
 
     .bloques-gana-mas .contenedor-mobile-fix .clear {
@@ -2283,6 +2310,15 @@ height: 100%;
         padding-left: 2%;
     }
 
+    .bloques-gana-mas .contenedor-mobile-fix span.recuerda-txt {
+        color: #613c87 !important;
+        font-weight: 700;
+        letter-spacing: 1px;
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+
     .bloques-gana-mas .contenedor-mobile-fix .instrucciones {
         color: black !important;
         text-align: left !important;
@@ -2294,6 +2330,20 @@ height: 100%;
         width: 135px;
         display: block;
         margin: auto;
+    }
+
+    .bloques-gana-mas .contenedor-mobile-fix .logo {
+        width: 145px;
+        display: block;
+        margin: auto;
+        margin-bottom: 30px;
+        margin-top: 35px;
+        height: auto;
+        float: initial;
+        height: 50px;
+        background: url(../../../Images/Lbel/logotipo-club-ganamas-morado.svg);
+        background-size: cover;
+        background-position: center center;
     }
 
     .bloques-gana-mas .contenedor-mobile-fix .mobil-nro-funciona2 {
@@ -2351,6 +2401,32 @@ height: 100%;
         width: 120px;
         display: block;
         margin: auto;
+    }
+}
+@media(max-width:600px){
+    .bloques-gana-mas .contenedor-mobile-fix > .bloque-texto {
+        width: 55%;
+    }
+
+    .bloques-gana-mas .contenedor-mobile-fix > .bloque-img {
+        width: 45%;
+    }
+        .bloques-gana-mas .contenedor-mobile-fix > .bloque-img .cnt-uno {
+            background: url(../../../Images/Lbel/personalizacion-visual-mobile.gif);
+            background-size: contain;
+            background-position: center center;
+            background-repeat: no-repeat;
+            width: 135px;
+            height: 80px !important;
+        }
+        .bloques-gana-mas .contenedor-mobile-fix > .bloque-img .cnt-dos {
+            background-size: 70% !important;
+        }
+}
+@media(max-width:400px) {
+
+    .bloques-gana-mas .contenedor-mobile-fix > .bloque-img .cnt-dos {
+        background-size: 80% !important;
     }
 }
 

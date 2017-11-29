@@ -6,7 +6,6 @@
 
 /*MI REVISTA*/
 .revistadigital {
-    /*background: url(http://d33wubrfki0l68.cloudfront.net/img/4a19dc81ab45c532e80be57f07d17242b1fb4d77/parallax-3.jpg) no-repeat;*/
     background-position: center top;
 	margin-top: 30px;
 	text-align: center;
@@ -2906,7 +2905,7 @@
     padding-bottom: 30px;
 }
 
-    .gana-mas img.logo {
+    .gana-mas .logo {
         width: 230px;
         display: block;
         margin: auto;
@@ -2914,6 +2913,10 @@
         margin-top: 35px;
         height: auto;
         float: initial;
+        height: 80px;
+        background: url(../../../Images/Lbel/logotipo-club-ganamas-morado.svg);
+        background-size: cover;
+        background-position: center center;
     }
 
     .gana-mas p.sblogo {
@@ -2975,7 +2978,8 @@
     .gana-mas .txt-img {
         display: table;
         margin: auto;
-        height: 126px;
+        height: 100px;
+        margin-top: 10px;
     }
 
         .gana-mas .txt-img img {
@@ -2985,9 +2989,30 @@
         vertical-align: middle;
         display: table-cell;
     }
-
+    .gana-mas .txt-img-cont-uno {
+        width: 250px;
+        height: 80px !important;
+        background: url(../../../Images/Lbel/personalizacion-visual-desktop.gif);
+        background-size: cover;
+        background-position: center center;
+    }
+    .gana-mas .txt-img-cont-dos {
+        width: 250px;
+        height: 80px !important;
+        background: url(../../../Images/no-mas-codigo-visual-desktop.png);
+        background-size: cover;
+        background-position: center center;
+    }
+    .gana-mas .txt-img-cont-tres {
+        width: 250px;
+        height: 80px !important;
+        background: url(../../../Images/Lbel/consejos-y-tips-visual.png);
+        background-size: 100%;
+        background-position: center center;
+        background-repeat: no-repeat;
+    }
     .gana-mas img.img-referencial {
-        max-width: 200px !important;
+        max-width: 250px !important;
         margin: 15px 0px 0px 0px;
     }
 
@@ -3002,9 +3027,15 @@
     height: 330px;
 }
 
-    .como-funciona img.arrow-down {
+    .como-funciona .arrow-down {
         display: block;
         margin: auto;
+        width: 30px;
+        height: 26px !important;
+        background: url(../../../Images/Lbel/Triangle.svg);
+        background-size: contain;
+        background-position: center center;
+        background-repeat: no-repeat;
     }
 
     .como-funciona p.como-funciona-txt {
@@ -3022,7 +3053,7 @@
     .como-funciona .caja-texto {
         width: 50%;
         float: left;
-        padding: 40px 0px;
+        padding: 20px 0px;
     }
 
         .como-funciona .caja-texto span.nro {
@@ -3060,7 +3091,7 @@
     }
 
     .como-funciona span.recuerda-txt {
-        color: #e81c36;
+        color: #613c87;
         font-weight: 700;
         letter-spacing: 0.5px !important;
         text-transform: uppercase;
@@ -3105,7 +3136,7 @@
         margin-bottom: 20px;
         letter-spacing: 0.5px;
         font-size: 15px;
-        color: #e81c36;
+        color: #613c87;
         font-weight: 700;
         margin-top: 30px;
     }
