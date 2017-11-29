@@ -109,16 +109,19 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 ViewBag.VerSeccion = verSeccion;
 
                 //BANNER APP
-                using (SACServiceClient sac = new SACServiceClient())
+                if (Session["OcultarBannerApp"] == null)
                 {
-                    var lstComunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora, Constantes.ComunicadoTipoDispositivo.Mobile).ToList();
-                    lstComunicados = lstComunicados.Where(x => x.Descripcion == Constantes.Comunicado.AppConsultora).ToList();
-                    var oComunicados = lstComunicados.FirstOrDefault();
-                    if (oComunicados != null)
+                    using (SACServiceClient sac = new SACServiceClient())
                     {
-                        ViewBag.MostrarBannerApp = true;
-                        ViewBag.AccionBannerApp = oComunicados.DescripcionAccion;
-                        ViewBag.ImagenBannerApp = oComunicados.UrlImagen;
+                        var lstComunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora, Constantes.ComunicadoTipoDispositivo.Mobile).ToList();
+                        lstComunicados = lstComunicados.Where(x => x.Descripcion == Constantes.Comunicado.AppConsultora).ToList();
+                        var oComunicados = lstComunicados.FirstOrDefault();
+                        if (oComunicados != null)
+                        {
+                            ViewBag.MostrarBannerApp = true;
+                            ViewBag.AccionBannerApp = oComunicados.DescripcionAccion;
+                            ViewBag.ImagenBannerApp = oComunicados.UrlImagen;
+                        }
                     }
                 }
             }
