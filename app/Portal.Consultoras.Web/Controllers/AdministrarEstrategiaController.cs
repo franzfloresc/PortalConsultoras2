@@ -1,6 +1,7 @@
 using AutoMapper;
 
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.CustomHelpers;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceGestionWebPROL;
 using Portal.Consultoras.Web.ServiceODS;
@@ -1928,9 +1929,82 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        [HttpGet]
+        public PartialViewResult ProgramaNuevasBanner()
+        {
+            ViewBag.CodigoNivel = Dictionaries.IncentivoProgramaNuevasNiveles;
+            return PartialView();
+        }
+
+        [HttpPost]
+        public JsonResult ProgramaNuevasBannerActualizar(int TipoBanner, string CodigoPrograma, string CodigoNivel)
+        {
+            string carpetaPais = string.Empty;
+            string newfilename = string.Empty;
+
+            try
+            {
+                var nombreArchivo = Request["qqfile"];
+                new UploadHelper().UploadFile(Request, nombreArchivo);
+
+                carpetaPais = string.Format(Constantes.ProgramaNuevas.CarpetaBanner, UserData().CodigoISO, Dictionaries.IncentivoProgramaNuevasNiveles[CodigoNivel]);
+
+                if (TipoBanner == 1) newfilename = string.Format(Constantes.ProgramaNuevas.ArchivoBannerCupones, CodigoPrograma);
+                else if (TipoBanner == 2) newfilename = string.Format(Constantes.ProgramaNuevas.ArchivoBannerPremios, CodigoPrograma);
+
+                ConfigS3.SetFileS3(Path.Combine(Globals.RutaTemporales, nombreArchivo), carpetaPais, newfilename);
+
+                return Json(new
+                {
+                    success = true,
+                    extra = ConfigS3.GetUrlFileS3(carpetaPais, newfilename)
+                }, "text/html");
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    extra = ""
+                });
+            }
+        }
+
+        [HttpGet]
+        public JsonResult ProgramaNuevasBannerObtener(string CodigoPrograma, string CodigoNivel)
+        {
+            try
+            {
+                string carpetaPais = string.Format(Constantes.ProgramaNuevas.CarpetaBanner, UserData().CodigoISO, Dictionaries.IncentivoProgramaNuevasNiveles[CodigoNivel]);
+                string filenameCupon = string.Format(Constantes.ProgramaNuevas.ArchivoBannerCupones, CodigoPrograma);
+                string filenamePremio = string.Format(Constantes.ProgramaNuevas.ArchivoBannerPremios, CodigoPrograma);
+
+                return Json(new
+                {
+                    success = true,
+                    extra = new {
+                        ImgBannerCupon = ConfigS3.GetUrlFileS3(carpetaPais, filenameCupon),
+                        ImgBannerPremio = ConfigS3.GetUrlFileS3(carpetaPais, filenamePremio)
+                    }
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    extra = ""
+                });
+            }
+        }
         #endregion
 
-        #region Incentivos
+            #region Incentivos
         [HttpGet]
         public ViewResult Incentivos()
         {

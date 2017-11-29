@@ -1,6 +1,24 @@
 ﻿*:focus {
     outline:none
 }
+::-moz-selection,
+::-moz-selection,
+::-moz-selection,
+::-moz-selection {
+    padding: 1px 3px;
+    background-color: #623989;
+    color: #fff;
+}
+
+::selection,
+::selection,
+::selection,
+::selection {
+    padding: 1px 3px;
+    background-color: #623989;
+    color: #fff;
+}
+
 .loadingScreen-titulo{
     color:#000 !important
 }
