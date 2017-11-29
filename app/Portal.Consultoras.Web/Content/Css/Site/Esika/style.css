@@ -21873,21 +21873,22 @@ hr{
 .certificado_digital:last-child{
     margin-right:0;
 }
-.certificado_digital a span.icono_descarga_tarjetas{
+.certificado_digital a span.icono_certificados{
     display:inline-block;
     vertical-align:middle;
     margin-right:10px;
     width:40px;
     height:40px;
-    background-image:url("/Content/Images/Esika/Contenedor/icono-descarga-e-imprime.svg");
+    background-image:url("/Content/Images/MisCertificados/icono-certificado-esika.svg");
+    background-size:100%;
     transition: all 0.3s ease;
     -moz-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
     -ms-transition: all 0.3s ease;
     -webkit-transition: all 0.3s ease;
 }
-.certificado_digital:hover a span.icono_descarga_tarjetas{
-    background-image:url("/Content/Images/Esika/Contenedor/icono-descarga-e-imprime-hover.svg");
+.certificado_digital:hover a span.icono_certificados{
+    background-image:url("/Content/Images/MisCertificados/icono-certificado-esika-hover.svg");
 }
 .certificado_digital a span.nombre_certificado{
     font-size:15px;

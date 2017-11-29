@@ -2350,6 +2350,7 @@
     <Content Include="Content\Images\Lbel\mas.png" />
     <Content Include="Content\Images\Lbel\menos.png" />
     <Content Include="Content\Images\Lbel\mensajes.png" />
+    <Content Include="Content\Images\Lbel\mis_certificados_icono.png" />
     <Content Include="Content\Images\Lbel\mobile.png" />
     <Content Include="Content\Images\Lbel\notificaciones.png" />
     <Content Include="Content\Images\Lbel\oferta.png" />
@@ -2631,6 +2632,10 @@
     <Content Include="Content\Images\Menu.gif" />
     <Content Include="Content\Images\menu_rwd.png" />
     <Content Include="Content\Images\MisCertificados\firma-digital.png" />
+    <Content Include="Content\Images\MisCertificados\icono-certificado-esika-hover.svg" />
+    <Content Include="Content\Images\MisCertificados\icono-certificado-esika.svg" />
+    <Content Include="Content\Images\MisCertificados\icono-certificado-lbel-hover.svg" />
+    <Content Include="Content\Images\MisCertificados\icono-certificado-lbel.svg" />
     <Content Include="Content\Images\mobile-pedido.png" />
     <Content Include="Content\Images\mobile.png" />
     <Content Include="Content\Images\mobile\app-android.jpg" />

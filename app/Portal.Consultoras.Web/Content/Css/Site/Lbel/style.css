@@ -22381,7 +22381,7 @@ hr {
     height: 36px;
     margin-right: 10px;
     margin-top: 0px !important;
-    background: url("../../../Images/Esika/mis_certificados_icono.png") no-repeat;
+    background: url("../../../Images/Lbel/mis_certificados_icono.png") no-repeat;
 }
 
 .titulo_detalle_lugares_img {
@@ -22392,7 +22392,6 @@ hr {
     margin-top: 0px !important;
     background: url("../../../Images/Lbel/lugares_pago.png") no-repeat;
 }
-
 
 .titulo_detalle_pago div,
 .titulo_mis_certificados div{
@@ -22420,13 +22419,14 @@ hr {
     margin-right:0;
 }
 
-.certificado_digital a span.icono_descarga_tarjetas{
+.certificado_digital a span.icono_certificados{
     display:inline-block;
     vertical-align:middle;
     margin-right:10px;
     width:40px;
     height:40px;
-    background-image:url("/Content/Images/Lbel/icono-descarga.svg");
+    background-image:url("/Content/Images/MisCertificados/icono-certificado-lbel.svg");
+    background-size:100%;
     transition: all 0.3s ease;
     -moz-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
@@ -22434,8 +22434,8 @@ hr {
     -webkit-transition: all 0.3s ease;
 }
 
-.certificado_digital:hover a span.icono_descarga_tarjetas{
-    background-image:url("/Content/Images/Lbel/icono-descarga-hover.svg");
+.certificado_digital:hover a span.icono_certificados{
+    background-image:url("/Content/Images/MisCertificados/icono-certificado-lbel-hover.svg");
 }
 
 .certificado_digital a span.nombre_certificado{
