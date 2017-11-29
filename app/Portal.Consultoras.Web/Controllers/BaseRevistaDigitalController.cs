@@ -24,7 +24,6 @@ namespace Portal.Consultoras.Web.Controllers
                 EsSuscrita = revistaDigital.EsSuscrita,
                 EstadoSuscripcion = revistaDigital.EstadoSuscripcion,
                 Video = GetVideoInformativo(),
-                GifPackTuMedida = GetGifPackMedida(),
                 UrlTerminosCondiciones = Getvalor1Dato(Constantes.ConfiguracionManager.RDUrlTerminosCondiciones),
                 UrlPreguntasFrecuentes = Getvalor1Dato(Constantes.ConfiguracionManager.RDUrlPreguntasFrecuentes)
             };
@@ -107,7 +106,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public bool TieneProductosPerdio(int campaniaID)
         {
-            if (!revistaDigital.EsActiva &&
+            if (revistaDigital.TieneRDC && !revistaDigital.EsActiva &&
                 campaniaID == userData.CampaniaID)
                 return true;
 
@@ -144,18 +143,6 @@ namespace Portal.Consultoras.Web.Controllers
             var dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo) ?? new ConfiguracionPaisDatosModel();
             return Util.Trim(dato.Valor1);
         }
-
-        private string GetGifPackMedida()
-        {
-            return IsMobile()
-                ? userData.EsLebel
-                    ? "~/Content/Images/Lbel/personalizacion-visual-mobile.gif"
-                    : "~/Content/Images/Esika/personalizacion-visual-mobile.gif"
-                : userData.EsLebel
-                    ? "~/Content/Images/Lbel/personalizacion-visual-desktop.gif"
-                    : "~/Content/Images/Esika/personalizacion-visual-desktop.gif";
-
-        }
-
+        
     }
 }
