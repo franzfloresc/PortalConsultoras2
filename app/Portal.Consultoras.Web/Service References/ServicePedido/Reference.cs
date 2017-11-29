@@ -27915,6 +27915,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string ImagenURLOfertaFICField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IndicadorEnviadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int IndicadorGPRSBField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -28294,6 +28297,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.ImagenURLOfertaFICField, value) != true)) {
                     this.ImagenURLOfertaFICField = value;
                     this.RaisePropertyChanged("ImagenURLOfertaFIC");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IndicadorEnviado {
+            get {
+                return this.IndicadorEnviadoField;
+            }
+            set {
+                if ((this.IndicadorEnviadoField.Equals(value) != true)) {
+                    this.IndicadorEnviadoField = value;
+                    this.RaisePropertyChanged("IndicadorEnviado");
                 }
             }
         }
