@@ -36348,10 +36348,9 @@ h1#penmostreo .campana {
        .contenido-popup-nuevo-2017 .centrar-estructura{
                box-shadow: inset 0 0 0 5px #e81c36;
     padding: 20px;
-    /* margin-top: 15%; */
+    margin: 5% auto auto auto;
     /* margin-bottom: 15%; */
     width: 432px;
-    margin: auto;
     height: 432px;
     display: table;
        }
