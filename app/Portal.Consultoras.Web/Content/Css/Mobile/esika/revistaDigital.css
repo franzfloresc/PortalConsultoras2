@@ -2327,6 +2327,11 @@ height: 100%;
 	}
     .bloques-gana-mas .contenedor-mobile-fix span.recuerda-txt {
         color: #e81c36 !important;
+    font-weight: 700;
+    letter-spacing: 1px;
+    display:block;
+    width: 100%;
+    text-align: center;
     }
        
 	.bloques-gana-mas .contenedor-mobile-fix .instrucciones{
@@ -2349,7 +2354,7 @@ height: 100%;
         height: auto;
         float: initial;
         height: 50px;
-        background: url(../../../Images/Esika/logotipo-club-ganamas-morado.svg);
+        background: url(../../../Images/Esika/logotipo-club-ganamas-rojo.svg);
         background-size: cover;
         background-position: center center;
     }
