@@ -1286,14 +1286,8 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 listaDatos.RemoveAll(d =>
-                    d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BloquearDiasAntesFacturar
-                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.CantidadCampaniaEfectiva
-                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.NombreComercialActiva
-                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.NombreComercialNoActiva
-                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoComercialActiva
-                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoComercialNoActiva
-                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoMenuOfertasActiva
-                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoMenuOfertasNoActiva
+                    d.Codigo == Constantes.ConfiguracionPaisDatos.RDR.LogoComercial
+                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RDR.LogoComercialFondo
                 );
 
                 revistaDigitalModel.ConfiguracionPaisDatos = Mapper.Map<List<ConfiguracionPaisDatosModel>>(listaDatos) ?? new List<ConfiguracionPaisDatosModel>();
