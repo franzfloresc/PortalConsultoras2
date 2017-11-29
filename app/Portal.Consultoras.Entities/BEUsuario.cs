@@ -496,6 +496,12 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "CompartirDatos") && row["CompartirDatos"] != DBNull.Value)
                 AceptacionConsultoraDA = Convert.ToInt32(row["CompartirDatos"]);
+
+            if (DataRecord.HasColumn(row, "ConsecutivoNueva") && row["ConsecutivoNueva"] != DBNull.Value)
+                ConsecutivoNueva = Convert.ToInt32(row["ConsecutivoNueva"]);
+
+            if (DataRecord.HasColumn(row, "CodigoPrograma") && row["CodigoPrograma"] != DBNull.Value)
+                CodigoPrograma = Convert.ToString(row["CodigoPrograma"]);            
         }
 
         [Column("ConsultoraAsociadoID")]
@@ -1160,6 +1166,12 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public decimal MontoMinimoFlexipago { get; set; }
+
+        [DataMember]
+        public int ConsecutivoNueva { get; set; }
+
+        [DataMember]
+        public string CodigoPrograma { get; set; }
 
         public BEUsuario(IDataRecord row, string Lider)
         {

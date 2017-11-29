@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.ServiceModel;
+using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Service
 {
@@ -119,8 +120,8 @@ namespace Portal.Consultoras.Service
             return BLPedidoWebDetalle.InsertPedido(pedidoDetalle);
         }
 
-        public IList<BEPedidoWebDetalle> SelectByCampania(int paisID, int CampaniaID, long ConsultoraID, string Consultora, int esOpt = -1)
-        {
+        public IList<BEPedidoWebDetalle> SelectByCampania(int paisID, int CampaniaID, long ConsultoraID, string Consultora, int esOpt = -1, string codigoPrograma = "")
+        {            
             return BLPedidoWebDetalle.GetPedidoWebDetalleByCampania(paisID, CampaniaID, ConsultoraID, Consultora, esOpt);
         }
 

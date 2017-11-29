@@ -147,5 +147,20 @@ namespace Portal.Consultoras.BizLogic
             return saldo;
         }
         /* SB20-463 - FIN */
+
+        public IList<BESolicitudClienteDetalle> GetProductoByCampaniaByConsultoraId(int paisId, int campaniaId, long consultoraId)
+        {
+            var DAConsultoraOnline = new DAConsultoraOnline(paisId);
+            var lista = new List<BESolicitudClienteDetalle>();
+            using (IDataReader reader = DAConsultoraOnline.GetProductoByCampaniaByConsultoraId(campaniaId, consultoraId))
+            {
+                while (reader.Read())
+                {
+                    var entidad = new BESolicitudClienteDetalle(reader);
+                    lista.Add(entidad);
+                }
+                return lista;
+            }
+        }
     }
 }
