@@ -12,16 +12,11 @@ uploaderCupon = new qq.FileUploader({
     element: document.getElementById("file-uploader-cupon"),
     multiple: false,
     action: baseUrl + 'AdministrarEstrategia/ProgramaNuevasBannerActualizar',
-    //params: {
-    //    TipoBanner: tipoBanner,
-    //    CodigoPrograma: $.trim($("#CodigoPrograma").val()),
-    //    CodigoNivel: $.trim($("#CodigoNivel").val())
-    //},
     onComplete: function (id, fileName, response) {
         if (checkTimeout(response)) {
             $(".qq-upload-list").remove();
             if (response.success) {
-                $("#imgBannerCupon").attr("src", response.extra);
+                $("#imgBannerCupon").attr("src", response.extra + "?" + new Date().getTime());
             } else {
                 alert(response.message);
             };
@@ -37,16 +32,11 @@ uploaderPremio = new qq.FileUploader({
     element: document.getElementById("file-uploader-premio"),
     multiple: false,
     action: baseUrl + 'AdministrarEstrategia/ProgramaNuevasBannerActualizar',
-    //params: {
-    //    TipoBanner: tipoBanner,
-    //    CodigoPrograma: $.trim($("#CodigoPrograma").val()),
-    //    CodigoNivel: $.trim($("#CodigoNivel").val())
-    //},
     onComplete: function (id, fileName, response) {
         if (checkTimeout(response)) {
             $(".qq-upload-list").remove();
             if (response.success) {
-                $("#imgBannerPremio").attr("src", response.extra);
+                $("#imgBannerPremio").attr("src", response.extra + "?" + new Date().getTime());
             } else {
                 alert(response.message);
             };
@@ -93,14 +83,14 @@ function fn_CargarImagen() {
     if (CodigoPrograma == "" || CodigoNivel == "") return;
 
     uploaderCupon.setParams({
-        TipoBanner: 1,
-        CodigoPrograma: $.trim($("#CodigoPrograma").val()),
-        CodigoNivel: $("#CodigoNivel").val()
+        tipoBanner: 1,
+        codigoPrograma: $.trim($("#CodigoPrograma").val()),
+        codigoNivel: $("#CodigoNivel").val()
     });
     uploaderPremio.setParams({
-        TipoBanner: 2,
-        CodigoPrograma: $.trim($("#CodigoPrograma").val()),
-        CodigoNivel: $("#CodigoNivel").val()
+        tipoBanner: 2,
+        codigoPrograma: $.trim($("#CodigoPrograma").val()),
+        codigoNivel: $("#CodigoNivel").val()
     });
 
     $("#imgBannerCupon").attr("src", "");
@@ -111,7 +101,7 @@ function fn_CargarImagen() {
     jQuery.ajax({
         type: 'GET',
         cache: false,
-        url: baseUrl + 'AdministrarEstrategia/ProgramaNuevasBannerObtener?CodigoPrograma=' + CodigoPrograma + "&CodigoNivel=" + CodigoNivel,
+        url: baseUrl + 'AdministrarEstrategia/ProgramaNuevasBannerObtener?codigoPrograma=' + CodigoPrograma + "&codigoNivel=" + CodigoNivel,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         async: true,

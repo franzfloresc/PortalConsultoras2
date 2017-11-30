@@ -2,6 +2,15 @@
     .qq-upload-list{
         margin:5px 35px
     }
+    .div-3 .pdr_modal {
+        width:auto
+    }
+    .img-matriz-preview{
+        width:55px
+    }
+    #divVistaPrevia img {
+        height:100px
+    }
 </style>
 <div class="Content_modal">
     <div class="div-3">
@@ -53,4 +62,4 @@
     </div>
 </div>
 <script src="@Url.Content("~/Scripts/fileuploader.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaProgramaNuevas/Banner.js")" type="text/javascript"></script>
+<script src="@Url.Content(string.Format("~/Scripts/PortalConsultoras/EstrategiaProgramaNuevas/Banner.js?ver{0}", DateTime.Now.Ticks.ToString()))" type="text/javascript"></script>

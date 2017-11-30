@@ -2,6 +2,8 @@
     fnGrilla();
     fnClick();
     fnDialog();
+
+    if ($("#hdnTipoEstrategiaID").val() == "0") alert("Debe configurar el tipo de estrategia con codigo '022'");
 });
 
 function fnGrilla() {
