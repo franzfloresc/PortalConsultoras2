@@ -1026,6 +1026,8 @@ namespace Portal.Consultoras.Common
                 public const string LogoComercialFondoNoActiva = "LogoComercialFondoNoActiva";
                 public const string LogoMenuOfertasActiva = "LogoMenuOfertasActiva";
                 public const string LogoMenuOfertasNoActiva = "LogoMenuOfertasNoActiva";
+                public const string BloquearPedidoRevistaImp = "BloquearPedidoRevistaImp";
+                public const string BloquearSugerenciaProducto = "BloquearSugerenciaProducto";
                 #endregion
 
                 #region Bienvenida
@@ -1225,6 +1227,7 @@ namespace Portal.Consultoras.Common
             }
 
             public const short RevistaDigital = 131;
+            public const short CodigoRevistaFisica = 132;
         }
 
         public struct MensajesCDRExpress

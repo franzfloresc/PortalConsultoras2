@@ -16,6 +16,7 @@ namespace Portal.Consultoras.Web.Models
 
             SuscripcionAnterior2Model = new RevistaDigitalSuscripcionModel();
             SuscripcionAnterior1Model = new RevistaDigitalSuscripcionModel();
+            BloquearRevistaImpresaGeneral = null;
         }
 
         public int ConfiguracionPaisID { get; set; }
@@ -80,7 +81,9 @@ namespace Portal.Consultoras.Web.Models
         public int CampaniaMasUno { get; set; }
         public int CampaniaMasDos { get; set; }
         public bool BloqueoRevistaImpresa { get; set; }
-
+        public int? BloquearRevistaImpresaGeneral { get; set; }
+        public int BloquearProductosSugeridos { get; set; }
+        
         public RevistaDigitalSuscripcionModel SuscripcionAnterior2Model { get; set; }
         public RevistaDigitalSuscripcionModel SuscripcionAnterior1Model { get; set; }
 

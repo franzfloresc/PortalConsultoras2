@@ -152,10 +152,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return clientesByConsultora;
         }
 
-
-
-
-
         public ActionResult virtualCoach(string param = "")
         {
             string cuv = String.Empty;

@@ -60,7 +60,7 @@ $(document).ready(function () {
     });
 
     //EPD-1564
-    $("body").click(function (e) {
+    $("body").click(function(e) {
         if (!$(e.target).closest('.ui-dialog').length) {
             if ($('#divObservacionesPROL').is(':visible'))
                 HideDialog("divObservacionesPROL");
@@ -71,7 +71,7 @@ $(document).ready(function () {
             if ($('#divReservaSatisfactoria3').is(':visible'))
                 HideDialog("divReservaSatisfactoria3");
         }
-    })
+    });
     //FIn EPD-1564
 
     /*
@@ -1230,104 +1230,6 @@ function showClienteDetalle(cliente, pClienteDetalleOK, pClienteDetalleCANCEL) {
         }
     });
 }
-
-//function ClienteDetalleOK(cliente) {
-//    $("#hdfClienteID").val(cliente.ClienteID);
-//    $("#hdnClienteID_").val(cliente.ClienteID);
-//    $("#txtClienteDescripcion").val(cliente.Nombre);
-//    $("#hdfClienteDescripcion").val(cliente.Nombre);
-//    //dataLayer.push({
-//    //    'event': 'virtualEvent',
-//    //    'category': 'Clientes',
-//    //    'action': 'Agregar',
-//    //    'label': 'Satisfactorio'
-//    //});
-//}
-
-
-//function AbrirModalCliente() {
-//    /*
-//    if (typeof gTipoUsuario !== 'undefined') {
-//        if (gTipoUsuario == '2') {
-//            alert('Acceso restringido, aun no puede agregar pedidos');
-//            return false;
-//        }
-//    }
-//    */
-
-//    if (gTipoUsuario == '2') {
-//        var mesg = "Por el momento esta sección no está habilitada, te encuentras en una sesión de prueba. Una vez recibas tu código de consultora, podrás acceder a todos los beneficios de Somos Belcorp.";
-//        $('#dialog_MensajePostulante #tituloContenido').text("LO SENTIMOS");
-//        $('#dialog_MensajePostulante #mensajePostulante').text(mesg);
-//        $('#dialog_MensajePostulante').show();
-//        return false;
-//    }
-
-//    $('#Nombres').val($('#txtClienteDescripcion').val());
-//    $("#divClientes").show();
-//}
-
-//function ValidarRegistroCliente() {
-//    var vMessage = "";
-
-//    if (jQuery.trim($('#Nombres').val()) == "") {
-//        vMessage += "- Debe ingresar el Nombre del Cliente.\n";
-//    }
-
-//    if (jQuery.trim($('#Correo').val()) != "") {
-//        if (!validateEmail($('#Correo').val())) {
-//            vMessage += "- Debe ingresar un correo con la estructura válida.\n";
-//        }
-//    }
-
-//    if (vMessage != "") {
-//        AbrirMensaje(vMessage);
-//        $('#Nombres').focus();
-//        return false;
-//    }
-
-//    GuardarCliente();
-//}
-
-//function GuardarCliente() {
-//    var item = {
-//        Nombre: $('#Nombres').val(),
-//        eMail: $('#Correo').val()
-//    };
-//    jQuery.ajax({
-//        type: 'POST',
-//        url: baseUrl + 'Pedido/RegistrarCliente',
-//        dataType: 'json',
-//        contentType: 'application/json; charset=utf-8',
-//        data: JSON.stringify(item),
-//        async: true,
-//        success: function (data) {
-//            if (checkTimeout(data)) {
-//                if (data.success == true) {
-//                    $("#hdfClienteID").val(data.extra);
-//                    $("#txtClienteDescripcion").val($('#Nombres').val());
-//                    $("#hdfClienteDescripcion").val($('#Nombres').val());
-//                    $('#Nombres').val("");
-//                    $('#Correo').val("");
-//                    dataLayer.push({
-//                        'event': 'virtualEvent',
-//                        'category': 'Clientes',
-//                        'action': 'Agregar',
-//                        'label': 'Satisfactorio'
-//                    });
-//                    $("#divClientes").hide();
-//                }
-//                AbrirMensaje(data.message);
-//            }
-//        },
-//        error: function (data, error) {
-//            if (checkTimeout(data)) {
-//                AbrirMensaje(data.message);
-//                $("#divClientes").hide();
-//            }
-//        }
-//    });
-//}
 
 function Tabular(event) {
     event = event || window.event;

@@ -1002,6 +1002,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 sessionManager.SetConfiguracionesPaisModel(configuracionesPaisModels);
                                 sessionManager.SetOfertaFinalModel(ofertaFinalModel);
                             }
+                            usuarioModel.CodigosRevistaImpresa = ObtenerCodigoRevistaFisica(usuarioModel.PaisID);
                         }
                         catch (Exception ex)
                         {
@@ -1238,7 +1239,13 @@ namespace Portal.Consultoras.Web.Controllers
                 if (value1 != null) revistaDigitalModel.LogoMenuOfertasActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor1);
 
                 value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoMenuOfertasNoActiva);
-                if (value1 != null) revistaDigitalModel.LogoMenuOfertasNoActiva= ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor1);
+                if (value1 != null) revistaDigitalModel.LogoMenuOfertasNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor1);
+
+                value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BloquearPedidoRevistaImp);
+                if (value1 != null) revistaDigitalModel.BloquearRevistaImpresaGeneral = Convert.ToInt32(value1.Valor1);
+
+                value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BloquearSugerenciaProducto);
+                if (value1 != null) revistaDigitalModel.BloquearProductosSugeridos = Convert.ToInt32(value1.Valor1);
 
                 listaDatos.RemoveAll(d =>
                     d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BloquearDiasAntesFacturar
@@ -1249,6 +1256,8 @@ namespace Portal.Consultoras.Web.Controllers
                     || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoComercialNoActiva
                     || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoMenuOfertasActiva
                     || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoMenuOfertasNoActiva
+                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BloquearPedidoRevistaImp
+                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BloquearSugerenciaProducto
                 );
 
                 revistaDigitalModel.ConfiguracionPaisDatos = Mapper.Map<List<ConfiguracionPaisDatosModel>>(listaDatos) ?? new List<ConfiguracionPaisDatosModel>();
@@ -1717,6 +1726,22 @@ namespace Portal.Consultoras.Web.Controllers
             return imgSh;
         }
 
+        private string ObtenerCodigoRevistaFisica(int paisId)
+        {
+            var codigoRevista = "";
+            BETablaLogicaDatos tablaLogicaDatos;
+            using (var svc = new SACServiceClient())
+            {
+                tablaLogicaDatos = svc.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.CodigoRevistaFisica).FirstOrDefault();
+            }
+            if (tablaLogicaDatos != null)
+            {
+                codigoRevista = tablaLogicaDatos.Codigo;
+            }
+
+            return codigoRevista;
+        }
+        
         [AllowAnonymous]
         public ActionResult SesionExpirada(string returnUrl)
         {
