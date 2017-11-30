@@ -380,6 +380,9 @@ BEGIN
 	
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'LogoComercialFondo', 'GanaMasFondo.png', 'GanaMasMobileFondo.png', 'Logo comercial para reducidas que se asignara en todo sb2')
+		
+	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Descripcion)
+	values (@ConfiguracionPaisID, 1, 0, 'LogoMenuOfertas', 'gif-ganamas.gif', 'gif-ganamas.gif', 'Gif para el menú de rd reducida')
 
 	-- RDR Textos desktop
 	BEGIN
