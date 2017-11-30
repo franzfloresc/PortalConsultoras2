@@ -8,8 +8,9 @@
     ShowRoomBannerLateralModel showRoomBannerLateral = new ShowRoomBannerLateralModel();
     if (ViewBag.MostrarShowRoomBannerLateral == true) { showRoomBannerLateral = ViewBag.ShowRoomBannerLateral; }
 
-    OfertaDelDiaModel ofertaDelDia = new OfertaDelDiaModel();
+    OfertaDelDiaModel ofertaDelDia = null;
     if (ViewBag.MostrarOfertaDelDia == true) { ofertaDelDia = ViewBag.OfertaDelDia; }
+    ofertaDelDia = ofertaDelDia ?? new OfertaDelDiaModel();
 }
 
 <!DOCTYPE html>

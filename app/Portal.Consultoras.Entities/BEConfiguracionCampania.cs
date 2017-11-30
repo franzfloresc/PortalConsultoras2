@@ -148,6 +148,10 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int AceptacionConsultoraDA { get; set; }
 
+        [Column("IndicadorEnviado")]
+        [DataMember]
+        public bool IndicadorEnviado { get; set; }
+
         public BEConfiguracionCampania()
         {
 
@@ -228,8 +232,8 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(datarec, "MensajeValidacionInteractiva") && datarec["MensajeValidacionInteractiva"] != DBNull.Value)
                 MensajeValidacionInteractiva = DbConvert.ToString(datarec["MensajeValidacionInteractiva"]);
 
-            if (DataRecord.HasColumn(datarec, "IndicadorGPRSB") && datarec["IndicadorGPRSB"] != DBNull.Value)
-                IndicadorGPRSB = Convert.ToInt32(datarec["IndicadorGPRSB"]);
+            if (DataRecord.HasColumn(datarec, "IndicadorGPRSB")) IndicadorGPRSB = Convert.ToInt32(datarec["IndicadorGPRSB"]);
+            if (DataRecord.HasColumn(datarec, "IndicadorEnviado")) IndicadorEnviado = Convert.ToBoolean(datarec["IndicadorEnviado"]);
 
             if (DataRecord.HasColumn(datarec, "EstadoPedido") && datarec["EstadoPedido"] != DBNull.Value)
                 EstadoPedido = Convert.ToInt32(datarec["EstadoPedido"]);
