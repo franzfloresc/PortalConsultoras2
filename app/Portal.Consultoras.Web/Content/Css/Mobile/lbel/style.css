@@ -14243,3 +14243,20 @@ span.icon-advertencia {
     text-transform: uppercase;
 }
 /* FIN APPCONS-1098 */
+
+/*BANNER APP*/
+.banner_app {
+    cursor:pointer;
+    position:relative;
+    height:60px;
+    background-position:center;
+    background-repeat:no-repeat;
+}
+.banner_app div{
+    position:absolute;
+    top:2px;
+    right:5px;
+    color:#fff;
+    font-size:19px;
+}
+/*FIN BANNER APP*/

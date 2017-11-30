@@ -412,8 +412,9 @@ namespace Portal.Consultoras.BizLogic
             usuario.DiasCierre = usuarioConsultoraTask.Result.DiasCierre;
             usuario.FechaVencimiento = usuarioConsultoraTask.Result.FechaVencimiento;
 
-            usuario.EsAniversario = consultoraAniversarioTask.Result;
+            usuario.EsAniversario = (bool)consultoraAniversarioTask.Result[0];
             usuario.EsCumpleanio = consultoraCumpleanioTask.Result;
+            usuario.AniosPermanencia = (int)consultoraAniversarioTask.Result[1];
 
             usuario.CodigosConcursos = IncentivosConcursosTask.Result.Count == 2 ? IncentivosConcursosTask.Result[0] : string.Empty;
             usuario.CodigosProgramaNuevas = IncentivosConcursosTask.Result.Count == 2 ? IncentivosConcursosTask.Result[1] : string.Empty;
@@ -512,9 +513,11 @@ namespace Portal.Consultoras.BizLogic
             return beConfiguracionCampania;
         }
 
-        private bool GetConsultoraAniversario(BEUsuario usuario)
+        private List<object> GetConsultoraAniversario(BEUsuario usuario)
         {
+            var resultado = new List<object>();
             bool esAniversario = false;
+            int aniosPermanencia = 0;
 
             if (usuario.RolID == Constantes.Rol.Consultora)
             {
@@ -527,13 +530,22 @@ namespace Portal.Consultoras.BizLogic
                         int diferencia = campaniaActual - campaniaIngreso;
                         if (diferencia >= 12)
                         {
-                            if (usuario.AnoCampaniaIngreso.Trim().EndsWith(usuario.CampaniaDescripcion.Trim().Substring(4))) esAniversario = true;
+                            if (usuario.AnoCampaniaIngreso.Trim().EndsWith(usuario.CampaniaDescripcion.Trim().Substring(4)))
+                            {
+                                esAniversario = true;
+                                int anioActual = int.Parse(usuario.CampaniaDescripcion.Substring(0, 4));
+                                int anioIngreso = int.Parse(usuario.AnoCampaniaIngreso.Substring(0, 4));
+                                aniosPermanencia = anioActual - anioIngreso;
+                            }
                         }
                     }
                 }
             }
 
-            return esAniversario;
+            resultado.Add(esAniversario);
+            resultado.Add(aniosPermanencia);
+
+            return resultado;
         }
 
         private bool GetConsultoraCumpleanio(BEUsuario usuario)

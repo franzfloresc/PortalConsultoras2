@@ -1369,5 +1369,10 @@ namespace Portal.Consultoras.Common
             public const string ArchivoBannerCupones = "Cupon{0}.jpg";
             public const string ArchivoBannerPremios = "Premio{0}.jpg";
         }
+
+        public class Comunicado
+        {
+            public const string AppConsultora = "App Consultora";
+        }
     }
 }
