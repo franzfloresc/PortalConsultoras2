@@ -35,12 +35,14 @@ function MainInit() {
             $('#div_select_pais').css('background-image', '');
             $('#tooltip_usuario').css('display', 'none');
             $('#tooltip_password').css('display', 'none');
+            $(this).removeClass('select_pais_chat_activo');
         }
         else {
             $('#css-main').attr('href', paisesEsika.indexOf(paisISO) >= 0 ? cssMainEsika : cssMainLbel);
             $('#div_select_pais').css('background-image', urlFormatImagenBandera.replace(/\{0\}/g, paisISO));
             $('#tooltip_usuario').css('display', '').html(listTooltipUsuario[paisISO]);
             $('#tooltip_password').css('display', '').html(listTooltipPassword[paisISO]);
+            $(this).addClass('select_pais_chat_activo');
         }
     });
 
