@@ -140,6 +140,33 @@ function fnClick() {
             }
         });
     });
+
+    $("#btnConfigBanners").click(function (e) {
+        e.preventDefault();
+
+        var url = baseUrl + "AdministrarEstrategia/ProgramaNuevasBanner";
+
+        waitingDialog({});
+
+        $.ajax({
+            type: 'GET',
+            dataType: 'html',
+            cache: false,
+            url: url,
+            success: function (data) {
+                closeWaitingDialog();
+
+                $("#divConfigBanner").html(data);
+                showDialog("divConfigBanner");
+
+                $("#CodigoPrograma").focus();
+            },
+            error: function (xhr, ajaxOptions, error) {
+                closeWaitingDialog();
+                alert('Error: ' + xhr.status + " - " + xhr.responseText);
+            }
+        });
+    });
 }
 
 function fnDialog() {
@@ -164,7 +191,20 @@ function fnDialog() {
         closeOnEscape: true,
         width: 700,
         draggable: false,
-        title: "CONFIGURACIÓN <b>PROGRAMA DE NUEVAS</b>",
+        title: "CONFIGURACIÓN MENSAJES <b>PROGRAMA DE NUEVAS</b>",
+        open: function (event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).hide(); },
+        close: function () {
+        },
+    });
+
+    $('#divConfigBanner').dialog({
+        autoOpen: false,
+        resizable: false,
+        modal: true,
+        closeOnEscape: true,
+        width: 500,
+        draggable: false,
+        title: "CONFIGURACIÓN BANNERS <b>PROGRAMA DE NUEVAS</b>",
         open: function (event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).hide(); },
         close: function () {
         },

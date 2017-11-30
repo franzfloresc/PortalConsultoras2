@@ -1363,6 +1363,13 @@ namespace Portal.Consultoras.Common
             public const string PAPEL_REGALO_ROJO = "2017_Navidad_Regalo2.pdf";
         }
 
+        public class ProgramaNuevas
+        {
+            public const string CarpetaBanner = "AppConsultora/{0}/ProgramaNuevas/{1}";
+            public const string ArchivoBannerCupones = "Cupon{0}.jpg";
+            public const string ArchivoBannerPremios = "Premio{0}.jpg";
+        }
+
         public class Comunicado
         {
             public const string AppConsultora = "App Consultora";

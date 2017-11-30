@@ -148,7 +148,6 @@ function fnImagenes_Paginador(data) {
     $(".EstrategiaTabFooter").html(htmlPaginador);
 }
 function fnImagenes_FileUpload(data) {
-
     var uploader = new qq.FileUploader({
         allowedExtensions: ['jpg', 'png', 'jpeg'],
         element: document.getElementById("file-uploader"),
@@ -315,6 +314,7 @@ $("#btnGuardar").click(function (e) {
 });
 $("#btnCancelar").click(function (e) {
     e.preventDefault();
+    $("#divAgregar").html("");
     HideDialog("divAgregar");
 });
 
