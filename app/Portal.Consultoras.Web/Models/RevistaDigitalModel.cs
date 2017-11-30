@@ -44,7 +44,7 @@ namespace Portal.Consultoras.Web.Models
         {
             return TieneRDC &&
                 SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo &&
-                SuscripcionAnterior1Model.EstadoRegistro != Constantes.EstadoRDSuscripcion.Desactivo &&
+                //SuscripcionAnterior1Model.EstadoRegistro != Constantes.EstadoRDSuscripcion.Desactivo &&
                 SuscripcionAnterior2Model.EstadoRegistro != Constantes.EstadoRDSuscripcion.Activo;
             ;
         }
@@ -52,14 +52,15 @@ namespace Portal.Consultoras.Web.Models
         public bool EsSuscritaActiva()
         {
             return TieneRDC &&
+                SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo &&
                 SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo;
         }
 
         public bool EsNoSuscrita()
         {
             return TieneRDC &&
-                SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Desactivo &&
-                SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Desactivo; ;
+                SuscripcionModel.EstadoRegistro != Constantes.EstadoRDSuscripcion.Activo &&
+                SuscripcionAnterior2Model.EstadoRegistro != Constantes.EstadoRDSuscripcion.Activo;
         }
     }
 }
