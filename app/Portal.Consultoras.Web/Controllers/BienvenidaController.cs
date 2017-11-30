@@ -1116,7 +1116,7 @@ namespace Portal.Consultoras.Web.Controllers
                         sb.Append("<td height='106'><table width='568' border='0' cellspacing='0' cellpadding='0'>");
                         sb.Append("<tr>");
                         sb.Append("<td width='31' height='106'>&nbsp;</td>");
-                        sb.Append("<td width='466'><font face='Arial,sans-serif' style='font-family: Arial,sans-serif; font-size: 14px; color:#425363; line-height:1.2;'>�Felicidades! �Ya eres Consultora Belcorp! De ahora en adelante, para llegar a tu comunidad tendrás que ingresar siempre a través de tu cuenta de Somos Belcorp(*).</font></td>");
+                        sb.Append("<td width='466'><font face='Arial,sans-serif' style='font-family: Arial,sans-serif; font-size: 14px; color:#425363; line-height:1.2;'>¡Felicidades! ¡Ya eres Consultora Belcorp! De ahora en adelante, para llegar a tu comunidad tendrás que ingresar siempre a través de tu cuenta de Somos Belcorp(*).</font></td>");
                         sb.Append("<td>&nbsp;</td>");
                         sb.Append("</tr>");
                         sb.Append("</table></td>");
@@ -1126,7 +1126,7 @@ namespace Portal.Consultoras.Web.Controllers
                         sb.Append("<tr>");
                         sb.Append("<td width='31' height='90'>&nbsp;</td>");
                         sb.Append("<td width='412'><font face='Arial,sans-serif' style='font-family: Arial,sans-serif; font-size: 14px; color:#660066;line-height:1.2;'>Aprovecha al máximo tu comunidad</font><br>");
-                        sb.Append("<font face='Arial,sans-serif' style='font-family: Arial,sans-serif; font-size: 14px; color:#425363; line-height:1.2;'>En la sección �Mi negocio� encontrarás todos los tips que <br>");
+                        sb.Append("<font face='Arial,sans-serif' style='font-family: Arial,sans-serif; font-size: 14px; color:#425363; line-height:1.2;'>En la sección Mi negocio encontrarás todos los tips que <br>");
                         sb.Append("necesitas para hacer crecer tu negocio.</font></td>");
                         sb.Append("<td width='125'>&nbsp;</td>");
                         sb.Append("</tr>");
@@ -1159,7 +1159,7 @@ namespace Portal.Consultoras.Web.Controllers
                         sb.Append("<td height='51'><table id='Table_8' width='766' height='51' border='0' cellpadding='0' cellspacing='0'>");
                         sb.Append("<tr>");
                         sb.Append("<td width='18'></td>");
-                        sb.Append("<td width='373'><font face='Arial,sans-serif' style='font-family: Arial,sans-serif; font-size: 11px; color:#768591;'>�No deseas recibir correos electrónicos de la Comunidad Somos Belcorp?</font></td>");
+                        sb.Append("<td width='373'><font face='Arial,sans-serif' style='font-family: Arial,sans-serif; font-size: 11px; color:#768591;'>¿No deseas recibir correos electrónicos de la Comunidad Somos Belcorp?</font></td>");
                         sb.Append("<td width='8'></td>");
                         sb.Append("<td width='101'><a href='#' onMouseOut='MM_swapImgRestore()' onMouseOver=\"MM_swapImage('Haz click','','https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Comunidad/hazclick_on.png',1)\"><img src='https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Comunidad/hazclick_off.png' width='101' height='21' id='Haz click'></a></td>");
                         sb.Append("<td width='266'></td>");
@@ -1189,7 +1189,7 @@ namespace Portal.Consultoras.Web.Controllers
                         return Json(new
                         {
                             success = true,
-                            message = "�Tu correo ha sido validado con éxito! Por favor revisa tu correo y sigue los pasos indicados.",
+                            message = "¡Tu correo ha sido validado con éxito! Por favor revisa tu correo y sigue los pasos indicados.",
                             extra = ""
                         }, JsonRequestBehavior.AllowGet);
                     }
@@ -1329,7 +1329,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(new
                     {
                         success = true,
-                        message = "�Gracias por querer ser parte de nuestra comunidad! Para continuar con el proceso, sigue los pasos del correo que te hemos enviado.",
+                        message = "¡Gracias por querer ser parte de nuestra comunidad! Para continuar con el proceso, sigue los pasos del correo que te hemos enviado.",
                         extra = ""
                     }, JsonRequestBehavior.AllowGet);
                 }
@@ -1589,13 +1589,13 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             var dic = new Dictionary<string, string>();
-            dic.Add("Campa�a", "CampaniaID");
-            dic.Add("Regi�n", "Region");
+            dic.Add("Campaña", "CampaniaID");
+            dic.Add("Región", "Region");
             dic.Add("Zona", "Zona");
-            dic.Add("Secci�n", "Seccion");
-            dic.Add("C�digo de Consultora", "CodigoConsultora");
+            dic.Add("Sección", "Seccion");
+            dic.Add("Código de Consultora", "CodigoConsultora");
             dic.Add("Nombre y Apellidos", "NombreCompleto");
-            dic.Add("Descripci�n del sue�o", "Descripcion");
+            dic.Add("Descripción del sueño", "Descripcion");
             dic.Add("Canal", "Canal");
 
             Util.ExportToExcel("SueniosDeNavidad", lst, dic);
@@ -1622,7 +1622,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = true,
-                    message = "Se registr� el sue�o de manera correcta.",
+                    message = "Se registró el sueño de manera correcta.",
                     extra = ""
                 });
             }
@@ -2023,7 +2023,7 @@ namespace Portal.Consultoras.Web.Controllers
                     sac.InsertarDonacionConsultora(UserData().PaisID, CodigoISO, UserData().CodigoConsultora, Campania, UserData().IPUsuario);
                     sac.InsertarComunicadoVisualizado(UserData().PaisID, UserData().CodigoConsultora, ComunicadoID);
                 }
-                var mensaje = string.Format("�Gracias por ayudar a la familia �sika a reconstruir su vida! Tu donaci�n ser� cargada a tu estado de cuenta de pedido de campa�a {0}", Campania.Substring(4));
+                var mensaje = string.Format("¡Gracias por ayudar a la familia sika a reconstruir su vida! Tu donación será cargada a tu estado de cuenta de pedido de campaña {0}", Campania.Substring(4));
 
                 return Json(new
                 {
@@ -2187,7 +2187,7 @@ namespace Portal.Consultoras.Web.Controllers
             var tipopais = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesEsika).Contains(userData.CodigoISO);
             var mailBody = MailUtilities.CuerpoCorreoActivacionCupon(userData.PrimerNombre, userData.CampaniaID.ToString(), userData.Simbolo, cuponModel.ValorAsociado, cuponModel.TipoCupon, url, montoLimite, tipopais);
             var correo = userData.EMail;
-            Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", correo, "Activaci�n de Cup�n", mailBody, true, userData.NombreConsultora);
+            Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", correo, "Activación de Cupón", mailBody, true, userData.NombreConsultora);
         }
 
         private CuponConsultoraModel ObtenerDatosCupon()
