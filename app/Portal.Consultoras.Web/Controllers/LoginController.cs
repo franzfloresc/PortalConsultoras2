@@ -826,6 +826,9 @@ namespace Portal.Consultoras.Web.Controllers
                     model.TieneCDRExpress = oBEUsuario.TieneCDRExpress; //EPD-1919 
                     model.EsConsecutivoNueva = oBEUsuario.EsConsecutivoNueva; //EPD-1919
 
+                    model.CodigoPrograma = oBEUsuario.CodigoPrograma;
+                    model.ConsecutivoNueva = oBEUsuario.ConsecutivoNueva;
+
                     #endregion
 
                     if (model.RolID == Constantes.Rol.Consultora)
@@ -1151,7 +1154,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (ConfigurationManager.AppSettings.Get("paisesLBel").Contains(model.CodigoISO))
                     {
                         model.EsLebel = true;
-                    }
+                    }                    
 
                     Session[Constantes.ConstSession.TieneLan] = true;
                     Session[Constantes.ConstSession.TieneLanX1] = true;

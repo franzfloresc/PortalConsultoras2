@@ -195,7 +195,16 @@ namespace Portal.Consultoras.BizLogic
         private void AdministradorPedido(int paisID, string tipoAccion, string cuv, int cantidad, decimal precio, BEUsuario usuario)
         {
             BEPedidoWeb bePEdidoWeb = _blPedidoWeb.GetPedidoWebByCampaniaConsultora(paisID, usuario.CampaniaID, usuario.ConsultoraID);
-            List<BEPedidoWebDetalle> olstTempListado = GetPedidoWebDetalleByCampania(usuario.PaisID, usuario.CampaniaID, usuario.ConsultoraID, usuario.Nombre).ToList();
+
+            var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros();
+            bePedidoWebDetalleParametros.PaisId = usuario.PaisID;
+            bePedidoWebDetalleParametros.CampaniaId = usuario.CampaniaID;
+            bePedidoWebDetalleParametros.ConsultoraId = usuario.ConsultoraID;
+            bePedidoWebDetalleParametros.Consultora = usuario.Nombre;
+            bePedidoWebDetalleParametros.CodigoPrograma = usuario.CodigoPrograma;
+            bePedidoWebDetalleParametros.NumeroPedido = usuario.ConsecutivoNueva;
+
+            List<BEPedidoWebDetalle> olstTempListado = GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros).ToList();
 
             var item = new BEPedidoWebDetalle
             {
@@ -294,7 +303,14 @@ namespace Portal.Consultoras.BizLogic
 
             List<BEPedidoWebDetalle> olstTempListado = null;
 
-            olstTempListado = GetPedidoWebDetalleByCampania(usuario.PaisID, usuario.CampaniaID, usuario.ConsultoraID, usuario.Nombre).ToList();
+            var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros();
+            bePedidoWebDetalleParametros.PaisId = usuario.PaisID;
+            bePedidoWebDetalleParametros.CampaniaId = usuario.CampaniaID;
+            bePedidoWebDetalleParametros.ConsultoraId = usuario.ConsultoraID;
+            bePedidoWebDetalleParametros.Consultora = usuario.Nombre;
+            bePedidoWebDetalleParametros.CodigoPrograma = usuario.CodigoPrograma;
+            bePedidoWebDetalleParametros.NumeroPedido = usuario.ConsecutivoNueva;
+            olstTempListado = GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros).ToList();
 
             var lista = ServicioProl_CalculoMontosProl(usuario, olstTempListado);
             if (lista.Count > 0)

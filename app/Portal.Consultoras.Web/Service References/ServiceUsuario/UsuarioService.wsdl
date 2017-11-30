@@ -3016,7 +3016,7 @@
       <soap:address location="http://localhost:41615/UsuarioService.svc" />
     </wsdl:port>
     <wsdl:port name="BasicHttpsBinding_IUsuarioService" binding="tns:BasicHttpsBinding_IUsuarioService">
-      <soap:address location="https://localhost:44300/UsuarioService.svc" />
+      <soap:address location="https://localhost:44353/UsuarioService.svc" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>
