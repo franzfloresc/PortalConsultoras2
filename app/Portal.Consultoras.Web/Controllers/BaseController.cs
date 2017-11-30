@@ -3753,11 +3753,11 @@ namespace Portal.Consultoras.Web.Controllers
 
                         confiModel.UrlMenu = "Ofertas";
 
-                        confiModel.DesktopLogoBanner = revistaDigital.GetLogoFondo(false);
+                        //confiModel.DesktopLogoBanner = revistaDigital.GetLogoFondo(false);
                         confiModel.MobileLogoBanner = revistaDigital.GetLogoFondo(true);
 
                         confiModel.DesktopFondoBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_SI_D_ImagenFondo, confiModel.DesktopFondoBanner);
-                        confiModel.DesktopLogoBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_SI_D_ImagenLogo, confiModel.DesktopLogoBanner);
+                        //confiModel.DesktopLogoBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_SI_D_ImagenLogo, confiModel.DesktopLogoBanner);
                         confiModel.DesktopTituloBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_SI_D_TituloBanner, confiModel.DesktopTituloBanner);
                         confiModel.DesktopSubTituloBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_SI_D_SubTituloBanner, confiModel.DesktopSubTituloBanner);
 
@@ -3864,6 +3864,37 @@ namespace Portal.Consultoras.Web.Controllers
                 listaMenu.Add(config);
             }
 
+            // Menú inicio
+            if (listaMenu.Any() && (revistaDigital.TieneRDR || revistaDigital.TieneRDC))
+            {
+                listaMenu.ForEach(m =>
+                {
+                    if (m.Codigo == Constantes.ConfiguracionPais.InicioRD)
+                    {
+                        if (revistaDigital.TieneRDC)
+                        {
+                            m.DesktopLogoBanner = revistaDigital.EsNoSuscritaActiva()
+                                || revistaDigital.EsSuscritaActiva()
+                                || revistaDigital.EsSuscritaInactiva()
+                                ? revistaDigital.DLogoComercialFondoActiva
+                                : revistaDigital.DLogoComercialFondoNoActiva;
+
+                            m.MobileLogoBanner = revistaDigital.EsNoSuscritaActiva()
+                                || revistaDigital.EsSuscritaActiva()
+                                || revistaDigital.EsSuscritaInactiva()
+                                ? revistaDigital.MLogoComercialFondoActiva
+                                : revistaDigital.MLogoComercialFondoNoActiva;
+                        }
+                        else
+                        {
+                            m.DesktopLogoBanner = revistaDigital.DLogoComercialFondoNoActiva;
+                            m.MobileLogoBanner = revistaDigital.MLogoComercialFondoNoActiva;
+                        }
+                    }
+                });
+
+            }
+
             listaMenu.AddRange(BuildMenuContenedorBloqueado(listaMenu));
 
             var isMob = IsMobile();
@@ -3964,6 +3995,10 @@ namespace Portal.Consultoras.Web.Controllers
             else if (revistaDigital.TieneRDR)
             {
                 codigo = ismobil ? Constantes.ConfiguracionPaisDatos.RDR.MRDRLandingBanner : Constantes.ConfiguracionPaisDatos.RDR.DRDRLandingBanner;
+
+                confi.MobileLogoBanner = revistaDigital.MLogoComercialFondoNoActiva;
+                confi.DesktopLogoBanner = revistaDigital.DLogoComercialFondoNoActiva;
+
             }
 
             if (codigo != "")
