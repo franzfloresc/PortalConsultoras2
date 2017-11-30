@@ -21831,7 +21831,8 @@ hr{
     height:36px;
     margin-right:10px;
     margin-top:0px !important;
-    background: url("../../../Images/Esika/mis_certificados_icono.png") no-repeat;
+    background: url("../../../Images/MisCertificados/icono-certificado-esika.svg") no-repeat;
+    background-size:100%;
 }
 
 .titulo_detalle_percepciones_img{
@@ -21879,7 +21880,7 @@ hr{
     margin-right:10px;
     width:40px;
     height:40px;
-    background-image:url("/Content/Images/MisCertificados/icono-certificado-esika.svg");
+    background-image:url("/Content/Images/Esika/Contenedor/icono-descarga-e-imprime.svg");
     background-size:100%;
     transition: all 0.3s ease;
     -moz-transition: all 0.3s ease;
@@ -21888,7 +21889,7 @@ hr{
     -webkit-transition: all 0.3s ease;
 }
 .certificado_digital:hover a span.icono_certificados{
-    background-image:url("/Content/Images/MisCertificados/icono-certificado-esika-hover.svg");
+    background-image:url("/Content/Images/Esika/Contenedor/icono-descarga-e-imprime-hover.svg");
 }
 .certificado_digital a span.nombre_certificado{
     font-size:15px;

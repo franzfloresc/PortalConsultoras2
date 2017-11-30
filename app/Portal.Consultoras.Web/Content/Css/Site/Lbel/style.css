@@ -22381,7 +22381,8 @@ hr {
     height: 36px;
     margin-right: 10px;
     margin-top: 0px !important;
-    background: url("../../../Images/Lbel/mis_certificados_icono.png") no-repeat;
+    background: url("../../../Images/MisCertificados/icono-certificado-lbel.svg") no-repeat;
+    background-size:100%;
 }
 
 .titulo_detalle_lugares_img {
@@ -22425,7 +22426,7 @@ hr {
     margin-right:10px;
     width:40px;
     height:40px;
-    background-image:url("/Content/Images/MisCertificados/icono-certificado-lbel.svg");
+    background-image:url("/Content/Images/Lbel/Contenedor/icono-descarga-e-imprime-morado.svg");
     background-size:100%;
     transition: all 0.3s ease;
     -moz-transition: all 0.3s ease;
@@ -22435,7 +22436,7 @@ hr {
 }
 
 .certificado_digital:hover a span.icono_certificados{
-    background-image:url("/Content/Images/MisCertificados/icono-certificado-lbel-hover.svg");
+    background-image:url("/Content/Images/Lbel/Contenedor/icono-descarga-e-imprime-morado-hover.svg");
 }
 
 .certificado_digital a span.nombre_certificado{
