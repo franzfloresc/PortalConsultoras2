@@ -107,6 +107,23 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
 
                 ViewBag.VerSeccion = verSeccion;
+
+                //BANNER APP
+                if (Session["OcultarBannerApp"] == null)
+                {
+                    using (SACServiceClient sac = new SACServiceClient())
+                    {
+                        var lstComunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora, Constantes.ComunicadoTipoDispositivo.Mobile).ToList();
+                        lstComunicados = lstComunicados.Where(x => x.Descripcion == Constantes.Comunicado.AppConsultora).ToList();
+                        var oComunicados = lstComunicados.FirstOrDefault();
+                        if (oComunicados != null)
+                        {
+                            ViewBag.MostrarBannerApp = true;
+                            ViewBag.AccionBannerApp = oComunicados.DescripcionAccion;
+                            ViewBag.ImagenBannerApp = oComunicados.UrlImagen;
+                        }
+                    }
+                }
             }
             catch (FaultException ex)
             {
@@ -350,6 +367,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 using (SACServiceClient sac = new SACServiceClient())
                 {
                     var lstComunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora, Constantes.ComunicadoTipoDispositivo.Mobile).ToList();
+                    lstComunicados = lstComunicados.Where(x => x.Descripcion != Constantes.Comunicado.AppConsultora).ToList();
                     if (lstComunicados != null) oComunicados = lstComunicados.FirstOrDefault();
                 }
 
@@ -376,6 +394,29 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 {
                     success = false,
                     message = ex.Message
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpGet]
+        public JsonResult OcultarBannerApp()
+        {
+            try
+            {
+                Session["OcultarBannerApp"] = true;
+
+                return Json(new
+                {
+                    success = true,
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "No se pudo procesar la solicitud"
                 }, JsonRequestBehavior.AllowGet);
             }
         }
