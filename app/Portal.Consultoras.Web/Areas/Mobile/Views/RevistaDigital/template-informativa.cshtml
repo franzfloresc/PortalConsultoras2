@@ -19,10 +19,11 @@
 {
     <div class="video-visual">
         <div class="video-container">
-            <iframe src="@Model.Video" frameborder="0" allowfullscreen=""></iframe>
+            <div id="player"></div>
         </div>
     </div>
 }
+<div id="saber-mas-uno"></div>
 <div class="bloques-gana-mas gana-mas">
     <div class="contenedor-mobile-fix" style="padding: 0;">
         <div class="logo"></div>
@@ -31,7 +32,7 @@
         </span>
     </div>
 </div>
-<div class="bloques-gana-mas pack-a-medida">
+<div class="bloques-gana-mas pack-a-medida" >
     <div class="contenedor-mobile-fix">
         <div class="bloque-texto">
             <p class="titulo">
@@ -82,7 +83,7 @@
         <div class="clear"></div>
     </div>
 </div>
-<div class="bloques-gana-mas como-funciona">
+<div class="bloques-gana-mas como-funciona" id="saber-mas-dos">
     <div class="contenedor-mobile-fix">
         <div class="arrow"></div>
         <p class="titulo">¿CÓMO FUNCIONA?</p>
@@ -129,7 +130,7 @@
         <div class="clear"></div>
     </div>
 </div>
-<div class="bloques-gana-mas suscribete-gratis" data-estadoregistro="@Model.EstadoSuscripcion">
+<div class="bloques-gana-mas suscribete-gratis" data-estadoregistro="@Model.EstadoSuscripcion" id="saber-mas-tres">
     <div class="contenedor-mobile-fix" style="padding: 25px;">
         @if (!Model.EsSuscrita) {
         <div class="logo" style="margin-top:0;"></div>
@@ -156,7 +157,7 @@
     </div>
 </div>
 <a href="" class="btn-suscribete-video">SUSCRÍBETE AQUÍ</a>
-<a class="btn-suscribete-video-baja pausar-video">BAJA PARA SABER MÁS</a>
+<a class="btn-suscribete-video-baja pausar-video">BAJA PARA SABER MÁS <span class="baja-ver-mas"></span></a>
 
 <hr class="clear" />
 <div class="content_320 ingresoPedidom">
@@ -185,134 +186,134 @@
         </div>
     </div>
 </div>
-
-@section scripts{
+<script src="https://apis.google.com/js/client.js?onload=googleApiClientReady"></script>
 <script src="http://www.youtube.com/player_api"></script>
-    <script type="text/javascript">
+<script src="http://www.youtube.com/iframe_api"></script>
+@section scripts{
+
+<script>
+    // create youtube player
+    var player;
+    function onYouTubePlayerAPIReady() {
+        player = new YT.Player('player', {
+            width: '640',
+            height: '390',
+            rel: 0,
+            fs: 0,
+            videoId: 'PvAWRQUKHqg',
+            events: {
+                onReady: onPlayerReady,
+                onReady: onScrollDown,
+                onStateChange: onPlayerStateChange
+            }
+        });
+    }
+
+    // autoplay video
+    function onClickDown(event) {
+        $('a.pausar-video').click(function () {
+            event.target.pauseVideo();
+        });
+    }
+    //
+    function onScrollDown(event) {
+        $(window).scroll(function () {
+            var windowHeight = $(window).scrollTop();
+            var contenido2 = $("#saber-mas-uno").offset();
+            contenido2 = contenido2.top;
+
+
+
+            if (windowHeight >= contenido2) {
+                event.target.pauseVideo();
+
+            }
+            else {
+                event.target.playVideo();
+            }
+        });
+    }
+    //
+    function onPlayerReady(event) {
+        event.target.playVideo();
+    }
+
+
+    // when video ends
+    function onPlayerStateChange(event) {
+        if (event.data === 0) {
+            $('a.btn-suscribete-video').animate({
+                bottom: '0%'
+            });
+            $('a.btn-suscribete-video-baja').animate({
+                bottom: '-100%'
+            });
+
+        }
+    }
+</script>
+
+
+<script>
+
+    $(document).ready(function () {
+        var saber_mas = 1;
+        $('a.btn-suscribete-video-baja').click(function () {
+            if (saber_mas == 1) {
+                $("a.btn-suscribete-video-baja").attr("href", "#saber-mas-uno");
+                saber_mas = 2;
+            }
+            else if (saber_mas == 2) {
+                $("a.btn-suscribete-video-baja").attr("href", "#saber-mas-dos");
+                saber_mas = 3;
+            }
+            else if (saber_mas == 3) {
+                $("a.btn-suscribete-video-baja").attr("href", "#saber-mas-tres");
+                saber_mas = 1;
+            }
+
+        });
+    });
+</script>
+
+<script>
+   /* $(document).ready(function () {
+        var anchor_offset = $('.como-funciona').offset().top;
+
+        $(window).on('scroll', function () {
+            if ($(window).scrollTop() > anchor_offset) {
+                $("a.btn-suscribete-video-baja").css("display", "none");
+            }
+            else {
+                $("a.btn-suscribete-video-baja").css("display", "block");
+            }
+
+        });
+    });*/
+</script>
+
+<script>
+    $(document).ready(function () {
+        
+
+        $('a.btn-suscribete-video-baja').click(function () {
+            var link = $(this);
+            var anchor = link.attr('href');
+            /*var altura_posicion = link.offsetLeft + 10;*/
+            $('html, body').stop().animate({
+                scrollTop: jQuery(anchor).offset().top
+            }, 1000);
+            return false;
+        });
+    });
+</script>
+
+<script type="text/javascript">
         var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
         var tipoOrigenPantalla = 1;
         var urlTerminosCondicionesRD = '@Model.UrlTerminosCondiciones';
         var urlRevistaDigital = '@Url.Action("Comprar", "RevistaDigital")';
         var isScroll = false;
-    </script>
-<script>
-
-        // create youtube player
-        var player;
-        function onYouTubePlayerAPIReady() {
-            player = new YT.Player('player', {
-                width: '640',
-                height: '390',
-                rel: 0,
-                fs: 0,
-                videoId: 'PvAWRQUKHqg',
-                events: {
-                    onReady: onPlayerReady,
-                    onReady: onScrollDown,
-                    onStateChange: onPlayerStateChange
-                }
-            });
-        }
-
-        // autoplay video
-        function onClickDown(event) {
-            $('a.pausar-video').click(function () {
-                event.target.pauseVideo();
-            });
-        }
-        //
-        function onScrollDown(event) {
-            $(window).scroll(function () {
-                var windowHeight = $(window).scrollTop();
-                var contenido2 = $("#saber-mas-uno").offset();
-                contenido2 = contenido2.top;
-
-
-
-                if (windowHeight >= contenido2) {
-                    event.target.pauseVideo();
-
-                }
-                else {
-                    event.target.playVideo();
-                }
-            });
-        }
-        //
-        function onPlayerReady(event) {
-            event.target.playVideo();
-        }
-
-
-        // when video ends
-        function onPlayerStateChange(event) {
-            if (event.data === 0) {
-                $('a.btn-suscribete-video').animate({
-                    bottom: '0%'
-                });
-                $('a.btn-suscribete-video-baja').animate({
-                    bottom: '-100%'
-                });
-
-            }
-        }
-
-</script>
-
-
-<script>
-        $(document).ready(main);
-
-        var saber_mas = 1;
-
-        function main() {
-            $('a.btn-suscribete-video-baja').click(function () {
-                if (saber_mas == 1) {
-                    $("a.btn-suscribete-video-baja").attr("href", "#saber-mas-uno");
-                    saber_mas = 2;
-                }
-                else if (saber_mas == 2) {
-                    $("a.btn-suscribete-video-baja").attr("href", "#saber-mas-dos");
-                    saber_mas = 3;
-                }
-                else if (saber_mas == 3) {
-                    $("a.btn-suscribete-video-baja").attr("href", "#saber-mas-tres");
-                    saber_mas = 1;
-                }
-
-            });
-        }
-</script>
-
-<script>
-        $(document).ready(function () {
-            var anchor_offset = $('#saber-mas-tres').offset().top;
-
-            $(window).on('scroll', function () {
-                if ($(window).scrollTop() > anchor_offset) {
-                    $("a.btn-suscribete-video-baja").css("display", "none");
-                }
-                else {
-                    $("a.btn-suscribete-video-baja").css("display", "block");
-                }
-
-            });
-        });
-</script>
-
-<script>
-        $(document).ready(function () {
-
-
-            $('a.btn-suscribete-video-baja').click(function () {
-                var link = $(this);
-                var anchor = link.attr('href');
-                $('html, body').stop().animate({
-                    scrollTop: jQuery(anchor).offset().top
-                }, 1000);
-                return false;
-            });
-        });
 </script>
 
     @System.Web.Optimization.Scripts.Render("~/bundles/Mobile/RevistaDigital-Info")

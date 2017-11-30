@@ -2395,6 +2395,55 @@ height: 100%;
     letter-spacing: 0.5px;
     margin-top: 20px;
 }
+a.btn-suscribete-video {
+    background: #613c87;
+    color: white;
+    font-weight: 600;
+    text-decoration: none;
+    width: 100%;
+    display: block;
+    text-align: center;
+    padding: 20px 0px;
+    text-transform: uppercase;
+    position: fixed;
+    bottom: -100%;
+    letter-spacing: 1.5px;
+    color: white;
+    text-align: center;
+    box-shadow: 1px 2px 3px 4px #0000000f;
+    cursor: pointer;
+    z-index: 999;
+}
+
+a.btn-suscribete-video-baja {
+    background: white;
+    color: black;
+    font-weight: 600;
+    text-decoration: none;
+    width: 100%;
+    display: block;
+    text-align: center;
+    padding: 20px 0px;
+    text-transform: uppercase;
+    position: fixed;
+    bottom: 0%;
+    letter-spacing: 1.5px;
+    text-align: center;
+    box-shadow: 1px 2px 3px 4px #0000000f;
+    cursor: pointer;
+    z-index: 999;
+}
+    a.btn-suscribete-video-baja span.baja-ver-mas {
+        background: url(../../../Images/Lbel/scroll-down-icon-esika.svg);
+        background-size: contain;
+        background-repeat: no-repeat;
+        width: 14px;
+        height: 14px;
+        display: inline-block;
+        position: relative;
+        top: 2px;
+        margin-left: 5px;
+    }
 /**/
 @media (max-width: 767px) {
     .bloques-gana-mas .contenedor-mobile-fix img {
