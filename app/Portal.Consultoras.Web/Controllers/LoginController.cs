@@ -1285,9 +1285,13 @@ namespace Portal.Consultoras.Web.Controllers
                     revistaDigitalModel.MLogoComercialFondoNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor2);
                 }
 
+                value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RDR.LogoMenuOfertas);
+                if (value1 != null) revistaDigitalModel.LogoMenuOfertasNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor1);
+
                 listaDatos.RemoveAll(d =>
                     d.Codigo == Constantes.ConfiguracionPaisDatos.RDR.LogoComercial
                     || d.Codigo == Constantes.ConfiguracionPaisDatos.RDR.LogoComercialFondo
+                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RDR.LogoMenuOfertas
                 );
 
                 revistaDigitalModel.ConfiguracionPaisDatos = Mapper.Map<List<ConfiguracionPaisDatosModel>>(listaDatos) ?? new List<ConfiguracionPaisDatosModel>();
