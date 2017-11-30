@@ -3964,14 +3964,22 @@ namespace Portal.Consultoras.Web.Controllers
             }
             else if (revistaDigital.TieneRDR)
             {
-                codigo = Constantes.ConfiguracionPaisDatos.RDR.RDRLandingBanner;
+                codigo = ismobil ? Constantes.ConfiguracionPaisDatos.RDR.MRDRLandingBanner : Constantes.ConfiguracionPaisDatos.RDR.DRDRLandingBanner;
             }
 
             if (codigo != "")
             {
                 var dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo) ?? new ConfiguracionPaisDatosModel();
-                confi.DesktopTituloBanner = Util.Trim(dato.Valor1);
-                confi.DesktopSubTituloBanner = Util.Trim(dato.Valor2);
+                if (ismobil)
+                {
+                    confi.MobileTituloBanner = Util.Trim(dato.Valor1);
+                    confi.MobileSubTituloBanner = Util.Trim(dato.Valor2);
+                }
+                else
+                {
+                    confi.DesktopTituloBanner = Util.Trim(dato.Valor1);
+                    confi.DesktopSubTituloBanner = Util.Trim(dato.Valor2);
+                }
             }
         }
         #endregion
