@@ -1339,8 +1339,21 @@ namespace Portal.Consultoras.Web.Controllers
             }
             else if (revistaDigitalModel.SuscripcionEfectiva.EstadoRegistro == Constantes.EstadoRDSuscripcion.SinRegistroDB)
             {
-                revistaDigitalModel.CampaniaActiva = "";
-                revistaDigitalModel.EsActiva = false;
+                if (revistaDigitalModel.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
+                {
+                    var ca = AddCampaniaAndNumero(revistaDigitalModel.SuscripcionModel.CampaniaID, revistaDigitalModel.CantidadCampaniaEfectiva, usuarioModel.NroCampanias);
+                    if (ca >= revistaDigitalModel.SuscripcionModel.CampaniaEfectiva)
+                        ca = revistaDigitalModel.SuscripcionModel.CampaniaEfectiva;
+                    
+                    revistaDigitalModel.CampaniaActiva = Util.SubStr(ca.ToString(), 4, 2);
+                    revistaDigitalModel.EsActiva = ca <= usuarioModel.CampaniaID;
+                }
+                else
+                {
+                    revistaDigitalModel.CampaniaActiva = "";
+                    revistaDigitalModel.EsActiva = false;
+                }
+                
             }
             else
             {
