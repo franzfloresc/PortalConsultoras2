@@ -1,7 +1,9 @@
 ﻿jQuery(document).ready(function () {
-fnGrilla();
-fnClick();
-fnDialog();
+    fnGrilla();
+    fnClick();
+    fnDialog();
+
+    if ($("#hdnTipoEstrategiaID").val() == "0") alert("Debe configurar el tipo de estrategia con codigo '021'");
 });
 
 function fnGrilla() {

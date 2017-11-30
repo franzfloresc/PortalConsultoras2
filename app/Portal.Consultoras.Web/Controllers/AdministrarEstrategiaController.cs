@@ -1773,7 +1773,8 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.ddlCampania = DropDowListCampanias(userData.PaisID);
 
                 var tipoEstrategias = GetTipoEstrategias();
-                ViewBag.hdnTipoEstrategiaID = tipoEstrategias.Where(x => x.Codigo == Constantes.TipoEstrategiaCodigo.IncentivosProgramaNuevas).First().TipoEstrategiaID;
+                var oTipoEstrategia = tipoEstrategias.Where(x => x.Codigo == Constantes.TipoEstrategiaCodigo.IncentivosProgramaNuevas).FirstOrDefault();
+                ViewBag.hdnTipoEstrategiaID = (oTipoEstrategia == null ? 0 : oTipoEstrategia.TipoEstrategiaID);
             }
             catch (Exception ex)
             {
@@ -1938,7 +1939,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult ProgramaNuevasBannerActualizar(int TipoBanner, string CodigoPrograma, string CodigoNivel)
+        public JsonResult ProgramaNuevasBannerActualizar(int tipoBanner, string codigoPrograma, string codigoNivel)
         {
             string carpetaPais = string.Empty;
             string newfilename = string.Empty;
@@ -1948,10 +1949,10 @@ namespace Portal.Consultoras.Web.Controllers
                 var nombreArchivo = Request["qqfile"];
                 new UploadHelper().UploadFile(Request, nombreArchivo);
 
-                carpetaPais = string.Format(Constantes.ProgramaNuevas.CarpetaBanner, UserData().CodigoISO, Dictionaries.IncentivoProgramaNuevasNiveles[CodigoNivel]);
+                carpetaPais = string.Format(Constantes.ProgramaNuevas.CarpetaBanner, UserData().CodigoISO, Dictionaries.IncentivoProgramaNuevasNiveles[codigoNivel]);
 
-                if (TipoBanner == 1) newfilename = string.Format(Constantes.ProgramaNuevas.ArchivoBannerCupones, CodigoPrograma);
-                else if (TipoBanner == 2) newfilename = string.Format(Constantes.ProgramaNuevas.ArchivoBannerPremios, CodigoPrograma);
+                if (tipoBanner == 1) newfilename = string.Format(Constantes.ProgramaNuevas.ArchivoBannerCupones, codigoPrograma);
+                else if (tipoBanner == 2) newfilename = string.Format(Constantes.ProgramaNuevas.ArchivoBannerPremios, codigoPrograma);
 
                 ConfigS3.SetFileS3(Path.Combine(Globals.RutaTemporales, nombreArchivo), carpetaPais, newfilename);
 
@@ -1959,7 +1960,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     success = true,
                     extra = ConfigS3.GetUrlFileS3(carpetaPais, newfilename)
-                }, "text/html");
+                }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -1974,21 +1975,24 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpGet]
-        public JsonResult ProgramaNuevasBannerObtener(string CodigoPrograma, string CodigoNivel)
+        public JsonResult ProgramaNuevasBannerObtener(string codigoPrograma, string codigoNivel)
         {
             try
             {
-                string carpetaPais = string.Format(Constantes.ProgramaNuevas.CarpetaBanner, UserData().CodigoISO, Dictionaries.IncentivoProgramaNuevasNiveles[CodigoNivel]);
-                string filenameCupon = string.Format(Constantes.ProgramaNuevas.ArchivoBannerCupones, CodigoPrograma);
-                string filenamePremio = string.Format(Constantes.ProgramaNuevas.ArchivoBannerPremios, CodigoPrograma);
+                string carpetaPais = string.Format(Constantes.ProgramaNuevas.CarpetaBanner, UserData().CodigoISO, Dictionaries.IncentivoProgramaNuevasNiveles[codigoNivel]);
+                string filenameCupon = string.Format(Constantes.ProgramaNuevas.ArchivoBannerCupones, codigoPrograma);
+                string filenamePremio = string.Format(Constantes.ProgramaNuevas.ArchivoBannerPremios, codigoPrograma);
+
+                var data = new
+                {
+                    ImgBannerCupon = ConfigS3.GetUrlFileS3(carpetaPais, filenameCupon),
+                    ImgBannerPremio = ConfigS3.GetUrlFileS3(carpetaPais, filenamePremio)
+                };
 
                 return Json(new
                 {
                     success = true,
-                    extra = new {
-                        ImgBannerCupon = ConfigS3.GetUrlFileS3(carpetaPais, filenameCupon),
-                        ImgBannerPremio = ConfigS3.GetUrlFileS3(carpetaPais, filenamePremio)
-                    }
+                    extra = data
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -2004,7 +2008,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
         #endregion
 
-            #region Incentivos
+        #region Incentivos
         [HttpGet]
         public ViewResult Incentivos()
         {
@@ -2015,7 +2019,8 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.ddlCampania = DropDowListCampanias(userData.PaisID);
 
                 var tipoEstrategias = GetTipoEstrategias();
-                ViewBag.hdnTipoEstrategiaID = tipoEstrategias.Where(x => x.Codigo == Constantes.TipoEstrategiaCodigo.Incentivos).First().TipoEstrategiaID;
+                var oTipoEstrategia = tipoEstrategias.Where(x => x.Codigo == Constantes.TipoEstrategiaCodigo.Incentivos).FirstOrDefault();
+                ViewBag.hdnTipoEstrategiaID = (oTipoEstrategia == null ? 0 : oTipoEstrategia.TipoEstrategiaID);
             }
             catch (Exception ex)
             {
