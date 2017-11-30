@@ -2235,6 +2235,13 @@
     padding-top: 20px;
 }
 
+.cabecera_pedido_rd .rd_logo img{
+        width: 79%;
+    margin: auto;
+    display: block;
+    padding: 5px 5px 10px 0px;
+}
+
 .cabecera_pedido_rd .rd_logo:after {
     border-left: 20px solid transparent;
     border-right: 0px solid transparent;
