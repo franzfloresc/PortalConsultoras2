@@ -30,16 +30,16 @@
                     <div class="rd_logo">
                         <img src="@urlLogo" alt="" class="large">
                     </div>
-                    <div class="hblock_text" style="padding-top: 34px;">
+                    <div class="hblock_text" style="padding-top: 34px; max-width: 50%;">
                         <div class="hblock_tit" style="font-size: 14px;"> @Html.Raw(configuracionPaisDatosModel.Valor1)</div>
-                        <div style="max-width: 70%; font-size: 18px;">@Html.Raw(configuracionPaisDatosModel.Valor2)</div>
-                        <div class="btn_diagonal">
-                            <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
-                                VER TODAS MIS OFERTAS
-                                <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
-                                <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
-                            </a>
-                        </div>
+                        <div style="font-size: 18px;">@Html.Raw(configuracionPaisDatosModel.Valor2)</div>
+                    </div>
+                    <div class="btn_diagonal">
+                        <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
+                            VER TODAS MIS OFERTAS
+                            <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
+                            <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
+                        </a>
                     </div>
                 </div>
             </div>
@@ -67,16 +67,16 @@
                     <div class="rd_logo">
                         <img src="@urlLogo" alt="" class="large">
                     </div>
-                    <div class="hblock_text">
+                    <div class="hblock_text" style="max-width:50%;">
                         <div class="hblock_tit">@Html.Raw(configuracionPaisDatosModel.Valor1)</div>
                         <div>@Html.Raw(configuracionPaisDatosModel.Valor2)</div>
-                        <div class="btn_diagonal btn_stroke_white">
-                            <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
-                                VER TODAS MIS OFERTAS
-                                <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
-                                <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
-                            </a>
-                        </div>
+                    </div>
+                    <div class="btn_diagonal btn_stroke_white">
+                        <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
+                            VER TODAS MIS OFERTAS
+                            <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
+                            <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
+                        </a>
                     </div>
                 </div>
             </div>
