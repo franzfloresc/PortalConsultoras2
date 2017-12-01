@@ -31,8 +31,8 @@ namespace Portal.Consultoras.Entities
                 Campania = DbConvert.ToString(datarec["Campania"]);
             if (DataRecord.HasColumn(datarec, "CodigoConsultora") && datarec["CodigoConsultora"] != DBNull.Value)
                 CodigoConsultora = DbConvert.ToString(datarec["CodigoConsultora"]);
-            if (DataRecord.HasColumn(datarec, "CamCodigoProgramapaniaFin") && datarec["CodigoPrograma"] != DBNull.Value)
-                CodigoPrograma = DbConvert.ToString(datarec["CodigoPrograma"]);
+            if (DataRecord.HasColumn(datarec, "CodigoPrograma") && datarec["CodigoPrograma"] != DBNull.Value)
+                CodigoPrograma = DbConvert.ToString(datarec["CodigoPrograma"]);            
             if (DataRecord.HasColumn(datarec, "Participa") && datarec["Participa"] != DBNull.Value)
                 Participa = DbConvert.ToString(datarec["Participa"]);
             if (DataRecord.HasColumn(datarec, "Motivo") && datarec["Motivo"] != DBNull.Value)
