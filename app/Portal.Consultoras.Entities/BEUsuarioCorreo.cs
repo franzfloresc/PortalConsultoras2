@@ -21,7 +21,7 @@ namespace Portal.Consultoras.Entities
         public string Descripcion { get; set; }
 
         [DataMember]
-        public string Nombre { get; set; }
+        public string NombreCompleto { get; set; }
 
         [DataMember]
         public string Correo { get; set; }
@@ -38,6 +38,27 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string Celular { get; set; }
 
+        [DataMember]
+        public string PrimerNombre { get; set; }
+
+        [DataMember]
+        public string NombreCampoCodigo { get; set; }
+
+        [DataMember]
+        public string TelefonoCentral { get; set; }
+
+        [DataMember]
+        public bool mostrarChat { get; set; }
+
+        [DataMember]
+        public bool habilitarChat { get; set; }
+
+        [DataMember]
+        public string descripcionHorarioChat {get; set;}
+
+        [DataMember]
+        public string ContextoBase { get; set; }
+
         public BEUsuarioCorreo()
         { }
 
@@ -51,14 +72,16 @@ namespace Portal.Consultoras.Entities
                 CodigoISO = Convert.ToString(row["CodigoISO"]);
             if (DataRecord.HasColumn(row, "Descripcion"))
                 Descripcion = Convert.ToString(row["Descripcion"]);
-            if (DataRecord.HasColumn(row, "Nombre"))
-                Nombre = Convert.ToString(row["Nombre"]);
+            if (DataRecord.HasColumn(row, "NombreCompleto"))
+                NombreCompleto = Convert.ToString(row["NombreCompleto"]);
             if (DataRecord.HasColumn(row, "Correo"))
                 Correo = Convert.ToString(row["Correo"]);
             if (DataRecord.HasColumn(row, "ClaveSecreta"))
                 Clave = Convert.ToString(row["ClaveSecreta"]);
             if (DataRecord.HasColumn(row, "Celular"))
                 Celular = Convert.ToString(row["Celular"]);
+            if (DataRecord.HasColumn(row, "PrimerNombre"))
+                PrimerNombre = Convert.ToString(row["PrimerNombre"]);
         }
 
     }

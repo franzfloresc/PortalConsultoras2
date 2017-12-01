@@ -1475,43 +1475,14 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var objRestaurar = new BEUsuarioCorreo();// string.Empty;
+                var oRestaurarClave = new BEUsuarioCorreo();// string.Empty;
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-                    objRestaurar = sv.GetRestaurarClaveByCodUsuario(textoRecuperacion, paisId);
+                    oRestaurarClave = sv.GetRestaurarClaveByCodUsuario(textoRecuperacion, paisId);
                 }
 
-                bool mostrarChat = false;
-                string descripcionHorarioChat = "";
-                bool habilitarChat = false;
-
-                //if (objRestaurar != null)
-                //{
-                    string correo = Util.Trim(objRestaurar.Correo);
-                    string nombreusuario = Util.Trim(objRestaurar.Nombre);
-                    string claveusuario = Util.Trim(objRestaurar.Clave);
-                    string codigo = Util.Trim(objRestaurar.CodigoUsuario);
-                    string contextoBase = Util.Trim("");
-
-                //}
-
-
-                //respuesta = respuesta == null ? "" : respuesta.Trim();
-                //if (respuesta == "") return ErrorJson(Constantes.MensajesError.RecuperarContrasenia, true);
-
-                //string[] obj = respuesta.Split('|');
-                //string exito = Util.Trim(obj.Length > 0 ? obj[0] : "");
-                //string tipomsj = Util.Trim(obj.Length > 1 ? obj[1] : "");
-                //if (exito != "1") return ErrorJson(MensajeErrorPais, true);
-
-                //string correo = Util.Trim(obj.Length > 2 ? obj[2] : "");
-                //string nombreusuario = Util.Trim(obj.Length > 3 ? obj[3] : "");
-                //string claveusuario = Util.Trim(obj.Length > 4 ? obj[4] : "");
-                //string codigo = Util.Trim(obj.Length > 5 ? obj[5] : "");
-                //string contextoBase = Util.Trim(obj.Length > 6 ? obj[6] : "");
-                //bool mostrarChat = false;
-                //string descripcionHorarioChat = "";
-                //bool habilitarChat = false;
+                Session["RestaurarClave"] = oRestaurarClave;
+                oRestaurarClave.ContextoBase = ConfigurationManager.AppSettings["CONTEXTO_BASE"];
 
                 BEHorario horario;
                 using (SACServiceClient sv = new SACServiceClient())
@@ -1521,37 +1492,122 @@ namespace Portal.Consultoras.Web.Controllers
                 if(horario != null)
                 {
                     string paisISO = Util.GetPaisISO(paisId);
-                    mostrarChat = (ConfigurationManager.AppSettings["PaisesBelcorpChatEMTELCO"] ?? "").Contains(paisISO);
-                    descripcionHorarioChat = horario.Resumen;
-                    habilitarChat = horario.EstaDisponible;
+                    oRestaurarClave.mostrarChat = (ConfigurationManager.AppSettings["PaisesBelcorpChatEMTELCO"] ?? "").Contains(paisISO);
+                    oRestaurarClave.descripcionHorarioChat = horario.Resumen;
+                    oRestaurarClave.habilitarChat = false;//horario.EstaDisponible;
                 }
+
+                /*** Numero Telefono País ***/
+                switch (paisId)
+                {
+                    case 2:
+                        {
+                            //BOLIVIA
+                            oRestaurarClave.NombreCampoCodigo = "Código de Consultora o CI";
+                            oRestaurarClave.TelefonoCentral = "901-105678"; break;
+                        };
+                    case 3:
+                        {
+                            //CHILE
+                            oRestaurarClave.NombreCampoCodigo = "Número de RUT (sin puntos ni guión)";
+                            oRestaurarClave.TelefonoCentral = "02-28762100"; break;
+                        };
+                    case 4:
+                        {
+                            //COLOMBIA
+                            oRestaurarClave.NombreCampoCodigo = "Número de cédula (CC)";
+                            oRestaurarClave.TelefonoCentral = "01-8000-9-37452,5948060";  break;
+                        };
+                    case 5:
+                        {
+                            //COSTA RICA
+                            oRestaurarClave.NombreCampoCodigo = "Código de Consultora o DUI";
+                            oRestaurarClave.TelefonoCentral = "800-000-5235,22019601,22019602"; break;
+                        };
+                    case 6:
+                        {
+                            //ECUADOR
+                            oRestaurarClave.NombreCampoCodigo = "Número de cédula (CC)";
+                            oRestaurarClave.TelefonoCentral = "1800-76667"; break;
+                        };
+                    case 7:
+                        {
+                            //EL SALVADOR
+                            oRestaurarClave.NombreCampoCodigo = "Código de Consultora o DUI";
+                            oRestaurarClave.TelefonoCentral = "800-37452-000,25101198,25101199"; break;
+                        };
+                    case 8:
+                        {
+                            //GUATEMALA
+                            oRestaurarClave.NombreCampoCodigo = "Código de Consultora o CUI";
+                            oRestaurarClave.TelefonoCentral = "1-801-81-37452,22856185,23843795"; break;
+                        };
+                    case 9:
+                        {
+                            //MEXICO
+                            oRestaurarClave.NombreCampoCodigo = "Código de Consultora o INE";
+                            oRestaurarClave.TelefonoCentral = "01-800-2352677"; break;
+                        };
+                    case 10:
+                        {
+                            //PANAMA
+                            oRestaurarClave.NombreCampoCodigo = "Código de Consultora o CPI";
+                            oRestaurarClave.TelefonoCentral = "800-5235,377-9399"; break;
+                        };
+                    case 11:
+                        {
+                            //PERU
+                            oRestaurarClave.NombreCampoCodigo = "Código de Consultora o DNI";
+                            oRestaurarClave.TelefonoCentral = "2113614,080-11-3030"; break;
+                        };
+                    case 12:
+                        {
+                            //PUERTO RICO
+                            oRestaurarClave.NombreCampoCodigo = "Código de Consultora o Tarjeta Electoral";
+                            oRestaurarClave.TelefonoCentral = "1-866-366-3235,787-622-3235"; break;
+                        };
+                    case 13:
+                        {
+                            //REPUBLICA DOMINICANA
+                            oRestaurarClave.NombreCampoCodigo = "Código de Consultora o CIE";
+                            oRestaurarClave.TelefonoCentral = "1-809-200-5235,809-620-5235"; break;
+                        };
+                    case 14:
+                        {
+                            //VENEZUELA
+                            oRestaurarClave.NombreCampoCodigo = "Código de Consultora o CI";
+                            oRestaurarClave.TelefonoCentral = "0501-2352677"; break;
+                        };
+                }
+                /*** ***/
 
                 return Json(new
                 {
                     success = true,
-                    message = "1",
-                    correo = correo,
-                    nombre = nombreusuario,
-                    clave = claveusuario,
-                    pais = paisId,
-                    codigo = codigo,
-                    CONTEXTO_BASE = contextoBase,
-                    mostrarChat = mostrarChat,
-                    descripcionHorarioChat = descripcionHorarioChat,
-                    habilitarChat = habilitarChat
+                    message = "OK",
+                    data = oRestaurarClave,
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, textoRecuperacion, Util.GetPaisISO(paisId));
-                return ErrorJson(Constantes.MensajesError.RecuperarContrasenia, true);
+                return Json(new
+                {
+                    success = false,
+                    message = "Error al procesar la solicitud"
+                });
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, textoRecuperacion, Util.GetPaisISO(paisId));
-                return ErrorJson(Constantes.MensajesError.RecuperarContrasenia, true);
+                return Json(new
+                {
+                    success = false,
+                    message = "Error al procesar la solicitud"
+                });
             }
         }
+
     
         [AllowAnonymous]
         [HttpPost]
@@ -1559,10 +1615,13 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                BEUsuarioCorreo pRestaurar = ((BEUsuarioCorreo)Session["RestaurarClave"]);
+
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-                    sv.EnviaClaveAEmail(paisId, filtro, Convert.ToBoolean(EsMobile));
+                    sv.EnviaClaveAEmail(paisId, filtro, Convert.ToBoolean(EsMobile), pRestaurar);
                 }
+
                 return SuccessJson(MensajesOlvideContrasena("4"), true);
             }
             catch (FaultException ex)

@@ -143,7 +143,7 @@ namespace Portal.Consultoras.Web.WebPages
                                                                                     "<td width='722' valign='top' style='background:#E5E5E5; line-height: 18px; padding: 20px 20px 30px 20px;'>" +
                                                                                         "<table width='100%' border='0' cellpadding='0'>" +
                                                                                             "<tr>" +
-                                                                                                "<td style='padding: 0px 0px 15px 0px; text-align:left; display:block;'><b>Hola:</b> " + lst[0].Nombre + "</td>" +
+                                                                                                "<td style='padding: 0px 0px 15px 0px; text-align:left; display:block;'><b>Hola:</b> " + lst[0].NombreCompleto + "</td>" +
                                                                                             "</tr>" +
                                                                                             "<tr>" +
                                                                                                 "<td style='padding: 0px 0px 15px 0px; text-align:left; display:block;'>" +
