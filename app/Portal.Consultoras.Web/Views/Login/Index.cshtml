@@ -313,7 +313,7 @@
                                                 {
                                                     //PERU
                                                     item.NombreCambioClave = "Código de Consultora o DNI";
-                                                    item.Telefonos = "2113614,080-11-3030"; break;
+                                                    item.Telefonos = "01-2113614,080-11-3030"; break;
                                                 };
                                             case 12:
                                                 {
@@ -618,19 +618,14 @@
                     <!-- FIN - CUANDO LA CONSULTORA NO TIENE CORREO Y CELULAR REGISTRADOS (OPCIÓN CHATEA CON NOSOTROS) -->
 
                     <!-- INICIO - CUANDO LA CONSULTORA NO TIENE CORREO Y CELULAR REGISTRADOS (OPCIÓN LLAMADA) -->
-                    <div id="prioridad2_llamada" class="opcion_recuperacion_contrasenia sinMargenesMobile" style="display:none;">
+                    <div class="opcion_recuperacion_contrasenia sinMargenesMobile">
                         <!-- INICIO - OPCIÓN LLAMADA DESKTOP -->
-                        <div class="contenedor_solo_una_opcion opcionLlamada_desktop">
+                        <div id="prioridad2_llamada" class="contenedor_solo_una_opcion opcionLlamada_desktop" style="display:none;">
                             <div class="icono_llamada"></div>
                             <div class="contenedor_info_datos">
-                                <div class="titulo_opcion_llamada">Central Telefónica del Perú</div>
-                                <div class="telefonos_central">
-                                    <span>
-                                        Lima: <span>01-2113614</span>
-                                    </span>
-                                    <span>
-                                        Provincia: <span>080-11-3030</span>
-                                    </span>
+                                <div class="titulo_opcion_llamada nametitlepais">Central Telefónica del Perú</div>
+                                <div id="contenidotelefono" class="telefonos_central">
+
                                 </div>
                             </div>
                         </div>
@@ -715,7 +710,7 @@
                     <span style="display:none;">Este no es mi número.</span>
                     <!-- FIN - MENSAJE CUANDO LA CONSULTORA TIENE SÓLO CELULAR REGISTRADO -->
 
-                    <a href="" title="Ver más opciones">
+                    <a id="vermasopciones1" title="Ver más opciones">
                         Ver más opciones
                     </a>
                 </div>

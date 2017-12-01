@@ -264,7 +264,7 @@ $(document).ready(function () {
     }
 
     $("#btnRecuperarClave").click(function () {
-        RecuperarClave();
+        RecuperarClave("1");
     });
 
     $("#divChatearConNosotros").click(function () {                       
@@ -311,6 +311,31 @@ $(document).ready(function () {
     $("#divRecup_porcorreo").click(function () {
         if (correoRecuperar != "")
             ProcesaEnvioEmail();
+    });
+
+    $("#vermasopciones1").click(function () {
+        waitingDialog();
+        //jQuery.ajax({
+        //    type: 'POST',
+        //    url: urlRecuperarContrasenia,
+        //    dataType: 'json',
+        //    contentType: 'application/json; charset=utf-8',
+        //    data: JSON.stringify({ paisId: paisId, textoRecuperacion: correo, MensajeErrorPais: v_mensaje, TipoRecuperacion: "2" }),
+        //    async: true,
+        //    success: function (response) {
+        //        OcultarContenidoPopup();
+        //        if (response.success) {
+        //            $("#hdCodigoConsultora").val(response.data.CodigoUsuario);
+        //            $("#menPrioridad2_chat").show();
+        //            $("#prioridad2_chat").show();
+        //        }
+        //    },
+        //    error: function () { alert('Ocurrió un problema de conexión. Inténtelo en unos minutos.'); },
+        //    complete: closeWaitingDialog
+        //});
+
+        RecuperarClave("2");
+
     });
 });
 
@@ -926,7 +951,8 @@ function Fondofestivo(id)
     }
 }
 
-function RecuperarClave() {
+function RecuperarClave(tipoRecuperar) {
+    debugger
     var v_mensaje = $("#hdfCorreoElectronico").val().trim();
     var s_correo = "";
 
@@ -949,7 +975,7 @@ function RecuperarClave() {
         url: urlRecuperarContrasenia,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify({ paisId: paisId, textoRecuperacion: correo, MensajeErrorPais: v_mensaje}),
+        data: JSON.stringify({ paisId: paisId, textoRecuperacion: correo, MensajeErrorPais: v_mensaje, TipoRecuperacion: tipoRecuperar}),
         async: true,
         success: function (response) {
             OcultarContenidoPopup();
@@ -965,39 +991,69 @@ function RecuperarClave() {
                 var e_numero = "";
                 correoRecuperar = $.trim(response.data.Correo);
 
-                if (nroCelular != "" && email != "") {
-                    $("#menPrioridad1").show();
-                    $("#prioridad1").show();
 
-                    e_correo = Enmascarar_Correo(email);
-                    $("#divEmail").html(e_correo);
-                    e_numero = Enmascarar_Numero(nroCelular);
-                    $("#divNumCelular").html(e_numero);
+                switch (response.resul)
+                {
+                    case "prioridad1":
+                        {
+                            $("#menPrioridad1").show();
+                            $("#prioridad1").show();
 
-                } else if (nroCelular == "" && email != "") {
-                    $("#menPrioridad1_correo").show();
-                    $("#prioridad1_correo").show();
+                            e_correo = Enmascarar_Correo(email);
+                            $("#divEmail").html(e_correo);
+                            e_numero = Enmascarar_Numero(nroCelular);
+                            $("#divNumCelular").html(e_numero);
+                        } break;
 
-                    e_correo = Enmascarar_Correo(email);
-                    $("#divEmail").html(e_correo);
+                    case "prioridad1_correo":
+                        {
+                            $("#menPrioridad1_correo").show();
+                            $("#prioridad1_correo").show();
 
-                } else if (email == "" && nroCelular != "") {
-                    $("#menPrioridad1_sms").show();
-                    $("#prioridad1_sms").show();
+                            e_correo = Enmascarar_Correo(email);
+                            $("#divEmail").html(e_correo);
+                        } break;
 
-                    e_numero = Enmascarar_Numero(nroCelular);
-                    $("#divNumCelular").html(e_numero);
-                } else if (response.habilitarChat && email == "" && nroCelular == "") {
-                    $("#hdCodigoConsultora").val(response.data.CodigoUsuario);
-                    $("#menPrioridad2_chat").show();
-                    $("#prioridad2_chat").show();
+                    case "prioridad1_sms":
+                        {
+                            $("#menPrioridad1_sms").show();
+                            $("#prioridad1_sms").show();
 
-                } else if (!response.habilitarChat && email == "" && nroCelular == "") {
-                    $("#menPrioridad2_llamada").show();
-                    $("#prioridad2_llamada").show();
-                } else {
-                    $("#menPrioridad3").show();
-                    $("#prioridad3").show();
+                            e_numero = Enmascarar_Numero(nroCelular);
+                            $("#divNumCelular").html(e_numero);
+                        } break;
+
+                    case "prioridad2_chat":
+                        {
+                            $("#hdCodigoConsultora").val(response.data.CodigoUsuario);
+                            $("#menPrioridad2_chat").show();
+                            $("#prioridad2_chat").show();
+                        } break;                        
+
+                    case "prioridad2_llamada":
+                        {
+                            $(".clstelefono").remove();
+                            var telefonos = response.data.TelefonoCentral.split(',');
+                            if (paisId == 11) {
+                                $(".nametitlepais").html("Central Telefónica del Perú");
+                                $("#contenidotelefono").append("<span class='clstelefono'>Lima: " + telefonos[0] + "</span>");
+                                $("#contenidotelefono").append("<span class='clstelefono'>Provincias: " + telefonos[1] + "</span>");
+                            } else {
+                                var npais = $("#ddlPais option:selected").html();
+                                $(".nametitlepais").html("Central Telefónica de " + npais);
+                                $.each(telefonos, function (index, value) {
+                                    $("#contenidotelefono").append("<span class='clstelefono'>Central " + (index + 1) + ": " + value + "</span>")
+                                });
+                            }
+                            $("#menPrioridad2_llamada").show();
+                            $("#prioridad2_llamada").show();
+                        } break;
+
+                    case "prioridad3":
+                        {
+                            $("#menPrioridad3").show();
+                            $("#prioridad3").show();
+                        } break;                                            
                 }
 
                 $("#popup1").hide();
