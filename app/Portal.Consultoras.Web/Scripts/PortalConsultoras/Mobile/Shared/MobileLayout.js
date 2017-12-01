@@ -1052,10 +1052,10 @@ function odd_get_item_impresion(item) {
     return impresion;
 }
 
-var comunicadoBannerApp;
 function BannerApp() {
-    if (ocultarBannerApp || actionName != "Index" || controllerName != "Bienvenida" || getMobileOperatingSystem() != "Android") {
+    if (oBannerApp == null || getMobileOperatingSystem() != "Android" || !VerificarVistaBannerApp()) {
         $('.banner_app').hide();
+        return;
     }
 
     $(".banner_app div").click(function (e) {
@@ -1066,10 +1066,20 @@ function BannerApp() {
     });
 
     $(".banner_app").click(function (e) {
-        window.open(accionBannerApp);
+        window.open(oBannerApp.DescripcionAccion);
     });
 
-    $(".banner_app").css("background-image", "url(" + imagenBannerApp + ")");
+    $(".banner_app").css("background-image", "url(" + oBannerApp.UrlImagen + ")");
+}
+
+function VerificarVistaBannerApp() {
+    for (var row = 0; row < oBannerApp.Vistas.length; row++) {
+        var oVista = oBannerApp.Vistas[row];
+        if (oVista.NombreControlador != controllerName) continue;
+        if (oVista.NombreVista == null || oVista.NombreVista == actionName) return true;
+    }
+
+    return false;
 }
 
 function OcultarBannerApp() {
