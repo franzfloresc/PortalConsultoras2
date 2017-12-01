@@ -47,7 +47,9 @@ namespace Portal.Consultoras.Service
         private BLPopupPais BLPopupPais; //SB20-1095
         private BLApp _blApp;
 
-        public SACService()
+        private readonly IComunicadoBusinessLogic _comunicadoBusinessLogic;
+
+        public SACService() : this(new BLComunicado())
         {
             BLCronograma = new BLCronograma();
             BLCronogramaAnticipado = new BLCronogramaAnticipado();
@@ -82,6 +84,11 @@ namespace Portal.Consultoras.Service
             BLParticipantesDemandaAnticipada = new BLParticipantesDemandaAnticipada(); //R20160302
             BLPopupPais = new BLPopupPais();
             _blApp = new BLApp();
+        }
+
+        public SACService(IComunicadoBusinessLogic comunicadoBusinessLogic)
+        {
+            _comunicadoBusinessLogic = comunicadoBusinessLogic;
         }
 
         #region Cronograma Anticipado
@@ -1116,7 +1123,7 @@ namespace Portal.Consultoras.Service
 
         public List<BEComunicado> ObtenerComunicadoPorConsultora(int PaisID, string CodigoConsultora, short TipoDispositivo)
         {
-            return BLComunicado.ObtenerComunicadoPorConsultora(PaisID, CodigoConsultora, TipoDispositivo);
+            return _comunicadoBusinessLogic.ObtenerComunicadoPorConsultora(PaisID, CodigoConsultora, TipoDispositivo);
         }
 
         public List<BEPopupPais> ObtenerOrdenPopUpMostrar(int PaisID)

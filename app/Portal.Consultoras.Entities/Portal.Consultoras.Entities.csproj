@@ -66,6 +66,7 @@
     <Compile Include="BEGPRBanner.cs" />
     <Compile Include="BEGPRUsuario.cs" />
     <Compile Include="Cliente\BEMovimientoDetalle.cs" />
+    <Compile Include="Comunicado\BEComunicadoVista.cs" />
     <Compile Include="Estrategia\BEConfiguracionProgramaNuevasApp.cs" />
     <Compile Include="Incentivo\BEIncentivoConcurso.cs" />
     <Compile Include="Incentivo\BEIncentivoNivel.cs" />
@@ -140,7 +141,7 @@
     <Compile Include="Cliente\BECliente.cs" />
     <Compile Include="BEComprobantePercepcion.cs" />
     <Compile Include="BEComprobantePercepcionDetalle.cs" />
-    <Compile Include="BEComunicado.cs" />
+    <Compile Include="Comunicado\BEComunicado.cs" />
     <Compile Include="BEConfiguracionCampania.cs" />
     <Compile Include="BEConfiguracionConsultoraDA.cs" />
     <Compile Include="BEConfiguracionCrossSelling.cs" />

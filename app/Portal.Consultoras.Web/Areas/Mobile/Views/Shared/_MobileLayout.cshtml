@@ -167,7 +167,7 @@
                 </ul>
             </div>
         }
-        else if(ViewBag.MostrarBannerApp == true)
+        @if(ViewBag.MostrarBannerApp == true && !ViewBag.MostrarBannerRechazo == true)
         {
             <!--BANNER APP-->
             <div class="banner_app"><div>X</div></div>
@@ -437,12 +437,11 @@
 			isAppMobile : @Html.MobileAppConfiguracion().EsAppMobile.ToString().ToLower()
 		});
 
-        var ocultarBannerApp = '@Session["OcultarBannerApp"]';
-        var urlOcultarBannerApp = '@Url.Action("OcultarBannerApp", "Bienvenida", new { area = "Mobile" })';
+        //BANNER APP
+        var urlOcultarBannerApp = '@Url.Action("OcultarBannerApp")';
         var actionName = '@ViewContext.RouteData.GetRequiredString("action")';
         var controllerName = '@ViewContext.RouteData.GetRequiredString("controller")';
-        var accionBannerApp = '@ViewBag.AccionBannerApp';
-        var imagenBannerApp = '@ViewBag.ImagenBannerApp';
+        var oBannerApp = @Html.Raw(@Json.Encode(ViewBag.BannerApp));
     </script>
 
     @if (ViewBag.MostrarOfertaDelDiaContenedor == true)
