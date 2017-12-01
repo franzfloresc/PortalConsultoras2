@@ -105,7 +105,7 @@
                                 </tr>
                                 <tr>
                                     <td colspan="2" style="text-align: left; color: #4d4d4e; font-family: 'Arial'; font-size: 13px; padding-top: 2px;">
-                                        Cliente:
+                                        Cliente: @(!string.IsNullOrEmpty(item.NombreCliente) ? item.NombreCliente : Model.NombreConsultora)
                                     </td>
                                 </tr>
                                 <tr>
