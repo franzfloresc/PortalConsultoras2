@@ -124,6 +124,10 @@ namespace Portal.Consultoras.BizLogic
                 {
                     if (reader.Read()) usuario = new BEUsuario(reader, true);
                 }
+
+                if (usuario == null)
+                    return null;
+
                 BEConfiguracionCampania configuracion = null;
                 using (IDataReader reader = new DAPedidoWeb(paisID).GetEstadoPedido(campania, usuarioPrueba ? usuario.ConsultoraAsociadaID : usuario.ConsultoraID))
                 {
@@ -136,7 +140,7 @@ namespace Portal.Consultoras.BizLogic
                 BEConsultorasProgramaNuevas beConsultoraProgramaNuevas = null;
                 var daConsultoraProgramaNuevas = new DAConsultorasProgramaNuevas(paisID);
 
-                using (IDataReader reader = daConsultoraProgramaNuevas.GetConsultorasProgramaNuevasByConsultoraId(usuario.ConsultoraID))
+                using (IDataReader reader = daConsultoraProgramaNuevas.GetConsultorasProgramaNuevasByConsultoraId(usuarioPrueba ? usuario.ConsultoraAsociadaID : usuario.ConsultoraID))
                 {
                     if (reader.Read())
                         beConsultoraProgramaNuevas = new BEConsultorasProgramaNuevas(reader);

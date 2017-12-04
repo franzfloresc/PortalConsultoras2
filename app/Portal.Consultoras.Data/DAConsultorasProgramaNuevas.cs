@@ -23,7 +23,7 @@ namespace Portal.Consultoras.Data
 
         public IDataReader GetConsultorasProgramaNuevasByConsultoraId(long consultoraId)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetConsultoraProgramaNuevaTemp");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetConsultoraProgramaNueva");
             Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, consultoraId);
 
             return Context.ExecuteReader(command);
