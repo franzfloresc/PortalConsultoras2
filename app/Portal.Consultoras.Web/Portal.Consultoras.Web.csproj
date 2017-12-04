@@ -1279,6 +1279,9 @@
     <Content Include="Content\Images\Esika\Contenedor\tarjetas-navidenias.png" />
     <Content Include="Content\Images\Esika\logotipo-club-ganamas-rojo.svg" />
     <Content Include="Content\Images\Esika\logotipo-ganamas-rojo.svg" />
+    <Content Include="Content\Images\Esika\personalizacion-visual-desktop.gif" />
+    <Content Include="Content\Images\Esika\personalizacion-visual-mobile.gif" />
+    <Content Include="Content\Images\Esika\visual-de-funcionamiento.png" />
     <Content Include="Content\Images\GIF-4.0.gif" />
     <Content Include="Content\Images\Lbel\Contenedor\fondo-seccion-descarga-imprime.jpg" />
     <Content Include="Content\Images\Lbel\Contenedor\icono-descarga-e-imprime-hover.svg" />
@@ -1289,6 +1292,9 @@
     <Content Include="Content\Images\Lbel\Contenedor\tarjetas-navidenias.png" />
     <Content Include="Content\Images\Lbel\logotipo-club-ganamas-morado.svg" />
     <Content Include="Content\Images\Lbel\logotipo-ganamas-morado.svg" />
+    <Content Include="Content\Images\Lbel\personalizacion-visual-desktop.gif" />
+    <Content Include="Content\Images\Lbel\personalizacion-visual-mobile.gif" />
+    <Content Include="Content\Images\Lbel\visual-de-funcionamiento-lbel.png" />
     <Content Include="Content\Images\marquesina-landing.jpg" />
     <Content Include="Content\Images\check-acepto-terminos.png" />
     <Content Include="Content\Images\Esika\bg_regalo.png" />
@@ -2702,6 +2708,7 @@
     <Content Include="Content\Images\mobile\Esika\menu_mobile.png" />
     <Content Include="Content\Images\mobile\Esika\next.png" />
     <Content Include="Content\Images\mobile\Esika\notificaciones.png" />
+    <Content Include="Content\Images\mobile\Esika\personalizacion-visual-mobile.gif" />
     <Content Include="Content\Images\mobile\Esika\pestana_esika.png" />
     <Content Include="Content\Images\mobile\Esika\previous_ofertas_home.png" />
     <Content Include="Content\Images\mobile\Esika\revista_c09.png" />
@@ -2851,6 +2858,7 @@
     <Content Include="Content\Images\mobile\Lbel\logo_Lbel.png" />
     <Content Include="Content\Images\mobile\Lbel\mas_footer.png" />
     <Content Include="Content\Images\mobile\Lbel\menos_footer.png" />
+    <Content Include="Content\Images\mobile\Lbel\personalizacion-visual-mobile.gif" />
     <Content Include="Content\Images\mobile\Lbel\pestana_lbel.png" />
     <Content Include="Content\Images\mobile\Lbel\video.png" />
     <Content Include="Content\Images\mobile\left-arrow.png" />
@@ -3187,7 +3195,6 @@
     <Content Include="Content\Images\vista_footer.png" />
     <Content Include="Content\Images\vista_header.png" />
     <Content Include="Content\Images\visualo.png" />
-    <Content Include="Content\Images\visual_de_funcionamiento.png" />
     <Content Include="Content\Images\webtracking\box.png" />
     <Content Include="Content\Images\webtracking\boxGrande.png" />
     <Content Include="Content\Images\webtracking\busqueda.png" />

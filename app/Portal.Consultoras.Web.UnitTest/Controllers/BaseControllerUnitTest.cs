@@ -107,24 +107,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
         [TestClass]
         public class BuildMenu : Base
         {
-            [TestMethod]
-            [ExpectedExceptionWithMessage(typeof(ArgumentNullException), "Value cannot be null.\r\nParameter name: userData")]
-            public void BuildMenu_UserDataEsNulo_LanzaExcepcion()
-            {
-                var controller = new BaseController();
-
-                controller.BuildMenu(null,null);
-            }
-
-            [TestMethod]
-            [ExpectedExceptionWithMessage(typeof(ArgumentNullException), "Value cannot be null.\r\nParameter name: revistaDigital")]
-            public void BuildMenu_RevistaDigitalEsNulo_LanzaExcepcion()
-            {
-                var controller = new BaseController();
-
-                controller.BuildMenu(new UsuarioModel(), null);
-            }
-
             class BaseControllerStub00 : BaseController
             {
                 protected override IList<PermisoModel> GetPermisosByRol(int paisID, int rolID)
