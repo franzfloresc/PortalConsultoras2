@@ -105,6 +105,8 @@ namespace Portal.Consultoras.Entities
         public decimal MontoAhorroCatalogo { get; set; }
         [DataMember]
         public decimal MontoAhorroRevista { get; set; }
+        [DataMember]
+        public string NombreCliente { get; set; }
 
         public BENotificacionesDetallePedido(IDataRecord row)
         {
@@ -130,6 +132,8 @@ namespace Portal.Consultoras.Entities
                 MontoAhorroCatalogo = Convert.ToInt32(row["MontoAhorroCatalogo"]);
             if (DataRecord.HasColumn(row, "MontoAhorroRevista") && row["MontoAhorroRevista"] != DBNull.Value)
                 MontoAhorroRevista = Convert.ToInt32(row["MontoAhorroRevista"]);
+            if (DataRecord.HasColumn(row, "NombreCliente") && row["NombreCliente"] != DBNull.Value)
+                NombreCliente = Convert.ToString(row["NombreCliente"]);
         }
     }
 
