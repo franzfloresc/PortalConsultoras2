@@ -1735,7 +1735,10 @@ height: 100%;
     position: relative;
     margin-bottom: 10px;
 }
-
+.box_producto_mobile_fix {
+    margin-left: 4%;
+    margin-right: 4%;
+}
 .producto_img_mobile_bpt {
     height: 125px;
     overflow: hidden;
@@ -1835,9 +1838,9 @@ height: 100%;
 }
 
 .cabecera_pedido_rd .rd_logo {
-        width: 120px;
-        height: 85px;
-        padding-top: 20px;
+    width: 120px;
+    height: 85px;
+    text-transform: uppercase;
 }
 .cabecera_pedido_rd .rd_logo img{
         width: 79%;
@@ -1860,13 +1863,15 @@ height: 100%;
 .cabecera_pedido_text {
     color: white;
     position: absolute;
-    top: 18px;
+    top: 13px;
     left: 130px;
     font-weight: 700;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
     line-height: 18px;
     font-size: 13px;
     text-align: left;
+    text-transform: uppercase;
+    padding-right: 8px;
 }
 
 .banner_pedido_masofertas {
@@ -1992,6 +1997,7 @@ height: 100%;
     color: white;
     padding: 20px;
     text-align: center;
+    text-transform: uppercase;
 }
 .mob_carrusel_bpt {
     background-color: #F2EEF0;
@@ -2238,24 +2244,21 @@ height: 100%;
 }
 
     .bloques-gana-mas .contenedor-mobile-fix > .bloque-texto {
-        width: 75%;
+		width:49%;
         float: left;
         padding-right: 1%;
     }
-
     .bloques-gana-mas .contenedor-mobile-fix > .bloque-img {
-        width: 25%;
+		width:49%;
         float: left;
         padding-left: 1%;
         max-height: 128px;
         display: table;
     }
-
         .bloques-gana-mas .contenedor-mobile-fix > .bloque-img .cnt {
             display: table-cell;
             vertical-align: middle;
         }
-
         .bloques-gana-mas .contenedor-mobile-fix > .bloque-img .cnt-uno {
             width: 135px;
             height: 80px !important;
@@ -2264,6 +2267,7 @@ height: 100%;
             background-position: center center;
             background-repeat:no-repeat;
         }
+
         .bloques-gana-mas .contenedor-mobile-fix > .bloque-img .cnt-dos {
             width: 135px;
             height: 80px !important;
@@ -2272,6 +2276,7 @@ height: 100%;
             background-position: center center;
             background-repeat: no-repeat;
         }
+
         .bloques-gana-mas .contenedor-mobile-fix > .bloque-img .cnt-tres {
             width: 135px;
             height: 80px !important;
@@ -2280,11 +2285,9 @@ height: 100%;
             background-position: center center;
             background-repeat: no-repeat;
         }
-
     .bloques-gana-mas .contenedor-mobile-fix .clear {
         clear: both;
     }
-
     .bloques-gana-mas .contenedor-mobile-fix p.titulo {
         display: block;
         letter-spacing: 0.5px;
@@ -2293,7 +2296,6 @@ height: 100%;
         margin: 0 0 5pt 0;
         color: white;
     }
-
     .bloques-gana-mas .contenedor-mobile-fix span.texto {
         display: block;
         text-align: left;
@@ -2302,7 +2304,6 @@ height: 100%;
         color: white;
         font-weight: 300;
     }
-
     .bloques-gana-mas .contenedor-mobile-fix span.nro {
         float: left;
         width: 15%;
@@ -2310,7 +2311,6 @@ height: 100%;
         text-align: left;
         font-size: 21px;
     }
-
     .bloques-gana-mas .contenedor-mobile-fix span.txt {
         float: left;
         width: 83%;
@@ -2320,7 +2320,6 @@ height: 100%;
         font-size: 13px;
         padding-left: 2%;
     }
-
     .bloques-gana-mas .contenedor-mobile-fix span.recuerda-txt {
         color: #613c87 !important;
         font-weight: 700;
@@ -2336,13 +2335,11 @@ height: 100%;
         font-weight: normal;
         font-size: 13px !important;
     }
-
     .bloques-gana-mas .contenedor-mobile-fix img {
         width: 135px;
         display: block;
         margin: auto;
     }
-
     .bloques-gana-mas .contenedor-mobile-fix .logo {
         width: 145px;
         display: block;
@@ -2356,11 +2353,9 @@ height: 100%;
         background-size: cover;
         background-position: center center;
     }
-
     .bloques-gana-mas .contenedor-mobile-fix .mobil-nro-funciona2 {
         display: none;
     }
-
 .suscribete-gratis a.btn-suscribete {
     background: #613c87;
     color: white;
@@ -2376,7 +2371,6 @@ height: 100%;
     letter-spacing: 1px;
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.30);
 }
-
 .suscribete-gratis a.terminos {
     display: block;
     text-align: center;
@@ -2385,7 +2379,6 @@ height: 100%;
     font-size: 13px;
     font-weight: bold;
 }
-
 .suscribete-gratis p.txt-deseas-cancelar {
     color: #613c87;
     font-weight: 700;
@@ -2397,7 +2390,6 @@ height: 100%;
     font-size: 15px;
     font-weight: 700;
 }
-
 .suscribete-gratis span.deseas-cancelar {
     display: block;
     text-align: center;
@@ -2440,28 +2432,22 @@ height: 100%;
         background-size: 80% !important;
     }
 }
-
 @media (max-width: 533px) {
     .bloques-gana-mas .contenedor-mobile-fix > .bloque-img {
         min-height: 80px;
     }
-
     .bloques-gana-mas .contenedor-mobile-fix > .tips-info {
         min-height: 112px;
     }
-
     .bloques-gana-mas .contenedor-mobile-fix > .sin-codigos {
         min-height: 100px;
     }
-
     .bloques-gana-mas .contenedor-mobile-fix > .img-pack {
         min-height: 88px;
     }
-
     .bloques-gana-mas .contenedor-mobile-fix .mobil-nro-funciona {
         display: none !important;
     }
-
     .bloques-gana-mas .contenedor-mobile-fix .mobil-nro-funciona2 {
         display: initial !important;
     }

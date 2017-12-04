@@ -607,7 +607,7 @@
 }
 .btn_mas_info_set {
     font-family: 'Lato';
-    font-size: 13px;
+    font-size: 12px;
     text-transform: uppercase;
     text-align: center;
     margin-bottom: 11px;
@@ -659,7 +659,7 @@
     min-height: 600px;
 }
 .BloqueLandingRD .cantidad_productos_fav {
-    padding-bottom: 20px;
+    /*padding-bottom: 20px;*/
     float: none; 
     text-align: right;
 }
@@ -739,11 +739,11 @@
     height: 40px;
     color: black;
     font-family: 'Lato';
-    float: right;
     padding-left: 7px;
     font-size: 12px;
-    float: left;
-    margin-right: 10px;
+    float: right;
+    letter-spacing: 0.3px;
+    margin-left: 10px;
 }
 .content_buscador_landing{
     float:right;
@@ -2153,6 +2153,13 @@
     height: 120px;
     padding-top: 26px;
 }
+
+.home_block_rd .rd_logo img.large{
+    width: 160px;
+    margin-top: 30px;
+    margin-left: -20px;
+}
+
 .home_block_rd .rd_logo:after {
     border-left: 30px solid transparent;
     border-right: 0px solid transparent;
@@ -2168,6 +2175,7 @@
     font-weight: 100;
     padding-top: 24px;
     line-height: 24px;
+    text-transform: uppercase;
 }
 .hblock_tit {
     font-size: 14px;
@@ -2232,7 +2240,7 @@
 .cabecera_pedido_rd .rd_logo {
     width: 120px;
     height: 85px;
-    padding-top: 20px;
+    text-transform: uppercase;
 }
 
 .cabecera_pedido_rd .rd_logo img{
@@ -2256,12 +2264,14 @@
 .cabecera_pedido_text {
     color: white;
     position: absolute;
-    top: 25px;
+    top: 15px;
     left: 40%;
     font-weight: 700;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
     line-height: 18px;
     font-size: 14px;
+    text-transform: uppercase;
+    padding-right: 10px;
 }
 
 .banner_pedido_masofertas {
@@ -2272,7 +2282,7 @@
 .banner_pedido_text {
     font-size: 16px;
     line-height: 20px;
-    margin-bottom: 70px;
+    margin-bottom: 52px;
     text-transform: uppercase;
 }
 
@@ -2338,7 +2348,7 @@
         background: white;
         width: 240px;
         position: absolute;
-        top: 43px;
+        top: 37px;
         right: 30px;
     }
 
@@ -2811,97 +2821,11 @@
 }
 
     .video-visual iframe {
-        height: 400px !important;
+    width:100%;
+    height:400px;
     }
 
-    .video-visual .video-container {
-        position: relative;
-        padding-bottom: 48%;
-        padding-top: 30px;
-        height: 0;
-        overflow: hidden;
-    }
 
-        .video-visual .video-container iframe, .video-visual .video-container object, .video-visual .video-container embed {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-    .video-visual .videoWrapper {
-        height: 400px;
-        max-width: 100%;
-        position: relative;
-        overflow: hidden;
-    }
-
-        .video-visual .videoWrapper iframe {
-            height: 100%;
-            width: 100%;
-            position: absolute;
-            top: 0;
-            bottom: 0;
-        }
-
-    .video-visual .videobg {
-        position: relative;
-        width: 100%; /* Set video container element width here */
-        height: 100%; /* Set video container element height here */
-        overflow: hidden;
-        background: #111; /* bg color, if video is not high enough */
-    }
-
-    /* horizontally center the video */
-    .video-visual .videobg-width {
-        position: absolute;
-        width: 100%; /* Change width value to cover more area*/
-        height: 100%;
-        left: -9999px;
-        right: -9999px;
-        margin: auto;
-    }
-
-    /* set video aspect ratio and vertically center */
-    .video-visual .videobg-aspect {
-        position: absolute;
-        width: 100%;
-        height: 0;
-        top: -9999px;
-        bottom: -9999px;
-        margin: auto;
-        padding-bottom: 56.25%; /* 16:9 ratio */
-        overflow: hidden;
-    }
-
-    .video-visual .videobg-make-height {
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-    }
-
-    .video-visual .videobg-hide-controls {
-        box-sizing: content-box;
-        position: relative;
-        height: 100%;
-        width: 100%;
-        /* Vimeo timeline and play button are ~55px high */
-        padding: 55px 97.7777px; /* 16:9 ratio */
-        top: -55px;
-        left: -97.7777px; /* 16:9 ratio */
-    }
-
-    .video-visual .videobg iframe {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        border: 0 none;
-    }
 /**/
 .bloque-suscripcion {
 }
@@ -2990,8 +2914,7 @@
     .gana-mas .txt-img {
         display: table;
         margin: auto;
-        height: 100px;
-        margin-top: 10px;
+        height: 126px;
     }
 
         .gana-mas .txt-img img {
@@ -3001,6 +2924,7 @@
         vertical-align: middle;
         display: table-cell;
     }
+
     .gana-mas .txt-img-cont-uno {
         width: 250px;
         height: 80px !important;
@@ -3008,6 +2932,7 @@
         background-size: cover;
         background-position: center center;
     }
+
     .gana-mas .txt-img-cont-dos {
         width: 250px;
         height: 80px !important;
@@ -3015,6 +2940,7 @@
         background-size: cover;
         background-position: center center;
     }
+
     .gana-mas .txt-img-cont-tres {
         width: 250px;
         height: 80px !important;
@@ -3023,8 +2949,9 @@
         background-position: center center;
         background-repeat: no-repeat;
     }
+
     .gana-mas img.img-referencial {
-        max-width: 250px !important;
+        max-width: 200px !important;
         margin: 15px 0px 0px 0px;
     }
 
@@ -3042,7 +2969,7 @@
     .como-funciona .arrow-down {
         display: block;
         margin: auto;
-        width: 30px;
+        width: 20px;
         height: 26px !important;
         background: url(../../../Images/Lbel/Triangle.svg);
         background-size: contain;

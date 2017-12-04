@@ -2151,6 +2151,7 @@
 .home_block_rd .rd_logo {
     width: 260px;
     height: 120px;
+    padding-top: 26px;
 }
 
 .home_block_rd .rd_logo img.large{
@@ -2818,6 +2819,7 @@
     overflow: hidden;
     background: #2e2e2e;
 }
+
 .video-visual iframe{
     width:100%;
     height:400px;
