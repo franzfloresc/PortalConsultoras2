@@ -351,18 +351,15 @@ var PosBannerMenu ;
 
 <script>
     $(document).ready(function () {
+		var page = $("html, body");
 
         $('a.btn-suscribete-video-baja').click(function () {
+			var page = $("html, body");
 			var alto = $('#new-header').height();
-
-			if (PosBannerMenu > 0)
-				alto = alto + PosBannerMenu + 10;
 			
             var link = $(this);
             var anchor = link.attr('href');
-            $('html, body').stop().animate({
-                scrollTop: ScrollUser(anchor, alto) }
-				, 1000);
+            page.stop().animate({scrollTop: ScrollUser(anchor, alto) }, 1000);
 
             return false;
         });
