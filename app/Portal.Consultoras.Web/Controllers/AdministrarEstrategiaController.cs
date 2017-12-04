@@ -1,7 +1,6 @@
 using AutoMapper;
 
 using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.CustomHelpers;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceGestionWebPROL;
 using Portal.Consultoras.Web.ServiceODS;
@@ -16,7 +15,6 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 
@@ -63,6 +61,10 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
             }
+            Mapper.CreateMap<BEPais, PaisModel>()
+                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
+                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
@@ -88,6 +90,9 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.GetEtiquetas(entidad);
             }
+            Mapper.CreateMap<BEEtiqueta, EtiquetaModel>()
+                    .ForMember(t => t.EtiquetaID, f => f.MapFrom(c => c.EtiquetaID))
+                    .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion));
 
             return Mapper.Map<IList<BEEtiqueta>, IEnumerable<EtiquetaModel>>(lst);
         }
@@ -110,6 +115,13 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.SelectCampanias(PaisID);
             }
+            Mapper.CreateMap<BECampania, CampaniaModel>()
+                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
+                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo))
+                    .ForMember(t => t.Anio, f => f.MapFrom(c => c.Anio))
+                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto))
+                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                    .ForMember(t => t.Activo, f => f.MapFrom(c => c.Activo));
 
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
         }
@@ -124,11 +136,21 @@ namespace Portal.Consultoras.Web.Controllers
                 lst.Update(x => x.ImagenEstrategia = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenEstrategia, Globals.RutaImagenesMatriz + "/" + UserData().CodigoISO));
 
                 var lista = (from a in lst
-                            where a.FlagActivo == 1
-                            && a.Codigo != Constantes.TipoEstrategiaCodigo.IncentivosProgramaNuevas
+                             where a.FlagActivo == 1
+                             && a.Codigo == (TipoVistaEstrategia == Constantes.TipoVistaEstrategia.ProgramaNuevas ? Constantes.TipoEstrategiaCodigo.IncentivosProgramaNuevas : a.Codigo)
                              select a);
 
-				return Mapper.Map<IEnumerable<BETipoEstrategia>, IEnumerable<TipoEstrategiaModel>>(lista);
+                Mapper.CreateMap<BETipoEstrategia, TipoEstrategiaModel>()
+                    .ForMember(t => t.TipoEstrategiaID, f => f.MapFrom(c => c.TipoEstrategiaID))
+                    .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.DescripcionEstrategia))
+                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                    .ForMember(t => t.FlagNueva, f => f.MapFrom(c => c.FlagNueva))
+                    .ForMember(t => t.FlagRecoPerfil, f => f.MapFrom(c => c.FlagRecoPerfil))
+                    .ForMember(t => t.FlagRecoProduc, f => f.MapFrom(c => c.FlagRecoProduc))
+                    .ForMember(t => t.Imagen, f => f.MapFrom(c => c.ImagenEstrategia))
+                    .ForMember(t => t.CodigoPrograma, f => f.MapFrom(c => c.CodigoPrograma));
+
+                return Mapper.Map<IEnumerable<BETipoEstrategia>, IEnumerable<TipoEstrategiaModel>>(lista);
             }
 
             return null;
@@ -1100,6 +1122,17 @@ namespace Portal.Consultoras.Web.Controllers
                     }, JsonRequestBehavior.AllowGet);
                 }
 
+                Mapper.CreateMap<PedidoDetalleModel, BEPedidoWebDetalle>()
+                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
+                    .ForMember(t => t.ConsultoraID, f => f.MapFrom(c => c.ConsultoraID))
+                    .ForMember(t => t.MarcaID, f => f.MapFrom(c => c.MarcaID))
+                    .ForMember(t => t.Cantidad, f => f.MapFrom(c => c.Cantidad))
+                    .ForMember(t => t.PrecioUnidad, f => f.MapFrom(c => c.PrecioUnidad))
+                    .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
+                    .ForMember(t => t.ConfiguracionOfertaID, f => f.MapFrom(c => c.ConfiguracionOfertaID))
+                    .ForMember(t => t.TipoOfertaSisID, f => f.MapFrom(c => c.TipoOfertaSisID));
+
                 BEPedidoWebDetalle entidad = Mapper.Map<PedidoDetalleModel, BEPedidoWebDetalle>(model);
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
@@ -1761,346 +1794,5 @@ namespace Portal.Consultoras.Web.Controllers
             ConfigS3.SetFileS3(path, carpetaPais, newfilename);
             return newfilename;
         }
-
-        #region ProgramaNuevas
-        [HttpGet]
-        public ViewResult ProgramaNuevas()
-        {
-            try
-            {
-                ViewBag.hdnPaisISO = userData.CodigoISO;
-                ViewBag.hdnPaisID = userData.PaisID;
-                ViewBag.ddlCampania = DropDowListCampanias(userData.PaisID);
-
-                var tipoEstrategias = GetTipoEstrategias();
-                var oTipoEstrategia = tipoEstrategias.Where(x => x.Codigo == Constantes.TipoEstrategiaCodigo.IncentivosProgramaNuevas).FirstOrDefault();
-                ViewBag.hdnTipoEstrategiaID = (oTipoEstrategia == null ? 0 : oTipoEstrategia.TipoEstrategiaID);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-            }
-
-            return View();
-        }
-
-        [HttpGet]
-        public ActionResult ProgramaNuevasConsultar(string sidx, string sord, int page, int rows, string CampaniaID,
-            string CUV, int Imagen, int Activo, string CodigoPrograma, int TipoEstrategiaID)
-        {
-            var lst = new List<BEEstrategia>();
-            var pag = new BEPager();
-
-            try
-            {
-                if(string.IsNullOrEmpty(CampaniaID)) return RedirectToAction("ProgramaNuevas", "AdministrarEstrategia");
-
-                var entidad = new BEEstrategia()
-                {
-                    PaisID = userData.PaisID,
-                    TipoEstrategiaID = TipoEstrategiaID,
-                    CUV2 = (string.IsNullOrEmpty(CUV) ? "0" : CUV),
-                    CampaniaID = Convert.ToInt32(CampaniaID),
-                    Activo = Activo,
-                    Imagen = Imagen,
-                    CodigoPrograma = CodigoPrograma
-                };
-
-                using (var sv = new PedidoServiceClient())
-                {
-                    lst = sv.GetEstrategias(entidad).ToList();
-                    lst = lst ?? new List<BEEstrategia>();
-                }
-
-                string carpetapais = string.Format("{0}/{1}", Globals.UrlMatriz, userData.CodigoISO);
-                lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL, carpetapais));
-
-                var grid = new BEGrid()
-                {
-                    PageSize = rows,
-                    CurrentPage = page,
-                    SortColumn = sidx,
-                    SortOrder = sord
-                };
-
-                var items = lst.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-                pag = Util.PaginadorGenerico(grid, lst);
-
-                var data = new
-                {
-                    total = pag.PageCount,
-                    page = pag.CurrentPage,
-                    records = pag.RecordCount,
-                    rows = items
-                };
-
-                return Json(data, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return RedirectToAction("ProgramaNuevas", "AdministrarEstrategia");
-            }
-        }
-
-        [HttpGet]
-        public PartialViewResult ProgramaNuevasDetalle(EstrategiaProgramaNuevasModel inModel)
-        {
-            ViewBag.ddlCampania = DropDowListCampanias(userData.PaisID);
-
-            return PartialView(inModel);
-        }
-
-        [HttpGet]
-        public PartialViewResult ProgramaNuevasMensaje()
-        {
-            return PartialView();
-        }
-
-        [HttpGet]
-        public async Task<JsonResult> ProgramaNuevasMensajeConsultar(string CodigoPrograma)
-        {
-            var lst = new List<BEConfiguracionProgramaNuevasApp>();
-
-            try
-            {
-                if (string.IsNullOrEmpty(CodigoPrograma))
-                {
-                    return Json(new
-                    {
-                        success = false,
-                        message = "No se envió el codigo de programa",
-                        data = lst
-                    }, JsonRequestBehavior.AllowGet);
-                }
-
-                using (var sv = new PedidoServiceClient())
-                {
-                    var resultado = await sv.GetConfiguracionProgramaNuevasAppAsync(userData.PaisID, CodigoPrograma);
-                    lst = resultado.ToList();
-                }
-
-                return Json(new
-                {
-                    success = true,
-                    message = string.Empty,
-                    data = lst.FirstOrDefault()
-                }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-
-                return Json(new
-                {
-                    success = false,
-                    message = "Ocurrió un problema al intentar obtener los datos",
-                    data = lst
-                }, JsonRequestBehavior.AllowGet);
-            }
-        }
-        [HttpPost]
-        public async Task<JsonResult> ProgramaNuevasMensajeInsertar(ConfiguracionProgramaNuevasAppModel inModel)
-        {
-            string resultado = string.Empty;
-
-            try
-            {
-                var entidad = Mapper.Map<ConfiguracionProgramaNuevasAppModel, BEConfiguracionProgramaNuevasApp>(inModel);
-
-                using (var sv = new PedidoServiceClient())
-                {
-                    resultado = await sv.InsConfiguracionProgramaNuevasAppAsync(userData.PaisID, entidad);
-                }
-
-                return Json(new
-                {
-                    success = string.IsNullOrEmpty(resultado),
-                    message = string.IsNullOrEmpty(resultado) ? "Se grabó con éxito los datos." : resultado
-                }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-
-                return Json(new
-                {
-                    success = false,
-                    message = "Ocurrió un problema al intentar registrar los datos"
-                }, JsonRequestBehavior.AllowGet);
-            }
-        }
-
-        [HttpGet]
-        public PartialViewResult ProgramaNuevasBanner()
-        {
-            ViewBag.CodigoNivel = Dictionaries.IncentivoProgramaNuevasNiveles;
-            return PartialView();
-        }
-
-        [HttpPost]
-        public JsonResult ProgramaNuevasBannerActualizar(int tipoBanner, string codigoPrograma, string codigoNivel)
-        {
-            string carpetaPais = string.Empty;
-            string newfilename = string.Empty;
-
-            try
-            {
-                var nombreArchivo = Request["qqfile"];
-                new UploadHelper().UploadFile(Request, nombreArchivo);
-
-                carpetaPais = string.Format(Constantes.ProgramaNuevas.CarpetaBanner, UserData().CodigoISO, Dictionaries.IncentivoProgramaNuevasNiveles[codigoNivel]);
-
-                if (tipoBanner == 1) newfilename = string.Format(Constantes.ProgramaNuevas.ArchivoBannerCupones, codigoPrograma);
-                else if (tipoBanner == 2) newfilename = string.Format(Constantes.ProgramaNuevas.ArchivoBannerPremios, codigoPrograma);
-
-                ConfigS3.SetFileS3(Path.Combine(Globals.RutaTemporales, nombreArchivo), carpetaPais, newfilename);
-
-                return Json(new
-                {
-                    success = true,
-                    extra = ConfigS3.GetUrlFileS3(carpetaPais, newfilename)
-                }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = ex.Message,
-                    extra = ""
-                });
-            }
-        }
-
-        [HttpGet]
-        public JsonResult ProgramaNuevasBannerObtener(string codigoPrograma, string codigoNivel)
-        {
-            try
-            {
-                string carpetaPais = string.Format(Constantes.ProgramaNuevas.CarpetaBanner, UserData().CodigoISO, Dictionaries.IncentivoProgramaNuevasNiveles[codigoNivel]);
-                string filenameCupon = string.Format(Constantes.ProgramaNuevas.ArchivoBannerCupones, codigoPrograma);
-                string filenamePremio = string.Format(Constantes.ProgramaNuevas.ArchivoBannerPremios, codigoPrograma);
-
-                var data = new
-                {
-                    ImgBannerCupon = ConfigS3.GetUrlFileS3(carpetaPais, filenameCupon),
-                    ImgBannerPremio = ConfigS3.GetUrlFileS3(carpetaPais, filenamePremio)
-                };
-
-                return Json(new
-                {
-                    success = true,
-                    extra = data
-                }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = ex.Message,
-                    extra = ""
-                });
-            }
-        }
-        #endregion
-
-        #region Incentivos
-        [HttpGet]
-        public ViewResult Incentivos()
-        {
-            try
-            {
-                ViewBag.hdnPaisISO = userData.CodigoISO;
-                ViewBag.hdnPaisID = userData.PaisID;
-                ViewBag.ddlCampania = DropDowListCampanias(userData.PaisID);
-
-                var tipoEstrategias = GetTipoEstrategias();
-                var oTipoEstrategia = tipoEstrategias.Where(x => x.Codigo == Constantes.TipoEstrategiaCodigo.Incentivos).FirstOrDefault();
-                ViewBag.hdnTipoEstrategiaID = (oTipoEstrategia == null ? 0 : oTipoEstrategia.TipoEstrategiaID);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-            }
-
-            return View();
-        }
-
-        [HttpGet]
-        public ActionResult IncentivosConsultar(string sidx, string sord, int page, int rows, string CampaniaID,
-            string CUV, int Imagen, int Activo, string CodigoConcurso, int TipoEstrategiaID)
-        {
-            var lst = new List<BEEstrategia>();
-            var pag = new BEPager();
-
-            try
-            {
-                if (string.IsNullOrEmpty(CampaniaID)) return RedirectToAction("Incentivos", "AdministrarEstrategia");
-
-                var entidad = new BEEstrategia()
-                {
-                    PaisID = userData.PaisID,
-                    TipoEstrategiaID = TipoEstrategiaID,
-                    CUV2 = (string.IsNullOrEmpty(CUV) ? "0" : CUV),
-                    CampaniaID = Convert.ToInt32(CampaniaID),
-                    Activo = Activo,
-                    Imagen = Imagen,
-                    CodigoConcurso = CodigoConcurso
-                };
-
-                using (var sv = new PedidoServiceClient())
-                {
-                    lst = sv.GetEstrategias(entidad).ToList();
-                    lst = lst ?? new List<BEEstrategia>();
-                }
-
-                string carpetapais = string.Format("{0}/{1}", Globals.UrlMatriz, userData.CodigoISO);
-                lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL, carpetapais));
-
-                var grid = new BEGrid()
-                {
-                    PageSize = rows,
-                    CurrentPage = page,
-                    SortColumn = sidx,
-                    SortOrder = sord
-                };
-
-                var items = lst.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-                pag = Util.PaginadorGenerico(grid, lst);
-
-                var data = new
-                {
-                    total = pag.PageCount,
-                    page = pag.CurrentPage,
-                    records = pag.RecordCount,
-                    rows = items
-                };
-
-                return Json(data, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return RedirectToAction("Incentivos", "AdministrarEstrategia");
-            }
-        }
-
-        [HttpGet]
-        public PartialViewResult IncentivosDetalle(EstrategiaIncentivosModel inModel)
-        {
-            ViewBag.ddlCampania = DropDowListCampanias(userData.PaisID);
-            ViewBag.ddlTipoConcurso = new List<Object>()
-            {
-                new { value = "X", text = "RxP" },
-                new { value = "K", text = "Constancia" }
-            };
-
-            return PartialView(inModel);
-        }
-        #endregion
     }
 }

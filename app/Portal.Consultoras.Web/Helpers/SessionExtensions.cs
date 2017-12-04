@@ -1,5 +1,4 @@
-﻿using System;
-using System.Web;
+﻿using System.Web;
 
 namespace Portal.Consultoras.Web.Helpers
 {
@@ -23,9 +22,6 @@ namespace Portal.Consultoras.Web.Helpers
 
         public static object GetUniqueSession(this HttpSessionStateBase session, string uniqueKey, string name)
         {
-            if (string.IsNullOrEmpty(uniqueKey) || string.IsNullOrEmpty(name))
-                return null;
-
             return session[MakeUniqueName(uniqueKey, name)];
         }
 
@@ -41,30 +37,6 @@ namespace Portal.Consultoras.Web.Helpers
         {
             var getUniqueSession = GetUniqueSession(session, uniqueKey, name);
             return getUniqueSession == null ? null : (T)getUniqueSession;
-        }
-
-        /// <summary>
-        /// Try to get unique suf identifier
-        /// </summary>
-        /// <param name="session">Session State</param>
-        /// <param name="name">session key</param>
-        /// <returns>Guid valid if found, or Guid empty otherwise</returns>
-        public static Guid TryGetUniqueIdenfier(this HttpSessionStateBase session, string name)
-        {
-            var sessionKeys = session.Keys;
-            var guid = Guid.Empty;
-
-            foreach (string key in sessionKeys)
-            {
-                if (key.Contains(name))
-                {
-                    var guidString = key.Substring(0, 36);//guid length
-                    if (Guid.TryParse(guidString, out guid))
-                        break;
-                }
-            }
-
-            return guid;
         }
     }
 }

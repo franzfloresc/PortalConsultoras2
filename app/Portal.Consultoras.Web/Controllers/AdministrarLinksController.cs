@@ -61,6 +61,10 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
             }
+            Mapper.CreateMap<BEPais, PaisModel>()
+                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
+                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
@@ -187,6 +191,14 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                Mapper.CreateMap<AdministrarLinkModel, BEPermiso>()
+                   .ForMember(t => t.PermisoID, f => f.MapFrom(c => c.PermisoID))
+                   .ForMember(t => t.OrdenItem, f => f.MapFrom(c => c.OrdenItem))
+                   .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
+                   .ForMember(t => t.UrlItem, f => f.MapFrom(c => c.UrlItem))
+                   .ForMember(t => t.Posicion, f => f.MapFrom(c => c.Posicion))
+                   .ForMember(t => t.PaginaNueva, f => f.MapFrom(c => c.PaginaNueva))
+                   .ForMember(t => t.IdPadre, f => f.MapFrom(c => c.PermisoIDPadre));
                 BEPermiso entidad = Mapper.Map<AdministrarLinkModel, BEPermiso>(model);
 
                 if (!string.IsNullOrEmpty(entidad.UrlItem) && !entidad.UrlItem.Contains("http"))
@@ -240,6 +252,14 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                Mapper.CreateMap<AdministrarLinkModel, BEPermiso>()
+                   .ForMember(t => t.PermisoID, f => f.MapFrom(c => c.PermisoID))
+                   .ForMember(t => t.OrdenItem, f => f.MapFrom(c => c.OrdenItem))
+                   .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
+                   .ForMember(t => t.UrlItem, f => f.MapFrom(c => c.UrlItem))
+                   .ForMember(t => t.Posicion, f => f.MapFrom(c => c.Posicion))
+                   .ForMember(t => t.PaginaNueva, f => f.MapFrom(c => c.PaginaNueva))
+                   .ForMember(t => t.IdPadre, f => f.MapFrom(c => c.PermisoIDPadre));
                 BEPermiso entidad = Mapper.Map<AdministrarLinkModel, BEPermiso>(model);
 
                 if (!string.IsNullOrEmpty(entidad.UrlItem) && !entidad.UrlItem.Contains("http"))
@@ -351,6 +371,17 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     lst = sv.GetPermisosByRolAdministrador(PaisID, RolID).ToList();
                 }
+                Mapper.CreateMap<ServiceSeguridad.BEPermiso, PermisoModel>()
+                    .ForMember(x => x.PermisoID, t => t.MapFrom(c => c.PermisoID))
+                    .ForMember(x => x.RolId, t => t.MapFrom(c => c.RolId))
+                    .ForMember(x => x.Descripcion, t => t.MapFrom(c => c.Descripcion))
+                    .ForMember(x => x.IdPadre, t => t.MapFrom(c => c.IdPadre))
+                    .ForMember(x => x.OrdenItem, t => t.MapFrom(c => c.OrdenItem))
+                    .ForMember(x => x.UrlItem, t => t.MapFrom(c => c.UrlItem))
+                    .ForMember(x => x.PaginaNueva, t => t.MapFrom(c => c.PaginaNueva))
+                    .ForMember(x => x.RolId, t => t.MapFrom(c => c.RolId))
+                    .ForMember(x => x.Mostrar, t => t.MapFrom(c => c.Mostrar))
+                    .ForMember(x => x.Posicion, t => t.MapFrom(c => c.Posicion));
 
                 return Mapper.Map<IList<ServiceSeguridad.BEPermiso>, List<PermisoModel>>(lst);
             }
@@ -373,6 +404,11 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     lst = sv.GetServicioByCampaniaPaisAdministrador(UserData().PaisID, UserData().CampaniaID).ToList();
                 }
+
+                Mapper.CreateMap<ServiceSAC.BEServicioCampania, ServicioCampaniaModel>()
+                        .ForMember(x => x.ServicioId, t => t.MapFrom(c => c.ServicioId))
+                        .ForMember(x => x.Descripcion, t => t.MapFrom(c => c.Descripcion))
+                        .ForMember(x => x.Url, t => t.MapFrom(c => c.Url));
 
                 return Mapper.Map<IList<ServiceSAC.BEServicioCampania>, List<ServicioCampaniaModel>>(lst);
             }

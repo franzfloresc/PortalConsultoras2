@@ -28,9 +28,8 @@
         $(this).parent(".alert-top").slideUp();
     });
 
-	CargarCantidadProductosPedidos(true);
-	if (!belcorp.settings.isAppMobile)
-		CargarCantidadNotificacionesSinLeer();
+    CargarCantidadProductosPedidos(true);
+    CargarCantidadNotificacionesSinLeer();
 
     $("body").on("keyup", ".ValidaNumeral", function (evt) {
         var theEvent = evt || window.event;
@@ -315,8 +314,6 @@
         });
 
     });
-
-    BannerApp();
 });
 
 function loadBannerLP20() {
@@ -1050,62 +1047,4 @@ function odd_get_item_impresion(item) {
         }
     }
     return impresion;
-}
-
-function BannerApp() {
-    if (oBannerApp == null || getMobileOperatingSystem() != "Android" || !VerificarVistaBannerApp()) {
-        $('.banner_app').hide();
-        return;
-    }
-
-    $(".banner_app div").click(function (e) {
-        e.preventDefault();
-        $(".banner_app").hide();
-        OcultarBannerApp();
-        return false;
-    });
-
-    $(".banner_app").click(function (e) {
-        window.open(oBannerApp.DescripcionAccion);
-    });
-
-    $(".banner_app").css("background-image", "url(" + oBannerApp.UrlImagen + ")");
-}
-
-function VerificarVistaBannerApp() {
-    for (var row = 0; row < oBannerApp.Vistas.length; row++) {
-        var oVista = oBannerApp.Vistas[row];
-        if (oVista.NombreControlador != controllerName) continue;
-        if (oVista.NombreVista == null || oVista.NombreVista == actionName) return true;
-    }
-
-    return false;
-}
-
-function OcultarBannerApp() {
-    $.ajax({
-        type: 'GET',
-        url: urlOcultarBannerApp,
-        cache: false,
-        success: function (response) {
-            if (response.success) LayoutHeader();
-        },
-        error: function (err) { console.log(err); }
-    });
-}
-
-function getMobileOperatingSystem() {
-    var userAgent = navigator.userAgent || navigator.vendor || window.opera;
-
-    if (/windows phone/i.test(userAgent)) {
-        return "Windows Phone";
-    }
-    if (/android/i.test(userAgent)) {
-        return "Android";
-    }
-    if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-        return "iOS";
-    }
-
-    return "unknown";
 }

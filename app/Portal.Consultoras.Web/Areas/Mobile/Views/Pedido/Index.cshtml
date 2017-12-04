@@ -20,6 +20,13 @@
             INGRESAR PEDIDO C@(Model.CampaniaNro)
         </div>
     }
+    
+    @*@if (mobileConfiguracion.EsAppMobile)
+    {
+        @Html.Partial("~/Areas/Mobile/Views/Util/_barra.cshtml")
+        <input type="hidden" id="hdfSimbolo" value="@Model.Simbolo" />
+        <input type="hidden" id="hdfTotal" value="@Model.Total" />
+    }*@
 
     <!-- BANNERS INGRESO DE PEDIDO -->
     <div class="banner_ingresoPedido nuevaAlturaBanner" style="background: #000 url(@ViewBag.UrlFranjaNegra) no-repeat center center;">
@@ -28,13 +35,13 @@
                 @Html.Hidden("txtClienteId", Model.ClienteId)
                 @if (ViewBag.MobileApp && Model.ClienteId > 0)
                 {
-                	<input type="text" id="txtClienteNombre" placeholder="Cliente" class="PedidoClienteNombre" disabled value="@Model.Nombre" />
+                    <input type="text" id="txtClienteNombre" placeholder="Cliente" class="PedidoClienteNombre" disabled value="@Model.Nombre" />
                 }
                 else
                 {
-                	<input type="text" id="txtClienteNombre" placeholder="Cliente" class="PedidoClienteNombre" />
+                    <input type="text" id="txtClienteNombre" placeholder="Cliente" class="PedidoClienteNombre" />
                 }
-
+               
                 <input type="tel" name="codigoProducto" value="" placeholder="Código" id="txtCodigoProducto" oninput="FuncionesGenerales.MaxLengthCheck(this, 5)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
             </form>
         </div>
@@ -52,7 +59,7 @@
     <!-- FIN MENSAJES CUV -->
 
     <div class="contenedor_producto">
-        <div class="content_320 ingresoPedidom ingresoPedido_app">
+        <div class="content_320 ingresoPedidom">
             <!-- SECCIÓN CONTENIDO INGRESO DE PEDIDO -->
             <div id="divProductoMantenedor" style="display: none;">
                 <div style="display: none;">
@@ -97,15 +104,6 @@
                 </div>
             </div>
             <!-- FIN CONTENIDO INGRESO DE PEDIDO -->
-            <!-- Barra -->
-            @if (mobileConfiguracion.EsAppMobile)
-            {
-                @Html.Partial("~/Areas/Mobile/Views/Util/_barra.cshtml")
-                <input type="hidden" id="hdfSimbolo" value="@Model.Simbolo" />
-                <input type="hidden" id="hdfTotal" value="@Model.Total" />
-            }
-            <!-- Fin Barra -->
-
             <!-- SECCIÓN CONTENIDO RESUMEN DE PEDIDO -->
             <div id="divResumenPedido">
                 <div class="contenedor_resumenPedido montosIngresoPedido">
@@ -203,7 +201,7 @@
                     </div>
                 </div>
                 <button type="button" class="btn_verMiPedido">
-                    REVISA TU PEDIDO
+                    VER MI PEDIDO
                 </button>
             </div>
             <!-- FIN CONTENIDO RESUMEN DE PEDIDO -->
@@ -501,12 +499,9 @@
     @if (mobileConfiguracion.EsAppMobile)
     {
         <script>
-            $(document).ready(function () {
+            $(document).ready(function() {
                 belcorp.estrategia.initialize();
-                belcorp.pedido.initialize({
-                    barraId: "divBarra"
-                });
-
+                belcorp.pedido.initialize();
                 belcorp.pedido.subscribe("onProductoAgregado", MostrarBarra);
                 belcorp.estrategia.subscribe("onProductoAgregado", MostrarBarra);
             });

@@ -33,13 +33,12 @@
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Incentivo" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Estrategia" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ReservaProl" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd10" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd11" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd12" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ReservaProl" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd10" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd11" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IPedidoService_CrearCupon_InputMessage">
@@ -227,18 +226,6 @@
   </wsdl:message>
   <wsdl:message name="IPedidoService_UpdateMostradoProductosPrecargados_OutputMessage">
     <wsdl:part name="parameters" element="tns:UpdateMostradoProductosPrecargadosResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_GetConfiguracionProgramaNuevasApp_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetConfiguracionProgramaNuevasApp" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_GetConfiguracionProgramaNuevasApp_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetConfiguracionProgramaNuevasAppResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_InsConfiguracionProgramaNuevasApp_InputMessage">
-    <wsdl:part name="parameters" element="tns:InsConfiguracionProgramaNuevasApp" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_InsConfiguracionProgramaNuevasApp_OutputMessage">
-    <wsdl:part name="parameters" element="tns:InsConfiguracionProgramaNuevasAppResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_ValidarUnidadesPermitidasEnPedidoShowRoom_InputMessage">
     <wsdl:part name="parameters" element="tns:ValidarUnidadesPermitidasEnPedidoShowRoom" />
@@ -2405,14 +2392,6 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/UpdateMostradoProductosPrecargados" message="tns:IPedidoService_UpdateMostradoProductosPrecargados_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/UpdateMostradoProductosPrecargadosResponse" message="tns:IPedidoService_UpdateMostradoProductosPrecargados_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetConfiguracionProgramaNuevasApp">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetConfiguracionProgramaNuevasApp" message="tns:IPedidoService_GetConfiguracionProgramaNuevasApp_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetConfiguracionProgramaNuevasAppResponse" message="tns:IPedidoService_GetConfiguracionProgramaNuevasApp_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="InsConfiguracionProgramaNuevasApp">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsConfiguracionProgramaNuevasApp" message="tns:IPedidoService_InsConfiguracionProgramaNuevasApp_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsConfiguracionProgramaNuevasAppResponse" message="tns:IPedidoService_InsConfiguracionProgramaNuevasApp_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="ValidarUnidadesPermitidasEnPedidoShowRoom">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ValidarUnidadesPermitidasEnPedidoShowRoom" message="tns:IPedidoService_ValidarUnidadesPermitidasEnPedidoShowRoom_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ValidarUnidadesPermitidasEnPedidoShowRoomResponse" message="tns:IPedidoService_ValidarUnidadesPermitidasEnPedidoShowRoom_OutputMessage" />
@@ -4048,24 +4027,6 @@
     </wsdl:operation>
     <wsdl:operation name="UpdateMostradoProductosPrecargados">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdateMostradoProductosPrecargados" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetConfiguracionProgramaNuevasApp">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetConfiguracionProgramaNuevasApp" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="InsConfiguracionProgramaNuevasApp">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsConfiguracionProgramaNuevasApp" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -7409,24 +7370,6 @@
     </wsdl:operation>
     <wsdl:operation name="UpdateMostradoProductosPrecargados">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdateMostradoProductosPrecargados" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetConfiguracionProgramaNuevasApp">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetConfiguracionProgramaNuevasApp" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="InsConfiguracionProgramaNuevasApp">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsConfiguracionProgramaNuevasApp" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

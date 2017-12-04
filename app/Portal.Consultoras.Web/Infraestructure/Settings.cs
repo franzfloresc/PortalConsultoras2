@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Configuration;
 
 namespace Portal.Consultoras.Web.Infraestructure
 {
@@ -11,13 +10,11 @@ namespace Portal.Consultoras.Web.Infraestructure
         {
             _instance = new Lazy<Settings>(() => new Settings
             {
-                UrlLogDynamo = ConfigurationManager.AppSettings["UrlLogDynamo"],
-                PaisesEsika = ConfigurationManager.AppSettings.Get("PaisesEsika"),
-                PaisesLBel = ConfigurationManager.AppSettings.Get("paisesLBel"),
-                UrlChatBot = ConfigurationManager.AppSettings.Get("UrlChatbot"),
-                RegaloProgramaNuevasFlag = ConfigurationManager.AppSettings.Get("RegaloProgramaNuevasFlag"),
-                JsonWebTokenSecretKey = ConfigurationManager.AppSettings.Get("JsonWebTokenSecretKey")
+                UrlLogDynamo = System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"],
+                PaisesEsika = System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika"),
+                UrlChatBot = System.Configuration.ConfigurationManager.AppSettings.Get("UrlChatbot")
             });
+
         }
 
         public static Settings Instance
@@ -26,15 +23,7 @@ namespace Portal.Consultoras.Web.Infraestructure
         }
 
         public string UrlLogDynamo { get; private set; }
-
         public string PaisesEsika { get; private set; }
-
         public string UrlChatBot { get; private set; }
-
-        public string RegaloProgramaNuevasFlag { get; set; }
-
-        public string JsonWebTokenSecretKey { get; private set; }
-
-        public string PaisesLBel { get; private set; }
     }
 }

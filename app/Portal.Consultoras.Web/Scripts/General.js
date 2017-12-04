@@ -5,12 +5,6 @@ var belcorp = belcorp || {};
 belcorp.settings = belcorp.settings || {}
 belcorp.settings.uniquePrefix = "/g/";
 
-var belcorp = belcorp || {};
-belcorp.settings = belcorp.settings || {};
-belcorp.settings.initialize = function (settings) {
-	this.isAppMobile = settings.isAppMobile;
-}
-
 jQuery(document).ready(function () {
     CreateLoading();
     $("body").on("click", "[data-compartir]", function (e) {
@@ -1904,12 +1898,6 @@ Object.defineProperty(Object.prototype, "in", {
     enumerable: false,
     writable: true
 });
-
-/**
- * Crea eventos en el objeto con metodos de subscribe y applyChanges
- * ussage: registerEvent.call(this, "nombreEvento"");
- * @param {string} eventName nombre del evento
- */
 var registerEvent = function (eventName) {
     var self = this;
     if (self[eventName]) {

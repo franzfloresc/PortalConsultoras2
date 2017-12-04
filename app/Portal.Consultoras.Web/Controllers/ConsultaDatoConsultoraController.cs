@@ -1,7 +1,6 @@
-﻿using AutoMapper;
-
-namespace Portal.Consultoras.Web.Controllers
+﻿namespace Portal.Consultoras.Web.Controllers
 {
+    using AutoMapper;
     using Portal.Consultoras.Common;
     using Portal.Consultoras.Web.Models;
     using Portal.Consultoras.Web.ServiceCliente;
@@ -1146,6 +1145,10 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
             }
+            Mapper.CreateMap<BEPais, PaisModel>()
+                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
+                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
@@ -1157,6 +1160,10 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lista = servicezona.SelectCampanias(PaisID).ToList();
             }
+            Mapper.CreateMap<BECampania, CampaniaModel>()
+                .ForMember(x => x.CampaniaID, t => t.MapFrom(c => c.CampaniaID))
+                .ForMember(x => x.NombreCorto, t => t.MapFrom(c => c.NombreCorto))
+                .ForMember(x => x.Codigo, t => t.MapFrom(c => c.Codigo));
 
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lista);
         }

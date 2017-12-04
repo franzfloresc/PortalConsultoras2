@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace Portal.Consultoras.Web.AutoMapper
+namespace Portal.Consultoras.Web.Models.AutoMapper
 {
     public class AutoMapperConfiguration
     {

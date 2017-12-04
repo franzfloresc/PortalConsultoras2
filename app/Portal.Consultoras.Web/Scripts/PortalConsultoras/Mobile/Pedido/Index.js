@@ -5,11 +5,8 @@ var AutocompleteClick = false;
 
 var belcorp = belcorp || {};
 belcorp.pedido = belcorp.pedido || {};
-belcorp.pedido.initialize = function (settings) {
+belcorp.pedido.initialize = function() {
     registerEvent.call(this, "onProductoAgregado");
-    this.settings = {
-        barraId: settings.barraId
-    }
 }
 
 $(document).ready(function () {
@@ -52,7 +49,8 @@ $(document).ready(function () {
         select: function (event, ui) {
             $("#txtClienteId").val("0");
 
-            if (ui.item.cliente.ClienteID == -1) {
+            if (ui.item.cliente.ClienteID == -1)
+            {
                 $("#txtClienteNombre").val("");
 
                 if (gTipoUsuario == '2') {
@@ -61,12 +59,13 @@ $(document).ready(function () {
                     $('#popupInformacionSB2Error').show();
                     return false;
                 }
-
+               
                 showClienteDetalle(null);
 
                 return false;
             }
-            else if (ui.item.cliente.ClienteID != 0) {
+            else if (ui.item.cliente.ClienteID != 0)
+            {
                 $.each(lstClientes, function (key, cliente) {
                     if (cliente.ClienteID == ui.item.cliente.ClienteID && cliente.TieneTelefono == 0) {
                         showClienteDetalle(cliente);
@@ -117,6 +116,17 @@ $(document).ready(function () {
         }
     });
 
+    //$("#ddlClientes").change(function () {
+    //    if($(this).val() == 0) return;
+
+    //    $.each(lstClientes, function (key, cliente) {
+    //        if (cliente.ClienteID == $("#ddlClientes").val() && cliente.TieneTelefono == 0) {
+    //            showClienteDetalle(cliente);
+    //            return false;
+    //        }
+    //    });
+    //});
+
     ReservadoOEnHorarioRestringido(false);
     $("#divProductoMantenedor").hide();
     $(".btn_verMiPedido").on("click", function () {
@@ -133,7 +143,6 @@ $(document).ready(function () {
         $("#divResumenPedido").hide();
         $("#btnAgregarProducto").hide();
         $('#PopSugerido').hide();
-        mostrarBarra(false);
 
         if (codigo == "") {
             if (typeof tieneOPT !== 'undefined' && tieneOPT) {
@@ -142,7 +151,6 @@ $(document).ready(function () {
             $("#divResumenPedido").show();
             $("footer").show();
             $(".footer-page").css({ "margin-bottom": "0px" });
-            mostrarBarra(true);
         } else {
             VisibleEstrategias(false);
             $("footer").hide();
@@ -265,7 +273,7 @@ $(document).ready(function () {
         };
         InsertarProductoSugerido(marcaID, cuv, precioUnidad, descripcionProd, cantidad, indicadorMontoMinimo, tipoOfertaSisID, OrigenPedidoWeb);
     });
-
+    
     $("#linkAgregarCliente").on("click", function () {
         if (gTipoUsuario == '2') {
             var msgg = "Por el momento esta sección no está habilitada, te encuentras en una sesión de prueba. Una vez recibas tu código de consultora, podrás acceder a todos los beneficios de Somos Belcorp.";
@@ -324,7 +332,7 @@ function CargarDetallePedido(page, rows) {
 }
 
 function ActualizarMontosPedido(formatoTotal, total, formatoTotalCliente) {
-    if (formatoTotal != undefined) { }
+    if (formatoTotal != undefined) {}
 
     if (total != undefined)
         $("#hdfTotal").val(total);
@@ -432,7 +440,7 @@ function ValidarPermiso(obj) {
 };
 
 function BuscarByCUV(cuv) {
-
+    
     if (cuv == $('#hdfCUV').val()) {
         if (productoSugerido) {
             if (productoAgotado) MostrarMensaje("mensajeCUVAgotado");
@@ -464,8 +472,8 @@ function BuscarByCUV(cuv) {
             }
 
             $("#txtCantidad").removeAttr("disabled");
-            var item = data[0];
-
+            var item = data[0];  
+            
             if (item.MarcaID == 0) {
                 MostrarMensaje("mensajeCUVNoExiste");
                 $("#divProductoInformacion").hide();
@@ -517,10 +525,10 @@ function ObservacionesProducto(item) {
         return false;
     }
     if (item.TieneStock === true) {
-        if (item.EsExpoOferta == true) MostrarMensaje("mensajeEsExpoOferta");
-        if (item.CUVRevista.length != 0 && item.DesactivaRevistaGana == 0) {
-            if (!item.TieneRDC)
-                MostrarMensaje("mensajeCUVOfertaEspecial");
+    	if (item.EsExpoOferta == true) MostrarMensaje("mensajeEsExpoOferta");
+    	if (item.CUVRevista.length != 0 && item.DesactivaRevistaGana == 0) {
+    	    if (!item.TieneRDC)
+    	        MostrarMensaje("mensajeCUVOfertaEspecial");
         };
 
         var tipoOferta = $("#hdTipoOfertaSisID").val();
@@ -603,7 +611,7 @@ function ObtenerProductosSugeridos(CUV) {
     $('.js-slick-prev-h').remove();
     $('.js-slick-next-h').remove();
     $('#divCarruselSugerido.slick-initialized').slick('unslick');
-
+    
     $('#divCarruselSugerido').html('<div style="text-align: center;">Actualizando Productos Destacados<br><img src="' + urlLoad + '" /></div>');
     $("#divProductoInformacion").hide();
 
@@ -708,7 +716,7 @@ function InsertarProductoSugerido(marcaID, cuv, precioUnidad, descripcion, canti
             }
 
             CloseLoading();
-
+            
             $("#divProductoObservaciones").html("");
             VisibleEstrategias(true);
             $("#divResumenPedido").show();
@@ -720,7 +728,6 @@ function InsertarProductoSugerido(marcaID, cuv, precioUnidad, descripcion, canti
             $("#txtCodigoProducto").val("");
             $("#hdCuvEnSession").val("");
             if (data.modificoBackOrder) messageInfo('Recuerda que debes volver a validar tu pedido.');
-            mostrarBarra(false);
 
             if (belcorp.pedido.applyChanges)
                 belcorp.pedido.applyChanges("onProductoAgregado", data);
@@ -862,7 +869,7 @@ function InsertarProducto() {
 
                 var errorCliente = data.errorCliente || false;
                 if (!errorCliente) {
-                    messageInfoError(data.message);
+                    messageInfoError(data.message);   
                 }
                 else {
                     $.each(lstClientes, function (ind, cli) {
@@ -1064,19 +1071,5 @@ function ProcesarActualizacionMostrarContenedorCupon() {
         if (cuponModule) {
             cuponModule.actualizarContenedorCupon();
         }
-    }
-}
-
-function mostrarBarra(accion) {
-    accion = accion || false;
-    if (!belcorp.pedido.settings || !belcorp.pedido.settings.barraId)
-        return;
-
-    var barraDiv = $("#" + belcorp.pedido.settings.barraId);
-    if (barraDiv.length) {
-        if (accion)
-            $(barraDiv).show();
-        else
-            $(barraDiv).hide();
     }
 }

@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Newtonsoft.Json;
-
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.LogManager;
@@ -17,8 +16,6 @@ using Portal.Consultoras.Web.ServiceSeguridad;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using Portal.Consultoras.Web.SessionManager;
-using Portal.Consultoras.Web.Helpers;
-
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -29,6 +26,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Web.Mvc;
 using System.Web.Security;
+using Portal.Consultoras.Web.Helpers;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -127,7 +125,14 @@ namespace Portal.Consultoras.Web.Controllers
 
                 ViewBag.EsMobile = 1;//EPD-1780
 
-                ViewBag.FotoPerfil = userData.FotoPerfil;
+                if (userData.TieneLoginExterno)
+                {
+                    var loginFacebook = userData.ListaLoginExterno.Where(x => x.Proveedor == "Facebook").FirstOrDefault();
+                    if (loginFacebook != null)
+                    {
+                        ViewBag.FotoPerfil = loginFacebook.FotoPerfil;
+                    }
+                }
 
                 ViewBag.TokenPedidoAutenticoOk = (Session["TokenPedidoAutentico"] != null) ? 1 : 0;
                 ViewBag.CodigoEstrategia = GetCodigoEstrategia();
@@ -886,6 +891,11 @@ namespace Portal.Consultoras.Web.Controllers
 
                 lstTemp_2 = lstTemp_1.Where(p => p.ConfiguracionZona == string.Empty || p.ConfiguracionZona.Contains(userData.ZonaID.ToString())).ToList();
                 lst = lstTemp_2.Where(p => p.Segmento == "-1" || p.Segmento == SegmentoServicio.ToString()).ToList();
+
+                Mapper.CreateMap<ServiceSAC.BEServicioCampania, ServicioCampaniaModel>()
+                        .ForMember(x => x.ServicioId, t => t.MapFrom(c => c.ServicioId))
+                        .ForMember(x => x.Descripcion, t => t.MapFrom(c => c.Descripcion))
+                        .ForMember(x => x.Url, t => t.MapFrom(c => c.Url));
 
                 userData.MenuService = Mapper.Map<IList<ServiceSAC.BEServicioCampania>, List<ServicioCampaniaModel>>(lst);
             }
@@ -3540,12 +3550,11 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 newPath += "/" + pathStrings[1];
-                if (pathStrings.Length > 2)
-                    newPath += "/" + pathStrings[2];
+                newPath += "/" + pathStrings[2];
             }
             catch (Exception)
             {
-                // ignored //todo: esto es un atentado, refactorizar
+                // ignored
             }
 
             try
@@ -3560,7 +3569,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception)
             {
-                // ignored //todo: esto es un atentado, refactorizar
+                // ignored
             }
 
             newPath = newPath.EndsWith("/") ? newPath.Substring(0, newPath.Length - 1) : newPath;

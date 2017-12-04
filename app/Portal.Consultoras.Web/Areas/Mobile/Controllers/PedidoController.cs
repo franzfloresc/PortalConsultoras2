@@ -390,7 +390,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 && (beConfiguracionCampania.ModificaPedidoReservado
                 || beConfiguracionCampania.ValidacionAbierta))
             {
-                return RedirectToAction("Index", "Pedido", new { area = "Mobile" });
+                return RedirectToAction("Index", new { area = "Mobile" });
             }
 
             List<BEPedidoWebDetalle> lstPedidoWebDetalle;

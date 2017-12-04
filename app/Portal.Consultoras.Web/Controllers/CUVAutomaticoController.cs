@@ -47,6 +47,10 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
             }
+            Mapper.CreateMap<BEPais, PaisModel>()
+                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
+                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
@@ -66,6 +70,9 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.SelectCampanias(PaisID);
             }
+            Mapper.CreateMap<BECampania, CampaniaModel>()
+                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
+                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo));
 
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
         }
@@ -97,6 +104,10 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult FindByCUVs(int campaniaID, int paisID, string codigo, int rowCount)
         {
+            Mapper.CreateMap<ServiceODS.BEProductoDescripcion, GestionFaltantesModel>()
+                .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
+                .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion));
+
             List<ServiceODS.BEProductoDescripcion> lista;
             using (ODSServiceClient srv = new ODSServiceClient())
             {

@@ -71,6 +71,10 @@ namespace Portal.Consultoras.Web.Controllers
             //}
             try
             {
+                Mapper.CreateMap<ConsultoraFicticiaModel, BEUsuario>()
+                    .ForMember(t => t.CodigoConsultora, f => f.MapFrom(c => c.CodigoConsultora))
+                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID));
+
                 BEUsuario entidad = Mapper.Map<ConsultoraFicticiaModel, BEUsuario>(model);
                 BEPais bepais = new BEPais();
 
@@ -130,6 +134,10 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                Mapper.CreateMap<ConsultoraFicticiaModel, BEUsuario>()
+                    .ForMember(t => t.CodigoUsuario, f => f.MapFrom(c => c.CodigoUsuario))
+                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID));
+
                 BEUsuario entidad = Mapper.Map<ConsultoraFicticiaModel, BEUsuario>(model);
                 BEPais bepais = new BEPais();
 
@@ -188,6 +196,12 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                Mapper.CreateMap<ConsultoraFicticiaModel, BEConsultoraFicticia>()
+                    .ForMember(t => t.CodigoUsuario, f => f.MapFrom(c => c.CodigoUsuario))
+                    .ForMember(t => t.CodigoConsultora, f => f.MapFrom(c => c.CodigoConsultora))
+                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                    .ForMember(t => t.ActualizarClave, f => f.MapFrom(c => c.ActualizarClave));
+
                 BEConsultoraFicticia entidad = Mapper.Map<ConsultoraFicticiaModel, BEConsultoraFicticia>(model);
                 List<BEConsultora> lst = new List<BEConsultora>();
                 int result;
@@ -259,6 +273,13 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                Mapper.CreateMap<ConsultoraFicticiaModel, BEConsultoraFicticia>()
+                    .ForMember(t => t.CodigoUsuario, f => f.MapFrom(c => c.CodigoUsuario))
+                    .ForMember(t => t.CodigoConsultora, f => f.MapFrom(c => c.CodigoConsultora))
+                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                    .ForMember(t => t.ActualizarClave, f => f.MapFrom(c => c.ActualizarClave))
+                    .ForMember(t => t.ConsultoraID, f => f.MapFrom(c => c.ConsultoraID));
+
                 BEConsultoraFicticia entidad = Mapper.Map<ConsultoraFicticiaModel, BEConsultoraFicticia>(model);
 
                 List<BEConsultora> lst = new List<BEConsultora>();
@@ -302,6 +323,10 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                Mapper.CreateMap<ConsultoraFicticiaModel, BEConsultoraFicticia>()
+                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                    .ForMember(t => t.CodigoUsuario, f => f.MapFrom(c => c.CodigoUsuario));
+
                 BEConsultoraFicticia entidad = Mapper.Map<ConsultoraFicticiaModel, BEConsultoraFicticia>(model);
                 using (SACServiceClient sv = new SACServiceClient())
                 {
@@ -557,6 +582,10 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
             }
+            Mapper.CreateMap<BEPais, PaisModel>()
+                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
+                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }

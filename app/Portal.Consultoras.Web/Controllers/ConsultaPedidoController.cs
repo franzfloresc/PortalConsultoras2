@@ -218,6 +218,13 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lista = servicezona.SelectCampanias(PaisID);
             }
+            Mapper.CreateMap<BECampania, CampaniaModel>()
+               .ForMember(x => x.CampaniaID, t => t.MapFrom(c => c.CampaniaID))
+               .ForMember(x => x.Codigo, t => t.MapFrom(c => c.Codigo))
+               .ForMember(x => x.Anio, t => t.MapFrom(c => c.Anio))
+               .ForMember(x => x.NombreCorto, t => t.MapFrom(c => c.NombreCorto))
+               .ForMember(x => x.PaisID, t => t.MapFrom(c => c.PaisID))
+               .ForMember(x => x.Activo, t => t.MapFrom(c => c.Activo));
 
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lista);
         }
@@ -229,6 +236,12 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lista = servicezona.SelectAllZonas(PaisID);
             }
+
+            Mapper.CreateMap<BEZona, ZonaModel>()
+               .ForMember(x => x.ZonaID, t => t.MapFrom(c => c.ZonaID))
+               .ForMember(x => x.Codigo, t => t.MapFrom(c => c.Codigo))
+               .ForMember(x => x.Nombre, t => t.MapFrom(c => c.Nombre))
+               .ForMember(x => x.RegionID, t => t.MapFrom(c => c.RegionID));
 
             return Mapper.Map<IList<BEZona>, IEnumerable<ZonaModel>>(lista);
         }
@@ -435,6 +448,13 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                Mapper.CreateMap<ConsultaPedidoModel, BEPedidoWeb>()
+                    .ForMember(t => t.PedidoID, f => f.MapFrom(c => c.PedidoID))
+                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
+                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                    .ForMember(t => t.CodigoConsultora, f => f.MapFrom(c => c.CodigoConsultora))
+                    .ForMember(t => t.DescripcionBloqueo, f => f.MapFrom(c => c.DescripcionBloqueo));
+
                 BEPedidoWeb pedido = Mapper.Map<ConsultaPedidoModel, BEPedidoWeb>(model);
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
@@ -477,6 +497,12 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                Mapper.CreateMap<ConsultaPedidoModel, BEPedidoWeb>()
+                    .ForMember(t => t.PedidoID, f => f.MapFrom(c => c.PedidoID))
+                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
+                    .ForMember(t => t.CodigoConsultora, f => f.MapFrom(c => c.CodigoConsultora))
+                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID));
+
                 BEPedidoWeb pedido = Mapper.Map<ConsultaPedidoModel, BEPedidoWeb>(model);
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
@@ -728,6 +754,10 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
             }
+            Mapper.CreateMap<BEPais, PaisModel>()
+                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
+                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }

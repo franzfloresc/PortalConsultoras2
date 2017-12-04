@@ -147,6 +147,10 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
             }
+            Mapper.CreateMap<BEPais, PaisModel>()
+                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
+                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
@@ -540,39 +544,27 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult GetImagesByCodigoSAP(int paisID, string codigoSAP, int pagina)
         {
-            var lst = new List<BEMatrizComercialImagen>();
-            int totalRegistros = 0;
-            int idMatrizComercial = 0;
-            int rows = 10;
-            int pageCount = 0;
-            var data = new List<MatrizComercialImagen>();
-
+            List<BEMatrizComercialImagen> lst;
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                lst = sv.GetImagenesByCodigoSAPPaginado(paisID, codigoSAP, pagina, rows).ToList();
+                lst = sv.GetImagenesByCodigoSAPPaginado(paisID, codigoSAP, pagina, 10).ToList();
             }
 
+            int totalRegistros = 0;
+            int idMatrizComercial = 0;
+            var data = new List<MatrizComercialImagen>();
             if (lst.Any())
             {
                 var tieneImagenes = lst.First().IdMatrizComercialImagen != 0;
                 idMatrizComercial = lst.First().IdMatrizComercial;
-
                 if (tieneImagenes)
                 {
                     totalRegistros = lst.First().TotalRegistros;
                     data = MapImages(lst, paisID);
                 }
-
-                var grid = new BEGrid()
-                {
-                    PageSize = rows,
-                    CurrentPage = pagina,
-                };
-                var pag = Util.PaginadorGenerico(grid, totalRegistros);
-                pageCount = pag.PageCount;
             }
 
-            return Json(new { imagenes = data, idMatrizComercial = idMatrizComercial, totalRegistros = totalRegistros, totalPaginas = pageCount });
+            return Json(new { imagenes = data, idMatrizComercial = idMatrizComercial, totalRegistros = totalRegistros });
         }
 
         public JsonResult GetImagesByNemotecnico(int paisID, int idMatrizComercial, string nemoTecnico, int tipoBusqueda, int pagina)

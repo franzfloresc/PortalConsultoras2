@@ -110,6 +110,10 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
             }
+            Mapper.CreateMap<BEPais, PaisModel>()
+                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
+                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
@@ -122,6 +126,9 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.GetCampaniasActivas(PaisID, CampaniaID);
             }
+            Mapper.CreateMap<BEConfiguracionValidacionZona, ConfiguracionValidacionZonaModel>()
+                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
+                    .ForMember(t => t.ZonaID, f => f.MapFrom(c => c.ZonaID));
 
             return Mapper.Map<IList<BEConfiguracionValidacionZona>, IEnumerable<ConfiguracionValidacionZonaModel>>(lst);
         }
@@ -134,6 +141,19 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.GetConfiguracionValidacion(PaisID, CampaniaID);
             }
+            Mapper.CreateMap<BEConfiguracionValidacion, ConfiguracionValidacionModel>()
+                .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
+                .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                .ForMember(t => t.DiasAntes, f => f.MapFrom(c => c.DiasAntes))
+                .ForMember(t => t.HoraInicio, f => f.MapFrom(c => c.HoraInicio))
+                .ForMember(t => t.HoraFin, f => f.MapFrom(c => c.HoraFin))
+                .ForMember(t => t.HoraInicioNoFacturable, f => f.MapFrom(c => c.HoraInicioNoFacturable))
+                .ForMember(t => t.HoraCierreNoFacturable, f => f.MapFrom(c => c.HoraCierreNoFacturable))
+                .ForMember(t => t.FlagNoValidados, f => f.MapFrom(c => c.FlagNoValidados))
+                .ForMember(t => t.ProcesoRegular, f => f.MapFrom(c => c.ProcesoRegular))
+                .ForMember(t => t.ProcesoDA, f => f.MapFrom(c => c.ProcesoDA))
+                .ForMember(t => t.ProcesoDAPRD, f => f.MapFrom(c => c.ProcesoDAPRD))
+                .ForMember(t => t.HabilitarRestriccionHoraria, f => f.MapFrom(c => c.HabilitarRestriccionHoraria));
 
             return Mapper.Map<IList<BEConfiguracionValidacion>, IEnumerable<ConfiguracionValidacionModel>>(lst);
         }
@@ -143,8 +163,26 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                Mapper.CreateMap<ConfiguracionValidacionModel, BEConfiguracionValidacion>()
+                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
+                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                    .ForMember(t => t.DiasAntes, f => f.MapFrom(c => c.DiasAntes))
+                    .ForMember(t => t.HoraInicio, f => f.MapFrom(c => c.HoraInicio))
+                    .ForMember(t => t.HoraFin, f => f.MapFrom(c => c.HoraFin))
+                    .ForMember(t => t.HoraInicioNoFacturable, f => f.MapFrom(c => c.HoraInicioNoFacturable))
+                    .ForMember(t => t.HoraCierreNoFacturable, f => f.MapFrom(c => c.HoraCierreNoFacturable))
+                    .ForMember(t => t.FlagNoValidados, f => f.MapFrom(c => c.FlagNoValidados))
+                    .ForMember(t => t.ProcesoRegular, f => f.MapFrom(c => c.ProcesoRegular))
+                    .ForMember(t => t.ProcesoDA, f => f.MapFrom(c => c.ProcesoDA))
+                    .ForMember(t => t.ProcesoDAPRD, f => f.MapFrom(c => c.ProcesoDAPRD))
+                    .ForMember(t => t.HabilitarRestriccionHoraria, f => f.MapFrom(c => c.HabilitarRestriccionHoraria));
+
                 BEConfiguracionValidacion entidad = Mapper.Map<ConfiguracionValidacionModel, BEConfiguracionValidacion>(model);
                 entidad.CampaniaID = CampaniaID;
+
+                Mapper.CreateMap<ConfiguracionValidacionZonaModel, BEConfiguracionValidacionZona>()
+                .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
+                .ForMember(t => t.ZonaID, f => f.MapFrom(c => c.ZonaID));
 
                 List<BEConfiguracionValidacionZona> lstZonasActivas = Mapper.Map<IEnumerable<ConfiguracionValidacionZonaModel>, List<BEConfiguracionValidacionZona>>(model.listaZonasActivas);
 

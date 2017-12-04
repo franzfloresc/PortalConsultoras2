@@ -175,23 +175,32 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                string CorreoAnterior = userData.EMail;
+                Mapper.CreateMap<MisDatosModel, BEUsuario>()
+                    .ForMember(t => t.CodigoUsuario, f => f.MapFrom(c => c.CodigoUsuario))
+                    .ForMember(t => t.EMail, f => f.MapFrom(c => c.EMail))
+                    .ForMember(t => t.Telefono, f => f.MapFrom(c => c.Telefono))
+                    .ForMember(t => t.TelefonoTrabajo, f => f.MapFrom(c => c.TelefonoTrabajo))
+                    .ForMember(t => t.Celular, f => f.MapFrom(c => c.Celular))
+                    .ForMember(t => t.Sobrenombre, f => f.MapFrom(c => c.Sobrenombre))
+                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.NombreCompleto))
+                    .ForMember(t => t.CompartirDatos, f => f.MapFrom(c => c.CompartirDatos))
+                    .ForMember(t => t.AceptoContrato, f => f.MapFrom(c => c.AceptoContrato));
 
-                var entidad = new BEUsuario()
-                {
-                    CodigoUsuario = userData.CodigoUsuario,
-                    EMail = (model.EMail == null ? string.Empty : model.EMail),
-                    Telefono = (model.Telefono == null ? string.Empty : model.Telefono),
-                    TelefonoTrabajo = (model.TelefonoTrabajo == null ? string.Empty : model.TelefonoTrabajo),
-                    Celular = (model.Celular == null ? string.Empty : model.Celular),
-                    Sobrenombre = (model.Sobrenombre == null ? string.Empty : model.Sobrenombre),
-                    CompartirDatos = model.CompartirDatos,
-                    AceptoContrato = model.AceptoContrato,
-                    PaisID = userData.PaisID,
-                    CodigoISO = userData.CodigoISO,
-                    PrimerNombre = userData.PrimerNombre,
-                    Nombre = userData.NombreConsultora
-                };
+                BEUsuario entidad = Mapper.Map<MisDatosModel, BEUsuario>(model);
+                string CorreoAnterior = model.CorreoAnterior;
+
+                entidad.CodigoUsuario = (entidad.CodigoUsuario == null) ? "" : UserData().CodigoUsuario;
+                entidad.EMail = (entidad.EMail == null) ? "" : entidad.EMail;
+                entidad.Telefono = (entidad.Telefono == null) ? "" : entidad.Telefono;
+                entidad.TelefonoTrabajo = (entidad.TelefonoTrabajo == null) ? "" : entidad.TelefonoTrabajo;
+                entidad.Celular = (entidad.Celular == null) ? "" : entidad.Celular;
+                entidad.Sobrenombre = (entidad.Sobrenombre == null) ? "" : entidad.Sobrenombre;
+                entidad.ZonaID = UserData().ZonaID;
+                entidad.RegionID = UserData().RegionID;
+                entidad.ConsultoraID = UserData().ConsultoraID;
+                entidad.PaisID = UserData().PaisID;
+                entidad.PrimerNombre = userData.PrimerNombre;
+                entidad.CodigoISO = UserData().CodigoISO;
 
                 using (UsuarioServiceClient svr = new UsuarioServiceClient())
                 {
@@ -249,6 +258,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
+                Mapper.CreateMap<MisDatosModel, BEUsuario>()
+                    .ForMember(t => t.AceptoContrato, f => f.MapFrom(c => c.AceptoContrato));
+
                 BEUsuario entidad = Mapper.Map<MisDatosModel, BEUsuario>(model);
                 string CorreoAnterior = model.CorreoAnterior;
 

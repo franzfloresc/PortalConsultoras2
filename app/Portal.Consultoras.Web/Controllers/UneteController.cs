@@ -2407,9 +2407,9 @@ namespace Portal.Consultoras.Web.Controllers
         
         
         [HttpPost]
-        public ActionResult RechazarPostulante(PedidoRechazoUsuarioModel usuarioModel)
+        public ActionResult RechazarPostulante(RechazoModel model)
         {
-            var response = PostHTMLSACUnete("RechazarPostulante", usuarioModel);
+            var response = PostHTMLSACUnete("RechazarPostulante", model);
             return Json(response == "true" ? true : false, JsonRequestBehavior.AllowGet);
             //if (ModelState.IsValid)
             //{

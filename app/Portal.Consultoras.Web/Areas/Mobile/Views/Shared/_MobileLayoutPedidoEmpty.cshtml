@@ -16,13 +16,18 @@
     @if (ViewContext.EsPaisEsika())
     {
         <link href="@Url.Content("~/Content/Images/Esika/favicon.ico")" rel="shortcut icon" type="image/x-icon" />
-        @Styles.Render("~/Content/Css/Mobile/esika/MobileApp")
+        @Styles.Render("~/Content/Css/Mobile/Esika/CssSB2Mobile")
     }
     else
     {
         <link href="@Url.Content("~/Content/Images/icons/favicon_lbel.ico")" rel="shortcut icon" type="image/x-icon" />
-        @Styles.Render("~/Content/Css/Mobile/lbel/MobileApp")
+        @Styles.Render("~/Content/Css/Mobile/Lbel/CssSB2Mobile")
     }
+
+    <script type="text/javascript">
+        var isEsika = '@ViewContext.EsPaisEsika().ToString().ToLower()';
+        var urlLogDynamo = '@Portal.Consultoras.Web.Infraestructure.Settings.Instance.UrlLogDynamo';
+    </script>
 
     @RenderSection("styles", required: false)
 
@@ -185,8 +190,6 @@
 @Scripts.Render("~/Scripts/MobileLayout")
 
 <script type="text/javascript">
-    var isEsika = '@ViewContext.EsPaisEsika().ToString().ToLower()';
-    var urlLogDynamo = '@Portal.Consultoras.Web.Infraestructure.Settings.Instance.UrlLogDynamo';
     var baseUrl = "@Url.Content("~")";
     var urlReservadoEnHorarioRestringuido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
     var urlGetCantidadProductos = '@Url.Action("GetResumenCampania", "GestionContenido", new { area = "" })';
@@ -236,10 +239,6 @@
         'codigoConsultora': '@ViewBag.AnalyticsCodigoConsultora'
     };
     var OrigenDesktopODD = 0;
-
-    belcorp.settings.initialize({
-        isAppMobile : @Html.MobileAppConfiguracion().EsAppMobile.ToString().ToLower()
-    });
 </script>
 
 <script type="text/javascript">

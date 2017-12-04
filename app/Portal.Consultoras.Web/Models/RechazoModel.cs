@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using Portal.Consultoras.Web.Annotations;
 namespace Portal.Consultoras.Web.Models
 {
-    public class PedidoRechazoUsuarioModel
+    public class RechazoModel
     {
         public string CodigoISO { get; set; }
         //[RequiredIf("CodigoISO", "PE", ErrorMessage = "Este campo es obligatorio")]

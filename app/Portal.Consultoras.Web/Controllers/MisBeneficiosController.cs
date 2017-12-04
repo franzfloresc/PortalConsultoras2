@@ -45,6 +45,11 @@ namespace Portal.Consultoras.Web.Controllers
                 lstTemp_2 = lstTemp_1.Where(p => p.ConfiguracionZona == string.Empty || p.ConfiguracionZona.Contains(userData.ZonaID.ToString())).ToList();
                 lst = lstTemp_2.Where(p => p.Segmento == "-1" || p.Segmento == SegmentoServicio.ToString()).ToList();
 
+                Mapper.CreateMap<ServiceSAC.BEServicioCampania, ServicioCampaniaModel>()
+                        .ForMember(x => x.ServicioId, t => t.MapFrom(c => c.ServicioId))
+                        .ForMember(x => x.Descripcion, t => t.MapFrom(c => c.Descripcion))
+                        .ForMember(x => x.Url, t => t.MapFrom(c => c.Url));
+
                 return Json(new
                 {
                     lista = Mapper.Map<IList<ServiceSAC.BEServicioCampania>, List<ServicioCampaniaModel>>(lst),

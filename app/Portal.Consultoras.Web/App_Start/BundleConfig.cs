@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
 namespace Portal.Consultoras.Web
 {
@@ -108,7 +106,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Mobile/Shared/MobileLayout.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js",
                 "~/Scripts/PortalConsultoras/Shared/MenuContenedor.js"
-
+                
             ));
 
             bundles.Add(new ScriptBundle("~/Scripts/MobileLayoutEmpty").Include(
@@ -171,43 +169,34 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new StyleBundle("~/Content/Css/Site/Lbel/Contenedor").Include("~/Content/Css/Site/Lbel/Contenedor.css"));
 
-            var esikaCssSb2Mobile = new List<string>() {
-                "~/Content/Css/Mobile/Esika/icomon.css",
-                "~/Content/Css/Mobile/Esika/menu.css",
-                "~/Content/Css/Mobile/Esika/style.css",
-                "~/Content/Css/Mobile/Esika/theme.css",
-                "~/Content/Css/Mobile/flexslider.css",
-                "~/Content/Css/Mobile/flipclock.css",
-                "~/Content/Css/Site/slick.css",
-                "~/Content/Css/Site/asesora-online.css",
-                "~/Content/Css/Mobile/Esika/misDatos.css",
-                "~/Content/Css/Mobile/Esika/revistaDigital.css",
-                "~/Content/Css/Mobile/Esika/seccion-descarga-imprime.css",
-                "~/Content/Css/Mobile/calc.css"
-            };
-            bundles.Add(new StyleBundle("~/Content/Css/Mobile/esika/CssSB2Mobile").Include(esikaCssSb2Mobile.ToArray()));
+            bundles.Add(new StyleBundle("~/Content/Css/Mobile/esika/CssSB2Mobile").Include(
+               "~/Content/Css/Mobile/Esika/icomon.css",
+               "~/Content/Css/Mobile/Esika/menu.css",
+               "~/Content/Css/Mobile/Esika/style.css",
+               "~/Content/Css/Mobile/Esika/theme.css",
+               "~/Content/Css/Mobile/flexslider.css",
+               "~/Content/Css/Mobile/flipclock.css",
+               "~/Content/Css/Site/slick.css",
+               "~/Content/Css/Site/asesora-online.css",
+               "~/Content/Css/Mobile/Esika/misDatos.css",
+               "~/Content/Css/Mobile/Esika/revistaDigital.css",
+               "~/Content/Css/Mobile/Esika/seccion-descarga-imprime.css",
+               "~/Content/Css/Mobile/calc.css"
+               ));
 
-            var lbelCssSb2Mobile = new List<string>() {
-                "~/Content/Css/Mobile/lbel/icomon.css",
-                "~/Content/Css/Mobile/lbel/menu.css",
-                "~/Content/Css/Mobile/lbel/style.css",
-                "~/Content/Css/Mobile/lbel/theme.css",
-                "~/Content/Css/Mobile/flexslider.css",
-                "~/Content/Css/Mobile/flipclock.css",
-                "~/Content/Css/Site/slick.css",
-                "~/Content/Css/Mobile/lbel/misDatos.css",
-                "~/Content/Css/Mobile/Lbel/revistaDigital.css",
-                "~/Content/Css/Mobile/Lbel/seccion-descarga-imprime.css"
-            };
-            bundles.Add(new StyleBundle("~/Content/Css/Mobile/lbel/CssSB2Mobile").Include(lbelCssSb2Mobile.ToArray()));
-
-            var mobileApp = new List<string>()
-            {
-                "~/Content/Css/Mobile/pedido.css"
-            };
-
-            bundles.Add(new StyleBundle("~/Content/Css/Mobile/esika/MobileApp").Include(mobileApp.Concat(esikaCssSb2Mobile).ToArray()));
-            bundles.Add(new StyleBundle("~/Content/Css/Mobile/lbel/MobileApp").Include(mobileApp.Concat(lbelCssSb2Mobile).ToArray()));
+            bundles.Add(new StyleBundle("~/Content/Css/Mobile/lbel/CssSB2Mobile").Include(
+               "~/Content/Css/Mobile/lbel/icomon.css",
+               "~/Content/Css/Mobile/lbel/menu.css",
+               "~/Content/Css/Mobile/lbel/style.css",
+               "~/Content/Css/Mobile/lbel/theme.css",
+               "~/Content/Css/Mobile/flexslider.css",
+               "~/Content/Css/Mobile/flipclock.css",
+               "~/Content/Css/Site/slick.css",
+               "~/Content/Css/Mobile/lbel/misDatos.css",
+               "~/Content/Css/Mobile/Lbel/revistaDigital.css",
+               "~/Content/Css/Mobile/Lbel/seccion-descarga-imprime.css",
+               "~/Content/Css/Mobile/calc.css"
+               ));
 
             bundles.Add(new StyleBundle("~/Content/Css/Site/CssBienvenida").Include(
                 "~/Content/Css/Mobile/Esika/bootstrap-slider.min.css",
@@ -398,7 +387,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js"
             ));
-
+            
             bundles.Add(new StyleBundle("~/bundles/css/Site/RevistaDigital-Landing").Include(
                 "~/Content/Css/Site/slick-pedido.css",
                 "~/Content/Css/Site/flexslider.css"

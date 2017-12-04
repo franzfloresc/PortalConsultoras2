@@ -2,7 +2,6 @@
 @using Portal.Consultoras.Web.Models;
 @using Portal.Consultoras.Web.Areas.Mobile.Helpers
 @using Newtonsoft.Json;
-@using Portal.Consultoras.Web.Helpers
 
 @{
     ShowRoomBannerLateralModel showRoomBannerLateral = new ShowRoomBannerLateralModel();
@@ -167,12 +166,6 @@
                     }
                 </ul>
             </div>
-        }
-        @if(ViewBag.MostrarBannerApp == true && !ViewBag.MostrarBannerRechazo == true)
-        {
-            <!--BANNER APP-->
-            <div class="banner_app"><div>X</div></div>
-            <!--END BANNER APP-->
         }
         <!--END BANNER-->
 
@@ -434,15 +427,6 @@
         var ViewIndicadorGPRSB = '@ViewBag.IndicadorGPRSB';
         var MensajePedidoMobile = '@ViewBag.MensajePedidoMobile';
         var OrigenDesktopODD = 0;
-		belcorp.settings.initialize({
-			isAppMobile : @Html.MobileAppConfiguracion().EsAppMobile.ToString().ToLower()
-		});
-
-        //BANNER APP
-        var urlOcultarBannerApp = '@Url.Action("OcultarBannerApp")';
-        var actionName = '@ViewContext.RouteData.GetRequiredString("action")';
-        var controllerName = '@ViewContext.RouteData.GetRequiredString("controller")';
-        var oBannerApp = @Html.Raw(@Json.Encode(ViewBag.BannerApp));
     </script>
 
     @if (ViewBag.MostrarOfertaDelDiaContenedor == true)

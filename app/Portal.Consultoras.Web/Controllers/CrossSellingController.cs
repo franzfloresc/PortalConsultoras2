@@ -51,6 +51,10 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
             }
+            Mapper.CreateMap<BEPais, PaisModel>()
+                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
+                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
@@ -72,6 +76,13 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.SelectCampanias(PaisID);
             }
+            Mapper.CreateMap<BECampania, CampaniaModel>()
+                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
+                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo))
+                    .ForMember(t => t.Anio, f => f.MapFrom(c => c.Anio))
+                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto))
+                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                    .ForMember(t => t.Activo, f => f.MapFrom(c => c.Activo));
 
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
         }
@@ -158,6 +169,11 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                Mapper.CreateMap<ConfiguracionCrossSellingModel, BEConfiguracionCrossSelling>()
+                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
+                    .ForMember(t => t.HabilitarDiasValidacion, f => f.MapFrom(c => c.HabilitarDiasValidacion));
+
                 BEConfiguracionCrossSelling entidad = Mapper.Map<ConfiguracionCrossSellingModel, BEConfiguracionCrossSelling>(model);
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -324,6 +340,17 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                Mapper.CreateMap<CrossSellingProductoModel, BECrossSellingProducto>()
+                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
+                    .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
+                    .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
+                    .ForMember(t => t.PrecioOferta, f => f.MapFrom(c => c.PrecioOferta))
+                    .ForMember(t => t.ImagenProducto, f => f.MapFrom(c => c.ImagenProducto))
+                    .ForMember(t => t.CodigoCampania, f => f.MapFrom(c => c.CodigoCampania))
+                    .ForMember(t => t.FlagHabilitarProducto, f => f.MapFrom(c => c.FlagHabilitarProducto))
+                    .ForMember(t => t.MensajeProducto, f => f.MapFrom(c => c.MensajeProducto));
+
                 BECrossSellingProducto entidad = Mapper.Map<CrossSellingProductoModel, BECrossSellingProducto>(model);
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -367,6 +394,18 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                Mapper.CreateMap<CrossSellingProductoModel, BECrossSellingProducto>()
+                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
+                    .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
+                    .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
+                    .ForMember(t => t.PrecioOferta, f => f.MapFrom(c => c.PrecioOferta))
+                    .ForMember(t => t.ImagenProducto, f => f.MapFrom(c => c.ImagenProducto))
+                    //.ForMember(t => t.ImagenProductoAnterior, f => f.MapFrom(c => c.ImagenProductoAnterior))
+                    .ForMember(t => t.CodigoCampania, f => f.MapFrom(c => c.CodigoCampania))
+                    .ForMember(t => t.FlagHabilitarProducto, f => f.MapFrom(c => c.FlagHabilitarProducto))
+                    .ForMember(t => t.MensajeProducto, f => f.MapFrom(c => c.MensajeProducto));
+
                 BECrossSellingProducto entidad = Mapper.Map<CrossSellingProductoModel, BECrossSellingProducto>(model);
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -410,6 +449,11 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                Mapper.CreateMap<CrossSellingProductoModel, BECrossSellingProducto>()
+                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
+                    .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV));
+
                 BECrossSellingProducto entidad = Mapper.Map<CrossSellingProductoModel, BECrossSellingProducto>(model);
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -509,6 +553,9 @@ namespace Portal.Consultoras.Web.Controllers
                 lst = sv.GetProductosRecomendadosHabilitados(PaisID, CampaniaID, tipo).ToList();
 
             }
+            Mapper.CreateMap<BECrossSellingProducto, CrossSellingProductoModel>()
+                    .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
+                    .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion));
 
             return Mapper.Map<IList<BECrossSellingProducto>, IEnumerable<CrossSellingProductoModel>>(lst);
         }
@@ -521,6 +568,9 @@ namespace Portal.Consultoras.Web.Controllers
                 lst = sv.GetDescripcionProductoByCUV(PaisID, CampaniaID, CUV).ToList();
 
             }
+            Mapper.CreateMap<BECrossSellingAsociacion, CrossSellingAsociacionModel>()
+                    .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
+                    .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion));
 
             return Mapper.Map<IList<BECrossSellingAsociacion>, IEnumerable<CrossSellingAsociacionModel>>(lst);
         }
@@ -531,7 +581,11 @@ namespace Portal.Consultoras.Web.Controllers
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
                 lst = sv.GetCUVAsociadoByFilter(PaisID, CampaniaID, CUV, CodigoSegmento).ToList();
+
             }
+            Mapper.CreateMap<BECrossSellingAsociacion, CrossSellingAsociacionModel>()
+                    .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
+                    .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion));
 
             return Mapper.Map<IList<BECrossSellingAsociacion>, IEnumerable<CrossSellingAsociacionModel>>(lst);
         }
@@ -723,6 +777,16 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                Mapper.CreateMap<CrossSellingAsociacionModel, BECrossSellingAsociacion>()
+                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
+                    .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
+                    .ForMember(t => t.CUVAsociado, f => f.MapFrom(c => c.CUVAsociado))
+                    .ForMember(t => t.CUVAsociado2, f => f.MapFrom(c => c.CUVAsociado2))
+                    .ForMember(t => t.CodigoSegmento, f => f.MapFrom(c => c.CodigoSegmento))
+                    .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
+                    .ForMember(t => t.EtiquetaPrecio, f => f.MapFrom(c => c.EtiquetaPrecio));//1673CC
+
                 BECrossSellingAsociacion entidad = Mapper.Map<CrossSellingAsociacionModel, BECrossSellingAsociacion>(model);
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -764,6 +828,15 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                Mapper.CreateMap<CrossSellingAsociacionModel, BECrossSellingAsociacion>()
+                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
+                    .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
+                    .ForMember(t => t.CUVAsociado, f => f.MapFrom(c => c.CUVAsociado))
+                    .ForMember(t => t.CUVAsociado2, f => f.MapFrom(c => c.CUVAsociado2))
+                    .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
+                    .ForMember(t => t.EtiquetaPrecio, f => f.MapFrom(c => c.EtiquetaPrecio));//1673CC
+
                 BECrossSellingAsociacion entidad = Mapper.Map<CrossSellingAsociacionModel, BECrossSellingAsociacion>(model);
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -805,6 +878,12 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                Mapper.CreateMap<CrossSellingAsociacionModel, BECrossSellingAsociacion>()
+                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
+                    .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
+                    .ForMember(t => t.CUVAsociado, f => f.MapFrom(c => c.CUVAsociado));
+
                 BECrossSellingAsociacion entidad = Mapper.Map<CrossSellingAsociacionModel, BECrossSellingAsociacion>(model);
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -951,6 +1030,10 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                Mapper.CreateMap<CrossSellingAsociacionModel, BECrossSellingAsociacion>()
+                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                    .ForMember(t => t.CrossSellingAsociacionID, f => f.MapFrom(c => c.CrossSellingAsociacionID))
+                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID));
                 BECrossSellingAsociacion entidad = Mapper.Map<CrossSellingAsociacionModel, BECrossSellingAsociacion>(model);
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())

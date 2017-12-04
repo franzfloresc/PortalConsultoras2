@@ -135,6 +135,23 @@ namespace Portal.Consultoras.Web.Controllers
                 lst = sv.GetOfertaProductosPortalFlexipago(UserData().PaisID, Constantes.ConfiguracionOferta.Flexipago, UserData().CodigoConsultora, UserData().CampaniaID).Take(Cantidad).ToList();
             }
 
+            Mapper.CreateMap<BEOfertaFlexipago, OfertaFlexipagoModel>()
+                  .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                  .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
+                  .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
+                  .ForMember(t => t.PrecioOferta, f => f.MapFrom(c => c.PrecioOferta))
+                  .ForMember(t => t.PrecioNormal, f => f.MapFrom(c => c.PrecioNormal))
+                  .ForMember(t => t.Stock, f => f.MapFrom(c => c.Stock))
+                  .ForMember(t => t.ImagenProducto, f => f.MapFrom(c => c.ImagenProducto))
+                  .ForMember(t => t.Orden, f => f.MapFrom(c => c.Orden))
+                  .ForMember(t => t.UnidadesPermitidas, f => f.MapFrom(c => c.UnidadesPermitidas))
+                  .ForMember(t => t.CodigoCampania, f => f.MapFrom(c => c.CodigoCampania))
+                  .ForMember(t => t.ConfiguracionOfertaID, f => f.MapFrom(c => c.ConfiguracionOfertaID))
+                  .ForMember(t => t.TipoOfertaSisID, f => f.MapFrom(c => c.TipoOfertaSisID))
+                  .ForMember(t => t.MarcaID, f => f.MapFrom(c => c.MarcaID))
+                  .ForMember(t => t.OfertaProductoID, f => f.MapFrom(c => c.OfertaProductoID))
+                  .ForMember(t => t.DescripcionLegal, f => f.MapFrom(c => c.DescripcionLegal));
+
             return Mapper.Map<IList<BEOfertaFlexipago>, List<OfertaFlexipagoModel>>(lst);
         }
 
@@ -158,6 +175,18 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                Mapper.CreateMap<PedidoDetalleModel, BEPedidoWebDetalle>()
+                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
+                    .ForMember(t => t.ConsultoraID, f => f.MapFrom(c => c.ConsultoraID))
+                    .ForMember(t => t.MarcaID, f => f.MapFrom(c => c.MarcaID))
+                    .ForMember(t => t.Cantidad, f => f.MapFrom(c => c.Cantidad))
+                    .ForMember(t => t.PrecioUnidad, f => f.MapFrom(c => c.PrecioUnidad))
+                    .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
+                    .ForMember(t => t.ConfiguracionOfertaID, f => f.MapFrom(c => c.ConfiguracionOfertaID))
+                    .ForMember(t => t.TipoOfertaSisID, f => f.MapFrom(c => c.TipoOfertaSisID));
+
+
                 BEPedidoWebDetalle entidad = Mapper.Map<PedidoDetalleModel, BEPedidoWebDetalle>(model);
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
@@ -226,6 +255,20 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                Mapper.CreateMap<PedidoDetalleModel, BEPedidoWebDetalle>()
+                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                    .ForMember(t => t.CantidadAnterior, f => f.MapFrom(c => c.CantidadAnterior))
+                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
+                    .ForMember(t => t.ConsultoraID, f => f.MapFrom(c => c.ConsultoraID))
+                    .ForMember(t => t.MarcaID, f => f.MapFrom(c => c.MarcaID))
+                    .ForMember(t => t.Cantidad, f => f.MapFrom(c => c.Cantidad))
+                    .ForMember(t => t.PrecioUnidad, f => f.MapFrom(c => c.PrecioUnidad))
+                    .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
+                    //.ForMember(t => t.Flag, f => f.MapFrom(c => c.Flag))
+                    //.ForMember(t => t.Stock, f => f.MapFrom(c => c.Stock))
+                    .ForMember(t => t.ConfiguracionOfertaID, f => f.MapFrom(c => c.ConfiguracionOfertaID))
+                    .ForMember(t => t.TipoOfertaSisID, f => f.MapFrom(c => c.TipoOfertaSisID));
+
                 BEPedidoWebDetalle entidad = Mapper.Map<PedidoDetalleModel, BEPedidoWebDetalle>(model);
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
@@ -736,6 +779,11 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                Mapper.CreateMap<OfertaFlexipagoModel, BEOfertaFlexipago>()
+                        .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                        .ForMember(t => t.LinksFlexipago, f => f.MapFrom(c => c.LinksFlexipago))
+                        .ForMember(t => t.UsuarioRegistro, f => f.MapFrom(c => c.UsuarioRegistro));
+
                 BEOfertaFlexipago entidad = Mapper.Map<OfertaFlexipagoModel, BEOfertaFlexipago>(model);
 
                 using (PedidoServiceClient svc = new PedidoServiceClient())
@@ -849,6 +897,20 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                Mapper.CreateMap<OfertaFlexipagoModel, BEOfertaFlexipago>()
+                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
+                    .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
+                    .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
+                    .ForMember(t => t.PrecioOferta, f => f.MapFrom(c => c.PrecioOferta))
+                    .ForMember(t => t.ImagenProducto, f => f.MapFrom(c => c.ImagenProducto))
+                    .ForMember(t => t.Orden, f => f.MapFrom(c => c.Orden))
+                    .ForMember(t => t.UnidadesPermitidas, f => f.MapFrom(c => c.UnidadesPermitidas))
+                    .ForMember(t => t.CodigoCampania, f => f.MapFrom(c => c.CodigoCampania))
+                    .ForMember(t => t.FlagHabilitarProducto, f => f.MapFrom(c => c.FlagHabilitarProducto))
+                    .ForMember(t => t.TipoOferta, f => f.MapFrom(c => c.CodigoTipoOferta))
+                    .ForMember(t => t.PrecioNormal, f => f.MapFrom(c => c.PrecioNormal)); //2371
+
                 BEOfertaFlexipago entidad = Mapper.Map<OfertaFlexipagoModel, BEOfertaFlexipago>(model);
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -893,6 +955,20 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                Mapper.CreateMap<OfertaFlexipagoModel, BEOfertaFlexipago>()
+                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
+                    .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
+                    .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
+                    .ForMember(t => t.PrecioOferta, f => f.MapFrom(c => c.PrecioOferta))
+                    .ForMember(t => t.ImagenProducto, f => f.MapFrom(c => c.ImagenProducto))
+                    .ForMember(t => t.Orden, f => f.MapFrom(c => c.Orden))
+                    .ForMember(t => t.UnidadesPermitidas, f => f.MapFrom(c => c.UnidadesPermitidas))
+                    .ForMember(t => t.CodigoCampania, f => f.MapFrom(c => c.CodigoCampania))
+                    .ForMember(t => t.FlagHabilitarProducto, f => f.MapFrom(c => c.FlagHabilitarProducto))
+                    .ForMember(t => t.TipoOferta, f => f.MapFrom(c => c.CodigoTipoOferta))
+                    .ForMember(t => t.PrecioNormal, f => f.MapFrom(c => c.PrecioNormal)); //2371
+
                 BEOfertaFlexipago entidad = Mapper.Map<OfertaFlexipagoModel, BEOfertaFlexipago>(model);
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -939,6 +1015,19 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                Mapper.CreateMap<OfertaFlexipagoModel, BEOfertaFlexipago>()
+                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
+                    .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
+                    .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
+                    .ForMember(t => t.PrecioOferta, f => f.MapFrom(c => c.PrecioOferta))
+                    .ForMember(t => t.ImagenProducto, f => f.MapFrom(c => c.ImagenProducto))
+                    .ForMember(t => t.Orden, f => f.MapFrom(c => c.Orden))
+                    .ForMember(t => t.UnidadesPermitidas, f => f.MapFrom(c => c.UnidadesPermitidas))
+                    .ForMember(t => t.CodigoCampania, f => f.MapFrom(c => c.CodigoCampania))
+                    .ForMember(t => t.FlagHabilitarProducto, f => f.MapFrom(c => c.FlagHabilitarProducto))
+                    .ForMember(t => t.TipoOferta, f => f.MapFrom(c => c.CodigoTipoOferta));
+
                 BEOfertaFlexipago entidad = Mapper.Map<OfertaFlexipagoModel, BEOfertaFlexipago>(model);
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -991,6 +1080,11 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
 
+            Mapper.CreateMap<BEPais, PaisModel>()
+                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
+                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
+
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
 
@@ -1012,6 +1106,13 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.SelectCampanias(PaisID);
             }
+            Mapper.CreateMap<BECampania, CampaniaModel>()
+                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
+                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo))
+                    .ForMember(t => t.Anio, f => f.MapFrom(c => c.Anio))
+                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto))
+                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                    .ForMember(t => t.Activo, f => f.MapFrom(c => c.Activo));
 
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
         }
@@ -1024,6 +1125,10 @@ namespace Portal.Consultoras.Web.Controllers
                 lstConfiguracion = sv.GetTipoOfertasAdministracion(paisID, Constantes.ConfiguracionOferta.Flexipago).ToList();
                 lst = lstConfiguracion;
             }
+            Mapper.CreateMap<BEConfiguracionOferta, ConfiguracionOfertaModel>()
+                    .ForMember(t => t.ConfiguracionOfertaID, f => f.MapFrom(c => c.ConfiguracionOfertaID))
+                    .ForMember(t => t.CodigoOferta, f => f.MapFrom(c => c.CodigoOferta))
+                    .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion));
 
             return Mapper.Map<IList<BEConfiguracionOferta>, IEnumerable<ConfiguracionOfertaModel>>(lst);
         }
