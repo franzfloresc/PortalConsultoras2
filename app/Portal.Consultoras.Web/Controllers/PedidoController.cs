@@ -4564,7 +4564,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (revistaDigital.BloquearRevistaImpresaGeneral == 1)
                 {
                     beProductos = beProductos
-                        .Where(x => userData.CodigosRevistaImpresa.Contains(x.CodigoCatalogo.ToString())).ToList();
+                        .Where(x => !userData.CodigosRevistaImpresa.Contains(x.CodigoCatalogo.ToString())).ToList();
                 }
             }
             else
@@ -4572,7 +4572,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (revistaDigital.BloqueoRevistaImpresa && revistaDigital.EsActiva)
                 {
                     beProductos = beProductos
-                        .Where(x => userData.CodigosRevistaImpresa.Contains(x.CodigoCatalogo.ToString())).ToList();
+                        .Where(x => !userData.CodigosRevistaImpresa.Contains(x.CodigoCatalogo.ToString())).ToList();
                 }
             }
         }
