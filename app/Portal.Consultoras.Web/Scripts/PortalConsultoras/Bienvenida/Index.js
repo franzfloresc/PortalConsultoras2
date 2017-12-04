@@ -2686,7 +2686,7 @@ function MostrarShowRoom() {
                             $("#spnShowRoomEvento").html(eventoNombre);
                             $("#spnShowRoomEvento").val(eventoNombre);
                             $("#spnShowRoomEventoDescripcion").val(evento.Tema);
-                            AgregarTagManagerShowRoomPopupAnalytics(eventoID, eventoNombre, evento.Tema, "0")
+                            AgregarTagManagerShowRoomPopupAnalytics(eventoID, eventoNombre, evento.Tema, "2")
                             $('#hdEventoIDShowRoom').val(eventoID);
                             if (parseInt(response.diasFaltan) > 0) {
                                 var container = $('#PopShowroomIntriga');
@@ -3162,13 +3162,13 @@ function ValidarTelefono(celular) {
 }
 
 function VerShowRoomIntriga() {
-    //AgregarTagManagerShowRoomPopupClick(2);
+    AgregarTagManagerShowRoomPopupClick(2);
     document.location.href = urlShowRoomIntriga;
     $('#PopShowroomIntriga').hide();
 }
 
 function VerShowRoomVenta() {
-    //AgregarTagManagerShowRoomPopupClick(1);
+    AgregarTagManagerShowRoomPopupClick(1);
     document.location.href = urlOfertasIndex;
     $('#PopShowroomVenta').hide();
 }

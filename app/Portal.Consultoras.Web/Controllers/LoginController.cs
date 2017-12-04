@@ -1859,6 +1859,10 @@ namespace Portal.Consultoras.Web.Controllers
                     Session.Clear();
                     userData = GetUserData(Util.GetPaisID(model.Pais), model.CodigoUsuario);
                 }
+
+                var guid = Session.TryGetUniqueIdenfier("MobileAppConfiguracion");
+                this.SetUniqueKeyAvoiding(guid == Guid.Empty ? Guid.NewGuid() : guid);
+
                 if (userData == null) return RedirectToAction("UserUnknown", "Login", new { area = "" });
 
                 FormsAuthentication.SetAuthCookie(model.CodigoUsuario, false);
