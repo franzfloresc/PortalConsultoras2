@@ -8,12 +8,9 @@ using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Globalization;
 using System.Linq;
 using System.ServiceModel;
-using System.Web;
-using System.Web.Configuration;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
