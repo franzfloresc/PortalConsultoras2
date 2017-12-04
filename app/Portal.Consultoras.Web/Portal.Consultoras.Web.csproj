@@ -1260,6 +1260,7 @@
     <Content Include="Content\Css\Site\Login2\style_lbel.min.css" />
     <Content Include="Content\ImageHelper\xzoom.css" />
     <Content Include="Content\Images\android-EPM-mockup.png" />
+    <Content Include="Content\Images\arrow-down-preguntas-f.png" />
     <Content Include="Content\Images\arrow-down.svg" />
     <Content Include="Content\Images\arrow.png" />
     <Content Include="Content\Css\Site\jquery.rateyo.css" />
