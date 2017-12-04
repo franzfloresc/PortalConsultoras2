@@ -2156,7 +2156,6 @@
 
 .home_block_rd .rd_logo img.large{
     width: 160px;
-    margin-top: 30px;
     margin-left: -20px;
 }
 
@@ -2176,6 +2175,7 @@
     padding-top: 24px;
     line-height: 24px;
     text-transform: uppercase;
+    max-width: 50%;
 }
 .hblock_tit {
     font-size: 14px;
