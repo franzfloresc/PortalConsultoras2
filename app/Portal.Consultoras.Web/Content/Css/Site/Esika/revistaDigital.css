@@ -2175,6 +2175,7 @@
     padding-top: 24px;
     line-height: 24px;
     text-transform: uppercase;
+    max-width: 50%;
 }
 .hblock_tit {
     font-size: 14px;
