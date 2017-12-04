@@ -111,11 +111,9 @@ else if (Model.TieneRDR)
         </div>
     }
 }
-else
+else if (!tieneGnd)
 {
-    if (!tieneGnd)
-    {
-        @Html.Partial("~/Views/MisCatalogosRevistas/template-revista-slide.cshtml")
-    }
+    @Html.Partial("~/Views/MisCatalogosRevistas/template-revista-slide.cshtml")
 }
+
 
