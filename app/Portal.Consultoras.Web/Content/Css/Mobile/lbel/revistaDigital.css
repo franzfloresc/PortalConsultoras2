@@ -2332,6 +2332,15 @@ height: 100%;
         margin: auto;
     }
 
+    .bloques-gana-mas .contenedor-mobile-fix .visual-funcionamiento {
+        background: url(/Content/Images/Lbel/visual-de-funcionamiento.png);
+        width: 124px;
+        height: 135px;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position-x: right;
+    }
+
     .bloques-gana-mas .contenedor-mobile-fix .logo {
         width: 145px;
         display: block;
