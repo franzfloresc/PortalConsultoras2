@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Incentivo" />
-  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
+  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
   <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
   <xs:complexType name="ArrayOfBEReporteValidacionSRCampania">
     <xs:sequence>
@@ -140,6 +140,8 @@
       <xs:element minOccurs="0" name="PuntajeExigido" type="xs:int" />
       <xs:element minOccurs="0" name="PuntosAcumulados" type="xs:int" />
       <xs:element minOccurs="0" name="PuntosNivel" type="xs:int" />
+      <xs:element minOccurs="0" name="TextoCupon" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TextoCuponIndependiente" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoConcurso" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UrlBannerCuponesProgramaNuevas" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UrlBannerPremiosProgramaNuevas" nillable="true" type="xs:string" />
@@ -739,9 +741,11 @@
           <xs:element minOccurs="0" name="CantComenRecom" type="xs:int" />
           <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
           <xs:element minOccurs="0" name="CodigoAgrupacion" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CodigoConcurso" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="CodigoEstrategia" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="CodigoGenerico" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="CodigoProducto" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CodigoPrograma" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="CodigoSAP" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="CodigoTipoEstrategia" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="ColorFondo" nillable="true" type="xs:string" />
@@ -805,6 +809,7 @@
           <xs:element minOccurs="0" name="TextoLibre" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="TieneStockProl" type="xs:boolean" />
           <xs:element minOccurs="0" name="TieneVariedad" type="xs:int" />
+          <xs:element minOccurs="0" name="TipoConcurso" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="TipoEstrategia" nillable="true" type="tns:BETipoEstrategia" />
           <xs:element minOccurs="0" name="TipoEstrategiaID" type="xs:int" />
           <xs:element minOccurs="0" name="TipoEstrategiaImagenMostrar" type="xs:int" />
@@ -884,6 +889,7 @@
       <xs:element minOccurs="0" name="AceptoContrato" type="xs:boolean" />
       <xs:element minOccurs="0" name="Activo" type="xs:boolean" />
       <xs:element minOccurs="0" name="ActualizarClave" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AniosPermanencia" type="xs:int" />
       <xs:element minOccurs="0" name="AnoCampaniaIngreso" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="BanderaImagen" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CambioClave" type="xs:boolean" />
@@ -902,6 +908,8 @@
       <xs:element minOccurs="0" name="CodigoUsuario" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoZona" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigorRegion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigosConcursos" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigosProgramaNuevas" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CompartirDatos" type="xs:boolean" />
       <xs:element minOccurs="0" name="CompraKitDupla" type="xs:int" />
       <xs:element minOccurs="0" name="CompraOfertaDupla" type="xs:int" />
@@ -921,9 +929,11 @@
       <xs:element minOccurs="0" name="DocumentoIdentidad" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="EMail" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="EMailActivo" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EsAniversario" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsCDRWebZonaValida" type="xs:int" />
       <xs:element minOccurs="0" name="EsCatalogoPersonalizadoZonaValida" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsConsecutivoNueva" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EsCumpleanio" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsJoven" type="xs:int" />
       <xs:element minOccurs="0" name="EsOFGanaMasZonaValida" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsOfertaFinalZonaValida" type="xs:boolean" />
@@ -1987,6 +1997,7 @@
       <xs:element minOccurs="0" name="HoraInicioNoFacturable" type="ser:duration" />
       <xs:element minOccurs="0" name="HorasDuracionRestriccion" type="xs:int" />
       <xs:element minOccurs="0" name="ImagenURLOfertaFIC" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IndicadorEnviado" type="xs:boolean" />
       <xs:element minOccurs="0" name="IndicadorGPRSB" type="xs:int" />
       <xs:element minOccurs="0" name="IndicadorOfertaFIC" type="xs:int" />
       <xs:element minOccurs="0" name="MensajeValidacionInteractiva" nillable="true" type="xs:string" />

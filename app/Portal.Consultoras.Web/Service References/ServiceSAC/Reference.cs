@@ -4475,6 +4475,9 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         private string UrlImagenField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Portal.Consultoras.Web.ServiceSAC.BEComunicadoVista[] VistasField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool VisualizoField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
@@ -4592,6 +4595,19 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public Portal.Consultoras.Web.ServiceSAC.BEComunicadoVista[] Vistas {
+            get {
+                return this.VistasField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.VistasField, value) != true)) {
+                    this.VistasField = value;
+                    this.RaisePropertyChanged("Vistas");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public bool Visualizo {
             get {
                 return this.VisualizoField;
@@ -4600,6 +4616,99 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 if ((this.VisualizoField.Equals(value) != true)) {
                     this.VisualizoField = value;
                     this.RaisePropertyChanged("Visualizo");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEComunicadoVista", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Comunicado")]
+    [System.SerializableAttribute()]
+    public partial class BEComunicadoVista : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private long ComunicadoIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private long ComunicadoVistaIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NombreControladorField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NombreVistaField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public long ComunicadoId {
+            get {
+                return this.ComunicadoIdField;
+            }
+            set {
+                if ((this.ComunicadoIdField.Equals(value) != true)) {
+                    this.ComunicadoIdField = value;
+                    this.RaisePropertyChanged("ComunicadoId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public long ComunicadoVistaId {
+            get {
+                return this.ComunicadoVistaIdField;
+            }
+            set {
+                if ((this.ComunicadoVistaIdField.Equals(value) != true)) {
+                    this.ComunicadoVistaIdField = value;
+                    this.RaisePropertyChanged("ComunicadoVistaId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string NombreControlador {
+            get {
+                return this.NombreControladorField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NombreControladorField, value) != true)) {
+                    this.NombreControladorField = value;
+                    this.RaisePropertyChanged("NombreControlador");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string NombreVista {
+            get {
+                return this.NombreVistaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NombreVistaField, value) != true)) {
+                    this.NombreVistaField = value;
+                    this.RaisePropertyChanged("NombreVista");
                 }
             }
         }

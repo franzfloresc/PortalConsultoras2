@@ -350,6 +350,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 using (SACServiceClient sac = new SACServiceClient())
                 {
                     var lstComunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora, Constantes.ComunicadoTipoDispositivo.Mobile).ToList();
+                    lstComunicados = lstComunicados.Where(x => x.Descripcion != Constantes.Comunicado.AppConsultora).ToList();
                     if (lstComunicados != null) oComunicados = lstComunicados.FirstOrDefault();
                 }
 

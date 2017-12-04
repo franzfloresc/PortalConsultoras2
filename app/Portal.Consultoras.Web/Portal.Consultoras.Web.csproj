@@ -380,9 +380,9 @@
     <Compile Include="Controllers\UpdatePassSACController.cs" />
     <Compile Include="Controllers\UsuarioRolController.cs" />
     <Compile Include="CustomFilters\ClearSessionMobileAppAttribute.cs" />
-    <Compile Include="CustomFilters\LogErrorAttribute.cs" />
     <Compile Include="CustomFilters\LogActionFilter.cs" />
     <Compile Include="CustomFilters\LogActionFilterProvider.cs" />
+    <Compile Include="CustomFilters\LogErrorAttribute.cs" />
     <Compile Include="CustomFilters\UniqueSessionAttribute.cs" />
     <Compile Include="CustomHelpers\ConsultoraOnlineHelper.cs" />
     <Compile Include="CustomHelpers\UploadHelper.cs" />
@@ -428,7 +428,10 @@
     <Compile Include="Models\ClienteOnlineDetalleModel.cs" />
     <Compile Include="Models\ClienteSb2Model.cs" />
     <Compile Include="Models\BarraConsultoraModel.cs" />
+    <Compile Include="Models\ConfiguracionProgramaNuevasAppModel.cs" />
     <Compile Include="Models\DescargablesModel.cs" />
+    <Compile Include="Models\EstrategiaIncentivosModel.cs" />
+    <Compile Include="Models\EstrategiaProgramaNuevasModel.cs" />
     <Compile Include="Models\EventoFestivoDataModel.cs" />
     <Compile Include="Models\EventoFestivoModel.cs" />
     <Compile Include="Models\FichaProductoDetalleModel.cs" />
@@ -1229,11 +1232,13 @@
     <Content Include="Content\Css\Site\CambiarContrasena.css" />
     <Content Include="Content\Css\Site\Esika\backgroundsize.min.htc" />
     <Content Include="Content\Css\Site\Esika\Contenedor.css" />
+    <Content Include="Content\Css\Site\Esika\gestorContenido.css" />
     <Content Include="Content\Css\Site\Esika\reset.css" />
     <Content Include="Content\Css\Site\Esika\revistaDigital.css" />
     <Content Include="Content\Css\Site\Esika\seccion-descarga-imprime.css" />
     <Content Include="Content\Css\Site\Esika\style.css" />
     <Content Include="Content\Css\Site\Lbel\Contenedor.css" />
+    <Content Include="Content\Css\Site\Lbel\gestorContenido.css" />
     <Content Include="Content\Css\Site\Lbel\revistaDigital.css" />
     <Content Include="Content\Css\Site\Lbel\seccion-descarga-imprime.css" />
     <Content Include="Content\HojaInscripcion\carrito-menu.png" />
@@ -3271,7 +3276,13 @@
     <Content Include="Scripts\PortalConsultoras\Campania\CampaniaModule.js" />
     <Content Include="Scripts\PortalConsultoras\CatalogoPersonalizado\catalogoPersonalizado.js" />
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\EstrategiaIncentivos\Detalle.js" />
+    <Content Include="Scripts\PortalConsultoras\EstrategiaIncentivos\Index.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaPersonalizada\Descargables.js" />
+    <Content Include="Scripts\PortalConsultoras\EstrategiaProgramaNuevas\Banner.js" />
+    <Content Include="Scripts\PortalConsultoras\EstrategiaProgramaNuevas\Detalle.js" />
+    <Content Include="Scripts\PortalConsultoras\EstrategiaProgramaNuevas\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\EstrategiaProgramaNuevas\Mensaje.js" />
     <Content Include="Scripts\PortalConsultoras\MatrizCampania\ActualizarMatrizCampaniaModule.js" />
     <Content Include="Scripts\PortalConsultoras\FichaProducto\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\SeguimientoPedido\Index.js" />
@@ -3752,6 +3763,9 @@
     <None Include="Service References\ServicePedido\PedidoService111.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServicePedido\PedidoService112.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServicePedido\PedidoService2.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -3836,6 +3850,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceSAC\SACService6.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceSAC\SACService7.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceSeguridad\SeguridadService.wsdl" />
@@ -4450,6 +4467,12 @@
     <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-descargables-navidenos.cshtml" />
     <Content Include="Areas\Mobile\Views\Util\_barra.cshtml" />
     <Content Include="Views\Descargables\Descargables.cshtml" />
+    <Content Include="Views\AdministrarEstrategia\ProgramaNuevas.cshtml" />
+    <Content Include="Views\AdministrarEstrategia\ProgramaNuevasDetalle.cshtml" />
+    <Content Include="Views\AdministrarEstrategia\ProgramaNuevasMensaje.cshtml" />
+    <Content Include="Views\AdministrarEstrategia\Incentivos.cshtml" />
+    <Content Include="Views\AdministrarEstrategia\IncentivosDetalle.cshtml" />
+    <Content Include="Views\AdministrarEstrategia\ProgramaNuevasBanner.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
