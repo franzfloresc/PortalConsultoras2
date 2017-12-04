@@ -1281,6 +1281,8 @@
     <Content Include="Content\Images\Esika\logotipo-club-ganamas-rojo.svg" />
     <Content Include="Content\Images\Esika\logotipo-ganamas-rojo.svg" />
     <Content Include="Content\Images\Esika\scroll-down-icon-esika.svg" />
+    <Content Include="Content\Images\Esika\visual de funcionamiento.png" />
+    <Content Include="Content\Images\Esika\visual-de-funcionamiento.png" />
     <Content Include="Content\Images\GIF-4.0.gif" />
     <Content Include="Content\Images\Lbel\Contenedor\fondo-seccion-descarga-imprime.jpg" />
     <Content Include="Content\Images\Lbel\Contenedor\icono-descarga-e-imprime-hover.svg" />
@@ -1292,6 +1294,7 @@
     <Content Include="Content\Images\Lbel\logotipo-club-ganamas-morado.svg" />
     <Content Include="Content\Images\Lbel\logotipo-ganamas-morado.svg" />
     <Content Include="Content\Images\Lbel\scroll-down-icon-lbel.svg" />
+    <Content Include="Content\Images\Lbel\visual-de-funcionamiento.png" />
     <Content Include="Content\Images\marquesina-landing.jpg" />
     <Content Include="Content\Images\check-acepto-terminos.png" />
     <Content Include="Content\Images\Esika\bg_regalo.png" />

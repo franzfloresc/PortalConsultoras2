@@ -3085,7 +3085,20 @@
             margin-top: -110px;
             margin-left: 60px;
         }
-
+        .como-funciona .caja-img .visual-funcionamiento {
+            background: url(/Content/Images/Esika/visual-de-funcionamiento.png);
+            width: 250px;
+            height: 278px;
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position-x: right;
+            position: absolute;
+            width: 342px;
+            margin-top: -118px;
+            margin-left: 60px;
+            background-size: cover;
+            height: 381px;
+        }
     .como-funciona .clear {
         clear: both;
     }
