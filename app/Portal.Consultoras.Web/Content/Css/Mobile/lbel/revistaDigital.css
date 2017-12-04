@@ -1852,6 +1852,11 @@ height: 100%;
             border-bottom: 85px solid #000;
 }
 
+.cabecera_pedido_rd .rd_logo img.small {
+    width: 80px;
+    padding-top: 22px;
+}
+
 .cabecera_pedido_text {
     color: white;
     position: absolute;

@@ -32,6 +32,14 @@ begin
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'LogoComercialFondoNoActiva', 'GanaMasFondo.png', 'GanaMasMobileFondo.png', 'Logo comercial cuando el estado es no activa que se asignara en todo sb2')
 
+	-- Gif Menu
+	INSERT INTO CONFIGURACIONPAISDATOS(ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Valor3, Descripcion)
+	VALUES(@ConfiguracionPaisID, 1, 0, 'LogoMenuOfertasActiva', 'gif-clubganamas.gif', '', '', 'Logo del menu ofertas cuando el estado es activa que se asignara en todo sb2')
+
+	INSERT INTO CONFIGURACIONPAISDATOS(ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Valor3, Descripcion)
+	VALUES(@ConfiguracionPaisID, 1, 0, 'LogoMenuOfertasNoActiva', 'gif-ganamas.gif', '', '', 'Logo del menu ofertas cuando el estado es no activa que se asignara en todo sb2')
+
+
 	-- RD Textos desktop Bienvenida 
 	BEGIN 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Valor3, Descripcion)
@@ -430,7 +438,7 @@ BEGIN
 	BEGIN
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'DRDRLandingBanner', 
-	'#NOMBRE DESCUBRE CLUB GANA+ TU NUEVO ESPACIO ONLINE DE OFERTAS EXCLUSIVAS.', 
+	'#NOMBRE DESCUBRE GANA+ TU NUEVO ESPACIO ONLINE DE OFERTAS EXCLUSIVAS.', 
 	'DISFRUTA DE PACKS HECHOS A TU MEDIDA CON TUS PRODUCTOS FAVORITOS, ¡ESOS QUE TÚ Y TUS CLIENTES PREFIEREN!', 
 	'', 'Desktop Banner Landing Productos')
 
