@@ -1,3 +1,4 @@
+go
 IF NOT EXISTS(
 	SELECT * 
 	FROM SYS.COLUMNS C
@@ -12,3 +13,4 @@ BEGIN
 	ADD CampaniaEfectiva [INT]
 	CONSTRAINT COST_RevistaDigiralSuscripcion_CampaniaEfectiva DEFAULT 0
 END
+go

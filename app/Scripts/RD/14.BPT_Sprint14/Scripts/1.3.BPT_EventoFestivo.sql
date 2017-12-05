@@ -1,4 +1,4 @@
-USE BelcorpPeru_BPT
+
 GO
 
 IF EXISTS(
@@ -10,7 +10,8 @@ FROM SYS.OBJECTS O
 	AND C.NAME = 'Nombre'
 )
 BEGIN
-	PRINT ('Cambiando tamaño de columna ''EventoFestivo.Nombre'' de 30 a 50 caracteres.')
 	ALTER TABLE EventoFestivo
 	ALTER COLUMN Nombre VARCHAR(50);
 END
+
+go

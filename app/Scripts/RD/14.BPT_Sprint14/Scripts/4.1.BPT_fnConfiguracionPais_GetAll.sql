@@ -1,4 +1,4 @@
-
+go
 alter function [dbo].[fnConfiguracionPais_GetAll]
 (
 	@Codigo varchar(100) = ''
@@ -221,3 +221,4 @@ begin
 end
 
 
+go
