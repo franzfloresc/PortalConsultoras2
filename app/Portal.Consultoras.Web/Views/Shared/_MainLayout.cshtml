@@ -48,6 +48,15 @@
         var esContenedorOfertas = false;
 
         var UrlChat = '@ViewBag.UrlBelcorpChat';
+        // New Chat
+        var emt_client_type = '@ViewBag.TipoUsuario';
+        var emt_country = '@ViewBag.CodigoISODL';
+        var emt_email_address = '@ViewBag.CorreoC';
+        var emt_first_name = '@ViewBag.NombreC';
+        var emt_id = '';
+        var emt_type = '0';
+        // New Chat -->
+
         var mostrarBannerRechazo = '@ViewBag.MostrarBannerRechazo';
         var UrlChatAnterior = 'https://chat1-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/webdesigner/BelcorpNew?token=@ViewBag.TokenAtento';
         var BelcorpFechaChat_Pais = '@(System.Configuration.ConfigurationManager.AppSettings["FechaChat_" + ViewBag.CodigoISODL])';
