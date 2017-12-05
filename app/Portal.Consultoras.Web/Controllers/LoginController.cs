@@ -1102,7 +1102,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     sessionManager.SetTieneLan(true);
                     sessionManager.SetTieneLanX1(true);
-                    sessionManager.SetTieneOpt( true);
+                    sessionManager.SetTieneOpt(true);
                     sessionManager.SetTieneOpm(true);
                     sessionManager.SetTieneOpmX1(true);
                     sessionManager.SetTieneRdr(true);
