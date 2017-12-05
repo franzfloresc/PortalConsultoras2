@@ -271,6 +271,7 @@
     <Compile Include="Controllers\AdministrarProductoSugeridoController.cs" />
     <Compile Include="Controllers\AdministrarReporteValidacionController.cs" />
     <Compile Include="Controllers\AdministrarTipoEstrategiaController.cs" />
+    <Compile Include="Controllers\AppController.cs" />
     <Compile Include="Controllers\AsesoraOnlineController.cs" />
     <Compile Include="Controllers\BaseControllerUnete.cs" />
     <Compile Include="Controllers\BaseGuiaNegocioController.cs" />
@@ -4801,6 +4802,7 @@
     <Folder Include="Areas\Mobile\Views\EstrategiaProductoComentario\" />
     <Folder Include="Content\ArchivoNivelGeografico\" />
     <Folder Include="GestionPasos\Asignaciones\" />
+    <Folder Include="Views\App\" />
     <Folder Include="Views\BaseShowRoom\" />
     <Folder Include="Views\Campania\" />
     <Folder Include="Views\Cupon\" />
