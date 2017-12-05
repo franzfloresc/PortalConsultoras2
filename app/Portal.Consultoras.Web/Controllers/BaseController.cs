@@ -3869,7 +3869,8 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 listaMenu.ForEach(m =>
                 {
-                    if (m.Codigo == Constantes.ConfiguracionPais.InicioRD)
+                    if (m.Codigo == Constantes.ConfiguracionPais.InicioRD 
+                        || m.Codigo == Constantes.ConfiguracionPais.Lanzamiento)
                     {
                         if (revistaDigital.TieneRDC)
                         {
