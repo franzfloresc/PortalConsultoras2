@@ -8408,7 +8408,9 @@ ul.type-6 li {
     color: #702789 !important;
 }
 
-
+.color_marca {
+    color: #613c87;
+}
 
 .red_texto {
     color: red;

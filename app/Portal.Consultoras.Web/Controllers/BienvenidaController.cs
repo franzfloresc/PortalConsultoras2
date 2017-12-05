@@ -226,7 +226,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.TieneCupon = userData.TieneCupon;
                 model.TieneMasVendidos = userData.TieneMasVendidos;
                 model.EMail = userData.EMail;
-                model.Celular = Util.Trim(userData.Celular) + " - TipoPopUpMostrar " + model.TipoPopUpMostrar;
+                model.Celular = userData.Celular;
                 model.EmailActivo = userData.EMailActivo;
                 ViewBag.Ambiente = GetBucketNameFromConfig();
                 TempData.Keep("MostrarPopupCuponGanaste");
