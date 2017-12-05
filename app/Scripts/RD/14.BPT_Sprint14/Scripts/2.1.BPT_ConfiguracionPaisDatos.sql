@@ -44,26 +44,26 @@ begin
 	BEGIN 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'DBienvenidaInscritaActiva', 
-	'#Nombre ¡Bienvenida al tu nuevo espacio online de ofertas exclusivas!', 
+	'¡Bienvenida a tu nuevo espacio de ofertas exclusivas!', 
 	'Compra packs hechos a tu medida <br/>¡sin digitar códigos!', 
 	'black', 'Textos de bienvenida para un consultora Inscrita activa')
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'DBienvenidaInscritaNoActiva', 
-	'#Nombre, Disfruta de tu nuevo espacio online de ofertas exclusivas', 
+	'Disfruta de tu nuevo espacio online de ofertas exclusivas', 
 	'En la siguiente campaña, compra packs hechos a tu medida <br/>¡sin digitar códigos!', 
 	'black', 'Textos de bienvenida para un consultora Inscrita no activa')
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'DBienvenidaNoInscritaActiva', 
-	'#Nombre, Suscríbete a tu nuevo espacio online de ofertas exclusivas', 
-	'Disfruta de packs hechos a tu medida de tus productos favoritos.', 
+	'Suscríbete a tu nuevo espacio online de ofertas exclusivas', 
+	'Disfruta de packs hechos a tu medida de tus <br/>productos favoritos.', 
 	'black', 'Textos de bienvenida para un consultora No Inscrita activa')
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'DBienvenidaNoInscritaNoActiva', 
-	'#Nombre, Suscríbete a tu nuevo espacio online de ofertas exclusivas', 
-	'Disfruta de packs hechos a tu medida de tus productos favoritos.', 
+	'Suscríbete a tu nuevo espacio online de ofertas exclusivas', 
+	'Disfruta de packs hechos a tu medida de tus <br/>productos favoritos.', 
 	'black', 'Textos de bienvenida para un consultora No Inscrita No activa')
 	END 
 
@@ -71,25 +71,25 @@ begin
 	BEGIN 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'MBienvenidaInscritaActiva', 
-	'#Nombre, ¡Bienvenida al tu nuevo espacio online de ofertas exclusivas', 
-	'Compra packs hechos a tu medida, ¡sin digitar códigos!', 
+	'#Nombre, ¡Bienvenida al tu nuevo espacio de ofertas exclusivas', 
+	'Compra packs hechos a tu medida <br/>¡sin digitar códigos!', 
 	'black', 'Textos de bienvenida mobile para un consultora Inscrita activa')
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'MBienvenidaInscritaNoActiva', 
-	'#Nombre, Disfruta de tu nuevo espacio online de ofertas exclusivas', 
-	'En la siguiente campaña, compra packs hechos a tu medida, ¡sin digitar códigos!', 
+	'#Nombre, Disfruta de tu nuevo espacio de ofertas exclusivas', 
+	'En la siguiente campaña, compra packs hechos a tu medida <br/>¡sin digitar códigos!', 
 	'black', 'Textos de bienvenida mobile para un consultora Inscrita activa')
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'MBienvenidaNoInscritaActiva', 
-	'#Nombre, Suscríbete a tu nuevo espacio online de ofertas exclusivas', 
+	'#Nombre, Suscríbete a tu nuevo espacio de ofertas exclusivas', 
 	'Disfruta de packs hechos a tu medida de tus productos favoritos.', 
 	'black', 'Textos de bienvenida mobile para un consultora Inscrita activa')
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'MBienvenidaNoInscritaNoActiva', 
-	'#Nombre, Suscríbete a tu nuevo espacio online de ofertas exclusivas', 
+	'#Nombre, Suscríbete a tu nuevo espacio de ofertas exclusivas', 
 	'Disfruta de packs hechos a tu medida de tus productos favoritos.', 
 	'black', 'Textos de bienvenida mobile para un consultora Inscrita activa')
 	END
@@ -98,26 +98,26 @@ begin
 	BEGIN
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'DPedidoInscritaActiva', 
-	'Tu nuevo espacio online de ofertas exclusivas', 
-	'#Nombre, entra y compra tus productos favoritos hechos a tu medida.', 
+	'Tu nuevo espacio online de ofertas exclusivas.', 
+	'#Nombre, entra y compra tus productos favoritos <br/>hechos a tu medida.', 
 	'black', 'Textos de Pedido para un consultora Inscrita activa')
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'DPedidoInscritaNoActiva', 
-	'Tu nuevo espacio online de ofertas exclusivas', 
-	'#Nombre, en la siguiente campaña, pasa tu pedido ¡sin digitar códigos!', 
+	'Tu nuevo espacio online de ofertas exclusivas.', 
+	'#Nombre, en la siguiente campaña, pasa tu pedido <br/>¡sin digitar códigos!', 
 	'black', 'Textos de Pedido para un consultora Inscrita no activa')
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'DPedidoNoInscritaActiva', 
 	'¡Suscríbete a tu nuevo espacio de ofertas exclusivas!', 
-	'#Nombre, no te pierdas de los mejores packs hechos a tu medida.', 
+	'#Nombre, no te pierdas de packs hechos a tu medida.', 
 	'black', 'Textos de Pedido para un consultora No Inscrita activa')
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'DPedidoNoInscritaNoActiva', 
 	'¡Suscríbete a tu nuevo espacio de ofertas exclusivas!', 
-	'#Nombre, no te pierdas de los mejores packs hechos a tu medida.', 
+	'#Nombre, no te pierdas de packs hechos a tu medida.', 
 	'black', 'Textos de Pedido para un consultora No Inscrita No activa')
 	END
 
@@ -125,7 +125,7 @@ begin
 	BEGIN 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'MPedidoInscritaActiva', 
-	'Tu nuevo espacio online de ofertas exclusivas', 
+	'Tu nuevo espacio online de ofertas exclusivas.', 
 	'#Nombre, entra y compra tus productos favoritos hechos a tu medida.', 
 	'black', 'Textos de Pedido mobile para un consultora Inscrita activa')
 
@@ -138,13 +138,13 @@ begin
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'MPedidoNoInscritaActiva', 
 	'¡Suscríbete a tu nuevo espacio de ofertas exclusivas!', 
-	'#Nombre, no te pierdas de los mejores packs hechos a tu medida.', 
+	'#Nombre, no te pierdas de packs hechos a tu medida.', 
 	'black', 'Textos de Pedido mobile para un consultora Inscrita activa')
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'MPedidoNoInscritaNoActiva', 
 	'¡Suscríbete a tu nuevo espacio de ofertas exclusivas!', 
-	'#Nombre, no te pierdas de los mejores packs hechos a tu medida.', 
+	'#Nombre, no te pierdas de packs hechos a tu medida.', 
 	'black', 'Textos de Pedido mobile para un consultora Inscrita activa')
 	END
 
@@ -153,25 +153,25 @@ begin
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'DCatalogoInscritaActiva', 
 	'Tu nuevo espacio online de ofertas exclusivas', 
-	'Disfruta de todos los beneficios que tenemos para ti.', 
+	'Disfruta de los beneficios que el club tiene para ti.', 
 	'black', 'Textos de Catálogo para un consultora Inscrita activa')
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'DCatalogoInscritaNoActiva', 
 	'Tu nuevo espacio online de ofertas exclusivas', 
-	'Desde la siguiente campaña, podrás disfrutar de todo los beneficios que tenemos para ti.', 
+	'Desde la siguiente campaña, podrás disfrutar <br/>de los beneficios que tenemos para ti.', 
 	'black', 'Textos de Catálogo para un consultora Inscrita activa')
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'DCatalogoNoInscritaActiva', 
 	'Suscríbete a tu nuevo espacio de ofertas exclusivas', 
-	'¡Ofertas exclusivas, sin digitar códigos!', 
+	'¡Sin digitar códigos!', 
 	'black', 'Textos de Catálogo para un consultora Inscrita activa')
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'DCatalogoNoInscritaNoActiva', 
 	'Suscríbete a tu nuevo espacio de ofertas exclusivas ', 
-	'¡Ofertas exclusivas, sin digitar códigos!', 
+	'¡Sin digitar códigos!', 
 	'black', 'Textos de Catálogo para un consultora Inscrita activa')
 	END
 
@@ -179,26 +179,26 @@ begin
 	BEGIN
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'MCatalogoInscritaActiva', 
-	'Club Gana + Tu nuevo espacio  de ofertas exclusivas', 
-	'Disfruta de todos los beneficios que tenemos para ti.', 
+	'Tu nuevo espacio  de ofertas exclusivas', 
+	'Disfruta de los beneficios que el club tiene para ti.', 
 	'black', 'Textos de Catálogo mobile para un consultora Inscrita activa')
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'MCatalogoInscritaNoActiva', 
-	'Club Gana + Tu nuevo espacio  de ofertas exclusivas', 
-	'Desde la siguiente campaña, podrás disfrutar de todo los beneficios que tenemos para ti.', 
+	'Tu nuevo espacio  de ofertas exclusivas', 
+	'Desde la siguiente campaña, podrás disfrutar de todo los beneficios del club.', 
 	'black', 'Textos de Catálogo mobile para un consultora Inscrita activa')
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'MCatalogoNoInscritaActiva', 
-	'¡Suscríbete y disfruta de ofertas exclusivas para ti.', 
-	'¡Ofertas exclusivas, sin digitar códigos!', 
+	'Suscríbete y disfruta de ofertas exclusivas para ti.', 
+	'¡Sin digitar códigos!', 
 	'black', 'Textos de Catálogo mobile para un consultora Inscrita activa')
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'MCatalogoNoInscritaNoActiva', 
-	'¡Suscríbete y disfruta de ofertas exclusivas para ti.', 
-	'¡Ofertas exclusivas, sin digitar códigos!', 
+	'Suscríbete y disfruta de ofertas exclusivas para ti.', 
+	'¡Sin digitar códigos!', 
 	'black', 'Textos de Catálogo mobile para un consultora Inscrita activa')
 	END
 
@@ -207,7 +207,7 @@ begin
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
 		Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'DPopupBloqueadoNoActivaNoSuscrita', 
-	'Disfruta de esta y más ofertas suscribiéndote a Gana+', 
+	'DISFRUTA DE ESTA Y MÁS OFERTAS SUSCRIBIÉNDOTE AL CLUB GANA+', 
 	'', '', 'Desktop Popup producto Bloqueado No Activa y No Suscrita')
 	
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
@@ -219,7 +219,7 @@ begin
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
 		Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'MPopupBloqueadoNoActivaNoSuscrita', 
-	'Disfruta de esta y más ofertas suscribiéndote a Gana+',
+	'DISFRUTA DE ESTA Y MÁS OFERTAS SUSCRIBIÉNDOTE AL CLUB GANA+',
 	'', '', 'Mobile Popup producto Bloqueado No Activa y No Suscrita')
 	
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 

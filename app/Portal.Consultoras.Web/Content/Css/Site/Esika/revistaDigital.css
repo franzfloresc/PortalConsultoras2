@@ -2536,6 +2536,7 @@
     color: black;
     text-decoration: none;
     transition: all 0.2s ease-in-out;
+     text-transform: uppercase;
  }
  .popup_rd_bloqueado a {
  	transition: all 0.2s ease-in-out;
@@ -2990,7 +2991,7 @@
     }
 
     .como-funciona .caja-texto {
-        width: 50%;
+        width: 60%;
         float: left;
         padding: 20px 0px;
     }
@@ -3009,12 +3010,12 @@
             letter-spacing: 0.5px;
             text-align: left;
             margin-bottom: 20px;
-            font-size: 13px;
+            font-size: 15px;
             padding-left: 2%;
         }
 
     .como-funciona .caja-img {
-        width: 50%;
+        width: 40%;
         float: left
     }
 
