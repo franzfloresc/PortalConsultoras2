@@ -888,6 +888,11 @@ namespace Portal.Consultoras.Common
             public const string Cyzone = "http://www.cyzone.com";
         }
 
+        public class CatalogoUrlIssu
+        {
+            public const string Buscador = "//search.issuu.com/api/2_0/document?username=somosbelcorp&q=";
+        }
+
         public class RevistaNombre
         {
             public const string Esika = "Guía de Negocio Ésika";
@@ -925,6 +930,8 @@ namespace Portal.Consultoras.Common
             public const string InsertarDesglose = "Ocurrió un error al procesar la reserva.";
             public const string CargarProductosShowRoom = "Error al cargar los productos.";
             public const string DeletePedido_CuvNoExiste = "El producto que deseas eliminar ya no se encuentra en tu pedido. Por favor, vuelva a carga la página (F5).";
+            public const string SinConexion_LoginChatbot = "Necesitas internet para acceder a esta opción.";
+            public const string SinConexion_CatalogoRevistaIssu = "Necesitas internet para acceder a esta opción.";
         }
 
         public class ConfiguracionPais
@@ -1380,8 +1387,6 @@ namespace Portal.Consultoras.Common
         {
             public const string Mensaje = "Nos es grato comunicarte que hemos podido recuperar productos de la anterior campaña con el precio original. " +
                 "Están agregados en tu pedido bajo la descripción RECUPC16.Puedes mantenerlos para recibirlos con tu caja de C17 o borrarlos de tu pedido si ya no los necesitas.";
-            public const string PAPEL_REGALO_DORADO = "2017_Navidad_Regalo1.pdf";
-            public const string PAPEL_REGALO_ROJO = "2017_Navidad_Regalo2.pdf";
         }
     }
 }

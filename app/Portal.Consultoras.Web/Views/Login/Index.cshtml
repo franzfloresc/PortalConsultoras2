@@ -1,4 +1,5 @@
-﻿
+﻿@using Portal.Consultoras.Common
+
 @model Portal.Consultoras.Web.Models.LoginModel
 @{
     Layout = "~/Views/Shared/_LoginLayout.cshtml";
@@ -9,6 +10,7 @@
 <body>
     <script>
         var fbAppId = '@ViewBag.FBAppId';
+        var cargoPluginFacebook = false;
 
         window.fbAsyncInit = function () {
             FB.init({
@@ -24,6 +26,8 @@
                     getInfoFB(1);
                 }
             });
+
+            cargoPluginFacebook = true;
         };
 
         (function (d, s, id) {
@@ -35,23 +39,13 @@
         }(document, 'script', 'facebook-jssdk'));
 
         function loginFB() {
-            //if (!openloginPopup) {
-               // openloginPopup = true;
-                FB.login(function (response) {
-                    //openloginPopup = false;
-                    if (response.status === 'connected') {
-                        //console.log('Logged in.');
-                        getInfoFB(2);
-                    }
-                    else if (response.status === 'not_authorized') {
-                        //console.log('We are not logged in.');
-                    }
-                    else {
-                        //console.log('You are not logged into Facebook.');
-
-                    }
-                }, { scope: 'public_profile,email,user_birthday,user_location' });
-            //}
+            existeAccesoFacebook(function(){
+                FB.login(
+                    function (response) { if (response.status === 'connected') getInfoFB(2); },
+                    { scope: 'public_profile,email,user_birthday,user_location' }
+                );
+            },
+            function () { alert('@Html.Raw(Constantes.MensajesError.SinConexion_LoginChatbot)'); });
         }
 
         function getInfoFB(opt) {
@@ -221,6 +215,25 @@
             //$('#cambcuentatext').fadeIn('slow'); 
         }
 
+        function existeAccesoFacebook(fnSuccess,fnError)
+        {
+            if (!cargoPluginFacebook) {
+                if ($.isFunction(fnError)) fnError();
+            }
+
+            waitingDialog();
+            FB.api('/me', function (response) {
+                console.log(response);
+                closeWaitingDialog();
+
+                if (response.error != null && response.error.message === 'unknown error') {
+                    if ($.isFunction(fnError)) fnError();
+                }
+                else {
+                    if ($.isFunction(fnSuccess)) fnSuccess();
+                }
+            });
+        }
     </script>
 </body>
 

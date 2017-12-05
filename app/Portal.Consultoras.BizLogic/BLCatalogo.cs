@@ -48,7 +48,7 @@ namespace Portal.Consultoras.BizLogic
         public List<BECatalogoIssuu> GetCatalogosIssuuPublicados(string paisISO, string campaniaId)
         {
             List<BECatalogoIssuu> catalogos = new List<BECatalogoIssuu>();
-            string urlISSUUSearch = "http://search.issuu.com/api/2_0/document?username=somosbelcorp&q=";
+            string urlISSUUSearch = "http:" + Constantes.CatalogoUrlIssu.Buscador;
             string urlISSUUVisor = "http://issuu.com/somosbelcorp/docs/";
 
             try
@@ -373,7 +373,7 @@ namespace Portal.Consultoras.BizLogic
                 else queryString += "&jsonCallback=?";
             }
 
-            string urlISSUUSearch = "http://search.issuu.com/api/2_0/document?username=somosbelcorp&q=";
+            string urlISSUUSearch = "http:" + Constantes.CatalogoUrlIssu.Buscador;
             var url = urlISSUUSearch + queryString;
             string response = "";
             using (var wc = new WebClient())
