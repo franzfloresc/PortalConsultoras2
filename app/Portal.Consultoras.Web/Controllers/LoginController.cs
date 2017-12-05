@@ -1376,23 +1376,26 @@ namespace Portal.Consultoras.Web.Controllers
             revistaDigitalModel.EstadoRdcAnalytics = GetEstadoRdAnalytics(revistaDigitalModel);
 
             #region DiasAntesFacturaHoy - NoVolverMostrar
-            if (DateTime.Now.AddHours(usuarioModel.ZonaHoraria).Date >= usuarioModel.FechaInicioCampania.Date.AddDays(-1 * revistaDigitalModel.BloquearDiasAntesFacturar))
-                return;
-
-            switch (revistaDigitalModel.SuscripcionModel.EstadoRegistro)
+            if (revistaDigitalModel.BloquearDiasAntesFacturar > 0)
             {
-                case Constantes.EstadoRDSuscripcion.Activo:
-                    revistaDigitalModel.NoVolverMostrar = true;
-                    break;
-                case Constantes.EstadoRDSuscripcion.Desactivo:
-                    revistaDigitalModel.NoVolverMostrar = false;
-                    break;
-                case Constantes.EstadoRDSuscripcion.NoPopUp:
-                    revistaDigitalModel.NoVolverMostrar = revistaDigitalModel.SuscripcionModel.CampaniaID == usuarioModel.CampaniaID;
-                    break;
-                default:
-                    revistaDigitalModel.NoVolverMostrar = revistaDigitalModel.SuscripcionModel.RevistaDigitalSuscripcionID > 0;
-                    break;
+                if (DateTime.Now.AddHours(usuarioModel.ZonaHoraria).Date >= usuarioModel.FechaInicioCampania.Date.AddDays(-1 * revistaDigitalModel.BloquearDiasAntesFacturar))
+                    return;
+
+                switch (revistaDigitalModel.SuscripcionModel.EstadoRegistro)
+                {
+                    case Constantes.EstadoRDSuscripcion.Activo:
+                        revistaDigitalModel.NoVolverMostrar = true;
+                        break;
+                    case Constantes.EstadoRDSuscripcion.Desactivo:
+                        revistaDigitalModel.NoVolverMostrar = false;
+                        break;
+                    case Constantes.EstadoRDSuscripcion.NoPopUp:
+                        revistaDigitalModel.NoVolverMostrar = revistaDigitalModel.SuscripcionModel.CampaniaID == usuarioModel.CampaniaID;
+                        break;
+                    default:
+                        revistaDigitalModel.NoVolverMostrar = revistaDigitalModel.SuscripcionModel.RevistaDigitalSuscripcionID > 0;
+                        break;
+                }
             }
             #endregion
         }
