@@ -1366,7 +1366,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 revistaDigitalModel.CampaniaActiva = Util.SubStr(ca.ToString(), 4, 2);
 
-                revistaDigitalModel.EsActiva = ca != usuarioModel.CampaniaID;
+                revistaDigitalModel.EsActiva = ca > usuarioModel.CampaniaID;
             }
 
             revistaDigitalModel.EsSuscrita = revistaDigitalModel.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo;
