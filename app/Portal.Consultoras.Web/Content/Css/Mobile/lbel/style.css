@@ -7394,7 +7394,9 @@ input[type="checkbox"]:checked + span:after {
 .color_belcorp{
     color:#613c87;
     font-weight:700;
-
+}
+.color_marca {
+    color: #613c87;
 }
 .text-danger {
     color: #b75d9f !important;
