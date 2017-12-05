@@ -5,7 +5,6 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    
 }
 
 @font-face {
@@ -60,8 +59,8 @@ ul, ol {
 
 header {
     position:relative;
-    top:0px!important;
-    left:0px!important;
+    top:0 !important;
+    left:0 !important;
     background: white!important;
     height: auto;
     position: fixed;
@@ -77,18 +76,17 @@ header {
     min-height: 61px;
     margin: 0 auto;
     max-width: 1189px;
-
-     
 }
+
 .user-profile {
        width: 47px;
     height: 32px;
 }
+
 .user-profile img {
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    
 }
 
 /*   .logo_esika img {
@@ -200,7 +198,6 @@ header {
     margin-left: 2px;
     float: left;
     margin-top: 3px;
-   
 }
 
 .boton_cerrar_s a {
@@ -273,7 +270,6 @@ header {
     margin-left: 2%;
     margin-top: 21px;
     /*width: 15%;*/
-
 }
 .nav_principal li:hover > ul {
     display:block;
@@ -350,7 +346,6 @@ header {
     font-size:13px;
     letter-spacing:0.3px;
     margin-bottom:13px;
-
 }
 .menu_imagen{
     margin-top:40px;
@@ -361,7 +356,6 @@ header {
     height:143px;
     position:relative;
     display:block;
-
 }
 .menu_imagen img{
     width:100%;
@@ -399,13 +393,6 @@ header {
 .menu_socia_empresaria .menu_especial .flechita_0 {
     margin-left: 41px !important;
     margin-top: 1px !important;
-}*/
-/*.menu_socia_empresaria  .new_menu img {
-        
-    top: 6px;
-    
-    float: right;
-    margin-top: 7px;
 }*/
 
 /*.flechita_0 {
@@ -20330,7 +20317,6 @@ label.checkpop.c_on {
     color:#f11935;
     background: url("/Content/Images/showroom/precio_detalle.png") no-repeat;
     background-position: 1px 3px;
-
 }
 .set_precio_gana {
     margin-left:130px;
@@ -20340,13 +20326,11 @@ label.checkpop.c_on {
     line-height: 20px;
     margin-top:4px;
     font-weight:700;
-   
 }
 .set_precio_gana span{
     /*font-family: 'ArialBoldMT';
     font-size: 23px;*/
     color:black;
-
 }
 .cantidad_detalle {
     position: absolute;
@@ -20403,7 +20387,6 @@ label.checkpop.c_on {
 }
 .cantidad_agregar_detalle {
     position: absolute;
-    /*float: left;*/
     /* height: 70px; */
     width: 256px;
     color: white !important;
@@ -20444,7 +20427,6 @@ label.checkpop.c_on {
     cursor:pointer;
 }
 .contenedor_carrusel_detalle a:hover{
-  
     text-decoration:none !important;
     }
 .contenedor_slick {
@@ -20490,7 +20472,6 @@ label.checkpop.c_on {
     position: absolute;
     z-index: 100;
     background: url("/Content/Images/showroom/opacity.png");
-
 }
 .notificaciones_activas {
     background: url("../../../Images/Esika/circulo.png") no-repeat;
@@ -20560,7 +20541,6 @@ label.checkpop.c_on {
 .boton_cam span {
         font-size: 15px;
         font-family: Lato;
-        
     }
 
 /*UBICACION WEB*/
@@ -20652,7 +20632,6 @@ label.checkpop.c_on {
     -webkit-border-radius: 100px;
    position:relative;
     float:left;
-
     overflow: hidden;
 }
 .foto_perfil_home img{
@@ -20702,7 +20681,6 @@ label.checkpop.c_on {
     margin-top:-6px;
     display:block;
     font-weight:400;
-
 }
 .info_cam_belcorp2{
     float:left;
@@ -20715,7 +20693,6 @@ label.checkpop.c_on {
     letter-spacing:1px;
     margin-top:3px;
     color:black;
-    
 }
 .info_cam_belcorp2 span{
     color:#a18328;
@@ -20740,7 +20717,6 @@ label.checkpop.c_on {
     height: 51px;
     overflow: hidden;
     display: block;
-
 }
 .boton_home_guardar{
     width: 100%;
@@ -20804,7 +20780,6 @@ label.checkpop.c_on {
       width:29%;*/
       margin-left: 5%;
       width: 27%;
-
 }
 .socia_negocio_home span{
      font-weight:400;
@@ -20859,8 +20834,7 @@ label.checkpop.c_on {
     width: 100%;    
 }*/
 .mis_ganancias_img{
-    background: url("../../../Images/Esika/dolar.png") no-repeat;   
-
+    background: url("../../../Images/Esika/dolar.png") no-repeat;
 }
 .titulo_home_belcorp{
     padding-bottom:11px;    
@@ -20874,7 +20848,6 @@ label.checkpop.c_on {
     font-size:13px;
     color:black;
     letter-spacing:0.2px;
-    
     float:left;
 }
 .btn_ver_mas{
@@ -20895,7 +20868,6 @@ label.checkpop.c_on {
     letter-spacing:0.25px;
     color:black;
     margin-top:10px;
-   
 }
 .info_centro span{
     font-weight:500;
@@ -21080,7 +21052,6 @@ label.checkpop.c_on {
     margin-top:12px;
     /*letter-spacing: 1px;*/
     font-weight:700;
-    
 }
 
 /*.seguir_pedido.ver_video_introductorio{
@@ -21098,7 +21069,6 @@ label.checkpop.c_on {
     margin-top: 5px;
     margin-left:10px;
     float:left;
-    
 }
 .mis_datos:hover{
     text-decoration:underline;
@@ -21110,7 +21080,6 @@ label.checkpop.c_on {
     position: absolute;
     z-index: 100;
     margin-left: 78px;
-
 }
 .btn_100_paga{
     width:100%;
@@ -21133,7 +21102,6 @@ label.checkpop.c_on {
    overflow:hidden;
 }
 .linea_titulo{
-    
     width:31%;
     height:2px;
     background:#979797;
