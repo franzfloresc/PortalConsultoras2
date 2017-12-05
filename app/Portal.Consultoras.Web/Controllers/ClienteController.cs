@@ -151,144 +151,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-
-        //[HttpPost]
-        //public JsonResult Update(ClienteModel model)
-        //{
-        //    int vValidation = 0;
-        //    try
-        //    {
-        //        Mapper.CreateMap<ClienteModel, BECliente>()
-        //            .ForMember(t => t.ClienteID, f => f.MapFrom(c => c.ClienteID))
-        //            .ForMember(t => t.eMail, f => f.MapFrom(c => c.eMail))
-        //            .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-        //            .ForMember(t => t.Celular, f => f.MapFrom(c => c.Celular))
-        //            .ForMember(t => t.Telefono, f => f.MapFrom(c => c.Telefono));
-
-        //        BECliente entidad = Mapper.Map<ClienteModel, BECliente>(model);
-        //        //string x = "sdasda";
-        //        //int dsds = int.Parse(x);
-        //        entidad.ClienteID = model.ClienteID;
-
-        //        using (ClienteServiceClient sv = new ClienteServiceClient())
-        //        {
-        //            if (model.FlagValidate == 1)
-        //            {
-        //                vValidation = sv.CheckClienteByConsultora(userData.PaisID, userData.ConsultoraID, model.Nombre);
-        //                if (vValidation > 0)
-        //                {
-        //                    return Json(new
-        //                    {
-        //                        success = false,
-        //                        message = "El nombre del cliente ya se encuentra registrado, verifique.",
-        //                        extra = ""
-        //                    });
-        //                }
-        //            }
-
-        //            entidad.PaisID = userData.PaisID;
-        //            entidad.ConsultoraID = userData.ConsultoraID;
-        //            entidad.Activo = true;
-        //            sv.Update(entidad);
-
-        //            Session[Constantes.ConstSession.ClientesByConsultora] = sv.SelectByConsultora(userData.PaisID, userData.ConsultoraID).ToList();
-
-        //        }
-        //        return Json(new
-        //        {
-        //            success = true,
-        //            message = "Se actualizó con éxito tu cliente.",
-        //            extra = ""
-        //        });
-        //    }
-        //    catch (FaultException ex)
-        //    {
-        //        LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
-        //        return Json(new
-        //        {
-        //            success = false,
-        //            message = ex.Message,
-        //            extra = ""
-        //        });
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-        //        return Json(new
-        //        {
-        //            success = false,
-        //            message = ex.Message,
-        //            extra = ""
-        //        });
-        //    }
-        //}
-
-        //[HttpPost]
-        //public JsonResult Insert(ClienteModel model)
-        //{
-        //    int vValidation = 0;
-        //    try
-        //    {
-        //        Mapper.CreateMap<ClienteModel, BECliente>()
-        //            .ForMember(t => t.eMail, f => f.MapFrom(c => c.eMail))
-        //            .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-        //            .ForMember(t => t.Celular, f => f.MapFrom(c => c.Celular))
-        //            .ForMember(t => t.Telefono, f => f.MapFrom(c => c.Telefono));
-
-        //        BECliente entidad = Mapper.Map<ClienteModel, BECliente>(model);
-
-        //        using (ClienteServiceClient sv = new ClienteServiceClient())
-        //        {
-        //            vValidation = sv.CheckClienteByConsultora(userData.PaisID, userData.ConsultoraID, model.Nombre);
-
-        //            if (vValidation == 0)
-        //            {
-        //                entidad.PaisID = userData.PaisID;
-        //                entidad.ConsultoraID = userData.ConsultoraID;
-        //                entidad.Activo = true;
-        //                sv.Insert(entidad);
-
-        //                Session[Constantes.ConstSession.ClientesByConsultora] = sv.SelectByConsultora(userData.PaisID, userData.ConsultoraID).ToList();
-        //            }
-        //            else
-        //            {
-        //                return Json(new
-        //                {
-        //                    success = false,
-        //                    message = "El nombre del cliente ya se encuentra registrado, verifique.",
-        //                    extra = ""
-        //                });
-        //            }
-        //        }
-        //        return Json(new
-        //        {
-        //            success = true,
-        //            message = "Se registró con éxito tu cliente.",
-        //            extra = ""
-        //        });
-        //    }
-        //    catch (FaultException ex)
-        //    {
-        //        LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
-        //        return Json(new
-        //        {
-        //            success = false,
-        //            message = ex.Message,
-        //            extra = ""
-        //        });
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-        //        return Json(new
-        //        {
-        //            success = false,
-        //            message = ex.Message,
-        //            extra = ""
-        //        });
-        //    }
-        //}
-
+        
         public ActionResult Consultar(string sidx, string sord, int page, int rows, string vBusqueda)
         {
             if (ModelState.IsValid)
@@ -299,13 +162,11 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = sv.SelectByConsultora(userData.PaisID, userData.ConsultoraID).ToList();
                 }
 
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                //int buscar = int.Parse(txtBuscar);
                 BEPager pag = new BEPager();
                 IEnumerable<BECliente> items = lst;
 
@@ -361,35 +222,13 @@ namespace Portal.Consultoras.Web.Controllers
 
                 pag = Paginador(grid, vBusqueda);
 
-                // Creamos la estructura
                 var data = new
                 {
-                    //total = pag.PageCount,
-                    //page = pag.CurrentPage,
-                    //records = pag.RecordCount,
-
-                    /* SB20-322 - INCIO */
                     Registros = grid.PageSize.ToString(),
                     RegistrosTotal = pag.RecordCount.ToString(),
                     Pagina = pag.CurrentPage.ToString(),
                     PaginaDe = pag.PageCount.ToString(),
-
                     rows = items
-                    /* SB20-322 - FIN */
-
-                    //rows = from a in items
-                    //       select new
-                    //       {
-                    //           id = a.ClienteID,
-                    //           cell = new string[] 
-                    //           {
-                    //               a.ClienteID.ToString(),
-                    //               a.Nombre,
-                    //               a.eMail,
-                    //               Convert.ToString(Convert.ToInt32(a.Activo)),
-                    //               a.ConsultoraID.ToString()
-                    //            }
-                    //       }
                 };
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -667,12 +506,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                 HttpContext.Response.ClearHeaders();
                 HttpContext.Response.Clear();
-                //HttpContext.Current.Response.SetCookie("Cache-Control", "private");
                 HttpContext.Response.Buffer = false;
                 HttpContext.Response.AddHeader("Content-disposition", "attachment; filename=" + originalFileName);
                 HttpContext.Response.Charset = "UTF-8";
                 HttpContext.Response.Cache.SetCacheability(HttpCacheability.Private);
-                //HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
                 HttpContext.Response.ContentType = "application/octet-stream";
                 HttpContext.Response.BinaryWrite(stream.ToArray());
                 HttpContext.Response.Flush();

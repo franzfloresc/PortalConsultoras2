@@ -28,11 +28,9 @@ namespace Portal.Consultoras.Web.Models
         public string ActualizarClave { get; set; }
         public string ConfirmarClave { get; set; }
         public string CorreoAnterior { get; set; }
-        public bool AceptoContrato { get; set; } //2532 EGL
+        public bool AceptoContrato { get; set; }
 
-        //R2116
         public string m_Apellidos { get; set; }
         public string m_Nombre { get; set; }
-        //R2116
     }
 }

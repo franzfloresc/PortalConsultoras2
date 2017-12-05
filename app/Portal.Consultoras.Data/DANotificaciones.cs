@@ -24,8 +24,7 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
-
-        /*FRZ-12*/
+        
         public int GetNotificacionesSinLeer(long ConsultoraId, int indicadorBloqueoCDR)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetNotificacionesSinLeer");
@@ -35,42 +34,39 @@ namespace Portal.Consultoras.Data
             int cantidad = Convert.ToInt32(obj);
             return cantidad;
         }
-        /*FRZ-12*/
 
-        public IDataReader GetNotificacionesConsultoraDetalle(long ValAutomaticaPROLLogId, int TipoOrigen) // R2073
+        public IDataReader GetNotificacionesConsultoraDetalle(long ValAutomaticaPROLLogId, int TipoOrigen)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetNotificacionesConsultoraDetalle");
             Context.Database.AddInParameter(command, "@ValAutomaticaPROLLogId", DbType.Int64, ValAutomaticaPROLLogId);
-            Context.Database.AddInParameter(command, "@TipoOrigen", DbType.Int32, TipoOrigen); // R2073
+            Context.Database.AddInParameter(command, "@TipoOrigen", DbType.Int32, TipoOrigen);
 
             return Context.ExecuteReader(command);
         }
 
-        public IDataReader GetNotificacionesConsultoraDetallePedido(long ValAutomaticaPROLLogId, int TipoOrigen) // R2073
+        public IDataReader GetNotificacionesConsultoraDetallePedido(long ValAutomaticaPROLLogId, int TipoOrigen)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidoWebCorreoPROL");
             Context.Database.AddInParameter(command, "@ValAutomaticaPROLLogId", DbType.Int64, ValAutomaticaPROLLogId);
-            Context.Database.AddInParameter(command, "@TipoOrigen", DbType.Int32, TipoOrigen); // R2073
+            Context.Database.AddInParameter(command, "@TipoOrigen", DbType.Int32, TipoOrigen);
             return Context.ExecuteReader(command);
         }
 
-        public void UpdNotificacionesConsultoraVisualizacion(long ValAutomaticaPROLLogId, int TipoOrigen) //R2073
+        public void UpdNotificacionesConsultoraVisualizacion(long ValAutomaticaPROLLogId, int TipoOrigen)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdNotificacionesConsultoraVisualizacion");
             Context.Database.AddInParameter(command, "@ValAutomaticaPROLLogId", DbType.Int64, ValAutomaticaPROLLogId);
-            Context.Database.AddInParameter(command, "@TipoOrigen", DbType.Int32, TipoOrigen); // R2073
+            Context.Database.AddInParameter(command, "@TipoOrigen", DbType.Int32, TipoOrigen);
             Context.ExecuteNonQuery(command);
         }
-
-        //R2319- JLCS
+        
         public void UpdNotificacionSolicitudClienteVisualizacion(long SolicitudClienteId)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdNotificacionSolicitudClienteVisualizacion");
             Context.Database.AddInParameter(command, "@SolicitudClienteId", DbType.Int64, SolicitudClienteId);
             Context.ExecuteNonQuery(command);
         }
-
-        //RQ_NS - R2133
+        
         public IDataReader GetValidacionStockProductos(long ConsultoraId, long ValAutomaticaPROLLogId)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("GetValidacionStockProductos");
@@ -79,24 +75,15 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        //RQ_FP - R2161       
         public String GetFechaPromesaCronogramaByCampania(int CampaniaId, string CodigoConsultora, DateTime Fechafact)
         {
-            String Result = "";
-            try
-            {
-                DbCommand command = Context.Database.GetStoredProcCommand("GetFechaPromesaCronogramaByCampania");
-                Context.Database.AddInParameter(command, "@CampaniaId", DbType.Int32, CampaniaId);
-                Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, CodigoConsultora);
-                Context.Database.AddInParameter(command, "@Fechafact", DbType.Date, Fechafact);
-                Result = Convert.ToString(Context.ExecuteScalar(command));
-            }
-            catch
-            {
+            DbCommand command = Context.Database.GetStoredProcCommand("GetFechaPromesaCronogramaByCampania");
+            Context.Database.AddInParameter(command, "@CampaniaId", DbType.Int32, CampaniaId);
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, CodigoConsultora);
+            Context.Database.AddInParameter(command, "@Fechafact", DbType.Date, Fechafact);
+            var Result = Convert.ToString(Context.ExecuteScalar(command));
 
-            }
             return Result;
-
         }
     }
 }

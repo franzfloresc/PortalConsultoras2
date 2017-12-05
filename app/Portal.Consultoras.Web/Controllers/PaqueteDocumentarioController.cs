@@ -13,13 +13,8 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class PaqueteDocumentarioController : BaseController
     {
-        //
-        // GET: /PaqueteDocumentario/
-
         public ActionResult Index()
         {
-            //if (!UsuarioModel.HasAcces(ViewBag.Permiso, "RVDigital/Index"))
-            //    return RedirectToAction("Index", "Bienvenida");
             bool ErrorServicio;
             string ErrorCode;
             string ErrorMessage;
@@ -48,7 +43,6 @@ namespace Portal.Consultoras.Web.Controllers
             grid.CurrentPage = page;
             grid.SortColumn = sidx;
             grid.SortOrder = sord;
-            //int buscar = int.Parse(txtBuscar);
             BEPager pag = new BEPager();
             bool ErrorServicio;
             string ErrorCode;
@@ -86,8 +80,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             pag = Paginador(grid, Campania, lst);
 
-            // Creamos la estructura
-
             var data = new
             {
                 total = pag.PageCount,
@@ -96,7 +88,6 @@ namespace Portal.Consultoras.Web.Controllers
                 rows = from a in items
                        select new
                        {
-                           //R20150906
                            id = a.Nombre + "-" + a.FechaFacturacion,
                            cell = new string[]
                             {
@@ -113,9 +104,7 @@ namespace Portal.Consultoras.Web.Controllers
         public List<CampaniaModel> GetCampaniasRVDigitalWeb(out bool ErrorServicio, out string ErrorCode, out string ErrorMessage)
         {
             UsuarioModel usuario = UserData();
-            //Inicio ITG 1793 HFMG
             var complain = new RVDWebCampaniasParam { Pais = usuario.CodigoISO, Tipo = "1", CodigoConsultora = ((usuario.UsuarioPrueba == 1) ? usuario.ConsultoraAsociada : usuario.CodigoConsultora) };
-            //Fin ITG 1793 HFMG
             List<CampaniaModel> lstCampaniaModel = new List<CampaniaModel>();
             ErrorServicio = false;
             ErrorCode = string.Empty;
@@ -177,7 +166,6 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 ErrorServicio = true;
             }
-            //R20150906
             if (lstCampaniaModel.Count != 0)
                 return lstCampaniaModel.Distinct().OrderBy(p => p.CampaniaID).ToList();
             else
@@ -190,9 +178,7 @@ namespace Portal.Consultoras.Web.Controllers
         public List<RVPRFModel> GetPDFRVDigitalWeb(string Campania, out bool ErrorServicio, out string ErrorCode, out string ErrorMessage)
         {
             UsuarioModel usuario = UserData();
-            //Inicio ITG 1793 HFMG
             var complain = new RVDWebCampaniasParam { Pais = usuario.CodigoISO, Tipo = "1", CodigoConsultora = ((usuario.UsuarioPrueba == 1) ? usuario.ConsultoraAsociada : usuario.CodigoConsultora), Campana = Campania };
-            //Fin ITG 1793 HFMG
             List<RVPRFModel> lstRVPRFModel = new List<RVPRFModel>();
             ErrorServicio = false;
             ErrorCode = string.Empty;
@@ -228,7 +214,6 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         if (st.GET_URLResult.errorCode == "00000" || st.GET_URLResult.errorMessage == "OK")
                         {
-                            //R20150906
                             if (st.GET_URLResult.objeto != null && st.GET_URLResult.objeto.Count != 0)
                             {
                                 foreach (var item in st.GET_URLResult.objeto)

@@ -24,13 +24,6 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        //public IDataReader GetIncentivoById(int IncentivoID)
-        //{
-        //    DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetIncentivoID");
-        //    Context.Database.AddInParameter(command, "@IncentivoID", DbType.Int32, IncentivoID);
-        //    return Context.ExecuteReader(command);
-        //}
-
         public int Insert(BEIncentivo entidad)
         {
             SqlCommand cmd = new SqlCommand("InsIncentivo");

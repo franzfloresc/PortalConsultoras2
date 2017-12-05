@@ -15,7 +15,7 @@
 
             <div class="clock" data-total-seconds="@Model.TeQuedan.TotalSeconds" style="top:-48px; left:102px;"></div>
         </div>
-        @if (Model.ListaOfertas.Count > 1)
+        @if (Model.ListaOfertas != null && Model.ListaOfertas.Count > 1)
         {
             <a class="btn_compralo_ahora cabecera-no-home" href="#">VER OFERTAS</a>
         }

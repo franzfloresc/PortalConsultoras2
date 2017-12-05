@@ -18,7 +18,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             string PathData = "Aplicacion=2&CodigoUsuario=" + UserData().NombreConsultora + "&Pais=4";
             string texto = System.Web.HttpUtility.UrlEncode(Util.EncriptarDuplaCyzone(KeyPath, PathData));
-            //byte[] bytesToEncode = Encoding.UTF8.GetBytes(texto);
 
             string Url = ConfigurationManager.AppSettings["URL_DUPLACYZONE"].ToString() + texto;
 

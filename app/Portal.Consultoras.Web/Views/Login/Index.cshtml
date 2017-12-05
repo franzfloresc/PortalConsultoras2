@@ -174,9 +174,10 @@
                     
                     if (response.success) {
                         //if (!response.exists) {
-                            if (response.redirectTo !== "") {
-                                document.location.href = response.redirectTo;
-                            }
+                        if (response.redirectTo !== "") {
+                            analytics.invocarEventoPixel("FacebookLoginValidExternalUser");
+                            document.location.href = response.redirectTo;
+                        }
                         //}
                     }
                     else {
@@ -318,6 +319,11 @@
         </div>
         <div class="text_bienvenida_esika">
             ¡Bienvenida a la Compañía de Belleza con la que puedes <span> ganar más! </span>
+
+            @if (Model.ListPaisAnalytics != null && Model.ListPaisAnalytics.Count > 0)
+            {
+                <div id="div-analytics-image" style="display:inline;"></div>
+            }
         </div>
         <div class="title">
             <img src="~/Content/Images/Login2/logo_welcome.png" alt="" />
@@ -649,6 +655,41 @@
 {
     <script>
         var usuarioValidado = '@TempData["usuarioValidado"]';
+    </script>
+}
+
+@section headerScripts {
+    @if (Model.ListPaisAnalytics != null && Model.ListPaisAnalytics.Count > 0)
+    {
+        <script type="text/javascript">
+        /* <![CDATA[ */
+            var google_conversion_id = 0;
+            var google_custom_params = window.google_tag_params;
+            var google_remarketing_only = true;
+        /* ]]> */
+        </script>
+        
+        <noscript id="noscript-pixel-image"></noscript>
+    }
+
+    @System.Web.Optimization.Scripts.Render("~/bundles/JS-Login-Header")
+    <script>
+        var configAnalytics = { listPaisAnalytics : [] };
+        @if (Model.ListPaisAnalytics != null)
+        {
+            foreach (var paisAnalytics in Model.ListPaisAnalytics)
+            {
+                <text>
+                    configAnalytics.listPaisAnalytics.push({
+                        CodigoISO: '@paisAnalytics.CodigoISO',
+                        GndId: @(paisAnalytics.GndId),
+                        PixelId: '@paisAnalytics.PixelId',
+                        SearchId: @(paisAnalytics.SearchId),
+                        YoutubeId: @(paisAnalytics.YoutubeId)
+                    })
+                </text>
+            }
+        }
     </script>
 }
 

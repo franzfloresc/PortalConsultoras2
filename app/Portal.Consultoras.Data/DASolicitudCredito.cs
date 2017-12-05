@@ -156,7 +156,7 @@
 
             return Context.ExecuteReader(command);
         }
-        // C20150926 - CAH --> Se agrego el parametro paisID
+
         public IDataReader BuscarSolicitudCredito(int paisID, string codigoZona, string codigoTerritorio, DateTime? fechaInicioSolicitud, DateTime? fechaFinSolicitud, string numeroDocumento, int estadoSolicitud, string TipoSolicitud, string CodigoConsultora)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.BuscarSolicitudCredito");
@@ -189,7 +189,7 @@
                 Context.Database.AddInParameter(command, "@CodigoLote", DbType.Int32, DBNull.Value);
             else
                 Context.Database.AddInParameter(command, "@CodigoLote", DbType.Int32, estadoSolicitud);
-            // INICIO C20150926 - CAH 
+
             if (paisID == 12 || paisID == 13)
             {
             if (string.IsNullOrEmpty(TipoSolicitud))
@@ -202,7 +202,7 @@
             else
                 Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, CodigoConsultora);
             }
-            // FIN C20150926 - CAH 
+
             return Context.ExecuteReader(command);
         }
 
@@ -272,7 +272,6 @@
             Context.ExecuteNonQuery(command);
         }
 
-        //R2044 - Inicio
         public int InsFlexipagoDescarga(string codigoUsuario)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsFlexipagoDescarga");
@@ -318,7 +317,6 @@
 
             Context.ExecuteNonQuery(command);
         }
-        //R2044 - Fin
 
         public int UpdFlexipagoInsDesDescargaGuardoS3(int numeroLote, bool guardoS3, string mensaje, string mensajeExcepcion)
         {
@@ -330,8 +328,7 @@
 
             return Context.ExecuteNonQuery(command);
         }
-
-        // R2155 - Inicio
+        
         public IDataReader ListarColoniasByTerritorio(string codigo)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarColoniasByTerritorio");
@@ -412,18 +409,14 @@
 
             return Context.ExecuteScalar(command).ToString();
         }
-        // R2155 - Fin
 
-        //R20150909 - Inicio
         public DateTime GetFechaHoraPais()
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetFechaHoraPais");
             DateTime result = Convert.ToDateTime(Context.ExecuteScalar(command));
             return result;
         }
-        //R20150909 - Fin	
-	 
-     //AOB: REPORTES
+
         public DataSet ReporteSolidCreditDia(string codigoRegion, DateTime? fechaInicioSolicitud, DateTime? fechaFinSolicitud)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.RepSolidCreditoDetalleDia");
