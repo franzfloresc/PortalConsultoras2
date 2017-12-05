@@ -19,7 +19,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             base.OnActionExecuting(filterContext);
 
-            if (Session["UserData"] == null) return;
+            if (sessionManager.GetUserData() == null) return;
 
             if (Request.IsAjaxRequest())
             {
@@ -31,13 +31,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             try
             {
-                ViewBag.EsMobile = 2;//EPD-1780
+                ViewBag.EsMobile = 2;
                 BuildMenuMobile(userData);
                 CargarValoresGenerales(userData);
 
                 ShowRoomModel ShowRoom = new ShowRoomModel();
 
-                /*INICIO: PL20-1289*/
                 bool mostrarBanner, permitirCerrarBanner = false;
                 if (SiempreMostrarBannerPL20()) mostrarBanner = true;
                 else if (NuncaMostrarBannerPL20()) mostrarBanner = false;
@@ -49,7 +48,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     if (userData.CloseBannerPL20) mostrarBanner = false;
                 }
 
-                bool mostrarBannerTop = NuncaMostrarBannerTopPL20() || userData.IndicadorGPRSB == 1 ? false : true;
+                bool mostrarBannerTop = !(NuncaMostrarBannerTopPL20() || userData.IndicadorGPRSB == 1);
 
                 ViewBag.MostrarBannerTopPL20 = mostrarBannerTop;
 
@@ -108,8 +107,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
 
                 ViewBag.MostrarODD = NoMostrarBannerODD();
-
-                /*FIN: PL20-1289*/
             }
             catch (Exception ex)
             {
@@ -141,7 +138,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private void CargarValoresGenerales(UsuarioModel userData)
         {
-            if (Session["UserData"] != null)
+            if (sessionManager.GetUserData() != null)
             {
                 ViewBag.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre).ToUpper();
                 int j = ViewBag.NombreConsultora.Trim().IndexOf(' ');
@@ -185,9 +182,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
             string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
 
-            //if (controllerName == "CatalogoPersonalizado" && actionName == "Index") return true;
-            //if (controllerName == "CatalogoPersonalizado" && actionName == "Producto") return true;
-            //if (controllerName == "ShowRoom") return true;
             if (controllerName == "Pedido") return true;
             if (controllerName == "CatalogoPersonalizado") return true;
             if (controllerName == "ShowRoom") return true;

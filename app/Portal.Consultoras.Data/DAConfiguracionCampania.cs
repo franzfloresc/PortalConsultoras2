@@ -33,7 +33,6 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@PaisID", DbType.Int32, PaisID);
             Context.Database.AddInParameter(command, "@ZonaID", DbType.Int32, ZonaID);
             Context.Database.AddInParameter(command, "@RegionID", DbType.Int32, RegionID);
-            //Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, codigoUsuario);
 
             return Context.ExecuteReader(command);
         }

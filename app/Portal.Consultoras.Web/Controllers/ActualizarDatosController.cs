@@ -106,7 +106,6 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 var param_querystring = Util.EncriptarQueryString(new string[] { userData.CodigoUsuario, userData.PaisID.ToString(), userData.CodigoISO, model.Email });
 
-                                //1774 
                                 bool tipopais = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(userData.CodigoISO);
                                 string nomconsultora = string.Empty;
 
@@ -168,8 +167,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-
-        //1796
         [HttpPost]
         public JsonResult RechazarInvitacionFlexipago()
         {
@@ -220,7 +217,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        //1796
         [HttpPost]
         public JsonResult Cancelar(ConsultoraFicticiaModel model = null)
         {
@@ -276,7 +272,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        //R2116 INICIO
         public JsonResult RegistrarMexico(ConsultoraFicticiaModel model)
         {
             try
@@ -383,6 +378,5 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        //R2116 FIN
     }
 }
