@@ -308,7 +308,11 @@ namespace Portal.Consultoras.Web.Controllers
 
                 return listaPopUps;
             }
-            catch (Exception) { return listaPopUps; }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return listaPopUps;
+            }
         }
 
         private int ObtenerTipoPopUpMostrar(BienvenidaHomeModel model)
