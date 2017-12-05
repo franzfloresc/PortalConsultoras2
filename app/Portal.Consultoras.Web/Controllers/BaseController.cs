@@ -3874,15 +3874,11 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         if (revistaDigital.TieneRDC)
                         {
-                            m.DesktopLogoBanner = revistaDigital.EsNoSuscritaActiva()
-                                || revistaDigital.EsSuscritaActiva()
-                                || revistaDigital.EsSuscritaInactiva()
+                            m.DesktopLogoBanner = revistaDigital.EsSuscrita
                                 ? revistaDigital.DLogoComercialFondoActiva
                                 : revistaDigital.DLogoComercialFondoNoActiva;
 
-                            m.MobileLogoBanner = revistaDigital.EsNoSuscritaActiva()
-                                || revistaDigital.EsSuscritaActiva()
-                                || revistaDigital.EsSuscritaInactiva()
+                            m.MobileLogoBanner = revistaDigital.EsSuscrita
                                 ? revistaDigital.MLogoComercialFondoActiva
                                 : revistaDigital.MLogoComercialFondoNoActiva;
                         }
