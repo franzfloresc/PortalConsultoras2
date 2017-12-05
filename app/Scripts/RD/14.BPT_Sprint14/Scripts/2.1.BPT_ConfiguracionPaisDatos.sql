@@ -1,3 +1,4 @@
+go
 
 declare @ConfiguracionPaisID int = 0, @codePais varchar(5) = '', @amb varchar(5) = 'QAS'
 select @ConfiguracionPaisID = ConfiguracionPaisID
@@ -411,3 +412,5 @@ BEGIN
 	'', 'Mobile Banner Landing Productos')
 	END
 end
+
+go
