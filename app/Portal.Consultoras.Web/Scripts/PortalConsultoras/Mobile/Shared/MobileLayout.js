@@ -1056,24 +1056,25 @@ function BannerApp() {
     if (oBannerApp == null || getMobileOperatingSystem() != "Android" || !VerificarVistaBannerApp()) {
         $('.banner_app').hide();
         return;
-    }
+    }
     $(".banner_app div").click(function (e) {
         e.preventDefault();
         $(".banner_app").hide();
-        OcultarBannerApp();
+        OcultarBannerApp();
         return false;
-    });
+    });
     $(".banner_app").click(function (e) {
         window.open(oBannerApp.DescripcionAccion);
-    });
+    });
     $(".banner_app").css("background-image", "url(" + oBannerApp.UrlImagen + ")");
-}
+}
+
 function VerificarVistaBannerApp() {
     for (var row = 0; row < oBannerApp.Vistas.length; row++) {
         var oVista = oBannerApp.Vistas[row];
         if (oVista.NombreControlador != controllerName) continue;
         if (oVista.NombreVista == null || oVista.NombreVista == actionName) return true;
-    }
+    }
     return false;
 }
 
@@ -1087,9 +1088,9 @@ function OcultarBannerApp() {
         },
         error: function (err) { console.log(err); }
     });
-}
+}
 function getMobileOperatingSystem() {
-    var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    var userAgent = navigator.userAgent || navigator.vendor || window.opera;
     if (/windows phone/i.test(userAgent)) {
         return "Windows Phone";
     }
