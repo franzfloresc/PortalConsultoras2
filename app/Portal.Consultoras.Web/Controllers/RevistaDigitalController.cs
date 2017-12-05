@@ -373,7 +373,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return "Usted ya está suscrito a CLUB GANA+, gracias.";
                 
                 var diasFaltanFactura = GetDiasFaltantesFacturacion(userData.FechaInicioCampania, userData.ZonaHoraria);
-                if (diasFaltanFactura <= revistaDigital.BloquearDiasAntesFacturar)
+                if (diasFaltanFactura <= revistaDigital.BloquearDiasAntesFacturar && revistaDigital.BloquearDiasAntesFacturar > 0)
                 {
                     return "Lo sentimos no puede suscribirse, porque "
                         + (diasFaltanFactura == 0 ? "hoy" : diasFaltanFactura == 1 ? "mañana" : "en " + diasFaltanFactura + " días ")
@@ -390,7 +390,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return "Lo sentimos no se puede ejecutar la acción, gracias.";
 
                 var diasFaltanFactura = GetDiasFaltantesFacturacion(userData.FechaInicioCampania, userData.ZonaHoraria);
-                if (diasFaltanFactura <= revistaDigital.BloquearDiasAntesFacturar)
+                if (diasFaltanFactura <= revistaDigital.BloquearDiasAntesFacturar && revistaDigital.BloquearDiasAntesFacturar > 0)
                 {
                     return "Lo sentimos no puede desuscribirse, porque "
                         + (diasFaltanFactura == 0 ? "hoy" : diasFaltanFactura == 1 ? "mañana" : "en " + diasFaltanFactura + " días ")
@@ -440,6 +440,7 @@ namespace Portal.Consultoras.Web.Controllers
             sessionManager.SetRevistaDigital(revistaDigital);
             userData.MenuMobile = null;
             userData.Menu = null;
+                Session[Constantes.ConstSession.MenuContenedor] = null;
             SetUserData(userData);
 
             return "";
