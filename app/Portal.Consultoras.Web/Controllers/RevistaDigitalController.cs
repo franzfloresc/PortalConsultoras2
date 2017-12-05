@@ -163,7 +163,7 @@ namespace Portal.Consultoras.Web.Controllers
                 
                 listModel = listModel.Where(e => e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
 
-                int cantidadTotal = listModel.Count;
+                var cantidadTotal = listModel.Count;
 
                 var listPerdio = new List<EstrategiaPersonalizadaProductoModel>();
                 if (TieneProductosPerdio(model.CampaniaID))
@@ -220,7 +220,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1, perdio);
 
-                int cantidadTotal = listModel.Count;
+                var cantidadTotal = listModel.Count;
 
                 return Json(new
                 {
@@ -318,16 +318,18 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var entidad = new BERevistaDigitalSuscripcion();
-                entidad.PaisID = userData.PaisID;
-                entidad.CodigoConsultora = userData.CodigoConsultora;
-                entidad.CampaniaID = userData.CampaniaID;
-                entidad.CodigoZona = userData.CodigoZona;
-                entidad.EstadoRegistro = Constantes.EstadoRDSuscripcion.NoPopUp;
-                entidad.IsoPais = userData.CodigoISO;
-                entidad.EMail = userData.EMail;
+                var entidad = new BERevistaDigitalSuscripcion
+                {
+                    PaisID = userData.PaisID,
+                    CodigoConsultora = userData.CodigoConsultora,
+                    CampaniaID = userData.CampaniaID,
+                    CodigoZona = userData.CodigoZona,
+                    EstadoRegistro = Constantes.EstadoRDSuscripcion.NoPopUp,
+                    IsoPais = userData.CodigoISO,
+                    EMail = userData.EMail
+                };
 
-                using (PedidoServiceClient sv = new PedidoServiceClient())
+                using (var sv = new PedidoServiceClient())
                 {
                     entidad.RevistaDigitalSuscripcionID = sv.RDSuscripcion(entidad);
                 }
@@ -365,10 +367,10 @@ namespace Portal.Consultoras.Web.Controllers
             if (tipo == Constantes.EstadoRDSuscripcion.Activo)
             {
                 if (!revistaDigital.TieneRDC)
-                    return "Por el momento no está habilitada la suscripción a ÉSIKA PARA MÍ, gracias.";
+                    return "Por el momento no está habilitada la suscripción a CLUB GANA+, gracias.";
 
                 if (revistaDigital.EsSuscrita)
-                    return "Usted ya está suscrito a ÉSIKA PARA MÍ, gracias.";
+                    return "Usted ya está suscrito a CLUB GANA+, gracias.";
                 
                 var diasFaltanFactura = GetDiasFaltantesFacturacion(userData.FechaInicioCampania, userData.ZonaHoraria);
                 if (diasFaltanFactura <= revistaDigital.BloquearDiasAntesFacturar)
@@ -382,7 +384,7 @@ namespace Portal.Consultoras.Web.Controllers
             else if (tipo == Constantes.EstadoRDSuscripcion.Desactivo)
             {
                 if (!revistaDigital.TieneRDC)
-                    return "Por el momento no está habilitada la desuscripción a ÉSIKA PARA MÍ, gracias.";
+                    return "Por el momento no está habilitada la desuscripción a CLUB GANA+, gracias.";
                 
                 if (!revistaDigital.EsSuscrita)
                     return "Lo sentimos no se puede ejecutar la acción, gracias.";
@@ -400,44 +402,45 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 return "Lo sentimos no se puede ejecutar la acción, gracias.";
             }
-            
-            var entidad = new BERevistaDigitalSuscripcion();
-            entidad.PaisID = userData.PaisID;
-            entidad.CodigoConsultora = userData.CodigoConsultora;
-            entidad.CampaniaID = userData.CampaniaID;
-            entidad.CodigoZona = userData.CodigoZona;
-            entidad.EstadoRegistro = tipo;
-            entidad.EstadoEnvio = 0;
-            entidad.IsoPais = userData.CodigoISO;
-            entidad.EMail = userData.EMail;
-            entidad.CampaniaEfectiva = AddCampaniaAndNumero(userData.CampaniaID, revistaDigital.CantidadCampaniaEfectiva);
 
-            if (tipo == Constantes.EstadoRDSuscripcion.Desactivo)
+            var entidad = new BERevistaDigitalSuscripcion
             {
-                using (PedidoServiceClient sv = new PedidoServiceClient())
-                {
-                    entidad.RevistaDigitalSuscripcionID = sv.RDDesuscripcion(entidad);
-                }
-            }
-            if (tipo == Constantes.EstadoRDSuscripcion.Activo)
+                PaisID = userData.PaisID,
+                CodigoConsultora = userData.CodigoConsultora,
+                CampaniaID = userData.CampaniaID,
+                CodigoZona = userData.CodigoZona,
+                EstadoRegistro = tipo,
+                EstadoEnvio = 0,
+                IsoPais = userData.CodigoISO,
+                EMail = userData.EMail,
+                CampaniaEfectiva = AddCampaniaAndNumero(userData.CampaniaID, revistaDigital.CantidadCampaniaEfectiva)
+            };
+
+            switch (tipo)
             {
-                using (PedidoServiceClient sv = new PedidoServiceClient())
-                {
-                    entidad.RevistaDigitalSuscripcionID = sv.RDSuscripcion(entidad);
-                }
+                case Constantes.EstadoRDSuscripcion.Desactivo:
+                    using (var sv = new PedidoServiceClient())
+                    {
+                        entidad.RevistaDigitalSuscripcionID = sv.RDDesuscripcion(entidad);
+                    }
+                    break;
+                case Constantes.EstadoRDSuscripcion.Activo:
+                    using (var sv = new PedidoServiceClient())
+                    {
+                        entidad.RevistaDigitalSuscripcionID = sv.RDSuscripcion(entidad);
+                    }
+                    break;
             }
 
-            if (entidad.RevistaDigitalSuscripcionID > 0)
-            {
-                revistaDigital.SuscripcionModel = Mapper.Map<BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>(entidad);
-                revistaDigital.NoVolverMostrar = true;
-                revistaDigital.EstadoSuscripcion = revistaDigital.SuscripcionModel.EstadoRegistro;
-                revistaDigital.EsSuscrita = revistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo;
-                sessionManager.SetRevistaDigital(revistaDigital);
-                userData.MenuMobile = null;
-                userData.Menu = null;
-                SetUserData(userData);
-            }
+            if (entidad.RevistaDigitalSuscripcionID <= 0) return "";
+            revistaDigital.SuscripcionModel = Mapper.Map<BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>(entidad);
+            revistaDigital.NoVolverMostrar = true;
+            revistaDigital.EstadoSuscripcion = revistaDigital.SuscripcionModel.EstadoRegistro;
+            revistaDigital.EsSuscrita = revistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo;
+            sessionManager.SetRevistaDigital(revistaDigital);
+            userData.MenuMobile = null;
+            userData.Menu = null;
+            SetUserData(userData);
 
             return "";
         }
