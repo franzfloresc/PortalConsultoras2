@@ -76,9 +76,14 @@ header {
 }
 
 .wrapper_header {
-    height: 61px;
+    min-height: 61px;
     margin: 0 auto;
     max-width: 1189px;
+}
+
+.user-profile {
+       width: 47px;
+    height: 32px;
 }
 
 .user-profile img {
@@ -94,12 +99,14 @@ header {
 .menu_new_esika {
     float: left;
     width: 62%;
+    min-height: 60px;
+    position:relative;
 }
 
 .menu_esika_b {
     height: 60px;
-    float: left;
-    width: 28%;
+    float: right;
+    max-width: 28%;
     /*overflow: hidden;*/
 }
 
@@ -136,12 +143,12 @@ header {
         -o-transition: all 0.3s ease;
         -ms-transition: all 0.3s ease;
         -webkit-transition: all 0.3s ease;
-        background: url(../../../Images/flecha_scroll.svg) no-repeat center center;
+        background: url(../../../Images/flecha_scroll.svg) center center no-repeat;
         background-size: cover;
     }
 
 .flecha_scroll_arriba {
-    background: url(../../../Images/flecha_scroll_arriba.svg) no-repeat center center !important;
+    background: url(../../../Images/flecha_scroll_arriba.svg) center center no-repeat !important;
     background-size: cover;
 }
 
@@ -149,17 +156,6 @@ header {
     opacity: 0.5;
 }
 
-.campana_svg {
-    float: left;
-    width: 20px;
-    height: 24px;
-    background: url(../../../Images/Esika/carrito.png) no-repeat;
-    background-position: 0 4px;
-}
-/*.campana_svg:hover {    
-    background: url(../../../Images/Esika/carrito.png) no-repeat;
-    background-position: 0 4px;
-}*/
 .mensaje_header {
     margin-top: 15px;
     float: left;
@@ -168,6 +164,14 @@ header {
     height: 40px;
     margin-right: 12px;
     cursor: pointer;
+}
+
+.campana_svg {
+    float: left;
+    width: 20px;
+    height: 24px;
+    background: url(../../../Images/Esika/carrito.png) no-repeat;
+    background-position: 0 4px;
 }
 
 .cart_compras {
@@ -235,7 +239,6 @@ header {
 
     .new_menu_a:hover {
         /*border-bottom: 2px solid #623989;*/
-        text-decoration: underline;
     }
 
     .new_menu_a img {
@@ -271,15 +274,12 @@ header {
     margin-top: 21px;
     /*width: 15%;*/
 }
-
 .nav_principal li:hover > ul {
     display: block;
 }
-
 .nav_principal li:hover > a > .pestana_esika {
     display: block;
 }
-
 .sub_menu_home1 {
     position: absolute;
     top: 39px;
@@ -294,7 +294,6 @@ header {
     -moz-box-shadow: -4px 4px 11px -5px rgba(120,120,120,1);
     box-shadow: -4px 4px 11px -5px rgba(120,120,120,1);
 }
-
 .sub_menu_home2 {
     position: absolute;
     left: -150px;
@@ -309,13 +308,11 @@ header {
     -moz-box-shadow: -4px 4px 11px -5px rgba(120,120,120,1);
     box-shadow: -4px 4px 11px -5px rgba(120,120,120,1);
 }
-
 .linea_menu {
     width: 100%;
     height: 1px;
     background: black;
 }
-
 .pestana_esika {
     width: 29px;
     height: 20px;
@@ -336,7 +333,6 @@ header {
     margin-right: 35px;
     margin-top: 40px;
 }
-
 .menu_titulo {
     font-family: 'Lato';
     font-size: 13px;
@@ -348,14 +344,12 @@ header {
     margin-bottom: 10px;
     margin-left: -15px;
 }
-
 .menu_enlace {
     font-family: 'Lato';
     font-size: 13px;
     letter-spacing: 0.3px;
     margin-bottom: 13px;
 }
-
 .menu_imagen {
     margin-top: 40px;
     margin-right: 45px;
@@ -366,11 +360,9 @@ header {
     position: relative;
     display: block;
 }
-
     .menu_imagen img {
         width: 100%;
     }
-
 .titulo_imagen {
     width: 100%;
     height: 30px;
@@ -385,7 +377,6 @@ header {
     position: absolute;
     bottom: 0;
 }
-
 .menu_socia_empresaria .sub_menu_home1 {
     margin-left: -161px;
 }
@@ -406,7 +397,6 @@ header {
     margin-left: 41px !important;
     margin-top: 1px !important;
 }*/
-
 
 /*.flechita_0 {
    position: absolute;
@@ -434,14 +424,20 @@ header {
     border-bottom: 10px solid blue;
 }*/
 
-
-
-/*.nav_principal li:hover .flechita_0 {
-    display: block;
-}*/
-
-
-
+.flechita_info {
+    position: absolute;
+    z-index: 2001;
+    width: 63px;
+    height: 54px;
+    right: -1px;
+    margin-top: -69px;
+    /* margin: 0 auto; */
+    background: transparent;
+    /* display: none; */
+    border-top: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+}
 /*.nav_principal li ul {
     border-top: 1px solid #ccc;
     margin-left: -178px;
@@ -20762,7 +20758,6 @@ label.checkpop.c_on {
         background: url("/Content/Images/showroom/precio_detalle_lbel.png") no-repeat;
         background-position: 1px 3px;
     }
-
 .set_precio_gana {
     margin-left: 130px;
     font-family: 'Lato';
@@ -20772,13 +20767,11 @@ label.checkpop.c_on {
     margin-top: 4px;
     font-weight: 700;
 }
-
     .set_precio_gana span {
         /*font-family: 'ArialBoldMT';
     font-size: 23px;*/
         color: black;
     }
-
 .cantidad_detalle {
     position: absolute;
     float: left;
@@ -20791,7 +20784,6 @@ label.checkpop.c_on {
     left: 30px;
     color: black;
 }
-
 .detalle_menos {
     text-align: center;
     width: 33px;
@@ -20805,7 +20797,6 @@ label.checkpop.c_on {
     margin-top: 5px;
     font-weight: bold;
 }
-
 .detalle_numero {
     text-align: center;
     width: 46px;
@@ -20821,7 +20812,6 @@ label.checkpop.c_on {
     line-height: 36px;
     font-weight: bold;
 }
-
 .detalle_mas {
     text-align: center;
     width: 33px;
@@ -20835,7 +20825,6 @@ label.checkpop.c_on {
     margin-top: 5px;
     font-weight: bold;
 }
-
 .cantidad_agregar_detalle {
     position: absolute;
     /* height: 70px; */
@@ -20854,7 +20843,6 @@ label.checkpop.c_on {
     background: #613c87 !important;
     cursor: pointer;
 }
-
 .fondo_detalle_blanco .cantidad_agregar_detalle:hover {
     text-decoration: none !important;
     background: black !important;
@@ -20869,7 +20857,6 @@ label.checkpop.c_on {
     padding-left: 16px;
     padding-right: 16px;
 }
-
     .contenedor_carrusel_detalle a {
         font-family: 'Lato';
         font-size: 14px;
@@ -20879,16 +20866,13 @@ label.checkpop.c_on {
         line-height: 15px;
         cursor: pointer;
     }
-
         .contenedor_carrusel_detalle a:hover {
             text-decoration: none !important;
         }
-
 .contenedor_slick {
     width: 100%;
     height: auto;
 }
-
 .imagen_carrusel {
     margin: 0 auto;
     text-align: center;
@@ -20896,11 +20880,9 @@ label.checkpop.c_on {
     height: 76px;
     padding: 10px;
 }
-
     .imagen_carrusel img {
         width: 100%;
     }
-
 .cantidad_productos_carrusel {
     margin-bottom: 20px;
     /*width: 105px;*/
@@ -20911,19 +20893,15 @@ label.checkpop.c_on {
     font-size: 14px;
     z-index: 100;
 }
-
     .cantidad_productos_carrusel span {
         color: #a0a0a0;
     }
-
 .item_active {
     color: black;
 }
-
     .item_active span {
         color: #613c87 !important;
     }
-
 .agotado_carrusel {
     width: 100%;
     height: 75px;
@@ -20935,7 +20913,6 @@ label.checkpop.c_on {
     z-index: 100;
     background: url("/Content/Images/showroom/opacity.png");
 }
-
 .notificaciones_activas {
     background: url("../../../Images/Lbel/circulo.png") no-repeat;
     color: white;
@@ -21002,16 +20979,13 @@ label.checkpop.c_on {
     padding-top: 10px;
     margin-bottom: 0;
 }
-
     .liquidacion_info span {
         color: #333333;
     }
-
     .liquidacion_info strong {
         color: #333333;
         font-weight: 800;
     }
-
 .titulo_principal_interiores {
     font-family: 'lato';
     letter-spacing: 1.5px;
@@ -21038,10 +21012,6 @@ label.checkpop.c_on {
         font-family: Lato;
     }
 
-
-
-
-
 /*UBICACION WEB*/
 .ubicacion_web {
     width: 1189px;
@@ -21053,7 +21023,6 @@ label.checkpop.c_on {
     z-index: 2;
     position: relative;
 }
-
     .ubicacion_web span {
         color: #878787 !important;
     }
@@ -21062,7 +21031,6 @@ label.checkpop.c_on {
         display: inline-block;
         color: #b1b1b1 !important;
     }
-
         .ubicacion_web a:hover {
             display: inline-block;
             color: #b1b1b1 !important;
@@ -21135,7 +21103,6 @@ label.checkpop.c_on {
     margin-top: 60px;
     position: relative;
 }
-
 .content_belcorp {
     max-width: 1189px;
     margin: 0 auto;
@@ -21143,7 +21110,6 @@ label.checkpop.c_on {
     position: relative;
     font-family: 'Lato';
 }
-
 .content_datos {
     padding-top: 13px;
     padding-left: 23px;
@@ -21160,7 +21126,6 @@ label.checkpop.c_on {
     position: relative;
     z-index: 10;
 }
-
 .foto_perfil_home {
     width: 97px;
     height: 96px;
@@ -21171,11 +21136,9 @@ label.checkpop.c_on {
     float: left;
     overflow: hidden;
 }
-
     .foto_perfil_home img {
         width: 100%;
     }
-
 .resumen_belcorp_cam {
     font-family: 'lato';
     font-size: 18px;
@@ -21188,13 +21151,11 @@ label.checkpop.c_on {
     margin-right: 9%;
     width: 19.5%;
 }
-
 .nombre_consultora {
     width: 100%;
     overflow: hidden;
     color: black;
 }
-
 .consultora_home {
     margin-bottom: 6px;
     display: block;
@@ -21202,7 +21163,6 @@ label.checkpop.c_on {
     margin-top: -5px;
     float: left;
 }
-
 .info_cam_belcorp {
     float: left;
     height: 41px;
@@ -21216,7 +21176,6 @@ label.checkpop.c_on {
     border-right: 1px solid #979797;
     color: #1d1d26;
 }
-
     .info_cam_belcorp span {
         color: #b75d9f;
         font-size: 26px;
@@ -21225,7 +21184,6 @@ label.checkpop.c_on {
         display: block;
         font-weight: 400;
     }
-
 .info_cam_belcorp2 {
     float: left;
     height: 41px;
@@ -21238,7 +21196,6 @@ label.checkpop.c_on {
     margin-top: 3px;
     color: black;
 }
-
     .info_cam_belcorp2 span {
         color: #b75d9f;
         font-size: 26px;
@@ -21247,7 +21204,6 @@ label.checkpop.c_on {
         display: block;
         font-weight: 400;
     }
-
 .pedido_resumen_home {
     font-size: 11px;
     font-family: 'lato';
@@ -21256,7 +21212,6 @@ label.checkpop.c_on {
     width: 34.9%;
     float: left;
 }
-
     .pedido_resumen_home span {
         font-size: 11px;
         font-family: 'lato';
@@ -21265,7 +21220,6 @@ label.checkpop.c_on {
         overflow: hidden;
         display: block;
     }
-
 .boton_home_guardar {
     width: 100%;
     height: 45px;
@@ -21289,11 +21243,9 @@ label.checkpop.c_on {
     transition-property: color;
     transition-duration: .3s;
 }
-
     .boton_home_guardar:hover {
         color: #613c87;
     }
-
     .boton_home_guardar:before {
         content: "";
         z-index: -1;
@@ -21314,7 +21266,6 @@ label.checkpop.c_on {
         -webkit-transition-timing-function: ease-out;
         transition-timing-function: ease-out;
     }
-
     .boton_home_guardar:hover:before {
         -webkit-transform: scaleY(1);
         transform: scaleY(1);
@@ -21332,23 +21283,19 @@ label.checkpop.c_on {
     margin-left: 5%;
     width: 27%;
 }
-
     .socia_negocio_home span {
         font-weight: 400;
         color: black;
     }
-
 .notificaciones_resumen {
     overflow: hidden;
     float: left;
     width: 50px;
     cursor: pointer;
 }
-
     .notificaciones_resumen a img {
         float: left;
     }
-
 .mensajes_home {
     font-weight: 400;
     line-height: 16px;
@@ -21357,13 +21304,11 @@ label.checkpop.c_on {
     font-size: 13px;
     margin-left: 5px;
 }
-
     .mensajes_home a {
         display: inline-block;
         font-weight: 700;
         text-decoration: underline;
     }
-
 .items_belcorp {
     width: 31%;
     height: 250px;
@@ -21393,7 +21338,6 @@ label.checkpop.c_on {
 .mis_ganancias_img {
     background: url("../../../Images/Lbel/dolar_lbel.png") no-repeat;
 }
-
 .titulo_home_belcorp {
     padding-bottom: 11px;
     float: left;
@@ -21401,7 +21345,6 @@ label.checkpop.c_on {
     overflow: hidden;
     border-bottom: 1px solid #e7e1e1;
 }
-
     .titulo_home_belcorp div {
         font-family: 'lato';
         font-size: 13px;
@@ -21409,7 +21352,6 @@ label.checkpop.c_on {
         letter-spacing: 0.2px;
         float: left;
     }
-
 .btn_ver_mas {
     float: right;
     font-size: 10px;
@@ -21417,7 +21359,6 @@ label.checkpop.c_on {
     letter-spacing: 0.1px;
     text-decoration: none;
 }
-
     .btn_ver_mas:hover {
         text-decoration: underline;
     }
@@ -21430,23 +21371,19 @@ label.checkpop.c_on {
     color: black;
     margin-top: 10px;
 }
-
     .info_centro span {
         font-weight: 400;
     }
-
 .deuda_home {
     font-family: 'lato';
     font-size: 21px;
     font-weight: 300;
     color: black;
 }
-
     .deuda_home span {
         font-size: 34px;
         font-weight: 300;
     }
-
 .btn_paga_online {
     width: 169px;
     float: right;
@@ -21463,7 +21400,6 @@ label.checkpop.c_on {
     background: white url("../../../Images/Lbel/tarjeta.png") no-repeat;
     background-position: 23px 10px;
 }
-
 .boton_facturacion_e {
     width: 100px;
     height: 30px;
@@ -21476,11 +21412,9 @@ label.checkpop.c_on {
     margin-top: 40px;
     font-weight: 700;
 }
-
     .boton_facturacion_e:hover {
         text-decoration: underline;
     }
-
 .boton_ultimos_movimientos {
     width: 200px;
     height: 30px;
@@ -21493,11 +21427,9 @@ label.checkpop.c_on {
     margin-top: 45px !important;
     font-weight: 700;
 }
-
     .boton_ultimos_movimientos:hover {
         text-decoration: underline;
     }
-
 .border-right {
     border-right: 1px solid #613c87;
 }
@@ -21527,13 +21459,11 @@ label.checkpop.c_on {
     display: inline-block;
     vertical-align: top;
 }
-
 .home_porcentaje {
     font-family: 'lato';
     font-size: 26px;
     float: left;
 }
-
 .texto_dscto {
     font-family: 'lato';
     font-size: 13px;
@@ -21542,14 +21472,12 @@ label.checkpop.c_on {
     font-weight: 700;
     padding-top: 5px;
 }
-
     .texto_dscto span {
         font-size: 8px;
         font-weight: 400;
         display: block;
         margin-top: -5px;
     }
-
 .precio_ganancia {
     text-align: center;
     /* display: block; */
@@ -21561,18 +21489,15 @@ label.checkpop.c_on {
     line-height: 11px;
     /* transform: scaleY(1.1); */
 }
-
 .escala_select {
     padding-left: 4%;
     padding-right: 4%;
     background: #613c87;
     color: white;
 }
-
     .escala_select .home_porcentaje {
         margin-left: 6%;
     }
-
 .indicador_escala {
     position: absolute;
     top: -6px;
@@ -21581,7 +21506,6 @@ label.checkpop.c_on {
     height: 17px;
     background: url("../../../Images/Lbel/escala_indicador_lbel.png") no-repeat;
 }
-
 .item_catalogo {
     width: 31%;
     float: left;
@@ -21598,7 +21522,6 @@ label.checkpop.c_on {
     /*filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../../../Images/Esika/catalogos_new.png',sizingMethod='scale');
     -ms-behavior: url("../../../Css/Site/Esika/backgroundsize.min.htc");*/
 }
-
 .btn_comparte {
     width: 80%;
     font-family: 'lato';
@@ -21616,12 +21539,10 @@ label.checkpop.c_on {
     left: 0;
     right: 0;
 }
-
     .btn_comparte:hover {
         background: black;
         color: white;
     }
-
 .seguir_pedido {
     display: inline-block;
     vertical-align: top;
@@ -21644,7 +21565,6 @@ label.checkpop.c_on {
     .seguir_pedido:hover {
         text-decoration: underline;
     }
-
 .mis_datos {
     font-family: 'lato';
     font-size: 9px;
@@ -21654,11 +21574,9 @@ label.checkpop.c_on {
     margin-left: 10px;
     float: left;
 }
-
     .mis_datos:hover {
         text-decoration: underline;
     }
-
 .subir_foto {
     background: url("../../../Images/Lbel/camara_lbel.png") no-repeat;
     width: 26px;
@@ -21667,31 +21585,26 @@ label.checkpop.c_on {
     z-index: 100;
     margin-left: 78px;
 }
-
 .btn_100_paga {
     width: 100%;
     background-position: 34% 10px;
 }
-
 .btn_100_facturacion {
     width: 100%;
     text-align: center;
     padding-left: 3%;
     background-position: 24% 4px;
 }
-
 .fondo_gris {
     background: #f0f0f0;
     width: 100%;
     overflow: hidden;
 }
-
 .fondo_f9f9f9 {
     background: #fff;
     width: 100%;
     overflow: hidden;
 }
-
 .linea_titulo {
     width: 31%;
     height: 2px;
@@ -21699,7 +21612,6 @@ label.checkpop.c_on {
     margin-top: 50px;
     float: left;
 }
-
 .linea_titulo_absoluto {
     width: 100%;
     height: 2px;
@@ -21709,7 +21621,6 @@ label.checkpop.c_on {
     float: left;
     /* z-index: -1; */
 }
-
 .titulo_ofertas_home {
     background: #f0f0f0;
     display: inline-block;
@@ -21723,12 +21634,27 @@ label.checkpop.c_on {
     PADDING-LEFT: 13PX;
     padding-right: 13px;
 }
-
 .texto_exclusivo {
     font-size: 17px;
     letter-spacing: 6.3px;
     color: #b75d9f;
     font-weight: 400;
+}
+.texto_exclusivo_pedido_bpt {
+    text-align: center;
+    margin-top: 10px;
+    padding: 0 10px;
+    font-size: 12px;
+    letter-spacing: 0px;
+    color: #000;
+    font-weight: 600;
+}
+
+.texto_exclusivo_bpt {
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: #000;
+    font-weight: 600;
 }
 
 .previous_ofertas {
@@ -37186,14 +37112,12 @@ h1#penmostreo .campana {
     line-height: 22px;
     letter-spacing: 0.4px;
 }
-
 .rateyo-readonly-puntuacion {
     padding: 0 !important;
     margin-top: 4px;
     margin-bottom: 40px;
     display: block !important;
 }
-
 .respuesta_pregunta {
     width: 42%;
     max-width: 70px;
@@ -37208,11 +37132,9 @@ h1#penmostreo .campana {
     text-align: center;
     margin-top: 15px;
 }
-
     .respuesta_pregunta:last-child {
         margin-right: 0;
     }
-
 .enviar_comentario_Seller {
     display: block;
     width: 215px;
@@ -37228,7 +37150,6 @@ h1#penmostreo .campana {
     line-height: 44px;
     margin-top: 17px;
 }
-
 .cancelar_comentario {
     display: block;
     float: right;
@@ -37240,11 +37161,9 @@ h1#penmostreo .campana {
     letter-spacing: 0.4px;
     text-decoration: underline;
 }
-
 .content_confirmacion_comentario {
     display: none;
 }
-
 .icono_check_comentario {
     width: 60px;
     height: 60px;
@@ -37253,12 +37172,10 @@ h1#penmostreo .campana {
     background-size: cover;
     margin-top: 30px;
 }
-
 .extra_titulo {
     margin-top: 20px;
     letter-spacing: 0.6px;
 }
-
 .btn_cerrar_comentario {
     font-family: 'Lato';
     font-size: 13px;
@@ -37272,7 +37189,6 @@ h1#penmostreo .campana {
     text-align: center;
     MARGIN-BOTTOM: 30px;
 }
-
 .content_comentario_usuario {
     width: 100%;
     height: auto;
@@ -37281,7 +37197,6 @@ h1#penmostreo .campana {
     border-bottom: 1px solid #979797;
     overflow: hidden;
 }
-
 .foto_usuario_comentario {
     float: left;
     width: 68px;
