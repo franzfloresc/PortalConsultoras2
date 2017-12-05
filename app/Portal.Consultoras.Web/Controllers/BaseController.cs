@@ -4026,26 +4026,23 @@ namespace Portal.Consultoras.Web.Controllers
             if (!revistaDigital.TieneRDC) return model;
 
             model.IsMobile = IsMobile();
-
-            if (!revistaDigital.EsActiva)
+            
+            var codigo = "";
+            if (revistaDigital.EsSuscrita)
             {
-                var codigo = "";
-                if (revistaDigital.EsSuscrita)
-                {
-                    model.MensajeIconoSuperior = true;
-                    codigo = model.IsMobile ? Constantes.ConfiguracionPaisDatos.RD.MPopupBloqueadoNoActivaSuscrita : Constantes.ConfiguracionPaisDatos.RD.DPopupBloqueadoNoActivaSuscrita;
-                    model.BtnInscribirse = false;
-                }
-                else
-                {
-                    model.MensajeIconoSuperior = false;
-                    codigo = model.IsMobile ? Constantes.ConfiguracionPaisDatos.RD.MPopupBloqueadoNoActivaNoSuscrita : Constantes.ConfiguracionPaisDatos.RD.DPopupBloqueadoNoActivaNoSuscrita;
-                    model.BtnInscribirse = true;
-                }
-
-                var dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo);
-                model.MensajeTitulo = dato == null ? "" : Util.Trim(dato.Valor1);
+                model.MensajeIconoSuperior = true;
+                codigo = model.IsMobile ? Constantes.ConfiguracionPaisDatos.RD.MPopupBloqueadoNoActivaSuscrita : Constantes.ConfiguracionPaisDatos.RD.DPopupBloqueadoNoActivaSuscrita;
+                model.BtnInscribirse = false;
             }
+            else
+            {
+                model.MensajeIconoSuperior = false;
+                codigo = model.IsMobile ? Constantes.ConfiguracionPaisDatos.RD.MPopupBloqueadoNoActivaNoSuscrita : Constantes.ConfiguracionPaisDatos.RD.DPopupBloqueadoNoActivaNoSuscrita;
+                model.BtnInscribirse = true;
+            }
+
+            var dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo);
+            model.MensajeTitulo = dato == null ? "" : Util.Trim(dato.Valor1);
 
             return model;
         }
