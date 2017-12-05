@@ -1,5 +1,5 @@
 
-
+go
 ALTER PROCEDURE [dbo].[RevistaDigitalSuscripcion_Single]
 (
 	 @CodigoConsultora varchar(20)
@@ -26,3 +26,4 @@ BEGIN
 	order by CampaniaID desc, RevistaDigitalSuscripcionID desc
 END
 
+go

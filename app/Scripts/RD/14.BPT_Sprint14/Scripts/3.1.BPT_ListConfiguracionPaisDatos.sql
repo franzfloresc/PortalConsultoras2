@@ -1,3 +1,5 @@
+
+go
 IF EXISTS ( SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'ListConfiguracionPaisDatos') AND type IN ( N'P', N'PC' ) ) 
 	DROP PROCEDURE dbo.ListConfiguracionPaisDatos
 GO
@@ -44,4 +46,8 @@ BEGIN
 				WHERE (C.DesdeCampania <= @CampaniaID OR @CampaniaID = 0)
 		) P
 			ON P.ConfiguracionPaisID = D.ConfiguracionPaisID
+	where D.Estado = 1
+
 END
+
+go

@@ -1,3 +1,4 @@
+go
 
 declare @ConfiguracionPaisID int = 0, @codePais varchar(5) = '', @amb varchar(5) = 'QAS'
 select @ConfiguracionPaisID = ConfiguracionPaisID
@@ -319,7 +320,7 @@ begin
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
 		Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'InformativoVideo', 
-	'PvAWRQUKHqg', 'PvAWRQUKHqg', '', 'Video para la pagina informativa, valo2 es mobile')
+	'Rv-D7OOJGiY', 'DWR9oXdXJ9k', '', 'Video para la pagina informativa, valo2 es mobile')
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
 		Valor1, Valor2, Valor3, Descripcion)
@@ -411,3 +412,5 @@ BEGIN
 	'', 'Mobile Banner Landing Productos')
 	END
 end
+
+go
