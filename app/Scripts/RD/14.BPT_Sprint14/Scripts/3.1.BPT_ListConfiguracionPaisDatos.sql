@@ -46,6 +46,8 @@ BEGIN
 				WHERE (C.DesdeCampania <= @CampaniaID OR @CampaniaID = 0)
 		) P
 			ON P.ConfiguracionPaisID = D.ConfiguracionPaisID
+	where D.Estado = 1
+
 END
 
 go
