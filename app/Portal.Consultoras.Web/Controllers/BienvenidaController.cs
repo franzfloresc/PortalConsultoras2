@@ -305,14 +305,12 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     listaPopUps = sac.ObtenerOrdenPopUpMostrar(userData.PaisID).ToList();
                 }
-
-                return listaPopUps;
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return listaPopUps;
             }
+            return listaPopUps;
         }
 
         private int ObtenerTipoPopUpMostrar(BienvenidaHomeModel model)
