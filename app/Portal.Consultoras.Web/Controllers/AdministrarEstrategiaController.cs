@@ -1116,7 +1116,7 @@ namespace Portal.Consultoras.Web.Controllers
                         bePedidoWebDetalleParametros.NumeroPedido = userData.ConsecutivoNueva;
 
                         List<BEPedidoWebDetalle> DetallePedidos = svc.SelectByCampania(bePedidoWebDetalleParametros).ToList();
-                        BEPedidoWebDetalle Pedido = DetallePedidos.FirstOrDefault(p => p.TipoEstrategiaID == 1);
+                        BEPedidoWebDetalle Pedido = DetallePedidos.FirstOrDefault(p => p.FlagNueva);
                         if (Pedido != null)
                             svc.DelPedidoWebDetalle(Pedido);
                     }
