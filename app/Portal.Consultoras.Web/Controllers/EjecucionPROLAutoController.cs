@@ -5,14 +5,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
-//R2073 - Toda la clase
 namespace Portal.Consultoras.Web.Controllers
 {
     public class EjecucionPROLAutoController : BaseController
     {
-        //
-        // GET: /EjecucionPROLAuto/
-
         public ActionResult Index()
         {
             ValidacionAutomaticaModel model = new ValidacionAutomaticaModel();

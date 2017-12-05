@@ -175,6 +175,21 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="BEConfiguracionOfertasHome" nillable="true" type="tns:BEConfiguracionOfertasHome" />
+  <xs:complexType name="ArrayOfBEDescripcionEstrategia">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEDescripcionEstrategia" nillable="true" type="tns:BEDescripcionEstrategia" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEDescripcionEstrategia" nillable="true" type="tns:ArrayOfBEDescripcionEstrategia" />
+  <xs:complexType name="BEDescripcionEstrategia">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Cuv" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Estado" type="xs:int" />
+      <xs:element minOccurs="0" name="Mensaje" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEDescripcionEstrategia" nillable="true" type="tns:BEDescripcionEstrategia" />
   <xs:complexType name="BEBelcorpNoticia">
     <xs:sequence>
       <xs:element minOccurs="0" name="ArchivoPortada" nillable="true" type="xs:string" />

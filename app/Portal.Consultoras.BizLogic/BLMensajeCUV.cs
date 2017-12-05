@@ -23,11 +23,6 @@ namespace Portal.Consultoras.BizLogic
                     mensaje.PaisID = PaisID;
                     mensajes.Add(mensaje);
                 }
-            /*
-            return (from venta in mensajes
-                    where venta.CUV.Contains(codigo)
-                    select venta).Take(rowCount).ToList();
-            */
             return mensajes.ToList();
         }
 

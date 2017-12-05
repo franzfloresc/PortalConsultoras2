@@ -16,7 +16,7 @@
 <div class="wrap">
     <div class="container clearfix">
         <div>
-            @if (Model.listaBelcorpNoticias != null && Model.listaBelcorpNoticias.Count() > 0)
+            @if (Model.listaBelcorpNoticias != null && Model.listaBelcorpNoticias.Any())
             {
                 foreach (var belcorpNoticia in Model.listaBelcorpNoticias)
                 {

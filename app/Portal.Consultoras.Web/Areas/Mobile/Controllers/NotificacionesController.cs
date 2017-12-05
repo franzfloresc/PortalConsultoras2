@@ -138,7 +138,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 var data = new
                 {
                     success = false,
-                    message = "Ocurrió un error inesperado " + ex.Message//R2442
+                    message = "Ocurrió un error inesperado " + ex.Message
                 };
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -317,13 +317,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             CargarMensajesNotificacionesGPR(model, LogsGPRValidacion);
             model.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
-            model.CampaniaDescripcion = userData.CampaniaID.ToString();// + " " + model.Campania.Substring(0, 4);
-                                                                       //model.FechaValidacionString = model.CampaniaDescripcion.ToString("dd/MM/yyyy hh:mm tt");
-                                                                       //model.Total = model.SubTotal + model.Descuento;
-                                                                       //model.SubTotalString = userData.Simbolo + " " + Util.DecimalToStringFormat(model.SubTotal, userData.CodigoISO);
-                                                                       //model.DescuentoString = userData.Simbolo + " " + Util.DecimalToStringFormat(model.Descuento, userData.CodigoISO);
-                                                                       //model.TotalString = userData.Simbolo + " " + Util.DecimalToStringFormat(model.Total, userData.CodigoISO);
-
+            model.CampaniaDescripcion = userData.CampaniaID.ToString();
+            
             return View("ListadoPedidoRechazadoDetalle", model);
         }
 

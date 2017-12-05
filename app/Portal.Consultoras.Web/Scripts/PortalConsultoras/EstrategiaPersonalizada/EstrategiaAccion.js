@@ -50,11 +50,13 @@ function VerDetalleEstrategia(e) {
     var estrategia = EstrategiaObtenerObj(e);
     var objHtmlEvent = $(e.target);
     if (objHtmlEvent.length == 0) objHtmlEvent = $(e);
+
     var origenPedido = $(objHtmlEvent).parents("[data-item]").find("input.OrigenPedidoWeb").val()
         || $(objHtmlEvent).parents("[data-item]").attr("OrigenPedidoWeb")
         || $(objHtmlEvent).parents("[data-item]").attr("data-OrigenPedidoWeb")
         || $(objHtmlEvent).parents("[data-OrigenPedidoWeb]").attr("data-OrigenPedidoWeb")
         || origenPedidoWebEstrategia;
+
     estrategia.OrigenPedidoWeb = origenPedido;
 
     _campania = $(objHtmlEvent).parents("[data-tag-html]").attr("data-tag-html");
@@ -88,8 +90,6 @@ function VerDetalleEstrategia(e) {
 
     } catch (e) { console.log(e) }
 
-
-
     if (isMobile()) {
         EstrategiaVerDetalleMobile(estrategia, origenPedido);
         return true;
@@ -99,6 +99,8 @@ function VerDetalleEstrategia(e) {
 
     estrategia.ContentItem = $(e.target).parents("[data-content-item]").attr("data-content-item");
 
+    estrategia.OrigenPedidoWeb = $(objHtmlEvent).parents("[data-OrigenPedidoWeb-popup]").attr("data-OrigenPedidoWeb-popup") || origenPedido
+    
     if (estrategia.TipoEstrategiaImagenMostrar == '2') {
 
         EstrategiaVerDetallePackNueva(estrategia);

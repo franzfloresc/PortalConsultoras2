@@ -24,12 +24,15 @@ namespace Portal.Consultoras.BizLogic
                 BEUsuario usuario = null;
                 using (IDataReader reader = (new DAConfiguracionCampania(paisID)).GetConfiguracionByUsuarioAndCampania(paisID, consultoraID, campania, usuarioPrueba, aceptacionConsultoraDA))
                 {
-                    if (reader.Read()) usuario = new BEUsuario(reader, true);
+                    if (reader.Read())
+                        usuario = new BEUsuario(reader, true);
                 }
+                usuario = usuario ?? new BEUsuario();
                 BEConfiguracionCampania configuracion = null;
                 using (IDataReader reader = new DAPedidoWeb(paisID).GetEstadoPedido(campania, usuarioPrueba ? usuario.ConsultoraAsociadaID : usuario.ConsultoraID))
                 {
-                    if (reader.Read()) configuracion = new BEConfiguracionCampania(reader);
+                    if (reader.Read())
+                        configuracion = new BEConfiguracionCampania(reader);
                 }
                 usuario.IndicadorGPRSB = configuracion == null ? 0 : configuracion.IndicadorGPRSB;
 
@@ -95,12 +98,15 @@ namespace Portal.Consultoras.BizLogic
                 BEUsuario usuario = null;
                 using (IDataReader reader = (new DAConfiguracionCampania(paisID)).GetConfiguracionByUsuarioAndCampania(paisID, consultoraID, campania, usuarioPrueba, aceptacionConsultoraDA))
                 {
-                    if (reader.Read()) usuario = new BEUsuario(reader, true);
+                    if (reader.Read())
+                        usuario = new BEUsuario(reader, true);
                 }
                 BEConfiguracionCampania configuracion = null;
+                usuario = usuario ?? new BEUsuario();
                 using (IDataReader reader = new DAPedidoWeb(paisID).GetEstadoPedido(campania, usuarioPrueba ? usuario.ConsultoraAsociadaID : usuario.ConsultoraID))
                 {
-                    if (reader.Read()) configuracion = new BEConfiguracionCampania(reader);
+                    if (reader.Read())
+                        configuracion = new BEConfiguracionCampania(reader);
                 }
                 UpdateDiaPROLAndEsHoraReserva(usuario);
 
@@ -757,7 +763,7 @@ namespace Portal.Consultoras.BizLogic
                 mailBody.AppendFormat("<tr><td colspan = '2' style = 'width: 100%; text-align: left; color: #4d4d4e; font-family: Arial; font-size: 13px; padding-top: 2px;' > Cantidad: {0} </td></tr>", pedidoDetalle.Cantidad);
                 mailBody.Append(rowPrecioUnitario);
 
-                if (input.EstadoSimplificacionCUV && input.EstadoSimplificacionCUV)
+                if (input.EstadoSimplificacionCUV)
                 {
                     if (pedidoDetalle.IndicadorOfertaCUV)
                     {

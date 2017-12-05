@@ -16,7 +16,6 @@ namespace Portal.Consultoras.BizLogic
             DABanner = new DABanner();
         }
 
-        //RQ_SB - R2133
         public IList<BEBanner> SelectBanner(int campaniaID)
         {
             List<BEBanner> banners = (List<BEBanner>)CacheManager<BEBanner>.GetData(ECacheItem.Banners, campaniaID.ToString());
@@ -78,7 +77,6 @@ namespace Portal.Consultoras.BizLogic
             return banners;
         }
 
-        //RQ_SB - R2133
         public IList<BEBannerInfo> SelectBannerByConsultora(int paisID, int campaniaID, string codigoConsultora, bool consultoraNueva)
         {
             IList<BEBanner> banners = SelectBanner(campaniaID);
@@ -197,16 +195,6 @@ namespace Portal.Consultoras.BizLogic
 
                     if (consultoras.Count > 0)
                         grupos[index].Consultoras = consultoras.ToArray();
-
-                    //List<BEGrupoConsultora> consultoras = new List<BEGrupoConsultora>();
-                    //while (reader.Read())
-                    //{
-                    //    BEGrupoConsultora consultora = new BEGrupoConsultora(reader);
-                    //    consultoras.Add(consultora);
-                    //}
-
-                    //foreach (var item in grupos)
-                    //    item.Consultoras = consultoras.FindAll(x => x.GrupoBannerID == item.GrupoBannerID).ToArray();
                 }
             }
             CacheManager<BEGrupoBanner>.AddData(ECacheItem.GruposBanner, campaniaID.ToString(), grupos);
@@ -291,7 +279,6 @@ namespace Portal.Consultoras.BizLogic
             return pais;
         }
 
-        //RQ_SB - R2133
         public IList<BEBanner> SelectBannerBienvenida(int campaniaID)
         {
             List<BEBanner> banners = (List<BEBanner>)CacheManager<BEBanner>.GetData(ECacheItem.BannersBienvenida, campaniaID.ToString());
@@ -362,7 +349,6 @@ namespace Portal.Consultoras.BizLogic
             return banners;
         }
 
-        //RQ_SB - R2133
         public IList<BEBannerInfo> SelectBannerByConsultoraBienvenida(int paisID, int campaniaID, string codigoConsultora, bool consultoraNueva)
         {
             IList<BEBanner> banners = SelectBannerBienvenida(campaniaID);
@@ -376,7 +362,6 @@ namespace Portal.Consultoras.BizLogic
                 {
                     if (consultoraNueva && banner.Paises != null && banner.Paises.Contains(paisID))
                     {
-                        /*CGI(RSA) - REQ 2544 INICIO*/
                         List<BEBannerSegmentoZona> segzona = banner.PaisesSegZona.Where(p => p.PaisId == paisID).ToList();
                         if (segzona.Count > 0)
                         {
@@ -388,9 +373,7 @@ namespace Portal.Consultoras.BizLogic
                                 bannersByConsultora.Add(temp);
                             });
                         }
-                        /*CGI(RSA) - REQ 2544 FIN*/
                     }
-                    continue;
                 }
                 else if (banner.FlagGrupoConsultora)
                 {
@@ -400,7 +383,6 @@ namespace Portal.Consultoras.BizLogic
 
                     if (consultora != null)
                     {
-                        /*CGI(RSA) - REQ 2544 INICIO*/
                         List<BEBannerSegmentoZona> segzona = banner.PaisesSegZona.Where(p => p.PaisId == paisID).ToList();
                         if (segzona.Count > 0)
                         {
@@ -412,13 +394,10 @@ namespace Portal.Consultoras.BizLogic
                                 bannersByConsultora.Add(temp);
                             });
                         }
-                        /*CGI(RSA) - REQ 2544 FIN*/
                     }
-                    continue;
                 }
                 else if (banner.Paises != null && banner.Paises.Contains(paisID))
                 {
-                    /*CGI(RSA) - REQ 2544 INICIO*/
                     List<BEBannerSegmentoZona> segzona = banner.PaisesSegZona.Where(p => p.PaisId == paisID).ToList();
                     if (segzona.Count > 0)
                     {
@@ -430,14 +409,11 @@ namespace Portal.Consultoras.BizLogic
                             bannersByConsultora.Add(temp);
                         });
                     }
-                    /*CGI(RSA) - REQ 2544 FIN*/
-                    continue;
                 }
             }
             return bannersByConsultora;
         }
 
-        //RQ_SB - R2133
         public BEBannerSegmentoZona GetBannerSegmentoSeccion(int CampaniaId, int BannerId, int PaisId)
         {
             BEBannerSegmentoZona oBEBannerSegmentoZona = null;
@@ -450,13 +426,12 @@ namespace Portal.Consultoras.BizLogic
                     {
                         Segmento = Convert.ToInt32(reader["Segmento"]),
                         ConfiguracionZona = Convert.ToString(reader["ConfiguracionZona"]),
-                        SegmentoInterno = Convert.ToString(reader["SegmentoInterno"])/*CGI(RSA) - REQ 2544*/
+                        SegmentoInterno = Convert.ToString(reader["SegmentoInterno"])
                     };
                 }
             return oBEBannerSegmentoZona;
         }
 
-        //RQ_SB - R2133
         public List<BEBannerSegmentoZona> GetBannerPaisesAsignados(int CampaniaId, int BannerId)
         {
             List<BEBannerSegmentoZona> Lista = new List<BEBannerSegmentoZona>();
@@ -474,8 +449,6 @@ namespace Portal.Consultoras.BizLogic
             return Lista;
         }
 
-        //RQ_SB - R2133
-        /*RE2544 - CS(CGI) - Agregando nuevo parametro - 15/05/2015 */
         public void UpdBannerPaisSegmentoZona(int CampaniaId, int BannerId, int PaisId, int Segmento, string ConfiguracionZona, string SegmentoInterno)
         {
             DABanner DABanner = new DABanner();
@@ -484,7 +457,6 @@ namespace Portal.Consultoras.BizLogic
             CacheManager<BEBanner>.RemoveData(ECacheItem.BannersBienvenida, CampaniaId.ToString());
         }
 
-        //RQ_SB - R2133
         public void DeleteCacheBanner(int CampaniaID)
         {
             CacheManager<BEBanner>.RemoveData(ECacheItem.Banners, CampaniaID.ToString());

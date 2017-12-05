@@ -38,7 +38,6 @@ namespace Portal.Consultoras.Web.CustomFilters
                     var originalString = filterContext.RequestContext.HttpContext.Request.UrlReferrer.OriginalString;
                     if (originalString.IndexOf(RoutePrefix, StringComparison.OrdinalIgnoreCase) > 0)
                     {
-                        //36 is guid length
                         var urlGuid = originalString.Substring(originalString.IndexOf(RoutePrefix, StringComparison.OrdinalIgnoreCase) + RoutePrefix.Length, 36);
                         guid = string.IsNullOrEmpty(guid) ? urlGuid : guid;
                     }

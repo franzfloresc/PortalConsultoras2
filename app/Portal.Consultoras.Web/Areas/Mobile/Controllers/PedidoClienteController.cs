@@ -15,7 +15,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult Index()
         {
-            var userData = UserData();
             var model = new PedidoWebClientePrincipalMobilModel();
             try
             {
@@ -28,9 +27,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     lst = sv.GetPedidosWebByConsultora(userData.PaisID, userData.ConsultoraID).ToList();
                 }
 
-                //List<BEPedidoWeb> lista3Ultimos = new 
-                //if(userData.TipoUsuario  == 2) lista3Ultimos
-                //else
                 var lista3Ultimos = lst.OrderByDescending(p => p.CampaniaID).Take(3).ToList();
 
                 foreach (var item in lista3Ultimos)
@@ -47,10 +43,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 }
 
-                BEPedidoWebDetalle[] lstPedidoDetalle;
-                BEPedidoWebDetalle[] lstPedidoDetalleProducto;
                 foreach (var pedidoCliente in model.ListaPedidoCliente)
                 {
+                    BEPedidoWebDetalle[] lstPedidoDetalle;
                     using (var sv = new ClienteServiceClient())
                     {
                         lstPedidoDetalle = sv.GetClientesByCampania(userData.PaisID, pedidoCliente.CampaniaID, userData.ConsultoraID);
@@ -68,6 +63,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                     foreach (var pedidoDetalleProducto in pedidoCliente.ListaPedidoWebDetalle)
                     {
+                        BEPedidoWebDetalle[] lstPedidoDetalleProducto;
                         using (var sv = new ClienteServiceClient())
                         {
                             lstPedidoDetalleProducto = sv.GetPedidoWebDetalleByCliente(userData.PaisID, pedidoCliente.CampaniaID, userData.ConsultoraID, pedidoDetalleProducto.ClienteID);

@@ -1,5 +1,4 @@
 ﻿using Portal.Consultoras.Common;
-
 using System;
 using System.Data;
 using System.Runtime.Serialization;
@@ -243,6 +242,15 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public DateTime FechaInicioFacturacion { get; set; }
 
+
+        /* BPT-369 */
+        [DataMember]
+        public int FlagValidarImagen { get; set; }
+
+        [DataMember]
+        public int PesoMaximoImagen { get; set; }
+        /* BPT-369 */
+
         [DataMember]
         [Column("CodigoPrograma")]
         public string CodigoPrograma { get; set; }
@@ -293,6 +301,63 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "MostrarImgOfertaIndependiente"))
                 MostrarImgOfertaIndependiente = Convert.ToBoolean(row["MostrarImgOfertaIndependiente"].ToString());
+        }
+
+        public BEEstrategia(IDataRecord row, int liteVersion)
+        {
+            if (DataRecord.HasColumn(row, "EstrategiaID") && row["EstrategiaID"] != DBNull.Value)
+                EstrategiaID = Convert.ToInt32(row["EstrategiaID"]);
+
+            if (DataRecord.HasColumn(row, "Precio2") && row["Precio2"] != DBNull.Value)
+                Precio2 = Convert.ToDecimal(row["Precio2"]);
+
+            if (DataRecord.HasColumn(row, "NumeroPedido") && row["NumeroPedido"] != DBNull.Value)
+                NumeroPedido = Convert.ToInt32(row["NumeroPedido"]);
+
+            if (DataRecord.HasColumn(row, "CUV2") && row["CUV2"] != DBNull.Value)
+                CUV2 = row["CUV2"].ToString();
+
+            if (DataRecord.HasColumn(row, "DescripcionCUV2") && row["DescripcionCUV2"] != DBNull.Value)
+                DescripcionCUV2 = row["DescripcionCUV2"].ToString();
+
+            if (DataRecord.HasColumn(row, "Activo") && row["Activo"] != DBNull.Value)
+                Activo = Convert.ToInt32(row["Activo"]);
+
+            if (DataRecord.HasColumn(row, "ImagenURL") && row["ImagenURL"] != DBNull.Value)
+                ImagenURL = row["ImagenURL"].ToString();
+
+            if (DataRecord.HasColumn(row, "LimiteVenta") && row["LimiteVenta"] != DBNull.Value)
+                LimiteVenta = Convert.ToInt32(row["LimiteVenta"]);
+
+            if (DataRecord.HasColumn(row, "CodigoProducto") && row["CodigoProducto"] != DBNull.Value)
+                CodigoProducto = row["CodigoProducto"].ToString();
+
+            PrecioPublico = DataRecord.GetColumn<decimal>(row, "PrecioPublico");
+            Ganancia = DataRecord.GetColumn<decimal>(row, "Ganancia");
+
+            if (DataRecord.HasColumn(row, "EsOfertaIndependiente"))
+                EsOfertaIndependiente = Convert.ToBoolean(row["EsOfertaIndependiente"].ToString());
+
+            if (DataRecord.HasColumn(row, "ImagenOfertaIndependiente"))
+                ImagenOfertaIndependiente = row["ImagenOfertaIndependiente"].ToString();
+
+            if (DataRecord.HasColumn(row, "MostrarImgOfertaIndependiente"))
+                MostrarImgOfertaIndependiente = Convert.ToBoolean(row["MostrarImgOfertaIndependiente"].ToString());
+
+            if (DataRecord.HasColumn(row, "Orden"))
+                Orden = Convert.ToInt32(row["Orden"]);
+
+            if (DataRecord.HasColumn(row, "ID"))
+                ID = Convert.ToInt32(row["ID"]);
+            //BPT-369
+            if (DataRecord.HasColumn(row, "FlagValidarImagen"))
+                FlagValidarImagen = int.Parse((row["FlagValidarImagen"].ToString()));
+
+            if (DataRecord.HasColumn(row, "PesoMaximoImagen"))
+                PesoMaximoImagen = int.Parse((row["PesoMaximoImagen"].ToString()));
+
+
+
         }
 
         public BEEstrategia(IDataRecord row)

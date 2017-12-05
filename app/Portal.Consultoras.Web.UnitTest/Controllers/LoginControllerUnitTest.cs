@@ -1,15 +1,43 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Portal.Consultoras.Web.Controllers;
+using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.SessionManager;
+using Portal.Consultoras.Web.UnitTest.Attributes;
 using System;
 using System.Collections.Generic;
+using Portal.Consultoras.Web.ServiceUsuario;
+using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Web.UnitTest.Controllers
 {
     [TestClass]
     public class LoginControllerUnitTest
     {
+
+        [TestClass]
+        public class Base
+        {
+            public Mock<ILogManager> logManager;
+            public Mock<ISessionManager> sessionManager;
+
+            [TestInitialize]
+            public void Test_Initialize()
+            {
+                logManager = new Mock<ILogManager>();
+                sessionManager = new Mock<ISessionManager>();
+            }
+
+            [TestCleanup]
+            public void Test_Cleanup()
+            {
+                logManager = null;
+                sessionManager = null;
+            }
+        }
+
+
         [TestClass]
         public class Index
         {
@@ -73,18 +101,87 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             //    }
             //}
 
-        //    [TestMethod]
-        //    public void Index_GetClientIpReturnsOneIp_LogsZeError()
-        //    {
-        //        var controler = new LoginController_GetClientIpReturnsOneIp();
+            //[TestMethod]
+            //public void Index_GetClientIpReturnsOneIp_LogsZeError()
+            //{
+            //    var controler = new LoginController_GetClientIpReturnsOneIp();
 
-        //        controler.Index();
+            //    controler.Index();
 
-        //        LogManager.Verify(x => x.LogErrorWebServicesBus2(It.Is<Exception>(e => e.Message.Contains("The specified IP address was incorrectly formatted")),
-        //            It.IsAny<string>(),
-        //            It.IsAny<string>(),
-        //            It.IsAny<string>()), Times.Never);
-        //    }
+            //    LogManager.Verify(x => x.LogErrorWebServicesBus2(It.Is<Exception>(e => e.Message.Contains("The specified IP address was incorrectly formatted")),
+            //        It.IsAny<string>(),
+            //        It.IsAny<string>(),
+            //        It.IsAny<string>()), Times.Never);
+            //}
+        }
+
+        [TestClass]
+        public class GetUserData : Base
+        {
+            [TestMethod]
+            [ExpectedExceptionWithMessage(typeof(ArgumentException), "Parámetro paisId no puede ser cero.")]
+            public void GetUserData_WhenPaidIdIsZero_ThrowArgumentException()
+            {
+                // Arrange
+                var controller = new LoginController(logManager.Object,sessionManager.Object);
+
+                // Act
+                var result = controller.GetUserData(0, string.Empty, 0);
+
+                // Assert
+            }
+
+            [TestMethod]
+            [ExpectedExceptionWithMessage(typeof(ArgumentException), "Parámetro codigoUsuario no puede ser vacío.")]
+            public void GetUserData_WhenCodigoUsuarioIsEmpty_ThrowArgumentException()
+            {
+                // Arrange
+                var controller = new LoginController(logManager.Object, sessionManager.Object);
+
+                // Act
+                var result = controller.GetUserData(1, string.Empty, 0);
+
+                // Assert
+            }
+
+            class LoginControllerStub : LoginController
+            {
+                public LoginControllerStub(ILogManager logManager,ISessionManager sessionManager):base(logManager,sessionManager)
+                {
+
+                }
+
+                protected override BEUsuario GetUsuarioAndLogsIngresoPortal(int paisId, string codigoUsuario, int refrescarDatos)
+                {
+                    var usuario = new BEUsuario();
+                    usuario.CodigoISO = "PE";
+                    usuario.RolID = Constantes.Rol.Consultora;
+                    usuario.CampaniaID = 201715;
+                    usuario.NroCampanias = 18;
+                    return usuario;
+                }
+
+                protected override List<ConfiguracionPaisModel> GetConfiguracionPais(UsuarioModel usuarioModel)
+                {
+                    var list = new List<ConfiguracionPaisModel>();
+                    list.Add(new ConfiguracionPaisModel { Codigo = "GND" });
+                    return list;
+                }
+            }
+
+            [TestMethod]
+            public void GetUserData_WhenConfiguracionPaisHasGnd_UserModelTieneGndReturnsTrue()
+            {
+                // Arrange
+                var controller = new LoginControllerStub(logManager.Object, sessionManager.Object);
+
+                // Act
+                var result = controller.GetUserData(1, "041395737", 0);
+
+                // Assert
+                Assert.IsNotNull(result);
+                Assert.AreEqual(true, result.TieneGND);
+            }
         }
     }
 }

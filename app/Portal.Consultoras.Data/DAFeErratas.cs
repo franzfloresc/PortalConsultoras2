@@ -25,13 +25,6 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        //public IDataReader GetFeErratasById(int feErratasID)
-        //{
-        //    DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetFeErratasID");
-        //    Context.Database.AddInParameter(command, "@FeErratasID", DbType.Int32, feErratasID);
-        //    return Context.ExecuteReader(command);
-        //}
-
         public int Insert(BEFeErratas entidad)
         {
             SqlCommand cmd = new SqlCommand("InsFeErratas");

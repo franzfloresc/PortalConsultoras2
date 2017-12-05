@@ -83,7 +83,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<AdministrarPalancaModel, ServiceSAC.BEConfiguracionPais > ();
 
             Mapper.CreateMap<AdministrarOfertasHomeModel, BEConfiguracionOfertasHome>();
-
+            Mapper.CreateMap<DescripcionEstrategiaModel, BEDescripcionEstrategia>();
         }
     }
 }
