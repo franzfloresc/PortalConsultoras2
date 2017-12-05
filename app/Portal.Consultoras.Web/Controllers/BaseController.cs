@@ -3581,41 +3581,41 @@ namespace Portal.Consultoras.Web.Controllers
                 case Constantes.UrlMenuContenedor.RdInicioIndex:
                     menuActivo.Codigo = revistaDigital.TieneRDC || revistaDigital.TieneRDR ? Constantes.ConfiguracionPais.InicioRD : Constantes.ConfiguracionPais.Inicio;
                     menuActivo.OrigenPantalla = IsMobile()
-                        ? Constantes.OrigenPantallWeb.MContenedorHome
-                        : Constantes.OrigenPantallWeb.DContenedorHome;
+                        ? Constantes.OrigenPantallaWeb.MContenedorHome
+                        : Constantes.OrigenPantallaWeb.DContenedorHome;
                     break;
                 case Constantes.UrlMenuContenedor.InicioRevisar:
                     menuActivo.Codigo = revistaDigital.TieneRDC || revistaDigital.TieneRDR ? Constantes.ConfiguracionPais.InicioRD : Constantes.ConfiguracionPais.Inicio;
                     menuActivo.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
                     menuActivo.OrigenPantalla = IsMobile()
-                        ? Constantes.OrigenPantallWeb.MContenedorHomeRevisar
-                        : Constantes.OrigenPantallWeb.DContenedorHomeRevisar;
+                        ? Constantes.OrigenPantallaWeb.MContenedorHomeRevisar
+                        : Constantes.OrigenPantallaWeb.DContenedorHomeRevisar;
                     break;
                 case Constantes.UrlMenuContenedor.RdComprar:
                     menuActivo.Codigo = revistaDigital.TieneRDC ? Constantes.ConfiguracionPais.RevistaDigital : Constantes.ConfiguracionPais.RevistaDigitalReducida;
                     menuActivo.OrigenPantalla = IsMobile()
-                        ? Constantes.OrigenPantallWeb.MRevistaDigital
-                        : Constantes.OrigenPantallWeb.DRevistaDigital;
+                        ? Constantes.OrigenPantallaWeb.MRevistaDigital
+                        : Constantes.OrigenPantallaWeb.DRevistaDigital;
                     break;
                 case Constantes.UrlMenuContenedor.RdRevisar:
                     menuActivo.Codigo = revistaDigital.TieneRDC ? Constantes.ConfiguracionPais.RevistaDigital : Constantes.ConfiguracionPais.RevistaDigitalReducida;
                     menuActivo.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
                     menuActivo.OrigenPantalla = IsMobile()
-                        ? Constantes.OrigenPantallWeb.MRevistaDigitalRevisar
-                        : Constantes.OrigenPantallWeb.DRevistaDigitalRevisar;
+                        ? Constantes.OrigenPantallaWeb.MRevistaDigitalRevisar
+                        : Constantes.OrigenPantallaWeb.DRevistaDigitalRevisar;
                     break;
                 case Constantes.UrlMenuContenedor.RdInformacion:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.Informacion;
                     menuActivo.CampaniaId = 0;
                     menuActivo.OrigenPantalla = IsMobile()
-                        ? Constantes.OrigenPantallWeb.MRevistaDigitalInfo
-                        : Constantes.OrigenPantallWeb.DRevistaDigitalInfo;
+                        ? Constantes.OrigenPantallaWeb.MRevistaDigitalInfo
+                        : Constantes.OrigenPantallaWeb.DRevistaDigitalInfo;
                     break;
                 case Constantes.UrlMenuContenedor.RdDetalle:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.Lanzamiento;
                     menuActivo.OrigenPantalla = IsMobile()
-                        ? Constantes.OrigenPantallWeb.MRevistaDigitalDetalle
-                        : Constantes.OrigenPantallWeb.DRevistaDigitalDetalle;
+                        ? Constantes.OrigenPantallaWeb.MRevistaDigitalDetalle
+                        : Constantes.OrigenPantallaWeb.DRevistaDigitalDetalle;
                     break;
                 case Constantes.UrlMenuContenedor.SwInicio:
                 case Constantes.UrlMenuContenedor.SwIntriga:
@@ -3623,8 +3623,8 @@ namespace Portal.Consultoras.Web.Controllers
                 case Constantes.UrlMenuContenedor.SwInicioIndex:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.ShowRoom;
                     menuActivo.OrigenPantalla = IsMobile()
-                        ? Constantes.OrigenPantallWeb.MShowRoom
-                        : Constantes.OrigenPantallWeb.DShowRoom;
+                        ? Constantes.OrigenPantallaWeb.MShowRoom
+                        : Constantes.OrigenPantallaWeb.DShowRoom;
                     break;
                 case Constantes.UrlMenuContenedor.OptDetalle:
                     menuActivo.Codigo = GetMenuActivoOptCodigoSegunActivo(pathOrigen);
@@ -3639,8 +3639,8 @@ namespace Portal.Consultoras.Web.Controllers
                 case Constantes.UrlMenuContenedor.GuiaDeNegocioIndex:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada;
                     menuActivo.OrigenPantalla = IsMobile()
-                        ? Constantes.OrigenPantallWeb.MGuiaNegocio
-                        : Constantes.OrigenPantallWeb.DGuiaNegocio;
+                        ? Constantes.OrigenPantallaWeb.MGuiaNegocio
+                        : Constantes.OrigenPantallaWeb.DGuiaNegocio;
                     break;
                 default:
                     break;
