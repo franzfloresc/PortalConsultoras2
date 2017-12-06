@@ -51,6 +51,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             string PaisesCatalogoWhatsUp = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesCatalogoWhatsUp);
             ViewBag.ActivacionAppCatalogoWhastUp = PaisesCatalogoWhatsUp.Contains(userData.CodigoISO) ? 1 : 0;
 
+            var paisesEsika = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesEsika).ToLower();
+            ViewBag.EsPaisEsika = paisesEsika.Contains(userData.CodigoISO.ToLower());
+
             return View(clienteModel);
         }
 

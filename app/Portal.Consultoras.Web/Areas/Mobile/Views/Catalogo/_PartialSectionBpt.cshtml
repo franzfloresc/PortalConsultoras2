@@ -9,6 +9,10 @@
     {
         urlLogo = Model.MLogoComercialActiva;
     }
+
+    var urlArrowRight = "~/Content/Images/RevistaDigital/";
+    urlArrowRight += ViewBag.EsPaisEsika == true ? "rd_arrowright_red.png" : "rd_arrowright.png";
+
 }
 <div class="content_revistas_mob">
     @if (Model.TieneRDC)
@@ -38,7 +42,7 @@
                         <div class="btn_red">
                             <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigitalReducida')">
                                 VER TODAS MIS OFERTAS
-                                <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")">
+                                <img class="rd_arrowright" src="@Url.Content(urlArrowRight)">
                             </a>
                         </div>
                     </div>
@@ -74,7 +78,7 @@
                         <div class="btn_red">
                             <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
                                 VER TODAS MIS OFERTAS
-                                <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")">
+                                <img class="rd_arrowright" src="@Url.Content(urlArrowRight)">
                             </a>
                         </div>
                     </div>
