@@ -9,6 +9,10 @@
     {
         urlLogo = Model.MLogoComercialActiva;
     }
+    else if (Model.TieneRDR)
+    {
+        urlLogo = Model.MLogoComercialFondoNoActiva;
+    }
 
     var urlArrowRight = "~/Content/Images/RevistaDigital/";
     urlArrowRight += ViewBag.EsPaisEsika == true ? "rd_arrowright_red.png" : "rd_arrowright.png";
@@ -96,10 +100,12 @@
                 <div class="seccionRevistaDigital_logo_marca">
                     <img src="@urlLogo" alt="Club Gana+" class="small"/>
                 </div>
+                <div class="clear"></div>
                 <div class="contenido_seccionRevistaDigital">
                     <span>@Html.Raw(configuracionPaisDatosModel.Valor1)</span>
                     <span>@Html.Raw(configuracionPaisDatosModel.Valor2)</span>
                 </div>
+                <div class="clear"></div>
                 <div class="revistadigital contenedor_botonVerMasOfertas">
                     <div class="boxoffer" style="cursor: pointer; position: relative !important;"
                             onclick="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital');">
