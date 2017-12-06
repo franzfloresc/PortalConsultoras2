@@ -14,6 +14,7 @@ namespace Portal.Consultoras.Web.Models
         public int Orden { get; set; }
         public string ImagenFondo { get; set; }
         public string Titulo { get; set; }
+        public string TituloBtnAnalytics { get; set; }
         public string SubTitulo { get; set; }
         public int TipoPresentacion { get; set; }
         public string TipoEstrategia { get; set; }
