@@ -16,6 +16,7 @@ using iTextSharp.tool.xml;
 using iTextSharp.text.html.simpleparser;
 using AutoMapper;
 using System.Globalization;
+using System.Configuration;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -118,7 +119,8 @@ namespace Portal.Consultoras.Web.Controllers
             var certificadoId = 0;
             var nombre = "";
             var mensajeError = "";
-            const int cantidadCampaniaConsecutiva = 3;
+            //const int cantidadCampaniaConsecutiva = 5;
+            var cantidadCampaniaConsecutiva = ConfigurationManager.AppSettings["cantCampaniaConsecutivaCertComercial"] ?? "5";
 
             switch (userData.PaisID)
             {
@@ -129,7 +131,7 @@ namespace Portal.Consultoras.Web.Controllers
                     bool tieneCampaniaConsecutivas = false;
                     using (PedidoServiceClient ps = new PedidoServiceClient())
                     {
-                        tieneCampaniaConsecutivas = ps.TieneCampaniaConsecutivas(userData.PaisID, userData.CampaniaID, cantidadCampaniaConsecutiva, userData.ConsultoraID);
+                        tieneCampaniaConsecutivas = ps.TieneCampaniaConsecutivas(userData.PaisID, userData.CampaniaID, int.Parse(cantidadCampaniaConsecutiva), userData.ConsultoraID);
                     }
 
                     //tieneCampaniaConsecutivas = true;   // test
@@ -229,7 +231,10 @@ namespace Portal.Consultoras.Web.Controllers
                         model.Moneda = userData.Simbolo;
                         //model.UrlFirma = "";
 
+                        model.CodigoIso = userData.CodigoISO;
+                        model.CantidadConsecutivaNueva = ConfigurationManager.AppSettings["cantCampaniaConsecutivaCertComercial"] ?? "5";
                         var view = model.NombreVista;
+                        
 
                         string html = RenderViewToString(ControllerContext,
                             view, model, true);
