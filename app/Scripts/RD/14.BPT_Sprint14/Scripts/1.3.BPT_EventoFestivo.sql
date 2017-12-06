@@ -1,0 +1,17 @@
+
+GO
+
+IF EXISTS(
+SELECT *
+FROM SYS.OBJECTS O 
+	JOIN SYS.COLUMNS C ON O.[OBJECT_ID] = C.[OBJECT_ID]
+	AND O.TYPE = 'U'
+	AND O.NAME = 'EventoFestivo'
+	AND C.NAME = 'Nombre'
+)
+BEGIN
+	ALTER TABLE EventoFestivo
+	ALTER COLUMN Nombre VARCHAR(50);
+END
+
+go

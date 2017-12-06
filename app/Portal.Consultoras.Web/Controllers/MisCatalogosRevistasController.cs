@@ -5,7 +5,6 @@ using Portal.Consultoras.Web.ServiceCliente;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -22,7 +21,6 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Index()
         {
             var clienteModel = new MisCatalogosRevistasModel();
-
             clienteModel.PaisNombre = getPaisNombreByISO(userData.CodigoISO);
             clienteModel.CampaniaActual = userData.CampaniaID.ToString();
             clienteModel.CampaniaAnterior = AddCampaniaAndNumero(userData.CampaniaID, -1).ToString();
@@ -31,12 +29,20 @@ namespace Portal.Consultoras.Web.Controllers
             clienteModel.CodigoRevistaAnterior = GetRevistaCodigoIssuu(clienteModel.CampaniaAnterior);
             clienteModel.CodigoRevistaSiguiente = GetRevistaCodigoIssuu(clienteModel.CampaniaSiguiente);
 
+            var tieneGND = userData.TieneGND;
+            clienteModel.TieneGND = tieneGND;
+            clienteModel.MostrarTab =
+                (revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsSuscritaInactiva() && !tieneGND ||
+                ((revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsNoSuscritaInactiva() && !tieneGND) ||
+                (!revistaDigital.TieneRDC && !revistaDigital.TieneRDR && !tieneGND) ||
+                ((revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsSuscritaActiva() && !tieneGND) ||
+                (revistaDigital.TieneRDR && !tieneGND);
+            
+            clienteModel.RevistaDigital = revistaDigital;
+
             ViewBag.CodigoISO = userData.CodigoISO;
             ViewBag.EsConsultoraNueva = EsConsultoraNueva();
             ViewBag.TextoMensajeSaludoCorreo = TextoMensajeSaludoCorreo;
-
-            clienteModel.MostrarRevistaDigital = revistaDigital.TieneRDR;
-            clienteModel.RevistaDigital = revistaDigital;
             ViewBag.NombreConsultora = userData.Sobrenombre;
             return View(clienteModel);
         }
@@ -81,7 +87,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             List<Catalogo> catalogos = new List<Catalogo>();
             string urlISSUUSearch = "http:" + Constantes.CatalogoUrlIssu.Buscador;
-            string urlISSUUVisor = ConfigurationManager.AppSettings["UrlIssuu"];
+            string urlISSUUVisor = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlIssuu);
 
             try
             {
@@ -237,7 +243,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string urlIconEmail = "http://www.genesis-peru.com/mailing-belcorp/mensaje_mail.png";
                 string urlIconTelefono = "http://www.genesis-peru.com/mailing-belcorp/celu_mail.png";
 
-                if (!ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(userData.CodigoISO))
+                if (!GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesEsika).Contains(userData.CodigoISO))
                 {
                     urlImagenLogo = "https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/jG6i4d6VUyIaUwi/logod.png";
                     urlIconEmail = "https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/SWR2zWZftNbE4mn/mensaje_mail.png";
@@ -540,7 +546,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string codigo = GetRevistaCodigoIssuu(campania);
                 if (string.IsNullOrEmpty(codigo)) return Json(new { success = false }, JsonRequestBehavior.AllowGet);
 
-                string url = ConfigurationManager.AppSettings["UrlIssuu"].ToString();
+                string url = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlIssuu);
                 url = string.Format(url, codigo);
                 return Json(new { success = true, urlRevista = url }, JsonRequestBehavior.AllowGet);
             }
@@ -550,7 +556,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private bool EsCatalogoUnificado(int campania)
         {
-            string paisesCatalogoUnificado = ConfigurationManager.AppSettings["PaisesCatalogoUnificado"] ?? "";
+            string paisesCatalogoUnificado = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesCatalogoUnificado);
             if (!paisesCatalogoUnificado.Contains(userData.CodigoISO)) return false;
 
             string paisUnificado = paisesCatalogoUnificado.Split(';').FirstOrDefault(pais => pais.Contains(userData.CodigoISO));

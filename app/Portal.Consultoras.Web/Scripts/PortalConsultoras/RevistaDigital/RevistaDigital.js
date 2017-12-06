@@ -20,14 +20,7 @@ $(document).ready(function () {
     "use strict";
 
     isDetalle = (window.location.pathname.toLowerCase() + "/").indexOf(sProps.UrlRevistaDigitalDetalle) >= 0;
-
-    var estador = $("[data-estadoregistro]").attr("data-estadoregistro");
-    var rdaccion = estador == 1 ? estador : 0;
-    $("[data-estadoregistro" + rdaccion + "]").show();
-    if (estador == 2) {
-        $("[data-estadoregistro2]").show();
-    }
-
+       
     $('ul[data-tab="tab"] li a[data-tag]').click(function (e) {
         $("#barCursor").css("opacity", "0");
         // mostrar el tab correcto
@@ -41,7 +34,7 @@ $(document).ready(function () {
                 $(objTag).css('padding-top', '50px');
             }
         });
-        // Registrar valrores de analytics
+        // Registrar valores de analytics
         if (!esPrimeraCarga) {
             rdAnalyticsModule.Tabs($(this).attr("data-tab-index"), campaniaId);
         } else { esPrimeraCarga = false; }
@@ -64,8 +57,6 @@ $(document).ready(function () {
             $("#barCursor").css("margin-left", (left) + "px");
         })
         .mouseout(function () { $("#barCursor").css("opacity", "0"); });
-
-    //RDMostrarPosicion();
 
     if (isDetalle) {
         RDDetalleObtener();

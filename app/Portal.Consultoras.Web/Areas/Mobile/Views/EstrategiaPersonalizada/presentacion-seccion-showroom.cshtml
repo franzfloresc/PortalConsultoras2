@@ -6,7 +6,6 @@
     var mostrarShowRoomProductosExpiro = Portal.Consultoras.Web.SessionManager.SessionManager.Instance.GetMostrarShowRoomProductosExpiro();
 
     var mostrarPopupIntriga = !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
-    //var mostrarPopupVenta = mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
 
     var backgroundVenta = mostrarPopupIntriga ? "" : "background: url(" + @Model.ImagenFondo + ") center center no-repeat;";
     var urlToAction = mostrarPopupIntriga ? "/Mobile/ShowRoom/Intriga" : "/Mobile/ShowRoom";
@@ -17,8 +16,7 @@
     <div class="bc_plantilla_estrategia_personalizada"
          data-OrigenPedidoWeb=""
          data-seccion-productos=""
-         data-plantilla="ShowRoom"
-         @*style ="@backgroundVenta"*@>
+         data-plantilla="ShowRoom">
 
         <script id="template-showroom" type="text/x-handlebars-template">
             <div class="" data-popup-main="">
@@ -27,8 +25,6 @@
                     <input type="hidden" id="spnShowRoomEvento" value="{{EventoNombre}}" />
                     <input type="hidden" id="spnShowRoomEventoDescripcion" value="{{EventoTema}}" />
                     <div class="contenedorMensajeIntrigaA">
-                        @*<div class="saludo_consultora_showroom saludo_landing">{{MensajeSaludo}}</div>*@
-                        @*<div class="dias_intriga_home dias_inicio_landing">{{MensajeDiasFaltantes}}</div>*@
                         <div class="faltan_dias_header" style="margin-top:43px; margin-left: 62px;z-index: 2;"><b>{{MensajeDiasFaltantes}}</b></div>
                     </div>
                     <div class="contenedorMensajeIntrigaB">
