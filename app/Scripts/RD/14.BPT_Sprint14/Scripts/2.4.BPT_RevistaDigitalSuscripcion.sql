@@ -10,7 +10,6 @@ from pais where EstadoActivo = 1
 
 update RevistaDigitalSuscripcion
 set CampaniaEfectiva = dbo.fnAddCampaniaAndNumero(@PaisIso, CampaniaID, 1)
-where CampaniaEfectiva is null or CampaniaEfectiva = 0
 
 GO
 
@@ -26,7 +25,6 @@ from pais where EstadoActivo = 1
 
 update RevistaDigitalSuscripcion
 set CampaniaEfectiva = dbo.fnAddCampaniaAndNumero(@PaisIso, CampaniaID, 1)
-where CampaniaEfectiva is null or CampaniaEfectiva = 0
 
 GO
 
@@ -42,7 +40,6 @@ from pais where EstadoActivo = 1
 
 update RevistaDigitalSuscripcion
 set CampaniaEfectiva = dbo.fnAddCampaniaAndNumero(@PaisIso, CampaniaID, 1)
-where CampaniaEfectiva is null or CampaniaEfectiva = 0
 
 GO
 
@@ -58,7 +55,6 @@ from pais where EstadoActivo = 1
 
 update RevistaDigitalSuscripcion
 set CampaniaEfectiva = dbo.fnAddCampaniaAndNumero(@PaisIso, CampaniaID, 1)
-where CampaniaEfectiva is null or CampaniaEfectiva = 0
 
 GO
 
@@ -74,7 +70,6 @@ from pais where EstadoActivo = 1
 
 update RevistaDigitalSuscripcion
 set CampaniaEfectiva = dbo.fnAddCampaniaAndNumero(@PaisIso, CampaniaID, 1)
-where CampaniaEfectiva is null or CampaniaEfectiva = 0
 
 GO
 
@@ -90,7 +85,6 @@ from pais where EstadoActivo = 1
 
 update RevistaDigitalSuscripcion
 set CampaniaEfectiva = dbo.fnAddCampaniaAndNumero(@PaisIso, CampaniaID, 1)
-where CampaniaEfectiva is null or CampaniaEfectiva = 0
 
 GO
 
@@ -106,7 +100,6 @@ from pais where EstadoActivo = 1
 
 update RevistaDigitalSuscripcion
 set CampaniaEfectiva = dbo.fnAddCampaniaAndNumero(@PaisIso, CampaniaID, 1)
-where CampaniaEfectiva is null or CampaniaEfectiva = 0
 
 GO
 
@@ -122,7 +115,6 @@ from pais where EstadoActivo = 1
 
 update RevistaDigitalSuscripcion
 set CampaniaEfectiva = dbo.fnAddCampaniaAndNumero(@PaisIso, CampaniaID, 1)
-where CampaniaEfectiva is null or CampaniaEfectiva = 0
 
 GO
 
@@ -138,7 +130,6 @@ from pais where EstadoActivo = 1
 
 update RevistaDigitalSuscripcion
 set CampaniaEfectiva = dbo.fnAddCampaniaAndNumero(@PaisIso, CampaniaID, 1)
-where CampaniaEfectiva is null or CampaniaEfectiva = 0
 
 GO
 
@@ -154,7 +145,6 @@ from pais where EstadoActivo = 1
 
 update RevistaDigitalSuscripcion
 set CampaniaEfectiva = dbo.fnAddCampaniaAndNumero(@PaisIso, CampaniaID, 1)
-where CampaniaEfectiva is null or CampaniaEfectiva = 0
 
 GO
 
@@ -170,7 +160,6 @@ from pais where EstadoActivo = 1
 
 update RevistaDigitalSuscripcion
 set CampaniaEfectiva = dbo.fnAddCampaniaAndNumero(@PaisIso, CampaniaID, 1)
-where CampaniaEfectiva is null or CampaniaEfectiva = 0
 
 GO
 
@@ -186,7 +175,6 @@ from pais where EstadoActivo = 1
 
 update RevistaDigitalSuscripcion
 set CampaniaEfectiva = dbo.fnAddCampaniaAndNumero(@PaisIso, CampaniaID, 1)
-where CampaniaEfectiva is null or CampaniaEfectiva = 0
 
 GO
 
@@ -202,7 +190,6 @@ from pais where EstadoActivo = 1
 
 update RevistaDigitalSuscripcion
 set CampaniaEfectiva = dbo.fnAddCampaniaAndNumero(@PaisIso, CampaniaID, 1)
-where CampaniaEfectiva is null or CampaniaEfectiva = 0
 
 GO
 
