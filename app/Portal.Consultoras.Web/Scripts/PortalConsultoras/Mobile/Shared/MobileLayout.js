@@ -1067,9 +1067,6 @@ function BannerApp() {
         window.open(oBannerApp.DescripcionAccion);
     });
     $(".banner_app").css("background-image", "url(" + oBannerApp.UrlImagen + ")");
-
-    LayoutHeader();
-    setTimeout(function () { $(window).scrollTop(0) }, 2000)
 }
 
 function VerificarVistaBannerApp() {

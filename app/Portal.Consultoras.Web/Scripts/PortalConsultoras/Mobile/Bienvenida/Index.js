@@ -600,12 +600,13 @@ function ObtenerComunicadosPopup() {
         contentType: 'application/json',
         success: function (response) {
             CloseLoading();
-
+            LayoutHeader();
             if (checkTimeout(response)) {
                 armarComunicadosPopup(response.data)
             }
         },
         error: function (data, error) {
+            LayoutHeader();
             if (checkTimeout(data)) CloseLoading();
         }
     });
