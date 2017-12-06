@@ -739,7 +739,9 @@ function ShowLoading() {
 }
 
 function CloseLoading() {
-    $("#loading-spin").fadeOut("fast");
+    $("#loading-spin").fadeOut("fast", function () {
+        $(window).scrollTop(0);
+    });
 }
 
 function messageInfo(message, fnAceptar) {
