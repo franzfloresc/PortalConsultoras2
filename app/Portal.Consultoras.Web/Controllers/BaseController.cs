@@ -1194,6 +1194,7 @@ namespace Portal.Consultoras.Web.Controllers
             string paisesConTrackingJetlore = ConfigurationManager.AppSettings.Get("PaisesConTrackingJetlore") ?? "";
             ViewBag.PaisesConTrackingJetlore = paisesConTrackingJetlore.Contains(model.CodigoISO) ? "1" : "0";
             ViewBag.EsCatalogoPersonalizadoZonaValida = model.EsCatalogoPersonalizadoZonaValida;
+            ViewBag.ConsultoraId = model.ConsultoraID;
 
             #region Banner
 
