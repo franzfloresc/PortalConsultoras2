@@ -10,7 +10,6 @@ FROM SYS.OBJECTS O
 	AND C.NAME = 'Nombre'
 )
 BEGIN
-	PRINT ('Rollback Cambio tamaño de columna ''EventoFestivo.Nombre'' de 50 a 30 caracteres.')
 	ALTER TABLE EventoFestivo
 	ALTER COLUMN Nombre VARCHAR(30);
 END
@@ -27,7 +26,6 @@ FROM SYS.OBJECTS O
 	AND C.NAME = 'Nombre'
 )
 BEGIN
-	PRINT ('Rollback Cambio tamaño de columna ''EventoFestivo.Nombre'' de 50 a 30 caracteres.')
 	ALTER TABLE EventoFestivo
 	ALTER COLUMN Nombre VARCHAR(30);
 END
@@ -44,7 +42,6 @@ FROM SYS.OBJECTS O
 	AND C.NAME = 'Nombre'
 )
 BEGIN
-	PRINT ('Rollback Cambio tamaño de columna ''EventoFestivo.Nombre'' de 50 a 30 caracteres.')
 	ALTER TABLE EventoFestivo
 	ALTER COLUMN Nombre VARCHAR(30);
 END
@@ -61,7 +58,6 @@ FROM SYS.OBJECTS O
 	AND C.NAME = 'Nombre'
 )
 BEGIN
-	PRINT ('Rollback Cambio tamaño de columna ''EventoFestivo.Nombre'' de 50 a 30 caracteres.')
 	ALTER TABLE EventoFestivo
 	ALTER COLUMN Nombre VARCHAR(30);
 END
@@ -78,7 +74,6 @@ FROM SYS.OBJECTS O
 	AND C.NAME = 'Nombre'
 )
 BEGIN
-	PRINT ('Rollback Cambio tamaño de columna ''EventoFestivo.Nombre'' de 50 a 30 caracteres.')
 	ALTER TABLE EventoFestivo
 	ALTER COLUMN Nombre VARCHAR(30);
 END
@@ -95,7 +90,6 @@ FROM SYS.OBJECTS O
 	AND C.NAME = 'Nombre'
 )
 BEGIN
-	PRINT ('Rollback Cambio tamaño de columna ''EventoFestivo.Nombre'' de 50 a 30 caracteres.')
 	ALTER TABLE EventoFestivo
 	ALTER COLUMN Nombre VARCHAR(30);
 END
@@ -112,7 +106,6 @@ FROM SYS.OBJECTS O
 	AND C.NAME = 'Nombre'
 )
 BEGIN
-	PRINT ('Rollback Cambio tamaño de columna ''EventoFestivo.Nombre'' de 50 a 30 caracteres.')
 	ALTER TABLE EventoFestivo
 	ALTER COLUMN Nombre VARCHAR(30);
 END
@@ -129,7 +122,6 @@ FROM SYS.OBJECTS O
 	AND C.NAME = 'Nombre'
 )
 BEGIN
-	PRINT ('Rollback Cambio tamaño de columna ''EventoFestivo.Nombre'' de 50 a 30 caracteres.')
 	ALTER TABLE EventoFestivo
 	ALTER COLUMN Nombre VARCHAR(30);
 END
@@ -146,7 +138,6 @@ FROM SYS.OBJECTS O
 	AND C.NAME = 'Nombre'
 )
 BEGIN
-	PRINT ('Rollback Cambio tamaño de columna ''EventoFestivo.Nombre'' de 50 a 30 caracteres.')
 	ALTER TABLE EventoFestivo
 	ALTER COLUMN Nombre VARCHAR(30);
 END
@@ -163,7 +154,6 @@ FROM SYS.OBJECTS O
 	AND C.NAME = 'Nombre'
 )
 BEGIN
-	PRINT ('Rollback Cambio tamaño de columna ''EventoFestivo.Nombre'' de 50 a 30 caracteres.')
 	ALTER TABLE EventoFestivo
 	ALTER COLUMN Nombre VARCHAR(30);
 END
@@ -180,7 +170,6 @@ FROM SYS.OBJECTS O
 	AND C.NAME = 'Nombre'
 )
 BEGIN
-	PRINT ('Rollback Cambio tamaño de columna ''EventoFestivo.Nombre'' de 50 a 30 caracteres.')
 	ALTER TABLE EventoFestivo
 	ALTER COLUMN Nombre VARCHAR(30);
 END
@@ -197,7 +186,6 @@ FROM SYS.OBJECTS O
 	AND C.NAME = 'Nombre'
 )
 BEGIN
-	PRINT ('Rollback Cambio tamaño de columna ''EventoFestivo.Nombre'' de 50 a 30 caracteres.')
 	ALTER TABLE EventoFestivo
 	ALTER COLUMN Nombre VARCHAR(30);
 END
@@ -214,7 +202,6 @@ FROM SYS.OBJECTS O
 	AND C.NAME = 'Nombre'
 )
 BEGIN
-	PRINT ('Rollback Cambio tamaño de columna ''EventoFestivo.Nombre'' de 50 a 30 caracteres.')
 	ALTER TABLE EventoFestivo
 	ALTER COLUMN Nombre VARCHAR(30);
 END

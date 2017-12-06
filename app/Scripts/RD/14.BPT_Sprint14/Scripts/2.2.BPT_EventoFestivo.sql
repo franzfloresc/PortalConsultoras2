@@ -52,7 +52,6 @@ FROM EventoFestivo
 WHERE Nombre = 'GIF_MENU_OFERTAS_BPT_CLUB_GANA_MAS'
 )
 BEGIN
-	PRINT('Creando Evento Festivo : GIF_MENU_OFERTAS_BPT_CLUB_GANA_MAS')
 	INSERT INTO EventoFestivo(
 	Nombre
 	,Alcance
@@ -134,7 +133,6 @@ FROM EventoFestivo
 WHERE Nombre = 'GIF_MENU_OFERTAS_BPT_CLUB_GANA_MAS'
 )
 BEGIN
-	PRINT('Creando Evento Festivo : GIF_MENU_OFERTAS_BPT_CLUB_GANA_MAS')
 	INSERT INTO EventoFestivo(
 	Nombre
 	,Alcance
@@ -216,7 +214,6 @@ FROM EventoFestivo
 WHERE Nombre = 'GIF_MENU_OFERTAS_BPT_CLUB_GANA_MAS'
 )
 BEGIN
-	PRINT('Creando Evento Festivo : GIF_MENU_OFERTAS_BPT_CLUB_GANA_MAS')
 	INSERT INTO EventoFestivo(
 	Nombre
 	,Alcance
@@ -298,7 +295,6 @@ FROM EventoFestivo
 WHERE Nombre = 'GIF_MENU_OFERTAS_BPT_CLUB_GANA_MAS'
 )
 BEGIN
-	PRINT('Creando Evento Festivo : GIF_MENU_OFERTAS_BPT_CLUB_GANA_MAS')
 	INSERT INTO EventoFestivo(
 	Nombre
 	,Alcance
@@ -380,7 +376,6 @@ FROM EventoFestivo
 WHERE Nombre = 'GIF_MENU_OFERTAS_BPT_CLUB_GANA_MAS'
 )
 BEGIN
-	PRINT('Creando Evento Festivo : GIF_MENU_OFERTAS_BPT_CLUB_GANA_MAS')
 	INSERT INTO EventoFestivo(
 	Nombre
 	,Alcance
@@ -462,7 +457,6 @@ FROM EventoFestivo
 WHERE Nombre = 'GIF_MENU_OFERTAS_BPT_CLUB_GANA_MAS'
 )
 BEGIN
-	PRINT('Creando Evento Festivo : GIF_MENU_OFERTAS_BPT_CLUB_GANA_MAS')
 	INSERT INTO EventoFestivo(
 	Nombre
 	,Alcance
@@ -544,7 +538,6 @@ FROM EventoFestivo
 WHERE Nombre = 'GIF_MENU_OFERTAS_BPT_CLUB_GANA_MAS'
 )
 BEGIN
-	PRINT('Creando Evento Festivo : GIF_MENU_OFERTAS_BPT_CLUB_GANA_MAS')
 	INSERT INTO EventoFestivo(
 	Nombre
 	,Alcance
@@ -626,7 +619,6 @@ FROM EventoFestivo
 WHERE Nombre = 'GIF_MENU_OFERTAS_BPT_CLUB_GANA_MAS'
 )
 BEGIN
-	PRINT('Creando Evento Festivo : GIF_MENU_OFERTAS_BPT_CLUB_GANA_MAS')
 	INSERT INTO EventoFestivo(
 	Nombre
 	,Alcance
@@ -708,7 +700,6 @@ FROM EventoFestivo
 WHERE Nombre = 'GIF_MENU_OFERTAS_BPT_CLUB_GANA_MAS'
 )
 BEGIN
-	PRINT('Creando Evento Festivo : GIF_MENU_OFERTAS_BPT_CLUB_GANA_MAS')
 	INSERT INTO EventoFestivo(
 	Nombre
 	,Alcance
@@ -790,7 +781,6 @@ FROM EventoFestivo
 WHERE Nombre = 'GIF_MENU_OFERTAS_BPT_CLUB_GANA_MAS'
 )
 BEGIN
-	PRINT('Creando Evento Festivo : GIF_MENU_OFERTAS_BPT_CLUB_GANA_MAS')
 	INSERT INTO EventoFestivo(
 	Nombre
 	,Alcance
@@ -872,7 +862,6 @@ FROM EventoFestivo
 WHERE Nombre = 'GIF_MENU_OFERTAS_BPT_CLUB_GANA_MAS'
 )
 BEGIN
-	PRINT('Creando Evento Festivo : GIF_MENU_OFERTAS_BPT_CLUB_GANA_MAS')
 	INSERT INTO EventoFestivo(
 	Nombre
 	,Alcance
@@ -954,7 +943,6 @@ FROM EventoFestivo
 WHERE Nombre = 'GIF_MENU_OFERTAS_BPT_CLUB_GANA_MAS'
 )
 BEGIN
-	PRINT('Creando Evento Festivo : GIF_MENU_OFERTAS_BPT_CLUB_GANA_MAS')
 	INSERT INTO EventoFestivo(
 	Nombre
 	,Alcance
@@ -1036,7 +1024,6 @@ FROM EventoFestivo
 WHERE Nombre = 'GIF_MENU_OFERTAS_BPT_CLUB_GANA_MAS'
 )
 BEGIN
-	PRINT('Creando Evento Festivo : GIF_MENU_OFERTAS_BPT_CLUB_GANA_MAS')
 	INSERT INTO EventoFestivo(
 	Nombre
 	,Alcance
