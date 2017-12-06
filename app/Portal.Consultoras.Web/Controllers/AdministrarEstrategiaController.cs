@@ -1019,7 +1019,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 if (tipoEstrategiaCod == Constantes.TipoEstrategiaCodigo.OfertaParaTi && 
-                    string.IsNullOrEmpty(EstrategiasDesactivas))
+                    !string.IsNullOrEmpty(EstrategiasDesactivas))
                     UpdateCacheListaOfertaFinal(campaniaID);
 
                 return Json(new
