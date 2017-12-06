@@ -54,7 +54,7 @@ namespace Portal.Consultoras.Web.GestionPasos
                 var tieneExperiencia = entidad.TieneExperiencia.HasValue ? entidad.TieneExperiencia.Value : 0;
 
                 EnviarCorreoNotificacion(codigoIso, entidad, consultora, zona, seccion,
-                    tieneExperiencia == 1 ? "SI" : "NO", entidad.FuenteIngreso );
+                    tieneExperiencia == 1 ? "SI" : "NO", entidad.FuenteIngreso);
             }
         }
 

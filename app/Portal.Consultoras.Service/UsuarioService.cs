@@ -93,13 +93,11 @@ namespace Portal.Consultoras.Service
             BLUsuario.Update(usuario);
         }
 
-        //1796 Inicio
         public int UpdUsuarioRechazarInvitacion(int PaisID,  string CodigoUsuario)
         {
             var BLUsuario = new BLUsuario();
             return BLUsuario.UpdUsuarioRechazarInvitacion(PaisID, CodigoUsuario);
         }
-        //1796 Fin
 
         public void UpdateDatos(BEUsuario usuario, string CorreoAnterior)
         {
@@ -302,28 +300,24 @@ namespace Portal.Consultoras.Service
             BLUsuario.UpdUsuarioDD(usuario);
         }
 
-        //CCSS_JZ_PROL2
         public IList<BENotificaciones> GetNotificacionesConsultora(int PaisID, long ConsultoraId, int indicadorBloqueoCDR)
         {
             var BLNotificaciones = new BLNotificaciones();
             return BLNotificaciones.GetNotificacionesConsultora(PaisID, ConsultoraId, indicadorBloqueoCDR);
         }
 
-        //FRZ-12
         public int GetNotificacionesSinLeer(int PaisID, long ConsultoraId, int indicadorBloqueoCDR)
         {
             var BLNotificaciones = new BLNotificaciones();
             return BLNotificaciones.GetNotificacionesSinLeer(PaisID, ConsultoraId, indicadorBloqueoCDR);
         }       
 
-        //R2073
         public IList<BENotificacionesDetalle> GetNotificacionesConsultoraDetalle(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen)
         {
             var BLNotificaciones = new BLNotificaciones();
             return BLNotificaciones.GetNotificacionesConsultoraDetalle(PaisID, ValAutomaticaPROLLogId, TipoOrigen);
         }
 
-        //R2073
         public IList<BENotificacionesDetallePedido> GetNotificacionesConsultoraDetallePedido(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen)
         {
             var BLNotificaciones = new BLNotificaciones();
@@ -331,12 +325,9 @@ namespace Portal.Consultoras.Service
         }
 
 
-        //ConsultoraOnline
-        //public IList<BEMisPedidos> GetNotificacionesConsultoraOnlineCab(int PaisID, long ConsultoraId)
         public IList<BEMisPedidos> GetMisPedidosConsultoraOnline(int PaisID, long ConsultoraId, int Campania)
         {
             var BLMisPedidos = new BLConsultoraOnline();
-            //return BLMisPedidos.GetMisPedidos(PaisID, ConsultoraId);
             return BLMisPedidos.GetMisPedidos(PaisID, ConsultoraId, Campania);
         }
 
@@ -346,7 +337,6 @@ namespace Portal.Consultoras.Service
             return BLMisPedidos.GetMisPedidosDetalle(PaisID, PedidoID);
         }
 
-        /* SB20-463 - INICIO */
         public int GetCantidadSolicitudesPedido(int PaisID, long ConsultoraId, int Campania)
         {
             var BLMisPedidos = new BLConsultoraOnline();
@@ -358,7 +348,6 @@ namespace Portal.Consultoras.Service
             var BLMisPedidos = new BLConsultoraOnline();
             return BLMisPedidos.GetSaldoHorasSolicitudesPedido(PaisID, ConsultoraId, Campania);
         }
-        /* SB20-463 - FIN */
 
         public IList<BEMisPedidos> GetMisPedidosClienteOnline(int paisID, long consultoraId, int campania)
         {
@@ -370,7 +359,6 @@ namespace Portal.Consultoras.Service
             return new BLConsultoraOnline().GetPedidoClienteOnlineBySolicitudClienteId(paisID, solicitudClienteId);
         }
 
-        //R2073
         public void UpdNotificacionesConsultoraVisualizacion(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen)
         {
             var BLNotificaciones = new BLNotificaciones();
@@ -391,21 +379,18 @@ namespace Portal.Consultoras.Service
             return consultoraEstado;
         }
 
-        //RQ_NS - R2133
         public IList<BENotificacionesDetallePedido> GetValidacionStockProductos(int PaisID, long ConsultoraId, long ValAutomaticaPROLLogId)
         {
             var BLNotificaciones = new BLNotificaciones();
             return BLNotificaciones.GetValidacionStockProductos(PaisID, ConsultoraId, ValAutomaticaPROLLogId);
         }
 
-        //RQ_FP - R2161
         public String GetFechaPromesaCronogramaByCampania(int PaisID, int CampaniaId, string CodigoConsultora, DateTime Fechafact)
         {
             var BLNotificaciones = new BLNotificaciones();
             return BLNotificaciones.GetFechaPromesaCronogramaByCampania(PaisID, CampaniaId, CodigoConsultora, Fechafact);
         }
 
-        //R2116
         public int UpdateDatosPrimeraVezMexico(int PaisID, string CodigoUsuario, string Nombre, string Apellidos, string Telefono, string TelefonoTrabajo, string Celular, string Email, long IdConsultora, string CodigoConsultora, int CampaniaID_Actual, int CampaniaID_UltimaF, int RegionID, int ZonaID, string EmailAnterior)
         {
             var BLUsuario = new BLUsuario();
@@ -436,9 +421,7 @@ namespace Portal.Consultoras.Service
 
 
         }
-        //R2116
 
-        /* R2392 - AHAA - LIDERES - INICIO */
         public int ValidarEstadoSubscripcion(string PaisISO, string CodigoUsuario, int NroDiasPermitidos)
         {
             int PaisID = GetPaisID(PaisISO);
@@ -526,9 +509,7 @@ namespace Portal.Consultoras.Service
             }
             return int.Parse(paisID);
         }
-        /* R2392 - AHAA - LIDERES - FIN */
 
-        //R2319
         public void UpdNotificacionSolicitudClienteVisualizacion(int paisID, long SolicitudClienteId)
         {
             var BLNotificaciones = new BLNotificaciones();
@@ -537,15 +518,12 @@ namespace Portal.Consultoras.Service
 
         #region Miembros de IUsuarioService
 
-        /* R2520 - JICM - LIDERES - INI */
         public List<BEUsuario> ObtenerResultadoEncuesta(int paisID, int campaniaInicio, int campaniaFin)
         {
             return new BLUsuario().ObtenerResultadoEncuesta(paisID, campaniaInicio, campaniaFin);
         }
-        /* R2520 - JICM - LIDERES - FIN */
         #endregion
 
-        /*R20150802 */
         public void UpdNotificacionSolicitudClienteCatalogoVisualizacion(int paisID, long SolicitudClienteCatalogoId)
         {
             var BLSolicitudClienteCatalogo = new BLSolicitudClienteCatalogo();
@@ -608,15 +586,12 @@ namespace Portal.Consultoras.Service
             return BLUsuario.UpdateUsuarioEmailTelefono(paisID, ConsultoraID, Email, Telefono);
         }
 
-        /*EPD-1012*/
         public BEValidaLoginSB2 GetValidarLoginSB2(int paisID, string codigoUsuario, string contrasenia)
         {
             var BLUsuario = new BLUsuario();
             return BLUsuario.GetValidarLoginSB2(paisID, codigoUsuario, contrasenia);
         }
-        /*EPD-1012*/
 
-        /*EPD-2340*/
         public BEValidaLoginSB2 GetValidarAutoLogin(int paisID, string codigoUsuario, string proveedor)
         {
             var BLUsuario = new BLUsuario();
@@ -628,7 +603,6 @@ namespace Portal.Consultoras.Service
             var BLUsuario = new BLUsuario();
             return BLUsuario.InsUsuarioExternoPais(paisID, entidad);
         }
-        /*EPD-2340*/
 
         public bool CambiarClaveUsuario(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, EAplicacionOrigen origen)
         {
@@ -689,7 +663,12 @@ namespace Portal.Consultoras.Service
             return bl.Validar(entidad);
         }
         
-        //EPD-1836
+        public List<BEConfiguracionPaisDatos> GetConfiguracionPaisDatos(BEConfiguracionPaisDatos entidad)
+        {
+            var bl = new BLConfiguracionPaisDatos();
+            return bl.GetList(entidad);
+        }
+
         public int RegistrarUsuarioPostulante(string paisISO, BEUsuarioPostulante entidad)
         {
             int paisID = GetPaisID(paisISO);
@@ -728,7 +707,6 @@ namespace Portal.Consultoras.Service
             return BLUsuario.GetUsuarioPostulante(paisID, numeroDocumento);
         }
 
-        /*EPD-1837*/
         public int InsertUsuarioExterno(int paisID, BEUsuarioExterno usuarioExterno)
         {
             var BLUsuario = new BLUsuario();
@@ -760,14 +738,6 @@ namespace Portal.Consultoras.Service
                 aceptacionConsultoraDA);
         }
 
-        /*
-        public bool GetExisteEmailActivo(int paisID, string email)
-        {
-            var BLUsuario = new BLUsuario();
-            return BLUsuario.GetExisteEmailActivo(paisID, email);
-        }
-         * */
-        /*EPD-1837*/
         public void UpdatePosutlanteMensajes(int paisID, string codigoUsuario, int tipo)
         {
             var BLUsuario = new BLUsuario();
@@ -782,7 +752,6 @@ namespace Portal.Consultoras.Service
         #endregion
 
         #region EventoFestivo
-        /*HD-817*/
         public IList<BEEventoFestivo> GetEventoFestivo(int paisID, string Alcance, int Campania)
         {
             var BLUsuario = new BLUsuario();

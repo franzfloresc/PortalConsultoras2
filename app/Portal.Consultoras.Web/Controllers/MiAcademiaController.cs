@@ -19,8 +19,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                string key = ConfigurationManager.AppSettings["secret_key"];
-                string urlLMS = ConfigurationManager.AppSettings["UrlLMS"];
+                string key = GetConfiguracionManager(Constantes.ConfiguracionManager.secret_key);
+                string urlLMS = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlLMS);
                 string token;
                 string IsoUsuario = userData.CodigoISO + '-' + userData.CodigoConsultora;
                 string eMailNoExiste = userData.CodigoConsultora + "@notengocorreo.com";
@@ -93,8 +93,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                string key = ConfigurationManager.AppSettings["secret_key"];
-                string urlLMS = ConfigurationManager.AppSettings["CursosMarquesina"];
+                string key = GetConfiguracionManager(Constantes.ConfiguracionManager.secret_key);
+                string urlLMS = GetConfiguracionManager(Constantes.ConfiguracionManager.CursosMarquesina);
                 string token;
                 string IsoUsuario = userData.CodigoISO + '-' + userData.CodigoConsultora;
                 string eMailNoExiste = userData.CodigoConsultora + "@notengocorreo.com";
@@ -159,9 +159,9 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                string urlMC = ConfigurationManager.AppSettings["UrlMisCursos"];
-                string token = ConfigurationManager.AppSettings["TokenMisCursos"];
-                string urlCurso = ConfigurationManager.AppSettings["UrlCursoMiAcademia"];
+                string urlMC = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlMisCursos);
+                string token = GetConfiguracionManager(Constantes.ConfiguracionManager.TokenMisCursos);
+                string urlCurso = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlCursoMiAcademia);
                 string IsoUsuario = userData.CodigoISO + '-' + userData.CodigoConsultora;
                 int max = 4;
                 if (ViewBag.CodigoISODL == "VE") max = 3;

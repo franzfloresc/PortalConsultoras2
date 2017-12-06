@@ -15,8 +15,10 @@
         public string NombreClasefb { get; set; }
         public string NombreClasews { get; set; }
 
+        public bool MostrarTab { get; set; }
         public bool MostrarRevistaDigital { get; set; }
-
+        public bool TieneGND { get; set; }
+        
         public RevistaDigitalModel RevistaDigital { get; set; }
     }
 }
