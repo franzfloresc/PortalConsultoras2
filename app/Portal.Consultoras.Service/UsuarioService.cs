@@ -709,10 +709,10 @@ namespace Portal.Consultoras.Service
             return BLUsuario.RecuperarContrasenia(paisId, textoRecuperacion);
         }
 
-        public string EnviaClaveAEmail(int paisId, string textoRecuperacion, bool EsMobile, BEUsuarioCorreo pRestaurar)
+        public string EnviaClaveAEmail(int paisId, string textoRecuperacion, bool EsMobile, int nroVeces, BEUsuarioCorreo pRestaurar)
         {
             var BLUsuario = new BLUsuario();
-            return BLUsuario.EnviaClaveAEmail(paisId, textoRecuperacion, EsMobile, pRestaurar);        
+            return BLUsuario.EnviaClaveAEmail(paisId, textoRecuperacion, EsMobile, nroVeces, pRestaurar);        
         }
 
         public string ActualizarMisDatos(BEUsuario usuario, string CorreoAnterior)

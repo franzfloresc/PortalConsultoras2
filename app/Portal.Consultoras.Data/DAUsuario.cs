@@ -824,5 +824,14 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
         #endregion
+
+        public void UpdFechaBloqueoRestaurarClave(string CodigoUsuario, string Tipo)
+        {
+            DbCommand command = command = Context.Database.GetStoredProcCommand("dbo.UpdFechaBloqueoRestaurarClave"); ;
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, CodigoUsuario);
+            Context.Database.AddInParameter(command, "@TipoBloqueo", DbType.AnsiString, Tipo);
+
+            Context.ExecuteNonQuery(command);
+        }
     }
 }

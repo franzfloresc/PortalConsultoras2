@@ -9,7 +9,7 @@ BEGIN
 END
 GO
 CREATE PROCEDURE dbo.GetHorarioByCodigo
-	@Codigo varchar(12)
+	@Codigo varchar(50)
 AS
 BEGIN
 	select top 1

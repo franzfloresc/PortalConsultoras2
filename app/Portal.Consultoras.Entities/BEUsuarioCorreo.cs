@@ -48,16 +48,16 @@ namespace Portal.Consultoras.Entities
         public string TelefonoCentral { get; set; }
 
         [DataMember]
-        public bool mostrarChat { get; set; }
-
-        [DataMember]
-        public bool habilitarChat { get; set; }
-
-        [DataMember]
         public string descripcionHorarioChat {get; set;}
 
         [DataMember]
         public string ContextoBase { get; set; }
+
+        [DataMember]
+        public bool FlagBloqueoCorreo { get; set; }
+        
+        [DataMember]
+        public bool FlagBloqueoCelular { get; set; }
 
         public BEUsuarioCorreo()
         { }
@@ -82,6 +82,10 @@ namespace Portal.Consultoras.Entities
                 Celular = Convert.ToString(row["Celular"]);
             if (DataRecord.HasColumn(row, "PrimerNombre"))
                 PrimerNombre = Convert.ToString(row["PrimerNombre"]);
+            if (DataRecord.HasColumn(row, "FlagBloqueoCorreo"))
+                FlagBloqueoCorreo = Convert.ToBoolean(row["FlagBloqueoCorreo"]);
+            if (DataRecord.HasColumn(row, "FlagBloqueoCelular"))
+                FlagBloqueoCelular = Convert.ToBoolean(row["FlagBloqueoCelular"]);
         }
 
     }

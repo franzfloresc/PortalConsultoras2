@@ -303,6 +303,7 @@
         <xs:element minOccurs="0" name="paisId" type="xs:int" />
         <xs:element minOccurs="0" name="textoRecuperacion" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="EsMobile" type="xs:boolean" />
+        <xs:element minOccurs="0" name="nroVeces" type="xs:int" />
         <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="pRestaurar" nillable="true" type="q16:BEUsuarioCorreo" />
       </xs:sequence>
     </xs:complexType>

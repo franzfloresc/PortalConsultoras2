@@ -11,6 +11,7 @@ var PaisID;
 var CodigoUsuario;
 var ancho = 681;
 var correoRecuperar = "";
+var nroIntentos = 0;
 
 $(document).ready(function () {
     $(window).resize(function () {
@@ -260,11 +261,15 @@ $(document).ready(function () {
             var errorMessageLog = "Mensaje: " + errorLogin + " \n|PaisISO: " + serverPaisISO + " \n|CodigoUsuario: " + serverCodigoUsuario + " \n|Stack Browser: " + navigator.appVersion;
             saveLog(serverPaisISO, serverCodigoUsuario, errorMessageLog);
         }
-
     }
 
     $("#btnRecuperarClave").click(function () {
         RecuperarClave("1");
+    });
+
+    $("#aVolverInicio").click(function () {
+        $("#popup2").hide();
+        RecuperarClave("1");       
     });
 
     $("#divChatearConNosotros").click(function () {                       
@@ -308,34 +313,25 @@ $(document).ready(function () {
         }
     });
 
-    $("#divRecup_porcorreo").click(function () {
-        if (correoRecuperar != "")
-            ProcesaEnvioEmail();
+    $(".RecuperarPorCorreo").click(function () {
+        debugger
+        if (correoRecuperar != "") {
+            nroIntentos = nroIntentos + 1;
+            ProcesaEnvioEmail();            
+        }            
+    });
+
+    $(".opcionSms").click(function () {
+        debugger
+
     });
 
     $("#vermasopciones1").click(function () {
         waitingDialog();
-        //jQuery.ajax({
-        //    type: 'POST',
-        //    url: urlRecuperarContrasenia,
-        //    dataType: 'json',
-        //    contentType: 'application/json; charset=utf-8',
-        //    data: JSON.stringify({ paisId: paisId, textoRecuperacion: correo, MensajeErrorPais: v_mensaje, TipoRecuperacion: "2" }),
-        //    async: true,
-        //    success: function (response) {
-        //        OcultarContenidoPopup();
-        //        if (response.success) {
-        //            $("#hdCodigoConsultora").val(response.data.CodigoUsuario);
-        //            $("#menPrioridad2_chat").show();
-        //            $("#prioridad2_chat").show();
-        //        }
-        //    },
-        //    error: function () { alert('Ocurrió un problema de conexión. Inténtelo en unos minutos.'); },
-        //    complete: closeWaitingDialog
-        //});
-
-        RecuperarClave("2");
-
+        debugger
+        var _tipoRecuperar = $.trim($("#vermasopciones1").attr("data-recuperar"));
+        $("#vermasopciones1").attr("data-recuperar", "3");
+        RecuperarClave(_tipoRecuperar);
     });
 });
 
@@ -885,9 +881,11 @@ function ProcesaEnvioEmail() {
     var parametros = {
         paisId: paisId,
         filtro: $("#txtCorreoElectronico").val(),
-        EsMobile: parseInt($(".lk_chat").attr("ismovildevice"))
+        EsMobile: parseInt($(".lk_chat").attr("ismovildevice")),
+        Intento: nroIntentos
     };
 
+    waitingDialog();
     $.ajax({
         type: 'POST',
         url: urlEnviaClaveAEmail,
@@ -897,12 +895,24 @@ function ProcesaEnvioEmail() {
         async: true,
         success: function (response) {
             if (response.success) {
-                $("#popup3").hide();
+                $("#popupRestaurarClave").hide();
                 $("#popup2").show();               
                 $("#correoDestino").html("<b>" + $("#spcorreo").html() + "</b>");
+                if (nroIntentos === 1) {
+                    $("#divVolverInicio").hide(); 
+                    $("#men3Intento").hide(); 
+                    $("#men1y2Intento").show();
+                    $("#divPrimerInteto").show();
+                } else if (nroIntentos >= 2) {
+                    $("#men1y2Intento").hide();
+                    $("#divPrimerInteto").hide();
+                    $("#men3Intento").show();
+                    $("#divVolverInicio").show();  
+                }
             } else {
                 alert(response.message);
             }
+            closeWaitingDialog();
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
@@ -910,6 +920,8 @@ function ProcesaEnvioEmail() {
             }
         }
     });
+
+
 }
 
 function saveLog(ISO, usuario, mensaje) {
@@ -968,7 +980,7 @@ function RecuperarClave(tipoRecuperar) {
         alert("Debe ingresar " + nombreDato);
         return false;
     }
-    debugger
+
     waitingDialog();
     jQuery.ajax({
         type: 'POST',
@@ -980,7 +992,22 @@ function RecuperarClave(tipoRecuperar) {
         success: function (response) {
             OcultarContenidoPopup();
             if (response.success) {
-                debugger                
+                debugger     
+
+                if (!response.data.FlagBloqueoCorreo) {
+                    $("#divRecup_porcorreo").addClass("deshabilitar_opcion_correo");
+                    $("#divRecup_porcorreo").css("pointer-events", "none");
+                } else {
+                    $("#divRecup_porcorreo").removeClass("deshabilitar_opcion_correo");
+                    $("#divRecup_porcorreo").css("pointer-events", "");
+                }
+
+                if (!response.data.FlagBloqueoCelular) {
+                    $("#divRecup_porsms").removeClass("deshabilitar_opcion_correo");
+                    $("#divRecup_porsms").css("pointer-events", "");
+                } else {
+                }
+
                 var nroCelular = $.trim(response.data.Celular);
                 var email = $.trim(response.data.Correo);
                 var primerNombre = $.trim(response.data.PrimerNombre);
@@ -1001,6 +1028,8 @@ function RecuperarClave(tipoRecuperar) {
 
                             e_correo = Enmascarar_Correo(email);
                             $("#divEmail").html(e_correo);
+                            $("#spcorreo").html(e_correo);
+
                             e_numero = Enmascarar_Numero(nroCelular);
                             $("#divNumCelular").html(e_numero);
                         } break;
@@ -1011,6 +1040,7 @@ function RecuperarClave(tipoRecuperar) {
                             $("#prioridad1_correo").show();
 
                             e_correo = Enmascarar_Correo(email);
+                            $("#spcorreo").html(e_correo);
                             $("#divEmail").html(e_correo);
                         } break;
 
@@ -1020,12 +1050,14 @@ function RecuperarClave(tipoRecuperar) {
                             $("#prioridad1_sms").show();
 
                             e_numero = Enmascarar_Numero(nroCelular);
-                            $("#divNumCelular").html(e_numero);
+                            $("#divNumCelular").html(e_numero);                            
                         } break;
 
                     case "prioridad2_chat":
                         {
                             $("#hdCodigoConsultora").val(response.data.CodigoUsuario);
+                            $("#divHoraiosAtencion").html(response.data.descripcionHorarioChat);
+
                             $("#menPrioridad2_chat").show();
                             $("#prioridad2_chat").show();
                         } break;                        
@@ -1051,6 +1083,8 @@ function RecuperarClave(tipoRecuperar) {
 
                     case "prioridad3":
                         {
+                            $("#menPrioridad3").html(primerNombre + ", discúlpanos, en estos momentos no podemos atenderte");
+                            $("#spnNombreConsultora").hide();
                             $("#menPrioridad3").show();
                             $("#prioridad3").show();
                         } break;                                            

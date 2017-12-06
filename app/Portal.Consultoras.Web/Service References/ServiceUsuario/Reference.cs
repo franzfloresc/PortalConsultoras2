@@ -4878,6 +4878,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string DescripcionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool FlagBloqueoCelularField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool FlagBloqueoCorreoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NombreCampoCodigoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -4897,12 +4903,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string descripcionHorarioChatField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool habilitarChatField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool mostrarChatField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -5019,6 +5019,32 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool FlagBloqueoCelular {
+            get {
+                return this.FlagBloqueoCelularField;
+            }
+            set {
+                if ((this.FlagBloqueoCelularField.Equals(value) != true)) {
+                    this.FlagBloqueoCelularField = value;
+                    this.RaisePropertyChanged("FlagBloqueoCelular");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool FlagBloqueoCorreo {
+            get {
+                return this.FlagBloqueoCorreoField;
+            }
+            set {
+                if ((this.FlagBloqueoCorreoField.Equals(value) != true)) {
+                    this.FlagBloqueoCorreoField = value;
+                    this.RaisePropertyChanged("FlagBloqueoCorreo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string NombreCampoCodigo {
             get {
                 return this.NombreCampoCodigoField;
@@ -5105,32 +5131,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.descripcionHorarioChatField, value) != true)) {
                     this.descripcionHorarioChatField = value;
                     this.RaisePropertyChanged("descripcionHorarioChat");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool habilitarChat {
-            get {
-                return this.habilitarChatField;
-            }
-            set {
-                if ((this.habilitarChatField.Equals(value) != true)) {
-                    this.habilitarChatField = value;
-                    this.RaisePropertyChanged("habilitarChat");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool mostrarChat {
-            get {
-                return this.mostrarChatField;
-            }
-            set {
-                if ((this.mostrarChatField.Equals(value) != true)) {
-                    this.mostrarChatField = value;
-                    this.RaisePropertyChanged("mostrarChat");
                 }
             }
         }
@@ -8467,10 +8467,10 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioConfiguracion> ObtenerUsuarioConfiguracionAsync(int paisID, int consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/EnviaClaveAEmail", ReplyAction="http://tempuri.org/IUsuarioService/EnviaClaveAEmailResponse")]
-        string EnviaClaveAEmail(int paisId, string textoRecuperacion, bool EsMobile, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioCorreo pRestaurar);
+        string EnviaClaveAEmail(int paisId, string textoRecuperacion, bool EsMobile, int nroVeces, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioCorreo pRestaurar);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/EnviaClaveAEmail", ReplyAction="http://tempuri.org/IUsuarioService/EnviaClaveAEmailResponse")]
-        System.Threading.Tasks.Task<string> EnviaClaveAEmailAsync(int paisId, string textoRecuperacion, bool EsMobile, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioCorreo pRestaurar);
+        System.Threading.Tasks.Task<string> EnviaClaveAEmailAsync(int paisId, string textoRecuperacion, bool EsMobile, int nroVeces, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioCorreo pRestaurar);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetUsuarioChatEmtelco", ReplyAction="http://tempuri.org/IUsuarioService/GetUsuarioChatEmtelcoResponse")]
         Portal.Consultoras.Web.ServiceUsuario.BEUsuarioChatEmtelco GetUsuarioChatEmtelco(int paisID, string codigoUsuario);
@@ -9204,12 +9204,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.ObtenerUsuarioConfiguracionAsync(paisID, consultoraID, campania, usuarioPrueba, aceptacionConsultoraDA);
         }
         
-        public string EnviaClaveAEmail(int paisId, string textoRecuperacion, bool EsMobile, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioCorreo pRestaurar) {
-            return base.Channel.EnviaClaveAEmail(paisId, textoRecuperacion, EsMobile, pRestaurar);
+        public string EnviaClaveAEmail(int paisId, string textoRecuperacion, bool EsMobile, int nroVeces, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioCorreo pRestaurar) {
+            return base.Channel.EnviaClaveAEmail(paisId, textoRecuperacion, EsMobile, nroVeces, pRestaurar);
         }
         
-        public System.Threading.Tasks.Task<string> EnviaClaveAEmailAsync(int paisId, string textoRecuperacion, bool EsMobile, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioCorreo pRestaurar) {
-            return base.Channel.EnviaClaveAEmailAsync(paisId, textoRecuperacion, EsMobile, pRestaurar);
+        public System.Threading.Tasks.Task<string> EnviaClaveAEmailAsync(int paisId, string textoRecuperacion, bool EsMobile, int nroVeces, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioCorreo pRestaurar) {
+            return base.Channel.EnviaClaveAEmailAsync(paisId, textoRecuperacion, EsMobile, nroVeces, pRestaurar);
         }
         
         public Portal.Consultoras.Web.ServiceUsuario.BEUsuarioChatEmtelco GetUsuarioChatEmtelco(int paisID, string codigoUsuario) {

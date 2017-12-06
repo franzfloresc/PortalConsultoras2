@@ -1256,6 +1256,7 @@ namespace Portal.Consultoras.Common
         public struct CodigoHorario
         {
             public const string ChatEmtelco = "ChatEmtelco";
+            public const string BelcorpResponde = "BelcorpResponde";
         }
 
         public class ComunicadoTipoDispositivo

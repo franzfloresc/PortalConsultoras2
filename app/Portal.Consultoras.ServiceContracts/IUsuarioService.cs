@@ -346,7 +346,7 @@ namespace Portal.Consultoras.ServiceContracts
             bool usuarioPrueba, int aceptacionConsultoraDA);
 
         [OperationContract]
-        string EnviaClaveAEmail(int paisId, string textoRecuperacion, bool EsMobile, BEUsuarioCorreo pRestaurar);
+        string EnviaClaveAEmail(int paisId, string textoRecuperacion, bool EsMobile, int nroVeces, BEUsuarioCorreo pRestaurar);
         
         [OperationContract]
         BEUsuarioChatEmtelco GetUsuarioChatEmtelco(int paisID, string codigoUsuario);

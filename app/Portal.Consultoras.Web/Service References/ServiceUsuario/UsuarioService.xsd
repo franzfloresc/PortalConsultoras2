@@ -404,6 +404,8 @@
       <xs:element minOccurs="0" name="ContextoBase" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Correo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FlagBloqueoCelular" type="xs:boolean" />
+      <xs:element minOccurs="0" name="FlagBloqueoCorreo" type="xs:boolean" />
       <xs:element minOccurs="0" name="NombreCampoCodigo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NombreCompleto" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PrimerNombre" nillable="true" type="xs:string" />
@@ -411,8 +413,6 @@
       <xs:element minOccurs="0" name="TelefonoCentral" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoUsuario" type="xs:int" />
       <xs:element minOccurs="0" name="descripcionHorarioChat" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="habilitarChat" type="xs:boolean" />
-      <xs:element minOccurs="0" name="mostrarChat" type="xs:boolean" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEUsuarioCorreo" nillable="true" type="tns:BEUsuarioCorreo" />

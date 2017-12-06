@@ -242,9 +242,9 @@
                     <br />
                 </div>
                 <div class="formCont popupOlvideContrasenia">
-                    <div class="boxform">
+                    <div class="boxform deshabilitar_opcion_correo">
                         <div class="formcontrol pais" id="cargarBandera2" style="margin-bottom: 35px;">
-                            <select id="cboPaisCambioClave" class="cboPaisCambioClave campoPais" tabindex="1" style="color: black !important">
+                            <select id="cboPaisCambioClave" class="cboPaisCambioClave campoPais" tabindex="1" style="color: black !important" disabled="disabled">
                                 <option value="0">Elige tu País</option>
                                 @if (Model.ListaPaises != null)
                                 {
@@ -560,7 +560,7 @@
                 <div class="opciones_recuperacion_contrasenia">                    
                     <div id="prioridad1" style="display:none;">
                         <!-- INICIO - CUANDO LA CONSULTORA TIENE CORREO Y CELULAR REGISTRADOS (OPCIÓN CORREO Y SMS) -->
-                        <a id="divRecup_porcorreo" class="opcion_recuperacion_contrasenia opcionCorreo">
+                        <a id="divRecup_porcorreo" class="opcion_recuperacion_contrasenia opcionCorreo RecuperarPorCorreo">
                             <!-- CUANDO SE HAYA USADO YA LA OPCIÓN YA SEA DE CORREO O DE SMS SE LE AGREGA LA CLASE opcion_desactivada -->
                             <div class="icono_correo_electronico"></div>
                             <div class="contenedor_info_datos">
@@ -568,7 +568,7 @@
                                 <div id="divEmail" class="correo_electronico"></div>
                             </div>
                         </a>
-                        <a href="" class="opcion_recuperacion_contrasenia opcionSms">
+                        <a id="divRecup_porsms" class="opcion_recuperacion_contrasenia opcionSms" pointer-events="none">
                             <div class="icono_sms"></div>
                             <div class="contenedor_info_datos">
                                 <div class="titulo_opcion_sms">Mensaje de texto (sms)</div>
@@ -610,7 +610,7 @@
                             <div class="icono_chatea_con_nosotros"></div>
                             <div class="contenedor_info_datos">
                                 <div class="titulo_opcion_chatea_con_nosotros">Chatea con nosotros</div>
-                                <div class="horarios_atencion">L-V: 8:00 a 20:00 y S: 08:00 a 18:00</div>
+                                <div id="divHoraiosAtencion" class="horarios_atencion">L-V: 8:00 a 20:00 y S: 08:00 a 18:00</div>
                             </div>
                         </div>
                         <button class="btn_ingresar_chat" id="divChatearConNosotros">Ingresar al chat</button>
@@ -634,7 +634,7 @@
                         <!-- INICIO - OPCIÓN LLAMADA MOBILE -->
                         <div class="contenedor_solo_una_opcion opcionLlamada_mobile">
                             <!-- INICIO - CENTRALES TELEFÓNICAS PERÚ -->
-                            <div class="grupo_centrales_telefonicas_disponibles">
+                            <div class="grupo_centrales_telefonicas_disponibles" style="display:none;">
                                 <a href="" class="central_telefonica">
                                     <div class="icono_llamada"></div>
                                     <div class="texto_opcion_llamada">
@@ -687,11 +687,11 @@
                                 <div class="horarios_atencion">
                                     <div class="mb-3">
                                         <span>Lunes a Viernes: </span>
-                                        <span>08:00</span> a <span>20:00</span>
+                                        <span id="divHlv">08:00</span> a <span>20:00</span>
                                     </div>
                                     <div>
                                         <span>Sábados: </span>
-                                        <span>08:00</span> a <span>18:00</span>
+                                        <span id="divHs">08:00</span> a <span>18:00</span>
                                     </div>
                                 </div>
                             </div>
@@ -710,7 +710,7 @@
                     <span style="display:none;">Este no es mi número.</span>
                     <!-- FIN - MENSAJE CUANDO LA CONSULTORA TIENE SÓLO CELULAR REGISTRADO -->
 
-                    <a id="vermasopciones1" title="Ver más opciones">
+                    <a id="vermasopciones1" title="Ver más opciones" data-recuperar="2" style="cursor:pointer;">
                         Ver más opciones
                     </a>
                 </div>
@@ -730,10 +730,10 @@
                 <!-- INICIO - INFORMACIÓN CONTRASEÑA ENVIADA A CORREO DE CONSULTORA -->
                 <div class="mensaje_pop_up_contraseniaEnviada">
                     <!-- INICIO - ESTE TITULO SE MUESTRA PARA 1ER INTENTO Y 2DO INTENTO DE RECUPERACIÓN DE PASSWORD -->
-                    <h1>Por favor, revisa tu correo</h1>
+                    <h1 id="men1y2Intento">Por favor, revisa tu correo</h1>
                     <!-- FIN - ESTE TITULO SE MUESTRA PARA 1ER INTENTO Y 2DO INTENTO DE RECUPERACIÓN DE PASSWORD -->
                     <!-- INICIO - ESTE TITULO SE MUESTRA PARA 3ER INTENTO DE RECUPERACIÓN DE PASSWORD -->
-                    <h1 style="display:none;">Por favor, espera un momento, el mensaje está en camino</h1>
+                    <h1 id="men3Intento" style="display:none;">Por favor, espera un momento, el mensaje está en camino</h1>
                     <!-- FIN - ESTE TITULO SE MUESTRA PARA 3ER INTENTO DE RECUPERACIÓN DE PASSWORD -->
                     <br />
                     <br />
@@ -752,21 +752,26 @@
                         Te hemos enviado las instrucciones a :
                         <br />
                         <p id="correoDestino" style="font: bold;"><strong></strong></p>
-
                     </p>
                     <!-- INICIO - 1ER INTENTO DE RECUPERACIÓN DE PASSWORD -->
-                    <a href="" class="accion_alternativa_posterior_envio_password" title="Reenviar mensaje a mi correo">Reenviar mensaje a mi correo</a>
+                    <a id="divPrimerInteto" class="accion_alternativa_posterior_envio_password RecuperarPorCorreo" title="Reenviar mensaje a mi correo" style="cursor:pointer;">Reenviar mensaje a mi correo</a>
                     <!-- FIN - 1ER INTENTO -->
                     <!-- INICIO - 2DO INTENTO DE RECUPERACIÓN DE PASSWORD -->
-                    <a href="" class="accion_alternativa_posterior_envio_password" title="Reenviar mensaje a mi correo" style="display:none;">Intentar nuevamente</a>
+                    <a class="accion_alternativa_posterior_envio_password" title="Reenviar mensaje a mi correo" style="display:none;">Intentar nuevamente</a>
                     <!-- FIN - 2DO INTENTO DE RECUPERACIÓN DE PASSWORD -->
                     <!-- INICIO - 3ER INTENTO DE RECUPERACIÓN DE PASSWORD -->
-                    <div style="display:none;">
+
+                    @*<div style="display:none;">
                         <span class="txto_no_llego_mensaje">No me llego el correo.</span>
                         <a href="" class="accion_alternativa_posterior_envio_password" title="Reenviar mensaje a mi correo">
                             <span>Ver más opciones</span>
                             <span class="flecha_ver_mas_opciones"></span>
                         </a>
+                    </div>*@
+
+                    <div id="divVolverInicio" style="display:none;">
+                        <span class="texto_no_llego_mensaje">No me llegó el mensaje.</span>
+                        <a id="aVolverInicio" class="accion_alternativa_posterior_envio_password" title="Reenviar mensaje a mi correo" style="cursor:pointer;">Volver al inicio</a>
                     </div>
                     <!-- FIN - 3ER INTENTO DE RECUPERACIÓN DE PASSWORD -->
                 </div>
@@ -799,15 +804,15 @@
                         </div>
                     </div>
                     <!-- INICIO - 1ER INTENTO DE RECUPERACIÓN DE PASSWORD -->
-                    <a href="" class="accion_alternativa_posterior_envio_password" title="Reenviar mensaje a mi correo" style="display:none;">Reenviar mensaje de texto</a>
+                    <a class="accion_alternativa_posterior_envio_password" title="Reenviar mensaje a mi correo" style="display:none;">Reenviar mensaje de texto</a>
                     <!-- FIN - 1ER INTENTO -->
                     <!-- INICIO - 2DO INTENTO DE RECUPERACIÓN DE PASSWORD -->
-                    <a href="" class="accion_alternativa_posterior_envio_password" title="Reenviar mensaje a mi correo" style="display:none;">Intentar nuevamente</a>
+                    <a class="accion_alternativa_posterior_envio_password" title="Reenviar mensaje a mi correo" style="display:none;">Intentar nuevamente</a>
                     <!-- FIN - 2DO INTENTO DE RECUPERACIÓN DE PASSWORD -->
                     <!-- INICIO - 3ER INTENTO DE RECUPERACIÓN DE PASSWORD -->
                     <div style="display:none;">
                         <span class="texto_no_llego_mensaje">No me llego el mensaje.</span>
-                        <a href="" class="accion_alternativa_posterior_envio_password" title="Reenviar mensaje a mi correo">Volver al inicio</a>
+                        <a class="accion_alternativa_posterior_envio_password" title="Reenviar mensaje a mi correo">Volver al inicio</a>
                     </div>
                     <!-- FIN - 3ER INTENTO DE RECUPERACIÓN DE PASSWORD -->
                 </div>
@@ -855,7 +860,7 @@
                         <!-- INICIO - MÁS OPCIONES - LLÁMANOS MOBILE -->
                         <div class="opcionLlamada_mobile">
                             <!-- INICIO - CENTRALES TELEFÓNICAS PERÚ -->
-                            <div class="grupo_centrales_telefonicas_disponibles">
+                            <div class="grupo_centrales_telefonicas_disponibles" style="display:none;">
                                 <a href="" class="central_telefonica">
                                     <div class="icono_llamada"></div>
                                     <div class="texto_opcion_llamada">
