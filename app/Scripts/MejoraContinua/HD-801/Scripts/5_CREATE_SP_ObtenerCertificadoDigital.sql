@@ -31,11 +31,12 @@ BEGIN
 			@PromedioVentas DECIMAL(18,2)
 
 		SET @NumeroSecuencia = CAST(YEAR(GETDATE()) AS VARCHAR) + '-' + RIGHT('000000' + CAST((SELECT COUNT(1)+1 FROM dbo.CertificadoDigitalLog) AS VARCHAR), 6)
-		IF (@TipoCert = 2)
-			SET @PromedioVentas = dbo.fnObtenerPromedioVentaCampaniaConsecutivas(@CampaniaId,3, @ConsultoraId)
+		--IF (@TipoCert = 2)
+			--SET @PromedioVentas = dbo.fnObtenerPromedioVentaCampaniaConsecutivas(@CampaniaId,3, @ConsultoraId)
 
 		SELECT 
 			@NombreCompleto = NombreCompleto, 
+			@PromedioVentas = isnull(PromedioVenta,0),
 			@FechaIngresoConsultora = CASE @TipoCert WHEN 2 THEN FechaIngreso ELSE NULL end
 		FROM ods.Consultora 
 		WHERE ConsultoraId = @ConsultoraId
@@ -152,11 +153,12 @@ BEGIN
 			@PromedioVentas DECIMAL(18,2)
 
 		SET @NumeroSecuencia = CAST(YEAR(GETDATE()) AS VARCHAR) + '-' + RIGHT('000000' + CAST((SELECT COUNT(1)+1 FROM dbo.CertificadoDigitalLog) AS VARCHAR), 6)
-		IF (@TipoCert = 2)
-			SET @PromedioVentas = dbo.fnObtenerPromedioVentaCampaniaConsecutivas(@CampaniaId,3, @ConsultoraId)
+		--IF (@TipoCert = 2)
+			--SET @PromedioVentas = dbo.fnObtenerPromedioVentaCampaniaConsecutivas(@CampaniaId,3, @ConsultoraId)
 
 		SELECT 
 			@NombreCompleto = NombreCompleto, 
+			@PromedioVentas = isnull(PromedioVenta,0),
 			@FechaIngresoConsultora = CASE @TipoCert WHEN 2 THEN FechaIngreso ELSE NULL end
 		FROM ods.Consultora 
 		WHERE ConsultoraId = @ConsultoraId
