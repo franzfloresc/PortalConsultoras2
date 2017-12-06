@@ -34,15 +34,16 @@
 .revistadigital .pedido .giftext{
     top: 0;
 }
-.revistadigital .revistadigital-content {
+
+.revistadigital .revistadigital-content{
 	max-width: 1189px;
 	margin: 0 auto;
     height: auto;
 	position: relative;
 }
 .revistadigital .revistadigital-content img {
-  max-width: 100% !important;
-    height: 100%;
+    max-width: 75% !important;
+    height: 80%;
 }
 .revistadigital p.marca {
 	font-size: 30px;
@@ -817,7 +818,6 @@
     padding-bottom: 17px;
     position: relative;
     overflow: hidden;
-    left: -14px;
 }
 
 .fondo_franja {
@@ -886,10 +886,6 @@
 
 .revistadigital .boxoffer.boxOfferPedido{
     top: 300px;
-}
-
-.revistadigital .revistadigital-content{
-    position:relative;
 }
 
 /* VISTA SUSCRIPCIÓN REVISTA DIGITAL */
