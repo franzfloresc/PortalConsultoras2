@@ -84,7 +84,7 @@ namespace Portal.Consultoras.Web.Controllers
                     base.OnActionExecuting(filterContext);
                     return;
                 }                
-                ViewBag.EstadoInscripcionEpm = revistaDigital.EstadoRdcAnalytics;
+                
                 ObtenerPedidoWeb();
                 ObtenerPedidoWebDetalle();
 
@@ -3840,6 +3840,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private void GetUserDataViewBag()
         {
+            ViewBag.EstadoInscripcionEpm = revistaDigital.EstadoRdcAnalytics;
             ViewBag.UsuarioNombre = (Util.Trim(userData.Sobrenombre) == "" ? userData.NombreConsultora : userData.Sobrenombre);
             ViewBag.Usuario = "Hola, " + userData.UsuarioNombre;
             ViewBag.Rol = userData.RolID;

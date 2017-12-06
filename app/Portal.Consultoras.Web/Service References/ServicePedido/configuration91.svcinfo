@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="ocrp6trEOYCxJydbu7eimd0fhLc=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="XaQSRarHdnOEye5/0hd+IUFmNSg=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="basicHttpBinding" name="BasicHttpBinding_IPedidoService1">
       <properties>
@@ -306,10 +306,10 @@
         </property>
       </properties>
     </endpoint>
-    <endpoint name="BasicHttpsBinding_IPedidoService" contract="ServicePedido.IPedidoService" bindingType="basicHttpBinding" address="https://localhost:44392/PedidoService.svc" bindingConfiguration="BasicHttpsBinding_IPedidoService">
+    <endpoint name="BasicHttpsBinding_IPedidoService" contract="ServicePedido.IPedidoService" bindingType="basicHttpBinding" address="https://localhost:44353/PedidoService.svc" bindingConfiguration="BasicHttpsBinding_IPedidoService">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>https://localhost:44392/PedidoService.svc</serializedValue>
+          <serializedValue>https://localhost:44353/PedidoService.svc</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />
