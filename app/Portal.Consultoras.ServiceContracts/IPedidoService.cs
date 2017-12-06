@@ -866,6 +866,9 @@ namespace Portal.Consultoras.ServiceContracts
         int DelOfertaShowRoom(int paisID, BEShowRoomOferta entity);
 
         [OperationContract]
+        int InsOrUpdOfertaShowRoom(int paisID, BEShowRoomOferta entity);
+
+        [OperationContract]
         int RemoverOfertaShowRoom(int paisID, BEShowRoomOferta entity);
 
         [OperationContract]

@@ -1625,6 +1625,11 @@ namespace Portal.Consultoras.Service
             return BLShowRoomEvento.DelOfertaShowRoom(paisID, entity);
         }
 
+        public int InsOrUpdOfertaShowRoom(int paisID, BEShowRoomOferta entity)
+        {
+            return BLShowRoomEvento.InsOrUpdOfertaShowRoom(paisID, entity);
+        }
+
         public int RemoverOfertaShowRoom(int paisID, BEShowRoomOferta entity)
         {
             return BLShowRoomEvento.RemoverOfertaShowRoom(paisID, entity);
