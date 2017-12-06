@@ -7,13 +7,12 @@ namespace Portal.Consultoras.Common
 {
     public class ConfigS3
     {
-        public static string MY_AWS_ACCESS_KEY_ID = ConfigurationManager.AppSettings["MY_AWS_ACCESS_KEY_ID"];
-        public static string MY_AWS_SECRET_KEY = ConfigurationManager.AppSettings["MY_AWS_SECRET_KEY"];
-        public static string BUCKET_NAME = ConfigurationManager.AppSettings["BUCKET_NAME"];
-        public static string BUCKET_NAME_QAS = ConfigurationManager.AppSettings["BUCKET_NAME_QAS"];
-        public static string ROOT_DIRECTORY = ConfigurationManager.AppSettings["ROOT_DIRECTORY"];
-        //MEJORA S3
-        public static string URL_S3 = ConfigurationManager.AppSettings["URL_S3"];        
+        private static readonly string MY_AWS_ACCESS_KEY_ID = System.Configuration.ConfigurationManager.AppSettings["MY_AWS_ACCESS_KEY_ID"];
+        private static readonly string MY_AWS_SECRET_KEY = System.Configuration.ConfigurationManager.AppSettings["MY_AWS_SECRET_KEY"];
+        private static readonly string BUCKET_NAME = System.Configuration.ConfigurationManager.AppSettings["BUCKET_NAME"];
+        private static readonly string BUCKET_NAME_QAS = System.Configuration.ConfigurationManager.AppSettings["BUCKET_NAME_QAS"];
+        private static readonly string ROOT_DIRECTORY = System.Configuration.ConfigurationManager.AppSettings["ROOT_DIRECTORY"];
+        private static readonly string URL_S3 = System.Configuration.ConfigurationManager.AppSettings["URL_S3"];
 
         public static string GetUrlFileS3(string carpetaPais, string fileName, string carpetaAnterior = "")
         {
@@ -146,14 +145,8 @@ namespace Portal.Consultoras.Common
                 }
                 else
                 {
-                    if (carpetaAnterior != string.Empty)
-                    {
-                        url = carpetaAnterior + "/" + fileName;
-                    }
-                    else
-                    {
-                        url = fileName;
-                    }
+                    if (carpetaAnterior != string.Empty) url = carpetaAnterior + "/" + fileName;
+                    else url = fileName;
                 }
 
                 client.Dispose();

@@ -15,8 +15,6 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class AdministrarProductoSugeridoController : BaseController
     {
-        // GET: /AdministrarProductoSugerido/
-
         public ActionResult Index()
         {
             var userData = UserData();
@@ -44,10 +42,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
             }
-            Mapper.CreateMap<BEPais, PaisModel>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
@@ -65,23 +59,20 @@ namespace Portal.Consultoras.Web.Controllers
                 lst = sv.GetPaginateProductoSugerido(PaisID, CampaniaID, CUVAgotado, CUVSugerido).ToList();
             }
 
-            // Usamos el modelo para obtener los datos
             BEGrid grid = new BEGrid();
             grid.PageSize = rows;
             grid.CurrentPage = page;
             grid.SortColumn = sidx;
             grid.SortOrder = sord;
-            //int buscar = int.Parse(txtBuscar);
             BEPager pag = new BEPager();
             IEnumerable<BEProductoSugerido> items = lst;            
-
+            
             items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
             pag = Util.PaginadorGenerico(grid, lst);
                                  
             lst.Update(x => x.ImagenProducto = x.ImagenProducto ?? "");            
 
-            // Creamos la estructura
             var data = new
             {
                 total = pag.PageCount,
@@ -213,7 +204,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 Mapper.CreateMap<AdministrarProductoSugeridoModel, BEProductoSugerido>()
                    .ForMember(t => t.ProductoSugeridoID, f => f.MapFrom(c => c.ProductoSugeridoID))
-                   //.ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
                    .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
                    .ForMember(t => t.CUVSugerido, f => f.MapFrom(c => c.CUVSugerido))
@@ -315,7 +305,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (r != "")
             {
                 var list = r.Split('|');
-                nro = list.Count() > 0 ? list[0] : "";
+                nro = list.Any() ? list[0] : "";
                 txt = list.Count() > 1 ? list[1] : "";
 
                 int x;

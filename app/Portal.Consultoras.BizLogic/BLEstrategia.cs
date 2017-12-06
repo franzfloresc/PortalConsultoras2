@@ -154,7 +154,6 @@ namespace Portal.Consultoras.BizLogic
             {
                 var DAEstrategia = new DAEstrategia(entidad.PaisID);
                 int result = DAEstrategia.InsertEstrategia(entidad);
-                // Solo para estrategia de lanzamiento se agrega el detalle de estrategia.
                 if (entidad.CodigoTipoEstrategia != null && entidad.CodigoTipoEstrategia.Equals(Constantes.TipoEstrategiaCodigo.Lanzamiento))
                 {
                     BEEstrategiaDetalle estrategiaDetalle = new BEEstrategiaDetalle(entidad);
@@ -241,9 +240,10 @@ namespace Portal.Consultoras.BizLogic
                     break;
                 case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
 
-                    var items = (IList<BEEstrategia>)CacheManager<BEMenuMobile>.GetData(entidad.PaisID, ECacheItem.GNDEstrategia);
-                    if (items == null || !items.Any())
+                    estrategias = (List<BEEstrategia>)CacheManager<BEEstrategia>.GetData(entidad.PaisID, ECacheItem.GNDEstrategia);
+                    if (estrategias == null || !estrategias.Any())
                     {
+                        estrategias = new List<BEEstrategia>();
                         using (var reader = daEstrategia.GetEstrategiaGuiaDeNegocioDigitalizada(entidad))
                         {
                             while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
@@ -292,7 +292,6 @@ namespace Portal.Consultoras.BizLogic
             
             if (esFacturacion)
             {
-                /*Obtener si tiene stock de PROL por CodigoSAP*/
                 var listaTieneStock = new List<Lista>();
                 try
                 {
@@ -321,10 +320,6 @@ namespace Portal.Consultoras.BizLogic
                             add = listaTieneStock.Any(p => p.Codsap.ToString() == estrategia.CodigoProducto && p.estado == 1);
 
                         if (!add) return;
-
-                        // Esto hace que el precio tachado no salga, se supone q el tachado debe ser superior al precio de venta
-                        //if (estrategia.Precio >= estrategia.Precio2)
-                        //    estrategia.Precio = Convert.ToDecimal(0.0);
 
                         estrategiasResult.Add(estrategia);
                     }
@@ -483,7 +478,6 @@ namespace Portal.Consultoras.BizLogic
             return DAEstrategia.InsertEstrategiaOfertaParaTi(lista, campaniaId, codigoUsuario, estrategiaId);
         }
 
-        /*PL20-1226*/
         public List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, string codConsultora, DateTime fechaInicioFact)
         {
             var listaEstrategias = new List<BEEstrategia>();

@@ -30,7 +30,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 var parametros = GetParametrosConfiguracion(userData);
                 if (parametros == null || parametros.Count == 0)
                 {
-                    throw new Exception("Ocurrió un error al cargar la configuración de Paypal, por favor intente más tarde.");
+                    throw new ArgumentException("Ocurrió un error al cargar la configuración de Paypal, por favor intente más tarde.");
                 }
 
                 model.Login = parametros[1].chrValor;

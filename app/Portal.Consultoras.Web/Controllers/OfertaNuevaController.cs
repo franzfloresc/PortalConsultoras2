@@ -49,7 +49,6 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = srv.GetOfertasNuevasByCampania(vpaisID, vCampaniaID).ToList();
                 }
 
-                // 1664
                 var carpetaPais = Globals.UrlOfertasNuevas + "/" + userData.CodigoISO;
                 if (lst != null && lst.Count > 0)
                 {
@@ -149,7 +148,7 @@ namespace Portal.Consultoras.Web.Controllers
                                            a.Descripcion,
                                            a.PrecioNormal.ToString("#0.00"),
                                            a.PrecioParaTi.ToString("#0.00"),
-                                           a.ganahasta.ToString("#0.00")//1731
+                                           a.ganahasta.ToString("#0.00")
                                         }
                            }
                 };
@@ -367,10 +366,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
             }
-            Mapper.CreateMap<BEPais, PaisModel>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
@@ -451,7 +446,7 @@ namespace Portal.Consultoras.Web.Controllers
                         .ForMember(t => t.FlagImagenActiva, f => f.MapFrom(c => c.FlagImagenActiva))
                         .ForMember(t => t.FlagHabilitarOferta, f => f.MapFrom(c => c.FlagHabilitarOferta))
                         .ForMember(t => t.UsuarioRegistro, f => f.MapFrom(c => c.UsuarioRegistro))
-                        .ForMember(t => t.ganahasta, f => f.MapFrom(c => c.ganahasta));//1731
+                        .ForMember(t => t.ganahasta, f => f.MapFrom(c => c.ganahasta));
 
                 BEOfertaNueva entidad = Mapper.Map<OfertaNuevaModel, BEOfertaNueva>(model);
 
@@ -466,8 +461,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (!string.IsNullOrEmpty(tempImage01))
                     {
-                        // entidad.ImagenProducto01 = FileManager.CopyImagesMatriz(Globals.RutaImagenesOfertasNuevas + "\\" + ISO, tempImage01, Globals.RutaImagenesTempOfertas, ISO, model.CUV, "01");
-                        // 1664
                         string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
                         var newfilename = ISO + "_" + model.CUV + "_" + time + "_" + "01" + "_" + FileManager.RandomString() + ".png";
                         var path = Path.Combine(Globals.RutaTemporales, tempImage01);
@@ -479,8 +472,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (!string.IsNullOrEmpty(tempImage02))
                     {
-                        // entidad.ImagenProducto02 = FileManager.CopyImagesMatriz(Globals.RutaImagenesOfertasNuevas + "\\" + ISO, tempImage02, Globals.RutaImagenesTempOfertas, ISO, model.CUV, "02");
-                        // 1664
                         string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
                         var newfilename = ISO + "_" + model.CUV + "_" + time + "_" + "02" + "_" + FileManager.RandomString() + ".png";
                         var path = Path.Combine(Globals.RutaTemporales, tempImage02);
@@ -492,8 +483,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (!string.IsNullOrEmpty(tempImage03))
                     {
-                        // entidad.ImagenProducto03 = FileManager.CopyImagesMatriz(Globals.RutaImagenesOfertasNuevas + "\\" + ISO, tempImage03, Globals.RutaImagenesTempOfertas, ISO, model.CUV, "03");
-                        // 1664
                         string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
                         var newfilename = ISO + "_" + model.CUV + "_" + time + "_" + "03" + "_" + FileManager.RandomString() + ".png";
                         var path = Path.Combine(Globals.RutaTemporales, tempImage03);
@@ -508,9 +497,6 @@ namespace Portal.Consultoras.Web.Controllers
                     entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.Nueva;
                     entidad.ConfiguracionOfertaID = Constantes.TipoOferta.Nueva;
                     svc.InsertOfertasNuevas(entidad);
-                    // FileManager.DeleteImage(Globals.RutaImagenesTempOfertas, tempImage01);
-                    // FileManager.DeleteImage(Globals.RutaImagenesTempOfertas, tempImage02);
-                    // FileManager.DeleteImage(Globals.RutaImagenesTempOfertas, tempImage03);
                 }
 
                 return Json(new
@@ -562,7 +548,7 @@ namespace Portal.Consultoras.Web.Controllers
                         .ForMember(t => t.FlagHabilitarOferta, f => f.MapFrom(c => c.FlagHabilitarOferta))
                         .ForMember(t => t.OfertaNuevaId, f => f.MapFrom(c => c.OfertaNuevaId))
                         .ForMember(t => t.UsuarioModificacion, f => f.MapFrom(c => c.UsuarioModificacion))
-                        .ForMember(t => t.ganahasta, f => f.MapFrom(c => c.ganahasta));//1731
+                        .ForMember(t => t.ganahasta, f => f.MapFrom(c => c.ganahasta));
 
                 BEOfertaNueva entidad = Mapper.Map<OfertaNuevaModel, BEOfertaNueva>(model);
 
@@ -580,9 +566,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (tempImage01 != tempImagenProductoAnterior01)
                     {
-                        //entidad.ImagenProducto01 = FileManager.CopyImagesMatriz(Globals.RutaImagenesOfertasNuevas + "\\" + ISO, tempImage01, Globals.RutaImagenesTempOfertas, ISO, model.CUV, "01");
-                        //FileManager.DeleteImage(Globals.RutaImagenesOfertasNuevas + "\\" + ISO, tempImagenProductoAnterior01);
-                        // 1664
                         string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
                         var newfilename = ISO + "_" + model.CUV + "_" + time + "_" + "01" + "_" + FileManager.RandomString() + ".png";
                         var path = Path.Combine(Globals.RutaTemporales, tempImage01);
@@ -595,9 +578,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (tempImage02 != tempImagenProductoAnterior02)
                     {
-                        //entidad.ImagenProducto02 = FileManager.CopyImagesMatriz(Globals.RutaImagenesOfertasNuevas + "\\" + ISO, tempImage02, Globals.RutaImagenesTempOfertas, ISO, model.CUV, "02");
-                        //FileManager.DeleteImage(Globals.RutaImagenesOfertasNuevas + "\\" + ISO, tempImagenProductoAnterior02);
-                        // 1664
                         string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
                         var newfilename = ISO + "_" + model.CUV + "_" + time + "_" + "02" + "_" + FileManager.RandomString() + ".png";
                         var path = Path.Combine(Globals.RutaTemporales, tempImage02);
@@ -610,9 +590,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (tempImage03 != tempImagenProductoAnterior03)
                     {
-                        //entidad.ImagenProducto03 = FileManager.CopyImagesMatriz(Globals.RutaImagenesOfertasNuevas + "\\" + ISO, tempImage03, Globals.RutaImagenesTempOfertas, ISO, model.CUV, "03");
-                        //FileManager.DeleteImage(Globals.RutaImagenesOfertasNuevas + "\\" + ISO, tempImagenProductoAnterior03);
-                        // 1664
                         string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
                         var newfilename = ISO + "_" + model.CUV + "_" + time + "_" + "03" + "_" + FileManager.RandomString() + ".png";
                         var path = Path.Combine(Globals.RutaTemporales, tempImage03);
@@ -627,9 +604,6 @@ namespace Portal.Consultoras.Web.Controllers
                     entidad.UsuarioModificacion = userData.CodigoConsultora;
 
                     svc.UpdOfertasNuevas(entidad);
-                    //FileManager.DeleteImage(Globals.RutaImagenesTempOfertas, tempImage01);
-                    //FileManager.DeleteImage(Globals.RutaImagenesTempOfertas, tempImage02);
-                    //FileManager.DeleteImage(Globals.RutaImagenesTempOfertas, tempImage03);
                 }
                 return Json(new
                 {
@@ -681,18 +655,6 @@ namespace Portal.Consultoras.Web.Controllers
                     entidad.UsuarioModificacion = userData.CodigoConsultora;
 
                     svc.DelOfertasNuevas(entidad, Constantes.TipoOferta.Nueva);
-
-                    //if (result > 0)
-                    //    return Json(new
-                    //    {
-                    //        success = false,
-                    //        message = "No se puede deshabilitar la Oferta, debido que se encuentra asociado a uno o más pedidos",
-                    //        extra = ""
-                    //    });
-
-                    //FileManager.DeleteImage(Globals.RutaImagenesOfertasNuevas + "\\" + ISO, tempImage01);
-                    //FileManager.DeleteImage(Globals.RutaImagenesOfertasNuevas + "\\" + ISO, tempImage02);
-                    //FileManager.DeleteImage(Globals.RutaImagenesOfertasNuevas + "\\" + ISO, tempImage03);
                 }
                 return Json(new
                 {

@@ -23,7 +23,6 @@ namespace Portal.Consultoras.Web.Controllers
                     return RedirectToAction("Index", "Bienvenida");
 
                 List<BEPermiso> lst;
-                // solo para consultora
                 int rol = Constantes.Rol.Consultora;
                 using (ServiceSeguridad.SeguridadServiceClient sv = new ServiceSeguridad.SeguridadServiceClient())
                 {
@@ -61,10 +60,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
             }
-            Mapper.CreateMap<BEPais, PaisModel>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
@@ -79,13 +74,11 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = sv.GetPermisosByRolConsulta(vpaisID, vrolID, string.Empty).ToList();
                 }
 
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                //int buscar = int.Parse(txtBuscar);
                 BEPager pag = new BEPager();
                 IEnumerable<BEPermiso> items = lst;
 
@@ -144,7 +137,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 pag = Util.PaginadorGenerico(grid, lst);
 
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,
@@ -157,7 +149,7 @@ namespace Portal.Consultoras.Web.Controllers
                                cell = new string[]
                                {
                                    a.PermisoID.ToString(),
-                                   vpaisID.ToString(), //a.PaisID.ToString(),
+                                   vpaisID.ToString(),
                                    a.Descripcion,
                                    a.UrlItem,
                                    a.OrdenItem.ToString(),
@@ -340,7 +332,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        //[ChildActionOnly]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public ActionResult TraerHeader()
         {
@@ -349,7 +340,6 @@ namespace Portal.Consultoras.Web.Controllers
             return PartialView("_PreviaMenu");
         }
 
-        //[ChildActionOnly]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public ActionResult TraerFooter()
         {
@@ -359,10 +349,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private List<PermisoModel> BuildMenuConsultoras()
         {
-            //if (Session["UserData"] != null)
-            //{
             int PaisID = UserData().PaisID;
-            // se quiere ver el menú para la consultora
             int RolID = Constantes.Rol.Consultora;
             if (RolID != 0)
             {
@@ -387,15 +374,11 @@ namespace Portal.Consultoras.Web.Controllers
             }
             else
                 return new List<PermisoModel>();
-            //}
-            //else
-            //    return new List<PermisoModel>();
         }
 
         private List<ServicioCampaniaModel> BuildMenuServiceConsultoras()
         {
-            // TODO: que campaña pasar?
-            if (Session["UserData"] != null)
+            if (sessionManager.GetUserData() != null)
             {
                 int Campaniaid = UserData().CampaniaID;
                 IList<ServiceSAC.BEServicioCampania> lst = new List<ServiceSAC.BEServicioCampania>();

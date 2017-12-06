@@ -338,7 +338,7 @@ function UpdateSessionState(codigo, campaniaId) {
 
     $.ajax({
         type: 'POST',
-        url: baseUrl + "Ofertas/ActualiarSession",
+        url: baseUrl + "Ofertas/ActualizarSession",
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(param),

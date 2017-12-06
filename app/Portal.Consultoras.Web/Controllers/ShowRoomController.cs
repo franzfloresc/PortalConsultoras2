@@ -61,7 +61,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             ViewBag.urlImagenPopupIntriga = string.Empty;
             ViewBag.urlTerminosyCondiciones = string.Empty;
-            //
             userData.ListaShowRoomPersonalizacionConsultora = userData.ListaShowRoomPersonalizacionConsultora ?? new List<ShowRoomPersonalizacionModel>();
             var personalizacionesDesktop = userData.ListaShowRoomPersonalizacionConsultora.Where(x => x.TipoAplicacion == "Desktop").ToList();
             foreach (var item in personalizacionesDesktop)
@@ -84,52 +83,13 @@ namespace Portal.Consultoras.Web.Controllers
                 var mostrarShowRoomProductosExpiro = sessionManager.GetMostrarShowRoomProductosExpiro();
 
                 bool mostrarPopupIntriga = !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
-                //bool mostrarPopupVenta = mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;                
 
                 if (mostrarPopupIntriga)
                 {
                     return RedirectToAction("Intriga", "ShowRoom");
-
-                    /*
-                    if (!ValidarIngresoShowRoom(true))
-                    {
-                        return RedirectToAction("Index", "Bienvenida");
-                    }
-
-                    var ofertasShowRoom = ObtenerOfertasShowRoom();
-
-                    if (!ofertasShowRoom.Any())
-                    {
-                        return RedirectToAction("Index", "Bienvenida");
-                    }
-
-                    return RedirectToAction("Intriga", "ShowRoom");
-                    */
-
-                    /*
-                    ActualizarUrlImagenes(ofertasShowRoom);
-
-                    var model = ObtenerPrimeraOfertaShowRoom(ofertasShowRoom);
-                    model.Simbolo = userData.Simbolo;
-                    model.CodigoISO = userData.CodigoISO;
-                    model.Suscripcion = (userData.BeShowRoomConsultora ?? new BEShowRoomEventoConsultora()).Suscripcion;
-                    model.EMail = userData.EMail;
-                    model.EMailActivo = userData.EMailActivo;
-                    model.Celular = userData.Celular;
-                    model.UrlTerminosCondiciones = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.UrlTerminosCondiciones, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
-                    model.Agregado = ObtenerPedidoWebDetalle().Any(d => d.CUV == model.CUV) ? "block" : "none";
-
-                    InicializarViewbag();
-
-                    return View("Intriga", model);
-                    */
                 }
-                //else
-                //{
                 if (!ValidarIngresoShowRoom(false))
                     return RedirectToAction("Index", "Bienvenida");
-
-                //actualizar showroom.eventoconsultora. campo recibido.
 
                 if (query != null)
                 {
@@ -194,7 +154,6 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.IconoLLuvia = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
 
                 return View(showRoomEventoModel);
-                //}                
 
             }
             catch (Exception ex)
@@ -228,14 +187,11 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ObtenterCampaniasPorPais(int PaisID)
         {
-            //PaisID = 11;
             IEnumerable<CampaniaModel> lst = DropDowListCampanias(PaisID);
-            //IEnumerable<ConfiguracionOfertaModel> lstConfig = DropDowListConfiguracion(PaisID);
 
             return Json(new
             {
                 lista = lst,
-                //lstConfig = lstConfig
             }, JsonRequestBehavior.AllowGet);
         }
 
@@ -298,13 +254,11 @@ namespace Portal.Consultoras.Web.Controllers
                     listaShowRoomEvento.Add(showRoomEvento);
                 }
 
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                //int buscar = int.Parse(txtBuscar);
                 BEPager pag = new BEPager();
                 IEnumerable<BEShowRoomEvento> items = listaShowRoomEvento;
 
@@ -363,7 +317,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 pag = Util.PaginadorGenerico(grid, listaShowRoomEvento);
 
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,
@@ -394,7 +347,6 @@ namespace Portal.Consultoras.Web.Controllers
                                TieneCompraXcompra = a.TieneCompraXcompra.ToString(),
                                TieneSubCampania = a.TieneSubCampania.ToString(),
                                TienePersonalizacion = a.TienePersonalizacion
-                               //a.EventoID
                            }
                 };
 
@@ -657,7 +609,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (nombreImagen != nombreImagenAnterior)
                     {
-                        // 1664 - Gestion de contenido S3
                         string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
                         var newfilename = ISO + "_" + soloImagen + "_" + time + "_" + "01" + "_" + FileManager.RandomString() + "." + soloExtension;
 
@@ -867,7 +818,6 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         lstStock.Update(x => x.TipoOfertaSisID = Constantes.ConfiguracionOferta.ShowRoom);
 
-                        //PL20-1398
                         var lstPrecioProductoPROL = new List<PrecioProducto>();
                         var stock1 = lstStock.First();
                         var codigosCuv = string.Join("|", lstStock.Select(x => x.CUV));
@@ -889,19 +839,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     oStock.PrecioOferta = item.precio_producto;
                                 }
                             }
-
-                            /*
-                            var pid = Util.GetPaisID(tmpItem.ISOPais);
-                            var totalLoad = 0;
-                            tmpItem = null;
-
-                            using (PedidoServiceClient svc = new PedidoServiceClient())
-                            {
-                                totalLoad = svc.InsOfertaShowRoomCargaMasiva(pid, lstStock.ToArray());
-                            }
-                             * */
                         }
-                        //PL20-1398
 
                         var productoPrecioCero = lstStock.FirstOrDefault(p => p.PrecioOferta == 0);
                         if (productoPrecioCero != null)
@@ -1023,7 +961,6 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 BEShowRoomOfertaDetalle ent = new BEShowRoomOfertaDetalle();
                                 ent.CUV = values[0].Trim().Replace("\"", "");
-                                //ent.NombreSet = values[1].Trim().Replace("\"", "");
                                 ent.Posicion = values[1].Replace("\"", "0").ToInt();
                                 ent.NombreProducto = values[2].Trim().Replace("\"", "");
                                 ent.Descripcion1 = values[3].Trim().Replace("\"", "");
@@ -1048,7 +985,8 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 try
                                 {
-                                    registros += sv.CargarMasivaDescripcionSets(paisID, hdCargaDescripcionSetsCampaniaID, userData.CodigoConsultora, listaDescripcionSets.ToArray());
+                                    registros += sv.CargarMasivaDescripcionSets(
+                                        paisID, hdCargaDescripcionSetsCampaniaID, userData.CodigoConsultora, listaDescripcionSets.ToArray(), fileName, newfileName);
                                 }
                                 catch (FaultException ex)
                                 {
@@ -1243,13 +1181,11 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = sv.GetProductosShowRoom(PaisID, CampaniaID).ToList();
                 }
 
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                //int buscar = int.Parse(txtBuscar);
                 BEPager pag = new BEPager();
                 IEnumerable<BEShowRoomOferta> items = lst;
 
@@ -1331,7 +1267,6 @@ namespace Portal.Consultoras.Web.Controllers
                 lst.Update(x => x.ImagenProducto = x.ImagenProducto.ToString().Equals(string.Empty) ? string.Empty : ConfigCdn.GetUrlFileCdn(carpetaPais, x.ImagenProducto));
                 lst.Update(x => x.ImagenMini = x.ImagenMini.ToString().Equals(string.Empty) ? string.Empty : ConfigCdn.GetUrlFileCdn(carpetaPais, x.ImagenMini));
                 lst.Update(x => x.ISOPais = ISO);
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,
@@ -1680,7 +1615,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             int UnidadesPermitidas = 0;
             int Saldo = 0;
-            /* 2024 - Inicio */
             int CantidadPedida = 0;
             var entidad = new BEOfertaProducto();
             entidad.PaisID = userData.PaisID;
@@ -1763,13 +1697,12 @@ namespace Portal.Consultoras.Web.Controllers
 
                     sv.InsPedidoWebDetalleOferta(entidad);
 
-                    Session["PedidoWeb"] = null;
-                    Session["PedidoWebDetalle"] = null;
+                    sessionManager.SetPedidoWeb(null);
+                    sessionManager.SetDetallesPedido(null);
                 }
 
                 UpdPedidoWebMontosPROL();
 
-                //EPD-2248
                 if (entidad != null)
                 {
                     BEIndicadorPedidoAutentico indPedidoAutentico = new BEIndicadorPedidoAutentico();
@@ -1782,7 +1715,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                     InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);
                 }
-                //EPD-2248
 
                 return Json(new
                 {
@@ -1864,13 +1796,12 @@ namespace Portal.Consultoras.Web.Controllers
 
                     sv.InsPedidoWebDetalleOferta(entidad);
 
-                    Session["PedidoWeb"] = null;
-                    Session["PedidoWebDetalle"] = null;
+                    sessionManager.SetPedidoWeb(null);
+                    sessionManager.SetDetallesPedido(null);
                 }
 
                 UpdPedidoWebMontosPROL();
 
-                //EPD-2248
                 if (entidad != null)
                 {
                     BEIndicadorPedidoAutentico indPedidoAutentico = new BEIndicadorPedidoAutentico();
@@ -1883,7 +1814,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                     InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);
                 }
-                //EPD-2248
 
                 return Json(new
                 {
@@ -1960,13 +1890,11 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = sv.GetProductosShowRoomDetalle(userData.PaisID, campaniaId, cuv).ToList();
                 }
 
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                //int buscar = int.Parse(txtBuscar);
                 BEPager pag = new BEPager();
                 IEnumerable<BEShowRoomOfertaDetalle> items = lst;
 
@@ -2023,7 +1951,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 lst.Update(x => x.Imagen = x.Imagen.ToString().Equals(string.Empty) ? string.Empty : ConfigCdn.GetUrlFileCdn(carpetaPais, x.Imagen));
 
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,
@@ -2657,10 +2584,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
             }
-            Mapper.CreateMap<BEPais, PaisModel>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
@@ -2907,27 +2830,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 const int SHOWROOM_ESTADO_INACTIVO = 0;
                 const string TIPO_APLICACION_DESKTOP = "Desktop";
-
-                //if (!PaisTieneShowRoom(userData.CodigoISO))
-                //{
-                //    return Json(new
-                //    {
-                //        success = false,
-                //        data = "",
-                //        message = "ShowRoomConsultora encontrada"
-                //    });
-                //}
-
-                //if (!userData.CargoEntidadesShowRoom)
-                //{
-                //    return Json(new
-                //    {
-                //        success = false,
-                //        data = "",
-                //        message = ""
-                //    });
-                //}
-
+                
                 var showRoom = userData.BeShowRoom ?? new BEShowRoomEvento();
 
                 if (showRoom.Estado == SHOWROOM_ESTADO_INACTIVO)
@@ -2941,28 +2844,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 var showRoomConsultora = userData.BeShowRoomConsultora ?? new BEShowRoomEventoConsultora();
-                //var mostrarPopupIntriga = showRoomConsultora.MostrarPopup;
-                //var mostrarPopupVenta = showRoomConsultora.MostrarPopupVenta;
-
-                //if (!mostrarPopupIntriga && !mostrarPopupVenta)
-                //{
-                //    return Json(new
-                //    {
-                //        success = false
-                //    });
-                //}
-
-                //var mostrarShowRoomProductos = sessionManager.GetMostrarShowRoomProductos();
-                //var mostrarShowRoomProductosExpiro = sessionManager.GetMostrarShowRoomProductosExpiro();
-
-                //mostrarPopupIntriga = !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
-                //mostrarPopupVenta = mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
-
-                //var rutaShowRoomPopup = string.Empty;
-                //if (mostrarShowRoomProductos)
-                //{
-                //    rutaShowRoomPopup = Url.Action("Index", "ShowRoom");
-                //}
 
                 var personalizacionImagenIntriga = userData
                     .ListaShowRoomPersonalizacionConsultora
@@ -3222,7 +3103,6 @@ namespace Portal.Consultoras.Web.Controllers
         private ServiceUsuario.BEUsuario ActualizarCorreoUsuario(MisDatosModel model, string correoAnterior)
         {
             var entidad = Mapper.Map<MisDatosModel, ServiceUsuario.BEUsuario>(model);
-            //
             entidad.CodigoUsuario = userData.CodigoUsuario;
             entidad.Telefono = userData.Telefono;
             entidad.TelefonoTrabajo = userData.TelefonoTrabajo;
@@ -3305,13 +3185,11 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = sv.GetShowRoomTipoOferta(userData.PaisID).ToList();
                 }
 
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                //int buscar = int.Parse(txtBuscar);
                 BEPager pag = new BEPager();
                 IEnumerable<BEShowRoomTipoOferta> items = lst;
 
@@ -3346,7 +3224,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 pag = Util.PaginadorGenerico(grid, lst);
 
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,
@@ -3488,8 +3365,8 @@ namespace Portal.Consultoras.Web.Controllers
             if (listaShowRoomOferta != null)
             {
                 List<Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle> detalle = new List<Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle>();
-                if (Session["PedidoWebDetalle"] != null)
-                    detalle = (List<Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle>)Session["PedidoWebDetalle"];
+                if (sessionManager.GetDetallesPedido() != null)
+                    detalle = sessionManager.GetDetallesPedido();
                 if (detalle.Count > 0)
                 {
                     for (int i = 0; i <= listaShowRoomOferta.Count - 1; i++)

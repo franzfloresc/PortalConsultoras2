@@ -2,7 +2,6 @@
 using System.Data;
 using System.Data.Common;
 
-//Made by Uchida Virtual Coach
 namespace Portal.Consultoras.Data
 {
     public class DAAsesoraOnline : DataAccess

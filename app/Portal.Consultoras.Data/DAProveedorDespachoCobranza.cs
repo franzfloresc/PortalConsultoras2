@@ -24,8 +24,7 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
-
-        //r20151202
+        
         public int DelProveedorDespachoCobranza(int ProveedorDespachoCobanzaID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.DeleteProveedorDespachoCobranzaByID");

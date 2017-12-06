@@ -13,9 +13,6 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class CrossSellingController : BaseController
     {
-        //
-        // GET: /CrossSelling/
-
         #region Configuracion Cross Selling
 
         public ActionResult ConfiguracionCrossSelling()
@@ -51,17 +48,12 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
             }
-            Mapper.CreateMap<BEPais, PaisModel>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
 
         public JsonResult ObtenterCampaniasPorPais(int PaisID)
         {
-            //PaisID = 11;
             IEnumerable<CampaniaModel> lst = DropDowListCampanias(PaisID);
             return Json(new
             {
@@ -99,13 +91,11 @@ namespace Portal.Consultoras.Web.Controllers
 
                 string ISO = Util.GetPaisISO(PaisID);
 
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                //int buscar = int.Parse(txtBuscar);
                 BEPager pag = new BEPager();
                 IEnumerable<BEConfiguracionCrossSelling> items = lst;
 
@@ -140,7 +130,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 pag = Util.PaginadorGenerico(grid, lst);
                 lst.Update(x => x.Pais = Util.GetPaisNombre(PaisID));
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,
@@ -242,7 +231,6 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     lst = sv.GetCrossSellingProductosAdministracion(PaisID, CampaniaID).ToList();
                 }
-                // 1664
                 
                 if (lst != null && lst.Count > 0)
                 {
@@ -252,13 +240,11 @@ namespace Portal.Consultoras.Web.Controllers
 
                 string ISO = Util.GetPaisISO(PaisID);
 
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                //int buscar = int.Parse(txtBuscar);
                 BEPager pag = new BEPager();
                 IEnumerable<BECrossSellingProducto> items = lst;
 
@@ -306,7 +292,6 @@ namespace Portal.Consultoras.Web.Controllers
                 pag = Util.PaginadorGenerico(grid, lst);
                 
                 lst.Update(x => x.ISOPais = ISO);
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,
@@ -403,7 +388,6 @@ namespace Portal.Consultoras.Web.Controllers
                     .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
                     .ForMember(t => t.PrecioOferta, f => f.MapFrom(c => c.PrecioOferta))
                     .ForMember(t => t.ImagenProducto, f => f.MapFrom(c => c.ImagenProducto))
-                    //.ForMember(t => t.ImagenProductoAnterior, f => f.MapFrom(c => c.ImagenProductoAnterior))
                     .ForMember(t => t.CodigoCampania, f => f.MapFrom(c => c.CodigoCampania))
                     .ForMember(t => t.FlagHabilitarProducto, f => f.MapFrom(c => c.FlagHabilitarProducto))
                     .ForMember(t => t.MensajeProducto, f => f.MapFrom(c => c.MensajeProducto));
@@ -519,7 +503,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ObtenerProductosRecomendadosHabilitados(int PaisID, int CampaniaID, int Tipo)
         {
-            //PaisID = 11;
             IEnumerable<CrossSellingProductoModel> lst = DropDowListProductosRecomendadosHabilitados(PaisID, CampaniaID, Tipo);
             return Json(new
             {
@@ -529,7 +512,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ObtenerDescripcionProducto(int PaisID, int CampaniaID, string CUV)
         {
-            //PaisID = 11;
             IEnumerable<CrossSellingAsociacionModel> lst = GetDescripcionByCUV(PaisID, CampaniaID, CUV);
             return Json(new
             {
@@ -539,7 +521,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ObtenerCUVAsociado(int PaisID, int CampaniaID, string CUV)
         {
-            //PaisID = 11;
             IEnumerable<CrossSellingAsociacionModel> lst = GetCUVAsociadoByFilter(PaisID, CampaniaID, CUV, "");
             return Json(new
             {
@@ -607,13 +588,11 @@ namespace Portal.Consultoras.Web.Controllers
 
                     string ISO = Util.GetPaisISO(PaisID);
 
-                    // Usamos el modelo para obtener los datos
                     BEGrid grid = new BEGrid();
                     grid.PageSize = rows;
                     grid.CurrentPage = page;
                     grid.SortColumn = sidx;
                     grid.SortOrder = sord;
-                    //int buscar = int.Parse(txtBuscar);
                     BEPager pag = new BEPager();
                     IEnumerable<BECrossSellingAsociacion> items = lst;
 
@@ -659,7 +638,6 @@ namespace Portal.Consultoras.Web.Controllers
                     items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
                     pag = Util.PaginadorGenerico(grid, lst);
-                    // Creamos la estructura
                     var data = new
                     {
                         total = pag.PageCount,
@@ -702,7 +680,6 @@ namespace Portal.Consultoras.Web.Controllers
                         grid.CurrentPage = page;
                         grid.SortColumn = sidx;
                         grid.SortOrder = sord;
-                        //int buscar = int.Parse(txtBuscar);
                         BEPager pag = new BEPager();
                         IEnumerable<BESegmentoPlaneamiento> items = lst;
 
@@ -743,7 +720,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                         pag = Util.PaginadorGenerico(grid, lst);
 
-                        // Creamos la estructura
                         var data = new
                         {
                             total = pag.PageCount,
@@ -787,7 +763,7 @@ namespace Portal.Consultoras.Web.Controllers
                     .ForMember(t => t.CUVAsociado2, f => f.MapFrom(c => c.CUVAsociado2))
                     .ForMember(t => t.CodigoSegmento, f => f.MapFrom(c => c.CodigoSegmento))
                     .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
-                    .ForMember(t => t.EtiquetaPrecio, f => f.MapFrom(c => c.EtiquetaPrecio));//1673CC
+                    .ForMember(t => t.EtiquetaPrecio, f => f.MapFrom(c => c.EtiquetaPrecio));
 
                 BECrossSellingAsociacion entidad = Mapper.Map<CrossSellingAsociacionModel, BECrossSellingAsociacion>(model);
 
@@ -837,7 +813,7 @@ namespace Portal.Consultoras.Web.Controllers
                     .ForMember(t => t.CUVAsociado, f => f.MapFrom(c => c.CUVAsociado))
                     .ForMember(t => t.CUVAsociado2, f => f.MapFrom(c => c.CUVAsociado2))
                     .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
-                    .ForMember(t => t.EtiquetaPrecio, f => f.MapFrom(c => c.EtiquetaPrecio));//1673CC
+                    .ForMember(t => t.EtiquetaPrecio, f => f.MapFrom(c => c.EtiquetaPrecio));
 
                 BECrossSellingAsociacion entidad = Mapper.Map<CrossSellingAsociacionModel, BECrossSellingAsociacion>(model);
 
@@ -925,7 +901,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ObtenerCUVAsociado_Segmentacion(int PaisID, int CampaniaID, string CodigoSegmento)
         {
-            //PaisID = 11;
             IEnumerable<CrossSellingAsociacionModel> lst = GetCUVAsociadoByFilter(PaisID, CampaniaID, "", CodigoSegmento);
             return Json(new
             {
@@ -948,13 +923,11 @@ namespace Portal.Consultoras.Web.Controllers
 
                 string ISO = Util.GetPaisISO(PaisID);
 
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                //int buscar = int.Parse(txtBuscar);
                 BEPager pag = new BEPager();
                 IEnumerable<BECrossSellingAsociacion> items = lst;
 
@@ -1000,7 +973,6 @@ namespace Portal.Consultoras.Web.Controllers
                 items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
                 pag = Util.PaginadorGenerico(grid, lst);
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,
@@ -1015,7 +987,7 @@ namespace Portal.Consultoras.Web.Controllers
                                    CampaniaID.ToString(),
                                    a.CUV.ToString(),
                                    a.Descripcion.ToString(),
-                                   a.EtiquetaPrecio.ToString(),//1673CC                                  
+                                   a.EtiquetaPrecio.ToString(),
                                    a.CrossSellingAsociacionID.ToString()
                                 }
                            }

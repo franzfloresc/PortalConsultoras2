@@ -22,6 +22,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var model = new BienvenidaModel();
             try
             {
+                if (userData.RolID != Constantes.Rol.Consultora)
+                    return RedirectToAction("Index", "Bienvenida", new { area = "" });
+
                 if (base.ObtenerPedidoWeb() != null)
                 {
                     model.MontoAhorroCatalogo = base.ObtenerPedidoWeb().MontoAhorroCatalogo;
@@ -70,7 +73,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.UrlImagenLiquidaciones = ConfigCdn.GetUrlFileCdn("Mobile/Liquidaciones/" + userData.CodigoISO, "liquidaciones.png");
                 model.UrlImagenCatalogoPersonalizado = ConfigCdn.GetUrlFileCdn("Mobile/CatalogoPersonalizado/" + userData.CodigoISO, "catalogo.png");
                 model.EsCatalogoPersonalizadoZonaValida = userData.EsCatalogoPersonalizadoZonaValida;
-                model.CodigoUsuario = userData.CodigoUsuario; //EPD-1180
+                model.CodigoUsuario = userData.CodigoUsuario;
                 model.EMail = userData.EMail;
                 model.Celular = userData.Celular;
 
@@ -83,10 +86,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.ShowRoomMostrarLista = ValidarPermiso(Constantes.MenuCodigo.CatalogoPersonalizado) ? 0 : 1;
 
                 ViewBag.paisISO = userData.CodigoISO;
-                ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("BUCKET_NAME") ?? string.Empty;
+                ViewBag.Ambiente = GetBucketNameFromConfig();
                 ViewBag.NombreConsultora = model.NombreConsultora;
 
-                // mostrar popup de revista digital....
                 model.RevistaDigitalPopUpMostrar = revistaDigital.NoVolverMostrar;
                 model.RevistaDigital = revistaDigital;
 
