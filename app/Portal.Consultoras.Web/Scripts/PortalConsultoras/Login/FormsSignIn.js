@@ -1,10 +1,10 @@
-var imgISO = "";
+﻿var imgISO = "";
 var _kiq = _kiq || [];
 var activarHover = true;
 var val_comboLogin = "";
 var temp = "";
 var openloginPopup = false;
-
+var analytics = Analytics(configAnalytics);
 
 var CodigoISO;
 var PaisID;
@@ -74,13 +74,11 @@ $(document).ready(function () {
 
     $("#ddlPais").change(function () {
         imgISO = $("#ddlPais").val();
+        analytics.invocarAnalyticsByCodigoIso(imgISO);
 
-        if ($("#ddlPais").val() == "MX") {
-            $("#AvisoASP").show();
-        }
-        else {
-            $("#AvisoASP").hide();
-        }       
+        if ($("#ddlPais").val() == "MX") $("#AvisoASP").show();
+        else $("#AvisoASP").hide();
+
         EsconderLogoEsikaPanama(imgISO);
         AsignarHojaEstilos();
 
@@ -623,6 +621,8 @@ function AsignarHojaEstilos() {
 
 function olvidasteContrasenia() {
     _gaq.push(['_trackEvent', 'Link', 'Olvide-contrasenia']);
+    analytics.invocarEventoPixel("OlvidasteContraseña");
+
     val_comboLogin = $("#ddlPais").val();
     temp = getVALbyISO(val_comboLogin);
     $("#cboPaisCambioClave").val(temp);
@@ -742,6 +742,7 @@ function login2() {
 
             if (response.success) {
                 if (response.redirectTo !== "") {
+                    analytics.invocarEventoPixel("FacebookLoginLogin");
                     document.location.href = response.redirectTo;
                 }
             }
