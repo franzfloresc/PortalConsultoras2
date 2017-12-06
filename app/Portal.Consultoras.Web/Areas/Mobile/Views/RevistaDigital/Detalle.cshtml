@@ -12,7 +12,7 @@
     @System.Web.Optimization.Styles.Render("~/bundles/css/Mobile/Site/RevistaDigital-Detalle")
 }
 <div class="content_detalle_set_bpt_general" id="divDetalleContenido" data-item="" 
-     data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileProductPage" 
+     data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.LanzamientoMobileProductPage" 
      data-estadoregistro="@ViewBag.EstadoSuscripcion" data-tag-html="@ViewBag.Campania">
 
     <div data-compartir-campos="" style="display:none;">
@@ -149,7 +149,7 @@
 @Html.Partial("~/Areas/Mobile/Views/RevistaDigital/template-mensaje-inscrita.cshtml", (int)ViewBag.CampaniaMasDosX)
 @section scripts{
 <script type="text/javascript">
-    var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.RevistaDigitalMobileProductPage';
+    var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.LanzamientoMobileProductPage';
     var tipoOrigenEstrategia = 272;
 </script>
 @System.Web.Optimization.Scripts.Render("~/bundles/Mobile/RevistaDigital-Detalle")

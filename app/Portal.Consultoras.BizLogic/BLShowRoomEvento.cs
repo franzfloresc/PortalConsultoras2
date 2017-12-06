@@ -78,18 +78,10 @@ namespace Portal.Consultoras.BizLogic
             return dataAccess.UpdOfertaShowRoomStockMasivo(stockProductos);
         }
 
-        /*
-        public int InsOfertaShowRoomCargaMasiva(int paisID, List<BEShowRoomOferta2> stockProductos)
+        public int CargarMasivaDescripcionSets(int paisID, int campaniaID, string usuarioCreacion, List<BEShowRoomOfertaDetalle> listaShowRoomOfertaDetalle, string nombreArchivoCargado, string nombreArchivoGuardado)
         {
             var dataAccess = new DAShowRoomEvento(paisID);
-            return dataAccess.InsOfertaShowRoomCargaMasiva(stockProductos);
-        }
-         * */
-
-        public int CargarMasivaDescripcionSets(int paisID, int campaniaID, string usuarioCreacion, List<BEShowRoomOfertaDetalle> listaShowRoomOfertaDetalle)
-        {
-            var dataAccess = new DAShowRoomEvento(paisID);
-            return dataAccess.CargarMasivaDescripcionSets(campaniaID, usuarioCreacion, listaShowRoomOfertaDetalle);
+            return dataAccess.CargarMasivaDescripcionSets(campaniaID, usuarioCreacion, listaShowRoomOfertaDetalle, nombreArchivoCargado, nombreArchivoGuardado);
         }
 
         public int CargarProductoCpc(int paisId, int eventoId, string usuarioCreacion, List<BEShowRoomCompraPorCompra> listaShowRoomCompraPorCompra)
@@ -451,7 +443,6 @@ namespace Portal.Consultoras.BizLogic
             try
             {
                 var dataAccess = new DAShowRoomEvento(paisId);
-                //int resultado;
                 TransactionOptions oTransactionOptions = new TransactionOptions();
                 oTransactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
 
@@ -467,7 +458,6 @@ namespace Portal.Consultoras.BizLogic
                     oTransactionScope.Complete();
                 }
 
-                //return resultado;
             }
             catch (Exception ex)
             {

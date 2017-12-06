@@ -13,9 +13,6 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class AdministracionOfertaController : BaseController
     {
-        //
-        // GET: /AdministracionOferta/
-
         public ActionResult Index()
         {
             if (!UsuarioModel.HasAcces(ViewBag.Permiso, "AdministracionOferta/Index"))
@@ -41,11 +38,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
             }
-            Mapper.CreateMap<BEPais, PaisModel>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
-
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
 
@@ -167,13 +159,11 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = sv.GetConfiguracionOfertaAdministracion(PaisID, TipoOfertaSisID).ToList();
                 }
 
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                //int buscar = int.Parse(txtBuscar);
                 BEPager pag = new BEPager();
                 IEnumerable<BEConfiguracionOferta> items = lst;
 
@@ -219,7 +209,6 @@ namespace Portal.Consultoras.Web.Controllers
                 items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
                 pag = Util.PaginadorGenerico(grid, lst);
 
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,

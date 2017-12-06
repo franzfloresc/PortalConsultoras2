@@ -1570,9 +1570,9 @@ namespace Portal.Consultoras.Service
         }
          * */
 
-        public int CargarMasivaDescripcionSets(int paisID, int campaniaID, string usuarioCreacion, List<BEShowRoomOfertaDetalle> listaShowRoomOfertaDetalle)
+        public int CargarMasivaDescripcionSets(int paisID, int campaniaID, string usuarioCreacion, List<BEShowRoomOfertaDetalle> listaShowRoomOfertaDetalle, string nombreArchivoCargado, string nombreArchivoGuardado)
         {
-            return BLShowRoomEvento.CargarMasivaDescripcionSets(paisID, campaniaID, usuarioCreacion, listaShowRoomOfertaDetalle);
+            return BLShowRoomEvento.CargarMasivaDescripcionSets(paisID, campaniaID, usuarioCreacion, listaShowRoomOfertaDetalle, nombreArchivoCargado, nombreArchivoGuardado);
         }
 
         public int CargarProductoCpc(int paisId, int eventoId, string usuarioCreacion, List<BEShowRoomCompraPorCompra> listaShowRoomCompraPorCompra)
@@ -2270,6 +2270,18 @@ namespace Portal.Consultoras.Service
             return _pedidoWebBusinessLogic.GetMisPedidosFacturados(paisID, ConsultoraID, CampaniaID, ClienteID, NombreConsultora);
         }
         #endregion
+        
+        #region ProductosPrecargados
+        public int GetFlagProductosPrecargados(int paisID, string CodigoConsultora, int CampaniaID)
+        {
+            return BLPedidoWeb.GetFlagProductosPrecargados(paisID, CodigoConsultora, CampaniaID);
+        }
+
+        public void UpdateMostradoProductosPrecargados(int paisID, int CampaniaID, long ConsultoraID, string IPUsuario)
+        {
+            BLPedidoWeb.UpdateMostradoProductosPrecargados(paisID, CampaniaID, ConsultoraID, IPUsuario);
+        }
+        #endregion  
 
         #region Certificado Digital
         public bool TieneCampaniaConsecutivas(int paisId, int campaniaId, int cantidadCampaniaConsecutiva, long consultoraId)

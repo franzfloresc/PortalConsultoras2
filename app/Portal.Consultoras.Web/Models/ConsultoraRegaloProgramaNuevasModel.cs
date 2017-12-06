@@ -14,8 +14,6 @@ namespace Portal.Consultoras.Web.Models
 
         public string CodigoNivel { get; set; }
 
-        //public string CodigoPrograma { get; set; }
-
         public decimal TippingPoint { get; set; }
 
         public string CUVPremio { get; set; }

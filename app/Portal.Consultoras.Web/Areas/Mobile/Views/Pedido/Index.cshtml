@@ -42,7 +42,7 @@
                     <input type="text" id="txtClienteNombre" placeholder="Cliente" class="PedidoClienteNombre" />
                 }
                
-                <input type="tel" name="codigoProducto" value="" placeholder="Código" id="txtCodigoProducto" oninput="maxLengthCheck(this, 5)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
+                <input type="tel" name="codigoProducto" value="" placeholder="Código" id="txtCodigoProducto" oninput="FuncionesGenerales.MaxLengthCheck(this, 5)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
             </form>
         </div>
     </div>
@@ -337,6 +337,8 @@
     </div>
 </div>
 
+
+
 <!-- FIN POPUP MIS GANANCIAS -->
 <!--SB20-483 - FIN -->
 <!-- POPUP AGREGAR CLIENTE -->
@@ -466,7 +468,7 @@
         var productoSugerido = false;
         var productoAgotado = false;
 
-        var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTi;
+        var tipoOrigenEstrategia = 21;
 
         var urlClienteDetalle = "@Url.Action("AgregarCliente", "Cliente", new { area = "Mobile" })";
         var lstClientes = @Html.Raw(@Json.Encode(Model.ListaClientes));
@@ -479,8 +481,9 @@
         var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
         var viewBagCampaniaActual = '@Model.CampaniaActual';
         var tipoOrigenEstrategia = 21;
-        var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTi;
-        var origenPedidoWebFichaProducto = @Constantes.OrigenPedidoWeb.MobilePedidoVirtualCoach;
+        var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.OfertasParaTiMobilePedido;
+        var origenPedidoWebFichaProducto = @Constantes.OrigenPedidoWeb.VirtualCoachMobilePedido;
+        var MobilePedidoSugerido = @Constantes.OrigenPedidoWeb.MobilePedidoSugerido;
         var origenPedidoWebMobilePedido = @Constantes.OrigenPedidoWeb.MobilePedido;
         var paisISO = '@ViewBag.paisISO';
         var viewBagAmbiente = '@ViewBag.Ambiente';
@@ -507,4 +510,11 @@
     }
 
     @Scripts.Render("~/bundles/JsMobile/Pedido")
+
+    @if (Model.MostrarPopupPrecargados)
+    {
+        <script>
+            $(document).ready(function () { messageInfoValidado('@Html.Raw(Constantes.RecuperacionPedido.Mensaje)'); });
+        </script>
+    }
 }

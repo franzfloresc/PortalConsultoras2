@@ -118,7 +118,6 @@ namespace Portal.Consultoras.Web.Controllers
                 HttpPostedFileBase postedFile = Request.Files[0];
                 postedFile.SaveAs(path);
 
-                // Req. 1664 - Gestion de contenido S3
                 var carpetaPais = Globals.UrlOfertasFic + "/" + userData.CodigoISO;
                 ConfigS3.SetFileS3(path, carpetaPais, fileName);
 

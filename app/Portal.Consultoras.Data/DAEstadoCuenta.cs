@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-// R2073 - Toda la clase
 namespace Portal.Consultoras.Data
 {
     public class DAEstadoCuenta:DataAccess
@@ -22,6 +21,21 @@ namespace Portal.Consultoras.Data
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetEstadoCuentaConsultora_SB2");
             Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int32, consultoraId);
             return Context.ExecuteReader(command);
+        }
+
+        public string GetDeudaActualConsultora(long consultoraId)
+        {
+            try
+            {
+                DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetDeudaActualConsultora");
+                Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int32, consultoraId);
+                return Convert.ToString(Context.ExecuteScalar(command));
+            }
+            catch (Exception ex)
+            {
+                return "";
+                throw ex;
+            }
         }
     }
 }

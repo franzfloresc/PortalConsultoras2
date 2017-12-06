@@ -132,7 +132,7 @@ namespace Portal.Consultoras.Web.Models
 
         public string Prol { get; set; }
 
-        public string ProlTooltip { get; set; } /* SB20-287 */
+        public string ProlTooltip { get; set; }
 
         public string MensajeGuardarColombia { get; set; }
 
@@ -296,5 +296,7 @@ namespace Portal.Consultoras.Web.Models
 
         public RevistaDigitalModel RevistaDigital { get; set; }
         public bool EsOfertaIndependiente { get; set; }
+
+        public bool MostrarPopupPrecargados { get; set; }
     }
 }

@@ -57,8 +57,7 @@ namespace Portal.Consultoras.Data
 
             return Convert.ToString(Context.ExecuteScalar(command));
         }
-
-        //R1957
+        
         private DataTable productoTabla(BEProductoFaltante[] students)
         {
             DataTable dt = new DataTable();
@@ -90,7 +89,6 @@ namespace Portal.Consultoras.Data
             return result;
         }
 
-        //R1957
         public int DelProductoFaltante2(List<BEProductoFaltante> prod, out int deleted,int flag,int pais ,int campania,int zona,string cuv,string e_producto,DateTime fecha)
         {
             var listTablaTempType = new List<BETablaTemType>();
@@ -122,8 +120,7 @@ namespace Portal.Consultoras.Data
             deleted = Convert.ToInt32(command.Parameters["@Deleted"].Value);
             return deleted;
         }
-
-        //R1957
+        
         public IDataReader GetProductoFaltanteByEntity(BEProductoFaltante productofaltante, string ColumnaOrden, string Ordenamiento, int PaginaActual, int FlagPaginacion, int RegistrosPorPagina,int pais)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetProductoFaltanteByEntity");
@@ -131,7 +128,6 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@Zona", DbType.AnsiString, productofaltante.Zona);
             Context.Database.AddInParameter(command, "@CUV", DbType.AnsiString, productofaltante.CUV);
             Context.Database.AddInParameter(command, "@Descripcion", DbType.AnsiString, productofaltante.Descripcion);
-            //R2283
             Context.Database.AddInParameter(command, "@fecha", DbType.AnsiString, productofaltante.Fecha);
             Context.Database.AddInParameter(command, "@columnaOrder", DbType.AnsiString, ColumnaOrden);
             Context.Database.AddInParameter(command, "@tipoOrden", DbType.AnsiString, Ordenamiento);
@@ -183,8 +179,7 @@ namespace Portal.Consultoras.Data
 
             Context.ExecuteNonQuery(command);
         }
-
-        /* 1957 - Inicio */
+        
         public int DelProductoFaltanteMasivo(int campaniaID, string zona, string cuv, string fecha, string descripcion)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.DelProductoFaltanteMasivo");
@@ -196,6 +191,6 @@ namespace Portal.Consultoras.Data
 
             return Convert.ToInt32(Context.ExecuteScalar(command).ToString());
         }
-        /* 1957 - Fin */
+
     }
 }

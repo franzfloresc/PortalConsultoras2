@@ -25,7 +25,6 @@ namespace Portal.Consultoras.Web.Controllers
                 model.NombrePapel_regalo_dorado = Constantes.ArchivosDescargables.PAPEL_REGALO_DORADO;
                 model.NombrePapel_regalo_rojo = Constantes.ArchivosDescargables.PAPEL_REGALO_ROJO;
 
-                /*Generando URL de cada archivo descargable*/
                 model.Urltarjeta_navidenia = urlS3 + Constantes.ArchivosDescargables.TARJETA_NAVIDENA;
                 model.Urlpapel_regalo_dorado = urlS3 + Constantes.ArchivosDescargables.PAPEL_REGALO_DORADO;
                 model.Urlpapel_regalo_rojo = urlS3 + Constantes.ArchivosDescargables.PAPEL_REGALO_ROJO;                

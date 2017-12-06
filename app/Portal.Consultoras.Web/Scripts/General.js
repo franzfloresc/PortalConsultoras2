@@ -1,6 +1,9 @@
 ﻿
 var formatDecimalPais = formatDecimalPais || new Object();
 var finishLoadCuponContenedorInfo = false;
+var belcorp = belcorp || {};
+belcorp.settings = belcorp.settings || {}
+belcorp.settings.uniquePrefix = "/g/";
 
 jQuery(document).ready(function () {
     CreateLoading();
@@ -15,6 +18,25 @@ jQuery(document).ready(function () {
 
     if (typeof (tokenPedidoAutenticoOk) !== 'undefined') {
         GuardarIndicadorPedidoAutentico();
+    }
+
+    if (isMobile()) {
+        var posibleGuid = getMobilePrefixUrl().substring(belcorp.settings.uniquePrefix.length);
+        if (FuncionesGenerales.IsGuid(posibleGuid)) {
+            $.ajaxSetup({
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("guid", posibleGuid);
+                }
+            });
+
+            $.ajaxPrefilter(function (options) {
+                if (!options.beforeSend) {
+                    options.beforeSend = function (xhr) {
+                        xhr.setRequestHeader("guid", posibleGuid);
+                    }
+                }
+            });
+        }
     }
 });
 (function ($) {
@@ -638,7 +660,7 @@ function isMobile() {
 }
 
 function getMobilePrefixUrl() {
-    var uniquePrefix = "/g/";
+    var uniquePrefix = belcorp.settings.uniquePrefix;
     var currentUrl = $.trim(location.href).toLowerCase();
     var uniqueIndexOfUrl = currentUrl.indexOf(uniquePrefix);
     var isUniqueUrl = uniqueIndexOfUrl > 0;
@@ -674,7 +696,6 @@ function checkTimeout(data) {
         }
 
         if (!thereIsStillTime) {
-            //window.location.href = "/Login/SesionExpirada";
 
             var message = "Tu sesión ha finalizado por inactividad. Por favor, ingresa nuevamente.";
             if (ViewBagEsMobile == 1) {/*1 Desktop, 2 Mobile*/
@@ -865,6 +886,10 @@ FuncionesGenerales = {
         if (object.value.length > cantidadMaxima)
             object.value = object.value.slice(0, cantidadMaxima);
     },
+    IsGuid: function(input) {
+        var guidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+        return guidRegex.test(input);
+    }
 };
 
 function InsertarLogDymnamo(pantallaOpcion, opcionAccion, esMobile, extra) {
@@ -939,7 +964,6 @@ function xMensajeEstadoPedido(estado) {
         ResizeMensajeEstadoPedido();
     }
     else {
-        //$("#bloquemensajesPedido").slideUp();
         $("#bloquemensajesPedido").hide();
     }
     LayoutHeader();
@@ -950,26 +974,11 @@ function LayoutHeader() {
     $(document).ajaxStop(function () {
         LayoutHeaderFin();
     });
-    //setTimeout(function () {
-    //    var wtop = $("header").innerHeight();
-    //    $("[data-content]").animate({ "margin-top": (wtop) + "px" });
-    //}, 350);
 }
 
 function LayoutHeaderFin() {
     var wtop = $("header").innerHeight();
     $("[data-content]").css("margin-top", (wtop) + "px");
-
-    //$("[data-content] div[data-layout-menu2]").css("top", (wtop) + "px");
-    //if ($('[data-content] div[data-layout-menu2]').is(':visible')) {
-    //    wtop = $(window).innerWidth() * 0.12;
-    //    $("[data-content] div[data-layout-menu2]").css("width", (wtop) + "px");
-    //    $("[data-content] div[data-layout-body]").css("margin-left", (wtop) + "px");
-    //}
-    //else {
-    //    $("[data-content] div[data-layout-body]").css("width", "100%");
-    //    $("[data-content] div[data-layout-body]").css("margin-left", "");
-    //}
 }
 
 function LayoutMenu() {
@@ -1105,7 +1114,6 @@ function cerrarMensajePostulante() {
     $.ajax({
         type: 'POST',
         url: baseUrl + 'Bienvenida/CerrarMensajePostulante',
-        //data: '',
         cache: false,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
@@ -1231,7 +1239,6 @@ function AnalyticsRedesSociales(tipoRedes, ruta) {
 }
 
 function CompartirRedesSocialesInsertar(article, tipoRedes, ruta) {
-    //AbrirLoad();
 
     var _rutaImagen = $.trim($(article).find(".rs" + tipoRedes + "RutaImagen").val());
     var _mensaje = $.trim($(article).find(".rs" + tipoRedes + "Mensaje").val());
@@ -1247,9 +1254,6 @@ function CompartirRedesSocialesInsertar(article, tipoRedes, ruta) {
         pcDetalle += "|" + _vol + "|" + _descProd;
     }
     try {
-        //if (_palanca === "LAN") {
-        //    CompartirProductoRDAnalytics(tipoRedes, ruta, _nombre);
-        //}
     } catch (e) { console.log(e); }
 
     var Item = {
@@ -1267,7 +1271,6 @@ function CompartirRedesSocialesInsertar(article, tipoRedes, ruta) {
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(Item),
         success: function (response) {
-            //CloseLoading();
             if (checkTimeout(response)) {
                 if (response.success) {
                     CompartirRedesSocialesAbrirVentana(response.data.id, tipoRedes, ruta, _mensaje, _nombre);
@@ -1360,7 +1363,6 @@ function ConfirmarModificarPedido() {
         success: function (data) {
             if (checkTimeout(data)) {
                 if (data.success == true) {
-                    //location.href = urlIngresarPedido;
                     CloseLoading();
                     $('#popupInformacion2').hide();
                 } else {
@@ -1378,7 +1380,6 @@ function ConfirmarModificarPedido() {
     });
 }
 
-/*** EPD-1682 ***/
 function AbrirPopupPedidoReservado(pMensaje, pTipoOrigen) {
     if (pTipoOrigen == '2' || pTipoOrigen == '21') { //mobile | 21 -> Showroom
         if (ViewIndicadorGPRSB == '0') {
@@ -1671,7 +1672,7 @@ function odd_mobile_google_analytics_addtocart() {
     var variant = $('#OfertasDiaMobile').find("[data-slick-index=" + element + "]").find(".DescripcionEstrategia").val();
     var quantity = $('#pop_oferta_mobile').find("#txtCantidad").val();
     if (variant == "")
-        variant = "Estándar";
+        variant = "Oferta del Día";
     dataLayer.push({
         'event': 'addToCart',
         'ecommerce': {
@@ -1932,7 +1933,6 @@ function EstablecerLazyCarrusel(elementoHtml) {
         
     });
 
-    //return $(nombreElementoHtml).html();
 }
 
 function EstablecerAccionLazyImagen(nombreAtributo, withTimeout) {

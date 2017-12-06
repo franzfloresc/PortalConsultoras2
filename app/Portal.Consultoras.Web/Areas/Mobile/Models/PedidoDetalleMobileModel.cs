@@ -82,8 +82,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
 
         public string HoraCierre { get; set; }
 
-        public string Prol { get; set; }    /* SB20-287 */
-        public string ProlTooltip { get; set; } /* SB20-287 */
+        public string Prol { get; set; }
+        public string ProlTooltip { get; set; }
 
         public void SetDetalleMobileFromDetalleWeb(List<BEPedidoWebDetalle> listDetalleWeb)
         {
@@ -111,7 +111,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
             }
         }
 
-        /* SB20-565 - INICIO */
         public int OfertaFinal { get; set; }
         public bool EsOfertaFinalZonaValida { get; set; }
 
@@ -124,11 +123,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public Portal.Consultoras.Web.Models.BarraConsultoraModel DataBarra { get; set; }
         public decimal MontoMinimo { get; set; }
         public decimal MontoMaximo { get; set; }
-        /* SB20-565 - FINAL */
         public bool AutoReservar { get; set; }
         public int TieneCupon { get; set; }
         public bool EmailActivo { get; set; }
         public string EMail { get; set; }
         public string Celular { get; set; }
+
+        public bool MostrarPopupPrecargados { get; set; }
     }
 }

@@ -370,7 +370,7 @@
                             }
                             else
                             {
-                                tooltip1 = tooltips.Count() > 0 ? tooltips[0] : "";
+                                tooltip1 = tooltips.Any() ? tooltips[0] : "";
                                 tooltip2 = tooltips.Count() > 1 ? tooltips[1] : "";
                             }
                         }
@@ -1000,6 +1000,32 @@
 @Html.Partial("~/Views/Shared/Cupon/popupCuponGana.cshtml")
 @Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmar.cshtml")
 @Html.Partial("~/Views/Shared/Cupon/popupCuponGanaste.cshtml")
+
+
+<!--POPUP PRODUCTOS PRECARGADOS - HD1399 -->
+@if (Model.MostrarPopupPrecargados)
+{
+    <div class="contenedor_popup_agregarUnidades" id="dialog_mensajeProductosPrecargados" style="display: block;">
+        <div class="popup_agregarUnidades">
+            <div class="btn_cerrar_agregarUnidades">
+                <a id="aceptandoPendientes_1" onclick="$('#dialog_mensajeProductosPrecargados').hide()">
+                    <img src="/Content/Images/btn_cerrar_popup.svg" alt="Cerrar">
+                </a>
+            </div>
+            <div class="contenido_popUp aceptaPedido">
+                <div class="icono_exclamacion" id="apro_o_excla_1"></div>
+                <h1 class="titulo_agregarUnidades"><b>IMPORTANTE</b></h1>
+                <span class="mensaje_agregarUnidades">
+                    @Html.Raw(Constantes.RecuperacionPedido.Mensaje)
+                </span>
+                <button type="button" class="btn_ok ok_aceptaPedido" onclick="$('#dialog_mensajeProductosPrecargados').hide()">
+                    Aceptar
+                </button>
+            </div>
+        </div>
+    </div>
+}
+<!--FIN POPUP PRODUCTOS PRECARGADOS - HD1399 -->
 
         @if (ViewBag.MostrarPedidosPendientes == "1")
         {
@@ -1749,7 +1775,7 @@
         <div class="clear"></div>
         <!-- FIN PASE PEDIDO INSCRITAS C-11 -->
         @Html.Partial("~/Views/Pedido/template-seccion-opt.cshtml",
-            new ViewDataDictionary{{"Source", 2}, { "NombreConsultora", Model.SobreNombre}, { "Origen", Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi } });
+            new ViewDataDictionary{{"Source", 2}, { "NombreConsultora", Model.SobreNombre}, { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiDesktopPedido } });
     }
     else if (revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == 1)
     {
@@ -1772,7 +1798,9 @@
                 </div>
             </div>
             <hr class="clear" />
-            <div class="content_carrusel_ofertas content_carrusel_agregado" id="divListadoEstrategia" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi" style="padding-bottom: 25px;"></div>
+            <div class="content_carrusel_ofertas content_carrusel_agregado" id="divListadoEstrategia" style="padding-bottom: 25px;"
+                 data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion"
+                 data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoPopUp" ></div>
             <hr class="clear" />
         </div>
         <!-- FIN PASE PEDIDO INSCRITAS C-12 -->
@@ -1800,7 +1828,7 @@
         <div class="clear"></div>
         <!-- FIN PASE PEDIDO INSCRITAS C-11 -->
         @Html.Partial("~/Views/Pedido/template-seccion-opt.cshtml",
-            new ViewDataDictionary{{"Source", 2}, { "NombreConsultora", Model.SobreNombre}, { "Origen", Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi } });
+            new ViewDataDictionary{{"Source", 2}, { "NombreConsultora", Model.SobreNombre}, { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiDesktopPedido } });
     }
 }
 else if (revistaDigital.TieneRDR)
@@ -1830,7 +1858,9 @@ else if (revistaDigital.TieneRDR)
             <hr class="clear" />
             <div class="contenedor_productos">
                 <div id="cierreCarousel" class="background_carousel" style="display:none;"></div>
-                <div class="contenedor_carousel_productos content_carrusel_agregado slider center" id="divListadoEstrategia">
+                <div class="contenedor_carousel_productos content_carrusel_agregado slider center" id="divListadoEstrategia"
+                    data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion"
+                    data-OrigenPedidoWeb-popup="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoPopUp" >
                 </div>
             </div>
             <div class="boxoffer boxOfferPedido" style="cursor: pointer;" 
@@ -1845,7 +1875,7 @@ else if (revistaDigital.TieneRDR)
 else
 {
     @Html.Partial("~/Views/Pedido/template-seccion-opt.cshtml",
-        new ViewDataDictionary{{"Source", 1}, { "NombreConsultora", ViewBag.NombreConsultora }, { "Origen", Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi } });
+        new ViewDataDictionary{{"Source", 1}, { "NombreConsultora", ViewBag.NombreConsultora }, { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiDesktopPedido } });
 }
 </script>
 
@@ -2185,8 +2215,10 @@ else
         else var mensajeCUVOfertaEspecial = '@Constantes.MensajeEstaEnRevista.LbelWeb';
         var origenPagina = 2;
         var tipoOrigenEstrategia = 11;
-        var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTi;
-        var origenPedidoWebFichaProducto = @Constantes.OrigenPedidoWeb.DesktopPedidoVirtualCoach;
+        var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.OfertasParaTiDesktopPedido;
+        var origenPedidoWebFichaProducto = @Constantes.OrigenPedidoWeb.VirtualCoachDesktopPedido;
+        var DesktopPedidoSugerido = @Constantes.OrigenPedidoWeb.DesktopPedidoSugerido;
+        var DesktopPedidoOfertaFinal = @Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinal;
         var mobileDevice = false;
         var indicadorGPRSB = '@Model.IndicadorGPRSB';
         var viewBagCampaniaActual = '@Model.CampaniaActual';
