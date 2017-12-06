@@ -11413,6 +11413,12 @@ namespace Portal.Consultoras.Web.ServiceSAC {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceSAC.ISACService")]
     public interface ISACService {
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetFechaHoraPais", ReplyAction="http://tempuri.org/ISACService/GetFechaHoraPaisResponse")]
+        System.DateTime GetFechaHoraPais(int paisID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetFechaHoraPais", ReplyAction="http://tempuri.org/ISACService/GetFechaHoraPaisResponse")]
+        System.Threading.Tasks.Task<System.DateTime> GetFechaHoraPaisAsync(int paisID);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetProveedorDespachoCobranza", ReplyAction="http://tempuri.org/ISACService/GetProveedorDespachoCobranzaResponse")]
         Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza[] GetProveedorDespachoCobranza(int paisID);
         
@@ -11743,6 +11749,12 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetEstadoCuentaConsultora", ReplyAction="http://tempuri.org/ISACService/GetEstadoCuentaConsultoraResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEEstadoCuenta[]> GetEstadoCuentaConsultoraAsync(int PaisId, long consultoraId);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetDeudaActualConsultora", ReplyAction="http://tempuri.org/ISACService/GetDeudaActualConsultoraResponse")]
+        string GetDeudaActualConsultora(int PaisId, long consultoraId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetDeudaActualConsultora", ReplyAction="http://tempuri.org/ISACService/GetDeudaActualConsultoraResponse")]
+        System.Threading.Tasks.Task<string> GetDeudaActualConsultoraAsync(int PaisId, long consultoraId);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetPedidosFacturadosCabecera", ReplyAction="http://tempuri.org/ISACService/GetPedidosFacturadosCabeceraResponse")]
         Portal.Consultoras.Web.ServiceSAC.BEPedidoFacturado[] GetPedidosFacturadosCabecera(int PaisId, string CodigoConsultora);
         
@@ -12038,12 +12050,6 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetCampaniaActivaPais", ReplyAction="http://tempuri.org/ISACService/GetCampaniaActivaPaisResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEPaisCampana> GetCampaniaActivaPaisAsync(int paisID, System.DateTime fechaConsulta);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetFechaHoraPais", ReplyAction="http://tempuri.org/ISACService/GetFechaHoraPaisResponse")]
-        System.DateTime GetFechaHoraPais(int paisID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetFechaHoraPais", ReplyAction="http://tempuri.org/ISACService/GetFechaHoraPaisResponse")]
-        System.Threading.Tasks.Task<System.DateTime> GetFechaHoraPaisAsync(int paisID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetCronogramaByCampania", ReplyAction="http://tempuri.org/ISACService/GetCronogramaByCampaniaResponse")]
         Portal.Consultoras.Web.ServiceSAC.BECronograma[] GetCronogramaByCampania(int paisID, int CampaniaID, int ZonaID, short TipoCronogramaID);
@@ -12583,6 +12589,14 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 base(binding, remoteAddress) {
         }
         
+        public System.DateTime GetFechaHoraPais(int paisID) {
+            return base.Channel.GetFechaHoraPais(paisID);
+        }
+        
+        public System.Threading.Tasks.Task<System.DateTime> GetFechaHoraPaisAsync(int paisID) {
+            return base.Channel.GetFechaHoraPaisAsync(paisID);
+        }
+        
         public Portal.Consultoras.Web.ServiceSAC.BEProveedorDespachoCobranza[] GetProveedorDespachoCobranza(int paisID) {
             return base.Channel.GetProveedorDespachoCobranza(paisID);
         }
@@ -13023,6 +13037,14 @@ namespace Portal.Consultoras.Web.ServiceSAC {
             return base.Channel.GetEstadoCuentaConsultoraAsync(PaisId, consultoraId);
         }
         
+        public string GetDeudaActualConsultora(int PaisId, long consultoraId) {
+            return base.Channel.GetDeudaActualConsultora(PaisId, consultoraId);
+        }
+        
+        public System.Threading.Tasks.Task<string> GetDeudaActualConsultoraAsync(int PaisId, long consultoraId) {
+            return base.Channel.GetDeudaActualConsultoraAsync(PaisId, consultoraId);
+        }
+        
         public Portal.Consultoras.Web.ServiceSAC.BEPedidoFacturado[] GetPedidosFacturadosCabecera(int PaisId, string CodigoConsultora) {
             return base.Channel.GetPedidosFacturadosCabecera(PaisId, CodigoConsultora);
         }
@@ -13413,14 +13435,6 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEPaisCampana> GetCampaniaActivaPaisAsync(int paisID, System.DateTime fechaConsulta) {
             return base.Channel.GetCampaniaActivaPaisAsync(paisID, fechaConsulta);
-        }
-        
-        public System.DateTime GetFechaHoraPais(int paisID) {
-            return base.Channel.GetFechaHoraPais(paisID);
-        }
-        
-        public System.Threading.Tasks.Task<System.DateTime> GetFechaHoraPaisAsync(int paisID) {
-            return base.Channel.GetFechaHoraPaisAsync(paisID);
         }
         
         public Portal.Consultoras.Web.ServiceSAC.BECronograma[] GetCronogramaByCampania(int paisID, int CampaniaID, int ZonaID, short TipoCronogramaID) {

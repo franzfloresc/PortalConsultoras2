@@ -19,10 +19,7 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index(bool showPopupMisDatos = false, string verSeccion = "")
         {
-            if (Request.Browser.IsMobileDevice && userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
-                return RedirectToAction("Index", "Bienvenida", new {area = "Mobile", verSeccion = verSeccion});
-
-            var model = new BienvenidaHomeModel { ShowPopupMisDatos = showPopupMisDatos };
+            var model = new BienvenidaHomeModel { ShowPopupMisDatos = showPopupMisDatos };            
 
             try
             {

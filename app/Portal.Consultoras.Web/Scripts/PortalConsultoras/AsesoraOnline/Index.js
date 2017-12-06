@@ -56,7 +56,7 @@ $(document).ready(function () {
             inicializarEventos: function () {
                 
                 $("body").on("click", ".cta_inscripcion", function () {
-                    
+                    me.Funciones.dataLayerVirtualCoach("Click Botón", "Quiero Subscribirme");
                     me.Eventos.irASeccionFormulario;
                 });
                 $("body").on("click", ".cerrar_popup_inscripcion", function () { me.Funciones.dataLayerVirtualCoach("Banner Confirmación", "Cerrar popup"); $(this).parents(".contenedor_fondo_popup").fadeOut(400);});

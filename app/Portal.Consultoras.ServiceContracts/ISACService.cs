@@ -437,6 +437,9 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         List<BEEstadoCuenta> GetEstadoCuentaConsultora(int PaisId, long consultoraId);
 
+        [OperationContract]
+        string GetDeudaActualConsultora(int PaisId, long consultoraId);
+
         #endregion
 
         #region Pedidos Facturados

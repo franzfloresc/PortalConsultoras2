@@ -117,7 +117,7 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteNonQuery(command);
         }
 
-        public int CargarMasivaDescripcionSets(int campaniaID, string usuarioCreacion, List<BEShowRoomOfertaDetalle> listaShowRoomOfertaDetalle)
+        public int CargarMasivaDescripcionSets(int campaniaID, string usuarioCreacion, List<BEShowRoomOfertaDetalle> listaShowRoomOfertaDetalle, string nombreArchivoCargado, string nombreArchivoGuardado)
         {
             var ofertaShowRoomReader = new GenericDataReader<BEShowRoomOfertaDetalle>(listaShowRoomOfertaDetalle);
 
@@ -137,6 +137,13 @@ namespace Portal.Consultoras.Data
             parameter.Value = usuarioCreacion;
             command.Parameters.Add(parameter);
 
+            parameter = new SqlParameter("@NombreArchivoCargado", SqlDbType.VarChar, 150);
+            parameter.Value = nombreArchivoCargado;
+            command.Parameters.Add(parameter);
+
+            parameter = new SqlParameter("@NombreArchivoGuardado", SqlDbType.VarChar, 150);
+            parameter.Value = nombreArchivoGuardado;
+            command.Parameters.Add(parameter);
 
             return Context.ExecuteNonQuery(command);
         }

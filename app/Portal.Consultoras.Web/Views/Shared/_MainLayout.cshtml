@@ -71,6 +71,10 @@
     <style id="styleRelojOdd"></style>
     @RenderSection("styles", required: false)
 
+    @if (TempData.ContainsKey("PixelCodigoIso"))
+    {
+        <noscript id="noscript-pixel-image"></noscript>
+    }
 </head>
 <body>
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManager.cshtml")
@@ -455,5 +459,14 @@
     </script>
 
     @RenderSection("scripts", required: false)
+    @if (TempData.ContainsKey("PixelCodigoIso"))
+    {
+        @System.Web.Optimization.Scripts.Render("~/bundles/JS-Login-Header")
+        <script>
+            var pixelAnalytics = Analytics();
+            pixelAnalytics.invocarEventoPixelById('@(TempData["PixelMarcacion"])', '@(TempData["PixelId"])');
+        </script>
+        @TempData.Remove("PixelCodigoIso");
+    }
 </body>
 </html>
