@@ -1196,3 +1196,6 @@
     text-decoration: underline;
 }
 
+.abrir_detallemb {
+    cursor: pointer;
+}

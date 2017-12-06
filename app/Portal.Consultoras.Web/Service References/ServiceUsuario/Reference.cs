@@ -6680,6 +6680,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private int IndicadorOfertaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal MontoAhorroCatalogoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal MontoAhorroRevistaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal MontoTotalProlField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -6788,6 +6794,32 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.IndicadorOfertaField.Equals(value) != true)) {
                     this.IndicadorOfertaField = value;
                     this.RaisePropertyChanged("IndicadorOferta");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal MontoAhorroCatalogo {
+            get {
+                return this.MontoAhorroCatalogoField;
+            }
+            set {
+                if ((this.MontoAhorroCatalogoField.Equals(value) != true)) {
+                    this.MontoAhorroCatalogoField = value;
+                    this.RaisePropertyChanged("MontoAhorroCatalogo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal MontoAhorroRevista {
+            get {
+                return this.MontoAhorroRevistaField;
+            }
+            set {
+                if ((this.MontoAhorroRevistaField.Equals(value) != true)) {
+                    this.MontoAhorroRevistaField = value;
+                    this.RaisePropertyChanged("MontoAhorroRevista");
                 }
             }
         }

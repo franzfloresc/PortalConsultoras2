@@ -276,8 +276,12 @@ namespace Portal.Consultoras.Web.Controllers
             model.ListaNotificacionesDetalle = olstObservaciones;
             model.ListaNotificacionesDetallePedido = Mapper.Map<List<NotificacionesModelDetallePedido>>(olstObservacionesPedido);
             model.NombreConsultora = UserData().NombreConsultora;
+            model.simbolo = userData.Simbolo;
+            if (olstObservacionesPedido != null)
+                model.mGanancia = Util.DecimalToStringFormat(olstObservacionesPedido[0].MontoAhorroCatalogo + olstObservacionesPedido[0].MontoAhorroRevista, userData.CodigoISO);
             model.Origen = TipoOrigen;
-            return PartialView("ListadoObservaciones", model);
+            return PartialView("DetalleNotificacionesPedido", model);
+            //return PartialView("ListadoObservaciones", model);
         }
 
         public ActionResult ListarObservacionesStock(long ValStockId)

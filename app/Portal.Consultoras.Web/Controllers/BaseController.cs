@@ -2242,9 +2242,12 @@ namespace Portal.Consultoras.Web.Controllers
             return (List<BEMensajeMetaConsultora>)Session[constSession];
         }
 
-        public List<EstadoCuentaModel> ObtenerEstadoCuenta()
+        public List<EstadoCuentaModel> ObtenerEstadoCuenta(long pConsultoraID = 0)
         {
             List<EstadoCuentaModel> lst = new List<EstadoCuentaModel>();
+
+            if (pConsultoraID == 0)//HD-1277
+                pConsultoraID = userData.ConsultoraID; //HD-1277
 
             if (Session["ListadoEstadoCuenta"] == null)
             {
@@ -2253,7 +2256,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     using (SACServiceClient client = new SACServiceClient())
                     {
-                        EstadoCuenta = client.GetEstadoCuentaConsultora(userData.PaisID, userData.ConsultoraID).ToList();
+                        EstadoCuenta = client.GetEstadoCuentaConsultora(userData.PaisID, pConsultoraID).ToList();
                     }
                 }
                 catch (Exception ex)

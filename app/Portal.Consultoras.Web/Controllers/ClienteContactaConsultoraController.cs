@@ -13,47 +13,12 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index()
         {
+            //Se ha migrado la funcionalidad a ConsultoraOnline
             return RedirectToAction("Informacion", "ConsultoraOnline");
-
-            string strpaises = GetPaisesConConsultoraOnlineFromConfig();
-            if (strpaises.Contains(UserData().CodigoISO))
-            { }
-            else
-                return RedirectToAction("Index", "Bienvenida");
-
-            var consultoraAfiliar = new ClienteContactaConsultoraModel();
-            consultoraAfiliar.NombreConsultora = UserData().PrimerNombre;
-
-            string emailConsultora = UserData().EMail;
-
-            using (ServiceSAC.SACServiceClient sc = new ServiceSAC.SACServiceClient())
-            {
-                ServiceSAC.BEAfiliaClienteConsultora beAfiliaCliente = sc.GetAfiliaClienteConsultoraByConsultora(UserData().PaisID, UserData().CodigoConsultora);
-
-                consultoraAfiliar.Afiliado = beAfiliaCliente.EsAfiliado > 0;
-
-                consultoraAfiliar.EsPrimeraVez = beAfiliaCliente.EsAfiliado < 0;
-
-                consultoraAfiliar.ConsultoraID = beAfiliaCliente.ConsultoraID;
-
-                consultoraAfiliar.EmailActivo = beAfiliaCliente.EmailActivo;
-
-                consultoraAfiliar.NombreCompleto = beAfiliaCliente.NombreCompleto;
-
-                consultoraAfiliar.Email = beAfiliaCliente.Email;
-
-                consultoraAfiliar.Celular = beAfiliaCliente.Celular;
-
-                consultoraAfiliar.Telefono = beAfiliaCliente.Telefono;
-            }
-
-
-            return View(consultoraAfiliar);
         }
 
         public JsonResult AfiliarConsultora(bool esPrimera, long ConsultoraID, bool emailActivo)
         {
-
             string emailConsultora = UserData().EMail;
             if (String.IsNullOrEmpty(emailConsultora.Trim()) || emailActivo == false)
             {
@@ -72,11 +37,7 @@ namespace Portal.Consultoras.Web.Controllers
                     sc.InsAfiliaClienteConsultora(UserData().PaisID, ConsultoraID);
                 }
 
-                var data = new
-                {
-                    success = true
-
-                };
+                var data = new { success = true };
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
             else
@@ -86,14 +47,9 @@ namespace Portal.Consultoras.Web.Controllers
                     sc.UpdAfiliaClienteConsultora(UserData().PaisID, ConsultoraID, true);
                 }
 
-                var data = new
-                {
-                    success = true
-
-                };
+                var data = new { success = true };
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
-
         }
 
 
@@ -103,14 +59,9 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 sc.UpdAfiliaClienteConsultora(UserData().PaisID, ConsultoraID, false);
 
-                var data = new
-                {
-                    success = true
-                };
+                var data = new { success = true };
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
-
-
         }
 
         [HttpPost]
@@ -124,12 +75,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (model.ActualizarClave == null) model.ActualizarClave = "";
                 if (model.ConfirmarClave == null) model.ConfirmarClave = "";
-                if (model.Email != null)
-                    sEmail = model.Email;
-                if (model.Telefono != null)
-                    sTelefono = model.Telefono;
-                if (model.Celular != null)
-                    sCelular = model.Celular;
+                if (model.Email != null) sEmail = model.Email;
+                if (model.Telefono != null) sTelefono = model.Telefono;
+                if (model.Celular != null) sCelular = model.Celular;
 
                 int result;
                 bool cambio;

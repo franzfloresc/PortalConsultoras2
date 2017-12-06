@@ -7667,6 +7667,9 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         private Portal.Consultoras.Web.ServiceUnete.FuenteIngresoModelSAC[] FuenteIngresoListAvailableField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int MostrarPaso1y2SEField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NombreField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -7807,6 +7810,19 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 if ((object.ReferenceEquals(this.FuenteIngresoListAvailableField, value) != true)) {
                     this.FuenteIngresoListAvailableField = value;
                     this.RaisePropertyChanged("FuenteIngresoListAvailable");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int MostrarPaso1y2SE {
+            get {
+                return this.MostrarPaso1y2SEField;
+            }
+            set {
+                if ((this.MostrarPaso1y2SEField.Equals(value) != true)) {
+                    this.MostrarPaso1y2SEField = value;
+                    this.RaisePropertyChanged("MostrarPaso1y2SE");
                 }
             }
         }
