@@ -31,6 +31,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             clienteModel.MostrarTab = 
                 (revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsSuscritaInactiva() && !tieneGND ||
                 ((revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsNoSuscritaInactiva() && !tieneGND) ||
+                ((revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsNoSuscritaActiva() && !tieneGND) ||
                 (!revistaDigital.TieneRDC && !revistaDigital.TieneRDR && !tieneGND) ||
                 ((revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsSuscritaActiva() && !tieneGND) ||
                 (revistaDigital.TieneRDR && !tieneGND);
