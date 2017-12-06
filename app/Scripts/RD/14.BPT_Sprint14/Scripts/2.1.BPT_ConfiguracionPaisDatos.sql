@@ -1,6 +1,6 @@
 go
 
-declare @ConfiguracionPaisID int = 0, @codePais varchar(5) = '', @amb varchar(5) = 'QAS'
+declare @ConfiguracionPaisID int = 0, @codePais varchar(5) = '', @amb varchar(5) = 'PRD'
 select @ConfiguracionPaisID = ConfiguracionPaisID
 from ConfiguracionPais
 where Codigo = 'RD'
@@ -325,12 +325,12 @@ begin
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
 		Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'UrlTerminosCondiciones', 
-	'http://s3.amazonaws.com/consultoras' + @amb + '/SomosBelcorp/FileConsultoras/'+ @codePais + '/Terminos_y_condiciones_Esika_para_mi.pdf', '', '', 'Url Terminos Condiciones RD')
+	'http://s3.amazonaws.com/consultoras' + @amb + '/SomosBelcorp/FileConsultoras/'+ @codePais + '/Terminos_y_condiciones_club_gana_mas.pdf', '', '', 'Url Terminos Condiciones RD')
 	
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
 		Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'UrlPreguntasFrecuentes', 
-	'http://s3.amazonaws.com/consultoras' + @amb + '/SomosBelcorp/FileConsultoras/'+ @codePais + '/Preguntas_Frecuentes_Esika_para_mi.pdf', '', '', 'Url Preguntas Frecuentes RD')
+	'http://s3.amazonaws.com/consultoras' + @amb + '/SomosBelcorp/FileConsultoras/'+ @codePais + '/Preguntas_Frecuentes_club_gana_mas.pdf', '', '', 'Url Preguntas Frecuentes RD')
 
 	END
 

@@ -7,6 +7,6 @@ from pais where EstadoActivo = 1
 
 update RevistaDigitalSuscripcion
 set CampaniaEfectiva = dbo.fnAddCampaniaAndNumero(@PaisIso, CampaniaID, 2)
-where CampaniaEfectiva is null
+where CampaniaEfectiva is null or CampaniaEfectiva = 0
 
 go
