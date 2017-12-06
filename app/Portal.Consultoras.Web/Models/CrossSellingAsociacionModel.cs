@@ -18,7 +18,7 @@ namespace Portal.Consultoras.Web.Models
         public string CUVAsociado2 { get; set; }
         public string CodigoSegmento { get; set; }
         public int CampaniaID { get; set; }
-		public string EtiquetaPrecio { get; set; }//1673CC
+		public string EtiquetaPrecio { get; set; }
         public IEnumerable<PaisModel> lstPais { get; set; }
         public IEnumerable<CampaniaModel> lstCampania { get; set; }
         public IEnumerable<CrossSellingProductoModel> lstCrossSellingProducto { get; set; }

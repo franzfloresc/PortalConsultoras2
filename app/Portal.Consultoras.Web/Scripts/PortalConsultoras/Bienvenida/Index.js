@@ -494,7 +494,6 @@ function limitarMinimo(contenido, caracteres, a) {
     }
     return true;
 }
-/*** FIN EPD-1089 ***/
 
 function CargarCamara() {
     //https://github.com/jhuckaby/webcamjs
@@ -722,8 +721,6 @@ function mostrarVideoIntroductorio() {
             return true;
         }
 
-        //if (viewBagVioTutorial == 0) {
-        //    if (viewBagVioTutorialSalvavidas == '0') {
         if (viewBagMostrarUbicacionTutorial == '0') {
             mostrarUbicacionTutorial(false, true);
         } else {
@@ -731,16 +728,10 @@ function mostrarVideoIntroductorio() {
         }
         primeraVezVideo = false;
         return true;
-        //}
 
         if (viewBagVioTutorialSalvavidas == '0') {
             mostrarUbicacionTutorial(false, false);
         }
-        //else {
-        //    if (viewBagVerComunicado != '-1') {
-        //        mostrarComunicadosPopup();
-        //    }
-        //}
     } catch (e) {
 
     }
@@ -1375,8 +1366,7 @@ function AgregarCUVBannerPedidoNo() {
 function InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido) {
     var item = {
         CUV: CUVpedido,
-        CantCUVpedido: CantCUVpedido,
-        origenPedidoWeb: DesktopHomeBanners
+        CantCUVpedido: CantCUVpedido
     };
     var categoriacad = "";
     var variantcad = "";
@@ -1427,7 +1417,7 @@ function InsertarPedidoCuvBanner(CUVpedido, CantCUVpedido) {
                         'products': [
                             {
                                 'name': result.oPedidoDetalle.DescripcionProd,
-                                'price': result.oPedidoDetalle.PrecioUnidad.toString(),
+                                'price': $.trim(result.oPedidoDetalle.PrecioUnidad),
                                 'brand': result.oPedidoDetalle.DescripcionLarga,
                                 'id': CUVpedido,
                                 'category': categoriacad,
@@ -2696,7 +2686,7 @@ function MostrarShowRoom() {
                             $("#spnShowRoomEvento").html(eventoNombre);
                             $("#spnShowRoomEvento").val(eventoNombre);
                             $("#spnShowRoomEventoDescripcion").val(evento.Tema);
-                            AgregarTagManagerShowRoomPopupAnalytics(eventoID, eventoNombre, evento.Tema, "0")
+                            AgregarTagManagerShowRoomPopupAnalytics(eventoID, eventoNombre, evento.Tema, "2")
                             $('#hdEventoIDShowRoom').val(eventoID);
                             if (parseInt(response.diasFaltan) > 0) {
                                 var container = $('#PopShowroomIntriga');
@@ -2996,7 +2986,7 @@ function mostrarComunicadosPopup() {
         return false;
     });
 
-    return (j > 0) ? false : true;
+    return (j <= 0);
 }
 
 function centrarComunicadoPopup(ID) {
@@ -3172,13 +3162,13 @@ function ValidarTelefono(celular) {
 }
 
 function VerShowRoomIntriga() {
-    //AgregarTagManagerShowRoomPopupClick(2);
+    AgregarTagManagerShowRoomPopupClick(2);
     document.location.href = urlShowRoomIntriga;
     $('#PopShowroomIntriga').hide();
 }
 
 function VerShowRoomVenta() {
-    //AgregarTagManagerShowRoomPopupClick(1);
+    AgregarTagManagerShowRoomPopupClick(1);
     document.location.href = urlOfertasIndex;
     $('#PopShowroomVenta').hide();
 }

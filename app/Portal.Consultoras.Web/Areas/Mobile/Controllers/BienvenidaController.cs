@@ -22,6 +22,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var model = new BienvenidaModel();
             try
             {
+                if (userData.RolID != Constantes.Rol.Consultora)
+                    return RedirectToAction("Index", "Bienvenida", new { area = "" });
+                    
                 model.RevistaDigital = revistaDigital;
                 model.RevistaDigitalPopUpMostrar = revistaDigital.NoVolverMostrar;
 
@@ -72,7 +75,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.UrlImagenLiquidaciones = ConfigS3.GetUrlFileS3("Mobile/Liquidaciones/" + userData.CodigoISO, "liquidaciones.png", String.Empty);
                 model.UrlImagenCatalogoPersonalizado = ConfigS3.GetUrlFileS3("Mobile/CatalogoPersonalizado/" + userData.CodigoISO, "catalogo.png", String.Empty);
                 model.EsCatalogoPersonalizadoZonaValida = userData.EsCatalogoPersonalizadoZonaValida;
-                model.CodigoUsuario = userData.CodigoUsuario; //EPD-1180
+                model.CodigoUsuario = userData.CodigoUsuario;
                 model.EMail = userData.EMail;
                 model.Celular = userData.Celular;
 
@@ -85,7 +88,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.ShowRoomMostrarLista = ValidarPermiso(Constantes.MenuCodigo.CatalogoPersonalizado) ? 0 : 1;
 
                 ViewBag.paisISO = userData.CodigoISO;
-                ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("BUCKET_NAME") ?? string.Empty;
+                ViewBag.Ambiente = GetBucketNameFromConfig();
                 ViewBag.NombreConsultora = model.NombreConsultora;                
 
                 ViewBag.NombreConsultoraFAV = ObtenerNombreConsultoraFav();

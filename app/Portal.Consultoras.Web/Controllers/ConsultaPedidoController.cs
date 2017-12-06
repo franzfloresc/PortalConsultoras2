@@ -33,17 +33,8 @@ namespace Portal.Consultoras.Web.Controllers
                                     Codigo = "-- Seleccionar --"
                                 }};
                 IEnumerable<RegionModel> lstRegion = new List<RegionModel>();
-                //{ 
-                //                new RegionModel() {
-                //                    RegionID = 0, 
-                //                    Codigo = "-- Seleccionar --" 
-                //                }};
+        
                 IEnumerable<ZonaModel> lstZona = new List<ZonaModel>();
-                //{ 
-                //                new ZonaModel() {
-                //                    ZonaID = 0, 
-                //                    Codigo = "-- Seleccionar --" 
-                //                }};
 
                 model.listaPaises = CargarDropDowListPaises();
                 model.listaCampania = lstCampania;
@@ -197,7 +188,6 @@ namespace Portal.Consultoras.Web.Controllers
         #region Metodos
         public JsonResult ObtenterDropDownPorPais(int PaisID)
         {
-            //PaisID = 11;
             IEnumerable<CampaniaModel> lstcampania = DropDownCampanias(PaisID);
             IEnumerable<ZonaModel> lstzona = DropDownZonas(PaisID);
             IEnumerable<RegionModel> lstregion = DropDownListRegiones(PaisID);
@@ -355,10 +345,10 @@ namespace Portal.Consultoras.Web.Controllers
                                            a.Direccion,
                                            a.CodigoTerritorio,
                                            a.PedidoID.ToString(),
-                                           a.CodigoZona.ToString(), // Codigo Zona
-                                           a.CodigoConsultora.ToString(), // Codigo Consultora
+                                           a.CodigoZona.ToString(),
+                                           a.CodigoConsultora.ToString(),
                                            a.Nombres,
-                                           (UserData().PaisID == 4)? a.MontoPedido.ToString("#,##0").Replace(',','.') : a.MontoPedido.ToString("0.00"), // Validación colombia req. 1478
+                                           (UserData().PaisID == 4)? a.MontoPedido.ToString("#,##0").Replace(',','.') : a.MontoPedido.ToString("0.00"),
                                            (UserData().PaisID == 4)? a.SaldoDeuda.ToString("#,##0").Replace(',','.') : a.SaldoDeuda.ToString("0.00"),
                                            a.DescripcionBloqueo,
                                            a.Bloqueado.ToString(),
@@ -433,7 +423,7 @@ namespace Portal.Consultoras.Web.Controllers
                                            a.CUV,
                                            a.DescripcionProd,
                                            a.Cantidad.ToString(),
-                                           (UserData().PaisID == 4)? a.PrecioUnidad.ToString("#,##0").Replace(',','.') : a.PrecioUnidad.ToString("0.00"), // Validación colombia req. 1478
+                                           (UserData().PaisID == 4)? a.PrecioUnidad.ToString("#,##0").Replace(',','.') : a.PrecioUnidad.ToString("0.00"),
                                            (UserData().PaisID == 4)? a.ImporteTotal.ToString("#,##0").Replace(',','.') : a.ImporteTotal.ToString("0.00")
 
                                        }
@@ -612,7 +602,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 foreach (KeyValuePair<string, string> keyvalue in columnDefinition)
                 {
-                    //Establece las columnas
                     ws.Cell(1, index).Value = keyvalue.Key;
                     index++;
                     Columns.Add(keyvalue.Value);
@@ -624,7 +613,6 @@ namespace Portal.Consultoras.Web.Controllers
                     col = 1;
                     foreach (string column in Columns)
                     {
-                        //Establece el valor para esa columna
                         foreach (PropertyInfo property in dataItem.GetType().GetProperties())
                         {
                             if (column == property.Name)
@@ -642,8 +630,7 @@ namespace Portal.Consultoras.Web.Controllers
                                         ws.Cell(row, col).Style.NumberFormat.Format = "@";
 
                                     if (UserData().PaisID == 4)
-                                    { // validación pais colombia req. 1478
-
+                                    {
                                         if (col == 4 || col == 5)
                                         {
                                             string valorDecimal = Convert.ToDecimal(System.Web.UI.DataBinder.GetPropertyValue(dataItem, property.Name, null)).ToString("#,##0").Replace(',', '.');
@@ -667,9 +654,6 @@ namespace Portal.Consultoras.Web.Controllers
                     row++;
                 }
                 ws.Range(1, 1, 1, index - 1).AddToNamed("Titles");
-                //ws.Row(1).Style.Font.Bold = true;
-                //ws.Row(1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
-                //ws.Row(1).Style.Fill.BackgroundColor = XLColor.Aquamarine;
 
                 var titlesStyle = wb.Style;
                 titlesStyle.Font.Bold = true;
@@ -677,19 +661,16 @@ namespace Portal.Consultoras.Web.Controllers
                 titlesStyle.Fill.BackgroundColor = XLColor.FromHtml("#669966");
 
                 wb.NamedRanges.NamedRange("Titles").Ranges.Style = titlesStyle;
-                //ws.Columns().AdjustToContents();
 
                 var stream = new MemoryStream();
                 wb.SaveAs(stream);
 
                 HttpContext.Response.ClearHeaders();
                 HttpContext.Response.Clear();
-                //HttpContext.Current.Response.SetCookie("Cache-Control", "private");
                 HttpContext.Response.Buffer = false;
                 HttpContext.Response.AddHeader("Content-disposition", "attachment; filename=" + originalFileName);
                 HttpContext.Response.Charset = "UTF-8";
                 HttpContext.Response.Cache.SetCacheability(HttpCacheability.Private);
-                //HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
                 HttpContext.Response.ContentType = "application/octet-stream";
                 HttpContext.Response.BinaryWrite(stream.ToArray());
                 HttpContext.Response.Flush();
@@ -721,7 +702,6 @@ namespace Portal.Consultoras.Web.Controllers
             Session["PaisID"] = UserData().PaisID;
 
             Util.ExportToPdfWebPages(this, "PedidosPDF.pdf", "ConsultaPedidoImp", Util.EncriptarQueryString(lista));
-            //Util.ExportToPdf(this, "PedidosPDF.pdf", "ConsultaPedidoImp", Util.EncriptarQueryString(lista));
             return View();
         }
 
@@ -737,7 +717,6 @@ namespace Portal.Consultoras.Web.Controllers
             lista[15] = vTotalImporte;
 
             Util.ExportToPdfWebPages(this, "PedidosBloqueoPDF.pdf", "BloqueoPedidoImp", Util.EncriptarQueryString(lista));
-            //Util.ExportToPdf(this, "PedidosBloqueoPDF.pdf", "BloqueoPedidoImp", Util.EncriptarQueryString(lista));
             return View();
         }
 
@@ -754,10 +733,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
             }
-            Mapper.CreateMap<BEPais, PaisModel>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }

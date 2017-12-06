@@ -6,12 +6,10 @@ namespace Portal.Consultoras.Web.Models
     [Serializable()]
     public class PermisoModel
     {
-        /*Inicio Cambios_Landing_Comunidad */
         public PermisoModel()
         {
             this.SubMenus = new List<PermisoModel>();
         }
-        /*Fin Cambios_Landing_Comunidad */
 
         public int PermisoID { get; set; }
 
@@ -31,7 +29,6 @@ namespace Portal.Consultoras.Web.Models
 
         public string Posicion { get; set; }
 
-        /*Inicio Cambios_Landing_Comunidad */
         public string UrlImagen { get; set; }
 
         public bool EsSoloImagen { get; set; }
@@ -43,9 +40,7 @@ namespace Portal.Consultoras.Web.Models
         public bool EsDireccionExterior { get; set; }
 
         public List<PermisoModel> SubMenus { get; set; }
-        /*Fin Cambios_Landing_Comunidad */
 
-        //RSA
         public string DescripcionFormateada { get; set; }
 
         public string Codigo { get; set; }

@@ -66,6 +66,16 @@ namespace Portal.Consultoras.Entities
         public string ImagenOfertaIndependiente { get; set; }
         //FIN-HD1130
 
+        /* BPT-369 */
+        [DataMember]
+        public int FlagValidarImagen { get; set; }
+
+        [DataMember]
+        public int PesoMaximoImagen { get; set; }
+        /* BPT-369 */
+
+
+
         public BETipoEstrategia(IDataRecord row)
         {
             if (DataRecord.HasColumn(row, "TipoEstrategiaID") && row["TipoEstrategiaID"] != DBNull.Value)
@@ -116,6 +126,14 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "ImagenOfertaIndependiente") && row["ImagenOfertaIndependiente"] != DBNull.Value)
                 ImagenOfertaIndependiente = row["ImagenOfertaIndependiente"].ToString();
             //FIN-HD1130
+
+            //INICIO-BPT369
+            if (DataRecord.HasColumn(row, "FlagValidarImagen") && row["FlagValidarImagen"] != DBNull.Value)
+                FlagValidarImagen = Convert.ToInt32(row["FlagValidarImagen"]);
+
+            if (DataRecord.HasColumn(row, "PesoMaximoImagen") && row["PesoMaximoImagen"] != DBNull.Value)
+                PesoMaximoImagen = Convert.ToInt32(row["PesoMaximoImagen"]);
+            //FIN-BPT369
         }
 
     }

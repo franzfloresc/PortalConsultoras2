@@ -31,20 +31,17 @@ namespace Portal.Consultoras.Data
                 command.Parameters.Add("@CodigoConsultora", SqlDbType.VarChar, 30).Value = DBNull.Value;
             else
                 command.Parameters.Add("@CodigoConsultora", SqlDbType.VarChar, 30).Value = entidadSolicitud.CodigoConsultora;
-            // 2319 - 20012015 - Inicio
-            // R2319 - Correcciones QA - JICM  - CodigoConsultora Incorrecto  - > ConsultoraID Correcto
+
             if (entidadSolicitud.ConsultoraID == 0)
                 command.Parameters.Add("@ConsultoraID", SqlDbType.BigInt).Value = DBNull.Value;
             else
                 command.Parameters.Add("@ConsultoraID", SqlDbType.BigInt).Value = entidadSolicitud.ConsultoraID;
 
-            // R2319 - Correcciones QA - JICM  - CodigoConsultora Incorrecto  - > CodigoUbigeo Correcto
-
             if (string.IsNullOrEmpty(entidadSolicitud.CodigoUbigeo))
                 command.Parameters.Add("@CodigoUbigeo", SqlDbType.VarChar, 40).Value = DBNull.Value;
             else
                 command.Parameters.Add("@CodigoUbigeo", SqlDbType.VarChar, 40).Value = entidadSolicitud.CodigoUbigeo;
-            // 2319 - 20012015 - Fin
+
             if (entidadSolicitud.NombreCompleto == null)
                 command.Parameters.Add("@NombreCompleto", SqlDbType.VarChar, 110).Value = DBNull.Value;
             else
@@ -149,7 +146,7 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
-        /*R2613-LR*/
+
         public IDataReader GetConsultoraSolicitudCliente(int ConsultoraID, string Codigo, int MarcaID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.SP_GetConsultoraMailSolicitudCliente");
@@ -223,9 +220,7 @@ namespace Portal.Consultoras.Data
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetMotivosRechazo_SB2");
             return Context.ExecuteReader(command);
         }
-
-
-        /* R2319 - AAHA 02022015 - Parte 6 - Inicio */
+        
         public int EnviarSolicitudClienteaGZ(BESolicitudCliente entidadSolicitudCliente)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.EnviarSolicitudaGerenteZona");
@@ -265,7 +260,6 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
-        /* R2319 - AAHA 02022015 - Parte 6 - Fin */
 
         public IDataReader GetEstadoSolicitudCliente()
         {
@@ -276,12 +270,12 @@ namespace Portal.Consultoras.Data
         public IDataReader ReporteAfiliados(DateTime FechaInicio, DateTime FechaFin)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetReporteAfiliados");
-            if (FechaInicio == null)
+            if (FechaInicio == default(DateTime))
                 Context.Database.AddInParameter(command, "@FechaInicio", DbType.DateTime, DBNull.Value);
             else
                 Context.Database.AddInParameter(command, "@FechaInicio", DbType.DateTime, FechaInicio);
 
-            if (FechaFin == null)
+            if (FechaFin == default(DateTime))
                 Context.Database.AddInParameter(command, "@FechaFin", DbType.DateTime, DBNull.Value);
             else
                 Context.Database.AddInParameter(command, "@FechaFin", DbType.DateTime, FechaFin);
@@ -292,12 +286,12 @@ namespace Portal.Consultoras.Data
         public IDataReader ReportePedidos(DateTime FechaInicio, DateTime FechaFin, int estado, string marca, string campania)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetReportePedidos");
-            if (FechaInicio == null)
+            if (FechaInicio == default(DateTime))
                 Context.Database.AddInParameter(command, "@FechaInicio", DbType.DateTime, DBNull.Value);
             else
                 Context.Database.AddInParameter(command, "@FechaInicio", DbType.DateTime, FechaInicio);
 
-            if (FechaFin == null)
+            if (FechaFin == default(DateTime))
                 Context.Database.AddInParameter(command, "@FechaFin", DbType.DateTime, DBNull.Value);
             else
                 Context.Database.AddInParameter(command, "@FechaFin", DbType.DateTime, FechaFin);

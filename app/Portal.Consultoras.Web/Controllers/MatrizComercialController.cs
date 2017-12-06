@@ -48,13 +48,11 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = sv.GetMatrizComercialByCodigoSAP(paisID, codigoSAP).ToList();
                 }
 
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                //int buscar = int.Parse(txtBuscar);
                 BEPager pag = new BEPager();
                 IEnumerable<BEMatrizComercial> items = lst;
 
@@ -94,9 +92,8 @@ namespace Portal.Consultoras.Web.Controllers
                 items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
                 pag = Util.PaginadorGenerico(grid, lst);
-                // Creamos la estructura
                 string ISO = Util.GetPaisISO(paisID);
-                var carpetaPais = Globals.UrlMatriz + "/" + ISO; // 1664
+                var carpetaPais = Globals.UrlMatriz + "/" + ISO;
 
                 var data = new
                 {
@@ -113,18 +110,7 @@ namespace Portal.Consultoras.Web.Controllers
                                    a.IdMatrizComercial.ToString(),
                                    a.CodigoSAP.ToString(),
                                    a.DescripcionOriginal.ToString(),
-                                   a.Descripcion.ToString(),
-                                   /*,
-                                   ConfigS3.GetUrlFileS3(carpetaPais, a.FotoProducto01.ToString(), Globals.RutaImagenesMatriz + "/" + ISO), // 1664
-                                   ConfigS3.GetUrlFileS3(carpetaPais, a.FotoProducto02.ToString(), Globals.RutaImagenesMatriz + "/" + ISO), // 1664
-                                   ConfigS3.GetUrlFileS3(carpetaPais, a.FotoProducto03.ToString(), Globals.RutaImagenesMatriz + "/" + ISO), // 1664
-                                   ConfigS3.GetUrlFileS3(carpetaPais, a.FotoProducto04.ToString(), Globals.RutaImagenesMatriz + "/" + ISO),
-                                   ConfigS3.GetUrlFileS3(carpetaPais, a.FotoProducto05.ToString(), Globals.RutaImagenesMatriz + "/" + ISO),
-                                   ConfigS3.GetUrlFileS3(carpetaPais, a.FotoProducto06.ToString(), Globals.RutaImagenesMatriz + "/" + ISO),
-                                   ConfigS3.GetUrlFileS3(carpetaPais, a.FotoProducto07.ToString(), Globals.RutaImagenesMatriz + "/" + ISO),
-                                   ConfigS3.GetUrlFileS3(carpetaPais, a.FotoProducto08.ToString(), Globals.RutaImagenesMatriz + "/" + ISO),
-                                   ConfigS3.GetUrlFileS3(carpetaPais, a.FotoProducto09.ToString(), Globals.RutaImagenesMatriz + "/" + ISO),
-                                   ConfigS3.GetUrlFileS3(carpetaPais, a.FotoProducto10.ToString(), Globals.RutaImagenesMatriz + "/" + ISO)*/
+                                   a.Descripcion.ToString()
                                 }
                            }
                 };
@@ -147,10 +133,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
             }
-            Mapper.CreateMap<BEPais, PaisModel>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
@@ -292,8 +274,10 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 var nombreArchivo = Request["qqfile"];
-                //sube la imagen selecciona a carpeta temporales
                 new UploadHelper().UploadFile(Request, nombreArchivo);
+
+                var intTotalBytes = ((System.Web.HttpRequestWrapper)Request).TotalBytes;
+           
 
                 string nombreArchivoSinExtension = null;
                 if (model.NemotecnicoActivo)
@@ -316,7 +300,6 @@ namespace Portal.Consultoras.Web.Controllers
                 if (model.IdMatrizComercialImagen == 0)
                 {
                     isNewImage = true;
-                    //subir imagen temporal al S3
                     entity.Foto = this.UploadFoto(nombreArchivo, formatoArchivo.PreFileName, formatoArchivo.CarpetaPais);
                     using (PedidoServiceClient sv = new PedidoServiceClient())
                     {
@@ -328,7 +311,6 @@ namespace Portal.Consultoras.Web.Controllers
                     using (PedidoServiceClient sv = new PedidoServiceClient())
                     {
                         entity.IdMatrizComercialImagen = model.IdMatrizComercialImagen;
-                        //crear nueva foto y borrar la anterior en S3
                         entity.Foto = this.ReplaceFoto(nombreArchivo, model.Foto, formatoArchivo.PreFileName, formatoArchivo.CarpetaPais);
                         sv.UpdMatrizComercialImagen(entity);
                     }

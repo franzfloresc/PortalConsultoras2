@@ -15,9 +15,6 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public List<BEEstrategia> ConsultarEstrategias(string cuv = "", int campaniaId = 0, string codAgrupacion = "")
         {
-            //string varSession = Constantes.ConstSession.ListaEstrategia;
-            //if (Session[varSession] != null && campaniaId == 0) return (List<BEEstrategia>)Session[varSession];
-
             codAgrupacion = Util.Trim(codAgrupacion);
             var listEstrategia = new List<BEEstrategia>();
 
@@ -47,10 +44,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             listEstrategia = listEstrategia ?? new List<BEEstrategia>();
 
-            //if (campaniaId > 0 || codAgrupacion == Constantes.TipoEstrategiaCodigo.RevistaDigital)
-            //    return listEstrategia;
-
-            //Session[varSession] = listEstrategia;
             return listEstrategia;
         }
 
@@ -318,7 +311,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #endregion
 
-                //estrategiaModelo.Hermanos = listaHermanos ?? new List<ProductoModel>();
                 estrategiaModelo.Hermanos = listaHermanosCuadre ?? new List<ProductoModel>();
             }
             catch (Exception ex)
@@ -575,12 +567,6 @@ namespace Portal.Consultoras.Web.Controllers
                 prodModel.PrecioPublico = estrategia.PrecioPublico;
                 prodModel.Ganancia = estrategia.Ganancia;
                 prodModel.GananciaString = estrategia.GananciaString;
-
-                //estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas
-                //|| estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertaParaTi
-                //|| estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento
-                //|| estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi
-                //|| estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso;
 
                 prodModel.TipoAccionAgregar = estrategia.TieneVariedad == 0 ? estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas ? 1 : 2 : 3;
 

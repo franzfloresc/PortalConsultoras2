@@ -32,7 +32,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         /// <returns></returns>
         public ActionResult Procesar()
         {
-            var userData = (UsuarioModel)Session["UserData"];
+            var userData = sessionManager.GetUserData();
             if (userData != null)
                 CargarEntidadesShowRoom(userData);
 
@@ -77,7 +77,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var mostrarShowRoomProductosExpiro = sessionManager.GetMostrarShowRoomProductosExpiro();
 
             bool mostrarPopupIntriga = !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
-            //bool mostrarPopupVenta = mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;                
 
             if (mostrarPopupIntriga)
             {

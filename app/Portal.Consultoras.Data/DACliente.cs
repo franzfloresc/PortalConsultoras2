@@ -59,7 +59,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@Nombre", DbType.AnsiString, cliente.Nombre);
             Context.Database.AddInParameter(command, "@eMail", DbType.AnsiString, cliente.eMail);
             Context.Database.AddInParameter(command, "@Activo", DbType.Boolean, cliente.Activo);
-            Context.Database.AddInParameter(command, "@Telefono", DbType.AnsiString, cliente.Telefono);//R20150903
+            Context.Database.AddInParameter(command, "@Telefono", DbType.AnsiString, cliente.Telefono);
             Context.Database.AddInParameter(command, "@Celular", DbType.AnsiString, cliente.Celular);
             Context.Database.AddInParameter(command, "@CodigoCliente", DbType.Int64, cliente.CodigoCliente);
             Context.Database.AddInParameter(command, "@Favorito", DbType.Int16, cliente.Favorito);
