@@ -3379,6 +3379,7 @@ namespace Portal.Consultoras.Web.Controllers
                     VerMas = true
                 };
 
+                seccion.TituloBtnAnalytics = seccion.Titulo.Replace("'", "");
                 seccion.ImagenFondo = ConfigS3.GetUrlFileS3(carpetaPais, seccion.ImagenFondo);
 
                 #region ConfiguracionPais.Codigo
