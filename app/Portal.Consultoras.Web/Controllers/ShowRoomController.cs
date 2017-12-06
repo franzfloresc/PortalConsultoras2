@@ -1379,7 +1379,7 @@ namespace Portal.Consultoras.Web.Controllers
                 BEShowRoomOferta entidad = Mapper.Map<ShowRoomOfertaModel, BEShowRoomOferta>(model);
                 entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.ShowRoom;
                 entidad.UsuarioRegistro = userData.CodigoConsultora;
-                entidad.ImagenProducto = GuardarImagenAmazon(model.ImagenProducto, model.ImagenProductoAnterior, userData.PaisID);
+                entidad.ImagenProducto = GuardarImagenAmazon(model.ImagenProducto, model.ImagenProductoAnterior, userData.PaisID, model.ImagenProducto == model.ImagenMini);
                 entidad.ImagenMini = GuardarImagenAmazon(model.ImagenMini, model.ImagenMiniAnterior, userData.PaisID);
 
                 using (var sv = new PedidoServiceClient()) { sv.InsOrUpdOfertaShowRoom(userData.PaisID, entidad); }
@@ -1755,37 +1755,26 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public string GuardarImagenAmazon(string nombreImagen, string nombreImagenAnterior, int paisId)
+        public string GuardarImagenAmazon(string nombreImagen, string nombreImagenAnterior, int paisId, bool keepFile = false)
         {
             string nombreImagenFinal = "";
-
-            string tempImage01 = nombreImagen ?? "";
             nombreImagen = nombreImagen ?? "";
             nombreImagenAnterior = nombreImagenAnterior ?? "";
 
-            string ISO = Util.GetPaisISO(paisId);
-            var carpetaPais = Globals.UrlMatriz + "/" + ISO;
-
-            bool esNuevo = nombreImagenAnterior == "";
-
             if (nombreImagen != nombreImagenAnterior)
             {
+                string ISO = Util.GetPaisISO(paisId);
+                string carpetaPais = Globals.UrlMatriz + "/" + ISO;
+
                 string soloImagen = nombreImagen.Split('.')[0];
                 string soloExtension = nombreImagen.Split('.')[1];
-
                 string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
-                var newfilename = ISO + "_" + soloImagen + "_" + time + "_" + "01" + "_" + FileManager.RandomString() + "." + soloExtension;
-
-                nombreImagenFinal = newfilename;
-
-                if (!esNuevo)
-                    ConfigS3.DeleteFileS3(carpetaPais, nombreImagenAnterior);
-                ConfigS3.SetFileS3(Path.Combine(Globals.RutaTemporales, tempImage01), carpetaPais, newfilename);
+                nombreImagenFinal = ISO + "_" + soloImagen + "_" + time + "_" + "01" + "_" + FileManager.RandomString() + "." + soloExtension;
+                
+                if (nombreImagenAnterior != "") ConfigS3.DeleteFileS3(carpetaPais, nombreImagenAnterior);
+                ConfigS3.SetFileS3(Path.Combine(Globals.RutaTemporales, nombreImagen), carpetaPais, nombreImagenFinal, true, !keepFile, false);
             }
-            else
-            {
-                nombreImagenFinal = nombreImagen;
-            }
+            else nombreImagenFinal = nombreImagen;
 
             return nombreImagenFinal;
         }
