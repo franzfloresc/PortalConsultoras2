@@ -244,11 +244,11 @@ namespace Portal.Consultoras.Web.Controllers
                 string banner02 = WebConfigurationManager.AppSettings["banner_02"];
                 string banner03 = WebConfigurationManager.AppSettings["banner_03"];
 
-                model.UrlBanner01 = ConfigS3.GetUrlFileCdn(urlCarpeta, banner01);
-                model.UrlBanner02 = ConfigS3.GetUrlFileCdn(urlCarpeta, banner02);
-                model.UrlBanner03 = ConfigS3.GetUrlFileCdn(urlCarpeta, banner03);
+                model.UrlBanner01 = ConfigCdn.GetUrlFileCdn(urlCarpeta, banner01);
+                model.UrlBanner02 = ConfigCdn.GetUrlFileCdn(urlCarpeta, banner02);
+                model.UrlBanner03 = ConfigCdn.GetUrlFileCdn(urlCarpeta, banner03);
 
-                model.accionBanner_01 = ConfigS3.GetUrlFileCdn(urlProdDesc, userData.CampaniaID + ".pdf");
+                model.accionBanner_01 = ConfigCdn.GetUrlFileCdn(urlProdDesc, userData.CampaniaID + ".pdf");
 
                 #endregion
 
@@ -2439,9 +2439,9 @@ namespace Portal.Consultoras.Web.Controllers
             string banner02 = WebConfigurationManager.AppSettings["banner_02"];
             string banner03 = WebConfigurationManager.AppSettings["banner_03"];
 
-            ViewBag.UrlBanner01 = ConfigS3.GetUrlFileCdn(urlCarpeta, banner01);
-            ViewBag.UrlBanner02 = ConfigS3.GetUrlFileCdn(urlCarpeta, banner02);
-            ViewBag.UrlBanner03 = ConfigS3.GetUrlFileCdn(urlCarpeta, banner03);
+            ViewBag.UrlBanner01 = ConfigCdn.GetUrlFileCdn(urlCarpeta, banner01);
+            ViewBag.UrlBanner02 = ConfigCdn.GetUrlFileCdn(urlCarpeta, banner02);
+            ViewBag.UrlBanner03 = ConfigCdn.GetUrlFileCdn(urlCarpeta, banner03);
 
             return View();
         }
@@ -2650,11 +2650,11 @@ namespace Portal.Consultoras.Web.Controllers
             string banner02 = WebConfigurationManager.AppSettings["banner_02"];
             string banner03 = WebConfigurationManager.AppSettings["banner_03"];
 
-            ViewBag.UrlBanner01 = ConfigS3.GetUrlFileCdn(urlCarpeta, banner01);
-            ViewBag.UrlBanner02 = ConfigS3.GetUrlFileCdn(urlCarpeta, banner02);
-            ViewBag.UrlBanner03 = ConfigS3.GetUrlFileCdn(urlCarpeta, banner03);
+            ViewBag.UrlBanner01 = ConfigCdn.GetUrlFileCdn(urlCarpeta, banner01);
+            ViewBag.UrlBanner02 = ConfigCdn.GetUrlFileCdn(urlCarpeta, banner02);
+            ViewBag.UrlBanner03 = ConfigCdn.GetUrlFileCdn(urlCarpeta, banner03);
 
-            model.accionBanner_01 = ConfigS3.GetUrlFileCdn(urlProdDesc, userData.CampaniaID + ".pdf");
+            model.accionBanner_01 = ConfigCdn.GetUrlFileCdn(urlProdDesc, userData.CampaniaID + ".pdf");
 
             #endregion
 
@@ -3371,7 +3371,7 @@ namespace Portal.Consultoras.Web.Controllers
                 Marca = GetDescripcionMarca(string.IsNullOrEmpty(lst[0].MarcaID) ? 0 : Convert.ToInt32(lst[0].MarcaID));
                 // 1664
                 var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                lst.Update(x => x.ImagenProducto = ConfigS3.GetUrlFileCdn(carpetaPais, x.ImagenProducto));
+                lst.Update(x => x.ImagenProducto = ConfigCdn.GetUrlFileCdn(carpetaPais, x.ImagenProducto));
 
                 if (lst.Count > 1)
                 {
@@ -3445,8 +3445,8 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         var carpetaPais = Globals.UrlBanner + "/" + userData.CodigoISO;
                         var carpetaFileConsultoras = Globals.UrlFileConsultoras + "/" + userData.CodigoISO;
-                        lst.Update(x => x.ArchivoPortada = ConfigS3.GetUrlFileCdn(carpetaPais, x.ArchivoPortada));                        
-                        lst.Update(x => x.Archivo = ConfigS3.GetUrlFileCdn(carpetaFileConsultoras, x.Archivo));
+                        lst.Update(x => x.ArchivoPortada = ConfigCdn.GetUrlFileCdn(carpetaPais, x.ArchivoPortada));                        
+                        lst.Update(x => x.Archivo = ConfigCdn.GetUrlFileCdn(carpetaFileConsultoras, x.Archivo));
                     }
 
                 issuccess = true;
@@ -3783,7 +3783,7 @@ namespace Portal.Consultoras.Web.Controllers
                         model = Mapper.Map<RegaloOfertaFinal, RegaloOfertaFinalModel>(regalo);
                         model.CodigoISO = userData.CodigoISO;
                         string carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                        model.RegaloImagenUrl = ConfigS3.GetUrlFileCdn(carpetaPais, regalo.RegaloImagenUrl);
+                        model.RegaloImagenUrl = ConfigCdn.GetUrlFileCdn(carpetaPais, regalo.RegaloImagenUrl);
                     }
                 }
 
@@ -3997,7 +3997,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (!tipoCross && userData.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Arp)
                     {
                         string carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                        imagenUrl = ConfigS3.GetUrlFileCdn(carpetapais, imagenUrl);
+                        imagenUrl = ConfigCdn.GetUrlFileCdn(carpetapais, imagenUrl);
                     }
                     p.ImagenProductoSugerido = imagenUrl;
                     p.TipoCross = tipoCross;
@@ -4536,7 +4536,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             string carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
             var estrategia = lst != null && lst.Count > 0 ? lst[0] : new BEEstrategia();
-            estrategia.ImagenURL = ConfigS3.GetUrlFileCdn(carpetapais, estrategia.ImagenURL);
+            estrategia.ImagenURL = ConfigCdn.GetUrlFileCdn(carpetapais, estrategia.ImagenURL);
             estrategia.Simbolo = userData.Simbolo;
 
             return estrategia;            

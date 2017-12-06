@@ -132,7 +132,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (lst != null && lst.Count > 0)
                 {
                     var carpetaPais = Globals.UrlBanner + "/" + userData.CodigoISO;
-                    lst.Update(x => x.ArchivoPortada = ConfigS3.GetUrlFileCdn(carpetaPais, x.ArchivoPortada));
+                    lst.Update(x => x.ArchivoPortada = ConfigCdn.GetUrlFileCdn(carpetaPais, x.ArchivoPortada));
                 }                    
 
                 // Usamos el modelo para obtener los datos

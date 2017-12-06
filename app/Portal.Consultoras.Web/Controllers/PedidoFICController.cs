@@ -45,7 +45,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 // Req. 1664 - Gestion de contenido S3
                 var carpetaPais = Globals.UrlOfertasFic + "/" + userData.CodigoISO;
-                var url = ConfigS3.GetUrlFileCdn(carpetaPais, userData.ImagenURLOfertaFIC);
+                var url = ConfigCdn.GetUrlFileCdn(carpetaPais, userData.ImagenURLOfertaFIC);
 
                 ViewBag.ImagenUrlOfertaFIC = url; //SSAP CGI(Id Solicitud=1402)
                 ViewBag.PaisID = userData.PaisID; //1501

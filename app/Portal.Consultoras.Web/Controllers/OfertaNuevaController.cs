@@ -53,9 +53,9 @@ namespace Portal.Consultoras.Web.Controllers
                 var carpetaPais = Globals.UrlOfertasNuevas + "/" + userData.CodigoISO;
                 if (lst != null && lst.Count > 0)
                 {
-                    lst.Update(x => x.ImagenProducto01 = ConfigS3.GetUrlFileCdn(carpetaPais, x.ImagenProducto01));
-                    lst.Update(x => x.ImagenProducto02 = ConfigS3.GetUrlFileCdn(carpetaPais, x.ImagenProducto02));
-                    lst.Update(x => x.ImagenProducto03 = ConfigS3.GetUrlFileCdn(carpetaPais, x.ImagenProducto03));
+                    lst.Update(x => x.ImagenProducto01 = ConfigCdn.GetUrlFileCdn(carpetaPais, x.ImagenProducto01));
+                    lst.Update(x => x.ImagenProducto02 = ConfigCdn.GetUrlFileCdn(carpetaPais, x.ImagenProducto02));
+                    lst.Update(x => x.ImagenProducto03 = ConfigCdn.GetUrlFileCdn(carpetaPais, x.ImagenProducto03));
                 }
 
                 BEGrid grid = new BEGrid();

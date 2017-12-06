@@ -263,9 +263,9 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
                     listaShowRoomOferta.Update(x => x.ImagenProducto = string.IsNullOrEmpty(x.ImagenProducto)
-                                    ? "" : ConfigS3.GetUrlFileCdn(carpetaPais, x.ImagenProducto));
+                                    ? "" : ConfigCdn.GetUrlFileCdn(carpetaPais, x.ImagenProducto));
                     listaShowRoomOferta.Update(x => x.ImagenMini = string.IsNullOrEmpty(x.ImagenMini)
-                                    ? "" : ConfigS3.GetUrlFileCdn(carpetaPais, x.ImagenMini));
+                                    ? "" : ConfigCdn.GetUrlFileCdn(carpetaPais, x.ImagenMini));
                 }
             }
 
@@ -526,7 +526,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 p.Imagen = string.IsNullOrEmpty(p.Imagen)
                     ? "/Content/Images/showroom/no_disponible.png"
-                    : ConfigS3.GetUrlFileCdn(carpetaPais, p.Imagen);
+                    : ConfigCdn.GetUrlFileCdn(carpetaPais, p.Imagen);
             });
 
             return ofertaShowRoomModelo;
@@ -653,9 +653,9 @@ namespace Portal.Consultoras.Web.Controllers
         protected virtual void ActualizarUrlImagenes(List<BEShowRoomOferta> ofertasShowRoom)
         {
             ofertasShowRoom.Update(x => x.ImagenProducto = string.IsNullOrEmpty(x.ImagenProducto)
-                            ? "" : ConfigS3.GetUrlFileCdn(ObtenerCarpetaPais(), x.ImagenProducto));
+                            ? "" : ConfigCdn.GetUrlFileCdn(ObtenerCarpetaPais(), x.ImagenProducto));
             ofertasShowRoom.Update(x => x.ImagenMini = string.IsNullOrEmpty(x.ImagenMini)
-                ? "" : ConfigS3.GetUrlFileCdn(ObtenerCarpetaPais(), x.ImagenMini));
+                ? "" : ConfigCdn.GetUrlFileCdn(ObtenerCarpetaPais(), x.ImagenMini));
         }
 
         protected virtual string ObtenerCarpetaPais()

@@ -101,7 +101,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (lst != null && lst.Count > 0)
                 {
                     var carpetaPais = Globals.UrlLugaresPago + "/" + userData.CodigoISO;
-                    lst.Update(x => x.ArchivoLogo = ConfigS3.GetUrlFileCdn(carpetaPais, x.ArchivoLogo));
+                    lst.Update(x => x.ArchivoLogo = ConfigCdn.GetUrlFileCdn(carpetaPais, x.ArchivoLogo));
                 }
 
                 // Usamos el modelo para obtener los datos

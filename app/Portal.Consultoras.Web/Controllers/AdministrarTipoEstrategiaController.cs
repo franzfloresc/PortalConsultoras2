@@ -53,8 +53,8 @@ namespace Portal.Consultoras.Web.Controllers
                 if (lst != null && lst.Count > 0)
                 {
                     string carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                    lst.Update(x => x.ImagenEstrategia = ConfigS3.GetUrlFileCdn(carpetapais, x.ImagenEstrategia));
-                    lst.Update(x => x.ImagenOfertaIndependiente = ConfigS3.GetUrlFileCdn(carpetapais, x.ImagenOfertaIndependiente));
+                    lst.Update(x => x.ImagenEstrategia = ConfigCdn.GetUrlFileCdn(carpetapais, x.ImagenEstrategia));
+                    lst.Update(x => x.ImagenOfertaIndependiente = ConfigCdn.GetUrlFileCdn(carpetapais, x.ImagenOfertaIndependiente));
                 }
 
                 // Usamos el modelo para obtener los datos

@@ -30,7 +30,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             string paisISO = Util.GetPaisISO(userData.PaisID);
             var carpetaPais = Globals.UrlMatriz + "/" + paisISO;
-            var urlS3 = ConfigS3.GetUrlS3(carpetaPais);
+            var urlS3 = ConfigCdn.GetUrlCdn(carpetaPais);
 
             string habilitarNemotecnico = ObtenerValorTablaLogica(userData.PaisID, Constantes.TablaLogica.Plan20, Constantes.TablaLogicaDato.BusquedaNemotecnicoZonaEstrategia);
 
@@ -133,7 +133,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (lst != null && lst.Count > 0)
             {
                 var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                lst.Update(x => x.ImagenEstrategia = ConfigS3.GetUrlFileCdn(carpetaPais, x.ImagenEstrategia));
+                lst.Update(x => x.ImagenEstrategia = ConfigCdn.GetUrlFileCdn(carpetaPais, x.ImagenEstrategia));
 
                 var lista = (from a in lst
                              where a.FlagActivo == 1
@@ -237,7 +237,7 @@ namespace Portal.Consultoras.Web.Controllers
                     string carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
 
                     if (lst != null && lst.Count > 0)
-                        lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileCdn(carpetapais, x.ImagenURL));
+                        lst.Update(x => x.ImagenURL = ConfigCdn.GetUrlFileCdn(carpetapais, x.ImagenURL));
 
                     // Usamos el modelo para obtener los datos
                     var grid = new BEGrid
@@ -912,7 +912,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             string paisISO = Util.GetPaisISO(paisID);
             var carpetaPais = Globals.UrlMatriz + "/" + paisISO;
-            var urlS3 = ConfigS3.GetUrlS3(carpetaPais);
+            var urlS3 = ConfigCdn.GetUrlCdn(carpetaPais);
 
             var data = lst.Select(p => new MatrizComercialImagen
             {
@@ -945,7 +945,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (lst != null && lst.Count > 0)
             {                
-                lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileCdn(carpetapais, x.ImagenURL));
+                lst.Update(x => x.ImagenURL = ConfigCdn.GetUrlFileCdn(carpetapais, x.ImagenURL));
                 lst.Update(x => x.Simbolo = userData.Simbolo);
             }
             //R2469 - JICM - ViewBag Marcacion Detalle Producto

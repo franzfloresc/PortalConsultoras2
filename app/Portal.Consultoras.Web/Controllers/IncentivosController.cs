@@ -29,8 +29,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     var carpetaPaisIncentivos = Globals.UrlIncentivos + "/" + userData.CodigoISO;
                     var carpetaPaisFileConsultoras = Globals.UrlFileConsultoras + "/" + userData.CodigoISO;
-                    lst.Update(x => x.ArchivoPortada = ConfigS3.GetUrlFileCdn(carpetaPaisIncentivos, x.ArchivoPortada));
-                    lst.Update(x => x.ArchivoPDF = ConfigS3.GetUrlFileCdn(carpetaPaisFileConsultoras, x.ArchivoPDF));
+                    lst.Update(x => x.ArchivoPortada = ConfigCdn.GetUrlFileCdn(carpetaPaisIncentivos, x.ArchivoPortada));
+                    lst.Update(x => x.ArchivoPDF = ConfigCdn.GetUrlFileCdn(carpetaPaisFileConsultoras, x.ArchivoPDF));
                 }
 
                 var incentivosModel = new IncentivosModel()

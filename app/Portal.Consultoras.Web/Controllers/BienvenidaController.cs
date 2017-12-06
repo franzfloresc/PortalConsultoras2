@@ -37,7 +37,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 string nombreCarpetaTC = WebConfigurationManager.AppSettings["NombreCarpetaTC"];
                 string nombreArchivoTC = WebConfigurationManager.AppSettings["NombreArchivoTC"] + ".pdf";
-                ViewBag.UrlPdfTerminosyCondiciones = ConfigS3.GetUrlFileCdn(nombreCarpetaTC, userData.CodigoISO + "/" + nombreArchivoTC);
+                ViewBag.UrlPdfTerminosyCondiciones = ConfigCdn.GetUrlFileCdn(nombreCarpetaTC, userData.CodigoISO + "/" + nombreArchivoTC);
 
                 ViewBag.UrlImagenFAVHome = string.Format(ConfigurationManager.AppSettings.Get("UrlImagenFAVHome"), userData.CodigoISO);
 
@@ -86,7 +86,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 string carpetaPais = WebConfigurationManager.AppSettings["CarpetaImagenCompartirCatalogo"] + userData.CodigoISO;
                 string nombreImagenCatalogo = WebConfigurationManager.AppSettings["NombreImagenCompartirCatalogo"];
-                model.UrlImagenCompartirCatalogo = ConfigS3.GetUrlFileCdn(carpetaPais, nombreImagenCatalogo);
+                model.UrlImagenCompartirCatalogo = ConfigCdn.GetUrlFileCdn(carpetaPais, nombreImagenCatalogo);
                 model.PrimeraVez = userData.CambioClave;
                 model.Simbolo = userData.Simbolo;
                 model.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
@@ -172,7 +172,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
                 {
-                    model.ImagenUsuario = ConfigS3.GetUrlFileCdn("ConsultoraImagen", userData.CodigoISO + "-" + userData.CodigoConsultora + ".png");
+                    model.ImagenUsuario = ConfigCdn.GetUrlFileCdn("ConsultoraImagen", userData.CodigoISO + "-" + userData.CodigoConsultora + ".png");
                 }
 
                 int Visualizado = 1, ComunicadoVisualizado = 1;
@@ -766,7 +766,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string pathFile = Server.MapPath("~/Content/Images/temp/" + fileName);
                 System.IO.File.WriteAllBytes(pathFile, base64EncodedBytes);
                 ConfigS3.SetFileS3(pathFile, "ConsultoraImagen", fileName, true, true, true);
-                rutaImagen = ConfigS3.GetUrlFileCdn("ConsultoraImagen", fileName);
+                rutaImagen = ConfigCdn.GetUrlFileCdn("ConsultoraImagen", fileName);
             }
             catch (Exception ex)
             {

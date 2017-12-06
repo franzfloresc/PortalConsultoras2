@@ -1321,7 +1321,7 @@ namespace Portal.Consultoras.Web.Controllers
             var carpetaPais = Globals.UrlMatriz + "/" + model.CodigoISO;
             foreach (var oferta in ofertasDelDia)
             {                
-                oferta.ImagenURL = ConfigS3.GetUrlFileCdn(carpetaPais, oferta.ImagenURL);
+                oferta.ImagenURL = ConfigCdn.GetUrlFileCdn(carpetaPais, oferta.ImagenURL);
 
                 var oddModel = new OfertaDelDiaModel();
                 oddModel.CodigoIso = model.CodigoISO;

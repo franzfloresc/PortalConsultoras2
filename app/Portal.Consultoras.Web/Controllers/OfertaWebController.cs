@@ -42,7 +42,7 @@ namespace Portal.Consultoras.Web.Controllers
                     lista.Update(x => x.DescripcionMarca = GetDescripcionMarca(x.MarcaID));
                     // 1664
                     var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                    lista.Update(x => x.ImagenProducto = ConfigS3.GetUrlFileCdn(carpetaPais, x.ImagenProducto));
+                    lista.Update(x => x.ImagenProducto = ConfigCdn.GetUrlFileCdn(carpetaPais, x.ImagenProducto));
                 }
                 ViewBag.ListaOfertasWeb = lista;
             }
@@ -396,13 +396,13 @@ namespace Portal.Consultoras.Web.Controllers
                 });
 
                 if (lst[0].FotoProducto != "")
-                    lstFinal[0].FotoProducto01 = ConfigS3.GetUrlFileCdn(carpetaPais, lst[0].FotoProducto);
+                    lstFinal[0].FotoProducto01 = ConfigCdn.GetUrlFileCdn(carpetaPais, lst[0].FotoProducto);
 
                 if (lst[1].FotoProducto != "")
-                    lstFinal[0].FotoProducto02 = ConfigS3.GetUrlFileCdn(carpetaPais, lst[1].FotoProducto);
+                    lstFinal[0].FotoProducto02 = ConfigCdn.GetUrlFileCdn(carpetaPais, lst[1].FotoProducto);
 
                 if (lst[2].FotoProducto != "")
-                    lstFinal[0].FotoProducto03 = ConfigS3.GetUrlFileCdn(carpetaPais, lst[2].FotoProducto);
+                    lstFinal[0].FotoProducto03 = ConfigCdn.GetUrlFileCdn(carpetaPais, lst[2].FotoProducto);
             }
             return Json(new
             {
@@ -545,7 +545,7 @@ namespace Portal.Consultoras.Web.Controllers
                                    a.PrecioOferta.ToString("#0.00"),
                                    a.Orden.ToString(),
                                    a.Stock.ToString(),
-                                   ConfigS3.GetUrlFileCdn(carpetaPais, a.ImagenProducto), // 1664
+                                   ConfigCdn.GetUrlFileCdn(carpetaPais, a.ImagenProducto), // 1664
                                    a.CampaniaID.ToString() ,
                                    a.Stock.ToString(),
                                    a.UnidadesPermitidas.ToString(),

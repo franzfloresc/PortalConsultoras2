@@ -64,8 +64,8 @@ namespace Portal.Consultoras.Web.WebPages
                 }
                 else
                 {
-                    ofertaShowRoom.ImagenMini = ConfigS3.GetUrlFileCdn(carpetaPais, ofertaShowRoom.ImagenMini);
-                    ofertaShowRoom.ImagenProducto = ConfigS3.GetUrlFileCdn(carpetaPais, ofertaShowRoom.ImagenProducto);
+                    ofertaShowRoom.ImagenMini = ConfigCdn.GetUrlFileCdn(carpetaPais, ofertaShowRoom.ImagenMini);
+                    ofertaShowRoom.ImagenProducto = ConfigCdn.GetUrlFileCdn(carpetaPais, ofertaShowRoom.ImagenProducto);
                 }
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())

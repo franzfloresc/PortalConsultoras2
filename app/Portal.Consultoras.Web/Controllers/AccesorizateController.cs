@@ -136,7 +136,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (lst != null && lst.Count > 0)
             {
                 var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                lst.Update(x => x.ImagenProducto = ConfigS3.GetUrlFileCdn(carpetaPais, x.ImagenProducto));
+                lst.Update(x => x.ImagenProducto = ConfigCdn.GetUrlFileCdn(carpetaPais, x.ImagenProducto));
             }
 
             return Mapper.Map<IList<BEOfertaProducto>, List<OfertaProductoModel>>(lst);
@@ -623,7 +623,7 @@ namespace Portal.Consultoras.Web.Controllers
                 pag = Util.PaginadorGenerico(grid, lst);
                 string ISO = Util.GetPaisISO(PaisID);
                 var carpetaPais = Globals.UrlMatriz + "/" + ISO;                
-                lst.Update(x => x.ImagenProducto = (x.ImagenProducto.ToString().Equals(string.Empty) ? string.Empty : ConfigS3.GetUrlFileCdn(carpetaPais, x.ImagenProducto)));
+                lst.Update(x => x.ImagenProducto = (x.ImagenProducto.ToString().Equals(string.Empty) ? string.Empty : ConfigCdn.GetUrlFileCdn(carpetaPais, x.ImagenProducto)));
                 lst.Update(x => x.ISOPais = ISO);
                 // Creamos la estructura
                 var data = new

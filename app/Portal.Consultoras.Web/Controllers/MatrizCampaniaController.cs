@@ -120,7 +120,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (productos.Count == 2 && !string.IsNullOrEmpty(productos.LastOrDefault().RegaloImagenUrl))
                 {
                     string carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                    productos.LastOrDefault().RegaloImagenUrl = ConfigS3.GetUrlFileCdn(carpetaPais,productos.LastOrDefault().RegaloImagenUrl);
+                    productos.LastOrDefault().RegaloImagenUrl = ConfigCdn.GetUrlFileCdn(carpetaPais,productos.LastOrDefault().RegaloImagenUrl);
                 }
 
                 return Json(new

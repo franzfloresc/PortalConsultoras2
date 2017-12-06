@@ -13,9 +13,7 @@ namespace Portal.Consultoras.Common
         public static string BUCKET_NAME_QAS = ConfigurationManager.AppSettings["BUCKET_NAME_QAS"];
         public static string ROOT_DIRECTORY = ConfigurationManager.AppSettings["ROOT_DIRECTORY"];
         //MEJORA S3
-        public static string URL_S3 = ConfigurationManager.AppSettings["URL_S3"];
-
-        public static string RutaCdn = ConfigurationManager.AppSettings["RutaCDN"];
+        public static string URL_S3 = ConfigurationManager.AppSettings["URL_S3"];        
 
         public static string GetUrlFileS3(string carpetaPais, string fileName, string carpetaAnterior = "")
         {
@@ -201,25 +199,6 @@ namespace Portal.Consultoras.Common
             {
                 throw ex;
             }
-        }
-
-        public static string GetUrlFileCdn(string carpetaPais, string fileName)
-        {
-            fileName = fileName ?? "";
-            if (fileName.StartsWith(URL_S3))
-                return fileName;
-
-            if (fileName.StartsWith("http:/"))
-                return fileName;
-
-            if (fileName.StartsWith("https:/"))
-                return fileName;
-            
-            if (fileName.Trim() == "") return fileName;
-            
-            var carpeta = string.IsNullOrEmpty(carpetaPais) ? "" : carpetaPais + "/";
-
-            return RutaCdn + "/" + carpeta + fileName;
-        }
+        }        
     }
 }

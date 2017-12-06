@@ -572,7 +572,7 @@ namespace Portal.Consultoras.Web.Controllers
                     string urlGifContenedorOfertas = tieneRevistaDigital ? imagenContenedorOfertasDefaultBpt : imagenContenedorOfertasDefault;
                     var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
 
-                    permiso.UrlImagen = ConfigS3.GetUrlFileCdn(carpetaPais, urlGifContenedorOfertas);
+                    permiso.UrlImagen = ConfigCdn.GetUrlFileCdn(carpetaPais, urlGifContenedorOfertas);
 
                     if (GetEventoFestivoData().ListaGifMenuContenedorOfertas.Any())
                     {
@@ -748,7 +748,7 @@ namespace Portal.Consultoras.Web.Controllers
                     string urlGifContenedorOfertas = tieneRevistaDigital ? imagenContenedorOfertasDefaultBpt : imagenContenedorOfertasDefault;
                     var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
 
-                    menu.UrlImagen = ConfigS3.GetUrlFileCdn(carpetaPais, urlGifContenedorOfertas);
+                    menu.UrlImagen = ConfigCdn.GetUrlFileCdn(carpetaPais, urlGifContenedorOfertas);
                     var eventofestivo = GetEventoFestivoData();
                     if (eventofestivo.ListaGifMenuContenedorOfertas.Any())
                     {
@@ -1470,7 +1470,7 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             item.Valor = string.IsNullOrEmpty(item.Valor)
                                 ? string.Empty
-                                : ConfigS3.GetUrlFileCdn(carpetaPais, item.Valor);
+                                : ConfigCdn.GetUrlFileCdn(carpetaPais, item.Valor);
                         }
                     }
 
@@ -3350,7 +3350,7 @@ namespace Portal.Consultoras.Web.Controllers
                     VerMas = true
                 };
 
-                seccion.ImagenFondo = ConfigS3.GetUrlFileCdn(carpetaPais, seccion.ImagenFondo);
+                seccion.ImagenFondo = ConfigCdn.GetUrlFileCdn(carpetaPais, seccion.ImagenFondo);
 
                 switch (entConf.ConfiguracionPais.Codigo)
                 {
@@ -3742,10 +3742,10 @@ namespace Portal.Consultoras.Web.Controllers
             foreach (var confiModel in lista)
             {
                 confiModel.Codigo = Util.Trim(confiModel.Codigo).ToUpper();
-                confiModel.MobileLogoBanner = ConfigS3.GetUrlFileCdn(carpetaPais, confiModel.MobileLogoBanner);
-                confiModel.DesktopLogoBanner = ConfigS3.GetUrlFileCdn(carpetaPais, confiModel.DesktopLogoBanner);
-                confiModel.MobileFondoBanner = ConfigS3.GetUrlFileCdn(carpetaPais, confiModel.MobileFondoBanner);
-                confiModel.DesktopFondoBanner = ConfigS3.GetUrlFileCdn(carpetaPais, confiModel.DesktopFondoBanner);
+                confiModel.MobileLogoBanner = ConfigCdn.GetUrlFileCdn(carpetaPais, confiModel.MobileLogoBanner);
+                confiModel.DesktopLogoBanner = ConfigCdn.GetUrlFileCdn(carpetaPais, confiModel.DesktopLogoBanner);
+                confiModel.MobileFondoBanner = ConfigCdn.GetUrlFileCdn(carpetaPais, confiModel.MobileFondoBanner);
+                confiModel.DesktopFondoBanner = ConfigCdn.GetUrlFileCdn(carpetaPais, confiModel.DesktopFondoBanner);
                 confiModel.CampaniaId = userData.CampaniaID;
 
                 switch (confiModel.Codigo)

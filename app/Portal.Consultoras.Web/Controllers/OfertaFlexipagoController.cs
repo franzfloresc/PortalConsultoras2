@@ -31,7 +31,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
                     lista.Update(x => x.DescripcionMarca = GetDescripcionMarca(x.MarcaID));
-                    lista.Update(x => x.ImagenProducto = ConfigS3.GetUrlFileCdn(carpetaPais, x.ImagenProducto));
+                    lista.Update(x => x.ImagenProducto = ConfigCdn.GetUrlFileCdn(carpetaPais, x.ImagenProducto));
                 }
                 BEConfiguracionCampania oBEConfiguracionCampania = null;
                 using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -578,13 +578,13 @@ namespace Portal.Consultoras.Web.Controllers
                 });
 
                 if (lst[0].FotoProducto != "")
-                    lstFinal[0].FotoProducto01 = ConfigS3.GetUrlFileCdn(carpetaPais, lst[0].FotoProducto);
+                    lstFinal[0].FotoProducto01 = ConfigCdn.GetUrlFileCdn(carpetaPais, lst[0].FotoProducto);
 
                 if (lst[1].FotoProducto != "")
-                    lstFinal[0].FotoProducto02 = ConfigS3.GetUrlFileCdn(carpetaPais, lst[1].FotoProducto);
+                    lstFinal[0].FotoProducto02 = ConfigCdn.GetUrlFileCdn(carpetaPais, lst[1].FotoProducto);
 
                 if (lst[2].FotoProducto != "")
-                    lstFinal[0].FotoProducto03 = ConfigS3.GetUrlFileCdn(carpetaPais, lst[2].FotoProducto);
+                    lstFinal[0].FotoProducto03 = ConfigCdn.GetUrlFileCdn(carpetaPais, lst[2].FotoProducto);
             }
 
             return Json(new
@@ -684,7 +684,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string ISO = Util.GetPaisISO(PaisID);
                 
                 var carpetaPais = Globals.UrlMatriz + "/" + ISO;
-                lst.Update(x => x.ImagenProducto = ConfigS3.GetUrlFileCdn(carpetaPais, x.ImagenProducto));
+                lst.Update(x => x.ImagenProducto = ConfigCdn.GetUrlFileCdn(carpetaPais, x.ImagenProducto));
                 lst.Update(x => x.ISOPais = ISO);
                 lst.Update(x => x.TipoOfertaSisID = Constantes.ConfiguracionOferta.Flexipago);
                 // Creamos la estructura

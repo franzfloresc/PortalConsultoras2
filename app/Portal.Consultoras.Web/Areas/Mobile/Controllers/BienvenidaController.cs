@@ -54,7 +54,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.PortalLideres = userData.PortalLideres;
                 model.DiaPROL = userData.DiaPROL;
                 model.VioTutorial = userData.VioTutorialModelo;
-                model.UrlEnterateMas = ConfigS3.GetUrlFileCdn("Mobile/AppCatalogo/" + userData.CodigoISO, "enteratemas.png");
+                model.UrlEnterateMas = ConfigCdn.GetUrlFileCdn("Mobile/AppCatalogo/" + userData.CodigoISO, "enteratemas.png");
                 model.CampaniaActual = userData.CampaniaID;
                 model.CatalogoPersonalizadoMobile = userData.CatalogoPersonalizado;
                 model.RutaChile = ObtenerRutaChile();
@@ -65,10 +65,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.MontoDeuda = userData.MontoDeuda;
                 model.IsConsultoraOnline = ObtenerIsConsultoraOnline();
 
-                model.UrlImagenAppCatalogo = ConfigS3.GetUrlFileCdn("Mobile/AppCatalogo/" + userData.CodigoISO, "app.png");
-                model.UrlImagenMiAcademia = ConfigS3.GetUrlFileCdn("Mobile/MiAcademia/" + userData.CodigoISO, "miacademia.png");
-                model.UrlImagenLiquidaciones = ConfigS3.GetUrlFileCdn("Mobile/Liquidaciones/" + userData.CodigoISO, "liquidaciones.png");
-                model.UrlImagenCatalogoPersonalizado = ConfigS3.GetUrlFileCdn("Mobile/CatalogoPersonalizado/" + userData.CodigoISO, "catalogo.png");
+                model.UrlImagenAppCatalogo = ConfigCdn.GetUrlFileCdn("Mobile/AppCatalogo/" + userData.CodigoISO, "app.png");
+                model.UrlImagenMiAcademia = ConfigCdn.GetUrlFileCdn("Mobile/MiAcademia/" + userData.CodigoISO, "miacademia.png");
+                model.UrlImagenLiquidaciones = ConfigCdn.GetUrlFileCdn("Mobile/Liquidaciones/" + userData.CodigoISO, "liquidaciones.png");
+                model.UrlImagenCatalogoPersonalizado = ConfigCdn.GetUrlFileCdn("Mobile/CatalogoPersonalizado/" + userData.CodigoISO, "catalogo.png");
                 model.EsCatalogoPersonalizadoZonaValida = userData.EsCatalogoPersonalizadoZonaValida;
                 model.CodigoUsuario = userData.CodigoUsuario; //EPD-1180
                 model.EMail = userData.EMail;

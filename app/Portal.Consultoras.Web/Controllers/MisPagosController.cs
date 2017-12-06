@@ -666,7 +666,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (lst.Any())
             {
                 var carpetaPais = Globals.UrlLugaresPago + "/" + iso;
-                lst.Update(x => x.ArchivoLogo = ConfigS3.GetUrlFileCdn(carpetaPais, x.ArchivoLogo));
+                lst.Update(x => x.ArchivoLogo = ConfigCdn.GetUrlFileCdn(carpetaPais, x.ArchivoLogo));
             }                
 
             var lugaresPagoModel = new LugaresPagoModel()

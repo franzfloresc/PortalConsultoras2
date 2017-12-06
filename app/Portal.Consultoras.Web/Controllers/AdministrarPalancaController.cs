@@ -291,7 +291,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (lst != null && lst.Count > 0)
             {
                 var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                lst.Update(x => x.ImagenEstrategia = ConfigS3.GetUrlFileCdn(carpetaPais, x.ImagenEstrategia));
+                lst.Update(x => x.ImagenEstrategia = ConfigCdn.GetUrlFileCdn(carpetaPais, x.ImagenEstrategia));
             }
 
             var lista = from a in lst
@@ -325,7 +325,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             string paisISO = Util.GetPaisISO(userData.PaisID);
             var carpetaPais = Globals.UrlMatriz + "/" + paisISO;
-            return ConfigS3.GetUrlS3(carpetaPais);
+            return ConfigCdn.GetUrlCdn(carpetaPais);
         }
 
         private AdministrarPalancaModel UpdateFilesPalanca(AdministrarPalancaModel model)

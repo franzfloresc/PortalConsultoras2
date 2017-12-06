@@ -371,7 +371,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (lst != null && lst.Count > 0)
                     {
                         var carpetaPais = Globals.UrlBanner;
-                        lst.Update(x => x.Archivo = ConfigS3.GetUrlFileCdn(carpetaPais, x.Archivo));
+                        lst.Update(x => x.Archivo = ConfigCdn.GetUrlFileCdn(carpetaPais, x.Archivo));
                     }                        
 
                     List<string> lstCell = new List<string>();
@@ -594,7 +594,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             if (lstFinalInfo.Any())
-                lstFinalInfo.ForEach(x => x.Archivo = ConfigS3.GetUrlFileCdn(Globals.UrlBanner, x.Archivo));
+                lstFinalInfo.ForEach(x => x.Archivo = ConfigCdn.GetUrlFileCdn(Globals.UrlBanner, x.Archivo));
 
             var lstFinalModel = Mapper.Map<List<BannerInfoModel>>(lstFinalInfo);
 
@@ -922,7 +922,7 @@ namespace Portal.Consultoras.Web.Controllers
                 // 1664 - ObtenerBannerPrevio
                 if (lstBannerInfo != null && lstBannerInfo.Count > 0)
                 {
-                    lstBannerInfo.Update(x => x.Archivo = ConfigS3.GetUrlFileCdn(Globals.UrlBanner, x.Archivo));
+                    lstBannerInfo.Update(x => x.Archivo = ConfigCdn.GetUrlFileCdn(Globals.UrlBanner, x.Archivo));
                 }
 
                 issuccess = true;

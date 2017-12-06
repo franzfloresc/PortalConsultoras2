@@ -19,7 +19,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 string paisISO = Util.GetPaisISO(userData.PaisID);
                 var carpetaPais = Globals.UrlFileConsultoras + "/" + paisISO;
-                string urlS3 = ConfigS3.GetUrlS3(carpetaPais);
+                string urlS3 = ConfigCdn.GetUrlCdn(carpetaPais);
 
                 model.NombreTarjeta_navidenia = Constantes.ArchivosDescargables.TARJETA_NAVIDENA;
                 model.NombrePapel_regalo_dorado = Constantes.ArchivosDescargables.PAPEL_REGALO_DORADO;

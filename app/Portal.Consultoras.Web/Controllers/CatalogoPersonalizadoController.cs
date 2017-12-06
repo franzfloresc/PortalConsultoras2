@@ -189,7 +189,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     if (!string.IsNullOrEmpty(beProducto.ImagenProductoSugerido))
                                     {
                                         string carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                                        imagenUrl = ConfigS3.GetUrlFileCdn(carpetapais, beProducto.ImagenProductoSugerido);
+                                        imagenUrl = ConfigCdn.GetUrlFileCdn(carpetapais, beProducto.ImagenProductoSugerido);
                                         add = true;
                                     }
                                 }

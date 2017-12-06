@@ -31,7 +31,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             string paisISO = Util.GetPaisISO(userData.PaisID);
             var carpetaPais = Globals.UrlMatriz + "/" + paisISO;
-            var urlS3 = ConfigS3.GetUrlS3(carpetaPais);
+            var urlS3 = ConfigCdn.GetUrlCdn(carpetaPais);
 
             var ReporteValidacionModel = new ReporteValidacionModel()
             {
@@ -165,7 +165,7 @@ namespace Portal.Consultoras.Web.Controllers
             foreach (var item in lst)
             {
                 var carpetaPais = Globals.UrlMatriz + "/" + item.CodPais;
-                var urlS3 = ConfigS3.GetUrlS3(carpetaPais);
+                var urlS3 = ConfigCdn.GetUrlCdn(carpetaPais);
                 item.ImagenUrl = urlS3 + item.ImagenUrl;
             }
 
