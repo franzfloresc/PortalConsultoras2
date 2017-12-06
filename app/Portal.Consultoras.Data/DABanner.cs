@@ -222,7 +222,6 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        //RQ_SB - R2133
         public IDataReader GetBannerSegmentoSeccion(int CampaniaId, int BannerId, int PaisId)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetBannerSegmentoSeccion");
@@ -231,8 +230,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@PaisId", DbType.Int32, PaisId);
             return Context.ExecuteReader(command);
         }
-
-        //RQ_SB - R2133
+        
         public IDataReader GetBannerPaisesAsignados(int CampaniaId, int BannerId)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetBannerPaisesAsignados");
@@ -240,9 +238,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@BannerId", DbType.Int32, BannerId);
             return Context.ExecuteReader(command);
         }
-
-        //RQ_SB - R2133
-        /*RE2544 - CS - Agregando nuevo parametro*/
+        
         public void UpdBannerPaisSegmentoZona(int CampaniaId, int BannerId, int PaisId, int Segmento, string ConfiguracionZona, string SegmentoInterno)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdBannerPaisSegmentoZona");

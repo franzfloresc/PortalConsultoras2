@@ -72,7 +72,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int32, configuracionConsultoraDA.ConsultoraID);
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.String, configuracionConsultoraDA.CampaniaID);
             Context.Database.AddInParameter(command, "@TipoConfiguracion", DbType.Byte, configuracionConsultoraDA.TipoConfiguracion);
-            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.String, configuracionConsultoraDA.CodigoUsuario); //R20160302
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.String, configuracionConsultoraDA.CodigoUsuario);
 
             return Convert.ToInt32(Context.ExecuteScalar(command));
 

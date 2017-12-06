@@ -7,12 +7,9 @@ namespace Portal.Consultoras.Data
 {
     public class DAContenidoRevista:DataAccess
     {
-        public DAContenidoRevista()
-        {
-        }
-        public DAContenidoRevista(int paisId):base(paisId,EDbSource.Portal)
-        {
-        }
+        public DAContenidoRevista() {}
+        public DAContenidoRevista(int paisId):base(paisId,EDbSource.Portal) {}
+
         public int Insertar(string nroCompania,string rutaImagenPortada)
         {
             int result;
@@ -54,15 +51,13 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(storedProcCommand, "@NroCampania", DbType.String, campania);
                 using (var executeReader = Context.Database.ExecuteReader(storedProcCommand))
                 {
-                    while(executeReader.Read())
+                    if(executeReader.Read())
                     {
-                        result = new BEContenidoRevista
-                            {
-                                Id = GetDataValue<Int32>(executeReader, "Id"),
-                                NroCampania = GetDataValue<String>(executeReader, "NroCampania"),
-                                RutaImagenPortada = GetDataValue<String>(executeReader, "RutaImagenPortada")
-                            };
-                        break;
+                        result = new BEContenidoRevista {
+                            Id = GetDataValue<Int32>(executeReader, "Id"),
+                            NroCampania = GetDataValue<String>(executeReader, "NroCampania"),
+                            RutaImagenPortada = GetDataValue<String>(executeReader, "RutaImagenPortada")
+                        };
                     }
                 }
             }

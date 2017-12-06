@@ -26,17 +26,13 @@ namespace Portal.Consultoras.Web.Models
         public string CodigoIso { get; set; }
 
         public string Simbolo { get; set; }
-        public decimal ConsultoraSaldo { get; set; }    //EPD-1665
+        public decimal ConsultoraSaldo { get; set; }
 
-        //EPD-1919 INICIO
         public bool? TipoDespacho { get; set; }
         public decimal FleteDespacho { get; set; }
         public string MensajeDespacho { get; set; }
-        //EPD-1919 FIN
 
-        //HD-1227 -- Notificaciones Mobile
         public string Proceso {get; set;}
-        //HD-1227 FIN
 
         public List<BECDRWebDetalle> ListaDetalle { get; set; }
         public string EstadoDescripcion
@@ -46,7 +42,7 @@ namespace Portal.Consultoras.Web.Models
                 switch (Estado)
                 {
                     case Constantes.EstadoCDRWeb.Pendiente: return "PENDIENTE";
-                    case Constantes.EstadoCDRWeb.Enviado: return "ENVIADO";//"EN EVALUACIÓN";
+                    case Constantes.EstadoCDRWeb.Enviado: return "ENVIADO";
                     case Constantes.EstadoCDRWeb.Observado: return "RECHAZADO";
                     case Constantes.EstadoCDRWeb.Aceptado: return "APROBADO";
                     default: return "";
@@ -73,13 +69,11 @@ namespace Portal.Consultoras.Web.Models
         public int PaisID { get; set; }
         public int RegionID { get; set; }
         
-        /*HD-726* nuevos campos que se utilizan en CDR mobile*/
         public int CantidadAprobados { get; set; }
         public int CantidadRechazados { get; set; }
         public string OrigenCDRDetalle { get; set; }
         public string FormatoFechaCulminado { get; set; }
         public string FormatoCampaniaID { get; set; }
-        /*Fin HD-726*/
 
         public IEnumerable<CampaniaModel> lista { get; set; }
         public IEnumerable<PaisModel> listaPaises { get; set; }

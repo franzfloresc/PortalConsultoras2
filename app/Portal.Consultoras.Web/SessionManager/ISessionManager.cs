@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServicesCalculosPROL;
 
 namespace Portal.Consultoras.Web.SessionManager
 {
@@ -41,5 +42,57 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetRevistaDigital(RevistaDigitalModel revistaDigital);
 
         RevistaDigitalModel GetRevistaDigital();
+
+        void SetIsContrato(int isContrato);
+
+        int GetIsContrato();
+
+        void SetIsOfertaPack(int isOfertaPack);
+
+        int GetIsOfertaPack();
+
+        void SetConfiguracionesPaisModel(List<ConfiguracionPaisModel> configuracionesPais);
+
+        List<ConfiguracionPaisModel> GetConfiguracionesPaisModel();
+
+        void SetOfertaFinalModel(OfertaFinalModel ofertaFinalModel);
+
+        OfertaFinalModel GetOfertaFinalModel();
+
+        void SetEventoFestivoDataModel(EventoFestivoDataModel eventoFestivoDataModel);
+
+        EventoFestivoDataModel GetEventoFestivoDataModel();
+
+        void SetTieneLan(bool tieneLan);
+
+        bool GetTieneLan();
+
+        void SetTieneLanX1(bool tieneLanX1);
+
+        bool GetTieneLanX1();
+
+        void SetTieneOpt(bool tieneOpt);
+
+        bool GetTieneOpt();
+
+        void SetTieneOpm(bool tieneOpm);
+
+        bool GetTieneOpm();
+
+        void SetTieneOpmX1(bool tieneOpmX1);
+
+        bool GetTieneOpmX1();
+
+        void SetTieneRdr(bool tieneRdr);
+
+        bool GetTieneRdr();
+        
+        void SetUserData(UsuarioModel usuario);
+
+        UsuarioModel GetUserData();
+
+        void SetMontosProl(List<ObjMontosProl> montosProl);
+
+        List<ObjMontosProl> GetMontosProl();
     }
 }

@@ -13,7 +13,6 @@ namespace Portal.Consultoras.Web.Controllers
         private static string IsoPais;
         private static string CodigoConsultora;
         private static string Origen;
-        // GET: AsesoraOnline        
         public ActionResult Index(string param)
         {
             try
@@ -57,8 +56,6 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     resultado = sv.EnviarFormulario(IsoPais, entidad);
                     usuario = sv.GetUsuarioByCodigoConsultora(IsoPais, CodigoConsultora);
-                    //no-responder@somosbelcorp.com
-                    //esikateasesora@belcorp.biz
                     if (resultado.Equals(1))
                     {
                         var from = ConfigurationManager.AppSettings[Constantes.ConstSession.EmailAsesoraOnline] ?? "";

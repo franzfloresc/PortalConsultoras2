@@ -5220,6 +5220,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private int FlagRecoProducField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int FlagValidarImagenField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ImagenEstrategiaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -5236,6 +5239,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int PaisIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PesoMaximoImagenField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int TipoEstrategiaIDField;
@@ -5387,6 +5393,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public int FlagValidarImagen {
+            get {
+                return this.FlagValidarImagenField;
+            }
+            set {
+                if ((this.FlagValidarImagenField.Equals(value) != true)) {
+                    this.FlagValidarImagenField = value;
+                    this.RaisePropertyChanged("FlagValidarImagen");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string ImagenEstrategia {
             get {
                 return this.ImagenEstrategiaField;
@@ -5460,6 +5479,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.PaisIDField.Equals(value) != true)) {
                     this.PaisIDField = value;
                     this.RaisePropertyChanged("PaisID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PesoMaximoImagen {
+            get {
+                return this.PesoMaximoImagenField;
+            }
+            set {
+                if ((this.PesoMaximoImagenField.Equals(value) != true)) {
+                    this.PesoMaximoImagenField = value;
+                    this.RaisePropertyChanged("PesoMaximoImagen");
                 }
             }
         }
@@ -12206,6 +12238,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private int FlagTextoLibreField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int FlagValidarImagenField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string FotoProducto01Field;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -12279,6 +12314,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int OrdenField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PesoMaximoImagenField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal PrecioField;
@@ -12840,6 +12878,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public int FlagValidarImagen {
+            get {
+                return this.FlagValidarImagenField;
+            }
+            set {
+                if ((this.FlagValidarImagenField.Equals(value) != true)) {
+                    this.FlagValidarImagenField = value;
+                    this.RaisePropertyChanged("FlagValidarImagen");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string FotoProducto01 {
             get {
                 return this.FotoProducto01Field;
@@ -13160,6 +13211,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.OrdenField.Equals(value) != true)) {
                     this.OrdenField = value;
                     this.RaisePropertyChanged("Orden");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PesoMaximoImagen {
+            get {
+                return this.PesoMaximoImagenField;
+            }
+            set {
+                if ((this.PesoMaximoImagenField.Equals(value) != true)) {
+                    this.PesoMaximoImagenField = value;
+                    this.RaisePropertyChanged("PesoMaximoImagen");
                 }
             }
         }
@@ -32395,10 +32459,10 @@ namespace Portal.Consultoras.Web.ServicePedido {
         System.Threading.Tasks.Task<int> UpdOfertaShowRoomStockMasivoAsync(int paisID, Portal.Consultoras.Web.ServicePedido.BEShowRoomOferta[] stockProductos);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/CargarMasivaDescripcionSets", ReplyAction="http://tempuri.org/IPedidoService/CargarMasivaDescripcionSetsResponse")]
-        int CargarMasivaDescripcionSets(int paisID, int campaniaID, string usuarioCreacion, Portal.Consultoras.Web.ServicePedido.BEShowRoomOfertaDetalle[] listaShowRoomOfertaDetalle);
+        int CargarMasivaDescripcionSets(int paisID, int campaniaID, string usuarioCreacion, Portal.Consultoras.Web.ServicePedido.BEShowRoomOfertaDetalle[] listaShowRoomOfertaDetalle, string nombreArchivoCargado, string nombreArchivoGuardado);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/CargarMasivaDescripcionSets", ReplyAction="http://tempuri.org/IPedidoService/CargarMasivaDescripcionSetsResponse")]
-        System.Threading.Tasks.Task<int> CargarMasivaDescripcionSetsAsync(int paisID, int campaniaID, string usuarioCreacion, Portal.Consultoras.Web.ServicePedido.BEShowRoomOfertaDetalle[] listaShowRoomOfertaDetalle);
+        System.Threading.Tasks.Task<int> CargarMasivaDescripcionSetsAsync(int paisID, int campaniaID, string usuarioCreacion, Portal.Consultoras.Web.ServicePedido.BEShowRoomOfertaDetalle[] listaShowRoomOfertaDetalle, string nombreArchivoCargado, string nombreArchivoGuardado);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/CargarProductoCpc", ReplyAction="http://tempuri.org/IPedidoService/CargarProductoCpcResponse")]
         int CargarProductoCpc(int paisId, int eventoId, string usuarioCreacion, Portal.Consultoras.Web.ServicePedido.BEShowRoomCompraPorCompra[] listaShowRoomCompraPorCompra);
@@ -35046,12 +35110,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.UpdOfertaShowRoomStockMasivoAsync(paisID, stockProductos);
         }
         
-        public int CargarMasivaDescripcionSets(int paisID, int campaniaID, string usuarioCreacion, Portal.Consultoras.Web.ServicePedido.BEShowRoomOfertaDetalle[] listaShowRoomOfertaDetalle) {
-            return base.Channel.CargarMasivaDescripcionSets(paisID, campaniaID, usuarioCreacion, listaShowRoomOfertaDetalle);
+        public int CargarMasivaDescripcionSets(int paisID, int campaniaID, string usuarioCreacion, Portal.Consultoras.Web.ServicePedido.BEShowRoomOfertaDetalle[] listaShowRoomOfertaDetalle, string nombreArchivoCargado, string nombreArchivoGuardado) {
+            return base.Channel.CargarMasivaDescripcionSets(paisID, campaniaID, usuarioCreacion, listaShowRoomOfertaDetalle, nombreArchivoCargado, nombreArchivoGuardado);
         }
         
-        public System.Threading.Tasks.Task<int> CargarMasivaDescripcionSetsAsync(int paisID, int campaniaID, string usuarioCreacion, Portal.Consultoras.Web.ServicePedido.BEShowRoomOfertaDetalle[] listaShowRoomOfertaDetalle) {
-            return base.Channel.CargarMasivaDescripcionSetsAsync(paisID, campaniaID, usuarioCreacion, listaShowRoomOfertaDetalle);
+        public System.Threading.Tasks.Task<int> CargarMasivaDescripcionSetsAsync(int paisID, int campaniaID, string usuarioCreacion, Portal.Consultoras.Web.ServicePedido.BEShowRoomOfertaDetalle[] listaShowRoomOfertaDetalle, string nombreArchivoCargado, string nombreArchivoGuardado) {
+            return base.Channel.CargarMasivaDescripcionSetsAsync(paisID, campaniaID, usuarioCreacion, listaShowRoomOfertaDetalle, nombreArchivoCargado, nombreArchivoGuardado);
         }
         
         public int CargarProductoCpc(int paisId, int eventoId, string usuarioCreacion, Portal.Consultoras.Web.ServicePedido.BEShowRoomCompraPorCompra[] listaShowRoomCompraPorCompra) {

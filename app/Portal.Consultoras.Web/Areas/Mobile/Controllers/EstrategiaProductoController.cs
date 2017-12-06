@@ -5,7 +5,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
     public class EstrategiaProductoController : BaseMobileController
     {
-        // GET: Mobile/EstrategiaProducto
         public ActionResult Index()
         {
             return View();

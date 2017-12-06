@@ -59,7 +59,7 @@ namespace Portal.Consultoras.Web.WebPages
                     {
                         string Consultora = Convert.ToString(Request.QueryString["CO"]);
 
-                        Session["UserData"] = null;
+                        SessionManager.SessionManager.Instance.SetUserData(null);
                         Session.Clear();
                         Session.Abandon();
 
