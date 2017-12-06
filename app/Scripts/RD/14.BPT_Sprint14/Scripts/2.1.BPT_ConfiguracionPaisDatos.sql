@@ -2,8 +2,11 @@ USE BelcorpPeru
 GO
 
 GO
-
 declare @ConfiguracionPaisID int = 0, @codePais varchar(5) = '', @amb varchar(5) = 'PRD'
+, @paisEsika varchar(100) = ';EC;CO;BO;GT;SV;DO;VE;PE;', @video varchar(50) , @videoMobile varchar(50) 
+, @videoEsika varchar(50) = 'Rv-D7OOJGiY', @videoEsikaMobile varchar(50) = 'DWR9oXdXJ9k'
+, @videoLevel varchar(50) = 'qQoPUXIjt7A', @videoLevelMobile varchar(50) = 'pptxycld3Yc'
+
 select @ConfiguracionPaisID = ConfiguracionPaisID
 from ConfiguracionPais
 where Codigo = 'RD'
@@ -12,7 +15,18 @@ select @codePais = CodigoIso
 from Pais where EstadoActivo = '1'
 
 set @codePais = isnull(@codePais, '')
+set @codePais = ';' + @codePais + ';'
 
+if @paisEsika like '%'+@codePais+'%'
+begin
+	set @video = @videoEsika
+	set @videoMobile = @videoEsikaMobile
+end
+else
+begin
+	set @video = @videoLevel
+	set @videoMobile = @videoLevelMobile
+end
 
 if @ConfiguracionPaisID > 0
 begin 
@@ -323,7 +337,7 @@ begin
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
 		Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'InformativoVideo', 
-	'Rv-D7OOJGiY', 'DWR9oXdXJ9k', '', 'Video para la pagina informativa, valo2 es mobile')
+	@video, @videoMobile, '', 'Video para la pagina informativa, valo2 es mobile')
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
 		Valor1, Valor2, Valor3, Descripcion)
@@ -422,8 +436,11 @@ USE BelcorpMexico
 GO
 
 GO
-
 declare @ConfiguracionPaisID int = 0, @codePais varchar(5) = '', @amb varchar(5) = 'PRD'
+, @paisEsika varchar(100) = ';EC;CO;BO;GT;SV;DO;VE;PE;', @video varchar(50) , @videoMobile varchar(50) 
+, @videoEsika varchar(50) = 'Rv-D7OOJGiY', @videoEsikaMobile varchar(50) = 'DWR9oXdXJ9k'
+, @videoLevel varchar(50) = 'qQoPUXIjt7A', @videoLevelMobile varchar(50) = 'pptxycld3Yc'
+
 select @ConfiguracionPaisID = ConfiguracionPaisID
 from ConfiguracionPais
 where Codigo = 'RD'
@@ -432,7 +449,18 @@ select @codePais = CodigoIso
 from Pais where EstadoActivo = '1'
 
 set @codePais = isnull(@codePais, '')
+set @codePais = ';' + @codePais + ';'
 
+if @paisEsika like '%'+@codePais+'%'
+begin
+	set @video = @videoEsika
+	set @videoMobile = @videoEsikaMobile
+end
+else
+begin
+	set @video = @videoLevel
+	set @videoMobile = @videoLevelMobile
+end
 
 if @ConfiguracionPaisID > 0
 begin 
@@ -743,7 +771,7 @@ begin
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
 		Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'InformativoVideo', 
-	'Rv-D7OOJGiY', 'DWR9oXdXJ9k', '', 'Video para la pagina informativa, valo2 es mobile')
+	@video, @videoMobile, '', 'Video para la pagina informativa, valo2 es mobile')
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
 		Valor1, Valor2, Valor3, Descripcion)
@@ -842,8 +870,11 @@ USE BelcorpColombia
 GO
 
 GO
-
 declare @ConfiguracionPaisID int = 0, @codePais varchar(5) = '', @amb varchar(5) = 'PRD'
+, @paisEsika varchar(100) = ';EC;CO;BO;GT;SV;DO;VE;PE;', @video varchar(50) , @videoMobile varchar(50) 
+, @videoEsika varchar(50) = 'Rv-D7OOJGiY', @videoEsikaMobile varchar(50) = 'DWR9oXdXJ9k'
+, @videoLevel varchar(50) = 'qQoPUXIjt7A', @videoLevelMobile varchar(50) = 'pptxycld3Yc'
+
 select @ConfiguracionPaisID = ConfiguracionPaisID
 from ConfiguracionPais
 where Codigo = 'RD'
@@ -852,7 +883,18 @@ select @codePais = CodigoIso
 from Pais where EstadoActivo = '1'
 
 set @codePais = isnull(@codePais, '')
+set @codePais = ';' + @codePais + ';'
 
+if @paisEsika like '%'+@codePais+'%'
+begin
+	set @video = @videoEsika
+	set @videoMobile = @videoEsikaMobile
+end
+else
+begin
+	set @video = @videoLevel
+	set @videoMobile = @videoLevelMobile
+end
 
 if @ConfiguracionPaisID > 0
 begin 
@@ -1163,7 +1205,7 @@ begin
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
 		Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'InformativoVideo', 
-	'Rv-D7OOJGiY', 'DWR9oXdXJ9k', '', 'Video para la pagina informativa, valo2 es mobile')
+	@video, @videoMobile, '', 'Video para la pagina informativa, valo2 es mobile')
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
 		Valor1, Valor2, Valor3, Descripcion)
@@ -1262,8 +1304,11 @@ USE BelcorpVenezuela
 GO
 
 GO
-
 declare @ConfiguracionPaisID int = 0, @codePais varchar(5) = '', @amb varchar(5) = 'PRD'
+, @paisEsika varchar(100) = ';EC;CO;BO;GT;SV;DO;VE;PE;', @video varchar(50) , @videoMobile varchar(50) 
+, @videoEsika varchar(50) = 'Rv-D7OOJGiY', @videoEsikaMobile varchar(50) = 'DWR9oXdXJ9k'
+, @videoLevel varchar(50) = 'qQoPUXIjt7A', @videoLevelMobile varchar(50) = 'pptxycld3Yc'
+
 select @ConfiguracionPaisID = ConfiguracionPaisID
 from ConfiguracionPais
 where Codigo = 'RD'
@@ -1272,7 +1317,18 @@ select @codePais = CodigoIso
 from Pais where EstadoActivo = '1'
 
 set @codePais = isnull(@codePais, '')
+set @codePais = ';' + @codePais + ';'
 
+if @paisEsika like '%'+@codePais+'%'
+begin
+	set @video = @videoEsika
+	set @videoMobile = @videoEsikaMobile
+end
+else
+begin
+	set @video = @videoLevel
+	set @videoMobile = @videoLevelMobile
+end
 
 if @ConfiguracionPaisID > 0
 begin 
@@ -1583,7 +1639,7 @@ begin
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
 		Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'InformativoVideo', 
-	'Rv-D7OOJGiY', 'DWR9oXdXJ9k', '', 'Video para la pagina informativa, valo2 es mobile')
+	@video, @videoMobile, '', 'Video para la pagina informativa, valo2 es mobile')
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
 		Valor1, Valor2, Valor3, Descripcion)
@@ -1682,8 +1738,11 @@ USE BelcorpSalvador
 GO
 
 GO
-
 declare @ConfiguracionPaisID int = 0, @codePais varchar(5) = '', @amb varchar(5) = 'PRD'
+, @paisEsika varchar(100) = ';EC;CO;BO;GT;SV;DO;VE;PE;', @video varchar(50) , @videoMobile varchar(50) 
+, @videoEsika varchar(50) = 'Rv-D7OOJGiY', @videoEsikaMobile varchar(50) = 'DWR9oXdXJ9k'
+, @videoLevel varchar(50) = 'qQoPUXIjt7A', @videoLevelMobile varchar(50) = 'pptxycld3Yc'
+
 select @ConfiguracionPaisID = ConfiguracionPaisID
 from ConfiguracionPais
 where Codigo = 'RD'
@@ -1692,7 +1751,18 @@ select @codePais = CodigoIso
 from Pais where EstadoActivo = '1'
 
 set @codePais = isnull(@codePais, '')
+set @codePais = ';' + @codePais + ';'
 
+if @paisEsika like '%'+@codePais+'%'
+begin
+	set @video = @videoEsika
+	set @videoMobile = @videoEsikaMobile
+end
+else
+begin
+	set @video = @videoLevel
+	set @videoMobile = @videoLevelMobile
+end
 
 if @ConfiguracionPaisID > 0
 begin 
@@ -2003,7 +2073,7 @@ begin
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
 		Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'InformativoVideo', 
-	'Rv-D7OOJGiY', 'DWR9oXdXJ9k', '', 'Video para la pagina informativa, valo2 es mobile')
+	@video, @videoMobile, '', 'Video para la pagina informativa, valo2 es mobile')
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
 		Valor1, Valor2, Valor3, Descripcion)
@@ -2102,8 +2172,11 @@ USE BelcorpPuertoRico
 GO
 
 GO
-
 declare @ConfiguracionPaisID int = 0, @codePais varchar(5) = '', @amb varchar(5) = 'PRD'
+, @paisEsika varchar(100) = ';EC;CO;BO;GT;SV;DO;VE;PE;', @video varchar(50) , @videoMobile varchar(50) 
+, @videoEsika varchar(50) = 'Rv-D7OOJGiY', @videoEsikaMobile varchar(50) = 'DWR9oXdXJ9k'
+, @videoLevel varchar(50) = 'qQoPUXIjt7A', @videoLevelMobile varchar(50) = 'pptxycld3Yc'
+
 select @ConfiguracionPaisID = ConfiguracionPaisID
 from ConfiguracionPais
 where Codigo = 'RD'
@@ -2112,7 +2185,18 @@ select @codePais = CodigoIso
 from Pais where EstadoActivo = '1'
 
 set @codePais = isnull(@codePais, '')
+set @codePais = ';' + @codePais + ';'
 
+if @paisEsika like '%'+@codePais+'%'
+begin
+	set @video = @videoEsika
+	set @videoMobile = @videoEsikaMobile
+end
+else
+begin
+	set @video = @videoLevel
+	set @videoMobile = @videoLevelMobile
+end
 
 if @ConfiguracionPaisID > 0
 begin 
@@ -2423,7 +2507,7 @@ begin
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
 		Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'InformativoVideo', 
-	'Rv-D7OOJGiY', 'DWR9oXdXJ9k', '', 'Video para la pagina informativa, valo2 es mobile')
+	@video, @videoMobile, '', 'Video para la pagina informativa, valo2 es mobile')
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
 		Valor1, Valor2, Valor3, Descripcion)
@@ -2522,8 +2606,11 @@ USE BelcorpPanama
 GO
 
 GO
-
 declare @ConfiguracionPaisID int = 0, @codePais varchar(5) = '', @amb varchar(5) = 'PRD'
+, @paisEsika varchar(100) = ';EC;CO;BO;GT;SV;DO;VE;PE;', @video varchar(50) , @videoMobile varchar(50) 
+, @videoEsika varchar(50) = 'Rv-D7OOJGiY', @videoEsikaMobile varchar(50) = 'DWR9oXdXJ9k'
+, @videoLevel varchar(50) = 'qQoPUXIjt7A', @videoLevelMobile varchar(50) = 'pptxycld3Yc'
+
 select @ConfiguracionPaisID = ConfiguracionPaisID
 from ConfiguracionPais
 where Codigo = 'RD'
@@ -2532,7 +2619,18 @@ select @codePais = CodigoIso
 from Pais where EstadoActivo = '1'
 
 set @codePais = isnull(@codePais, '')
+set @codePais = ';' + @codePais + ';'
 
+if @paisEsika like '%'+@codePais+'%'
+begin
+	set @video = @videoEsika
+	set @videoMobile = @videoEsikaMobile
+end
+else
+begin
+	set @video = @videoLevel
+	set @videoMobile = @videoLevelMobile
+end
 
 if @ConfiguracionPaisID > 0
 begin 
@@ -2843,7 +2941,7 @@ begin
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
 		Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'InformativoVideo', 
-	'Rv-D7OOJGiY', 'DWR9oXdXJ9k', '', 'Video para la pagina informativa, valo2 es mobile')
+	@video, @videoMobile, '', 'Video para la pagina informativa, valo2 es mobile')
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
 		Valor1, Valor2, Valor3, Descripcion)
@@ -2942,8 +3040,11 @@ USE BelcorpGuatemala
 GO
 
 GO
-
 declare @ConfiguracionPaisID int = 0, @codePais varchar(5) = '', @amb varchar(5) = 'PRD'
+, @paisEsika varchar(100) = ';EC;CO;BO;GT;SV;DO;VE;PE;', @video varchar(50) , @videoMobile varchar(50) 
+, @videoEsika varchar(50) = 'Rv-D7OOJGiY', @videoEsikaMobile varchar(50) = 'DWR9oXdXJ9k'
+, @videoLevel varchar(50) = 'qQoPUXIjt7A', @videoLevelMobile varchar(50) = 'pptxycld3Yc'
+
 select @ConfiguracionPaisID = ConfiguracionPaisID
 from ConfiguracionPais
 where Codigo = 'RD'
@@ -2952,7 +3053,18 @@ select @codePais = CodigoIso
 from Pais where EstadoActivo = '1'
 
 set @codePais = isnull(@codePais, '')
+set @codePais = ';' + @codePais + ';'
 
+if @paisEsika like '%'+@codePais+'%'
+begin
+	set @video = @videoEsika
+	set @videoMobile = @videoEsikaMobile
+end
+else
+begin
+	set @video = @videoLevel
+	set @videoMobile = @videoLevelMobile
+end
 
 if @ConfiguracionPaisID > 0
 begin 
@@ -3263,7 +3375,7 @@ begin
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
 		Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'InformativoVideo', 
-	'Rv-D7OOJGiY', 'DWR9oXdXJ9k', '', 'Video para la pagina informativa, valo2 es mobile')
+	@video, @videoMobile, '', 'Video para la pagina informativa, valo2 es mobile')
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
 		Valor1, Valor2, Valor3, Descripcion)
@@ -3362,8 +3474,11 @@ USE BelcorpEcuador
 GO
 
 GO
-
 declare @ConfiguracionPaisID int = 0, @codePais varchar(5) = '', @amb varchar(5) = 'PRD'
+, @paisEsika varchar(100) = ';EC;CO;BO;GT;SV;DO;VE;PE;', @video varchar(50) , @videoMobile varchar(50) 
+, @videoEsika varchar(50) = 'Rv-D7OOJGiY', @videoEsikaMobile varchar(50) = 'DWR9oXdXJ9k'
+, @videoLevel varchar(50) = 'qQoPUXIjt7A', @videoLevelMobile varchar(50) = 'pptxycld3Yc'
+
 select @ConfiguracionPaisID = ConfiguracionPaisID
 from ConfiguracionPais
 where Codigo = 'RD'
@@ -3372,7 +3487,18 @@ select @codePais = CodigoIso
 from Pais where EstadoActivo = '1'
 
 set @codePais = isnull(@codePais, '')
+set @codePais = ';' + @codePais + ';'
 
+if @paisEsika like '%'+@codePais+'%'
+begin
+	set @video = @videoEsika
+	set @videoMobile = @videoEsikaMobile
+end
+else
+begin
+	set @video = @videoLevel
+	set @videoMobile = @videoLevelMobile
+end
 
 if @ConfiguracionPaisID > 0
 begin 
@@ -3683,7 +3809,7 @@ begin
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
 		Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'InformativoVideo', 
-	'Rv-D7OOJGiY', 'DWR9oXdXJ9k', '', 'Video para la pagina informativa, valo2 es mobile')
+	@video, @videoMobile, '', 'Video para la pagina informativa, valo2 es mobile')
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
 		Valor1, Valor2, Valor3, Descripcion)
@@ -3782,8 +3908,11 @@ USE BelcorpDominicana
 GO
 
 GO
-
 declare @ConfiguracionPaisID int = 0, @codePais varchar(5) = '', @amb varchar(5) = 'PRD'
+, @paisEsika varchar(100) = ';EC;CO;BO;GT;SV;DO;VE;PE;', @video varchar(50) , @videoMobile varchar(50) 
+, @videoEsika varchar(50) = 'Rv-D7OOJGiY', @videoEsikaMobile varchar(50) = 'DWR9oXdXJ9k'
+, @videoLevel varchar(50) = 'qQoPUXIjt7A', @videoLevelMobile varchar(50) = 'pptxycld3Yc'
+
 select @ConfiguracionPaisID = ConfiguracionPaisID
 from ConfiguracionPais
 where Codigo = 'RD'
@@ -3792,7 +3921,18 @@ select @codePais = CodigoIso
 from Pais where EstadoActivo = '1'
 
 set @codePais = isnull(@codePais, '')
+set @codePais = ';' + @codePais + ';'
 
+if @paisEsika like '%'+@codePais+'%'
+begin
+	set @video = @videoEsika
+	set @videoMobile = @videoEsikaMobile
+end
+else
+begin
+	set @video = @videoLevel
+	set @videoMobile = @videoLevelMobile
+end
 
 if @ConfiguracionPaisID > 0
 begin 
@@ -4103,7 +4243,7 @@ begin
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
 		Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'InformativoVideo', 
-	'Rv-D7OOJGiY', 'DWR9oXdXJ9k', '', 'Video para la pagina informativa, valo2 es mobile')
+	@video, @videoMobile, '', 'Video para la pagina informativa, valo2 es mobile')
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
 		Valor1, Valor2, Valor3, Descripcion)
@@ -4202,8 +4342,11 @@ USE BelcorpCostaRica
 GO
 
 GO
-
 declare @ConfiguracionPaisID int = 0, @codePais varchar(5) = '', @amb varchar(5) = 'PRD'
+, @paisEsika varchar(100) = ';EC;CO;BO;GT;SV;DO;VE;PE;', @video varchar(50) , @videoMobile varchar(50) 
+, @videoEsika varchar(50) = 'Rv-D7OOJGiY', @videoEsikaMobile varchar(50) = 'DWR9oXdXJ9k'
+, @videoLevel varchar(50) = 'qQoPUXIjt7A', @videoLevelMobile varchar(50) = 'pptxycld3Yc'
+
 select @ConfiguracionPaisID = ConfiguracionPaisID
 from ConfiguracionPais
 where Codigo = 'RD'
@@ -4212,7 +4355,18 @@ select @codePais = CodigoIso
 from Pais where EstadoActivo = '1'
 
 set @codePais = isnull(@codePais, '')
+set @codePais = ';' + @codePais + ';'
 
+if @paisEsika like '%'+@codePais+'%'
+begin
+	set @video = @videoEsika
+	set @videoMobile = @videoEsikaMobile
+end
+else
+begin
+	set @video = @videoLevel
+	set @videoMobile = @videoLevelMobile
+end
 
 if @ConfiguracionPaisID > 0
 begin 
@@ -4523,7 +4677,7 @@ begin
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
 		Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'InformativoVideo', 
-	'Rv-D7OOJGiY', 'DWR9oXdXJ9k', '', 'Video para la pagina informativa, valo2 es mobile')
+	@video, @videoMobile, '', 'Video para la pagina informativa, valo2 es mobile')
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
 		Valor1, Valor2, Valor3, Descripcion)
@@ -4622,8 +4776,11 @@ USE BelcorpChile
 GO
 
 GO
-
 declare @ConfiguracionPaisID int = 0, @codePais varchar(5) = '', @amb varchar(5) = 'PRD'
+, @paisEsika varchar(100) = ';EC;CO;BO;GT;SV;DO;VE;PE;', @video varchar(50) , @videoMobile varchar(50) 
+, @videoEsika varchar(50) = 'Rv-D7OOJGiY', @videoEsikaMobile varchar(50) = 'DWR9oXdXJ9k'
+, @videoLevel varchar(50) = 'qQoPUXIjt7A', @videoLevelMobile varchar(50) = 'pptxycld3Yc'
+
 select @ConfiguracionPaisID = ConfiguracionPaisID
 from ConfiguracionPais
 where Codigo = 'RD'
@@ -4632,7 +4789,18 @@ select @codePais = CodigoIso
 from Pais where EstadoActivo = '1'
 
 set @codePais = isnull(@codePais, '')
+set @codePais = ';' + @codePais + ';'
 
+if @paisEsika like '%'+@codePais+'%'
+begin
+	set @video = @videoEsika
+	set @videoMobile = @videoEsikaMobile
+end
+else
+begin
+	set @video = @videoLevel
+	set @videoMobile = @videoLevelMobile
+end
 
 if @ConfiguracionPaisID > 0
 begin 
@@ -4943,7 +5111,7 @@ begin
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
 		Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'InformativoVideo', 
-	'Rv-D7OOJGiY', 'DWR9oXdXJ9k', '', 'Video para la pagina informativa, valo2 es mobile')
+	@video, @videoMobile, '', 'Video para la pagina informativa, valo2 es mobile')
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
 		Valor1, Valor2, Valor3, Descripcion)
@@ -5042,8 +5210,11 @@ USE BelcorpBolivia
 GO
 
 GO
-
 declare @ConfiguracionPaisID int = 0, @codePais varchar(5) = '', @amb varchar(5) = 'PRD'
+, @paisEsika varchar(100) = ';EC;CO;BO;GT;SV;DO;VE;PE;', @video varchar(50) , @videoMobile varchar(50) 
+, @videoEsika varchar(50) = 'Rv-D7OOJGiY', @videoEsikaMobile varchar(50) = 'DWR9oXdXJ9k'
+, @videoLevel varchar(50) = 'qQoPUXIjt7A', @videoLevelMobile varchar(50) = 'pptxycld3Yc'
+
 select @ConfiguracionPaisID = ConfiguracionPaisID
 from ConfiguracionPais
 where Codigo = 'RD'
@@ -5052,7 +5223,18 @@ select @codePais = CodigoIso
 from Pais where EstadoActivo = '1'
 
 set @codePais = isnull(@codePais, '')
+set @codePais = ';' + @codePais + ';'
 
+if @paisEsika like '%'+@codePais+'%'
+begin
+	set @video = @videoEsika
+	set @videoMobile = @videoEsikaMobile
+end
+else
+begin
+	set @video = @videoLevel
+	set @videoMobile = @videoLevelMobile
+end
 
 if @ConfiguracionPaisID > 0
 begin 
@@ -5363,7 +5545,7 @@ begin
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
 		Valor1, Valor2, Valor3, Descripcion)
 	values (@ConfiguracionPaisID, 1, 0, 'InformativoVideo', 
-	'Rv-D7OOJGiY', 'DWR9oXdXJ9k', '', 'Video para la pagina informativa, valo2 es mobile')
+	@video, @videoMobile, '', 'Video para la pagina informativa, valo2 es mobile')
 
 	insert into ConfiguracionPaisDatos (ConfiguracionPaisID, Estado, CampaniaID, Codigo, 
 		Valor1, Valor2, Valor3, Descripcion)
@@ -5457,3 +5639,4 @@ BEGIN
 end
 
 GO
+
