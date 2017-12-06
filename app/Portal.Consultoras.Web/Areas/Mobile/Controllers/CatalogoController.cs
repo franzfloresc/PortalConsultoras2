@@ -39,7 +39,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             clienteModel.MostrarRevistaDigital = (revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsSuscritaInactiva() && !tieneGND ||
                 ((revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsNoSuscritaInactiva() && !tieneGND) ||
                 (!revistaDigital.TieneRDC && !revistaDigital.TieneRDR && !tieneGND) ||
-                !((revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsSuscritaActiva()) ||
                 (revistaDigital.TieneRDR && !tieneGND);
 
             clienteModel.RevistaDigital = revistaDigital;
