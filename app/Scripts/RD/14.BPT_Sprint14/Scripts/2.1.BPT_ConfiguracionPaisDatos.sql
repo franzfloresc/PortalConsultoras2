@@ -15,9 +15,8 @@ select @codePais = CodigoIso
 from Pais where EstadoActivo = '1'
 
 set @codePais = isnull(@codePais, '')
-set @codePais = ';' + @codePais + ';'
 
-if @paisEsika like '%'+@codePais+'%'
+if @paisEsika like '%;'+@codePais+';%'
 begin
 	set @video = @videoEsika
 	set @videoMobile = @videoEsikaMobile
@@ -449,9 +448,8 @@ select @codePais = CodigoIso
 from Pais where EstadoActivo = '1'
 
 set @codePais = isnull(@codePais, '')
-set @codePais = ';' + @codePais + ';'
 
-if @paisEsika like '%'+@codePais+'%'
+if @paisEsika like '%;'+@codePais+';%'
 begin
 	set @video = @videoEsika
 	set @videoMobile = @videoEsikaMobile
@@ -883,9 +881,8 @@ select @codePais = CodigoIso
 from Pais where EstadoActivo = '1'
 
 set @codePais = isnull(@codePais, '')
-set @codePais = ';' + @codePais + ';'
 
-if @paisEsika like '%'+@codePais+'%'
+if @paisEsika like '%;'+@codePais+';%'
 begin
 	set @video = @videoEsika
 	set @videoMobile = @videoEsikaMobile
@@ -1317,9 +1314,8 @@ select @codePais = CodigoIso
 from Pais where EstadoActivo = '1'
 
 set @codePais = isnull(@codePais, '')
-set @codePais = ';' + @codePais + ';'
 
-if @paisEsika like '%'+@codePais+'%'
+if @paisEsika like '%;'+@codePais+';%'
 begin
 	set @video = @videoEsika
 	set @videoMobile = @videoEsikaMobile
@@ -1751,9 +1747,8 @@ select @codePais = CodigoIso
 from Pais where EstadoActivo = '1'
 
 set @codePais = isnull(@codePais, '')
-set @codePais = ';' + @codePais + ';'
 
-if @paisEsika like '%'+@codePais+'%'
+if @paisEsika like '%;'+@codePais+';%'
 begin
 	set @video = @videoEsika
 	set @videoMobile = @videoEsikaMobile
@@ -2185,9 +2180,8 @@ select @codePais = CodigoIso
 from Pais where EstadoActivo = '1'
 
 set @codePais = isnull(@codePais, '')
-set @codePais = ';' + @codePais + ';'
 
-if @paisEsika like '%'+@codePais+'%'
+if @paisEsika like '%;'+@codePais+';%'
 begin
 	set @video = @videoEsika
 	set @videoMobile = @videoEsikaMobile
@@ -2619,9 +2613,8 @@ select @codePais = CodigoIso
 from Pais where EstadoActivo = '1'
 
 set @codePais = isnull(@codePais, '')
-set @codePais = ';' + @codePais + ';'
 
-if @paisEsika like '%'+@codePais+'%'
+if @paisEsika like '%;'+@codePais+';%'
 begin
 	set @video = @videoEsika
 	set @videoMobile = @videoEsikaMobile
@@ -3053,9 +3046,8 @@ select @codePais = CodigoIso
 from Pais where EstadoActivo = '1'
 
 set @codePais = isnull(@codePais, '')
-set @codePais = ';' + @codePais + ';'
 
-if @paisEsika like '%'+@codePais+'%'
+if @paisEsika like '%;'+@codePais+';%'
 begin
 	set @video = @videoEsika
 	set @videoMobile = @videoEsikaMobile
@@ -3487,9 +3479,8 @@ select @codePais = CodigoIso
 from Pais where EstadoActivo = '1'
 
 set @codePais = isnull(@codePais, '')
-set @codePais = ';' + @codePais + ';'
 
-if @paisEsika like '%'+@codePais+'%'
+if @paisEsika like '%;'+@codePais+';%'
 begin
 	set @video = @videoEsika
 	set @videoMobile = @videoEsikaMobile
@@ -3921,9 +3912,8 @@ select @codePais = CodigoIso
 from Pais where EstadoActivo = '1'
 
 set @codePais = isnull(@codePais, '')
-set @codePais = ';' + @codePais + ';'
 
-if @paisEsika like '%'+@codePais+'%'
+if @paisEsika like '%;'+@codePais+';%'
 begin
 	set @video = @videoEsika
 	set @videoMobile = @videoEsikaMobile
@@ -4355,9 +4345,8 @@ select @codePais = CodigoIso
 from Pais where EstadoActivo = '1'
 
 set @codePais = isnull(@codePais, '')
-set @codePais = ';' + @codePais + ';'
 
-if @paisEsika like '%'+@codePais+'%'
+if @paisEsika like '%;'+@codePais+';%'
 begin
 	set @video = @videoEsika
 	set @videoMobile = @videoEsikaMobile
@@ -4789,9 +4778,8 @@ select @codePais = CodigoIso
 from Pais where EstadoActivo = '1'
 
 set @codePais = isnull(@codePais, '')
-set @codePais = ';' + @codePais + ';'
 
-if @paisEsika like '%'+@codePais+'%'
+if @paisEsika like '%;'+@codePais+';%'
 begin
 	set @video = @videoEsika
 	set @videoMobile = @videoEsikaMobile
@@ -5223,9 +5211,8 @@ select @codePais = CodigoIso
 from Pais where EstadoActivo = '1'
 
 set @codePais = isnull(@codePais, '')
-set @codePais = ';' + @codePais + ';'
 
-if @paisEsika like '%'+@codePais+'%'
+if @paisEsika like '%;'+@codePais+';%'
 begin
 	set @video = @videoEsika
 	set @videoMobile = @videoEsikaMobile
