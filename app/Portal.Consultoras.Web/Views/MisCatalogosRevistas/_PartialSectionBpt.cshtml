@@ -10,6 +10,10 @@
     {
         urlLogo = Model.DLogoComercialActiva;
     }
+    else if (Model.TieneRDR)
+    {
+        urlLogo = Model.DLogoComercialFondoNoActiva;
+    }
 }
 @if (Model.TieneRDC)
 {
@@ -94,7 +98,7 @@ else if (Model.TieneRDR)
         <br />
         <div class="revista_content" id="contentRevistaDigital" style="height: 300px; position: relative;">
             <div>
-                <div style="height: 127px; top: 40px; position: relative; margin-bottom: 16px;">
+                <div style="height: 127px; position: relative; margin-bottom: 16px;">
                     <img src="@urlLogo" alt="" class="large"/>
                 </div>
                 <div>

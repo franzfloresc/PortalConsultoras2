@@ -77,6 +77,7 @@ GO
 UPDATE EventoFestivo SET Personalizacion = '#Nombre, IMPULSA TU CAMPAÑA NAVIDEÑA CON OFERTAS GANA+' WHERE Nombre = 'RD_SI_D_TituloBanner'
 UPDATE EventoFestivo SET Personalizacion = 'Aprovecha la oferta "solo hoy", sets especiales y mucho más.' WHERE Nombre = 'RD_SI_D_SubTituloBanner'
 UPDATE EventoFestivo SET Personalizacion = '' WHERE Nombre in ('RD_SI_D_ImagenLogo', 'RD_SI_M_ImagenLogo', 'RD_NO_D_ImagenLogo', 'RD_NO_M_ImagenLogo')
+
 GO
 
 USE BelcorpMexico
@@ -157,7 +158,9 @@ GO
 
 UPDATE EventoFestivo SET Personalizacion = '#Nombre, IMPULSA TU CAMPAÑA NAVIDEÑA CON OFERTAS GANA+' WHERE Nombre = 'RD_SI_D_TituloBanner'
 UPDATE EventoFestivo SET Personalizacion = 'Aprovecha la oferta "solo hoy", sets especiales y mucho más.' WHERE Nombre = 'RD_SI_D_SubTituloBanner'
-UPDATE EventoFestivo SET Personalizacion = '' WHERE Nombre in ('RD_SI_D_ImagenLogo', 'RD_SI_M_ImagenLogo', 'RD_NO_D_ImagenLogo', 'RD_NO_M_ImagenLogo')
+UPDATE EventoFestivo SET Personalizacion = '' WHERE Nombre in ('RD_SI_D_ImagenLogo', 'RD_SI_M_ImagenLogo', 'RD_NO_D_ImagenLogo', 'RD_NO_M_ImagenLogo'
+, 'RD_SI_D_ImagenFondo', 'RD_SI_M_ImagenFondo', 'RD_NO_D_ImagenFondo', 'RD_NO_M_ImagenFondo'
+, 'GIF_MENU_OFERTAS_BPT_GANA_MAS', 'GIF_MENU_OFERTAS_BPT_CLUB_GANA_MAS')
 GO
 
 USE BelcorpColombia
@@ -238,7 +241,9 @@ GO
 
 UPDATE EventoFestivo SET Personalizacion = '#Nombre, IMPULSA TU CAMPAÑA NAVIDEÑA CON OFERTAS GANA+' WHERE Nombre = 'RD_SI_D_TituloBanner'
 UPDATE EventoFestivo SET Personalizacion = 'Aprovecha la oferta "solo hoy", sets especiales y mucho más.' WHERE Nombre = 'RD_SI_D_SubTituloBanner'
-UPDATE EventoFestivo SET Personalizacion = '' WHERE Nombre in ('RD_SI_D_ImagenLogo', 'RD_SI_M_ImagenLogo', 'RD_NO_D_ImagenLogo', 'RD_NO_M_ImagenLogo')
+UPDATE EventoFestivo SET Personalizacion = '' WHERE Nombre in ('RD_SI_D_ImagenLogo', 'RD_SI_M_ImagenLogo', 'RD_NO_D_ImagenLogo', 'RD_NO_M_ImagenLogo'
+, 'RD_SI_D_ImagenFondo', 'RD_SI_M_ImagenFondo', 'RD_NO_D_ImagenFondo', 'RD_NO_M_ImagenFondo'
+, 'GIF_MENU_OFERTAS_BPT_GANA_MAS', 'GIF_MENU_OFERTAS_BPT_CLUB_GANA_MAS')
 GO
 
 USE BelcorpVenezuela
@@ -319,7 +324,9 @@ GO
 
 UPDATE EventoFestivo SET Personalizacion = '#Nombre, IMPULSA TU CAMPAÑA NAVIDEÑA CON OFERTAS GANA+' WHERE Nombre = 'RD_SI_D_TituloBanner'
 UPDATE EventoFestivo SET Personalizacion = 'Aprovecha la oferta "solo hoy", sets especiales y mucho más.' WHERE Nombre = 'RD_SI_D_SubTituloBanner'
-UPDATE EventoFestivo SET Personalizacion = '' WHERE Nombre in ('RD_SI_D_ImagenLogo', 'RD_SI_M_ImagenLogo', 'RD_NO_D_ImagenLogo', 'RD_NO_M_ImagenLogo')
+UPDATE EventoFestivo SET Personalizacion = '' WHERE Nombre in ('RD_SI_D_ImagenLogo', 'RD_SI_M_ImagenLogo', 'RD_NO_D_ImagenLogo', 'RD_NO_M_ImagenLogo'
+, 'RD_SI_D_ImagenFondo', 'RD_SI_M_ImagenFondo', 'RD_NO_D_ImagenFondo', 'RD_NO_M_ImagenFondo'
+, 'GIF_MENU_OFERTAS_BPT_GANA_MAS', 'GIF_MENU_OFERTAS_BPT_CLUB_GANA_MAS')
 GO
 
 USE BelcorpSalvador
@@ -400,7 +407,9 @@ GO
 
 UPDATE EventoFestivo SET Personalizacion = '#Nombre, IMPULSA TU CAMPAÑA NAVIDEÑA CON OFERTAS GANA+' WHERE Nombre = 'RD_SI_D_TituloBanner'
 UPDATE EventoFestivo SET Personalizacion = 'Aprovecha la oferta "solo hoy", sets especiales y mucho más.' WHERE Nombre = 'RD_SI_D_SubTituloBanner'
-UPDATE EventoFestivo SET Personalizacion = '' WHERE Nombre in ('RD_SI_D_ImagenLogo', 'RD_SI_M_ImagenLogo', 'RD_NO_D_ImagenLogo', 'RD_NO_M_ImagenLogo')
+UPDATE EventoFestivo SET Personalizacion = '' WHERE Nombre in ('RD_SI_D_ImagenLogo', 'RD_SI_M_ImagenLogo', 'RD_NO_D_ImagenLogo', 'RD_NO_M_ImagenLogo'
+, 'RD_SI_D_ImagenFondo', 'RD_SI_M_ImagenFondo', 'RD_NO_D_ImagenFondo', 'RD_NO_M_ImagenFondo'
+, 'GIF_MENU_OFERTAS_BPT_GANA_MAS', 'GIF_MENU_OFERTAS_BPT_CLUB_GANA_MAS')
 GO
 
 USE BelcorpPuertoRico
@@ -481,7 +490,9 @@ GO
 
 UPDATE EventoFestivo SET Personalizacion = '#Nombre, IMPULSA TU CAMPAÑA NAVIDEÑA CON OFERTAS GANA+' WHERE Nombre = 'RD_SI_D_TituloBanner'
 UPDATE EventoFestivo SET Personalizacion = 'Aprovecha la oferta "solo hoy", sets especiales y mucho más.' WHERE Nombre = 'RD_SI_D_SubTituloBanner'
-UPDATE EventoFestivo SET Personalizacion = '' WHERE Nombre in ('RD_SI_D_ImagenLogo', 'RD_SI_M_ImagenLogo', 'RD_NO_D_ImagenLogo', 'RD_NO_M_ImagenLogo')
+UPDATE EventoFestivo SET Personalizacion = '' WHERE Nombre in ('RD_SI_D_ImagenLogo', 'RD_SI_M_ImagenLogo', 'RD_NO_D_ImagenLogo', 'RD_NO_M_ImagenLogo'
+, 'RD_SI_D_ImagenFondo', 'RD_SI_M_ImagenFondo', 'RD_NO_D_ImagenFondo', 'RD_NO_M_ImagenFondo'
+, 'GIF_MENU_OFERTAS_BPT_GANA_MAS', 'GIF_MENU_OFERTAS_BPT_CLUB_GANA_MAS')
 GO
 
 USE BelcorpPanama
@@ -562,7 +573,9 @@ GO
 
 UPDATE EventoFestivo SET Personalizacion = '#Nombre, IMPULSA TU CAMPAÑA NAVIDEÑA CON OFERTAS GANA+' WHERE Nombre = 'RD_SI_D_TituloBanner'
 UPDATE EventoFestivo SET Personalizacion = 'Aprovecha la oferta "solo hoy", sets especiales y mucho más.' WHERE Nombre = 'RD_SI_D_SubTituloBanner'
-UPDATE EventoFestivo SET Personalizacion = '' WHERE Nombre in ('RD_SI_D_ImagenLogo', 'RD_SI_M_ImagenLogo', 'RD_NO_D_ImagenLogo', 'RD_NO_M_ImagenLogo')
+UPDATE EventoFestivo SET Personalizacion = '' WHERE Nombre in ('RD_SI_D_ImagenLogo', 'RD_SI_M_ImagenLogo', 'RD_NO_D_ImagenLogo', 'RD_NO_M_ImagenLogo'
+, 'RD_SI_D_ImagenFondo', 'RD_SI_M_ImagenFondo', 'RD_NO_D_ImagenFondo', 'RD_NO_M_ImagenFondo'
+, 'GIF_MENU_OFERTAS_BPT_GANA_MAS', 'GIF_MENU_OFERTAS_BPT_CLUB_GANA_MAS')
 GO
 
 USE BelcorpGuatemala
@@ -643,7 +656,9 @@ GO
 
 UPDATE EventoFestivo SET Personalizacion = '#Nombre, IMPULSA TU CAMPAÑA NAVIDEÑA CON OFERTAS GANA+' WHERE Nombre = 'RD_SI_D_TituloBanner'
 UPDATE EventoFestivo SET Personalizacion = 'Aprovecha la oferta "solo hoy", sets especiales y mucho más.' WHERE Nombre = 'RD_SI_D_SubTituloBanner'
-UPDATE EventoFestivo SET Personalizacion = '' WHERE Nombre in ('RD_SI_D_ImagenLogo', 'RD_SI_M_ImagenLogo', 'RD_NO_D_ImagenLogo', 'RD_NO_M_ImagenLogo')
+UPDATE EventoFestivo SET Personalizacion = '' WHERE Nombre in ('RD_SI_D_ImagenLogo', 'RD_SI_M_ImagenLogo', 'RD_NO_D_ImagenLogo', 'RD_NO_M_ImagenLogo'
+, 'RD_SI_D_ImagenFondo', 'RD_SI_M_ImagenFondo', 'RD_NO_D_ImagenFondo', 'RD_NO_M_ImagenFondo'
+, 'GIF_MENU_OFERTAS_BPT_GANA_MAS', 'GIF_MENU_OFERTAS_BPT_CLUB_GANA_MAS')
 GO
 
 USE BelcorpEcuador
@@ -724,7 +739,9 @@ GO
 
 UPDATE EventoFestivo SET Personalizacion = '#Nombre, IMPULSA TU CAMPAÑA NAVIDEÑA CON OFERTAS GANA+' WHERE Nombre = 'RD_SI_D_TituloBanner'
 UPDATE EventoFestivo SET Personalizacion = 'Aprovecha la oferta "solo hoy", sets especiales y mucho más.' WHERE Nombre = 'RD_SI_D_SubTituloBanner'
-UPDATE EventoFestivo SET Personalizacion = '' WHERE Nombre in ('RD_SI_D_ImagenLogo', 'RD_SI_M_ImagenLogo', 'RD_NO_D_ImagenLogo', 'RD_NO_M_ImagenLogo')
+UPDATE EventoFestivo SET Personalizacion = '' WHERE Nombre in ('RD_SI_D_ImagenLogo', 'RD_SI_M_ImagenLogo', 'RD_NO_D_ImagenLogo', 'RD_NO_M_ImagenLogo'
+, 'RD_SI_D_ImagenFondo', 'RD_SI_M_ImagenFondo', 'RD_NO_D_ImagenFondo', 'RD_NO_M_ImagenFondo'
+, 'GIF_MENU_OFERTAS_BPT_GANA_MAS', 'GIF_MENU_OFERTAS_BPT_CLUB_GANA_MAS')
 GO
 
 USE BelcorpDominicana
@@ -805,7 +822,9 @@ GO
 
 UPDATE EventoFestivo SET Personalizacion = '#Nombre, IMPULSA TU CAMPAÑA NAVIDEÑA CON OFERTAS GANA+' WHERE Nombre = 'RD_SI_D_TituloBanner'
 UPDATE EventoFestivo SET Personalizacion = 'Aprovecha la oferta "solo hoy", sets especiales y mucho más.' WHERE Nombre = 'RD_SI_D_SubTituloBanner'
-UPDATE EventoFestivo SET Personalizacion = '' WHERE Nombre in ('RD_SI_D_ImagenLogo', 'RD_SI_M_ImagenLogo', 'RD_NO_D_ImagenLogo', 'RD_NO_M_ImagenLogo')
+UPDATE EventoFestivo SET Personalizacion = '' WHERE Nombre in ('RD_SI_D_ImagenLogo', 'RD_SI_M_ImagenLogo', 'RD_NO_D_ImagenLogo', 'RD_NO_M_ImagenLogo'
+, 'RD_SI_D_ImagenFondo', 'RD_SI_M_ImagenFondo', 'RD_NO_D_ImagenFondo', 'RD_NO_M_ImagenFondo'
+, 'GIF_MENU_OFERTAS_BPT_GANA_MAS', 'GIF_MENU_OFERTAS_BPT_CLUB_GANA_MAS')
 GO
 
 USE BelcorpCostaRica
@@ -886,7 +905,8 @@ GO
 
 UPDATE EventoFestivo SET Personalizacion = '#Nombre, IMPULSA TU CAMPAÑA NAVIDEÑA CON OFERTAS GANA+' WHERE Nombre = 'RD_SI_D_TituloBanner'
 UPDATE EventoFestivo SET Personalizacion = 'Aprovecha la oferta "solo hoy", sets especiales y mucho más.' WHERE Nombre = 'RD_SI_D_SubTituloBanner'
-UPDATE EventoFestivo SET Personalizacion = '' WHERE Nombre in ('RD_SI_D_ImagenLogo', 'RD_SI_M_ImagenLogo', 'RD_NO_D_ImagenLogo', 'RD_NO_M_ImagenLogo')
+UPDATE EventoFestivo SET Personalizacion = '' WHERE Nombre in ('RD_SI_D_ImagenLogo', 'RD_SI_M_ImagenLogo', 'RD_NO_D_ImagenLogo', 'RD_NO_M_ImagenLogo'
+, 'RD_SI_D_ImagenFondo', 'RD_SI_M_ImagenFondo', 'RD_NO_D_ImagenFondo', 'RD_NO_M_ImagenFondo')
 GO
 
 USE BelcorpChile
@@ -1048,6 +1068,8 @@ GO
 
 UPDATE EventoFestivo SET Personalizacion = '#Nombre, IMPULSA TU CAMPAÑA NAVIDEÑA CON OFERTAS GANA+' WHERE Nombre = 'RD_SI_D_TituloBanner'
 UPDATE EventoFestivo SET Personalizacion = 'Aprovecha la oferta "solo hoy", sets especiales y mucho más.' WHERE Nombre = 'RD_SI_D_SubTituloBanner'
-UPDATE EventoFestivo SET Personalizacion = '' WHERE Nombre in ('RD_SI_D_ImagenLogo', 'RD_SI_M_ImagenLogo', 'RD_NO_D_ImagenLogo', 'RD_NO_M_ImagenLogo')
+UPDATE EventoFestivo SET Personalizacion = '' WHERE Nombre in ('RD_SI_D_ImagenLogo', 'RD_SI_M_ImagenLogo', 'RD_NO_D_ImagenLogo', 'RD_NO_M_ImagenLogo'
+, 'RD_SI_D_ImagenFondo', 'RD_SI_M_ImagenFondo', 'RD_NO_D_ImagenFondo', 'RD_NO_M_ImagenFondo'
+, 'GIF_MENU_OFERTAS_BPT_GANA_MAS', 'GIF_MENU_OFERTAS_BPT_CLUB_GANA_MAS')
 GO
 
