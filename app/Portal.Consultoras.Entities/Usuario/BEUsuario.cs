@@ -1350,6 +1350,9 @@ namespace Portal.Consultoras.Entities
         public bool AceptaTerminosCondiciones { get; set; }
 
         [DataMember]
+        public bool AceptaPoliticaPrivacidad { get; set; }
+
+        [DataMember]
         public string DestinatariosFeedback { get; set; }
 
         [DataMember]
