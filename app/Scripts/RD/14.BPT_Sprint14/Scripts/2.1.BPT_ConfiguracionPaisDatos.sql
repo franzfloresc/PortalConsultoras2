@@ -3,7 +3,7 @@ GO
 
 GO
 declare @ConfiguracionPaisID int = 0, @codePais varchar(5) = '', @amb varchar(5) = 'PRD'
-, @paisEsika varchar(100) = ';EC;CO;BO;GT;SV;DO;VE;PE;', @video varchar(50) , @videoMobile varchar(50) 
+, @paisEsika varchar(100) = ';EC;CO;BO;GT;SV;DO;VE;PE;CL;', @video varchar(50) , @videoMobile varchar(50) 
 , @videoEsika varchar(50) = 'Rv-D7OOJGiY', @videoEsikaMobile varchar(50) = 'DWR9oXdXJ9k'
 , @videoLevel varchar(50) = 'qQoPUXIjt7A', @videoLevelMobile varchar(50) = 'pptxycld3Yc'
 
@@ -436,7 +436,7 @@ GO
 
 GO
 declare @ConfiguracionPaisID int = 0, @codePais varchar(5) = '', @amb varchar(5) = 'PRD'
-, @paisEsika varchar(100) = ';EC;CO;BO;GT;SV;DO;VE;PE;', @video varchar(50) , @videoMobile varchar(50) 
+, @paisEsika varchar(100) = ';EC;CO;BO;GT;SV;DO;VE;PE;CL;', @video varchar(50) , @videoMobile varchar(50) 
 , @videoEsika varchar(50) = 'Rv-D7OOJGiY', @videoEsikaMobile varchar(50) = 'DWR9oXdXJ9k'
 , @videoLevel varchar(50) = 'qQoPUXIjt7A', @videoLevelMobile varchar(50) = 'pptxycld3Yc'
 
@@ -869,7 +869,7 @@ GO
 
 GO
 declare @ConfiguracionPaisID int = 0, @codePais varchar(5) = '', @amb varchar(5) = 'PRD'
-, @paisEsika varchar(100) = ';EC;CO;BO;GT;SV;DO;VE;PE;', @video varchar(50) , @videoMobile varchar(50) 
+, @paisEsika varchar(100) = ';EC;CO;BO;GT;SV;DO;VE;PE;CL;', @video varchar(50) , @videoMobile varchar(50) 
 , @videoEsika varchar(50) = 'Rv-D7OOJGiY', @videoEsikaMobile varchar(50) = 'DWR9oXdXJ9k'
 , @videoLevel varchar(50) = 'qQoPUXIjt7A', @videoLevelMobile varchar(50) = 'pptxycld3Yc'
 
@@ -1302,7 +1302,7 @@ GO
 
 GO
 declare @ConfiguracionPaisID int = 0, @codePais varchar(5) = '', @amb varchar(5) = 'PRD'
-, @paisEsika varchar(100) = ';EC;CO;BO;GT;SV;DO;VE;PE;', @video varchar(50) , @videoMobile varchar(50) 
+, @paisEsika varchar(100) = ';EC;CO;BO;GT;SV;DO;VE;PE;CL;', @video varchar(50) , @videoMobile varchar(50) 
 , @videoEsika varchar(50) = 'Rv-D7OOJGiY', @videoEsikaMobile varchar(50) = 'DWR9oXdXJ9k'
 , @videoLevel varchar(50) = 'qQoPUXIjt7A', @videoLevelMobile varchar(50) = 'pptxycld3Yc'
 
@@ -1735,7 +1735,7 @@ GO
 
 GO
 declare @ConfiguracionPaisID int = 0, @codePais varchar(5) = '', @amb varchar(5) = 'PRD'
-, @paisEsika varchar(100) = ';EC;CO;BO;GT;SV;DO;VE;PE;', @video varchar(50) , @videoMobile varchar(50) 
+, @paisEsika varchar(100) = ';EC;CO;BO;GT;SV;DO;VE;PE;CL;', @video varchar(50) , @videoMobile varchar(50) 
 , @videoEsika varchar(50) = 'Rv-D7OOJGiY', @videoEsikaMobile varchar(50) = 'DWR9oXdXJ9k'
 , @videoLevel varchar(50) = 'qQoPUXIjt7A', @videoLevelMobile varchar(50) = 'pptxycld3Yc'
 
@@ -2168,7 +2168,7 @@ GO
 
 GO
 declare @ConfiguracionPaisID int = 0, @codePais varchar(5) = '', @amb varchar(5) = 'PRD'
-, @paisEsika varchar(100) = ';EC;CO;BO;GT;SV;DO;VE;PE;', @video varchar(50) , @videoMobile varchar(50) 
+, @paisEsika varchar(100) = ';EC;CO;BO;GT;SV;DO;VE;PE;CL;', @video varchar(50) , @videoMobile varchar(50) 
 , @videoEsika varchar(50) = 'Rv-D7OOJGiY', @videoEsikaMobile varchar(50) = 'DWR9oXdXJ9k'
 , @videoLevel varchar(50) = 'qQoPUXIjt7A', @videoLevelMobile varchar(50) = 'pptxycld3Yc'
 
@@ -2601,7 +2601,7 @@ GO
 
 GO
 declare @ConfiguracionPaisID int = 0, @codePais varchar(5) = '', @amb varchar(5) = 'PRD'
-, @paisEsika varchar(100) = ';EC;CO;BO;GT;SV;DO;VE;PE;', @video varchar(50) , @videoMobile varchar(50) 
+, @paisEsika varchar(100) = ';EC;CO;BO;GT;SV;DO;VE;PE;CL;', @video varchar(50) , @videoMobile varchar(50) 
 , @videoEsika varchar(50) = 'Rv-D7OOJGiY', @videoEsikaMobile varchar(50) = 'DWR9oXdXJ9k'
 , @videoLevel varchar(50) = 'qQoPUXIjt7A', @videoLevelMobile varchar(50) = 'pptxycld3Yc'
 
@@ -3034,7 +3034,7 @@ GO
 
 GO
 declare @ConfiguracionPaisID int = 0, @codePais varchar(5) = '', @amb varchar(5) = 'PRD'
-, @paisEsika varchar(100) = ';EC;CO;BO;GT;SV;DO;VE;PE;', @video varchar(50) , @videoMobile varchar(50) 
+, @paisEsika varchar(100) = ';EC;CO;BO;GT;SV;DO;VE;PE;CL;', @video varchar(50) , @videoMobile varchar(50) 
 , @videoEsika varchar(50) = 'Rv-D7OOJGiY', @videoEsikaMobile varchar(50) = 'DWR9oXdXJ9k'
 , @videoLevel varchar(50) = 'qQoPUXIjt7A', @videoLevelMobile varchar(50) = 'pptxycld3Yc'
 
@@ -3467,7 +3467,7 @@ GO
 
 GO
 declare @ConfiguracionPaisID int = 0, @codePais varchar(5) = '', @amb varchar(5) = 'PRD'
-, @paisEsika varchar(100) = ';EC;CO;BO;GT;SV;DO;VE;PE;', @video varchar(50) , @videoMobile varchar(50) 
+, @paisEsika varchar(100) = ';EC;CO;BO;GT;SV;DO;VE;PE;CL;', @video varchar(50) , @videoMobile varchar(50) 
 , @videoEsika varchar(50) = 'Rv-D7OOJGiY', @videoEsikaMobile varchar(50) = 'DWR9oXdXJ9k'
 , @videoLevel varchar(50) = 'qQoPUXIjt7A', @videoLevelMobile varchar(50) = 'pptxycld3Yc'
 
@@ -3900,7 +3900,7 @@ GO
 
 GO
 declare @ConfiguracionPaisID int = 0, @codePais varchar(5) = '', @amb varchar(5) = 'PRD'
-, @paisEsika varchar(100) = ';EC;CO;BO;GT;SV;DO;VE;PE;', @video varchar(50) , @videoMobile varchar(50) 
+, @paisEsika varchar(100) = ';EC;CO;BO;GT;SV;DO;VE;PE;CL;', @video varchar(50) , @videoMobile varchar(50) 
 , @videoEsika varchar(50) = 'Rv-D7OOJGiY', @videoEsikaMobile varchar(50) = 'DWR9oXdXJ9k'
 , @videoLevel varchar(50) = 'qQoPUXIjt7A', @videoLevelMobile varchar(50) = 'pptxycld3Yc'
 
@@ -4333,7 +4333,7 @@ GO
 
 GO
 declare @ConfiguracionPaisID int = 0, @codePais varchar(5) = '', @amb varchar(5) = 'PRD'
-, @paisEsika varchar(100) = ';EC;CO;BO;GT;SV;DO;VE;PE;', @video varchar(50) , @videoMobile varchar(50) 
+, @paisEsika varchar(100) = ';EC;CO;BO;GT;SV;DO;VE;PE;CL;', @video varchar(50) , @videoMobile varchar(50) 
 , @videoEsika varchar(50) = 'Rv-D7OOJGiY', @videoEsikaMobile varchar(50) = 'DWR9oXdXJ9k'
 , @videoLevel varchar(50) = 'qQoPUXIjt7A', @videoLevelMobile varchar(50) = 'pptxycld3Yc'
 
@@ -4766,7 +4766,7 @@ GO
 
 GO
 declare @ConfiguracionPaisID int = 0, @codePais varchar(5) = '', @amb varchar(5) = 'PRD'
-, @paisEsika varchar(100) = ';EC;CO;BO;GT;SV;DO;VE;PE;', @video varchar(50) , @videoMobile varchar(50) 
+, @paisEsika varchar(100) = ';EC;CO;BO;GT;SV;DO;VE;PE;CL;', @video varchar(50) , @videoMobile varchar(50) 
 , @videoEsika varchar(50) = 'Rv-D7OOJGiY', @videoEsikaMobile varchar(50) = 'DWR9oXdXJ9k'
 , @videoLevel varchar(50) = 'qQoPUXIjt7A', @videoLevelMobile varchar(50) = 'pptxycld3Yc'
 
@@ -5199,7 +5199,7 @@ GO
 
 GO
 declare @ConfiguracionPaisID int = 0, @codePais varchar(5) = '', @amb varchar(5) = 'PRD'
-, @paisEsika varchar(100) = ';EC;CO;BO;GT;SV;DO;VE;PE;', @video varchar(50) , @videoMobile varchar(50) 
+, @paisEsika varchar(100) = ';EC;CO;BO;GT;SV;DO;VE;PE;CL;', @video varchar(50) , @videoMobile varchar(50) 
 , @videoEsika varchar(50) = 'Rv-D7OOJGiY', @videoEsikaMobile varchar(50) = 'DWR9oXdXJ9k'
 , @videoLevel varchar(50) = 'qQoPUXIjt7A', @videoLevelMobile varchar(50) = 'pptxycld3Yc'
 
