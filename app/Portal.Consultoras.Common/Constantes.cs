@@ -1312,7 +1312,8 @@ namespace Portal.Consultoras.Common
 
         public class TipoTerminosCondiciones
         {
-            public const short App = 1;
+            public const short AppTerminosCondiciones = 1;
+            public const short AppPoliticaPrivacidad = 2;
         }
 
         #region EventoFestivo
