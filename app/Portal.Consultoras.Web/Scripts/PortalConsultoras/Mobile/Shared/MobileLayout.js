@@ -739,7 +739,7 @@ function ShowLoading() {
 }
 
 function CloseLoading() {
-    $("#loading-spin").fadeOut("fast");
+    $("#loading-spin").fadeOut("fast", LayoutHeader);
 }
 
 function messageInfo(message, fnAceptar) {
