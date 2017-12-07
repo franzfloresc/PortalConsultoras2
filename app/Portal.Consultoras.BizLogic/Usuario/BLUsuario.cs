@@ -1848,7 +1848,21 @@ namespace Portal.Consultoras.BizLogic
             return daTerminosCondiciones.InsertTerminosCondiciones(terminos);
         }
 
-        public BETerminosCondiciones GetTerminosCondiciones(int PaisID, string CodigoConsultora, short Tipo)
+        public bool InsertTerminosCondicionesMasivo(int paisID, List<BETerminosCondiciones> terminos)
+        {
+            var daTerminosCondiciones = new DATerminosCondiciones(paisID);
+            var result = false;
+
+            foreach (var item in terminos)
+            {
+                result = daTerminosCondiciones.InsertTerminosCondiciones(item);
+                if (!result) break;
+            }
+
+            return result;
+        }
+
+        private BETerminosCondiciones GetTerminosCondiciones(int PaisID, string CodigoConsultora, short Tipo)
         {
             var terminos = new BETerminosCondiciones();
             var daTerminosCondiciones = new DATerminosCondiciones(PaisID);

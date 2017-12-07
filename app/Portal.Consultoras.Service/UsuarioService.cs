@@ -777,7 +777,11 @@ namespace Portal.Consultoras.Service
         #region TerminosCondiciones
         public bool InsertTerminosCondiciones(BETerminosCondiciones terminos)
         {
-            return new BLUsuario().InsertTerminosCondiciones(terminos);
+            return _usuarioBusinessLogic.InsertTerminosCondiciones(terminos);
+        }
+        public bool InsertTerminosCondicionesMasivo(int paisID, List<BETerminosCondiciones> terminos)
+        {
+            return _usuarioBusinessLogic.InsertTerminosCondicionesMasivo(paisID, terminos);
         }
         #endregion
 

@@ -348,6 +348,8 @@ namespace Portal.Consultoras.ServiceContracts
         #region TerminosCondiciones
         [OperationContract]
         bool InsertTerminosCondiciones(BETerminosCondiciones terminos);
+        [OperationContract]
+        bool InsertTerminosCondicionesMasivo(int paisID, List<BETerminosCondiciones> terminos);
         #endregion
 
         #region EventoFestivo
