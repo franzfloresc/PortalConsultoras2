@@ -2,26 +2,26 @@
 
 /* INICIO VISTA LISTA DE SOLICITUDES CDR */
 
-.fijarTituloMobile{
-    position:fixed;
-    z-index:2000;
+.fijarTituloMobile {
+    position: fixed;
+    z-index: 2000;
     padding-left: 8px;
-    box-sizing:border-box;
+    box-sizing: border-box;
 }
 
-.pt-50{
-    padding-top:50px;
+.pt-50 {
+    padding-top: 50px;
 }
 
-.pt-78{
-    padding-top:78px!important;
+.pt-78 {
+    padding-top: 78px !important;
 }
 
 .pb-120 {
     padding-bottom: 120px;
 }
 
-.btn_agrega_otro_reclamo{
+.btn_agrega_otro_reclamo {
     display: block;
     margin-top: 41px;
     margin-bottom: 95px;
@@ -306,34 +306,34 @@
         background-position: 95.5% center;
     }
 
-.content_eligeTuPedido, .lista_pedidos_para_seleccionar{
-    display:block;
+.content_eligeTuPedido, .lista_pedidos_para_seleccionar {
+    display: block;
 }
 
-.content_eligeTuPedido{
-    margin-bottom:27px;
+.content_eligeTuPedido {
+    margin-bottom: 27px;
     padding: 0 9px;
 }
 
-.lista_pedidos_para_seleccionar, .pedido_a_seleccionar{
-    text-align:center;
+.lista_pedidos_para_seleccionar, .pedido_a_seleccionar {
+    text-align: center;
 }
 
-.titulo_eligeTuPedido, .selecciona_tuPedido{
-    text-align:left;
+.titulo_eligeTuPedido, .selecciona_tuPedido {
+    text-align: left;
 }
 
-.titulo_eligeTuPedido{
-    font-size:15px;
-    margin-bottom:10px;
+.titulo_eligeTuPedido {
+    font-size: 15px;
+    margin-bottom: 10px;
 }
 
-.selecciona_tuPedido{
-    font-size:13px;
-    margin-bottom:17px;
+.selecciona_tuPedido {
+    font-size: 13px;
+    margin-bottom: 17px;
 }
 
-.pedido_a_seleccionar{
+.pedido_a_seleccionar {
     display: block;
     background: #FFF;
     border: 1px solid #000;
@@ -342,24 +342,24 @@
     padding: 5px 0px;
     margin-bottom: 12px;
     box-sizing: border-box;
-    transition:all 0.3s ease;
-    -moz-transition:all 0.3s ease;
-    -o-transition:all 0.3s ease;
-    -ms-transition:all 0.3s ease;
-    -webkit-transition:all 0.3s ease;
+    transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
 }
 
-.pedido_a_seleccionar:hover{
-    background:#000;
-    color:#FFF;
+    .pedido_a_seleccionar:hover {
+        background: #000;
+        color: #FFF;
+    }
+
+.numero_pedido {
+    font-size: 14px;
 }
 
-.numero_pedido{
-    font-size:14px;
-}
-
-.fecha_pedido_a_seleccionar{
-    font-size:13px;
+.fecha_pedido_a_seleccionar {
+    font-size: 13px;
 }
 
 .texto_cantidad_productos {
@@ -457,7 +457,7 @@
         }
 
     .motivo_cdr label {
-        width:100%;
+        width: 100%;
         font-size: 13px;
     }
 
@@ -1195,4 +1195,3 @@
 .numsolsubraya {
     text-decoration: underline;
 }
-
