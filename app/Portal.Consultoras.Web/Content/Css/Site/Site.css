@@ -8,10 +8,10 @@
 
 .loadingScreen-mensaje {
     background: url(../../Images/Loading.gif) no-repeat 0px 0px;
-    padding-left: 25px; 
+    padding-left: 25px;
     margin-top: 10px;
-    font-size:10pt;
-    color:black;
+    font-size: 10pt;
+    color: black;
 }
 
 /* hide the close x on the loading screen */

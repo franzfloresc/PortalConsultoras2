@@ -16,7 +16,7 @@
     if (Visualizado == "False") {
         $.ajaxSetup({ cache: false });
         $.get(baseUrl + "Notificaciones/ActualizarEstadoNotificacion?ProcesoId=" + ProcesoId + "&TipoOrigen=" + TipoOrigen)
-            .success(function (data){ if (checkTimeout(data) && data.success) $(obj).removeClass("no_leido"); });
+            .success(function (data) { if (checkTimeout(data) && data.success) $(obj).removeClass("no_leido"); });
     }
 
     if (TipoOrigen == 6) {

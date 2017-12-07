@@ -340,7 +340,7 @@ jQuery(document).ready(function () {
             HandlebarsRegisterHelper();
 
         if ($(idTemplate).length === 0 || typeof data === "undefined") {
-           
+
             return false;
         }
 
@@ -507,7 +507,7 @@ function closeWaitingDialog() {
 }
 
 function AbrirLoad(opcion) {
-    try {        
+    try {
         if (isMobile()) {
             ShowLoading(opcion);
         }
@@ -1381,7 +1381,7 @@ function MostrarMenu(codigo, accion) {
     codigo = $.trim(codigo);
     if (codigo == "")
         return false;
-    
+
     var idMenus = "#ulNavPrincipal-0";
     var menu = $(idMenus).find("[data-codigo='" + codigo + "']");
     menu = menu.length == 0 ? $(idMenus).find("[data-codigo='" + codigo.toLowerCase() + "']") : menu;
@@ -1448,7 +1448,7 @@ function odd_desktop_google_analytics_promotion_click_verofertas() {
         var creative = $('#banner-odd').find(".nombre-odd").val() + " - " + $('#banner-odd').find(".cuv2-odd").val();
         var origenOdd = OrigenDesktopODD;
         var positionName = origenOdd == 1 ? 'Banner Superior Home - 1' : origenOdd == 2 ? 'Banner Superior Pedido - 1' : "";
-        
+
         dataLayer.push({
             'event': 'promotionClick',
             'ecommerce': {
@@ -1463,7 +1463,7 @@ function odd_desktop_google_analytics_promotion_click_verofertas() {
                 }
             }
         });
-        
+
         odd_desktop_google_analytics_product_impresion();
     }
 }
@@ -1513,8 +1513,8 @@ function odd_desktop_google_analytics_product_impresion(data, NameContenedor) {
             });
         });
     }
-    
-    if (listaOferta != null || listaOferta != undefined) {        
+
+    if (listaOferta != null || listaOferta != undefined) {
         var NameList = NameContenedor == "#OfertaDelDia" ? "Oferta del día - Banner" : NameContenedor == "#OfertasDelDiaOfertas" ? "Oferta del día - Detalle Slider" : "";
         if (NameContenedor == "#OfertaDelDia") {
             NameList = "Oferta del día - Banner";
@@ -1530,8 +1530,7 @@ function odd_desktop_google_analytics_product_impresion(data, NameContenedor) {
                 'position': 1
             });
         }
-        else if (NameContenedor == "#OfertasDelDiaOfertas")
-        {
+        else if (NameContenedor == "#OfertasDelDiaOfertas") {
             NameList == "Oferta del día - Detalle Slider";
             if (listaOferta.ListaOfertas.length > 1) {
                 NameList == "Oferta del día - Slider Productos";
@@ -1541,7 +1540,7 @@ function odd_desktop_google_analytics_product_impresion(data, NameContenedor) {
                     impresions.push({
                         'name': item.NombreOferta,
                         'id': item.CUV2,
-                        'price': item.PrecioOferta, 
+                        'price': item.PrecioOferta,
                         'brand': item.DescripcionMarca,
                         'category': 'No disponible',
                         'variant': item.TipoEstrategiaDescripcion,
@@ -1610,7 +1609,7 @@ function odd_desktop_google_analytics_addtocart(tipo, element) {
     var dimension15 = fechaAddToCart - fechaMostrarBanner;
     if (dimension15 != 0)
         dimension15 = (dimension15 / 1000);
-    
+
     dimension15 = parseInt(dimension15);
 
     var data = {
@@ -1904,7 +1903,7 @@ function EstablecerLazyCarrusel(elementoHtml) {
                 $(value).removeAttr("data-src");
             }
         }
-        
+
     });
 
 }

@@ -86,7 +86,7 @@ var rdAnalyticsModule = (function () {
         roInscribirme: "Revista Online - Inscribirme a Ésika para mí",
         banner: "Banner",
         popup: "Home pop-up - 1",
-        notAvailable: "(not available)", 
+        notAvailable: "(not available)",
         contenedor: "Contendor"
     },
     _action = {
@@ -123,8 +123,8 @@ var rdAnalyticsModule = (function () {
         precio: "precio",
         marca: "marca"
     }
-        
-        
+
+
     function _virtualEventPush(category, action, label) {
         dataLayer.push({
             "event": _event.virtual,
@@ -282,19 +282,19 @@ var rdAnalyticsModule = (function () {
     function FiltrarProducto(tipo, label) {
         try {
             switch (tipo.toString()) {
-            case _filterCode.marca:
-                _virtualEventPush(_text.epm, _action.filtrar, label);
-                break;
-            case _filterCode.precio:
-                _virtualEventPush(_text.epm, _action.ordenar, label);
-                break;
-            default:
-                _virtualEventPush(_text.epm, _action.borrar, _text.notAvailable);
-                break;
+                case _filterCode.marca:
+                    _virtualEventPush(_text.epm, _action.filtrar, label);
+                    break;
+                case _filterCode.precio:
+                    _virtualEventPush(_text.epm, _action.ordenar, label);
+                    break;
+                default:
+                    _virtualEventPush(_text.epm, _action.borrar, _text.notAvailable);
+                    break;
             }
         } catch (e) {
             console.log(_text.exception + e);
-        } 
+        }
     }
 
     function AgregarProducto(origenWeb, estrategia, popup) {

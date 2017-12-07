@@ -14,13 +14,15 @@
     font-weight: normal;
     font-style: normal;
 }
-body{
-    
-    margin:0;
+
+body {
+    margin: 0;
 }
-*{
-    box-sizing:border-box;      
+
+* {
+    box-sizing: border-box;
 }
+
 .content-spinner2 {
     position: fixed;
     top: 0;
@@ -284,8 +286,8 @@ body{
 /*INI: Popups Mensajes*/
 .MensajeAlertaMobile {
     position: fixed;
-    z-index: 2010;   
-    display:none;
+    z-index: 2010;
+    display: none;
     width: 100%;
     height: 100%;
     padding: 15px;
@@ -305,7 +307,7 @@ body{
 }
 
 .cerrar_popMobile {
-    cursor:pointer;
+    cursor: pointer;
     width: 19px;
     height: 19px;
     display: block;
@@ -335,7 +337,6 @@ body{
 .exclamacion_icono_mobile {
     background: url("../../Images/Esika/icono_exclamacion_esika.png") no-repeat;
     background-size: cover;
-   
 }
 
 .icono_alerta img {
@@ -371,8 +372,8 @@ body{
     display: block;
     background-color: #e81c36;
     margin-bottom: 20px;
-    color:#FFF!important;
-    text-decoration:none!important;
+    color: #FFF !important;
+    text-decoration: none !important;
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: 14px;
 }
@@ -385,8 +386,8 @@ body{
 }
 /*FIN: Popups Mensajes*/
 
-.btn_facebook_chat{
-        width: 100%;
+.btn_facebook_chat {
+    width: 100%;
     height: 45px;
     /* background: #3b56a8; */
     color: white;
@@ -401,21 +402,23 @@ body{
     background: #3b56a8 url(../../Images/PL20/facebook_login.png) no-repeat;
     background-position: 21px 14px;
     display: block;
-    text-align: center;    
+    text-align: center;
     -webkit-appearance: none;
 }
-.wrapper_chatbot{
-    padding:15px 26px;
-    position:relative;
+
+.wrapper_chatbot {
+    padding: 15px 26px;
+    position: relative;
 }
-.texto_facebook{
-    float:left;
+
+.texto_facebook {
+    float: left;
     margin-top: 3px;
     margin-left: 14px;
-    margin-bottom:15px;
-    letter-spacing:0.2px;
-    font-family:'Lato';
-    font-size:12px;
+    margin-bottom: 15px;
+    letter-spacing: 0.2px;
+    font-family: 'Lato';
+    font-size: 12px;
 }
 /*.texto_facebook{
     font-size:12px;
@@ -424,7 +427,7 @@ body{
     margin-bottom:15px;
     letter-spacing:0.2px;
 }*/
-.logo_esika_facebook{
+.logo_esika_facebook {
     float: left;
     text-align: center;
     font-family: 'logo_esika';
@@ -432,25 +435,27 @@ body{
     height: 20px;
     margin-top: -2px;
 }
-.logo_esika_facebook:before{
-     content: "\e911";
-    font-size: 24px;
-    color: #e81c36;
-}
-/*.logo_esika_facebook{
+
+    .logo_esika_facebook:before {
+        content: "\e911";
+        font-size: 24px;
+        color: #e81c36;
+    }
+    /*.logo_esika_facebook{
     width:60px;
     margin:0 auto;
     font-family: 'logo_esika';
 }*/
-/*.logo_esika_facebook:before{
+    /*.logo_esika_facebook:before{
      content: "\e911";
     font-size: 29px;
     color: #e81c36;
 }*/
-.logo_esika_facebook img{
-    width:100%;
-}
-.salir_chatbot{
+    .logo_esika_facebook img {
+        width: 100%;
+    }
+
+.salir_chatbot {
     float: left;
     padding-left: 20px;
     padding-top: 3px;
@@ -465,7 +470,8 @@ body{
     color: black;
     background: url(../../Images/PL20/flecha_regresa_chat.png) no-repeat;
 }
-.campo_input_chat{
+
+.campo_input_chat {
     margin-top: 10px;
     margin-bottom: 12px;
     width: 100%;
@@ -475,8 +481,12 @@ body{
     position: relative;
     font-family: 'icomoon';
 }
-#div_select_pais { background: left 2px top 10px no-repeat; }
-.input_chat{
+
+#div_select_pais {
+    background: left 2px top 10px no-repeat;
+}
+
+.input_chat {
     width: 100%;
     border: 0;
     height: 28px;
@@ -485,10 +495,11 @@ body{
     box-sizing: border-box;
     position: relative;
     background: transparent;
-    font-family:'Lato';
+    font-family: 'Lato';
     letter-spacing: 0.3px;
 }
-.select_pais_chat{
+
+.select_pais_chat {
     width: -moz-calc(100% - 21px);
     width: calc(100% - 21px);
     width: -webkit-calc(100% - 21px);
@@ -499,7 +510,8 @@ body{
     height: 28px;
     box-sizing: border-box;
 }
-.clear{
+
+.clear {
     background: none;
     border: 0;
     clear: both;
@@ -525,6 +537,7 @@ body{
     position: absolute;
     z-index: 100;
 }
+
 .icono_pass_chatbot:before {
     content: "\e900";
     font-size: 20px;
@@ -536,37 +549,71 @@ body{
     position: absolute;
     z-index: 100;
 }
-.btnLogin{
+
+.btnLogin {
     color: white;
     background-color: #e81c36;
-    border:0;
-    border-radius: 2px;    
+    border: 0;
+    border-radius: 2px;
     font-size: 13px;
     font-weight: bold;
-    height: 45px;  
+    height: 45px;
     text-align: center;
     margin-top: 6px;
-    width: 100%;  
+    width: 100%;
     display: block;
-    box-sizing: border-box;   
+    box-sizing: border-box;
     line-height: 45px;
     font-family: 'Lato';
 }
-#txtUsuario{    
-    font-size:20px;
-}
-#txtPassword{    
-    font-size:12px;
-}
-#txtUsuario::-webkit-input-placeholder { font-size:12px; color:#595959; }
-#txtUsuario:-moz-placeholder { font-size:12px; color:#595959;}
-#txtUsuario::-moz-placeholder {  font-size:12px; color:#595959; }
-#txtUsuario:-ms-input-placeholder { font-size:12px; color:#595959;}
 
-#txtPassword::-webkit-input-placeholder { font-size:12px; color:#595959 }
-#txtPassword:-moz-placeholder { font-size:12px; color:#595959 }
-#txtPassword::-moz-placeholder {  font-size:12px; color:#595959  }
-#txtPassword:-ms-input-placeholder { font-size:12px; color:#595959  }
+#txtUsuario {
+    font-size: 20px;
+}
+
+#txtPassword {
+    font-size: 12px;
+}
+
+#txtUsuario::-webkit-input-placeholder {
+    font-size: 12px;
+    color: #595959;
+}
+
+#txtUsuario:-moz-placeholder {
+    font-size: 12px;
+    color: #595959;
+}
+
+#txtUsuario::-moz-placeholder {
+    font-size: 12px;
+    color: #595959;
+}
+
+#txtUsuario:-ms-input-placeholder {
+    font-size: 12px;
+    color: #595959;
+}
+
+#txtPassword::-webkit-input-placeholder {
+    font-size: 12px;
+    color: #595959;
+}
+
+#txtPassword:-moz-placeholder {
+    font-size: 12px;
+    color: #595959;
+}
+
+#txtPassword::-moz-placeholder {
+    font-size: 12px;
+    color: #595959;
+}
+
+#txtPassword:-ms-input-placeholder {
+    font-size: 12px;
+    color: #595959;
+}
 
 .ayuda_usuario_facebook_chatBot {
     top: 3px;
@@ -580,6 +627,7 @@ body{
     width: 31px;
     height: 25px;
 }
+
 .helper_facebook_chatBot {
     width: 20px;
     height: 20px;
@@ -591,12 +639,14 @@ body{
     background-repeat: no-repeat;
     text-decoration: none;
 }
-.helper_facebook_chatBot:before {
-    content: "\e902";
-    font-size: 18px;
-    text-align: left;
-    color: #949494;
-}
+
+    .helper_facebook_chatBot:before {
+        content: "\e902";
+        font-size: 18px;
+        text-align: left;
+        color: #949494;
+    }
+
 .mensaje_ayuda_usuario_chatBot {
     box-sizing: border-box;
     display: none;
@@ -612,9 +662,11 @@ body{
     border: 1px solid black;
     z-index: 10000000;
 }
+
 .ayuda_usuario_facebook_chatBot:hover .mensaje_ayuda_usuario_chatBot {
     display: block;
 }
+
 .mensaje_ayuda_usuario_chatBot:after, .mensaje_ayuda_usuario_chatBot:before {
     left: 100%;
     top: 24px;
@@ -625,6 +677,7 @@ body{
     position: absolute;
     pointer-events: none;
 }
+
 .mensaje_ayuda_usuario_chatBot:before {
     border-color: rgba(0, 0, 0, 0);
     border-left-color: #000;
@@ -632,14 +685,16 @@ body{
     border-width: 10px;
     margin-top: -10px;
 }
+
 .mensaje_ayuda_usuario_chatBot:after {
     border-color: rgba(255, 255, 255, 0);
-   border-left-color: #ffffff;
+    border-left-color: #ffffff;
     border-right-color: transparent;
     border-width: 9px;
     margin-top: -9px;
 }
-.logo_normal{
+
+.logo_normal {
     float: left;
     text-align: center;
     font-family: 'logo_esika';
@@ -647,27 +702,31 @@ body{
     height: 20px;
     margin-top: -2px;
 }
-.logo_normal:before {
-    content: "\e911";
-    font-size: 24px;
-    color: #e81c36;
-}
-.logo_normal img{
-    width:100%;
-}
-.texto_normal{
+
+    .logo_normal:before {
+        content: "\e911";
+        font-size: 24px;
+        color: #e81c36;
+    }
+
+    .logo_normal img {
+        width: 100%;
+    }
+
+.texto_normal {
     margin-top: 3px;
-    font-family:'Lato';
-    float:left;
-    font-size:12px;
+    font-family: 'Lato';
+    float: left;
+    font-size: 12px;
     margin-left: 14px;
 }
-.titulo_campo{
+
+.titulo_campo {
     font-family: 'Lato';
     font-size: 11px;
     position: absolute;
     top: -8px;
     color: black;
     z-index: 100;
-    left: 25px;    
+    left: 25px;
 }
