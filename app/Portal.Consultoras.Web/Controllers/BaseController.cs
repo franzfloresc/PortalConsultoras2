@@ -3938,9 +3938,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         private bool BuilTituloBannerRD(ref ConfiguracionPaisModel confi)
         {
-            confi.DesktopTituloBanner = userData.UsuarioNombre.ToUpper();
-            confi.DesktopSubTituloBanner = "";
-
             if (revistaDigital.SuscripcionModel.CampaniaID > userData.CampaniaID)
                 return false;
 
