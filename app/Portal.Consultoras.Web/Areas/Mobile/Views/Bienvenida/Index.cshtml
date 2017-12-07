@@ -2,10 +2,12 @@
 @using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Areas.Mobile.Models
 @using Portal.Consultoras.Web.Helpers
+@using Portal.Consultoras.Web.Models
 
 @model BienvenidaModel
 
 @{
+    Model.RevistaDigital = Model.RevistaDigital ?? new RevistaDigitalModel();
     var layout =  ViewContext.MobileLayout();
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
     var urlDomain = Util.GetUrlHost(Request);
@@ -282,7 +284,7 @@
 }
 
 <!--INICIO CARRUSEL-->
-<div id="divListaEstrategias" style="display: none;">
+<div id="divListaEstrategias" style="display: none; padding-top: 22px;">
     @Html.Partial("~/Areas/Mobile/Views/Bienvenida/_PartialSectionBpt.cshtml", Model.RevistaDigital) 
 </div>
 <!--FIN CARRUSEL-->

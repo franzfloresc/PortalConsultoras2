@@ -8190,6 +8190,10 @@ input[type="checkbox"]:checked + span:after {
     font-weight: 700;
 }
 
+.color_marca {
+    color: #e81c36;
+}
+
 .btn_borde_black {
     display: inline-block;
     margin-bottom: 20px;

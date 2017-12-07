@@ -8140,6 +8140,9 @@ input[type="checkbox"]:checked + span:after {
     color: #613c87;
     font-weight: 700;
 }
+.color_marca {
+    color: #613c87;
+}
 
 .text-danger {
     color: #b75d9f !important;
@@ -13546,8 +13549,7 @@ span.icon-advertencia {
     padding: 0 20px 0 20px;
     text-align: center;
 }
-
-.content_detalle_puntuación {
+.content_detalle_puntuacion{
     margin-top: 10px;
     font-weight: 700;
     /*padding:0 14px 0 14px;*/

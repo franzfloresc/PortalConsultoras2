@@ -261,13 +261,16 @@ var actualizarMatrizCampaniaModule = (function () {
 
     var _buscar = function () {
         waitingDialog({});
+        var _cuv = $(_elements.txtCodVenta).val();
+        _cuv = _cuv.trim();
+        $(_elements.txtCodVenta).val(_cuv);
         $.ajax({
             type: 'POST',
             url: _settings.consultarDescripcionUrl,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify({
-                CUV: $(_elements.txtCodVenta).val(),
+                CUV: _cuv,
                 IDCampania: $(_elements.ddlCampania).val(),
                 paisID: $(_elements.ddlPais).val()
             }),
@@ -454,10 +457,10 @@ var actualizarMatrizCampaniaModule = (function () {
 
         waitingDialog({});
         var item = {
-            CUV: $(_elements.txtCodVenta).val(),
-            CampaniaID: $(_elements.ddlCampania).val(),
+            CUV: $(_elements.txtCodVenta).val().trim(),
+            CampaniaID: $(_elements.ddlCampania).val().trim(),
             Descripcion: $(_elements.txtDescripcionNueva).val(),
-            PaisID: $(_elements.ddlPais).val(),
+            PaisID: $(_elements.ddlPais).val().trim(),
             PrecioProducto: $(_elements.txtPrecioNuevo).val(),
             FactorRepeticion: $(_elements.txtFactorRepeticionNuevo).val()
         };

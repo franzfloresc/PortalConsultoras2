@@ -1928,6 +1928,12 @@ div#tab_revistasdigital_mobile {
         height: 85px;
         text-transform: uppercase;
     }
+.cabecera_pedido_rd .rd_logo img{
+        width: 79%;
+    margin: auto;
+    display: block;
+    padding: 5px 5px 10px 0px;
+}
 
         .cabecera_pedido_rd .rd_logo:after {
             border-left: 20px solid transparent;
@@ -1937,8 +1943,7 @@ div#tab_revistasdigital_mobile {
 
         .cabecera_pedido_rd .rd_logo img.small {
             width: 80px;
-            margin-top: 22px;
-            margin-left: -20px;
+            padding-top: 22px;
         }
 
 .cabecera_pedido_text {
@@ -2162,24 +2167,6 @@ div#tab_revistasdigital_mobile {
     display: block;
 }
 
-.nuevo_contenedor_informativo {
-    max-width: 1189px;
-    margin: auto;
-}
-
-/*NUEVO LANDGIN*/
-
-.back-to {
-    background: black;
-    color: white;
-    padding: 13.5px 20px;
-    font-size: 11px;
-    letter-spacing: 1px;
-}
-
-    .back-to img {
-        margin-right: 10px;
-    }
 
 /* NUEVO LANDING SUSCRIPCION MOBILE */
 

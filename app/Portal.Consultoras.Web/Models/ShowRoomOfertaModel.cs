@@ -90,36 +90,10 @@ namespace Portal.Consultoras.Web.Models
         public string DescripcionCategoria { get; set; }
         public string TextoCondicionCompraCpc { get; set; }
         public string TextoDescripcionLegalCpc { get; set; }
-        
-        public decimal Gana
-        {
-            get
-            {
-                return Math.Abs(PrecioValorizado - PrecioOferta);
-            }
-        }
-        public string FormatoGana
-        {
-            get
-            {
-                return Util.DecimalToStringFormat(Gana, CodigoISO);
-            }
-        }
-
-        public string FormatoPrecioValorizado
-        {
-            get
-            {
-                return Util.DecimalToStringFormat(PrecioValorizado, CodigoISO);
-            }
-        }
-        public string FormatoPrecioOferta
-        {
-            get
-            {
-                return Util.DecimalToStringFormat(PrecioOferta, CodigoISO);
-            }
-        }
+        public decimal Gana { get { return Math.Abs(PrecioValorizado - PrecioOferta); } }
+        public string FormatoPrecioValorizado { get { return Util.DecimalToStringFormat(PrecioValorizado, CodigoISO); } }
+        public string FormatoPrecioOferta { get { return Util.DecimalToStringFormat(PrecioOferta, CodigoISO); } }
+        public string FormatoGana { get { return Util.DecimalToStringFormat(Gana, CodigoISO); } }
         public bool EMailActivo { get; set; }
         public string EMail { get; set; }
         public string Celular { get; set; }

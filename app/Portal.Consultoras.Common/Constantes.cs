@@ -1143,6 +1143,7 @@ namespace Portal.Consultoras.Common
                 public const string MCatalogoRdr = "MCatalogoRdr";
                 public const string DRDRLandingBanner = "DRDRLandingBanner";
                 public const string MRDRLandingBanner = "MRDRLandingBanner";
+                public const string LogoMenuOfertas = "LogoMenuOfertas";
             }
 
         }

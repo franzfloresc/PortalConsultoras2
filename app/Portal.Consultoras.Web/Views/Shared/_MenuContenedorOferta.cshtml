@@ -1,4 +1,4 @@
-﻿@using Portal.Consultoras.Common
+@using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Models
 @using Portal.Consultoras.Web.Models.Layout
 
@@ -27,11 +27,11 @@
             <div class="texto-info">
                 <div class="centrar-horizontal">
                     @if (menuActivo.ConfiguracionPais.DesktopTituloBanner != "")
-        {
+                    {
                         <p>@menuActivo.ConfiguracionPais.DesktopTituloBanner</p>
                     }
                     @if (menuActivo.ConfiguracionPais.DesktopSubTituloBanner != "")
-        {
+                    {
                         <span>@menuActivo.ConfiguracionPais.DesktopSubTituloBanner</span>
                     }
                 </div>
@@ -64,7 +64,7 @@
                 </li><li data-campania="0" data-codigo="3"
                     onclick="menuModule.tabClick(this, '@Url.Action("Informacion", "RevistaDigital")', '@menuActivo.NombreOrigenPantalla')" >
                     <a class="@classMenuInfo">
-                        <span>SABER MÁS DE ÉSIKA PARA MÍ</span>
+                            <span>CONOCE TODO SOBRE CLUB GANA+</span>
                     </a>
                 </li>
             </ul>

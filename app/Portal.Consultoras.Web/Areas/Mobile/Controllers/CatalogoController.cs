@@ -31,6 +31,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             clienteModel.MostrarTab = 
                 (revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsSuscritaInactiva() && !tieneGND ||
                 ((revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsNoSuscritaInactiva() && !tieneGND) ||
+                ((revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsNoSuscritaActiva() && !tieneGND) ||
                 (!revistaDigital.TieneRDC && !revistaDigital.TieneRDR && !tieneGND) ||
                 ((revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsSuscritaActiva() && !tieneGND) ||
                 (revistaDigital.TieneRDR && !tieneGND);
@@ -38,7 +39,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             clienteModel.MostrarRevistaDigital = (revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsSuscritaInactiva() && !tieneGND ||
                 ((revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsNoSuscritaInactiva() && !tieneGND) ||
                 (!revistaDigital.TieneRDC && !revistaDigital.TieneRDR && !tieneGND) ||
-                !((revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsSuscritaActiva()) ||
                 (revistaDigital.TieneRDR && !tieneGND);
 
             clienteModel.RevistaDigital = revistaDigital;
@@ -51,26 +51,15 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             string PaisesCatalogoWhatsUp = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesCatalogoWhatsUp);
             ViewBag.ActivacionAppCatalogoWhastUp = PaisesCatalogoWhatsUp.Contains(userData.CodigoISO) ? 1 : 0;
 
+            var paisesEsika = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesEsika).ToLower();
+            ViewBag.EsPaisEsika = paisesEsika.Contains(userData.CodigoISO.ToLower());
+
             return View(clienteModel);
         }
 
         public ActionResult EnterateMas()
         {
             return View("EnterateMas");
-        }
-
-        private string CalcularCampaniaAnterior(string CampaniaActual)
-        {
-            if (CampaniaActual.Substring(4, 2) == "01")
-                return (Convert.ToInt32(CampaniaActual.Substring(0, 4)) - 1) + UserData().NroCampanias.ToString();
-            return CampaniaActual.Substring(0, 4) + (Convert.ToInt32(CampaniaActual.Substring(4, 2)) - 1).ToString().PadLeft(2, '0');
-        }
-
-        private string CalcularCampaniaSiguiente(string CampaniaActual)
-        {
-            if (CampaniaActual.Substring(4, 2) == UserData().NroCampanias.ToString())
-                return (Convert.ToInt32(CampaniaActual.Substring(0, 4)) + 1) + "01";
-            return CampaniaActual.Substring(0, 4) + (Convert.ToInt32(CampaniaActual.Substring(4, 2)) + 1).ToString().PadLeft(2, '0');
         }
 
         public JsonResult AutocompleteCorreo()
@@ -103,8 +92,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         }
 
         [HttpPost]
-
-
         public JsonResult ObtenerPortadaRevista(string codigoRevista)
         {
             var url = string.Empty;

@@ -1,10 +1,10 @@
-var imgISO = "";
+﻿var imgISO = "";
 var _kiq = _kiq || [];
 var activarHover = true;
 var val_comboLogin = "";
 var temp = "";
 var openloginPopup = false;
-
+var analytics = Analytics(configAnalytics);
 
 var CodigoISO;
 var PaisID;
@@ -26,7 +26,7 @@ $(document).ready(function () {
 
     $(document).keyup(function (e) {
         if (e.keyCode == 27) {
-
+            
             if ($('#popupAsociarUsuarioExt').is(':visible')) {
                 $('#popupAsociarUsuarioExt').hide();
             }
@@ -42,7 +42,7 @@ $(document).ready(function () {
     $('#ddlPais').val(isoPais);
     $('#ddlPais2').val(isoPais);
     ayudaLogin2();
-
+    
     //$('#cboPaisCambioClave').val(isoPais);
 
     if (avisoASP == 1) {
@@ -59,7 +59,7 @@ $(document).ready(function () {
             'text-decoration': 'none'
         });
     }
-
+    
     if (banderaOk == 'True') {
         $("#cargarBandera").css("background", "url('/Content/Images/Login2/Banderas/" + isoPais + ".png') top 10px left 2px no-repeat");
         $("#cargarBandera2").css("background", "url('/Content/Images/Login2/Banderas/" + isoPais + ".png') top 10px left 2px no-repeat");
@@ -68,19 +68,17 @@ $(document).ready(function () {
     else {
         $('#cargarBandera').css('background', "url('/Content/Images/Login2/Banderas/00.png') top -7px left -10px no-repeat");
         //$('#cargarBandera2').css('background', "url('/Content/Images/Login2/Banderas/00.png') top -7px left -10px no-repeat");
-    }
+    }    
 
     _gaq.push(['_trackPageview', '/Somosbelcorp/Login']);
 
     $("#ddlPais").change(function () {
         imgISO = $("#ddlPais").val();
+        analytics.invocarAnalyticsByCodigoIso(imgISO);
 
-        if ($("#ddlPais").val() == "MX") {
-            $("#AvisoASP").show();
-        }
-        else {
-            $("#AvisoASP").hide();
-        }
+        if ($("#ddlPais").val() == "MX") $("#AvisoASP").show();
+        else $("#AvisoASP").hide();
+
         EsconderLogoEsikaPanama(imgISO);
         AsignarHojaEstilos();
 
@@ -93,7 +91,7 @@ $(document).ready(function () {
 
     $("#ddlPais2").change(function () {
         imgISO = $("#ddlPais2").val();
-
+        
         if (paisesEsika.indexOf(imgISO) != -1) {
             $("#cargarBandera3").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top 10px left 2px no-repeat");
         }
@@ -227,7 +225,7 @@ $(document).ready(function () {
             }
             else {
                 var keyChar = String.fromCharCode(charCode);
-                var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_.@@-]/;
+            var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_.@@-]/;
                 return re.test(keyChar);
             }
         });
@@ -622,6 +620,8 @@ function AsignarHojaEstilos() {
 
 function olvidasteContrasenia() {
     _gaq.push(['_trackEvent', 'Link', 'Olvide-contrasenia']);
+    analytics.invocarEventoPixel("OlvidasteContraseña");
+
     val_comboLogin = $("#ddlPais").val();
     temp = getVALbyISO(val_comboLogin);
     $("#cboPaisCambioClave").val(temp);
@@ -741,6 +741,7 @@ function login2() {
 
             if (response.success) {
                 if (response.redirectTo !== "") {
+                    analytics.invocarEventoPixel("FacebookLoginLogin");
                     document.location.href = response.redirectTo;
                 }
             }

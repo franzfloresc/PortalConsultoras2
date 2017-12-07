@@ -6,7 +6,6 @@ using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Globalization;
 using System.Linq;
 using System.ServiceModel;
@@ -22,6 +21,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var model = new BienvenidaModel();
             try
             {
+                if (userData.RolID != Constantes.Rol.Consultora)
+                    return RedirectToAction("Index", "Bienvenida", new { area = "" });
+
                 if (base.ObtenerPedidoWeb() != null)
                 {
                     model.MontoAhorroCatalogo = base.ObtenerPedidoWeb().MontoAhorroCatalogo;

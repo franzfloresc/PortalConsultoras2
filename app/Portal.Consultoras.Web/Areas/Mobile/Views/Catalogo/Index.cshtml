@@ -104,7 +104,8 @@
     
     <!--TAB REVISTA-->
         <div id="tab_revistas_mobile" data-tag-html="Revistas" style="display:none;">
-            @if ((revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsSuscritaActiva())
+            @if ((revistaDigital.TieneRDC || revistaDigital.TieneRDR) &&
+                (revistaDigital.EsSuscritaActiva() || revistaDigital.EsNoSuscritaActiva()) )
             {
                 <br />
             }
@@ -236,8 +237,6 @@
 @section styles{
 
     <link href="@Url.Content("~/Content/Css/Mobile/jquery.tag-editor.css")" rel="stylesheet" />
-    <link href="@Url.Content("~/Content/Css/Mobile/Esika/revistaDigital.css")" rel="stylesheet" type="text/css" />
-
 
     <style type="text/css">
         body {
