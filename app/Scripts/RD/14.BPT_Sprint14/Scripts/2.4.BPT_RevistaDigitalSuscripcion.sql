@@ -9,8 +9,7 @@ select @PaisIso = CodigoISO
 from pais where EstadoActivo = 1
 
 update RevistaDigitalSuscripcion
-set CampaniaEfectiva = dbo.fnAddCampaniaAndNumero(@PaisIso, CampaniaID, 2)
-where CampaniaEfectiva is null or CampaniaEfectiva = 0
+set CampaniaEfectiva = dbo.fnAddCampaniaAndNumero(@PaisIso, CampaniaID, 1)
 
 GO
 
@@ -25,8 +24,7 @@ select @PaisIso = CodigoISO
 from pais where EstadoActivo = 1
 
 update RevistaDigitalSuscripcion
-set CampaniaEfectiva = dbo.fnAddCampaniaAndNumero(@PaisIso, CampaniaID, 2)
-where CampaniaEfectiva is null or CampaniaEfectiva = 0
+set CampaniaEfectiva = dbo.fnAddCampaniaAndNumero(@PaisIso, CampaniaID, 1)
 
 GO
 
@@ -41,8 +39,7 @@ select @PaisIso = CodigoISO
 from pais where EstadoActivo = 1
 
 update RevistaDigitalSuscripcion
-set CampaniaEfectiva = dbo.fnAddCampaniaAndNumero(@PaisIso, CampaniaID, 2)
-where CampaniaEfectiva is null or CampaniaEfectiva = 0
+set CampaniaEfectiva = dbo.fnAddCampaniaAndNumero(@PaisIso, CampaniaID, 1)
 
 GO
 
@@ -57,8 +54,7 @@ select @PaisIso = CodigoISO
 from pais where EstadoActivo = 1
 
 update RevistaDigitalSuscripcion
-set CampaniaEfectiva = dbo.fnAddCampaniaAndNumero(@PaisIso, CampaniaID, 2)
-where CampaniaEfectiva is null or CampaniaEfectiva = 0
+set CampaniaEfectiva = dbo.fnAddCampaniaAndNumero(@PaisIso, CampaniaID, 1)
 
 GO
 
@@ -73,8 +69,7 @@ select @PaisIso = CodigoISO
 from pais where EstadoActivo = 1
 
 update RevistaDigitalSuscripcion
-set CampaniaEfectiva = dbo.fnAddCampaniaAndNumero(@PaisIso, CampaniaID, 2)
-where CampaniaEfectiva is null or CampaniaEfectiva = 0
+set CampaniaEfectiva = dbo.fnAddCampaniaAndNumero(@PaisIso, CampaniaID, 1)
 
 GO
 
@@ -89,8 +84,7 @@ select @PaisIso = CodigoISO
 from pais where EstadoActivo = 1
 
 update RevistaDigitalSuscripcion
-set CampaniaEfectiva = dbo.fnAddCampaniaAndNumero(@PaisIso, CampaniaID, 2)
-where CampaniaEfectiva is null or CampaniaEfectiva = 0
+set CampaniaEfectiva = dbo.fnAddCampaniaAndNumero(@PaisIso, CampaniaID, 1)
 
 GO
 
@@ -105,8 +99,7 @@ select @PaisIso = CodigoISO
 from pais where EstadoActivo = 1
 
 update RevistaDigitalSuscripcion
-set CampaniaEfectiva = dbo.fnAddCampaniaAndNumero(@PaisIso, CampaniaID, 2)
-where CampaniaEfectiva is null or CampaniaEfectiva = 0
+set CampaniaEfectiva = dbo.fnAddCampaniaAndNumero(@PaisIso, CampaniaID, 1)
 
 GO
 
@@ -121,8 +114,7 @@ select @PaisIso = CodigoISO
 from pais where EstadoActivo = 1
 
 update RevistaDigitalSuscripcion
-set CampaniaEfectiva = dbo.fnAddCampaniaAndNumero(@PaisIso, CampaniaID, 2)
-where CampaniaEfectiva is null or CampaniaEfectiva = 0
+set CampaniaEfectiva = dbo.fnAddCampaniaAndNumero(@PaisIso, CampaniaID, 1)
 
 GO
 
@@ -137,8 +129,7 @@ select @PaisIso = CodigoISO
 from pais where EstadoActivo = 1
 
 update RevistaDigitalSuscripcion
-set CampaniaEfectiva = dbo.fnAddCampaniaAndNumero(@PaisIso, CampaniaID, 2)
-where CampaniaEfectiva is null or CampaniaEfectiva = 0
+set CampaniaEfectiva = dbo.fnAddCampaniaAndNumero(@PaisIso, CampaniaID, 1)
 
 GO
 
@@ -153,8 +144,7 @@ select @PaisIso = CodigoISO
 from pais where EstadoActivo = 1
 
 update RevistaDigitalSuscripcion
-set CampaniaEfectiva = dbo.fnAddCampaniaAndNumero(@PaisIso, CampaniaID, 2)
-where CampaniaEfectiva is null or CampaniaEfectiva = 0
+set CampaniaEfectiva = dbo.fnAddCampaniaAndNumero(@PaisIso, CampaniaID, 1)
 
 GO
 
@@ -169,8 +159,7 @@ select @PaisIso = CodigoISO
 from pais where EstadoActivo = 1
 
 update RevistaDigitalSuscripcion
-set CampaniaEfectiva = dbo.fnAddCampaniaAndNumero(@PaisIso, CampaniaID, 2)
-where CampaniaEfectiva is null or CampaniaEfectiva = 0
+set CampaniaEfectiva = dbo.fnAddCampaniaAndNumero(@PaisIso, CampaniaID, 1)
 
 GO
 
@@ -185,8 +174,7 @@ select @PaisIso = CodigoISO
 from pais where EstadoActivo = 1
 
 update RevistaDigitalSuscripcion
-set CampaniaEfectiva = dbo.fnAddCampaniaAndNumero(@PaisIso, CampaniaID, 2)
-where CampaniaEfectiva is null or CampaniaEfectiva = 0
+set CampaniaEfectiva = dbo.fnAddCampaniaAndNumero(@PaisIso, CampaniaID, 1)
 
 GO
 
@@ -201,8 +189,7 @@ select @PaisIso = CodigoISO
 from pais where EstadoActivo = 1
 
 update RevistaDigitalSuscripcion
-set CampaniaEfectiva = dbo.fnAddCampaniaAndNumero(@PaisIso, CampaniaID, 2)
-where CampaniaEfectiva is null or CampaniaEfectiva = 0
+set CampaniaEfectiva = dbo.fnAddCampaniaAndNumero(@PaisIso, CampaniaID, 1)
 
 GO
 

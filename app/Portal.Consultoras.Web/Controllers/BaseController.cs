@@ -3855,12 +3855,8 @@ namespace Portal.Consultoras.Web.Controllers
                     || config.Codigo == Constantes.ConfiguracionPais.RevistaDigitalReducida
                     || config.Codigo == Constantes.ConfiguracionPais.RevistaDigital)
                 {
-                    BuilTituloBannerRD(ref config);
-                    if (config.DesktopSubTituloBanner == "")
+                    if (!BuilTituloBannerRD(ref config))
                         continue;
-
-                    config.MobileTituloBanner = config.DesktopTituloBanner;
-                    config.MobileSubTituloBanner = config.DesktopSubTituloBanner;
                 }
                 SepararPipe(ref config);
                 RemplazarTagNombreConfiguracion(ref config);
@@ -3940,13 +3936,13 @@ namespace Portal.Consultoras.Web.Controllers
             return listaMenu;
         }
 
-        private void BuilTituloBannerRD(ref ConfiguracionPaisModel confi)
+        private bool BuilTituloBannerRD(ref ConfiguracionPaisModel confi)
         {
             confi.DesktopTituloBanner = userData.UsuarioNombre.ToUpper();
             confi.DesktopSubTituloBanner = "";
 
             if (revistaDigital.SuscripcionModel.CampaniaID > userData.CampaniaID)
-                return;
+                return false;
 
             var codigo = "";
             var ismobil = IsMobile();
@@ -4002,20 +3998,23 @@ namespace Portal.Consultoras.Web.Controllers
 
             }
 
-            if (codigo != "")
+            if (codigo == "")
+                return false;
+
+            var dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo) ?? new ConfiguracionPaisDatosModel();
+            if (ismobil)
             {
-                var dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == codigo) ?? new ConfiguracionPaisDatosModel();
-                if (ismobil)
-                {
-                    confi.MobileTituloBanner = Util.Trim(dato.Valor1);
-                    confi.MobileSubTituloBanner = Util.Trim(dato.Valor2);
-                }
-                else
-                {
-                    confi.DesktopTituloBanner = Util.Trim(dato.Valor1);
-                    confi.DesktopSubTituloBanner = Util.Trim(dato.Valor2);
-                }
+                confi.MobileTituloBanner = Util.Trim(dato.Valor1);
+                confi.MobileSubTituloBanner = Util.Trim(dato.Valor2);
             }
+            else
+            {
+                confi.DesktopTituloBanner = Util.Trim(dato.Valor1);
+                confi.DesktopSubTituloBanner = Util.Trim(dato.Valor2);
+            }
+
+            return true;
+           
         }
         #endregion
 
