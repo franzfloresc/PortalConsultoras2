@@ -987,7 +987,7 @@ function DetalleCargar() {
                 alert_msg(data.message);
                 return false;
             }
-            
+
             $("#spnCantidadUltimasSolicitadas").html(data.detalle.length);
             SetHandlebars("#template-detalle-banner", data.detalle, "#divDetalleUltimasSolicitudes");
             ValidarVisualizacionBannerResumen();

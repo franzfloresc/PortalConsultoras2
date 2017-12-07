@@ -60,7 +60,7 @@ $(document).ready(function () {
     });
 
     //EPD-1564
-    $("body").click(function(e) {
+    $("body").click(function (e) {
         if (!$(e.target).closest('.ui-dialog').length) {
             if ($('#divObservacionesPROL').is(':visible'))
                 HideDialog("divObservacionesPROL");
@@ -907,7 +907,7 @@ function AgregarProductoZonaEstrategia(tipoEstrategiaImagen) {
         tipoEstrategiaImagen: tipoEstrategiaImagen || 0,
         EsOfertaIndependiente: $("#hdEsOfertaIndependiente").val()
     };
-   
+
     jQuery.ajax({
         type: 'POST',
         url: baseUrl + 'Pedido/AgregarProductoZE',
@@ -1631,7 +1631,7 @@ function ObservacionesProducto(item) {
                 }
                 if (item.CUVRevista.length != 0 && item.DesactivaRevistaGana == 0) {
                     if (!item.TieneRDC)
-                    $("#divObservaciones").html("<div id='divProdRevista' class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>" + mensajeCUVOfertaEspecial + "</div></div>");
+                        $("#divObservaciones").html("<div id='divProdRevista' class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>" + mensajeCUVOfertaEspecial + "</div></div>");
                 }
 
                 if (item.MensajeCUV != null) {
@@ -1667,7 +1667,7 @@ function ObservacionesProducto(item) {
     $("#txtDescripcionProd").val(item.Descripcion.split('|')[0]);
     $("#hdfDescripcionProd").val(item.Descripcion.split('|')[0]);
     $("#hdFlagNueva").val(item.FlagNueva);
-    $("#hdTipoEstrategiaID").val(item.TipoEstrategiaID); 
+    $("#hdTipoEstrategiaID").val(item.TipoEstrategiaID);
     $("#hdEsOfertaIndependiente").val(item.EsOfertaIndependiente);
     $("#OfertaTipoNuevo").val("");
 
@@ -2895,15 +2895,15 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
             CliID = 0;
         }
         AbrirSplash();
-        $.getJSON(baseUrl + 'OfertaLiquidacion/ValidarUnidadesPermitidasPedidoProducto', { CUV: CUV, Cantidad: StockNuevo, PrecioUnidad: PrecioUnidad}, function (data) {
+        $.getJSON(baseUrl + 'OfertaLiquidacion/ValidarUnidadesPermitidasPedidoProducto', { CUV: CUV, Cantidad: StockNuevo, PrecioUnidad: PrecioUnidad }, function (data) {
             CerrarSplash();
             if (data.message.length > 3) { /*Validación Pedido Máximo*/
-                AbrirMensajeEstrategia(data.message);                
+                AbrirMensajeEstrategia(data.message);
                 if (!data.result) {
-                    CargarDetallePedido(); 
+                    CargarDetallePedido();
                     return false;
-                }                    
-            } 
+                }
+            }
             var Saldo = data.Saldo;
             var UnidadesPermitidas = data.UnidadesPermitidas;
             var CantidadPedida = data.CantidadPedida;
@@ -3082,7 +3082,7 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
                     AbrirMensajeEstrategia(data.message);
                     CargarDetallePedido();
                     return false;
-                } 
+                }
                 var Saldo = data.Saldo;
                 var UnidadesPermitidas = data.UnidadesPermitidas;
                 var CantidadPedida = data.CantidadPedida;

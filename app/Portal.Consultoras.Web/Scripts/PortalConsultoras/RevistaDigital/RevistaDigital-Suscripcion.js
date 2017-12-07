@@ -8,7 +8,7 @@ function RDPopupCerrar() {
     AbrirLoad();
 
     rdAnalyticsModule.CerrarPopUp('Banner Inscribirme a Ésika para mí');
-    
+
     $.ajax({
         type: 'POST',
         url: baseUrl + 'RevistaDigital/PopupCerrar',
@@ -24,7 +24,7 @@ function RDPopupCerrar() {
 }
 
 function RDSuscripcion() {
-   
+
     AbrirLoad();
     rdAnalyticsModule.Inscripcion();
     $.ajax({
@@ -101,7 +101,7 @@ function RDRedireccionarInformacion(seccion) {
     var url = (isMobile() ? "/Mobile" : "") + "/RevistaDigital/Informacion";
 
     if (seccion == 2) url += "?tipo=" + seccion;
-    
+
     var urlLocal = $.trim(window.location).toLowerCase() + "/";
     window.location = url;
     if (urlLocal.indexOf("/revistadigital//Informacion/") >= 0) {
@@ -130,7 +130,7 @@ function MostrarTerminos() {
 function RedireccionarContenedorComprar(origenWeb, codigo) {
     if ($.trim(origenWeb) != "")
         rdAnalyticsModule.Access(origenWeb);
-    
+
     codigo = $.trim(codigo);
     window.location = (isMobile() ? "/Mobile" : "") + "/Ofertas" + (codigo != "" ? "#" + codigo : "");
 }
