@@ -8,7 +8,7 @@ namespace Portal.Consultoras.BizLogic
     {
         public IList<BEMenuMobile> GetItemsByPais(int paisID)
         {
-            var items = new List<BEMenuMobile>();// CacheManager<BEMenuMobile>.GetData(paisID, ECacheItem.MenuMobile);
+            var items = (IList<BEMenuMobile>)CacheManager<BEMenuMobile>.GetData(paisID, ECacheItem.MenuMobile);
             if (items == null || items.Count == 0)
             {
                 var daMenuMobile = new DAMenuMobile(paisID);
@@ -22,7 +22,7 @@ namespace Portal.Consultoras.BizLogic
                         items.Add(entidad);
                     }
                 }
-                //CacheManager<BEMenuMobile>.AddData(paisID, ECacheItem.MenuMobile, items);
+                CacheManager<BEMenuMobile>.AddData(paisID, ECacheItem.MenuMobile, items);
             }
             return items;
         }
