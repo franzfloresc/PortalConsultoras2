@@ -1,7 +1,7 @@
 #marca {
     margin: 0;
     padding: 0;
-    font-family: arial;
+    font-family: arial
 }
 
 .CMXD-containment-wrapper {
@@ -12,7 +12,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: -800000;
+    z-index: -800000
 }
 
 .CMXD-btn-help {
@@ -21,7 +21,7 @@
     position: fixed;
     right: 0;
     bottom: 100px;
-    text-align: center;
+    text-align: center
 }
 
 .pop-up {
@@ -30,114 +30,90 @@
     height: 448px;
     border-radius: 0 0 4px 4px;
     top: 42px;
-    background: white;
+    background: #fff;
     display: none;
-    z-index: 1000;
+    z-index: 1000
 }
-/******************BOTON AYUDA******************/ /*Estilo General*/
 
-.CMXD-btn-help .CMXD-help {
-    background-image: url(../images/btn-help.png);
+.CMXD-btn-help .CMXD-help, .CMXD-btn-help .CMXD-open, .CMXD-esika .CMXD-btn-help .CMXD-help:hover, .CMXD-esika .CMXD-btn-help .CMXD-open:hover, .CMXD-lbel .CMXD-btn-help .CMXD-help:hover, .CMXD-lbel .CMXD-btn-help .CMXD-open:hover {
     height: 100%;
     background-size: auto 100%;
     background-repeat: no-repeat;
-    transition: .2s;
+    transition: .2s
+}
+
+.CMXD-btn-help .CMXD-help {
+    background-image: url(../images/btn-help.png)
 }
 
 .CMXD-btn-help .CMXD-open {
     background-image: url(../images/btn-open.png);
-    height: 100%;
-    background-size: auto 100%;
-    background-repeat: no-repeat;
-    transition: .2s;
-    display: none;
+    display: none
 }
-/*Open Hover Lbel*/
 
 .CMXD-lbel .CMXD-btn-help .CMXD-help:hover {
     background-image: url(../images/btn-help-hover-lbel.png);
-    height: 100%;
-    background-size: auto 100%;
-    background-repeat: no-repeat;
-    transition: .2s;
-    cursor: pointer;
+    cursor: pointer
 }
 
 .CMXD-lbel .CMXD-btn-help .CMXD-open:hover {
     background-image: url(../images/btn-open-hover-lbel.png);
-    height: 100%;
-    background-size: auto 100%;
-    background-repeat: no-repeat;
-    transition: .2s;
-    cursor: pointer;
+    cursor: pointer
 }
-/*Open Hover Esika*/
 
 .CMXD-esika .CMXD-btn-help .CMXD-help:hover {
     background-image: url(../images/btn-help-hover-esika.png);
-    height: 100%;
-    background-size: auto 100%;
-    background-repeat: no-repeat;
-    transition: .2s;
-    cursor: pointer;
+    cursor: pointer
 }
 
 .CMXD-esika .CMXD-btn-help .CMXD-open:hover {
     background-image: url(../images/btn-open-hover-esika.png);
-    height: 100%;
-    background-size: auto 100%;
-    background-repeat: no-repeat;
-    transition: .2s;
-    cursor: pointer;
+    cursor: pointer
 }
 
 a {
-    text-decoration: none;
+    text-decoration: none
 }
-/******************ALERTAS******************/ /*Alerta LBEL*/
 
 .CMXD-lbel #loading_image {
-    content: url(../images/welcome-lbel.png);
+    content: url(../images/welcome-lbel.png)
 }
 
 .CMXD-lbel #schedule_image {
-    content: url(../images/calendar-lbel.png);
+    content: url(../images/calendar-lbel.png)
 }
 
 .CMXD-lbel #Error_image {
-    content: url(../images/error-lbel.png);
+    content: url(../images/error-lbel.png)
 }
 
 .CMXD-lbel #alert_image {
-    content: url(../images/alert-close-lbel.png);
+    content: url(../images/alert-close-lbel.png)
 }
-/*Alerta Esika*/
 
 .CMXD-esika #loading_image {
-    content: url(../images/welcome-esika.png);
+    content: url(../images/welcome-esika.png)
 }
 
 .CMXD-esika #schedule_image {
-    content: url(../images/calendar-esika.png);
+    content: url(../images/calendar-esika.png)
 }
 
 .CMXD-esika #Error_image {
-    content: url(../images/error-esika.png);
+    content: url(../images/error-esika.png)
 }
 
 .CMXD-esika #alert_image {
-    content: url(../images/alert-close-esika.png);
+    content: url(../images/alert-close-esika.png)
 }
-/******************ICONOS******************/
 
 .fa-comments-o {
-    font-size: 20px !important;
+    font-size: 20px !important
 }
 
 i.fa {
-    color: #3a3a3a;
+    color: #3a3a3a
 }
-/******************CONTENEDORES******************/
 
 .CMXD-container-chat {
     position: absolute;
@@ -147,30 +123,33 @@ i.fa {
     height: 490px;
     border-radius: 4px;
     background-color: #fbfbfb;
-    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.28);
+    box-shadow: 0 2px 8px 0 rgba(0,0,0,.28);
+    z-index: 10002
 }
-/******************HEADER******************/
 
 .CMXD-header-chat {
     padding: 10px 20px 0;
     margin-bottom: 20px;
-    background: rgba(255, 255, 255, 0.36);
+    background: rgba(255,255,255,.36)
 }
 
 .CMXD-line {
     margin-top: 10px;
-    border: 1px solid rgba(192, 192, 192, 0.35);
-    border-radius: 4px;
+    border: 1px solid rgba(192,192,192,.35);
+    border-radius: 4px
 }
 
 .CMXD-icons {
-    float: right;
+    float: right
 }
-/******************WELCOME CHAT******************/
+
+.chat-wrapper .chat-image, .chat-wrapper .chat-message.chat-message-recipient .chat-message-content, .chat-wrapper .chat-message.chat-message-recipient .chat-message-wrapper, .chat-wrapper .chat-message.chat-message-recipient .chat-message-wrapper2 {
+    float: left
+}
 
 .CMXD-img-welcome {
     text-align: center;
-    padding: 50px;
+    padding: 50px
 }
 
     .CMXD-img-welcome img {
@@ -179,21 +158,19 @@ i.fa {
 
 .CMXD-welcome {
     font-size: 21px;
-    font-weight: bold;
+    font-weight: 700;
     text-align: center;
-    color: #000000;
+    color: #000
 }
 
 .CMXD-description {
     width: 242px;
-    margin: auto;
+    margin: 20px auto auto;
     height: 36px;
     font-size: 15px;
     text-align: center;
-    color: #555555;
-    margin-top: 20px
+    color: #555
 }
-/******************CHAT******************/
 
 .chat-wrapper {
     overflow: auto;
@@ -205,147 +182,121 @@ i.fa {
 
     .chat-wrapper:before {
         content: " ";
-        display: block;
+        display: block
     }
 
-    .chat-wrapper .chat-image {
-        float: left;
+    .chat-wrapper .chat-image.chat-image-default {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px
     }
 
-        .chat-wrapper .chat-image.chat-image-default {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-        }
-
-        .chat-wrapper .chat-image.chat-image-default2 {
-            width: 15px;
-            height: 15px;
-            margin-top: 20px;
-            border-radius: 10px;
-            background-image: url(../images/check.png);
-            background-size: 100%;
-        }
-/*Asesor Lbel*/
+    .chat-wrapper .chat-image.chat-image-default2 {
+        width: 15px;
+        height: 15px;
+        margin-top: 20px;
+        border-radius: 10px;
+        background-image: url(../images/check.png);
+        background-size: 100%
+    }
 
 .CMXD-lbel span.asesor {
-    color: #744da7;
+    color: #744da7
 }
-/*Asesor Esika*/
 
 .CMXD-esika span.asesor {
-    color: #e81c36;
+    color: #e81c36
 }
 
 .chat-wrapper .chat-message {
     margin-bottom: 10px;
     width: 100%;
     display: table;
-    overflow: hidden;
+    overflow: hidden
 }
 
     .chat-wrapper .chat-message:before {
         content: " ";
-        display: block;
+        display: block
     }
 
     .chat-wrapper .chat-message:last-of-type {
-        margin-bottom: 0;
+        margin-bottom: 0
     }
 
-    .chat-wrapper .chat-message .chat-message-wrapper {
+    .chat-wrapper .chat-message .chat-message-wrapper, .chat-wrapper .chat-message .chat-message-wrapper2 {
         max-width: 77%;
         display: table;
         margin: 0 10px;
-        position: relative;
+        position: relative
     }
 
-    .chat-wrapper .chat-message .chat-message-wrapper2 {
-        max-width: 77%;
-        display: table;
-        margin: 0 10px;
-        position: relative;
-    }
-
-    .chat-wrapper .chat-message .chat-message-wrapper:before {
-        content: " ";
-        display: block;
-        width: 0;
-        height: 0;
-        border: 12px solid transparent;
-        top: 20px;
-        position: absolute;
-        z-index: 2;
-    }
+        .chat-wrapper .chat-message .chat-message-wrapper:before {
+            content: " ";
+            display: block;
+            width: 0;
+            height: 0;
+            border: 12px solid transparent;
+            top: 20px;
+            position: absolute;
+            z-index: 2
+        }
 
 .chat-message-content {
-    min-width: 114px;
+    min-width: 114px
 }
 
-.chat-wrapper .chat-message .chat-message-wrapper p {
+.chat-wrapper .chat-message .chat-message-wrapper p, .chat-wrapper .chat-message .chat-message-wrapper2 p {
     padding: 5px 10px;
     color: #363636;
-    border-top: 1px solid;
+    border-top: 1px solid
 }
 
-.chat-wrapper .chat-message .chat-message-wrapper2 p {
-    padding: 5px 10px;
-    color: #363636;
-    border-top: 1px solid;
+.chat-wrapper .chat-message .chat-details, .chat-wrapper .chat-message .chat-details2 {
+    clear: both;
+    width: 95%;
+    padding-bottom: 5px;
+    text-align: right;
+    font-size: 10px;
+    overflow: hidden
 }
 
-.chat-wrapper .chat-message .chat-message-wrapper p:first-of-type {
-    border-top: 0 !important;
+.chat-wrapper .chat-message .chat-message-wrapper p:first-of-type, .chat-wrapper .chat-message .chat-message-wrapper2 p:first-of-type {
+    border-top: 0 !important
 }
 
-.chat-wrapper .chat-message .chat-message-wrapper2 p:first-of-type {
-    border-top: 0 !important;
-}
-
-.chat-wrapper .chat-message.chat-message-recipient .chat-message-wrapper, .chat-wrapper .chat-message.chat-message-recipient .chat-message-content {
-    float: left;
-}
-
-.chat-wrapper .chat-message.chat-message-recipient .chat-message-wrapper2, .chat-wrapper .chat-message.chat-message-recipient .chat-message-content {
-    float: left;
+.chat-wrapper .chat-message.chat-message-sender .chat-message-content, .chat-wrapper .chat-message.chat-message-sender .chat-message-wrapper, .chat-wrapper .chat-message.chat-message-sender img {
+    float: right
 }
 
 .chat-wrapper .chat-message.chat-message-recipient .chat-message-wrapper:before {
     left: -20px;
-    border-right-color: white;
-    top: 5px;
+    border-right-color: #fff;
+    top: 5px
 }
 
 .bg1 {
-    background: white;
+    background: #fff
 }
 
 .bg2 {
-    background: #ebebeb;
+    background: #ebebeb
 }
 
 .chat-wrapper .chat-message.chat-message-recipient p {
-    background-color: white;
-    border-top-color: white;
+    background-color: #fff;
+    border-top-color: #fff
 }
 
-.chat-wrapper .chat-message.chat-message-sender .chat-message-wrapper, .chat-wrapper .chat-message.chat-message-sender .chat-message-content {
-    float: right;
+.chat-wrapper .chat-message.chat-message-sender .chat-message-wrapper:before {
+    right: -20px;
+    border-left-color: #ebebeb;
+    top: 20px
 }
-
-    .chat-wrapper .chat-message.chat-message-sender .chat-message-wrapper:before {
-        right: -20px;
-        border-left-color: #ebebeb;
-        top: 20px;
-    }
 
 .chat-wrapper .chat-message.chat-message-sender p {
     background: #ebebeb;
-    border-top-color: #ebebeb;
-}
-
-.chat-wrapper .chat-message.chat-message-sender img {
-    float: right;
+    border-top-color: #ebebeb
 }
 
 .chat-wrapper .chat-message .chat-message-content {
@@ -355,60 +306,48 @@ i.fa {
     -ms-border-radius: 4px;
     -moz-border-radius: 4px;
     -o-border-radius: 4px;
-    border-radius: px;
+    border-radius: px
 }
 
     .chat-wrapper .chat-message .chat-message-content:before {
         content: " ";
-        display: block;
+        display: block
     }
 
 .chat-wrapper .chat-message .chat-details {
-    clear: both;
-    width: 95%;
-    display: table;
-    overflow: hidden;
-    text-align: right;
-    font-size: 10px;
-    padding-bottom: 5px
+    display: table
 }
 
     .chat-wrapper .chat-message .chat-details:before {
         content: " ";
-        display: block;
+        display: block
     }
 
     .chat-wrapper .chat-message .chat-details span {
         margin-right: 4px;
-        color: #bbb;
+        color: #bbb
     }
 
 .chat-wrapper .chat-message .chat-details2 {
-    clear: both;
-    width: 95%;
     display: table;
-    overflow: hidden;
-    padding-bottom: 5px;
-    text-align: right;
-    font-size: 10px;
-    background: #ebebeb;
+    background: #ebebeb
 }
 
     .chat-wrapper .chat-message .chat-details2:before {
         content: " ";
-        display: block;
+        display: block
     }
 
     .chat-wrapper .chat-message .chat-details2 span {
         margin-right: 4px;
-        color: #929292;
+        color: #929292
     }
 
 .load-3 {
     margin-left: 5px;
     margin-right: 5px;
     margin-top: 3px;
-    padding: 5px;
+    padding: 5px
 }
 
 .line {
@@ -417,40 +356,36 @@ i.fa {
     height: 10px;
     border-radius: 15px;
     background-color: #bbb;
-    margin-bottom: 8px;
+    margin-bottom: 8px
 }
 
 .load-3 .line:nth-last-child(1) {
-    animation: loadingC .8s .1s linear infinite;
+    animation: loadingC .8s .1s linear infinite
 }
 
 .load-3 .line:nth-last-child(2) {
-    animation: loadingC .8s .2s linear infinite;
+    animation: loadingC .8s .2s linear infinite
 }
 
 .load-3 .line:nth-last-child(3) {
-    animation: loadingC .8s .3s linear infinite;
+    animation: loadingC .8s .3s linear infinite
 }
 
 @keyframes loadingC {
-    0 {
-        transform: translate(0,0);
+    0,100% {
+        transform: translate(0,0)
     }
 
     50% {
         transform: translate(0,5px);
-        opacity: .6;
-    }
-
-    100% {
-        transform: translate(0,0);
+        opacity: .6
     }
 }
 
 .container-txt {
     width: 100%;
     height: 70px;
-    background: #ebebeb;
+    background: #ebebeb
 }
 
 .txtarea {
@@ -459,18 +394,22 @@ i.fa {
     resize: none;
     padding: 10px;
     font-size: 13px !important;
-    background: none;
+    background: 0 0;
     float: left;
     border: none;
-    color: #797979 !important;
+    color: #797979 !important
 }
 
     .txtarea:focus {
-        border-color: rgba(102, 175, 233, 0);
+        border-color: rgba(102,175,233,0);
         outline: 0;
-        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0);
-        box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0);
+        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,0);
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,0)
     }
+
+.CMXD-esika .btn-no:hover, .CMXD-esika .btn-yes:hover, .CMXD-lbel .btn-no:hover, .CMXD-lbel .btn-yes:hover {
+    box-shadow: -2px 2px 5px rgba(0,0,0,.4)
+}
 
 .send {
     width: 14%;
@@ -480,106 +419,86 @@ i.fa {
     font-size: 13px;
     overflow: hidden;
     font-weight: 550;
-    color: #505050;
+    color: #505050
 }
-/*Asesor Lbel*/
 
-.CMXD-esika .send:before {
+.CMXD-esika .send:before, .CMXD-lbel .send:before {
     content: '';
     position: absolute;
     bottom: 0;
     right: 0;
     width: 0;
     height: 70px;
-    background: rgba(202, 62, 62, 0.3);
-    transition: all .5s ease;
+    transition: all .5s ease
+}
+
+.CMXD-esika .send:before {
+    background: rgba(202,62,62,.3)
 }
 
 .CMXD-lbel .send:before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 0;
-    height: 70px;
-    background: rgba(104, 62, 202, 0.3);
-    transition: all .5s ease;
+    background: rgba(104,62,202,.3)
 }
 
 .send:hover:before {
-    width: 50px !important;
+    width: 50px !important
 }
 
     .send:hover:before .fa-paper-plane-o {
-        color: white;
+        color: #fff
     }
 
 .fa-paper-plane-o {
-    color: #797979 !important;
+    color: #797979 !important
 }
-/******************BOTONES******************/ /*Boton Lbel*/
+
+.CMXD-esika .btn-no, .CMXD-esika .btn-yes, .CMXD-lbel .btn-no, .CMXD-lbel .btn-yes {
+    padding: 10px 40px;
+    color: #fff;
+    border-radius: 4px;
+    text-decoration: none
+}
 
 .CMXD-lbel .btn-yes {
     background: #7a57a8;
-    padding: 10px 40px;
-    color: white;
-    border-radius: 4px;
-    transition: .2s;
-    text-decoration: none;
+    transition: .2s
 }
 
     .CMXD-lbel .btn-yes:hover {
         background: #7a57a8;
-        background: linear-gradient(to right, #7a57a8, #b79add);
-        box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.4);
-        transition: .2s;
+        background: linear-gradient(to right,#7a57a8,#b79add);
+        transition: .2s
     }
 
 .CMXD-lbel .btn-no {
-    background: #5d4084;
-    padding: 10px 40px;
-    color: white;
-    border-radius: 4px;
-    text-decoration: none;
+    background: #5d4084
 }
 
     .CMXD-lbel .btn-no:hover {
         background: #7a57a8;
-        background: linear-gradient(to right, #5d4084, #9379b5);
-        box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.4);
-        transition: .2s;
+        background: linear-gradient(to right,#5d4084,#9379b5);
+        transition: .2s
     }
-/*Boton Esika*/
 
 .CMXD-esika .btn-yes {
     background: #e81c36;
-    padding: 10px 40px;
-    color: white;
-    border-radius: 4px;
-    transition: .2s;
-    text-decoration: none;
+    transition: .2s
 }
 
     .CMXD-esika .btn-yes:hover {
         background: #e81c36;
-        background: linear-gradient(to right, #e81c36, #F57082);
-        box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.4);
-        transition: .2s;
+        background: linear-gradient(to right,#e81c36,#F57082);
+        transition: .2s
     }
 
 .CMXD-esika .btn-no {
-    background: #B11328;
-    padding: 10px 40px;
-    color: white;
-    border-radius: 4px;
-    text-decoration: none;
+    background: #B11328
 }
 
     .CMXD-esika .btn-no:hover {
         background: #B11328;
-        background: linear-gradient(to right, #B11328, #CC5565);
-        box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.4);
-        transition: .2s;
+        background: linear-gradient(to right,#B11328,#CC5565);
+        transition: .2s
     }
 
 .container-movil {
@@ -587,19 +506,15 @@ i.fa {
     width: 100%;
     height: 100%;
     top: 0;
-    background: rgba(0, 0, 0, 0.31);
-    display: none;
+    background: rgba(0,0,0,.31);
+    display: none
 }
-
-@media only screen and (max-width : 500px) {
-}
-/******************SCROLL******************/ /*Scroll Lbel*/
 
 ::-webkit-scrollbar-thumb {
-    background-color: rgba(124, 124, 124, 0.47);
-    border-radius: 20px;
+    background-color: rgba(124,124,124,.47);
+    border-radius: 20px
 }
 
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 8px
 }
