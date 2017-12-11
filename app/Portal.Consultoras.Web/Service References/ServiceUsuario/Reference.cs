@@ -4902,7 +4902,7 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private int TipoUsuarioField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string descripcionHorarioChatField;
+        private string descripcionHorarioField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -5123,14 +5123,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string descripcionHorarioChat {
+        public string descripcionHorario {
             get {
-                return this.descripcionHorarioChatField;
+                return this.descripcionHorarioField;
             }
             set {
-                if ((object.ReferenceEquals(this.descripcionHorarioChatField, value) != true)) {
-                    this.descripcionHorarioChatField = value;
-                    this.RaisePropertyChanged("descripcionHorarioChat");
+                if ((object.ReferenceEquals(this.descripcionHorarioField, value) != true)) {
+                    this.descripcionHorarioField = value;
+                    this.RaisePropertyChanged("descripcionHorario");
                 }
             }
         }

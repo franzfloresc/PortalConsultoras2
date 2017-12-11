@@ -314,7 +314,6 @@ $(document).ready(function () {
     });
 
     $(".RecuperarPorCorreo").click(function () {
-        debugger
         if (correoRecuperar != "") {
             nroIntentos = nroIntentos + 1;
             ProcesaEnvioEmail();            
@@ -322,13 +321,11 @@ $(document).ready(function () {
     });
 
     $(".opcionSms").click(function () {
-        debugger
 
     });
 
     $("#vermasopciones1").click(function () {
         waitingDialog();
-        debugger
         var _tipoRecuperar = $.trim($("#vermasopciones1").attr("data-recuperar"));
         $("#vermasopciones1").attr("data-recuperar", "3");
         RecuperarClave(_tipoRecuperar);
@@ -337,7 +334,6 @@ $(document).ready(function () {
 
 ////////////
 function Construir_EnlacexDispositivo(Modo) {
-    debugger
     var v_urlbase = $("#hd_CONTEXTO_BASE").val();
     var paisId = $("#cboPaisCambioClave").val();
     var codigoUsuario = $("#hdCodigoConsultora").val();
@@ -875,7 +871,6 @@ function Enmascarar_Numero(pNumCelular){
 }
 
 function ProcesaEnvioEmail() {
-    debugger
     var paisId = $("#cboPaisCambioClave").val();
 
     var parametros = {
@@ -964,7 +959,6 @@ function Fondofestivo(id)
 }
 
 function RecuperarClave(tipoRecuperar) {
-    debugger
     var v_mensaje = $("#hdfCorreoElectronico").val().trim();
     var s_correo = "";
 
@@ -989,10 +983,12 @@ function RecuperarClave(tipoRecuperar) {
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify({ paisId: paisId, textoRecuperacion: correo, MensajeErrorPais: v_mensaje, TipoRecuperacion: tipoRecuperar}),
         async: true,
-        success: function (response) {
-            OcultarContenidoPopup();
+        success: function (response) {           
             if (response.success) {
-                debugger     
+                if (response.resul == "")
+                    return false;
+
+                OcultarContenidoPopup();
 
                 if (!response.data.FlagBloqueoCorreo) {
                     $("#divRecup_porcorreo").addClass("deshabilitar_opcion_correo");
@@ -1003,9 +999,11 @@ function RecuperarClave(tipoRecuperar) {
                 }
 
                 if (!response.data.FlagBloqueoCelular) {
+                    $("#divRecup_porsms").addClass("deshabilitar_opcion_correo");
+                    $("#divRecup_porsms").css("pointer-events", "none");
+                } else {
                     $("#divRecup_porsms").removeClass("deshabilitar_opcion_correo");
                     $("#divRecup_porsms").css("pointer-events", "");
-                } else {
                 }
 
                 var nroCelular = $.trim(response.data.Celular);
@@ -1085,6 +1083,7 @@ function RecuperarClave(tipoRecuperar) {
                         {
                             $("#menPrioridad3").html(primerNombre + ", discúlpanos, en estos momentos no podemos atenderte");
                             $("#spnNombreConsultora").hide();
+                            $(".divHorario").html(response.data.descripcionHorario);
                             $("#menPrioridad3").show();
                             $("#prioridad3").show();
                         } break;                                            
@@ -1104,7 +1103,6 @@ function RecuperarClave(tipoRecuperar) {
             //    //alert("Mensaje: " + response.message + " Incorrectas");
             //    return false;
             //}
-            //debugger
             //s_correo = ($.trim(response.data.Correo).length > 0) ? Enmascarar_Correo($.trim(response.data.Correo)) : "Usted no cuenta con un correo registrado";
 
             //$("#hdcorreo").val($.trim(response.data.Correo));

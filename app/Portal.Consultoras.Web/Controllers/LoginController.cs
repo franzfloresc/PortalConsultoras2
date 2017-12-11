@@ -1527,8 +1527,8 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         string paisISO = Util.GetPaisISO(paisId);
                         mostrarChat = (ConfigurationManager.AppSettings["PaisesBelcorpChatEMTELCO"] ?? "").Contains(paisISO);
-                        oRestaurarClave.descripcionHorarioChat = horarioChat.Resumen;
-                        habilitarChat = false;//horarioChat.EstaDisponible;
+                        oRestaurarClave.descripcionHorario = horarioChat.Resumen;
+                        habilitarChat = horarioChat.EstaDisponible;
                     }
 
                     if (mostrarChat && habilitarChat)
@@ -1549,6 +1549,7 @@ namespace Portal.Consultoras.Web.Controllers
                         horarioBResponde = sv.GetHorarioByCodigo(paisId, Constantes.CodigoHorario.BelcorpResponde, true);
                     }
 
+                    oRestaurarClave.descripcionHorario = horarioBResponde.Resumen;
                     habilitarBResponde = horarioBResponde.EstaDisponible;
 
                     if (habilitarBResponde)
@@ -1638,9 +1639,12 @@ namespace Portal.Consultoras.Web.Controllers
                         if (oRestaurarClave.TelefonoCentral.Length > 0)
                             resul = "prioridad2_llamada";
                     }
+
+                    if (resul == "")
+                        TipoRecuperacion = "4";
                 }
                 
-                if (resul == "")
+                if (resul == "" && TipoRecuperacion == "4")
                 {
                     resul = "prioridad3";
                 }

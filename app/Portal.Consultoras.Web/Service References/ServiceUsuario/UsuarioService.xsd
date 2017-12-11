@@ -412,7 +412,7 @@
       <xs:element minOccurs="0" name="RolID" type="xs:int" />
       <xs:element minOccurs="0" name="TelefonoCentral" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoUsuario" type="xs:int" />
-      <xs:element minOccurs="0" name="descripcionHorarioChat" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="descripcionHorario" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEUsuarioCorreo" nillable="true" type="tns:BEUsuarioCorreo" />

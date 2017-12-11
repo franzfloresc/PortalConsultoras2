@@ -9,7 +9,7 @@ BEGIN
 END
 GO
 CREATE PROCEDURE dbo.HorarioEstaDisponible
-	@CodigoHorario varchar(12)
+	@CodigoHorario varchar(50)
 AS
 BEGIN
 	declare @EstaDisponible bit = 0;
