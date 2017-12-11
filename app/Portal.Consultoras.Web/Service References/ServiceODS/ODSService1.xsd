@@ -190,6 +190,14 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEComprobantePercepcionDetalle" nillable="true" type="tns:BEComprobantePercepcionDetalle" />
+  <xs:complexType name="BEPagoEnLineaInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="FechaConferencia" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="MontoSaldoActual" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEPagoEnLineaInfo" nillable="true" type="tns:BEPagoEnLineaInfo" />
   <xs:complexType name="ArrayOfBEMensajeCUV">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="BEMensajeCUV" nillable="true" type="tns:BEMensajeCUV" />

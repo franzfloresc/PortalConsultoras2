@@ -1,5 +1,7 @@
-﻿using Portal.Consultoras.Common;
+﻿using AutoMapper;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServiceODS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,20 +15,23 @@ namespace Portal.Consultoras.Web.Controllers
         // GET: PagoEnLinea
         public ActionResult Index()
         {
-            //ViewBag.CodigoConsultoraDL
-            //ViewBag.UsuarioNombre
-            ViewBag.SaldoActual = ObtenerSaldoActualConsultora();
+            PagoEnlineaInfoModel PagoLinea = GetPagoEnlineaInfo();
+            ViewBag.NombreCompleto = PagoLinea.Nombre;
+            ViewBag.SaldoActual = PagoLinea.MontoSaldoActual;
+            ViewBag.FechaVencimiento = PagoLinea.FechaConferencia;
+           
             return View();
         }
 
-        public decimal ObtenerSaldoActualConsultora()
+        public PagoEnlineaInfoModel GetPagoEnlineaInfo()
         {
-            decimal Saldo = 0;
+            PagoEnlineaInfoModel PagoLineaModel = new PagoEnlineaInfoModel();
             try
             {
                 using (ServiceODS.ODSServiceClient sv = new ServiceODS.ODSServiceClient())
                 {
-                    Saldo = sv.GetSaldoActualConsultora(userData.PaisID, userData.CodigoConsultora);
+                    BEPagoEnLineaInfo PagoInfo = sv.GetPagoEnLineaInfo(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID, userData.ZonaID);
+                    PagoLineaModel = Mapper.Map<BEPagoEnLineaInfo, PagoEnlineaInfoModel>(PagoInfo);
                 }
             }
             catch (FaultException ex)
@@ -37,10 +42,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
-            return Saldo;
+            return PagoLineaModel;
         }
-
-
-
     }
 }
