@@ -948,8 +948,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (!model.CargoEntidadesShowRoom) CargarEntidadesShowRoom(model);
 
-                model.UsuarioNombre = string.IsNullOrEmpty(model.Sobrenombre) ? model.NombreConsultora : model.Sobrenombre;
-            ViewBag.ConsultoraAsociada = model.ConsultoraAsociada; 
+                model.UsuarioNombre = string.IsNullOrEmpty(model.Sobrenombre) ? model.NombreConsultora : model.Sobrenombre;            
 
                 model.FechaHoy = DateTime.Now.AddHours(model.ZonaHoraria).Date;
                 model.EsDiasFacturacion = model.FechaHoy >= model.FechaInicioCampania.Date && model.FechaHoy <= model.FechaFinCampania.Date;
