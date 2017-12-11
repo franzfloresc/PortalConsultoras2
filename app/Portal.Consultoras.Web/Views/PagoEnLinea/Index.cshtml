@@ -15,33 +15,35 @@
     <div class="pestana_lbel"></div>
     <div class="EstadoCuenta">
         <div class="content_left_pagos">
-            <table>
-                <tbody>
-                    <tr>
-                        <td>Tu Código de usuario: &nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>Tu Nombre Completo: &nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>Vencimiento del pago: &nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>&nbsp;Pago Total</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>&nbsp;Pago Parcial</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">He leido y acepto los términos y condiciones.</td>
-                    </tr>
-                </tbody>
-            </table>
+            <form class="formulario_actualizar_datos">
+                <div class="datos_consultora">
+                    <div class="datos_consultora_textos">
+                        <div class="datos_cod_usuario">
+                            <span>Tu Código de usuario:</span>
+                            <span id="codigoUsuario"></span>
+                        </div>
+                        <div class="datos_nombre_usuario">
+                            <span>Tu Nombre completo:</span>
+                            <span id="nombresUsuario"></span>
+                        </div>
+                        <div class="datos_nombre_usuario">
+                            <span>Vencimiento del pago:</span>
+                            <span id="nombreGerenteZonal"></span>
+                        </div>
+                        <div class="datos_nombre_usuario">
+                            <span>Pago total:</span>
+                            <span id="pagoTotal"></span>
+                        </div>
+                        <div class="datos_nombre_usuario">
+                            <span>Pago parcial:</span>
+                            <span id="pagoParcial"></span>
+                        </div>                       
+                        @*<div class="enlace_cambiarContraseniachkAceptoContratoMD">
+                                <a href="javascript:;" class="cambiar_contrasenia misDatosContraseniaEnlace">CAMBIAR CONTRASEÑA</a>
+                            </div>*@
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
     <div class="content_derecha_pagos">
