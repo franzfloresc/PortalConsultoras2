@@ -891,8 +891,8 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.TieneCDRExpress = usuario.TieneCDRExpress;
                     usuarioModel.EsConsecutivoNueva = usuario.EsConsecutivoNueva;
 
-                    model.CodigoPrograma = oBEUsuario.CodigoPrograma;
-                    model.ConsecutivoNueva = oBEUsuario.ConsecutivoNueva;
+                    usuarioModel.CodigoPrograma = usuario.CodigoPrograma;
+                    usuarioModel.ConsecutivoNueva = usuario.ConsecutivoNueva;
 
                     #endregion
 
