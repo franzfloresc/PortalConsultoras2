@@ -6569,6 +6569,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private decimal MontoTotalProlField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NombreClienteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ObservacionPROLField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -6713,6 +6716,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.MontoTotalProlField.Equals(value) != true)) {
                     this.MontoTotalProlField = value;
                     this.RaisePropertyChanged("MontoTotalProl");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string NombreCliente {
+            get {
+                return this.NombreClienteField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NombreClienteField, value) != true)) {
+                    this.NombreClienteField = value;
+                    this.RaisePropertyChanged("NombreCliente");
                 }
             }
         }
