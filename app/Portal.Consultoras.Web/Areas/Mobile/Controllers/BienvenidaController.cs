@@ -81,7 +81,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.TieneMasVendidos = userData.TieneMasVendidos;
                 model.TieneAsesoraOnline = userData.TieneAsesoraOnline;
                 model.ActivacionAppCatalogoWhastUp = ObtenerActivacionAppCatalogoWhastUp();
-                model.CampaniaMasDos = AddCampaniaAndNumero(userData.CampaniaID, 2) % 100;
                 model.ShowRoomMostrarLista = ValidarPermiso(Constantes.MenuCodigo.CatalogoPersonalizado) ? 0 : 1;
 
                 ViewBag.paisISO = userData.CodigoISO;
