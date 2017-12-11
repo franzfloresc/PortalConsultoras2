@@ -462,7 +462,7 @@ var rdAnalyticsModule = (function () {
     }
 
     function ContendorSection(titulo) {
-        _virtualEventPush(_text.contenedor, titulo.toLowerCase() + " - Ver Todo", _text.notAvailable);
+        _virtualEventPush(_text.contenedor + " - Home", titulo.toLowerCase() + " - Ver Todo", _text.notAvailable);
     }
     return { //rdAnalyticsModule
         CancelarSuscripcion: CancelarSuscripcion,
