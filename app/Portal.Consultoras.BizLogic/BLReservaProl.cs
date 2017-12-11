@@ -41,6 +41,25 @@ namespace Portal.Consultoras.BizLogic
                 usuario.CampaniaID = campania;
                 usuario.AceptacionConsultoraDA = aceptacionConsultoraDA;
 
+                #region Consultora Programa Nuevas
+
+                BEConsultorasProgramaNuevas beConsultoraProgramaNuevas = null;
+                var daConsultoraProgramaNuevas = new DAConsultorasProgramaNuevas(paisID);
+
+                using (IDataReader reader = daConsultoraProgramaNuevas.GetConsultorasProgramaNuevasByConsultoraId(usuario.ConsultoraID))
+                {
+                    if (reader.Read())
+                        beConsultoraProgramaNuevas = new BEConsultorasProgramaNuevas(reader);
+                }
+
+                if (beConsultoraProgramaNuevas != null)
+                {
+                    usuario.ConsecutivoNueva = beConsultoraProgramaNuevas.ConsecutivoNueva;
+                    usuario.CodigoPrograma = beConsultoraProgramaNuevas.CodigoPrograma ?? "";
+                }
+
+                #endregion                
+
                 return DeshacerPedidoValidado(usuario, tipo);
             }
             catch (Exception ex)
@@ -70,7 +89,15 @@ namespace Portal.Consultoras.BizLogic
             short estado = validacionAbierta ? Constantes.EstadoPedido.Procesado : Constantes.EstadoPedido.Pendiente;
             int pedidoID = 0;
 
-            var listPedidoWebDetalle = bLPedidoWebDetalle.GetPedidoWebDetalleByCampania(usuario.PaisID, usuario.CampaniaID, usuario.ConsultoraID, usuario.Nombre).ToList();
+            var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros();
+            bePedidoWebDetalleParametros.PaisId = usuario.PaisID;
+            bePedidoWebDetalleParametros.CampaniaId = usuario.CampaniaID;
+            bePedidoWebDetalleParametros.ConsultoraId = usuario.ConsultoraID;
+            bePedidoWebDetalleParametros.Consultora = usuario.Nombre;
+            bePedidoWebDetalleParametros.CodigoPrograma = usuario.CodigoPrograma;
+            bePedidoWebDetalleParametros.NumeroPedido = usuario.ConsecutivoNueva;
+
+            var listPedidoWebDetalle = bLPedidoWebDetalle.GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros).ToList();
             if (listPedidoWebDetalle.Count == 0)
             {
                 pedidoID = new BLPedidoWeb().GetPedidoWebID(usuario.PaisID, usuario.CampaniaID, usuario.ConsultoraID);
@@ -101,6 +128,10 @@ namespace Portal.Consultoras.BizLogic
                     if (reader.Read())
                         usuario = new BEUsuario(reader, true);
                 }
+
+                if (usuario == null)
+                    return null;
+
                 BEConfiguracionCampania configuracion = null;
                 usuario = usuario ?? new BEUsuario();
                 using (IDataReader reader = new DAPedidoWeb(paisID).GetEstadoPedido(campania, usuarioPrueba ? usuario.ConsultoraAsociadaID : usuario.ConsultoraID))
@@ -109,6 +140,25 @@ namespace Portal.Consultoras.BizLogic
                         configuracion = new BEConfiguracionCampania(reader);
                 }
                 UpdateDiaPROLAndEsHoraReserva(usuario);
+
+                #region Consultora Programa Nuevas
+
+                BEConsultorasProgramaNuevas beConsultoraProgramaNuevas = null;
+                var daConsultoraProgramaNuevas = new DAConsultorasProgramaNuevas(paisID);
+
+                using (IDataReader reader = daConsultoraProgramaNuevas.GetConsultorasProgramaNuevasByConsultoraId(usuarioPrueba ? usuario.ConsultoraAsociadaID : usuario.ConsultoraID))
+                {
+                    if (reader.Read())
+                        beConsultoraProgramaNuevas = new BEConsultorasProgramaNuevas(reader);
+                }
+
+                if (beConsultoraProgramaNuevas != null)
+                {
+                    usuario.ConsecutivoNueva = beConsultoraProgramaNuevas.ConsecutivoNueva;
+                    usuario.CodigoPrograma = beConsultoraProgramaNuevas.CodigoPrograma ?? "";
+                }
+
+                #endregion
 
                 var input = new BEInputReservaProl
                 {
@@ -135,7 +185,9 @@ namespace Portal.Consultoras.BizLogic
                     ValidacionAbierta = configuracion != null && configuracion.ValidacionAbierta,
                     FechaFacturacion = usuario.DiaPROL ? usuario.FechaFinFacturacion : usuario.FechaInicioFacturacion.AddDays(-usuario.DiasAntes),
                     EnviarCorreo = enviarCorreo,
-                    SegmentoInternoID = (usuario.SegmentoInternoID == null ? 0 : Convert.ToInt32(usuario.SegmentoInternoID))
+                    SegmentoInternoID = (usuario.SegmentoInternoID == null ? 0 : Convert.ToInt32(usuario.SegmentoInternoID)),
+                    CodigoPrograma = usuario.CodigoPrograma,
+                    ConsecutivoNueva = usuario.ConsecutivoNueva
                 };
 
                 if (usuario.TieneHana == 1)
@@ -199,7 +251,16 @@ namespace Portal.Consultoras.BizLogic
             if (!input.ValidacionInteractiva) return new BEResultadoReservaProl { ResultadoReservaEnum = Enumeradores.ResultadoReserva.ReservaNoDisponible };
             try
             {
-                var listPedidoWebDetalle = new BLPedidoWebDetalle().GetPedidoWebDetalleByCampania(input.PaisID, input.CampaniaID, input.ConsultoraID, input.NombreConsultora, input.EsOpt).ToList();
+                var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros();
+                bePedidoWebDetalleParametros.PaisId = input.PaisID;
+                bePedidoWebDetalleParametros.CampaniaId = input.CampaniaID;
+                bePedidoWebDetalleParametros.ConsultoraId = input.ConsultoraID;
+                bePedidoWebDetalleParametros.Consultora = input.NombreConsultora;
+                bePedidoWebDetalleParametros.EsBpt = input.EsOpt == 1;
+                bePedidoWebDetalleParametros.CodigoPrograma = input.CodigoPrograma;
+                bePedidoWebDetalleParametros.NumeroPedido = input.ConsecutivoNueva;
+
+                var listPedidoWebDetalle = new BLPedidoWebDetalle().GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros).ToList();
                 if (listPedidoWebDetalle.Count > 0) input.PedidoID = listPedidoWebDetalle[0].PedidoID;
 
                 BECUVAutomatico producto = new BECUVAutomatico { CampaniaID = input.CampaniaID };
@@ -232,7 +293,16 @@ namespace Portal.Consultoras.BizLogic
         {
             try
             {
-                var listPedidoWebDetalle = new BLPedidoWebDetalle().GetPedidoWebDetalleByCampania(input.PaisID, input.CampaniaID, input.ConsultoraID, input.NombreConsultora, input.EsOpt).ToList();
+                var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros();
+                bePedidoWebDetalleParametros.PaisId = input.PaisID;
+                bePedidoWebDetalleParametros.CampaniaId = input.CampaniaID;
+                bePedidoWebDetalleParametros.ConsultoraId = input.ConsultoraID;
+                bePedidoWebDetalleParametros.Consultora = input.NombreConsultora;
+                bePedidoWebDetalleParametros.EsBpt = input.EsOpt == 1;
+                bePedidoWebDetalleParametros.CodigoPrograma = input.CodigoPrograma;
+                bePedidoWebDetalleParametros.NumeroPedido = input.ConsecutivoNueva;
+
+                var listPedidoWebDetalle = new BLPedidoWebDetalle().GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros).ToList();
                 if (listPedidoWebDetalle.Count > 0) input.PedidoID = listPedidoWebDetalle[0].PedidoID;
 
                 BECUVAutomatico producto = new BECUVAutomatico { CampaniaID = input.CampaniaID };
@@ -261,7 +331,15 @@ namespace Portal.Consultoras.BizLogic
                 }
                 if (datos == null) return -1;
 
-                var listPedidoWebDetalle = new BLPedidoWebDetalle().GetPedidoWebDetalleByCampania(input.PaisID, input.CampaniaID, input.ConsultoraID, input.NombreConsultora, input.EsOpt).ToList();
+                var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros();
+                bePedidoWebDetalleParametros.PaisId = input.PaisID;
+                bePedidoWebDetalleParametros.CampaniaId = input.CampaniaID;
+                bePedidoWebDetalleParametros.ConsultoraId = input.ConsultoraID;
+                bePedidoWebDetalleParametros.Consultora = input.NombreConsultora;
+                bePedidoWebDetalleParametros.EsBpt = input.EsOpt == 1;
+                bePedidoWebDetalleParametros.CodigoPrograma = input.CodigoPrograma;
+                bePedidoWebDetalleParametros.NumeroPedido = input.ConsecutivoNueva;
+                var listPedidoWebDetalle = new BLPedidoWebDetalle().GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros).ToList();
                 if (listPedidoWebDetalle.Count == 0) return 0;
 
                 var listPedidoReserva = GetPedidoReserva(datos.data.Tables[0], listPedidoWebDetalle, input.CodigoUsuario);

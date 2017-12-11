@@ -1599,7 +1599,7 @@
                     <span class="texto_pedidos_ofertas">
                         {{#iff (UpperCase DescripcionOferta) 'Contains' 'OFERTA PARA TI'}}
                         {{else}}
-                        <label for="{{DescripcionOferta}}">{{Replace (Replace DescripcionOferta '[' '') ']' ''}}</label>
+                        <label for="{{DescripcionOferta}}">{{DescripcionOferta}}</label>
                         {{/iff}}
                     </span>
                     {{/IsNullOrEmpty}}
@@ -1624,7 +1624,7 @@
                 {{Split DescripcionProd '|' 0}}
             </div>
 
-                    <input type="hidden" name="hdfTipoEstrategia{{PedidoID}}" value="{{TipoEstrategiaID}}" id="hdfTipoEstrategia{{PedidoID}}" />
+                    <input type="hidden" name="hdfFlagNueva{{PedidoID}}" value="{{FlagNueva}}" id="hdfFlagNueva{{PedidoID}}" />
                     <input type="hidden" name="hdfCampaniaID{{PedidoID}}" value="{{CampaniaID}}" id="hdfCampaniaID{{PedidoID}}" />
                     <input type="hidden" name="hdfPedidoId{{PedidoID}}" value="{{PedidoID}}" id="hdfPedidoId{{PedidoID}}" />
                     <input type="hidden" name="hdfPedidoDetalleID{{PedidoID}}" value="{{PedidoDetalleID}}" id="hdfPedidoDetalleID{{PedidoID}}" />
@@ -1635,7 +1635,7 @@
                 <div class="celda_cantidad_pedidos">
                     {{#if EsKitNueva}}
                     <div class="texto_pedidos" style="text-align:center; margin: 0;padding:0;">{{Cantidad}}</div>
-                    {{else iff TipoEstrategiaID '==' 1}}
+                    {{else if FlagNueva}}
                     <div class="texto_pedidos" style="text-align:center; margin: 0;padding:0;">{{Cantidad}}</div>
                     {{else}}
                     <div class="liquidacion_rango_wrapper_pedido cantidad_detalle_focus">

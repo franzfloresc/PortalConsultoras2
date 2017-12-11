@@ -846,7 +846,16 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    lst = sv.SelectByCampania(userData.PaisID, int.Parse(CampaniaId), ObtenerConsultoraId(), userData.NombreConsultora, EsOpt()).ToList();
+                    var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros();
+                    bePedidoWebDetalleParametros.PaisId = userData.PaisID;
+                    bePedidoWebDetalleParametros.CampaniaId = int.Parse(CampaniaId);
+                    bePedidoWebDetalleParametros.ConsultoraId = ObtenerConsultoraId();
+                    bePedidoWebDetalleParametros.Consultora = userData.NombreConsultora;
+                    bePedidoWebDetalleParametros.EsBpt = EsOpt() == 1;
+                    bePedidoWebDetalleParametros.CodigoPrograma = userData.CodigoPrograma;
+                    bePedidoWebDetalleParametros.NumeroPedido = userData.ConsecutivoNueva;
+
+                    lst = sv.SelectByCampania(bePedidoWebDetalleParametros).ToList();
                 }
                 lst.Update(c => c.NombreCliente = string.IsNullOrEmpty(c.Nombre) ? userData.NombreConsultora : c.Nombre);
                 #endregion

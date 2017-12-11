@@ -295,6 +295,21 @@ namespace Portal.Consultoras.BizLogic
                         }
                     }
                 }
+
+                BEConsultorasProgramaNuevas beConsultoraProgramaNuevas = null;
+                var daConsultoraProgramaNuevas = new DAConsultorasProgramaNuevas(paisID);
+
+                using (IDataReader reader = daConsultoraProgramaNuevas.GetConsultorasProgramaNuevasByConsultoraId(usuario.ConsultoraID))
+                {
+                    if (reader.Read())
+                        beConsultoraProgramaNuevas = new BEConsultorasProgramaNuevas(reader);
+                }
+
+                if (beConsultoraProgramaNuevas != null)
+                {
+                    usuario.ConsecutivoNueva = beConsultoraProgramaNuevas.ConsecutivoNueva;
+                    usuario.CodigoPrograma = beConsultoraProgramaNuevas.CodigoPrograma ?? "";
+                }
             }
 
             return usuario;
