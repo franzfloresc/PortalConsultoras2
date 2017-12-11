@@ -23,7 +23,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                model.RevistaDigital = revistaDigital;
+                model.PartialSectionBpt = GetPartialSectionBptModel();
 
                 ViewBag.UrlImgMiAcademia = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlImgMiAcademia) + "/" + userData.CodigoISO + "/academia.png";
                 ViewBag.RutaImagenNoDisponible = GetConfiguracionManager(Constantes.ConfiguracionManager.rutaImagenNotFoundAppCatalogo);
@@ -2256,6 +2256,52 @@ namespace Portal.Consultoras.Web.Controllers
                 UsuarioModificacion = cuponBE.UsuarioModificacion,
                 TipoCupon = cuponBE.TipoCupon
             };
+        }
+
+        private PartialSectionBpt GetPartialSectionBptModel()
+        {
+            var partial = new PartialSectionBpt();
+
+            try
+            {
+                partial.RevistaDigital = revistaDigital;
+
+                if (revistaDigital.TieneRDC)
+                {
+                    if (revistaDigital.EsActiva)
+                    {
+                        if (revistaDigital.EsSuscrita)
+                        {
+                            partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DBienvenidaInscritaActiva) ?? new ConfiguracionPaisDatosModel();
+                        }
+                        else
+                        {
+                            partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DBienvenidaNoInscritaActiva) ?? new ConfiguracionPaisDatosModel();
+                        }
+                    }
+                    else
+                    {
+                        if (revistaDigital.EsSuscrita)
+                        {
+                            partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DBienvenidaInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
+                        }
+                        else
+                        {
+                            partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DBienvenidaNoInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
+                        }
+                    }
+                }
+                else if (revistaDigital.TieneRDR)
+                {
+                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDR.DBienvenidaRdr) ?? new ConfiguracionPaisDatosModel();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
+            }
+
+            return partial;
         }
     }
 }

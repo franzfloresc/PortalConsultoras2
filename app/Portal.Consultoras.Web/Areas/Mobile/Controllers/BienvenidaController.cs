@@ -87,7 +87,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 ViewBag.Ambiente = GetBucketNameFromConfig();
                 ViewBag.NombreConsultora = model.NombreConsultora;
 
-                model.RevistaDigital = revistaDigital;
+                model.PartialSectionBpt = GetPartialSectionBptModel();
 
                 ViewBag.NombreConsultoraFAV = ObtenerNombreConsultoraFav();
                 ViewBag.UrlImagenFAVMobile = string.Format(GetConfiguracionManager(Constantes.ConfiguracionManager.UrlImagenFAVMobile), userData.CodigoISO);
@@ -415,6 +415,50 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     message = ex.Message
                 }, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        private PartialSectionBpt GetPartialSectionBptModel()
+        {
+            var partial = new PartialSectionBpt();
+            try
+            {
+                partial.RevistaDigital = revistaDigital;
+
+                if (revistaDigital.TieneRDC)
+                {
+                    if (revistaDigital.EsActiva)
+                    {
+                        if (revistaDigital.EsSuscrita)
+                        {
+                            partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.MBienvenidaInscritaActiva) ?? new ConfiguracionPaisDatosModel();
+                        }
+                        else
+                        {
+                            partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.MBienvenidaNoInscritaActiva) ?? new ConfiguracionPaisDatosModel();
+                        }
+                    }
+                    else
+                    {
+                        if (revistaDigital.EsSuscrita)
+                        {
+                            partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.MBienvenidaInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
+                        }
+                        else
+                        {
+                            partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.MBienvenidaNoInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
+                        }
+                    }
+                }
+                else if (revistaDigital.TieneRDR)
+                {
+                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDR.MBienvenidaRdr) ?? new ConfiguracionPaisDatosModel();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
+            }            
+            return partial;
         }
     }
 }
