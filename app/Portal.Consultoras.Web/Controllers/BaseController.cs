@@ -3851,7 +3851,15 @@ namespace Portal.Consultoras.Web.Controllers
                         confiModel.UrlMenu = "#";
                         break;
                     case Constantes.ConfiguracionPais.RevistaDigitalReducida:
+                        if (revistaDigital.TieneRDC || !revistaDigital.TieneRDR)
+                            continue;
+
+                        confiModel.UrlMenu = "RevistaDigital/Comprar";
+                        break;
                     case Constantes.ConfiguracionPais.RevistaDigital:
+                        if (!revistaDigital.TieneRDC)
+                            continue;
+
                         confiModel.UrlMenu = "RevistaDigital/Comprar";
                         break;
                     case Constantes.ConfiguracionPais.OfertasParaTi:
