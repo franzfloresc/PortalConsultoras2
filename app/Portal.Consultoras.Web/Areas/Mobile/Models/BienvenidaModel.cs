@@ -53,6 +53,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public short PrimeraVezSession { get; set; }
         public int TieneAsesoraOnline { get; set; }
         public RevistaDigitalModel RevistaDigital { get; set; }
+        public PartialSectionBpt PartialSectionBpt { get; set; }
         public int TipoPopUpMostrar { get; set; }
     }
 }

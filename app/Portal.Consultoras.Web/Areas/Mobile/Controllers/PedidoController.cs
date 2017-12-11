@@ -90,7 +90,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.EMail = userData.EMail;
             model.Celular = userData.Celular;
             model.TieneMasVendidos = userData.TieneMasVendidos;
-            model.RevistaDigital = revistaDigital;
+            model.PartialSectionBpt = GetPartialSectionBptModel();
             var isMobileApp = this.GetUniqueSession<MobileAppConfiguracionModel>("MobileAppConfiguracion", false) != null;
             var mobileConfiguracion = this.GetUniqueSession<MobileAppConfiguracionModel>("MobileAppConfiguracion");
             model.ClienteId = mobileConfiguracion.ClienteID;
@@ -105,13 +105,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.paisISO = userData.CodigoISO;
             ViewBag.Ambiente = GetBucketNameFromConfig();
             ViewBag.UrlFranjaNegra = GetUrlFranjaNegra();
-            
+
             model.MostrarPopupPrecargados = (GetMostradoPopupPrecargados() == 0);
 
             return View("Index", model);
         }
 
-        private BEConfiguracionCampania GetConfiguracionCampania( UsuarioModel userData)
+        private BEConfiguracionCampania GetConfiguracionCampania(UsuarioModel userData)
         {
             BEConfiguracionCampania configuracionCampania;
             using (var sv = new PedidoServiceClient())
@@ -168,7 +168,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 campana = 0;
                 LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
             }
-            return RedirectToAction("Detalle", new RouteValueDictionary(new { controller = "FichaProducto", area = "Mobile", param=param }));
+            return RedirectToAction("Detalle", new RouteValueDictionary(new { controller = "FichaProducto", area = "Mobile", param = param }));
         }
 
         public ActionResult Detalle(bool autoReservar = false)
@@ -365,10 +365,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
 
             beConfiguracionCampania = beConfiguracionCampania ?? new BEConfiguracionCampania();
-            
+
             if (beConfiguracionCampania.CampaniaID > userData.CampaniaID)
                 return RedirectToAction("Index");
-            
+
             if (beConfiguracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado
                 && (beConfiguracionCampania.ModificaPedidoReservado
                 || beConfiguracionCampania.ValidacionAbierta))
@@ -739,5 +739,50 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return resultado;
         }
 
+        private PartialSectionBpt GetPartialSectionBptModel()
+        {
+            var partial = new PartialSectionBpt();
+            try
+            {
+                partial.RevistaDigital = revistaDigital;
+
+                if (revistaDigital.TieneRDC)
+                {
+                    if (revistaDigital.EsActiva)
+                    {
+                        if (revistaDigital.EsSuscrita)
+                        {
+                            partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.MPedidoInscritaActiva) ?? new ConfiguracionPaisDatosModel();
+                        }
+                        else
+                        {
+                            partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.MPedidoNoInscritaActiva) ?? new ConfiguracionPaisDatosModel();
+                        }
+                    }
+                    else
+                    {
+                        if (revistaDigital.EsSuscrita)
+                        {
+                            partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.MPedidoInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
+                        }
+                        else
+                        {
+                            partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.MPedidoNoInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
+                        }
+                    }
+                }
+                else if (revistaDigital.TieneRDR)
+                {
+                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDR.MPedidoRdr) ?? new ConfiguracionPaisDatosModel();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
+            }
+
+            return partial;
+        }
     }
 }

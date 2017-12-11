@@ -2,6 +2,12 @@
 {
     public class PartialSectionBpt
     {
+        public PartialSectionBpt()
+        {
+            RevistaDigital = new RevistaDigitalModel();
+            ConfiguracionPaisDatos = new ConfiguracionPaisDatosModel();
+        }
+
         public RevistaDigitalModel RevistaDigital { get; set; }
         public ConfiguracionPaisDatosModel ConfiguracionPaisDatos { get; set; }
     }
