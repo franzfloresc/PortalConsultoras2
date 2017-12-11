@@ -111,7 +111,7 @@ function ConfirmarModificar() {
         },
         error: function (data, error) {
             closeWaitingDialog();
-            if (checkTimeout(data)) {                
+            if (checkTimeout(data)) {
                 alert("Ocurrió un error al ejecutar la acción. Por favor inténtelo de nuevo.");
             }
         }
@@ -216,7 +216,7 @@ function EnviarCorreo() {
         },
         error: function (data, error) {
             closeWaitingDialog();
-            if (checkTimeout(data)) {                
+            if (checkTimeout(data)) {
                 alert("ERROR al enviar correo.");
             }
         }

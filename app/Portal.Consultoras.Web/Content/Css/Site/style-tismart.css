@@ -1101,7 +1101,6 @@ img {
     top: 40px;
     /*1250*/
     width: 600px;
-    
     height: 100px;
     color: #768ea3;
     font-family: 'Museo Sans', arial, sans-serif;
@@ -1229,8 +1228,8 @@ img {
     background-color: #FFFFFF;
     width: 277px;
     /*1250*/
-	height:368px;
-    position:relative;
+    height: 368px;
+    position: relative;
     padding: 30px 20px;
     box-sizing: border-box;
     margin: 10px 8px 40px;
@@ -1244,8 +1243,8 @@ img {
         font-size: 16px;
         color: #405160;
         font-weight: 600 !important;
-    /*1250*/
-	height:88px;
+        /*1250*/
+        height: 88px;
         font-family: Arial, sans-serif;
     }
 
@@ -2451,7 +2450,7 @@ div.subir_archivo {
 
 /*EPD-713*/
 .tsm tbody tr td #tdTotalPrecio {
-    margin-left:25px;
+    margin-left: 25px;
 }
 
 #idTablaListaPedido {
@@ -2467,30 +2466,27 @@ div.subir_archivo {
     }
 
 .ClaseMontoTotal {
-    margin: 0; 
-    float: right; 
+    margin: 0;
+    float: right;
     padding-right: 54px;
 }
 
 .mostrarShow {
-    display:block;
+    display: block;
 }
 
 .ocultarHide {
-    display:none;
+    display: none;
 }
 
 @media (min-width: 768px) and (max-width: 1366px) {
 
-        .ClaseMontoTotal {
-
-            margin: 0;
-            float: right;
-            padding-right: 26px;
-        }
-
-
+    .ClaseMontoTotal {
+        margin: 0;
+        float: right;
+        padding-right: 26px;
     }
+}
 
 
 /*FIN EPD-713*/

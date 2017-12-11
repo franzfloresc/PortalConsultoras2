@@ -13135,7 +13135,7 @@ label.checkpop {
 }
 
 .matriz-campania .div-img-matriz-comercial {
-    padding: 7px
+    padding: 7px;
 }
 
 #matriz-imagenes-paginacion {
@@ -13434,7 +13434,7 @@ label.checkpop {
     padding: 8px;
     margin-right: -3px;
     vert-align: top;
-    position: absolute
+    position: absolute;
 }
 
 .inforRdText {
@@ -13519,11 +13519,10 @@ label.checkpop {
     float: left;
 }
 
-.checkBox input{
+.checkBox input {
     display: inline-block !important;
 }
 
 .checkBox label {
     display: inline-block !important;
 }
-

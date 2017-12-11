@@ -1261,6 +1261,7 @@
     <Content Include="Content\Css\Site\Login2\style_lbel.min.css" />
     <Content Include="Content\ImageHelper\xzoom.css" />
     <Content Include="Content\Images\android-EPM-mockup.png" />
+    <Content Include="Content\Images\arrow-down-preguntas-f.png" />
     <Content Include="Content\Images\arrow-down.svg" />
     <Content Include="Content\Images\arrow.png" />
     <Content Include="Content\Css\Site\jquery.rateyo.css" />
@@ -1281,6 +1282,8 @@
     <Content Include="Content\Images\Esika\Contenedor\tarjetas-navidenias.png" />
     <Content Include="Content\Images\Esika\logotipo-club-ganamas-rojo.svg" />
     <Content Include="Content\Images\Esika\logotipo-ganamas-rojo.svg" />
+    <Content Include="Content\Images\Esika\scroll-down-icon-esika.svg" />
+    <Content Include="Content\Images\Esika\visual de funcionamiento.png" />
     <Content Include="Content\Images\Esika\personalizacion-visual-desktop.gif" />
     <Content Include="Content\Images\Esika\personalizacion-visual-mobile.gif" />
     <Content Include="Content\Images\Esika\visual-de-funcionamiento.png" />
@@ -1295,6 +1298,8 @@
     <Content Include="Content\Images\Lbel\Contenedor\tarjetas-navidenias.png" />
     <Content Include="Content\Images\Lbel\logotipo-club-ganamas-morado.svg" />
     <Content Include="Content\Images\Lbel\logotipo-ganamas-morado.svg" />
+    <Content Include="Content\Images\Lbel\scroll-down-icon-lbel.svg" />
+    <Content Include="Content\Images\Lbel\visual-de-funcionamiento.png" />
     <Content Include="Content\Images\Lbel\personalizacion-visual-desktop.gif" />
     <Content Include="Content\Images\Lbel\personalizacion-visual-mobile.gif" />
     <Content Include="Content\Images\Lbel\visual-de-funcionamiento-lbel.png" />

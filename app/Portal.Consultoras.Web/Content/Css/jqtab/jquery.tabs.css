@@ -23,47 +23,47 @@ ul.tabs {
     margin-top: -7px;
 }
 
-ul.tabs li {
-    float: left;
-    margin-right: 5px;
-    padding: 0;
-    height: 31px;
-    line-height: 31px;
-    border: 1px solid #b8b06f;
-    margin-bottom: 1px;
-    background: #797239;
-    overflow: hidden;
-    position: relative;
-    border: 1px solid #b8b06f;
-    -moz-border-radius: 7px 7px 0 0;
-    -webkit-border-radius: 7px 7px 0 0;
-    border-radius: 7px 7px 0 0;
-}
+    ul.tabs li {
+        float: left;
+        margin-right: 5px;
+        padding: 0;
+        height: 31px;
+        line-height: 31px;
+        border: 1px solid #b8b06f;
+        margin-bottom: 1px;
+        background: #797239;
+        overflow: hidden;
+        position: relative;
+        border: 1px solid #b8b06f;
+        -moz-border-radius: 7px 7px 0 0;
+        -webkit-border-radius: 7px 7px 0 0;
+        border-radius: 7px 7px 0 0;
+    }
 
-ul.tabs li a {
-    text-decoration: none;
-    color: #faf0a7 !important;
-    display: block;
-    font-size: 13px;
-    padding: 0 20px;
-    border: 1px solid #b8b06f;
-    outline: none;
-    -moz-border-radius: 7px 7px 0 0;
-    -webkit-border-radius: 7px 7px 0 0;
-    border-radius: 7px 7px 0 0;
-}
+        ul.tabs li a {
+            text-decoration: none;
+            color: #faf0a7 !important;
+            display: block;
+            font-size: 13px;
+            padding: 0 20px;
+            border: 1px solid #b8b06f;
+            outline: none;
+            -moz-border-radius: 7px 7px 0 0;
+            -webkit-border-radius: 7px 7px 0 0;
+            border-radius: 7px 7px 0 0;
+        }
 
-ul.tabs li a:hover {
-    background: #666;
-    text-decoration: none;
-}
+            ul.tabs li a:hover {
+                background: #666;
+                text-decoration: none;
+            }
 
-ul.tabs li.activa, ul.tabs li.activa a, ul.tabs li.activa a:hover {
-    color: #faf0a7;
-    /*font-weight: bold;*/
-    background: #403e32;
-    border-bottom: 1px solid #b8b06f;
-}
+        ul.tabs li.activa, ul.tabs li.activa a, ul.tabs li.activa a:hover {
+            color: #faf0a7;
+            /*font-weight: bold;*/
+            background: #403e32;
+            border-bottom: 1px solid #b8b06f;
+        }
 
 .contenido_tab {
     padding: 10px;
@@ -71,10 +71,10 @@ ul.tabs li.activa, ul.tabs li.activa a, ul.tabs li.activa a:hover {
     width: 875px;
 }
 
-.contenido_tab img {
-    /*margin: 0 20px 20px 0;
+    .contenido_tab img {
+        /*margin: 0 20px 20px 0;
     border: 1px solid #ddd;
     padding: 5px;*/
-    cursor: pointer;
-    height: 24px;
-}
+        cursor: pointer;
+        height: 24px;
+    }

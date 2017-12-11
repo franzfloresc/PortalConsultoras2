@@ -400,7 +400,40 @@ namespace Portal.Consultoras.Common
             public const int Arp = 1;
             public const int Jetlore = 2;
         }
+        
+        public static class OrigenPantallaWeb
+        {
+            // Primer Dígito -- Plataforma
+            // 1: Desktop                   2: Mobile
 
+            // Segundo Dígito -- Pantalla
+            // A: Contenedor Home           B: Contenedor Home Revisar
+            // C: Landing EPM               D: Landing EPM Revisar
+            // E: Landing ShowRoom          E: Landing ShowRoom Intriga
+
+            // Tercer Dígito -- Sección dentro de la Pantalla
+            // 0: Principal                 1: OPT
+
+            public const string DContenedorHome = "1A0";
+            public const string MContenedorHome = "2A0";
+            public const string DContenedorHomeRevisar = "1B0";
+            public const string MContenedorHomeRevisar = "2B0";
+            public const string DRevistaDigital = "1C0";
+            public const string MRevistaDigital = "2C0";
+            public const string DRevistaDigitalRevisar = "1D0";
+            public const string MRevistaDigitalRevisar = "2D0";
+            public const string DShowRoom = "1E0";
+            public const string MShowRoom = "2E0";
+            public const string DShowRoomIntriga = "1F0";
+            public const string MShowRoomIntriga = "2F0";
+            public const string DRevistaDigitalInfo = "1G0";
+            public const string MRevistaDigitalInfo = "2G0";
+            public const string DRevistaDigitalDetalle = "1H0";
+            public const string MRevistaDigitalDetalle = "2H0";
+            public const string DGuiaNegocio = "1I0";
+            public const string MGuiaNegocio = "2I0";
+        }
+        
         public static class OrigenPedidoWeb
         {
             public static class Campos
@@ -1026,6 +1059,8 @@ namespace Portal.Consultoras.Common
                 public const string LogoComercialFondoNoActiva = "LogoComercialFondoNoActiva";
                 public const string LogoMenuOfertasActiva = "LogoMenuOfertasActiva";
                 public const string LogoMenuOfertasNoActiva = "LogoMenuOfertasNoActiva";
+                public const string BloquearPedidoRevistaImp = "BloquearPedidoRevistaImp";
+                public const string BloquearSugerenciaProducto = "BloquearSugerenciaProducto";
                 #endregion
 
                 #region Bienvenida
@@ -1229,6 +1264,7 @@ namespace Portal.Consultoras.Common
             }
 
             public const short RevistaDigital = 131;
+            public const short CodigoRevistaFisica = 132;
         }
 
         public struct MensajesCDRExpress
