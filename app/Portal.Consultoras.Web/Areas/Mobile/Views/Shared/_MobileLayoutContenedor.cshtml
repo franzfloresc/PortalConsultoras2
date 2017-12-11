@@ -120,48 +120,6 @@
         {
             @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloqueMensajesPedido.cshtml")
         }
-        @*else if (ViewBag.MostrarBannerTopPL20 == true)
-        {
-            <div id="flexslidertop" class="header_slider" style="overflow:hidden;">
-                <a id="btn_cerrar_oferta_mobile" class="btn_cerrar_oferta_mobile">X</a>
-                <ul class="slides">
-                    @if (ViewBag.MostrarOfertaDelDia == true)
-                {
-                        <li>
-                            @Html.Partial("~/Areas/Mobile/Views/OfertaDelDia/_OfertaDelDiaBannerTop.cshtml", ofertaDelDia);
-                        </li>
-                    }
-
-                    @if (Session["EsShowRoom"] != null && @Session["EsShowRoom"].ToString() == "1")
-                {
-                    if (showRoomBannerLateral.MostrarShowRoomProductos == true)
-                    {
-                            <li>
-                                <a href="@Url.Action("Index", "ShowRoom", new {area = "Mobile"})">
-                                    <div class="content_banner_header_showroom">
-                                        <img src="@ViewBag.ImagenBannerShowroomVenta" alt="" />
-                                    </div>
-                                </a>
-                            </li>
-                        }
-                        else
-                        {
-                            <li>
-                                <a href="@Url.Action("Intriga", "ShowRoom", new {area = "Mobile"})">
-                                    <div class="content_banner_header_showroom">
-                                        <div class="content_titulo"><div class="titulo_intriga">VENTA EXCLUSIVA WEB</div></div>
-                                        <div class="faltan_dias_header"><b>@ViewBag.DiasFaltantesLetras</b></div>
-                                        <img src="@ViewBag.ImagenBannerShowroomIntriga" alt="" />
-                                    </div>
-                                </a>
-                            </li>
-
-                        }
-                    }
-                </ul>
-            </div>
-        }*@
-        <!--END BANNER-->
         
     @if (!esIngresoUnico)
     {
@@ -344,7 +302,7 @@
         var ViewBagEsMobile = '@ViewBag.EsMobile';
 
         var tokenPedidoAutenticoOk = '@ViewBag.TokenPedidoAutenticoOk';
-        var _ModificacionPedidoProl = '@ViewBag.ModificarPedidoProl'; //EPD-1682
+        var _ModificacionPedidoProl = '@ViewBag.ModificarPedidoProl';
         var urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
         var userData = {
             'aplicacion': '@(Constantes.LogDynamoDB.AplicacionPortalConsultoras)',
@@ -470,14 +428,12 @@
                         $("#lnkConoceMasShowRoomBannerLateralHoy, #lnkConoceMasShowRoomBannerLateralImagenHoy").click(function () {
                             AgregarTagManagerShowRoomBannerLateralConocesMas(true);
                         });
-                        //AgregarTagManagerShowRoomBannerLateral(true);
                     }
                     else {
                         $("#lnkConoceMasShowRoomBannerLateral").click(function () {
                             AgregarTagManagerShowRoomBannerLateralConocesMas(false);
                         });
                         AgregarTimerShowRoom(showRoomDiasFaltantes, showRoomMesFaltante, showRoomAnioFaltante);
-                        //AgregarTagManagerShowRoomBannerLateral(false);
                     }
                 }
 
@@ -554,7 +510,6 @@
                         minutes = minutes - (days * 24 * 60) - (hours * 60);
                         seconds = seconds - (days * 24 * 60 * 60) - (hours * 60 * 60) - (minutes * 60);
 
-                        //$("#time").text("Time until new year:\nDays: " + days + " Hours: " + hours + " Minutes: " + minutes + " Seconds: " + seconds);
                         $(".clsDia").html(days);
                         $(".clsHora").html(hours);
                         $(".clsMinuto").html(minutes);
