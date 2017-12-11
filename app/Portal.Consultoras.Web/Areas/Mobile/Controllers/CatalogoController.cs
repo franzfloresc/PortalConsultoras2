@@ -141,6 +141,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             try
             {
                 partial.RevistaDigital = revistaDigital;
+                partial.TieneGND = userData.TieneGND;
 
                 if (revistaDigital.TieneRDC)
                 {

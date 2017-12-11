@@ -5,7 +5,6 @@
 @{
     ConfiguracionPaisDatosModel configuracionPaisDatosModel = Model.ConfiguracionPaisDatos;
     RevistaDigitalModel revistaDigital = Model.RevistaDigital;
-    var tieneGnd = Portal.Consultoras.Web.SessionManager.SessionManager.Instance.GetUserData().TieneGND;
     var urlLogo = revistaDigital.DLogoComercialNoActiva;
     if (revistaDigital.TieneRDC && revistaDigital.EsSuscrita)
     {
@@ -16,7 +15,7 @@
 {
     if (revistaDigital.EsActiva)
     {
-        if (!tieneGnd)
+        if (!Model.TieneGND)
         {
             <div class="home_block_rd home_rd1" style="background-color: transparent; text-align: left;">
                 <div class="content_belcorp" style="background-color: black;">
@@ -42,7 +41,7 @@
     }
     else
     {
-        if (!tieneGnd)
+        if (!Model.TieneGND)
         {
             @Html.Partial("~/Views/MisCatalogosRevistas/template-revista-slide.cshtml")
             <br/>
@@ -71,7 +70,7 @@
 }
 else if (revistaDigital.TieneRDR)
 {
-    if (!tieneGnd)
+    if (!Model.TieneGND)
     {
         @Html.Partial("~/Views/MisCatalogosRevistas/template-revista-slide.cshtml")
         <br />
@@ -94,7 +93,7 @@ else if (revistaDigital.TieneRDR)
         </div>
     }
 }
-else if (!tieneGnd)
+else if (!Model.TieneGND)
 {
     @Html.Partial("~/Views/MisCatalogosRevistas/template-revista-slide.cshtml")
 }

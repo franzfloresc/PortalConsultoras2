@@ -4,7 +4,6 @@
 @{
     ConfiguracionPaisDatosModel configuracionPaisDatosModel = Model.ConfiguracionPaisDatos;
     RevistaDigitalModel revistaDigital = Model.RevistaDigital;
-    var tieneGND = Portal.Consultoras.Web.SessionManager.SessionManager.Instance.GetUserData().TieneGND;
     var urlLogo = revistaDigital.MLogoComercialNoActiva;
     if (revistaDigital.TieneRDC && revistaDigital.EsSuscrita)
     {
@@ -44,7 +43,7 @@
         }
         else
         {
-            if (!tieneGND)
+            if (!Model.TieneGND)
             {
                 @Html.Partial("~/Areas/Mobile/Views/Catalogo/template-carrusel-issue.cshtml")
             }
@@ -95,12 +94,9 @@
             </div>
         </div>
     }
-    else
+    else if (!Model.TieneGND)
     {
-        if (!tieneGND)
-        {
-            @Html.Partial("~/Areas/Mobile/Views/Catalogo/template-carrusel-issue.cshtml")
-        }
+        @Html.Partial("~/Areas/Mobile/Views/Catalogo/template-carrusel-issue.cshtml")
     }
-
+    
 </div>

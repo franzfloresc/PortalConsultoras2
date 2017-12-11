@@ -575,6 +575,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 partial.RevistaDigital = revistaDigital;
+                partial.TieneGND = userData.TieneGND;
 
                 var tieneGnd = userData.TieneGND;
 
