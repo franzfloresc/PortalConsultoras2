@@ -259,18 +259,65 @@ namespace Portal.Consultoras.BizLogic
             catch (Exception) { throw; }
         }
 
-        public IList<BEPedidoWebDetalle> GetPedidoWebDetalleByCampania(int paisID, int CampaniaID, long ConsultoraID, string Consultora, int esOpt = 0)
+        public IList<BEPedidoWebDetalle> GetPedidoWebDetalleByCampania(BEPedidoWebDetalleParametros bePedidoWebDetalleParametros)
         {
             var pedidoWebDetalle = new List<BEPedidoWebDetalle>();
-            var DAPedidoWebDetalle = new DAPedidoWebDetalle(paisID);
+            var DAPedidoWebDetalle = new DAPedidoWebDetalle(bePedidoWebDetalleParametros.PaisId);
 
-            using (IDataReader reader = DAPedidoWebDetalle.GetPedidoWebDetalleByCampania(CampaniaID, ConsultoraID, esOpt))
+            using (IDataReader reader = DAPedidoWebDetalle.GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros))
                 while (reader.Read())
                 {
-                    var entidad = new BEPedidoWebDetalle(reader, Consultora);
-                    entidad.PaisID = paisID;
+                    var entidad = new BEPedidoWebDetalle(reader, bePedidoWebDetalleParametros.Consultora);
+                    entidad.PaisID = bePedidoWebDetalleParametros.PaisId;
                     pedidoWebDetalle.Add(entidad);
                 }
+
+            #region Eliminar si es de OPT o OPM
+
+            if (bePedidoWebDetalleParametros.EsBpt)
+                pedidoWebDetalle.RemoveAll(p => p.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertaParaTi);
+            else
+                pedidoWebDetalle.RemoveAll(p => p.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi);
+
+            #endregion
+
+            #region ConsultoraOnline
+
+            var daConsultoraOnline = new DAConsultoraOnline(bePedidoWebDetalleParametros.PaisId);
+            var listaProductosConsultoraOnline= new List<BESolicitudClienteDetalle>();
+
+            using (IDataReader reader = daConsultoraOnline.GetProductoByCampaniaByConsultoraId(bePedidoWebDetalleParametros.CampaniaId, bePedidoWebDetalleParametros.ConsultoraId))
+                while (reader.Read())
+                {
+                    var entidad = new BESolicitudClienteDetalle(reader);
+                    listaProductosConsultoraOnline.Add(entidad);
+                }            
+
+            if (listaProductosConsultoraOnline.Count > 0)
+            {
+                foreach (var item in pedidoWebDetalle)
+                {
+                    var itemConsultoraOnline = listaProductosConsultoraOnline.FirstOrDefault(p => p.PedidoWebID == item.PedidoID && p.PedidoWebDetalleID == item.PedidoDetalleID);
+                    if (itemConsultoraOnline != null)
+                    {
+                        item.FlagConsultoraOnline = true;
+                    }
+                }
+            }
+
+            #endregion
+
+            #region Update Descripcion Estrategia
+
+            foreach (var item in pedidoWebDetalle)
+            {
+                if (item.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.Lanzamiento
+                    || item.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi
+                    || item.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso)
+                    item.DescripcionOferta = "Ésika Para Mí";
+            }
+
+            #endregion
 
             return pedidoWebDetalle;
         }

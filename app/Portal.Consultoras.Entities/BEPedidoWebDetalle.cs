@@ -87,7 +87,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         private string TipoPedido { get; set; }
         [DataMember]
-        private string DescripcionOferta { get; set; }
+        public string DescripcionOferta { get; set; }
         [DataMember]
         public string ObservacionPROL { get; set; }//CCSS_JZ_PROL2
         [DataMember]
@@ -147,6 +147,15 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool EsOfertaIndependiente { get; set; }
 
+        [DataMember]
+        public string TipoEstrategiaCodigo { get; set; }
+
+        [DataMember]
+        public bool FlagNueva { get; set; }
+
+        [DataMember]
+        public bool ProgramaNuevoActivado { get; set; }
+        
         public BEPedidoWebDetalle()
         { }
 
@@ -254,6 +263,14 @@ namespace Portal.Consultoras.Entities
                 CodigoCatalago = row["CodigoCatalago"] == DBNull.Value ? 0 : Convert.ToInt32(row["CodigoCatalago"]);
             if (DataRecord.HasColumn(row, "EsOfertaIndependiente"))
                 EsOfertaIndependiente = row["EsOfertaIndependiente"] == DBNull.Value ? false : Convert.ToBoolean(row["EsOfertaIndependiente"]);
+
+            if (DataRecord.HasColumn(row, "TipoEstrategiaCodigo"))
+                TipoEstrategiaCodigo = row["TipoEstrategiaCodigo"] == DBNull.Value ? "" : Convert.ToString(row["TipoEstrategiaCodigo"]);
+            if (DataRecord.HasColumn(row, "FlagNueva"))
+                FlagNueva = row["FlagNueva"] == DBNull.Value ? false : Convert.ToBoolean(row["FlagNueva"]);
+            if (DataRecord.HasColumn(row, "ProgramaNuevoActivado"))
+                ProgramaNuevoActivado = row["ProgramaNuevoActivado"] == DBNull.Value ? false : Convert.ToBoolean(row["ProgramaNuevoActivado"]);
+                        
         }
 
         public BEPedidoWebDetalle(IDataRecord row, string Consultora)
@@ -365,6 +382,13 @@ namespace Portal.Consultoras.Entities
                 CodigoCatalago = row["CodigoCatalago"] == DBNull.Value ? 0 : Convert.ToInt32(row["CodigoCatalago"]);
             if (DataRecord.HasColumn(row, "EsOfertaIndependiente"))
                 EsOfertaIndependiente = row["EsOfertaIndependiente"] == DBNull.Value ? false : Convert.ToBoolean(row["EsOfertaIndependiente"].ToString());
+
+            if (DataRecord.HasColumn(row, "TipoEstrategiaCodigo"))
+                TipoEstrategiaCodigo = row["TipoEstrategiaCodigo"] == DBNull.Value ? "" : Convert.ToString(row["TipoEstrategiaCodigo"]);
+            if (DataRecord.HasColumn(row, "FlagNueva"))
+                FlagNueva = row["FlagNueva"] == DBNull.Value ? false : Convert.ToBoolean(row["FlagNueva"]);
+            if (DataRecord.HasColumn(row, "ProgramaNuevoActivado"))
+                ProgramaNuevoActivado = row["ProgramaNuevoActivado"] == DBNull.Value ? false : Convert.ToBoolean(row["ProgramaNuevoActivado"]);
         }
     }
 

@@ -840,7 +840,7 @@ function EstrategiaTallaColor(datos) {
         $(".zonaCantidad").hide();
         $("#hdnProgramaOfertaNuevo").val(true);
         var nroPedidos = false;
-        var pedidosData = $('#divListadoPedido').find("input[id^='hdfTipoEstrategia']");
+        var pedidosData = $('#divListadoPedido').find("input[id^='hdfFlagNueva']");
 
         pedidosData.each(function (indice, valor) {
             if (valor.value == 1) {

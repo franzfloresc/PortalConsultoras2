@@ -1772,7 +1772,7 @@ function ObservacionesProducto(item) {
     $("#txtCantidad").removeAttr("disabled");
     if (item.FlagNueva == 1) {
         $("#txtCantidad").attr("disabled", "disabled");
-        var pedidosData = $('#divListadoPedido').find("input[id^='hdfTipoEstrategia']");
+        var pedidosData = $('#divListadoPedido').find("input[id^='hdfFlagNueva']");
 
         pedidosData.each(function (indice, valor) {
             if (valor.value == 1) {
