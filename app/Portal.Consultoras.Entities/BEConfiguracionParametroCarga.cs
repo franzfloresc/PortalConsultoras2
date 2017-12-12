@@ -47,7 +47,7 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "DiasParametroCarga"))
                 DiasParametroCarga = Convert.ToInt16(Convert.IsDBNull(row["DiasParametroCarga"]) ? 1 : row["DiasParametroCarga"]);
             if (DataRecord.HasColumn(row, "DiasDuracionCronograma"))
-                DiasDuracionCronograma = Convert.ToInt16(Convert.IsDBNull(row["DiasDuracionCronograma"]) ? 1 : row["DiasDuracionCronograma"]); //R20160221
+                DiasDuracionCronograma = Convert.ToInt16(Convert.IsDBNull(row["DiasDuracionCronograma"]) ? 1 : row["DiasDuracionCronograma"]);
         }
     }
 }

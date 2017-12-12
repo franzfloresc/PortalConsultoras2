@@ -86,6 +86,7 @@ namespace Portal.Consultoras.BizLogic
         public List<BECatalogoRevista> GetListCatalogoRevistaPublicado(string paisISO, string codigoZona, int campania, Enumeradores.TamanioImagenIssu tamanioImagenIssu)
         {
             List<BECatalogoRevista> listCatalogoRevista = _catalogosRevistas;
+
             try
             {
                 var catalogoConfiguraciones = GetCatalogoConfiguracion(Util.GetPaisID(paisISO));
@@ -230,7 +231,7 @@ namespace Portal.Consultoras.BizLogic
                 else queryString += "&jsonCallback=?";
             }
 
-            string urlISSUUSearch = "http://search.issuu.com/api/2_0/document?username=somosbelcorp&q=";
+            string urlISSUUSearch = "http:" + Constantes.CatalogoUrlIssu.Buscador;
             var url = urlISSUUSearch + queryString;
             string response = "";
             using (var wc = new WebClient())

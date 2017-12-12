@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ServiceModel;
 using Portal.Consultoras.Entities;
-using System.Data;//AOB
+using System.Data;
 using Portal.Consultoras.Entities.Mobile;
 
 namespace Portal.Consultoras.ServiceContracts
@@ -60,7 +60,6 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         bool DelProductoFaltante(int paisID, string paisISO, string CodigoUsuario, BEProductoFaltante productoFaltante);
 
-        //R1957
         [OperationContract]
         int DelProductoFaltante2(int paisID, string paisISO, string CodigoUsuario, IList<BEProductoFaltante> prod, int flag, int pais, int campania, int zona, string cuv, string e_producto, DateTime fecha);
 
@@ -282,9 +281,6 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         IList<BEIncentivo> SelectIncentivos(int paisID, int campaniaID);
 
-        //[OperationContract]
-        //BEIncentivo GetIncentivoById(int paisID, int incentivoID);
-
         [OperationContract]
         void InsertIncentivo(BEIncentivo entidad);
 
@@ -324,9 +320,6 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         IList<BEFeErratas> SelectFeErratas(int paisID, int campaniaID);
-
-        //[OperationContract]
-        //BELugarPago GetFeErratasById(int paisID, int feErratasID);
 
         [OperationContract]
         void InsertFeErratas(BEFeErratas entidad);
@@ -414,7 +407,6 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         string[] DescargaSolicitudes(int paisID, string codigoUsuario);
 
-        //AOB REPORTES 
         [OperationContract]
         DataTable ReporteSolidCreditDia(int paisID, string codigoRegion, DateTime? fechaInicioSolicitud, DateTime? fechaFinSolicitud);
 
@@ -422,32 +414,26 @@ namespace Portal.Consultoras.ServiceContracts
 
         #region Comunicado
 
-        //R2004
         [OperationContract]
         BEComunicado GetComunicadoByConsultora(int paisID, string CodigoConsultora);
 
-        //GR-1209
         [OperationContract]
         List<BEComunicado> ObtenerComunicadoPorConsultora(int PaisID, string CodigoConsultora, short TipoDispositivo);
 
         [OperationContract]
         List<BEPopupPais> ObtenerOrdenPopUpMostrar(int PaisID);
-        //R2004
         [OperationContract]
         void UpdComunicadoByConsultora(int paisID, string CodigoConsultora);
 
-        //GR-1209
         [OperationContract]
         void InsertarComunicadoVisualizado(int PaisID, string CodigoConsultora, int ComunicadoID);
         
-        //GR-1645
         [OperationContract]
         void InsertarDonacionConsultora(int PaisId, string CodigoISO, string CodigoConsultora, string Campania, string IPUsuario);
         #endregion
 
         #region Estado Cuenta
 
-        //R2073
         [OperationContract]
         List<BEEstadoCuenta> GetEstadoCuentaConsultora(int PaisId, long consultoraId);
 
@@ -458,11 +444,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         #region Pedidos Facturados
 
-        //R2073
         [OperationContract]
         List<BEPedidoFacturado> GetPedidosFacturadosCabecera(int PaisId, string CodigoConsultora);
 
-        //R2073
         [OperationContract]
         List<BEPedidoFacturado> GetPedidosFacturadosDetalle(int PaisId, string Campania, string Region, string Zona, string CodigoConsultora, int pedidoId);
 
@@ -483,8 +467,6 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         int InsConfiguracionTipoProcesoCargaPedidos(int PaisID, string Usuario, IList<BEConfiguracionTipoProcesoCargaPedidos> ZonasNuevoPROL);
         #endregion
-
-        //R20151221 Inicio
 
         #region ConfiguracionParametroCarga
 
@@ -516,16 +498,10 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         void InsLogParametroDiasCargaPedido(int paisID, string CodigoUsuario, List<BELogParametroDiasCargaPedido> listaEntidades);
 
-        //[OperationContract]
-        //BEConfiguracionParametroCarga GetConfiguracionParametroCarga(int paisID, int campaniaID, int zonaID);
-
         #endregion
 
         [OperationContract]
         IList<BEConfiguracionPortal> GetConfiguracionPortal(int paisID);
-
-        //R20151221 Fín
-
 
         #region Participantes Demanada Anticipada - R20160302
 
@@ -540,38 +516,27 @@ namespace Portal.Consultoras.ServiceContracts
 
         #endregion
 
-
-        //RQ_DC - R2133R
         [OperationContract]
         void DeleteCacheServicio(string CodigoISO, int CampaniaId);
 
-        //RQ_PBS - R2161
         [OperationContract]
         BEServicioSegmentoZona GetServicioCampaniaSegmentoZona(int ServicioId, int CampaniaId, int PaisId);
 
-        //RQ_PBS - R2161
         [OperationContract]
         List<BEServicioSegmentoZona> GetServicioCampaniaSegmentoZonaAsignados(int ServicioId, int PaisId, int Tipo);
 
-        //RQ_PBS - R2161
-        /*RE2544 - CS(CGI) - 14/05/2015*/
         [OperationContract]
         void UpdServicioCampaniaSegmentoZona(int ServicioId, int CampaniaId, int PaisId, int Segmento, string ConfiguracionZona, string SegmentoInternoId);
 
-        // 1957 - Inicio
         [OperationContract]
         int DelProductoFaltanteMasivo(int paisID, int campaniaID, string zona, string cuv, string fecha, string descripcion);
-        // 1957 - Fin
 
-        // R2155 - Inicio
         [OperationContract]
         List<BETablaLogicaDatos> ListarColoniasByTerritorio(int paisID, string codigo);
 
         [OperationContract]
         string ValidarNumeroRFC(int paisID, string numeroRFC);
-        // R2155 - Fin
 
-        //R2319 - JLCS
         #region Cliente Busca Consultora
 
         [OperationContract]
@@ -587,8 +552,6 @@ namespace Portal.Consultoras.ServiceContracts
         int UpdDesafiliaClienteConsultora(int paisID, long ConsultoraID, bool EsAfiliacion, int MotivoDesafiliacionID);
 
         #endregion
-
-        //R2319 - JLCS
 
         [OperationContract]
         BESolicitudCliente GetSolicitudCliente(int paisID, long SolicitudClienteId);
@@ -617,7 +580,6 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         List<BEMotivoSolicitud> GetMotivosRechazo(int paisID);
 
-        /* R2319 - AAHA 02022015 - Parte 6 - Inicio */
         [OperationContract]
         int EnviarSolicitudClienteaGZ(int paisID, BESolicitudCliente entidadSolicitudCliente);
 
@@ -626,7 +588,6 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         BESolicitudCliente DetalleSolicitudAnuladasRechazadas(int paisID, BESolicitudCliente entidadSolicitudCliente);
-        /* R2319 - AAHA 02022015 - Parte 6 - Fin */
 
         [OperationContract]
         BEConfiguracionPortal ObtenerConfiguracionPortal(BEConfiguracionPortal beoConfiguracionPortal);
@@ -634,12 +595,10 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         int ActualizarConfiguracionPortal(BEConfiguracionPortal beoConfiguracionPortal);
 
-        /* R20150804 - MER - inicio*/
         #region Descarga Curso Lider
         [OperationContract]
         void GetInformacionCursoLiderDescarga(int PaisId, string PaisISO, string FechaProceso, string Usuario);
         #endregion
-        /* R20150804 - MER - fin*/
         [OperationContract]
         List<BEEstadoSolicitudCliente> GetEstadoSolicitudCliente(int paisID);
 
@@ -655,12 +614,9 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         BEPaisCampana GetCampaniaActivaPais(int paisID, DateTime fechaConsulta);
 
-        //R20150909 - Inicio
         [OperationContract]
         DateTime GetFechaHoraPais(int paisID);
-        //R20150909 - Fin
 
-        //I R20151202
         [OperationContract]
         List<BEProveedorDespachoCobranza> GetProveedorDespachoCobranza(int paisID);
 
@@ -681,7 +637,6 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEProveedorDespachoCobranza> GetProveedorDespachoCobranzaBYiD(int paisID, BEProveedorDespachoCobranza entity);
-        //F R20151202
         
         [OperationContract]
         bool EnviarProactivaChatbot(string paisISO, string urlRelativa, List<BEChatbotProactivaMensaje> listMensajeProactiva);
