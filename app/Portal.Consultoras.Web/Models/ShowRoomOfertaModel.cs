@@ -90,37 +90,10 @@ namespace Portal.Consultoras.Web.Models
         public string DescripcionCategoria { get; set; }
         public string TextoCondicionCompraCpc { get; set; }
         public string TextoDescripcionLegalCpc { get; set; }
-        public decimal Gana {
-            set
-            {
-                this.Gana = value;
-            }
-            get
-            {
-                return Math.Abs(PrecioValorizado - PrecioOferta);
-            }
-        }
-        public string FormatoPrecioValorizado
-        {
-            get
-            {
-                return Util.DecimalToStringFormat(PrecioValorizado, CodigoISO);
-            }
-        }
-        public string FormatoPrecioOferta
-        {
-            get
-            {
-                return Util.DecimalToStringFormat(PrecioOferta, CodigoISO);
-            }
-        }
-        public string FormatoGana
-        {
-            get
-            {
-                return Util.DecimalToStringFormat(Gana, CodigoISO);
-            }
-        }
+        public decimal Gana { get { return Math.Abs(PrecioValorizado - PrecioOferta); } }
+        public string FormatoPrecioValorizado { get { return Util.DecimalToStringFormat(PrecioValorizado, CodigoISO); } }
+        public string FormatoPrecioOferta { get { return Util.DecimalToStringFormat(PrecioOferta, CodigoISO); } }
+        public string FormatoGana { get { return Util.DecimalToStringFormat(Gana, CodigoISO); } }
         public bool EMailActivo { get; set; }
         public string EMail { get; set; }
         public string Celular { get; set; }
@@ -128,7 +101,6 @@ namespace Portal.Consultoras.Web.Models
         public string UrlTerminosCondiciones { get; set; }
 
         public bool EsSubCampania { get; set; }
-        //public int Orden { get; set; }
         public string UrlCompartir { get; set; }
         public int UnidadesPermitidasRestantes { get; set; }
 

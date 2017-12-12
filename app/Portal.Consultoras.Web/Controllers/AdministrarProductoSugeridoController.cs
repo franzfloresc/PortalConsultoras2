@@ -15,8 +15,6 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class AdministrarProductoSugeridoController : BaseController
     {
-        // GET: /AdministrarProductoSugerido/
-
         public ActionResult Index()
         {
             var userData = UserData();
@@ -25,7 +23,7 @@ namespace Portal.Consultoras.Web.Controllers
                 lstCampania = new List<CampaniaModel>(),
                 lstPais = DropDowListPaises(),
                 PaisIDUser = userData.PaisID,
-                ExpValidacionNemotecnico = ConfigurationManager.AppSettings["ExpresionValidacionNemotecnico"]
+                ExpValidacionNemotecnico = GetConfiguracionManager(Constantes.ConfiguracionManager.ExpresionValidacionNemotecnico)
             };
             return View(model);
         }
@@ -44,10 +42,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
             }
-            Mapper.CreateMap<BEPais, PaisModel>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
@@ -65,130 +59,21 @@ namespace Portal.Consultoras.Web.Controllers
                 lst = sv.GetPaginateProductoSugerido(PaisID, CampaniaID, CUVAgotado, CUVSugerido).ToList();
             }
 
-            // Usamos el modelo para obtener los datos
             BEGrid grid = new BEGrid();
             grid.PageSize = rows;
             grid.CurrentPage = page;
             grid.SortColumn = sidx;
             grid.SortOrder = sord;
-            //int buscar = int.Parse(txtBuscar);
             BEPager pag = new BEPager();
             IEnumerable<BEProductoSugerido> items = lst;
-
-            #region Sort Section
-            //if (sord == "asc")
-            //{
-            //    switch (sidx)
-            //    {
-            //        case "TipoOferta":
-            //            items = lst.OrderBy(x => x.Descripcion);
-            //            break;
-            //        case "CodigoProducto":
-            //            items = lst.OrderBy(x => x.CodigoProducto);
-            //            break;
-            //        case "CUV":
-            //            items = lst.OrderBy(x => x.CUV);
-            //            break;
-            //        case "CodigoCampania":
-            //            items = lst.OrderBy(x => x.CodigoCampania);
-            //            break;
-            //        case "Descripcion":
-            //            items = lst.OrderBy(x => x.Descripcion);
-            //            break;
-            //        case "PrecioOferta":
-            //            items = lst.OrderBy(x => x.PrecioOferta);
-            //            break;
-            //        case "Orden":
-            //            items = lst.OrderBy(x => x.Orden);
-            //            break;
-            //        case "Stock":
-            //            items = lst.OrderBy(x => x.Stock);
-            //            break;
-            //        case "UnidadesPermitidas":
-            //            items = lst.OrderBy(x => x.UnidadesPermitidas);
-            //            break;
-            //        case "DescripcionProducto1":
-            //            items = lst.OrderBy(x => x.DescripcionProducto1);
-            //            break;
-            //        case "DescripcionProducto2":
-            //            items = lst.OrderBy(x => x.DescripcionProducto2);
-            //            break;
-            //        case "DescripcionProducto3":
-            //            items = lst.OrderBy(x => x.DescripcionProducto3);
-            //            break;
-            //        case "ImagenProducto1":
-            //            items = lst.OrderBy(x => x.ImagenProducto1);
-            //            break;
-            //        case "ImagenProducto2":
-            //            items = lst.OrderBy(x => x.ImagenProducto2);
-            //            break;
-            //        case "ImagenProducto3":
-            //            items = lst.OrderBy(x => x.ImagenProducto3);
-            //            break;
-            //    }
-            //}
-            //else
-            //{
-            //    switch (sidx)
-            //    {
-            //        case "TipoOferta":
-            //            items = lst.OrderByDescending(x => x.Descripcion);
-            //            break;
-            //        case "CodigoProducto":
-            //            items = lst.OrderByDescending(x => x.CodigoProducto);
-            //            break;
-            //        case "CUV":
-            //            items = lst.OrderByDescending(x => x.CUV);
-            //            break;
-            //        case "CodigoCampania":
-            //            items = lst.OrderByDescending(x => x.CodigoCampania);
-            //            break;
-            //        case "Descripcion":
-            //            items = lst.OrderByDescending(x => x.Descripcion);
-            //            break;
-            //        case "PrecioOferta":
-            //            items = lst.OrderByDescending(x => x.PrecioOferta);
-            //            break;
-            //        case "Orden":
-            //            items = lst.OrderByDescending(x => x.Orden);
-            //            break;
-            //        case "Stock":
-            //            items = lst.OrderByDescending(x => x.Stock);
-            //            break;
-            //        case "UnidadesPermitidas":
-            //            items = lst.OrderByDescending(x => x.UnidadesPermitidas);
-            //            break;
-            //        case "DescripcionProducto1":
-            //            items = lst.OrderBy(x => x.DescripcionProducto1);
-            //            break;
-            //        case "DescripcionProducto2":
-            //            items = lst.OrderBy(x => x.DescripcionProducto2);
-            //            break;
-            //        case "DescripcionProducto3":
-            //            items = lst.OrderBy(x => x.DescripcionProducto3);
-            //            break;
-            //        case "ImagenProducto1":
-            //            items = lst.OrderBy(x => x.ImagenProducto1);
-            //            break;
-            //        case "ImagenProducto2":
-            //            items = lst.OrderBy(x => x.ImagenProducto2);
-            //            break;
-            //        case "ImagenProducto3":
-            //            items = lst.OrderBy(x => x.ImagenProducto3);
-            //            break;
-            //    }
-            //}
-            #endregion
-
+            
             items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
             pag = Util.PaginadorGenerico(grid, lst);
             string ISO = Util.GetPaisISO(PaisID);
             var carpetaPais = Globals.UrlMatriz + "/" + ISO;
             lst.Update(x => x.ImagenProducto = x.ImagenProducto ?? "");
-            //lst.Update(x => x.ImagenProducto = (x.ImagenProducto.ToString().Equals(string.Empty) ? string.Empty : ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.RutaImagenesMatriz + "/" + ISO)));
 
-            // Creamos la estructura
             var data = new
             {
                 total = pag.PageCount,
@@ -255,10 +140,10 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 int nroCampaniasAtras = 0;
-                Int32.TryParse(ConfigurationManager.AppSettings["ProductoSugeridoAppCatalogosNroCampaniasAtras"] ?? "", out nroCampaniasAtras);
+                Int32.TryParse(GetConfiguracionManager(Constantes.ConfiguracionManager.ProductoSugeridoAppCatalogosNroCampaniasAtras), out nroCampaniasAtras);
                 if (nroCampaniasAtras <= 0) nroCampaniasAtras = 3;
 
-                string paisesCCC = ConfigurationManager.AppSettings["Permisos_CCC"] ?? "";
+                string paisesCCC = GetPaisesConConsultoraOnlineFromConfig();
                 if (paisesCCC.Contains(pais.CodigoISO)) model.FotoProductoAppCatalogo = ImagenAppCatalogo(campaniaID, model.CodigoSAP, nroCampaniasAtras);
             }
             return Json(new { success = true, matriz = model, totalImagenes = totalImagenes }, JsonRequestBehavior.AllowGet);
@@ -320,7 +205,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 Mapper.CreateMap<AdministrarProductoSugeridoModel, BEProductoSugerido>()
                    .ForMember(t => t.ProductoSugeridoID, f => f.MapFrom(c => c.ProductoSugeridoID))
-                   //.ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
                    .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
                    .ForMember(t => t.CUVSugerido, f => f.MapFrom(c => c.CUVSugerido))
@@ -422,7 +306,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (r != "")
             {
                 var list = r.Split('|');
-                nro = list.Count() > 0 ? list[0] : "";
+                nro = list.Any() ? list[0] : "";
                 txt = list.Count() > 1 ? list[1] : "";
 
                 int x;

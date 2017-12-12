@@ -110,17 +110,12 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
             }
-            Mapper.CreateMap<BEPais, PaisModel>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
 
         private IEnumerable<ConfiguracionValidacionZonaModel> DropDowListZonasActivas(int PaisID)
         {
-            //PaisID = 11;
             IList<BEConfiguracionValidacionZona> lst;
             using (SACServiceClient sv = new SACServiceClient())
             {
@@ -135,7 +130,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         private IEnumerable<ConfiguracionValidacionModel> GetConfiguracionValidacionLista(int PaisID)
         {
-            //PaisID = 11;
             IList<BEConfiguracionValidacion> lst;
             using (SACServiceClient sv = new SACServiceClient())
             {

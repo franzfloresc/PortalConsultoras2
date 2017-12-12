@@ -59,13 +59,13 @@ namespace Portal.Consultoras.Service
             BETablaLogicaDatos longitudUbigeo = vListaTablaLogicaDatos.Find(x => x.TablaLogicaDatosID == 5801);
             if (longitudUbigeo != null)
             {
-                int limiteInferior = 6;//por default
+                int limiteInferior = 6;
                 int.TryParse(longitudUbigeo.Codigo, out limiteInferior);
                 int factorUbigeo = 3;
                 vListaTablaLogicaDatos = new BLTablaLogicaDatos().GetTablaLogicaDatos(idPais, 67);
                 BETablaLogicaDatos configFactorUbigeo = vListaTablaLogicaDatos.Find(x => x.TablaLogicaDatosID == 6701);
                 int.TryParse(configFactorUbigeo.Codigo, out factorUbigeo);
-                limiteInferior *= factorUbigeo;// se multiplica por 3
+                limiteInferior *= factorUbigeo;
                 string MensajeValidacion = string.Format("La longitud del parámetro CodigoUbigeo debe tener como valor mínimo {0}", limiteInferior);
                 if (codigoUbigeo.Length < limiteInferior) throw new Exception(MensajeValidacion);
             }
@@ -96,7 +96,7 @@ namespace Portal.Consultoras.Service
             BETablaLogicaDatos filtroUbigeo = vListaTablaLogicaDatos.Find(x => x.TablaLogicaDatosID == 6601);
             int.TryParse(filtroUbigeo.Codigo, out tipoFiltroUbigeo);
 
-            if (codigoPais == Constantes.CodigosISOPais.Peru || codigoPais == Constantes.CodigosISOPais.Ecuador || codigoPais == Constantes.CodigosISOPais.Bolivia) // "PE" || codigoPais == "EC")
+            if (codigoPais == Constantes.CodigosISOPais.Peru || codigoPais == Constantes.CodigosISOPais.Ecuador || codigoPais == Constantes.CodigosISOPais.Bolivia) 
             {
                 if (codigoUbigeo.Length == 18) bEListaConsultoraCatalogo.ConsultorasCatalogos = new BLConsultoraCatalogo().GetConsultorasCatalogosPorUbigeoAndNombresAndApellidos(idPais, codigoUbigeo, nombres, apellidos, marcaId, tipoFiltroUbigeo);
                 else if (codigoUbigeo.Length == 12) bEListaConsultoraCatalogo.ConsultorasCatalogos = new BLConsultoraCatalogo().GetConsultorasCatalogosPorUbigeo12AndNombresAndApellidos(idPais, codigoUbigeo, nombres, apellidos, marcaId, tipoFiltroUbigeo);
@@ -108,13 +108,13 @@ namespace Portal.Consultoras.Service
                 BETablaLogicaDatos longitudUbigeo = vListaTablaLogicaDatos.Find(x => x.TablaLogicaDatosID == 5801);
                 if (longitudUbigeo != null)
                 {
-                    int limiteInferior = 6;//por default
+                    int limiteInferior = 6;
                     int.TryParse(longitudUbigeo.Codigo, out limiteInferior);
                     int factorUbigeo = 3;
                     vListaTablaLogicaDatos = new BLTablaLogicaDatos().GetTablaLogicaDatos(idPais, 67);
                     BETablaLogicaDatos configFactorUbigeo = vListaTablaLogicaDatos.Find(x => x.TablaLogicaDatosID == 6701);
                     int.TryParse(configFactorUbigeo.Codigo, out factorUbigeo);
-                    limiteInferior *= factorUbigeo;// se multiplica por 3
+                    limiteInferior *= factorUbigeo;
                     string MensajeValidacion = string.Format("La longitud del parámetro CodigoUbigeo debe tener como valor mínimo {0}", limiteInferior);
                     if (codigoUbigeo.Length < limiteInferior) throw new Exception(MensajeValidacion);
                 }
@@ -132,8 +132,8 @@ namespace Portal.Consultoras.Service
         {
             int idPais = GetPaisID(codigoPais ?? "");
             if (idPais == 0) throw new Exception("El código de Pais recibido no es válido.");
-
-            if ((codigoTerritorioGeo ?? "").Length != 13) throw new Exception("El codigo de TerritorioGeo recibido no es válido.");
+            codigoTerritorioGeo = codigoTerritorioGeo ?? "";
+            if (codigoTerritorioGeo.Length != 13) throw new Exception("El codigo de TerritorioGeo recibido no es válido.");
             string codigoRegion = codigoTerritorioGeo.Substring(0, 2);
             string codigoZona = codigoTerritorioGeo.Substring(2, 4);
             string codigoSeccion = codigoTerritorioGeo.Substring(6, 1);

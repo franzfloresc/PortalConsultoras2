@@ -26,8 +26,7 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
-
-        //EPD-1164
+        
         public IDataReader GetClientesByCampaniaByClienteID(int CampaniaID, long ConsultoraID, string ClienteID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetClientesByCampaniaByClienteID");
@@ -48,7 +47,6 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        //1513
         public BEPedidoWebDetalle InsPedidoWebDetalle(BEPedidoWebDetalle pedidowebdetalle)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsPedidoWebDetalle_SB2");
@@ -65,7 +63,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@TipoOfertaSisID", DbType.Int32, pedidowebdetalle.TipoOfertaSisID);
             Context.Database.AddOutParameter(command, "@PedidoDetalleID", DbType.Int16, 2);
             Context.Database.AddInParameter(command, "@CodigoUsuarioCreacion", DbType.String, pedidowebdetalle.CodigoUsuarioCreacion);
-            Context.Database.AddInParameter(command, "@SubTipoOfertaSisID", DbType.Int16, pedidowebdetalle.SubTipoOfertaSisID); //1513
+            Context.Database.AddInParameter(command, "@SubTipoOfertaSisID", DbType.Int16, pedidowebdetalle.SubTipoOfertaSisID);
             Context.Database.AddInParameter(command, "@EsSugerido", DbType.Boolean, pedidowebdetalle.EsSugerido);
             Context.Database.AddInParameter(command, "@EsKitNueva", DbType.Boolean, pedidowebdetalle.EsKitNueva);
 
@@ -83,7 +81,6 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
             Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, PedidoID);
             Context.Database.AddInParameter(command, "@PedidoDetalleID", DbType.Int16, PedidoDetalleID);
-            //Context.Database.AddInParameter(command, "@TipoOfertaSisID", DbType.Int32, TipoOfertaSisID);
             Context.Database.AddInParameter(command, "@MensajeErrorPROL", DbType.String, Mensaje);
 
             int result = Context.ExecuteNonQuery(command);

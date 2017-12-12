@@ -7,22 +7,21 @@ using Portal.Consultoras.Entities;
 using Portal.Consultoras.BizLogic;
 using Portal.Consultoras.ServiceContracts;
 using System.ServiceModel;
-using System.Data; //R2004
+using System.Data;
 using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Service
 {
     public class ContenidoService : IContenidoService
     {
-        private BLNavidadConsultora _BLNavidadConsultora; //R2106
-        private BLItemCarruselInicio _BLItemCarruselInicio; //Cambios_Landing_Comunidad
+        private BLNavidadConsultora _BLNavidadConsultora;
+        private BLItemCarruselInicio _BLItemCarruselInicio;
 
         private BLMailing _BLMailing;
-        //R2106
 		public ContenidoService()
         {
             _BLNavidadConsultora = new BLNavidadConsultora();
-            _BLItemCarruselInicio = new BLItemCarruselInicio(); //Cambios_Landing_Comunidad
+            _BLItemCarruselInicio = new BLItemCarruselInicio();
             _BLMailing = new BLMailing();
         }
 
@@ -307,7 +306,6 @@ namespace Portal.Consultoras.Service
             var BLBelcorpResponde = new BLBelcorpResponde();
             BLBelcorpResponde.InsBelcorpResponde(BEBelcorpResponde);
         }
-        //R20150609
         public void DeleteBelcorpRespondeCache(int paisID)
         {
             var BLBelcorpResponde = new BLBelcorpResponde();
@@ -316,7 +314,6 @@ namespace Portal.Consultoras.Service
 
         #endregion
 
-		//R2122
         public string[] DescargaPaypal(int paisID, string codigoUsuario, DateTime fechaEjecucion)
         {
             try
@@ -335,29 +332,24 @@ namespace Portal.Consultoras.Service
 
         }
 
-        //RQ_SB - R2133
         public BEBannerSegmentoZona GetBannerSegmentoSeccion(int CampaniaId, int BannerId, int PaisId)
         {
             var BLBanner = new BLBanner();
             return BLBanner.GetBannerSegmentoSeccion(CampaniaId, BannerId, PaisId);
         }
 
-        //RQ_SB - R2133
         public List<BEBannerSegmentoZona> GetBannerPaisesAsignados(int CampaniaId, int BannerId)
         {
             var BLBanner = new BLBanner();
             return BLBanner.GetBannerPaisesAsignados(CampaniaId, BannerId);
         }
 
-        //RQ_SB - R2133
-        /*RE2544 - CS - Agregando nuevo parametro*/
         public void UpdBannerPaisSegmentoZona(int CampaniaId, int BannerId, int PaisId, int Segmento, string ConfiguracionZona, string SegmentoInterno)
         {
             var BLBanner = new BLBanner();
             BLBanner.UpdBannerPaisSegmentoZona(CampaniaId, BannerId, PaisId, Segmento, ConfiguracionZona, SegmentoInterno);
         }
 
-		//R2133
         public void DeleteCacheBanner(int CampaniaID)
         {
             var BLBanner = new BLBanner();
@@ -383,7 +375,6 @@ namespace Portal.Consultoras.Service
             return file;
         }
 
-		//R2106 - Inicio
         #region navidad 
 
         public int InsertarNavidadConsultora(BENavidadConsultora entidad)
@@ -412,37 +403,29 @@ namespace Portal.Consultoras.Service
             return _BLNavidadConsultora.SeleccionarNavidadConsultora(entidad);
         }
 		#endregion
-		// R2106 - Fin
-        //R2379
         public IList<string> GetLiderCampaniaActual(int paisID, long ConsultoraID, string CodigoPais)
         {
             var BLConsultoraLider = new BLConsultoraLider();
             return BLConsultoraLider.GetLiderCampaniaActual(paisID, ConsultoraID, CodigoPais);
         }
 	
-        //R2379
         public IList<string> GetProyectaNivel(int paisID, long ConsultoraID)
         {
             var BLConsultoraLider = new BLConsultoraLider();
             return BLConsultoraLider.GetProyectaNivel(paisID, ConsultoraID);
         }
 
-        //2397 - control de cambios
         public DataSet ObtenerParametrosSuperateLider(int paisID, long ConsultoraID, int CampaniaVenta)
         {
             var BLConsultoraLider = new BLConsultoraLider();
             return BLConsultoraLider.ObtenerParametrosSuperateLider(paisID, ConsultoraID, CampaniaVenta);
         }
 
-        /*Inicio Cambios_Landing_Comunidad*/
-
         public IList<BEItemCarruselInicio> GetItemCarruselInicio(int paisID)
         {
             return _BLItemCarruselInicio.GetItemCarruselInicio(paisID);
         }
 
-        /*Fin Cambios_Landing_Comunidad*/
-        //R2447 - Inicio
         #region Emailing para SE
         public List<BEPlantillasMailing> ObtenerPlantillasEmailingSE()
         {
@@ -499,9 +482,6 @@ namespace Portal.Consultoras.Service
             return _BLMailing.ObtenerCorreoEmisor(PaisID);
         }
         #endregion
-        //R2447 - Fin
-
-
 
         #region Miembros de IContenidoService
 

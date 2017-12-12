@@ -22,15 +22,9 @@
                 <option data-codigo="@item.Codigo" value="@item.ConfiguracionPaisID" @selectedOption>@item.Descripcion</option>
             }
         </select>
-        @*@Html.DropDownListFor(model => model.ConfiguracionPaisID, new SelectList(Model.ListaConfiguracionPais, "ConfiguracionPaisID", "Descripcion"), "-- Seleccionar --", new { id = "ddlConfiguracionIdOfertas" })*@
     </div>
 </div>
-<!-- <div class="div-3">
-    <div class="titG">Orden:</div>
-    <div class="titG selectP2 borde_redondeado">
-        @Html.TextBoxFor(m => m.DesktopOrden)
-    </div>
-</div>-->
+
 <div class="div-3">
     <div class="titG">URL Sección:</div>
     <div class="titG selectP2 borde_redondeado">
@@ -72,8 +66,6 @@
             </div>
             
 
-			<!--BPT 353-->
-
 			<div class="div-3">
                 <div class="titG" style="padding-bottom: 0;">Orden:</div>    
                 <br />  
@@ -89,8 +81,6 @@
                     @Html.TextBoxFor(m => m.DesktopOrdenBpt, new { @style = "width: 312px;" })
                 </div>
             </div>
-
-			<!--BPT 353-------------->
 
             <div class="div-3">
                 <div class="titG" style="padding-bottom: 0;">Título:</div>
@@ -160,8 +150,6 @@
                 </div>
             </div>
 
-						<!--BPT 353-->
-
 			<div class="div-3">
                 <div class="titG" style="padding-bottom: 0;">Orden:</div>    
                 <br />  
@@ -177,8 +165,6 @@
                     @Html.TextBoxFor(m => m.MobileOrdenBpt, new { @style = "width: 312px;" })
                 </div>
             </div>
-
-			<!--BPT 353-------------->
 
             <div class="div-3">
                 <div class="titG" style="padding-bottom: 0;">Título:</div>

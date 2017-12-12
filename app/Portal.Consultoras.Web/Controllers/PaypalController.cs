@@ -258,7 +258,6 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        //R2004
         public ActionResult ProcesoDescarga()
         {
             if (!UsuarioModel.HasAcces(ViewBag.Permiso, "Paypal/ProcesoDescarga"))
@@ -268,7 +267,6 @@ namespace Portal.Consultoras.Web.Controllers
             return View();
         }
 
-        //R2004 - R2122
         [HttpPost]
         public JsonResult RealizarDescarga(string fechaEjecucion)
         {

@@ -193,13 +193,13 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<ServiceUsuario.BEConfiguracionPais, ConfiguracionPaisModel>();
             Mapper.CreateMap<ServiceSAC.BEConfiguracionPais, ConfiguracionPaisModel>();
             Mapper.CreateMap<ServiceSAC.BEConfiguracionPais, AdministrarPalancaModel>();
+            Mapper.CreateMap<ServiceUsuario.BEConfiguracionPaisDatos, ConfiguracionPaisDatosModel>();
             Mapper.CreateMap<BEConfiguracionOfertasHome, AdministrarOfertasHomeModel>();
             Mapper.CreateMap<BETablaLogicaDatos, TablaLogicaDatosModel>();
             Mapper.CreateMap<BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>();
 
             Mapper.CreateMap<BEConsultoraRegaloProgramaNuevas, ConsultoraRegaloProgramaNuevasModel>()
                 .ForMember(t => t.CodigoNivel, f => f.MapFrom(c => c.CodigoNivel))
-                //.ForMember(t => t.CodigoPrograma, f => f.MapFrom(c => c.CodigoPrograma))
                 .ForMember(t => t.TippingPoint, f => f.MapFrom(c => c.TippingPoint))
                 .ForMember(t => t.CUVPremio, f => f.MapFrom(c => c.CUVPremio))
                 .ForMember(t => t.DescripcionPremio, f => f.MapFrom(c => c.DescripcionPremio))
@@ -222,7 +222,13 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             
             Mapper.CreateMap<BEConfiguracionOfertasHome, ConfiguracionSeccionHomeModel>();
 
-            Mapper.CreateMap<BEPais, PaisModel>();
+            Mapper.CreateMap<BEPais, PaisModel>()
+                .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
+                .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto))
+                .ForMember(t => t.CodigoISO, f => f.MapFrom(c => c.CodigoISO))
+                ;
+
             Mapper.CreateMap<BECampania, CampaniaModel>();
             Mapper.CreateMap<RegaloOfertaFinal, RegaloOfertaFinalModel>();
             
@@ -231,7 +237,6 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<AdministrarLugaresPagoModel, BELugarPago>()
                    .ForMember(t => t.LugarPagoID, f => f.MapFrom(c => c.LugarPagoID))
                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                   //.ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
                    .ForMember(t => t.UrlSitio, f => f.MapFrom(c => c.UrlSitio))
                    .ForMember(t => t.ArchivoLogo, f => f.MapFrom(c => c.ArchivoLogo))
@@ -257,6 +262,11 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             
             Mapper.CreateMap<ServiceCliente.BECliente, ClienteModel>();
             Mapper.CreateMap<ServiceCliente.BECliente, ClienteMobileModel>();
+            Mapper.CreateMap<BEDescripcionEstrategia, DescripcionEstrategiaModel>();
+            Mapper.CreateMap<BETipoLink, TipoLinkModel>()
+                  .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                  .ForMember(t => t.TipoLinkID, f => f.MapFrom(c => c.TipoLinkID))
+                  .ForMember(t => t.Url, f => f.MapFrom(c => c.Url));
         }
     }
 }

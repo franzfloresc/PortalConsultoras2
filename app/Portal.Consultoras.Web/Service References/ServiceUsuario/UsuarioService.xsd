@@ -123,6 +123,30 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfBEConfiguracionPais" nillable="true" type="tns:ArrayOfBEConfiguracionPais" />
+  <xs:complexType name="BEConfiguracionPaisDatos">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseEntidad">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+          <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ConfiguracionPais" nillable="true" type="tns:BEConfiguracionPais" />
+          <xs:element minOccurs="0" name="ConfiguracionPaisID" type="xs:int" />
+          <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Estado" type="xs:boolean" />
+          <xs:element minOccurs="0" name="Valor1" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Valor2" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Valor3" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="BEConfiguracionPaisDatos" nillable="true" type="tns:BEConfiguracionPaisDatos" />
+  <xs:complexType name="ArrayOfBEConfiguracionPaisDatos">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEConfiguracionPaisDatos" nillable="true" type="tns:BEConfiguracionPaisDatos" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEConfiguracionPaisDatos" nillable="true" type="tns:ArrayOfBEConfiguracionPaisDatos" />
   <xs:complexType name="BEUsuarioPostulante">
     <xs:sequence>
       <xs:element minOccurs="0" name="CodigoUsuario" nillable="true" type="xs:string" />
@@ -583,6 +607,8 @@
       <xs:element minOccurs="0" name="ImporteTotal" type="xs:decimal" />
       <xs:element minOccurs="0" name="ImporteTotalPedido" type="xs:decimal" />
       <xs:element minOccurs="0" name="IndicadorOferta" type="xs:int" />
+      <xs:element minOccurs="0" name="MontoAhorroCatalogo" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MontoAhorroRevista" type="xs:decimal" />
       <xs:element minOccurs="0" name="MontoTotalProl" type="xs:decimal" />
       <xs:element minOccurs="0" name="ObservacionPROL" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PrecioUnidad" type="xs:decimal" />

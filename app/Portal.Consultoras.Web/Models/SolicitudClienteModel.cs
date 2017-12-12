@@ -8,7 +8,6 @@ namespace Portal.Consultoras.Web.Models
 {
     public class SolicitudClienteModel : SolicitudClienteConsultoraModel
     {
-        /* R2319 - AAHA 02022015 - Parte 6 - Inicio */
         public IEnumerable<CampaniaModel> listaCampania { get; set; }
         public IEnumerable<PaisModel> listaPaises { get; set; }
         public Dictionary<int, string> listaMarcas { get; set; }
@@ -28,6 +27,5 @@ namespace Portal.Consultoras.Web.Models
         public string Direccion { get; set; }
         public int EstadoSolicitudClienteID { get; set; }
         public string Paginacion { get; set; }
-        /* R2319 - AAHA 02022015 - Parte 6 - Fin */
     }
 }

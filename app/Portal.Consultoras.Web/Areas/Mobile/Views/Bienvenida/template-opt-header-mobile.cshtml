@@ -31,7 +31,8 @@
         <hr class="clear" />
         <!-- FIN INSCRITAS C-11 -->
         @Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-seccion.cshtml",
-            new ViewDataDictionary{{"Source", 2}, { "NombreConsultora", ViewBag.NombreConsultora }, { "Origen", Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi } });
+            new ViewDataDictionary{{"Source", 2}, { "NombreConsultora", ViewBag.NombreConsultora },
+                { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome }, {"NombrePalanca" , Model.NombreComercialNoActiva}});
     }
     else if (Model.SuscripcionAnterior2Model.EstadoRegistro == 1)
     {
@@ -53,7 +54,8 @@
                     </div>
                     <hr class="clear" />
                     <div class="fondo_gris wrapper_resumen_mobile" style="padding-top:20px">
-                        <div class="contenedor_carrusel_home content_carrusel_agregado" id="divListadoEstrategia"> </div>
+                        <div class="contenedor_carrusel_home content_carrusel_agregado" id="divListadoEstrategia"
+                             data-origenpedidoweb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion"> </div>
                     </div>
                 </div>
 
@@ -98,7 +100,8 @@
                         </div>
                     </div>
                     <div style="padding-top:20px" id="divContenedorListaEstrategia">
-                        <div class="contenedor_carrusel_home content_carrusel_agregado" id="divListadoEstrategia">
+                        <div class="contenedor_carrusel_home content_carrusel_agregado" id="divListadoEstrategia"
+                             data-origenpedidoweb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion">
                             <div style="text-align: center;">Cargando Productos Destacados<br><img src="/Content/Images/Loading.gif" /><br /></div>
                         </div>
                     </div>
@@ -132,7 +135,8 @@
         <hr class="clear" />
         <!-- FIN NO INSCRITAS C-11 -->
         @Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-seccion.cshtml",
-            new ViewDataDictionary{{"Source", 2}, { "NombreConsultora", ViewBag.NombreConsultora }, { "Origen", Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi } });
+            new ViewDataDictionary{{"Source", 2}, { "NombreConsultora", ViewBag.NombreConsultora },
+                { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome }, {"NombrePalanca" , Model.NombreComercialNoActiva}});
     }
 }
 else if (Model.TieneRDR)
@@ -155,7 +159,8 @@ else if (Model.TieneRDR)
                     </div>
                     <hr class="clear" />
                     <div class="fondo_gris wrapper_resumen_mobile" style="padding-top:20px">
-                        <div class="contenedor_carrusel_home content_carrusel_agregado" id="divListadoEstrategia"> </div>
+                        <div class="contenedor_carrusel_home content_carrusel_agregado" id="divListadoEstrategia"
+                             data-origenpedidoweb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion"> </div>
                     </div>
                 </div>
 
@@ -200,7 +205,8 @@ else if (Model.TieneRDR)
                     </div>
                 </div>
                 <div style="padding-top:20px" id="divContenedorListaEstrategia">
-                    <div class="contenedor_carrusel_home content_carrusel_agregado" id="divListadoEstrategia">
+                    <div class="contenedor_carrusel_home content_carrusel_agregado" id="divListadoEstrategia"
+                         data-origenpedidoweb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion">
                         <div style="text-align: center;">Cargando Productos Destacados<br><img src="/Content/Images/Loading.gif" /><br /></div>
                     </div>
                 </div>
@@ -211,6 +217,7 @@ else if (Model.TieneRDR)
 else
 {
     @Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-seccion.cshtml",
-        new ViewDataDictionary{{"Source", 1}, { "NombreConsultora", ViewBag.NombreConsultora }, { "Origen", Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi } });
+        new ViewDataDictionary{{"Source", 1}, { "NombreConsultora", ViewBag.NombreConsultora },
+            { "Origen", Constantes.OrigenPedidoWeb.OfertasParaTiMobileHome }, {"NombrePalanca" , Model.NombreComercialNoActiva}});
 }
 </script>
