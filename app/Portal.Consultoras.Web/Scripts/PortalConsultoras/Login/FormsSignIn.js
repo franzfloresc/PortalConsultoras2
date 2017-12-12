@@ -267,7 +267,8 @@ $(document).ready(function () {
         RecuperarClave("1");
     });
 
-    $("#aVolverInicio").click(function () {
+    $(".aVolverInicio").click(function () {
+        $("#vermasopciones1").attr("data-recuperar", "2");
         $("#popup2").hide();
         RecuperarClave("1");       
     });
@@ -1016,6 +1017,9 @@ function RecuperarClave(tipoRecuperar) {
                 var e_numero = "";
                 correoRecuperar = $.trim(response.data.Correo);
 
+                $("#hd_CONTEXTO_BASE").val(response.data.ContextoBase);
+                $("#linkvolverInicio").hide();
+                $("#vermasopciones1").show();               
 
                 switch (response.resul)
                 {
@@ -1075,8 +1079,11 @@ function RecuperarClave(tipoRecuperar) {
                                     $("#contenidotelefono").append("<span class='clstelefono'>Central " + (index + 1) + ": " + value + "</span>")
                                 });
                             }
+                            $("#vermasopciones1").hide();
+                            $("#linkvolverInicio").show();
                             $("#menPrioridad2_llamada").show();
                             $("#prioridad2_llamada").show();
+                            
                         } break;
 
                     case "prioridad3":

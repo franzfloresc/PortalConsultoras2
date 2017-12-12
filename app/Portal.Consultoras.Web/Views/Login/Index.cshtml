@@ -699,7 +699,7 @@
                 </div>
                 <div class="info_mas_opciones">
                     <!-- INICIO - MENSAJE CUANDO LA CONSULTORA TIENE CORREO Y CELULAR REGISTRADOS -->
-                    <span>Mis datos no son correctos.</span>
+                    <span style="display:none;">Mis datos no son correctos.</span>
                     <!-- FIN - MENSAJE CUANDO LA CONSULTORA TIENE CORREO Y CELULAR REGISTRADOS -->
                     <!-- INICIO - MENSAJE CUANDO LA CONSULTORA TIENE SÓLO CORREO REGISTRADO -->
                     <span style="display:none;">Este no es mi correo.</span>
@@ -711,6 +711,8 @@
                     <a id="vermasopciones1" title="Ver más opciones" data-recuperar="2" style="cursor:pointer;">
                         Ver más opciones
                     </a>
+
+                    <a id="linkvolverInicio" class="accion_alternativa_posterior_envio_password aVolverInicio" title="Reenviar mensaje a mi correo" style="cursor:pointer;display:none;">Volver al inicio</a>
                 </div>
             </div>
         </div>
@@ -769,7 +771,7 @@
 
                     <div id="divVolverInicio" style="display:none;">
                         <span class="texto_no_llego_mensaje">No me llegó el mensaje.</span>
-                        <a id="aVolverInicio" class="accion_alternativa_posterior_envio_password" title="Reenviar mensaje a mi correo" style="cursor:pointer;">Volver al inicio</a>
+                        <a class="accion_alternativa_posterior_envio_password aVolverInicio" title="Reenviar mensaje a mi correo" style="cursor:pointer;">Volver al inicio</a>
                     </div>
                     <!-- FIN - 3ER INTENTO DE RECUPERACIÓN DE PASSWORD -->
                 </div>
