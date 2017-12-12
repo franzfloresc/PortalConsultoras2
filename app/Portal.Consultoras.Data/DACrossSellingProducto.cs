@@ -110,7 +110,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CUVAsociado2", DbType.AnsiString, entity.CUVAsociado2);
             Context.Database.AddInParameter(command, "@CodigoSegmento", DbType.AnsiString, entity.CodigoSegmento);
 			Context.Database.AddInParameter(command, "@Descripcion", DbType.AnsiString, entity.Descripcion);            
-            Context.Database.AddInParameter(command, "@Precio", DbType.String, entity.EtiquetaPrecio);//1673CC
+            Context.Database.AddInParameter(command, "@Precio", DbType.String, entity.EtiquetaPrecio);
             return Context.ExecuteNonQuery(command);
         }
 
@@ -123,7 +123,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CUVAsociado2", DbType.AnsiString, entity.CUVAsociado2);
             Context.Database.AddInParameter(command, "@CodigoSegmento", DbType.AnsiString, entity.CodigoSegmento);
 			Context.Database.AddInParameter(command, "@Descripcion", DbType.AnsiString, entity.Descripcion);            
-            Context.Database.AddInParameter(command, "@Precio", DbType.String, entity.EtiquetaPrecio);//1673CC
+            Context.Database.AddInParameter(command, "@Precio", DbType.String, entity.EtiquetaPrecio);
             return Context.ExecuteNonQuery(command);
         }
 
@@ -137,7 +137,7 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteNonQuery(command);
         }
 
-        public int DelCrossSellingAsociacion_Perfil(BECrossSellingAsociacion entity)//1673
+        public int DelCrossSellingAsociacion_Perfil(BECrossSellingAsociacion entity)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.DelCrossSellingAsociacion_perfil");
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entity.CampaniaID);

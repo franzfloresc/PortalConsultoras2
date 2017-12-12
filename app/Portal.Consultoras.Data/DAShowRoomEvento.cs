@@ -117,24 +117,7 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteNonQuery(command);
         }
 
-        /*
-        public int InsOfertaShowRoomCargaMasiva(IEnumerable<BEShowRoomOferta2> stockProductos)
-        {
-            var ofertaShowRoomReader = new GenericDataReader<BEShowRoomOferta2>(stockProductos);
-
-            var command = new SqlCommand("ShowRoom.CargaMasivaOfertaShowRoom");
-            command.CommandType = CommandType.StoredProcedure;
-
-            var parameter = new SqlParameter("@CargaOfertaShowRoom", SqlDbType.Structured);
-            parameter.TypeName = "ShowRoom.CargaMasivaOfertaShowRoomType";
-            parameter.Value = ofertaShowRoomReader;
-            command.Parameters.Add(parameter);
-
-            return Context.ExecuteNonQuery(command);
-        }
-        */
-
-        public int CargarMasivaDescripcionSets(int campaniaID, string usuarioCreacion, List<BEShowRoomOfertaDetalle> listaShowRoomOfertaDetalle)
+        public int CargarMasivaDescripcionSets(int campaniaID, string usuarioCreacion, List<BEShowRoomOfertaDetalle> listaShowRoomOfertaDetalle, string nombreArchivoCargado, string nombreArchivoGuardado)
         {
             var ofertaShowRoomReader = new GenericDataReader<BEShowRoomOfertaDetalle>(listaShowRoomOfertaDetalle);
 
@@ -154,6 +137,13 @@ namespace Portal.Consultoras.Data
             parameter.Value = usuarioCreacion;
             command.Parameters.Add(parameter);
 
+            parameter = new SqlParameter("@NombreArchivoCargado", SqlDbType.VarChar, 150);
+            parameter.Value = nombreArchivoCargado;
+            command.Parameters.Add(parameter);
+
+            parameter = new SqlParameter("@NombreArchivoGuardado", SqlDbType.VarChar, 150);
+            parameter.Value = nombreArchivoGuardado;
+            command.Parameters.Add(parameter);
 
             return Context.ExecuteNonQuery(command);
         }

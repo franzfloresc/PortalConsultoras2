@@ -46,7 +46,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.CodigoZona = userData.CodigoZona;
             model.Simbolo = userData.Simbolo;
 
-            List<ServicePedido.BEPedidoWebDetalle> olstPedido = new List<ServicePedido.BEPedidoWebDetalle>();
+            List<ServicePedido.BEPedidoWebDetalle> olstPedido;
             using (ServicePedido.PedidoServiceClient sv = new ServicePedido.PedidoServiceClient())
             {
                 var bePedidoWebDetalleParametros = new ServicePedido.BEPedidoWebDetalleParametros();
@@ -60,7 +60,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 olstPedido = sv.SelectByCampania(bePedidoWebDetalleParametros).ToList();
             }
-
+            olstPedido = olstPedido ?? new List<ServicePedido.BEPedidoWebDetalle>();
             model.TieneDescuentoCuv = userData.EstadoSimplificacionCUV && olstPedido != null &&
                 olstPedido.Any(item => string.IsNullOrEmpty(item.ObservacionPROL) && item.IndicadorOfertaCUV);
 
@@ -95,18 +95,13 @@ namespace Portal.Consultoras.Web.Controllers
                 List<BEPedidoWeb> lst;
                 using (ClienteServiceClient sv = new ClienteServiceClient())
                 {
-                    //lst = sv.GetPedidosWebByConsultora(UserData().PaisID, UserData().ConsultoraID).ToList().FindAll(x => x.CampaniaID == UserData().CampaniaID);
-                    //Inicio ITG 1793 HFMG
                     lst = sv.GetPedidosWebByConsultora(UserData().PaisID, ObtenerConsultoraId()).ToList();
-                    //Fin ITG 1793 HFMG
                 }
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                //int buscar = int.Parse(txtBuscar);
                 BEPager pag = new BEPager();
                 IEnumerable<BEPedidoWeb> items = lst;
 
@@ -150,12 +145,10 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion
 
                 items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-                //UserData().ZonaValida
 
                 pag = Util.PaginadorGenerico(grid, lst);
 
-                // Creamos la estructura
-                if (UserData().PaisID == 4) // validación pais colombia req. 1478
+                if (UserData().PaisID == 4)
                 {
                     var data = new
                     {
@@ -229,12 +222,9 @@ namespace Portal.Consultoras.Web.Controllers
                 List<BEPedidoWebDetalle> lst;
                 using (ClienteServiceClient sv = new ClienteServiceClient())
                 {
-                    //Inicio ITG 1793 HFMG
                     lst = sv.GetClientesByCampania(UserData().PaisID, int.Parse(CampaniaId), ObtenerConsultoraId()).ToList();
-                    //Fin ITG 1793 HFMG
                 }
 
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
@@ -269,7 +259,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 pag = Util.PaginadorGenerico(grid, lst);
 
-                // Creamos la estructura
                 var data = new
                 {
                     total = pag.PageCount,
@@ -299,12 +288,9 @@ namespace Portal.Consultoras.Web.Controllers
                 List<BEPedidoWebDetalle> lst;
                 using (ClienteServiceClient sv = new ClienteServiceClient())
                 {
-                    //Inicio ITG 1793 HFMG
                     lst = sv.GetPedidoWebDetalleByCliente(UserData().PaisID, int.Parse(CampaniaId), ObtenerConsultoraId(), int.Parse(ClientId)).ToList();
-                    //Fin ITG 1793 HFMG
                 }
 
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
@@ -363,9 +349,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 pag = Util.PaginadorGenerico(grid, lst);
 
-                // Creamos la estructura
                 if (UserData().PaisID == 4)
-                { // validación país colombia req. 1478
+                {
                     var data = new
                     {
                         simbolo = UserData().Simbolo,
@@ -427,7 +412,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                //Inicio ITG 1793 HFMG
                 string NombreCliente = string.Empty;
                 if (UserData().UsuarioPrueba == 1)
                 {
@@ -449,13 +433,9 @@ namespace Portal.Consultoras.Web.Controllers
 
 
                     #region Mensaje a Enviar
-                    //Mejora - Correo
-                    //string nomPais = Util.ObtenerNombrePaisPorISO(UserData().CodigoISO);
                     string mailBody = string.Empty;
-                    /*RE2584 - CS(CGI) - INI*/
                     string mailbodygrid = string.Empty;
 
-                    /* Armado de Data */
                     for (int i = 0; i < lst.Count; i++)
                     {
 
@@ -469,7 +449,7 @@ namespace Portal.Consultoras.Web.Controllers
                         mailbodygrid += "<td style='font-size:11px; width: 124px; text-align: center;'>";
                         mailbodygrid += "" + lst[i].Cantidad.ToString() + "";
                         mailbodygrid += "</td>";
-                        if (UserData().PaisID == 4) // validación para colombia req. 1478
+                        if (UserData().PaisID == 4)
                         {
                             mailbodygrid += "<td style='font-size:11px; width: 182px; text-align: center;'>";
                             mailbodygrid += "" + UserData().Simbolo + string.Format("{0:#,##0}", lst[i].PrecioUnidad).Replace(',', '.') + "";
@@ -527,16 +507,12 @@ namespace Portal.Consultoras.Web.Controllers
 
                     mailBody += mailbodygrid;
 
-                    /*RE2584 - CS(CGI) - FIN*/
-
-
-                    /* Fin de Armado de Data*/
                     mailBody += "<tr>";
                     mailBody += "<td colspan='4' style='font-size:11px; text-align: right; font-weight: bold'>";
                     mailBody += "Total :";
                     mailBody += "</td>";
                     mailBody += "<td style='font-size:11px; text-align: center; font-weight: bold'>";
-                    if (UserData().PaisID == 4) // validación para colombia req. 1478
+                    if (UserData().PaisID == 4)
                     {
                         mailBody += "" + UserData().Simbolo + string.Format("{0:#,##0}", Total).Replace(',', '.') + "";
                     }
@@ -559,23 +535,11 @@ namespace Portal.Consultoras.Web.Controllers
                     mailBody += "<td style='text-align: center; font-size:12px;'>";
                     mailBody += "<strong>" + UserData().NombreConsultora + "</strong> <br />";
                     mailBody += "<strong>Consultora</strong>";
-                    //Mejora - Correo
-                    //mailBody += "</td>";
-                    //mailBody += "</tr>";
-                    //mailBody += "</table>";
-                    //mailBody += "<table border='0' style='width: 80%;'>";
-                    //mailBody += "<tr>";
-                    //mailBody += "<td style='font-family:Arial, Helvetica, sans-serif, serif; font-weight:bold; font-size:12px; text-align:right; padding-top:8px;'>";
-                    //mailBody += "Belcorp - " + nomPais;
                     mailBody += "</td>";
                     mailBody += "</tr>";
                     mailBody += "</table>";
 
                     #endregion
-
-                    //Mejora - Correo
-                    //Util.EnviarMail("no-responder@somosbelcorp.com", ClientId.ToString().Equals("0") ? UserData().EMail : Email, "Pedido Solicitado", mailBody, true, string.Format("{0} - Pedido total", Util.SinAcentosCaracteres(nomPais.ToUpper())));
-                    //Util.EnviarMail(Globals.EmailCatalogos, ClientId.ToString().Equals("0") ? UserData().EMail : Email, "Pedido Solicitado", mailBody, true, UserData().NombreConsultora);
                     Util.EnviarMail("no-responder@somosbelcorp.com", ClientId.ToString().Equals("0") ? UserData().EMail : Email, "(" + UserData().CodigoISO + ") Pedido Solicitado", mailBody, true, UserData().NombreConsultora);
 
 
@@ -586,7 +550,6 @@ namespace Portal.Consultoras.Web.Controllers
                         extra = ""
                     });
                 }
-                //Fin ITG 1793 HFMG
             }
             catch (FaultException ex)
             {
@@ -615,9 +578,7 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPedidoWebDetalle> lstCabecera;
             using (ClienteServiceClient sv = new ClienteServiceClient())
             {
-                //Inicio ITG 1793 HFMG
                 lstCabecera = sv.GetClientesByCampania(UserData().PaisID, int.Parse(vCampaniaID), ObtenerConsultoraId()).OrderBy(p => p.Nombre).ToList();
-                //Fin ITG 1793 HFMG
             }
 
             List<KeyValuePair<int, string>> dicCabeceras = new List<KeyValuePair<int, string>>();
@@ -627,9 +588,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (ClienteServiceClient sv = new ClienteServiceClient())
                 {
-                    //Inicio ITG 1793 HFMG
                     lstDetallesTemp = sv.GetPedidoWebDetalleByCliente(UserData().PaisID, int.Parse(vCampaniaID), ObtenerConsultoraId(), item.ClienteID).ToList();
-                    //Fin ITG 1793 HFMG
                 }
 
                 decimal suma = lstDetallesTemp.Sum(p => p.ImporteTotal);
@@ -693,7 +652,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 foreach (KeyValuePair<int, string> keyvalue in columnHeaderDefinition)
                 {
-                    //Establece las columnas
                     ws.Cell(row, 1).Value = keyvalue.Value;
                     ws.Range(string.Format("A{0}:E{1}", row, row)).Row(1).Merge();
                     ws.Cell(row, 1).Style.Font.Bold = true;
@@ -717,17 +675,11 @@ namespace Portal.Consultoras.Web.Controllers
 
                     row += 2;
                     while (i < keyvalue.Key)
-                    // ( i < ; i++)
                     {
                         col = 1;
-                        foreach (string column in Columns) // itera las columnas del detalle
+                        foreach (string column in Columns)
                         {
-                            //Establece el valor para esa columna
                             BEPedidoWebDetalle source = SourceDetails[i];
-                            //foreach (PropertyInfo property in source.GetType().GetProperties())
-                            //{
-                            //for (int m = 0; m < 5; m++)
-                            //{
                             string[] arr = new string[2];
                             if (column.Contains("#"))
                                 arr = column.Split('#');
@@ -776,7 +728,6 @@ namespace Portal.Consultoras.Web.Controllers
                                 ws.Cell(row, col).Style.Fill.BackgroundColor = XLColor.FromHtml("#DED2F1");
                                 ws.Cell(row, col).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
                             }
-                            //}
                             col++;
                         }
                         row++;
@@ -795,7 +746,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                         string importeTotalPedido = "";
                         if (UserData().PaisID == 4)
-                        { // validación para pais colombia req. 1478
+                        {
                             importeTotalPedido = ((BEPedidoWebDetalle)SourceDetails[i]).ImporteTotalPedido.ToString("#,##0").Replace(',', '.');
                         }
                         else
@@ -803,7 +754,7 @@ namespace Portal.Consultoras.Web.Controllers
                             importeTotalPedido = ((BEPedidoWebDetalle)SourceDetails[i]).ImporteTotalPedido.ToString("0.00");
                         }
 
-                        ws.Cell(row, col - 2).Value = arrTotal[0]; //Total:
+                        ws.Cell(row, col - 2).Value = arrTotal[0];
                         ws.Cell(row, col - 1).Value = arrTotal[1].Split('#')[0] + importeTotalPedido;
                     }
                     row++;
@@ -839,12 +790,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                 HttpContext.Response.ClearHeaders();
                 HttpContext.Response.Clear();
-                //HttpContext.Current.Response.SetCookie("Cache-Control", "private");
                 HttpContext.Response.Buffer = false;
                 HttpContext.Response.AddHeader("Content-disposition", "attachment; filename=" + originalFileName);
                 HttpContext.Response.Charset = "UTF-8";
                 HttpContext.Response.Cache.SetCacheability(HttpCacheability.Private);
-                //HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
                 HttpContext.Response.ContentType = "application/octet-stream";
                 HttpContext.Response.BinaryWrite(stream.ToArray());
                 HttpContext.Response.Flush();

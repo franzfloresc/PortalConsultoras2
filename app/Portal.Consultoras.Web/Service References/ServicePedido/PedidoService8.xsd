@@ -2888,6 +2888,8 @@
         <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
         <xs:element minOccurs="0" name="usuarioCreacion" nillable="true" type="xs:string" />
         <xs:element xmlns:q190="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" minOccurs="0" name="listaShowRoomOfertaDetalle" nillable="true" type="q190:ArrayOfBEShowRoomOfertaDetalle" />
+        <xs:element minOccurs="0" name="nombreArchivoCargado" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="nombreArchivoGuardado" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

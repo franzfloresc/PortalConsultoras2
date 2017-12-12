@@ -451,6 +451,9 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         List<BEEstadoCuenta> GetEstadoCuentaConsultora(int PaisId, long consultoraId);
 
+        [OperationContract]
+        string GetDeudaActualConsultora(int PaisId, long consultoraId);
+
         #endregion
 
         #region Pedidos Facturados
@@ -718,6 +721,12 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         IList<BEConfiguracionOfertasHome> ListarSeccionConfiguracionOfertasHome(int paisId, int campaniaId);
+        #endregion
+
+        #region DescripcionEstrategia
+        [OperationContract]
+        List<BEDescripcionEstrategia> ActualizarDescripcionEstrategia(int paisId, int campaniaId, int tipoEstrategiaId,
+            List<BEDescripcionEstrategia> listaDescripcionEstrategias);
         #endregion
     }
 }

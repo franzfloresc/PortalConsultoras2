@@ -101,7 +101,7 @@ function ActualizarLocalStorageIsAgregado(cuv, valor, lista, indCampania) {
 
         ok = actualizarIsAgregado(data.response.listaLan, cuv, valor);
 
-        if (!ok) {
+        if (!ok || cuv == "todo") {
             ok = actualizarIsAgregado(data.response.lista, cuv, valor);
         }
 

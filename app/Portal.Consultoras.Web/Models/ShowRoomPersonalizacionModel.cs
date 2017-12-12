@@ -17,7 +17,6 @@ namespace Portal.Consultoras.Web.Models
         public int Orden { get; set; }
         public bool Estado { get; set; }
 
-        /*Valores necesarios para la configuracion (viene de la tabla ShowRoom.PersonalizacionNivel*/
         public int PersonalizacionNivelId { get; set; }
         public string Valor { get; set; }
     }

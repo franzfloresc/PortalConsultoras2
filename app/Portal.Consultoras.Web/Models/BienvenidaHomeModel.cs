@@ -10,12 +10,8 @@ namespace Portal.Consultoras.Web.Models
         public string Telefono { get; set; }
         public string TelefonoTrabajo { get; set; }
         public string Celular { get; set; }
-        /*2116 -INICIO*/
         public string m_Apellidos { get; set; }
         public string m_Nombre { get; set; }
-        /*2116-FIN  */
-
-        /* EPD-2811 */
         private int _paisID;
         public int PaisID
         {
@@ -110,15 +106,11 @@ namespace Portal.Consultoras.Web.Models
         public int limiteMinimoTelef { get; set; }        
         #region Propiedades para POPUps
         public int TipoPopUpMostrar { get; set; }
-        // DemandaAnticipada
         public string MensajeFechaDA { get; set; }
-        // Actualizar datos
         public int MostrarPopupActualizarDatosXPais { get; set; }
         #endregion
 
         #region Propiedades para PopUp MIS DATOS
-        // EPD-2811 Colombia requiere campos de solo lectura debido a la LEY de actualizacion de datos
-        // HOLA
         public string TextoSobrenombre { get; set; }
         public string TextoCorreoElectronico { get; set; }
         public string TextoTelefono { get; set; }
@@ -138,7 +130,6 @@ namespace Portal.Consultoras.Web.Models
 
         public BienvenidaHomeModel()
         {
-            // EPD-2811 Colombia requiere campos de solo lectura debido a la LEY de actualizacion de datos
             TextoSobrenombre = "¿Qué nombre te gustaría que te digamos?:";
             TextoCorreoElectronico = "Tu Correo Electrónico:";
             TextoTelefono = "Tu Teléfono:";

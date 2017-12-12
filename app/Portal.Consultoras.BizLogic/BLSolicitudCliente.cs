@@ -27,12 +27,10 @@ namespace Portal.Consultoras.BizLogic
         private void EnviarEmailSolicitudCliente(int paisID, BEConsultoraSolicitudCliente consultoraSolicitudCliente, BEResultadoSolicitud resultado)
         {
             BESolicitudCliente solicitudCliente = GetSolicitudClienteWithoutMarcaBySolicitudId(paisID, resultado.Resultado);
-            // SACService ServiceSAC = new SACService();            
             var TablaLogDatos = new BLTablaLogicaDatos();
-            // List<BETablaLogicaDatos> TablaLogicaDatosMail = TablaLogDatos.GetTablaLogicaDatos(paisID, 57);
             List<BETablaLogicaDatos> tablalogicaDatos = TablaLogDatos.GetTablaLogicaDatos(paisID, 56);
 
-            String emailOculto = string.Empty;// TablaLogicaDatosMail.FirstOrDefault(x => x.TablaLogicaDatosID == 5701).Descripcion;
+            String emailOculto = string.Empty;
             String horas = tablalogicaDatos.First(x => x.TablaLogicaDatosID == 5603).Codigo;
 
             if (consultoraSolicitudCliente != null)
@@ -121,7 +119,6 @@ namespace Portal.Consultoras.BizLogic
                 }
                 catch (Exception)
                 {
-                    //resultado.Mensaje = string.Format("No se pudo enviar correo: {0}", ex.ToString());
                 }
             }
         }
@@ -167,9 +164,6 @@ namespace Portal.Consultoras.BizLogic
                 {
                     while (reader.Read()) { resultado = new BEResultadoSolicitud(reader); }
                 }
-                //EPD902 - Quitar envio de correo. 03102016
-                //BEConsultoraSolicitudCliente consultoraSolicitudCliente = GetConsultoraSolicitudCliente(paisID, int.Parse(entidadSolicitud.ConsultoraID.ToString()), entidadSolicitud.CodigoConsultora, 0);
-                //this.EnviarEmailSolicitudCliente(paisID, consultoraSolicitudCliente, resultado); 
                 return resultado;
             }
             catch (Exception ex)
@@ -179,7 +173,6 @@ namespace Portal.Consultoras.BizLogic
             }
         }
         
-        //JLCS
         public BESolicitudCliente GetSolicitudClienteBySolicitudId(int paisID, long solicitudClienteId)
         {
             BESolicitudCliente solicitudCliente = null;
@@ -207,7 +200,6 @@ namespace Portal.Consultoras.BizLogic
             return solicitudCliente;
         }
 
-        //JLCS - 2319
         public List<BESolicitudClienteDetalle> GetSolicitudClienteDetalleBySolicitudId(int paisID, long solicitudClienteId)
         {
             List<BESolicitudClienteDetalle> solicitudClientes = new List<BESolicitudClienteDetalle>();
@@ -224,7 +216,6 @@ namespace Portal.Consultoras.BizLogic
             return solicitudClientes;
         }
 
-        /*R2613-LR*/
         public BEConsultoraSolicitudCliente GetConsultoraSolicitudCliente(int paisID, int consultoraid, string codigo, int marcaId)
         {
             BEConsultoraSolicitudCliente consultorasolicitudCliente = null;
@@ -241,14 +232,12 @@ namespace Portal.Consultoras.BizLogic
             return consultorasolicitudCliente;
         }
 
-        /*R2613-LR*/
         public void EnviarEmail(string From, String To, String CCO, String Subject, String Message, bool isHTML)
         {
             Common.Util.EnviarMail(From, To, CCO, Subject, Message, isHTML);
         }
 
 
-        //JCLS -2319
         public void UpdSolicitudCliente(int paisID, BESolicitudCliente entidadSolicitud)
         {
             var DASolicitudCliente = new DASolicitudCliente(paisID);
@@ -416,7 +405,6 @@ namespace Portal.Consultoras.BizLogic
             return motivosRechazos;
         }
 
-        /* R2319 - AAHA 02022015 - Parte 6 - Inicio */
         public int EnviarSolicitudClienteaGZ(int paisID, BESolicitudCliente entidadSolicitudCliente)
         {
             var DASolicitudCliente = new DASolicitudCliente(paisID);
@@ -467,7 +455,6 @@ namespace Portal.Consultoras.BizLogic
 
             return resultadoSolicitudCliente;
         }
-        /* R2319 - AAHA 02022015 - Parte 6 - Fin */
 
         public List<BEEstadoSolicitudCliente> GetEstadoSolicitudCliente(int paisID)
         {
@@ -518,8 +505,6 @@ namespace Portal.Consultoras.BizLogic
         }
 
         #region AppCatalogo
-
-        /*      EPD-2035        */
 
         public BEResultadoMisPedidosAppCatalogo GetPedidosAppCatalogo(int paisID, long consultoraID, string dispositivoID, int tipoUsuario, int campania)
         {
@@ -580,9 +565,6 @@ namespace Portal.Consultoras.BizLogic
                 return resultado;
             }
         }
-
-
-        /*      FIN EPD-2035        */
 
         #endregion
     }
