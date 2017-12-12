@@ -15,7 +15,7 @@ namespace Portal.Consultoras.Web.Models
     {
         public string Ruta { get; set; }
         public string Nombre { get; set; }
-        public string FechaFacturacion { get; set; }//R20150906
+        public string FechaFacturacion { get; set; }
     }
 
     [Serializable]
@@ -69,7 +69,6 @@ namespace Portal.Consultoras.Web.Models
         public string objeto { get; set; }
     }
 
-    //RQ_RV_WEB- R2161
     [Serializable]
     public class RVDWebCampaniasParam
     {
@@ -79,14 +78,12 @@ namespace Portal.Consultoras.Web.Models
         public string Campana { get; set; }
     }
 
-    //RQ_RV_WEB- R2161
     [Serializable]
     public class WrapperPDFWeb
     {
         public GET_URLResult GET_URLResult { get; set; }
     }
 
-    //R20150906
     [Serializable]
     public class objeto
     {
@@ -94,16 +91,13 @@ namespace Portal.Consultoras.Web.Models
         public string url { get; set; }
     }
 
-
-
-    //RQ_RV_WEB- R2161
     [Serializable]
     public class GET_URLResult
     {
         public string errorCode { get; set; }
         public string errorMessage { get; set; }
         public List<string> lista { get; set; }
-        public List<objeto> objeto { get; set; }//R20150906
+        public List<objeto> objeto { get; set; }
     }
      
 }

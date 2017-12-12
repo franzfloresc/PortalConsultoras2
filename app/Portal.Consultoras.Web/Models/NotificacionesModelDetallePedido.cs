@@ -14,5 +14,6 @@
         public decimal MontoTotalProl { get; set; }
         public decimal DescuentoProl { get; set; }
         public decimal ImporteTotalPedido { get; set; }
+        public string NombreCliente { get; set; }
     }
 }

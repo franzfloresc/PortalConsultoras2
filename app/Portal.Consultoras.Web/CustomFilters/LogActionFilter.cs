@@ -12,7 +12,6 @@ namespace Portal.Consultoras.Web.CustomFilters
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            // se crea la entrada de log
             ErrorsLog logModel = new ErrorsLog()
             {
                 Controller = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName,

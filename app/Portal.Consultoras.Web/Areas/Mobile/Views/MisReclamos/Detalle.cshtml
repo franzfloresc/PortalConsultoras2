@@ -29,8 +29,8 @@
     CAMBIOS Y DEVOLUCIONES
 </div>
 
-<div class="pestana_esika"></div><!--PESTANA ESIKA-->
-<div class="pestana_lbel"></div><!--PESTANA LBEL-->
+<div class="pestana_esika"></div>
+<div class="pestana_lbel"></div>
 
 @if (ViewBag.Origen == "0")
 {
@@ -195,7 +195,6 @@ else if (ViewBag.Origen == "1")
                 {
                     <div class="detalle_tipo_solicitud_titulo tipografia_lato_bold">
                         <div>
-                            @*Solicitud de Cambio*@
                             @item.SolucionSolicitada
                         </div>
                         <div class="estado_solic_cdr color_marca  tipografia_lato_bold">
@@ -212,7 +211,6 @@ else if (ViewBag.Origen == "1")
                     <div class="detalle_tipo_solicitud">
                         <div class="detalle_producto_cdr">
                             <span class="detalle_cod_producto tipografia_lato_regular">
-                                @*CUV*@
                                 @item.CUV
                             </span>
                             <span class="detalle_nom_producto tipografia_lato_bold">
@@ -250,74 +248,6 @@ else if (ViewBag.Origen == "1")
                 }
             }
         </div>
-
-
-
-        @*<div class="detalle_tipo_solicitud_titulo tipografia_lato_bold">
-                <div>
-                    Solicitud de reenvío
-                </div>
-                <div class="estado_solic_cdr color_marca  tipografia_lato_bold">
-                    APROBADO
-                </div>
-            </div>
-            <div class="detalle_tipo_solicitud">
-                <div class="detalle_producto_cdr">
-                    <span class="detalle_cod_producto tipografia_lato_regular">
-                        00411
-                    </span>
-                    <span class="detalle_nom_producto tipografia_lato_bold">
-                        Berrylicious shampoo rojo 375ml.
-                    </span>
-                    <span class="detalle_cantidad_producto tipografia_lato_regular">
-                        x2 unidades
-                    </span>
-                </div>
-                <div class="detalle_cdr_solucion">
-                    <span class="detalle_cdr_solucion_titulo tipografia_lato_bold color_marca">
-                        Reenviar:
-                    </span>
-                    <span class="detalle_cdr_solucion_titulo tipografia_lato_regular">
-                        el mismo producto
-                    </span>
-                </div>
-            </div>
-
-            <div class="detalle_tipo_solicitud_titulo tipografia_lato_bold">
-                <div>
-                    Solicitud de devolución
-                </div>
-                <div class="estado_solic_cdr color_marca  tipografia_lato_bold">
-                    RECHAZADO
-                </div>
-            </div>
-            <div class="detalle_tipo_solicitud">
-                <div class="detalle_producto_cdr">
-                    <span class="detalle_cod_producto tipografia_lato_regular">
-                        00411
-                    </span>
-                    <span class="detalle_nom_producto tipografia_lato_bold">
-                        Berrylicious shampoo rojo 375ml.
-                    </span>
-                    <span class="detalle_cantidad_producto tipografia_lato_regular">
-                        x2 unidades
-                    </span>
-                </div>
-                <div class="detalle_cdr_solucion">
-                    <span class="detalle_cdr_solucion_titulo tipografia_lato_bold color_marca">
-                        Devolución:
-                    </span>
-                    <span class="detalle_cdr_monto_devolucion tipografia_lato_regular">
-                        S/.15
-                    </span>
-                    <span class="detalle_cdr_solucion_titulo tipografia_lato_bold color_marca">
-                        Motivo de rechazo:
-                    </span>
-                    <span class="detalle_cdr_monto_devolucion tipografia_lato_regular">
-                        por superar el límite establecido de unidades a reclamar
-                    </span>
-                </div>
-            </div>*@
 
     </div>
     <!-- FIN VISTA DETALLE SOLICITUD CDR -->

@@ -5,7 +5,6 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class AdministrarGuiaNegocioDigitalizadaController : BaseController
     {
-        // GET: AdministrarGuiaNegocioDigitalizada
         public ActionResult Index()
         {
             if (!UsuarioModel.HasAcces(ViewBag.Permiso, "AdministrarGuiaNegocioDigitalizada/Index"))

@@ -246,7 +246,6 @@ var productoComentarioAdmModule = (function () {
             altclass: 'jQGridAltRowClass',
             loadComplete: function () { },
             gridComplete: function () {
-                var cantidadRegistros = $(elements.tablaProductoComentario).jqGrid('getGridParam', 'reccount');
                 $(elements.divContenedorProductoComentario).show();
                 closeWaitingDialog();
             }

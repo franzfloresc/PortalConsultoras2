@@ -28,13 +28,11 @@ namespace Portal.Consultoras.BizLogic
             return notificaciones;
         }
 
-        /*FRZ-12*/
         public int GetNotificacionesSinLeer(int PaisID, long ConsultoraId, int indicadorBloqueoCDR)
         {
             var DANotificaciones = new DANotificaciones(PaisID);
             return DANotificaciones.GetNotificacionesSinLeer(ConsultoraId, indicadorBloqueoCDR);
         }    
-        /*FRZ-12*/
 
         public IList<BENotificacionesDetalle> GetNotificacionesConsultoraDetalle(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen) // R2073
         {
@@ -71,7 +69,6 @@ namespace Portal.Consultoras.BizLogic
             DANotificaciones.UpdNotificacionesConsultoraVisualizacion(ValAutomaticaPROLLogId, TipoOrigen); // R2073
         }
 
-        //RQ_NS - R2133
         public IList<BENotificacionesDetallePedido> GetValidacionStockProductos(int PaisID, long ConsultoraId, long ValAutomaticaPROLLogId)
         {
             var DANotificaciones = new DANotificaciones(PaisID);
@@ -91,14 +88,12 @@ namespace Portal.Consultoras.BizLogic
             return notificacionespedido;
         }
 
-        //RQ_FP - R2161        
         public String GetFechaPromesaCronogramaByCampania(int PaisID, int CampaniaId, string CodigoConsultora, DateTime Fechafact)
         {
             var DANotificaciones = new DANotificaciones(PaisID);
             return DANotificaciones.GetFechaPromesaCronogramaByCampania(CampaniaId, CodigoConsultora, Fechafact);
         }
         
-        //R2319- JLCS
         public void UpdNotificacionSolicitudClienteVisualizacion(int PaisID, long SolicitudClienteId)
         {
             var DANotificaciones = new DANotificaciones(PaisID);

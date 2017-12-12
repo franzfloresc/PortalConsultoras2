@@ -26,7 +26,6 @@ namespace Portal.Consultoras.BizLogic
 
             foreach (BEProductoFaltante be in productosFaltantes)
             {
-                // recorremos para verificar si especificó que vaya todas las zonas
                 if (be.Zona.ToLower() == "todos" || be.Zona.ToLower() == "todas")
                 {
                     BLZonificacion srv = new BLZonificacion();
@@ -62,13 +61,10 @@ namespace Portal.Consultoras.BizLogic
             var DAproductofaltanteDD = new DAProductoFaltanteDD(paisID);
 
             DAproductofaltante.DelProductoFaltante(productofaltante, out deleted);
-            //if (ConfigurationManager.AppSettings["IsProductoFaltanteDD"].Contains(paisISO) && !productofaltante.FaltanteUltimoMinuto)//R1957
-            //    DAproductofaltanteDD.DelProductoFaltante(productofaltante, paisISO, CodigoUsuario, out deletedDD);
 
             return deleted;
         }
 
-        //R1957
         public int DelProductoFaltante2(int paisID, string paisISO, string CodigoUsuario, IList<BEProductoFaltante> productofaltante,int flag,int pais ,int campania,int zona,string cuv,string e_producto,DateTime fecha)
         {
             int deleted;
@@ -76,8 +72,6 @@ namespace Portal.Consultoras.BizLogic
             var DAproductofaltanteDD = new DAProductoFaltanteDD(paisID);
 
             DAproductofaltante.DelProductoFaltante2(productofaltante.ToList(), out deleted,flag,pais,campania,zona,cuv,e_producto,fecha);
-            //if (ConfigurationManager.AppSettings["IsProductoFaltanteDD"].Contains(paisISO) && !productofaltante.FaltanteUltimoMinuto)
-            //    DAproductofaltanteDD.DelProductoFaltante(productofaltante, paisISO, CodigoUsuario, out deletedDD);
 
             return deleted;
         }
@@ -134,12 +128,10 @@ namespace Portal.Consultoras.BizLogic
             DAproductofaltante.InsLogIngresoFAD(CampaniaId, ConsultoraId, CUV, Cantidad, PrecioUnidad, ZonaId);
         }
 
-        /* 1957 - Inicio */
         public int DelProductoFaltanteMasivo(int paisID, int campaniaID, string zona, string cuv, string fecha, string descripcion)
         {
             var productoFaltante = new DAProductoFaltante(paisID);
             return productoFaltante.DelProductoFaltanteMasivo(campaniaID, zona, cuv, fecha, descripcion);
         }
-        /* 1957 - Fin */
     }
 }

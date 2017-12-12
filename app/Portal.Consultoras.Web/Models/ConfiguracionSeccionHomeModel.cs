@@ -10,10 +10,11 @@ namespace Portal.Consultoras.Web.Models
         public string Codigo { get; set; }
         public int CampaniaID { get; set; }
         
-        public bool IsMobile { get; set; } // Desktop - Mobile
+        public bool IsMobile { get; set; }
         public int Orden { get; set; }
         public string ImagenFondo { get; set; }
         public string Titulo { get; set; }
+        public string TituloBtnAnalytics { get; set; }
         public string SubTitulo { get; set; }
         public int TipoPresentacion { get; set; }
         public string TipoEstrategia { get; set; }
@@ -25,5 +26,6 @@ namespace Portal.Consultoras.Web.Models
         public string TemplatePresentacion { get; set; }
         public bool VerMas { get; set; }
         public int OrigenPedido { get; set; }
+        public int OrigenPedidoPopup { get; set; }
     }
 }

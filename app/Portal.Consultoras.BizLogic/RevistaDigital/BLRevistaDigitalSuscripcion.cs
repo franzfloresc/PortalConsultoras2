@@ -77,5 +77,28 @@ namespace Portal.Consultoras.BizLogic.RevistaDigital
             }
             return entity;
         }
+        
+        public BERevistaDigitalSuscripcion SingleActiva(BERevistaDigitalSuscripcion entidad)
+        {
+            var entity = new BERevistaDigitalSuscripcion();
+
+            try
+            {
+                var da = new DARevistaDigitalSuscripcion(entidad.PaisID);
+                using (IDataReader reader = da.SingleActiva(entidad))
+                {
+                    while (reader.Read())
+                    {
+                        entity = new BERevistaDigitalSuscripcion(reader);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, entidad.CodigoConsultora, entidad.PaisID.ToString());
+                entity = new BERevistaDigitalSuscripcion();
+            }
+            return entity;
+        }
     }
 }

@@ -26,10 +26,10 @@
     </style>
 }
 
-<div data-listado-campania="@Model.CampaniaID" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.GNDMobileProductPage">
+<div data-listado-campania="@Model.CampaniaID">
     <div data-listado-content="" style="display: none;">
         <div>
-            <div class="subtitulo_landing" style="display: none;">OFERTAS ÉSIKA PARA MÍ</div>
+            <div class="subtitulo_landing" style="display: none;">CLUB GANA+</div>
             <hr class="clear" />
             <div class="wrapper_resumen_mobile" id="@nameTagScrollTo">
                 <div id="orderby-filter" style="display: block;">
@@ -68,7 +68,7 @@
         <div>
             <hr class="clear" />
             <div class="wrapper_resumen_mobile ">
-                <div id="divOfertaProductos" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.GNDMobileProductPage"
+                <div id="divOfertaProductos" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.GNDMobileLanding"
                      data-content-item="@Model.CampaniaID"
                      class="ofertaProductoslanding flex-container"
                      style="display: inline-flex;flex-wrap: wrap;justify-content: center;"></div>
@@ -88,8 +88,6 @@
 <!--Fin seccion landing-->
 <hr class="clear" />
 
-<div data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.GNDMobileProductPage"></div>
-
 @Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
 
 @section scripts{
@@ -97,7 +95,7 @@
         var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
         /*var tipoOrigenPantalla = 1;*/
         var urlOfertaCargarProductos = '@Url.Action("GNDObtenerProductos", "GuiaNegocio", new { area = ""})';
-        var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.GNDMobileProductPage';
+        var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.GNDMobileLanding';
         var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital", new { area = "" })';
 
         var tipoOrigenEstrategia = 2;
