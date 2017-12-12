@@ -13,15 +13,14 @@ namespace Portal.Consultoras.Service
     {
         private BLRol BLRol;
         private BLPermiso BLPermiso;
-        private BLMenuMobile BLMenuMobile;//20150903
+        private BLMenuMobile BLMenuMobile;
         private BLApp _blApp;
-        //private BLMenuApp BLMenuApp;
 
         public SeguridadService()
         {
             BLRol = new BLRol();
             BLPermiso = new BLPermiso();
-            BLMenuMobile = new BLMenuMobile();//20150903
+            BLMenuMobile = new BLMenuMobile();
             _blApp = new BLApp();
         }
 

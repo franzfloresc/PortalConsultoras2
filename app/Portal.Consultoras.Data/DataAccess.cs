@@ -21,7 +21,6 @@ namespace Portal.Consultoras.Data
     
     public abstract class DataAccess
     {
-        //private static string logFileBaseName = null;
         private DbContext context;
 
         public DataAccess(DataAccess dataAccess)

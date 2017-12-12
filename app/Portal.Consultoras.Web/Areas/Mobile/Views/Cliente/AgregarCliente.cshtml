@@ -36,32 +36,10 @@ else
     <h6>MODIFICAR <b>CLIENTE</b></h6>
 }
 
-@*<div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="icon-close-belcorp"></i></button>
-    @if (Model.ClienteID == 0)
-    {
-        <h4 class="modal-title" id="liOpcionCliente">Agregar Cliente</h4>
-    }
-    else
-    {
-        <h4 class="modal-title" id="liOpcionCliente">Modificar Cliente</h4>
-        <br />
-        <div class="clienteMensajeEditar">
-            <span><img src="~/Content/Images/icons/icoWarning.png" height="24" /></span>
-            <span>Ingresa al menos un teléfono de contacto. Con esta actualización, luego podrás contar con nuevos beneficios para ti</span>
-        </div>
-        <br />
-    }
-</div>*@
 <form id="frmAgregarCliente">
     @Html.HiddenFor(model => model.ClienteID)
     @Html.HiddenFor(model => model.CodigoCliente)
-
-    @*<div class="form-group">
-        @Html.TextBoxFor(model => model.Nombre, new { placeholder = "Nombres y Apellidos", maxlength = "50", @class = "", autocomplete = "off" })
-        @Html.ValidationMessageFor(model => model.Nombre)
-    </div>*@
-
+    
     <div class="form-group">
         @Html.TextBoxFor(model => model.NombreCliente, new { placeholder = "Nombres", maxlength = "100", @class = "", autocomplete = "off" })
         @Html.ValidationMessageFor(model => model.NombreCliente)
@@ -93,45 +71,6 @@ else
     <div id="divValidationSummary"></div>
 </form>
 
-    @*<div class="row text-left">
-            <form id="frmAgregarCliente" role="form" class="form-controls-grey">
-                <div class="col-xs-12">
-                    @Html.HiddenFor(model => model.ClienteID)
-                    @Html.HiddenFor(model => model.CodigoCliente)
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Nombre, new { @class = "upper" })
-                        @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.Nombre)
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Telefono, new { @class = "upper" })
-                        @Html.TextBoxFor(model => model.Telefono, new { @class = "form-control" })
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Celular, new { @class = "upper" })
-                        @Html.TextBoxFor(model => model.Celular, new { @class = "form-control" })
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Email, new { @class = "upper" })
-                        <small>(opcional)</small>
-                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.Email)
-                    </div>
-                    <div class="block-center text-center">
-                        <a id="btnGuardar" type="submit" class="btn btn-line-action btn-wfijo btn-round">Guardar Cliente</a>
-                    </div>
-                    <br />
-                    <div id="divValidationSummary"></div>
-                </div>
-            </form>
-        </div>*@
-
-    @*@helper Script()
-        {*@
     <script type="text/javascript">
         $.validator.unobtrusive.parse("#frmAgregarCliente");
 
@@ -142,7 +81,6 @@ else
 
         $('#divAgregarCliente').modal({ backdrop: 'static', keyboard: false })
 
-        //$(document).ready(function () {
             $("#btnGuardar").on("click", function (e) {
                 e.preventDefault();
 
@@ -155,10 +93,6 @@ else
                     return;
                 }
 
-                //if ($('#hdNombreClienteAnterior').val().toUpperCase() == $('#Nombre').val().toUpperCase())
-                //    $("#FlagValidate").val("0");
-                //else
-                //    $("#FlagValidate").val("1");
 
                 if (!$("#frmAgregarCliente").valid()) return;
 
@@ -168,14 +102,12 @@ else
                 var item = {
                     ClienteID: $("#ClienteID").val(),
                     CodigoCliente: $("#CodigoCliente").val(),
-                    //Nombre: $('#Nombre').val(),
                     NombreCliente: nombreCliente,
                     ApellidoCliente: apellidoCliente,
                     Nombre: jQuery.trim(nombreCliente + " " + apellidoCliente),
                     Email: $('#Email').val(),
                     Telefono: $('#Telefono').val(),
                     Celular: $('#Celular').val(),
-                    //FlagValidate: $("#FlagValidate").val()
                 };
 
                 ShowLoading();
@@ -199,13 +131,11 @@ else
                                     item.Insertado = data.insertado;
                                     if ($.isFunction(ClienteDetalleOK)) ClienteDetalleOK(item);
                                 });
-                                //RealizarLuegoGuardarCliente(data.extra);
                                 CloseAgregarCliente();
                             }
                             else {
                                 CloseLoading();
                                 messageInfo(data.message);
-                                //CloseAgregarCliente();
                             }
                         }
                     },
@@ -213,17 +143,12 @@ else
                         if (checkTimeout(data)) {
                             messageInfo(data.message);
                             CloseLoading();
-                            //CloseAgregarCliente();
                         }
                     }
                 });
             });
 
         function CloseAgregarCliente() {
-            //$("#divAgregarCliente").hide();
             $("#divAgregarCliente").modal("hide");
         }
     </script>
-@*}
-
-@{Html.AddScript("AgregarClienteScript", Script());}*@
