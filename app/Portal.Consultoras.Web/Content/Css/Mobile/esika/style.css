@@ -14069,14 +14069,13 @@ a {
 /* NUEVO POPUP SUSCRIBIRSE RD */
 
 .contenido-popup-nuevo-2017 {
-<<<<<<< HEAD
-            display: inline;
-            vertical-align: middle;
-            color: white;
-            text-transform: uppercase;
-            text-align: center;
-            margin: auto;
-        }
+    display: table-cell;
+    vertical-align: middle;
+    color: white;
+    text-transform: uppercase;
+    text-align: center;
+    margin: auto;
+}
     .contenido-popup-nuevo-2017 .centrar-estructura {
         box-shadow: inset 0 0 0 5px #e81c36;
         padding: 20px;
@@ -14100,7 +14099,7 @@ a {
         font-weight: 300;
         margin-bottom: 0;
         display: block;
-        width: 280px;
+        width: 250px;
         margin: auto;
         line-height: 30px;
         margin-bottom: 15px;
@@ -14116,17 +14115,14 @@ a {
         letter-spacing: 1px;
         margin-bottom: 36px;
         display: block;
-        width: 280px;
+        width: 250px;
         margin: auto;
         margin-bottom: 35px;
     }
   .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido a.btn-popup{
          background: #e81c36;
-=======
     display: inline;
     vertical-align: middle;
->>>>>>> ceac0c7cb4d8b0cbdb248e3f99afbcd51765dc71
-    color: white;
     text-transform: uppercase;
     text-align: center;
     margin: auto;
@@ -14135,7 +14131,8 @@ a {
     .contenido-popup-nuevo-2017 .centrar-estructura {
         box-shadow: inset 0 0 0 5px #e81c36;
         padding: 20px;
-        height: 390px;
+        height: 85%;
+        margin-top:1.4% !important;
         /* margin-top: 15%; */
         /* margin-bottom: 15%; */
         width: 390px;
@@ -14156,7 +14153,7 @@ a {
                 font-weight: 300;
                 margin-bottom: 0;
                 display: block;
-                width: 280px;
+                width: 250px !important;
                 margin: auto;
                 line-height: 30px;
                 margin-bottom: 15px;
@@ -14173,7 +14170,7 @@ a {
                 letter-spacing: 1px;
                 margin-bottom: 36px;
                 display: block;
-                width: 280px;
+                width: 250px !important;
                 margin: auto;
                 margin-bottom: 35px;
             }
@@ -14296,7 +14293,7 @@ a {
 @media (max-width: 500px) {
 
     .contenido-popup-nuevo-2017 .centrar-estructura {
-        width: 95%;
+        width: 92%;
         margin-top: 4.9% !important;
     }
 }
