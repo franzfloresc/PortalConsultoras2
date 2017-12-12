@@ -92,7 +92,6 @@
     height: auto;
     min-height: 63px;
     border-top: 1px solid #979797;
-    /*border-bottom: 1px solid #979797;*/
     padding: 17px 0;
     text-align: left;
     position: relative;
@@ -1195,4 +1194,8 @@
 
 .numsolsubraya {
     text-decoration: underline;
+}
+
+.abrir_detallemb {
+    cursor: pointer;
 }

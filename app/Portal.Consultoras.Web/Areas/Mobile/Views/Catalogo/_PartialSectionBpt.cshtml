@@ -1,28 +1,24 @@
 ﻿@using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Models
-@model RevistaDigitalModel
+@model PartialSectionBpt
 @{
-    ConfiguracionPaisDatosModel configuracionPaisDatosModel;
-    var tieneGND = Portal.Consultoras.Web.SessionManager.SessionManager.Instance.GetUserData().TieneGND;
-    var urlLogo = Model.MLogoComercialNoActiva;
-    if (Model.TieneRDC && Model.EsSuscrita)
+    ConfiguracionPaisDatosModel configuracionPaisDatosModel = Model.ConfiguracionPaisDatos;
+    RevistaDigitalModel revistaDigital = Model.RevistaDigital;
+    var urlLogo = revistaDigital.MLogoComercialNoActiva;
+    if (revistaDigital.TieneRDC && revistaDigital.EsSuscrita)
     {
-        urlLogo = Model.MLogoComercialActiva;
+        urlLogo = revistaDigital.MLogoComercialActiva;
     }
+
+    var urlArrowRight = "~/Content/Images/RevistaDigital/";
+    urlArrowRight += ViewBag.EsPaisEsika == true ? "rd_arrowright_red.png" : "rd_arrowright.png";
+
 }
 <div class="content_revistas_mob">
-    @if (Model.TieneRDC)
+    @if (revistaDigital.TieneRDC)
     {
-        if (Model.EsActiva)
+        if (revistaDigital.EsActiva)
         {
-            if (Model.EsSuscrita)
-            {
-                configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.MCatalogoInscritaActiva) ?? new ConfiguracionPaisDatosModel();
-            }
-            else
-            {
-                configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.MCatalogoNoInscritaActiva) ?? new ConfiguracionPaisDatosModel();
-            }
             <div class="wrapper_resumen_mobile">
                 <div class="banner_pedido_rd">
                     <div class="cabecera_pedido_rd">
@@ -38,7 +34,7 @@
                         <div class="btn_red">
                             <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigitalReducida')">
                                 VER TODAS MIS OFERTAS
-                                <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")">
+                                <img class="rd_arrowright" src="@Url.Content(urlArrowRight)">
                             </a>
                         </div>
                     </div>
@@ -47,17 +43,9 @@
         }
         else
         {
-            if (!tieneGND)
+            if (!Model.TieneGND)
             {
                 @Html.Partial("~/Areas/Mobile/Views/Catalogo/template-carrusel-issue.cshtml")
-            }
-            if (Model.EsSuscrita)
-            {
-                configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.MCatalogoInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
-            }
-            else
-            {
-                configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.MCatalogoNoInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
             }
             <div class="wrapper_resumen_mobile">
                 <div class="banner_pedido_rd">
@@ -74,7 +62,7 @@
                         <div class="btn_red">
                             <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
                                 VER TODAS MIS OFERTAS
-                                <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")">
+                                <img class="rd_arrowright" src="@Url.Content(urlArrowRight)">
                             </a>
                         </div>
                     </div>
@@ -82,15 +70,14 @@
             </div>
         }
     }
-    else if (Model.TieneRDR)
+    else if (revistaDigital.TieneRDR)
     {
         @Html.Partial("~/Areas/Mobile/Views/Catalogo/template-carrusel-issue.cshtml")
-        configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDR.MCatalogoRdr) ?? new ConfiguracionPaisDatosModel();
         <hr class="clear" />
         <div id="tab_revistasdigital_mobile">
             <div class="contenedor_seccionRevistaDigital">
                 <div class="seccionRevistaDigital_logo_marca">
-                    <img src="@urlLogo" alt="Ésika para mí" class="small"/>
+                    <img src="@urlLogo" alt="Club Gana+" class="small"/>
                 </div>
                 <div class="contenido_seccionRevistaDigital">
                     <span>@Html.Raw(configuracionPaisDatosModel.Valor1)</span>
@@ -107,12 +94,9 @@
             </div>
         </div>
     }
-    else
+    else if (!Model.TieneGND)
     {
-        if (!tieneGND)
-        {
-            @Html.Partial("~/Areas/Mobile/Views/Catalogo/template-carrusel-issue.cshtml")
-        }
+        @Html.Partial("~/Areas/Mobile/Views/Catalogo/template-carrusel-issue.cshtml")
     }
-
+    
 </div>

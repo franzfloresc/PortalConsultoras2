@@ -509,7 +509,19 @@ body {
     border: 0;
     height: 28px;
     box-sizing: border-box;
+    background-color: white;
+    font-family: 'Lato';
+    font-size: 12px;
+    color: #595959;
 }
+.select_pais_chat_activo {
+    font-size: 20px;
+    color: black;
+}
+    .select_pais_chat > option {
+        font-size: 12px;
+        color: #595959;
+    }
 
 .clear {
     background: none;

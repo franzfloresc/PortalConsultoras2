@@ -22,8 +22,6 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
-using Portal.Consultoras.PublicService.Cryptography;
-using Portal.Consultoras.Web.Helpers;
 using WebGrease.Css.Extensions;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -57,12 +55,11 @@ namespace Portal.Consultoras.Web.Controllers
         [AllowAnonymous]
         public ActionResult Index(string returnUrl = null)
         {
-            if (EsUsuarioAutenticado() && EsDispositivoMovil())
+            if (EsUsuarioAutenticado())
+            {
+                if (!EsDispositivoMovil()) return RedirectToAction("Index", "Bienvenida");
                 return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
-
-            if (EsUsuarioAutenticado() && !EsDispositivoMovil())
-                return RedirectToAction("Index", "Bienvenida");
-
+            }
 
             var ip = string.Empty;
             var iso = string.Empty;
@@ -73,10 +70,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.ListaPaises = ObtenerPaises();
                 model.ListaEventos = ObtenerEventoFestivo(0, Constantes.EventoFestivoAlcance.LOGIN, 0);
 
-                if (model.ListaEventos.Count == 0)
-                {
-                    model.NombreClase = "fondo_estandar";
-                }
+                if (model.ListaEventos.Count == 0) model.NombreClase = "fondo_estandar";
                 else
                 {
                     model.NombreClase = "fondo_festivo";
@@ -84,12 +78,10 @@ namespace Portal.Consultoras.Web.Controllers
                     model.RutaEventoLBel = (from g in model.ListaEventos where g.Nombre == Constantes.EventoFestivoNombre.FONDO_LBEL select g.Personalizacion).FirstOrDefault();
                 }
 
-
                 if (EstaActivoBuscarIsoPorIp())
                 {
                     ip = GetIpCliente();
-                    if (!string.IsNullOrWhiteSpace(ip))
-                        iso = Util.GetISObyIPAddress(ip);
+                    if (!string.IsNullOrWhiteSpace(ip)) iso = Util.GetISObyIPAddress(ip);
                 }
 
                 if (string.IsNullOrEmpty(iso))
@@ -100,7 +92,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 AsignarViewBagPorIso(iso);
                 AsignarUrlRetorno(returnUrl);
-
+                model.ListPaisAnalytics = GetLoginAnalyticsModel();
             }
             catch (FaultException ex)
             {
@@ -111,8 +103,7 @@ namespace Portal.Consultoras.Web.Controllers
                 logManager.LogErrorWebServicesBusWrap(ex, ip, iso, "Login.GET.Index");
             }
 
-            ViewBag.FBAppId = ConfigurationManager.AppSettings.Get("FB_AppId");
-
+            ViewBag.FBAppId = ConfigurationManager.AppSettings["FB_AppId"];
             return View(model);
         }
 
@@ -265,6 +256,33 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 ViewBag.ReturnURL = returnUrl;
             }
+        }
+
+        private List<LoginAnalyticsModel> GetLoginAnalyticsModel()
+        {
+            return new List<LoginAnalyticsModel> {
+                new LoginAnalyticsModel{
+                    CodigoISO = "CL",
+                    GndId = 958175395,
+                    PixelId = "702802606578920",
+                    SearchId = 989089161,
+                    YoutubeId = 956468365
+                },
+                new LoginAnalyticsModel{
+                    CodigoISO = "CO",
+                    GndId = 971131996,
+                    PixelId = "145027672730911",
+                    SearchId = 995835500,
+                    YoutubeId = 957866857
+                },
+                new LoginAnalyticsModel{
+                    CodigoISO = "PE",
+                    GndId = 956111599,
+                    PixelId = "1004828506227914",
+                    SearchId = 986595497,
+                    YoutubeId = 954887628
+                }
+            };
         }
 
         [AllowAnonymous]
@@ -497,26 +515,26 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     if (Request.IsAjaxRequest())
                     {
-                        var urlx = (Url.IsLocalUrl(decodedUrl))
-                            ? decodedUrl
-                            : Url.Action("Index", "Bienvenida", new { area = "Mobile" });
+                        var urlx = (Url.IsLocalUrl(decodedUrl)) ? decodedUrl : Url.Action("Index", "Bienvenida", new { area = "Mobile" });
                         return Json(new
                         {
                             success = true,
                             redirectTo = urlx
                         });
                     }
+
+                    SetTempDataAnalyticsLogin(usuario, hizoLoginExterno);
                     if (Url.IsLocalUrl(decodedUrl))
                     {
                         return Redirect(decodedUrl);
                     }
                     return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
                 }
+
                 if (string.IsNullOrEmpty(usuario.EMail) || usuario.EMailActivo == false)
                 {
                     Session["PrimeraVezSession"] = 0;
                 }
-
                 if (Request.IsAjaxRequest())
                 {
                     var urlx = (Url.IsLocalUrl(decodedUrl)) ? decodedUrl : Url.Action("Index", "Bienvenida");
@@ -526,6 +544,8 @@ namespace Portal.Consultoras.Web.Controllers
                         redirectTo = urlx
                     });
                 }
+
+                SetTempDataAnalyticsLogin(usuario, hizoLoginExterno);
                 if (Url.IsLocalUrl(decodedUrl))
                 {
                     return Redirect(decodedUrl);
@@ -545,6 +565,19 @@ namespace Portal.Consultoras.Web.Controllers
                 return Redirect(decodedUrl);
             }
             return RedirectToAction("Index", "Bienvenida");
+        }
+
+        private void SetTempDataAnalyticsLogin(UsuarioModel usuario, bool hizoLoginExterno)
+        {
+            var listAnalytics = GetLoginAnalyticsModel();
+            var analyticsCurrentPais = listAnalytics.FirstOrDefault(a => a.CodigoISO == usuario.CodigoISO);
+
+            if(analyticsCurrentPais != null)
+            {
+                TempData["PixelCodigoIso"] = usuario.CodigoISO;
+                TempData["PixelMarcacion"] = hizoLoginExterno ? "LoginFacebook" : "LoginNormal";
+                TempData["PixelId"] = analyticsCurrentPais.PixelId;
+            }
         }
 
         private string GetUrlUsuarioDesconocido()
@@ -999,7 +1032,6 @@ namespace Portal.Consultoras.Web.Controllers
                                 revistaDigitalModel.TieneRDR = !revistaDigitalModel.TieneRDC && revistaDigitalModel.TieneRDR;
                                 revistaDigitalModel.Campania = usuarioModel.CampaniaID % 100;
                                 revistaDigitalModel.CampaniaMasUno = AddCampaniaAndNumero(Convert.ToInt32(usuarioModel.CampaniaID), 1, usuarioModel.NroCampanias) % 100;
-                                revistaDigitalModel.CampaniaMasDos = AddCampaniaAndNumero(Convert.ToInt32(usuarioModel.CampaniaID), 2, usuarioModel.NroCampanias) % 100;
                                 revistaDigitalModel.NombreConsultora = usuarioModel.Sobrenombre;
                                 sessionManager.SetRevistaDigital(revistaDigitalModel);
                                 sessionManager.SetConfiguracionesPaisModel(configuracionesPaisModels);
@@ -1294,9 +1326,13 @@ namespace Portal.Consultoras.Web.Controllers
                     revistaDigitalModel.MLogoComercialFondoNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor2);
                 }
 
+                value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RDR.LogoMenuOfertas);
+                if (value1 != null) revistaDigitalModel.LogoMenuOfertasNoActiva = ConfigS3.GetUrlFileRDS3(paisIso, value1.Valor1);
+
                 listaDatos.RemoveAll(d =>
                     d.Codigo == Constantes.ConfiguracionPaisDatos.RDR.LogoComercial
                     || d.Codigo == Constantes.ConfiguracionPaisDatos.RDR.LogoComercialFondo
+                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RDR.LogoMenuOfertas
                 );
 
                 revistaDigitalModel.ConfiguracionPaisDatos = Mapper.Map<List<ConfiguracionPaisDatosModel>>(listaDatos) ?? new List<ConfiguracionPaisDatosModel>();
@@ -1348,8 +1384,21 @@ namespace Portal.Consultoras.Web.Controllers
             }
             else if (revistaDigitalModel.SuscripcionEfectiva.EstadoRegistro == Constantes.EstadoRDSuscripcion.SinRegistroDB)
             {
-                revistaDigitalModel.CampaniaActiva = "";
-                revistaDigitalModel.EsActiva = false;
+                if (revistaDigitalModel.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
+                {
+                    var ca = AddCampaniaAndNumero(revistaDigitalModel.SuscripcionModel.CampaniaID, revistaDigitalModel.CantidadCampaniaEfectiva, usuarioModel.NroCampanias);
+                    if (ca >= revistaDigitalModel.SuscripcionModel.CampaniaEfectiva)
+                        ca = revistaDigitalModel.SuscripcionModel.CampaniaEfectiva;
+                    
+                    revistaDigitalModel.CampaniaActiva = Util.SubStr(ca.ToString(), 4, 2);
+                    revistaDigitalModel.EsActiva = ca <= usuarioModel.CampaniaID;
+                }
+                else
+                {
+                    revistaDigitalModel.CampaniaActiva = "";
+                    revistaDigitalModel.EsActiva = false;
+                }
+                
             }
             else
             {
@@ -1360,7 +1409,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 revistaDigitalModel.CampaniaActiva = Util.SubStr(ca.ToString(), 4, 2);
 
-                revistaDigitalModel.EsActiva = ca != usuarioModel.CampaniaID;
+                revistaDigitalModel.EsActiva = ca > usuarioModel.CampaniaID;
             }
 
             revistaDigitalModel.EsSuscrita = revistaDigitalModel.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo;
@@ -1370,7 +1419,9 @@ namespace Portal.Consultoras.Web.Controllers
             revistaDigitalModel.EstadoRdcAnalytics = GetEstadoRdAnalytics(revistaDigitalModel);
 
             #region DiasAntesFacturaHoy - NoVolverMostrar
-            if (DateTime.Now.AddHours(usuarioModel.ZonaHoraria).Date >= usuarioModel.FechaInicioCampania.Date.AddDays(-1 * revistaDigitalModel.BloquearDiasAntesFacturar))
+            
+            if (DateTime.Now.AddHours(usuarioModel.ZonaHoraria).Date >= usuarioModel.FechaInicioCampania.Date.AddDays(-1 * revistaDigitalModel.BloquearDiasAntesFacturar) 
+                && revistaDigitalModel.BloquearDiasAntesFacturar > 0)
                 return;
 
             switch (revistaDigitalModel.SuscripcionModel.EstadoRegistro)
@@ -1388,6 +1439,7 @@ namespace Portal.Consultoras.Web.Controllers
                     revistaDigitalModel.NoVolverMostrar = revistaDigitalModel.SuscripcionModel.RevistaDigitalSuscripcionID > 0;
                     break;
             }
+            
             #endregion
         }
 
@@ -2047,6 +2099,10 @@ namespace Portal.Consultoras.Web.Controllers
                     Session.Clear();
                     userData = GetUserData(Util.GetPaisID(model.Pais), model.CodigoUsuario);
                 }
+
+                var guid = Session.TryGetUniqueIdenfier("MobileAppConfiguracion");
+                this.SetUniqueKeyAvoiding(guid == Guid.Empty ? Guid.NewGuid() : guid);
+
                 if (userData == null) return RedirectToAction("UserUnknown", "Login", new { area = "" });
 
                 FormsAuthentication.SetAuthCookie(model.CodigoUsuario, false);

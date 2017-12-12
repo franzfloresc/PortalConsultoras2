@@ -644,7 +644,7 @@
 
 .btn_mas_info_set {
     font-family: 'Lato';
-    font-size: 13px;
+    font-size: 12px;
     text-transform: uppercase;
     text-align: center;
     margin-bottom: 11px;
@@ -703,7 +703,7 @@
 }
 
     .BloqueLandingRD .cantidad_productos_fav {
-        padding-bottom: 20px;
+        /*padding-bottom: 20px;*/
         float: none;
         text-align: right;
     }
@@ -791,11 +791,11 @@
     height: 40px;
     color: black;
     font-family: 'Lato';
-    float: right;
     padding-left: 7px;
     font-size: 12px;
-    float: left;
-    margin-right: 10px;
+    float: right;
+    letter-spacing: 0.3px;
+    margin-left: 10px;
 }
 
 .content_buscador_landing {
@@ -1516,14 +1516,14 @@
 }
 
 .rd_logo {
-    background: rgba(233,27,55,1);
-    background: -moz-linear-gradient(-45deg, rgba(233,27,55,1) 0%, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
-    background: -webkit-gradient(left top, right bottom, color-stop(0%, rgba(233,27,55,1)), color-stop(31%, rgba(233,27,55,1)), color-stop(100%, rgba(157,7,29,1)));
-    background: -webkit-linear-gradient(-45deg, rgba(233,27,55,1) 0%, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
-    background: -o-linear-gradient(-45deg, rgba(233,27,55,1) 0%, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
-    background: -ms-linear-gradient(-45deg, rgba(233,27,55,1) 0%, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
-    background: linear-gradient(135deg, rgba(233,27,55,1) 0%, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e91b37', endColorstr='#9d071d', GradientType=1 );
+	background: rgba(97,60,135,1);
+	background: -moz-linear-gradient(-45deg, rgba(97,60,135,1) 0%, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
+	background: -webkit-gradient(left top, right bottom, color-stop(0%, rgba(97,60,135,1)), color-stop(31%, rgba(97,60,135,1)), color-stop(100%, rgba(97,60,135,1)));
+	background: -webkit-linear-gradient(-45deg, rgba(97,60,135,1) 0%, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
+	background: -o-linear-gradient(-45deg, rgba(97,60,135,1) 0%, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
+	background: -ms-linear-gradient(-45deg, rgba(97,60,135,1) 0%, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
+	background: linear-gradient(135deg, rgba(97,60,135,1) 0%, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#613c87', endColorstr='#9d071d', GradientType=1 );
     text-align: center;
     position: relative;
     z-index: 1;
@@ -1608,13 +1608,13 @@
 }
 
 .rd_btn_rojo:after {
-    background: rgba(233,27,55,1);
-    background: -moz-linear-gradient(-45deg, rgba(233,27,55,1) 0%, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
-    background: -webkit-gradient(left top, right bottom, color-stop(0%, rgba(233,27,55,1)), color-stop(31%, rgba(233,27,55,1)), color-stop(100%, rgba(157,7,29,1)));
-    background: -webkit-linear-gradient(-45deg, rgba(233,27,55,1) 0%, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
-    background: -o-linear-gradient(-45deg, rgba(233,27,55,1) 0%, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
-    background: -ms-linear-gradient(-45deg, rgba(233,27,55,1) 0%, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
-    background: linear-gradient(135deg, rgba(233,27,55,1) 0%, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
+    background: rgba(97,60,135,1);
+    background: -moz-linear-gradient(-45deg, rgba(97,60,135,1) 0%, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
+    background: -webkit-gradient(left top, right bottom, color-stop(0%, rgba(97,60,135,1)), color-stop(31%, rgba(97,60,135,1)), color-stop(100%, rgba(97,60,135,1)));
+    background: -webkit-linear-gradient(-45deg, rgba(97,60,135,1) 0%, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
+    background: -o-linear-gradient(-45deg, rgba(97,60,135,1) 0%, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
+    background: -ms-linear-gradient(-45deg, rgba(97,60,135,1) 0%, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
+    background: linear-gradient(135deg, rgba(97,60,135,1) 0%, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
 }
 /* fin boton rojo*/
 
@@ -1787,9 +1787,9 @@
     }
 
         .rd_inscripcion .popup_rd_content .btn_diagonal:after {
-            background: -webkit-linear-gradient(top left, #cc0e27 0%, #cc0e27 31%, rgb(157,7,29) 100%);
-            background: -o-linear-gradient(top left, #cc0e27 0%, #cc0e27 31%, rgb(157,7,29) 100%);
-            background: linear-gradient(to bottom right, #cc0e27 0%, #cc0e27 31%, rgb(157,7,29) 100%);
+	background: -webkit-linear-gradient(top left, #613c87 0%, #613c87 31%, rgb(97,60,135) 100%);
+	background: -o-linear-gradient(top left, #613c87 0%, #613c87 31%, rgb(97,60,135) 100%);
+	background: linear-gradient(to bottom right, #613c87 0%, #613c87 31%, rgb(97,60,135) 100%);
         }
 
         .rd_inscripcion .popup_rd_content .btn_diagonal a {
@@ -2265,7 +2265,7 @@
 }
 
 .home_block_rd {
-    background-color: #e91b37;
+    background-color: #613c87;
     color: white;
     height: 120px;
 }
@@ -2284,6 +2284,11 @@
     padding-top: 26px;
 }
 
+.home_block_rd .rd_logo img.large{
+    width: 160px;
+    margin-left: -20px;
+}
+
     .home_block_rd .rd_logo:after {
         border-left: 30px solid transparent;
         border-right: 0px solid transparent;
@@ -2300,6 +2305,8 @@
     font-weight: 100;
     padding-top: 24px;
     line-height: 24px;
+    text-transform: uppercase;
+    max-width: 50%;
 }
 
 .hblock_tit {
@@ -2368,7 +2375,14 @@
     .cabecera_pedido_rd .rd_logo {
         width: 120px;
         height: 85px;
-        padding-top: 20px;
+        text-transform: uppercase;
+}
+
+.cabecera_pedido_rd .rd_logo img{
+        width: 79%;
+    margin: auto;
+    display: block;
+    padding: 5px 5px 10px 0px;
     }
 
         .cabecera_pedido_rd .rd_logo:after {
@@ -2377,15 +2391,22 @@
             border-bottom: 85px solid #000;
         }
 
+.cabecera_pedido_rd .rd_logo img.small {
+    width: 90px;
+    padding-top: 25px;
+}
+
 .cabecera_pedido_text {
     color: white;
     position: absolute;
-    top: 25px;
+    top: 15px;
     left: 40%;
     font-weight: 700;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
     line-height: 18px;
     font-size: 14px;
+    text-transform: uppercase;
+    padding-right: 10px;
 }
 
 .banner_pedido_masofertas {
@@ -2396,7 +2417,7 @@
 .banner_pedido_text {
     font-size: 16px;
     line-height: 20px;
-    margin-bottom: 70px;
+    margin-bottom: 52px;
     text-transform: uppercase;
 }
 
@@ -2462,14 +2483,14 @@
         background: white;
         width: 240px;
         position: absolute;
-        top: 43px;
+        top: 37px;
         right: 30px;
     }
 
         .home_rd1 .btn_diagonal:after {
-            background: -webkit-linear-gradient(top left, #cc0e27 0%, #cc0e27 31%, rgb(157,7,29) 100%);
-            background: -o-linear-gradient(top left, #cc0e27 0%, #cc0e27 31%, rgb(157,7,29) 100%);
-            background: linear-gradient(to bottom right, #cc0e27 0%, #cc0e27 31%, rgb(157,7,29) 100%);
+            background: -webkit-linear-gradient(top left, #613c87 0%, #613c87 31%, rgb(97,60,135) 100%);
+            background: -o-linear-gradient(top left, #613c87 0%, #613c87 31%, rgb(97,60,135) 100%);
+            background: linear-gradient(to bottom right, #613c87 0%, #613c87 31%, rgb(97,60,135) 100%);
         }
 
         .home_rd1 .btn_diagonal a {
@@ -2509,7 +2530,7 @@
 }
 
 .home_rd {
-    background-color: rgba(233,27,55,1);
+    background-color: rgba(97,60,135,1);
 }
 
     .home_rd .content_belcorp {
@@ -2525,9 +2546,9 @@
     }
 
         .home_rd .btn_diagonal:after {
-            background: -webkit-linear-gradient(top left, #cc0e27 0%, #cc0e27 31%, rgb(157,7,29) 100%);
-            background: -o-linear-gradient(top left, #cc0e27 0%, #cc0e27 31%, rgb(157,7,29) 100%);
-            background: linear-gradient(to bottom right, #cc0e27 0%, #cc0e27 31%, rgb(157,7,29) 100%);
+    background: -webkit-linear-gradient(top left, #613c87 0%, #613c87 31%, rgb(97,60,135) 100%);
+    background: -o-linear-gradient(top left, #613c87 0%, #613c87 31%, rgb(97,60,135) 100%);
+    background: linear-gradient(to bottom right, #613c87 0%, #613c87 31%, rgb(97,60,135) 100%);
         }
 
         .home_rd .btn_diagonal a {
@@ -2652,6 +2673,7 @@
         color: black;
         text-decoration: none;
         transition: all 0.2s ease-in-out;
+     text-transform: uppercase;
     }
 
     .popup_rd_bloqueado a {
@@ -2942,97 +2964,11 @@
 }
 
     .video-visual iframe {
-        height: 400px !important;
+    width:100%;
+    height:400px;
     }
 
-    .video-visual .video-container {
-        position: relative;
-        padding-bottom: 48%;
-        padding-top: 30px;
-        height: 0;
-        overflow: hidden;
-    }
 
-        .video-visual .video-container iframe, .video-visual .video-container object, .video-visual .video-container embed {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-    .video-visual .videoWrapper {
-        height: 400px;
-        max-width: 100%;
-        position: relative;
-        overflow: hidden;
-    }
-
-        .video-visual .videoWrapper iframe {
-            height: 100%;
-            width: 100%;
-            position: absolute;
-            top: 0;
-            bottom: 0;
-        }
-
-    .video-visual .videobg {
-        position: relative;
-        width: 100%; /* Set video container element width here */
-        height: 100%; /* Set video container element height here */
-        overflow: hidden;
-        background: #111; /* bg color, if video is not high enough */
-    }
-
-    /* horizontally center the video */
-    .video-visual .videobg-width {
-        position: absolute;
-        width: 100%; /* Change width value to cover more area*/
-        height: 100%;
-        left: -9999px;
-        right: -9999px;
-        margin: auto;
-    }
-
-    /* set video aspect ratio and vertically center */
-    .video-visual .videobg-aspect {
-        position: absolute;
-        width: 100%;
-        height: 0;
-        top: -9999px;
-        bottom: -9999px;
-        margin: auto;
-        padding-bottom: 56.25%; /* 16:9 ratio */
-        overflow: hidden;
-    }
-
-    .video-visual .videobg-make-height {
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-    }
-
-    .video-visual .videobg-hide-controls {
-        box-sizing: content-box;
-        position: relative;
-        height: 100%;
-        width: 100%;
-        /* Vimeo timeline and play button are ~55px high */
-        padding: 55px 97.7777px; /* 16:9 ratio */
-        top: -55px;
-        left: -97.7777px; /* 16:9 ratio */
-    }
-
-    .video-visual .videobg iframe {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        border: 0 none;
-    }
 /**/
 .bloque-suscripcion {
 }
@@ -3121,8 +3057,7 @@
     .gana-mas .txt-img {
         display: table;
         margin: auto;
-        height: 100px;
-        margin-top: 10px;
+        height: 126px;
     }
 
         .gana-mas .txt-img img {
@@ -3159,7 +3094,7 @@
     }
 
     .gana-mas img.img-referencial {
-        max-width: 250px !important;
+        max-width: 200px !important;
         margin: 15px 0px 0px 0px;
     }
 
@@ -3177,7 +3112,7 @@
     .como-funciona .arrow-down {
         display: block;
         margin: auto;
-        width: 30px;
+        width: 20px;
         height: 26px !important;
         background: url(../../../Images/Lbel/Triangle.svg);
         background-size: contain;
@@ -3198,7 +3133,7 @@
     }
 
     .como-funciona .caja-texto {
-        width: 50%;
+        width: 60%;
         float: left;
         padding: 20px 0px;
     }
@@ -3217,12 +3152,12 @@
             letter-spacing: 0.5px;
             text-align: left;
             margin-bottom: 20px;
-            font-size: 13px;
+            font-size: 15px;
             padding-left: 2%;
         }
 
     .como-funciona .caja-img {
-        width: 50%;
+        width: 40%;
         float: left;
     }
 

@@ -45,7 +45,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public string CodigoUsuario { get; set; }
         public int ShowRoomMostrarLista { get; set; }
         public string EMail { get; set; }
-        public int CampaniaMasDos { get; set; }
         public string Celular { get; set; }
         public int CampaniaActual { get; set; }
         public bool EmailActivo { get; set; }
@@ -54,6 +53,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public short PrimeraVezSession { get; set; }
         public int TieneAsesoraOnline { get; set; }
         public RevistaDigitalModel RevistaDigital { get; set; }
+        public PartialSectionBpt PartialSectionBpt { get; set; }
         public int TipoPopUpMostrar { get; set; }
     }
 }

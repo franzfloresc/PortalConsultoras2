@@ -60,21 +60,16 @@ ul.tabs {
 
         ul.tabs li.activa, ul.tabs li.activa a, ul.tabs li.activa a:hover {
             color: #faf0a7;
-            /*font-weight: bold;*/
             background: #403e32;
             border-bottom: 1px solid #b8b06f;
         }
 
 .contenido_tab {
     padding: 10px;
-    /*font-size: 1.2em;*/
     width: 875px;
 }
 
     .contenido_tab img {
-        /*margin: 0 20px 20px 0;
-    border: 1px solid #ddd;
-    padding: 5px;*/
         cursor: pointer;
         height: 24px;
     }

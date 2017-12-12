@@ -11,7 +11,6 @@
         .contenedorCuponInfo .contenedor-texto-agregar {
             display: inline-block;
         }
-           
     </style>
 }
 
@@ -20,7 +19,7 @@
     var nombreConsultora = Util.SubStrCortarNombre(Model.NombreConsultora, 10, "!");
     var nombreConsultoraSin = Util.SubStrCortarNombre(Model.NombreConsultora, 10, "");
     var nroCampania = Util.SubStr(Model.CampaniaActual.ToString(), 4, 2);
-    var revistaDigital = Model.RevistaDigital ?? new RevistaDigitalModel();
+    var revistaDigital = Model.PartialSectionBpt.RevistaDigital ?? new RevistaDigitalModel();
 }
 
 <input type="hidden" id="hdTipoEstrategiaID" value="0" />
@@ -259,7 +258,7 @@
 }
 <!--CAROUSEL OFERTAS PARA TI-->
 <div id="divListaEstrategias" class="fondo_gris" style="display:none;">
-   @Html.Partial("~/Views/Bienvenida/_PartialSectionBpt.cshtml", revistaDigital) 
+   @Html.Partial("~/Views/Bienvenida/_PartialSectionBpt.cshtml", Model.PartialSectionBpt) 
 </div>
 <!--FIN CAROUSEL OFERTAS PARA TI-->
 <!--REVISTA DIGITAL -->
@@ -1433,7 +1432,7 @@
                         </div>
                         <a class="boton_Agregalo_home" data-btn-agregar-sr="">AGRÉGALO</a>
                         <div class="clear"></div>
-                        <div style="padding-top: 9px; height: 15px;">
+                        <div style="padding-top: 9px; margin-bottom:6px; height: 15px;">
                             <div class="agregado product-add" style="text-align: right; display: {{Agregado}};">
                                 AGREGADO
                                 <div class="icono"></div>
@@ -2036,10 +2035,10 @@
 <!--FIN-->
 <!--REVISTA DIGITAL -->
 <!-- POPUP REVISTA DIGITAL Suscripcion -->
-@if (Model.RevistaDigital.TieneRDS == true)
+@if (revistaDigital.TieneRDS == true)
 {
-    <div class="contenedor_fondo_popup" id="PopRDSuscripcion" data-popup-main="" data-popup-function-hide="RDPopupCerrar()" style="display:none;">
-        <div class="contenido-popup-nuevo-2017" data-popup-body="" style="font-family: 'Lato' !important;">
+    <div class="contenedor_fondo_popup contenido-popup-nuevo-2017" id="PopRDSuscripcion" data-popup-main="" data-popup-function-hide="RDPopupCerrar()" style="display:none;">
+       
             <div class="centrar-estructura">
                 <div class="centrar-vertical-contenido">
                     <p class="primer-texto">
@@ -2054,7 +2053,7 @@
                 </div>
                 <a class="cerrar-popup" data-popup-close=""><img src="@Url.Content("~/Content/Images/close-icon.svg")" alt=""></a>
             </div>
-        </div>
+
     </div>
 }
 <!-- FIN POPUP INSCRITA A REVISTA DIGITAL -->

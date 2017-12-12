@@ -1,4 +1,6 @@
-USE BelcorpPeru_BPT
+USE BelcorpPeru
+GO
+
 GO
 
 IF EXISTS(
@@ -10,7 +12,249 @@ FROM SYS.OBJECTS O
 	AND C.NAME = 'Nombre'
 )
 BEGIN
-	PRINT ('Cambiando tamaño de columna ''EventoFestivo.Nombre'' de 30 a 50 caracteres.')
 	ALTER TABLE EventoFestivo
 	ALTER COLUMN Nombre VARCHAR(50);
 END
+
+go
+
+USE BelcorpMexico
+GO
+
+GO
+
+IF EXISTS(
+SELECT *
+FROM SYS.OBJECTS O 
+	JOIN SYS.COLUMNS C ON O.[OBJECT_ID] = C.[OBJECT_ID]
+	AND O.TYPE = 'U'
+	AND O.NAME = 'EventoFestivo'
+	AND C.NAME = 'Nombre'
+)
+BEGIN
+	ALTER TABLE EventoFestivo
+	ALTER COLUMN Nombre VARCHAR(50);
+END
+
+go
+
+USE BelcorpColombia
+GO
+
+GO
+
+IF EXISTS(
+SELECT *
+FROM SYS.OBJECTS O 
+	JOIN SYS.COLUMNS C ON O.[OBJECT_ID] = C.[OBJECT_ID]
+	AND O.TYPE = 'U'
+	AND O.NAME = 'EventoFestivo'
+	AND C.NAME = 'Nombre'
+)
+BEGIN
+	ALTER TABLE EventoFestivo
+	ALTER COLUMN Nombre VARCHAR(50);
+END
+
+go
+
+USE BelcorpVenezuela
+GO
+
+GO
+
+IF EXISTS(
+SELECT *
+FROM SYS.OBJECTS O 
+	JOIN SYS.COLUMNS C ON O.[OBJECT_ID] = C.[OBJECT_ID]
+	AND O.TYPE = 'U'
+	AND O.NAME = 'EventoFestivo'
+	AND C.NAME = 'Nombre'
+)
+BEGIN
+	ALTER TABLE EventoFestivo
+	ALTER COLUMN Nombre VARCHAR(50);
+END
+
+go
+
+USE BelcorpSalvador
+GO
+
+GO
+
+IF EXISTS(
+SELECT *
+FROM SYS.OBJECTS O 
+	JOIN SYS.COLUMNS C ON O.[OBJECT_ID] = C.[OBJECT_ID]
+	AND O.TYPE = 'U'
+	AND O.NAME = 'EventoFestivo'
+	AND C.NAME = 'Nombre'
+)
+BEGIN
+	ALTER TABLE EventoFestivo
+	ALTER COLUMN Nombre VARCHAR(50);
+END
+
+go
+
+USE BelcorpPuertoRico
+GO
+
+GO
+
+IF EXISTS(
+SELECT *
+FROM SYS.OBJECTS O 
+	JOIN SYS.COLUMNS C ON O.[OBJECT_ID] = C.[OBJECT_ID]
+	AND O.TYPE = 'U'
+	AND O.NAME = 'EventoFestivo'
+	AND C.NAME = 'Nombre'
+)
+BEGIN
+	ALTER TABLE EventoFestivo
+	ALTER COLUMN Nombre VARCHAR(50);
+END
+
+go
+
+USE BelcorpPanama
+GO
+
+GO
+
+IF EXISTS(
+SELECT *
+FROM SYS.OBJECTS O 
+	JOIN SYS.COLUMNS C ON O.[OBJECT_ID] = C.[OBJECT_ID]
+	AND O.TYPE = 'U'
+	AND O.NAME = 'EventoFestivo'
+	AND C.NAME = 'Nombre'
+)
+BEGIN
+	ALTER TABLE EventoFestivo
+	ALTER COLUMN Nombre VARCHAR(50);
+END
+
+go
+
+USE BelcorpGuatemala
+GO
+
+GO
+
+IF EXISTS(
+SELECT *
+FROM SYS.OBJECTS O 
+	JOIN SYS.COLUMNS C ON O.[OBJECT_ID] = C.[OBJECT_ID]
+	AND O.TYPE = 'U'
+	AND O.NAME = 'EventoFestivo'
+	AND C.NAME = 'Nombre'
+)
+BEGIN
+	ALTER TABLE EventoFestivo
+	ALTER COLUMN Nombre VARCHAR(50);
+END
+
+go
+
+USE BelcorpEcuador
+GO
+
+GO
+
+IF EXISTS(
+SELECT *
+FROM SYS.OBJECTS O 
+	JOIN SYS.COLUMNS C ON O.[OBJECT_ID] = C.[OBJECT_ID]
+	AND O.TYPE = 'U'
+	AND O.NAME = 'EventoFestivo'
+	AND C.NAME = 'Nombre'
+)
+BEGIN
+	ALTER TABLE EventoFestivo
+	ALTER COLUMN Nombre VARCHAR(50);
+END
+
+go
+
+USE BelcorpDominicana
+GO
+
+GO
+
+IF EXISTS(
+SELECT *
+FROM SYS.OBJECTS O 
+	JOIN SYS.COLUMNS C ON O.[OBJECT_ID] = C.[OBJECT_ID]
+	AND O.TYPE = 'U'
+	AND O.NAME = 'EventoFestivo'
+	AND C.NAME = 'Nombre'
+)
+BEGIN
+	ALTER TABLE EventoFestivo
+	ALTER COLUMN Nombre VARCHAR(50);
+END
+
+go
+
+USE BelcorpCostaRica
+GO
+
+GO
+
+IF EXISTS(
+SELECT *
+FROM SYS.OBJECTS O 
+	JOIN SYS.COLUMNS C ON O.[OBJECT_ID] = C.[OBJECT_ID]
+	AND O.TYPE = 'U'
+	AND O.NAME = 'EventoFestivo'
+	AND C.NAME = 'Nombre'
+)
+BEGIN
+	ALTER TABLE EventoFestivo
+	ALTER COLUMN Nombre VARCHAR(50);
+END
+
+go
+
+USE BelcorpChile
+GO
+
+GO
+
+IF EXISTS(
+SELECT *
+FROM SYS.OBJECTS O 
+	JOIN SYS.COLUMNS C ON O.[OBJECT_ID] = C.[OBJECT_ID]
+	AND O.TYPE = 'U'
+	AND O.NAME = 'EventoFestivo'
+	AND C.NAME = 'Nombre'
+)
+BEGIN
+	ALTER TABLE EventoFestivo
+	ALTER COLUMN Nombre VARCHAR(50);
+END
+
+go
+
+USE BelcorpBolivia
+GO
+
+GO
+
+IF EXISTS(
+SELECT *
+FROM SYS.OBJECTS O 
+	JOIN SYS.COLUMNS C ON O.[OBJECT_ID] = C.[OBJECT_ID]
+	AND O.TYPE = 'U'
+	AND O.NAME = 'EventoFestivo'
+	AND C.NAME = 'Nombre'
+)
+BEGIN
+	ALTER TABLE EventoFestivo
+	ALTER COLUMN Nombre VARCHAR(50);
+END
+
+go
+

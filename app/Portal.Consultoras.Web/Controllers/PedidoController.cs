@@ -13,7 +13,6 @@ using Portal.Consultoras.Web.ServicesCalculosPROL;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.ServiceModel;
@@ -324,7 +323,7 @@ namespace Portal.Consultoras.Web.Controllers
                 
                 ViewBag.CUVOfertaProl = TempData["CUVOfertaProl"];
                 ViewBag.MensajePedidoDesktop = userData.MensajePedidoDesktop;
-                model.RevistaDigital = revistaDigital;
+                model.PartialSectionBpt = GetPartialSectionBptModel();
 
                 ViewBag.NombreConsultora = userData.Sobrenombre;
                 if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
@@ -4575,6 +4574,51 @@ namespace Portal.Consultoras.Web.Controllers
                         .Where(x => !userData.CodigosRevistaImpresa.Contains(x.CodigoCatalogo.ToString())).ToList();
                 }
             }
+        }
+        private PartialSectionBpt GetPartialSectionBptModel()
+        {
+            var partial = new PartialSectionBpt();
+
+            try
+            {
+                partial.RevistaDigital = revistaDigital;
+
+                if (revistaDigital.TieneRDC)
+                {
+                    if (revistaDigital.EsActiva)
+                    {
+                        if (revistaDigital.EsSuscrita)
+                        {
+                            partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DPedidoInscritaActiva) ?? new ConfiguracionPaisDatosModel();
+                        }
+                        else
+                        {
+                            partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DPedidoNoInscritaActiva) ?? new ConfiguracionPaisDatosModel();
+                        }
+                    }
+                    else
+                    {
+                        if (revistaDigital.EsSuscrita)
+                        {
+                            partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DPedidoInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
+                        }
+                        else
+                        {
+                            partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.DPedidoNoInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
+                        }
+                    }
+                }
+                else if (revistaDigital.TieneRDR)
+                {
+                    partial.ConfiguracionPaisDatos = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDR.DPedidoRdr) ?? new ConfiguracionPaisDatosModel();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
+            }
+
+            return partial;
         }
     }
 }
