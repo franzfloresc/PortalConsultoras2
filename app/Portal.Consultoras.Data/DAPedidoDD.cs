@@ -50,12 +50,6 @@ namespace Portal.Consultoras.Data
                 {
                     con2.Open();
 
-                    //using (SqlCommand command2 = new SqlCommand("delete from TmpCabeceraDD", con2))
-                    //{
-                    //    command2.CommandType = CommandType.Text;
-                    //    command2.ExecuteNonQuery();
-                    //}
-
                     SqlBulkCopy oSqlBulkCopy_Cabecera = new SqlBulkCopy(con2);
                     oSqlBulkCopy_Cabecera.DestinationTableName = "TmpCabeceraDD";
 
@@ -67,14 +61,6 @@ namespace Portal.Consultoras.Data
 
                     // Obtiene el segundo select del DataReader
                     reader.NextResult();
-
-
-                    //using (SqlCommand command3 = new SqlCommand("delete from TmpDetalleDD", con2))
-                    //{
-                    //    command3.CommandType = CommandType.Text;
-                    //    command3.ExecuteNonQuery();
-                    //}
-                    //Context.ExecuteNonQuery(command);
 
                     SqlBulkCopy oSqlBulkCopy_Detalle = new SqlBulkCopy(con2);
                     oSqlBulkCopy_Detalle.DestinationTableName = "TmpDetalleDD";

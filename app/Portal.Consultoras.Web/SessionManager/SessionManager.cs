@@ -109,7 +109,7 @@ namespace Portal.Consultoras.Web.SessionManager
 
         RevistaDigitalModel ISessionManager.GetRevistaDigital()
         {
-            return (RevistaDigitalModel)HttpContext.Current.Session[Constantes.ConstSession.RevistaDigital];
+            return ((RevistaDigitalModel)HttpContext.Current.Session[Constantes.ConstSession.RevistaDigital]) ?? new RevistaDigitalModel();
         }
 
         void ISessionManager.SetIsContrato(int isContrato)

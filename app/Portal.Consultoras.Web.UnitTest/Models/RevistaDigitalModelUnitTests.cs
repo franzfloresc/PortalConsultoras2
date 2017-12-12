@@ -18,6 +18,8 @@ namespace Portal.Consultoras.Web.UnitTest.Models
             {
                 var rd = new RevistaDigitalModel();
                 rd.TieneRDC = false;
+                rd.EsSuscrita = false;
+                rd.EsActiva = false;
 
                 var result = rd.EsSuscritaInactiva();
 
@@ -25,11 +27,12 @@ namespace Portal.Consultoras.Web.UnitTest.Models
             }
 
             [TestMethod]
-            public void EsSuscritaInactiva_TieneRDCSuscripcionActualTieneEstadoSinRegistro_ReturnFalse()
+            public void EsSuscritaInactiva_TieneRdcYEsSuscritaFalseYEsActivaFalse_ReturnFalse()
             {
                 var rd = new RevistaDigitalModel();
                 rd.TieneRDC = true;
-                rd.SuscripcionModel = new RevistaDigitalSuscripcionModel {  EstadoRegistro = Constantes.EstadoRDSuscripcion.SinRegistroDB};
+                rd.EsSuscrita = false;
+                rd.EsActiva = false;
 
                 var result = rd.EsSuscritaInactiva();
 
@@ -37,13 +40,26 @@ namespace Portal.Consultoras.Web.UnitTest.Models
             }
 
             [TestMethod]
-            public void EsSuscritaInactiva_TieneRDCYSuscripcionActualTieneEstadoActivoYSuscripcionAnt1TieneEstadoSinRegistroYSuscripcionAnt2TieneEstadoSinRegistro_ReturnTrue()
+            public void EsSuscritaInactiva_TieneRdcYEsSuscritaFalseYEsActivaTrue_ReturnFalse()
             {
                 var rd = new RevistaDigitalModel();
                 rd.TieneRDC = true;
-                rd.SuscripcionModel = new RevistaDigitalSuscripcionModel { EstadoRegistro = Constantes.EstadoRDSuscripcion.Activo };
-                rd.SuscripcionAnterior1Model = new RevistaDigitalSuscripcionModel { EstadoRegistro = Constantes.EstadoRDSuscripcion.SinRegistroDB };
-                rd.SuscripcionAnterior2Model = new RevistaDigitalSuscripcionModel { EstadoRegistro = Constantes.EstadoRDSuscripcion.SinRegistroDB };
+                rd.EsSuscrita = false;
+                rd.EsActiva = true;
+
+                var result = rd.EsSuscritaInactiva();
+
+
+                Assert.AreEqual(false, result);
+            }
+
+            [TestMethod]
+            public void EsSuscritaInactiva_TieneRdcYEsSuscritaTrueYEsActivaFalse_ReturnTrue()
+            {
+                var rd = new RevistaDigitalModel();
+                rd.TieneRDC = true;
+                rd.EsSuscrita = true;
+                rd.EsActiva = false;
 
                 var result = rd.EsSuscritaInactiva();
 
@@ -52,28 +68,12 @@ namespace Portal.Consultoras.Web.UnitTest.Models
             }
 
             [TestMethod]
-            public void EsSuscritaInactiva_TieneRDCYSuscripcionActualTieneEstadoActivoYSuscripcionAnt1TieneEstadoActivoYSuscripcionAnt2TieneEstadoSinRegistro_ReturnTrue()
+            public void EsSuscritaInactiva_TieneRdcYEsSuscritaTrueYEsActivaTrue_Returnfalse()
             {
                 var rd = new RevistaDigitalModel();
                 rd.TieneRDC = true;
-                rd.SuscripcionModel = new RevistaDigitalSuscripcionModel { EstadoRegistro = Constantes.EstadoRDSuscripcion.Activo };
-                rd.SuscripcionAnterior1Model = new RevistaDigitalSuscripcionModel { EstadoRegistro = Constantes.EstadoRDSuscripcion.Activo };
-                rd.SuscripcionAnterior2Model = new RevistaDigitalSuscripcionModel { EstadoRegistro = Constantes.EstadoRDSuscripcion.SinRegistroDB };
-
-                var result = rd.EsSuscritaInactiva();
-
-
-                Assert.AreEqual(true, result);
-            }
-
-            [TestMethod]
-            public void EsSuscritaInactiva_TieneRDCYSuscripcionActualTieneEstadoActivoYSuscripcionAnt1TieneEstadoActivoYSuscripcionAnt2TieneEstadoActivo_ReturnFalse()
-            {
-                var rd = new RevistaDigitalModel();
-                rd.TieneRDC = true;
-                rd.SuscripcionModel = new RevistaDigitalSuscripcionModel { EstadoRegistro = Constantes.EstadoRDSuscripcion.Activo };
-                rd.SuscripcionAnterior1Model = new RevistaDigitalSuscripcionModel { EstadoRegistro = Constantes.EstadoRDSuscripcion.Activo };
-                rd.SuscripcionAnterior2Model = new RevistaDigitalSuscripcionModel { EstadoRegistro = Constantes.EstadoRDSuscripcion.Activo };
+                rd.EsSuscrita = true;
+                rd.EsActiva = true;
 
                 var result = rd.EsSuscritaInactiva();
 
@@ -97,12 +97,13 @@ namespace Portal.Consultoras.Web.UnitTest.Models
             }
 
             [TestMethod]
-            public void EsSuscritaActiva_TieneRDCYSuscripcionAnterior2TieneEstadoDiferenteActivo_RetornaFalse()
+            public void EsSuscritaActiva_TieneRdcYEsSuscritaFalseYEsActivaFalse_RetornaFalse()
             {
                 var rd = new RevistaDigitalModel();
                 rd.TieneRDC = true;
-                rd.SuscripcionModel = new RevistaDigitalSuscripcionModel { EstadoRegistro = Constantes.EstadoRDSuscripcion.Activo };
-                rd.SuscripcionAnterior2Model = new RevistaDigitalSuscripcionModel { EstadoRegistro = Constantes.EstadoRDSuscripcion.Desactivo };
+                rd.EsSuscrita = false;
+                rd.EsActiva = false;
+     
 
                 bool result = rd.EsSuscritaActiva();
 
@@ -110,12 +111,41 @@ namespace Portal.Consultoras.Web.UnitTest.Models
             }
 
             [TestMethod]
-            public void EsSuscritaActiva_TieneRDCYSuscripcionAnterior2TieneEstadoActivo_RetornaTrue()
+            public void EsSuscritaActiva_TieneRdcYEsSuscritaFalseYEsActivaTrue_RetornaFalse()
             {
                 var rd = new RevistaDigitalModel();
                 rd.TieneRDC = true;
-                rd.SuscripcionModel = new RevistaDigitalSuscripcionModel { EstadoRegistro = Constantes.EstadoRDSuscripcion.Activo };
-                rd.SuscripcionAnterior2Model = new RevistaDigitalSuscripcionModel { EstadoRegistro = Constantes.EstadoRDSuscripcion.Activo };
+                rd.EsSuscrita = false;
+                rd.EsActiva = true;
+
+
+                bool result = rd.EsSuscritaActiva();
+
+                Assert.AreEqual(false, result);
+            }
+
+            [TestMethod]
+            public void EsSuscritaActiva_TieneRdcYEsSuscritaTrueYEsActivaFalse_RetornaFalse()
+            {
+                var rd = new RevistaDigitalModel();
+                rd.TieneRDC = true;
+                rd.EsSuscrita = true;
+                rd.EsActiva = false;
+
+
+                bool result = rd.EsSuscritaActiva();
+
+                Assert.AreEqual(false, result);
+            }
+
+            [TestMethod]
+            public void EsSuscritaActiva_TieneRdcYEsSuscritaTrueYEsActivaTrue_RetornaFalse()
+            {
+                var rd = new RevistaDigitalModel();
+                rd.TieneRDC = true;
+                rd.EsSuscrita = true;
+                rd.EsActiva = true;
+
 
                 bool result = rd.EsSuscritaActiva();
 
@@ -132,35 +162,35 @@ namespace Portal.Consultoras.Web.UnitTest.Models
                 var rd = new RevistaDigitalModel();
                 rd.TieneRDC = false;
 
-                bool result = rd.EsNoSuscrita();
+                bool result = rd.EsNoSuscritaInactiva();
 
                 Assert.AreEqual(false, result);
             }
 
             [TestMethod]
-            public void EsNoSuscrita_TieneRDCYSuscripcionAnterior2TieneEstadoActivo_RetornaFalse()
+            public void EsNoSuscrita_TieneRdcYEsSuscritaFalseYEsActivaFalse_RetornaTrue()
             {
                 var rd = new RevistaDigitalModel();
                 rd.TieneRDC = true;
-                rd.SuscripcionModel = new RevistaDigitalSuscripcionModel { EstadoRegistro = Constantes.EstadoRDSuscripcion.Desactivo };
-                rd.SuscripcionAnterior2Model = new RevistaDigitalSuscripcionModel { EstadoRegistro = Constantes.EstadoRDSuscripcion.Activo };
+                rd.EsSuscrita = false;
+                rd.EsActiva = false;
 
-                bool result = rd.EsNoSuscrita();
-
-                Assert.AreEqual(false, result);
-            }
-
-            [TestMethod]
-            public void EsNoSuscrita_TieneRDCYSuscripcionAnterior2TieneEstadoInactivo_RetornaTrue()
-            {
-                var rd = new RevistaDigitalModel();
-                rd.TieneRDC = true;
-                rd.SuscripcionModel = new RevistaDigitalSuscripcionModel { EstadoRegistro = Constantes.EstadoRDSuscripcion.Desactivo };
-                rd.SuscripcionAnterior2Model = new RevistaDigitalSuscripcionModel { EstadoRegistro = Constantes.EstadoRDSuscripcion.Desactivo };
-
-                bool result = rd.EsNoSuscrita();
+                bool result = rd.EsNoSuscritaInactiva();
 
                 Assert.AreEqual(true, result);
+            }
+
+            [TestMethod]
+            public void EsNoSuscrita_TieneRdcYEsSuscritaFalseYEsActivaTrue_RetornaFalse()
+            {
+                var rd = new RevistaDigitalModel();
+                rd.TieneRDC = true;
+                rd.EsSuscrita = false;
+                rd.EsActiva = true;
+
+                bool result = rd.EsNoSuscritaInactiva();
+
+                Assert.AreEqual(false, result);
             }
         } 
 

@@ -58,8 +58,8 @@
         &nbsp;&nbsp;&nbsp;&nbsp;LISTADO DE CLIENTES
     </div>
 
-    <div class="pestana_esika"></div><!--PESTANA ESIKA-->
-    <div class="pestana_lbel"></div><!--PESTANA LBEL-->
+    <div class="pestana_esika"></div>
+    <div class="pestana_lbel"></div>
 
     <div class="col-xs-12">
         <div class="text-center">
@@ -99,15 +99,6 @@
                                 </div>
                             </div>
 
-                            @*<div class="table-width" style="margin-left:40px">
-                                    <div>
-                                        <strong class="upper clienteNombre">@cliente.Nombre</strong>
-                                    </div>
-                                    <div class="mt-10">Correo: <span class="clienteEmail">@cliente.Email</span></div>
-                                    <input type="hidden" class="clienteId" value="@cliente.ClienteID" />
-                                </div>
-                                <a href='javascript:;' class="cli-ac-edit text-primary actualizarCliente">EDITAR</a>
-                                <a href='javascript:;' class="cli-ac-delete text-primary" onclick="return EliminarCliente(@cliente.ClienteID);"><i class="icon-delete icon-lg"></i></a>*@
                         </div>
                     </li>
                                         }
@@ -136,16 +127,6 @@
         </div>
     </div>
     <!-- end modal -->
-    @*<div id="agregarCliente" class="modal fade">
-            <div class="modal-dialog modal-alert ">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        @Html.Partial("AgregarCliente", new ClienteMobileModel())
-                    </div>
-                </div>
-            </div>
-        </div>*@
-
     <div class="contenedor_popup_clientes modal" id="divAgregarCliente">
         <div class="popup_agregarCliente">
             <div id="divDetalleCliente"></div>
@@ -170,18 +151,7 @@
                     }
                     else {
                         esAgregarCliente = true;
-                        //$('#Nombre').val("");
-                        //$('#Email').val("");
-                        //$('#Telefono').val("");
-                        //$('#ClienteID').val("0");
-                        //$('#FlagValidate').val("0");
-                        //$("#hdNombreClienteAnterior").val("");
-
-                        //posicionClienteActual = 0;
-
-                        //ShowAgregarCliente();
-                        //$("#liOpcionCliente").html("Agregar Cliente");
-
+                        
                         showClienteDetalle(null);
                     }
                 });
@@ -196,20 +166,7 @@
                     else {
                         esAgregarCliente = false;
                         var divPadre = $(this).parent("div");
-                        //var divInfo = $(divPadre).find(".table-width");
-
-                        //var clienteId = $(divInfo).find(".clienteId").val();
-                        //var clienteNombre = $(divInfo).find(".clienteNombre").html();
-                        //var clienteEmail = $(divInfo).find(".clienteEmail").html();
-
-                        //posicionClienteActual = parseInt(clienteId);
-                        //$("#ClienteID").val(clienteId);
-                        //$("#Nombre").val(clienteNombre);
-                        //$("#Email").val(clienteEmail);
-                        //$("#hdNombreClienteAnterior").val(clienteNombre);
-                        //ShowAgregarCliente();
-                        //$("#liOpcionCliente").html("Modificar Cliente");
-
+                        
                         showClienteDetalle(divPadre);
                     }
                 });
@@ -242,7 +199,6 @@
 
                         $("#divDetalleCliente").html(data);
                         $("#divAgregarCliente").modal("show");
-                        //$("#divAgregarCliente").show();
 
                         ClienteDetalleOK = RealizarLuegoGuardarCliente;
                     },
@@ -261,20 +217,6 @@
                     var clienteCodigo = data.CodigoCliente == "" || data.CodigoCliente == null ? "" : data.CodigoCliente;
                     var clienteTelefono = data.Telefono == "" || data.Telefono == null ? "" : data.Telefono;
                     var clienteCelular = data.Celular == "" || data.Celular == null ? "" : data.Celular;
-
-                    //var htmlInsertar = '<li>';
-                    //htmlInsertar += '<div class="posr">';
-                    //htmlInsertar += '<div class="table-width">';
-                    //htmlInsertar += '<div>';
-                    //htmlInsertar += '<strong class="upper clienteNombre">' + clienteNombre + '</strong>';
-                    //htmlInsertar += '</div>';
-                    //htmlInsertar += '<div class="mt-10">Correo: <span class="clienteEmail">' + clienteEmail + '</span></div>';
-                    //htmlInsertar += '<input type="hidden" class="clienteId" value="' + clienteId + '"/>';
-                    //htmlInsertar += '</div>';
-                    //htmlInsertar += '<a href="javascript:;" class="cli-ac-edit text-primary actualizarCliente">EDITAR</a>';
-                    //htmlInsertar += '<a href="javascript:;" class="cli-ac-delete text-primary" onclick="return EliminarCliente(' + clienteId + ');"><i class="icon-delete icon-lg"></i></a>';
-                    //htmlInsertar += '</div>';
-                    //htmlInsertar += '</li>';
 
                     var htmlInsertar = '';
                     htmlInsertar += '<li>';
@@ -385,12 +327,5 @@
                 }
             }
 
-            //function ShowAgregarCliente() {
-            //    $("#agregarCliente").modal("show");
-            //}
-
-            //function CloseAgregarCliente() {
-            //    $("#agregarCliente").modal("hide");
-            //}
         </script>
     }

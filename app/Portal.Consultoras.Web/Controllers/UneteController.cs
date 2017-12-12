@@ -222,7 +222,6 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(true, JsonRequestBehavior.AllowGet);
         }
 
-
         [HttpPost]
         public string NivelesRiesgoInsertar(HttpPostedFileBase uplArchivo, NivelesRiesgoModel model)
         {
@@ -443,7 +442,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return list;
         }
-
 
         public static List<NivelesGeograficosModel> ReadXmlFileNG(string filepath, bool ReadAllSheets, ref bool IsCorrect, string CodigoPais)
         {
@@ -972,7 +970,7 @@ namespace Portal.Consultoras.Web.Controllers
                 new Crypto().EncryptToString(string.Format("{0}|{1}|{2}", solicitudPostulante.NumeroDocumento,
                     solicitudPostulante.CorreoElectronico, user.CodigoISO));
 
-            var urlConfirmacion = ConfigurationManager.AppSettings["UrlUneteBelcorp"] + "?id=" + token + "&p=" +
+            var urlConfirmacion = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlUneteBelcorp) + "?id=" + token + "&p=" +
                                   user.CodigoISO +
                                   "&utm_source=Transaccional&utm_medium=email&utm_content=Completa_datos&utm_campaign=Unete_a_Belcorp";
 
@@ -1129,7 +1127,6 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-
         [HttpPost]
         public JsonResult ConsultarTerritorios(decimal latitud, decimal longitud)
         {
@@ -1182,6 +1179,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             ViewBag.HTMLSACUnete = getHTMLSACUnete("ConsultarUbicacionCL", "&id=" + id.ToString());
             return PartialView("_ConsultarUbicacionCL");
+
         }
 
         public ActionResult NivelesRiesgo()
@@ -1199,6 +1197,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var data = sv.ConsultarNivelesRiesgo(model);
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
+
         }
 
         public ActionResult ExportarExcelNivelRiesgo()
@@ -1371,7 +1370,6 @@ namespace Portal.Consultoras.Web.Controllers
             return View();
         }
 
-
         [HttpPost]
         public JsonResult ConsultarNivelesGeograficos(NivelesGeograficosModelSAC model)
         {
@@ -1405,7 +1403,6 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(response == "true", JsonRequestBehavior.AllowGet);
 
         }
-
 
         public ActionResult GestionParametros()
         {
@@ -1492,7 +1489,7 @@ namespace Portal.Consultoras.Web.Controllers
                                        "&codterritorio=" + codterritorio +
                                           "&direccion=" + direccion
                 );
-            return Json(response == "true", JsonRequestBehavior.AllowGet);
+            return Json(response == "true" ? true : false, JsonRequestBehavior.AllowGet);
         }
 
         public string ObtenerZonas(int regionID)
@@ -1525,7 +1522,6 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.HTMLSACUnete = PostHTMLSACUnete("EditarDireccionManualmente", model);
             return PartialView("_EditarDireccionManualmente");
         }
-
 
         public ActionResult VerHistorialPostulante(int id, string nombre, string FechaRegistro)
         {
@@ -1609,12 +1605,13 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult EditarDireccion(EditarDireccionModel model)
         {
             ViewBag.HTMLSACUnete = PostHTMLSACUnete("EditarDireccion", model);
+
             return PartialView("_EditarDireccion");
         }
 
         private JObject ConsultarServicio(object data, string metodo)
         {
-            var urlWSGEO = ConfigurationManager.AppSettings["WSGEO_Url"];
+            var urlWSGEO = GetConfiguracionManager(Constantes.ConfiguracionManager.WSGEO_Url);
             var bytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(data));
 
             var url = string.Format("{0}/{1}", urlWSGEO, metodo);
@@ -1826,10 +1823,9 @@ namespace Portal.Consultoras.Web.Controllers
             return new EmptyResult();
         }
 
-
         public string getHTMLSACUnete(string Action, string URLParams)
         {
-            string UrlSACUente = ConfigurationManager.AppSettings["UneteURL"];
+            string UrlSACUente = GetConfiguracionManager(Constantes.ConfiguracionManager.UneteURL);
             string responseHTML = string.Empty;
             string url = string.Format("{0}/{1}?p={2}", UrlSACUente, Action, CodigoISO);
 
@@ -1858,7 +1854,7 @@ namespace Portal.Consultoras.Web.Controllers
             var byteContent = new ByteArrayContent(buffer);
             byteContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
 
-            string UrlSACUente = ConfigurationManager.AppSettings["UneteURL"];
+            string UrlSACUente = GetConfiguracionManager(Constantes.ConfiguracionManager.UneteURL);
             string responseHTML = string.Empty;
             string url = string.Format("{0}/{1}", UrlSACUente, Action);
 

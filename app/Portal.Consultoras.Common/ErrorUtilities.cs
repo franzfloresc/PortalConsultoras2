@@ -63,7 +63,6 @@ namespace Portal.Consultoras.Common
             //if (ex.GetType() == typeof(DbEntityValidationException))
             //{
             //    var dbException = (DbEntityValidationException)ex;
-
             //    foreach (var eve in dbException.EntityValidationErrors)
             //    {
             //        foreach (var ve in eve.ValidationErrors)
@@ -71,7 +70,6 @@ namespace Portal.Consultoras.Common
             //            dbEntityException += string.Format("Property name: {0} - Message: {1}", ve.PropertyName, ve.ErrorMessage);
             //        }
             //    }
-
             //    log.DBEntityException = dbEntityException;
             //}
 
