@@ -4,6 +4,7 @@ using Portal.Consultoras.Entities.ReservaProl;
 using Portal.Consultoras.Entities.RevistaDigital;
 using Portal.Consultoras.Entities.ShowRoom;
 using Portal.Consultoras.Entities.Pedido;
+using Estrategia = Portal.Consultoras.Entities.Estrategia;
 
 using System;
 using System.Collections.Generic;
@@ -1184,6 +1185,13 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         void UpdateMostradoProductosPrecargados(int paisID, int CampaniaID, long ConsultoraID, string IPUsuario);
+        #endregion
+
+		#region ConfiguracionProgramaNuevasApp
+        [OperationContract]
+        List<Estrategia.BEConfiguracionProgramaNuevasApp> GetConfiguracionProgramaNuevasApp(int paisID, string CodigoPrograma);
+        [OperationContract]
+        string InsConfiguracionProgramaNuevasApp(int paisID, Estrategia.BEConfiguracionProgramaNuevasApp entidad);
         #endregion
     }
 }

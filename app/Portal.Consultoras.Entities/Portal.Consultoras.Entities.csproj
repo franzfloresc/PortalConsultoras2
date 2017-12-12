@@ -68,6 +68,8 @@
     <Compile Include="BEGPRBanner.cs" />
     <Compile Include="BEGPRUsuario.cs" />
     <Compile Include="Cliente\BEMovimientoDetalle.cs" />
+    <Compile Include="Comunicado\BEComunicadoVista.cs" />
+    <Compile Include="Estrategia\BEConfiguracionProgramaNuevasApp.cs" />
     <Compile Include="Incentivo\BEIncentivoConcurso.cs" />
     <Compile Include="Incentivo\BEIncentivoNivel.cs" />
     <Compile Include="Incentivo\BEIncentivoPremio.cs" />
@@ -141,7 +143,7 @@
     <Compile Include="Cliente\BECliente.cs" />
     <Compile Include="BEComprobantePercepcion.cs" />
     <Compile Include="BEComprobantePercepcionDetalle.cs" />
-    <Compile Include="BEComunicado.cs" />
+    <Compile Include="Comunicado\BEComunicado.cs" />
     <Compile Include="BEConfiguracionCampania.cs" />
     <Compile Include="BEConfiguracionConsultoraDA.cs" />
     <Compile Include="BEConfiguracionCrossSelling.cs" />
@@ -194,7 +196,7 @@
     <Compile Include="BEEstadoCuenta.cs" />
     <Compile Include="BEEstadoServicio.cs" />
     <Compile Include="BEEstadoSolicitudCliente.cs" />
-    <Compile Include="BEEstrategia.cs" />
+    <Compile Include="Estrategia\BEEstrategia.cs" />
     <Compile Include="BEEtiqueta.cs" />
     <Compile Include="BEFechaNoHabilFacturacion.cs" />
     <Compile Include="BEFeErratas.cs" />
@@ -303,7 +305,7 @@
     <Compile Include="BETracking.cs" />
     <Compile Include="BEUbigeo.cs" />
     <Compile Include="BEUnidadGeografica.cs" />
-    <Compile Include="BEUsuario.cs" />
+    <Compile Include="Usuario\BEUsuario.cs" />
     <Compile Include="BEUsuarioCorreo.cs" />
     <Compile Include="BEUsuarioRol.cs" />
     <Compile Include="BEValidacionAutomatica.cs" />
@@ -328,7 +330,7 @@
     <Compile Include="BEPopupPais.cs" />
     <Compile Include="BELogConfiguracionCronograma.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="BEUsuarioExterno.cs" />
+    <Compile Include="Usuario\BEUsuarioExterno.cs" />
     <Compile Include="ShowRoom\BEShowRoomPersonalizacion.cs" />
     <Compile Include="ShowRoom\BEShowRoomPersonalizacionNivel.cs" />
     <Compile Include="ShowRoom\BEShowRoomTipoOferta.cs" />

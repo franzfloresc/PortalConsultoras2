@@ -6,8 +6,8 @@ using Portal.Consultoras.Entities.ReservaProl;
 using Portal.Consultoras.Entities.RevistaDigital;
 using Portal.Consultoras.Entities.ShowRoom;
 using Portal.Consultoras.ServiceContracts;
-using Portal.Consultoras.BizLogic.Pedido;
 using Portal.Consultoras.Entities.Pedido;
+using Estrategia = Portal.Consultoras.Entities.Estrategia;
 
 using System;
 using System.Collections.Generic;
@@ -46,8 +46,9 @@ namespace Portal.Consultoras.Service
 
         private readonly IConsultoraConcursoBusinessLogic _consultoraConcursoBusinessLogic;
         private readonly IPedidoWebBusinessLogic _pedidoWebBusinessLogic;
+        private readonly IConfiguracionProgramaNuevasBusinessLogic _configuracionProgramaNuevasBusinessLogic;
 
-        public PedidoService() : this(new BLConsultoraConcurso(), new BLPedidoWeb())
+        public PedidoService() : this(new BLConsultoraConcurso(), new BLPedidoWeb(), new BLConfiguracionProgramaNuevas())
         {
             BLPedidoWebDetalle = new BLPedidoWebDetalle();
             BLPedidoWeb = new BLPedidoWeb();
@@ -75,10 +76,12 @@ namespace Portal.Consultoras.Service
             blFichaProducto = new BLFichaProducto();
         }
 
-        public PedidoService(IConsultoraConcursoBusinessLogic consultoraConcursoBusinessLogic, IPedidoWebBusinessLogic pedidoWebBusinessLogic)
+        public PedidoService(IConsultoraConcursoBusinessLogic consultoraConcursoBusinessLogic, IPedidoWebBusinessLogic pedidoWebBusinessLogic,
+            IConfiguracionProgramaNuevasBusinessLogic configuracionProgramaNuevasBusinessLogic)
         {
             _consultoraConcursoBusinessLogic = consultoraConcursoBusinessLogic;
             _pedidoWebBusinessLogic = pedidoWebBusinessLogic;
+            _configuracionProgramaNuevasBusinessLogic = configuracionProgramaNuevasBusinessLogic;
         }
 
         #region Reporte Lider
@@ -2167,5 +2170,15 @@ namespace Portal.Consultoras.Service
             BLPedidoWeb.UpdateMostradoProductosPrecargados(paisID, CampaniaID, ConsultoraID, IPUsuario);
         }
         #endregion  
+        #region ConfiguracionProgramaNuevasApp
+        public List<Estrategia.BEConfiguracionProgramaNuevasApp> GetConfiguracionProgramaNuevasApp(int paisID, string CodigoPrograma)
+        {
+            return _configuracionProgramaNuevasBusinessLogic.GetConfiguracionProgramaNuevasApp(paisID, CodigoPrograma);
+        }
+        public string InsConfiguracionProgramaNuevasApp(int paisID, Estrategia.BEConfiguracionProgramaNuevasApp entidad)
+        {
+            return _configuracionProgramaNuevasBusinessLogic.InsConfiguracionProgramaNuevasApp(paisID, entidad);
+        }
+        #endregion
     }
 }
