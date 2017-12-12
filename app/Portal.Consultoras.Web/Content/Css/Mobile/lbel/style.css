@@ -14252,45 +14252,34 @@ span.icon-advertencia {
 /* NUEVO POPUP SUSCRIBIRSE */
 
 .contenido-popup-nuevo-2017 {
-<<<<<<< HEAD
-            display: inline;
-            vertical-align: middle;
-            color: white;
-            text-transform: uppercase;
-            text-align: center;
-            margin: auto;
-        }
-    .contenido-popup-nuevo-2017 .centrar-estructura {
-        box-shadow: inset 0 0 0 5px #e81c36;
-        padding: 20px;
-        height: 85%;
-        margin-top: 2.9% !important;
-=======
-    display: inline;
+    display: table-cell;
     vertical-align: middle;
     color: white;
     text-transform: uppercase;
     text-align: center;
     margin: auto;
 }
-
     .contenido-popup-nuevo-2017 .centrar-estructura {
-        box-shadow: inset 0 0 0 5px #613c87;
+        box-shadow: inset 0 0 0 5px #e81c36;
         padding: 20px;
-        height: 390px;
->>>>>>> ceac0c7cb4d8b0cbdb248e3f99afbcd51765dc71
+        height: 85%;
+        margin-top: 2.9% !important;
         /* margin-top: 15%; */
         /* margin-bottom: 15%; */
         width: 390px;
         margin: auto;
         display: table;
     }
-<<<<<<< HEAD
-   .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto span.flashit {
-=======
+
+    .contenido-popup-nuevo-2017 .centrar-estructura {
+        box-shadow: inset 0 0 0 5px #613c87;
+        padding: 20px;
+        height: 390px;
+        margin: auto;
+        display: table;
+    }
 
         .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto span.flashit {
->>>>>>> ceac0c7cb4d8b0cbdb248e3f99afbcd51765dc71
             color: white;
             /*-webkit-animation: flash linear 1s infinite;
             animation: flash linear 1s infinite;*/
@@ -14337,7 +14326,7 @@ span.icon-advertencia {
         font-weight: 300;
         margin-bottom: 0;
         display: block;
-        width: 280px;
+        width: 250px;
         margin: auto;
         line-height: 30px;
         margin-bottom: 15px;
@@ -14354,7 +14343,7 @@ span.icon-advertencia {
         letter-spacing: 1px;
         margin-bottom: 36px;
         display: block;
-        width: 280px;
+        width: 250px;
         margin: auto;
         margin-bottom: 35px;
     }
@@ -14443,7 +14432,7 @@ span.icon-advertencia {
 @media (max-width: 500px) {
 
     .contenido-popup-nuevo-2017 .centrar-estructura {
-        width: 95%;
+        width: 92%;
         margin-top: 4.9% !important;
     }
 }
