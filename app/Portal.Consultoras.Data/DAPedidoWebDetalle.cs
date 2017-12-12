@@ -100,6 +100,26 @@ namespace Portal.Consultoras.Data
             return deleted;
         }
 
+        public IDataReader GetPedidoWebDetalleByPK(int CampaniaID, int PedidoID, short PedidoDetalleID)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidoWebDetalleByPK");
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
+            Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, PedidoID);
+            Context.Database.AddInParameter(command, "@PedidoDetalleID", DbType.Int16, PedidoDetalleID);
+
+            return Context.ExecuteReader(command);
+        }
+
+        public IDataReader GetPedidoWebDetalleByPedidoAndCUV(int CampaniaID, int PedidoID, string CUV)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidoWebDetalleByPedidoAndCUV");
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
+            Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, PedidoID);
+            Context.Database.AddInParameter(command, "@CUV", DbType.AnsiString, CUV);
+
+            return Context.ExecuteReader(command);
+        }
+
         public IDataReader GetPedidoWebDetalleByCampania(int CampaniaID, long ConsultoraID, int esOpt = -1)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidoWebDetalleByCampania_SB2");
