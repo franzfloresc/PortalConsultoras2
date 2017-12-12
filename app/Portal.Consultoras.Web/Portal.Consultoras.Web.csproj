@@ -89,6 +89,12 @@
       <HintPath>..\packages\FileHelpers.2.0.0.0\lib\Interop.Office.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
+    <Reference Include="itextsharp, Version=5.5.12.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.12\lib\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp.xmlworker, Version=5.5.12.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itextsharp.xmlworker.5.5.12\lib\itextsharp.xmlworker.dll</HintPath>
+    </Reference>
     <Reference Include="JWT, Version=1.3.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\JWT.1.3.4\lib\3.5\JWT.dll</HintPath>
       <Private>True</Private>
@@ -195,6 +201,7 @@
     <Compile Include="Areas\Mobile\Controllers\EstrategiaProductoController.cs" />
     <Compile Include="Areas\Mobile\Controllers\MiAsesorBellezaController.cs" />
     <Compile Include="Areas\Mobile\Controllers\MisPedidosController.cs" />
+    <Compile Include="Areas\Mobile\Controllers\MisCertificadosController.cs" />
     <Compile Include="Areas\Mobile\Controllers\MisReclamosController.cs" />
     <Compile Include="Areas\Mobile\Controllers\BaseMobileController.cs" />
     <Compile Include="Areas\Mobile\Controllers\BienvenidaController.cs" />
@@ -282,6 +289,7 @@
     <Compile Include="Controllers\DescargablesController.cs" />
     <Compile Include="Controllers\EstrategiaProductoComentarioController.cs" />
     <Compile Include="Controllers\CatalogosBelcorpController.cs" />
+    <Compile Include="Controllers\MisCertificadosController.cs" />
     <Compile Include="Controllers\OfertasController.cs" />
     <Compile Include="Controllers\FichaProductoController.cs" />
     <Compile Include="Controllers\ProductoComentarioController.cs" />
@@ -424,6 +432,7 @@
     <Compile Include="Models\BusquedaProductoModel.cs" />
     <Compile Include="Models\CatalogoPersonalizadoModel.cs" />
     <Compile Include="Models\CDRWebModel.cs" />
+    <Compile Include="Models\MisCertificados\MiCertificadoModel.cs" />
     <Compile Include="Models\ClienteOnlineDetalleModel.cs" />
     <Compile Include="Models\ClienteSb2Model.cs" />
     <Compile Include="Models\BarraConsultoraModel.cs" />
@@ -1285,6 +1294,7 @@
     <Content Include="Content\Images\Esika\Contenedor\inicio_normal.svg" />
     <Content Include="Content\Images\Esika\Contenedor\papel-de-regalo.png" />
     <Content Include="Content\Images\Esika\Contenedor\tarjetas-navidenias.png" />
+    <Content Include="Content\Images\Esika\mis_certificados_icono.png" />
     <Content Include="Content\Images\Esika\logotipo-club-ganamas-rojo.svg" />
     <Content Include="Content\Images\Esika\logotipo-ganamas-rojo.svg" />
     <Content Include="Content\Images\Esika\personalizacion-visual-desktop.gif" />
@@ -1294,6 +1304,8 @@
     <Content Include="Content\Images\Lbel\consejos-y-tips-visual.png" />
     <Content Include="Content\Images\Lbel\Contenedor\fondo-seccion-descarga-imprime.jpg" />
     <Content Include="Content\Images\Lbel\Contenedor\icono-descarga-e-imprime-hover.svg" />
+    <Content Include="Content\Images\Lbel\Contenedor\icono-descarga-e-imprime-morado-hover.svg" />
+    <Content Include="Content\Images\Lbel\Contenedor\icono-descarga-e-imprime-morado.svg" />
     <Content Include="Content\Images\Lbel\Contenedor\icono-descarga-e-imprime.svg" />
     <Content Include="Content\Images\Lbel\Contenedor\inicio_hover.svg" />
     <Content Include="Content\Images\Lbel\Contenedor\inicio_normal.svg" />
@@ -2350,6 +2362,8 @@
     <Content Include="Content\Images\Lbel\icono-campanias.jpg" />
     <Content Include="Content\Images\Lbel\icono-campanias.png" />
     <Content Include="Content\Images\Lbel\icono-campanias.svg" />
+    <Content Include="Content\Images\Lbel\icono-descarga-hover.svg" />
+    <Content Include="Content\Images\Lbel\icono-descarga.svg" />
     <Content Include="Content\Images\Lbel\icono_acordion_despliegue.png" />
     <Content Include="Content\Images\Lbel\icono_advertencia_notificacion.png" />
     <Content Include="Content\Images\Lbel\icono_advertencia_notificacion.svg" />
@@ -2381,6 +2395,7 @@
     <Content Include="Content\Images\Lbel\mas.png" />
     <Content Include="Content\Images\Lbel\menos.png" />
     <Content Include="Content\Images\Lbel\mensajes.png" />
+    <Content Include="Content\Images\Lbel\mis_certificados_icono.png" />
     <Content Include="Content\Images\Lbel\mobile.png" />
     <Content Include="Content\Images\Lbel\notificaciones.png" />
     <Content Include="Content\Images\Lbel\oferta.png" />
@@ -2661,6 +2676,11 @@
     <Content Include="Content\Images\mCSB_buttons.png" />
     <Content Include="Content\Images\Menu.gif" />
     <Content Include="Content\Images\menu_rwd.png" />
+    <Content Include="Content\Images\MisCertificados\firma-digital.png" />
+    <Content Include="Content\Images\MisCertificados\icono-certificado-esika-hover.svg" />
+    <Content Include="Content\Images\MisCertificados\icono-certificado-esika.svg" />
+    <Content Include="Content\Images\MisCertificados\icono-certificado-lbel-hover.svg" />
+    <Content Include="Content\Images\MisCertificados\icono-certificado-lbel.svg" />
     <Content Include="Content\Images\mobile-pedido.png" />
     <Content Include="Content\Images\mobile.png" />
     <Content Include="Content\Images\mobile\app-android.jpg" />
@@ -3698,6 +3718,7 @@
     <Content Include="Content\FAQ\QUIZCAPEVEDI_PE.pdf" />
     <Content Include="Areas\Mobile\Views\Shared\_MobileLayoutPedidoEmpty.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-descargables-navidenos.cshtml" />
+    <Content Include="Areas\Mobile\Views\MisCertificados\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\Bienvenida\_PartialSectionBpt.cshtml" />
     <Content Include="Areas\Mobile\Views\Pedido\_PartialSectionBpt.cshtml" />
     <Content Include="Areas\Mobile\Views\Catalogo\_PartialSectionBpt.cshtml" />
@@ -3835,9 +3856,6 @@
     <None Include="Service References\ServicePedido\PedidoService11.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServicePedido\PedidoService111.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Service References\ServicePedido\PedidoService112.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -3939,6 +3957,7 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService2.disco" />
     <None Include="Service References\ServicePedido\PedidoService.disco" />
     <None Include="Service References\ServicePedido\configuration91.svcinfo" />
     <None Include="Service References\ServicePedido\configuration.svcinfo" />
@@ -3946,7 +3965,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService2.disco" />
     <Content Include="Service References\ServiceSeguridad\SeguridadService.wsdl" />
     <None Include="Service References\ServiceSeguridad\SeguridadService.xsd">
       <SubType>Designer</SubType>
@@ -4554,6 +4572,9 @@
     <Content Include="Views\Bienvenida\_PartialSectionBpt.cshtml" />
     <Content Include="Views\Pedido\_PartialSectionBpt.cshtml" />
     <Content Include="Views\MisCatalogosRevistas\_PartialSectionBpt.cshtml" />
+    <Content Include="Views\MisCertificados\Index.cshtml" />
+    <Content Include="Views\MisCertificados\ComercialPdf.cshtml" />
+    <Content Include="Views\MisCertificados\NoAdeudoPdf.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

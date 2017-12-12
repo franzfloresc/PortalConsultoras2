@@ -233,6 +233,18 @@
   <wsdl:message name="IPedidoService_UpdateMostradoProductosPrecargados_OutputMessage">
     <wsdl:part name="parameters" element="tns:UpdateMostradoProductosPrecargadosResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_TieneCampaniaConsecutivas_InputMessage">
+    <wsdl:part name="parameters" element="tns:TieneCampaniaConsecutivas" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_TieneCampaniaConsecutivas_OutputMessage">
+    <wsdl:part name="parameters" element="tns:TieneCampaniaConsecutivasResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerCertificadoDigital_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerCertificadoDigital" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerCertificadoDigital_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerCertificadoDigitalResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_ValidarUnidadesPermitidasEnPedidoShowRoom_InputMessage">
     <wsdl:part name="parameters" element="tns:ValidarUnidadesPermitidasEnPedidoShowRoom" />
   </wsdl:message>
@@ -2402,6 +2414,14 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/UpdateMostradoProductosPrecargados" message="tns:IPedidoService_UpdateMostradoProductosPrecargados_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/UpdateMostradoProductosPrecargadosResponse" message="tns:IPedidoService_UpdateMostradoProductosPrecargados_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="TieneCampaniaConsecutivas">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/TieneCampaniaConsecutivas" message="tns:IPedidoService_TieneCampaniaConsecutivas_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/TieneCampaniaConsecutivasResponse" message="tns:IPedidoService_TieneCampaniaConsecutivas_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerCertificadoDigital">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerCertificadoDigital" message="tns:IPedidoService_ObtenerCertificadoDigital_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerCertificadoDigitalResponse" message="tns:IPedidoService_ObtenerCertificadoDigital_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="ValidarUnidadesPermitidasEnPedidoShowRoom">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ValidarUnidadesPermitidasEnPedidoShowRoom" message="tns:IPedidoService_ValidarUnidadesPermitidasEnPedidoShowRoom_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ValidarUnidadesPermitidasEnPedidoShowRoomResponse" message="tns:IPedidoService_ValidarUnidadesPermitidasEnPedidoShowRoom_OutputMessage" />
@@ -4046,6 +4066,24 @@
     </wsdl:operation>
     <wsdl:operation name="UpdateMostradoProductosPrecargados">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdateMostradoProductosPrecargados" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TieneCampaniaConsecutivas">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/TieneCampaniaConsecutivas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerCertificadoDigital">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerCertificadoDigital" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -7398,6 +7436,24 @@
     </wsdl:operation>
     <wsdl:operation name="UpdateMostradoProductosPrecargados">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdateMostradoProductosPrecargados" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TieneCampaniaConsecutivas">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/TieneCampaniaConsecutivas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerCertificadoDigital">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerCertificadoDigital" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
