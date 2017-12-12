@@ -23,7 +23,6 @@ body {
     float: left;
     max-width: 25%;
     text-align: center;
-    /*padding-top: 50px;*/
 }
 
 .content_detalle_set {
@@ -90,7 +89,6 @@ body {
     padding: 0;
     overflow: hidden;
     visibility: hidden;
-    /* width: 0; */
     height: 0;
 }
 
@@ -110,8 +108,6 @@ body {
 }
 
 .nombre_set_individual {
-    /* width: 60%; */
-    /* float: left; */
     font-size: 14px;
     margin-top: 20px;
     font-weight: bold;
@@ -124,7 +120,7 @@ body {
 }
 
 .liquidacion_rango_home {
-    width: 45px; /*Quitar más y menos de cantidad*/
+    width: 45px;
     margin-top: 7px;
     display: inline-block;
     vertical-align: middle;
@@ -137,8 +133,7 @@ body {
     width: 40px;
     height: 45px;
     border-left: 1px solid #CCCCCC !important;
-    border-right: 1px solid #CCCCCC !important; /*Quitar más y menos de cantidad*/
-    /*border-right: 0 !important;*/ /*Quitar más y menos de cantidad*/
+    border-right: 1px solid #CCCCCC !important;
     border-top: 1px solid #cccccc;
     border-bottom: 1px solid #cccccc;
     float: left;
@@ -152,7 +147,7 @@ body {
 }
 
 .liquidacion_rango_right_pedido {
-    display: none; /*Quitar más y menos de cantidad*/
+    display: none;
     width: 23px;
     height: 45px;
     border: 1px solid #cccccc;
@@ -175,11 +170,10 @@ body {
 
 .btn_agregar_set {
     float: right;
-    /* text-align: right; */
     background: black;
     color: white;
-    width: -moz-calc(100% - 57px); /*Quitar más y menos de cantidad*/
-    width: calc(100% - 57px); /*Quitar más y menos de cantidad*/
+    width: -moz-calc(100% - 57px);
+    width: calc(100% - 57px);
     display: block;
     margin-top: 7px;
     height: 45px;
@@ -192,13 +186,11 @@ body {
 
 .boton_Agregalo_home {
     display: block;
-    /* margin: 0 auto; */
     margin-top: 7px;
     display: inline-block;
     vertical-align: middle;
     height: 45px;
     line-height: 42px;
-    /* background: #FFF; */
     text-align: center;
     border: 2px solid #000;
     font-size: 12.5px;
@@ -211,7 +203,6 @@ body {
 }
 
 .desktop {
-    /*margin-top: 50px;*/
 }
 
 .cantidad_set {
@@ -301,15 +292,14 @@ body {
 
 .cantidad_mobile {
     display: none;
-    width: 18%; /*Quitar más y menos de cantidad*/
-    /*width: 45%;*/ /*Quitar más y menos de cantidad*/
+    width: 18%;
     margin-right: 5%;
     float: left;
     background: white;
 }
 
 .cantidad_menos_home {
-    display: none; /*Quitar más y menos de cantidad*/
+    display: none;
     float: left;
     width: 30%;
     height: 48px;
@@ -322,21 +312,18 @@ body {
     -webkit-appearance: none;
     border-radius: 0;
     border: 0;
-    width: 100%; /*Quitar más y menos de cantidad*/
-    /*width: 40%;*/ /*Quitar más y menos de cantidad*/
+    width: 100%;
     height: 48px;
     line-height: 48px;
     background: transparent;
     float: left;
     text-align: center;
     font-weight: 700;
-    border: 1px solid #b0b0b0; /*Quitar más y menos de cantidad*/
-    /*border-top: 1px solid #b0b0b0;*/ /*Quitar más y menos de cantidad*/
-    /*border-bottom: 1px solid #b0b0b0;*/ /*Quitar más y menos de cantidad*/
+    border: 1px solid #b0b0b0;
 }
 
 .cantidad_mas_home {
-    display: none; /*Quitar más y menos de cantidad*/
+    display: none;
     float: left;
     width: 30%;
     height: 48px;
@@ -352,7 +339,6 @@ body {
     height: 50px;
     background: black;
     color: white;
-    /* font-weight: 700; */
     font-size: 18px;
     text-align: center;
     line-height: 50px;
@@ -386,9 +372,6 @@ body {
     margin-top: 13px;
     font-size: 11.5px;
     font-weight: 700;
-    /* height: 20px; */
-    /* letter-spacing: 0.1px; */
-    /* text-decoration: none; */
     text-transform: uppercase;
     z-index: 100;
 }
@@ -489,8 +472,7 @@ body {
     }
 
     .btn_agregar_set {
-        /*width: 50%;*/ /*Quitar más y menos de cantidad*/
-        width: 77%; /*Quitar más y menos de cantidad*/
+        width: 77%;
         margin-top: 0;
         height: 48px;
         line-height: 48px;
@@ -787,7 +769,6 @@ body {
 .content_mensajeAlerta {
     width: 100%;
     height: 100%;
-    /* height: 0; */
     margin: 0 auto;
     position: relative;
     background: white;
@@ -801,10 +782,8 @@ body {
     height: 19px;
     display: block;
     position: relative;
-    /* direction: ltr; */
     right: 0;
     float: right;
-    /* text-align: right; */
 }
 
     .cerrar_popMobile img {

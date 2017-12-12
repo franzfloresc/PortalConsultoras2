@@ -1741,7 +1741,6 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     top: 10.1%;
 }
 #divNotiNombre, #divNotiNombre2 {
-    /*top: -25.1%;*/
     top: -10.1%;
 }
 #divNotiCorreo, #divNotiCorreo2 {
@@ -13983,7 +13982,6 @@ widget_recent_entries ul {
     height: 60px;
     text-indent: -9999px;
     opacity: 0;
-    /*		visibility: hidden;*/
     background-repeat: no-repeat;
     filter: alpha(opacity=0);
 }
@@ -14004,7 +14002,6 @@ widget_recent_entries ul {
     left: 50%;
     opacity: 1;
     filter: alpha(opacity = 100);
-    /*		visibility: visible;*/
 }
 .not-ie .single-image:hover .curtain,
 .not-ie .video:hover .curtain {
@@ -14204,7 +14201,6 @@ fieldset.row {
     line-height: 35px;
     margin-left: 10px;
 }
-/*#contact input[type="text"] {float: left;}*/
 #contact input[type="text"] {
     width: 280px;
 }
@@ -14429,7 +14425,6 @@ ul.error_messages {
 /* ---------------------------------------------------------------------- */
 #footer {
     position: relative;
-    /*margin: 14px 0 0 0;*/ /* Cambios landing comunidad */
     padding: 0;
     color: #8a8989;
 }
@@ -14866,10 +14861,6 @@ ul.tabs-nav li.active {
     }
     .TB_Wrapper .navHolder {
         position: absolute;
-        /*	left: 0;
-	width: 100%;
-	height: 30px;
-	background-color: rgba(0,0,0,.5);*/
         -webkit-touch-callout: none;
         -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     }
@@ -15078,13 +15069,6 @@ ul.tabs-nav li.active {
     width: 100%;
 }
 .qq-upload-button {
-    /*display: block;
-    width: 105px;
-    padding: 7px 0;
-    text-align: center;
-    background: #ccc;
-    border-bottom: 1px solid #ddd;
-    color: #fff;*/
     background: url("../../../Images/buscar.png") no-repeat scroll 0 0 transparent;
     border: 0 none;
     color: #FFFFFF;
@@ -15391,16 +15375,13 @@ span.icon-del {
 .mensaje-movil {
     color: #AF1B2D;
 }
-/*1731*/
 .texto_oferta_nueva {
     font-size: 15px;
     line-height: 20px;
     color: #6C207F;
-    /*font-family: 'lato-regular';*/
     font-weight: bold !Important;
     text-align: center;
 }
-/*1731*/
 .ofertas_maximo_unidad {
     padding: 9px 0px 9px 0px;
     display: block;
@@ -15413,9 +15394,7 @@ span.icon-del {
     margin-left: 0px;
     margin-top: 0px;
 }
-/* 1747 */
 .ofertas_agregar_ZE {
-    /*float: right;*/
     padding-top: 5px;
     position: relative;
 }
@@ -15437,7 +15416,6 @@ span.icon-del {
         position: relative;
     }
         .ofertas_agregar_ZE input:hover {
-            /*background: url(../../Images/bg_input4_e.png) 0 0 no-repeat;*/
             background: #6C207F;
             -webkit-border-radius: 10px; /* Para Safari y Chrome */
             -moz-border-radius: 10px; /* Para Firefox */
@@ -15500,8 +15478,6 @@ body, html {
         bottom: 14px;
         left: 176px;
     }
-/* Modificado 15082014 - Fin */
-/*2013*/
 .container-dato-consultora {
     margin: 0px auto;
     width: 1000px;
@@ -15678,8 +15654,7 @@ body, html {
     text-align: right;
     font-weight: bold;
 }
-/*fin 2013*/
-/* 1987 - Inicio */
+
 #imgSuenioNavidad {
     width: 680px;
     height: 560px;
@@ -15732,8 +15707,7 @@ body, html {
     right: 5px;
     padding: 5px;
 }
-/* 1987 - Fin */
-/*Inicio Cambios_Landing_Comunidad*/
+
 .formcontrol {
     display: block;
     border: 1px solid #9f9f9f;
@@ -15796,7 +15770,6 @@ body, html {
 }
 .Content_modal_Com {
     background: #FFF;
-    /*padding: 20px 10px 10px 10px;*/
     max-height: 350px;
     -webkit-border-radius: 10px; /* Para Safari y Chrome */
     -moz-border-radius: 10px; /* Para Firefox */
@@ -15814,8 +15787,7 @@ body, html {
     width: 72px;
     height: 64px;
 }
-/*Fin Cambios_Landing_Comunidad*/
-/* R2319 - AAHA 02022015 - Inicio */
+
 .div-fila {
     width: 100%;
     height: auto;
@@ -15873,11 +15845,11 @@ body, html {
     color: #702789;
     font-size: 13px;
     text-align: center;
-    -webkit-border-radius: 10px; /* Para Safari y Chrome */
-    -moz-border-radius: 10px; /* Para Firefox */
-    -khtml-border-radius: 10px; /* Navegadores de Linux */
-    border-radius: 10px; /* CSS3 */
-    behavior: url(../../../../Content/Css/Pie/PIE.htc); /* Para IE */
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    border-radius: 10px;
+    behavior: url(../../../../Content/Css/Pie/PIE.htc);
     position: relative;
 }
 
@@ -15932,14 +15904,13 @@ body, html {
     border: 0;
     margin-top: 53px;
 }
-/* R2319 - AAHA 02022015 - Fin */
-/*R2442 -JICM - INI - Nuevos estilos utilizados para el Control de cambio.*/
+
 #divMensajeModalAfilia {
     font-size: 14px !important;
     color: #660066;
     margin-top: -10px;
     text-align: left;
-    font-family: 'lato-regular'; /*R2442 - JICM - Se cambió tipo de letra*/
+    font-family: 'lato-regular';
     height: 66px;
 }
 
@@ -15948,7 +15919,7 @@ body, html {
     color: #660066;
     margin-top: -10px;
     text-align: left;
-    font-family: 'lato-regular'; /*R2442 - JICM - Se agregó tipo de letra*/
+    font-family: 'lato-regular';
     height: 66px;
 }
 
@@ -15974,7 +15945,6 @@ body, html {
     }
 
 #paParClientes {
-    /*'R2442 se cambió el FONT  a 100 regular - Cambio tamaño y font family*/
     font-family: 'lato-regular';
     font-size: 16px;
     line-height: 20px;
@@ -16029,7 +15999,6 @@ body, html {
 }
 
     #paMod > img {
-        /*R2442 - Darle un tamaño ala imagen */
         float: none;
         margin: 0 auto;
         width: 300px;
@@ -16078,9 +16047,6 @@ body, html {
     }
 
         #paForm ul li input {
-            /*border: 0;
-	width: 212px;
-	line-height: 44px;*/
             background: url(../../Images/afiliacion/enterate_mas.png) 0 0 no-repeat;
             border: 0;
             width: 190px;
@@ -16095,8 +16061,6 @@ body, html {
         }
 
         #paForm ul li.paAcept input {
-            /*width: 212px;
-	height:46px;*/
             background: url(../../Images/afiliacion/aceptar.png) 0 0 no-repeat;
             border: 0;
             width: 190px;
@@ -16269,45 +16233,27 @@ body, html {
     text-align: center;
     color: #660066;
     font-family: 'lato-regular';
-    font-size: 30px; /*jicm*/
+    font-size: 30px;
     line-height: 30px;
 }
 
 #ImagenesEnterateMas {
-    /*background: url(../../Images/afiliacion/enlaces.png) no-repeat 260px 130px;*/
-    /*width: 100%;*/
-    /*height: 685px;*/
     overflow: hidden;
 }
-/*INI - R2442 - JICM - Por lo pronto la imagen será solo una */
 #ImgEnterate1 {
     margin-left: 60px;
     width: 202px;
     height: 201px;
     background-image: url(../../Images/afiliacion/01.png);
 }
-/*#ImgEnterate1:hover{
-			margin-left: 60px;
-            width: 202px;
-            height: 201px;
-            background-image: url(../../Images/afiliacion/01.png);
-		}*/
 #ImgEnterate2 {
-    margin-left: 320px; /*65px;*/
-    margin-top: -130px; /*75px;*/
+    margin-left: 320px;
+    margin-top: -130px;
     position: absolute;
     width: 215px;
     height: 214px;
     background-image: url(../../Images/afiliacion/02.png);
 }
-/*#ImgEnterate2:hover{
-			margin-left:320px; 
-		    margin-top: -130px;
-		    position: absolute;
-            width: 215px;
-            height: 214px;
-            background-image: url(../../Images/afiliacion/02.png);
-		}*/
 #ImgEnterate3 {
     margin-left: 14px;
     margin-top: 20px;
@@ -16316,14 +16262,7 @@ body, html {
     height: 306px;
     background-image: url(../../Images/afiliacion/03.png);
 }
-/*#ImgEnterate3:hover{
-			margin-left: 14px;
-		    margin-top: 20px;
-		    position: absolute;
-            width: 307px;
-            height: 306px;
-            background-image: url(../../Images/afiliacion/03.png);
-		}*/
+
 #ImgEnterate4 {
     margin-left: 326px;
     margin-top: 120px;
@@ -16332,17 +16271,6 @@ body, html {
     width: 287px;
     height: 286px;
 }
-/*#ImgEnterate4:hover{
-             
-			margin-left: 326px;
-		    margin-top: 120px;
-		    position: absolute;
-            background-image: url(../../Images/afiliacion/04.png);
-            width: 287px;
-            height: 286px;
-           
-		}*/
-
 
 #ImgEnterate5 {
     margin-left: 630px;
@@ -16352,14 +16280,7 @@ body, html {
     height: 264px;
     background-image: url(../../Images/afiliacion/05.png);
 }
-/*#ImgEnterate5:hover{
-			margin-left: 630px;
-		    margin-top: -92px;
-		    position: absolute;
-            width: 265px;
-            height: 264px;
-            background-image: url(../../Images/afiliacion/05.png);
-		}*/
+
 #ImgEnterate6 {
     margin-left: 630px;
     margin-top: 206px;
@@ -16368,14 +16289,7 @@ body, html {
     height: 231px;
     background-image: url(../../Images/afiliacion/06.png);
 }
-/*#ImgEnterate6:hover{
-			margin-left: 630px;
-		    margin-top: 206px;
-		    position: absolute;
-            width: 232px;
-            height: 231px;
-            background-image: url(../../Images/afiliacion/06.png);
-		}*/
+
 #ImgEnterate {
 }
 /*FIN - R2442 - JICM - Por lo pronto la imagen será solo una */
@@ -16413,8 +16327,7 @@ body, html {
     margin: 0;
     border: 0;
 }
-/*R2442 - JICM  - FIN*/
-/*R2442 - JLCS - INICIO */
+
 #ldnHeader {
     background: url(../../Images/afiliacion/fondo.jpg) center;
     background-size: 727px 99px;
@@ -16487,7 +16400,6 @@ body, html {
     .btnMorado:focus {
         Outline: 0px;
     }
-    /*R2548 - CS - Control de cambios*/
     .btnMorado input {
         font-size: 15px;
         font-family: 'lato-regular';
@@ -16500,27 +16412,21 @@ body, html {
         behavior: url(../Content/Css/Pie/PIE.htc);
         Outline: 0px;
     }
-/*R2442 - JLCS - FIN */
 .btnBlanco {
     display: block;
     color: #660066 !important;
     background: transparent !important;
     border: 1px solid #660066 !important;
 }
-    /*R2535 - CS */
     .btnBlanco:focus {
         outline: 0px;
     }
-/*CGI (CSR) R2611 Etiqueta Mensaje para Actualizar Datos*/
 .cssMensaje {
     font: 12px/1.5 Arial, sans-serif;
     color: red;
     padding-left: 165px;
 }
-/*CGI (CSR) R2611 FIN*/
- 
 
-/***R20150701LR*/
 .leyendaIndicador {
     font-family: "lato";
     font-size: 12px;
@@ -16549,7 +16455,7 @@ body, html {
     text-align: right;
     float: right;
 }
-/*R20151127*/
+
 .leyendaIndicadorPROLMensaje {
     font-family: "lato";
     font-size: 13px;
@@ -16573,7 +16479,7 @@ body, html {
     border: 0;
     top: 72px;
 }
-/**R20150802 */
+
 .divDetalleCatalogo > table {
     font-family: 'lato-regular';
 }
@@ -16630,11 +16536,9 @@ body, html {
 
 .pestana_preventa {
     position: relative;
-    /* margin-left: 20px; */
     width: 442px;
     height: 480px;
     float: left;
-    /* margin-top: 17px; */
 }
 
 .content_show_right {
@@ -16653,7 +16557,6 @@ body, html {
 .borde_inferior {
     padding-top: 10px;
     width: 344px;
-    /*height:60px;*/
     background: url(../../../Images/showroom/borde_inferior.png) no-repeat;
 }
 
@@ -16680,10 +16583,8 @@ body, html {
 
 .check_01 {
     position: absolute;
-    /* float: left; */
     width: 100%;
     height: 20px;
-    /*margin-left: 10px;*/
     margin-top: 10px;
     bottom: -8px;
     color: white;
@@ -16699,14 +16600,10 @@ body, html {
 }
 
 .contenido-ct {
-    /*padding-top: 11px;*/
     padding-top: 7px;
     width: 135px;
     margin-left: 25px !important;
-    /* padding-right: 10px; */
-    /* margin: 0 auto; */
     float: left;
-    /*overflow:hidden;*/
 }
 
 a.mover {
@@ -16797,13 +16694,10 @@ a.mover {
     padding: 8px;
     font-weight: 700;
 }
-/*html {
-    overflow-x:hidden;
-}*/
+
 .btnCerrarShowroom {
     width: 25px;
     height: 24px;
-    /* float: right; */
     background: url("/Content/Images/showroom/cerrar_popshowroom.png") no-repeat;
     cursor: pointer;
     position: absolute;
@@ -16829,11 +16723,9 @@ a.mover {
     right: 0;
     left: 0;
     margin: 0 auto;
-    /* margin-left: 107px; */
     position: absolute;
     z-index: 2000;
     background: white;
-    /* height: 100px; */
     padding-left: 40px;
     padding-bottom: 18px;
     padding-top: 10px;
@@ -16846,11 +16738,9 @@ a.mover {
     right: 0;
     left: 0;
     margin: 0 auto;
-    /* margin-left: 107px; */
     position: absolute;
     z-index: 2000;
     background: white;
-    /* height: 100px; */
     padding-left: 40px;
     padding-bottom: 18px;
     padding-top: 10px;
@@ -16861,7 +16751,6 @@ a.mover {
     float: left;
     font-family: 'lato';
     font-size: 11pt;
-    /* font-weight: 300; */
     text-transform: uppercase;
     overflow: hidden;
     line-height: 13px;
@@ -16903,7 +16792,6 @@ a.mover {
 }
 
 .titulo_padre_s {
-    /*width: 100%;*/
     text-align: center;
     padding-top: 3px;
     padding-bottom: 3px;
@@ -17019,7 +16907,6 @@ a.mover {
 .evento_tema_hoy {
     width: 192px;
     height: 76px;
-    /*margin-top: 23px;*/
     margin-left: -6px;
 }
 
@@ -17051,7 +16938,6 @@ a.mover {
     text-align: center;
     font-family: 'lato';
     font-size: 11pt;
-    /* font-weight: 300; */
     text-transform: uppercase;
 }
 
@@ -17082,19 +16968,15 @@ label.checkpop {
 }
 
 label.checkpop2 {
-    /*width: 100%; */
     text-align: center;
     display: block;
     cursor: pointer;
-    /* padding-left: 21px; */
     padding-top: 2px;
     font-size: 9pt;
     color: white;
     font-family: 'lato';
     transition: .3s;
     font-weight: 300;
-    /* background: url(/Content/Images/showroom/check_off.png) left center no-repeat; */
-    /* margin-left: 170px; */
     text-decoration: underline;
 }
 
@@ -17129,8 +17011,6 @@ label.checkpop.c_on {
 .banner_showroom {
     margin: 0 auto;
     width: 99%;
-    /* margin-left: 11px; */
-    /* padding-right: 11px; */
     height: auto;
 }
 
@@ -17148,7 +17028,6 @@ label.checkpop.c_on {
 
 .wrapper_showroom_items {
     max-width: 1189px;
-    /*padding-left: 72px;*/
     margin: 0 auto;
     height: auto;
     overflow: hidden;
@@ -17383,7 +17262,6 @@ label.checkpop.c_on {
     font-family: 'Lato';
     font-size: 14px;
     text-align: center;
-    /* padding-top: 10px; */
     border: 2px solid #ffffff;
     position: relative;
     font-weight: 700;
@@ -17392,7 +17270,6 @@ label.checkpop.c_on {
 .footerTerminos a {
     background: #f7f7f7;
     display: block;
-    /*margin-top: 20px;*/
     text-align: center;
     padding: 20px;
     text-transform: uppercase;
@@ -17438,10 +17315,8 @@ label.checkpop.c_on {
     color: black;
     font-weight: bold;
     text-align: center;
-    /* -webkit-border-radius: 4px; */
     -moz-border-radius: 4px;
     -khtml-border-radius: 4px;
-    /* border-radius: 4px; */
     behavior: url(/Content/Css/Pie/PIE.htc);
     float: left;
     cursor: pointer;
@@ -17467,11 +17342,8 @@ label.checkpop.c_on {
     font-family: 'Lato';
     text-align: center;
     font-size: 14px;
-    /* -webkit-border-radius: 4px !important; */
     -moz-border-radius: 4px !important;
     -khtml-border-radius: 4px !important;
-    /* border-radius: 4px !important; */
-    /* border-radius: 4px; */
     behavior: url(/Content/Css/Pie/PIE.htc) !important;
     float: left;
     cursor: pointer;
@@ -17567,7 +17439,6 @@ label.checkpop.c_on {
     font-family: 'Lato';
     font-size: 13px;
     line-height: 15px;
-    /*height: 30px;*/
     color: black;
     overflow: hidden;
 }
@@ -17602,8 +17473,6 @@ label.checkpop.c_on {
 }
 
     .set_precio_gana span {
-        /*font-family: 'ArialBoldMT';
-    font-size: 23px;*/
         color: black;
     }
 
@@ -17639,7 +17508,7 @@ label.checkpop.c_on {
     width: 46px;
     font-family: 'Lato' !important;
     font-size: 16px !important;
-    color: black; /* padding-top: 0; */ /* padding-bottom: 0; */
+    color: black;
     border: 0;
     border-top: 1px solid #cccccc;
     border-bottom: 1px solid #cccccc;
@@ -17666,7 +17535,6 @@ label.checkpop.c_on {
 
 .cantidad_agregar_detalle {
     position: absolute;
-    /* height: 70px; */
     width: 256px;
     color: white !important;
     font-family: 'Lato';
@@ -17731,7 +17599,6 @@ label.checkpop.c_on {
 
 .cantidad_productos_carrusel {
     margin-bottom: 20px;
-    /*width: 105px;*/
     text-align: center;
     color: #a0a0a0;
     font-family: 'lato';
@@ -17875,18 +17742,14 @@ label.checkpop.c_on {
 
 /*ESTILOS PARA LIQUIDACIÓN*/
 .wrapper_home_interiores {
-    /*margin: 0 auto;*/
     margin: 0;
     max-width: 1228px;
-    /*padding-top: 20px;
-    padding-bottom: 20px;*/
     position: relative;
     height: 80px;
 }
 /*ESTILO NOHELY BELCORP 2.0*/
 .content_slider_home {
     width: 100%;
-    /*background:black;*/
     height: auto;
     min-height: 100px;
     overflow: hidden;
@@ -17905,8 +17768,7 @@ label.checkpop.c_on {
 .content_datos {
     padding-top: 13px;
     padding-left: 23px;
-    /*width:100%;*/
-    max-width: 1070px; /*SIN FOTO*/
+    max-width: 1070px;
     margin: 0 auto;
     height: 130px;
     -webkit-box-shadow: 0px 15px 21px -8px rgba(204,200,204,1);
@@ -17940,8 +17802,6 @@ label.checkpop.c_on {
     letter-spacing: 0.3px;
     color: black;
     float: left;
-    /*margin-left: 23px;
-    margin-right: 3%;*/
     margin-left: 3%;
     margin-right: 9%;
     width: 19.5%;
@@ -17987,7 +17847,6 @@ label.checkpop.c_on {
 .info_cam_belcorp2 {
     float: left;
     height: 41px;
-    /*padding-left:12px;*/
     padding-left: 23px;
     font-family: 'lato';
     font-size: 10.4px;
@@ -18010,7 +17869,6 @@ label.checkpop.c_on {
     font-size: 11px;
     font-family: 'lato';
     color: black;
-    /*width:31.5%;*/
     width: 34.9%;
     float: left;
 }
@@ -18037,7 +17895,6 @@ label.checkpop.c_on {
     font-weight: 600;
     line-height: 40px;
     letter-spacing: 0.3px;
-    /* float: left; */
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
     -webkit-backface-visibility: hidden;
@@ -18084,8 +17941,6 @@ label.checkpop.c_on {
     float: left;
     font-size: 11px;
     color: black;
-    /*margin-left:4%;
-      width:29%;*/
     margin-left: 5%;
     width: 27%;
 }
@@ -18143,9 +17998,7 @@ label.checkpop.c_on {
     height: 36px;
     background: url("../../../Images/Esika/carpeta.png") no-repeat;
 }
-/*.titulo_home_img img{
-    width: 100%;    
-}*/
+
 .mis_ganancias_img {
     background: url("../../../Images/Esika/dolar.png") no-repeat;
 }
@@ -18244,7 +18097,6 @@ label.checkpop.c_on {
     font-size: 11px;
     font-family: 'lato';
     margin: 0 auto;
-    /*margin-top: 45px !important;*/
     font-weight: 700;
 }
 
@@ -18302,14 +18154,12 @@ label.checkpop.c_on {
 
 .precio_ganancia {
     text-align: center;
-    /* display: block; */
     font-size: 10px;
-    font-size /*\**/: 9px\9; /*INTERNET EXPLORER 8*/
+    font-size: 9px\9; /*INTERNET EXPLORER 8*/
     font-family: 'lato';
     margin-top: -6px;
     width: 68px;
     line-height: 11px;
-    /*transform: scaleY(1.1);*/
 }
 
 .escala_select {
@@ -18335,18 +18185,11 @@ label.checkpop.c_on {
 .item_catalogo {
     width: 31%;
     float: left;
-    /*background: url("../../../Images/Esika/catalogos_new.png") no-repeat;
-    -webkit-background-size: contain;
-    -moz-background-size: contain;
-    -o-background-size: contain;
-    background-size: contain;*/
     height: 255px;
     margin-top: 32px;
     padding-left: 0px;
     padding-right: 0px;
     position: relative;
-    /*filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../../../Images/Esika/catalogos_new.png',sizingMethod='scale');
-    -ms-behavior: url("../../../Css/Site/Esika/backgroundsize.min.htc");*/
 }
 
 .btn_comparte {
@@ -18383,13 +18226,9 @@ label.checkpop.c_on {
     color: black;
     padding-left: 4%;
     margin-top: 12px;
-    /*letter-spacing: 1px;*/
     font-weight: 700;
 }
-    /*.seguir_pedido.ver_video_introductorio{
-    margin-top: 3px;
-}*/
-    .seguir_pedido:hover {
+   .seguir_pedido:hover {
         text-decoration: underline;
     }
 
@@ -18453,9 +18292,7 @@ label.checkpop.c_on {
     height: 2px;
     background: #979797;
     margin-top: -79px;
-    /* top: 50px; */
     float: left;
-    /* z-index: -1; */
 }
 
 .titulo_ofertas_home {
@@ -18499,27 +18336,19 @@ label.checkpop.c_on {
     height: 329px;
     top: 0;
     padding-top: 122px;
-    /* float: left; */
     position: absolute;
     z-index: 899;
 }
 
 .content_carrusel_ofertas {
-    /* float: left; */
     width: 92%;
     margin: 0 auto;
     height: auto;
-    /* margin-left: 2%; */
-    /* margin-right: 2%; */
-    /* overflow: hidden; */
     padding-bottom: 15px;
 }
 
 .content_item_carrusel {
     position: relative;
-    /* float: left; */
-    /* width: 248px; */
-    /* margin-right: 25px; */
     min-height: 305px;
     margin-bottom: 15px;
     margin-left: 7%;
@@ -18533,15 +18362,12 @@ label.checkpop.c_on {
 .content_item_carrusel_ofertaFinal {
     position: relative;
     float: left;
-    /*width:248px;
-    margin-right:25px;*/
     height: 357px;
     background: none;
     border: none;
 }
 .contenido_item_carrusel_ofertaFinal {
     background: #FFF;
-    /*width: 248px;*/
     display: block;
     margin: 0 auto;
     height: 335px;
@@ -18557,7 +18383,6 @@ label.checkpop.c_on {
     height: 158px;
     text-align: center;
     margin-top: 20px;
-    /*background:#ccc;*/
 }
     .producto_img_home img {
         width: auto;
@@ -18584,15 +18409,10 @@ label.checkpop.c_on {
 .nombre_producto {
     height: 40px;
 }
-/*/*.boton_Agregalo_home:hover {
-        background: #000;
-        color: #FFF;
-}*/
+
 .boton_Agregalo_home {
     display: block;
-    /* margin: 0 auto; */
     margin-top: 7px;
-    /*width: 55%;*/
     display: inline-block;
     vertical-align: middle;
     height: 45px;
@@ -18602,9 +18422,6 @@ label.checkpop.c_on {
     text-align: center;
     border: 2px solid #000;
     font-size: 13px;
-    /*width: -moz-calc(100% - 80px);
-    width: calc(100% - 80px);
-    width: -webkit-calc(100% - 80px);*/
 }
 .liquidacion_rango_home {
     width: 68px;
@@ -18733,7 +18550,6 @@ label.checkpop.c_on {
     font-size: 13px;
     font-weight: 400;
     color: #000;
-    /*line-height: 107px;*/
     letter-spacing: 0.3px;
     width: 78%;
 }
@@ -18751,9 +18567,6 @@ label.checkpop.c_on {
 .curso_porcentaje_avance {
     width: 20%;
     text-align: right;
-    /*position: relative;
-    top: 50%;
-    margin-top: -53.5px;*/
 }
     .curso_porcentaje_avance .porcentaje_curso {
         width: auto;
@@ -18809,12 +18622,10 @@ label.checkpop.c_on {
     height: 298px;
     background: black;
     margin-bottom: 14px;
-    /*background:url("../../../Images/Esika/home-video.png") no-repeat center center;*/
     -webkit-background-size: cover !important;
     -moz-background-size: cover !important;
     -o-background-size: cover !important;
     background-size: cover !important;
-    /*filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../../../Images/Esika/home-video.png',sizingMethod='scale');*/
     -ms-behavior: url("../../../Css/Site/Esika/backgroundsize.min.htc");
 }
 
@@ -18840,7 +18651,6 @@ label.checkpop.c_on {
 
 .porcentaje_curso {
     width: 30%;
-    /* margin-left: 5%; */
     vertical-align: middle;
     display: none;
     opacity: 0;
@@ -18938,7 +18748,6 @@ label.checkpop.c_on {
     margin-right: 3.5%;
     margin-top: 45px;
     margin-bottom: 35px;
-    /*background: gray;*/
     position: relative;
     overflow: hidden;
     opacity: 1;
@@ -18949,8 +18758,6 @@ label.checkpop.c_on {
     -webkit-transition: all 0.3s ease;
 }
     .enlaces_home:hover {
-        /*opacity: 0.5;*/
-        /*filter: alpha(opacity=50);*/ /* For IE8 and earlier */
     }
     .enlaces_home img:hover {
         width: 100%;
@@ -18983,7 +18790,6 @@ label.checkpop.c_on {
 }
 /* PAGINA MIS PAGOS*/
 .titulo_interiores {
-    /*width:30%;*/
     padding-right: 50px;
     float: left;
     background: black url("../../../Images/Esika/titulo_interiores.png") no-repeat;
@@ -19014,7 +18820,6 @@ label.checkpop.c_on {
 }
 
 .titulo_tabs {
-    /*width:67%;*/
     width: 80%;
     margin-left: 3%;
     height: 50px;
@@ -19022,15 +18827,12 @@ label.checkpop.c_on {
 }
 
 .tabs_pagos li {
-    /*display: inline;*/
     text-align: center;
     width: 25%;
     float: left;
 }
     .tabs_pagos li a {
         display: inline-block;
-        /* vertical-align: middle; */
-        /* width: 30%; */
         width: 100%;
         padding-top: 8px;
         padding-bottom: 7px;
@@ -19041,10 +18843,7 @@ label.checkpop.c_on {
         font-weight: 400;
         color: black;
         position: relative;
-        /* background: url(../../../Images/Esika/estado_cuenta.png) no-repeat; */
-        /* background-position: 18% 7px; */
         box-sizing: border-box;
-        /* padding-left: 5%; */
     }
 
         .tabs_pagos li a img {
@@ -19064,7 +18863,6 @@ label.checkpop.c_on {
 }
 hr {
     height: .25rem;
-    /*width: 30%;*/
     width: 25%;
     text-align: left;
     margin: 0;
@@ -19262,12 +19060,10 @@ hr {
 
 .resumen_pagos {
     width: 100%;
-    /*height:254px;*/
     height: auto;
     text-align: center;
     vertical-align: middle;
     display: inline-block;
-    /*padding-top:26px;*/
     padding: 26px 0;
     margin-bottom: 40px;
     border: 1px solid #e7e1e1;
@@ -19366,7 +19162,6 @@ body {
 
 .logos_bancos {
     width: 25%;
-    /* float: left; */
     display: inline-block;
     vertical-align: top;
     margin-top: 70px;
@@ -19383,7 +19178,6 @@ body {
 .tutoriales_svg {
     background: url(../../../Images/Esika/tutorial.png) no-repeat;
     background-position: 2px 3px;
-    /* background-size: 100%; */
     width: 24px;
     height: 25px;
     opacity: 1;
@@ -19521,9 +19315,7 @@ body {
     border-width: 10px;
     margin-left: -10px;
 }
-/*.tutoriales_svg:hover{
-    opacity:0.7;
-}*/
+
 .EstadoCuenta {
     float: left;
     width: 69%;
@@ -19641,7 +19433,6 @@ body {
 
 .revista_content {
     display: inline-block;
-    /*margin-right:80px;*/
     margin-bottom: 70px;
     overflow: hidden;
 }
@@ -19708,7 +19499,6 @@ body {
     /*FOTO USUARIO*/
     .resumen_belcorp_cam {
         margin-right: 0%;
-        /*width: 29.5%;*/
     }
 }
 
@@ -19781,7 +19571,6 @@ body {
         width: 85%;
         padding-left: 3%;
         padding-right: 1%;
-        /* text-align: center; */
     }
 
     .ver_mas_liquidaciones {
@@ -19810,9 +19599,7 @@ body {
     .new_menu_a {
         font-size: 9.3px;
     }
-    /*.menu_esika_b {
-        width: 31%;
-    }*/
+
     .EstadoCuenta {
         zoom: 90%;
     }
@@ -19829,9 +19616,7 @@ body {
         width: 29.5%;
         margin-right: 5%;
     }
-    /*.tabs_pagos li a{
-        background-position:11% 7px !important;
-    }*/
+
     .imagen_3_factura {
         background: url("../../../Images/Lbel/facturacion_electronica.png") no-repeat !important;
         background-position: 3% 7px !important;
@@ -20091,7 +19876,6 @@ body {
     color: #FFF;
 }
 .estado_detalles div:hover .estado_texto {
-    /*text-decoration:underline;*/
     cursor: pointer;
 }
 .estado_rechazado_icono {
@@ -20100,9 +19884,7 @@ body {
     top: 39%;
     left: -17%;
 }
-/*.ingresado{
-    opacity:0.2;
-}*/
+
 .ingresado img {
     opacity: 0.2;
     filter: alpha(opacity=20);
@@ -20191,36 +19973,8 @@ body {
     background: #FFF;
     margin: 3.2% auto 1.5% auto;
     z-index: 3;
-    /*box-shadow: 1px 1px 17px 3px #CCC;
-    -moz-box-shadow: 1px 1px 17px 3px #CCC;
-    -o-box-shadow: 1px 1px 17px 3px #CCC;
-    -ms-box-shadow: 1px 1px 17px 3px #CCC;
-    -webkit-box-shadow: 1px 1px 17px 3px #CCC;*/
 }
-/*.popup_Percepcion{
-    display:none;
-    top:-70px;
-    position:relative;
-    width:100%;
-    height:auto;
-    background:#FFF;
-    z-index:3;
-    box-shadow: 1px 1px 17px 3px #CCC;
-    -moz-box-shadow: 1px 1px 17px 3px #CCC;
-    -o-box-shadow: 1px 1px 17px 3px #CCC;
-    -ms-box-shadow: 1px 1px 17px 3px #CCC;
-    -webkit-box-shadow: 1px 1px 17px 3px #CCC;
-}
-.popup_Percepcion .content_popUp{
-    width:100%;
-    max-width:1189px;
-    margin:0 auto;
-    padding-top: 48px;
-    padding-bottom: 48px;
-    box-sizing:border-box;
-    font-family:'Lato';
-    position:relative;
-}*/
+
 .content_popUp {
     width: 100%;
     max-width: 1189px;
@@ -20334,7 +20088,6 @@ body {
     height: auto;
     vertical-align: top;
     text-align: right;
-    /*padding-right:11px;*/
     box-sizing: border-box;
     position: relative;
     right: -1.8%;
@@ -20367,7 +20120,6 @@ body {
     font-size: 10pt;
     color: black;
     border-bottom: 1px solid #CCC;
-    /*margin-top:45px;*/
 }
 .tipo {
     width: 11%;
@@ -20503,11 +20255,6 @@ body {
 /* POPUP FACTURADOS */
 .popup_pedidosFacturados {
     display: none;
-    /*position:absolute;
-    top:0%;
-    left:0%;*/
-    /*top:-70px;
-    position:relative;*/
     width: 100%;
     height: auto;
     background: #FFF;
@@ -20517,17 +20264,11 @@ body {
     -o-box-shadow: 1px 1px 17px 3px #CCC;
     -ms-box-shadow: 1px 1px 17px 3px #CCC;
     -webkit-box-shadow: 1px 1px 17px 3px #CCC;
-    /*transition:height 0.5s ease;
-    -moz-transition:height 0.5s ease;
-    -o-transition:height 0.5s ease;
-    -ms-transition:height 0.5s ease;
-    -webkit-transition:height 0.5s ease;*/
 }
 .btn_cerrar_popup_pedidosFacturados, .btn_cerrar_popup_notificaciones {
     display: block;
     position: relative;
     top: 4%;
-    /*right: 6%;*/
     text-align: right;
 }
     .btn_cerrar_popup_pedidosFacturados a {
@@ -20758,15 +20499,10 @@ body {
         padding-top: 5px;
         padding-bottom: 5px;
     }
-/*
-    Producto del Carrusel de sugerido
-    */
+
 .sugerido .producto_carousel {
     width: 305px;
     height: auto;
-    /*float:left;
-    margin-left:34px!important;
-    margin-right:30px!important;*/
     border: 0 !important;
     box-shadow: none !important;
 }
@@ -20788,7 +20524,6 @@ body {
     vertical-align: middle;
     margin-top: 43px;
     text-align: left;
-    /*padding-left: 14px;*/
     padding-left: 0px;
     padding-right: 8px;
 }
@@ -20802,24 +20537,15 @@ body {
 .sugerido .producto_precio {
     padding-left: 0;
 }
-/*.sugerido .liquidacion_rango_wrapper_pedido{
-    margin-right:10px;
-}*/
+
 .sugerido .contenedor_cantidad_producto {
     margin-top: 14px;
 }
-/*.sugerido .boton_elegirAgregar{
-    margin-right:15px;
-}*/
+
 /* Fin Producto del Carrusel de sugerido */
 /* POPUP INGRESADOS */
 .popup_pedidosIngresados {
     display: none;
-    /*position:absolute;
-    top:0%;
-    left:0%;*/
-    /*top:-70px;
-    position:relative;*/
     width: 100%;
     height: auto;
     background: #FFF;
@@ -20829,11 +20555,6 @@ body {
     -o-box-shadow: 1px 1px 17px 3px #CCC;
     -ms-box-shadow: 1px 1px 17px 3px #CCC;
     -webkit-box-shadow: 1px 1px 17px 3px #CCC;
-    /*transition:height 0.5s ease;
-    -moz-transition:height 0.5s ease;
-    -o-transition:height 0.5s ease;
-    -ms-transition:height 0.5s ease;
-    -webkit-transition:height 0.5s ease;*/
 }
 .btn_cerrar_popup_pedidosIngresados {
     display: block;
@@ -20865,7 +20586,6 @@ body {
     }
         .btn_cerrar_popup_pedidosIngresados a:hover {
             opacity: 0.7;
-            /*top:3.8%;*/
         }
 .popup_pedidosIngresados .contenedor_bloque_datos {
     margin-bottom: 20px;
@@ -20890,9 +20610,7 @@ body {
     .acordion_titulo:hover {
         background: #f1f1f1;
     }
-    /*.acordion_titulo:last-child{
-    display:none;
-}*/
+
     .acordion_titulo .titulo_nombreCliente {
         display: inline-block;
         font-family: 'Lato';
@@ -20919,8 +20637,6 @@ body {
     .acordion_titulo .totalPedidoFacturado {
         display: inline-block;
         font-size: 15px;
-        /*margin-right: 140px;
-    margin-right:21px;*/
         vertical-align: middle;
     }
     .acordion_titulo .productos_agregados_usuario {
@@ -21498,10 +21214,7 @@ img {
 .socias {
     padding-top: 1px;
 }
-/*.responde
-{ 
-	padding-top:3px;
-}*/
+
 .campaign {
     background-color: #d226aa;
     height: 25px;
@@ -21518,12 +21231,10 @@ img {
     }
 /************************** Slide ***************************/
 .container_landing {
-    /*overflow:scroll;*/
     padding-bottom: 60px;
 }
 .headcont {
     margin: 0 auto;
-    /*width:50%;*/
 }
     .headcont img {
         margin: auto;
@@ -21556,7 +21267,6 @@ img {
     }
 .centrarvert {
     position: relative;
-    /*top:18%;*/
 }
 .bienvenida {
     color: #993399;
@@ -21574,7 +21284,6 @@ img {
     clear: both;
 }
 .banner_imagen {
-    /*position:absolute;*/
     top: 0px;
     left: 0px;
     z-index: 0;
@@ -21711,9 +21420,7 @@ img {
     }
         .submenu > ul > li {
             display: inline-block;
-            /*float: none;*/
             vertical-align: top;
-            /*width: 19%;*/
             margin: 0px;
         }
             .submenu > ul > li a {
@@ -21788,7 +21495,6 @@ img {
     background-color: #758692;
     color: #ffffff;
     text-transform: uppercase;
-    /*position:fixed; */
     bottom: 0px;
     min-width: 960px;
     padding: 14px 30px;
@@ -21837,7 +21543,6 @@ img {
     background-color: #758692;
     color: #ffffff;
     text-transform: uppercase;
-    /*position:fixed; */
     bottom: 0px;
     min-width: 960px;
     padding: 14px 30px;
@@ -21866,10 +21571,6 @@ img {
 
 @media screen and (max-width: 1400px) {
 
-    /*.socias, .responde
-{
-	margin-top:2px;	
-}*/
     /*****************Menú*******************/
     #menu > li > div > a > img {
         height: 35px;
@@ -22174,7 +21875,6 @@ img {
 .banner_pedidos {
     background-image: url("/Content/Images/ConsultoraOnline/banner_pedidos.jpg");
     background-size: 100%;
-    /*background-position:0px 95px;*/
     min-height: 238px;
     width: 100%;
     position: relative;
@@ -22187,7 +21887,6 @@ img {
 .banner_bienvenida {
     background-image: url("/Content/Images/ConsultoraOnline/bg_bienvenida.jpg");
     background-size: 100%;
-    /*background-position:0px 95px;*/
     min-height: 240px;
     width: 100%;
     position: relative;
@@ -22266,10 +21965,6 @@ img {
         }
 
 .active
-/*{
-	color:#000000;
-	border-bottom:1px solid #000000;
-}*/
 .menu_consultora ul li:hover {
     color: #e51437;
     border-bottom: 1px solid #e51437;
@@ -22551,7 +22246,6 @@ img {
 
 .cont_correo_direc {
     position: absolute;
-    /*display:none;*/
     background-color: #e9e9e9;
     padding: 10px;
     box-sizing: border-box;
@@ -22565,8 +22259,6 @@ img {
 }
 
 .ic_pregunta {
-    /*position:relative;
-	float:right;*/
     display: inline-block;
     vertical-align: middle;
     cursor: pointer;
@@ -22605,9 +22297,7 @@ img {
     font-size: 12px;
     font-weight: 300;
     margin: 10px auto 20px;
-    /*max-width:125px;*/
     box-sizing: border-box;
-    /*display:block;*/
 }
 
 .boton_linea_morado_2 {
@@ -22621,7 +22311,6 @@ img {
     max-width: 125px;
     background-color: transparent;
     box-sizing: border-box;
-    /*display:block;*/
 }
 
 .cursor_pointer {
@@ -22699,7 +22388,6 @@ img {
     border: 1px solid #768ea3;
     box-sizing: border-box;
     color: #415261;
-    /*font-weight:700;*/
 }
 .ie8 .tsm input[type=radio], input[type=checkbox] {
     width: auto;
@@ -22733,7 +22421,6 @@ img {
     vertical-align: middle;
     margin-right: 8px;
     background-color: #FFF;
-    /*box-shadow: inset 0px 2px 2px rgba(0, 0, 0, .3);*/
     border-radius: 8px;
     border: 1px solid #768ea3;
     box-sizing: border-box;
@@ -22760,7 +22447,6 @@ img {
     font-size: 1.8em;
     text-align: center;
     line-height: 14px;
-    /*text-shadow:0px 0px 3px #eee;*/
     background-image: url(/Content/Images/ConsultoraOnline/ic_aceptar.png);
     background-size: 18px;
     border: none;
@@ -22820,8 +22506,6 @@ button {
     font-size: 12px;
     font-weight: 300;
     border: 1px solid #4d95a0;
-    /*position:relative;
-	float:left;*/
     margin-left: 20px;
     display: inline-block;
 }
@@ -23162,7 +22846,6 @@ div.subir_archivo {
     border: 1px solid #768ea3;
     box-sizing: border-box;
     color: #415261;
-    /*font-weight:700;*/
 }
 .ie8 .rad_ input[type=radio], input[type=checkbox] {
     width: auto;
@@ -23196,7 +22879,6 @@ div.subir_archivo {
     vertical-align: middle;
     margin-right: 8px;
     background-color: #FFF;
-    /*box-shadow: inset 0px 2px 2px rgba(0, 0, 0, .3);*/
     border-radius: 8px;
     border: 1px solid #768ea3;
     box-sizing: border-box;
@@ -23223,7 +22905,6 @@ div.subir_archivo {
     font-size: 1.8em;
     text-align: center;
     line-height: 14px;
-    /*text-shadow:0px 0px 3px #eee;*/
     background-image: url(/Content/Images/ConsultoraOnline/ic_aceptar.png);
     background-size: 18px;
     border: none;
@@ -23244,7 +22925,6 @@ div.subir_archivo {
     vertical-align: bottom;
     margin-bottom: 6px;
     display: block;
-    /*color:#768ea3;*/
     color: rgb(118, 142, 163);
 }
 .circular_foto_consultora {
@@ -23638,11 +23318,7 @@ div.subir_archivo {
     -webkit-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5);
     -moz-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5);
 }
-/*.content_popUp{
-    max-width: 1080px;
-    padding-bottom: 0;
-    margin: 0 auto;
-}*/
+
 .content_blanco {
     background: white;
     width: 90%;
@@ -23926,7 +23602,6 @@ div.subir_archivo {
     font-family: 'Lato';
     font-size: 13px;
     margin-top: 35px;
-    /*margin-bottom:100px;*/
     margin-bottom: 35px;
 }
 
@@ -23935,11 +23610,7 @@ div.subir_archivo {
     width: 0px !important;
     height: 0px !important;
     position: absolute;
-    /* top: 2px; */
-    /* left: 2px; */
     z-index: 2;
-    /* display: inline-block;
-    /* display: inline-block; */
 }
 
 .inputfalso {
@@ -23954,7 +23625,7 @@ div.subir_archivo {
 }
 
 input[type="checkbox"]:checked + span:after {
-    content: "■"; /* el valor de la propiedad content también puede ser cualquier imagen, sólo tendríamos que pasarle la ruta de la imagen*/
+    content: "■";
     content: "■";
     position: absolute;
     z-index: 1002;
@@ -23980,7 +23651,6 @@ input[type="checkbox"]:checked + span:after {
 
 .content_checkbox {
     float: left;
-    /* overflow: hidden; */
     width: 16px;
     height: 16px;
     position: relative;
@@ -24007,7 +23677,6 @@ input[type="checkbox"]:checked + span:after {
     }
 
 .content_datos_c {
-    /*float:left;*/
     padding-top: 7px;
     width: 100%;
 }
@@ -24077,7 +23746,6 @@ input[type="checkbox"]:checked + span:after {
     width: 21px;
     height: 44px;
     float: left;
-    /*margin-left: 31.5%;*/
     margin-top: 4px;
     background: url("../../../Images/mobile/esika/bandera.png") no-repeat;
 }
@@ -24409,7 +24077,6 @@ input[type="checkbox"]:checked + span:after {
         font-size: 22px;
         margin-top: -3px;
         margin-left: 18px;
-        /* display: inline-block; */
         font-weight: 700;
         float: right;
     }
