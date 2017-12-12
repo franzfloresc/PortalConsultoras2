@@ -32,20 +32,20 @@ namespace Portal.Consultoras.Data.Hana
                 foreach (var pedidoDetalleHana in listaHana)
                 {
                     var bePedidoFacturado = new BEPedidoFacturado();
-                    bePedidoFacturado.CodigoConsultora = ""; //el servicio no lo trae
+                    bePedidoFacturado.CodigoConsultora = "";
                     bePedidoFacturado.MontoDescuento = pedidoDetalleHana.montoDescuento;
-                    bePedidoFacturado.CodigoTerritorio = ""; //el servicio no lo trae
+                    bePedidoFacturado.CodigoTerritorio = "";
                     bePedidoFacturado.CUV = pedidoDetalleHana.cuv;
-                    bePedidoFacturado.CodigoProducto = ""; //el servicio no lo trae
+                    bePedidoFacturado.CodigoProducto = "";
                     bePedidoFacturado.Descripcion = string.IsNullOrEmpty(pedidoDetalleHana.DESPROD)
                         ? "Sin Descripción"
                         : pedidoDetalleHana.DESPROD;
                     bePedidoFacturado.Cantidad = pedidoDetalleHana.cantidad;
                     bePedidoFacturado.PrecioUnidad = pedidoDetalleHana.precioUnidad;
                     bePedidoFacturado.ImporteTotal = pedidoDetalleHana.precioTotal;
-                    bePedidoFacturado.CodigoTipoOferta = ""; //el servicio no lo trae
+                    bePedidoFacturado.CodigoTipoOferta = ""; 
                     bePedidoFacturado.Origen = pedidoDetalleHana.tipoSolicitud;
-                    bePedidoFacturado.FechaUltimaActualizacion = new DateTime(); //el servicio no lo trae
+                    bePedidoFacturado.FechaUltimaActualizacion = new DateTime();
 
                     listBE.Add(bePedidoFacturado);
                 }

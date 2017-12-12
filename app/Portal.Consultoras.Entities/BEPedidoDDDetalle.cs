@@ -43,13 +43,11 @@
 
         [DataMember]
         public DateTime FechaModificacion { get; set; }
-        // R20151003 - Inicio
         [DataMember]
         public bool IndicadorEnviado { get; set; }
 
         [DataMember]
         public DateTime FechaEnvio { get; set; }
-        // R20151003 - Fin
         public BEPedidoDDDetalle()
         { }
 
@@ -79,10 +77,10 @@
                 FechaCreacion = Convert.ToDateTime(row["FechaCreacion"]);
             if (DataRecord.HasColumn(row, "FechaModificacion"))
                 FechaModificacion = Convert.ToDateTime(row["FechaModificacion"]);
-            if (DataRecord.HasColumn(row, "IndicadorEnviado"))  // R20151003 - Inicio
+            if (DataRecord.HasColumn(row, "IndicadorEnviado"))
                 IndicadorEnviado = Convert.ToBoolean(row["IndicadorEnviado"]);
             if (DataRecord.HasColumn(row, "FechaEnvio"))
-                FechaEnvio = Convert.ToDateTime(row["FechaEnvio"]);  // R20151003 - Fin
+                FechaEnvio = Convert.ToDateTime(row["FechaEnvio"]);
         }
     }
 }

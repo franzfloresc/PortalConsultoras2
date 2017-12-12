@@ -28,6 +28,8 @@ namespace Portal.Consultoras.Entities.RevistaDigital
         public string CodigoZona { get; set; }
         [DataMember]
         public string EMail { get; set; }
+        [DataMember]
+        public int CampaniaEfectiva { get; set; }
 
         public BERevistaDigitalSuscripcion() { }
 
@@ -43,6 +45,7 @@ namespace Portal.Consultoras.Entities.RevistaDigital
             if (row.HasColumn("CampaniaID")) CampaniaID = Convert.ToInt32(row["CampaniaID"]);
             if (row.HasColumn("CodigoZona")) CodigoZona = Convert.ToString(row["CodigoZona"]);
             if (row.HasColumn("EMail")) EMail = Convert.ToString(row["EMail"]);
+            if (row.HasColumn("CampaniaEfectiva")) CampaniaEfectiva = Convert.ToInt32(row["CampaniaEfectiva"]);
         }
     }
 }

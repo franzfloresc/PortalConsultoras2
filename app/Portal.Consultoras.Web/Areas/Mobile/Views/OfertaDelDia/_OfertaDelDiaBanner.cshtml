@@ -22,14 +22,16 @@
 
         <div class="float_left" style="width:50%; margin-left:3%;">
             <div class="nombre_set_oferta_mobile">@Model.NombreOferta <br /><b class="precio_oferta_soloHoy">@ViewBag.Simbolo @Model.PrecioOfertaFormat</b></div>
-
-            @if (Model.ListaOfertas.Count > 1)
+            @if (Model.ListaOfertas != null)
             {
-                <a class="btn_compralo_ahora" href="#">VER OFERTAS</a>
-            }
-            else
-            {
-                <a class="btn_compralo_ahora" href="#">VER OFERTA</a>
+                if (Model.ListaOfertas.Count > 1)
+                {
+                    <a class="btn_compralo_ahora" href="#">VER OFERTAS</a>
+                }
+                else
+                {
+                    <a class="btn_compralo_ahora" href="#">VER OFERTA</a>
+                }
             }
         </div>
         <hr class="clear" />

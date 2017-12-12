@@ -1803,7 +1803,6 @@ namespace Portal.Consultoras.BizLogic
             string customKey = alcance + "_" + campaniaId;
             IList<BEEventoFestivo> listaEvento = CacheManager<BEEventoFestivo>.GetData(paisId,
                 ECacheItem.ConfiguracionEventoFestivo, customKey);
-
             if (listaEvento == null || listaEvento.Count == 0)
             {
                 var DAUsuario = new DAUsuario(paisId);
