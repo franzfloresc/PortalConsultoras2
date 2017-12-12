@@ -437,7 +437,9 @@
     <Compile Include="Models\LoginAnalyticsModel.cs" />
     <Compile Include="Models\OfertaFinalModel.cs" />
     <Compile Include="Models\MensajesCDRExpressModel.cs" />
+    <Compile Include="Models\PagoEnLineaConfiguracion.cs" />
     <Compile Include="Models\PagoEnlineaInfoModel.cs" />
+    <Compile Include="Models\PagoEnLinea\DataToken.cs" />
     <Compile Include="Models\ProductoComentarioModel.cs" />
     <Compile Include="Models\CompartirRedesSocialesModel.cs" />
     <Compile Include="Models\ComunModel.cs" />

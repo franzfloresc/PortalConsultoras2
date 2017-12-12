@@ -94,13 +94,27 @@
             <span id="textoAceptoTerminos">He leído y acepto los terminos y condiciones</span>
         </div>
         <div>
-            <textarea name="areaTerminosCondiciones" id="areaTerminosCondiciones" cols="20" rows="2" ></textarea>
-            <input type="text" name="txtTerminosCondiciones" id="txtTerminosCond iciones" />
+            <textarea name="areaTerminosCondiciones" id="areaTerminosCondiciones" cols="20" rows="2"></textarea>
+            <input type="text" name="txtTerminosCondiciones" id="txtTerminosCondiciones" />
         </div>
     </div>
     <div style="clear:both;">
         <div></div>
         <div>
-            <a class="pagar_btn" id="btnPagar">PAGAR</a>
+            @*<a class="pagar_btn" id="btnPagar">PAGAR</a>*@
+
+            <form id="formBoton" action="token.aspx" method="post" runat="server">
+                <script id="javascriptBoton" src='https://static-content.vnforapps.com/v1/js/checkout.js?qa=true'
+                        data-sessiontoken='@ViewBag.SessionToken'
+                        data-merchantid='@ViewBag.MerchantId'
+                        data-merchantlogo='@ViewBag.MerchantLogo'
+                        data-formbuttoncolor='@ViewBag.ButtonColor'
+                        data-purchasenumber='@ViewBag.PurchaseNumber'
+                        data-amount='@ViewBag.SaldoActual'
+                        data-recurrence='FALSE'
+                        data-recurrencetype=''
+                        data-recurrencefrequency=''
+                        data-recurrenceamount='0'></script>
+            </form>
         </div>
     </div>
