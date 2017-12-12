@@ -1,10 +1,30 @@
 ﻿var uploaderCupon = null;
 var uploaderPremio = null;
 
-$("#btnCancelar, #btnGuardar").click(function (e) {
+$("#btnCancelar").click(function (e) {
     e.preventDefault();
     $("#divConfigBanner").html("");
     HideDialog("divConfigBanner");
+});
+
+$("#btnGuardar").click(function (e) {
+    e.preventDefault();
+
+    var CodigoPrograma = $.trim($("#CodigoPrograma").val());
+    var CodigoNivel = $.trim($("#CodigoNivel").val());
+
+    if (CodigoPrograma == "") {
+        alert("Ingrese el valor del código de programa");
+        $("#CodigoPrograma").focus();
+        return;
+    }
+    else if (CodigoNivel == "") {
+        alert("Ingrese el valor del código de nivel");
+        $("#CodigoNivel").focus();
+        return;
+    }
+
+    $("#btnCancelar").click();
 });
 
 uploaderCupon = new qq.FileUploader({

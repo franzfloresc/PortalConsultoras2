@@ -301,7 +301,7 @@ $("#btnGuardar").click(function (e) {
 
             if (data.success) {
                 alert(data.message);
-                HideDialog("divAgregar");
+                $("#btnCancelar").click();
                 fnGrilla();
             } else {
                 alert(data.message);
