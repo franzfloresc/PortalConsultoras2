@@ -82,7 +82,6 @@
         }
 
 .popup_revistaSuscripcion_terminos {
-    /*width: 209px;*/
     font-family: 'Lato';
     font-size: 11px;
     color: #FFF;
@@ -103,12 +102,10 @@
 }
 
 .popup_revistaSuscripcion_noAMostrarMensaje {
-    /*display: block;*/
     width: 213px;
     margin-top: 9px;
     font-family: 'Lato';
     color: #FFF;
-    /*font-weight: bold;*/
     font-size: 11px;
     position: relative;
     top: 17px;
@@ -989,7 +986,6 @@ div#tab_revistasdigital_mobile {
     padding-right: 8%;
     font-family: 'Lato';
     font-size: 13px;
-    /* color: #FF1534; */
     font-weight: 700;
     margin-top: 2px;
 }
@@ -1038,7 +1034,6 @@ div#tab_revistasdigital_mobile {
     font-weight: 700;
     letter-spacing: 2px;
     position: relative;
-    /*margin-top:30px;*/
 }
 
     .subtitulo_landing:after {
@@ -1060,9 +1055,6 @@ div#tab_revistasdigital_mobile {
     margin-right: 2%;
     height: 45px;
     padding: 6px 30px 6px 14px;
-    /* display: inline-block; */
-    /* border-radius: 0; */
-    /* -webkit-appearance: none; */
     border: 1px solid #ccc;
     float: left;
     margin-bottom: 18px;
@@ -1160,8 +1152,8 @@ div#tab_revistasdigital_mobile {
 
 .video-responsive-bpt {
     position: relative;
-    padding-bottom: 56.25%; /* 16/9 ratio */
-    padding-top: 30px; /* IE6 workaround*/
+    padding-bottom: 56.25%;
+    padding-top: 30px;
     height: 0;
     overflow: hidden;
 }
@@ -1543,7 +1535,6 @@ div#tab_revistasdigital_mobile {
 
 .beneficios_ept_img {
     position: relative;
-    /*bottom: -22px;*/
     z-index: -1;
     text-align: center;
 }
@@ -2167,7 +2158,6 @@ div#tab_revistasdigital_mobile {
     display: block;
 }
 
-
 /* NUEVO LANDING SUSCRIPCION MOBILE */
 
 .back-to {
@@ -2181,11 +2171,11 @@ div#tab_revistasdigital_mobile {
     .back-to img {
         margin-right: 10px;
     }
-/**/
+
 .pack-a-medida, .sin-codigos, .mejores-ofertas, .gana-mas, .suscribete-gratis {
     margin: 0 5px;
 }
-/**/
+
 .video-visual {
     width: 100%;
     overflow: hidden;
@@ -2210,16 +2200,16 @@ div#tab_revistasdigital_mobile {
 
     .video-visual .videobg {
         position: relative;
-        width: 100%; /* Set video container element width here */
-        height: 100%; /* Set video container element height here */
+        width: 100%;
+        height: 100%;
         overflow: hidden;
-        background: #111; /* bg color, if video is not high enough */
+        background: #111;
     }
 
     /* horizontally center the video */
     .video-visual .videobg-width {
         position: absolute;
-        width: 100%; /* Change width value to cover more area*/
+        width: 100%;
         height: 100%;
         left: -9999px;
         right: -9999px;
@@ -2234,7 +2224,7 @@ div#tab_revistasdigital_mobile {
         top: -9999px;
         bottom: -9999px;
         margin: auto;
-        padding-bottom: 56.25%; /* 16:9 ratio */
+        padding-bottom: 56.25%;
         overflow: hidden;
     }
 
@@ -2251,10 +2241,9 @@ div#tab_revistasdigital_mobile {
         position: relative;
         height: 100%;
         width: 100%;
-        /* Vimeo timeline and play button are ~55px high */
-        padding: 55px 97.7777px; /* 16:9 ratio */
+        padding: 55px 97.7777px;
         top: -55px;
-        left: -97.7777px; /* 16:9 ratio */
+        left: -97.7777px;
     }
 
     .video-visual .videobg iframe {
@@ -2265,7 +2254,6 @@ div#tab_revistasdigital_mobile {
         left: 0;
         border: 0 none;
     }
-/**/
 .bloques-gana-mas {
 }
 
@@ -2274,8 +2262,6 @@ div#tab_revistasdigital_mobile {
 }
 
     .gana-mas img {
-        /*margin-top: 25px !important;
-    margin-bottom: 20px !important;*/
         margin-top: 30px !important;
         margin-bottom: 20px !important;
     }
@@ -2322,7 +2308,6 @@ div#tab_revistasdigital_mobile {
         display: block !important;
         margin: auto !important;
         width: 20px;
-        /* margin: 10px 0 !important; */
         width: 20px !important;
         margin-bottom: 10px !important;
     }
@@ -2350,7 +2335,6 @@ div#tab_revistasdigital_mobile {
 .suscribete-gratis {
     background: white;
 }
-/**/
 .bloques-gana-mas .contenedor-mobile-fix {
     padding: 20px;
     margin-bottom: 5px;
@@ -2587,7 +2571,6 @@ a.btn-suscribete-video-baja {
         top: 2px;
         margin-left: 5px;
     }
-/**/
 @media (max-width: 767px) {
     .bloques-gana-mas .contenedor-mobile-fix img {
         width: 120px;
