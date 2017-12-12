@@ -1,0 +1,128 @@
+﻿@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Models
+@model RevistaDigitalModel
+@{
+    ConfiguracionPaisDatosModel configuracionPaisDatosModel;
+    var tieneGND = Portal.Consultoras.Web.SessionManager.SessionManager.Instance.GetUserData().TieneGND;
+    var urlLogo = Model.MLogoComercialNoActiva;
+    if (Model.TieneRDC && Model.EsSuscrita)
+    {
+        urlLogo = Model.MLogoComercialActiva;
+    }
+    else if (Model.TieneRDR)
+    {
+        urlLogo = Model.MLogoComercialFondoNoActiva;
+    }
+
+    var urlArrowRight = "~/Content/Images/RevistaDigital/";
+    urlArrowRight += ViewBag.EsPaisEsika == true ? "rd_arrowright_red.png" : "rd_arrowright.png";
+
+}
+<div class="content_revistas_mob">
+    @if (Model.TieneRDC)
+    {
+        if (Model.EsActiva)
+        {
+            if (Model.EsSuscrita)
+            {
+                configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.MCatalogoInscritaActiva) ?? new ConfiguracionPaisDatosModel();
+            }
+            else
+            {
+                configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.MCatalogoNoInscritaActiva) ?? new ConfiguracionPaisDatosModel();
+            }
+            <div class="wrapper_resumen_mobile">
+                <div class="banner_pedido_rd">
+                    <div class="cabecera_pedido_rd">
+                        <div class="rd_logo">
+                            <img src="@urlLogo" alt="" class="small">
+                        </div>
+                        <div class="cabecera_pedido_text">@Html.Raw(configuracionPaisDatosModel.Valor1)</div>
+                    </div>
+                    <div class="banner_pedido_masofertas">
+                        <div class="banner_pedido_text">
+                            @Html.Raw(configuracionPaisDatosModel.Valor2)
+                        </div>
+                        <div class="btn_red">
+                            <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigitalReducida')">
+                                VER TODAS MIS OFERTAS
+                                <img class="rd_arrowright" src="@Url.Content(urlArrowRight)">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            if (!tieneGND)
+            {
+                @Html.Partial("~/Areas/Mobile/Views/Catalogo/template-carrusel-issue.cshtml")
+            }
+            if (Model.EsSuscrita)
+            {
+                configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.MCatalogoInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
+            }
+            else
+            {
+                configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RD.MCatalogoNoInscritaNoActiva) ?? new ConfiguracionPaisDatosModel();
+            }
+            <div class="wrapper_resumen_mobile">
+                <div class="banner_pedido_rd">
+                    <div class="cabecera_pedido_rd">
+                        <div class="rd_logo">
+                            <img src="@urlLogo" alt="" class="small">
+                        </div>
+                        <div class="cabecera_pedido_text">@Html.Raw(configuracionPaisDatosModel.Valor1)</div>
+                    </div>
+                    <div class="banner_pedido_masofertas">
+                        <div class="banner_pedido_text">
+                            @Html.Raw(configuracionPaisDatosModel.Valor2)
+                        </div>
+                        <div class="btn_red">
+                            <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
+                                VER TODAS MIS OFERTAS
+                                <img class="rd_arrowright" src="@Url.Content(urlArrowRight)">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else if (Model.TieneRDR)
+    {
+        @Html.Partial("~/Areas/Mobile/Views/Catalogo/template-carrusel-issue.cshtml")
+        configuracionPaisDatosModel = Model.ConfiguracionPaisDatos.FirstOrDefault(x => x.Codigo == Constantes.ConfiguracionPaisDatos.RDR.MCatalogoRdr) ?? new ConfiguracionPaisDatosModel();
+        <hr class="clear" />
+        <div id="tab_revistasdigital_mobile">
+            <div class="contenedor_seccionRevistaDigital">
+                <div class="seccionRevistaDigital_logo_marca">
+                    <img src="@urlLogo" alt="Club Gana+" class="small"/>
+                </div>
+                <div class="clear"></div>
+                <div class="contenido_seccionRevistaDigital">
+                    <span>@Html.Raw(configuracionPaisDatosModel.Valor1)</span>
+                    <span>@Html.Raw(configuracionPaisDatosModel.Valor2)</span>
+                </div>
+                <div class="clear"></div>
+                <div class="revistadigital contenedor_botonVerMasOfertas">
+                    <div class="boxoffer" style="cursor: pointer; position: relative !important;"
+                            onclick="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileCatalogoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital');">
+                        <div class="fondo_boton"></div>
+                        <span class="texto_boton">VER M&Aacute;S OFERTAS PARA M&Iacute;</span>
+                    </div>
+                    <br /><br />
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        if (!tieneGND)
+        {
+            @Html.Partial("~/Areas/Mobile/Views/Catalogo/template-carrusel-issue.cshtml")
+        }
+    }
+
+</div>

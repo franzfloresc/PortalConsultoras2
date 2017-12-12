@@ -79,11 +79,11 @@ namespace Portal.Consultoras.Entities
                 CodigoTipoOferta = Convert.ToString(row["CodigoTipoOferta"]);
             if (DataRecord.HasColumn(row, "MarcaID") && row["MarcaID"] != DBNull.Value)
                 MarcaID = Convert.ToString(row["MarcaID"]);
-            if (DataRecord.HasColumn(row, "SubTipoOfertaSisID") && row["SubTipoOfertaSisID"] != DBNull.Value) //1513
+            if (DataRecord.HasColumn(row, "SubTipoOfertaSisID") && row["SubTipoOfertaSisID"] != DBNull.Value)
                 SubTipoOfertaSisID = Convert.ToInt32(row["SubTipoOfertaSisID"]);
 
-            if (DataRecord.HasColumn(row, "EtiquetaPrecio") && row["EtiquetaPrecio"] != DBNull.Value)//1673CC
-                EtiquetaPrecio = Convert.ToString(row["EtiquetaPrecio"]);//1673CC
+            if (DataRecord.HasColumn(row, "EtiquetaPrecio") && row["EtiquetaPrecio"] != DBNull.Value)
+                EtiquetaPrecio = Convert.ToString(row["EtiquetaPrecio"]);
             else
                 EtiquetaPrecio = string.Empty;
         }

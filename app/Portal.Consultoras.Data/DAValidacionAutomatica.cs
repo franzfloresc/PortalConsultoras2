@@ -63,7 +63,6 @@ namespace Portal.Consultoras.Data
 
         public void InsPedidoWebAccionesPROLAuto(BEAccionesPROL oBEAccionesPROL)
         {
-            //TipoOrigen 2: Validacion Automatica Movil
             DbCommand command = Context.Database.GetStoredProcCommand("InsPedidoWebAccionesPROL",
                 oBEAccionesPROL.CampaniaID,
                 oBEAccionesPROL.PedidoID,
@@ -134,7 +133,6 @@ namespace Portal.Consultoras.Data
 
         public void InsPedidoWebCorreoPROL(long ValAutomaticaPROLLogId, int CampaniaID, int PedidoID)
         {
-            //TipoOrigen 2: Validacion Automatica Movil
             DbCommand oDbCommand = Context.Database.GetStoredProcCommand("InsPedidoWebCorreoPROL",
                 ValAutomaticaPROLLogId,
                 CampaniaID,

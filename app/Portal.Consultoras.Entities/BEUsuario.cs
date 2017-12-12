@@ -43,7 +43,7 @@ namespace Portal.Consultoras.Entities
 
         private DateTime mdFechaInicioFacturacion;
         private DateTime mdFechaFinFacturacion;
-        private DateTime mdFechaFinFIC;//1501
+        private DateTime mdFechaFinFIC;
         private string msCampaniaDescripcion;
         private TimeSpan tsHoraInicio;
         private TimeSpan tsHoraFin;
@@ -77,7 +77,7 @@ namespace Portal.Consultoras.Entities
         private string mDescripcionNivel;
 
         [Column("ESCONSULTORALIDER")]
-        public int mesConsultoraLider { get; set; }//R2469(CSR)
+        public int mesConsultoraLider { get; set; }
 
         private bool bEstadoSimplificacionCUV { get; set; }
         private bool bEsquemaDAConsultora;
@@ -147,11 +147,11 @@ namespace Portal.Consultoras.Entities
                 SeccionAnalytics = Convert.ToString(row["Seccion"]);
             if (DataRecord.HasColumn(row, "DescripcionNivel") && row["DescripcionNivel"] != DBNull.Value)
                 DescripcionNivel = Convert.ToString(row["DescripcionNivel"]);
-            if (DataRecord.HasColumn(row, "esConsultoraLider") && row["esConsultoraLider"] != DBNull.Value)//1485
-                esConsultoraLider = Convert.ToBoolean(row["esConsultoraLider"]); // Correccion 2469
+            if (DataRecord.HasColumn(row, "esConsultoraLider") && row["esConsultoraLider"] != DBNull.Value)
+                esConsultoraLider = Convert.ToBoolean(row["esConsultoraLider"]);
 
             if (DataRecord.HasColumn(row, "EstadoSimplificacionCUV") && row["EstadoSimplificacionCUV"] != DBNull.Value)
-                bEstadoSimplificacionCUV = Convert.ToBoolean(row["EstadoSimplificacionCUV"]); /*R20150701*/
+                bEstadoSimplificacionCUV = Convert.ToBoolean(row["EstadoSimplificacionCUV"]);
             if (DataRecord.HasColumn(row, "EsquemaDAConsultora") && row["EsquemaDAConsultora"] != DBNull.Value)
                 bEsquemaDAConsultora = Convert.ToBoolean(row["EsquemaDAConsultora"]);
 
@@ -241,9 +241,9 @@ namespace Portal.Consultoras.Entities
                 FechaNacimiento = Convert.ToDateTime(row["FechaNacimiento"]);
             if (DataRecord.HasColumn(row, "FechaLimitePago") && row["FechaLimitePago"] != DBNull.Value)
                 FechaLimPago = Convert.ToDateTime(row["FechaLimitePago"]);
-            if (DataRecord.HasColumn(row, "VioVideo") && row["VioVideo"] != DBNull.Value) // SB20-344
+            if (DataRecord.HasColumn(row, "VioVideo") && row["VioVideo"] != DBNull.Value)
                 VioVideo = Convert.ToInt32(row["VioVideo"]);
-            if (DataRecord.HasColumn(row, "VioTutorial") && row["VioTutorial"] != DBNull.Value) // SB20-344
+            if (DataRecord.HasColumn(row, "VioTutorial") && row["VioTutorial"] != DBNull.Value)
                 VioTutorial = Convert.ToInt32(row["VioTutorial"]);
             if (DataRecord.HasColumn(row, "VioTutorialDesktop") && row["VioTutorialDesktop"] != DBNull.Value)
                 VioTutorialDesktop = Convert.ToInt32(row["VioTutorialDesktop"]);
@@ -315,7 +315,7 @@ namespace Portal.Consultoras.Entities
             else
                 IndicadorContrato = 0;
 
-            if (DataRecord.HasColumn(row, "EsJoven") && row["EsJoven"] != DBNull.Value)//1530
+            if (DataRecord.HasColumn(row, "EsJoven") && row["EsJoven"] != DBNull.Value)
                 EsJoven = Convert.ToInt32(row["EsJoven"]);
 
             if (DataRecord.HasColumn(row, "CodigoISO") && row["CodigoISO"] != DBNull.Value)
@@ -347,17 +347,17 @@ namespace Portal.Consultoras.Entities
                 SeccionAnalytics = Convert.ToString(row["Seccion"]);
             if (DataRecord.HasColumn(row, "DescripcionNivel") && row["DescripcionNivel"] != DBNull.Value)
                 DescripcionNivel = Convert.ToString(row["DescripcionNivel"]);
-            if (DataRecord.HasColumn(row, "esConsultoraLider") && row["esConsultoraLider"] != DBNull.Value)//1485
-                esConsultoraLider = Convert.ToBoolean(row["esConsultoraLider"]); // Correccion 2469
+            if (DataRecord.HasColumn(row, "esConsultoraLider") && row["esConsultoraLider"] != DBNull.Value)
+                esConsultoraLider = Convert.ToBoolean(row["esConsultoraLider"]);
 
-            if (DataRecord.HasColumn(row, "EMailActivo") && row["EMailActivo"] != DBNull.Value)//2532
+            if (DataRecord.HasColumn(row, "EMailActivo") && row["EMailActivo"] != DBNull.Value)
                 EMailActivo = Convert.ToBoolean(row["EMailActivo"]);
 
             if (DataRecord.HasColumn(row, "SegmentoInternoId") && row["SegmentoInternoId"] != DBNull.Value)
                 SegmentoInternoID = Convert.ToInt32(row["SegmentoInternoId"]);
 
             if (DataRecord.HasColumn(row, "EstadoSimplificacionCUV") && row["EstadoSimplificacionCUV"] != DBNull.Value)
-                EstadoSimplificacionCUV = Convert.ToBoolean(row["EstadoSimplificacionCUV"]); /*R20150701*/
+                EstadoSimplificacionCUV = Convert.ToBoolean(row["EstadoSimplificacionCUV"]);
             if (DataRecord.HasColumn(row, "EsquemaDAConsultora") && row["EsquemaDAConsultora"] != DBNull.Value)
                 bEsquemaDAConsultora = Convert.ToBoolean(row["EsquemaDAConsultora"]);
             if (DataRecord.HasColumn(row, "OfertaFinal") && row["OfertaFinal"] != DBNull.Value)
@@ -413,7 +413,7 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "TieneODD") && row["TieneODD"] != DBNull.Value)
                 OfertaDelDia = Convert.ToBoolean(row["TieneODD"]);
 
-            if (DataRecord.HasColumn(row, "ConsultoraAsociadoID") && row["ConsultoraAsociadoID"] != DBNull.Value)//1688
+            if (DataRecord.HasColumn(row, "ConsultoraAsociadoID") && row["ConsultoraAsociadoID"] != DBNull.Value)
                 consultoraAsociadoID = Convert.ToInt64(row["ConsultoraAsociadoID"]);
             else
                 consultoraAsociadoID = 0;
@@ -461,7 +461,7 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "HorasDuracionRestriccion") && row["HorasDuracionRestriccion"] != DBNull.Value)
                 HorasDuracionRestriccion = DbConvert.ToInt32(row["HorasDuracionRestriccion"]);
             if (DataRecord.HasColumn(row, "PROLSinStock") && row["PROLSinStock"] != DBNull.Value)
-                PROLSinStock = Convert.ToBoolean(row["PROLSinStock"]); //1510
+                PROLSinStock = Convert.ToBoolean(row["PROLSinStock"]);
             else
                 PROLSinStock = false;
 
@@ -471,8 +471,8 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "ZonaNuevoPROL") && row["ZonaNuevoPROL"] != DBNull.Value)
                 ZonaNuevoPROL = DbConvert.ToBoolean(row["ZonaNuevoPROL"]);
 
-            if (DataRecord.HasColumn(row, "HoraCierreZonaDemAntiCierre") && row["HoraCierreZonaDemAntiCierre"] != DBNull.Value) //R20151126
-                HoraCierreZonaDemAntiCierre = DbConvert.ToTimeSpan(row["HoraCierreZonaDemAntiCierre"]); //R20151126
+            if (DataRecord.HasColumn(row, "HoraCierreZonaDemAntiCierre") && row["HoraCierreZonaDemAntiCierre"] != DBNull.Value)
+                HoraCierreZonaDemAntiCierre = DbConvert.ToTimeSpan(row["HoraCierreZonaDemAntiCierre"]);
 
             if (DataRecord.HasColumn(row, "ValidacionInteractiva") && row["ValidacionInteractiva"] != DBNull.Value)
                 ValidacionInteractiva = DbConvert.ToBoolean(row["ValidacionInteractiva"]);
@@ -1232,11 +1232,11 @@ namespace Portal.Consultoras.Entities
                 SeccionAnalytics = Convert.ToString(row["Seccion"]);
             if (DataRecord.HasColumn(row, "DescripcionNivel") && row["DescripcionNivel"] != DBNull.Value)
                 DescripcionNivel = Convert.ToString(row["DescripcionNivel"]);
-            if (DataRecord.HasColumn(row, "esConsultoraLider") && row["esConsultoraLider"] != DBNull.Value)//1485
-                esConsultoraLider = Convert.ToBoolean(row["esConsultoraLider"]); // Correccion 2469
+            if (DataRecord.HasColumn(row, "esConsultoraLider") && row["esConsultoraLider"] != DBNull.Value)
+                esConsultoraLider = Convert.ToBoolean(row["esConsultoraLider"]);
 
             if (DataRecord.HasColumn(row, "EstadoSimplificacionCUV") && row["EstadoSimplificacionCUV"] != DBNull.Value)
-                EstadoSimplificacionCUV = Convert.ToBoolean(row["EstadoSimplificacionCUV"]); /*R20150701*/
+                EstadoSimplificacionCUV = Convert.ToBoolean(row["EstadoSimplificacionCUV"]);
 
             if (DataRecord.HasColumn(row, "EsquemaDAConsultora") && row["EsquemaDAConsultora"] != DBNull.Value)
                 bEsquemaDAConsultora = Convert.ToBoolean(row["EsquemaDAConsultora"]);
