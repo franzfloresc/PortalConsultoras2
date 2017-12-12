@@ -1142,7 +1142,7 @@
       <soap:address location="http://localhost:41615/ClienteService.svc" />
     </wsdl:port>
     <wsdl:port name="BasicHttpsBinding_IClienteService" binding="tns:BasicHttpsBinding_IClienteService">
-      <soap:address location="https://localhost:44300/ClienteService.svc" />
+      <soap:address location="https://localhost:44392/ClienteService.svc" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

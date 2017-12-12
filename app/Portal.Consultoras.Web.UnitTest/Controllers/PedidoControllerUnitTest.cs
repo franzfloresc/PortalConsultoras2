@@ -19,22 +19,22 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             return (string)property.GetValue(data, null);
         }
 
-        [TestMethod]
-        public void DeleteCuvNoExistente()
-        {
-            var mensaje = string.Empty;
-            try
-            {
-                var controller = new PedidoController();
-                TestControllerBuilder oTB = new TestControllerBuilder();
-                oTB.InitializeController(controller);
+        //[TestMethod]
+        //public void DeleteCuvNoExistente()
+        //{
+        //    var mensaje = string.Empty;
+        //    try
+        //    {
+        //        var controller = new PedidoController();
+        //        TestControllerBuilder oTB = new TestControllerBuilder();
+        //        oTB.InitializeController(controller);
 
-                var response = controller.Delete(201711, 5097367, 2, 0, "NoExiste", 1, null, "", false);
-                mensaje = GetJsonMessage(response);
-            }
-            catch (Exception ex) { mensaje = ex.Message; }
-            Assert.AreEqual(Constantes.MensajesError.DeletePedido_CuvNoExiste, mensaje);
-        }
+        //        var response = controller.Delete(201711, 5097367, 2, 0, "NoExiste", 1, null, "", false);
+        //        mensaje = GetJsonMessage(response);
+        //    }
+        //    catch (Exception ex) { mensaje = ex.Message; }
+        //    Assert.AreEqual(Constantes.MensajesError.DeletePedido_CuvNoExiste, mensaje);
+        //}
 
         //[TestMethod]
         //public void PedidoController_ValidarStockEstrategia()

@@ -27,7 +27,7 @@ namespace Portal.Consultoras.Entities
         public string Descripcion { set; get; }
 
         [DataMember]
-        [ViewProperty]//R1957
+        [ViewProperty]
         public string Fecha { set; get; }
 
         [DataMember]
@@ -46,7 +46,7 @@ namespace Portal.Consultoras.Entities
         public bool FaltanteUltimoMinuto { set; get; }
 
         [DataMember]
-        [ViewProperty] // 1957
+        [ViewProperty]
         public string rowID { set; get; }
 
         [DataMember]

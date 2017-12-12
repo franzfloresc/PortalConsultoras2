@@ -58,7 +58,6 @@ namespace Portal.Consultoras.Web.Controllers
                 if (paisesInactivos.Any())
                     lst.RemoveAll(p => paisesInactivos.Contains(p.CodigoISO.ToUpper()));
 
-                Mapper.CreateMap<BEPais, PaisModel>();
                 return Mapper.Map<List<BEPais>, List<PaisModel>>(lst);
             }
             catch (Exception)

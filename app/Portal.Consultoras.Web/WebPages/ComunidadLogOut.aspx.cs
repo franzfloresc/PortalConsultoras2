@@ -32,7 +32,7 @@ namespace Portal.Consultoras.Web.WebPages
 
                 if (Tipo == "1")
                 {
-                    Session["UserData"] = null;
+                    SessionManager.SessionManager.Instance.SetUserData(null);
                     Session.Clear();
                     Session.Abandon();
                     FormsAuthentication.SignOut();

@@ -146,18 +146,6 @@ function ValidarCargaCatalogoPersonalizado() {
     if (cargandoRegistros) return false;
     cargandoRegistros = true;
     DialogLoadingAbrir();
-    /*** EPD-1682 Ahora el usuario podra visualizar los productos cuándo tenga su pedido reservado ***/
-    //ReservadoOEnHorarioRestringidoAsync(
-    //    true,
-    //    function () {
-    //        UnlinkCargarCatalogoToScroll();
-    //        DialogLoadingCerrar();
-    //    },
-    //    function () {
-    //        DialogLoadingCerrar();
-    //        CargarCatalogoPersonalizado();
-    //    });
-    /*** Fin EPD-1682 ***/
 
     DialogLoadingCerrar();
     CargarCatalogoPersonalizado();
@@ -258,7 +246,6 @@ $(".title-accordion").on("click", function () { $(this).toggleClass("flecha_arri
 function deleteFilters() {
     if (tipoOrigen == '2') {
         $('#custom-filters').hide();
-        //$('#summary-filters').hide();
         $('#div-delete-filters').hide();
         $('#orderby-filter').show();
         $('#divCatalogoPersonalizado').show();
@@ -266,10 +253,8 @@ function deleteFilters() {
         // reset values
         filters = [];
         $('#orderby-price').val('03');
-        //$('input[name="category"]:checkbox').attr('checked', false);
         $('input[name="brand"]:checkbox').attr('checked', false);
         $('input[name="categoria"]:checkbox').attr('checked', false);
-        //PL20-1274
         $("#btnfltm").attr('value', 'FILTROS');
     }
 
@@ -281,7 +266,6 @@ function deleteFilters() {
         $('#filter-sorting').val('03');
         $('.texto_fav_filtro').hide();
         $('#limiteFlt').hide();
-        //filterFAVDesktop();
     }
 
     $('#txt-range-price').bootstrapSlider('setValue', [mPremin, mPremax]);
@@ -290,7 +274,6 @@ function deleteFilters() {
         type: 'POST',
         url: '/CatalogoPersonalizado/BorrarFiltros',
         dataType: 'json',
-        //data: JSON.stringify(obj),
         contentType: 'application/json; charset=utf-8',
         success: function (response) {
             if (checkTimeout(response)) {
@@ -443,14 +426,14 @@ function CargarCatalogoPersonalizado() {
 
                     if (tipoOrigen == 2) {
                         var cont = offsetRegistros;
-                        var rsnum = 'Mostrando ' + cont.toString() + ' de ' + totalRegistros + ' productos'; //PL20 - 1273
+                        var rsnum = 'Mostrando ' + cont.toString() + ' de ' + totalRegistros + ' productos';
                         $('#result-number').text(rsnum);
 
                         if (data.totalFiltros != 0) $('#div-delete-filters').show();
                         else $('#div-delete-filters').hide();
 
 
-                        $('#divProductosEncontrados b').text(cont.toString()); //PL1274 
+                        $('#divProductosEncontrados b').text(cont.toString());
 
                         var btnflt = "FILTROS";
 
@@ -951,7 +934,6 @@ function DialogMensaje(msj, funcionRedireccionar) {
 }
 
 function DialogLoadingCerrar() {
-    //console.log('DialogLoadingCerrar');
     if (tipoOrigen == '2') {
         CloseLoading();
     }
@@ -1252,7 +1234,6 @@ function filterFAVDesktop() {
         filters.push(f);
     }
 
-    // published
     values = "";
     $('#div-filter-published').find('div[class*="seleccion_click_flitro"]').each(function () {
         values += $(this).data('value') + ',';
@@ -1263,8 +1244,6 @@ function filterFAVDesktop() {
         Valor1: values.substring(0, values.length - 1)
     }
     filters.push(f);
-
-    //console.log(filters);
 
     $('.seleccion_filtro_fav').prop('disabled', false);
     $('.select_filtros_fav option:not(:selected)').prop('disabled', false);

@@ -5,7 +5,6 @@ using Portal.Consultoras.Web.ServiceCliente;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -22,7 +21,6 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Index()
         {
             var clienteModel = new MisCatalogosRevistasModel();
-
             clienteModel.PaisNombre = getPaisNombreByISO(userData.CodigoISO);
             clienteModel.CampaniaActual = userData.CampaniaID.ToString();
             clienteModel.CampaniaAnterior = AddCampaniaAndNumero(userData.CampaniaID, -1).ToString();
@@ -31,12 +29,20 @@ namespace Portal.Consultoras.Web.Controllers
             clienteModel.CodigoRevistaAnterior = GetRevistaCodigoIssuu(clienteModel.CampaniaAnterior);
             clienteModel.CodigoRevistaSiguiente = GetRevistaCodigoIssuu(clienteModel.CampaniaSiguiente);
 
+            var tieneGND = userData.TieneGND;
+            clienteModel.TieneGND = tieneGND;
+            clienteModel.MostrarTab =
+                (revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsSuscritaInactiva() && !tieneGND ||
+                ((revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsNoSuscritaInactiva() && !tieneGND) ||
+                (!revistaDigital.TieneRDC && !revistaDigital.TieneRDR && !tieneGND) ||
+                ((revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsSuscritaActiva() && !tieneGND) ||
+                (revistaDigital.TieneRDR && !tieneGND);
+            
+            clienteModel.RevistaDigital = revistaDigital;
+
             ViewBag.CodigoISO = userData.CodigoISO;
             ViewBag.EsConsultoraNueva = EsConsultoraNueva();
             ViewBag.TextoMensajeSaludoCorreo = TextoMensajeSaludoCorreo;
-
-            clienteModel.MostrarRevistaDigital = revistaDigital.TieneRDR;
-            clienteModel.RevistaDigital = revistaDigital;
             ViewBag.NombreConsultora = userData.Sobrenombre;
             return View(clienteModel);
         }
@@ -44,7 +50,6 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult Detalle(int campania)
         {
             string ISO = userData.CodigoISO;
-            // RQ 2295 Mejoras en Catalogos Belcorp
             List<BECatalogoConfiguracion> lstCatalogoConfiguracion = new List<BECatalogoConfiguracion>();
             using (ClienteServiceClient sv = new ClienteServiceClient())
             {
@@ -81,8 +86,8 @@ namespace Portal.Consultoras.Web.Controllers
         public List<Catalogo> GetCatalogosPublicados(string paisISO, string campaniaId)
         {
             List<Catalogo> catalogos = new List<Catalogo>();
-            string urlISSUUSearch = "http://search.issuu.com/api/2_0/document?username=somosbelcorp&q=";
-            string urlISSUUVisor = ConfigurationManager.AppSettings["UrlIssuu"];
+            string urlISSUUSearch = "http:" + Constantes.CatalogoUrlIssu.Buscador;
+            string urlISSUUVisor = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlIssuu);
 
             try
             {
@@ -189,7 +194,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     else
                     {
-                        CampaniaID = Campania; // CalcularCampaniaSiguiente(userData.CampaniaID.ToString());
+                        CampaniaID = Campania;
                         using (UsuarioServiceClient sv = new UsuarioServiceClient())
                         {
                             FechaFacturacion = sv.GetFechaFacturacion(CampaniaID, userData.ZonaID, userData.PaisID).ToShortDateString();
@@ -219,34 +224,8 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-                //string catalogoUnificado = "0";
-                //string ISO = userData.CodigoISO;
-
-                //if (ConfigurationManager.AppSettings["PaisesCatalogoUnificado"].Contains(ISO))
-                //{
-                //    string[] paises = ConfigurationManager.AppSettings["PaisesCatalogoUnificado"].Split(';');
-                //    if (paises.Length > 0)
-                //    {
-                //        foreach (var pais in paises)
-                //        {
-                //            if (pais.Contains(ISO))
-                //            {
-                //                string[] PaisCamp = pais.Split(',');
-                //                if (PaisCamp.Length > 0)
-                //                {
-                //                    int CampaniaInicio = Convert.ToInt32(PaisCamp[1]);
-                //                    if (Convert.ToInt32(CampaniaID) >= CampaniaInicio)
-                //                        catalogoUnificado = "1";
-                //                }
-                //            }
-                //        }
-                //    }
-                //}
-
                 string RutaPublicaImagen = "";
                 string nombrecorto = userData.NombreCorto;
-                //Mejora - Correo
-                //string nomPais = Util.ObtenerNombrePaisPorISO(userData.CodigoISO);
                 string CorreosInvalidos = string.Empty;
 
                 Catalogo catalogoLbel = catalogos.FirstOrDefault(x => x.IdMarcaCatalogo == Constantes.Marca.LBel);
@@ -254,7 +233,6 @@ namespace Portal.Consultoras.Web.Controllers
                 Catalogo catalogoCyZone = catalogos.FirstOrDefault(x => x.IdMarcaCatalogo == Constantes.Marca.Cyzone);
                 Catalogo catalogoFinart = catalogos.FirstOrDefault(x => x.IdMarcaCatalogo == Constantes.Marca.Finart);
 
-                /*EPD-1003*/
                 DateTime dd = DateTime.Parse(FechaFacturacion, new CultureInfo("es-ES"));
                 string fdf = dd.ToString("dd", new CultureInfo("es-ES"));
                 string fmf = dd.ToString("MMMM", new CultureInfo("es-ES"));
@@ -265,7 +243,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string urlIconEmail = "http://www.genesis-peru.com/mailing-belcorp/mensaje_mail.png";
                 string urlIconTelefono = "http://www.genesis-peru.com/mailing-belcorp/celu_mail.png";
 
-                if (!ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(userData.CodigoISO))
+                if (!GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesEsika).Contains(userData.CodigoISO))
                 {
                     urlImagenLogo = "https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/jG6i4d6VUyIaUwi/logod.png";
                     urlIconEmail = "https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/SWR2zWZftNbE4mn/mensaje_mail.png";
@@ -346,24 +324,6 @@ namespace Portal.Consultoras.Web.Controllers
                     mailBody += "<table id=\"tableForOutlook\"><tr><td>";
                     mailBody += "<![endif]-->";
                     mailBody += "<tbody>";
-                    //mailBody += "<tr>";
-                    //mailBody += "<td style=\"width:29.3%; display: table-cell; padding-left:2%; padding-right:2%;\">";
-                    //mailBody += "<a href=\"#\" style=\"width:100%; display:block;\">";
-                    //mailBody += "<img width=\"100%\" display=\"block\" src=\"http://www.genesis-peru.com/mailing-belcorp/revista.png\" alt=\"Revista\" />";
-                    //mailBody += "</a>";
-                    //mailBody += "</td>";
-                    //mailBody += "<td style=\"width:29.3%; display: table-cell; padding-left:2%; padding-right:2%;\">";
-                    //mailBody += "<a href=\"#\" style=\"width:100%; display:block;\">";
-                    //mailBody += "<img width=\"100%\" display=\"block\" src=\"http://www.genesis-peru.com/mailing-belcorp/revista.png\" alt=\"Revista\" />";
-                    //mailBody += "</a>";
-                    //mailBody += "</td>";
-                    //mailBody += "<td style=\"width:29.3%; display: table-cell; padding-left:2%; padding-right:2%;\">";
-                    //mailBody += "<a href=\"#\" style=\"width:100%; display:block;\">";
-                    //mailBody += "<img width=\"100%\" display=\"block\" src=\"http://www.genesis-peru.com/mailing-belcorp/revista.png\" alt=\"Revista\" />";
-                    //mailBody += "</a>";
-                    //mailBody += "</td>";
-                    //mailBody += "</tr>";
-
                     mailBody += "<tr>";
 
                     if (item.LBel == "1")
@@ -503,7 +463,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                     #endregion
                 }
-                /*EPD-1003*/
 
                 using (ClienteServiceClient sv = new ClienteServiceClient())
                 {
@@ -587,7 +546,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string codigo = GetRevistaCodigoIssuu(campania);
                 if (string.IsNullOrEmpty(codigo)) return Json(new { success = false }, JsonRequestBehavior.AllowGet);
 
-                string url = ConfigurationManager.AppSettings["UrlIssuu"].ToString();
+                string url = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlIssuu);
                 url = string.Format(url, codigo);
                 return Json(new { success = true, urlRevista = url }, JsonRequestBehavior.AllowGet);
             }
@@ -597,7 +556,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private bool EsCatalogoUnificado(int campania)
         {
-            string paisesCatalogoUnificado = ConfigurationManager.AppSettings["PaisesCatalogoUnificado"] ?? "";
+            string paisesCatalogoUnificado = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesCatalogoUnificado);
             if (!paisesCatalogoUnificado.Contains(userData.CodigoISO)) return false;
 
             string paisUnificado = paisesCatalogoUnificado.Split(';').FirstOrDefault(pais => pais.Contains(userData.CodigoISO));

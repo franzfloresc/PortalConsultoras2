@@ -13,14 +13,8 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class AdministrarBelcorpRespondeController : BaseController
     {
-        //
-        // GET: /AdministrarBelcorpResponde/
-
         public ActionResult Index()
         {
-            //if (!UsuarioModel.HasAcces(ViewBag.Permiso, "AdministrarBelcorpResponde/Index"))
-            //    return RedirectToAction("Index", "Bienvenida");
-
             AdministrarBelcorpRespondeModel model = new AdministrarBelcorpRespondeModel();
 
             var paisID = UserData().PaisID;
@@ -164,20 +158,8 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEPais> lst;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
-                //if (UserData().RolID == 2) lst = sv.SelectPaises().ToList();
-                //else
-                //{
-                //    lst = new List<BEPais>();
-                //    lst.Add(sv.SelectPais(UserData().PaisID));
-                //}
-
                 lst = sv.SelectPaises().ToList();
             }
-            Mapper.CreateMap<BEPais, PaisModel>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
-
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
 

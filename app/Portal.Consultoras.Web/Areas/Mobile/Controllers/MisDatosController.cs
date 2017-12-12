@@ -14,11 +14,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
     public class MisDatosController : BaseMobileController
     {
-        //
-        // GET: /MisDatos/
-
-
-
         public ActionResult Index(bool vc = false)
         {
             BEUsuario beusuario = new BEUsuario();
@@ -26,7 +21,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             var model = new MisDatosModel();
 
-            //EPD-1089
             if (userData.PaisID == 9)
             {
                 ViewBag.limiteMinimoTelef = 5;
@@ -69,9 +63,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.PaisISO = userData.CodigoISO;
                 ViewBag.PaisId = userData.PaisID;
                 model.NombreCompleto = beusuario.Nombre;
-                model.NombreGerenteZonal = userData.NombreGerenteZonal;     //SB20-907
+                model.NombreGerenteZonal = userData.NombreGerenteZonal;
                 model.EMail = beusuario.EMail;
-                model.NombreGerenteZonal = userData.NombreGerenteZonal;     //SB20-907
+                model.NombreGerenteZonal = userData.NombreGerenteZonal;
                 model.Telefono = beusuario.Telefono;
                 model.TelefonoTrabajo = beusuario.TelefonoTrabajo;
                 model.Celular = beusuario.Celular;
@@ -79,7 +73,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.CompartirDatos = beusuario.CompartirDatos;
                 model.AceptoContrato = beusuario.AceptoContrato;
                 model.UsuarioPrueba = userData.UsuarioPrueba;
-                model.NombreArchivoContrato = ConfigurationManager.AppSettings["Contrato_ActualizarDatos_" + userData.CodigoISO].ToString();
+                model.NombreArchivoContrato = GetConfiguracionManager(Constantes.ConfiguracionManager.Contrato_ActualizarDatos + userData.CodigoISO);
 
                 BEZona[] bezona;
                 using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
@@ -98,9 +92,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         model.NombreConsultoraAsociada = sv.GetNombreConsultoraAsociada(userData.PaisID, userData.CodigoUsuario) + " (" + sv.GetCodigoConsultoraAsociada(userData.PaisID, userData.CodigoUsuario) + ")";
                     }
                 }
-                /*EPD-1068*/
                 model.CodigoUsuario = userData.CodigoUsuario + " (Zona: " + userData.CodigoZona + ")";
-                string PaisesDigitoControl = ConfigurationManager.AppSettings["PaisesDigitoControl"].ToString();
+                string PaisesDigitoControl = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesDigitoControl);
                 model.DigitoVerificador = string.Empty;
                 if (PaisesDigitoControl.Contains(model.PaisISO))
                 {

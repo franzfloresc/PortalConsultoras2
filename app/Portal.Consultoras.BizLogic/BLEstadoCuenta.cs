@@ -37,5 +37,11 @@ namespace Portal.Consultoras.BizLogic
 
             return lista;
         }
+
+        public string GetDeudaActualConsultora(int PaisId, long consultoraId)
+        {
+            var DAEstadoCuenta = new DAEstadoCuenta(PaisId);
+            return DAEstadoCuenta.GetDeudaActualConsultora(consultoraId);
+        }
     }
 }

@@ -43,7 +43,7 @@ namespace Portal.Consultoras.Web.Controllers
                 listaCDRWebModel = new List<CDRWebModel>();
             }
 
-            string urlPoliticaCdr = ConfigurationManager.AppSettings.Get("UrlPoliticasCDR") ?? "{0}";
+            string urlPoliticaCdr = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlPoliticasCDR) ?? "{0}";
             model.UrlPoliticaCdr = string.Format(urlPoliticaCdr, userData.CodigoISO);
             model.ListaCDRWeb = listaCDRWebModel.FindAll(p => p.CantidadDetalle > 0);
             model.MensajeGestionCdrInhabilitada = MensajeGestionCdrInhabilitadaYChatEnLinea();
@@ -61,9 +61,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             CargarInformacion();
             model.ListaCampania = (List<CampaniaModel>)Session[Constantes.ConstSession.CDRCampanias];
-            /*EPD-1339*/
             if (model.ListaCampania.Count <= 1) return RedirectToAction("Index");
-            /*EPD-1339*/
 
             if (pedidoId != 0)
             {
@@ -78,13 +76,12 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
 
-            string urlPoliticaCdr = ConfigurationManager.AppSettings.Get("UrlPoliticasCDR") ?? "{0}";
+            string urlPoliticaCdr = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlPoliticasCDR) ?? "{0}";
             model.UrlPoliticaCdr = string.Format(urlPoliticaCdr, userData.CodigoISO);
             model.Email = userData.EMail;
             model.Telefono = userData.Celular;
             model.MontoMinimo = userData.MontoMinimo;
 
-            //EPD-1919
             model.TieneCDRExpress = userData.TieneCDRExpress;
             model.EsConsultoraNueva = userData.EsConsecutivoNueva;
             model.FleteDespacho = GetValorFleteExpress();
@@ -195,7 +192,6 @@ namespace Portal.Consultoras.Web.Controllers
                     var desc = ObtenerDescripcion(item.CDRTipoOperacion.CodigoOperacion, Constantes.TipoMensajeCDR.Solucion);
                     var add = new BECDRWebMotivoOperacion();
                     add.CDRTipoOperacion = new BECDRTipoOperacion();
-                    //add.Tipo = item.Tipo;
                     add.CodigoOperacion = item.CodigoOperacion;
                     add.CDRTipoOperacion.DescripcionOperacion = desc.Descripcion;
                     listaRetorno.Add(add);
@@ -233,7 +229,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             var listaPedidoFacturados = CargarPedidoCUV(model);
 
-            if (listaPedidoFacturados.Count() == 0)
+            if (!listaPedidoFacturados.Any())
                 return false;
 
             var pedido = listaPedidoFacturados.FirstOrDefault(p => p.PedidoID == model.PedidoID) ?? new BEPedidoWeb();
@@ -262,9 +258,6 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult BuscarCUV(MisReclamosModel model)
         {
             var listaPedidoFacturados = CargarPedidoCUV(model);
-
-            /*para prueba*/
-            //listaPedidoFacturados.AddRange(listaPedidoFacturados);
 
             return Json(new
             {
@@ -421,8 +414,6 @@ namespace Portal.Consultoras.Web.Controllers
             model = model ?? new MisReclamosModel();
             var desc = ObtenerDescripcion(model.EstadoSsic, Constantes.TipoMensajeCDR.Propuesta);
             model.DescripcionConfirma = desc.Descripcion;
-            //desc = ObtenerDescripcion(model.EstadoSsic2, Constantes.TipoMensajeCDR.Propuesta);
-            //model.DescripcionConfirma2 = desc.Descripcion;
             model.CUV = Util.SubStr(model.CUV, 0);
             model.CUV2 = Util.SubStr(model.CUV2, 0);
 
@@ -521,7 +512,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return false;
 
             var cdrWebs = CargarBECDRWeb(model);
-            if (cdrWebs.Count() != 1)
+            if (cdrWebs.Count != 1)
                 return rpta;
 
             var cdrWeb = cdrWebs[0];
@@ -595,11 +586,9 @@ namespace Portal.Consultoras.Web.Controllers
                     entidad.EsMovilOrigen = Convert.ToBoolean(model.EsMovilOrigen);
                     entidad.CDRWebDetalle = new BECDRWebDetalle[] { entidadDetalle };
 
-                    //EPD-1919 INICIO UNCOMMENTEDDICC
                     entidad.TipoDespacho = model.TipoDespacho;
                     entidad.FleteDespacho = userData.EsConsecutivoNueva ? 0 : model.FleteDespacho;
                     entidad.MensajeDespacho = model.MensajeDespacho;
-                    //EPD-1919 FIN
 
                     using (CDRServiceClient sv = new CDRServiceClient())
                     {
@@ -670,7 +659,7 @@ namespace Portal.Consultoras.Web.Controllers
                 detalle = lista,
                 cantobservado = lista.FindAll(x => x.Estado == Constantes.EstadoCDRWeb.Observado).Count(),
                 cantaprobado = lista.FindAll(x => x.Estado == Constantes.EstadoCDRWeb.Aceptado).Count(),
-                esCDRExpress = TieneDetalleCDRExpress(lista), //EPD-1919
+                esCDRExpress = TieneDetalleCDRExpress(lista), 
                 Simbolo = userData.Simbolo
             }, JsonRequestBehavior.AllowGet);
         }
@@ -736,7 +725,7 @@ namespace Portal.Consultoras.Web.Controllers
                         FleteDespacho = model.FleteDespacho,
                         MensajeDespacho = model.MensajeDespacho,
                         EsMovilFin = Convert.ToBoolean(model.EsMovilFin),
-                    }; //EPD-1919
+                    };
 
                     resultadoUpdate = sv.UpdEstadoCDRWeb(userData.PaisID, entidad);
                     sv.CreateLogCDRWebCulminadoFromCDRWeb(userData.PaisID, model.CDRWebID);
@@ -761,13 +750,12 @@ namespace Portal.Consultoras.Web.Controllers
                     string contenidoMailCulminado = CrearEmailReclamoCulminado(cDRWebMailConfirmacion);
                     Util.EnviarMail("no-responder@somosbelcorp.com", model.Email, "CDR: EN EVALUACIÓN", contenidoMailCulminado, true, userData.NombreConsultora);
 
-                    //Proceso de envio de correo en caso el email sea nuevo.
                     if (SiNoEmail == 1)
                     {
                         string[] parametros = new string[] { userData.CodigoUsuario, userData.PaisID.ToString(), userData.CodigoISO, model.Email };
                         string param_querystring = Util.EncriptarQueryString(parametros);
                         string cadena = "<br /><br /> Estimada consultora " + userData.NombreConsultora + " Para confirmar la dirección de correo electrónico ingresada haga click " +
-                                         "<br /> <a href='" + Util.GetUrlHost(HttpContext.Request) + "WebPages/MailConfirmation.aspx?data=" + param_querystring + "'>aquí</a><br/><br/>Belcorp";//2442
+                                         "<br /> <a href='" + Util.GetUrlHost(HttpContext.Request) + "WebPages/MailConfirmation.aspx?data=" + param_querystring + "'>aquí</a><br/><br/>Belcorp";
                         Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", model.Email, "(" + userData.CodigoISO + ") Confimacion de Correo", cadena, true, userData.NombreConsultora);
 
                         return Json(new
@@ -972,7 +960,6 @@ namespace Portal.Consultoras.Web.Controllers
                 lista = DropDowListCampanias(PaisId),
                 listaRegiones = DropDownListRegiones(PaisId),
                 listaZonas = DropDownListZonas(PaisId),
-                //TiposConsultora = DropDownListEstadoActividad(PaisId),
                 PaisID = PaisId,
                 CampaniaID = CampaniaIDActual
             };
@@ -991,8 +978,7 @@ namespace Portal.Consultoras.Web.Controllers
                 entidad.ZonaID = ZonaID.Equals(string.Empty) ? 0 : int.Parse(ZonaID);
                 entidad.ConsultoraCodigo = CodigoConsultora;
                 entidad.Estado = Estado.Equals(string.Empty) ? 0 : int.Parse(Estado);
-                entidad.TipoConsultora = TipoConsultora;//EPD-2582
-
+                entidad.TipoConsultora = TipoConsultora;
 
                 List<BECDRWebDetalleReporte> lst;
 
@@ -1008,13 +994,11 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = new List<BECDRWebDetalleReporte>();
                 }
 
-                // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                //int buscar = int.Parse(txtBuscar);
                 BEPager pag = new BEPager();
                 IEnumerable<BECDRWebDetalleReporte> items = lst;
 
@@ -1083,7 +1067,6 @@ namespace Portal.Consultoras.Web.Controllers
                         case "OrigenCDRWeb":
                             items = lst.OrderBy(x => x.OrigenCDRWeb);
                             break;
-                        //EPD 2582 INICIO
                         case "TipoConsultora":
                             items = lst.OrderBy(x => x.TipoConsultora);
                             break;
@@ -1093,7 +1076,6 @@ namespace Portal.Consultoras.Web.Controllers
                         case "FleteDespacho":
                             items = lst.OrderBy(x => x.FleteDespacho);
                             break;
-                        //EPD 2582 FIN
                         case "MotivoRechazo":
                             items = lst.OrderBy(x => x.MotivoRechazo);
                             break;
@@ -1163,7 +1145,6 @@ namespace Portal.Consultoras.Web.Controllers
                         case "MotivoRechazo":
                             items = lst.OrderByDescending(x => x.MotivoRechazo);
                             break;
-                        //EPD-2582 INICIO
                         case "TipoConsultora":
                             items = lst.OrderByDescending(x => x.TipoConsultora);
                             break;
@@ -1173,7 +1154,6 @@ namespace Portal.Consultoras.Web.Controllers
                         case "FleteDespacho":
                             items = lst.OrderByDescending(x => x.FleteDespacho);
                             break;
-                        //EPD-2582 FIN
                         case "OrigenCDRWeb":
                             items = lst.OrderBy(x => x.OrigenCDRWeb);
                             break;
@@ -1182,7 +1162,6 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion
                 items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
                 pag = Util.PaginadorGenerico(grid, lst);
-                // Creamos la estructura
 
                 var data = new
                 {
@@ -1216,14 +1195,10 @@ namespace Portal.Consultoras.Web.Controllers
                                    (a.Reclamo??string.Empty).ToString(),
                                    (a.EstadoDetalle??string.Empty).ToString(),
                                    (a.MotivoRechazo??string.Empty).ToString(),                                   
-                                   //EPD-2582 INICIO
                                    (a.TipoConsultora ?? string.Empty).ToString(),
                                    (a.TipoDespacho??string.Empty).ToString(),
                                    a.FleteDespacho.ToString(),
-                                   //EPD-2582 FIN
                                    (a.OrigenCDRWeb??string.Empty).ToString()
-                                   //Convert.ToDateTime(a.FechaFinDD.ToString()).ToShortDateString(),
-                                   //a.ZonaID.ToString()
                                 }
                            }
                 };
@@ -1240,7 +1215,7 @@ namespace Portal.Consultoras.Web.Controllers
             entidad.ZonaID = ZonaID.Equals(string.Empty) ? 0 : int.Parse(ZonaID);
             entidad.ConsultoraCodigo = CodigoConsultora;
             entidad.Estado = Estado.Equals(string.Empty) ? 0 : int.Parse(Estado);
-            entidad.TipoConsultora = TipoConsultora;//EPD-2582
+            entidad.TipoConsultora = TipoConsultora;
 
             IList<BECDRWebDetalleReporte> lst;
             using (CDRServiceClient sv = new CDRServiceClient())
@@ -1270,11 +1245,9 @@ namespace Portal.Consultoras.Web.Controllers
             dic.Add("Motivo", "Reclamo");
             dic.Add("Estado", "EstadoDetalle");
             dic.Add("Motivo Rechazo", "MotivoRechazo");
-            //EPD-2598 INICIo
             dic.Add("Segmento Consultora", "TipoConsultora");
             dic.Add("Indicador Despacho", "TipoDespacho");
             dic.Add("Flete CDR", "FleteDespacho");
-            //EPD-2598 FIn
             dic.Add("Origen CDR Web", "OrigenCDRWeb");
             Util.ExportToExcel<BECDRWebDetalleReporte>("ReporteCDRWebDetalleExcel", lst.ToList(), dic);
             return View();
@@ -1385,7 +1358,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ObtenterCampaniasPorPais(int PaisID)
         {
-            //PaisID = 11;
             IEnumerable<CampaniaModel> lst = DropDowListCampanias(PaisID);
             IEnumerable<ZonaModel> lstZonas = DropDownListZonas(PaisID);
             IEnumerable<RegionModel> lstRegiones = DropDownListRegiones(PaisID);
@@ -1410,15 +1382,10 @@ namespace Portal.Consultoras.Web.Controllers
                     lst.Add(sv.SelectPais(UserData().PaisID));
                 }
             }
-            Mapper.CreateMap<BEPais, PaisModel>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
         
-        //EDP-1919 INICIO
         private List<BETablaLogicaDatos> GetListMensajeCDRExpress()
         {
             if (Session[Constantes.ConstSession.CDRExpressMensajes] != null)
@@ -1474,6 +1441,5 @@ namespace Portal.Consultoras.Web.Controllers
             var textoFlete = GetMensajeCDRExpress(Constantes.MensajesCDRExpress.ExpressFlete);
             return string.Format(textoFlete, userData.Simbolo, Util.DecimalToStringFormat(flete, userData.CodigoISO));
         }
-        //EDP-1919 FIN
     }
 }

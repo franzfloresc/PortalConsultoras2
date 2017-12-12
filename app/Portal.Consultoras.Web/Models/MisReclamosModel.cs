@@ -36,16 +36,13 @@ namespace Portal.Consultoras.Web.Models
 
         public decimal MontoMinimo { get; set; }        
 
-        /*EPD-1339*/
         public int TieneHistoricoCDR { get; set; }
-        /*EPD-1339*/
         public string UrlPoliticaCdr { get; set; }
         public string MensajeGestionCdrInhabilitada { get; set; }
 
         public int limiteMinimoTelef { get; set; }
         public int limiteMaximoTelef { get; set; }
 
-        //EPD-1919 INICIO
         public bool TieneCDRExpress { get; set; }
         public bool EsConsultoraNueva { get; set; }
         public bool? TipoDespacho { get; set; }
@@ -54,6 +51,5 @@ namespace Portal.Consultoras.Web.Models
         public bool EsMovilOrigen { get; set; }
         public bool EsMovilFin { get; set; }
         public MensajesCDRExpressModel MensajesExpress { get; set; }
-        //EPD-1919 FIN
     }
 }

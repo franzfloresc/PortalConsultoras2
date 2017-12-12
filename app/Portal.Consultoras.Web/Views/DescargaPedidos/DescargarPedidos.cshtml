@@ -6,7 +6,6 @@
     jQuery(function () {
         IniFecha();
         fnGrilla();
-        //obtenerUltimaDescargaExitosa();
         $("#btnDescargar").click(function () {
             RealizarDescarga();
         });
@@ -69,7 +68,7 @@
                 FlagPedidos: $("#chkMarcarPedidos").is("checked")
             };
 
-            if (jQuery.trim($("#cboTipoCronograma").val()) != "4" && jQuery.trim($("#cboTipoCronograma").val()) != "5" && jQuery.trim($("#cboTipoCronograma").val()) != "6") {//R2382
+            if (jQuery.trim($("#cboTipoCronograma").val()) != "4" && jQuery.trim($("#cboTipoCronograma").val()) != "5" && jQuery.trim($("#cboTipoCronograma").val()) != "6") {
                 $.ajax({
                     type: 'POST',
                     url: baseUrl + 'DescargaPedidos/RealizarDescarga',
