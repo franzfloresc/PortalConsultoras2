@@ -1,7 +1,7 @@
 ﻿var uploaderCupon = null;
 var uploaderPremio = null;
 
-$("#btnCancelar").click(function (e) {
+$("#btnCancelar, #btnGuardar").click(function (e) {
     e.preventDefault();
     $("#divConfigBanner").html("");
     HideDialog("divConfigBanner");
