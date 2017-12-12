@@ -204,7 +204,7 @@ function fnDialog() {
         resizable: false,
         modal: true,
         closeOnEscape: true,
-        width: 500,
+        width: 700,
         draggable: false,
         title: "CONFIGURACIÓN BANNERS <b>PROGRAMA DE NUEVAS</b>",
         open: function (event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).hide(); },
