@@ -4,19 +4,8 @@ $(document).ready(function () {
     $("[data-campania2]").html(campaniaNro + 2);
 });
 
-function RDPopupCerrar(tipo) {
+function RDPopupCerrar() {
     AbrirLoad();
-    if (tipo == 1) {
-        rdAnalyticsModule.CerrarPopUp('Banner Inscripción Exitosa');
-        location.href = location.href;
-        return false;
-    }
-    if (tipo == 2) {
-        rdAnalyticsModule.CerrarPopUp('Banner Inscripción Exitosa');
-        CerrarPopup("#PopRDSuscripcion");
-        CerrarLoad();
-        return true;
-    }
 
     rdAnalyticsModule.CerrarPopUp('Banner Inscribirme a Ésika para mí');
     
@@ -27,16 +16,14 @@ function RDPopupCerrar(tipo) {
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
             CerrarLoad();
-            CerrarPopup("#PopRDSuscripcion");
         },
         error: function (data, error) {
             CerrarLoad();
-            CerrarPopup("#PopRDSuscripcion");
         }
     });
 }
 
-function RDSuscripcion(accion) {
+function RDSuscripcion() {
    
     AbrirLoad();
     rdAnalyticsModule.Inscripcion();
@@ -51,45 +38,20 @@ function RDSuscripcion(accion) {
                 return false;
 
             if (data.success != true) {
-                CerrarPopup("#PopRDSuscripcion");
-                CerrarPopup("#divMensajeBloqueada");
                 AbrirMensaje(data.message);
                 return false;
             }
 
-            accion = accion || 0;
-            if (accion == 2) {
-                $("[data-estadoregistro]").attr("data-estadoregistro", "1");
-                $("[data-estadoregistro0]").hide();
-                $("[data-estadoregistro2]").hide();
-                $("[data-estadoregistro1]").show();
-                rdAnalyticsModule.SuscripcionExistosa();
-                return true;
-            }
-
-            $("#PopRDInscrita [data-usuario]").html($.trim(usuarioNombre).toUpperCase());
-
-            if (accion == 0) {
-                
-                MostrarMenu(data.CodigoMenu);
-                if (!isMobile()) {
-                    CargarBanners();
-                }
-            }
-            else if (accion == 1) {
-                CerrarPopup("#divMensajeBloqueada");
-            }
-            AbrirPopupFade("#PopRDInscrita");
-            rdAnalyticsModule.suscripcionExitosa();
+            rdAnalyticsModule.SuscripcionExistosa();
+            window.location.href = (isMobile() ? "/Mobile" : "") + "/Ofertas";
         },
         error: function (data, error) {
             CerrarLoad();
-            
         }
     });
 }
 
-function RDDesuscripcion(accion) {
+function RDDesuscripcion() {
     AbrirLoad();
     rdAnalyticsModule.CancelarSuscripcion();
     $.ajax({
@@ -107,18 +69,10 @@ function RDDesuscripcion(accion) {
                 return false;
             }
 
-            accion = accion || 0;
-            if (accion == 2) {
-                $("[data-estadoregistro]").attr("data-estadoregistro", "2");
-                $("[data-estadoregistro0]").show();
-                $("#divCambiosEstadoRegistro [data-estadoregistro0]").hide();
-                $("[data-estadoregistro1]").hide();
-                $("[data-estadoregistro2]").show();
-            }
+            window.location.href = (isMobile() ? "/Mobile" : "") + "/Ofertas";
         },
         error: function (data, error) {
             CerrarLoad();
-            CerrarPopup("#PopRDSuscripcion");
         }
     });
 }
@@ -141,16 +95,12 @@ function RDPopupNoVolverMostrar() {
     });
 }
 
-function RDInformacion() {
-    location.href = urlInformacionSuscripcion;
-}
-
 function RDRedireccionarInformacion(seccion) {
     seccion = seccion || 0;
     rdAnalyticsModule.IrCancelarSuscripcion();
     var url = (isMobile() ? "/Mobile" : "") + "/RevistaDigital/Informacion";
 
-    if (seccion == 1) url += "#divCambiosEstadoRegistro";
+    if (seccion == 2) url += "?tipo=" + seccion;
     
     var urlLocal = $.trim(window.location).toLowerCase() + "/";
     window.location = url;
@@ -177,14 +127,10 @@ function MostrarTerminos() {
     }
 }
 
-function RedirectToLandingRD(origenWeb) {
-    // Save analytics before redirect 
-    rdAnalyticsModule.Access(origenWeb);
-    window.location = urlRevistaDigital;
-}
-
 function RedireccionarContenedorComprar(origenWeb, codigo) {
-    rdAnalyticsModule.Access(origenWeb);
+    if ($.trim(origenWeb) != "")
+        rdAnalyticsModule.Access(origenWeb);
+    
     codigo = $.trim(codigo);
     window.location = (isMobile() ? "/Mobile" : "") + "/Ofertas" + (codigo != "" ? "#" + codigo : "");
 }

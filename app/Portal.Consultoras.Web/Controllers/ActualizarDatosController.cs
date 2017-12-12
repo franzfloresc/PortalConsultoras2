@@ -106,7 +106,7 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 var param_querystring = Util.EncriptarQueryString(new string[] { userData.CodigoUsuario, userData.PaisID.ToString(), userData.CodigoISO, model.Email });
 
-                                bool tipopais = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(userData.CodigoISO);
+                                bool tipopais = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesEsika).Contains(userData.CodigoISO);
                                 string nomconsultora = string.Empty;
 
                                 if (String.IsNullOrEmpty(userData.Sobrenombre))

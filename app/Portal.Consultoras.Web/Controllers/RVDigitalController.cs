@@ -128,7 +128,7 @@ namespace Portal.Consultoras.Web.Controllers
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 string output = serializer.Serialize(complain);
 
-                string strUri = ConfigurationManager.AppSettings["WS_RV_Campanias"];
+                string strUri = GetConfiguracionManager(Constantes.ConfiguracionManager.WS_RV_Campanias);
                 Uri uri = new Uri(strUri);
                 WebRequest request = WebRequest.Create(uri);
                 request.Method = "POST";
@@ -267,7 +267,7 @@ namespace Portal.Consultoras.Web.Controllers
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 string output = serializer.Serialize(complain);
 
-                string strUri = ConfigurationManager.AppSettings["WS_RV_PDF"];
+                string strUri = GetConfiguracionManager(Constantes.ConfiguracionManager.WS_RV_PDF);
                 Uri uri = new Uri(strUri);
                 WebRequest request = WebRequest.Create(uri);
                 request.Method = "POST";

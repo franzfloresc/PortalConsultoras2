@@ -707,6 +707,12 @@
   <wsdl:message name="IPedidoService_RDGetSuscripcion_OutputMessage">
     <wsdl:part name="parameters" element="tns:RDGetSuscripcionResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_RDGetSuscripcionActiva_InputMessage">
+    <wsdl:part name="parameters" element="tns:RDGetSuscripcionActiva" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_RDGetSuscripcionActiva_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RDGetSuscripcionActivaResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_InsertarDesglose_InputMessage">
     <wsdl:part name="parameters" element="tns:InsertarDesglose" />
   </wsdl:message>
@@ -2717,6 +2723,10 @@
     <wsdl:operation name="RDGetSuscripcion">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/RDGetSuscripcion" message="tns:IPedidoService_RDGetSuscripcion_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/RDGetSuscripcionResponse" message="tns:IPedidoService_RDGetSuscripcion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RDGetSuscripcionActiva">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/RDGetSuscripcionActiva" message="tns:IPedidoService_RDGetSuscripcionActiva_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/RDGetSuscripcionActivaResponse" message="tns:IPedidoService_RDGetSuscripcionActiva_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="InsertarDesglose">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertarDesglose" message="tns:IPedidoService_InsertarDesglose_InputMessage" />
@@ -4757,6 +4767,15 @@
     </wsdl:operation>
     <wsdl:operation name="RDGetSuscripcion">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/RDGetSuscripcion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RDGetSuscripcionActiva">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/RDGetSuscripcionActiva" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -8109,6 +8128,15 @@
     </wsdl:operation>
     <wsdl:operation name="RDGetSuscripcion">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/RDGetSuscripcion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RDGetSuscripcionActiva">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/RDGetSuscripcionActiva" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
