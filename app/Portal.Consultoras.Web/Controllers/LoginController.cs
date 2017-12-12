@@ -637,10 +637,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             FormsAuthentication.SignOut();
 
-            var urlSignOut = "/Login";
-
-            if (tipoUsuario == Constantes.TipoUsuario.Admin)
-                urlSignOut = "/Login/Admin";
+            var urlSignOut = tipoUsuario == Constantes.TipoUsuario.Admin ? "/Login/Admin" : "/Login";
 
             return Redirect(urlSignOut);
         }
@@ -661,7 +658,7 @@ namespace Portal.Consultoras.Web.Controllers
             sessionManager.SetIsOfertaPack(1);
 
             var usuarioModel = (UsuarioModel)null;
-            var usuario = (ServiceUsuario.BEUsuario)null;
+            ServiceUsuario.BEUsuario usuario = null;
             var valores = "";
             string[] arrValores;
 
@@ -1725,11 +1722,11 @@ namespace Portal.Consultoras.Web.Controllers
                 oddModel.TipoEstrategiaImagenMostrar = oferta.TipoEstrategiaImagenMostrar;
                 oddModel.TeQuedan = countdown;
                 oddModel.ImagenFondo1 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgFondo1ODD"), model.CodigoISO);
-                oddModel.ColorFondo1 = personalizacionesOfertaDelDia.Where(x => x.TablaLogicaDatosID == 9301).First().Codigo ?? string.Empty;
+                oddModel.ColorFondo1 = personalizacionesOfertaDelDia.FirstOrDefault(x => x.TablaLogicaDatosID == 9301).Codigo ?? string.Empty;
                 oddModel.ImagenBanner = oferta.FotoProducto01;
                 oddModel.ImagenSoloHoy = ObtenerUrlImagenOfertaDelDia(model.CodigoISO, ofertasDelDia.Count);
                 oddModel.ImagenFondo2 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgFondo2ODD"), model.CodigoISO);
-                oddModel.ColorFondo2 = personalizacionesOfertaDelDia.Where(x => x.TablaLogicaDatosID == 9302).First().Codigo ?? string.Empty;
+                oddModel.ColorFondo2 = personalizacionesOfertaDelDia.FirstOrDefault(x => x.TablaLogicaDatosID == 9302).Codigo ?? string.Empty;
                 oddModel.ImagenDisplay = oferta.FotoProducto01;
                 oddModel.ID = contOdd++;
                 oddModel.NombreOferta = ObtenerNombreOfertaDelDia(oferta.DescripcionCUV2);
@@ -1792,7 +1789,8 @@ namespace Portal.Consultoras.Web.Controllers
             if (!string.IsNullOrWhiteSpace(descripcionCUV2))
             {
 
-                var temp = descripcionCUV2.Split('|').ToList().Skip(1).ToList();
+                var temp = descripcionCUV2.Split('|').ToList();
+                temp = temp.Skip(1).ToList();
 
                 foreach (var item in temp)
                 {
@@ -1859,13 +1857,16 @@ namespace Portal.Consultoras.Web.Controllers
         private int SessionExists(int res)
         {
             var sessionCookie = HttpContext.Request.Headers["Cookie"];
-            if ((sessionCookie != null) && (sessionCookie.IndexOf("ASP.NET_SessionId") >= 0))
+            if (!((sessionCookie != null) && (sessionCookie.IndexOf("ASP.NET_SessionId") >= 0)))
             {
-                if (sessionManager.GetUserData() != null)
-                {
-                    res = 1;
-                }
+                return res;
             }
+
+            if (sessionManager.GetUserData() != null)
+            {
+                res = 1;
+            }
+            
             return res;
         }
 
@@ -1983,27 +1984,21 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult checkExternalUser(string codigoISO, string proveedor, string appid)
         {
             pasoLog = "Login.POST.checkExternalUser";
-            BEUsuarioExterno beUsuarioExt = null;
-            var f = false;
-
             try
             {
-                f = false;
-                beUsuarioExt = new BEUsuarioExterno();
+                BEUsuarioExterno beUsuarioExt;
 
                 using (var svc = new UsuarioServiceClient())
                 {
                     beUsuarioExt = svc.GetUsuarioExternoByProveedorAndIdApp(proveedor, appid, null);
-                    if (beUsuarioExt != null)
-                    {
-                        f = true;
-                    }
                 }
+
+                pasoLog = "Login.POST.checkExternalUser => UsuarioServiceClient.GetUsuarioExternoByProveedorAndIdApp";
 
                 return Json(new
                 {
                     success = true,
-                    exists = f,
+                    exists = beUsuarioExt != null,
                 });
             }
             catch (FaultException ex)

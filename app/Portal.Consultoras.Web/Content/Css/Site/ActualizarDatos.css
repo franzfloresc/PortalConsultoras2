@@ -4,26 +4,23 @@
     padding: 0px 0px 10px 25px;
     max-height: 600px;
     overflow: auto;
-    /*border: 1px solid #D0D0D0;*/
-    -webkit-border-radius: 10px; /* Para Safari y Chrome */
-    -moz-border-radius: 10px; /* Para Firefox */
-    -khtml-border-radius: 10px; /* Navegadores de Linux */
-    border-radius: 0px; /* CSS3 */
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    border-radius: 0px;
     behavior: url(../../../../Content/Css/Pie/PIE.htc); /* Para IE */
     position: relative;
 }
 
-/*GR-1209*/
 .Content_Comunicado {
     background: #FFF;
     padding: 0px 0px 10px 25px;
     max-height: 900px;
     overflow: auto;
-    /*border: 1px solid #D0D0D0;*/
-    -webkit-border-radius: 10px; /* Para Safari y Chrome */
-    -moz-border-radius: 10px; /* Para Firefox */
-    -khtml-border-radius: 10px; /* Navegadores de Linux */
-    border-radius: 0px; /* CSS3 */
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    border-radius: 0px;
     behavior: url(../../../../Content/Css/Pie/PIE.htc); /* Para IE */
     position: relative;
 }
@@ -75,21 +72,17 @@
 
     .Content_Actualizar .div-3 .TextBox {
         float: left;
-        /*width: 248px;
-    height: auto;*/
-        /*padding: 9px;*/
         background: #fff;
         color: #702789;
         margin-right: auto;
-        /*border: 1px solid #cfcfcf;*/
         position: relative;
     }
 
 .borde {
-    -webkit-border-radius: 10px; /* Para Safari y Chrome */
-    -moz-border-radius: 10px; /* Para Firefox */
-    -khtml-border-radius: 10px; /* Navegadores de Linux */
-    border-radius: 0px; /* CSS3 */
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    border-radius: 0px;
     behavior: url(../../../../Content/Css/Pie/PIE.htc); /* Para IE */
     position: relative;
 }

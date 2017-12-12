@@ -15,7 +15,6 @@
     max-width: 1189px !important;
     position: relative !important;
     z-index: 6 !important;
-    /*margin-top: 83px!important;*/
 }
 
     .ubicacion_web span {
@@ -214,9 +213,6 @@
 .btn_animado {
     display: none;
     position: absolute;
-    /*width: 70px;
-    height: 30px;
-    background: red;*/
     z-index: 1000;
     text-align: center;
 }
