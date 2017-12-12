@@ -149,8 +149,8 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.TieneDetalle = (entidadCliente.DetalleSolicitud != null) ? entidadCliente.DetalleSolicitud.ToList().Count : 0;
 
             string tipoDistribucion = String.Format("_{0}", modelSolicitudCliente.TipoDistribucion >= 1 ? modelSolicitudCliente.TipoDistribucion : 1);
-            string desConfig = "DES_UBIGEO_" + UserData().CodigoISO.ToString() + tipoDistribucion;
-            string descripcionUnidad = ConfigurationManager.AppSettings.Get(desConfig) ?? string.Empty;
+            string desConfig = Constantes.ConfiguracionManager.DES_UBIGEO + UserData().CodigoISO.ToString() + tipoDistribucion;
+            string descripcionUnidad = GetConfiguracionManager(desConfig);
             string[] arrayUnidades = descripcionUnidad.Split(',');
             ViewBag.UnidadGeografica1 = arrayUnidades[0].ToString() + ":";
             ViewBag.UnidadGeografica2 = arrayUnidades[1].ToString() + ":";
@@ -445,8 +445,8 @@ namespace Portal.Consultoras.Web.Controllers
 
 
             string tipoDistribucion = String.Format("_{0}", entidadSolicitud.TipoDistribucion >= 1 ? entidadSolicitud.TipoDistribucion : 1);
-            string desConfig = "DES_UBIGEO_" + UserData().CodigoISO.ToString() + tipoDistribucion;
-            string descripcionUnidad = ConfigurationManager.AppSettings.Get(desConfig) ?? string.Empty;
+            string desConfig = Constantes.ConfiguracionManager.DES_UBIGEO + UserData().CodigoISO.ToString() + tipoDistribucion;
+            string descripcionUnidad = GetConfiguracionManager(desConfig);
             string[] arrayUnidades = descripcionUnidad.Split(',');
 
             if (arrayUnidades[0] != "")

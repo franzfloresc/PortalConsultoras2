@@ -10,7 +10,7 @@
 
 <link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet" />
 
-<!--SB20-565 - INICIO -->
+
 <input type="hidden" id="hdEsFacturacion" value="@Model.EsFacturacion.ToString()" />
 <input type="hidden" id="hdOfertaFinal" value="@Model.OfertaFinal" />
 <input type="hidden" id="hdEsOfertaFinalZonaValida" value="@Model.EsOfertaFinalZonaValida.ToString()" />
@@ -20,7 +20,7 @@
 <input type="hidden" id="hdEsConsultoraNueva" value="@Model.EsConsultoraNueva.ToString()" />
 <input type="hidden" id="hdListaEscala" value="@Newtonsoft.Json.JsonConvert.SerializeObject(Model.DataBarra.ListaEscalaDescuento)" />
 <input type="hidden" id="hdMontoMinimo" value="@Model.MontoMinimo" />
-<!--SB20-565 - FIN -->
+
 <div class="contenedor_producto">
     <div class="content_320 ingresoPedidom">
         <input id="hdAccionBotonProl" type="hidden" value="@ViewBag.AccionBoton" />
@@ -169,7 +169,7 @@
 <input id="hdfModificaPedido" type="hidden" value="0" />
 <input type="hidden" id="hdfTotal" value="@Model.Total" />
 <input id="hdSimbolo" type="hidden" value="@Model.Simbolo" />
-<!--SB20-483 - INICIO -->
+
 <!-- POPUP MIS GANANCIAS -->
 
 <div class="contenedor_fondo_popup" id="popupGanancias" style="display:none;">
@@ -202,7 +202,6 @@
 </div>
 
 <!-- FIN POPUP MIS GANANCIAS -->
-<!--SB20-483 - FIN -->
 
 <script id="template-Detalle" type="text/x-handlebars-template">
     <div class="textos_resumen">
@@ -221,21 +220,21 @@
                         Model.CodigoISO == Constantes.CodigosISOPais.Guatemala ||
                         Model.CodigoISO == Constantes.CodigosISOPais.Salvador ||
                         Model.CodigoISO == Constantes.CodigosISOPais.Dominicana ||
-                        Model.CodigoISO == Constantes.CodigosISOPais.PuertoRico)    //PE,CO,EC,GT.SV,PR,DO
+                        Model.CodigoISO == Constantes.CodigosISOPais.PuertoRico)
             {
                 cabezaEscala = "Ganancia estimada total";
                 pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
                 lbl1Ganancia = "Mis descuentos";
                 lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
             }
-            else if (Model.CodigoISO == Constantes.CodigosISOPais.Mexico || Model.CodigoISO == Constantes.CodigosISOPais.Panama)// MX,PA
+            else if (Model.CodigoISO == Constantes.CodigosISOPais.Mexico || Model.CodigoISO == Constantes.CodigosISOPais.Panama)
             {
                 cabezaEscala = "Ganancia estimada total";
                 pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
                 lbl1Ganancia = "Mis descuentos";
                 lbl2Ganancia = "Ganancia estimada *(Revista y otros)";
             }
-            else if (Model.CodigoISO == Constantes.CodigosISOPais.Chile)// CH
+            else if (Model.CodigoISO == Constantes.CodigosISOPais.Chile)
             {
                 cabezaEscala = "Comisión y ahorro total";
                 pieEscala = "*Comisión = Ganancia estimada proveniente de tus descuentos por compras en catálogo; <br>Ahorro = Ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
@@ -285,7 +284,6 @@
 
     {{#IsNullOrEmpty this.MensajeCierreCampania '!='}}
     <div class="alert-top-icon text-success">
-        @*<i class="icon-exclamation-circle"></i> <div id="divMensajeCierreCampania">{{MensajeCierreCampania}}</div>*@
     </div>
     {{/IsNullOrEmpty}}
     <div id="divContenidoDetalle">
@@ -529,8 +527,6 @@
 </script>
 
 
-<!--SB20-565 - INICIO -->
-
 <script id="ofertaFinal-template" type="text/x-handlebars-template">
     <div  data-popup-body="">
         <div class="popup_ofertaFinal fondo_gris_popup" data-meta="{{TipoMeta}}" data-meta-total="{{TotalPedido}}">
@@ -717,8 +713,7 @@
     </div>
     
 </script>
-<!--SB20-565 - FIN -->
-<!-- PL20 1287 - INICIO -->
+
 <script id="ofertaFinalVerDetalle-template" type="text/x-handlebars-template">
         <div class="content_popMobile" data-item="{{ID}}" style="padding-bottom:0;">
         <a class="btn_cerrar_escala" href="javascript:;" onclick="javascript: $('#contenedor_popup_ofertaFinalVerDetalle').hide();">REGRESAR</a>
@@ -791,7 +786,6 @@
         </div>
     </div>
 </script>
-<!-- PL20 1287 - FIN -->
 
 @Html.Partial("~/Views/Shared/Cupon/popupCuponGanaMobile.cshtml")
 @Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmarMobile.cshtml")
