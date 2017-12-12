@@ -302,7 +302,6 @@
 
 .background-revistaSeccion {
     display: block;
-    /*width: 415px;*/
     width: 100%;
     height: 100vh;
     bottom: 0px;
@@ -449,8 +448,6 @@
 }
 
 .popup_revistaSuscripcion_noAMostrarMensaje {
-    /*display: block;*/
-    /*width: 213px;*/
     margin-top: 7px;
     font-family: 'Lato';
     color: #FFF;
@@ -651,9 +648,6 @@
 }
 
 .etiqueta_nuevo_ept {
-    /*position: absolute;
-    left: 30px;
-    top: 29px;*/
     text-align: left;
     z-index: 30;
 }
@@ -674,7 +668,6 @@
     display: block;
     position: absolute;
     z-index: 100;
-    /*left: -14%;*/
     top: 34%;
     overflow: hidden;
     border: none !important;
@@ -687,14 +680,11 @@
 .previous_ofertas_ept {
     display: block;
     position: absolute;
-    /* padding-left: 22px; */
     width: 19px;
     margin: 0 auto;
     right: 0;
     left: 0;
     top: 45px;
-    /* left: 0; */
-    /* margin-left: -7%; */
 }
 
 .BloqueLandingRD {
@@ -703,13 +693,11 @@
 }
 
     .BloqueLandingRD .cantidad_productos_fav {
-        /*padding-bottom: 20px;*/
         float: none;
         text-align: right;
     }
 
     .BloqueLandingRD .rd-cantidad {
-        /* display: inline-block;*/
     }
 
     .BloqueLandingRD .rd-filtro-limpiar {
@@ -722,7 +710,6 @@
         top: 61px;
         width: 100%;
         background: #000;
-        /*margin: 0 -80px;*/
         left: 0;
         padding: 0px 80px;
         z-index: 100;
@@ -773,7 +760,6 @@
         }
 
 .titulo_pagina {
-    /*float:left;*/
     display: block;
     height: 40px;
     color: white;
@@ -839,14 +825,9 @@
         margin-left: 0;
         width: 100%;
         min-width: 230px;
-        /*padding-top: 10px;*/
         padding-right: 10px;
         padding-left: 10px;
     }
-
-/*.revistadigital-landing:nth-child(3n){    
-    margin-right: 0;
-}*/
 
 .ProductoResaltante {
     width: 35%;
@@ -957,7 +938,6 @@
 
 .cabecera_esikaParaMi {
     background: #000;
-    /*margin-top: 62px;*/
     height: 165px;
     padding: 40px 10px;
     z-index: 3;
@@ -1357,7 +1337,6 @@
     background-position: center top !important;
     padding-top: 40px;
     min-height: 370px;
-    /*background-size: cover !important;*/
 }
 
     .revista_ficha .rd_volver {
@@ -1365,7 +1344,6 @@
         letter-spacing: 0.5px;
         position: absolute;
         top: -20px;
-        /*left: 20px;*/
         transition: all 0.2s ease-in-out;
         padding-left: 0;
     }
@@ -1875,7 +1853,6 @@
 .content_revista_izquierda {
     width: 300px;
     height: auto;
-    /* position: absolute; */
     left: 0;
     margin-top: -40px;
     float: left;
@@ -1891,15 +1868,11 @@
     padding-top: 40px;
     position: relative;
     z-index: 106;
-    /* top: -30px; */
 }
 
 .content_revista_derecha {
-    /*position: absolute; */
     right: 0;
     width: 465px;
-    /* height: 576px; 
-    margin-top: -95px;*/
     z-index: 105;
     float: right;
 }
@@ -1957,7 +1930,6 @@
     min-height: 200px;
     margin-top: -24px;
     position: relative;
-    /*padding-top: 70px;*/
     padding-bottom: 80px;
 }
 
@@ -2343,8 +2315,6 @@
 
 .content_item_home_bpt {
     background: white;
-    /*border: 1px solid #e7e1e1;*/
-    /*border: 1px #000000 solid;*/
     -webkit-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
     -moz-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
     box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
@@ -2355,7 +2325,6 @@
 .banner_pedido_rd {
     font-family: 'Lato';
     float: right;
-    /*width: 28.1%;*/
     position: relative;
     background-color: #F6F6F6;
     height: auto;
@@ -2459,13 +2428,6 @@
         height: 15px;
     }
 
-
-/*@media screen and (max-width: 1092px) {
-    .banner_pedido_rd {
-        width: 30.9% !important;
-    }
-}*/
-
 .home_rd1 {
     background-color: #FFF;
 }
@@ -2529,7 +2491,6 @@
 }
 
     .home_rd .content_belcorp {
-        /*box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.2);*/
     }
 
     .home_rd .btn_diagonal {
@@ -2723,7 +2684,6 @@
             letter-spacing: 0.75pt;
             text-align: center;
             padding: 0px 50px;
-            /* margin: 20px; */
             margin-bottom: 5px;
         }
 
@@ -2750,7 +2710,6 @@
             font-size: 10px;
             text-decoration: none;
             color: black;
-            /* border-bottom: 2px solid white; */
             letter-spacing: 0.75pt;
             text-align: center;
             display: block;
@@ -2791,14 +2750,10 @@
 
         .bc_productos .bc_productos_contenido .grid-item {
             display: inline-block;
-            /*padding-left: 20px;*/
-            /* margin: 0 0 1.5em; */
             width: auto;
             box-sizing: border-box;
             -moz-box-sizing: border-box;
             -webkit-box-sizing: border-box;
-            /*min-width: 300px;*/
-            /* margin-right: 20px; */
             margin-bottom: 20px;
             text-align: center;
         }
@@ -2809,7 +2764,6 @@
             font-size: 10px;
             text-decoration: none;
             color: black;
-            /* border-bottom: 2px solid white; */
             letter-spacing: 0.75pt;
             text-align: center;
             display: block;
@@ -2875,7 +2829,6 @@
     width: 100%;
     padding-left: 16px;
     padding-right: 16px;
-    /*margin-bottom: 10px;*/
     height: auto;
     font-family: 'Lato';
     letter-spacing: 0.2px;
@@ -2888,7 +2841,6 @@
         padding: 0px;
         font-size: 11px;
         color: #000;
-        /*margin-top:8px;*/
         margin-bottom: 2px;
         text-transform: uppercase;
     }
@@ -3192,7 +3144,6 @@
     }
 
 .suscribete {
-    /*padding:30px 0px;*/
 }
 
     .suscribete a.suscribete-btn {

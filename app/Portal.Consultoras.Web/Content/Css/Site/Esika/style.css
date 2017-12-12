@@ -80,9 +80,6 @@ header {
         height: 32px;
         border-radius: 50%;
     }
-/*   .logo_esika img {
-        width: 100%;
-    }*/
 .menu_new_esika {
     float: left;
     width: 62%;
@@ -93,15 +90,12 @@ header {
     height: 60px;
     float: right;
     max-width: 28%;
-    /*overflow: hidden;*/
 }
 .campana {
     margin-top: 15px;
     float: left;
     width: 46px;
-    /* padding-left: 5px; */
     height: 40px;
-    /* padding-right: 5px; */
 }
 .transicion {
     position: absolute;
@@ -139,7 +133,6 @@ header {
     margin-top: 15px;
     float: left;
     width: 27px;
-    /* padding-left: 4px; */
     height: 40px;
     margin-right: 12px;
     cursor: pointer;
@@ -208,7 +201,6 @@ header {
     height: 90%;
 }
     .new_menu_a:hover {
-        /*border-bottom: 2px solid #e81c36;*/
     }
 
     .new_menu_a img {
@@ -238,7 +230,6 @@ header {
 .menu_socia_empresaria > .new_menu {
     margin-left: 2%;
     margin-top: 21px;
-    /*width: 15%;*/
 }
 
 .nav_principal li:hover > ul {
@@ -292,7 +283,6 @@ header {
     display: none;
     z-index: 1000;
     position: absolute;
-    /* margin-left: 72px; */
     right: 0;
     left: 0;
     margin: 0 auto;
@@ -357,46 +347,11 @@ header {
 .menu_socia_empresaria .sub_menu_home1 {
     margin-left: -161px;
 }
-/*.menu_socia_empresaria li ul {
-    margin-left:-288px !important;}
-.menu_socia_empresaria > .menu_especial ul {
-        width: 190px !important;
-        margin-left: -45px !important;
-        margin-top: 11px !important;
-}
-.menu_socia_empresaria > .menu_especial ul li a {
-    padding-left: 45px !important;
-}
-.menu_socia_empresaria > .menu_especial ul li a:hover {
-    background-position: 35px 6px !important;
-}
-.menu_socia_empresaria .menu_especial .flechita_0 {
-    margin-left: 41px !important;
-    margin-top: 1px !important;
-}*/
-/*.flechita_0 {
-   position: absolute;
-    z-index: 2000;
-    width: 20px;
-    height: 20px;
-    display: none;
-    margin-left: 35px;
-    margin-top: 10px;
-   margin: 0 auto;
-    background: url(../../../Images/Esika/flechita.png) no-repeat;
-}*/
+
 .icon-flechita {
     content: "\e900";
 }
-/*.flechita_1 {
-    height: 0;
-    left: 0;
-    margin-top: -7px;
-    border-right: 15px solid transparent;
-    border-top: 10px solid transparent;
-    border-left: 15px solid transparent;
-    border-bottom: 10px solid blue;
-}*/
+
 .flechita_info {
     position: absolute;
     z-index: 2001;
@@ -404,88 +359,11 @@ header {
     height: 54px;
     right: -1px;
     margin-top: -69px;
-    /* margin: 0 auto; */
     background: transparent;
-    /* display: none; */
     border-top: 1px solid #ccc;
     border-left: 1px solid #ccc;
     border-right: 1px solid #ccc;
 }
-/*.nav_principal li ul {
-    border-top: 1px solid #ccc;
-    margin-left: -159px;
-    display: none;
-    position: absolute;
-    z-index: 100;
-    width: 1110px;
-    -webkit-box-shadow: -4px 4px 11px -5px rgba(120,120,120,1);
-    -moz-box-shadow: -4px 4px 11px -5px rgba(120,120,120,1);
-    box-shadow: -4px 4px 11px -5px rgba(120,120,120,1);
-    
-}
-.nav_principal li:hover > ul {
-    display: block;
-    background: rgba(255,255,255,0.95) url(../../../Images/Esika/fondo.png);
-        margin-top: 20px;
-}
-.nav_principal li ul li {
-    width: 20%;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    float: left;
-    position: relative;
-    text-align:left;
-}
-.titulo_menu {
-    font-family: 'lato';
-    font-weight: 700;
-    padding-left: 55px;
-    font-size: 11px;
-    margin-top: 10px;
-    margin-bottom: 20px;
-}
-.nav_principal li ul li a {
-    color: #5e5e5e;
-    padding-left: 55px;
-    letter-spacing: 0;
-    font-size: 12px;
-    font-weight: normal;
-    font-family: 'lato';
-    margin-bottom: 8px;
-    border-bottom: none;
-}
-    .nav_principal li ul li a:hover {
-        color: black;
-        border-bottom: none;
-        background: url("../../../Images/Esika/fle_.png") no-repeat;
-        background-position: 45px 6px;
-    }
-.nav_principal li ul li ul {
-    top: 0px;
-}
-.nav_principal li img {
-    margin-top: 6px;
-    margin-left: 3px;
-    float: right;
-}*/
-/*.menu_especial ul{
-    width: 204px !important;
-    margin-left: -28px !important;
-}
-.menu_especial ul li {
-    width: 100% !important;
-}
-.menu_especial > .flechita_0 {
-    margin-left: 65px !important;
-}
-.menu_especial ul li:first-child {
-    margin-top: 25px !important;
-}
-.menu_especial ul li {
-    margin-top: 0 !important;
-    margin-bottom: 10px !important;
-}*/
-
 
 .footer_e {
     width: 100%;
@@ -531,9 +409,7 @@ header {
             text-decoration: underline;
         }
 .footer_responde {
-    /*float: left; */
     width: 24%;
-    /* margin-left: 12.5%; */
     font-family: 'lato';
     font-size: 13px;
     text-align: center;
@@ -544,7 +420,6 @@ header {
     color: black;
     display: inline-block;
     vertical-align: top;
-    /* box-sizing: border-box; */
 }
 
     .footer_responde img {
@@ -552,7 +427,6 @@ header {
     }
 
     .footer_responde span {
-        /*font-weight:300;*/
         font-size: 13px;
         color: #666666;
         font-weight: 300;
@@ -583,7 +457,6 @@ header {
 }
 .logo_redes {
     float: right;
-    /* position: absolute; */
     margin-left: 10px;
 }
 
@@ -659,18 +532,7 @@ header {
         transition: 0.8s;
         z-index: -1;
     }
-/*.boton-home:hover {
-        background-position: 18px 4px !important;
-        background:url("../../../Images/Esika/ayuda_hover.png") no-repeat;
-        background: black url("../../../Images/Esika/ayuda_hover.png") no-repeat\9;*/ /* IE 8 y anteriores */
-/*color: white;
-    }*/
-/*.boton-home:hover::after {
-            border-width: 330px 330px 0 0;
-        }*/
-/*.boton-home:active {
-        background: black;
-    }*/
+
 .fondo_b {
     background: url("../../../Images/Esika/bajar.png") no-repeat;
     background-position: 22px 5px;
@@ -732,7 +594,6 @@ header {
 }
 .triangulo-equilatero-bottom-left {
     z-index: 1000;
-    /* max-width: 20px; */
     position: absolute;
     top: 0;
     right: -83px;
@@ -765,7 +626,6 @@ header {
     margin-top: 2px;
     font-family: 'lato';
     font-size: 7.2pt;
-    /* text-align: center; */
     color: black;
     letter-spacing: 0;
 }
@@ -905,9 +765,9 @@ header {
     width: 134px;
     height: 112px;
     transition: 200ms ease;
-    -moz-transition: 1s ease; /* Firefox */
-    -webkit-transition: 1s ease; /* Chrome - Safari */
-    -o-transition: 1s ease; /* Opera */
+    -moz-transition: 1s ease;
+    -webkit-transition: 1s ease;
+    -o-transition: 1s ease;
     margin-top: 10px;
 }
 
@@ -953,10 +813,10 @@ header {
 }
 .item_home:hover .imagen_info {
     transform: scale(1.1);
-    -moz-transform: scale(1.1); /* Firefox */
-    -webkit-transform: scale(1.1); /* Chrome - Safari */
-    -o-transform: scale(1.1); /* Opera */
-    -ms-transform: scale(1.1); /* IE9 */
+    -moz-transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    -ms-transform: scale(1.1);
 }
 .titulo_oculto {
     margin-top: 30px;
@@ -1043,10 +903,7 @@ header {
     margin-top: 20px;
     font-size: 13pt;
 }
-/*
-.socia_empresaria_tit:hover {
-    font-weight:600 !important;
-}*/
+
 .socia_empresaria_info {
     font-family: 'lato';
     font-weight: 300;
@@ -1183,7 +1040,6 @@ header {
         background: rgba(0,0,0,.4);
         z-index: 1;
     }
-    /*.pedido_section3 .block.hover:hover .block-layer,.pedido_section3 .block.mobile .block-layer{opacity:1}*/
     .pedido_section3 .block img {
         display: block;
         margin: 0 auto;
@@ -1338,7 +1194,6 @@ header {
     }
 .liquidacion_titulo_item {
     font-family: 'lato';
-    /*font-weight:300 !important;*/
     color: #999999;
     font-size: 9.5pt;
     text-align: center;
@@ -1375,7 +1230,6 @@ header {
 }
 
 .liquidacion_precio {
-    /*font-family:'OldStandard-Italic';*/
     font-size: 10pt;
     color: black;
     letter-spacing: -1px;
@@ -1391,9 +1245,7 @@ header {
     }
 
 .liquidacion_rango_wrapper {
-    /*margin:0 auto;*/
     margin: 0;
-    /*margin-top: 5px !important;*/
     width: 66px;
     overflow: hidden;
     float: left;
@@ -1407,7 +1259,6 @@ header {
     float: left;
     padding-top: 3px;
     text-align: center;
-    /*margin-bottom: 10px;*/
 }
 
 .liquidacion_rango_right {
@@ -1504,13 +1355,7 @@ header {
     font-weight: 900 !important;
     text-transform: uppercase;
     font-size: 13px;
-    /*margin-right: 20px !important;*/
     width: 138px;
-    /*float:right;*/
-    /*top: -44px !important;*/
-    /*letter-spacing: 1px;
-     background: url("../../../Images/Esika/carrito_liquidacion.png") no-repeat;
-    background-position: 73px 8px;*/
 }
 .boton_liquidacion {
     color: black;
@@ -1532,9 +1377,6 @@ header {
     width: 138px;
     float: right;
     top: -44px !important;
-    /*letter-spacing: 1px;
-     background: url("../../../Images/Esika/carrito_liquidacion.png") no-repeat;
-    background-position: 73px 8px;*/
 }
 
     .boton_liquidacion::after {
@@ -1556,7 +1398,6 @@ header {
     }
 
     .boton_liquidacion:hover {
-        /*background: url("../../../Images/Esika/carrito_liquidacion_hover.png") no-repeat;*/
         color: white;
         background-position: 73px 8px;
         background: black\9; /* IE 8 y anteriores */
@@ -1634,13 +1475,10 @@ header {
     max-width: 1189px;
     margin: 0 auto;
     height: auto;
-    /*padding-left: 5.9%;
-    padding-right: 5.9%;*/
     z-index: 2;
 }
 .wrapper_general {
     position: relative;
-    /*margin-top:90px !important;*/
     padding-top: 20px;
     padding-bottom: 60px;
     width: 1110px;
@@ -1669,7 +1507,6 @@ header {
 .pedido_ingreso_c2 {
     width: 100%;
     height: 100px;
-    /*margin-top:40px;*/
     margin-bottom: 34px;
 }
     .pedido_ingreso_c2 .pedido_ingreso_datos_icono_mas {
@@ -1705,9 +1542,7 @@ header {
         .pedido_ingreso_datos input:-ms-input-placeholder {
             font-weight: normal;
         }
-        /*.pedido_ingreso_datos.campo_descripcion_producto input{
-    width:370px;
-}*/
+
         .pedido_ingreso_datos input[value] {
             vertical-align: middle;
         }
@@ -1727,7 +1562,6 @@ header {
     font-size: 11px;
     letter-spacing: 1.5px;
     color: white;
-    /* text-align: center; */
     padding-top: 10px;
     padding-bottom: 10px;
     padding-left: 25px;
@@ -1759,16 +1593,12 @@ header {
     top: 0%;
     left: 0%;
     z-index: 1;
-    /*background: #000 url("../../../Images/Esika/background_pedido.png") no-repeat center bottom;*/
-    /*background: #000 url("../../../Images/Esika/Banner_Esika.jpg") no-repeat center bottom;*/
-    /*background-size:cover;*/
 }
 .caja_pedidos {
     display: block;
     width: 68.85%;
     margin-top: 4%;
     position: relative;
-    /* max-width: 818px; */
     height: auto;
     float: left;
     margin-right: 25px;
@@ -1783,7 +1613,6 @@ header {
     display: block;
     width: 100%;
     font-family: 'Lato';
-    /*overflow:hidden;*/
 }
 .filaIngresoPedidoOculto {
     display: none;
@@ -1976,33 +1805,25 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     position: relative;
     width: 100%;
     top: 50%;
-    /* margin-top: -47px; */
     margin-top: 20px;
     margin-bottom: 48px;
     text-align: left;
 }
 .bloque_montosPedido, .contenedor_btnGuardarPedido {
     display: block;
-    /*display:inline-block;
-    vertical-align:top;*/
 }
 .bloque_montosPedido {
-    /*width:43%;*/
     width: 100%;
     text-align: right;
 }
 .contenedor_btnGuardarPedido {
-    /*width: 56%;*/
     width: 100%;
     text-align: right;
 }
 .caja_montos {
-    /*max-width: 302px;*/
     width: 100%;
     height: auto;
     display: inline-block;
-    /* margin-right: 20px;
-    margin-top: 27px; */
     margin-bottom: 0px;
     vertical-align: top;
 }
@@ -2010,7 +1831,6 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
         vertical-align: top;
         position: absolute;
         float: none;
-        /*margin-top: 7px;*/
         right: 99%;
         top: 0%;
         z-index: 50;
@@ -2023,7 +1843,6 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     }
     .caja_montos div {
         display: inline-block;
-        /*vertical-align:middle;*/
     }
 .caja_montos_textos {
     margin-right: 15px;
@@ -2047,33 +1866,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     font-weight: 700;
     text-align: right;
 }
-/*.caja_montos_textos .monto_total{
-    margin-bottom: 1.5px;
-}*/
-/*.caja_montos_textos .monto_total{
-    line-height: 18px;
-    letter-spacing: 0.5px;
-    display: inline-block;
-}*/
-/*.caja_montos_textos .monto_total:first-child{
-    width: 131.8px;
-    margin-right:15px;
-}
-.caja_montos_textos .monto_total:nth-child(2){
-    font-size: 17.5px!important;
-}*/
-/*.caja_montos_cantidades .monto_ganancia{
-    line-height: 27px;
-    letter-spacing: 0.5px;
-    display: inline-block;
-}*/
-/*.caja_montos_cantidades .monto_ganancia:first-child{
-    width: 126.8px;
-    margin-right:20px;
-}
-.caja_montos_cantidades .monto_ganancia:nth-child(2){
-    font-size: 17.5px!important;
-}*/
+
 .mensajes {
     display: inline-block;
     margin-right: 8px;
@@ -2129,8 +1922,6 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     }
 .boton_guardarPedido {
     height: auto;
-    /*float:left;
-    top:27px;*/
     display: inline-block;
     vertical-align: middle;
     position: relative;
@@ -2176,28 +1967,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
         height: 102px;
         z-index: 50;
     }
-    /*.tooltip_guardaPedido:before, .tooltip_guardaPedido:after {
-	right: 100%;
-    top: 50%;
-    border: solid transparent;
-    content: " ";
-    height: 0;
-    width: 0;
-    position: absolute;
-    pointer-events: none;
-}
-.tooltip_guardaPedido:before{
-    border-color: transparent;
-    border-right-color: #e7e1e1;
-    border-width: 16px;
-    margin-top: -14px!important;
-}
-.tooltip_guardaPedido:after{
-    border-color: transparent;
-    border-right-color: #FFF;
-    border-width: 14px;
-    margin-top: -12px!important;
-}*/
+
     .tooltip_guardaPedido h6 {
         margin: 0px;
         padding: 0px;
@@ -2259,28 +2029,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     -o-transform: rotate(180deg);
     transform: rotate(180deg);
 }
-/*.tooltip_infoCopy:before, .tooltip_infoCopy:after {
-	right: 100%;
-    top: 50%;
-    border: solid transparent;
-    content: " ";
-    height: 0;
-    width: 0;
-    position: absolute;
-    pointer-events: none;
-}
-.tooltip_infoCopy:before{
-    border-color: transparent;
-    border-right-color: #e7e1e1;
-    border-width: 16px;
-    margin-top: -14px!important;
-}
-.tooltip_infoCopy:after{
-    border-color: transparent;
-    border-right-color: #FFF;
-    border-width: 14px;
-    margin-top: -12px!important;
-}*/
+
 .tooltip_infoCopy h6 {
     margin: 0px;
     padding: 0px;
@@ -2372,10 +2121,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     width: 218px;
     height: 44.1px;
     background: #e81c36;
-    /*background:#FFF;*/
     border: 0px;
-    /*border:2px solid #d02d3a;*/
-    /*color:#000;*/
     color: #FFF;
     font-size: 12.7px;
     line-height: 41.1px;
@@ -2397,11 +2143,8 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     position: relative;
     text-align: left;
     text-transform: uppercase;
-    /*right:30%;*/
 }
-/*.monto_con_descuento span:first-child{
-    margin-right: 31px;
-}*/
+
 .caja_montos_cantidades .monto_descuento {
     color: #000;
     font-size: 16px;
@@ -2418,8 +2161,6 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     margin-top: -3px;
     font-size: 14px;
     font-weight: 500;
-    /*max-width:302px;
-    margin-bottom:2px;*/
     text-align: right;
     line-height: 24px;
 }
@@ -2428,8 +2169,6 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     margin-top: -3px;
     font-size: 14px;
     font-weight: 500;
-    /*max-width:302px;
-    margin-bottom:2px;*/
     text-align: right;
     line-height: 24px;
 }
@@ -2438,8 +2177,6 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     margin-top: -3px;
     font-size: 16px;
     font-weight: 400;
-    /*max-width:302px;
-    margin-bottom:2px;*/
     line-height: 42px;
     text-transform: uppercase;
     position: relative;
@@ -2545,14 +2282,11 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
 }
 .celda_iconos_acciones {
     text-align: center;
-    /*padding-right:1.5%;*/
 }
 .cabecera_producto {
     width: 208px;
 }
-/*.tabla_pedidos tr:last-child td{
-    border-bottom:0px;
-}*/
+
 .tabla_pedidos td.text-center {
     text-align: center;
 }
@@ -2562,7 +2296,6 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     height: 45px;
     overflow: hidden;
     position: absolute;
-    /*top: 50%;*/
     left: 50%;
     margin-top: -25% !important;
     margin-left: -32px;
@@ -2604,9 +2337,6 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
 }
 .titulo_mis_pedidos {
     float: left;
-    /*width: 100%;
-    border-bottom: 1px solid;
-    margin-bottom: 16px;*/
 }
     .titulo_mis_pedidos h1 {
         text-align: center;
@@ -2619,19 +2349,13 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
         line-height: 65px;
         float: left;
         margin-bottom: -2px;
-        /* padding: 19px; */
-        /* padding-left: 33px; */
-        /* padding-right: 33px;*/
     }
 .bordespacive {
-    /*border-bottom: 2px solid white;*/
     border-left: 1px solid;
     border-right: 1px solid;
     border-top: 1px solid;
 }
-/*.titulo_mis_pedidos h1 b{
-    font-size:21px;
-}*/
+
 .mis_pedidos span {
     font-size: 13px;
     letter-spacing: 1px;
@@ -2716,7 +2440,6 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
 .precio {
     display: none;
     font-size: 12px;
-    /*color:#CCC;*/
     color: #797979;
     margin-bottom: 5px;
     font-weight: normal;
@@ -2727,22 +2450,13 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     position: relative;
 }
     .texto_pedidos.subtotal span.icon-advertencia {
-        /*background: #d20000;*/
         background: url("/Content/Images/Esika/icono-admiracion.png") no-repeat center center;
-        /*float: right;
-    margin-top: 4px; */
-        /* right: -25%; 
-    margin-left: 6px;*/
         width: 18px;
         height: 18px;
-        /*border-radius: 100%;
-    margin-right: 8px;*/
         font-family: 'Lato';
         font-size: 16px;
         font-weight: bold;
         color: #FFF;
-        /*text-align: center;
-    vertical-align: middle;*/
         position: absolute;
         right: -18%;
         z-index: 6;
@@ -2751,7 +2465,6 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
 .caja_montos_textos .monto_descuento span.icon-advertencia {
     display: inline-block;
     vertical-align: middle;
-    /* background: #d20000; */
     background: url("/Content/Images/Esika/icono-admiracion.png") no-repeat center center;
     width: 18px;
     height: 18px;
@@ -2760,8 +2473,6 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     font-weight: bold;
     color: #FFF;
     position: relative;
-    /* right: 11.5%; */
-    /* top: 15%; */
     margin-top: -3px;
     margin-left: 5px;
     margin-right: 5px;
@@ -2775,7 +2486,6 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
 .paginador_pedidos {
     display: block;
     width: 100%;
-    /*height:30px;*/
     margin-top: 25px;
     margin-bottom: 100px;
 }
@@ -2790,7 +2500,6 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
         margin-top: 36px;
         margin-bottom: 0px;
         padding-bottom: 57px;
-        /*border-bottom: 2px solid #000;*/
     }
 .productos_agregados_usuario {
     margin-right: 15px;
@@ -2823,10 +2532,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
 .paginador_pedidos ul li {
     float: left;
 }
-/*.paginador_notificaciones li:nth-child(4){
-    margin-left: 9px;
-    margin-right: 6px;
-}*/
+
 .flecha_paginador_atras {
     width: 0;
     height: 9px;
@@ -2887,11 +2593,8 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
         border-left: 6px solid rgba(0,0,0,0.4);
     }
 .contenedor_eliminacion_pedido {
-    /*margin-top:38px;*/
     margin-top: 27px;
     margin-bottom: 27px;
-    /*margin-bottom:164px;
-    margin-bottom:18px;*/
 }
 .precio_total_sinDescuento {
     display: block;
@@ -2905,13 +2608,10 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
 }
     .precio_total_sinDescuento span.icon-advertencia {
         display: inline-block;
-        /*background: #d20000;*/
         background: url("/Content/Images/Esika/icono-admiracion.png") no-repeat center center;
         width: 18px;
         height: 18px;
-        /*border-radius: 100%;*/
         margin-right: 8px;
-        /*margin-bottom:32px;*/
         font-family: 'Lato';
         font-size: 16px;
         font-weight: bold;
