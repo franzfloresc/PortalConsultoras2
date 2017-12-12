@@ -263,7 +263,7 @@ $("#btnGuardar").click(function (e) {
 
             if (data.success) {
                 alert(data.message);
-                HideDialog("divAgregar");
+                $("#btnCancelar").click();
                 fnGrilla();
             } else {
                 alert(data.message);
@@ -277,6 +277,7 @@ $("#btnGuardar").click(function (e) {
 });
 $("#btnCancelar").click(function (e) {
     e.preventDefault();
+    $("#divAgregar").html("");
     HideDialog("divAgregar");
 });
 
