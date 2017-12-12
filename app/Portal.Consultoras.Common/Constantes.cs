@@ -985,7 +985,12 @@ namespace Portal.Consultoras.Common
             public const string Cyzone = "http://www.cyzone.com";
         }
 
-        public static class RevistaNombre
+        public class CatalogoUrlIssu
+        {
+            public const string Buscador = "//search.issuu.com/api/2_0/document?username=somosbelcorp&q=";
+        }
+        
+	public static class RevistaNombre
         {
             public const string Esika = "Guía de Negocio Ésika";
             public const string Lbel = "Mi Negocio L’Bel";
@@ -1022,6 +1027,8 @@ namespace Portal.Consultoras.Common
             public const string InsertarDesglose = "Ocurrió un error al procesar la reserva.";
             public const string CargarProductosShowRoom = "Error al cargar los productos.";
             public const string DeletePedido_CuvNoExiste = "El producto que deseas eliminar ya no se encuentra en tu pedido. Por favor, vuelva a carga la página (F5).";
+            public const string SinConexion_LoginChatbot = "Necesitas internet para acceder a esta opción.";
+            public const string SinConexion_CatalogoRevistaIssu = "Necesitas internet para acceder a esta opción.";
         }
 
         public static class ConfiguracionPais

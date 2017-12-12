@@ -105,6 +105,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.paisISO = userData.CodigoISO;
             ViewBag.Ambiente = GetBucketNameFromConfig();
             ViewBag.UrlFranjaNegra = GetUrlFranjaNegra();
+            ViewBag.DataBarra = GetDataBarra(true, true);
 
             model.MostrarPopupPrecargados = (GetMostradoPopupPrecargados() == 0);
 

@@ -14,7 +14,7 @@ namespace Portal.Consultoras.BizLogic
     {
         public IList<BEPermiso> GetPermisosByRol(int paisID, int rolID)
         {
-            IList<BEPermiso> permisos = (IList<BEPermiso>) CacheManager<BEPermiso>.GetData(paisID, ECacheItem.MenuGeneralSB2, rolID.ToString());
+            IList<BEPermiso> permisos = (IList<BEPermiso>)CacheManager<BEPermiso>.GetData(paisID, ECacheItem.MenuGeneralSB2, rolID.ToString());
             if (permisos == null || permisos.Count == 0)
             {
                 var DAPermiso = new DAPermiso(paisID);

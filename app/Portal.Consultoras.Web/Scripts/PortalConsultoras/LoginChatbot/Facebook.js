@@ -39,7 +39,7 @@ function ExistsExternalUser(provider, id, fnFinal) {
     ShowLoading();
     $.post('/Login/CheckExternalUser', { proveedor: provider, appid: id })
         .done(function (response) { if (response.success) exists = response.exists; })
-        .fail(function (error) { console.log(error); })
+        .fail(function (error) { ConsoleLog(error); })
         .always(function () {
             CloseLoading();
             if ($.isFunction(fnFinal)) fnFinal(exists);
