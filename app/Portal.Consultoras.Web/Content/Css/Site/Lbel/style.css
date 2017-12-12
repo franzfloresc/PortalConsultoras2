@@ -32737,6 +32737,16 @@ h1#penmostreo .campana {
     display: block;
 }
 /*EPD-1919 FIN*/
+.previsualizales-ofertas {
+    max-width: 800px;
+    margin: auto;
+    max-height: 550px;
+}
+.imagen_fondo {
+    min-height: 532px;
+    max-width: 96% !important;
+    margin: auto;
+}
 /*SPRINT 19*/
 .content_new_showroom {
     width: 100%;
