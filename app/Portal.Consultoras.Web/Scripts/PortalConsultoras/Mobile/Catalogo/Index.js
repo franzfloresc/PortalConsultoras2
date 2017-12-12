@@ -137,8 +137,8 @@ function CargarCarruselCatalogo() {
     var totalItem = cantCat * cantCam;
 
     $("#divCatalogo").children()
-                     .not('.previous_carrusel_catalogo, .next_carrusel_catalogo, .previous_carrusel_catalogo *, .next_carrusel_catalogo *')
-                     .remove();
+        .not('.previous_carrusel_catalogo, .next_carrusel_catalogo, .previous_carrusel_catalogo *, .next_carrusel_catalogo *')
+        .remove();
 
     for (var i = 0; i < totalItem; i++) {
         var nro = "";
@@ -278,15 +278,14 @@ function GetCatalogosLinksByCampania(data, campania) {
         else {
             var n = campania.substring(4, 6);
             var a = campania.substring(0, 4);
-            $(idCat).find(elemItem).find("[data-tipo='img']").attr("onclick", "SetGoogleAnalytics('" + codigoISSUU + "','Ver catálogo','" + tagCat + "')");
-            var urlCatWS = urlCat;
+            $(idCat).find(elemItem).find("[data-tipo='img']").attr("onclick", "VerCatalogoIssu('" + urlCat + "','" + codigoISSUU + "','Ver catálogo','" + tagCat + "')");
 
+            var urlCatWS = urlCat;
             urlCatWS = urlCatWS.ReplaceAll("/", "%2F");
             urlCatWS = urlCatWS.ReplaceAll(":", "%3A");
             urlCatWS = urlCatWS.ReplaceAll("?", "%3F");
             urlCatWS = urlCatWS.ReplaceAll("=", "%3D");
 
-            $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", urlCat);
             $(idCat).find(elemItem).find("#txtUrl" + tagCat).val(urlCat);
             $(idCat).find(elemItem).find("[data-tipo='img'] img").attr("src", imgIssuu.replace("{img}", codigoISSUU));
 
@@ -299,6 +298,25 @@ function GetCatalogosLinksByCampania(data, campania) {
     }
 
     FinRenderCatalogo();
+}
+
+function ValidarConexionIssu(fnSuccess) {
+    ShowLoading();
+    $.ajax({
+        url: urlBuscadorIssu + 'docname:a&jsonCallback=?',
+        dataType: 'json',
+        timeout: 3000,
+        error: function () { messageInfo(mensajeSinConexionIssu); },
+        success: fnSuccess,
+        complete: CloseLoading
+    });
+}
+
+function VerCatalogoIssu(url, imagen, accion, label) {
+    ValidarConexionIssu(function () {
+        SetGoogleAnalytics(imagen, accion, label);
+        window.open(url, '_blank');
+    });
 }
 
 function SetGoogleAnalytics(Imagen, Accion, Label) {
@@ -570,16 +588,18 @@ function MostrarRevistaCorrecta(campania) {
 }
 
 function MostrarMiRevista() {
-    dataLayer.push({
-        'event': 'virtualEvent',
-        'category': 'Catálogos y revistas',
-        'action': 'Ver revista',
-        'label': 'Revista',
-        'value': 0
-    });
+    ValidarConexionIssu(function () {
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Catálogos y revistas',
+            'action': 'Ver revista',
+            'label': 'Revista',
+            'value': 0
+        });
 
-    var frmMiRevista = $('#frmMiRevista');
-    frmMiRevista.submit();
+        var frmMiRevista = $('#frmMiRevista');
+        frmMiRevista.submit();
+    });
 }
 
 function ObtenerImagenRevista(campania, defered) {
@@ -602,7 +622,6 @@ function ObtenerImagenRevista(campania, defered) {
     return defered.promise();
 }
 function RevistaMostrar(accion, btn) {
-
     rCampSelectI = accion == -1 ? rCampSelectI - 1 : accion == 1 ? rCampSelectI + 1 : rCampSelectI;
     rCampSelectI = rCampSelectI <= 0 ? 0 : rCampSelectI >= cantCamRev - 1 ? cantCamRev - 1 : rCampSelectI;
 

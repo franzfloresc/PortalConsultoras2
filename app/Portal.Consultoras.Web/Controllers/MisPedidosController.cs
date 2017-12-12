@@ -77,9 +77,8 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.URLWebTracking = url;
                 ViewBag.PaisISO = userData.CodigoISO;
 
-                string mostrarPedidosPendientes = ConfigurationManager.AppSettings.Get("MostrarPedidosPendientes");
-                string strpaises = ConfigurationManager.AppSettings.Get("Permisos_CCC");
-                model.MostrarClienteOnline = (mostrarPedidosPendientes == "1" && strpaises.Contains(userData.CodigoISO));
+                string strpaises = GetPaisesConConsultoraOnlineFromConfig();
+                model.MostrarClienteOnline = (GetMostrarPedidosPendientesFromConfig() && strpaises.Contains(userData.CodigoISO));
                 if (model.MostrarClienteOnline)
                 {
                     model.CampaniasConsultoraOnline = new List<CampaniaModel>();
@@ -270,7 +269,7 @@ namespace Portal.Consultoras.Web.Controllers
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             string output = serializer.Serialize(complain);
 
-            string strUri = ConfigurationManager.AppSettings["WS_RV_PDF_NEW"];
+            string strUri = GetConfiguracionManager(Constantes.ConfiguracionManager.WS_RV_PDF_NEW);
             Uri uri = new Uri(strUri);
             WebRequest request = WebRequest.Create(uri);
             request.Method = "POST";

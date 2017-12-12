@@ -2,7 +2,6 @@
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceSAC;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers

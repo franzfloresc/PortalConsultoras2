@@ -30,7 +30,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             ViewBag.Simbolo = userData.Simbolo;
-            ViewBag.RutaImagenNoDisponible = ConfigurationManager.AppSettings.Get("rutaImagenNotFoundAppCatalogo");
+            ViewBag.RutaImagenNoDisponible = GetConfiguracionManager(Constantes.ConfiguracionManager.rutaImagenNotFoundAppCatalogo);
 
             if (Session["ListFiltersFAV"] != null)
             {
@@ -49,7 +49,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var sobrenombre = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
                 ViewBag.NombreConsultoraFAV = sobrenombre.First().ToString().ToUpper() + sobrenombre.ToLower().Substring(1);
-                ViewBag.UrlImagenFAVLanding = string.Format(ConfigurationManager.AppSettings.Get("UrlImagenFAVLanding"), userData.CodigoISO);
+                ViewBag.UrlImagenFAVLanding = string.Format(GetConfiguracionManager(Constantes.ConfiguracionManager.UrlImagenFAVLanding), userData.CodigoISO);
             }
 
             return View(model);
@@ -67,13 +67,13 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
 
-            int CantProFav = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings.Get("LimiteJetloreCatalogoPersonalizadoHome"));
+            int CantProFav = Convert.ToInt32(GetConfiguracionManager(Constantes.ConfiguracionManager.LimiteJetloreCatalogoPersonalizadoHome));
             return ObtenerProductos(CantProFav);
         }
 
         public JsonResult ObtenerProductosCatalogoPersonalizado(int cantidad, int offset, List<FiltroResultadoModel> lstFilters = null, int tipoOrigen = 0)
         {
-            int limiteJetloreCatalogoPersonalizado = int.Parse(ConfigurationManager.AppSettings.Get("LimiteJetloreCatalogoPersonalizado"));
+            int limiteJetloreCatalogoPersonalizado = int.Parse(GetConfiguracionManager(Constantes.ConfiguracionManager.LimiteJetloreCatalogoPersonalizado));
             cantidad = (offset + cantidad > limiteJetloreCatalogoPersonalizado) ? (limiteJetloreCatalogoPersonalizado - offset) : cantidad;
             return ObtenerProductos(cantidad, offset, lstFilters, tipoOrigen);
         }
@@ -127,7 +127,7 @@ namespace Portal.Consultoras.Web.Controllers
                 #region obtener catalogo personalizado
                 if (Session["ProductosCatalogoPersonalizado"] == null)
                 {
-                    string paisesConPcm = ConfigurationManager.AppSettings.Get("PaisesConPcm");
+                    string paisesConPcm = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesConPcm);
                     int tipoProductoMostrar = paisesConPcm.Contains(userData.CodigoISO) ? 2 : 1;
 
                     using (ProductoServiceClient ps = new ProductoServiceClient())
@@ -143,7 +143,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (lista.Any())
                     {
-                        int limiteJetlore = int.Parse(ConfigurationManager.AppSettings.Get("LimiteJetloreCatalogoPersonalizado"));
+                        int limiteJetlore = int.Parse(GetConfiguracionManager(Constantes.ConfiguracionManager.LimiteJetloreCatalogoPersonalizado));
                         lista = lista.Take(limiteJetlore).ToList();
 
                         string codigosCuv = string.Join(",", lista.Select(p => p.Cuv));
@@ -251,7 +251,7 @@ namespace Portal.Consultoras.Web.Controllers
                 listaProductoModel.Update(c => c.IsAgregado = listaPedido.Any(p => p.CUV == c.CUV));
 
                 #region filtros
-                var totalRegistros = int.Parse(ConfigurationManager.AppSettings.Get("LimiteJetloreCatalogoPersonalizado"));
+                var totalRegistros = int.Parse(GetConfiguracionManager(Constantes.ConfiguracionManager.LimiteJetloreCatalogoPersonalizado));
                 var precioMinimo = listaProductoModel.OrderBy(x => x.PrecioCatalogo).FirstOrDefault().PrecioCatalogoString;
                 var precioMaximo = listaProductoModel.OrderByDescending(x => x.PrecioCatalogo).FirstOrDefault().PrecioCatalogoString;
                 var totalRegistrosFilter = totalRegistros;
@@ -420,7 +420,7 @@ namespace Portal.Consultoras.Web.Controllers
                 BEProducto productPack = new BEProducto();
                 BEProducto productNivel = new BEProducto();
 
-                var ambiente = ConfigurationManager.AppSettings["Ambiente"] ?? "";
+                var ambiente = GetConfiguracionManager(Constantes.ConfiguracionManager.Ambiente);
                 var keyWeb = ambiente.ToUpper() == "QA" ? "QA_Prol_ServicesCalculos" : "PR_Prol_ServicesCalculos";
 
                 ObjOfertaCatalogos dataPROL;
