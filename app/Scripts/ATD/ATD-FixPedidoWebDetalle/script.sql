@@ -58,8 +58,8 @@ ALTER PROCEDURE dbo.GetPedidoWebDetalleByCampania
 	@NumeroPedido int = 0
 AS
 /*
-GetPedidoWebDetalleByCampania 201718,33901,'043',4
-GetPedidoWebDetalleByCampania_SB2 201718,33901
+GetPedidoWebDetalleByCampania 201716,33901,'043',4
+GetPedidoWebDetalleByCampania_SB2 201716,33901
 */
 BEGIN
 	SET NOCOUNT ON
@@ -203,8 +203,11 @@ BEGIN
 	IF @CodigoPrograma IS NOT NULL
 	BEGIN
 		DELETE FROM @Estrategia 
-		WHERE CodigoPrograma <> @CodigoPrograma AND Numeropedido <> @NumeroPedido 
-			OR CodigoPrograma = @CodigoPrograma AND Numeropedido <> @NumeroPedido
+		WHERE 
+			isnull(CodigoPrograma,'') <> '' 
+			AND
+			((CodigoPrograma <> @CodigoPrograma AND Numeropedido <> @NumeroPedido) 
+			OR (CodigoPrograma = @CodigoPrograma AND Numeropedido <> @NumeroPedido))
 	END
 
 	SELECT 
@@ -318,8 +321,8 @@ ALTER PROCEDURE dbo.GetPedidoWebDetalleByCampania
 	@NumeroPedido int = 0
 AS
 /*
-GetPedidoWebDetalleByCampania 201718,33901,'043',4
-GetPedidoWebDetalleByCampania_SB2 201718,33901
+GetPedidoWebDetalleByCampania 201716,33901,'043',4
+GetPedidoWebDetalleByCampania_SB2 201716,33901
 */
 BEGIN
 	SET NOCOUNT ON
@@ -463,8 +466,11 @@ BEGIN
 	IF @CodigoPrograma IS NOT NULL
 	BEGIN
 		DELETE FROM @Estrategia 
-		WHERE CodigoPrograma <> @CodigoPrograma AND Numeropedido <> @NumeroPedido 
-			OR CodigoPrograma = @CodigoPrograma AND Numeropedido <> @NumeroPedido
+		WHERE 
+			isnull(CodigoPrograma,'') <> '' 
+			AND
+			((CodigoPrograma <> @CodigoPrograma AND Numeropedido <> @NumeroPedido) 
+			OR (CodigoPrograma = @CodigoPrograma AND Numeropedido <> @NumeroPedido))
 	END
 
 	SELECT 
@@ -578,8 +584,8 @@ ALTER PROCEDURE dbo.GetPedidoWebDetalleByCampania
 	@NumeroPedido int = 0
 AS
 /*
-GetPedidoWebDetalleByCampania 201718,33901,'043',4
-GetPedidoWebDetalleByCampania_SB2 201718,33901
+GetPedidoWebDetalleByCampania 201716,33901,'043',4
+GetPedidoWebDetalleByCampania_SB2 201716,33901
 */
 BEGIN
 	SET NOCOUNT ON
@@ -723,8 +729,11 @@ BEGIN
 	IF @CodigoPrograma IS NOT NULL
 	BEGIN
 		DELETE FROM @Estrategia 
-		WHERE CodigoPrograma <> @CodigoPrograma AND Numeropedido <> @NumeroPedido 
-			OR CodigoPrograma = @CodigoPrograma AND Numeropedido <> @NumeroPedido
+		WHERE 
+			isnull(CodigoPrograma,'') <> '' 
+			AND
+			((CodigoPrograma <> @CodigoPrograma AND Numeropedido <> @NumeroPedido) 
+			OR (CodigoPrograma = @CodigoPrograma AND Numeropedido <> @NumeroPedido))
 	END
 
 	SELECT 
@@ -838,8 +847,8 @@ ALTER PROCEDURE dbo.GetPedidoWebDetalleByCampania
 	@NumeroPedido int = 0
 AS
 /*
-GetPedidoWebDetalleByCampania 201718,33901,'043',4
-GetPedidoWebDetalleByCampania_SB2 201718,33901
+GetPedidoWebDetalleByCampania 201716,33901,'043',4
+GetPedidoWebDetalleByCampania_SB2 201716,33901
 */
 BEGIN
 	SET NOCOUNT ON
@@ -983,8 +992,11 @@ BEGIN
 	IF @CodigoPrograma IS NOT NULL
 	BEGIN
 		DELETE FROM @Estrategia 
-		WHERE CodigoPrograma <> @CodigoPrograma AND Numeropedido <> @NumeroPedido 
-			OR CodigoPrograma = @CodigoPrograma AND Numeropedido <> @NumeroPedido
+		WHERE 
+			isnull(CodigoPrograma,'') <> '' 
+			AND
+			((CodigoPrograma <> @CodigoPrograma AND Numeropedido <> @NumeroPedido) 
+			OR (CodigoPrograma = @CodigoPrograma AND Numeropedido <> @NumeroPedido))
 	END
 
 	SELECT 
@@ -1098,8 +1110,8 @@ ALTER PROCEDURE dbo.GetPedidoWebDetalleByCampania
 	@NumeroPedido int = 0
 AS
 /*
-GetPedidoWebDetalleByCampania 201718,33901,'043',4
-GetPedidoWebDetalleByCampania_SB2 201718,33901
+GetPedidoWebDetalleByCampania 201716,33901,'043',4
+GetPedidoWebDetalleByCampania_SB2 201716,33901
 */
 BEGIN
 	SET NOCOUNT ON
@@ -1243,8 +1255,11 @@ BEGIN
 	IF @CodigoPrograma IS NOT NULL
 	BEGIN
 		DELETE FROM @Estrategia 
-		WHERE CodigoPrograma <> @CodigoPrograma AND Numeropedido <> @NumeroPedido 
-			OR CodigoPrograma = @CodigoPrograma AND Numeropedido <> @NumeroPedido
+		WHERE 
+			isnull(CodigoPrograma,'') <> '' 
+			AND
+			((CodigoPrograma <> @CodigoPrograma AND Numeropedido <> @NumeroPedido) 
+			OR (CodigoPrograma = @CodigoPrograma AND Numeropedido <> @NumeroPedido))
 	END
 
 	SELECT 
@@ -1358,8 +1373,8 @@ ALTER PROCEDURE dbo.GetPedidoWebDetalleByCampania
 	@NumeroPedido int = 0
 AS
 /*
-GetPedidoWebDetalleByCampania 201718,33901,'043',4
-GetPedidoWebDetalleByCampania_SB2 201718,33901
+GetPedidoWebDetalleByCampania 201716,33901,'043',4
+GetPedidoWebDetalleByCampania_SB2 201716,33901
 */
 BEGIN
 	SET NOCOUNT ON
@@ -1503,8 +1518,11 @@ BEGIN
 	IF @CodigoPrograma IS NOT NULL
 	BEGIN
 		DELETE FROM @Estrategia 
-		WHERE CodigoPrograma <> @CodigoPrograma AND Numeropedido <> @NumeroPedido 
-			OR CodigoPrograma = @CodigoPrograma AND Numeropedido <> @NumeroPedido
+		WHERE 
+			isnull(CodigoPrograma,'') <> '' 
+			AND
+			((CodigoPrograma <> @CodigoPrograma AND Numeropedido <> @NumeroPedido) 
+			OR (CodigoPrograma = @CodigoPrograma AND Numeropedido <> @NumeroPedido))
 	END
 
 	SELECT 
@@ -1618,8 +1636,8 @@ ALTER PROCEDURE dbo.GetPedidoWebDetalleByCampania
 	@NumeroPedido int = 0
 AS
 /*
-GetPedidoWebDetalleByCampania 201718,33901,'043',4
-GetPedidoWebDetalleByCampania_SB2 201718,33901
+GetPedidoWebDetalleByCampania 201716,33901,'043',4
+GetPedidoWebDetalleByCampania_SB2 201716,33901
 */
 BEGIN
 	SET NOCOUNT ON
@@ -1763,8 +1781,11 @@ BEGIN
 	IF @CodigoPrograma IS NOT NULL
 	BEGIN
 		DELETE FROM @Estrategia 
-		WHERE CodigoPrograma <> @CodigoPrograma AND Numeropedido <> @NumeroPedido 
-			OR CodigoPrograma = @CodigoPrograma AND Numeropedido <> @NumeroPedido
+		WHERE 
+			isnull(CodigoPrograma,'') <> '' 
+			AND
+			((CodigoPrograma <> @CodigoPrograma AND Numeropedido <> @NumeroPedido) 
+			OR (CodigoPrograma = @CodigoPrograma AND Numeropedido <> @NumeroPedido))
 	END
 
 	SELECT 
@@ -1878,8 +1899,8 @@ ALTER PROCEDURE dbo.GetPedidoWebDetalleByCampania
 	@NumeroPedido int = 0
 AS
 /*
-GetPedidoWebDetalleByCampania 201718,33901,'043',4
-GetPedidoWebDetalleByCampania_SB2 201718,33901
+GetPedidoWebDetalleByCampania 201716,33901,'043',4
+GetPedidoWebDetalleByCampania_SB2 201716,33901
 */
 BEGIN
 	SET NOCOUNT ON
@@ -2023,8 +2044,11 @@ BEGIN
 	IF @CodigoPrograma IS NOT NULL
 	BEGIN
 		DELETE FROM @Estrategia 
-		WHERE CodigoPrograma <> @CodigoPrograma AND Numeropedido <> @NumeroPedido 
-			OR CodigoPrograma = @CodigoPrograma AND Numeropedido <> @NumeroPedido
+		WHERE 
+			isnull(CodigoPrograma,'') <> '' 
+			AND
+			((CodigoPrograma <> @CodigoPrograma AND Numeropedido <> @NumeroPedido) 
+			OR (CodigoPrograma = @CodigoPrograma AND Numeropedido <> @NumeroPedido))
 	END
 
 	SELECT 
@@ -2138,8 +2162,8 @@ ALTER PROCEDURE dbo.GetPedidoWebDetalleByCampania
 	@NumeroPedido int = 0
 AS
 /*
-GetPedidoWebDetalleByCampania 201718,33901,'043',4
-GetPedidoWebDetalleByCampania_SB2 201718,33901
+GetPedidoWebDetalleByCampania 201716,33901,'043',4
+GetPedidoWebDetalleByCampania_SB2 201716,33901
 */
 BEGIN
 	SET NOCOUNT ON
@@ -2283,8 +2307,11 @@ BEGIN
 	IF @CodigoPrograma IS NOT NULL
 	BEGIN
 		DELETE FROM @Estrategia 
-		WHERE CodigoPrograma <> @CodigoPrograma AND Numeropedido <> @NumeroPedido 
-			OR CodigoPrograma = @CodigoPrograma AND Numeropedido <> @NumeroPedido
+		WHERE 
+			isnull(CodigoPrograma,'') <> '' 
+			AND
+			((CodigoPrograma <> @CodigoPrograma AND Numeropedido <> @NumeroPedido) 
+			OR (CodigoPrograma = @CodigoPrograma AND Numeropedido <> @NumeroPedido))
 	END
 
 	SELECT 
@@ -2398,8 +2425,8 @@ ALTER PROCEDURE dbo.GetPedidoWebDetalleByCampania
 	@NumeroPedido int = 0
 AS
 /*
-GetPedidoWebDetalleByCampania 201718,33901,'043',4
-GetPedidoWebDetalleByCampania_SB2 201718,33901
+GetPedidoWebDetalleByCampania 201716,33901,'043',4
+GetPedidoWebDetalleByCampania_SB2 201716,33901
 */
 BEGIN
 	SET NOCOUNT ON
@@ -2543,8 +2570,11 @@ BEGIN
 	IF @CodigoPrograma IS NOT NULL
 	BEGIN
 		DELETE FROM @Estrategia 
-		WHERE CodigoPrograma <> @CodigoPrograma AND Numeropedido <> @NumeroPedido 
-			OR CodigoPrograma = @CodigoPrograma AND Numeropedido <> @NumeroPedido
+		WHERE 
+			isnull(CodigoPrograma,'') <> '' 
+			AND
+			((CodigoPrograma <> @CodigoPrograma AND Numeropedido <> @NumeroPedido) 
+			OR (CodigoPrograma = @CodigoPrograma AND Numeropedido <> @NumeroPedido))
 	END
 
 	SELECT 
@@ -2658,8 +2688,8 @@ ALTER PROCEDURE dbo.GetPedidoWebDetalleByCampania
 	@NumeroPedido int = 0
 AS
 /*
-GetPedidoWebDetalleByCampania 201718,33901,'043',4
-GetPedidoWebDetalleByCampania_SB2 201718,33901
+GetPedidoWebDetalleByCampania 201716,33901,'043',4
+GetPedidoWebDetalleByCampania_SB2 201716,33901
 */
 BEGIN
 	SET NOCOUNT ON
@@ -2803,8 +2833,11 @@ BEGIN
 	IF @CodigoPrograma IS NOT NULL
 	BEGIN
 		DELETE FROM @Estrategia 
-		WHERE CodigoPrograma <> @CodigoPrograma AND Numeropedido <> @NumeroPedido 
-			OR CodigoPrograma = @CodigoPrograma AND Numeropedido <> @NumeroPedido
+		WHERE 
+			isnull(CodigoPrograma,'') <> '' 
+			AND
+			((CodigoPrograma <> @CodigoPrograma AND Numeropedido <> @NumeroPedido) 
+			OR (CodigoPrograma = @CodigoPrograma AND Numeropedido <> @NumeroPedido))
 	END
 
 	SELECT 
@@ -2918,8 +2951,8 @@ ALTER PROCEDURE dbo.GetPedidoWebDetalleByCampania
 	@NumeroPedido int = 0
 AS
 /*
-GetPedidoWebDetalleByCampania 201718,33901,'043',4
-GetPedidoWebDetalleByCampania_SB2 201718,33901
+GetPedidoWebDetalleByCampania 201716,33901,'043',4
+GetPedidoWebDetalleByCampania_SB2 201716,33901
 */
 BEGIN
 	SET NOCOUNT ON
@@ -3063,8 +3096,11 @@ BEGIN
 	IF @CodigoPrograma IS NOT NULL
 	BEGIN
 		DELETE FROM @Estrategia 
-		WHERE CodigoPrograma <> @CodigoPrograma AND Numeropedido <> @NumeroPedido 
-			OR CodigoPrograma = @CodigoPrograma AND Numeropedido <> @NumeroPedido
+		WHERE 
+			isnull(CodigoPrograma,'') <> '' 
+			AND
+			((CodigoPrograma <> @CodigoPrograma AND Numeropedido <> @NumeroPedido) 
+			OR (CodigoPrograma = @CodigoPrograma AND Numeropedido <> @NumeroPedido))
 	END
 
 	SELECT 
@@ -3178,8 +3214,8 @@ ALTER PROCEDURE dbo.GetPedidoWebDetalleByCampania
 	@NumeroPedido int = 0
 AS
 /*
-GetPedidoWebDetalleByCampania 201718,33901,'043',4
-GetPedidoWebDetalleByCampania_SB2 201718,33901
+GetPedidoWebDetalleByCampania 201716,33901,'043',4
+GetPedidoWebDetalleByCampania_SB2 201716,33901
 */
 BEGIN
 	SET NOCOUNT ON
@@ -3323,8 +3359,11 @@ BEGIN
 	IF @CodigoPrograma IS NOT NULL
 	BEGIN
 		DELETE FROM @Estrategia 
-		WHERE CodigoPrograma <> @CodigoPrograma AND Numeropedido <> @NumeroPedido 
-			OR CodigoPrograma = @CodigoPrograma AND Numeropedido <> @NumeroPedido
+		WHERE 
+			isnull(CodigoPrograma,'') <> '' 
+			AND
+			((CodigoPrograma <> @CodigoPrograma AND Numeropedido <> @NumeroPedido) 
+			OR (CodigoPrograma = @CodigoPrograma AND Numeropedido <> @NumeroPedido))
 	END
 
 	SELECT 
@@ -3377,3 +3416,4 @@ BEGIN
 END
 
 go
+
