@@ -601,7 +601,6 @@ function ObtenerComunicadosPopup() {
         contentType: 'application/json',
         success: function (response) {
             CloseLoading();
-
             if (checkTimeout(response)) {
                 armarComunicadosPopup(response.data)
             }

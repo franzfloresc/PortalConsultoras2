@@ -1,0 +1,66 @@
+﻿<style>
+    .qq-upload-list {
+        margin: 5px 35px;
+    }
+    .div-3 .pdr_modal {
+        width:auto
+    }
+    .img-matriz-preview{
+        width:55px
+    }
+    #divVistaPrevia img {
+        height:100px
+    }
+</style>
+<div class="Content_modal">
+    <div class="div-3">
+        <div class="titG"><span class="required">(*)</span>Cod. programa:</div>
+        <div class="selectA" style="width:200px">
+            <input type="text" id="CodigoPrograma" autocomplete="off" maxlength="3" />
+        </div>
+    </div>
+    <div class="div-3">
+        <div class="titG"><span class="required">(*)</span>Cod. nivel:</div>
+        <div class="selectA" style="width:200px">
+            @Html.DropDownList("CodigoNivel", new SelectList(ViewBag.CodigoNivel, "Key", "Key"), "-- Seleccionar --")
+        </div>
+    </div>
+    <div class="div-3">
+        <div class="titG">Banner cupones:</div>
+        <div>
+            <div class="pdr_modal borde_redondeado">
+                <img id="imgBannerCupon" class="img-matriz-preview">
+            </div>
+        </div>
+        <div id="file-uploader-cupon"></div>
+    </div>
+    <div class="div-3">
+        <div class="titG">Banner premios:</div>
+        <div>
+            <div class="pdr_modal borde_redondeado">
+                <img id="imgBannerPremio" class="img-matriz-preview">
+            </div>
+        </div>
+        <div id="file-uploader-premio"></div>
+    </div>
+    <div class="div-3">
+        <div class="EstrategiaRequerido"><span class="required">(*)</span>Campos obligatorios</div>
+        <div class="EstrategiaBotones">
+            <input type="button" id="btnGuardar" value="GUARDAR" />
+            <input type="button" id="btnCancelar" value="CANCELAR" class="EstrategiaBotonSecundario" />
+        </div>
+    </div>
+</div>
+<div id="divVistaPrevia">
+    <div class="Content_modal">
+        <img id="imgVistaPrevia" src="" alt="Imagen Producto">
+    </div>
+    <div class="div-3">
+        <div class="EstrategiaBotones"></div>
+        <div class="EstrategiaBotones">
+            <input type="button" id="btnSalir" value="SALIR" class="EstrategiaBotonSecundario" />
+        </div>
+    </div>
+</div>
+<script src="@Url.Content("~/Scripts/fileuploader.js")" type="text/javascript"></script>
+<script src="@Url.Content(string.Format("~/Scripts/PortalConsultoras/EstrategiaProgramaNuevas/Banner.js?ver{0}", DateTime.Now.Ticks.ToString()))" type="text/javascript"></script>

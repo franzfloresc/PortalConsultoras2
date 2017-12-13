@@ -813,8 +813,7 @@
     var urlGetShowRoomPerfiles = baseUrl + 'ShowRoom/GetShowRoomPerfiles';
     var urlGuardarImagenShowRoom = baseUrl + 'ShowRoom/GuardarImagenShowRoom';
     var urlGuardarShowRoom = baseUrl + 'ShowRoom/GuardarShowRoom';
-    var urlUpdateOfertaShowRoom = baseUrl + 'ShowRoom/UpdateOfertaShowRoom';
-    var urlInsertOfertaShowRoom = baseUrl + 'ShowRoom/InsertOfertaShowRoom';
+    var urlInsertOrUpdateOfertaShowRoom = baseUrl + 'ShowRoom/InsertOrUpdateOfertaShowRoom';
     var urlInsertOfertaShowRoomDetalle = baseUrl + 'ShowRoom/InsertOfertaShowRoomDetalle';
     var urlUpdateOfertaShowRoomDetalle = baseUrl + 'ShowRoom/UpdateOfertaShowRoomDetalle';
     var urlDeshabilitarOfertaShowRoom = baseUrl + 'ShowRoom/DeshabilitarOfertaShowRoom';
@@ -2460,12 +2459,6 @@
     }
 
     function RegistrarOfertaShowRoom() {
-        var accion = "";
-        if ($("#FlagTransaccion").val() == "1")
-            accion = urlUpdateOfertaShowRoom;
-        else
-            accion = urlInsertOfertaShowRoom;
-
         var Item = {
             CampaniaID: jQuery('#hdCampaniaID').val(),
             CUV: jQuery('#txtCUVModal').val(),
@@ -2494,7 +2487,7 @@
         waitingDialog({ title: "Procesando" });
         jQuery.ajax({
             type: 'POST',
-            url: accion,
+            url: urlInsertOrUpdateOfertaShowRoom,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(Item),
@@ -2508,9 +2501,7 @@
                         LimpiarDatos();
                         jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
                     }
-                    else {
-                        alert(data.message);
-                    }
+                    else alert(data.message);
                 }
             },
             error: function (data, error) {

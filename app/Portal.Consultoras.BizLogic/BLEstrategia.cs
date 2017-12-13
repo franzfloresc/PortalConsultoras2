@@ -15,21 +15,10 @@ namespace Portal.Consultoras.BizLogic
     {
         public List<BEEstrategia> GetEstrategias(BEEstrategia entidad)
         {
-            try
+            using (IDataReader reader = new DAEstrategia(entidad.PaisID).GetEstrategia(entidad))
             {
-                List<BEEstrategia> listaEstrategias = new List<BEEstrategia>();
-
-                var DAEstrategia = new DAEstrategia(entidad.PaisID);
-                using (IDataReader reader = DAEstrategia.GetEstrategia(entidad))
-                {
-                    while (reader.Read())
-                    {
-                        listaEstrategias.Add(new BEEstrategia(reader, 1));
-                    }
-                }
-                return listaEstrategias;
+                return reader.MapToCollection<BEEstrategia>();
             }
-            catch (Exception) { throw; }
         }
 
         public BEEstrategiaDetalle GetEstrategiaDetalle(int paisID, int estrategiaID)
