@@ -5,7 +5,7 @@ var tag = null;
 var firstScriptTag = null;
 var player;
 
-$(document).ready(function () {        
+$(document).ready(function () {
     $(".termino_condiciones_intriga").click(function () {
         $(this).toggleClass('check_intriga');
         if (typeof intrigaAceptoTerminos !== 'undefined') {
@@ -687,11 +687,11 @@ function VerSeccionBienvenida(seccion) {
             id = "#contentmobile";
             break;
     }
-    if (id != "") {
-        $("html, body").animate({
-            scrollTop: $(id).offset().top - 60
-        }, 1000);
-    }
+    //if (id != "") {
+        //$("html, body").animate({
+        //    scrollTop: $(id).offset().top - 60
+        //}, 1000);
+    //}
 }
 
 function VerTutorialMobile() {
