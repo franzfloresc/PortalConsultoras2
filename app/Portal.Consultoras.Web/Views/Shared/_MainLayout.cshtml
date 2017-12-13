@@ -481,7 +481,7 @@
             var pixelAnalytics = Analytics();
             pixelAnalytics.invocarEventoPixelById('@(TempData["PixelMarcacion"])', '@(TempData["PixelId"])');
         </script>
-        @TempData.Remove("PixelCodigoIso");
+        TempData.Remove("PixelCodigoIso");
     }
 </body>
 </html>
