@@ -3,7 +3,6 @@
 
 .slick-list { position: relative; overflow: hidden; display: block; margin: 0; padding: 0; }
 .slick-list:focus { outline: none; }
-/*.slick-loading .slick-list { background: white url("./ajax-loader.gif") center center no-repeat; }*/
 .slick-list.dragging { cursor: pointer; cursor: hand; }
 
 .slick-slider .slick-list, .slick-track, .slick-slide, .slick-slide img { -webkit-transform: translate3d(0, 0, 0); -moz-transform: translate3d(0, 0, 0); -ms-transform: translate3d(0, 0, 0); -o-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); }
@@ -14,7 +13,6 @@
 .slick-loading .slick-track { visibility: hidden; }
 
 .slick-slide { float: left; height: 100%; min-height: 1px; display: none; }
-/*.slick-slide img { display: block; }*/
 .slick-slide.slick-loading img { display: none; }
 .slick-slide.dragging img { pointer-events: none; }
 .slick-initialized .slick-slide { display: block; }
@@ -22,7 +20,6 @@
 .slick-vertical .slick-slide { display: block; height: auto; border: 1px solid transparent; }
 
 /* Icons */
-/*@font-face { font-family: "slick"; src: url("./fonts/slick.eot"); src: url("./fonts/slick.eot?#iefix") format("embedded-opentype"), url("./fonts/slick.woff") format("woff"), url("./fonts/slick.ttf") format("truetype"), url("./fonts/slick.svg#slick") format("svg"); font-weight: normal; font-style: normal; }*/
 /* Arrows */
 .slick-prev{ 
      position: absolute;
@@ -65,11 +62,6 @@ background: url("/Content/Images/showroom/carrusel_p.png") no-repeat;
 
 .slick-prev:before, .slick-next:before { font-family: "slick"; font-size: 20px; line-height: 1; color: white; opacity: 0.75; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 
-/*.slick-prev { left: -25px; }*/
-/*.slick-prev:before { content: "\2190"; }*/
-
-/*.slick-next { right: -25px; }*/
-/*.slick-next:before { content: "\2192"; }*/
 
 /* Dots */
 .slick-slider {  margin-top: 43px; }
@@ -96,14 +88,6 @@ background: url("/Content/Images/showroom/carrusel_p.png") no-repeat;
     margin-top: 20px;
 }
 
-/*.slick-slide{
-    float:none!important;
-}*/
-
-/*.slick-list.draggable{
-    height: 1335px!important;
-}*/
-
 .slick-next{
     position:absolute!important;
     display:block;
@@ -118,20 +102,6 @@ background: url("/Content/Images/showroom/carrusel_p.png") no-repeat;
     border-bottom:1px solid #e7e1e1!important;
 }
 
-/*.slick-prev{
-    position:absolute!important;
-    display:block;
-    height: 25px!important;
-    width: 48px!important;
-    bottom: 25px;
-    left: 50%!important;
-    margin-left:-24px!important;
-    background: #f8f8f8 url("/Content/Images/showroom/carrusel_n.png") no-repeat center 9px!important;
-    z-index: 2;
-    border-radius: 25px 25px 0px 0px;
-    border-top:1px solid #e7e1e1!important;
-}*/
-
 .slick-prev{
     position: relative!important;
     display: block;
@@ -142,8 +112,6 @@ background: url("/Content/Images/showroom/carrusel_p.png") no-repeat;
     margin-left: -24px!important;
     background: url("/Content/Images/carrusel_n.png") no-repeat 12px 9px!important;
     z-index: 6;
-    /*border-radius: 25px 25px 0px 0px;
-    order-top: 1px solid #e7e1e1!important;*/
     border:none;
 }
 
@@ -154,7 +122,6 @@ background: url("/Content/Images/showroom/carrusel_p.png") no-repeat;
 .previous_ofertas-popup{
     height: 250px;
     padding-top: 122px;
-    /* float: left; */
     position: absolute;
     background: #fff;
     z-index: 1000;
