@@ -493,7 +493,7 @@ body {
 }
 
 
-/*INI: Loading*/
+/*INICIO Loading*/
 .content-spinner2 {
     position: fixed;
     top: 0;
@@ -752,9 +752,9 @@ body {
         transform: rotate(900deg);
     }
 }
-/*FIN: Loading*/
+/*FIN Loading*/
 
-/*INI: Popups Mensajes*/
+/*INICIO Popups Mensajes*/
 .MensajeAlertaMobile {
     position: fixed;
     z-index: 2010;
@@ -852,4 +852,4 @@ body {
         line-height: 28px;
     }
 }
-/*FIN: Popups Mensajes*/
+/*FIN Popups Mensajes*/
