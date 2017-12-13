@@ -56,8 +56,6 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "DesktopActivo", DbType.Boolean, entity.DesktopActivo);
             Context.Database.AddInParameter(command, "MobileActivo", DbType.Boolean, entity.MobileActivo);
             Context.Database.AddInParameter(command, "UrlSeccion", DbType.String, entity.UrlSeccion);
-
-            // BPT 353
             Context.Database.AddInParameter(command, "DesktopOrdenBpt", DbType.String, entity.DesktopOrdenBpt);
             Context.Database.AddInParameter(command, "MobileOrdenBpt", DbType.String, entity.MobileOrdenBpt);
             return Context.ExecuteReader(command);

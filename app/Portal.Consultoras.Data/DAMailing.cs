@@ -113,7 +113,6 @@ namespace Portal.Consultoras.Data
             Context.ExecuteReader(command);
         }
 
-        //R2447 - JICM - Agregando Método para obtener ZonaHoraria del Pais
         public DateTime GetPaisZonaHoraria() {
 
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetFechaHoraPais");

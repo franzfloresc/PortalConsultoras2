@@ -30,8 +30,8 @@
     CAMBIOS Y DEVOLUCIONES
 </div>
 
-<div class="pestana_esika"></div><!--PESTANA ESIKA-->
-<div class="pestana_lbel"></div><!--PESTANA LBEL-->
+<div class="pestana_esika"></div>
+<div class="pestana_lbel"></div>
 
 <div class="wrapper_resumen_mobile pt-50">
     @if (!string.IsNullOrEmpty(Model.MensajeGestionCdrInhabilitada) && Model.ListaCDRWeb.Count <= 0)
@@ -46,6 +46,9 @@
             </span>
             <span class="mensaje_vista_cdr tipografia_lato_regular">
                 Si tuviste inconvenientes con algún producto y estás dentro del <a href="@Model.UrlPoliticaCdr" class="plazo_permitido" title="Detalle de plazo permitido" target="_blank">plazo permitido</a> sigue estos pasos:
+            </span>
+            <span class="mensaje_test_IOS">
+                Este es un span para probar funcionalidad IOS
             </span>
             <input type="button" title="Registrar Solicitud" class="btn_registrar_solicitud_cdr tipografia_lato_bold" value="REGISTRAR SOLICITUD" id="IrPaso1">
             @if (@Model.ListaCDRWeb.Count() > 1)
@@ -139,9 +142,9 @@
                     </div>
                     <!-- FIN ESTADO SOLICITUD PENDIENTE -->
                     <div class="icono_busqueda abrir_detallemb">
-                        <a title="Ver solicitud" class="enlace_ver_solicitud_cdr">
+                        <span title="Ver solicitud" class="enlace_ver_solicitud_cdr">
                             <img src="~/Content/Images/icono_lupa.png" alt="Ver solicitud" />
-                        </a>
+                        </span>
                     </div>
                 </div>
             }

@@ -7,9 +7,6 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class TrackingController : BaseController
     {
-        //
-        // GET: /Tracking/
-
         public ActionResult Index()
         {
             BEUsuario usuario;
@@ -23,7 +20,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 string paisID = usuario.PaisID.ToString();
 
-                //Inicio ITG 1793 HFMG
                 string codigoConsultora;
                 if (UserData().UsuarioPrueba == 1)
                 {
@@ -33,7 +29,6 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     codigoConsultora = usuario.CodigoConsultora;
                 }
-                //Fin ITG 1793 HFMG
                 string mostrarAyudaWebTracking = Convert.ToInt32(usuario.MostrarAyudaWebTraking).ToString();
                 string paisISO = userData.CodigoISO.Trim();
                 string campanhaID = userData.CampaniaID.ToString();

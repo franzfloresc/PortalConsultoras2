@@ -30,8 +30,8 @@
     &nbsp;&nbsp;&nbsp;&nbsp;VOLVER
 
 </div>
-<div class="pestana_esika hideTituloMobileDetalleOferta"></div><!--PESTANA ESIKA-->
-<div class="pestana_lbel hideTituloMobileDetalleOferta"></div><!--PESTANA LBEL-->
+<div class="pestana_esika hideTituloMobileDetalleOferta"></div>
+<div class="pestana_lbel hideTituloMobileDetalleOferta"></div>
 
 <div class="content_room_product_sheet content_detalle_s">
 @if (mobileConfiguracion.MostrarBotonAtras)
@@ -63,7 +63,6 @@
         @foreach (var detalle in Model.ListaDetalleOfertaShowRoom)
         {
             <div class="description_item">
-                @*<div class="quantity"><br />x1</div>*@
                 <div class="detail">
                     @if (detalle.MarcaProducto != "")
                     {
@@ -401,7 +400,6 @@
                                 <a class="btn_agregar_ficha_producto" data-btn-agregar-cpc="" style="background:black;" href="javascript: void(0);">AGRÉGALO</a>
                                 <hr class="clear">
                             </div>
-                            @*<a class="btn_agrega_compra" data-btn-agregar-cpc="" href="javascript: void(0);">AGRÉGALO</a>*@
                         </div>
                         {
                             posicionCpc++;

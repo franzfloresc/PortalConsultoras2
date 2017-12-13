@@ -34,7 +34,7 @@ namespace Portal.Consultoras.Web.Controllers
             var model = new MisPagosModel();
             model.CodigoISO = userData.CodigoISO;
             model.UrlChileEncriptada = Util.EncriptarQueryString(parametroAEncriptar);
-            model.RutaChile = userData.CodigoISO == "CL" ? ConfigurationManager.AppSettings.Get("UrlPagoLineaChile") : string.Empty;
+            model.RutaChile = userData.CodigoISO == "CL" ? GetConfiguracionManager(Constantes.ConfiguracionManager.UrlPagoLineaChile) : string.Empty;
             model.MostrarFE = userData.CodigoISO == "EC" || userData.CodigoISO == "PE" ? " " : "display: none;";
             model.Simbolo = string.Format("{0} ", userData.Simbolo);
             model.TieneFlexipago = userData.IndicadorFlexiPago;
@@ -69,7 +69,6 @@ namespace Portal.Consultoras.Web.Controllers
                 lst.RemoveAt(lst.Count - 1);
             }
 
-            // Usamos el modelo para obtener los datos
             BEGrid grid = new BEGrid();
             grid.PageSize = rows;
             grid.CurrentPage = page;
@@ -135,7 +134,6 @@ namespace Portal.Consultoras.Web.Controllers
                 });
 
                 #region cotnenido del correo
-                /*CO-RE2584 - CS(CGI) */
                 string cadena = "<span style='font-family:Calibri'><h2> Estado de Cuenta Belcorp </h2></span>" +
                                 "<table width='650px' border = '1px' bordercolor='black' cellpadding='5px' cellspacing='0px' bgcolor='dddddd' >" +
                                 "<tr>" +
@@ -155,8 +153,6 @@ namespace Portal.Consultoras.Web.Controllers
                                       "</tr>";
                 }
 
-                //R2524 - JICM - Eliminando FEcha Vencimiento,Por ahora Si no existen movimientos no se mostrará 0 en la etiqueta
-                //Total a pagar si no que mostrará el valor del Monto Total a Pagar.
                 if (lst.Count > 0)
                 {
                     string fechaVencimiento = string.Empty;
@@ -164,8 +160,6 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         fechaVencimiento = lst[lst.Count - 1].Fecha.ToString("dd/MM/yyyy");
                     }
-                    //R2524 - JICM - Formateando decimal y Eliminando Fecha Vencimiento
-                    //R2524 - JICM - CC - Validación Cargo y Abono para el envío de Mail
                     if (Math.Abs(lst[lst.Count - 1].Cargo) > 0)
                     {
 
@@ -186,25 +180,6 @@ namespace Portal.Consultoras.Web.Controllers
                                           "TOTAL A PAGAR: " + "0" + "<br />";
                     }
                 }
-                // else
-                // {
-                //R2524 - JICM - Eliminando FEcha Vencimiento,Por ahora Si no existen movimientos no se mostrará 0 en la etiqueta
-                //Total a pagar si no que mostrará el valor del Monto Total a Pagar.
-
-                //cadena = cadena + "</table><br /><br />" +
-                //                  "TOTAL A PAGAR: " + "0" + "<br />" ;
-
-                //  }
-
-
-                //Mejora - Correo
-                //cadena += "<table border='0' style='width: 650px;'>";
-                //cadena += "<tr>";
-                //cadena += "<td style='font-family:Arial, Helvetica, sans-serif, serif; font-weight:bold; font-size:12px; text-align:right; padding-top:8px;'>";
-                //cadena += "Belcorp - " + nomPais;
-                //cadena += "</td>";
-                //cadena += "</tr>";
-                //cadena += "</table>";
 
                 #endregion
 
@@ -252,12 +227,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (lst.Count != 0)
             {
                 ObtenerFechaVencimientoMontoPagar(out fechaVencimiento, out montoPagar, out montoPagarDec);
-
-                //EstadoCuentaModel cuenta = lst[lst.Count - 1];
-                //cargo = cuenta.Cargo;
-                //abono = cuenta.Abono;
-                //lst.RemoveAt(lst.Count - 1);
-
+                
                 dicCabeceras.Add(new KeyValuePair<int, string>(lst.Count, userData.NombreConsultora));
                 lst.Add(new EstadoCuentaModel()
                 {
@@ -315,13 +285,11 @@ namespace Portal.Consultoras.Web.Controllers
                 lst = sv.SelectComprobantePercepcion(userData.PaisID, userData.ConsultoraID).ToList();
             }
 
-            // Usamos el modelo para obtener los datos
             BEGrid grid = new BEGrid();
             grid.PageSize = rows;
             grid.CurrentPage = page;
             grid.SortColumn = sidx;
             grid.SortOrder = sord;
-            //int buscar = int.Parse(txtBuscar);
             BEPager pag = new BEPager();
             IEnumerable<BEComprobantePercepcion> items = lst;
 
@@ -368,7 +336,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             pag = PaginadorPercepcion(grid, lst);
 
-            // Creamos la estructura
             var data = new
             {
                 total = pag.PageCount,
@@ -445,13 +412,11 @@ namespace Portal.Consultoras.Web.Controllers
                 lst = sv.SelectComprobantePercepcionDetalle(UserData().PaisID, Convert.ToInt32(IdComprobantePercepcion)).ToList();
             }
 
-            // Usamos el modelo para obtener los datos
             BEGrid grid = new BEGrid();
             grid.PageSize = rows;
             grid.CurrentPage = page;
             grid.SortColumn = sidx;
             grid.SortOrder = sord;
-            //int buscar = int.Parse(txtBuscar);
             BEPager pag = new BEPager();
             IEnumerable<BEComprobantePercepcionDetalle> items = lst;
 
@@ -538,7 +503,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             pag = PaginadorDetallePercepcion(grid, lst);
 
-            // Creamos la estructura
             var data = new
             {
                 total = pag.PageCount,
@@ -749,7 +713,7 @@ namespace Portal.Consultoras.Web.Controllers
                             else if (arr[1] == "Cargo")
                             {
                                 string cargo = "";
-                                if (userData.PaisID == 4) //Colombia
+                                if (userData.PaisID == 4)
                                 {
                                     cargo = source.Cargo.ToString("#,##0").Replace(',', '.');
                                 }
@@ -764,7 +728,7 @@ namespace Portal.Consultoras.Web.Controllers
                             else if (arr[1] == "Abono")
                             {
                                 string abono = "";
-                                if (userData.PaisID == 4) //Colombia
+                                if (userData.PaisID == 4)
                                 {
                                     abono = source.Abono.ToString("#,##0").Replace(',', '.');
                                 }
@@ -792,7 +756,7 @@ namespace Portal.Consultoras.Web.Controllers
                         wb.NamedRanges.NamedRange("Totals").Ranges.Style = titlesStyle;
 
                         string cargo = "";
-                        if (userData.PaisID == 4) //Colombia
+                        if (userData.PaisID == 4)
                         {
                             if (Math.Abs(cargoTotal) > 0)
                             {
@@ -816,7 +780,7 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                         }
 
-                        ws.Cell(row, col - 2).Value = arrTotal[0]; //Total:
+                        ws.Cell(row, col - 2).Value = arrTotal[0];
                         ws.Cell(row, col - 1).Value = arrTotal[1].Split('#')[0] + cargo;
                     }
                     row++;
@@ -831,12 +795,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                 HttpContext.Response.ClearHeaders();
                 HttpContext.Response.Clear();
-                //HttpContext.Current.Response.SetCookie("Cache-Control", "private");
                 HttpContext.Response.Buffer = false;
                 HttpContext.Response.AddHeader("Content-disposition", "attachment; filename=" + originalFileName);
                 HttpContext.Response.Charset = "UTF-8";
                 HttpContext.Response.Cache.SetCacheability(HttpCacheability.Private);
-                //HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
                 HttpContext.Response.ContentType = "application/octet-stream";
                 HttpContext.Response.BinaryWrite(stream.ToArray());
                 HttpContext.Response.Flush();

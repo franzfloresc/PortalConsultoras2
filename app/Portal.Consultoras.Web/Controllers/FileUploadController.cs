@@ -86,7 +86,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (String.IsNullOrEmpty(Request["qqfile"]))
                 {
-                    // req. 1664 - Unificando todo en una unica carpeta temporal
                     HttpPostedFileBase postedFile = Request.Files[0];
                     var fileName = Path.GetFileName(postedFile.FileName);
                     var path = Path.Combine(Globals.RutaTemporales, fileName);
@@ -98,40 +97,16 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else
                 {
-                    // req. 1664 - Unificando todo en una unica carpeta temporal
                     Stream inputStream = Request.InputStream;
                     byte[] fileBytes = ReadFully(inputStream);
-                    string ffFileName = qqfile; // qqfile;
+                    string ffFileName = qqfile;
                     var path = Path.Combine(Globals.RutaTemporales, ffFileName);
                     System.IO.File.WriteAllBytes(path, fileBytes);
                     if (!System.IO.File.Exists(Globals.RutaTemporales))
                         System.IO.Directory.CreateDirectory(Globals.RutaTemporales);
                     return Json(new { success = true, name = Path.GetFileName(path) }, "text/html");
                 }
-                /*
-                if (String.IsNullOrEmpty(Request["qqfile"]))
-                {
-                    HttpPostedFileBase postedFile = Request.Files[0];
-                    var fileName = Path.GetFileName(postedFile.FileName);
-                    var path = Path.Combine(Globals.RutaImagenesTempMatriz, fileName);
-                    if (!System.IO.File.Exists(Globals.RutaImagenesTempMatriz))
-                        System.IO.Directory.CreateDirectory(Globals.RutaImagenesTempMatriz);
-                    postedFile.SaveAs(path);
-                    path = Url.Content(Path.Combine(Globals.RutaImagenesTempMatriz, fileName));
-                    return Json(new { success = true, name = Path.GetFileName(path) }, "text/html");
-                }
-                else
-                {
-                    Stream inputStream = Request.InputStream;
-                    byte[] fileBytes = ReadFully(inputStream);
-                    string ffFileName = qqfile;
-                    var path = Path.Combine(Globals.RutaImagenesTempMatriz, ffFileName);
-                    System.IO.File.WriteAllBytes(path, fileBytes);
-                    if (!System.IO.File.Exists(Globals.RutaImagenesTempMatriz))
-                        System.IO.Directory.CreateDirectory(Globals.RutaImagenesTempMatriz);
-                    return Json(new { success = true, name = Path.GetFileName(path) }, "text/html");
-                }
-                 */
+
             }
             catch (Exception ex)
             {
@@ -140,10 +115,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        /* 
-         * Controller para subir los archivos de estrategia lanzamiento en una carpeta temporal.
-         * 
-         */
         [HttpPost]
         public ActionResult ImageLanzamientoUpload(string qqfile)
         {
@@ -151,7 +122,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 Stream inputStream = Request.InputStream;
                 byte[] fileBytes = ReadFully(inputStream);
-                string ffFileName = qqfile; // qqfile;
+                string ffFileName = qqfile;
                 var time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
                 var path = Path.Combine(Globals.RutaTemporales, time + ffFileName);
                 System.IO.File.WriteAllBytes(path, fileBytes);
@@ -172,7 +143,6 @@ namespace Portal.Consultoras.Web.Controllers
             string FileName = string.Empty;
             try
             {
-                // 1664
                 if (String.IsNullOrEmpty(Request["qqfile"]))
                 {
                     HttpPostedFileBase postedFile = Request.Files[0];
@@ -196,31 +166,7 @@ namespace Portal.Consultoras.Web.Controllers
                         System.IO.Directory.CreateDirectory(Globals.RutaTemporales);
                     return Json(new { success = true, name = Path.GetFileName(path) }, "text/html");
                 }
-                /*
-                 if (String.IsNullOrEmpty(Request["qqfile"]))
-                {
-                    HttpPostedFileBase postedFile = Request.Files[0];
-                    var fileName = Path.GetFileName(postedFile.FileName);
-                    var path = Path.Combine(Globals.RutaImagenesTempOfertas, fileName);
-                    if (!System.IO.File.Exists(Globals.RutaImagenesTempOfertas))
-                        System.IO.Directory.CreateDirectory(Globals.RutaImagenesTempOfertas);
 
-                    postedFile.SaveAs(path);
-                    path = Url.Content(Path.Combine(Globals.RutaImagenesTempOfertas, fileName));
-                    return Json(new { success = true, name = Path.GetFileName(path) }, "text/html");
-                }
-                else
-                {
-                    Stream inputStream = Request.InputStream;
-                    byte[] fileBytes = ReadFully(inputStream);
-                    string ffFileName = qqfile;
-                    var path = Path.Combine(Globals.RutaImagenesTempOfertas, ffFileName);
-                    System.IO.File.WriteAllBytes(path, fileBytes);
-                    if (!System.IO.File.Exists(Globals.RutaImagenesTempOfertas))
-                        System.IO.Directory.CreateDirectory(Globals.RutaImagenesTempOfertas);
-                    return Json(new { success = true, name = Path.GetFileName(path) }, "text/html");
-                }
-                 */
             }
             catch (Exception ex)
             {
@@ -235,7 +181,6 @@ namespace Portal.Consultoras.Web.Controllers
             string FileName = string.Empty;
             try
             {
-                // 1664
                 if (String.IsNullOrEmpty(Request["qqfile"]))
                 {
                     HttpPostedFileBase postedFile = Request.Files[0];
@@ -260,31 +205,6 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(new { success = true, name = Path.GetFileName(path) }, "text/html");
                 }
 
-                /*
-                if (String.IsNullOrEmpty(Request["qqfile"]))
-                {
-                    HttpPostedFileBase postedFile = Request.Files[0];
-                    var fileName = Path.GetFileName(postedFile.FileName);
-                    var path = Path.Combine(Globals.RutaImagenesTempLugaresPago, fileName);
-                    if (!System.IO.File.Exists(Globals.RutaImagenesTempLugaresPago))
-                        System.IO.Directory.CreateDirectory(Globals.RutaImagenesTempLugaresPago);
-
-                    postedFile.SaveAs(path);
-                    path = Url.Content(Path.Combine(Globals.RutaImagenesTempLugaresPago, fileName));
-                    return Json(new { success = true, name = Path.GetFileName(path) }, "text/html");
-                }
-                else
-                {
-                    Stream inputStream = Request.InputStream;
-                    byte[] fileBytes = ReadFully(inputStream);
-                    string ffFileName = qqfile;
-                    var path = Path.Combine(Globals.RutaImagenesTempLugaresPago, ffFileName);
-                    System.IO.File.WriteAllBytes(path, fileBytes);
-                    if (!System.IO.File.Exists(Globals.RutaImagenesTempLugaresPago))
-                        System.IO.Directory.CreateDirectory(Globals.RutaImagenesTempLugaresPago);
-                    return Json(new { success = true, name = Path.GetFileName(path) }, "text/html");
-                }
-                 */
             }
             catch (Exception ex)
             {
@@ -323,31 +243,6 @@ namespace Portal.Consultoras.Web.Controllers
                         System.IO.Directory.CreateDirectory(Globals.RutaTemporales);
                     return Json(new { success = true, name = Path.GetFileName(path) }, "text/html");
                 }
-                /*
-                if (String.IsNullOrEmpty(Request["qqfile"]))
-                {
-                    HttpPostedFileBase postedFile = Request.Files[0];
-                    var fileName = Path.GetFileName(postedFile.FileName);
-                    var path = Path.Combine(Globals.RutaImagenesTempIncentivos, fileName);
-                    if (!System.IO.File.Exists(Globals.RutaImagenesTempIncentivos))
-                        System.IO.Directory.CreateDirectory(Globals.RutaImagenesTempIncentivos);
-
-                    postedFile.SaveAs(path);
-                    path = Url.Content(Path.Combine(Globals.RutaImagenesTempIncentivos, fileName));
-                    return Json(new { success = true, name = Path.GetFileName(path) }, "text/html");
-                }
-                else
-                {
-                    Stream inputStream = Request.InputStream;
-                    byte[] fileBytes = ReadFully(inputStream);
-                    string ffFileName = qqfile;
-                    var path = Path.Combine(Globals.RutaImagenesTempIncentivos, ffFileName);
-                    System.IO.File.WriteAllBytes(path, fileBytes);
-                    if (!System.IO.File.Exists(Globals.RutaImagenesTempIncentivos))
-                        System.IO.Directory.CreateDirectory(Globals.RutaImagenesTempIncentivos);
-                    return Json(new { success = true, name = Path.GetFileName(path) }, "text/html");
-                }
-                 */
             }
             catch (Exception ex)
             {
