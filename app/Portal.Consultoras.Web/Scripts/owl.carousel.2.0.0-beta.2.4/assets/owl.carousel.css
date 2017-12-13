@@ -59,7 +59,6 @@
     display: none;
     width: 100%;
     -webkit-tap-highlight-color: transparent;
-    /* position relative and z-index fix webkit rendering fonts issue */
     position: relative;
     z-index: 1;
     height: 100%;
@@ -84,7 +83,6 @@
     .owl-carousel .owl-stage-outer {
         position: relative;
         overflow: hidden;
-        /* fix for flashing background */
         -webkit-transform: translate3d(0px, 0px, 0px);
         height: 100%;
     }
@@ -116,7 +114,6 @@
 
     .owl-carousel .owl-controls .owl-dots {
         position: absolute;
-        /* margin-bottom: 90px; */
         bottom: 60px;
         left: 19.5%;
     }
@@ -154,7 +151,6 @@
 
         .owl-carousel .owl-item img {
             display: block;
-            /*width: 100%;*/
             -webkit-transform-style: preserve-3d;
         }
 

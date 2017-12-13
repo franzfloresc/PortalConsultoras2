@@ -82,7 +82,6 @@
         }
 
 .popup_revistaSuscripcion_terminos {
-    /*width: 209px;*/
     font-family: 'Lato';
     font-size: 11px;
     color: #FFF;
@@ -103,12 +102,10 @@
 }
 
 .popup_revistaSuscripcion_noAMostrarMensaje {
-    /*display: block;*/
     width: 213px;
     margin-top: 9px;
     font-family: 'Lato';
     color: #FFF;
-    /*font-weight: bold;*/
     font-size: 11px;
     position: relative;
     top: 17px;
@@ -986,7 +983,6 @@ div#tab_revistasdigital_mobile {
     padding-right: 8%;
     font-family: 'Lato';
     font-size: 13px;
-    /* color: #FF1534; */
     font-weight: 700;
     margin-top: 2px;
 }
@@ -1035,7 +1031,6 @@ div#tab_revistasdigital_mobile {
     font-weight: 700;
     letter-spacing: 2px;
     position: relative;
-    /*margin-top:30px;*/
 }
 
     .subtitulo_landing:after {
@@ -1057,9 +1052,6 @@ div#tab_revistasdigital_mobile {
     margin-right: 2%;
     height: 45px;
     padding: 6px 30px 6px 14px;
-    /* display: inline-block; */
-    /* border-radius: 0; */
-    /* -webkit-appearance: none; */
     border: 1px solid #ccc;
     float: left;
     margin-bottom: 18px;
@@ -1157,8 +1149,8 @@ div#tab_revistasdigital_mobile {
 
 .video-responsive-bpt {
     position: relative;
-    padding-bottom: 56.25%; /* 16/9 ratio */
-    padding-top: 30px; /* IE6 workaround*/
+    padding-bottom: 56.25%;
+    padding-top: 30px; 
     height: 0;
     overflow: hidden;
 }
@@ -1540,7 +1532,6 @@ div#tab_revistasdigital_mobile {
 
 .beneficios_ept_img {
     position: relative;
-    /*bottom: -22px;*/
     z-index: -1;
     text-align: center;
 }
@@ -2204,16 +2195,16 @@ div#tab_revistasdigital_mobile {
 
     .video-visual .videobg {
         position: relative;
-        width: 100%; /* Set video container element width here */
-        height: 100%; /* Set video container element height here */
+        width: 100%;
+        height: 100%;
         overflow: hidden;
-        background: #111; /* bg color, if video is not high enough */
+        background: #111;
     }
 
     /* horizontally center the video */
     .video-visual .videobg-width {
         position: absolute;
-        width: 100%; /* Change width value to cover more area*/
+        width: 100%;
         height: 100%;
         left: -9999px;
         right: -9999px;
@@ -2228,7 +2219,7 @@ div#tab_revistasdigital_mobile {
         top: -9999px;
         bottom: -9999px;
         margin: auto;
-        padding-bottom: 56.25%; /* 16:9 ratio */
+        padding-bottom: 56.25%;
         overflow: hidden;
     }
 
@@ -2245,10 +2236,9 @@ div#tab_revistasdigital_mobile {
         position: relative;
         height: 100%;
         width: 100%;
-        /* Vimeo timeline and play button are ~55px high */
-        padding: 55px 97.7777px; /* 16:9 ratio */
+        padding: 55px 97.7777px;
         top: -55px;
-        left: -97.7777px; /* 16:9 ratio */
+        left: -97.7777px;
     }
 
     .video-visual .videobg iframe {
@@ -2268,8 +2258,6 @@ div#tab_revistasdigital_mobile {
 }
 
     .gana-mas img {
-        /*margin-top: 25px !important;
-    margin-bottom: 20px !important;*/
         margin-top: 30px !important;
         margin-bottom: 20px !important;
     }
@@ -2693,3 +2681,72 @@ a.btn-suscribete-video-baja {
 }
 
 /* FIN NUEVO LANDING SUSCRIPCION MOBILE */
+
+/* PREGUNTAS FRECUENTAS NUEVAS */
+.preguntas-frecuentes-cont-sus {
+margin-bottom: 30px;
+margin-top: -20px;
+}
+.preguntas-frecuentes-cont-sus .contenedor-mobile-fix {
+padding: 0px 25px;
+}
+.preguntas-frecuentes-cont-sus .contenedor-mobile-fix p{
+display: block;
+color: black;
+font-size: 13px;
+padding: 15px;
+box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.2);
+text-align:left;
+margin-bottom: 0;
+position: relative;
+z-index: 1;
+cursor:pointer;
+}
+.preguntas-frecuentes-cont-sus .contenedor-mobile-fix span.despliegue{
+float:right;
+font-weight: bolder;
+}
+.preguntas-frecuentes-cont-sus .contenedor-mobile-fix span.nodespliegue{
+float:right;
+font-weight: bolder;
+display:none;
+}
+.preguntas-frecuentes-cont-sus ul.preg-frecuentes{
+margin:0;
+padding:0;
+list-style-type:none;
+}
+.preguntas-frecuentes-cont-sus ul.preg-frecuentes ul {
+margin: 0;
+padding: 0;
+list-style-type: none;
+border: 1px solid #e0e0e0;
+padding: 15px;
+position: relative;
+z-index: 0;
+display:none;
+top: -1px;
+}
+.preguntas-frecuentes-cont-sus ul.preg-frecuentes ul b{
+font-size:13px;
+font-weight:bolder;
+margin-bottom: 5pt;
+display: block;
+letter-spacing:0.5px;
+}
+.preguntas-frecuentes-cont-sus ul.preg-frecuentes ul span{
+display:block;
+letter-spacing:0.5px;
+margin-bottom:15pt;
+text-align:left;
+}
+.preguntas-frecuentes-cont-sus ul.preg-frecuentes ul li a.descargar{
+display: block;
+text-align: left;
+color: black;
+margin-bottom: 20px;
+font-size: 13px;
+font-weight: bold;
+text-decoration:underline;
+}
+/* FIN */
