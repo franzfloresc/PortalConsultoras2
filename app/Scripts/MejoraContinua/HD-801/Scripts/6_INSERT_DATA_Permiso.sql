@@ -39,7 +39,7 @@ BEGIN
         Codigo
     )
     VALUES
-    (@PermisoID + 1, 'Mis certificados', @IDPadre, @OrdenItem + 1, 'MisCertificados/Index', 0, 'Header', '', 0, 0, 0,
+    (@PermisoID + 1, 'Mis certificados', @IDPadre, 7, 'MisCertificados/Index', 0, 'Header', '', 0, 0, 0,
      1  , 'MisCertificados');
 	 
     INSERT INTO dbo.RolPermiso
@@ -96,7 +96,7 @@ BEGIN
         Codigo
     )
     VALUES
-    (@PermisoID + 1, 'Mis certificados', @IDPadre, @OrdenItem + 1, 'MisCertificados/Index', 0, 'Header', '', 0, 0, 0,
+    (@PermisoID + 1, 'Mis certificados', @IDPadre, 7, 'MisCertificados/Index', 0, 'Header', '', 0, 0, 0,
      1  , 'MisCertificados');
 	 
     INSERT INTO dbo.RolPermiso

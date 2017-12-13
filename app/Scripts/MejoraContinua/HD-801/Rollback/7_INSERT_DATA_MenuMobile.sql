@@ -16,8 +16,6 @@ BEGIN
     WHERE Descripcion = 'Mis certificados'
 	
 	DELETE FROM dbo.MenuMobile where MenuMobileID = @PermisoID;
-
-	DELETE FROM dbo.RolPermiso WHERE PermisoID = @PermisoID;
 END;
 
 GO
@@ -39,8 +37,6 @@ BEGIN
     WHERE Descripcion = 'Mis certificados'
 	
 	DELETE FROM dbo.MenuMobile where MenuMobileID = @PermisoID;
-
-	DELETE FROM dbo.RolPermiso WHERE PermisoID = @PermisoID;
 END;
 
 GO

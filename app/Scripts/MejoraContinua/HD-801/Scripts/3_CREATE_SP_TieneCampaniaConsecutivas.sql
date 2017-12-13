@@ -9,7 +9,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE dbo.TieneCampaniaConsecutivas
+CREATE PROCEDURE [dbo].[TieneCampaniaConsecutivas]
     @CampaniaId VARCHAR(6),
     @CantidadCampaniaConsecutiva INT,
     @ConsultoraId BIGINT
@@ -22,9 +22,26 @@ BEGIN
 
     DECLARE @TiemeCampaniaConsecutiva BIT = 0;
 
-    DECLARE @campaniafin VARCHAR(6) = FFVV.fnGetCampaniaAnterior(@CampaniaId, 1);
-    DECLARE @campaniainicio VARCHAR(6) = FFVV.fnGetCampaniaAnterior(@CampaniaId, @CantidadCampaniaConsecutiva);
+    DECLARE @CampaniaFin VARCHAR(6) = FFVV.fnGetCampaniaAnterior(@CampaniaId, 1);
+    DECLARE @CampaniaInicio VARCHAR(6) = FFVV.fnGetCampaniaAnterior(@CampaniaId, @CantidadCampaniaConsecutiva);
 
+	DECLARE @CantPedidos INT, @CantPedidoWeb INT
+
+	SELECT DISTINCT @CantPedidos = COUNT(CampaniaId) 
+	FROM ods.Pedido 
+	WHERE ConsultoraId = @ConsultoraId
+	AND CampaniaId IN (
+		SELECT CampaniaId 
+		FROM ods.Campania 
+		WHERE Codigo BETWEEN @CampaniaInicio AND @CampaniaFin)
+
+	SELECT @CantPedidoWeb = COUNT(CampaniaId) 
+	FROM PedidoWeb 
+	WHERE ConsultoraId = @ConsultoraId
+	AND CampaniaId BETWEEN @CampaniaInicio AND @CampaniaFin
+	AND EstadoPedido = 202
+
+	/*
     DECLARE @NumeroCampaniaPedido INT = 0;
     SELECT @NumeroCampaniaPedido = COUNT(*)
     FROM ods.Pedido
@@ -35,10 +52,12 @@ BEGIN
                                 WHERE @campaniainicio <= codigo
                                       AND codigo <= @campaniafin
                             );
+							*/
 
 END;
 
-IF (@CantidadCampaniaConsecutiva = @NumeroCampaniaPedido)
+--IF (@CantidadCampaniaConsecutiva = @NumeroCampaniaPedido)
+IF (@CantPedidos >= 3 OR @CantPedidoWeb = @CantidadCampaniaConsecutiva)
     SET @TiemeCampaniaConsecutiva = 1;
 ELSE
     SET @TiemeCampaniaConsecutiva = 0;
@@ -57,7 +76,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE dbo.TieneCampaniaConsecutivas
+CREATE PROCEDURE [dbo].[TieneCampaniaConsecutivas]
     @CampaniaId VARCHAR(6),
     @CantidadCampaniaConsecutiva INT,
     @ConsultoraId BIGINT
@@ -70,9 +89,26 @@ BEGIN
 
     DECLARE @TiemeCampaniaConsecutiva BIT = 0;
 
-    DECLARE @campaniafin VARCHAR(6) = FFVV.fnGetCampaniaAnterior(@CampaniaId, 1);
-    DECLARE @campaniainicio VARCHAR(6) = FFVV.fnGetCampaniaAnterior(@CampaniaId, @CantidadCampaniaConsecutiva);
+    DECLARE @CampaniaFin VARCHAR(6) = FFVV.fnGetCampaniaAnterior(@CampaniaId, 1);
+    DECLARE @CampaniaInicio VARCHAR(6) = FFVV.fnGetCampaniaAnterior(@CampaniaId, @CantidadCampaniaConsecutiva);
 
+	DECLARE @CantPedidos INT, @CantPedidoWeb INT
+
+	SELECT DISTINCT @CantPedidos = COUNT(CampaniaId) 
+	FROM ods.Pedido 
+	WHERE ConsultoraId = @ConsultoraId
+	AND CampaniaId IN (
+		SELECT CampaniaId 
+		FROM ods.Campania 
+		WHERE Codigo BETWEEN @CampaniaInicio AND @CampaniaFin)
+
+	SELECT @CantPedidoWeb = COUNT(CampaniaId) 
+	FROM PedidoWeb 
+	WHERE ConsultoraId = @ConsultoraId
+	AND CampaniaId BETWEEN @CampaniaInicio AND @CampaniaFin
+	AND EstadoPedido = 202
+
+	/*
     DECLARE @NumeroCampaniaPedido INT = 0;
     SELECT @NumeroCampaniaPedido = COUNT(*)
     FROM ods.Pedido
@@ -83,10 +119,12 @@ BEGIN
                                 WHERE @campaniainicio <= codigo
                                       AND codigo <= @campaniafin
                             );
+							*/
 
 END;
 
-IF (@CantidadCampaniaConsecutiva = @NumeroCampaniaPedido)
+--IF (@CantidadCampaniaConsecutiva = @NumeroCampaniaPedido)
+IF (@CantPedidos >= 3 OR @CantPedidoWeb = @CantidadCampaniaConsecutiva)
     SET @TiemeCampaniaConsecutiva = 1;
 ELSE
     SET @TiemeCampaniaConsecutiva = 0;
