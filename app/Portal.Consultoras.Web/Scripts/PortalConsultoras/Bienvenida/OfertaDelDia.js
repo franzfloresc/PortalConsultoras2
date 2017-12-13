@@ -873,7 +873,25 @@ $(document).ready(function () {
         return listaOfertasConClases;
     }
 
-    $(elements.ContenedorInternoSliderOfertaDelDiaMobileHome + ", " + elements.ContenedorInternoSliderOfertaDelDiaMobile).click(function () {
+    $(elements.ContenedorInternoSliderOfertaDelDiaMobileHome).click(function () {
+        document.location.href = urlOfertaDelDiaMobile;
+    });
+
+    $(elements.ContenedorInternoSliderOfertaDelDiaMobile).click(function () {
+        dataLayer.push({
+            'event': 'promotionClick',
+            'ecommerce': {
+                'promoClick': {
+                    'promotions': [
+                    {
+                        'id': '002 ',
+                        'name': 'Oferta del dia',
+                        'position': controllerName + ' - Banner superior',
+                        'creative': 'Banner'
+                    }]
+                }
+            }
+        });
         document.location.href = urlOfertaDelDiaMobile;
     });
 

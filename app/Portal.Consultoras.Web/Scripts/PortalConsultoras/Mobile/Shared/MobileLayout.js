@@ -156,6 +156,13 @@
     });
 
     $("#btn_cerrar_oferta_mobile").click(function () {
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Banners',
+            'action': 'Cerrar Banner',
+            'label': 'Oferta del dia'
+        });
+
         //$('.header_slider').slideUp();
         $('.header_slider').hide();
         //$("#contentmobile").css({ 'margin-top': '63px' });
@@ -1061,11 +1068,31 @@ function BannerApp() {
     }
     $(".banner_app div").click(function (e) {
         e.preventDefault();
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Banners',
+            'action': 'Cerrar Banner',
+            'label': 'Descargar app consultora'
+        });
         $(".banner_app").hide();
         OcultarBannerApp();
         return false;
     });
     $(".banner_app").click(function (e) {
+        dataLayer.push({
+            'event': 'promotionClick',
+            'ecommerce': {
+                'promoClick': {
+                    'promotions': [
+                    {
+                        'id': '003',
+                        'name': 'Descargar app consultora',
+                        'position': controllerName + ' - Banner superior',
+                        'creative': 'Banner'
+                    }]
+                }
+            }
+        });
         window.open(oBannerApp.DescripcionAccion);
     });
     $(".banner_app").css("background-image", "url(" + oBannerApp.UrlImagen + ")");
