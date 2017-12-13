@@ -4138,12 +4138,12 @@ namespace Portal.Consultoras.Web.Controllers
             if (key == "")
                 return "";
 
-            key = Util.Trim(ConfigurationManager.AppSettings.Get(key));
+            var keyvalor = ConfigurationManager.AppSettings.Get(key);
 
-            if (key == "")
-                LogManager.LogManager.LogErrorWebServicesBus(new Exception(), userData.CodigoConsultora, userData.CodigoISO, "BaseController.GetConfiguracionManager el key " + key + " no tiene valor");
+            if (keyvalor == null)
+                LogManager.LogManager.LogErrorWebServicesBus(new Exception(), userData.CodigoConsultora, userData.CodigoISO, "BaseController.GetConfiguracionManager el key " + key + " no existe");
 
-            return key;
+            return Util.Trim(keyvalor);
         }
 
         #endregion
