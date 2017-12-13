@@ -3642,7 +3642,6 @@
     <Content Include="emt_chat\fonts\fontawesome-webfont.woff" />
     <Content Include="emt_chat\fonts\fontawesome-webfont.woff2" />
     <Content Include="emt_chat\fonts\FontAwesome.otf" />
-    <Content Include="emt_chat\images\.DS_Store" />
     <Content Include="emt_chat\less\animated.less" />
     <Content Include="emt_chat\less\bordered-pulled.less" />
     <Content Include="emt_chat\less\core.less" />
