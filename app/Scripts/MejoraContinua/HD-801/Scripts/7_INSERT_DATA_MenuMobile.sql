@@ -40,16 +40,6 @@ BEGIN
     VALUES
     (@PermisoID + 1, 'Mis certificados', @IDPadre, @OrdenItem + 1, 'Mobile/MisCertificados', '', 0, 'Menu', 'Mobile', 1, '');
 
-    INSERT INTO dbo.RolPermiso
-    (
-        RolID,
-        PermisoID,
-        Activo,
-        Mostrar
-    )
-    VALUES
-    (@RolID, @PermisoID + 1, 1, 1);
-
 END;
 
 GO
@@ -93,16 +83,6 @@ BEGIN
     )
     VALUES
     (@PermisoID + 1, 'Mis certificados', @IDPadre, @OrdenItem + 1, 'Mobile/MisCertificados', '', 0, 'Menu', 'Mobile', 1, '');
-
-    INSERT INTO dbo.RolPermiso
-    (
-        RolID,
-        PermisoID,
-        Activo,
-        Mostrar
-    )
-    VALUES
-    (@RolID, @PermisoID + 1, 1, 1);
 
 END;
 
