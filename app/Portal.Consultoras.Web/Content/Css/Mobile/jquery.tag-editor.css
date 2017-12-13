@@ -222,7 +222,7 @@
         display: block;
         padding: 2px .4em;
         line-height: 1.4;
-        min-height: 0; /* support: IE7 */
+        min-height: 0;
     }
 
 .ui-widget-content {
