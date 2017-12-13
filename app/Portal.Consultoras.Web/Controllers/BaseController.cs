@@ -4190,7 +4190,20 @@ namespace Portal.Consultoras.Web.Controllers
             var keyvalor = ConfigurationManager.AppSettings.Get(key);
 
             if (keyvalor == null)
-                LogManager.LogManager.LogErrorWebServicesBus(new Exception(), userData.CodigoConsultora, userData.CodigoISO, "BaseController.GetConfiguracionManager el key " + key + " no existe");
+            {
+                var sinLog = key.StartsWith(Constantes.ConfiguracionManager.DES_UBIGEO)
+                    || key.StartsWith(Constantes.ConfiguracionManager.FechaChat)
+                    || key.StartsWith(Constantes.ConfiguracionManager.TokenAtento)
+                    || key.StartsWith(Constantes.ConfiguracionManager.RevistaPiloto_Zonas)
+                    || key.StartsWith(Constantes.ConfiguracionManager.Contrato_ActualizarDatos)
+                    || key.StartsWith(Constantes.ConfiguracionManager.URL_FAMILIAPROTEGIDA_);
+
+                if (!sinLog)
+                    LogManager.LogManager.LogErrorWebServicesBus(new Exception(), 
+                        userData.CodigoConsultora, 
+                        userData.CodigoISO, 
+                        "BaseController.GetConfiguracionManager el key " + key + " no existe");
+            }
 
             return Util.Trim(keyvalor);
         }
