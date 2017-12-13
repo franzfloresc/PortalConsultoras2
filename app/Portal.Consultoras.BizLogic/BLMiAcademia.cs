@@ -18,7 +18,7 @@ namespace Portal.Consultoras.BizLogic
         public void GetInformacionCursoLiderDescarga(int PaisId, string PaisISO, string FechaProceso, string Usuario)
         {
             int nroLote = 0;
-            DAMiAcademia DAMiAcademia = null;
+            DAMiAcademia DAMiAcademia = new DAMiAcademia(PaisId);
 
             string headerFile = null, NombreCabecera = null;
             try
@@ -29,7 +29,6 @@ namespace Portal.Consultoras.BizLogic
                 string OrderTemplate = element.LetCursoTemplate;
                 TemplateField[] headerTemplate = ParseTemplate(ConfigurationManager.AppSettings[OrderTemplate]);
                 
-                DAMiAcademia = new DAMiAcademia(PaisId);
                 DataSet dsCursoLider;
                 DataTable dtCursoLider;
 
@@ -97,8 +96,12 @@ namespace Portal.Consultoras.BizLogic
                 {
                     string error = "Error desconocido: " + ex.Message;
                     string errorExcepcion = ErrorUtilities.GetExceptionMessage(ex);
-                    try { DAMiAcademia.UpdLetCursoDescarga(nroLote, 99, error, errorExcepcion, string.Empty, string.Empty); }
-                    catch (Exception ex2) { LogManager.SaveLog(ex2, Usuario, PaisISO); }
+                    try {
+                        DAMiAcademia.UpdLetCursoDescarga(nroLote, 99, error, errorExcepcion, string.Empty, string.Empty);
+                    }
+                    catch (Exception ex2) {
+                        LogManager.SaveLog(ex2, Usuario, PaisISO);
+                    }
                     MailUtilities.EnviarMailProcesoDescargaExcepcion("Descarga de pedidos", PaisISO, FechaProceso, Enumeradores.TipoDescargaPedidos.GenerarLideres.ToString(), error, errorExcepcion);
                 }
                 throw;

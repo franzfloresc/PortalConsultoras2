@@ -7,7 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Portal.Consultoras.Entities;
 
-// R2073 - Toda la clase
 namespace Portal.Consultoras.Data
 {
     public class DAValidacionAutomatica : DataAccess
@@ -64,7 +63,6 @@ namespace Portal.Consultoras.Data
 
         public void InsPedidoWebAccionesPROLAuto(BEAccionesPROL oBEAccionesPROL)
         {
-            //TipoOrigen 2: Validacion Automatica Movil
             DbCommand command = Context.Database.GetStoredProcCommand("InsPedidoWebAccionesPROL",
                 oBEAccionesPROL.CampaniaID,
                 oBEAccionesPROL.PedidoID,
@@ -135,7 +133,6 @@ namespace Portal.Consultoras.Data
 
         public void InsPedidoWebCorreoPROL(long ValAutomaticaPROLLogId, int CampaniaID, int PedidoID)
         {
-            //TipoOrigen 2: Validacion Automatica Movil
             DbCommand oDbCommand = Context.Database.GetStoredProcCommand("InsPedidoWebCorreoPROL",
                 ValAutomaticaPROLLogId,
                 CampaniaID,
@@ -149,8 +146,7 @@ namespace Portal.Consultoras.Data
         #endregion
 
         #region PROL AUTO ADMIN
-
-        //JZ_VAL_PROL_AUTO
+        
         public int GetEstadoProcesoPROLAuto(DateTime FechaHoraFacturacion)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("GetEstadoProcesoPROLAuto");
@@ -158,7 +154,6 @@ namespace Portal.Consultoras.Data
             return Convert.ToInt32(Context.ExecuteScalar(command));
         }
 
-        //JZ_VAL_PROL_AUTO
         public IDataReader GetEstadoProcesoPROLAutoDetalle()
         {
             DbCommand command = Context.Database.GetStoredProcCommand("GetEstadoProcesoPROLAutoDetalle");

@@ -21,7 +21,6 @@ namespace Portal.Consultoras.Data
     
     public abstract class DataAccess
     {
-        //private static string logFileBaseName = null;
         private DbContext context;
 
         public DataAccess(DataAccess dataAccess)
@@ -40,18 +39,6 @@ namespace Portal.Consultoras.Data
             var element = section.Countries[paisID];
             string dbname = (dbSource == EDbSource.ODS) ? element.OdsName : (dbSource == EDbSource.Digitacion) ? element.DDName : (dbSource == EDbSource.OnPremise) ? element.OPName : element.DbName;
             this.context = new DbContext(dbname);
-
-            /*if (logFileBaseName == null)
-            {
-                string logPath = ConfigurationManager.AppSettings["DataAccessErrorLogPath"];
-                if (!string.IsNullOrEmpty(logPath))
-                    logFileBaseName = System.IO.Path.Combine(logPath, "DataAccessErrors");
-                else
-                    logFileBaseName = string.Empty;
-            }
-
-            if (logFileBaseName != string.Empty)
-                this.context.LogFileName = logFileBaseName + "-" + DateTime.Now.ToString("yyyyMMdd") + ".log";*/
         }
 
         public DataAccess(EDbSource dbSource)

@@ -1,5 +1,6 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Controllers;
+using Portal.Consultoras.Web.Helpers;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
@@ -10,7 +11,6 @@ using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
 using System.Web.Routing;
-using Portal.Consultoras.Web.Helpers;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -21,7 +21,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         private const string keyFechaGetCantidadProductos = "fechaGetCantidadProductos";
         private const string keyCantidadGetCantidadProductos = "cantidadGetCantidadProductos";
 
-        private static readonly string CodigoProceso = ConfigurationManager.AppSettings["EmailCodigoProceso"];
+        private static readonly string CodigoProceso = ConfigurationManager.AppSettings[Constantes.ConfiguracionManager.EmailCodigoProceso];
         private int OfertaID = 0;
         private bool blnRecibido = false;
         #endregion
@@ -32,7 +32,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         /// <returns></returns>
         public ActionResult Procesar()
         {
-            var userData = (UsuarioModel)Session["UserData"];
+            var userData = sessionManager.GetUserData();
             if (userData != null)
                 CargarEntidadesShowRoom(userData);
 
@@ -77,7 +77,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var mostrarShowRoomProductosExpiro = sessionManager.GetMostrarShowRoomProductosExpiro();
 
             bool mostrarPopupIntriga = !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
-            //bool mostrarPopupVenta = mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;                
 
             if (mostrarPopupIntriga)
             {

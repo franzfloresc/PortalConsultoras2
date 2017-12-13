@@ -3,7 +3,9 @@
     <!-- INCION SECCION DE LANZAMIENTOS Y OFERTAS -->
     
     <div id="bc_content_oferta">
-        <div id="bc_promo">
+        <div id="bc_promo" 
+             data-origenpedidoweb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeLanzamiento"
+             data-origenpedidoweb-popup="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeLanzamiento">
             {{#each this.ListaLan as |item|}}
             <div class="bc_promo_contenido" data-item="{{EstrategiaID}}" data-item-tag="body"
                  data-item-cuv="{{CUV2}}"
@@ -30,7 +32,9 @@
         <div class="bc_productos">
             <div class="bc_productos_contenido">
                 <hr class="clear" />
-                <div class="content_carrusel_ofertas content_carrusel_agregado" id="divListadoEstrategia" style="padding-bottom: 25px;"></div>
+                <div class="content_carrusel_ofertas content_carrusel_agregado" id="divListadoEstrategia" style="padding-bottom: 20px;"
+                     data-origenpedidoweb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion"
+                     data-origenpedidoweb-popup="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomePopUp"></div>
                 <hr class="clear" />
                 <div class="clearfix"></div>
                 <div style="position: relative;">

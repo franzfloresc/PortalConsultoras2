@@ -102,7 +102,7 @@ function Modificar(idConfiguracionPais, event) {
 }
 
 function NuevoOfertaHome() {
-    ModificarOfertas(0, null);
+    ModificarOfertas(0);
 }
 function ModificarOfertas(idOfertasHome) {
     $.ajax({
@@ -488,7 +488,7 @@ function ShowActionsOfertas(cellvalue, options, rowObject) {
 }  
 function UploadFilePalanca(tag) {
 
-    var uploader = new qq.FileUploader({
+    new qq.FileUploader({
         allowedExtensions: ['jpg', 'png', 'jpeg'],
         element: document.getElementById("img-" + tag),
         action: rutaFileUpload,
@@ -506,7 +506,7 @@ function UploadFilePalanca(tag) {
         onCancel: function (id, fileName) { $(".qq-upload-list").remove(); }
     });
     if ($("#nombre-" + tag).val() !== "") {
-        $("#src-" + tag).attr('src', urlS3 + $("#nombre-" + tag).val());
+        $("#src-" + tag).attr("src", urlS3 + $("#nombre-" + tag).val());
     }
 
     return false;

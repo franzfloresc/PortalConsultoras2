@@ -196,7 +196,6 @@
     <Compile Include="Areas\Mobile\Controllers\MiAsesorBellezaController.cs" />
     <Compile Include="Areas\Mobile\Controllers\MisPedidosController.cs" />
     <Compile Include="Areas\Mobile\Controllers\MisReclamosController.cs" />
-    <Compile Include="Areas\Mobile\Controllers\NovedadesCampaniaController.cs" />
     <Compile Include="Areas\Mobile\Controllers\BaseMobileController.cs" />
     <Compile Include="Areas\Mobile\Controllers\BienvenidaController.cs" />
     <Compile Include="Areas\Mobile\Controllers\CatalogoController.cs" />
@@ -397,7 +396,6 @@
     <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaMexico.cs" />
     <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaPeru.cs" />
     <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaPuertoRico.cs" />
-    <Compile Include="GestionPasos\GestionPais.cs" />
     <Compile Include="GestionPasos\HtmlHelpers.cs" />
     <Compile Include="GestionPasos\IEvaluacionCrediticia.cs" />
     <Compile Include="Global.asax.cs">
@@ -428,11 +426,15 @@
     <Compile Include="Models\ClienteOnlineDetalleModel.cs" />
     <Compile Include="Models\ClienteSb2Model.cs" />
     <Compile Include="Models\BarraConsultoraModel.cs" />
+    <Compile Include="Models\ConfiguracionPaisDatosModel.cs" />
+    <Compile Include="Models\DescripcionEstrategiaModel.cs" />
     <Compile Include="Models\DescargablesModel.cs" />
+    <Compile Include="Models\DescripcionMasivoModel.cs" />
     <Compile Include="Models\EventoFestivoDataModel.cs" />
     <Compile Include="Models\EventoFestivoModel.cs" />
     <Compile Include="Models\FichaProductoDetalleModel.cs" />
     <Compile Include="Models\FichaProductoModel.cs" />
+    <Compile Include="Models\LoginAnalyticsModel.cs" />
     <Compile Include="Models\OfertaFinalModel.cs" />
     <Compile Include="Models\MensajesCDRExpressModel.cs" />
     <Compile Include="Models\ProductoComentarioModel.cs" />
@@ -593,6 +595,7 @@
     <Compile Include="Models\ResponseGeoCoDtoTemp.cs" />
     <Compile Include="Models\ResumenCampaniaModel.cs" />
     <Compile Include="Models\RevistaDigitalLandingModel.cs" />
+    <Compile Include="Models\RevistaDigitalInformativoModel.cs" />
     <Compile Include="Models\RevistaDigitalModel.cs" />
     <Compile Include="Models\RevistaDigitalSuscripcionModel.cs" />
     <Compile Include="Models\RolModel.cs" />
@@ -1233,6 +1236,23 @@
     <Content Include="Content\Css\Site\Esika\revistaDigital.css" />
     <Content Include="Content\Css\Site\Esika\seccion-descarga-imprime.css" />
     <Content Include="Content\Css\Site\Esika\style.css" />
+    <Content Include="Content\Css\Site\Images\android-EPM-mockup.png" />
+    <Content Include="Content\Css\Site\Images\arrow-caja.png" />
+    <Content Include="Content\Css\Site\Images\bgx.jpg" />
+    <Content Include="Content\Css\Site\Images\consejos-y-tips-visual.png" />
+    <Content Include="Content\Css\Site\Images\logotipo-club-ganamas-rojo.svg" />
+    <Content Include="Content\Css\Site\Images\marquesina-landing.jpg" />
+    <Content Include="Content\Css\Site\Images\money-suscription-icon.svg" />
+    <Content Include="Content\Css\Site\Images\no-mas-codigo-visual.png" />
+    <Content Include="Content\Css\Site\Images\offer-suscription-icon.svg" />
+    <Content Include="Content\Css\Site\Images\personalizacion-visual %28mobile%29.gif" />
+    <Content Include="Content\Css\Site\Images\personalizacion-visual-%28desktop%29.gif" />
+    <Content Include="Content\Css\Site\Images\productos-exclusivos.png" />
+    <Content Include="Content\Css\Site\Images\speed-suscription-icon.svg" />
+    <Content Include="Content\Css\Site\Images\tips-y-consejos-visual.png" />
+    <Content Include="Content\Css\Site\Images\triangle.png" />
+    <Content Include="Content\Css\Site\Images\Triangle.svg" />
+    <Content Include="Content\Css\Site\Images\visual de funcionamiento.png" />
     <Content Include="Content\Css\Site\Lbel\Contenedor.css" />
     <Content Include="Content\Css\Site\Lbel\revistaDigital.css" />
     <Content Include="Content\Css\Site\Lbel\seccion-descarga-imprime.css" />
@@ -1240,6 +1260,7 @@
     <Content Include="Content\Css\Site\Login2\style_esika.min.css" />
     <Content Include="Content\Css\Site\Login2\style_lbel.min.css" />
     <Content Include="Content\ImageHelper\xzoom.css" />
+    <Content Include="Content\Images\android-EPM-mockup.png" />
     <Content Include="Content\Images\arrow-down.svg" />
     <Content Include="Content\Images\arrow.png" />
     <Content Include="Content\Css\Site\jquery.rateyo.css" />
@@ -1248,6 +1269,9 @@
     <Content Include="Content\FileCargaCuponConsultora\test.html" />
     <Content Include="Content\Images\carrito-hover.png" />
     <Content Include="Content\Images\carrito.png" />
+    <Content Include="Content\Images\close-icon.svg" />
+    <Content Include="Content\Images\consejos-y-tips-visual.png" />
+    <Content Include="Content\Images\Esika\consejos-y-tips-visual.png" />
     <Content Include="Content\Images\Esika\Contenedor\fondo-seccion-descarga-imprime.jpg" />
     <Content Include="Content\Images\Esika\Contenedor\icono-descarga-e-imprime-hover.svg" />
     <Content Include="Content\Images\Esika\Contenedor\icono-descarga-e-imprime.svg" />
@@ -1255,6 +1279,13 @@
     <Content Include="Content\Images\Esika\Contenedor\inicio_normal.svg" />
     <Content Include="Content\Images\Esika\Contenedor\papel-de-regalo.png" />
     <Content Include="Content\Images\Esika\Contenedor\tarjetas-navidenias.png" />
+    <Content Include="Content\Images\Esika\logotipo-club-ganamas-rojo.svg" />
+    <Content Include="Content\Images\Esika\logotipo-ganamas-rojo.svg" />
+    <Content Include="Content\Images\Esika\personalizacion-visual-desktop.gif" />
+    <Content Include="Content\Images\Esika\personalizacion-visual-mobile.gif" />
+    <Content Include="Content\Images\Esika\visual-de-funcionamiento.png" />
+    <Content Include="Content\Images\GIF-4.0.gif" />
+    <Content Include="Content\Images\Lbel\consejos-y-tips-visual.png" />
     <Content Include="Content\Images\Lbel\Contenedor\fondo-seccion-descarga-imprime.jpg" />
     <Content Include="Content\Images\Lbel\Contenedor\icono-descarga-e-imprime-hover.svg" />
     <Content Include="Content\Images\Lbel\Contenedor\icono-descarga-e-imprime.svg" />
@@ -1262,6 +1293,12 @@
     <Content Include="Content\Images\Lbel\Contenedor\inicio_normal.svg" />
     <Content Include="Content\Images\Lbel\Contenedor\papel-de-regalo.png" />
     <Content Include="Content\Images\Lbel\Contenedor\tarjetas-navidenias.png" />
+    <Content Include="Content\Images\Lbel\logotipo-club-ganamas-morado.svg" />
+    <Content Include="Content\Images\Lbel\logotipo-ganamas-morado.svg" />
+    <Content Include="Content\Images\Lbel\personalizacion-visual-desktop.gif" />
+    <Content Include="Content\Images\Lbel\personalizacion-visual-mobile.gif" />
+    <Content Include="Content\Images\Lbel\visual-de-funcionamiento-lbel.png" />
+    <Content Include="Content\Images\marquesina-landing.jpg" />
     <Content Include="Content\Images\check-acepto-terminos.png" />
     <Content Include="Content\Images\Esika\bg_regalo.png" />
     <Content Include="Content\Images\bg_esika.png" />
@@ -2674,6 +2711,7 @@
     <Content Include="Content\Images\mobile\Esika\menu_mobile.png" />
     <Content Include="Content\Images\mobile\Esika\next.png" />
     <Content Include="Content\Images\mobile\Esika\notificaciones.png" />
+    <Content Include="Content\Images\mobile\Esika\personalizacion-visual-mobile.gif" />
     <Content Include="Content\Images\mobile\Esika\pestana_esika.png" />
     <Content Include="Content\Images\mobile\Esika\previous_ofertas_home.png" />
     <Content Include="Content\Images\mobile\Esika\revista_c09.png" />
@@ -2823,6 +2861,7 @@
     <Content Include="Content\Images\mobile\Lbel\logo_Lbel.png" />
     <Content Include="Content\Images\mobile\Lbel\mas_footer.png" />
     <Content Include="Content\Images\mobile\Lbel\menos_footer.png" />
+    <Content Include="Content\Images\mobile\Lbel\personalizacion-visual-mobile.gif" />
     <Content Include="Content\Images\mobile\Lbel\pestana_lbel.png" />
     <Content Include="Content\Images\mobile\Lbel\video.png" />
     <Content Include="Content\Images\mobile\left-arrow.png" />
@@ -2866,6 +2905,7 @@
     <Content Include="Content\Images\mobile\Tarjeta_MasterCard.png" />
     <Content Include="Content\Images\mobile\Tarjeta_Visa.png" />
     <Content Include="Content\Images\modelo-popup-revista.png" />
+    <Content Include="Content\Images\money-suscription-icon.svg" />
     <Content Include="Content\Images\MontoMinimoBannerVE.jpg" />
     <Content Include="Content\Images\MontoMinimoBannerVEC4.jpg" />
     <Content Include="Content\Images\more.png" />
@@ -2875,6 +2915,8 @@
     <Content Include="Content\Images\new_email.png" />
     <Content Include="Content\Images\next_slide_a.png" />
     <Content Include="Content\Images\next_slide_ahover.png" />
+    <Content Include="Content\Images\no-mas-codigo-visual-desktop.png" />
+    <Content Include="Content\Images\no-mas-codigo-visual.png" />
     <Content Include="Content\Images\NoImage.png" />
     <Content Include="Content\Images\NoRevista.png" />
     <Content Include="Content\Images\NotAllowed.png" />
@@ -2883,6 +2925,7 @@
     <Content Include="Content\Images\nuevo-producto.png" />
     <Content Include="Content\Images\oferta-ultimo-minuto.png" />
     <Content Include="Content\Images\oferta.png" />
+    <Content Include="Content\Images\offer-suscription-icon.svg" />
     <Content Include="Content\Images\ojito-hover.png" />
     <Content Include="Content\Images\ojito.png" />
     <Content Include="Content\Images\ojos.svg" />
@@ -2892,6 +2935,8 @@
     <Content Include="Content\Images\paypal_error.png" />
     <Content Include="Content\Images\paypal_exito.png" />
     <Content Include="Content\Images\paypal_tarjetas.png" />
+    <Content Include="Content\Images\personalizacion-visual-desktop.gif" />
+    <Content Include="Content\Images\personalizacion-visual-mobile.gif" />
     <Content Include="Content\Images\PE_2014813641_01_pibfepfhqu.jpg" />
     <Content Include="Content\Images\PL20\agenda.png" />
     <Content Include="Content\Images\PL20\agenda_lbel.jpg" />
@@ -2964,6 +3009,7 @@
     <Content Include="Content\Images\regalo_microefecto_esika.png" />
     <Content Include="Content\Images\regalo_microefecto_lbel.png" />
     <Content Include="Content\Images\remove.png" />
+    <Content Include="Content\Images\RevistaDigital\android-EPM-mockup.png" />
     <Content Include="Content\Images\RevistaDigital\barra-mis-ofertas.png" />
     <Content Include="Content\Images\RevistaDigital\bc_barra_top.png" />
     <Content Include="Content\Images\RevistaDigital\bc_logo.svg" />
@@ -2978,6 +3024,7 @@
     <Content Include="Content\Images\RevistaDigital\cerrar_04_blanco.png" />
     <Content Include="Content\Images\RevistaDigital\bg_ficha_kadia.jpg" />
     <Content Include="Content\Images\RevistaDigital\celular_revista.png" />
+    <Content Include="Content\Images\RevistaDigital\consejos-y-tips-visual.png" />
     <Content Include="Content\Images\RevistaDigital\esika-para-mi-blanco.svg" />
     <Content Include="Content\Images\RevistaDigital\esika-para-mi-blanco2.svg" />
     <Content Include="Content\Images\RevistaDigital\exclamacion_blanco.png" />
@@ -2986,6 +3033,7 @@
     <Content Include="Content\Images\RevistaDigital\fondo_popup.jpg" />
     <Content Include="Content\Images\RevistaDigital\fondo_repeat.png" />
     <Content Include="Content\Images\RevistaDigital\fondo_titulo.png" />
+    <Content Include="Content\Images\RevistaDigital\GIF-4.0.gif" />
     <Content Include="Content\Images\RevistaDigital\group.png" />
     <Content Include="Content\Images\RevistaDigital\HOME_NEGRO.svg" />
     <Content Include="Content\Images\RevistaDigital\HOME_ROJO.svg" />
@@ -2996,15 +3044,29 @@
     <Content Include="Content\Images\RevistaDigital\lan-fondo.png" />
     <Content Include="Content\Images\RevistaDigital\fondo_srd2.svg" />
     <Content Include="Content\Images\RevistaDigital\Kadiavisual2.png" />
+    <Content Include="Content\Images\RevistaDigital\logotipo-club-ganamas-blanco.svg" />
+    <Content Include="Content\Images\RevistaDigital\logotipo-club-ganamas-morado.svg" />
+    <Content Include="Content\Images\RevistaDigital\logotipo-club-ganamas-negro.svg" />
+    <Content Include="Content\Images\RevistaDigital\logotipo-club-ganamas-rojo.svg" />
+    <Content Include="Content\Images\RevistaDigital\logotipo-ganamas-blanco.svg" />
+    <Content Include="Content\Images\RevistaDigital\logotipo-ganamas-morado.svg" />
+    <Content Include="Content\Images\RevistaDigital\logotipo-ganamas-negro.svg" />
+    <Content Include="Content\Images\RevistaDigital\logotipo-ganamas-rojo.svg" />
     <Content Include="Content\Images\RevistaDigital\logo_EPT.png" />
+    <Content Include="Content\Images\RevistaDigital\marquesina-landing.jpg" />
     <Content Include="Content\Images\RevistaDigital\mob_rd_consultora.png" />
+    <Content Include="Content\Images\RevistaDigital\money-suscription-icon.svg" />
     <Content Include="Content\Images\RevistaDigital\mpopup_inscripcion.png" />
     <Content Include="Content\Images\RevistaDigital\next.png" />
     <Content Include="Content\Images\RevistaDigital\next_mob.png" />
+    <Content Include="Content\Images\RevistaDigital\no-mas-codigo-visual-desktop.png" />
+    <Content Include="Content\Images\RevistaDigital\no-mas-codigo-visual.png" />
     <Content Include="Content\Images\RevistaDigital\nuevo.png" />
+    <Content Include="Content\Images\RevistaDigital\offer-suscription-icon.svg" />
     <Content Include="Content\Images\RevistaDigital\ojos.svg" />
     <Content Include="Content\Images\RevistaDigital\ojos_BLANCO.svg" />
     <Content Include="Content\Images\RevistaDigital\ojos_negro.svg" />
+    <Content Include="Content\Images\RevistaDigital\personalizacion-visual-desktop.gif" />
     <Content Include="Content\Images\RevistaDigital\plantilla1.jpg" />
     <Content Include="Content\Images\RevistaDigital\plantilla1.png" />
     <Content Include="Content\Images\RevistaDigital\plantilla2.png" />
@@ -3027,8 +3089,13 @@
     <Content Include="Content\Images\RevistaDigital\rd_lanzamiento.jpg" />
     <Content Include="Content\Images\RevistaDigital\revista_izquierda.png" />
     <Content Include="Content\Images\RevistaDigital\shoppingcard_blanco.svg" />
+    <Content Include="Content\Images\RevistaDigital\speed-suscription-icon.svg" />
+    <Content Include="Content\Images\RevistaDigital\tips-y-consejos-visual.png" />
+    <Content Include="Content\Images\RevistaDigital\triangle.png" />
     <Content Include="Content\Images\RevistaDigital\Vector.png" />
     <Content Include="Content\Images\RevistaDigital\VectorUP.png" />
+    <Content Include="Content\Images\RevistaDigital\visualo.png" />
+    <Content Include="Content\Images\RevistaDigital\visual_de_funcionamiento.png" />
     <Content Include="Content\Images\revista_no_disponible.jpg" />
     <Content Include="Content\Images\sac.png" />
     <Content Include="Content\Images\scotiabank.png" />
@@ -3097,6 +3164,7 @@
     <Content Include="Content\Images\sombra_login.png" />
     <Content Include="Content\Images\sombra_superior.png" />
     <Content Include="Content\Images\somos_belcorp.png" />
+    <Content Include="Content\Images\speed-suscription-icon.svg" />
     <Content Include="Content\Images\star_reco.png" />
     <Content Include="Content\Images\stok.png" />
     <Content Include="Content\Images\subirimagen.png" />
@@ -3117,6 +3185,8 @@
     <Content Include="Content\Images\total.png" />
     <Content Include="Content\Images\trash.png" />
     <Content Include="Content\Images\trash_e.png" />
+    <Content Include="Content\Images\triangle.png" />
+    <Content Include="Content\Images\Triangle.svg" />
     <Content Include="Content\Images\turn_left.png" />
     <Content Include="Content\Images\Undo.png" />
     <Content Include="Content\Images\unificado_lb_es.png" />
@@ -3127,6 +3197,7 @@
     <Content Include="Content\Images\ver-mas-flecha-vertical.svg" />
     <Content Include="Content\Images\vista_footer.png" />
     <Content Include="Content\Images\vista_header.png" />
+    <Content Include="Content\Images\visualo.png" />
     <Content Include="Content\Images\webtracking\box.png" />
     <Content Include="Content\Images\webtracking\boxGrande.png" />
     <Content Include="Content\Images\webtracking\busqueda.png" />
@@ -3293,6 +3364,7 @@
     <Content Include="Scripts\PortalConsultoras\Campania\CampaniaModule.js" />
     <Content Include="Scripts\PortalConsultoras\CatalogoPersonalizado\catalogoPersonalizado.js" />
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\Login\Analytics.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaPersonalizada\Descargables.js" />
     <Content Include="Scripts\PortalConsultoras\MatrizCampania\ActualizarMatrizCampaniaModule.js" />
     <Content Include="Scripts\PortalConsultoras\FichaProducto\Index.js" />
@@ -3417,7 +3489,6 @@
     <Content Include="Areas\Mobile\Views\Shared\_MobileMenuFooter.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\_MobileMenuLateral.cshtml" />
     <Content Include="Areas\Mobile\Views\Web.config" />
-    <Content Include="Areas\Mobile\Views\NovedadesCampania\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\Catalogo\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\Cliente\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\Paypal\Index.cshtml" />
@@ -3604,7 +3675,6 @@
     <Content Include="Areas\Mobile\Views\EstrategiaProducto\DetalleProducto.cshtml" />
     <Content Include="Areas\Mobile\Views\Bienvenida\template-opt-seccion.cshtml" />
     <Content Include="Areas\Mobile\Views\RevistaDigital\template-mensaje-bloqueado.cshtml" />
-    <Content Include="Areas\Mobile\Views\RevistaDigital\template-mensaje-inscrita.cshtml" />
     <Content Include="Areas\Mobile\Views\Catalogo\template-carrusel-issue.cshtml" />
     <Compile Include="Models\TipoProductoComentarioModel.cs" />
     <Content Include="Areas\Mobile\Views\Bienvenida\template-bpt-seccion.cshtml" />
@@ -3614,7 +3684,6 @@
     <Content Include="Areas\Mobile\Views\Shared\_MobileLayoutContenedor.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\_MenuContenedorOferta.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-simple-centrado.cshtml" />
-    <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-carrusel-previsuales.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-showroom.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-banner.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-oferta-del-dia.cshtml" />
@@ -3632,11 +3701,16 @@
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloquePopupComunidad.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloquePopupSesionFinalizada.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloquePopupPostulante.cshtml" />
+    <Content Include="Areas\Mobile\Views\RevistaDigital\Revista.cshtml" />
     <Content Include="Areas\Mobile\Views\GuiaNegocio\Index.cshtml" />
+    <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-carrusel-previsuales.cshtml" />
     <Content Include="Content\FAQ\CodigoEticaCAPEVEDI_PE.pdf" />
     <Content Include="Content\FAQ\QUIZCAPEVEDI_PE.pdf" />
     <Content Include="Areas\Mobile\Views\Shared\_MobileLayoutPedidoEmpty.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-descargables-navidenos.cshtml" />
+    <Content Include="Areas\Mobile\Views\Bienvenida\_PartialSectionBpt.cshtml" />
+    <Content Include="Areas\Mobile\Views\Pedido\_PartialSectionBpt.cshtml" />
+    <Content Include="Areas\Mobile\Views\Catalogo\_PartialSectionBpt.cshtml" />
     <Content Include="emt_chat\fonts\fontawesome-webfont.eot" />
     <Content Include="emt_chat\fonts\fontawesome-webfont.ttf" />
     <Content Include="emt_chat\fonts\fontawesome-webfont.woff" />
@@ -4471,7 +4545,6 @@
     <Content Include="Views\AdministrarPalanca\Index.cshtml" />
     <Content Include="Views\AdministrarPalanca\Partials\MantenimientoPalanca.cshtml" />
     <Content Include="Views\Shared\_MainLayoutContenedor.cshtml" />
-    <Content Include="Views\EstrategiaPersonalizada\presentacion-carrusel-previsuales.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-simple-centrado.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\presentacion-carrusel-previsuales-producto.cshtml" />
     <Content Include="Views\AdministrarPalanca\Partials\MantenimientoOfertasHome.cshtml" />
@@ -4499,12 +4572,19 @@
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpDialogErrorMainLayout.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpDialogMensajes.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_vpTemplateResumenCampania.cshtml" />
+    <Content Include="Views\RevistaDigital\Revista.cshtml" />
     <Content Include="Views\AdministrarGuiaNegocioDigitalizada\Index.cshtml" />
     <Content Include="Views\GuiaNegocio\Index.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\template-producto-landing.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-descargables-navidenos.cshtml" />
+    <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-carrusel-previsuales.cshtml" />
     <Content Include="Areas\Mobile\Views\Util\_barra.cshtml" />
+    <Content Include="Views\Shared\VistaParcialMainLayout\_vpTagManager.cshtml" />
     <Content Include="Views\Descargables\Descargables.cshtml" />
+    <Content Include="Views\Notificaciones\DetalleNotificacionesPedido.cshtml" />
+    <Content Include="Views\Bienvenida\_PartialSectionBpt.cshtml" />
+    <Content Include="Views\Pedido\_PartialSectionBpt.cshtml" />
+    <Content Include="Views\MisCatalogosRevistas\_PartialSectionBpt.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -4557,7 +4637,6 @@
     <Content Include="Views\Pedido\template-seccion-opt.cshtml" />
     <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo7.cshtml" />
     <Content Include="Views\MisCatalogosRevistas\template-revista-slide.cshtml" />
-    <Content Include="Views\RevistaDigital\template-mensaje-inscrita.cshtml" />
     <None Include="Web References\ServiceActualizarDatosPrueba\ProcesoMAEPortalConsultoraWebService.wsdl" />
     <Content Include="Web References\ServiceActualizarDatosPrueba\Reference.map" />
     <Content Include="Views\ShowRoom\Intriga.cshtml" />
@@ -4980,9 +5059,6 @@
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
-  </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />

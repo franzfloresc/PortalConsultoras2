@@ -36,7 +36,6 @@ namespace Portal.Consultoras.Entities
         public string PaginaElectronica { get; set; }
         [DataMember]
         public string NombreEjecutivos { get; set; }
-        //I R20151202
         [DataMember]
         public string Valor { get; set; }
         [DataMember]
@@ -47,7 +46,6 @@ namespace Portal.Consultoras.Entities
         public int CampoId { get; set; }
         [DataMember]
         public string NombreCampo { get; set; }
-        //F R20151202
 
         public BEProveedorDespachoCobranza() { }
         public BEProveedorDespachoCobranza(IDataRecord row)

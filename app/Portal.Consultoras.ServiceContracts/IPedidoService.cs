@@ -61,18 +61,11 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         string[] DescargaPedidosWeb(int paisID, DateTime fechaFacturacion, int tipoCronograma, bool marcarPedido, string usuario, string descripcionProceso);
 
-        // R20151003 - Inicio
         [OperationContract]
         string[] DescargaPedidosDD(int paisID, DateTime fechaFacturacion, int tipoCronograma, bool marcarPedido, string usuario);
 
         [OperationContract]
         int ValidarCuvDescargado(int paisID, int anioCampania, string codigoVenta, string codigoConsultora);
-        // R20151003 - Fin
-
-        //[OperationContract(AsyncPattern = true)]
-        //IAsyncResult BeginDescargaPedidosWeb(AsyncCallback callback, int paisID, DateTime fechaFacturacion, int tipoCronograma, bool marcarPedido);
-
-        //int EndDescargaPedidosWeb(IAsyncResult result);
 
         [OperationContract]
         BEConfiguracionCampania GetEstadoPedido(int PaisID, int CampaniaID, long ConsultoraID, int ZonaID, int RegionID);
@@ -174,9 +167,6 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         int UpdOfertaProductoStockMasivo(int paisID, List<BEOfertaProducto> stockProductos);
 
-        //[OperationContract]
-        //int UpdOfertaProductoStock(BEOfertaProducto entity);
-
         [OperationContract]
         IList<BEAdministracionOfertaProducto> GetDatosAdmStockMinimoCorreos(int paisID);
 
@@ -241,18 +231,6 @@ namespace Portal.Consultoras.ServiceContracts
         int GetStockOfertaProductoLiquidacion(int paisID, int CampaniaID, string CUV);
         [OperationContract]
         int GetUnidadesPermitidasByCuv(int paisID, int CampaniaID, string CUV);
-
-        //[OperationContract]
-        //int InsPedidoWebOferta(BEPedidoWeb entity);
-
-        //[OperationContract]
-        //int UpdPedidoWebTotalesOferta(BEPedidoWeb entity);
-
-        //[OperationContract]
-        //int InsPedidoWebDetalleOferta(BEPedidoWebDetalle entity);
-
-        //[OperationContract]
-        //int UpdPedidoWebOferta(BEPedidoWebDetalle entity);
 
         #region Configuracion Oferta
 
@@ -330,7 +308,7 @@ namespace Portal.Consultoras.ServiceContracts
         int DelCrossSellingAsociacion(BECrossSellingAsociacion entidad);
 
         [OperationContract]
-        int DelCrossSellingAsociacion_Perfil(BECrossSellingAsociacion entidad);//1673
+        int DelCrossSellingAsociacion_Perfil(BECrossSellingAsociacion entidad);
 
         [OperationContract]
         IList<BECrossSellingProducto> GetProductosRecomendadosByCUVCampaniaPortal(int PaisID, long ConsultoraID, int CampaniaID, string CUV);
@@ -354,7 +332,7 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         IList<BEOfertaNueva> GetPackOfertasNuevasByCampania(int paisID, int CampaniaID);
         [OperationContract]
-        IList<BEOfertaNueva> GetProductosOfertaConsultoraNueva(int paisID, int CampaniaID, int consultoraid);//1487
+        IList<BEOfertaNueva> GetProductosOfertaConsultoraNueva(int paisID, int CampaniaID, int consultoraid);
 
         [OperationContract]
         BEOfertaNueva GetDescripcionPackByCUV(int paisID, string CUV, int CampaniaCodigo);
@@ -398,12 +376,6 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         string GetCategoriaByConsultora(int paisID, int CampaniaID, string CodigoConsultora);
-
-        //[OperationContract]
-        //int ValidarPriorizacionFlexipago(int paisID, int ConfiguracionOfertaID, int CampaniaID, int Orden);
-
-        //[OperationContract]
-        //int GetOrdenPriorizacionFlexipago(int paisID, int ConfiguracionOfertaID, int CampaniaID);
 
         [OperationContract]
         int InsOfertaFlexipago(BEOfertaFlexipago entity);
@@ -538,7 +510,6 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         void UpdLogPedidoInvalido(int paisID, DateTime fechaRegistro);
-        /*GR2089*/
         [OperationContract]
         void InsertarLogPedidoWeb(int PaisID, int CampaniaID, string CodigoConsultora, int PedidoId, string Accion, string CodigoUsuario);
 
@@ -589,18 +560,15 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         BEInformacion GetReporteIntegradoWebDD(int PaisID, string PaisISO, int CampaniaIDInicio, int CampaniaIDFin);
-        //ITG 1793
         [OperationContract]
         List<BENovedadTracking> GetNovedadesTracking(int paisID, string NumeroPedido);
 
-        // Req. 1717 - Inicio
         [OperationContract]
         int InsConfirmacionEntrega(int paisID, BEConfirmacionEntrega oBEConfirmacionEntrega);
 
         [OperationContract]
         int UpdConfirmacionEntrega(int paisID, BEConfirmacionEntrega oBEConfirmacionEntrega);
 
-        //Req. 20150711 
         [OperationContract]
         int InsConfirmacionRecojo(int paisID, BEConfirmacionRecojo oBEConfirmacionRecojo);
 
@@ -613,25 +581,21 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         List<BEPostVenta> GetNovedadPostVenta(int paisID, string numeroRecojo);
 
-        // Req. 1747 - Etiqueta
         [OperationContract]
         int InsertarEtiqueta(BEEtiqueta entidad);
 
         [OperationContract]
         List<BEEtiqueta> GetEtiquetas(BEEtiqueta entidad);
 
-        // R20160301 - Configuracion de packnuevas.
         [OperationContract]
         List<BEConfiguracionPackNuevas> GetConfiguracionPackNuevas(int paisID, string codigoPrograma);
 
-        // Req. 1747 - Oferta
         [OperationContract]
         int InsertarOferta(BEOferta entidad);
 
         [OperationContract]
         List<BEOferta> GetOfertas(BEOferta entidad);
 
-        // Req. 1747 - TipoEstrategia
         [OperationContract]
         int InsertarTipoEstrategia(BETipoEstrategia entidad);
 
@@ -641,7 +605,6 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         List<BETipoEstrategia> GetTipoEstrategias(BETipoEstrategia entidad);
         
-        // Req. 1747 - Estrategia
         [OperationContract]
         List<BEEstrategia> GetEstrategias(BEEstrategia entidad);
 
@@ -692,13 +655,10 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         IList<BEConfiguracionValidacionZE> GetRegionZonaZE(int PaisID, int RegionID, int ZonaID);
-        // 1747 - Fin
 
-        //R2004
         [OperationContract]
         BENovedadFacturacion GetPedidoRechazadoByConsultora(int PaisID, string CampaniaId, string CodigoConsultora, DateTime Fecha);
 
-        //R2004
         [OperationContract]
         BENovedadFacturacion GetPedidoAnuladoByConsultora(int PaisID, string CampaniaId, string CodigoConsultora, DateTime Fecha, string NumeroPedido);
 
@@ -739,7 +699,6 @@ namespace Portal.Consultoras.ServiceContracts
 
         #endregion
 
-        /* Req. 1987 - Inicio */
         [OperationContract]
         List<BESuenioNavidad> ListarSuenioNavidad(BESuenioNavidad entidad);
 
@@ -748,9 +707,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         int ValidarSuenioNavidad(BESuenioNavidad entidad);
-        /* Req. 1987 - Fin */
 
-        /* 2108 - Inicio */
         [OperationContract]
         int ValidarUnidadesPermitidasEnPedidoZA(int PaisID, int CampaniaID, string CUV, long ConsultoraID, int TipoOfertaSisID);
         [OperationContract]
@@ -765,9 +722,7 @@ namespace Portal.Consultoras.ServiceContracts
         int InsAdministracionStockMinimoZA(BEAdministracionOfertaProducto entity);
         [OperationContract]
         int UpdAdministracionStockMinimoZA(BEAdministracionOfertaProducto entity);
-        /* 2108 - Fin */
 
-        /* 2024 - Inicio */
         [OperationContract]
         List<BEOfertaProducto> GetTallaColorLiquidacion(BEOfertaProducto entidad);
         [OperationContract]
@@ -778,28 +733,21 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEOfertaProducto> ConsultarLiquidacionByCUV(BEOfertaProducto entidad);
         [OperationContract]
         int CantidadPedidoByConsultora(BEOfertaProducto entidad);
-        /* 2024 - Fin */
 
-        //R2154
         [OperationContract]
         int ValidarDesactivaRevistaGana(int paisID, int campaniaID, string codigoZona);
 
-        //2140
         [OperationContract]
         BECUVCredito ValidarCUVCreditoPorCUVRegular(int paisID, string codigoConsultora, string cuv, int campaniaID);
 
-        //2264
         [OperationContract]
         bool InsLogEnvioCorreoPedidoValidado(int paisID, BELogCabeceraEnvioCorreo beLogCabeceraEnvioCorreo, List<BELogDetalleEnvioCorreo> listLogDetalleEnvioCorreo);
 
-        /*RQ 2370 - EC*/
         [OperationContract]
         int RemoverOfertaLiquidacion(BEOfertaProducto entity);
 
-        // R2319 - AHA - Inicio
         [OperationContract]
         BEResultadoSolicitud InsertarSolicitudCliente(string prefijoISO, BEEntradaSolicitudCliente entidadSolicitud);
-        // R2319 - AHA - Fin
 
         [OperationContract]
         BEResultadoSolicitud InsertarSolicitudClienteAppCatalogo(string prefijoISO, BESolicitudClienteAppCatalogo entidadSolicitud);
@@ -829,14 +777,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         int UpdOfertaShowRoomStockMasivo(int paisID, List<BEShowRoomOferta> stockProductos);
-
-        /*
+        
         [OperationContract]
-        int InsOfertaShowRoomCargaMasiva(int paisID, List<BEShowRoomOferta2> stockProductos);
-         * */
-
-        [OperationContract]
-        int CargarMasivaDescripcionSets(int paisID, int campaniaID, string usuarioCreacion, List<BEShowRoomOfertaDetalle> listaShowRoomOfertaDetalle);
+        int CargarMasivaDescripcionSets(int paisID, int campaniaID, string usuarioCreacion, List<BEShowRoomOfertaDetalle> listaShowRoomOfertaDetalle, string nombreArchivoCargado, string nombreArchivoGuardado);
 
         [OperationContract]
         int CargarProductoCpc(int paisId, int eventoId, string usuarioCreacion, List<BEShowRoomCompraPorCompra> listaShowRoomCompraPorCompra);
@@ -1020,22 +963,19 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEPedidoWeb> GetPedidosFacturadoSegunDias(int paisID, int campaniaID, long consultoraID, int maxDias);
-        //GPR397
         [OperationContract]
         void ActualizarIndicadorGPRPedidosRechazados(int PaisID, long ProcesoID);
 
         [OperationContract]
         void ActualizarIndicadorGPRPedidosFacturados(int PaisID, long ProcesoID);
 
-        /*EPD-1025*/
         [OperationContract]
         BEPedidoDescarga ObtenerUltimaDescargaPedido(int PaisID);
 
         [OperationContract]
         void DeshacerUltimaDescargaPedido(int PaisID);
-        /*EPD-1025*/
         [OperationContract]
-        BEPedidoDescarga ObtenerUltimaDescargaExitosa(int PaisID); /*EPD1976*/
+        BEPedidoDescarga ObtenerUltimaDescargaExitosa(int PaisID);
        
         [OperationContract]
         int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado, int estrategiaId);
@@ -1088,7 +1028,6 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         bool GetEventoConsultoraRecibido(int paisID, string CodigoConsultora, int CampaniaID);
 
-        //EPD-2248
         [OperationContract]
         string GetTokenIndicadorPedidoAutentico(int paisID, string paisISO, string codigoRegion, string codigoZona);
 
@@ -1115,6 +1054,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         BERevistaDigitalSuscripcion RDGetSuscripcion(BERevistaDigitalSuscripcion entidad);
+
+        [OperationContract]
+        BERevistaDigitalSuscripcion RDGetSuscripcionActiva(BERevistaDigitalSuscripcion entidad);
 
         [OperationContract]
         int InsertarDesglose(BEInputReservaProl input);

@@ -16,21 +16,19 @@ namespace Portal.Consultoras.Data.Hana
         public BEUsuario GetDatosConsultoraHana(int paisId, string codigoConsultora, int campaniaId)
         {
             var beUsuario = new BEUsuario();
-            var listaInformacionOnlineConsultoraHana = new List<InformacionOnlineConsultoraHana>();
-
             try
             {
                 string rutaServiceHana = ConfigurationManager.AppSettings.Get("RutaServiceHana");
                 var codigoIsoHana = Util.GetCodigoIsoHana(paisId);
 
                 string urlConParametros = rutaServiceHana + "ObtenerInformacionOnlineConsultora/" + codigoIsoHana + "/" + codigoConsultora + "/" + campaniaId;
-
                 string responseFromServer = Util.ObtenerJsonServicioHana(urlConParametros);
+                List<InformacionOnlineConsultoraHana> listaInformacionOnlineConsultoraHana = JsonConvert.DeserializeObject<List<InformacionOnlineConsultoraHana>>(responseFromServer);
 
-                listaInformacionOnlineConsultoraHana = JsonConvert.DeserializeObject<List<InformacionOnlineConsultoraHana>>(responseFromServer);
-
-                foreach (var informacionOnlineConsultoraHana in listaInformacionOnlineConsultoraHana)
+                if(listaInformacionOnlineConsultoraHana != null && listaInformacionOnlineConsultoraHana.Count > 0)
                 {
+                    var informacionOnlineConsultoraHana = listaInformacionOnlineConsultoraHana[0];
+
                     DateTime fechaVencimiento;
                     bool esFechaVencimiento = DateTime.TryParseExact(informacionOnlineConsultoraHana.FECHAVEN, "ddMMyyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out fechaVencimiento);
                     beUsuario.FechaLimPago = esFechaVencimiento ? fechaVencimiento : DateTime.MinValue;
@@ -43,16 +41,15 @@ namespace Portal.Consultoras.Data.Hana
                     bool esMontoMaximo = decimal.TryParse(informacionOnlineConsultoraHana.MontoMaximoPedido, out montoMaximo);
                     beUsuario.MontoMaximoPedido = esMontoMaximo ? montoMaximo : 0;
                                        
-                    beUsuario.MontoDeuda = informacionOnlineConsultoraHana.SALDOTOTALCAM;// esMontoDeuda ? montoDeuda : 0;
+                    beUsuario.MontoDeuda = informacionOnlineConsultoraHana.SALDOTOTALCAM;
 
                     beUsuario.IndicadorFlexiPago = informacionOnlineConsultoraHana.Indicador_Activa;
 
                     decimal montoMinimoFlexipago;
                     bool esMontoMinimoFlexipago = decimal.TryParse(informacionOnlineConsultoraHana.IMP_MONT_MINI, out montoMinimoFlexipago);
                     beUsuario.MontoMinimoFlexipago = esMontoMinimoFlexipago ? montoMinimoFlexipago : 0;
-
-                    //por confirmar para que sirven estos campos o cuales son sus equivalentes.
-                    /*
+                    
+                    /* por confirmar para que sirven estos campos o cuales son sus equivalentes.
                      * AutorizaPedido           no se usa
                      * FECHAVENCAM              no se usa
                      * FEC_CREA                 no se usa
@@ -60,14 +57,9 @@ namespace Portal.Consultoras.Data.Hana
                      * IMP_SALD_CAMP            no se usa
                      * SALDOTOTALCAM            no se usa
                     */
-
-                    break;
                 }
             }
-            catch (Exception)
-            {
-                beUsuario = null;
-            }
+            catch(Exception) { beUsuario = null; }
 
             return beUsuario;
         }

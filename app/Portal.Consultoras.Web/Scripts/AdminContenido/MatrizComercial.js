@@ -88,12 +88,8 @@ var MatrizComercial = function (config) {
     };
 
     var _updateImageListOnUpload = function (imageElementId, response) {
-        //if (response.isNewImage) {
             _limpiarFiltrosNemotecnico();
             _obtenerImagenes(_editData, 1, true);
-        /*} else {
-            $('#' + imageElementId).attr('src', response.foto);
-        }*/
     };
 
     var _editar = function (id, idMatrizComercial) {

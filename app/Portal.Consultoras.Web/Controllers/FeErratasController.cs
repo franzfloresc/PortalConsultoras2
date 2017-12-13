@@ -9,10 +9,6 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public JsonResult Index()
         {
-            // TODO: comentado temporalmente
-            //if (!UsuarioModel.HasAcces(ViewBag.Permiso, "FeErratas/Index"))
-            //    return RedirectToAction("Index", "Bienvenida");
-
             List<BEFeErratas> lst;
             int paisID = UserData().PaisID;
             int campaniaID = UserData().CampaniaID;

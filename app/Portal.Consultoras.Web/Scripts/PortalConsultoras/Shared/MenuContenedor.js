@@ -29,10 +29,8 @@ var menuModule = (function () {
         lastScrollTop = 0,
         delta = 10,
         navbarHeight,
-        seccionMenuMobileOuterHeight,
         seccionMenuMobileHeight,
         seccionFixedMenuHeigt,
-        seccionMenu2Heigt,
         alturaH,
         scr = false,
         alturaE;
@@ -64,8 +62,6 @@ var menuModule = (function () {
     function init() {
         navbarHeight = _getHeight(elementos.header);
         seccionMenuMobileHeight = _getHeight(elementos.seccionBannerMobile);
-        seccionMenuMobileOuterHeight = _getHeight(elementos.seccionBannerMobile);
-        seccionMenu2Heigt = _getHeight(elementos.menu2);
         seccionFixedMenuHeigt = _getHeight(elementos.seccionMenuFija);
         alturaH = _getHeight(elementos.header);
         alturaE = alturaH + _getHeight(elementos.bcMenuEstrategia);
@@ -162,7 +158,7 @@ var menuModule = (function () {
             if (strippedUrl.length > 1) {
                 anchorValue = $.trim(strippedUrl[1]);
 
-                if (anchorValue != "") {
+                if (anchorValue !== "") {
                     $(elementos.html).find("[data-codigo=" + anchorValue + "]").find("a").addClass(elementos.claseActivo);
 
                     if ($(anchorMark + anchorValue).length > 0) {
@@ -194,7 +190,7 @@ var menuModule = (function () {
                 if (indexOf > 0) {
                     indexOf = currentLocation.split("&campaniaid=")[1];
                     indexOf = indexOf.split("&")[0];
-                    if (indexOf != campaniaCodigo) {
+                    if (indexOf !== campaniaCodigo) {
                         controller = "Ofertas/Revisar#";
                     }
                 }
@@ -214,7 +210,7 @@ var menuModule = (function () {
         } else {
             url = $.trim(url);
             url = url[0] !== "/" ? "/" + url : url;
-            if (codigo.indexOf("INICIO" > -1)) {
+            if (codigo.indexOf("INICIO") > -1) {
                 var img = $.trim($(elementos.menuMobHome).find('img').attr("src"));
                 if (img !== "") {
                     img = img.replace("_normal.", "_hover.");
@@ -252,6 +248,12 @@ var menuModule = (function () {
             });
         }
     }
+    function sectionClick(url, titulo) {
+        if (typeof rdAnalyticsModule !== "undefined") {
+            rdAnalyticsModule.ContendorSection(titulo);
+        }
+        window.location.href = url;
+    }
     return {
         init: init,
         setHover: setHover,
@@ -260,7 +262,8 @@ var menuModule = (function () {
         checkAnchor: checkAnchor,
         menuClick: menuClick,
         setCarrouselMenu: setCarrouselMenu,
-        tabClick: tabClick
+        tabClick: tabClick,
+        sectionClick: sectionClick
     };
 })();
 
