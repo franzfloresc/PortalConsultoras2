@@ -322,6 +322,12 @@
         var ViewIndicadorGPRSB = '@ViewBag.IndicadorGPRSB';
         var MensajePedidoMobile = '@ViewBag.MensajePedidoMobile';
         var OrigenDesktopODD = 0;
+
+        //BANNER APP
+        var urlOcultarBannerApp = '@Url.Action("OcultarBannerApp", "Bienvenida", new { area = "Mobile" })';
+        var actionName = '@ViewContext.RouteData.GetRequiredString("action")';
+        var controllerName = '@ViewContext.RouteData.GetRequiredString("controller")';
+        var oBannerApp = @Html.Raw(@Json.Encode(ViewBag.BannerApp));
     </script>
 
     @if (ViewBag.MostrarOfertaDelDiaContenedor == true)
