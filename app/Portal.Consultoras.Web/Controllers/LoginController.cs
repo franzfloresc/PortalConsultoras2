@@ -1091,6 +1091,7 @@ namespace Portal.Consultoras.Web.Controllers
                         try
                         {
                             var arrCalculoPuntos = Constantes.Incentivo.CalculoPuntos.Split(';');
+                            var arrCalculoProgramaNuevas = Constantes.Incentivo.CalculoProgramaNuevas.Split(';');
 
                             using (var sv = new PedidoServiceClient())
                             {
@@ -1099,7 +1100,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 var Concursos = result.Where(x => arrCalculoPuntos.Contains(x.TipoConcurso));
                                 if (Concursos.Any()) usuarioModel.CodigosConcursos = string.Join("|", Concursos.Select(c => c.CodigoConcurso));
 
-                                var ProgramaNuevas = result.Where(x => !arrCalculoPuntos.Contains(x.TipoConcurso));
+                                var ProgramaNuevas = result.Where(x => arrCalculoProgramaNuevas.Contains(x.TipoConcurso));
                                 if (ProgramaNuevas.Any()) usuarioModel.CodigosProgramaNuevas = string.Join("|", ProgramaNuevas.Select(c => c.CodigoConcurso));
                             }
                         }

@@ -1380,5 +1380,8 @@ namespace Portal.Consultoras.Entities
         public string CodigosConcursos { get; set; }
         [DataMember]
         public string CodigosProgramaNuevas { get; set; }
+        [DataMember]
+        [Column("PasoSextoPedido")]
+        public bool PasoSextoPedido { get; set; }
     }
 }
