@@ -4138,12 +4138,27 @@ namespace Portal.Consultoras.Web.Controllers
             if (key == "")
                 return "";
 
-            key = Util.Trim(ConfigurationManager.AppSettings.Get(key));
+            var keyvalor = ConfigurationManager.AppSettings.Get(key);
 
-            if (key == "")
-                LogManager.LogManager.LogErrorWebServicesBus(new Exception(), userData.CodigoConsultora, userData.CodigoISO, "BaseController.GetConfiguracionManager el key " + key + " no tiene valor");
+            #region LOG CASO NULL
+            //if (keyvalor == null)
+            //{
+            //    // Validar si el key es dinamico no generar log, ejem KEY = Name_PAis_Campania
+            //    var sinLog = key.StartsWith(Constantes.ConfiguracionManager.DES_UBIGEO)
+            //        || key.StartsWith(Constantes.ConfiguracionManager.FechaChat)
+            //        || key.StartsWith(Constantes.ConfiguracionManager.TokenAtento)
+            //        || key.StartsWith(Constantes.ConfiguracionManager.RevistaPiloto_Zonas)
+            //        || key.StartsWith(Constantes.ConfiguracionManager.Contrato_ActualizarDatos)
+            //        || key.StartsWith(Constantes.ConfiguracionManager.URL_FAMILIAPROTEGIDA_);
+            //    if (!sinLog)
+            //        LogManager.LogManager.LogErrorWebServicesBus(new Exception(), 
+            //            userData.CodigoConsultora, 
+            //            userData.CodigoISO, 
+            //            "BaseController.GetConfiguracionManager el key " + key + " no existe");
+            //}
+            #endregion
 
-            return key;
+            return Util.Trim(keyvalor);
         }
 
         #endregion

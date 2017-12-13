@@ -1,4 +1,4 @@
-/*INI: Loading*/
+/*INICIO Loading*/
 @font-face {
     font-family: 'icomoon';
     src: url('fonts/icomoon/icomoon.eot?ur7cdc');
@@ -281,9 +281,9 @@ body {
         transform: rotate(900deg);
     }
 }
-/*FIN: Loading*/
+/*FIN Loading*/
 
-/*INI: Popups Mensajes*/
+/*INICIO Popups Mensajes*/
 .MensajeAlertaMobile {
     position: fixed;
     z-index: 2010;
@@ -381,7 +381,7 @@ body {
         line-height: 28px;
     }
 }
-/*FIN: Popups Mensajes*/
+/*FIN Popups Mensajes*/
 
 .btn_facebook_chat {
     width: 100%;
