@@ -1,4 +1,4 @@
-﻿/**/
+﻿
 .bc_menu_estrategia {
     background-color: #000;
     background-repeat: no-repeat !important;
@@ -308,15 +308,11 @@
     width: 210px;
     text-align: center;
     padding: 10px 0px;
-    /* margin: auto 164px; */
-    /* display: none; */
     font-size: 14px;
     float: right;
     margin-top: -5px;
     letter-spacing: 1px;
     font-family: 'Lato';
-    /* position: absolute; */
-    /* right: 0; */
 }
 
 .btn-set-previous {
@@ -395,7 +391,6 @@
 
 .bc_estrategia_contenido {
     min-height: 800px;
-    /*margin-bottom: 30px;*/
 }
 
 .seccion-content-contenedor {
@@ -493,8 +488,6 @@
                 width: 210px;
                 text-align: center;
                 padding: 10px 0px;
-                /* margin: auto 164px; */
-                /* display: none; */
                 font-size: 14px;
                 float: right;
                 letter-spacing: 1px;
