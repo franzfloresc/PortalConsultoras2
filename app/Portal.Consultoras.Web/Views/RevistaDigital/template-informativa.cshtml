@@ -118,7 +118,7 @@
             <span class="deseas-cancelar">
                 Solo haz clic en el siguiente botón y dejarás de recibir todos los beneficios que te brinda Club GANA+
             </span>
-            <a href="javascript: RDDesuscripcion();" class="suscribete-btn">CANCELAR TU SUSCRIPCIÓN AQUÍ</a>
+            <a href="javascript: RDDesuscripcion();" class="suscribete-btn">CANCELA TU SUSCRIPCIÓN AQUÍ</a>
         }
         else
         {
@@ -132,17 +132,15 @@
 
 <div class="preguntas-frecuentes-cont-sus">
     <div class="contenedor-mobile-fix">
+        <span class="titulo-p-frecuente">PREGUNTAS FRECUENTES</span>
         <ul class="preg-frecuentes">
             <li>
                 <a class="abrir-preg-frecuente"><p>¿Cuál es diferencia entre GANA+ y Club GANA+? <span class="despliegue">+</span><span class="nodespliegue">-</span></p></a>
                 <ul>
                     <li>
-                        <b>¿Cuál es la diferencia entre GANA+ y Club GANA+?</b>
                         <span>
-                            <span>
-                                GANA+ es un conjunto de ofertas exclusivas para ti que encontrarás entrando desde el App Ésika Conmigo o desde somosbelcorp.com
-                                Club GANA+ es un espacio exclusivo para nuestras consultoras suscritas, en donde recibirán muchos beneficios como: más ofertas hechas a su medida que GANA+, packs de sus productos favoritos, no tendrán que digitar códigos y mucho más.
-                            </span>
+                            GANA+ es un conjunto de ofertas exclusivas para ti que encontrarás entrando desde el App Ésika Conmigo o desde somosbelcorp.com
+                            Club GANA+ es un espacio exclusivo para nuestras consultoras suscritas, en donde recibirán muchos beneficios como: más ofertas hechas a su medida que GANA+, packs de sus productos favoritos, no tendrán que digitar códigos y mucho más.
                         </span>
                     </li>
                     
@@ -152,7 +150,6 @@
                 <a class="abrir-preg-frecuente"><p>¿Cómo cancelo mi suscripción? <span class="despliegue">+</span><span class="nodespliegue">-</span></p></a>
                 <ul>
                     <li>
-                        <b>¿Cómo cancelo mi suscripción?</b>
                         <span>
                             Ingresa a tu cuenta y haz clic en “Saber más”. Una vez ahí, baja el cursor hasta el botón “CANCELA TU SUSCRIPCIÓN AQUÍ” y al hacer clic, tu suscripción se anulará.
                             Recuerda que puedes suscribirte nuevamente cuando desees.
@@ -166,7 +163,6 @@
                 <a class="abrir-preg-frecuente"><p>¿Por qué ya no recibo la guía de negocio impresa? <span class="despliegue">+</span><span class="nodespliegue">-</span></p></a>
                 <ul>
                     <li>
-                        <b>¿Por qué ya no recibo la guía de negocio impresa?</b>
                         <span>
                             Al suscribirte al Club GANA+, dejarás de recibir la guía de negocio impresa desde la siguiente campaña, pues siendo miembro del Club, contarás con muchos beneficios que reemplazarán a tu guía.
                         </span>
@@ -178,7 +174,6 @@
                 <a class="abrir-preg-frecuente"><p>¿Las ofertas del Club Gana+ tienen alguna restricción?<span class="despliegue">+</span><span class="nodespliegue">-</span></p></a>
                 <ul>
                     <li>
-                        <b>¿Las ofertas del Club Gana+ tienen alguna restricción?</b>
                         <span>
                             Al seleccionar “Club Gana+” aparecerá un pequeño cuadro con la posibilidad de agregar la cantidad de unidades o sets que desees. Si el producto o set que seleccionaste tiene alguna restricción, ésta se mostrará escrita en rojo debajo del precio del producto.
                         </span>
@@ -207,7 +202,6 @@
                 var clickabrir = 1
                 $('.preguntas-frecuentes-cont-sus ul.preg-frecuentes li:has(ul)').click(function () {
                     $(this).find('ul').slideToggle();
-
                     if (clickabrir == 1) {
                         $(this).find('span.despliegue').css("display", "none");
                         $(this).find('span.nodespliegue').css("display", "block");
