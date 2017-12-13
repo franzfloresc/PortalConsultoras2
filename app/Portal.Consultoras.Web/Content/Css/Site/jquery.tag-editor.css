@@ -1,10 +1,8 @@
 /* surrounding tag container */
 .tag-editor {
     list-style-type: none;
-    /* padding: 0 5px 0 0; */
     margin: 0;
     overflow: hidden;
-    /* border: 1px solid #eee; */
     cursor: text;
     font: normal 14px sans-serif;
     color: #555;
@@ -68,11 +66,8 @@
 
             .tag-editor .tag a i:before {
                 font-size: 15px;
-                /* margin-top: -6px; */
                 color: white;
                 content: "×";
-                /* background: #686868; */
-                /* width: 15px; */
                 font-style: normal;
                 display: block;
                 margin-top: -1px;
@@ -179,11 +174,8 @@
 
         .tag-editor .tag-editor-delete i:before {
             font-size: 15px;
-            /* margin-top: -6px; */
             color: white;
             content: "×";
-            /* background: #686868; */
-            /* width: 15px; */
             font-style: normal;
         }
 
@@ -226,7 +218,7 @@
         display: block;
         padding: 2px .4em;
         line-height: 1.4;
-        min-height: 0; /* support: IE7 */
+        min-height: 0;
     }
 
 .ui-widget-content {

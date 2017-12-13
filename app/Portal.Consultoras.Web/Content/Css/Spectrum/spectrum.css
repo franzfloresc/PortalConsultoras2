@@ -12,7 +12,6 @@ License: MIT
     display: inline-block;
     *display: inline;
     *zoom: 1;
-    /* https://github.com/bgrins/spectrum/issues/40 */
     z-index: 9999994;
     overflow: hidden;
 }
@@ -21,7 +20,6 @@ License: MIT
         position: relative;
     }
 
-    /* Fix for * { box-sizing: border-box; } */
     .sp-container,
     .sp-container * {
         -webkit-box-sizing: content-box;
@@ -29,7 +27,6 @@ License: MIT
         box-sizing: content-box;
     }
 
-/* http://ansciath.tumblr.com/post/7347495869/css-aspect-ratio */
 .sp-top {
     position: relative;
     width: 100%;
