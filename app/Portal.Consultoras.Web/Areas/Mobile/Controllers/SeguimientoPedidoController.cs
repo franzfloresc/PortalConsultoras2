@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.ServicePedido;
 using System;
@@ -80,7 +81,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     using (var service = new PedidoServiceClient())
                     {
                         listaEstadoSeguimiento = service.GetTrackingByPedido(userData.PaisID, codigoConsultora, model.Campana.ToString(), model.NumeroPedido).ToList();
-                        if (ConfigurationManager.AppSettings["WebTrackingConfirmacion"].Contains(userData.CodigoISO))
+                        if (GetConfiguracionManager(Constantes.ConfiguracionManager.WebTrackingConfirmacion).Contains(userData.CodigoISO))
                         {
                             novedades = service.GetNovedadesTracking(userData.PaisID, model.NumeroPedido).ToList();
                         }

@@ -15,8 +15,6 @@
 @section styles{
     <link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet" />
     <link href="@Url.Content("~/Content/Css/Site/flexslider.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Content/Css/Mobile/esika/revistaDigital.css")" rel="stylesheet" type="text/css" />
-}
 
 <div>
     <div class="logo_EPT_content"><img src="@Url.Content("~/Content/Images/RevistaDigital/logo_EPT.png")" /></div>
@@ -29,8 +27,8 @@
 @if (Model.ListaTabs.Count() > 1)
 {
     <div class="fondo_f2f2f2">
-        <div class="pestana_esika"></div><!--PESTANA ESIKA-->
-        <div class="pestana_lbel"></div><!--PESTANA LBEL-->
+        <div class="pestana_esika"></div>
+        <div class="pestana_lbel"></div>
         <ul class="tabs_pagos" data-tab="tab" style="margin-bottom:0">
             @foreach (var tabs in Model.ListaTabs)
             {
@@ -78,7 +76,6 @@
         var urlOfertaCargarProductos = '@Url.Action("RDObtenerProductos", "RevistaDigital", new { area = ""})';
         var urlOfertaDetalleProducto = '@Url.Action("Detalle", "RevistaDigital", new { area = "Mobile" })';
         var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital", new { area = "" })';
-        var urlTerminosCondicionesRD = '@ConfigurationManager.AppSettings["UrlTerminosCondicionesRD"].Trim()';
         var urlRevistaDigital = '@Url.Action("Comprar", "RevistaDigital")';
         var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding';
         var tipoOrigenEstrategia = 27;

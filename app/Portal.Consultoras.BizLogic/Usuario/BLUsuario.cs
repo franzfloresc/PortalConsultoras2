@@ -376,7 +376,8 @@ namespace Portal.Consultoras.BizLogic
                 }
             }
 
-            var terminosCondicionesTask = Task.Run(() => this.GetTerminosCondiciones(paisID, usuario.CodigoConsultora, Constantes.TipoTerminosCondiciones.App));
+            var terminosCondicionesTask = Task.Run(() => this.GetTerminosCondiciones(paisID, usuario.CodigoConsultora, Constantes.TipoTerminosCondiciones.AppTerminosCondiciones));
+            var politicaPrivacidadTask = Task.Run(() => this.GetTerminosCondiciones(paisID, usuario.CodigoConsultora, Constantes.TipoTerminosCondiciones.AppPoliticaPrivacidad));
             var destinatariosFeedBack = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetTablaLogicaDatos(paisID, Constantes.TablaLogica.CorreoFeedbackAppConsultora));
             var gprBannerTask = Task.Run(() => this.GetGPRBanner(usuario));
             var usuarioConsultoraTask = Task.Run(() => this.GetUsuarioConsultora(usuario));
@@ -385,7 +386,8 @@ namespace Portal.Consultoras.BizLogic
             var IncentivosConcursosTask = Task.Run(() => this.GetIncentivosConcursos(usuario));
 
             Task.WaitAll(
-                            terminosCondicionesTask, 
+                            terminosCondicionesTask,
+                            politicaPrivacidadTask,
                             destinatariosFeedBack, 
                             gprBannerTask, 
                             usuarioConsultoraTask,
@@ -397,6 +399,7 @@ namespace Portal.Consultoras.BizLogic
                 usuario.FotoPerfil = string.Concat(ConfigS3.GetUrlS3(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
             
             usuario.AceptaTerminosCondiciones = (terminosCondicionesTask.Result == null ? false : terminosCondicionesTask.Result.Aceptado);
+            usuario.AceptaPoliticaPrivacidad = (politicaPrivacidadTask.Result == null ? false : politicaPrivacidadTask.Result.Aceptado);
             usuario.DestinatariosFeedback = string.Join(";", destinatariosFeedBack.Result.Select(x => x.Descripcion));
 
             usuario.GPRMostrarBannerRechazo = gprBannerTask.Result.MostrarBannerRechazo;
@@ -1845,7 +1848,21 @@ namespace Portal.Consultoras.BizLogic
             return daTerminosCondiciones.InsertTerminosCondiciones(terminos);
         }
 
-        public BETerminosCondiciones GetTerminosCondiciones(int PaisID, string CodigoConsultora, short Tipo)
+        public bool InsertTerminosCondicionesMasivo(int paisID, List<BETerminosCondiciones> terminos)
+        {
+            var daTerminosCondiciones = new DATerminosCondiciones(paisID);
+            var result = false;
+
+            foreach (var item in terminos)
+            {
+                result = daTerminosCondiciones.InsertTerminosCondiciones(item);
+                if (!result) break;
+            }
+
+            return result;
+        }
+
+        private BETerminosCondiciones GetTerminosCondiciones(int PaisID, string CodigoConsultora, short Tipo)
         {
             var terminos = new BETerminosCondiciones();
             var daTerminosCondiciones = new DATerminosCondiciones(PaisID);
@@ -1870,7 +1887,6 @@ namespace Portal.Consultoras.BizLogic
             string customKey = alcance + "_" + campaniaId;
             IList<BEEventoFestivo> listaEvento = CacheManager<BEEventoFestivo>.GetData(paisId,
                 ECacheItem.ConfiguracionEventoFestivo, customKey);
-
             if (listaEvento == null || listaEvento.Count == 0)
             {
                 var DAUsuario = new DAUsuario(paisId);

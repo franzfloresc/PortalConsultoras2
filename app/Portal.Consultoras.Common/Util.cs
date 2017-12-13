@@ -32,11 +32,6 @@ namespace Portal.Consultoras.Common
 {
     public class Util
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
         static public int ParseInt(object value)
         {
             int number;
@@ -50,12 +45,7 @@ namespace Portal.Consultoras.Common
                 return 0;
             }
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        
         static public Int32 ParseInt32(object value)
         {
             Int32 number;
@@ -70,12 +60,7 @@ namespace Portal.Consultoras.Common
             }
 
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        
         static public Int64 ParseInt64(object value)
         {
             Int64 number;
@@ -90,12 +75,7 @@ namespace Portal.Consultoras.Common
             }
 
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        
         static public Double ParseDouble(object value)
         {
             Double number;
@@ -110,12 +90,6 @@ namespace Portal.Consultoras.Common
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="value"></param>
-        /// <param name="NumDecimales"></param>
-        /// <returns></returns>
         static public Double ParseDouble(object value, Int32 NumDecimales)
         {
             Double number;
@@ -129,23 +103,12 @@ namespace Portal.Consultoras.Common
                 return 0;
             }
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="value"></param>
-        /// <param name="NumDecimales"></param>
-        /// <returns></returns>
+        
         static public Double RoundDouble(Double value, Int32 NumDecimales)
         {
             return Math.Round(value, NumDecimales);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
         static public String ParseString(object value)
         {
             String cadena;
@@ -159,12 +122,7 @@ namespace Portal.Consultoras.Common
                 return String.Empty;
             }
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        
         static public String ParseStringNullable(int? value)
         {
             String cadena = Convert.ToString(value.Value);
@@ -177,12 +135,7 @@ namespace Portal.Consultoras.Common
                 return String.Empty;
             }
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        
         static public DateTime? ParseDate(object value)
         {
             DateTime date;
@@ -196,37 +149,19 @@ namespace Portal.Consultoras.Common
                 return null;
             }
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="value"></param>
-        /// <param name="format"></param>
-        /// <returns></returns>
+        
         static public DateTime? ParseDate(object value, string format)
         {
             if (ParseDate(value) == null) return null;
             return DateTime.ParseExact(ParseString(value), format, null);
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="value"></param>
-        /// <param name="format"></param>
-        /// <param name="culture"></param>
-        /// <returns></returns>
+        
         static public DateTime? ParseDate(object value, string format, CultureInfo culture)
         {
             if (ParseDate(value) != null) return null;
             return DateTime.ParseExact(ParseString(value), format, culture);
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        
         public static DateTime TruncateDate(DateTime value)
         {
             int iDay, iMonth, iYear;
@@ -239,12 +174,7 @@ namespace Portal.Consultoras.Common
 
             return (dtValue);
         }
-
-        /// <summary>
-        /// Valida si un objecto es de tipo numérico
-        /// </summary>
-        /// <param name="value">objecto a verificar</param>
-        /// <returns>true o false sea el caso</returns>
+        
         static public bool isNumeric(object value)
         {
             bool resultado;
@@ -255,13 +185,6 @@ namespace Portal.Consultoras.Common
 
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="Interval"></param>
-        /// <param name="StartDate"></param>
-        /// <param name="EndDate"></param>
-        /// <returns></returns>
         public static long DateDiff(Enumeradores.DateInterval Interval, System.DateTime StartDate, System.DateTime EndDate)
         {
             long lngDateDiffValue = 0;
@@ -295,12 +218,7 @@ namespace Portal.Consultoras.Common
             }
             return (lngDateDiffValue);
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="date"></param>
-        /// <returns></returns>
+        
         static public long ToUnixTimespan(DateTime date)
         {
             TimeSpan tspan = date.ToUniversalTime().Subtract(
@@ -370,7 +288,6 @@ namespace Portal.Consultoras.Common
         /// <param name="Tags">Tag del elemento</param>
         /// <returns></returns>
         /// 
-        //R20150903
         public static bool EnviarMailMobile(string strDe, string strPara, string strTitulo, string strMensaje, bool isHTML, string displayNameDe)
         {
             if (string.IsNullOrEmpty(strPara))
@@ -384,23 +301,19 @@ namespace Portal.Consultoras.Common
             if (!emailutil.IsValidEmail(strPara))
                 return true;
 
-            //Parametros
             string strServidor = ParseString(ConfigurationManager.AppSettings["SMPTServer"]);
             string strUsuario = ParseString(ConfigurationManager.AppSettings["SMPTUser"]);
             string strPassword = ParseString(ConfigurationManager.AppSettings["SMPTPassword"]);
 
-            //Declaracion de variables
             MailMessage objMail = new MailMessage();
             SmtpClient objClient = new SmtpClient(strServidor);
 
             AlternateView avHtml = AlternateView.CreateAlternateViewFromString(strMensaje, null, MediaTypeNames.Text.Html);
 
-            //Embebemos el logo de Belcorp             
             LinkedResource Logo = new LinkedResource(HttpContext.Current.Request.MapPath("~/Content/Images/Logo.gif"), MediaTypeNames.Image.Gif);
             Logo.ContentId = "Logo";
             avHtml.LinkedResources.Add(Logo);
 
-            //Atributos del objeto MailMessage
             if (ParseString(ConfigurationManager.AppSettings["flagCorreo"]) == "0")
             {
                 strPara = strUsuario;
@@ -451,23 +364,15 @@ namespace Portal.Consultoras.Common
             if (!emailutil.IsValidEmail(strPara))
                 return true;
 
-            //Parametros
             string strServidor = ParseString(ConfigurationManager.AppSettings["SMPTServer"]);
             string strUsuario = ParseString(ConfigurationManager.AppSettings["SMPTUser"]);
             string strPassword = ParseString(ConfigurationManager.AppSettings["SMPTPassword"]);
 
-            //Declaracion de variables
             MailMessage objMail = new MailMessage();
             SmtpClient objClient = new SmtpClient(strServidor);
 
             AlternateView avHtml = AlternateView.CreateAlternateViewFromString(strMensaje, null, MediaTypeNames.Text.Html);
 
-            //Embebemos el logo de Belcorp 
-            //LinkedResource Logo = new LinkedResource(HttpContext.Current.Request.MapPath("../Content/Images/Logo.gif"), MediaTypeNames.Image.Gif);
-            //Logo.ContentId = "Logo";
-            //avHtml.LinkedResources.Add(Logo);
-
-            //Atributos del objeto MailMessage
             if (ParseString(ConfigurationManager.AppSettings["flagCorreo"]) == "0")
             {
                 strPara = strUsuario;
@@ -504,7 +409,6 @@ namespace Portal.Consultoras.Common
         {
             return Util.EnviarMail(strDe, strPara, strTitulo, strMensaje, isHTML, null);
         }
-        //REQ 2264
         public static bool EnviarMail(string strDe, string strPara, string strParaOculto, string strTitulo, string strMensaje, bool isHTML, string displayNameDe = null, bool IndicadorSimplificacionCUV = false)
         {
             if (string.IsNullOrEmpty(strPara))
@@ -518,27 +422,20 @@ namespace Portal.Consultoras.Common
             if (!emailutil.IsValidEmail(strPara))
                 return false;
 
-            //Parametros
             string strServidor = ParseString(ConfigurationManager.AppSettings["SMPTServer"]);
             string strUsuario = ParseString(ConfigurationManager.AppSettings["SMPTUser"]);
             string strPassword = ParseString(ConfigurationManager.AppSettings["SMPTPassword"]);
 
-            //Declaracion de variables
             MailMessage objMail = new MailMessage();
             SmtpClient objClient = new SmtpClient(strServidor);
 
-            //AlternateView avHtml = AlternateView.CreateAlternateViewFromString(String.Format(strMensaje, "IconoIndicador"), null, MediaTypeNames.Text.Html);
             AlternateView avHtml = AlternateView.CreateAlternateViewFromString(strMensaje, null, MediaTypeNames.Text.Html);
 
-            //Atributos del objeto MailMessage
             objMail.To.Add(strPara);
             if (string.IsNullOrEmpty(displayNameDe))
                 objMail.From = new MailAddress(strDe);
             else
                 objMail.From = new MailAddress(strDe, displayNameDe);
-
-            //if (string.IsNullOrEmpty(strParaOculto))
-            //    objMail.Bcc.Add(new MailAddress(strParaOculto));
 
             objMail.Subject = strTitulo;
             if (FileExists(HttpContext.Current.Request.MapPath("/Content/Images/indicador.png")) && FileExists(HttpContext.Current.Request.MapPath("/Content/Images/belcorp_logo.png")))
@@ -604,23 +501,19 @@ namespace Portal.Consultoras.Common
             if (!emailutil.IsValidEmail(strPara))
                 return true;
 
-            //Parametros
             string strServidor = ParseString(ConfigurationManager.AppSettings["SMPTServer"]);
             string strUsuario = ParseString(ConfigurationManager.AppSettings["SMPTUser"]);
             string strPassword = ParseString(ConfigurationManager.AppSettings["SMPTPassword"]);
 
-            //Declaracion de variables
             MailMessage objMail = new MailMessage();
             SmtpClient objClient = new SmtpClient(strServidor);
 
             AlternateView avHtml = AlternateView.CreateAlternateViewFromString(strMensaje, null, MediaTypeNames.Text.Html);
 
-            //Embebemos el logo de Belcorp --/R2548 - CS             
             LinkedResource Logo = new LinkedResource(HttpContext.Current.Request.MapPath("../Content/Images/logotipo_belcorp_05.png"), MediaTypeNames.Image.Gif);
             Logo.ContentId = "Logo";
             avHtml.LinkedResources.Add(Logo);
 
-            //Atributos del objeto MailMessage
             if (ParseString(ConfigurationManager.AppSettings["flagCorreo"]) == "0")
                 strPara = strUsuario;
 
@@ -631,9 +524,6 @@ namespace Portal.Consultoras.Common
                 objMail.From = new MailAddress(strDe);
             else
                 objMail.From = new MailAddress(strDe, displayNameDe);
-
-            //if (!string.IsNullOrEmpty(strBcc))
-            //    objMail.Bcc.Add(strBcc);
 
             objMail.Subject = strTitulo;
             objMail.Body = "<HTML><head><META http-equiv=Content-Type content=\"text/html; \"></head><body> " + strMensaje + "</body></HTML>";
@@ -660,7 +550,6 @@ namespace Portal.Consultoras.Common
             }
             return true;
         }
-        ////R2319
         public static bool EnviarMail3(string strDe, string strPara, string strTitulo, string strMensaje, bool isHTML, string strBcc, string displayNameDe)
         {
             if (string.IsNullOrEmpty(strPara))
@@ -674,23 +563,19 @@ namespace Portal.Consultoras.Common
             if (!emailutil.IsValidEmail(strPara))
                 return true;
 
-            //Parametros
             string strServidor = ParseString(ConfigurationManager.AppSettings["SMPTServer"]);
             string strUsuario = ParseString(ConfigurationManager.AppSettings["SMPTUser"]);
             string strPassword = ParseString(ConfigurationManager.AppSettings["SMPTPassword"]);
 
-            //Declaracion de variables
             MailMessage objMail = new MailMessage();
             SmtpClient objClient = new SmtpClient(strServidor);
 
             AlternateView avHtml = AlternateView.CreateAlternateViewFromString(String.Format(strMensaje, "Logo"), null, MediaTypeNames.Text.Html);
 
-            //Embebemos el logo de Belcorp //r2548
             LinkedResource Logo = new LinkedResource(HttpContext.Current.Request.MapPath("../Content/Images/logotipo_belcorp_05.png"), MediaTypeNames.Image.Gif);
             Logo.ContentId = "Logo";
             avHtml.LinkedResources.Add(Logo);
 
-            //Atributos del objeto MailMessage
             if (ParseString(ConfigurationManager.AppSettings["flagCorreo"]) == "0")
             {
                 strPara = strUsuario;
@@ -701,9 +586,6 @@ namespace Portal.Consultoras.Common
                 objMail.From = new MailAddress(strDe);
             else
                 objMail.From = new MailAddress(strDe, displayNameDe);
-
-            //if (!string.IsNullOrEmpty(strBcc))
-            //    objMail.Bcc.Add(strBcc);
 
             objMail.Subject = strTitulo;
             objMail.Body = "<HTML><head><META http-equiv=Content-Type content=\"text/html; \"></head><body> " + String.Format(strMensaje, Logo.ContentId) + "</body></HTML>";
@@ -734,7 +616,6 @@ namespace Portal.Consultoras.Common
 
         public static bool EnviarMail2(string strDe, string strPara, string strTitulo, string strMensaje, bool isHTML, string Tags, string strRemitente)
         {
-            //Parametros
             string strURL = ParseString(ConfigurationManager.AppSettings["SMPTURL"]);
             string strUsuario = ParseString(ConfigurationManager.AppSettings["SMPTUser"]);
             string strPassword = ParseString(ConfigurationManager.AppSettings["SMPTPassword"]);
@@ -744,7 +625,6 @@ namespace Portal.Consultoras.Common
                 strPara = strUsuario;
             }
 
-            //Declaracion de variables
             MandrillMail oMail = new MandrillMail();
 
             List<To> to_ = new List<To>();
@@ -824,8 +704,6 @@ namespace Portal.Consultoras.Common
             return Util.EnviarMail2(strDe, strPara, strTitulo, strMensaje, isHTML, Tag, null);
         }
 
-
-        //REQ 2584 CSR
         public static bool EnviarMailPedido(string strDe, string strPara, string strParaOculto, string strTitulo, string strMensaje, bool isHTML, string displayNameDe)
         {
             if (string.IsNullOrEmpty(strPara))
@@ -839,32 +717,25 @@ namespace Portal.Consultoras.Common
             if (!emailutil.IsValidEmail(strPara))
                 return false;
 
-            //Parametros
             string strServidor = ParseString(ConfigurationManager.AppSettings["SMPTServer"]);
             string strUsuario = ParseString(ConfigurationManager.AppSettings["SMPTUser"]);
             string strPassword = ParseString(ConfigurationManager.AppSettings["SMPTPassword"]);
 
-            //Declaracion de variables
             MailMessage objMail = new MailMessage();
             SmtpClient objClient = new SmtpClient(strServidor);
 
-            // AlternateView avHtml = AlternateView.CreateAlternateViewFromString(strMensaje, null, MediaTypeNames.Text.Html);
-
             AlternateView avHtml = AlternateView.CreateAlternateViewFromString(String.Format(strMensaje, "Logo"), null, MediaTypeNames.Text.Html);
 
-            //Embebemos el logo de Belcorp //r2548
             LinkedResource Logo = new LinkedResource(HttpContext.Current.Request.MapPath("../Content/Images/belcorp_logo.png"), MediaTypeNames.Image.Gif);
             Logo.ContentId = "Logo";
             avHtml.LinkedResources.Add(Logo);
 
-            //Atributos del objeto MailMessage
             objMail.AlternateViews.Add(avHtml);
             objMail.To.Add(strPara);
             if (string.IsNullOrEmpty(displayNameDe))
                 objMail.From = new MailAddress(strDe);
             else
                 objMail.From = new MailAddress(strDe, displayNameDe);
-            //objMail.Bcc.Add(new MailAddress(strParaOculto));
             objMail.Subject = strTitulo;
             objMail.Body = "<HTML><head><META http-equiv=Content-Type content=\"text/html; \"></head><body> " + strMensaje + "</body></HTML>";
             objMail.IsBodyHtml = isHTML;
@@ -906,23 +777,19 @@ namespace Portal.Consultoras.Common
             if (!emailutil.IsValidEmail(strPara))
                 return true;
 
-            //Parametros
             string strServidor = ParseString(ConfigurationManager.AppSettings["SMPTServer"]);
             string strUsuario = ParseString(ConfigurationManager.AppSettings["SMPTUser"]);
             string strPassword = ParseString(ConfigurationManager.AppSettings["SMPTPassword"]);
 
-            //Declaracion de variables
             MailMessage objMail = new MailMessage();
             SmtpClient objClient = new SmtpClient(strServidor);
 
             AlternateView avHtml = AlternateView.CreateAlternateViewFromString(String.Format(strMensaje, "Logo"), null, MediaTypeNames.Text.Html);
 
-            //Embebemos el logo de Belcorp //r2548
             LinkedResource Logo = new LinkedResource(HttpContext.Current.Request.MapPath("~/Content/Images/logotipo_belcorp_05.png"), MediaTypeNames.Image.Gif);
             Logo.ContentId = "Logo";
             avHtml.LinkedResources.Add(Logo);
 
-            //Atributos del objeto MailMessage
             if (ParseString(ConfigurationManager.AppSettings["flagCorreo"]) == "0")
             {
                 strPara = strUsuario;
@@ -933,9 +800,6 @@ namespace Portal.Consultoras.Common
                 objMail.From = new MailAddress(strDe);
             else
                 objMail.From = new MailAddress(strDe, displayNameDe);
-
-            //if (string.IsNullOrEmpty(strBcc))
-            //    objMail.Bcc.Add(strBcc);
 
             objMail.Subject = strTitulo;
             objMail.Body = "<HTML><head><META http-equiv=Content-Type content=\"text/html; \"></head><body> " + String.Format(strMensaje, Logo.ContentId) + "</body></HTML>";
@@ -977,16 +841,10 @@ namespace Portal.Consultoras.Common
         {
             try
             {
-                //Parametros
                 string strServidor = ParseString(ConfigurationManager.AppSettings["SMPTServer"]);
                 string strUsuario = ParseString(ConfigurationManager.AppSettings["SMPTUser"]);
                 string strPassword = ParseString(ConfigurationManager.AppSettings["SMPTPassword"]);
 
-                //string strServidor = "smtp.gmail.com";
-                //string strUsuario = "userbelcorp@gmail.com";
-                //string strPassword = "d3v3l0p3r";
-
-                //Declaracion de variables
                 ThreadPool.QueueUserWorkItem(callback =>
                 {
                     using (MailMessage objMail = new MailMessage())
@@ -997,9 +855,7 @@ namespace Portal.Consultoras.Common
                         foreach (var item in strPara)
                         {
                             objMail.Bcc.Add(item);
-                            //objMail.To.Add(item);
                         }
-                        //objMail.To.Add(item);
                         objMail.From = new MailAddress(strDe);
                         objMail.Subject = strTitulo;
                         objMail.Body = "<HTML><head><META http-equiv=Content-Type content=\"text/html; \"></head><body> " + strMensaje + "</body></HTML>";
@@ -1009,7 +865,7 @@ namespace Portal.Consultoras.Common
                         using (SmtpClient objClient = new SmtpClient(strServidor))
                         {
                             NetworkCredential credentials = new NetworkCredential(strUsuario, strPassword);
-                            objClient.EnableSsl = true; // se debe habilitar cuando se use gmail,
+                            objClient.EnableSsl = true; 
                             objClient.Credentials = credentials;
                             objClient.Send(objMail);
                         }
@@ -1038,12 +894,10 @@ namespace Portal.Consultoras.Common
 
             try
             {
-                //Parametros
                 string strServidor = ParseString(ConfigurationManager.AppSettings["SMPTServer"]);
                 string strUsuario = ParseString(ConfigurationManager.AppSettings["SMPTUser"]);
                 string strPassword = ParseString(ConfigurationManager.AppSettings["SMPTPassword"]);
 
-                //Declaracion de variables
                 ThreadPool.QueueUserWorkItem(callback =>
                 {
                     using (MailMessage objMail = new MailMessage())
@@ -1061,7 +915,7 @@ namespace Portal.Consultoras.Common
                         using (SmtpClient objClient = new SmtpClient(strServidor))
                         {
                             NetworkCredential credentials = new NetworkCredential(strUsuario, strPassword);
-                            objClient.EnableSsl = true; // se debe habilitar cuando se use gmail,
+                            objClient.EnableSsl = true;
                             objClient.Credentials = credentials;
                             objClient.Send(objMail);
                         }
@@ -1081,14 +935,12 @@ namespace Portal.Consultoras.Common
 
         public static bool EnviarMailMasivoColas2(string strDe, string strPara, string strTitulo, string strMensaje, bool isHTML, string tags, string displayNameDe)
         {
-            //Parametros
             string strURL = ParseString(ConfigurationManager.AppSettings["SMPTURL"]);
             string strPassword = ParseString(ConfigurationManager.AppSettings["SMPTPassword"]);
             try
             {
                 ThreadPool.QueueUserWorkItem(callback =>
                 {
-                    //Declaracion de variables
                     MandrillMail oMail = new MandrillMail();
 
                     List<To> to_ = new List<To>();
@@ -1234,7 +1086,6 @@ namespace Portal.Consultoras.Common
             List<string> types = new List<string>();
             try
             {
-                // obtiene la extensión del archivo
                 string ext = System.IO.Path.GetExtension(@filename).ToLower();
 
                 switch (TypeDocExt)
@@ -1297,7 +1148,6 @@ namespace Portal.Consultoras.Common
         public static List<V> ReadXmlFile<V>(string filepath, V Source, bool ReadAllSheets, ref bool IsCorrect) where V : new()
         {
             string connectionString = string.Empty;
-            // declaramos una lista de entidades
             List<V> list = null;
 
             try
@@ -1315,7 +1165,6 @@ namespace Portal.Consultoras.Common
                     connectionString = string.Format("Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};" +
                         "Extended Properties=\"Excel 12.0;IMEX=1;HDR=YES;\"", filepath);
                 }
-                // crea una lista, para guardar las hojas que contenga el documento
                 List<string> sheets = new List<string>();
 
                 using (OleDbConnection con = new OleDbConnection(connectionString))
@@ -1338,7 +1187,7 @@ namespace Portal.Consultoras.Common
                             sheets.Add((string)schemas.Rows[0]["TABLE_NAME"]);
                         }
                     }
-                    // itera cada hoja del excel
+
                     foreach (string sheetName in sheets)
                     {
                         string commandText = "Select * From [" + sheetName + "]";
@@ -1348,10 +1197,7 @@ namespace Portal.Consultoras.Common
                             using (OleDbDataReader reader = select.ExecuteReader())
                             {
                                 reader.GetSchemaTable();
-                                //string firstColumnName = (string)sheetSchema.Rows[0]["ColumnName"];
-                                //string firstColumnDataType = (string)sheetSchema.Rows[0]["DataType"];
 
-                                // declaramos una variable del mismo tipo que la entidad
                                 V entity;
                                 if (reader.HasRows)
                                 {
@@ -1370,11 +1216,8 @@ namespace Portal.Consultoras.Common
                                             }
                                         }
                                         list.Add(entity);
-                                        //firstCellValue = Convert.ToString(reader["ZONA"]);
                                     }
                                 }
-                                //else
-                                //   firstCellValue = "No Rows Returned";
                             }
                         }
                     }
@@ -1410,7 +1253,6 @@ namespace Portal.Consultoras.Common
 
                 foreach (KeyValuePair<string, string> keyvalue in columnDefinition)
                 {
-                    //Establece las columnas
                     ws.Cell(1, index).Value = keyvalue.Key;
                     index++;
                     Columns.Add(keyvalue.Value);
@@ -1422,7 +1264,6 @@ namespace Portal.Consultoras.Common
                     col = 1;
                     foreach (string column in Columns)
                     {
-                        //Establece el valor para esa columna
                         foreach (PropertyInfo property in dataItem.GetType().GetProperties())
                         {
                             if (column == property.Name)
@@ -1449,9 +1290,6 @@ namespace Portal.Consultoras.Common
                     row++;
                 }
                 ws.Range(1, 1, 1, index - 1).AddToNamed("Titles");
-                //ws.Row(1).Style.Font.Bold = true;
-                //ws.Row(1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
-                //ws.Row(1).Style.Fill.BackgroundColor = XLColor.Aquamarine;
 
                 var titlesStyle = wb.Style;
                 titlesStyle.Font.Bold = true;
@@ -1459,19 +1297,16 @@ namespace Portal.Consultoras.Common
                 titlesStyle.Fill.BackgroundColor = XLColor.FromHtml("#669966");
 
                 wb.NamedRanges.NamedRange("Titles").Ranges.Style = titlesStyle;
-                //ws.Columns().AdjustToContents();
 
                 var stream = new MemoryStream();
                 wb.SaveAs(stream);
 
                 HttpContext.Current.Response.ClearHeaders();
                 HttpContext.Current.Response.Clear();
-                //HttpContext.Current.Response.SetCookie("Cache-Control", "private");
                 HttpContext.Current.Response.Buffer = false;
                 HttpContext.Current.Response.AddHeader("Content-disposition", "attachment; filename=" + originalFileName);
                 HttpContext.Current.Response.Charset = "UTF-8";
                 HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.Private);
-                //HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
                 HttpContext.Current.Response.ContentType = "application/octet-stream";
                 HttpContext.Current.Response.BinaryWrite(stream.ToArray());
                 HttpContext.Current.Response.Flush();
@@ -1509,7 +1344,6 @@ namespace Portal.Consultoras.Common
 
                     foreach (KeyValuePair<string, string> keyvalue in columnDefinitions[i])
                     {
-                        //Establece las columnas
                         ws.Cell(1, index).Value = keyvalue.Key;
                         index++;
                         Columns.Add(keyvalue.Value);
@@ -1521,7 +1355,6 @@ namespace Portal.Consultoras.Common
                         col = 1;
                         foreach (string column in Columns)
                         {
-                            //Establece el valor para esa columna
                             foreach (PropertyInfo property in dataItem.GetType().GetProperties())
                             {
                                 if (column == property.Name)
@@ -1552,29 +1385,22 @@ namespace Portal.Consultoras.Common
                     ws.Range(1, 1, 1, index - 1).AddToNamed("Titles");
                 }
 
-                //ws.Row(1).Style.Font.Bold = true;
-                //ws.Row(1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
-                //ws.Row(1).Style.Fill.BackgroundColor = XLColor.Aquamarine;
-
                 var titlesStyle = wb.Style;
                 titlesStyle.Font.Bold = true;
                 titlesStyle.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
                 titlesStyle.Fill.BackgroundColor = XLColor.FromHtml("#669966");
 
                 wb.NamedRanges.NamedRange("Titles").Ranges.Style = titlesStyle;
-                //ws.Columns().AdjustToContents();
 
                 var stream = new MemoryStream();
                 wb.SaveAs(stream);
 
                 HttpContext.Current.Response.ClearHeaders();
                 HttpContext.Current.Response.Clear();
-                //HttpContext.Current.Response.SetCookie("Cache-Control", "private");
                 HttpContext.Current.Response.Buffer = false;
                 HttpContext.Current.Response.AddHeader("Content-disposition", "attachment; filename=" + originalFileName);
                 HttpContext.Current.Response.Charset = "UTF-8";
                 HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.Private);
-                //HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
                 HttpContext.Current.Response.ContentType = "application/octet-stream";
                 HttpContext.Current.Response.BinaryWrite(stream.ToArray());
                 HttpContext.Current.Response.Flush();
@@ -1611,7 +1437,6 @@ namespace Portal.Consultoras.Common
 
                 foreach (KeyValuePair<string, string> keyvalue in columnDefinition)
                 {
-                    //Establece las columnas
                     ws.Cell(1, index).Value = keyvalue.Key;
                     index++;
                     Columns.Add(keyvalue.Value);
@@ -1623,7 +1448,6 @@ namespace Portal.Consultoras.Common
                     col = 1;
                     foreach (string column in Columns)
                     {
-                        //Establece el valor para esa columna
                         foreach (PropertyInfo property in dataItem.GetType().GetProperties())
                         {
                             if (column == property.Name)
@@ -1650,9 +1474,6 @@ namespace Portal.Consultoras.Common
                     row++;
                 }
                 ws.Range(1, 1, 1, index - 1).AddToNamed("Titles");
-                //ws.Row(1).Style.Font.Bold = true;
-                //ws.Row(1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
-                //ws.Row(1).Style.Fill.BackgroundColor = XLColor.Aquamarine;
 
                 var titlesStyle = wb.Style;
                 titlesStyle.Font.Bold = true;
@@ -1660,19 +1481,16 @@ namespace Portal.Consultoras.Common
                 titlesStyle.Fill.BackgroundColor = XLColor.FromHtml("#669966");
 
                 wb.NamedRanges.NamedRange("Titles").Ranges.Style = titlesStyle;
-                //ws.Columns().AdjustToContents();
 
                 var stream = new MemoryStream();
                 wb.SaveAs(stream);
 
                 HttpContext.Current.Response.ClearHeaders();
                 HttpContext.Current.Response.Clear();
-                //HttpContext.Current.Response.SetCookie("Cache-Control", "private");
                 HttpContext.Current.Response.Buffer = false;
                 HttpContext.Current.Response.AddHeader("Content-disposition", "attachment; filename=" + originalFileName);
                 HttpContext.Current.Response.Charset = "UTF-8";
                 HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.Private);
-                //HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
                 HttpContext.Current.Response.ContentType = "application/octet-stream";
                 HttpContext.Current.Response.BinaryWrite(stream.ToArray());
                 HttpContext.Current.Response.Flush();
@@ -1712,7 +1530,6 @@ namespace Portal.Consultoras.Common
 
                 foreach (KeyValuePair<string, string> keyvalue in columnDefinition)
                 {
-                    //Establece las columnas
                     ws.Cell(1, index).Value = keyvalue.Key;
                     index++;
                     Columns.Add(keyvalue.Value);
@@ -1724,7 +1541,6 @@ namespace Portal.Consultoras.Common
                     col = 1;
                     foreach (string column in Columns)
                     {
-                        //Establece el valor para esa columna
                         foreach (PropertyInfo property in dataItem.GetType().GetProperties())
                         {
                             if (column == property.Name)
@@ -1751,9 +1567,6 @@ namespace Portal.Consultoras.Common
                     row++;
                 }
                 ws.Range(1, 1, 1, index - 1).AddToNamed("Titles");
-                //ws.Row(1).Style.Font.Bold = true;
-                //ws.Row(1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
-                //ws.Row(1).Style.Fill.BackgroundColor = XLColor.Aquamarine;
 
                 var titlesStyle = wb.Style;
                 titlesStyle.Font.Bold = true;
@@ -1761,21 +1574,18 @@ namespace Portal.Consultoras.Common
                 titlesStyle.Fill.BackgroundColor = XLColor.FromHtml("#669966");
 
                 wb.NamedRanges.NamedRange("Titles").Ranges.Style = titlesStyle;
-                //ws.Columns().AdjustToContents();
 
                 var stream = new MemoryStream();
                 wb.SaveAs(stream);
 
                 HttpContext.Current.Response.ClearHeaders();
                 HttpContext.Current.Response.Clear();
-                //HttpContext.Current.Response.SetCookie("Cache-Control", "private");
                 if (!string.IsNullOrEmpty(cookieName) && !string.IsNullOrEmpty(valueName))
                     HttpContext.Current.Response.AppendCookie(new HttpCookie(cookieName, valueName));
                 HttpContext.Current.Response.Buffer = false;
                 HttpContext.Current.Response.AddHeader("Content-disposition", "attachment; filename=" + originalFileName);
                 HttpContext.Current.Response.Charset = "UTF-8";
                 HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.Private);
-                //HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
                 HttpContext.Current.Response.ContentType = "application/octet-stream";
                 HttpContext.Current.Response.BinaryWrite(stream.ToArray());
                 HttpContext.Current.Response.Flush();
@@ -1789,8 +1599,15 @@ namespace Portal.Consultoras.Common
             }
         }
 
-
-        //AOB:*Reportes dinamicos SOLCredit region//
+        /// <summary>
+        /// AOB:*Reportes dinamicos SOLCredit region
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <param name="Source"></param>
+        /// <param name="columnDefinition"></param>
+        /// <param name="cookieName"></param>
+        /// <param name="valueName"></param>
+        /// <returns></returns>
         public static bool ExportToExcelSinP(string filename, List<Dictionary<string, string>> Source, Dictionary<string, string> columnDefinition, string cookieName, string valueName)
         {
             try
@@ -1801,11 +1618,7 @@ namespace Portal.Consultoras.Common
                 var wb = new XLWorkbook();
                 var ws = wb.Worksheets.Add("Hoja1");
                 List<string> Columns = new List<string>();
-
-                /*  ws.Cell(1, 1).Value = "REPORTE DE SOLICITUDES DE CREDITO";
-                  ws.Cell(2, 1).Value = "TOTALES POR REGION - ZONA";
-                   ws.Cell(2, 1).Value*/
-
+                
                 if (Source.Count == 0)
                 {
                     ws.Cell(1, 1).Value = "No hay registros para mostrar en la fecha que indicas";
@@ -1816,7 +1629,6 @@ namespace Portal.Consultoras.Common
 
                     foreach (KeyValuePair<string, string> keyvalue in columnDefinition)
                     {
-                        //Establece las columnas
                         if (index == 1)
                         {
                             ws.Cell(1, index).Value = keyvalue.Key;
@@ -1848,15 +1660,7 @@ namespace Portal.Consultoras.Common
 
                     ws.Range(1, 1, 1, index - 1).AddToNamed("Titles");
                     ws.Row(1).Style.Font.Bold = true;
-                    //ws.Row(1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
-                    //ws.Row(1).Style.Fill.BackgroundColor = XLColor.Aquamarine;
 
-                    /* var titlesStyle = wb.Style;
-                     titlesStyle.Font.Bold = true;
-                     titlesStyle.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
-                     titlesStyle.Fill.BackgroundColor = XLColor.FromHtml("#669966");
-                    
-                     wb.NamedRanges.NamedRange("Titles").Ranges.Style = titlesStyle;*/
                 }
                 ws.Columns().AdjustToContents();
 
@@ -1865,14 +1669,12 @@ namespace Portal.Consultoras.Common
 
                 HttpContext.Current.Response.ClearHeaders();
                 HttpContext.Current.Response.Clear();
-                //HttpContext.Current.Response.SetCookie("Cache-Control", "private");
                 if (!string.IsNullOrEmpty(cookieName) && !string.IsNullOrEmpty(valueName))
                     HttpContext.Current.Response.AppendCookie(new HttpCookie(cookieName, valueName));
                 HttpContext.Current.Response.Buffer = false;
                 HttpContext.Current.Response.AddHeader("Content-disposition", "attachment; filename=" + originalFileName);
                 HttpContext.Current.Response.Charset = "UTF-8";
                 HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.Private);
-                //HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
                 HttpContext.Current.Response.ContentType = "application/octet-stream";
                 HttpContext.Current.Response.BinaryWrite(stream.ToArray());
                 HttpContext.Current.Response.Flush();
@@ -1906,7 +1708,6 @@ namespace Portal.Consultoras.Common
                 int col2 = 1;
                 foreach (KeyValuePair<int, string> keyvalue in columnHeaderDefinition)
                 {
-                    //Establece las columnas
                     ws.Cell(row, 1).Value = keyvalue.Value;
                     ws.Range(string.Format("A{0}:E{1}", row, row)).Row(1).Merge();
                     ws.Cell(row, 1).Style.Font.Bold = true;
@@ -1930,12 +1731,10 @@ namespace Portal.Consultoras.Common
 
                     row += 2;
                     while (i < keyvalue.Key)
-                    // ( i < ; i++)
                     {
                         col = 1;
-                        foreach (string column in Columns) // itera las columnas del detalle
+                        foreach (string column in Columns)
                         {
-                            //Establece el valor para esa columna
                             var source = SourceDetails[i];
                             foreach (PropertyInfo property in source.GetType().GetProperties())
                             {
@@ -1961,15 +1760,12 @@ namespace Portal.Consultoras.Common
                                             ws.Cell(row, col).Value = arr[0] + System.Web.UI.DataBinder.GetPropertyValue(SourceDetails[i], property.Name, "{0:0.00}");
                                             ws.Cell(row, col).Style.Fill.BackgroundColor = XLColor.FromHtml("#DED2F1");
                                             break;
-                                            //ws.Cell(row, col).Style.NumberFormat.Format = "#,##0.00";
-                                            //ws.Cell(row, col).DataType = XLCellValues.Text;
                                         }
                                         else
                                             ws.Cell(row, col).Style.NumberFormat.Format = "@";
                                         ws.Cell(row, col).Value = arr[0] + System.Web.UI.DataBinder.GetPropertyValue(SourceDetails[i], property.Name, null);
                                     }
 
-                                    //ws.Range(row, 1, row, col - 1).AddToNamed("Totals");
                                     ws.Cell(row, col).Style.Fill.BackgroundColor = XLColor.FromHtml("#DED2F1");
                                     break;
                                 }
@@ -1990,7 +1786,7 @@ namespace Portal.Consultoras.Common
                         titlesStyleh.Font.FontColor = XLColor.FromHtml("#000000");
                         wb.NamedRanges.NamedRange("Totals").Ranges.Style = titlesStyle;
 
-                        ws.Cell(row, col - 2).Value = arrTotal[0]; //Total:
+                        ws.Cell(row, col - 2).Value = arrTotal[0];
                         ws.Cell(row, col - 1).Value = arrTotal[1].Split('#')[0] +
                             System.Web.UI.DataBinder.GetPropertyValue(SourceDetails[i], (SourceDetails[i]).GetType().GetProperty(arrTotal[1].Split('#')[1]).Name, "{0:0.00}");
                     }
@@ -2006,12 +1802,10 @@ namespace Portal.Consultoras.Common
 
                 HttpContext.Current.Response.ClearHeaders();
                 HttpContext.Current.Response.Clear();
-                //HttpContext.Current.Response.SetCookie("Cache-Control", "private");
                 HttpContext.Current.Response.Buffer = false;
                 HttpContext.Current.Response.AddHeader("Content-disposition", "attachment; filename=" + originalFileName);
                 HttpContext.Current.Response.Charset = "UTF-8";
                 HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.Private);
-                //HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
                 HttpContext.Current.Response.ContentType = "application/octet-stream";
                 HttpContext.Current.Response.BinaryWrite(stream.ToArray());
                 HttpContext.Current.Response.Flush();
@@ -2140,7 +1934,6 @@ namespace Portal.Consultoras.Common
         public static string EncriptarDuplaCyzone(string xmlKeysPath, string texto)
         {
             byte[] textoOriginal = Encoding.UTF8.GetBytes(texto);
-            //RSACryptoServiceProvider.UseMachineKeyStore = true;
             RSACryptoServiceProvider rsa2 = new RSACryptoServiceProvider();
             rsa2 = CargarLlave(xmlKeysPath, rsa2);
             byte[] output = rsa2.Encrypt(textoOriginal, false);
@@ -2268,7 +2061,6 @@ namespace Portal.Consultoras.Common
                 string extension = ".pdf";
                 string originalFileName = Path.GetFileNameWithoutExtension(fileName) + extension;
 
-                //String thisPageUrl = controller.ControllerContext.HttpContext.Request.Url.AbsoluteUri;
                 String thisPageUrl = Util.GetUrlOriginal(controller.HttpContext.Request).AbsoluteUri;
 
                 var rd = controller.RouteData;
@@ -2287,7 +2079,6 @@ namespace Portal.Consultoras.Common
                 HttpContext.Current.Response.Buffer = false;
                 HttpContext.Current.Response.AddHeader("Content-disposition", "attachment; filename=" + originalFileName);
                 HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.Private);
-                //HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
                 HttpContext.Current.Response.Charset = "iso-8859-1";
                 HttpContext.Current.Response.ContentType = "application/octet-stream";
                 HttpContext.Current.Response.BinaryWrite(pdfBuffer);
@@ -2308,12 +2099,9 @@ namespace Portal.Consultoras.Common
                 string extension = ".pdf";
                 string originalFileName = Path.GetFileNameWithoutExtension(fileName) + extension;
 
-                //String thisPageUrl = controller.ControllerContext.HttpContext.Request.Url.AbsoluteUri;
-
                 HttpRequestBase request = controller.HttpContext.Request;
 
                 string baseUrl = request.Url.Scheme + "://" + request.Url.Authority + (request.ApplicationPath.ToString().Equals("/") ? "/" : (request.ApplicationPath + "/"));
-                //String baseUrl = string.Format("{0}://{1}/{2}", request.Url.Scheme, hostHeader,"Portal");
 
                 var rd = controller.RouteData;
                 var Controller = rd.GetRequiredString("controller");
@@ -2329,7 +2117,6 @@ namespace Portal.Consultoras.Common
                 HttpContext.Current.Response.Buffer = false;
                 HttpContext.Current.Response.AddHeader("Content-disposition", "attachment; filename=" + originalFileName);
                 HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.Private);
-                //HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
                 HttpContext.Current.Response.Charset = "iso-8859-1";
                 HttpContext.Current.Response.ContentType = "application/octet-stream";
                 HttpContext.Current.Response.BinaryWrite(pdfBuffer);
@@ -2354,7 +2141,6 @@ namespace Portal.Consultoras.Common
 
                 string baseUrl = request.Url.Scheme + "://" + request.Url.Authority + (request.ApplicationPath.ToString().Equals("/") ? "/" : (request.ApplicationPath + "/"));
 
-                //baseUrl = string.Format(baseUrl + "/{0}/{1}?parametros={2}", Controller, stActionIndex, enviar);
                 baseUrl = string.Format(baseUrl + "WebPages/{0}.aspx?parametros={1}", stActionIndex, enviar);
 
                 HiQPdf.HtmlToPdf htmlToPdfConverter = new HiQPdf.HtmlToPdf();
@@ -2365,7 +2151,6 @@ namespace Portal.Consultoras.Common
                 HttpContext.Current.Response.Clear();
                 HttpContext.Current.Response.Buffer = false;
                 HttpContext.Current.Response.AddHeader("Content-disposition", "attachment; filename=" + originalFileName);
-                //HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.Private);
                 HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
                 HttpContext.Current.Response.Charset = "iso-8859-1";
                 HttpContext.Current.Response.ContentType = "application/octet-stream";
@@ -2651,13 +2436,9 @@ namespace Portal.Consultoras.Common
 
         public static int Edad(DateTime fechaNacimiento)
         {
-            //Obtengo la diferencia en años.
             int edad = DateTime.Now.Year - fechaNacimiento.Year;
 
-            //Obtengo la fecha de cumpleaños de este año.
             DateTime nacimientoAhora = fechaNacimiento.AddYears(edad);
-            //Le resto un año si la fecha actual es anterior 
-            //al día de nacimiento.
             if (DateTime.Now.CompareTo(nacimientoAhora) > 0)
             {
                 edad--;
@@ -2735,7 +2516,6 @@ namespace Portal.Consultoras.Common
                 int col2 = 1;
                 foreach (KeyValuePair<int, string> keyvalue in columnHeaderDefinition)
                 {
-                    //Establece las columnas
                     ws.Cell(row, 1).Value = keyvalue.Value;
                     ws.Range(string.Format("A{0}:E{1}", row, row)).Row(1).Merge();
                     ws.Cell(row, 1).Style.Font.Bold = true;
@@ -2759,12 +2539,10 @@ namespace Portal.Consultoras.Common
 
                     row += 2;
                     while (i < keyvalue.Key)
-                    // ( i < ; i++)
                     {
                         col = 1;
-                        foreach (string column in Columns) // itera las columnas del detalle
+                        foreach (string column in Columns)
                         {
-                            //Establece el valor para esa columna
                             var source = SourceDetails[i];
                             foreach (PropertyInfo property in source.GetType().GetProperties())
                             {
@@ -2790,15 +2568,12 @@ namespace Portal.Consultoras.Common
                                             ws.Cell(row, col).Value = arr[0] + System.Web.UI.DataBinder.GetPropertyValue(SourceDetails[i], property.Name, "{0:0.00}");
                                             ws.Cell(row, col).Style.Fill.BackgroundColor = XLColor.FromHtml("#DED2F1");
                                             break;
-                                            //ws.Cell(row, col).Style.NumberFormat.Format = "#,##0.00";
-                                            //ws.Cell(row, col).DataType = XLCellValues.Text;
                                         }
                                         else
                                             ws.Cell(row, col).Style.NumberFormat.Format = "@";
                                         ws.Cell(row, col).Value = arr[0] + System.Web.UI.DataBinder.GetPropertyValue(SourceDetails[i], property.Name, null);
                                     }
 
-                                    //ws.Range(row, 1, row, col - 1).AddToNamed("Totals");
                                     ws.Cell(row, col).Style.Fill.BackgroundColor = XLColor.FromHtml("#DED2F1");
                                     break;
                                 }
@@ -2819,7 +2594,7 @@ namespace Portal.Consultoras.Common
                         titlesStyleh.Font.FontColor = XLColor.FromHtml("#000000");
                         wb.NamedRanges.NamedRange("Totals").Ranges.Style = titlesStyle;
 
-                        ws.Cell(row, col - 2).Value = arrTotal[0]; //Total:
+                        ws.Cell(row, col - 2).Value = arrTotal[0];
                         ws.Cell(row, col - 1).Value = arrTotal[1].Split('#')[0] +
                             System.Web.UI.DataBinder.GetPropertyValue(SourceDetails[i], (SourceDetails[i]).GetType().GetProperty(arrTotal[1].Split('#')[1]).Name, "{0:0.00}");
                     }
@@ -2835,12 +2610,10 @@ namespace Portal.Consultoras.Common
 
                 HttpContext.Current.Response.ClearHeaders();
                 HttpContext.Current.Response.Clear();
-                //HttpContext.Current.Response.SetCookie("Cache-Control", "private");
                 HttpContext.Current.Response.Buffer = false;
                 HttpContext.Current.Response.AddHeader("Content-disposition", "attachment; filename=" + originalFileName);
                 HttpContext.Current.Response.Charset = "UTF-8";
                 HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.Private);
-                //HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
                 HttpContext.Current.Response.ContentType = "application/octet-stream";
                 HttpContext.Current.Response.BinaryWrite(stream.ToArray());
                 HttpContext.Current.Response.Flush();

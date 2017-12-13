@@ -40,17 +40,13 @@ namespace Portal.Consultoras.Data.Hana
 
                     bePedidoWeb.ImporteTotal = pedidoHana.montoPedido;
                     bePedidoWeb.Flete = pedidoHana.MONTOFLETE;
-                    bePedidoWeb.ImporteCredito = 0; //por defecto cero
+                    bePedidoWeb.ImporteCredito = 0;
 
-                    //short motivoCredito;
-                    //bool esMotivo = short.TryParse(pedidoHana.motivoEstado, out motivoCredito);
-                    //if (esMotivo)
-                        //bePedidoWeb.MotivoCreditoID = motivoCredito;
-                    bePedidoWeb.MotivoCreditoID = 0; //por defecto cero
-                    bePedidoWeb.PaisID = 0; //por defecto cero
-                    bePedidoWeb.Clientes = 0; //por defecto cero
+                    bePedidoWeb.MotivoCreditoID = 0;
+                    bePedidoWeb.PaisID = 0;
+                    bePedidoWeb.Clientes = 0;
                     bePedidoWeb.EstadoPedidoDesc = pedidoHana.estadoPedido;
-                    bePedidoWeb.ConsultoraID = 0; //por defecto cero
+                    bePedidoWeb.ConsultoraID = 0;
                     bePedidoWeb.PedidoID = pedidoHana.oidPedido;                  
                     bePedidoWeb.FechaRegistro = pedidoHana.fechaFacturacion;
                     bePedidoWeb.CanalIngreso = pedidoHana.origen;

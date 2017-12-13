@@ -99,7 +99,6 @@ namespace Portal.Consultoras.Service
             return BLPedidoWebDetalle.GetClientesByCampania(paisID, campaniaID, consultoraID);
         }
 
-        //EPD-1164
         public IList<BEPedidoWebDetalle> GetClientesByCampaniaByClienteID(int paisID, int campaniaID, long consultoraID, string ClienteID)
         {
             return BLPedidoWebDetalle.GetClientesByCampaniaByClienteID(paisID, campaniaID, consultoraID, ClienteID);
@@ -116,7 +115,6 @@ namespace Portal.Consultoras.Service
             return _catalogoBusinessLogic.GetCatalogosByCampania(paisID, campaniaID);
         }
 
-        // RQ 2295 Mejoras en Catalogos Belcorp
         public IList<BECatalogoConfiguracion> GetCatalogoConfiguracion(int paisID)
         {
             return _catalogoBusinessLogic.GetCatalogoConfiguracion(paisID);

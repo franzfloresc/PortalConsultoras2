@@ -33,16 +33,13 @@ namespace Portal.Consultoras.Entities.CDR
         [DataMember]
         public byte EstadoCDR { get; set; }
 
-        //EPD-1919 INICIO
         [DataMember]
         public bool? TipoDespacho { get; set; }
         [DataMember]
         public decimal FleteDespacho { get; set; }
         [DataMember]
         public string MensajeDespacho { get; set; }
-        //EPD-1919 FIN
 
-        //EPD-1665
         [DataMember]
         public decimal ConsultoraSaldo { get; set; }
 

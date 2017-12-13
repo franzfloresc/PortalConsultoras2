@@ -7,6 +7,26 @@ $("#btnCancelar").click(function (e) {
     HideDialog("divConfigBanner");
 });
 
+$("#btnGuardar").click(function (e) {
+    e.preventDefault();
+
+    var CodigoPrograma = $.trim($("#CodigoPrograma").val());
+    var CodigoNivel = $.trim($("#CodigoNivel").val());
+
+    if (CodigoPrograma == "") {
+        alert("Ingrese el valor del código de programa");
+        $("#CodigoPrograma").focus();
+        return;
+    }
+    else if (CodigoNivel == "") {
+        alert("Ingrese el valor del código de nivel");
+        $("#CodigoNivel").focus();
+        return;
+    }
+
+    $("#btnCancelar").click();
+});
+
 uploaderCupon = new qq.FileUploader({
     allowedExtensions: ['jpg'],
     element: document.getElementById("file-uploader-cupon"),

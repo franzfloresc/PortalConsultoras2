@@ -83,7 +83,7 @@ $("#btnGuardar").click(function (e) {
 
             if (data.success) {
                 alert(data.message);
-                HideDialog("divConfigMensaje");
+                $("#btnCancelar").click();
             } else {
                 alert(data.message);
             }

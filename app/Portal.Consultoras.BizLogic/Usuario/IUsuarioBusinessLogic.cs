@@ -45,6 +45,7 @@ namespace Portal.Consultoras.BizLogic
         void GuardarContrasenia(int paisID, string codigoUsuario, string contrasenia);
         void Insert(BEUsuario usuario);
         bool InsertTerminosCondiciones(BETerminosCondiciones terminos);
+        bool InsertTerminosCondicionesMasivo(int paisID, List<BETerminosCondiciones> terminos);
         int InsertUsuarioExterno(int paisID, BEUsuarioExterno usuarioExterno);
         void InsLogIngresoPortal(int paisID, string CodigoConsultora, string IPOrigen, byte Tipo, string DetalleError, string Canal);
         int InsUsuarioExternoPais(int paisID, BEUsuarioExternoPais entidad);
