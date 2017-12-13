@@ -458,7 +458,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
-            }            
+            }
             return partial;
         }
     }
