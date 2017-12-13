@@ -3089,7 +3089,7 @@ function PopupMostrarPrioridad() {
 function PopupMostrar(idPopup) {
     var id = "";
     if (typeof (idPopup) == "string")
-        id = "#" + idPopup;
+        id = "#" + $.trim(idPopup);
 
     if (id == "") return false;
 

@@ -79,7 +79,6 @@
                             $('#chkHabilitarRestriccionHoraria').attr('checked', true);
                         else
                             $('#chkHabilitarRestriccionHoraria').removeAttr('checked');
-                        //$("#txtNroDiasCronograma").val(data.Modelo[0].DiasDuracionCronograma);
 
                         SetOpcionProceso("GroupProcRegular", data.Modelo[0].ProcesoRegular);
                         SetOpcionProceso("GroupProcDA", data.Modelo[0].ProcesoDA);
@@ -101,12 +100,6 @@
                     }
 
                     if (data.listaZonasActivas.length > 0) {
-                        //for (var item in data.listaZonasActivas) {
-                        //    lbHasNot.append($('<option/>', {
-                        //        value: data.listaZonasActivas[item].ZonaID,
-                        //        text: data.listaZonasActivas[item].Codigo
-                        //    }));
-                        //}
 
                         for (var item in data.listaZonasActivas) {
                             lbHasNotStorage.append($('<option/>', {
@@ -118,7 +111,6 @@
                         var divac = document.getElementById("lbHasNot");
                         for (var item in data.listaZonasActivas) {
                             var lab = document.createElement("label");
-                            //lab.innerText = data.listaZonasActivas[item].Codigo
 
                             if (lab.attachEvent) {
                                 evento(lab, true, data.listaZonasActivas[item].ZonaID);
@@ -154,8 +146,6 @@
                 chkId.push(id);
                 $('#lbHasNot').find('label').removeClass("active");
                 elem.className = "active"
-                //event.cancelBubble = true;
-                //return false;
             });
         else
             elem.addEventListener('click', function () {
@@ -163,8 +153,6 @@
                 chkId.push(id);
                 $('#lbHasNot').find('label').removeClass("active");
                 elem.className = "active";
-                //event.stopPropagation();
-                //event.cancelBubble = true;
             }, false);
     }
 
@@ -172,7 +160,6 @@
         var newOptions = [];
         var toFilter = document.getElementById(toFilterID);
         var toFilterStorage = document.getElementById(toFilterID.concat("Storage")).options;
-        //var toFilterLabel = document.getElementById(toFilterID.concat('Label'));
 
         for (var i = 0; i < toFilterStorage.length; i++) {
             if (toFilterStorage[i].text.toLowerCase().indexOf(filter.toLowerCase()) != -1) {
@@ -194,23 +181,11 @@
                 lab.innerText = newOptions[i].text
                 var chk = document.createElement("input");
                 chk.type = "checkbox";
-                //chk.id = newOptions[i].value;
                 chk.name = "checbx";
                 chk.value = newOptions[i].value;
                 lab.appendChild(chk);
                 toFilter.appendChild(lab);
             }
-            //for (i = 0; i < newOptions.length; i++) {
-            //    var lab = $("<label></label>", {
-            //        text: newOptions[item].text
-            //    });
-            //    lab.append($("<input></input>", {
-            //        type: "checkbox",
-            //        name: "option[]",
-            //        value: newOptions[item].value
-            //    }));
-            //    lab.appendTo(divac);
-            //}
         }
         else {
             toFilter.options.length = 0;
@@ -220,11 +195,6 @@
                 toFilter.options[i].selected = false;
             }
         }
-        //var newLabel = "Showing ";
-        //newLabel = newLabel.concat(toFilter.options.length);
-        //newLabel = newLabel.concat(" of ");
-        //newLabel = newLabel.concat(toFilterStorage.length);
-        //toFilterLabel.innerHTML = newLabel;
         return;
     }
 
@@ -403,7 +373,6 @@
 
         
         var habilitarRestriccionHoraria = $("#chkHabilitarRestriccionHoraria").is(':checked');
-        //var NroDiasDuracionCronograma = $("#txtNroDiasCronograma").val();
 
         if (vMessage != "") {
             alert(vMessage);
@@ -428,12 +397,6 @@
                 HabilitarRestriccionHoraria: habilitarRestriccionHoraria
             };
 
-            //for (var i = 0; i < lstBoxActivos.options.length; i++) {
-            //    JsonData.listaZonasActivas.push({
-            //        "ZonaID": lstBoxActivos.options[i].value,
-            //        "Codigo": lstBoxActivos.options[i].text
-            //    });
-            //}
             var lst = lstBoxActivos.getElementsByTagName("label");
             for (var i = 0; i < lst.length; i++) {
                 JsonData.listaZonasActivas.push({
@@ -533,7 +496,6 @@
         $("#hdFlag").val("0");
         $("#chkFlagNoValidados").attr("checked", false);
         $("#chkHabilitarRestriccionHoraria").attr("checked", false);
-        //$("#txtNroDiasCronograma").val("");
 
         var lbHas = $('#lbHas');
         var lbHasStorage = $('#lbHasStorage');

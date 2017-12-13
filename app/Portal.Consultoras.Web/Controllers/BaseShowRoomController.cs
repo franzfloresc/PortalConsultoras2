@@ -8,7 +8,6 @@ using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServicePROLConsultas;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.ServiceModel;
 
@@ -26,7 +25,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 ViewBag.EsMobile = 2;
-                BuildMenuMobile(userData);
+                BuildMenuMobile(userData,revistaDigital);
                 CargarValoresGenerales(userData);
 
                 ShowRoomModel ShowRoom = new ShowRoomModel();
@@ -282,7 +281,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         using (var sv = new ServicePROLConsultas.wsConsulta())
                         {
-                            sv.Url = ConfigurationManager.AppSettings["RutaServicePROLConsultas"];
+                            sv.Url = GetConfiguracionManager(Constantes.ConfiguracionManager.RutaServicePROLConsultas);
                             listaTieneStock = sv.ConsultaStock(codigoSap, userData.CodigoISO).ToList();
                         }
                     }
@@ -345,7 +344,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return listadoOfertasTodasModel;
                 }
 
-                var NumeroCampanias = Convert.ToInt32(ConfigurationManager.AppSettings["NumeroCampanias"]);
+                var NumeroCampanias = Convert.ToInt32(GetConfiguracionManager(Constantes.ConfiguracionManager.NumeroCampanias));
                 var listaShowRoomProductoCatalogo = new List<Producto>();
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -373,7 +372,7 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             using (var sv = new ServicePROLConsultas.wsConsulta())
                             {
-                                sv.Url = ConfigurationManager.AppSettings["RutaServicePROLConsultas"];
+                                sv.Url = GetConfiguracionManager(Constantes.ConfiguracionManager.RutaServicePROLConsultas);
                                 listaTieneStock = sv.ConsultaStock(codigoSap, userData.CodigoISO).ToList();
                             }
                         }

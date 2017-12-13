@@ -44,7 +44,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ListaEtiquetas = DropDowListEtiqueta(),
                 UrlS3 = urlS3,
                 habilitarNemotecnico = habilitarNemotecnico == "1",
-                ExpValidacionNemotecnico = ConfigurationManager.AppSettings["ExpresionValidacionNemotecnico"],
+                ExpValidacionNemotecnico = GetConfiguracionManager(Constantes.ConfiguracionManager.ExpresionValidacionNemotecnico),
                 TipoVistaEstrategia = TipoVistaEstrategia
             };
             return View(EstrategiaModel);
@@ -1019,7 +1019,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 if (tipoEstrategiaCod == Constantes.TipoEstrategiaCodigo.OfertaParaTi && 
-                    string.IsNullOrEmpty(EstrategiasDesactivas))
+                    !string.IsNullOrEmpty(EstrategiasDesactivas))
                     UpdateCacheListaOfertaFinal(campaniaID);
 
                 return Json(new
