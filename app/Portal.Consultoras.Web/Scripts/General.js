@@ -979,7 +979,6 @@ function LayoutHeader() {
 function LayoutHeaderFin() {
     var wtop = $("header").innerHeight();
     $("[data-content]").css("margin-top", (wtop) + "px");
-    setTimeout(function(){ $(window).scrollTop(0) }, 1000);
 }
 
 function LayoutMenu() {
