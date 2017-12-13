@@ -1,8 +1,6 @@
 ﻿/* ACTUALIZAR MIS DATOS */
 
 .wrapper_actualizarMisDatos {
-    /*max-width:380px;
-    margin:0 auto;*/
     padding: 30px 20px 25px 20px;
 }
 
@@ -99,7 +97,6 @@
         content: "";
         position: absolute;
         left: 0px;
-        /* float: left; */
         width: 16px;
         height: 16px;
         margin-top: 3px;
@@ -222,18 +219,3 @@
 .campos_cambiarContrasenia {
     display: none;
 }
-
-/*@media screen and (min-width:480px) and (max-width:767px){
-
-    .datos_cod_usuario span, .datos_nombre_usuario span {
-        display: inline-block!important;
-        vertical-align: bottom;
-    }
-
-    .datos_cod_usuario span:first-child, .datos_nombre_usuario span:first-child{
-        width:35.5%;
-        max-width:161px;
-        height:21px;
-    }
-
-}*/

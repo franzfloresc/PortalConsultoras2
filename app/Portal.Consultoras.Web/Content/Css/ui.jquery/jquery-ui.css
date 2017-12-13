@@ -987,7 +987,6 @@ button.ui-button::-moz-focus-inner {
 
 .ui-widget-content {
     border: 1px solid #fff /*{borderColorContent}*/;
-    /*background: #ffffff url(../ui.jquery/images/ui-bg_flat_75_ffffff_40x100.png) 50% 50% repeat-x;*/
     background: #f0f6f8;
     color: #222222 /*{fcContent}*/;
 }

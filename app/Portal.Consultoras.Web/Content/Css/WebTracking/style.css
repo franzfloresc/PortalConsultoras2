@@ -519,13 +519,8 @@ div.accountInfo {
 
 .gradient3 {
     background-color: #B0B0B0;
-    /* For WebKit (Safari, Chrome, etc)  #FFFFFF */
     background: #E8E8E8 -webkit-gradient(linear, left top, left bottom, from(#E8E8E8), to(#B0B0B0 )) no-repeat;
-    /* Mozilla,Firefox/Gecko #FFFFFF */
     background: #E8E8E8 -moz-linear-gradient(top,#E8E8E8, #B0B0B0 ) no-repeat;
-    /* IE 5.5 - 7 * top #ACA68C/
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ACA68C, endColorstr=#E8E8E8 ) no-repeat;
-    /* IE 8 */
     -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#E8E8E8 , endColorstr=#B0B0B0)" no-repeat;
 }
 
@@ -579,7 +574,6 @@ div.accountInfo {
             }
 
     .tabla2 tbody tr {
-        /*background: #f0f6f8;*/
     }
 
         .tabla2 tbody tr.f1 {
@@ -597,10 +591,6 @@ div.accountInfo {
             font-style: italic;
             font-size: 11px !Important;
         }
-
-    /*.tabla2 tbody tr:hover {
-            background: #f0f0f0;
-        }*/
 
     .tabla2 tbody td {
         padding-top: 21px;

@@ -1,13 +1,10 @@
 ﻿/*-------------Modal----------------*/
 
 .fuzemodal {
-    /*width:760px;
-    min-height:300px;*/
     min-width: 300px;
     border: 1px solid #CCC;
     background-color: #FFF !important;
     position: absolute;
-    /*font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;*/
     color: #666;
     font-weight: 300;
 }
@@ -19,7 +16,6 @@
     border: 1px solid #CCC;
     background-color: #FFF;
     position: absolute;
-    /*font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;*/
     color: #666;
     padding-top: 40px;
 }
@@ -91,20 +87,3 @@
     height: 45px;
 }
 
-/*.fuzemodal input[type="button"], .fuzemodal input[type="submit"]
-{
-    width:120px;
-    height:26px;
-    background-color:#00AECF;
-    color:#F1F9FB;
-    text-align:center;
-    font-size:12px;
-    padding:6px;
-	border-radius:5px;
-    box-sizing:border-box;
-    -moz-box-sizing:border-box;
-    cursor:pointer !important;
-    display:inline-block;
-	border:none;
-	margin-right:20px;
-}*/

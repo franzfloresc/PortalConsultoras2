@@ -24,20 +24,12 @@
     width: 100%;
     max-width: 1920px;
     margin: 0 auto;
-    /*background: -moz-linear-gradient(left, rgba(135,0,0,1) 0%, rgba(242,29,18,1) 77%, rgba(242,29,18,1) 100%);
-    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(135,0,0,1)), color-stop(77%, rgba(242,29,18,1)), color-stop(100%, rgba(242,29,18,1)));
-    background: -webkit-linear-gradient(left, rgba(135,0,0,1) 0%, rgba(242,29,18,1) 77%, rgba(242,29,18,1) 100%);
-    background: -o-linear-gradient(left, rgba(135,0,0,1) 0%, rgba(242,29,18,1) 77%, rgba(242,29,18,1) 100%);
-    background: -ms-linear-gradient(left, rgba(135,0,0,1) 0%, rgba(242,29,18,1) 77%, rgba(242,29,18,1) 100%);
-    background: linear-gradient(to right, rgba(135,0,0,1) 0%, rgba(242,29,18,1) 77%, rgba(242,29,18,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#870000', endColorstr='#f21d12', GradientType=1 );*/
     background: #f21f12;
     background: -moz-linear-gradient(-45deg, #f21f12 50%, #880000 90%);
     background: -webkit-linear-gradient(-45deg, #f21f12 50%,#880000 90%);
     background: linear-gradient(135deg, #f21f12 50%,#880000 90%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f21f12', endColorstr='#880000',GradientType=1 );
     position: relative;
-    /*top: -205px;*/
     height: 393px;
     overflow: hidden;
 }
@@ -154,7 +146,6 @@
     line-height: 24px;
     position: relative;
     z-index: 4;
-    /*transform:rotate(3deg);*/
 }
 
     .titulo_principal_asesora_online span {
@@ -213,7 +204,6 @@
         }
 
 .cta_inscripcion {
-    /*margin:0 auto;*/
     max-width: 311px;
     background: rgba(0,0,0,1);
     color: #FFF;
@@ -244,13 +234,7 @@
 
 .seccion_beneficios_asesora {
     position: relative;
-    /*margin-top: -81px;*/
     height: 293px;
-    /*transform: skewY(-3deg);
-    -moz-transform: skewY(-3deg);
-    -o-transform: skewY(-3deg);
-    -ms-transform: skewY(-3deg);
-    -webkit-transform: skewY(-3deg);*/
     padding: 60px 0 2px 0;
     z-index: 5;
     background: #F6F6F6;
@@ -386,14 +370,11 @@
 }
 
 .seccion_formulario_inscripcion {
-    /*background: url(../../../Content/Images/fondo_form.png);*/
     height: 533px;
     background-repeat: no-repeat;
     background-position: -30px 0;
-    /*background-position: -30px 20px;*/
     background-size: cover;
     position: relative;
-    /*margin-top:-60px;*/
 }
 
 .seccion_formulario_inscripcion_fondo {
@@ -1355,7 +1336,6 @@
 /* INICIO POPUP INSCRIPCIÓN ASESORÍA ONLINE */
 
 .cta_inscripcion_popup {
-    /*margin:0 auto;*/
     max-width: 311px;
     background: rgba(0,0,0,1);
     color: #FFF;
