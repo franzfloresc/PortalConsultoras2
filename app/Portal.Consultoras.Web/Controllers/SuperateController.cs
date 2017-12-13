@@ -38,7 +38,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string PathData = "pais=" + UserData().CodigoISO + "&codConsultora=" + UserData().CodigoConsultora + "&campania=" + UserData().CampaniaID + "&region=" + UserData().CodigorRegion + "&zona=" + UserData().CodigoZona + "&nombre=" + UserData().NombreConsultora + "&email=" + UserData().EMail + "&segmento=" + (UserData().Segmento.Trim() == "" ? "Nivel IV" : UserData().Segmento.Trim()) + "&perfil=Consultora" + "&seccion=" + "" + "&Lider=" + UserData().Lider.ToString() + "&NL=" + UserData().NivelLider.ToString() + "&CL=" + CampaniaVenta + "&SL=" + SeccionGestionLider + "&PN=" + NivelProyectado;
                 string texto = System.Web.HttpUtility.UrlEncode(Util.EncriptarSuperateBelcorp(KeyPath, PathData));
                 byte[] bytesToEncode = Encoding.UTF8.GetBytes(texto);
-                string Url_ = ConfigurationManager.AppSettings["URL_SUPERATE_NUEVO"].ToString() + Convert.ToBase64String(bytesToEncode) + "&seccion=";
+                string Url_ = GetConfiguracionManager(Constantes.ConfiguracionManager.URL_SUPERATE_NUEVO) + Convert.ToBase64String(bytesToEncode) + "&seccion=";
                 return Redirect(Url_);
             }
             else
@@ -53,7 +53,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string texto2 = System.Web.HttpUtility.UrlEncode(Util.EncriptarSuperateBelcorp(KeyPath, Url));
                 byte[] bytesToEncode = Encoding.UTF8.GetBytes(texto);
                 byte[] bytesToEncode2 = Encoding.UTF8.GetBytes(texto2);
-                string Url_ = ConfigurationManager.AppSettings["URL_SUPERATE_NUEVO"].ToString() + Convert.ToBase64String(bytesToEncode) + "&seccion=" + Convert.ToBase64String(bytesToEncode2);
+                string Url_ = GetConfiguracionManager(Constantes.ConfiguracionManager.URL_SUPERATE_NUEVO) + Convert.ToBase64String(bytesToEncode) + "&seccion=" + Convert.ToBase64String(bytesToEncode2);
                 return Redirect(Url_);
             }
 
