@@ -320,11 +320,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             string fechaInicioChat = GetConfiguracionManager(Constantes.ConfiguracionManager.FechaChat + userData.CodigoISO);
 
             if (GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesBelcorpChatEMTELCO).Contains(userData.CodigoISO) &&
-                !String.IsNullOrEmpty(fechaInicioChat))
+                fechaInicioChat != "")
             {
                 DateTime fechaInicioChatPais = DateTime.ParseExact(fechaInicioChat,
                     "dd/MM/yyyy",
                     CultureInfo.InvariantCulture);
+
                 if (DateTime.Now >= fechaInicioChatPais)
                 {
                     url = String.Format(GetConfiguracionManager(Constantes.ConfiguracionManager.UrlBelcorpChat),
