@@ -171,15 +171,15 @@
         var urlBienvenida = URLactual.indexOf("Bienvenida");
 
         if (urlBienvenida > 0) {
-            $("#contentmobile").css({ 'margin-top': '0px' });
+            //$("#contentmobile").css({ 'margin-top': '0px' });
         } else {
-            $("#contentmobile").css({ 'margin-top': '63px' });
+            //$("#contentmobile").css({ 'margin-top': '63px' });
         }
     }
     else {
         var URLactual = window.location.href;
         var urlPagina = URLactual.indexOf("Cliente");
-        $("#contentmobile").css({ 'margin-top': '123px' });
+        //$("#contentmobile").css({ 'margin-top': '123px' });
     }
 
     var URLactual = window.location.href;
@@ -201,18 +201,18 @@
 
     if (urlBienvenida > 0) {
         if (sesionEsShowRoom) {
-            $("#contentmobile").css({ 'margin-top': '0px' });
+            //$("#contentmobile").css({ 'margin-top': '0px' });
         } else {
-            $("#contentmobile").css({ 'margin-top': '63px' });
+            //$("#contentmobile").css({ 'margin-top': '63px' });
         }
     } else {
         if ($('#flexslidertop ul.slides li').length == 0) {
-            $("#contentmobile").css({ 'margin-top': '63px' });
+            //$("#contentmobile").css({ 'margin-top': '63px' });
         }
     }
 
     if (URLactual.indexOf('/g/') > 0) {
-        $("#contentmobile").css({ 'margin-top': '0px' });
+        //$("#contentmobile").css({ 'margin-top': '0px' });
     }
 
     $(".bannersi").on("click", function () {
@@ -323,7 +323,7 @@ function loadBannerLP20() {
     if (typeof CargarEventosODD !== 'undefined' && $.isFunction(CargarEventosODD)) CargarEventosODD();
 
     if ($('#flexslider ul.slides li').length > 0) {
-        $("#contentmobile").css("margin-top", "0px");
+        //$("#contentmobile").css("margin-top", "0px");
         $('#content_slider_banner').show();
 
         if ($('#BloqueMobileOfertaDia').length > 0) {

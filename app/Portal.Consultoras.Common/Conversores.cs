@@ -10,9 +10,9 @@ namespace Portal.Consultoras.Common
     {
         public static string NumeroALetras(this decimal numberAsString)
         {
-            string dec;
-
+            //string dec;
             var entero = Convert.ToInt64(Math.Truncate(numberAsString));
+            /*
             var decimales = Convert.ToInt32(Math.Round((numberAsString - entero) * 100, 2));
             if (decimales > 0)
             {
@@ -25,6 +25,7 @@ namespace Portal.Consultoras.Common
                 //dec = " PESOS CON " + decimales.ToString() + "/100";
                 dec = $" PESOS {decimales:0,0} /100";
             }
+            */
             var res = NumeroALetras(Convert.ToDouble(entero)); //+ dec;
             return res;
         }
