@@ -4189,15 +4189,21 @@ namespace Portal.Consultoras.Web.Controllers
 
             var keyvalor = ConfigurationManager.AppSettings.Get(key);
 
-            var sinLog = key.StartsWith(Constantes.ConfiguracionManager.DES_UBIGEO)
-                || key.StartsWith(Constantes.ConfiguracionManager.FechaChat)
-                || key.StartsWith(Constantes.ConfiguracionManager.TokenAtento)
-                || key.StartsWith(Constantes.ConfiguracionManager.RevistaPiloto_Zonas)
-                || key.StartsWith(Constantes.ConfiguracionManager.Contrato_ActualizarDatos)
-                || key.StartsWith(Constantes.ConfiguracionManager.URL_FAMILIAPROTEGIDA_);
+            if (keyvalor == null)
+            {
+                var sinLog = key.StartsWith(Constantes.ConfiguracionManager.DES_UBIGEO)
+                    || key.StartsWith(Constantes.ConfiguracionManager.FechaChat)
+                    || key.StartsWith(Constantes.ConfiguracionManager.TokenAtento)
+                    || key.StartsWith(Constantes.ConfiguracionManager.RevistaPiloto_Zonas)
+                    || key.StartsWith(Constantes.ConfiguracionManager.Contrato_ActualizarDatos)
+                    || key.StartsWith(Constantes.ConfiguracionManager.URL_FAMILIAPROTEGIDA_);
 
-            if (keyvalor == null && !sinLog)
-                LogManager.LogManager.LogErrorWebServicesBus(new Exception(), userData.CodigoConsultora, userData.CodigoISO, "BaseController.GetConfiguracionManager el key " + key + " no existe");
+                if (!sinLog)
+                    LogManager.LogManager.LogErrorWebServicesBus(new Exception(), 
+                        userData.CodigoConsultora, 
+                        userData.CodigoISO, 
+                        "BaseController.GetConfiguracionManager el key " + key + " no existe");
+            }
 
             return Util.Trim(keyvalor);
         }
