@@ -1218,13 +1218,20 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region ConfiguracioRevistaDigital
 
-        private RevistaDigitalModel ConfiguracionPaisDatosRevistaDigital( RevistaDigitalModel revistaDigitalModel, List<BEConfiguracionPaisDatos> listaDatos, string paisIso)
+        public RevistaDigitalModel ConfiguracionPaisDatosRevistaDigital( RevistaDigitalModel revistaDigitalModel, List<BEConfiguracionPaisDatos> listaDatos, string paisIso)
         {
             try
             {
-                revistaDigitalModel.ConfiguracionPaisDatos = new List<ConfiguracionPaisDatosModel>();
+                if (revistaDigitalModel == null)
+                    throw new ArgumentNullException("revistaDigitalModel", "no puede ser nulo");
 
-                if (listaDatos == null || !listaDatos.Any())
+                if (listaDatos == null)
+                    throw new ArgumentNullException("listaDatos", "no puede ser nulo");
+
+                if (paisIso == null)
+                    throw new ArgumentNullException("paisIso", "no puede ser nulo");
+
+                if (!listaDatos.Any())
                     return revistaDigitalModel;
 
                 var value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BloquearDiasAntesFacturar);
@@ -1301,8 +1308,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             return revistaDigitalModel;
         }
-        
-        private RevistaDigitalModel ConfiguracionPaisDatosRevistaDigitalReducida(RevistaDigitalModel revistaDigitalModel, List<BEConfiguracionPaisDatos> listaDatos, string paisIso)
+
+        public RevistaDigitalModel ConfiguracionPaisDatosRevistaDigitalReducida(RevistaDigitalModel revistaDigitalModel, List<BEConfiguracionPaisDatos> listaDatos, string paisIso)
         {
             try
             {
