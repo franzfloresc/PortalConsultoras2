@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServiceAsesoraOnline;
 using Portal.Consultoras.Web.ServicePedido;
 using System;
 using System.Collections.Generic;
@@ -425,8 +426,21 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     break;
                 case Constantes.EstadoRDSuscripcion.Activo:
+                    if (revistaDigital.SubscripcionAutomaticaAVirtualCoach)
+                    {
+                        var asesoraOnLine = new BEAsesoraOnline();
+                        asesoraOnLine.CodigoConsultora = userData.CodigoConsultora;
+                        asesoraOnLine.ConfirmacionInscripcion = 1;
+                        asesoraOnLine.Origen = "RD";
+                        using (var sv = new AsesoraOnlineServiceClient())
+                        {
+                            sv.EnviarFormulario(userData.CodigoISO, asesoraOnLine);
+                        }
+                    }
+                    
                     using (var sv = new PedidoServiceClient())
                     {
+
                         entidad.RevistaDigitalSuscripcionID = sv.RDSuscripcion(entidad);
                     }
                     break;

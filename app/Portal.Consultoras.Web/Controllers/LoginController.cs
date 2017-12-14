@@ -989,7 +989,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     {
                                         //case Constantes.ConfiguracionPais.RevistaDigitalSuscripcion:
                                         case Constantes.ConfiguracionPais.RevistaDigital:
-                                            ConfiguracionPaisDatosRevistaDigital(ref revistaDigitalModel, 
+                                            revistaDigitalModel = ConfiguracionPaisDatosRevistaDigital(revistaDigitalModel, 
                                                 listaPaisDatos.Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID).ToList(), usuarioModel.CodigoISO);
                                             ConfiguracionPaisRevistaDigital(ref revistaDigitalModel, usuarioModel);
                                             FormatTextConfiguracionPaisDatosModel(ref revistaDigitalModel, usuarioModel.Sobrenombre);
@@ -999,7 +999,7 @@ namespace Portal.Consultoras.Web.Controllers
                                             if (revistaDigitalModel.TieneRDC)
                                                 break;
 
-                                            ConfiguracionPaisDatosRevistaDigitalReducida(ref revistaDigitalModel,
+                                            revistaDigitalModel = ConfiguracionPaisDatosRevistaDigitalReducida(revistaDigitalModel,
                                                 listaPaisDatos.Where(d => d.ConfiguracionPaisID == c.ConfiguracionPaisID).ToList(), usuarioModel.CodigoISO);
                                             FormatTextConfiguracionPaisDatosModel(ref revistaDigitalModel, usuarioModel.Sobrenombre);
                                             revistaDigitalModel.TieneRDR = true;
@@ -1218,14 +1218,21 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region ConfiguracioRevistaDigital
 
-        private void ConfiguracionPaisDatosRevistaDigital( ref RevistaDigitalModel revistaDigitalModel, List<BEConfiguracionPaisDatos> listaDatos, string paisIso)
+        public RevistaDigitalModel ConfiguracionPaisDatosRevistaDigital( RevistaDigitalModel revistaDigitalModel, List<BEConfiguracionPaisDatos> listaDatos, string paisIso)
         {
             try
             {
-                revistaDigitalModel.ConfiguracionPaisDatos = new List<ConfiguracionPaisDatosModel>();
+                if (revistaDigitalModel == null)
+                    throw new ArgumentNullException("revistaDigitalModel", "no puede ser nulo");
 
-                if (listaDatos == null || !listaDatos.Any())
-                    return;
+                if (listaDatos == null)
+                    throw new ArgumentNullException("listaDatos", "no puede ser nulo");
+
+                if (paisIso == null)
+                    throw new ArgumentNullException("paisIso", "no puede ser nulo");
+
+                if (!listaDatos.Any())
+                    return revistaDigitalModel;
 
                 var value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BloquearDiasAntesFacturar);
                 if (value1 != null) revistaDigitalModel.BloquearDiasAntesFacturar = Convert.ToInt32(value1.Valor1);
@@ -1279,6 +1286,9 @@ namespace Portal.Consultoras.Web.Controllers
                 value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BloquearSugerenciaProducto);
                 if (value1 != null) revistaDigitalModel.BloquearProductosSugeridos = Convert.ToInt32(value1.Valor1);
 
+                value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.SubscripcionAutomaticaAVirtualCoach);
+                if (value1 != null) revistaDigitalModel.SubscripcionAutomaticaAVirtualCoach = value1.Valor1 == "1";
+
                 listaDatos.RemoveAll(d =>
                     d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BloquearDiasAntesFacturar
                     || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.CantidadCampaniaEfectiva
@@ -1290,6 +1300,7 @@ namespace Portal.Consultoras.Web.Controllers
                     || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.LogoMenuOfertasNoActiva
                     || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BloquearPedidoRevistaImp
                     || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.BloquearSugerenciaProducto
+                    || d.Codigo == Constantes.ConfiguracionPaisDatos.RD.SubscripcionAutomaticaAVirtualCoach
                 );
 
                 revistaDigitalModel.ConfiguracionPaisDatos = Mapper.Map<List<ConfiguracionPaisDatosModel>>(listaDatos) ?? new List<ConfiguracionPaisDatosModel>();
@@ -1298,16 +1309,18 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 logManager.LogErrorWebServicesBusWrap(ex, string.Empty, string.Empty, "LoginController.ConfiguracionPaisDatosRevistaDigital");
             }
+
+            return revistaDigitalModel;
         }
-        
-        private void ConfiguracionPaisDatosRevistaDigitalReducida(ref RevistaDigitalModel revistaDigitalModel, List<BEConfiguracionPaisDatos> listaDatos, string paisIso)
+
+        public RevistaDigitalModel ConfiguracionPaisDatosRevistaDigitalReducida(RevistaDigitalModel revistaDigitalModel, List<BEConfiguracionPaisDatos> listaDatos, string paisIso)
         {
             try
             {
                 revistaDigitalModel.ConfiguracionPaisDatos = new List<ConfiguracionPaisDatosModel>();
 
                 if (listaDatos == null || !listaDatos.Any())
-                    return;
+                    return revistaDigitalModel;
                 
                 var value1 = listaDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RDR.LogoComercial);
                 if (value1 != null)
@@ -1338,6 +1351,8 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 logManager.LogErrorWebServicesBusWrap(ex, string.Empty, string.Empty, "LoginController.ConfiguracionPaisDatosRevistaDigital");
             }
+
+            return revistaDigitalModel;
         }
 
         private void ConfiguracionPaisRevistaDigital(ref RevistaDigitalModel revistaDigitalModel, UsuarioModel usuarioModel)

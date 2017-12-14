@@ -1068,6 +1068,7 @@ namespace Portal.Consultoras.Common
                 public const string LogoMenuOfertasNoActiva = "LogoMenuOfertasNoActiva";
                 public const string BloquearPedidoRevistaImp = "BloquearPedidoRevistaImp";
                 public const string BloquearSugerenciaProducto = "BloquearSugerenciaProducto";
+                public const string SubscripcionAutomaticaAVirtualCoach = "SubscripcionAutomaticaAVirtualCoach";
                 #endregion
 
                 #region Bienvenida
