@@ -10,41 +10,39 @@ CREATE PROCEDURE [interfaces].[InsConsultoraToRevistaDigital]
 AS
 BEGIN
 	BEGIN TRY
-		IF NOT EXISTS (SELECT 1 
-					FROM RevistaDigitalSuscripcion R 
-					INNER JOIN LogPSOInsConsultora L ON R.CodigoConsultora = L.Codigo AND R.CampaniaID = L.AnoCampanaIngreso
-					WHERE L.PSOInsConsultoraId = @PSOInsConsultoraId AND ISNULL(L.Error,'') = '')
-		BEGIN
-			DECLARE @IsoPais VARCHAR(20);
-			SELECT @IsoPais = CodigoISO FROM Pais WHERE EstadoActivo = 1;
+		DECLARE @IsoPais VARCHAR(20);
+		SELECT @IsoPais = CodigoISO FROM Pais WHERE EstadoActivo = 1;
 
-			INSERT INTO RevistaDigitalSuscripcion(
-				CodigoConsultora,
-				CampaniaID,
-				FechaSuscripcion,
-				EstadoRegistro,
-				EstadoEnvio,
-				IsoPais,
-				CodigoZona,
-				EMail,
-				CampaniaEfectiva,
-				Origen
-			)
-			SELECT 
-				L.Codigo,
-				L.AnoCampanaIngreso,
-				L.FechaIngreso,
-				1,
-				0,
-				@IsoPais,
-				Z.Codigo, 
-				L.Email,
-				L.AnoCampanaIngreso,
-				'UNETE'
-			FROM interfaces.LogPSOInsConsultora L
+		INSERT INTO RevistaDigitalSuscripcion(
+			CodigoConsultora,
+			CampaniaID,
+			FechaSuscripcion,
+			EstadoRegistro,
+			EstadoEnvio,
+			IsoPais,
+			CodigoZona,
+			EMail,
+			CampaniaEfectiva,
+			Origen
+		)
+		SELECT 
+			L.Codigo,
+			L.AnoCampanaIngreso,
+			L.FechaIngreso,
+			1,
+			0,
+			@IsoPais,
+			Z.Codigo, 
+			COALESCE(L.Email, ''),
+			L.AnoCampanaIngreso,
+			'UNETE'
+		FROM interfaces.LogPSOInsConsultora L
 			INNER JOIN ods.zona Z on L.zonaid = Z.zonaid
-			WHERE PSOInsConsultoraId = @PSOInsConsultoraId AND ISNULL(Error,'') = '';
-		END
+		WHERE PSOInsConsultoraId = 54323 AND ISNULL(Error,'') = '' 
+			AND L.Codigo NOT IN (SELECT L.Codigo
+				FROM RevistaDigitalSuscripcion R 
+				INNER JOIN interfaces.LogPSOInsConsultora L ON R.CodigoConsultora = L.Codigo AND R.CampaniaID = L.AnoCampanaIngreso
+				WHERE L.PSOInsConsultoraId = 54323 AND ISNULL(L.Error,'') = '');
 	END TRY
 	BEGIN CATCH
 		PRINT 'Error al suscribir consultora'
