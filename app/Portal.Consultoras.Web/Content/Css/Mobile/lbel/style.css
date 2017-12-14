@@ -6189,7 +6189,7 @@ input[type="checkbox"]:checked + span:after {
     height: 100%;
     overflow: scroll;
     background: transparent url(../../../Images/bg_popups.png) repeat left top;
-    z-index: 1000;
+    z-index: 10000;
 }
 
 .contenedor_popup_demandaAnticipada{
@@ -6325,7 +6325,7 @@ input[type="checkbox"]:checked + span:after {
     margin-top:12px;
     width: 100%;
     height:45px;
-    background:#e81c36;
+    background:#613c87;
     color:#FFF;
     font-size:13px;
     font-family:'Lato';
@@ -6603,7 +6603,7 @@ input[type="checkbox"]:checked + span:after {
     width:100%;
     height:2px;
     margin-top:-1px;
-    background:#e81c36;   
+    background:#613c87;   
 }
 .pop_sugerido_mobile{
     width: 100%;
@@ -7394,7 +7394,9 @@ input[type="checkbox"]:checked + span:after {
 .color_belcorp{
     color:#613c87;
     font-weight:700;
-
+}
+.color_marca {
+    color: #613c87;
 }
 .text-danger {
     color: #b75d9f !important;
@@ -7599,7 +7601,7 @@ span.title-app-b {
 .contenido_misGanancias h6{
     font-size:13px;
     font-weight:900!important;
-    color:#e81c36;
+    color:#613c87;
 }
 
 .contenedor_montos_sinDescuento{
@@ -7654,7 +7656,7 @@ span.title-app-b {
     margin-top:13px;
     margin-bottom:27px;
     text-align:right;
-    color:#e81c36;
+    color:#613c87;
     font-size:17px;
     font-weight:bold;
 }
@@ -9115,7 +9117,7 @@ span.icon-advertencia{
 }
 
 .sub_descripcion_oferta p span {
-    color: #e81c36;
+    color: #613c87;
     font-size: 22px;
     /* font-weight: 700; */
     margin-right: 5px;      /*SB20-1198*/
@@ -9143,7 +9145,7 @@ span.icon-advertencia{
     font-family:'Lato';
     font-size:16px;
     font-weight:700;
-    color:#e81c36;
+    color:#613c87;
     text-align:center;
     margin-bottom:5px;
     margin-bottom:15px;
@@ -9183,7 +9185,7 @@ span.icon-advertencia{
 }
 
 .sub_descripcion_oferta_048 p span{
-    color:#e81c36;
+    color:#613c87;
     font-size:22px;
     /*font-weight:700;*/
     margin-right: 5px;
@@ -9701,7 +9703,7 @@ span.icon-advertencia{
     margin-right:0;
 }
 .titulo_esika{
-     background:#e81c36;
+     background:#613c87;
 }
 .pestana_favoritos{
         /*background: url(../../../Images/mobile/Esika/pestana_esika_roja.png) no-repeat top center;*/
@@ -10983,7 +10985,7 @@ span.icon-advertencia{
 }
 
 .content_room_product_sheet .price_product .comment{
-	color: #E81C36;
+	color: #613c87;
     text-transform:uppercase;
 }
 
@@ -12399,7 +12401,7 @@ box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
     padding:0 20px 0 20px;
     text-align:center;
 }
-.content_detalle_puntuación{
+.content_detalle_puntuacion{
     margin-top:10px;
     font-weight:700;
     /*padding:0 14px 0 14px;*/
@@ -12557,7 +12559,7 @@ box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
 
 /*SPRINT 19 PL20*/
 .btn_regalo_sorpresa{
-    background: #e81c36 url(../../../Images/mobile/icono_regalo.png) no-repeat; 
+    background: #613c87 url(../../../Images/mobile/icono_regalo.png) no-repeat; 
     max-width: 258px;
     text-transform:uppercase;
     height: 40px;
@@ -13005,7 +13007,7 @@ box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
     background: -o-linear-gradient(left, rgba(97,60,135,1) 0%, rgba(232,28,54,1) 100%);
     background: -ms-linear-gradient(left, rgba(97,60,135,1) 0%, rgba(232,28,54,1) 100%);
     background: linear-gradient(to right, rgba(97,60,135,1) 0%, rgba(232,28,54,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#613c87', endColorstr='#e81c36', GradientType=1 );
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#613c87', endColorstr='#613c87', GradientType=1 );
     border-radius: 10px;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
@@ -13035,3 +13037,166 @@ box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
     text-transform:uppercase;
 }
 /* FIN APPCONS-1098 */
+
+/* NUEVO POPUP SUSCRIBIRSE */
+
+.contenido-popup-nuevo-2017 {
+            display: inline;
+            vertical-align: middle;
+            color: white;
+            text-transform: uppercase;
+            text-align: center;
+            margin: auto;
+        }
+   .contenido-popup-nuevo-2017 .centrar-estructura{
+        box-shadow: inset 0 0 0 5px #613c87;
+    padding: 20px;
+    height: 390px;
+    /* margin-top: 15%; */
+    /* margin-bottom: 15%; */
+    width: 390px;
+    margin: auto;
+    display: table;
+   }
+   .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto span.flashit {
+            color: white;
+            /*-webkit-animation: flash linear 1s infinite;
+            animation: flash linear 1s infinite;*/
+        }
+        @-webkit-keyframes flash {
+  0% { opacity: 1; }
+  50% { opacity: .1; }
+  100% { opacity: 1; }
+  }
+  @keyframes flash {
+    0% { opacity: 1; }
+    50% { opacity: .1; }
+    100% { opacity: 1; }
+  }
+   .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido{
+    display: table-cell;
+    vertical-align: middle;
+   }
+    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.primer-texto {
+        font-size: 28px;
+        letter-spacing: 1px;
+        text-align: center;
+        color: white;
+        font-weight: 300;
+        margin-bottom: 0;
+        display: block;
+        width: 280px;
+        margin: auto;
+        line-height: 30px;
+        margin-bottom: 15px;
+    }
+
+    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto {
+        font-size: 30px;
+        letter-spacing: 1px;
+        line-height: 35px;
+        text-align: center;
+        color: white;
+        font-weight: 700;
+        margin-top: 10px;
+        letter-spacing: 1px;
+        margin-bottom: 36px;
+        display: block;
+        width: 280px;
+        margin: auto;
+        margin-bottom: 35px;
+    }
+  .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido a.btn-popup{
+         background: #613c87;
+    color: white;
+    text-align: center;
+    max-width: 240px;
+    display: block;
+    font-size: 17px;
+    text-decoration: none;
+    padding: 17px 0px;
+    letter-spacing: 1px;
+    margin: auto;
+        box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.30);
+  }
+  .contenido-popup-nuevo-2017 .centrar-estructura a.cerrar-popup{
+        position: absolute;
+    margin-left: 29px;
+    margin-top: -20px;
+  }
+    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.primer-texto {
+    font-size: 24px;
+    }
+    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto{
+      font-size: 26px;
+    }
+    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido a.btn-popup {
+        font-size: 13px;
+        padding: 14.5px 0px;
+        border: none;
+    }
+    .contenido-popup-nuevo-2017 .centrar-estructura a.cerrar-popup{
+        position: absolute;
+    margin-left: 0px;
+    margin-top: -49px;
+    }
+.content_pop_up_intriga {
+    HEIGHT: 100%;
+    /* padding-top: 20vh; */
+    display: table;
+    width: 100%;
+}
+.contenido-popup-nuevo-2017 {
+    display: table-cell;
+    vertical-align: middle;
+    color: white;
+    text-transform: uppercase;
+    text-align: center;
+    margin: auto;
+}
+@media (max-width: 1024px) {
+    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.primer-texto {
+        font-size: 24px;
+    }
+
+    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto {
+        font-size: 26px;
+    }
+
+    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido a.btn-popup {
+        font-size: 13px;
+        padding: 14.5px 0px;
+    }
+
+    .contenido-popup-nuevo-2017 .centrar-estructura a.cerrar-popup {
+        position: absolute;
+        margin-left: 0px;
+        margin-top: -49px;
+    }
+
+    .contenido .centrar-estructura {
+        height: 80%;
+    }
+}
+
+@media (max-width: 500px) {
+
+    .contenido-popup-nuevo-2017 .centrar-estructura {
+        width: 75%;
+    }
+}
+
+@media (max-width: 400px) {
+
+    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.primer-texto, .contenido .centrar-estructura .centrar-vertical-contenido p.segundo-texto {
+        width: 100%;
+    }
+    .contenido-popup-nuevo-2017 .centrar-estructura{
+        padding:0;
+    }
+    .contenido-popup-nuevo-2017 .centrar-estructura a.cerrar-popup {
+    margin-left: -19px;
+        margin-top: -30px;
+    }
+}
+/* FIN NUEVO POPUP SUSCRIBIRSE */

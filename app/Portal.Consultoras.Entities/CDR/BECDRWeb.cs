@@ -42,11 +42,9 @@ namespace Portal.Consultoras.Entities.CDR
         [DataMember]
         public string ConsultoraCodigo { get; set; }
 
-        //EPD-1665
         [DataMember]
         public decimal ConsultoraSaldo { get; set; }
 
-        //HD-726
         [DataMember]
         public int CantidadAprobados { get; set; }
 
@@ -58,7 +56,6 @@ namespace Portal.Consultoras.Entities.CDR
         public decimal FleteDespacho { get; set; }
         [DataMember]
         public string MensajeDespacho { get; set; }
-        //EPD-1919 FIN
 
         [DataMember]
         public bool EsMovilOrigen { get; set; }
