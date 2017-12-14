@@ -2166,11 +2166,11 @@ div#tab_revistasdigital_mobile {
     .back-to img {
         margin-right: 10px;
     }
-/**/
+
 .pack-a-medida, .sin-codigos, .mejores-ofertas, .gana-mas, .suscribete-gratis {
     margin: 0 5px;
 }
-/**/
+
 .video-visual {
     width: 100%;
     overflow: hidden;
@@ -2249,7 +2249,7 @@ div#tab_revistasdigital_mobile {
         left: 0;
         border: 0 none;
     }
-/**/
+
 .bloques-gana-mas {
 }
 
@@ -2323,7 +2323,7 @@ div#tab_revistasdigital_mobile {
 .suscribete-gratis {
     background: white;
 }
-/**/
+
 .bloques-gana-mas .contenedor-mobile-fix {
     padding: 20px;
     margin-bottom: 5px;
@@ -2544,7 +2544,7 @@ a.btn-suscribete-video-baja {
         top: 2px;
         margin-left: 5px;
     }
-/**/
+
 @media (max-width: 767px) {
     .bloques-gana-mas .contenedor-mobile-fix img {
         width: 120px;
