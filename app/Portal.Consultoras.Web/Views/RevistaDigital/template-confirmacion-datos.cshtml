@@ -1,127 +1,32 @@
-﻿<style>
-    .popup_confirmacion_datos {
-        background: white;
-        padding: 50px 40px;
-        max-width: 432px;
-    }
-        .popup_confirmacion_datos p.felicidades {
-            display: block;
-            font-size: 13px;
-            font-weight: bolder;
-            margin-bottom: 0;
-            letter-spacing: 1px;
-        }
-
-        .popup_confirmacion_datos p.estasganando {
-            display: block;
-            text-align: center;
-            font-size: 28px;
-            font-weight: bolder;
-            letter-spacing: 1px;
-            color: #e81c36;
-            margin-bottom: 20px;
-        }
-
-        .popup_confirmacion_datos span.confirmanos {
-            display: block;
-            text-align: center;
-            letter-spacing: 0.5px;
-            font-size: 13px;
-            margin-bottom: 20px;
-            line-height: 16px;
-        }
-
-        .popup_confirmacion_datos .form-datos button {
-            background: #e0e0e0;
-            letter-spacing: 1px;
-            color: white;
-            border: none;
-            font-size: 17px;
-            text-align: center;
-            display: block;
-            font-weight: bolder;
-            width: 100%;
-            /* padding: 15px 50px; */
-            /* margin-top: 5px; */
-            /* margin-bottom: 20px; */
-            width: 280px;
-            margin: auto;
-            height: 50px;
-            margin-bottom: 20px;
-            margin-top: 20px;
-        }
-
-        .popup_confirmacion_datos .form-datos {
-            margin-bottom: 15pt;
-        }
-            .popup_confirmacion_datos .form-datos .input {
-                margin-bottom: 15px;
-            }
-                .popup_confirmacion_datos .form-datos .input img {
-                    display: inline;
-                    position: absolute;
-                    padding: 0px 10px;
-                    /* width: 20px; */
-                    margin-top: 14px;
-                    /* width: 20px; */
-                }
-                .popup_confirmacion_datos .form-datos .input img.phone {
-                    margin-top: 15px;
-                    margin-left: 4px;
-                }
-                    .popup_confirmacion_datos .form-datos .input img.info {
-                        display: block;
-                        padding: 0px;
-                        margin-top: 4px;
-                        border: none;
-                        background: none;
-                        width: 20px;
-                        height: 20px;
-                    }
-                .popup_confirmacion_datos .form-datos .input input {
-                    display: inline;
-                    padding: 12px 40px;
-                    width: 100%;
-                    border: 1px solid #e0e0e0;
-                    height: 40px;
-                }
-
-                .popup_confirmacion_datos .form-datos .input span {
-                    text-align: left;
-                    display: block;
-                    /* padding: 12pt 27px; */
-                    width: 100%;
-                    padding-left: 30px;
-                    color: #808080;
-                    line-height: 13px;
-                    font-size: 11px;
-                }
-</style>
-<div class="Content_general_pop_up" id="divMensajeBloqueada" style="display: block;">
+﻿<div class="Content_general_pop_up" id="divMensajeBloqueada" style="display: block;">
     <div class="popup_rd_bloqueado popup_confirmacion_datos">
         <a class="cerrar_fichaProducto" style="position: absolute; top:0px; right: -35px;" href="javascript:;" data-popup-close="divMensajeBloqueada">
             <img src="/Content/Images/cerrar_04_blanco.png" alt="" alternate="" text="">
         </a>
-        <p class="felicidades">FELICIDADES ELIZABETH</p>
-        <p class="estasganando">¡YA ESTÁS SUSCRITA!</p>
-        <span class="confirmanos">
-            Confírmanos tus datos <b>y además de los beneficios del Club</b>, podrás recibir los mejores tips para ganar.
-        </span>
-        <div class="form-datos">
-            <div class="input">
-                <img src="~/Content/Images/mailIcon.png" alt="">
-                <input type="text">
-            </div>
-            <div class="input">
-                <img src="~/Content/Images/phoneIcon.png" alt="" class="phone">
-                <input type="text">
-            </div>
-            <button>CONFIRMAR DATOS</button>
-            <div class="input">
-                <img src="~/Content/Images/alertIcon.png" alt="" class="info">
-                <span>
-                    No olvides buscar nuestro mail en tus correos no deseados y/o promociones y agregarlo como remitente seguro.
+        <div class="contenido-table-datos">
+            <div class="cont-datos">
+                <p class="felicidades">FELICIDADES ELIZABETH</p>
+                <p class="estasganando">¡YA ESTÁS SUSCRITA!</p>
+                <span class="confirmanos">
+                    Confírmanos tus datos <b>y además de los beneficios del Club</b>, podrás recibir los mejores tips para ganar.
                 </span>
+                <div class="form-datos">
+                    <div class="input">
+                        <img src="~/Content/Images/mailIcon.png" alt="">
+                        <input type="text" class="txt1">
+                    </div>
+                    <div class="input">
+                        <img src="~/Content/Images/phoneIcon.png" alt="" class="phone">
+                        <input type="text" class="txt2">
+                    </div>
+                    <button disabled="disabled">CONFIRMAR DATOS</button>
+                    <div class="input">
+                        <img src="~/Content/Images/alertIcon.png" alt="" class="info">
+                        <span>
+                            No olvides buscar nuestro mail en tus correos no deseados y/o promociones y agregarlo como remitente seguro.
+                        </span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

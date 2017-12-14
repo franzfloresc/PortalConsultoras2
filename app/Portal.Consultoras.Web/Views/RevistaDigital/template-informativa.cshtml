@@ -201,7 +201,6 @@
         var urlRevistaDigital = '@Url.Action("Comprar", "RevistaDigital")';
         var isScroll = false;
     </script>
-
     <script>
             $(document).ready(function () {
                 var clickabrir = 1
@@ -220,6 +219,28 @@
                 });
             });
     </script>
+
+<script>
+            $(document).ready(function () {
+                $('.popup_confirmacion_datos .form-datos .input input').keyup(function () {
+
+                    var empty = false;
+                    $('.popup_confirmacion_datos .form-datos .input input').each(function () {
+                        if ($(this).val().length == 0) {
+                            empty = true;
+                        }
+                    });
+
+                    if (empty) {
+                        $('.actions input').attr('disabled', 'disabled');
+                        $('.popup_confirmacion_datos .form-datos button').removeClass('boton_popup_confirmacion_datos');
+                    } else {
+                        $('.actions input').attr('disabled', false);
+                        $('.popup_confirmacion_datos .form-datos button').addClass('boton_popup_confirmacion_datos');
+                    }
+                });
+            });
+</script>
 
 
     @System.Web.Optimization.Scripts.Render("~/bundles/RevistaDigital-Info")
