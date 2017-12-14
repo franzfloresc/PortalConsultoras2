@@ -253,16 +253,9 @@ function UpdateLiquidacionTipoOfertaSis(urls, CampaniaID, PedidoID, PedidoDetall
     var CliID = $('#ClienteID_' + PedidoDetalleID).val();
     var CliDes = $('#ClienteNombre_' + PedidoDetalleID).val();
     var DesProd = $('#DescripcionProducto_' + PedidoDetalleID).html();
-    var Flag = 0;
-    var StockNuevo = 0;
+    var Flag = 2;
+    var StockNuevo = cantidadActual - cantidadAnterior;
     var PROL = falgValidacionPedido;
-      
-    if (cantidadAnterior > cantidadActual) {
-        Flag = 1;
-    } else if (cantidadActual > cantidadAnterior) {
-        Flag = 2;
-    }
-    StockNuevo = cantidadActual - cantidadAnterior;
     
     if (CliDes.length == 0) 
         CliID = 0;
