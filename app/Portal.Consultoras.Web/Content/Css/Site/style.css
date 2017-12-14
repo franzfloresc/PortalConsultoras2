@@ -5653,7 +5653,7 @@ ol {
     display: block;
     overflow: hidden;
 }
-/*1731*/
+ 
 .ofertas_cross_cantidad_on {
     padding: 9px 0px 9px 0px;
     display: block;
@@ -6001,7 +6001,7 @@ ol {
     padding: 0px;
 }
 
-/*1747*/
+ 
 .producto_agregado_ZE {
     position: absolute;
     width: 200px;
@@ -10740,7 +10740,7 @@ span.icon-del {
     color: #AF1B2D;
 }
 
-/*1731*/
+ 
 .texto_oferta_nueva {
     font-size: 15px;
     line-height: 20px;
@@ -10749,7 +10749,7 @@ span.icon-del {
     font-weight: bold !Important;
     text-align: center;
 }
-/*1731*/
+ 
 .ofertas_maximo_unidad {
     padding: 9px 0px 9px 0px;
     display: block;
@@ -10855,7 +10855,7 @@ body, html {
     }
 /* Modificado 15082014 - Fin */
 
-/*2013*/
+
 .container-dato-consultora {
     margin: 0px auto;
     width: 1000px;
@@ -11936,7 +11936,6 @@ body, html {
     float: right;
 }
 
-/*R20151127*/
 .leyendaIndicadorPROLMensaje {
     font: 13px/1.5 Arial;
     color: #722789;
@@ -13375,7 +13374,7 @@ label.checkpop {
     font-size: 11px;
 }
 
-/*EPD2031*/
+
 .contentCatalogo {
     display: table;
     border-collapse: collapse;

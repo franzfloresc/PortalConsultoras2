@@ -12921,7 +12921,6 @@ ol {
 .flexipago_acepto {
     padding: 0px;
 }
-/*1747*/
 .producto_agregado_ZE {
     position: absolute;
     width: 200px;
@@ -29326,7 +29325,7 @@ h1#penmostreo .campana {
     text-align: center;
     padding-right: 12px;
     height: auto;
-    margin-top: 10px; /*SB20-1198*/
+    margin-top: 10px; 
 }
 
 .texto_unidad_pack {
@@ -29390,7 +29389,7 @@ h1#penmostreo .campana {
 }
 
 .pack_inter .content_sub_items .sub_descripcion_oferta:nth-child(2) {
-      /*SB20-1198*/
+      
 }
 
 .franja_noVolverMostrar {
@@ -30054,11 +30053,11 @@ h1#penmostreo .campana {
     width: 100%;
     height: auto;
      
-    padding: 10px 43px; /*EPD-1378*/
+    padding: 10px 43px; 
     position: relative;
     background: #fee5e7;
      
-    margin-bottom: 15px; /*EPD-1378*/
+    margin-bottom: 15px; 
 }
 
     .stock_content:after {
@@ -30088,13 +30087,13 @@ h1#penmostreo .campana {
 
 .texto_stock {
      
-    width: 70%; /*EPD-1378*/
+    width: 70%; 
     display: inline-block;
     vertical-align: middle;
     font-family: 'LAto';
     font-size: 14px;
     color: #d20000;
-    float: left; /*EPD-1378*/
+    float: left; 
 }
 
 .btn_no_stock {
@@ -30111,12 +30110,12 @@ h1#penmostreo .campana {
     width: 100%;
     /*height: auto;
     padding: 25px 43px;*/
-    height: 50px; /*EPD-1378*/
-    padding: 15px 43px; /*EPD-1378*/
+    height: 50px; 
+    padding: 15px 43px; 
     position: relative;
     background: #f3f3f3;
      
-    margin-bottom: 15px; /*EPD-1378*/
+    margin-bottom: 15px; 
 }
 
     .stock_content_aceptado:after {
@@ -30345,13 +30344,13 @@ h1#penmostreo .campana {
     display:block;*/
     text-decoration: underline;
     margin-top: 30px;
-    /*EPD-1378*/
+    
     float: right;
     display: inline-block;
     vertical-align: middle;
     margin-top: 15px;
     margin-right: 5%;
-    /*EPD-1378*/
+    
 }
 
 .btn_si_stock {
@@ -30367,7 +30366,7 @@ h1#penmostreo .campana {
     color: white;
     background: #e81c36;
     line-height: 45px;
-    float: left; /*EPD-1378*/
+    float: left; 
 }
 
 .btn_si_stock_cdr {
@@ -30391,22 +30390,22 @@ h1#penmostreo .campana {
 }
 
 *::-webkit-input-placeholder {
-    /* Google Chrome y Safari */
+    
     color: #b5b5b5;
 }
 
 *:-moz-placeholder {
-    /* Firefox anterior a 19 */
+     
     color: #b5b5b5;
 }
 
 *::-moz-placeholder {
-    /* Firefox 19 y superior */
+     
     color: #b5b5b5;
 }
 
 *:-ms-input-placeholder {
-    /* Internet Explorer 10 y superior */
+     
     color: #b5b5b5;
 }
 /*.btn_si_stock:hover{
@@ -30863,7 +30862,7 @@ h1#penmostreo .campana {
     color: #e81c36;
     font-size: 22px;
      
-    margin-right: 5px; /*SB20-1198*/
+    margin-right: 5px; 
 }
 
 .sub_descripcion_oferta p {
@@ -31594,7 +31593,7 @@ h1#penmostreo .campana {
         margin-right: 5px;
     }
 /*SB20-1198 - FIN */
-/*EPD-877*/
+
 .resumen_belcorp_cam_modificado {
     font-family: 'lato';
     font-size: 18px;
@@ -31658,7 +31657,7 @@ h1#penmostreo .campana {
     color: black;
 }
 /*SB20-1198 - FIN */
-/*EPD-877*/
+
 .resumen_belcorp_cam_modificado {
     font-family: 'lato';
     font-size: 18px;
@@ -32001,7 +32000,7 @@ h1#penmostreo .campana {
 .bloque_oferta_dia {
     width: 100%;
     height: 100px;
-      /*PL20-1226*/
+      
     position: relative;
     z-index: 6;
 }
@@ -32193,8 +32192,8 @@ h1#penmostreo .campana {
     margin: auto, auto;
      
     background: #000;
-      /*PL20-1226*/
-      /*PL20-1226*/
+      
+      
     padding: 10px 0px;
 }
 

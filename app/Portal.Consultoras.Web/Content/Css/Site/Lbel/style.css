@@ -11696,7 +11696,6 @@ ol {
     display: block;
     overflow: hidden;
 }
-/*1731*/
 .ofertas_cross_cantidad_on {
     padding: 9px 0px 9px 0px;
     display: block;
@@ -11997,7 +11996,7 @@ ol {
 .flexipago_acepto {
     padding: 0px;
 }
-/*1747*/
+ 
 .producto_agregado_ZE {
     position: absolute;
     width: 200px;
@@ -16013,7 +16012,7 @@ span.icon-del {
 .mensaje-movil {
     color: #AF1B2D;
 }
-/*1731*/
+ 
 .texto_oferta_nueva {
     font-size: 15px;
     line-height: 20px;
@@ -16022,7 +16021,7 @@ span.icon-del {
     font-weight: bold !Important;
     text-align: center;
 }
-/*1731*/
+ 
 .ofertas_maximo_unidad {
     padding: 9px 0px 9px 0px;
     display: block;
@@ -16116,7 +16115,7 @@ body, html {
         left: 176px;
     }
 /* Modificado 15082014 - Fin */
-/*2013*/
+
 .container-dato-consultora {
     margin: 0px auto;
     width: 1000px;
@@ -17073,7 +17072,6 @@ body, html {
     text-align: right;
     float: right;
 }
-/*R20151127*/
 .leyendaIndicadorPROLMensaje {
     font-family: "lato";
     font-size: 13px;
@@ -27135,7 +27133,7 @@ h1#penmostreo .campana {
     text-align: center;
     padding-right: 12px;
     height: auto;
-    margin-top: 10px; /*SB20-1198*/
+    margin-top: 10px; 
 }
 .texto_unidad_pack {
     font-family: 'Lato';
@@ -27192,7 +27190,7 @@ h1#penmostreo .campana {
     border-bottom: 0;
 }
 .pack_inter .content_sub_items .sub_descripcion_oferta:nth-child(2) {
-      /*SB20-1198*/
+      
 }
 /* ACTUALIZAR CONTRASEÑA */
 .titulo_interiores.tituloCambioContrasenia {
@@ -27734,11 +27732,11 @@ h1#penmostreo .campana {
     width: 100%;
     height: auto;
      
-    padding: 10px 43px; /*EPD-1378*/
+    padding: 10px 43px; 
     position: relative;
     background: #e5dcea;
      
-    margin-bottom: 15px; /*EPD-1378*/
+    margin-bottom: 15px; 
 }
     .stock_content:after {
         bottom: 100%;
@@ -27765,13 +27763,13 @@ h1#penmostreo .campana {
 }
 .texto_stock {
      
-    width: 70%; /*EPD-1378*/
+    width: 70%; 
     display: inline-block;
     vertical-align: middle;
     font-family: 'LAto';
     font-size: 14px;
     color: black;
-    float: left; /*EPD-1378*/
+    float: left; 
 }
 .btn_no_stock {
     font-family: 'LAto';
@@ -27786,12 +27784,12 @@ h1#penmostreo .campana {
     width: 100%;
     /*height: auto;
     padding: 25px 43px;*/
-    height: 50px; /*EPD-1378*/
-    padding: 15px 43px; /*EPD-1378*/
+    height: 50px; 
+    padding: 15px 43px; 
     position: relative;
     background: #f3f3f3;
      
-    margin-bottom: 15px; /*EPD-1378*/
+    margin-bottom: 15px; 
 }
     .stock_content_aceptado:after {
         bottom: 100%;
@@ -28096,13 +28094,13 @@ h1#penmostreo .campana {
     display:block;*/
     text-decoration: underline;
     margin-top: 30px;
-    /*EPD-1378*/
+    
     float: right;
     display: inline-block;
     vertical-align: middle;
     margin-top: 15px;
     margin-right: 45px;
-    /*EPD-1378*/
+    
 }
 .btn_si_stock {
     font-family: 'LAto';
@@ -28118,7 +28116,7 @@ h1#penmostreo .campana {
     color: white;
     background: #613c87;
     line-height: 45px;
-    float: left; /*EPD-1378*/
+    float: left; 
 }
 .btn_si_stock_cdr {
     font-family: 'LAto';
@@ -28139,19 +28137,19 @@ h1#penmostreo .campana {
     border: 0;
 }
 *::-webkit-input-placeholder {
-    /* Google Chrome y Safari */
+    
     color: #b5b5b5;
 }
 *:-moz-placeholder {
-    /* Firefox anterior a 19 */
+     
     color: #b5b5b5;
 }
 *::-moz-placeholder {
-    /* Firefox 19 y superior */
+     
     color: #b5b5b5;
 }
 *:-ms-input-placeholder {
-    /* Internet Explorer 10 y superior */
+     
     color: #b5b5b5;
 }
 .btn_si_stock:hover {
@@ -28558,7 +28556,7 @@ h1#penmostreo .campana {
     color: #613c87;
     font-size: 22px;
      
-    margin-right: 5px; /*SB20-1198*/
+    margin-right: 5px; 
 }
 .sub_descripcion_oferta p {
     margin: 0;
@@ -29242,7 +29240,7 @@ h1#penmostreo .campana {
     color: black;
 }
 /*SB20-1198 - FIN */
-/*SB20-877*/
+
 .resumen_belcorp_cam_modificado {
     font-family: 'lato';
     font-size: 18px;
