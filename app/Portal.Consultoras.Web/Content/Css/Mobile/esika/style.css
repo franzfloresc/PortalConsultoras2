@@ -7311,7 +7311,6 @@ input[type="checkbox"]:checked + span:after {
     display: block;
 }
 
-/*MICHAEL*/
 .contenedor-tutorial-lbel {
     display: none;
 }
@@ -7434,8 +7433,6 @@ input[type="checkbox"]:checked + span:after {
         width: 100%;
         height: auto;
     }
-
-/*MICHAEL*/
 
 @media (min-width: 1024px) {
     .contenedor-tutorial-esika .opciones-tutorial {
@@ -11287,7 +11284,7 @@ a {
     background: url(../../../Images/Esika/arrow_left.png) no-repeat left;
     background-size: 18px 18px;
 }
-/*---*/
+
 .check_intriga:before {
     content: "✓";
     line-height: 11.5px;

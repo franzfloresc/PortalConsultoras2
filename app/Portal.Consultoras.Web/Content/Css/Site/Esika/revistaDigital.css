@@ -18,9 +18,6 @@
 
     .revistadigital .pedido {
         background: #f8f8f8;
-        /*box-shadow:3px 9px 0px 8px rgb(255, 255, 255);
-    -webkit-box-shadow: 3px 9px 0px 8px rgb(255, 255, 255);
-    -moz-box-shadow: 3px 9px 0px 8px rgb(255, 255, 255);*/
     }
 
         .revistadigital .pedido.mobile {
@@ -2732,7 +2729,7 @@
             height: auto;
         }
 
-/**/
+
 
 .bc_productos {
     width: 68%;
@@ -2804,7 +2801,7 @@
 .bc_content_item_carrusel {
     width: initial !important;
 }
-/**/
+
 #bc_content_oferta .clearfix {
     clear: both;
 }
@@ -2902,7 +2899,7 @@
     .back-to img {
         margin-right: 10px;
     }
-/**/
+
 .video-visual {
     max-width: 100%;
     height: 400px;
@@ -2916,7 +2913,7 @@
     }
 
 
-/**/
+
 .bloque-suscripcion {
 }
 
@@ -2926,7 +2923,7 @@
     padding-left: 3%;
     padding-right: 3%;
 }
-/**/
+
 .gana-mas {
     padding-bottom: 30px;
 }

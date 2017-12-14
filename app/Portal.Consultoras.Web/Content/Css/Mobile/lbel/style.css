@@ -6241,7 +6241,7 @@ body {
     display: none;
 }
 
-/**/
+
 .texto_catalogos_mobile {
     font-size: 15px;
     font-family: 'lato';
@@ -7268,7 +7268,7 @@ input[type="checkbox"]:checked + span:after {
     display: block;
 }
 
-/*MICHAEL*/
+
 .contenedor-tutorial-esika {
     display: none;
 }
@@ -7392,7 +7392,7 @@ input[type="checkbox"]:checked + span:after {
         height: auto;
     }
 
-/*MICHAEL*/
+
 
 @media (min-width: 1024px) {
     .contenedor-tutorial-lbel .opciones-tutorial {
@@ -7415,7 +7415,7 @@ input[type="checkbox"]:checked + span:after {
         background-color: black !important;
     }
 }
-/**/
+
 .content_BarrMensaje {
     width: 100%;
     margin-top: 10px;
@@ -9514,7 +9514,7 @@ span.icon-advertencia {
 .content_pack_niveles .sub_descripcion_oferta:nth-child(2) {
 }
 
-/**/
+
 .mensaje_validacion_consultora {
     display: block;
     margin-top: 18px;
@@ -12258,7 +12258,6 @@ span.icon-advertencia {
     display: block;
 }
 
-/***EPD 2107***/
 .btnwspDesktop {
     display: none;
 }
@@ -12276,7 +12275,6 @@ span.icon-advertencia {
     float: right;
     width: 48%;
 }
-/*** FIN ******/
 
 .saludo_paginacion {
     margin-top: 10px;
@@ -12290,7 +12288,7 @@ span.icon-advertencia {
     .saludo_paginacion b {
         font-size: 15px;
     }
-/*SPRINT 11*/
+
 .content_sub_oferta_showroom {
     position: fixed;
     z-index: 2000;
@@ -12460,7 +12458,6 @@ span.icon-advertencia {
     background-color: #ecebf0;
 }
 
-/*SPRINT 12*/
 .label_cupon {
     width: 100%;
     background: black;
@@ -12744,8 +12741,6 @@ span.icon-advertencia {
     margin-bottom: 30px;
 }
 
-/*SPRINT 13*/
-
 .content_producto_alternativo {
     text-align: center;
     height: auto;
@@ -12796,7 +12791,6 @@ span.icon-advertencia {
     margin: 14px auto;
 }
 
-/*SPRINT 14*/
 .content_mas_vendidos {
     background: #f0f0f0;
     padding: 30px 14px 20px 14px;
@@ -12914,7 +12908,6 @@ span.icon-advertencia {
     background: url(../../../Images/PL20/agenda_lbel.jpg) no-repeat center center;
 }
 
-/*SPRINT 15*/
 .content_fondo_bestSeller {
     height: 192px;
     width: 100%;
@@ -13330,7 +13323,6 @@ span.icon-advertencia {
     text-decoration: underline;
 }
 
-/*SPRINT 19 PL20*/
 .btn_regalo_sorpresa {
     background: #613c87 url(../../../Images/mobile/icono_regalo.png) no-repeat;
     max-width: 258px;

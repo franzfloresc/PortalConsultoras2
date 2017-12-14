@@ -7262,7 +7262,7 @@ a.subir_carousel, a.bajar_carousel {
 
 /* fin ver mas la fleca abajo*/
 /* Style Esika */
-/*@import url(../fancybox/jquery.fancybox.css);   link to the CSS file for FancyBox */
+
 /* ---------------------- 
 Stylesheet Guide
 -------------------------
@@ -13955,7 +13955,7 @@ table.falsa {
                 behavior: url(../../../../Content/Css/Pie/PIE.htc);
             }
 
-            * html .jqueryslidemenu ul li a { /*IE6 hack to get sub menu links to behave correctly*/
+            * html .jqueryslidemenu ul li a {
                 display: inline-block;
             }
 
@@ -14420,7 +14420,6 @@ ul.service-list {
                 font-weight: bold !important;
                 color: none !important;
             }
-        /* 2012 - Inicio */
         ul.service-list li .q1pl {
             padding: 10px 45px 10px 50px;
             margin: 0 0 5px 0;
@@ -14445,7 +14444,6 @@ ul.service-list {
                 font-weight: bold !important;
                 color: none !important;
             }
-        /* 2012 - Fin */
         ul.service-list li .q2 {
             padding: 10px 10px 10px 8px;
             margin: 0 0 5px 0;
@@ -23459,7 +23457,8 @@ img {
         color: #d226aa;
     }
 
-    .submenu > ul > li > a /*Títulos de cada sección del menú*/ {
+    /*Títulos de cada sección del menú*/
+    .submenu > ul > li > a {
         font-size: 1.3em;
         margin-bottom: 10px;
         text-transform: uppercase;
@@ -26664,7 +26663,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
         width: 42%;
     }
 }
-/*MICHAEL*/
+
 .content-favclientes {
     max-width: 1189px;
     margin: 0px auto 0 auto;
@@ -28255,20 +28254,7 @@ h1#penmostreo .campana {
     -ms-transition: all 0.3s ease;
     -webkit-transition: all 0.3s ease;
     LETTER-SPACING: 0.2px;
-    /*-webkit-animation: opacidad-bottom 500ms linear 0ms 1 normal;
-    -moz-animation: opacidad-bottom 500ms linear 0ms 1 normal;
-    -ms-animation: opacidad-bottom 500ms linear 0ms 1 normal;
-    animation: opacidad-bottom 500ms linear 0ms 1 normal;*/
 }
-/*@keyframes opacidad-bottom {
-    0% {
-        opacity:0;
-    
-    }
-    80% {
-        opacity:1;
-    }
-}*/
 
 /* POPUP IMAGEN PERFIL PROCESO RECORTE */
 .popup_img_perfil {
@@ -28412,7 +28398,6 @@ h1#penmostreo .campana {
         z-index: 3;
         padding-top: 27px;
     }
-/*SB20-863* Inicio*/
 .producto_precio2 {
     width: 100%;
     padding-left: 16px;
@@ -28445,7 +28430,6 @@ h1#penmostreo .campana {
     margin-top: 5px;
 }
 
-/*Sb20-863 - Fín*/
 .encabezado_popupCatalogoPersonalizado {
     display: block;
     text-align: center;
@@ -29229,11 +29213,11 @@ h1#penmostreo .campana {
 .sub_descripcion_oferta {
     width: 55%;
      
-    min-height: 60px; /* SB20-1198 */
+    min-height: 60px; 
      
     text-align: left;
-    padding-top: 5px; /* SB20-1198 */
-    padding-bottom: 10px; /* SB20-1198 */
+    padding-top: 5px; 
+    padding-bottom: 10px; 
     border-bottom: 1px solid #dadada;
     font-family: 'Lato';
     font-size: 13px;
@@ -30108,8 +30092,8 @@ h1#penmostreo .campana {
 
 .stock_content_aceptado {
     width: 100%;
-    /*height: auto;
-    padding: 25px 43px;*/
+    /*
+*/
     height: 50px; 
     padding: 15px 43px; 
     position: relative;
@@ -30334,14 +30318,14 @@ h1#penmostreo .campana {
     font-size: 9.4pt;
     font-weight: 400;
     color: #060000;
-    /* margin-right: 8px*/
+    
 }
 
 .btn_no_stock {
     font-family: 'LAto';
     font-size: 13px;
-    /*float:left;    
-    display:block;*/
+    /*    
+*/
     text-decoration: underline;
     margin-top: 30px;
     
@@ -30588,8 +30572,8 @@ h1#penmostreo .campana {
 .content_listado_reclamo {
     position: relative;
     overflow: hidden;
-    /*padding-left:15px;
-    padding-right:15px;*/
+    /*
+*/
     border-bottom: 1px solid #c9c9c9;
 }
 
@@ -30695,9 +30679,9 @@ h1#penmostreo .campana {
     font-size: 15px;
     line-height: 30px;
     width: 330px;
-    /*padding-left: 35px;
+    /*
     background: url(../../../Images/Esika/terminos.png) no-repeat;
-    background-position:0px 2px;*/
+*/
     text-decoration: underline;
 }
 
@@ -31131,8 +31115,8 @@ h1#penmostreo .campana {
 }
 
 .content_pop_grilla {
-    /*max-height: 310px;
-    overflow-y: auto;*/
+    /*
+*/
 }
 
 .content_botones_pedido {
@@ -31570,8 +31554,6 @@ h1#penmostreo .campana {
 }
 
 .sub_descripcion_oferta_048 {
-    /*width: 55%;
-    height: 55px;*/
      
     text-align: left;
      
@@ -31580,10 +31562,10 @@ h1#penmostreo .campana {
     font-family: 'Lato';
     font-size: 13px;
     color: black;
-    /*display: flex;
+    /*
     justify-content: center;
     align-content: center;
-    flex-direction: column;*/
+*/
 }
 
     .sub_descripcion_oferta_048 p span {
@@ -32461,9 +32443,9 @@ h1#penmostreo .campana {
 .content_tonos_maquillaje {
     margin-top: 15px;
     overflow: hidden;
-    /*max-height: 118px;
+    /*
     overflow-y:auto;
-    overflow-x: hidden;*/
+*/
 }
 
 .content_tono_detalle {
@@ -33535,9 +33517,9 @@ h1#penmostreo .campana {
 }
 
 .btn_aregar_set {
-    /*width: -moz-calc(100% - 80px);
+    /* -moz-calc(100% - 80px);
     width: calc(100% - 80px);
-    width: -webkit-calc(100% - 80px);*/
+*/
      
     float: right;
      
@@ -33972,9 +33954,6 @@ h1#penmostreo .campana {
 }
 
 .texto_elige_tono {
-    /*position:absolute;
-    left: 0;
-    top: -19px;*/
     font-family: 'LAto';
     font-size: 10.5px;
     font-weight: 700;
@@ -34271,9 +34250,9 @@ h1#penmostreo .campana {
 }
 
 .content_item_carrusel_ODD .btn_pop_agregalo_oferta {
-    /*width: -moz-calc(100% - 80px);
+    /* -moz-calc(100% - 80px);
     width: calc(100% - 80px);
-    width: -webkit-calc(100% - 80px);*/
+*/
 }
 /*.content_780_ODD .content_item_carrusel_ODD:last-child{
     float:right;
@@ -34575,8 +34554,6 @@ h1#penmostreo .campana {
     height: 40px;
     border-bottom: 1px solid black;
     margin-bottom: 10px;
-    /*width: 311px;
-    float: right;*/
 }
 
 .icono_cupon_monto {
@@ -34818,7 +34795,7 @@ h1#penmostreo .campana {
     margin-top: 12px;
     font-family: 'Lato';
     font-size: 12px;
-    /*border-right: 1px solid rgba(149, 145, 146, 0.2);*/
+    
     height: 72px;
 }
 
@@ -35760,9 +35737,9 @@ h1#penmostreo .campana {
     font-weight: bold;
     letter-spacing: 0.3px;
     margin-right: 20px;
-    /*background: white url(../../../Images/arrow.png) no-repeat center;
+    /* white url(../../../Images/arrow.png) no-repeat center;
     background-size: 15px;
-    background-position-x: 95%;*/
+*/
     background: white;
     background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
     background-repeat: no-repeat;
@@ -35852,8 +35829,8 @@ h1#penmostreo .campana {
 }
 
 .dias_inicio_landing {
-    /*font-size: 78.4px;
-    top:170px;*/
+    /* 78.4px;
+*/
     top: 123px;
     font-size: 72px;
     padding: 0% 29.45%;
@@ -35885,7 +35862,7 @@ h1#penmostreo .campana {
         .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto span.flashit {
             color: white;
             /* -webkit-animation: flash linear 1s infinite;
-            animation: flash linear 1s infinite;*/
+*/
         }
 
 @-webkit-keyframes flash {
