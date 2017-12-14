@@ -253,6 +253,26 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 Assert.AreEqual(100, result.BloquearDiasAntesFacturar);
                 Assert.AreEqual(0, result.ConfiguracionPaisDatos.Count);
             }
+
+            [TestMethod]
+            public void ConfiguracionPaisDatosRevistaDigital_ListaDatosTieneSubscripcionAutomaticaAVirtualCoach_SeActualizaRevistaDigitalModel()
+            {
+                var controller = new LoginController(logManager.Object, sessionManager.Object);
+                var rdModel = new RevistaDigitalModel();
+                var listaDatos = new List<BEConfiguracionPaisDatos>
+                {
+                    new BEConfiguracionPaisDatos
+                    {
+                        Codigo = Constantes.ConfiguracionPaisDatos.RD.SubscripcionAutomaticaAVirtualCoach,
+                        Valor1 = "1"
+                    }
+                };
+
+                var result = controller.ConfiguracionPaisDatosRevistaDigital(rdModel, listaDatos, "PE");
+
+                Assert.AreEqual(true, result.SubscripcionAutomaticaAVirtualCoach);
+                Assert.AreEqual(0, result.ConfiguracionPaisDatos.Count);
+            }
         }
     }
 }
