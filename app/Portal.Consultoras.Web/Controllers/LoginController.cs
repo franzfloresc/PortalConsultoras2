@@ -2267,8 +2267,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             foreach (var configuracionPaisDato in revistaDigital.ConfiguracionPaisDatos)
             {
-                configuracionPaisDato.Valor1 = RemplazaTagNombre(configuracionPaisDato.Valor1, nombreConsultora);
-                configuracionPaisDato.Valor2 = RemplazaTagNombre(configuracionPaisDato.Valor2, nombreConsultora);
+                configuracionPaisDato.Valor1 = RemplazaTagNombre(configuracionPaisDato.Valor1 ?? "", nombreConsultora);
+                configuracionPaisDato.Valor2 = RemplazaTagNombre(configuracionPaisDato.Valor2 ?? "", nombreConsultora);
             }
         }
 
