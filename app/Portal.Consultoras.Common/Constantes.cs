@@ -66,33 +66,19 @@ namespace Portal.Consultoras.Common
         public static class PaisID
         {
             public const int Argentina = 1;
-            
             public const int Bolivia = 2;
-            
             public const int Chile = 3;
-            
             public const int Colombia = 4;
-            
             public const int CostaRica = 5;
-            
             public const int Ecuador = 6;
-            
             public const int ElSalvador = 7;
-            
             public const int Guatemala = 8;
-            
             public const int Mexico = 9;
-            
             public const int Panama = 10;
-            
             public const int Peru = 11;
-            
             public const int PuertoRico = 12;
-            
             public const int RepublicaDominicana = 13;
-            
             public const int Venezuela = 14;
-            
             public const int Brasil = 15;
         }
 
