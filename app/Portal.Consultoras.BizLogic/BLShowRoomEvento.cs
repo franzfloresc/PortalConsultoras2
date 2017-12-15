@@ -164,6 +164,19 @@ namespace Portal.Consultoras.BizLogic
             return dataAccess.DelOfertaShowRoom(entity);
         }
 
+        public int InsOrUpdOfertaShowRoom(int paisID, BEShowRoomOferta entity)
+        {
+            TransactionOptions transactionOptions = new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.RepeatableRead };
+            using (TransactionScope transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
+            {
+                var dataAccess = new DAShowRoomEvento(paisID);
+                var result = dataAccess.InsOrUpdOfertaShowRoom(entity);
+
+                transactionScope.Complete();
+                return result;
+            }
+        }
+
         public int RemoverOfertaShowRoom(int paisID, BEShowRoomOferta entity)
         {
             var dataAccess = new DAShowRoomEvento(paisID);

@@ -171,15 +171,15 @@
         var urlBienvenida = URLactual.indexOf("Bienvenida");
 
         if (urlBienvenida > 0) {
-            $("#contentmobile").css({ 'margin-top': '0px' });
+            //$("#contentmobile").css({ 'margin-top': '0px' });
         } else {
-            $("#contentmobile").css({ 'margin-top': '63px' });
+            //$("#contentmobile").css({ 'margin-top': '63px' });
         }
     }
     else {
         var URLactual = window.location.href;
         var urlPagina = URLactual.indexOf("Cliente");
-        $("#contentmobile").css({ 'margin-top': '123px' });
+        //$("#contentmobile").css({ 'margin-top': '123px' });
     }
 
     var URLactual = window.location.href;
@@ -201,18 +201,18 @@
 
     if (urlBienvenida > 0) {
         if (sesionEsShowRoom) {
-            $("#contentmobile").css({ 'margin-top': '0px' });
+            //$("#contentmobile").css({ 'margin-top': '0px' });
         } else {
-            $("#contentmobile").css({ 'margin-top': '63px' });
+            //$("#contentmobile").css({ 'margin-top': '63px' });
         }
     } else {
         if ($('#flexslidertop ul.slides li').length == 0) {
-            $("#contentmobile").css({ 'margin-top': '63px' });
+            //$("#contentmobile").css({ 'margin-top': '63px' });
         }
     }
 
     if (URLactual.indexOf('/g/') > 0) {
-        $("#contentmobile").css({ 'margin-top': '0px' });
+        //$("#contentmobile").css({ 'margin-top': '0px' });
     }
 
     $(".bannersi").on("click", function () {
@@ -314,6 +314,8 @@
         });
 
     });
+
+    BannerApp();
 });
 
 function loadBannerLP20() {
@@ -321,7 +323,7 @@ function loadBannerLP20() {
     if (typeof CargarEventosODD !== 'undefined' && $.isFunction(CargarEventosODD)) CargarEventosODD();
 
     if ($('#flexslider ul.slides li').length > 0) {
-        $("#contentmobile").css("margin-top", "0px");
+        //$("#contentmobile").css("margin-top", "0px");
         $('#content_slider_banner').show();
 
         if ($('#BloqueMobileOfertaDia').length > 0) {
@@ -737,7 +739,9 @@ function ShowLoading() {
 }
 
 function CloseLoading() {
-    $("#loading-spin").fadeOut("fast");
+    $("#loading-spin").fadeOut("fast", function () {
+        if ($.isFunction(LayoutHeader)) LayoutHeader();
+    });
 }
 
 function messageInfo(message, fnAceptar) {
@@ -1047,4 +1051,57 @@ function odd_get_item_impresion(item) {
         }
     }
     return impresion;
+}
+
+var comunicadoBannerApp;
+function BannerApp() {
+    if (oBannerApp == null || getMobileOperatingSystem() != "Android" || !VerificarVistaBannerApp()) {
+        $('.banner_app').hide();
+        return;
+    }
+    $(".banner_app div").click(function (e) {
+        e.preventDefault();
+        $(".banner_app").hide();
+        OcultarBannerApp();
+        return false;
+    });
+    $(".banner_app").click(function (e) {
+        window.open(oBannerApp.DescripcionAccion);
+    });
+    $(".banner_app").css("background-image", "url(" + oBannerApp.UrlImagen + ")");
+}
+
+function VerificarVistaBannerApp() {
+    for (var row = 0; row < oBannerApp.Vistas.length; row++) {
+        var oVista = oBannerApp.Vistas[row];
+        if (oVista.NombreControlador != controllerName) continue;
+        if (oVista.NombreVista == null || oVista.NombreVista == actionName) return true;
+    }
+    return false;
+}
+
+function OcultarBannerApp() {
+    $.ajax({
+        type: 'GET',
+        url: urlOcultarBannerApp,
+        cache: false,
+        success: function (response) {
+            if (response.success) LayoutHeader();
+        },
+        error: function (err) { console.log(err); }
+    });
+}
+function getMobileOperatingSystem() {
+    var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    if (/windows phone/i.test(userAgent)) {
+        return "Windows Phone";
+    }
+    if (/android/i.test(userAgent)) {
+        return "Android";
+    }
+    if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+        return "iOS";
+    }
+
+    return "unknown";
 }

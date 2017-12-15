@@ -41,28 +41,28 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
         [TestClass]
         public class Index
         {
-            class LoginController_GetClientIpReturnsMultipleIps : LoginController
-            {
-                protected override bool EsUsuarioAutenticado()
-                {
-                    return false;
-                }
+            //class LoginController_GetClientIpReturnsMultipleIps : LoginController
+            //{
+            //    protected override bool EsUsuarioAutenticado()
+            //    {
+            //        return false;
+            //    }
 
-                protected override IEnumerable<PaisModel> ObtenerPaises()
-                {
-                    return new List<PaisModel>();
-                }
+            //    protected override IEnumerable<PaisModel> ObtenerPaises()
+            //    {
+            //        return new List<PaisModel>();
+            //    }
 
-                protected override string GetIpCliente()
-                {
-                    return "190.57.170.225, 66.249.83.8";
-                }
+            //    protected override string GetIpCliente()
+            //    {
+            //        return "190.57.170.225, 66.249.83.8";
+            //    }
 
-                protected override bool EstaActivoBuscarIsoPorIp()
-                {
-                    return true;
-                }
-            }
+            //    protected override bool EstaActivoBuscarIsoPorIp()
+            //    {
+            //        return true;
+            //    }
+            //}
 
             //[TestMethod]
             //public void Index_GetClientIpReturnsMultipleIps_LogsError()
@@ -78,28 +78,28 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             //        It.IsAny<string>()), Times.AtLeastOnce);
             //}
 
-            class LoginController_GetClientIpReturnsOneIp : LoginController
-            {
-                protected override bool EsUsuarioAutenticado()
-                {
-                    return false;
-                }
+            //class LoginController_GetClientIpReturnsOneIp : LoginController
+            //{
+            //    protected override bool EsUsuarioAutenticado()
+            //    {
+            //        return false;
+            //    }
 
-                protected override IEnumerable<PaisModel> ObtenerPaises()
-                {
-                    return new List<PaisModel>();
-                }
+            //    protected override IEnumerable<PaisModel> ObtenerPaises()
+            //    {
+            //        return new List<PaisModel>();
+            //    }
 
-                protected override string GetIpCliente()
-                {
-                    return "190.57.170.225";
-                }
+            //    protected override string GetIpCliente()
+            //    {
+            //        return "190.57.170.225";
+            //    }
 
-                protected override bool EstaActivoBuscarIsoPorIp()
-                {
-                    return true;
-                }
-            }
+            //    protected override bool EstaActivoBuscarIsoPorIp()
+            //    {
+            //        return true;
+            //    }
+            //}
 
             //[TestMethod]
             //public void Index_GetClientIpReturnsOneIp_LogsZeError()

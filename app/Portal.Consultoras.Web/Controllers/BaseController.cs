@@ -199,13 +199,16 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     using (var pedidoServiceClient = new PedidoServiceClient())
                     {
-                        detallesPedidoWeb = pedidoServiceClient.SelectByCampania(
-                            userData.PaisID,
-                            userData.CampaniaID,
-                            userData.ConsultoraID,
-                            userData.NombreConsultora,
-                            EsOpt()
-                        ).ToList();
+                        var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros();
+                        bePedidoWebDetalleParametros.PaisId = userData.PaisID;
+                        bePedidoWebDetalleParametros.CampaniaId = userData.CampaniaID;
+                        bePedidoWebDetalleParametros.ConsultoraId = userData.ConsultoraID;
+                        bePedidoWebDetalleParametros.Consultora = userData.NombreConsultora;
+                        bePedidoWebDetalleParametros.EsBpt = EsOpt() == 1;
+                        bePedidoWebDetalleParametros.CodigoPrograma = userData.CodigoPrograma;
+                        bePedidoWebDetalleParametros.NumeroPedido = userData.ConsecutivoNueva;
+
+                        detallesPedidoWeb = pedidoServiceClient.SelectByCampania(bePedidoWebDetalleParametros).ToList();
                     }
                 }
 
@@ -1251,6 +1254,7 @@ namespace Portal.Consultoras.Web.Controllers
             var paisesConTrackingJetlore = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesConTrackingJetlore) ?? "";
             ViewBag.PaisesConTrackingJetlore = paisesConTrackingJetlore.Contains(model.CodigoISO) ? "1" : "0";
             ViewBag.EsCatalogoPersonalizadoZonaValida = model.EsCatalogoPersonalizadoZonaValida;
+            ViewBag.ConsultoraId = model.ConsultoraID;
 
             #region Banner
 

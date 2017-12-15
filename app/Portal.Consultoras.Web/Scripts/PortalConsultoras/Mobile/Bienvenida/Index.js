@@ -601,7 +601,6 @@ function ObtenerComunicadosPopup() {
         contentType: 'application/json',
         success: function (response) {
             CloseLoading();
-
             if (checkTimeout(response)) {
                 armarComunicadosPopup(response.data)
             }
@@ -688,11 +687,11 @@ function VerSeccionBienvenida(seccion) {
             id = "#contentmobile";
             break;
     }
-    if (id != "") {
-        $("html, body").animate({
-            scrollTop: $(id).offset().top - 60
-        }, 1000);
-    }
+    //if (id != "") {
+        //$("html, body").animate({
+        //    scrollTop: $(id).offset().top - 60
+        //}, 1000);
+    //}
 }
 
 function VerTutorialMobile() {
