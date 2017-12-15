@@ -37,6 +37,11 @@ namespace Portal.Consultoras.Web.Controllers
             return View();
         }
 
+        public ActionResult PagoEnLinea()
+        {
+            return View();
+        }
+
         private string JsonSerializer<T>(T t)
         {
             DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(T));
@@ -87,63 +92,64 @@ namespace Portal.Consultoras.Web.Controllers
 
         private PagoEnLineaConfiguracion GetPagoEnlineaConfiguracion(decimal MontoSaldo)
         {
-            string MerchantId = "148131802";
-            string AccessKeyId = "AKIAJRWJQBFYLRVB22ZQ";
-            string SecretAccessKey = "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";
+            string MerchantId = "148009103";
+            string AccessKeyId = "AKIAJM6EP4YHGUJMNUNA";
+            string SecretAccessKey = "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";
             string Sessiontoken = Guid.NewGuid().ToString().ToUpper();
             string RespuestaNumPedido;
             string SessionToken = "";
 
             string Credentials = Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(AccessKeyId + ":" + SecretAccessKey));
 
-            #region Generar session para el boton de pago
+            //#region Generar session para el boton de pago
 
-            string UrlSessionTokenAPI = "https://devapice.vnforapps.com/api.ecommerce/api/v1/ecommerce/token/" + MerchantId;
-            SessionToken = Guid.NewGuid().ToString().ToUpper();
+            //string UrlSessionTokenAPI = "https://devapice.vnforapps.com/api.ecommerce/api/v1/ecommerce/token/" + MerchantId;
+            //SessionToken = Guid.NewGuid().ToString().ToUpper();
 
-            DataToken DataToken = new DataToken();
-            DataToken.monto = MontoSaldo;
+            //DataToken DataToken = new DataToken();
+            //DataToken.monto = MontoSaldo;
 
-            string json = JsonSerializer<DataToken>(DataToken);// new JavaScriptSerializer().Serialize(DataToken); 
-            //JsonConvert.SerializeObject(DataToken, Formatting.None);
+            //string json = JsonSerializer<DataToken>(DataToken);// new JavaScriptSerializer().Serialize(DataToken); 
+            //                                                   //JsonConvert.SerializeObject(DataToken, Formatting.None);
 
-            HttpWebRequest RequestSession;
-            RequestSession = (HttpWebRequest)WebRequest.Create(UrlSessionTokenAPI);
-            RequestSession.Method = "POST";
-            RequestSession.ContentType = "application/json";
-            RequestSession.Headers.Add("Authorization", "Basic " + Credentials);
-            RequestSession.Headers.Add("VisaNet-Session-Key", SessionToken);
-            StreamWriter postStreamWriterSesion = new StreamWriter(RequestSession.GetRequestStream());
-            postStreamWriterSesion.Write(json);
-            postStreamWriterSesion.Close();
+            //HttpWebRequest RequestSession;
+            //RequestSession = (HttpWebRequest)WebRequest.Create(UrlSessionTokenAPI);
+            //RequestSession.Method = "POST";
+            //RequestSession.ContentType = "application/json";
+            //RequestSession.Headers.Add("Authorization", "Basic " + Credentials);
+            //RequestSession.Headers.Add("VisaNet-Session-Key", SessionToken);
 
-            HttpWebResponse responseSesion;
-            responseSesion = RequestSession.GetResponse() as HttpWebResponse;
+            //StreamWriter postStreamWriterSesion = new StreamWriter(RequestSession.GetRequestStream());
+            //postStreamWriterSesion.Write(json);
+            //postStreamWriterSesion.Close();
 
-            StreamReader postStreamReaderSesion = new StreamReader(responseSesion.GetResponseStream());
-            string respuestaSesion = postStreamReaderSesion.ReadToEnd();
-            postStreamReaderSesion.Close();
+            //HttpWebResponse responseSesion;
+            //responseSesion = RequestSession.GetResponse() as HttpWebResponse;
 
-            #endregion
+            //StreamReader postStreamReaderSesion = new StreamReader(responseSesion.GetResponseStream());
+            //string respuestaSesion = postStreamReaderSesion.ReadToEnd();
+            //postStreamReaderSesion.Close();
+
+            //#endregion
 
 
-            #region Generar Numero Pedido
+            //#region Generar Numero Pedido
 
-            string UrlCounterAPI = "https://devapice.vnforapps.com/api.tokenization/api/v2/merchant/" + MerchantId + "/nextCounter";
+            //string UrlCounterAPI = "https://devapice.vnforapps.com/api.tokenization/api/v2/merchant/" + MerchantId + "/nextCounter";
 
-            HttpWebRequest RequestNumeroPedido;
-            RequestNumeroPedido = (HttpWebRequest)WebRequest.Create(UrlCounterAPI);
-            RequestNumeroPedido.Method = "GET";
-            RequestNumeroPedido.ContentType = "application/json";
-            RequestNumeroPedido.Headers.Add("Authorization", "Basic " + Credentials);
+            //HttpWebRequest RequestNumeroPedido;
+            //RequestNumeroPedido = (HttpWebRequest)WebRequest.Create(UrlCounterAPI);
+            //RequestNumeroPedido.Method = "GET";
+            //RequestNumeroPedido.ContentType = "application/json";
+            //RequestNumeroPedido.Headers.Add("Authorization", "Basic " + Credentials);
 
-            HttpWebResponse ResponseNumeroPedido;
-            ResponseNumeroPedido = RequestNumeroPedido.GetResponse() as HttpWebResponse;
+            //HttpWebResponse ResponseNumeroPedido;
+            //ResponseNumeroPedido = RequestNumeroPedido.GetResponse() as HttpWebResponse;
 
-            StreamReader PostStreamReaderNumeroPedido = new StreamReader(ResponseNumeroPedido.GetResponseStream());
-            RespuestaNumPedido = PostStreamReaderNumeroPedido.ReadToEnd();
-            PostStreamReaderNumeroPedido.Close();
-            #endregion
+            //StreamReader PostStreamReaderNumeroPedido = new StreamReader(ResponseNumeroPedido.GetResponseStream());
+            //RespuestaNumPedido = PostStreamReaderNumeroPedido.ReadToEnd();
+            //PostStreamReaderNumeroPedido.Close();
+            //#endregion
 
             return new PagoEnLineaConfiguracion
             {
@@ -152,7 +158,7 @@ namespace Portal.Consultoras.Web.Controllers
                 RecurrenceFrequency = 0,
                 MerchantId = MerchantId,
                 MerchantLogo = "https://demo1.vnforapps.com/vs/images/logo.png",
-                PurchaseNumber = RespuestaNumPedido,
+                PurchaseNumber = "",
                 Recurrence = "FALSE",
                 RecurrenceType = "",
                 RecurrenceAmount = 0,
