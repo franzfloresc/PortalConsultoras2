@@ -3208,7 +3208,9 @@
     <Content Include="Content\Images\ver-mas-flecha-vertical.svg" />
     <Content Include="Content\Images\vista_footer.png" />
     <Content Include="Content\Images\vista_header.png" />
+    <Content Include="Content\Images\visual-de-causa.png" />
     <Content Include="Content\Images\visualo.png" />
+    <Content Include="Content\Images\visual_de_causa.png" />
     <Content Include="Content\Images\webtracking\box.png" />
     <Content Include="Content\Images\webtracking\boxGrande.png" />
     <Content Include="Content\Images\webtracking\busqueda.png" />

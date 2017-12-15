@@ -3124,6 +3124,42 @@
         font-weight: 700;
     }
 
+    .como-funciona .caja-club-izquierda, .como-funciona .caja-club-derecha {
+            width: 50%;
+            float: left;
+            padding: 0 15px;
+        }
+        .como-funciona .caja-club-izquierda img{
+            width:288px;     
+            float: right;
+        }
+            .como-funciona .caja-club-derecha p {
+                font-weight: bold;
+                font-size: 13px;
+                letter-spacing: 0.5px;
+                display: block;
+                text-align: left;
+                margin-bottom: 5px;
+            }
+            .como-funciona .caja-club-derecha span {
+                display: block;
+                font-size: 13px;
+                letter-spacing: 0.5px;
+                text-align: left;
+                color: #909090;
+            }
+            .como-funciona .caja-club-derecha span b{
+                color:black;
+            }
+        .como-funciona .caja-club-derecha hr {
+            background: #613c87;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            border: none;
+            height: 1px;
+            width: 138px;
+        }
+
 .suscribete {
 }
 
