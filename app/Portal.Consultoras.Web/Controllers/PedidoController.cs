@@ -1349,7 +1349,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (tipoEstrategiaImagen == Constantes.TipoEstrategia.PackNuevas)
             {
                 var lstPedidoWebDetalle = ObtenerPedidoWebDetalle();
-                var packNuevas = lstPedidoWebDetalle.Where(x => x.TipoEstrategiaID == 1).ToList();
+                var packNuevas = lstPedidoWebDetalle.Where(x => x.FlagNueva).ToList();
 
                 foreach (var item in packNuevas)
                 {

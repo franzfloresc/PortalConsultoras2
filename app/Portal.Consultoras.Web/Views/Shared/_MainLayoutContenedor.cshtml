@@ -52,7 +52,8 @@
         var mostrarOfertaDelDiaContenedor ='@ViewBag.MostrarOfertaDelDiaContenedor';
         var esContenedorOfertas = true;
 
-        var UrlChat = '@ViewBag.UrlBelcorpChat';
+        var UrlChat = '@ViewBag.UrlBelcorpChat'; 
+
         var mostrarBannerRechazo = '@ViewBag.MostrarBannerRechazo';
         var UrlChatAnterior = 'https://chat1-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/webdesigner/BelcorpNew?token=@ViewBag.TokenAtento';
         var BelcorpFechaChat_Pais = '@(System.Configuration.ConfigurationManager.AppSettings["FechaChat_" + ViewBag.CodigoISODL])';
@@ -97,37 +98,37 @@
     }
 
     <script type="text/javascript">
-            if (!String.prototype.startsWith) {
-                String.prototype.startsWith = function (searchString, position) {
-                    position = position || 0;
-                    return this.indexOf(searchString, position) === position;
-                };
-            }
+        if (!String.prototype.startsWith) {
+            String.prototype.startsWith = function (searchString, position) {
+                position = position || 0;
+                return this.indexOf(searchString, position) === position;
+            };
+        }
     </script>
 
-    @if (ViewBag.Rol == Constantes.Rol.Consultora)
-    {
-        string nombre_pais = ViewBag.PaisAnalytics;
-
-        switch (nombre_pais)
+    @*@if (ViewBag.Rol == Constantes.Rol.Consultora)
         {
-            case "EC":
-            //break;
-            case "CO":
-            case "BO":
-            case "CL":
-            case "MX":
-            case "PR":
-            case "DO":
-            case "PE":
-            case "PA":
-            case "CR":
-            case "SV":
-            case "GT":
-                <div class="boton_ayuda"><span class="boton-home belcorpChat"><a href="#">¿Necesitas ayuda?</a> </span></div>
-                break;
-        }
-    }
+            string nombre_pais = ViewBag.PaisAnalytics;
+
+            switch (nombre_pais)
+            {
+                case "EC":
+                //break;
+                case "CO":
+                case "BO":
+                case "CL":
+                case "MX":
+                case "PR":
+                case "DO":
+                case "PE":
+                case "PA":
+                case "CR":
+                case "SV":
+                case "GT":
+                    <div class="boton_ayuda"><span class="boton-home belcorpChat"><a href="#">¿Necesitas ayuda?</a> </span></div>
+                    break;
+            }
+        }*@
     <!-- cabecera -->
     <header>
         <!--BANNER -->
@@ -349,7 +350,7 @@
                                     </div>
                                 </div>
                                 <div class="imagen_set_Oferta_pop">
-                                    <img src="{{detalle.ImagenDisplay}}" alt="" id="img-display-odd" class="imagen_producto" data-img-lazy="1"/>                                 
+                                    <img src="{{detalle.ImagenDisplay}}" alt="" id="img-display-odd" class="imagen_producto" data-img-lazy="1" />
                                     <div class="compartir_redes_ficha" style="margin-top:10px;">
                                         <div class="texto_compartelo" style="color:#fff;">Comparte la oferta con tus clientes</div>
                                         <a class="btn_compartir_facebook_ficha" href="javascript: void(0);" data-compartir="FB">
@@ -390,7 +391,7 @@
                                 </div>
                                 <div class="content_img_carrusel_ODD" data-odd-accion="verdetalle">
                                     <div style="height:139px;">
-                                        <img src="{{detalle.ImagenDisplay}}" alt="" id="img-display-odd" class="imagen_producto" data-img-lazy="1"/>
+                                        <img src="{{detalle.ImagenDisplay}}" alt="" id="img-display-odd" class="imagen_producto" data-img-lazy="1" />
                                     </div>
                                     <a class="ver_detalle_carrusel" style="top: 80px;" onclick="odd_google_analytics_product_click('{{detalle.NombreOferta}}', '{{detalle.CUV2}}', {{detalle.PrecioOferta}}, '{{DescripcionMarca}}', '', {{Position}}, 'Oferta del día - Slider Productos');">VER DETALLE</a>
                                     <div class="titulo_carrusel_ODD">{{detalle.NombreOferta}}</div>
@@ -474,7 +475,7 @@
     </script>
 
     @RenderSection("scripts", required: false)
-    
+
     @if (TempData.ContainsKey("PixelCodigoIso"))
     {
         @System.Web.Optimization.Scripts.Render("~/bundles/JS-Login-Header")

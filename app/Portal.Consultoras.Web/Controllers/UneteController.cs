@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.GestionPasos;
@@ -277,61 +277,64 @@ namespace Portal.Consultoras.Web.Controllers
                 List<ServiceUnete.ParametroUnete> listafinal = new List<ServiceUnete.ParametroUnete>();
                 if (IsCorrect && lista != null)
                 {
-                    foreach (var item in lista)
+                    if ((CodigoISO == Pais.Peru) || (CodigoISO == Pais.Dominicana) || (CodigoISO == Pais.PuertoRico) || (CodigoISO == Pais.Mexico))
                     {
-                        if ((CodigoISO == Pais.Peru) || (CodigoISO == Pais.Dominicana) || (CodigoISO == Pais.PuertoRico))
+                        foreach (var item in lista)
                         {
                             var parametroTodos = new ServiceUnete.ParametroUnete
                             {
                                 Nombre = item.ZonaSeccion,
                                 Descripcion = item.NivelRiesgo,
                                 Valor = string.IsNullOrWhiteSpace(item.NivelRiesgo) ? Enumeradores.TipoNivelesRiesgo.Otro.ToInt()
-                                                                  : item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Bajo ? Enumeradores.TipoNivelesRiesgo.Bajo.ToInt()
-                                                                  : item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Medio ? Enumeradores.TipoNivelesRiesgo.Medio.ToInt()
-                                                                  : item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Alto ? Enumeradores.TipoNivelesRiesgo.Alto.ToInt()
-                                                                  : Enumeradores.TipoNivelesRiesgo.Otro.ToInt(),
+                                                              : item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Bajo ? Enumeradores.TipoNivelesRiesgo.Bajo.ToInt()
+                                                              : item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Medio ? Enumeradores.TipoNivelesRiesgo.Medio.ToInt()
+                                                              : item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Alto ? Enumeradores.TipoNivelesRiesgo.Alto.ToInt()
+                                                              : Enumeradores.TipoNivelesRiesgo.Otro.ToInt(),
                                 FK_IdTipoParametro = EnumsTipoParametro.TipoNivelesRiesgo.ToInt(),
                                 Estado = 1
                             };
                             listafinal.Add(parametroTodos);
-
                         }
-                        else if (CodigoISO == Pais.Ecuador)
+                    }
+                    else if (CodigoISO == Pais.Ecuador)
+                    {
+                        foreach (var item in lista)
                         {
-
                             var parametroTodos = new ServiceUnete.ParametroUnete
                             {
                                 Nombre = item.ZonaSeccion,
                                 Descripcion = item.NivelRiesgo,
 
                                 Valor = string.IsNullOrWhiteSpace(item.NivelRiesgo) ? Enumeradores.TipoNivelesRiesgo.Otro.ToInt()
-                                                                 : item.NivelRiesgo.ToInt() == Enumeradores.TipoNivelesRiesgo.Bajo.ToInt() ? Enumeradores.TipoNivelesRiesgo.Bajo.ToInt()
-                                                                 : item.NivelRiesgo.ToInt() == Enumeradores.TipoNivelesRiesgo.Medio.ToInt() ? Enumeradores.TipoNivelesRiesgo.Medio.ToInt()
-                                                                 : item.NivelRiesgo.ToInt() == Enumeradores.TipoNivelesRiesgo.Alto.ToInt() ? Enumeradores.TipoNivelesRiesgo.Alto.ToInt()
-                                                                 : Enumeradores.TipoNivelesRiesgo.Otro.ToInt(),
+                                                             : item.NivelRiesgo.ToInt() == Enumeradores.TipoNivelesRiesgo.Bajo.ToInt() ? Enumeradores.TipoNivelesRiesgo.Bajo.ToInt()
+                                                             : item.NivelRiesgo.ToInt() == Enumeradores.TipoNivelesRiesgo.Medio.ToInt() ? Enumeradores.TipoNivelesRiesgo.Medio.ToInt()
+                                                             : item.NivelRiesgo.ToInt() == Enumeradores.TipoNivelesRiesgo.Alto.ToInt() ? Enumeradores.TipoNivelesRiesgo.Alto.ToInt()
+                                                             : Enumeradores.TipoNivelesRiesgo.Otro.ToInt(),
                                 FK_IdTipoParametro = EnumsTipoParametro.TipoNivelesRiesgo.ToInt(),
                                 Estado = 1
                             };
                             listafinal.Add(parametroTodos);
                         }
-                        if (CodigoISO == Pais.Bolivia)
+                    }
+                    else if (CodigoISO == Pais.Bolivia)
+                    {
+                        foreach (var item in lista)
                         {
                             var parametroTodos = new ServiceUnete.ParametroUnete
                             {
                                 Nombre = item.ZonaSeccion,
                                 Descripcion = item.NivelRiesgo,
                                 Valor = item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Bajo ? Enumeradores.TipoNivelesRiesgo.Bajo.ToInt()
-                                                                  : item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Medio ? Enumeradores.TipoNivelesRiesgo.Medio.ToInt()
-                                                                  : item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Alto ? Enumeradores.TipoNivelesRiesgo.Alto.ToInt()
-                                                                  : Enumeradores.TipoNivelesRiesgo.Otro.ToInt(),
+                                                              : item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Medio ? Enumeradores.TipoNivelesRiesgo.Medio.ToInt()
+                                                              : item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Alto ? Enumeradores.TipoNivelesRiesgo.Alto.ToInt()
+                                                              : Enumeradores.TipoNivelesRiesgo.Otro.ToInt(),
                                 FK_IdTipoParametro = EnumsTipoParametro.TipoNivelesRiesgo.ToInt(),
                                 Estado = 1
                             };
                             listafinal.Add(parametroTodos);
-
                         }
-
                     }
+
                     if (listafinal.Count > 0)
                     {
                         using (var sv = new PortalServiceClient())
@@ -1382,12 +1385,12 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         public ActionResult ExportarExcel(int PrefijoISOPais, string FechaDesde, string FechaHasta, string Nombre,
-            int Estado, string DocumentoIdentidad, string codigoZona, string CodigoRegion, string FuenteIngreso)
+            int Estado, string DocumentoIdentidad, string codigoZona, string CodigoRegion, string FuenteIngreso,int MostrarPaso1y2SE = 1)
         {
             using (var sv = new PortalServiceClient())
             {
                 List<SolicitudPostulanteBE> resultado = sv.ObtenerReporteGestionPostulante(PrefijoISOPais, FechaDesde, FechaHasta, Nombre,
-              Estado, DocumentoIdentidad, codigoZona, CodigoRegion, FuenteIngreso, CodigoISO).ToList();
+              Estado, DocumentoIdentidad, codigoZona, CodigoRegion, FuenteIngreso, CodigoISO, MostrarPaso1y2SE).ToList();
 
                 Dictionary<string, string> dic = sv.GetDictionaryReporteGestionPostulantes(CodigoISO, Estado);
                 Util.ExportToExcel("ReportePostulantes", resultado, dic);
