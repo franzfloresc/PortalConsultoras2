@@ -4940,10 +4940,8 @@
         top: 0;
         left: 0;
         background: white;
-        
         background: linear-gradient(135deg, white 45%, #aaaaaa 50%, #cccccc 56%, white 80%);
         filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#ffffff', endColorstr='#000000');
-        
         z-index: 1000;
         box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
         -webkit-transition-duration: 0.3s;
@@ -4979,7 +4977,6 @@
         top: 0;
         right: 0;
         background: white;
-        
         background: linear-gradient(225deg, white 45%, #aaaaaa 50%, #cccccc 56%, white 80%);
         box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.4);
         -webkit-transition-duration: 0.3s;
@@ -5015,7 +5012,6 @@
         bottom: 0;
         right: 0;
         background: white;
-        
         background: linear-gradient(315deg, white 45%, #aaaaaa 50%, #cccccc 56%, white 80%);
         box-shadow: -1px -1px 1px rgba(0, 0, 0, 0.4);
         -webkit-transition-duration: 0.3s;
@@ -5051,7 +5047,6 @@
         bottom: 0;
         left: 0;
         background: white;
-        
         background: linear-gradient(45deg, white 45%, #aaaaaa 50%, #cccccc 56%, white 80%);
         box-shadow: 1px -1px 1px rgba(0, 0, 0, 0.4);
         -webkit-transition-duration: 0.3s;

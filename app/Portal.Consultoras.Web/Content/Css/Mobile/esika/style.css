@@ -5130,7 +5130,7 @@ table > thead > tr > th {
 }
 
 @media only screen and (max-width: 338px) {
-    
+
     #content {
         margin-top: 63px;
     }
@@ -6285,6 +6285,7 @@ body {
     display: none;
     position: relative;
 }
+
 .texto_catalogos_mobile {
     font-size: 15px;
     font-family: 'lato';
@@ -9579,6 +9580,7 @@ a {
 
 .content_pack_niveles .sub_descripcion_oferta:nth-child(2) {
 }
+
 .mensaje_validacion_consultora {
     display: block;
     margin-top: 18px;
@@ -13410,6 +13412,7 @@ a {
 .fondo_pestana {
     background: #eeeeee;
 }
+
 .btn_regalo_sorpresa {
     background: #e81c36 url(../../../Images/mobile/icono_regalo.png) no-repeat;
     max-width: 258px;
@@ -13937,6 +13940,7 @@ a {
     text-align: center;
     margin: auto;
 }
+
     .contenido-popup-nuevo-2017 .centrar-estructura {
         box-shadow: inset 0 0 0 5px #e81c36;
         padding: 20px;
@@ -13946,52 +13950,56 @@ a {
         margin: auto;
         display: table;
     }
-   .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido{
-        display: table-cell;
-        vertical-align: middle;
-   }
-    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.primer-texto {
-        font-size: 28px;
-        letter-spacing: 1px;
-        text-align: center;
-        color: white;
-        font-weight: 300;
-        margin-bottom: 0;
-        display: block;
-        width: 250px;
-        margin: auto;
-        line-height: 30px;
-        margin-bottom: 15px;
-    }
-    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto {
-        font-size: 30px;
-        letter-spacing: 1px;
-        line-height: 35px;
-        text-align: center;
-        color: white;
-        font-weight: 700;
-        margin-top: 10px;
-        letter-spacing: 1px;
-        margin-bottom: 36px;
-        display: block;
-        width: 250px;
-        margin: auto;
-        margin-bottom: 35px;
-    }
-  .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido a.btn-popup{
-         background: #e81c36;
-    display: inline;
-    vertical-align: middle;
-    text-transform: uppercase;
-    text-align: center;
-    margin: auto;
-}
+
+        .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido {
+            display: table-cell;
+            vertical-align: middle;
+        }
+
+            .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.primer-texto {
+                font-size: 28px;
+                letter-spacing: 1px;
+                text-align: center;
+                color: white;
+                font-weight: 300;
+                margin-bottom: 0;
+                display: block;
+                width: 250px;
+                margin: auto;
+                line-height: 30px;
+                margin-bottom: 15px;
+            }
+
+            .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto {
+                font-size: 30px;
+                letter-spacing: 1px;
+                line-height: 35px;
+                text-align: center;
+                color: white;
+                font-weight: 700;
+                margin-top: 10px;
+                letter-spacing: 1px;
+                margin-bottom: 36px;
+                display: block;
+                width: 250px;
+                margin: auto;
+                margin-bottom: 35px;
+            }
+
+            .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido a.btn-popup {
+                background: #e81c36;
+                display: inline;
+                vertical-align: middle;
+                text-transform: uppercase;
+                text-align: center;
+                margin: auto;
+            }
 
     .contenido-popup-nuevo-2017 .centrar-estructura {
         box-shadow: inset 0 0 0 5px #e81c36;
         padding: 20px;
         height: 85%;
-        margin-top:1.4% !important;
+        margin-top: 1.4% !important;
         width: 390px;
         margin: auto;
         display: table;

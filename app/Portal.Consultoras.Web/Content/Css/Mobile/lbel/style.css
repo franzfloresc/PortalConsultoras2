@@ -2645,6 +2645,7 @@ table > thead > tr > th {
         right: 0;
         bottom: 2px;
     }
+
 .form-controls-grey .form-control {
     background: #f3f3f3;
     border: 0;
@@ -7987,6 +7988,7 @@ input[type="checkbox"]:checked + span:after {
     color: #613c87;
     font-weight: 700;
 }
+
 .color_marca {
     color: #613c87;
 }
@@ -13146,7 +13148,8 @@ span.icon-advertencia {
     padding: 0 20px 0 20px;
     text-align: center;
 }
-.content_detalle_puntuacion{
+
+.content_detalle_puntuacion {
     margin-top: 10px;
     font-weight: 700;
 }
@@ -13834,6 +13837,7 @@ span.icon-advertencia {
     text-align: center;
     margin: auto;
 }
+
     .contenido-popup-nuevo-2017 .centrar-estructura {
         box-shadow: inset 0 0 0 5px #e81c36;
         padding: 20px;

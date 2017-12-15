@@ -12921,6 +12921,7 @@ ol {
 .flexipago_acepto {
     padding: 0px;
 }
+
 .producto_agregado_ZE {
     position: absolute;
     width: 200px;
@@ -13018,7 +13019,7 @@ ol {
     border: 1px solid #D8DAD7;
     padding: 6px;
     display: inline-block;
-    vertical-align: top; 
+    vertical-align: top;
     zoom: 1;
     *display: inline;
     color: #444;
@@ -13039,7 +13040,7 @@ ol {
     border: 1px solid #D8DAD7;
     padding: 6px;
     display: inline-block;
-    vertical-align: top; 
+    vertical-align: top;
     zoom: 1;
     *display: inline;
     color: #444;
@@ -13118,7 +13119,7 @@ ol {
     border: 1px solid #D8DAD7;
     padding: 6px;
     display: inline-block;
-    vertical-align: top; 
+    vertical-align: top;
     zoom: 1;
     *display: inline;
     color: #444;
@@ -13139,7 +13140,7 @@ ol {
     border: 1px solid #D8DAD7;
     padding: 6px;
     display: inline-block;
-    vertical-align: top; 
+    vertical-align: top;
     zoom: 1;
     *display: inline;
     color: #444;
@@ -14420,6 +14421,7 @@ ul.service-list {
                 font-weight: bold !important;
                 color: none !important;
             }
+
         ul.service-list li .q1pl {
             padding: 10px 45px 10px 50px;
             margin: 0 0 5px 0;
@@ -14444,6 +14446,7 @@ ul.service-list {
                 font-weight: bold !important;
                 color: none !important;
             }
+
         ul.service-list li .q2 {
             padding: 10px 10px 10px 8px;
             margin: 0 0 5px 0;
@@ -27209,7 +27212,6 @@ span.datoPedidoCliente {
     .oscurece {
         color: black;
         font-weight: 700;
-         
         padding-top: 15px;
         padding-left: 4px;
         padding-bottom: 15px;
@@ -27641,7 +27643,6 @@ a#cierreMotivoRechazo img {
     margin-bottom: 5px;
     font-weight: bold;
     font-family: 'Lato';
-     
 }
 
 .grillaPendientes {
@@ -28065,19 +28066,16 @@ div.motivoRechazo textarea {
 #slide1_images .img_slide7 {
     background: url(../../../Images/Esika/tutorialHome/tutorial-home-esika7.jpg) no-repeat center top;
     z-index: 3;
-     
 }
 
 #slide1_images .img_slide8 {
     background: url(../../../Images/Esika/tutorialHome/tutorial-home-esika8.jpg) no-repeat center top;
     z-index: 2;
-     
 }
 
 #slide1_images .img_slide9 {
     background: url(../../../Images/Esika/tutorialHome/tutorial-home-esika9.jpg) no-repeat center top;
     z-index: 1;
-     
 }
 
 #slide1_images .img_slide1Pedido {
@@ -28141,7 +28139,6 @@ h1#penmostreo .campana {
 }
 
 .titulo_pop_foto {
-     
     font-family: 'Lato';
     font-weight: 300;
     font-size: 25px;
@@ -28374,13 +28371,13 @@ h1#penmostreo .campana {
         display: block;
         position: relative;
         width: 617px;
-         
         height: auto;
         background: #FFF;
         margin: 9% auto 0 auto;
         z-index: 3;
         padding-top: 27px;
     }
+
 .producto_precio2 {
     width: 100%;
     padding-left: 16px;
@@ -28399,16 +28396,13 @@ h1#penmostreo .campana {
 }
 
 .nombre_producto22 {
-     
     padding-left: 6px;
     padding-right: 6px;
     font-size: 13px;
     margin: 0 auto;
     width: 100%;
-     
     max-width: 500px;
     height: auto;
-     
     margin-bottom: 10px;
     margin-top: 5px;
 }
@@ -28591,7 +28585,6 @@ h1#penmostreo .campana {
         display: block;
         position: relative;
         width: 971px;
-         
         max-height: 636px;
         top: 50%;
         background: #FFF;
@@ -28671,11 +28664,8 @@ h1#penmostreo .campana {
     .mod-ofer2 .mod-cantidades.metido {
         position: relative;
         margin: 0 auto;
-         
-         
         width: 300px;
         margin-left: 450px;
-         
     }
 
     .mod-ofer2 .cuerpo-mod .contiene-productos .producto_img_home.mini {
@@ -28723,7 +28713,6 @@ h1#penmostreo .campana {
         position: absolute;
         right: 0;
         margin-right: -37px;
-         
         cursor: pointer;
         top: 0;
     }
@@ -28797,7 +28786,6 @@ h1#penmostreo .campana {
         display: block;
         position: relative;
         width: 971px;
-         
         height: 582px;
         top: 50%;
         background: #FFF;
@@ -28925,7 +28913,6 @@ h1#penmostreo .campana {
         position: absolute;
         right: 0;
         margin-right: -37px;
-         
         top: 0;
         cursor: pointer;
     }
@@ -29071,7 +29058,6 @@ h1#penmostreo .campana {
 
 .popup_comunicados {
     display: block;
-     
     position: relative;
     top: 9%;
     margin: 0 auto 20px auto;
@@ -29168,9 +29154,7 @@ h1#penmostreo .campana {
     width: 24%;
     margin-right: 5%;
     height: auto;
-     
     min-height: 60px;
-     
     float: left;
     margin-left: 5%;
 }
@@ -29181,12 +29165,10 @@ h1#penmostreo .campana {
 
 .sub_descripcion_oferta {
     width: 55%;
-     
-    min-height: 60px; 
-     
+    min-height: 60px;
     text-align: left;
-    padding-top: 5px; 
-    padding-bottom: 10px; 
+    padding-top: 5px;
+    padding-bottom: 10px;
     border-bottom: 1px solid #dadada;
     font-family: 'Lato';
     font-size: 13px;
@@ -29245,7 +29227,6 @@ h1#penmostreo .campana {
 .item_pack_personalizado {
     width: 33%;
     display: inline-block;
-     
     vertical-align: top;
 }
 
@@ -29274,11 +29255,10 @@ h1#penmostreo .campana {
     font-size: 16px;
     line-height: 22px;
     color: black;
-     
     text-align: center;
     padding-right: 12px;
     height: auto;
-    margin-top: 10px; 
+    margin-top: 10px;
 }
 
 .texto_unidad_pack {
@@ -29329,7 +29309,6 @@ h1#penmostreo .campana {
 .pack_inter {
     width: 86%;
     margin-top: 13px;
-     
     overflow: hidden;
     position: relative;
 }
@@ -29342,7 +29321,6 @@ h1#penmostreo .campana {
 }
 
 .pack_inter .content_sub_items .sub_descripcion_oferta:nth-child(2) {
-      
 }
 
 .franja_noVolverMostrar {
@@ -29631,7 +29609,6 @@ h1#penmostreo .campana {
 
 .mis_pagos_tabs hr {
     height: .25rem;
-     
     width: 34%;
     text-align: left;
     margin: 0;
@@ -30005,12 +29982,10 @@ h1#penmostreo .campana {
 .stock_content {
     width: 100%;
     height: auto;
-     
-    padding: 10px 43px; 
+    padding: 10px 43px;
     position: relative;
     background: #fee5e7;
-     
-    margin-bottom: 15px; 
+    margin-bottom: 15px;
 }
 
     .stock_content:after {
@@ -30039,21 +30014,19 @@ h1#penmostreo .campana {
 }
 
 .texto_stock {
-     
-    width: 70%; 
+    width: 70%;
     display: inline-block;
     vertical-align: middle;
     font-family: 'LAto';
     font-size: 14px;
     color: #d20000;
-    float: left; 
+    float: left;
 }
 
 .btn_no_stock {
     font-family: 'LAto';
     font-size: 13px;
     float: left;
-     
     display: block;
     text-decoration: underline;
     margin-top: 25px;
@@ -30061,12 +30034,11 @@ h1#penmostreo .campana {
 
 .stock_content_aceptado {
     width: 100%;
-    height: 50px; 
-    padding: 15px 43px; 
+    height: 50px;
+    padding: 15px 43px;
     position: relative;
     background: #f3f3f3;
-     
-    margin-bottom: 15px; 
+    margin-bottom: 15px;
 }
 
     .stock_content_aceptado:after {
@@ -30196,7 +30168,6 @@ h1#penmostreo .campana {
 .content_pasos {
     width: 310px;
     margin: 0 auto;
-     
     position: relative;
     display: flex;
     display: -webkit-flex;
@@ -30277,7 +30248,6 @@ h1#penmostreo .campana {
     font-size: 9.4pt;
     font-weight: 400;
     color: #060000;
-    
 }
 
 .btn_no_stock {
@@ -30285,13 +30255,11 @@ h1#penmostreo .campana {
     font-size: 13px;
     text-decoration: underline;
     margin-top: 30px;
-    
     float: right;
     display: inline-block;
     vertical-align: middle;
     margin-top: 15px;
     margin-right: 5%;
-    
 }
 
 .btn_si_stock {
@@ -30300,14 +30268,13 @@ h1#penmostreo .campana {
     font-weight: 700;
     display: block;
     width: 160px;
-     
     height: 40px;
     text-align: center;
     margin-top: 2px;
     color: white;
     background: #e81c36;
     line-height: 45px;
-    float: left; 
+    float: left;
 }
 
 .btn_si_stock_cdr {
@@ -30331,22 +30298,18 @@ h1#penmostreo .campana {
 }
 
 *::-webkit-input-placeholder {
-    
     color: #b5b5b5;
 }
 
 *:-moz-placeholder {
-     
     color: #b5b5b5;
 }
 
 *::-moz-placeholder {
-     
     color: #b5b5b5;
 }
 
 *:-ms-input-placeholder {
-     
     color: #b5b5b5;
 }
 
@@ -30356,6 +30319,7 @@ h1#penmostreo .campana {
     float: left;
     margin-bottom: 20px;
 }
+
 .reclamo_motivo_select {
     display: flex;
     justify-content: center;
@@ -30365,7 +30329,6 @@ h1#penmostreo .campana {
     height: 50px;
     font-family: 'Lato';
     font-size: 14px;
-     
     padding-left: 50px;
     background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4019711/83Cw11qENt0ifAk/selector_reclamo.png) no-repeat;
     background-position: 20px 14px;
@@ -30390,6 +30353,7 @@ h1#penmostreo .campana {
     background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4019711/n8mE0rwMroEtyGv/selector_reclamo_esika.png) no-repeat;
     background-position: 20px 14px;
 }
+
 .btn_solución_reclamo {
     float: left;
     width: 270px;
@@ -30498,7 +30462,6 @@ h1#penmostreo .campana {
 .titulo_resumen {
     font-family: 'Lato';
     font-size: 15px;
-     
     color: #e81c36;
     text-align: center;
 }
@@ -30590,7 +30553,6 @@ h1#penmostreo .campana {
     float: left;
     padding: 10px;
     margin-left: 50px;
-     
 }
 
 .correo_reclamo_error {
@@ -30785,14 +30747,12 @@ h1#penmostreo .campana {
 .sub_descripcion_oferta p span {
     color: #e81c36;
     font-size: 22px;
-     
-    margin-right: 5px; 
+    margin-right: 5px;
 }
 
 .sub_descripcion_oferta p {
     margin: 0;
     padding: 0;
-     
 }
 
 .text-center {
@@ -30813,7 +30773,6 @@ h1#penmostreo .campana {
     width: 19%;
     display: inline-block;
     height: auto;
-     
     vertical-align: middle;
 }
 
@@ -30942,7 +30901,6 @@ h1#penmostreo .campana {
 }
 
 .listado_estado_general div:hover .estado_texto {
-     
     cursor: pointer;
 }
 
@@ -31040,7 +30998,6 @@ h1#penmostreo .campana {
 .pop_solicitud_resolucion {
     width: 28.5%;
     padding-left: 4%;
-     
 }
 
 .texto_estado_solicitud {
@@ -31482,31 +31439,20 @@ h1#penmostreo .campana {
     font-family: 'Lato';
     font-weight: 700;
     font-size: 16px;
-     
     color: black;
-     
-     
-     
-     
     height: auto;
 }
 
 .sub_descripcion_oferta_048 {
-     
     text-align: left;
-     
-     
-     
     font-family: 'Lato';
     font-size: 13px;
     color: black;
- 
 }
 
     .sub_descripcion_oferta_048 p span {
         color: #e81c36;
         font-size: 22px;
-         
         margin-right: 5px;
     }
 /*SB20-1198 - FIN */
@@ -31519,15 +31465,12 @@ h1#penmostreo .campana {
     float: left;
     margin-left: 2%;
     margin-right: 8%;
-     
     width: 215px;
 }
 
 .sub_descripcion_oferta_048 p {
     margin: 0;
     padding: 0;
-     
-     
 }
 
 .texto_ganancia_pack_048 {
@@ -31556,7 +31499,6 @@ h1#penmostreo .campana {
     font-family: 'Lato';
     font-size: 14px;
     color: #e81c36;
-     
     font-weight: 900;
 }
 
@@ -31583,7 +31525,6 @@ h1#penmostreo .campana {
     float: left;
     margin-left: 2%;
     margin-right: 8%;
-     
     width: 215px;
 }
 
@@ -31701,7 +31642,6 @@ h1#penmostreo .campana {
 }
 
 .titulo_banner_fav {
-     
     padding: 55px 17.5%;
     width: 100%;
     font-family: 'Lato';
@@ -31709,7 +31649,6 @@ h1#penmostreo .campana {
     font-size: 18px;
     line-height: 20px;
     text-align: left;
-     
     font-weight: 300;
 }
 
@@ -31742,7 +31681,6 @@ h1#penmostreo .campana {
 
 .btn_ver_mas_fav {
     margin: 5px 40px;
-     
     height: 45px;
     border: 1px solid black;
     font-family: 'Lato';
@@ -31814,7 +31752,6 @@ h1#penmostreo .campana {
     font-size: 11px;
     float: left;
     width: 20%;
-     
     margin-right: 5%;
     margin-top: 25px;
     color: #4a4a4a;
@@ -31840,7 +31777,6 @@ h1#penmostreo .campana {
     float: right;
     font-family: 'Lato';
     font-size: 13px;
-     
 }
 
 .select_filtros_fav {
@@ -31917,7 +31853,6 @@ h1#penmostreo .campana {
 .bloque_oferta_dia {
     width: 100%;
     height: 100px;
-      
     position: relative;
     z-index: 6;
 }
@@ -31949,13 +31884,11 @@ h1#penmostreo .campana {
         text-align: center;
         font-size: 26px;
         letter-spacing: 1px;
-         
     }
 
 .solo_hoy {
     float: left;
     width: 270px;
-     
     margin-top: 8px;
     margin-left: 20px;
 }
@@ -31970,13 +31903,11 @@ h1#penmostreo .campana {
     height: 15px;
     letter-spacing: 0.75px;
     text-transform: uppercase;
-     
     color: white;
     text-align: center;
     margin-bottom: 5px;
     text-overflow: ellipsis;
     overflow: hidden;
-     
     height: 20px;
 }
 
@@ -32048,15 +31979,12 @@ h1#penmostreo .campana {
     font-family: 'Lato';
     float: left;
     text-align: center;
-     
     margin-right: 6px;
     margin-top: 2px;
 }
 
 .texto_detalle_set {
     float: left;
-     
-     
     font-size: 13px;
     font-family: 'Lato';
     font-weight: 700;
@@ -32107,10 +32035,7 @@ h1#penmostreo .campana {
     max-width: 1024px;
     height: 500px;
     margin: auto, auto;
-     
     background: #000;
-      
-      
     padding: 10px 0px;
 }
 
@@ -32159,8 +32084,6 @@ h1#penmostreo .campana {
     width: 46%;
     height: auto;
     float: left;
-     
-     
     text-align: center;
     margin-top: 25px;
 }
@@ -32172,15 +32095,12 @@ h1#penmostreo .campana {
 .descripcion_set_ofertaDia {
     margin: 0 auto;
     margin-top: 5px;
-     
     font-family: 'Lato';
     color: white;
     font-size: 14px;
     text-align: left;
-     
     line-height: 18px;
     letter-spacing: 0.2px;
-     
 }
 
 .producto_gratis_ofertaDia {
@@ -32195,13 +32115,11 @@ h1#penmostreo .campana {
 }
 
 .precio_ofertaDia {
-     
     margin: 0 auto;
     font-family: 'Lato';
     font-size: 14px;
     font-weight: 700;
     letter-spacing: 1.2px;
-     
     color: white;
     margin-bottom: 7px;
 }
@@ -32237,16 +32155,13 @@ h1#penmostreo .campana {
 
 .content_set_pop_hoy {
     width: 90%;
-     
     margin: 0 auto;
-     
     overflow: hidden;
 }
 
 .right_set_hoy {
     float: left;
     width: 49%;
-     
     margin-right: 5%;
 }
 
@@ -32255,12 +32170,10 @@ h1#penmostreo .campana {
     font-family: 'Lato';
     font-size: 13px;
     margin-top: 23px;
-     
     margin-bottom: 5px;
 }
 
     .precio_valorizado_oferta span {
-         
     }
 
 .content_pop_oferta_dia .liquidacion_rango_right_pedido {
@@ -32276,7 +32189,6 @@ h1#penmostreo .campana {
     right: 0;
     width: 100%;
     height: 100%;
-     
     background: rgba(0, 0, 0, 0.85);
     z-index: 10000002;
     overflow: auto;
@@ -32322,7 +32234,6 @@ h1#penmostreo .campana {
     font-size: 14px;
     line-height: 16px;
     font-weight: 700;
-     
     letter-spacing: 0.3px;
     margin-top: 3px;
     margin-bottom: 10px;
@@ -32339,7 +32250,6 @@ h1#penmostreo .campana {
     font-family: 'Lato';
     color: #6a6a6a;
     font-size: 12px;
-     
     margin-top: -3px;
     letter-spacing: 0.2px;
 }
@@ -32349,8 +32259,6 @@ h1#penmostreo .campana {
     color: black;
     font-size: 12.5px;
     line-height: 16px;
-     
-     
 }
 
 .precio_ficha_producto {
@@ -32372,7 +32280,6 @@ h1#penmostreo .campana {
 
 .content_tonos {
     width: 100%;
-     
 }
 
 .content_tonos_maquillaje {
@@ -32660,14 +32567,8 @@ h1#penmostreo .campana {
 .btn_compartir_facebook_ficha {
     width: 25px;
     float: left;
-     
-     
-     
-     
-     
     margin-right: 5px;
     text-align: center;
-     
 }
 
 .opcion_escala_descuento {
@@ -32779,7 +32680,6 @@ h1#penmostreo .campana {
     border-bottom: 1px solid #ccc;
     width: 100%;
     padding-top: 10px;
-     
     position: relative;
 }
 
@@ -32903,7 +32803,6 @@ h1#penmostreo .campana {
     width: 40px;
     height: 32px;
     border: 1px solid #ccc;
-     
     vertical-align: middle;
     margin-top: -3px;
 }
@@ -32995,7 +32894,6 @@ h1#penmostreo .campana {
 
 .texto_menor_intriga {
     display: block;
-     
     font-size: 20px;
 }
 
@@ -33044,7 +32942,6 @@ h1#penmostreo .campana {
 
 .content_confirmacion_correo {
     vertical-align: top;
-     
     display: inline-block;
     width: 27%;
     background: #f0f0f0;
@@ -33086,8 +32983,6 @@ h1#penmostreo .campana {
         width: 100%;
         border: 0;
         border-bottom: 1px solid #979797;
-         
-         
         font-size: 13px;
         font-family: 'Lato';
         display: block;
@@ -33158,7 +33053,6 @@ h1#penmostreo .campana {
     font-family: 'Lato';
     font-size: 12px;
     margin-top: 60px;
-     
     margin-bottom: 35px;
     letter-spacing: 0.5px;
     text-align: center;
@@ -33257,7 +33151,6 @@ h1#penmostreo .campana {
 
 .texto_adelanto_intriga {
     font-family: 'Lato';
-     
     font-size: 17px;
     margin-bottom: 40px;
     letter-spacing: 0.6px;
@@ -33326,7 +33219,6 @@ h1#penmostreo .campana {
 .fondo_set {
     width: 100%;
     height: 396px;
-     
     background-size: cover !important;
     padding-top: 60px;
 }
@@ -33364,7 +33256,6 @@ h1#penmostreo .campana {
     line-height: 22px;
     color: black;
     font-weight: 700;
-     
 }
 
 .precio_valorizado_showroom {
@@ -33407,7 +33298,6 @@ h1#penmostreo .campana {
     text-transform: uppercase;
     color: black;
     width: 100%;
-     
     font-weight: 300;
 }
 
@@ -33443,9 +33333,8 @@ h1#penmostreo .campana {
     font-weight: 300;
 }
 
-.btn_aregar_set {     
+.btn_aregar_set {
     float: right;
-     
     background: black;
     color: white;
 }
@@ -33512,7 +33401,6 @@ h1#penmostreo .campana {
 }
 
     .content_imagen_compra img {
-         
         width: 100%;
         display: block;
         margin: 0 auto;
@@ -33600,7 +33488,6 @@ h1#penmostreo .campana {
     width: 100%;
     height: 73px;
     margin-left: 12em;
-     
     -webkit-box-shadow: -2px 1px 18px -4px rgba(0,0,0,0.5);
     -moz-box-shadow: -2px 1px 18px -4px rgba(0,0,0,0.5);
     box-shadow: -2px 1px 18px -4px rgba(0,0,0,0.5);
@@ -33608,7 +33495,6 @@ h1#penmostreo .campana {
 }
 
 .content_interno_banner {
-     
     margin-left: 27%;
 }
 
@@ -33628,7 +33514,6 @@ h1#penmostreo .campana {
     padding-left: 15px;
     float: left;
     width: 51%;
-     
 }
 
 .content_oferta_promocion {
@@ -33776,13 +33661,9 @@ h1#penmostreo .campana {
     border: 2px solid black;
     height: 45px;
     width: 100%;
-     
     font-family: 'Lato';
-     
-     
     font-size: 13px;
     color: black;
-     
     background: url(../../../Images/mobile/Esika/menu_mobile.png) no-repeat;
     background-position: 97% 19px;
     position: relative;
@@ -33791,9 +33672,7 @@ h1#penmostreo .campana {
 
 .texto_sin_tono {
     display: block;
-     
     font-weight: bold;
-     
 }
 
 .tono_seleccionado {
@@ -33811,7 +33690,6 @@ h1#penmostreo .campana {
     float: left;
     width: 70%;
     margin-left: 10px;
-     
     margin-top: 11px;
     height: 17px;
     overflow: hidden;
@@ -33823,7 +33701,6 @@ h1#penmostreo .campana {
     overflow-y: auto;
     border: 1px solid #b0b0b0;
     position: absolute;
-     
     background: white;
     top: 43px;
     z-index: 105;
@@ -33873,7 +33750,6 @@ h1#penmostreo .campana {
     font-size: 13px;
     padding-bottom: 5px;
     border-bottom: 1px solid black;
-     
 }
 
 .texto_elige_tono {
@@ -33898,7 +33774,6 @@ h1#penmostreo .campana {
     text-align: center;
     border: 1px solid #000;
     font-size: 13px;
-     
     cursor: pointer;
 }
 
@@ -34078,11 +33953,9 @@ h1#penmostreo .campana {
     font-family: 'Lato';
     font-size: 25px;
     font-weight: 700;
-     
     letter-spacing: 1.3px;
     text-transform: uppercase;
     margin-bottom: 15px;
-     
     line-height: 32px;
 }
 
@@ -34148,7 +34021,6 @@ h1#penmostreo .campana {
     color: white;
     height: 39px;
     overflow: hidden;
-     
     text-align: center;
 }
 
@@ -34160,7 +34032,6 @@ h1#penmostreo .campana {
 }
 
     .valorizado_carrusel_ODD span {
-         
     }
 
 .precio_carrusel_ODD {
@@ -34173,15 +34044,14 @@ h1#penmostreo .campana {
 }
 
 .content_item_carrusel_ODD .btn_pop_agregalo_oferta {
-
 }
+
 .content_780_ODD .content_90 {
     width: 85%;
 }
 
 .content_780_ODD .imagen_set_Oferta_pop {
     width: 300px;
-     
 }
 
 .content_780_ODD .compartir_redes_ficha {
@@ -34202,7 +34072,6 @@ h1#penmostreo .campana {
     -webkit-box-shadow: -2px 1px 18px -4px rgba(0,0,0,0.5);
     -moz-box-shadow: -2px 1px 18px -4px rgba(0,0,0,0.5);
     box-shadow: -2px 1px 18px -4px rgba(0,0,0,0.5);
-     
 }
 
 .promocion_especial_header {
@@ -34218,13 +34087,11 @@ h1#penmostreo .campana {
     padding-right: 60px;
     position: relative;
     float: left;
-     
 }
 
 .titulo_banner_showroom {
     display: block;
     font-size: 20px;
-     
     font-weight: 900;
 }
 
@@ -34240,7 +34107,6 @@ h1#penmostreo .campana {
 
 .content_set_especial_header {
     float: right;
-     
 }
 
 .content_imagen_promocion {
@@ -34275,7 +34141,6 @@ h1#penmostreo .campana {
     margin-top: 21px;
     float: left;
     display: block;
-     
     height: 35px;
     border: 1px solid black;
     text-align: center;
@@ -34295,19 +34160,14 @@ h1#penmostreo .campana {
     background-position: 4px 8px;
     width: 35px;
     float: right;
-     
     display: none;
-     
     z-index: 200;
-     
-     
     padding-right: 0px;
 }
 
 .content_set_oferta_especial {
     width: 100%;
     height: 440px;
-     
     position: relative;
     display: none;
 }
@@ -34315,14 +34175,11 @@ h1#penmostreo .campana {
 .content_carrusel_oferta_especial {
     max-width: 1100px;
     margin: 0 auto;
-     
     font-family: 'Lato';
 }
 
     .content_carrusel_oferta_especial .content_item_carrusel {
         width: 290px;
-         
-         
         margin-bottom: 13px;
         margin: 0 auto;
         float: none;
@@ -34528,13 +34385,9 @@ h1#penmostreo .campana {
     font-size: 13.7px;
     color: white;
     height: 46px;
-     
     letter-spacing: 0.5px;
     line-height: 20px;
     -moz-text-align-last: justify;
-     
-     
-     
     margin-top: -8px;
     margin-bottom: 18px;
     text-align: center;
@@ -34551,11 +34404,7 @@ h1#penmostreo .campana {
     font-weight: 700;
     color: white;
     font-size: 14px;
-     
     letter-spacing: 1.2px;
-     
-     
-     
     text-align: center;
 }
 
@@ -34565,7 +34414,6 @@ h1#penmostreo .campana {
     color: white;
     font-weight: 700;
     margin-top: -36px;
-     
     width: 124px;
     height: 126px;
     text-align: right;
@@ -34586,7 +34434,6 @@ h1#penmostreo .campana {
     letter-spacing: 1px;
     width: 63px;
     text-align: right;
-     
     margin-bottom: 13px;
 }
 
@@ -34704,7 +34551,6 @@ h1#penmostreo .campana {
     margin-top: 12px;
     font-family: 'Lato';
     font-size: 12px;
-    
     height: 72px;
 }
 
@@ -34956,7 +34802,6 @@ h1#penmostreo .campana {
     text-align: center;
     letter-spacing: 2.1px;
     font-size: 25px;
-     
     margin-top: 31px;
     margin-bottom: 7px;
     font-family: 'lato';
@@ -35023,7 +34868,6 @@ h1#penmostreo .campana {
     float: left;
     width: 35%;
     height: auto;
-     
     text-align: center;
 }
 
@@ -35042,7 +34886,6 @@ h1#penmostreo .campana {
     font-family: 'Lato';
     font-size: 12px;
     color: black;
-     
     letter-spacing: 0.8px;
     line-height: 22px;
 }
@@ -35086,7 +34929,6 @@ h1#penmostreo .campana {
 .content_carrusel_bestSeller {
     margin-top: 40px;
     width: 100%;
-     
     background: #eeeeee;
     overflow: hidden;
     padding-bottom: 41px;
@@ -35372,7 +35214,6 @@ h1#penmostreo .campana {
     font-family: 'Lato';
     font-size: 14px;
     line-height: 22px;
-     
     width: 77%;
     float: right;
     margin-top: 33px;
@@ -35414,7 +35255,6 @@ h1#penmostreo .campana {
     min-height: 308px;
     margin: 0 auto;
     background: white;
-     
 }
 
 .titulo_regalo_sorpresa {
@@ -35453,7 +35293,6 @@ h1#penmostreo .campana {
 
 .descripcion_regalo {
     font-family: 'Lato';
-     
     font-size: 10px;
     color: black;
     line-height: 12px;
@@ -35555,7 +35394,6 @@ h1#penmostreo .campana {
 }
 
 .bloque_detalle_gris {
-     
     height: 150px;
     position: absolute;
     width: 100%;
@@ -35602,7 +35440,6 @@ h1#penmostreo .campana {
 
 .mensaje_informativo_despacho {
     font-weight: bold;
-     
     margin-bottom: 5px;
     font-family: 'Lato';
     font-size: 15px;
@@ -35666,9 +35503,6 @@ h1#penmostreo .campana {
 }
 
 .content_filtro_range_showroom {
-     
-     
-     
     width: 70%;
     margin: 0 auto;
     margin-top: 50px;
@@ -35678,7 +35512,6 @@ h1#penmostreo .campana {
     float: left;
     font-family: 'Lato';
     font-size: 13px;
-     
 }
 
 .cantidad_productos_resultado {
@@ -35698,7 +35531,6 @@ h1#penmostreo .campana {
 }
 
 .content_landing_odd .flip-clock-wrapper {
-     
     margin: 15px 95px 0px 10px;
 }
 
@@ -35714,7 +35546,6 @@ h1#penmostreo .campana {
 .content_landing_odd .flip-clock-divider {
     margin-top: 8px;
     margin-right: 1px;
-     
 }
 
 .content_item_carrusel_ODD .agregado {
@@ -35757,7 +35588,6 @@ h1#penmostreo .campana {
         box-shadow: inset 0 0 0 5px #e81c36;
         padding: 20px;
         margin: 5% auto auto auto;
-         
         width: 432px;
         height: 432px;
         display: table;

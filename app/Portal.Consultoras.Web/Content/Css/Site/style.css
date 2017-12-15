@@ -86,7 +86,6 @@ time, mark, audio, video {
     border: 0;
     outline: 0;
     font-size: 100%;
-     
     background: transparent;
 }
 
@@ -117,12 +116,10 @@ a {
 }
 
     a, a > * {
-         
         text-decoration: none;
     }
 
         a:hover, a > *:hover {
-             
         }
 
 img {
@@ -1044,13 +1041,11 @@ ul.tabs {
 }
 
 .total_global {
-     
     float: right;
     height: 40px;
     line-height: 40px;
     padding: 0px 10px 0px 10px;
     margin: 0 0 0 10px;
-     
     border: 1px solid #D0D0D0;
     background: #F0F6F8;
     color: #702789;
@@ -1153,7 +1148,6 @@ ul.tabs {
         height: 10px;
         padding: 0;
         overflow: hidden;
-         
         background: url(../../images/bg_C_t.png) 0 0 no-repeat;
     }
 
@@ -1161,7 +1155,6 @@ ul.tabs {
         height: auto;
         padding: 0 10px 0px 10px;
         overflow: hidden;
-         
         background: url(../../images/bg_C_c.png) 0 0 repeat;
     }
 
@@ -1170,7 +1163,6 @@ ul.tabs {
         height: 10px;
         padding: 0;
         overflow: hidden;
-         
         background: url(../../images/bg_C_b.png) 0 0 no-repeat;
     }
 
@@ -1761,7 +1753,6 @@ ul.tabs {
         width: auto;
         height: auto;
         padding: 0;
-         
         color: #702789;
         font-size: 14px;
         margin: 5px;
@@ -1806,7 +1797,6 @@ ul.tabs {
 .mensaje_tab {
     float: left;
     font-size: 11px;
-     
     padding: 19px 0px 0px 0px;
     height: auto;
 }
@@ -2273,7 +2263,6 @@ ul.tabs {
         background: #fff;
         color: #702789;
         margin-right: 10px;
-         
         position: relative;
         font-family: Arial;
     }
@@ -2382,7 +2371,6 @@ ul.tabs {
     height: 40px;
     line-height: 40px;
     padding: 0 10px 0 10px;
-     
     background: url(../../Images/bg_input1_des.png) 0 0 no-repeat;
     color: #702789;
     font-size: 16px;
@@ -2716,12 +2704,10 @@ ul.tabs {
 
 .div-3 .total {
     float: right;
-     
     height: 37px;
     line-height: 30px;
     padding: 0px 10px 0px 10px;
     margin: 0px 0px 0px 10px;
-     
     border: 1px solid #D0D0D0;
     background: #F0F6F8;
     color: #ec1a3a;
@@ -2737,11 +2723,9 @@ ul.tabs {
 
 .div-3 .total_white {
     float: right;
-     
     height: 37px;
     line-height: 37px;
     padding: 0px 10px 0px 10px;
-     
     border: 1px solid #D0D0D0;
     background: #FFF;
     color: #444444;
@@ -2942,7 +2926,6 @@ ul.tabs {
 .div-3 .new_left {
     padding: 0;
     overflow: hidden;
-     
     height: auto;
     float: left;
     margin: 0 70px 0 0;
@@ -3359,7 +3342,6 @@ select.ui-pg-selbox {
 }
 
 .container {
-     
     margin: 0px auto;
     width: 940px;
 }
@@ -3370,7 +3352,6 @@ select.ui-pg-selbox {
 }
 
 .container_perfil {
-     
     margin: 0px auto;
     width: 740px;
 }
@@ -3381,7 +3362,6 @@ select.ui-pg-selbox {
 }
 
 .container_percepcion {
-     
     margin: 0px auto;
     width: 900px;
 }
@@ -3483,7 +3463,6 @@ ol {
 .three-fourth .three-fourth-banner {
     float: left;
     margin-right: 0;
-     
     margin-bottom: 0px;
 }
 
@@ -3849,7 +3828,6 @@ ol {
 }
 
 .top_head {
-     
     height: 30px;
     float: right;
     font-size: 12px !Important;
@@ -3866,7 +3844,6 @@ ol {
 }
 
 .top_head2 {
-     
     width: auto;
     height: 27px;
     float: left;
@@ -3942,13 +3919,11 @@ ol {
 
 
 .top_head4 {
-     
     height: 27px;
     float: left;
 }
 
 .pais {
-     
     height: 15px;
     line-height: normal !important;
     margin-top: 5px;
@@ -3956,7 +3931,6 @@ ol {
     background: #5c6f7c;
     border: 1px solid #7b8d9a;
     padding: 0px 3px 0px 3px;
-     
 }
 
     .pais div {
@@ -4393,7 +4367,6 @@ ol {
     }
 
         .catalogo_botones input:hover {
-             
             border: none;
             background: #6C207F;
             -webkit-border-radius: 10px;
@@ -4428,7 +4401,6 @@ ol {
     }
 
         .catalogo_botones a:hover {
-             
             border: none;
             background: #6C207F;
             -webkit-border-radius: 10px;
@@ -4505,7 +4477,6 @@ ol {
     }
 
         .revista_botones a:hover {
-             
             background: #6C207F;
             -webkit-border-radius: 10px;
             -moz-border-radius: 10px;
@@ -4516,7 +4487,6 @@ ol {
         }
 
         .revista_botones a.activado {
-             
             background: #6C207F;
             -webkit-border-radius: 10px;
             -moz-border-radius: 10px;
@@ -4578,7 +4548,7 @@ ol {
 #ui-id-5 {
     font-family: Arial !important;
     font-size: 18px !important;
-      /* Cambios landing comunidad */
+    /* Cambios landing comunidad */
     margin-top: 8px;
 }
 
@@ -4599,7 +4569,6 @@ ol {
 
     .lista_erratas li {
         list-style: none;
-         
         border-bottom: 1px solid #BFBFBF;
         padding: 10px 0px 10px 10px;
         margin: 0px 0px 0px 0px;
@@ -4768,8 +4737,6 @@ ol {
 .productos_fixed {
     text-align: left;
     z-index: 999;
-     
-     
     display: block;
 }
 
@@ -4907,7 +4874,6 @@ ol {
 
     .modulo_ofertas_dupla .ofertas_cantidad input[type="text"] {
         border: none;
-         
         background: url(../../Images/cantidad_dupla.png) top left no-repeat;
         width: 45px;
         height: 35px;
@@ -4968,13 +4934,11 @@ ol {
 }
 
     .ofertas_title span {
-         
         color: #702789;
         font-weight: bold;
     }
 
     .ofertas_title div {
-         
         font-size: 16px;
         font-weight: bold;
         padding: 0px 0px 5px 0px;
@@ -5051,13 +5015,11 @@ ol {
 .ofertas_detail {
     padding: 0px 0px 3px 0px;
     line-height: 14px;
-     
 }
 
     .ofertas_detail .texto {
         padding: 0px;
         height: 70px;
-         
     }
 
     .ofertas_detail .texto_legal {
@@ -5091,13 +5053,11 @@ ol {
 
 .ofertas_foot {
     padding: 5px;
-     
     display: block;
 }
 
 .ofertas_cantidad {
     float: right;
-     
     width: 52px;
     margin: -6px 8px 0px 0px;
     text-align: right;
@@ -5113,7 +5073,6 @@ ol {
 
 .modulo_ofertas .ofertas_cantidad input[type="text"] {
     border: none;
-     
     background: url(../../Images/cantidad_oferta.png) top left no-repeat;
     width: 45px;
     height: 35px;
@@ -5146,7 +5105,6 @@ ol {
     }
 
         .ofertas_agregar input:hover {
-             
             background: #6C207F;
             -webkit-border-radius: 10px;
             -moz-border-radius: 10px;
@@ -5181,7 +5139,6 @@ ol {
     }
 
         .ofertas_agregar_pedido input:hover {
-             
             background: #6C207F;
             -webkit-border-radius: 10px;
             -moz-border-radius: 10px;
@@ -5458,7 +5415,6 @@ ol {
 
     .modulo_ofertas_gratis .ofertas_name {
         padding: 0px 0px 0px 0px;
-         
     }
 
 
@@ -5494,11 +5450,9 @@ ol {
     }
 
     .modulo_ofertas_gratis .ofertas_gratis_on_1 {
-         
         width: 100px;
         color: #EE1D3D;
         text-transform: uppercase;
-         
         padding: 5px 0px 0px 0px;
         text-align: left;
         font-size: 20px;
@@ -5605,12 +5559,11 @@ ol {
 }
 
 .ofertas_cross_cantidad {
-     
     padding: 9px 0px 9px 0px;
     display: block;
     overflow: hidden;
 }
- 
+
 .ofertas_cross_cantidad_on {
     padding: 9px 0px 9px 0px;
     display: block;
@@ -5958,7 +5911,7 @@ ol {
     padding: 0px;
 }
 
- 
+
 .producto_agregado_ZE {
     position: absolute;
     width: 200px;
@@ -6246,7 +6199,6 @@ ol {
 
 .toggleMenu {
     display: none;
-     
     background: url(../../Images/menu_rwd.png) #00A0E6 right no-repeat;
     padding: 4px 30px 4px 10px;
     color: #fff;
@@ -6256,14 +6208,12 @@ ol {
 
     .toggleMenu:hover {
         display: none;
-         
         background: url(../../Images/menu_rwd.png) #008AC6 right no-repeat;
     }
 
 .nav {
     list-style: none;
     *zoom: 1;
-     
     font-size: 14px !Important;
     font-family: 'museo_sans_500regular';
 }
@@ -6294,11 +6244,9 @@ ol {
 
     .nav > li {
         float: left;
-         
     }
 
         .nav > li > .parent {
-            
             background-repeat: no-repeat;
             background-position: right;
         }
@@ -6476,7 +6424,6 @@ ol {
 .Content_modal_ZE {
     background: #FFF;
     margin: 0;
-     
     overflow: auto;
     border: 1px solid #D0D0D0;
     -webkit-border-radius: 10px;
@@ -6490,7 +6437,6 @@ ol {
 .Content_modal {
     background: #FFF;
     padding: 20px 10px 10px 10px;
-     
     overflow: auto;
     border: 1px solid #D0D0D0;
     -webkit-border-radius: 10px;
@@ -6563,7 +6509,6 @@ ol {
     -khtml-border-radius: 10px;
     border-radius: 10px;
     behavior: url(../../../../Content/Css/Pie/PIE.htc);
-     
 }
 
 .ui-dialog .ui-dialog-buttonpane {
@@ -6839,7 +6784,6 @@ ol {
 
 /* default scrollbar colors and backgrounds */
 .mCustomScrollBox .mCSB_scrollTools {
-     
 }
 
 .mCustomScrollBox:hover .mCSB_scrollTools {
@@ -6864,7 +6808,6 @@ ol {
 
 .mCSB_scrollTools .mCSB_dragger:active .mCSB_dragger_bar,
 .mCSB_scrollTools .mCSB_dragger.mCSB_dragger_onDrag .mCSB_dragger_bar {
-
 }
 
 .mCSB_scrollTools .mCSB_buttonUp,
@@ -6924,7 +6867,6 @@ ol {
 
         .menu_header_preview ul li {
             float: left;
-             
             width: auto;
             margin-right: 2px;
         }
@@ -6934,7 +6876,6 @@ ol {
                 text-decoration: none;
                 color: #6A6A6A;
                 background-color: #FFF;
-                 
                 padding: 3px 8px 3px 8px;
                 position: relative;
                 font-family: 'museo_sans_500regular';
@@ -7012,8 +6953,6 @@ table.falsa {
 *************************************************/
 
 .jqueryslidemenu {
-     
-     
     height: auto;
     position: absolute;
     top: 32px;
@@ -7060,7 +6999,7 @@ table.falsa {
                 }
 
                 .jqueryslidemenu ul li a:hover {
-                      /*tab link background during hover state*/
+                    /*tab link background during hover state*/
                     background: url(../../Images/btn_modifica.png) top center no-repeat;
                     color: #fff;
                 }
@@ -7143,7 +7082,6 @@ table.falsa {
     display: none;
     /* url(../../Images/nav-bg.png);
 */
-     
     border: 1px solid #959fa8;
     border: solid 1px #d0d0d0;
     -moz-border-radius: 10px;
@@ -7550,7 +7488,6 @@ ul.service-list {
             ul.service-list li .q1 span {
                 font-weight: bold !important;
                 color: none !important;
-                 
             }
 
         /* 2012 - Inicio */
@@ -7577,7 +7514,6 @@ ul.service-list {
             ul.service-list li .q1pl span {
                 font-weight: bold !important;
                 color: none !important;
-                 
             }
         /* 2012 - Fin */
 
@@ -7604,7 +7540,6 @@ ul.service-list {
             ul.service-list li .q2 span {
                 font-weight: bold !important;
                 color: none !important;
-                 
             }
 
         ul.service-list li .q3 {
@@ -7630,7 +7565,6 @@ ul.service-list {
             ul.service-list li .q3 span {
                 font-weight: bold !important;
                 color: none !important;
-                 
             }
 
 
@@ -9166,7 +9100,7 @@ ul.error_messages {
 
 #footer {
     position: relative;
-      /* Cambios landing comunidad */
+    /* Cambios landing comunidad */
     padding: 0;
     color: #8a8989;
 }
@@ -10287,16 +10221,15 @@ span.icon-del {
     color: #AF1B2D;
 }
 
- 
+
 .texto_oferta_nueva {
     font-size: 15px;
     line-height: 20px;
     color: #6C207F;
-    
     font-weight: bold !Important;
     text-align: center;
 }
- 
+
 .ofertas_maximo_unidad {
     padding: 9px 0px 9px 0px;
     display: block;
@@ -10312,7 +10245,6 @@ span.icon-del {
 
 
 .ofertas_agregar_ZE {
-     
     padding-top: 5px;
     position: relative;
 }
@@ -10336,7 +10268,6 @@ span.icon-del {
     }
 
         .ofertas_agregar_ZE input:hover {
-             
             background: #6C207F;
             -webkit-border-radius: 10px;
             -moz-border-radius: 10px;
@@ -11191,11 +11122,9 @@ body, html {
 }
 
 #ImagenesEnterateMas {
-     
-     
-     
     overflow: hidden;
 }
+
 #ImgEnterate1 {
     margin-left: 60px;
     width: 202px;
@@ -11204,8 +11133,8 @@ body, html {
 }
 
 #ImgEnterate2 {
-    margin-left: 320px; 
-    margin-top: -130px; 
+    margin-left: 320px;
+    margin-top: -130px;
     position: absolute;
     width: 215px;
     height: 214px;
@@ -11250,6 +11179,7 @@ body, html {
 
 #ImgEnterate {
 }
+
 #letrasPequenasEnterateMas {
     text-align: left;
     margin-left: 60px;
@@ -11796,8 +11726,6 @@ label.checkpop {
 .banner_showroom {
     margin: 0 auto;
     width: 99%;
-     
-     
     height: auto;
 }
 
@@ -12215,7 +12143,6 @@ label.checkpop {
     font-family: 'ArialMT';
     font-size: 13px;
     line-height: 15px;
-     
     color: black;
     overflow: hidden;
 }
@@ -12280,7 +12207,7 @@ label.checkpop {
     width: 46px;
     font-family: 'ArialMT' !important;
     font-size: 18px !important;
-    color: #536576;    
+    color: #536576;
     border: 0;
     border-top: 1px solid #536576;
     border-bottom: 1px solid #536576;
@@ -12531,7 +12458,6 @@ label.checkpop {
     }
 
         .matriz-comercial-list .item .actions .nemotecnico-wrapper:hover {
-             
             background-color: #eeeeee;
             cursor: pointer;
         }
