@@ -20,7 +20,6 @@
             Excel
         }
 
-        //2140
         public enum TypeDocPais
         {
             AR = 1,
@@ -39,7 +38,6 @@
             VE = 14
         }
 
-        //2295
         public enum TypeMarca
         {
             LBel = 1,
@@ -86,8 +84,8 @@
             //PendienteDobleOptin = 7
             GenerandoCodigo = 7,
             EnAprobacionSAC = 8,
-            YaConCodigoOCR = 9, //Se agregó 30-03-2017
-            PendienteConfirmarCorreo = 10 //Se agregó 30-03-2017
+            YaConCodigoOCR = 9,
+            PendienteConfirmarCorreo = 10
         }
 
         public enum TipoParametro

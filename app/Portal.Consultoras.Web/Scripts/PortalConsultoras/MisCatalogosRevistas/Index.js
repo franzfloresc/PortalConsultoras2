@@ -322,7 +322,7 @@ function GetCatalogosLinksByCampania(data, campania) {
 
 function ObtenerCodigoISSUU(catalogo, defered, elemItem, tagCat, campaniaX) {
     var codigoISSUU = "";
-    var urlGetImg = '//search.issuu.com/api/2_0/document?username=somosbelcorp&q=docname:' + catalogo + '&jsonCallback=?';
+    var urlGetImg = urlBuscadorIssu + 'docname:' + catalogo + '&jsonCallback=?';
     jQuery.ajax({
         type: "GET",
         url: urlGetImg,

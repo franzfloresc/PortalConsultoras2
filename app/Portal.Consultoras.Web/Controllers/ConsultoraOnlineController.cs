@@ -29,7 +29,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             this.registrosPagina = 5;
 
-            if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(userData.CodigoISO))
+            if (GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesEsika).Contains(userData.CodigoISO))
             {
                 isEsika = true;
             }
@@ -74,7 +74,7 @@ namespace Portal.Consultoras.Web.Controllers
         #region Informacion
         public ActionResult Informacion()
         {
-            string strpaises = ConfigurationManager.AppSettings.Get("Permisos_CCC");
+            string strpaises = GetPaisesConConsultoraOnlineFromConfig();
             if (!strpaises.Contains(UserData().CodigoISO))
                 return RedirectToAction("Index", "Bienvenida");
 
@@ -242,7 +242,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult EnviaCorreo()
         {
-            string strpaises = ConfigurationManager.AppSettings.Get("Permisos_CCC");
+            string strpaises = GetPaisesConConsultoraOnlineFromConfig();
             if (!strpaises.Contains(UserData().CodigoISO))
                 return RedirectToAction("Index", "Bienvenida");
 
@@ -371,7 +371,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public string mensajeConsultora(string consultora, string url)
         {
-            string tlfBelcorpResponde = ConfigurationManager.AppSettings.Get(String.Format("BelcorpRespondeTEL_{0}", UserData().CodigoISO));
+            string tlfBelcorpResponde = GetConfiguracionManager(String.Format(Constantes.ConfiguracionManager.BelcorpRespondeTEL, UserData().CodigoISO));
             string carpetaPais = "Correo/CCC";
             string spacerGif = ConfigS3.GetUrlFileS3(carpetaPais, "spacer.gif", string.Empty);
             string mailing_03 = ConfigS3.GetUrlFileS3(carpetaPais, "1-Mailing_03.png", string.Empty);
@@ -1138,7 +1138,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 sessionManager.SetDetallesPedido(null);
-                string emailDe = ConfigurationManager.AppSettings["ConsultoraOnlineEmailDe"];
+                string emailDe = GetConfiguracionManager(Constantes.ConfiguracionManager.ConsultoraOnlineEmailDe);
 
                 if (_pedido.FlagMedio == "01")
                 {
@@ -1711,7 +1711,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                         try
                         {
-                            string emailDe = ConfigurationManager.AppSettings["ConsultoraOnlineEmailDe"];
+                            string emailDe = GetConfiguracionManager(Constantes.ConfiguracionManager.ConsultoraOnlineEmailDe);
                             if (typeAction == "1")      // desktop
                             {
                                 Common.Util.EnviarMail3(emailDe, pedido.Email, titulocliente, mensajecliente.ToString(), true, pedido.Email);

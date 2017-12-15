@@ -28,7 +28,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
 
             ViewBag.Simbolo = userData.Simbolo;
-            ViewBag.RutaImagenNoDisponible = ConfigurationManager.AppSettings.Get("rutaImagenNotFoundAppCatalogo");
+            ViewBag.RutaImagenNoDisponible = GetConfiguracionManager(Constantes.ConfiguracionManager.rutaImagenNotFoundAppCatalogo);
 
             if (Session["ListFiltersFAV"] != null)
             {
@@ -39,7 +39,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.FiltersByPublished = lst.Where(x => x.TablaLogicaID == 97).ToList();
             }
 
-            ViewBag.UrlImagenFAVMobile = string.Format(ConfigurationManager.AppSettings.Get("UrlImagenFAVMobile"), userData.CodigoISO);
+            ViewBag.UrlImagenFAVMobile = string.Format(GetConfiguracionManager(Constantes.ConfiguracionManager.UrlImagenFAVMobile), userData.CodigoISO);
             ViewBag.EsLebel = userData.EsLebel;
             return View(model);
         }
@@ -81,7 +81,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
 
             productoModel.FBRuta = GetUrlCompartirFB();
-            ViewBag.RutaImagenNoDisponible = ConfigurationManager.AppSettings.Get("rutaImagenNotFoundAppCatalogo");
+            ViewBag.RutaImagenNoDisponible = GetConfiguracionManager(Constantes.ConfiguracionManager.rutaImagenNotFoundAppCatalogo);
             ViewBag.EsLebel = userData.EsLebel;
 
             return View(productoModel);

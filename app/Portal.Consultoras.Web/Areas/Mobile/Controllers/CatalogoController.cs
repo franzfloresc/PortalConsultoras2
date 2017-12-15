@@ -3,7 +3,6 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceCliente;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.ServiceModel;
@@ -21,21 +20,39 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var clienteModel = new MisCatalogosRevistasModel();
             clienteModel.PaisNombre = getPaisNombreByISO(userData.CodigoISO);
             clienteModel.CampaniaActual = userData.CampaniaID.ToString();
-            clienteModel.CampaniaAnterior = CalcularCampaniaAnterior(clienteModel.CampaniaActual);
-            clienteModel.CampaniaSiguiente = CalcularCampaniaSiguiente(clienteModel.CampaniaActual);
+            clienteModel.CampaniaAnterior = AddCampaniaAndNumero(userData.CampaniaID, -1).ToString();
+            clienteModel.CampaniaSiguiente = AddCampaniaAndNumero(userData.CampaniaID, 1).ToString();
             clienteModel.CodigoRevistaActual = GetRevistaCodigoIssuu(clienteModel.CampaniaActual);
             clienteModel.CodigoRevistaAnterior = GetRevistaCodigoIssuu(clienteModel.CampaniaAnterior);
             clienteModel.CodigoRevistaSiguiente = GetRevistaCodigoIssuu(clienteModel.CampaniaSiguiente);
 
-            clienteModel.MostrarRevistaDigital = revistaDigital.TieneRDR;
+            var tieneGND = userData.TieneGND;
+            clienteModel.TieneGND = tieneGND;
+            clienteModel.MostrarTab = 
+                (revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsSuscritaInactiva() && !tieneGND ||
+                ((revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsNoSuscritaInactiva() && !tieneGND) ||
+                ((revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsNoSuscritaActiva() && !tieneGND) ||
+                (!revistaDigital.TieneRDC && !revistaDigital.TieneRDR && !tieneGND) ||
+                ((revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsSuscritaActiva() && !tieneGND) ||
+                (revistaDigital.TieneRDR && !tieneGND);
+
+            clienteModel.MostrarRevistaDigital = (revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsSuscritaInactiva() && !tieneGND ||
+                ((revistaDigital.TieneRDC || revistaDigital.TieneRDR) && revistaDigital.EsNoSuscritaInactiva() && !tieneGND) ||
+                (!revistaDigital.TieneRDC && !revistaDigital.TieneRDR && !tieneGND) ||
+                (revistaDigital.TieneRDR && !tieneGND);
+
             clienteModel.RevistaDigital = revistaDigital;
 
             ViewBag.CodigoISO = userData.CodigoISO;
             ViewBag.EsConsultoraNueva = EsConsultoraNueva();
-            string PaisesCatalogoWhatsUp = ConfigurationManager.AppSettings.Get("PaisesCatalogoWhatsUp") ?? string.Empty;
-            ViewBag.ActivacionAppCatalogoWhastUp = PaisesCatalogoWhatsUp.Contains(userData.CodigoISO) ? 1 : 0;
             ViewBag.TextoMensajeSaludoCorreo = TextoMensajeSaludoCorreo;
             ViewBag.NombreConsultora = userData.Sobrenombre;
+
+            string PaisesCatalogoWhatsUp = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesCatalogoWhatsUp);
+            ViewBag.ActivacionAppCatalogoWhastUp = PaisesCatalogoWhatsUp.Contains(userData.CodigoISO) ? 1 : 0;
+
+            var paisesEsika = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesEsika).ToLower();
+            ViewBag.EsPaisEsika = paisesEsika.Contains(userData.CodigoISO.ToLower());
 
             return View(clienteModel);
         }
@@ -43,20 +60,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public ActionResult EnterateMas()
         {
             return View("EnterateMas");
-        }
-
-        private string CalcularCampaniaAnterior(string CampaniaActual)
-        {
-            if (CampaniaActual.Substring(4, 2) == "01")
-                return (Convert.ToInt32(CampaniaActual.Substring(0, 4)) - 1) + UserData().NroCampanias.ToString();
-            return CampaniaActual.Substring(0, 4) + (Convert.ToInt32(CampaniaActual.Substring(4, 2)) - 1).ToString().PadLeft(2, '0');
-        }
-
-        private string CalcularCampaniaSiguiente(string CampaniaActual)
-        {
-            if (CampaniaActual.Substring(4, 2) == UserData().NroCampanias.ToString())
-                return (Convert.ToInt32(CampaniaActual.Substring(0, 4)) + 1) + "01";
-            return CampaniaActual.Substring(0, 4) + (Convert.ToInt32(CampaniaActual.Substring(4, 2)) + 1).ToString().PadLeft(2, '0');
         }
 
         public JsonResult AutocompleteCorreo()
@@ -89,8 +92,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         }
 
         [HttpPost]
-
-
         public JsonResult ObtenerPortadaRevista(string codigoRevista)
         {
             var url = string.Empty;

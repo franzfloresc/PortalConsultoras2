@@ -292,18 +292,9 @@
                 </div>
             </div>
 
-            @*EPD-2582*@
             <div class="div-3">
                 <div class="titG">Segmento Consultora:</div>
                 <div class="selectA borde_redondeado">
-                    @*<select name="ddlTipoConsultora" id="dllTipoConsultora">
-                            <option value="" selected>-- Seleccionar --</option>
-                            <option value="@Constantes.EstadoActividadConsultora.Ingreso_Nueva">Nueva</option>
-                            <option value="1">Otros</option>
-                        </select>*@
-                    @*@Html.DropDownListFor(model => model.TipoConsultoraId, new SelectList(Model.TiposConsultora, "TipoConsultoraId", "Descripcion",
-                                          Model.TipoConsultoraId), "-- Seleccionar --", new { id = "dllTipoConsultora" })*@
-
                     <select name="dllTipoConsultora" id="dllTipoConsultora">
                         <option value="" selected>-- Seleccionar --</option>                        
                         <option value="2">Ciclo de Nuevas</option>
