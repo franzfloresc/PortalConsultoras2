@@ -11,13 +11,13 @@ BEGIN
 
 	select top 1
 		 RevistaDigitalSuscripcionID
-		,Origen
 		,CodigoConsultora
 		,CampaniaID
 		,CampaniaEfectiva
 		,FechaSuscripcion
 		,FechaDesuscripcion
 		,EstadoRegistro
+		,Origen
 		,EstadoEnvio
 		,IsoPais
 		,CodigoZona
@@ -28,4 +28,5 @@ BEGIN
 	order by CampaniaID desc, RevistaDigitalSuscripcionID desc
 END
 
-go
+GO
+
