@@ -61,7 +61,7 @@ namespace Portal.Consultoras.BizLogic
         void UpdBloqueoPedido(BEPedidoWeb BEPedidoWeb);
         void UpdDesbloqueoPedido(BEPedidoWeb BEPedidoWeb);
         int UpdIndicadorPedidoAutentico(int paisID, BEIndicadorPedidoAutentico entidad);
-        BEValidacionModificacionPedido ValidacionModificarPedido(int paisID, long consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA, bool validarGPR = true, bool validarReservado = true, bool validarHorario = true);
+        BEValidacionModificacionPedido ValidacionModificarPedido(int paisID, long consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA, bool validarGPR = true, bool validarReservado = true, bool validarHorario = true, bool validarFacturado = true);
         int ValidarCargadePedidos(int paisID, int TipoCronograma, int MarcaPedido, DateTime FechaFactura);
         BECUVCredito ValidarCUVCreditoPorCUVRegular(int paisID, string codigoConsultora, string cuv, int campaniaID);
         int ValidarCuvMarquesina(int paisID, string CampaniaID, int Cuv);

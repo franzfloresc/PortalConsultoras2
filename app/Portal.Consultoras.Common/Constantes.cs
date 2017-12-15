@@ -66,33 +66,19 @@ namespace Portal.Consultoras.Common
         public static class PaisID
         {
             public const int Argentina = 1;
-            
             public const int Bolivia = 2;
-            
             public const int Chile = 3;
-            
             public const int Colombia = 4;
-            
             public const int CostaRica = 5;
-            
             public const int Ecuador = 6;
-            
             public const int ElSalvador = 7;
-            
             public const int Guatemala = 8;
-            
             public const int Mexico = 9;
-            
             public const int Panama = 10;
-            
             public const int Peru = 11;
-            
             public const int PuertoRico = 12;
-            
             public const int RepublicaDominicana = 13;
-            
             public const int Venezuela = 14;
-            
             public const int Brasil = 15;
         }
 
@@ -225,6 +211,7 @@ namespace Portal.Consultoras.Common
             public const string IncentivosProgramaNuevas = "021";
             public const string OfertaDelDia = "009";
             public const string GuiaDeNegocioDigitalizada = "010";
+            public const string Incentivos = "022";
         }
 
         public static class ConstSession
@@ -288,6 +275,9 @@ namespace Portal.Consultoras.Common
             public const string TieneOpm = "TieneOpm";
             public const string TieneOpmX1 = "TieneOpmX1";
             public const string TieneRdr = "TieneRdr";
+
+            public const string MisCertificados = "MisCertificados";
+            public const string MisCertificadosData = "MisCertificadosData";
         }
 
         public static class ConfiguracionManager
@@ -648,6 +638,23 @@ namespace Portal.Consultoras.Common
             /// App/Pedido/Esika para mi/Landing/Carrusel Ficha
             /// </summary>
             public const int AppEsikaparamiLandingCarruselFicha = 4731;
+            /// <summary>
+            /// App/Incentivos/Programa Nuevas
+            /// </summary>
+            public const int AppIncentivosProgramaNuevas = 4741;
+
+            // Mas Vendidos
+            public const int DesktopHomeMasVendidosCarrusel = 1151;
+            public const int DesktopMasVendidosProductPageFicha = 1611;
+            public const int DesktopMasVendidosProductPageCarrusel = 1612;
+            public const int MobileHomeMasVendidosCarrusel = 2151;
+            public const int MobileMasVendidosProductPageFicha = 2611;
+
+            //FichaProducto VirtualCoach
+            public const int DesktopPedidoVirtualCoach = 1231;
+            public const int MobilePedidoVirtualCoach = 2231;
+
+            // Guía de Negocio Digitalizada
             #endregion
 
             #region MasVendidos
@@ -1503,7 +1510,8 @@ namespace Portal.Consultoras.Common
 
         public static class TipoTerminosCondiciones
         {
-            public const short App = 1;
+            public const short AppTerminosCondiciones = 1;
+            public const short AppPoliticaPrivacidad = 2;
         }
 
         #region EventoFestivo
@@ -1603,6 +1611,18 @@ namespace Portal.Consultoras.Common
                 "Están agregados en tu pedido bajo la descripción RECUPC16.Puedes mantenerlos para recibirlos con tu caja de C17 o borrarlos de tu pedido si ya no los necesitas.";
             public const string PAPEL_REGALO_DORADO = "2017_Navidad_Regalo1.pdf";
             public const string PAPEL_REGALO_ROJO = "2017_Navidad_Regalo2.pdf";
+        }
+
+        public class ProgramaNuevas
+        {
+            public const string CarpetaBanner = "AppConsultora/{0}/ProgramaNuevas/{1}";
+            public const string ArchivoBannerCupones = "Cupon{0}.jpg";
+            public const string ArchivoBannerPremios = "Premio{0}.jpg";
+        }
+
+        public class Comunicado
+        {
+            public const string AppConsultora = "App Consultora";
         }
     }
 }

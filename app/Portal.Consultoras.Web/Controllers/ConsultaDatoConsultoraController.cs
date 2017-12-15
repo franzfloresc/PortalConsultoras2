@@ -590,7 +590,17 @@
                 List<ServicePedido.BEPedidoWebDetalle> olstPedido = new List<ServicePedido.BEPedidoWebDetalle>();
                 using (ServicePedido.PedidoServiceClient sv = new ServicePedido.PedidoServiceClient())
                 {
-                    olstPedido = sv.SelectByCampania(userData.PaisID, int.Parse(campaniaId), long.Parse(consultoraId), "", EsOpt()).ToList();
+                    var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros();
+                    bePedidoWebDetalleParametros.PaisId = userData.PaisID;
+                    bePedidoWebDetalleParametros.CampaniaId = int.Parse(campaniaId);
+                    bePedidoWebDetalleParametros.ConsultoraId = long.Parse(consultoraId);
+                    bePedidoWebDetalleParametros.Consultora = "";
+                    bePedidoWebDetalleParametros.EsBpt = EsOpt() == 1;
+                    bePedidoWebDetalleParametros.CodigoPrograma = userData.CodigoPrograma;
+                    bePedidoWebDetalleParametros.NumeroPedido = userData.ConsecutivoNueva;
+
+                    olstPedido = sv.SelectByCampania(bePedidoWebDetalleParametros).ToList();
+                    
                 }
 
                 decimal Total = 0;

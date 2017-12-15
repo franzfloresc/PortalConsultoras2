@@ -1043,8 +1043,7 @@ namespace Portal.Consultoras.BizLogic
 
             var DAConfiguracionCampania = new DAConfiguracionCampania(PaisID);
             using (IDataReader reader = DAConfiguracionCampania.GetConfiguracionCampania(PaisID, ZonaID, RegionID, ConsultoraID))
-                if (reader.Read())
-                    configuracion = new BEConfiguracionCampania(reader);
+                if (reader.Read()) configuracion = new BEConfiguracionCampania(reader);
 
             if (configuracion != null)
             {
@@ -1951,7 +1950,7 @@ namespace Portal.Consultoras.BizLogic
             return PedidoDescarga;
         }
 
-        public BEValidacionModificacionPedido ValidacionModificarPedido(int paisID, long consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA, bool validarGPR = true, bool validarReservado = true, bool validarHorario = true)
+        public BEValidacionModificacionPedido ValidacionModificarPedido(int paisID, long consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA, bool validarGPR = true, bool validarReservado = true, bool validarHorario = true, bool validarFacturado = true)
         {
             BEUsuario usuario = null;
             using (IDataReader reader = (new DAConfiguracionCampania(paisID)).GetConfiguracionByUsuarioAndCampania(paisID, consultoraID, campania, usuarioPrueba, aceptacionConsultoraDA))
@@ -1979,6 +1978,14 @@ namespace Portal.Consultoras.BizLogic
                     {
                         MotivoPedidoLock = Enumeradores.MotivoPedidoLock.Reservado,
                         Mensaje = "Ya tienes un pedido reservado para esta campaña."
+                    };
+                }
+                if (validarFacturado && configuracion.IndicadorEnviado)
+                {
+                    return new BEValidacionModificacionPedido
+                    {
+                        MotivoPedidoLock = Enumeradores.MotivoPedidoLock.Facturado,
+                        Mensaje = "Estamos facturando tu pedido."
                     };
                 }
             }
@@ -2131,15 +2138,37 @@ namespace Portal.Consultoras.BizLogic
             var DAPedidoWeb = new DAPedidoWeb(paisID);
             return DAPedidoWeb.GetFlagProductosPrecargados(CodigoConsultora, CampaniaID);
         }
-
-
+        
         public void UpdateMostradoProductosPrecargados(int paisID, int CampaniaID, long ConsultoraID, string IPUsuario)
         {
             var DAPedidoWeb = new DAPedidoWeb(paisID);
             DAPedidoWeb.UpdateMostradoProductosPrecargados(CampaniaID, ConsultoraID, IPUsuario);
-        }
+        }        
         #endregion
 
+        #region Certificado Digital
+        public bool TieneCampaniaConsecutivas(int paisId, int campaniaId, int cantidadCampaniaConsecutiva, long consultoraId)
+        {
+            var DAPedidoWeb = new DAPedidoWeb(paisId);
+            return DAPedidoWeb.TieneCampaniaConsecutivas(campaniaId, cantidadCampaniaConsecutiva, consultoraId);
+        }
+
+        public BEMiCertificado ObtenerCertificadoDigital(int paisId, int campaniaId, long consultoraId, Int16 tipoCert)
+        {
+            BEMiCertificado entidad = null;
+            DAPedidoWeb DAPedidoWeb = new DAPedidoWeb(paisId);
+
+            using (IDataReader reader = DAPedidoWeb.ObtenerCertificadoDigital(campaniaId, consultoraId, tipoCert))
+            {
+                while (reader.Read())
+                {
+                    entidad = new BEMiCertificado(reader);
+                }
+            }
+            return entidad;
+        }
+
+        #endregion
     }
 
     internal class TemplateField
