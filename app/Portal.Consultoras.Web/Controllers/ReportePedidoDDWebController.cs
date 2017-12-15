@@ -111,45 +111,36 @@ namespace Portal.Consultoras.Web.Controllers
             model.MotivoRechazo = MotivoRechazo;
             return View(model);
         }
-        public ActionResult ConsultarPedidosDDWeb(string sidx, string sord, int page, int rows, string vPaisID, string vCampania, string vConsultora, string vRegionID, string vZonaID, string vOrigen, string vEstadoValidacion, string vEsRechazado)
+        public ActionResult ConsultarPedidosDDWeb(string sidx, string sord, int page, int rows, string paisID, string campania, string consultora, string regionID, string zonaID, string origen, string estadoValidacion, string esRechazado, string fechaInicio, string fechaFin)
         {
             if (ModelState.IsValid)
             {
-                ViewBag.PaisOcultoID = UserData().PaisID;
+                ViewBag.PaisOcultoID = userData.PaisID;
 
-                string cadena = vPaisID + vCampania + vConsultora + vRegionID + vZonaID + vOrigen + vEstadoValidacion + vEsRechazado;
+                string cadena = paisID + campania + consultora + regionID + zonaID + origen + estadoValidacion + esRechazado + fechaInicio + fechaFin;
 
-                if (Session["PedidosWebDDConf"] == null)
-                    Session["PedidosWebDDConf"] = cadena;
-                else
+                if (Session["PedidosWebDDConf"] == null) Session["PedidosWebDDConf"] = cadena;
+                else if (Convert.ToString(Session["PedidosWebDDConf"]) != cadena)
                 {
-                    if (Convert.ToString(Session["PedidosWebDDConf"]) != cadena)
-                    {
-                        Session["PedidosWebDDConf"] = cadena;
-                        Session["PedidosWebDD"] = null;
-                    }
+                    Session["PedidosWebDDConf"] = cadena;
+                    Session["PedidosWebDD"] = null;
                 }
 
                 List<BEPedidoDDWeb> lst = new List<BEPedidoDDWeb>();
                 BEPais bepais = new BEPais();
 
-                if (vPaisID == "")
-                {
-                    bepais.CodigoISO = "";
-                }
+                if (paisID == "") bepais.CodigoISO = "";
                 else
                 {
                     using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
                     {
-                        bepais = sv.SelectPais(Convert.ToInt32(vPaisID));
+                        bepais = sv.SelectPais(Convert.ToInt32(paisID));
                     }
                 }
-                if (vRegionID == "" || vRegionID == "-- Todas --") vRegionID = "0";
-                if (vZonaID == "" || vZonaID == "-- Todas --") vZonaID = "0";
-                if (vConsultora == "") vConsultora = "0";
-
-                string ISOWS = bepais.CodigoISO;
-
+                if (regionID == "" || regionID == "-- Todas --") regionID = "0";
+                if (zonaID == "" || zonaID == "-- Todas --") zonaID = "0";
+                if (consultora == "") consultora = "0";
+                
                 try
                 {
                     if (Session["PedidosWebDD"] == null)
@@ -160,24 +151,23 @@ namespace Portal.Consultoras.Web.Controllers
                             lst = sv.GetPedidosWebDDNoFacturados(
                                 new BEPedidoDDWeb
                                 {
-                                    paisID = Convert.ToInt32(vPaisID),
-                                    paisISO = ISOWS,
-                                    CampaniaID = Convert.ToInt32(vCampania),
-                                    RegionCodigo = vRegionID,
-                                    ZonaCodigo = vZonaID,
-                                    Origen = Convert.ToInt32(vOrigen),
-                                    ConsultoraCodigo = (string.IsNullOrEmpty(vConsultora) || vConsultora == "0" ? string.Empty : vConsultora),
-                                    EstadoValidacion = int.Parse(vEstadoValidacion),
-                                    EsRechazado = int.Parse(vEsRechazado)
+                                    paisID = Convert.ToInt32(paisID),
+                                    paisISO = bepais.CodigoISO,
+                                    CampaniaID = Convert.ToInt32(campania),
+                                    RegionCodigo = regionID,
+                                    ZonaCodigo = zonaID,
+                                    Origen = Convert.ToInt32(origen),
+                                    ConsultoraCodigo = (string.IsNullOrEmpty(consultora) || consultora == "0" ? string.Empty : consultora),
+                                    EstadoValidacion = int.Parse(estadoValidacion),
+                                    EsRechazado = int.Parse(esRechazado),
+                                    FechaRegistroInicio = string.IsNullOrEmpty(fechaInicio) ? null : (DateTime?)(Convert.ToDateTime(fechaInicio)),
+                                    FechaRegistroFin = string.IsNullOrEmpty(fechaFin) ? null : (DateTime?)(Convert.ToDateTime(fechaFin))
                                 }).ToList();
                         }
 
                         Session["PedidosWebDD"] = lst;
                     }
-                    else
-                    {
-                        lst = (List<BEPedidoDDWeb>)Session["PedidosWebDD"];
-                    }
+                    else lst = (List<BEPedidoDDWeb>)Session["PedidosWebDD"];
                 }
                 catch (Exception ex)
                 {
@@ -207,7 +197,7 @@ namespace Portal.Consultoras.Web.Controllers
                             ConsultoraSaldo = item.ConsultoraSaldo,
                             OrigenNombre = item.OrigenNombre,
                             EstadoValidacionNombre = item.EstadoValidacionNombre,
-                            paisISO = ISOWS,
+                            paisISO = bepais.CodigoISO,
                             TipoProceso = item.OrigenNombre,
                             Zona = item.Zona,
                             IndicadorEnviado = item.IndicadorEnviado,
@@ -580,29 +570,31 @@ namespace Portal.Consultoras.Web.Controllers
             ExportToExcelDetallePedido("exportar", lst, dic, "DescargaCompleta", "1");
             return new EmptyResult();
         }
-        public ActionResult ExportarExcelDetallePedido(string vPaisID, string vCampania, string vConsultora, string vRegionID, string vZonaID, string vOrigen, string vEstadoValidacion, string vEsRechazado)
+        public ActionResult ExportarExcelDetallePedido(string paisID, string campania, string consultora, string regionID, string zonaID, string origen, string estadoValidacion, string esRechazado, string fechaInicio, string fechaFin)
         {
             List<BEPedidoDDWeb> lst = new List<BEPedidoDDWeb>();
 
-            if (vRegionID == "" || vRegionID == "-- Todas --") vRegionID = "0";
-            if (vZonaID == "" || vZonaID == "-- Todas --") vZonaID = "0";
-            if (vConsultora == "") vConsultora = "0";
+            if (regionID == "" || regionID == "-- Todas --") regionID = "0";
+            if (zonaID == "" || zonaID == "-- Todas --") zonaID = "0";
+            if (consultora == "") consultora = "0";
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                string paisISO = Util.GetPaisISO(int.Parse(vPaisID));
+                string paisISO = Util.GetPaisISO(int.Parse(paisID));
                 lst = sv.GetPedidosWebDDDetalleConsultora(
                     new BEPedidoDDWeb
                     {
-                        paisID = Convert.ToInt32(vPaisID),
+                        paisID = Convert.ToInt32(paisID),
                         paisISO = paisISO,
-                        CampaniaID = Convert.ToInt32(vCampania),
-                        RegionCodigo = vRegionID,
-                        ZonaCodigo = vZonaID,
-                        Origen = Convert.ToInt32(vOrigen),
-                        ConsultoraCodigo = (string.IsNullOrEmpty(vConsultora) || vConsultora == "0" ? string.Empty : vConsultora),
-                        EstadoValidacion = int.Parse(vEstadoValidacion),
-                        EsRechazado = int.Parse(vEsRechazado)
+                        CampaniaID = Convert.ToInt32(campania),
+                        RegionCodigo = regionID,
+                        ZonaCodigo = zonaID,
+                        Origen = Convert.ToInt32(origen),
+                        ConsultoraCodigo = (string.IsNullOrEmpty(consultora) || consultora == "0" ? string.Empty : consultora),
+                        EstadoValidacion = int.Parse(estadoValidacion),
+                        EsRechazado = int.Parse(esRechazado),
+                        FechaRegistroInicio = string.IsNullOrEmpty(fechaInicio) ? null : (DateTime?)(Convert.ToDateTime(fechaInicio)),
+                        FechaRegistroFin = string.IsNullOrEmpty(fechaFin) ? null : (DateTime?)(Convert.ToDateTime(fechaFin))
                     }).ToList();
             }
 
@@ -618,15 +610,14 @@ namespace Portal.Consultoras.Web.Controllers
             return new EmptyResult();
         }
 
-        public ActionResult ExportarExcelCabecera(string vPaisID, string vCampania, string vConsultora, string vRegionID, string vZonaID, string vOrigen, string vEstadoValidacion, string vEsRechazado)
+        public ActionResult ExportarExcelCabecera(string paisID, string campania, string consultora, string regionID, string zonaID, string origen, string estadoValidacion, string esRechazado, string fechaInicio, string fechaFin)
         {
-
             List<BEPedidoDDWeb> lst = new List<BEPedidoDDWeb>();
             BEPais bepais = new BEPais();
 
             PedidoBS BusinessService = new PedidoBS();
 
-            if (vPaisID == "")
+            if (paisID == "")
             {
                 bepais.CodigoISO = "";
             }
@@ -634,12 +625,12 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
                 {
-                    bepais = sv.SelectPais(Convert.ToInt32(vPaisID));
+                    bepais = sv.SelectPais(Convert.ToInt32(paisID));
                 }
             }
-            if (vRegionID == "" || vRegionID == "-- Todas --") vRegionID = "0";
-            if (vZonaID == "" || vZonaID == "-- Todas --") vZonaID = "0";
-            if (vConsultora == "") vConsultora = "0";
+            if (regionID == "" || regionID == "-- Todas --") regionID = "0";
+            if (zonaID == "" || zonaID == "-- Todas --") zonaID = "0";
+            if (consultora == "") consultora = "0";
 
             string ISOWS = bepais.CodigoISO;
 
@@ -651,15 +642,17 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = sv.GetPedidosWebDDNoFacturados(
                         new BEPedidoDDWeb
                         {
-                            paisID = Convert.ToInt32(vPaisID),
+                            paisID = Convert.ToInt32(paisID),
                             paisISO = ISOWS,
-                            CampaniaID = Convert.ToInt32(vCampania),
-                            RegionCodigo = vRegionID,
-                            ZonaCodigo = vZonaID,
-                            Origen = Convert.ToInt32(vOrigen),
-                            ConsultoraCodigo = (string.IsNullOrEmpty(vConsultora) || vConsultora == "0" ? string.Empty : vConsultora),
-                            EstadoValidacion = int.Parse(vEstadoValidacion),
-                            EsRechazado = int.Parse(vEsRechazado)
+                            CampaniaID = Convert.ToInt32(campania),
+                            RegionCodigo = regionID,
+                            ZonaCodigo = zonaID,
+                            Origen = Convert.ToInt32(origen),
+                            ConsultoraCodigo = (string.IsNullOrEmpty(consultora) || consultora == "0" ? string.Empty : consultora),
+                            EstadoValidacion = int.Parse(estadoValidacion),
+                            EsRechazado = int.Parse(esRechazado),
+                            FechaRegistroInicio = string.IsNullOrEmpty(fechaInicio) ? null : (DateTime?)(Convert.ToDateTime(fechaInicio)),
+                            FechaRegistroFin = string.IsNullOrEmpty(fechaFin) ? null : (DateTime?)(Convert.ToDateTime(fechaFin))
                         }).ToList();
                 }
             }

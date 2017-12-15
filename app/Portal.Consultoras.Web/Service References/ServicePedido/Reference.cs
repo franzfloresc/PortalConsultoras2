@@ -29705,6 +29705,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private System.DateTime FechaRegistroField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> FechaRegistroFinField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> FechaRegistroInicioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<System.DateTime> FechaReservaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -29935,6 +29941,32 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.FechaRegistroField.Equals(value) != true)) {
                     this.FechaRegistroField = value;
                     this.RaisePropertyChanged("FechaRegistro");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> FechaRegistroFin {
+            get {
+                return this.FechaRegistroFinField;
+            }
+            set {
+                if ((this.FechaRegistroFinField.Equals(value) != true)) {
+                    this.FechaRegistroFinField = value;
+                    this.RaisePropertyChanged("FechaRegistroFin");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> FechaRegistroInicio {
+            get {
+                return this.FechaRegistroInicioField;
+            }
+            set {
+                if ((this.FechaRegistroInicioField.Equals(value) != true)) {
+                    this.FechaRegistroInicioField = value;
+                    this.RaisePropertyChanged("FechaRegistroInicio");
                 }
             }
         }

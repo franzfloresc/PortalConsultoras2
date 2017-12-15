@@ -2124,6 +2124,8 @@
       <xs:element minOccurs="0" name="EstadoValidacion" type="xs:int" />
       <xs:element minOccurs="0" name="EstadoValidacionNombre" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FechaRegistro" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaRegistroFin" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaRegistroInicio" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaReserva" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="ImporteTotal" type="xs:decimal" />
       <xs:element minOccurs="0" name="ImporteTotalConDescuento" type="xs:decimal" />
