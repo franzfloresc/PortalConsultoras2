@@ -2964,7 +2964,6 @@
         opacity: 0;
         background: -webkit-radial-gradient(center, ellipse, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0) 80%);
         background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0) 80%);
-        /* W3C */
         -webkit-transition-duration: 0.3s;
         transition-duration: 0.3s;
         -webkit-transition-property: transform, opacity;
@@ -2974,14 +2973,12 @@
     .hvr-float-shadow:hover, .hvr-float-shadow:focus, .hvr-float-shadow:active {
         -webkit-transform: translateY(-5px);
         transform: translateY(-5px);
-        /* move the element up by 5px */
     }
 
         .hvr-float-shadow:hover:before, .hvr-float-shadow:focus:before, .hvr-float-shadow:active:before {
             opacity: 1;
             -webkit-transform: translateY(5px);
             transform: translateY(5px);
-            /* move the element down by 5px (it will stay in place because it's attached to the element that also moves up 5px) */
         }
 
 /* Shadow Radial */
@@ -4943,10 +4940,8 @@
         top: 0;
         left: 0;
         background: white;
-        /* IE9 */
         background: linear-gradient(135deg, white 45%, #aaaaaa 50%, #cccccc 56%, white 80%);
         filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#ffffff', endColorstr='#000000');
-        /*For IE7-8-9*/
         z-index: 1000;
         box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
         -webkit-transition-duration: 0.3s;
@@ -4982,7 +4977,6 @@
         top: 0;
         right: 0;
         background: white;
-        /* IE9 */
         background: linear-gradient(225deg, white 45%, #aaaaaa 50%, #cccccc 56%, white 80%);
         box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.4);
         -webkit-transition-duration: 0.3s;
@@ -5018,7 +5012,6 @@
         bottom: 0;
         right: 0;
         background: white;
-        /* IE9 */
         background: linear-gradient(315deg, white 45%, #aaaaaa 50%, #cccccc 56%, white 80%);
         box-shadow: -1px -1px 1px rgba(0, 0, 0, 0.4);
         -webkit-transition-duration: 0.3s;
@@ -5054,7 +5047,6 @@
         bottom: 0;
         left: 0;
         background: white;
-        /* IE9 */
         background: linear-gradient(45deg, white 45%, #aaaaaa 50%, #cccccc 56%, white 80%);
         box-shadow: 1px -1px 1px rgba(0, 0, 0, 0.4);
         -webkit-transition-duration: 0.3s;

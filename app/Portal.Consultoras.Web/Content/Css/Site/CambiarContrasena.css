@@ -47,8 +47,6 @@ p {
     text-align: center;
 }
 
-
-/* para 980px o menos */
 @media screen and (max-width:980px) {
     .container {
         width: 98%;
@@ -59,7 +57,6 @@ p {
     }
 }
 
-/* para 700px o menos */
 @media screen and (max-width:700px) {
     section {
         float: none;
@@ -68,7 +65,6 @@ p {
     }
 }
 
-/* para 480px o menos */
 @media screen and (max-width:480px) {
 
     section {
@@ -76,8 +72,6 @@ p {
         width: 94%;
         border: 0px;
     }
-
-    /*FrmRecuperaClave*/
 
     .bg_modal {
         background: #fff;
@@ -100,8 +94,6 @@ p {
         display: block;
     }
 }
-
-/*---------------------------------------------------------------------------*/
 
 .frmrecuperaclave {
     background-color: #FFFFFF;
@@ -229,8 +221,6 @@ p {
     font-size: 15px;
 }
 
-/*Formulario CorreoEnviado.aspx*/
-
 .clsdiv {
     color: #415261;
     font-size: 15px;
@@ -268,7 +258,3 @@ p {
     padding: 10px 0px 0px 10px;
     float: left;
 }
-
-
-
-/*---------------------------------------------------------------------------*/

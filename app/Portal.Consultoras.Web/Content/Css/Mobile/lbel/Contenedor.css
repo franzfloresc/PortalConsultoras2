@@ -264,11 +264,11 @@ section {
         text-align: center;
         text-decoration: none;
     }
-/**/
+
 .bc_clear {
     clear: both;
 }
-/**/
+
 .bc-menu-vertical-next {
     text-align: right !important;
 }
@@ -342,7 +342,7 @@ img.icono-submenu-tabs {
     margin-left: 12px;
 }
 
-/**/
+
 @media (max-width:1200px) {
 }
 
