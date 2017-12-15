@@ -10,6 +10,8 @@ namespace Portal.Consultoras.Web
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            routes.MapMvcAttributeRoutes();
+
             routes.MapRoute(
                 name: "ConsultoraOnlinePaginaPedido",
                 url: "ConsultoraOnline/MisPedidos/Page/{Pagina}",

@@ -747,7 +747,11 @@ namespace Portal.Consultoras.Service
         #region TerminosCondiciones
         public bool InsertTerminosCondiciones(BETerminosCondiciones terminos)
         {
-            return new BLUsuario().InsertTerminosCondiciones(terminos);
+            return _usuarioBusinessLogic.InsertTerminosCondiciones(terminos);
+        }
+        public bool InsertTerminosCondicionesMasivo(int paisID, List<BETerminosCondiciones> terminos)
+        {
+            return _usuarioBusinessLogic.InsertTerminosCondicionesMasivo(paisID, terminos);
         }
         #endregion
 
@@ -758,5 +762,10 @@ namespace Portal.Consultoras.Service
             return BLUsuario.GetEventoFestivo(paisID, Alcance, Campania);
         }
         #endregion
+
+        public int UpdUsuarioFotoPerfil(int paisID, string codigoUsuario, string fileName)
+        {
+            return _usuarioBusinessLogic.UpdUsuarioFotoPerfil(paisID, codigoUsuario, fileName);
+        }
     }
 }

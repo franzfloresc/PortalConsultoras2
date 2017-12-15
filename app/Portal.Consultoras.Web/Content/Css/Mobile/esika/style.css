@@ -13860,6 +13860,35 @@ a{
 }
 /* FIN APPCONS-1098 */
 
+/* MIS CERTIFICADOS MOBILE */
+
+.texto_opcion_disponible{
+    display:block;
+    margin-top:20px;
+    font-size:14px;
+    font-weight:400;
+    padding:0 12px;
+}
+
+/* FIN MIS CERTIFICADOS MOBILE */
+
+/*BANNER APP*/
+.banner_app {
+    cursor:pointer;
+    position:relative;
+    height:60px;
+    background-position:center;
+    background-repeat:no-repeat;
+}
+.banner_app div{
+    position:absolute;
+    top:2px;
+    right:5px;
+    color:#000;
+    font-size:19px;
+}
+/*FIN BANNER APP*/
+
 /* NUEVO POPUP SUSCRIBIRSE RD */
 
 .contenido-popup-nuevo-2017 {
