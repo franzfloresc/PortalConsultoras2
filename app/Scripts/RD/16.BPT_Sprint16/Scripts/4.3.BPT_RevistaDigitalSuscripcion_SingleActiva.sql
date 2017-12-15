@@ -1,5 +1,5 @@
-
 GO
+
 ALTER PROCEDURE [dbo].[RevistaDigitalSuscripcion_SingleActiva]
 (
 	 @CodigoConsultora varchar(20)
@@ -10,13 +10,13 @@ BEGIN
 
 	select top 1
 		 RevistaDigitalSuscripcionID
-		,Origen
 		,CodigoConsultora
 		,CampaniaID
 		,CampaniaEfectiva
 		,FechaSuscripcion
 		,FechaDesuscripcion
 		,EstadoRegistro
+		,Origen
 		,EstadoEnvio
 		,IsoPais
 		,CodigoZona
@@ -25,7 +25,6 @@ BEGIN
 	where CodigoConsultora = @CodigoConsultora  
 		and	CampaniaEfectiva <= @CampaniaID
 	order by CampaniaID desc, RevistaDigitalSuscripcionID desc
-
 END
 
 GO

@@ -27,4 +27,5 @@ BEGIN
 	order by CampaniaID desc, RevistaDigitalSuscripcionID desc
 END
 
-go
+GO
+
