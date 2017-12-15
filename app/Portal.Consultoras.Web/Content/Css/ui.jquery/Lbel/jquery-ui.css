@@ -13,8 +13,7 @@
  * http://docs.jquery.com/UI/Theming/API
  */
 
-/* Layout helpers
-----------------------------------*/
+/* Layout helpers */
 .ui-helper-hidden {
     display: none;
 }
@@ -67,15 +66,13 @@
 }
 
 
-/* Interaction Cues
-----------------------------------*/
+/* Interaction Cues */
 .ui-state-disabled {
     cursor: default !important;
 }
 
 
-/* Icons
-----------------------------------*/
+/* Icons */
 
 /* states and images */
 .ui-icon {
@@ -86,8 +83,7 @@
 }
 
 
-/* Misc visuals
-----------------------------------*/
+/* Misc visuals */
 
 /* Overlays */
 .ui-widget-overlay {
@@ -1034,8 +1030,7 @@ button.ui-button::-moz-focus-inner {
         color: #999999 ;
     }
 
-    /* Interaction states
-----------------------------------*/
+    /* Interaction states */
     /*ITG - 1869*/
     .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
         background: #e6e6e6 ;
@@ -1082,8 +1077,7 @@ button.ui-button::-moz-focus-inner {
     outline: none;
 }
 
-/* Interaction Cues
-----------------------------------*/
+/* Interaction Cues */
 /*ITG - 1869*/
 .ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
     border: 1px solid #fcefa1 ;
@@ -1125,8 +1119,7 @@ button.ui-button::-moz-focus-inner {
     background-image: none;
 }
 
-/* Icons
-----------------------------------*/
+/* Icons */
 
 /* states and images */
 /*ITG - 1869*/
@@ -1862,8 +1855,7 @@ button.ui-button::-moz-focus-inner {
 }
 
 
-/* Misc visuals
-----------------------------------*/
+/* Misc visuals */
 
 /* Corner radius */
 .ui-corner-tl {
@@ -1925,14 +1917,8 @@ button.ui-button::-moz-focus-inner {
     -webkit-border-bottom-left-radius: 4px ;
     border-bottom-left-radius: 4px ;
 }
-/*
-.ui-corner-all {
-   
-    
-   /* border-radius: 4px {cornerRadius};
-}*/
 
-/* Overlays *//*ITG - 1869*/
+/* Overlays ITG - 1869*/
 .ui-widget-overlay {
     background: #aaaaaa   ;
     opacity: 0.3;

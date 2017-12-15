@@ -215,22 +215,6 @@
         background-size: 100%;
         z-index: 100;
     }
-/*.revistadigital .boxoffer p{
-    text-align: left;
-    position: absolute;
-    font-size: 9px;
-    top: 18px;
-    left: 6px;
-    line-height: 13px;
-    color: white;
-    font-family: 'Lato-Light';
-    letter-spacing: 1px;
-}
-.revistadigital .boxoffer img {
-	height: 100%;
-	width: 100%;
-	box-shadow: -3px 3px 7px 0px rgba(150, 150, 150, 0.6);
-}*/
 
 .revistadigital-title {
     display: block;

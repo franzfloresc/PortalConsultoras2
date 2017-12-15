@@ -2023,7 +2023,7 @@ button {
     font-weight: 900;
     font-style: normal;
 }
-/*******************************************************************************/
+
 /**************************Popups*****************************/
 .link {
     cursor: pointer;
@@ -2402,8 +2402,6 @@ div.subir_archivo {
     border-radius: 118px;
     behavior: url(../../../../Content/Css/Pie/PIE.htc);
 }
-/**************************************************/
-
 
 .tsm tbody tr td #tdTotalPrecio {
     margin-left: 25px;

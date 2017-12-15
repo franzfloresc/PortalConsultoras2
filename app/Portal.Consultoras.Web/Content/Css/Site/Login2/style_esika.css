@@ -623,7 +623,7 @@ Image .nav0:hover {
 }
 /* -------------------------------------------------- */
 /*  Main Navigation
-    /* -------------------------------------------------- */
+/* -------------------------------------------------- */
 
 .ui-dialog.ui-widget-content {
     background: #FFFFFF !important;
@@ -958,8 +958,7 @@ h1, h2, h3, h4, h5, h6 {
     text-align: center;
 }
 
-/*  Main Navigation
-/* -------------------------------------------------- */
+/*  Main Navigation */
 
 #bg_1, #popup_olvidasteContrasenia {
     font-family: lato;

@@ -7315,7 +7315,7 @@ Stylesheet Guide
 14. Keyframes
  */
 /* ---------------------------------------------------------------------- */
-/*	Reset
+/*	Reset */
 /* ---------------------------------------------------------------------- */
 html, body, div, span, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -7446,7 +7446,7 @@ address {
     position: relative;
 }
 /* ---------------------------------------------------------------------- */
-/*	Basic Elements
+/*	Basic Elements */
 /* ---------------------------------------------------------------------- */
 *::before,
 *::after {
@@ -7595,7 +7595,7 @@ h1, h2, h3, h4, h5, h6 {
         height: 100%;
     }
 /* ---------------------------------------------------------------------- */
-/*	Clearfix
+/*	Clearfix */
 /* ---------------------------------------------------------------------- */
 .clearfix:after {
     clear: both;
@@ -7605,7 +7605,7 @@ h1, h2, h3, h4, h5, h6 {
     content: ".";
 }
 /* ---------------------------------------------------------------------- */
-/*	Floating & Alignment
+/*	Floating & Alignment */
 /* ---------------------------------------------------------------------- */
 .hidden {
     display: none;
@@ -7632,7 +7632,7 @@ img.alignright {
     margin: 0 0 20px 20px;
 }
 /* ---------------------------------------------------------------------- */
-/*	Dropcaps
+/*	Dropcaps */
 /* ---------------------------------------------------------------------- */
 .dropcap:first-letter {
     float: left;
@@ -7656,7 +7656,7 @@ img.alignright {
     font-size: 2.917em;
 }
 /* ---------------------------------------------------------------------- */
-/*	Divisores
+/*	Divisores */
 /* ---------------------------------------------------------------------- */
 div.sep {
     margin: 0;
@@ -7705,7 +7705,7 @@ hr.divider {
             color: #767676;
         }
 /* ---------------------------------------------------------------------- */
-/*	Ordered/Unorderd List Styles
+/*	Ordered/Unorderd List Styles */
 /* ---------------------------------------------------------------------- */
 ol.ordered {
     padding-left: 2.1em;
@@ -7782,7 +7782,7 @@ ul.type-6 li {
     background: url(../../Images/icons/small/list-icon6.png) no-repeat 7px center;
 }
 /* ---------------------------------------------------------------------- */
-/*	Buttons
+/*	Buttons */
 /* ---------------------------------------------------------------------- */
 .button {
     display: inline-block;
@@ -7935,7 +7935,7 @@ ul.type-6 li {
     width: 800px;
 }
 /* ---------------------------------------------------------------------- */
-/*	Forms
+/*	Forms */
 /* ---------------------------------------------------------------------- */
 button,
 input[type="button"],
@@ -8018,7 +8018,7 @@ textarea {
     color: #8f8f8f !important;
 }
 /* ---------------------------------------------------------------------- */
-/*	Alert Boxes
+/*	Alert Boxes */
 /* ---------------------------------------------------------------------- */
 .error,
 .success,
@@ -8134,7 +8134,7 @@ ul.tabs {
     }
 
 /* ---------------------------------------------------------------------- */
-/*	Layout
+/*	Layout */
 /* ---------------------------------------------------------------------- */
 
 .terminos_content {
@@ -10471,7 +10471,7 @@ select.ui-pg-selbox {
     width: 900px;
 }
 /* -------------------------------------------------- */
-/*	Columns para PC
+/*	Columns para PC */
 /* -------------------------------------------------- */
 .foot_belcorp {
     float: right !Important;
@@ -10843,7 +10843,7 @@ ol {
     }
 
 /* ---------------------------------------------------------------------- */
-/*	Header
+/*	Header */
 /* ---------------------------------------------------------------------- */
 #top-panel {
     border-bottom: 3px solid #00a1ea;
@@ -11057,7 +11057,7 @@ ol {
     left: 0;
 }
 /* -------------------------------------------------- */
-/*	Main Navigation
+/*	Main Navigation */
 /* -------------------------------------------------- */
 .info_cam {
     padding-left: 19px;
@@ -13018,7 +13018,7 @@ ol {
     border: 1px solid #D8DAD7;
     padding: 6px;
     display: inline-block;
-    vertical-align: top; /* BASELINE CORRECCIÓN*/
+    vertical-align: top; 
     zoom: 1;
     *display: inline;
     color: #444;
@@ -13039,7 +13039,7 @@ ol {
     border: 1px solid #D8DAD7;
     padding: 6px;
     display: inline-block;
-    vertical-align: top; /* BASELINE CORRECCIÓN*/
+    vertical-align: top; 
     zoom: 1;
     *display: inline;
     color: #444;
@@ -13118,7 +13118,7 @@ ol {
     border: 1px solid #D8DAD7;
     padding: 6px;
     display: inline-block;
-    vertical-align: top; /* BASELINE CORRECCIÓN*/
+    vertical-align: top; 
     zoom: 1;
     *display: inline;
     color: #444;
@@ -13139,7 +13139,7 @@ ol {
     border: 1px solid #D8DAD7;
     padding: 6px;
     display: inline-block;
-    vertical-align: top; /* BASELINE CORRECCIÓN*/
+    vertical-align: top; 
     zoom: 1;
     *display: inline;
     color: #444;
@@ -14015,7 +14015,7 @@ table.falsa {
                         border-bottom: 1px solid #0087C1;
                     }
 
-.jqueryslidemenuz ul li ul li a:hover { /*sub menus hover style*/
+.jqueryslidemenuz ul li ul li a:hover {
     background: #eff9ff;
     color: #fff;
 }
@@ -27010,9 +27010,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
         .caja_montos_cantidades_sinDescuento span:last-child {
             line-height: 30px;
         }
-/*.dscto_ofertasNiveles{
-    margin-left:20px;
-}*/
+
 .separador_montos {
     display: block;
     width: 100%;
@@ -28030,19 +28028,7 @@ div.motivoRechazo textarea {
     opacity: .2;
     display: none;
 }
-/*
-.caja_carousel_productos::after {
-    content: "";
-    width: 37.9%;
-    height: 83.9%;
-    background: transparent url(../../../Images/bg_popups.png) repeat left top;
-    opacity: .2;
-    position: absolute;
-    right: -81px;
-    top: 270px;
-    z-index: 8;
-    display: block;
-}*/
+
 .aparece_bloqueo {
     display: block !important;
 }
@@ -28127,9 +28113,6 @@ h1#penmostreo .campana {
 }
 
 #slide1_images .img_slide3Pedido {
-    /*.margen-sup {
-    margin-bottom: 30px;
-}*/
     background: url(../../../Images/Esika/tutorialPedido/esika_tutorial3.jpg) no-repeat center top;
     z-index: 6;
 }
@@ -28637,11 +28620,7 @@ h1#penmostreo .campana {
             box-shadow: 0px 18px 22px -11px rgba(102,102,102,0.33);
             margin-top: -31px;
         }
-    /*.mod-ofer2 .liquidacion_rango_home{
-    position: absolute;
-    z-index: 9;
-    margin-left: -80px;
-}*/
+
     .mod-ofer2 .pos-baja .boton_Agregalo_home {
         background-color: transparent;
     }
@@ -28654,10 +28633,7 @@ h1#penmostreo .campana {
         background-color: black;
         color: white;
     }
-    /*.mod-ofer2 .boton_Agregalo_home {
-    z-index: 9;
-    position: absolute;
-}*/
+
     .mod-ofer2 .pos-baja {
         height: 90px;
         margin-top: 53px;
@@ -28850,11 +28826,7 @@ h1#penmostreo .campana {
             box-shadow: 0px 18px 22px -11px rgba(102,102,102,0.33);
             margin-top: -31px;
         }
-    /*.mod-ofer3 .liquidacion_rango_home{
-    position: absolute;
-    z-index: 9;
-    margin-left: -80px;
-}*/
+
     .mod-ofer3 .pos-baja .boton_Agregalo_home {
         background-color: transparent;
     }
@@ -28867,10 +28839,7 @@ h1#penmostreo .campana {
         background-color: black;
         color: white;
     }
-    /*.mod-ofer3 .boton_Agregalo_home {
-    z-index: 9;
-    position: absolute;
-}*/
+
     .mod-ofer3 .pos-baja {
         height: 90px;
         margin-top: 53px;
@@ -30092,8 +30061,6 @@ h1#penmostreo .campana {
 
 .stock_content_aceptado {
     width: 100%;
-    /*
-*/
     height: 50px; 
     padding: 15px 43px; 
     position: relative;
@@ -30239,15 +30206,7 @@ h1#penmostreo .campana {
     justify-content: space-between;
     z-index: 4;
 }
-/*.content_pasos::after{
-    position:absolute;
-    content:"";
-    width:99%;
-    height:2px;
-    top:50%;
-    z-index:-1;
-    background:#d1d1d1;
-}*/
+
 .paso_reclamo {
     width: 36px;
     height: 36px;
@@ -30324,8 +30283,6 @@ h1#penmostreo .campana {
 .btn_no_stock {
     font-family: 'LAto';
     font-size: 13px;
-    /*    
-*/
     text-decoration: underline;
     margin-top: 30px;
     
@@ -30392,18 +30349,13 @@ h1#penmostreo .campana {
      
     color: #b5b5b5;
 }
-/*.btn_si_stock:hover{
-    background:black;
-}*/
+
 .content_motivo_select {
     width: 100%;
     margin-right: 10%;
     float: left;
     margin-bottom: 20px;
 }
-/*.content_motivo_select:last-child{
-    margin-right:0%;
-}*/
 .reclamo_motivo_select {
     display: flex;
     justify-content: center;
@@ -30438,9 +30390,6 @@ h1#penmostreo .campana {
     background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4019711/n8mE0rwMroEtyGv/selector_reclamo_esika.png) no-repeat;
     background-position: 20px 14px;
 }
-/*.reclamo_motivo_select:last-child{
-    border-bottom:0px;
-}*/
 .btn_solución_reclamo {
     float: left;
     width: 270px;
@@ -30572,8 +30521,6 @@ h1#penmostreo .campana {
 .content_listado_reclamo {
     position: relative;
     overflow: hidden;
-    /*
-*/
     border-bottom: 1px solid #c9c9c9;
 }
 
@@ -30679,9 +30626,6 @@ h1#penmostreo .campana {
     font-size: 15px;
     line-height: 30px;
     width: 330px;
-    /*
-    background: url(../../../Images/Esika/terminos.png) no-repeat;
-*/
     text-decoration: underline;
 }
 
@@ -30837,11 +30781,7 @@ h1#penmostreo .campana {
     position: absolute;
     TOP: 40%;
 }
-/*.sub_descripcion_oferta p::first-letter{
-    color:#613c87;
-    font-size:20px;
-    font-weight:900;
-}*/
+
 .sub_descripcion_oferta p span {
     color: #e81c36;
     font-size: 22px;
@@ -31115,8 +31055,6 @@ h1#penmostreo .campana {
 }
 
 .content_pop_grilla {
-    /*
-*/
 }
 
 .content_botones_pedido {
@@ -31562,10 +31500,7 @@ h1#penmostreo .campana {
     font-family: 'Lato';
     font-size: 13px;
     color: black;
-    /*
-    justify-content: center;
-    align-content: center;
-*/
+ 
 }
 
     .sub_descripcion_oferta_048 p span {
@@ -32443,9 +32378,6 @@ h1#penmostreo .campana {
 .content_tonos_maquillaje {
     margin-top: 15px;
     overflow: hidden;
-    /*
-    overflow-y:auto;
-*/
 }
 
 .content_tono_detalle {
@@ -33060,10 +32992,7 @@ h1#penmostreo .campana {
     letter-spacing: 3px;
     text-shadow: -0.1em 0.1em black;
 }
-/*.texto_dias_intriga b{
-    
-    text-shadow: -0.1em 0.1em black;
-}*/
+
 .texto_menor_intriga {
     display: block;
      
@@ -33409,9 +33338,7 @@ h1#penmostreo .campana {
     margin-top: 60px;
     text-align: center;
 }
-/*.content_producto_set img{
-    width:100%;
-}*/
+
 .content_detalle_set {
     width: 45%;
     float: left;
@@ -33516,11 +33443,7 @@ h1#penmostreo .campana {
     font-weight: 300;
 }
 
-.btn_aregar_set {
-    /* -moz-calc(100% - 80px);
-    width: calc(100% - 80px);
-*/
-     
+.btn_aregar_set {     
     float: right;
      
     background: black;
@@ -34250,13 +34173,8 @@ h1#penmostreo .campana {
 }
 
 .content_item_carrusel_ODD .btn_pop_agregalo_oferta {
-    /* -moz-calc(100% - 80px);
-    width: calc(100% - 80px);
-*/
+
 }
-/*.content_780_ODD .content_item_carrusel_ODD:last-child{
-    float:right;
-}*/
 .content_780_ODD .content_90 {
     width: 85%;
 }
@@ -34302,16 +34220,7 @@ h1#penmostreo .campana {
     float: left;
      
 }
-/*.titulo_promocion_showroom:after{
-    content: '';
-    left:-150%;
-    width: 150%;
-    height: 73px;
-    background: black;
-    position: absolute;
-    top: 0;
-    z-index: 151;
-}*/
+
 .titulo_banner_showroom {
     display: block;
     font-size: 20px;
@@ -35737,9 +35646,6 @@ h1#penmostreo .campana {
     font-weight: bold;
     letter-spacing: 0.3px;
     margin-right: 20px;
-    /* white url(../../../Images/arrow.png) no-repeat center;
-    background-size: 15px;
-*/
     background: white;
     background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
     background-repeat: no-repeat;
@@ -35829,8 +35735,6 @@ h1#penmostreo .campana {
 }
 
 .dias_inicio_landing {
-    /* 78.4px;
-*/
     top: 123px;
     font-size: 72px;
     padding: 0% 29.45%;
@@ -35861,8 +35765,6 @@ h1#penmostreo .campana {
 
         .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto span.flashit {
             color: white;
-            /* -webkit-animation: flash linear 1s infinite;
-*/
         }
 
 @-webkit-keyframes flash {
