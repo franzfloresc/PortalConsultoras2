@@ -1033,6 +1033,31 @@ namespace Portal.Consultoras.Common
             return pag;
         }
 
+        /// <summary>
+        /// Metodo que permite llenar la entidad de páginación segun la cantidad de registros total
+        /// </summary>
+        /// <param name="item">Entidad</param>
+        /// <param name="RecordCount">Cantidad de registros total</param>
+        /// <returns></returns>
+        public static BEPager PaginadorGenerico(BEGrid item, int RecordCount)
+        {
+            BEPager pag = new BEPager();
+
+            item.PageSize = item.PageSize <= 0 ? 1 : item.PageSize;
+
+            int PageCount = RecordCount / item.PageSize;
+            PageCount = PageCount < 1 ? 1 : PageCount;
+            PageCount += RecordCount > (PageCount * item.PageSize) ? 1 : 0;
+
+            pag.RecordCount = RecordCount;
+            pag.PageCount = PageCount;
+
+            int CurrentPage = item.CurrentPage;
+            pag.CurrentPage = CurrentPage > PageCount ? PageCount : CurrentPage;
+
+            return pag;
+        }
+
         public static bool IsDate(string strValor)
         {
             try { DateTime.Parse(strValor); }
@@ -3013,29 +3038,31 @@ namespace Portal.Consultoras.Common
             }
             return (anioCampaniaResult * 100) + nroCampaniaResult;
         }
+
+        public static bool IsUrl(string url)
+        {
+            Uri uriResult;
+            return Uri.TryCreate(url, UriKind.Absolute, out uriResult);
+        }
     }
 
     public static class DataRecord
     {
         public static bool HasColumn(this IDataRecord r, string columnName)
         {
-            try
+            if (r == null) return false;
+
+            columnName = columnName.Trim();
+
+            if (string.IsNullOrEmpty(columnName)) return false;
+
+            for (int i = 0; i < r.FieldCount; i++)
             {
-                if (r == null) return false;
-
-                columnName = columnName ?? "";
-                columnName = columnName.Trim();
-                if (columnName == "") return false;
-
-                if (r.GetOrdinal(columnName) >= 0)
-                    return r[columnName] != DBNull.Value;
-
-                return false;
+                if (columnName.Equals(r.GetName(i), StringComparison.InvariantCultureIgnoreCase))
+                    return r[columnName] != DBNull.Value;                           
             }
-            catch (IndexOutOfRangeException)
-            {
-                return false;
-            }
+
+            return false;
         }
         public static bool HasColumn(this DataRow row, string columnName)
         {

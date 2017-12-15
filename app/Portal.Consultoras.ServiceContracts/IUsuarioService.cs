@@ -321,11 +321,16 @@ namespace Portal.Consultoras.ServiceContracts
         #region TerminosCondiciones
         [OperationContract]
         bool InsertTerminosCondiciones(BETerminosCondiciones terminos);
+        [OperationContract]
+        bool InsertTerminosCondicionesMasivo(int paisID, List<BETerminosCondiciones> terminos);
         #endregion
 
         #region EventoFestivo
         [OperationContract]
         IList<BEEventoFestivo> GetEventoFestivo(int paisID, string Alcance, int Campania);
         #endregion
+
+        [OperationContract]
+        int UpdUsuarioFotoPerfil(int paisID, string codigoUsuario, string fileName);
     }
 }
