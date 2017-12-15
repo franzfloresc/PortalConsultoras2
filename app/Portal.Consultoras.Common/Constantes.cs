@@ -66,33 +66,19 @@ namespace Portal.Consultoras.Common
         public static class PaisID
         {
             public const int Argentina = 1;
-            
             public const int Bolivia = 2;
-            
             public const int Chile = 3;
-            
             public const int Colombia = 4;
-            
             public const int CostaRica = 5;
-            
             public const int Ecuador = 6;
-            
             public const int ElSalvador = 7;
-            
             public const int Guatemala = 8;
-            
             public const int Mexico = 9;
-            
             public const int Panama = 10;
-            
             public const int Peru = 11;
-            
             public const int PuertoRico = 12;
-            
             public const int RepublicaDominicana = 13;
-            
             public const int Venezuela = 14;
-            
             public const int Brasil = 15;
         }
 
@@ -342,7 +328,7 @@ namespace Portal.Consultoras.Common
             public const string CarpetaRevistaDigital = "CarpetaRevistaDigital";
             public const string URL_S3 = "URL_S3";
             public const string ROOT_DIRECTORY = "ROOT_DIRECTORY";
-            public const string ServiceController="ServiceController";
+            public const string ServiceController = "ServiceController";
             public const string ServiceAction = "ServiceAction";
             public const string Ambiente = "Ambiente";
 
@@ -368,7 +354,7 @@ namespace Portal.Consultoras.Common
             public const string PaisesDigitoControl = "PaisesDigitoControl";
             public const string UrlIssuu = "UrlIssuu";
             public const string PaisesCatalogoUnificado = "PaisesCatalogoUnificado";
-            public const string WS_RV_Campanias_NEW ="WS_RV_Campanias_NEW";
+            public const string WS_RV_Campanias_NEW = "WS_RV_Campanias_NEW";
             public const string WS_RV_PDF_NEW = "WS_RV_PDF_NEW";
             public const string WS_RV_Campanias = "WS_RV_Campanias";
             public const string WS_RV_PDF = "WS_RV_PDF";
@@ -400,7 +386,7 @@ namespace Portal.Consultoras.Common
             public const int Arp = 1;
             public const int Jetlore = 2;
         }
-        
+
         public static class OrigenPantallaWeb
         {
             // Primer Dígito -- Plataforma
@@ -433,7 +419,7 @@ namespace Portal.Consultoras.Common
             public const string DGuiaNegocio = "1I0";
             public const string MGuiaNegocio = "2I0";
         }
-        
+
         public static class OrigenPedidoWeb
         {
             public static class Campos
@@ -485,7 +471,7 @@ namespace Portal.Consultoras.Common
             public const int OfertasParaTiDesktopHomePopUp = 1122; // Debe utilizarse
             public const int OfertasParaTiDesktopPedido = 1221;
             public const int OfertasParaTiDesktopPedidoPopUp = 1222; // Debe utilizarse
-            public const int OfertasParaTiDesktopContenedor	= 1821;
+            public const int OfertasParaTiDesktopContenedor = 1821;
             public const int OfertasParaTiDesktopContenedorPopup = 1822;
             public const int OfertasParaTiMobileDetalle = 2621;
             public const int OfertasParaTiMobileHome = 2121;
@@ -555,7 +541,7 @@ namespace Portal.Consultoras.Common
             public const int RevistaDigitalDesktopPedidoPopUp = 1202;
             public const int RevistaDigitalMobilePedidoSeccion = 2201;
             public const int RevistaDigitalMobilePedidoPopUp = 2202;
-            
+
             public const int RevistaDigitalDesktopLanding = 1711;
             public const int RevistaDigitalDesktopLandingPopUp = 1712;
             public const int RevistaDigitalMobileLanding = 2711;
@@ -563,7 +549,7 @@ namespace Portal.Consultoras.Common
 
             public const int RevistaDigitalDesktopContenedor = 1801;
             public const int RevistaDigitalDesktopContenedorPopup = 1802;
-            
+
             public const int RevistaDigitalDesktopLandingCarrusel = 1721;
             public const int RevistaDigitalDesktopHomeLanzamiento = 1103;
             public const int RevistaDigitalMobileHomeLanzamiento = 2103; // para rediccecionar a Mobile/OfertasParaTi/Detalle
@@ -911,6 +897,12 @@ namespace Portal.Consultoras.Common
             }
         }
 
+        public static class RevistaDigitalOrigen
+        {
+            public const string RD = "RD";
+            public const string Unete = "UNETE";
+        }
+
         public static class MatrizNemotecnicoMensajes
         {
             public const string TooltipInformacionFormatoBusqueda = "Formato de búsqueda de Nemotécnico: &lt;SAP_1&gt;#&lt;Cantidad_1&gt;&amp;&lt;SAP_2&gt;#&lt;Cantidad_2&gt;&amp;...&lt;SAP_N&gt;#&lt;Cantidad_N&gt; , ejemplos: 210080203, 210080203#01, 200083988 210080203, 200083988&210080203, 200083988#02&210080203#01";
@@ -940,7 +932,7 @@ namespace Portal.Consultoras.Common
             public static readonly int NecesitasAyuda = 1039;
         }
 
-            public static class BannerCodigo
+        public static class BannerCodigo
         {
             public const string RevistaDigital = "RevistaDigital";
         }
@@ -989,8 +981,8 @@ namespace Portal.Consultoras.Common
         {
             public const string Buscador = "//search.issuu.com/api/2_0/document?username=somosbelcorp&q=";
         }
-        
-	public static class RevistaNombre
+
+        public static class RevistaNombre
         {
             public const string Esika = "Guía de Negocio Ésika";
             public const string Lbel = "Mi Negocio L’Bel";
@@ -1050,7 +1042,7 @@ namespace Portal.Consultoras.Common
             public const string Descargables = "DES-NAV";
             public const string GuiaDeNegocioDigitalizada = "GND";
         }
-        
+
         public static class ConfiguracionPaisDatos
         {
             public static class RD
@@ -1575,7 +1567,8 @@ namespace Portal.Consultoras.Common
             public const int ProgramaNuevas = 1;
         }
 
-        public static class Canal {
+        public static class Canal
+        {
             public const string Mobile = "M";
             public const string Desktop = "W";
         }
@@ -1586,7 +1579,7 @@ namespace Portal.Consultoras.Common
             public const string PAPEL_REGALO_DORADO = "2017_Navidad_Regalo1.pdf";
             public const string PAPEL_REGALO_ROJO = "2017_Navidad_Regalo2.pdf";
         }
-        
+
         public static class TagCadenaRd
         {
             public const string Nombre = "#NOMBRE";

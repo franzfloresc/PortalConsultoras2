@@ -10,6 +10,11 @@
     @System.Web.Optimization.Styles.Render("~/bundles/css/Site/RevistaDigital-Info")
 }
 
+@if (Model.Origen == Constantes.RevistaDigitalOrigen.Unete)
+{
+
+}
+
 <div class="back-to" onClick="RedireccionarContenedorComprar()">
     <img src="@Url.Content("~/Content/Images/triangle.png")" alt="">VOLVER
 </div>
