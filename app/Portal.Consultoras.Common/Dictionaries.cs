@@ -524,6 +524,19 @@ namespace Portal.Consultoras.Common
             { "SV", "TemplatesDatosAval/_DatosAvalGrupo1" },
             { "VE", "TemplatesDatosAval/_DatosAvalGrupo1" },
         };
+
+        public class FileManager
+        {
+            public class TipoArchivo
+            {
+                public const string FotoPerfilConsultora = "01";
+            }
+
+            public static Dictionary<string, string> Configuracion = new Dictionary<string, string>
+            {
+                { TipoArchivo.FotoPerfilConsultora, "FotoPerfil" }
+            };
+        }
         public static Dictionary<string, string> TemplatDatosAval { get { return templatDatosAval; } }
     }
 

@@ -148,5 +148,7 @@ namespace Portal.Consultoras.Web.Models
         public bool AceptoBackOrder { get; set; }
 
         public int CodigoCatalago { get; set; }
+
+        public bool FlagNueva { get; set; }
     }
 }
