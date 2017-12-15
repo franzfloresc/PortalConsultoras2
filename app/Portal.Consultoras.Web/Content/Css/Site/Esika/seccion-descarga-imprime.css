@@ -21,7 +21,6 @@
     box-sizing: border-box;
     font-family: 'Lato';
     margin-top: 0;
-    /*margin-bottom:20px;*/
 }
 
 .seccion_personaliza_descarga_e_imprime {
@@ -41,7 +40,6 @@
     font-weight: bold;
     color: #b52e36;
     letter-spacing: 2.1px;
-    /*margin-bottom:6px;*/
 }
 
 .texto_personaliza_tus_regalos {

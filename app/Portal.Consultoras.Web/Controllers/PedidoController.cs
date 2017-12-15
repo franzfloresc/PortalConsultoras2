@@ -4560,7 +4560,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (!beProductos.Any()) return;
             if (revistaDigital.BloquearRevistaImpresaGeneral != null)
             {
-                if (revistaDigital.BloquearRevistaImpresaGeneral == 1)
+                if (revistaDigital.BloquearRevistaImpresaGeneral == 1 && revistaDigital.EsActiva)
                 {
                     beProductos = beProductos
                         .Where(x => !userData.CodigosRevistaImpresa.Contains(x.CodigoCatalogo.ToString())).ToList();
