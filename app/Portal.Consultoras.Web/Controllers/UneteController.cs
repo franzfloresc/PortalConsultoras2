@@ -225,31 +225,29 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public string NivelesRiesgoInsertar(HttpPostedFileBase uplArchivo, NivelesRiesgoModel model)
         {
-            string message = string.Empty;
             model.CodigoISO = CodigoISO;
             try
             {
                 if (uplArchivo == null)
                 {
-                    return message = "El archivo especificado no existe.";
+                    return "El archivo especificado no existe.";
                 }
 
                 if (!Util.isFileExtension(uplArchivo.FileName, Enumeradores.TypeDocExtension.Excel))
                 {
-                    return message = "El archivo especificado no es un documento de tipo MS-Excel.";
+                    return "El archivo especificado no es un documento de tipo MS-Excel.";
                 }
 
-                string finalPath = string.Empty, httpPath = string.Empty;
+                string finalPath = string.Empty;
                 string fileextension = Path.GetExtension(uplArchivo.FileName);
 
                 if (!fileextension.ToLower().Equals(".xlsx"))
                 {
-                    return message = "Sólo se permiten archivos MS-Excel versiones 2007-2012.";
+                    return "Sólo se permiten archivos MS-Excel versiones 2007-2012.";
                 }
 
                 string fileName = Guid.NewGuid().ToString();
                 string pathfaltante = Server.MapPath("~/Content/ArchivoNivelRiesgo");
-                httpPath = Url.Content("~/Content/ArchivoNivelRiesgo") + "/" + fileName;
                 if (!Directory.Exists(pathfaltante))
                     Directory.CreateDirectory(pathfaltante);
                 finalPath = Path.Combine(pathfaltante, fileName + fileextension);
@@ -342,27 +340,27 @@ namespace Portal.Consultoras.Web.Controllers
 
                             sv.InsertarNivelesRiesgo(model.CodigoISO, listafinal.ToArray());
                         }
-                        return message = "Se realizo satisfactoriamente la carga de datos.";
+                        return "Se realizo satisfactoriamente la carga de datos.";
                     }
                     else
                     {
-                        return message = "No se Guardo ningun registro";
+                        return "No se Guardo ningun registro";
                     }
                 }
                 else
                 {
-                    return message = "Ocurrió un problema al cargar el documento o tal vez se encuentra vacío.";
+                    return "Ocurrió un problema al cargar el documento o tal vez se encuentra vacío.";
                 }
             }
             catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-                return message = "Verifique el formato del Documento, posiblemente no sea igual al de la Plantilla.";
+                return "Verifique el formato del Documento, posiblemente no sea igual al de la Plantilla.";
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-                return message = "Verifique el formato del Documento, posiblemente no sea igual al de la Plantilla.";
+                return "Verifique el formato del Documento, posiblemente no sea igual al de la Plantilla.";
             }
         }
 
@@ -595,21 +593,21 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (uplArchivo == null)
                 {
-                    return message = "El archivo especificado no existe.";
+                    return "El archivo especificado no existe.";
                 }
 
                 if (!Util.isFileExtension(uplArchivo.FileName, Enumeradores.TypeDocExtension.Excel))
                 {
-                    return message = "El archivo especificado no es un documento de tipo MS-Excel.";
+                    return "El archivo especificado no es un documento de tipo MS-Excel.";
                 }
 
 
-                string finalPath = string.Empty, httpPath = string.Empty;
+                string finalPath = string.Empty;
                 string fileextension = Path.GetExtension(uplArchivo.FileName);
 
                 if (!fileextension.ToLower().Equals(".xlsx"))
                 {
-                    return message = "Sólo se permiten archivos MS-Excel versiones 2007-2012.";
+                    return "Sólo se permiten archivos MS-Excel versiones 2007-2012.";
                 }
                 string pathfaltante = "";
                 string fileName = "";
@@ -617,7 +615,6 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     fileName = Guid.NewGuid().ToString();
                     pathfaltante = Server.MapPath("~/Content/ArchivoNivelGeografico");
-                    httpPath = Url.Content("~/Content/ArchivoNivelGeografico") + "/" + fileName;
 
                 }
                 catch (Exception ex)
@@ -667,7 +664,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         foreach (var item in lista)
                         {
-                            if (string.IsNullOrWhiteSpace(item.PROVINCIA) == false && string.IsNullOrWhiteSpace(item.DISTRITO) == false && string.IsNullOrWhiteSpace(item.CORREGIMIENTO) == false)
+                            if (!string.IsNullOrWhiteSpace(item.PROVINCIA) && !string.IsNullOrWhiteSpace(item.DISTRITO) && !string.IsNullOrWhiteSpace(item.CORREGIMIENTO))
                             {
                                 var parametro = new ServiceUnete.UbigeoPA()
                                 {
@@ -752,22 +749,22 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             sv.InsertarNivelesGeograficosGeneral(model.CodigoISO, listaUbigeo.ToArray());
                         }
-                        return message = "Se realizo satisfactoriamente la carga de datos.";
+                        return "Se realizo satisfactoriamente la carga de datos.";
                     }
                     else
                     {
-                        return message = "No se Guardo ningun registro";
+                        return "No se Guardo ningun registro";
                     }
                 }
                 else
                 {
-                    return message = "Ocurrió un problema al cargar el documento o tal vez se encuentra vacío.";
+                    return "Ocurrió un problema al cargar el documento o tal vez se encuentra vacío.";
                 }
             }
             catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-                return message = "Verifique el formato del Documento, posiblemente no sea igual al de la Plantilla.";
+                return "Verifique el formato del Documento, posiblemente no sea igual al de la Plantilla.";
             }
             catch (Exception ex)
             {
@@ -775,11 +772,11 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (ex.GetType() == typeof(TimeoutException))
                 {
-                    return message = "Tiempo de espera agotado. El servicio culminara el proceso por su cuenta. Revise los datos en unos minutos.";
+                    return "Tiempo de espera agotado. El servicio culminara el proceso por su cuenta. Revise los datos en unos minutos.";
                 }
                 else
                 {
-                    return message = "Verifique el formato del Documento, posiblemente no sea igual al de la Plantilla.";
+                    return "Verifique el formato del Documento, posiblemente no sea igual al de la Plantilla.";
                 }
             }
         }

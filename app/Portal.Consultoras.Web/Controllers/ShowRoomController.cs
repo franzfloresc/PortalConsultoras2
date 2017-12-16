@@ -113,7 +113,7 @@ namespace Portal.Consultoras.Web.Controllers
                             blnRecibido = Convert.ToBoolean(sv.GetEventoConsultoraRecibido(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID));
                         }
 
-                        if (Convert.ToInt32(lista[3]) == userData.CampaniaID && blnRecibido == false)
+                        if (Convert.ToInt32(lista[3]) == userData.CampaniaID && !blnRecibido)
                         {
                             BEShowRoomEventoConsultora Entidad = new BEShowRoomEventoConsultora();
 
@@ -2550,7 +2550,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     OfertaID = lista[5] != null ? Convert.ToInt32(lista[5]) : 0;
 
-                    if (Convert.ToInt32(lista[3]) == userData.CampaniaID && blnRecibido == false)
+                    if (Convert.ToInt32(lista[3]) == userData.CampaniaID && !blnRecibido)
                     {
                         BEShowRoomEventoConsultora Entidad = new BEShowRoomEventoConsultora();
 
@@ -2694,10 +2694,9 @@ namespace Portal.Consultoras.Web.Controllers
                 var productosShowRoom = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, esFacturacion);
                 productosShowRoom.ForEach(p => p.UrlCompartir = urlCompartir);
 
-                if (model.Limite > 0)
+                if (model.Limite > 0 && productosShowRoom.Count > 0)
                 {
-                    if (productosShowRoom.Count > 0)
-                        productosShowRoom = productosShowRoom.Where(x => x.EsSubCampania == false).Take(model.Limite).ToList();
+                    productosShowRoom = productosShowRoom.Where(x => x.EsSubCampania == false).Take(model.Limite).ToList();
                 }
 
                 var index = 0;
