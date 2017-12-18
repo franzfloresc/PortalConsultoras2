@@ -30,9 +30,8 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             ViewBag.Simbolo = userData.Simbolo;
-            ViewBag.RutaImagenNoDisponible = ConfigurationManager.AppSettings.Get("rutaImagenNotFoundAppCatalogo");
+            ViewBag.RutaImagenNoDisponible = GetConfiguracionManager(Constantes.ConfiguracionManager.rutaImagenNotFoundAppCatalogo);
 
-            //PL20-1234
             if (Session["ListFiltersFAV"] != null)
             {
                 var lst = (List<BETablaLogicaDatos>)Session["ListFiltersFAV"] ?? new List<BETablaLogicaDatos>();
@@ -41,19 +40,16 @@ namespace Portal.Consultoras.Web.Controllers
                 model.FiltersByBrand = lst.Where(x => x.TablaLogicaID == 96).ToList();
                 model.FiltersByPublished = lst.Where(x => x.TablaLogicaID == 97).ToList();
             }
-            //PL20-1234
 
-            //PL20-1270
             var listaProductoModel = (List<ProductoModel>)Session["ProductosCatalogoPersonalizado"] ?? new List<ProductoModel>();
             if (listaProductoModel.Any())
             {
                 ViewBag.PrecioMin = listaProductoModel.OrderBy(x => x.PrecioCatalogo).FirstOrDefault().PrecioCatalogoString;
                 ViewBag.PrecioMax = listaProductoModel.OrderByDescending(x => x.PrecioCatalogo).FirstOrDefault().PrecioCatalogoString;
 
-                //PL20-1283
                 var sobrenombre = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
                 ViewBag.NombreConsultoraFAV = sobrenombre.First().ToString().ToUpper() + sobrenombre.ToLower().Substring(1);
-                ViewBag.UrlImagenFAVLanding = string.Format(ConfigurationManager.AppSettings.Get("UrlImagenFAVLanding"), userData.CodigoISO);
+                ViewBag.UrlImagenFAVLanding = string.Format(GetConfiguracionManager(Constantes.ConfiguracionManager.UrlImagenFAVLanding), userData.CodigoISO);
             }
 
             return View(model);
@@ -71,13 +67,13 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
 
-            int CantProFav = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings.Get("LimiteJetloreCatalogoPersonalizadoHome"));
+            int CantProFav = Convert.ToInt32(GetConfiguracionManager(Constantes.ConfiguracionManager.LimiteJetloreCatalogoPersonalizadoHome));
             return ObtenerProductos(CantProFav);
         }
 
         public JsonResult ObtenerProductosCatalogoPersonalizado(int cantidad, int offset, List<FiltroResultadoModel> lstFilters = null, int tipoOrigen = 0)
         {
-            int limiteJetloreCatalogoPersonalizado = int.Parse(ConfigurationManager.AppSettings.Get("LimiteJetloreCatalogoPersonalizado"));
+            int limiteJetloreCatalogoPersonalizado = int.Parse(GetConfiguracionManager(Constantes.ConfiguracionManager.LimiteJetloreCatalogoPersonalizado));
             cantidad = (offset + cantidad > limiteJetloreCatalogoPersonalizado) ? (limiteJetloreCatalogoPersonalizado - offset) : cantidad;
             return ObtenerProductos(cantidad, offset, lstFilters, tipoOrigen);
         }
@@ -122,7 +118,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
             //tipoOfertaFinal: 1 -> ARP; 2 -> Jetlore
-            var lista = new List<Producto>();
+            List<Producto> lista;
             var listaProductoModel = new List<ProductoModel>();
             int flt = 0;
 
@@ -131,13 +127,11 @@ namespace Portal.Consultoras.Web.Controllers
                 #region obtener catalogo personalizado
                 if (Session["ProductosCatalogoPersonalizado"] == null)
                 {
-                    string paisesConPcm = ConfigurationManager.AppSettings.Get("PaisesConPcm");
+                    string paisesConPcm = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesConPcm);
                     int tipoProductoMostrar = paisesConPcm.Contains(userData.CodigoISO) ? 2 : 1;
 
                     using (ProductoServiceClient ps = new ProductoServiceClient())
                     {
-                        //((BasicHttpBinding)ps.Endpoint.Binding).MaxReceivedMessageSize = int.MaxValue;
-
                         var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
                         bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
 
@@ -149,7 +143,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (lista.Any())
                     {
-                        int limiteJetlore = int.Parse(ConfigurationManager.AppSettings.Get("LimiteJetloreCatalogoPersonalizado"));
+                        int limiteJetlore = int.Parse(GetConfiguracionManager(Constantes.ConfiguracionManager.LimiteJetloreCatalogoPersonalizado));
                         lista = lista.Take(limiteJetlore).ToList();
 
                         string codigosCuv = string.Join(",", lista.Select(p => p.Cuv));
@@ -183,8 +177,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 if (!string.IsNullOrEmpty(infoEstrategia))
                                 {
                                     var listSplit = infoEstrategia.Split('|');
-                                    descripcion = listSplit.Count() > 0 ? listSplit[0] : "";
-                                    string imagen = listSplit.Count() > 1 ? listSplit[1] : "";
+                                    descripcion = listSplit.Any() ? listSplit[0] : "";
 
                                     if (!string.IsNullOrEmpty(beProducto.ImagenProductoSugerido))
                                     {
@@ -235,7 +228,6 @@ namespace Portal.Consultoras.Web.Controllers
                                     TipoOfertaRevista = beProducto.TipoOfertaRevista,
                                     Volumen = producto.Volumen,
                                     EsMaquillaje = producto.EsMaquillaje,
-                                    //DescripcionComercial = producto.DescripcionComercial,
                                     DescripcionComercial = producto.Descripcion,
                                     CodigoIso = userData.CodigoISO,
                                     Relevancia = producto.Relevancia,
@@ -243,11 +235,11 @@ namespace Portal.Consultoras.Web.Controllers
                                     CodigoMarca = producto.CodigoMarca
                                 });
                             }
-                        }// for
+                        }
 
                         Session["ProductosCatalogoPersonalizado"] = listaProductoModel;
 
-                    }// lista
+                    }
                 }
                 else
                 {
@@ -256,17 +248,14 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion
 
                 var listaPedido = ObtenerPedidoWebDetalle();
-                listaProductoModel.Update(c => c.IsAgregado = listaPedido.Where(p => p.CUV == c.CUV).Count() > 0);
+                listaProductoModel.Update(c => c.IsAgregado = listaPedido.Any(p => p.CUV == c.CUV));
 
                 #region filtros
-                //SB20-1197
-                //var totalRegistros = listaProductoModel.Count;
-                var totalRegistros = int.Parse(ConfigurationManager.AppSettings.Get("LimiteJetloreCatalogoPersonalizado"));
+                var totalRegistros = int.Parse(GetConfiguracionManager(Constantes.ConfiguracionManager.LimiteJetloreCatalogoPersonalizado));
                 var precioMinimo = listaProductoModel.OrderBy(x => x.PrecioCatalogo).FirstOrDefault().PrecioCatalogoString;
                 var precioMaximo = listaProductoModel.OrderByDescending(x => x.PrecioCatalogo).FirstOrDefault().PrecioCatalogoString;
                 var totalRegistrosFilter = totalRegistros;
 
-                // PL20-1270
                 if (lstFilters == null && tipoOrigen == 1)
                 {
                     if (Session["UserFiltersFAV"] != null)
@@ -275,7 +264,6 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                //Contador de Filtros
                 if (lstFilters != null)
                 {
                     string v1 = "";
@@ -319,7 +307,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 changedFilters = true;
                                 break;
                             }
-                        }// for
+                        }
                     }
                     else
                     {
@@ -377,12 +365,12 @@ namespace Portal.Consultoras.Web.Controllers
                                     int ind = (item.Valor1.Contains(",")) ? -1 : 0;
                                     if (ind == 0)
                                     {
-                                        bool er = (item.Valor1 == "SC") ? false : true;
+                                        bool er = item.Valor1 != "SC";
                                         lstProductoModelFilter = lstProductoModelFilter.Where(x => x.TieneOfertaEnRevista == er).ToList();
                                     }
                                 }
                             }
-                        }// for
+                        }
 
                         Session["UserFiltersFAV"] = lstFilters;
                         Session["ProductosCatalogoPersonalizadoFilter"] = lstProductoModelFilter;
@@ -432,7 +420,7 @@ namespace Portal.Consultoras.Web.Controllers
                 BEProducto productPack = new BEProducto();
                 BEProducto productNivel = new BEProducto();
 
-                var ambiente = ConfigurationManager.AppSettings["Ambiente"] ?? "";
+                var ambiente = GetConfiguracionManager(Constantes.ConfiguracionManager.Ambiente);
                 var keyWeb = ambiente.ToUpper() == "QA" ? "QA_Prol_ServicesCalculos" : "PR_Prol_ServicesCalculos";
 
                 ObjOfertaCatalogos dataPROL;
@@ -445,7 +433,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #region nombre de los pack
 
-                //dataPROL.lista_ObjNivel = dataPROL.lista_ObjNivel ?? new ObjNivel[0];
                 dataPROL.lista_oObjPack = dataPROL.lista_oObjPack ?? new ObjPack[0];
 
                 if (dataPROL.lista_oObjPack.Length > 0)
@@ -465,7 +452,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #region para la imagen
 
-                string listaSap = "|"; // "0000000|00000000|000003"
+                string listaSap = "|";
                 string caracterSepara = "|";
 
                 dataPROL.lista_oObjGratis = dataPROL.lista_oObjGratis ?? new ObjGratis[0];
@@ -501,63 +488,13 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     listaSap = Util.SubStr(listaSap, 1, listaSap.Length - 2);
 
-                    var listaProductoBySap = new List<Producto>();
+                    List<Producto> listaProductoBySap;
                     using (ProductoServiceClient ps = new ProductoServiceClient())
                     {
                         listaProductoBySap = ps.ObtenerProductosByCodigoSap(userData.CodigoISO, userData.CampaniaID, listaSap).ToList();
                     }
                     listaProductoBySap = listaProductoBySap ?? new List<Producto>();
-
-                    /* SB20-1198 - INICIO */
-                    //List<string> lstCodSap = new List<string>();
-                    //foreach (var itemSap in listaProductoBySap)
-                    //{
-                    //    if (string.IsNullOrEmpty(itemSap.NombreComercial))
-                    //    {
-                    //        lstCodSap.Add(itemSap.CodigoSap);
-                    //    }
-                    //}
-
-                    //if (lstCodSap.Count > 0)
-                    //{
-                    //    List<string> lstCuvSap = new List<string>();
-
-                    //    if (dataPROL.lista_oObjGratis.Length > 0)
-                    //    {
-                    //        foreach (var codsap in lstCodSap)
-                    //        {
-                    //            foreach (var objGrati in dataPROL.lista_oObjGratis)
-                    //            {
-                    //                if (codsap == objGrati.codsap_nivel_gratis)
-                    //                {
-                    //                    //lstCuvSap.Add("");
-                    //                }
-                    //            }
-                    //        }
-                    //    }
-
-                    //    string lstFindCuv = String.Join("|", lstCuvSap);
-
-                    //    using (ODSServiceClient svc = new ODSServiceClient())
-                    //    {
-                    //        var lstNombresProductos048 = svc.GetNombreProducto048ByListaCUV(userData.PaisID, userData.CampaniaID, lstFindCuv);
-
-                    //        if (lstNombresProductos048.Length > 0)
-                    //        {
-                    //            foreach (var itemProd in lstNombresProductos048)
-                    //            {
-                    //                var itemSap = listaProductoBySap.Where(x => x.Cuv == itemProd.Cuv).First();
-                    //                if (itemSap != null)
-                    //                {
-                    //                    itemSap.NombreComercial = itemProd.NombreComercial;
-                    //                }
-                    //            }
-                    //        }
-                    //    }
-                    //}
-
-                    /* SB20-1198 - FIN */
-
+                    
                     foreach (var itemSap in listaProductoBySap)
                     {
                         if (dataPROL.lista_oObjGratis.Length > 0)
@@ -644,7 +581,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
 
-        //PL20-1237
         public JsonResult InsertarProductoCompartido(ProductoCompartidoModel ProCompModel)
         {
             try
@@ -689,7 +625,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        //PL20-1268
         public JsonResult GetInfoFichaProductoFAV(string cuv)
         {
             try
@@ -712,14 +647,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 productoModel.UrlCompartirFB = GetUrlCompartirFB();
-
-                //if (productoModel != null)
-                //{
-                //    if (productoModel.EsMaquillaje)
-                //    {
-                //        if (productoModel.Hermanos == null)
-                //        {
-
+                
                 var listaHermanos = new List<BEProducto>();
                 using (ODSServiceClient svc = new ODSServiceClient())
                 {
@@ -770,10 +698,6 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     productoModel.EsMaquillaje = false;
                 }
-
-                //        }
-                //    }// EsMaquillaje
-                //}
 
                 productoModel.FBRuta = GetUrlCompartirFB();
                 return Json(new

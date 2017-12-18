@@ -67,6 +67,8 @@
             a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
         }, 1);
     </script>
+
+    @RenderSection("headerScripts", required: false)
 </head>
 <body class="body_login @Model.NombreClase" onload="noback();" onpageshow="if(event.persisted) noback();" onunload="" >
     <!--[if lt IE 9]>
@@ -227,34 +229,20 @@
                             <div class="top">
                                 <div class="boxMenu">
                                     <div class="nav">
-                                        <a id="RecuadroComunidad" href="http://comunidad.somosbelcorp.com" title="DESCUBRE NUESTRA COMUNIDAD SOMOS BELCORP" class="nav3 m-left-tres" role="menu" region="Superior" parent="DESCUBRE NUESTRA COMUNIDAD SOMOS BELCORP">
+                                        <a id="RecuadroComunidad" href="javascript:RedirectComunidadVirtual()" title="DESCUBRE NUESTRA COMUNIDAD SOMOS BELCORP" class="nav3 m-left-tres" role="menu" region="Superior" parent="DESCUBRE NUESTRA COMUNIDAD SOMOS BELCORP">
                                             <span>COMUNIDAD VIRTUAL</span>
                                         </a>
                                         <a href="javascript:openDialog()" rel="banner-login" title="CREA TU CORREO AQUÍ" class="nav2 m-left-uno" role="menu" region="Superior" parent="CREA TU CORREO AQUÍ">
-                                            <span>
-                                                CREA TU
-                                                CORREO AQUÍ
-                                            </span>
+                                            <span>CREA TU CORREO AQUÍ</span>
                                         </a>
-
                                         <a href="#" onclick="return RedirectUneteaBelcorp();" rel="banner-login" title="ÚNETE A BELCORP" class="nav1 m-left-dos" role="outbound-link" region="Outbound Link" parent="ÚNETE A BELCORP">
-                                            <span>
-                                                ÚNETE A
-                                                BELCORP
-                                            </span>
+                                            <span>ÚNETE A BELCORP</span>
                                         </a>
-
                                         <a id="PagoLinea" style="display: none;" href="#" onclick="return RedirectPagoLinea();" rel="banner-login" title="Pagos en Linea" class="nav0 m-left-cuatro">
-                                            <span>
-                                                PAGOS EN
-                                                LÍNEA AQUÍ
-                                            </span>
+                                            <span>PAGOS EN LÍNEA AQUÍ</span>
                                         </a>
                                         <a id="DespachosCobranza" style="display: none;" href="#" onclick="return RedirectDespachosCobranza();" rel="banner-login" title="Informacion de Despachos de Cobranza" class="nav0 m-left-cuatro">
-                                            <span>
-                                                ENTREGAS Y
-                                                COBRANZAS
-                                            </span>
+                                            <span>ENTREGAS Y COBRANZAS</span>
                                         </a>
                                     </div>
                                 </div>

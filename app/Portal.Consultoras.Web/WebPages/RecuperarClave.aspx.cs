@@ -38,7 +38,7 @@ namespace Portal.Consultoras.Web.WebPages
                 bool isMobile = regEx.IsMatch(uAg);
 
                 if (isMobile)
-                Response.Redirect(urlportal + "/WebPages/RecuperarClaveMobile.aspx");
+                    Response.Redirect(urlportal + "/WebPages/RecuperarClaveMobile.aspx");
 
                 DropDowListPaises();
             }

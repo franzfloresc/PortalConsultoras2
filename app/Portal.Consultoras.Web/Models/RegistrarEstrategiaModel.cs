@@ -34,6 +34,7 @@ namespace Portal.Consultoras.Web.Models
         public string ColorFondo { get; set; }
         public string FlagEstrella { get; set; }
         public string CodigoTipoEstrategia { get; set; }
+        
         // Atributos usados solo para la estrategia de lanzamiento.
         public string ImgFondoDesktop { get; set; }
         public string ImgPrevDesktop { get; set; }
@@ -49,6 +50,8 @@ namespace Portal.Consultoras.Web.Models
         public string PrecioAnt { get; set; }
         public string Ganancia { get; set; }
         public bool EsOfertaIndependiente { get; set; }
-
+        public string CodigoPrograma { get; set; }
+        public string CodigoConcurso { get; set; }
+        public string TipoConcurso { get; set; }
     }
 }

@@ -1,9 +1,9 @@
 ﻿using Portal.Consultoras.Web.Controllers;
+using Portal.Consultoras.Web.CustomFilters;
+using Portal.Consultoras.Web.Infraestructure;
 using Portal.Consultoras.Web.Models;
 using System;
 using System.Web.Mvc;
-using Portal.Consultoras.Web.CustomFilters;
-using Portal.Consultoras.Web.Infraestructure;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -16,7 +16,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             try
             {
                 return RedirectToAction("Index", "Ofertas", new { area = "Mobile" });
-                //return IndexModel();
             }
             catch (Exception ex)
             {
@@ -30,7 +29,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                ViewBag.CampaniaMasDosX = AddCampaniaAndNumero(userData.CampaniaID, 2) % 100;
                 return DetalleModel(cuv, campaniaId);
             }
             catch (Exception ex)
@@ -38,13 +36,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
 
-            return RedirectToAction("Index", "RevistaDigital", new { area = "Mobile" });
+            return RedirectToAction("Index", "Ofertas", new { area = "Mobile" });
         }
 
-        public ActionResult Informacion()
+        public ActionResult Informacion(string tipo)
         {
             try
             {
+                ViewBag.TipoLayout = tipo;
                 return IndexModel();
             }
             catch (Exception ex)
@@ -108,6 +107,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
             return PartialView("template-mensaje-bloqueado", new MensajeProductoBloqueadoModel());
         }
-
+        
     }
 }

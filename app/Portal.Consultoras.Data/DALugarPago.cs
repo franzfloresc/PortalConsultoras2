@@ -21,7 +21,6 @@ namespace Portal.Consultoras.Data
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetLugarPagoPaisCampania");
             Context.Database.AddInParameter(command, "@PaisID", DbType.Int32, paisID);
-            //Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
             return Context.ExecuteReader(command);
         }
 
@@ -38,7 +37,6 @@ namespace Portal.Consultoras.Data
 
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add("@PaisID", SqlDbType.Int).Value = entidad.PaisID;
-            //cmd.Parameters.Add("@CampaniaID", SqlDbType.Int).Value = entidad.CampaniaID;
             cmd.Parameters.Add("@ConsultoraID", SqlDbType.BigInt).Value = entidad.ConsultoraID;
             cmd.Parameters.Add("@Nombre", SqlDbType.VarChar).Value = entidad.Nombre;
             cmd.Parameters.Add("@UrlSitio", SqlDbType.VarChar).Value = entidad.UrlSitio;
@@ -56,7 +54,6 @@ namespace Portal.Consultoras.Data
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add("@LugarPagoID", SqlDbType.Int).Value = entidad.LugarPagoID;
             cmd.Parameters.Add("@PaisID", SqlDbType.Int).Value = entidad.PaisID;
-            //cmd.Parameters.Add("@CampaniaID", SqlDbType.Int).Value = entidad.CampaniaID;
             cmd.Parameters.Add("@ConsultoraID", SqlDbType.BigInt).Value = entidad.ConsultoraID;
             cmd.Parameters.Add("@Nombre", SqlDbType.VarChar).Value = entidad.Nombre;
             cmd.Parameters.Add("@UrlSitio", SqlDbType.VarChar).Value = entidad.UrlSitio;

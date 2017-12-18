@@ -5,7 +5,7 @@ namespace Portal.Consultoras.Common
 {
     public class Dictionaries
     {
-        public static Dictionary<string, string> DocumentoIdentidad = new Dictionary<string, string>
+        private static readonly Dictionary<string, string> documentoIdentidad = new Dictionary<string, string>
         {
             {"BO", ""},
             {"CL", "^$|^[0-9]{8}-[a-zA-Z0-9]{1}$"},
@@ -21,17 +21,19 @@ namespace Portal.Consultoras.Common
             {"SV", ""},
             {"VE", ""},
         };
+        public static Dictionary<string, string> DocumentoIdentidad { get { return documentoIdentidad; } }
 
-        public static Dictionary<string, string> DicSexo = new Dictionary<string, string>
+        private static readonly Dictionary<string, string> dicSexo = new Dictionary<string, string>
         {
             { "M", "Masculino"},
             { "F", "Femenino" }
         };
+        public static Dictionary<string, string> DicSexo { get { return dicSexo; } }
 
         /// <summary>
         /// Prefijo de telefono fijo por código de país, key: Codigo del país, value: string
         /// </summary>
-        public static Dictionary<string, string> PrefijoTelefonoFijo = new Dictionary<string, string>
+        private static readonly Dictionary<string, string> prefijoTelefonoFijo = new Dictionary<string, string>
         {
             { "BO", "+591" },
             { "CL", "+562" },
@@ -47,11 +49,12 @@ namespace Portal.Consultoras.Common
             { "SV", "+503" },
             { "VE", "+58" }
         };
+        public static Dictionary<string, string> PrefijoTelefonoFijo { get { return prefijoTelefonoFijo; } }
 
         /// <summary>
         /// Longitud de texto del telefono fijo key: Codigo del país, value: int
         /// </summary>
-        public static Dictionary<string, int> LengthTelefonoFijo = new Dictionary<string, int>
+        private static readonly Dictionary<string, int> lengthTelefonoFijo = new Dictionary<string, int>
         {
             { "BO", 0 },
             { "CL", 9 },
@@ -67,8 +70,9 @@ namespace Portal.Consultoras.Common
             { "SV", 0 },
             { "VE", 0 }
         };
+        public static Dictionary<string, int> LengthTelefonoFijo { get { return lengthTelefonoFijo; } }
 
-        public static Dictionary<string, string> PrefijoTelefonoCelular = new Dictionary<string, string>
+        private static readonly Dictionary<string, string> prefijoTelefonoCelular = new Dictionary<string, string>
         {
             { "BO", "+591" },
             { "CL", "+569" },
@@ -84,11 +88,12 @@ namespace Portal.Consultoras.Common
             { "SV", "+503" },
             { "VE", "+58" }
         };
+        public static Dictionary<string, string> PrefijoTelefonoCelular { get { return prefijoTelefonoCelular; } }
 
         /// <summary>
         /// Longitud de texto del celular key: Codigo del país, value: int
         /// </summary>
-        public static Dictionary<string, int> LengthTelefonoCelular = new Dictionary<string, int>
+        private static readonly Dictionary<string, int> lengthTelefonoCelular = new Dictionary<string, int>
         {
             { "BO", 0 },
             { "CL", 8 },
@@ -104,11 +109,12 @@ namespace Portal.Consultoras.Common
             { "SV", 0 },
             { "VE", 0 }
         };
+        public static Dictionary<string, int> LengthTelefonoCelular { get { return lengthTelefonoCelular; } }
 
         /// <summary>
         /// Formatos de los numeros de documento para guardar en BD, key: Codigo del país, value: Func<string, string> 
         /// </summary>
-        public static Dictionary<string, Func<string, string>> FormatoNumeroDocumentoBD = new Dictionary<string, Func<string, string>>
+        private static readonly Dictionary<string, Func<string, string>> formatoNumeroDocumentoBD = new Dictionary<string, Func<string, string>>
         {
             { "BO", null },
             { "CL", t => t.Replace("-", string.Empty) },
@@ -124,11 +130,12 @@ namespace Portal.Consultoras.Common
             { "SV", null },
             { "VE", null }
         };
+        public static Dictionary<string, Func<string, string>> FormatoNumeroDocumentoBD { get { return formatoNumeroDocumentoBD; } }
 
         /// <summary>
         /// Labels de los numeros de documento, key: Codigo del país, value: string
         /// </summary>
-        public static Dictionary<string, string> LabelDocumentoIdentidad = new Dictionary<string, string>
+        private static readonly Dictionary<string, string> labelDocumentoIdentidad = new Dictionary<string, string>
         {
             { "BO", "Doc. Identidad" },
             { "CL", "RUT" },
@@ -144,8 +151,9 @@ namespace Portal.Consultoras.Common
             { "SV", "" },
             { "VE", "" }
         };
+        public static Dictionary<string, string> LabelDocumentoIdentidad { get { return labelDocumentoIdentidad; } }
 
-        public static Dictionary<string, string> PlaceholderDocumentoIdentidad = new Dictionary<string, string>
+        private static readonly Dictionary<string, string> placeholderDocumentoIdentidad = new Dictionary<string, string>
         {
             { "BO", "" },
             { "CL", "xxxxxxxx-y" },
@@ -161,8 +169,9 @@ namespace Portal.Consultoras.Common
             { "SV", "" },
             { "VE", "" }
         };
+        public static Dictionary<string, string> PlaceholderDocumentoIdentidad { get { return placeholderDocumentoIdentidad; } }
 
-        public static Dictionary<string, string> EjemploDocumentoIdentidad = new Dictionary<string, string>
+        private static readonly Dictionary<string, string> ejemploDocumentoIdentidad = new Dictionary<string, string>
         {
             { "BO", "" },
             { "CL", "12345678-K" },
@@ -178,8 +187,9 @@ namespace Portal.Consultoras.Common
             { "SV", "" },
             { "VE", "" }
         };
+        public static Dictionary<string, string> EjemploDocumentoIdentidad { get { return ejemploDocumentoIdentidad; } }
 
-        public static Dictionary<string, int> MaxLengthDocumentoIdentidad = new Dictionary<string, int>
+        private static readonly Dictionary<string, int> maxLengthDocumentoIdentidad = new Dictionary<string, int>
         {
             { "BO", 0 },
             { "CL", 10 },
@@ -195,8 +205,9 @@ namespace Portal.Consultoras.Common
             { "SV", 0 },
             { "VE", 0 }
         };
+        public static Dictionary<string, int> MaxLengthDocumentoIdentidad { get { return maxLengthDocumentoIdentidad; } }
 
-        public static Dictionary<string, string> MensajeValidacionDocumentoIdentidad = new Dictionary<string, string>
+        private static readonly Dictionary<string, string> mensajeValidacionDocumentoIdentidad = new Dictionary<string, string>
         {
             { "BO", "" },
             { "CL", "valide la cantidad de dígitos ó guíon" },
@@ -212,11 +223,12 @@ namespace Portal.Consultoras.Common
             { "SV", "" },
             { "VE", "" }
         };
+        public static Dictionary<string, string> MensajeValidacionDocumentoIdentidad { get { return mensajeValidacionDocumentoIdentidad; } }
 
         /// <summary>
         /// Longitud de texto del celular key: Codigo del país, value: int
         /// </summary>
-        public static Dictionary<string, int> LengthCodigoPostal = new Dictionary<string, int>
+        private static readonly Dictionary<string, int> lengthCodigoPostal = new Dictionary<string, int>
         {
             { "BO", 0 },
             { "CL", 8 },
@@ -232,11 +244,12 @@ namespace Portal.Consultoras.Common
             { "SV", 0 },
             { "VE", 0 }
         };
+        public static Dictionary<string, int> LengthCodigoPostal { get { return lengthCodigoPostal; } }
 
         /// <summary>
         /// Formatos de los numeros de documento para mostrar, key: Codigo del país, value: Func<string, string> 
         /// </summary>
-        public static Dictionary<string, Func<string, string>> FormatoNumeroDocumentoView = new Dictionary<string, Func<string, string>>
+        private static readonly Dictionary<string, Func<string, string>> formatoNumeroDocumentoView = new Dictionary<string, Func<string, string>>
         {
             { "BO", null },
             { "CL", t => t.Insert(8, "-") },
@@ -252,11 +265,12 @@ namespace Portal.Consultoras.Common
             { "SV", null },
             { "VE", null }
         };
+        public static Dictionary<string, Func<string, string>> FormatoNumeroDocumentoView { get { return formatoNumeroDocumentoView; } }
 
         /// <summary>
         /// Label para el primero combo de lugares, key: Codigo del país, value: string
         /// </summary>
-        public static Dictionary<string, string> LabelLugar1 = new Dictionary<string, string>
+        private static readonly Dictionary<string, string> labelLugar1 = new Dictionary<string, string>
         {
             { "BO", "Departamento" },
             { "CL", "Ciudad (Región)" },
@@ -272,11 +286,12 @@ namespace Portal.Consultoras.Common
             { "SV", "Departamento" },
             { "VE", "" }
         };
+        public static Dictionary<string, string> LabelLugar1 { get { return labelLugar1; } }
 
         /// <summary>
         /// Label para el segundo combo de lugares, key: Codigo del país, value: string
         /// </summary>
-        public static Dictionary<string, string> LabelLugar2 = new Dictionary<string, string>
+        private static readonly Dictionary<string, string> labelLugar2 = new Dictionary<string, string>
         {
             { "BO", "Ciudad" },
             { "CL", "Comuna" },
@@ -292,11 +307,12 @@ namespace Portal.Consultoras.Common
             { "SV", "Municipio" },
             { "VE", "" }
         };
+        public static Dictionary<string, string> LabelLugar2 { get { return labelLugar2; } }
 
         /// <summary>
         /// Label para el segundo combo de lugares, key: Codigo del país, value: string
         /// </summary>
-        public static Dictionary<string, string> LabelLugar3 = new Dictionary<string, string>
+        private static readonly Dictionary<string, string> labelLugar3 = new Dictionary<string, string>
         {
             { "BO", "Barrio" },
             { "CL", "" },
@@ -312,11 +328,12 @@ namespace Portal.Consultoras.Common
             { "SV", "Canton" },
             { "VE", "" }
         };
+        public static Dictionary<string, string> LabelLugar3 { get { return labelLugar3; } }
 
         /// <summary>
         /// Label para el segundo combo de lugares, key: Codigo del país, value: string
         /// </summary>
-        public static Dictionary<string, string> LabelLugar4 = new Dictionary<string, string>
+        private static readonly Dictionary<string, string> labelLugar4 = new Dictionary<string, string>
         {
             { "BO", "" },
             { "CL", "" },
@@ -332,11 +349,12 @@ namespace Portal.Consultoras.Common
             { "SV", "Barrio/Colonia" },
             { "VE", "" }
         };
+        public static Dictionary<string, string> LabelLugar4 { get { return labelLugar4; } }
 
         /// <summary>
         /// Label para el segundo combo de lugares, key: Codigo del país, value: string
         /// </summary>
-        public static Dictionary<string, string> LabelLugar5 = new Dictionary<string, string>
+        private static readonly Dictionary<string, string> labelLugar5 = new Dictionary<string, string>
         {
             { "BO", "" },
             { "CL", "" },
@@ -352,7 +370,9 @@ namespace Portal.Consultoras.Common
             { "SV", "" },
             { "VE", "" }
         };
-        public static Dictionary<string, int> MaxLengthCodigoConsultora = new Dictionary<string, int>
+        public static Dictionary<string, string> LabelLugar5 { get { return labelLugar5; } }
+
+        private static readonly Dictionary<string, int> maxLengthCodigoConsultora = new Dictionary<string, int>
         {
             { "BO", 0 },
             { "CL", 7 },
@@ -368,8 +388,9 @@ namespace Portal.Consultoras.Common
             { "SV", 0 },
             { "VE", 0 }
         };
+        public static Dictionary<string, int> MaxLengthCodigoConsultora { get { return maxLengthCodigoConsultora; } }
 
-        public static Dictionary<string, string> CabeceraNumeroDocumento = new Dictionary<string, string>
+        private static readonly Dictionary<string, string> cabeceraNumeroDocumento = new Dictionary<string, string>
         {
             { "BO", "DNI" },
             { "CL", "RUT" },
@@ -385,8 +406,9 @@ namespace Portal.Consultoras.Common
             { "SV", "DNI/RUC" },
             { "VE", "" }
         };
+        public static Dictionary<string, string> CabeceraNumeroDocumento { get { return cabeceraNumeroDocumento; } }
 
-        public static Dictionary<string, string> CabeceraComprobanteDomicilio = new Dictionary<string, string>
+        private static readonly Dictionary<string, string> cabeceraComprobanteDomicilio = new Dictionary<string, string>
         {
             { "BO", "Comprobante Domicilio" },
             { "CL", "Comprobante Domicilio" },
@@ -402,8 +424,9 @@ namespace Portal.Consultoras.Common
             { "SV", "Comprobante Domicilio" },
             { "VE", "" }
         };
+        public static Dictionary<string, string> CabeceraComprobanteDomicilio { get { return cabeceraComprobanteDomicilio; } }
 
-        public static Dictionary<string, string> CabeceraDniAval = new Dictionary<string, string>
+        private static readonly Dictionary<string, string> cabeceraDniAval = new Dictionary<string, string>
         {
             { "BO", "DNI Aval" },
             { "CL", "DNI Aval" },
@@ -419,7 +442,9 @@ namespace Portal.Consultoras.Common
             { "SV", "DNI Aval" },
             { "VE", "" }
         };
-        public static Dictionary<string, string> TemplateUbigeos = new Dictionary<string, string>
+        public static Dictionary<string, string> CabeceraDniAval { get { return cabeceraDniAval; } }
+
+        private static readonly Dictionary<string, string> templateUbigeos = new Dictionary<string, string>
         {
             { "BO", "TemplatesUbigeos/_UbigeoGrupo8" },
             { "CL", "TemplatesUbigeos/_UbigeoGrupo1" },
@@ -435,8 +460,9 @@ namespace Portal.Consultoras.Common
             { "SV", "TemplatesUbigeos/_UbigeoGrupo4" },
             { "VE", "" }
         };
+        public static Dictionary<string, string> TemplateUbigeos { get { return templateUbigeos; } }
 
-        public static Dictionary<string, RangoEdad> RangoEdadesPais = new Dictionary<string, RangoEdad>
+        private static readonly Dictionary<string, RangoEdad> rangoEdadesPais = new Dictionary<string, RangoEdad>
         {
             {PaisesCodigoIso.Chile, new RangoEdad(18, 80)},
             {PaisesCodigoIso.Colombia, new RangoEdad(18, 80)},
@@ -451,8 +477,9 @@ namespace Portal.Consultoras.Common
             {PaisesCodigoIso.PuertoRico, new RangoEdad(18, 75)},
             {PaisesCodigoIso.Bolivia, new RangoEdad(18, 65)}
         };
+        public static Dictionary<string, RangoEdad> RangoEdadesPais { get { return rangoEdadesPais; } }
 
-        public static Dictionary<string, string> TemplatDatosGenerales = new Dictionary<string, string>
+        private static readonly Dictionary<string, string> templatDatosGenerales = new Dictionary<string, string>
         {
             { "BO", "TemplatesDatosGenerales/_DatosGeneralesGrupo3" },
             { "CL", "TemplatesDatosGenerales/_DatosGeneralesGrupo2" },
@@ -468,8 +495,9 @@ namespace Portal.Consultoras.Common
             { "SV", "TemplatesDatosGenerales/_DatosGeneralesGrupo2" },
             { "VE", "" }
         };
+        public static Dictionary<string, string> TemplatDatosGenerales { get { return templatDatosGenerales; } }
 
-        public static Dictionary<string, string> IncentivoProgramaNuevasNiveles = new Dictionary<string, string>
+        private static readonly Dictionary<string, string> incentivoProgramaNuevasNiveles = new Dictionary<string, string>
         {
             { "01", "PrimerPedido" },
             { "02", "SegundoPedido" },
@@ -478,8 +506,9 @@ namespace Portal.Consultoras.Common
             { "05", "QuintoPedido" },
             { "06", "SextoPedido" }
         };
+        public static Dictionary<string, string> IncentivoProgramaNuevasNiveles { get { return incentivoProgramaNuevasNiveles; } }
 
-        public static Dictionary<string, string> TemplatDatosAval = new Dictionary<string, string>
+        private static readonly Dictionary<string, string> templatDatosAval = new Dictionary<string, string>
         {
             { "BO", "TemplatesDatosAval/_DatosAvalGrupo1" },
             { "CL", "TemplatesDatosAval/_DatosAvalGrupo1" },
@@ -496,6 +525,19 @@ namespace Portal.Consultoras.Common
             { "VE", "TemplatesDatosAval/_DatosAvalGrupo1" },
         };
 
+        public class FileManager
+        {
+            public class TipoArchivo
+            {
+                public const string FotoPerfilConsultora = "01";
+            }
+
+            public static Dictionary<string, string> Configuracion = new Dictionary<string, string>
+            {
+                { TipoArchivo.FotoPerfilConsultora, "FotoPerfil" }
+            };
+        }
+        public static Dictionary<string, string> TemplatDatosAval { get { return templatDatosAval; } }
     }
 
     public class RangoEdad
@@ -547,5 +589,4 @@ namespace Portal.Consultoras.Common
         public const string PuertoRico = "PR";
         public const string Bolivia = "BO";
     }
-
 }

@@ -33,8 +33,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public string LinkEsika { get; set; }
         public string LinkCyzone { get; set; }
 
-        public int PaisID { get; set; } //R20160204
-        public string CodigoZona { get; set; } //R20160204
+        public int PaisID { get; set; }
+        public string CodigoZona { get; set; }
 
         public List<BECliente> ListaCliente { get; set; }
     }

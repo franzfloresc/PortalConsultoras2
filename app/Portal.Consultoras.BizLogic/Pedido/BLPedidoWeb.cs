@@ -44,14 +44,6 @@ namespace Portal.Consultoras.BizLogic
         public IList<BEPedidoDDWeb> GetPedidosDDWeb(BEPedidoDDWeb BEPedidoDDWeb)
         {
             var pedidoDDWeb = new List<BEPedidoDDWeb>();
-            //var DAPedidoWeb = new DAPedidoWeb(BEPedidoDDWeb.paisID);
-
-            //using (IDataReader reader = DAPedidoWeb.GetPedidosDDWeb(BEPedidoDDWeb))
-            //    while (reader.Read())
-            //    {
-            //        var entidad = new BEPedidoDDWeb(reader);
-            //        pedidoDDWeb.Add(entidad);
-            //    }
 
             pedidoDDWeb.Add(new BEPedidoDDWeb { CampaniaID = 10010, PedidoID = 10001, NroRegistro = "000001", FechaRegistro = Convert.ToDateTime("01/01/2013 10:00:00"), CampaniaCodigo = "CM001 - 2013", Seccion = "S0001", ConsultoraCodigo = "C00001", ConsultoraNombre = "Consultora 01", ImporteTotal = 80, UsuarioResponsable = "Usuario 1", ConsultoraSaldo = 12, OrigenNombre = "DD", EstadoValidacionNombre = "SI" });
             pedidoDDWeb.Add(new BEPedidoDDWeb { CampaniaID = 10009, PedidoID = 10002, NroRegistro = "000002", FechaRegistro = Convert.ToDateTime("01/01/2013 10:00:00"), CampaniaCodigo = "CM001 - 2013", Seccion = "S0002", ConsultoraCodigo = "C00002", ConsultoraNombre = "Consultora 02", ImporteTotal = 970, UsuarioResponsable = "Usuario 2", ConsultoraSaldo = 15, OrigenNombre = "Web", EstadoValidacionNombre = "NO" });
@@ -161,7 +153,6 @@ namespace Portal.Consultoras.BizLogic
                             catch (SqlException ex)
                             {
                                 LogManager.SaveLog(ex, usuario, codigoPais);
-                                //throw new BizLogicException(ex.Message, ex);
                                 throw new BizLogicException("No se pudo acceder al origen de datos de pedidos DD.", ex);
                             }
                         }
@@ -189,18 +180,14 @@ namespace Portal.Consultoras.BizLogic
                     catch (SqlException ex)
                     {
                         LogManager.SaveLog(ex, usuario, codigoPais);
-                        //throw new BizLogicException(ex.Message, ex);
                         throw new BizLogicException("No se pudo acceder al origen de datos de pedidos DD.", ex);
                     }
                 }
-
-                //----- Carga Datos Consultora
+                
                 DataSet dsDatosConsultora = null;
                 DataTable dtDatosConsultora = null;
 
-                //CGI (VVA) - 2450
-                // if (ConfigurationManager.AppSettings["OrderDownloadIncludeDatosConsultora"] == "1" && !isFox && tipoCronograma == 1)
-                if (incluirConsultora) //VVA CO528
+                if (incluirConsultora)
                 {
                     try
                     {
@@ -214,7 +201,6 @@ namespace Portal.Consultoras.BizLogic
                         ErrorCoDat = "No se pudo acceder a la información de las Consultoras.";
                     }
                 }
-                //----- Log Pedidos
 
                 TransactionOptions transactionOptions = new TransactionOptions();
                 transactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
@@ -249,7 +235,7 @@ namespace Portal.Consultoras.BizLogic
 
                     NombreCabecera = headerFile.Replace(ConfigurationManager.AppSettings["OrderDownloadPath"], "");
                     NombreDetalle = detailFile.Replace(ConfigurationManager.AppSettings["OrderDownloadPath"], "");
-                    NombreDetalleAct = detailFileAct.Replace(ConfigurationManager.AppSettings["OrderDownloadPath"], ""); //CGI (VVA) - 2450
+                    NombreDetalleAct = detailFileAct.Replace(ConfigurationManager.AppSettings["OrderDownloadPath"], "");
 
                     string fechaFactura = fechaFacturacion.ToString("yyyyMMdd");
                     string fechaProceso = DateTime.Now.ToString("yyyyMMdd");
@@ -330,7 +316,6 @@ namespace Portal.Consultoras.BizLogic
                     throw new BizLogicException("No se pudo generar los archivos de descarga de pedidos.", ex);
                 }
 
-                //if (ConfigurationManager.AppSettings["OrderDownloadIncludeDatosConsultora"] == "1" && !isFox && tipoCronograma == 1)
                 if (incluirConsultora && string.IsNullOrEmpty(ErrorCoDat))
                 {
                     try
@@ -362,11 +347,10 @@ namespace Portal.Consultoras.BizLogic
                     }
                 }
 
-                if (headerFile != null) //Si generó algún archivo continúa
+                if (headerFile != null)
                 {
                     if (ConfigurationManager.AppSettings["OrderDownloadCompress"] == "1")
                     {
-                        //Comprime los archivos
                         string zipHeaderFile = Path.ChangeExtension(headerFile, "zip");
                         string zipDetailFile = Path.ChangeExtension(detailFile, "zip");
 
@@ -379,7 +363,7 @@ namespace Portal.Consultoras.BizLogic
                         string srvName = ConfigurationManager.AppSettings["GetServerName"];
                         headerFile = srvName + Path.GetFileName(headerFile);
                         detailFile = srvName + Path.GetFileName(detailFile);
-                        detailFileAct = srvName + Path.GetFileName(detailFileAct); //CGI (VVA) 2450
+                        detailFileAct = srvName + Path.GetFileName(detailFileAct);
                         if (incluirConsultora) dataConFile = srvName + Path.GetFileName(dataConFile);
                     }
                     else
@@ -388,7 +372,6 @@ namespace Portal.Consultoras.BizLogic
                         {
                             try
                             {
-                                //Sube los archivos zip al FTP
                                 BLFileManager.FtpUploadFile(ftpElement.Address + ftpElement.Header,
                                     headerFile, ftpElement.UserName, ftpElement.Password);
 
@@ -420,7 +403,7 @@ namespace Portal.Consultoras.BizLogic
                             }
                         }
                         detailFile = headerFile = dataConFile = null;
-                        detailFileAct = null; //CGI (VVA) 2450
+                        detailFileAct = null;
                     }
 
                     if (isFox || (dtPedidosDD != null && dtPedidosDD.Rows.Count > 0))
@@ -542,7 +525,6 @@ namespace Portal.Consultoras.BizLogic
             }
 
             string[] s = null;
-            //  if (headerFile == null && detailFile == null)
             if (headerFile == null && detailFile == null && detailFileAct == null) s = new string[] { };//CGI - VVA - 2450                
             else s = new string[] { headerFile, detailFile, detailFileAct }; //CGI - VVA - 2450
             return s;
@@ -609,8 +591,6 @@ namespace Portal.Consultoras.BizLogic
                     throw new BizLogicException("No se pudo acceder al origen de datos de pedidos DD.", ex);
                 }
 
-                //----- Log Pedidos
-
                 TransactionOptions transactionOptions = new TransactionOptions();
                 transactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
                 using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
@@ -675,11 +655,10 @@ namespace Portal.Consultoras.BizLogic
                     throw new BizLogicException("No se pudo generar los archivos de descarga de pedidos.", ex);
                 }
 
-                if (headerFile != null) //Si generó algún archivo continúa
+                if (headerFile != null) 
                 {
                     if (ConfigurationManager.AppSettings["OrderDownloadCompress"] == "1")
                     {
-                        //Comprime los archivos
                         string zipHeaderFile = Path.ChangeExtension(headerFile, "zip");
                         string zipDetailFile = Path.ChangeExtension(detailFile, "zip");
 
@@ -691,7 +670,6 @@ namespace Portal.Consultoras.BizLogic
                     {
                         try
                         {
-                            //Sube los archivos zip al FTP
                             BLFileManager.FtpUploadFile(ftpElement.Address + ftpElement.Header,
                                 headerFile, ftpElement.UserName, ftpElement.Password);
 
@@ -705,8 +683,6 @@ namespace Portal.Consultoras.BizLogic
                     }
                     detailFile = headerFile = null;
 
-                    // if (dtPedidosDD != null && dtPedidosDD.Rows.Count > 0)
-                    // {
                     try
                     {
                         DAPedidoDD.UpdPedidoDDIndicadorEnviadoDD(nroLote, marcarPedido, FechaHoraPais, 2, null, null, NombreCabecera, NombreDetalle, System.Environment.MachineName);
@@ -715,7 +691,6 @@ namespace Portal.Consultoras.BizLogic
                     {
                         throw new BizLogicException("No se pudo marcar los pedidos DD como enviados.", ex);
                     }
-                    //}                                       
                 }
             }
             catch (Exception ex)
@@ -735,15 +710,13 @@ namespace Portal.Consultoras.BizLogic
             }
             string[] s = null;
 
-            //  if (headerFile == null && detailFile == null)
-            if (headerFile == null && detailFile == null) //CGI - VVA - 2450
+            if (headerFile == null && detailFile == null) 
                 s = new string[] { };
             else
-                s = new string[] { headerFile, detailFile }; //CGI - VVA - 2450
+                s = new string[] { headerFile, detailFile }; 
 
             return s;
         }
-        // R20151003 - Fin
 
         public string[] DescargaPedidosFIC(int paisID, DateTime fechaFacturacion, int tipoCronograma, string usuario)
         {
@@ -768,7 +741,7 @@ namespace Portal.Consultoras.BizLogic
                 try
                 {
                     dsPedidosWeb = DAPedidoFIC.GetPedidoFICByFechaFacturacion(fechaFacturacion, nroLote);
-                    dtPedidosWeb = dsPedidosWeb.Tables[0]; // Obtiene cabecera
+                    dtPedidosWeb = dsPedidosWeb.Tables[0];
                 }
                 catch (SqlException ex)
                 {
@@ -815,30 +788,25 @@ namespace Portal.Consultoras.BizLogic
                 }
                 catch (Exception ex)
                 {
+                    LogManager.SaveLog(ex, "", codigoPais);
                     throw new BizLogicException("No se pudo generar los archivos de descarga de pedidos.", ex);
                 }
 
-                if (headerFile != null) //Si generó algún archivo continúa
+                if (headerFile != null)
                 {
                     if (ConfigurationManager.AppSettings["OrderDownloadCompress"] == "1")
                     {
-                        //Comprime los archivos
                         string zipHeaderFile = Path.ChangeExtension(headerFile, "zip");
                         string zipDetailFile = Path.ChangeExtension(detailFile, "zip");
 
                         BLFileManager.CompressFile(headerFile, zipHeaderFile, ftpElement.Header);
                         BLFileManager.CompressFile(detailFile, zipDetailFile, ftpElement.Detail);
-
-                        //Elimina los archivos
-                        //File.Delete(headerFile);
-                        //File.Delete(detailFile);
                     }
                     
                     if (ConfigurationManager.AppSettings["OrderDownloadFtpUpload"] == "1")
                     {
                         try
                         {
-                            //Sube los archivos zip al FTP
                             BLFileManager.FtpUploadFile(ftpElement.Address + ftpElement.Header,
                                 headerFile, ftpElement.UserName, ftpElement.Password);
                             BLFileManager.FtpUploadFile(ftpElement.Address + ftpElement.Detail,
@@ -846,6 +814,7 @@ namespace Portal.Consultoras.BizLogic
                         }
                         catch (Exception ex)
                         {
+                            LogManager.SaveLog(ex, "", codigoPais);
                             throw new BizLogicException("No se pudo subir los archivos al destino FTP.", ex);
                         }
                     }
@@ -1028,7 +997,7 @@ namespace Portal.Consultoras.BizLogic
                         item = row["EMail"].ToString().Length > 50 ? row["EMail"].ToString().Substring(0, 50) : row["EMail"].ToString();
                         break;
                     case "EMAILACTIVO":
-                        item = Convert.ToInt32(row["EmailActivo"]).ToString();  // .ToString().Length > 1 ? row["EmailActivo"].ToString().Substring(0, 1) : row["EmailActivo"].ToString();
+                        item = Convert.ToInt32(row["EmailActivo"]).ToString();
                         break;
                     case "CAMPANIAACTIVACIONEMAIL":
                         item = row["CampaniaActivacionEmail"].ToString().Length > 6 ? row["CampaniaActivacionEmail"].ToString().Substring(0, 6) : row["CampaniaActivacionEmail"].ToString();
@@ -1074,8 +1043,7 @@ namespace Portal.Consultoras.BizLogic
 
             var DAConfiguracionCampania = new DAConfiguracionCampania(PaisID);
             using (IDataReader reader = DAConfiguracionCampania.GetConfiguracionCampania(PaisID, ZonaID, RegionID, ConsultoraID))
-                if (reader.Read())
-                    configuracion = new BEConfiguracionCampania(reader);
+                if (reader.Read()) configuracion = new BEConfiguracionCampania(reader);
 
             if (configuracion != null)
             {
@@ -1165,7 +1133,6 @@ namespace Portal.Consultoras.BizLogic
             DAPedidoWeb.UpdBloqueoPedido(BEPedidoWeb);
         }
 
-        /*GR2089*/
         public void InsertarLogPedidoWeb(int PaisID, int CampaniaID, string CodigoConsultora, int PedidoId, string Accion, string CodigoUsuario)
         {
             new DAPedidoWeb(PaisID).InsertarLogPedidoWeb(CampaniaID, CodigoConsultora, PedidoId, Accion, CodigoUsuario);
@@ -1226,7 +1193,6 @@ namespace Portal.Consultoras.BizLogic
                     }
                 }
 
-                // Se unen DD y Web
                 lstPedidos = new List<BEPedidoDDWeb>();
                 if (lstPedidosWeb.Count > 0)
                 {
@@ -1293,7 +1259,6 @@ namespace Portal.Consultoras.BizLogic
                     }
                 }
 
-                // Se unen DD y Web
                 lstPedidosDetalle = new List<BEPedidoDDWebDetalle>();
                 if (lstPedidosWebDetalle.Count > 0)
                 {
@@ -1358,7 +1323,6 @@ namespace Portal.Consultoras.BizLogic
                     }
                 }
 
-                // Se unen DD y Web
                 lstPedidos = new List<BEPedidoDDWeb>();
                 if (lstPedidosWeb.Count > 0)
                     lstPedidos.AddRange((List<BEPedidoDDWeb>)lstPedidosWeb);
@@ -1611,7 +1575,6 @@ namespace Portal.Consultoras.BizLogic
                     }
                 }
 
-                // Se unen DD y Web
                 lstPedidosDetalle = new List<BEPedidoDDWebDetalle>();
                 if (lstPedidosWebDetalle.Count > 0)
                 {
@@ -1681,7 +1644,6 @@ namespace Portal.Consultoras.BizLogic
             return listaPedidoPortal;
         }
 
-        //R2154
         public int ValidarDesactivaRevistaGana(int paisID, int campaniaID, string codigoZona)
         {
             var DAPedidoWeb = new DAPedidoWeb(paisID);
@@ -1689,7 +1651,6 @@ namespace Portal.Consultoras.BizLogic
             return rslt;
         }
 
-        //2140
         public BECUVCredito ValidarCUVCreditoPorCUVRegular(int paisID, string codigoConsultora, string cuv, int campaniaID)
         {
             BEConsultoraTop beConsultoraTop = null;
@@ -1722,7 +1683,6 @@ namespace Portal.Consultoras.BizLogic
             return beCUVCredito;
         }
 
-        //2140
         public List<int> ListaPaisValidoCUVCredito()
         {
             List<int> listaPais = new List<int>
@@ -1731,10 +1691,7 @@ namespace Portal.Consultoras.BizLogic
                     (int) Enumeradores.TypeDocPais.DO,
                     (int) Enumeradores.TypeDocPais.EC
                 };
-            //listaPais.Add((int)Enumeradores.TypeDocPais.CL); //R2140  – ECM - Se solicito que no se implemente la funcionalidad para este país
-            //listaPais.Add((int)Enumeradores.TypeDocPais.GT);//R2140  – ECM - Se solicito que no se implemente la funcionalidad para este país
-            //listaPais.Add((int)Enumeradores.TypeDocPais.SV);//R2140  – ECM - Se solicito que no se implemente la funcionalidad para este país
-            //listaPais.Add((int)Enumeradores.TypeDocPais.CR);//R2140  – ECM - Se solicito que no se implemente la funcionalidad para este país
+
             return listaPais;
         }
 
@@ -1780,7 +1737,7 @@ namespace Portal.Consultoras.BizLogic
 
             var DAPedidoWeb = new DAPedidoWeb(paisID);
 
-            if (!BLPais.EsPaisHana(paisID)) // Validar si informacion de pais es de origen Normal o Hana
+            if (!BLPais.EsPaisHana(paisID))
             {
                 using (IDataReader reader = DAPedidoWeb.GetPedidosIngresadoFacturado(consultoraID, campaniaID, top))
                     while (reader.Read())
@@ -1956,30 +1913,11 @@ namespace Portal.Consultoras.BizLogic
                     entidad.olstBEPedidoWebDetalle = listaDetalle;
 
                     listaPedidosFacturados.Add(entidad);
-
-                    //var entidad = new BEPedidoWeb(reader);
-                    //var entidadDetalle = new BEPedidoWebDetalle(reader);
-                    //for (int i = 0; i < listaPedidosFacturados.Count; i++)
-                    //{
-                    //    if (listaPedidosFacturados[i].PedidoID == entidad.PedidoID)
-                    //    {
-                    //        listaPedidosFacturados[i].olstBEPedidoWebDetalle.Add(entidadDetalle);
-                    //    }                        
-                    //}
-
-                    //if (!listaPedidosFacturados.Any(f => f.PedidoID == entidad.PedidoID))
-                    //{
-                    //    entidad.olstBEPedidoWebDetalle = new List<BEPedidoWebDetalle>();
-                    //    entidad.olstBEPedidoWebDetalle.Add(entidadDetalle);
-                    //    listaPedidosFacturados.Add(entidad);
-                    //}
-
                 }
 
             return listaPedidosFacturados;
         }
 
-        /*EPD-1025*/
         public BEPedidoDescarga ObtenerUltimaDescargaPedido(int PaisID)
         {
             BEPedidoDescarga PedidoDescarga = new BEPedidoDescarga();
@@ -1998,8 +1936,7 @@ namespace Portal.Consultoras.BizLogic
             DAPedidoWeb DAPedidoWeb = new DAPedidoWeb(PaisID);
             DAPedidoWeb.DesmarcarUltimaDescargaPedido();
         }
-        /*EPD-1025*/
-        public BEPedidoDescarga ObtenerUltimaDescargaExitosa(int PaisID)/*EPD1976*/
+        public BEPedidoDescarga ObtenerUltimaDescargaExitosa(int PaisID)
         {
             BEPedidoDescarga PedidoDescarga = new BEPedidoDescarga();
             DAPedidoWeb DAPedidoWeb = new DAPedidoWeb(PaisID);
@@ -2013,7 +1950,7 @@ namespace Portal.Consultoras.BizLogic
             return PedidoDescarga;
         }
 
-        public BEValidacionModificacionPedido ValidacionModificarPedido(int paisID, long consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA, bool validarGPR = true, bool validarReservado = true, bool validarHorario = true)
+        public BEValidacionModificacionPedido ValidacionModificarPedido(int paisID, long consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA, bool validarGPR = true, bool validarReservado = true, bool validarHorario = true, bool validarFacturado = true)
         {
             BEUsuario usuario = null;
             using (IDataReader reader = (new DAConfiguracionCampania(paisID)).GetConfiguracionByUsuarioAndCampania(paisID, consultoraID, campania, usuarioPrueba, aceptacionConsultoraDA))
@@ -2041,6 +1978,14 @@ namespace Portal.Consultoras.BizLogic
                     {
                         MotivoPedidoLock = Enumeradores.MotivoPedidoLock.Reservado,
                         Mensaje = "Ya tienes un pedido reservado para esta campaña."
+                    };
+                }
+                if (validarFacturado && configuracion.IndicadorEnviado)
+                {
+                    return new BEValidacionModificacionPedido
+                    {
+                        MotivoPedidoLock = Enumeradores.MotivoPedidoLock.Facturado,
+                        Mensaje = "Estamos facturando tu pedido."
                     };
                 }
             }
@@ -2077,7 +2022,6 @@ namespace Portal.Consultoras.BizLogic
             return string.Format("En este momento nos encontramos facturando tu pedido de C-{0}. Todos los códigos ingresados hasta las {1} horas han sido registrados en el sistema. Gracias!", campania.Substring(4, 2), horaCierre.ToString(@"hh\:mm"));
         }
         
-        /*EPD-2248*/
         public int InsIndicadorPedidoAutentico(int paisID, BEIndicadorPedidoAutentico entidad)
         {
             var DAPedidoWeb = new DAPedidoWeb(paisID);
@@ -2102,7 +2046,6 @@ namespace Portal.Consultoras.BizLogic
             var DAPedidoWeb = new DAPedidoWeb(paisID);
             return DAPedidoWeb.GetTokenIndicadorPedidoAutentico(paisISO, codigoRegion, codigoZona);
         }
-        /*EPD-2248*/
 
         public BEConsultoraResumen GetResumen(int paisId, int codigoConsultora, int codigoCampania)
         {
@@ -2195,15 +2138,37 @@ namespace Portal.Consultoras.BizLogic
             var DAPedidoWeb = new DAPedidoWeb(paisID);
             return DAPedidoWeb.GetFlagProductosPrecargados(CodigoConsultora, CampaniaID);
         }
-
-
+        
         public void UpdateMostradoProductosPrecargados(int paisID, int CampaniaID, long ConsultoraID, string IPUsuario)
         {
             var DAPedidoWeb = new DAPedidoWeb(paisID);
             DAPedidoWeb.UpdateMostradoProductosPrecargados(CampaniaID, ConsultoraID, IPUsuario);
-        }
+        }        
         #endregion
 
+        #region Certificado Digital
+        public bool TieneCampaniaConsecutivas(int paisId, int campaniaId, int cantidadCampaniaConsecutiva, long consultoraId)
+        {
+            var DAPedidoWeb = new DAPedidoWeb(paisId);
+            return DAPedidoWeb.TieneCampaniaConsecutivas(campaniaId, cantidadCampaniaConsecutiva, consultoraId);
+        }
+
+        public BEMiCertificado ObtenerCertificadoDigital(int paisId, int campaniaId, long consultoraId, Int16 tipoCert)
+        {
+            BEMiCertificado entidad = null;
+            DAPedidoWeb DAPedidoWeb = new DAPedidoWeb(paisId);
+
+            using (IDataReader reader = DAPedidoWeb.ObtenerCertificadoDigital(campaniaId, consultoraId, tipoCert))
+            {
+                while (reader.Read())
+                {
+                    entidad = new BEMiCertificado(reader);
+                }
+            }
+            return entidad;
+        }
+
+        #endregion
     }
 
     internal class TemplateField

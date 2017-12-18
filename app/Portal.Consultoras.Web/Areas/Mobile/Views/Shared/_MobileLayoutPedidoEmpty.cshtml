@@ -31,6 +31,10 @@
 
     @RenderSection("styles", required: false)
 
+    @if (TempData.ContainsKey("PixelCodigoIso"))
+    {
+        <noscript id="noscript-pixel-image"></noscript>
+    }
 </head>
 <body>
 <!-- Google Tag Manager -->
@@ -239,6 +243,12 @@
         'codigoConsultora': '@ViewBag.AnalyticsCodigoConsultora'
     };
     var OrigenDesktopODD = 0;
+
+    //BANNER APP
+    var urlOcultarBannerApp = '@Url.Action("OcultarBannerApp", "Bienvenida", new { area = "Mobile" })';
+    var actionName = '@ViewContext.RouteData.GetRequiredString("action")';
+    var controllerName = '@ViewContext.RouteData.GetRequiredString("controller")';
+    var oBannerApp = @Html.Raw(@Json.Encode(ViewBag.BannerApp));
 </script>
 
 <script type="text/javascript">
@@ -453,6 +463,14 @@
 </script>
 
 @RenderSection("scripts", required: false)
-
+@if (TempData.ContainsKey("PixelCodigoIso"))
+{
+    @System.Web.Optimization.Scripts.Render("~/bundles/JS-Login-Header")
+    <script>
+        var pixelAnalytics = Analytics();
+        pixelAnalytics.invocarEventoPixelById('@(TempData["PixelMarcacion"])', '@(TempData["PixelId"])');
+    </script>
+    @TempData.Remove("PixelCodigoIso");
+}
 </body>
 </html>

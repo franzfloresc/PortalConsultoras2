@@ -83,31 +83,31 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string CodigoUsuarioModificacion { get; set; }
         [DataMember]
-        public int SubTipoOfertaSisID { get; set; }//1513
+        public int SubTipoOfertaSisID { get; set; }
         [DataMember]
         private string TipoPedido { get; set; }
         [DataMember]
-        private string DescripcionOferta { get; set; }
+        public string DescripcionOferta { get; set; }
         [DataMember]
-        public string ObservacionPROL { get; set; }//CCSS_JZ_PROL2
+        public string ObservacionPROL { get; set; }
         [DataMember]
-        public DateTime FechaCreacion { get; set; }//JZ_VAL_PROL_AUTO - R2073
+        public DateTime FechaCreacion { get; set; }
         [DataMember]
-        public string DescripcionLarga { get; set; } //CSR_R2469 
+        public string DescripcionLarga { get; set; }
         [DataMember]
-        public string Categoria { get; set; } //CSR_R2469
+        public string Categoria { get; set; }
         [DataMember]
-        public string DescripcionEstrategia { get; set; } //JICM_R2469
+        public string DescripcionEstrategia { get; set; }
         [DataMember]
-        public int TipoEstrategiaID { get; set; }//LR_R2621
+        public int TipoEstrategiaID { get; set; }
 
         [DataMember]
-        public bool IndicadorOfertaCUV { get; set; } /*R20150701*/
+        public bool IndicadorOfertaCUV { get; set; }
         [DataMember]
-        public decimal MontoTotalProl { get; set; }   /*R20150701*/
+        public decimal MontoTotalProl { get; set; }
 
         [DataMember]
-        public string NombreCliente { get; set; } //R2584
+        public string NombreCliente { get; set; }
 
         [DataMember]
         public bool EsSugerido { get; set; }
@@ -147,6 +147,15 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool EsOfertaIndependiente { get; set; }
 
+        [DataMember]
+        public string TipoEstrategiaCodigo { get; set; }
+
+        [DataMember]
+        public bool FlagNueva { get; set; }
+
+        [DataMember]
+        public bool ProgramaNuevoActivado { get; set; }
+        
         public BEPedidoWebDetalle()
         { }
 
@@ -190,7 +199,6 @@ namespace Portal.Consultoras.Entities
                 ConfiguracionOfertaID = Convert.ToInt32(row["ConfiguracionOfertaID"]);
             if (DataRecord.HasColumn(row, "TipoOfertaSisID") && row["TipoOfertaSisID"] != DBNull.Value)
                 TipoOfertaSisID = Convert.ToInt32(row["TipoOfertaSisID"]);
-            //1513
             if (DataRecord.HasColumn(row, "SubTipoOfertaSisID") && row["SubTipoOfertaSisID"] != DBNull.Value)
                 SubTipoOfertaSisID = Convert.ToInt32(row["SubTipoOfertaSisID"]);
             else
@@ -201,24 +209,20 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "DescripcionOferta"))
                 DescripcionOferta = Convert.ToString(row["DescripcionOferta"]);
-            //2469
             if (DataRecord.HasColumn(row, "DescripcionLarga"))
                 DescripcionLarga = Convert.ToString(row["DescripcionLarga"]);
             if (DataRecord.HasColumn(row, "Categoria"))
                 Categoria = Convert.ToString(row["Categoria"]);
             if (DataRecord.HasColumn(row, "DescripcionEstrategia"))
                 DescripcionEstrategia = Convert.ToString(row["DescripcionEstrategia"]);
-            // 2621
             if (DataRecord.HasColumn(row, "TipoEstrategiaID"))
                 TipoEstrategiaID = Convert.ToInt32(row["TipoEstrategiaID"]);
-            /*R20150701*/
             if (DataRecord.HasColumn(row, "IndicadorOfertaCUV"))
                 IndicadorOfertaCUV = row["IndicadorOfertaCUV"] == DBNull.Value ? false : Convert.ToBoolean(row["IndicadorOfertaCUV"]);
 
             if (DataRecord.HasColumn(row, "MontoTotalProl"))
                 MontoTotalProl = row["MontoTotalProl"] == DBNull.Value ? 0 : Convert.ToDecimal(row["MontoTotalProl"]);
 
-            //2584
             if (DataRecord.HasColumn(row, "NombreCliente"))
                 NombreCliente = Convert.ToString(row["NombreCliente"]);
 
@@ -254,6 +258,14 @@ namespace Portal.Consultoras.Entities
                 CodigoCatalago = row["CodigoCatalago"] == DBNull.Value ? 0 : Convert.ToInt32(row["CodigoCatalago"]);
             if (DataRecord.HasColumn(row, "EsOfertaIndependiente"))
                 EsOfertaIndependiente = row["EsOfertaIndependiente"] == DBNull.Value ? false : Convert.ToBoolean(row["EsOfertaIndependiente"]);
+
+            if (DataRecord.HasColumn(row, "TipoEstrategiaCodigo"))
+                TipoEstrategiaCodigo = row["TipoEstrategiaCodigo"] == DBNull.Value ? "" : Convert.ToString(row["TipoEstrategiaCodigo"]);
+            if (DataRecord.HasColumn(row, "FlagNueva"))
+                FlagNueva = row["FlagNueva"] == DBNull.Value ? false : Convert.ToBoolean(row["FlagNueva"]);
+            if (DataRecord.HasColumn(row, "ProgramaNuevoActivado"))
+                ProgramaNuevoActivado = row["ProgramaNuevoActivado"] == DBNull.Value ? false : Convert.ToBoolean(row["ProgramaNuevoActivado"]);
+                        
         }
 
         public BEPedidoWebDetalle(IDataRecord row, string Consultora)
@@ -305,7 +317,6 @@ namespace Portal.Consultoras.Entities
             else
                 IndicadorMontoMinimo = 1;
 
-            //1513
             if (DataRecord.HasColumn(row, "SubTipoOfertaSisID") && row["SubTipoOfertaSisID"] != DBNull.Value)
                 SubTipoOfertaSisID = Convert.ToInt32(row["SubTipoOfertaSisID"]);
             else
@@ -316,25 +327,20 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "DescripcionOferta"))
                 DescripcionOferta = Convert.ToString(row["DescripcionOferta"]);
-            //CCSS_JZ_PROL2
             if (DataRecord.HasColumn(row, "ObservacionPROL"))
                 ObservacionPROL = Convert.ToString(row["ObservacionPROL"]);
-            //2469 2505
             if (DataRecord.HasColumn(row, "DescripcionLarga"))
                 DescripcionLarga = Convert.ToString(row["DescripcionLarga"]);
             if (DataRecord.HasColumn(row, "Categoria"))
                 Categoria = Convert.ToString(row["Categoria"]);
             if (DataRecord.HasColumn(row, "DescripcionEstrategia"))
                 DescripcionEstrategia = Convert.ToString(row["DescripcionEstrategia"]);
-            // 2621
             if (DataRecord.HasColumn(row, "TipoEstrategiaID"))
                 TipoEstrategiaID = row["TipoEstrategiaID"] == DBNull.Value ? 0 : Convert.ToInt32(row["TipoEstrategiaID"]);
-            /*R20150701*/
             if (DataRecord.HasColumn(row, "IndicadorOfertaCUV"))
                 IndicadorOfertaCUV = row["IndicadorOfertaCUV"] == DBNull.Value ? false : Convert.ToBoolean(row["IndicadorOfertaCUV"]);
             if (DataRecord.HasColumn(row, "MontoTotalProl"))
                 MontoTotalProl = row["MontoTotalProl"] == DBNull.Value ? 0 : Convert.ToDecimal(row["MontoTotalProl"]);
-            //2584
             if (DataRecord.HasColumn(row, "NombreCliente"))
                 NombreCliente = Convert.ToString(row["NombreCliente"]);
             if (DataRecord.HasColumn(row, "EsSugerido"))
@@ -365,6 +371,13 @@ namespace Portal.Consultoras.Entities
                 CodigoCatalago = row["CodigoCatalago"] == DBNull.Value ? 0 : Convert.ToInt32(row["CodigoCatalago"]);
             if (DataRecord.HasColumn(row, "EsOfertaIndependiente"))
                 EsOfertaIndependiente = row["EsOfertaIndependiente"] == DBNull.Value ? false : Convert.ToBoolean(row["EsOfertaIndependiente"].ToString());
+
+            if (DataRecord.HasColumn(row, "TipoEstrategiaCodigo"))
+                TipoEstrategiaCodigo = row["TipoEstrategiaCodigo"] == DBNull.Value ? "" : Convert.ToString(row["TipoEstrategiaCodigo"]);
+            if (DataRecord.HasColumn(row, "FlagNueva"))
+                FlagNueva = row["FlagNueva"] == DBNull.Value ? false : Convert.ToBoolean(row["FlagNueva"]);
+            if (DataRecord.HasColumn(row, "ProgramaNuevoActivado"))
+                ProgramaNuevoActivado = row["ProgramaNuevoActivado"] == DBNull.Value ? false : Convert.ToBoolean(row["ProgramaNuevoActivado"]);
         }
     }
 

@@ -4956,6 +4956,7 @@ table > thead > tr > th {
     margin-bottom: 20px;
     font-family: 'lato';
     color: black;
+    text-transform: uppercase;
 }
 
 .texto_exclusivo {
@@ -8157,6 +8158,11 @@ input[type="checkbox"]:checked + span:after {
     color:#e81c36;
     font-weight:700;
 }
+
+.color_marca {
+    color: #e81c36;
+}
+
 .btn_borde_black{
     display: inline-block;
     margin-bottom: 20px;
@@ -13207,7 +13213,7 @@ a{
     padding:0 20px 0 20px;
     text-align:center;
 }
-.content_detalle_puntuación{
+.content_detalle_puntuacion{
     margin-top:10px;
     font-weight:700;
     /*padding:0 14px 0 14px;*/
@@ -13853,6 +13859,202 @@ a{
     text-transform:uppercase;
 }
 /* FIN APPCONS-1098 */
+
+/* MIS CERTIFICADOS MOBILE */
+
+.texto_opcion_disponible{
+    display:block;
+    margin-top:20px;
+    font-size:14px;
+    font-weight:400;
+    padding:0 12px;
+}
+
+/* FIN MIS CERTIFICADOS MOBILE */
+
+/*BANNER APP*/
+.banner_app {
+    cursor:pointer;
+    position:relative;
+    height:60px;
+    background-position:center;
+    background-repeat:no-repeat;
+}
+.banner_app div{
+    position:absolute;
+    top:2px;
+    right:5px;
+    color:#000;
+    font-size:19px;
+}
+/*FIN BANNER APP*/
+
+/* NUEVO POPUP SUSCRIBIRSE RD */
+
+.contenido-popup-nuevo-2017 {
+            display: inline;
+            vertical-align: middle;
+            color: white;
+            text-transform: uppercase;
+            text-align: center;
+            margin: auto;
+        }
+   .contenido-popup-nuevo-2017 .centrar-estructura{
+        box-shadow: inset 0 0 0 5px #e81c36;
+    padding: 20px;
+    height: 390px;
+    /* margin-top: 15%; */
+    /* margin-bottom: 15%; */
+    width: 390px;
+    margin: auto;
+    display: table;
+   }
+   .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido{
+    display: table-cell;
+    vertical-align: middle;
+   }
+    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.primer-texto {
+        font-size: 28px;
+        letter-spacing: 1px;
+        text-align: center;
+        color: white;
+        font-weight: 300;
+        margin-bottom: 0;
+        display: block;
+        width: 280px;
+        margin: auto;
+        line-height: 30px;
+        margin-bottom: 15px;
+    }
+    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto {
+        font-size: 30px;
+        letter-spacing: 1px;
+        line-height: 35px;
+        text-align: center;
+        color: white;
+        font-weight: 700;
+        margin-top: 10px;
+        letter-spacing: 1px;
+        margin-bottom: 36px;
+        display: block;
+        width: 280px;
+        margin: auto;
+        margin-bottom: 35px;
+    }
+  .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido a.btn-popup{
+         background: #e81c36;
+    color: white;
+    text-align: center;
+    max-width: 240px;
+    display: block;
+    font-size: 17px;
+    text-decoration: none;
+    padding: 17px 0px;
+    letter-spacing: 1px;
+    margin: auto;
+        box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.30);
+  }
+  .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto span.flashit {
+            color: white;
+            /*-webkit-animation: flash linear 1s infinite;
+            animation: flash linear 1s infinite;*/
+        }
+        @-webkit-keyframes flash {
+  0% { opacity: 1; }
+  50% { opacity: .1; }
+  100% { opacity: 1; }
+  }
+  @keyframes flash {
+    0% { opacity: 1; }
+    50% { opacity: .1; }
+    100% { opacity: 1; }
+  }
+  .contenido-popup-nuevo-2017 .centrar-estructura a.cerrar-popup{
+        position: absolute;
+    margin-left: 29px;
+    margin-top: -20px;
+  }
+    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.primer-texto {
+    font-size: 24px;
+    }
+    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto{
+      font-size: 26px;
+    }
+    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido a.btn-popup {
+        font-size: 13px;
+        padding: 14.5px 0px;
+        border: none;
+    }
+    .contenido-popup-nuevo-2017 .centrar-estructura a.cerrar-popup{
+        position: absolute;
+    margin-left: 0px;
+    margin-top: -49px;
+    }
+.content_pop_up_intriga {
+    HEIGHT: 100%;
+    /* padding-top: 20vh; */
+    display: table;
+    width: 100%;
+}
+.contenido-popup-nuevo-2017 {
+    display: table-cell;
+    vertical-align: middle;
+    color: white;
+    text-transform: uppercase;
+    text-align: center;
+    margin: auto;
+}
+@media (max-width: 1024px) {
+    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.primer-texto {
+        font-size: 24px;
+    }
+
+    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto {
+        font-size: 26px;
+    }
+
+    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido a.btn-popup {
+        font-size: 13px;
+        padding: 14.5px 0px;
+    }
+
+    .contenido-popup-nuevo-2017 .centrar-estructura a.cerrar-popup {
+        position: absolute;
+        margin-left: 0px;
+        margin-top: -49px;
+    }
+
+    .contenido .centrar-estructura {
+        height: 80%;
+    }
+}
+
+@media (max-width: 500px) {
+
+    .contenido-popup-nuevo-2017 .centrar-estructura {
+        width: 75%;
+    }
+}
+
+@media (max-width: 400px) {
+
+    .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.primer-texto, .contenido .centrar-estructura .centrar-vertical-contenido p.segundo-texto {
+        width: 100%;
+    }
+    .contenido-popup-nuevo-2017 .centrar-estructura{
+        padding:0;
+    }
+    .contenido-popup-nuevo-2017 .centrar-estructura a.cerrar-popup {
+    margin-left: -19px;
+        margin-top: -30px;
+    }
+}
+/* FIN NUEVO POPUP SUSCRIBIRSE RD */
+
+
+.text-uppercase {
+    text-transform: uppercase
+}
 
 /* INI: VISTA ACTUALIZAR CONTRASEÑA */
 .contenedor_vista_cambio_contrasenia,

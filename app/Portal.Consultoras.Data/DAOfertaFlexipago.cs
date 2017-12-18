@@ -63,7 +63,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@FlagHabilitarProducto", DbType.Byte, entity.FlagHabilitarProducto);
             Context.Database.AddInParameter(command, "@DescripcionLegal", DbType.AnsiString, entity.DescripcionLegal);
             Context.Database.AddInParameter(command, "@UsuarioRegistro", DbType.AnsiString, entity.UsuarioRegistro);
-            Context.Database.AddInParameter(command, "@PrecioNormal", DbType.Decimal, entity.PrecioNormal);//2371
+            Context.Database.AddInParameter(command, "@PrecioNormal", DbType.Decimal, entity.PrecioNormal);
 
             return Context.ExecuteNonQuery(command);
         }
@@ -81,7 +81,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@Orden", DbType.Int32, entity.Orden);
             Context.Database.AddInParameter(command, "@DescripcionLegal", DbType.AnsiString, entity.DescripcionLegal);
             Context.Database.AddInParameter(command, "@UsuarioModificacion", DbType.AnsiString, entity.UsuarioModificacion);
-            Context.Database.AddInParameter(command, "@PrecioNormal", DbType.Decimal, entity.PrecioNormal);//2371
+            Context.Database.AddInParameter(command, "@PrecioNormal", DbType.Decimal, entity.PrecioNormal);
 
             return Context.ExecuteNonQuery(command);
         }
@@ -105,25 +105,6 @@ namespace Portal.Consultoras.Data
 
             return int.Parse(Context.ExecuteScalar(command).ToString());
         }
-
-        //public int ValidarPriorizacionFlexipago(int ConfiguracionOfertaID, int CampaniaID, int Orden)
-        //{
-        //    DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarPriorizacionByOfertaFlexipago");
-        //    Context.Database.AddInParameter(command, "@ConfiguracionOfertaID", DbType.Int32, ConfiguracionOfertaID);
-        //    Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
-        //    Context.Database.AddInParameter(command, "@Orden", DbType.Int32, Orden);
-
-        //    return int.Parse(Context.ExecuteScalar(command).ToString());
-        //}
-
-        //public int GetOrdenPriorizacionFlexipago(int ConfiguracionOfertaID, int CampaniaID)
-        //{
-        //    DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPriorizacionByCodigoFlexipago");
-        //    Context.Database.AddInParameter(command, "@ConfiguracionOfertaID", DbType.Int32, ConfiguracionOfertaID);
-        //    Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
-
-        //    return int.Parse(Context.ExecuteScalar(command).ToString());
-        //}
 
         public int ValidarUnidadesPermitidasEnPedidoFlexipago(int CampaniaID, string CUV, long ConsultoraID)
         {

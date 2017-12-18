@@ -28,8 +28,8 @@
 </div>
 
 <div class="" style="border-bottom:0">
-    <div class="pestana_esika"></div><!--PESTANA ESIKA-->
-    <div class="pestana_lbel"></div><!--PESTANA LBEL-->
+    <div class="pestana_esika"></div>
+    <div class="pestana_lbel"></div>
 </div>
 
 @{
@@ -224,7 +224,7 @@
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
 
         var tipoOrigenFichaProducto = 2;//mobile
-        var origenPedidoWebFichaProducto = @Constantes.OrigenPedidoWeb.MobilePedidoVirtualCoach;
+        var origenPedidoWebFichaProducto = @Constantes.OrigenPedidoWeb.VirtualCoachMobilePedido;
         var origenRetorno = $.trim('@ViewBag.OrigenUrl') || '@Url.Action("Index", "Pedido", new { area = "Mobile" })';
         var VirtualCoachCuv = '@ViewBag.VirtualCoachCuv';
         var VirtualCoachCampana = '@ViewBag.VirtualCoachCampana' || 0;

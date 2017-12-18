@@ -17,7 +17,6 @@ namespace Portal.Consultoras.Data
 
         }
 
-        //2397 CampaniaLider
         public IDataReader GetLiderCampaniaActual(long ConsultoraID, string CodigoPais)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.SP_GET_LIDER_CAMPANIA_ACTUAL");
@@ -35,14 +34,13 @@ namespace Portal.Consultoras.Data
 
         }
 
-        //2397 FlgProyecta
         public IDataReader GetFlgProyecta(long ConsultoraID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetFlgProyecta");
             Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, ConsultoraID);
             return Context.ExecuteReader(command);
         }
-        //2397 - control de cambios
+
         public DataSet ObtenerParametrosSuperateLider(long ConsultoraID, int CampaniaVenta)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerParametrosSuperateLider");

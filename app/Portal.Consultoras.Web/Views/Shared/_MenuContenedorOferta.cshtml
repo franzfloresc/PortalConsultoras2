@@ -51,7 +51,7 @@
                             <img src="@Url.Content("~/Content/Images/carrito.png")" alt="" class="default">
                             <img src="@Url.Content("~/Content/Images/carrito-hover.png")" alt="" class="hover" style="display:none;">
                             <img src="@Url.Content("~/Content/Images/carrito-hover.png")" alt="" class="click-menu" style="display:none;">
-                            <span>COMPRAR C-@(menuActivo.CampaniaX0 % 100)</span>
+                            <span>COMPRAR C-@menuActivo.CampaniaX0ConFormato</span>
                         </a>
                     </li><li data-campania="@menuActivo.CampaniaX1" data-codigo="2"
                         onclick="menuModule.tabClick(this, '@Url.Action("Revisar", "Ofertas")')" >
@@ -59,12 +59,12 @@
                             <img src="@Url.Content("~/Content/Images/ojito.png")" alt="" class="default">
                             <img src="@Url.Content("~/Content/Images/ojito-hover.png")" alt="" class="hover" style="display:none;">
                             <img src="@Url.Content("~/Content/Images/ojito-hover.png")" alt="" class="click-menu" style="display:none;">
-                            <span>REVISAR C-@(menuActivo.CampaniaX1 % 100)</span>
+                            <span>REVISAR C-@menuActivo.CampaniaX1ConFormato</span>
                         </a>
                     </li><li data-campania="0" data-codigo="3"
                         onclick="menuModule.tabClick(this, '@Url.Action("Informacion", "RevistaDigital")')" >
                         <a class="@classMenuInfo">
-                            <span>SABER MÁS DE ÉSIKA PARA MÍ</span>
+                            <span>CONOCE TODO SOBRE CLUB GANA+</span>
                         </a>
                     </li>
                 </ul>
@@ -86,12 +86,12 @@
                         onclick="menuModule.menuClick(this, '@menuhijo.UrlMenu')">
                         
                         <div class="contenedorMenu">
-                            <a href="javascript:;" class="@claseActivo">
+                            <a href="javascript:;" class="@claseActivo" role="menu" region="Lateral" parent="Contenedor" title="@menuhijo.DesktopSubTituloMenu">
                                 <div class="contenedorInformacion">
                                     @if (!string.IsNullOrEmpty(menuhijo.Logo))
                                     {
                                         <div class="contenedorImagen">
-                                            <img style="display:inline;" src="@menuhijo.Logo" />
+                                            <img style="display:inline;" src="@menuhijo.Logo" role="menu" region="Lateral" parent="Contenedor" title="@menuhijo.DesktopSubTituloMenu" alt=""/>
                                         </div>
                                     }
                                     @if (!string.IsNullOrEmpty(menuhijo.DesktopTituloMenu))
