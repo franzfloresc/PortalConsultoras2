@@ -565,15 +565,17 @@
                             <div class="icono_correo_electronico"></div>
                             <div class="contenedor_info_datos">
                                 <div class="titulo_opcion_correo">Correo electrónico</div>
-                                <div id="divEmail" class="correo_electronico"></div>
+                                <div class="correo_electronico EmailEmascarado"></div>
                             </div>
+                            <div class="mensajeDeBloqueoCorreo" style="display:none;font-size: 10px;padding-top:15px">Esta opción está bloqueada temporalmente.</div>
                         </a>
                         <a id="divRecup_porsms" class="opcion_recuperacion_contrasenia opcionSms" pointer-events="none">
                             <div class="icono_sms"></div>
                             <div class="contenedor_info_datos">
                                 <div class="titulo_opcion_sms">Mensaje de texto (sms)</div>
-                                <div id="divNumCelular" class="numero_celular"></div>
+                                <div class="numero_celular divNumCelular"></div>
                             </div>
+                            <div class="mensajeDeBloqueoSMS" style="display:none;font-size: 10px;padding-top:15px">Esta opción está bloqueada temporalmente.</div>
                         </a>                        
                     </div>
                     <!-- FIN - CUANDO LA CONSULTORA TIENE CORREO Y CELULAR REGISTRADOS (OPCIÓN CORREO Y SMS) -->
@@ -584,10 +586,11 @@
                             <div class="icono_correo_electronico mb-15"></div>
                             <div class="contenedor_info_datos">
                                 <div class="titulo_opcion_correo">Correo electrónico</div>
-                                <div class="correo_electronico">a********zo@gmail.com</div>
+                                <div class="correo_electronico EmailEmascarado">a********zo@gmail.com</div>
                             </div>
                         </div>
-                        <button class="btn_enviar_email">Enviar e-mail</button>
+                        <button class="btn_enviar_email RecuperarPorCorreo">Enviar e-mail</button>
+                        <div class="mensajeDeBloqueoCorreo" style="display:none;font-size: 10px; padding-top:5px;">Esta opción está bloqueada temporalmente.</div>
                     </div>
                     <!-- FIN - CUANDO LA CONSULTORA TIENE SÓLO CORREO REGISTRADO (OPCIÓN CORREO) -->
 
@@ -597,10 +600,11 @@
                             <div class="icono_sms mb-15"></div>
                             <div class="contenedor_info_datos">
                                 <div class="titulo_opcion_sms">Número de celular</div>
-                                <div class="numero_celular">9** *** *61</div>
+                                <div class="numero_celular divNumCelular">9** *** *61</div>
                             </div>
                         </div>
-                        <button class="btn_enviar_sms">Enviar mensaje</button>
+                        <button class="btn_enviar_sms RecuperarPorSMS">Enviar mensaje</button>
+                        <div class="mensajeDeBloqueoSMS" style="display:none;font-size: 10px; padding-top:5px;">Esta opción está bloqueada temporalmente.</div>
                     </div>
                     <!-- FIN - CUANDO LA CONSULTORA TIENE SÓLO CELULAR REGISTRADO (OPCIÓN SMS) -->
 
@@ -618,7 +622,7 @@
                     <!-- FIN - CUANDO LA CONSULTORA NO TIENE CORREO Y CELULAR REGISTRADOS (OPCIÓN CHATEA CON NOSOTROS) -->
 
                     <!-- INICIO - CUANDO LA CONSULTORA NO TIENE CORREO Y CELULAR REGISTRADOS (OPCIÓN LLAMADA) -->
-                    <div class="opcion_recuperacion_contrasenia sinMargenesMobile">
+                    <div class="opcion_recuperacion_contrasenia sinMargenesMobile" style="display:none;">
                         <!-- INICIO - OPCIÓN LLAMADA DESKTOP -->
                         <div id="prioridad2_llamada" class="contenedor_solo_una_opcion opcionLlamada_desktop" style="display:none;">
                             <div class="icono_llamada"></div>
@@ -1277,6 +1281,7 @@
     var avisoASP = '@ViewBag.AvisoASP';
     var urlRecuperarContrasenia = '@Url.Action("RecuperarContrasenia", "Login")';
     var urlEnviaClaveAEmail = '@Url.Action("EnviaClaveAEmail", "Login")';
+    var urlEnviaCodigoSMS = '@Url.Action("EnviaCodigoSMS", "Login")';
     var urlLoginAcceder = '@Url.Action("Login", "Login")';
     var urlChatBelCorp = '@Url.Action("ChatBelcorp", "Login")';
 </script>
