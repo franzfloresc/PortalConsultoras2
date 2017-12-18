@@ -676,7 +676,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var cantidadTotal = olstPedidoWebDetalle.Count;
 
-                var Paginas = (olstPedidoWebDetalle.Count % 100 == 0) ? (olstPedidoWebDetalle.Count / 100).ToString() : ((int)(olstPedidoWebDetalle.Count / 100) + 1).ToString();
+                var Paginas = (olstPedidoWebDetalle.Count % 100 == 0) ? (olstPedidoWebDetalle.Count / 100).ToString() : ((olstPedidoWebDetalle.Count / 100) + 1).ToString();
 
                 if (Paginas == "0")
                     model.Pagina = "0";
@@ -1625,16 +1625,17 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult ObtenerProductosSugeridos(string CUV)
         {
-            var listaProduto = new List<BEProducto>();
-            var listaProductoModel = new List<ProductoModel>();
+            var listaProductoModel = new List<ProductoModel>(); ;
 
             try
             {
+                List<BEProducto> listaProduto;
                 using (var sv = new ODSServiceClient())
                 {
                     listaProduto = sv.GetProductoSugeridoByCUV(userData.PaisID, userData.CampaniaID, Convert.ToInt32(userData.ConsultoraID), CUV, userData.RegionID,
                         userData.ZonaID, userData.CodigorRegion, userData.CodigoZona).ToList();
                 }
+                listaProduto = listaProduto ?? new List<BEProducto>();
 
                 var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
                 var esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
@@ -2361,11 +2362,11 @@ namespace Portal.Consultoras.Web.Controllers
             BEConfiguracionCampania oBEConfiguracionCampania = null;
             using (var sv = new PedidoServiceClient())
             {
-                oBEConfiguracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.ZonaID, userData.RegionID);
+                oBEConfiguracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.ZonaID, userData.RegionID) ?? new BEConfiguracionCampania();
             }
-            if (oBEConfiguracionCampania != null)
+
+            if (oBEConfiguracionCampania.CampaniaID > userData.CampaniaID)
             {
-                if (oBEConfiguracionCampania.CampaniaID > userData.CampaniaID)
                     return RedirectToAction("Index");
             }
 
@@ -2937,7 +2938,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 olstTempListado = ObtenerPedidoWebDetalle();
 
-                if (pedidoWebDetalleNula == false)
+                if (!pedidoWebDetalleNula)
                 {
                     if (oBEPedidoWebDetalle.PedidoDetalleID == 0)
                     {
