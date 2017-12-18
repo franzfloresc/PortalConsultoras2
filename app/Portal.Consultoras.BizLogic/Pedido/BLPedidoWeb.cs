@@ -2138,15 +2138,37 @@ namespace Portal.Consultoras.BizLogic
             var DAPedidoWeb = new DAPedidoWeb(paisID);
             return DAPedidoWeb.GetFlagProductosPrecargados(CodigoConsultora, CampaniaID);
         }
-
-
+        
         public void UpdateMostradoProductosPrecargados(int paisID, int CampaniaID, long ConsultoraID, string IPUsuario)
         {
             var DAPedidoWeb = new DAPedidoWeb(paisID);
             DAPedidoWeb.UpdateMostradoProductosPrecargados(CampaniaID, ConsultoraID, IPUsuario);
-        }
+        }        
         #endregion
 
+        #region Certificado Digital
+        public bool TieneCampaniaConsecutivas(int paisId, int campaniaId, int cantidadCampaniaConsecutiva, long consultoraId)
+        {
+            var DAPedidoWeb = new DAPedidoWeb(paisId);
+            return DAPedidoWeb.TieneCampaniaConsecutivas(campaniaId, cantidadCampaniaConsecutiva, consultoraId);
+        }
+
+        public BEMiCertificado ObtenerCertificadoDigital(int paisId, int campaniaId, long consultoraId, Int16 tipoCert)
+        {
+            BEMiCertificado entidad = null;
+            DAPedidoWeb DAPedidoWeb = new DAPedidoWeb(paisId);
+
+            using (IDataReader reader = DAPedidoWeb.ObtenerCertificadoDigital(campaniaId, consultoraId, tipoCert))
+            {
+                while (reader.Read())
+                {
+                    entidad = new BEMiCertificado(reader);
+                }
+            }
+            return entidad;
+        }
+
+        #endregion
     }
 
     internal class TemplateField

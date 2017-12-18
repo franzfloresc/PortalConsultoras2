@@ -45,7 +45,7 @@ namespace Portal.Consultoras.ServiceContracts
         void DelPedidoWebDetalle(BEPedidoWebDetalle pedidowebdetalle);
 
         [OperationContract]
-        IList<BEPedidoWebDetalle> SelectByCampania(int paisID, int CampaniaID, long ConsultoraID, string Consultora, int esOpt);
+        IList<BEPedidoWebDetalle> SelectByCampania(BEPedidoWebDetalleParametros bePedidoWebDetalleParametros);
 
         [OperationContract]
         IList<BEPedidoDDWeb> SelectPedidosDDWeb(BEPedidoDDWeb BEPedidoDDWeb);
@@ -810,6 +810,9 @@ namespace Portal.Consultoras.ServiceContracts
         int DelOfertaShowRoom(int paisID, BEShowRoomOferta entity);
 
         [OperationContract]
+        int InsOrUpdOfertaShowRoom(int paisID, BEShowRoomOferta entity);
+
+        [OperationContract]
         int RemoverOfertaShowRoom(int paisID, BEShowRoomOferta entity);
 
         [OperationContract]
@@ -1187,11 +1190,21 @@ namespace Portal.Consultoras.ServiceContracts
         void UpdateMostradoProductosPrecargados(int paisID, int CampaniaID, long ConsultoraID, string IPUsuario);
         #endregion
 
-		#region ConfiguracionProgramaNuevasApp
+	#region ConfiguracionProgramaNuevasApp
         [OperationContract]
         List<Estrategia.BEConfiguracionProgramaNuevasApp> GetConfiguracionProgramaNuevasApp(int paisID, string CodigoPrograma);
         [OperationContract]
         string InsConfiguracionProgramaNuevasApp(int paisID, Estrategia.BEConfiguracionProgramaNuevasApp entidad);
         #endregion
+
+        #region Certificado Digital
+        [OperationContract]
+        bool TieneCampaniaConsecutivas(int paisId, int campaniaId, int cantidadCampaniaConsecutiva, long consultoraId);
+
+        [OperationContract]
+        BEMiCertificado ObtenerCertificadoDigital(int paisId, int campaniaId, long consultoraId, Int16 tipoCert);
+
+        #endregion
+
     }
 }
