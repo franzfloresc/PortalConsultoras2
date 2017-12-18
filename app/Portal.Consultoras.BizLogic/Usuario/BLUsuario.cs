@@ -582,6 +582,7 @@ namespace Portal.Consultoras.BizLogic
             var lstConcursos = new List<string>();
 
             var arrCalculoPuntos = Constantes.Incentivo.CalculoPuntos.Split(';');
+            var arrCalculoProgramaNuevas = Constantes.Incentivo.CalculoProgramaNuevas.Split(';');
 
             var result = _consultoraConcursoBusinessLogic.ObtenerConcursosXConsultora(usuario.PaisID, usuario.CampaniaDescripcion, usuario.CodigoConsultora, usuario.CodigorRegion, usuario.CodigoZona);
 
@@ -590,7 +591,7 @@ namespace Portal.Consultoras.BizLogic
                 var Concursos = result.Where(x => arrCalculoPuntos.Contains(x.TipoConcurso));
                 lstConcursos.Add(string.Join("|", Concursos.Select(c => c.CodigoConcurso)));
 
-                var ProgramaNuevas = result.Where(x => !arrCalculoPuntos.Contains(x.TipoConcurso));
+                var ProgramaNuevas = result.Where(x => arrCalculoProgramaNuevas.Contains(x.TipoConcurso));
                 lstConcursos.Add(string.Join("|", ProgramaNuevas.Select(c => c.CodigoConcurso)));
             }
 
