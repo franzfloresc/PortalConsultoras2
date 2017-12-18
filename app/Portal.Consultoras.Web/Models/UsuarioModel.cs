@@ -233,12 +233,9 @@ namespace Portal.Consultoras.Web.Models
         public static bool HasAcces(List<PermisoModel> lista, string Action)
         {
             bool estado = false;
-            if (lista != null)
+            if (lista != null && lista.Count > 0)
             {
-                if (lista.Count > 0)
-                {
-                    estado = HasAccessRecursive(lista, Action);
-                }
+                estado = HasAccessRecursive(lista, Action);
             }
             return estado;
         }

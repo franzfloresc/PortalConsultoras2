@@ -127,13 +127,11 @@ namespace Portal.Consultoras.Web.Annotations
             var listaValores = OtherPropertyValue.ToString().Split(',');
 
             // check if this value is actually required and validate it
-            if (!this.IsInverted && listaValores.Contains(otherValue != null ? otherValue.ToString() : default(string)) ||
+            if ((!this.IsInverted && listaValores.Contains(otherValue != null ? otherValue.ToString() : default(string)) ||
                 this.IsInverted && !listaValores.Contains(otherValue != null ? otherValue.ToString() : default(string)))
+                && value == null)
             {
-                if (value == null)
-                {
-                    return new ValidationResult(this.FormatErrorMessage(validationContext.DisplayName));
-                }
+                return new ValidationResult(this.FormatErrorMessage(validationContext.DisplayName));
             }
 
             return ValidationResult.Success;
