@@ -85,9 +85,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     ViewBag.OfertaDelDia = ofertaDelDia;
 
                     ViewBag.MostrarOfertaDelDia =
-                        userData.IndicadorGPRSB == 1 || userData.CloseOfertaDelDia
-                        ? false
-                        : (userData.TieneOfertaDelDia && ofertaDelDia != null && ofertaDelDia.TeQuedan.TotalSeconds > 0);
+                        !(userData.IndicadorGPRSB == 1 || userData.CloseOfertaDelDia)
+                        && userData.TieneOfertaDelDia 
+                        && ofertaDelDia != null 
+                        && ofertaDelDia.TeQuedan.TotalSeconds > 0;
 
                     showRoomBannerLateral.EstadoActivo = mostrarBannerTop ? "0" : "1";
                 }
@@ -302,7 +303,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 using (SACServiceClient sac = new SACServiceClient())
                 {
                     var lstComunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora, Constantes.ComunicadoTipoDispositivo.Mobile);
-                    Session["BannerApp"] = lstComunicados.Where(x => x.Descripcion == Constantes.Comunicado.AppConsultora).FirstOrDefault();
+                    Session["BannerApp"] = lstComunicados.FirstOrDefault(x => x.Descripcion == Constantes.Comunicado.AppConsultora);
                 }
             }
             var oComunicados = (BEComunicado)Session["BannerApp"];

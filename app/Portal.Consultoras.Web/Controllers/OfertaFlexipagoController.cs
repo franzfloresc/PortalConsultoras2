@@ -212,7 +212,7 @@ namespace Portal.Consultoras.Web.Controllers
                     indPedidoAutentico.PedidoDetalleID = entidad.PedidoDetalleID;
                     indPedidoAutentico.IndicadorIPUsuario = GetIPCliente();
                     indPedidoAutentico.IndicadorFingerprint = "";
-                    indPedidoAutentico.IndicadorToken = (Session["TokenPedidoAutentico"] != null) ? Session["TokenPedidoAutentico"].ToString() : ""; ;
+                    indPedidoAutentico.IndicadorToken = (Session["TokenPedidoAutentico"] != null) ? Session["TokenPedidoAutentico"].ToString() : "";
 
                     InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);
                 }
@@ -669,7 +669,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
                 pag = Util.PaginadorGenerico(grid, lst);
                 string ISO = Util.GetPaisISO(PaisID);

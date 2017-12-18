@@ -132,7 +132,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize).OrderBy(x => x.Posicion);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize).OrderBy(x => x.Posicion);
                 pag = Util.PaginadorGenerico(grid, lst);
 
                 var data = new

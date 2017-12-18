@@ -153,7 +153,7 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception ex)
             {
                 logManager.LogErrorWebServicesBusWrap(ex, Campania.ToString() + " - " + Alcance, paisID.ToString(),string.Empty);
-                lst = new List<BEEventoFestivo>(); ;
+                lst = new List<BEEventoFestivo>();
             }
             return Mapper.Map<IList<BEEventoFestivo>, List<EventoFestivoModel>>(lst);
         }

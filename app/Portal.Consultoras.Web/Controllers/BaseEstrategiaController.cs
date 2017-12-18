@@ -236,9 +236,8 @@ namespace Portal.Consultoras.Web.Controllers
                         var prod = (ProductoModel)(listaHermanos.FirstOrDefault(p => item.SAP == p.CodigoProducto) ?? new ProductoModel()).Clone();
                         if (Util.Trim(prod.CodigoProducto) == "")
                             continue;
-
-                        var listaIgual = listaHermanos.Where(p => item.SAP == p.CodigoProducto);
-                        if (listaIgual.Count() > 1)
+                        
+                        if (listaHermanos.Count(p => item.SAP == p.CodigoProducto) > 1)
                         {
                             prod = (ProductoModel)(listaHermanos.FirstOrDefault(p => item.SAP == p.CodigoProducto && p.ID > idPk) ?? new ProductoModel()).Clone();
                         }
@@ -371,13 +370,13 @@ namespace Portal.Consultoras.Web.Controllers
 
                     var cantMax = 8;
                     var cantPack = listaPackNueva.Any() ? 1 : 0;
-                    var top = Math.Min(cantMax - cantPack, listaRevista.Count());
+                    var top = Math.Min(cantMax - cantPack, listaRevista.Count);
 
-                    if (listaRevista.Count() > top)
-                        listaRevista.RemoveRange(top, listaRevista.Count() - top);
+                    if (listaRevista.Count > top)
+                        listaRevista.RemoveRange(top, listaRevista.Count - top);
 
-                    if (listaRevista.Count() > cantMax - top)
-                        listaPackNueva.RemoveRange(cantMax - top, listaPackNueva.Count() - (cantMax - top));
+                    if (listaRevista.Count > cantMax - top)
+                        listaPackNueva.RemoveRange(cantMax - top, listaPackNueva.Count - (cantMax - top));
 
                     listModel = new List<BEEstrategia>();
                     if (estrategiaLanzamiento.EstrategiaID > 0)

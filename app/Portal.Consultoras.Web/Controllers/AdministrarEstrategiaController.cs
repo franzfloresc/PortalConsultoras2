@@ -277,7 +277,7 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                         }
                     }
-                    items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                    items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
                     pag = Util.PaginadorGenerico(grid, lst);
 
                     var data = new
@@ -347,7 +347,7 @@ namespace Portal.Consultoras.Web.Controllers
                     SortOrder = sord
                 };
                 IEnumerable<BETallaColor> items = lst;
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
                 var pag = Util.PaginadorGenerico(grid, lst);
 
@@ -1229,7 +1229,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var pag = new BEPager();
                 IEnumerable<ComunModel> items = lst;
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
                 pag = Util.PaginadorGenerico(grid, lst);
 
@@ -1285,7 +1285,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var pag = new BEPager();
                 IEnumerable<BEEstrategia> items = lst;
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
                 pag = Util.PaginadorGenerico(grid, lst);
 
@@ -1530,7 +1530,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var pag = new BEPager();
                 IEnumerable<ComunModel> items = lst;
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
                 pag = Util.PaginadorGenerico(grid, lst);
 
@@ -1586,7 +1586,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var pag = new BEPager();
                 IEnumerable<BEEstrategia> items = lst;
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
                 pag = Util.PaginadorGenerico(grid, lst);
 
@@ -1774,7 +1774,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.ddlCampania = DropDowListCampanias(userData.PaisID);
 
                 var tipoEstrategias = GetTipoEstrategias();
-                var oTipoEstrategia = tipoEstrategias.Where(x => x.Codigo == Constantes.TipoEstrategiaCodigo.IncentivosProgramaNuevas).FirstOrDefault();
+                var oTipoEstrategia = tipoEstrategias.FirstOrDefault(x => x.Codigo == Constantes.TipoEstrategiaCodigo.IncentivosProgramaNuevas);
                 ViewBag.hdnTipoEstrategiaID = (oTipoEstrategia == null ? 0 : oTipoEstrategia.TipoEstrategiaID);
             }
             catch (Exception ex)
@@ -2021,7 +2021,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.ddlCampania = DropDowListCampanias(userData.PaisID);
 
                 var tipoEstrategias = GetTipoEstrategias();
-                var oTipoEstrategia = tipoEstrategias.Where(x => x.Codigo == Constantes.TipoEstrategiaCodigo.Incentivos).FirstOrDefault();
+                var oTipoEstrategia = tipoEstrategias.FirstOrDefault(x => x.Codigo == Constantes.TipoEstrategiaCodigo.Incentivos);
                 ViewBag.hdnTipoEstrategiaID = (oTipoEstrategia == null ? 0 : oTipoEstrategia.TipoEstrategiaID);
             }
             catch (Exception ex)

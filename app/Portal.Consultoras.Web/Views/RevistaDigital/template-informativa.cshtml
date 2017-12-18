@@ -246,7 +246,7 @@ else
             </li>
             <div style="clear:both;"></div>
         </ul>
-        <a class="descargar"  href="@Model.UrlPreguntasFrecuentes" target="_blank">DESCARGA MÁS PREGUNTAS FRECUENTES</a>
+        <a class="descargar" href="@Model.UrlPreguntasFrecuentes" target="_blank">DESCARGA MÁS PREGUNTAS FRECUENTES</a>
     </div>
 </div>
 
@@ -259,42 +259,6 @@ else
         var urlTerminosCondicionesRD = '@Model.UrlTerminosCondiciones';
         var urlRevistaDigital = '@Url.Action("Comprar", "RevistaDigital")';
         var isScroll = false;
-    </script>
-    <script>
-            $(document).ready(function () {
-                var clickabrir = 1
-                $('.preguntas-frecuentes-cont-sus ul.preg-frecuentes li:has(ul)').click(function () {
-                    $(this).find('ul').slideToggle();
-                    if (clickabrir == 1) {
-                        $(this).find('span.despliegue').css("display", "none");
-                        $(this).find('span.nodespliegue').css("display", "block");
-                        clickabrir = 0;
-                    }
-                    else {
-                        $(this).find('span.despliegue').css("display", "block");
-                        $(this).find('span.nodespliegue').css("display", "none");
-                        clickabrir = 1;
-                    }
-                });
-
-                $('.popup_confirmacion_datos .form-datos .input input').keyup(function () {
-
-                    var empty = false;
-                    $('.popup_confirmacion_datos .form-datos .input input').each(function () {
-                        if ($(this).val().length == 0) {
-                            empty = true;
-                        }
-                    });
-
-                    if (empty) {
-                        $('.actions input').attr('disabled', 'disabled');
-                        $('.popup_confirmacion_datos .form-datos button').removeClass('boton_popup_confirmacion_datos');
-                    } else {
-                        $('.actions input').attr('disabled', false);
-                        $('.popup_confirmacion_datos .form-datos button').addClass('boton_popup_confirmacion_datos');
-                    }
-                });
-            });
     </script>
 
     @System.Web.Optimization.Scripts.Render("~/bundles/RevistaDigital-Info")

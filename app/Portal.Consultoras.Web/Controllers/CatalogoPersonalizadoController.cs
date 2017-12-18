@@ -267,15 +267,14 @@ namespace Portal.Consultoras.Web.Controllers
                 if (lstFilters != null)
                 {
                     string v1 = "";
-                    for (int i = 0; i < lstFilters.Count(); i++)
+                    for (int i = 0; i < lstFilters.Count; i++)
                     {
                         v1 = lstFilters[i].Valor1 == null ? "" : lstFilters[i].Valor1;
                         if (Convert.ToInt32(lstFilters[i].Id) > 1 && v1.Length > 0)
                         {
-                            if (lstFilters[i].Id == "4" && Convert.ToDouble(lstFilters[i].Valor1) == Convert.ToDouble(precioMinimo) && Convert.ToDouble(lstFilters[i].Valor2) == Convert.ToDouble(precioMaximo))
-                            {
-                            }
-                            else
+                            if (!(lstFilters[i].Id == "4" 
+                                && Convert.ToDouble(lstFilters[i].Valor1) == Convert.ToDouble(precioMinimo) 
+                                && Convert.ToDouble(lstFilters[i].Valor2) == Convert.ToDouble(precioMaximo)))
                             {
                                 flt += v1.Split(',').Count();
                             }
@@ -293,7 +292,7 @@ namespace Portal.Consultoras.Web.Controllers
                         var userFilters = (List<FiltroResultadoModel>)Session["UserFiltersFAV"] ?? new List<FiltroResultadoModel>();
                         foreach (var filter in lstFilters)
                         {
-                            var userFilter = userFilters.Where(x => x.Id == filter.Id).FirstOrDefault();
+                            var userFilter = userFilters.FirstOrDefault(x => x.Id == filter.Id);
                             if (userFilter != null)
                             {
                                 if (filter.Valor1 != userFilter.Valor1 || filter.Valor2 != userFilter.Valor2 || filter.Orden != userFilter.Orden)
@@ -633,7 +632,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var listaProductoModel = new List<ProductoModel>();
                 listaProductoModel = (List<ProductoModel>)Session["ProductosCatalogoPersonalizado"] ?? new List<ProductoModel>();
 
-                productoModel = listaProductoModel.Where(x => x.CUV == cuv).FirstOrDefault();
+                productoModel = listaProductoModel.FirstOrDefault(x => x.CUV == cuv);
 
                 if (productoModel == null || !productoModel.EsMaquillaje || productoModel.Hermanos != null)
                 {

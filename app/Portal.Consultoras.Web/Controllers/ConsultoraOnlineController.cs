@@ -678,7 +678,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
 
-            ViewBag.CantidadPedidos = objMisPedidos.ListaPedidos.Where(p => String.IsNullOrEmpty(p.Estado)).Count();
+            ViewBag.CantidadPedidos = objMisPedidos.ListaPedidos.Count(p => string.IsNullOrEmpty(p.Estado));
 
             return View(mostrarPagina());
         }
@@ -791,7 +791,7 @@ namespace Portal.Consultoras.Web.Controllers
                     consultoraOnlineMisPedidos = (MisPedidosModel)Session["objMisPedidos"];
                     BEMisPedidos pedido = new BEMisPedidos();
                     long _pedidoId = Convert.ToInt64(pedidoId);
-                    pedido = consultoraOnlineMisPedidos.ListaPedidos.Where(p => p.PedidoId == _pedidoId).FirstOrDefault();
+                    pedido = consultoraOnlineMisPedidos.ListaPedidos.FirstOrDefault(p => p.PedidoId == _pedidoId);
 
                     Session["objMisPedidosDetalle"] = olstMisPedidosDet;
 
@@ -822,7 +822,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                         foreach (var item in olstMisPedidosDet)
                         {
-                            var pedidoVal = olstMisProductos.Where(x => x.CUV == item.CUV).FirstOrDefault();
+                            var pedidoVal = olstMisProductos.FirstOrDefault(x => x.CUV == item.CUV);
                             if (pedidoVal != null)
                             {
                                 item.TieneStock = (pedidoVal.TieneStock) ? 1 : 0;
@@ -890,7 +890,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             ViewBag.Simbolo = UserData().Simbolo;
             objMisPedidos = (MisPedidosModel)Session["objMisPedidos"];
-            ViewBag.CantidadPedidos = objMisPedidos.ListaPedidos.Where(p => string.IsNullOrEmpty(p.Estado)).Count();
+            ViewBag.CantidadPedidos = objMisPedidos.ListaPedidos.Count(p => string.IsNullOrEmpty(p.Estado));
             indiceActualPagina = (int)TempData["indiceActualPagina"];
             indiceUltimaPagina = (int)TempData["indiceUltimaPagina"];
             if (Pagina.Equals("<<")) indiceActualPagina = 0;
@@ -972,7 +972,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             MisPedidosModel consultoraOnlineMisPedidos = (MisPedidosModel)Session["objMisPedidos"];
             BEMisPedidos _pedido = new BEMisPedidos();
-            _pedido = consultoraOnlineMisPedidos.ListaPedidos.Where(p => p.PedidoId == pedido.PedidoId).FirstOrDefault();
+            _pedido = consultoraOnlineMisPedidos.ListaPedidos.FirstOrDefault(p => p.PedidoId == pedido.PedidoId);
 
             List<BEMisPedidosDetalle> olstMisPedidosDet = (List<BEMisPedidosDetalle>)Session["objMisPedidosDetalle"];
             _pedido.DetallePedido = olstMisPedidosDet.Where(x => x.PedidoId == _pedido.PedidoId).ToArray();
@@ -1071,11 +1071,11 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         if (item.OpcionAcepta == "ingrped")
                         {
-                            BEMisPedidosDetalle pedidoDetalle = olstMisPedidosDet.Where(x => x.PedidoDetalleId == item.PedidoDetalleId).FirstOrDefault();
+                            BEMisPedidosDetalle pedidoDetalle = olstMisPedidosDet.FirstOrDefault(x => x.PedidoDetalleId == item.PedidoDetalleId);
 
                             if (pedidoDetalle != null)
                             {
-                                BEProducto productoVal = olstMisProductos.Where(x => x.CUV == pedidoDetalle.CUV).FirstOrDefault();
+                                BEProducto productoVal = olstMisProductos.FirstOrDefault(x => x.CUV == pedidoDetalle.CUV);
 
                                 if (productoVal != null)
                                 {
@@ -1102,7 +1102,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     {
                                         using (ServiceSAC.SACServiceClient svc = new ServiceSAC.SACServiceClient())
                                         {
-                                            bePedidoWebDetalle = olstPedidoWebDetalle.Where(x => x.CUV == pedidoDetalle.CUV && x.MarcaID == pedidoDetalle.MarcaID && x.ClienteID == Convert.ToInt16(clienteId)).FirstOrDefault();
+                                            bePedidoWebDetalle = olstPedidoWebDetalle.FirstOrDefault(x => x.CUV == pedidoDetalle.CUV && x.MarcaID == pedidoDetalle.MarcaID && x.ClienteID == Convert.ToInt16(clienteId));
 
                                             if (bePedidoWebDetalle != null)
                                             {
@@ -1571,7 +1571,7 @@ namespace Portal.Consultoras.Web.Controllers
                     sv.RechazarSolicitudCliente(PaisId, SolicitudId, true, OpcionRechazo, RazonMotivoRechazo);
 
                     BEMisPedidos pedido = new BEMisPedidos();
-                    pedido = consultoraOnlineMisPedidos.ListaPedidos.Where(p => p.PedidoId == SolicitudId).FirstOrDefault();
+                    pedido = consultoraOnlineMisPedidos.ListaPedidos.FirstOrDefault(p => p.PedidoId == SolicitudId);
 
                     if (pedido.FlagMedio == "01")
                     {

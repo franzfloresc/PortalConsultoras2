@@ -180,7 +180,7 @@ namespace Portal.Consultoras.Web.Controllers
                         indPedidoAutentico.PedidoDetalleID = entidad.PedidoDetalleID;
                         indPedidoAutentico.IndicadorIPUsuario = GetIPCliente();
                         indPedidoAutentico.IndicadorFingerprint = "";
-                        indPedidoAutentico.IndicadorToken = (Session["TokenPedidoAutentico"] != null) ? Session["TokenPedidoAutentico"].ToString() : ""; ;
+                        indPedidoAutentico.IndicadorToken = (Session["TokenPedidoAutentico"] != null) ? Session["TokenPedidoAutentico"].ToString() : "";
 
                         InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);
                     }
@@ -508,7 +508,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
                 pag = Util.PaginadorGenerico(grid, lst);
                 lst.Update(x => x.ISOPais = ISO);
@@ -762,7 +762,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 #region Procesar Carga Masiva Archivo CSV
                 string finalPath = string.Empty;
-                List<BEOfertaProducto> lstStock = new List<BEOfertaProducto>(); ;
+                List<BEOfertaProducto> lstStock = new List<BEOfertaProducto>();
 
                 if (flStock != null)
                 {

@@ -153,7 +153,7 @@ namespace Portal.Consultoras.Common
         private static LambdaExpression ObtenerLambda<T>(string propiedad)
         {
             ParameterExpression p = Expression.Parameter(typeof(T), "p");
-            var propertyReference = typeof(T).GetProperty(propiedad); ;
+            var propertyReference = typeof(T).GetProperty(propiedad);
 
             var lambdaOrder = Expression.Lambda(
                 Expression.Property(p, propertyReference), p);

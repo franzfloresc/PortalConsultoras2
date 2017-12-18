@@ -332,7 +332,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             #endregion Sort Section
 
-            items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+            items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
             pag = PaginadorPercepcion(grid, lst);
 
@@ -373,7 +373,7 @@ namespace Portal.Consultoras.Web.Controllers
                     lsta = new List<BEDatosBelcorp>();
                 }
 
-                string ImportePercepcionTexto = "Son: " + Util.enletras(Convert.ToDecimal(item.ImportePercepcion).ToString("0.00")) + " Nuevos Soles"; ;
+                string ImportePercepcionTexto = "Son: " + Util.enletras(Convert.ToDecimal(item.ImportePercepcion).ToString("0.00")) + " Nuevos Soles";
 
                 return Json(new
                 {
@@ -499,7 +499,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             #endregion Sort Section
 
-            items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+            items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
             pag = PaginadorDetallePercepcion(grid, lst);
 
@@ -617,7 +617,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (SACServiceClient sv = new SACServiceClient())
             {
-                lst = (sv.SelectLugarPago(paisID) ?? new BELugarPago[0]).ToList().OrderBy(x => x.Posicion).ToList();
+                lst = (sv.SelectLugarPago(paisID) ?? new BELugarPago[0]).OrderBy(x => x.Posicion).ToList();
             }
 
             foreach (var item in lst)
