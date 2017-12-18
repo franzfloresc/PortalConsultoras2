@@ -173,7 +173,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     else if (docName == catalogoFinart) catalogos.Add(new Catalogo { IdMarcaCatalogo = Constantes.Marca.Finart, marcaCatalogo = "Finart", DocumentID = documentId, SkinURL = string.Format(urlISSUUVisor, docName) });
                 }
             }
-            catch (Exception) { catalogos = new List<Catalogo>(); }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", CodigoISO + " - " + "GetCatalogosPublicados");
+                catalogos = new List<Catalogo>();
+            }
             return catalogos;
         }
 
@@ -287,7 +291,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 url = string.Format(url, codigo);
                 return Json(new { success = true, urlRevista = url }, JsonRequestBehavior.AllowGet);
             }
-            catch { }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", CodigoISO + " - " + "GetUrlRevistaIssuu");
+            }
+
             return Json(new { success = false }, JsonRequestBehavior.AllowGet);
         }
     }

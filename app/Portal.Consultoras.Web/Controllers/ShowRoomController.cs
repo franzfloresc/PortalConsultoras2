@@ -313,7 +313,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
                 pag = Util.PaginadorGenerico(grid, listaShowRoomEvento);
 
@@ -833,7 +833,7 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             foreach (var item in lstPrecioProductoPROL)
                             {
-                                var oStock = lstStock.Where(x => x.CUV == item.cuv).FirstOrDefault();
+                                var oStock = lstStock.FirstOrDefault(x => x.CUV == item.cuv);
                                 if (oStock != null)
                                 {
                                     oStock.PrecioOferta = item.precio_producto;
@@ -1258,7 +1258,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
                 pag = Util.PaginadorGenerico(grid, lst);
                 string ISO = Util.GetPaisISO(PaisID);
@@ -1842,7 +1842,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
                 pag = Util.PaginadorGenerico(grid, lst);
                 string ISO = Util.GetPaisISO(userData.PaisID);
@@ -3020,7 +3020,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private void ActualizarUserData(ServiceUsuario.BEUsuario usuario)
         {
-            userData.EMailActivo = usuario.EMail == userData.EMail ? userData.EMailActivo : false;
+            userData.EMailActivo = usuario.EMail == userData.EMail && userData.EMailActivo;
             userData.EMail = usuario.EMail;
             userData.Celular = usuario.Celular;
             SetUserData(userData);
@@ -3037,7 +3037,6 @@ namespace Portal.Consultoras.Web.Controllers
                         "UrlReturn,sr"
                     };
             var param_querystring = Util.Encrypt(string.Join(";", parametros));
-            var request = HttpContext.Request;
 
             var esPaisEsika = WebConfig.PaisesEsika.Contains(userData.CodigoISO);
 
@@ -3118,7 +3117,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
                 pag = Util.PaginadorGenerico(grid, lst);
 

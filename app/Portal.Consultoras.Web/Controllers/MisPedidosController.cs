@@ -722,8 +722,8 @@ namespace Portal.Consultoras.Web.Controllers
                     ClienteID = item.ClienteID,
                     Nombre = item.Nombre,
                     eMail = item.eMail,
-                    Cantidad = lst.ToList().Where(p => p.ClienteID == item.ClienteID).Sum(p => p.Cantidad),
-                    ImporteTotal = lst.ToList().Where(p => p.ClienteID == item.ClienteID).Sum(p => p.ImporteTotal)
+                    Cantidad = lst.Where(p => p.ClienteID == item.ClienteID).Sum(p => p.Cantidad),
+                    ImporteTotal = lst.Where(p => p.ClienteID == item.ClienteID).Sum(p => p.ImporteTotal)
                 };
 
                 items.Add(itemx);
@@ -743,7 +743,7 @@ namespace Portal.Consultoras.Web.Controllers
                 grid.PageSize,
 
                 Simbolo = userData.Simbolo,
-                CantidadCliente = items.Count(),
+                CantidadCliente = items.Count,
                 CantidadProducto = items.Sum(p => p.Cantidad),
                 SubTotal = importeTotal,
                 OfertaNiveles = Util.DecimalToStringFormat(0, userData.CodigoISO),

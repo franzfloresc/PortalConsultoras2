@@ -128,7 +128,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
                 pag = Util.PaginadorGenerico(grid, listaCupones);
 
                 var data = new
@@ -246,7 +246,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
                 pag = Util.PaginadorGenerico(grid, listaCuponConsultoras);
 
                 var data = new

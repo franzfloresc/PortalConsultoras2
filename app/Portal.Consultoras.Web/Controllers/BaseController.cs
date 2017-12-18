@@ -2817,7 +2817,7 @@ namespace Portal.Consultoras.Web.Controllers
                 .Insert(0, "4");
 
                 origenActual = int.Parse(nuevoOrigen);
-            };
+            }
 
             return origenActual;
         }

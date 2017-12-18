@@ -250,7 +250,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (string.IsNullOrEmpty(vBusqueda))
                 RecordCount = lst.Count;
             else
-                RecordCount = lst.Where(p => p.Nombre.ToUpper().Contains(vBusqueda.ToUpper())).ToList().Count();
+                RecordCount = lst.Count(p => p.Nombre.ToUpper().Contains(vBusqueda.ToUpper()));
 
             pag.RecordCount = RecordCount;
 

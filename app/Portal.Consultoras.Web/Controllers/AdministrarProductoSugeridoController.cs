@@ -67,7 +67,7 @@ namespace Portal.Consultoras.Web.Controllers
             BEPager pag = new BEPager();
             IEnumerable<BEProductoSugerido> items = lst;
             
-            items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+            items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
             pag = Util.PaginadorGenerico(grid, lst);
             string ISO = Util.GetPaisISO(PaisID);

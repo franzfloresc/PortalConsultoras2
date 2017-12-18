@@ -126,7 +126,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
                 pag = Util.PaginadorGenerico(grid, lst);
 
@@ -220,7 +220,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 foreach (var item in lstZonasInactivasEliminar)
                 {
-                    ZonaModel zona = lstZonasInactivas.Where(x => x.ZonaID == item.ZonaID).First();
                     lstZonasInactivas.Remove(item);
                 }
 
@@ -281,7 +280,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 foreach (var item in lstZonasActivasEliminar)
                 {
-                    ZonaModel zona = lstZonasActivas.Where(x => x.ZonaID == item.ZonaID).First();
                     lstZonasActivas.Remove(item);
                 }
 

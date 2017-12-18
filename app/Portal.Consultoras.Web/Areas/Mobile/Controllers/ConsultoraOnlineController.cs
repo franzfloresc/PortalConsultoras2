@@ -1087,7 +1087,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         objMisPedidos = model;
                         Session["objMisPedidos"] = objMisPedidos;
 
-                        var lstClientesExistentes = olstMisPedidos.Where(x => x.FlagConsultora == true).ToList();
+                        var lstClientesExistentes = olstMisPedidos.Where(x => x.FlagConsultora).ToList();
 
                         if (lstClientesExistentes.Count == olstMisPedidos.Count)
                         {
@@ -1137,7 +1137,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 consultoraOnlineMisPedidos = (MisPedidosModel)Session["objMisPedidos"];
                 BEMisPedidos pedido = new BEMisPedidos();
                 long _pedidoId = Convert.ToInt64(pedidoId);
-                pedido = consultoraOnlineMisPedidos.ListaPedidos.Where(p => p.PedidoId == _pedidoId && p.Estado.Trim().Length == 0).FirstOrDefault();
+                pedido = consultoraOnlineMisPedidos.ListaPedidos.FirstOrDefault(p => p.PedidoId == _pedidoId && p.Estado.Trim().Length == 0);
 
                 if (pedido == null)
                 {
@@ -1189,7 +1189,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                         foreach (var item in olstMisPedidosDet)
                         {
-                            var pedidoVal = olstMisProductos.Where(x => x.CUV == item.CUV).FirstOrDefault();
+                            var pedidoVal = olstMisProductos.FirstOrDefault(x => x.CUV == item.CUV);
                             if (pedidoVal != null)
                             {
                                 item.TieneStock = (pedidoVal.TieneStock) ? 1 : 0;
