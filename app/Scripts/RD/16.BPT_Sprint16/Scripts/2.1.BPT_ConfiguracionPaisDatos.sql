@@ -1,5 +1,3 @@
-use belcorpChile_bpt
-go
 
 DECLARE @CodigoSubscripcionAutomatica VARCHAR(50) = 'SubscripcionAutomaticaAVirtualCoach'
 DECLARE @CodigoActivacionUnete VARCHAR(50) = 'ActivarSuscripcionUnete'
