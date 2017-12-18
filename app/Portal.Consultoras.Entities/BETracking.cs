@@ -122,7 +122,7 @@ namespace Portal.Consultoras.Entities
         public BENovedadFacturacion(IDataRecord row)
         {
             CodigoMotivo = Convert.ToString(row["CodigoMotivo"]);
-            DescripcionMotivo = Convert.ToString(row["DescripcionMotivo"]); ;
+            DescripcionMotivo = Convert.ToString(row["DescripcionMotivo"]);
         }
     }
 }

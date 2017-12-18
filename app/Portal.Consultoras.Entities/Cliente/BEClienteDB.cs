@@ -35,10 +35,6 @@ namespace Portal.Consultoras.Entities
             {
                 return string.Format("{0} {1}", (Nombres == null ? string.Empty : Nombres), (Apellidos == null ? string.Empty : Apellidos)).Trim();
             }
-            set
-            {
-
-            }
         }
         [DataMember]
         public string Alias { get; set; }
@@ -89,10 +85,6 @@ namespace Portal.Consultoras.Entities
             get
             {
                 return (string.IsNullOrEmpty(CodigoRespuesta) ? string.Empty : Constantes.ClienteValidacion.Message[CodigoRespuesta]);
-            }
-            set
-            {
-
             }
         }
         [DataMember]

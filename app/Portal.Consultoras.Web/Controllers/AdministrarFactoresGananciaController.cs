@@ -112,9 +112,9 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion
 
                 if (string.IsNullOrEmpty(vBusqueda))
-                    items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                    items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
                 else
-                    items = items.Where(p => p.PaisID.ToString().ToUpper().Contains(vBusqueda.ToUpper())).ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                    items = items.Where(p => p.PaisID.ToString().ToUpper().Contains(vBusqueda.ToUpper())).Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
                 pag = Paginador(grid, vBusqueda);
 
@@ -158,7 +158,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (string.IsNullOrEmpty(vBusqueda))
                 RecordCount = lst.Count;
             else
-                RecordCount = lst.Where(p => p.PaisNombre.ToUpper().Contains(vBusqueda.ToUpper())).ToList().Count();
+                RecordCount = lst.Count(p => p.PaisNombre.ToUpper().Contains(vBusqueda.ToUpper()));
 
             pag.RecordCount = RecordCount;
 

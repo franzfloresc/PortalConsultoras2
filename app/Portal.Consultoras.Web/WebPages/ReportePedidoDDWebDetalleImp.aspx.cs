@@ -60,7 +60,7 @@ namespace Portal.Consultoras.Web.WebPages
             if (lstPedidosDDWebNoFacturados != null)
             {
                 lstDetalle = (from c in lstPedidosDDWebNoFacturados
-                              where string.IsNullOrEmpty(c.CUV.Trim()) == false
+                              where !string.IsNullOrEmpty(c.CUV.Trim())
                               select new BEPedidoDDWebDetalle
                               {
                                   CUV = c.CUV,

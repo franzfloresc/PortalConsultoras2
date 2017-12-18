@@ -203,7 +203,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     else
                     {
-                        beMiCertificado = listaData.Where(x => x.TipoCert == tipo).FirstOrDefault();
+                        beMiCertificado = listaData.FirstOrDefault(x => x.TipoCert == tipo);
                         model = Mapper.Map<MiCertificadoModel>(beMiCertificado);
                     }
 

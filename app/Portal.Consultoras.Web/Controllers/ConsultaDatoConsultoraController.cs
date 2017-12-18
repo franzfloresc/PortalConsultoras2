@@ -185,7 +185,7 @@
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
                 pag = Paginador(grid, lst);
 
@@ -334,7 +334,7 @@
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
 
                 pag = Util.PaginadorGenerico(grid, lst);
@@ -511,7 +511,7 @@
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
 
                 pag = Util.PaginadorGenerico(grid, lst);
@@ -657,7 +657,7 @@
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
 
                 pag = Util.PaginadorGenerico(grid, lst);
@@ -749,7 +749,7 @@
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
 
                 pag = Util.PaginadorGenerico(grid, lst);
@@ -1283,7 +1283,7 @@
             if (string.IsNullOrEmpty(vBusqueda))
                 RecordCount = lst.Count;
             else
-                RecordCount = lst.Where(p => p.Nombre.ToUpper().Contains(vBusqueda.ToUpper())).ToList().Count();
+                RecordCount = lst.Count(p => p.Nombre.ToUpper().Contains(vBusqueda.ToUpper()));
 
             pag.RecordCount = RecordCount;
 

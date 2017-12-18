@@ -180,7 +180,11 @@ namespace Portal.Consultoras.Web.Controllers
                              .Matches(ipPublica)[0].ToString();
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
             return ipPublica;
         }
         private string ObtenerIPPublica()

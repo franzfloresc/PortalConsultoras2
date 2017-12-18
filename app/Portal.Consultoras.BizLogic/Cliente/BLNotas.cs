@@ -151,7 +151,7 @@ namespace Portal.Consultoras.BizLogic.Cliente
 
             var result = ResponseType<bool>.Build();
             result.Success = notasCliente < notaMaxima;
-            result.Code = Constantes.ClienteValidacion.Code.ERROR_NOTACANTIDADMAXIMA; ;
+            result.Code = Constantes.ClienteValidacion.Code.ERROR_NOTACANTIDADMAXIMA;
             result.Message = string.Format(Resources.ClienteValidationMessages.NotaCantidadMaximaSuperada, notaMaxima);
 
             return result;

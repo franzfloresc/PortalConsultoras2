@@ -68,9 +68,9 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion
 
                 if (string.IsNullOrEmpty(vDescripcion))
-                    items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                    items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
                 else
-                    items = items.Where(p => p.Descripcion.ToUpper().Contains(vDescripcion.ToUpper())).ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                    items = items.Where(p => p.Descripcion.ToUpper().Contains(vDescripcion.ToUpper())).Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
                 pag = Util.PaginadorGenerico(grid, items.ToList());
 

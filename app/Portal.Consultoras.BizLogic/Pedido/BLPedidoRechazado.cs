@@ -136,7 +136,7 @@ namespace Portal.Consultoras.BizLogic
                 }
                 else
                 {
-                    beGPRBanner.MostrarBannerRechazo = (usuario.IndicadorGPRSB == (int)Enumeradores.IndicadorGPR.Descargado ? true : false);
+                    beGPRBanner.MostrarBannerRechazo = (usuario.IndicadorGPRSB == (int)Enumeradores.IndicadorGPR.Descargado);
                 }
             }
 

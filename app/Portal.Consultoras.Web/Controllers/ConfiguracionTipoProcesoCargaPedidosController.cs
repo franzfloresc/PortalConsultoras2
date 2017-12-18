@@ -53,7 +53,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 }
 
-                model.TipoProcesoCarga = (configuracionPortal.TipoProcesoCarga == null ? false : configuracionPortal.TipoProcesoCarga.Value);
+                model.TipoProcesoCarga = (configuracionPortal.TipoProcesoCarga != null && configuracionPortal.TipoProcesoCarga.Value);
 
 
                 var listaZonas = DropDowListZonasNoProl(PaisID);

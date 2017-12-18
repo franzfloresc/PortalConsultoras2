@@ -1489,7 +1489,7 @@ namespace Portal.Consultoras.Web.Controllers
                                        "&codterritorio=" + codterritorio +
                                           "&direccion=" + direccion
                 );
-            return Json(response == "true" ? true : false, JsonRequestBehavior.AllowGet);
+            return Json(response == "true", JsonRequestBehavior.AllowGet);
         }
 
         public string ObtenerZonas(int regionID)

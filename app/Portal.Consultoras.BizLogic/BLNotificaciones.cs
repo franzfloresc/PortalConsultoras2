@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
+using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -83,7 +84,10 @@ namespace Portal.Consultoras.BizLogic
                         notificacionespedido.Add(entidad);
                     }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, ConsultoraId.ToString(), PaisID.ToString());
+            }
 
             return notificacionespedido;
         }

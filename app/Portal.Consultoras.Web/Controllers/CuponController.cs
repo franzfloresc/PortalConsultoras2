@@ -190,7 +190,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             userData.EMail = entidad.EMail;
             userData.Celular = entidad.Celular;
-            userData.EMailActivo = correoNuevo == correoAnterior ? userData.EMailActivo : false;
+            userData.EMailActivo = correoNuevo == correoAnterior && userData.EMailActivo;
             SetUserData(userData);
         }
 
