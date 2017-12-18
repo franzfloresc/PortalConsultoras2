@@ -85,7 +85,6 @@ function onYouTubePlayerAPIReady() {
         fs: 0,
         videoId: videoKey,
         events: {
-            //onReady: onPlayerReady,
             onReady: onScrollDown,
             onStateChange: onPlayerStateChange
         }
@@ -103,11 +102,6 @@ function onScrollDown(event) {
         }
     });
 }
-
-//function onPlayerReady(event) {
-//    event.target.playVideo();
-//}
-
 
 // when video ends
 function onPlayerStateChange(event) {
