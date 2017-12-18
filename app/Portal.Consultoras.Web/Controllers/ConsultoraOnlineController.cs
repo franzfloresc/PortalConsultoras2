@@ -308,7 +308,7 @@ namespace Portal.Consultoras.Web.Controllers
                 HasSuccess = true;
 
                 string emailConsultora = UserData().EMail;
-                if (String.IsNullOrEmpty(ConsultoraAfiliar.Email.Trim()) || ConsultoraAfiliar.EmailActivo == false)
+                if (String.IsNullOrEmpty(ConsultoraAfiliar.Email.Trim()) || !ConsultoraAfiliar.EmailActivo)
                 {
                     result += "|No tiene email activo.";
                     HasSuccess = false;
@@ -711,7 +711,7 @@ namespace Portal.Consultoras.Web.Controllers
                         objMisPedidos = model;
                         Session["objMisPedidos"] = objMisPedidos;
 
-                        var lstClientesExistentes = olstMisPedidos.Where(x => x.FlagConsultora == true).ToList();
+                        var lstClientesExistentes = olstMisPedidos.Where(x => x.FlagConsultora).ToList();
 
                         if (lstClientesExistentes.Count == olstMisPedidos.Count)
                         {
@@ -719,7 +719,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         else
                         {
-                            var pedidoReciente = olstMisPedidos.Where(x => x.FlagConsultora == false).OrderBy(x => x.FechaSolicitud).First();
+                            var pedidoReciente = olstMisPedidos.Where(x => !x.FlagConsultora).OrderBy(x => x.FechaSolicitud).First();
 
                             DateTime starDate = DateTime.Now;
                             DateTime endDate = pedidoReciente.FechaSolicitud.AddDays(1);
@@ -1398,7 +1398,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 olstTempListado = ObtenerPedidoWebDetalle();
 
-                if (pedidoWebDetalleNula == false)
+                if (!pedidoWebDetalleNula)
                 {
                     if (oBEPedidoWebDetalle.PedidoDetalleID == 0)
                     {

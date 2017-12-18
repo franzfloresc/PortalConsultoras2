@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.ServiceModel;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
@@ -676,7 +677,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var cantidadTotal = olstPedidoWebDetalle.Count;
 
-                var Paginas = (olstPedidoWebDetalle.Count % 100 == 0) ? (olstPedidoWebDetalle.Count / 100).ToString() : ((int)(olstPedidoWebDetalle.Count / 100) + 1).ToString();
+                var Paginas = (olstPedidoWebDetalle.Count % 100 == 0) ? (olstPedidoWebDetalle.Count / 100).ToString() : ((olstPedidoWebDetalle.Count / 100) + 1).ToString();
 
                 if (Paginas == "0")
                     model.Pagina = "0";
@@ -1625,16 +1626,17 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult ObtenerProductosSugeridos(string CUV)
         {
-            var listaProduto = new List<BEProducto>();
-            var listaProductoModel = new List<ProductoModel>();
+            var listaProductoModel = new List<ProductoModel>(); ;
 
             try
             {
+                List<BEProducto> listaProduto;
                 using (var sv = new ODSServiceClient())
                 {
                     listaProduto = sv.GetProductoSugeridoByCUV(userData.PaisID, userData.CampaniaID, Convert.ToInt32(userData.ConsultoraID), CUV, userData.RegionID,
                         userData.ZonaID, userData.CodigorRegion, userData.CodigoZona).ToList();
                 }
+                listaProduto = listaProduto ?? new List<BEProducto>();
 
                 var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
                 var esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
@@ -1643,15 +1645,17 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (esFacturacion)
                 {
-                    var codigoSap = "";
+                    var txtBuil = new StringBuilder();
+
                     foreach (var beProducto in listaProduto)
                     {
                         if (!string.IsNullOrEmpty(beProducto.CodigoProducto))
                         {
-                            codigoSap += beProducto.CodigoProducto + "|";
+                            txtBuil.Append(beProducto.CodigoProducto + "|");
                         }
                     }
 
+                    var codigoSap = txtBuil.ToString();
                     codigoSap = codigoSap == "" ? "" : codigoSap.Substring(0, codigoSap.Length - 1);
 
                     try
@@ -2361,11 +2365,11 @@ namespace Portal.Consultoras.Web.Controllers
             BEConfiguracionCampania oBEConfiguracionCampania = null;
             using (var sv = new PedidoServiceClient())
             {
-                oBEConfiguracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.ZonaID, userData.RegionID);
+                oBEConfiguracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.ZonaID, userData.RegionID) ?? new BEConfiguracionCampania();
             }
-            if (oBEConfiguracionCampania != null)
+
+            if (oBEConfiguracionCampania.CampaniaID > userData.CampaniaID)
             {
-                if (oBEConfiguracionCampania.CampaniaID > userData.CampaniaID)
                     return RedirectToAction("Index");
             }
 
@@ -2684,97 +2688,99 @@ namespace Portal.Consultoras.Web.Controllers
                 olstPedidoWebDetalle = PedidoJerarquico(olstPedidoWebDetalle);
                 #region cotnenido del correo
 
-                var mailBody = string.Empty;
-                mailBody = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">";
-                mailBody += "<div style='font-size:12px;'>Hola,</div> <br />";
-                mailBody += "<div style='font-size:12px;'> El detalle de tu pedido para la campaña <b>" + userData.CampaniaID + "</b> es el siguiente :</div> <br /><br />";
-                mailBody += "<table border='1' style='width: 80%;'>";
-                mailBody += "<tr style='color: #FFFFFF'>";
-                mailBody += "<td style='font-size:11px; font-weight: bold; text-align: center; width: 126px; background-color: #666699;'>";
-                mailBody += "Cod. Venta";
-                mailBody += "</td>";
-                mailBody += "<td style='font-size:11px; font-weight: bold; text-align: center; width: 347px; background-color: #666699;'>";
-                mailBody += "Descripción";
-                mailBody += "</td>";
-                mailBody += "<td style='font-size:11px; font-weight: bold; text-align: center; width: 124px; background-color: #666699;'>";
-                mailBody += "Cantidad";
-                mailBody += "</td>";
-                mailBody += "<td style='font-size:11px; font-weight: bold; text-align: center; width: 182px; background-color: #666699;'>";
-                mailBody += "Precio Unit.";
-                mailBody += "</td>";
-                mailBody += "<td style='font-size:11px; font-weight: bold; text-align: center; width: 165px; background-color: #666699;'>";
-                mailBody += "Precio Total";
-                mailBody += "</td>";
-                mailBody += "<td style='font-size:11px; font-weight: bold; text-align: center; width: 165px; background-color: #666699;'>";
-                mailBody += "Cliente";
-                mailBody += "</td>";
-                mailBody += "</tr>";
+                var txtBuil = new StringBuilder();
+
+                txtBuil.Append("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">");
+                txtBuil.Append("<div style='font-size:12px;'>Hola,</div> <br />");
+                txtBuil.Append("<div style='font-size:12px;'> El detalle de tu pedido para la campaña <b>" + userData.CampaniaID + "</b> es el siguiente :</div> <br /><br />");
+                txtBuil.Append("<table border='1' style='width: 80%;'>");
+                txtBuil.Append("<tr style='color: #FFFFFF'>");
+                txtBuil.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 126px; background-color: #666699;'>");
+                txtBuil.Append("Cod. Venta");
+                txtBuil.Append("</td>");
+                txtBuil.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 347px; background-color: #666699;'>");
+                txtBuil.Append("Descripción");
+                txtBuil.Append("</td>");
+                txtBuil.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 124px; background-color: #666699;'>");
+                txtBuil.Append("Cantidad");
+                txtBuil.Append("</td>");
+                txtBuil.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 182px; background-color: #666699;'>");
+                txtBuil.Append("Precio Unit.");
+                txtBuil.Append("</td>");
+                txtBuil.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 165px; background-color: #666699;'>");
+                txtBuil.Append("Precio Total");
+                txtBuil.Append("</td>");
+                txtBuil.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 165px; background-color: #666699;'>");
+                txtBuil.Append("Cliente");
+                txtBuil.Append("</td>");
+                txtBuil.Append("</tr>");
 
                 for (var i = 0; i < olstPedidoWebDetalle.Count; i++)
                 {
                     if (olstPedidoWebDetalle[i].PedidoDetalleIDPadre == 0)
                     {
-                        mailBody += "<tr>";
-                        mailBody += "<td style='font-size:11px; width: 126px; text-align: center;'>";
-                        mailBody += "" + olstPedidoWebDetalle[i].CUV.ToString() + "";
-                        mailBody += "</td>";
-                        mailBody += " <td style='font-size:11px; width: 347px;'>";
-                        mailBody += "" + olstPedidoWebDetalle[i].DescripcionProd.ToString() + "";
-                        mailBody += "</td>";
-                        mailBody += "<td style='font-size:11px; width: 124px; text-align: center;'>";
-                        mailBody += "" + olstPedidoWebDetalle[i].Cantidad.ToString() + "";
-                        mailBody += "</td>";
-                        mailBody += "<td style='font-size:11px; width: 182px; text-align: center;'>";
-                        mailBody += userData.Simbolo + Util.DecimalToStringFormat(olstPedidoWebDetalle[i].PrecioUnidad, userData.CodigoISO);
-                        mailBody += "</td>";
-                        mailBody += "<td style='font-size:11px; width: 165px; text-align: center;'>";
-                        mailBody += userData.Simbolo + Util.DecimalToStringFormat(olstPedidoWebDetalle[i].ImporteTotal, userData.CodigoISO);
-                        mailBody += "</td>";
-                        mailBody += "<td style='font-size:11px; width: 165px; text-align: center;'>";
-                        mailBody += string.IsNullOrEmpty(olstPedidoWebDetalle[i].Nombre) ? userData.NombreConsultora : olstPedidoWebDetalle[i].Nombre;
-                        mailBody += "</td>";
-                        mailBody += "</tr>";
+                        txtBuil.Append("<tr>");
+                        txtBuil.Append("<td style='font-size:11px; width: 126px; text-align: center;'>");
+                        txtBuil.Append("" + olstPedidoWebDetalle[i].CUV.ToString() + "");
+                        txtBuil.Append("</td>");
+                        txtBuil.Append(" <td style='font-size:11px; width: 347px;'>");
+                        txtBuil.Append("" + olstPedidoWebDetalle[i].DescripcionProd.ToString() + "");
+                        txtBuil.Append("</td>");
+                        txtBuil.Append("<td style='font-size:11px; width: 124px; text-align: center;'>");
+                        txtBuil.Append("" + olstPedidoWebDetalle[i].Cantidad.ToString() + "");
+                        txtBuil.Append("</td>");
+                        txtBuil.Append("<td style='font-size:11px; width: 182px; text-align: center;'>");
+                        txtBuil.Append(userData.Simbolo + Util.DecimalToStringFormat(olstPedidoWebDetalle[i].PrecioUnidad, userData.CodigoISO));
+                        txtBuil.Append("</td>");
+                        txtBuil.Append("<td style='font-size:11px; width: 165px; text-align: center;'>");
+                        txtBuil.Append(userData.Simbolo + Util.DecimalToStringFormat(olstPedidoWebDetalle[i].ImporteTotal, userData.CodigoISO));
+                        txtBuil.Append("</td>");
+                        txtBuil.Append("<td style='font-size:11px; width: 165px; text-align: center;'>");
+                        txtBuil.Append(string.IsNullOrEmpty(olstPedidoWebDetalle[i].Nombre) ? userData.NombreConsultora : olstPedidoWebDetalle[i].Nombre);
+                        txtBuil.Append("</td>");
+                        txtBuil.Append("</tr>");
                         Total += olstPedidoWebDetalle[i].ImporteTotal;
                     }
                     else
                     {
-                        mailBody += "<tr>";
-                        mailBody += "<td></td>";
-                        mailBody += "<td style='font-size:11px; width: 126px; text-align: center;'>";
-                        mailBody += "" + olstPedidoWebDetalle[i].CUV + "";
-                        mailBody += "</td>";
-                        mailBody += " <td colspan='4' style='font-size:11px;'>";
-                        mailBody += "" + olstPedidoWebDetalle[i].DescripcionProd + "";
-                        mailBody += "</td>";
-                        mailBody += "</tr>";
+                        txtBuil.Append("<tr>");
+                        txtBuil.Append("<td></td>");
+                        txtBuil.Append("<td style='font-size:11px; width: 126px; text-align: center;'>");
+                        txtBuil.Append("" + olstPedidoWebDetalle[i].CUV + "");
+                        txtBuil.Append("</td>");
+                        txtBuil.Append(" <td colspan='4' style='font-size:11px;'>");
+                        txtBuil.Append("" + olstPedidoWebDetalle[i].DescripcionProd + "");
+                        txtBuil.Append("</td>");
+                        txtBuil.Append("</tr>");
                     }
-
                 }
 
-                mailBody += "<tr>";
-                mailBody += "<td colspan='4' style='font-size:11px; text-align: right; font-weight: bold'>";
-                mailBody += "Total :";
-                mailBody += "</td>";
-                mailBody += "<td style='font-size:11px; text-align: center; font-weight: bold'>";
-                mailBody += "" + userData.Simbolo + Util.DecimalToStringFormat(Total, userData.CodigoISO);
-                mailBody += "</td>";
-                mailBody += "<td></td>";
-                mailBody += "</tr>";
-                mailBody += "</table>";
-                mailBody += "<br /><br />";
-                mailBody += "<div style='font-size:12px;'>Saludos,</div>";
-                mailBody += "<br /><br />";
-                mailBody += "<table border='0'>";
-                mailBody += "<tr>";
-                mailBody += "<td>";
-                mailBody += "<img src='cid:Logo' border='0' />";
-                mailBody += "</td>";
-                mailBody += "<td style='text-align: center; font-size:12px;'>";
-                mailBody += "<strong>" + userData.NombreConsultora + "</strong> <br />";
-                mailBody += "<strong>Consultora</strong>";
-                mailBody += "</td>";
-                mailBody += "</tr>";
-                mailBody += "</table>";
+                txtBuil.Append("<tr>");
+                txtBuil.Append("<td colspan='4' style='font-size:11px; text-align: right; font-weight: bold'>");
+                txtBuil.Append("Total :");
+                txtBuil.Append("</td>");
+                txtBuil.Append("<td style='font-size:11px; text-align: center; font-weight: bold'>");
+                txtBuil.Append("" + userData.Simbolo + Util.DecimalToStringFormat(Total, userData.CodigoISO));
+                txtBuil.Append("</td>");
+                txtBuil.Append("<td></td>");
+                txtBuil.Append("</tr>");
+                txtBuil.Append("</table>");
+                txtBuil.Append("<br /><br />");
+                txtBuil.Append("<div style='font-size:12px;'>Saludos,</div>");
+                txtBuil.Append("<br /><br />");
+                txtBuil.Append("<table border='0'>");
+                txtBuil.Append("<tr>");
+                txtBuil.Append("<td>");
+                txtBuil.Append("<img src='cid:Logo' border='0' />");
+                txtBuil.Append("</td>");
+                txtBuil.Append("<td style='text-align: center; font-size:12px;'>");
+                txtBuil.Append("<strong>" + userData.NombreConsultora + "</strong> <br />");
+                txtBuil.Append("<strong>Consultora</strong>");
+                txtBuil.Append("</td>");
+                txtBuil.Append("</tr>");
+                txtBuil.Append("</table>");
+
+                string mailBody = txtBuil.ToString();
 
                 #endregion
 
@@ -2937,7 +2943,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 olstTempListado = ObtenerPedidoWebDetalle();
 
-                if (pedidoWebDetalleNula == false)
+                if (!pedidoWebDetalleNula)
                 {
                     if (oBEPedidoWebDetalle.PedidoDetalleID == 0)
                     {

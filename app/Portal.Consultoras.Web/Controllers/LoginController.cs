@@ -531,7 +531,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
                 }
 
-                if (string.IsNullOrEmpty(usuario.EMail) || usuario.EMailActivo == false)
+                if (string.IsNullOrEmpty(usuario.EMail) || !usuario.EMailActivo)
                 {
                     Session["PrimeraVezSession"] = 0;
                 }

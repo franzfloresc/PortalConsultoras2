@@ -20,7 +20,7 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult AfiliarConsultora(bool esPrimera, long ConsultoraID, bool emailActivo)
         {
             string emailConsultora = UserData().EMail;
-            if (String.IsNullOrEmpty(emailConsultora.Trim()) || emailActivo == false)
+            if (String.IsNullOrEmpty(emailConsultora.Trim()) || !emailActivo)
             {
                 var data = new
                 {

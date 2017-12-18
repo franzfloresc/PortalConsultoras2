@@ -289,7 +289,7 @@ namespace Portal.Consultoras.Web.Controllers
                 
                 if (Session["entradas"] != null)
                 {
-                    listaEntradas = (Session["entradas"] as List<AdministrarFeErratasModel>).Where(e => e.Eliminar == false).ToList();
+                    listaEntradas = (Session["entradas"] as List<AdministrarFeErratasModel>).Where(e => !e.Eliminar).ToList();
                 }
                 else
                 {
