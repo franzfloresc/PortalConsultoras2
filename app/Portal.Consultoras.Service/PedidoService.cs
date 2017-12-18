@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.ServiceModel;
+using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Service
 {
@@ -122,9 +123,9 @@ namespace Portal.Consultoras.Service
             return BLPedidoWebDetalle.InsertPedido(pedidoDetalle);
         }
 
-        public IList<BEPedidoWebDetalle> SelectByCampania(int paisID, int CampaniaID, long ConsultoraID, string Consultora, int esOpt = -1)
-        {
-            return BLPedidoWebDetalle.GetPedidoWebDetalleByCampania(paisID, CampaniaID, ConsultoraID, Consultora, esOpt);
+        public IList<BEPedidoWebDetalle> SelectByCampania(BEPedidoWebDetalleParametros bePedidoWebDetalleParametros)
+        {            
+            return BLPedidoWebDetalle.GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros);
         }
 
         public void DelPedidoWebDetalle(BEPedidoWebDetalle pedidowebdetalle)
@@ -1515,6 +1516,11 @@ namespace Portal.Consultoras.Service
             return BLShowRoomEvento.DelOfertaShowRoom(paisID, entity);
         }
 
+        public int InsOrUpdOfertaShowRoom(int paisID, BEShowRoomOferta entity)
+        {
+            return BLShowRoomEvento.InsOrUpdOfertaShowRoom(paisID, entity);
+        }
+
         public int RemoverOfertaShowRoom(int paisID, BEShowRoomOferta entity)
         {
             return BLShowRoomEvento.RemoverOfertaShowRoom(paisID, entity);
@@ -2170,6 +2176,7 @@ namespace Portal.Consultoras.Service
             BLPedidoWeb.UpdateMostradoProductosPrecargados(paisID, CampaniaID, ConsultoraID, IPUsuario);
         }
         #endregion  
+        
         #region ConfiguracionProgramaNuevasApp
         public List<Estrategia.BEConfiguracionProgramaNuevasApp> GetConfiguracionProgramaNuevasApp(int paisID, string CodigoPrograma)
         {
@@ -2178,6 +2185,18 @@ namespace Portal.Consultoras.Service
         public string InsConfiguracionProgramaNuevasApp(int paisID, Estrategia.BEConfiguracionProgramaNuevasApp entidad)
         {
             return _configuracionProgramaNuevasBusinessLogic.InsConfiguracionProgramaNuevasApp(paisID, entidad);
+        }
+        #endregion
+
+        #region Certificado Digital
+        public bool TieneCampaniaConsecutivas(int paisId, int campaniaId, int cantidadCampaniaConsecutiva, long consultoraId)
+        {
+            return BLPedidoWeb.TieneCampaniaConsecutivas(paisId, campaniaId, cantidadCampaniaConsecutiva, consultoraId);
+        }
+
+        public BEMiCertificado ObtenerCertificadoDigital(int paisId, int campaniaId, long consultoraId, Int16 tipoCert)
+        {
+            return BLPedidoWeb.ObtenerCertificadoDigital(paisId, campaniaId, consultoraId, tipoCert);
         }
         #endregion
     }

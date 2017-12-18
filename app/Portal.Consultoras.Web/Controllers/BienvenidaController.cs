@@ -2103,7 +2103,7 @@ namespace Portal.Consultoras.Web.Controllers
             var fechaInicioChat = GetConfiguracionManager(Constantes.ConfiguracionManager.FechaChat + userData.CodigoISO);
 
             if (GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesBelcorpChatEMTELCO).Contains(userData.CodigoISO) &&
-                !String.IsNullOrEmpty(fechaInicioChat))
+                fechaInicioChat != "")
             {
                 var fechaInicioChatPais = DateTime.ParseExact(fechaInicioChat,
                     "dd/MM/yyyy",

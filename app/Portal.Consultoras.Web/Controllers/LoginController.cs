@@ -880,6 +880,9 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.TieneCDRExpress = usuario.TieneCDRExpress;
                     usuarioModel.EsConsecutivoNueva = usuario.EsConsecutivoNueva;
 
+                    usuarioModel.CodigoPrograma = usuario.CodigoPrograma;
+                    usuarioModel.ConsecutivoNueva = usuario.ConsecutivoNueva;
+
                     #endregion
 
                     if (usuarioModel.RolID == Constantes.Rol.Consultora)
@@ -1131,7 +1134,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (GetPaisesLbelFromConfig().Contains(usuarioModel.CodigoISO))
                     {
                         usuarioModel.EsLebel = true;
-                    }
+                    }                    
 
                     sessionManager.SetTieneLan(true);
                     sessionManager.SetTieneLanX1(true);

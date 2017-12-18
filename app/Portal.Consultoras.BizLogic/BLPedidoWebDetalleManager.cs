@@ -203,7 +203,16 @@ namespace Portal.Consultoras.BizLogic
             int origenPedidoWeb)
         {
             BEPedidoWeb bePEdidoWeb = _blPedidoWeb.GetPedidoWebByCampaniaConsultora(paisID, usuario.CampaniaID, usuario.ConsultoraID);
-            List<BEPedidoWebDetalle> olstTempListado = GetPedidoWebDetalleByCampania(usuario.PaisID, usuario.CampaniaID, usuario.ConsultoraID, usuario.Nombre).ToList();
+
+            var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros();
+            bePedidoWebDetalleParametros.PaisId = usuario.PaisID;
+            bePedidoWebDetalleParametros.CampaniaId = usuario.CampaniaID;
+            bePedidoWebDetalleParametros.ConsultoraId = usuario.ConsultoraID;
+            bePedidoWebDetalleParametros.Consultora = usuario.Nombre;
+            bePedidoWebDetalleParametros.CodigoPrograma = usuario.CodigoPrograma;
+            bePedidoWebDetalleParametros.NumeroPedido = usuario.ConsecutivoNueva;
+
+            List<BEPedidoWebDetalle> olstTempListado = GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros).ToList();
 
             var item = new BEPedidoWebDetalle
             {
@@ -300,8 +309,16 @@ namespace Portal.Consultoras.BizLogic
         {
             decimal montoAhorroCatalogo = 0, montoAhorroRevista = 0, montoDescuento = 0, montoEscala = 0;
             string CodigosConcursos = string.Empty, Puntajes = string.Empty, PuntajesExigidos = string.Empty;
+            
+            var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros();
+            bePedidoWebDetalleParametros.PaisId = usuario.PaisID;
+            bePedidoWebDetalleParametros.CampaniaId = usuario.CampaniaID;
+            bePedidoWebDetalleParametros.ConsultoraId = usuario.ConsultoraID;
+            bePedidoWebDetalleParametros.Consultora = usuario.Nombre;
+            bePedidoWebDetalleParametros.CodigoPrograma = usuario.CodigoPrograma;
+            bePedidoWebDetalleParametros.NumeroPedido = usuario.ConsecutivoNueva;
+            var listProducto = GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros).ToList();
 
-            List<BEPedidoWebDetalle> listProducto = GetPedidoWebDetalleByCampania(usuario.PaisID, usuario.CampaniaID, usuario.ConsultoraID, usuario.Nombre).ToList();
             if (listProducto.Any())
             {
                 var result = _consultoraConcursoBusinessLogic.ObtenerConcursosXConsultora(usuario.PaisID, usuario.CampaniaID.ToString(), usuario.CodigoConsultora, usuario.CodigorRegion, usuario.CodigoZona);
@@ -310,7 +327,6 @@ namespace Portal.Consultoras.BizLogic
                 if (Concursos.Any()) CodigosConcursos = string.Join("|", Concursos.Select(c => c.CodigoConcurso));
 
                 var lista = ServicioProl_CalculoMontosProl(usuario, listProducto, CodigosConcursos);
-
                 if (lista != null)
                 {
                     if (lista.Count > 0)
