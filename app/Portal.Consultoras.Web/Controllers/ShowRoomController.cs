@@ -144,7 +144,7 @@ namespace Portal.Consultoras.Web.Controllers
                     showRoomEventoModel.FiltersBySorting = svc.GetTablaLogicaDatos(userData.PaisID, 99).ToList();
                 }
 
-                var xlistaShowRoom = showRoomEventoModel.ListaShowRoomOferta.Where(x => x.EsSubCampania == false).ToList();
+                var xlistaShowRoom = showRoomEventoModel.ListaShowRoomOferta.Where(x => !x.EsSubCampania).ToList();
                 ViewBag.PrecioMin = xlistaShowRoom.Any() ? xlistaShowRoom.Min(p => p.PrecioOferta) : Convert.ToDecimal(0);
                 ViewBag.PrecioMax = xlistaShowRoom.Any() ? xlistaShowRoom.Max(p => p.PrecioOferta) : Convert.ToDecimal(0);
 
@@ -2582,7 +2582,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             var modelo = ViewDetalleOferta(id);
 
-            var xList = modelo.ListaOfertaShowRoom.Where(x => x.EsSubCampania == false).ToList();
+            var xList = modelo.ListaOfertaShowRoom.Where(x => !x.EsSubCampania).ToList();
             modelo.ListaOfertaShowRoom = xList;
 
             var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
@@ -2696,7 +2696,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (model.Limite > 0 && productosShowRoom.Count > 0)
                 {
-                    productosShowRoom = productosShowRoom.Where(x => x.EsSubCampania == false).Take(model.Limite).ToList();
+                    productosShowRoom = productosShowRoom.Where(x => !x.EsSubCampania).Take(model.Limite).ToList();
                 }
 
                 var index = 0;

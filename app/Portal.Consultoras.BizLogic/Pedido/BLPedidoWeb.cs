@@ -169,7 +169,7 @@ namespace Portal.Consultoras.BizLogic
                         throw new BizLogicException("No se pudo acceder al origen de datos de pedidos Web.", ex);
                 }
 
-                if (ConfigurationManager.AppSettings["OrderDownloadIncludeDD"] == "1" && isFox == false)
+                if (ConfigurationManager.AppSettings["OrderDownloadIncludeDD"] == "1" && !isFox)
                 {
                     try
                     {
@@ -1668,12 +1668,12 @@ namespace Portal.Consultoras.BizLogic
                 beConsultoraCUVRegular = blConsultora.GetConsultoraCUVRegular(paisID, campaniaID, cuv);
                 beConsultoraCUVCredito = blConsultora.GetConsultoraCUVCredito(paisID, campaniaID, cuv);
 
-                if (beConsultoraTop.EsTop == true && !string.IsNullOrEmpty(beConsultoraCUVRegular.CUVCredito))
+                if (beConsultoraTop.EsTop && !string.IsNullOrEmpty(beConsultoraCUVRegular.CUVCredito))
                 {
                     beCUVCredito.CuvCredito = beConsultoraCUVRegular.CUVCredito;
                     beCUVCredito.IdMensaje = 1;
                 }
-                if (beConsultoraTop.EsTop == false && !string.IsNullOrEmpty(beConsultoraCUVCredito.CUVRegular))
+                if (!beConsultoraTop.EsTop && !string.IsNullOrEmpty(beConsultoraCUVCredito.CUVRegular))
                 {
                     beCUVCredito.CuvRegular = beConsultoraCUVCredito.CUVRegular;
                     beCUVCredito.IdMensaje = 2;

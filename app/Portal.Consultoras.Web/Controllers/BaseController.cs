@@ -250,6 +250,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 foreach (var item in PedObs)
                 {
+                    item.Mensaje = string.Empty;
                     var temp = Observaciones.Where(o => o.CUV == item.CUV).ToList();
                     if (temp != null && temp.Count != 0)
                     {
@@ -257,14 +258,13 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             item.ClaseFila = string.Empty;
                             item.TipoObservacion = 0;
-                            item.Mensaje = string.Empty;
                         }
                         else
                         {
                             item.ClaseFila = temp[0].Tipo == 1 ? "f1" : "f2";
                             item.TipoObservacion = temp[0].Tipo;
-                            item.Mensaje = string.Empty;
                         }
+
                         foreach (var ob in temp)
                         {
                             item.Mensaje += ob.Descripcion + "<br/>";
@@ -274,7 +274,6 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         item.ClaseFila = string.Empty;
                         item.TipoObservacion = 0;
-                        item.Mensaje = string.Empty;
                     }
                 }
             }
@@ -282,12 +281,12 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 foreach (var item in PedObs)
                 {
+                    item.Mensaje = string.Empty;
                     var temp = Observaciones.Where(o => o.CUV == item.CUV).ToList();
                     if (temp != null && temp.Count != 0)
                     {
                         item.ClaseFila = temp[0].Tipo == 1 ? "f1" : "f2";
                         item.TipoObservacion = temp[0].Tipo;
-                        item.Mensaje = string.Empty;
                         foreach (var ob in temp)
                         {
                             item.Mensaje += ob.Descripcion + "<br/>";
@@ -297,7 +296,6 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         item.ClaseFila = string.Empty;
                         item.TipoObservacion = 0;
-                        item.Mensaje = string.Empty;
                     }
                 }
             }
