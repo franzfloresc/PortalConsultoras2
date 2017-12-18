@@ -1,0 +1,36 @@
+<svg width="78" height="78" viewBox="0 0 78 78" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>icono-descarga-e-imprime-hover</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="matrix(2 0 0 2 1546 -2974)">
+<g id="icono-descarga-e-imprime-hover">
+<g id="Canvas">
+<g id="Group 3">
+<g id="Vector">
+<g id="Vector">
+<use xlink:href="#path0_fill" transform="translate(-772.5 1487.5)" fill="#642F80"/>
+</g>
+<g id="Vector">
+<use xlink:href="#path1_fill" transform="translate(-773 1487)" fill="#642F80"/>
+</g>
+</g>
+<g id="Vector">
+<g id="Vector">
+<use xlink:href="#path2_fill" transform="translate(-759.699 1499)" fill="#FFFFFF"/>
+</g>
+</g>
+<g id="Vector">
+<g id="Vector">
+<use xlink:href="#path3_fill" transform="translate(-758.801 1512.23)" fill="#FFFFFF"/>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<path id="path0_fill" d="M 19 38C 29.4934 38 38 29.4934 38 19C 38 8.50659 29.4934 0 19 0C 8.50659 0 0 8.50659 0 19C 0 29.4934 8.50659 38 19 38Z"/>
+<path id="path1_fill" d="M 38 19.5C 38 29.7173 29.7173 38 19.5 38L 19.5 39C 30.2696 39 39 30.2696 39 19.5L 38 19.5ZM 19.5 38C 9.28273 38 1 29.7173 1 19.5L 0 19.5C 0 30.2696 8.73045 39 19.5 39L 19.5 38ZM 1 19.5C 1 9.28273 9.28273 1 19.5 1L 19.5 0C 8.73045 0 0 8.73045 0 19.5L 1 19.5ZM 19.5 1C 29.7173 1 38 9.28273 38 19.5L 39 19.5C 39 8.73045 30.2696 0 19.5 0L 19.5 1Z"/>
+<path id="path2_fill" fill-rule="evenodd" d="M 4.154 -1.78158e-15L 9.232 -1.78158e-15L 9.232 4.682L 13.184 4.682L 6.474 11.186L -6.07828e-15 4.711L 4.154 4.711L 4.154 -1.78158e-15Z"/>
+<path id="path3_fill" d="M 1.80247e-15 1.35L 12.093 1.35L 12.093 -1.19209e-08L 1.80247e-15 -1.19209e-08L 1.80247e-15 1.35Z"/>
+</defs>
+</svg>
