@@ -28,8 +28,11 @@ $(document).ready(function () {
             page.stop().animate({ scrollTop: ScrollUser(anchor, alto) }, 1000);
 
         });
-
-        var anchor_offset = $('.como-funciona').offset().top;
+        var offS = $('.como-funciona').offset();
+        var anchor_offset = 0;
+        if (offS != undefined) {
+            var anchor_offset = offS.top;
+        }
 
         $(window).on('scroll', function () {
             if ($(window).scrollTop() > anchor_offset) {
@@ -82,20 +85,13 @@ function onYouTubePlayerAPIReady() {
         fs: 0,
         videoId: videoKey,
         events: {
-            onReady: onPlayerReady,
+            //onReady: onPlayerReady,
             onReady: onScrollDown,
             onStateChange: onPlayerStateChange
         }
     });
 }
 
-// autoplay video
-function onClickDown(event) {
-    $('a.pausar-video').click(function () {
-        event.target.pauseVideo();
-    });
-}
-//
 function onScrollDown(event) {
     $(window).scroll(function () {
         var windowHeight = $(window).scrollTop();
@@ -105,16 +101,12 @@ function onScrollDown(event) {
         if (windowHeight >= contenido2) {
             event.target.pauseVideo();
         }
-        else {
-            event.target.playVideo();
-        }
     });
 }
 
-//
-function onPlayerReady(event) {
-    event.target.playVideo();
-}
+//function onPlayerReady(event) {
+//    event.target.playVideo();
+//}
 
 
 // when video ends
