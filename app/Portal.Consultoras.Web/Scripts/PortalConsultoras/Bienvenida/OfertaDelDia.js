@@ -884,7 +884,7 @@ $(document).ready(function () {
                 'promoClick': {
                     'promotions': [
                     {
-                        'id': '002 ',
+                        'id': '002',
                         'name': 'Oferta del dia',
                         'position': controllerName + ' - Banner superior',
                         'creative': 'Banner'
@@ -892,6 +892,7 @@ $(document).ready(function () {
                 }
             }
         });
+        
         document.location.href = urlOfertaDelDiaMobile;
     });
 

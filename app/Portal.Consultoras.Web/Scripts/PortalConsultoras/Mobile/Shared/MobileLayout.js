@@ -156,12 +156,23 @@
     });
 
     $("#btn_cerrar_oferta_mobile").click(function () {
-        dataLayer.push({
-            'event': 'virtualEvent',
-            'category': 'Banners',
-            'action': 'Cerrar Banner',
-            'label': 'Oferta del dia'
-        });
+        var curSlide = $("#flexslidertop").find(".flex-active-slide").html();
+        if (curSlide.indexOf("BloqueOfertaDiaHeader") > -1) {
+            dataLayer.push({
+                'event': 'virtualEvent',
+                'category': 'Banners',
+                'action': 'Cerrar Banner',
+                'label': 'Oferta del dia'
+            });
+        }
+        else if (curSlide.indexOf("content_banner_header_showroom") > -1) {
+            dataLayer.push({
+                'event': 'virtualEvent',
+                'category': 'Banners',
+                'action': 'Cerrar Banner',
+                'label': 'Showroom'
+            });
+        }
 
         //$('.header_slider').slideUp();
         $('.header_slider').hide();
@@ -320,6 +331,25 @@
             }
         });
 
+    });
+
+    $(".content_banner_header_showroom").click(function () {
+        dataLayer.push({
+            'event': 'promotionClick',
+            'ecommerce': {
+                'promoClick': {
+                    'promotions': [
+                    {
+                        'id': '001',
+                        'name': 'Showroom',
+                        'position': controllerName + ' - Banner superior',
+                        'creative': 'Banner'
+                    }]
+                }
+            }
+        });
+
+        document.location.href = urlShowRoom;
     });
 
     BannerApp();
