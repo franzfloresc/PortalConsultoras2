@@ -373,7 +373,7 @@ namespace Portal.Consultoras.Web.Controllers
                     lsta = new List<BEDatosBelcorp>();
                 }
 
-                string ImportePercepcionTexto = "Son: " + Util.enletras(Convert.ToDecimal(item.ImportePercepcion).ToString("0.00")) + " Nuevos Soles"; ;
+                string ImportePercepcionTexto = "Son: " + Util.enletras(Convert.ToDecimal(item.ImportePercepcion).ToString("0.00")) + " Nuevos Soles";
 
                 return Json(new
                 {

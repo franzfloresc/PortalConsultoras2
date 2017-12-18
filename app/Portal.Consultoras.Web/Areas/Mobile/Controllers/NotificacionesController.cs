@@ -307,7 +307,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public ActionResult DetallePedidoRechazado(long ProcesoId)
         {
             NotificacionesModel model = new NotificacionesModel();
-            List<BELogGPRValidacion> LogsGPRValidacion = new List<BELogGPRValidacion>(); ;
+            List<BELogGPRValidacion> LogsGPRValidacion = new List<BELogGPRValidacion>();
 
             using (PedidoRechazadoServiceClient sv = new PedidoRechazadoServiceClient())
             {

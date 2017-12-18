@@ -2328,7 +2328,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return new ShowRoomBannerLateralModel { ConsultoraNoEncontrada = true };
 
             model.BEShowRoomConsultora = userData.BeShowRoomConsultora ?? new BEShowRoomEventoConsultora();
-            model.BEShowRoom = userData.BeShowRoom ?? new BEShowRoomEvento(); ;
+            model.BEShowRoom = userData.BeShowRoom ?? new BEShowRoomEvento();
 
             if (model.BEShowRoom.Estado != 1)
                 return new ShowRoomBannerLateralModel { EventoNoEncontrado = true };

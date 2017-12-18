@@ -52,7 +52,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
 
             detallesPedidoWeb = detallesPedidoWeb ?? new List<BEPedidoWebDetalle>();
-            BEPedidoWeb pedidoWeb = ObtenerPedidoWeb() ?? new BEPedidoWeb(); ;
+            BEPedidoWeb pedidoWeb = ObtenerPedidoWeb() ?? new BEPedidoWeb();
 
             model.MontoAhorroCatalogo = pedidoWeb.MontoAhorroCatalogo;
             model.MontoAhorroRevista = pedidoWeb.MontoAhorroRevista;

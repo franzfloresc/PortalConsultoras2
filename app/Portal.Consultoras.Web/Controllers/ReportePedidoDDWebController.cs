@@ -394,7 +394,7 @@ namespace Portal.Consultoras.Web.Controllers
                     lista = BusinessService.obtenerPedidoWebAnteriorDetalle(vCampania, ISOWS, "0", "0", vConsultoraCodigo);
                     if (lista == null)
                     {
-                        lst = new List<BEPedidoDDWebDetalle>(); ;
+                        lst = new List<BEPedidoDDWebDetalle>();
                     }
                     else
                     {
@@ -422,7 +422,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (lstPedidosDDWebNoFacturados == null)
                     {
-                        lst = new List<BEPedidoDDWebDetalle>(); ;
+                        lst = new List<BEPedidoDDWebDetalle>();
                     }
                     else
                     {

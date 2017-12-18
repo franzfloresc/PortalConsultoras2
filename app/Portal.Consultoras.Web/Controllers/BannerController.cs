@@ -136,7 +136,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 string finalPath = string.Empty;
                 bool IsCorrect = true;
-                List<BEGrupoConsultora> lstGrupoConsultora = new List<BEGrupoConsultora>(); ;
+                List<BEGrupoConsultora> lstGrupoConsultora = new List<BEGrupoConsultora>();
 
                 if (flConsultoras != null)
                 {

@@ -1626,7 +1626,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult ObtenerProductosSugeridos(string CUV)
         {
-            var listaProductoModel = new List<ProductoModel>(); ;
+            var listaProductoModel = new List<ProductoModel>();
 
             try
             {

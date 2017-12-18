@@ -223,7 +223,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 if (lista == null)
                 {
-                    lst = new List<ReportePedidoCampaniaModel>(); ;
+                    lst = new List<ReportePedidoCampaniaModel>();
                 }
                 else
                 {
@@ -379,7 +379,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (lista == null)
             {
-                lst = new List<ReportePedidoCampaniaModel>(); ;
+                lst = new List<ReportePedidoCampaniaModel>();
             }
             else
             {

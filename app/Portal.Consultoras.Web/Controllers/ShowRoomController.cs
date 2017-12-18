@@ -796,7 +796,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 if (IsNumeric(values[1].Trim()) && IsNumeric(values[3].Trim()))
                                 {
                                     BEShowRoomOferta ent = new BEShowRoomOferta();
-                                    ent.ISOPais = values[0].Trim().Replace("\"", ""); ;
+                                    ent.ISOPais = values[0].Trim().Replace("\"", "");
                                     ent.CampaniaID = int.Parse(values[1].Trim().Replace("\"", ""));
                                     ent.CUV = values[2].Trim().Replace("\"", "");
                                     ent.Stock = int.Parse(values[3].Trim().Replace("\"", ""));
@@ -1621,7 +1621,7 @@ namespace Portal.Consultoras.Web.Controllers
                     indPedidoAutentico.PedidoDetalleID = entidad.PedidoDetalleID;
                     indPedidoAutentico.IndicadorIPUsuario = GetIPCliente();
                     indPedidoAutentico.IndicadorFingerprint = "";
-                    indPedidoAutentico.IndicadorToken = (Session["TokenPedidoAutentico"] != null) ? Session["TokenPedidoAutentico"].ToString() : ""; ;
+                    indPedidoAutentico.IndicadorToken = (Session["TokenPedidoAutentico"] != null) ? Session["TokenPedidoAutentico"].ToString() : "";
 
                     InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);
                 }
@@ -1720,7 +1720,7 @@ namespace Portal.Consultoras.Web.Controllers
                     indPedidoAutentico.PedidoDetalleID = entidad.PedidoDetalleID;
                     indPedidoAutentico.IndicadorIPUsuario = GetIPCliente();
                     indPedidoAutentico.IndicadorFingerprint = "";
-                    indPedidoAutentico.IndicadorToken = (Session["TokenPedidoAutentico"] != null) ? Session["TokenPedidoAutentico"].ToString() : ""; ;
+                    indPedidoAutentico.IndicadorToken = (Session["TokenPedidoAutentico"] != null) ? Session["TokenPedidoAutentico"].ToString() : "";
 
                     InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);
                 }

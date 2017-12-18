@@ -832,7 +832,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 #region Procesar Carga Masiva Archivo CSV
                 string finalPath = string.Empty;
-                List<BEOfertaProducto> lstStock = new List<BEOfertaProducto>(); ;
+                List<BEOfertaProducto> lstStock = new List<BEOfertaProducto>();
 
                 if (flStock != null)
                 {

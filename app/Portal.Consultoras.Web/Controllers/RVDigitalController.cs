@@ -358,7 +358,7 @@ namespace Portal.Consultoras.Web.Controllers
                 nombre = cadenas[cadenas.Length - 2] + "_" + cadenas[cadenas.Length - 1];
             }
 
-            return nombre.Replace(".pdf", ""); ;
+            return nombre.Replace(".pdf", "");
         }
 
         public string DevolverFecha(string url)
