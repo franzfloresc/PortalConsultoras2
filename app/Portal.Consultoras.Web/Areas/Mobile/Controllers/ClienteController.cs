@@ -59,7 +59,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             List<BEClienteDB> clientes = new List<BEClienteDB>();
             List<BEClienteContactoDB> contactos = new List<BEClienteContactoDB>();
-            List<BEClienteDB> response = new List<BEClienteDB>();
 
             try
             {
@@ -108,12 +107,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     Contactos = contactos.ToArray()
                 });
 
+                List<BEClienteDB> response;
                 using (var sv = new ClienteServiceClient())
                 {
-                    response = sv.SaveDB(userData.PaisID, clientes.ToArray()).ToList();
+                    response = sv.SaveDB(userData.PaisID, clientes.ToArray()).ToList() ?? new List<BEClienteDB>();
                 }
 
-                var itemResponse = response.First();
+                var itemResponse = response.FirstOrDefault() ?? new BEClienteDB();
 
                 if (itemResponse.CodigoRespuesta == Constantes.ClienteValidacion.Code.SUCCESS)
                 {
