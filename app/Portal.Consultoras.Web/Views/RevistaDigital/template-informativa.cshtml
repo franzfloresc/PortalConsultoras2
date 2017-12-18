@@ -183,7 +183,7 @@
             </li>
             <div style="clear:both;"></div>
         </ul>
-        <a class="descargar">DESCARGA MÁS PREGUNTAS FRECUENTES</a>
+        <a class="descargar" href="@Model.UrlPreguntasFrecuentes" target="_blank">DESCARGA MÁS PREGUNTAS FRECUENTES</a>
     </div>
 </div>
 
@@ -196,26 +196,6 @@
         var urlRevistaDigital = '@Url.Action("Comprar", "RevistaDigital")';
         var isScroll = false;
     </script>
-
-    <script>
-            $(document).ready(function () {
-                var clickabrir = 1
-                $('.preguntas-frecuentes-cont-sus ul.preg-frecuentes li:has(ul)').click(function () {
-                    $(this).find('ul').slideToggle();
-                    if (clickabrir == 1) {
-                        $(this).find('span.despliegue').css("display", "none");
-                        $(this).find('span.nodespliegue').css("display", "block");
-                        clickabrir = 0;
-                    }
-                    else {
-                        $(this).find('span.despliegue').css("display", "block");
-                        $(this).find('span.nodespliegue').css("display", "none");
-                        clickabrir = 1;
-                    }
-                });
-            });
-    </script>
-
 
     @System.Web.Optimization.Scripts.Render("~/bundles/RevistaDigital-Info")
 }

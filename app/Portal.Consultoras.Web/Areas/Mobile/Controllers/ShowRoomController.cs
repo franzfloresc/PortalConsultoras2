@@ -51,7 +51,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if ((fechaHoy >= userData.FechaInicioCampania.AddDays(-model.BEShowRoom.DiasAntes).Date &&
                 fechaHoy <= userData.FechaInicioCampania.AddDays(model.BEShowRoom.DiasDespues).Date))
             {
-                esShowRoom = true && OfertaShowRoom() != null;
+                esShowRoom = OfertaShowRoom() != null;
             }
 
             return esShowRoom ?

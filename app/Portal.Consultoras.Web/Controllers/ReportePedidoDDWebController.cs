@@ -399,7 +399,7 @@ namespace Portal.Consultoras.Web.Controllers
                     else
                     {
                         lst = (from c in lista
-                               where string.IsNullOrEmpty(c.descripcion.Trim()) == false
+                               where !string.IsNullOrEmpty(c.descripcion.Trim())
                                select new BEPedidoDDWebDetalle
                                {
                                    CUV = c.cuv,
@@ -535,7 +535,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (lista != null)
                 {
                     lst = (from c in lista
-                           where string.IsNullOrEmpty(c.descripcion.Trim()) == false
+                           where !string.IsNullOrEmpty(c.descripcion.Trim())
                            select new BEPedidoDDWebDetalle
                            {
                                CUV = c.cuv,

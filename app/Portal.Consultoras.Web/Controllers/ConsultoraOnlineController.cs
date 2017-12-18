@@ -711,7 +711,7 @@ namespace Portal.Consultoras.Web.Controllers
                         objMisPedidos = model;
                         Session["objMisPedidos"] = objMisPedidos;
 
-                        var lstClientesExistentes = olstMisPedidos.Where(x => x.FlagConsultora == true).ToList();
+                        var lstClientesExistentes = olstMisPedidos.Where(x => x.FlagConsultora).ToList();
 
                         if (lstClientesExistentes.Count == olstMisPedidos.Count)
                         {
