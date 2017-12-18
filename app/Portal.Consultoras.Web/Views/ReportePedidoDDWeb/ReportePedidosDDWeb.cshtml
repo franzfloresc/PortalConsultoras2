@@ -205,16 +205,16 @@
                 isPedido = "ExportarExcelDetallePedido";
             }
             var content = baseUrl + "ReportePedidoDDWeb/" + isPedido +
-                "?paisID=" + paisID +
-                "&campania=" + campania +
-                "&consultora=" + consultora +
-                "&regionID=" + regionID +
-                "&zonaID=" + zonaID +
-                "&origen=" + origen +
-                "&estadoValidacion=" + estadoValidacion +
-                "&esRechazado=" + esRechazado +
-                "&fechaInicio=" + fechaInicio +
-                "&fechaFin=" + fechaFin;
+                "?PaisID=" + paisID +
+                "&Campania=" + campania +
+                "&Consultora=" + consultora +
+                "&RegionID=" + regionID +
+                "&ZonaID=" + zonaID +
+                "&Origen=" + origen +
+                "&EstadoValidacion=" + estadoValidacion +
+                "&EsRechazado=" + esRechazado +
+                "&FechaInicio=" + fechaInicio +
+                "&FechaFin=" + fechaFin;
 
             var iframe_ = document.createElement("iframe");
             iframe_.style.display = "none";
@@ -303,16 +303,16 @@
             hidegrid: false,
             datatype: 'json',
             postData: ({
-                paisID: function () { return jQuery.trim($("#ddlPais").val()); },
-                campania: function () { return jQuery.trim($("#ddlCampania").val()); },
-                consultora: function () { return jQuery.trim($("#txtCodConsultora").val()); },
-                regionID: function () { return jQuery.trim($('#ddlRegion option:selected').text()); },
-                zonaID: function () { return jQuery.trim($("#ddlZona").val()); },
-                origen: function () { return jQuery.trim($("#ddlOrigen").val()); },
-                estadoValidacion: function () { return jQuery.trim($("#ddlEnviadosValidacion").val()); },
-                esRechazado: function () { return $("#ddlEsRechazado option:selected").val(); },
-                fechaInicio: function () { return $("#txtFechaInicio").val(); },
-                fechaFin: function () { return $("#txtFechaFin").val(); }
+                PaisID: function () { return jQuery.trim($("#ddlPais").val()); },
+                Campania: function () { return jQuery.trim($("#ddlCampania").val()); },
+                Consultora: function () { return jQuery.trim($("#txtCodConsultora").val()); },
+                RegionID: function () { return jQuery.trim($('#ddlRegion option:selected').text()); },
+                ZonaID: function () { return jQuery.trim($("#ddlZona").val()); },
+                Origen: function () { return jQuery.trim($("#ddlOrigen").val()); },
+                EstadoValidacion: function () { return jQuery.trim($("#ddlEnviadosValidacion").val()); },
+                EsRechazado: function () { return $("#ddlEsRechazado option:selected").val(); },
+                FechaInicio: function () { return $("#txtFechaInicio").val(); },
+                FechaFin: function () { return $("#txtFechaFin").val(); }
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",

@@ -288,6 +288,11 @@ namespace Portal.Consultoras.Common
             public const string TieneOpm = "TieneOpm";
             public const string TieneOpmX1 = "TieneOpmX1";
             public const string TieneRdr = "TieneRdr";
+            
+            public const string PedidoWebDDConf = "PedidoWebDDConf";
+            public const string PedidoWebDD = "PedidoWebDD";
+            public const string PedidoWebDDDetalleConf = "PedidoWebDDDetalleConf";
+            public const string PedidoWebDDDetalle = "PedidoWebDDDetalle";
         }
 
         public static class ConfiguracionManager

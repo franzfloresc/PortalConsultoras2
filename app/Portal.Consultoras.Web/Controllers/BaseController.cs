@@ -4181,13 +4181,11 @@ namespace Portal.Consultoras.Web.Controllers
         public string GetConfiguracionManager(string key)
         {
             key = Util.Trim(key);
-            if (key == "")
-                return "";
+            if (key == "") return "";
 
-            key = Util.Trim(ConfigurationManager.AppSettings.Get(key));
+            key = Util.Trim(ConfigurationManager.AppSettings.Get(key) ?? "");
 
-            if (key == "")
-                LogManager.LogManager.LogErrorWebServicesBus(new Exception(), userData.CodigoConsultora, userData.CodigoISO, "BaseController.GetConfiguracionManager el key " + key + " no tiene valor");
+            if (key == "") LogManager.LogManager.LogErrorWebServicesBus(new Exception(), userData.CodigoConsultora, userData.CodigoISO, "BaseController.GetConfiguracionManager el key " + key + " no tiene valor");
 
             return key;
         }
