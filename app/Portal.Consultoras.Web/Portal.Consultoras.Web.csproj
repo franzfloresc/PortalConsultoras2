@@ -4591,6 +4591,7 @@
     <Content Include="Views\MisCertificados\Index.cshtml" />
     <Content Include="Views\MisCertificados\ComercialPdf.cshtml" />
     <Content Include="Views\MisCertificados\NoAdeudoPdf.cshtml" />
+    <Content Include="Views\RevistaDigital\template-confirmacion-datos.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

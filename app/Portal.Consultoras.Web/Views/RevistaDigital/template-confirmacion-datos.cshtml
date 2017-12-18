@@ -1,0 +1,53 @@
+﻿diff --git a/app/Portal.Consultoras.Web/Views/RevistaDigital/template-confirmacion-datos.cshtml b/app/Portal.Consultoras.Web/Views/RevistaDigital/template-confirmacion-datos.cshtml
+
+<style>
+    .popup_confirmacion_datos .contenido-table-datos .cont-datos .form-confirmacion .loader-confirmacion {
+        background: url('/Content/Images/Esika/loading_circle.gif');
+        width: 50px;
+        height: 50px;
+        display: block;
+        margin: auto;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+</style>
+<div class="Content_general_pop_up" id="divMensajeBloqueada" style="display: block;">
+    <div class="popup_rd_bloqueado popup_confirmacion_datos">
+        <a class="cerrar_fichaProducto" style="position: absolute; top:0px; right: -35px;" href="javascript:;" data-popup-close="divMensajeBloqueada">
+            <img src="/Content/Images/cerrar_04_blanco.png" alt="" alternate="" text="">
+        </a>
+        <div class="contenido-table-datos">
+            <div class="cont-datos">
+                <div class="form_datos">
+                    <p class="felicidades">FELICIDADES ELIZABETH</p>
+                    <p class="estasganando">¡YA ESTÁS SUSCRITA!</p>
+                    <span class="confirmanos">
+                        Confírmanos tus datos <b>y además de los beneficios del Club</b>, podrás recibir los mejores tips para ganar.
+                    </span>
+                    <div class="form-datos">
+                        <div class="input">
+                            <img src="~/Content/Images/mailIcon.png" alt="">
+                            <input type="text" class="txt1">
+                        </div>
+                        <div class="input">
+                            <img src="~/Content/Images/phoneIcon.png" alt="" class="phone">
+                            <input type="text" class="txt2">
+                        </div>
+                        <button disabled="disabled">CONFIRMAR DATOS</button>
+                        <div class="input">
+                            <img src="~/Content/Images/alertIcon.png" alt="" class="info">
+                            <span>
+                                No olvides buscar nuestro mail en tus correos no deseados y/o promociones y agregarlo como remitente seguro.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-confirmacion">
+                    <p class="felicidades">¡GRACIAS POR CONFIRMAR TUS DATOS!</p>
+                    <div class="loader-confirmacion"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
