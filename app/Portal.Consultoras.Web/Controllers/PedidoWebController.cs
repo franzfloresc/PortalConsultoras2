@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -433,48 +434,51 @@ namespace Portal.Consultoras.Web.Controllers
 
 
                     #region Mensaje a Enviar
-                    string mailBody = string.Empty;
-                    string mailbodygrid = string.Empty;
+                    var txtBuil = new StringBuilder();
 
                     for (int i = 0; i < lst.Count; i++)
                     {
 
-                        mailbodygrid += "<tr>";
-                        mailbodygrid += "<td style='font-size:11px; width: 126px; text-align: center;'>";
-                        mailbodygrid += "" + lst[i].CUV.ToString() + "";
-                        mailbodygrid += "</td>";
-                        mailbodygrid += " <td style='font-size:11px; width: 347px;'>";
-                        mailbodygrid += "" + lst[i].DescripcionProd.ToString() + "";
-                        mailbodygrid += "</td>";
-                        mailbodygrid += "<td style='font-size:11px; width: 124px; text-align: center;'>";
-                        mailbodygrid += "" + lst[i].Cantidad.ToString() + "";
-                        mailbodygrid += "</td>";
+                        txtBuil.Append("<tr>");
+                        txtBuil.Append("<td style='font-size:11px; width: 126px; text-align: center;'>");
+                        txtBuil.Append("" + lst[i].CUV.ToString() + "");
+                        txtBuil.Append("</td>");
+                        txtBuil.Append(" <td style='font-size:11px; width: 347px;'>");
+                        txtBuil.Append("" + lst[i].DescripcionProd.ToString() + "");
+                        txtBuil.Append("</td>");
+                        txtBuil.Append("<td style='font-size:11px; width: 124px; text-align: center;'>");
+                        txtBuil.Append("" + lst[i].Cantidad.ToString() + "");
+                        txtBuil.Append("</td>");
+
                         if (UserData().PaisID == 4)
                         {
-                            mailbodygrid += "<td style='font-size:11px; width: 182px; text-align: center;'>";
-                            mailbodygrid += "" + UserData().Simbolo + string.Format("{0:#,##0}", lst[i].PrecioUnidad).Replace(',', '.') + "";
-                            mailbodygrid += "</td>";
-                            mailbodygrid += "<td style='font-size:11px; width: 165px; text-align: center;'>";
-                            mailbodygrid += "" + UserData().Simbolo + string.Format("{0:#,##0}", lst[i].ImporteTotal).Replace(',', '.') + "";
-                            mailbodygrid += "</td>";
-
+                            txtBuil.Append("<td style='font-size:11px; width: 182px; text-align: center;'>");
+                            txtBuil.Append("" + UserData().Simbolo + string.Format("{0:#,##0}", lst[i].PrecioUnidad).Replace(',', '.') + "");
+                            txtBuil.Append("</td>");
+                            txtBuil.Append("<td style='font-size:11px; width: 165px; text-align: center;'>");
+                            txtBuil.Append("" + UserData().Simbolo + string.Format("{0:#,##0}", lst[i].ImporteTotal).Replace(',', '.') + "");
+                            txtBuil.Append("</td>");
                         }
                         else
                         {
-                            mailbodygrid += "<td style='font-size:11px; width: 182px; text-align: center;'>";
-                            mailbodygrid += "" + UserData().Simbolo + lst[i].PrecioUnidad.ToString("#0.00") + "";
-                            mailbodygrid += "</td>";
-                            mailbodygrid += "<td style='font-size:11px; width: 165px; text-align: center;'>";
-                            mailbodygrid += "" + UserData().Simbolo + lst[i].ImporteTotal.ToString("#0.00") + "";
-                            mailbodygrid += "</td>";
+                            txtBuil.Append("<td style='font-size:11px; width: 182px; text-align: center;'>");
+                            txtBuil.Append("" + UserData().Simbolo + lst[i].PrecioUnidad.ToString("#0.00") + "");
+                            txtBuil.Append("</td>");
+                            txtBuil.Append("<td style='font-size:11px; width: 165px; text-align: center;'>");
+                            txtBuil.Append("" + UserData().Simbolo + lst[i].ImporteTotal.ToString("#0.00") + "");
+                            txtBuil.Append("</td>");
                         }
-                        mailbodygrid += "</tr>";
+                        txtBuil.Append("</tr>");
+
                         Total += lst[i].ImporteTotal;
                         NombreCliente = lst[i].NombreCliente.ToString();
                     }
+
+                    string mailbodygrid = txtBuil.ToString();
+
                     String[] NombreClienteConsultora = NombreCliente.Split(' ');
 
-                    mailBody = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">";
+                    string mailBody = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">";
                     if (ClientId.ToString().Equals("0"))
                     {
                         mailBody += "<div style='font-size:12px;'>Hola " + UserData().PrimerNombre + ",</div> <br />";
