@@ -298,7 +298,6 @@ namespace Portal.Consultoras.Web.Controllers
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
 
-                BEPager pag = new BEPager();
                 IEnumerable<BEPedidoWeb> items = lst;
 
                 #region Sort Section
@@ -324,7 +323,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 int total = lst.FindAll(x => x.Bloqueado == 0).Count;
 
@@ -377,7 +376,6 @@ namespace Portal.Consultoras.Web.Controllers
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
 
-                BEPager pag = new BEPager();
                 IEnumerable<BEPedidoWebDetalle> items = lst;
 
                 #region Sort Section
@@ -405,7 +403,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Util.PaginadorGenerico(grid, lst.ToList());
+                BEPager pag = Util.PaginadorGenerico(grid, lst.ToList());
 
                 var data = new
                 {

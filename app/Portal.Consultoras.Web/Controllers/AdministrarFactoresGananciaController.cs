@@ -69,7 +69,6 @@ namespace Portal.Consultoras.Web.Controllers
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                BEPager pag = new BEPager();
                 IEnumerable<BEFactorGanancia> items = lst;
 
                 #region Sort Section
@@ -116,7 +115,7 @@ namespace Portal.Consultoras.Web.Controllers
                 else
                     items = items.Where(p => p.PaisID.ToString().ToUpper().Contains(vBusqueda.ToUpper())).Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Paginador(grid, vBusqueda);
+                BEPager pag = Paginador(grid, vBusqueda);
 
                 var data = new
                 {
@@ -165,7 +164,7 @@ namespace Portal.Consultoras.Web.Controllers
             int PageCount = (int)(((float)RecordCount / (float)item.PageSize) + 1);
             pag.PageCount = PageCount;
 
-            int CurrentPage = (int)item.CurrentPage;
+            int CurrentPage = item.CurrentPage;
             pag.CurrentPage = CurrentPage;
 
             if (CurrentPage > PageCount)

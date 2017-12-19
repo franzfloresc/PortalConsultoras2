@@ -259,7 +259,6 @@ namespace Portal.Consultoras.Web.Controllers
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                BEPager pag = new BEPager();
                 IEnumerable<BEShowRoomEvento> items = listaShowRoomEvento;
 
                 #region Sort Section
@@ -315,7 +314,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Util.PaginadorGenerico(grid, listaShowRoomEvento);
+                BEPager pag = Util.PaginadorGenerico(grid, listaShowRoomEvento);
 
                 var data = new
                 {
@@ -665,7 +664,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (flCargarConsultoras != null)
                 {
-                    string fileName = Path.GetFileName(flCargarConsultoras.FileName);
                     string extension = Path.GetExtension(flCargarConsultoras.FileName);
                     string newfileName = string.Format("{0}{1}", Guid.NewGuid().ToString(), extension);
                     string pathFile = Server.MapPath("~/Content/FileShowRoomCargaConsultora");
@@ -826,8 +824,6 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             lstPrecioProductoPROL = svc.GetPrecioProductosOfertaWeb(stock1.ISOPais, stock1.CampaniaID.ToString(), codigosCuv).ToList();
                         }
-
-                        stock1 = null;
 
                         if (lstPrecioProductoPROL.Any())
                         {
@@ -1186,7 +1182,6 @@ namespace Portal.Consultoras.Web.Controllers
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                BEPager pag = new BEPager();
                 IEnumerable<BEShowRoomOferta> items = lst;
 
                 #region Sort Section
@@ -1260,7 +1255,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
                 string ISO = Util.GetPaisISO(PaisID);
                 var carpetaPais = Globals.UrlMatriz + "/" + ISO;
 
@@ -1315,16 +1310,16 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             var carpetaPais = ObtenerCarpetaPais();
-            lstFinal.Add(new BEMatrizComercial
+            if (lst.Count > 0)
             {
-                IdMatrizComercial = lst[0].IdMatrizComercial,
-                CodigoSAP = lst[0].CodigoSAP,
-                Descripcion = lst[0].Descripcion,
-                PaisID = lst[0].PaisID
-            });
+                lstFinal.Add(new BEMatrizComercial
+                {
+                    IdMatrizComercial = lst[0].IdMatrizComercial,
+                    CodigoSAP = lst[0].CodigoSAP,
+                    Descripcion = lst[0].Descripcion,
+                    PaisID = lst[0].PaisID
+                });
 
-            if (lst != null && lst.Count > 0)
-            {
                 if (lst[0].FotoProducto != "")
                     lstFinal[0].FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
 
@@ -1593,18 +1588,19 @@ namespace Portal.Consultoras.Web.Controllers
                     .ForMember(t => t.OrigenPedidoWeb, f => f.MapFrom(c => c.OrigenPedidoWeb));
 
                 BEPedidoWebDetalle entidad = Mapper.Map<PedidoDetalleModel, BEPedidoWebDetalle>(model);
+
+                entidad.PaisID = userData.PaisID;
+                entidad.ConsultoraID = userData.ConsultoraID;
+                entidad.CampaniaID = userData.CampaniaID;
+                entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.ShowRoom;
+                entidad.IPUsuario = userData.IPUsuario;
+
+                entidad.CodigoUsuarioCreacion = userData.CodigoConsultora;
+                entidad.CodigoUsuarioModificacion = entidad.CodigoUsuarioCreacion;
+                entidad.OrigenPedidoWeb = ProcesarOrigenPedido(entidad.OrigenPedidoWeb);
+
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    entidad.PaisID = userData.PaisID;
-                    entidad.ConsultoraID = userData.ConsultoraID;
-                    entidad.CampaniaID = userData.CampaniaID;
-                    entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.ShowRoom;
-                    entidad.IPUsuario = userData.IPUsuario;
-
-                    entidad.CodigoUsuarioCreacion = userData.CodigoConsultora;
-                    entidad.CodigoUsuarioModificacion = entidad.CodigoUsuarioCreacion;
-                    entidad.OrigenPedidoWeb = ProcesarOrigenPedido(entidad.OrigenPedidoWeb);
-
                     sv.InsPedidoWebDetalleOferta(entidad);
 
                     sessionManager.SetPedidoWeb(null);
@@ -1612,9 +1608,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 UpdPedidoWebMontosPROL();
-
-                if (entidad != null)
-                {
+                
                     BEIndicadorPedidoAutentico indPedidoAutentico = new BEIndicadorPedidoAutentico();
                     indPedidoAutentico.PedidoID = entidad.PedidoID;
                     indPedidoAutentico.CampaniaID = entidad.CampaniaID;
@@ -1624,7 +1618,6 @@ namespace Portal.Consultoras.Web.Controllers
                     indPedidoAutentico.IndicadorToken = (Session["TokenPedidoAutentico"] != null) ? Session["TokenPedidoAutentico"].ToString() : "";
 
                     InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);
-                }
 
                 return Json(new
                 {
@@ -1686,24 +1679,25 @@ namespace Portal.Consultoras.Web.Controllers
                     .ForMember(t => t.OrigenPedidoWeb, f => f.MapFrom(c => c.OrigenPedidoWeb));
 
                 BEPedidoWebDetalle entidad = Mapper.Map<PedidoDetalleModel, BEPedidoWebDetalle>(model);
+
+                entidad.PaisID = userData.PaisID;
+                entidad.ConsultoraID = userData.ConsultoraID;
+                entidad.CampaniaID = userData.CampaniaID;
+                entidad.OfertaWeb = false;
+                entidad.ConfiguracionOfertaID = 0;
+                entidad.TipoOfertaSisID = 0;
+                entidad.SubTipoOfertaSisID = 0;
+                entidad.EsSugerido = false;
+                entidad.EsKitNueva = false;
+                entidad.IPUsuario = userData.IPUsuario;
+                entidad.EsCompraPorCompra = true;
+
+                entidad.CodigoUsuarioCreacion = userData.CodigoConsultora;
+                entidad.CodigoUsuarioModificacion = entidad.CodigoUsuarioCreacion;
+                entidad.OrigenPedidoWeb = ProcesarOrigenPedido(entidad.OrigenPedidoWeb);
+
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    entidad.PaisID = userData.PaisID;
-                    entidad.ConsultoraID = userData.ConsultoraID;
-                    entidad.CampaniaID = userData.CampaniaID;
-                    entidad.OfertaWeb = false;
-                    entidad.ConfiguracionOfertaID = 0;
-                    entidad.TipoOfertaSisID = 0;
-                    entidad.SubTipoOfertaSisID = 0;
-                    entidad.EsSugerido = false;
-                    entidad.EsKitNueva = false;
-                    entidad.IPUsuario = userData.IPUsuario;
-                    entidad.EsCompraPorCompra = true;
-
-                    entidad.CodigoUsuarioCreacion = userData.CodigoConsultora;
-                    entidad.CodigoUsuarioModificacion = entidad.CodigoUsuarioCreacion;
-                    entidad.OrigenPedidoWeb = ProcesarOrigenPedido(entidad.OrigenPedidoWeb);
-
                     sv.InsPedidoWebDetalleOferta(entidad);
 
                     sessionManager.SetPedidoWeb(null);
@@ -1711,9 +1705,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 UpdPedidoWebMontosPROL();
-
-                if (entidad != null)
-                {
+                
                     BEIndicadorPedidoAutentico indPedidoAutentico = new BEIndicadorPedidoAutentico();
                     indPedidoAutentico.PedidoID = entidad.PedidoID;
                     indPedidoAutentico.CampaniaID = entidad.CampaniaID;
@@ -1723,7 +1715,6 @@ namespace Portal.Consultoras.Web.Controllers
                     indPedidoAutentico.IndicadorToken = (Session["TokenPedidoAutentico"] != null) ? Session["TokenPedidoAutentico"].ToString() : "";
 
                     InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);
-                }
 
                 return Json(new
                 {
@@ -1794,7 +1785,6 @@ namespace Portal.Consultoras.Web.Controllers
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                BEPager pag = new BEPager();
                 IEnumerable<BEShowRoomOfertaDetalle> items = lst;
 
                 #region Sort Section
@@ -1844,7 +1834,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
                 string ISO = Util.GetPaisISO(userData.PaisID);
                 var carpetaPais = Globals.UrlMatriz + "/" + ISO;
 
@@ -2505,23 +2495,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
         }
-
-        private IEnumerable<ConfiguracionOfertaModel> DropDowListConfiguracion(int paisID)
-        {
-            List<BEConfiguracionOferta> lst;
-            using (PedidoServiceClient sv = new PedidoServiceClient())
-            {
-                lstConfiguracion = sv.GetTipoOfertasAdministracion(paisID, Constantes.ConfiguracionOferta.ShowRoom).ToList();
-                lst = lstConfiguracion;
-            }
-            Mapper.CreateMap<BEConfiguracionOferta, ConfiguracionOfertaModel>()
-                    .ForMember(t => t.ConfiguracionOfertaID, f => f.MapFrom(c => c.ConfiguracionOfertaID))
-                    .ForMember(t => t.CodigoOferta, f => f.MapFrom(c => c.CodigoOferta))
-                    .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion));
-
-            return Mapper.Map<IList<BEConfiguracionOferta>, IEnumerable<ConfiguracionOfertaModel>>(lst);
-        }
-
+        
         #region Comprar desde Página de Oferta
 
         public ActionResult DetalleOfertaCUV(string query)
@@ -2741,8 +2715,6 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-                var showRoomConsultora = userData.BeShowRoomConsultora ?? new BEShowRoomEventoConsultora();
-
                 var personalizacionImagenIntriga = userData
                     .ListaShowRoomPersonalizacionConsultora
                     .FirstOrDefault(x => x.TipoAplicacion == TIPO_APLICACION_DESKTOP &&
@@ -2835,15 +2807,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var mostrarShowRoomProductos = sessionManager.GetMostrarShowRoomProductos();
                 var mostrarShowRoomProductosExpiro = sessionManager.GetMostrarShowRoomProductosExpiro();
-
-                mostrarPopupIntriga = !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
-                mostrarPopupVenta = mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
-
-                var rutaShowRoomPopup = string.Empty;
-                if (mostrarShowRoomProductos)
-                {
-                    rutaShowRoomPopup = Url.Action("Index", "ShowRoom");
-                }
 
                 var personalizacionImagenIntriga = userData
                     .ListaShowRoomPersonalizacionConsultora
@@ -3087,7 +3050,7 @@ namespace Portal.Consultoras.Web.Controllers
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                BEPager pag = new BEPager();
+
                 IEnumerable<BEShowRoomTipoOferta> items = lst;
 
                 #region Sort Section
@@ -3119,7 +3082,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 var data = new
                 {
