@@ -281,29 +281,27 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             string mensajeFechaDA = null;
             UsuarioModel userData = this.UserData();
 
-            if (userData.EsquemaDAConsultora == true)
+            if (userData.EsquemaDAConsultora && userData.EsZonaDemAnti == 1)
             {
-                if (userData.EsZonaDemAnti == 1)
+                int consultoraDA = 0;
+                using (SACServiceClient sv = new SACServiceClient())
                 {
-                    int consultoraDA = 0;
-                    using (SACServiceClient sv = new SACServiceClient())
+                    BEConfiguracionConsultoraDA configuracionConsultoraDA = new BEConfiguracionConsultoraDA();
+                    configuracionConsultoraDA.CampaniaID = Convert.ToString(userData.CampaniaID);
+                    configuracionConsultoraDA.ConsultoraID = Convert.ToInt32(userData.ConsultoraID);
+                    configuracionConsultoraDA.ZonaID = userData.ZonaID;
+
+                    consultoraDA = sv.GetConfiguracionConsultoraDA(userData.PaisID, configuracionConsultoraDA);
+                    if (consultoraDA == 0)
                     {
-                        BEConfiguracionConsultoraDA configuracionConsultoraDA = new BEConfiguracionConsultoraDA();
-                        configuracionConsultoraDA.CampaniaID = Convert.ToString(userData.CampaniaID);
-                        configuracionConsultoraDA.ConsultoraID = Convert.ToInt32(userData.ConsultoraID);
-                        configuracionConsultoraDA.ZonaID = userData.ZonaID;
+                        BECronograma cronograma = sv.GetCronogramaByCampaniaAnticipado(userData.PaisID, userData.CampaniaID, userData.ZonaID, 2).FirstOrDefault();
+                        DateTime fechaDA = ((DateTime)cronograma.FechaInicioWeb) + userData.HoraCierreZonaDemAntiCierre;
+                        mensajeFechaDA = fechaDA.ToString(@"dddd dd \de MMMM (hh:mm tt)");
 
-                        consultoraDA = sv.GetConfiguracionConsultoraDA(userData.PaisID, configuracionConsultoraDA);
-                        if (consultoraDA == 0)
-                        {
-                            BECronograma cronograma = sv.GetCronogramaByCampaniaAnticipado(userData.PaisID, userData.CampaniaID, userData.ZonaID, 2).FirstOrDefault();
-                            DateTime fechaDA = ((DateTime)cronograma.FechaInicioWeb) + userData.HoraCierreZonaDemAntiCierre;
-                            mensajeFechaDA = fechaDA.ToString(@"dddd dd \de MMMM (hh:mm tt)");
-
-                            validar = true;
-                        }
+                        validar = true;
                     }
                 }
+
             }
 
             return Json(new { success = validar, mensajeFechaDA = mensajeFechaDA });
@@ -388,6 +386,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 using (SACServiceClient sac = new SACServiceClient())
                 {
                     var lstComunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora, Constantes.ComunicadoTipoDispositivo.Mobile).ToList();
+                    lstComunicados = lstComunicados.Where(x => x.Descripcion != Constantes.Comunicado.AppConsultora).ToList();
                     if (lstComunicados != null) oComunicados = lstComunicados.FirstOrDefault();
                 }
 

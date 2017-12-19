@@ -85,9 +85,10 @@ namespace Portal.Consultoras.Web.Controllers
                     ViewBag.OfertaDelDia = ofertaDelDia;
 
                     ViewBag.MostrarOfertaDelDia =
-                         userData.CloseOfertaDelDia
-                         ? false
-                         : (userData.TieneOfertaDelDia && ofertaDelDia != null && ofertaDelDia.TeQuedan.TotalSeconds > 0);
+                        !userData.CloseOfertaDelDia
+                        && userData.TieneOfertaDelDia 
+                        && ofertaDelDia != null 
+                        && ofertaDelDia.TeQuedan.TotalSeconds > 0;
 
                     showRoomBannerLateral.EstadoActivo = mostrarBannerTop ? "0" : "1";
                 }
@@ -219,7 +220,7 @@ namespace Portal.Consultoras.Web.Controllers
         public bool TienePersonalizacion()
         {
             var showRoomEvento = userData.BeShowRoom;
-            var tienePersonalizacion = showRoomEvento != null ? showRoomEvento.TienePersonalizacion : false;
+            var tienePersonalizacion = showRoomEvento != null && showRoomEvento.TienePersonalizacion;
             return tienePersonalizacion;
         }
 

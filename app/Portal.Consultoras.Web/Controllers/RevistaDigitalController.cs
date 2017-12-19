@@ -411,6 +411,7 @@ namespace Portal.Consultoras.Web.Controllers
                 CampaniaID = userData.CampaniaID,
                 CodigoZona = userData.CodigoZona,
                 EstadoRegistro = tipo,
+                Origen = revistaDigital.SuscripcionModel.Origen,
                 EstadoEnvio = 0,
                 IsoPais = userData.CodigoISO,
                 EMail = userData.EMail,
@@ -431,7 +432,7 @@ namespace Portal.Consultoras.Web.Controllers
                         var asesoraOnLine = new BEAsesoraOnline();
                         asesoraOnLine.CodigoConsultora = userData.CodigoConsultora;
                         asesoraOnLine.ConfirmacionInscripcion = 1;
-                        asesoraOnLine.Origen = "RD";
+                        asesoraOnLine.Origen = Constantes.RevistaDigitalOrigen.RD;
                         using (var sv = new AsesoraOnlineServiceClient())
                         {
                             sv.EnviarFormulario(userData.CodigoISO, asesoraOnLine);
@@ -440,7 +441,6 @@ namespace Portal.Consultoras.Web.Controllers
                     
                     using (var sv = new PedidoServiceClient())
                     {
-
                         entidad.RevistaDigitalSuscripcionID = sv.RDSuscripcion(entidad);
                     }
                     break;

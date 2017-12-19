@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.GestionPasos;
@@ -225,31 +225,29 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public string NivelesRiesgoInsertar(HttpPostedFileBase uplArchivo, NivelesRiesgoModel model)
         {
-            string message = string.Empty;
             model.CodigoISO = CodigoISO;
             try
             {
                 if (uplArchivo == null)
                 {
-                    return message = "El archivo especificado no existe.";
+                    return "El archivo especificado no existe.";
                 }
 
                 if (!Util.isFileExtension(uplArchivo.FileName, Enumeradores.TypeDocExtension.Excel))
                 {
-                    return message = "El archivo especificado no es un documento de tipo MS-Excel.";
+                    return "El archivo especificado no es un documento de tipo MS-Excel.";
                 }
 
-                string finalPath = string.Empty, httpPath = string.Empty;
+                string finalPath = string.Empty;
                 string fileextension = Path.GetExtension(uplArchivo.FileName);
 
                 if (!fileextension.ToLower().Equals(".xlsx"))
                 {
-                    return message = "Sólo se permiten archivos MS-Excel versiones 2007-2012.";
+                    return "Sólo se permiten archivos MS-Excel versiones 2007-2012.";
                 }
 
                 string fileName = Guid.NewGuid().ToString();
                 string pathfaltante = Server.MapPath("~/Content/ArchivoNivelRiesgo");
-                httpPath = Url.Content("~/Content/ArchivoNivelRiesgo") + "/" + fileName;
                 if (!Directory.Exists(pathfaltante))
                     Directory.CreateDirectory(pathfaltante);
                 finalPath = Path.Combine(pathfaltante, fileName + fileextension);
@@ -277,61 +275,64 @@ namespace Portal.Consultoras.Web.Controllers
                 List<ServiceUnete.ParametroUnete> listafinal = new List<ServiceUnete.ParametroUnete>();
                 if (IsCorrect && lista != null)
                 {
-                    foreach (var item in lista)
+                    if ((CodigoISO == Pais.Peru) || (CodigoISO == Pais.Dominicana) || (CodigoISO == Pais.PuertoRico) || (CodigoISO == Pais.Mexico))
                     {
-                        if ((CodigoISO == Pais.Peru) || (CodigoISO == Pais.Dominicana) || (CodigoISO == Pais.PuertoRico))
+                        foreach (var item in lista)
                         {
                             var parametroTodos = new ServiceUnete.ParametroUnete
                             {
                                 Nombre = item.ZonaSeccion,
                                 Descripcion = item.NivelRiesgo,
                                 Valor = string.IsNullOrWhiteSpace(item.NivelRiesgo) ? Enumeradores.TipoNivelesRiesgo.Otro.ToInt()
-                                                                  : item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Bajo ? Enumeradores.TipoNivelesRiesgo.Bajo.ToInt()
-                                                                  : item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Medio ? Enumeradores.TipoNivelesRiesgo.Medio.ToInt()
-                                                                  : item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Alto ? Enumeradores.TipoNivelesRiesgo.Alto.ToInt()
-                                                                  : Enumeradores.TipoNivelesRiesgo.Otro.ToInt(),
+                                                              : item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Bajo ? Enumeradores.TipoNivelesRiesgo.Bajo.ToInt()
+                                                              : item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Medio ? Enumeradores.TipoNivelesRiesgo.Medio.ToInt()
+                                                              : item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Alto ? Enumeradores.TipoNivelesRiesgo.Alto.ToInt()
+                                                              : Enumeradores.TipoNivelesRiesgo.Otro.ToInt(),
                                 FK_IdTipoParametro = EnumsTipoParametro.TipoNivelesRiesgo.ToInt(),
                                 Estado = 1
                             };
                             listafinal.Add(parametroTodos);
-
                         }
-                        else if (CodigoISO == Pais.Ecuador)
+                    }
+                    else if (CodigoISO == Pais.Ecuador)
+                    {
+                        foreach (var item in lista)
                         {
-
                             var parametroTodos = new ServiceUnete.ParametroUnete
                             {
                                 Nombre = item.ZonaSeccion,
                                 Descripcion = item.NivelRiesgo,
 
                                 Valor = string.IsNullOrWhiteSpace(item.NivelRiesgo) ? Enumeradores.TipoNivelesRiesgo.Otro.ToInt()
-                                                                 : item.NivelRiesgo.ToInt() == Enumeradores.TipoNivelesRiesgo.Bajo.ToInt() ? Enumeradores.TipoNivelesRiesgo.Bajo.ToInt()
-                                                                 : item.NivelRiesgo.ToInt() == Enumeradores.TipoNivelesRiesgo.Medio.ToInt() ? Enumeradores.TipoNivelesRiesgo.Medio.ToInt()
-                                                                 : item.NivelRiesgo.ToInt() == Enumeradores.TipoNivelesRiesgo.Alto.ToInt() ? Enumeradores.TipoNivelesRiesgo.Alto.ToInt()
-                                                                 : Enumeradores.TipoNivelesRiesgo.Otro.ToInt(),
+                                                             : item.NivelRiesgo.ToInt() == Enumeradores.TipoNivelesRiesgo.Bajo.ToInt() ? Enumeradores.TipoNivelesRiesgo.Bajo.ToInt()
+                                                             : item.NivelRiesgo.ToInt() == Enumeradores.TipoNivelesRiesgo.Medio.ToInt() ? Enumeradores.TipoNivelesRiesgo.Medio.ToInt()
+                                                             : item.NivelRiesgo.ToInt() == Enumeradores.TipoNivelesRiesgo.Alto.ToInt() ? Enumeradores.TipoNivelesRiesgo.Alto.ToInt()
+                                                             : Enumeradores.TipoNivelesRiesgo.Otro.ToInt(),
                                 FK_IdTipoParametro = EnumsTipoParametro.TipoNivelesRiesgo.ToInt(),
                                 Estado = 1
                             };
                             listafinal.Add(parametroTodos);
                         }
-                        if (CodigoISO == Pais.Bolivia)
+                    }
+                    else if (CodigoISO == Pais.Bolivia)
+                    {
+                        foreach (var item in lista)
                         {
                             var parametroTodos = new ServiceUnete.ParametroUnete
                             {
                                 Nombre = item.ZonaSeccion,
                                 Descripcion = item.NivelRiesgo,
                                 Valor = item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Bajo ? Enumeradores.TipoNivelesRiesgo.Bajo.ToInt()
-                                                                  : item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Medio ? Enumeradores.TipoNivelesRiesgo.Medio.ToInt()
-                                                                  : item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Alto ? Enumeradores.TipoNivelesRiesgo.Alto.ToInt()
-                                                                  : Enumeradores.TipoNivelesRiesgo.Otro.ToInt(),
+                                                              : item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Medio ? Enumeradores.TipoNivelesRiesgo.Medio.ToInt()
+                                                              : item.NivelRiesgo.ToUpper() == Constantes.TipoNivelesRiesgo.Alto ? Enumeradores.TipoNivelesRiesgo.Alto.ToInt()
+                                                              : Enumeradores.TipoNivelesRiesgo.Otro.ToInt(),
                                 FK_IdTipoParametro = EnumsTipoParametro.TipoNivelesRiesgo.ToInt(),
                                 Estado = 1
                             };
                             listafinal.Add(parametroTodos);
-
                         }
-
                     }
+
                     if (listafinal.Count > 0)
                     {
                         using (var sv = new PortalServiceClient())
@@ -339,27 +340,27 @@ namespace Portal.Consultoras.Web.Controllers
 
                             sv.InsertarNivelesRiesgo(model.CodigoISO, listafinal.ToArray());
                         }
-                        return message = "Se realizo satisfactoriamente la carga de datos.";
+                        return "Se realizo satisfactoriamente la carga de datos.";
                     }
                     else
                     {
-                        return message = "No se Guardo ningun registro";
+                        return "No se Guardo ningun registro";
                     }
                 }
                 else
                 {
-                    return message = "Ocurrió un problema al cargar el documento o tal vez se encuentra vacío.";
+                    return "Ocurrió un problema al cargar el documento o tal vez se encuentra vacío.";
                 }
             }
             catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-                return message = "Verifique el formato del Documento, posiblemente no sea igual al de la Plantilla.";
+                return "Verifique el formato del Documento, posiblemente no sea igual al de la Plantilla.";
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-                return message = "Verifique el formato del Documento, posiblemente no sea igual al de la Plantilla.";
+                return "Verifique el formato del Documento, posiblemente no sea igual al de la Plantilla.";
             }
         }
 
@@ -592,21 +593,21 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (uplArchivo == null)
                 {
-                    return message = "El archivo especificado no existe.";
+                    return "El archivo especificado no existe.";
                 }
 
                 if (!Util.isFileExtension(uplArchivo.FileName, Enumeradores.TypeDocExtension.Excel))
                 {
-                    return message = "El archivo especificado no es un documento de tipo MS-Excel.";
+                    return "El archivo especificado no es un documento de tipo MS-Excel.";
                 }
 
 
-                string finalPath = string.Empty, httpPath = string.Empty;
+                string finalPath = string.Empty;
                 string fileextension = Path.GetExtension(uplArchivo.FileName);
 
                 if (!fileextension.ToLower().Equals(".xlsx"))
                 {
-                    return message = "Sólo se permiten archivos MS-Excel versiones 2007-2012.";
+                    return "Sólo se permiten archivos MS-Excel versiones 2007-2012.";
                 }
                 string pathfaltante = "";
                 string fileName = "";
@@ -614,7 +615,6 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     fileName = Guid.NewGuid().ToString();
                     pathfaltante = Server.MapPath("~/Content/ArchivoNivelGeografico");
-                    httpPath = Url.Content("~/Content/ArchivoNivelGeografico") + "/" + fileName;
 
                 }
                 catch (Exception ex)
@@ -664,7 +664,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         foreach (var item in lista)
                         {
-                            if (string.IsNullOrWhiteSpace(item.PROVINCIA) == false && string.IsNullOrWhiteSpace(item.DISTRITO) == false && string.IsNullOrWhiteSpace(item.CORREGIMIENTO) == false)
+                            if (!string.IsNullOrWhiteSpace(item.PROVINCIA) && !string.IsNullOrWhiteSpace(item.DISTRITO) && !string.IsNullOrWhiteSpace(item.CORREGIMIENTO))
                             {
                                 var parametro = new ServiceUnete.UbigeoPA()
                                 {
@@ -749,22 +749,22 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             sv.InsertarNivelesGeograficosGeneral(model.CodigoISO, listaUbigeo.ToArray());
                         }
-                        return message = "Se realizo satisfactoriamente la carga de datos.";
+                        return "Se realizo satisfactoriamente la carga de datos.";
                     }
                     else
                     {
-                        return message = "No se Guardo ningun registro";
+                        return "No se Guardo ningun registro";
                     }
                 }
                 else
                 {
-                    return message = "Ocurrió un problema al cargar el documento o tal vez se encuentra vacío.";
+                    return "Ocurrió un problema al cargar el documento o tal vez se encuentra vacío.";
                 }
             }
             catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-                return message = "Verifique el formato del Documento, posiblemente no sea igual al de la Plantilla.";
+                return "Verifique el formato del Documento, posiblemente no sea igual al de la Plantilla.";
             }
             catch (Exception ex)
             {
@@ -772,11 +772,11 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (ex.GetType() == typeof(TimeoutException))
                 {
-                    return message = "Tiempo de espera agotado. El servicio culminara el proceso por su cuenta. Revise los datos en unos minutos.";
+                    return "Tiempo de espera agotado. El servicio culminara el proceso por su cuenta. Revise los datos en unos minutos.";
                 }
                 else
                 {
-                    return message = "Verifique el formato del Documento, posiblemente no sea igual al de la Plantilla.";
+                    return "Verifique el formato del Documento, posiblemente no sea igual al de la Plantilla.";
                 }
             }
         }
@@ -1382,12 +1382,12 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         public ActionResult ExportarExcel(int PrefijoISOPais, string FechaDesde, string FechaHasta, string Nombre,
-            int Estado, string DocumentoIdentidad, string codigoZona, string CodigoRegion, string FuenteIngreso)
+            int Estado, string DocumentoIdentidad, string codigoZona, string CodigoRegion, string FuenteIngreso,int MostrarPaso1y2SE = 1)
         {
             using (var sv = new PortalServiceClient())
             {
                 List<SolicitudPostulanteBE> resultado = sv.ObtenerReporteGestionPostulante(PrefijoISOPais, FechaDesde, FechaHasta, Nombre,
-              Estado, DocumentoIdentidad, codigoZona, CodigoRegion, FuenteIngreso, CodigoISO).ToList();
+              Estado, DocumentoIdentidad, codigoZona, CodigoRegion, FuenteIngreso, CodigoISO, MostrarPaso1y2SE).ToList();
 
                 Dictionary<string, string> dic = sv.GetDictionaryReporteGestionPostulantes(CodigoISO, Estado);
                 Util.ExportToExcel("ReportePostulantes", resultado, dic);
@@ -1489,7 +1489,7 @@ namespace Portal.Consultoras.Web.Controllers
                                        "&codterritorio=" + codterritorio +
                                           "&direccion=" + direccion
                 );
-            return Json(response == "true" ? true : false, JsonRequestBehavior.AllowGet);
+            return Json(response == "true", JsonRequestBehavior.AllowGet);
         }
 
         public string ObtenerZonas(int regionID)

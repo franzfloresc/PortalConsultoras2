@@ -125,7 +125,7 @@ namespace Portal.Consultoras.Web.Controllers
 
 
                 var items = list;
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
                 var pag = Util.PaginadorGenerico(grid, list.ToList());
                 var data = new
                 {

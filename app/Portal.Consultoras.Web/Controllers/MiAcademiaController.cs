@@ -178,7 +178,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         var model = JsonConvert.DeserializeObject<RootMiCurso>(json);
                         model.Cursos = model.Cursos ?? new List<MiCurso>();
-                        var lstCursos = model.Cursos.OrderBy(x => x.estado).ToList().Take(max);
+                        var lstCursos = model.Cursos.OrderBy(x => x.estado).Take(max);
 
                         lstCursos.Update(x => x.url = String.Format(urlCurso, x.id));
 

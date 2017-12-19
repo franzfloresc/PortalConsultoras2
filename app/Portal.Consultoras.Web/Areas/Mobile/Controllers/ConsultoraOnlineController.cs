@@ -263,26 +263,19 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 if (consultoraAfiliar.Afiliado)
                     return RedirectToAction("Index", "ConsultoraOnline", new { area = "Mobile" });
-
-
-                var hasSuccess = false;
+                
                 if (Request.QueryString["data"] != null)
                 {
                     var query = Util.DesencriptarQueryString(Request.QueryString["data"].ToString()).Split(';');
 
                     using (var srv = new UsuarioServiceClient())
                     {
-                        hasSuccess = srv.ActiveEmail(Convert.ToInt32(query[1]), query[0], query[2], query[3]);
+                        srv.ActiveEmail(Convert.ToInt32(query[1]), query[0], query[2], query[3]);
                     }
                 }
 
                 consultoraAfiliar = DatoUsuario();
-                hasSuccess = true;
-
-                if (String.IsNullOrEmpty(consultoraAfiliar.Email.Trim()) || consultoraAfiliar.EmailActivo == false)
-                {
-                    hasSuccess = false;
-                }
+                var hasSuccess = !(String.IsNullOrEmpty(consultoraAfiliar.Email.Trim()) || !consultoraAfiliar.EmailActivo);
 
                 if (consultoraAfiliar.EsPrimeraVez)
                 {
@@ -489,7 +482,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var message = string.Empty;
             var success = true;
             var userData = UserData();
-            var fechaActual = DateTime.Now;
             try
             {
                 using (var sc = new SACServiceClient())
@@ -499,7 +491,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     sc.CancelarSolicitudCliente(userData.PaisID, SolicitudId, OpcionCancelado, RazonMotivoCancelado);
 
                     var beSolicitudCliente = sc.GetSolicitudCliente(userData.PaisID, SolicitudId);
-                    fechaActual = beSolicitudCliente.FechaModificacion;
 
                     var refresh = new List<BEMisPedidos>();
                     foreach (var item in consultoraOnlineMisPedidos.ListaPedidos)
@@ -1096,7 +1087,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         objMisPedidos = model;
                         Session["objMisPedidos"] = objMisPedidos;
 
-                        var lstClientesExistentes = olstMisPedidos.Where(x => x.FlagConsultora == true).ToList();
+                        var lstClientesExistentes = olstMisPedidos.Where(x => x.FlagConsultora).ToList();
 
                         if (lstClientesExistentes.Count == olstMisPedidos.Count)
                         {
@@ -1104,7 +1095,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         }
                         else
                         {
-                            var pedidoReciente = olstMisPedidos.Where(x => x.FlagConsultora == false).OrderBy(x => x.FechaSolicitud).First();
+                            var pedidoReciente = olstMisPedidos.Where(x => !x.FlagConsultora).OrderBy(x => x.FechaSolicitud).First();
 
                             DateTime starDate = DateTime.Now;
                             DateTime endDate = pedidoReciente.FechaSolicitud.AddDays(1);
@@ -1146,7 +1137,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 consultoraOnlineMisPedidos = (MisPedidosModel)Session["objMisPedidos"];
                 BEMisPedidos pedido = new BEMisPedidos();
                 long _pedidoId = Convert.ToInt64(pedidoId);
-                pedido = consultoraOnlineMisPedidos.ListaPedidos.Where(p => p.PedidoId == _pedidoId && p.Estado.Trim().Length == 0).FirstOrDefault();
+                pedido = consultoraOnlineMisPedidos.ListaPedidos.FirstOrDefault(p => p.PedidoId == _pedidoId && p.Estado.Trim().Length == 0);
 
                 if (pedido == null)
                 {
@@ -1198,7 +1189,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                         foreach (var item in olstMisPedidosDet)
                         {
-                            var pedidoVal = olstMisProductos.Where(x => x.CUV == item.CUV).FirstOrDefault();
+                            var pedidoVal = olstMisProductos.FirstOrDefault(x => x.CUV == item.CUV);
                             if (pedidoVal != null)
                             {
                                 item.TieneStock = (pedidoVal.TieneStock) ? 1 : 0;

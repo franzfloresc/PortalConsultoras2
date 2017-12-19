@@ -459,11 +459,6 @@ namespace Portal.Consultoras.Web.Controllers
                 lst = sv.GetImagenesByCodigoSAP(paisID, codigoSAP).ToList();
             }
 
-            var carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
-
-            if (lst != null && lst.Count > 0)
-            {
-            }
             return Json(new
             {
                 lista = lst
@@ -607,7 +602,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
                 pag = Util.PaginadorGenerico(grid, lst);
                 string ISO = Util.GetPaisISO(PaisID);
@@ -832,7 +827,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 #region Procesar Carga Masiva Archivo CSV
                 string finalPath = string.Empty;
-                List<BEOfertaProducto> lstStock = new List<BEOfertaProducto>(); ;
+                List<BEOfertaProducto> lstStock = new List<BEOfertaProducto>();
 
                 if (flStock != null)
                 {

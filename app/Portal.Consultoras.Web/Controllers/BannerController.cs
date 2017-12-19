@@ -50,17 +50,16 @@ namespace Portal.Consultoras.Web.Controllers
         public string InsertarActualizar(BannerModel model)
         {
             string message = string.Empty;
-            string finalPath = string.Empty, httpPath = string.Empty;
+            string httpPath = string.Empty;
             try
             {
                 BEBanner obeBanner = new BEBanner();
-                string FileName = string.Empty;
 
                 if (model.Accion == "Insertar")
                 {
                     var img = Image.FromFile(Globals.RutaTemporales + @"\" + System.Net.WebUtility.UrlDecode(model.ImagenActualizar));
                     if (img.Width > model.Ancho || img.Height > model.Alto)
-                        return message = string.Format("El archivo adjunto no tiene las dimensiones correctas. Verifique que sea un archivo con " +
+                        return string.Format("El archivo adjunto no tiene las dimensiones correctas. Verifique que sea un archivo con " +
                                                        "una dimensión máxima de hasta {0} x {1}", model.Ancho, model.Alto);
                     img.Dispose();
 
@@ -77,7 +76,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         var img = Image.FromFile(Globals.RutaTemporales + @"\" + System.Net.WebUtility.UrlDecode(model.ImagenActualizar));
                         if (img.Width > model.Ancho || img.Height > model.Alto)
-                            return message = string.Format("El archivo adjunto no tiene las dimensiones correctas. Verifique que sea un archivo con " +
+                            return string.Format("El archivo adjunto no tiene las dimensiones correctas. Verifique que sea un archivo con " +
                                                            "una dimensión máxima de hasta {0} x {1}", model.Ancho, model.Alto);
                         
                         img.Dispose();
@@ -137,7 +136,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 string finalPath = string.Empty;
                 bool IsCorrect = true;
-                List<BEGrupoConsultora> lstGrupoConsultora = new List<BEGrupoConsultora>(); ;
+                List<BEGrupoConsultora> lstGrupoConsultora = new List<BEGrupoConsultora>();
 
                 if (flConsultoras != null)
                 {
@@ -289,7 +288,7 @@ namespace Portal.Consultoras.Web.Controllers
                     BEPager pag = new BEPager();
                     IEnumerable<BEGrupoBanner> items = lst;
 
-                    items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                    items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
                     pag = Util.PaginadorGenerico(grid, lst);
 
                     var data = new
@@ -359,7 +358,7 @@ namespace Portal.Consultoras.Web.Controllers
                     BEPager pag = new BEPager();
                     IEnumerable<BEBanner> items = lst;
 
-                    items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                    items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
                     pag = Util.PaginadorGenerico(grid, lst);
 
                     var data = new

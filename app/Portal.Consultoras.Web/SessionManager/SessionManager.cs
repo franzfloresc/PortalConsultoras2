@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.MisCertificados;
 using Portal.Consultoras.Web.ServicePedido;
 using System;
 using System.Collections.Generic;
@@ -240,5 +241,26 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return (List<ObjMontosProl>)HttpContext.Current.Session[Constantes.ConstSession.PROL_CalculoMontosProl];
         }
+        
+        void ISessionManager.SetMisCertificados(List<MiCertificadoModel> lista)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.MisCertificados] = lista;
+        }
+
+        List<MiCertificadoModel> ISessionManager.GetMisCertificados()
+        {
+            return (List<MiCertificadoModel>)HttpContext.Current.Session[Constantes.ConstSession.MisCertificados];
+        }
+
+        void ISessionManager.SetMisCertificadosData(List<BEMiCertificado> lista)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.MisCertificadosData] = lista;
+        }
+
+        List<BEMiCertificado> ISessionManager.GetMisCertificadosData()
+        {
+            return (List<BEMiCertificado>)HttpContext.Current.Session[Constantes.ConstSession.MisCertificadosData];
+        }
+
     }
 }

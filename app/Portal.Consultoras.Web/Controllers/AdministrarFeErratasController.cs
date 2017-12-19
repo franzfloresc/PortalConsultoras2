@@ -153,7 +153,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
                 pag = Util.PaginadorGenerico(grid, lst);
 
@@ -289,7 +289,7 @@ namespace Portal.Consultoras.Web.Controllers
                 
                 if (Session["entradas"] != null)
                 {
-                    listaEntradas = (Session["entradas"] as List<AdministrarFeErratasModel>).Where(e => e.Eliminar == false).ToList();
+                    listaEntradas = (Session["entradas"] as List<AdministrarFeErratasModel>).Where(e => !e.Eliminar).ToList();
                 }
                 else
                 {
@@ -350,7 +350,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
                 pag = Util.PaginadorGenerico(grid, listaEntradas);
 

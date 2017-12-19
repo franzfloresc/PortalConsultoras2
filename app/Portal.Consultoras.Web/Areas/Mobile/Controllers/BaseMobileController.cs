@@ -5,9 +5,12 @@ using Portal.Consultoras.Web.CustomFilters;
 using Portal.Consultoras.Web.Helpers;
 using Portal.Consultoras.Web.Infraestructure;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServiceSAC;
+
 using System;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Linq;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -82,9 +85,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     ViewBag.OfertaDelDia = ofertaDelDia;
 
                     ViewBag.MostrarOfertaDelDia =
-                        userData.IndicadorGPRSB == 1 || userData.CloseOfertaDelDia
-                        ? false
-                        : (userData.TieneOfertaDelDia && ofertaDelDia != null && ofertaDelDia.TeQuedan.TotalSeconds > 0);
+                        !(userData.IndicadorGPRSB == 1 || userData.CloseOfertaDelDia)
+                        && userData.TieneOfertaDelDia 
+                        && ofertaDelDia != null 
+                        && ofertaDelDia.TeQuedan.TotalSeconds > 0;
 
                     showRoomBannerLateral.EstadoActivo = mostrarBannerTop ? "0" : "1";
                 }
@@ -107,6 +111,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
 
                 ViewBag.MostrarODD = NoMostrarBannerODD();
+                /*FIN: PL20-1289*/
+
+                MostrarBannerApp();
             }
             catch (Exception ex)
             {
@@ -261,5 +268,51 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return RedirectToRoute(uniqueSessionAttribute.RouteName, routeValues);
         }
+
+        #region BannerApp
+        [HttpGet]
+        public JsonResult OcultarBannerApp()
+        {
+            try
+            {
+                Session["OcultarBannerApp"] = true;
+                return Json(new
+                {
+                    success = true,
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "No se pudo procesar la solicitud"
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        private void MostrarBannerApp()
+        {
+            if (Session["OcultarBannerApp"] != null)
+            {
+                Session["BannerApp"] = null;
+                return;
+            }
+            if (Session["BannerApp"] == null)
+            {
+                using (SACServiceClient sac = new SACServiceClient())
+                {
+                    var lstComunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora, Constantes.ComunicadoTipoDispositivo.Mobile);
+                    Session["BannerApp"] = lstComunicados.FirstOrDefault(x => x.Descripcion == Constantes.Comunicado.AppConsultora);
+                }
+            }
+            var oComunicados = (BEComunicado)Session["BannerApp"];
+            if (oComunicados != null)
+            {
+                ViewBag.MostrarBannerApp = true;
+                ViewBag.BannerApp = oComunicados;
+            }
+        }
+        #endregion
     }
 }

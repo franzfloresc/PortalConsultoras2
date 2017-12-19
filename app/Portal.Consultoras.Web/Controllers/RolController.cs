@@ -68,9 +68,9 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion
 
                 if (string.IsNullOrEmpty(vDescripcion))
-                    items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                    items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
                 else
-                    items = items.Where(p => p.Descripcion.ToUpper().Contains(vDescripcion.ToUpper())).ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                    items = items.Where(p => p.Descripcion.ToUpper().Contains(vDescripcion.ToUpper())).Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
                 pag = Util.PaginadorGenerico(grid, items.ToList());
 
@@ -291,11 +291,11 @@ namespace Portal.Consultoras.Web.Controllers
                 permisos = srv.GetAllPermisosCheckByRol(paisID, RolID).ToList();
             }
             int index = 0;
-            List<BEPermiso> filtrados = permisos.FindAll(delegate (BEPermiso m) { return m.IdPadre == 0 && m.Mostrar == true; }).OrderBy(p => p.OrdenItem).ToList();
+            List<BEPermiso> filtrados = permisos.FindAll(delegate (BEPermiso m) { return m.IdPadre == 0 && m.Mostrar; }).OrderBy(p => p.OrdenItem).ToList();
             tree = new JsTreeModel[filtrados.Count];
             foreach (BEPermiso perm in filtrados)
             {
-                if (permisos.FindAll(delegate (BEPermiso m) { return m.IdPadre == perm.PermisoID && m.Mostrar == true; }).Count == 0)
+                if (permisos.FindAll(delegate (BEPermiso m) { return m.IdPadre == perm.PermisoID && m.Mostrar; }).Count == 0)
                 {
                     tree[index] = new JsTreeModel { data = perm.Descripcion, attr = new JsTreeAttribute { id = perm.PermisoID, @class = (perm.RolId > 0 ? "jstree-checked" : "jstree-unchecked") } };
                 }

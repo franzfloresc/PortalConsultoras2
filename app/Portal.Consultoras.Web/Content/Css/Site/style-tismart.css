@@ -729,34 +729,31 @@ img {
         color: #d226aa;
     }
 
-    .submenu > ul > li > a
-        font-size: 1.3em;
-        margin-bottom: 10px;
-        text-transform: uppercase;
+    .submenu > ul > li > a font-size: 1.3em; margin-bottom: 10px; text-transform: uppercase;
+}
+
+.submenu > ul > li ul > li {
+    float: none;
+    padding: 3px 0px;
+    -moz-transition: padding 150ms ease-out 0s;
+    -ms-transition: padding 150ms ease-out 0s;
+    -o-transition: padding 150ms ease-out 0s;
+    -webkit-transition: padding 150ms ease-out 0s;
+    transition: padding 150ms ease-out 0s;
+}
+
+    .submenu > ul > li ul > li:hover {
+        color: #72297e;
     }
 
-    .submenu > ul > li ul > li {
-        float: none;
-        padding: 3px 0px;
-        -moz-transition: padding 150ms ease-out 0s;
-        -ms-transition: padding 150ms ease-out 0s;
-        -o-transition: padding 150ms ease-out 0s;
-        -webkit-transition: padding 150ms ease-out 0s;
-        transition: padding 150ms ease-out 0s;
-    }
+.submenu > ul > li > a > img {
+    margin-top: 8px;
+}
 
-        .submenu > ul > li ul > li:hover {
-            color: #72297e;
-        }
-
-    .submenu > ul > li > a > img {
-        margin-top: 8px;
-    }
-
-    .submenu > ul > li > a .menu_image_description {
-        width: 130px;
-        height: auto;
-    }
+.submenu > ul > li > a .menu_image_description {
+    width: 130px;
+    height: auto;
+}
 
 .submenu_important img {
     vertical-align: top;
@@ -2023,7 +2020,7 @@ button {
     font-weight: 900;
     font-style: normal;
 }
-/*******************************************************************************/
+
 /**************************Popups*****************************/
 .link {
     cursor: pointer;
@@ -2402,8 +2399,6 @@ div.subir_archivo {
     border-radius: 118px;
     behavior: url(../../../../Content/Css/Pie/PIE.htc);
 }
-/**************************************************/
-
 
 .tsm tbody tr td #tdTotalPrecio {
     margin-left: 25px;

@@ -126,7 +126,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
                 pag = Util.PaginadorGenerico(grid, lst);
 
@@ -220,7 +220,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 foreach (var item in lstZonasInactivasEliminar)
                 {
-                    ZonaModel zona = lstZonasInactivas.Where(x => x.ZonaID == item.ZonaID).First();
                     lstZonasInactivas.Remove(item);
                 }
 
@@ -281,7 +280,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 foreach (var item in lstZonasActivasEliminar)
                 {
-                    ZonaModel zona = lstZonasActivas.Where(x => x.ZonaID == item.ZonaID).First();
                     lstZonasActivas.Remove(item);
                 }
 
@@ -496,17 +494,16 @@ namespace Portal.Consultoras.Web.Controllers
         {
             int paisID = model.PaisID;
             int campaniaID = Convert.ToInt32(model.NombreCorto.Trim());
-            string message = string.Empty;
             try
             {
                 if (uplArchivo == null)
                 {
-                    return message = "El archivo especificado no existe.";
+                    return "El archivo especificado no existe.";
                 }
 
                 if (!Util.isFileExtension(uplArchivo.FileName, Enumeradores.TypeDocExtension.Excel))
                 {
-                    return message = "El archivo especificado no es un documento de tipo MS-Excel.";
+                    return "El archivo especificado no es un documento de tipo MS-Excel.";
                 }
 
                 string finalPath = string.Empty, httpPath = string.Empty;
@@ -514,7 +511,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (!fileextension.ToLower().Equals(".xlsx"))
                 {
-                    return message = "Sólo se permiten archivos MS-Excel versiones 2007-2012.";
+                    return "Sólo se permiten archivos MS-Excel versiones 2007-2012.";
                 }
 
                 string fileName = Guid.NewGuid().ToString();
@@ -543,22 +540,22 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         srv.InsCronogramaFICMasivo(paisID, campaniaID, lst.ToArray());
                     }
-                    return message = "Se realizó satisfactoriamente la carga de datos.";
+                    return "Se realizó satisfactoriamente la carga de datos.";
                 }
                 else
                 {
-                    return message = "Ocurrió un problema al cargar el documento o tal vez se encuentra vacío.";
+                    return "Ocurrió un problema al cargar el documento o tal vez se encuentra vacío.";
                 }
             }
             catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-                return message = "Verifique el formato del Documento, posiblemente no sea igual al de la Plantilla.";
+                return "Verifique el formato del Documento, posiblemente no sea igual al de la Plantilla.";
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-                return message = "Verifique el formato del Documento, posiblemente no sea igual al de la Plantilla.";
+                return "Verifique el formato del Documento, posiblemente no sea igual al de la Plantilla.";
             }
         }
 

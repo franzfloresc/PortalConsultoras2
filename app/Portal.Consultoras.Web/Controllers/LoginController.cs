@@ -153,7 +153,7 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception ex)
             {
                 logManager.LogErrorWebServicesBusWrap(ex, Campania.ToString() + " - " + Alcance, paisID.ToString(),string.Empty);
-                lst = new List<BEEventoFestivo>(); ;
+                lst = new List<BEEventoFestivo>();
             }
             return Mapper.Map<IList<BEEventoFestivo>, List<EventoFestivoModel>>(lst);
         }
@@ -531,7 +531,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
                 }
 
-                if (string.IsNullOrEmpty(usuario.EMail) || usuario.EMailActivo == false)
+                if (string.IsNullOrEmpty(usuario.EMail) || !usuario.EMailActivo)
                 {
                     Session["PrimeraVezSession"] = 0;
                 }
@@ -877,6 +877,9 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.TieneCDRExpress = usuario.TieneCDRExpress;
                     usuarioModel.EsConsecutivoNueva = usuario.EsConsecutivoNueva;
 
+                    usuarioModel.CodigoPrograma = usuario.CodigoPrograma;
+                    usuarioModel.ConsecutivoNueva = usuario.ConsecutivoNueva;
+
                     #endregion
 
                     if (usuarioModel.RolID == Constantes.Rol.Consultora)
@@ -1127,7 +1130,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (GetPaisesLbelFromConfig().Contains(usuarioModel.CodigoISO))
                     {
                         usuarioModel.EsLebel = true;
-                    }
+                    }                    
 
                     sessionManager.SetTieneLan(true);
                     sessionManager.SetTieneLanX1(true);
@@ -2282,8 +2285,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             foreach (var configuracionPaisDato in revistaDigital.ConfiguracionPaisDatos)
             {
-                configuracionPaisDato.Valor1 = RemplazaTagNombre(configuracionPaisDato.Valor1, nombreConsultora);
-                configuracionPaisDato.Valor2 = RemplazaTagNombre(configuracionPaisDato.Valor2, nombreConsultora);
+                configuracionPaisDato.Valor1 = RemplazaTagNombre(configuracionPaisDato.Valor1 ?? "", nombreConsultora);
+                configuracionPaisDato.Valor2 = RemplazaTagNombre(configuracionPaisDato.Valor2 ?? "", nombreConsultora);
             }
         }
 

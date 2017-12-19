@@ -199,13 +199,16 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     using (var pedidoServiceClient = new PedidoServiceClient())
                     {
-                        detallesPedidoWeb = pedidoServiceClient.SelectByCampania(
-                            userData.PaisID,
-                            userData.CampaniaID,
-                            userData.ConsultoraID,
-                            userData.NombreConsultora,
-                            EsOpt()
-                        ).ToList();
+                        var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros();
+                        bePedidoWebDetalleParametros.PaisId = userData.PaisID;
+                        bePedidoWebDetalleParametros.CampaniaId = userData.CampaniaID;
+                        bePedidoWebDetalleParametros.ConsultoraId = userData.ConsultoraID;
+                        bePedidoWebDetalleParametros.Consultora = userData.NombreConsultora;
+                        bePedidoWebDetalleParametros.EsBpt = EsOpt() == 1;
+                        bePedidoWebDetalleParametros.CodigoPrograma = userData.CodigoPrograma;
+                        bePedidoWebDetalleParametros.NumeroPedido = userData.ConsecutivoNueva;
+
+                        detallesPedidoWeb = pedidoServiceClient.SelectByCampania(bePedidoWebDetalleParametros).ToList();
                     }
                 }
 
@@ -247,6 +250,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 foreach (var item in PedObs)
                 {
+                    item.Mensaje = string.Empty;
                     var temp = Observaciones.Where(o => o.CUV == item.CUV).ToList();
                     if (temp != null && temp.Count != 0)
                     {
@@ -254,14 +258,13 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             item.ClaseFila = string.Empty;
                             item.TipoObservacion = 0;
-                            item.Mensaje = string.Empty;
                         }
                         else
                         {
                             item.ClaseFila = temp[0].Tipo == 1 ? "f1" : "f2";
                             item.TipoObservacion = temp[0].Tipo;
-                            item.Mensaje = string.Empty;
                         }
+
                         foreach (var ob in temp)
                         {
                             item.Mensaje += ob.Descripcion + "<br/>";
@@ -271,7 +274,6 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         item.ClaseFila = string.Empty;
                         item.TipoObservacion = 0;
-                        item.Mensaje = string.Empty;
                     }
                 }
             }
@@ -279,12 +281,12 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 foreach (var item in PedObs)
                 {
+                    item.Mensaje = string.Empty;
                     var temp = Observaciones.Where(o => o.CUV == item.CUV).ToList();
                     if (temp != null && temp.Count != 0)
                     {
                         item.ClaseFila = temp[0].Tipo == 1 ? "f1" : "f2";
                         item.TipoObservacion = temp[0].Tipo;
-                        item.Mensaje = string.Empty;
                         foreach (var ob in temp)
                         {
                             item.Mensaje += ob.Descripcion + "<br/>";
@@ -294,7 +296,6 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         item.ClaseFila = string.Empty;
                         item.TipoObservacion = 0;
-                        item.Mensaje = string.Empty;
                     }
                 }
             }
@@ -1251,6 +1252,7 @@ namespace Portal.Consultoras.Web.Controllers
             var paisesConTrackingJetlore = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesConTrackingJetlore) ?? "";
             ViewBag.PaisesConTrackingJetlore = paisesConTrackingJetlore.Contains(model.CodigoISO) ? "1" : "0";
             ViewBag.EsCatalogoPersonalizadoZonaValida = model.EsCatalogoPersonalizadoZonaValida;
+            ViewBag.ConsultoraId = model.ConsultoraID;
 
             #region Banner
 
@@ -2326,7 +2328,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return new ShowRoomBannerLateralModel { ConsultoraNoEncontrada = true };
 
             model.BEShowRoomConsultora = userData.BeShowRoomConsultora ?? new BEShowRoomEventoConsultora();
-            model.BEShowRoom = userData.BeShowRoom ?? new BEShowRoomEvento(); ;
+            model.BEShowRoom = userData.BeShowRoom ?? new BEShowRoomEvento();
 
             if (model.BEShowRoom.Estado != 1)
                 return new ShowRoomBannerLateralModel { EventoNoEncontrado = true };
@@ -2815,7 +2817,7 @@ namespace Portal.Consultoras.Web.Controllers
                 .Insert(0, "4");
 
                 origenActual = int.Parse(nuevoOrigen);
-            };
+            }
 
             return origenActual;
         }

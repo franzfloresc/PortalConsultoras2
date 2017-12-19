@@ -1,8 +1,128 @@
 ﻿
 $(document).ready(function () {
-    $("[data-campania1]").html(campaniaNro + 1);
-    $("[data-campania2]").html(campaniaNro + 2);
+
+    var clickabrir = 1
+
+    if (isMobile()) {
+
+        var saber_mas = 1;
+        $('a.btn-suscribete-video-baja').click(function () {
+            if (saber_mas == 1) {
+                $("a.btn-suscribete-video-baja").attr("href", "#saber-mas-uno");
+                saber_mas = 2;
+            }
+            else if (saber_mas == 2) {
+                $("a.btn-suscribete-video-baja").attr("href", "#saber-mas-dos");
+                saber_mas = 3;
+            }
+            else if (saber_mas == 3) {
+                $("a.btn-suscribete-video-baja").attr("href", "#saber-mas-tres");
+                saber_mas = 1;
+            }
+
+            var page = $("html, body");
+            var alto = $('#new-header').height();
+
+            var link = $(this);
+            var anchor = link.attr('href');
+            page.stop().animate({ scrollTop: ScrollUser(anchor, alto) }, 1000);
+
+        });
+        var offS = $('.como-funciona').offset();
+        var anchor_offset = 0;
+        if (offS != undefined) {
+            var anchor_offset = offS.top;
+        }
+
+        $(window).on('scroll', function () {
+            if ($(window).scrollTop() > anchor_offset) {
+                $("a.btn-suscribete-video-baja").css("display", "none");
+            }
+            else {
+                $("a.btn-suscribete-video-baja").css("display", "block");
+            }
+        });
+
+        $('.preguntas-frecuentes-cont-sus ul.preg-frecuentes li a.abrir-preg-frecuente').click(function () {
+            $('.preguntas-frecuentes-cont-sus ul.preg-frecuentes ul').slideToggle();
+
+            if (clickabrir == 1) {
+                $('.preguntas-frecuentes-cont-sus .contenedor-mobile-fix span.despliegue').css("display", "none");
+                $('.preguntas-frecuentes-cont-sus .contenedor-mobile-fix span.nodespliegue').css("display", "block");
+                clickabrir = 0;
+            }
+            else {
+                $('.preguntas-frecuentes-cont-sus .contenedor-mobile-fix span.nodespliegue').css("display", "none");
+                $('.preguntas-frecuentes-cont-sus .contenedor-mobile-fix span.despliegue').css("display", "block");
+                clickabrir = 1;
+            }
+        });
+    }
+    else {
+
+        $('.preguntas-frecuentes-cont-sus ul.preg-frecuentes li:has(ul)').click(function () {
+            $(this).find('ul').slideToggle();
+            if (clickabrir == 1) {
+                $(this).find('span.despliegue').css("display", "none");
+                $(this).find('span.nodespliegue').css("display", "block");
+                clickabrir = 0;
+            }
+            else {
+                $(this).find('span.despliegue').css("display", "block");
+                $(this).find('span.nodespliegue').css("display", "none");
+                clickabrir = 1;
+            }
+        });
+    }
+
 });
+
+function onYouTubePlayerAPIReady() {
+    player = new YT.Player('player', {
+        width: '640',
+        height: '390',
+        rel: 0,
+        fs: 0,
+        videoId: videoKey,
+        events: {
+            onReady: onScrollDown,
+            onStateChange: onPlayerStateChange
+        }
+    });
+}
+
+function onScrollDown(event) {
+    $(window).scroll(function () {
+        var windowHeight = $(window).scrollTop();
+        var contenido2 = $("#saber-mas-uno").offset();
+        contenido2 = contenido2.top;
+
+        if (windowHeight >= contenido2) {
+            event.target.pauseVideo();
+        }
+    });
+}
+
+// when video ends
+function onPlayerStateChange(event) {
+    if (event.data === 0) {
+        $('a.btn-suscribete-video').animate({
+            bottom: '0%'
+        });
+        $('a.btn-suscribete-video-baja').animate({
+            bottom: '-100%'
+        });
+
+    }
+}
+
+function ScrollUser(anchor, alto) {
+
+    if ($('#seccion-fixed-menu').position.top > 0)
+        alto = alto + $('#seccion-fixed-menu').height() + 10;
+
+    return jQuery(anchor).offset().top - alto;
+}
 
 function RDPopupCerrar() {
     AbrirLoad();
