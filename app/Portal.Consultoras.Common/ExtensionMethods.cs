@@ -243,5 +243,11 @@ namespace Portal.Consultoras.Common
             Guid tryGuid;
             return Guid.TryParse(guid, out tryGuid);
         }
+
+        public static IOrderedEnumerable<T> OrderBy<T, U>(this IEnumerable<T> list, Func<T, U> func, bool orderAsc)
+        {
+            if (orderAsc) return list.OrderBy(func);
+            return list.OrderByDescending(func);
+        }
     }
 }

@@ -116,113 +116,58 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.PaisOcultoID = userData.PaisID;
             var list = GetPedidoWebDD(model);
 
-            BEGrid grid = new BEGrid();
-            grid.PageSize = model.Rows;
-            grid.CurrentPage = model.Page;
-            grid.SortColumn = model.Sidx;
-            grid.SortOrder = model.Sord;
-            BEPager pag = new BEPager();
-            IEnumerable<BEPedidoDDWeb> items = list;
-
-            #region Sort Section
-            if (model.Sord == "asc")
+            bool orderAsc = (model.Sord == "asc");
+            switch (model.Sidx)
             {
-                switch (model.Sidx)
-                {
-                    case "NroRegistro": items = list.OrderBy(x => x.NroRegistro); break;
-                    case "FechaRegistro": items = list.OrderBy(x => x.FechaRegistro); break;
-                    case "CampaniaCodigo": items = list.OrderBy(x => x.CampaniaCodigo); break;
-                    case "Seccion": items = list.OrderBy(x => x.Seccion); break;
-                    case "ConsultoraCodigo": items = list.OrderBy(x => x.ConsultoraCodigo); break;
-                    case "ImporteTotal": items = list.OrderBy(x => x.ImporteTotal); break;
-                    case "ImporteTotalConDescuento": items = list.OrderBy(x => x.ImporteTotalConDescuento); break;
-                    case "ConsultoraNombre": items = list.OrderBy(x => x.ConsultoraNombre); break;
-                    case "UsuarioResponsable": items = list.OrderBy(x => x.UsuarioResponsable); break;
-                    case "ConsultoraSaldo": items = list.OrderBy(x => x.ConsultoraSaldo); break;
-                    case "OrigenNombre": items = list.OrderBy(x => x.OrigenNombre); break;
-                    case "EstadoValidacionNombre": items = list.OrderBy(x => x.EstadoValidacionNombre); break;
-                }
+                case "NroRegistro": list = list.OrderBy(x => x.NroRegistro, orderAsc).ToList(); break;
+                case "FechaRegistro": list = list.OrderBy(x => x.FechaRegistro, orderAsc).ToList(); break;
+                case "CampaniaCodigo": list = list.OrderBy(x => x.CampaniaCodigo, orderAsc).ToList(); break;
+                case "Seccion": list = list.OrderBy(x => x.Seccion, orderAsc).ToList(); break;
+                case "ConsultoraCodigo": list = list.OrderBy(x => x.ConsultoraCodigo, orderAsc).ToList(); break;
+                case "ImporteTotal": list = list.OrderBy(x => x.ImporteTotal, orderAsc).ToList(); break;
+                case "ImporteTotalConDescuento": list = list.OrderBy(x => x.ImporteTotalConDescuento, orderAsc).ToList(); break;
+                case "ConsultoraNombre": list = list.OrderBy(x => x.ConsultoraNombre, orderAsc).ToList(); break;
+                case "UsuarioResponsable": list = list.OrderBy(x => x.UsuarioResponsable, orderAsc).ToList(); break;
+                case "ConsultoraSaldo": list = list.OrderBy(x => x.ConsultoraSaldo, orderAsc).ToList(); break;
+                case "OrigenNombre": list = list.OrderBy(x => x.OrigenNombre, orderAsc).ToList(); break;
+                case "EstadoValidacionNombre": list = list.OrderBy(x => x.EstadoValidacionNombre, orderAsc).ToList(); break;
             }
-            else
-            {
-                switch (model.Sidx)
-                {
-                    case "NroRegistro":
-                        items = list.OrderByDescending(x => x.NroRegistro);
-                        break;
-                    case "FechaRegistro":
-                        items = list.OrderByDescending(x => x.FechaRegistro);
-                        break;
-                    case "CampaniaCodigo":
-                        items = list.OrderByDescending(x => x.CampaniaCodigo);
-                        break;
-                    case "Seccion":
-                        items = list.OrderByDescending(x => x.Seccion);
-                        break;
-                    case "ConsultoraCodigo":
-                        items = list.OrderByDescending(x => x.ConsultoraCodigo);
-                        break;
-                    case "ImporteTotal":
-                        items = list.OrderByDescending(x => x.ImporteTotal);
-                        break;
-                    case "ImporteTotalConDescuento":
-                        items = list.OrderByDescending(x => x.ImporteTotalConDescuento);
-                        break;
-                    case "ConsultoraNombre":
-                        items = list.OrderByDescending(x => x.ConsultoraNombre);
-                        break;
-                    case "UsuarioResponsable":
-                        items = list.OrderByDescending(x => x.UsuarioResponsable);
-                        break;
-                    case "ConsultoraSaldo":
-                        items = list.OrderByDescending(x => x.ConsultoraSaldo);
-                        break;
-                    case "OrigenNombre":
-                        items = list.OrderByDescending(x => x.OrigenNombre);
-                        break;
-                    case "EstadoValidacionNombre":
-                        items = list.OrderByDescending(x => x.EstadoValidacionNombre);
-                        break;
-                }
-            }
-            #endregion
-
-            items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-            pag = Paginador(grid, list);
+            
+            var grid = new BEGrid(model.Sidx, model.Sord, model.Page, model.Rows);
+            var items = list.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+            var pag = Util.PaginadorGenerico(grid, list);
 
             var data = new
             {
                 total = pag.PageCount,
                 page = pag.CurrentPage,
                 records = pag.RecordCount,
-                rows = from a in items
-                        select new
-                        {
-                            idCampania = a.CampaniaID.ToString(),
-                            idPedido = a.PedidoID.ToString(),
-                            cell = new string[]
-                            {
-                                a.paisISO,
-                                a.NroRegistro.ToString(),
-                                a.FechaRegistro.ToString(),
-                                a.FechaReserva.HasValue ? a.FechaReserva.Value.ToString() : "",
-                                a.CampaniaCodigo.ToString(),
-                                a.Region,
-                                a.Zona,
-                                a.Seccion.ToString(),
-                                a.ConsultoraCodigo.ToString(),
-                                a.ConsultoraNombre.ToString(),
-                                a.DocumentoIdentidad.ToString(),
-                                UserData().Simbolo + " " + ((UserData().PaisID == 4)? a.ImporteTotal.ToString("#,##0").Replace(',','.') : a.ImporteTotal.ToString("0.00")),
-                                UserData().Simbolo + " " + ((UserData().PaisID == 4)? a.ImporteTotalConDescuento.ToString("#,##0").Replace(',','.') : a.ImporteTotalConDescuento.ToString("0.00")),
-                                UserData().Simbolo + " " + ((UserData().PaisID == 4)? a.ConsultoraSaldo.ToString("#,##0").Replace(',','.') : a.ConsultoraSaldo.ToString("0.00")),
-                                a.OrigenNombre.ToString(),
-                                a.EstadoValidacionNombre.ToString(),
-                                a.IndicadorEnviado,
-                                a.TipoProceso,
-                                FomatearMontoDecimalGPR(string.IsNullOrEmpty(a.MotivoRechazo) ? " " : a.MotivoRechazo)
-                            }
-                        }
+                rows = items.Select(a => new {
+                    idCampania = a.CampaniaID.ToString(),
+                    idPedido = a.PedidoID.ToString(),
+                    cell = new string[]
+                    {
+                        a.paisISO,
+                        a.NroRegistro.ToString(),
+                        a.FechaRegistro.ToString(),
+                        a.FechaReserva.HasValue ? a.FechaReserva.Value.ToString() : "",
+                        a.CampaniaCodigo.ToString(),
+                        a.Region,
+                        a.Zona,
+                        a.Seccion.ToString(),
+                        a.ConsultoraCodigo.ToString(),
+                        a.ConsultoraNombre.ToString(),
+                        a.DocumentoIdentidad.ToString(),
+                        Util.DecimalToStringFormat(a.ImporteTotal, model.PaisID, userData.Simbolo),
+                        Util.DecimalToStringFormat(a.ImporteTotalConDescuento, model.PaisID, userData.Simbolo),
+                        Util.DecimalToStringFormat(a.ConsultoraSaldo, model.PaisID, userData.Simbolo),
+                        a.OrigenNombre.ToString(),
+                        a.EstadoValidacionNombre.ToString(),
+                        a.IndicadorEnviado,
+                        a.TipoProceso,
+                        FomatearMontoDecimalGPR(string.IsNullOrEmpty(a.MotivoRechazo) ? " " : a.MotivoRechazo)
+                    }
+                })
             };
             return Json(data, JsonRequestBehavior.AllowGet);
         }
@@ -361,7 +306,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = PaginadorDetalle(grid, lst);
+                pag = Util.PaginadorGenerico(grid, lst);
 
                 var data = new
                 {
@@ -856,49 +801,6 @@ namespace Portal.Consultoras.Web.Controllers
                 DropDownListZona = lstZonas.OrderBy(p => p.Codigo),
                 DropDownListRegion = lstRegiones.OrderBy(p => p.Codigo),
             }, JsonRequestBehavior.AllowGet);
-        }
-
-        public BEPager Paginador(BEGrid item, List<BEPedidoDDWeb> lst)
-        {
-            BEPager pag = new BEPager();
-
-            int RecordCount;
-
-            RecordCount = lst.Count;
-
-            pag.RecordCount = RecordCount;
-
-            int PageCount = (int)(((float)RecordCount / (float)item.PageSize) + 1);
-            pag.PageCount = PageCount;
-
-            int CurrentPage = (int)item.CurrentPage;
-            pag.CurrentPage = CurrentPage;
-
-            if (CurrentPage > PageCount)
-                pag.CurrentPage = PageCount;
-
-            return pag;
-        }
-        public BEPager PaginadorDetalle(BEGrid item, List<BEPedidoDDWebDetalle> lst)
-        {
-            BEPager pag = new BEPager();
-
-            int RecordCount;
-
-            RecordCount = lst.Count;
-
-            pag.RecordCount = RecordCount;
-
-            int PageCount = (int)(((float)RecordCount / (float)item.PageSize) + 1);
-            pag.PageCount = PageCount;
-
-            int CurrentPage = (int)item.CurrentPage;
-            pag.CurrentPage = CurrentPage;
-
-            if (CurrentPage > PageCount)
-                pag.CurrentPage = PageCount;
-
-            return pag;
         }
 
         private IEnumerable<PaisModel> DropDowListPaises()

@@ -16,7 +16,7 @@ namespace Portal.Consultoras.Web.Controllers
     {
         delegate List<BEServicePROLFIC> OrderItemsDelegate(List<BEServicePROLFIC> list, Func<BEServicePROLFIC, string> orderFunc);
         OrderItemsDelegate OrderAscending = new OrderItemsDelegate((list, func) => list.OrderBy(func).ToList());
-        OrderItemsDelegate OrderDescending = new OrderItemsDelegate((list, func) => list.OrderBy(func).ToList());
+        OrderItemsDelegate OrderDescending = new OrderItemsDelegate((list, func) => list.OrderByDescending(func).ToList());
 
         public ActionResult Index()
         {
@@ -74,11 +74,7 @@ namespace Portal.Consultoras.Web.Controllers
                     LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
                 }
 
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
+                BEGrid grid = new BEGrid(sidx, sord, page, rows);
                 IEnumerable<BEServicePROLFIC> items = lst;
 
                 #region Sort Section
@@ -155,14 +151,6 @@ namespace Portal.Consultoras.Web.Controllers
                 ServiceODS.BEConsultoraCodigo[] entidad = sv.SelectConsultoraCodigo(userData.PaisID, regionID, zonaID, busqueda, rowCount);
                 return Json(entidad, JsonRequestBehavior.AllowGet);
             }
-        }
-
-        public BEPager Paginador(BEGrid item, List<ReportePedidoCampaniaModel> lst)
-        {
-            var pag = new BEPager { RecordCount = lst.Count, CurrentPage = item.CurrentPage };
-            pag.PageCount = (int)(((float)pag.RecordCount / (float)item.PageSize) + 1);
-            if (pag.CurrentPage > pag.PageCount) pag.CurrentPage = pag.PageCount;
-            return pag;
         }
 
         public ActionResult ExportarExcel(string vPaisID, string vCampania, string vRegion, string vZona, string vConsultora)

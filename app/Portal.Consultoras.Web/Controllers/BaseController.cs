@@ -1987,16 +1987,6 @@ namespace Portal.Consultoras.Web.Controllers
             return ConfigurationManager.AppSettings[key];
         }
 
-        protected BEGrid SetGrid(string sidx, string sord, int page, int rows)
-        {
-            BEGrid grid = new BEGrid();
-            grid.PageSize = rows <= 0 ? 10 : rows;
-            grid.CurrentPage = page <= 0 ? 1 : page;
-            grid.SortColumn = sidx ?? "";
-            grid.SortOrder = sord ?? "asc";
-            return grid;
-        }
-
         protected BEConfiguracionProgramaNuevas GetConfiguracionProgramaNuevas(string constSession)
         {
             constSession = constSession ?? "";

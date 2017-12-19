@@ -103,7 +103,7 @@ namespace Portal.Consultoras.Web.Controllers
                     userData.PedidoID = model.ListaDetalleModel[0].PedidoID;
                     SetUserData(userData);
 
-                    BEGrid grid = SetGrid(sidx, sord, page, rows);
+                    BEGrid grid = new BEGrid(sidx, sord, page, rows);
                     BEPager pag = Util.PaginadorGenerico(grid, model.ListaDetalleModel);
 
                     model.ListaDetalleModel = model.ListaDetalleModel.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize).ToList();
