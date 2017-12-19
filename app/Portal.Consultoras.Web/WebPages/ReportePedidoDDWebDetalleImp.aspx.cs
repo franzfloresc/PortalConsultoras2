@@ -22,16 +22,11 @@ namespace Portal.Consultoras.Web.WebPages
             string CampaniaCod = lst[1];
             string ConsultoraCod = lst[2];
             string ConsultoraNombre = lst[3];
-            string UsuarioNombre = lst[4];
             string Origen = lst[5];
             string Validado = lst[6];
             string Saldo = lst[7];
             string Importe = lst[8];
             string ImporteConDescuento = lst[9];
-            string page = lst[10];
-            string sortname = lst[11];
-            string sortorder = lst[12];
-            string rowNum = lst[13];
             string usuario = lst[14];
             string simbolo = lst[15];
             string TipoProceso = lst[18];

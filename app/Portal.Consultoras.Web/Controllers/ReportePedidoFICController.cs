@@ -45,7 +45,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 List<BEServicePROLFIC> lst = new List<BEServicePROLFIC>();
                 BEPais bepais = new BEPais();
-                DataTable dt = new DataTable();
+                
                 try
                 {
                     if (vPaisID == "")

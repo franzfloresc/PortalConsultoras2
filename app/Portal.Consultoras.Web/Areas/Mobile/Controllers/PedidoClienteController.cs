@@ -319,7 +319,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                             });
                     }
                     List<KeyValuePair<int, string>> dicCabeceras = new List<KeyValuePair<int, string>>();
-                    List<BEPedidoWebDetalle> lst = new List<BEPedidoWebDetalle>();
+
                     List<BEPedidoWebDetalle> lstDetallesTemp = new List<BEPedidoWebDetalle>();
                     foreach (var item in listaClientes)
                     {

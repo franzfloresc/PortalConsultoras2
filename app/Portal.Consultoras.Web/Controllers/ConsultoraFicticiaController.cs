@@ -168,7 +168,7 @@ namespace Portal.Consultoras.Web.Controllers
                     .ForMember(t => t.ActualizarClave, f => f.MapFrom(c => c.ActualizarClave));
 
                 BEConsultoraFicticia entidad = Mapper.Map<ConsultoraFicticiaModel, BEConsultoraFicticia>(model);
-                List<BEConsultora> lst = new List<BEConsultora>();
+
                 int result;
 
                 using (SACServiceClient sv = new SACServiceClient())
@@ -247,11 +247,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 BEConsultoraFicticia entidad = Mapper.Map<ConsultoraFicticiaModel, BEConsultoraFicticia>(model);
 
-                List<BEConsultora> lst = new List<BEConsultora>();
-
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-
                     sv.UpdConsultoraFicticia(entidad.CodigoUsuario, entidad.CodigoConsultora, entidad.PaisID, entidad.ConsultoraID, entidad.ActualizarClave);
                 }
 

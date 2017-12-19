@@ -89,8 +89,6 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = sv.GetConfiguracionCampaniasPorPais(PaisID, CampaniaID).ToList();
                 }
 
-                string ISO = Util.GetPaisISO(PaisID);
-
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
@@ -581,8 +579,6 @@ namespace Portal.Consultoras.Web.Controllers
                         lst = sv.GetCrossSellingAsociacionListado(PaisID, CampaniaID, CUV).ToList();
                     }
 
-                    string ISO = Util.GetPaisISO(PaisID);
-
                     BEGrid grid = new BEGrid();
                     grid.PageSize = rows;
                     grid.CurrentPage = page;
@@ -666,8 +662,6 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             lst = sv.GetSegmentoPlaneamiento(PaisID, CampaniaID).ToList();
                         }
-
-                        string ISO = Util.GetPaisISO(PaisID);
 
                         BEGrid grid = new BEGrid();
                         grid.PageSize = rows;
@@ -913,8 +907,6 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = sv.GetCUVAsociadoByFilter(PaisID, CampaniaID, "", CodigoSegmento).ToList();
 
                 }
-
-                string ISO = Util.GetPaisISO(PaisID);
 
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;

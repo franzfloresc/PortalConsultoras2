@@ -281,7 +281,6 @@ namespace Portal.Consultoras.Web.Controllers
                 model.mGanancia = Util.DecimalToStringFormat(olstObservacionesPedido[0].MontoAhorroCatalogo + olstObservacionesPedido[0].MontoAhorroRevista, userData.CodigoISO);
             model.Origen = TipoOrigen;
             return PartialView("DetalleNotificacionesPedido", model);
-            //return PartialView("ListadoObservaciones", model);
         }
 
         public ActionResult ListarObservacionesStock(long ValStockId)
@@ -436,18 +435,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return Json(new { mensaje, cantidadNotificaciones }, JsonRequestBehavior.AllowGet);
         }
-
-        private List<BENotificaciones> ObtenerNotificaciones()
-        {
-            var userData = UserData();
-            var list = new List<BENotificaciones>();
-            using (var sv = new UsuarioServiceClient())
-            {
-                list = sv.GetNotificacionesConsultora(userData.PaisID, userData.ConsultoraID, userData.IndicadorBloqueoCDR).ToList();
-            }
-            return list;
-        }
-
+        
         public bool CheckDataSessionCantidadNotificaciones()
         {
             if (Session["fechaGetNotificacionesSinLeer"] != null &&

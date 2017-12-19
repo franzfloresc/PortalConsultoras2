@@ -421,7 +421,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public ActionResult ImageTipoOfertaUpload(string qqfile)
         {
-            string FileName = string.Empty;
             try
             {
                 Stream inputStream = Request.InputStream;

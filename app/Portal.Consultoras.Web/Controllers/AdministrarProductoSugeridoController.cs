@@ -70,7 +70,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             BEPager pag = Util.PaginadorGenerico(grid, lst);
             string ISO = Util.GetPaisISO(PaisID);
-            var carpetaPais = Globals.UrlMatriz + "/" + ISO;
+
             lst.Update(x => x.ImagenProducto = x.ImagenProducto ?? "");
 
             var data = new

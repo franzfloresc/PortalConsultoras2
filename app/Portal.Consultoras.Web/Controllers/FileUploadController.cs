@@ -21,7 +21,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public ActionResult ImageUpload(string qqfile)
         {
-            string FileName = string.Empty;
             try
             {
 
@@ -58,7 +57,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public ActionResult ImageOfertasUpload(string qqfile)
         {
-            string FileName = string.Empty;
             try
             {
                 HttpPostedFileBase postedFile = Request.Files[0];
@@ -81,7 +79,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public ActionResult ImageMatrizUpload(string qqfile)
         {
-            string FileName = string.Empty;
             try
             {
                 if (String.IsNullOrEmpty(Request["qqfile"]))
@@ -140,7 +137,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public ActionResult ImageOfertaNuevaUpload(string qqfile)
         {
-            string FileName = string.Empty;
             try
             {
                 if (String.IsNullOrEmpty(Request["qqfile"]))
@@ -178,7 +174,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public ActionResult ImageLugaresPagoUpload(string qqfile)
         {
-            string FileName = string.Empty;
             try
             {
                 if (String.IsNullOrEmpty(Request["qqfile"]))
@@ -216,7 +211,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public ActionResult ImageIncentivoUpload(string qqfile)
         {
-            string FileName = string.Empty;
             try
             {
                 if (String.IsNullOrEmpty(Request["qqfile"]))
@@ -254,7 +248,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public ActionResult ImageOfertaGratisUpload(string qqfile)
         {
-            string FileName = string.Empty;
             try
             {
                 if (String.IsNullOrEmpty(Request["qqfile"]))
