@@ -4536,6 +4536,7 @@
     <Content Include="Views\Bienvenida\_PartialSectionBpt.cshtml" />
     <Content Include="Views\Pedido\_PartialSectionBpt.cshtml" />
     <Content Include="Views\MisCatalogosRevistas\_PartialSectionBpt.cshtml" />
+    <Content Include="Views\PagoEnLinea\PagoEnLinea.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

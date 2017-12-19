@@ -42,9 +42,6 @@
                                 <input type="text" name="txtPagoParcial" id="txtPagoParcial" />
                             </span>
                         </div>
-                        @*<div class="enlace_cambiarContraseniachkAceptoContratoMD">
-                                <a href="javascript:;" class="cambiar_contrasenia misDatosContraseniaEnlace">CAMBIAR CONTRASEÑA</a>
-                            </div>*@
                     </div>
                 </div>
             </form>
@@ -104,13 +101,12 @@
             @*<a class="pagar_btn" id="btnPagar">PAGAR</a>*@
             <form id="formBoton" action="@Url.Action("PagoEnLinea", "PagoEnLinea")" method="post" runat="server">
                 <script id="javascriptBoton" src='https://static-content.vnforapps.com/v1/js/checkout.js?qa=true'
-                        data-sessiontoken=@ViewBag.SessionToken
-                        data-merchantid=@ViewBag.MerchantId
-                        data-merchantlogo=@ViewBag.MerchantLogo
-                        data-formbuttoncolor=@ViewBag.ButtonColor
-                        data-purchasenumber=@ViewBag.PurchaseNumber
-                        data-amount=@ViewBag.SaldoActual
-                     ></script>
+                        data-sessiontoken='@ViewBag.SessionToken'
+                        data-merchantid='@ViewBag.MerchantId'
+                        data-merchantlogo='@ViewBag.MerchantLogo'
+                        data-formbuttoncolor='@ViewBag.ButtonColor'
+                        data-purchasenumber='@ViewBag.PurchaseNumber'
+                        data-amount='@ViewBag.SaldoActual'></script>
             </form>
         </div>
     </div>
