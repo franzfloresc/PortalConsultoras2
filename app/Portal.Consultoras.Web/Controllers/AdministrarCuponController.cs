@@ -100,7 +100,6 @@ namespace Portal.Consultoras.Web.Controllers
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
 
-                BEPager pag = new BEPager();
                 IEnumerable<CuponModel> items = listaCupones;
 
                 if (listaCupones.Any())
@@ -129,7 +128,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-                pag = Util.PaginadorGenerico(grid, listaCupones);
+                BEPager pag = Util.PaginadorGenerico(grid, listaCupones);
 
                 var data = new
                 {
@@ -218,7 +217,6 @@ namespace Portal.Consultoras.Web.Controllers
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
 
-                BEPager pag = new BEPager();
                 IEnumerable<CuponConsultoraModel> items = listaCuponConsultoras;
 
                 if (listaCuponConsultoras.Any())
@@ -247,7 +245,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-                pag = Util.PaginadorGenerico(grid, listaCuponConsultoras);
+                BEPager pag = Util.PaginadorGenerico(grid, listaCuponConsultoras);
 
                 var data = new
                 {

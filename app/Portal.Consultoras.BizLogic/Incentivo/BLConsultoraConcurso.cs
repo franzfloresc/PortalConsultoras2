@@ -413,9 +413,9 @@ namespace Portal.Consultoras.BizLogic
                 {
                     item.NivelesProgramaNuevas = incentivosNivel.Where(p => p.CodigoConcurso == item.CodigoConcurso).ToList();
 
-                    if (incentivosPremios.Where(p => p.CodigoConcurso == item.CodigoConcurso && p.CodigoNivel == item.CodigoNivelProgramaNuevas).Any())
+                    if (incentivosPremios.Any(p => p.CodigoConcurso == item.CodigoConcurso && p.CodigoNivel == item.CodigoNivelProgramaNuevas))
                         item.UrlBannerPremiosProgramaNuevas = string.Format(Resources.IncentivoMessages.UrlBannerPremiosProgramaNuevas, ConfigS3.GetUrlS3(string.Empty), paisISO, Dictionaries.IncentivoProgramaNuevasNiveles[item.CodigoNivelProgramaNuevas], item.CodigoConcurso);
-                    if (incentivosCupon.Where(p => p.CodigoConcurso == item.CodigoConcurso && p.CodigoNivel == item.CodigoNivelProgramaNuevas).Any())
+                    if (incentivosCupon.Any(p => p.CodigoConcurso == item.CodigoConcurso && p.CodigoNivel == item.CodigoNivelProgramaNuevas))
                         item.UrlBannerCuponesProgramaNuevas = string.Format(Resources.IncentivoMessages.UrlBannerCuponesProgramaNuevas, ConfigS3.GetUrlS3(string.Empty), paisISO, Dictionaries.IncentivoProgramaNuevasNiveles[item.CodigoNivelProgramaNuevas], item.CodigoConcurso);
                 }
             }

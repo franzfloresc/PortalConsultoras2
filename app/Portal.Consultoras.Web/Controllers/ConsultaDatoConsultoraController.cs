@@ -124,11 +124,11 @@
                         fechaVencimiento = string.Empty;
                     if (userData.PaisID == 4)
                     {
-                        montoPagar = string.Format("{0:#,##0}", DeudaActualConultora.Replace(',', '.'));//lst[lst.Count - 1].Cargo).Replace(',', '.');
+                        montoPagar = string.Format("{0:#,##0}", DeudaActualConultora.Replace(',', '.'));
                     }
                     else
                     {
-                        montoPagar = string.Format("{0:#,##0.00}", DeudaActualConultora); //lst[lst.Count - 1].Cargo);
+                        montoPagar = string.Format("{0:#,##0.00}", DeudaActualConultora);
                     }
                 }
                 simbolo = string.Format("{0} ", userData.Simbolo);
@@ -143,7 +143,6 @@
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                BEPager pag = new BEPager();
                 IEnumerable<EstadoCuentaModel> items = lst;
 
                 #region Sort Section
@@ -187,7 +186,7 @@
 
                 items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Paginador(grid, lst);
+                BEPager pag = Paginador(grid, lst);
 
                 items.Where(x => x.Glosa == null).Update(r => r.Glosa = string.Empty);
 
@@ -292,7 +291,6 @@
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                BEPager pag = new BEPager();
                 IEnumerable<Portal.Consultoras.Web.ServicePedido.BEPedidoWeb> items = lst;
 
                 #region Sort Section
@@ -336,8 +334,7 @@
 
                 items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 if (userData.PaisID == 4)
                 {
@@ -455,7 +452,6 @@
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                BEPager pag = new BEPager();
                 IEnumerable<Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle> items = lst;
 
                 #region Sort Section
@@ -513,8 +509,7 @@
 
                 items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 if (userData.PaisID == 4)
                 {
@@ -633,7 +628,6 @@
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                BEPager pag = new BEPager();
                 IEnumerable<ServiceCliente.BEPedidoWebDetalle> items = lst;
 
                 #region Sort Section
@@ -659,8 +653,7 @@
 
                 items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 var data = new
                 {
@@ -701,7 +694,6 @@
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                BEPager pag = new BEPager();
                 IEnumerable<ServiceCliente.BEPedidoWebDetalle> items = lst;
 
                 #region Sort Section
@@ -751,8 +743,7 @@
 
                 items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 if (userData.PaisID == 4)
                 {
@@ -978,7 +969,6 @@
             grid.CurrentPage = page;
             grid.SortColumn = sidx;
             grid.SortOrder = sord;
-            BEPager pag = new BEPager();
             bool ErrorServicio;
             string ErrorCode;
             string ErrorMessage;
@@ -1007,8 +997,8 @@
                 }
             }
             #endregion
-            
-            pag = Paginador(grid, campania, lst);
+
+            BEPager pag = Paginador(grid, campania, lst);
 
             var data = new
             {
@@ -1097,8 +1087,6 @@
             if (lstCampaniaModel.Count != 0)
                 return Json(lstCampaniaModel.Distinct().OrderBy(p => p.CampaniaID).ToList(), JsonRequestBehavior.AllowGet);
             else
-
-
                 return Json(lstCampaniaModel, JsonRequestBehavior.AllowGet);
 
 
@@ -1140,8 +1128,6 @@
         public List<RVPRFModel> GetPDFRVDigital(string campania, string codigo, out bool ErrorServicio, out string ErrorCode, out string ErrorMessage)
         {
             UsuarioModel usuario = userData;
-            string Marca;
-            string NombrePais = DevolverNombrePais(codigo, out Marca);
             var complain = new RVDWebCampaniasParam { Pais = usuario.CodigoISO, Tipo = "1", CodigoConsultora = ((usuario.UsuarioPrueba == 1) ? usuario.ConsultoraAsociada : codigo), Campana = campania };
             List<RVPRFModel> lstRVPRFModel = new List<RVPRFModel>();
             ErrorServicio = false;
@@ -1290,7 +1276,7 @@
             int PageCount = (int)(((float)RecordCount / (float)item.PageSize) + 1);
             pag.PageCount = PageCount;
 
-            int CurrentPage = (int)item.CurrentPage;
+            int CurrentPage = item.CurrentPage;
             pag.CurrentPage = CurrentPage;
 
             if (CurrentPage > PageCount)
@@ -1348,7 +1334,7 @@
             int PageCount = (int)(((float)RecordCount / (float)item.PageSize) + 1);
             pag.PageCount = PageCount;
 
-            int CurrentPage = (int)item.CurrentPage;
+            int CurrentPage = item.CurrentPage;
             pag.CurrentPage = CurrentPage;
 
             if (CurrentPage > PageCount)
