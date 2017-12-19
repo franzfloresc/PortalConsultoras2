@@ -255,7 +255,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     .ForMember(t => t.AceptoContrato, f => f.MapFrom(c => c.AceptoContrato));
 
                 BEUsuario entidad = Mapper.Map<MisDatosModel, BEUsuario>(model);
-                string CorreoAnterior = model.CorreoAnterior;
 
                 entidad.CodigoUsuario = (entidad.CodigoUsuario == null) ? "" : UserData().CodigoUsuario;
                 entidad.ZonaID = UserData().ZonaID;

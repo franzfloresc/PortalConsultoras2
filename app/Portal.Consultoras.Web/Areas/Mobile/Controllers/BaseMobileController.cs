@@ -38,8 +38,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 BuildMenuMobile(userData,revistaDigital);
                 CargarValoresGenerales(userData);
 
-                ShowRoomModel ShowRoom = new ShowRoomModel();
-
                 bool mostrarBanner, permitirCerrarBanner = false;
                 if (SiempreMostrarBannerPL20()) mostrarBanner = true;
                 else if (NuncaMostrarBannerPL20()) mostrarBanner = false;
@@ -111,7 +109,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
 
                 ViewBag.MostrarODD = NoMostrarBannerODD();
-                /*FIN: PL20-1289*/
 
                 MostrarBannerApp();
             }
@@ -187,7 +184,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         private bool NuncaMostrarBannerPL20()
         {
             string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
-            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
 
             if (controllerName == "Pedido") return true;
             if (controllerName == "CatalogoPersonalizado") return true;
@@ -226,7 +222,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         private bool NoMostrarBannerODD()
         {
             string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
-            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
 
             if (controllerName == "OfertaLiquidacion") return true;
             if (controllerName == "CatalogoPersonalizado") return true;
@@ -275,7 +270,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                Session["OcultarBannerApp"] = true;
+                Session["OcultarBannerApp"] = true;
+
                 return Json(new
                 {
                     success = true,
@@ -290,14 +286,16 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     message = "No se pudo procesar la solicitud"
                 }, JsonRequestBehavior.AllowGet);
             }
-        }
+        }
+
         private void MostrarBannerApp()
         {
             if (Session["OcultarBannerApp"] != null)
             {
                 Session["BannerApp"] = null;
                 return;
-            }
+            }
+
             if (Session["BannerApp"] == null)
             {
                 using (SACServiceClient sac = new SACServiceClient())
@@ -305,14 +303,16 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     var lstComunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora, Constantes.ComunicadoTipoDispositivo.Mobile);
                     Session["BannerApp"] = lstComunicados.FirstOrDefault(x => x.Descripcion == Constantes.Comunicado.AppConsultora);
                 }
-            }
+            }
+
             var oComunicados = (BEComunicado)Session["BannerApp"];
             if (oComunicados != null)
             {
                 ViewBag.MostrarBannerApp = true;
                 ViewBag.BannerApp = oComunicados;
             }
-        }
+        }
+
         #endregion
     }
 }

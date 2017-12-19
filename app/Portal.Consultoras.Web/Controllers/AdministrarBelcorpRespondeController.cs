@@ -98,8 +98,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult Registrar(AdministrarBelcorpRespondeModel model)
         {
-            string message = string.Empty;
-            string finalPath = string.Empty, httpPath = string.Empty;
             try
             {
                 Mapper.CreateMap<AdministrarBelcorpRespondeModel, BEBelcorpResponde>()

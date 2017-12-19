@@ -57,16 +57,13 @@ namespace Portal.Consultoras.Web.Controllers
 
                     string correoAnterior = Util.Trim(userData.EMail);
                     string correoNuevo = entidad.EMail;
-                    bool emailActivo = userData.EMailActivo;
 
                     ActualizarDatos(entidad, correoAnterior);
                     ActualizarDatosSesion(entidad, correoNuevo, correoAnterior);
 
-                    var emailValidado = userData.EMailActivo;
 
                     string[] parametros = new string[] { userData.CodigoUsuario, userData.PaisID.ToString(), userData.CodigoISO, correoNuevo, "UrlReturn,cupon" };
                     string param_querystring = Util.Encrypt(string.Join(";", parametros));
-                    HttpRequestBase request = this.HttpContext.Request;
 
                     bool tipopais = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesEsika).Contains(userData.CodigoISO);
 
