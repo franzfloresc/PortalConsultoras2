@@ -1,4 +1,6 @@
-﻿@model Portal.Consultoras.Web.Models.ReportePedidoDDWebModel
+﻿@using Portal.Consultoras.Common;
+
+@model Portal.Consultoras.Web.Models.ReportePedidoDDWebModel
 @{
     ViewBag.Title = "Reporte de Pedidos DD y Web";
 }
@@ -189,74 +191,89 @@
             var fechaFin = $("#txtFechaFin").val();
 
             setTimeout(function () {
-                DownloadAttachExcel(paisID, campania, consultora, regionID, zonaID, origen, estadoValidacion, esRechazado, fechaInicio, fechaFin)
+                DownloadExcelPedido(paisID, campania, consultora, regionID, zonaID, origen, estadoValidacion, esRechazado, fechaInicio, fechaFin)
             }, 0);
         });
 
         fnGrilla();
     });
 
-    function DownloadAttachExcel(paisID, campania, consultora, regionID, zonaID, origen, estadoValidacion, esRechazado, fechaInicio, fechaFin) {
-        // TODO: probar la repercusion de este if
-        if (checkTimeout()) {
-            var isPedido = "ExportarExcelCabecera";
-            if ($("#hdnPedidoDetalle").val() === "1") {
-                $("#hdnPedidoDetalle").val("0");
-                isPedido = "ExportarExcelDetallePedido";
-            }
-            var content = baseUrl + "ReportePedidoDDWeb/" + isPedido +
-                "?PaisID=" + paisID +
-                "&Campania=" + campania +
-                "&Consultora=" + consultora +
-                "&RegionID=" + regionID +
-                "&ZonaID=" + zonaID +
-                "&Origen=" + origen +
-                "&EstadoValidacion=" + estadoValidacion +
-                "&EsRechazado=" + esRechazado +
-                "&FechaInicio=" + fechaInicio +
-                "&FechaFin=" + fechaFin;
+    function DownloadExcelPedido(paisID, campania, consultora, regionID, zonaID, origen, estadoValidacion, esRechazado, fechaInicio, fechaFin) {        
+        var urlExcel = "ExportarExcelCabecera";
+        var urlCount = "ValidLimitCountCabecera";
+        var mensajeError = "@Html.Raw(Constantes.MensajesError.ReportePedidoDDWeb_DescargaCabecera)";
+        if ($("#hdnPedidoDetalle").val() === "1") {
+            $("#hdnPedidoDetalle").val("0");
+            urlExcel = "ExportarExcelDetallePedido";
+            urlCount = "ValidLimitCountDetalle";
+            mensajeError = "@Html.Raw(Constantes.MensajesError.ReportePedidoDDWeb_DescargaDetalle)";
+        }
 
-            var iframe_ = document.createElement("iframe");
-            iframe_.style.display = "none";
-            iframe_.setAttribute("src", content);
-            iframe_.frameBorder = 0;
+        var parameters = "?PaisID=" + paisID +
+            "&Campania=" + campania +
+            "&Consultora=" + consultora +
+            "&RegionID=" + regionID +
+            "&ZonaID=" + zonaID +
+            "&Origen=" + origen +
+            "&EstadoValidacion=" + estadoValidacion +
+            "&EsRechazado=" + esRechazado +
+            "&FechaInicio=" + fechaInicio +
+            "&FechaFin=" + fechaFin;
 
-            if (navigator.userAgent.indexOf("MSIE") > -1 && !window.opera) { // Si es Internet Explorer
-                iframe_.onreadystatechange = function () {
-                    switch (this.readyState) {
-                        case "loading":
-                            waitingDialog({});
-                            break;
-                        case "complete":
-                        case "interactive":
-                        case "uninitialized":
-                            closeWaitingDialog();
-                            delCookie("DescargaCompleta");
-                            break;
-                        default:
-                            closeWaitingDialog();
-                            delCookie("DescargaCompleta");
-                            break;
-                    }
-                };
-            }
-            else {
-                // Si es Firefox o Chrome
-                document.body.appendChild(iframe_);
+        waitingDialog();
+        $.get(baseUrl + "ReportePedidoDDWeb/" + urlCount + parameters)
+            .done(function (response) {
+                if (!checkTimeout(response)) return false;
 
-                var _timer = setInterval(function () {
-                    var success = getCookie("DescargaCompleta");
-                    if (success === "1") {
-                        clearInterval(_timer);
+                if (!response.success) alert(response.message);
+                else DownloadAttachExcel(baseUrl + "ReportePedidoDDWeb/" + urlExcel + parameters);
+            })
+            .fail(function() { alert(mensajeError); })
+            .always(closeWaitingDialog);
+    }
+
+    function DownloadAttachExcel(content) {
+        console.log(content);
+        var iframe_ = document.createElement("iframe");
+        iframe_.style.display = "none";
+        iframe_.setAttribute("src", content);
+        iframe_.frameBorder = 0;
+
+        if (navigator.userAgent.indexOf("MSIE") > -1 && !window.opera) { // Si es Internet Explorer
+            iframe_.onreadystatechange = function () {
+                switch (this.readyState) {
+                    case "loading":
+                        waitingDialog();
+                        break;
+                    case "complete":
+                    case "interactive":
+                    case "uninitialized":
                         closeWaitingDialog();
                         delCookie("DescargaCompleta");
-                    }
-                }, 1000)
-                return;
-            }
-
-            document.body.appendChild(iframe_);
+                        break;
+                    default:
+                        closeWaitingDialog();
+                        delCookie("DescargaCompleta");
+                        break;
+                }
+            };
         }
+        else {
+            // Si es Firefox o Chrome
+            document.body.appendChild(iframe_);
+
+            var _timer = setInterval(function () {
+                var success = getCookie("DescargaCompleta");
+                if (success === "1") {
+                    clearInterval(_timer);
+                    closeWaitingDialog();
+                    delCookie("DescargaCompleta");
+                }
+            }, 1000)
+            return;
+        }
+
+        document.body.appendChild(iframe_);
     }
 
     function getCookie(name) {

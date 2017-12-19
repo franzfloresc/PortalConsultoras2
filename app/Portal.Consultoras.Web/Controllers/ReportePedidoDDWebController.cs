@@ -407,7 +407,39 @@ namespace Portal.Consultoras.Web.Controllers
             Util.ExportToExcel("PedidoDetalleConsultora", lst, dic, "DescargaCompleta", "1");
             return new EmptyResult();
         }
+        public JsonResult ValidLimitCountDetalle(FiltroReportePedidoDDWebModel model)
+        {
+            try
+            {
+                int maxItems = int.Parse(GetConfiguracionManager(Constantes.ConstSession.DescargaExcelMaxItems));
+                int count = GetPedidoWebDDDetalle(model).Count;
 
+                if (maxItems < count) return ErrorJson(string.Format(Constantes.MensajesError.LimiteDescargaSobrepasado, maxItems), true);
+                return SuccessJson(string.Empty, true);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return ErrorJson(Constantes.MensajesError.ReportePedidoDDWeb_DescargaCabecera, true);
+            }
+        }
+
+        public JsonResult ValidLimitCountCabecera(FiltroReportePedidoDDWebModel model)
+        {
+            try
+            {
+                int maxItems = int.Parse(GetConfiguracionManager(Constantes.ConstSession.DescargaExcelMaxItems));
+                int count = GetPedidoWebDD(model).Count;
+
+                if (maxItems < count) return ErrorJson(string.Format(Constantes.MensajesError.LimiteDescargaSobrepasado, maxItems), true);
+                return SuccessJson(string.Empty, true);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return ErrorJson(Constantes.MensajesError.ReportePedidoDDWeb_DescargaCabecera, true);
+            }
+        }
         public ActionResult ExportarExcelCabecera(FiltroReportePedidoDDWebModel model)
         {
             var dic = new Dictionary<string, string>{
@@ -849,7 +881,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 list = list.Select((p, i) => {
-                    p.NroRegistro = i.ToString();
+                    p.NroRegistro = (i + 1).ToString();
                     p.paisISO = model.CodigoISO;
                     p.TipoProceso = p.OrigenNombre;
 
