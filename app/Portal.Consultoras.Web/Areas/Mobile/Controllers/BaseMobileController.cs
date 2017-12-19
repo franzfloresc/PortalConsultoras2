@@ -306,7 +306,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
             }
             var oComunicados = (BEComunicado)Session["BannerApp"];
-            if (oComunicados != null)
+            var consultoraNueva = UserData().ConsultoraNueva;
+            if (oComunicados != null && (consultoraNueva == 1 || consultoraNueva == 7))
             {
                 ViewBag.MostrarBannerApp = true;
                 ViewBag.BannerApp = oComunicados;
