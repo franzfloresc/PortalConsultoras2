@@ -351,7 +351,7 @@ namespace Portal.Consultoras.Web.Controllers
                 decimal suma = lstDetallesTemp.Sum(p => p.ImporteTotal);
                 dicCabeceras.Add(new KeyValuePair<int, string>(lstDetallesTemp.Count, item.Nombre));
                 lstDetallesTemp.Add(new SC.BEPedidoWebDetalle() { ImporteTotalPedido = suma });
-                lstDetalles.AddRange((List<SC.BEPedidoWebDetalle>)lstDetallesTemp);
+                lstDetalles.AddRange(lstDetallesTemp);
             }
 
             Dictionary<string, string> dicDetalles = new Dictionary<string, string>();
@@ -473,7 +473,7 @@ namespace Portal.Consultoras.Web.Controllers
                         titlesStyleh.Font.FontColor = XLColor.FromHtml("#000000");
                         wb.NamedRanges.NamedRange("Totals").Ranges.Style = titlesStyle;
 
-                        decimal importT = ((SC.BEPedidoWebDetalle)SourceDetails[i]).ImporteTotalPedido;
+                        decimal importT = SourceDetails[i].ImporteTotalPedido;
                         string importeTotalPedido = Util.DecimalToStringFormat(importT, userData.CodigoISO);
 
                         ws.Cell(row, col - 2).Value = arrTotal[0];

@@ -41,7 +41,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 return RedirectToAction("Validado", "Pedido", new { area = "Mobile" });
 
 
-
             var detallesPedidoWeb = ObtenerPedidoWebDetalle();
             if ((detallesPedidoWeb == null || !detallesPedidoWeb.Any())
                 && GetSeInsertoProductoAutomaticos(userData))
@@ -652,55 +651,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return result;
         }
-
-        private dynamic CalcularGananciaEstimada(int paisId, int campaniaId, int pedidoId, decimal totalPedido)
-        {
-            // se consultan los indicadores de descuento de los productos del pedido (PedidoWebDetalle)
-            BEFactorGanancia FactorGanancia = new BEFactorGanancia();
-            List<BEPedidoWebDetalleDescuento> ProductosIndicadorDscto = new List<BEPedidoWebDetalleDescuento>();
-
-            using (SACServiceClient sv = new SACServiceClient())
-            {
-                ProductosIndicadorDscto = sv.GetIndicadorDescuentoByPedidoWebDetalle(paisId, campaniaId, pedidoId).ToList();
-                FactorGanancia = sv.GetFactorGananciaEscalaDescuento(totalPedido, paisId);
-                if (FactorGanancia == null)
-                    FactorGanancia = new BEFactorGanancia { FactorGananciaID = 0, Porcentaje = 0 };
-            }
-
-            // se recorren los productos del pedido y se evalua su indicador de descuento aplicando la logica siguiente:
-            ProductosIndicadorDscto.ForEach(delegate (BEPedidoWebDetalleDescuento productoIndicadorDscto)
-            {
-                string indicador = productoIndicadorDscto.IndicadorDscto.ToLower();
-                decimal indicadorNumero;
-
-                // Espacio en blanco: Precio Unitario - Precio Catalogo
-                if (indicador == " ")
-                {
-                    productoIndicadorDscto.MontoDscto = (productoIndicadorDscto.PrecioUnidad - productoIndicadorDscto.PrecioCatalogo2) * productoIndicadorDscto.Cantidad;
-                    return;
-                }
-                // 'C': porcentaje de acuerdo al rango del total
-                if (indicador == "c")
-                {
-                    productoIndicadorDscto.MontoDscto = (productoIndicadorDscto.PrecioUnidad * (FactorGanancia.Porcentaje / 100)) * productoIndicadorDscto.Cantidad;
-                    return;
-                }
-                // numero: porcentaje de descuento
-                if (decimal.TryParse(indicador, out indicadorNumero))
-                {
-                    // debe estar en el rango de 1 a 100
-                    if (indicadorNumero >= 0 && indicadorNumero <= 100)
-                    {
-                        productoIndicadorDscto.MontoDscto = (productoIndicadorDscto.PrecioUnidad * (indicadorNumero / 100)) * productoIndicadorDscto.Cantidad;
-                    }
-                }
-            });
-
-            // se suman todos los montos de descuento para obtener el estimado de ganancia
-            decimal estimadoGanancia = ProductosIndicadorDscto.Sum(p => p.MontoDscto);
-            return estimadoGanancia;
-        }
-
+        
         #endregion
 
         private List<BEEscalaDescuento> GetParametriaOfertaFinal()
