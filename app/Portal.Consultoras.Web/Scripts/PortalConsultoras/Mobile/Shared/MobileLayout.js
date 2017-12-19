@@ -165,7 +165,7 @@
                 'label': 'Oferta del dia'
             });
         }
-        else if (curSlide.indexOf("content_banner_header_showroom") > -1) {
+        else if (curSlide.indexOf("bannerShowRoomTop") > -1) {
             dataLayer.push({
                 'event': 'virtualEvent',
                 'category': 'Banners',
@@ -333,7 +333,7 @@
 
     });
 
-    $(".content_banner_header_showroom").click(function () {
+    $("#bannerShowRoomTop").click(function () {
         dataLayer.push({
             'event': 'promotionClick',
             'ecommerce': {
