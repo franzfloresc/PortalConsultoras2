@@ -249,7 +249,8 @@
             Ninguno = 0,
             GPR = 2,
             Reservado = 3,
-            HorarioRestringido = 4
+            HorarioRestringido = 4,
+            Facturado = 5
         }
 
         public enum TipoLogin
