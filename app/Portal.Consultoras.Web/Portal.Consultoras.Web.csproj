@@ -3735,6 +3735,7 @@
     <Content Include="Areas\Mobile\Views\Bienvenida\_PartialSectionBpt.cshtml" />
     <Content Include="Areas\Mobile\Views\Pedido\_PartialSectionBpt.cshtml" />
     <Content Include="Areas\Mobile\Views\Catalogo\_PartialSectionBpt.cshtml" />
+    <Content Include="Areas\Mobile\Views\RevistaDigital\template-confirmacion-datos.cshtml" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>
