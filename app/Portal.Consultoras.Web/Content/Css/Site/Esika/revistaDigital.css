@@ -3330,6 +3330,7 @@
 .popup_confirmacion_datos .contenido-table-datos{
 display:table;
 height:432px;
+width: 100%;
 }
 .popup_confirmacion_datos .contenido-table-datos .cont-datos{
 vertical-align:middle;
@@ -3347,6 +3348,7 @@ font-size: 13px;
 font-weight: bolder;
 margin-bottom: 0;
 letter-spacing: 1px;
+text-align:center;
 }
 
 .popup_confirmacion_datos p.estasganando {

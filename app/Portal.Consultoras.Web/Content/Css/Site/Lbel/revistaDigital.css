@@ -3330,6 +3330,7 @@
 .popup_confirmacion_datos .contenido-table-datos{
 display:table;
 height:432px;
+width:100%;
 }
 .popup_confirmacion_datos .contenido-table-datos .cont-datos{
 vertical-align:middle;
@@ -3346,6 +3347,7 @@ display: block;
 font-size: 13px;
 font-weight: bolder;
 margin-bottom: 0;
+text-align:center;
 letter-spacing: 1px;
 }
 
