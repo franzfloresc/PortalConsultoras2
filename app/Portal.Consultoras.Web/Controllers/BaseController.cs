@@ -4214,5 +4214,42 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+
+        protected string ActualizarMisDatos(ServiceUsuario.BEUsuario usuario, string correoAnterior)
+        {
+            usuario.CodigoUsuario = (usuario.CodigoUsuario == null) ? "" : UserData().CodigoUsuario;
+
+            if (string.IsNullOrWhiteSpace(usuario.EMail))
+                usuario.EMail = UserData().EMail;
+
+            if (string.IsNullOrWhiteSpace(usuario.Celular))
+                usuario.Celular = UserData().Celular;
+
+            if (string.IsNullOrWhiteSpace(usuario.Telefono))
+                usuario.Telefono = UserData().Telefono;
+
+            if (string.IsNullOrWhiteSpace(usuario.TelefonoTrabajo))
+                usuario.TelefonoTrabajo = UserData().TelefonoTrabajo;
+
+            if (string.IsNullOrWhiteSpace(usuario.Sobrenombre))
+                usuario.Sobrenombre = UserData().Sobrenombre;
+
+            usuario.ZonaID = UserData().ZonaID;
+            usuario.RegionID = UserData().RegionID;
+            usuario.ConsultoraID = UserData().ConsultoraID;
+            usuario.PaisID = UserData().PaisID;
+            usuario.PrimerNombre = userData.PrimerNombre;
+            usuario.CodigoISO = UserData().CodigoISO;
+
+            var resultado = string.Empty;
+            using (UsuarioServiceClient svr = new UsuarioServiceClient())
+            {
+                resultado = svr.ActualizarMisDatos(usuario, correoAnterior);
+            }
+
+            return resultado;
+        }
+
+
     }
 }

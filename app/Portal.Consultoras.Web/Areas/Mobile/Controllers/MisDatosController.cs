@@ -168,49 +168,32 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                BEUsuario entidad = Mapper.Map<MisDatosModel, BEUsuario>(model);
-                string CorreoAnterior = model.CorreoAnterior;
+                var usuario = Mapper.Map<MisDatosModel, BEUsuario>(model);
 
-                entidad.CodigoUsuario = (entidad.CodigoUsuario == null) ? "" : UserData().CodigoUsuario;
-                //
-                entidad.EMail = (entidad.EMail == null) ? "" : entidad.EMail;
-                entidad.Telefono = (entidad.Telefono == null) ? "" : entidad.Telefono;
-                entidad.TelefonoTrabajo = (entidad.TelefonoTrabajo == null) ? "" : entidad.TelefonoTrabajo;
-                entidad.Celular = (entidad.Celular == null) ? "" : entidad.Celular;
-                entidad.Sobrenombre = (entidad.Sobrenombre == null) ? "" : entidad.Sobrenombre;
-                //
-                entidad.ZonaID = UserData().ZonaID;
-                entidad.RegionID = UserData().RegionID;
-                entidad.ConsultoraID = UserData().ConsultoraID;
-                entidad.PaisID = UserData().PaisID;
-                entidad.PrimerNombre = userData.PrimerNombre;
-                entidad.CodigoISO = UserData().CodigoISO;
+                string resultado = ActualizarMisDatos(usuario, model.CorreoAnterior);
+                bool seActualizoMisDatos = resultado.Split('|')[0] != "0";
+                string message = resultado.Split('|')[2];
+                int Cantidad = int.Parse(resultado.Split('|')[3]);
 
-                using (UsuarioServiceClient svr = new UsuarioServiceClient())
+                if (!seActualizoMisDatos)
                 {
-                    string resultado = svr.ActualizarMisDatos(entidad, CorreoAnterior);
-                    string[] lst = resultado.Split('|');
-
-                    if (lst[0] == "0")
+                    return Json(new
                     {
-                        return Json(new
-                        {
-                            Cantidad = lst[3],
-                            success = false,
-                            message = lst[2],
-                            extra = ""
-                        });
-                    }
-                    else
+                        success = false,
+                        message,
+                        Cantidad,
+                        extra = string.Empty
+                    });
+                }
+                else
+                {
+                    return Json(new
                     {
-                        return Json(new
-                        {
-                            Cantidad = 0,
-                            success = true,
-                            message = lst[2],
-                            extra = ""
-                        });
-                    }
+                        success = true,
+                        message,
+                        Cantidad = 0,
+                        extra = string.Empty
+                    });
                 }
             }
             catch (FaultException ex)
