@@ -123,8 +123,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                     int result;
                     bool cambio;
-                    string resultado = string.Empty;
-
 
                     ClienteContactaConsultoraModel ConsultoraAfiliar = DatoUsuario();
                     model.CorreoAnterior = UserData().EMail;
@@ -307,7 +305,6 @@ namespace Portal.Consultoras.Web.Controllers
                 ClienteContactaConsultoraModel ConsultoraAfiliar = DatoUsuario();
                 HasSuccess = true;
 
-                string emailConsultora = UserData().EMail;
                 if (String.IsNullOrEmpty(ConsultoraAfiliar.Email.Trim()) || !ConsultoraAfiliar.EmailActivo)
                 {
                     result += "|No tiene email activo.";
@@ -787,8 +784,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (olstMisPedidosDet.Count > 0)
                 {
-                    MisPedidosModel consultoraOnlineMisPedidos = new MisPedidosModel();
-                    consultoraOnlineMisPedidos = (MisPedidosModel)Session["objMisPedidos"];
+                    MisPedidosModel consultoraOnlineMisPedidos = (MisPedidosModel)Session["objMisPedidos"];
                     BEMisPedidos pedido = new BEMisPedidos();
                     long _pedidoId = Convert.ToInt64(pedidoId);
                     pedido = consultoraOnlineMisPedidos.ListaPedidos.FirstOrDefault(p => p.PedidoId == _pedidoId);
@@ -1059,8 +1055,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (tipo == 1)  // solo para App Catalogos
                 {
-                    List<BEProducto> olstMisProductos = new List<BEProducto>();
-                    olstMisProductos = (List<BEProducto>)Session["objMisPedidosDetalleVal"];
+                    List<BEProducto> olstMisProductos = (List<BEProducto>)Session["objMisPedidosDetalleVal"];
 
                     List<BEPedidoWebDetalle> olstPedidoWebDetalle = new List<BEPedidoWebDetalle>();
                     BEPedidoWebDetalle bePedidoWebDetalle;
@@ -1348,7 +1343,6 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var userData = UserData();
-                List<BEPedidoWebDetalle> olstPedidoWebDetalle = new List<BEPedidoWebDetalle>();
 
                 BEPedidoWebDetalle oBePedidoWebDetalle = new BEPedidoWebDetalle();
                 oBePedidoWebDetalle.IPUsuario = userData.IPUsuario;
@@ -1377,7 +1371,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 bool errorServer;
                 string tipo;
-                olstPedidoWebDetalle = AdministradorPedido(oBePedidoWebDetalle, "I", out errorServer, out tipo);
+                List<BEPedidoWebDetalle> olstPedidoWebDetalle = AdministradorPedido(oBePedidoWebDetalle, "I", out errorServer, out tipo);
 
                 return (!errorServer) ? olstPedidoWebDetalle : null;
             }
@@ -1557,21 +1551,17 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (ServiceSAC.SACServiceClient sv = new ServiceSAC.SACServiceClient())
             {
-                MisPedidosModel consultoraOnlineMisPedidos = new MisPedidosModel();
-                consultoraOnlineMisPedidos = (MisPedidosModel)Session["objMisPedidos"];
+                MisPedidosModel consultoraOnlineMisPedidos = (MisPedidosModel)Session["objMisPedidos"];
 
                 ServiceSAC.BETablaLogicaDatos[] tablalogicaDatosMail = sv.GetTablaLogicaDatos(PaisId, 57);
-                String emailOculto = tablalogicaDatosMail.First(x => x.TablaLogicaDatosID == 5701).Descripcion;
                 ServiceSAC.BETablaLogicaDatos[] tablalogicaDatos = sv.GetTablaLogicaDatos(PaisId, 56);
                 numIteracionMaximo = Convert.ToInt32(tablalogicaDatos.First(x => x.TablaLogicaDatosID == 5601).Codigo);
-                String horas = tablalogicaDatos.First(x => x.TablaLogicaDatosID == 5603).Codigo;
 
                 if (NumIteracion == numIteracionMaximo)
                 {
                     sv.RechazarSolicitudCliente(PaisId, SolicitudId, true, OpcionRechazo, RazonMotivoRechazo);
 
-                    BEMisPedidos pedido = new BEMisPedidos();
-                    pedido = consultoraOnlineMisPedidos.ListaPedidos.FirstOrDefault(p => p.PedidoId == SolicitudId);
+                    BEMisPedidos pedido = consultoraOnlineMisPedidos.ListaPedidos.FirstOrDefault(p => p.PedidoId == SolicitudId);
 
                     if (pedido.FlagMedio == "01")
                     {
@@ -1927,31 +1917,23 @@ namespace Portal.Consultoras.Web.Controllers
         public ClienteContactaConsultoraModel DatoUsuario()
         {
             var consultoraAfiliar = new ClienteContactaConsultoraModel();
-            consultoraAfiliar.NombreConsultora = UserData().PrimerNombre;
 
-            string emailConsultora = UserData().EMail;
+            consultoraAfiliar.NombreConsultora = UserData().PrimerNombre;
+            ServiceSAC.BEAfiliaClienteConsultora beAfiliaCliente;
 
             using (ServiceSAC.SACServiceClient sc = new ServiceSAC.SACServiceClient())
             {
-                ServiceSAC.BEAfiliaClienteConsultora beAfiliaCliente = sc.GetAfiliaClienteConsultoraByConsultora(UserData().PaisID, UserData().CodigoConsultora);
-
-                consultoraAfiliar.Afiliado = beAfiliaCliente.EsAfiliado > 0;
-
-                consultoraAfiliar.EsPrimeraVez = beAfiliaCliente.EsAfiliado < 0;
-
-                consultoraAfiliar.ConsultoraID = beAfiliaCliente.ConsultoraID;
-
-                consultoraAfiliar.EmailActivo = beAfiliaCliente.EmailActivo;
-
-                consultoraAfiliar.NombreCompleto = beAfiliaCliente.NombreCompleto;
-
-                consultoraAfiliar.Email = beAfiliaCliente.Email;
-
-                consultoraAfiliar.Celular = beAfiliaCliente.Celular;
-
-                consultoraAfiliar.Telefono = beAfiliaCliente.Telefono;
+                beAfiliaCliente = sc.GetAfiliaClienteConsultoraByConsultora(UserData().PaisID, UserData().CodigoConsultora);
             }
 
+            consultoraAfiliar.Afiliado = beAfiliaCliente.EsAfiliado > 0;
+            consultoraAfiliar.EsPrimeraVez = beAfiliaCliente.EsAfiliado < 0;
+            consultoraAfiliar.ConsultoraID = beAfiliaCliente.ConsultoraID;
+            consultoraAfiliar.EmailActivo = beAfiliaCliente.EmailActivo;
+            consultoraAfiliar.NombreCompleto = beAfiliaCliente.NombreCompleto;
+            consultoraAfiliar.Email = beAfiliaCliente.Email;
+            consultoraAfiliar.Celular = beAfiliaCliente.Celular;
+            consultoraAfiliar.Telefono = beAfiliaCliente.Telefono;
 
             return consultoraAfiliar;
         }

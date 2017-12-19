@@ -42,8 +42,7 @@ namespace Portal.Consultoras.Web.Controllers
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-
-                BEPager pag = new BEPager();
+                
                 IEnumerable<BERol> items = lst;
 
                 #region Sort Section
@@ -72,7 +71,7 @@ namespace Portal.Consultoras.Web.Controllers
                 else
                     items = items.Where(p => p.Descripcion.ToUpper().Contains(vDescripcion.ToUpper())).Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Util.PaginadorGenerico(grid, items.ToList());
+                BEPager pag = Util.PaginadorGenerico(grid, items.ToList());
 
                 var data = new
                 {
