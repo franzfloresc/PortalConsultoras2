@@ -50,33 +50,66 @@ $(document).ready(function () {
         $(window).scroll();
     });
 
-    $('.popup_confirmacion_datos .form-confirmacion').hide();
-    $('.popup_confirmacion_datos .form-datos .input input').keyup(function () {
+    /* popup validar datos 2017 */
+    $('.popup_confirmacion_datos .form-confirmacion').hide(); isMobile()
+    if (isMobile()) {
+        $('.popup_confirmacion_datos .form-datos .input input').keyup(function () {
 
-        var empty = false;
-        $('.popup_confirmacion_datos .form-datos .input input').each(function () {
-            if ($(this).val() == '') {
-                empty = true;
+            var empty = false;
+            $('.popup_confirmacion_datos .form-datos .input input').each(function () {
+                if ($(this).val() == '') {
+                    empty = true;
+                }
+            });
+
+            if (empty) {
+                $('.popup_confirmacion_datos .form-datos button').attr('disabled', 'disabled');
+                $(".popup_confirmacion_datos .form-datos button").css("background-color", "#e0e0e0");
+            } else {
+                $('.popup_confirmacion_datos .form-datos button').removeAttr('disabled');
+                $(".popup_confirmacion_datos .form-datos button").css("background-color", "#e81c36");
+
+                $('.popup_confirmacion_datos .form-datos button').on('click', function () {
+                    $('.popup_confirmacion_datos .contenido-popup-nuevo-2017 .estructura_confirmar_datos .centrar-vertical-contenido .form_datos').hide();
+                    $('.popup_confirmacion_datos .form-confirmacion').show();
+                    setTimeout(function () {
+                        $('.popup_confirmacion_datos .contenido-popup-nuevo-2017 .estructura_confirmar_datos .centrar-vertical-contenido .form_datos').show();
+                        $('.popup_confirmacion_datos .form-confirmacion').hide();
+                    }, 9900);
+                });
             }
         });
+    }
+    else
+    {
+        $('.popup_confirmacion_datos .form-datos .input input').keyup(function () {
 
-        if (empty) {
-            $('.popup_confirmacion_datos .form-datos button').attr('disabled', 'disabled');
-            $(".popup_confirmacion_datos .form-datos button").css("background-color", "#e0e0e0");
-        } else {
-            $('.popup_confirmacion_datos .form-datos button').removeAttr('disabled');
-            $(".popup_confirmacion_datos .form-datos button").css("background-color", "#e81c36");
-
-            $('.popup_confirmacion_datos .form-datos button').on('click', function () {
-                $('.popup_confirmacion_datos .contenido-table-datos .cont-datos .form_datos').hide();
-                $('.popup_confirmacion_datos .form-confirmacion').show();
-                setTimeout(function () {
-                    $('.popup_confirmacion_datos .contenido-table-datos .cont-datos .form_datos').show();
-                    $('.popup_confirmacion_datos .form-confirmacion').hide();
-                }, 1100);
+            var empty = false;
+            $('.popup_confirmacion_datos .form-datos .input input').each(function () {
+                if ($(this).val() == '') {
+                    empty = true;
+                }
             });
-        }
-    });
+
+            if (empty) {
+                $('.popup_confirmacion_datos .form-datos button').attr('disabled', 'disabled');
+                $(".popup_confirmacion_datos .form-datos button").css("background-color", "#e0e0e0");
+            } else {
+                $('.popup_confirmacion_datos .form-datos button').removeAttr('disabled');
+                $(".popup_confirmacion_datos .form-datos button").css("background-color", "#e81c36");
+
+                $('.popup_confirmacion_datos .form-datos button').on('click', function () {
+                    $('.popup_confirmacion_datos .contenido-table-datos .cont-datos .form_datos').hide();
+                    $('.popup_confirmacion_datos .form-confirmacion').show();
+                    setTimeout(function () {
+                        $('.popup_confirmacion_datos .contenido-table-datos .cont-datos .form_datos').show();
+                        $('.popup_confirmacion_datos .form-confirmacion').hide();
+                    }, 1100);
+                });
+            }
+        });
+    }
+    /* fin popup validar datos 2017 */
 
     $('ul[data-tab="tab"] li a')
         .mouseover(function () {

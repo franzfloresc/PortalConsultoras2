@@ -1,0 +1,174 @@
+﻿<style>
+    .boton_popup_confirmacion_datos {
+    background: #e81c36 !important;
+}
+.popup_confirmacion_datos .estructura_confirmar_datos{
+    box-shadow: none !important;
+        background: white;
+}
+.popup_confirmacion_datos .contenido-table-datos{
+display:table;
+height:432px;
+width: 100%;
+}
+.popup_confirmacion_datos .contenido-table-datos .cont-datos{
+vertical-align:middle;
+display:table-cell;
+}
+.popup_confirmacion_datos {
+padding: 0px 40px;
+}
+    .popup_confirmacion_datos p.felicidades {
+        display: block;
+        font-size: 17px;
+        font-weight: bolder;
+        margin-bottom: 0;
+        letter-spacing: 1px;
+        text-align: center;
+        color: black;
+    }
+.popup_confirmacion_datos .contenido-table-datos .cont-datos .form-confirmacion .loader-confirmacion {
+        background: url('/Content/Images/Esika/loading_circle.gif');
+        width: 50px;
+        height: 50px;
+        display: block;
+        margin: auto;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+.popup_confirmacion_datos p.estasganando {
+display: block;
+text-align: center;
+font-size: 17px;
+font-weight: bolder;
+letter-spacing: 1px;
+color: #e81c36;
+margin-bottom: 20px;
+}
+
+    .popup_confirmacion_datos span.confirmanos {
+        display: block;
+        text-align: center;
+        letter-spacing: 0.5px;
+        font-size: 11px;
+        margin-bottom: 20px;
+        line-height: 16px;
+        color: black;
+        text-transform: initial;
+    }
+
+.popup_confirmacion_datos .form-datos button {
+background: #e0e0e0;
+letter-spacing: 1px;
+color: white;
+border: none;
+font-size: 17px;
+text-align: center;
+display: block;
+font-weight: bolder;
+width: 100%;
+/* padding: 15px 50px; */
+/* margin-top: 5px; */
+/* margin-bottom: 20px; */
+width: 240px;
+margin: auto;
+height: 50px;
+margin-bottom: 20px;
+margin-top: 20px;
+}
+
+.popup_confirmacion_datos .form-datos {
+margin-bottom: opx;
+}
+.popup_confirmacion_datos .form-datos .input {
+margin-bottom: 15px;
+}
+.popup_confirmacion_datos .form-datos .input:last-child{
+margin-bottom:0;
+}
+.popup_confirmacion_datos .form-datos .input img {
+display: inline;
+position: absolute;
+padding: 0px 10px;
+/* width: 20px; */
+margin-top: 14px;
+/* width: 20px; */
+}
+.popup_confirmacion_datos .form-datos .input img.phone {
+margin-top: 10px;
+margin-left: 4px;
+}
+.popup_confirmacion_datos .form-datos .input img.info {
+display: block;
+padding: 0px;
+margin-top: 4px;
+border: none;
+background: none;
+width: 20px;
+height: 20px;
+}
+    .popup_confirmacion_datos .form-datos .input input {
+        display: inline;
+        padding: 12px 40px;
+        width: 100%;
+        border: 1px solid #e0e0e0;
+        height: 40px;
+        color: black;
+        letter-spacing: 0.5px;
+    }
+
+    .popup_confirmacion_datos .form-datos .input span {
+        text-align: left;
+        display: block;
+        /* padding: 12pt 27px; */
+        width: 100%;
+        padding-left: 30px;
+        color: #808080;
+        line-height: 13px;
+        font-size: 11px;
+        text-transform: initial;
+        letter-spacing: 0.5px;
+    } 
+</style>
+<div class="Content_general_pop_up CompartirCorreoPop contenedor_fondo_popup" id="PopRDSuscripcion" data-popup-main=""
+     style="display:block; font-family: 'Lato' !important;"
+     data-popup-function-hide="RDPopupCerrar()">
+    <div class="content_pop_up_intriga popup_confirmacion_datos" data-popup-body="">
+        <div class="contenido-popup-nuevo-2017">
+            <div class="centrar-estructura estructura_confirmar_datos">
+                <div class="centrar-vertical-contenido">
+                    <div class="form_datos">
+                        <p class="felicidades">FELICIDADES ELIZABETH</p>
+                        <p class="estasganando">¡YA ESTÁS SUSCRITA!</p>
+                        <span class="confirmanos">
+                            Confírmanos tus datos <b>y además de los beneficios del Club</b>, podrás recibir los mejores tips para ganar.
+                        </span>
+                        <div class="form-datos">
+                            <div class="input">
+                                <img src="~/Content/Images/mailIcon.png" alt="">
+                                <input type="text" class="txt1">
+                            </div>
+                            <div class="input">
+                                <img src="~/Content/Images/phoneIcon.png" alt="" class="phone">
+                                <input type="text" class="txt2">
+                            </div>
+                            <button>CONFIRMAR DATOS</button>
+                            <div class="input">
+                                <img src="~/Content/Images/alertIcon.png" alt="" class="info">
+                                <span>
+                                    No olvides buscar nuestro mail en tus correos no deseados y/o promociones y agregarlo como remitente seguro.
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-confirmacion" style="display:none;">
+                        <p class="felicidades">¡GRACIAS POR CONFIRMAR TUS DATOS!</p>
+                        <div class="loader-confirmacion"></div>
+                    </div>
+                </div>
+                <a class="cerrar-popup" data-popup-close=""><img src="@Url.Content("~/Content/Images/close-icon.svg")" alt=""></a>
+            </div>
+        </div>
+    </div>
+</div>
