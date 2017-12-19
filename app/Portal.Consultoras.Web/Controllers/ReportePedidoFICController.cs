@@ -14,10 +14,6 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class ReportePedidoFICController : BaseController
     {
-        delegate List<BEServicePROLFIC> OrderItemsDelegate(List<BEServicePROLFIC> list, Func<BEServicePROLFIC, string> orderFunc);
-        OrderItemsDelegate OrderAscending = new OrderItemsDelegate((list, func) => list.OrderBy(func).ToList());
-        OrderItemsDelegate OrderDescending = new OrderItemsDelegate((list, func) => list.OrderByDescending(func).ToList());
-
         public ActionResult Index()
         {
             var reportePedidoCampaniaModel = new ReportePedidoFICModel();
@@ -78,16 +74,16 @@ namespace Portal.Consultoras.Web.Controllers
                 IEnumerable<BEServicePROLFIC> items = lst;
 
                 #region Sort Section
-                var orderList = (sord == "asc") ? OrderAscending : OrderDescending;
+                bool orderAsc = (sord == "asc");
                 switch (sidx)
                 {
-                    case "ZONA": items = orderList(lst, x => x.ZONA); break;
-                    case "CUENTA": items = orderList(lst, x => x.CUENTA); break;
-                    case "CUV": items = orderList(lst, x => x.CUV); break;
-                    case "PRODUCTO": items = orderList(lst, x => x.PRODUCTO); break;
-                    case "TIPO_OFETA": items = orderList(lst, x => x.TIPO_OFETA); break;
-                    case "UNIDADES": items = orderList(lst, x => x.UNIDADES); break;
-                    case "VENTA_NETA": items = orderList(lst, x => x.VENTA_NETA); break;
+                    case "ZONA": items = lst.OrderBy(x => x.ZONA, orderAsc); break;
+                    case "CUENTA": items = lst.OrderBy(x => x.CUENTA, orderAsc); break;
+                    case "CUV": items = lst.OrderBy(x => x.CUV, orderAsc); break;
+                    case "PRODUCTO": items = lst.OrderBy(x => x.PRODUCTO, orderAsc); break;
+                    case "TIPO_OFETA": items = lst.OrderBy(x => x.TIPO_OFETA, orderAsc); break;
+                    case "UNIDADES": items = lst.OrderBy(x => x.UNIDADES, orderAsc); break;
+                    case "VENTA_NETA": items = lst.OrderBy(x => x.VENTA_NETA, orderAsc); break;
                 }
                 #endregion
 
