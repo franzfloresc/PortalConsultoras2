@@ -908,9 +908,8 @@ namespace Portal.Consultoras.Web.Controllers
                         else
                         {
                             int pagAeux;
-                            if (Pagina != null)
-                                if (int.TryParse(Pagina, out pagAeux))
-                                    Pagina = (int.Parse(Pagina) - 1).ToString();
+                            if (int.TryParse(Pagina, out pagAeux))
+                                Pagina = (int.Parse(Pagina) - 1).ToString();
                             indiceActualPagina = int.Parse(Pagina);
                         }
                     }

@@ -555,10 +555,9 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 issuccess = false;
             }
-
-            if (lstFinalInfo != null)
-                if (lstFinalInfo.Any())
-                    lstFinalInfo.ForEach(x => x.Archivo = ConfigS3.GetUrlFileS3(Globals.UrlBanner, x.Archivo, Globals.RutaImagenesBanners));
+            
+            if (lstFinalInfo.Any())
+                lstFinalInfo.ForEach(x => x.Archivo = ConfigS3.GetUrlFileS3(Globals.UrlBanner, x.Archivo, Globals.RutaImagenesBanners));
 
             var lstFinalModel = Mapper.Map<List<BannerInfoModel>>(lstFinalInfo);
 
