@@ -286,7 +286,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                string mensaje = string.Empty;
                 BEOfertaNueva result = null;
                 using (PedidoServiceClient svc = new PedidoServiceClient())
                 {
@@ -649,8 +648,7 @@ namespace Portal.Consultoras.Web.Controllers
                 using (PedidoServiceClient svc = new PedidoServiceClient())
                 {
                     int paisID = UserData().PaisID;
-                    string ISO = Util.GetPaisISO(paisID);
-
+                    
                     entidad.PaisID = paisID;
                     entidad.UsuarioModificacion = UserData().CodigoConsultora;
 

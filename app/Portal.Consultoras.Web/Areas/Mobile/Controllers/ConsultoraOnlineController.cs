@@ -117,18 +117,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 try
                 {
-                    var sEmail = string.Empty;
-                    var sTelefono = string.Empty;
-                    var sCelular = string.Empty;
-
                     if (model.ActualizarClave == null) model.ActualizarClave = "";
                     if (model.ConfirmarClave == null) model.ConfirmarClave = "";
-                    if (model.Email != null)
-                        sEmail = model.Email;
-                    if (model.Telefono != null)
-                        sTelefono = model.Telefono;
-                    if (model.Celular != null)
-                        sCelular = model.Celular;
+                    var sEmail = Util.Trim(model.Email);
+                    var sTelefono = Util.Trim(model.Telefono);
+                    var sCelular = Util.Trim(model.Celular);
 
                     var result = 0;
                     var cambio = false;

@@ -347,8 +347,6 @@ namespace Portal.Consultoras.Web.Controllers
                     if (lst != null)
                         if (lst.Count > 0) lst.Update(x => x.Archivo = ConfigS3.GetUrlFileS3(carpetaPais, x.Archivo, Globals.RutaImagenesBanners));
 
-                    List<string> lstCell = new List<string>();
-
                     BEGrid grid = new BEGrid();
                     grid.PageSize = rows;
                     grid.CurrentPage = page;
@@ -557,10 +555,9 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 issuccess = false;
             }
-
-            if (lstFinalInfo != null)
-                if (lstFinalInfo.Any())
-                    lstFinalInfo.ForEach(x => x.Archivo = ConfigS3.GetUrlFileS3(Globals.UrlBanner, x.Archivo, Globals.RutaImagenesBanners));
+            
+            if (lstFinalInfo.Any())
+                lstFinalInfo.ForEach(x => x.Archivo = ConfigS3.GetUrlFileS3(Globals.UrlBanner, x.Archivo, Globals.RutaImagenesBanners));
 
             var lstFinalModel = Mapper.Map<List<BannerInfoModel>>(lstFinalInfo);
 
@@ -604,7 +601,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public ActionResult ImageMatrizUpload(string qqfile)
         {
-            string FileName = string.Empty;
             try
             {
                 if (String.IsNullOrEmpty(Request["qqfile"]))

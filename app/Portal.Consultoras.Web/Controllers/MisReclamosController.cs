@@ -974,10 +974,10 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 BECDRWeb entidad = new BECDRWeb();
                 entidad.CampaniaID = CampaniaID == "" ? 0 : int.Parse(CampaniaID);
-                entidad.RegionID = RegionID.Equals(string.Empty) ? 0 : int.Parse(RegionID);
-                entidad.ZonaID = ZonaID.Equals(string.Empty) ? 0 : int.Parse(ZonaID);
+                entidad.RegionID = string.IsNullOrEmpty(RegionID) ? 0 : int.Parse(RegionID);
+                entidad.ZonaID = string.IsNullOrEmpty(ZonaID) ? 0 : int.Parse(ZonaID);
                 entidad.ConsultoraCodigo = CodigoConsultora;
-                entidad.Estado = Estado.Equals(string.Empty) ? 0 : int.Parse(Estado);
+                entidad.Estado = string.IsNullOrEmpty(Estado) ? 0 : int.Parse(Estado);
                 entidad.TipoConsultora = TipoConsultora;
 
                 List<BECDRWebDetalleReporte> lst;
@@ -1210,10 +1210,10 @@ namespace Portal.Consultoras.Web.Controllers
         {
             BECDRWeb entidad = new BECDRWeb();
             entidad.CampaniaID = CampaniaID == "" ? 0 : int.Parse(CampaniaID);
-            entidad.RegionID = RegionID.Equals(string.Empty) ? 0 : int.Parse(RegionID);
-            entidad.ZonaID = ZonaID.Equals(string.Empty) ? 0 : int.Parse(ZonaID);
+            entidad.RegionID = string.IsNullOrEmpty(RegionID) ? 0 : int.Parse(RegionID);
+            entidad.ZonaID = string.IsNullOrEmpty(ZonaID) ? 0 : int.Parse(ZonaID);
             entidad.ConsultoraCodigo = CodigoConsultora;
-            entidad.Estado = Estado.Equals(string.Empty) ? 0 : int.Parse(Estado);
+            entidad.Estado = string.IsNullOrEmpty(Estado) ? 0 : int.Parse(Estado);
             entidad.TipoConsultora = TipoConsultora;
 
             IList<BECDRWebDetalleReporte> lst;

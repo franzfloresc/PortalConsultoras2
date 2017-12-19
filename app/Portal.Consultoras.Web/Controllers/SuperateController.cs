@@ -64,11 +64,6 @@ namespace Portal.Consultoras.Web.Controllers
             ContenidoServiceClient sv = new ContenidoServiceClient();
             return sv.GetLiderCampaniaActual(paisID, ConsultoraID, CodigoPais)[0].ToString();
         }
-
-        private string ProyectaNivel(int paisID, long ConsultoraID)
-        {
-            ContenidoServiceClient sv = new ContenidoServiceClient();
-            return sv.GetProyectaNivel(paisID, ConsultoraID)[0].ToString();
-        }
+        
     }
 }

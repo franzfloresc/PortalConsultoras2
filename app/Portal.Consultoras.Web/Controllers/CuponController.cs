@@ -57,16 +57,13 @@ namespace Portal.Consultoras.Web.Controllers
 
                     string correoAnterior = Util.Trim(userData.EMail);
                     string correoNuevo = entidad.EMail;
-                    bool emailActivo = userData.EMailActivo;
 
                     ActualizarDatos(entidad, correoAnterior);
                     ActualizarDatosSesion(entidad, correoNuevo, correoAnterior);
 
-                    var emailValidado = userData.EMailActivo;
 
                     string[] parametros = new string[] { userData.CodigoUsuario, userData.PaisID.ToString(), userData.CodigoISO, correoNuevo, "UrlReturn,cupon" };
                     string param_querystring = Util.Encrypt(string.Join(";", parametros));
-                    HttpRequestBase request = this.HttpContext.Request;
 
                     bool tipopais = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesEsika).Contains(userData.CodigoISO);
 
@@ -283,39 +280,7 @@ namespace Portal.Consultoras.Web.Controllers
                 TipoCupon = cuponBE.TipoCupon
             };
         }
-
-        private BECupon MapearCuponModelABECupon(CuponModel cuponModel)
-        {
-            return new BECupon()
-            {
-                CuponId = cuponModel.CuponId,
-                Tipo = cuponModel.Tipo,
-                Descripcion = cuponModel.Descripcion,
-                CampaniaId = cuponModel.CampaniaId,
-                Estado = cuponModel.Estado,
-                FechaCreacion = cuponModel.FechaCreacion,
-                FechaModificacion = cuponModel.FechaModificacion,
-                UsuarioCreacion = cuponModel.UsuarioCreacion,
-                UsuarioModificacion = cuponModel.UsuarioModificacion
-            };
-        }
-
-        private CuponModel MapearBECuponACuponModel(BECupon cuponBE)
-        {
-            return new CuponModel()
-            {
-                CuponId = cuponBE.CuponId,
-                Tipo = cuponBE.Tipo,
-                Descripcion = cuponBE.Descripcion,
-                CampaniaId = cuponBE.CampaniaId,
-                Estado = cuponBE.Estado,
-                FechaCreacion = cuponBE.FechaCreacion,
-                FechaModificacion = cuponBE.FechaModificacion,
-                UsuarioCreacion = cuponBE.UsuarioCreacion,
-                UsuarioModificacion = cuponBE.UsuarioModificacion
-            };
-        }
-
+        
         private void ActualizarCelularUsuario(CuponUsuarioModel model)
         {
             var celularActual = userData.Celular;

@@ -204,18 +204,19 @@ namespace Portal.Consultoras.Web.Controllers
                     .ForMember(t => t.OrigenPedidoWeb, f => f.MapFrom(c => c.OrigenPedidoWeb));
 
                 BEPedidoWebDetalle entidad = Mapper.Map<PedidoDetalleModel, BEPedidoWebDetalle>(model);
+
+                entidad.PaisID = userData.PaisID;
+                entidad.ConsultoraID = userData.ConsultoraID;
+                entidad.CampaniaID = userData.CampaniaID;
+                entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.Liquidacion;
+                entidad.IPUsuario = userData.IPUsuario;
+
+                entidad.CodigoUsuarioCreacion = userData.CodigoConsultora;
+                entidad.CodigoUsuarioModificacion = entidad.CodigoUsuarioCreacion;
+                entidad.OrigenPedidoWeb = ProcesarOrigenPedido(entidad.OrigenPedidoWeb);
+
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    entidad.PaisID = userData.PaisID;
-                    entidad.ConsultoraID = userData.ConsultoraID;
-                    entidad.CampaniaID = userData.CampaniaID;
-                    entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.Liquidacion;
-                    entidad.IPUsuario = userData.IPUsuario;
-
-                    entidad.CodigoUsuarioCreacion = userData.CodigoConsultora;
-                    entidad.CodigoUsuarioModificacion = entidad.CodigoUsuarioCreacion;
-                    entidad.OrigenPedidoWeb = ProcesarOrigenPedido(entidad.OrigenPedidoWeb);
-
                     sv.InsPedidoWebDetalleOferta(entidad);
 
                     sessionManager.SetPedidoWeb(null);
@@ -224,8 +225,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 UpdPedidoWebMontosPROL();
 
-                if (entidad != null)
-                {
                     BEIndicadorPedidoAutentico indPedidoAutentico = new BEIndicadorPedidoAutentico();
                     indPedidoAutentico.PedidoID = entidad.PedidoID;
                     indPedidoAutentico.CampaniaID = entidad.CampaniaID;
@@ -235,7 +234,6 @@ namespace Portal.Consultoras.Web.Controllers
                     indPedidoAutentico.IndicadorToken = (Session["TokenPedidoAutentico"] != null) ? Session["TokenPedidoAutentico"].ToString() : "";
 
                     InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);
-                }
 
                 return Json(new
                 {
@@ -680,7 +678,7 @@ namespace Portal.Consultoras.Web.Controllers
                 BEPager pag = Util.PaginadorGenerico(grid, lst);
                 string ISO = Util.GetPaisISO(PaisID);
                 var carpetaPais = Globals.UrlMatriz + "/" + ISO;
-                lst.Update(x => x.ImagenProducto = (x.ImagenProducto.ToString().Equals(string.Empty) ? string.Empty : ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.RutaImagenesMatriz + "/" + ISO)));
+                lst.Update(x => x.ImagenProducto = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.RutaImagenesMatriz + "/" + ISO));
                 lst.Update(x => x.ISOPais = ISO);
                 var data = new
                 {
