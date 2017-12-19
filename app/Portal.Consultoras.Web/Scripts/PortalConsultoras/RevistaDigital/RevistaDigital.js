@@ -64,10 +64,12 @@ $(document).ready(function () {
 
             if (empty) {
                 $('.popup_confirmacion_datos .form-datos button').attr('disabled', 'disabled');
-                $(".popup_confirmacion_datos .form-datos button").css("background-color", "#e0e0e0");
+                $(".popup_confirmacion_datos .form-datos button").addClass("desactivar_boton_popup_confirma_datos");
+                $(".popup_confirmacion_datos .form-datos button").removeClass("activar_boton_popup_confirma_datos");
             } else {
                 $('.popup_confirmacion_datos .form-datos button').removeAttr('disabled');
-                $(".popup_confirmacion_datos .form-datos button").css("background-color", "#e81c36");
+                $(".popup_confirmacion_datos .form-datos button").addClass("activar_boton_popup_confirma_datos");
+                $(".popup_confirmacion_datos .form-datos button").removeClass("desactivar_boton_popup_confirma_datos");
 
                 $('.popup_confirmacion_datos .form-datos button').on('click', function () {
                     $('.popup_confirmacion_datos .contenido-popup-nuevo-2017 .estructura_confirmar_datos .centrar-vertical-contenido .form_datos').hide();
@@ -75,7 +77,7 @@ $(document).ready(function () {
                     setTimeout(function () {
                         $('.popup_confirmacion_datos .contenido-popup-nuevo-2017 .estructura_confirmar_datos .centrar-vertical-contenido .form_datos').show();
                         $('.popup_confirmacion_datos .form-confirmacion').hide();
-                    }, 9900);
+                    }, 1100);
                 });
             }
         });
