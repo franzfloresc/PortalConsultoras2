@@ -248,7 +248,6 @@ namespace Portal.Consultoras.Web.Controllers
                         SortColumn = sidx,
                         SortOrder = sord
                     };
-                    var pag = new BEPager();
                     IEnumerable<BEEstrategia> items = lst;
                     if (lst.Any())
                     {
@@ -278,7 +277,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                     }
                     items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-                    pag = Util.PaginadorGenerico(grid, lst);
+                    BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                     var data = new
                     {
@@ -1226,12 +1225,11 @@ namespace Portal.Consultoras.Web.Controllers
                     SortColumn = sidx,
                     SortOrder = sord
                 };
-                var pag = new BEPager();
                 IEnumerable<ComunModel> items = lst;
 
                 items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 var data = new
                 {
@@ -1282,12 +1280,11 @@ namespace Portal.Consultoras.Web.Controllers
                     SortColumn = sidx,
                     SortOrder = sord
                 };
-                var pag = new BEPager();
                 IEnumerable<BEEstrategia> items = lst;
 
                 items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 var data = new
                 {
@@ -1527,12 +1524,11 @@ namespace Portal.Consultoras.Web.Controllers
                     SortColumn = sidx,
                     SortOrder = sord
                 };
-                var pag = new BEPager();
                 IEnumerable<ComunModel> items = lst;
 
                 items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 var data = new
                 {
@@ -1583,12 +1579,12 @@ namespace Portal.Consultoras.Web.Controllers
                     SortColumn = sidx,
                     SortOrder = sord
                 };
-                var pag = new BEPager();
+
                 IEnumerable<BEEstrategia> items = lst;
 
                 items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 var data = new
                 {
@@ -1790,8 +1786,7 @@ namespace Portal.Consultoras.Web.Controllers
             string CUV, int Imagen, int Activo, string CodigoPrograma, int TipoEstrategiaID)
         {
             var lst = new List<BEEstrategia>();
-            var pag = new BEPager();
-
+            
             try
             {
                 if (string.IsNullOrEmpty(CampaniaID)) return RedirectToAction("ProgramaNuevas", "AdministrarEstrategia");
@@ -1825,7 +1820,7 @@ namespace Portal.Consultoras.Web.Controllers
                 };
 
                 var items = lst.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 var data = new
                 {
@@ -2037,7 +2032,6 @@ namespace Portal.Consultoras.Web.Controllers
             string CUV, int Imagen, int Activo, string CodigoConcurso, int TipoEstrategiaID)
         {
             var lst = new List<BEEstrategia>();
-            var pag = new BEPager();
 
             try
             {
@@ -2072,7 +2066,7 @@ namespace Portal.Consultoras.Web.Controllers
                 };
 
                 var items = lst.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 var data = new
                 {

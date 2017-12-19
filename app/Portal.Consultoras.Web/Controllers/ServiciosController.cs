@@ -1135,7 +1135,7 @@ namespace Portal.Consultoras.Web.Controllers
             int PageCount = (int)(((float)RecordCount / (float)item.PageSize) + 1);
             pag.PageCount = PageCount;
 
-            int CurrentPage = (int)item.CurrentPage;
+            int CurrentPage = item.CurrentPage;
             pag.CurrentPage = CurrentPage;
 
             if (CurrentPage > PageCount)
@@ -1157,7 +1157,7 @@ namespace Portal.Consultoras.Web.Controllers
             int PageCount = (int)(((float)RecordCount / (float)item.PageSize) + 1);
             pag.PageCount = PageCount;
 
-            int CurrentPage = (int)item.CurrentPage;
+            int CurrentPage = item.CurrentPage;
             pag.CurrentPage = CurrentPage;
 
             if (CurrentPage > PageCount)
@@ -1179,7 +1179,7 @@ namespace Portal.Consultoras.Web.Controllers
             int PageCount = (int)(((float)RecordCount / (float)item.PageSize) + 1);
             pag.PageCount = PageCount;
 
-            int CurrentPage = (int)item.CurrentPage;
+            int CurrentPage = item.CurrentPage;
             pag.CurrentPage = CurrentPage;
 
             if (CurrentPage > PageCount)

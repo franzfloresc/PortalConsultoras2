@@ -96,7 +96,7 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion
 
                 items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-                var pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 var data = new
                 {

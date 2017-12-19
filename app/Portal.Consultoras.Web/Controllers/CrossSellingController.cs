@@ -96,7 +96,6 @@ namespace Portal.Consultoras.Web.Controllers
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                BEPager pag = new BEPager();
                 IEnumerable<BEConfiguracionCrossSelling> items = lst;
 
                 #region Sort Section
@@ -128,7 +127,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
                 lst.Update(x => x.Pais = Util.GetPaisNombre(PaisID));
                 var data = new
                 {
@@ -243,7 +242,6 @@ namespace Portal.Consultoras.Web.Controllers
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                BEPager pag = new BEPager();
                 IEnumerable<BECrossSellingProducto> items = lst;
 
                 #region Sort Section
@@ -287,7 +285,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
                 lst.Update(x => x.ISOPais = ISO);
                 var data = new
                 {
@@ -590,7 +588,6 @@ namespace Portal.Consultoras.Web.Controllers
                     grid.CurrentPage = page;
                     grid.SortColumn = sidx;
                     grid.SortOrder = sord;
-                    BEPager pag = new BEPager();
                     IEnumerable<BECrossSellingAsociacion> items = lst;
 
                     #region Sort Section
@@ -634,7 +631,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                    pag = Util.PaginadorGenerico(grid, lst);
+                    BEPager pag = Util.PaginadorGenerico(grid, lst);
                     var data = new
                     {
                         total = pag.PageCount,
@@ -677,7 +674,6 @@ namespace Portal.Consultoras.Web.Controllers
                         grid.CurrentPage = page;
                         grid.SortColumn = sidx;
                         grid.SortOrder = sord;
-                        BEPager pag = new BEPager();
                         IEnumerable<BESegmentoPlaneamiento> items = lst;
 
                         #region Sort Section
@@ -715,7 +711,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                         items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                        pag = Util.PaginadorGenerico(grid, lst);
+                        BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                         var data = new
                         {
@@ -925,7 +921,6 @@ namespace Portal.Consultoras.Web.Controllers
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                BEPager pag = new BEPager();
                 IEnumerable<BECrossSellingAsociacion> items = lst;
 
                 #region Sort Section
@@ -969,7 +964,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
                 var data = new
                 {
                     total = pag.PageCount,
