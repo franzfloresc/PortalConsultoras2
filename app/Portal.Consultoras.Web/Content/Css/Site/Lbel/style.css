@@ -35575,6 +35575,13 @@ h1#penmostreo .campana {
             /* flash linear 1s infinite;
 */
         }
+.desactivar_boton_popup_confirma_datos {
+    background: #e0e0e0;
+}
+
+.activar_boton_popup_confirma_datos {
+    background: #613c87 !important;
+}
 
 @-webkit-keyframes flash {
     0% {

@@ -3341,6 +3341,7 @@ background: white;
 padding: 0px 40px;
 max-width: 432px;
 max-height:432px;
+top:57%;
 }
 .popup_confirmacion_datos p.felicidades {
 display: block;

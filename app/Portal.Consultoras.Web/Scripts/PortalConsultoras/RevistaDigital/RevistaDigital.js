@@ -51,65 +51,60 @@ $(document).ready(function () {
     });
 
     /* popup validar datos 2017 */
-    $('.popup_confirmacion_datos .form-confirmacion').hide(); isMobile()
-    if (isMobile()) {
+    if (isMobile())
+    {
         $('.popup_confirmacion_datos .form-datos .input input').keyup(function () {
-
-            var empty = false;
-            $('.popup_confirmacion_datos .form-datos .input input').each(function () {
-                if ($(this).val() == '') {
-                    empty = true;
-                }
-            });
-
-            if (empty) {
-                $('.popup_confirmacion_datos .form-datos button').attr('disabled', 'disabled');
-                $(".popup_confirmacion_datos .form-datos button").addClass("desactivar_boton_popup_confirma_datos");
-                $(".popup_confirmacion_datos .form-datos button").removeClass("activar_boton_popup_confirma_datos");
-            } else {
+            var txt1 = $('.popup_confirmacion_datos .form-datos .input input.txt1').val();
+            var txt2 = $('.popup_confirmacion_datos .form-datos .input input.txt2').val();
+            if (txt1 != "" && txt2 == "") {
                 $('.popup_confirmacion_datos .form-datos button').removeAttr('disabled');
                 $(".popup_confirmacion_datos .form-datos button").addClass("activar_boton_popup_confirma_datos");
                 $(".popup_confirmacion_datos .form-datos button").removeClass("desactivar_boton_popup_confirma_datos");
-
-                /* codigo que era para mostrar loader gif */
-                /*$('.popup_confirmacion_datos .form-datos button').on('click', function () {
-                    $('.popup_confirmacion_datos .contenido-popup-nuevo-2017 .estructura_confirmar_datos .centrar-vertical-contenido .form_datos').hide();
-                    $('.popup_confirmacion_datos .form-confirmacion').show();
-                    setTimeout(function () {
-                        $('.popup_confirmacion_datos .contenido-popup-nuevo-2017 .estructura_confirmar_datos .centrar-vertical-contenido .form_datos').show();
-                        $('.popup_confirmacion_datos .form-confirmacion').hide();
-                    }, 1100);
-                });*/
             }
+            else if (txt1 == "" && txt2 != "") {
+                $('.popup_confirmacion_datos .form-datos button').removeAttr('disabled');
+                $(".popup_confirmacion_datos .form-datos button").addClass("activar_boton_popup_confirma_datos");
+                $(".popup_confirmacion_datos .form-datos button").removeClass("desactivar_boton_popup_confirma_datos");
+            }
+            else if (txt1 != "" && txt2 != "") {
+                $('.popup_confirmacion_datos .form-datos button').removeAttr('disabled');
+                $(".popup_confirmacion_datos .form-datos button").addClass("activar_boton_popup_confirma_datos");
+                $(".popup_confirmacion_datos .form-datos button").removeClass("desactivar_boton_popup_confirma_datos");
+            }
+            else {
+                $('.popup_confirmacion_datos .form-datos button').attr('disabled', 'disabled');
+                $(".popup_confirmacion_datos .form-datos button").addClass("desactivar_boton_popup_confirma_datos");
+                $(".popup_confirmacion_datos .form-datos button").removeClass("activar_boton_popup_confirma_datos");
+            }
+
         });
     }
     else
     {
-        $('.popup_confirmacion_datos .form-datos .input input').keyup(function () {
-
-            var empty = false;
-            $('.popup_confirmacion_datos .form-datos .input input').each(function () {
-                if ($(this).val() == '') {
-                    empty = true;
-                }
-            });
-
-            if (empty) {
-                $('.popup_confirmacion_datos .form-datos button').attr('disabled', 'disabled');
-                $(".popup_confirmacion_datos .form-datos button").css("background-color", "#e0e0e0");
-            } else {
-                $('.popup_confirmacion_datos .form-datos button').removeAttr('disabled');
-                $(".popup_confirmacion_datos .form-datos button").css("background-color", "#e81c36");
-
-                $('.popup_confirmacion_datos .form-datos button').on('click', function () {
-                    $('.popup_confirmacion_datos .contenido-table-datos .cont-datos .form_datos').hide();
-                    $('.popup_confirmacion_datos .form-confirmacion').show();
-                    setTimeout(function () {
-                        $('.popup_confirmacion_datos .contenido-table-datos .cont-datos .form_datos').show();
-                        $('.popup_confirmacion_datos .form-confirmacion').hide();
-                    }, 1100);
-                });
+        $('.popup_confirmacion_datos .contenido-table-datos .cont-datos .form_datos .form-datos .input input').keyup(function () {
+            var txt1 = $('.popup_confirmacion_datos .contenido-table-datos .cont-datos .form_datos .form-datos .input input.txt1').val();
+            var txt2 = $('.popup_confirmacion_datos .contenido-table-datos .cont-datos .form_datos .form-datos .input input.txt2').val();
+            if (txt1 != "" && txt2 == "") {
+                $('.popup_confirmacion_datos .contenido-table-datos .cont-datos .form_datos .form-datos button').removeAttr('disabled');
+                $(".popup_confirmacion_datos .contenido-table-datos .cont-datos .form_datos .form-datos button").addClass("activar_boton_popup_confirma_datos");
+                $(".popup_confirmacion_datos .contenido-table-datos .cont-datos .form_datos .form-datos button").removeClass("desactivar_boton_popup_confirma_datos");
             }
+            else if (txt1 == "" && txt2 != "") {
+                $('.popup_confirmacion_datos .contenido-table-datos .cont-datos .form_datos .form-datos button').removeAttr('disabled');
+                $(".popup_confirmacion_datos .contenido-table-datos .cont-datos .form_datos .form-datos button").addClass("activar_boton_popup_confirma_datos");
+                $(".popup_confirmacion_datos .contenido-table-datos .cont-datos .form_datos .form-datos button").removeClass("desactivar_boton_popup_confirma_datos");
+            }
+            else if (txt1 != "" && txt2 != "") {
+                $('.popup_confirmacion_datos .contenido-table-datos .cont-datos .form_datos .form-datos button').removeAttr('disabled');
+                $(".popup_confirmacion_datos .contenido-table-datos .cont-datos .form_datos .form-datos button").addClass("activar_boton_popup_confirma_datos");
+                $(".popup_confirmacion_datos .contenido-table-datos .cont-datos .form_datos .form-datos button").removeClass("desactivar_boton_popup_confirma_datos");
+            }
+            else {
+                $('.popup_confirmacion_datos .contenido-table-datos .cont-datos .form_datos .form-datos button').attr('disabled', 'disabled');
+                $(".popup_confirmacion_datos .contenido-table-datos .cont-datos .form_datos .form-datos button").addClass("desactivar_boton_popup_confirma_datos");
+                $(".popup_confirmacion_datos .contenido-table-datos .cont-datos .form_datos .form-datos button").removeClass("activar_boton_popup_confirma_datos");
+            }
+
         });
     }
     /* fin popup validar datos 2017 */

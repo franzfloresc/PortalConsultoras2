@@ -35650,7 +35650,13 @@ h1#penmostreo .campana {
         .contenido-popup-nuevo-2017 .centrar-estructura .centrar-vertical-contenido p.segundo-texto span.flashit {
             color: white;
         }
+.desactivar_boton_popup_confirma_datos {
+    background: #e0e0e0;
+}
 
+.activar_boton_popup_confirma_datos {
+    background: #e81c36 !important;
+}
 @-webkit-keyframes flash {
     0% {
         opacity: 1;
