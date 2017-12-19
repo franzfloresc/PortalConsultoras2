@@ -71,14 +71,15 @@ $(document).ready(function () {
                 $(".popup_confirmacion_datos .form-datos button").addClass("activar_boton_popup_confirma_datos");
                 $(".popup_confirmacion_datos .form-datos button").removeClass("desactivar_boton_popup_confirma_datos");
 
-                $('.popup_confirmacion_datos .form-datos button').on('click', function () {
+                /* codigo que era para mostrar loader gif */
+                /*$('.popup_confirmacion_datos .form-datos button').on('click', function () {
                     $('.popup_confirmacion_datos .contenido-popup-nuevo-2017 .estructura_confirmar_datos .centrar-vertical-contenido .form_datos').hide();
                     $('.popup_confirmacion_datos .form-confirmacion').show();
                     setTimeout(function () {
                         $('.popup_confirmacion_datos .contenido-popup-nuevo-2017 .estructura_confirmar_datos .centrar-vertical-contenido .form_datos').show();
                         $('.popup_confirmacion_datos .form-confirmacion').hide();
                     }, 1100);
-                });
+                });*/
             }
         });
     }
