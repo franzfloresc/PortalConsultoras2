@@ -219,18 +219,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-
-        private IEnumerable<PaisModel> ListarPaises()
-        {
-            List<BEPais> lst;
-            using (var sv = new ZonificacionServiceClient())
-            {
-                lst = UserData().RolID == 2 ? sv.SelectPaises().ToList() : new List<BEPais> {sv.SelectPais(UserData().PaisID)};
-            }
-
-            return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
-        }
-
+        
         private IEnumerable<ConfiguracionPaisModel> ListarConfiguracionPais()
         {
             List<ServiceSAC.BEConfiguracionPais> lst;

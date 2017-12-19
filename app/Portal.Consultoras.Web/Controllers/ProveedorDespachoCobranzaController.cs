@@ -234,8 +234,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                int PaisID = UserData().PaisID;
-
                 Mapper.CreateMap<ProveedorDespachoCobranzaModel, BEProveedorDespachoCobranza>()
                     .ForMember(t => t.Accion, f => f.MapFrom(c => c.Accion))
                     .ForMember(t => t.CampoId, f => f.MapFrom(c => c.CampoId))

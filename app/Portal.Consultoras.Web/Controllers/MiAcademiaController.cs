@@ -148,13 +148,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return View();
         }
-
-        private string GetCampaniaLider(int paisID, long ConsultoraID, string CodigoPais)
-        {
-            ContenidoServiceClient sv = new ContenidoServiceClient();
-            return sv.GetLiderCampaniaActual(paisID, ConsultoraID, CodigoPais)[0].ToString();
-        }
-
+        
         private List<MiCurso> ValidadCursosMA()
         {
             try

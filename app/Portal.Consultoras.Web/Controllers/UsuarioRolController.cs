@@ -113,7 +113,6 @@ namespace Portal.Consultoras.Web.Controllers
                 ServiceSeguridad.BEUsuarioRol entidad = Mapper.Map<UsuarioRolModel, ServiceSeguridad.BEUsuarioRol>(model);
                 entidad.paisID = UserData().PaisID;
 
-                List<BERol> lst = new List<BERol>();
                 int result;
 
                 using (SeguridadServiceClient sv = new SeguridadServiceClient())

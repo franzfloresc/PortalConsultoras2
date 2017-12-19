@@ -280,39 +280,7 @@ namespace Portal.Consultoras.Web.Controllers
                 TipoCupon = cuponBE.TipoCupon
             };
         }
-
-        private BECupon MapearCuponModelABECupon(CuponModel cuponModel)
-        {
-            return new BECupon()
-            {
-                CuponId = cuponModel.CuponId,
-                Tipo = cuponModel.Tipo,
-                Descripcion = cuponModel.Descripcion,
-                CampaniaId = cuponModel.CampaniaId,
-                Estado = cuponModel.Estado,
-                FechaCreacion = cuponModel.FechaCreacion,
-                FechaModificacion = cuponModel.FechaModificacion,
-                UsuarioCreacion = cuponModel.UsuarioCreacion,
-                UsuarioModificacion = cuponModel.UsuarioModificacion
-            };
-        }
-
-        private CuponModel MapearBECuponACuponModel(BECupon cuponBE)
-        {
-            return new CuponModel()
-            {
-                CuponId = cuponBE.CuponId,
-                Tipo = cuponBE.Tipo,
-                Descripcion = cuponBE.Descripcion,
-                CampaniaId = cuponBE.CampaniaId,
-                Estado = cuponBE.Estado,
-                FechaCreacion = cuponBE.FechaCreacion,
-                FechaModificacion = cuponBE.FechaModificacion,
-                UsuarioCreacion = cuponBE.UsuarioCreacion,
-                UsuarioModificacion = cuponBE.UsuarioModificacion
-            };
-        }
-
+        
         private void ActualizarCelularUsuario(CuponUsuarioModel model)
         {
             var celularActual = userData.Celular;

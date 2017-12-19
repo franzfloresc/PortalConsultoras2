@@ -347,8 +347,6 @@ namespace Portal.Consultoras.Web.Controllers
                     if (lst != null)
                         if (lst.Count > 0) lst.Update(x => x.Archivo = ConfigS3.GetUrlFileS3(carpetaPais, x.Archivo, Globals.RutaImagenesBanners));
 
-                    List<string> lstCell = new List<string>();
-
                     BEGrid grid = new BEGrid();
                     grid.PageSize = rows;
                     grid.CurrentPage = page;
@@ -604,7 +602,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public ActionResult ImageMatrizUpload(string qqfile)
         {
-            string FileName = string.Empty;
             try
             {
                 if (String.IsNullOrEmpty(Request["qqfile"]))

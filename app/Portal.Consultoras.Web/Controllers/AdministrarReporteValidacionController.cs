@@ -22,7 +22,6 @@ namespace Portal.Consultoras.Web.Controllers
         private const string NombreSRHoja4 = "Ofertas (Componentes del Set)";
 
         private const string MensajeNoHayRegistros = "No existen registros para la campaña.";
-        private const string MensajeExitoso = "Se ha descargado satisfactoriamente.";
 
         public ActionResult Index()
         {
@@ -50,25 +49,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
-
-        private IEnumerable<EtiquetaModel> DropDowListEtiqueta()
-        {
-            IList<BEEtiqueta> lst;
-            var entidad = new BEEtiqueta();
-            entidad.PaisID = UserData().PaisID;
-            entidad.Estado = -1;
-
-            using (PedidoServiceClient sv = new PedidoServiceClient())
-            {
-                lst = sv.GetEtiquetas(entidad);
-            }
-            Mapper.CreateMap<BEEtiqueta, EtiquetaModel>()
-                    .ForMember(t => t.EtiquetaID, f => f.MapFrom(c => c.EtiquetaID))
-                    .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion));
-
-            return Mapper.Map<IList<BEEtiqueta>, IEnumerable<EtiquetaModel>>(lst);
-        }
-
+        
         public JsonResult ObtenerCampanias()
         {
             int PaisID = UserData().PaisID;

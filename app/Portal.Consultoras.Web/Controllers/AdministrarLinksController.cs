@@ -379,7 +379,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (sessionManager.GetUserData() != null)
             {
-                int Campaniaid = UserData().CampaniaID;
                 IList<ServiceSAC.BEServicioCampania> lst = new List<ServiceSAC.BEServicioCampania>();
 
                 using (SACServiceClient sv = new SACServiceClient())

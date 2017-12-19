@@ -19,7 +19,6 @@ namespace Portal.Consultoras.Web.Controllers
             if (!UsuarioModel.HasAcces(ViewBag.Permiso, "CUVAutomatico/Index"))
                 return RedirectToAction("Index", "Bienvenida");
 
-
             await Task.Run(() => LoadConsultorasCache(11));
             var listaCampanias = DropDowListCampanias(11);
 

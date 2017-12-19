@@ -1259,8 +1259,8 @@ namespace Portal.Consultoras.Web.Controllers
                 string ISO = Util.GetPaisISO(PaisID);
                 var carpetaPais = Globals.UrlMatriz + "/" + ISO;
 
-                lst.Update(x => x.ImagenProducto = x.ImagenProducto.ToString().Equals(string.Empty) ? string.Empty : ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.RutaImagenesMatriz + "/" + ISO));
-                lst.Update(x => x.ImagenMini = x.ImagenMini.ToString().Equals(string.Empty) ? string.Empty : ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenMini, Globals.RutaImagenesMatriz + "/" + ISO));
+                lst.Update(x => x.ImagenProducto = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.RutaImagenesMatriz + "/" + ISO));
+                lst.Update(x => x.ImagenMini = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenMini, Globals.RutaImagenesMatriz + "/" + ISO));
                 lst.Update(x => x.ISOPais = ISO);
                 var data = new
                 {
@@ -1838,7 +1838,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string ISO = Util.GetPaisISO(userData.PaisID);
                 var carpetaPais = Globals.UrlMatriz + "/" + ISO;
 
-                lst.Update(x => x.Imagen = x.Imagen.ToString().Equals(string.Empty) ? string.Empty : ConfigS3.GetUrlFileS3(carpetaPais, x.Imagen, Globals.RutaImagenesMatriz + "/" + ISO));
+                lst.Update(x => x.Imagen = ConfigS3.GetUrlFileS3(carpetaPais, x.Imagen, Globals.RutaImagenesMatriz + "/" + ISO));
 
                 var data = new
                 {

@@ -22,8 +22,6 @@ namespace Portal.Consultoras.Web.WebPages
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            string urlportal = ConfigurationManager.AppSettings["URLSite"];
-
             if (!Page.IsPostBack)
             {
                 var esEsika = false;
@@ -80,9 +78,6 @@ namespace Portal.Consultoras.Web.WebPages
 
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-                    //bool result = sv.ChangePasswordUser(idpais, "SISTEMA", paisiso + codigousuario, nuevacontrasena, correo, EAplicacionOrigen.RecuperarClave);
-                    //bool result = true;
-
                     bool result = sv.CambiarClaveUsuario(idpais, paisiso, codigousuario, nuevacontrasena, correo, "SISTEMA", EAplicacionOrigen.RecuperarClave);
 
                     if (result)

@@ -402,7 +402,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (flStock != null)
                 {
-                    string fileName = Path.GetFileName(flStock.FileName);
                     string extension = Path.GetExtension(flStock.FileName);
                     string newfileName = string.Format("{0}{1}", Guid.NewGuid().ToString(), extension);
                     string pathFile = Server.MapPath("~/Content/FileCargaStock");

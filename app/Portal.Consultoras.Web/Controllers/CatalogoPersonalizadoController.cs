@@ -416,8 +416,6 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 BEProducto producto = new BEProducto();
-                BEProducto productPack = new BEProducto();
-                BEProducto productNivel = new BEProducto();
 
                 var ambiente = GetConfiguracionManager(Constantes.ConfiguracionManager.Ambiente);
                 var keyWeb = ambiente.ToUpper() == "QA" ? "QA_Prol_ServicesCalculos" : "PR_Prol_ServicesCalculos";

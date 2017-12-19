@@ -28,8 +28,6 @@ namespace Portal.Consultoras.Web.Controllers
                 BuildMenuMobile(userData,revistaDigital);
                 CargarValoresGenerales(userData);
 
-                ShowRoomModel ShowRoom = new ShowRoomModel();
-
                 bool mostrarBanner, permitirCerrarBanner = false;
                 if (SiempreMostrarBannerPL20()) mostrarBanner = true;
                 else if (NuncaMostrarBannerPL20()) mostrarBanner = false;
@@ -128,7 +126,6 @@ namespace Portal.Consultoras.Web.Controllers
         private bool NuncaMostrarBannerPL20()
         {
             string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
-            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
 
             if (controllerName == "Pedido") return true;
             if (controllerName == "CatalogoPersonalizado") return true;

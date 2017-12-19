@@ -680,7 +680,7 @@ namespace Portal.Consultoras.Web.Controllers
                 BEPager pag = Util.PaginadorGenerico(grid, lst);
                 string ISO = Util.GetPaisISO(PaisID);
                 var carpetaPais = Globals.UrlMatriz + "/" + ISO;
-                lst.Update(x => x.ImagenProducto = (x.ImagenProducto.ToString().Equals(string.Empty) ? string.Empty : ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.RutaImagenesMatriz + "/" + ISO)));
+                lst.Update(x => x.ImagenProducto = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.RutaImagenesMatriz + "/" + ISO));
                 lst.Update(x => x.ISOPais = ISO);
                 var data = new
                 {
