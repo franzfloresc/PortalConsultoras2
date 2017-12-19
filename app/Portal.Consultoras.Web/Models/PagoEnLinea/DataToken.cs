@@ -7,6 +7,6 @@ namespace Portal.Consultoras.Web.Models
 {
     public class DataToken
     {
-        public decimal monto { get; set; }
+        public double amount { get; set; }
     }
 }

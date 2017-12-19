@@ -283,5 +283,8 @@ namespace Portal.Consultoras.ServiceContracts
 
         #endregion
 
+        [OperationContract]
+        IList<BEVisaConfiguracion> GetVisaConfiguracion(int PaisId);
+
     }
 }
