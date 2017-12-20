@@ -8,7 +8,6 @@ using Portal.Consultoras.Data;
 using Portal.Consultoras.Data.Hana;
 using Portal.Consultoras.Entities;
 
-// R2073 - Toda la clase
 namespace Portal.Consultoras.BizLogic
 {
     public class BLPedidoFacturado

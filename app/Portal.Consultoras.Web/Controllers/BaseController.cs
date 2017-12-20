@@ -245,6 +245,7 @@ namespace Portal.Consultoras.Web.Controllers
         protected List<BEPedidoWebDetalle> PedidoConObservaciones(List<BEPedidoWebDetalle> Pedido, List<ObservacionModel> Observaciones)
         {
             var PedObs = Pedido;
+            var txtBuil = new StringBuilder();
 
             if (userData.NuevoPROL && userData.ZonaNuevoPROL)
             {
@@ -267,8 +268,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                         foreach (var ob in temp)
                         {
-                            item.Mensaje += ob.Descripcion + "<br/>";
+                            txtBuil.Append(ob.Descripcion + "<br/>");
                         }
+                        item.Mensaje = txtBuil.ToString();
+                        txtBuil.Clear();
                     }
                     else
                     {
@@ -289,8 +292,10 @@ namespace Portal.Consultoras.Web.Controllers
                         item.TipoObservacion = temp[0].Tipo;
                         foreach (var ob in temp)
                         {
-                            item.Mensaje += ob.Descripcion + "<br/>";
+                            txtBuil.Append(ob.Descripcion + "<br/>");
                         }
+                        item.Mensaje = txtBuil.ToString();
+                        txtBuil.Clear();
                     }
                     else
                     {
@@ -1711,7 +1716,9 @@ namespace Portal.Consultoras.Web.Controllers
                 if (fichaProductoModelo.CodigoVariante == "")
                     return fichaProductoModelo;
 
-                string joinCuv = "|", separador = "|";
+                string separador = "|";
+                var txtBuil = new StringBuilder();
+                txtBuil.Append(separador);
 
                 fichaProductoModelo.CampaniaID = fichaProductoModelo.CampaniaID > 0 ? fichaProductoModelo.CampaniaID : userData.CampaniaID;
 
@@ -1726,8 +1733,8 @@ namespace Portal.Consultoras.Web.Controllers
                     foreach (var item in listaHermanosE)
                     {
                         item.CodigoSAP = Util.Trim(item.CodigoSAP);
-                        if (item.CodigoSAP != "" && !joinCuv.Contains(separador + item.CodigoSAP + separador))
-                            joinCuv += item.CodigoSAP + separador;
+                        if (item.CodigoSAP != "" && !txtBuil.ToString().Contains(separador + item.CodigoSAP + separador))
+                            txtBuil.Append(item.CodigoSAP + separador);
                     }
                 }
 
@@ -1743,10 +1750,12 @@ namespace Portal.Consultoras.Web.Controllers
                     foreach (var item in listaProducto)
                     {
                         item.SAP = Util.Trim(item.SAP);
-                        if (item.SAP != "" && !joinCuv.Contains(separador + item.SAP + separador))
-                            joinCuv += item.SAP + separador;
+                        if (item.SAP != "" && !txtBuil.ToString().Contains(separador + item.SAP + separador))
+                            txtBuil.Append(item.SAP + separador);
                     }
                 }
+
+                string joinCuv = txtBuil.ToString();
 
                 if (joinCuv == separador) return fichaProductoModelo;
 

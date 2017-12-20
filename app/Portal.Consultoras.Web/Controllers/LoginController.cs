@@ -18,6 +18,7 @@ using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.ServiceModel;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -1791,16 +1792,16 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (!string.IsNullOrWhiteSpace(descripcionCUV2))
             {
-
                 var temp = descripcionCUV2.Split('|').ToList();
                 temp = temp.Skip(1).ToList();
 
+                var txtBuil = new StringBuilder();
                 foreach (var item in temp)
                 {
                     if (!string.IsNullOrEmpty(item))
-                        descripcionODD += item.Trim() + "|";
+                        txtBuil.Append(item.Trim() + "|");
                 }
-
+                descripcionODD = txtBuil.ToString();
                 descripcionODD = descripcionODD == string.Empty ? string.Empty : descripcionODD.Substring(0, descripcionODD.Length - 1);
                 descripcionODD = descripcionODD.Replace("|", " +<br />");
                 descripcionODD = descripcionODD.Replace("\\", "");
