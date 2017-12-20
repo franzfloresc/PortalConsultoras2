@@ -69,8 +69,7 @@ namespace Portal.Consultoras.Web.Controllers
             items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
             BEPager pag = Util.PaginadorGenerico(grid, lst);
-            string ISO = Util.GetPaisISO(PaisID);
-            var carpetaPais = Globals.UrlMatriz + "/" + ISO;
+
             lst.Update(x => x.ImagenProducto = x.ImagenProducto ?? "");
 
             var data = new

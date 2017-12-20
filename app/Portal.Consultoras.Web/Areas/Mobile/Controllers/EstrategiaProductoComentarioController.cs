@@ -5,7 +5,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
     public class EstrategiaProductoComentarioController : BaseMobileController
     {
-        Web.Controllers.EstrategiaProductoComentarioController controllerDesktop =
+        readonly Web.Controllers.EstrategiaProductoComentarioController controllerDesktop =
             new Web.Controllers.EstrategiaProductoComentarioController();
 
         public ActionResult Index()

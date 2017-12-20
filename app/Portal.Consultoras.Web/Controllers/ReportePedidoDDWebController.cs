@@ -130,7 +130,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                List<BEPedidoDDWeb> lst = new List<BEPedidoDDWeb>();
+                List<BEPedidoDDWeb> lst;
                 BEPais bepais = new BEPais();
 
                 if (vPaisID == "")
@@ -226,7 +226,6 @@ namespace Portal.Consultoras.Web.Controllers
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                BEPager pag = new BEPager();
                 IEnumerable<BEPedidoDDWeb> items = lst;
 
                 #region Sort Section
@@ -318,7 +317,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Paginador(grid, lst);
+                BEPager pag = Paginador(grid, lst);
 
                 var data = new
                 {
@@ -443,7 +442,6 @@ namespace Portal.Consultoras.Web.Controllers
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                BEPager pag = new BEPager();
                 IEnumerable<BEPedidoDDWebDetalle> items = lst;
 
                 #region Sort Section
@@ -493,7 +491,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = PaginadorDetalle(grid, lst);
+                BEPager pag = PaginadorDetalle(grid, lst);
 
                 var data = new
                 {

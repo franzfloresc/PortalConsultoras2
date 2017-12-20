@@ -55,7 +55,6 @@ namespace Portal.Consultoras.Web.Controllers
             grid.CurrentPage = page;
             grid.SortColumn = sidx;
             grid.SortOrder = sord;
-            BEPager pag = new BEPager();
             bool ErrorServicio;
             string ErrorCode;
             string ErrorMessage;
@@ -90,7 +89,7 @@ namespace Portal.Consultoras.Web.Controllers
             else
                 items = items.Where(p => p.Nombre.ToUpper().Contains(Campania.ToUpper())).Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-            pag = Paginador(grid, Campania, lst);
+            BEPager pag = Paginador(grid, Campania, lst);
 
             var data = new
             {

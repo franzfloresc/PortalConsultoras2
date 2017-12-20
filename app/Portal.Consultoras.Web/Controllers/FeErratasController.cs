@@ -12,7 +12,6 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEFeErratas> lst;
             int paisID = UserData().PaisID;
             int campaniaID = UserData().CampaniaID;
-            string iso = UserData().CodigoISO;
 
             using (SACServiceClient sv = new SACServiceClient())
             {

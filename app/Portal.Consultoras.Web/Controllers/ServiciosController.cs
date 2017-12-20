@@ -699,7 +699,6 @@ namespace Portal.Consultoras.Web.Controllers
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                BEPager pag = new BEPager();
                 IEnumerable<BEServicio> items = lst;
 
                 #region Sort Section
@@ -737,7 +736,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Paginador(grid, lst);
+                BEPager pag = Paginador(grid, lst);
 
                 var data = new
                 {
@@ -783,7 +782,7 @@ namespace Portal.Consultoras.Web.Controllers
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                BEPager pag = new BEPager();
+
                 IEnumerable<BEServicio> items = lst;
 
                 #region Sort Section
@@ -821,7 +820,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Paginador(grid, lst);
+                BEPager pag = Paginador(grid, lst);
 
                 var data = new
                 {
@@ -860,7 +859,7 @@ namespace Portal.Consultoras.Web.Controllers
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                BEPager pag = new BEPager();
+
                 IEnumerable<BEServicioParametro> items = lst;
 
                 #region Sort Section
@@ -886,7 +885,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = PaginadorDetalle(grid, lst);
+                BEPager pag = PaginadorDetalle(grid, lst);
 
                 var data = new
                 {
@@ -925,7 +924,6 @@ namespace Portal.Consultoras.Web.Controllers
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                BEPager pag = new BEPager();
                 IEnumerable<BEEstadoServicio> items = lst;
 
                 #region Sort Section
@@ -951,7 +949,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = PaginadorEstado(grid, lst);
+                BEPager pag = PaginadorEstado(grid, lst);
 
                 var data = new
                 {
@@ -1058,7 +1056,7 @@ namespace Portal.Consultoras.Web.Controllers
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                BEPager pag = new BEPager();
+
                 IEnumerable<BEEstadoServicio> items = lst;
 
                 #region Sort Section
@@ -1084,7 +1082,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = PaginadorEstado(grid, lst);
+                BEPager pag = PaginadorEstado(grid, lst);
 
                 var data = new
                 {

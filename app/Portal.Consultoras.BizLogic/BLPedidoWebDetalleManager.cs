@@ -52,7 +52,7 @@ namespace Portal.Consultoras.BizLogic
             var producto = _blProducto.SelectProductoByCodigoDescripcionSearchRegionZona(model.PaisID, model.CampaniaID, model.CUV,
                 usuario.RegionID, usuario.ZonaID, usuario.CodigorRegion, usuario.CodigoZona, 1, 5, true).FirstOrDefault();
             if (producto == null)
-                return BEPedidoWebResult.BuildError(code: ResponseCode.ERROR_PRODUCTO_NO_ENCONTRADO, message: Resources.PedidoInsertMessages.ValidacionProductoByCUVNoEncontrado); //TODO: Validar mensaje
+                return BEPedidoWebResult.BuildError(code: ResponseCode.ERROR_PRODUCTO_NO_ENCONTRADO, message: Resources.PedidoInsertMessages.ValidacionProductoByCUVNoEncontrado);
 
             int tipoEstrategia;
             //validar stock estrategia

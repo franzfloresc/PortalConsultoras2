@@ -24,7 +24,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult RealizarDescarga()
         {
-            string mensaje = string.Empty;
             try
             {
                 string fechaproceso;

@@ -374,12 +374,12 @@ namespace Portal.Consultoras.Web.Controllers
         {
             #region Validar Fechas
 
-            string mensaje = string.Empty;
+            string mensaje = "";
 
             if (model.FechaFin.ToShortDateString() == "01/01/0001")
                 mensaje += "La Fecha de Inicio de Facturación no tiene el formato correcto, verifique dd/MM/yyyy. \n";
 
-            if (!mensaje.Equals(string.Empty))
+            if (mensaje != "")
             {
                 return Json(new
                 {

@@ -13916,13 +13916,12 @@ span.icon-advertencia {
 
     .popup_confirmacion_datos p.felicidades {
         display: block;
-        font-size: 13px;
+        font-size: 17px;
         font-weight: bolder;
         margin-bottom: 0;
         letter-spacing: 1px;
         text-align: center;
         color: black;
-        margin-bottom: 15px;
     }
 
     .popup_confirmacion_datos .contenido-popup-nuevo-2017 .estructura_confirmar_datos .centrar-vertical-contenido .form-confirmacion .loader-confirmacion {
@@ -13951,8 +13950,8 @@ span.icon-advertencia {
         text-align: center;
         letter-spacing: 0.5px;
         font-size: 11px;
-        margin-bottom: 20px;
-        line-height: 16px;
+        margin-bottom: 15px;
+        line-height: 13px;
         color: black;
         text-transform: initial;
     }
@@ -13972,7 +13971,7 @@ span.icon-advertencia {
         /* margin-bottom: 20px; */
         width: 240px;
         margin: auto;
-        height: 50px;
+        height: 45px;
         margin-bottom: 20px;
         margin-top: 20px;
     }

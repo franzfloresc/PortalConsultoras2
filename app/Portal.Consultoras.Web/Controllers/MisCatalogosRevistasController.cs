@@ -49,7 +49,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult Detalle(int campania)
         {
-            string ISO = userData.CodigoISO;
             List<BECatalogoConfiguracion> lstCatalogoConfiguracion = new List<BECatalogoConfiguracion>();
             using (ClienteServiceClient sv = new ClienteServiceClient())
             {
@@ -166,7 +165,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             string CampaniaID = string.Empty;
             string FechaFacturacion = string.Empty;
-            List<CatalogoClienteModel> lstClientesCat = new List<CatalogoClienteModel>();
 
             try
             {
@@ -224,13 +222,11 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 string RutaPublicaImagen = "";
-                string nombrecorto = userData.NombreCorto;
                 string CorreosInvalidos = string.Empty;
 
                 Catalogo catalogoLbel = catalogos.FirstOrDefault(x => x.IdMarcaCatalogo == Constantes.Marca.LBel);
                 Catalogo catalogoEsika = catalogos.FirstOrDefault(x => x.IdMarcaCatalogo == Constantes.Marca.Esika);
                 Catalogo catalogoCyZone = catalogos.FirstOrDefault(x => x.IdMarcaCatalogo == Constantes.Marca.Cyzone);
-                Catalogo catalogoFinart = catalogos.FirstOrDefault(x => x.IdMarcaCatalogo == Constantes.Marca.Finart);
 
                 DateTime dd = DateTime.Parse(FechaFacturacion, new CultureInfo("es-ES"));
                 string fdf = dd.ToString("dd", new CultureInfo("es-ES"));

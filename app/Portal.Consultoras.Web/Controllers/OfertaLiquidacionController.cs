@@ -9,6 +9,7 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -138,7 +139,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public List<OfertaProductoModel> GetListadoOfertasLiquidacion()
         {
-            var lst = new List<BEOfertaProducto>();
+            List<BEOfertaProducto> lst;
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
                 int Cantidad = sv.ObtenerMaximoItemsaMostrarLiquidacion(userData.PaisID);
@@ -204,18 +205,19 @@ namespace Portal.Consultoras.Web.Controllers
                     .ForMember(t => t.OrigenPedidoWeb, f => f.MapFrom(c => c.OrigenPedidoWeb));
 
                 BEPedidoWebDetalle entidad = Mapper.Map<PedidoDetalleModel, BEPedidoWebDetalle>(model);
+
+                entidad.PaisID = userData.PaisID;
+                entidad.ConsultoraID = userData.ConsultoraID;
+                entidad.CampaniaID = userData.CampaniaID;
+                entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.Liquidacion;
+                entidad.IPUsuario = userData.IPUsuario;
+
+                entidad.CodigoUsuarioCreacion = userData.CodigoConsultora;
+                entidad.CodigoUsuarioModificacion = entidad.CodigoUsuarioCreacion;
+                entidad.OrigenPedidoWeb = ProcesarOrigenPedido(entidad.OrigenPedidoWeb);
+
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    entidad.PaisID = userData.PaisID;
-                    entidad.ConsultoraID = userData.ConsultoraID;
-                    entidad.CampaniaID = userData.CampaniaID;
-                    entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.Liquidacion;
-                    entidad.IPUsuario = userData.IPUsuario;
-
-                    entidad.CodigoUsuarioCreacion = userData.CodigoConsultora;
-                    entidad.CodigoUsuarioModificacion = entidad.CodigoUsuarioCreacion;
-                    entidad.OrigenPedidoWeb = ProcesarOrigenPedido(entidad.OrigenPedidoWeb);
-
                     sv.InsPedidoWebDetalleOferta(entidad);
 
                     sessionManager.SetPedidoWeb(null);
@@ -224,8 +226,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 UpdPedidoWebMontosPROL();
 
-                if (entidad != null)
-                {
                     BEIndicadorPedidoAutentico indPedidoAutentico = new BEIndicadorPedidoAutentico();
                     indPedidoAutentico.PedidoID = entidad.PedidoID;
                     indPedidoAutentico.CampaniaID = entidad.CampaniaID;
@@ -235,7 +235,6 @@ namespace Portal.Consultoras.Web.Controllers
                     indPedidoAutentico.IndicadorToken = (Session["TokenPedidoAutentico"] != null) ? Session["TokenPedidoAutentico"].ToString() : "";
 
                     InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);
-                }
 
                 return Json(new
                 {
@@ -352,6 +351,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (Lista.Count > 0)
             {
+                var txtBuil = new StringBuilder();
                 for (int i = 0; i < Lista.Count; i++)
                 {
                     int Stock = 0;
@@ -361,8 +361,9 @@ namespace Portal.Consultoras.Web.Controllers
                     }
 
                     if (Lista[i].Stock > Stock)
-                        msj += "- El stock para el CUV <b>" + Lista[i].CUV + "</b> es <b>" + Stock + "</b> unidades deberá validar la cantidad nuevamente.\n";
+                        txtBuil.Append("- El stock para el CUV <b>" + Lista[i].CUV + "</b> es <b>" + Stock + "</b> unidades deberá validar la cantidad nuevamente.\n");
                 }
+                msj = txtBuil.ToString();
             }
             return Json(new
             {
@@ -680,7 +681,7 @@ namespace Portal.Consultoras.Web.Controllers
                 BEPager pag = Util.PaginadorGenerico(grid, lst);
                 string ISO = Util.GetPaisISO(PaisID);
                 var carpetaPais = Globals.UrlMatriz + "/" + ISO;
-                lst.Update(x => x.ImagenProducto = (x.ImagenProducto.ToString().Equals(string.Empty) ? string.Empty : ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.RutaImagenesMatriz + "/" + ISO)));
+                lst.Update(x => x.ImagenProducto = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.RutaImagenesMatriz + "/" + ISO));
                 lst.Update(x => x.ISOPais = ISO);
                 var data = new
                 {
@@ -1124,7 +1125,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                List<BEOfertaProducto> lst = new List<BEOfertaProducto>();
+                List<BEOfertaProducto> lst;
 
                 var entidad = new BEOfertaProducto();
                 entidad.PaisID = userData.PaisID;
@@ -1177,7 +1178,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult RegistrarTallaColor(string Id, string Cuv, string CampaniaID, string Tipo, string Descripcion, string CUVPadre, string DescripcionCUV)
         {
-            int resultado = 0;
             try
             {
                 var entidad = new BEOfertaProducto();
@@ -1194,7 +1194,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    resultado = sv.InsertarTallaColorLiquidacion(entidad);
+                    sv.InsertarTallaColorLiquidacion(entidad);
                 }
 
                 return Json(new
@@ -1229,7 +1229,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult EliminarTallaColor(string Id)
         {
-            int resultado = 0;
             try
             {
                 var entidad = new BEOfertaProducto();
@@ -1238,7 +1237,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    resultado = sv.EliminarTallaColorLiquidacion(entidad);
+                    sv.EliminarTallaColorLiquidacion(entidad);
                 }
 
                 return Json(new
@@ -1274,7 +1273,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                List<BEOfertaProducto> lst = new List<BEOfertaProducto>();
+                List<BEOfertaProducto> lst;
 
                 var entidad = new BEOfertaProducto();
                 entidad.PaisID = userData.PaisID;

@@ -193,7 +193,6 @@ namespace Portal.Consultoras.Web.Controllers
             grid.CurrentPage = page;
             grid.SortColumn = sidx;
             grid.SortOrder = sord;
-            BEPager pag = new BEPager();
             IEnumerable<BELogModificacionCronograma> items = lst;
 
             #region Sort Section
@@ -246,7 +245,7 @@ namespace Portal.Consultoras.Web.Controllers
             else
                 items = items.Where(p => p.Fecha.ToString().ToUpper().Contains(vBusqueda.ToUpper())).Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-            pag = Paginador(grid, vBusqueda);
+            BEPager pag = Paginador(grid, vBusqueda);
 
             var data = new
             {

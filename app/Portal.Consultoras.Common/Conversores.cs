@@ -33,7 +33,8 @@ namespace Portal.Consultoras.Common
         //[SuppressMessage("ReSharper", "CompareOfFloatsByEqualityOperator")]
         private static string NumeroALetras(double value)
         {
-            string num2Text; value = Math.Truncate(value);
+            string num2Text;
+            value = Math.Truncate(value);
             if (value == 0) num2Text = "CERO";
             else if (value == 1) num2Text = "UNO";
             else if (value == 2) num2Text = "DOS";

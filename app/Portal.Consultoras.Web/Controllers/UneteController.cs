@@ -587,7 +587,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public string NivelesGeograficosInsertar(HttpPostedFileBase uplArchivo, NivelesGeograficosModel model)
         {
-            string message = string.Empty;
             model.CodigoISO = CodigoISO;
             try
             {
@@ -645,7 +644,6 @@ namespace Portal.Consultoras.Web.Controllers
                 try
                 {
                     bool IsCorrect = false;
-                    NivelesGeograficosModel prod = new NivelesGeograficosModel();
                     lista = ReadXmlFileNG(finalPath, true, ref IsCorrect, CodigoISO);
                 }
                 catch (Exception ex)

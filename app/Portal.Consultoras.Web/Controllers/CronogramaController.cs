@@ -166,7 +166,11 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     using (SACServiceClient sv = new SACServiceClient())
                     {
-                        lst = sv.GetCronogramaByCampania(PaisID == string.Empty ? 11 : int.Parse(PaisID), CampaniaID == "" ? 0 : int.Parse(CampaniaID), ZonaID.Equals(string.Empty) ? -1 : int.Parse(ZonaID), Int16.Parse(TipoCronogramaID)).ToList();
+                        lst = sv.GetCronogramaByCampania(
+                            PaisID == string.Empty ? 11 : int.Parse(PaisID), 
+                            CampaniaID == "" ? 0 : int.Parse(CampaniaID),
+                            string.IsNullOrEmpty(ZonaID) ? -1 : int.Parse(ZonaID), 
+                            Int16.Parse(TipoCronogramaID)).ToList();
                     }
                 }
                 else
@@ -367,7 +371,11 @@ namespace Portal.Consultoras.Web.Controllers
                 List<BECronograma> lst;
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-                    lst = sv.GetCronogramaByCampaniaAnticipado(PaisID == string.Empty ? 11 : int.Parse(PaisID), CampaniaID == "" ? -1 : int.Parse(CampaniaID), ZonaID.Equals(string.Empty) ? -1 : int.Parse(ZonaID), Int16.Parse(TipoCronogramaID)).ToList();
+                    lst = sv.GetCronogramaByCampaniaAnticipado(
+                        PaisID == string.Empty ? 11 : int.Parse(PaisID), 
+                        CampaniaID == "" ? -1 : int.Parse(CampaniaID),
+                        string.IsNullOrEmpty(ZonaID) ? -1 : int.Parse(ZonaID), 
+                        Int16.Parse(TipoCronogramaID)).ToList();
                 }
 
                 BEGrid grid = new BEGrid();
@@ -455,14 +463,14 @@ namespace Portal.Consultoras.Web.Controllers
         {
             #region Validar Fechas
 
-            string mensaje = string.Empty;
+            string mensaje = "";
 
             if (model.FechaInicioWeb.ToShortDateString() == "01/01/0001")
                 mensaje += "La Fecha de Inicio de Facturación no tiene el formato correcto, verifique dd/MM/yyyy. \n";
             if (model.FechaInicioDD.ToShortDateString() == "01/01/0001")
                 mensaje += "La Fecha de Inicio de Refacturación no tiene el formato correcto, verifique dd/MM/yyyy. \n";
 
-            if (!mensaje.Equals(string.Empty))
+            if (mensaje != "")
             {
                 return Json(new
                 {
@@ -540,14 +548,14 @@ namespace Portal.Consultoras.Web.Controllers
         {
             #region Validar Fechas
 
-            string mensaje = string.Empty;
+            string mensaje = "";
 
             if (model.FechaInicioWeb.ToShortDateString() == "01/01/0001")
                 mensaje += "La Fecha de Inicio de Facturación no tiene el formato correcto, verifique dd/MM/yyyy. \n";
             if (model.FechaInicioDD.ToShortDateString() == "01/01/0001")
                 mensaje += "La Fecha de Inicio de Refacturación no tiene el formato correcto, verifique dd/MM/yyyy. \n";
 
-            if (!mensaje.Equals(string.Empty))
+            if (mensaje != "")
             {
                 return Json(new
                 {

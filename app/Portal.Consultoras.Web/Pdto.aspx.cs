@@ -39,15 +39,10 @@ namespace Portal.Consultoras.Web
 
                 if (objProComp != null)
                 {
-                    int ProductoCompID = objProComp.PcID;
-                    int ProductoCompCampaniaID = objProComp.PcCampaniaID;
-                    string ProductoCompCUV = objProComp.PcCuv;
                     string ProductoCompPalanca = objProComp.PcPalanca;
                     var ArrayDetalle = objProComp.PcDetalle.Split('|');
-                    string ProductoCompApp = objProComp.PcApp;
 
                     string RutaImagen = "";
-                    //string MarcaID = "";
                     string MarcaDesc = "";
                     string NomProducto = "";
                     string Volumen = "";

@@ -10,8 +10,6 @@ namespace Portal.Consultoras.BizLogic
 {
     public class BLProveedorDespachoCobranza
     {
-
-        //r20151202
         public List<BEProveedorDespachoCobranza> GetProveedorDespachoCobranza(int paisID)
         {
             var lista = new List<BEProveedorDespachoCobranza>();
