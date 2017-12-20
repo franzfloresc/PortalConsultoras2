@@ -153,27 +153,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         private string ObtenerRutaChile()
         {
             var rutaChile = string.Empty;
-            if (userData.CodigoISO == Constantes.CodigosISOPais.Chile ||
-                userData.CodigoISO == Constantes.CodigosISOPais.Colombia)
+            if (userData.CodigoISO == Constantes.CodigosISOPais.Chile)
             {
-                var tabla = new List<BETablaLogicaDatos>();
-                using (SACServiceClient sac = new SACServiceClient())
-                {
-                    tabla = sac.GetTablaLogicaDatos(userData.PaisID, 60).ToList();
-
-                    if (userData.CodigoISO == Constantes.CodigosISOPais.Chile)
-                    {
-                        rutaChile = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlPagoLineaChile);
-                    }
-                    else
-                    {
-                        rutaChile = string.Empty;
-                    }
-                }
-            }
-            else
-            {
-                rutaChile = string.Empty;
+                rutaChile = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlPagoLineaChile);
             }
 
             return rutaChile;

@@ -19,10 +19,10 @@ namespace Portal.Consultoras.Web.Controllers
     {
         #region Configuracion de Paginado
         MisPedidosModel objMisPedidos;
-        int registrosPagina = 5;
+        readonly int registrosPagina = 5;
         int indiceActualPagina = 0;
         int indiceUltimaPagina;
-        bool isEsika = false;
+        readonly bool isEsika = false;
         #endregion
 
         public ConsultoraOnlineController()
@@ -272,7 +272,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-
                 var consultoraAfiliar = new ClienteContactaConsultoraModel();
                 using (ServiceSAC.SACServiceClient sc = new ServiceSAC.SACServiceClient())
                 {
@@ -283,34 +282,19 @@ namespace Portal.Consultoras.Web.Controllers
                 if (consultoraAfiliar.Afiliado)
                     return RedirectToAction("Index", "ConsultoraOnline");
 
-
-                string result = string.Empty;
-                bool HasSuccess = false;
                 if (data != null)
                 {
                     string[] query = Util.DesencriptarQueryString(data).Split(';');
 
                     using (UsuarioServiceClient srv = new UsuarioServiceClient())
                     {
-                        HasSuccess = srv.ActiveEmail(Convert.ToInt32(query[1]), query[0], query[2], query[3]);
+                        srv.ActiveEmail(Convert.ToInt32(query[1]), query[0], query[2], query[3]);
                     }
-                    if (HasSuccess)
-                        result = "|Su dirección de correo electrónico ha sido activada correctamente.\n";
-                    else
-                        result = "|Esta dirección de correo electrónico ya ha sido activada.\n";
                 }
-                else
-                    result = "|El correo electrónico ya habia sido activado.\n";
 
                 ClienteContactaConsultoraModel ConsultoraAfiliar = DatoUsuario();
-                HasSuccess = true;
-
-                if (String.IsNullOrEmpty(ConsultoraAfiliar.Email.Trim()) || !ConsultoraAfiliar.EmailActivo)
-                {
-                    result += "|No tiene email activo.";
-                    HasSuccess = false;
-                }
-
+                var HasSuccess = !(String.IsNullOrEmpty(ConsultoraAfiliar.Email.Trim()) || !ConsultoraAfiliar.EmailActivo);
+                
                 if (ConsultoraAfiliar.EsPrimeraVez)
                 {
                     using (ServiceSAC.SACServiceClient sc = new ServiceSAC.SACServiceClient())
@@ -608,7 +592,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.NombreConsultora = UserData().PrimerNombre;
             ViewBag.Simbolo = UserData().Simbolo;
 
-            List<BEMisPedidos> olstMisPedidos = new List<BEMisPedidos>();
+            List<BEMisPedidos> olstMisPedidos;
             MisPedidosModel model = new MisPedidosModel();
 
             int pagAeux;
@@ -686,7 +670,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                List<BEMisPedidos> olstMisPedidos = new List<BEMisPedidos>();
+                List<BEMisPedidos> olstMisPedidos;
                 MisPedidosModel model = new MisPedidosModel();
 
                 using (UsuarioServiceClient svc = new UsuarioServiceClient())
@@ -774,7 +758,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                List<BEMisPedidosDetalle> olstMisPedidosDet = new List<BEMisPedidosDetalle>();
+                List<BEMisPedidosDetalle> olstMisPedidosDet;
                 MisPedidosDetalleModel model = new MisPedidosDetalleModel();
 
                 using (UsuarioServiceClient svc = new UsuarioServiceClient())
@@ -785,9 +769,8 @@ namespace Portal.Consultoras.Web.Controllers
                 if (olstMisPedidosDet.Count > 0)
                 {
                     MisPedidosModel consultoraOnlineMisPedidos = (MisPedidosModel)Session["objMisPedidos"];
-                    BEMisPedidos pedido = new BEMisPedidos();
                     long _pedidoId = Convert.ToInt64(pedidoId);
-                    pedido = consultoraOnlineMisPedidos.ListaPedidos.FirstOrDefault(p => p.PedidoId == _pedidoId);
+                    var pedido = consultoraOnlineMisPedidos.ListaPedidos.FirstOrDefault(p => p.PedidoId == _pedidoId);
 
                     Session["objMisPedidosDetalle"] = olstMisPedidosDet;
 
@@ -799,15 +782,15 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             revistaGana = sv.ValidarDesactivaRevistaGana(userData.PaisID, userData.CampaniaID, userData.CodigoZona);
                         }
-
-                        string inputCUV = "";
+                        
+                        var txtBuil = new StringBuilder();
                         foreach (var item in olstMisPedidosDet)
                         {
-                            inputCUV += item.CUV + ",";
+                            txtBuil.Append(item.CUV + ",");
                         }
-
+                        string inputCUV = txtBuil.ToString();
                         inputCUV = inputCUV.Substring(0, inputCUV.Length - 1);
-                        List<BEProducto> olstMisProductos = new List<BEProducto>();
+                        List<BEProducto> olstMisProductos;
 
                         using (ODSServiceClient svc = new ODSServiceClient())
                         {
@@ -1056,7 +1039,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     List<BEProducto> olstMisProductos = (List<BEProducto>)Session["objMisPedidosDetalleVal"];
 
-                    List<BEPedidoWebDetalle> olstPedidoWebDetalle = new List<BEPedidoWebDetalle>();
+                    List<BEPedidoWebDetalle> olstPedidoWebDetalle;
                     BEPedidoWebDetalle bePedidoWebDetalle;
 
                     int contOk = 0;
@@ -1272,7 +1255,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     try
                     {
-                        if (pedido.Accion == 1)  // desktop
+                        if (pedido.Accion == 1) 
                         {
                             Common.Util.EnviarMail3(emailDe, _pedido.Email, titulocliente, mensajecliente.ToString(), true, _pedido.Email);
                         }
@@ -1298,7 +1281,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     try
                     {
-                        if (pedido.Accion == 1)      // desktop
+                        if (pedido.Accion == 1)
                         {
                             Common.Util.EnviarMail3(emailDe, _pedido.Email, titulo, mensaje.ToString(), true, string.Empty);
                         }
@@ -1377,13 +1360,13 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return null;
+                return new List<BEPedidoWebDetalle>();
             }
         }
 
         private List<BEPedidoWebDetalle> AdministradorPedido(BEPedidoWebDetalle oBEPedidoWebDetalle, string TipoAdm, out bool ErrorServer, out string tipo)
         {
-            List<BEPedidoWebDetalle> olstTempListado = new List<BEPedidoWebDetalle>();
+            List<BEPedidoWebDetalle> olstTempListado;
 
             try
             {
@@ -1701,7 +1684,7 @@ namespace Portal.Consultoras.Web.Controllers
                         try
                         {
                             string emailDe = GetConfiguracionManager(Constantes.ConfiguracionManager.ConsultoraOnlineEmailDe);
-                            if (typeAction == "1")      // desktop
+                            if (typeAction == "1")
                             {
                                 Common.Util.EnviarMail3(emailDe, pedido.Email, titulocliente, mensajecliente.ToString(), true, pedido.Email);
                             }
@@ -1784,8 +1767,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (ServiceSAC.SACServiceClient sc = new ServiceSAC.SACServiceClient())
                 {
-                    MisPedidosModel consultoraOnlineMisPedidos = new MisPedidosModel();
-                    consultoraOnlineMisPedidos = (MisPedidosModel)Session["objMisPedidos"];
+                    MisPedidosModel consultoraOnlineMisPedidos = (MisPedidosModel)Session["objMisPedidos"];
 
                     sc.CancelarSolicitudCliente(PaisId, SolicitudId, OpcionCancelado, RazonMotivoCancelado);
                     ServiceSAC.BESolicitudCliente beSolicitudCliente = sc.GetSolicitudCliente(PaisId, SolicitudId);

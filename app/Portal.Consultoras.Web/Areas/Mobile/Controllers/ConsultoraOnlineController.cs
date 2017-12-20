@@ -26,7 +26,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         private const string keyCantidadGetCantidadPedidos = "cantidadGetCantidadPedidos";
         private const int refrescoGetCantidadPedidos = 30;
         MisPedidosModel objMisPedidos;
-        bool isEsika = false;
+        readonly bool isEsika = false;
         #endregion
 
         public ConsultoraOnlineController()
@@ -813,7 +813,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public ActionResult Historial()
         {
             var model = new ConsultoraOnlineHistorialMobileModel();
-            var listaPedidoFacturados = new List<ServicePedido.BEPedidoWeb>();
 
             try
             {
@@ -999,15 +998,17 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         {
                             revistaGana = sv.ValidarDesactivaRevistaGana(userData.PaisID, userData.CampaniaID, userData.CodigoZona);
                         }
-
-                        string inputCUV = "";
+                        
+                        var txtBuil = new StringBuilder();
                         foreach (var item in olstMisPedidosDet)
                         {
-                            inputCUV += item.CUV + ",";
+                            txtBuil.Append(item.CUV + ",");
                         }
 
+                        var inputCUV = txtBuil.ToString();
                         inputCUV = inputCUV.Substring(0, inputCUV.Length - 1);
-                        List<BEProducto> olstMisProductos = new List<BEProducto>();
+
+                        List<BEProducto> olstMisProductos;
 
                         using (ODSServiceClient svc = new ODSServiceClient())
                         {

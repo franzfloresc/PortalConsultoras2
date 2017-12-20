@@ -11,6 +11,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -732,8 +733,10 @@ namespace Portal.Consultoras.Web.Controllers
 
         public string DevolverCadenaParametros()
         {
-            string Cadena = "?";
-            List<ServiceContenido.BEParametro> list = new List<ServiceContenido.BEParametro>();
+            var txtBuil = new StringBuilder();
+            txtBuil.Append("?");
+
+            List<ServiceContenido.BEParametro> list;
 
             using (ContenidoServiceClient sv = new ContenidoServiceClient())
             {
@@ -742,9 +745,10 @@ namespace Portal.Consultoras.Web.Controllers
 
             foreach (ServiceContenido.BEParametro item in list)
             {
-                Cadena = Cadena + item.Abreviatura + "=" + DevolverValorParametro(item.ParametroId) + "&";
+                txtBuil.Append(item.Abreviatura + "=" + DevolverValorParametro(item.ParametroId) + "&");
             }
 
+            var Cadena = txtBuil.ToString();
             Cadena = Cadena.Substring(0, Cadena.Length - 1);
 
             return Cadena;

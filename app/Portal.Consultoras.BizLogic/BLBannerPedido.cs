@@ -20,7 +20,6 @@ namespace Portal.Consultoras.BizLogic
                 while (reader.Read())
                 {
                     var entidad = new BEBannerPedido(reader);
-                    //entidad.PaisID = paisID;
                     lista.Add(entidad);
                 }
 

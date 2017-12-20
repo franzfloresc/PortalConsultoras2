@@ -69,8 +69,6 @@ namespace Portal.Consultoras.Web.Controllers
             var nombre = "";
             var mensajeError = "";
 
-            //userData.MontoDeuda = 0;    // test
-
             switch (userData.PaisID)
             {
                 case Constantes.PaisID.Colombia:
@@ -133,7 +131,6 @@ namespace Portal.Consultoras.Web.Controllers
                         tieneCampaniaConsecutivas = ps.TieneCampaniaConsecutivas(userData.PaisID, userData.CampaniaID, int.Parse(cantidadCampaniaConsecutiva), userData.ConsultoraID);
                     }
 
-                    //tieneCampaniaConsecutivas = true;   // test
                     if (!tieneCampaniaConsecutivas)
                     {
                         mensajeError = "No has sido constante en las últimas " + cantidadCampaniaConsecutiva +
