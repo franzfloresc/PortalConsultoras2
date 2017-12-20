@@ -11,7 +11,8 @@ var PaisID;
 var CodigoUsuario;
 var ancho = 681;
 var correoRecuperar = "";
-var nroIntentos = 0;
+var nroIntentosCo = 0;
+var nroIntentosSms = 0;
 
 $(document).ready(function () {
     $(window).resize(function () {
@@ -39,7 +40,7 @@ $(document).ready(function () {
         $(this).addClass("campo_correoElectronico_activo");
     });
 
-    $(".campo_correoElectronico").focusout(function(){
+    $(".campo_correoElectronico").focusout(function () {
         $(".iconoUsuario").removeClass("iconoUsuarioActivo");
         $(this).removeClass("campo_correoElectronico_activo");
     });
@@ -53,7 +54,7 @@ $(document).ready(function () {
     $('#ddlPais').val(isoPais);
     $('#ddlPais2').val(isoPais);
     ayudaLogin2();
-    
+
     //$('#cboPaisCambioClave').val(isoPais);
 
     if (avisoASP == 1) $('#AvisoASP').hide();
@@ -68,7 +69,7 @@ $(document).ready(function () {
             'text-decoration': 'none'
         });
     }
-    
+
     if (banderaOk == 'True') {
         $("#cargarBandera").css("background", "url('/Content/Images/Login2/Banderas/" + isoPais + ".png') top 10px left 2px no-repeat");
         $("#cargarBandera2").css("background", "url('/Content/Images/Login2/Banderas/" + isoPais + ".png') top 10px left 2px no-repeat");
@@ -77,7 +78,7 @@ $(document).ready(function () {
     else {
         $('#cargarBandera').css('background', "url('/Content/Images/Login2/Banderas/00.png') top -7px left -10px no-repeat");
         //$('#cargarBandera2').css('background', "url('/Content/Images/Login2/Banderas/00.png') top -7px left -10px no-repeat");
-    }    
+    }
 
     _gaq.push(['_trackPageview', '/Somosbelcorp/Login']);
 
@@ -86,7 +87,7 @@ $(document).ready(function () {
         analytics.invocarAnalyticsByCodigoIso(imgISO);
 
         if ($("#ddlPais").val() == "MX") $("#AvisoASP").show();
-        else $("#AvisoASP").hide();        
+        else $("#AvisoASP").hide();
         if (imgISO == "PA") $("#footer_esika").hide();
         else $("#footer_esika").show();
         if ($("#ddlPais").val() == "CO") $("#VinculoTarjetaHelm").show();
@@ -100,7 +101,7 @@ $(document).ready(function () {
 
     $("#ddlPais2").change(function () {
         imgISO = $("#ddlPais2").val();
-        
+
         if (paisesEsika.indexOf(imgISO) != -1) {
             $("#cargarBandera3").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top 10px left 2px no-repeat");
         }
@@ -154,12 +155,12 @@ $(document).ready(function () {
         var ISOPais = getISOPaisbyCodigo($(this).val());
         if (ISOPais != "00") $("#cargarBandera2").css("background", "url('/Content/Images/Login2/Banderas/" + ISOPais + ".png') top 10px left 2px no-repeat");
         else $("#cargarBandera2").css("background", "url('/Content/Images/Login2/Banderas/" + ISOPais + ".png') top -7px left -10px no-repeat");
-        
+
         $("#txtCorreoElectronico").prop("placeholder", $(".cboPaisCambioClave option:selected").attr("data-campoclave"));
         $("#txtCorreoElectronico").val("").focus();
 
         $("#hdfCorreoElectronico").val($(".cboPaisCambioClave option:selected").attr("data-campoclave"));
-    });    
+    });
 
     Inicializar();
 
@@ -170,7 +171,7 @@ $(document).ready(function () {
         PaisID = getVALbyISO(CodigoISO);
         CodigoUsuario = jQuery.trim($("#txtUsuario").val());
         var Contrasenia = jQuery.trim($("#txtContrasenia").val());
-        
+
         var mensaje = "";
 
         if (PaisID == "")
@@ -218,17 +219,17 @@ $(document).ready(function () {
 
     $("#txtUsuario2").keypress(
         function (evt) {
-        var charCode = (evt.which) ? evt.which : window.event.keyCode;
-        if (charCode <= 13) {
-            //ValidarAutenticacion();
-            $('#txtContrasenia2').focus();
-            return false;
-        }
-        else {
-            var keyChar = String.fromCharCode(charCode);
-            var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_.@@-]/;
-            return re.test(keyChar);
-        }
+            var charCode = (evt.which) ? evt.which : window.event.keyCode;
+            if (charCode <= 13) {
+                //ValidarAutenticacion();
+                $('#txtContrasenia2').focus();
+                return false;
+            }
+            else {
+                var keyChar = String.fromCharCode(charCode);
+                var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_.@@-]/;
+                return re.test(keyChar);
+            }
         });
 
     $("#txtContrasenia").keypress(
@@ -251,6 +252,55 @@ $(document).ready(function () {
             }
         });
 
+    $(".codigoSms").keypress(
+        function (evt) {     
+            if (evt.charCode >= 48 && evt.charCode <= 57) {                
+                var oID = $(this).attr("id");
+                var nextfocus = parseInt(oID.substring(0, 1)) + 1;
+                $("#" + nextfocus + "Digito").focus();
+                return true;
+            } else {
+                alert("Ingrese solo números.")
+                return false;
+            }
+        });
+
+    $(".codigoSms").keyup(
+        function (e) {
+
+            $(".codigoInvalido").hide();
+            var verificar = true;
+
+            if ($("#1Digito").val() == "")
+                verificar = false;
+            if ($("#2Digito").val() == "")
+                verificar = false;
+            if ($("#3Digito").val() == "")
+                verificar = false;
+            if ($("#4Digito").val() == "")
+                verificar = false;
+            if ($("#5Digito").val() == "")
+                verificar = false;
+            if ($("#6Digito").val() == "")
+                verificar = false;
+
+            if (verificar) {
+                var CodigosmsIngresado = $("#1Digito").val() + $("#2Digito").val() + $("#3Digito").val() + $("#4Digito").val() + $("#5Digito").val() + $("#6Digito").val();
+                ObtenerCodigoSms(CodigosmsIngresado);
+            }
+        });
+
+    //$(".codigoSms").keydown(
+    //    function (e) {
+    //        debugger
+    //        var oID = $(this).attr("id");
+    //        if (e.keyCode == $.ui.keyCode.BACKSPACE) {
+    //            $(oID).val() = "";
+    //            var backfocus = parseInt(oID.substring(0, 1)) - 1;
+    //            $("#" + backfocus + "Digito").focus();
+    //        }
+    //    });
+
     if (typeof errorLogin !== 'undefined') {
         var errorMessage = "Mensaje: " + errorLogin;
 
@@ -269,7 +319,6 @@ $(document).ready(function () {
     });
 
     $(".aVolverInicio").click(function () {
-        //$("#vermasopciones1").attr("data-recuperar", "2");
         $("#popup2").hide();
         RecuperarClave("1");       
     });
@@ -316,14 +365,27 @@ $(document).ready(function () {
     });
 
     $(".RecuperarPorCorreo").click(function () {
-        debugger
         if (correoRecuperar != "") {
-            nroIntentos = nroIntentos + 1;
+            nroIntentosCo = nroIntentosCo + 1;
             ProcesaEnvioEmail();            
         }            
     });
 
     $(".opcionSms").click(function () {
+        if ($('#aSeguntoIntentoSms').is(':visible')) {
+            $('#aSeguntoIntentoSms').hide();
+            $("#divVolverInicioSms").show();
+        }
+        nroIntentosSms = nroIntentosSms + 1;
+
+        $(".codigoInvalido").hide();
+        $("#1Digito").val("");
+        $("#2Digito").val("");
+        $("#3Digito").val("");
+        $("#4Digito").val("");
+        $("#5Digito").val("");
+        $("#6Digito").val("");
+
         ProcesaEnvioSMS();
     });
 
@@ -337,7 +399,6 @@ $(document).ready(function () {
 
 ////////////
 function Construir_EnlacexDispositivo(Modo) {
-    debugger
     var v_urlbase = $("#hd_CONTEXTO_BASE").val();
     var paisId = $("#cboPaisCambioClave").val();
     var codigoUsuario = $("#hdCodigoConsultora").val();
@@ -884,7 +945,7 @@ function ProcesaEnvioEmail() {
         paisId: paisId,
         filtro: $("#txtCorreoElectronico").val(),
         EsMobile: parseInt($(".lk_chat").attr("ismovildevice")),
-        Intento: nroIntentos
+        Intento: nroIntentosCo
     };
 
     waitingDialog();
@@ -898,14 +959,15 @@ function ProcesaEnvioEmail() {
         success: function (response) {
             if (response.success) {
                 $("#popupRestaurarClave").hide();
-                $("#popup2").show();               
+                $("#popup2").show();  
+                $("#divPopupIntentosCorreo").show();
                 $("#correoDestino").html("<b>" + $("#spcorreo").html() + "</b>");
-                if (nroIntentos === 1) {
+                if (nroIntentosCo === 1) {
                     $("#divVolverInicio").hide(); 
                     $("#men3Intento").hide(); 
                     $("#men1y2Intento").show();
                     $("#divPrimerInteto").show();
-                } else if (nroIntentos >= 2) {
+                } else if (nroIntentosCo >= 2) {
                     $("#men1y2Intento").hide();
                     $("#divPrimerInteto").hide();
                     $("#men3Intento").show();
@@ -925,13 +987,13 @@ function ProcesaEnvioEmail() {
 }
 
 function ProcesaEnvioSMS() {
-    debugger
-    var paisId = $("#ddlPais").val();
+    var paisId = $("#cboPaisCambioClave").val();
 
     var parametros = {
-        CodigoIso: paisId,
+        paisID: paisId,
         filtro: $("#txtCorreoElectronico").val(),
-        Origen: "RestaurarClave"
+        Origen: "RestaurarClave",
+        nroVeces: nroIntentosSms
     };
 
     waitingDialog();
@@ -943,25 +1005,28 @@ function ProcesaEnvioSMS() {
         data: JSON.stringify(parametros),
         async: true,
         success: function (response) {
-            alert(1)
-            //if (response.success) {
-            //    $("#popupRestaurarClave").hide();
-            //    $("#popup2").show();
-            //    $("#correoDestino").html("<b>" + $("#spcorreo").html() + "</b>");
-            //    if (nroIntentos === 1) {
-            //        $("#divVolverInicio").hide();
-            //        $("#men3Intento").hide();
-            //        $("#men1y2Intento").show();
-            //        $("#divPrimerInteto").show();
-            //    } else if (nroIntentos >= 2) {
-            //        $("#men1y2Intento").hide();
-            //        $("#divPrimerInteto").hide();
-            //        $("#men3Intento").show();
-            //        $("#divVolverInicio").show();
-            //    }
-            //} else {
-            //    alert(response.message);
-            //}
+
+            if (response.success){
+                $("#popupRestaurarClave").hide();
+                $("#popup2").show();
+
+                if (nroIntentosSms == 1) {
+                    $("#MenSegundoIntentoSms").hide();
+                    $("#divVolverInicioSms").hide();
+                    $("#MenPrimerIntentoSms").show();
+                    $("#aSeguntoIntentoSms").show();
+                }
+                    
+                if (nroIntentosSms >= 2) {
+                    $("#MenPrimerIntentoSms").hide();
+                    $("#aSeguntoIntentoSms").hide();
+                    $("#MenSegundoIntentoSms").show();
+                    $("#divVolverInicioSms").show();
+                }                   
+
+                $("#divPopupIntentosSMS").show();
+                $("#1Digito").focus();
+            }
             closeWaitingDialog();
         },
         error: function (data, error) {
@@ -1014,7 +1079,6 @@ function Fondofestivo(id)
 function RecuperarClave(tipoRecuperar) {
     //var v_mensaje = $("#hdfCorreoElectronico").val().trim();
     //var s_correo = "";
-    debugger
     var nombreDato = $(".cboPaisCambioClave option:selected").attr("data-campoclave");
 
     var paisId = $("#cboPaisCambioClave").val();
@@ -1047,14 +1111,14 @@ function RecuperarClave(tipoRecuperar) {
         async: true,
         success: function (response) {           
             if (response.success) {
-                debugger
+                
                 if (response.resul == "") {
                     alert(nombreDato + " Incorrectas.")
                     return false;
                 }   
 
                 OcultarContenidoPopup();
-            
+                
                 var nroCelular = $.trim(response.data.Celular);
                 var email = $.trim(response.data.Correo);
                 var primerNombre = $.trim(response.data.PrimerNombre);
@@ -1069,7 +1133,6 @@ function RecuperarClave(tipoRecuperar) {
                 $("#linkvolverInicio").hide();  
                 $("#vermasopciones1").hide();
 
-                debugger
                 if (email != "")
                 {
                     if (!response.data.FlagBloqueoCorreo) {
@@ -1101,7 +1164,7 @@ function RecuperarClave(tipoRecuperar) {
                         $("#divRecup_porsms").css("pointer-events", "none");
                                                 
                         $("#prioridad1_sms").addClass("deshabilitar_opcion_correo");
-                        $('.RecuperarPorSMS').attr('disabled', 'disabled');
+                        $('.opcionSms').attr('disabled', 'disabled');
 
                         $(".mensajeDeBloqueoSMS").show();
                     } else {
@@ -1110,7 +1173,7 @@ function RecuperarClave(tipoRecuperar) {
                         $("#divRecup_porsms").css("pointer-events", "");
 
                         $("#prioridad1_sms").removeClass("deshabilitar_opcion_correo");
-                        $('.RecuperarPorSMS').attr('disabled', false);
+                        $('.opcionSms').attr('disabled', false);
 
                         $(".mensajeDeBloqueoSMS").hide();
                     }
@@ -1125,7 +1188,7 @@ function RecuperarClave(tipoRecuperar) {
                             $("#spcorreo").html(e_correo);
 
                             e_numero = Enmascarar_Numero(nroCelular);
-                            $(".divNumCelular").html(e_numero);
+                            $(".NumCelularDestino").html(e_numero);
 
                             $("#vermasopciones1").attr("data-recuperar", "2");
 
@@ -1154,7 +1217,7 @@ function RecuperarClave(tipoRecuperar) {
                     case "prioridad1_sms":
                         {
                             e_numero = Enmascarar_Numero(nroCelular);
-                            $(".divNumCelular").html(e_numero);
+                            $(".NumCelularDestino").html(e_numero);
                             $("#vermasopciones1").attr("data-recuperar", "2");
 
                             if ($("#prioridad1_sms").hasClass("deshabilitar_opcion_correo"))
@@ -1404,6 +1467,7 @@ function RecuperarClave(tipoRecuperar) {
 
 function OcultarContenidoPopup()
 {
+    //Correo
     $("#menPrioridad1").hide();
     $("#menPrioridad1_correo").hide();
     $("#menPrioridad1_sms").hide();
@@ -1417,4 +1481,48 @@ function OcultarContenidoPopup()
     $("#prioridad2_chat").hide();
     $("#prioridad2_llamada").hide();
     $("#prioridad3").hide();
+
+    $("#divPopupIntentosSMS").hide()
+    $("#MenSegundoIntentoSms").hide();
+    $("#divVolverInicioSms").hide();
+    $("#MenPrimerIntentoSms").hide();
+    $("#aSeguntoIntentoSms").hide();
+    $("#divPopupIntentosCorreo").hide();
+
+    nroIntentosCo = 0;
+    nroIntentosSms = 0;
+}
+
+function ObtenerCodigoSms(CodIngresado)
+{
+    var paisId = $("#cboPaisCambioClave").val();
+
+    var parametros = {
+        paisID: paisId,
+        Origen: "RestaurarClave",
+        Codigoingresado: CodIngresado
+    };
+
+    waitingDialog();
+    $.ajax({
+        type: 'POST',
+        url: urlObtenerCodigoSms,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(parametros),
+        async: true,
+        success: function (response) {
+            if (response.success) {
+                alert('codigo correcto');
+            } else {
+                $(".codigoInvalido").show();
+            }
+            closeWaitingDialog();
+        },
+        error: function (data, error) {
+            if (checkTimeout(data)) {
+                closeWaitingDialog();
+            }
+        }
+    });
 }

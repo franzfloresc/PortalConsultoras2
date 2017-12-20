@@ -52,13 +52,7 @@ namespace Portal.Consultoras.Service
         {
             var BLUsuario = new BLUsuario();
             return BLUsuario.SelectByEmail(Email, PaisID);
-        }
-        
-        public BEUsuarioCorreo GetRestaurarClaveByCodUsuario(string ValorRestauracion, int PaisID)
-        {
-            var BLUsuario = new BLUsuario();
-            return BLUsuario.GetRestaurarClaveByCodUsuario(ValorRestauracion, PaisID);
-        }
+        }      
 
         public int DelUsuarioRol(int paisID, string codigoUsuario, int RolID)
         {
@@ -688,12 +682,6 @@ namespace Portal.Consultoras.Service
             return BLUsuario.RecuperarContrasenia(paisId, textoRecuperacion);
         }
 
-        public string EnviaClaveAEmail(int paisId, string textoRecuperacion, bool EsMobile, int nroVeces, BEUsuarioCorreo pRestaurar)
-        {
-            var BLUsuario = new BLUsuario();
-            return BLUsuario.EnviaClaveAEmail(paisId, textoRecuperacion, EsMobile, nroVeces, pRestaurar);        
-        }
-
         public string ActualizarMisDatos(BEUsuario usuario, string CorreoAnterior)
         {
             var BLUsuario = new BLUsuario();
@@ -784,5 +772,31 @@ namespace Portal.Consultoras.Service
         {
             return _usuarioBusinessLogic.UpdUsuarioFotoPerfil(paisID, codigoUsuario, fileName);
         }
+
+        #region Restaurar Contraseña
+        public BEUsuarioCorreo GetRestaurarClaveByCodUsuario(string ValorRestauracion, int PaisID)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.GetRestaurarClaveByCodUsuario(ValorRestauracion, PaisID);
+        }
+
+        public string EnviaClaveAEmail(int paisId, string textoRecuperacion, bool EsMobile, int nroVeces, BEUsuarioCorreo pRestaurar)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.EnviaClaveAEmail(paisId, textoRecuperacion, EsMobile, nroVeces, pRestaurar);
+        }
+
+        public void UpdFechaBloqueoRestaurarClave(int paisId, string CodigoUsuario)
+        {
+            var BLUsuario = new BLUsuario();
+            BLUsuario.UpdFechaBloqueoRestaurarClave(paisId, CodigoUsuario);
+        }
+
+        public string GetCodigoSMS(int paisID, string CodigoConsultora, string Origen)
+        {
+            var BLUsuario = new BLUsuario();
+            return (BLUsuario.GetCodigoSMS(paisID, CodigoConsultora, Origen));
+        }
+        #endregion
     }
 }

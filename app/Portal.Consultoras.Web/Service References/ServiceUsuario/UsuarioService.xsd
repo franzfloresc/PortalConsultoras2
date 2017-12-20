@@ -427,28 +427,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEUsuarioConfiguracion" nillable="true" type="tns:BEUsuarioConfiguracion" />
-  <xs:complexType name="BEUsuarioCorreo">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
-      <xs:element minOccurs="0" name="Celular" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Clave" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoISO" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoUsuario" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ContextoBase" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Correo" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="FlagBloqueoCelular" type="xs:boolean" />
-      <xs:element minOccurs="0" name="FlagBloqueoCorreo" type="xs:boolean" />
-      <xs:element minOccurs="0" name="NombreCampoCodigo" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="NombreCompleto" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="PrimerNombre" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="RolID" type="xs:int" />
-      <xs:element minOccurs="0" name="TelefonoCentral" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="TipoUsuario" type="xs:int" />
-      <xs:element minOccurs="0" name="descripcionHorario" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEUsuarioCorreo" nillable="true" type="tns:BEUsuarioCorreo" />
   <xs:complexType name="BEUsuarioChatEmtelco">
     <xs:sequence>
       <xs:element minOccurs="0" name="CodigoUsuario" nillable="true" type="xs:string" />
@@ -491,6 +469,28 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEEventoFestivo" nillable="true" type="tns:BEEventoFestivo" />
+  <xs:complexType name="BEUsuarioCorreo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
+      <xs:element minOccurs="0" name="Celular" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Clave" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoISO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoUsuario" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ContextoBase" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Correo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FlagBloqueoCelular" type="xs:boolean" />
+      <xs:element minOccurs="0" name="FlagBloqueoCorreo" type="xs:boolean" />
+      <xs:element minOccurs="0" name="NombreCampoCodigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NombreCompleto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PrimerNombre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RolID" type="xs:int" />
+      <xs:element minOccurs="0" name="TelefonoCentral" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoUsuario" type="xs:int" />
+      <xs:element minOccurs="0" name="descripcionHorario" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEUsuarioCorreo" nillable="true" type="tns:BEUsuarioCorreo" />
   <xs:complexType name="BEConsultoraDatos">
     <xs:sequence>
       <xs:element minOccurs="0" name="AutorizaPedido" nillable="true" type="xs:string" />

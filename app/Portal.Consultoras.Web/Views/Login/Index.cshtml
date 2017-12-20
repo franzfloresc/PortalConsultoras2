@@ -575,7 +575,7 @@
                             <div class="icono_sms"></div>
                             <div class="contenedor_info_datos">
                                 <div class="titulo_opcion_sms">Mensaje de texto (sms)</div>
-                                <div class="numero_celular divNumCelular"></div>
+                                <div class="numero_celular NumCelularDestino"></div>
                             </div>
                             <div class="mensajeDeBloqueoSMS" style="display:none;font-size: 10px;padding-top:15px">Esta opción está bloqueada temporalmente.</div>
                         </a>                        
@@ -602,10 +602,10 @@
                             <div class="icono_sms mb-15"></div>
                             <div class="contenedor_info_datos">
                                 <div class="titulo_opcion_sms">Número de celular</div>
-                                <div class="numero_celular divNumCelular">9** *** *61</div>
+                                <div class="numero_celular NumCelularDestino">9** *** *61</div>
                             </div>
                         </div>
-                        <button class="btn_enviar_sms RecuperarPorSMS">Enviar mensaje</button>
+                        <button class="btn_enviar_sms opcionSms">Enviar mensaje</button>
                         <div class="mensajeDeBloqueoSMS" style="display:none;font-size: 10px; padding-top:5px;">Esta opción está bloqueada temporalmente.</div>
                     </div>
                     <!-- FIN - CUANDO LA CONSULTORA TIENE SÓLO CELULAR REGISTRADO (OPCIÓN SMS) -->
@@ -734,7 +734,7 @@
                 </a>
                 <a id="btnCerrarContraseniaEnviadaPopup" href="#" class="cerrar" onclick="$('#popup2').hide();" title="Cerrar"></a>
                 <!-- INICIO - INFORMACIÓN CONTRASEÑA ENVIADA A CORREO DE CONSULTORA -->
-                <div class="mensaje_pop_up_contraseniaEnviada">
+                <div id="divPopupIntentosCorreo" class="mensaje_pop_up_contraseniaEnviada" style="display:none;">
                     <!-- INICIO - ESTE TITULO SE MUESTRA PARA 1ER INTENTO Y 2DO INTENTO DE RECUPERACIÓN DE PASSWORD -->
                     <h1 id="men1y2Intento">Por favor, revisa tu correo</h1>
                     <!-- FIN - ESTE TITULO SE MUESTRA PARA 1ER INTENTO Y 2DO INTENTO DE RECUPERACIÓN DE PASSWORD -->
@@ -782,47 +782,56 @@
                     <!-- FIN - 3ER INTENTO DE RECUPERACIÓN DE PASSWORD -->
                 </div>
                 <!-- FIN - INFORMACIÓN CONTRASEÑA ENVIADA A CORREO DE CONSULTORA -->
+
                 <!-- INICIO - INGRESO CÓDIGO ENVIADO MEDIANTE MENSAJE SMS A CELULAR DE CONSULTORA REGISTRADO -->
-                <div class="mensaje_pop_up_contraseniaEnviada" style="display:none;">
-                    <h1>Por favor, revisa tu celular</h1>
+                <div id="divPopupIntentosSMS" class="mensaje_pop_up_contraseniaEnviada" style="display:none;">
+                    <h1 id="MenPrimerIntentoSms" style="display:none;">Por favor, revisa tu celular</h1>
+                    <h1 id="MenSegundoIntentoSms" style="display:none;font-size:16px;">Por favor, espera un momento, te hemos enviado un nuevo código</h1>
                     <br />
                     <div class="icono_mensaje_sms">
                         @*<img src="~/Content/Images/Login2/Icons/icono_nuevo_correo.png" alt="Alternate Text" />*@
                     </div>
                     <br />
                     <p>
-                        Te hemos enviado un código al: <strong>9** *** *61</strong>
+                        Te hemos enviado un código al: <strong class="NumCelularDestino">9** *** *61</strong>
                     </p>
                     <p class="texto_informativo_ingreso_codigo">
                         Una vez recibido, ingrésalo aquí
                     </p>
                     <div class="ingreso_codigo">
-                        <input type="text" maxlength="1" id="primerDigito" name="primerDigito" class="codigoSms" value="6">
-                        <input type="text" maxlength="1" id="segundoDigito" name="segundoDigito" class="codigoSms" value="2">
-                        <input type="text" maxlength="1" id="tercerDigito" name="tercerDigito" class="codigoSms" value="4">
-                        <input type="text" maxlength="1" id="cuartoDigito" name="cuartoDigito" class="codigoSms" value="6">
+                        <input type="text" maxlength="1" id="1Digito" name="primerDigito" class="codigoSms" value="">
+                        <input type="text" maxlength="1" id="2Digito" name="segundoDigito" class="codigoSms" value="">
+                        <input type="text" maxlength="1" id="3Digito" name="tercerDigito" class="codigoSms" value="">
+                        <input type="text" maxlength="1" id="4Digito" name="cuartoDigito" class="codigoSms" value="">
+                        <input type="text" maxlength="1" id="5Digito" name="quintoDigito" class="codigoSms" value="">
+                        <input type="text" maxlength="1" id="6Digito" name="sextoDigito" class="codigoSms" value="">
                         <div class="tiempo_validez_codigoSms">
                             <span>01</span>:<span>00</span>
                         </div>
-                        <div class="mensaje_error_codigo">
+                        <div class="mensaje_error_codigo codigoInvalido" style="display:none;">
                             <span class="icono_alerta_error"></span>
                             <span>Código inválido</span>
                         </div>
                     </div>
                     <!-- INICIO - 1ER INTENTO DE RECUPERACIÓN DE PASSWORD -->
-                    <a class="accion_alternativa_posterior_envio_password" title="Reenviar mensaje a mi correo" style="display:none;">Reenviar mensaje de texto</a>
+                    <a id="aSeguntoIntentoSms" class="accion_alternativa_posterior_envio_password opcionSms" title="Reenviar mensaje a mi correo" style="display:none; cursor:pointer;">Reenviar mensaje de texto</a>
                     <!-- FIN - 1ER INTENTO -->
                     <!-- INICIO - 2DO INTENTO DE RECUPERACIÓN DE PASSWORD -->
-                    <a class="accion_alternativa_posterior_envio_password" title="Reenviar mensaje a mi correo" style="display:none;">Intentar nuevamente</a>
+                    <a id="aTercerIntentoSms" class="accion_alternativa_posterior_envio_password" title="Reenviar mensaje a mi correo" style="display:none; cursor:pointer;">Intentar nuevamente</a>
                     <!-- FIN - 2DO INTENTO DE RECUPERACIÓN DE PASSWORD -->
                     <!-- INICIO - 3ER INTENTO DE RECUPERACIÓN DE PASSWORD -->
-                    <div style="display:none;">
-                        <span class="texto_no_llego_mensaje">No me llego el mensaje.</span>
-                        <a class="accion_alternativa_posterior_envio_password" title="Reenviar mensaje a mi correo">Volver al inicio</a>
+                    <div id="divVolverInicioSms" style="display:none;">
+                        <span class="texto_no_llego_mensaje">No me llego el código.</span>
+                        <a class="accion_alternativa_posterior_envio_password aVolverInicio" title="Reenviar mensaje a mi correo" style="cursor:pointer;">Volver al inicio</a>
                     </div>
                     <!-- FIN - 3ER INTENTO DE RECUPERACIÓN DE PASSWORD -->
                 </div>
                 <!-- FIN - INGRESO CÓDIGO ENVIADO MEDIANTE MENSAJE SMS A CELULAR DE CONSULTORA REGISTRADO -->
+                <!-- Contiene el link -->
+               <div>
+                   <a id="aEnlaceRestaurar" href="" target="_blank"></a>
+               </div>
+                <!-- Fin donde contiene el link -->
                 <!-- INICIO - MÁS OPCIONES -->
                 <div class="mensaje_pop_up_contraseniaEnviada" style="display:none;">
                     <!-- INICIO - MÁS OPCIONES - CHATEA CON NOSOTROS -->
@@ -1266,6 +1275,7 @@
     var urlEnviaCodigoSMS = '@Url.Action("EnviaCodigoSMS", "Login")';
     var urlLoginAcceder = '@Url.Action("Login", "Login")';
     var urlChatBelCorp = '@Url.Action("ChatBelcorp", "Login")';
+    var urlObtenerCodigoSms = '@Url.Action("ObtenerCodigoSms", "Login")';
 </script>
 
 @if (TempData["errorLogin"] != null)

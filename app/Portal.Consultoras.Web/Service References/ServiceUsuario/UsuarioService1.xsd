@@ -311,24 +311,6 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="EnviaClaveAEmail">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="paisId" type="xs:int" />
-        <xs:element minOccurs="0" name="textoRecuperacion" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="EsMobile" type="xs:boolean" />
-        <xs:element minOccurs="0" name="nroVeces" type="xs:int" />
-        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="pRestaurar" nillable="true" type="q18:BEUsuarioCorreo" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="EnviaClaveAEmailResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="EnviaClaveAEmailResult" nillable="true" type="xs:string" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
   <xs:element name="GetUsuarioChatEmtelco">
     <xs:complexType>
       <xs:sequence>
@@ -340,29 +322,14 @@
   <xs:element name="GetUsuarioChatEmtelcoResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetUsuarioChatEmtelcoResult" nillable="true" type="q19:BEUsuarioChatEmtelco" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetRestaurarClaveByCodUsuario">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="ValorRestauracion" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetRestaurarClaveByCodUsuarioResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetRestaurarClaveByCodUsuarioResult" nillable="true" type="q20:BEUsuarioCorreo" />
+        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetUsuarioChatEmtelcoResult" nillable="true" type="q18:BEUsuarioChatEmtelco" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="InsertTerminosCondiciones">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="terminos" nillable="true" type="q21:BETerminosCondiciones" />
+        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="terminos" nillable="true" type="q19:BETerminosCondiciones" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -377,7 +344,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="paisID" type="xs:int" />
-        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="terminos" nillable="true" type="q22:ArrayOfBETerminosCondiciones" />
+        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="terminos" nillable="true" type="q20:ArrayOfBETerminosCondiciones" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -400,7 +367,7 @@
   <xs:element name="GetEventoFestivoResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetEventoFestivoResult" nillable="true" type="q23:ArrayOfBEEventoFestivo" />
+        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetEventoFestivoResult" nillable="true" type="q21:ArrayOfBEEventoFestivo" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -417,6 +384,68 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="UpdUsuarioFotoPerfilResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetRestaurarClaveByCodUsuario">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ValorRestauracion" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetRestaurarClaveByCodUsuarioResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetRestaurarClaveByCodUsuarioResult" nillable="true" type="q22:BEUsuarioCorreo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EnviaClaveAEmail">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisId" type="xs:int" />
+        <xs:element minOccurs="0" name="textoRecuperacion" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="EsMobile" type="xs:boolean" />
+        <xs:element minOccurs="0" name="nroVeces" type="xs:int" />
+        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="pRestaurar" nillable="true" type="q23:BEUsuarioCorreo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EnviaClaveAEmailResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="EnviaClaveAEmailResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdFechaBloqueoRestaurarClave">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisId" type="xs:int" />
+        <xs:element minOccurs="0" name="CodigoUsuario" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdFechaBloqueoRestaurarClaveResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCodigoSMS">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Origen" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCodigoSMSResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetCodigoSMSResult" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
