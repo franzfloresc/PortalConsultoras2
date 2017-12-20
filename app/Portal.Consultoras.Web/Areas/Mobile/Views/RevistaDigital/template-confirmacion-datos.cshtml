@@ -1,27 +1,28 @@
 ﻿
 <div class="Content_general_pop_up CompartirCorreoPop contenedor_fondo_popup" id="PopRDSuscripcion" data-popup-main=""
-     style="display:block; font-family: 'Lato' !important;"
+     style="display:none; font-family: 'Lato' !important;"
      data-popup-function-hide="RDPopupCerrar()">
     <div class="content_pop_up_intriga popup_confirmacion_datos" data-popup-body="">
         <div class="contenido-popup-nuevo-2017">
             <div class="centrar-estructura estructura_confirmar_datos">
                 <div class="centrar-vertical-contenido">
                     <div class="form_datos">
-                        <p class="felicidades">FELICIDADES ELIZABETH</p>
+                        <p class="felicidades">FELICIDADES @ViewBag.NombreConsultora</p>
                         <p class="estasganando">¡YA ESTÁS SUSCRITA!</p>
                         <span class="confirmanos">
                             Confírmanos tus datos <b>y además de los beneficios del Club</b>, podrás recibir los mejores tips para ganar.
                         </span>
                         <div class="form-datos">
                             <div class="input">
-                                <img src="~/Content/Images/mailIcon.png" alt="">
-                                <input type="text" class="txt1">
+                                <img src="~/Content/Images/mailIcon.png" alt="" />
+                                <input id="CorreoAnterior" type="hidden" value="@ViewBag.EMail" />
+                                <input id="Email" type="text" value="@ViewBag.EMail" />
                             </div>
                             <div class="input">
-                                <img src="~/Content/Images/phoneIcon.png" alt="" class="phone">
-                                <input type="text" class="txt2">
+                                <img src="~/Content/Images/phoneIcon.png" alt="" class="phone" />
+                                <input id="Celular" type="text" value="@ViewBag.Celular" />
                             </div>
-                            <button>CONFIRMAR DATOS</button>
+                            <button onclick="javascript:return RDConfirmarDatos();">CONFIRMAR DATOS</button>
                             <div class="input">
                                 <img src="~/Content/Images/alertIcon.png" alt="" class="info">
                                 <span>
@@ -29,10 +30,6 @@
                                 </span>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-confirmacion" style="display:none;">
-                        <p class="felicidades">¡GRACIAS POR CONFIRMAR TUS DATOS!</p>
-                        <div class="loader-confirmacion"></div>
                     </div>
                 </div>
                 <a class="cerrar-popup" data-popup-close=""><img src="@Url.Content("~/Content/Images/close-icon.svg")" alt=""></a>
