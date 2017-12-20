@@ -20,28 +20,12 @@ namespace Portal.Consultoras.BizLogic
                 while (reader.Read())
                 {
                     var entidad = new BEIncentivo(reader);
-                    //entidad.PaisID = paisID;
                     lista.Add(entidad);
                 }
 
             return lista;
         }
-
-        //public BEIncentivo GetIncentivoById(int paisID, int IncentivoID)
-        //{
-        //    var entidad = new BEIncentivo();
-        //    var DAIncentivo = new DAIncentivo(paisID);
-
-        //    using (IDataReader reader = DAIncentivo.GetIncentivoById(IncentivoID))
-        //    if (reader.Read())
-        //    {
-        //        entidad = new BEIncentivo(reader);
-        //        //entidad.PaisID = paisID;
-        //    }
-
-        //    return entidad;
-        //}
-
+        
         public void InsertIncentivo(BEIncentivo entidad)
         {
             var DAIncentivo = new DAIncentivo(entidad.PaisID);

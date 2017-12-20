@@ -9,7 +9,7 @@
     using System.Data;
     using System.Data.SqlClient;
     using System.IO;
-    using System.Text; //R2044
+    using System.Text; 
     using System.Transactions;
 
     public class BLSolicitudCredito
@@ -57,7 +57,7 @@
             try
             {
                 DASolicitudCredito daSolicitudCredito = new DASolicitudCredito(paisID);
-                if (paisID == 9) // Mexico R2155
+                if (paisID == 9) // Mexico
                 {
                     resultado = daSolicitudCredito.InsertarSolicitudCreditoMX(beSolicitudCredito);
                 }
@@ -142,7 +142,6 @@
             return beSolicitudCredito;
         }
 
-        //R2044
         public string[] DescargaSolicitudes(int paisID, string codigoUsuario)
         {
             var numeroLote = 0;
@@ -514,7 +513,6 @@
             return line;
         }
 
-        // R2155 - inicio
         public List<BETablaLogicaDatos> ListarColoniasByTerritorio(int paisID, string codigo)
         {
             var colonias = new List<BETablaLogicaDatos>();
@@ -535,9 +533,7 @@
             var DASolicitud = new DASolicitudCredito(paisID);
             return DASolicitud.ValidarNumeroRFC(numeroRFC);
         }
-        // R2155 - Fin
 
-        //R20150909 - Inicio
         public DateTime GetFechaHoraPais(int paisID)
         {
             DateTime FechaHoraPais;
@@ -551,11 +547,9 @@
             }
             return FechaHoraPais;
         }
-        //R20150909 - Fin		   
 
         public DataTable ReporteSolidCreditDia(int paisID, string codigoRegion, DateTime? fechaInicioSolicitud, DateTime? fechaFinSolicitud)
         {
-            // var solicitudes = new List<BESolicitudCredito>();
             DASolicitudCredito daSolicitudCredito = new DASolicitudCredito(paisID);
             DataTable dtRepRegion = new DataTable();
             DataSet dsRepRegion = dsRepRegion = daSolicitudCredito.ReporteSolidCreditDia(codigoRegion, fechaInicioSolicitud, fechaFinSolicitud);

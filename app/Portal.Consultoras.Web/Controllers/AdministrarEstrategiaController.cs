@@ -550,20 +550,17 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (lst.Count <= 0) throw new ArgumentException("No se econtro el CUV ingresado.");
 
-                if (tipo != 1)
+                if (tipo != 1 && resultado == 0)
                 {
-                    if (resultado == 0)
+                    if (FlagRecoProduc == "1") mensaje = "El CUV2 no está asociado a ningún otro.";
+                    return Json(new
                     {
-                        if (FlagRecoProduc == "1") mensaje = "El CUV2 no está asociado a ningún otro.";
-                        return Json(new
-                        {
-                            success = false,
-                            message = mensaje,
-                            descripcion,
-                            precio,
-                            extra = ""
-                        }, JsonRequestBehavior.AllowGet);
-                    }
+                        success = false,
+                        message = mensaje,
+                        descripcion,
+                        precio,
+                        extra = ""
+                    }, JsonRequestBehavior.AllowGet);
                 }
                 mensaje = "OK";
 

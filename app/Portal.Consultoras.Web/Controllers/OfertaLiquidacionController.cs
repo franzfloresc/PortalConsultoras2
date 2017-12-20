@@ -9,6 +9,7 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -138,7 +139,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public List<OfertaProductoModel> GetListadoOfertasLiquidacion()
         {
-            var lst = new List<BEOfertaProducto>();
+            List<BEOfertaProducto> lst;
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
                 int Cantidad = sv.ObtenerMaximoItemsaMostrarLiquidacion(userData.PaisID);
@@ -350,6 +351,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (Lista.Count > 0)
             {
+                var txtBuil = new StringBuilder();
                 for (int i = 0; i < Lista.Count; i++)
                 {
                     int Stock = 0;
@@ -359,8 +361,9 @@ namespace Portal.Consultoras.Web.Controllers
                     }
 
                     if (Lista[i].Stock > Stock)
-                        msj += "- El stock para el CUV <b>" + Lista[i].CUV + "</b> es <b>" + Stock + "</b> unidades deberá validar la cantidad nuevamente.\n";
+                        txtBuil.Append("- El stock para el CUV <b>" + Lista[i].CUV + "</b> es <b>" + Stock + "</b> unidades deberá validar la cantidad nuevamente.\n");
                 }
+                msj = txtBuil.ToString();
             }
             return Json(new
             {
@@ -1122,7 +1125,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                List<BEOfertaProducto> lst = new List<BEOfertaProducto>();
+                List<BEOfertaProducto> lst;
 
                 var entidad = new BEOfertaProducto();
                 entidad.PaisID = userData.PaisID;
@@ -1175,7 +1178,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult RegistrarTallaColor(string Id, string Cuv, string CampaniaID, string Tipo, string Descripcion, string CUVPadre, string DescripcionCUV)
         {
-            int resultado = 0;
             try
             {
                 var entidad = new BEOfertaProducto();
@@ -1192,7 +1194,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    resultado = sv.InsertarTallaColorLiquidacion(entidad);
+                    sv.InsertarTallaColorLiquidacion(entidad);
                 }
 
                 return Json(new
@@ -1227,7 +1229,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult EliminarTallaColor(string Id)
         {
-            int resultado = 0;
             try
             {
                 var entidad = new BEOfertaProducto();
@@ -1236,7 +1237,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    resultado = sv.EliminarTallaColorLiquidacion(entidad);
+                    sv.EliminarTallaColorLiquidacion(entidad);
                 }
 
                 return Json(new
@@ -1272,7 +1273,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                List<BEOfertaProducto> lst = new List<BEOfertaProducto>();
+                List<BEOfertaProducto> lst;
 
                 var entidad = new BEOfertaProducto();
                 entidad.PaisID = userData.PaisID;

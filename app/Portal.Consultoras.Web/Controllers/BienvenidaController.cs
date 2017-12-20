@@ -1134,7 +1134,6 @@ namespace Portal.Consultoras.Web.Controllers
                         sb.Append("</tr>");
                         sb.Append("</table></body></html>");
 
-                        //Util.EnviarMail("comunidadsomosbelcorp@belcorp.biz", oBEUsuarioComunidad.Correo, "Bienvenida a la Comunidad SomosBelcorp", sb.ToString(), true, "Comunidad SomosBelcorp");
                         Util.EnviarMail("comunidadsomosbelcorp@somosbelcorp.com", oBEUsuarioComunidad.Correo, "Bienvenida a la Comunidad SomosBelcorp", sb.ToString(), true, "Comunidad SomosBelcorp");
 
                         using (var sv = new ServiceComunidad.ComunidadServiceClient())

@@ -919,15 +919,10 @@ namespace Portal.Consultoras.BizLogic
                                         }
                                         else
                                             return 3;
-                                        //return 2;
                                     }
                                     else
                                     {
                                         //Se valida las campañas que no ha ingresado
-                                        //if (CampaniaActual - UltimaCampania > 100 && UltimaCampania != 0)
-                                        //    return 2;
-                                        //else
-                                        //{
                                         //Validamos el Autoriza Pedido
                                         if (AutorizaPedido == "N")
                                         {
@@ -935,8 +930,6 @@ namespace Portal.Consultoras.BizLogic
                                         }
                                         else
                                             return 3;
-                                        //return 3;
-                                        //}
                                     }
                                 }
                                 else
@@ -945,10 +938,6 @@ namespace Portal.Consultoras.BizLogic
                                     BETablaLogicaDatos Restriccion_Egresada = tabla_Egresada.Find(p => Convert.ToInt32(p.Codigo.Trim()) == IdEstadoActividad);
                                     if (Restriccion_Egresada != null)
                                     {
-                                        //if (paisID == 6)  R2133
-                                        //    return 2;
-                                        //else
-                                        //{
                                         if (AutorizaPedido == "N")
                                         {
                                             //Validamos si es SICC
@@ -959,7 +948,6 @@ namespace Portal.Consultoras.BizLogic
                                         }
                                         else
                                             return 3;
-                                        //} R2133
                                     }
                                     else
                                     {
@@ -1640,10 +1628,8 @@ namespace Portal.Consultoras.BizLogic
                                         htmlTemplate = htmlTemplate.Replace("#NOMBRE_CONTACTO#", gznombre);
                                         htmlTemplate = htmlTemplate.Replace("#EMAIL_CONTACTO#", gzemail);
 
-                                        //EnviarMail("no-responder@somosbelcorp.com", email, asuntoEmail, mensaje, true, "", PaisISO);
                                         Common.Util.EnviarMail("no-responder@somosbelcorp.com", entidad.Correo, asuntoEmail, htmlTemplate, true, null);
 
-                                        //InsLogEnvioEmailBienvenida(PaisISO, Consultora, EsConsultoraReactivada);
                                         DAUsuario.InsLogEnvioEmailConsultora(consultoraEmail);
                                         //Actualizando flag envio de correo
                                         DAUsuario.UpdFlagEnvioCorreo(codusuario);

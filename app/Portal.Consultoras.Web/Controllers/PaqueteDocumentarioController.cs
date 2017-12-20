@@ -43,7 +43,6 @@ namespace Portal.Consultoras.Web.Controllers
             grid.CurrentPage = page;
             grid.SortColumn = sidx;
             grid.SortOrder = sord;
-            BEPager pag = new BEPager();
             bool ErrorServicio;
             string ErrorCode;
             string ErrorMessage;
@@ -78,7 +77,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             items = lst;
 
-            pag = Paginador(grid, Campania, lst);
+            BEPager pag = Paginador(grid, Campania, lst);
 
             var data = new
             {
