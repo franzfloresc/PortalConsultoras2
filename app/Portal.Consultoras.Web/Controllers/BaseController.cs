@@ -4226,7 +4226,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected string ActualizarMisDatos(ServiceUsuario.BEUsuario usuario, string correoAnterior)
         {
-            usuario.CodigoUsuario = (usuario.CodigoUsuario == null) ? "" : UserData().CodigoUsuario;
+            if (string.IsNullOrWhiteSpace(usuario.CodigoUsuario))
+                usuario.CodigoUsuario = UserData().CodigoUsuario;
 
             if (string.IsNullOrWhiteSpace(usuario.EMail))
                 usuario.EMail = UserData().EMail;
