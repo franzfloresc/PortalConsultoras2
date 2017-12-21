@@ -1513,7 +1513,8 @@ function ObtenerCodigoSms(CodIngresado)
         async: true,
         success: function (response) {
             if (response.success) {
-                alert('codigo correcto');
+                //alert('codigo correcto');
+                window.open(response.url);
             } else {
                 $(".codigoInvalido").show();
             }
