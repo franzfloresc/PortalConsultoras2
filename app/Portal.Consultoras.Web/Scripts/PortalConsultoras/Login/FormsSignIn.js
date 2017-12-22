@@ -292,7 +292,6 @@ $(document).ready(function () {
 
     //$(".codigoSms").keydown(
     //    function (e) {
-    //        debugger
     //        var oID = $(this).attr("id");
     //        if (e.keyCode == $.ui.keyCode.BACKSPACE) {
     //            $(oID).val() = "";
@@ -1109,7 +1108,7 @@ function RecuperarClave(tipoRecuperar) {
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify({ paisId: paisId, textoRecuperacion: _codConsul, nroOpcion: tipoRecuperar}),
         async: true,
-        success: function (response) {           
+        success: function (response) { 
             if (response.success) {
                 
                 if (response.resul == "") {
@@ -1124,6 +1123,7 @@ function RecuperarClave(tipoRecuperar) {
                 var primerNombre = $.trim(response.data.PrimerNombre);
 
                 $("#spnNombreConsultora").html(primerNombre + ", no te preocupes.")
+                $("#spnNombreConsultora").show();
 
                 var e_correo = "";
                 var e_numero = "";
@@ -1231,7 +1231,7 @@ function RecuperarClave(tipoRecuperar) {
                         {
                             v_IsMovilDevice = $(".lk_chat").attr("ismovildevice");
                             $("#hdCodigoConsultora").val(response.data.CodigoUsuario);
-                            $("#divHoraiosAtencion").html(response.data.descripcionHorarioChat);
+                            $("#divHoraiosAtencion").html(response.data.descripcionHorario);
 
                             $("#vermasopciones1").attr("data-recuperar", "3");
 
@@ -1255,6 +1255,7 @@ function RecuperarClave(tipoRecuperar) {
                                 });
                             }
                             
+                            $("#Opcionesllamada").show();
                             $("#menPrioridad2_llamada").show();
                             $("#prioridad2_llamada").show();
                             
@@ -1489,6 +1490,8 @@ function OcultarContenidoPopup()
     $("#aSeguntoIntentoSms").hide();
     $("#divPopupIntentosCorreo").hide();
 
+    $("#Opcionesllamada").hide();
+
     nroIntentosCo = 0;
     nroIntentosSms = 0;
 }
@@ -1514,7 +1517,8 @@ function ObtenerCodigoSms(CodIngresado)
         success: function (response) {
             if (response.success) {
                 //alert('codigo correcto');
-                window.open(response.url);
+                $("#popup2").hide();
+                window.open(response.url); 
             } else {
                 $(".codigoInvalido").show();
             }

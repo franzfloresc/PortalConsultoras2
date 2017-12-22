@@ -778,7 +778,7 @@ namespace Portal.Consultoras.Data
         #region Restaurar Contraseña
         public IDataReader GetRestaurarClaveUsuario(string CampoRestablecer, int PaisID)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetRestaurarClaveUsuario");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarValorRestauracionClave");
             Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, CampoRestablecer);
             Context.Database.AddInParameter(command, "@PaisID", DbType.AnsiString, PaisID);
 
