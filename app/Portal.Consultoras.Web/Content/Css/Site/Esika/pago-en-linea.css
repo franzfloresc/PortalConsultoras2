@@ -76,7 +76,6 @@
 
 .pago_realizado{
     margin-top:7px;
-    margin-bottom:28px;
 }
 
 .imagen_felicitacion{
@@ -117,10 +116,14 @@
     font-weight:700;
 }
 
-.info_pagos_pendientes p:last-child,
-.pago_realizado p:last-child{
+.info_pagos_pendientes p:nth-child(3),
+.pago_realizado p:nth-child(3){
     width:92%;
     font-size:12.5px;
+}
+
+.pago_realizado p:nth-child(3){
+    margin-bottom:28px;
 }
 
 .proceso_de_pago_online,
@@ -184,7 +187,7 @@
     background:#FFF;
     border:0.5px solid #000;
     border-radius:100%;
-    line-height:28px;
+    line-height:26.8px;
     text-align:center;
     margin-right:39px;
     padding-left:1px;
