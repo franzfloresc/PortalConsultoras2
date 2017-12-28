@@ -39,10 +39,23 @@
 
         function loginFB() {
             existeAccesoFacebook(function(){
+                /*
                 FB.login(
                     function (response) { if (response.status === 'connected') getInfoFB(2); },
                     { scope: 'public_profile,email,user_birthday,user_location' }
                 );
+                */
+                FB.getLoginStatus(function (response) {
+                    if (response.status === 'connected') {
+                        getInfoFB(2);
+                    }
+                    else {
+                        FB.login(function (response) {
+                            if (response.status === 'connected')
+                                getInfoFB(2);
+                        });
+                    }
+                });
             },
             function () { alert('@Html.Raw(Constantes.MensajesError.SinConexion_LoginChatbot)'); });
         }
@@ -52,7 +65,8 @@
 
             FB.api('/me', 'GET', { fields: 'birthday,email,first_name,gender,hometown,id,last_name,link,location,name,picture.type(large)' }, function (response) {
                 
-                if (typeof response.id !== undefined && response.id !== null) {
+                //if (response.id !== null && response.id !== "") {
+                if (typeof response.id !== 'undefined' && response.id !== null) {
                     var exists = checkExternalUser('Facebook', response.id);
 
                     if (exists) {
