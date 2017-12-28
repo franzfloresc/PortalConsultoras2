@@ -1237,6 +1237,7 @@
     <Content Include="Content\Css\Site\CambiarContrasena.css" />
     <Content Include="Content\Css\Site\Esika\backgroundsize.min.htc" />
     <Content Include="Content\Css\Site\Esika\Contenedor.css" />
+    <Content Include="Content\Css\Site\Esika\pago-en-linea.css" />
     <Content Include="Content\Css\Site\Esika\reset.css" />
     <Content Include="Content\Css\Site\Esika\revistaDigital.css" />
     <Content Include="Content\Css\Site\Esika\seccion-descarga-imprime.css" />
@@ -1274,6 +1275,7 @@
     <Content Include="Content\FileCargaCuponConsultora\test.html" />
     <Content Include="Content\Images\carrito-hover.png" />
     <Content Include="Content\Images\carrito.png" />
+    <Content Include="Content\Images\celebracion-img.png" />
     <Content Include="Content\Images\close-icon.svg" />
     <Content Include="Content\Images\consejos-y-tips-visual.png" />
     <Content Include="Content\Images\Esika\consejos-y-tips-visual.png" />
@@ -1284,12 +1286,17 @@
     <Content Include="Content\Images\Esika\Contenedor\inicio_normal.svg" />
     <Content Include="Content\Images\Esika\Contenedor\papel-de-regalo.png" />
     <Content Include="Content\Images\Esika\Contenedor\tarjetas-navidenias.png" />
+    <Content Include="Content\Images\Esika\icono-pago-desactivado.svg" />
+    <Content Include="Content\Images\Esika\icono-pago.svg" />
     <Content Include="Content\Images\Esika\logotipo-club-ganamas-rojo.svg" />
     <Content Include="Content\Images\Esika\logotipo-ganamas-rojo.svg" />
     <Content Include="Content\Images\Esika\personalizacion-visual-desktop.gif" />
     <Content Include="Content\Images\Esika\personalizacion-visual-mobile.gif" />
+    <Content Include="Content\Images\Esika\precarga-pago-en-linea.svg" />
     <Content Include="Content\Images\Esika\visual-de-funcionamiento.png" />
     <Content Include="Content\Images\GIF-4.0.gif" />
+    <Content Include="Content\Images\icono-pago-seguro.svg" />
+    <Content Include="Content\Images\icono-paso-completado.svg" />
     <Content Include="Content\Images\Lbel\consejos-y-tips-visual.png" />
     <Content Include="Content\Images\Lbel\Contenedor\fondo-seccion-descarga-imprime.jpg" />
     <Content Include="Content\Images\Lbel\Contenedor\icono-descarga-e-imprime-hover.svg" />
@@ -1303,6 +1310,7 @@
     <Content Include="Content\Images\Lbel\personalizacion-visual-desktop.gif" />
     <Content Include="Content\Images\Lbel\personalizacion-visual-mobile.gif" />
     <Content Include="Content\Images\Lbel\visual-de-funcionamiento-lbel.png" />
+    <Content Include="Content\Images\logo-visa.svg" />
     <Content Include="Content\Images\marquesina-landing.jpg" />
     <Content Include="Content\Images\check-acepto-terminos.png" />
     <Content Include="Content\Images\Esika\bg_regalo.png" />
@@ -3354,6 +3362,7 @@
     <Content Include="Scripts\PortalConsultoras\Mobile\SeguimientoPedido\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\MisReclamos\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\MisReclamos\Reclamo.js" />
+    <Content Include="Scripts\PortalConsultoras\PagoEnLinea\Index.js" />
     <Content Include="Scripts\PortalConsultoras\ProductoComentario\ProductoComentarioAdmModule.js" />
     <Content Include="Scripts\PortalConsultoras\Cupon\CuponAdm.js" />
     <Content Include="Scripts\PortalConsultoras\Cupon\CuponAdmModule.js" />

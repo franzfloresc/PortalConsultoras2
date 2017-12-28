@@ -1,0 +1,808 @@
+﻿
+.mb-10{
+    margin-bottom:10px;
+}
+
+.pb-11{
+    padding-bottom:11px;
+}
+
+.content_belcorp {
+    padding-left: 2.4%;
+    padding-right: 2.4%;
+}
+
+.cabecera_vista_pago_en_linea{
+    width: 100%;
+    height: 50px;
+    background: #000;
+    line-height: 50px;
+    color: #FFF;
+    font-size: 17px;
+    font-weight: 700;
+    padding-left: 18.75%;
+    position:relative;
+    box-sizing: border-box;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.23);
+    -moz-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.23);
+    -o-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.23);
+    -ms-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.23);
+    -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.23);
+}
+
+.cabecera_vista_pago_en_linea:after{
+    top: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+    border-color: rgba(136, 183, 213, 0);
+	border-top-color: #000;
+	border-width: 10px;
+    margin-left: -10px;
+    z-index:2;
+}
+
+.enlace_regresar {
+    display: block;
+    width: 22px;
+    height: 18px;
+    position: absolute;
+    top: 33%;
+    left: 6.45%;
+    background: url(../../../Images/flecha_volver_mobile_blanca.svg) no-repeat center center;
+}
+
+.info_pagos_pendientes{
+    margin-top:25px;
+    padding:0 12px;
+}
+
+.info_pagos_pendientes,
+.pago_realizado
+{
+    color:#000;
+}
+
+.info_pagos_pendientes p,
+.pago_realizado p
+{
+    margin:0;
+    padding:0;
+}
+
+.pago_realizado{
+    margin-top:7px;
+    margin-bottom:28px;
+}
+
+.imagen_felicitacion{
+    width: 19px;
+    height: 20px;
+    margin-left:5px;
+    margin-bottom:5px;
+}
+
+.imagen_felicitacion img{
+    width: 100%;
+    height: auto;
+}
+
+.info_pagos_pendientes p:first-child,
+.info_pagos_pendientes p:nth-child(2),
+.pago_realizado p:first-child,
+.info_pagos_pendientes p:nth-child(2),
+.titulo_info_pago_realizado,
+.detalle_pago_realizado > div:last-child span
+{
+    font-weight:700;
+}
+
+.info_pagos_pendientes p:first-child,
+.pago_realizado p:first-child{
+    font-size:15px;
+    margin-bottom:18px;
+}
+
+.info_pagos_pendientes p:nth-child(2),
+.pago_realizado p:nth-child(2)
+{
+    color:#a18328;
+    font-size:13.5px;
+    text-transform:uppercase;
+    margin-bottom:4px;
+    font-weight:700;
+}
+
+.info_pagos_pendientes p:last-child,
+.pago_realizado p:last-child{
+    width:92%;
+    font-size:12.5px;
+}
+
+.proceso_de_pago_online,
+.contenedor_pasos_proceso_pago_online,
+.resumen_del_pago,
+.resumen_pago_detalle,
+.resumen_pago_detalle > div,
+.resumen_pago_total,
+.activacion_modificacion_monto_a_pagar,
+.info_pago_seguro_visa,
+.btnPagar,
+.contenedor_deuda_total,
+.monto_a_pagar_editado,
+.resumen_pago_editado,
+.resumen_pago_titulo,
+.texto_informativo_pago,
+.opciones_pago,
+.aceptar_terminos_y_condiciones,
+.form_opcion_pago ul,
+.form_opcion_pago li,
+.form_opcion_pago input[type="radio"] + label span,
+.otros_lugares_pago,
+.tooltip_terminos_y_condiciones,
+.contenedor_info_adicional_y_ctas,
+.texto_estado_redireccion
+{
+    display:block;
+}
+
+.proceso_de_pago_online{
+    padding:0 6px;
+    min-height:348px;
+}
+
+.contenedor_pasos_proceso_pago_online{
+    padding: 28px 0 18px 0;
+    position:relative;
+    text-align:center;
+}
+
+.linea_conexion_pasos{
+    position: absolute;
+    margin: auto;
+    top: 9px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    background: #000;
+    width: 46%;
+    max-width:134px;
+    height: 1px;
+}
+
+.num_paso_pago_online{
+    display:inline-block;
+    vertical-align:middle;
+    width:29px;
+    height:29px;
+    color:#000;
+    background:#FFF;
+    border:0.5px solid #000;
+    border-radius:100%;
+    line-height:28px;
+    text-align:center;
+    margin-right:39px;
+    padding-left:1px;
+    font-size:14px;
+    position:relative;
+    z-index:2;
+    font-weight:400;
+}
+
+.num_paso_pago_online:last-child{
+    margin-right:0;
+}
+
+.num_paso_pago_online.paso_activo, .num_paso_pago_online.paso_completado{
+    background:#e81c36;
+    border:0.5px solid #e81c36;
+    color:#FFF;
+    padding-left:0;
+    font-weight:700;
+}
+
+.num_paso_pago_online.paso_completado{
+    background-image:url(../../../Images/icono-paso-completado.svg);
+    background-repeat:no-repeat;
+    background-position:center;
+}
+
+.resumen_pago_titulo {
+    font-weight: 700;
+    font-size: 14px;
+    color: #000;
+    line-height: 20px;
+    text-transform:uppercase;
+}
+
+.resumen_pago_detalle{
+    border-top:1px solid #b5b5b5;
+    border-bottom:1px solid #b5b5b5;
+    margin-top:4px;
+    padding:6px 0 9px 0;
+}
+
+.resumen_pago_total{
+    margin-top:8px;
+    margin-bottom:24px;
+}
+
+.resumen_pago_detalle > div > span,
+.resumen_pago_total > span
+{
+    display:inline-block;
+    /*vertical-align:bottom;*/
+    font-size:14px;
+    line-height:24px;
+}
+
+.resumen_pago_detalle > div > span:first-child,
+.resumen_pago_total > span:first-child
+{
+    width:57%;
+    text-align:left;
+}
+
+.resumen_pago_detalle > div > span:nth-child(2),
+.resumen_pago_total > span:nth-child(2)
+{
+    width:5%;
+    text-align:center;
+}
+
+.resumen_pago_detalle > div > span:last-child,
+.resumen_pago_total > span:last-child
+{
+    width:35%;
+    text-align:right;
+}
+
+.resumen_pago_total > span{
+    font-weight:700;
+    text-transform:uppercase;
+}
+
+.resumen_pago_total > span:last-child{
+    font-size:18px;
+}
+
+.barra_activacion,
+.descripcion_opcion_activacion,
+.info_pago_seguro_visa span,
+.icono_pago_seguro,
+.info_pago_seguro_visa span:last-child,
+.monto_a_pagar_editado span,
+.monto_a_pagar_editado input,
+.form_opcion_pago label,
+.marca_visa,
+.otros_lugares_pago a,
+.imagen_felicitacion
+{
+    display:inline-block!important;
+    vertical-align:middle!important;
+}
+
+.activacion_modificacion_monto_a_pagar{
+    margin-bottom:57px;
+}
+
+.barra_activacion{
+    width: 27px;
+    height: 16px;
+    background: #b5b5b5;
+    border-radius: 10px 10px;
+    margin-right: 5px;
+    position: relative;
+    cursor:pointer;
+}
+
+.barra_activacion,
+.control_activacion,
+.control_activacion span
+{
+    transition:all 0.3s ease;
+    -moz-transition:all 0.3s ease;
+    -o-transition:all 0.3s ease;
+    -ms-transition:all 0.3s ease;
+    -webkit-transition:all 0.3s ease;
+}
+
+.barra_activacion.activado{
+    background: #e81c36;
+}
+
+.control_activacion{
+    width: auto;
+    height: 18px;
+    background: #FFF;
+    border: 1px solid #FFF;
+    border-radius: 100%;
+    position: absolute;
+    top: -1px;
+    right: 34%;
+}
+
+.barra_activacion.activado .control_activacion{
+    right:0%;
+}
+
+.control_activacion span{
+    display:block;
+    width: 15.7px;
+    height: 16px;
+    border: 1px solid #b5b5b5;
+    background: #FFF;
+    background-image:url(../../../Images/Esika/icono-pago-desactivado.svg);
+    background-repeat:no-repeat;
+    background-position:center 1.2px;
+    border-radius: 100%;
+    color: #b5b5b5;
+    text-align: center;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 13px;
+    position: relative;
+    margin: 0 auto;
+    left: auto;
+    right: auto;
+}
+
+.barra_activacion.activado .control_activacion span{
+    border: 1px solid #e81c36;
+    color: #e81c36;
+    background-image:url(../../../Images/Esika/icono-pago.svg);
+}
+
+.descripcion_opcion_activacion{
+    font-size: 12px;
+    font-weight:700;
+}
+
+.contenedor_info_adicional_y_ctas{
+    margin-bottom:77px;
+}
+
+.info_pago_seguro_visa{
+    padding:0 6px;
+}
+
+.icono_pago_seguro{
+    width:15px;
+    height:18px;
+    margin-top:-4px;
+    margin-right:3px;
+    background-image:url(../../../Images/icono-pago-seguro.svg);
+    background-repeat:no-repeat;
+    background-position:center;
+}
+
+.descripcion_pago_seguro{
+    font-size:9px;
+    text-align:left;
+    line-height:12px;
+    letter-spacing:0.2px;
+    color:#979797;
+    text-transform:uppercase;
+}
+
+.marca_visa{
+    width:35px;
+    height:11px;
+    margin-bottom:2px;
+    background-image:url(../../../Images/logo-visa.svg);
+    background-repeat:no-repeat;
+    background-position:center;
+    background-size:100%;
+}
+
+.marca_visa_opcion_pago {
+    width: 42px;
+    height: 15px;
+    top: 3px;
+    position: absolute;
+    right: 10px;
+}
+
+.contenedor_deuda_total{
+    margin-top:22px;
+    text-align:center;
+}
+
+.contenedor_deuda_total span:first-child{
+    font-size:13px;
+    font-weight:700;
+    text-transform:uppercase;
+    margin-right:5px;
+}
+
+.contenedor_deuda_total span:last-child{
+    font-size:18px;
+    font-weight:700;
+}
+
+.monto_a_pagar_editado{
+    margin-top:22px;
+    margin-bottom:34px;
+    text-align:center;
+}
+
+.monto_a_pagar_editado div{
+    font-weight:400;
+    font-size:19px;
+    margin-bottom:10px;
+}
+
+.monto_a_pagar_editado span,
+.monto_a_pagar_editado input
+{
+    vertical-align:bottom;
+    height:32px;
+}
+
+.monto_a_pagar_editado span{
+    color: #000;
+    border-bottom: 1px solid #979797;
+    text-align: right;
+    line-height: 26px;
+    font-size: 27px;
+    font-weight: 500;
+    min-width: 40px;
+    margin-right:-3px;
+}
+
+.monto_a_pagar_editado input{
+    font-family:'Lato';
+    border-top:none;
+    border-left:none;
+    border-right:none;
+    border-bottom:1px solid #979797;
+    color:#000;
+    text-align:center;
+    font-size:27px;
+    font-weight:500;
+    width:126px;
+    padding-left:10px;
+    padding-bottom:7px;
+}
+
+.quitarBordeInferior{
+    border-bottom:none;
+}
+
+.resumen_pago_editado {
+    width: 100%;
+    padding: 14px;
+    background: #f6f6f6;
+    font-size:14px;
+    margin-bottom:35px;
+}
+
+.resumen_pago_editado .resumen_pago_detalle div:last-child{
+    text-transform:uppercase;
+    font-weight:700;
+}
+
+.resumen_pago_detalle .monto_total_editado{
+    font-size:16px;
+}
+
+.agregarBordeInferior{
+    border-bottom:1px solid #b5b5b5;
+}
+
+.texto_informativo_pago{
+    margin-top:15px;
+    margin-bottom:10px;
+    font-size:13px;
+}
+
+.opciones_pago {
+    padding: 17px 14px;
+    border: 1px solid #d3d3d3;
+    overflow:hidden;
+    margin-bottom:15px;
+}
+
+.form_opcion_pago ul{
+    list-style-type:none;
+    margin:0;
+    padding:0;
+}
+
+.form_opcion_pago{
+    position:relative;
+}
+
+.form_opcion_pago input[type="radio"]{
+    display:none;
+}
+
+.form_opcion_pago label{
+    width:13px;
+    height:13px;
+    border-radius:100%;
+    border:1px solid #CCC!important;
+    margin-right:12px!important;
+    position:relative;
+    margin-bottom:4px!important;
+}
+
+.form_opcion_pago label,
+.form_opcion_pago input[type="radio"] + label span
+{
+    transition:all 0.3s ease;
+    -moz-transition:all 0.3s ease;
+    -o-transition:all 0.3s ease;
+    -ms-transition:all 0.3s ease;
+    -webkit-transition:all 0.3s ease;
+}
+
+.form_opcion_pago input[type="radio"] + label span{
+    position:absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width:7px;
+    height:7px;
+    background:#FFF;
+    border-radius:100%;
+}
+
+.form_opcion_pago input[type="radio"]:checked + label{
+    border:1px solid #e81c36!important;
+}
+
+.form_opcion_pago input[type="radio"]:checked + label span{
+    background:#e81c36;
+}
+
+.texto_opcion_pago{
+    font-size:16px;
+    font-weight:700;
+    text-transform:uppercase;
+}
+
+.aceptar_terminos_y_condiciones{
+    margin-bottom:63px;
+}
+
+.terminos_condiciones {
+    background: #f8f8f8;
+    margin-top: 14px;
+    margin-left: -15px;
+    margin-right: -15px;
+    margin-bottom: -20px;
+    padding: 15px 16px 22px 16px;
+}
+
+.terminos_condiciones p {
+    margin: 0;
+    padding: 0;
+    overflow-wrap: break-word;
+    font-size: 13px;
+}
+
+.terminos_condiciones p:first-child{
+    margin-bottom:16px;
+}
+
+.barra_activacion_terminos_condiciones{
+    width:32.52px;
+    height:11.79px;
+    background:rgba(211, 211, 211, 0.44);
+    border:1px solid rgba(163, 159, 159, 0.44);
+}
+
+.control_activacion_terminos_condiciones{
+    width:19px;
+    height:18px;
+    top: -3.5px;
+    right: 45%;
+    background-color:#bbbbbb;
+    background-image:url(../../../images/icono-paso-completado.svg);
+    background-position:center;
+    background-repeat:no-repeat;
+    background-size:60%;
+    border:none;
+}
+
+.barra_activacion_terminos_condiciones.activado{
+    background:rgba(211, 211, 211, 0.44);
+}
+
+.barra_activacion_terminos_condiciones.activado .control_activacion_terminos_condiciones{
+    background-color:#e81c36;
+}
+
+.texto_terminos_y_condiciones{
+    font-size:13px;
+    font-weight:400;
+    margin-bottom:2px;
+}
+
+.otros_lugares_pago{
+    border-top: 1px solid #dfdfdf;
+    padding: 14px 0;
+    margin:16px 7px;
+    font-size: 13px;
+    color: #8a8a8a;
+    letter-spacing: 0.3px;
+    font-weight:400;
+}
+
+.otros_lugares_pago a,
+.otros_lugares_pago:hover,
+.otros_lugares_pago:focus,
+.otros_lugares_pago:active
+{
+    color:#8a8a8a;
+    font-weight:700;
+    margin-bottom:2px;
+    text-decoration:none;
+}
+
+.tooltip_terminos_y_condiciones{
+    display:none;
+    background: #FFF;
+    min-width: 189px;
+    min-height: 79px;
+    padding: 23px 10px 0 14px;
+    position: absolute;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    top: 27px;
+    left: -2px;
+    box-sizing: border-box;
+    box-shadow: 0 0 18px -2px rgba(181, 181, 181, 0.9);
+    -moz-box-shadow: 0 0 18px -2px rgba(181, 181, 181, 0.9);
+    -o-box-shadow: 0 0 18px -2px rgba(181, 181, 181, 0.9);
+    -ms-box-shadow: 0 0 18px -2px rgba(181, 181, 181, 0.9);
+    -webkit-box-shadow: 0 0 18px -2px rgba(181, 181, 181, 0.9);
+}
+
+.tooltip_terminos_y_condiciones:after {
+    bottom: 100%;
+    left: 11%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-bottom-color: #FFF;
+    border-width: 7px;
+    margin-left: -7px;
+    z-index:1;
+}
+
+.estado_redireccion_proveedor_pago {
+    text-align: center;
+    padding: 0 20px;
+    margin-top: 53px;
+}
+
+.texto_estado_redireccion{
+    font-size:14px;
+    font-weight:700;
+    text-transform:uppercase;
+    line-height:21px;
+    margin-bottom:36px;
+}
+
+.precarga_redireccion{
+    margin:0 auto;
+    width:60px;
+    height:56px;
+    background-image:url(../../../Images/Esika/precarga-pago-en-linea.svg);
+    background-repeat:no-repeat;
+    background-size:100%;
+    background-position:center;
+    animation-name:rotacionPrecarga;
+    animation-duration:1s;
+    animation-timing-function:linear;
+    animation-iteration-count:infinite;
+}
+
+@-webkit-keyframes rotacionPrecarga{
+
+    0%{
+        transform:rotate(0deg);
+    }
+
+    50%{
+        transform:rotate(180deg);
+    }
+
+    100%{
+        transform:rotate(360deg);
+    }
+
+}
+
+@-moz-keyframes rotacionPrecarga{
+
+    0%{
+        transform:rotate(0deg);
+    }
+
+    50%{
+        transform:rotate(180deg);
+    }
+
+    100%{
+        transform:rotate(360deg);
+    }
+
+}
+
+@-o-keyframes rotacionPrecarga{
+
+    0%{
+        transform:rotate(0deg);
+    }
+
+    50%{
+        transform:rotate(180deg);
+    }
+
+    100%{
+        transform:rotate(360deg);
+    }
+
+}
+
+@keyframes rotacionPrecarga{
+
+    0%{
+        transform:rotate(0deg);
+    }
+
+    50%{
+        transform:rotate(180deg);
+    }
+
+    100%{
+        transform:rotate(360deg);
+    }
+
+}
+
+.btnPagar{
+    font-family:'Lato';
+    position:fixed;
+    width:100%;
+    height:54px;
+    border:none;
+    background:#e81c36;
+    color:#FFF;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    font-size:15px;
+    font-weight:700;
+    left:0;
+    bottom:0;
+}
+
+@media screen and (min-width:734px){
+
+    .cabecera_vista_pago_en_linea{
+        padding-left:13.75%;
+    }
+
+}
+
+@media screen and (min-width:481px) and (max-width:733px){
+
+    .cabecera_vista_pago_en_linea{
+        padding-left:14.75%;
+    }
+
+}
