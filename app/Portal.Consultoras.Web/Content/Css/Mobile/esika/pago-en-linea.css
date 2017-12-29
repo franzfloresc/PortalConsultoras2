@@ -155,7 +155,7 @@
 
 .proceso_de_pago_online{
     padding:0 6px;
-    min-height:348px;
+    min-height:286px;
 }
 
 .contenedor_pasos_proceso_pago_online{
@@ -792,6 +792,7 @@
     font-weight:700;
     left:0;
     bottom:0;
+    z-index:10;
 }
 
 @media screen and (min-width:734px){

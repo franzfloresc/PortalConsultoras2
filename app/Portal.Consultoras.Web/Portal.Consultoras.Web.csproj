@@ -185,6 +185,7 @@
     <Compile Include="App_Start\RouteConfig.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Areas\Mobile\Controllers\PagoEnLineaController.cs" />
     <Compile Include="Areas\Mobile\Controllers\GuiaNegocioController.cs" />
     <Compile Include="Areas\Mobile\Controllers\MisDatosController.cs" />
     <Compile Include="Areas\Mobile\Controllers\CompartirController.cs" />
@@ -1237,7 +1238,7 @@
     <Content Include="Content\Css\Site\CambiarContrasena.css" />
     <Content Include="Content\Css\Site\Esika\backgroundsize.min.htc" />
     <Content Include="Content\Css\Site\Esika\Contenedor.css" />
-    <Content Include="Content\Css\Site\Esika\pago-en-linea.css" />
+    <Content Include="Content\Css\Mobile\esika\pago-en-linea.css" />
     <Content Include="Content\Css\Site\Esika\reset.css" />
     <Content Include="Content\Css\Site\Esika\revistaDigital.css" />
     <Content Include="Content\Css\Site\Esika\seccion-descarga-imprime.css" />
@@ -3703,6 +3704,7 @@
     <Content Include="Areas\Mobile\Views\Bienvenida\_PartialSectionBpt.cshtml" />
     <Content Include="Areas\Mobile\Views\Pedido\_PartialSectionBpt.cshtml" />
     <Content Include="Areas\Mobile\Views\Catalogo\_PartialSectionBpt.cshtml" />
+    <Content Include="Areas\Mobile\Views\PagoEnLinea\Index.cshtml" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>
