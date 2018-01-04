@@ -389,11 +389,12 @@ namespace Portal.Consultoras.Web.Controllers
 
                     listModel.AddRange(listaPackNueva);
                     listModel.AddRange(listaRevista);
-                    Session[Constantes.ConstSession.ListaEstrategia] = listModel;
                 }
                 #endregion
 
+                Session[Constantes.ConstSession.ListaEstrategia] = listModel;
             }
+
             var listaProductoModel = ConsultarEstrategiasModelFormato(listModel);
             return listaProductoModel;
         }
