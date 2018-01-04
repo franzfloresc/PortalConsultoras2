@@ -6,8 +6,8 @@ using Portal.Consultoras.Entities.ReservaProl;
 using Portal.Consultoras.Entities.RevistaDigital;
 using Portal.Consultoras.Entities.ShowRoom;
 using Portal.Consultoras.ServiceContracts;
-using Portal.Consultoras.BizLogic.Pedido;
 using Portal.Consultoras.Entities.Pedido;
+using Estrategia = Portal.Consultoras.Entities.Estrategia;
 
 using System;
 using System.Collections.Generic;
@@ -47,8 +47,9 @@ namespace Portal.Consultoras.Service
 
         private readonly IConsultoraConcursoBusinessLogic _consultoraConcursoBusinessLogic;
         private readonly IPedidoWebBusinessLogic _pedidoWebBusinessLogic;
+        private readonly IConfiguracionProgramaNuevasBusinessLogic _configuracionProgramaNuevasBusinessLogic;
 
-        public PedidoService() : this(new BLConsultoraConcurso(), new BLPedidoWeb())
+        public PedidoService() : this(new BLConsultoraConcurso(), new BLPedidoWeb(), new BLConfiguracionProgramaNuevas())
         {
             BLPedidoWebDetalle = new BLPedidoWebDetalle();
             BLPedidoWeb = new BLPedidoWeb();
@@ -76,10 +77,12 @@ namespace Portal.Consultoras.Service
             blFichaProducto = new BLFichaProducto();
         }
 
-        public PedidoService(IConsultoraConcursoBusinessLogic consultoraConcursoBusinessLogic, IPedidoWebBusinessLogic pedidoWebBusinessLogic)
+        public PedidoService(IConsultoraConcursoBusinessLogic consultoraConcursoBusinessLogic, IPedidoWebBusinessLogic pedidoWebBusinessLogic,
+            IConfiguracionProgramaNuevasBusinessLogic configuracionProgramaNuevasBusinessLogic)
         {
             _consultoraConcursoBusinessLogic = consultoraConcursoBusinessLogic;
             _pedidoWebBusinessLogic = pedidoWebBusinessLogic;
+            _configuracionProgramaNuevasBusinessLogic = configuracionProgramaNuevasBusinessLogic;
         }
 
         #region Reporte Lider
@@ -1513,6 +1516,11 @@ namespace Portal.Consultoras.Service
             return BLShowRoomEvento.DelOfertaShowRoom(paisID, entity);
         }
 
+        public int InsOrUpdOfertaShowRoom(int paisID, BEShowRoomOferta entity)
+        {
+            return BLShowRoomEvento.InsOrUpdOfertaShowRoom(paisID, entity);
+        }
+
         public int RemoverOfertaShowRoom(int paisID, BEShowRoomOferta entity)
         {
             return BLShowRoomEvento.RemoverOfertaShowRoom(paisID, entity);
@@ -2168,5 +2176,28 @@ namespace Portal.Consultoras.Service
             BLPedidoWeb.UpdateMostradoProductosPrecargados(paisID, CampaniaID, ConsultoraID, IPUsuario);
         }
         #endregion  
+        
+        #region ConfiguracionProgramaNuevasApp
+        public List<Estrategia.BEConfiguracionProgramaNuevasApp> GetConfiguracionProgramaNuevasApp(int paisID, string CodigoPrograma)
+        {
+            return _configuracionProgramaNuevasBusinessLogic.GetConfiguracionProgramaNuevasApp(paisID, CodigoPrograma);
+        }
+        public string InsConfiguracionProgramaNuevasApp(int paisID, Estrategia.BEConfiguracionProgramaNuevasApp entidad)
+        {
+            return _configuracionProgramaNuevasBusinessLogic.InsConfiguracionProgramaNuevasApp(paisID, entidad);
+        }
+        #endregion
+
+        #region Certificado Digital
+        public bool TieneCampaniaConsecutivas(int paisId, int campaniaId, int cantidadCampaniaConsecutiva, long consultoraId)
+        {
+            return BLPedidoWeb.TieneCampaniaConsecutivas(paisId, campaniaId, cantidadCampaniaConsecutiva, consultoraId);
+        }
+
+        public BEMiCertificado ObtenerCertificadoDigital(int paisId, int campaniaId, long consultoraId, Int16 tipoCert)
+        {
+            return BLPedidoWeb.ObtenerCertificadoDigital(paisId, campaniaId, consultoraId, tipoCert);
+        }
+        #endregion
     }
 }

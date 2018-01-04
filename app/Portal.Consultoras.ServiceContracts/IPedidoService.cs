@@ -4,6 +4,7 @@ using Portal.Consultoras.Entities.ReservaProl;
 using Portal.Consultoras.Entities.RevistaDigital;
 using Portal.Consultoras.Entities.ShowRoom;
 using Portal.Consultoras.Entities.Pedido;
+using Estrategia = Portal.Consultoras.Entities.Estrategia;
 
 using System;
 using System.Collections.Generic;
@@ -809,6 +810,9 @@ namespace Portal.Consultoras.ServiceContracts
         int DelOfertaShowRoom(int paisID, BEShowRoomOferta entity);
 
         [OperationContract]
+        int InsOrUpdOfertaShowRoom(int paisID, BEShowRoomOferta entity);
+
+        [OperationContract]
         int RemoverOfertaShowRoom(int paisID, BEShowRoomOferta entity);
 
         [OperationContract]
@@ -1185,5 +1189,22 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         void UpdateMostradoProductosPrecargados(int paisID, int CampaniaID, long ConsultoraID, string IPUsuario);
         #endregion
+
+	#region ConfiguracionProgramaNuevasApp
+        [OperationContract]
+        List<Estrategia.BEConfiguracionProgramaNuevasApp> GetConfiguracionProgramaNuevasApp(int paisID, string CodigoPrograma);
+        [OperationContract]
+        string InsConfiguracionProgramaNuevasApp(int paisID, Estrategia.BEConfiguracionProgramaNuevasApp entidad);
+        #endregion
+
+        #region Certificado Digital
+        [OperationContract]
+        bool TieneCampaniaConsecutivas(int paisId, int campaniaId, int cantidadCampaniaConsecutiva, long consultoraId);
+
+        [OperationContract]
+        BEMiCertificado ObtenerCertificadoDigital(int paisId, int campaniaId, long consultoraId, Int16 tipoCert);
+
+        #endregion
+
     }
 }

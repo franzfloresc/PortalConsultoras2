@@ -2980,18 +2980,10 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
         var ClienteAnti = $('#hdfLPTempCliDes' + PedidoDetalleID).val();
         var DesProd = $('#lblLPDesProd' + PedidoDetalleID).html();
 
-        var Flag = 0;
-        var StockNuevo = 0;
-        StockNuevo = parseInt(Cantidad) - parseInt(CantidadAnti);
-        if (parseInt(CantidadAnti) > parseInt(Cantidad)) {
-            Flag = 1;
-        } else if (parseInt(Cantidad) > parseInt(CantidadAnti)) {
-            Flag = 2;
-        }
+        var Flag = 2;
+        var StockNuevo = parseInt(Cantidad) - parseInt(CantidadAnti);
+        if (CliDes.length == 0) CliID = 0;
 
-        if (CliDes.length == 0) {
-            CliID = 0;
-        }
         AbrirSplash();
         $.getJSON(baseUrl + 'OfertaLiquidacion/ValidarUnidadesPermitidasPedidoProducto', { CUV: CUV, Cantidad: StockNuevo, PrecioUnidad: PrecioUnidad}, function (data) {
             CerrarSplash();
@@ -3138,16 +3130,9 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
             var CantidadAnti = $('#txtLPTempCant' + PedidoDetalleID).val();
             var ClienteAnti = $('#hdfLPTempCliDes' + PedidoDetalleID).val();
             var DesProd = $('#lblLPDesProd' + PedidoDetalleID).html();
-            var Flag = 0;
-            var StockNuevo = 0;
-            StockNuevo = parseInt(Cantidad) - parseInt(CantidadAnti);
-            if (parseInt(CantidadAnti) > parseInt(Cantidad)) {
-                Flag = 1;
-                //StockNuevo = parseInt(CantidadAnti) - parseInt(Cantidad);
-            } else if (parseInt(Cantidad) > parseInt(CantidadAnti)) {
-                Flag = 2;
-                //StockNuevo = parseInt(Cantidad) - parseInt(CantidadAnti);
-            }
+            var Flag = 2;
+            var StockNuevo = parseInt(Cantidad) - parseInt(CantidadAnti);
+
             if (FlagValidacion == "1") {
                 if (CantidadAnti == Cantidad)
                     return false;
