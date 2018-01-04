@@ -55,6 +55,7 @@
             <div class="num_paso_pago_online">3</div>
         </div>
         <!-- FIN CANTIDAD DE PASOS PARA PROCESO DE PAGO ONLINE -->
+
         <!-- RESUMEN DE PAGO -->
         <div class="resumen_del_pago">
             <div class="resumen_pago_titulo">
@@ -91,6 +92,7 @@
             </div>
         </div>
         <!-- FIN RESUMEN DE PAGO -->
+
         <!-- EDICIÓN DE MONTO A PAGAR -->
         <div class="resumen_del_pago" style="display:none;">
             <div class="contenedor_deuda_total">
@@ -134,6 +136,7 @@
             </div>
         </div>
         <!-- FIN EDICIÓN DE MONTO A PAGAR -->
+
         <!-- ESCOGER MÉTODO DE PAGO -->
         <div class="resumen_del_pago" style="display:none;">
             <div class="resumen_pago_titulo agregarBordeInferior pb-11">
@@ -178,6 +181,7 @@
             </div>
         </div>
         <!-- FIN ESCOGER MÉTODO DE PAGO -->
+
         <!-- VISTA REDIRECCIÓN A PROVEEDOR DE PAGO -->
         <div class="resumen_del_pago estado_redireccion_proveedor_pago" style="display:none;">
             <div class="texto_estado_redireccion">Te estamos redirigiendo al proveedor de pago</div>
@@ -185,11 +189,57 @@
             </div>
         </div>
         <!-- FIN VISTA REDIRECCIÓN A PROVEEDOR DE PAGO -->
+
         <!-- FORMULARIO VISA -->
         <div class="contenedor_formulario_visa" style="display:none;">
-            <form class="formulario_visa" method="post" action=""></form>
+            <form class="formulario_visa" method="post" action="">
+                <div class="grupo_form">
+                    <div class="campo_ingreso_num_tarjeta">
+                        <input type="tel" value="" placeholder="Número de tarjeta" />
+                    </div>
+                </div>
+                <div class="grupo_form">
+                    <div class="campo_fecha_vencimiento_tarjeta">
+                        <input type="tel" value="" placeholder="MM/AA" />
+                    </div>
+                    <div class="campo_codigo_seguridad">
+                        <input type="tel" value="" placeholder="CVV" />
+                        <span class="icono_pregunta_sobre_campo"></span>
+                    </div>
+                </div>
+                <div class="grupo_form">
+                    <div class="campo_nombre_usuario_tarjeta">
+                        <input type="text" value="" placeholder="Nombre" />
+                    </div>
+                    <div class="campo_apellido_usuario_tarjeta">
+                        <input type="text" value="" placeholder="Apellido" />
+                    </div>
+                </div>
+                <div class="grupo_form">
+                    <div class="campo_email_usuario_tarjeta">
+                        <input type="text" value="" placeholder="Email" />
+                    </div>
+                </div>
+                <div class="grupo_form">
+                    <div class="campo_num_cuotas_a_pagar">
+                        <select>
+                            <option>Sin cuotas</option>
+                            <option>1 cuota</option>
+                            <option>2 cuotas</option>
+                            <option>3 cuotas</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="grupo_form">
+                    <div class="campo_recordar_tarjeta">
+                        <input type="checkbox" value="1" />
+                        <span class="texto_campo">Recordar tarjeta</span>
+                    </div>
+                </div>
+            </form>
         </div>
         <!-- FIN FORMULARIO VISA -->
+
         <!-- VISTA PAGO REALIZADO CON ÉXITO -->
         <div class="pago_realizado" style="display:none;">
             <p>
@@ -240,21 +290,24 @@
         <div class="info_pago_seguro_visa">
             <span class="icono_pago_seguro"></span>
             <span class="descripcion_pago_seguro">
-                Pago seguro, realizado a través de
+                Pago seguro, por el momento sólo a través de
             </span>
             <span class="marca_visa"></span>
         </div>
         <!-- FIN INFORMACIÓN DE PAGO SEGURO CON VISA -->
+
         <!-- INFORMACIÓN OTROS LUGARES DE PAGO -->
         <div class="otros_lugares_pago" style="display:none;">
             Si buscas otras formas de pagar, mira los lugares de pago <a href="javascript(void);" title="Click para ver otros lugares de pago">aquí</a>
         </div>
         <!-- FIN INFORMACIÓN OTROS LUGARES DE PAGO -->
+
         <!-- CALL TO ACTION PAGO -->
         <button type="button" class="btnPagar">
             Continuar pago con visa
         </button>
         <!-- FIN CALL TO ACTION PAGO -->
+
         <!-- CALL TO ACTION COMPLETAR PAGO -->
         <button type="button" class="btnPagar" style="display:none;">
             Completar pago (<span>S/. </span><span>510.00</span>)

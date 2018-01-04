@@ -148,7 +148,13 @@
 .otros_lugares_pago,
 .tooltip_terminos_y_condiciones,
 .contenedor_info_adicional_y_ctas,
-.texto_estado_redireccion
+.texto_estado_redireccion,
+.contenedor_formulario_visa,
+.formulario_visa,
+.grupo_form,
+.campo_ingreso_num_tarjeta,
+.campo_email_usuario_tarjeta,
+.campo_num_cuotas_a_pagar
 {
     display:block;
 }
@@ -241,7 +247,7 @@
     display:inline-block;
     /*vertical-align:bottom;*/
     font-size:14px;
-    line-height:24px;
+    line-height:26px;
 }
 
 .resumen_pago_detalle > div > span:first-child,
@@ -284,7 +290,14 @@
 .form_opcion_pago label,
 .marca_visa,
 .otros_lugares_pago a,
-.imagen_felicitacion
+.imagen_felicitacion,
+.campo_fecha_vencimiento_tarjeta,
+.campo_codigo_seguridad,
+.campo_nombre_usuario_tarjeta,
+.campo_apellido_usuario_tarjeta,
+.grupo_form input,
+.grupo_form select,
+.texto_campo
 {
     display:inline-block!important;
     vertical-align:middle!important;
@@ -331,7 +344,7 @@
 }
 
 .barra_activacion.activado .control_activacion{
-    right:0%;
+    right:-4%;
 }
 
 .control_activacion span{
@@ -371,7 +384,7 @@
 }
 
 .info_pago_seguro_visa{
-    padding:0 6px;
+    padding:0 4px;
 }
 
 .icono_pago_seguro{
@@ -451,7 +464,7 @@
     color: #000;
     border-bottom: 1px solid #979797;
     text-align: right;
-    line-height: 26px;
+    line-height: 23px;
     font-size: 27px;
     font-weight: 500;
     min-width: 40px;
@@ -606,7 +619,7 @@
 .control_activacion_terminos_condiciones{
     width:19px;
     height:18px;
-    top: -3.5px;
+    top: -4px;
     right: 45%;
     background-color:#bbbbbb;
     background-image:url(../../../images/icono-paso-completado.svg);
@@ -640,15 +653,19 @@
     font-weight:400;
 }
 
-.otros_lugares_pago a,
+.otros_lugares_pago a
+{
+    color:#8a8a8a;
+    font-weight:700;
+    margin-bottom:3px;
+}
+
 .otros_lugares_pago:hover,
 .otros_lugares_pago:focus,
 .otros_lugares_pago:active
 {
     color:#8a8a8a;
-    font-weight:700;
-    margin-bottom:2px;
-    text-decoration:none;
+    text-decoration:underline;
 }
 
 .tooltip_terminos_y_condiciones{
@@ -712,6 +729,93 @@
     animation-duration:1s;
     animation-timing-function:linear;
     animation-iteration-count:infinite;
+}
+
+.contenedor_formulario_visa {
+    width: 100%;
+    height: 100vh;
+}
+
+.formulario_visa{
+    margin-top:30px;
+}
+
+.icono_tipo_campo,
+.icono_info_campo
+{
+    width: 25px;
+    height: 28px;
+    margin-right: 4px;
+}
+
+.campo_ingreso_num_tarjeta,
+.campo_fecha_vencimiento_tarjeta,
+.campo_codigo_seguridad,
+.campo_nombre_usuario_tarjeta,
+.campo_apellido_usuario_tarjeta,
+.campo_email_usuario_tarjeta,
+.campo_num_cuotas_a_pagar
+{
+    background:#FFF;
+    border-radius:2%;
+    border:1px solid #CCC;
+    height:40px;
+    margin-bottom:5px;
+    overflow:hidden;
+}
+
+.campo_fecha_vencimiento_tarjeta,
+.campo_codigo_seguridad,
+.campo_nombre_usuario_tarjeta,
+.campo_apellido_usuario_tarjeta
+{
+    width:49.2%;
+}
+
+.campo_fecha_vencimiento_tarjeta,
+.campo_nombre_usuario_tarjeta
+{
+    margin-right:1px;
+}
+
+.campo_codigo_seguridad,
+.campo_apellido_usuario_tarjeta
+{
+    margin-left:1px;
+}
+
+.campo_num_cuotas_a_pagar select{
+    margin-left:-5px;
+}
+
+.campo_ingreso_num_tarjeta input,
+.campo_email_usuario_tarjeta input,
+.campo_fecha_vencimiento_tarjeta input,
+.campo_codigo_seguridad input,
+.campo_nombre_usuario_tarjeta input,
+.campo_apellido_usuario_tarjeta input,
+.campo_num_cuotas_a_pagar select
+{
+    width:100%;
+    height:38px;
+    line-height:40px;
+    padding:0 10px;
+    box-sizing:border-box;
+}
+
+.campo_recordar_tarjeta{
+    border:none;
+    padding:0 9px;
+    line-height:31px;
+}
+
+.campo_recordar_tarjeta input{
+    margin-right:5px;
+}
+
+.texto_campo{
+    font-size: 14px;
+    margin-bottom: 3px;
 }
 
 @-webkit-keyframes rotacionPrecarga{
