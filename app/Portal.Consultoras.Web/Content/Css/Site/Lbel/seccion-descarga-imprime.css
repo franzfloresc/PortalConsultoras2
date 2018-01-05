@@ -13,7 +13,7 @@
 .contenedor_seccion_personaliza {
     width: 100%;
     min-height: 500px;
-    background-image: url("/Content/Images/Lbel/Contenedor/fondo-seccion-descarga-imprime.jpg");
+    background-image: url('/Content/Images/Lbel/Contenedor/fondo-seccion-descarga-imprime.jpg');
     background-repeat: no-repeat;
     background-position: center;
     padding-top: 34px;
@@ -80,14 +80,14 @@
 .img_tarjeta_navidenia {
     width: 185px;
     height: 225px;
-    background-image: url("/Content/Images/Lbel/Contenedor/tarjetas-navidenias.png");
+    background-image: url('/Content/Images/Lbel/Contenedor/tarjetas-navidenias.png');
     margin-left: 25px;
 }
 
 .img_papel_regalo_navidenio {
     width: 277px;
     height: 221px;
-    background-image: url("/Content/Images/Lbel/Contenedor/papel-de-regalo.png");
+    background-image: url('/Content/Images/Lbel/Contenedor/papel-de-regalo.png');
     margin-left: 10px;
 }
 
@@ -111,7 +111,7 @@
     .enlace_descargables .icono_descarga_tarjetas {
         width: 40px;
         height: 40px;
-        background-image: url("/Content/Images/Lbel/Contenedor/icono-descarga-e-imprime.svg");
+        background-image: url('/Content/Images/Lbel/Contenedor/icono-descarga-e-imprime.svg');
         transition: all 0.3s ease;
         -moz-transition: all 0.3s ease;
         -o-transition: all 0.3s ease;
@@ -120,7 +120,7 @@
     }
 
     .enlace_descargables:hover .icono_descarga_tarjetas {
-        background-image: url("/Content/Images/Lbel/Contenedor/icono-descarga-e-imprime-hover.svg");
+        background-image: url('/Content/Images/Lbel/Contenedor/icono-descarga-e-imprime-hover.svg');
     }
 
 .marca_esika_o_lbel {
@@ -128,9 +128,9 @@
 }
 
     .marca_esika_o_lbel:before {
-        content: "L\0027";
+        content: 'L\0027';
     }
 
     .marca_esika_o_lbel:after {
-        content: "bel";
+        content: 'bel';
     }

@@ -269,7 +269,7 @@ a, a:visited {
     color: inherit;
 }
 
-input[type="button"], input[type="submit"] {
+input[type='button'], input[type='submit'] {
     border: 1px solid white;
     width: 190px;
     height: 40px;
@@ -330,7 +330,7 @@ input[type="button"], input[type="submit"] {
         cursor: default;
     }
 
-input[type="text"], select {
+input[type='text'], select {
     border: 1px solid #BABABA;
     height: 32px;
     padding: 3px;

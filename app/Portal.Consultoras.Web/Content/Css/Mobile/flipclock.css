@@ -29,7 +29,7 @@
 
 .flip-clock-wrapper.clearfix:before,
 .flip-clock-wrapper.clearfix:after {
-    content: " ";
+    content: ' ';
     display: table;
 }
 
@@ -43,7 +43,7 @@
 
 /* Main */
 .flip-clock-wrapper {
-    font: normal 11px "Helvetica Neue", Helvetica, sans-serif;
+    font: normal 11px 'Helvetica Neue', Helvetica, sans-serif;
     -webkit-user-select: none;
 }
 
@@ -134,7 +134,7 @@
                     }
 
                         .flip-clock-wrapper ul li a div.up:after {
-                            content: "";
+                            content: '';
                             position: absolute;
                             top: 44px;
                             left: 0;

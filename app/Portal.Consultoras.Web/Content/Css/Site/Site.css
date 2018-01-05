@@ -89,7 +89,7 @@
 
 .qq-upload-spinner {
     display: inline-block;
-    background: url("../Images/UploadLoading.gif");
+    background: url('../Images/UploadLoading.gif');
     width: 15px;
     height: 15px;
     vertical-align: text-bottom;

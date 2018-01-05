@@ -134,7 +134,7 @@
     width: 20px;
     height: 20px;
     float: right;
-    background: url("/Content/Images/btnCerrar_AD.png") no-repeat;
+    background: url('/Content/Images/btnCerrar_AD.png') no-repeat;
     cursor: pointer;
 }
 
@@ -151,14 +151,14 @@
 }
 
 .btnActualizar {
-    background: url("/Content/Images/btnActualizar_AD.png") no-repeat;
+    background: url('/Content/Images/btnActualizar_AD.png') no-repeat;
     cursor: pointer;
     width: 148px;
     height: 38px;
 }
 
 .btnAceptar {
-    background: url("/Content/Images/afiliacion/aceptar.png") no-repeat;
+    background: url('/Content/Images/afiliacion/aceptar.png') no-repeat;
     cursor: pointer;
     height: 47px;
 }
@@ -183,7 +183,7 @@
 }
 
 .checkImage {
-    background: url("/Content/Images/check_AD.png") no-repeat;
+    background: url('/Content/Images/check_AD.png') no-repeat;
     background-position: 24% 4px;
     padding: 6px 0px;
 }
@@ -219,7 +219,7 @@
     width: 20px;
     height: 20px;
     float: right;
-    background: url("/Content/Images/btnCerrar_AD.png") no-repeat;
+    background: url('/Content/Images/btnCerrar_AD.png') no-repeat;
     cursor: pointer;
 }
 

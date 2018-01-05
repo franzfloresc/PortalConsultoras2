@@ -332,7 +332,7 @@ header {
     font-size: 13px;
     letter-spacing: 0.3px;
     font-weight: 700;
-    background: url("../../../Images/Esika/fle_.png") no-repeat;
+    background: url('../../../Images/Esika/fle_.png') no-repeat;
     background-position: 0px 5px;
     padding-left: 13px;
     margin-bottom: 10px;
@@ -381,7 +381,7 @@ header {
 }
 
 .icon-flechita {
-    content: "\e900";
+    content: '\e900';
 }
 
 .flechita_info {
@@ -579,26 +579,26 @@ header {
     }
 
 .fondo_b {
-    background: url("../../../Images/Esika/bajar.png") no-repeat;
+    background: url('../../../Images/Esika/bajar.png') no-repeat;
     background-position: 22px 5px;
 }
 
     .fondo_b:hover {
-        background: url("../../../Images/Esika/bajar_hover.png") no-repeat;
+        background: url('../../../Images/Esika/bajar_hover.png') no-repeat;
         background-position: 22px 5px !important;
-        background: black url("../../../Images/Esika/bajar_hover.png") no-repeat\9;
+        background: black url('../../../Images/Esika/bajar_hover.png') no-repeat\9;
         color: white;
     }
 
 .fondo_a {
-    background: url("../../../Images/Esika/subir.png") no-repeat;
+    background: url('../../../Images/Esika/subir.png') no-repeat;
     background-position: 22px 5px;
 }
 
     .fondo_a:hover {
-        background: url("../../../Images/Esika/subir_hover.png") no-repeat;
+        background: url('../../../Images/Esika/subir_hover.png') no-repeat;
         background-position: 22px 5px !important;
-        background: black url("../../../Images/Esika/subir_hover.png") no-repeat\9;
+        background: black url('../../../Images/Esika/subir_hover.png') no-repeat\9;
         color: white;
     }
 
@@ -731,7 +731,7 @@ header {
     float: left;
     width: 12px;
     height: 40px;
-    background: url("../../../Images/Esika/divisor.png") no-repeat;
+    background: url('../../../Images/Esika/divisor.png') no-repeat;
 }
 
 .gz_es {
@@ -908,7 +908,7 @@ header {
     background: black;
 }
 
-[class^="btn-"] {
+[class^='btn-'] {
     position: relative;
     display: block;
     overflow: hidden;
@@ -1902,7 +1902,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     bottom: 100%;
     left: 50%;
     border: solid transparent;
-    content: " ";
+    content: ' ';
     height: 0;
     width: 0;
     position: absolute;
@@ -2128,7 +2128,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
 }
 
     .tooltip_guardaPedido .tooltip_flecha {
-        background: url("/Content/Images/tooltip-flecha.png") no-repeat 0 -26px !important;
+        background: url('/Content/Images/tooltip-flecha.png') no-repeat 0 -26px !important;
         position: absolute;
         top: 0%;
         left: -11.2%;
@@ -2185,7 +2185,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
 }
 
 .tooltip_infoCopy .tooltip_flecha {
-    background: url("/Content/Images/tooltip-flecha.png") no-repeat 0 16px !important;
+    background: url('/Content/Images/tooltip-flecha.png') no-repeat 0 16px !important;
     position: absolute;
     top: -8%;
     left: -11.5%;
@@ -2253,7 +2253,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
             top: 100%;
             left: 0%;
             border: solid transparent;
-            content: " ";
+            content: ' ';
             height: 0;
             width: 0;
             border-color: rgba(5, 7, 8, 0);
@@ -2291,7 +2291,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
             float: none;
         }
 /* fin tool tip => info sobre el icono*/
-.boton_guardarPedido input[type="submit"], .boton_guardarPedido input[type="button"] {
+.boton_guardarPedido input[type='submit'], .boton_guardarPedido input[type='button'] {
     display: block;
     font-family: 'Lato';
     width: 218px;
@@ -2434,7 +2434,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
         bottom: 100%;
         left: 17%;
         border: solid transparent;
-        content: " ";
+        content: ' ';
         height: 0;
         width: 0;
         position: absolute;
@@ -2676,7 +2676,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
 }
 
     .texto_pedidos.subtotal span.icon-advertencia {
-        background: url("/Content/Images/Esika/icono-admiracion.png") no-repeat center center;
+        background: url('/Content/Images/Esika/icono-admiracion.png') no-repeat center center;
         width: 18px;
         height: 18px;
         font-family: 'Lato';
@@ -2691,7 +2691,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
 .caja_montos_textos .monto_descuento span.icon-advertencia {
     display: inline-block;
     vertical-align: middle;
-    background: url("/Content/Images/Esika/icono-admiracion.png") no-repeat center center;
+    background: url('/Content/Images/Esika/icono-admiracion.png') no-repeat center center;
     width: 18px;
     height: 18px;
     font-family: 'Lato';
@@ -2852,7 +2852,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
 
     .precio_total_sinDescuento span.icon-advertencia {
         display: inline-block;
-        background: url("/Content/Images/Esika/icono-admiracion.png") no-repeat center center;
+        background: url('/Content/Images/Esika/icono-admiracion.png') no-repeat center center;
         width: 18px;
         height: 18px;
         margin-right: 8px;
@@ -3210,7 +3210,7 @@ a.subir_carousel, a.bajar_carousel {
     left: 50%;
     margin-left: -120px;
     z-index: 5;
-    background: #f8f8f8 url("/Content/Images/background-carousel.png") no-repeat -24px 0 !important;
+    background: #f8f8f8 url('/Content/Images/background-carousel.png') no-repeat -24px 0 !important;
 }
 
 .producto_carousel {
@@ -3596,7 +3596,7 @@ a.subir_carousel, a.bajar_carousel {
             right: 100%;
             top: 50%;
             border: solid transparent;
-            content: " ";
+            content: ' ';
             height: 0;
             width: 0;
             position: absolute;
@@ -3625,7 +3625,7 @@ a.subir_carousel, a.bajar_carousel {
         font-weight: 400;
     }
 
-    .popup_agregarCliente input[type="text"], .popup_agregarCliente input[type="email"] {
+    .popup_agregarCliente input[type='text'], .popup_agregarCliente input[type='email'] {
         display: block;
         width: 100%;
         max-width: 283.5px;
@@ -3639,11 +3639,11 @@ a.subir_carousel, a.bajar_carousel {
         border: 1px solid #979797;
     }
 
-    .popup_agregarCliente input[type="text"] {
+    .popup_agregarCliente input[type='text'] {
         margin-bottom: 15px;
     }
 
-    .popup_agregarCliente input[type="email"] {
+    .popup_agregarCliente input[type='email'] {
         margin-bottom: 17px;
     }
 
@@ -3983,7 +3983,7 @@ a.subir_carousel, a.bajar_carousel {
         bottom: 100%;
         left: 50%;
         border: solid transparent;
-        content: " ";
+        content: ' ';
         height: 0;
         width: 0;
         position: absolute;
@@ -5104,7 +5104,7 @@ a.subir_carousel, a.bajar_carousel {
     font-size: 13px;
 }
 
-.grupo_input_actualizarMisDatos div input[type="text"], .grupo_input_actualizarMisDatos div input[type="email"], .grupo_input_actualizarMisDatos div input[type="password"] {
+.grupo_input_actualizarMisDatos div input[type='text'], .grupo_input_actualizarMisDatos div input[type='email'], .grupo_input_actualizarMisDatos div input[type='password'] {
     display: block;
     border: 1px solid #CCC;
     background: #FFF;
@@ -5144,7 +5144,7 @@ a.subir_carousel, a.bajar_carousel {
     vertical-align: top !important;
 }
 
-    .checkbox_condiciones input[type="checkbox"] {
+    .checkbox_condiciones input[type='checkbox'] {
         display: none !important;
     }
 
@@ -5160,7 +5160,7 @@ a.subir_carousel, a.bajar_carousel {
     }
 
     .texto_terminosCondiciones:before {
-        content: "";
+        content: '';
         position: absolute;
         left: 0px;
         width: 16px;
@@ -5175,8 +5175,8 @@ a.subir_carousel, a.bajar_carousel {
         z-index: 10;
     }
 
-.checkbox_condiciones input[type="checkbox"]:checked + .texto_terminosCondiciones:before {
-    content: "";
+.checkbox_condiciones input[type='checkbox']:checked + .texto_terminosCondiciones:before {
+    content: '';
     width: 16px;
     height: 16px;
     border-radius: 3px;
@@ -5505,7 +5505,7 @@ a.subir_carousel, a.bajar_carousel {
     font-family: 'lato';
     font-weight: 700;
     font-size: 8pt;
-    background: url("../../../Images/Esika/boton_pedido.png") no-repeat;
+    background: url('../../../Images/Esika/boton_pedido.png') no-repeat;
     background-position: 74px 8px;
 }
 
@@ -5529,8 +5529,8 @@ a.subir_carousel, a.bajar_carousel {
 
     .boton-pedido:hover {
         background-position: 74px 8px !important;
-        background: url("../../../Images/Esika/boton_pedido_hover.png") no-repeat;
-        background: black url("../../../Images/Esika/boton_pedido_hover.png") no-repeat\9;
+        background: url('../../../Images/Esika/boton_pedido_hover.png') no-repeat;
+        background: black url('../../../Images/Esika/boton_pedido_hover.png') no-repeat\9;
         color: white;
     }
 
@@ -5548,13 +5548,13 @@ a.subir_carousel, a.bajar_carousel {
     z-index: 20;
     width: 96px;
     height: 22px;
-    background: url("../../../Images/Esika/oferta.png") no-repeat;
+    background: url('../../../Images/Esika/oferta.png') no-repeat;
 }
 
 .reco_star {
     position: absolute;
     left: 105px;
-    background: url("../../../Images/Esika/star_reco.png") no-repeat;
+    background: url('../../../Images/Esika/star_reco.png') no-repeat;
     background-size: 23px 23px;
     width: 32px;
     height: 32px;
@@ -5566,7 +5566,7 @@ a.subir_carousel, a.bajar_carousel {
     z-index: 21;
     width: 98px;
     height: 22px;
-    background: url("../../../Images/Esika/oferta_web.png") no-repeat;
+    background: url('../../../Images/Esika/oferta_web.png') no-repeat;
 }
 
 .pedidos_subtitulo {
@@ -5842,7 +5842,7 @@ a.subir_carousel, a.bajar_carousel {
     float: left;
     font-family: 'lato';
     font-size: 8.5pt;
-    background: url("../../../Images/Esika/ayuda_pedido.png") no-repeat;
+    background: url('../../../Images/Esika/ayuda_pedido.png') no-repeat;
 }
 
 .pop_pedido {
@@ -5856,7 +5856,7 @@ a.subir_carousel, a.bajar_carousel {
     padding-top: 38px;
     padding-left: 35px;
     padding-right: 35px;
-    background: url("../../../Images/Esika/pop_liquidacion.png") no-repeat;
+    background: url('../../../Images/Esika/pop_liquidacion.png') no-repeat;
 }
 /*POP UP LIQUIDACION*/
 .pop_liquidacion_home {
@@ -5870,7 +5870,7 @@ a.subir_carousel, a.bajar_carousel {
     padding-top: 38px;
     padding-left: 35px;
     padding-right: 35px;
-    background: url("../../../Images/Esika/pop_liquidacion.png") no-repeat;
+    background: url('../../../Images/Esika/pop_liquidacion.png') no-repeat;
 }
 
 .pop_liquidacion {
@@ -5884,7 +5884,7 @@ a.subir_carousel, a.bajar_carousel {
     padding-top: 38px;
     padding-left: 35px;
     padding-right: 35px;
-    background: url("../../../Images/Esika/pop_liquidacion.png") no-repeat;
+    background: url('../../../Images/Esika/pop_liquidacion.png') no-repeat;
 }
 
 .check_liquidacion {
@@ -6186,7 +6186,7 @@ a.subir_carousel, a.bajar_carousel {
         bottom: 100%;
         left: 17%;
         border: solid transparent;
-        content: " ";
+        content: ' ';
         height: 0;
         width: 0;
         position: absolute;
@@ -6306,7 +6306,7 @@ a.subir_carousel, a.bajar_carousel {
         top: 0.08em;
         left: 0.08em;
         display: block;
-        content: " ";
+        content: ' ';
         -webkit-border-radius: 50%;
         -moz-border-radius: 50%;
         -ms-border-radius: 50%;
@@ -7456,7 +7456,7 @@ address {
     z-index: -1;
 }
 
-[class^="btn-"] {
+[class^='btn-'] {
     position: relative;
     display: block;
     overflow: hidden;
@@ -7602,7 +7602,7 @@ h1, h2, h3, h4, h5, h6 {
     display: block;
     visibility: hidden;
     height: 0;
-    content: ".";
+    content: '.';
 }
 /* ---------------------------------------------------------------------- */
 /*	Floating & Alignment */
@@ -7938,26 +7938,26 @@ ul.type-6 li {
 /*	Forms */
 /* ---------------------------------------------------------------------- */
 button,
-input[type="button"],
-input[type="reset"],
-input[type="submit"] {
+input[type='button'],
+input[type='reset'],
+input[type='submit'] {
     cursor: pointer;
     -webkit-appearance: button;
 }
 
-input[type="checkbox"],
-input[type="radio"] {
+input[type='checkbox'],
+input[type='radio'] {
 }
 
-input[type="search"] {
+input[type='search'] {
     -webkit-appearance: textfield;
     -moz-box-sizing: content-box;
     -webkit-box-sizing: content-box;
     box-sizing: content-box;
 }
 
-    input[type="search"]::-webkit-search-decoration,
-    input[type="search"]::-webkit-search-cancel-button {
+    input[type='search']::-webkit-search-decoration,
+    input[type='search']::-webkit-search-cancel-button {
         -webkit-appearance: none;
     }
 
@@ -8749,7 +8749,7 @@ ul.tabs {
 }
 
 .div-3 .titE {
-    font-family: "lato-bold";
+    font-family: 'lato-bold';
     float: left;
     width: 335px;
     height: auto;
@@ -8843,7 +8843,7 @@ ul.tabs {
 }
 
 .div-3 .titI_3 {
-    font-family: "lato-regular";
+    font-family: 'lato-regular';
     float: left;
     width: 250px;
     height: auto;
@@ -9068,7 +9068,7 @@ ul.tabs {
     max-width: 200px;
 }
 
-.div-3 .selectA input[type="text"] {
+.div-3 .selectA input[type='text'] {
     font-size: 8.5pt;
     width: 345px;
     border: 0;
@@ -11929,7 +11929,7 @@ ol {
     position: relative;
 }
 
-    .modulo_ofertas_dupla .ofertas_cantidad input[type="text"] {
+    .modulo_ofertas_dupla .ofertas_cantidad input[type='text'] {
         border: none;
         background: url('../../Images/cantidad_dupla.png') top left no-repeat;
         width: 45px;
@@ -12121,7 +12121,7 @@ ol {
         padding: 0px 0px 2px 0px;
     }
 
-.modulo_ofertas .ofertas_cantidad input[type="text"] {
+.modulo_ofertas .ofertas_cantidad input[type='text'] {
     border: none;
     background: #ecebf0;
     width: 45px;
@@ -12192,7 +12192,7 @@ ol {
             color: white;
         }
 
-        .ofertas_agregar_pedido input[disabled="disabled"] {
+        .ofertas_agregar_pedido input[disabled='disabled'] {
             background: rgb(232,28,54);
             color: #fff;
             font-weight: normal;
@@ -13226,7 +13226,7 @@ ol {
 
     .nav:before,
     .nav:after {
-        content: " ";
+        content: ' ';
         display: table;
     }
 
@@ -13777,8 +13777,8 @@ ol {
 
 .mCSB_scrollTools .mCSB_dragger:hover .mCSB_dragger_bar {
     background: #0091D8;
-    filter: "alpha(opacity=85)";
-    -ms-filter: "alpha(opacity=85)";
+    filter: 'alpha(opacity=85)';
+    -ms-filter: 'alpha(opacity=85)';
 }
 
 .mCSB_scrollTools .mCSB_dragger:active .mCSB_dragger_bar,
@@ -13814,8 +13814,8 @@ ol {
     .mCSB_scrollTools .mCSB_buttonLeft:hover,
     .mCSB_scrollTools .mCSB_buttonRight:hover {
         opacity: 0.75;
-        filter: "alpha(opacity=75)";
-        -ms-filter: "alpha(opacity=75)";
+        filter: 'alpha(opacity=75)';
+        -ms-filter: 'alpha(opacity=75)';
     }
 
     .mCSB_scrollTools .mCSB_buttonUp:active,
@@ -13857,7 +13857,7 @@ ol {
             }
 
                 .menu_header_preview ul li a:hover, .menu_header_preview ul li:hover a.nivel1 {
-                    background: url("../../Images/btn_modifica.png") top center no-repeat;
+                    background: url('../../Images/btn_modifica.png') top center no-repeat;
                     color: #FFF;
                     position: relative;
                     -webkit-border-radius: 7px;
@@ -14149,7 +14149,7 @@ table.falsa {
             font-weight: bold;
             padding: 0px 0px 0px 10px;
             margin-left: 6px;
-            background: url("../../Images/nav-arrow.png") no-repeat scroll 0 -14px transparent;
+            background: url('../../Images/nav-arrow.png') no-repeat scroll 0 -14px transparent;
         }
 
     .cab_resumen_lista span {
@@ -14761,7 +14761,7 @@ ul.block-with-images li a {
         height: 34px;
         background-image: url('../../Images/icons/sprite-block-icons.png');
         background-repeat: no-repeat;
-        content: "";
+        content: '';
     }
 
 ul.block-with-images li.icon-1 a:after {
@@ -14883,7 +14883,7 @@ widget_recent_entries ul {
     border-color: #fff #e9e9e9;
     border-style: solid;
     border-width: 13px 0 0 5px;
-    content: "";
+    content: '';
     opacity: 0;
     -webkit-transition: border-width .2s linear, opacity .2s linear, top .2s linear, right .2s linear;
     -moz-transition: border-width .2s linear, opacity .2s linear, top .2s linear, right .2s linear;
@@ -14901,7 +14901,7 @@ widget_recent_entries ul {
     border-color: #fff #e9e9e9;
     border-style: solid;
     border-width: 0 13px 5px 0;
-    content: "";
+    content: '';
     opacity: 0;
     -webkit-transition: border-width .2s linear, opacity .2s linear, left .2s linear, bottom .2s linear;
     -moz-transition: border-width .2s linear, opacity .2s linear, left .2s linear, bottom .2s linear;
@@ -15230,8 +15230,8 @@ widget_recent_entries ul {
     min-height: 220px;
 }
 
-.contact-form input[type="submit"],
-.comments-form input[type="submit"] {
+.contact-form input[type='submit'],
+.comments-form input[type='submit'] {
     margin: 0 0 20px;
     border: none;
     width: auto;
@@ -15365,7 +15365,7 @@ widget_recent_entries ul {
     border-color: #fff #e9e9e9;
     border-style: solid;
     border-width: 13px 0 0 5px;
-    content: "";
+    content: '';
     opacity: 0;
     filter: alpha(opacity=0);
     -webkit-transition: border-width .2s linear, opacity .2s linear, top .2s linear, right .2s linear;
@@ -15383,7 +15383,7 @@ widget_recent_entries ul {
     border-color: #fff #e9e9e9;
     border-style: solid;
     border-width: 0 13px 5px 0;
-    content: "";
+    content: '';
     opacity: 0;
     filter: alpha(opacity=0);
     -webkit-transition: border-width .2s linear, opacity .2s linear, left .2s linear, bottom .2s linear;
@@ -15727,7 +15727,7 @@ fieldset.row {
     margin-left: 10px;
 }
 
-#contact input[type="text"] {
+#contact input[type='text'] {
     width: 280px;
 }
 
@@ -15744,7 +15744,7 @@ fieldset.row {
     width: 438px;
 }
 
-#contact input[type="submit"][disabled] {
+#contact input[type='submit'][disabled] {
     background: #888;
     cursor: default;
 }
@@ -15856,7 +15856,7 @@ ul.error_messages {
     position: relative;
 }
 
-    .widget_search input[type="text"] {
+    .widget_search input[type='text'] {
         padding: 0 30px 0 10px;
         width: 178px;
         height: 28px;
@@ -15882,8 +15882,8 @@ ul.error_messages {
         color: #50554e;
     }
 
-    .widget_search input[type="text"]:hover,
-    .widget_search input[type="text"]:focus {
+    .widget_search input[type='text']:hover,
+    .widget_search input[type='text']:focus {
         border-color: #a7a7a7;
     }
 
@@ -16719,7 +16719,7 @@ ul.tabs-nav li.active {
 }
 
 .qq-upload-button {
-    background: url("../../../Images/buscar.png") no-repeat scroll 0 0 transparent;
+    background: url('../../../Images/buscar.png') no-repeat scroll 0 0 transparent;
     border: 0 none;
     color: #FFFFFF;
     float: left;
@@ -16797,7 +16797,7 @@ ul.tabs-nav li.active {
 
 .qq-upload-spinner {
     display: inline-block;
-    background: url("../Images/UploadLoading.gif");
+    background: url('../Images/UploadLoading.gif');
     width: 15px;
     height: 15px;
     vertical-align: text-bottom;
@@ -16816,7 +16816,7 @@ ul.tabs-nav li.active {
 }
 
 .preloader {
-    background: url("../../Images/loadingCatalogo.gif") center center no-repeat #ffffff;
+    background: url('../../Images/loadingCatalogo.gif') center center no-repeat #ffffff;
     display: inline-block;
 }
 
@@ -16832,11 +16832,11 @@ span.icon-edit, span.icon-del {
 }
 
 span.icon-edit {
-    background: url("../../Images/Edit.png") no-repeat;
+    background: url('../../Images/Edit.png') no-repeat;
 }
 
 span.icon-del {
-    background: url("../../Images/delete.png") no-repeat;
+    background: url('../../Images/delete.png') no-repeat;
 }
 /******* VERSION 1*************/
 .elementsX {
@@ -17736,7 +17736,7 @@ body, html {
     text-decoration: underline;
 }
 
-#paForm input[type="checkbox"] {
+#paForm input[type='checkbox'] {
     vertical-align: top;
 }
 
@@ -18025,7 +18025,7 @@ body, html {
     text-align: left;
 }
 
-.div-3 .selectEM input[type="text"] {
+.div-3 .selectEM input[type='text'] {
     float: left;
     width: 248px;
     height: auto;
@@ -18145,7 +18145,7 @@ body, html {
 }
 
 .leyendaIndicador {
-    font-family: "lato";
+    font-family: 'lato';
     font-size: 12px;
     color: #722789;
     padding: 2px 3px;
@@ -18166,7 +18166,7 @@ body, html {
 }
 
 .leyendaIndicadorPROL {
-    font-family: "lato";
+    font-family: 'lato';
     font-size: 13px;
     color: #e51437;
     padding: 0px 0px 0px 3px;
@@ -18177,7 +18177,7 @@ body, html {
 }
 
 .leyendaIndicadorPROLMensaje {
-    font-family: "lato";
+    font-family: 'lato';
     font-size: 13px;
     color: #722789;
 }
@@ -18424,7 +18424,7 @@ a.mover {
 .btnCerrarShowroom {
     width: 25px;
     height: 24px;
-    background: url("/Content/Images/showroom/cerrar_popshowroom.png") no-repeat;
+    background: url('/Content/Images/showroom/cerrar_popshowroom.png') no-repeat;
     cursor: pointer;
     position: absolute;
     right: 15px;
@@ -18437,7 +18437,7 @@ a.mover {
 .fondo_popupShowRoom {
     display: block;
     position: fixed;
-    background: url("/Content/Images/bg_popups.png") repeat;
+    background: url('/Content/Images/bg_popups.png') repeat;
     width: 100%;
     height: 100%;
     top: 0px;
@@ -18551,7 +18551,7 @@ a.mover {
 
 .btn_conoce_mas_aqui {
     margin-top: 18px;
-    background: url("/Content/Images/showroom/conoce_mas_aqui.png") no-repeat;
+    background: url('/Content/Images/showroom/conoce_mas_aqui.png') no-repeat;
     height: 25px;
     text-align: center;
     width: 182px;
@@ -18604,7 +18604,7 @@ a.mover {
     }
 
 .btn_hoy {
-    background: url("/Content/Images/showroom/boton_hoy.png") no-repeat;
+    background: url('/Content/Images/showroom/boton_hoy.png') no-repeat;
     height: 33px;
     text-align: center;
     width: 179px;
@@ -18693,7 +18693,7 @@ label.checkpop {
     font-family: 'lato';
     transition: .3s;
     font-weight: 300;
-    background: url("/Content/Images/showroom/check_off.png") left center no-repeat;
+    background: url('/Content/Images/showroom/check_off.png') left center no-repeat;
     margin-left: 170px;
     text-decoration: underline;
 }
@@ -18717,7 +18717,7 @@ label.checkpop input {
 }
 
 label.checkpop.c_on {
-    background: url("/Content/Images/showroom/check_on.png") left center no-repeat;
+    background: url('/Content/Images/showroom/check_on.png') left center no-repeat;
     color: black;
     font-family: 'lato';
     font-weight: 300;
@@ -18787,7 +18787,7 @@ label.checkpop.c_on {
     margin-left: 2px;
     margin-top: 2px;
     float: right;
-    background: url("/Content/Images/showroom/selector.png") right center no-repeat;
+    background: url('/Content/Images/showroom/selector.png') right center no-repeat;
 }
 
     .selector_s select {
@@ -18978,7 +18978,7 @@ label.checkpop.c_on {
 .producto_agotado {
     position: absolute;
     z-index: 100;
-    background: url("/Content/Images/showroom/opacity_items.png");
+    background: url('/Content/Images/showroom/opacity_items.png');
     width: 100%;
     height: 412px;
 }
@@ -19121,7 +19121,7 @@ label.checkpop.c_on {
     margin-top: 26px;
     margin-left: 30px;
     position: absolute;
-    background: url("/Content/Images/showroom/f_contenedor_pop.png");
+    background: url('/Content/Images/showroom/f_contenedor_pop.png');
 }
 
 .titulo_setDetalle {
@@ -19194,7 +19194,7 @@ label.checkpop.c_on {
         font-size: 23px;
         padding-left: 18px;
         color: #f11935;
-        background: url("/Content/Images/showroom/precio_detalle.png") no-repeat;
+        background: url('/Content/Images/showroom/precio_detalle.png') no-repeat;
         background-position: 1px 3px;
     }
 
@@ -19364,11 +19364,11 @@ label.checkpop.c_on {
     padding-top: 29px;
     position: absolute;
     z-index: 100;
-    background: url("/Content/Images/showroom/opacity.png");
+    background: url('/Content/Images/showroom/opacity.png');
 }
 
 .notificaciones_activas {
-    background: url("../../../Images/Esika/circulo.png") no-repeat;
+    background: url('../../../Images/Esika/circulo.png') no-repeat;
     color: white;
 }
 
@@ -19394,7 +19394,7 @@ label.checkpop.c_on {
     height: 80px;
     padding-top: 30px;
     padding-left: 120px;
-    background: #f5f5f7 url("../../../Images/detailLiqui.png") no-repeat right top;
+    background: #f5f5f7 url('../../../Images/detailLiqui.png') no-repeat right top;
     padding-right: 85px;
 }
 
@@ -19652,7 +19652,7 @@ label.checkpop.c_on {
     }
 
     .boton_home_guardar:before {
-        content: "";
+        content: '';
         z-index: -1;
         left: 0;
         right: 0;
@@ -19740,11 +19740,11 @@ label.checkpop.c_on {
     float: left;
     width: 14%;
     height: 36px;
-    background: url("../../../Images/Esika/carpeta.png") no-repeat;
+    background: url('../../../Images/Esika/carpeta.png') no-repeat;
 }
 
 .mis_ganancias_img {
-    background: url("../../../Images/Esika/dolar.png") no-repeat;
+    background: url('../../../Images/Esika/dolar.png') no-repeat;
 }
 
 .titulo_home_belcorp {
@@ -19812,14 +19812,14 @@ label.checkpop.c_on {
     font-weight: 700;
     padding-top: 13px;
     padding-left: 45px;
-    background: white url("../../../Images/Esika/tarjeta.png") no-repeat;
+    background: white url('../../../Images/Esika/tarjeta.png') no-repeat;
     background-position: 23px 10px;
 }
 
 .boton_facturacion_e {
     width: 100px;
     height: 30px;
-    background: url("../../../Images/Esika/indicador_pedido.png") no-repeat;
+    background: url('../../../Images/Esika/indicador_pedido.png') no-repeat;
     float: left;
     padding-left: 14px;
     background-position: 0px 4px;
@@ -19836,7 +19836,7 @@ label.checkpop.c_on {
 .boton_ultimos_movimientos {
     width: 200px;
     height: 30px;
-    background: url("../../../Images/Esika/indicador_pedido.png") no-repeat;
+    background: url('../../../Images/Esika/indicador_pedido.png') no-repeat;
     padding-left: 14px;
     background-position: 0px 4px;
     font-size: 11px;
@@ -19927,7 +19927,7 @@ label.checkpop.c_on {
     left: 40%;
     width: 17px;
     height: 17px;
-    background: url("../../../Images/Esika/escala_indicador.png") no-repeat;
+    background: url('../../../Images/Esika/escala_indicador.png') no-repeat;
 }
 
 .item_catalogo {
@@ -19967,7 +19967,7 @@ label.checkpop.c_on {
     display: inline-block;
     vertical-align: top;
     width: 49%;
-    background: url("../../../Images/Esika/indicador_pedido.png") no-repeat;
+    background: url('../../../Images/Esika/indicador_pedido.png') no-repeat;
     background-position: 0px 5px;
     font-family: 'lato';
     font-size: 11px;
@@ -19996,7 +19996,7 @@ label.checkpop.c_on {
     }
 
 .subir_foto {
-    background: url("../../../Images/Esika/camara.png") no-repeat;
+    background: url('../../../Images/Esika/camara.png') no-repeat;
     width: 26px;
     height: 26px;
     position: absolute;
@@ -20413,7 +20413,7 @@ label.checkpop.c_on {
     -moz-background-size: cover !important;
     -o-background-size: cover !important;
     background-size: cover !important;
-    -ms-behavior: url("../../../Css/Site/Esika/backgroundsize.min.htc");
+    -ms-behavior: url('../../../Css/Site/Esika/backgroundsize.min.htc');
 }
 
 .item_video_right {
@@ -20513,7 +20513,7 @@ label.checkpop.c_on {
     color: white;
     float: left;
     margin-bottom: 33px;
-    background: black url("../../../Images/Esika/liquidacion_home.png") no-repeat;
+    background: black url('../../../Images/Esika/liquidacion_home.png') no-repeat;
     background-position: right;
 }
 
@@ -20588,7 +20588,7 @@ label.checkpop.c_on {
 .titulo_interiores {
     padding-right: 50px;
     float: left;
-    background: black url("../../../Images/Esika/titulo_interiores.png") no-repeat;
+    background: black url('../../../Images/Esika/titulo_interiores.png') no-repeat;
     background-position: right;
     height: 50px;
     font-family: 'lato';
@@ -20707,7 +20707,7 @@ hr {
     height: 31px;
     margin-right: 10px;
     margin-top: 0px !important;
-    background: url("../../../Images/Esika/estado_cuenta.png") no-repeat;
+    background: url('../../../Images/Esika/estado_cuenta.png') no-repeat;
 }
 .titulo_mis_certificados_img{
     float:left;
@@ -20715,7 +20715,7 @@ hr {
     height:36px;
     margin-right:10px;
     margin-top:0px !important;
-    background: url("../../../Images/MisCertificados/icono-certificado-esika.svg") no-repeat;
+    background: url('../../../Images/MisCertificados/icono-certificado-esika.svg') no-repeat;
     background-size:100%;
 }
 
@@ -20725,7 +20725,7 @@ hr {
     height: 31px;
     margin-right: 10px;
     margin-top: 0px !important;
-    background: url("../../../Images/Esika/icono_percepciones.png") no-repeat;
+    background: url('../../../Images/Esika/icono_percepciones.png') no-repeat;
 }
 
 .titulo_detalle_lugares_img {
@@ -20734,7 +20734,7 @@ hr {
     height: 31px;
     margin-right: 10px;
     margin-top: 0px !important;
-    background: url("../../../Images/Esika/lugares_pago.png") no-repeat;
+    background: url('../../../Images/Esika/lugares_pago.png') no-repeat;
 }
 .titulo_detalle_pago div,
 .titulo_mis_certificados div{
@@ -20764,7 +20764,7 @@ hr {
     margin-right:10px;
     width:40px;
     height:40px;
-    background-image:url("/Content/Images/Esika/Contenedor/icono-descarga-e-imprime.svg");
+    background-image:url('/Content/Images/Esika/Contenedor/icono-descarga-e-imprime.svg');
     background-size:100%;
     transition: all 0.3s ease;
     -moz-transition: all 0.3s ease;
@@ -20773,7 +20773,7 @@ hr {
     -webkit-transition: all 0.3s ease;
 }
 .certificado_digital:hover a span.icono_certificados{
-    background-image:url("/Content/Images/Esika/Contenedor/icono-descarga-e-imprime-hover.svg");
+    background-image:url('/Content/Images/Esika/Contenedor/icono-descarga-e-imprime-hover.svg');
 }
 .certificado_digital a span.nombre_certificado{
     font-size:15px;
@@ -21166,7 +21166,7 @@ body {
     bottom: 100%;
     left: 50%;
     border: solid transparent;
-    content: " ";
+    content: ' ';
     height: 0;
     width: 0;
     position: absolute;
@@ -21179,7 +21179,7 @@ body {
     bottom: 100%;
     left: 50%;
     border: solid transparent;
-    content: " ";
+    content: ' ';
     height: 0;
     width: 0;
     position: absolute;
@@ -21494,7 +21494,7 @@ body {
     }
 
     .imagen_3_factura {
-        background: url("../../../Images/Lbel/facturacion_electronica.png") no-repeat !important;
+        background: url('../../../Images/Lbel/facturacion_electronica.png') no-repeat !important;
         background-position: 3% 7px !important;
     }
 
@@ -21553,7 +21553,7 @@ body {
     vertical-align: middle;
     width: 26px;
     height: 26px;
-    background: url("../../../Images/Esika/icono-campanias.svg") center center no-repeat;
+    background: url('../../../Images/Esika/icono-campanias.svg') center center no-repeat;
     margin-right: 5px;
 }
 
@@ -23355,7 +23355,7 @@ img {
 }
 
 #slides_inscripcion {
-    background-image: url("/Content/Images/ConsultoraOnline/bg_body.png");
+    background-image: url('/Content/Images/ConsultoraOnline/bg_body.png');
     background-size: cover;
     background-position: right;
     width: 100%;
@@ -23941,7 +23941,7 @@ img {
 }
 
 .cont_mas_preguntas {
-    background-image: url("/Content/Images/ConsultoraOnline/bg_mas_preguntas.jpg");
+    background-image: url('/Content/Images/ConsultoraOnline/bg_mas_preguntas.jpg');
     background-size: cover;
     height: auto;
     overflow: hidden;
@@ -23994,7 +23994,7 @@ img {
 }
 
 .banner_pedidos {
-    background-image: url("/Content/Images/ConsultoraOnline/banner_pedidos.jpg");
+    background-image: url('/Content/Images/ConsultoraOnline/banner_pedidos.jpg');
     background-size: 100%;
     min-height: 238px;
     width: 100%;
@@ -24006,7 +24006,7 @@ img {
 }
 
 .banner_bienvenida {
-    background-image: url("/Content/Images/ConsultoraOnline/bg_bienvenida.jpg");
+    background-image: url('/Content/Images/ConsultoraOnline/bg_bienvenida.jpg');
     background-size: 100%;
     min-height: 240px;
     width: 100%;
@@ -24137,7 +24137,7 @@ img {
 }
 
 .cont_mas_clientes {
-    background-image: url("/Content/Images/ConsultoraOnline/bg_consejos.png");
+    background-image: url('/Content/Images/ConsultoraOnline/bg_consejos.png');
     background-position: right;
     background-repeat: no-repeat;
     min-height: 510px;
@@ -24543,7 +24543,7 @@ img {
 }
 
 .tsm input[type=radio] + label:before {
-    content: "";
+    content: '';
     display: inline-block;
     width: 18px;
     height: 18px;
@@ -24561,7 +24561,7 @@ img {
 }
 
 .tsm input[type=checkbox] + label:before {
-    content: "";
+    content: '';
     display: inline-block;
     width: 12px;
     height: 12px;
@@ -24573,7 +24573,7 @@ img {
 }
 
 .tsm input[type=radio]:checked + label:before {
-    content: "";
+    content: '';
     color: transparent;
     background-color: #FFF;
     font-size: 1.8em;
@@ -24585,7 +24585,7 @@ img {
 }
 
 .tsm input[type=checkbox]:checked + label:before {
-    content: "\2714";
+    content: '\2714';
     color: #BB378D;
     background-color: #FFF;
     text-align: center;
@@ -25045,7 +25045,7 @@ div.subir_archivo {
 }
 
 .rad_ input[type=radio] + label:before {
-    content: "";
+    content: '';
     display: inline-block;
     width: 18px;
     height: 18px;
@@ -25063,7 +25063,7 @@ div.subir_archivo {
 }
 
 .rad_ input[type=checkbox] + label:before {
-    content: "";
+    content: '';
     display: inline-block;
     width: 12px;
     height: 12px;
@@ -25075,7 +25075,7 @@ div.subir_archivo {
 }
 
 .rad_ input[type=radio]:checked + label:before {
-    content: "";
+    content: '';
     color: transparent;
     background-color: #FFF;
     font-size: 1.8em;
@@ -25087,7 +25087,7 @@ div.subir_archivo {
 }
 
 .rad_ input[type=checkbox]:checked + label:before {
-    content: "\2714";
+    content: '\2714';
     color: #BB378D;
     background-color: #FFF;
     text-align: center;
@@ -25214,7 +25214,7 @@ div.subir_archivo {
 .fondo_popNoti {
     width: 100%;
     height: 130px;
-    background: #000 url("../../../Images/Esika/background_pedido.png") no-repeat left bottom;
+    background: #000 url('../../../Images/Esika/background_pedido.png') no-repeat left bottom;
 }
 
 .content_popNotificaciones {
@@ -25331,7 +25331,7 @@ div.subir_archivo {
     margin-bottom: 40px;
     border: 1px solid #ccc;
     padding-left: 10px;
-    background: url("../../../Images/Esika/lupa.png") no-repeat right center;
+    background: url('../../../Images/Esika/lupa.png') no-repeat right center;
     float: left;
 }
 
@@ -25377,7 +25377,7 @@ div.subir_archivo {
     border: 1px solid #ccc;
     font-family: 'Lato';
     font-size: 13px;
-    background: url("../../../Images/Esika/flecha_abajo.png") no-repeat right center;
+    background: url('../../../Images/Esika/flecha_abajo.png') no-repeat right center;
 }
 
 .resultado_busqueda {
@@ -25554,7 +25554,7 @@ div.subir_archivo {
     max-width: 306px;
 }
 
-.mis_clientes input[type="text"], .mis_clientes input[type="email"] {
+.mis_clientes input[type='text'], .mis_clientes input[type='email'] {
     max-width: 306px;
     color: #000;
 }
@@ -25785,7 +25785,7 @@ div.subir_archivo {
     color: #000000;
     padding-left: 14px;
     text-decoration: underline;
-    background: url("../../../Images/Esika/indicador_pedido.png") no-repeat;
+    background: url('../../../Images/Esika/indicador_pedido.png') no-repeat;
     background-position: 0px 2px;
 }
 
@@ -25837,9 +25837,9 @@ div.subir_archivo {
     cursor: pointer;
 }
 
-input[type="checkbox"]:checked + span:after {
-    content: "■";
-    content: "■";
+input[type='checkbox']:checked + span:after {
+    content: '■';
+    content: '■';
     position: absolute;
     z-index: 1002;
     top: 2px;
@@ -25960,7 +25960,7 @@ input[type="checkbox"]:checked + span:after {
     height: 44px;
     float: left;
     margin-top: 4px;
-    background: url("../../../Images/mobile/esika/bandera.png") no-repeat;
+    background: url('../../../Images/mobile/esika/bandera.png') no-repeat;
 }
 
 .BarraPosicion {
@@ -26046,18 +26046,18 @@ input[type="checkbox"]:checked + span:after {
     margin-top: -1px;
     width: 14px;
     height: 10px;
-    background: url("../../../Images/mobile/esika/flechita_barra.png") no-repeat;
+    background: url('../../../Images/mobile/esika/flechita_barra.png') no-repeat;
 }
 
 .tippingPoint {
     height: 30px;
     width: 30px;
     margin: 0 auto;
-    background: url("../../../Images/tippingPoint.png") no-repeat;
+    background: url('../../../Images/tippingPoint.png') no-repeat;
 }
 
     .tippingPoint.activo {
-        background: url("../../../Images/tippingPointActivo.png") no-repeat;
+        background: url('../../../Images/tippingPointActivo.png') no-repeat;
     }
 /*PEDIDO VALIDADO*/
 .cod_venta_listado {
@@ -26563,7 +26563,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
         bottom: 99%;
         left: 20%;
         border: solid transparent;
-        content: " ";
+        content: ' ';
         height: 0;
         width: 0;
         position: absolute;
@@ -26852,14 +26852,14 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
         width: 11px;
         height: 11px;
         display: inline-block;
-        background: url("../../../Images/group.svg") center center no-repeat;
+        background: url('../../../Images/group.svg') center center no-repeat;
     }
 
 .agregado .icono {
     width: 11px;
     height: 11px;
     display: inline-block;
-    background: url("../../../Images/group.svg") center center no-repeat;
+    background: url('../../../Images/group.svg') center center no-repeat;
 }
 
 .pestania {
@@ -27286,7 +27286,7 @@ span.datoPedidoCliente {
         bottom: 100%;
         left: 50%;
         border: solid transparent;
-        content: " ";
+        content: ' ';
         height: 0;
         width: 0;
         position: absolute;
@@ -27389,7 +27389,7 @@ span.datoPedidoCliente {
         top: 100%;
         left: 50%;
         border: solid transparent;
-        content: " ";
+        content: ' ';
         height: 0;
         width: 0;
         position: absolute;
@@ -27725,7 +27725,7 @@ a#cierreMotivoRechazo img {
         right: 100%;
         top: 32%;
         border: solid transparent;
-        content: " ";
+        content: ' ';
         height: 0;
         width: 0;
         position: absolute;
@@ -27868,7 +27868,7 @@ a#cierreMotivoRechazo img {
         top: 100%;
         left: 24%;
         border: solid transparent;
-        content: " ";
+        content: ' ';
         height: 0;
         width: 0;
         border-color: rgba(5, 7, 8, 0);
@@ -29077,7 +29077,7 @@ h1#penmostreo .campana {
 .marquer {
     width: 85%;
     float: left;
-    background: black url("../../../Images/Esika/titulo_interiores.png") no-repeat;
+    background: black url('../../../Images/Esika/titulo_interiores.png') no-repeat;
     background-position: right;
     height: 40px;
     color: white;
@@ -29349,7 +29349,7 @@ h1#penmostreo .campana {
 }
 
     .fondo_negro_pack:before {
-        content: "";
+        content: '';
         width: 0;
         height: 0;
         right: -24px;
@@ -29626,24 +29626,24 @@ h1#penmostreo .campana {
 }
 
 .imagen_2 {
-    background: url("../../../Images/Esika/lugares_pago.png") no-repeat !important;
+    background: url('../../../Images/Esika/lugares_pago.png') no-repeat !important;
 }
 
 .imagen_3 {
-    background: url("../../../Images/Esika/facturacion_electronica.png") no-repeat !important;
+    background: url('../../../Images/Esika/facturacion_electronica.png') no-repeat !important;
 }
 
 .imagen_4 {
-    background: url("../../../Images/Esika/icono_percepciones.png") no-repeat !important;
+    background: url('../../../Images/Esika/icono_percepciones.png') no-repeat !important;
 }
 
 .ultima_campana {
-    background: url("../../../Images/Esika/ultima_campana.png") no-repeat;
+    background: url('../../../Images/Esika/ultima_campana.png') no-repeat;
     background-size: cover;
 }
 
 .online_2 {
-    background: url("../../../Images/Esika/online.png") no-repeat;
+    background: url('../../../Images/Esika/online.png') no-repeat;
     background-size: cover;
 }
 
@@ -29676,7 +29676,7 @@ h1#penmostreo .campana {
     width: 34px;
     height: 34px;
     margin-right: 10px;
-    background: url("../../../Images/Esika/online.png") no-repeat !important;
+    background: url('../../../Images/Esika/online.png') no-repeat !important;
     margin-top: 50px;
 }
 
@@ -29909,7 +29909,7 @@ h1#penmostreo .campana {
 }
 
     .fondo_lateral::before {
-        content: "";
+        content: '';
         position: absolute;
         width: 36px;
         background-image: url('../../../Images/Esika/tabs_consultora.png');
@@ -29934,7 +29934,7 @@ h1#penmostreo .campana {
 }
 
 .fondo_lateral::after {
-    content: "";
+    content: '';
     position: absolute;
     width: 100%;
     background-image: url('../../../Images/Esika/tabs_consultora.png');
@@ -30046,7 +30046,7 @@ h1#penmostreo .campana {
         bottom: 100%;
         left: 10%;
         border: solid transparent;
-        content: " ";
+        content: ' ';
         height: 0;
         width: 0;
         position: absolute;
@@ -30099,7 +30099,7 @@ h1#penmostreo .campana {
         bottom: 100%;
         left: 10%;
         border: solid transparent;
-        content: " ";
+        content: ' ';
         height: 0;
         width: 0;
         position: absolute;
@@ -30166,7 +30166,7 @@ h1#penmostreo .campana {
     animation: opacidad-gestion-pedido 1500ms linear 0ms 1 normal;
 }
 /*.oscurecer_animacion::after{
-    content:"";
+    content:'';
     position:fixed;
     width:100%;
     height:100%;
@@ -30871,7 +30871,7 @@ h1#penmostreo .campana {
 }
 
     .linea_d::before {
-        content: "";
+        content: '';
         height: 340px;
         position: absolute;
         width: 1px;
@@ -30891,7 +30891,7 @@ h1#penmostreo .campana {
     }
 
         .content_66 .item_pack_personalizado::before {
-            content: "";
+            content: '';
             height: 340px;
             position: absolute;
             width: 1px;
@@ -31339,7 +31339,7 @@ h1#penmostreo .campana {
         bottom: 100%;
         left: 5%;
         border: solid transparent;
-        content: " ";
+        content: ' ';
         height: 0;
         width: 0;
         position: absolute;
@@ -31890,7 +31890,7 @@ h1#penmostreo .campana {
         width: 22px;
         background: white;
         border: 1px solid #b8b8b8;
-        content: "";
+        content: '';
         z-index: 1;
     }
 
@@ -32426,7 +32426,7 @@ h1#penmostreo .campana {
         right: 100%;
         top: 50%;
         border: solid transparent;
-        content: " ";
+        content: ' ';
         height: 0;
         width: 0;
         position: absolute;
@@ -32536,7 +32536,7 @@ h1#penmostreo .campana {
     right: 100%;
     top: 50%;
     border: solid transparent;
-    content: " ";
+    content: ' ';
     height: 0;
     width: 0;
     position: absolute;
@@ -32640,7 +32640,7 @@ h1#penmostreo .campana {
         right: 100%;
         top: 50%;
         border: solid transparent;
-        content: " ";
+        content: ' ';
         height: 0;
         width: 0;
         position: absolute;
@@ -32915,7 +32915,7 @@ h1#penmostreo .campana {
     right: 100%;
     top: 50%;
     border: solid transparent;
-    content: " ";
+    content: ' ';
     height: 0;
     width: 0;
     position: absolute;
@@ -33075,7 +33075,7 @@ h1#penmostreo .campana {
 
 .termino_condiciones_intriga:before, .termino_condiciones_cupon:before {
     position: absolute;
-    content: "";
+    content: '';
     left: 0;
     width: 13px;
     height: 13px;
@@ -33086,7 +33086,7 @@ h1#penmostreo .campana {
 }
 
 .check_intriga:before {
-    content: "✓";
+    content: '✓';
     line-height: 11.5px;
     padding-left: 1px;
 }
@@ -33708,7 +33708,7 @@ h1#penmostreo .campana {
 }
 
 .vineta {
-    list-style-image: url("https://www.somosbelcorp.com/Content/Images/Esika/indicador_pedido.png");
+    list-style-image: url('https://www.somosbelcorp.com/Content/Images/Esika/indicador_pedido.png');
 }
 /*HOMOLOGAR OPT*/
 .tono_select_opt {
@@ -35389,7 +35389,7 @@ h1#penmostreo .campana {
         top: 100%;
         left: 50%;
         border: solid transparent;
-        content: " ";
+        content: ' ';
         height: 0;
         width: 0;
         position: absolute;
@@ -35408,7 +35408,7 @@ h1#penmostreo .campana {
 .icono_regalo_sorpresa {
     width: 85px;
     height: 55px;
-    background: url("/Content/Images/gif-regalo-blanco.png");
+    background: url('/Content/Images/gif-regalo-blanco.png');
     margin: 0 auto;
     margin-top: 13px;
 }

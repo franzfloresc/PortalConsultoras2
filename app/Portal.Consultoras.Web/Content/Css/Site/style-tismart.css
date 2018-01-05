@@ -568,7 +568,7 @@ img {
 
 
 #slides_inscripcion {
-    background-image: url("/Content/Images/ConsultoraOnline/bg_body.png");
+    background-image: url('/Content/Images/ConsultoraOnline/bg_body.png');
     background-size: cover;
     background-position: right;
     width: 100%;
@@ -1175,7 +1175,7 @@ img {
 }
 
 .cont_mas_preguntas {
-    background-image: url("/Content/Images/ConsultoraOnline/bg_mas_preguntas.jpg");
+    background-image: url('/Content/Images/ConsultoraOnline/bg_mas_preguntas.jpg');
     background-size: cover;
     height: auto;
     overflow: hidden;
@@ -1226,7 +1226,7 @@ img {
 }
 
 .banner_pedidos {
-    background-image: url("/Content/Images/ConsultoraOnline/banner_pedidos.jpg");
+    background-image: url('/Content/Images/ConsultoraOnline/banner_pedidos.jpg');
     background-size: 100%;
     min-height: 238px;
     width: 100%;
@@ -1238,7 +1238,7 @@ img {
 }
 
 .banner_bienvenida {
-    background-image: url("/Content/Images/ConsultoraOnline/bg_bienvenida.jpg");
+    background-image: url('/Content/Images/ConsultoraOnline/bg_bienvenida.jpg');
     background-size: 100%;
     min-height: 240px;
     width: 100%;
@@ -1371,7 +1371,7 @@ img {
 }
 
 .cont_mas_clientes {
-    background-image: url("/Content/Images/ConsultoraOnline/bg_consejos.png");
+    background-image: url('/Content/Images/ConsultoraOnline/bg_consejos.png');
     background-position: right;
     background-repeat: no-repeat;
     min-height: 510px;
@@ -1774,7 +1774,7 @@ img {
 }
 
 .tsm input[type=radio] + label:before {
-    content: "";
+    content: '';
     display: inline-block;
     width: 18px;
     height: 18px;
@@ -1792,7 +1792,7 @@ img {
 }
 
 .tsm input[type=checkbox] + label:before {
-    content: "";
+    content: '';
     display: inline-block;
     width: 12px;
     height: 12px;
@@ -1804,7 +1804,7 @@ img {
 }
 
 .tsm input[type=radio]:checked + label:before {
-    content: "";
+    content: '';
     color: transparent;
     background-color: #FFF;
     font-size: 1.8em;
@@ -1816,7 +1816,7 @@ img {
 }
 
 .tsm input[type=checkbox]:checked + label:before {
-    content: "\2714";
+    content: '\2714';
     color: #BB378D;
     background-color: #FFF;
     text-align: center;
@@ -2283,7 +2283,7 @@ div.subir_archivo {
 }
 
 .rad_ input[type=radio] + label:before {
-    content: "";
+    content: '';
     display: inline-block;
     width: 18px;
     height: 18px;
@@ -2301,7 +2301,7 @@ div.subir_archivo {
 }
 
 .rad_ input[type=checkbox] + label:before {
-    content: "";
+    content: '';
     display: inline-block;
     width: 12px;
     height: 12px;
@@ -2313,7 +2313,7 @@ div.subir_archivo {
 }
 
 .rad_ input[type=radio]:checked + label:before {
-    content: "";
+    content: '';
     color: transparent;
     background-color: #FFF;
     font-size: 1.8em;
@@ -2325,7 +2325,7 @@ div.subir_archivo {
 }
 
 .rad_ input[type=checkbox]:checked + label:before {
-    content: "\2714";
+    content: '\2714';
     color: #BB378D;
     background-color: #FFF;
     text-align: center;

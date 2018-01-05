@@ -208,7 +208,7 @@
         width: 20px;
         height: 50px;
         position: absolute;
-        content: "";
+        content: '';
         top: 0px;
         right: -6px;
         background: url('../../../Images/flecha-right.svg') no-repeat center center;
@@ -925,7 +925,7 @@
 }
 
     .cabecera_esikaParaMi:after {
-        content: "";
+        content: '';
         position: absolute;
         top: 0px;
         width: 300%;
@@ -956,7 +956,7 @@
 
     .cabecera_fondo_rojo:before {
         display: block;
-        content: "";
+        content: '';
         width: 300%;
         height: 165px;
         position: absolute;
@@ -1158,7 +1158,7 @@
 }
 
     .fondo_sobreContenidoDesenfocado:before, .fondo_sobreContenidoDesenfocado:after {
-        content: "";
+        content: '';
     }
 
     .fondo_sobreContenidoDesenfocado:before {
@@ -1526,7 +1526,7 @@
 }
 
     .btn_diagonal:after {
-        content: "";
+        content: '';
         position: absolute;
         top: 0;
         width: 208px;
@@ -2019,7 +2019,7 @@
 }
 
 .box_pregunta_ept .tit_pregunta_ept:after {
-    content: "";
+    content: '';
     background: url('../../../Images/RevistaDigital/Polygon.png') no-repeat right center;
     right: 0;
     top: 20px;
@@ -2030,7 +2030,7 @@
 }
 
 .box_pregunta_ept2 .tit_pregunta_ept2:after {
-    content: "";
+    content: '';
     background: url('../../../Images/RevistaDigital/Polygon.png') no-repeat right center;
     right: 0;
     top: 20px;
@@ -2110,7 +2110,7 @@
     width: 6px;
     position: absolute;
     height: 10px;
-    content: "";
+    content: '';
     margin-left: 8px;
     margin-top: 4px;
     z-index: 10;
@@ -2154,7 +2154,7 @@
             padding-right: 0.5em;
             font-weight: bold;
             text-align: right;
-            content: counter(item) ".";
+            content: counter(item) '.';
         }
 
 /*TRANSITIONS*/
@@ -2623,7 +2623,7 @@
         }
 
     .popup_rd_bloqueado .rd_ver_mas:after {
-        content: "";
+        content: '';
         background-image: url('../../../Images/RevistaDigital/rd_arrowright.png');
         background-repeat: no-repeat;
         background-size: 8px 12px;

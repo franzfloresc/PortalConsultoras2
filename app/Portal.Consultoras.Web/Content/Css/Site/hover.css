@@ -1486,7 +1486,7 @@
 }
 
     .hvr-sweep-to-right:before {
-        content: "";
+        content: '';
         position: absolute;
         z-index: -1;
         top: 0;
@@ -1533,7 +1533,7 @@
 }
 
     .hvr-sweep-to-left:before {
-        content: "";
+        content: '';
         position: absolute;
         z-index: -1;
         top: 0;
@@ -1580,7 +1580,7 @@
 }
 
     .hvr-sweep-to-bottom:before {
-        content: "";
+        content: '';
         position: absolute;
         z-index: -1;
         top: 0;
@@ -1627,7 +1627,7 @@
 }
 
     .hvr-sweep-to-top:before {
-        content: "";
+        content: '';
         position: absolute;
         z-index: -1;
         top: 0;
@@ -1674,7 +1674,7 @@
 }
 
     .hvr-bounce-to-right:before {
-        content: "";
+        content: '';
         position: absolute;
         z-index: -1;
         top: 0;
@@ -1723,7 +1723,7 @@
 }
 
     .hvr-bounce-to-left:before {
-        content: "";
+        content: '';
         position: absolute;
         z-index: -1;
         top: 0;
@@ -1772,7 +1772,7 @@
 }
 
     .hvr-bounce-to-bottom:before {
-        content: "";
+        content: '';
         position: absolute;
         z-index: -1;
         top: 0;
@@ -1821,7 +1821,7 @@
 }
 
     .hvr-bounce-to-top:before {
-        content: "";
+        content: '';
         position: absolute;
         z-index: -1;
         top: 0;
@@ -1872,7 +1872,7 @@
 }
 
     .hvr-radial-out:before {
-        content: "";
+        content: '';
         position: absolute;
         z-index: -1;
         top: 0;
@@ -1920,7 +1920,7 @@
 }
 
     .hvr-radial-in:before {
-        content: "";
+        content: '';
         position: absolute;
         z-index: -1;
         top: 0;
@@ -1967,7 +1967,7 @@
 }
 
     .hvr-rectangle-in:before {
-        content: "";
+        content: '';
         position: absolute;
         z-index: -1;
         top: 0;
@@ -2013,7 +2013,7 @@
 }
 
     .hvr-rectangle-out:before {
-        content: "";
+        content: '';
         position: absolute;
         z-index: -1;
         top: 0;
@@ -2059,7 +2059,7 @@
 }
 
     .hvr-shutter-in-horizontal:before {
-        content: "";
+        content: '';
         position: absolute;
         z-index: -1;
         top: 0;
@@ -2107,7 +2107,7 @@
 }
 
     .hvr-shutter-out-horizontal:before {
-        content: "";
+        content: '';
         position: absolute;
         z-index: -1;
         top: 0;
@@ -2155,7 +2155,7 @@
 }
 
     .hvr-shutter-in-vertical:before {
-        content: "";
+        content: '';
         position: absolute;
         z-index: -1;
         top: 0;
@@ -2203,7 +2203,7 @@
 }
 
     .hvr-shutter-out-vertical:before {
-        content: "";
+        content: '';
         position: absolute;
         z-index: -1;
         top: 0;
@@ -2517,7 +2517,7 @@
 }
 
     .hvr-underline-from-left:before {
-        content: "";
+        content: '';
         position: absolute;
         z-index: -1;
         left: 0;
@@ -2552,7 +2552,7 @@
 }
 
     .hvr-underline-from-center:before {
-        content: "";
+        content: '';
         position: absolute;
         z-index: -1;
         left: 50%;
@@ -2588,7 +2588,7 @@
 }
 
     .hvr-underline-from-right:before {
-        content: "";
+        content: '';
         position: absolute;
         z-index: -1;
         left: 100%;
@@ -2623,7 +2623,7 @@
 }
 
     .hvr-overline-from-left:before {
-        content: "";
+        content: '';
         position: absolute;
         z-index: -1;
         left: 0;
@@ -2658,7 +2658,7 @@
 }
 
     .hvr-overline-from-center:before {
-        content: "";
+        content: '';
         position: absolute;
         z-index: -1;
         left: 50%;
@@ -2694,7 +2694,7 @@
 }
 
     .hvr-overline-from-right:before {
-        content: "";
+        content: '';
         position: absolute;
         z-index: -1;
         left: 100%;
@@ -2729,7 +2729,7 @@
 }
 
     .hvr-reveal:before {
-        content: "";
+        content: '';
         position: absolute;
         z-index: -1;
         left: 0;
@@ -2768,7 +2768,7 @@
 }
 
     .hvr-underline-reveal:before {
-        content: "";
+        content: '';
         position: absolute;
         z-index: -1;
         left: 0;
@@ -2806,7 +2806,7 @@
 }
 
     .hvr-overline-reveal:before {
-        content: "";
+        content: '';
         position: absolute;
         z-index: -1;
         left: 0;
@@ -3349,7 +3349,7 @@
 }
 
     .hvr-icon-back:before {
-        content: "\f137";
+        content: '\f137';
         position: absolute;
         left: 1em;
         padding: 0 1px;
@@ -3386,7 +3386,7 @@
 }
 
     .hvr-icon-forward:before {
-        content: "\f138";
+        content: '\f138';
         position: absolute;
         right: 1em;
         padding: 0 1px;
@@ -3446,7 +3446,7 @@
 }
 
     .hvr-icon-down:before {
-        content: "\f01a";
+        content: '\f01a';
         position: absolute;
         right: 1em;
         padding: 0 1px;
@@ -3504,7 +3504,7 @@
 }
 
     .hvr-icon-up:before {
-        content: "\f01b";
+        content: '\f01b';
         position: absolute;
         right: 1em;
         padding: 0 1px;
@@ -3537,7 +3537,7 @@
 }
 
     .hvr-icon-spin:before {
-        content: "\f021";
+        content: '\f021';
         position: absolute;
         right: 1em;
         padding: 0 1px;
@@ -3603,7 +3603,7 @@
 }
 
     .hvr-icon-drop:before {
-        content: "\f041";
+        content: '\f041';
         position: absolute;
         right: 1em;
         opacity: 1;
@@ -3646,7 +3646,7 @@
 }
 
     .hvr-icon-fade:before {
-        content: "\f00c";
+        content: '\f00c';
         position: absolute;
         right: 1em;
         padding: 0 1px;
@@ -3703,7 +3703,7 @@
 }
 
     .hvr-icon-float-away:before, .hvr-icon-float-away:after {
-        content: "\f055";
+        content: '\f055';
         position: absolute;
         right: 1em;
         padding: 0 1px;
@@ -3765,7 +3765,7 @@
 }
 
     .hvr-icon-sink-away:before, .hvr-icon-sink-away:after {
-        content: "\f056";
+        content: '\f056';
         position: absolute;
         right: 1em;
         padding: 0 1px;
@@ -3806,7 +3806,7 @@
 }
 
     .hvr-icon-grow:before {
-        content: "\f118";
+        content: '\f118';
         position: absolute;
         right: 1em;
         padding: 0 1px;
@@ -3843,7 +3843,7 @@
 }
 
     .hvr-icon-shrink:before {
-        content: "\f119";
+        content: '\f119';
         position: absolute;
         right: 1em;
         padding: 0 1px;
@@ -3902,7 +3902,7 @@
 }
 
     .hvr-icon-pulse:before {
-        content: "\f015";
+        content: '\f015';
         position: absolute;
         right: 1em;
         padding: 0 1px;
@@ -3953,7 +3953,7 @@
 }
 
     .hvr-icon-pulse-grow:before {
-        content: "\f015";
+        content: '\f015';
         position: absolute;
         right: 1em;
         padding: 0 1px;
@@ -4006,7 +4006,7 @@
 }
 
     .hvr-icon-pulse-shrink:before {
-        content: "\f015";
+        content: '\f015';
         position: absolute;
         right: 1em;
         padding: 0 1px;
@@ -4061,7 +4061,7 @@
 }
 
     .hvr-icon-push:before {
-        content: "\f006";
+        content: '\f006';
         position: absolute;
         right: 1em;
         padding: 0 1px;
@@ -4118,7 +4118,7 @@
 }
 
     .hvr-icon-pop:before {
-        content: "\f005";
+        content: '\f005';
         position: absolute;
         right: 1em;
         padding: 0 1px;
@@ -4161,7 +4161,7 @@
 }
 
     .hvr-icon-bounce:before {
-        content: "\f087";
+        content: '\f087';
         position: absolute;
         right: 1em;
         padding: 0 1px;
@@ -4200,7 +4200,7 @@
 }
 
     .hvr-icon-rotate:before {
-        content: "\f0c6";
+        content: '\f0c6';
         position: absolute;
         right: 1em;
         padding: 0 1px;
@@ -4237,7 +4237,7 @@
 }
 
     .hvr-icon-grow-rotate:before {
-        content: "\f095";
+        content: '\f095';
         position: absolute;
         right: 1em;
         padding: 0 1px;
@@ -4274,7 +4274,7 @@
 }
 
     .hvr-icon-float:before {
-        content: "\f01b";
+        content: '\f01b';
         position: absolute;
         right: 1em;
         padding: 0 1px;
@@ -4311,7 +4311,7 @@
 }
 
     .hvr-icon-sink:before {
-        content: "\f01a";
+        content: '\f01a';
         position: absolute;
         right: 1em;
         padding: 0 1px;
@@ -4396,7 +4396,7 @@
 }
 
     .hvr-icon-bob:before {
-        content: "\f077";
+        content: '\f077';
         position: absolute;
         right: 1em;
         padding: 0 1px;
@@ -4487,7 +4487,7 @@
 }
 
     .hvr-icon-hang:before {
-        content: "\f078";
+        content: '\f078';
         position: absolute;
         right: 1em;
         padding: 0 1px;
@@ -4594,7 +4594,7 @@
 }
 
     .hvr-icon-wobble-horizontal:before {
-        content: "\f061";
+        content: '\f061';
         position: absolute;
         right: 1em;
         padding: 0 1px;
@@ -4695,7 +4695,7 @@
 }
 
     .hvr-icon-wobble-vertical:before {
-        content: "\f062";
+        content: '\f062';
         position: absolute;
         right: 1em;
         padding: 0 1px;
@@ -4756,7 +4756,7 @@
 }
 
     .hvr-icon-buzz:before {
-        content: "\f017";
+        content: '\f017';
         position: absolute;
         right: 1em;
         padding: 0 1px;
@@ -4897,7 +4897,7 @@
 }
 
     .hvr-icon-buzz-out:before {
-        content: "\f023";
+        content: '\f023';
         position: absolute;
         right: 1em;
         padding: 0 1px;

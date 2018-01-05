@@ -350,7 +350,7 @@ body {
         top: 100%;
         left: 50%;
         border: solid transparent;
-        content: " ";
+        content: ' ';
         height: 0;
         width: 0;
         position: absolute;
@@ -798,12 +798,12 @@ body {
 }
 
 .check_icono_mobile {
-    background: url("../../Images/Esika/icono_check_esika.svg") no-repeat;
+    background: url('../../Images/Esika/icono_check_esika.svg') no-repeat;
     background-size: cover;
 }
 
 .exclamacion_icono_mobile {
-    background: url("../../Images/Esika/icono_exclamacion_esika.png") no-repeat;
+    background: url('../../Images/Esika/icono_exclamacion_esika.png') no-repeat;
     background-size: cover;
 }
 
@@ -842,7 +842,7 @@ body {
     margin-bottom: 20px;
     color: #FFF !important;
     text-decoration: none !important;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;
     font-size: 14px;
 }
 

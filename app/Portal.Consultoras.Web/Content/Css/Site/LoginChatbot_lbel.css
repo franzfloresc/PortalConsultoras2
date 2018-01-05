@@ -327,12 +327,12 @@ body {
 }
 
 .check_icono_mobile {
-    background: url("../../Images/Esika/icono_check_esika.svg") no-repeat;
+    background: url('../../Images/Esika/icono_check_esika.svg') no-repeat;
     background-size: cover;
 }
 
 .exclamacion_icono_mobile {
-    background: url("../../Images/Esika/icono_exclamacion_esika.png") no-repeat;
+    background: url('../../Images/Esika/icono_exclamacion_esika.png') no-repeat;
     background-size: cover;
 }
 
@@ -371,7 +371,7 @@ body {
     margin-bottom: 20px;
     color: #FFF !important;
     text-decoration: none !important;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;
     font-size: 14px;
 }
 
@@ -427,7 +427,7 @@ body {
 }
 
     .logo_esika_facebook:before {
-        content: "\e905";
+        content: '\e905';
         font-size: 22px;
         color: #613c87;
     }
@@ -521,7 +521,7 @@ body {
 }
 
 .icono_usuario_chatbot:before {
-    content: "\e903";
+    content: '\e903';
     font-size: 20px;
     text-align: left;
     color: black;
@@ -532,7 +532,7 @@ body {
 }
 
 .icono_pass_chatbot:before {
-    content: "\e900";
+    content: '\e900';
     font-size: 20px;
     text-align: left;
     color: black;
@@ -633,7 +633,7 @@ body {
 }
 
     .helper_facebook_chatBot:before {
-        content: "\e902";
+        content: '\e902';
         font-size: 18px;
         text-align: left;
         color: #949494;
@@ -663,7 +663,7 @@ body {
     left: 100%;
     top: 24px;
     border: solid transparent;
-    content: " ";
+    content: ' ';
     height: 0;
     width: 0;
     position: absolute;
@@ -696,7 +696,7 @@ body {
 }
 
     .logo_normal:before {
-        content: "\e905";
+        content: '\e905';
         font-size: 22px;
         color: #613c87;
     }

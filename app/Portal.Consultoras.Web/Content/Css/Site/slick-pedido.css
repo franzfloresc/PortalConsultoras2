@@ -49,7 +49,7 @@
 }
 
     .slick-track:before, .slick-track:after {
-        content: "";
+        content: '';
         display: table;
     }
 
@@ -108,7 +108,7 @@
 }
 
 .slick-prev {
-    background: url("/Content/Images/showroom/carrusel_n.png") no-repeat;
+    background: url('/Content/Images/showroom/carrusel_n.png') no-repeat;
 }
 
 .slick-next {
@@ -124,7 +124,7 @@
     padding: 0;
     border: none;
     outline: none;
-    background: url("/Content/Images/showroom/carrusel_p.png") no-repeat;
+    background: url('/Content/Images/showroom/carrusel_p.png') no-repeat;
 }
 
     .slick-prev:hover, .slick-prev:focus, .slick-next:hover, .slick-next:focus {
@@ -141,7 +141,7 @@
     }
 
     .slick-prev:before, .slick-next:before {
-        font-family: "slick";
+        font-family: 'slick';
         font-size: 20px;
         line-height: 1;
         color: white;
@@ -202,10 +202,10 @@
                 position: absolute;
                 top: 0;
                 left: 0;
-                content: "\2022";
+                content: '\2022';
                 width: 20px;
                 height: 20px;
-                font-family: "slick";
+                font-family: 'slick';
                 font-size: 6px;
                 line-height: 20px;
                 text-align: center;
@@ -220,25 +220,25 @@
             opacity: 0.75;
         }
 
-[dir="rtl"] .slick-next {
+[dir='rtl'] .slick-next {
     right: auto;
     left: -25px;
 }
 
-    [dir="rtl"] .slick-next:before {
-        content: "\2190";
+    [dir='rtl'] .slick-next:before {
+        content: '\2190';
     }
 
-[dir="rtl"] .slick-prev {
+[dir='rtl'] .slick-prev {
     right: -25px;
     left: auto;
 }
 
-    [dir="rtl"] .slick-prev:before {
-        content: "\2192";
+    [dir='rtl'] .slick-prev:before {
+        content: '\2192';
     }
 
-[dir="rtl"] .slick-slide {
+[dir='rtl'] .slick-slide {
     float: right;
 }
 
@@ -258,7 +258,7 @@
     top: 0px;
     left: 50% !important;
     margin-left: -24px !important;
-    background: #f8f8f8 url("/Content/Images/carrusel_p.png") no-repeat 12px 3px !important;
+    background: #f8f8f8 url('/Content/Images/carrusel_p.png') no-repeat 12px 3px !important;
     z-index: 2;
     border-radius: 0px 0px 25px 25px;
     border-bottom: 1px solid #e7e1e1 !important;
@@ -272,7 +272,7 @@
     bottom: 36px;
     left: 50.3% !important;
     margin-left: -24px !important;
-    background: url("/Content/Images/carrusel_n.png") no-repeat 12px 9px !important;
+    background: url('/Content/Images/carrusel_n.png') no-repeat 12px 9px !important;
     z-index: 6;
     border: none;
 }

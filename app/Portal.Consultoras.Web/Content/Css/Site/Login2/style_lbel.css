@@ -148,7 +148,7 @@ span {
 }
 
     .logo-esika:before {
-        content: "\e905";
+        content: '\e905';
         font-size: 55px;
         color: #613c87;
     }
@@ -359,7 +359,7 @@ span {
 }
 
 .user:before {
-    content: "\e903";
+    content: '\e903';
     float: left;
 }
 
@@ -368,7 +368,7 @@ span {
 }
 
     .pass:before {
-        content: "\e900";
+        content: '\e900';
         float: left;
     }
 
@@ -386,7 +386,7 @@ span {
 }
 
     .pais:before {
-        content: "\e901";
+        content: '\e901';
     }
 
 .email {
@@ -395,7 +395,7 @@ span {
 }
 
     .email:before {
-        content: "\e906";
+        content: '\e906';
     }
 
 .helper {
@@ -414,7 +414,7 @@ span {
 }
 
 .helper:before {
-    content: "\e902";
+    content: '\e902';
     font-size: 18px;
     text-align: left;
     color: #949494;
@@ -516,7 +516,7 @@ span {
     font-style: normal;
 }
 
-[class*=" icon-"], [class^=icon-] {
+[class*=' icon-'], [class^=icon-] {
     font-family: icomoon !important;
     speak: none;
     font-style: normal;
@@ -641,7 +641,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
     .alerta_red_cam_user7::after, .alerta_red_cam_user9::after, .alerta_red_mx_user::after, .alerta_red_pr_user::after {
-        content: "";
+        content: '';
         position: absolute;
         border-style: solid;
         display: block;
@@ -661,7 +661,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
     .alerta_red_cam_clave::after, .alerta_red_mx_clave::after, .alerta_red_pr_clave::after {
-        content: "";
+        content: '';
         position: absolute;
         border-width: 20px 0 0 20px;
         border-style: solid;
@@ -1705,7 +1705,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .icono_usuario:before {
-    content: "\e903";
+    content: '\e903';
     font-size: 20px;
     text-align: left;
     color: black;
@@ -1716,7 +1716,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .icono_pass:before {
-    content: "\e900";
+    content: '\e900';
     font-size: 20px;
     text-align: left;
     color: black;
@@ -1828,7 +1828,7 @@ h1, h2, h3, h4, h5, h6 {
         right: 100%;
         top: 24px;
         border: solid transparent;
-        content: " ";
+        content: ' ';
         height: 0;
         width: 0;
         position: absolute;
@@ -1873,7 +1873,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
     .helper_facebook:before {
-        content: "\e902";
+        content: '\e902';
         font-size: 18px;
         text-align: left;
         color: #949494;
@@ -2088,7 +2088,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .loginBtn:before {
-    content: "";
+    content: '';
     box-sizing: border-box;
     position: absolute;
     top: 0;

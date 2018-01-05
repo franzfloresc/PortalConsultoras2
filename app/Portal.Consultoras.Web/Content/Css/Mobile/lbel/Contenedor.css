@@ -305,7 +305,7 @@ section {
 }
 
 .bc_para_ti-menu-opciones ul li a.activo p::after {
-    content: "";
+    content: '';
     display: block;
     width: 75%;
     margin: auto;
@@ -333,7 +333,7 @@ img.icono-submenu-tabs {
 }
 
 .activo .opcion_home_vistaOfertas::after {
-    content: "";
+    content: '';
     display: block;
     width: 72%;
     margin: auto;

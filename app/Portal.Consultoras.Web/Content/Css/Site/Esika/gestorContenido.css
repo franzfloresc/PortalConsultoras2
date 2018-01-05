@@ -42,7 +42,7 @@
 .titG.multiline{
     padding-top:0 !important
 }
-.selectA input[type="text"]{
+.selectA input[type='text']{
     width:100% !important;
     font-family:Arial !important;
     color:#000 !important
@@ -52,7 +52,7 @@
     font-family:Arial !important;
     color:#000 !important
 }
-input[type="button"], .qq-upload-button{
+input[type='button'], .qq-upload-button{
     background:#e81c36;
     color:#fff;
     border:0;

@@ -613,7 +613,7 @@ h4.re3 {
 }
 
     .triangulo-centrado:before {
-        content: "";
+        content: '';
         position: absolute;
         left: 50%;
         margin-left: -12px;
@@ -624,7 +624,7 @@ h4.re3 {
     }
 
     .triangulo-centrado:after {
-        content: "";
+        content: '';
         position: absolute;
         left: 50%;
         margin-left: -11px;
@@ -973,7 +973,7 @@ h4.re3 {
 }
 
     .panel-line .panel-heading:before {
-        content: "";
+        content: '';
         position: absolute;
         bottom: 0;
         right: 12px;
@@ -1273,7 +1273,7 @@ h4.re3 {
         }
 
         .list-inline-border li:before {
-            content: "";
+            content: '';
             position: absolute;
             right: -3px;
             top: -3px;
@@ -1659,7 +1659,7 @@ h4.re3 {
 }
 
 .list-notificaciones .no-read:before {
-    content: "";
+    content: '';
     position: absolute;
     top: 5px;
     bottom: 5px;
@@ -1714,7 +1714,7 @@ h4.re3 {
 }
 
     .block-noti:before {
-        content: "";
+        content: '';
         position: absolute;
         bottom: -7px;
         left: 50px;
@@ -2118,11 +2118,11 @@ h4.re3 {
 }
 
 .checkbox__label:before {
-    content: "\e620";
+    content: '\e620';
 }
 
 .checkbox__label:after {
-    content: "\e623";
+    content: '\e623';
 }
 
 .checkbox input[type=checkbox], .checkbox input[type=radio] {
@@ -2221,9 +2221,9 @@ h4.re3 {
         }
 
     .block-seguimiento-content .seg-next-icon:before {
-        font-family: "icomoon";
+        font-family: 'icomoon';
         font-size: 1.2em;
-        content: "\e601";
+        content: '\e601';
         position: absolute;
         top: 40%;
         right: -25px;
@@ -2251,9 +2251,9 @@ h4.re3 {
     }
 
     .block-seguimiento-content .seg-active .seg-icon:before {
-        font-family: "icomoon";
+        font-family: 'icomoon';
         font-size: 1.3em;
-        content: "\e619";
+        content: '\e619';
         color: #642F80;
         position: absolute;
         top: 36px;
@@ -2731,8 +2731,8 @@ table > thead > tr > th {
 }
 
     .btn-dropdown:before {
-        content: "\e616";
-        font-family: "icomoon";
+        content: '\e616';
+        font-family: 'icomoon';
         position: absolute;
         right: 10px;
         top: 7px;
@@ -3382,7 +3382,7 @@ table > thead > tr > th {
 }
 
     .check-normal .checkbox__label-check:after {
-        content: "\e619";
+        content: '\e619';
     }
 
     .check-normal .checkbox {
@@ -3849,7 +3849,7 @@ table > thead > tr > th {
         top: 100%;
         left: 50%;
         border: solid transparent;
-        content: " ";
+        content: ' ';
         height: 0;
         width: 0;
         position: absolute;
@@ -3880,7 +3880,7 @@ table > thead > tr > th {
     height: 20px;
     margin: 0 auto;
     line-height: 0;
-    background: white url("../../../Images/mobile/img-showroom/lbel.png") center no-repeat;
+    background: white url('../../../Images/mobile/img-showroom/lbel.png') center no-repeat;
 }
 /*LISTA PRODUCTOS*/
 .row_lista_blanco {
@@ -3913,7 +3913,7 @@ table > thead > tr > th {
 .selector_s_mobile {
     width: 100%;
     margin-top: 10px;
-    background: white url("../../../Images/mobile/img-showroom/selector.png") right center no-repeat;
+    background: white url('../../../Images/mobile/img-showroom/selector.png') right center no-repeat;
 }
 
     .selector_s_mobile select {
@@ -4212,7 +4212,7 @@ table > thead > tr > th {
 .producto_agotado {
     position: absolute;
     z-index: 100;
-    background: url("../../../Images/mobile/img-showroom/opacity_items.png");
+    background: url('../../../Images/mobile/img-showroom/opacity_items.png');
     width: 292px;
     height: 349px;
 }
@@ -4460,7 +4460,7 @@ table > thead > tr > th {
     font-size: 14px;
     margin-left: 12px;
     padding-left: 23px;
-    background: url("../../../Images/mobile/img-showroom/volver.png") no-repeat;
+    background: url('../../../Images/mobile/img-showroom/volver.png') no-repeat;
     background-position: 1px 6px;
     margin-top: 8px;
     cursor: pointer;
@@ -4479,7 +4479,7 @@ table > thead > tr > th {
 
 /*NUEVA VERSION MOBILE*/
 .logo_mobile {
-    background: url("../../../Images/mobile/Lbel/logo_Lbel.png") no-repeat;
+    background: url('../../../Images/mobile/Lbel/logo_Lbel.png') no-repeat;
     width: 72px;
     height: 28px;
     margin: 0 auto;
@@ -4499,7 +4499,7 @@ table > thead > tr > th {
     margin-right: 15px;
     margin-top: 18px;
     position: relative;
-    background: url("../../../Images/mobile/Esika/notificaciones.png") no-repeat;
+    background: url('../../../Images/mobile/Esika/notificaciones.png') no-repeat;
     background-position: center -1px;
 }
 
@@ -4570,7 +4570,7 @@ table > thead > tr > th {
     }
 
 .subir_foto_mobile {
-    background: url("../../../Images/mobile/Lbel/camara.png") no-repeat top center;
+    background: url('../../../Images/mobile/Lbel/camara.png') no-repeat top center;
     width: 26px;
     height: 26px;
     position: absolute;
@@ -4635,7 +4635,7 @@ table > thead > tr > th {
     float: left;
     width: 10px;
     height: 10px;
-    background: url("../../../Images/mobile/Esika/Lapiz.png") no-repeat;
+    background: url('../../../Images/mobile/Esika/Lapiz.png') no-repeat;
 }
 
 .info_cam_mobile {
@@ -4727,12 +4727,12 @@ table > thead > tr > th {
     width: 34px;
     height: 36px;
     margin-right: 11px;
-    background: url("../../../Images/mobile/Lbel/ganancia.png") no-repeat;
+    background: url('../../../Images/mobile/Lbel/ganancia.png') no-repeat;
     vertical-align: middle;
 }
 
 .item_2_home {
-    background: url("../../../Images/mobile/Lbel/carpeta.png") no-repeat;
+    background: url('../../../Images/mobile/Lbel/carpeta.png') no-repeat;
 }
 
 .titulo_item_mobile {
@@ -4779,7 +4779,7 @@ table > thead > tr > th {
     font-family: 'Lato';
     font-size: 13px;
     font-weight: 900;
-    background: url("../../../Images/mobile/Esika/tarjeta.png") no-repeat;
+    background: url('../../../Images/mobile/Esika/tarjeta.png') no-repeat;
     background-position: 30% 10px;
     padding-left: 10%;
 }
@@ -4816,7 +4816,7 @@ table > thead > tr > th {
     font-family: 'Lato';
     font-size: 13px;
     font-weight: 900;
-    background: url("../../../Images/mobile/Lbel/indicador_pedido.png") no-repeat;
+    background: url('../../../Images/mobile/Lbel/indicador_pedido.png') no-repeat;
     background-position: 0 5px;
     padding-left: 13px;
     color: black;
@@ -5024,7 +5024,7 @@ table > thead > tr > th {
     padding-top: 8px;
     padding-bottom: 8px;
     display: block;
-    background: url("../../../Images/mobile/Esika/mas_footer.png") no-repeat right center;
+    background: url('../../../Images/mobile/Esika/mas_footer.png') no-repeat right center;
 }
 
 .menu_footer_menos {
@@ -5038,7 +5038,7 @@ table > thead > tr > th {
     padding-top: 8px;
     padding-bottom: 8px;
     display: block;
-    background: url("../../../Images/mobile/Esika/menos_footer.png") no-repeat right center;
+    background: url('../../../Images/mobile/Esika/menos_footer.png') no-repeat right center;
 }
 
 .menu_footer:hover {
@@ -5552,7 +5552,7 @@ body {
         bottom: 100%;
         left: 95%;
         border: solid transparent;
-        content: " ";
+        content: ' ';
         height: 0;
         width: 0;
         position: absolute;
@@ -5648,7 +5648,7 @@ body {
         bottom: 100%;
         left: 23%;
         border: solid transparent;
-        content: " ";
+        content: ' ';
         height: 0;
         width: 0;
         position: absolute;
@@ -5718,7 +5718,7 @@ body {
         top: 100%;
         left: 50%;
         border: solid transparent;
-        content: "";
+        content: '';
         height: 0;
         width: 0;
         position: absolute;
@@ -5865,7 +5865,7 @@ body {
     width: 128px;
     height: 76px;
     margin-bottom: 0px;
-    background: url("../../../Images/mobile/Lbel/catalogo_home.png") no-repeat right bottom;
+    background: url('../../../Images/mobile/Lbel/catalogo_home.png') no-repeat right bottom;
 }
 
 .celular_esika {
@@ -5919,7 +5919,7 @@ body {
     font-size: 13px;
     color: black;
     letter-spacing: 0.2px;
-    background: url("../../../Images/mobile/Esika/ws.png") no-repeat;
+    background: url('../../../Images/mobile/Esika/ws.png') no-repeat;
     background-position: 0 3px;
     text-decoration: underline;
     float: left;
@@ -5961,7 +5961,7 @@ body {
         bottom: 100%;
         left: 50%;
         border: solid transparent;
-        content: " ";
+        content: ' ';
         height: 0;
         width: 0;
         position: absolute;
@@ -6132,7 +6132,7 @@ body {
 .content_app {
     float: left;
     padding-left: 50px;
-    background: url("../../../Images/mobile/Esika/fondo_app.png") no-repeat;
+    background: url('../../../Images/mobile/Esika/fondo_app.png') no-repeat;
     font-family: 'Lato';
     color: black;
     font-weight: 700;
@@ -6423,7 +6423,7 @@ body {
     color: #000000;
     padding-left: 14px;
     text-decoration: underline;
-    background: url("../../../Images/Lbel/indicador_pedido.png") no-repeat;
+    background: url('../../../Images/Lbel/indicador_pedido.png') no-repeat;
     background-position: 0px 2px;
     margin-top: 2px;
     cursor: pointer;
@@ -6485,9 +6485,9 @@ body {
     cursor: pointer;
 }
 
-input[type="checkbox"]:checked + span:after {
-    content: "¦";
-    content: "¦";
+input[type='checkbox']:checked + span:after {
+    content: '¦';
+    content: '¦';
     position: absolute;
     z-index: 1002;
     top: 2px;
@@ -6563,12 +6563,12 @@ input[type="checkbox"]:checked + span:after {
 }
 
 .check_icono_mobile {
-    background: url("../../../Images/Lbel/icono_check_lbel.svg") no-repeat;
+    background: url('../../../Images/Lbel/icono_check_lbel.svg') no-repeat;
     background-size: cover;
 }
 
 .exclamacion_icono_mobile {
-    background: url("../../../Images/Lbel/icono_exclamacion_lbel.png") no-repeat;
+    background: url('../../../Images/Lbel/icono_exclamacion_lbel.png') no-repeat;
     background-size: cover;
 }
 
@@ -7070,7 +7070,7 @@ input[type="checkbox"]:checked + span:after {
         top: 100%;
         left: 50%;
         border: solid transparent;
-        content: " ";
+        content: ' ';
         height: 0;
         width: 0;
         border-color: rgba(5, 7, 8, 0);
@@ -7203,7 +7203,7 @@ input[type="checkbox"]:checked + span:after {
         top: -22px;
         left: 50%;
         border: solid transparent;
-        content: " ";
+        content: ' ';
         height: 0;
         width: 0;
         border-color: rgba(3, 3, 3, 0);
@@ -7255,7 +7255,7 @@ input[type="checkbox"]:checked + span:after {
         top: 100%;
         left: 0%;
         border: solid transparent;
-        content: " ";
+        content: ' ';
         height: 0;
         width: 0;
         border-color: rgba(5, 7, 8, 0);
@@ -7445,7 +7445,7 @@ input[type="checkbox"]:checked + span:after {
     margin-top: -1px;
     width: 14px;
     height: 10px;
-    background: url("../../../Images/mobile/esika/flechita_barra.png") no-repeat;
+    background: url('../../../Images/mobile/esika/flechita_barra.png') no-repeat;
 }
 
 .content_carrusel_agregado .agregado {
@@ -7462,7 +7462,7 @@ input[type="checkbox"]:checked + span:after {
         width: 11px;
         height: 11px;
         display: inline-block;
-        background: url("../../../Images/group.svg") no-repeat center center;
+        background: url('../../../Images/group.svg') no-repeat center center;
     }
 
 #new-header .menu-shop .num-menu-shop {
@@ -7559,7 +7559,7 @@ input[type="checkbox"]:checked + span:after {
         padding-top: 5px;
     }
 
-        .popup_comunicado .pie_popup_comunicado input[type="checkbox"] {
+        .popup_comunicado .pie_popup_comunicado input[type='checkbox'] {
             display: none;
         }
 
@@ -7635,7 +7635,7 @@ input[type="checkbox"]:checked + span:after {
         padding: 0;
     }
 
-    .popup_agregarCliente input[type="text"], .popup_agregarCliente input[type="email"] {
+    .popup_agregarCliente input[type='text'], .popup_agregarCliente input[type='email'] {
         display: block;
         margin: 0 0 9px 0;
         padding-left: 13px;
@@ -7649,7 +7649,7 @@ input[type="checkbox"]:checked + span:after {
         font-weight: normal;
     }
 
-    .popup_agregarCliente input[type="button"] {
+    .popup_agregarCliente input[type='button'] {
         display: block;
         margin: 20px 0 0 0;
         padding: 0;
@@ -7681,7 +7681,7 @@ input[type="checkbox"]:checked + span:after {
             bottom: 100%;
             left: 50%;
             border: solid transparent;
-            content: " ";
+            content: ' ';
             height: 0;
             width: 0;
             position: absolute;
@@ -7694,7 +7694,7 @@ input[type="checkbox"]:checked + span:after {
             bottom: 100%;
             left: 50%;
             border: solid transparent;
-            content: " ";
+            content: ' ';
             height: 0;
             width: 0;
             position: absolute;
@@ -7965,7 +7965,7 @@ input[type="checkbox"]:checked + span:after {
         bottom: 100%;
         left: 20%;
         border: solid transparent;
-        content: " ";
+        content: ' ';
         height: 0;
         width: 0;
         border-color: rgba(5, 7, 8, 0);
@@ -8593,7 +8593,7 @@ span.title-app-b {
         bottom: 100%;
         left: 50%;
         border: solid transparent;
-        content: " ";
+        content: ' ';
         height: 0;
         width: 0;
         position: absolute;
@@ -9231,7 +9231,7 @@ a {
     width: 11px;
     height: 11px;
     display: inline-block;
-    background: url("../../../Images/group.svg") center center no-repeat;
+    background: url('../../../Images/group.svg') center center no-repeat;
 }
 
 .enlace_popupCatalogoPersonalizado {
@@ -9254,7 +9254,7 @@ a {
 .seguir_pedido {
     display: inline-block;
     vertical-align: top;
-    background: url("../../../Images/Esika/indicador_pedido.png") no-repeat;
+    background: url('../../../Images/Esika/indicador_pedido.png') no-repeat;
     background-position: 0px 5px;
     font-family: 'lato';
     font-size: 11px;
@@ -9288,7 +9288,7 @@ a {
 
 span.icon-advertencia {
     display: inline-block;
-    background: url("/Content/Images/Lbel/icono-admiracion.png") no-repeat center center;
+    background: url('/Content/Images/Lbel/icono-admiracion.png') no-repeat center center;
     width: 18px;
     height: 18px;
     margin-right: 8px;
@@ -9542,7 +9542,7 @@ span.icon-advertencia {
         bottom: 100%;
         left: 40px;
         border: solid transparent;
-        content: " ";
+        content: ' ';
         height: 0;
         width: 0;
         position: absolute;
@@ -9565,7 +9565,7 @@ span.icon-advertencia {
         bottom: 100%;
         left: 30px;
         border: solid transparent;
-        content: " ";
+        content: ' ';
         height: 0;
         width: 0;
         position: absolute;
@@ -9636,7 +9636,7 @@ span.icon-advertencia {
         bottom: 100%;
         left: 30px;
         border: solid transparent;
-        content: " ";
+        content: ' ';
         height: 0;
         width: 0;
         position: absolute;
@@ -9714,7 +9714,7 @@ span.icon-advertencia {
 }
 
     .fondo_negro_pack:before {
-        content: "";
+        content: '';
         width: 0;
         height: 0;
         right: -24px;
@@ -9921,7 +9921,7 @@ span.icon-advertencia {
     text-align: center;
 }
 
-    .content-category input[type="checkbox"] {
+    .content-category input[type='checkbox'] {
         display: none !important;
     }
 
@@ -9941,7 +9941,7 @@ span.icon-advertencia {
     }
 
     .label-checkbox:before {
-        content: "";
+        content: '';
         position: absolute;
         left: 0;
         width: 20px;
@@ -9954,8 +9954,8 @@ span.icon-advertencia {
         z-index: 10;
     }
 
-.content-category input[type="checkbox"]:checked + .label-checkbox:before {
-    content: "";
+.content-category input[type='checkbox']:checked + .label-checkbox:before {
+    content: '';
     width: 20px;
     height: 20px;
     background: #613c87;
@@ -10455,7 +10455,7 @@ span.icon-advertencia {
     top: 100%;
     left: 50%;
     border: solid transparent;
-    content: " ";
+    content: ' ';
     height: 0;
     width: 0;
     position: absolute;
@@ -10747,7 +10747,7 @@ span.icon-advertencia {
         top: 0;
         left: 50%;
         border: solid transparent;
-        content: " ";
+        content: ' ';
         height: 0;
         width: 0;
         position: absolute;
@@ -10886,7 +10886,7 @@ span.icon-advertencia {
 }
 
 .vineta {
-    list-style-image: url("https://www.somosbelcorp.com/Content/Images/Lbel/indicador_pedido.png");
+    list-style-image: url('https://www.somosbelcorp.com/Content/Images/Lbel/indicador_pedido.png');
 }
 
 /*SPRINT 6*/
@@ -11046,7 +11046,7 @@ span.icon-advertencia {
 
     .termino_condiciones_intriga:before, .termino_condiciones_cupon:before {
         position: absolute;
-        content: "";
+        content: '';
         left: 0;
         width: 13px;
         height: 13px;
@@ -11480,7 +11480,7 @@ span.icon-advertencia {
 }
 
 .check_intriga:before {
-    content: "✓";
+    content: '✓';
     line-height: 11.5px;
     padding-left: 2px;
 }
@@ -11699,7 +11699,7 @@ span.icon-advertencia {
                     right: 10px;
                     width: 10px;
                     height: 7px;
-                    content: "";
+                    content: '';
                     margin-top: -4px;
                     position: absolute;
                     background: url('../../../Images/mobile/Esika/arrow_select_variant.svg') no-repeat center center;
@@ -11758,7 +11758,7 @@ span.icon-advertencia {
             }
 
                 .content_room_product_sheet .item_product .variants .variants_colors:after {
-                    content: "";
+                    content: '';
                     clear: both;
                     display: block;
                 }
@@ -11903,7 +11903,7 @@ span.icon-advertencia {
         font-size: 14px;
         font-weight: 400;
         text-transform: uppercase;
-        background: url("../../../Images/mobile/Esika/icon-tip-red.svg") no-repeat center left;
+        background: url('../../../Images/mobile/Esika/icon-tip-red.svg') no-repeat center left;
         padding: 7px 0 7px 38px;
     }
 
@@ -12514,7 +12514,7 @@ span.icon-advertencia {
     top: 100%;
     left: 50%;
     border: solid transparent;
-    content: " ";
+    content: ' ';
     height: 0;
     width: 0;
     position: absolute;
@@ -13210,7 +13210,7 @@ span.icon-advertencia {
     margin: 0 auto;
     margin-top: 20px;
     margin-bottom: 10px;
-    background: url("../../../Images/mobile/Esika/icono_check_esika.svg") no-repeat;
+    background: url('../../../Images/mobile/Esika/icono_check_esika.svg') no-repeat;
     background-size: 100%;
 }
 
@@ -13344,7 +13344,7 @@ span.icon-advertencia {
 }
 
     .btn_regalo_sorpresa:before {
-        content: "";
+        content: '';
         width: 0;
         height: 0;
         border-style: solid;
@@ -13479,7 +13479,7 @@ span.icon-advertencia {
         top: 100%;
         left: 50%;
         border: solid transparent;
-        content: " ";
+        content: ' ';
         height: 0;
         width: 0;
         position: absolute;
