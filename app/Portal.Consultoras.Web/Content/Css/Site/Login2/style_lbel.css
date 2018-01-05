@@ -1387,8 +1387,8 @@ h1, h2, h3, h4, h5, h6 {
     .webForm {
         max-width: 360px;
         margin: 0 auto;
-        padding-left: 0%;
-        padding-right: 0%;
+        padding-left: 0;
+        padding-right: 0;
     }
 
     .content-alerta-red-user, .content-alerta-red-clave {

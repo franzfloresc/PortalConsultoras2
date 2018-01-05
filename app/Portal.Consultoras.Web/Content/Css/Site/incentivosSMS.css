@@ -589,7 +589,7 @@ body {
         opacity: 1;
         -webkit-transform: rotate(300deg);
         -webkit-animation-timing-function: linear;
-        -webkit-origin: 0%;
+        -webkit-origin: 0;
     }
 
     30% {
@@ -643,7 +643,7 @@ body {
         opacity: 1;
         -ms-transform: rotate(300deg);
         -ms-animation-timing-function: linear;
-        -ms-origin: 0%;
+        -ms-origin: 0;
     }
 
     30% {
@@ -701,7 +701,7 @@ body {
         transform: rotate(300deg);
         -webkit-animation-timing-function: linear;
         animation-timing-function: linear;
-        origin: 0%;
+        origin: 0;
     }
 
     30% {

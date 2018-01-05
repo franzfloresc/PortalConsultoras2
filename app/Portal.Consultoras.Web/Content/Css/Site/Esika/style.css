@@ -10,7 +10,10 @@
 @font-face {
     font-family: 'icomoon';
     src: url('fonts/icomoon.eot?-q1bfik');
-    src: url('fonts/icomoon.eot?#iefix-q1bfik') format('embedded-opentype'), url('fonts/icomoon.woff?-q1bfik') format('woff'), url('fonts/icomoon.ttf?-q1bfik') format('truetype'), url('fonts/icomoon.svg?-q1bfik#icomoon') format('svg');
+    src: url('fonts/icomoon.eot?#iefix-q1bfik') format('embedded-opentype'), 
+        url('fonts/icomoon.woff?-q1bfik') format('woff'), 
+        url('fonts/icomoon.ttf?-q1bfik') format('truetype'),
+        url('fonts/icomoon.svg?-q1bfik#icomoon') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -18,7 +21,10 @@
 @font-face {
     font-family: 'OldStandard-Italic';
     src: url('fonts/OldStandard-Italic.eot');
-    src: url('fonts/OldStandard-Italic.eot?#iefix') format('embedded-opentype'), url('fonts/OldStandard-Italic.woff') format('woff'), url('fonts/OldStandard-Italic.ttf') format('truetype'), url('fonts/OldStandard-Italic.svg#OldStandardItalic') format('svg');
+    src: url('fonts/OldStandard-Italic.eot?#iefix') format('embedded-opentype'), 
+        url('fonts/OldStandard-Italic.woff') format('woff'), 
+        url('fonts/OldStandard-Italic.ttf') format('truetype'),
+        url('fonts/OldStandard-Italic.svg#OldStandardItalic') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -1706,8 +1712,8 @@ header {
     position: absolute;
     width: 100%;
     height: 206px;
-    top: 0%;
-    left: 0%;
+    top: 0;
+    left: 0;
     z-index: 1;
 }
 
@@ -1852,15 +1858,15 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     .iconos_acciones .icono_imprimir {
         display: block;
         position: absolute;
-        top: 0%;
+        top: 0;
         right: 23%;
     }
 
     .iconos_acciones .icono_email {
         display: block;
         position: absolute;
-        top: 0%;
-        right: 0%;
+        top: 0;
+        right: 0;
         opacity: 0.6;
         transition: all 0.3s ease;
         -moz-transition: all 0.3s ease;
@@ -1985,7 +1991,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
         position: absolute;
         float: none;
         right: 99%;
-        top: 0%;
+        top: 0;
         z-index: 50;
     }
 
@@ -2130,7 +2136,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     .tooltip_guardaPedido .tooltip_flecha {
         background: url('/Content/Images/tooltip-flecha.png') no-repeat 0 -26px !important;
         position: absolute;
-        top: 0%;
+        top: 0;
         left: -11.2%;
         width: 32px;
         height: 102px;
@@ -2251,7 +2257,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
         .info_copy .tooltip_importe:before {
             position: absolute;
             top: 100%;
-            left: 0%;
+            left: 0;
             border: solid transparent;
             content: ' ';
             height: 0;
@@ -3025,7 +3031,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
         display: block;
         position: absolute;
         top: 50%;
-        bottom: 0%;
+        bottom: 0;
         right: 21px;
         width: 86px;
         height: 29px;
@@ -3547,8 +3553,8 @@ a.subir_carousel, a.bajar_carousel {
     position: relative;
     top: 50%;
     left: 50%;
-    right: 0%;
-    bottom: 0%;
+    right: 0;
+    bottom: 0;
     margin-top: -273px;
     margin-left: -223px;
     background: #fff;
@@ -3603,7 +3609,7 @@ a.subir_carousel, a.bajar_carousel {
             border-right-color: #fff;
             border-width: 12px;
             margin-top: -12px;
-            left: 0%;
+            left: 0;
             margin-left: -23px;
         }
 
@@ -3709,8 +3715,8 @@ a.subir_carousel, a.bajar_carousel {
     display: block;
     position: relative;
     top: 50%;
-    right: 0%;
-    bottom: 0%;
+    right: 0;
+    bottom: 0;
     margin: -294.5px auto 0 auto;
     background: #fff;
     width: 100%;
@@ -3815,8 +3821,8 @@ a.subir_carousel, a.bajar_carousel {
     position: relative;
     top: 50%;
     left: 50%;
-    right: 0%;
-    bottom: 0%;
+    right: 0;
+    bottom: 0;
     margin-top: -265.5px;
     margin-left: -237.5px;
     background: #fff;
@@ -3917,7 +3923,7 @@ a.subir_carousel, a.bajar_carousel {
     position: absolute;
     top: 50%;
     left: 4.5%;
-    bottom: 0%;
+    bottom: 0;
     margin-top: -20px;
     background: url('../../../Images/Esika/icono_exclamacion.png') no-repeat center center;
 }
@@ -3935,8 +3941,8 @@ a.subir_carousel, a.bajar_carousel {
     position: absolute;
     top: 8.5%;
     left: 13.1%;
-    right: 0%;
-    bottom: 0%;
+    right: 0;
+    bottom: 0;
     background: #fff;
     width: 100%;
     max-width: 692px;
@@ -5298,8 +5304,8 @@ a.subir_carousel, a.bajar_carousel {
     height: 100%;
     position: fixed;
     z-index: 300;
-    top: 0%;
-    left: 0%;
+    top: 0;
+    left: 0;
 }
 
 .opcionTutorial {
@@ -6231,7 +6237,7 @@ a.subir_carousel, a.bajar_carousel {
     border: 0.08em solid #d5a924;
     width: 0.84em;
     height: 0.84em;
-    clip: rect(0em, 0.5em, 1em, 0em);
+    clip: rect(0, 0.5em, 1em, 0);
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     -ms-border-radius: 50%;
@@ -6322,7 +6328,7 @@ a.subir_carousel, a.bajar_carousel {
         position: absolute;
         width: 1em;
         height: 1em;
-        clip: rect(0em, 1em, 1em, 0.5em);
+        clip: rect(0, 1em, 1em, 0.5em);
     }
 
     .c100.p1 .bar {
@@ -10827,7 +10833,7 @@ ol {
     }
 
     .box_articulo_right p {
-        margin: 0em;
+        margin: 0;
         color: #00A2E8;
         font-size: 18px;
         font-weight: normal;
@@ -11097,7 +11103,10 @@ ol {
 @font-face {
     font-family: 'museo_sans_900regular';
     src: url('../../fonts/museo/museosans_900-webfont.eot');
-    src: url('../../fonts/museo/museosans_900-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/museo/museosans_900-webfont.woff') format('woff'), url('../../fonts/museo/museosans_900-webfont.ttf') format('truetype'), url('../../fonts/museo/museosans_900-webfont.svg#museo_sans_900regular') format('svg');
+    src: url('../../fonts/museo/museosans_900-webfont.eot?#iefix') format('embedded-opentype'), 
+        url('../../fonts/museo/museosans_900-webfont.woff') format('woff'), 
+        url('../../fonts/museo/museosans_900-webfont.ttf') format('truetype'), 
+        url('../../fonts/museo/museosans_900-webfont.svg#museo_sans_900regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -11105,7 +11114,10 @@ ol {
 @font-face {
     font-family: 'museo_sans_700regular';
     src: url('../../fonts/museo/museosans_700-webfont.eot');
-    src: url('../../fonts/museo/museosans_700-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/museo/museosans_700-webfont.woff') format('woff'), url('../../fonts/museo/museosans_700-webfont.ttf') format('truetype'), url('../../fonts/museo/museosans_700-webfont.svg#museo_sans_700regular') format('svg');
+    src: url('../../fonts/museo/museosans_700-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../../fonts/museo/museosans_700-webfont.woff') format('woff'), 
+        url('../../fonts/museo/museosans_700-webfont.ttf') format('truetype'),
+        url('../../fonts/museo/museosans_700-webfont.svg#museo_sans_700regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -11113,7 +11125,10 @@ ol {
 @font-face {
     font-family: 'museo_sans_500regular';
     src: url('../../fonts/museo/museosans_500-webfont.eot');
-    src: url('../../fonts/museo/museosans_500-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/museo/museosans_500-webfont.woff') format('woff'), url('../../fonts/museo/museosans_500-webfont.ttf') format('truetype'), url('../../fonts/museo/museosans_500-webfont.svg#museo_sans_900regular') format('svg');
+    src: url('../../fonts/museo/museosans_500-webfont.eot?#iefix') format('embedded-opentype'), 
+        url('../../fonts/museo/museosans_500-webfont.woff') format('woff'),
+        url('../../fonts/museo/museosans_500-webfont.ttf') format('truetype'), 
+        url('../../fonts/museo/museosans_500-webfont.svg#museo_sans_900regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -11121,7 +11136,10 @@ ol {
 @font-face {
     font-family: 'museo_300regular';
     src: url('../../fonts/museo/museo300-regular-webfont.eot');
-    src: url('../../fonts/museo/museo300-regular-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/museo/museo300-regular-webfont.woff') format('woff'), url('../../fonts/museo/museo300-regular-webfont.ttf') format('truetype'), url('../../fonts/museo/museo300-regular-webfont.svg#museo_300regular') format('svg');
+    src: url('../../fonts/museo/museo300-regular-webfont.eot?#iefix') format('embedded-opentype'), 
+        url('../../fonts/museo/museo300-regular-webfont.woff') format('woff'),
+        url('../../fonts/museo/museo300-regular-webfont.ttf') format('truetype'), 
+        url('../../fonts/museo/museo300-regular-webfont.svg#museo_300regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -11129,7 +11147,10 @@ ol {
 @font-face {
     font-family: 'museo_sans_100regular';
     src: url('../../fonts/museo/museosans-100-webfont.eot');
-    src: url('../../fonts/museo/museosans-100-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/museo/museosans-100-webfont.woff') format('woff'), url('../../fonts/museo/museosans-100-webfont.ttf') format('truetype'), url('../../fonts/museo/museosans-100-webfont.svg#museo_sans_100regular') format('svg');
+    src: url('../../fonts/museo/museosans-100-webfont.eot?#iefix') format('embedded-opentype'), 
+        url('../../fonts/museo/museosans-100-webfont.woff') format('woff'), 
+        url('../../fonts/museo/museosans-100-webfont.ttf') format('truetype'),
+        url('../../fonts/museo/museosans-100-webfont.svg#museo_sans_100regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -14389,7 +14410,7 @@ table.falsa {
 }
 
 ul.service-list {
-    margin-bottom: 0em;
+    margin-bottom: 0;
     margin-top: 5px;
     list-style: none;
 }
@@ -17106,7 +17127,10 @@ span.icon-del {
 @font-face {
     font-family: 'Museo Sans 300';
     src: url('../../../../Content/layer-flx-co/fonts/museo_sans_r300-webfont.eot');
-    src: url('../../../../Content/layer-flx-co/fonts/museo_sans_r300-webfont.eot?#iefix') format('embedded-opentype'), url('../../../../Content/layer-flx-co/fonts/museo_sans_r300-webfont.woff') format('woff'), url('../../../../Content/layer-flx-co/fonts/museo_sans_r300-webfont.ttf') format('truetype'), url('../../../../Content/layer-flx-co/fonts/museo_sans_r300-webfont.svg') format('svg');
+    src: url('../../../../Content/layer-flx-co/fonts/museo_sans_r300-webfont.eot?#iefix') format('embedded-opentype'), 
+        url('../../../../Content/layer-flx-co/fonts/museo_sans_r300-webfont.woff') format('woff'),
+        url('../../../../Content/layer-flx-co/fonts/museo_sans_r300-webfont.ttf') format('truetype'),
+        url('../../../../Content/layer-flx-co/fonts/museo_sans_r300-webfont.svg') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -18726,7 +18750,9 @@ label.checkpop.c_on {
 @font-face {
     font-family: 'ArialMT';
     src: url('../../fonts/arialMT/arialmt.eot');
-    src: url('../../fonts/arialMT/arialmt.eot?#iefix') format('embedded-opentype'), url('../../fonts/arialMT/arialmt.ttf') format('truetype'), url('../../fonts/arialMT/arialmt.svg#arialmt') format('svg');
+    src: url('../../fonts/arialMT/arialmt.eot?#iefix') format('embedded-opentype'), 
+        url('../../fonts/arialMT/arialmt.ttf') format('truetype'),
+        url('../../fonts/arialMT/arialmt.svg#arialmt') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -18734,7 +18760,9 @@ label.checkpop.c_on {
 @font-face {
     font-family: 'ArialBoldMT';
     src: url('../../fonts/arialboldMT/arialboldMT.eot');
-    src: url('../../fonts/arialboldMT/arialboldMT.eot?#iefix') format('embedded-opentype'), url('../../fonts/arialboldMT/arialboldMT.ttf') format('truetype'), url('../../fonts/arialboldMT/arialboldMT.svg#arialboldMT') format('svg');
+    src: url('../../fonts/arialboldMT/arialboldMT.eot?#iefix') format('embedded-opentype'), 
+        url('../../fonts/arialboldMT/arialboldMT.ttf') format('truetype'),
+        url('../../fonts/arialboldMT/arialboldMT.svg#arialboldMT') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -20240,7 +20268,7 @@ label.checkpop.c_on {
 }
 
 .miAcademia_venezuela .item_video_right, .sinTutoriales .item_video_right {
-    margin-left: 0%;
+    margin-left: 0;
     display: inline-block;
     float: none;
 }
@@ -21125,7 +21153,7 @@ body {
     top: 41px;
     left: -89px;
     border-radius: 3px;
-    border: 1px solid #DDD;
+    border: 1px solid #ddd;
     z-index: 1000;
     box-shadow: 0 1px 18px 1px rgba(0,0,0,.31);
     -moz-box-shadow: 0 1px 18px 1px rgba(0,0,0,.31);
@@ -21193,7 +21221,7 @@ body {
     height: 0;
     width: 0;
     position: absolute;
-    border-bottom-color: #DDD;
+    border-bottom-color: #ddd;
     border-width: 10px;
     margin-left: -10px;
 }
@@ -21380,7 +21408,7 @@ body {
     }
     /*FOTO USUARIO*/
     .resumen_belcorp_cam {
-        margin-right: 0%;
+        margin-right: 0;
     }
 }
 
@@ -21654,8 +21682,8 @@ body {
         position: absolute;
         top: 50%;
         left: 50%;
-        right: 0%;
-        bottom: 0%;
+        right: 0;
+        bottom: 0;
         margin-top: -13.52px;
         margin-left: -9.5px;
         transition: all 0.3s ease;
@@ -23400,8 +23428,8 @@ img {
 #menu {
     background-color: #fff;
     float: left;
-    margin-left: 0%;
-    margin-right: 0%;
+    margin-left: 0;
+    margin-right: 0;
     position: relative;
     width: 100%;
     height: 70px;
@@ -23778,7 +23806,10 @@ img {
 @font-face {
     font-family: 'museo_sans_900regular';
     src: url('../../fonts/museo/museosans_900-webfont.eot');
-    src: url('../../fonts/museo/museosans_900-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/museo/museosans_900-webfont.woff') format('woff'), url('../../fonts/museo/museosans_900-webfont.ttf') format('truetype'), url('../../fonts/museo/museosans_900-webfont.svg#museo_sans_900regular') format('svg');
+    src: url('../../fonts/museo/museosans_900-webfont.eot?#iefix') format('embedded-opentype'), 
+        url('../../fonts/museo/museosans_900-webfont.woff') format('woff'), 
+        url('../../fonts/museo/museosans_900-webfont.ttf') format('truetype'), 
+        url('../../fonts/museo/museosans_900-webfont.svg#museo_sans_900regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -23786,7 +23817,10 @@ img {
 @font-face {
     font-family: 'museo_sans_700regular';
     src: url('../../fonts/museo/museosans_700-webfont.eot');
-    src: url('../../fonts/museo/museosans_700-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/museo/museosans_700-webfont.woff') format('woff'), url('../../fonts/museo/museosans_700-webfont.ttf') format('truetype'), url('../../fonts/museo/museosans_700-webfont.svg#museo_sans_700regular') format('svg');
+    src: url('../../fonts/museo/museosans_700-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../../fonts/museo/museosans_700-webfont.woff') format('woff'),
+        url('../../fonts/museo/museosans_700-webfont.ttf') format('truetype'),
+        url('../../fonts/museo/museosans_700-webfont.svg#museo_sans_700regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -23794,7 +23828,10 @@ img {
 @font-face {
     font-family: 'museo_sans_500regular';
     src: url('../../fonts/museo/museosans_500-webfont.eot');
-    src: url('../../fonts/museo/museosans_500-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/museo/museosans_500-webfont.woff') format('woff'), url('../../fonts/museo/museosans_500-webfont.ttf') format('truetype'), url('../../fonts/museo/museosans_500-webfont.svg#museo_sans_900regular') format('svg');
+    src: url('../../fonts/museo/museosans_500-webfont.eot?#iefix') format('embedded-opentype'), 
+        url('../../fonts/museo/museosans_500-webfont.woff') format('woff'),
+        url('../../fonts/museo/museosans_500-webfont.ttf') format('truetype'),
+        url('../../fonts/museo/museosans_500-webfont.svg#museo_sans_900regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -23802,7 +23839,10 @@ img {
 @font-face {
     font-family: 'museo_300regular';
     src: url('../../fonts/museo/museo300-regular-webfont.eot');
-    src: url('../../fonts/museo/museo300-regular-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/museo/museo300-regular-webfont.woff') format('woff'), url('../../fonts/museo/museo300-regular-webfont.ttf') format('truetype'), url('../../fonts/museo/museo300-regular-webfont.svg#museo_300regular') format('svg');
+    src: url('../../fonts/museo/museo300-regular-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../../fonts/museo/museo300-regular-webfont.woff') format('woff'), 
+        url('../../fonts/museo/museo300-regular-webfont.ttf') format('truetype'), 
+        url('../../fonts/museo/museo300-regular-webfont.svg#museo_300regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -23810,7 +23850,10 @@ img {
 @font-face {
     font-family: 'museo_sans_100regular';
     src: url('../../fonts/museo/museosans-100-webfont.eot');
-    src: url('../../fonts/museo/museosans-100-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/museo/museosans-100-webfont.woff') format('woff'), url('../../fonts/museo/museosans-100-webfont.ttf') format('truetype'), url('../../fonts/museo/museosans-100-webfont.svg#museo_sans_100regular') format('svg');
+    src: url('../../fonts/museo/museosans-100-webfont.eot?#iefix') format('embedded-opentype'), 
+        url('../../fonts/museo/museosans-100-webfont.woff') format('woff'), 
+        url('../../fonts/museo/museosans-100-webfont.ttf') format('truetype'), 
+        url('../../fonts/museo/museosans-100-webfont.svg#museo_sans_100regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -25975,12 +26018,12 @@ input[type='checkbox']:checked + span:after {
 
 .BarraPosicion {
     background: rgba(255,255,255,1);
-    background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(216,216,216,1) 100%);
-    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,255,255,1)), color-stop(100%, rgba(216,216,216,1)));
-    background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(216,216,216,1) 100%);
-    background: -o-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(216,216,216,1) 100%);
-    background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(216,216,216,1) 100%);
-    background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(216,216,216,1) 100%);
+    background: -moz-linear-gradient(top, rgba(255,255,255,1) 0, rgba(216,216,216,1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0, rgba(255,255,255,1)), color-stop(100%, rgba(216,216,216,1)));
+    background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0, rgba(216,216,216,1) 100%);
+    background: -o-linear-gradient(top, rgba(255,255,255,1) 0, rgba(216,216,216,1) 100%);
+    background: -ms-linear-gradient(top, rgba(255,255,255,1) 0, rgba(216,216,216,1) 100%);
+    background: linear-gradient(to bottom, rgba(255,255,255,1) 0, rgba(216,216,216,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#d8d8d8', GradientType=0 );
     border-radius: 10px;
     -moz-border-radius: 10px;
@@ -26008,12 +26051,12 @@ input[type='checkbox']:checked + span:after {
     position: relative;
     float: left;
     background: rgba(168,166,168,1);
-    background: -moz-linear-gradient(top, rgba(168,166,168,1) 0%, rgba(255,255,255,1) 100%);
-    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(168,166,168,1)), color-stop(100%, rgba(255,255,255,1)));
-    background: -webkit-linear-gradient(top, rgba(168,166,168,1) 0%, rgba(255,255,255,1) 100%);
-    background: -o-linear-gradient(top, rgba(168,166,168,1) 0%, rgba(255,255,255,1) 100%);
-    background: -ms-linear-gradient(top, rgba(168,166,168,1) 0%, rgba(255,255,255,1) 100%);
-    background: linear-gradient(to bottom, rgba(168,166,168,1) 0%, rgba(255,255,255,1) 100%);
+    background: -moz-linear-gradient(top, rgba(168,166,168,1) 0, rgba(255,255,255,1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0, rgba(168,166,168,1)), color-stop(100%, rgba(255,255,255,1)));
+    background: -webkit-linear-gradient(top, rgba(168,166,168,1) 0, rgba(255,255,255,1) 100%);
+    background: -o-linear-gradient(top, rgba(168,166,168,1) 0, rgba(255,255,255,1) 100%);
+    background: -ms-linear-gradient(top, rgba(168,166,168,1) 0, rgba(255,255,255,1) 100%);
+    background: linear-gradient(to bottom, rgba(168,166,168,1) 0, rgba(255,255,255,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a8a6a8', endColorstr='#ffffff', GradientType=0 );
 }
 
@@ -26025,12 +26068,12 @@ input[type='checkbox']:checked + span:after {
     display: block;
     width: 85%;
     background: rgba(97,60,135,1);
-    background: -moz-linear-gradient(left, rgba(97,60,135,1) 0%, rgba(232,28,54,1) 100%);
-    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(97,60,135,1)), color-stop(100%, rgba(232,28,54,1)));
-    background: -webkit-linear-gradient(left, rgba(97,60,135,1) 0%, rgba(232,28,54,1) 100%);
-    background: -o-linear-gradient(left, rgba(97,60,135,1) 0%, rgba(232,28,54,1) 100%);
-    background: -ms-linear-gradient(left, rgba(97,60,135,1) 0%, rgba(232,28,54,1) 100%);
-    background: linear-gradient(to right, rgba(97,60,135,1) 0%, rgba(232,28,54,1) 100%);
+    background: -moz-linear-gradient(left, rgba(97,60,135,1) 0, rgba(232,28,54,1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0, rgba(97,60,135,1)), color-stop(100%, rgba(232,28,54,1)));
+    background: -webkit-linear-gradient(left, rgba(97,60,135,1) 0, rgba(232,28,54,1) 100%);
+    background: -o-linear-gradient(left, rgba(97,60,135,1) 0, rgba(232,28,54,1) 100%);
+    background: -ms-linear-gradient(left, rgba(97,60,135,1) 0, rgba(232,28,54,1) 100%);
+    background: linear-gradient(to right, rgba(97,60,135,1) 0, rgba(232,28,54,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#613c87', endColorstr='#e81c36', GradientType=1 );
 }
 
@@ -26646,7 +26689,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 }
 
     .items_misBeneficios:nth-child(3n) {
-        margin-right: 0%;
+        margin-right: 0;
     }
 
 .contenedor_item_img {
@@ -26836,7 +26879,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 }
 
     .content-favclientes .contiene-productos:nth-child(3n) {
-        margin-right: 0%;
+        margin-right: 0;
     }
 /*información adicional*/
 .mensajes_deAtencion span {
@@ -30198,7 +30241,7 @@ h1#penmostreo .campana {
     }
 
     100% {
-        background: rgba(0,0,0,0.0);
+        background: rgba(0,0,0,0);
     }
 }
 
@@ -31249,12 +31292,12 @@ h1#penmostreo .campana {
     overflow: hidden;
     border: solid 1px rgb(234,234,234);
     background: rgba(97,60,134,1);
-    background: -moz-linear-gradient(left, rgba(97,60,134,1) 0%, rgba(233,28,55,1) 100%);
-    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(97,60,134,1)), color-stop(100%, rgba(233,28,55,1)));
-    background: -webkit-linear-gradient(left, rgba(97,60,134,1) 0%, rgba(233,28,55,1) 100%);
-    background: -o-linear-gradient(left, rgba(97,60,134,1) 0%, rgba(233,28,55,1) 100%);
-    background: -ms-linear-gradient(left, rgba(97,60,134,1) 0%, rgba(233,28,55,1) 100%);
-    background: linear-gradient(to right, rgba(97,60,134,1) 0%, rgba(233,28,55,1) 100%);
+    background: -moz-linear-gradient(left, rgba(97,60,134,1) 0, rgba(233,28,55,1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0, rgba(97,60,134,1)), color-stop(100%, rgba(233,28,55,1)));
+    background: -webkit-linear-gradient(left, rgba(97,60,134,1) 0, rgba(233,28,55,1) 100%);
+    background: -o-linear-gradient(left, rgba(97,60,134,1) 0, rgba(233,28,55,1) 100%);
+    background: -ms-linear-gradient(left, rgba(97,60,134,1) 0, rgba(233,28,55,1) 100%);
+    background: linear-gradient(to right, rgba(97,60,134,1) 0, rgba(233,28,55,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#613c86', endColorstr='#e91c37', GradientType=1 );
 }
 
@@ -33630,7 +33673,7 @@ h1#penmostreo .campana {
 }
 
 .menu_socia_empresaria > .new_menu:first-child {
-    margin-left: 0%;
+    margin-left: 0;
 }
 
 .etiqueta_showroom {
@@ -35632,7 +35675,7 @@ h1#penmostreo .campana {
 .dias_inicio_landing {
     top: 123px;
     font-size: 72px;
-    padding: 0% 29.45%;
+    padding: 0 29.45%;
 }
 
 .saludo_landing {

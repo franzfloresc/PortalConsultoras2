@@ -156,7 +156,7 @@ h3 {
 }
 
 .linea-s {
-    border-top: 1px solid #DDD;
+    border-top: 1px solid #ddd;
     margin-top: 15px;
     padding: 10px 0 0 0;
 }
@@ -169,7 +169,7 @@ h3 {
 
 .label-a {
     padding-bottom: 9px;
-    border-bottom: 1px solid #DDD;
+    border-bottom: 1px solid #ddd;
     color: #A7A4A4;
 }
 
@@ -948,9 +948,9 @@ h4.re3 {
         left: 0;
         font-size: 1.7em;
         top: 50%;
-        -ms-transform: translate(0%, -50%);
-        transform: translate(0%, -50%);
-        -webkit-transform: translate(0%, -50%);
+        -ms-transform: translate(0, -50%);
+        transform: translate(0, -50%);
+        -webkit-transform: translate(0, -50%);
     }
 
 .naranja-box a {
@@ -1726,9 +1726,9 @@ h4.re3 {
 .noti-detalle .icon-noti {
     left: 0;
     top: 50%;
-    -ms-transform: translate(0%, -50%);
-    transform: translate(0%, -50%);
-    -webkit-transform: translate(0%, -50%);
+    -ms-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+    -webkit-transform: translate(0, -50%);
 }
 
 .noti-detalle li {
@@ -2447,7 +2447,7 @@ h4.re3 {
         opacity: 1;
         -webkit-transform: rotate(300deg);
         -webkit-animation-timing-function: linear;
-        -webkit-origin: 0%;
+        -webkit-origin: 0;
     }
 
     30% {
@@ -2501,7 +2501,7 @@ h4.re3 {
         opacity: 1;
         -ms-transform: rotate(300deg);
         -ms-animation-timing-function: linear;
-        -ms-origin: 0%;
+        -ms-origin: 0;
     }
 
     30% {
@@ -2559,7 +2559,7 @@ h4.re3 {
         transform: rotate(300deg);
         -webkit-animation-timing-function: linear;
         animation-timing-function: linear;
-        origin: 0%;
+        origin: 0;
     }
 
     30% {
@@ -3424,7 +3424,10 @@ table > thead > tr > th {
 @font-face {
     font-family: 'museo_sans_500regular';
     src: url('../../fonts/museo/museosans_500-webfont.eot');
-    src: url('../../fonts/museo/museosans_500-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/museo/museosans_500-webfont.woff') format('woff'), url('../../fonts/museo/museosans_500-webfont.ttf') format('truetype'), url('../../fonts/museo/museosans_500-webfont.svg#museo_sans_900regular') format('svg');
+    src: url('../../fonts/museo/museosans_500-webfont.eot?#iefix') format('embedded-opentype'), 
+        url('../../fonts/museo/museosans_500-webfont.woff') format('woff'), 
+        url('../../fonts/museo/museosans_500-webfont.ttf') format('truetype'), 
+        url('../../fonts/museo/museosans_500-webfont.svg#museo_sans_900regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -3737,7 +3740,9 @@ table > thead > tr > th {
 @font-face {
     font-family: 'ArialMT';
     src: url('../../fonts/arialMT/arialmt.eot');
-    src: url('../../fonts/arialMT/arialmt.eot?#iefix') format('embedded-opentype'), url('../../fonts/arialMT/arialmt.ttf') format('truetype'), url('../../fonts/arialMT/arialmt.svg#arialmt') format('svg');
+    src: url('../../fonts/arialMT/arialmt.eot?#iefix') format('embedded-opentype'), 
+        url('../../fonts/arialMT/arialmt.ttf') format('truetype'), 
+        url('../../fonts/arialMT/arialmt.svg#arialmt') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -3745,7 +3750,9 @@ table > thead > tr > th {
 @font-face {
     font-family: 'ArialBoldMT';
     src: url('../../fonts/arialboldMT/arialboldMT.eot');
-    src: url('../../fonts/arialboldMT/arialboldMT.eot?#iefix') format('embedded-opentype'), url('../../fonts/arialboldMT/arialboldMT.ttf') format('truetype'), url('../../fonts/arialboldMT/arialboldMT.svg#arialboldMT') format('svg');
+    src: url('../../fonts/arialboldMT/arialboldMT.eot?#iefix') format('embedded-opentype'), 
+        url('../../fonts/arialboldMT/arialboldMT.ttf') format('truetype'), 
+        url('../../fonts/arialboldMT/arialboldMT.svg#arialboldMT') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -5302,7 +5309,7 @@ body {
     text-transform: uppercase;
 }
 
-@media screen and (min-width:0px) and (max-width:407px) {
+@media screen and (min-width:0) and (max-width:407px) {
 
     .mi_ganancia {
         max-width: 126px;
@@ -5365,7 +5372,7 @@ body {
     height: auto;
     font-family: 'Lato';
     position: fixed;
-    bottom: 0%;
+    bottom: 0;
     z-index: 1001;
 }
 
@@ -5418,7 +5425,7 @@ body {
 }
 
     .enlace_regresar.detalleP {
-        top: 0%;
+        top: 0;
         left: 2.45%;
         background: url('../../../Images/flecha_volver_mobile.svg') no-repeat center center;
     }
@@ -5565,7 +5572,7 @@ body {
     }
 
     .tooltip_kitNuevas:before {
-        border-bottom-color: #DDD;
+        border-bottom-color: #ddd;
         border-width: 10px;
         margin-left: -10px;
     }
@@ -7253,7 +7260,7 @@ input[type='checkbox']:checked + span:after {
     .tooltip_validado_importe:before {
         position: absolute;
         top: 100%;
-        left: 0%;
+        left: 0;
         border: solid transparent;
         content: ' ';
         height: 0;
@@ -7685,7 +7692,7 @@ input[type='checkbox']:checked + span:after {
             height: 0;
             width: 0;
             position: absolute;
-            border-bottom-color: #DDD;
+            border-bottom-color: #ddd;
             border-width: 10px;
             margin-left: -10px;
         }
@@ -7770,7 +7777,7 @@ input[type='checkbox']:checked + span:after {
     }
 
     .tabs_asesoresBelleza.contenedor3 .one:hover ~ hr {
-        margin-left: 0%;
+        margin-left: 0;
     }
 
     .tabs_asesoresBelleza.contenedor3 .two:hover ~ hr {
@@ -7782,7 +7789,7 @@ input[type='checkbox']:checked + span:after {
     }
 
     .tabs_asesoresBelleza.contenedor2 .one:hover ~ hr {
-        margin-left: 0%;
+        margin-left: 0;
     }
 
     .tabs_asesoresBelleza.contenedor2 .two:hover ~ hr {
@@ -9669,7 +9676,7 @@ span.icon-advertencia {
     }
 
     100% {
-        background: rgba(0,0,0,0.0);
+        background: rgba(0,0,0,0);
     }
 }
 
@@ -10586,7 +10593,7 @@ span.icon-advertencia {
     letter-spacing: 0.2px;
 }
 
-@media screen and (max-width: 425px) and (min-width: 0px) {
+@media screen and (max-width: 425px) and (min-width: 0) {
 
     .Content_favoritos_new .producto_precio_normal {
         display: block;
@@ -12097,7 +12104,7 @@ span.icon-advertencia {
     display: block;
 }
 
-@media screen and (max-width: 486px) and (min-width: 0px) {
+@media screen and (max-width: 486px) and (min-width: 0) {
 
     .content_showroom .producto_precio_normal {
         display: block;
@@ -13695,7 +13702,7 @@ span.icon-advertencia {
     background: #fff;
     box-shadow: 0 -6px 9px 0 rgba(217,217,217,.8);
     position: fixed;
-    bottom: 0%;
+    bottom: 0;
     z-index: 1001;
 }
 
@@ -13768,12 +13775,12 @@ span.icon-advertencia {
     height: 20px;
     position: relative;
     background: rgba(255,255,255,1);
-    background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(216,216,216,1) 100%);
-    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,255,255,1)), color-stop(100%, rgba(216,216,216,1)));
-    background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(216,216,216,1) 100%);
-    background: -o-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(216,216,216,1) 100%);
-    background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(216,216,216,1) 100%);
-    background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(216,216,216,1) 100%);
+    background: -moz-linear-gradient(top, rgba(255,255,255,1) 0, rgba(216,216,216,1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0, rgba(255,255,255,1)), color-stop(100%, rgba(216,216,216,1)));
+    background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0, rgba(216,216,216,1) 100%);
+    background: -o-linear-gradient(top, rgba(255,255,255,1) 0, rgba(216,216,216,1) 100%);
+    background: -ms-linear-gradient(top, rgba(255,255,255,1) 0, rgba(216,216,216,1) 100%);
+    background: linear-gradient(to bottom, rgba(255,255,255,1) 0, rgba(216,216,216,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#d8d8d8', GradientType=0 );
     border-radius: 10px;
     -moz-border-radius: 10px;
@@ -13790,12 +13797,12 @@ span.icon-advertencia {
 .barra_ganancia_espacio_logrado {
     width: 85%;
     background: rgba(97,60,135,1);
-    background: -moz-linear-gradient(left, rgba(97,60,135,1) 0%, rgba(232,28,54,1) 100%);
-    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(97,60,135,1)), color-stop(100%, rgba(232,28,54,1)));
-    background: -webkit-linear-gradient(left, rgba(97,60,135,1) 0%, rgba(232,28,54,1) 100%);
-    background: -o-linear-gradient(left, rgba(97,60,135,1) 0%, rgba(232,28,54,1) 100%);
-    background: -ms-linear-gradient(left, rgba(97,60,135,1) 0%, rgba(232,28,54,1) 100%);
-    background: linear-gradient(to right, rgba(97,60,135,1) 0%, rgba(232,28,54,1) 100%);
+    background: -moz-linear-gradient(left, rgba(97,60,135,1) 0, rgba(232,28,54,1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0, rgba(97,60,135,1)), color-stop(100%, rgba(232,28,54,1)));
+    background: -webkit-linear-gradient(left, rgba(97,60,135,1) 0, rgba(232,28,54,1) 100%);
+    background: -o-linear-gradient(left, rgba(97,60,135,1) 0, rgba(232,28,54,1) 100%);
+    background: -ms-linear-gradient(left, rgba(97,60,135,1) 0, rgba(232,28,54,1) 100%);
+    background: linear-gradient(to right, rgba(97,60,135,1) 0, rgba(232,28,54,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#613c87', endColorstr='#613c87', GradientType=1 );
     border-radius: 10px;
     -moz-border-radius: 10px;
