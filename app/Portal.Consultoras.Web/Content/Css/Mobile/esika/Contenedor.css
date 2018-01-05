@@ -32,7 +32,7 @@
         display: table-cell;
         vertical-align: middle;
         height: 70px;
-        padding: 0px 2%;
+        padding: 0 2%;
         overflow-y: hidden;
     }
 
@@ -63,7 +63,7 @@
         display: inline-block;
         width: 33.3%;
         cursor: pointer;
-        margin-top: 0px;
+        margin-top: 0;
     }
 
         .bc_para_ti-menu ul li:nth-child(2) a {
@@ -275,7 +275,7 @@ section {
 
     .bc-menu-vertical-prev img, .bc-menu-vertical-next img {
         height: 20px !important;
-        padding: 0px 19px !important;
+        padding: 0 19px !important;
         margin-top: 13px !important;
     }
 
@@ -418,7 +418,7 @@ img.icono-submenu-tabs {
     }
 
     .bc_mobile-texto .mobile-txt {
-        padding: 0px 10%;
+        padding: 0 10%;
     }
 }
 
@@ -427,7 +427,7 @@ img.icono-submenu-tabs {
 
 @media (max-width:359px) {
     .slick-list {
-        padding: 8px 0px !important;
+        padding: 8px 0 !important;
     }
 }
 

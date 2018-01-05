@@ -5,8 +5,8 @@
 
 /************************** Tags ***************************/
 body {
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     font-family: museo-sans, sans-serif;
 }
 
@@ -434,10 +434,10 @@ img {
 
 #white_bg_for_menu {
     position: absolute;
-    width: 0px;
+    width: 0;
     height: 100px;
-    top: 0px;
-    right: 0px;
+    top: 0;
+    right: 0;
 }
 
 #wrap_header_menu {
@@ -445,7 +445,7 @@ img {
     height: 100px;
     text-transform: uppercase;
     max-width: 1280px;
-    margin: 0px auto;
+    margin: 0 auto;
     height: 100px;
     min-width: 960px;
     background-color: white;
@@ -556,13 +556,13 @@ img {
 }
 
 .cbp-fwslider {
-    padding: 0px !important;
+    padding: 0 !important;
     clear: both;
 }
 
 .banner_imagen {
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
     z-index: 0;
 }
 
@@ -598,7 +598,7 @@ img {
 #wrap_menu_principal {
     color: #993399;
     height: 70px;
-    margin-top: 0px;
+    margin-top: 0;
 }
 
 #menu {
@@ -618,10 +618,10 @@ img {
     }
 
         #menu > li {
-            border-bottom: 0px solid transparent;
+            border-bottom: 0 solid transparent;
             color: #993399;
             float: left;
-            margin-bottom: 0px;
+            margin-bottom: 0;
             text-align: left;
             -moz-transition: color 250ms ease-in-out 0s;
             -ms-transition: color 250ms ease-in-out 0s;
@@ -695,7 +695,7 @@ img {
     opacity: 0;
     padding: 2% 1%;
     position: absolute;
-    left: 0px;
+    left: 0;
     top: 100px;
     width: 100%;
     max-width: 1280px;
@@ -716,7 +716,7 @@ img {
         .submenu > ul > li {
             display: inline-block;
             vertical-align: top;
-            margin: 0px;
+            margin: 0;
         }
 
             .submenu > ul > li a {
@@ -734,7 +734,7 @@ img {
 
 .submenu > ul > li ul > li {
     float: none;
-    padding: 3px 0px;
+    padding: 3px 0;
     -moz-transition: padding 150ms ease-out 0s;
     -ms-transition: padding 150ms ease-out 0s;
     -o-transition: padding 150ms ease-out 0s;
@@ -817,7 +817,7 @@ img {
     background-color: #758692;
     color: #ffffff;
     text-transform: uppercase;
-    bottom: 0px;
+    bottom: 0;
     min-width: 960px;
     padding: 14px 30px;
     padding-bottom: 1px;
@@ -866,7 +866,7 @@ img {
     background-color: #758692;
     color: #ffffff;
     text-transform: uppercase;
-    bottom: 0px;
+    bottom: 0;
     min-width: 960px;
     padding: 14px 30px;
     text-align: left;
@@ -922,7 +922,7 @@ img {
 
     #menu .submenu > ul > li li {
         float: none;
-        padding: 3px 0px;
+        padding: 3px 0;
         font-size: 0.9em;
     }
 
@@ -934,7 +934,7 @@ img {
 
 @media screen and (min-width: 1400px) {
     .footer_margin_text {
-        margin-top: 0px;
+        margin-top: 0;
     }
 }
 
@@ -1060,7 +1060,7 @@ img {
         font-size: 18px;
         color: #722789;
         font-weight: 300 !important;
-        margin: 0px 0px 5px;
+        margin: 0 0 5px;
     }
 
         .inscribir_consultora h2 strong {
@@ -1092,7 +1092,7 @@ img {
     font-size: 28px;
     color: #722789;
     font-weight: 300 !important;
-    margin: 0px 0px 5px;
+    margin: 0 0 5px;
 }
 
     .cont_activate h2 strong {
@@ -1135,7 +1135,7 @@ img {
         font-size: 23.5px;
         color: #722789;
         font-weight: 500;
-        margin: 0px 0px 5px;
+        margin: 0 0 5px;
     }
 
 .cont_pasos {
@@ -1193,7 +1193,7 @@ img {
         width: 100%;
         position: relative;
         float: left;
-        margin: 130px 0px 55px;
+        margin: 130px 0 55px;
     }
 
 .cont_pregunta {
@@ -1262,7 +1262,7 @@ img {
         font-size: 24px;
         color: #722789;
         font-weight: 300;
-        margin: 15px 0px 5px;
+        margin: 15px 0 5px;
     }
 
         .text_bienvenida h2 strong {
@@ -1334,7 +1334,7 @@ img {
     font-size: 14px;
     padding-top: 47px !important;
     box-sizing: border-box;
-    padding: 0px 2% 20px 0px;
+    padding: 0 2% 20px 0;
 }
 
     .cont_pedido h2 {
@@ -1383,11 +1383,11 @@ img {
     .cont_mas_clientes p {
         width: 70%;
         max-width: 513px;
-        margin: 5px 0px 30px;
+        margin: 5px 0 30px;
     }
 
     .cont_mas_clientes strong {
-        margin: 10px 0px 13px;
+        margin: 10px 0 13px;
         color: #405160;
         font-weight: 700;
         font-size: 16px;
@@ -1404,7 +1404,7 @@ img {
     position: relative;
     float: left;
     font-size: 14px;
-    padding: 47px 0px 40px;
+    padding: 47px 0 40px;
     box-sizing: border-box;
 }
 
@@ -1433,7 +1433,7 @@ img {
     height: 156px;
     position: relative;
     clear: both;
-    margin: 0px auto;
+    margin: 0 auto;
     border-radius: 80px;
 }
 
@@ -1468,7 +1468,7 @@ img {
     color: #415261;
     font-size: 13px;
     font-weight: 700;
-    padding: 0px;
+    padding: 0;
 }
 
     .lista_datos li {
@@ -1490,7 +1490,7 @@ img {
     color: #415261;
     font-size: 13px;
     font-weight: 700;
-    padding: 0px 0px 0px 10px;
+    padding: 0 0 0 10px;
 }
 
     .lista_datos_respuesta li {
@@ -1510,7 +1510,7 @@ img {
     color: #415261;
     font-size: 13px;
     font-weight: 700;
-    padding: 0px 0px 0px 10px;
+    padding: 0 0 0 10px;
 }
 
     .lista_datos_respuesta_ver li {
@@ -1537,7 +1537,7 @@ img {
 
 .con_notificacion {
     max-width: 920px;
-    margin: 0px auto 20px;
+    margin: 0 auto 20px;
 }
 
 .text_notificacion {
@@ -1546,8 +1546,8 @@ img {
     background-color: #f2f2f2;
     position: relative;
     float: left;
-    margin: 0px;
-    padding: 14px 24px 0px 15px;
+    margin: 0;
+    padding: 14px 24px 0 15px;
     box-sizing: border-box;
     color: #768ea3;
     font-size: 16px;
@@ -1590,7 +1590,7 @@ img {
     .menu_paginacion li {
         position: relative;
         float: left;
-        margin: 0px 5px;
+        margin: 0 5px;
     }
 
 .btn_correo_direc {
@@ -1605,7 +1605,7 @@ img {
     box-sizing: border-box;
     max-width: 246px;
     left: -285px;
-    top: 0px;
+    top: 0;
 }
 
 .ic_pregunta {
@@ -1636,14 +1636,14 @@ img {
 .mensaje_notificacion {
     max-width: 170px;
     position: relative;
-    margin: 20px auto 0px;
+    margin: 20px auto 0;
     text-align: center;
 }
 
 .boton_morado_2 {
     background-color: #722789;
     color: #fff !important;
-    border: 0px;
+    border: 0;
     border-radius: 20px;
     padding: 10px 30px;
     font-size: 12px;
@@ -1659,7 +1659,7 @@ img {
     font-size: 12px;
     font-weight: 300;
     border: 1px solid #712788;
-    margin: 0px auto;
+    margin: 0 auto;
     max-width: 125px;
     background-color: transparent;
     box-sizing: border-box;
@@ -1673,7 +1673,7 @@ img {
     width: 100%;
     position: relative;
     float: left;
-    border-spacing: 0px;
+    border-spacing: 0;
     font-size: 12px;
     font-weight: 600;
     color: #415261;
@@ -1734,7 +1734,7 @@ img {
 
 .tsm input {
     width: 100%;
-    padding: 0px 8px;
+    padding: 0 8px;
     height: 34px;
     position: relative;
     float: left;
@@ -1761,7 +1761,7 @@ img {
     width: 20px;
     height: 20px;
     border: 1px solid #768ea3;
-    border-radius: 0px;
+    border-radius: 0;
     background-color: #fff;
 }
 
@@ -1787,7 +1787,7 @@ img {
 }
 
 .ie8 .tsm input[type=radio] + label:before {
-    width: 0px !important;
+    width: 0 !important;
     border: none !important;
 }
 
@@ -1847,7 +1847,7 @@ button {
 .boton_morado {
     background-color: #722789;
     color: #fff !important;
-    border: 0px;
+    border: 0;
     border-radius: 20px;
     padding: 10px 40px;
     font-size: 12px;
@@ -2086,7 +2086,7 @@ button {
 
     #modal_aceptar_pedido table tr td {
         color: #415261 !important;
-        padding: 15px 0px;
+        padding: 15px 0;
     }
 
     #modal_aceptar_pedido .comment {
@@ -2124,7 +2124,7 @@ button {
     }
 
     #modal_cancelar_pedido .fuzemodal_buttons {
-        padding-bottom: 0px;
+        padding-bottom: 0;
     }
 
     #modal_cancelar_pedido textarea {
@@ -2175,9 +2175,9 @@ button {
     position: relative;
     float: left;
     font-size: 14px;
-    padding-top: 0px !important;
+    padding-top: 0 !important;
     box-sizing: border-box;
-    padding: 0px 2% 20px 0px;
+    padding: 0 2% 20px 0;
 }
 
     .cont_beneficio h2 {
@@ -2206,7 +2206,7 @@ div.subir_archivo {
     width: 100%;
     position: relative;
     float: left;
-    border-spacing: 0px;
+    border-spacing: 0;
     font-size: 12px;
     font-weight: 600;
     color: #415261;
@@ -2243,7 +2243,7 @@ div.subir_archivo {
 
 .rad_ input {
     width: 100%;
-    padding: 0px 8px;
+    padding: 0 8px;
     height: 34px;
     position: relative;
     float: left;
@@ -2270,7 +2270,7 @@ div.subir_archivo {
     width: 20px;
     height: 20px;
     border: 1px solid #768ea3;
-    border-radius: 0px;
+    border-radius: 0;
     background-color: #fff;
 }
 
@@ -2296,7 +2296,7 @@ div.subir_archivo {
 }
 
 .ie8 .rad_ input[type=radio] + label:before {
-    width: 0px !important;
+    width: 0 !important;
     border: none !important;
 }
 
@@ -2362,7 +2362,7 @@ div.subir_archivo {
     color: #415261;
     font-size: 13px;
     font-weight: 700;
-    padding: 0px 0px 0px 10px;
+    padding: 0 0 0 10px;
 }
 
     .lista_datos_perfil_ver li {
@@ -2410,7 +2410,7 @@ div.subir_archivo {
 
     #idTablaListaPedido tbody tr td {
         border-bottom: 1px solid #bac6d2 !important;
-        padding: 10px 0px;
+        padding: 10px 0;
         box-sizing: border-box;
         vertical-align: top;
         text-align: center;

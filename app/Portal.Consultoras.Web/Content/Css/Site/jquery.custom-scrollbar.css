@@ -70,7 +70,7 @@
 }
 
     .scrollable.default-skin .scroll-bar.vertical {
-        width: 0px;
+        width: 0;
         border: 1px solid #ddd;
         cursor: pointer;
     }

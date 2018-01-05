@@ -338,7 +338,7 @@
     border: 1px solid #000;
     color: #000;
     height: auto;
-    padding: 5px 0px;
+    padding: 5px 0;
     margin-bottom: 12px;
     box-sizing: border-box;
     transition: all 0.3s ease;
@@ -501,7 +501,7 @@
 }
 
     .solucion_cdr:last-child {
-        margin-bottom: 0px;
+        margin-bottom: 0;
     }
 
     .solucion_cdr:focus {
@@ -574,7 +574,7 @@
 }
 
     .contenedor_producto_cambio_por .producto_cdr {
-        margin-bottom: 0px;
+        margin-bottom: 0;
     }
 
 .texto_producto_a_cambiar {
@@ -732,11 +732,11 @@
     padding: 15px 4px 16px 4px;
     border-radius: 7px;
     position: relative;
-    box-shadow: 3px 6px 18px 0px rgba(0,0,0,0.3);
-    -moz-box-shadow: 3px 6px 18px 0px rgba(0,0,0,0.3);
-    -o-box-shadow: 3px 6px 18px 0px rgba(0,0,0,0.3);
-    -ms-box-shadow: 3px 6px 18px 0px rgba(0,0,0,0.3);
-    -webkit-box-shadow: 3px 6px 18px 0px rgba(0,0,0,0.3);
+    box-shadow: 3px 6px 18px 0 rgba(0,0,0,0.3);
+    -moz-box-shadow: 3px 6px 18px 0 rgba(0,0,0,0.3);
+    -o-box-shadow: 3px 6px 18px 0 rgba(0,0,0,0.3);
+    -ms-box-shadow: 3px 6px 18px 0 rgba(0,0,0,0.3);
+    -webkit-box-shadow: 3px 6px 18px 0 rgba(0,0,0,0.3);
 }
 
     .tooltip_btn_reportar_inconveniente:after {

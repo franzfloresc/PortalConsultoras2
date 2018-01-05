@@ -22,7 +22,7 @@
     height: 85px;
     left: -9px;
     margin-top: 14px;
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 
     .popup_revistaSuscripcion_logoMarca img {
@@ -98,7 +98,7 @@
     display: none;
     position: absolute;
     bottom: -6px;
-    right: 0px;
+    right: 0;
 }
 
 .popup_revistaSuscripcion_noAMostrarMensaje {
@@ -183,7 +183,7 @@
     background: -o-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
     background: -ms-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
     background: linear-gradient(to right, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    top: 0px;
+    top: 0;
     left: -23px;
     transform: skewX(-14deg);
     -moz-transform: skewX(-14deg);
@@ -198,7 +198,7 @@
     height: 117px;
     position: absolute;
     background: #000;
-    top: 0px;
+    top: 0;
     transform: skewX(-14deg);
     left: 115px;
 }
@@ -400,9 +400,9 @@ div#tab_revistasdigital_mobile {
 }
 
     .contenedor_botonVerMasOfertas .boxoffer {
-        left: 0px;
-        right: 0px;
-        top: 0px;
+        left: 0;
+        right: 0;
+        top: 0;
     }
 
 @media screen and (max-width:365px) {
@@ -421,7 +421,7 @@ div#tab_revistasdigital_mobile {
 
 .contenedor_cabecera_revistaDigital.cabecera_vistaRevistaSuscripcion {
     width: 100%;
-    left: 0px;
+    left: 0;
 }
 
 .texto_ofertas_bonificaciones.texto_vistaRevistaSuscripcion {
@@ -451,7 +451,7 @@ div#tab_revistasdigital_mobile {
     .cabecera_esikaParaMi:after {
         content: '';
         position: absolute;
-        top: 0px;
+        top: 0;
         width: 300%;
         height: 165px;
         left: 100px;
@@ -463,7 +463,7 @@ div#tab_revistasdigital_mobile {
     width: 227px;
     height: 165px;
     position: absolute;
-    top: 0px;
+    top: 0;
     left: -25px;
     z-index: 3;
     background: -moz-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
@@ -484,7 +484,7 @@ div#tab_revistasdigital_mobile {
         width: 300%;
         height: 165px;
         position: absolute;
-        top: 0px;
+        top: 0;
         left: -454px;
         background: -moz-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
         background: -webkit-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
@@ -544,13 +544,13 @@ div#tab_revistasdigital_mobile {
 
     .cabecera_boton_inscribeteAEsikaParaMi button {
         background: #FF1534;
-        border: 0px;
+        border: 0;
         width: 256px;
         height: 52px;
         color: #FFF;
         margin-bottom: 9px;
         position: relative;
-        top: 0px;
+        top: 0;
         transition: all 0.3s ease;
         -moz-transition: all 0.3s ease;
         -o-transition: all 0.3s ease;
@@ -588,7 +588,7 @@ div#tab_revistasdigital_mobile {
 .contenido_esikaParaMi {
     font-family: 'Lato';
     color: #000;
-    padding: 22px 20px 0px 20px;
+    padding: 22px 20px 0 20px;
     position: relative;
     z-index: 2;
     width: 100%;
@@ -623,18 +623,18 @@ div#tab_revistasdigital_mobile {
     .contenido_comoFuncionaEsikaParaMi h4, .contenido_beneficiosEsikaParaMi h4 {
         display: block;
         font-size: 15px;
-        margin: 0px 0px 14px 0px;
-        padding: 0px;
+        margin: 0 0 14px 0;
+        padding: 0;
         color: #000;
     }
 
 .contenido_pasos_comoFunciona {
-    margin-right: 0px;
+    margin-right: 0;
     text-align: left;
 }
 
     .contenido_pasos_comoFunciona:last-child, .contenido_beneficiosEsikaParaMi:last-child {
-        margin-right: 0px;
+        margin-right: 0;
     }
 
     .contenido_pasos_comoFunciona span:first-child {
@@ -651,13 +651,13 @@ div#tab_revistasdigital_mobile {
     }
 
 .contenido_beneficiosEsikaParaMi {
-    margin-right: 0px;
+    margin-right: 0;
     margin-bottom: 27px;
     text-align: center;
 }
 
     .contenido_beneficiosEsikaParaMi:last-child {
-        margin-bottom: 0px;
+        margin-bottom: 0;
     }
 
     .contenido_beneficiosEsikaParaMi span:first-child {
@@ -686,7 +686,7 @@ div#tab_revistasdigital_mobile {
 
 .fondo_sobreContenidoDesenfocado, .fondo_sobreContenidoDesenfocado:before, .fondo_sobreContenidoDesenfocado:after {
     position: absolute;
-    top: 0px;
+    top: 0;
     width: 100%;
     height: 100%;
     background: rgba(0,0,0,0.4);
@@ -749,7 +749,7 @@ div#tab_revistasdigital_mobile {
             line-height: 24px;
             letter-spacing: 1px;
             margin-bottom: 60px;
-            padding: 0px 18px;
+            padding: 0 18px;
         }
 
     .contenido_fondoDesenfocado button {
@@ -764,11 +764,11 @@ div#tab_revistasdigital_mobile {
         letter-spacing: 0.1px;
         position: absolute;
         bottom: -37px;
-        box-shadow: 0px -2px 11px rgba(0,0,0,0.25);
-        -moz-box-shadow: 0px -2px 11px rgba(0,0,0,0.25);
-        -o-box-shadow: 0px -2px 11px rgba(0,0,0,0.25);
-        -ms-box-shadow: 0px -2px 11px rgba(0,0,0,0.25);
-        -webkit-box-shadow: 0px -2px 11px rgba(0,0,0,0.25);
+        box-shadow: 0 -2px 11px rgba(0,0,0,0.25);
+        -moz-box-shadow: 0 -2px 11px rgba(0,0,0,0.25);
+        -o-box-shadow: 0 -2px 11px rgba(0,0,0,0.25);
+        -ms-box-shadow: 0 -2px 11px rgba(0,0,0,0.25);
+        -webkit-box-shadow: 0 -2px 11px rgba(0,0,0,0.25);
         transition: all 0.3s ease;
         -moz-transition: all 0.3s ease;
         -o-transition: all 0.3s ease;
@@ -783,7 +783,7 @@ div#tab_revistasdigital_mobile {
         line-height: 18px;
         width: 100%;
         margin: 0 auto;
-        padding: 0px 16px;
+        padding: 0 16px;
         font-weight: 300;
     }
 
@@ -804,7 +804,7 @@ div#tab_revistasdigital_mobile {
     }
 
     .contenido_esikaParaMi {
-        padding: 22px 13px 0px 13px;
+        padding: 22px 13px 0 13px;
     }
 
     .contenido_comoFuncionaEsikaParaMi.fondoContenido {
@@ -960,9 +960,9 @@ div#tab_revistasdigital_mobile {
 .content_item_ept {
     background: white;
     border: 1px solid #e7e1e1;
-    -webkit-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
-    -moz-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
-    box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
+    -webkit-box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
+    -moz-box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
+    box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
     position: relative;
     margin-bottom: 20px;
     padding: 0;
@@ -1370,7 +1370,7 @@ div#tab_revistasdigital_mobile {
 
     .mrd_logo:after {
         border-left: 22px solid transparent;
-        border-right: 0px solid transparent;
+        border-right: 0 solid transparent;
         border-bottom: 85px solid #000;
     }
 /* CONTENIDO POPUP INSCRIPCIÓN */
@@ -1564,7 +1564,7 @@ div#tab_revistasdigital_mobile {
 }
 
 .box_preguntas_ept {
-    margin: 0px 0 40px;
+    margin: 0 0 40px;
 }
 
 .box_cancelarInscripcion_ept {
@@ -1684,7 +1684,7 @@ div#tab_revistasdigital_mobile {
 
 @media (min-width: 460px) {
     .mpopup_text div {
-        margin-bottom: 0px;
+        margin-bottom: 0;
     }
 
     .mpopup_text .mtit {
@@ -1801,9 +1801,9 @@ div#tab_revistasdigital_mobile {
 .content_item_home_bpt {
     background: white;
     border: 1px solid #e7e1e1;
-    -webkit-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
-    -moz-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
-    box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
+    -webkit-box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
+    -moz-box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
+    box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
     position: relative;
     margin-bottom: 10px;
 }
@@ -1902,7 +1902,7 @@ div#tab_revistasdigital_mobile {
     position: relative;
     background-color: #F6F6F6;
     height: auto;
-    box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.2);
     margin-bottom: 20px;
     font-family: 'Lato';
 }
@@ -1921,12 +1921,12 @@ div#tab_revistasdigital_mobile {
             width: 79%;
             margin: auto;
             display: block;
-            padding: 5px 5px 10px 0px;
+            padding: 5px 5px 10px 0;
         }
 
         .cabecera_pedido_rd .rd_logo:after {
             border-left: 20px solid transparent;
-            border-right: 0px solid transparent;
+            border-right: 0 solid transparent;
             border-bottom: 85px solid #000;
         }
 
@@ -2019,7 +2019,7 @@ div#tab_revistasdigital_mobile {
     font-family: 'Lato';
     letter-spacing: 1px;
     padding: 10px 0;
-    box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.25);
 }
 
     .rd_producto_bloqueado a {
@@ -2483,12 +2483,12 @@ div#tab_revistasdigital_mobile {
     width: 100%;
     display: block;
     text-align: center;
-    padding: 20px 0px;
+    padding: 20px 0;
     text-transform: uppercase;
-    margin: 30px 0px;
+    margin: 30px 0;
     font-size: 13px;
     letter-spacing: 1px;
-    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.30);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.30);
 }
 
 .suscribete-gratis a.terminos {
@@ -2529,14 +2529,14 @@ a.btn-suscribete-video {
     width: 100%;
     display: block;
     text-align: center;
-    padding: 20px 0px;
+    padding: 20px 0;
     text-transform: uppercase;
     position: fixed;
     bottom: -100%;
     letter-spacing: 1.5px;
     color: white;
     text-align: center;
-    box-shadow: 0px 3px 6px 6px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 3px 6px 6px rgba(0, 0, 0, 0.5);
     cursor: pointer;
     z-index: 999;
 }
@@ -2549,7 +2549,7 @@ a.btn-suscribete-video-baja {
     width: 100%;
     display: block;
     text-align: center;
-    padding: 20px 0px;
+    padding: 20px 0;
     text-transform: uppercase;
     position: fixed;
     bottom: 0%;
@@ -2659,7 +2659,7 @@ a.btn-suscribete-video-baja {
 
 @media (max-width: 550px) {
     .que-ofrecemos .ofrece-bloque .icono img {
-        padding-top: 0px;
+        padding-top: 0;
     }
 
     .show-gana .contenedor .img-descriptiva img {
@@ -2723,7 +2723,7 @@ a.btn-suscribete-video-baja {
 }
 
     .preguntas-frecuentes-cont-sus .contenedor-mobile-fix {
-        padding: 0px 25px;
+        padding: 0 25px;
     }
 
         .preguntas-frecuentes-cont-sus .contenedor-mobile-fix p {
@@ -2731,7 +2731,7 @@ a.btn-suscribete-video-baja {
             color: black;
             font-size: 13px;
             padding: 15px;
-            box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
             text-align: left;
             margin-bottom: 0;
             position: relative;

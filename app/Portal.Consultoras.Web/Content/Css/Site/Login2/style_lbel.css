@@ -945,7 +945,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .mensaje_pop_up_contraseniaEnviada h1 {
     margin-top: 56px;
-    margin-bottom: 0px;
+    margin-bottom: 0;
     font-size: 16pt;
     color: black;
     margin-left: 15%;
@@ -1013,7 +1013,7 @@ h1, h2, h3, h4, h5, h6 {
     height: 346px;
     width: 416px;
     z-index: 1;
-    left: 0px;
+    left: 0;
     top: 90px;
     position: relative;
 }
@@ -1204,7 +1204,7 @@ h1, h2, h3, h4, h5, h6 {
 
     #cuadro2 {
         width: 85%;
-        top: 0px;
+        top: 0;
         padding-top: 67px;
         padding-bottom: 10px;
     }
@@ -1286,7 +1286,7 @@ h1, h2, h3, h4, h5, h6 {
     }
 
     .logo-esika {
-        margin-left: 0px;
+        margin-left: 0;
     }
 
     .fondo_form {
@@ -1373,10 +1373,10 @@ h1, h2, h3, h4, h5, h6 {
         }
 
     img.imgc {
-        margin: 0px;
-        padding: 0px;
+        margin: 0;
+        padding: 0;
         vertical-align: top;
-        border: 0px;
+        border: 0;
         float: left;
     }
 
@@ -1392,7 +1392,7 @@ h1, h2, h3, h4, h5, h6 {
     }
 
     .content-alerta-red-user, .content-alerta-red-clave {
-        left: 0px;
+        left: 0;
         width: 100%;
         text-align: center;
     }
@@ -1405,7 +1405,7 @@ h1, h2, h3, h4, h5, h6 {
     .alerta_red_chile_clave, .alerta_red_pr_user, .alerta_red_pr_clave, .alerta_red_do_user, .alerta_red_do_clave,
     .alerta_red_mx_user, .alerta_red_mx_clave, .alerta_red_ec_user, .alerta_red_ec_clave, .alerta_red_ve_user, .alerta_red_ve_clave,
     .alerta_red_co_user, .alerta_red_co_clave, .alerta_red_cam_user7, .alerta_red_cam_user9, .alerta_red_cam_clave {
-        left: 0px;
+        left: 0;
     }
 
     .alerta_red_block {
@@ -1505,7 +1505,7 @@ h1, h2, h3, h4, h5, h6 {
     }
 
     #container {
-        background: url('../Images/bg_form_esika.png') 0px 0px repeat;
+        background: url('../Images/bg_form_esika.png') 0 0 repeat;
         height: 100%;
     }
 
@@ -1550,7 +1550,7 @@ h1, h2, h3, h4, h5, h6 {
     }
 
     .footer .footerWrap .logosRight a {
-        padding-right: 0px;
+        padding-right: 0;
     }
 
     .footer .footerWrap .logoFoot {

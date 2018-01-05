@@ -97,7 +97,7 @@
     .texto_terminosCondiciones:before {
         content: '';
         position: absolute;
-        left: 0px;
+        left: 0;
         width: 16px;
         height: 16px;
         margin-top: 3px;

@@ -9,8 +9,8 @@ html, body {
 body {
     font-size: 13px;
     font-family: 'museo_300regular', Helvetica, Arial, Tahoma;
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     background: url('../../images/comunidad/bg_regis.jpg') top center no-repeat #FFF;
     color: #555;
     line-height: 18px;
@@ -18,39 +18,39 @@ body {
 }
 
 ul {
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
 }
 
 li {
     list-style-type: none;
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
 }
 
 p {
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
 }
 
 img {
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     vertical-align: top;
-    border: 0px;
+    border: 0;
 }
 
 input, textarea {
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
     outline: 0 none;
     font-family: Arial, Helvetica;
     color: #666;
 }
 
 span {
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
 }
 
 h1, .h1 {
@@ -79,7 +79,7 @@ h6, .h6 {
 /**** ESTRUCTURA *******/
 .wrapper {
     width: 1280px;
-    margin: 0px auto;
+    margin: 0 auto;
     text-align: left;
     padding-top: 10px;
 }
@@ -113,7 +113,7 @@ h6, .h6 {
         zoom: 1;
         text-align: center;
         color: #FFF;
-        padding: 0px 13px 0px 13px;
+        padding: 0 13px 0 13px;
         text-decoration: none;
         font-weight: bold;
         font-size: 12px;
@@ -136,7 +136,7 @@ h6, .h6 {
         *display: inline;
         zoom: 1;
         text-align: center;
-        padding: 0px 105px 0px 105px;
+        padding: 0 105px 0 105px;
         color: #993399;
         font-weight: bold;
         text-decoration: none;
@@ -144,11 +144,11 @@ h6, .h6 {
     }
 
 .wrapMain {
-    padding: 28px 0px 0px 150px;
+    padding: 28px 0 0 150px;
 }
 
 .wrapMain_B {
-    padding: 28px 0px 0px 20%;
+    padding: 28px 0 0 20%;
 }
 
 .webForm {
@@ -163,7 +163,7 @@ h6, .h6 {
 
 .webForm .title {
     display: block;
-    padding: 0px 0px 22px 0px;
+    padding: 0 0 22px 0;
     font-weight: bold;
     font-size: 20px;
     line-height: 28px;
@@ -173,7 +173,7 @@ h6, .h6 {
 
 .webForm_B .title_B {
     display: block;
-    padding: 0px 0px 22px 0px;
+    padding: 0 0 22px 0;
     font-size: 28px;
     line-height: 28px;
     color: #993399;
@@ -255,7 +255,7 @@ h6, .h6 {
     .formcontrol .inputForm {
         height: 42px;
         line-height: 42px;
-        padding: 0px;
+        padding: 0;
         background: transparent;
         width: 100%;
         border: none;
@@ -266,7 +266,7 @@ h6, .h6 {
     .formcontrol select {
         height: 42px;
         line-height: 42px;
-        padding: 0px;
+        padding: 0;
         background: transparent;
         width: 100%;
         border: none;
@@ -285,7 +285,7 @@ h6, .h6 {
     border: none;
     cursor: pointer;
     color: #FFF;
-    background: url('../../images/comunidad/btn_crear.png') 0px 0px no-repeat;
+    background: url('../../images/comunidad/btn_crear.png') 0 0 no-repeat;
 }
 
     .formbtn .btnCrear:hover {
@@ -302,7 +302,7 @@ h6, .h6 {
         border: none;
         cursor: pointer;
         color: #FFF;
-        background: url('../../images/comunidad/btn_crear.png') 0px 0px no-repeat;
+        background: url('../../images/comunidad/btn_crear.png') 0 0 no-repeat;
     }
 
         .formbtn2 .btnCrear:hover {
@@ -526,7 +526,7 @@ h6, .h6 {
     .formcontrol_B .inputForm_B {
         height: 42px;
         line-height: 42px;
-        padding: 0px;
+        padding: 0;
         background: transparent;
         width: 100%;
         border: none;
@@ -554,7 +554,7 @@ h6, .h6 {
     .formcontrol_C .inputForm_C {
         height: 42px;
         line-height: 42px;
-        padding: 0px;
+        padding: 0;
         background: transparent;
         width: 100%;
         border: none;

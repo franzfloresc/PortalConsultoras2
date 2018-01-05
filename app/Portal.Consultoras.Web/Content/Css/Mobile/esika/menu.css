@@ -276,7 +276,7 @@ div#caja-back-header {
     overflow: hidden;
 }
 
-.menu[style='left: 0px;'] {
+.menu[style='left: 0;'] {
     width: 90%;
 }
 
