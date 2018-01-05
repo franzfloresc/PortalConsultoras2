@@ -1,7 +1,7 @@
 USE BelcorpPeru
 GO
 
-IF NOT EXISTS(SELECT * 
+IF EXISTS(SELECT * 
 	FROM SYS.COLUMNS C
 		JOIN SYS.OBJECTS  O
 		ON C.[OBJECT_ID] = O.[OBJECT_ID]
@@ -10,15 +10,16 @@ IF NOT EXISTS(SELECT *
 	AND C.NAME = 'Origen')
 BEGIN
 	ALTER TABLE RevistaDigitalSuscripcion
-	ADD Origen VARCHAR(20)
-	CONSTRAINT COST_RevistaDigiralSuscripcion_Origen DEFAULT ''
+	DROP COST_RevistaDigiralSuscripcion_Origen 
+	ALTER TABLE RevistaDigitalSuscripcion
+	DROP COLUMN Origen
 END
 GO
 
 USE BelcorpMexico
 GO
 
-IF NOT EXISTS(SELECT * 
+IF EXISTS(SELECT * 
 	FROM SYS.COLUMNS C
 		JOIN SYS.OBJECTS  O
 		ON C.[OBJECT_ID] = O.[OBJECT_ID]
@@ -27,15 +28,16 @@ IF NOT EXISTS(SELECT *
 	AND C.NAME = 'Origen')
 BEGIN
 	ALTER TABLE RevistaDigitalSuscripcion
-	ADD Origen VARCHAR(20)
-	CONSTRAINT COST_RevistaDigiralSuscripcion_Origen DEFAULT ''
+	DROP COST_RevistaDigiralSuscripcion_Origen 
+	ALTER TABLE RevistaDigitalSuscripcion
+	DROP COLUMN Origen
 END
 GO
 
 USE BelcorpColombia
 GO
 
-IF NOT EXISTS(SELECT * 
+IF EXISTS(SELECT * 
 	FROM SYS.COLUMNS C
 		JOIN SYS.OBJECTS  O
 		ON C.[OBJECT_ID] = O.[OBJECT_ID]
@@ -44,15 +46,16 @@ IF NOT EXISTS(SELECT *
 	AND C.NAME = 'Origen')
 BEGIN
 	ALTER TABLE RevistaDigitalSuscripcion
-	ADD Origen VARCHAR(20)
-	CONSTRAINT COST_RevistaDigiralSuscripcion_Origen DEFAULT ''
+	DROP COST_RevistaDigiralSuscripcion_Origen 
+	ALTER TABLE RevistaDigitalSuscripcion
+	DROP COLUMN Origen
 END
 GO
 
 USE BelcorpVenezuela
 GO
 
-IF NOT EXISTS(SELECT * 
+IF EXISTS(SELECT * 
 	FROM SYS.COLUMNS C
 		JOIN SYS.OBJECTS  O
 		ON C.[OBJECT_ID] = O.[OBJECT_ID]
@@ -61,15 +64,16 @@ IF NOT EXISTS(SELECT *
 	AND C.NAME = 'Origen')
 BEGIN
 	ALTER TABLE RevistaDigitalSuscripcion
-	ADD Origen VARCHAR(20)
-	CONSTRAINT COST_RevistaDigiralSuscripcion_Origen DEFAULT ''
+	DROP COST_RevistaDigiralSuscripcion_Origen 
+	ALTER TABLE RevistaDigitalSuscripcion
+	DROP COLUMN Origen
 END
 GO
 
 USE BelcorpSalvador
 GO
 
-IF NOT EXISTS(SELECT * 
+IF EXISTS(SELECT * 
 	FROM SYS.COLUMNS C
 		JOIN SYS.OBJECTS  O
 		ON C.[OBJECT_ID] = O.[OBJECT_ID]
@@ -78,15 +82,16 @@ IF NOT EXISTS(SELECT *
 	AND C.NAME = 'Origen')
 BEGIN
 	ALTER TABLE RevistaDigitalSuscripcion
-	ADD Origen VARCHAR(20)
-	CONSTRAINT COST_RevistaDigiralSuscripcion_Origen DEFAULT ''
+	DROP COST_RevistaDigiralSuscripcion_Origen 
+	ALTER TABLE RevistaDigitalSuscripcion
+	DROP COLUMN Origen
 END
 GO
 
 USE BelcorpPuertoRico
 GO
 
-IF NOT EXISTS(SELECT * 
+IF EXISTS(SELECT * 
 	FROM SYS.COLUMNS C
 		JOIN SYS.OBJECTS  O
 		ON C.[OBJECT_ID] = O.[OBJECT_ID]
@@ -95,15 +100,16 @@ IF NOT EXISTS(SELECT *
 	AND C.NAME = 'Origen')
 BEGIN
 	ALTER TABLE RevistaDigitalSuscripcion
-	ADD Origen VARCHAR(20)
-	CONSTRAINT COST_RevistaDigiralSuscripcion_Origen DEFAULT ''
+	DROP COST_RevistaDigiralSuscripcion_Origen 
+	ALTER TABLE RevistaDigitalSuscripcion
+	DROP COLUMN Origen
 END
 GO
 
 USE BelcorpPanama
 GO
 
-IF NOT EXISTS(SELECT * 
+IF EXISTS(SELECT * 
 	FROM SYS.COLUMNS C
 		JOIN SYS.OBJECTS  O
 		ON C.[OBJECT_ID] = O.[OBJECT_ID]
@@ -112,15 +118,16 @@ IF NOT EXISTS(SELECT *
 	AND C.NAME = 'Origen')
 BEGIN
 	ALTER TABLE RevistaDigitalSuscripcion
-	ADD Origen VARCHAR(20)
-	CONSTRAINT COST_RevistaDigiralSuscripcion_Origen DEFAULT ''
+	DROP COST_RevistaDigiralSuscripcion_Origen 
+	ALTER TABLE RevistaDigitalSuscripcion
+	DROP COLUMN Origen
 END
 GO
 
 USE BelcorpGuatemala
 GO
 
-IF NOT EXISTS(SELECT * 
+IF EXISTS(SELECT * 
 	FROM SYS.COLUMNS C
 		JOIN SYS.OBJECTS  O
 		ON C.[OBJECT_ID] = O.[OBJECT_ID]
@@ -129,15 +136,16 @@ IF NOT EXISTS(SELECT *
 	AND C.NAME = 'Origen')
 BEGIN
 	ALTER TABLE RevistaDigitalSuscripcion
-	ADD Origen VARCHAR(20)
-	CONSTRAINT COST_RevistaDigiralSuscripcion_Origen DEFAULT ''
+	DROP COST_RevistaDigiralSuscripcion_Origen 
+	ALTER TABLE RevistaDigitalSuscripcion
+	DROP COLUMN Origen
 END
 GO
 
 USE BelcorpEcuador
 GO
 
-IF NOT EXISTS(SELECT * 
+IF EXISTS(SELECT * 
 	FROM SYS.COLUMNS C
 		JOIN SYS.OBJECTS  O
 		ON C.[OBJECT_ID] = O.[OBJECT_ID]
@@ -146,15 +154,16 @@ IF NOT EXISTS(SELECT *
 	AND C.NAME = 'Origen')
 BEGIN
 	ALTER TABLE RevistaDigitalSuscripcion
-	ADD Origen VARCHAR(20)
-	CONSTRAINT COST_RevistaDigiralSuscripcion_Origen DEFAULT ''
+	DROP COST_RevistaDigiralSuscripcion_Origen 
+	ALTER TABLE RevistaDigitalSuscripcion
+	DROP COLUMN Origen
 END
 GO
 
 USE BelcorpDominicana
 GO
 
-IF NOT EXISTS(SELECT * 
+IF EXISTS(SELECT * 
 	FROM SYS.COLUMNS C
 		JOIN SYS.OBJECTS  O
 		ON C.[OBJECT_ID] = O.[OBJECT_ID]
@@ -163,15 +172,16 @@ IF NOT EXISTS(SELECT *
 	AND C.NAME = 'Origen')
 BEGIN
 	ALTER TABLE RevistaDigitalSuscripcion
-	ADD Origen VARCHAR(20)
-	CONSTRAINT COST_RevistaDigiralSuscripcion_Origen DEFAULT ''
+	DROP COST_RevistaDigiralSuscripcion_Origen 
+	ALTER TABLE RevistaDigitalSuscripcion
+	DROP COLUMN Origen
 END
 GO
 
 USE BelcorpCostaRica
 GO
 
-IF NOT EXISTS(SELECT * 
+IF EXISTS(SELECT * 
 	FROM SYS.COLUMNS C
 		JOIN SYS.OBJECTS  O
 		ON C.[OBJECT_ID] = O.[OBJECT_ID]
@@ -180,15 +190,16 @@ IF NOT EXISTS(SELECT *
 	AND C.NAME = 'Origen')
 BEGIN
 	ALTER TABLE RevistaDigitalSuscripcion
-	ADD Origen VARCHAR(20)
-	CONSTRAINT COST_RevistaDigiralSuscripcion_Origen DEFAULT ''
+	DROP COST_RevistaDigiralSuscripcion_Origen 
+	ALTER TABLE RevistaDigitalSuscripcion
+	DROP COLUMN Origen
 END
 GO
 
 USE BelcorpChile
 GO
 
-IF NOT EXISTS(SELECT * 
+IF EXISTS(SELECT * 
 	FROM SYS.COLUMNS C
 		JOIN SYS.OBJECTS  O
 		ON C.[OBJECT_ID] = O.[OBJECT_ID]
@@ -197,15 +208,16 @@ IF NOT EXISTS(SELECT *
 	AND C.NAME = 'Origen')
 BEGIN
 	ALTER TABLE RevistaDigitalSuscripcion
-	ADD Origen VARCHAR(20)
-	CONSTRAINT COST_RevistaDigiralSuscripcion_Origen DEFAULT ''
+	DROP COST_RevistaDigiralSuscripcion_Origen 
+	ALTER TABLE RevistaDigitalSuscripcion
+	DROP COLUMN Origen
 END
 GO
 
 USE BelcorpBolivia
 GO
 
-IF NOT EXISTS(SELECT * 
+IF EXISTS(SELECT * 
 	FROM SYS.COLUMNS C
 		JOIN SYS.OBJECTS  O
 		ON C.[OBJECT_ID] = O.[OBJECT_ID]
@@ -214,8 +226,8 @@ IF NOT EXISTS(SELECT *
 	AND C.NAME = 'Origen')
 BEGIN
 	ALTER TABLE RevistaDigitalSuscripcion
-	ADD Origen VARCHAR(20)
-	CONSTRAINT COST_RevistaDigiralSuscripcion_Origen DEFAULT ''
+	DROP COST_RevistaDigiralSuscripcion_Origen 
+	ALTER TABLE RevistaDigitalSuscripcion
+	DROP COLUMN Origen
 END
 GO
-
