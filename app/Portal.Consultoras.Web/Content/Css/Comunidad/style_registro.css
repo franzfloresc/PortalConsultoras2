@@ -11,7 +11,7 @@ body {
     font-family: 'museo_300regular', Helvetica, Arial, Tahoma;
     margin: 0;
     padding: 0;
-    background: url('../../images/comunidad/bg_regis.jpg') top center no-repeat #FFF;
+    background: url('../../images/comunidad/bg_regis.jpg') top center no-repeat #fff;
     color: #555;
     line-height: 18px;
     text-align: center;
@@ -103,7 +103,7 @@ h6, .h6 {
     height: 38px;
     line-height: 38px;
     background: #798591;
-    color: #FFF;
+    color: #fff;
     text-align: right;
 }
 
@@ -112,7 +112,7 @@ h6, .h6 {
         *display: inline;
         zoom: 1;
         text-align: center;
-        color: #FFF;
+        color: #fff;
         padding: 0 13px 0 13px;
         text-decoration: none;
         font-weight: bold;
@@ -120,7 +120,7 @@ h6, .h6 {
     }
 
         .boxHiper a:hover {
-            color: #FFF;
+            color: #fff;
             background: #6a7a84;
         }
 
@@ -284,7 +284,7 @@ h6, .h6 {
     height: 36px;
     border: none;
     cursor: pointer;
-    color: #FFF;
+    color: #fff;
     background: url('../../images/comunidad/btn_crear.png') 0 0 no-repeat;
 }
 
@@ -301,7 +301,7 @@ h6, .h6 {
         height: 36px;
         border: none;
         cursor: pointer;
-        color: #FFF;
+        color: #fff;
         background: url('../../images/comunidad/btn_crear.png') 0 0 no-repeat;
     }
 
@@ -334,23 +334,23 @@ h6, .h6 {
     }
 
 .name {
-    background: url('../../images/comunidad/name_ico.png') top left no-repeat #FFF;
+    background: url('../../images/comunidad/name_ico.png') top left no-repeat #fff;
 }
 
 .user {
-    background: url('../../images/comunidad/user_ico.png') top left no-repeat #FFF;
+    background: url('../../images/comunidad/user_ico.png') top left no-repeat #fff;
 }
 
 .mail {
-    background: url('../../images/comunidad/correo_ico.png') top left no-repeat #FFF;
+    background: url('../../images/comunidad/correo_ico.png') top left no-repeat #fff;
 }
 
 .pass {
-    background: url('../../images/comunidad/pass_ico.png') top left no-repeat #FFF;
+    background: url('../../images/comunidad/pass_ico.png') top left no-repeat #fff;
 }
 
 .pais {
-    background: url('../../images/comunidad/pais_ico.png') top left no-repeat #FFF;
+    background: url('../../images/comunidad/pais_ico.png') top left no-repeat #fff;
 }
 
 .formbtn label {
@@ -476,7 +476,7 @@ h6, .h6 {
 }
 
 .ui-dialog .ui-dialog-buttonpane {
-    background: #FFFFFF;
+    background: #fff;
 }
 
 .ui-dialog .ui-dialog-title {

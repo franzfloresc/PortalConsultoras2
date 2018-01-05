@@ -189,7 +189,7 @@ h3 {
     }
 
 .btn-borde-morado {
-    background-color: #FFF;
+    background-color: #fff;
     border-color: #722789;
     color: #722789;
     -ms-border-radius: 22px;
@@ -481,7 +481,7 @@ h4.re3 {
     padding: 8px 35px;
     background: #642F80 !important;
     border: 1px solid #722789;
-    color: #FFF;
+    color: #fff;
 }
 
     .btn-line-action:hover,
@@ -2398,7 +2398,7 @@ h4.re3 {
             position: absolute;
             width: 7px;
             height: 7px;
-            background: #FFFFFF;
+            background: #fff;
             left: 0;
             top: 0;
             -o-border-radius: 11px;
@@ -3417,7 +3417,7 @@ table > thead > tr > th {
 }
 
 .alert-top-conline a {
-    color: #FFFFFF;
+    color: #fff;
 }
 
 /*CONTADOR SHOWROOMS*/
@@ -5097,7 +5097,7 @@ table > thead > tr > th {
 /* PANTALLA INGRESO DE PEDIDO VERSIÓN MOBILE */
 
 body {
-    background: #FFF;
+    background: #fff;
 }
 
 .sin_padding {
@@ -5125,7 +5125,7 @@ body {
     .ingresoPedido h1 {
         text-align: center;
         font-size: 16px;
-        color: #FFF;
+        color: #fff;
         font-weight: bold;
         margin: 0 0 15px 0;
         padding: 0;
@@ -5134,7 +5134,7 @@ body {
     .ingresoPedido form input {
         width: 100%;
         height: 45px;
-        background: #FFF;
+        background: #fff;
         border: 1px solid #000;
         color: #000;
         padding-left: 17px;
@@ -5169,7 +5169,7 @@ body {
 .contenedor_producto {
     display: block;
     height: auto;
-    background: #FFF;
+    background: #fff;
     font-family: 'Lato';
     margin-bottom: 20px;
 }
@@ -5213,7 +5213,7 @@ body {
 
         .contenedor_cantidadProductos div span, .contenedor_cantidadProductos div .campo_cantidadProductos {
             border: 1px solid #b0b0b0;
-            background: #FFF;
+            background: #fff;
             height: 45px;
             vertical-align: top;
             line-height: 45px;
@@ -5233,7 +5233,7 @@ body {
     .contenedor_cantidadProductos div .campo_cantidadProductos input {
         width: 100%;
         border: 0;
-        background: #FFF;
+        background: #fff;
         text-align: center;
         color: #000;
         font-size: 13px;
@@ -5254,7 +5254,7 @@ body {
         width: 100%;
         height: 45px;
         border: 1px solid #000;
-        background: #FFF;
+        background: #fff;
         font-size: 13px;
         line-height: 13px;
         font-weight: bold;
@@ -5338,7 +5338,7 @@ body {
     display: block;
     height: 45px;
     line-height: 45px;
-    background: #FFF;
+    background: #fff;
     border: 1px solid #000;
     font-weight: bold;
     margin-top: 25px;
@@ -5378,7 +5378,7 @@ body {
         height: 54px;
         border: 0;
         background: #642f80;
-        color: #FFF;
+        color: #fff;
         font-weight: bold;
         font-size: 15px;
         text-align: center;
@@ -5559,7 +5559,7 @@ body {
     }
 
     .tooltip_kitNuevas:after {
-        border-bottom-color: #FFF;
+        border-bottom-color: #fff;
         border-width: 9px;
         margin-left: -9px;
     }
@@ -5704,7 +5704,7 @@ body {
     width: 203.3px;
     height: auto;
     border-radius: 4px;
-    background: #FFF;
+    background: #fff;
     font-family: 'Lato';
     text-align: center;
     box-shadow: 0 6px 15px 2px rgba(0,0,0, 0.31);
@@ -5731,7 +5731,7 @@ body {
     }
 
     .tooltip_noOlvidesGuardarTuPedido:after {
-        border-top-color: #FFF;
+        border-top-color: #fff;
         border-width: 16px;
         margin-left: -16px;
     }
@@ -5784,7 +5784,7 @@ body {
     position: relative;
     top: 50%;
     margin: -22% auto 0 auto;
-    background: #FFF;
+    background: #fff;
     width: 94%;
     max-width: 400px;
     height: auto;
@@ -5856,7 +5856,7 @@ body {
     text-align: center;
     line-height: 36px;
     background: #642f80;
-    color: #FFF;
+    color: #fff;
     margin: 0 auto;
     border: 0;
 }
@@ -5951,7 +5951,7 @@ body {
     text-align: center;
     display: block;
     position: relative;
-    background: #FFF;
+    background: #fff;
     height: auto;
     padding: 26px 0;
     box-shadow: 0 2px 14px 0 rgba(102, 102, 102, 0.5);
@@ -6009,7 +6009,7 @@ body {
 .encabezado_liquidacion {
     display: block;
     position: relative;
-    background: #FFF;
+    background: #fff;
     height: 51px;
     border-bottom: 1px solid #000;
 }
@@ -6772,7 +6772,7 @@ input[type='checkbox']:checked + span:after {
     top: 50%;
     left: 50%;
     margin: -253.5px auto 0 -311.5px;
-    background: #FFF;
+    background: #fff;
     width: 100%;
     max-width: 623px;
     height: auto;
@@ -6887,7 +6887,7 @@ input[type='checkbox']:checked + span:after {
     width: 100%;
     height: 45px;
     background: #613c87;
-    color: #FFF;
+    color: #fff;
     font-size: 13px;
     font-family: 'Lato';
     font-weight: bold;
@@ -7515,7 +7515,7 @@ input[type='checkbox']:checked + span:after {
     position: relative;
     top: 80px;
     margin: 0 auto;
-    background: #FFF;
+    background: #fff;
     box-sizing: border-box;
     font-family: 'Lato';
     padding: 0;
@@ -7611,7 +7611,7 @@ input[type='checkbox']:checked + span:after {
     position: relative;
     top: 14%;
     margin: 0 auto;
-    background: #FFF;
+    background: #fff;
     width: 90%;
     max-width: 400px;
     height: auto;
@@ -7643,7 +7643,7 @@ input[type='checkbox']:checked + span:after {
         height: 45px;
         line-height: 45px;
         border: 1px solid #b0b0b0;
-        background: #FFF;
+        background: #fff;
         color: #000;
         font-size: 13px;
         font-weight: normal;
@@ -7657,7 +7657,7 @@ input[type='checkbox']:checked + span:after {
         height: 45px;
         background: #642f80;
         line-height: 45px;
-        color: #FFF;
+        color: #fff;
         font-size: 13px;
         font-weight: bold;
     }
@@ -7667,7 +7667,7 @@ input[type='checkbox']:checked + span:after {
         position: relative;
         margin-top: 19px;
         margin-bottom: 19px;
-        background: #FFF;
+        background: #fff;
         height: auto;
         padding: 12px 13px 14px 13px;
         box-shadow: 0 2px 16px 0 #999;
@@ -7698,7 +7698,7 @@ input[type='checkbox']:checked + span:after {
             height: 0;
             width: 0;
             position: absolute;
-            border-bottom-color: #FFF;
+            border-bottom-color: #fff;
             border-width: 9px;
             margin-left: -9px;
         }
@@ -8204,7 +8204,7 @@ span.title-app-b {
     top: 17%;
     max-width: 492px;
     margin: 0 auto;
-    background: #FFF;
+    background: #fff;
     padding: 20px 20px;
 }
 
@@ -8468,13 +8468,13 @@ span.title-app-b {
 
 .boton_cancelarImagen {
     color: #000;
-    background: #FFF;
+    background: #fff;
     border: 1px solid #000;
     margin-bottom: 15px;
 }
 
 .boton_guardarImagen {
-    color: #FFF;
+    color: #fff;
     background: #642f80;
     border: 1px solid #642f80;
 }
@@ -9068,7 +9068,7 @@ a {
     .mensaje_horarioIngresoPedido a {
         display: block;
         margin-left: 2px;
-        color: #FFF;
+        color: #fff;
         text-decoration: underline;
     }
 
@@ -9295,7 +9295,7 @@ span.icon-advertencia {
     font-family: 'Lato';
     font-size: 16px;
     font-weight: bold;
-    color: #FFF;
+    color: #fff;
     text-align: center;
     vertical-align: middle;
     margin-top: -6px;
@@ -9393,7 +9393,7 @@ span.icon-advertencia {
     }
 
         .bloque_carousel .content_item_carrusel_ofertaFinal .contenido_item_ofertaFinal {
-            background: #FFF;
+            background: #fff;
             width: 237px;
             display: block;
             margin: 0 auto;
@@ -10537,10 +10537,10 @@ span.icon-advertencia {
     margin-top: 9px;
     left: 0;
     font-family: 'Lato';
-    color: #FFF;
+    color: #fff;
     font-size: 11px;
     padding: 2px 21px;
-    border: 1px solid #FFF;
+    border: 1px solid #fff;
     line-height: 30px;
     height: 36.2px;
     text-align: center;
@@ -12372,10 +12372,10 @@ span.icon-advertencia {
     top: 11px;
     left: 67px;
     font-family: 'Lato';
-    color: #FFF;
+    color: #fff;
     font-size: 11px;
     padding: 2px 21px;
-    border: 1px solid #FFF;
+    border: 1px solid #fff;
     line-height: 17px;
     height: 22px;
 }
@@ -13470,7 +13470,7 @@ span.icon-advertencia {
     padding-bottom: 10px;
     width: 100%;
     letter-spacing: 0.5px;
-    color: #FFF;
+    color: #fff;
     position: relative;
     box-sizing: border-box;
 }
@@ -13532,7 +13532,7 @@ span.icon-advertencia {
 .btn_aceptar_no_hay_producto {
     display: block;
     margin: 0 auto;
-    color: #FFF;
+    color: #fff;
     background: #642f80;
     width: 100%;
     max-width: 197px;
@@ -13755,7 +13755,7 @@ span.icon-advertencia {
 .contenedor_barra_ganancia {
     display: block;
     height: auto;
-    background: #FFF;
+    background: #fff;
     position: relative;
     z-index: 1;
     padding: 13px 15px 9px 15px;

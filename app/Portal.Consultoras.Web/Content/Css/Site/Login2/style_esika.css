@@ -214,7 +214,7 @@ h6, .h6 {
     float: right;
     width: 24%;
     margin-top: 15px;
-    color: #FFF;
+    color: #fff;
     text-decoration: none;
     font-size: 13px;
     text-align: center;
@@ -387,7 +387,7 @@ Image .nav0:hover {
         height: 48px;
         border: none;
         cursor: pointer;
-        color: #FFF;
+        color: #fff;
         background: #cf2d3a !important;
         font-family: lato;
         letter-spacing: 0.5px;
@@ -637,7 +637,7 @@ Image .nav0:hover {
 }
 
 .ui-dialog .ui-dialog-buttonpane {
-    background: #FFFFFF;
+    background: #fff;
 }
 
 .ui-dialog .ui-dialog-title {
@@ -2040,7 +2040,7 @@ h1, h2, h3, h4, h5, h6 {
     white-space: nowrap;
     border-radius: 0.2em;
     font-size: 16px;
-    color: #FFF;
+    color: #fff;
 }
 
     .loginBtn:before {
