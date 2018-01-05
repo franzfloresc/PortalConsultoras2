@@ -57,7 +57,7 @@
 .cabecera_asesora_online {
     display: block;
     position: relative;
-    background: #FFF;
+    background: #fff;
     height: 393px;
     max-width: 610px;
     position: relative;
@@ -66,7 +66,7 @@
 
 .extension_fondo_cabecera {
     display: block;
-    background: #FFF;
+    background: #fff;
     width: 100%;
     height: 393px;
     position: absolute;
@@ -81,7 +81,7 @@
     right: -55px;
     width: 100%;
     height: 393px;
-    background: #FFF;
+    background: #fff;
     transform: skewX(-14deg);
     -moz-transform: skewX(-14deg);
     -o-transform: skewX(-14deg);
@@ -123,7 +123,7 @@
 }
 
 .fondo_titulo_asesora {
-    background: #FFF;
+    background: #fff;
     padding: 13px 0 6px 0;
     max-width: 342px;
     position: relative;
@@ -132,7 +132,7 @@
 
 .extension_fondo {
     height: 69.5px;
-    background: #FFF;
+    background: #fff;
     position: absolute;
     top: 0;
     left: -474px;
@@ -206,7 +206,7 @@
 .cta_inscripcion {
     max-width: 311px;
     background: rgba(0,0,0,1);
-    color: #FFF;
+    color: #fff;
     position: relative;
     text-align: center;
     height: 42px;
@@ -494,7 +494,7 @@
 
     .opcion_crecimiento_negocio label, .datos_consultora input {
         font-size: 13px !important;
-        background: #FFF;
+        background: #fff;
         border: 1px solid #979797;
         width: 100%;
         max-width: 258px;
@@ -588,7 +588,7 @@
     margin: 0 auto;
     background: #e81c36;
     border: none;
-    color: #FFF;
+    color: #fff;
     width: 246px;
     height: 40px;
     line-height: 40px;
@@ -1227,7 +1227,7 @@
 .cta_inscripcion_popup {
     max-width: 311px;
     background: rgba(0,0,0,1);
-    color: #FFF;
+    color: #fff;
     position: relative;
     text-align: center;
     height: 40px;
@@ -1277,7 +1277,7 @@
     padding-top: 35px;
     padding-left: 42px;
     height: 437px;
-    background: #FFF;
+    background: #fff;
     max-width: 555px;
     z-index: 4;
 }
@@ -1289,7 +1289,7 @@
     right: -58px;
     width: 100%;
     height: 437px;
-    background: #FFF;
+    background: #fff;
     transform: skewX(-14deg);
     -moz-transform: skewX(-14deg);
     -o-transform: skewX(-14deg);
@@ -1442,7 +1442,7 @@
 .descripcion_beneficio_inscripcion {
     width: 122px;
     height: 47px;
-    border-right: 1px solid #FFF;
+    border-right: 1px solid #fff;
     font-size: 12px;
     padding-right: 15px;
     transform: skewX(-14deg);
@@ -1508,7 +1508,7 @@
 }
 
 .enlace_no_volver_mostrar_mensaje {
-    color: #FFF;
+    color: #fff;
     font-size: 12px;
     opacity: 0.5;
     position: absolute;
@@ -1578,7 +1578,7 @@
     text-align: center;
     width: 100%;
     max-width: 588px;
-    background: #FFF;
+    background: #fff;
     height: 346px;
     padding: 60px 70px 70px 70px;
 }
@@ -1655,7 +1655,7 @@
     width: 100%;
     max-width: 742px;
     height: auto;
-    background: #FFF;
+    background: #fff;
     position: relative;
     top: 50%;
     padding-bottom: 47px;
@@ -1752,7 +1752,7 @@
     height: 40px;
     line-height: 36px;
     border: 1px solid #000;
-    background: #FFF;
+    background: #fff;
     margin-bottom: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -1764,7 +1764,7 @@
 
     .btn_modificar_datos button:hover {
         background: #000;
-        color: #FFF;
+        color: #fff;
     }
 
 .btn_modificar_datos button, .btn_modificar_datos span {

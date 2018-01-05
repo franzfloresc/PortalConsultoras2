@@ -33,7 +33,7 @@
 .popup_revistaSuscripcion_contenido span {
     display: block;
     font-size: 13px;
-    color: #FFF;
+    color: #fff;
     letter-spacing: 1.5px;
 }
 
@@ -72,7 +72,7 @@
 
         .popup_revistaSuscripcion_grupoBotones button:first-child {
             background: #000;
-            color: #FFF;
+            color: #fff;
         }
 
         .popup_revistaSuscripcion_grupoBotones button:nth-child(2) {
@@ -84,14 +84,14 @@
 .popup_revistaSuscripcion_terminos {
     font-family: 'Lato';
     font-size: 11px;
-    color: #FFF;
+    color: #fff;
     letter-spacing: 1px;
 }
 
     .popup_revistaSuscripcion_terminos a {
         display: inline-block;
         text-decoration: underline;
-        color: #FFF;
+        color: #fff;
     }
 
 .popup_revistaSuscripcion .img_modeloRevista {
@@ -105,7 +105,7 @@
     width: 213px;
     margin-top: 9px;
     font-family: 'Lato';
-    color: #FFF;
+    color: #fff;
     font-size: 11px;
     position: relative;
     top: 17px;
@@ -113,7 +113,7 @@
 }
 
     .popup_revistaSuscripcion_noAMostrarMensaje a {
-        color: #FFF;
+        color: #fff;
         text-decoration: underline;
         transition: opacity 0.3s ease;
         -moz-transition: opacity 0.3s ease;
@@ -130,7 +130,7 @@
     display: block;
     width: 100%;
     height: auto;
-    background: #FFF;
+    background: #fff;
     position: relative;
     overflow: hidden;
     margin-top: 13px;
@@ -232,7 +232,7 @@
     font-family: 'Lato';
     font-size: 14px;
     text-align: left;
-    color: #FFF;
+    color: #fff;
     padding-left: 28px;
     letter-spacing: 1px;
 }
@@ -291,7 +291,7 @@
         position: absolute;
         font-family: 'Lato';
         font-size: 11px;
-        color: #FFF;
+        color: #fff;
         top: 8px;
         left: 12px;
         text-align: left;
@@ -335,7 +335,7 @@
 
 .revistadigital .content_item_home .etiqueta-producto span {
     display: block;
-    color: #FFF;
+    color: #fff;
     font-family: 'Lato';
     font-size: 13px;
     position: relative;
@@ -432,7 +432,7 @@ div#tab_revistasdigital_mobile {
 .cabecera_esikaParaMi, .cabecera_fondo_rojo, .cabecera_content span, .cabecera_boton_inscribeteAEsikaParaMi, .cabecera_boton_inscribeteAEsikaParaMi button, .cabecera_boton_inscribeteAEsikaParaMi span {
     display: block;
     font-family: 'Lato';
-    color: #FFF;
+    color: #fff;
 }
 
     .cabecera_logoMarca, .cabecera_content, .cabecera_boton_inscribeteAEsikaParaMi, .cabecera_boton_inscribeteAEsikaParaMi span a, .imagen_modeloRevistaDigital, .contenido_esikaParaMi {
@@ -547,7 +547,7 @@ div#tab_revistasdigital_mobile {
         border: 0;
         width: 256px;
         height: 52px;
-        color: #FFF;
+        color: #fff;
         margin-bottom: 9px;
         position: relative;
         top: 0;
@@ -726,7 +726,7 @@ div#tab_revistasdigital_mobile {
     display: block;
     margin: 0 auto;
     width: 100%;
-    color: #FFF;
+    color: #fff;
 }
 
     .contenido_fondoDesenfocado span, .contenido_fondoDesenfocado button {
@@ -757,7 +757,7 @@ div#tab_revistasdigital_mobile {
         width: 100%;
         height: 59px;
         border: none;
-        color: #FFF;
+        color: #fff;
         font-family: 'Lato';
         background: #FF1534;
         font-size: 15px;
@@ -790,7 +790,7 @@ div#tab_revistasdigital_mobile {
         .contenido_fondoDesenfocado span:last-child a {
             display: inline-block;
             text-decoration: underline;
-            color: #FFF;
+            color: #fff;
         }
 
 @media screen and (max-width:374px) {
@@ -838,7 +838,7 @@ div#tab_revistasdigital_mobile {
     padding: 29px 20px 18px 20px;
     text-align: center;
     font-family: 'Lato';
-    color: #FFF;
+    color: #fff;
     margin: 0 auto;
     width: 100%;
     height: auto;
@@ -886,7 +886,7 @@ div#tab_revistasdigital_mobile {
     line-height: 41px;
     font-size: 13px;
     letter-spacing: 0.4px;
-    color: #FFF;
+    color: #fff;
 }
 
 .logo_EPT_content {

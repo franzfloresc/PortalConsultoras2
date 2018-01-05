@@ -192,7 +192,7 @@ span {
     float: right;
     text-align: center;
     margin-top: 15px;
-    color: #FFF;
+    color: #fff;
     text-decoration: none;
     font-size: 13px;
 }
@@ -323,7 +323,7 @@ span {
         height: 48px;
         border: none;
         cursor: pointer;
-        color: #FFF;
+        color: #fff;
         background: #652b82;
         font-family: lato;
         letter-spacing: .5px;
@@ -547,7 +547,7 @@ span {
 }
 
 .ui-dialog .ui-dialog-buttonpane {
-    background: #FFF;
+    background: #fff;
 }
 
 .ui-dialog .ui-dialog-title {
@@ -2080,7 +2080,7 @@ h1, h2, h3, h4, h5, h6 {
     line-height: 34px;
     white-space: nowrap;
     border-radius: 0.2em;
-    color: #FFF;
+    color: #fff;
 }
 
 .loginBtn--facebook:before {

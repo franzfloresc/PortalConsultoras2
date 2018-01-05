@@ -74,7 +74,7 @@
     height: 45px;
     background: #642f80;
     text-transform: uppercase;
-    color: #FFF;
+    color: #fff;
     font-size: 15px;
     line-height: 45px;
 }
@@ -139,7 +139,7 @@
 }
 
 .estado_rechazado, .estado_aprobado {
-    color: #FFF;
+    color: #fff;
 }
 
 .estado_rechazado {
@@ -199,7 +199,7 @@
     width: 28.7px;
     height: 28.7px;
     border-radius: 100%;
-    background: #FFF;
+    background: #fff;
     border: 1px solid #000;
     position: relative;
     z-index: 2;
@@ -240,11 +240,11 @@
     width: 35px;
     height: 35px;
     border: 1px solid #979797;
-    border-right-color: #FFF;
+    border-right-color: #fff;
     line-height: 32px;
     top: -11px;
     right: -14px;
-    background: #FFF;
+    background: #fff;
     z-index: 999;
 }
 
@@ -261,7 +261,7 @@
     left: -2px;
     width: 15px;
     height: 13px;
-    background: #FFF;
+    background: #fff;
     z-index: 2500;
 }
 
@@ -334,7 +334,7 @@
 
 .pedido_a_seleccionar {
     display: block;
-    background: #FFF;
+    background: #fff;
     border: 1px solid #000;
     color: #000;
     height: auto;
@@ -350,7 +350,7 @@
 
     .pedido_a_seleccionar:hover {
         background: #000;
-        color: #FFF;
+        color: #fff;
     }
 
 .numero_pedido {
@@ -467,7 +467,7 @@
     width: 100%;
     height: 54px;
     background: #642f80;
-    color: #FFF;
+    color: #fff;
     z-index: 998;
     letter-spacing: 0.4px;
     border: none;
@@ -506,7 +506,7 @@
 
     .solucion_cdr:focus {
         background: #000;
-        color: #FFF;
+        color: #fff;
     }
 
 .mb-23 {
@@ -727,7 +727,7 @@
     width: 100%;
     margin: 0 auto;
     max-width: 278px;
-    background: #FFF;
+    background: #fff;
     height: 70px;
     padding: 15px 4px 16px 4px;
     border-radius: 7px;
@@ -748,7 +748,7 @@
         width: 0;
         position: absolute;
         pointer-events: none;
-        border-top-color: #FFF;
+        border-top-color: #fff;
         border-width: 21px;
         margin-left: -19px;
     }
@@ -780,7 +780,7 @@
     margin: 30px auto 49px auto;
     height: 45px;
     line-height: 43px;
-    background: #FFF;
+    background: #fff;
     font-size: 13px;
 }
 
@@ -1160,7 +1160,7 @@
 
     .btn_verSolicitud_somosBelcorp:hover {
         background: #000;
-        color: #FFF;
+        color: #fff;
     }
 
 .contenedor_mensajes_respuesta_cdr {

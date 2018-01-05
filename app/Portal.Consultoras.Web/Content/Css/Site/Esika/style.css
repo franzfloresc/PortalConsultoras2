@@ -1617,7 +1617,7 @@ header {
 }
 
     .pedido_ingreso_c2 .pedido_ingreso_datos_icono_mas {
-        color: #FFF;
+        color: #fff;
         font-size: 17px !important;
         float: left;
         margin-right: 4px;
@@ -1755,7 +1755,7 @@ header {
 }
 
     .contenido_ingresoPedido.mouse_encima {
-        background: #FFF;
+        background: #fff;
         transition: background 0.3s ease;
         -moz-transition: background 0.3s ease;
         -o-transition: background 0.3s ease;
@@ -1797,7 +1797,7 @@ div.texto_encabezado_pedidos.cabecera_unidades, div.celda_cantidad_pedidos {
 
     div.celda_cantidad_pedidos div.liquidacion_rango_wrapper_pedido input {
         font-size: 12px !important;
-        background: #FFF;
+        background: #fff;
         padding-left: 0 !important;
     }
 
@@ -1874,7 +1874,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
         }
 
 .noti.mensaje_producto_noExiste {
-    background: #FFF;
+    background: #fff;
     height: 55px;
     padding: 0 27px 0 27px;
     margin-top: 16px;
@@ -2106,7 +2106,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
 
 .tooltips {
     display: block;
-    background: #FFF;
+    background: #fff;
     border-radius: 4px;
 }
 
@@ -2298,7 +2298,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     height: 44.1px;
     background: #e81c36;
     border: 0;
-    color: #FFF;
+    color: #fff;
     font-size: 12.7px;
     line-height: 41.1px;
     text-align: center;
@@ -2500,7 +2500,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
 
     .tabla_pedidos td div.liquidacion_rango_wrapper_pedido input {
         font-size: 12px !important;
-        background: #FFF;
+        background: #fff;
         padding-left: 0 !important;
     }
 
@@ -2517,7 +2517,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     }
 
 .tabla_pedidos tr.mouse_encima {
-    background: #FFF;
+    background: #fff;
     transition: background 0.3s ease;
     -moz-transition: background 0.3s ease;
     -o-transition: background 0.3s ease;
@@ -2682,7 +2682,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
         font-family: 'Lato';
         font-size: 16px;
         font-weight: bold;
-        color: #FFF;
+        color: #fff;
         position: absolute;
         right: -18%;
         z-index: 6;
@@ -2697,7 +2697,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     font-family: 'Lato';
     font-size: 16px;
     font-weight: bold;
-    color: #FFF;
+    color: #fff;
     position: relative;
     margin-top: -3px;
     margin-left: 5px;
@@ -2859,7 +2859,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
         font-family: 'Lato';
         font-size: 16px;
         font-weight: bold;
-        color: #FFF;
+        color: #fff;
         text-align: center;
         vertical-align: middle;
     }
@@ -2946,7 +2946,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
                 margin-top: 9px;
                 height: 57px;
                 text-align: center;
-                color: #FFF;
+                color: #fff;
                 font-family: 'Lato';
                 font-size: 12.9px;
                 letter-spacing: 0.8px;
@@ -3220,7 +3220,7 @@ a.subir_carousel, a.bajar_carousel {
     margin: 0 auto !important;
     width: 240px;
     height: 370px;
-    background: #FFF;
+    background: #fff;
     border: 1px solid #e7e1e1 !important;
     margin-bottom: 25px !important;
     -ms-box-shadow: 0 15px 21px -8px rgba(204,200,204,1) !important;
@@ -3234,7 +3234,7 @@ a.subir_carousel, a.bajar_carousel {
     position: relative;
     display: block;
     margin: 0 auto;
-    background: #FFF;
+    background: #fff;
     height: 200px;
     text-align: center;
     overflow: hidden;
@@ -3331,7 +3331,7 @@ a.subir_carousel, a.bajar_carousel {
     width: 205px;
     height: 45px;
     line-height: 45px;
-    background: #FFF;
+    background: #fff;
     color: #000;
     text-align: center;
     border: 2px solid #000;
@@ -3347,7 +3347,7 @@ a.subir_carousel, a.bajar_carousel {
 
     .boton_elegirTono:hover {
         background: #000;
-        color: #FFF;
+        color: #fff;
     }
 
 .boton_elegirAgregar {
@@ -3356,7 +3356,7 @@ a.subir_carousel, a.bajar_carousel {
     width: 138px;
     height: 45px;
     line-height: 43px;
-    background: #FFF;
+    background: #fff;
     color: #000;
     text-align: center;
     border: 2px solid #000;
@@ -3373,7 +3373,7 @@ a.subir_carousel, a.bajar_carousel {
 
     .boton_elegirAgregar:hover {
         background: #000;
-        color: #FFF;
+        color: #fff;
     }
 
 .contenedor_cantidad_producto {
@@ -3551,7 +3551,7 @@ a.subir_carousel, a.bajar_carousel {
     bottom: 0%;
     margin-top: -273px;
     margin-left: -223px;
-    background: #FFF;
+    background: #fff;
     width: 100%;
     max-width: 446px;
     height: 520px;
@@ -3600,7 +3600,7 @@ a.subir_carousel, a.bajar_carousel {
             height: 0;
             width: 0;
             position: absolute;
-            border-right-color: #FFF;
+            border-right-color: #fff;
             border-width: 12px;
             margin-top: -12px;
             left: 0%;
@@ -3653,7 +3653,7 @@ a.subir_carousel, a.bajar_carousel {
         float: left;
         width: 74.5px;
         height: 45px;
-        background: #FFF;
+        background: #fff;
         color: #000;
         line-height: 45px;
         text-align: center;
@@ -3670,7 +3670,7 @@ a.subir_carousel, a.bajar_carousel {
         width: 189px;
         height: 45px;
         background: #e81c36;
-        color: #FFF;
+        color: #fff;
         line-height: 45px;
         text-align: center;
         font-family: 'Lato';
@@ -3819,7 +3819,7 @@ a.subir_carousel, a.bajar_carousel {
     bottom: 0%;
     margin-top: -265.5px;
     margin-left: -237.5px;
-    background: #FFF;
+    background: #fff;
     width: 100%;
     max-width: 475px;
     height: auto;
@@ -3852,7 +3852,7 @@ a.subir_carousel, a.bajar_carousel {
     padding: 0 !important;
     width: 240px !important;
     height: auto !important;
-    background: #FFF;
+    background: #fff;
     border: none !important;
     box-shadow: 0 0 0 0 rgba(0,0,0,0) !important;
     -moz-box-shadow: 0 0 0 0 rgba(0,0,0,0) !important;
@@ -3937,7 +3937,7 @@ a.subir_carousel, a.bajar_carousel {
     left: 13.1%;
     right: 0%;
     bottom: 0%;
-    background: #FFF;
+    background: #fff;
     width: 100%;
     max-width: 692px;
     height: auto;
@@ -4068,7 +4068,7 @@ a.subir_carousel, a.bajar_carousel {
         width: 50% !important;
         max-width: 265px;
         height: auto !important;
-        background: #FFF;
+        background: #fff;
         border: 0 !important;
         box-shadow: none !important;
         margin-bottom: 0 !important;
@@ -4078,7 +4078,7 @@ a.subir_carousel, a.bajar_carousel {
             position: relative;
             display: block;
             margin: 0 auto;
-            background: #FFF;
+            background: #fff;
             width: 43%;
             height: 200px;
             margin-right: 0;
@@ -4151,7 +4151,7 @@ a.subir_carousel, a.bajar_carousel {
         max-width: 207px;
         height: 45px;
         line-height: 45px;
-        background: #FFF;
+        background: #fff;
         color: #000;
         text-align: center;
         border: 2px solid #000;
@@ -4202,7 +4202,7 @@ a.subir_carousel, a.bajar_carousel {
     top: 50%;
     left: 50%;
     margin: -203px auto 0 -309px;
-    background: #FFF;
+    background: #fff;
     width: 100%;
     max-width: 618px;
     height: 406px;
@@ -4280,13 +4280,13 @@ a.subir_carousel, a.bajar_carousel {
     border: 1px solid #000;
     color: #000;
     margin-right: 13px;
-    background: #FFF;
+    background: #fff;
 }
 
 .btn_inscribeteAhora {
     border: none;
     background: #e81c36;
-    color: #FFF;
+    color: #fff;
 }
 
 .btn_noInscripcion {
@@ -4315,7 +4315,7 @@ a.subir_carousel, a.bajar_carousel {
     top: 50%;
     left: 50%;
     margin: -253.5px auto 0 -311.5px;
-    background: #FFF;
+    background: #fff;
     width: 100%;
     max-width: 623px;
     height: auto;
@@ -4430,7 +4430,7 @@ a.subir_carousel, a.bajar_carousel {
     width: 100%;
     height: 45px;
     background: #e81c36;
-    color: #FFF;
+    color: #fff;
     font-size: 13px;
     font-family: 'Lato';
     font-weight: bold;
@@ -4513,7 +4513,7 @@ a.subir_carousel, a.bajar_carousel {
     position: relative;
     top: 50%;
     margin: -153px auto 0 auto;
-    background: #FFF;
+    background: #fff;
     width: 100%;
     max-width: 481px;
     height: auto;
@@ -4576,7 +4576,7 @@ a.subir_carousel, a.bajar_carousel {
     text-align: center;
     line-height: 45px;
     background: #e81c36;
-    color: #FFF;
+    color: #fff;
     margin: 0 auto;
     border: 0;
 }
@@ -4603,7 +4603,7 @@ a.subir_carousel, a.bajar_carousel {
 
 .texto_btn_cerrar {
     font-size: 9px;
-    color: #FFF;
+    color: #fff;
     letter-spacing: 0.5px;
     position: relative;
     left: -6px;
@@ -4813,7 +4813,7 @@ a.subir_carousel, a.bajar_carousel {
     top: 50%;
     left: 50%;
     margin: -203px auto 0 -309px;
-    background: #FFF;
+    background: #fff;
     width: 100%;
     max-width: 618px;
     height: 406px;
@@ -4869,7 +4869,7 @@ a.subir_carousel, a.bajar_carousel {
     text-align: center;
     border: none;
     background: #e81c36;
-    color: #FFF;
+    color: #fff;
 }
 /* POPUP DETALLE CARRUSEL OFERTAS PARA TI - LANZAMIENTO */
 #popupDetalleCarousel_lanzamiento {
@@ -4881,7 +4881,7 @@ a.subir_carousel, a.bajar_carousel {
     position: relative;
     top: 50%;
     margin: -20% auto 0 auto;
-    background: #FFF;
+    background: #fff;
     width: 100%;
     height: auto;
     padding-top: 28px;
@@ -4967,7 +4967,7 @@ a.subir_carousel, a.bajar_carousel {
     background: #000;
     width: 136px;
     height: 100%;
-    color: #FFF;
+    color: #fff;
     text-align: center;
     line-height: 18px;
 }
@@ -5009,7 +5009,7 @@ a.subir_carousel, a.bajar_carousel {
     left: 0;
     right: 0;
     margin: -271px auto 0 auto;
-    background: #FFF;
+    background: #fff;
     width: 100%;
     max-width: 721px;
     height: auto;
@@ -5107,7 +5107,7 @@ a.subir_carousel, a.bajar_carousel {
 .grupo_input_actualizarMisDatos div input[type='text'], .grupo_input_actualizarMisDatos div input[type='email'], .grupo_input_actualizarMisDatos div input[type='password'] {
     display: block;
     border: 1px solid #CCC;
-    background: #FFF;
+    background: #fff;
     width: 272px;
     height: 45px;
     line-height: 45px;
@@ -5169,7 +5169,7 @@ a.subir_carousel, a.bajar_carousel {
         margin-right: 10px;
         margin-bottom: 10px;
         border-radius: 3px;
-        background: #FFF;
+        background: #fff;
         border: 2px solid #bababa;
         cursor: pointer;
         z-index: 10;
@@ -5207,12 +5207,12 @@ a.subir_carousel, a.bajar_carousel {
 .btn_actualizarMisDatos {
     border: none;
     background: #e81c36;
-    color: #FFF;
+    color: #fff;
 }
 
 .btn_cancelar {
     border: 1px solid #000;
-    background: #FFF;
+    background: #fff;
     color: #000;
 }
 
@@ -5306,7 +5306,7 @@ a.subir_carousel, a.bajar_carousel {
     position: relative;
     height: 27px;
     z-index: 1000;
-    background: #FFF;
+    background: #fff;
     border-radius: 100%;
 }
 
@@ -5379,7 +5379,7 @@ a.subir_carousel, a.bajar_carousel {
     width: 100%;
     max-width: 427px;
     height: 51px;
-    color: #FFF;
+    color: #fff;
     font-family: 'Lato';
     font-size: 18px;
     text-transform: uppercase;
@@ -8231,7 +8231,7 @@ ul.tabs {
     }
 
 .cargando_content {
-    background: #FFF;
+    background: #fff;
     height: 100%;
     width: 100%;
     overflow: hidden;
@@ -9201,7 +9201,7 @@ ul.tabs {
     width: 60px;
     height: auto;
     padding: 0 0 1px 0;
-    background: #FFF;
+    background: #fff;
     color: #702789;
     font-size: 14px;
     margin: 0;
@@ -9851,7 +9851,7 @@ ul.tabs {
     line-height: 37px;
     padding: 0 10px 0 10px;
     border: 1px solid #D0D0D0;
-    background: #FFF;
+    background: #fff;
     color: #444444;
     font-size: 13px;
     text-align: center;
@@ -11211,7 +11211,7 @@ ol {
     width: 460px;
     height: 268px;
     padding: 40px 0 0 0;
-    background: #FFF;
+    background: #fff;
     border: 1px solid #CFCFCF;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
@@ -11231,7 +11231,7 @@ ol {
 
     .btn_ingresar input {
         font-size: 14px;
-        color: #FFF;
+        color: #fff;
         border: none;
         background: #00A2E8;
         -webkit-border-radius: 10px;
@@ -11242,7 +11242,7 @@ ol {
 
         .btn_ingresar input:hover {
             font-size: 14px;
-            color: #FFF;
+            color: #fff;
             border: none;
             background: #6C207F;
             -webkit-border-radius: 10px;
@@ -11665,7 +11665,7 @@ ol {
             }
 
 .grilla_fede {
-    background: #FFF;
+    background: #fff;
     margin: 0 7px 0 7px;
     padding: 2px;
 }
@@ -11702,7 +11702,7 @@ ol {
         padding: 0;
         position: absolute;
         list-style: none;
-        background: #FFF;
+        background: #fff;
         z-index: 1000;
         left: -123px;
     }
@@ -11861,19 +11861,19 @@ ol {
     }
 
     .fixed .div-2 h1 {
-        color: #FFF;
+        color: #fff;
     }
 
     .fixed .div-2 h4 {
-        color: #FFF;
+        color: #fff;
     }
 
     .fixed .div-2 span {
-        color: #FFF;
+        color: #fff;
     }
 
     .fixed .title {
-        color: #FFF;
+        color: #fff;
     }
 
 .input_ver_pedido input {
@@ -12208,7 +12208,7 @@ ol {
 
 .gerente_zona {
     background: #A4ACB3;
-    color: #FFF;
+    color: #fff;
     font-weight: bold;
     padding: 10px;
     width: 500px;
@@ -12538,7 +12538,7 @@ ol {
     display: block;
     text-align: left;
     float: left;
-    background: #FFF;
+    background: #fff;
 }
 
 .ofertas_cross_name {
@@ -12727,7 +12727,7 @@ ol {
     width: 550px;
     padding: 0 20px 0 20px;
     margin: 0 auto;
-    background: #FFF;
+    background: #fff;
     padding: 15px 0 15px 0;
     font-size: 13px;
 }
@@ -12819,7 +12819,7 @@ ol {
     width: 300px;
     padding: 0 20px 0 20px;
     margin: 0 auto;
-    background: #FFF;
+    background: #fff;
     padding: 15px 0 15px 0;
     font-size: 13px;
 }
@@ -12874,7 +12874,7 @@ ol {
             line-height: 13px;
             padding: 5px 15px 0 15px;
             margin: 0 auto;
-            color: #FFF;
+            color: #fff;
             background: url('../../Images/btn_modifica_pedido.png') top center no-repeat;
             text-align: center;
         }
@@ -12984,7 +12984,7 @@ ol {
         height: 30px;
         line-height: 30px;
         padding: 0 5px 0 5px;
-        background: #FFF;
+        background: #fff;
         color: #702789;
         font-size: 15px;
         margin: 0 auto;
@@ -13023,7 +13023,7 @@ ol {
     zoom: 1;
     *display: inline;
     color: #444;
-    background: #FFF;
+    background: #fff;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     -khtml-border-radius: 10px;
@@ -13044,7 +13044,7 @@ ol {
     zoom: 1;
     *display: inline;
     color: #444;
-    background: #FFF;
+    background: #fff;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     -khtml-border-radius: 10px;
@@ -13123,7 +13123,7 @@ ol {
     zoom: 1;
     *display: inline;
     color: #444;
-    background: #FFF;
+    background: #fff;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     -khtml-border-radius: 10px;
@@ -13144,7 +13144,7 @@ ol {
     zoom: 1;
     *display: inline;
     color: #444;
-    background: #FFF;
+    background: #fff;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     -khtml-border-radius: 10px;
@@ -13269,7 +13269,7 @@ ol {
 
             .nav > li > a:hover {
                 background: url('../../Images/btn_modifica.png') top center no-repeat;
-                color: #FFF;
+                color: #fff;
             }
 
     .nav li ul {
@@ -13291,7 +13291,7 @@ ol {
     .nav li li a {
         display: block;
         background: #0091CE;
-        color: #FFF;
+        color: #fff;
         position: relative;
         z-index: 100;
         border-top: 1px solid #0083BB;
@@ -13300,7 +13300,7 @@ ol {
         .nav li li a:hover {
             display: block;
             background: #008AC6;
-            color: #FFF;
+            color: #fff;
             position: relative;
             z-index: 100;
             border-top: 1px solid #0083BB;
@@ -13342,7 +13342,7 @@ ol {
     position: absolute;
     z-index: 1000;
     border: 3px solid #CCC;
-    background: #FFF;
+    background: #fff;
     width: 200px;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
@@ -13408,7 +13408,7 @@ ol {
 /****************MODAL DIALOG********************/
 
 .Content_modalActualizar {
-    background: #FFF;
+    background: #fff;
     padding: 20px 10px 10px 10px;
     max-height: 600px;
     overflow: auto;
@@ -13422,7 +13422,7 @@ ol {
 }
 /*1747 - zona de estrategia slide*/
 .Content_modal_ZE {
-    background: #FFF;
+    background: #fff;
     margin: 0;
     overflow: auto;
     border: 1px solid #D0D0D0;
@@ -13432,7 +13432,7 @@ ol {
 
 .Content_modal {
     margin-top: 30px;
-    background: #FFF;
+    background: #fff;
     overflow: auto;
     position: relative;
     font-size: 10pt;
@@ -13443,7 +13443,7 @@ ol {
     }
 
 .Content_modal_home {
-    background: #FFF;
+    background: #fff;
     padding: 20px 10px 10px 10px;
     max-height: 350px;
     overflow: auto;
@@ -13456,7 +13456,7 @@ ol {
     }
 
 .Content_modal_imagen {
-    background: #FFF;
+    background: #fff;
     padding: 10px 10px 10px 10px;
     max-height: 350px;
     overflow: auto;
@@ -13471,7 +13471,7 @@ ol {
 }
 
 .Content_modal_ofertas {
-    background: #FFF;
+    background: #fff;
     padding: 0;
     overflow: auto;
     -webkit-border-radius: 10px;
@@ -13493,7 +13493,7 @@ ol {
 }
 
 .ui-dialog .ui-dialog-buttonpane {
-    background: #FFFFFF;
+    background: #fff;
 }
 
 .ui-dialog .ui-dialog-title {
@@ -13510,7 +13510,7 @@ ol {
     width: 350px;
     padding: 0 20px 0 20px;
     margin: 0 auto;
-    background: #FFF;
+    background: #fff;
     font-family: 'lato-regular';
     padding: 15px 0 15px 0;
 }
@@ -13540,7 +13540,7 @@ ol {
     width: 500px;
     padding: 0 20px 0 20px;
     margin: 0 auto;
-    background: #FFF;
+    background: #fff;
     font-family: 'lato-regular';
     padding: 15px 0 15px 0;
 }
@@ -13846,7 +13846,7 @@ ol {
                 display: block;
                 text-decoration: none;
                 color: #6A6A6A;
-                background-color: #FFF;
+                background-color: #fff;
                 padding: 3px 8px 3px 8px;
                 position: relative;
                 font-family: 'lato-regular';
@@ -13858,7 +13858,7 @@ ol {
 
                 .menu_header_preview ul li a:hover, .menu_header_preview ul li:hover a.nivel1 {
                     background: url('../../Images/btn_modifica.png') top center no-repeat;
-                    color: #FFF;
+                    color: #fff;
                     position: relative;
                     -webkit-border-radius: 7px;
                     -moz-border-radius: 7px;
@@ -13891,7 +13891,7 @@ ol {
                 border-left: 1px solid #0087C1;
                 border-right: 1px solid #0087C1;
                 background: #00A2E8;
-                color: #FFF;
+                color: #fff;
                 font-size: 13px;
                 text-align: left;
                 -webkit-border-radius: 0;
@@ -14132,7 +14132,7 @@ table.falsa {
     }
 
     .cab_resumen_lista li {
-        border-top: 2px solid #FFF;
+        border-top: 2px solid #fff;
         padding: 6px 0 2px 12px;
         margin-top: 5px;
     }
@@ -14404,7 +14404,7 @@ ul.service-list {
             display: block;
             cursor: pointer;
             line-height: 18px;
-            color: #FFF;
+            color: #fff;
             font-size: 15px !Important;
             font-family: 'lato-regular';
             font-weight: lighter !Important;
@@ -14414,7 +14414,7 @@ ul.service-list {
 
             ul.service-list li .q1:hover {
                 background: url('../../Images/btn_01_e.png') 0 -38px no-repeat;
-                color: #FFF;
+                color: #fff;
             }
 
             ul.service-list li .q1 span {
@@ -14439,7 +14439,7 @@ ul.service-list {
 
             ul.service-list li .q1pl:hover {
                 background: url('../../Images/btn_pagoLinea.png') 0 -38px no-repeat;
-                color: #FFF;
+                color: #fff;
             }
 
             ul.service-list li .q1pl span {
@@ -14463,7 +14463,7 @@ ul.service-list {
 
             ul.service-list li .q2:hover {
                 background: url('../../Images/btn_02_e.png') 0 -38px no-repeat;
-                color: #FFF;
+                color: #fff;
             }
 
             ul.service-list li .q2 span {
@@ -14488,7 +14488,7 @@ ul.service-list {
 
             ul.service-list li .q3:hover {
                 background: url('../../Images/btn_03.png') 0 -38px no-repeat;
-                color: #FFF;
+                color: #fff;
             }
 
             ul.service-list li .q3 span {
@@ -14624,7 +14624,7 @@ ul.services-list-items {
 }
 
 .fondo_image {
-    background: #FFFFFF;
+    background: #fff;
     border: 1px solid #D0D0D0;
     vertical-align: central;
     -moz-border-radius: 10px;
@@ -14637,7 +14637,7 @@ ul.services-list-items {
 }
 
 .fondo_image_logo {
-    background: #FFFFFF;
+    background: #fff;
     border: 1px solid #D0D0D0;
     vertical-align: central;
     height: 160px;
@@ -15453,7 +15453,7 @@ widget_recent_entries ul {
 
 .single-image img {
     display: block;
-    background-color: #FFFFFF;
+    background-color: #fff;
     opacity: 1;
     filter: alpha(opacity = 80);
 }
@@ -16417,27 +16417,27 @@ ul.tabs-nav li.active {
             font-family: Arial, Helvetica, sans-serif;
             font-weight: 100;
             font-size: 16px;
-            color: #FFF;
+            color: #fff;
             display: none;
             height: 1px !important;
         }
     /*Hyperlink Styles*/
     .TB_Wrapper a:link {
-        color: #FFF;
+        color: #fff;
         text-decoration: none;
     }
 
     .TB_Wrapper a:visited {
-        color: #FFF;
+        color: #fff;
     }
 
     .TB_Wrapper a:hover {
-        color: #FFF;
+        color: #fff;
         text-decoration: underline;
     }
 
     .TB_Wrapper a:active {
-        color: #FFF;
+        color: #fff;
     }
 
     .TB_Wrapper .noSelect {
@@ -16547,7 +16547,7 @@ ul.tabs-nav li.active {
 .SlideText-3 h1 {
     margin-bottom: 10px;
     font-size: 30px;
-    color: #FFFFFF;
+    color: #fff;
     font-family: 'Ubuntu Condensed', sans-serif;
     line-height: 1;
 }
@@ -16721,7 +16721,7 @@ ul.tabs-nav li.active {
 .qq-upload-button {
     background: url('../../../Images/buscar.png') no-repeat scroll 0 0 transparent;
     border: 0 none;
-    color: #FFFFFF;
+    color: #fff;
     float: left;
     font-size: 13px;
     height: 40px;
@@ -16938,7 +16938,7 @@ span.icon-del {
 
     .btn_pag_1:hover {
         background: url('../../Images/btn_pag_1_e.png') 0 -26px no-repeat;
-        color: #FFF;
+        color: #fff;
     }
 
 .btn_pag_2 {
@@ -16956,7 +16956,7 @@ span.icon-del {
 
     .btn_pag_2:hover {
         background: url('../../Images/btn_pag_2_e.png') 0 -26px no-repeat;
-        color: #FFF;
+        color: #fff;
     }
 
 .btn_pag_3 {
@@ -16974,7 +16974,7 @@ span.icon-del {
 
     .btn_pag_3:hover {
         background: url('../../Images/btn_pag_3_e.png') 0 -26px no-repeat;
-        color: #FFF;
+        color: #fff;
     }
 
 .btn_pag_4 {
@@ -16992,7 +16992,7 @@ span.icon-del {
 
     .btn_pag_4:hover {
         background: url('../../Images/btn_pag_4_e.png') 0 -26px no-repeat;
-        color: #FFF;
+        color: #fff;
     }
 
 .border-mensaje {
@@ -17372,7 +17372,7 @@ body, html {
     resize: none;
     width: 658px;
     height: 70px;
-    background-color: #FFF;
+    background-color: #fff;
     border-color: #B5B5B5;
 }
 
@@ -17465,15 +17465,15 @@ body, html {
 }
 
 .user {
-    background: url('../../../images/comunidad/user_ico.png') top left no-repeat #FFF;
+    background: url('../../../images/comunidad/user_ico.png') top left no-repeat #fff;
 }
 
 .mail {
-    background: url('../../../images/comunidad/correo_ico.png') top left no-repeat #FFF;
+    background: url('../../../images/comunidad/correo_ico.png') top left no-repeat #fff;
 }
 
 .Content_modal_Com {
-    background: #FFF;
+    background: #fff;
     max-height: 350px;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
@@ -18046,7 +18046,7 @@ body, html {
 }
 
 .Content_modal_notificacion {
-    background: #FFF;
+    background: #fff;
     padding: 0;
     overflow: auto;
     behavior: url('../Content/Css/Pie/PIE.htc');
@@ -19374,7 +19374,7 @@ label.checkpop.c_on {
 
 .notificaciones_existentes {
     background: #e81c36;
-    color: #FFF;
+    color: #fff;
     border-radius: 100%;
 }
 
@@ -20120,7 +20120,7 @@ label.checkpop.c_on {
 }
 
 .contenido_item_carrusel_ofertaFinal {
-    background: #FFF;
+    background: #fff;
     display: block;
     margin: 0 auto;
     height: 335px;
@@ -21118,7 +21118,7 @@ body {
 
 .tooltip_tutorial {
     display: block;
-    background: #FFF;
+    background: #fff;
     width: 204px;
     height: auto;
     position: absolute;
@@ -21180,7 +21180,7 @@ body {
     height: 0;
     width: 0;
     position: absolute;
-    border-bottom-color: #FFF;
+    border-bottom-color: #fff;
     border-width: 9px;
     margin-left: -9px;
 }
@@ -21790,7 +21790,7 @@ body {
 
 .estado_detalleFacturado {
     background: #A18328;
-    color: #FFF;
+    color: #fff;
 }
 
 .estado_detalles div:hover .estado_texto {
@@ -21899,7 +21899,7 @@ body {
     width: 90%;
     max-width: 1230px;
     height: auto;
-    background: #FFF;
+    background: #fff;
     margin: 3.2% auto 1.5% auto;
     z-index: 3;
 }
@@ -22219,7 +22219,7 @@ body {
     font-family: 'Lato';
     font-size: 15px;
     font-weight: 400;
-    color: #FFF;
+    color: #fff;
     position: relative;
 }
 /* POPUP FACTURADOS */
@@ -22227,7 +22227,7 @@ body {
     display: none;
     width: 100%;
     height: auto;
-    background: #FFF;
+    background: #fff;
     z-index: 3;
     box-shadow: 1px 1px 17px 3px #CCC;
     -moz-box-shadow: 1px 1px 17px 3px #CCC;
@@ -22556,7 +22556,7 @@ body {
     display: none;
     width: 100%;
     height: auto;
-    background: #FFF;
+    background: #fff;
     z-index: 3;
     box-shadow: 1px 1px 17px 3px #CCC;
     -moz-box-shadow: 1px 1px 17px 3px #CCC;
@@ -22621,7 +22621,7 @@ body {
     -o-transition: all 0.3s ease;
     -ms-transition: all 0.3s ease;
     -webkit-transition: all 0.3s ease;
-    background: #FFF;
+    background: #fff;
 }
 
     .acordion_titulo:hover {
@@ -23260,7 +23260,7 @@ img {
     background-color: #e51437;
     height: 30px;
     font-size: 11px;
-    color: #FFFFFF;
+    color: #fff;
     padding-left: 10px;
 }
 
@@ -23268,7 +23268,7 @@ img {
     background: #758692;
     height: 21px;
     font-size: 11px;
-    color: #FFFFFF;
+    color: #fff;
     padding-right: 20px;
     padding-top: 9px;
     text-align: right;
@@ -23398,7 +23398,7 @@ img {
 }
 
 #menu {
-    background-color: #FFF;
+    background-color: #fff;
     float: left;
     margin-left: 0%;
     margin-right: 0%;
@@ -23974,7 +23974,7 @@ img {
     }
 
 .cont_pregunta {
-    background-color: #FFFFFF;
+    background-color: #fff;
     width: 277px;
     height: 318px;
     position: relative;
@@ -24559,7 +24559,7 @@ img {
     height: 18px;
     vertical-align: middle;
     margin-right: 8px;
-    background-color: #FFF;
+    background-color: #fff;
     border-radius: 8px;
     border: 1px solid #768ea3;
     box-sizing: border-box;
@@ -24577,7 +24577,7 @@ img {
     height: 12px;
     vertical-align: middle;
     margin-right: 8px;
-    background-color: #FFF;
+    background-color: #fff;
     border-radius: 4px;
     border: 1px solid #5B6F7B;
 }
@@ -24585,7 +24585,7 @@ img {
 .tsm input[type=radio]:checked + label:before {
     content: '';
     color: transparent;
-    background-color: #FFF;
+    background-color: #fff;
     font-size: 1.8em;
     text-align: center;
     line-height: 14px;
@@ -24597,7 +24597,7 @@ img {
 .tsm input[type=checkbox]:checked + label:before {
     content: '\2714';
     color: #BB378D;
-    background-color: #FFF;
+    background-color: #fff;
     text-align: center;
     line-height: 12px;
     border: 1px solid #5B6F7B;
@@ -25061,7 +25061,7 @@ div.subir_archivo {
     height: 18px;
     vertical-align: middle;
     margin-right: 8px;
-    background-color: #FFF;
+    background-color: #fff;
     border-radius: 8px;
     border: 1px solid #768ea3;
     box-sizing: border-box;
@@ -25079,7 +25079,7 @@ div.subir_archivo {
     height: 12px;
     vertical-align: middle;
     margin-right: 8px;
-    background-color: #FFF;
+    background-color: #fff;
     border-radius: 4px;
     border: 1px solid #5B6F7B;
 }
@@ -25087,7 +25087,7 @@ div.subir_archivo {
 .rad_ input[type=radio]:checked + label:before {
     content: '';
     color: transparent;
-    background-color: #FFF;
+    background-color: #fff;
     font-size: 1.8em;
     text-align: center;
     line-height: 14px;
@@ -25099,7 +25099,7 @@ div.subir_archivo {
 .rad_ input[type=checkbox]:checked + label:before {
     content: '\2714';
     color: #BB378D;
-    background-color: #FFF;
+    background-color: #fff;
     text-align: center;
     line-height: 12px;
     border: 1px solid #5B6F7B;
@@ -25582,7 +25582,7 @@ div.subir_archivo {
 
     .mis_clientes .btnCliente_cancelar:hover {
         background: #000;
-        color: #FFF;
+        color: #fff;
     }
 
     .mis_clientes .btnCliente_agregar:hover {
@@ -25641,7 +25641,7 @@ div.subir_archivo {
     position: relative;
     top: 50%;
     margin: -150px auto 0 auto;
-    background: #FFF;
+    background: #fff;
     width: 100%;
     max-width: 514px;
     height: auto;
@@ -25698,7 +25698,7 @@ div.subir_archivo {
 
 .btn_eliminarCliente {
     width: 199px;
-    background: #FFF;
+    background: #fff;
     border: 1px solid #000;
     margin-right: 17px;
 }
@@ -25706,13 +25706,13 @@ div.subir_archivo {
 .btn_noEliminarCliente {
     width: 140px;
     background: #e81c36;
-    color: #FFF;
+    color: #fff;
     border: none;
 }
 
 .btn_eliminarCliente:hover {
     background: #000;
-    color: #FFF;
+    color: #fff;
 }
 
 .btn_noEliminarCliente:hover {
@@ -26229,7 +26229,7 @@ input[type='checkbox']:checked + span:after {
         width: 90%;
         max-width: 1230px;
         height: auto;
-        background: #FFF;
+        background: #fff;
         margin: 3.2% auto 1.5% auto;
         z-index: 3;
     }
@@ -26280,7 +26280,7 @@ input[type='checkbox']:checked + span:after {
             font-family: 'Lato';
             font-size: 15px;
             font-weight: 400;
-            color: #FFF;
+            color: #fff;
             position: relative;
         }
 /* FIN POPUP LAYOUT*/
@@ -26678,7 +26678,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     }
 
 .titulo_blanco {
-    color: #FFF;
+    color: #fff;
 }
 
 .contenedor_item_descripcion {
@@ -26765,7 +26765,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     width: 960px;
     max-width: 1230px;
     height: auto;
-    background: #FFF;
+    background: #fff;
     margin: 3.2% auto 1.5% auto;
     z-index: 3;
     padding-top: 30px;
@@ -27096,7 +27096,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     top: 50%;
     max-width: 492px;
     margin: -148px auto 0 auto;
-    background: #FFF;
+    background: #fff;
     padding: 51px 61px;
 }
 
@@ -27494,7 +27494,7 @@ span.datoPedidoCliente {
     position: relative;
     top: 15%;
     margin: 0 auto;
-    background: #FFF;
+    background: #fff;
     width: 100%;
     max-width: 505px;
     height: 300px;
@@ -27680,7 +27680,7 @@ a#cierreMotivoRechazo img {
     text-align: center;
     line-height: 45px;
     background: #e81c36;
-    color: #FFF;
+    color: #fff;
     margin: 0 auto;
     border: 0;
     font-family: 'Lato';
@@ -27695,7 +27695,7 @@ a#cierreMotivoRechazo img {
     text-align: center;
     line-height: 45px;
     background: #e81c36;
-    color: #FFF;
+    color: #fff;
     margin: 0 auto;
     border: 0;
 }
@@ -28004,7 +28004,7 @@ a#cierreMotivoRechazo img {
     position: relative;
     top: 40%;
     margin: -153px auto 0 auto;
-    background: #FFF;
+    background: #fff;
     width: 100%;
     max-width: 500px;
     height: auto;
@@ -28286,7 +28286,7 @@ h1#penmostreo .campana {
     font-weight: 700;
     border: 1px solid black;
     font-family: 'Lato';
-    background: #FFF;
+    background: #fff;
     opacity: 0;
     left: 0;
     right: 0;
@@ -28346,13 +28346,13 @@ h1#penmostreo .campana {
 
 .boton_cancelarImagen {
     color: #000;
-    background: #FFF;
+    background: #fff;
     border: 1px solid #000;
     margin-right: 14px;
 }
 
 .boton_guardarImagen {
-    color: #FFF;
+    color: #fff;
     background: #e81c36;
     border: 1px solid #e81c36;
 }
@@ -28436,7 +28436,7 @@ h1#penmostreo .campana {
         position: relative;
         width: 617px;
         height: auto;
-        background: #FFF;
+        background: #fff;
         margin: 9% auto 0 auto;
         z-index: 3;
         padding-top: 27px;
@@ -28651,7 +28651,7 @@ h1#penmostreo .campana {
         width: 971px;
         max-height: 636px;
         top: 50%;
-        background: #FFF;
+        background: #fff;
         margin: -318px auto auto auto;
         z-index: 3;
         padding-left: 40px;
@@ -28852,7 +28852,7 @@ h1#penmostreo .campana {
         width: 971px;
         height: 582px;
         top: 50%;
-        background: #FFF;
+        background: #fff;
         margin: -291px auto auto auto;
         z-index: 3;
         padding-left: 40px;
@@ -29125,7 +29125,7 @@ h1#penmostreo .campana {
     position: relative;
     top: 9%;
     margin: 0 auto 20px auto;
-    background: #FFF;
+    background: #fff;
     height: auto;
     padding-bottom: 13px;
     box-sizing: border-box;
@@ -29461,7 +29461,7 @@ h1#penmostreo .campana {
 .campoContrasenia {
     border: 1px solid #000;
     color: #000;
-    background: #FFF;
+    background: #fff;
     font-weight: normal;
     padding: 0 20px;
 }
@@ -29484,7 +29484,7 @@ h1#penmostreo .campana {
 
 .btnCambiarContrasenia {
     background: #e81c36;
-    color: #FFF;
+    color: #fff;
     font-weight: bold;
     border: 1px solid #e81c36;
     opacity: 1;
@@ -29805,7 +29805,7 @@ h1#penmostreo .campana {
     position: relative;
     top: 15%;
     margin: 0 auto;
-    background: #FFF;
+    background: #fff;
     width: 100%;
     max-width: 505px;
     height: 300px;
@@ -29869,7 +29869,7 @@ h1#penmostreo .campana {
     position: relative;
     top: 15%;
     margin: 0 auto;
-    background: #FFF;
+    background: #fff;
     width: 100%;
     max-width: 505px;
     height: 300px;
@@ -29923,7 +29923,7 @@ h1#penmostreo .campana {
         position: absolute;
         width: 36px;
         background-image: url('../../../Images/Esika/tabs_consultora.png');
-        background-color: #FFF;
+        background-color: #fff;
         background-repeat: repeat-x;
         height: 100%;
         right: -36px;
@@ -29948,7 +29948,7 @@ h1#penmostreo .campana {
     position: absolute;
     width: 100%;
     background-image: url('../../../Images/Esika/tabs_consultora.png');
-    background-color: #FFF;
+    background-color: #fff;
     background-repeat: repeat-x;
     height: 100%;
     left: -100%;
@@ -30005,7 +30005,7 @@ h1#penmostreo .campana {
     position: relative;
     top: 15%;
     margin: 0 auto;
-    background: #FFF;
+    background: #fff;
     width: 100%;
     max-width: 505px;
     height: 300px;
