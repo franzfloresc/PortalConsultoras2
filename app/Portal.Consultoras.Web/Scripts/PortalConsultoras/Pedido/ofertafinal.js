@@ -1182,7 +1182,7 @@ function CargarVerDetalleOF(objInput, e) {
 
     var objEntidad = new Object();
     objEntidad.id = idProdOf;
-    objEntidad.ImagenProductoSugerido = $(divPadre).find(".hdOfertaFinal" + "ImagenProductoSugerido").val();
+    objEntidad.ImagenProductoSugerido = $(divPadre).find(".hdOfertaFinal" + "ImagenProductoSugeridoMedium").val();
     objEntidad.DescripcionComercial = $(divPadre).find(".hdOfertaFinal" + "DescripcionComercial").val();
     objEntidad.Volumen = $(divPadre).find(".hdOfertaFinal" + "Volumen").val();
     objEntidad.Descripcion = $(divPadre).find(".hdOfertaFinal" + "NombreComercial").val();

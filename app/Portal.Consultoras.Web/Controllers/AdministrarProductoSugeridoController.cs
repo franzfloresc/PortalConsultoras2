@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Common.MagickNet;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
@@ -7,6 +8,7 @@ using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
@@ -218,6 +220,26 @@ namespace Portal.Consultoras.Web.Controllers
                 entidad.UsuarioRegistro = userData.CodigoConsultora;
                 entidad.UsuarioModificacion = userData.CodigoConsultora;
 
+                #region Imagen Resize 
+
+                var listaImagenesResize = new List<EntidadMagickResize>();
+
+                string rutaImagen = entidad.ImagenProducto.Clone().ToString() ?? "";
+                var valorAppCatalogo = Constantes.ConfiguracionImagenResize.ValorTextoDefaultAppCatalogo;
+                if (rutaImagen.ToLower().Contains(valorAppCatalogo))
+                {
+                    listaImagenesResize = ObtenerListaImagenesResizeAppCatalogo(entidad.ImagenProducto);
+                }
+                else
+                {                    
+                    listaImagenesResize = ObtenerListaImagenesResize(entidad.ImagenProducto);                    
+                }
+
+                if (listaImagenesResize != null && listaImagenesResize.Count > 0)
+                    MagickNetLibrary.GuardarImagenesResize(listaImagenesResize);
+
+                #endregion
+
                 string r = "";
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
@@ -254,6 +276,60 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
+
+        #region Imagenes Resize App Catalogo
+
+        public List<EntidadMagickResize> ObtenerListaImagenesResizeAppCatalogo(string rutaImagen)
+        {
+            var listaImagenesResize = new List<EntidadMagickResize>();
+
+            if (Util.ExisteUrlRemota(rutaImagen))
+            {
+                string soloImagen = Path.GetFileNameWithoutExtension(rutaImagen);
+                string soloExtension = Path.GetExtension(rutaImagen);
+
+                var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+
+                var extensionNombreImagenSmall = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall;
+                var rutaImagenSmall = ConfigS3.GetUrlFileS3(carpetaPais, soloImagen + extensionNombreImagenSmall + soloExtension);
+
+                var extensionNombreImagenMedium = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium;
+                var rutaImagenMedium = ConfigS3.GetUrlFileS3(carpetaPais, soloImagen + extensionNombreImagenMedium + soloExtension);
+
+                var listaValoresImagenesResize = ObtenerParametrosTablaLogica(Constantes.PaisID.Peru, Constantes.TablaLogica.ValoresImagenesResize, true);
+
+                EntidadMagickResize entidadResize;
+                if (!Util.ExisteUrlRemota(rutaImagenSmall))
+                {
+                    entidadResize = new EntidadMagickResize();
+                    entidadResize.RutaImagenOriginal = rutaImagen;
+                    entidadResize.RutaImagenResize = rutaImagenSmall;
+                    entidadResize.Width = ObtenerTablaLogicaDimensionImagen(listaValoresImagenesResize, Constantes.TablaLogicaDato.ValoresImagenesResizeWitdhSmall);
+                    entidadResize.Height = ObtenerTablaLogicaDimensionImagen(listaValoresImagenesResize, Constantes.TablaLogicaDato.ValoresImagenesResizeHeightSmall);
+                    entidadResize.TipoImagen = Constantes.ConfiguracionImagenResize.TipoImagenSmall;
+                    entidadResize.CodigoIso = userData.CodigoISO;
+                    listaImagenesResize.Add(entidadResize);
+                }
+
+                if (!Util.ExisteUrlRemota(rutaImagenMedium))
+                {
+                    entidadResize = new EntidadMagickResize();
+                    entidadResize.RutaImagenOriginal = rutaImagen;
+                    entidadResize.RutaImagenResize = rutaImagenMedium;
+                    entidadResize.Width = ObtenerTablaLogicaDimensionImagen(listaValoresImagenesResize, Constantes.TablaLogicaDato.ValoresImagenesResizeWitdhMedium);
+                    entidadResize.Height = ObtenerTablaLogicaDimensionImagen(listaValoresImagenesResize, Constantes.TablaLogicaDato.ValoresImagenesResizeHeightMedium);
+                    entidadResize.TipoImagen = Constantes.ConfiguracionImagenResize.TipoImagenMedium;
+                    entidadResize.CodigoIso = userData.CodigoISO;
+                    listaImagenesResize.Add(entidadResize);
+                }
+            }
+
+            return listaImagenesResize;
+        }
+
+        #endregion
+
+        
 
         [HttpPost]
         public JsonResult Deshabilitar(AdministrarProductoSugeridoModel model)
@@ -334,5 +410,82 @@ namespace Portal.Consultoras.Web.Controllers
             if (arrayProducto == null || arrayProducto.Length == 0) return null;
             return arrayProducto[0].Imagen;
         }
+
+        #region CargaMasivaImagenes
+
+        public JsonResult CargaMasivaImagenes(int campaniaId)
+        {
+            try
+            {
+                var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+                var lista = new List<BECargaMasivaImagenes>();
+
+                using (PedidoServiceClient ps = new PedidoServiceClient())
+                {
+                    lista = ps.GetListaImagenesProductoSugeridoByCampania(userData.PaisID, campaniaId).ToList();
+                }
+                //listaEstrategias = listaEstrategias.Take(5).ToList();
+                var cantidadImagenesGeneradas = 0;
+                var cuvNoGenerados = "";
+                var cuvNoExistentes = "";
+
+                foreach (var item in lista)
+                {                    
+                    var mensajeError = "";
+
+                    var listaImagenesResize = new List<EntidadMagickResize>();
+
+                    string rutaImagen = item.RutaImagen.Clone().ToString() ?? "";
+                    var valorAppCatalogo = Constantes.ConfiguracionImagenResize.ValorTextoDefaultAppCatalogo;
+                    if (rutaImagen.ToLower().Contains(valorAppCatalogo))
+                    {
+                        listaImagenesResize = ObtenerListaImagenesResizeAppCatalogo(item.RutaImagen);
+                    }
+                    else
+                    {
+                        listaImagenesResize = ObtenerListaImagenesResize(item.RutaImagen);
+                    }
+
+                    if (listaImagenesResize != null && listaImagenesResize.Count > 0)
+                        mensajeError = MagickNetLibrary.GuardarImagenesResize(listaImagenesResize);                    
+                    else
+                        cuvNoExistentes += item.Cuv + ",";
+
+                    if (mensajeError == "")
+                        cantidadImagenesGeneradas++;
+                    else
+                        cuvNoGenerados += item.Cuv + ",";
+                }
+
+                var mensaje = "Se generaron las imagenes SMALL y MEDIUM de todas las imagenes.";
+                if (cuvNoGenerados != "")
+                {
+                    mensaje += " Excepto los siguientes Cuvs: " + cuvNoGenerados;
+                }
+                if (cuvNoExistentes != "")
+                {
+                    mensaje += " Excepto los siguientes Cuvs (imagen orignal no encontrada o ya existen): " + cuvNoExistentes;
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    message = mensaje,
+                    extra = ""
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    extra = ""
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        #endregion
     }
 }
