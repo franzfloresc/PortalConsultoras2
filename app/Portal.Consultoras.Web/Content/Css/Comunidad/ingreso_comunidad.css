@@ -381,8 +381,8 @@ div label {
     }
 
     #wrap_header_menu {
-        -webkit-box-shadow: 0 3px 15px rgba(0,0,0,0.1);
-        box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+        -webkit-box-shadow: 0 3px 15px rgba(0,0,0,.1);
+        box-shadow: 0 3px 15px rgba(0,0,0,.1);
     }
 
     #cont_menus {
@@ -411,7 +411,7 @@ div label {
     background-color: #fff;
     padding: 20px 30px;
     border-radius: 2px;
-    box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 3px 15px rgba(0,0,0,.1);
     margin-bottom: 25px;
 }
 

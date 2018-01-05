@@ -7,7 +7,6 @@
     font-family: Arial,sans-serif !important;
     font-size: 12px !important;
 }
-.jstree-apple > ul {}
 .jstree-apple li, 
 .jstree-apple ins { background-image:url('d.png'); background-repeat:no-repeat; background-color:transparent; }
 .jstree-apple li { background-position:-90px 0; background-repeat:repeat-y;  }
@@ -52,7 +51,6 @@
 
 #vakata-contextmenu.jstree-apple-context, 
 #vakata-contextmenu.jstree-apple-context li ul { background:#f0f0f0; border:1px solid #979797; }
-#vakata-contextmenu.jstree-apple-context li { }
 #vakata-contextmenu.jstree-apple-context a { color:#555; }
 #vakata-contextmenu.jstree-apple-context a:hover, 
 #vakata-contextmenu.jstree-apple-context .vakata-hover > a { padding:0 5px; background:#e8eff7; border:1px solid #aecff7; color:#555; }

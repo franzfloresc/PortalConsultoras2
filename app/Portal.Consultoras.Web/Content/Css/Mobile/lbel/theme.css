@@ -1126,7 +1126,6 @@ h2,h3{page-break-after:avoid}
 body{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:14px;line-height:1.42857143;color:black}
 button,input,select,textarea{font-family:inherit;font-size:inherit;line-height:inherit}
 a{color:black;text-decoration:none}
-a:focus,a:hover{}
 a:focus{outline:dotted thin;outline:-webkit-focus-ring-color auto 5px;outline-offset:-2px}
 .carousel-inner>.item>a>img,.carousel-inner>.item>img,.img-responsive,.thumbnail a>img,.thumbnail>img{height: 30vh; width: 100vw; object-fit: cover;}
 .img-rounded{border-radius:0}

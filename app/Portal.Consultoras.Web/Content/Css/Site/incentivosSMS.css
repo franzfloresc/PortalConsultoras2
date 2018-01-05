@@ -195,11 +195,11 @@ body {
     border: 2px solid #000;
     font-size: 12.5px;
     font-weight: bold;
-    transition: all 0.3s ease;
-    -moz-transition: all 0.3s ease;
-    -o-transition: all 0.3s ease;
-    -ms-transition: all 0.3s ease;
-    -webkit-transition: all 0.3s ease;
+    transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -webkit-transition: all .3s ease;
 }
 
 .desktop {
@@ -548,33 +548,33 @@ body {
         }
 
     .busy-loader .ball-1 {
-        -webkit-animation-delay: 0.96s;
-        -ms-animation-delay: 0.96s;
-        animation-delay: 0.96s;
+        -webkit-animation-delay: .96s;
+        -ms-animation-delay: .96s;
+        animation-delay: .96s;
     }
 
     .busy-loader .ball-2 {
-        -webkit-animation-delay: 0.19s;
-        -ms-animation-delay: 0.19s;
-        animation-delay: 0.19s;
+        -webkit-animation-delay: .19s;
+        -ms-animation-delay: .19s;
+        animation-delay: .19s;
     }
 
     .busy-loader .ball-3 {
-        -webkit-animation-delay: 0.38s;
-        -ms-animation-delay: 0.38s;
-        animation-delay: 0.38s;
+        -webkit-animation-delay: .38s;
+        -ms-animation-delay: .38s;
+        animation-delay: .38s;
     }
 
     .busy-loader .ball-4 {
-        -webkit-animation-delay: 0.58s;
-        -ms-animation-delay: 0.58s;
-        animation-delay: 0.58s;
+        -webkit-animation-delay: .58s;
+        -ms-animation-delay: .58s;
+        animation-delay: .58s;
     }
 
     .busy-loader .ball-5 {
-        -webkit-animation-delay: 0.77s;
-        -ms-animation-delay: 0.77s;
-        animation-delay: 0.77s;
+        -webkit-animation-delay: .77s;
+        -ms-animation-delay: .77s;
+        animation-delay: .77s;
     }
 
 @-webkit-keyframes orbit {
@@ -589,7 +589,7 @@ body {
         opacity: 1;
         -webkit-transform: rotate(300deg);
         -webkit-animation-timing-function: linear;
-        -webkit-origin: 0%;
+        -webkit-origin: 0;
     }
 
     30% {
@@ -643,7 +643,7 @@ body {
         opacity: 1;
         -ms-transform: rotate(300deg);
         -ms-animation-timing-function: linear;
-        -ms-origin: 0%;
+        -ms-origin: 0;
     }
 
     30% {
@@ -701,7 +701,7 @@ body {
         transform: rotate(300deg);
         -webkit-animation-timing-function: linear;
         animation-timing-function: linear;
-        origin: 0%;
+        origin: 0;
     }
 
     30% {
@@ -763,7 +763,7 @@ body {
     height: 100%;
     padding: 15px;
     top: 0;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0,0,0,.5);
 }
 
 .content_mensajeAlerta {

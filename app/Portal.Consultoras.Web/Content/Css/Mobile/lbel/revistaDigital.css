@@ -115,11 +115,11 @@
     .popup_revistaSuscripcion_noAMostrarMensaje a {
         color: #fff;
         text-decoration: underline;
-        transition: opacity 0.3s ease;
-        -moz-transition: opacity 0.3s ease;
-        -o-transition: opacity 0.3s ease;
-        -ms-transition: opacity 0.3s ease;
-        -webkit-transition: opacity 0.3s ease;
+        transition: opacity .3s ease;
+        -moz-transition: opacity .3s ease;
+        -o-transition: opacity .3s ease;
+        -ms-transition: opacity .3s ease;
+        -webkit-transition: opacity .3s ease;
     }
 
         .popup_revistaSuscripcion_noAMostrarMensaje a:hover {
@@ -152,11 +152,11 @@
     -o-transform: skewX(-14deg);
     -ms-transform: skewX(-14deg);
     -webkit-transform: skewX(-14deg);
-    background: -moz-linear-gradient(-45deg, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 20%, rgba(223,40,34,1) 100%);
-    background: -webkit-linear-gradient(-45deg, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 20%, rgba(223,40,34,1) 100%);
-    background: -o-linear-gradient(-45deg, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 20%, rgba(223,40,34,1) 100%);
-    background: -ms-linear-gradient(-45deg, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 20%, rgba(223,40,34,1) 100%);
-    background: linear-gradient(135deg, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 20%, rgba(223,40,34,1) 100%);
+    background: -moz-linear-gradient(-45deg, rgba(177,19,19,1) 0, rgba(197,31,28,1) 20%, rgba(223,40,34,1) 100%);
+    background: -webkit-linear-gradient(-45deg, rgba(177,19,19,1) 0, rgba(197,31,28,1) 20%, rgba(223,40,34,1) 100%);
+    background: -o-linear-gradient(-45deg, rgba(177,19,19,1) 0, rgba(197,31,28,1) 20%, rgba(223,40,34,1) 100%);
+    background: -ms-linear-gradient(-45deg, rgba(177,19,19,1) 0, rgba(197,31,28,1) 20%, rgba(223,40,34,1) 100%);
+    background: linear-gradient(135deg, rgba(177,19,19,1) 0, rgba(197,31,28,1) 20%, rgba(223,40,34,1) 100%);
 }
 
 /* SECCIÓN REVISTA DIGITAL VISTA BIENVENIDA MOBILE */
@@ -178,11 +178,11 @@
     position: absolute;
     width: 139px;
     height: 100%;
-    background: -moz-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    background: -webkit-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    background: -o-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    background: -ms-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    background: linear-gradient(to right, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -moz-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -webkit-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -o-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -ms-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: linear-gradient(to right, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
     top: 0;
     left: -23px;
     transform: skewX(-14deg);
@@ -257,11 +257,11 @@
     background: transparent;
     overflow: hidden;
     cursor: pointer;
-    transition: all 0.3s ease;
-    -moz-transition: all 0.3s ease;
-    -o-transition: all 0.3s ease;
-    -ms-transition: all 0.3s ease;
-    -webkit-transition: all 0.3s ease;
+    transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -webkit-transition: all .3s ease;
 }
 
     .revistadigital .boxoffer:hover, .contenedor_botonVerMasOfertas .boxoffer:hover {
@@ -275,11 +275,11 @@
         transform: skewX(-14deg);
         position: absolute;
         left: -14px;
-        background: -moz-linear-gradient(top, rgba(213,37,31,1) 0%, rgba(163,16,18,1) 100%);
-        background: -webkit-linear-gradient(top, rgba(213,37,31,1) 0%, rgba(163,16,18,1) 100%);
-        background: -o-linear-gradient(top, rgba(213,37,31,1) 0%, rgba(163,16,18,1) 100%);
-        background: -ms-linear-gradient(top, rgba(213,37,31,1) 0%, rgba(163,16,18,1) 100%);
-        background: linear-gradient(to bottom, rgba(213,37,31,1) 0%, rgba(163,16,18,1) 100%);
+        background: -moz-linear-gradient(top, rgba(213,37,31,1) 0, rgba(163,16,18,1) 100%);
+        background: -webkit-linear-gradient(top, rgba(213,37,31,1) 0, rgba(163,16,18,1) 100%);
+        background: -o-linear-gradient(top, rgba(213,37,31,1) 0, rgba(163,16,18,1) 100%);
+        background: -ms-linear-gradient(top, rgba(213,37,31,1) 0, rgba(163,16,18,1) 100%);
+        background: linear-gradient(to bottom, rgba(213,37,31,1) 0, rgba(163,16,18,1) 100%);
         box-shadow: 3px 2px 5px rgba(0,0,0,0.25);
         -moz-box-shadow: 3px 2px 5px rgba(0,0,0,0.25);
         -o-box-shadow: 3px 2px 5px rgba(0,0,0,0.25);
@@ -466,11 +466,11 @@ div#tab_revistasdigital_mobile {
     top: 0;
     left: -25px;
     z-index: 3;
-    background: -moz-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    background: -webkit-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    background: -o-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    background: -ms-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    background: linear-gradient(to right, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -moz-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -webkit-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -o-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -ms-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: linear-gradient(to right, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
     transform: skewX(-14deg);
     -moz-transform: skewX(-14deg);
     -o-transform: skewX(-14deg);
@@ -486,11 +486,11 @@ div#tab_revistasdigital_mobile {
         position: absolute;
         top: 0;
         left: -454px;
-        background: -moz-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-        background: -webkit-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-        background: -o-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-        background: -ms-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-        background: linear-gradient(to right, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+        background: -moz-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+        background: -webkit-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+        background: -o-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+        background: -ms-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+        background: linear-gradient(to right, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
         z-index: 2;
     }
 
@@ -551,11 +551,11 @@ div#tab_revistasdigital_mobile {
         margin-bottom: 9px;
         position: relative;
         top: 0;
-        transition: all 0.3s ease;
-        -moz-transition: all 0.3s ease;
-        -o-transition: all 0.3s ease;
-        -ms-transition: all 0.3s ease;
-        -webkit-transition: all 0.3s ease;
+        transition: all .3s ease;
+        -moz-transition: all .3s ease;
+        -o-transition: all .3s ease;
+        -ms-transition: all .3s ease;
+        -webkit-transition: all .3s ease;
     }
 
         .cabecera_boton_inscribeteAEsikaParaMi button:hover {
@@ -769,11 +769,11 @@ div#tab_revistasdigital_mobile {
         -o-box-shadow: 0 -2px 11px rgba(0,0,0,0.25);
         -ms-box-shadow: 0 -2px 11px rgba(0,0,0,0.25);
         -webkit-box-shadow: 0 -2px 11px rgba(0,0,0,0.25);
-        transition: all 0.3s ease;
-        -moz-transition: all 0.3s ease;
-        -o-transition: all 0.3s ease;
-        -ms-transition: all 0.3s ease;
-        -webkit-transition: all 0.3s ease;
+        transition: all .3s ease;
+        -moz-transition: all .3s ease;
+        -o-transition: all .3s ease;
+        -ms-transition: all .3s ease;
+        -webkit-transition: all .3s ease;
     }
 
     .contenido_fondoDesenfocado span:last-child {
@@ -842,11 +842,11 @@ div#tab_revistasdigital_mobile {
     margin: 0 auto;
     width: 100%;
     height: auto;
-    background: -moz-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    background: -webkit-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    background: -o-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    background: -ms-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    background: linear-gradient(to right, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -moz-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -webkit-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -o-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -ms-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: linear-gradient(to right, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
 }
 
 .contenido_felicitaciones, .contenido_felicitaciones span, .contenido_recuerdaIngresar, .link_entendido {
@@ -897,12 +897,12 @@ div#tab_revistasdigital_mobile {
     float: left;
     position: relative;
     background: rgba(177,19,20,1);
-    background: -moz-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
-    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(177,19,20,1)), color-stop(18%, rgba(197,31,28,1)), color-stop(100%, rgba(223,41,34,1)));
-    background: -webkit-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
-    background: -o-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
-    background: -ms-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
-    background: linear-gradient(to bottom, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: -moz-linear-gradient(top, rgba(177,19,20,1) 0, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0, rgba(177,19,20,1)), color-stop(18%, rgba(197,31,28,1)), color-stop(100%, rgba(223,41,34,1)));
+    background: -webkit-linear-gradient(top, rgba(177,19,20,1) 0, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: -o-linear-gradient(top, rgba(177,19,20,1) 0, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: -ms-linear-gradient(top, rgba(177,19,20,1) 0, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: linear-gradient(to bottom, rgba(177,19,20,1) 0, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b11314', endColorstr='#df2922', GradientType=0 );
     padding-top: 15px;
 }
@@ -1190,7 +1190,7 @@ div#tab_revistasdigital_mobile {
 }
 
 .rd_ver_mas:hover {
-    transition: all 0.2s ease-in-out;
+    transition: all .2s ease-in-out;
 }
 
 .rd_ver_mas:after {
@@ -1337,12 +1337,12 @@ div#tab_revistasdigital_mobile {
 
 .mrd_logo {
     background: rgba(97,60,135,1);
-    background: -moz-linear-gradient(-45deg, rgba(97,60,135,1) 0%, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
-    background: -webkit-gradient(left top, right bottom, color-stop(0%, rgba(97,60,135,1)), color-stop(31%, rgba(97,60,135,1)), color-stop(100%, rgba(97,60,135,1)));
-    background: -webkit-linear-gradient(-45deg, rgba(97,60,135,1) 0%, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
-    background: -o-linear-gradient(-45deg, rgba(97,60,135,1) 0%, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
-    background: -ms-linear-gradient(-45deg, rgba(97,60,135,1) 0%, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
-    background: linear-gradient(135deg, rgba(97,60,135,1) 0%, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
+    background: -moz-linear-gradient(-45deg, rgba(97,60,135,1) 0, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
+    background: -webkit-gradient(left top, right bottom, color-stop(0, rgba(97,60,135,1)), color-stop(31%, rgba(97,60,135,1)), color-stop(100%, rgba(97,60,135,1)));
+    background: -webkit-linear-gradient(-45deg, rgba(97,60,135,1) 0, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
+    background: -o-linear-gradient(-45deg, rgba(97,60,135,1) 0, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
+    background: -ms-linear-gradient(-45deg, rgba(97,60,135,1) 0, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
+    background: linear-gradient(135deg, rgba(97,60,135,1) 0, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#613c87', endColorstr='#9d071d', GradientType=1 );
     text-align: center;
     position: relative;
@@ -1728,12 +1728,12 @@ div#tab_revistasdigital_mobile {
         height: 48px;
         padding-top: 0;
         background: rgba(177,19,20,1);
-        background: -moz-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
-        background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(177,19,20,1)), color-stop(18%, rgba(197,31,28,1)), color-stop(100%, rgba(223,41,34,1)));
-        background: -webkit-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
-        background: -o-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
-        background: -ms-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
-        background: linear-gradient(to bottom, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+        background: -moz-linear-gradient(top, rgba(177,19,20,1) 0, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+        background: -webkit-gradient(left top, left bottom, color-stop(0, rgba(177,19,20,1)), color-stop(18%, rgba(197,31,28,1)), color-stop(100%, rgba(223,41,34,1)));
+        background: -webkit-linear-gradient(top, rgba(177,19,20,1) 0, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+        background: -o-linear-gradient(top, rgba(177,19,20,1) 0, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+        background: -ms-linear-gradient(top, rgba(177,19,20,1) 0, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+        background: linear-gradient(to bottom, rgba(177,19,20,1) 0, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
         filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b11314', endColorstr='#df2922', GradientType=0 );
     }
 
@@ -1770,7 +1770,7 @@ div#tab_revistasdigital_mobile {
         .ol_detalle > li:before {
             display: inline-block;
             width: 1.5em;
-            padding-right: 0.5em;
+            padding-right: .5em;
             font-weight: bold;
             text-align: right;
             content: counter(item) '.';
@@ -1874,12 +1874,12 @@ div#tab_revistasdigital_mobile {
 
 .rd_logo {
     background: rgba(97,60,135,1);
-    background: -moz-linear-gradient(-45deg, rgba(97,60,135,1) 0%, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
-    background: -webkit-gradient(left top, right bottom, color-stop(0%, rgba(97,60,135,1)), color-stop(31%, rgba(97,60,135,1)), color-stop(100%, rgba(97,60,135,1)));
-    background: -webkit-linear-gradient(-45deg, rgba(97,60,135,1) 0%, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
-    background: -o-linear-gradient(-45deg, rgba(97,60,135,1) 0%, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
-    background: -ms-linear-gradient(-45deg, rgba(97,60,135,1) 0%, rgba(97,60, 135,1) 31%, rgba(97,60,135,1) 100%);
-    background: linear-gradient(135deg, rgba(97,60,135,1) 0%, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
+    background: -moz-linear-gradient(-45deg, rgba(97,60,135,1) 0, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
+    background: -webkit-gradient(left top, right bottom, color-stop(0, rgba(97,60,135,1)), color-stop(31%, rgba(97,60,135,1)), color-stop(100%, rgba(97,60,135,1)));
+    background: -webkit-linear-gradient(-45deg, rgba(97,60,135,1) 0, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
+    background: -o-linear-gradient(-45deg, rgba(97,60,135,1) 0, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
+    background: -ms-linear-gradient(-45deg, rgba(97,60,135,1) 0, rgba(97,60, 135,1) 31%, rgba(97,60,135,1) 100%);
+    background: linear-gradient(135deg, rgba(97,60,135,1) 0, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#613c87', endColorstr='#9d071d', GradientType=1 );
     text-align: center;
     position: relative;
@@ -2544,7 +2544,7 @@ a.btn-suscribete-video-baja {
     padding: 20px 0;
     text-transform: uppercase;
     position: fixed;
-    bottom: 0%;
+    bottom: 0;
     letter-spacing: 1.5px;
     text-align: center;
     box-shadow: 1px 2px 3px 4px #0000000f;

@@ -3733,7 +3733,7 @@ ol {
     }
 
     .box_articulo_right p {
-        margin: 0em;
+        margin: 0;
         color: #00A2E8;
         font-size: 18px;
         font-weight: normal;
@@ -3974,7 +3974,10 @@ ol {
 @font-face {
     font-family: 'museo_sans_900regular';
     src: url('../../fonts/museo/museosans_900-webfont.eot');
-    src: url('../../fonts/museo/museosans_900-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/museo/museosans_900-webfont.woff') format('woff'), url('../../fonts/museo/museosans_900-webfont.ttf') format('truetype'), url('../../fonts/museo/museosans_900-webfont.svg#museo_sans_900regular') format('svg');
+    src: url('../../fonts/museo/museosans_900-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../../fonts/museo/museosans_900-webfont.woff') format('woff'), 
+        url('../../fonts/museo/museosans_900-webfont.ttf') format('truetype'), 
+        url('../../fonts/museo/museosans_900-webfont.svg#museo_sans_900regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -3982,7 +3985,10 @@ ol {
 @font-face {
     font-family: 'museo_sans_700regular';
     src: url('../../fonts/museo/museosans_700-webfont.eot');
-    src: url('../../fonts/museo/museosans_700-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/museo/museosans_700-webfont.woff') format('woff'), url('../../fonts/museo/museosans_700-webfont.ttf') format('truetype'), url('../../fonts/museo/museosans_700-webfont.svg#museo_sans_700regular') format('svg');
+    src: url('../../fonts/museo/museosans_700-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../../fonts/museo/museosans_700-webfont.woff') format('woff'), 
+        url('../../fonts/museo/museosans_700-webfont.ttf') format('truetype'),
+        url('../../fonts/museo/museosans_700-webfont.svg#museo_sans_700regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -3990,7 +3996,10 @@ ol {
 @font-face {
     font-family: 'museo_sans_500regular';
     src: url('../../fonts/museo/museosans_500-webfont.eot');
-    src: url('../../fonts/museo/museosans_500-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/museo/museosans_500-webfont.woff') format('woff'), url('../../fonts/museo/museosans_500-webfont.ttf') format('truetype'), url('../../fonts/museo/museosans_500-webfont.svg#museo_sans_900regular') format('svg');
+    src: url('../../fonts/museo/museosans_500-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../../fonts/museo/museosans_500-webfont.woff') format('woff'),
+        url('../../fonts/museo/museosans_500-webfont.ttf') format('truetype'),
+        url('../../fonts/museo/museosans_500-webfont.svg#museo_sans_900regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -3998,7 +4007,10 @@ ol {
 @font-face {
     font-family: 'museo_300regular';
     src: url('../../fonts/museo/museo300-regular-webfont.eot');
-    src: url('../../fonts/museo/museo300-regular-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/museo/museo300-regular-webfont.woff') format('woff'), url('../../fonts/museo/museo300-regular-webfont.ttf') format('truetype'), url('../../fonts/museo/museo300-regular-webfont.svg#museo_300regular') format('svg');
+    src: url('../../fonts/museo/museo300-regular-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../../fonts/museo/museo300-regular-webfont.woff') format('woff'), 
+        url('../../fonts/museo/museo300-regular-webfont.ttf') format('truetype'),
+        url('../../fonts/museo/museo300-regular-webfont.svg#museo_300regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -4006,7 +4018,10 @@ ol {
 @font-face {
     font-family: 'museo_sans_100regular';
     src: url('../../fonts/museo/museosans-100-webfont.eot');
-    src: url('../../fonts/museo/museosans-100-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/museo/museosans-100-webfont.woff') format('woff'), url('../../fonts/museo/museosans-100-webfont.ttf') format('truetype'), url('../../fonts/museo/museosans-100-webfont.svg#museo_sans_100regular') format('svg');
+    src: url('../../fonts/museo/museosans-100-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../../fonts/museo/museosans-100-webfont.woff') format('woff'),
+        url('../../fonts/museo/museosans-100-webfont.ttf') format('truetype'),
+        url('../../fonts/museo/museosans-100-webfont.svg#museo_sans_100regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -5732,7 +5747,7 @@ ol {
     }
 
 .listaOfertasDestacados {
-    padding: 0 0.5em;
+    padding: 0 .5em;
     margin: 0;
     line-height: 1.2em;
     color: #425363;
@@ -6518,7 +6533,7 @@ ol {
 .ui-dialog .ui-dialog-title {
     float: left;
     font-weight: normal !important;
-    margin: 0.1em 16px 0.2em 0;
+    margin: .1em 16px .2em 0;
     color: #702789 !important;
 }
 
@@ -7453,7 +7468,7 @@ table.falsa {
 }
 
 ul.service-list {
-    margin-bottom: 0em;
+    margin-bottom: 0;
     margin-top: 5px;
     list-style: none;
 }
@@ -8631,11 +8646,11 @@ div.recent:hover .title-item {
 }
 
 .isotope, .isotope .isotope-item {
-    -webkit-transition-duration: 0.6s;
-    -moz-transition-duration: 0.6s;
-    -ms-transition-duration: 0.6s;
-    -o-transition-duration: 0.6s;
-    transition-duration: 0.6s;
+    -webkit-transition-duration: .6s;
+    -moz-transition-duration: .6s;
+    -ms-transition-duration: .6s;
+    -o-transition-duration: .6s;
+    transition-duration: .6s;
     z-index: 2;
 }
 
@@ -10279,7 +10294,10 @@ span.icon-del {
 @font-face {
     font-family: 'Museo Sans 300';
     src: url('../../../../Content/layer-flx-co/fonts/museo_sans_r300-webfont.eot');
-    src: url('../../../../Content/layer-flx-co/fonts/museo_sans_r300-webfont.eot?#iefix') format('embedded-opentype'), url('../../../../Content/layer-flx-co/fonts/museo_sans_r300-webfont.woff') format('woff'), url('../../../../Content/layer-flx-co/fonts/museo_sans_r300-webfont.ttf') format('truetype'), url('../../../../Content/layer-flx-co/fonts/museo_sans_r300-webfont.svg') format('svg');
+    src: url('../../../../Content/layer-flx-co/fonts/museo_sans_r300-webfont.eot?#iefix') format('embedded-opentype'), 
+        url('../../../../Content/layer-flx-co/fonts/museo_sans_r300-webfont.woff') format('woff'),
+        url('../../../../Content/layer-flx-co/fonts/museo_sans_r300-webfont.ttf') format('truetype'), 
+        url('../../../../Content/layer-flx-co/fonts/museo_sans_r300-webfont.svg') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -11708,7 +11726,9 @@ label.checkpop {
 @font-face {
     font-family: 'ArialMT';
     src: url('../../fonts/arialMT/arialmt.eot');
-    src: url('../../fonts/arialMT/arialmt.eot?#iefix') format('embedded-opentype'), url('../../fonts/arialMT/arialmt.ttf') format('truetype'), url('../../fonts/arialMT/arialmt.svg#arialmt') format('svg');
+    src: url('../../fonts/arialMT/arialmt.eot?#iefix') format('embedded-opentype'), 
+        url('../../fonts/arialMT/arialmt.ttf') format('truetype'),
+        url('../../fonts/arialMT/arialmt.svg#arialmt') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -11716,7 +11736,9 @@ label.checkpop {
 @font-face {
     font-family: 'ArialBoldMT';
     src: url('../../fonts/arialboldMT/arialboldMT.eot');
-    src: url('../../fonts/arialboldMT/arialboldMT.eot?#iefix') format('embedded-opentype'), url('../../fonts/arialboldMT/arialboldMT.ttf') format('truetype'), url('../../fonts/arialboldMT/arialboldMT.svg#arialboldMT') format('svg');
+    src: url('../../fonts/arialboldMT/arialboldMT.eot?#iefix') format('embedded-opentype'), 
+        url('../../fonts/arialboldMT/arialboldMT.ttf') format('truetype'),
+        url('../../fonts/arialboldMT/arialboldMT.svg#arialboldMT') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -12445,7 +12467,7 @@ label.checkpop {
     .matriz-comercial-list .item .actions .nemotecnico-wrapper {
         width: 170px;
         display: inline-block;
-        font-size: 0.9em;
+        font-size: .9em;
         color: gray !important;
         padding-top: 2px;
         padding-bottom: 2px;
@@ -12831,11 +12853,11 @@ label.checkpop {
         .contentCatalogo .box a:hover:after {
             width: 120%;
             background-color: rgba(255,255,255,0);
-            -webkit-transition: all 0.3s ease-out;
-            -moz-transition: all 0.3s ease-out;
-            -ms-transition: all 0.3s ease-out;
-            -o-transition: all 0.3s ease-out;
-            transition: all 0.3s ease-out;
+            -webkit-transition: all .3s ease-out;
+            -moz-transition: all .3s ease-out;
+            -ms-transition: all .3s ease-out;
+            -o-transition: all .3s ease-out;
+            transition: all .3s ease-out;
         }
 
         .contentCatalogo .box a:hover img {

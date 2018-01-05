@@ -149,11 +149,11 @@
         background: transparent;
         overflow: hidden;
         cursor: pointer;
-        transition: all 0.3s ease;
-        -moz-transition: all 0.3s ease;
-        -o-transition: all 0.3s ease;
-        -ms-transition: all 0.3s ease;
-        -webkit-transition: all 0.3s ease;
+        transition: all .3s ease;
+        -moz-transition: all .3s ease;
+        -o-transition: all .3s ease;
+        -ms-transition: all .3s ease;
+        -webkit-transition: all .3s ease;
     }
 
         .revistadigital .boxoffer:hover {
@@ -180,11 +180,11 @@
     transform: skewX(-14deg);
     position: absolute;
     left: -14px;
-    background: -moz-linear-gradient(top, rgba(213,37,31,1) 0%, rgba(163,16,18,1) 100%);
-    background: -webkit-linear-gradient(top, rgba(213,37,31,1) 0%, rgba(163,16,18,1) 100%);
-    background: -o-linear-gradient(top, rgba(213,37,31,1) 0%, rgba(163,16,18,1) 100%);
-    background: -ms-linear-gradient(top, rgba(213,37,31,1) 0%, rgba(163,16,18,1) 100%);
-    background: linear-gradient(to bottom, rgba(213,37,31,1) 0%, rgba(163,16,18,1) 100%);
+    background: -moz-linear-gradient(top, rgba(213,37,31,1) 0, rgba(163,16,18,1) 100%);
+    background: -webkit-linear-gradient(top, rgba(213,37,31,1) 0, rgba(163,16,18,1) 100%);
+    background: -o-linear-gradient(top, rgba(213,37,31,1) 0, rgba(163,16,18,1) 100%);
+    background: -ms-linear-gradient(top, rgba(213,37,31,1) 0, rgba(163,16,18,1) 100%);
+    background: linear-gradient(to bottom, rgba(213,37,31,1) 0, rgba(163,16,18,1) 100%);
     box-shadow: 3px 2px 5px rgba(0,0,0,0.25);
     -moz-box-shadow: 3px 2px 5px rgba(0,0,0,0.25);
     -o-box-shadow: 3px 2px 5px rgba(0,0,0,0.25);
@@ -330,11 +330,11 @@
     -o-transform: skewX(-14deg);
     -ms-transform: skewX(-14deg);
     -webkit-transform: skewX(-14deg);
-    background: -moz-linear-gradient(-45deg, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 20%, rgba(223,40,34,1) 100%);
-    background: -webkit-linear-gradient(-45deg, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 20%, rgba(223,40,34,1) 100%);
-    background: -o-linear-gradient(-45deg, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 20%, rgba(223,40,34,1) 100%);
-    background: -ms-linear-gradient(-45deg, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 20%, rgba(223,40,34,1) 100%);
-    background: linear-gradient(135deg, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 20%, rgba(223,40,34,1) 100%);
+    background: -moz-linear-gradient(-45deg, rgba(177,19,19,1) 0, rgba(197,31,28,1) 20%, rgba(223,40,34,1) 100%);
+    background: -webkit-linear-gradient(-45deg, rgba(177,19,19,1) 0, rgba(197,31,28,1) 20%, rgba(223,40,34,1) 100%);
+    background: -o-linear-gradient(-45deg, rgba(177,19,19,1) 0, rgba(197,31,28,1) 20%, rgba(223,40,34,1) 100%);
+    background: -ms-linear-gradient(-45deg, rgba(177,19,19,1) 0, rgba(197,31,28,1) 20%, rgba(223,40,34,1) 100%);
+    background: linear-gradient(135deg, rgba(177,19,19,1) 0, rgba(197,31,28,1) 20%, rgba(223,40,34,1) 100%);
 }
 
 .popup_revistaSuscripcion_logoMarca, .popup_revistaSuscripcion_contenido, .popup_revistaSuscripcion_grupoBotones, .popup_revistaSuscripcion_terminos {
@@ -439,11 +439,11 @@
     .popup_revistaSuscripcion_noAMostrarMensaje a {
         color: white;
         text-decoration: underline;
-        transition: opacity 0.3s ease;
-        -moz-transition: opacity 0.3s ease;
-        -o-transition: opacity 0.3s ease;
-        -ms-transition: opacity 0.3s ease;
-        -webkit-transition: opacity 0.3s ease;
+        transition: opacity .3s ease;
+        -moz-transition: opacity .3s ease;
+        -o-transition: opacity .3s ease;
+        -ms-transition: opacity .3s ease;
+        -webkit-transition: opacity .3s ease;
         opacity: 0.4;
     }
 
@@ -458,12 +458,12 @@
     float: left;
     position: relative;
     background: rgba(177,19,20,1);
-    background: -moz-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
-    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(177,19,20,1)), color-stop(18%, rgba(197,31,28,1)), color-stop(100%, rgba(223,41,34,1)));
-    background: -webkit-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
-    background: -o-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
-    background: -ms-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
-    background: linear-gradient(to bottom, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: -moz-linear-gradient(top, rgba(177,19,20,1) 0, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0, rgba(177,19,20,1)), color-stop(18%, rgba(197,31,28,1)), color-stop(100%, rgba(223,41,34,1)));
+    background: -webkit-linear-gradient(top, rgba(177,19,20,1) 0, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: -o-linear-gradient(top, rgba(177,19,20,1) 0, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: -ms-linear-gradient(top, rgba(177,19,20,1) 0, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: linear-gradient(to bottom, rgba(177,19,20,1) 0, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b11314', endColorstr='#df2922', GradientType=0 );
 }
 
@@ -485,12 +485,12 @@
     height: 120px;
     z-index: 100;
     background: rgba(177,19,20,1);
-    background: -moz-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
-    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(177,19,20,1)), color-stop(18%, rgba(197,31,28,1)), color-stop(100%, rgba(223,41,34,1)));
-    background: -webkit-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
-    background: -o-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
-    background: -ms-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
-    background: linear-gradient(to bottom, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: -moz-linear-gradient(top, rgba(177,19,20,1) 0, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0, rgba(177,19,20,1)), color-stop(18%, rgba(197,31,28,1)), color-stop(100%, rgba(223,41,34,1)));
+    background: -webkit-linear-gradient(top, rgba(177,19,20,1) 0, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: -o-linear-gradient(top, rgba(177,19,20,1) 0, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: -ms-linear-gradient(top, rgba(177,19,20,1) 0, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: linear-gradient(to bottom, rgba(177,19,20,1) 0, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b11314', endColorstr='#df2922', GradientType=0 );
 }
 
@@ -694,9 +694,9 @@
         left: 0;
         padding: 0 80px;
         z-index: 100;
-        box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5);
-        -webkit-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5);
-        -moz-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5);
+        box-shadow: 0 4px 4px 0 rgba(126, 126, 126, .5);
+        -webkit-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, .5);
+        -moz-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, .5);
     }
 
         .BloqueLandingRD .fix-search .cantidad_productos_fav {
@@ -841,11 +841,11 @@
     position: absolute;
     width: 139px;
     height: 100%;
-    background: -moz-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    background: -webkit-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    background: -o-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    background: -ms-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    background: linear-gradient(to right, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -moz-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -webkit-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -o-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -ms-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: linear-gradient(to right, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
     top: 0;
     left: -23px;
     transform: skewX(-14deg);
@@ -942,11 +942,11 @@
     top: 0;
     left: -25px;
     z-index: 3;
-    background: -moz-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    background: -webkit-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    background: -o-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    background: -ms-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    background: linear-gradient(to right, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -moz-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -webkit-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -o-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -ms-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: linear-gradient(to right, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
     transform: skewX(-14deg);
     -moz-transform: skewX(-14deg);
     -o-transform: skewX(-14deg);
@@ -962,11 +962,11 @@
         position: absolute;
         top: 0;
         left: -454px;
-        background: -moz-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-        background: -webkit-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-        background: -o-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-        background: -ms-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-        background: linear-gradient(to right, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+        background: -moz-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+        background: -webkit-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+        background: -o-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+        background: -ms-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+        background: linear-gradient(to right, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
         z-index: 2;
     }
 
@@ -1027,11 +1027,11 @@
         margin-bottom: 9px;
         position: relative;
         top: 0;
-        transition: all 0.3s ease;
-        -moz-transition: all 0.3s ease;
-        -o-transition: all 0.3s ease;
-        -ms-transition: all 0.3s ease;
-        -webkit-transition: all 0.3s ease;
+        transition: all .3s ease;
+        -moz-transition: all .3s ease;
+        -o-transition: all .3s ease;
+        -ms-transition: all .3s ease;
+        -webkit-transition: all .3s ease;
     }
 
         .cabecera_boton_inscribeteAEsikaParaMi button:hover, .contenido_fondoDesenfocado button:hover {
@@ -1221,11 +1221,11 @@
         -o-box-shadow: 10px 10px 10px rgba(0,0,0,0.35);
         -ms-box-shadow: 10px 10px 10px rgba(0,0,0,0.35);
         -webkit-box-shadow: 10px 10px 10px rgba(0,0,0,0.35);
-        transition: all 0.3s ease;
-        -moz-transition: all 0.3s ease;
-        -o-transition: all 0.3s ease;
-        -ms-transition: all 0.3s ease;
-        -webkit-transition: all 0.3s ease;
+        transition: all .3s ease;
+        -moz-transition: all .3s ease;
+        -o-transition: all .3s ease;
+        -ms-transition: all .3s ease;
+        -webkit-transition: all .3s ease;
     }
 
     .contenido_fondoDesenfocado span:last-child {
@@ -1266,11 +1266,11 @@
     margin: 0 auto;
     width: 100%;
     height: 215px;
-    background: -moz-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    background: -webkit-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    background: -o-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    background: -ms-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    background: linear-gradient(to right, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -moz-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -webkit-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -o-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -ms-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: linear-gradient(to right, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
 }
 
 .contenido_felicitaciones, .contenido_felicitaciones span, .contenido_recuerdaIngresar, .link_entendido {
@@ -1325,7 +1325,7 @@
         letter-spacing: 0.5px;
         position: absolute;
         top: -20px;
-        transition: all 0.2s ease-in-out;
+        transition: all .2s ease-in-out;
         padding-left: 0;
     }
 
@@ -1339,7 +1339,7 @@
 
         .revista_ficha .rd_volver:hover {
             font-weight: 800;
-            transition: all 0.2s ease-in-out;
+            transition: all .2s ease-in-out;
         }
 
             .revista_ficha .rd_volver:hover .previous_volver {
@@ -1471,12 +1471,12 @@
 
 .rd_logo {
     background: rgba(233,27,55,1);
-    background: -moz-linear-gradient(-45deg, rgba(233,27,55,1) 0%, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
-    background: -webkit-gradient(left top, right bottom, color-stop(0%, rgba(233,27,55,1)), color-stop(31%, rgba(233,27,55,1)), color-stop(100%, rgba(157,7,29,1)));
-    background: -webkit-linear-gradient(-45deg, rgba(233,27,55,1) 0%, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
-    background: -o-linear-gradient(-45deg, rgba(233,27,55,1) 0%, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
-    background: -ms-linear-gradient(-45deg, rgba(233,27,55,1) 0%, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
-    background: linear-gradient(135deg, rgba(233,27,55,1) 0%, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
+    background: -moz-linear-gradient(-45deg, rgba(233,27,55,1) 0, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
+    background: -webkit-gradient(left top, right bottom, color-stop(0, rgba(233,27,55,1)), color-stop(31%, rgba(233,27,55,1)), color-stop(100%, rgba(157,7,29,1)));
+    background: -webkit-linear-gradient(-45deg, rgba(233,27,55,1) 0, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
+    background: -o-linear-gradient(-45deg, rgba(233,27,55,1) 0, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
+    background: -ms-linear-gradient(-45deg, rgba(233,27,55,1) 0, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
+    background: linear-gradient(135deg, rgba(233,27,55,1) 0, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e91b37', endColorstr='#9d071d', GradientType=1 );
     text-align: center;
     position: relative;
@@ -1535,7 +1535,7 @@
         transform-origin: 0% 0%;
         transform: translateX(calc(20% - 25px)) translateY(10%) rotate(-45deg);
         transform: translateY(40%) translateX(270px) rotate(-75deg);
-        transition: transform 0.5s;
+        transition: transform .5s;
     }
 
     .btn_diagonal:hover::after {
@@ -1563,12 +1563,12 @@
 
 .rd_btn_rojo:after {
     background: rgba(233,27,55,1);
-    background: -moz-linear-gradient(-45deg, rgba(233,27,55,1) 0%, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
-    background: -webkit-gradient(left top, right bottom, color-stop(0%, rgba(233,27,55,1)), color-stop(31%, rgba(233,27,55,1)), color-stop(100%, rgba(157,7,29,1)));
-    background: -webkit-linear-gradient(-45deg, rgba(233,27,55,1) 0%, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
-    background: -o-linear-gradient(-45deg, rgba(233,27,55,1) 0%, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
-    background: -ms-linear-gradient(-45deg, rgba(233,27,55,1) 0%, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
-    background: linear-gradient(135deg, rgba(233,27,55,1) 0%, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
+    background: -moz-linear-gradient(-45deg, rgba(233,27,55,1) 0, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
+    background: -webkit-gradient(left top, right bottom, color-stop(0, rgba(233,27,55,1)), color-stop(31%, rgba(233,27,55,1)), color-stop(100%, rgba(157,7,29,1)));
+    background: -webkit-linear-gradient(-45deg, rgba(233,27,55,1) 0, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
+    background: -o-linear-gradient(-45deg, rgba(233,27,55,1) 0, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
+    background: -ms-linear-gradient(-45deg, rgba(233,27,55,1) 0, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
+    background: linear-gradient(135deg, rgba(233,27,55,1) 0, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
 }
 /* fin boton rojo*/
 
@@ -1590,7 +1590,7 @@
     text-align: center;
     text-decoration: none;
     line-height: 45px;
-    transition: all 0.6s ease-in-out;
+    transition: all .6s ease-in-out;
 }
 /*BTN STROKE BLACK*/
 .btn_stroke {
@@ -1785,12 +1785,12 @@
 
     .rd_confirmacion .btn_diagonal a {
         color: black;
-        transition: all 0.2s ease-in-out;
+        transition: all .2s ease-in-out;
     }
 
     .rd_confirmacion .btn_diagonal:hover a {
         color: white;
-        transition: all 0.2s ease-in-out;
+        transition: all .2s ease-in-out;
     }
 
 /*MODIFICACION LANDING*/
@@ -2099,7 +2099,7 @@
 
 
 .rd_ver_mas:hover {
-    transition: all 0.2s ease-in-out;
+    transition: all .2s ease-in-out;
 }
 
 .rd_ver_mas:after {
@@ -2151,7 +2151,7 @@
         .ol_detalle > li:before {
             display: inline-block;
             width: 1.5em;
-            padding-right: 0.5em;
+            padding-right: .5em;
             font-weight: bold;
             text-align: right;
             content: counter(item) '.';
@@ -2382,7 +2382,7 @@
 
     .banner_pedido_masofertas .btn_diagonal a {
         color: black;
-        transition: all 0.2s ease-in-out;
+        transition: all .2s ease-in-out;
         font-size: 13px;
         letter-spacing: 1.2px;
         position: relative;
@@ -2391,7 +2391,7 @@
 
     .banner_pedido_masofertas .btn_diagonal:hover a {
         color: white;
-        transition: all 0.2s ease-in-out;
+        transition: all .2s ease-in-out;
     }
 
         .banner_pedido_masofertas .btn_diagonal:hover a .rd_arrowright {
@@ -2433,7 +2433,7 @@
 
         .home_rd1 .btn_diagonal a {
             color: black;
-            transition: all 0.2s ease-in-out;
+            transition: all .2s ease-in-out;
             font-size: 13px;
             letter-spacing: 1.2px;
             position: relative;
@@ -2443,7 +2443,7 @@
 
         .home_rd1 .btn_diagonal:hover a {
             color: white;
-            transition: all 0.2s ease-in-out;
+            transition: all .2s ease-in-out;
         }
 
             .home_rd1 .btn_diagonal:hover a .rd_arrowright, .home_rd1 .btn_diagonal:hover a .rd_arrowright_blanco {
@@ -2490,7 +2490,7 @@
 
         .home_rd .btn_diagonal a {
             color: black;
-            transition: all 0.2s ease-in-out;
+            transition: all .2s ease-in-out;
             font-size: 13px;
             letter-spacing: 1.2px;
             position: relative;
@@ -2500,7 +2500,7 @@
 
         .home_rd .btn_diagonal:hover a {
             color: white;
-            transition: all 0.2s ease-in-out;
+            transition: all .2s ease-in-out;
         }
 
             .home_rd .btn_diagonal:hover a .rd_arrowright, .home_rd .btn_diagonal:hover a .rd_arrowright_blanco {
@@ -2609,17 +2609,17 @@
         line-height: 20px;
         color: black;
         text-decoration: none;
-        transition: all 0.2s ease-in-out;
+        transition: all .2s ease-in-out;
         text-transform: uppercase;
     }
 
     .popup_rd_bloqueado a {
-        transition: all 0.2s ease-in-out;
+        transition: all .2s ease-in-out;
     }
 
         .popup_rd_bloqueado a:hover {
             font-weight: 700;
-            transition: all 0.2s ease-in-out;
+            transition: all .2s ease-in-out;
         }
 
     .popup_rd_bloqueado .rd_ver_mas:after {

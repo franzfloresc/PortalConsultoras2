@@ -35,10 +35,10 @@ input.labelauty {
         border-radius: 3px 3px 3px 3px;
         -moz-border-radius: 3px 3px 3px 3px;
         -webkit-border-radius: 3px 3px 3px 3px;
-        transition: background-color 0.25s;
-        -moz-transition: background-color 0.25s;
-        -webkit-transition: background-color 0.25s;
-        -o-transition: background-color 0.25s;
+        transition: background-color .25s;
+        -moz-transition: background-color .25s;
+        -webkit-transition: background-color .25s;
+        -o-transition: background-color .25s;
         -moz-user-select: none;
         -khtml-user-select: none;
         -webkit-user-select: none;
@@ -64,10 +64,10 @@ input.labelauty {
             vertical-align: bottom;
             background-repeat: no-repeat;
             background-position: left center;
-            transition: background-image 0.5s linear;
-            -moz-transition: background-image 0.5s linear;
-            -webkit-transition: background-image 0.5s linear;
-            -o-transition: background-image 0.5s linear;
+            transition: background-image .5s linear;
+            -moz-transition: background-image .5s linear;
+            -webkit-transition: background-image .5s linear;
+            -o-transition: background-image .5s linear;
         }
 
             /* When there's a label, add a little margin to the left */
