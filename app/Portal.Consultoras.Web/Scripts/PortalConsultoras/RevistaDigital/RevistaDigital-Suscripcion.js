@@ -105,14 +105,14 @@ function onScrollDown(event) {
 
 // when video ends
 function onPlayerStateChange(event) {
-    if (event.data === 0) {
+    if (event.data === 0 && estaSuscrita === "False") {
         $('a.btn-suscribete-video').animate({
             bottom: '0%'
         });
         $('a.btn-suscribete-video-baja').animate({
             bottom: '-100%'
         });
-
+        $("#div-suscribite").hide();
     }
 }
 

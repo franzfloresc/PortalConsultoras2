@@ -68,7 +68,7 @@ var rdAnalyticsModule = (function () {
         exception: "Exception on analytics RD ",
         comprarCampania: "Comprar campaña ",
         verCampania: "Ver campaña ",
-        saberMas: "Saber más de Ésika para mí",
+        saberMas: "Conoce todo sobre Club Gana+",
         rdBannerPrincipal: "Oferta para ti - RO Banner Principal",
         rdBannerDetPrincipal: "Oferta para ti - RO Detalle Banner Principal",
         rdMisOfertas: "Oferta para ti - RO Mis Ofertas",
@@ -228,7 +228,7 @@ var rdAnalyticsModule = (function () {
                 case _origenWeb.home: //Home
                     _virtualEventPush(_seccionWeb.home, _text.epm, _action.clickBanner);
                     break;
-                case _origenWeb.catalogos: //Catalogos
+                case _origenWeb.catalogo: //Catalogos
                     _virtualEventPush(_seccionWeb.catalogo, _text.epm, _action.clickBanner);
                     break;
                 case _origenWeb.pedido: //Pedido

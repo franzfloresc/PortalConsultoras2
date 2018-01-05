@@ -131,13 +131,11 @@
     </div>
 </div>
 <div class="bloques-gana-mas suscribete-gratis" data-estadoregistro="@Model.EstadoSuscripcion" id="saber-mas-tres">
-    <div class="contenedor-mobile-fix" style="padding: 25px;">
-        @if (!Model.EsSuscrita) {
-        <div class="logo" style="margin-top:0;"></div>
-        }
+    <div class="contenedor-mobile-fix" style="padding: 25px;" >
         @if (Model.EsSuscrita)
         {
-            <p class="txt-deseas-cancelar">
+            <p class
+               ="txt-deseas-cancelar">
                 ¿DESEAS CANCELAR TU SUSCRIPCIÓN?
             </p>
             <span class="deseas-cancelar">
@@ -147,15 +145,19 @@
         }
         else
         {
-            <a href="javascript: RDSuscripcion();" class="btn-suscribete">SUSCRÍBETE GRATIS AQUÍ</a>
+            <div id="div-suscribite">
+                <div class="logo" style="margin-top:0;"></div>
+                <a href="javascript: RDSuscripcion();" class="btn-suscribete">SUSCRÍBETE GRATIS AQUÍ</a>
+            </div>
         }
-
+        
+        
         <a href="javascript: MostrarTerminos();" class="terminos" style="text-decoration:underline;">
             VER TÉRMINOS Y CONDICIONES
         </a>
-
     </div>
 </div>
+
  <div class="preguntas-frecuentes-cont-sus">
     <div class="contenedor-mobile-fix">
         <ul class="preg-frecuentes">
@@ -196,6 +198,7 @@ Recuerda que puedes suscribirte nuevamente cuando desees.</span>
     var urlTerminosCondicionesRD = '@Model.UrlTerminosCondiciones';
     var urlRevistaDigital = '@Url.Action("Comprar", "RevistaDigital")';
     var isScroll = false;
+    var estaSuscrita = '@Model.EsSuscrita';
 </script>
 
     @System.Web.Optimization.Scripts.Render("~/bundles/Mobile/RevistaDigital-Info")
