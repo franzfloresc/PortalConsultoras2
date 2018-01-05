@@ -34,11 +34,11 @@
 }
 
 .logo_esika a {
-    transition: opacity 0.3s ease;
-    -moz-transition: opacity 0.3s ease;
-    -o-transition: opacity 0.3s ease;
-    -ms-transition: opacity 0.3s ease;
-    -webkit-transition: opacity 0.3s ease;
+    transition: opacity .3s ease;
+    -moz-transition: opacity .3s ease;
+    -o-transition: opacity .3s ease;
+    -ms-transition: opacity .3s ease;
+    -webkit-transition: opacity .3s ease;
 }
 
     .logo_esika a:hover {
@@ -132,11 +132,11 @@
     height: 45px !important;
     padding-left: 0 !important;
     font-size: 13px !important;
-    transition: opacity 0.3s ease;
-    -moz-transition: opacity 0.3s ease;
-    -o-transition: opacity 0.3s ease;
-    -ms-transition: opacity 0.3s ease;
-    -webkit-transition: opacity 0.3s ease;
+    transition: opacity .3s ease;
+    -moz-transition: opacity .3s ease;
+    -o-transition: opacity .3s ease;
+    -ms-transition: opacity .3s ease;
+    -webkit-transition: opacity .3s ease;
     opacity: 1;
     filter: alpha(opacity=100);
 }

@@ -113,11 +113,11 @@
         width: 40px;
         height: 40px;
         background-image: url('/Content/Images/Esika/Contenedor/icono-descarga-e-imprime.svg');
-        transition: all 0.3s ease;
-        -moz-transition: all 0.3s ease;
-        -o-transition: all 0.3s ease;
-        -ms-transition: all 0.3s ease;
-        -webkit-transition: all 0.3s ease;
+        transition: all .3s ease;
+        -moz-transition: all .3s ease;
+        -o-transition: all .3s ease;
+        -ms-transition: all .3s ease;
+        -webkit-transition: all .3s ease;
     }
 
     .enlace_descargables:hover .icono_descarga_tarjetas {

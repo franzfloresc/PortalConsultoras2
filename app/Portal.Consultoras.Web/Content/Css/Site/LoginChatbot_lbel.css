@@ -35,7 +35,7 @@ body {
     right: 0;
     bottom: 0;
     left: 0;
-    background: rgba(147, 148, 151, 0.5);
+    background: rgba(147, 148, 151, .5);
     z-index: 99999;
     display: none;
 }
@@ -83,33 +83,33 @@ body {
         }
 
     .busy-loader .ball-1 {
-        -webkit-animation-delay: 0.96s;
-        -ms-animation-delay: 0.96s;
-        animation-delay: 0.96s;
+        -webkit-animation-delay: .96s;
+        -ms-animation-delay: .96s;
+        animation-delay: .96s;
     }
 
     .busy-loader .ball-2 {
-        -webkit-animation-delay: 0.19s;
-        -ms-animation-delay: 0.19s;
-        animation-delay: 0.19s;
+        -webkit-animation-delay: .19s;
+        -ms-animation-delay: .19s;
+        animation-delay: .19s;
     }
 
     .busy-loader .ball-3 {
-        -webkit-animation-delay: 0.38s;
-        -ms-animation-delay: 0.38s;
-        animation-delay: 0.38s;
+        -webkit-animation-delay: .38s;
+        -ms-animation-delay: .38s;
+        animation-delay: .38s;
     }
 
     .busy-loader .ball-4 {
-        -webkit-animation-delay: 0.58s;
-        -ms-animation-delay: 0.58s;
-        animation-delay: 0.58s;
+        -webkit-animation-delay: .58s;
+        -ms-animation-delay: .58s;
+        animation-delay: .58s;
     }
 
     .busy-loader .ball-5 {
-        -webkit-animation-delay: 0.77s;
-        -ms-animation-delay: 0.77s;
-        animation-delay: 0.77s;
+        -webkit-animation-delay: .77s;
+        -ms-animation-delay: .77s;
+        animation-delay: .77s;
     }
 
 @-webkit-keyframes orbit {
@@ -298,7 +298,7 @@ body {
     height: 100%;
     padding: 15px;
     top: 0;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0,0,0,.5);
 }
 
 .content_mensajeAlerta {

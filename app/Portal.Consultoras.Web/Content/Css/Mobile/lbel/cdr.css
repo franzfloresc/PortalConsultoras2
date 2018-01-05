@@ -341,11 +341,11 @@
     padding: 5px 0;
     margin-bottom: 12px;
     box-sizing: border-box;
-    transition: all 0.3s ease;
-    -moz-transition: all 0.3s ease;
-    -o-transition: all 0.3s ease;
-    -ms-transition: all 0.3s ease;
-    -webkit-transition: all 0.3s ease;
+    transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -webkit-transition: all .3s ease;
 }
 
     .pedido_a_seleccionar:hover {
@@ -439,11 +439,11 @@
             border-radius: 100%;
             margin-top: -2px;
             margin-right: 13px;
-            transition: all 0.3s ease;
-            -moz-transition: all 0.3s ease;
-            -o-transition: all 0.3s ease;
-            -ms-transition: all 0.3s ease;
-            -webkit-transition: all 0.3s ease;
+            transition: all .3s ease;
+            -moz-transition: all .3s ease;
+            -o-transition: all .3s ease;
+            -ms-transition: all .3s ease;
+            -webkit-transition: all .3s ease;
         }
 
         .motivo_cdr input[type='radio']:checked + label span:first-child {
@@ -492,11 +492,11 @@
     line-height: 45px;
     margin-bottom: 22px;
     font-size: 13px;
-    transition: all 0.3s ease;
-    -moz-transition: all 0.3s ease;
-    -o-transition: all 0.3s ease;
-    -ms-transition: all 0.3s ease;
-    -webkit-transition: all 0.3s ease;
+    transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -webkit-transition: all .3s ease;
     text-decoration: none;
 }
 
@@ -706,11 +706,11 @@
             position: relative;
             top: -5px;
             margin-right: 7px;
-            transition: background-color 0.3s ease;
-            -moz-transition: background-color 0.3s ease;
-            -o-transition: background-color 0.3s ease;
-            -ms-transition: background-color 0.3s ease;
-            -webkit-transition: background-color 0.3s ease;
+            transition: background-color .3s ease;
+            -moz-transition: background-color .3s ease;
+            -o-transition: background-color .3s ease;
+            -ms-transition: background-color .3s ease;
+            -webkit-transition: background-color .3s ease;
         }
 
         .content_politica_devolucion input[type='checkbox']:checked + label span {
@@ -845,7 +845,7 @@
     height: auto;
     margin-bottom: 48px;
     padding: 22px 13px 0 13px;
-    box-shadow: 0 0 4px 0 rgba(155, 155, 155, 0.5);
+    box-shadow: 0 0 4px 0 rgba(155, 155, 155, .5);
 }
 
 .titulo_detalle_solicitud_cdr {
@@ -1151,11 +1151,11 @@
     border: 1px solid #000;
     color: #000;
     font-size: 13px;
-    transition: all 0.3s ease;
-    -moz-transition: all 0.3s ease;
-    -o-transition: all 0.3s ease;
-    -ms-transition: all 0.3s ease;
-    -webkit-transition: all 0.3s ease;
+    transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -webkit-transition: all .3s ease;
 }
 
     .btn_verSolicitud_somosBelcorp:hover {

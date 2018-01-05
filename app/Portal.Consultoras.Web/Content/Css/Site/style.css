@@ -5747,7 +5747,7 @@ ol {
     }
 
 .listaOfertasDestacados {
-    padding: 0 0.5em;
+    padding: 0 .5em;
     margin: 0;
     line-height: 1.2em;
     color: #425363;
@@ -6533,7 +6533,7 @@ ol {
 .ui-dialog .ui-dialog-title {
     float: left;
     font-weight: normal !important;
-    margin: 0.1em 16px 0.2em 0;
+    margin: .1em 16px .2em 0;
     color: #702789 !important;
 }
 
@@ -8646,11 +8646,11 @@ div.recent:hover .title-item {
 }
 
 .isotope, .isotope .isotope-item {
-    -webkit-transition-duration: 0.6s;
-    -moz-transition-duration: 0.6s;
-    -ms-transition-duration: 0.6s;
-    -o-transition-duration: 0.6s;
-    transition-duration: 0.6s;
+    -webkit-transition-duration: .6s;
+    -moz-transition-duration: .6s;
+    -ms-transition-duration: .6s;
+    -o-transition-duration: .6s;
+    transition-duration: .6s;
     z-index: 2;
 }
 
@@ -12467,7 +12467,7 @@ label.checkpop {
     .matriz-comercial-list .item .actions .nemotecnico-wrapper {
         width: 170px;
         display: inline-block;
-        font-size: 0.9em;
+        font-size: .9em;
         color: gray !important;
         padding-top: 2px;
         padding-bottom: 2px;
@@ -12853,11 +12853,11 @@ label.checkpop {
         .contentCatalogo .box a:hover:after {
             width: 120%;
             background-color: rgba(255,255,255,0);
-            -webkit-transition: all 0.3s ease-out;
-            -moz-transition: all 0.3s ease-out;
-            -ms-transition: all 0.3s ease-out;
-            -o-transition: all 0.3s ease-out;
-            transition: all 0.3s ease-out;
+            -webkit-transition: all .3s ease-out;
+            -moz-transition: all .3s ease-out;
+            -ms-transition: all .3s ease-out;
+            -o-transition: all .3s ease-out;
+            transition: all .3s ease-out;
         }
 
         .contentCatalogo .box a:hover img {

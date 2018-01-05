@@ -923,7 +923,7 @@ img {
     #menu .submenu > ul > li li {
         float: none;
         padding: 3px 0;
-        font-size: 0.9em;
+        font-size: .9em;
     }
 
     .parrafocont {
@@ -1064,7 +1064,7 @@ img {
     height: 598px;
     width: 435px;
     background-color: white;
-    background-color: rgba(255,255,255,0.5);
+    background-color: rgba(255,255,255,.5);
     padding: 20px 32px 10px;
     box-sizing: border-box;
     font-size: 12px;

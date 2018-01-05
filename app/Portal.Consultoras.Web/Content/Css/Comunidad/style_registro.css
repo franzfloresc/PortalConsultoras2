@@ -520,7 +520,7 @@ h6, .h6 {
 .ui-dialog .ui-dialog-title {
     float: left;
     font-weight: normal !important;
-    margin: 0.1em 16px 0.2em 0;
+    margin: .1em 16px .2em 0;
     color: #702789 !important;
 }
 

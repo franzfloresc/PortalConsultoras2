@@ -350,7 +350,7 @@ h4.re3 {
 
 .field-validation-error {
     color: #ff0000;
-    font-size: 0.9em;
+    font-size: .9em;
 }
 
 .field-validation-valid {
@@ -365,7 +365,7 @@ h4.re3 {
 .validation-summary-errors {
     font-weight: bold;
     color: #ff0000;
-    font-size: 0.9em;
+    font-size: .9em;
 }
 
 .validation-summary-valid {
@@ -389,7 +389,7 @@ h4.re3 {
 }
 
 .text-small {
-    font-size: 0.8em;
+    font-size: .8em;
 }
 
 .padding-tb-11 {
@@ -433,9 +433,9 @@ h4.re3 {
     position: fixed;
     width: 100%;
     background: white;
-    box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5) !important;
-    -webkit-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5) !important;
-    -moz-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5) !important;
+    box-shadow: 0 4px 4px 0 rgba(126, 126, 126, .5) !important;
+    -webkit-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, .5) !important;
+    -moz-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, .5) !important;
 }
 
     #new-header #ic_menu {
@@ -839,7 +839,7 @@ h4.re3 {
     .noti-top .noti-number {
         border-radius: 50%;
         border: 1px solid #fff;
-        font-size: 0.85em;
+        font-size: .85em;
         padding: 4px 0;
         width: 26px;
         height: 26px;
@@ -2113,8 +2113,8 @@ h4.re3 {
     line-height: 24px;
     -webkit-transition-property: -webkit-transform;
     transition-property: transform;
-    -webkit-transition-duration: 0.2s;
-    transition-duration: 0.2s;
+    -webkit-transition-duration: .2s;
+    transition-duration: .2s;
 }
 
 .checkbox__label:before {
@@ -2187,7 +2187,7 @@ h4.re3 {
             margin: 0;
             text-transform: uppercase;
             height: 38px;
-            font-size: 0.8em;
+            font-size: .8em;
             font-weight: 600;
             font-family: 'Lato';
         }
@@ -2406,33 +2406,33 @@ h4.re3 {
         }
 
     .busy-loader .ball-1 {
-        -webkit-animation-delay: 0.96s;
-        -ms-animation-delay: 0.96s;
-        animation-delay: 0.96s;
+        -webkit-animation-delay: .96s;
+        -ms-animation-delay: .96s;
+        animation-delay: .96s;
     }
 
     .busy-loader .ball-2 {
-        -webkit-animation-delay: 0.19s;
-        -ms-animation-delay: 0.19s;
-        animation-delay: 0.19s;
+        -webkit-animation-delay: .19s;
+        -ms-animation-delay: .19s;
+        animation-delay: .19s;
     }
 
     .busy-loader .ball-3 {
-        -webkit-animation-delay: 0.38s;
-        -ms-animation-delay: 0.38s;
-        animation-delay: 0.38s;
+        -webkit-animation-delay: .38s;
+        -ms-animation-delay: .38s;
+        animation-delay: .38s;
     }
 
     .busy-loader .ball-4 {
-        -webkit-animation-delay: 0.58s;
-        -ms-animation-delay: 0.58s;
-        animation-delay: 0.58s;
+        -webkit-animation-delay: .58s;
+        -ms-animation-delay: .58s;
+        animation-delay: .58s;
     }
 
     .busy-loader .ball-5 {
-        -webkit-animation-delay: 0.77s;
-        -ms-animation-delay: 0.77s;
-        animation-delay: 0.77s;
+        -webkit-animation-delay: .77s;
+        -ms-animation-delay: .77s;
+        animation-delay: .77s;
     }
 
 @-webkit-keyframes orbit {
@@ -2744,7 +2744,7 @@ table > thead > tr > th {
 
 .dropdown-menu.open {
     border: none;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, .1) !important;
 }
 
 .title-campana {
@@ -2827,8 +2827,8 @@ table > thead > tr > th {
 .fadeInUp {
     -webkit-animation-name: fadeInUp;
     animation-name: fadeInUp;
-    -webkit-animation-duration: 0.5s;
-    animation-duration: 0.5s;
+    -webkit-animation-duration: .5s;
+    animation-duration: .5s;
     -webkit-animation-fill-mode: both;
     animation-fill-mode: both;
 }
@@ -2842,8 +2842,8 @@ table > thead > tr > th {
     bottom: 0;
     z-index: 1000;
     overflow: auto;
-    -webkit-transition: all 0.5s;
-    transition: all 0.5s;
+    -webkit-transition: all .5s;
+    transition: all .5s;
 }
 
 .ovh {
@@ -3552,9 +3552,9 @@ table > thead > tr > th {
 
 .fondo_m {
     background: #f7f9f9;
-    box-shadow: 0 2px 13px 0 rgba(126, 126, 126, 0.5) !important;
-    -webkit-box-shadow: 0 2px 13px 0 rgba(126, 126, 126, 0.5) !important;
-    -moz-box-shadow: 0 2px 13px 0 rgba(126, 126, 126, 0.5) !important;
+    box-shadow: 0 2px 13px 0 rgba(126, 126, 126, .5) !important;
+    -webkit-box-shadow: 0 2px 13px 0 rgba(126, 126, 126, .5) !important;
+    -moz-box-shadow: 0 2px 13px 0 rgba(126, 126, 126, .5) !important;
 }
 
 .sombra_m {
@@ -5961,7 +5961,7 @@ body {
     background: #fff;
     height: auto;
     padding: 26px 0;
-    box-shadow: 0 2px 14px 0 rgba(102, 102, 102, 0.5);
+    box-shadow: 0 2px 14px 0 rgba(102, 102, 102, .5);
 }
 
     .mensaje_ingreso_cuvs:after {
@@ -6549,7 +6549,7 @@ input[type='checkbox']:checked + span:after {
     display: none;
     padding: 15px;
     top: 0;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0,0,0,.5);
 }
 
 .content_mensajeAlerta {
@@ -7200,9 +7200,9 @@ input[type='checkbox']:checked + span:after {
     padding-top: 10px;
     padding-bottom: 36px;
     z-index: 1000;
-    -webkit-box-shadow: 1px 7px 17px -2px rgba(0,0,0,0.5);
-    -moz-box-shadow: 1px 7px 17px -2px rgba(0,0,0,0.5);
-    box-shadow: 1px 7px 17px -2px rgba(0,0,0,0.5);
+    -webkit-box-shadow: 1px 7px 17px -2px rgba(0,0,0,.5);
+    -moz-box-shadow: 1px 7px 17px -2px rgba(0,0,0,.5);
+    box-shadow: 1px 7px 17px -2px rgba(0,0,0,.5);
 }
 
     .pop_sugerido_mobile:before {
@@ -7473,7 +7473,7 @@ input[type='checkbox']:checked + span:after {
     }
 
 #new-header .menu-shop .num-menu-shop {
-    transition: color 0.8s linear 0.2s;
+    transition: color .8s linear .2s;
 }
 
 .microefecto_color {
@@ -10362,11 +10362,11 @@ span.icon-advertencia {
 .bloqueOfertaDia_vistaOfertas {
     width: auto;
     margin: 0 10px 10px 10px;
-    box-shadow: 0 3px 11px rgba(0,0,0,0.5);
-    -moz-box-shadow: 0 3px 11px rgba(0,0,0,0.5);
-    -o-box-shadow: 0 3px 11px rgba(0,0,0,0.5);
-    -ms-box-shadow: 0 3px 11px rgba(0,0,0,0.5);
-    -webkit-box-shadow: 0 3px 11px rgba(0,0,0,0.5);
+    box-shadow: 0 3px 11px rgba(0,0,0,.5);
+    -moz-box-shadow: 0 3px 11px rgba(0,0,0,.5);
+    -o-box-shadow: 0 3px 11px rgba(0,0,0,.5);
+    -ms-box-shadow: 0 3px 11px rgba(0,0,0,.5);
+    -webkit-box-shadow: 0 3px 11px rgba(0,0,0,.5);
 }
 
 .solo_hoy_mobile {
@@ -10905,7 +10905,7 @@ span.icon-advertencia {
     letter-spacing: 0.8px;
     position: absolute;
     width: 100%;
-    text-shadow: -0.1em 0.1em black;
+    text-shadow: -.1em .1em black;
     margin-top: 14%;
     margin-left: 19%;
     font-family: 'Lato';
@@ -10958,7 +10958,7 @@ span.icon-advertencia {
     text-align: center;
     color: white;
     letter-spacing: 2px;
-    text-shadow: -0.1em 0.1em black;
+    text-shadow: -.1em .1em black;
 }
 
 .solo_hoy_mobile2 {
@@ -11408,11 +11408,11 @@ span.icon-advertencia {
     background: black url('https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/3L4waZ4IJhbxugs/flecha_tono_white.png') no-repeat;
     background-position: 95% 19px;
     color: white;
-    transition: all 0.3s ease;
-    -moz-transition: all 0.3s ease;
-    -o-transition: all 0.3s ease;
-    -ms-transition: all 0.3s ease;
-    -webkit-transition: all 0.3s ease;
+    transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -webkit-transition: all .3s ease;
 }
 
 .btn_elige_tono {
@@ -11454,11 +11454,11 @@ span.icon-advertencia {
     background: black url('https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/3L4waZ4IJhbxugs/flecha_tono_white.png') no-repeat;
     background-position: 95% 19px;
     color: white;
-    transition: all 0.3s ease;
-    -moz-transition: all 0.3s ease;
-    -o-transition: all 0.3s ease;
-    -ms-transition: all 0.3s ease;
-    -webkit-transition: all 0.3s ease;
+    transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -webkit-transition: all .3s ease;
 }
 
 .btn_elige_tono {
@@ -11535,11 +11535,11 @@ span.icon-advertencia {
     position: relative;
     margin: 15px 10px 15px 10px;
     overflow: hidden;
-    box-shadow: 0 3px 11px rgba(0,0,0,0.5);
-    -moz-box-shadow: 0 3px 11px rgba(0,0,0,0.5);
-    -o-box-shadow: 0 3px 11px rgba(0,0,0,0.5);
-    -ms-box-shadow: 0 3px 11px rgba(0,0,0,0.5);
-    -webkit-box-shadow: 0 3px 11px rgba(0,0,0,0.5);
+    box-shadow: 0 3px 11px rgba(0,0,0,.5);
+    -moz-box-shadow: 0 3px 11px rgba(0,0,0,.5);
+    -o-box-shadow: 0 3px 11px rgba(0,0,0,.5);
+    -ms-box-shadow: 0 3px 11px rgba(0,0,0,.5);
+    -webkit-box-shadow: 0 3px 11px rgba(0,0,0,.5);
 }
 
 .contenedor_banner_showroom_vistaOfertas_seccion_inferior {
@@ -11547,11 +11547,11 @@ span.icon-advertencia {
     height: 190px;
     margin: 15px 10px 18px 10px;
     overflow: hidden;
-    box-shadow: 0 3px 11px rgba(0,0,0,0.5);
-    -moz-box-shadow: 0 3px 11px rgba(0,0,0,0.5);
-    -o-box-shadow: 0 3px 11px rgba(0,0,0,0.5);
-    -ms-box-shadow: 0 3px 11px rgba(0,0,0,0.5);
-    -webkit-box-shadow: 0 3px 11px rgba(0,0,0,0.5);
+    box-shadow: 0 3px 11px rgba(0,0,0,.5);
+    -moz-box-shadow: 0 3px 11px rgba(0,0,0,.5);
+    -o-box-shadow: 0 3px 11px rgba(0,0,0,.5);
+    -ms-box-shadow: 0 3px 11px rgba(0,0,0,.5);
+    -webkit-box-shadow: 0 3px 11px rgba(0,0,0,.5);
 }
 
 /******* Oscar *******/
@@ -11710,10 +11710,10 @@ span.icon-advertencia {
                     margin-top: -4px;
                     position: absolute;
                     background: url('../../../Images/mobile/Esika/arrow_select_variant.svg') no-repeat center center;
-                    -webkit-transition: all 0.2s ease-out;
-                    -moz-transition: all 0.2s ease-out;
-                    -o-transition: all 0.2s ease-out;
-                    transition: all 0.2s ease-out;
+                    -webkit-transition: all .2s ease-out;
+                    -moz-transition: all .2s ease-out;
+                    -o-transition: all .2s ease-out;
+                    transition: all .2s ease-out;
                 }
 
                 .content_room_product_sheet .item_product .variants .select_variant.opened:after {
@@ -12167,9 +12167,9 @@ span.icon-advertencia {
     padding-top: 10px;
     padding-bottom: 10px;
     background: white;
-    -webkit-box-shadow: -2px 1px 18px -4px rgba(0,0,0,0.5);
-    -moz-box-shadow: -2px 1px 18px -4px rgba(0,0,0,0.5);
-    box-shadow: -2px 1px 18px -4px rgba(0,0,0,0.5);
+    -webkit-box-shadow: -2px 1px 18px -4px rgba(0,0,0,.5);
+    -moz-box-shadow: -2px 1px 18px -4px rgba(0,0,0,.5);
+    box-shadow: -2px 1px 18px -4px rgba(0,0,0,.5);
 }
 
 .set_dia_banner {
@@ -13660,9 +13660,9 @@ span.icon-advertencia {
     }
 
         .app-panels .sections-arrow img {
-            -moz-transition: transform 0.5s;
-            -webkit-transition: transform 0.5s;
-            transition: transform 0.5s;
+            -moz-transition: transform .5s;
+            -webkit-transition: transform .5s;
+            transition: transform .5s;
         }
 
 .app-panels-flip {
@@ -13744,11 +13744,11 @@ span.icon-advertencia {
 .agregarSombraInferior {
     position: relative;
     z-index: 2;
-    box-shadow: 0 0 10px 2px rgba(0,0,0,0.5);
-    -moz-box-shadow: 0 0 10px 2px rgba(0,0,0,0.5);
-    -o-box-shadow: 0 0 10px 2px rgba(0,0,0,0.5);
-    -ms-box-shadow: 0 0 10px 2px rgba(0,0,0,0.5);
-    -webkit-box-shadow: 0 0 10px 2px rgba(0,0,0,0.5);
+    box-shadow: 0 0 10px 2px rgba(0,0,0,.5);
+    -moz-box-shadow: 0 0 10px 2px rgba(0,0,0,.5);
+    -o-box-shadow: 0 0 10px 2px rgba(0,0,0,.5);
+    -ms-box-shadow: 0 0 10px 2px rgba(0,0,0,.5);
+    -webkit-box-shadow: 0 0 10px 2px rgba(0,0,0,.5);
     border-bottom: none;
 }
 
