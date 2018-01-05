@@ -300,7 +300,7 @@
     }
 
     .formulario_inscripcion_cdr select {
-        background: url(/Content/Images/mobile/dropdown-arrow.png);
+        background: url('/Content/Images/mobile/dropdown-arrow.png');
         background-repeat: no-repeat;
         background-position: 95.5% center;
     }

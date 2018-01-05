@@ -235,7 +235,7 @@ h6, .h6 {
     }
 
 .nav0 {
-    background: url(../Images/separador.png) no-repeat;
+    background: url('../Images/separador.png') no-repeat;
     background-position: right;
 }
 
@@ -243,14 +243,14 @@ Image .nav0:hover {
 }
 
 .nav1 {
-    background: url(../Images/separador.png) no-repeat;
+    background: url('../Images/separador.png') no-repeat;
     background-position: right;
 }
 
 
 
 .nav2 {
-    background: url(../Images/separador.png) no-repeat;
+    background: url('../Images/separador.png') no-repeat;
     background-position: right;
 }
 
@@ -531,7 +531,7 @@ Image .nav0:hover {
     -moz-border-radius: 10px;
     -khtml-border-radius: 10px;
     border-radius: 10px;
-    behavior: url(Pie/PIE.htc);
+    behavior: url('Pie/PIE.htc');
 }
 
 #det1 {
@@ -560,7 +560,7 @@ Image .nav0:hover {
     -moz-border-radius: 10px;
     -khtml-border-radius: 10px;
     border-radius: 10px;
-    behavior: url(Pie/PIE.htc);
+    behavior: url('Pie/PIE.htc');
 }
 
 .detalle_item {
@@ -633,7 +633,7 @@ Image .nav0:hover {
     -moz-border-radius: 10px;
     -khtml-border-radius: 10px;
     border-radius: 10px;
-    behavior: url(../../../../Content/Css/Pie/PIE.htc);
+    behavior: url('../../../../Content/Css/Pie/PIE.htc');
 }
 
 .ui-dialog .ui-dialog-buttonpane {
@@ -844,7 +844,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .cerrar-p {
-    background-image: url(../Images/popup/cerrar_04.png);
+    background-image: url('../Images/popup/cerrar_04.png');
     background-repeat: no-repeat;
     height: 16px;
     width: 16px;
@@ -909,7 +909,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .flecha_select {
-    background: url(../Images/flecha_select.png) no-repeat;
+    background: url('../Images/flecha_select.png') no-repeat;
     background-position: right;
     height: 32px;
     margin-right: 1px;
@@ -917,7 +917,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .sombra_superior {
     width: 100%;
-    background: url(../Images/sombra_superior.png);
+    background: url('../Images/sombra_superior.png');
     position: absolute;
     height: 126px;
     z-index: -1;
@@ -967,7 +967,7 @@ h1, h2, h3, h4, h5, h6 {
     z-index: 1000;
     width: 100%;
     height: 100%;
-    background: url(../Images/popup_esika/fondo_pop_up.png);
+    background: url('../Images/popup_esika/fondo_pop_up.png');
 }
 
     #popup_olvidasteContrasenia .formcontrol {
@@ -1013,7 +1013,7 @@ h1, h2, h3, h4, h5, h6 {
     z-index: 1000;
     width: 100%;
     height: 100%;
-    background: url(../Images/popup_esika/fondo_pop_up.png);
+    background: url('../Images/popup_esika/fondo_pop_up.png');
 }
 
 .content_bg_1 {
@@ -1047,7 +1047,7 @@ h1, h2, h3, h4, h5, h6 {
 #header {
     height: 55px;
     width: 80%;
-    background: black url(../Images/popup_esika/fondo_header.png) top left no-repeat;
+    background: black url('../Images/popup_esika/fondo_header.png') top left no-repeat;
     background-position: right;
     FONT-FAMILY: LATO;
     color: white;
@@ -1213,7 +1213,7 @@ h1, h2, h3, h4, h5, h6 {
     float: left;
     height: 39px;
     width: 100%;
-    background-image: url(../Images/popup_esika/titulos_03.png);
+    background-image: url('../Images/popup_esika/titulos_03.png');
     background-repeat: no-repeat;
 }
 
@@ -1221,7 +1221,7 @@ h1, h2, h3, h4, h5, h6 {
     float: left;
     height: 39px;
     width: 100%;
-    background-image: url(../Images/popup_esika/titulos_06.png);
+    background-image: url('../Images/popup_esika/titulos_06.png');
     background-repeat: no-repeat;
 }
 
@@ -1229,7 +1229,7 @@ h1, h2, h3, h4, h5, h6 {
     float: left;
     height: 39px;
     width: 100%;
-    background-image: url(../Images/popup_esika/titulos_08.png);
+    background-image: url('../Images/popup_esika/titulos_08.png');
     background-repeat: no-repeat;
 }
 
@@ -1237,7 +1237,7 @@ h1, h2, h3, h4, h5, h6 {
     float: left;
     height: 63px;
     width: 100%;
-    background-image: url(../Images/popup_esika/corre_titulo_03.png);
+    background-image: url('../Images/popup_esika/corre_titulo_03.png');
     background-repeat: no-repeat;
 }
 
@@ -1251,7 +1251,7 @@ h1, h2, h3, h4, h5, h6 {
 .gmail {
     height: 67px;
     width: 187px;
-    background-image: url(../Images/popup_esika/gmail_03.png);
+    background-image: url('../Images/popup_esika/gmail_03.png');
     background-repeat: no-repeat;
     background-position: top;
     float: left;
@@ -1264,7 +1264,7 @@ h1, h2, h3, h4, h5, h6 {
 .yahoo {
     height: 67px;
     width: 187px;
-    background-image: url(../Images/popup_esika/yahoo_03.png);
+    background-image: url('../Images/popup_esika/yahoo_03.png');
     background-repeat: no-repeat;
     background-position: top;
     float: left;
@@ -1277,7 +1277,7 @@ h1, h2, h3, h4, h5, h6 {
 .hotmail {
     height: 67px;
     width: 187px;
-    background-image: url(../Images/popup_esika/hotmail_03.png);
+    background-image: url('../Images/popup_esika/hotmail_03.png');
     background-repeat: no-repeat;
     background-position: top;
     float: left;
@@ -1290,7 +1290,7 @@ h1, h2, h3, h4, h5, h6 {
 .outlook {
     height: 67px;
     width: 187px;
-    background-image: url(../Images/popup_esika/outlook_03.png);
+    background-image: url('../Images/popup_esika/outlook_03.png');
     background-repeat: no-repeat;
     background-position: top;
     float: left;
@@ -1301,7 +1301,7 @@ h1, h2, h3, h4, h5, h6 {
     }
 
 .cerrar {
-    background-image: url(../Images/popup_esika/cerrar_04.png);
+    background-image: url('../Images/popup_esika/cerrar_04.png');
     background-repeat: no-repeat;
     height: 24px;
     width: 24px;
@@ -1781,7 +1781,7 @@ h1, h2, h3, h4, h5, h6 {
 .header_facebook {
     height: 55px;
     width: 80%;
-    background: black url(../Images/popup_esika/fondo_header.png) top left no-repeat;
+    background: black url('../Images/popup_esika/fondo_header.png') top left no-repeat;
     background-position: right;
     FONT-FAMILY: 'Lato';
     color: white;
@@ -1795,7 +1795,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn_cerrar_login {
-    background-image: url(../Images/popup_esika/cerrar_04.png);
+    background-image: url('../Images/popup_esika/cerrar_04.png');
     background-repeat: no-repeat;
     height: 24px;
     width: 24px;
@@ -2218,13 +2218,13 @@ h1, h2, h3, h4, h5, h6 {
 
 /*Fin Facebook*/
 .icono_esika {
-    background: url(../../../Images/Esika/icono_advertencia_notificacion.svg) no-repeat;
+    background: url('../../../Images/Esika/icono_advertencia_notificacion.svg') no-repeat;
     background-size: 15px;
     color: #e81c36;
 }
 
 .fondo_estandar {
-    background: url(../Images/login-esika-1920.jpg) center center no-repeat fixed;
+    background: url('../Images/login-esika-1920.jpg') center center no-repeat fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;

@@ -778,13 +778,13 @@ img {
     height: 21px;
     padding-left: 22px;
     padding-top: 3px;
-    background-image: url(../../images/comunidad/box-01.png);
+    background-image: url('../../images/comunidad/box-01.png');
     background-repeat: no-repeat;
     transition: background-image 250ms ease;
 }
 
     #wrap_box:hover {
-        background-image: url(../../images/comunidad/box-02.png);
+        background-image: url('../../images/comunidad/box-02.png');
     }
 
 .item_selected {
@@ -1810,7 +1810,7 @@ img {
     font-size: 1.8em;
     text-align: center;
     line-height: 14px;
-    background-image: url(/Content/Images/ConsultoraOnline/ic_aceptar.png);
+    background-image: url('/Content/Images/ConsultoraOnline/ic_aceptar.png');
     background-size: 18px;
     border: none;
 }
@@ -2190,7 +2190,7 @@ button {
 div.subir_archivo {
     width: 20px;
     height: 20px;
-    background: url(/Content/Images/ConsultoraOnline/ic_subir_foto.png);
+    background: url('/Content/Images/ConsultoraOnline/ic_subir_foto.png');
     margin-left: 60px;
 }
 
@@ -2319,7 +2319,7 @@ div.subir_archivo {
     font-size: 1.8em;
     text-align: center;
     line-height: 14px;
-    background-image: url(/Content/Images/ConsultoraOnline/ic_aceptar.png);
+    background-image: url('/Content/Images/ConsultoraOnline/ic_aceptar.png');
     background-size: 18px;
     border: none;
 }
@@ -2350,7 +2350,7 @@ div.subir_archivo {
     border-radius: 118px;
     width: 156px;
     height: 156px;
-    behavior: url(../../../../Content/Css/Pie/PIE.htc);
+    behavior: url('../../../../Content/Css/Pie/PIE.htc');
 }
 
 .lista_datos_perfil_ver {
@@ -2397,7 +2397,7 @@ div.subir_archivo {
     margin-left: 12%;
     line-height: 156px;
     border-radius: 118px;
-    behavior: url(../../../../Content/Css/Pie/PIE.htc);
+    behavior: url('../../../../Content/Css/Pie/PIE.htc');
 }
 
 .tsm tbody tr td #tdTotalPrecio {

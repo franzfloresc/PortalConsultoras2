@@ -2,10 +2,10 @@
 /* CSS Document */
 body {
     background-color: #efeef2;
-    background-image: url(../../Images/comunidad/bg_login.png);
+    background-image: url('../../Images/comunidad/bg_login.png');
     background-position: right 100px;
     background-repeat: no-repeat;
-    font-family: "Roboto", sans-serif;
+    font-family: 'Roboto', sans-serif;
     color: #768ea3;
     font-size: 14px;
     text-align: left;

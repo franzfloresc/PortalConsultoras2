@@ -306,7 +306,7 @@
             content: "";
             top: 7px;
             right: 5px;
-            background: url(../../../Images/flecha-right.svg) no-repeat center center;
+            background: url('../../../Images/flecha-right.svg') no-repeat center center;
             background-size: 100%;
             z-index: 100;
         }
@@ -1176,7 +1176,7 @@ div#tab_revistasdigital_mobile {
     color: black;
     top: 10px;
     padding-left: 20px;
-    background: url(../../../Images/Esika/pagina.png) no-repeat;
+    background: url('../../../Images/Esika/pagina.png') no-repeat;
     background-position: 3px 2px;
     height: 20px;
 }
@@ -1194,7 +1194,7 @@ div#tab_revistasdigital_mobile {
 }
 
 .rd_ver_mas:after {
-    background-image: url(../../../Images/RevistaDigital/rd_arrowright.png);
+    background-image: url('../../../Images/RevistaDigital/rd_arrowright.png');
     background-repeat: no-repeat;
     background-size: 6px 10px;
     display: inline-block;
@@ -1635,7 +1635,7 @@ div#tab_revistasdigital_mobile {
 
     .box_pregunta_ept .tit_pregunta_ept:after {
         content: "";
-        background: url(../../../Images/RevistaDigital/Polygon.png) no-repeat right center;
+        background: url('../../../Images/RevistaDigital/Polygon.png') no-repeat right center;
         right: 0;
         top: 20px;
         position: absolute;
@@ -2297,7 +2297,7 @@ div#tab_revistasdigital_mobile {
         margin: auto;
         width: 20px;
         height: 26px !important;
-        background: url(../../../Images/Lbel/Triangle.svg);
+        background: url('../../../Images/Lbel/Triangle.svg');
         background-size: contain;
         background-position: center center;
         background-repeat: no-repeat;
@@ -2354,7 +2354,7 @@ div#tab_revistasdigital_mobile {
         .bloques-gana-mas .contenedor-mobile-fix > .bloque-img .cnt-uno {
             width: 135px;
             height: 80px !important;
-            background: url(../../../Images/Lbel/personalizacion-visual-desktop.gif);
+            background: url('../../../Images/Lbel/personalizacion-visual-desktop.gif');
             background-size: contain;
             background-position: center center;
             background-repeat: no-repeat;
@@ -2363,7 +2363,7 @@ div#tab_revistasdigital_mobile {
         .bloques-gana-mas .contenedor-mobile-fix > .bloque-img .cnt-dos {
             width: 135px;
             height: 80px !important;
-            background: url(../../../Images/no-mas-codigo-visual.png);
+            background: url('../../../Images/no-mas-codigo-visual.png');
             background-size: 40%;
             background-position: center center;
             background-repeat: no-repeat;
@@ -2372,7 +2372,7 @@ div#tab_revistasdigital_mobile {
         .bloques-gana-mas .contenedor-mobile-fix > .bloque-img .cnt-tres {
             width: 135px;
             height: 80px !important;
-            background: url(../../../Images/Lbel/consejos-y-tips-visual.png);
+            background: url('../../../Images/Lbel/consejos-y-tips-visual.png');
             background-size: contain;
             background-position: center center;
             background-repeat: no-repeat;
@@ -2441,7 +2441,7 @@ div#tab_revistasdigital_mobile {
     }
 
     .bloques-gana-mas .contenedor-mobile-fix .visual-funcionamiento {
-        background: url(/Content/Images/Lbel/visual-de-funcionamiento.png);
+        background: url('/Content/Images/Lbel/visual-de-funcionamiento.png');
         width: 124px;
         height: 135px;
         background-repeat: no-repeat;
@@ -2458,7 +2458,7 @@ div#tab_revistasdigital_mobile {
         height: auto;
         float: initial;
         height: 50px;
-        background: url(../../../Images/Lbel/logotipo-club-ganamas-morado.svg);
+        background: url('../../../Images/Lbel/logotipo-club-ganamas-morado.svg');
         background-size: cover;
         background-position: center center;
     }
@@ -2553,7 +2553,7 @@ a.btn-suscribete-video-baja {
 }
 
     a.btn-suscribete-video-baja span.baja-ver-mas {
-        background: url(../../../Images/Lbel/scroll-down-icon-esika.svg);
+        background: url('../../../Images/Lbel/scroll-down-icon-esika.svg');
         background-size: contain;
         background-repeat: no-repeat;
         width: 14px;
@@ -2582,7 +2582,7 @@ a.btn-suscribete-video-baja {
     }
 
         .bloques-gana-mas .contenedor-mobile-fix > .bloque-img .cnt-uno {
-            background: url(../../../Images/Lbel/personalizacion-visual-mobile.gif);
+            background: url('../../../Images/Lbel/personalizacion-visual-mobile.gif');
             background-size: contain;
             background-position: center center;
             background-repeat: no-repeat;

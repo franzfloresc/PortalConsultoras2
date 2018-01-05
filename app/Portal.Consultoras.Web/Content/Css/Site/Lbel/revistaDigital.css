@@ -211,7 +211,7 @@
         content: "";
         top: 0px;
         right: -6px;
-        background: url(../../../Images/flecha-right.svg) no-repeat center center;
+        background: url('../../../Images/flecha-right.svg') no-repeat center center;
         background-size: 100%;
         z-index: 100;
     }
@@ -287,7 +287,7 @@
     height: 100vh;
     bottom: 0px;
     position: absolute;
-    background: url(../../../Images/mujer-seccion-revista-bienvenida.png) no-repeat -153px 8px;
+    background: url('../../../Images/mujer-seccion-revista-bienvenida.png') no-repeat -153px 8px;
     background-size: contain;
     background-attachment: fixed;
 }
@@ -751,7 +751,7 @@
     font-weight: 700;
     padding-left: 20px;
     padding-right: 20px;
-    background: url(../../../Images/RevistaDigital/fondo_titulo.png) no-repeat top left;
+    background: url('../../../Images/RevistaDigital/fondo_titulo.png') no-repeat top left;
 }
 
 .marca_ept {
@@ -2020,7 +2020,7 @@
 
 .box_pregunta_ept .tit_pregunta_ept:after {
     content: "";
-    background: url(../../../Images/RevistaDigital/Polygon.png) no-repeat right center;
+    background: url('../../../Images/RevistaDigital/Polygon.png') no-repeat right center;
     right: 0;
     top: 20px;
     position: absolute;
@@ -2031,7 +2031,7 @@
 
 .box_pregunta_ept2 .tit_pregunta_ept2:after {
     content: "";
-    background: url(../../../Images/RevistaDigital/Polygon.png) no-repeat right center;
+    background: url('../../../Images/RevistaDigital/Polygon.png') no-repeat right center;
     right: 0;
     top: 20px;
     position: absolute;
@@ -2103,7 +2103,7 @@
 }
 
 .rd_ver_mas:after {
-    background-image: url(../../../Images/RevistaDigital/rd_arrowright.png);
+    background-image: url('../../../Images/RevistaDigital/rd_arrowright.png');
     background-repeat: no-repeat;
     background-size: 6px 8px;
     display: inline-block;
@@ -2624,7 +2624,7 @@
 
     .popup_rd_bloqueado .rd_ver_mas:after {
         content: "";
-        background-image: url(../../../Images/RevistaDigital/rd_arrowright.png);
+        background-image: url('../../../Images/RevistaDigital/rd_arrowright.png');
         background-repeat: no-repeat;
         background-size: 8px 12px;
         display: inline-block;
@@ -2921,7 +2921,7 @@
         height: auto;
         float: initial;
         height: 80px;
-        background: url(../../../Images/Lbel/logotipo-club-ganamas-morado.svg);
+        background: url('../../../Images/Lbel/logotipo-club-ganamas-morado.svg');
         background-size: cover;
         background-position: center center;
     }
@@ -2999,7 +2999,7 @@
     .gana-mas .txt-img-cont-uno {
         width: 250px;
         height: 80px !important;
-        background: url(../../../Images/Lbel/personalizacion-visual-desktop.gif);
+        background: url('../../../Images/Lbel/personalizacion-visual-desktop.gif');
         background-size: cover;
         background-position: center center;
     }
@@ -3007,7 +3007,7 @@
     .gana-mas .txt-img-cont-dos {
         width: 250px;
         height: 80px !important;
-        background: url(../../../Images/no-mas-codigo-visual-desktop.png);
+        background: url('../../../Images/no-mas-codigo-visual-desktop.png');
         background-size: cover;
         background-position: center center;
     }
@@ -3015,7 +3015,7 @@
     .gana-mas .txt-img-cont-tres {
         width: 250px;
         height: 80px !important;
-        background: url(../../../Images/Lbel/consejos-y-tips-visual.png);
+        background: url('../../../Images/Lbel/consejos-y-tips-visual.png');
         background-size: 100%;
         background-position: center center;
         background-repeat: no-repeat;
@@ -3042,7 +3042,7 @@
         margin: auto;
         width: 20px;
         height: 26px !important;
-        background: url(../../../Images/Lbel/Triangle.svg);
+        background: url('../../../Images/Lbel/Triangle.svg');
         background-size: contain;
         background-position: center center;
         background-repeat: no-repeat;
@@ -3097,7 +3097,7 @@
         }
 
         .como-funciona .caja-img .visual-funcionamiento {
-            background: url(/Content/Images/Esika/visual-de-funcionamiento.png);
+            background: url('/Content/Images/Esika/visual-de-funcionamiento.png');
             width: 250px;
             height: 278px;
             background-repeat: no-repeat;

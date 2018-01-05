@@ -286,7 +286,7 @@
 }
 
 .bc_menu_estrategia-contenido {
-    background: url(img/Rectangle75.png);
+    background: url('img/Rectangle75.png');
     height: 500px;
     background-color: #bf0223;
 }
@@ -423,7 +423,7 @@
     height: 100%;
     display: none;
     position: relative;
-    background: transparent url(../../../Images/bg_popups.png) repeat left top;
+    background: transparent url('../../../Images/bg_popups.png') repeat left top;
     z-index: 1000;
     overflow: auto;
     position: fixed;

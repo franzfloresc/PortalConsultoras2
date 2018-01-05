@@ -789,33 +789,33 @@ h4.re3 {
 }
 
 .icon-caja-gris {
-    background-image: url(../../../Images/mobile/img-icon/icon-caja-gris.png);
+    background-image: url('../../../Images/mobile/img-icon/icon-caja-gris.png');
 }
 
 .icon-caja {
-    background-image: url(../../../Images/mobile/img-icon/icon-caja.png);
+    background-image: url('../../../Images/mobile/img-icon/icon-caja.png');
 }
 
 .icon-caja-white {
-    background-image: url(../../../Images/mobile/img-icon/icon-caja-white.png);
+    background-image: url('../../../Images/mobile/img-icon/icon-caja-white.png');
 }
 
 .btn-line:hover .icon-caja {
-    background-image: url(../../../Images/mobile/img-icon/icon-caja-white.png);
+    background-image: url('../../../Images/mobile/img-icon/icon-caja-white.png');
 }
 
 .btn-line:hover .icon-caja-gris {
-    background-image: url(../../../Images/mobile/img-icon/icon-caja.png);
+    background-image: url('../../../Images/mobile/img-icon/icon-caja.png');
 }
 
 .slide-prev,
 .slick-prev {
-    background-image: url(../../../Images/mobile/img-icon/img-prev.png);
+    background-image: url('../../../Images/mobile/img-icon/img-prev.png');
 }
 
 .slide-next,
 .slick-next {
-    background-image: url(../../../Images/mobile/img-icon/img-next.png);
+    background-image: url('../../../Images/mobile/img-icon/img-next.png');
 }
 
 .text-center .img-responsive {
@@ -1169,7 +1169,7 @@ h4.re3 {
 }
 
     .panel-product .product-add-image {
-        background-image: url(../../../Images/mobile/img-icon/img-producto-agregado.png);
+        background-image: url('../../../Images/mobile/img-icon/img-producto-agregado.png');
         background-size: 100% 100%;
         width: 100px;
         height: 28px;
@@ -1597,19 +1597,19 @@ h4.re3 {
 }
 
 .icon-noti-green {
-    background-image: url(../../../Images/mobile/img-icon/icon-caja-round-green.png);
+    background-image: url('../../../Images/mobile/img-icon/icon-caja-round-green.png');
 }
 
 .icon-noti-white {
-    background-image: url(../../../Images/mobile/img-icon/icon-caja-round-white.png);
+    background-image: url('../../../Images/mobile/img-icon/icon-caja-round-white.png');
 }
 
 .icon-nuevo-cliente-green {
-    background-image: url(../../../Images/mobile/img-icon/icon-nuevo-cliente-green.png);
+    background-image: url('../../../Images/mobile/img-icon/icon-nuevo-cliente-green.png');
 }
 
 .icon-nuevo-cliente-white {
-    background-image: url(../../../Images/mobile/img-icon/icon-nuevo-cliente-white.png);
+    background-image: url('../../../Images/mobile/img-icon/icon-nuevo-cliente-white.png');
 }
 
 .list-notificaciones {
@@ -2311,14 +2311,14 @@ h4.re3 {
     }
 
 #cssmenu > ul > li.active > a {
-    background-image: url(../../../Images/mobile/img-icon/mobile_icon_menos.png);
+    background-image: url('../../../Images/mobile/img-icon/mobile_icon_menos.png');
     background-repeat: no-repeat;
     background-position: 100% center;
     background-size: 13px;
 }
 
 #cssmenu > ul > li.has-sub > a {
-    background-image: url(../../../Images/mobile/img-icon/mobile_icon_mas.png);
+    background-image: url('../../../Images/mobile/img-icon/mobile_icon_mas.png');
     background-repeat: no-repeat;
     background-position: 100% center;
     background-size: 13px;
@@ -3231,7 +3231,7 @@ table > thead > tr > th {
 }
 
 .icon-cart-list-pedidos {
-    background-image: url(../../../Images/mobile/img-consultoraonline/icon-cart-plus-pedidos.png);
+    background-image: url('../../../Images/mobile/img-consultoraonline/icon-cart-plus-pedidos.png');
 }
 
 @media (max-width: 360px) {
@@ -3245,7 +3245,7 @@ table > thead > tr > th {
 }
 
 .icon-cart-list-pedidos-inverse {
-    background-image: url(../../../Images/mobile/img-consultoraonline/icon-cart-plus-pedidos-inverse.png);
+    background-image: url('../../../Images/mobile/img-consultoraonline/icon-cart-plus-pedidos-inverse.png');
 }
 
 
@@ -3257,11 +3257,11 @@ table > thead > tr > th {
 }
 
 .icon-cart-list-pedidos {
-    background-image: url(../../../Images/mobile/img-consultoraonline/icon-cart-plus-pedidos.png);
+    background-image: url('../../../Images/mobile/img-consultoraonline/icon-cart-plus-pedidos.png');
 }
 
 .icon-cart-list-pedidos-inverse {
-    background-image: url(../../../Images/mobile/img-consultoraonline/icon-cart-plus-pedidos-inverse.png);
+    background-image: url('../../../Images/mobile/img-consultoraonline/icon-cart-plus-pedidos-inverse.png');
 }
 
 .btn-align {
@@ -3560,7 +3560,7 @@ table > thead > tr > th {
 .sombra_m {
     width: 100%;
     height: 20px;
-    background: url(../../../Images/mobile/img-showroom/sombra.png);
+    background: url('../../../Images/mobile/img-showroom/sombra.png');
 }
 /*POP UP*/
 
@@ -3715,7 +3715,7 @@ table > thead > tr > th {
 .CerrarPopMobile {
     width: 15px;
     height: 15px;
-    background: url(../../../Images/mobile/img-showroom/close_mobile.png) no-repeat;
+    background: url('../../../Images/mobile/img-showroom/close_mobile.png') no-repeat;
     cursor: pointer;
     position: absolute;
     top: 10px;
@@ -4246,7 +4246,7 @@ table > thead > tr > th {
     position: relative;
     margin: 0 auto;
     margin-top: -26px !important;
-    background: url(../../../Images/mobile/img-showroom/top_triangular.png) top center;
+    background: url('../../../Images/mobile/img-showroom/top_triangular.png') top center;
 }
 
 .contenedor_info_mobile {
@@ -4279,7 +4279,7 @@ table > thead > tr > th {
     z-index: 100;
     width: 14px;
     height: 20px;
-    background-image: url(../../../Images/mobile/img-showroom/previous2.png);
+    background-image: url('../../../Images/mobile/img-showroom/previous2.png');
 }
 
 .slick-next-showroom {
@@ -4288,7 +4288,7 @@ table > thead > tr > th {
     z-index: 100;
     width: 14px;
     height: 20px;
-    background-image: url(../../../Images/mobile/img-showroom/next2.png);
+    background-image: url('../../../Images/mobile/img-showroom/next2.png');
 }
 
 .item_detalle_set {
@@ -4696,7 +4696,7 @@ table > thead > tr > th {
     }
 
 .triangulo_home {
-    background: url(../../../Images/mobile/Esika/triangulo.png) no-repeat;
+    background: url('../../../Images/mobile/Esika/triangulo.png') no-repeat;
     width: 22px;
     margin: 0 auto;
     height: 20px;
@@ -4722,7 +4722,7 @@ table > thead > tr > th {
     color: black;
     font-family: 'Lato';
     font-size: 12px;
-    background: url(../../../Images/mobile/Esika/indicador_pedido.png) no-repeat;
+    background: url('../../../Images/mobile/Esika/indicador_pedido.png') no-repeat;
     background-position: 0 4px;
 }
 
@@ -5203,7 +5203,7 @@ body {
 .franja_inferior_banner_pedido {
     display: block;
     height: 19px;
-    background: url(../../../Images/franja_inferior_banner.png) no-repeat center top;
+    background: url('../../../Images/franja_inferior_banner.png') no-repeat center top;
     margin-top: -15px;
 }
 
@@ -5455,13 +5455,13 @@ body {
     position: absolute;
     top: 33%;
     left: 6.45%;
-    background: url(../../../Images/flecha_volver_mobile_blanca.svg) no-repeat center center;
+    background: url('../../../Images/flecha_volver_mobile_blanca.svg') no-repeat center center;
 }
 
     .enlace_regresar.detalleP {
         top: 0%;
         left: 2.45%;
-        background: url(../../../Images/flecha_volver_mobile.svg) no-repeat center center;
+        background: url('../../../Images/flecha_volver_mobile.svg') no-repeat center center;
     }
 
     .enlace_regresar.ingresoP {
@@ -5671,7 +5671,7 @@ body {
     height: 20px;
     top: 1px;
     left: -2px;
-    background: url(../../../Images/Esika/icono-admiracion.png) no-repeat center center;
+    background: url('../../../Images/Esika/icono-admiracion.png') no-repeat center center;
 }
 
 .notificacion_productoAgotado {
@@ -5801,7 +5801,7 @@ body {
     right: 0;
     width: 100%;
     height: 100%;
-    background: transparent url(../../../Images/bg_popups.png) repeat left top;
+    background: transparent url('../../../Images/bg_popups.png') repeat left top;
     z-index: 1000;
 }
 
@@ -5848,7 +5848,7 @@ body {
     width: 54px;
     height: 54px;
     margin: 0 auto;
-    background: url(../../../Images/Esika/icono_check_esika.svg) no-repeat center center;
+    background: url('../../../Images/Esika/icono_check_esika.svg') no-repeat center center;
     margin-bottom: 18px;
     background-size: cover;
 }
@@ -5858,7 +5858,7 @@ body {
     width: 54px;
     height: 54px;
     margin: 0 auto;
-    background: url(../../../Images/Esika/icono_exclamacion_esika.svg) no-repeat center center;
+    background: url('../../../Images/Esika/icono_exclamacion_esika.svg') no-repeat center center;
     margin-bottom: 18px;
     background-size: cover;
 }
@@ -6726,7 +6726,7 @@ input[type="checkbox"]:checked + span:after {
         }
 
     .ver-mas-vertical span.icono {
-        background: url(../../../Images/ver-mas-flecha-vertical.svg) center no-repeat;
+        background: url('../../../Images/ver-mas-flecha-vertical.svg') center no-repeat;
     }
 
 /* fin ver mas la fleca abajo*/
@@ -6858,7 +6858,7 @@ input[type="checkbox"]:checked + span:after {
     width: 20px;
     height: 20px;
     margin-right: 5px;
-    background: url(../../../Images/Esika/icono_advertencia_notificacion.svg) no-repeat center center;
+    background: url('../../../Images/Esika/icono_advertencia_notificacion.svg') no-repeat center center;
     background-size: cover;
 }
 
@@ -6965,7 +6965,7 @@ input[type="checkbox"]:checked + span:after {
     .descripcion_tiempoPasePedido .icono_notaDemanda {
         width: 18px;
         height: 18px;
-        background: url(../../../Images/Esika/icono_advertencia_notificacion.svg) no-repeat center center;
+        background: url('../../../Images/Esika/icono_advertencia_notificacion.svg') no-repeat center center;
         background-size: cover;
     }
 
@@ -7141,7 +7141,7 @@ input[type="checkbox"]:checked + span:after {
     float: left;
     width: 20px;
     height: 20px;
-    background: url(../../../Images/Esika/icono_advertencia_notificacion.svg) no-repeat;
+    background: url('../../../Images/Esika/icono_advertencia_notificacion.svg') no-repeat;
     background-size: cover;
 }
 
@@ -7558,7 +7558,7 @@ input[type="checkbox"]:checked + span:after {
     left: 0;
     bottom: 0;
     right: 0;
-    background: transparent url(../../../Images/bg_popups.png) repeat left top;
+    background: transparent url('../../../Images/bg_popups.png') repeat left top;
     z-index: 1000;
 }
 
@@ -7644,7 +7644,7 @@ input[type="checkbox"]:checked + span:after {
     right: 0;
     width: 100%;
     height: 100%;
-    background: transparent url(../../../Images/bg_popups.png) repeat left top;
+    background: transparent url('../../../Images/bg_popups.png') repeat left top;
     z-index: 1000;
 }
 
@@ -7762,7 +7762,7 @@ input[type="checkbox"]:checked + span:after {
         top: 1px;
         margin-right: 7px;
         float: none;
-        background: url(../../../Images/Esika/icono_advertencia_notificacion.svg) center center no-repeat;
+        background: url('../../../Images/Esika/icono_advertencia_notificacion.svg') center center no-repeat;
     }
 
     .popup_agregarCliente .descripcion_mensaje {
@@ -8105,7 +8105,7 @@ input[type="checkbox"]:checked + span:after {
 }
 
 .header-bg {
-    background: url(../../../Images/mobile/bg_la_01.jpg) no-repeat;
+    background: url('../../../Images/mobile/bg_la_01.jpg') no-repeat;
     background-size: cover;
     padding-top: 30px;
 }
@@ -8781,7 +8781,7 @@ span.title-app-b {
     padding-left: 15px;
     padding-right: 15px;
     position: relative;
-    background: #ededed url(../../../Images/Mobile/Esika/fondo_oferta.png) top repeat-x;
+    background: #ededed url('../../../Images/Mobile/Esika/fondo_oferta.png') top repeat-x;
 }
 
 .agregado {
@@ -9016,7 +9016,7 @@ span.title-app-b {
 }
 
 .icono_terminar_pedido {
-    background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/eFrB5kIPNXTjyJd/icono-reserva.png) no-repeat;
+    background: url('https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/eFrB5kIPNXTjyJd/icono-reserva.png') no-repeat;
     background-size: 27px;
     background-position: 0;
     padding-left: 46px;
@@ -9204,7 +9204,7 @@ span.icon-advertencia {
 .icono_pendiente {
     width: 20px;
     height: 20px;
-    background: url(../../../Images/Esika/icono_advertencia_notificacion.svg) no-repeat center center;
+    background: url('../../../Images/Esika/icono_advertencia_notificacion.svg') no-repeat center center;
     background-size: cover;
     float: left;
     margin-top: 23px;
@@ -9540,12 +9540,12 @@ a {
 }
 
     .opcion_rechazo:hover {
-        background: #f7f7f7 url(../../../Images/icono_check.png) no-repeat;
+        background: #f7f7f7 url('../../../Images/icono_check.png') no-repeat;
         background-position: 10px 18px;
     }
 
 .opcion_rechazo_select {
-    background: #f7f7f7 url(../../../Images/icono_check.png) no-repeat;
+    background: #f7f7f7 url('../../../Images/icono_check.png') no-repeat;
     background-position: 10px 18px;
 }
 
@@ -9596,7 +9596,7 @@ a {
     color: black;
     font-weight: 700;
     margin-top: 20px;
-    background: #f3f3f3 url(../../../Images/Esika/icono_advertencia_notificacion.png) no-repeat center center;
+    background: #f3f3f3 url('../../../Images/Esika/icono_advertencia_notificacion.png') no-repeat center center;
     background-position: 10px 10px;
     padding: 10px 10px 10px 43px;
     position: relative;
@@ -9646,7 +9646,7 @@ a {
     margin-right: 2%;
     height: 20px;
     background-size: cover;
-    background: url(../../../Images/Esika/icono_advertencia_notificacion.png) no-repeat center center;
+    background: url('../../../Images/Esika/icono_advertencia_notificacion.png') no-repeat center center;
     display: inline-block;
     vertical-align: top;
     margin-top: 2px;
@@ -9744,7 +9744,7 @@ a {
     width: 13px;
     height: 21px;
     display: inline-block;
-    background: url(../../../Images/Esika/icono_telefono.svg) no-repeat;
+    background: url('../../../Images/Esika/icono_telefono.svg') no-repeat;
     background-size: cover;
 }
 
@@ -10117,7 +10117,7 @@ a {
 }
 
 .flecha_black {
-    background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/zoYB32Gbu77JwMd/flecha_black.png);
+    background: url('https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/zoYB32Gbu77JwMd/flecha_black.png');
 }
 
 .texto_filtros {
@@ -10189,11 +10189,11 @@ a {
 }
 
 .titulo_filtro .title-accordion {
-    background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/0xqS1DLiQCE5xmM/fle_ab.png) no-repeat right;
+    background: url('https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/0xqS1DLiQCE5xmM/fle_ab.png') no-repeat right;
 }
 
 .titulo_filtro .flecha_arriba {
-    background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/5FGReohxFhibs8X/fle_ar.png) no-repeat right;
+    background: url('https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/5FGReohxFhibs8X/fle_ar.png') no-repeat right;
 }
 
 /*FICHA PRODCUTO*/
@@ -10363,7 +10363,7 @@ a {
 }
 
 .pestana_favoritos {
-    background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/hWhyQM8H6XLRNhQ/pestana_esika_roja.png) no-repeat top center;
+    background: url('https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/hWhyQM8H6XLRNhQ/pestana_esika_roja.png') no-repeat top center;
     position: relative;
     z-index: 5;
 }
@@ -11075,7 +11075,7 @@ a {
     width: 248px;
     margin: 0 auto;
     margin-bottom: 20px;
-    background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/LUlPmmzPLc7VpSr/page-1.png)no-repeat left bottom;
+    background: url('https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/LUlPmmzPLc7VpSr/page-1.png')no-repeat left bottom;
     padding-left: 32px;
     position: relative;
 }
@@ -11283,7 +11283,7 @@ a {
     float: right;
     color: #000000;
     padding-left: 20px;
-    background: url(../../../Images/Esika/arrow_left.png) no-repeat left;
+    background: url('../../../Images/Esika/arrow_left.png') no-repeat left;
     background-size: 18px 18px;
 }
 
@@ -11294,12 +11294,12 @@ a {
 }
 
 .etiqueta_showroom {
-    background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/3m00NcLwdPjImja/etiqueta_esika.png) no-repeat;
+    background: url('https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/3m00NcLwdPjImja/etiqueta_esika.png') no-repeat;
     background-position: 5px 14px;
 }
 
 .etiqueta_chat {
-    background: url(../../../Images/mobile/icon-chat.png) no-repeat;
+    background: url('../../../Images/mobile/icon-chat.png') no-repeat;
     background-size: 13px;
     background-position: 6px 16px;
 }
@@ -11510,7 +11510,7 @@ a {
                     content: "";
                     margin-top: -4px;
                     position: absolute;
-                    background: url(../../../Images/mobile/Esika/arrow_select_variant.svg) no-repeat center center;
+                    background: url('../../../Images/mobile/Esika/arrow_select_variant.svg') no-repeat center center;
                     -webkit-transition: all 0.2s ease-out;
                     -moz-transition: all 0.2s ease-out;
                     -o-transition: all 0.2s ease-out;
@@ -11605,11 +11605,11 @@ a {
         }
 
         .content_room_product_sheet .box_promotions .slider .slick-prev.slick-arrow {
-            background: url(../../../Images/mobile/Esika/arrow-slide-promotions-left.svg) no-repeat center right;
+            background: url('../../../Images/mobile/Esika/arrow-slide-promotions-left.svg') no-repeat center right;
         }
 
         .content_room_product_sheet .box_promotions .slider .slick-next.slick-arrow {
-            background: url(../../../Images/mobile/Esika/arrow-slide-promotions-right.svg) no-repeat center left;
+            background: url('../../../Images/mobile/Esika/arrow-slide-promotions-right.svg') no-repeat center left;
         }
 
         .content_room_product_sheet .box_promotions .slider .item-slide {
@@ -11949,7 +11949,7 @@ a {
 .pestana_promocion {
     width: 204px;
     margin: 0 auto;
-    background: #c1a975 url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/Ww1BSCHyiH4P0Jo/promocion.png) no-repeat center right;
+    background: #c1a975 url('https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/Ww1BSCHyiH4P0Jo/promocion.png') no-repeat center right;
     letter-spacing: 1.5px;
     padding-left: 20px;
     color: white;
@@ -12028,7 +12028,7 @@ a {
     }
 
 .icono_celular {
-    background: url(../../../Images/Esika/celular_mailing.png) no-repeat;
+    background: url('../../../Images/Esika/celular_mailing.png') no-repeat;
     background-position: 4px 0px;
     padding-top: 3px;
 }
@@ -12134,7 +12134,7 @@ a {
     margin-bottom: 15px;
     top: 1px;
     margin-right: 7px;
-    background: url(../../../Images/Esika/icono_advertencia_notificacion.png) center center no-repeat;
+    background: url('../../../Images/Esika/icono_advertencia_notificacion.png') center center no-repeat;
 }
 
 .tono_select_opt {
@@ -12145,7 +12145,7 @@ a {
     font-size: 13px;
     color: black;
     margin-top: 5px;
-    background: url(../../../Images/mobile/Esika/menu_mobile.png) no-repeat;
+    background: url('../../../Images/mobile/Esika/menu_mobile.png') no-repeat;
     background-position: 95% 19px;
     position: relative;
     margin-bottom: 5px;
@@ -12168,7 +12168,7 @@ a {
     font-size: 12px;
     letter-spacing: 0.2px;
     padding-left: 29px;
-    background: url(../../../Images/Esika/icono_advertencia_notificacion.png) no-repeat;
+    background: url('../../../Images/Esika/icono_advertencia_notificacion.png') no-repeat;
 }
 
 .texto_sin_tono {
@@ -12249,7 +12249,7 @@ a {
 }
 
 .tono_por_elegir {
-    background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/1HAjgYt9lPnsBjk/tono_por_elegir.png) no-repeat;
+    background: url('https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/1HAjgYt9lPnsBjk/tono_por_elegir.png') no-repeat;
     background-position: 95% 17px;
 }
 
@@ -12259,7 +12259,7 @@ a {
 }
 
 .tono_no_seleccionado {
-    background: black url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/3L4waZ4IJhbxugs/flecha_tono_white.png) no-repeat;
+    background: black url('https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/3L4waZ4IJhbxugs/flecha_tono_white.png') no-repeat;
     background-position: 95% 19px;
     color: white;
     transition: all 0.3s ease;
@@ -12347,7 +12347,7 @@ a {
 }
 
 .btn_descubre_set_especial {
-    background: url(../../../Images/PL20/flecha_set_Especial_white.png) no-repeat;
+    background: url('../../../Images/PL20/flecha_set_Especial_white.png') no-repeat;
     background-position: -1px 3px;
     margin-left: 3%;
     z-index: 200;
@@ -12372,7 +12372,7 @@ a {
 }
 
 .btn_descubre_set_especial_click {
-    background: url(../../../Images/PL20/flecha_set_Especial_2white.png) no-repeat;
+    background: url('../../../Images/PL20/flecha_set_Especial_2white.png') no-repeat;
     background-position: -1px 3px;
 }
 
@@ -12592,7 +12592,7 @@ a {
     margin: 0 auto;
     margin-top: 20px;
     margin-bottom: 20px;
-    background: url(../../../Images/PL20/cupon1mobile.png) no-repeat;
+    background: url('../../../Images/PL20/cupon1mobile.png') no-repeat;
     background-size: 100%;
     text-align: center;
     font-family: 'Lato';
@@ -12681,7 +12681,7 @@ a {
 }
 
 .cupon2mobile {
-    background: url(../../../Images/PL20/cupon2mobile.png) no-repeat;
+    background: url('../../../Images/PL20/cupon2mobile.png') no-repeat;
     background-size: 100%;
 }
 
@@ -12689,7 +12689,7 @@ a {
     width: 59px;
     height: 41px;
     margin: 0 auto;
-    background: url(../../../Images/PL20/icono_pop_up_cupon.png) no-repeat;
+    background: url('../../../Images/PL20/icono_pop_up_cupon.png') no-repeat;
     margin-bottom: 5px;
     margin-top: 60px;
 }
@@ -12728,7 +12728,7 @@ a {
 }
 
 .cupon3mobile {
-    background: url(../../../Images/PL20/cupon3mobile.png) no-repeat;
+    background: url('../../../Images/PL20/cupon3mobile.png') no-repeat;
     background-size: 100%;
 }
 
@@ -12736,7 +12736,7 @@ a {
     width: 120px;
     height: 45px;
     margin: 0 auto;
-    background: url(../../../Images/PL20/cupon_gif_rojo.gif) no-repeat;
+    background: url('../../../Images/PL20/cupon_gif_rojo.gif') no-repeat;
     margin-bottom: 3px;
     margin-top: 44px;
 }
@@ -12821,7 +12821,7 @@ a {
 .icono_alerta_cupon {
     width: 15px;
     height: 15px;
-    background: url(../../../Images/Esika/icono_advertencia_notificacion.svg) no-repeat;
+    background: url('../../../Images/Esika/icono_advertencia_notificacion.svg') no-repeat;
     background-size: contain;
     position: absolute;
     right: 0;
@@ -12969,7 +12969,7 @@ a {
 .icono_alerta_cupon {
     width: 15px;
     height: 15px;
-    background: url(../../../Images/Lbel/icono_advertencia_notificacion.svg) no-repeat;
+    background: url('../../../Images/Lbel/icono_advertencia_notificacion.svg') no-repeat;
     background-size: contain;
     position: absolute;
     right: 0;
@@ -12987,16 +12987,16 @@ a {
 .info_recuerda_cupon_icono {
     width: 34px !important;
     height: 42px;
-    background: url(../../../Images/PL20/calendario.png) no-repeat center center;
+    background: url('../../../Images/PL20/calendario.png') no-repeat center center;
     margin-right: 13px;
 }
 
 .icono2_ganaste {
-    background: url(../../../Images/PL20/maquillaje.png) no-repeat center center;
+    background: url('../../../Images/PL20/maquillaje.png') no-repeat center center;
 }
 
 .icono3_ganaste {
-    background: url(../../../Images/PL20/agenda.png) no-repeat center center;
+    background: url('../../../Images/PL20/agenda.png') no-repeat center center;
 }
 
 .content_fondo_bestSeller {
@@ -13156,7 +13156,7 @@ a {
     padding-top: 1px;
     padding-left: 25px;
     cursor: pointer;
-    background: url(../../../Images/PL20/icono_agregar.png) no-repeat;
+    background: url('../../../Images/PL20/icono_agregar.png') no-repeat;
 }
 
 .ContentcomentariosVisibles {
@@ -13414,7 +13414,7 @@ a {
 }
 
 .btn_regalo_sorpresa {
-    background: #e81c36 url(../../../Images/mobile/icono_regalo.png) no-repeat;
+    background: #e81c36 url('../../../Images/mobile/icono_regalo.png') no-repeat;
     max-width: 258px;
     text-transform: uppercase;
     height: 40px;
@@ -13431,7 +13431,7 @@ a {
 }
 
 .btn_regalo_sorpresa_gano {
-    background: #e81c36 url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/ZF23HX54ijtrL6t/icono_regalo_estrella.png) no-repeat;
+    background: #e81c36 url('https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/ZF23HX54ijtrL6t/icono_regalo_estrella.png') no-repeat;
     min-width: 238px;
     max-width: 258px;
     text-transform: uppercase;
@@ -13475,7 +13475,7 @@ a {
 }
 
 .btn_regresa_OF {
-    background: url(../../../Images/Esika/regresar.png) no-repeat;
+    background: url('../../../Images/Esika/regresar.png') no-repeat;
     background-position: 15px 8px;
     text-transform: uppercase;
     height: 40px;
@@ -13494,7 +13494,7 @@ a {
     margin: 0 auto;
     margin-top: 14px !important;
     margin-bottom: 14px;
-    background: url(../../../Images/gif-regalo-blanco.png) no-repeat;
+    background: url('../../../Images/gif-regalo-blanco.png') no-repeat;
 }
 
 .titulo_regalo_sorpresa {
@@ -13614,7 +13614,7 @@ a {
     padding-left: 50px;
     font-weight: 700;
     margin-bottom: 0;
-    background: black url(../../../Images/Esika/regresar.png) no-repeat;
+    background: black url('../../../Images/Esika/regresar.png') no-repeat;
     background-position: 26px 11px;
 }
 
@@ -13932,31 +13932,32 @@ a {
 
 /* MIS CERTIFICADOS MOBILE */
 
-.texto_opcion_disponible{
-    display:block;
-    margin-top:20px;
-    font-size:14px;
-    font-weight:400;
-    padding:0 12px;
+.texto_opcion_disponible {
+    display: block;
+    margin-top: 20px;
+    font-size: 14px;
+    font-weight: 400;
+    padding: 0 12px;
 }
 
 /* FIN MIS CERTIFICADOS MOBILE */
 
 /*BANNER APP*/
 .banner_app {
-    cursor:pointer;
-    position:relative;
-    height:60px;
-    background-position:center;
-    background-repeat:no-repeat;
+    cursor: pointer;
+    position: relative;
+    height: 60px;
+    background-position: center;
+    background-repeat: no-repeat;
 }
-.banner_app div{
-    position:absolute;
-    top:2px;
-    right:5px;
-    color:#000;
-    font-size:19px;
-}
+
+    .banner_app div {
+        position: absolute;
+        top: 2px;
+        right: 5px;
+        color: #000;
+        font-size: 19px;
+    }
 /*FIN BANNER APP*/
 
 /* NUEVO POPUP SUSCRIBIRSE RD */
