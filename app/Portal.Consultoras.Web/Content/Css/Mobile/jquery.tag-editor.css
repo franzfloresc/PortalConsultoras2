@@ -70,7 +70,7 @@
                 margin-top: -1px;
                 display: block;
                 color: white;
-                content: "×";
+                content: '×';
                 font-style: normal;
             }
 
@@ -137,7 +137,7 @@
     position: absolute !important;
     left: -99999px;
 }
-/* hide IE10 "clear field" X */
+/* hide IE10 'clear field' X */
 .tag-editor ::-ms-clear {
     display: none;
 }
@@ -179,7 +179,7 @@
         .tag-editor .tag-editor-delete i:before {
             font-size: 15px;
             color: white;
-            content: "×";
+            content: '×';
             font-style: normal;
         }
 

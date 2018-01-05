@@ -36,7 +36,7 @@
 }
 
 .ui-helper-clearfix:after {
-    content: ".";
+    content: '.';
     display: block;
     height: 0;
     clear: both;
@@ -176,9 +176,9 @@
 .ui-autocomplete {
     position: absolute;
     cursor: default;
-    webkit-box-shadow: 0px 3px 5px 0px rgba(82,79,82,1);
-    -moz-box-shadow: 0px 3px 5px 0px rgba(82,79,82,1);
-    box-shadow: 0px 3px 5px 0px;
+    webkit-box-shadow: 0 3px 5px 0 rgba(82,79,82,1);
+    -moz-box-shadow: 0 3px 5px 0 rgba(82,79,82,1);
+    box-shadow: 0 3px 5px 0;
 }
 
 /* workarounds */
@@ -1002,7 +1002,7 @@ button.ui-button::-moz-focus-inner {
 
 .ui-widget-content {
     background: white;
-    -moz-box-shadow: 0px 3px 5px 0px rgba(82,79,82,1);
+    -moz-box-shadow: 0 3px 5px 0 rgba(82,79,82,1);
     font-family: 'lato';
     margin-top: 4px;
     color: #999999;
@@ -1061,7 +1061,7 @@ button.ui-button::-moz-focus-inner {
 /*ITG - 1869*/
 .ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
     border: 1px solid #aaaaaa;
-    background: #fff url(../../ui.jquery/images/ui-bg_glass_65_ffffff_1x400.png) 50% 50% repeat-x;
+    background: #fff url('../../ui.jquery/images/ui-bg_glass_65_ffffff_1x400.png') 50% 50% repeat-x;
     font-weight: normal;
     color: #212121;
 }
@@ -1123,35 +1123,35 @@ button.ui-button::-moz-focus-inner {
 .ui-icon {
     width: 16px;
     height: 16px;
-    background-image: url(../../ui.jquery/images/ui-icons_222222_256x240.png);
+    background-image: url('../../ui.jquery/images/ui-icons_222222_256x240.png');
 }
 
 .ui-widget-content .ui-icon {
-    background-image: url(../../ui.jquery/images/ui-icons_222222_256x240.png);
+    background-image: url('../../ui.jquery/images/ui-icons_222222_256x240.png');
 }
 
 .ui-widget-header .ui-icon {
-    background-image: url(../../ui.jquery/images/ui-icons_222222_256x240.png);
+    background-image: url('../../ui.jquery/images/ui-icons_222222_256x240.png');
 }
 
 .ui-state-default .ui-icon {
-    background-image: url(../../ui.jquery/images/ui-icons_888888_256x240.png);
+    background-image: url('../../ui.jquery/images/ui-icons_888888_256x240.png');
 }
 
 .ui-state-hover .ui-icon, .ui-state-focus .ui-icon {
-    background-image: url(../../ui.jquery/images/ui-icons_454545_256x240.png);
+    background-image: url('../../ui.jquery/images/ui-icons_454545_256x240.png');
 }
 
 .ui-state-active .ui-icon {
-    background-image: url(../../ui.jquery/images/ui-icons_454545_256x240.png);
+    background-image: url('../../ui.jquery/images/ui-icons_454545_256x240.png');
 }
 
 .ui-state-highlight .ui-icon {
-    background-image: url(../../ui.jquery/images/ui-icons_2e83ff_256x240.png);
+    background-image: url('../../ui.jquery/images/ui-icons_2e83ff_256x240.png');
 }
 
 .ui-state-error .ui-icon, .ui-state-error-text .ui-icon {
-    background-image: url(../../ui.jquery/images/ui-icons_cd0a0a_256x240.png);
+    background-image: url('../../ui.jquery/images/ui-icons_cd0a0a_256x240.png');
 }
 
 /* positioning */

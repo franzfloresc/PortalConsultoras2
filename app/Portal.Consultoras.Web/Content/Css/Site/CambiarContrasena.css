@@ -1,6 +1,6 @@
 ﻿.container {
     width: 350px;
-    margin: 0px auto;
+    margin: 0 auto;
     font-size: 1em;
     text-align: justify;
 }
@@ -31,7 +31,7 @@ section {
 .logo_modal {
     width: 153px;
     height: 132px;
-    margin: 0px auto;
+    margin: 0 auto;
     position: relative;
     margin-top: 15px;
 }
@@ -70,7 +70,7 @@ p {
     section {
         font-size: 1.5em;
         width: 94%;
-        border: 0px;
+        border: 0;
     }
 
     .bg_modal {
@@ -255,6 +255,6 @@ p {
 
 .color_black {
     color: black;
-    padding: 10px 0px 0px 10px;
+    padding: 10px 0 0 10px;
     float: left;
 }

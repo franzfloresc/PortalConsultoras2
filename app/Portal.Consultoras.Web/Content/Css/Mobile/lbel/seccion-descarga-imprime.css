@@ -65,13 +65,13 @@
     width: 53.1px;
     height: 63.4px;
     margin-right: 10px;
-    background-image: url("/Content/Images/Lbel/Contenedor/tarjetas-navidenias.png");
+    background-image: url('/Content/Images/Lbel/Contenedor/tarjetas-navidenias.png');
 }
 
 .img_papel_regalo_navidenio {
     width: 86.5px;
     height: 67.7px;
-    background-image: url("/Content/Images/Lbel/Contenedor/papel-de-regalo.png");
+    background-image: url('/Content/Images/Lbel/Contenedor/papel-de-regalo.png');
 }
 
 .texto_disponibles_desktop {

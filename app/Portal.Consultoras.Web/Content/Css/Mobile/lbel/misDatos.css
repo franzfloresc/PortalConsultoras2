@@ -42,7 +42,7 @@
     color: #000;
 }
 
-.grupo_input_actualizarMisDatos div input[type="text"], .grupo_input_actualizarMisDatos div input[type="email"], .grupo_input_actualizarMisDatos div input[type="password"] {
+.grupo_input_actualizarMisDatos div input[type='text'], .grupo_input_actualizarMisDatos div input[type='email'], .grupo_input_actualizarMisDatos div input[type='password'] {
     display: block;
     border: 1px solid #CCC;
     background: #FFF;
@@ -78,7 +78,7 @@
     display: block;
 }
 
-    .checkbox_condiciones input[type="checkbox"] {
+    .checkbox_condiciones input[type='checkbox'] {
         display: none !important;
     }
 
@@ -94,9 +94,9 @@
     }
 
     .texto_terminosCondiciones:before {
-        content: "";
+        content: '';
         position: absolute;
-        left: 0px;
+        left: 0;
         width: 16px;
         height: 16px;
         margin-top: 3px;
@@ -108,8 +108,8 @@
         z-index: 10;
     }
 
-.checkbox_condiciones input[type="checkbox"]:checked + .texto_terminosCondiciones:before {
-    content: "";
+.checkbox_condiciones input[type='checkbox']:checked + .texto_terminosCondiciones:before {
+    content: '';
     width: 16px;
     height: 16px;
     border-radius: 3px;

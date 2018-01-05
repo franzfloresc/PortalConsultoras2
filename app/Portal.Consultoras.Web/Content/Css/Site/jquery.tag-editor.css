@@ -67,7 +67,7 @@
             .tag-editor .tag a i:before {
                 font-size: 15px;
                 color: white;
-                content: "×";
+                content: '×';
                 font-style: normal;
                 display: block;
                 margin-top: -1px;
@@ -135,7 +135,7 @@
     position: absolute !important;
     left: -99999px;
 }
-/* hide IE10 "clear field" X */
+/* hide IE10 'clear field' X */
 .tag-editor ::-ms-clear {
     display: none;
 }
@@ -175,7 +175,7 @@
         .tag-editor .tag-editor-delete i:before {
             font-size: 15px;
             color: white;
-            content: "×";
+            content: '×';
             font-style: normal;
         }
 

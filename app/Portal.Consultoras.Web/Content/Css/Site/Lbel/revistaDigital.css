@@ -26,11 +26,11 @@
         }
 
         .revistadigital .pedido p.marca:before {
-            border: 0px solid;
+            border: 0 solid;
         }
 
         .revistadigital .pedido .giftext:after {
-            border: 0px solid;
+            border: 0 solid;
         }
 
         .revistadigital .pedido .giftext {
@@ -127,9 +127,9 @@
 
         .revistadigital .revistadigital-items img {
             height: 340px;
-            -webkit-box-shadow: 0px 15px 21px -8px rgba(150, 150, 150, 0.6);
-            -moz-box-shadow: 0px 15px 21px -8px rgba(150, 150, 150, 0.6);
-            box-shadow: 0px 15px 21px -8px rgba(150, 150, 150, 0.6);
+            -webkit-box-shadow: 0 15px 21px -8px rgba(150, 150, 150, 0.6);
+            -moz-box-shadow: 0 15px 21px -8px rgba(150, 150, 150, 0.6);
+            box-shadow: 0 15px 21px -8px rgba(150, 150, 150, 0.6);
         }
 
         .revistadigital .revistadigital-items .item2 {
@@ -137,7 +137,7 @@
         }
 
         .revistadigital .revistadigital-items .item3 {
-            margin: 0 20px 0px 0px;
+            margin: 0 20px 0 0;
         }
 
     .revistadigital .boxoffer {
@@ -164,7 +164,7 @@
 .revistaDigital_catalogosRevistas .boxoffer {
     top: 216px;
     left: 11px;
-    right: 0px;
+    right: 0;
     cursor: pointer;
 }
 
@@ -208,10 +208,10 @@
         width: 20px;
         height: 50px;
         position: absolute;
-        content: "";
-        top: 0px;
+        content: '';
+        top: 0;
         right: -6px;
-        background: url(../../../Images/flecha-right.svg) no-repeat center center;
+        background: url('../../../Images/flecha-right.svg') no-repeat center center;
         background-size: 100%;
         z-index: 100;
     }
@@ -285,9 +285,9 @@
     display: block;
     width: 100%;
     height: 100vh;
-    bottom: 0px;
+    bottom: 0;
     position: absolute;
-    background: url(../../../Images/mujer-seccion-revista-bienvenida.png) no-repeat -153px 8px;
+    background: url('../../../Images/mujer-seccion-revista-bienvenida.png') no-repeat -153px 8px;
     background-size: contain;
     background-attachment: fixed;
 }
@@ -425,7 +425,7 @@
     display: block;
     position: absolute;
     bottom: -6px;
-    right: 0px;
+    right: 0;
 }
 
 .popup_revistaSuscripcion_noAMostrarMensaje {
@@ -574,9 +574,9 @@
     z-index: 20;
     max-width: 50%;
     border: 1px solid #e7e1e1;
-    -webkit-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
-    -moz-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
-    box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
+    -webkit-box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
+    -moz-box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
+    box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
     height: 395px;
 }
 
@@ -692,7 +692,7 @@
         width: 100%;
         background: #000;
         left: 0;
-        padding: 0px 80px;
+        padding: 0 80px;
         z-index: 100;
         box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5);
         -webkit-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5);
@@ -751,7 +751,7 @@
     font-weight: 700;
     padding-left: 20px;
     padding-right: 20px;
-    background: url(../../../Images/RevistaDigital/fondo_titulo.png) no-repeat top left;
+    background: url('../../../Images/RevistaDigital/fondo_titulo.png') no-repeat top left;
 }
 
 .marca_ept {
@@ -846,7 +846,7 @@
     background: -o-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
     background: -ms-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
     background: linear-gradient(to right, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    top: 0px;
+    top: 0;
     left: -23px;
     transform: skewX(-14deg);
     -moz-transform: skewX(-14deg);
@@ -895,7 +895,7 @@
     text-transform: uppercase;
     width: 100%;
     margin-top: 34px;
-    margin-bottom: 0px;
+    margin-bottom: 0;
     padding: 0 19px;
     font-weight: 300;
 }
@@ -925,9 +925,9 @@
 }
 
     .cabecera_esikaParaMi:after {
-        content: "";
+        content: '';
         position: absolute;
-        top: 0px;
+        top: 0;
         width: 300%;
         height: 165px;
         left: 100px;
@@ -939,7 +939,7 @@
     width: 227px;
     height: 165px;
     position: absolute;
-    top: 0px;
+    top: 0;
     left: -25px;
     z-index: 3;
     background: -moz-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
@@ -956,11 +956,11 @@
 
     .cabecera_fondo_rojo:before {
         display: block;
-        content: "";
+        content: '';
         width: 300%;
         height: 165px;
         position: absolute;
-        top: 0px;
+        top: 0;
         left: -454px;
         background: -moz-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
         background: -webkit-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
@@ -1020,13 +1020,13 @@
 
     .cabecera_boton_inscribeteAEsikaParaMi button {
         background: #FF1534;
-        border: 0px;
+        border: 0;
         width: 256px;
         height: 52px;
         color: #FFF;
         margin-bottom: 9px;
         position: relative;
-        top: 0px;
+        top: 0;
         transition: all 0.3s ease;
         -moz-transition: all 0.3s ease;
         -o-transition: all 0.3s ease;
@@ -1064,7 +1064,7 @@
 .contenido_esikaParaMi {
     font-family: 'Lato';
     color: #000;
-    padding: 60px 0px 0px 0px;
+    padding: 60px 0 0 0;
     position: relative;
     z-index: 2;
 }
@@ -1096,8 +1096,8 @@
     .contenido_comoFuncionaEsikaParaMi h4, .contenido_beneficiosEsikaParaMi h4 {
         display: block;
         font-size: 15px;
-        margin: 0px 0px 14px 0px;
-        padding: 0px;
+        margin: 0 0 14px 0;
+        padding: 0;
         color: #000;
     }
 
@@ -1106,7 +1106,7 @@
 }
 
     .contenido_pasos_comoFunciona:last-child, .contenido_beneficiosEsikaParaMi:last-child {
-        margin-right: 0px;
+        margin-right: 0;
     }
 
     .contenido_pasos_comoFunciona span:first-child {
@@ -1146,7 +1146,7 @@
 
 .fondo_sobreContenidoDesenfocado, .fondo_sobreContenidoDesenfocado:before, .fondo_sobreContenidoDesenfocado:after {
     position: absolute;
-    top: 0px;
+    top: 0;
     width: 100%;
     height: 100%;
     background: rgba(0,0,0,0.4);
@@ -1158,7 +1158,7 @@
 }
 
     .fondo_sobreContenidoDesenfocado:before, .fondo_sobreContenidoDesenfocado:after {
-        content: "";
+        content: '';
     }
 
     .fondo_sobreContenidoDesenfocado:before {
@@ -1215,7 +1215,7 @@
         font-size: 15px;
         letter-spacing: 0.1px;
         position: relative;
-        top: 0px;
+        top: 0;
         box-shadow: 10px 10px 10px rgba(0,0,0,0.35);
         -moz-box-shadow: 10px 10px 10px rgba(0,0,0,0.35);
         -o-box-shadow: 10px 10px 10px rgba(0,0,0,0.35);
@@ -1375,7 +1375,7 @@
                 top: 0;
                 width: 0;
                 height: 0;
-                border-left: 0px solid transparent;
+                border-left: 0 solid transparent;
                 border-right: 15px solid transparent;
                 border-top: 35px solid #000;
                 clear: both;
@@ -1394,7 +1394,7 @@
             letter-spacing: 0.5px;
             border-bottom: 1px solid black;
             padding-bottom: 5px;
-            margin: 10px 0px 20px;
+            margin: 10px 0 20px;
             line-height: 15px;
         }
 
@@ -1450,13 +1450,13 @@
 /*QUERIES*/
 @media (max-width: 1189px) {
     .revista_ficha {
-        background-position: -375px 0px !important;
+        background-position: -375px 0 !important;
     }
 }
 
 @media (max-width: 900px) {
     .revista_ficha {
-        background-position: -420px 0px !important;
+        background-position: -420px 0 !important;
     }
 
         .revista_ficha .content_revista_ficha_descripcion {
@@ -1526,7 +1526,7 @@
 }
 
     .btn_diagonal:after {
-        content: "";
+        content: '';
         position: absolute;
         top: 0;
         width: 208px;
@@ -1547,7 +1547,7 @@
     width: 260px;
     left: 50%;
     margin-left: -130px;
-    border: 0px solid;
+    border: 0 solid;
     color: #fff;
     font-size: 13px;
 }
@@ -1556,7 +1556,7 @@
     background: #613c87;
     width: 220px;
     right: 0;
-    border: 0px solid;
+    border: 0 solid;
     color: #fff;
     font-size: 13px;
 }
@@ -1658,7 +1658,7 @@
 
             .popup_rd .popup_rd_cabecera .rd_logo:after {
                 border-left: 22px solid transparent;
-                border-right: 0px solid transparent;
+                border-right: 0 solid transparent;
                 border-bottom: 80px solid #000;
             }
 
@@ -1798,9 +1798,9 @@
     position: relative;
     background: #f6f6f6;
     border-bottom: 2px solid black;
-    -webkit-box-shadow: 0px 3px 7px 0px rgba(0,0,0,0.25);
-    -moz-box-shadow: 0px 3px 7px 0px rgba(0,0,0,0.25);
-    box-shadow: 0px 3px 7px 0px rgba(0,0,0,0.25);
+    -webkit-box-shadow: 0 3px 7px 0 rgba(0,0,0,0.25);
+    -moz-box-shadow: 0 3px 7px 0 rgba(0,0,0,0.25);
+    box-shadow: 0 3px 7px 0 rgba(0,0,0,0.25);
 }
 
 .content_tabs_bpt {
@@ -2019,8 +2019,8 @@
 }
 
 .box_pregunta_ept .tit_pregunta_ept:after {
-    content: "";
-    background: url(../../../Images/RevistaDigital/Polygon.png) no-repeat right center;
+    content: '';
+    background: url('../../../Images/RevistaDigital/Polygon.png') no-repeat right center;
     right: 0;
     top: 20px;
     position: absolute;
@@ -2030,8 +2030,8 @@
 }
 
 .box_pregunta_ept2 .tit_pregunta_ept2:after {
-    content: "";
-    background: url(../../../Images/RevistaDigital/Polygon.png) no-repeat right center;
+    content: '';
+    background: url('../../../Images/RevistaDigital/Polygon.png') no-repeat right center;
     right: 0;
     top: 20px;
     position: absolute;
@@ -2103,14 +2103,14 @@
 }
 
 .rd_ver_mas:after {
-    background-image: url(../../../Images/RevistaDigital/rd_arrowright.png);
+    background-image: url('../../../Images/RevistaDigital/rd_arrowright.png');
     background-repeat: no-repeat;
     background-size: 6px 8px;
     display: inline-block;
     width: 6px;
     position: absolute;
     height: 10px;
-    content: "";
+    content: '';
     margin-left: 8px;
     margin-top: 4px;
     z-index: 10;
@@ -2154,7 +2154,7 @@
             padding-right: 0.5em;
             font-weight: bold;
             text-align: right;
-            content: counter(item) ".";
+            content: counter(item) '.';
         }
 
 /*TRANSITIONS*/
@@ -2239,7 +2239,7 @@
 
     .home_block_rd .rd_logo:after {
         border-left: 30px solid transparent;
-        border-right: 0px solid transparent;
+        border-right: 0 solid transparent;
         border-bottom: 120px solid #000;
     }
 
@@ -2296,9 +2296,9 @@
 
 .content_item_home_bpt {
     background: white;
-    -webkit-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
-    -moz-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
-    box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
+    -webkit-box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
+    -moz-box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
+    box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
     position: relative;
 }
 
@@ -2309,7 +2309,7 @@
     position: relative;
     background-color: #F6F6F6;
     height: auto;
-    box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.2);
     margin-bottom: 20px;
 }
 
@@ -2327,12 +2327,12 @@
             width: 79%;
             margin: auto;
             display: block;
-            padding: 5px 5px 10px 0px;
+            padding: 5px 5px 10px 0;
         }
 
         .cabecera_pedido_rd .rd_logo:after {
             border-left: 20px solid transparent;
-            border-right: 0px solid transparent;
+            border-right: 0 solid transparent;
             border-bottom: 85px solid #000;
         }
 
@@ -2414,7 +2414,7 @@
 }
 
     .home_rd1 .content_belcorp {
-        box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 5px 8px rgba(0, 0, 0, 0.2);
     }
 
     .home_rd1 .btn_diagonal {
@@ -2623,8 +2623,8 @@
         }
 
     .popup_rd_bloqueado .rd_ver_mas:after {
-        content: "";
-        background-image: url(../../../Images/RevistaDigital/rd_arrowright.png);
+        content: '';
+        background-image: url('../../../Images/RevistaDigital/rd_arrowright.png');
         background-repeat: no-repeat;
         background-size: 8px 12px;
         display: inline-block;
@@ -2664,7 +2664,7 @@
             border-bottom: 2px solid white;
             letter-spacing: 0.75pt;
             text-align: center;
-            padding: 0px 50px;
+            padding: 0 50px;
             margin-bottom: 5px;
         }
 
@@ -2750,7 +2750,7 @@
             display: block;
             text-align: left;
             width: 100%;
-            padding: 0px 22px;
+            padding: 0 22px;
             margin-bottom: 10px;
         }
 
@@ -2766,8 +2766,8 @@
             display: inline-block !important;
             margin-right: 0% !important;
             margin-left: 0% !important;
-            padding-bottom: 0px !important;
-            margin-bottom: 0px !important;
+            padding-bottom: 0 !important;
+            margin-bottom: 0 !important;
         }
 
         .bc_productos .bc_productos_contenido .grid-item--width2 {
@@ -2794,7 +2794,7 @@
     position: relative;
     height: 135px;
     text-align: center;
-    margin: 10px 10px 0px 10px;
+    margin: 10px 10px 0 10px;
 }
 
     .producto_img_home_bpt img {
@@ -2818,8 +2818,8 @@
 }
 
     .producto_nombre_descripcion_bpt h6 {
-        margin: 0px;
-        padding: 0px;
+        margin: 0;
+        padding: 0;
         font-size: 11px;
         color: #000;
         margin-bottom: 2px;
@@ -2851,7 +2851,7 @@
 
 
 .block_inscribete_predio {
-    margin: 15px 0px;
+    margin: 15px 0;
 }
 
 .rd-fitlros-fix {
@@ -2866,7 +2866,7 @@
 
 .rd-seccion2 {
     width: 100%;
-    padding: 0px 6%;
+    padding: 0 6%;
     height: 75px;
 }
 
@@ -2921,7 +2921,7 @@
         height: auto;
         float: initial;
         height: 80px;
-        background: url(../../../Images/Lbel/logotipo-club-ganamas-morado.svg);
+        background: url('../../../Images/Lbel/logotipo-club-ganamas-morado.svg');
         background-size: cover;
         background-position: center center;
     }
@@ -2999,7 +2999,7 @@
     .gana-mas .txt-img-cont-uno {
         width: 250px;
         height: 80px !important;
-        background: url(../../../Images/Lbel/personalizacion-visual-desktop.gif);
+        background: url('../../../Images/Lbel/personalizacion-visual-desktop.gif');
         background-size: cover;
         background-position: center center;
     }
@@ -3007,7 +3007,7 @@
     .gana-mas .txt-img-cont-dos {
         width: 250px;
         height: 80px !important;
-        background: url(../../../Images/no-mas-codigo-visual-desktop.png);
+        background: url('../../../Images/no-mas-codigo-visual-desktop.png');
         background-size: cover;
         background-position: center center;
     }
@@ -3015,7 +3015,7 @@
     .gana-mas .txt-img-cont-tres {
         width: 250px;
         height: 80px !important;
-        background: url(../../../Images/Lbel/consejos-y-tips-visual.png);
+        background: url('../../../Images/Lbel/consejos-y-tips-visual.png');
         background-size: 100%;
         background-position: center center;
         background-repeat: no-repeat;
@@ -3023,7 +3023,7 @@
 
     .gana-mas img.img-referencial {
         max-width: 200px !important;
-        margin: 15px 0px 0px 0px;
+        margin: 15px 0 0 0;
     }
 
     .gana-mas .clear {
@@ -3042,7 +3042,7 @@
         margin: auto;
         width: 20px;
         height: 26px !important;
-        background: url(../../../Images/Lbel/Triangle.svg);
+        background: url('../../../Images/Lbel/Triangle.svg');
         background-size: contain;
         background-position: center center;
         background-repeat: no-repeat;
@@ -3063,7 +3063,7 @@
     .como-funciona .caja-texto {
         width: 60%;
         float: left;
-        padding: 20px 0px;
+        padding: 20px 0;
     }
 
         .como-funciona .caja-texto span.nro {
@@ -3097,7 +3097,7 @@
         }
 
         .como-funciona .caja-img .visual-funcionamiento {
-            background: url(/Content/Images/Esika/visual-de-funcionamiento.png);
+            background: url('/Content/Images/Esika/visual-de-funcionamiento.png');
             width: 250px;
             height: 278px;
             background-repeat: no-repeat;
@@ -3134,12 +3134,12 @@
         text-align: center;
         color: white;
         text-decoration: none;
-        padding: 17px 0px;
+        padding: 17px 0;
         width: 330px;
         letter-spacing: 1px;
         font-weight: bold;
         font-size: 17px;
-        box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.30);
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.30);
         margin-top: 50px;
         margin-bottom: 30px;
     }
@@ -3197,7 +3197,7 @@
     }
 
     .preguntas-frecuentes-cont-sus .contenedor-mobile-fix {
-        padding: 0px 25px;
+        padding: 0 25px;
     }
 
         .preguntas-frecuentes-cont-sus .contenedor-mobile-fix p {
@@ -3205,7 +3205,7 @@
             color: black;
             font-size: 13px;
             padding: 10px 15px;
-            box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
             text-align: left;
             margin-bottom: 0;
             position: relative;

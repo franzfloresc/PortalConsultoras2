@@ -1,27 +1,27 @@
 ﻿
 .Content_Actualizar {
     background: #FFF;
-    padding: 0px 0px 10px 25px;
+    padding: 0 0 10px 25px;
     max-height: 600px;
     overflow: auto;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     -khtml-border-radius: 10px;
-    border-radius: 0px;
-    behavior: url(../../../../Content/Css/Pie/PIE.htc);
+    border-radius: 0;
+    behavior: url('../../../../Content/Css/Pie/PIE.htc');
     position: relative;
 }
 
 .Content_Comunicado {
     background: #FFF;
-    padding: 0px 0px 10px 25px;
+    padding: 0 0 10px 25px;
     max-height: 900px;
     overflow: auto;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     -khtml-border-radius: 10px;
-    border-radius: 0px;
-    behavior: url(../../../../Content/Css/Pie/PIE.htc);
+    border-radius: 0;
+    behavior: url('../../../../Content/Css/Pie/PIE.htc');
     position: relative;
 }
 
@@ -82,8 +82,8 @@
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     -khtml-border-radius: 10px;
-    border-radius: 0px;
-    behavior: url(../../../../Content/Css/Pie/PIE.htc);
+    border-radius: 0;
+    behavior: url('../../../../Content/Css/Pie/PIE.htc');
     position: relative;
 }
 
@@ -127,14 +127,14 @@
     font-weight: bold;
     padding-left: 164px;
     padding-bottom: 2px;
-    padding-top: 0px;
+    padding-top: 0;
 }
 
 .btnCerrar {
     width: 20px;
     height: 20px;
     float: right;
-    background: url("/Content/Images/btnCerrar_AD.png") no-repeat;
+    background: url('/Content/Images/btnCerrar_AD.png') no-repeat;
     cursor: pointer;
 }
 
@@ -151,14 +151,14 @@
 }
 
 .btnActualizar {
-    background: url("/Content/Images/btnActualizar_AD.png") no-repeat;
+    background: url('/Content/Images/btnActualizar_AD.png') no-repeat;
     cursor: pointer;
     width: 148px;
     height: 38px;
 }
 
 .btnAceptar {
-    background: url("/Content/Images/afiliacion/aceptar.png") no-repeat;
+    background: url('/Content/Images/afiliacion/aceptar.png') no-repeat;
     cursor: pointer;
     height: 47px;
 }
@@ -183,9 +183,9 @@
 }
 
 .checkImage {
-    background: url("/Content/Images/check_AD.png") no-repeat;
+    background: url('/Content/Images/check_AD.png') no-repeat;
     background-position: 24% 4px;
-    padding: 6px 0px;
+    padding: 6px 0;
 }
 
 .lblComunicadoV {
@@ -219,7 +219,7 @@
     width: 20px;
     height: 20px;
     float: right;
-    background: url("/Content/Images/btnCerrar_AD.png") no-repeat;
+    background: url('/Content/Images/btnCerrar_AD.png') no-repeat;
     cursor: pointer;
 }
 

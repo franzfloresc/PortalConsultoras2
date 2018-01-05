@@ -58,7 +58,7 @@
     }
 
     .flexslider .slides:after {
-        content: "\0020";
+        content: '\0020';
         display: block;
         clear: both;
         visibility: hidden;
@@ -145,7 +145,7 @@ html[xmlns] .flexslider .slides {
     }
 
         .flex-direction-nav a:before {
-            font-family: "flexslider-icon";
+            font-family: 'flexslider-icon';
             font-size: 40px;
             display: inline-block;
             content: '\f001';
@@ -206,7 +206,7 @@ html[xmlns] .flexslider .slides {
 }
 
     .flex-pauseplay a:before {
-        font-family: "flexslider-icon";
+        font-family: 'flexslider-icon';
         font-size: 20px;
         display: inline-block;
         content: '\f004';
@@ -222,7 +222,7 @@ html[xmlns] .flexslider .slides {
 
 .flex-control-nav {
     position: absolute;
-    bottom: 0px;
+    bottom: 0;
     right: 5px;
 }
 

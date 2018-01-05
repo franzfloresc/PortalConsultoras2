@@ -100,11 +100,11 @@
     }
 
     #cssmenu > ul > li.has-sub > a {
-        background: url(../../Images/mobile/img-icon/mobile_icon_mas.png) 100% top no-repeat;
+        background: url('../../Images/mobile/img-icon/mobile_icon_mas.png') 100% top no-repeat;
     }
 
     #cssmenu > ul > li.active > a {
-        background: url(../../Images/mobile/img-icon/mobile_icon_menos.png) 100% top no-repeat;
+        background: url('../../Images/mobile/img-icon/mobile_icon_menos.png') 100% top no-repeat;
     }
 
     #cssmenu > ul > li > a > figure,
@@ -169,7 +169,7 @@ div#ic_menu::before {
     position: fixed;
     top: 0;
     left: 0;
-    content: "";
+    content: '';
     -webkit-box-shadow: 0 0 10px #000;
     -ms-box-shadow: 0 0 10px #000;
     box-shadow: 0 0 10px #000;
@@ -219,7 +219,7 @@ div#caja-back-header {
 }
 
 .clear {
-    content: "";
+    content: '';
     display: block;
     clear: both;
 }
@@ -276,7 +276,7 @@ div#caja-back-header {
     overflow: hidden;
 }
 
-.menu[style="left: 0px;"] {
+.menu[style='left: 0;'] {
     width: 90%;
 }
 
@@ -318,12 +318,12 @@ div#caja-back-header {
 }
 
 .indicador_bel {
-    background: url("../../../Images/mobile/Esika/indicador_pedido.png") no-repeat;
+    background: url('../../../Images/mobile/Esika/indicador_pedido.png') no-repeat;
     background-position: 10px 17px;
 }
 
 .indicador_submenu {
-    background: url("../../../Images/mobile/Esika/menu_mobile.png") no-repeat;
+    background: url('../../../Images/mobile/Esika/menu_mobile.png') no-repeat;
     background-position: 95% 19px;
 }
 
