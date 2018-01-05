@@ -20,7 +20,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (sessionManager.GetUserData() != null)
             {
-                int Campaniaid = userData.CampaniaID;
                 IList<ServiceSAC.BEServicioCampania> lstTemp_1 = new List<ServiceSAC.BEServicioCampania>();
                 IList<ServiceSAC.BEServicioCampania> lstTemp_2 = new List<ServiceSAC.BEServicioCampania>();
                 IList<ServiceSAC.BEServicioCampania> lst = new List<ServiceSAC.BEServicioCampania>();

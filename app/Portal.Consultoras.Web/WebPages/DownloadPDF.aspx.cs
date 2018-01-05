@@ -17,31 +17,6 @@ namespace Portal.Consultoras.Web.WebPages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //string file = Request.QueryString["file"];
-
-            //try
-            //{
-            //    var bytes = File.ReadAllBytes(Server.MapPath(file));
-            //    Response.Buffer = true;
-            //    Response.ContentType = "Application/pdf";
-            //    Response.Clear();
-            //    Response.AddHeader("Content-Disposition", "attachment;filename=" + DevolverNombre(file));
-            //    Response.TransmitFile(Server.MapPath(file));
-            //    Response.Charset = "UTF-8";
-            //    Response.ContentEncoding = Encoding.UTF8;
-            //    Response.BinaryWrite(bytes);
-            //    Response.Flush();
-            //    Response.Close();
-            //}
-            //catch (WebException ex)
-            //{
-
-            //}
-            //catch (Exception ex)
-            //{
-
-            //}
-
             string url = Server.MapPath("~" + Request.QueryString["file"]);
 
             string fileName = System.IO.Path.GetFileName(url);

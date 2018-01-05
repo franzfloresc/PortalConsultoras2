@@ -248,7 +248,6 @@ namespace Portal.Consultoras.Web.Controllers
                         SortColumn = sidx,
                         SortOrder = sord
                     };
-                    var pag = new BEPager();
                     IEnumerable<BEEstrategia> items = lst;
                     if (lst.Any())
                     {
@@ -277,8 +276,8 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                         }
                     }
-                    items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-                    pag = Util.PaginadorGenerico(grid, lst);
+                    items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                    BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                     var data = new
                     {
@@ -347,7 +346,7 @@ namespace Portal.Consultoras.Web.Controllers
                     SortOrder = sord
                 };
                 IEnumerable<BETallaColor> items = lst;
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
                 var pag = Util.PaginadorGenerico(grid, lst);
 
@@ -551,20 +550,17 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (lst.Count <= 0) throw new ArgumentException("No se econtro el CUV ingresado.");
 
-                if (tipo != 1)
+                if (tipo != 1 && resultado == 0)
                 {
-                    if (resultado == 0)
+                    if (FlagRecoProduc == "1") mensaje = "El CUV2 no está asociado a ningún otro.";
+                    return Json(new
                     {
-                        if (FlagRecoProduc == "1") mensaje = "El CUV2 no está asociado a ningún otro.";
-                        return Json(new
-                        {
-                            success = false,
-                            message = mensaje,
-                            descripcion,
-                            precio,
-                            extra = ""
-                        }, JsonRequestBehavior.AllowGet);
-                    }
+                        success = false,
+                        message = mensaje,
+                        descripcion,
+                        precio,
+                        extra = ""
+                    }, JsonRequestBehavior.AllowGet);
                 }
                 mensaje = "OK";
 
@@ -1226,12 +1222,11 @@ namespace Portal.Consultoras.Web.Controllers
                     SortColumn = sidx,
                     SortOrder = sord
                 };
-                var pag = new BEPager();
                 IEnumerable<ComunModel> items = lst;
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 var data = new
                 {
@@ -1282,12 +1277,11 @@ namespace Portal.Consultoras.Web.Controllers
                     SortColumn = sidx,
                     SortOrder = sord
                 };
-                var pag = new BEPager();
                 IEnumerable<BEEstrategia> items = lst;
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 var data = new
                 {
@@ -1527,12 +1521,11 @@ namespace Portal.Consultoras.Web.Controllers
                     SortColumn = sidx,
                     SortOrder = sord
                 };
-                var pag = new BEPager();
                 IEnumerable<ComunModel> items = lst;
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 var data = new
                 {
@@ -1583,12 +1576,12 @@ namespace Portal.Consultoras.Web.Controllers
                     SortColumn = sidx,
                     SortOrder = sord
                 };
-                var pag = new BEPager();
+
                 IEnumerable<BEEstrategia> items = lst;
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 var data = new
                 {
@@ -1774,7 +1767,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.ddlCampania = DropDowListCampanias(userData.PaisID);
 
                 var tipoEstrategias = GetTipoEstrategias();
-                var oTipoEstrategia = tipoEstrategias.Where(x => x.Codigo == Constantes.TipoEstrategiaCodigo.IncentivosProgramaNuevas).FirstOrDefault();
+                var oTipoEstrategia = tipoEstrategias.FirstOrDefault(x => x.Codigo == Constantes.TipoEstrategiaCodigo.IncentivosProgramaNuevas);
                 ViewBag.hdnTipoEstrategiaID = (oTipoEstrategia == null ? 0 : oTipoEstrategia.TipoEstrategiaID);
             }
             catch (Exception ex)
@@ -1790,8 +1783,7 @@ namespace Portal.Consultoras.Web.Controllers
             string CUV, int Imagen, int Activo, string CodigoPrograma, int TipoEstrategiaID)
         {
             var lst = new List<BEEstrategia>();
-            var pag = new BEPager();
-
+            
             try
             {
                 if (string.IsNullOrEmpty(CampaniaID)) return RedirectToAction("ProgramaNuevas", "AdministrarEstrategia");
@@ -1825,7 +1817,7 @@ namespace Portal.Consultoras.Web.Controllers
                 };
 
                 var items = lst.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 var data = new
                 {
@@ -2021,7 +2013,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.ddlCampania = DropDowListCampanias(userData.PaisID);
 
                 var tipoEstrategias = GetTipoEstrategias();
-                var oTipoEstrategia = tipoEstrategias.Where(x => x.Codigo == Constantes.TipoEstrategiaCodigo.Incentivos).FirstOrDefault();
+                var oTipoEstrategia = tipoEstrategias.FirstOrDefault(x => x.Codigo == Constantes.TipoEstrategiaCodigo.Incentivos);
                 ViewBag.hdnTipoEstrategiaID = (oTipoEstrategia == null ? 0 : oTipoEstrategia.TipoEstrategiaID);
             }
             catch (Exception ex)
@@ -2037,7 +2029,6 @@ namespace Portal.Consultoras.Web.Controllers
             string CUV, int Imagen, int Activo, string CodigoConcurso, int TipoEstrategiaID)
         {
             var lst = new List<BEEstrategia>();
-            var pag = new BEPager();
 
             try
             {
@@ -2072,7 +2063,7 @@ namespace Portal.Consultoras.Web.Controllers
                 };
 
                 var items = lst.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 var data = new
                 {

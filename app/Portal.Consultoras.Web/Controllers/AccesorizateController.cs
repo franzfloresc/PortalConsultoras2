@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -284,6 +285,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (Lista.Count > 0)
             {
+                var txtBuil = new StringBuilder();
+
                 for (int i = 0; i < Lista.Count; i++)
                 {
                     int Stock = 0;
@@ -293,8 +296,9 @@ namespace Portal.Consultoras.Web.Controllers
                     }
 
                     if (Lista[i].Stock > Stock)
-                        msj += "- El stock para el CUV <b>" + Lista[i].CUV + "</b> es <b>" + Stock + "</b> unidades deberá validar la cantidad nuevamente.\n";
+                        txtBuil.Append("- El stock para el CUV <b>" + Lista[i].CUV + "</b> es <b>" + Stock + "</b> unidades deberá validar la cantidad nuevamente.\n");
                 }
+                msj = txtBuil.ToString();
             }
             return Json(new
             {
@@ -459,11 +463,6 @@ namespace Portal.Consultoras.Web.Controllers
                 lst = sv.GetImagenesByCodigoSAP(paisID, codigoSAP).ToList();
             }
 
-            var carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
-
-            if (lst != null && lst.Count > 0)
-            {
-            }
             return Json(new
             {
                 lista = lst
@@ -534,7 +533,6 @@ namespace Portal.Consultoras.Web.Controllers
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                BEPager pag = new BEPager();
                 IEnumerable<BEOfertaProducto> items = lst;
 
                 #region Sort Section
@@ -607,12 +605,12 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
                 string ISO = Util.GetPaisISO(PaisID);
                 var carpetaPais = Globals.UrlMatriz + "/" + ISO;
-                lst.Update(x => x.ImagenProducto = (x.ImagenProducto.ToString().Equals(string.Empty) ? string.Empty : ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.RutaImagenesMatriz + "/" + ISO)));
+                lst.Update(x => x.ImagenProducto = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.RutaImagenesMatriz + "/" + ISO));
                 lst.Update(x => x.ISOPais = ISO);
                 var data = new
                 {
@@ -832,7 +830,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 #region Procesar Carga Masiva Archivo CSV
                 string finalPath = string.Empty;
-                List<BEOfertaProducto> lstStock = new List<BEOfertaProducto>(); ;
+                List<BEOfertaProducto> lstStock = new List<BEOfertaProducto>();
 
                 if (flStock != null)
                 {

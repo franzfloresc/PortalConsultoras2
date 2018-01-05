@@ -51,7 +51,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if ((fechaHoy >= userData.FechaInicioCampania.AddDays(-model.BEShowRoom.DiasAntes).Date &&
                 fechaHoy <= userData.FechaInicioCampania.AddDays(model.BEShowRoom.DiasDespues).Date))
             {
-                esShowRoom = true && OfertaShowRoom() != null;
+                esShowRoom = OfertaShowRoom() != null;
             }
 
             return esShowRoom ?
@@ -168,7 +168,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 model.Suscripcion = eventoConsultora.Suscripcion;
                 model.EMail = eventoConsultora.CorreoEnvioAviso == "" ? userData.EMail : eventoConsultora.CorreoEnvioAviso;
-                model.EMailActivo = eventoConsultora.CorreoEnvioAviso == userData.EMail ? userData.EMailActivo : true;
+                model.EMailActivo = (eventoConsultora.CorreoEnvioAviso != userData.EMail) || userData.EMailActivo;
                 model.Celular = userData.Celular;
                 model.UrlTerminosCondiciones = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.UrlTerminosCondiciones, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
                 model.Agregado = ObtenerPedidoWebDetalle().Any(d => d.CUV == model.CUV) ? "block" : "none";

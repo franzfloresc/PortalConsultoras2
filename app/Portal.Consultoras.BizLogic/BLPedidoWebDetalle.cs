@@ -607,20 +607,11 @@ namespace Portal.Consultoras.BizLogic
 
         public void InsPedidoWebAccionesPROL(List<BEPedidoWebDetalle> olstBEPedidoWebDetalle, int Tipo, int Accion)
         {
-            try
+            var DAPedidoWebDetalle = new DAPedidoWebDetalle(olstBEPedidoWebDetalle[0].PaisID);
+            foreach (var item in olstBEPedidoWebDetalle)
             {
-                var DAPedidoWebDetalle = new DAPedidoWebDetalle(olstBEPedidoWebDetalle[0].PaisID);
-                foreach (var item in olstBEPedidoWebDetalle)
-                {
-                    DAPedidoWebDetalle.InsPedidoWebAccionesPROL(item, Tipo, Accion);
-                }
-
+                DAPedidoWebDetalle.InsPedidoWebAccionesPROL(item, Tipo, Accion);
             }
-            catch
-            {
-
-            }
-
         }
     }
 }

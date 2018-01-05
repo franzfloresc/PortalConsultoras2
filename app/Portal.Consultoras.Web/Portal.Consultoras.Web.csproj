@@ -3434,6 +3434,7 @@
     <Content Include="Scripts\PortalConsultoras\Pedido\barra.js" />
     <Content Include="Scripts\PortalConsultoras\Pedido\ConsultoraOnline.js" />
     <Content Include="Scripts\PortalConsultoras\Pedido\ofertafinal.js" />
+    <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-ConfirmarDatos.js" />
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-Landing.js" />
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-Suscripcion.js" />
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital.js" />
@@ -3735,6 +3736,7 @@
     <Content Include="Areas\Mobile\Views\Bienvenida\_PartialSectionBpt.cshtml" />
     <Content Include="Areas\Mobile\Views\Pedido\_PartialSectionBpt.cshtml" />
     <Content Include="Areas\Mobile\Views\Catalogo\_PartialSectionBpt.cshtml" />
+    <Content Include="Areas\Mobile\Views\RevistaDigital\template-confirmacion-datos.cshtml" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>
@@ -4588,10 +4590,10 @@
     <Content Include="Views\Bienvenida\_PartialSectionBpt.cshtml" />
     <Content Include="Views\Pedido\_PartialSectionBpt.cshtml" />
     <Content Include="Views\MisCatalogosRevistas\_PartialSectionBpt.cshtml" />
-    <Content Include="Views\RevistaDigital\template-confirmacion-datos.cshtml" />
     <Content Include="Views\MisCertificados\Index.cshtml" />
     <Content Include="Views\MisCertificados\ComercialPdf.cshtml" />
     <Content Include="Views\MisCertificados\NoAdeudoPdf.cshtml" />
+    <Content Include="Views\RevistaDigital\template-confirmacion-datos.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

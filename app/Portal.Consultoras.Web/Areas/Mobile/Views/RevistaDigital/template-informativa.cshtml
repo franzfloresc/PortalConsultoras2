@@ -15,20 +15,19 @@
 <div class="back-to" onClick="RedireccionarContenedorComprar()">
     <img src="@Url.Content("~/Content/Images/triangle.png")" alt="">VOLVER
 </div>
-@if (Model.Origen != Constantes.RevistaDigitalOrigen.Unete)
+@if (Model.Origen == Constantes.RevistaDigitalOrigen.Unete)
 {
     /* EL VIDEO NO DEBE APARECER A LAS NUEVAS 100% DIGITAL */
 }
 else
 {
-    
-        <div class="video-visual">
-            <div class="video-container">
-                <div id="player"></div>
-            </div>
+    <div class="video-visual">
+        <div class="video-container">
+            <div id="player"></div>
         </div>
-    
+    </div>
 }
+
 <div id="saber-mas-uno"></div>
 <div class="bloques-gana-mas gana-mas">
     <div class="contenedor-mobile-fix" style="padding: 0;">
@@ -90,89 +89,88 @@ else
     </div>
 </div>
 
-@if (Model.Origen != Constantes.RevistaDigitalOrigen.Unete)
+@if (Model.Origen == Constantes.RevistaDigitalOrigen.Unete)
 {
+    <div class="bloques-gana-mas como-funciona" id="saber-mas-dos">
+        <div class="contenedor-mobile-fix">
+            <div class="arrow"></div>
+            <p class="titulo">¿POR QUÉ EL CLUB ES PERFECTO PARA TI?</p>
+            <div class="caja-club-derecha">
+                <p class="titulo-caja-club">1. PORQUE ERES ÚNICA:</p>
+                <span class="cont-caja-club">Te ofrecemos ofertas <b>exclusivas</b> para ti.</span>
+                <hr />
+                <p class="titulo-caja-club">2. PORQUE ERES RÁPIDA:</p>
+                <span class="cont-caja-club">El Club GANA+ es una plataforma confiable y veloz: ¡como tú!</span>
+                <hr />
+                <p class="titulo-caja-club">3. PORQUE ERES MODERNA:</p>
+                <span class="cont-caja-club">¡Lo digital es para ti!</span>
+            </div>
 
-<div class="bloques-gana-mas como-funciona" id="saber-mas-dos">
-    <div class="contenedor-mobile-fix">
-        <div class="arrow"></div>
-        <p class="titulo">¿POR QUÉ EL CLUB ES PERFECTO PARA TI?</p>
-        <div class="caja-club-derecha">
-            <p class="titulo-caja-club">1. PORQUE ERES ÚNICA:</p>
-            <span class="cont-caja-club">Te ofrecemos ofertas <b>exclusivas</b> para ti.</span>
-            <hr />
-            <p class="titulo-caja-club">2. PORQUE ERES RÁPIDA:</p>
-            <span class="cont-caja-club">El Club GANA+ es una plataforma confiable y veloz: ¡como tú!</span>
-            <hr />
-            <p class="titulo-caja-club">3. PORQUE ERES MODERNA:</p>
-            <span class="cont-caja-club">¡Lo digital es para ti!</span>
+            <div class="caja-club-izquierda">
+                <img src="~/Content/Images/visual_de_causa.png" />
+            </div>
+            <div class="clear"></div>
+            @if (!Model.EsSuscrita)
+                {
+                    <span class="txt recuerda-txt">
+                        RECUERDA QUE PUEDES CANCELAR TU SUSCRIPCIÓN CUANDO QUIERAS.
+                    </span>
+                }
+            <div class="clear"></div>
         </div>
-
-        <div class="caja-club-izquierda">
-            <img src="~/Content/Images/visual_de_causa.png" />
-        </div>
-        <div class="clear"></div>
-        @if (!Model.EsSuscrita)
-            {
-                <span class="txt recuerda-txt">
-                    RECUERDA QUE PUEDES CANCELAR TU SUSCRIPCIÓN CUANDO QUIERAS.
-                </span>
-            }
-        <div class="clear"></div>
     </div>
-</div>
 }
 else { 
-<div class="bloques-gana-mas como-funciona" id="saber-mas-dos">
-    <div class="contenedor-mobile-fix">
-        <div class="arrow"></div>
-        <p class="titulo">¿CÓMO FUNCIONA?</p>
-        <div class="bloque-texto">
-            <span class="nro">-</span>
-            <span class="txt">
-                En esta campaña te suscribes al Club GANA+
-            </span>
-            <div class="clear"></div>
-            <span class="nro">-</span>
-            <span class="txt">
-                Para tu próximo pedido, <b>dejarás de recibir la guía impresa.</b>
-            </span>
-            <div class="clear"></div>
-            <span class="nro mobil-nro-funciona">-</span>
-            <span class="txt mobil-nro-funciona">
-                En la siguiente campaña, ¡podrás disfrutar de ser parte del Club GANA+!
-            </span>
-            <div class="clear"></div>
-            
-        </div>
-
-        <div class="bloque-img">
-            <div class="cnt">
-                <div class="visual-funcionamiento"></div>
-            </div>
-        </div>
-        <div class="clear"></div>
-        <div class="bloque-texto mobil-nro-funciona2" style="width:100%;">
-            <span class="nro" style="width:7%;">-</span>
-            <span class="txt" style="width: 91%;">
-                En la siguiente campaña, ¡podrás disfrutar de ser parte del Club GANA+!
-            </span>
-            <div class="clear"></div>
-            
-        </div>
-        <div class="clear"></div>
-        @if (!Model.EsSuscrita)
-            {
-                <span class="txt recuerda-txt">
-                    RECUERDA QUE PUEDES CANCELAR TU SUSCRIPCIÓN CUANDO QUIERAS.
+    <div class="bloques-gana-mas como-funciona" id="saber-mas-dos">
+        <div class="contenedor-mobile-fix">
+            <div class="arrow"></div>
+            <p class="titulo">¿CÓMO FUNCIONA?</p>
+            <div class="bloque-texto">
+                <span class="nro">-</span>
+                <span class="txt">
+                    En esta campaña te suscribes al Club GANA+
                 </span>
-            }
-        <div class="clear"></div>
+                <div class="clear"></div>
+                <span class="nro">-</span>
+                <span class="txt">
+                    Para tu próximo pedido, <b>dejarás de recibir la guía impresa.</b>
+                </span>
+                <div class="clear"></div>
+                <span class="nro mobil-nro-funciona">-</span>
+                <span class="txt mobil-nro-funciona">
+                    En la siguiente campaña, ¡podrás disfrutar de ser parte del Club GANA+!
+                </span>
+                <div class="clear"></div>
+            
+            </div>
+
+            <div class="bloque-img">
+                <div class="cnt">
+                    <div class="visual-funcionamiento"></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="bloque-texto mobil-nro-funciona2" style="width:100%;">
+                <span class="nro" style="width:7%;">-</span>
+                <span class="txt" style="width: 91%;">
+                    En la siguiente campaña, ¡podrás disfrutar de ser parte del Club GANA+!
+                </span>
+                <div class="clear"></div>
+            
+            </div>
+            <div class="clear"></div>
+            @if (!Model.EsSuscrita)
+                {
+                    <span class="txt recuerda-txt">
+                        RECUERDA QUE PUEDES CANCELAR TU SUSCRIPCIÓN CUANDO QUIERAS.
+                    </span>
+                }
+            <div class="clear"></div>
+        </div>
     </div>
-</div>
 }
 
-@if (Model.Origen != Constantes.RevistaDigitalOrigen.Unete)
+@if (Model.Origen == Constantes.RevistaDigitalOrigen.Unete)
 {
     <div class="bloques-gana-mas suscribete-gratis" data-estadoregistro="@Model.EstadoSuscripcion" id="saber-mas-tres">
         <div class="contenedor-mobile-fix" style="padding: 25px;">
@@ -204,32 +202,32 @@ else {
 }
 else
 {
-<div class="bloques-gana-mas suscribete-gratis" data-estadoregistro="@Model.EstadoSuscripcion" id="saber-mas-tres">
-    <div class="contenedor-mobile-fix" style="padding: 25px;">
-        @if (!Model.EsSuscrita) {
-        <div class="logo" style="margin-top:0;"></div>
-        }
-        @if (Model.EsSuscrita)
-        {
-            <p class="txt-deseas-cancelar">
-                ¿DESEAS CANCELAR TU SUSCRIPCIÓN?
-            </p>
-            <span class="deseas-cancelar">
-                Solo haz clic en el siguiente botón y dejarás de recibir todos los beneficios que te brinda Club GANA+
-            </span>
-            <a href="javascript: RDDesuscripcion();" class="btn-suscribete">Cancela tu suscripción aquí</a>
-        }
-        else
-        {
-            <a href="javascript: RDSuscripcion();" class="btn-suscribete">SUSCRÍBETE GRATIS AQUÍ</a>
-        }
+    <div class="bloques-gana-mas suscribete-gratis" data-estadoregistro="@Model.EstadoSuscripcion" id="saber-mas-tres">
+        <div class="contenedor-mobile-fix" style="padding: 25px;">
+            @if (!Model.EsSuscrita) {
+            <div class="logo" style="margin-top:0;"></div>
+            }
+            @if (Model.EsSuscrita)
+            {
+                <p class="txt-deseas-cancelar">
+                    ¿DESEAS CANCELAR TU SUSCRIPCIÓN?
+                </p>
+                <span class="deseas-cancelar">
+                    Solo haz clic en el siguiente botón y dejarás de recibir todos los beneficios que te brinda Club GANA+
+                </span>
+                <a href="javascript: RDDesuscripcion();" class="btn-suscribete">Cancela tu suscripción aquí</a>
+            }
+            else
+            {
+                <a href="javascript: RDSuscripcion();" class="btn-suscribete">SUSCRÍBETE GRATIS AQUÍ</a>
+            }
 
-        <a href="javascript: MostrarTerminos();" class="terminos" style="text-decoration:underline;">
-            VER TÉRMINOS Y CONDICIONES
-        </a>
+            <a href="javascript: MostrarTerminos();" class="terminos" style="text-decoration:underline;">
+                VER TÉRMINOS Y CONDICIONES
+            </a>
 
+        </div>
     </div>
-</div>
 }
 
  <div class="preguntas-frecuentes-cont-sus">
@@ -247,7 +245,7 @@ Recuerda que puedes suscribirte nuevamente cuando desees.</span>
                         <b>¿Por qué ya no recibo la guía de negocio impresa?</b>
                         <span>Al suscribirte al Club GANA+, dejarás de recibir la guía de negocio impresa desde la siguiente campaña, pues siendo miembro del Club, contarás con muchos beneficios que reemplazarán a tu guía.</span>
                     </li>
-                    <li><a class="descargar">DESCARGA MÁS PREGUNTAS FRECUENTES</a></li>
+                    <li><a class="descargar" href="@Model.UrlPreguntasFrecuentes" target="_blank">DESCARGA MÁS PREGUNTAS FRECUENTES</a></li>
                 </ul>
             </li>
 
@@ -255,170 +253,25 @@ Recuerda que puedes suscribirte nuevamente cuando desees.</span>
     </div>
 </div>
 
-<a href="" class="btn-suscribete-video">SUSCRÍBETE GRATIS AQUÍ</a>
-
+<a href="javascript: RDSuscripcion();" class="btn-suscribete-video">SUSCRÍBETE GRATIS AQUÍ</a>
 
 <script src="https://apis.google.com/js/client.js?onload=googleApiClientReady"></script>
-<script src="http://www.youtube.com/player_api"></script>
-<script src="http://www.youtube.com/iframe_api"></script>
+<script src="https://www.youtube.com/player_api"></script>
+<script src="https://www.youtube.com/iframe_api"></script>
+
+@Html.Partial("~/Areas/Mobile/Views/RevistaDigital/template-confirmacion-datos.cshtml")
+
 @section scripts{
 
-<script>
-
-var PosBannerMenu ;
-
-    // create youtube player
-    var player;
-    function onYouTubePlayerAPIReady() {
-        player = new YT.Player('player', {
-            width: '640',
-            height: '390',
-            rel: 0,
-            fs: 0,
-            videoId: 'PvAWRQUKHqg',
-            events: {
-                onReady: onPlayerReady,
-                onReady: onScrollDown,
-                onStateChange: onPlayerStateChange
-            }
-        });
-    }
-
-    // autoplay video
-    function onClickDown(event) {
-        $('a.pausar-video').click(function () {
-            event.target.pauseVideo();
-        });
-    }
-    //
-    function onScrollDown(event) {
-        $(window).scroll(function () {
-            var windowHeight = $(window).scrollTop();
-            var contenido2 = $("#saber-mas-uno").offset();
-            contenido2 = contenido2.top;
-
-            if (windowHeight >= contenido2) {
-                event.target.pauseVideo();
-            }
-            else {
-                event.target.playVideo();
-            }
-        });
-    }
-
-    //
-    function onPlayerReady(event) {
-        event.target.playVideo();
-    }
-
-
-    // when video ends
-    function onPlayerStateChange(event) {
-        if (event.data === 0) {
-            $('a.btn-suscribete-video').animate({
-                bottom: '0%'
-            });
-            $('a.btn-suscribete-video-baja').animate({
-                bottom: '-100%'
-            });
-
-        }
-    }
-</script>
-
-
-<script>
-
-    $(document).ready(function () {
-        var saber_mas = 1;
-        $('a.btn-suscribete-video-baja').click(function () {
-            if (saber_mas == 1) {
-                $("a.btn-suscribete-video-baja").attr("href", "#saber-mas-uno");
-                saber_mas = 2;
-            }
-            else if (saber_mas == 2) {
-                $("a.btn-suscribete-video-baja").attr("href", "#saber-mas-dos");
-                saber_mas = 3;
-            }
-            else if (saber_mas == 3) {
-                $("a.btn-suscribete-video-baja").attr("href", "#saber-mas-tres");
-                saber_mas = 1;
-            }
-
-        });
-    });
-</script>
-
-<script>
-   $(document).ready(function () {
-        var anchor_offset = $('.como-funciona').offset().top;
-
-        $(window).on('scroll', function () {
-            if ($(window).scrollTop() > anchor_offset) {
-                $("a.btn-suscribete-video-baja").css("display", "none");
-            }
-            else {
-                $("a.btn-suscribete-video-baja").css("display", "block");
-            }
-        });
-    });
-</script>
-
-<script>
-    $(document).ready(function () {
-		var page = $("html, body");
-
-        $('a.btn-suscribete-video-baja').click(function () {
-			var page = $("html, body");
-			var alto = $('#new-header').height();
-			
-            var link = $(this);
-            var anchor = link.attr('href');
-            page.stop().animate({scrollTop: ScrollUser(anchor, alto) }, 1000);
-
-            return false;
-        });
-    });
-
-
-	function  ScrollUser(anchor,alto) {
-
-		if($('#seccion-fixed-menu').position.top > 0)
-			alto = alto + $('#seccion-fixed-menu').height() + 10;
-
-		return jQuery(anchor).offset().top - alto;
-    }
-
-</script>
-
-<script>
-    $(document).ready(function (e) {
-        var clickabrir = 1
-        $('.preguntas-frecuentes-cont-sus ul.preg-frecuentes li a.abrir-preg-frecuente').click(function () {
-            $('.preguntas-frecuentes-cont-sus ul.preg-frecuentes ul').slideToggle();
-
-            if (clickabrir == 1)
-            {
-                $('.preguntas-frecuentes-cont-sus .contenedor-mobile-fix span.despliegue').css("display", "none");
-                $('.preguntas-frecuentes-cont-sus .contenedor-mobile-fix span.nodespliegue').css("display", "block");
-                clickabrir = 0;
-            }
-            else
-            {
-                $('.preguntas-frecuentes-cont-sus .contenedor-mobile-fix span.nodespliegue').css("display", "none");
-                $('.preguntas-frecuentes-cont-sus .contenedor-mobile-fix span.despliegue').css("display", "block");
-                clickabrir = 1;
-            }
-        });
-    });
-</script>
-
 <script type="text/javascript">
-        var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
-        var tipoOrigenPantalla = 1;
-        var urlTerminosCondicionesRD = '@Model.UrlTerminosCondiciones';
-        var urlRevistaDigital = '@Url.Action("Comprar", "RevistaDigital")';
-        var isScroll = false;
+    var PosBannerMenu;
+    var player; // create youtube player
+    var videoKey = '@Model.Video';
+    var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
+    var tipoOrigenPantalla = 1;
+    var urlTerminosCondicionesRD = '@Model.UrlTerminosCondiciones';
+    var urlRevistaDigital = '@Url.Action("Comprar", "RevistaDigital")';
+    var isScroll = false;
 </script>
 
     @System.Web.Optimization.Scripts.Render("~/bundles/Mobile/RevistaDigital-Info")

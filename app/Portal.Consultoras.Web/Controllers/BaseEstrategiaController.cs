@@ -7,6 +7,7 @@ using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -160,13 +161,15 @@ namespace Portal.Consultoras.Web.Controllers
                 if (estrategiaModelo.CodigoVariante == "")
                     return estrategiaModelo;
 
-                string joinCuv = "|", separador = "|";
+                string separador = "|";
+                var txtBuil = new StringBuilder();
+                txtBuil.Append(separador);
 
                 estrategiaModelo.CampaniaID = estrategiaModelo.CampaniaID > 0 ? estrategiaModelo.CampaniaID : userData.CampaniaID;
 
                 if (estrategiaModelo.CodigoVariante == Constantes.TipoEstrategiaSet.IndividualConTonos)
                 {
-                    var listaHermanosE = new List<BEProducto>();
+                    List<BEProducto> listaHermanosE;
                     using (ODSServiceClient svc = new ODSServiceClient())
                     {
                         listaHermanosE = svc.GetListBrothersByCUV(userData.PaisID, estrategiaModelo.CampaniaID, estrategiaModelo.CUV2).ToList();
@@ -175,8 +178,8 @@ namespace Portal.Consultoras.Web.Controllers
                     foreach (var item in listaHermanosE)
                     {
                         item.CodigoSAP = Util.Trim(item.CodigoSAP);
-                        if (item.CodigoSAP != "" && !joinCuv.Contains(separador + item.CodigoSAP + separador))
-                            joinCuv += item.CodigoSAP + separador;
+                        if (item.CodigoSAP != "" && !txtBuil.ToString().Contains(separador + item.CodigoSAP + separador))
+                            txtBuil.Append(item.CodigoSAP + separador);
                     }
                 }
 
@@ -192,16 +195,18 @@ namespace Portal.Consultoras.Web.Controllers
                     foreach (var item in listaProducto)
                     {
                         item.SAP = Util.Trim(item.SAP);
-                        if (item.SAP != "" && !joinCuv.Contains(separador + item.SAP + separador))
-                            joinCuv += item.SAP + separador;
+                        if (item.SAP != "" && !txtBuil.ToString().Contains(separador + item.SAP + separador))
+                            txtBuil.Append(item.SAP + separador);
                     }
                 }
+
+                string joinCuv = txtBuil.ToString();
 
                 if (joinCuv == separador) return estrategiaModelo;
 
                 joinCuv = joinCuv.Substring(separador.Length, joinCuv.Length - separador.Length * 2);
 
-                var listaAppCatalogo = new List<Producto>();
+                List<Producto> listaAppCatalogo;
                 var numeroCampanias = Convert.ToInt32(GetConfiguracionManager(Constantes.ConfiguracionManager.NumeroCampanias));
                 using (ProductoServiceClient svc = new ProductoServiceClient())
                 {
@@ -236,9 +241,8 @@ namespace Portal.Consultoras.Web.Controllers
                         var prod = (ProductoModel)(listaHermanos.FirstOrDefault(p => item.SAP == p.CodigoProducto) ?? new ProductoModel()).Clone();
                         if (Util.Trim(prod.CodigoProducto) == "")
                             continue;
-
-                        var listaIgual = listaHermanos.Where(p => item.SAP == p.CodigoProducto);
-                        if (listaIgual.Count() > 1)
+                        
+                        if (listaHermanos.Count(p => item.SAP == p.CodigoProducto) > 1)
                         {
                             prod = (ProductoModel)(listaHermanos.FirstOrDefault(p => item.SAP == p.CodigoProducto && p.ID > idPk) ?? new ProductoModel()).Clone();
                         }
@@ -371,13 +375,13 @@ namespace Portal.Consultoras.Web.Controllers
 
                     var cantMax = 8;
                     var cantPack = listaPackNueva.Any() ? 1 : 0;
-                    var top = Math.Min(cantMax - cantPack, listaRevista.Count());
+                    var top = Math.Min(cantMax - cantPack, listaRevista.Count);
 
-                    if (listaRevista.Count() > top)
-                        listaRevista.RemoveRange(top, listaRevista.Count() - top);
+                    if (listaRevista.Count > top)
+                        listaRevista.RemoveRange(top, listaRevista.Count - top);
 
-                    if (listaRevista.Count() > cantMax - top)
-                        listaPackNueva.RemoveRange(cantMax - top, listaPackNueva.Count() - (cantMax - top));
+                    if (listaRevista.Count > cantMax - top)
+                        listaPackNueva.RemoveRange(cantMax - top, listaPackNueva.Count - (cantMax - top));
 
                     listModel = new List<BEEstrategia>();
                     if (estrategiaLanzamiento.EstrategiaID > 0)

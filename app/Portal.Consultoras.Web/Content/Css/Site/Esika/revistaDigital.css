@@ -3330,6 +3330,7 @@
 .popup_confirmacion_datos .contenido-table-datos{
 display:table;
 height:432px;
+width: 100%;
 }
 .popup_confirmacion_datos .contenido-table-datos .cont-datos{
 vertical-align:middle;
@@ -3340,6 +3341,7 @@ background: white;
 padding: 0px 40px;
 max-width: 432px;
 max-height:432px;
+top:57%;
 }
 .popup_confirmacion_datos p.felicidades {
 display: block;
@@ -3347,8 +3349,18 @@ font-size: 13px;
 font-weight: bolder;
 margin-bottom: 0;
 letter-spacing: 1px;
+text-align:center;
 }
-
+.popup_confirmacion_datos .contenido-table-datos .cont-datos .form-confirmacion .loader-confirmacion {
+        background: url('/Content/Images/Esika/loading_circle.gif');
+        width: 50px;
+        height: 50px;
+        display: block;
+        margin: auto;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
 .popup_confirmacion_datos p.estasganando {
 display: block;
 text-align: center;

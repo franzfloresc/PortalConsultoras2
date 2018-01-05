@@ -50,6 +50,44 @@ $(document).ready(function () {
         $(window).scroll();
     });
 
+    /* popup validar datos 2017 */
+    if (!isMobile()) {
+        $('.popup_confirmacion_datos .form-datos .input input').keyup(function () {
+            if (tieneCamposVacios()) {
+                $('.popup_confirmacion_datos .form-datos button').attr('disabled', 'disabled');
+                $(".popup_confirmacion_datos .form-datos button").css("background-color", "#e0e0e0");
+            } else {
+                $('.popup_confirmacion_datos .form-datos button').removeAttr('disabled');
+                $(".popup_confirmacion_datos .form-datos button").css("background-color", "#e81c36");
+            }
+        });
+    }
+    if (isMobile()) {
+        $('.popup_confirmacion_datos .form-datos .input input').keyup(function () {
+            if (tieneCamposVacios()) {
+                $('.popup_confirmacion_datos .form-datos button').attr('disabled', 'disabled');
+                $(".popup_confirmacion_datos .form-datos button").addClass("desactivar_boton_popup_confirma_datos");
+                $(".popup_confirmacion_datos .form-datos button").removeClass("activar_boton_popup_confirma_datos");
+            } else {
+                $('.popup_confirmacion_datos .form-datos button').removeAttr('disabled');
+                $(".popup_confirmacion_datos .form-datos button").addClass("activar_boton_popup_confirma_datos");
+                $(".popup_confirmacion_datos .form-datos button").removeClass("desactivar_boton_popup_confirma_datos");
+            }
+        });
+    }
+
+    function tieneCamposVacios() {
+        var empty = false;
+
+        $('.popup_confirmacion_datos .form-datos .input input').each(function () {
+            if ($(this).val() == '') {
+                empty = true;
+            }
+        });
+        return empty
+    }
+    /* fin popup validar datos 2017 */
+
     $('ul[data-tab="tab"] li a')
         .mouseover(function () {
             $("#barCursor").css("opacity", "1");
@@ -171,6 +209,9 @@ $(document).ready(function () {
         function (e) {
             window.location = urlRetorno;
         });
+
+    
+
 });
 
 function FlechaScrollDown(idCamapania) {

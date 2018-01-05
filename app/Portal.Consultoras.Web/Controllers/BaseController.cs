@@ -245,11 +245,13 @@ namespace Portal.Consultoras.Web.Controllers
         protected List<BEPedidoWebDetalle> PedidoConObservaciones(List<BEPedidoWebDetalle> Pedido, List<ObservacionModel> Observaciones)
         {
             var PedObs = Pedido;
+            var txtBuil = new StringBuilder();
 
             if (userData.NuevoPROL && userData.ZonaNuevoPROL)
             {
                 foreach (var item in PedObs)
                 {
+                    item.Mensaje = string.Empty;
                     var temp = Observaciones.Where(o => o.CUV == item.CUV).ToList();
                     if (temp != null && temp.Count != 0)
                     {
@@ -257,24 +259,24 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             item.ClaseFila = string.Empty;
                             item.TipoObservacion = 0;
-                            item.Mensaje = string.Empty;
                         }
                         else
                         {
                             item.ClaseFila = temp[0].Tipo == 1 ? "f1" : "f2";
                             item.TipoObservacion = temp[0].Tipo;
-                            item.Mensaje = string.Empty;
                         }
+
                         foreach (var ob in temp)
                         {
-                            item.Mensaje += ob.Descripcion + "<br/>";
+                            txtBuil.Append(ob.Descripcion + "<br/>");
                         }
+                        item.Mensaje = txtBuil.ToString();
+                        txtBuil.Clear();
                     }
                     else
                     {
                         item.ClaseFila = string.Empty;
                         item.TipoObservacion = 0;
-                        item.Mensaje = string.Empty;
                     }
                 }
             }
@@ -282,22 +284,23 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 foreach (var item in PedObs)
                 {
+                    item.Mensaje = string.Empty;
                     var temp = Observaciones.Where(o => o.CUV == item.CUV).ToList();
                     if (temp != null && temp.Count != 0)
                     {
                         item.ClaseFila = temp[0].Tipo == 1 ? "f1" : "f2";
                         item.TipoObservacion = temp[0].Tipo;
-                        item.Mensaje = string.Empty;
                         foreach (var ob in temp)
                         {
-                            item.Mensaje += ob.Descripcion + "<br/>";
+                            txtBuil.Append(ob.Descripcion + "<br/>");
                         }
+                        item.Mensaje = txtBuil.ToString();
+                        txtBuil.Clear();
                     }
                     else
                     {
                         item.ClaseFila = string.Empty;
                         item.TipoObservacion = 0;
-                        item.Mensaje = string.Empty;
                     }
                 }
             }
@@ -1713,7 +1716,9 @@ namespace Portal.Consultoras.Web.Controllers
                 if (fichaProductoModelo.CodigoVariante == "")
                     return fichaProductoModelo;
 
-                string joinCuv = "|", separador = "|";
+                string separador = "|";
+                var txtBuil = new StringBuilder();
+                txtBuil.Append(separador);
 
                 fichaProductoModelo.CampaniaID = fichaProductoModelo.CampaniaID > 0 ? fichaProductoModelo.CampaniaID : userData.CampaniaID;
 
@@ -1728,8 +1733,8 @@ namespace Portal.Consultoras.Web.Controllers
                     foreach (var item in listaHermanosE)
                     {
                         item.CodigoSAP = Util.Trim(item.CodigoSAP);
-                        if (item.CodigoSAP != "" && !joinCuv.Contains(separador + item.CodigoSAP + separador))
-                            joinCuv += item.CodigoSAP + separador;
+                        if (item.CodigoSAP != "" && !txtBuil.ToString().Contains(separador + item.CodigoSAP + separador))
+                            txtBuil.Append(item.CodigoSAP + separador);
                     }
                 }
 
@@ -1745,10 +1750,12 @@ namespace Portal.Consultoras.Web.Controllers
                     foreach (var item in listaProducto)
                     {
                         item.SAP = Util.Trim(item.SAP);
-                        if (item.SAP != "" && !joinCuv.Contains(separador + item.SAP + separador))
-                            joinCuv += item.SAP + separador;
+                        if (item.SAP != "" && !txtBuil.ToString().Contains(separador + item.SAP + separador))
+                            txtBuil.Append(item.SAP + separador);
                     }
                 }
+
+                string joinCuv = txtBuil.ToString();
 
                 if (joinCuv == separador) return fichaProductoModelo;
 
@@ -2330,7 +2337,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return new ShowRoomBannerLateralModel { ConsultoraNoEncontrada = true };
 
             model.BEShowRoomConsultora = userData.BeShowRoomConsultora ?? new BEShowRoomEventoConsultora();
-            model.BEShowRoom = userData.BeShowRoom ?? new BEShowRoomEvento(); ;
+            model.BEShowRoom = userData.BeShowRoom ?? new BEShowRoomEvento();
 
             if (model.BEShowRoom.Estado != 1)
                 return new ShowRoomBannerLateralModel { EventoNoEncontrado = true };
@@ -2819,7 +2826,7 @@ namespace Portal.Consultoras.Web.Controllers
                 .Insert(0, "4");
 
                 origenActual = int.Parse(nuevoOrigen);
-            };
+            }
 
             return origenActual;
         }
@@ -4215,6 +4222,44 @@ namespace Portal.Consultoras.Web.Controllers
                 return flag;                
             }
         }
+
+
+        protected string ActualizarMisDatos(ServiceUsuario.BEUsuario usuario, string correoAnterior)
+        {
+            if (string.IsNullOrWhiteSpace(usuario.CodigoUsuario))
+                usuario.CodigoUsuario = UserData().CodigoUsuario;
+
+            if (string.IsNullOrWhiteSpace(usuario.EMail))
+                usuario.EMail = UserData().EMail;
+
+            if (string.IsNullOrWhiteSpace(usuario.Celular))
+                usuario.Celular = UserData().Celular;
+
+            if (string.IsNullOrWhiteSpace(usuario.Telefono))
+                usuario.Telefono = UserData().Telefono;
+
+            if (string.IsNullOrWhiteSpace(usuario.TelefonoTrabajo))
+                usuario.TelefonoTrabajo = UserData().TelefonoTrabajo;
+
+            if (string.IsNullOrWhiteSpace(usuario.Sobrenombre))
+                usuario.Sobrenombre = UserData().Sobrenombre;
+
+            usuario.ZonaID = UserData().ZonaID;
+            usuario.RegionID = UserData().RegionID;
+            usuario.ConsultoraID = UserData().ConsultoraID;
+            usuario.PaisID = UserData().PaisID;
+            usuario.PrimerNombre = userData.PrimerNombre;
+            usuario.CodigoISO = UserData().CodigoISO;
+
+            var resultado = string.Empty;
+            using (UsuarioServiceClient svr = new UsuarioServiceClient())
+            {
+                resultado = svr.ActualizarMisDatos(usuario, correoAnterior);
+            }
+
+            return resultado;
+        }
+
 
     }
 }

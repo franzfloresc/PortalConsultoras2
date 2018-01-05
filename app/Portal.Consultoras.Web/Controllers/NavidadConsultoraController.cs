@@ -211,9 +211,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public ActionResult EliminarImagen(int ImagenId, string PaisId, string CampaniaID)
         {
-            NavidadConsultoraModel modelo = new NavidadConsultoraModel();
-            List<BENavidadConsultora> resultado = new List<BENavidadConsultora>();
-            BENavidadConsultora registro = new BENavidadConsultora();
             try
             {
                 using (ContenidoServiceClient servicio = new ContenidoServiceClient())

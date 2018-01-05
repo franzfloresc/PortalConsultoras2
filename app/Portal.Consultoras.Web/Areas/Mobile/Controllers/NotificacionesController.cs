@@ -153,6 +153,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 var beSolicitudCliente = service.GetSolicitudCliente(userData.PaisID, SolicitudId);
                 var tablalogicaDatosMail = service.GetTablaLogicaDatos(userData.PaisID, 57);
                 var emailOculto = tablalogicaDatosMail.First(x => x.TablaLogicaDatosID == 5701).Descripcion;
+
                 var tablalogicaDatos = service.GetTablaLogicaDatos(userData.PaisID, 56);
 
                 var numIteracionMaximo = Convert.ToInt32(tablalogicaDatos.First(x => x.TablaLogicaDatosID == 5601).Codigo);
@@ -307,7 +308,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public ActionResult DetallePedidoRechazado(long ProcesoId)
         {
             NotificacionesModel model = new NotificacionesModel();
-            List<BELogGPRValidacion> LogsGPRValidacion = new List<BELogGPRValidacion>(); ;
+            List<BELogGPRValidacion> LogsGPRValidacion = new List<BELogGPRValidacion>();
 
             using (PedidoRechazadoServiceClient sv = new PedidoRechazadoServiceClient())
             {

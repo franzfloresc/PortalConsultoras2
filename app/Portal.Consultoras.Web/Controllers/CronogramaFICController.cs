@@ -90,7 +90,6 @@ namespace Portal.Consultoras.Web.Controllers
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                BEPager pag = new BEPager();
                 IEnumerable<BECronogramaFIC> items = lst;
 
                 #region Sort Section
@@ -126,9 +125,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 var data = new
                 {
@@ -220,7 +219,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 foreach (var item in lstZonasInactivasEliminar)
                 {
-                    ZonaModel zona = lstZonasInactivas.Where(x => x.ZonaID == item.ZonaID).First();
                     lstZonasInactivas.Remove(item);
                 }
 
@@ -281,7 +279,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 foreach (var item in lstZonasActivasEliminar)
                 {
-                    ZonaModel zona = lstZonasActivas.Where(x => x.ZonaID == item.ZonaID).First();
                     lstZonasActivas.Remove(item);
                 }
 
@@ -377,12 +374,12 @@ namespace Portal.Consultoras.Web.Controllers
         {
             #region Validar Fechas
 
-            string mensaje = string.Empty;
+            string mensaje = "";
 
             if (model.FechaFin.ToShortDateString() == "01/01/0001")
                 mensaje += "La Fecha de Inicio de Facturación no tiene el formato correcto, verifique dd/MM/yyyy. \n";
 
-            if (!mensaje.Equals(string.Empty))
+            if (mensaje != "")
             {
                 return Json(new
                 {

@@ -587,7 +587,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public string NivelesGeograficosInsertar(HttpPostedFileBase uplArchivo, NivelesGeograficosModel model)
         {
-            string message = string.Empty;
             model.CodigoISO = CodigoISO;
             try
             {
@@ -645,7 +644,6 @@ namespace Portal.Consultoras.Web.Controllers
                 try
                 {
                     bool IsCorrect = false;
-                    NivelesGeograficosModel prod = new NivelesGeograficosModel();
                     lista = ReadXmlFileNG(finalPath, true, ref IsCorrect, CodigoISO);
                 }
                 catch (Exception ex)
@@ -1489,7 +1487,7 @@ namespace Portal.Consultoras.Web.Controllers
                                        "&codterritorio=" + codterritorio +
                                           "&direccion=" + direccion
                 );
-            return Json(response == "true" ? true : false, JsonRequestBehavior.AllowGet);
+            return Json(response == "true", JsonRequestBehavior.AllowGet);
         }
 
         public string ObtenerZonas(int regionID)
@@ -1742,7 +1740,7 @@ namespace Portal.Consultoras.Web.Controllers
             int PageCount = (int)(((float)recordCount / (float)item.PageSize) + 1);
             pag.PageCount = PageCount;
 
-            int CurrentPage = (int)item.CurrentPage;
+            int CurrentPage = item.CurrentPage;
             pag.CurrentPage = CurrentPage;
 
             if (CurrentPage > PageCount)

@@ -33,7 +33,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.PaisID = UserData().PaisID;
                 model.EstadoSimplificacionCUV = configuracionPortal.EstadoSimplificacionCUV;
                 model.EsquemaDAConsultora = configuracionPortal.EsquemaDAConsultora;
-                model.TipoProcesoCarga = (configuracionPortal.TipoProcesoCarga == null ? false : configuracionPortal.TipoProcesoCarga.Value);
+                model.TipoProcesoCarga = (configuracionPortal.TipoProcesoCarga != null && configuracionPortal.TipoProcesoCarga.Value);
                 model.lstPais = DropDowListPaises();
 
 

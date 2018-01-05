@@ -19,10 +19,10 @@ namespace Portal.Consultoras.Web.Controllers
     {
         #region Configuracion de Paginado
         MisPedidosModel objMisPedidos;
-        int registrosPagina = 5;
+        readonly int registrosPagina = 5;
         int indiceActualPagina = 0;
         int indiceUltimaPagina;
-        bool isEsika = false;
+        readonly bool isEsika = false;
         #endregion
 
         public ConsultoraOnlineController()
@@ -123,8 +123,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                     int result;
                     bool cambio;
-                    string resultado = string.Empty;
-
 
                     ClienteContactaConsultoraModel ConsultoraAfiliar = DatoUsuario();
                     model.CorreoAnterior = UserData().EMail;
@@ -274,7 +272,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-
                 var consultoraAfiliar = new ClienteContactaConsultoraModel();
                 using (ServiceSAC.SACServiceClient sc = new ServiceSAC.SACServiceClient())
                 {
@@ -285,35 +282,19 @@ namespace Portal.Consultoras.Web.Controllers
                 if (consultoraAfiliar.Afiliado)
                     return RedirectToAction("Index", "ConsultoraOnline");
 
-
-                string result = string.Empty;
-                bool HasSuccess = false;
                 if (data != null)
                 {
                     string[] query = Util.DesencriptarQueryString(data).Split(';');
 
                     using (UsuarioServiceClient srv = new UsuarioServiceClient())
                     {
-                        HasSuccess = srv.ActiveEmail(Convert.ToInt32(query[1]), query[0], query[2], query[3]);
+                        srv.ActiveEmail(Convert.ToInt32(query[1]), query[0], query[2], query[3]);
                     }
-                    if (HasSuccess)
-                        result = "|Su dirección de correo electrónico ha sido activada correctamente.\n";
-                    else
-                        result = "|Esta dirección de correo electrónico ya ha sido activada.\n";
                 }
-                else
-                    result = "|El correo electrónico ya habia sido activado.\n";
 
                 ClienteContactaConsultoraModel ConsultoraAfiliar = DatoUsuario();
-                HasSuccess = true;
-
-                string emailConsultora = UserData().EMail;
-                if (String.IsNullOrEmpty(ConsultoraAfiliar.Email.Trim()) || !ConsultoraAfiliar.EmailActivo)
-                {
-                    result += "|No tiene email activo.";
-                    HasSuccess = false;
-                }
-
+                var HasSuccess = !(String.IsNullOrEmpty(ConsultoraAfiliar.Email.Trim()) || !ConsultoraAfiliar.EmailActivo);
+                
                 if (ConsultoraAfiliar.EsPrimeraVez)
                 {
                     using (ServiceSAC.SACServiceClient sc = new ServiceSAC.SACServiceClient())
@@ -611,7 +592,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.NombreConsultora = UserData().PrimerNombre;
             ViewBag.Simbolo = UserData().Simbolo;
 
-            List<BEMisPedidos> olstMisPedidos = new List<BEMisPedidos>();
+            List<BEMisPedidos> olstMisPedidos;
             MisPedidosModel model = new MisPedidosModel();
 
             int pagAeux;
@@ -678,7 +659,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
 
-            ViewBag.CantidadPedidos = objMisPedidos.ListaPedidos.Where(p => String.IsNullOrEmpty(p.Estado)).Count();
+            ViewBag.CantidadPedidos = objMisPedidos.ListaPedidos.Count(p => string.IsNullOrEmpty(p.Estado));
 
             return View(mostrarPagina());
         }
@@ -689,7 +670,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                List<BEMisPedidos> olstMisPedidos = new List<BEMisPedidos>();
+                List<BEMisPedidos> olstMisPedidos;
                 MisPedidosModel model = new MisPedidosModel();
 
                 using (UsuarioServiceClient svc = new UsuarioServiceClient())
@@ -711,7 +692,7 @@ namespace Portal.Consultoras.Web.Controllers
                         objMisPedidos = model;
                         Session["objMisPedidos"] = objMisPedidos;
 
-                        var lstClientesExistentes = olstMisPedidos.Where(x => x.FlagConsultora == true).ToList();
+                        var lstClientesExistentes = olstMisPedidos.Where(x => x.FlagConsultora).ToList();
 
                         if (lstClientesExistentes.Count == olstMisPedidos.Count)
                         {
@@ -777,7 +758,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                List<BEMisPedidosDetalle> olstMisPedidosDet = new List<BEMisPedidosDetalle>();
+                List<BEMisPedidosDetalle> olstMisPedidosDet;
                 MisPedidosDetalleModel model = new MisPedidosDetalleModel();
 
                 using (UsuarioServiceClient svc = new UsuarioServiceClient())
@@ -787,11 +768,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (olstMisPedidosDet.Count > 0)
                 {
-                    MisPedidosModel consultoraOnlineMisPedidos = new MisPedidosModel();
-                    consultoraOnlineMisPedidos = (MisPedidosModel)Session["objMisPedidos"];
-                    BEMisPedidos pedido = new BEMisPedidos();
+                    MisPedidosModel consultoraOnlineMisPedidos = (MisPedidosModel)Session["objMisPedidos"];
                     long _pedidoId = Convert.ToInt64(pedidoId);
-                    pedido = consultoraOnlineMisPedidos.ListaPedidos.Where(p => p.PedidoId == _pedidoId).FirstOrDefault();
+                    var pedido = consultoraOnlineMisPedidos.ListaPedidos.FirstOrDefault(p => p.PedidoId == _pedidoId);
 
                     Session["objMisPedidosDetalle"] = olstMisPedidosDet;
 
@@ -803,15 +782,15 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             revistaGana = sv.ValidarDesactivaRevistaGana(userData.PaisID, userData.CampaniaID, userData.CodigoZona);
                         }
-
-                        string inputCUV = "";
+                        
+                        var txtBuil = new StringBuilder();
                         foreach (var item in olstMisPedidosDet)
                         {
-                            inputCUV += item.CUV + ",";
+                            txtBuil.Append(item.CUV + ",");
                         }
-
+                        string inputCUV = txtBuil.ToString();
                         inputCUV = inputCUV.Substring(0, inputCUV.Length - 1);
-                        List<BEProducto> olstMisProductos = new List<BEProducto>();
+                        List<BEProducto> olstMisProductos;
 
                         using (ODSServiceClient svc = new ODSServiceClient())
                         {
@@ -822,7 +801,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                         foreach (var item in olstMisPedidosDet)
                         {
-                            var pedidoVal = olstMisProductos.Where(x => x.CUV == item.CUV).FirstOrDefault();
+                            var pedidoVal = olstMisProductos.FirstOrDefault(x => x.CUV == item.CUV);
                             if (pedidoVal != null)
                             {
                                 item.TieneStock = (pedidoVal.TieneStock) ? 1 : 0;
@@ -890,7 +869,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             ViewBag.Simbolo = UserData().Simbolo;
             objMisPedidos = (MisPedidosModel)Session["objMisPedidos"];
-            ViewBag.CantidadPedidos = objMisPedidos.ListaPedidos.Where(p => string.IsNullOrEmpty(p.Estado)).Count();
+            ViewBag.CantidadPedidos = objMisPedidos.ListaPedidos.Count(p => string.IsNullOrEmpty(p.Estado));
             indiceActualPagina = (int)TempData["indiceActualPagina"];
             indiceUltimaPagina = (int)TempData["indiceUltimaPagina"];
             if (Pagina.Equals("<<")) indiceActualPagina = 0;
@@ -912,9 +891,8 @@ namespace Portal.Consultoras.Web.Controllers
                         else
                         {
                             int pagAeux;
-                            if (Pagina != null)
-                                if (int.TryParse(Pagina, out pagAeux))
-                                    Pagina = (int.Parse(Pagina) - 1).ToString();
+                            if (int.TryParse(Pagina, out pagAeux))
+                                Pagina = (int.Parse(Pagina) - 1).ToString();
                             indiceActualPagina = int.Parse(Pagina);
                         }
                     }
@@ -972,7 +950,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             MisPedidosModel consultoraOnlineMisPedidos = (MisPedidosModel)Session["objMisPedidos"];
             BEMisPedidos _pedido = new BEMisPedidos();
-            _pedido = consultoraOnlineMisPedidos.ListaPedidos.Where(p => p.PedidoId == pedido.PedidoId).FirstOrDefault();
+            _pedido = consultoraOnlineMisPedidos.ListaPedidos.FirstOrDefault(p => p.PedidoId == pedido.PedidoId);
 
             List<BEMisPedidosDetalle> olstMisPedidosDet = (List<BEMisPedidosDetalle>)Session["objMisPedidosDetalle"];
             _pedido.DetallePedido = olstMisPedidosDet.Where(x => x.PedidoId == _pedido.PedidoId).ToArray();
@@ -1059,10 +1037,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (tipo == 1)  // solo para App Catalogos
                 {
-                    List<BEProducto> olstMisProductos = new List<BEProducto>();
-                    olstMisProductos = (List<BEProducto>)Session["objMisPedidosDetalleVal"];
+                    List<BEProducto> olstMisProductos = (List<BEProducto>)Session["objMisPedidosDetalleVal"];
 
-                    List<BEPedidoWebDetalle> olstPedidoWebDetalle = new List<BEPedidoWebDetalle>();
+                    List<BEPedidoWebDetalle> olstPedidoWebDetalle;
                     BEPedidoWebDetalle bePedidoWebDetalle;
 
                     int contOk = 0;
@@ -1071,11 +1048,11 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         if (item.OpcionAcepta == "ingrped")
                         {
-                            BEMisPedidosDetalle pedidoDetalle = olstMisPedidosDet.Where(x => x.PedidoDetalleId == item.PedidoDetalleId).FirstOrDefault();
+                            BEMisPedidosDetalle pedidoDetalle = olstMisPedidosDet.FirstOrDefault(x => x.PedidoDetalleId == item.PedidoDetalleId);
 
                             if (pedidoDetalle != null)
                             {
-                                BEProducto productoVal = olstMisProductos.Where(x => x.CUV == pedidoDetalle.CUV).FirstOrDefault();
+                                BEProducto productoVal = olstMisProductos.FirstOrDefault(x => x.CUV == pedidoDetalle.CUV);
 
                                 if (productoVal != null)
                                 {
@@ -1102,7 +1079,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     {
                                         using (ServiceSAC.SACServiceClient svc = new ServiceSAC.SACServiceClient())
                                         {
-                                            bePedidoWebDetalle = olstPedidoWebDetalle.Where(x => x.CUV == pedidoDetalle.CUV && x.MarcaID == pedidoDetalle.MarcaID && x.ClienteID == Convert.ToInt16(clienteId)).FirstOrDefault();
+                                            bePedidoWebDetalle = olstPedidoWebDetalle.FirstOrDefault(x => x.CUV == pedidoDetalle.CUV && x.MarcaID == pedidoDetalle.MarcaID && x.ClienteID == Convert.ToInt16(clienteId));
 
                                             if (bePedidoWebDetalle != null)
                                             {
@@ -1278,7 +1255,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     try
                     {
-                        if (pedido.Accion == 1)  // desktop
+                        if (pedido.Accion == 1) 
                         {
                             Common.Util.EnviarMail3(emailDe, _pedido.Email, titulocliente, mensajecliente.ToString(), true, _pedido.Email);
                         }
@@ -1304,7 +1281,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     try
                     {
-                        if (pedido.Accion == 1)      // desktop
+                        if (pedido.Accion == 1)
                         {
                             Common.Util.EnviarMail3(emailDe, _pedido.Email, titulo, mensaje.ToString(), true, string.Empty);
                         }
@@ -1348,7 +1325,6 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var userData = UserData();
-                List<BEPedidoWebDetalle> olstPedidoWebDetalle = new List<BEPedidoWebDetalle>();
 
                 BEPedidoWebDetalle oBePedidoWebDetalle = new BEPedidoWebDetalle();
                 oBePedidoWebDetalle.IPUsuario = userData.IPUsuario;
@@ -1377,20 +1353,20 @@ namespace Portal.Consultoras.Web.Controllers
 
                 bool errorServer;
                 string tipo;
-                olstPedidoWebDetalle = AdministradorPedido(oBePedidoWebDetalle, "I", out errorServer, out tipo);
+                List<BEPedidoWebDetalle> olstPedidoWebDetalle = AdministradorPedido(oBePedidoWebDetalle, "I", out errorServer, out tipo);
 
                 return (!errorServer) ? olstPedidoWebDetalle : null;
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return null;
+                return new List<BEPedidoWebDetalle>();
             }
         }
 
         private List<BEPedidoWebDetalle> AdministradorPedido(BEPedidoWebDetalle oBEPedidoWebDetalle, string TipoAdm, out bool ErrorServer, out string tipo)
         {
-            List<BEPedidoWebDetalle> olstTempListado = new List<BEPedidoWebDetalle>();
+            List<BEPedidoWebDetalle> olstTempListado;
 
             try
             {
@@ -1557,21 +1533,17 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (ServiceSAC.SACServiceClient sv = new ServiceSAC.SACServiceClient())
             {
-                MisPedidosModel consultoraOnlineMisPedidos = new MisPedidosModel();
-                consultoraOnlineMisPedidos = (MisPedidosModel)Session["objMisPedidos"];
+                MisPedidosModel consultoraOnlineMisPedidos = (MisPedidosModel)Session["objMisPedidos"];
 
                 ServiceSAC.BETablaLogicaDatos[] tablalogicaDatosMail = sv.GetTablaLogicaDatos(PaisId, 57);
-                String emailOculto = tablalogicaDatosMail.First(x => x.TablaLogicaDatosID == 5701).Descripcion;
                 ServiceSAC.BETablaLogicaDatos[] tablalogicaDatos = sv.GetTablaLogicaDatos(PaisId, 56);
                 numIteracionMaximo = Convert.ToInt32(tablalogicaDatos.First(x => x.TablaLogicaDatosID == 5601).Codigo);
-                String horas = tablalogicaDatos.First(x => x.TablaLogicaDatosID == 5603).Codigo;
 
                 if (NumIteracion == numIteracionMaximo)
                 {
                     sv.RechazarSolicitudCliente(PaisId, SolicitudId, true, OpcionRechazo, RazonMotivoRechazo);
 
-                    BEMisPedidos pedido = new BEMisPedidos();
-                    pedido = consultoraOnlineMisPedidos.ListaPedidos.Where(p => p.PedidoId == SolicitudId).FirstOrDefault();
+                    BEMisPedidos pedido = consultoraOnlineMisPedidos.ListaPedidos.FirstOrDefault(p => p.PedidoId == SolicitudId);
 
                     if (pedido.FlagMedio == "01")
                     {
@@ -1712,7 +1684,7 @@ namespace Portal.Consultoras.Web.Controllers
                         try
                         {
                             string emailDe = GetConfiguracionManager(Constantes.ConfiguracionManager.ConsultoraOnlineEmailDe);
-                            if (typeAction == "1")      // desktop
+                            if (typeAction == "1")
                             {
                                 Common.Util.EnviarMail3(emailDe, pedido.Email, titulocliente, mensajecliente.ToString(), true, pedido.Email);
                             }
@@ -1795,8 +1767,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (ServiceSAC.SACServiceClient sc = new ServiceSAC.SACServiceClient())
                 {
-                    MisPedidosModel consultoraOnlineMisPedidos = new MisPedidosModel();
-                    consultoraOnlineMisPedidos = (MisPedidosModel)Session["objMisPedidos"];
+                    MisPedidosModel consultoraOnlineMisPedidos = (MisPedidosModel)Session["objMisPedidos"];
 
                     sc.CancelarSolicitudCliente(PaisId, SolicitudId, OpcionCancelado, RazonMotivoCancelado);
                     ServiceSAC.BESolicitudCliente beSolicitudCliente = sc.GetSolicitudCliente(PaisId, SolicitudId);
@@ -1927,31 +1898,23 @@ namespace Portal.Consultoras.Web.Controllers
         public ClienteContactaConsultoraModel DatoUsuario()
         {
             var consultoraAfiliar = new ClienteContactaConsultoraModel();
-            consultoraAfiliar.NombreConsultora = UserData().PrimerNombre;
 
-            string emailConsultora = UserData().EMail;
+            consultoraAfiliar.NombreConsultora = UserData().PrimerNombre;
+            ServiceSAC.BEAfiliaClienteConsultora beAfiliaCliente;
 
             using (ServiceSAC.SACServiceClient sc = new ServiceSAC.SACServiceClient())
             {
-                ServiceSAC.BEAfiliaClienteConsultora beAfiliaCliente = sc.GetAfiliaClienteConsultoraByConsultora(UserData().PaisID, UserData().CodigoConsultora);
-
-                consultoraAfiliar.Afiliado = beAfiliaCliente.EsAfiliado > 0;
-
-                consultoraAfiliar.EsPrimeraVez = beAfiliaCliente.EsAfiliado < 0;
-
-                consultoraAfiliar.ConsultoraID = beAfiliaCliente.ConsultoraID;
-
-                consultoraAfiliar.EmailActivo = beAfiliaCliente.EmailActivo;
-
-                consultoraAfiliar.NombreCompleto = beAfiliaCliente.NombreCompleto;
-
-                consultoraAfiliar.Email = beAfiliaCliente.Email;
-
-                consultoraAfiliar.Celular = beAfiliaCliente.Celular;
-
-                consultoraAfiliar.Telefono = beAfiliaCliente.Telefono;
+                beAfiliaCliente = sc.GetAfiliaClienteConsultoraByConsultora(UserData().PaisID, UserData().CodigoConsultora);
             }
 
+            consultoraAfiliar.Afiliado = beAfiliaCliente.EsAfiliado > 0;
+            consultoraAfiliar.EsPrimeraVez = beAfiliaCliente.EsAfiliado < 0;
+            consultoraAfiliar.ConsultoraID = beAfiliaCliente.ConsultoraID;
+            consultoraAfiliar.EmailActivo = beAfiliaCliente.EmailActivo;
+            consultoraAfiliar.NombreCompleto = beAfiliaCliente.NombreCompleto;
+            consultoraAfiliar.Email = beAfiliaCliente.Email;
+            consultoraAfiliar.Celular = beAfiliaCliente.Celular;
+            consultoraAfiliar.Telefono = beAfiliaCliente.Telefono;
 
             return consultoraAfiliar;
         }

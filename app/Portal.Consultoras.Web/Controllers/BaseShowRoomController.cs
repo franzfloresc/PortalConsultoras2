@@ -28,8 +28,6 @@ namespace Portal.Consultoras.Web.Controllers
                 BuildMenuMobile(userData,revistaDigital);
                 CargarValoresGenerales(userData);
 
-                ShowRoomModel ShowRoom = new ShowRoomModel();
-
                 bool mostrarBanner, permitirCerrarBanner = false;
                 if (SiempreMostrarBannerPL20()) mostrarBanner = true;
                 else if (NuncaMostrarBannerPL20()) mostrarBanner = false;
@@ -85,9 +83,10 @@ namespace Portal.Consultoras.Web.Controllers
                     ViewBag.OfertaDelDia = ofertaDelDia;
 
                     ViewBag.MostrarOfertaDelDia =
-                         userData.CloseOfertaDelDia
-                         ? false
-                         : (userData.TieneOfertaDelDia && ofertaDelDia != null && ofertaDelDia.TeQuedan.TotalSeconds > 0);
+                        !userData.CloseOfertaDelDia
+                        && userData.TieneOfertaDelDia 
+                        && ofertaDelDia != null 
+                        && ofertaDelDia.TeQuedan.TotalSeconds > 0;
 
                     showRoomBannerLateral.EstadoActivo = mostrarBannerTop ? "0" : "1";
                 }
@@ -127,7 +126,6 @@ namespace Portal.Consultoras.Web.Controllers
         private bool NuncaMostrarBannerPL20()
         {
             string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
-            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
 
             if (controllerName == "Pedido") return true;
             if (controllerName == "CatalogoPersonalizado") return true;
@@ -219,7 +217,7 @@ namespace Portal.Consultoras.Web.Controllers
         public bool TienePersonalizacion()
         {
             var showRoomEvento = userData.BeShowRoom;
-            var tienePersonalizacion = showRoomEvento != null ? showRoomEvento.TienePersonalizacion : false;
+            var tienePersonalizacion = showRoomEvento != null && showRoomEvento.TienePersonalizacion;
             return tienePersonalizacion;
         }
 

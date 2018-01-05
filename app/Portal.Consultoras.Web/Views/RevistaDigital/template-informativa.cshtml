@@ -10,25 +10,21 @@
     @System.Web.Optimization.Styles.Render("~/bundles/css/Site/RevistaDigital-Info")
 }
 
-
-
 <div class="back-to" onClick="RedireccionarContenedorComprar()">
     <img src="@Url.Content("~/Content/Images/triangle.png")" alt="">VOLVER
 </div>
 
-@if (Model.Origen != Constantes.RevistaDigitalOrigen.Unete)
+@if (Model.Origen == Constantes.RevistaDigitalOrigen.Unete)
 {
    /* EL VIDEO NO DEBE APARECER A LAS NUEVAS 100% DIGITAL */ 
 }
 else
 {
-
     <div class="video-visual">
         <div class="video-container">
             <iframe src="@Model.Video&autoplay=1" frameborder="0" allowfullscreen=""></iframe>
         </div>
     </div>
-
 }
 
 
@@ -84,9 +80,8 @@ else
     </div>
 </div>
 
-@if (Model.Origen != Constantes.RevistaDigitalOrigen.Unete)
+@if (Model.Origen == Constantes.RevistaDigitalOrigen.Unete)
 {
-   
     <div class="como-funciona">
         <div class="contenedor-suscripcion">
             <div class="arrow-down"></div>
@@ -112,43 +107,44 @@ else
 }
 else
 {
-<div class="como-funciona">
-    <div class="contenedor-suscripcion">
-        <div class="arrow-down"></div>
-        <p class="como-funciona-txt">
-            ¿CÓMO FUNCIONA?
-        </p>
-        <div class="caja-texto">
-            <span class="nro">-</span>
-            <span class="txt">
-                En esta campaña te suscribes al Club GANA+.
-            </span>
-            <div class="clear"></div>
-            <span class="nro">-</span>
-            <span class="txt">
-                Para tu próximo pedido, <b>dejarás de recibir la guía impresa.</b>
-            </span>
-            <div class="clear"></div>
-            <span class="nro mobil-nro-funciona">-</span>
-            <span class="txt mobil-nro-funciona">
-                En la siguiente campaña, ¡podrás disfrutar de ser parte del Club GANA+!
-            </span>
-            <div class="clear"></div>
-            @if (!Model.EsSuscrita)
-            {
-                <span class="txt recuerda-txt">
-                    RECUERDA QUE PUEDES CANCELAR TU SUSCRIPCIÓN CUANDO QUIERAS.
+    <div class="como-funciona">
+        <div class="contenedor-suscripcion">
+            <div class="arrow-down"></div>
+            <p class="como-funciona-txt">
+                ¿CÓMO FUNCIONA?
+            </p>
+            <div class="caja-texto">
+                <span class="nro">-</span>
+                <span class="txt">
+                    En esta campaña te suscribes al Club GANA+.
                 </span>
-            }
+                <div class="clear"></div>
+                <span class="nro">-</span>
+                <span class="txt">
+                    Para tu próximo pedido, <b>dejarás de recibir la guía impresa.</b>
+                </span>
+                <div class="clear"></div>
+                <span class="nro mobil-nro-funciona">-</span>
+                <span class="txt mobil-nro-funciona">
+                    En la siguiente campaña, ¡podrás disfrutar de ser parte del Club GANA+!
+                </span>
+                <div class="clear"></div>
+                @if (!Model.EsSuscrita)
+                {
+                    <span class="txt recuerda-txt">
+                        RECUERDA QUE PUEDES CANCELAR TU SUSCRIPCIÓN CUANDO QUIERAS.
+                    </span>
+                }
+            </div>
+            <div class="caja-img">
+                <div class="visual-funcionamiento"></div>
+            </div>
+            <div class="clear"></div>
         </div>
-        <div class="caja-img">
-            <div class="visual-funcionamiento"></div>
-        </div>
-        <div class="clear"></div>
     </div>
-</div>
 }
-@if (Model.Origen != Constantes.RevistaDigitalOrigen.Unete)
+
+@if (Model.Origen == Constantes.RevistaDigitalOrigen.Unete)
 {
     <div class="suscribete" data-estadoregistro="@Model.EstadoSuscripcion">
         <div class="contenedor-suscripcion">
@@ -196,7 +192,6 @@ else
         </div>
     </div>
 }
-
 
 <div class="preguntas-frecuentes-cont-sus">
     <div class="contenedor-mobile-fix">
@@ -251,11 +246,12 @@ else
             </li>
             <div style="clear:both;"></div>
         </ul>
-        <a class="descargar"  href="@Model.UrlPreguntasFrecuentes" target="_blank">DESCARGA MÁS PREGUNTAS FRECUENTES</a>
+        <a class="descargar" href="@Model.UrlPreguntasFrecuentes" target="_blank">DESCARGA MÁS PREGUNTAS FRECUENTES</a>
     </div>
 </div>
-</div>
+
 @Html.Partial("~/Views/RevistaDigital/template-confirmacion-datos.cshtml")
+
 @section scripts{
     <script type="text/javascript">
         var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
@@ -264,47 +260,6 @@ else
         var urlRevistaDigital = '@Url.Action("Comprar", "RevistaDigital")';
         var isScroll = false;
     </script>
-    <script>
-            $(document).ready(function () {
-                var clickabrir = 1
-                $('.preguntas-frecuentes-cont-sus ul.preg-frecuentes li:has(ul)').click(function () {
-                    $(this).find('ul').slideToggle();
-                    if (clickabrir == 1) {
-                        $(this).find('span.despliegue').css("display", "none");
-                        $(this).find('span.nodespliegue').css("display", "block");
-                        clickabrir = 0;
-                    }
-                    else {
-                        $(this).find('span.despliegue').css("display", "block");
-                        $(this).find('span.nodespliegue').css("display", "none");
-                        clickabrir = 1;
-                    }
-                });
-            });
-    </script>
-
-<script>
-            $(document).ready(function () {
-                $('.popup_confirmacion_datos .form-datos .input input').keyup(function () {
-
-                    var empty = false;
-                    $('.popup_confirmacion_datos .form-datos .input input').each(function () {
-                        if ($(this).val().length == 0) {
-                            empty = true;
-                        }
-                    });
-
-                    if (empty) {
-                        $('.actions input').attr('disabled', 'disabled');
-                        $('.popup_confirmacion_datos .form-datos button').removeClass('boton_popup_confirmacion_datos');
-                    } else {
-                        $('.actions input').attr('disabled', false);
-                        $('.popup_confirmacion_datos .form-datos button').addClass('boton_popup_confirmacion_datos');
-                    }
-                });
-            });
-</script>
-
 
     @System.Web.Optimization.Scripts.Render("~/bundles/RevistaDigital-Info")
 }

@@ -49,7 +49,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult Detalle(int campania)
         {
-            string ISO = userData.CodigoISO;
             List<BECatalogoConfiguracion> lstCatalogoConfiguracion = new List<BECatalogoConfiguracion>();
             using (ClienteServiceClient sv = new ClienteServiceClient())
             {
@@ -59,10 +58,10 @@ namespace Portal.Consultoras.Web.Controllers
             List<Catalogo> listCatalogo = this.GetCatalogosPublicados(userData.CodigoISO, campania.ToString());
 
             campania = campania <= 0 ? userData.CampaniaID : campania;
-            string estadoLbel = CampaniaInicioFin(lstCatalogoConfiguracion.Where(l => l.MarcaID == (int)Enumeradores.TypeMarca.LBel).FirstOrDefault(), campania);
-            string estadoEsika = CampaniaInicioFin(lstCatalogoConfiguracion.Where(l => l.MarcaID == (int)Enumeradores.TypeMarca.Esika).FirstOrDefault(), campania);
-            string estadoCyzone = CampaniaInicioFin(lstCatalogoConfiguracion.Where(l => l.MarcaID == (int)Enumeradores.TypeMarca.Cyzone).FirstOrDefault(), campania);
-            string estadoFinart = CampaniaInicioFin(lstCatalogoConfiguracion.Where(l => l.MarcaID == (int)Enumeradores.TypeMarca.Finart).FirstOrDefault(), campania);
+            string estadoLbel = CampaniaInicioFin(lstCatalogoConfiguracion.FirstOrDefault(l => l.MarcaID == (int)Enumeradores.TypeMarca.LBel), campania);
+            string estadoEsika = CampaniaInicioFin(lstCatalogoConfiguracion.FirstOrDefault(l => l.MarcaID == (int)Enumeradores.TypeMarca.Esika), campania);
+            string estadoCyzone = CampaniaInicioFin(lstCatalogoConfiguracion.FirstOrDefault(l => l.MarcaID == (int)Enumeradores.TypeMarca.Cyzone), campania);
+            string estadoFinart = CampaniaInicioFin(lstCatalogoConfiguracion.FirstOrDefault(l => l.MarcaID == (int)Enumeradores.TypeMarca.Finart), campania);
             string catalogoUnificado = "0";
 
             if (EsCatalogoUnificado(campania))
@@ -166,7 +165,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             string CampaniaID = string.Empty;
             string FechaFacturacion = string.Empty;
-            List<CatalogoClienteModel> lstClientesCat = new List<CatalogoClienteModel>();
 
             try
             {
@@ -224,13 +222,11 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 string RutaPublicaImagen = "";
-                string nombrecorto = userData.NombreCorto;
                 string CorreosInvalidos = string.Empty;
 
                 Catalogo catalogoLbel = catalogos.FirstOrDefault(x => x.IdMarcaCatalogo == Constantes.Marca.LBel);
                 Catalogo catalogoEsika = catalogos.FirstOrDefault(x => x.IdMarcaCatalogo == Constantes.Marca.Esika);
                 Catalogo catalogoCyZone = catalogos.FirstOrDefault(x => x.IdMarcaCatalogo == Constantes.Marca.Cyzone);
-                Catalogo catalogoFinart = catalogos.FirstOrDefault(x => x.IdMarcaCatalogo == Constantes.Marca.Finart);
 
                 DateTime dd = DateTime.Parse(FechaFacturacion, new CultureInfo("es-ES"));
                 string fdf = dd.ToString("dd", new CultureInfo("es-ES"));
@@ -549,7 +545,10 @@ namespace Portal.Consultoras.Web.Controllers
                 url = string.Format(url, codigo);
                 return Json(new { success = true, urlRevista = url }, JsonRequestBehavior.AllowGet);
             }
-            catch { }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
             return Json(new { success = false }, JsonRequestBehavior.AllowGet);
         }
 

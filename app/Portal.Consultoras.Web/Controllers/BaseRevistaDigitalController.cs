@@ -17,6 +17,10 @@ namespace Portal.Consultoras.Web.Controllers
             if (!revistaDigital.TieneRDC && !revistaDigital.TieneRDS)
                 return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
 
+            ViewBag.NombreConsultora = userData.NombreConsultora.ToUpper();
+            ViewBag.EMail = userData.EMail;
+            ViewBag.Celular = userData.Celular;
+
             var modelo = new RevistaDigitalInformativoModel
             {
                 EsSuscrita = revistaDigital.EsSuscrita,
@@ -130,9 +134,16 @@ namespace Portal.Consultoras.Web.Controllers
         private string GetVideoInformativo()
         {
             var dato = revistaDigital.ConfiguracionPaisDatos.FirstOrDefault(d => d.Codigo == Constantes.ConfiguracionPaisDatos.RD.InformativoVideo) ?? new ConfiguracionPaisDatosModel();
-            var video = IsMobile() ? Util.Trim(dato.Valor2) : Util.Trim(dato.Valor1);
-
-            video = video != "" ? "https://www.youtube.com/embed/" + (video) + "?rel=0&amp;controls=1&amp;modestbranding=0" : "";
+            var video = "";
+            if (IsMobile())
+            {
+                video = Util.Trim(dato.Valor2);
+            }
+            else
+            {
+                video = Util.Trim(dato.Valor1);
+                video = video != "" ? "https://www.youtube.com/embed/" + (video) + "?rel=0&amp;controls=1&amp;modestbranding=0" : "";
+            }
 
             return video;
         }

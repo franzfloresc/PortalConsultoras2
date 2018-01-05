@@ -79,7 +79,6 @@ namespace Portal.Consultoras.Web.Controllers
                 grid.CurrentPage = page;
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
-                BEPager pag = new BEPager();
                 IEnumerable<BEPermiso> items = lst;
 
                 #region Sort Section
@@ -133,9 +132,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
-                pag = Util.PaginadorGenerico(grid, lst);
+                BEPager pag = Util.PaginadorGenerico(grid, lst);
 
                 var data = new
                 {
@@ -380,7 +379,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (sessionManager.GetUserData() != null)
             {
-                int Campaniaid = UserData().CampaniaID;
                 IList<ServiceSAC.BEServicioCampania> lst = new List<ServiceSAC.BEServicioCampania>();
 
                 using (SACServiceClient sv = new SACServiceClient())

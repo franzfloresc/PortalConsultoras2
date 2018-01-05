@@ -104,11 +104,11 @@ namespace Portal.Consultoras.BizLogic
             IList<BEFactorGanancia> lista = SelectFactorGanancia(paisID);
             if (lista.Count != 0)
             {
-                oBEFactorGanancia = lista.Where(p => p.RangoMinimo <= monto && p.RangoMaximo >= monto).FirstOrDefault();
+                oBEFactorGanancia = lista.FirstOrDefault(p => p.RangoMinimo <= monto && p.RangoMaximo >= monto);
                 if (oBEFactorGanancia != null)
                 {
                     int Escala = oBEFactorGanancia.Escala;
-                    oBEFactorGanancia = lista.Where(p => p.Escala == Escala + 1).FirstOrDefault();
+                    oBEFactorGanancia = lista.FirstOrDefault(p => p.Escala == Escala + 1);
                 }
             }
             return oBEFactorGanancia;
@@ -121,11 +121,11 @@ namespace Portal.Consultoras.BizLogic
             IList<BEFactorGanancia> lista = SelectFactorGanancia(paisID);
             if (lista.Count != 0)
             {
-                oBEFactorGanancia = lista.Where(p => p.RangoMinimo <= monto && p.RangoMaximo >= monto).FirstOrDefault();
+                oBEFactorGanancia = lista.FirstOrDefault(p => p.RangoMinimo <= monto && p.RangoMaximo >= monto);
                 if (oBEFactorGanancia == null)
                 {
                     int Escala = lista.Max(p => p.Escala);
-                    oBEFactorGanancia = lista.Where(p => p.Escala == Escala).FirstOrDefault();
+                    oBEFactorGanancia = lista.FirstOrDefault(p => p.Escala == Escala);
                 }
             }
             return oBEFactorGanancia;
