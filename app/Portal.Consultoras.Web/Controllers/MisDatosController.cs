@@ -130,17 +130,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<MisDatosModel, BEUsuario>()
-                    .ForMember(t => t.CodigoUsuario, f => f.MapFrom(c => c.CodigoUsuario))
-                    .ForMember(t => t.EMail, f => f.MapFrom(c => c.EMail))
-                    .ForMember(t => t.Telefono, f => f.MapFrom(c => c.Telefono))
-                    .ForMember(t => t.TelefonoTrabajo, f => f.MapFrom(c => c.TelefonoTrabajo))
-                    .ForMember(t => t.Celular, f => f.MapFrom(c => c.Celular))
-                    .ForMember(t => t.Sobrenombre, f => f.MapFrom(c => c.Sobrenombre))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.NombreCompleto))
-                    .ForMember(t => t.CompartirDatos, f => f.MapFrom(c => c.CompartirDatos))
-                    .ForMember(t => t.AceptoContrato, f => f.MapFrom(c => c.AceptoContrato));
-
                 BEUsuario entidad = Mapper.Map<MisDatosModel, BEUsuario>(model);
                 string CorreoAnterior = model.CorreoAnterior;
 
@@ -213,9 +202,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<MisDatosModel, BEUsuario>()
-                    .ForMember(t => t.AceptoContrato, f => f.MapFrom(c => c.AceptoContrato));
-
                 BEUsuario entidad = Mapper.Map<MisDatosModel, BEUsuario>(model);
 
                 entidad.CodigoUsuario = (entidad.CodigoUsuario == null) ? "" : UserData().CodigoUsuario;

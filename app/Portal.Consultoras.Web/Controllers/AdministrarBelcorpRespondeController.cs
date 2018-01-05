@@ -100,19 +100,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<AdministrarBelcorpRespondeModel, BEBelcorpResponde>()
-                   .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                   .ForMember(t => t.Telefono1, f => f.MapFrom(c => c.Telefono1))
-                   .ForMember(t => t.Telefono2, f => f.MapFrom(c => c.Telefono2))
-                   .ForMember(t => t.Escribenos, f => f.MapFrom(c => c.Escribenos))
-                   .ForMember(t => t.EscribenosURL, f => f.MapFrom(c => c.EscribenosURL))
-                   .ForMember(t => t.Correo, f => f.MapFrom(c => c.Correo))
-                   .ForMember(t => t.CorreoBcc, f => f.MapFrom(c => c.CorreoBcc))
-                   .ForMember(t => t.Chat, f => f.MapFrom(c => c.Chat))
-                   .ForMember(t => t.ChatURL, f => f.MapFrom(c => c.ChatURL))
-                   .ForMember(t => t.ParametroPais, f => f.MapFrom(c => c.ParametroPais))
-                   .ForMember(t => t.ParametroCodigoConsultora, f => f.MapFrom(c => c.ParametroCodigoConsultora));
-
                 BEBelcorpResponde entidad = Mapper.Map<AdministrarBelcorpRespondeModel, BEBelcorpResponde>(model);
 
                 using (ContenidoServiceClient sv = new ContenidoServiceClient())

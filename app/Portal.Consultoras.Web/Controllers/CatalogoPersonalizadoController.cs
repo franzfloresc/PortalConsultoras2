@@ -584,13 +584,6 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 int id;
-                AutoMapper.Mapper.CreateMap<ProductoCompartidoModel, BEProductoCompartido>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.mPaisID))
-                    .ForMember(t => t.PcCampaniaID, f => f.MapFrom(c => c.mCampaniaID))
-                    .ForMember(t => t.PcCuv, f => f.MapFrom(c => c.mCUV))
-                    .ForMember(t => t.PcPalanca, f => f.MapFrom(c => c.mPalanca))
-                    .ForMember(t => t.PcDetalle, f => f.MapFrom(c => c.mDetalle))
-                    .ForMember(t => t.PcApp, f => f.MapFrom(c => c.mApplicacion));
 
                 BEProductoCompartido entidad = AutoMapper.Mapper.Map<ProductoCompartidoModel, BEProductoCompartido>(ProCompModel);
                 using (ODSServiceClient svc = new ODSServiceClient())

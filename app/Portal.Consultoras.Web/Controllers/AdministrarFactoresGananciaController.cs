@@ -187,13 +187,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<AdministrarFactoresGananciaModel, BEFactorGanancia>()
-                   .ForMember(t => t.FactorGananciaID, f => f.MapFrom(c => c.FactorGananciaID))
-                   .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                   .ForMember(t => t.RangoMinimo, f => f.MapFrom(c => c.RangoMinimo))
-                   .ForMember(t => t.RangoMaximo, f => f.MapFrom(c => c.RangoMaximo))
-                   .ForMember(t => t.Porcentaje, f => f.MapFrom(c => c.Porcentaje));
-
                 BEFactorGanancia entidad = Mapper.Map<AdministrarFactoresGananciaModel, BEFactorGanancia>(model);
                 int RangoValido = 0;
                 using (SACServiceClient sv = new SACServiceClient())
@@ -243,13 +236,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<AdministrarFactoresGananciaModel, BEFactorGanancia>()
-                    .ForMember(t => t.FactorGananciaID, f => f.MapFrom(c => c.FactorGananciaID))
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.RangoMinimo, f => f.MapFrom(c => c.RangoMinimo))
-                    .ForMember(t => t.RangoMaximo, f => f.MapFrom(c => c.RangoMaximo))
-                    .ForMember(t => t.Porcentaje, f => f.MapFrom(c => c.Porcentaje));
-
                 BEFactorGanancia entidad = Mapper.Map<AdministrarFactoresGananciaModel, BEFactorGanancia>(model);
                 int RangoValido = 0;
                 using (SACServiceClient sv = new SACServiceClient())
