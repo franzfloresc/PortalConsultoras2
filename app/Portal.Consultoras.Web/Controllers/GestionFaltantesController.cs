@@ -134,11 +134,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult SelectZonaByCodigo(int paisID, string codigo, int rowCount)
         {
-            Mapper.CreateMap<BEZona, ZonaModel>()
-                .ForMember(t => t.ZonaID, f => f.MapFrom(c => c.ZonaID))
-                .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo))
-                .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                .ForMember(t => t.RegionID, f => f.MapFrom(c => c.RegionID));
             List<BEZona> lista;
             using (ZonificacionServiceClient srv = new ZonificacionServiceClient())
             {
@@ -152,10 +147,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult SelectCodigoProducto(int campaniaID, int paisID, string codigo, int rowCount)
         {
-            Mapper.CreateMap<ServiceODS.BEProductoDescripcion, GestionFaltantesModel>()
-                .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
-                .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion));
-
             List<ServiceODS.BEProductoDescripcion> lista;
             using (ODSServiceClient srv = new ODSServiceClient())
             {
@@ -483,12 +474,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (IsCorrect && lista != null)
                 {
-                    Mapper.CreateMap<GestionFaltantesModel, BEProductoFaltante>()
-                   .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                   .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
-                   .ForMember(t => t.Zona, f => f.MapFrom(c => c.Zona))
-                   .ForMember(t => t.ZonaID, f => f.MapFrom(c => c.ZonaID));
-
                     var lst = Mapper.Map<IList<GestionFaltantesModel>, IEnumerable<BEProductoFaltante>>(lista);
                     using (SACServiceClient srv = new SACServiceClient())
                     {
@@ -565,11 +550,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             }
             lista.Insert(0, new BECampania() { CampaniaID = 0, Codigo = "-- Seleccionar --" });
-            Mapper.CreateMap<BECampania, CampaniaModel>()
-                .ForMember(x => x.CampaniaID, t => t.MapFrom(c => c.CampaniaID))
-                .ForMember(x => x.NombreCorto, t => t.MapFrom(c => c.NombreCorto))
-                .ForMember(x => x.Codigo, t => t.MapFrom(c => c.Codigo));
-
+            
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lista);
         }
 

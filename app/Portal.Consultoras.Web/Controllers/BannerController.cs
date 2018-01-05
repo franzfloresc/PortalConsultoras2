@@ -1013,10 +1013,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.GetBannerPaisesAsignados(CampaniaId, BannerId).ToList();
             }
-            Mapper.CreateMap<BEBannerSegmentoZona, PaisModel>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisId))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.NombrePais))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombrePais));
 
             return Mapper.Map<IList<BEBannerSegmentoZona>, IEnumerable<PaisModel>>(lst);
         }

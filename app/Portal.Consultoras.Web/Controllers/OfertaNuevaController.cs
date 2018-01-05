@@ -341,14 +341,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lista = servicezona.SelectCampanias(PaisID);
             }
-            Mapper.CreateMap<BECampania, CampaniaModel>()
-               .ForMember(x => x.CampaniaID, t => t.MapFrom(c => c.CampaniaID))
-               .ForMember(x => x.Codigo, t => t.MapFrom(c => c.Codigo))
-               .ForMember(x => x.Anio, t => t.MapFrom(c => c.Anio))
-               .ForMember(x => x.NombreCorto, t => t.MapFrom(c => c.NombreCorto))
-               .ForMember(x => x.PaisID, t => t.MapFrom(c => c.PaisID))
-               .ForMember(x => x.Activo, t => t.MapFrom(c => c.Activo));
-
+            
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lista);
         }
 
@@ -429,24 +422,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<OfertaNuevaModel, BEOfertaNueva>()
-                        .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                        .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                        .ForMember(t => t.CampaniaIDFin, f => f.MapFrom(c => c.CampaniaIDFin))
-                        .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
-                        .ForMember(t => t.NumeroPedido, f => f.MapFrom(c => c.NumeroPedido))
-                        .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
-                        .ForMember(t => t.PrecioNormal, f => f.MapFrom(c => c.PrecioNormal))
-                        .ForMember(t => t.PrecioParaTi, f => f.MapFrom(c => c.PrecioParaTi))
-                        .ForMember(t => t.UnidadesPermitidas, f => f.MapFrom(c => c.UnidadesPermitidas))
-                        .ForMember(t => t.ImagenProducto01, f => f.MapFrom(c => c.ImagenProducto01))
-                        .ForMember(t => t.ImagenProducto02, f => f.MapFrom(c => c.ImagenProducto02))
-                        .ForMember(t => t.ImagenProducto03, f => f.MapFrom(c => c.ImagenProducto03))
-                        .ForMember(t => t.FlagImagenActiva, f => f.MapFrom(c => c.FlagImagenActiva))
-                        .ForMember(t => t.FlagHabilitarOferta, f => f.MapFrom(c => c.FlagHabilitarOferta))
-                        .ForMember(t => t.UsuarioRegistro, f => f.MapFrom(c => c.UsuarioRegistro))
-                        .ForMember(t => t.ganahasta, f => f.MapFrom(c => c.ganahasta));
-
                 BEOfertaNueva entidad = Mapper.Map<OfertaNuevaModel, BEOfertaNueva>(model);
 
                 using (PedidoServiceClient svc = new PedidoServiceClient())
@@ -531,24 +506,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<OfertaNuevaModel, BEOfertaNueva>()
-                        .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                        .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                        .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
-                        .ForMember(t => t.NumeroPedido, f => f.MapFrom(c => c.NumeroPedido))
-                        .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
-                        .ForMember(t => t.PrecioNormal, f => f.MapFrom(c => c.PrecioNormal))
-                        .ForMember(t => t.PrecioParaTi, f => f.MapFrom(c => c.PrecioParaTi))
-                        .ForMember(t => t.UnidadesPermitidas, f => f.MapFrom(c => c.UnidadesPermitidas))
-                        .ForMember(t => t.ImagenProducto01, f => f.MapFrom(c => c.ImagenProducto01))
-                        .ForMember(t => t.ImagenProducto02, f => f.MapFrom(c => c.ImagenProducto02))
-                        .ForMember(t => t.ImagenProducto03, f => f.MapFrom(c => c.ImagenProducto03))
-                        .ForMember(t => t.FlagImagenActiva, f => f.MapFrom(c => c.FlagImagenActiva))
-                        .ForMember(t => t.FlagHabilitarOferta, f => f.MapFrom(c => c.FlagHabilitarOferta))
-                        .ForMember(t => t.OfertaNuevaId, f => f.MapFrom(c => c.OfertaNuevaId))
-                        .ForMember(t => t.UsuarioModificacion, f => f.MapFrom(c => c.UsuarioModificacion))
-                        .ForMember(t => t.ganahasta, f => f.MapFrom(c => c.ganahasta));
-
                 BEOfertaNueva entidad = Mapper.Map<OfertaNuevaModel, BEOfertaNueva>(model);
 
                 using (PedidoServiceClient svc = new PedidoServiceClient())
@@ -637,12 +594,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<OfertaNuevaModel, BEOfertaNueva>()
-                        .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                        .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                        .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
-                        .ForMember(t => t.OfertaNuevaId, f => f.MapFrom(c => c.OfertaNuevaId));
-
                 BEOfertaNueva entidad = Mapper.Map<OfertaNuevaModel, BEOfertaNueva>(model);
 
                 using (PedidoServiceClient svc = new PedidoServiceClient())

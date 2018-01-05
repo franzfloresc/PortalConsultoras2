@@ -529,19 +529,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var showRoomEvento = userData.BeShowRoom;
                 var codigoConsultora = userData.CodigoConsultora;
-
-                Mapper.CreateMap<BEShowRoomEvento, ShowRoomEventoModel>()
-                    .ForMember(t => t.EventoID, f => f.MapFrom(c => c.EventoID))
-                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                    .ForMember(t => t.Tema, f => f.MapFrom(c => c.Tema))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                    .ForMember(t => t.Imagen1, f => f.MapFrom(c => c.Imagen1))
-                    .ForMember(t => t.Imagen2, f => f.MapFrom(c => c.Imagen2))
-                    .ForMember(t => t.Descuento, f => f.MapFrom(c => c.Descuento))
-                    .ForMember(t => t.TieneCategoria, f => f.MapFrom(c => c.TieneCategoria))
-                    .ForMember(t => t.TieneCompraXcompra, f => f.MapFrom(c => c.TieneCompraXcompra))
-                    .ForMember(t => t.TieneSubCampania, f => f.MapFrom(c => c.TieneSubCampania));
-
+                
                 showRoomEventoModel = Mapper.Map<BEShowRoomEvento, ShowRoomEventoModel>(showRoomEvento);
                 showRoomEventoModel.Simbolo = userData.Simbolo;
                 showRoomEventoModel.CodigoIso = userData.CodigoISO;

@@ -106,10 +106,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<UsuarioRolModel, ServiceSeguridad.BEUsuarioRol>()
-                    .ForMember(t => t.RolID, f => f.MapFrom(c => c.RolID))
-                    .ForMember(t => t.CodigoUsuario, f => f.MapFrom(c => c.CodigoUsuario));
-
                 ServiceSeguridad.BEUsuarioRol entidad = Mapper.Map<UsuarioRolModel, ServiceSeguridad.BEUsuarioRol>(model);
                 entidad.paisID = UserData().PaisID;
 
@@ -166,10 +162,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<UsuarioRolModel, ServiceUsuario.BEUsuarioRol>()
-                    .ForMember(t => t.CodigoUsuario, f => f.MapFrom(c => c.CodigoUsuario))
-                    .ForMember(t => t.RolID, f => f.MapFrom(c => c.RolID));
-
                 int retorno;
 
                 ServiceUsuario.BEUsuarioRol entidad = Mapper.Map<UsuarioRolModel, ServiceUsuario.BEUsuarioRol>(model);
@@ -232,10 +224,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<ConsultoraFicticiaModel, BEUsuario>()
-                    .ForMember(t => t.CodigoUsuario, f => f.MapFrom(c => c.CodigoUsuario))
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID));
-
                 BEUsuario entidad = Mapper.Map<ConsultoraFicticiaModel, BEUsuario>(model);
 
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())

@@ -107,11 +107,6 @@ namespace Portal.Consultoras.Web.Controllers
             int vValidation = 0;
             try
             {
-                Mapper.CreateMap<RolModel, BERol>()
-                    .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
-                    .ForMember(t => t.Sistema, f => f.MapFrom(c => c.Sistema))
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID));
-
                 BERol rol = Mapper.Map<RolModel, BERol>(model);
 
                 using (SeguridadServiceClient sv = new SeguridadServiceClient())
@@ -171,12 +166,6 @@ namespace Portal.Consultoras.Web.Controllers
             int vValidation = 0;
             try
             {
-                Mapper.CreateMap<RolModel, BERol>()
-                    .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
-                    .ForMember(t => t.RolID, f => f.MapFrom(c => c.RolID))
-                    .ForMember(t => t.Sistema, f => f.MapFrom(c => c.Sistema))
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID));
-
                 BERol rol = Mapper.Map<RolModel, BERol>(model);
 
                 using (SeguridadServiceClient sv = new SeguridadServiceClient())
