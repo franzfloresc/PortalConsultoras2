@@ -31,7 +31,6 @@
             top: -2px;
         }
     </style>
-    <link href="@Url.Content("~/Content/Css/Mobile/esika/revistaDigital.css")" rel="stylesheet" type="text/css" />
 }
 
 <div class="titulo_mobile" style="display:none;">
@@ -50,7 +49,7 @@
                     <span>VOLVER</span>
                 }                
             </div>
-            <div class="texto_usuario_ept">ÉSIKA PARA MÍ</div>
+            <div class="texto_usuario_ept">CLUB GANA+</div>
         </div>
     }
     else
@@ -61,8 +60,8 @@
 @if (codigo != Constantes.ConfiguracionPais.RevistaDigital)
 {
     <div class="" style="border-bottom:0">
-        <div class="pestana_esika"></div><!--PESTANA ESIKA-->
-        <div class="pestana_lbel"></div><!--PESTANA LBEL-->
+        <div class="pestana_esika"></div>
+        <div class="pestana_lbel"></div>
     </div>
 }
 @{
@@ -265,7 +264,6 @@
     @Html.Action("MensajeBloqueado", "RevistaDigital")
 }
 
-@Html.Partial("~/Areas/Mobile/Views/RevistaDigital/template-mensaje-inscrita.cshtml", (int)ViewBag.CampaniaMasDos)
 @section scripts{
     <script type="text/javascript">
 

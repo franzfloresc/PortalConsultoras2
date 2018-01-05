@@ -68,7 +68,7 @@ namespace Portal.Consultoras.Web.Controllers
                     string param_querystring = Util.Encrypt(string.Join(";", parametros));
                     HttpRequestBase request = this.HttpContext.Request;
 
-                    bool tipopais = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(userData.CodigoISO);
+                    bool tipopais = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesEsika).Contains(userData.CodigoISO);
 
                     var cadena = MailUtilities.CuerpoMensajePersonalizado(Util.GetUrlHost(this.HttpContext.Request).ToString(), userData.Sobrenombre, param_querystring, tipopais);
 
@@ -106,7 +106,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string url = (Util.GetUrlHost(this.HttpContext.Request).ToString());
                 string montoLimite = ObtenerMontoLimiteDelCupon();
                 CuponConsultoraModel cuponModel = ObtenerDatosCupon();
-                bool tipopais = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(userData.CodigoISO);
+                bool tipopais = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesEsika).Contains(userData.CodigoISO);
                 string mailBody = MailUtilities.CuerpoCorreoActivacionCupon(userData.PrimerNombre, userData.CampaniaID.ToString(), userData.Simbolo, cuponModel.ValorAsociado, cuponModel.TipoCupon, url, montoLimite, tipopais);
                 string correo = userData.EMail;
                 Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", correo, "Activación de Cupón", mailBody, true, userData.NombreConsultora);
@@ -218,7 +218,16 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    listaPedidoWebDetalle = sv.SelectByCampania(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.NombreConsultora, EsOpt()).ToList();
+                    var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros();
+                    bePedidoWebDetalleParametros.PaisId = userData.PaisID;
+                    bePedidoWebDetalleParametros.CampaniaId = userData.CampaniaID;
+                    bePedidoWebDetalleParametros.ConsultoraId = userData.ConsultoraID;
+                    bePedidoWebDetalleParametros.Consultora = userData.NombreConsultora;
+                    bePedidoWebDetalleParametros.EsBpt = EsOpt() == 1;
+                    bePedidoWebDetalleParametros.CodigoPrograma = userData.CodigoPrograma;
+                    bePedidoWebDetalleParametros.NumeroPedido = userData.ConsecutivoNueva;
+
+                    listaPedidoWebDetalle = sv.SelectByCampania(bePedidoWebDetalleParametros).ToList();
                 }
             }
             else

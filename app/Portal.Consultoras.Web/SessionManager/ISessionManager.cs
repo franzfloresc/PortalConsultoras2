@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
+using Portal.Consultoras.Web.Models.MisCertificados;
 
 namespace Portal.Consultoras.Web.SessionManager
 {
@@ -94,5 +95,13 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetMontosProl(List<ObjMontosProl> montosProl);
 
         List<ObjMontosProl> GetMontosProl();
+        
+        void SetMisCertificados(List<MiCertificadoModel> lista);
+
+        List<MiCertificadoModel> GetMisCertificados();
+
+        void SetMisCertificadosData(List<BEMiCertificado> lista);
+
+        List<BEMiCertificado> GetMisCertificadosData();
     }
 }

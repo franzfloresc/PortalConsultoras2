@@ -13,7 +13,6 @@ using Portal.Consultoras.Web.ServicesCalculosPROL;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
 using System.IO;
 using System.Linq;
@@ -292,9 +291,9 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.MostrarPedidosPendientes = "0";
                 ViewBag.LanzarTabConsultoraOnline = (lanzarTabConsultoraOnline) ? "1" : "0";
 
-                if (ConfigurationManager.AppSettings.Get("MostrarPedidosPendientes") == "1")
+                if (GetMostrarPedidosPendientesFromConfig())
                 {
-                    string paisesConsultoraOnline = ConfigurationManager.AppSettings.Get("Permisos_CCC");
+                    string paisesConsultoraOnline = GetPaisesConConsultoraOnlineFromConfig();
                     if (paisesConsultoraOnline.Contains(userData.CodigoISO))
                     {
                         if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
@@ -319,7 +318,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #endregion
                 
-                ViewBag.UrlTerminosOfertaFinalRegalo = string.Format(ConfigurationManager.AppSettings.Get("oferta_final_regalo_url_s3"), userData.CodigoISO);
+                ViewBag.UrlTerminosOfertaFinalRegalo = string.Format(GetConfiguracionManager(Constantes.ConfiguracionManager.oferta_final_regalo_url_s3), userData.CodigoISO);
                 model.MostrarPopupPrecargados = (GetMostradoPopupPrecargados() == 0);
                 
                 ViewBag.CUVOfertaProl = TempData["CUVOfertaProl"];
@@ -357,7 +356,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             
 
-            ViewBag.UrlTerminosOfertaFinalRegalo = string.Format(ConfigurationManager.AppSettings.Get("oferta_final_regalo_url_s3"), userData.CodigoISO);
+            ViewBag.UrlTerminosOfertaFinalRegalo = string.Format(GetConfiguracionManager(Constantes.ConfiguracionManager.oferta_final_regalo_url_s3), userData.CodigoISO);
 
             if (Session["EsShowRoom"] != null && Session["EsShowRoom"].ToString() == "1")
             {
@@ -425,7 +424,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string GetPaisesFlexiPago()
         {
-            return ConfigurationManager.AppSettings.Get("PaisesFlexipago") ?? string.Empty;
+            return GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesFlexipago);
         }
 
         private bool PaisTieneFlexiPago(string codigoIso)
@@ -1357,7 +1356,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (tipoEstrategiaImagen == Constantes.TipoEstrategia.PackNuevas)
             {
                 var lstPedidoWebDetalle = ObtenerPedidoWebDetalle();
-                var packNuevas = lstPedidoWebDetalle.Where(x => x.TipoEstrategiaID == 1).ToList();
+                var packNuevas = lstPedidoWebDetalle.Where(x => x.FlagNueva).ToList();
 
                 foreach (var item in packNuevas)
                 {
@@ -1383,8 +1382,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var userModel = userData;
                 productos = SelectProductoByCodigoDescripcionSearchRegionZona(term, userModel, 10, CRITERIO_BUSQUEDA_CUV_PRODUCTO);
 
-                if (sessionManager.GetRevistaDigital().BloqueoRevistaImpresa &&
-                    revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
+                if (revistaDigital.BloqueoRevistaImpresa && revistaDigital.EsActiva)
                 {
                     productos = productos.Where(x => x.CodigoCatalogo != CODIGO_REVISTA_IMPRESA).ToList();
                 }
@@ -1407,7 +1405,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string cuv = productos.First().CUV.Trim();
                 var mensajeByCuv = GetMensajeByCUV(userModel, cuv);
                 var tieneRDC = revistaDigital.TieneRDC &&
-                    revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo;
+                    revistaDigital.EsActiva;
 
                 foreach (var prod in productos)
                 {
@@ -1524,8 +1522,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(productosModel, JsonRequestBehavior.AllowGet);
                 }
 
-                if (sessionManager.GetRevistaDigital().BloqueoRevistaImpresa && 
-                    revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
+                if (revistaDigital.BloqueoRevistaImpresa && revistaDigital.EsActiva)
                 {
                     productos = productos.Where(x => x.CodigoCatalogo != CODIGO_REVISTA_IMPRESA).ToList();
 
@@ -1565,8 +1562,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string cuv = productos.First().CUV.Trim();
                 var mensajeByCuv = GetMensajeByCUV(userModel, cuv);
 
-                var tieneRDC = revistaDigital.TieneRDC &&
-                    revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo;
+                var tieneRDC = revistaDigital.TieneRDC && revistaDigital.EsActiva;
 
                 int? revistaGana = ValidarDesactivaRevistaGana(userModel);
 
@@ -1694,7 +1690,7 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             using (var sv = new ServicePROLConsultas.wsConsulta())
                             {
-                                sv.Url = ConfigurationManager.AppSettings["RutaServicePROLConsultas"];
+                                sv.Url = GetConfiguracionManager(Constantes.ConfiguracionManager.RutaServicePROLConsultas);
                                 listaTieneStock = sv.ConsultaStock(codigoSap, userData.CodigoISO).ToList();
                             }
                         }
@@ -1924,8 +1920,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var userModel = userData;
                 productos = SelectProductoByCodigoDescripcionSearchRegionZona(term, userModel, 10, CRITERIO_BUSQUEDA_DESC_PRODUCTO);
 
-                if (sessionManager.GetRevistaDigital().BloqueoRevistaImpresa &&
-                    revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
+                if (revistaDigital.BloqueoRevistaImpresa && revistaDigital.EsActiva)
                 {
                     productos = productos.Where(x => x.CodigoCatalogo != CODIGO_REVISTA_IMPRESA).ToList();
                 }
@@ -1971,8 +1966,7 @@ namespace Portal.Consultoras.Web.Controllers
                         DescripcionCategoria = item.DescripcionCategoria,
                         TipoEstrategiaID = item.TipoEstrategiaID,
                         FlagNueva = item.FlagNueva,
-                        TieneRDC = revistaDigital.TieneRDC &&
-                                revistaDigital.SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo
+                        TieneRDC = revistaDigital.TieneRDC && revistaDigital.EsActiva
                     });
                 }
             }
@@ -3888,11 +3882,11 @@ namespace Portal.Consultoras.Web.Controllers
         private List<ProductoModel> ObtenerListadoProductosOfertaFinal(int tipoOfertaFinal)
         {
             var lista = new List<Producto>();
-            string paisesConPcm = ConfigurationManager.AppSettings.Get("PaisesConPcm");
+            string paisesConPcm = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesConPcm);
 
             int tipoProductoMostrar = paisesConPcm.Contains(userData.CodigoISO) ? 2 : 1;
 
-            int limiteJetlore = int.Parse(ConfigurationManager.AppSettings.Get("LimiteJetloreOfertaFinal"));
+            int limiteJetlore = int.Parse(GetConfiguracionManager(Constantes.ConfiguracionManager.LimiteJetloreOfertaFinal));
 
             decimal descuentoprol=0;
 

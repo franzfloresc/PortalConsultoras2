@@ -6,7 +6,6 @@ using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Globalization;
 using System.Linq;
 using System.ServiceModel;
@@ -84,7 +83,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.TieneMasVendidos = userData.TieneMasVendidos;
                 model.TieneAsesoraOnline = userData.TieneAsesoraOnline;
                 model.ActivacionAppCatalogoWhastUp = ObtenerActivacionAppCatalogoWhastUp();
-                model.CampaniaMasDos = AddCampaniaAndNumero(Convert.ToInt32(model.NumeroCampania), 2);
+                model.CampaniaMasDos = AddCampaniaAndNumero(userData.CampaniaID, 2) % 100;
                 model.ShowRoomMostrarLista = ValidarPermiso(Constantes.MenuCodigo.CatalogoPersonalizado) ? 0 : 1;
 
                 ViewBag.paisISO = userData.CodigoISO;
@@ -92,7 +91,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 ViewBag.NombreConsultora = model.NombreConsultora;                
 
                 ViewBag.NombreConsultoraFAV = ObtenerNombreConsultoraFav();
-                ViewBag.UrlImagenFAVMobile = string.Format(ConfigurationManager.AppSettings.Get("UrlImagenFAVMobile"), userData.CodigoISO);
+                ViewBag.UrlImagenFAVMobile = string.Format(GetConfiguracionManager(Constantes.ConfiguracionManager.UrlImagenFAVMobile), userData.CodigoISO);
 
                 if (Session[Constantes.ConstSession.IngresoPortalConsultoras] == null)
                 {
@@ -108,6 +107,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
 
                 ViewBag.VerSeccion = verSeccion;
+
+                model.TipoPopUpMostrar = ObtenerTipoPopUpMostrar();
             }
             catch (FaultException ex)
             {
@@ -163,7 +164,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                     if (userData.CodigoISO == Constantes.CodigosISOPais.Chile)
                     {
-                        rutaChile = ConfigurationManager.AppSettings.Get("UrlPagoLineaChile");
+                        rutaChile = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlPagoLineaChile);
                     }
                     else
                     {
@@ -195,7 +196,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 configuracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.ZonaID, userData.RegionID);
             }
 
-            return configuracionCampania;
+            return configuracionCampania ?? new BEConfiguracionCampania();
         }
 
         private string ObtenerFechaVencimiento()
@@ -216,7 +217,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private int ObtenerActivacionAppCatalogoWhastUp()
         {
-            string PaisesCatalogoWhatsUp = ConfigurationManager.AppSettings.Get("PaisesCatalogoWhatsUp") ?? string.Empty;
+            string PaisesCatalogoWhatsUp = GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesCatalogoWhatsUp);
 
             int activacionAppCatalogoWhastUp;
             if (PaisesCatalogoWhatsUp.Contains(userData.CodigoISO))
@@ -234,8 +235,44 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         private string ObtenerNombreConsultoraFav()
         {
             var nombreConsultoraFAV = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
-            nombreConsultoraFAV = nombreConsultoraFAV.First().ToString().ToUpper() + nombreConsultoraFAV.ToLower().Substring(1);
+            nombreConsultoraFAV = Util.SubStr(nombreConsultoraFAV, 0, 1).ToUpper() + Util.SubStr(nombreConsultoraFAV.ToLower(), 1);
             return nombreConsultoraFAV;
+        }
+
+        private int ObtenerTipoPopUpMostrar()
+        {
+            var TipoPopUpMostrar = 0;
+            if (Session[Constantes.ConstSession.TipoPopUpMostrar] != null)
+            {
+                TipoPopUpMostrar = Convert.ToInt32(Session[Constantes.ConstSession.TipoPopUpMostrar]);
+
+                if (TipoPopUpMostrar == Constantes.TipoPopUp.RevistaDigitalSuscripcion && revistaDigital.NoVolverMostrar)
+                    TipoPopUpMostrar = 0;
+
+                return TipoPopUpMostrar;
+            }
+
+            // debe tener la misma logica que desktop
+
+            #region Revista Digital
+            if (!revistaDigital.TieneRDS)
+                return TipoPopUpMostrar;
+
+            if (revistaDigital.NoVolverMostrar)
+                return TipoPopUpMostrar;
+
+            if (revistaDigital.EsSuscrita)
+                return TipoPopUpMostrar;
+
+            if (revistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.NoPopUp)
+                return TipoPopUpMostrar;
+
+            TipoPopUpMostrar = Constantes.TipoPopUp.RevistaDigitalSuscripcion;
+            #endregion
+
+            Session[Constantes.ConstSession.TipoPopUpMostrar] = TipoPopUpMostrar;
+
+            return TipoPopUpMostrar;
         }
 
         [HttpPost]
@@ -280,17 +317,18 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public ActionResult ChatBelcorp()
         {
             string url = "";
-            string fechaInicioChat = ConfigurationManager.AppSettings["FechaChat_" + userData.CodigoISO].ToString();
+            string fechaInicioChat = GetConfiguracionManager(Constantes.ConfiguracionManager.FechaChat + userData.CodigoISO);
 
-            if (ConfigurationManager.AppSettings["PaisesBelcorpChatEMTELCO"].Contains(userData.CodigoISO) &&
-                !String.IsNullOrEmpty(fechaInicioChat))
+            if (GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesBelcorpChatEMTELCO).Contains(userData.CodigoISO) &&
+                fechaInicioChat != "")
             {
                 DateTime fechaInicioChatPais = DateTime.ParseExact(fechaInicioChat,
                     "dd/MM/yyyy",
                     CultureInfo.InvariantCulture);
+
                 if (DateTime.Now >= fechaInicioChatPais)
                 {
-                    url = String.Format(ConfigurationManager.AppSettings["UrlBelcorpChat"],
+                    url = String.Format(GetConfiguracionManager(Constantes.ConfiguracionManager.UrlBelcorpChat),
                         userData.SegmentoAbreviatura.Trim(),
                         userData.CodigoUsuario.Trim(),
                         userData.PrimerNombre.Split(' ').First().Trim(),
@@ -301,24 +339,24 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 if (userData.CodigoISO.Equals("PA"))
                 {
-                    url = ConfigurationManager.AppSettings["UrlChatPA"];
+                    url = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlChatPA);
                 }
                 else if (userData.CodigoISO.Equals("QR"))
                 {
-                    url = ConfigurationManager.AppSettings["UrlChatQR"];
+                    url = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlChatQR);
                 }
                 else if (userData.CodigoISO.Equals("SV"))
                 {
-                    url = ConfigurationManager.AppSettings["UrlChatSV"];
+                    url = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlChatSV);
                 }
                 else if (userData.CodigoISO.Equals("GT"))
                 {
-                    url = ConfigurationManager.AppSettings["UrlChatGT"];
+                    url = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlChatGT);
                 }
                 else
                 {
-                    url = ConfigurationManager.AppSettings["UrlChatDefault"] +
-                        ConfigurationManager.AppSettings["TokenAtento_" + userData.CodigoISO];
+                    url = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlChatDefault) +
+                        GetConfiguracionManager(Constantes.ConfiguracionManager.TokenAtento + userData.CodigoISO);
                 }
             }
             ViewBag.UrlBelcorpChatPais = url;
@@ -351,6 +389,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 using (SACServiceClient sac = new SACServiceClient())
                 {
                     var lstComunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora, Constantes.ComunicadoTipoDispositivo.Mobile).ToList();
+                    lstComunicados = lstComunicados.Where(x => x.Descripcion != Constantes.Comunicado.AppConsultora).ToList();
                     if (lstComunicados != null) oComunicados = lstComunicados.FirstOrDefault();
                 }
 

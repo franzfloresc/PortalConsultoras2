@@ -34,7 +34,7 @@ namespace Portal.Consultoras.Web.Controllers
             var model = new MisPagosModel();
             model.CodigoISO = userData.CodigoISO;
             model.UrlChileEncriptada = Util.EncriptarQueryString(parametroAEncriptar);
-            model.RutaChile = userData.CodigoISO == "CL" ? ConfigurationManager.AppSettings.Get("UrlPagoLineaChile") : string.Empty;
+            model.RutaChile = userData.CodigoISO == "CL" ? GetConfiguracionManager(Constantes.ConfiguracionManager.UrlPagoLineaChile) : string.Empty;
             model.MostrarFE = userData.CodigoISO == "EC" || userData.CodigoISO == "PE" ? " " : "display: none;";
             model.Simbolo = string.Format("{0} ", userData.Simbolo);
             model.TieneFlexipago = userData.IndicadorFlexiPago;

@@ -590,7 +590,17 @@
                 List<ServicePedido.BEPedidoWebDetalle> olstPedido = new List<ServicePedido.BEPedidoWebDetalle>();
                 using (ServicePedido.PedidoServiceClient sv = new ServicePedido.PedidoServiceClient())
                 {
-                    olstPedido = sv.SelectByCampania(userData.PaisID, int.Parse(campaniaId), long.Parse(consultoraId), "", EsOpt()).ToList();
+                    var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros();
+                    bePedidoWebDetalleParametros.PaisId = userData.PaisID;
+                    bePedidoWebDetalleParametros.CampaniaId = int.Parse(campaniaId);
+                    bePedidoWebDetalleParametros.ConsultoraId = long.Parse(consultoraId);
+                    bePedidoWebDetalleParametros.Consultora = "";
+                    bePedidoWebDetalleParametros.EsBpt = EsOpt() == 1;
+                    bePedidoWebDetalleParametros.CodigoPrograma = userData.CodigoPrograma;
+                    bePedidoWebDetalleParametros.NumeroPedido = userData.ConsecutivoNueva;
+
+                    olstPedido = sv.SelectByCampania(bePedidoWebDetalleParametros).ToList();
+                    
                 }
 
                 decimal Total = 0;
@@ -1026,7 +1036,7 @@
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 string output = serializer.Serialize(complain);
 
-                string strUri = ConfigurationManager.AppSettings["WS_RV_Campanias_NEW"];
+                string strUri = GetConfiguracionManager(Constantes.ConfiguracionManager.WS_RV_Campanias_NEW);
                 Uri uri = new Uri(strUri);
                 WebRequest request = WebRequest.Create(uri);
                 request.Method = "POST";
@@ -1135,7 +1145,7 @@
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 string output = serializer.Serialize(complain);
 
-                string strUri = ConfigurationManager.AppSettings["WS_RV_PDF_NEW"];
+                string strUri = GetConfiguracionManager(Constantes.ConfiguracionManager.WS_RV_PDF_NEW);
                 Uri uri = new Uri(strUri);
                 WebRequest request = WebRequest.Create(uri);
                 request.Method = "POST";

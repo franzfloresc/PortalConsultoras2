@@ -26,8 +26,11 @@
 @if (Model.ListaEstadoSeguimiento.Count == 0)
 {
     <div class="">
-        <div class="pestana_esika"></div><!--PESTANA ESIKA-->
-        <div class="pestana_lbel"></div><!--PESTANA LBEL-->
+        @if (!mobileConfiguracion.EsAppMobile)
+        {
+            <div class="pestana_esika"></div><!--PESTANA ESIKA-->
+            <div class="pestana_lbel"></div><!--PESTANA LBEL-->
+        }
         <div class="col-xs-12">
             <div class="icono_alerta exclamacion_icono_mobile"></div>
             <div class="mensaje_alerta">Hasta el momento no tienes ningún pedido facturado.</div>
@@ -37,8 +40,11 @@
 else
 {
     <div class="fondo_f2f2f2">
-        <div class="pestana_esika"></div><!--PESTANA ESIKA-->
-        <div class="pestana_lbel"></div><!--PESTANA LBEL-->
+        @if (!mobileConfiguracion.EsAppMobile)
+        {
+            <div class="pestana_esika"></div><!--PESTANA ESIKA-->
+            <div class="pestana_lbel"></div><!--PESTANA LBEL-->
+        }
         <div class="tabs-link tab-primary upper">
             @for (int i = 0; i < Model.ListaEstadoSeguimiento.Count; i++)
             {

@@ -50,7 +50,6 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         IList<BEPedidoWebDetalle> GetClientesByCampania(int paisID, int campaniaID, long consultoraID);
 
-        //EPD-1164
         [OperationContract]
         IList<BEPedidoWebDetalle> GetClientesByCampaniaByClienteID(int paisID, int campaniaID, long consultoraID, string ClienteID);
 
@@ -60,7 +59,6 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         IList<BECatalogo> GetCatalogosByCampania(int paisID, int campaniaID);
 
-        // RQ 2295 Mejoras en Catalogos Belcorp
         [OperationContract]
         IList<BECatalogoConfiguracion> GetCatalogoConfiguracion(int paisID);
 

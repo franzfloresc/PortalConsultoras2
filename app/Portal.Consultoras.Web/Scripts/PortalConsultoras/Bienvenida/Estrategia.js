@@ -283,8 +283,8 @@ function ArmarCarouselEstrategias(data) {
     $('.js-slick-prev').remove();
     $('.js-slick-next').remove();
     $('#divListadoEstrategia.slick-initialized').slick('unslick');
-    SetHandlebars("#template-estrategia-header", data, '#contenedor_template_estrategia_cabecera');
-    $('#contenedor_template_estrategia_cabecera').show();
+    //SetHandlebars("#template-estrategia-header", data, '#contenedor_template_estrategia_cabecera');
+    //$('#contenedor_template_estrategia_cabecera').show();
 
     if (data.Lista.length == 0) {
         $('#divListaEstrategias').show();
@@ -456,7 +456,7 @@ function ArmarCarouselEstrategias(data) {
             autoplay: false,
             dots: false,
             prevArrow: '<a class="previous_ofertas_mobile js-slick-prev" href="javascript:void(0);" id="slick-prev" style="margin-left:-13%; padding-top:150px;"><img src="' + urlCarruselPrev + '")" alt="-"/></a>',
-            nextArrow: '<a class="previous_ofertas_mobile js-slick-next" href="javascript:void(0);" id="slick-next" style="margin-right:-13%; padding-top:150px; text-align:right; right:0;"><img src="' + urlCarruselNext + '" alt="-"/></a>',
+            nextArrow: '<a class="previous_ofertas_mobile js-slick-next" href="javascript:void(0);" id="slick-next" style="margin-right:-7%; padding-top:150px; text-align:right; right:0;"><img src="' + urlCarruselNext + '" alt="-"/></a>',
             infinite: true,
             speed: 300,
             responsive: [
@@ -841,7 +841,7 @@ function EstrategiaTallaColor(datos) {
         $(".zonaCantidad").hide();
         $("#hdnProgramaOfertaNuevo").val(true);
         var nroPedidos = false;
-        var pedidosData = $('#divListadoPedido').find("input[id^='hdfTipoEstrategia']");
+        var pedidosData = $('#divListadoPedido').find("input[id^='hdfFlagNueva']");
 
         pedidosData.each(function (indice, valor) {
             if (valor.value == 1) {

@@ -134,6 +134,7 @@
     <Compile Include="BEPager.cs" />
     <Compile Include="ConfigS3.cs" />
     <Compile Include="Constantes.cs" />
+    <Compile Include="Conversores.cs" />
     <Compile Include="Crypto.cs" />
     <Compile Include="Cryptography\AESAlgorithm.cs" />
     <Compile Include="Dictionaries.cs" />
@@ -154,6 +155,7 @@
     <Compile Include="NeoGridCipher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegexUtilities.cs" />
+    <Compile Include="Settings\ServiceSettings.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="WebConfig.cs" />
     <Compile Include="WebConfigKeys.cs" />

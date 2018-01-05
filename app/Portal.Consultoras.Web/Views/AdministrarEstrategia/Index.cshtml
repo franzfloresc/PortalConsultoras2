@@ -380,7 +380,7 @@
     var habilitarNemoTecnico = @Json.Encode(Model.habilitarNemotecnico);
     var TipoEstrategiaIncentivosProgramaNuevas = '@Constantes.TipoEstrategiaCodigo.IncentivosProgramaNuevas';
     var CodigoOfertaParaTi = "001";
-    var CodigoPackNuevas = "002"; // Oferta Nueva Esika
+    var CodigoPackNuevas = "002";
     var CodigoOfertaWeb = "003";
     var CodigoLanzamiento = "005";
     var CodigoOfertasParaMi = "007";
@@ -489,7 +489,6 @@
 
             var aux1 = $('#ddlTipoEstrategia').find(':selected').data('id');
             var aux2 = $('#ddlTipoEstrategia').find(':selected').data('codigo');
-            //$("#btnActivarDesactivar").hide();
 
             if (aux1 == "4" || aux2 == "005" || aux2 == "007" || aux2 == "008") {
                 $("#txtOrden").val("");
@@ -497,7 +496,6 @@
 
                 $('#txt1-estrella').html('Oferta de Último Minuto');
                 $('#txt2-estrella').hide();
-                // $("#btnActivarDesactivar").show();
             }
             else {
                 $('#div-orden').show();
@@ -551,7 +549,6 @@
 
             LimpiarCamposLanzamiento('img-fondo-desktop');
             LimpiarCamposLanzamiento('img-prev-desktop');
-            //LimpiarCamposLanzamiento('img-fondo-mobile');
             LimpiarCamposLanzamiento('img-ficha-desktop');
             LimpiarCamposLanzamiento('img-ficha-mobile');
             LimpiarCamposLanzamiento('img-ficha-fondo-desktop');
@@ -608,7 +605,6 @@
 
         });
         $("#ddlTipoEstrategia").change(function () {
-            //var aux1 = $('#ddlTipoEstrategia').find(':selected').data('id');
             var aux2 = $('#ddlTipoEstrategia').find(':selected').data('codigo');
             $("#btnActivarDesactivar").hide();
             $("#btnNuevoMasivo").hide();
@@ -1083,7 +1079,6 @@
 
         UploadFileLanzamineto('img-fondo-desktop');
         UploadFileLanzamineto('img-prev-desktop');
-        //UploadFileLanzamineto('img-fondo-mobile');
         UploadFileLanzamineto('img-ficha-desktop');
         UploadFileLanzamineto('img-ficha-fondo-desktop');
         UploadFileLanzamineto('img-ficha-mobile');
@@ -1873,10 +1868,6 @@
                         }
                     }
 
-                    //if ($("#hdZonas").val() == "") {
-                    //    alert("Debe seleccionar el alcance de la estrategia.");
-                    //    return false;
-                    //}
                     if ($.trim($("#txtLimite").val()) == "" || $.isNumeric($("#txtLimite").val()) == false) {
                         alert("Ingrese un valor para el limite de venta.");
                         return false;

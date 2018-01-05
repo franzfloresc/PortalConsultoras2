@@ -77,9 +77,8 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.URLWebTracking = url;
                 ViewBag.PaisISO = userData.CodigoISO;
 
-                string mostrarPedidosPendientes = ConfigurationManager.AppSettings.Get("MostrarPedidosPendientes");
-                string strpaises = ConfigurationManager.AppSettings.Get("Permisos_CCC");
-                model.MostrarClienteOnline = (mostrarPedidosPendientes == "1" && strpaises.Contains(userData.CodigoISO));
+                string strpaises = GetPaisesConConsultoraOnlineFromConfig();
+                model.MostrarClienteOnline = (GetMostrarPedidosPendientesFromConfig() && strpaises.Contains(userData.CodigoISO));
                 if (model.MostrarClienteOnline)
                 {
                     model.CampaniasConsultoraOnline = new List<CampaniaModel>();
@@ -270,7 +269,7 @@ namespace Portal.Consultoras.Web.Controllers
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             string output = serializer.Serialize(complain);
 
-            string strUri = ConfigurationManager.AppSettings["WS_RV_PDF_NEW"];
+            string strUri = GetConfiguracionManager(Constantes.ConfiguracionManager.WS_RV_PDF_NEW);
             Uri uri = new Uri(strUri);
             WebRequest request = WebRequest.Create(uri);
             request.Method = "POST";
@@ -846,7 +845,16 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    lst = sv.SelectByCampania(userData.PaisID, int.Parse(CampaniaId), ObtenerConsultoraId(), userData.NombreConsultora, EsOpt()).ToList();
+                    var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros();
+                    bePedidoWebDetalleParametros.PaisId = userData.PaisID;
+                    bePedidoWebDetalleParametros.CampaniaId = int.Parse(CampaniaId);
+                    bePedidoWebDetalleParametros.ConsultoraId = ObtenerConsultoraId();
+                    bePedidoWebDetalleParametros.Consultora = userData.NombreConsultora;
+                    bePedidoWebDetalleParametros.EsBpt = EsOpt() == 1;
+                    bePedidoWebDetalleParametros.CodigoPrograma = userData.CodigoPrograma;
+                    bePedidoWebDetalleParametros.NumeroPedido = userData.ConsecutivoNueva;
+
+                    lst = sv.SelectByCampania(bePedidoWebDetalleParametros).ToList();
                 }
                 lst.Update(c => c.NombreCliente = string.IsNullOrEmpty(c.Nombre) ? userData.NombreConsultora : c.Nombre);
                 #endregion

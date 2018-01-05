@@ -26,7 +26,6 @@ namespace Portal.Consultoras.Service
             BLUbigeo = new BLUbigeo();
         }
 
-        // Nueva funcionalidad para la parametrización de CUVs
         public IList<BEMensajeCUV> GetMensajesCUVsByPaisAndCampania(int CampaniaID, int paisID)
         {
             return BLMensajeCUV.GetMensajesCUVsByPaisAndCampania(CampaniaID, paisID);
@@ -54,7 +53,6 @@ namespace Portal.Consultoras.Service
 
         public IList<BEProducto> SelectProductoByCodigoDescripcion(int paisID, int campaniaID, string codigoDescripcion, int criterio, int rowCount)
         {
-            //return BLProducto.SelectProductoByCodigoDescripcion(paisID, campaniaID, codigoDescripcion, criterio, rowCount);
             return BLProducto.SelectProductoByCodigoDescripcionSearch(paisID, campaniaID, codigoDescripcion, criterio, rowCount);
         }
 
@@ -246,7 +244,6 @@ namespace Portal.Consultoras.Service
             return BLProducto.GetNombreProducto048ByListaCUV(paisID, campaniaId, listaCUV);
         }
 
-        //PL20-1237
         public int InsProductoCompartido(BEProductoCompartido ProComp)
         {
             return BLProducto.InsProductoCompartido(ProComp);

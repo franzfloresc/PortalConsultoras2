@@ -44,7 +44,6 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string DescripcionPaginaNueva { get; set; }
 
-        /*Inicio Cambios_Landing_Comunidad*/
         [DataMember]
         public string UrlImagen { get; set; }
 
@@ -56,7 +55,6 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public bool EsServicios { get; set; }
-        /*Fin Cambios_Landing_Comunidad*/
 
         [DataMember]
         public string Codigo { get; set; }
@@ -89,7 +87,6 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "DescripcionPaginaNueva"))
                 DescripcionPaginaNueva = Convert.ToString(row["DescripcionPaginaNueva"]);
 
-            /*Inicio Cambios_Landing_Comunidad*/
             if (DataRecord.HasColumn(row, "UrlImagen") && row["UrlImagen"] != DBNull.Value)
             {
                 UrlImagen = Convert.ToString(row["UrlImagen"]);
@@ -109,7 +106,6 @@ namespace Portal.Consultoras.Entities
             {
                 EsServicios = Convert.ToBoolean(row["EsServicios"]);
             }
-            /*Fin Cambios_Landing_Comunidad*/
 
             if (row.HasColumn("Codigo")) Codigo = Convert.ToString(row["Codigo"]);
 

@@ -34,7 +34,7 @@
         @Styles.Render("~/Content/Css/Mobile/Lbel/CssSB2Mobile")
     }
     <link href="@Url.Content("~/Content/Css/Mobile/calc.css")" rel="stylesheet" type="text/css" />
-    
+
     <script type="text/javascript">
         var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))' == "True";
     </script>
@@ -138,6 +138,12 @@
                 </ul>
             </div>
         }
+        @if (ViewBag.MostrarBannerApp == true && !ViewBag.MostrarBannerRechazo == true)
+        {
+            <!--BANNER APP-->
+            <div class="banner_app"><div>X</div></div>
+            <!--END BANNER APP-->
+        }
         <!--END BANNER-->
 
         <div class="container-fluid" style="padding-top:9px; padding-bottom:9px;">
@@ -168,35 +174,35 @@
 
     <!-- content -->
     <section style="min-height: 380px;">
-        <div id="contentmobile" data-content="" style="margin-top: 60px;">
+        <div id="contentmobile" data-content="">
 
             @if (ViewBag.MostrarBannerPL20 == true && ViewBag.MostrarBannerOtros == false)
             {
                 if (ViewBag.MostrarODD == false)
                 {
-                <div id="content_slider_banner" class="content_slider_banner" style="display:none;">
-                    @if (ViewBag.PermitirCerrarBannerPL20 == true)
-                    {
-                        <a class="btn_cerrar_oferta_mobile" href="javascript:void(0);" onclick="closeBannerPL20();">X</a>
-                    }
-                    <div id="flexslider">
-                        <ul class="slides">
-                            @if (ViewBag.MostrarShowRoomBannerLateral == true)
-                            {
-                                <li>
-                                    @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloqueBannerShowRoom.cshtml", showRoomBannerLateral)
-                                </li>
-                            }
+                    <div id="content_slider_banner" class="content_slider_banner" style="display:none;">
+                        @if (ViewBag.PermitirCerrarBannerPL20 == true)
+                        {
+                            <a class="btn_cerrar_oferta_mobile" href="javascript:void(0);" onclick="closeBannerPL20();">X</a>
+                        }
+                        <div id="flexslider">
+                            <ul class="slides">
+                                @if (ViewBag.MostrarShowRoomBannerLateral == true)
+                                {
+                                    <li>
+                                        @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloqueBannerShowRoom.cshtml", showRoomBannerLateral)
+                                    </li>
+                                }
 
-                            @if (ViewBag.MostrarOfertaDelDia == true)
-                            {
-                                <li>
-                                    @Html.Partial("~/Areas/Mobile/Views/OfertaDelDia/_OfertaDelDiaBanner.cshtml", ofertaDelDia)
-                                </li>
-                            }
-                        </ul>
+                                @if (ViewBag.MostrarOfertaDelDia == true)
+                                {
+                                    <li>
+                                        @Html.Partial("~/Areas/Mobile/Views/OfertaDelDia/_OfertaDelDiaBanner.cshtml", ofertaDelDia)
+                                    </li>
+                                }
+                            </ul>
+                        </div>
                     </div>
-                </div>
                 }
             }
             @RenderBody()
@@ -299,16 +305,14 @@
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/vp_BloquePopupMensajesInformacion.cshtml")
 
     <!--POP MENSAJE POSTULANTE-->
-    @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupPostulante.cshtml")    
-    <!--FIN--> 
-
+    @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupPostulante.cshtml")
+    <!--FIN-->
     <!--POP COMUNIDAD-->
-    @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupComunidad.cshtml")    
-    <!--FIN-->    
-            
+    @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupComunidad.cshtml")
+    <!--FIN-->
     <!--POP MENSAJE SESION FINALIZADA Error-->
-    @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupSesionFinalizada.cshtml")    
-    <!--FIN-->    
+    @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupSesionFinalizada.cshtml")
+    <!--FIN-->
 
     <div style="display:none">
         <a id="HiddenRedesSocialesWA" href="#" data-action="share/whatsapp/share">WA</a>
@@ -353,7 +357,6 @@
         var cerrarRechazado = '@ViewBag.CerrarRechazado';
         var mostrarBannerRechazo = '@ViewBag.MostrarBannerRechazo';
 
-        //ODD
         var mostrarOfertaDelDia = '@ViewBag.MostrarODD';
         var vbMmostrarOfertaDelDia = '@ViewBag.MostrarOfertaDelDia';
         var usuarioNombre = '@ViewBag.UsuarioNombre';
@@ -370,7 +373,7 @@
         var ViewBagEsMobile = '@ViewBag.EsMobile';
 
         var tokenPedidoAutenticoOk = '@ViewBag.TokenPedidoAutenticoOk';
-        var _ModificacionPedidoProl = '@ViewBag.ModificarPedidoProl'; //EPD-1682
+        var _ModificacionPedidoProl = '@ViewBag.ModificarPedidoProl';
         var urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
         var userData = {
             'aplicacion': '@(Constantes.LogDynamoDB.AplicacionPortalConsultoras)',
@@ -390,23 +393,30 @@
         var ViewIndicadorGPRSB = '@ViewBag.IndicadorGPRSB';
         var MensajePedidoMobile = '@ViewBag.MensajePedidoMobile';
         var OrigenDesktopODD = 0;
+
+        //BANNER APP
+        var urlOcultarBannerApp = '@Url.Action("OcultarBannerApp", "Bienvenida", new { area = "Mobile" })';
+        var actionName = '@ViewContext.RouteData.GetRequiredString("action")';
+        var controllerName = '@ViewContext.RouteData.GetRequiredString("controller")';
+        var oBannerApp = @Html.Raw(@Json.Encode(ViewBag.BannerApp));
+
     </script>
 
     @if (ViewBag.MostrarOfertaDelDiaContenedor == true)
     {
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/OfertaDelDia.js")"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            window.OfertaDelDia.CargarODD();
-        });
-    </script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/OfertaDelDia.js")"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                window.OfertaDelDia.CargarODD();
+            });
+        </script>
     }
 
     @if (ViewBag.MostrarBannerPL20 == true || ViewBag.MostrarBannerOtros == true)
     {
-    if (ViewBag.MostrarShowRoomBannerLateral == true)
-    {
-    <script type="text/javascript">
+        if (ViewBag.MostrarShowRoomBannerLateral == true)
+        {
+            <script type="text/javascript">
         var mostrarShowRoomProductos = '@showRoomBannerLateral.MostrarShowRoomProductos';
         var showRoomDiasFaltantes = @showRoomBannerLateral.DiasFaltantes;
         var showRoomMesFaltante = @showRoomBannerLateral.MesFaltante;
@@ -494,14 +504,12 @@
                 $("#lnkConoceMasShowRoomBannerLateralHoy, #lnkConoceMasShowRoomBannerLateralImagenHoy").click(function () {
                     AgregarTagManagerShowRoomBannerLateralConocesMas(true);
                 });
-                //AgregarTagManagerShowRoomBannerLateral(true);
             }
             else {
                 $("#lnkConoceMasShowRoomBannerLateral").click(function () {
                     AgregarTagManagerShowRoomBannerLateralConocesMas(false);
                 });
                 AgregarTimerShowRoom(showRoomDiasFaltantes, showRoomMesFaltante, showRoomAnioFaltante);
-                //AgregarTagManagerShowRoomBannerLateral(false);
             }
         }
 
@@ -578,7 +586,6 @@
                 minutes = minutes - (days * 24 * 60) - (hours * 60);
                 seconds = seconds - (days * 24 * 60 * 60) - (hours * 60 * 60) - (minutes * 60);
 
-                //$("#time").text("Time until new year:\nDays: " + days + " Hours: " + hours + " Minutes: " + minutes + " Seconds: " + seconds);
                 $(".clsDia").html(days);
                 $(".clsHora").html(hours);
                 $(".clsMinuto").html(minutes);
@@ -597,8 +604,8 @@
             }, 1000);
         }
 
-    </script>
-    }
+            </script>
+        }
     }
     <script type="text/javascript">
         function messageInfoPostulante() {
@@ -610,6 +617,7 @@
     </script>
     @RenderSection("scripts", required: false)
     @{Html.PlaceScripts();}
+
     @if (TempData.ContainsKey("PixelCodigoIso"))
     {
         @System.Web.Optimization.Scripts.Render("~/bundles/JS-Login-Header")
@@ -617,7 +625,7 @@
             var pixelAnalytics = Analytics();
             pixelAnalytics.invocarEventoPixelById('@(TempData["PixelMarcacion"])', '@(TempData["PixelId"])');
         </script>
-        @TempData.Remove("PixelCodigoIso");
+        TempData.Remove("PixelCodigoIso");
     }
 </body>
 </html>

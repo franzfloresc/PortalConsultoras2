@@ -42,7 +42,6 @@
             $("#chkMostrarImgIndependiente").attr("checked", false);
             $(".divOfertaIndependiente").hide();
 
-			//BPT-369
 			$("#chkValImg").attr("checked", false);
 			$("#txtPesoMaximoImagen").val("0");
 
@@ -99,7 +98,6 @@
             }
         });
 
-		//BPT-369
 		$("#chkValImg").click(function () {
             if ($("#chkValImg").attr('checked')) {
                 $("#txtPesoMaximoImagen").attr('disabled', false);
@@ -487,9 +485,6 @@
 
                     if (ofertaID.length > 0) {
                         ofertaID = ofertaID.substring(0, ofertaID.length - 1);
-                    } else {
-                        alert("No se ha seleccionado una oferta.");
-                        return false;
                     }
 
                     if ($("#chkMostrarImg").attr("checked")) {
@@ -506,7 +501,6 @@
                         }
                     }
 
-					// BPT-369
 					if ($("#chkValImg").attr("checked")) {
                         if ($("#txtPesoMaximoImagen").val() == "" || $("#txtPesoMaximoImagen").val() == "0") {
                             alert("Debe Ingresar un tamaño en Kb mayor a 0 de la imagen a validar.");
@@ -677,7 +671,6 @@
                     $(".divOfertaIndependiente").hide();
                 }
 
-				//BPT-369
 				if (flagValidarImagen == "1") {
                    $("#txtPesoMaximoImagen").prop('disabled', false);
                 } else {
@@ -841,12 +834,10 @@
         <div>
             <div class="float-left">
                 <div class="div-3">
-                    <!--SB2-353 - INICIO -->
                     <div class="titB">Mostrar imagen:</div>
                     <div class="selectCheck borde_redondeado">
                         <input type="checkbox" id="chkMostrarImg" />
                     </div>
-                    <!--SB2-353 - FIN -->
                 </div>
                 <div class="div-3">
                     <div class="titB">Imagen:</div>
@@ -857,13 +848,10 @@
                     <div class="titB" style="display: none;">Oferta:</div>
                     <div class="container clearfix" style="display: none;">
                         <div class="selectA borde_redondeado">
-                            <!-- table id="listaOfertas"></table>
-                            <div id="pagerOferta"></div -->
                         </div>
                     </div>
                 </div>
                 <div class="div-3">
-                    <!--<div class="titF">Tamaño de imagen: Ancho: 100px - Alto: 25px</div> -->
                     <div class="titF">Tamaño de imagen: (Ancho: 62px - Alto: 62px)</div>
                     <div class="titG" style="width: 180px;">
                         <div class="input_search">
