@@ -1,5 +1,5 @@
 ﻿*:focus {
-    outline: none
+    outline: none;
 }
 
 ::-moz-selection,
@@ -21,11 +21,11 @@
 }
 
 .loadingScreen-titulo {
-    color: #000 !important
+    color: #000 !important;
 }
 
 .div-2 {
-    padding-bottom: 20px !important
+    padding-bottom: 20px !important;
 }
 
     .div-2 h1 span {
@@ -37,29 +37,29 @@
     color: #000 !important;
     font-size: 15px !important;
     font-weight: normal !important;
-    font-family: Arial !important
+    font-family: Arial !important;
 }
 
 .titG {
     color: #000 !important;
     font-weight: bold !important;
-    text-align: right !important
+    text-align: right !important;
 }
 
     .titG.multiline {
-        padding-top: 0 !important
+        padding-top: 0 !important;
     }
 
 .selectA input[type='text'] {
     width: 100% !important;
     font-family: Arial !important;
-    color: #000 !important
+    color: #000 !important;
 }
 
 .selectA select {
     width: 100% !important;
     font-family: Arial !important;
-    color: #000 !important
+    color: #000 !important;
 }
 
 input[type='button'], .qq-upload-button {
@@ -72,12 +72,12 @@ input[type='button'], .qq-upload-button {
     margin-right: 10px;
     font-weight: bold;
     white-space: normal;
-    float: left
+    float: left;
 }
 
 .required {
     color: #e81c36;
-    font-weight: normal
+    font-weight: normal;
 }
 
 .EstrategiaTabla {
@@ -101,7 +101,7 @@ input[type='button'], .qq-upload-button {
 }
 
 .EstrategiaTabHeader {
-    border-bottom: solid 1px #D0D0D0 !important
+    border-bottom: solid 1px #D0D0D0 !important;
 }
 
     .EstrategiaTabHeader div {
@@ -114,7 +114,7 @@ input[type='button'], .qq-upload-button {
     }
 
     .EstrategiaTabHeader .active {
-        border-bottom: solid 3px #652b82 !important
+        border-bottom: solid 3px #652b82 !important;
     }
 
 .EstrategiaTabDetail .div-3 {
@@ -126,13 +126,13 @@ input[type='button'], .qq-upload-button {
     cursor: pointer;
     float: left;
     margin-right: 10px;
-    text-align: center !important
+    text-align: center !important;
 }
 
 .EstrategiaTabFooter .div-3 .active {
     font-weight: bold !important;
     color: #000 !important;
-    border-bottom: solid 1px #000 !important
+    border-bottom: solid 1px #000 !important;
 }
 
 .EstrategiaRequerido, .EstrategiaBotones {
@@ -141,17 +141,17 @@ input[type='button'], .qq-upload-button {
 }
 
 .EstrategiaBotones {
-    text-align: right
+    text-align: right;
 }
 
 .EstrategiaBotonSecundario {
     background: #fff !important;
     color: #000 !important;
-    text-decoration: underline
+    text-decoration: underline;
 }
 
 #divVistaPrevia {
-    text-align: center
+    text-align: center;
 }
 
     #divVistaPrevia img {
@@ -178,11 +178,11 @@ input[type='button'], .qq-upload-button {
 }
 
 .ui-jqgrid .ui-jqgrid-labels :hover {
-    background: #f0f0f0 !important
+    background: #f0f0f0 !important;
 }
 
 .ui-jqgrid .ui-jqgrid-btable .ui-state-hover {
-    background: #f0f0f0 !important
+    background: #f0f0f0 !important;
 }
 
 .ui-jqgrid .ui-state-hover td {
@@ -192,7 +192,7 @@ input[type='button'], .qq-upload-button {
 .ui-jqgrid .ui-widget-content {
     border: solid 1px #fff;
     background: #fff;
-    height: 85.8px
+    height: 85.8px;
 }
 
     .ui-jqgrid .ui-widget-content td {
@@ -200,9 +200,9 @@ input[type='button'], .qq-upload-button {
     }
 
 .ui-jqgrid .ui-jqgrid-pager tr {
-    background: #fff !important
+    background: #fff !important;
 }
 
 .Content_modal {
-    overflow: hidden
+    overflow: hidden;
 }
