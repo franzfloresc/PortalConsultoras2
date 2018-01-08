@@ -283,7 +283,11 @@ namespace Portal.Consultoras.Web.Controllers
                                                                         a.SolicitudCreditoID.ToString(),
                                                                         a.CodigoConsultoraRecomienda,
                                                                         a.NombreConsultoraRecomienda,
-                                                                        (a.NumeroDocumento == null) ? "" :(UserData().CodigoISO == Constantes.CodigosISOPais.PuertoRico) ? a.NumeroDocumento = string.Format("*****{0}",a.NumeroDocumento.Remove(0,5)) : a.NumeroDocumento ,
+                                                                        (a.NumeroDocumento == null) 
+                                                                            ? "" 
+                                                                            : (UserData().CodigoISO == Constantes.CodigosISOPais.PuertoRico) 
+                                                                                ? string.Format("*****{0}",a.NumeroDocumento.Remove(0,5)) 
+                                                                                : a.NumeroDocumento ,
                                                                         a.CodigoConsultora,
                                                                         (a.FechaCreacion == null
                                                                              ? ""

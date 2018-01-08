@@ -176,8 +176,8 @@ namespace Portal.Consultoras.BizLogic
         /// <returns></returns>
         public List<BEIncentivoConcurso> ObtenerIncentivosHistorico(int paisID, string codigoConsultora, int codigoCampania)
         {
-            List<BEIncentivoConcurso> incentivosConcursos = new List<BEIncentivoConcurso>();
-            List<BEIncentivoNivel> incentivosNivel = new List<BEIncentivoNivel>();
+            List<BEIncentivoConcurso> incentivosConcursos;
+            List<BEIncentivoNivel> incentivosNivel;
             List<BEIncentivoPremio> incentivosPremios = new List<BEIncentivoPremio>();
 
             DAConcurso DAConcurso = new DAConcurso(paisID);
@@ -333,7 +333,7 @@ namespace Portal.Consultoras.BizLogic
 
         private List<BEIncentivoConcurso> ObtenerIncentivosPuntosConsultora(int paisID, string codigoConsultora, int codigoCampania)
         {
-            List<BEIncentivoConcurso> incentivosConcursos = new List<BEIncentivoConcurso>();
+            List<BEIncentivoConcurso> incentivosConcursos;
             List<BEIncentivoNivel> incentivosNivel = new List<BEIncentivoNivel>();
             List<BEIncentivoPremio> incentivosPremios = new List<BEIncentivoPremio>();
 
@@ -373,7 +373,7 @@ namespace Portal.Consultoras.BizLogic
 
         private List<BEIncentivoConcurso> ObtenerIncentivosProgramaNuevasConsultora(int paisID, string codigoConsultora, int codigoCampania, long ConsultoraID)
         {
-            var incentivosConcursos = new List<BEIncentivoConcurso>();
+            var incentivosConcursos;
             var incentivosNivel = new List<BEIncentivoProgramaNuevasNivel>();
             var incentivosPremios = new List<BEIncentivoProgramaNuevasPremio>();
             var incentivosCupon = new List<BEIncentivoProgramaNuevasCupon>();

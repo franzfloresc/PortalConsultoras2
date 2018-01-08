@@ -81,8 +81,7 @@ namespace Portal.Consultoras.BizLogic.Cliente
                 {
                     nota.ClienteId = (short)clienteDb.ClienteID;
                     nota.ConsultoraId = clienteDb.ConsultoraID;
-
-                    //todo: improve
+                    
                     if (nota.StatusEnum == StatusEnum.Delete)
                     {
                         var resultEliminar = Eliminar(paisId, nota.ClienteId, nota.ConsultoraId, nota.ClienteNotaId);
@@ -140,7 +139,7 @@ namespace Portal.Consultoras.BizLogic.Cliente
         {
             var variablesApp = _blTablaLogicaDatos.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.App);
             var notaMaximaConfiguracion = variablesApp.FirstOrDefault(v => v.Codigo == Constantes.TablaLogica.Keys.NotaCantidadMaxima);
-            int notaMaxima = 10; //todo: consantes defaults?
+            int notaMaxima = 10;
             if (notaMaximaConfiguracion != null)
             {
                 int.TryParse(notaMaximaConfiguracion.Descripcion, out notaMaxima);
