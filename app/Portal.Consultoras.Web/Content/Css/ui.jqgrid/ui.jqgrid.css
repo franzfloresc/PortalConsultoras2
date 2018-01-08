@@ -131,7 +131,7 @@ tr.ui-search-toolbar select {margin: 1px 0 0 0}
 .ui-jqgrid .treeclick {cursor: pointer;}
 /* moda dialog */
 * iframe.jqm {position:absolute;top:0;left:0;z-index:-1;width: expression(this.parentNode.offsetWidth+'px');height: expression(this.parentNode.offsetHeight+'px');}
-.ui-jqgrid-dnd tr td {border-right-width: 1px; border-right-color: inherit; border-right-style: solid; height:20px}
+.ui-jqgrid-dnd tr td {border-right-width: 1px; border-right-color: inherit; border-right-style: solid; height:20px;}
 /* RTL Support */
 .ui-jqgrid .ui-jqgrid-title-rtl {float:right;margin: .1em 0 .2em; }
 .ui-jqgrid .ui-jqgrid-hbox-rtl {float: right; padding-left: 20px;}
