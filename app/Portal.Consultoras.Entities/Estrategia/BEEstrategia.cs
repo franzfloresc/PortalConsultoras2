@@ -175,15 +175,16 @@ namespace Portal.Consultoras.Entities
         /// </summary>
         [DataMember]
         public bool ValidarPeriodoFacturacion { get; set; }
-
         [DataMember]
         public double ZonaHoraria { get; set; }
-
         [DataMember]
         public int IdMatrizComercial { get; set; }
         [DataMember]
         public string FotoProducto01 { get; set; }
-
+        [DataMember]
+        public string FotoProductoSmall { get; set; }
+        [DataMember]
+        public string FotoProductoMedium { get; set; }
         [DataMember]
         public string ImgFondoDesktop { get; set; }
         [DataMember]
@@ -289,10 +290,10 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "ImagenURL") && row["ImagenURL"] != DBNull.Value)
                 ImagenURL = row["ImagenURL"].ToString();
-            
+
             PrecioPublico = DataRecord.GetColumn<decimal>(row, "PrecioPublico");
             Ganancia = DataRecord.GetColumn<decimal>(row, "Ganancia");
-            
+
             if (DataRecord.HasColumn(row, "EsOfertaIndependiente"))
                 EsOfertaIndependiente = Convert.ToBoolean(row["EsOfertaIndependiente"].ToString());
 
