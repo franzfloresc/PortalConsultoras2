@@ -21,11 +21,14 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using System.Web.Security;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -4261,6 +4264,60 @@ namespace Portal.Consultoras.Web.Controllers
                 return flag;                
             }
         }
+        
+        protected List<RVPRFModel> GetPDFRVDigital(string codigoConsultora, string campania, string numeroPedido)
+        {
+            var complain = new RVDWebCampaniasParam {
+                Pais = userData.CodigoISO,
+                Tipo = "1",
+                CodigoConsultora = codigoConsultora,
+                Campana = campania,
+                NumeroPedido = numeroPedido
+            };
 
+            var lstRVPRFModel = new List<RVPRFModel>();
+            try
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                string output = serializer.Serialize(complain);
+
+                string strUri = GetConfiguracionManager(Constantes.ConfiguracionManager.WS_RV_PDF_NEW);
+                Uri uri = new Uri(strUri);
+                WebRequest request = WebRequest.Create(uri);
+                request.Method = "POST";
+                request.ContentType = "application/json; charset=utf-8";
+
+                using (StreamWriter writer = new StreamWriter(request.GetRequestStream()))
+                {
+                    writer.Write(output);
+                }
+
+                WebResponse response = request.GetResponse();
+                Stream reader = response.GetResponseStream();
+                StreamReader sReader = new StreamReader(reader);
+                string outResult = sReader.ReadToEnd();
+                sReader.Close();
+
+                JavaScriptSerializer json_serializer = new JavaScriptSerializer();
+                WrapperPDFWeb st = json_serializer.Deserialize<WrapperPDFWeb>(outResult);
+
+                if ((st != null && st.GET_URLResult != null) &&
+                (st.GET_URLResult.errorCode == "00000" || st.GET_URLResult.errorMessage == "OK") &&
+                (st.GET_URLResult.objeto != null && st.GET_URLResult.objeto.Count != 0))
+                {
+                    lstRVPRFModel = st.GET_URLResult.objeto.Select(item => new RVPRFModel
+                    {
+                        Nombre = "Paquete Documentario",
+                        FechaFacturacion = item.fechaFacturacion,
+                        Ruta = Convert.ToString(item.url)
+                    }).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+            return lstRVPRFModel;
+        }
     }
 }

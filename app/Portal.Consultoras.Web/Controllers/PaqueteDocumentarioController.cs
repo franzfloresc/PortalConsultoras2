@@ -2,7 +2,6 @@
 using Portal.Consultoras.Web.Models;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -38,21 +37,16 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Consultar(string sidx, string sord, int page, int rows, string Campania)
         {
-            BEGrid grid = new BEGrid();
-            grid.PageSize = rows;
-            grid.CurrentPage = page;
-            grid.SortColumn = sidx;
-            grid.SortOrder = sord;
+            BEGrid grid = new BEGrid {
+                PageSize = rows,
+                CurrentPage = page,
+                SortColumn = sidx,
+                SortOrder = sord
+            };
             BEPager pag = new BEPager();
-            bool ErrorServicio;
-            string ErrorCode;
-            string ErrorMessage;
-            List<RVPRFModel> lst = new List<RVPRFModel>();
 
-            if (!string.IsNullOrEmpty(Campania))
-            {
-                lst = GetPDFRVDigitalWeb(Campania, out ErrorServicio, out ErrorCode, out ErrorMessage);
-            }
+            var lst = new List<RVPRFModel>();
+            if (!string.IsNullOrEmpty(Campania)) lst = GetPDFRVDigital(userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : userData.CodigoConsultora, Campania, "");
             IEnumerable<RVPRFModel> items = lst;
 
             #region Sort Section
@@ -90,12 +84,11 @@ namespace Portal.Consultoras.Web.Controllers
                        {
                            id = a.Nombre + "-" + a.FechaFacturacion,
                            cell = new string[]
-                            {
+                           {
                                 a.Nombre,
                                 a.FechaFacturacion,
                                 a.Ruta,
-                            }
-
+                           }
                        }
             };
             return Json(data, JsonRequestBehavior.AllowGet);
@@ -169,76 +162,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (lstCampaniaModel.Count != 0)
                 return lstCampaniaModel.Distinct().OrderBy(p => p.CampaniaID).ToList();
             else
-
                 return lstCampaniaModel;
-
-
-        }
-
-        public List<RVPRFModel> GetPDFRVDigitalWeb(string Campania, out bool ErrorServicio, out string ErrorCode, out string ErrorMessage)
-        {
-            UsuarioModel usuario = UserData();
-            var complain = new RVDWebCampaniasParam { Pais = usuario.CodigoISO, Tipo = "1", CodigoConsultora = ((usuario.UsuarioPrueba == 1) ? usuario.ConsultoraAsociada : usuario.CodigoConsultora), Campana = Campania };
-            List<RVPRFModel> lstRVPRFModel = new List<RVPRFModel>();
-            ErrorServicio = false;
-            ErrorCode = string.Empty;
-            ErrorMessage = string.Empty;
-            try
-            {
-                JavaScriptSerializer serializer = new JavaScriptSerializer();
-                string output = serializer.Serialize(complain);
-
-                string strUri = GetConfiguracionManager(Constantes.ConfiguracionManager.WS_RV_PDF_NEW);
-                Uri uri = new Uri(strUri);
-                WebRequest request = WebRequest.Create(uri);
-                request.Method = "POST";
-                request.ContentType = "application/json; charset=utf-8";
-
-                using (StreamWriter writer = new StreamWriter(request.GetRequestStream()))
-                {
-                    writer.Write(output);
-                }
-
-                WebResponse responce = request.GetResponse();
-                Stream reader = responce.GetResponseStream();
-                StreamReader sReader = new StreamReader(reader);
-                string outResult = sReader.ReadToEnd();
-                sReader.Close();
-
-                JavaScriptSerializer json_serializer = new JavaScriptSerializer();
-
-                WrapperPDFWeb st = json_serializer.Deserialize<WrapperPDFWeb>(outResult);
-                if (st != null)
-                {
-                    if (st.GET_URLResult != null)
-                    {
-                        if (st.GET_URLResult.errorCode == "00000" || st.GET_URLResult.errorMessage == "OK")
-                        {
-                            if (st.GET_URLResult.objeto != null && st.GET_URLResult.objeto.Count != 0)
-                            {
-                                foreach (var item in st.GET_URLResult.objeto)
-                                {
-                                    lstRVPRFModel.Add(new RVPRFModel() { Nombre = "Paquete Documentario", FechaFacturacion = item.fechaFacturacion, Ruta = Convert.ToString(item.url) });
-                                }
-                            }
-
-                        }
-                        else
-                        {
-                            ErrorCode = st.GET_URLResult.errorCode;
-                            ErrorMessage = st.GET_URLResult.errorMessage;
-                        }
-                    }
-
-                }
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                ErrorServicio = true;
-            }
-
-            return lstRVPRFModel;
         }
 
         public BEPager Paginador(BEGrid item, string vBusqueda, List<RVPRFModel> lst)

@@ -76,6 +76,7 @@ namespace Portal.Consultoras.Web.Models
         public string Tipo { get; set; }
         public string CodigoConsultora { get; set; }
         public string Campana { get; set; }
+        public string NumeroPedido { get; set; }
     }
 
     [Serializable]
@@ -98,6 +99,5 @@ namespace Portal.Consultoras.Web.Models
         public string errorMessage { get; set; }
         public List<string> lista { get; set; }
         public List<objeto> objeto { get; set; }
-    }
-     
+    }     
 }
