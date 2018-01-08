@@ -338,13 +338,10 @@ namespace Portal.Consultoras.BizLogic
                         decimal.TryParse(datos.MontoTotalDescuento, out montoDescuento);
                         decimal.TryParse(datos.MontoEscala, out montoEscala);
 
-                        if (datos != null)
+                        if (datos.ListaConcursoIncentivos != null)
                         {
-                            if (datos.ListaConcursoIncentivos != null)
-                            {
-                                Puntajes = string.Join("|", datos.ListaConcursoIncentivos.Select(c => c.puntajeconcurso.Split('|')[0]));
-                                PuntajesExigidos = string.Join("|", datos.ListaConcursoIncentivos.Select(c => (c.puntajeconcurso.IndexOf('|') > -1 ? c.puntajeconcurso.Split('|')[1] : "0")));
-                            }
+                            Puntajes = string.Join("|", datos.ListaConcursoIncentivos.Select(c => c.puntajeconcurso.Split('|')[0]));
+                            PuntajesExigidos = string.Join("|", datos.ListaConcursoIncentivos.Select(c => (c.puntajeconcurso.IndexOf('|') > -1 ? c.puntajeconcurso.Split('|')[1] : "0")));
                         }
                     }
                 }

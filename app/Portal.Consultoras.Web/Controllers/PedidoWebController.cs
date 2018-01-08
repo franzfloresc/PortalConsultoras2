@@ -599,7 +599,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     ImporteTotalPedido = suma
                 });
-                lstDetalles.AddRange((List<BEPedidoWebDetalle>)lstDetallesTemp);
+                lstDetalles.AddRange(lstDetallesTemp);
             }
 
             Dictionary<string, string> dicDetalles = new Dictionary<string, string>();
@@ -749,11 +749,11 @@ namespace Portal.Consultoras.Web.Controllers
                         string importeTotalPedido = "";
                         if (UserData().PaisID == 4)
                         {
-                            importeTotalPedido = ((BEPedidoWebDetalle)SourceDetails[i]).ImporteTotalPedido.ToString("#,##0").Replace(',', '.');
+                            importeTotalPedido = (SourceDetails[i]).ImporteTotalPedido.ToString("#,##0").Replace(',', '.');
                         }
                         else
                         {
-                            importeTotalPedido = ((BEPedidoWebDetalle)SourceDetails[i]).ImporteTotalPedido.ToString("0.00");
+                            importeTotalPedido = (SourceDetails[i]).ImporteTotalPedido.ToString("0.00");
                         }
 
                         ws.Cell(row, col - 2).Value = arrTotal[0];
