@@ -113,8 +113,10 @@ namespace Portal.Consultoras.Web.WebPages
                     page = page
                 });
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", "", "IngresoComunidad - ValidarUsuario");
+
                 return serializer.Serialize(new
                 {
                     success = false,
@@ -204,8 +206,10 @@ namespace Portal.Consultoras.Web.WebPages
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", "", "IngresoComunidad - RegistrarUsuarioComunidad");
+
                 return serializer.Serialize(new
                 {
                     success = false

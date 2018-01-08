@@ -1053,8 +1053,9 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 model = sessionManager.GetUserData();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", "", "UserData - sessionManager.GetUserData()");
                 model = null;
             }
 
@@ -1066,8 +1067,9 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 UrlEMTELCO = GetConfiguracionManager(Constantes.ConfiguracionManager.UrlBelcorpChat);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", "", "UserData - UrlEMTELCO");
                 UrlEMTELCO = "";
             }
 
@@ -1968,8 +1970,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 Session[constSession] = oBEConfiguracionProgramaNuevas ?? new BEConfiguracionProgramaNuevas();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 Session[constSession] = new BEConfiguracionProgramaNuevas();
             }
 

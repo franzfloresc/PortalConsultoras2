@@ -1037,8 +1037,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 return (JsonConvert.DeserializeObject(result) as dynamic);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", "", "EnviarMailMandrillJson");
                 return null;
             }
         }

@@ -429,8 +429,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 return listadoProductosCPCModel1;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return null;
                 throw;
 

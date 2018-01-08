@@ -724,8 +724,9 @@ namespace Portal.Consultoras.Web.Controllers
                     data = lstProductoModelFilter
                 });
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
