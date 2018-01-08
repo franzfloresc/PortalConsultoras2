@@ -150,7 +150,7 @@ header {
 }
 
 .flecha_scroll a:hover {
-    opacity: 0.5;
+    opacity: .5;
 }
 
 .mensaje_header {
@@ -229,7 +229,7 @@ header {
     text-decoration: none;
     color: black;
     border-bottom: 2px solid white;
-    letter-spacing: 0.75pt;
+    letter-spacing: .75pt;
     height: 90%;
 }
 
@@ -286,7 +286,7 @@ header {
     padding-left: 65px;
     padding-right: 60px;
     display: none;
-    background: rgba(255,255,255,0.95) url('../../../Images/Esika/fondo.png');
+    background: rgba(255,255,255,.95) url('../../../Images/Esika/fondo.png');
     -webkit-box-shadow: -4px 4px 11px -5px rgba(120,120,120,1);
     -moz-box-shadow: -4px 4px 11px -5px rgba(120,120,120,1);
     box-shadow: -4px 4px 11px -5px rgba(120,120,120,1);
@@ -301,7 +301,7 @@ header {
     height: 188px;
     padding-left: 60px;
     padding-right: 60px;
-    background: rgba(255,255,255,0.95) url('../../../Images/Esika/fondo.png');
+    background: rgba(255,255,255,.95) url('../../../Images/Esika/fondo.png');
     -webkit-box-shadow: -4px 4px 11px -5px rgba(120,120,120,1);
     -moz-box-shadow: -4px 4px 11px -5px rgba(120,120,120,1);
     box-shadow: -4px 4px 11px -5px rgba(120,120,120,1);
@@ -878,7 +878,7 @@ header {
     top: 0;
     position: absolute;
     z-index: 152;
-    background: rgba(247,247,249,0.9);
+    background: rgba(247,247,249,.9);
 }
 
 .item_home:hover .item_oculto {
@@ -1005,7 +1005,7 @@ header {
 
 .boton_secciones {
     font-size: 8px;
-    letter-spacing: 0.8px;
+    letter-spacing: .8px;
     padding-top: 4px;
     padding-bottom: 4px;
     padding-left: 0;
@@ -1212,7 +1212,7 @@ header {
 }
 
 .subtitle_p {
-    LETTER-SPACING: 0;
+    letter-spacing: 0;
     margin-top: 5px;
     font-size: 12px;
     line-height: 16px;
@@ -1701,7 +1701,7 @@ header {
     font-weight: 400;
     color: black;
     margin-top: 9px;
-    letter-spacing: 0.8px;
+    letter-spacing: .8px;
 }
 
     .pedidos_cliente:hover {
@@ -1867,7 +1867,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
         position: absolute;
         top: 0;
         right: 0;
-        opacity: 0.6;
+        opacity: .6;
         transition: all .3s ease;
         -moz-transition: all .3s ease;
         -o-transition: all .3s ease;
@@ -1876,7 +1876,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     }
 
         .iconos_acciones .icono_email:hover {
-            opacity: 0.3;
+            opacity: .3;
         }
 
 .noti.mensaje_producto_noExiste {
@@ -2067,9 +2067,9 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     height: auto;
     padding: 20px 36px 20px 20px;
     margin-right: 15px;
-    -webkit-box-shadow: -9px 3px 23px -5px rgba(0,0,0,0.31);
-    -moz-box-shadow: -9px 3px 23px -5px rgba(0,0,0,0.31);
-    box-shadow: -9px 3px 23px -5px rgba(0,0,0,0.31);
+    -webkit-box-shadow: -9px 3px 23px -5px rgba(0,0,0,.31);
+    -moz-box-shadow: -9px 3px 23px -5px rgba(0,0,0,.31);
+    box-shadow: -9px 3px 23px -5px rgba(0,0,0,.31);
     background: url('../../../Images/Esika/fondo_pestana.png') no-repeat right center;
     font-family: 'Lato';
     font-size: 15px;
@@ -2124,11 +2124,11 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     z-index: 50;
     top: -64%;
     left: 105%;
-    box-shadow: 3px 3px 15px 0 rgba(0,0,0,0.31);
-    -moz-box-shadow: 3px 3px 15px 0 rgba(0,0,0,0.31);
-    -o-box-shadow: 3px 3px 15px 0 rgba(0,0,0,0.31);
-    -ms-box-shadow: 3px 3px 15px 0 rgba(0,0,0,0.31);
-    -webkit-box-shadow: 3px 3px 15px 0 rgba(0,0,0,0.31);
+    box-shadow: 3px 3px 15px 0 rgba(0,0,0,.31);
+    -moz-box-shadow: 3px 3px 15px 0 rgba(0,0,0,.31);
+    -o-box-shadow: 3px 3px 15px 0 rgba(0,0,0,.31);
+    -ms-box-shadow: 3px 3px 15px 0 rgba(0,0,0,.31);
+    -webkit-box-shadow: 3px 3px 15px 0 rgba(0,0,0,.31);
     padding-top: 22px;
     border: 1px solid #e7e1e1;
 }
@@ -2174,11 +2174,11 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     top: 58%;
     left: 153%;
     margin-top: -84px;
-    box-shadow: 3px 4px 15px 0 rgba(0,0,0,0.31);
-    -moz-box-shadow: 3px 4px 15px 0 rgba(0,0,0,0.31);
-    -o-box-shadow: 3px 4px 15px 0 rgba(0,0,0,0.31);
-    -ms-box-shadow: 3px 4px 15px 0 rgba(0,0,0,0.31);
-    -webkit-box-shadow: 3px 4px 15px 0 rgba(0,0,0,0.31);
+    box-shadow: 3px 4px 15px 0 rgba(0,0,0,.31);
+    -moz-box-shadow: 3px 4px 15px 0 rgba(0,0,0,.31);
+    -o-box-shadow: 3px 4px 15px 0 rgba(0,0,0,.31);
+    -ms-box-shadow: 3px 4px 15px 0 rgba(0,0,0,.31);
+    -webkit-box-shadow: 3px 4px 15px 0 rgba(0,0,0,.31);
     padding-top: 18px;
     padding-left: 22px;
     padding-right: 20px;
@@ -2741,7 +2741,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     margin-right: 15px;
     font-family: 'Lato';
     font-size: 14px;
-    letter-spacing: 0.2px;
+    letter-spacing: .2px;
     color: #000;
     line-height: 20px;
 }
@@ -2754,7 +2754,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     font-family: 'Lato';
     font-size: 11.7px;
     color: #7e7e7e;
-    letter-spacing: 0.2px;
+    letter-spacing: .2px;
     margin-top: 2px;
     margin-right: 5px;
 }
@@ -2789,7 +2789,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
 .paginas_pedidos {
     font-size: 11.7px;
     color: #7e7e7e;
-    letter-spacing: 0.2px;
+    letter-spacing: .2px;
 }
 
     .paginas_pedidos .pagina_actual {
@@ -2797,7 +2797,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     }
 
         .paginas_pedidos .pagina_actual input {
-            letter-spacing: 0.2px;
+            letter-spacing: .2px;
             width: 24px;
             height: 24px;
             text-align: center;
@@ -2809,7 +2809,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     .paginas_pedidos .paginas_totales {
         font-size: 11.7px;
         color: #7e7e7e;
-        letter-spacing: 0.2px;
+        letter-spacing: .2px;
     }
 
 .flecha_paginador_adelante {
@@ -2833,11 +2833,11 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
 }
 
     .flecha_paginador_atras:hover {
-        border-right: 6px solid rgba(0,0,0,0.4);
+        border-right: 6px solid rgba(0,0,0,.4);
     }
 
     .flecha_paginador_adelante:hover {
-        border-left: 6px solid rgba(0,0,0,0.4);
+        border-left: 6px solid rgba(0,0,0,.4);
     }
 
 .contenedor_eliminacion_pedido {
@@ -2955,7 +2955,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
                 color: #fff;
                 font-family: 'Lato';
                 font-size: 12.9px;
-                letter-spacing: 0.8px;
+                letter-spacing: .8px;
                 line-height: 57px;
                 position: relative;
                 z-index: 5;
@@ -3097,7 +3097,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     .caja_carousel_productos .ver_mas_productos a {
         font-family: 'Lato';
         font-size: 10px;
-        letter-spacing: 0.2px;
+        letter-spacing: .2px;
         color: #000;
         display: block;
     }
@@ -3198,7 +3198,7 @@ a.subir_carousel, a.bajar_carousel {
 }
 
     a.subir_carousel:hover, a.bajar_carousel:hover {
-        opacity: 0.5;
+        opacity: .5;
         -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
     }
 
@@ -3267,7 +3267,7 @@ a.subir_carousel, a.bajar_carousel {
     padding-right: 16px;
     height: auto;
     font-family: 'Lato';
-    letter-spacing: 0.2px;
+    letter-spacing: .2px;
     text-align: center;
     position: relative;
     overflow: hidden;
@@ -3307,7 +3307,7 @@ a.subir_carousel, a.bajar_carousel {
     padding-left: 16px;
     padding-right: 16px;
     font-family: 'Lato';
-    letter-spacing: 0.2px;
+    letter-spacing: .2px;
     color: #000;
     margin-bottom: 22px;
 }
@@ -3880,7 +3880,7 @@ a.subir_carousel, a.bajar_carousel {
             border: 1px solid #b0b0b0;
             font-family: 'Lato';
             font-size: 15px;
-            letter-spacing: 0.2px;
+            letter-spacing: .2px;
             color: #26201d;
         }
 /* POPUP PRODUCTOS SUGERIDOS */
@@ -3904,7 +3904,7 @@ a.subir_carousel, a.bajar_carousel {
 }
 
     .flecha_izquierda_carousel_productosSugeridos:hover, .flecha_derecha_carousel_productosSugeridos:hover {
-        opacity: 0.5;
+        opacity: .5;
     }
 
 .flecha_izquierda_carousel_productosSugeridos:hover {
@@ -4104,7 +4104,7 @@ a.subir_carousel, a.bajar_carousel {
             width: 56%;
             height: 200px;
             font-family: 'Lato';
-            letter-spacing: 0.2px;
+            letter-spacing: .2px;
             text-align: left;
             float: right;
             position: relative;
@@ -4981,7 +4981,7 @@ a.subir_carousel, a.bajar_carousel {
 .descripcion_set_packNuevas h6 {
     font-size: 14px;
     font-weight: 700 !important;
-    letter-spacing: 0.2px;
+    letter-spacing: .2px;
     color: #000;
     margin-bottom: 15px;
 }
@@ -5592,7 +5592,7 @@ a.subir_carousel, a.bajar_carousel {
         float: right;
         font-size: 8pt;
         font-weight: 400;
-        letter-spacing: 0.8px;
+        letter-spacing: .8px;
         text-transform: uppercase;
         margin-top: 10px;
     }
@@ -8245,9 +8245,9 @@ ul.tabs {
     position: absolute;
     z-index: 9999;
     filter: alpha(opacity=50);
-    -moz-opacity: 0.50;
-    opacity: 0.50;
-    -khtml-opacity: 0.50;
+    -moz-opacity: .5;
+    opacity: .5;
+    -khtml-opacity: .5;
 }
 
 .cargando {
@@ -13659,9 +13659,9 @@ ol {
     background-color: #e51437;
     padding: 4px 8px 6px 5px;
     margin-bottom: 9px;
-    -webkit-box-shadow: 5px 5px 6px 0 rgba(146, 144, 149, 0.9);
-    -moz-box-shadow: 5px 6px 0 rgba(146, 144, 149, 0.9);
-    box-shadow: 5px 5px 6px 0 rgba(146, 144, 149, 0.9);
+    -webkit-box-shadow: 5px 5px 6px 0 rgba(146, 144, 149, .9);
+    -moz-box-shadow: 5px 6px 0 rgba(146, 144, 149, .9);
+    box-shadow: 5px 5px 6px 0 rgba(146, 144, 149, .9);
 }
 
     .cuenta-mensaje span {
@@ -13834,7 +13834,7 @@ ol {
     .mCSB_scrollTools .mCSB_buttonDown:hover,
     .mCSB_scrollTools .mCSB_buttonLeft:hover,
     .mCSB_scrollTools .mCSB_buttonRight:hover {
-        opacity: 0.75;
+        opacity: .75;
         filter: 'alpha(opacity=75)';
         -ms-filter: 'alpha(opacity=75)';
     }
@@ -18522,7 +18522,7 @@ a.mover {
     font-family: 'lato';
     font-size: 21pt;
     margin-left: -3px;
-    letter-spacing: 0.9px;
+    letter-spacing: .9px;
     margin-top: 16px;
     color: black;
     -moz-text-align-last: justify;
@@ -18536,7 +18536,7 @@ a.mover {
     font-size: 38pt;
     margin-left: -6px;
     font-weight: 100;
-    letter-spacing: 0.1px;
+    letter-spacing: .1px;
     margin-top: -20px;
     height: 65px;
     -moz-text-align-last: justify;
@@ -18670,7 +18670,7 @@ a.mover {
     font-weight: 400;
     font-size: 27pt;
     text-align: center;
-    letter-spacing: 0.75px;
+    letter-spacing: .75px;
     color: black;
     margin-top: -10px;
 }
@@ -18856,9 +18856,9 @@ label.checkpop.c_on {
 
     .imagen_showroom img:hover {
         filter: alpha(opacity=50);
-        -khtml-opacity: 0.5;
-        -moz-opacity: 0.5;
-        opacity: 0.5;
+        -khtml-opacity: .5;
+        -moz-opacity: .5;
+        opacity: .5;
     }
 
 .cantidad_productos_showroom {
@@ -19787,7 +19787,7 @@ label.checkpop.c_on {
         font-family: 'lato';
         font-size: 13px;
         color: black;
-        letter-spacing: 0.2px;
+        letter-spacing: .2px;
         float: left;
     }
 
@@ -19795,7 +19795,7 @@ label.checkpop.c_on {
     float: right;
     font-size: 10px;
     color: #848484;
-    letter-spacing: 0.1px;
+    letter-spacing: .1px;
     text-decoration: none;
 }
 
@@ -19807,7 +19807,7 @@ label.checkpop.c_on {
     text-align: center;
     font-family: 'lato';
     font-size: 10pt;
-    letter-spacing: 0.25px;
+    letter-spacing: .25px;
     color: black;
     margin-top: 10px;
 }
@@ -20012,7 +20012,7 @@ label.checkpop.c_on {
 .mis_datos {
     font-family: 'lato';
     font-size: 9px;
-    letter-spacing: 0.1px;
+    letter-spacing: .1px;
     color: #848484;
     margin-top: 5px;
     margin-left: 10px;
@@ -20304,7 +20304,7 @@ label.checkpop.c_on {
     font-family: 'Lato';
     color: #000;
     font-weight: 400;
-    letter-spacing: 0.4px;
+    letter-spacing: .4px;
     font-size: 21px;
     margin: 0 0 27px 0;
 }
@@ -20521,7 +20521,7 @@ label.checkpop.c_on {
     font-family: 'lato';
     font-size: 12px;
     font-weight: 700;
-    letter-spacing: 0.2px;
+    letter-spacing: .2px;
 }
 
 .carrusel_liquidacion {
@@ -20603,7 +20603,7 @@ label.checkpop.c_on {
     font-size: 17px;
     font-weight: 700;
     font-family: 'lato';
-    letter-spacing: 0.7px;
+    letter-spacing: .7px;
     background: black;
     color: white;
     text-align: center;
@@ -20722,7 +20722,7 @@ hr {
     font-family: 'lato';
     font-size: 12pt;
     font-weight: 300;
-    letter-spacing: 0.25px;
+    letter-spacing: .25px;
 }
 
     .titulo_mis_certificados.mt-45 {
@@ -20826,7 +20826,7 @@ hr {
     font-family: 'lato';
     font-size: 11pt;
     font-weight: 300;
-    letter-spacing: 0.25px;
+    letter-spacing: .25px;
     margin-top: 12px;
     margin-bottom: 15px;
 }
@@ -20845,7 +20845,7 @@ hr {
 
     .acciones_pagos:hover {
         top: -5px;
-        opacity: 0.5;
+        opacity: .5;
         filter: alpha(opacity=60);
     }
 
@@ -20964,7 +20964,7 @@ hr {
     border: 1px solid #e7e1e1;
     font-family: 'lato';
     font-size: 10pt;
-    letter-spacing: 0.25px;
+    letter-spacing: .25px;
     -webkit-box-shadow: 0 15px 21px -8px rgba(204,200,204,1);
     -moz-box-shadow: 0 15px 21px -8px rgba(204,200,204,1);
     box-shadow: 0 15px 21px -8px rgba(204,200,204,1);
@@ -21065,9 +21065,9 @@ body {
 
     .logos_bancos:hover {
         filter: alpha(opacity=50);
-        -moz-opacity: 0.50;
-        opacity: 0.50;
-        -khtml-opacity: 0.50;
+        -moz-opacity: .5;
+        opacity: .5;
+        -khtml-opacity: .5;
     }
 
 .tutoriales_svg {
@@ -21255,7 +21255,7 @@ body {
     font-family: 'lato';
     font-size: 16pt;
     color: black;
-    letter-spacing: 0.25px;
+    letter-spacing: .25px;
     font-weight: 700;
     margin-top: 25px;
     margin-bottom: 28px;
@@ -21294,7 +21294,7 @@ body {
     font-family: 'Lato';
     font-size: 8.2pt;
     text-align: center;
-    letter-spacing: 0.25px;
+    letter-spacing: .25px;
     width: 24.7%;
 }
 
@@ -21403,8 +21403,8 @@ body {
         }
 
     .escala_ganancia {
-        padding-left: 0.8%;
-        padding-right: 0.8%;
+        padding-left: .8%;
+        padding-right: .8%;
     }
     /*FOTO USUARIO*/
     .resumen_belcorp_cam {
@@ -21463,12 +21463,12 @@ body {
     }
 
     .resumen_belcorp_cam {
-        margin-right: 0.6%;
+        margin-right: .6%;
     }
 
     .escala_ganancia {
-        padding-left: 0.8%;
-        padding-right: 0.8%;
+        padding-left: .8%;
+        padding-right: .8%;
     }
 
     .escala_select {
@@ -21695,7 +21695,7 @@ body {
 
         .seguimiento a:hover {
             margin-top: -21px;
-            opacity: 0.4;
+            opacity: .4;
         }
 
         .seguimiento a img {
@@ -21732,7 +21732,7 @@ body {
 
         .percepcion_misPedidos a:hover {
             margin-top: -17px;
-            opacity: 0.4;
+            opacity: .4;
         }
 
         .percepcion_misPedidos a img {
@@ -21769,7 +21769,7 @@ body {
 
         .pack_documentario a:hover {
             margin-top: -18px;
-            opacity: 0.4;
+            opacity: .4;
         }
 
         .pack_documentario a img {
@@ -21833,7 +21833,7 @@ body {
 }
 
 .ingresado img {
-    opacity: 0.2;
+    opacity: .2;
     filter: alpha(opacity=20);
 }
 
@@ -21854,7 +21854,7 @@ body {
 
 .estado_detalles div:hover .icono_verDetalle {
     margin-top: -18px !important;
-    opacity: 0.4;
+    opacity: .4;
 }
 
 @media screen and (max-width:1280px) {
@@ -21897,7 +21897,7 @@ body {
 
     .detalle_percepcion a:hover {
         top: -5px;
-        opacity: 0.5;
+        opacity: .5;
         filter: alpha(opacity=60);
     }
 /* POPUP PERCEPCION */
@@ -22078,7 +22078,7 @@ body {
     display: block;
     position: absolute;
     bottom: -54%;
-    right: 0.5%;
+    right: .5%;
     transition: all .3s ease;
     -moz-transition: all .3s ease;
     -o-transition: all .3s ease;
@@ -22087,7 +22087,7 @@ body {
 }
 
     .icono_imprimir:hover {
-        opacity: 0.5;
+        opacity: .5;
     }
 
 .content_datos_percepciones {
@@ -22285,7 +22285,7 @@ body {
     }
 
         .btn_cerrar_popup_pedidosFacturados a:hover {
-            opacity: 0.5;
+            opacity: .5;
             top: 3.8%;
         }
 
@@ -22357,11 +22357,11 @@ body {
 }
 
     .flecha_atras:hover {
-        border-right: 6px solid rgba(0,0,0,0.4);
+        border-right: 6px solid rgba(0,0,0,.4);
     }
 
     .flecha_adelante:hover {
-        border-left: 6px solid rgba(0,0,0,0.4);
+        border-left: 6px solid rgba(0,0,0,.4);
     }
 
 .texto_descripcion {
@@ -22384,8 +22384,8 @@ body {
     display: block;
     position: absolute;
     bottom: 20%;
-    right: 0.5%;
-    opacity: 0.6;
+    right: .5%;
+    opacity: .6;
     transition: all .3s ease;
     -moz-transition: all .3s ease;
     -o-transition: all .3s ease;
@@ -22394,7 +22394,7 @@ body {
 }
 
     .icono_excel:hover {
-        opacity: 0.25;
+        opacity: .25;
     }
 
 .contenedor_datos_cliente {
@@ -22626,7 +22626,7 @@ body {
     }
 
         .btn_cerrar_popup_pedidosIngresados a:hover {
-            opacity: 0.7;
+            opacity: .7;
         }
 
 .popup_pedidosIngresados .contenedor_bloque_datos {
@@ -22805,7 +22805,7 @@ body {
     }
 
         .div-img.hidden:hover {
-            opacity: 0.5;
+            opacity: .5;
             filter: alpha(opacity=50);
         }
 
@@ -23481,7 +23481,7 @@ img {
 
             #menu > li:hover {
                 background-color: #E7EBE9;
-                background: rgba(231, 235, 233, 0.95);
+                background: rgba(231, 235, 233, .95);
                 border-top: 5px solid #d226aa;
                 height: 58px;
                 padding-bottom: 7px;
@@ -23489,7 +23489,7 @@ img {
 
 .li_selected {
     background-color: #E7EBE9;
-    background: rgba(231, 235, 233, 0.95);
+    background: rgba(231, 235, 233, .95);
     border-top: 5px solid #d226aa;
     height: 58px !important;
     padding-bottom: 7px;
@@ -23497,7 +23497,7 @@ img {
 
 #menu .menu_item_selected {
     background-color: #E7EBE9;
-    background: rgba(231, 235, 233, 0.55);
+    background: rgba(231, 235, 233, .55);
     border-top: 5px solid #d226aa;
     height: 58px;
     padding-bottom: 7px;
@@ -23511,7 +23511,7 @@ img {
 
 .submenu {
     background-color: #E7EBE9;
-    background-color: rgba(231, 235, 233, 0.95);
+    background-color: rgba(231, 235, 233, .95);
     color: #333333;
     height: auto;
     display: none;
@@ -25287,7 +25287,7 @@ div.subir_archivo {
 
 .texto_titulo_noti {
     font-size: 16pt;
-    letter-spacing: 0.25px;
+    letter-spacing: .25px;
     color: black;
     margin-top: 20px;
     margin-bottom: 20px;
@@ -25301,12 +25301,12 @@ div.subir_archivo {
 
     .texto_secundario_noti span {
         text-transform: uppercase;
-        letter-spacing: 0.25px;
+        letter-spacing: .25px;
     }
 
 .texto_detalle {
     font-size: 10pt;
-    letter-spacing: 0.25px;
+    letter-spacing: .25px;
     margin-bottom: 5px;
 }
 
@@ -25400,7 +25400,7 @@ div.subir_archivo {
     background: #e81c36;
     font-weight: 700;
     font-size: 11pt;
-    letter-spacing: 0.25px;
+    letter-spacing: .25px;
     text-align: center;
 }
 
@@ -25416,14 +25416,14 @@ div.subir_archivo {
     background: #e81c36;
     font-weight: 700;
     font-size: 11pt;
-    letter-spacing: 0.25px;
+    letter-spacing: .25px;
     text-align: center;
 }
 
 .numero_lista {
     width: 40px;
     margin-left: 15px;
-    letter-spacing: 0.2px;
+    letter-spacing: .2px;
     height: 24px;
     padding-left: 3px;
     color: #000;
@@ -25440,7 +25440,7 @@ div.subir_archivo {
     font-weight: 300;
     font-size: 10pt;
     color: #333333;
-    letter-spacing: 0.25px;
+    letter-spacing: .25px;
 }
 
 .icono_cliente_sb {
@@ -25516,7 +25516,7 @@ div.subir_archivo {
 
         .pedido_detalle_cliente a:hover {
             top: -5px;
-            opacity: 0.5;
+            opacity: .5;
             filter: alpha(opacity=60);
         }
 
@@ -25599,7 +25599,7 @@ div.subir_archivo {
 }
 
     .mis_clientes .btn_cerrarPopupCliente:hover {
-        opacity: 0.5;
+        opacity: .5;
         filter: alpha(opacity=50);
     }
 
@@ -25670,7 +25670,7 @@ div.subir_archivo {
 }
 
     .btn_cerrar_eliminarCliente:hover {
-        opacity: 0.5;
+        opacity: .5;
         filter: alpha(opacity=50);
     }
 
@@ -25810,7 +25810,7 @@ div.subir_archivo {
     font-family: 'Lato';
     font-size: 28px;
     font-weight: 300;
-    line-height: 0.82;
+    line-height: .82;
     text-align: center;
     color: #000000;
     margin-top: 30px;
@@ -26394,9 +26394,9 @@ input[type='checkbox']:checked + span:after {
     padding-right: 25px;
     right: 30px;
     top: -25px;
-    -webkit-box-shadow: -9px 3px 23px -5px rgba(0,0,0,0.31);
-    -moz-box-shadow: -9px 3px 23px -5px rgba(0,0,0,0.31);
-    box-shadow: -9px 3px 23px -5px rgba(0,0,0,0.31);
+    -webkit-box-shadow: -9px 3px 23px -5px rgba(0,0,0,.31);
+    -moz-box-shadow: -9px 3px 23px -5px rgba(0,0,0,.31);
+    box-shadow: -9px 3px 23px -5px rgba(0,0,0,.31);
     background: url('../../../Images/Esika/fondo_pestana.png') no-repeat right center;
     background-color: #fff;
 }
@@ -26529,9 +26529,9 @@ input[type='checkbox']:checked + span:after {
     height: auto;
     padding: 20px;
     margin-right: 15px;
-    -webkit-box-shadow: -9px 3px 23px -5px rgba(0,0,0,0.31);
-    -moz-box-shadow: -9px 3px 23px -5px rgba(0,0,0,0.31);
-    box-shadow: -9px 3px 23px -5px rgba(0,0,0,0.31);
+    -webkit-box-shadow: -9px 3px 23px -5px rgba(0,0,0,.31);
+    -moz-box-shadow: -9px 3px 23px -5px rgba(0,0,0,.31);
+    box-shadow: -9px 3px 23px -5px rgba(0,0,0,.31);
     background: url('../../../Images/Esika/fondo_pestana.png') no-repeat right center;
     font-family: 'Lato';
     font-size: 15px;
@@ -26657,7 +26657,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
         color: #000;
         text-align: left;
         line-height: 212px;
-        letter-spacing: 0.6px;
+        letter-spacing: .6px;
     }
 
         .titulo_banner h1 b {
@@ -26987,7 +26987,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
         font-family: Lato;
         font-size: 13px;
         font-weight: 300;
-        letter-spacing: 0.4px;
+        letter-spacing: .4px;
         color: #463a3a;
     }
 
@@ -27765,9 +27765,9 @@ a#cierreMotivoRechazo img {
     margin-top: -58px;
     z-index: 9;
     margin-left: 20%;
-    -webkit-box-shadow: -9px 3px 23px -5px rgba(0,0,0,0.31);
-    -moz-box-shadow: -9px 3px 23px -5px rgba(0,0,0,0.31);
-    box-shadow: -9px 3px 23px -5px rgba(0,0,0,0.31);
+    -webkit-box-shadow: -9px 3px 23px -5px rgba(0,0,0,.31);
+    -moz-box-shadow: -9px 3px 23px -5px rgba(0,0,0,.31);
+    box-shadow: -9px 3px 23px -5px rgba(0,0,0,.31);
     border-radius: 5px 5px 5px 5px;
     -moz-border-radius: 5px 5px 5px 5px;
     -webkit-border-radius: 5px 5px 5px 5px;
@@ -28340,7 +28340,7 @@ h1#penmostreo .campana {
     -o-transition: all .3s ease;
     -ms-transition: all .3s ease;
     -webkit-transition: all .3s ease;
-    LETTER-SPACING: 0.2px;
+    letter-spacing: .2px;
 }
 
 /* POPUP IMAGEN PERFIL PROCESO RECORTE */
@@ -28490,7 +28490,7 @@ h1#penmostreo .campana {
     padding-left: 16px;
     padding-right: 16px;
     font-family: 'Lato';
-    letter-spacing: 0.2px;
+    letter-spacing: .2px;
     color: #000;
     margin-bottom: 16px;
     margin-top: 35px;
@@ -28550,9 +28550,9 @@ h1#penmostreo .campana {
         width: 80% !important;
         height: 56px;
         margin: 0 auto;
-        -webkit-box-shadow: 0 18px 22px -11px rgba(102,102,102,0.33);
-        -moz-box-shadow: 0 18px 22px -11px rgba(102,102,102,0.33);
-        box-shadow: 0 18px 22px -11px rgba(102,102,102,0.33);
+        -webkit-box-shadow: 0 18px 22px -11px rgba(102,102,102,.33);
+        -moz-box-shadow: 0 18px 22px -11px rgba(102,102,102,.33);
+        box-shadow: 0 18px 22px -11px rgba(102,102,102,.33);
         margin-top: -31px;
     }
 
@@ -28715,9 +28715,9 @@ h1#penmostreo .campana {
             width: 80% !important;
             height: 56px;
             margin: 0 auto;
-            -webkit-box-shadow: 0 18px 22px -11px rgba(102,102,102,0.33);
-            -moz-box-shadow: 0 18px 22px -11px rgba(102,102,102,0.33);
-            box-shadow: 0 18px 22px -11px rgba(102,102,102,0.33);
+            -webkit-box-shadow: 0 18px 22px -11px rgba(102,102,102,.33);
+            -moz-box-shadow: 0 18px 22px -11px rgba(102,102,102,.33);
+            box-shadow: 0 18px 22px -11px rgba(102,102,102,.33);
             margin-top: -31px;
         }
 
@@ -28916,9 +28916,9 @@ h1#penmostreo .campana {
             width: 80% !important;
             height: 56px;
             margin: 0 auto;
-            -webkit-box-shadow: 0 18px 22px -11px rgba(102,102,102,0.33);
-            -moz-box-shadow: 0 18px 22px -11px rgba(102,102,102,0.33);
-            box-shadow: 0 18px 22px -11px rgba(102,102,102,0.33);
+            -webkit-box-shadow: 0 18px 22px -11px rgba(102,102,102,.33);
+            -moz-box-shadow: 0 18px 22px -11px rgba(102,102,102,.33);
+            box-shadow: 0 18px 22px -11px rgba(102,102,102,.33);
             margin-top: -31px;
         }
 
@@ -29827,7 +29827,7 @@ h1#penmostreo .campana {
 
     .lupa_online:hover {
         top: -5px;
-        opacity: 0.5;
+        opacity: .5;
         filter: alpha(opacity=60);
     }
 
@@ -29923,7 +29923,7 @@ h1#penmostreo .campana {
 }
 
 .fondo_pendiente {
-    background: rgba(214,214,214,0.4);
+    background: rgba(214,214,214,.4);
     width: 200%;
     height: 100%;
     position: absolute;
@@ -31030,7 +31030,7 @@ h1#penmostreo .campana {
 
 .listado_estado_general div:hover .icono_verDetalle {
     margin-top: -10px;
-    opacity: 0.4;
+    opacity: .4;
 }
 
 .listado_estado_general div .icono_verDetalle {
@@ -31478,7 +31478,7 @@ h1#penmostreo .campana {
     font-weight: 700;
     color: #000;
     padding-bottom: 15px;
-    letter-spacing: 0.2px;
+    letter-spacing: .2px;
 }
 
 .respuesta_cdr {
@@ -31700,7 +31700,7 @@ h1#penmostreo .campana {
     font-weight: 500;
     color: #000;
     padding-bottom: 15px;
-    letter-spacing: 0.2px;
+    letter-spacing: .2px;
 }
 
     .cuerpo_gpr div {
@@ -32008,7 +32008,7 @@ h1#penmostreo .campana {
     font-family: 'Lato';
     font-size: 14px;
     height: 15px;
-    letter-spacing: 0.75px;
+    letter-spacing: .75px;
     text-transform: uppercase;
     color: white;
     text-align: center;
@@ -32096,7 +32096,7 @@ h1#penmostreo .campana {
     font-family: 'Lato';
     font-weight: 700;
     color: white;
-    letter-spacing: 0.75px;
+    letter-spacing: .75px;
     border-bottom: 1px solid white;
 }
 
@@ -32207,7 +32207,7 @@ h1#penmostreo .campana {
     font-size: 14px;
     text-align: left;
     line-height: 18px;
-    letter-spacing: 0.2px;
+    letter-spacing: .2px;
 }
 
 .producto_gratis_ofertaDia {
@@ -32217,7 +32217,7 @@ h1#penmostreo .campana {
     font-family: 'Lato';
     font-size: 16px;
     font-weight: 700;
-    letter-spacing: 0.75px;
+    letter-spacing: .75px;
     text-align: center;
 }
 
@@ -32296,7 +32296,7 @@ h1#penmostreo .campana {
     right: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.85);
+    background: rgba(0, 0, 0, .85);
     z-index: 10000002;
     overflow: auto;
     display: none;
@@ -32358,7 +32358,7 @@ h1#penmostreo .campana {
     color: #6a6a6a;
     font-size: 12px;
     margin-top: -3px;
-    letter-spacing: 0.2px;
+    letter-spacing: .2px;
 }
 
 .descripcion_ficha_producto {
@@ -32446,7 +32446,7 @@ h1#penmostreo .campana {
     background: black;
     color: white;
     font-weight: 400;
-    letter-spacing: 0.4px;
+    letter-spacing: .4px;
     border: none;
     line-height: 47px;
 }
@@ -32543,7 +32543,7 @@ h1#penmostreo .campana {
     color: white;
     font-family: 'Lato';
     font-size: 11px;
-    letter-spacing: 0.4px;
+    letter-spacing: .4px;
     font-weight: 700;
     text-transform: uppercase;
     padding-top: 18px;
@@ -32936,7 +32936,7 @@ h1#penmostreo .campana {
     color: white;
     font-family: 'Lato';
     font-size: 11px;
-    letter-spacing: 0.4px;
+    letter-spacing: .4px;
     font-weight: 700;
     text-transform: uppercase;
     padding-top: 18px;
@@ -33056,9 +33056,9 @@ h1#penmostreo .campana {
     min-height: 100px;
     margin-top: 38px;
     margin-left: 6%;
-    -webkit-box-shadow: 0 15px 13px -8px rgba(204,200,204,0.7);
-    -moz-box-shadow: 0 15px 13px -8px rgba(204,200,204,0.7);
-    box-shadow: 0 15px 13px -8px rgba(204,200,204,0.7);
+    -webkit-box-shadow: 0 15px 13px -8px rgba(204,200,204,.7);
+    -moz-box-shadow: 0 15px 13px -8px rgba(204,200,204,.7);
+    box-shadow: 0 15px 13px -8px rgba(204,200,204,.7);
 }
 
 .titulo_confirmacion {
@@ -33260,7 +33260,7 @@ h1#penmostreo .campana {
     font-family: 'Lato';
     font-size: 17px;
     margin-bottom: 40px;
-    letter-spacing: 0.6px;
+    letter-spacing: .6px;
 }
 
 .agregado {
@@ -33346,7 +33346,7 @@ h1#penmostreo .campana {
     margin-left: 0;
     padding: 30px;
     font-family: 'Lato';
-    border: 1px solid rgba(0, 0, 0, 0.03);
+    border: 1px solid rgba(0, 0, 0, .03);
     -webkit-box-shadow: 0 15px 13px -8px rgba(236,236,236,1);
     -moz-box-shadow: 0 15px 13px -8px rgba(236,236,236,1);
     box-shadow: 0 15px 13px -8px rgba(236,236,236,1);
@@ -33530,7 +33530,7 @@ h1#penmostreo .campana {
 
 .descripcion_producto_compra {
     font-size: 13px;
-    letter-spacing: 0.2px;
+    letter-spacing: .2px;
     font-weight: 300;
     margin-bottom: 15px;
     line-height: 15px;
@@ -33867,7 +33867,7 @@ h1#penmostreo .campana {
     text-align: center;
     height: 20px;
     width: 100%;
-    letter-spacing: 0.2px;
+    letter-spacing: .2px;
 }
 
 .btn_elige_tono {
@@ -34017,7 +34017,7 @@ h1#penmostreo .campana {
         font-weight: 300;
         font-size: 8px;
         line-height: 18px;
-        letter-spacing: 0.56px;
+        letter-spacing: .56px;
         opacity: 1.00;
     }
 
@@ -34031,7 +34031,7 @@ h1#penmostreo .campana {
     color: white;
     font-family: 'Lato';
     font-size: 14px;
-    letter-spacing: 0.2px;
+    letter-spacing: .2px;
     float: left;
     margin-right: 15px;
     background: url('../../../Images/Esika/regresar.png') no-repeat;
@@ -34602,7 +34602,7 @@ h1#penmostreo .campana {
     font-family: 'lato';
     font-size: 13px;
     margin-top: 10px;
-    letter-spacing: 0.4px;
+    letter-spacing: .4px;
 }
 
 .valida_datos_cupon2 {
@@ -34769,7 +34769,7 @@ h1#penmostreo .campana {
     font-size: 33px;
     font-weight: normal;
     font-style: italic;
-    line-height: 0.36;
+    line-height: .36;
     letter-spacing: 1px;
 }
 
@@ -34778,7 +34778,7 @@ h1#penmostreo .campana {
     font-size: 21px;
     font-weight: normal;
     font-style: italic;
-    line-height: 0.57;
+    line-height: .57;
     letter-spacing: 1px;
 }
 
@@ -34786,7 +34786,7 @@ h1#penmostreo .campana {
     font-family: 'Lato';
     font-size: 16px;
     font-weight: bold;
-    line-height: 0.75;
+    line-height: .75;
 }
 
 .content-texto-producto-alternativo {
@@ -34815,7 +34815,7 @@ h1#penmostreo .campana {
     font-size: 11px;
     text-align: center;
     line-height: 1.09;
-    letter-spacing: 0.2px;
+    letter-spacing: .2px;
     color: #6a6a6a;
     margin-top: -5px;
     padding-bottom: 10px;
@@ -34993,12 +34993,12 @@ h1#penmostreo .campana {
     font-family: 'Lato';
     font-size: 12px;
     color: black;
-    letter-spacing: 0.8px;
+    letter-spacing: .8px;
     line-height: 22px;
 }
 
 .titulo_set {
-    letter-spacing: 0.8px;
+    letter-spacing: .8px;
 }
 
 .comentarios_best_seller_ficha {
@@ -35042,7 +35042,7 @@ h1#penmostreo .campana {
 }
 
 .titulo_carrusel_best {
-    letter-spacing: 0.9px;
+    letter-spacing: .9px;
     font-family: 'Lato';
     font-size: 17px;
     color: black;
@@ -35120,7 +35120,7 @@ h1#penmostreo .campana {
     font-family: 'Lato';
     font-size: 13px;
     font-weight: 700;
-    letter-spacing: 0.4px;
+    letter-spacing: .4px;
     float: right;
     margin-right: 20px;
     margin-top: 12px;
@@ -35140,7 +35140,7 @@ h1#penmostreo .campana {
     font-family: 'Lato';
     font-size: 14px;
     font-weight: 700;
-    letter-spacing: 0.4px;
+    letter-spacing: .4px;
     padding-left: 25px;
     cursor: pointer;
     background: url('../../../Images/PL20/icono_agregar.png') no-repeat;
@@ -35154,7 +35154,7 @@ h1#penmostreo .campana {
     font-family: 'Lato';
     font-size: 13px;
     line-height: 22px;
-    letter-spacing: 0.4px;
+    letter-spacing: .4px;
     margin-bottom: 25px;
     text-align: center;
     margin-top: -5px;
@@ -35166,7 +35166,7 @@ h1#penmostreo .campana {
     font-family: 'Lato';
     font-size: 13px;
     line-height: 22px;
-    letter-spacing: 0.4px;
+    letter-spacing: .4px;
 }
 
 .content_detalle_comentarios {
@@ -35185,7 +35185,7 @@ h1#penmostreo .campana {
     font-family: 'Lato';
     font-size: 13px;
     line-height: 22px;
-    letter-spacing: 0.4px;
+    letter-spacing: .4px;
 }
 
 .rateyo-readonly-puntuacion {
@@ -35222,7 +35222,7 @@ h1#penmostreo .campana {
     font-family: 'Lato';
     font-size: 13px;
     color: #979797;
-    letter-spacing: 0.4px;
+    letter-spacing: .4px;
     color: white;
     text-align: center;
     float: right;
@@ -35238,7 +35238,7 @@ h1#penmostreo .campana {
     font-family: 'Lato';
     font-size: 13px;
     color: black;
-    letter-spacing: 0.4px;
+    letter-spacing: .4px;
     text-decoration: underline;
 }
 
@@ -35257,13 +35257,13 @@ h1#penmostreo .campana {
 
 .extra_titulo {
     margin-top: 20px;
-    letter-spacing: 0.6px;
+    letter-spacing: .6px;
 }
 
 .btn_cerrar_comentario {
     font-family: 'Lato';
     font-size: 13px;
-    letter-spacing: 0.4px;
+    letter-spacing: .4px;
     margin: 0 auto;
     width: 215px;
     height: 45px;
@@ -35308,7 +35308,7 @@ h1#penmostreo .campana {
     font-family: 'Lato';
     font-weight: 700;
     font-size: 15px;
-    letter-spacing: 0.4px;
+    letter-spacing: .4px;
     margin-top: 7px;
 }
 
@@ -35778,7 +35778,7 @@ h1#penmostreo .campana {
         padding: 17px 0;
         letter-spacing: 1px;
         margin: auto;
-        box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.30);
+        box-shadow: 0 3px 4px 0 rgba(0, 0, 0, .3);
     }
 
 .contenido-popup-nuevo-2017 .centrar-estructura a.cerrar-popup {
@@ -35793,7 +35793,7 @@ h1#penmostreo .campana {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    background: rgba(0, 0, 0, 0.85);
+    background: rgba(0, 0, 0, .85);
     z-index: 10000;
     display: table;
 }

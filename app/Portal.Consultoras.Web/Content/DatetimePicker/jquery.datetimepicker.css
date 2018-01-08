@@ -1,5 +1,5 @@
 .xdsoft_datetimepicker {
-    box-shadow: 0 5px 15px -5px rgba(0, 0, 0, 0.506);
+    box-shadow: 0 5px 15px -5px rgba(0, 0, 0, .506);
     background: #fff;
     border-bottom: 1px solid #bbb;
     border-left: 1px solid #ccc;
@@ -106,7 +106,7 @@
 }
 
 .xdsoft_datetimepicker .xdsoft_label i {
-    opacity: 0.5;
+    opacity: .5;
     background-position: -92px -19px;
     display: inline-block;
     width: 9px;
@@ -139,7 +139,7 @@
     cursor: pointer;
     display: block;
     height: 30px;
-    opacity: 0.5;
+    opacity: .5;
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
     outline: medium none;
     overflow: hidden;
@@ -336,13 +336,13 @@
 .xdsoft_datetimepicker .xdsoft_calendar td.xdsoft_other_month,
 .xdsoft_datetimepicker .xdsoft_calendar td.xdsoft_disabled,
 .xdsoft_datetimepicker .xdsoft_time_box > div > div.xdsoft_disabled {
-    opacity: 0.5;
+    opacity: .5;
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
     cursor: default;
 }
 
     .xdsoft_datetimepicker .xdsoft_calendar td.xdsoft_other_month.xdsoft_disabled {
-        opacity: 0.2;
+        opacity: .2;
         -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
     }
 
@@ -415,7 +415,7 @@
 }
 
 .xdsoft_datetimepicker.xdsoft_dark {
-    box-shadow: 0 5px 15px -5px rgba(255, 255, 255, 0.506);
+    box-shadow: 0 5px 15px -5px rgba(255, 255, 255, .506);
     background: #000;
     border-bottom: 1px solid #444;
     border-left: 1px solid #333;

@@ -657,7 +657,7 @@ img {
 
             #menu > li:hover {
                 background-color: #E7EBE9;
-                background: rgba(231, 235, 233, 0.95);
+                background: rgba(231, 235, 233, .95);
                 border-top: 5px solid #d226aa;
                 height: 58px;
                 padding-bottom: 7px;
@@ -665,7 +665,7 @@ img {
 
 .li_selected {
     background-color: #E7EBE9;
-    background: rgba(231, 235, 233, 0.95);
+    background: rgba(231, 235, 233, .95);
     border-top: 5px solid #d226aa;
     height: 58px !important;
     padding-bottom: 7px;
@@ -673,7 +673,7 @@ img {
 
 #menu .menu_item_selected {
     background-color: #E7EBE9;
-    background: rgba(231, 235, 233, 0.55);
+    background: rgba(231, 235, 233, .55);
     border-top: 5px solid #d226aa;
     height: 58px;
     padding-bottom: 7px;
@@ -688,7 +688,7 @@ img {
 
 .submenu {
     background-color: #E7EBE9;
-    background-color: rgba(231, 235, 233, 0.95);
+    background-color: rgba(231, 235, 233, .95);
     color: #333333;
     height: auto;
     display: none;

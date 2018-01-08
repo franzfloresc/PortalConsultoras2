@@ -350,7 +350,7 @@ body {
     font-family: 'Lato';
     font-size: 24px;
     font-weight: 300;
-    line-height: 0.82;
+    line-height: .82;
     text-align: center;
     color: #000000;
     margin-top: 30px;
@@ -420,7 +420,7 @@ body {
     margin-bottom: 15px;
     font-family: 'Lato';
     font-size: 12px;
-    letter-spacing: 0.2px;
+    letter-spacing: .2px;
 }
 
 .logo_esika_facebook {

@@ -710,7 +710,7 @@ button.ui-button::-moz-focus-inner {
 
 .ui-resizable-handle {
     position: absolute;
-    font-size: 0.1px;
+    font-size: .1px;
     z-index: 99999;
     display: block;
 }

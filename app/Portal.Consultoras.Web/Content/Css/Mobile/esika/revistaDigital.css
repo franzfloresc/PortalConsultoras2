@@ -123,7 +123,7 @@
     }
 
         .popup_revistaSuscripcion_noAMostrarMensaje a:hover {
-            opacity: 0.7;
+            opacity: .7;
         }
 
 .popup_revistaSuscripcion {
@@ -265,7 +265,7 @@
 }
 
     .revistadigital .boxoffer:hover, .contenedor_botonVerMasOfertas .boxoffer:hover {
-        opacity: 0.95;
+        opacity: .95;
     }
 
     .revistadigital .boxoffer .fondo_boton, .contenedor_botonVerMasOfertas .boxoffer .fondo_boton {
@@ -523,7 +523,7 @@ div#tab_revistasdigital_mobile {
 
     .cabecera_content span:nth-child(2) {
         font-size: 20px;
-        letter-spacing: 0.4px;
+        letter-spacing: .4px;
         line-height: 27px;
     }
 
@@ -664,7 +664,7 @@ div#tab_revistasdigital_mobile {
         color: #DA2621;
         font-size: 28px;
         margin-bottom: 14px;
-        letter-spacing: 0.4px;
+        letter-spacing: .4px;
         width: 160px;
         padding-top: 7px;
         text-align: left;
@@ -689,7 +689,7 @@ div#tab_revistasdigital_mobile {
     top: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.4);
+    background: rgba(0,0,0,.4);
     z-index: 3;
 }
 
@@ -761,7 +761,7 @@ div#tab_revistasdigital_mobile {
         font-family: 'Lato';
         background: #FF1534;
         font-size: 15px;
-        letter-spacing: 0.1px;
+        letter-spacing: .1px;
         position: absolute;
         bottom: -37px;
         box-shadow: 0 -2px 11px rgba(0,0,0,.25);
@@ -779,7 +779,7 @@ div#tab_revistasdigital_mobile {
     .contenido_fondoDesenfocado span:last-child {
         font-family: 'Lato';
         font-size: 13px;
-        letter-spacing: 0.4px;
+        letter-spacing: .4px;
         line-height: 18px;
         width: 100%;
         margin: 0 auto;
@@ -885,7 +885,7 @@ div#tab_revistasdigital_mobile {
     height: 43px;
     line-height: 41px;
     font-size: 13px;
-    letter-spacing: 0.4px;
+    letter-spacing: .4px;
     color: #fff;
 }
 
@@ -1475,7 +1475,7 @@ div#tab_revistasdigital_mobile {
 }
 
 .mob_rd_confirmacion .btn_transparent a {
-    letter-spacing: 0.2px;
+    letter-spacing: .2px;
     width: 240px;
 }
 
@@ -1902,7 +1902,7 @@ div#tab_revistasdigital_mobile {
     position: relative;
     background-color: #F6F6F6;
     height: auto;
-    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px 8px rgba(0, 0, 0, .2);
     margin-bottom: 20px;
     font-family: 'Lato';
 }
@@ -2019,7 +2019,7 @@ div#tab_revistasdigital_mobile {
     font-family: 'Lato';
     letter-spacing: 1px;
     padding: 10px 0;
-    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 -4px 6px rgba(0, 0, 0, .25);
 }
 
     .rd_producto_bloqueado a {
@@ -2313,7 +2313,7 @@ div#tab_revistasdigital_mobile {
 
     .como-funciona p.titulo {
         font-size: 15px;
-        letter-spacing: 0.5;
+        letter-spacing: .5;
         font-weight: 700;
         text-align: center;
         display: block;
@@ -2488,7 +2488,7 @@ div#tab_revistasdigital_mobile {
     margin: 30px 0;
     font-size: 13px;
     letter-spacing: 1px;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.30);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .3);
 }
 
 .suscribete-gratis a.terminos {
@@ -2503,7 +2503,7 @@ div#tab_revistasdigital_mobile {
 .suscribete-gratis p.txt-deseas-cancelar {
     color: #e81c36;
     font-weight: 700;
-    letter-spacing: 0.5px !important;
+    letter-spacing: .5px !important;
     text-transform: uppercase;
     margin-left: -8px;
     display: block;
@@ -2731,7 +2731,7 @@ a.btn-suscribete-video-baja {
             color: black;
             font-size: 13px;
             padding: 15px;
-            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .2);
             text-align: left;
             margin-bottom: 0;
             position: relative;

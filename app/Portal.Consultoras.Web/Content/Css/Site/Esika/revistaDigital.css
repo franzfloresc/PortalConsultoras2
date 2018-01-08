@@ -127,9 +127,9 @@
 
         .revistadigital .revistadigital-items img {
             height: 340px;
-            -webkit-box-shadow: 0 15px 21px -8px rgba(150, 150, 150, 0.6);
-            -moz-box-shadow: 0 15px 21px -8px rgba(150, 150, 150, 0.6);
-            box-shadow: 0 15px 21px -8px rgba(150, 150, 150, 0.6);
+            -webkit-box-shadow: 0 15px 21px -8px rgba(150, 150, 150, .6);
+            -moz-box-shadow: 0 15px 21px -8px rgba(150, 150, 150, .6);
+            box-shadow: 0 15px 21px -8px rgba(150, 150, 150, .6);
         }
 
         .revistadigital .revistadigital-items .item2 {
@@ -157,7 +157,7 @@
     }
 
         .revistadigital .boxoffer:hover {
-            opacity: 0.95;
+            opacity: .95;
             right: -35px;
         }
 
@@ -169,7 +169,7 @@
 }
 
     .revistaDigital_catalogosRevistas .boxoffer:hover {
-        opacity: 0.95;
+        opacity: .95;
         left: 20px;
     }
 
@@ -444,7 +444,7 @@
         -o-transition: opacity .3s ease;
         -ms-transition: opacity .3s ease;
         -webkit-transition: opacity .3s ease;
-        opacity: 0.4;
+        opacity: .4;
     }
 
         .popup_revistaSuscripcion_noAMostrarMensaje a:hover {
@@ -999,7 +999,7 @@
 
     .cabecera_content span:nth-child(2) {
         font-size: 20px;
-        letter-spacing: 0.4px;
+        letter-spacing: .4px;
         line-height: 27px;
     }
 
@@ -1130,7 +1130,7 @@
         color: #DA2621;
         font-size: 45px;
         margin-bottom: 14px;
-        letter-spacing: 0.4px;
+        letter-spacing: .4px;
     }
 
     .contenido_beneficiosEsikaParaMi span:nth-child(2) {
@@ -1149,7 +1149,7 @@
     top: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.4);
+    background: rgba(0,0,0,.4);
     z-index: 3;
 }
 
@@ -1213,14 +1213,14 @@
         font-family: 'Lato';
         background: #FF1534;
         font-size: 15px;
-        letter-spacing: 0.1px;
+        letter-spacing: .1px;
         position: relative;
         top: 0;
-        box-shadow: 10px 10px 10px rgba(0,0,0,0.35);
-        -moz-box-shadow: 10px 10px 10px rgba(0,0,0,0.35);
-        -o-box-shadow: 10px 10px 10px rgba(0,0,0,0.35);
-        -ms-box-shadow: 10px 10px 10px rgba(0,0,0,0.35);
-        -webkit-box-shadow: 10px 10px 10px rgba(0,0,0,0.35);
+        box-shadow: 10px 10px 10px rgba(0,0,0,.35);
+        -moz-box-shadow: 10px 10px 10px rgba(0,0,0,.35);
+        -o-box-shadow: 10px 10px 10px rgba(0,0,0,.35);
+        -ms-box-shadow: 10px 10px 10px rgba(0,0,0,.35);
+        -webkit-box-shadow: 10px 10px 10px rgba(0,0,0,.35);
         transition: all .3s ease;
         -moz-transition: all .3s ease;
         -o-transition: all .3s ease;
@@ -1231,7 +1231,7 @@
     .contenido_fondoDesenfocado span:last-child {
         font-family: 'Lato';
         font-size: 14px;
-        letter-spacing: 0.4px;
+        letter-spacing: .4px;
         line-height: 18px;
         width: 507px;
         margin: 0 auto;
@@ -1309,7 +1309,7 @@
     height: 43px;
     line-height: 41px;
     font-size: 13px;
-    letter-spacing: 0.4px;
+    letter-spacing: .4px;
 }
 
 /*REVISTA DIGITAL DETALLE DESKTOP */
@@ -1932,7 +1932,7 @@
     line-height: 18px;
     float: left;
     margin-top: 20px;
-    LETTER-SPACING: 0.5PX;
+    letter-spacing: .5px;
 }
 
     .bloque_respuesta:last-child {
@@ -2080,7 +2080,7 @@
     margin-bottom: 30px;
     width: 63%;
     text-align: center;
-    letter-spacing: 0.4px;
+    letter-spacing: .4px;
 }
 
 .btn_cancelar_inscripcion {
@@ -2309,7 +2309,7 @@
     position: relative;
     background-color: #F6F6F6;
     height: auto;
-    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px 8px rgba(0, 0, 0, .2);
     margin-bottom: 20px;
 }
 
@@ -2414,7 +2414,7 @@
 }
 
     .home_rd1 .content_belcorp {
-        box-shadow: 0 5px 8px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 5px 8px rgba(0, 0, 0, .2);
     }
 
     .home_rd1 .btn_diagonal {
@@ -2646,7 +2646,7 @@
     float: left;
     background: white;
     padding: 20px;
-    border-right: 1px solid rgba(0, 0, 0, 0.12);
+    border-right: 1px solid rgba(0, 0, 0, .12);
 }
 
     #bc_promo .bc_promo_contenido {
@@ -2662,7 +2662,7 @@
             text-decoration: none;
             color: black;
             border-bottom: 2px solid white;
-            letter-spacing: 0.75pt;
+            letter-spacing: .75pt;
             text-align: center;
             padding: 0 50px;
             margin-bottom: 5px;
@@ -2671,7 +2671,7 @@
         #bc_promo .bc_promo_contenido a.btn-descubre {
             background: black;
             color: white;
-            letter-spacing: 0.75pt;
+            letter-spacing: .75pt;
             font-family: 'lato';
             font-weight: 700;
             font-size: 10px;
@@ -2691,7 +2691,7 @@
             font-size: 10px;
             text-decoration: none;
             color: black;
-            letter-spacing: 0.75pt;
+            letter-spacing: .75pt;
             text-align: center;
             display: block;
             text-align: center;
@@ -2745,7 +2745,7 @@
             font-size: 10px;
             text-decoration: none;
             color: black;
-            letter-spacing: 0.75pt;
+            letter-spacing: .75pt;
             text-align: center;
             display: block;
             text-align: left;
@@ -2812,7 +2812,7 @@
     padding-right: 16px;
     height: auto;
     font-family: 'Lato';
-    letter-spacing: 0.2px;
+    letter-spacing: .2px;
     text-align: center;
     position: relative;
 }
@@ -2845,7 +2845,7 @@
     padding-left: 16px;
     padding-right: 16px;
     font-family: 'Lato';
-    letter-spacing: 0.2px;
+    letter-spacing: .2px;
     color: #000;
 }
 
@@ -2969,7 +2969,7 @@
         text-align: center;
         color: white;
         font-weight: 600;
-        letter-spacing: 0.5;
+        letter-spacing: .5;
         font-size: 17px;
         margin-top: 0;
         margin-bottom: 5px;
@@ -3118,7 +3118,7 @@
     .como-funciona span.recuerda-txt {
         color: #e81c36;
         font-weight: 700;
-        letter-spacing: 0.5px !important;
+        letter-spacing: .5px !important;
         text-transform: uppercase;
         margin-left: -8px;
         font-weight: 700;
@@ -3139,7 +3139,7 @@
         letter-spacing: 1px;
         font-weight: bold;
         font-size: 17px;
-        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.30);
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .3);
         margin-top: 50px;
         margin-bottom: 30px;
     }
@@ -3205,7 +3205,7 @@
             color: black;
             font-size: 13px;
             padding: 10px 15px;
-            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .2);
             text-align: left;
             margin-bottom: 0;
             position: relative;

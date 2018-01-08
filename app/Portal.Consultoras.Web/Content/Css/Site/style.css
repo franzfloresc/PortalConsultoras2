@@ -963,9 +963,9 @@ ul.tabs {
     position: absolute;
     z-index: 9999;
     filter: alpha(opacity=50);
-    -moz-opacity: 0.50;
-    opacity: 0.50;
-    -khtml-opacity: 0.50;
+    -moz-opacity: .5;
+    opacity: .5;
+    -khtml-opacity: .5;
 }
 
 .cargando {
@@ -6674,9 +6674,9 @@ ol {
     background-color: #e5e0ec;
     padding: 4px 8px 6px 5px;
     margin-bottom: 9px;
-    -webkit-box-shadow: 5px 5px 6px 0 rgba(146, 144, 149, 0.9);
-    -moz-box-shadow: 5px 6px 0 rgba(146, 144, 149, 0.9);
-    box-shadow: 5px 5px 6px 0 rgba(146, 144, 149, 0.9);
+    -webkit-box-shadow: 5px 5px 6px 0 rgba(146, 144, 149, .9);
+    -moz-box-shadow: 5px 6px 0 rgba(146, 144, 149, .9);
+    box-shadow: 5px 5px 6px 0 rgba(146, 144, 149, .9);
 }
 
     .cuenta-mensaje span {
@@ -6831,8 +6831,6 @@ ol {
 .mCSB_scrollTools .mCSB_buttonRight {
     background-image: url('../../Images/mCSB_buttons.png');
     background-repeat: no-repeat;
-    /*0.4;
-*/
 }
 
 .mCSB_scrollTools .mCSB_buttonUp {
@@ -6855,7 +6853,7 @@ ol {
     .mCSB_scrollTools .mCSB_buttonDown:hover,
     .mCSB_scrollTools .mCSB_buttonLeft:hover,
     .mCSB_scrollTools .mCSB_buttonRight:hover {
-        opacity: 0.75;
+        opacity: .75;
         filter: 'alpha(opacity=75)';
         -ms-filter: 'alpha(opacity=75)';
     }
@@ -11563,7 +11561,7 @@ a.mover {
     font-family: 'lato';
     font-size: 21pt;
     margin-left: -3px;
-    letter-spacing: 0.9px;
+    letter-spacing: .9px;
     margin-top: 16px;
     color: black;
     -moz-text-align-last: justify;
@@ -11577,7 +11575,7 @@ a.mover {
     font-size: 38pt;
     margin-left: -6px;
     font-weight: 100;
-    letter-spacing: 0.1px;
+    letter-spacing: .1px;
     margin-top: -20px;
     height: 65px;
     -moz-text-align-last: justify;
@@ -11668,7 +11666,7 @@ a.mover {
     font-weight: 400;
     font-size: 27pt;
     text-align: center;
-    letter-spacing: 0.75px;
+    letter-spacing: .75px;
     color: black;
     margin-top: -10px;
 }
@@ -11827,9 +11825,9 @@ label.checkpop {
 
     .imagen_showroom img:hover {
         filter: alpha(opacity=50);
-        -khtml-opacity: 0.5;
-        -moz-opacity: 0.5;
-        opacity: 0.5;
+        -khtml-opacity: .5;
+        -moz-opacity: .5;
+        opacity: .5;
     }
 
 .cantidad_productos_showroom {
@@ -12488,7 +12486,7 @@ label.checkpop {
 
     .matriz-comercial-list .item.disabledItem {
         pointer-events: none;
-        opacity: 0.4;
+        opacity: .4;
     }
 
 .matriz-lista-container .div-img-matriz-comercial:nth-child(6) {
@@ -12823,7 +12821,7 @@ label.checkpop {
         text-transform: uppercase;
         font-size: 14pt;
         color: black;
-        letter-spacing: 0.25px;
+        letter-spacing: .25px;
         font-weight: 700;
         width: 100%;
     }
@@ -12873,7 +12871,7 @@ label.checkpop {
             transition: none;
             zoom: 1;
             filter: alpha(opacity=70);
-            opacity: 0.7;
+            opacity: .7;
         }
 /*EPD2031 -->*/
 

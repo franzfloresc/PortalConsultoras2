@@ -45,7 +45,7 @@
     font-size: 16px;
     font-weight: 400;
     color: #000;
-    letter-spacing: 0.2px;
+    letter-spacing: .2px;
     margin-bottom: 32px;
 }
 
@@ -58,7 +58,7 @@
 
 .col_izq_seccion_personaliza {
     width: 54.5%;
-    border-right: 1px solid rgba(1,131,131,0.41);
+    border-right: 1px solid rgba(1,131,131,.41);
     padding-left: 69px;
 }
 

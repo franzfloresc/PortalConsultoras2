@@ -184,7 +184,7 @@
     max-width: 515px;
     color: #000;
     margin: 40px 0 52px 0;
-    letter-spacing: 0.8px;
+    letter-spacing: .8px;
     line-height: 20px;
     position: relative;
     z-index: 4;
@@ -275,13 +275,13 @@
 
 .pregunta_inscripcion {
     font-size: 16px;
-    letter-spacing: 0.8px;
+    letter-spacing: .8px;
     margin-bottom: 23px;
 }
 
 .conoce_beneficios {
     font-size: 23px;
-    letter-spacing: 0.4px;
+    letter-spacing: .4px;
     line-height: 28px;
 }
 
@@ -357,13 +357,13 @@
 }
 
     .titulo_beneficios_asesora_online > span {
-        opacity: 0.7;
+        opacity: .7;
     }
 
 .descripcion_beneficios_asesora_online {
     font-size: 13px;
     max-width: 188px;
-    letter-spacing: 0.31px;
+    letter-spacing: .31px;
     line-height: 17px;
     padding-left: 14px;
 }
@@ -412,7 +412,7 @@
 }
 
 .contenedor_formulario {
-    background: rgba(255,255,255,0.9);
+    background: rgba(255,255,255,.9);
     height: auto;
     text-align: left;
 }
@@ -477,7 +477,7 @@
             height: 16px;
             border: 1px solid rgba(0,0,0,.25);
             border-radius: 100%;
-            background: rgba(255,255,255,0.9);
+            background: rgba(255,255,255,.9);
             margin-left: -41px;
             margin-right: 20px;
             transition: all .3s ease;
@@ -604,7 +604,7 @@
 }
 
     .btn_enviar_form:hover {
-        opacity: 0.9;
+        opacity: .9;
     }
 
 .seccion_instagram {
@@ -640,11 +640,11 @@
     color: #000;
     text-align: center;
     z-index: 1000;
-    box-shadow: 1px 6px 10px 0 rgba(0,0,0,0.7);
-    -moz-box-shadow: 1px 6px 10px 0 rgba(0,0,0,0.7);
-    -o-box-shadow: 1px 6px 10px 0 rgba(0,0,0,0.7);
-    -ms-box-shadow: 1px 6px 10px 0 rgba(0,0,0,0.7);
-    -webkit-box-shadow: 1px 6px 10px 0 rgba(0,0,0,0.7);
+    box-shadow: 1px 6px 10px 0 rgba(0,0,0,.7);
+    -moz-box-shadow: 1px 6px 10px 0 rgba(0,0,0,.7);
+    -o-box-shadow: 1px 6px 10px 0 rgba(0,0,0,.7);
+    -ms-box-shadow: 1px 6px 10px 0 rgba(0,0,0,.7);
+    -webkit-box-shadow: 1px 6px 10px 0 rgba(0,0,0,.7);
 }
 
 .info_derechos_belcorp {
@@ -863,7 +863,7 @@
     .titulo_principal_asesora_online {
         font-size: 14px;
         line-height: 20px;
-        letter-spacing: 0.7px;
+        letter-spacing: .7px;
     }
 
     .titulo_tu_asesora_online {
@@ -905,11 +905,11 @@
         font-size: 15px;
         letter-spacing: 1.5px;
         max-width: none;
-        box-shadow: 0 -4px 6px rgba(0,0,0,0.2);
-        -moz-box-shadow: 0 -4px 6px rgba(0,0,0,0.2);
-        -o-box-shadow: 0 -4px 6px rgba(0,0,0,0.2);
-        -ms-box-shadow: 0 -4px 6px rgba(0,0,0,0.2);
-        -webkit-box-shadow: 0 -4px 6px rgba(0,0,0,0.2);
+        box-shadow: 0 -4px 6px rgba(0,0,0,.2);
+        -moz-box-shadow: 0 -4px 6px rgba(0,0,0,.2);
+        -o-box-shadow: 0 -4px 6px rgba(0,0,0,.2);
+        -ms-box-shadow: 0 -4px 6px rgba(0,0,0,.2);
+        -webkit-box-shadow: 0 -4px 6px rgba(0,0,0,.2);
         transition: all .3s ease;
         -moz-transition: all .3s ease;
         -o-transition: all .3s ease;
@@ -1421,14 +1421,14 @@
             padding-top: 10px;
             padding-left: 16px;
             margin-bottom: 5px;
-            letter-spacing: 0.45px;
+            letter-spacing: .45px;
         }
 
         .beneficio_descripcion > span:last-child {
             font-size: 8px;
             text-align: center;
             color: #5F5B5B;
-            letter-spacing: 0.1px;
+            letter-spacing: .1px;
         }
 
 .beneficio_inscripcion:last-child {
@@ -1510,7 +1510,7 @@
 .enlace_no_volver_mostrar_mensaje {
     color: #fff;
     font-size: 12px;
-    opacity: 0.5;
+    opacity: .5;
     position: absolute;
     bottom: -18px;
     left: 0;
@@ -1523,7 +1523,7 @@
 }
 
     .enlace_no_volver_mostrar_mensaje:hover {
-        opacity: 0.2;
+        opacity: .2;
     }
 
 .cerrar_popup_inscripcion {
@@ -1547,7 +1547,7 @@
 
     .cerrar_popup_inscripcion:hover {
         top: 8px;
-        opacity: 0.4;
+        opacity: .4;
     }
 
     .cerrar_popup_inscripcion img {
@@ -1717,7 +1717,7 @@
 .bloque_der_datos > .datos_consultora_inscrita {
     text-align: left;
     font-size: 18px;
-    letter-spacing: 0.7px;
+    letter-spacing: .7px;
 }
 
 .bloque_der_datos .datos_consultora_inscrita:last-child {

@@ -732,7 +732,7 @@ button.ui-button::-moz-focus-inner {
 
 .ui-resizable-handle {
     position: absolute;
-    font-size: 0.1px;
+    font-size: .1px;
     z-index: 99999;
     display: block;
 }
@@ -1919,7 +1919,7 @@ button.ui-button::-moz-focus-inner {
 /* Overlays ITG - 1869*/
 .ui-widget-overlay {
     background: #aaaaaa;
-    opacity: 0.3;
+    opacity: .3;
     filter: Alpha(Opacity=30);
 }
 
@@ -1927,7 +1927,7 @@ button.ui-button::-moz-focus-inner {
     margin: -8px;
     padding: 8px;
     background: #aaaaaa;
-    opacity: 0.3;
+    opacity: .3;
     filter: Alpha(Opacity=30);
     -moz-border-radius: 8px;
     -webkit-border-radius: 8px;

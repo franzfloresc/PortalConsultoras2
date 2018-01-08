@@ -1137,7 +1137,7 @@ h4.re3 {
     .owl-theme .owl-dots .owl-dot span {
         width: 12px;
         height: 12px;
-        background: rgba(255, 255, 255, 0.6);
+        background: rgba(255, 255, 255, .6);
     }
 
     .owl-theme .owl-dots .owl-dot.active span,
@@ -2071,7 +2071,7 @@ h4.re3 {
 
     .checkbox__input[disabled] + .checkbox__label:before,
     .checkbox__input[disabled] + .checkbox__label:after {
-        color: rgba(0, 0, 0, 0.26);
+        color: rgba(0, 0, 0, .26);
     }
 
 .checkbox__label {
@@ -2258,7 +2258,7 @@ h4.re3 {
         position: absolute;
         top: 36px;
         right: -9px;
-        line-height: 0.9;
+        line-height: .9;
         background: #fff;
     }
 
@@ -2299,12 +2299,12 @@ h4.re3 {
     cursor: pointer;
     border-radius: 50%;
     background: #768ea3;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3) !important;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, .3) !important;
 }
 
     .toDown:hover,
     .toUp:hover {
-        box-shadow: 0 8px 17px rgba(0, 0, 0, 0.6) !important;
+        box-shadow: 0 8px 17px rgba(0, 0, 0, .6) !important;
     }
 
 #cssmenu > ul > li.active > a {
@@ -2358,7 +2358,7 @@ h4.re3 {
     right: 0;
     bottom: 0;
     left: 0;
-    background: rgba(210, 208, 208, 0.6);
+    background: rgba(210, 208, 208, .6);
     z-index: 99999;
     display: none;
 }
@@ -2927,7 +2927,7 @@ table > thead > tr > th {
     }
 
 .fc-line {
-    border: 1px solid rgba(117, 142, 163, 0.7);
+    border: 1px solid rgba(117, 142, 163, .7);
     font-weight: bold;
     color: #6b7f8e;
 }
@@ -3832,7 +3832,7 @@ table > thead > tr > th {
     text-decoration: none;
     margin-top: 15px;
     font-size: 11pt;
-    letter-spacing: 0.8px;
+    letter-spacing: .8px;
     line-height: 25px;
 }
 
@@ -4632,7 +4632,7 @@ table > thead > tr > th {
     text-transform: uppercase;
     color: #000;
     font-weight: 700;
-    letter-spacing: 0.95px;
+    letter-spacing: .95px;
     font-size: 10px;
 }
 
@@ -4662,7 +4662,7 @@ table > thead > tr > th {
         font-family: 'lato';
         margin-top: -3px;
         display: block;
-        letter-spacing: 0.8px;
+        letter-spacing: .8px;
         text-align: center;
     }
 
@@ -4746,7 +4746,7 @@ table > thead > tr > th {
     display: inline-block;
     font-family: 'Lato';
     font-size: 14px;
-    letter-spacing: 0.2px;
+    letter-spacing: .2px;
     vertical-align: middle;
     color: black;
 }
@@ -4766,7 +4766,7 @@ table > thead > tr > th {
     font-family: 'Lato';
     font-size: 13px;
     line-height: 16px;
-    letter-spacing: 0.2px;
+    letter-spacing: .2px;
     color: black;
 }
 
@@ -4813,7 +4813,7 @@ table > thead > tr > th {
     font-family: 'Lato';
     font-size: 13px;
     color: black;
-    letter-spacing: 0.2px;
+    letter-spacing: .2px;
     margin-top: 32px;
     line-height: 20px;
 }
@@ -5714,11 +5714,11 @@ body {
     background: #fff;
     font-family: 'Lato';
     text-align: center;
-    box-shadow: 0 6px 15px 2px rgba(0,0,0, 0.31);
-    -moz-box-shadow: 0 6px 15px 2px rgba(0,0,0, 0.31);
-    -o-box-shadow: 0 6px 15px 2px rgba(0,0,0, 0.31);
-    -ms-box-shadow: 0 6px 15px 2px rgba(0,0,0, 0.31);
-    -webkit-box-shadow: 0 6px 15px 2px rgba(0,0,0, 0.31);
+    box-shadow: 0 6px 15px 2px rgba(0,0,0, .31);
+    -moz-box-shadow: 0 6px 15px 2px rgba(0,0,0, .31);
+    -o-box-shadow: 0 6px 15px 2px rgba(0,0,0, .31);
+    -ms-box-shadow: 0 6px 15px 2px rgba(0,0,0, .31);
+    -webkit-box-shadow: 0 6px 15px 2px rgba(0,0,0, .31);
 }
 
     .tooltip_noOlvidesGuardarTuPedido:before, .tooltip_noOlvidesGuardarTuPedido:after {
@@ -5914,7 +5914,7 @@ body {
     font-family: 'Lato';
     font-size: 13px;
     color: black;
-    letter-spacing: 0.2px;
+    letter-spacing: .2px;
 }
 
 .btn_comparte_ws {
@@ -5925,7 +5925,7 @@ body {
     font-family: 'Lato';
     font-size: 13px;
     color: black;
-    letter-spacing: 0.2px;
+    letter-spacing: .2px;
     background: url('../../../Images/mobile/Esika/ws.png') no-repeat;
     background-position: 0 3px;
     text-decoration: underline;
@@ -6178,7 +6178,7 @@ body {
     font-size: 16px;
     text-align: center;
     line-height: 50px;
-    letter-spacing: 0.25px;
+    letter-spacing: .25px;
     border-bottom: 1px solid black;
     position: relative;
     font-family: 'Lato';
@@ -6213,7 +6213,7 @@ body {
         position: relative;
         box-sizing: border-box;
         text-align: center;
-        letter-spacing: 0.25px;
+        letter-spacing: .25px;
     }
 
         .tabs_pagos li a img {
@@ -6402,7 +6402,7 @@ body {
     font-family: 'Lato';
     font-size: 24px;
     font-weight: 300;
-    line-height: 0.82;
+    line-height: .82;
     text-align: center;
     color: #000000;
     margin-top: 30px;
@@ -6757,7 +6757,7 @@ input[type='checkbox']:checked + span:after {
     width: 100%;
     height: 100%;
     overflow: scroll;
-    background: rgba(0, 0, 0, 0.85);
+    background: rgba(0, 0, 0, .85);
     z-index: 10000;
 }
 
@@ -7773,7 +7773,7 @@ input[type='checkbox']:checked + span:after {
         position: relative;
         box-sizing: border-box;
         text-align: center;
-        letter-spacing: 0.25px;
+        letter-spacing: .25px;
     }
 
     .tabs_asesoresBelleza.contenedor3 .one:hover ~ hr {
@@ -8591,9 +8591,9 @@ span.title-app-b {
     -webkit-border-radius: 4px;
     -o-border-radius: 4px;
     background: white;
-    -webkit-box-shadow: 0 3px 28px 0 rgba(0,0,0,0.31);
-    -moz-box-shadow: 0 3px 28px 0 rgba(0,0,0,0.31);
-    box-shadow: 0 3px 28px 0 rgba(0,0,0,0.31);
+    -webkit-box-shadow: 0 3px 28px 0 rgba(0,0,0,.31);
+    -moz-box-shadow: 0 3px 28px 0 rgba(0,0,0,.31);
+    box-shadow: 0 3px 28px 0 rgba(0,0,0,.31);
 }
 
     .tooltip_pendiente::after {
@@ -10170,7 +10170,7 @@ span.icon-advertencia {
     color: #6a6a6a;
     font-size: 12px;
     margin-top: -3px;
-    letter-spacing: 0.2px;
+    letter-spacing: .2px;
 }
 
 .descripcion_ficha_producto {
@@ -10383,7 +10383,7 @@ span.icon-advertencia {
 .nombre_set_oferta_mobile {
     font-family: 'Lato';
     font-size: 11.5px;
-    letter-spacing: 0.4px;
+    letter-spacing: .4px;
     margin-top: 9%;
     color: white;
     line-height: 15px;
@@ -10590,7 +10590,7 @@ span.icon-advertencia {
 .Content_favoritos_new .nombre_producto {
     font-family: 'Lato';
     font-size: 13px;
-    letter-spacing: 0.2px;
+    letter-spacing: .2px;
 }
 
 @media screen and (max-width: 425px) and (min-width: 0) {
@@ -10643,7 +10643,7 @@ span.icon-advertencia {
     color: white;
     font-family: 'Lato';
     font-size: 10px;
-    letter-spacing: 0.2px;
+    letter-spacing: .2px;
     font-weight: 700;
     text-transform: uppercase;
     padding-top: 17px;
@@ -10715,7 +10715,7 @@ span.icon-advertencia {
     font-family: 'Lato';
     font-size: 13px;
     font-weight: 700;
-    letter-spacing: 0.2px;
+    letter-spacing: .2px;
     color: white;
     background: black;
     display: block;
@@ -10902,7 +10902,7 @@ span.icon-advertencia {
     color: white;
     font-size: 1.55em;
     font-weight: 700;
-    letter-spacing: 0.8px;
+    letter-spacing: .8px;
     position: absolute;
     width: 100%;
     text-shadow: -.1em .1em black;
@@ -11151,7 +11151,7 @@ span.icon-advertencia {
     font-size: 28px;
     font-weight: normal;
     font-style: italic;
-    line-height: 0.43;
+    line-height: .43;
     letter-spacing: 1px;
     margin-right: -3px;
 }
@@ -11161,7 +11161,7 @@ span.icon-advertencia {
     font-size: 16px;
     font-weight: normal;
     font-style: italic;
-    line-height: 0.75;
+    line-height: .75;
     letter-spacing: 1px;
 }
 
@@ -11249,7 +11249,7 @@ span.icon-advertencia {
     position: relative;
     width: 16%;
     height: auto;
-    margin-right: 0.8%;
+    margin-right: .8%;
     float: left;
     margin-bottom: 5px;
 }
@@ -11311,7 +11311,7 @@ span.icon-advertencia {
     height: 20px;
     margin: 0 auto;
     font-size: 12px;
-    letter-spacing: 0.2px;
+    letter-spacing: .2px;
     padding-left: 29px;
     background: url('../../../Images/Esika/icono_advertencia_notificacion.png') no-repeat;
 }
@@ -12029,9 +12029,9 @@ span.icon-advertencia {
     margin-right: 14px;
     position: relative;
     overflow: hidden;
-    -webkit-box-shadow: 0 4px 7px 2px rgba(0,0,0,0.08);
-    -moz-box-shadow: 0 4px 7px 2px rgba(0,0,0,0.08);
-    box-shadow: 0 4px 7px 2px rgba(0,0,0,0.08);
+    -webkit-box-shadow: 0 4px 7px 2px rgba(0,0,0,.08);
+    -moz-box-shadow: 0 4px 7px 2px rgba(0,0,0,.08);
+    box-shadow: 0 4px 7px 2px rgba(0,0,0,.08);
 }
 
 .content_orden_carrusel {
@@ -12687,7 +12687,7 @@ span.icon-advertencia {
     font-family: 'lato';
     font-size: 13px;
     margin-top: 10px;
-    letter-spacing: 0.4px;
+    letter-spacing: .4px;
 }
 
 .btn_cupon2 {
@@ -12793,7 +12793,7 @@ span.icon-advertencia {
     font-size: 11px;
     text-align: center;
     line-height: 1.09;
-    letter-spacing: 0.2px;
+    letter-spacing: .2px;
     color: #000000;
     max-width: 255px;
     height: auto;
@@ -12938,7 +12938,7 @@ span.icon-advertencia {
 .marca_best {
     font-family: 'Lato';
     font-size: 12px;
-    letter-spacing: 0.8px;
+    letter-spacing: .8px;
     line-height: 20px;
 }
 
@@ -12978,7 +12978,7 @@ span.icon-advertencia {
 }
 
 .titulo_carrusel_best {
-    letter-spacing: 0.2px;
+    letter-spacing: .2px;
     font-family: 'Lato';
     font-size: 14px;
     color: black;
@@ -12996,7 +12996,7 @@ span.icon-advertencia {
     font-family: 'Lato';
     font-size: 11px;
     font-weight: 300;
-    letter-spacing: 0.2px;
+    letter-spacing: .2px;
     line-height: 16px;
 }
 
@@ -13037,7 +13037,7 @@ span.icon-advertencia {
     font-family: 'Lato';
     font-size: 13px;
     font-weight: 700;
-    letter-spacing: 0.4px;
+    letter-spacing: .4px;
     float: left;
     margin-top: 12px;
     width: 118px;
@@ -13070,7 +13070,7 @@ span.icon-advertencia {
     font-family: 'Lato';
     font-size: 14px;
     font-weight: 700;
-    letter-spacing: 0.4px;
+    letter-spacing: .4px;
     padding-top: 1px;
     padding-left: 25px;
     cursor: pointer;
@@ -13139,7 +13139,7 @@ span.icon-advertencia {
 .contentValoracion {
     font-family: 'Lato';
     font-size: 13px;
-    letter-spacing: 0.4px;
+    letter-spacing: .4px;
 }
 
 .titulo_principal_valoracion {
@@ -13222,7 +13222,7 @@ span.icon-advertencia {
 }
 
 .extra_titulo {
-    letter-spacing: 0.6px;
+    letter-spacing: .6px;
     font-size: 16px;
     margin-bottom: 10px;
 }
@@ -13971,7 +13971,7 @@ span.icon-advertencia {
         padding: 17px 0;
         letter-spacing: 1px;
         margin: auto;
-        box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.30);
+        box-shadow: 0 3px 4px 0 rgba(0, 0, 0, .3);
     }
 
 .contenido-popup-nuevo-2017 .centrar-estructura a.cerrar-popup {

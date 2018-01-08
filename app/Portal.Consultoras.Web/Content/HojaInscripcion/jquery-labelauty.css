@@ -118,7 +118,7 @@ input.labelauty {
 
     /* When Disabled */
     input.labelauty[disabled] + label {
-        opacity: 0.5;
+        opacity: .5;
     }
 
     /* Add a background to (un)checked images */
