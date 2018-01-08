@@ -55,14 +55,14 @@
 .xzoom-preview {
     border: 1px solid #888;
     background: #2f4f4f;
-    box-shadow: -0px -0px 10px rgba(0,0,0,.50);
+    box-shadow: -0px -0px 10px rgba(0,0,0,.5);
     z-index: 1000;
 }
 
 /* Lens */
 .xzoom-lens {
     border: 1px solid #555;
-    box-shadow: -0px -0px 10px rgba(0,0,0,.50);
+    box-shadow: -0px -0px 10px rgba(0,0,0,.5);
     cursor: none;
 }
 
