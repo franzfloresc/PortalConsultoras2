@@ -66,7 +66,7 @@
         border: none;
         text-align: center;
         font-family: 'Lato';
-        letter-spacing: 0.5px;
+        letter-spacing: .5px;
         font-size: 12px;
     }
 
@@ -280,11 +280,11 @@
         background: -o-linear-gradient(top, rgba(213,37,31,1) 0, rgba(163,16,18,1) 100%);
         background: -ms-linear-gradient(top, rgba(213,37,31,1) 0, rgba(163,16,18,1) 100%);
         background: linear-gradient(to bottom, rgba(213,37,31,1) 0, rgba(163,16,18,1) 100%);
-        box-shadow: 3px 2px 5px rgba(0,0,0,0.25);
-        -moz-box-shadow: 3px 2px 5px rgba(0,0,0,0.25);
-        -o-box-shadow: 3px 2px 5px rgba(0,0,0,0.25);
-        -ms-box-shadow: 3px 2px 5px rgba(0,0,0,0.25);
-        -webkit-box-shadow: 3px 2px 5px rgba(0,0,0,0.25);
+        box-shadow: 3px 2px 5px rgba(0,0,0,.25);
+        -moz-box-shadow: 3px 2px 5px rgba(0,0,0,.25);
+        -o-box-shadow: 3px 2px 5px rgba(0,0,0,.25);
+        -ms-box-shadow: 3px 2px 5px rgba(0,0,0,.25);
+        -webkit-box-shadow: 3px 2px 5px rgba(0,0,0,.25);
     }
 
     .revistadigital .boxoffer .texto_boton, .contenedor_botonVerMasOfertas .boxoffer .texto_boton {
@@ -559,7 +559,7 @@ div#tab_revistasdigital_mobile {
     }
 
         .cabecera_boton_inscribeteAEsikaParaMi button:hover {
-            opacity: 0.8;
+            opacity: .8;
             top: -8px;
         }
 
@@ -764,11 +764,11 @@ div#tab_revistasdigital_mobile {
         letter-spacing: 0.1px;
         position: absolute;
         bottom: -37px;
-        box-shadow: 0 -2px 11px rgba(0,0,0,0.25);
-        -moz-box-shadow: 0 -2px 11px rgba(0,0,0,0.25);
-        -o-box-shadow: 0 -2px 11px rgba(0,0,0,0.25);
-        -ms-box-shadow: 0 -2px 11px rgba(0,0,0,0.25);
-        -webkit-box-shadow: 0 -2px 11px rgba(0,0,0,0.25);
+        box-shadow: 0 -2px 11px rgba(0,0,0,.25);
+        -moz-box-shadow: 0 -2px 11px rgba(0,0,0,.25);
+        -o-box-shadow: 0 -2px 11px rgba(0,0,0,.25);
+        -ms-box-shadow: 0 -2px 11px rgba(0,0,0,.25);
+        -webkit-box-shadow: 0 -2px 11px rgba(0,0,0,.25);
         transition: all .3s ease;
         -moz-transition: all .3s ease;
         -o-transition: all .3s ease;
@@ -874,7 +874,7 @@ div#tab_revistasdigital_mobile {
 
     .contenido_recuerdaIngresar span {
         font-size: 13px;
-        letter-spacing: 0.5px;
+        letter-spacing: .5px;
         line-height: 18px;
     }
 
@@ -925,7 +925,7 @@ div#tab_revistasdigital_mobile {
     padding-left: 17px;
     padding-right: 14px;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: .5px;
     position: relative;
 }
 
@@ -1332,7 +1332,7 @@ div#tab_revistasdigital_mobile {
     width: 90%;
     max-width: 200px;
     min-width: 160px;
-    letter-spacing: 0.5px;
+    letter-spacing: .5px;
 }
 
 .mrd_logo {
@@ -1383,7 +1383,7 @@ div#tab_revistasdigital_mobile {
 
 .mpopup_saludo {
     font-size: 15px;
-    letter-spacing: 0.5px;
+    letter-spacing: .5px;
     line-height: 20px;
 }
 
@@ -1449,7 +1449,7 @@ div#tab_revistasdigital_mobile {
     .mpopup_rd .mpopup_nomostrar a {
         font-size: 11px;
         color: #757575;
-        letter-spacing: 0.5px;
+        letter-spacing: .5px;
         text-decoration: underline;
     }
 
@@ -1480,7 +1480,7 @@ div#tab_revistasdigital_mobile {
 }
 
 .mob_rd_confirmacion .mpopup_text {
-    letter-spacing: 0.5px;
+    letter-spacing: .5px;
     line-height: 17px;
     margin: 30px 0 50px;
 }
@@ -1941,7 +1941,7 @@ div#tab_revistasdigital_mobile {
     top: 13px;
     left: 130px;
     font-weight: 700;
-    letter-spacing: 0.5px;
+    letter-spacing: .5px;
     line-height: 18px;
     font-size: 13px;
     text-align: left;
@@ -1971,7 +1971,7 @@ div#tab_revistasdigital_mobile {
         border: 1px solid #613c87;
         font-size: 13px;
         font-weight: 700;
-        letter-spacing: 0.5px;
+        letter-spacing: .5px;
         font-family: 'Lato';
     }
 
@@ -1982,7 +1982,7 @@ div#tab_revistasdigital_mobile {
         border: 1px solid black;
         font-size: 12px;
         font-weight: 700;
-        letter-spacing: 0.5px;
+        letter-spacing: .5px;
     }
 
 .rd_arrowright {
@@ -2000,7 +2000,7 @@ div#tab_revistasdigital_mobile {
     border: 1px solid black;
     font-size: 13px;
     font-weight: 700;
-    letter-spacing: 0.5px;
+    letter-spacing: .5px;
 }
 
 .btn_white_stroke a {
@@ -2269,7 +2269,7 @@ div#tab_revistasdigital_mobile {
         display: block;
         text-align: center;
         font-weight: 700;
-        letter-spacing: 0.5px;
+        letter-spacing: .5px;
         font-size: 13px;
         text-transform: uppercase;
         margin-bottom: 20px;
@@ -2317,7 +2317,7 @@ div#tab_revistasdigital_mobile {
         display: inline-block;
         text-align: center;
         font-weight: 700;
-        letter-spacing: 0.5px;
+        letter-spacing: .5px;
         color: #613c87;
         margin-bottom: 10px;
         width: 100%;
@@ -2384,7 +2384,7 @@ div#tab_revistasdigital_mobile {
 
     .bloques-gana-mas .contenedor-mobile-fix p.titulo {
         display: block;
-        letter-spacing: 0.5px;
+        letter-spacing: .5px;
         font-size: 15px;
         font-weight: 700;
         margin: 0 0 5pt 0;
@@ -2395,7 +2395,7 @@ div#tab_revistasdigital_mobile {
         display: block;
         text-align: left;
         font-size: 13px;
-        letter-spacing: 0.5px;
+        letter-spacing: .5px;
         color: white;
         font-weight: 300;
     }
@@ -2411,7 +2411,7 @@ div#tab_revistasdigital_mobile {
     .bloques-gana-mas .contenedor-mobile-fix span.txt {
         float: left;
         width: 83%;
-        letter-spacing: 0.5px;
+        letter-spacing: .5px;
         text-align: left;
         margin-bottom: 30px;
         font-size: 13px;
@@ -2509,7 +2509,7 @@ div#tab_revistasdigital_mobile {
     text-align: center;
     padding: 0 20px;
     font-size: 13px;
-    letter-spacing: 0.5px;
+    letter-spacing: .5px;
     margin-top: 20px;
 }
 
@@ -2764,12 +2764,12 @@ a.btn-suscribete-video-baja {
                 font-weight: bolder;
                 margin-bottom: 5pt;
                 display: block;
-                letter-spacing: 0.5px;
+                letter-spacing: .5px;
             }
 
             .preguntas-frecuentes-cont-sus ul.preg-frecuentes ul span {
                 display: block;
-                letter-spacing: 0.5px;
+                letter-spacing: .5px;
                 margin-bottom: 15pt;
                 text-align: left;
             }

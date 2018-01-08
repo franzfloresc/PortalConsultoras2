@@ -545,7 +545,7 @@
     padding: 4px 17px 4px 33px;
     border: 1px solid #d7d8da;
     background: -moz-linear-gradient(top, #fff 0%, #f4f8fa 73%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fff), color-stop(73%, #f4f8fa));
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fff), color-stop(73%, #f4f8fa));
     background: -webkit-linear-gradient(top, #fff 0%, #f4f8fa 73%);
     background: -o-linear-gradient(top, #fff 0%, #f4f8fa 73%);
     background: -ms-linear-gradient(top, #fff 0%, #f4f8fa 73%);
@@ -556,7 +556,7 @@
     .xdsoft_datetimepicker .blue-gradient-button:hover, .xdsoft_datetimepicker .blue-gradient-button:focus, .xdsoft_datetimepicker .blue-gradient-button:hover span, .xdsoft_datetimepicker .blue-gradient-button:focus span {
         color: #454551;
         background: -moz-linear-gradient(top, #f4f8fa 0%, #FFF 73%);
-        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f4f8fa), color-stop(73%, #FFF));
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #f4f8fa), color-stop(73%, #FFF));
         background: -webkit-linear-gradient(top, #f4f8fa 0%, #FFF 73%);
         background: -o-linear-gradient(top, #f4f8fa 0%, #FFF 73%);
         background: -ms-linear-gradient(top, #f4f8fa 0%, #FFF 73%);

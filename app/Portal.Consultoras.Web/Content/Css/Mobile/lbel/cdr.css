@@ -732,11 +732,11 @@
     padding: 15px 4px 16px 4px;
     border-radius: 7px;
     position: relative;
-    box-shadow: 3px 6px 18px 0 rgba(0,0,0,0.3);
-    -moz-box-shadow: 3px 6px 18px 0 rgba(0,0,0,0.3);
-    -o-box-shadow: 3px 6px 18px 0 rgba(0,0,0,0.3);
-    -ms-box-shadow: 3px 6px 18px 0 rgba(0,0,0,0.3);
-    -webkit-box-shadow: 3px 6px 18px 0 rgba(0,0,0,0.3);
+    box-shadow: 3px 6px 18px 0 rgba(0,0,0,.3);
+    -moz-box-shadow: 3px 6px 18px 0 rgba(0,0,0,.3);
+    -o-box-shadow: 3px 6px 18px 0 rgba(0,0,0,.3);
+    -ms-box-shadow: 3px 6px 18px 0 rgba(0,0,0,.3);
+    -webkit-box-shadow: 3px 6px 18px 0 rgba(0,0,0,.3);
 }
 
     .tooltip_btn_reportar_inconveniente:after {

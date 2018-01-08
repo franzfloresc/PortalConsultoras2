@@ -142,7 +142,7 @@
 }
 
     .pedido_agregado:hover {
-        opacity: 0.8;
+        opacity: .8;
         filter: alpha(opacity=80);
     }
 
@@ -196,7 +196,7 @@
     .texto_pedidos.subtotal span.icon-advertencia {
         top: 44%;
         right: -16%;
-        zoom: 0.8;
+        zoom: .8;
     }
 
     .pedido_agregado {

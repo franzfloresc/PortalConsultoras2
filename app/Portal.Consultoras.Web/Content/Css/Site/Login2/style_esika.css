@@ -332,7 +332,7 @@ Image .nav0:hover {
         font-size: 13px;
         color: white;
         font-family: 'lato';
-        letter-spacing: 0.3px;
+        letter-spacing: .3px;
         float: left;
     }
 
@@ -393,7 +393,7 @@ Image .nav0:hover {
         color: #fff;
         background: #cf2d3a !important;
         font-family: lato;
-        letter-spacing: 0.5px;
+        letter-spacing: .5px;
         font-size: 13px;
         font-weight: 700;
         margin-top: 20px;
@@ -2198,13 +2198,13 @@ h1, h2, h3, h4, h5, h6 {
     box-sizing: border-box;
     position: relative;
     background: transparent;
-    letter-spacing: 0.3px;
+    letter-spacing: .3px;
 }
 
 .content_pop_login {
     position: fixed;
     top: 0;
-    background: rgba(0,0,0,0.8);
+    background: rgba(0,0,0,.8);
     width: 100%;
     height: 100%;
     z-index: 998;

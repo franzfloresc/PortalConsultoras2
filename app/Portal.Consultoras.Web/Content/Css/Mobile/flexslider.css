@@ -138,8 +138,8 @@ html[xmlns] .flexslider .slides {
         overflow: hidden;
         opacity: 0;
         cursor: pointer;
-        color: rgba(0, 0, 0, 0.8);
-        text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3);
+        color: rgba(0, 0, 0, .8);
+        text-shadow: 1px 1px 0 rgba(255, 255, 255, .3);
         -webkit-transition: all .3s ease-in-out;
         -moz-transition: all .3s ease-in-out;
         -ms-transition: all .3s ease-in-out;
@@ -152,8 +152,8 @@ html[xmlns] .flexslider .slides {
             font-size: 40px;
             display: inline-block;
             content: '\f001';
-            color: rgba(0, 0, 0, 0.8);
-            text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3);
+            color: rgba(0, 0, 0, .8);
+            text-shadow: 1px 1px 0 rgba(255, 255, 255, .3);
         }
 
         .flex-direction-nav a.flex-next:before {
@@ -201,7 +201,7 @@ html[xmlns] .flexslider .slides {
     position: absolute;
     bottom: 5px;
     left: 10px;
-    opacity: 0.8;
+    opacity: .8;
     z-index: 10;
     overflow: hidden;
     cursor: pointer;
@@ -244,10 +244,10 @@ html[xmlns] .flexslider .slides {
     background: rgba(255,255, 255, 0);
     cursor: pointer;
     text-indent: -9999px;
-    -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.3);
-    -moz-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.3);
-    -o-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.3);
-    box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, .3);
+    -moz-box-shadow: inset 0 0 3px rgba(0, 0, 0, .3);
+    -o-box-shadow: inset 0 0 3px rgba(0, 0, 0, .3);
+    box-shadow: inset 0 0 3px rgba(0, 0, 0, .3);
     -webkit-border-radius: 20px;
     -moz-border-radius: 20px;
     border: 1px solid white;
