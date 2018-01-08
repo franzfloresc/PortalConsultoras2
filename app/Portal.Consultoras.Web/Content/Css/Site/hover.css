@@ -49,8 +49,8 @@
 }
 
     .hvr-shrink:hover, .hvr-shrink:focus, .hvr-shrink:active {
-        -webkit-transform: scale(0.9);
-        transform: scale(0.9);
+        -webkit-transform: scale(.9);
+        transform: scale(.9);
     }
 
 /* Pulse */
@@ -61,8 +61,8 @@
     }
 
     75% {
-        -webkit-transform: scale(0.9);
-        transform: scale(0.9);
+        -webkit-transform: scale(.9);
+        transform: scale(.9);
     }
 }
 
@@ -73,8 +73,8 @@
     }
 
     75% {
-        -webkit-transform: scale(0.9);
-        transform: scale(0.9);
+        -webkit-transform: scale(.9);
+        transform: scale(.9);
     }
 }
 
@@ -142,15 +142,15 @@
 /* Pulse Shrink */
 @-webkit-keyframes hvr-pulse-shrink {
     to {
-        -webkit-transform: scale(0.9);
-        transform: scale(0.9);
+        -webkit-transform: scale(.9);
+        transform: scale(.9);
     }
 }
 
 @keyframes hvr-pulse-shrink {
     to {
-        -webkit-transform: scale(0.9);
-        transform: scale(0.9);
+        -webkit-transform: scale(.9);
+        transform: scale(.9);
     }
 }
 
@@ -181,8 +181,8 @@
 /* Push */
 @-webkit-keyframes hvr-push {
     50% {
-        -webkit-transform: scale(0.8);
-        transform: scale(0.8);
+        -webkit-transform: scale(.8);
+        transform: scale(.8);
     }
 
     100% {
@@ -193,8 +193,8 @@
 
 @keyframes hvr-push {
     50% {
-        -webkit-transform: scale(0.8);
-        transform: scale(0.8);
+        -webkit-transform: scale(.8);
+        transform: scale(.8);
     }
 
     100% {
@@ -298,8 +298,8 @@
 }
 
     .hvr-bounce-out:hover, .hvr-bounce-out:focus, .hvr-bounce-out:active {
-        -webkit-transform: scale(0.8);
-        transform: scale(0.8);
+        -webkit-transform: scale(.8);
+        transform: scale(.8);
         -webkit-transition-timing-function: cubic-bezier(.47, 2.02, .31, -0.36);
         transition-timing-function: cubic-bezier(.47, 2.02, .31, -0.36);
     }
@@ -3859,8 +3859,8 @@
     }
 
     .hvr-icon-shrink:hover:before, .hvr-icon-shrink:focus:before, .hvr-icon-shrink:active:before {
-        -webkit-transform: scale(0.8);
-        transform: scale(0.8);
+        -webkit-transform: scale(.8);
+        transform: scale(.8);
     }
 
 /* Icon Pulse */
@@ -3871,8 +3871,8 @@
     }
 
     75% {
-        -webkit-transform: scale(0.8);
-        transform: scale(0.8);
+        -webkit-transform: scale(.8);
+        transform: scale(.8);
     }
 }
 
@@ -3883,8 +3883,8 @@
     }
 
     75% {
-        -webkit-transform: scale(0.8);
-        transform: scale(0.8);
+        -webkit-transform: scale(.8);
+        transform: scale(.8);
     }
 }
 
@@ -3980,15 +3980,15 @@
 /* Icon Pulse Shrink */
 @-webkit-keyframes hvr-icon-pulse-shrink {
     to {
-        -webkit-transform: scale(0.8);
-        transform: scale(0.8);
+        -webkit-transform: scale(.8);
+        transform: scale(.8);
     }
 }
 
 @keyframes hvr-icon-pulse-shrink {
     to {
-        -webkit-transform: scale(0.8);
-        transform: scale(0.8);
+        -webkit-transform: scale(.8);
+        transform: scale(.8);
     }
 }
 
@@ -4033,15 +4033,15 @@
 /* Icon Push */
 @-webkit-keyframes hvr-icon-push {
     50% {
-        -webkit-transform: scale(0.5);
-        transform: scale(0.5);
+        -webkit-transform: scale(.5);
+        transform: scale(.5);
     }
 }
 
 @keyframes hvr-icon-push {
     50% {
-        -webkit-transform: scale(0.5);
-        transform: scale(0.5);
+        -webkit-transform: scale(.5);
+        transform: scale(.5);
     }
 }
 

@@ -32255,7 +32255,7 @@ h1#penmostreo .campana {
 }
 
 .cerrar_pop_oferta {
-    top: 1;
+    top: 1px;
     right: -43px;
     position: absolute;
 }
@@ -34000,7 +34000,7 @@ h1#penmostreo .campana {
     .botones_cabecera_srd button {
         background: #FF1534;
         color: white !important;
-        opacity: 1.00;
+        opacity: 1;
         width: 251px;
         height: 59px;
         line-height: 100%;
@@ -34018,7 +34018,7 @@ h1#penmostreo .campana {
         font-size: 8px;
         line-height: 18px;
         letter-spacing: .56px;
-        opacity: 1.00;
+        opacity: 1;
     }
 
 .backgroud2_srd {
@@ -34534,7 +34534,6 @@ h1#penmostreo .campana {
 .tipo_porcentaje {
     color: white;
     font-size: 73px;
-    float: d;
     display: inline-block;
     font-weight: 700;
     margin-top: -21px;
