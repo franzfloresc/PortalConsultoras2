@@ -2,9 +2,9 @@
 @font-face {
     font-family: 'icomoon';
     src: url('fonts/icomoon/icomoon.eot?ur7cdc');
-    src: url('fonts/icomoon/icomoon.eot?ur7cdc#iefix') format('embedded-opentype'), 
-        url('fonts/icomoon/icomoon.ttf?ur7cdc') format('truetype'), 
-        url('fonts/icomoon/icomoon.woff?ur7cdc') format('woff'), 
+    src: url('fonts/icomoon/icomoon.eot?ur7cdc#iefix') format('embedded-opentype'),
+        url('fonts/icomoon/icomoon.ttf?ur7cdc') format('truetype'),
+        url('fonts/icomoon/icomoon.woff?ur7cdc') format('woff'),
         url('fonts/icomoon/icomoon.svg?ur7cdc#icomoon') format('svg');
     font-weight: normal;
     font-style: normal;
@@ -14,7 +14,7 @@
     font-family: 'logo_esika';
     src: url('fonts/icomoon/logo_esika.eot?ur7cdc');
     src: url('fonts/icomoon/logo_esika.eot?ur7cdc#iefix') format('embedded-opentype'),
-        url('fonts/icomoon/logo_esika.ttf?ur7cdc') format('truetype'), 
+        url('fonts/icomoon/logo_esika.ttf?ur7cdc') format('truetype'),
         url('fonts/icomoon/logo_esika.woff?ur7cdc') format('woff'),
         url('fonts/icomoon/logo_esika.svg?ur7cdc#icomoon') format('svg');
     font-weight: normal;

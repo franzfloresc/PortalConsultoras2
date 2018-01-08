@@ -10,9 +10,9 @@
 @font-face {
     font-family: 'icomoon';
     src: url('fonts/icomoon.eot?-q1bfik');
-    src: url('fonts/icomoon.eot?#iefix-q1bfik') format('embedded-opentype'), 
-        url('fonts/icomoon.woff?-q1bfik') format('woff'), 
-        url('fonts/icomoon.ttf?-q1bfik') format('truetype'), 
+    src: url('fonts/icomoon.eot?#iefix-q1bfik') format('embedded-opentype'),
+        url('fonts/icomoon.woff?-q1bfik') format('woff'),
+        url('fonts/icomoon.ttf?-q1bfik') format('truetype'),
         url('fonts/icomoon.svg?-q1bfik#icomoon') format('svg');
     font-weight: normal;
     font-style: normal;
@@ -23,7 +23,7 @@
     src: url('fonts/OldStandard-Italic.eot');
     src: url('fonts/OldStandard-Italic.eot?#iefix') format('embedded-opentype'),
         url('fonts/OldStandard-Italic.woff') format('woff'),
-        url('fonts/OldStandard-Italic.ttf') format('truetype'), 
+        url('fonts/OldStandard-Italic.ttf') format('truetype'),
         url('fonts/OldStandard-Italic.svg#OldStandardItalic') format('svg');
     font-weight: normal;
     font-style: normal;
@@ -7186,7 +7186,7 @@ a.subir_carousel, a.bajar_carousel {
 /* fin ver mas la fleca abajo*/
 /* Style Lbel */
 
-/* ---------------------- 
+/* ----------------------
 Stylesheet Guide
 -------------------------
 01. Reset
@@ -11004,9 +11004,9 @@ ol {
 @font-face {
     font-family: 'museo_sans_900regular';
     src: url('../../fonts/museo/museosans_900-webfont.eot');
-    src: url('../../fonts/museo/museosans_900-webfont.eot?#iefix') format('embedded-opentype'), 
-        url('../../fonts/museo/museosans_900-webfont.woff') format('woff'), 
-        url('../../fonts/museo/museosans_900-webfont.ttf') format('truetype'), 
+    src: url('../../fonts/museo/museosans_900-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../../fonts/museo/museosans_900-webfont.woff') format('woff'),
+        url('../../fonts/museo/museosans_900-webfont.ttf') format('truetype'),
         url('../../fonts/museo/museosans_900-webfont.svg#museo_sans_900regular') format('svg');
     font-weight: normal;
     font-style: normal;
@@ -11016,7 +11016,7 @@ ol {
     font-family: 'museo_sans_700regular';
     src: url('../../fonts/museo/museosans_700-webfont.eot');
     src: url('../../fonts/museo/museosans_700-webfont.eot?#iefix') format('embedded-opentype'),
-        url('../../fonts/museo/museosans_700-webfont.woff') format('woff'), 
+        url('../../fonts/museo/museosans_700-webfont.woff') format('woff'),
         url('../../fonts/museo/museosans_700-webfont.ttf') format('truetype'),
         url('../../fonts/museo/museosans_700-webfont.svg#museo_sans_700regular') format('svg');
     font-weight: normal;
@@ -11027,8 +11027,8 @@ ol {
     font-family: 'museo_sans_500regular';
     src: url('../../fonts/museo/museosans_500-webfont.eot');
     src: url('../../fonts/museo/museosans_500-webfont.eot?#iefix') format('embedded-opentype'),
-        url('../../fonts/museo/museosans_500-webfont.woff') format('woff'), 
-        url('../../fonts/museo/museosans_500-webfont.ttf') format('truetype'), 
+        url('../../fonts/museo/museosans_500-webfont.woff') format('woff'),
+        url('../../fonts/museo/museosans_500-webfont.ttf') format('truetype'),
         url('../../fonts/museo/museosans_500-webfont.svg#museo_sans_900regular') format('svg');
     font-weight: normal;
     font-style: normal;
@@ -11038,8 +11038,8 @@ ol {
     font-family: 'museo_300regular';
     src: url('../../fonts/museo/museo300-regular-webfont.eot');
     src: url('../../fonts/museo/museo300-regular-webfont.eot?#iefix') format('embedded-opentype'),
-        url('../../fonts/museo/museo300-regular-webfont.woff') format('woff'), 
-        url('../../fonts/museo/museo300-regular-webfont.ttf') format('truetype'), 
+        url('../../fonts/museo/museo300-regular-webfont.woff') format('woff'),
+        url('../../fonts/museo/museo300-regular-webfont.ttf') format('truetype'),
         url('../../fonts/museo/museo300-regular-webfont.svg#museo_300regular') format('svg');
     font-weight: normal;
     font-style: normal;
@@ -11413,10 +11413,10 @@ ol {
         }
 
 /* .catalogo_botones a:hover {
-       
+      
         background:black;
         color:white;
-       
+      
     } */
 /************ REVISTA GANA **************/
 /*RQ_FP - R2161*/
@@ -18766,8 +18766,8 @@ label.checkpop.c_on {
 @font-face {
     font-family: 'ArialMT';
     src: url('../../fonts/arialMT/arialmt.eot');
-    src: url('../../fonts/arialMT/arialmt.eot?#iefix') format('embedded-opentype'), 
-        url('../../fonts/arialMT/arialmt.ttf') format('truetype'), 
+    src: url('../../fonts/arialMT/arialmt.eot?#iefix') format('embedded-opentype'),
+        url('../../fonts/arialMT/arialmt.ttf') format('truetype'),
         url('../../fonts/arialMT/arialmt.svg#arialmt') format('svg');
     font-weight: normal;
     font-style: normal;
@@ -18776,8 +18776,8 @@ label.checkpop.c_on {
 @font-face {
     font-family: 'ArialBoldMT';
     src: url('../../fonts/arialboldMT/arialboldMT.eot');
-    src: url('../../fonts/arialboldMT/arialboldMT.eot?#iefix') format('embedded-opentype'), 
-        url('../../fonts/arialboldMT/arialboldMT.ttf') format('truetype'), 
+    src: url('../../fonts/arialboldMT/arialboldMT.eot?#iefix') format('embedded-opentype'),
+        url('../../fonts/arialboldMT/arialboldMT.ttf') format('truetype'),
         url('../../fonts/arialboldMT/arialboldMT.svg#arialboldMT') format('svg');
     font-weight: normal;
     font-style: normal;
@@ -23863,7 +23863,7 @@ img {
     font-family: 'museo_sans_900regular';
     src: url('../../fonts/museo/museosans_900-webfont.eot');
     src: url('../../fonts/museo/museosans_900-webfont.eot?#iefix') format('embedded-opentype'),
-        url('../../fonts/museo/museosans_900-webfont.woff') format('woff'), 
+        url('../../fonts/museo/museosans_900-webfont.woff') format('woff'),
         url('../../fonts/museo/museosans_900-webfont.ttf') format('truetype'),
         url('../../fonts/museo/museosans_900-webfont.svg#museo_sans_900regular') format('svg');
     font-weight: normal;
@@ -23884,9 +23884,9 @@ img {
 @font-face {
     font-family: 'museo_sans_500regular';
     src: url('../../fonts/museo/museosans_500-webfont.eot');
-    src: url('../../fonts/museo/museosans_500-webfont.eot?#iefix') format('embedded-opentype'), 
-        url('../../fonts/museo/museosans_500-webfont.woff') format('woff'), 
-        url('../../fonts/museo/museosans_500-webfont.ttf') format('truetype'), 
+    src: url('../../fonts/museo/museosans_500-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../../fonts/museo/museosans_500-webfont.woff') format('woff'),
+        url('../../fonts/museo/museosans_500-webfont.ttf') format('truetype'),
         url('../../fonts/museo/museosans_500-webfont.svg#museo_sans_900regular') format('svg');
     font-weight: normal;
     font-style: normal;

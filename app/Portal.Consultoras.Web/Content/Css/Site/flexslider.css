@@ -102,7 +102,7 @@ html[xmlns] .slides {display: block;}
     text-align: center;
 }
 .flex-control-nav li {width: auto;margin: 0 4px; display: inline-block; zoom: 1; *display: inline;}
-.flex-control-paging li a { padding:0;width: 11px; height: 11px; display: block; background: white; 
+.flex-control-paging li a { padding:0;width: 11px; height: 11px; display: block; background: white;
   cursor: pointer; text-indent: -9999px; -webkit-border-radius: 20px; -moz-border-radius: 20px; -o-border-radius: 20px; border-radius: 20px; border:1px solid black; }
 .flex-control-paging li a:hover {background: black;}
 .flex-control-paging li a.flex-active { background: black; cursor: default; border: 1px solid #dadada; }

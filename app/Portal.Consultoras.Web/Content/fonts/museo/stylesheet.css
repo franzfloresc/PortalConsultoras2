@@ -4,8 +4,8 @@
     font-family: 'museo_sans_900regular';
     src: url('museosans_900-webfont.eot');
     src: url('museosans_900-webfont.eot?#iefix') format('embedded-opentype'),
-        url('museosans_900-webfont.woff') format('woff'), 
-        url('museosans_900-webfont.ttf') format('truetype'), 
+        url('museosans_900-webfont.woff') format('woff'),
+        url('museosans_900-webfont.ttf') format('truetype'),
         url('museosans_900-webfont.svg#museo_sans_900regular') format('svg');
     font-weight: normal;
     font-style: normal;
@@ -25,7 +25,7 @@
 @font-face {
     font-family: 'museo_sans_500regular';
     src: url('museosans_500-webfont.eot');
-    src: url('museosans_500-webfont.eot?#iefix') format('embedded-opentype'), 
+    src: url('museosans_500-webfont.eot?#iefix') format('embedded-opentype'),
         url('museosans_500-webfont.woff') format('woff'),
         url('museosans_500-webfont.ttf') format('truetype'),
         url('museosans_500-webfont.svg#museo_sans_500regular') format('svg');
@@ -36,8 +36,8 @@
 @font-face {
     font-family: 'museo_300regular';
     src: url('museo300-regular-webfont.eot');
-    src: url('museo300-regular-webfont.eot?#iefix') format('embedded-opentype'), 
-        url('museo300-regular-webfont.woff') format('woff'), 
+    src: url('museo300-regular-webfont.eot?#iefix') format('embedded-opentype'),
+        url('museo300-regular-webfont.woff') format('woff'),
         url('museo300-regular-webfont.ttf') format('truetype'),
         url('museo300-regular-webfont.svg#museo_300regular') format('svg');
     font-weight: normal;
@@ -47,9 +47,9 @@
 @font-face {
     font-family: 'museo_sans_100regular';
     src: url('museosans-100-webfont.eot');
-    src: url('museosans-100-webfont.eot?#iefix') format('embedded-opentype'), 
-        url('museosans-100-webfont.woff') format('woff'), 
-        url('museosans-100-webfont.ttf') format('truetype'), 
+    src: url('museosans-100-webfont.eot?#iefix') format('embedded-opentype'),
+        url('museosans-100-webfont.woff') format('woff'),
+        url('museosans-100-webfont.ttf') format('truetype'),
         url('museosans-100-webfont.svg#museo_sans_100regular') format('svg');
     font-weight: normal;
     font-style: normal;

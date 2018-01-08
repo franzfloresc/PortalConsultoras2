@@ -29,7 +29,7 @@ p {
 }
 
 
-/* HEADINGS   
+/* HEADINGS  
 ----------------------------------------------------------*/
 
 h1, h2, h3, h4, h5, h6 {
@@ -64,14 +64,14 @@ h5, h6 {
     font-size: 1em;
 }
 
-/* this rule styles <h1> and <h2> tags that are the 
+/* this rule styles <h1> and <h2> tags that are the
 first child of the left and right table columns */
 .rightColumn > h1, .rightColumn > h2, .leftColumn > h1, .leftColumn > h2 {
     margin-top: 0;
 }
 
 
-/* PRIMARY LAYOUT ELEMENTS   
+/* PRIMARY LAYOUT ELEMENTS  
 ----------------------------------------------------------*/
 
 .page {
@@ -121,7 +121,7 @@ first child of the left and right table columns */
 }
 
 
-/* TAB MENU   
+/* TAB MENU  
 ----------------------------------------------------------*/
 
 div.hideSkiplink {
@@ -163,7 +163,7 @@ div.menu {
                 text-decoration: none;
             }
 
-/* FORM ELEMENTS   
+/* FORM ELEMENTS  
 ----------------------------------------------------------*/
 
 fieldset {
@@ -212,7 +212,7 @@ div.accountInfo {
     width: 42%;
 }
 
-/* MISC  
+/* MISC 
 ----------------------------------------------------------*/
 
 .clear {

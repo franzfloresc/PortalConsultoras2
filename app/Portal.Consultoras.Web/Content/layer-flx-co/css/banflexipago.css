@@ -2,7 +2,7 @@
     font-family: 'Museo Sans 300';
     src: url('../fonts/museo_sans_r300-webfont.eot');
     src: url('../fonts/museo_sans_r300-webfont.eot?#iefix') format('embedded-opentype'),
-        url('../fonts/museo_sans_r300-webfont.woff') format('woff'), 
+        url('../fonts/museo_sans_r300-webfont.woff') format('woff'),
         url('../fonts/museo_sans_r300-webfont.ttf') format('truetype'),
         url('../fonts/museo_sans_r300-webfont.svg') format('svg');
     font-weight: normal;
