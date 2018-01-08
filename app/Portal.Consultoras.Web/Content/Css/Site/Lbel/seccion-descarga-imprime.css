@@ -94,7 +94,7 @@
 .info_tarjeta_navidenia > span, .info_papel_regalo_navidenio > span {
     font-size: 17px;
     font-weight: 400;
-    letter-spacing: 0.3px;
+    letter-spacing: .3px;
     color: #000;
 }
 

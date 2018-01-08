@@ -192,7 +192,7 @@
 
     .descripcion_asesora_online div {
         display: block;
-        letter-spacing: 0.5px;
+        letter-spacing: .5px;
         font-size: 18px;
     }
 
@@ -475,7 +475,7 @@
         .opcion_crecimiento_negocio input[type='checkbox'] + label span {
             width: 16px;
             height: 16px;
-            border: 1px solid rgba(0,0,0,0.25);
+            border: 1px solid rgba(0,0,0,.25);
             border-radius: 100%;
             background: rgba(255,255,255,0.9);
             margin-left: -41px;
@@ -1254,7 +1254,7 @@
     position: fixed;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.8);
+    background: rgba(0,0,0,.8);
 }
 
 .popup_inscripcion_asesoria_online {
@@ -1351,7 +1351,7 @@
 }
 
     .mensaje_popup div {
-        letter-spacing: 0.3px;
+        letter-spacing: .3px;
     }
 
         .mensaje_popup div:first-child {
@@ -1412,7 +1412,7 @@
 
     .beneficio_descripcion > span {
         display: block;
-        opacity: 0.8;
+        opacity: .8;
     }
 
         .beneficio_descripcion > span:first-child {
@@ -1514,7 +1514,7 @@
     position: absolute;
     bottom: -18px;
     left: 0;
-    letter-spacing: 0.5px;
+    letter-spacing: .5px;
     transition: opacity .3s ease;
     -moz-transition: opacity .3s ease;
     -o-transition: opacity .3s ease;
@@ -1896,7 +1896,7 @@
 .mensaje_advertencia_datos_registrados {
     max-width: 392px;
     font-size: 20px;
-    letter-spacing: 0.5px;
+    letter-spacing: .5px;
     text-align: left;
     line-height: 24px;
 }

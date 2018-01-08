@@ -185,11 +185,11 @@
     background: -o-linear-gradient(top, rgba(213,37,31,1) 0, rgba(163,16,18,1) 100%);
     background: -ms-linear-gradient(top, rgba(213,37,31,1) 0, rgba(163,16,18,1) 100%);
     background: linear-gradient(to bottom, rgba(213,37,31,1) 0, rgba(163,16,18,1) 100%);
-    box-shadow: 3px 2px 5px rgba(0,0,0,0.25);
-    -moz-box-shadow: 3px 2px 5px rgba(0,0,0,0.25);
-    -o-box-shadow: 3px 2px 5px rgba(0,0,0,0.25);
-    -ms-box-shadow: 3px 2px 5px rgba(0,0,0,0.25);
-    -webkit-box-shadow: 3px 2px 5px rgba(0,0,0,0.25);
+    box-shadow: 3px 2px 5px rgba(0,0,0,.25);
+    -moz-box-shadow: 3px 2px 5px rgba(0,0,0,.25);
+    -o-box-shadow: 3px 2px 5px rgba(0,0,0,.25);
+    -ms-box-shadow: 3px 2px 5px rgba(0,0,0,.25);
+    -webkit-box-shadow: 3px 2px 5px rgba(0,0,0,.25);
 }
 
 .revistadigital .boxoffer .texto_boton {
@@ -393,7 +393,7 @@
         border: none;
         text-align: center;
         font-family: 'Lato';
-        letter-spacing: 0.5px;
+        letter-spacing: .5px;
         font-size: 15px;
     }
 
@@ -507,7 +507,7 @@
     padding-left: 60px;
     padding-right: 60px;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: .5px;
     position: relative;
 }
 
@@ -761,7 +761,7 @@
     padding-left: 7px;
     font-size: 12px;
     float: right;
-    letter-spacing: 0.3px;
+    letter-spacing: .3px;
     margin-left: 10px;
 }
 
@@ -1035,7 +1035,7 @@
     }
 
         .cabecera_boton_inscribeteAEsikaParaMi button:hover, .contenido_fondoDesenfocado button:hover {
-            opacity: 0.8;
+            opacity: .8;
             top: -8px;
         }
 
@@ -1298,7 +1298,7 @@
 
     .contenido_recuerdaIngresar span {
         font-size: 13px;
-        letter-spacing: 0.5px;
+        letter-spacing: .5px;
         line-height: 18px;
     }
 
@@ -1322,7 +1322,7 @@
 
     .revista_ficha .rd_volver {
         font-size: 13px;
-        letter-spacing: 0.5px;
+        letter-spacing: .5px;
         position: absolute;
         top: -20px;
         transition: all .2s ease-in-out;
@@ -1391,7 +1391,7 @@
         .revista_ficha .content_revista_ficha_descripcion .descripcion_text .revista_separador {
             font-size: 13px;
             font-weight: 500;
-            letter-spacing: 0.5px;
+            letter-spacing: .5px;
             border-bottom: 1px solid black;
             padding-bottom: 5px;
             margin: 10px 0 20px;
@@ -1512,7 +1512,7 @@
 
 .rd_desc {
     position: absolute;
-    letter-spacing: 0.5px;
+    letter-spacing: .5px;
     line-height: 15px;
 }
 
@@ -1532,7 +1532,7 @@
         width: 208px;
         height: 298px;
         z-index: -1;
-        transform-origin: 0% 0%;
+        transform-origin: 0 0;
         transform: translateX(calc(20% - 25px)) translateY(10%) rotate(-45deg);
         transform: translateY(40%) translateX(270px) rotate(-75deg);
         transition: transform .5s;
@@ -1666,7 +1666,7 @@
             color: white;
             font-weight: 300;
             position: absolute;
-            letter-spacing: 0.5px;
+            letter-spacing: .5px;
             left: 230px;
             width: 430px;
             line-height: 18px;
@@ -1699,7 +1699,7 @@
         top: 320px;
         font-size: 12px;
         text-align: center;
-        letter-spacing: 0.5px;
+        letter-spacing: .5px;
         line-height: 15px;
     }
 
@@ -1741,9 +1741,9 @@
     }
 
         .rd_inscripcion .popup_rd_content .btn_diagonal:after {
-            background: -webkit-linear-gradient(top left, #cc0e27 0%, #cc0e27 31%, rgb(157,7,29) 100%);
-            background: -o-linear-gradient(top left, #cc0e27 0%, #cc0e27 31%, rgb(157,7,29) 100%);
-            background: linear-gradient(to bottom right, #cc0e27 0%, #cc0e27 31%, rgb(157,7,29) 100%);
+            background: -webkit-linear-gradient(top left, #cc0e27 0, #cc0e27 31%, rgb(157,7,29) 100%);
+            background: -o-linear-gradient(top left, #cc0e27 0, #cc0e27 31%, rgb(157,7,29) 100%);
+            background: linear-gradient(to bottom right, #cc0e27 0, #cc0e27 31%, rgb(157,7,29) 100%);
         }
 
         .rd_inscripcion .popup_rd_content .btn_diagonal a {
@@ -1798,9 +1798,9 @@
     position: relative;
     background: #f6f6f6;
     border-bottom: 2px solid black;
-    -webkit-box-shadow: 0 3px 7px 0 rgba(0,0,0,0.25);
-    -moz-box-shadow: 0 3px 7px 0 rgba(0,0,0,0.25);
-    box-shadow: 0 3px 7px 0 rgba(0,0,0,0.25);
+    -webkit-box-shadow: 0 3px 7px 0 rgba(0,0,0,.25);
+    -moz-box-shadow: 0 3px 7px 0 rgba(0,0,0,.25);
+    box-shadow: 0 3px 7px 0 rgba(0,0,0,.25);
 }
 
 .content_tabs_bpt {
@@ -2347,7 +2347,7 @@
     top: 15px;
     left: 40%;
     font-weight: 700;
-    letter-spacing: 0.5px;
+    letter-spacing: .5px;
     line-height: 18px;
     font-size: 14px;
     text-transform: uppercase;
@@ -2426,9 +2426,9 @@
     }
 
         .home_rd1 .btn_diagonal:after {
-            background: -webkit-linear-gradient(top left, #cc0e27 0%, #cc0e27 31%, rgb(157,7,29) 100%);
-            background: -o-linear-gradient(top left, #cc0e27 0%, #cc0e27 31%, rgb(157,7,29) 100%);
-            background: linear-gradient(to bottom right, #cc0e27 0%, #cc0e27 31%, rgb(157,7,29) 100%);
+            background: -webkit-linear-gradient(top left, #cc0e27 0, #cc0e27 31%, rgb(157,7,29) 100%);
+            background: -o-linear-gradient(top left, #cc0e27 0, #cc0e27 31%, rgb(157,7,29) 100%);
+            background: linear-gradient(to bottom right, #cc0e27 0, #cc0e27 31%, rgb(157,7,29) 100%);
         }
 
         .home_rd1 .btn_diagonal a {
@@ -2483,9 +2483,9 @@
     }
 
         .home_rd .btn_diagonal:after {
-            background: -webkit-linear-gradient(top left, #cc0e27 0%, #cc0e27 31%, rgb(157,7,29) 100%);
-            background: -o-linear-gradient(top left, #cc0e27 0%, #cc0e27 31%, rgb(157,7,29) 100%);
-            background: linear-gradient(to bottom right, #cc0e27 0%, #cc0e27 31%, rgb(157,7,29) 100%);
+            background: -webkit-linear-gradient(top left, #cc0e27 0, #cc0e27 31%, rgb(157,7,29) 100%);
+            background: -o-linear-gradient(top left, #cc0e27 0, #cc0e27 31%, rgb(157,7,29) 100%);
+            background: linear-gradient(to bottom right, #cc0e27 0, #cc0e27 31%, rgb(157,7,29) 100%);
         }
 
         .home_rd .btn_diagonal a {
@@ -2764,8 +2764,8 @@
             width: 100% !important;
             overflow: hidden !important;
             display: inline-block !important;
-            margin-right: 0% !important;
-            margin-left: 0% !important;
+            margin-right: 0 !important;
+            margin-left: 0 !important;
             padding-bottom: 0 !important;
             margin-bottom: 0 !important;
         }
@@ -2931,7 +2931,7 @@
         text-align: center;
         font-weight: bold;
         font-size: 17px;
-        letter-spacing: 0.5px;
+        letter-spacing: .5px;
         margin-bottom: 50px;
     }
 
@@ -2976,7 +2976,7 @@
     }
 
     .gana-mas span.txt-bloque {
-        letter-spacing: 0.5px;
+        letter-spacing: .5px;
         font-size: 13px;
         color: white;
         font-weight: 300;
@@ -3054,7 +3054,7 @@
         text-align: center;
         font-weight: bold;
         font-size: 17px;
-        letter-spacing: 0.5px;
+        letter-spacing: .5px;
         margin-top: 10px !important;
         padding-top: 0;
         margin-bottom: 20px;
@@ -3077,7 +3077,7 @@
 
         .como-funciona .caja-texto span.txt {
             float: left;
-            letter-spacing: 0.5px;
+            letter-spacing: .5px;
             text-align: left;
             margin-bottom: 20px;
             font-size: 15px;
@@ -3158,7 +3158,7 @@
         text-align: center;
         display: block;
         margin-bottom: 20px;
-        letter-spacing: 0.5px;
+        letter-spacing: .5px;
         font-size: 15px;
         color: #e81c36;
         font-weight: 700;
@@ -3170,7 +3170,7 @@
         text-align: center;
         padding: 0 20px;
         font-size: 13px;
-        letter-spacing: 0.5px;
+        letter-spacing: .5px;
         margin-top: 20px;
     }
 
@@ -3189,7 +3189,7 @@
 
     .preguntas-frecuentes-cont-sus span.titulo-p-frecuente {
         font-size: 17px;
-        letter-spacing: 0.5px;
+        letter-spacing: .5px;
         display: block;
         text-align: center;
         margin-top: 40px;
@@ -3261,19 +3261,19 @@
                 font-weight: bolder;
                 margin-bottom: 5pt;
                 display: block;
-                letter-spacing: 0.5px;
+                letter-spacing: .5px;
                 margin-top: 15px;
             }
 
             .preguntas-frecuentes-cont-sus ul.preg-frecuentes ul span {
                 display: block;
-                letter-spacing: 0.5px;
+                letter-spacing: .5px;
                 line-height: 17px;
                 text-align: left;
             }
 
     .preguntas-frecuentes-cont-sus a.descargar {
-        letter-spacing: 0.5px;
+        letter-spacing: .5px;
         display: block;
         text-align: left;
         color: black;

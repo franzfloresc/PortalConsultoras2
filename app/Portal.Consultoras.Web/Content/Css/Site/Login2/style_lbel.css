@@ -268,7 +268,7 @@ span {
         border: none;
         color: #fff;
         font-family: lato;
-        letter-spacing: 0.3px;
+        letter-spacing: .3px;
         font-size: 13.2px;
         float: left;
     }
@@ -2047,13 +2047,13 @@ h1, h2, h3, h4, h5, h6 {
     box-sizing: border-box;
     position: relative;
     background: transparent;
-    letter-spacing: 0.3px;
+    letter-spacing: .3px;
 }
 
 .content_pop_login {
     position: fixed;
     top: 0;
-    background: rgba(0,0,0,0.8);
+    background: rgba(0,0,0,.8);
     width: 100%;
     height: 100%;
     z-index: 998;

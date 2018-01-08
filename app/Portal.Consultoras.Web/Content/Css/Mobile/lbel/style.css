@@ -2339,7 +2339,7 @@ h4.re3 {
     right: 0;
     bottom: 0;
     left: 0;
-    background: rgba(114, 39, 137, 0.8);
+    background: rgba(114, 39, 137, .8);
     color: #fff;
     z-index: 99999;
     display: none;
@@ -3668,7 +3668,7 @@ table > thead > tr > th {
     font-weight: 300;
     background: black;
     color: white;
-    letter-spacing: 0.3px;
+    letter-spacing: .3px;
 }
 
 .fecha_promocion_m {
@@ -4446,7 +4446,7 @@ table > thead > tr > th {
     font-size: 13px;
     line-height: 45px;
     color: white;
-    letter-spacing: 0.5px;
+    letter-spacing: .5px;
     display: block;
     text-align: center;
     margin-top: 10px;
@@ -4599,7 +4599,7 @@ table > thead > tr > th {
     width: 24%;
     font-size: 17px;
     color: black;
-    letter-spacing: 0.3px;
+    letter-spacing: .3px;
     margin-top: -3px;
     display: inline-block;
 }
@@ -4608,7 +4608,7 @@ table > thead > tr > th {
     display: inline-block;
     font-size: 17px;
     color: black;
-    letter-spacing: 0.3px;
+    letter-spacing: .3px;
 }
 
     .nombre_consultora_mobile:first-letter {
@@ -4684,7 +4684,7 @@ table > thead > tr > th {
     font-family: 'lato';
     font-size: 12px;
     line-height: 15px;
-    letter-spacing: 0.3px;
+    letter-spacing: .3px;
     color: black;
     text-align: center;
 }
@@ -5407,7 +5407,7 @@ body {
     text-align: center;
     color: #000;
     font-family: 'Lato';
-    letter-spacing: 0.3px;
+    letter-spacing: .3px;
 }
 
 .nombre_campania_pedido {
@@ -6378,7 +6378,7 @@ body {
     position: fixed;
     z-index: 2000;
     overflow-y: auto;
-    background: rgba(0,0,0,0.8);
+    background: rgba(0,0,0,.8);
     width: 100%;
     height: 100%;
     display: none;
@@ -6414,7 +6414,7 @@ body {
     font-size: 15px;
     font-weight: 400;
     line-height: 1;
-    letter-spacing: 0.3px;
+    letter-spacing: .3px;
     color: #000000;
     float: left;
     margin-bottom: 15px;
@@ -6632,7 +6632,7 @@ input[type='checkbox']:checked + span:after {
         font-family: Lato;
         font-size: 15px;
         font-weight: 300;
-        letter-spacing: 0.3px;
+        letter-spacing: .3px;
         color: #000000;
         display: block;
         position: relative;
@@ -7460,7 +7460,7 @@ input[type='checkbox']:checked + span:after {
     font-family: Lato;
     font-size: 10px;
     font-weight: bold;
-    letter-spacing: 0.5px;
+    letter-spacing: .5px;
     text-align: center;
     color: #a18328;
 }
@@ -7739,11 +7739,11 @@ input[type='checkbox']:checked + span:after {
 
 .tabs_asesoresBelleza {
     display: block;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.21);
-    -moz-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.21);
-    -o-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.21);
-    -ms-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.21);
-    -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.21);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .21);
+    -moz-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .21);
+    -o-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .21);
+    -ms-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .21);
+    -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .21);
 }
 
     .tabs_asesoresBelleza li {
@@ -8102,11 +8102,11 @@ input[type='checkbox']:checked + span:after {
 }
 
 .header-bg .download-app > div:first-child {
-    border-right: 2px solid rgba(255,255,255,0.3);
+    border-right: 2px solid rgba(255,255,255,.3);
 }
 
 .header-bg .download-app > div:nth-child(2) {
-    border-left: 2px solid rgba(255,255,255,0.3);
+    border-left: 2px solid rgba(255,255,255,.3);
 }
 
 .header-bg .img-app {
@@ -8398,7 +8398,7 @@ span.title-app-b {
     font-weight: 700;
     border: 2px solid black;
     font-family: 'Lato';
-    background: rgba(255,255,255,0.8);
+    background: rgba(255,255,255,.8);
     left: 0;
     right: 0;
     bottom: 10px;
@@ -9229,7 +9229,7 @@ a {
     font-family: Lato;
     font-size: 10px;
     font-weight: bold;
-    letter-spacing: 0.5px;
+    letter-spacing: .5px;
     text-align: center;
     color: #a18328;
 }
@@ -9356,7 +9356,7 @@ span.icon-advertencia {
     font-family: 'Lato';
     font-size: 13px;
     line-height: 1.23;
-    letter-spacing: 0.5px;
+    letter-spacing: .5px;
     text-align: center;
     font-weight: 400;
     padding: 0 16px;
@@ -9668,11 +9668,11 @@ span.icon-advertencia {
 
 @keyframes opacidad-gestion-pedido {
     0% {
-        background: rgba(0,0,0,0.8);
+        background: rgba(0,0,0,.8);
     }
 
     45% {
-        background: rgba(0,0,0,0.8);
+        background: rgba(0,0,0,.8);
     }
 
     100% {
@@ -10070,7 +10070,7 @@ span.icon-advertencia {
     font-size: 13px;
     padding-left: 14px;
     padding-right: 14px;
-    letter-spacing: 0.3px;
+    letter-spacing: .3px;
     line-height: 19px;
     margin-top: 15px;
 }
@@ -10160,7 +10160,7 @@ span.icon-advertencia {
     color: black;
     font-size: 17px;
     font-weight: 700;
-    letter-spacing: 0.3px;
+    letter-spacing: .3px;
     line-height: 20px;
     text-transform: uppercase;
 }
@@ -10680,7 +10680,7 @@ span.icon-advertencia {
     font-weight: 700;
     font-size: 17px;
     color: black;
-    letter-spacing: 0.3px;
+    letter-spacing: .3px;
 }
 
 .precio_tachado_048 span {
@@ -10742,7 +10742,7 @@ span.icon-advertencia {
     font-size: 17px;
     margin-bottom: 14px;
     font-weight: 700;
-    letter-spacing: 0.3px;
+    letter-spacing: .3px;
 }
 
 .flecha_048 {
@@ -11593,7 +11593,7 @@ span.icon-advertencia {
     font-family: 'Lato';
     font-size: 11.9px;
     font-weight: 400;
-    letter-spacing: 0.5px;
+    letter-spacing: .5px;
     color: #000;
     position: relative;
     top: 1px;
@@ -12182,7 +12182,7 @@ span.icon-advertencia {
     font-size: 13px;
     line-height: 17px;
     font-weight: 700;
-    letter-spacing: 0.5px;
+    letter-spacing: .5px;
     text-align: center;
     text-transform: uppercase;
 }
@@ -12433,9 +12433,9 @@ span.icon-advertencia {
     list-style: none;
     background-color: #fff;
     border: 1px solid #ededed;
-    -webkit-box-shadow: 0 4px 8px rgba(237, 237, 237, 0.8);
-    -moz-box-shadow: 0 4px 8px rgba(237, 237, 237, 0.8);
-    box-shadow: 0 4px 8px rgba(237, 237, 237, 0.8);
+    -webkit-box-shadow: 0 4px 8px rgba(237, 237, 237, .8);
+    -moz-box-shadow: 0 4px 8px rgba(237, 237, 237, .8);
+    box-shadow: 0 4px 8px rgba(237, 237, 237, .8);
     max-height: 600px;
     overflow-y: auto;
     overflow-x: hidden;
@@ -12743,7 +12743,7 @@ span.icon-advertencia {
     font-family: 'lato';
     font-size: 13px;
     margin-top: 7px;
-    letter-spacing: 0.5px;
+    letter-spacing: .5px;
     color: white;
     line-height: 18px;
     font-weight: 400;
@@ -12772,7 +12772,7 @@ span.icon-advertencia {
     display: inline-block;
     font-family: 'Lato';
     font-size: 12px;
-    letter-spacing: 0.5px;
+    letter-spacing: .5px;
     color: #000000;
     vertical-align: middle;
     text-align: left;
@@ -12865,7 +12865,7 @@ span.icon-advertencia {
 .mensaje_alerta_cupon1 {
     color: #613c87;
     font-size: 10.5px;
-    letter-spacing: 0.3px;
+    letter-spacing: .3px;
     position: absolute;
     bottom: -17px;
     border-top: 1px solid;
@@ -13146,7 +13146,7 @@ span.icon-advertencia {
     font-size: 16px;
     font-weight: 700;
     line-height: 26px;
-    letter-spacing: 0.5px;
+    letter-spacing: .5px;
     text-align: center;
     margin-bottom: 5px;
 }
@@ -13476,7 +13476,7 @@ span.icon-advertencia {
     padding-top: 10px;
     padding-bottom: 10px;
     width: 100%;
-    letter-spacing: 0.5px;
+    letter-spacing: .5px;
     color: #fff;
     position: relative;
     box-sizing: border-box;
