@@ -69,17 +69,17 @@ namespace Portal.Consultoras.Web.Controllers
                 revistaDigital = sessionManager.GetRevistaDigital();
                 if (userData == null)
                 {
-                    string URLSignOut;
-                    if (Request.UrlReferrer != null && Request.UrlReferrer.ToString().Contains(Request.Url.Host))
-                        URLSignOut = "/Login/SesionExpirada";
+                    string urlSignOut;
+                    if (Request.UrlReferrer != null && Request.Url != null && Request.UrlReferrer.ToString().Contains(Request.Url.Host))
+                        urlSignOut = "/Login/SesionExpirada";
                     else
-                        URLSignOut = "/Login/UserUnknown";
+                        urlSignOut = "/Login/UserUnknown";
 
                     Session.Clear();
                     Session.Abandon();
                     FormsAuthentication.SignOut();
 
-                    filterContext.Result = new RedirectResult(URLSignOut);
+                    filterContext.Result = new RedirectResult(urlSignOut);
                     return;
                 }
 
@@ -2356,17 +2356,29 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 switch (item.Atributo)
                 {
-                    case Constantes.ShowRoomPersonalizacion.Mobile.PopupImagenIntriga when item.TipoAplicacion == Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile:
-                        model.ImagenPopupShowroomIntriga = item.Valor;
+                    case Constantes.ShowRoomPersonalizacion.Mobile.PopupImagenIntriga:
+                        model.ImagenPopupShowroomIntriga =
+                            item.TipoAplicacion == Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile
+                                ? item.Valor
+                                : "";
                         break;
-                    case Constantes.ShowRoomPersonalizacion.Mobile.BannerImagenIntriga when item.TipoAplicacion == Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile:
-                        model.ImagenBannerShowroomIntriga = item.Valor;
+                    case Constantes.ShowRoomPersonalizacion.Mobile.BannerImagenIntriga:
+                        model.ImagenBannerShowroomIntriga =
+                            item.TipoAplicacion == Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile
+                                ? item.Valor
+                                : "";
                         break;
-                    case Constantes.ShowRoomPersonalizacion.Mobile.PopupImagenVenta when item.TipoAplicacion == Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile:
-                        model.ImagenPopupShowroomVenta = item.Valor;
+                    case Constantes.ShowRoomPersonalizacion.Mobile.PopupImagenVenta:
+                        model.ImagenPopupShowroomVenta =
+                            item.TipoAplicacion == Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile
+                                ? item.Valor
+                                : "";
                         break;
-                    case Constantes.ShowRoomPersonalizacion.Mobile.BannerImagenVenta when item.TipoAplicacion == Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile:
-                        model.ImagenBannerShowroomVenta = item.Valor;
+                    case Constantes.ShowRoomPersonalizacion.Mobile.BannerImagenVenta:
+                        model.ImagenBannerShowroomVenta =
+                            item.TipoAplicacion == Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile
+                                ? item.Valor
+                                : "";
                         break;
                 }
             }
@@ -3492,7 +3504,9 @@ namespace Portal.Consultoras.Web.Controllers
 
             var campaniaIdStr = Util.Trim(Request.QueryString["campaniaid"]);
             var pathOrigen = Util.Trim(Request.QueryString["origen"]);
-            if (int.TryParse(campaniaIdStr, out _))
+
+            var campaniaid = 0;
+            if (int.TryParse(campaniaIdStr, out campaniaid))
             {
                 menuActivo.CampaniaId = int.Parse(campaniaIdStr);
             }

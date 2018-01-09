@@ -2374,7 +2374,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         public static bool IsNumeric(object expression)
         {
-            var isNum = Double.TryParse(Convert.ToString(expression), System.Globalization.NumberStyles.Any, System.Globalization.NumberFormatInfo.InvariantInfo, out _);
+            double retNum;
+            var isNum = Double.TryParse(Convert.ToString(expression), System.Globalization.NumberStyles.Any, System.Globalization.NumberFormatInfo.InvariantInfo, out retNum);
             return isNum;
         }
 
