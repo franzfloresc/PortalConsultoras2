@@ -2187,8 +2187,8 @@ namespace Portal.Consultoras.Web.Controllers
                 var listaFinal = new List<ShowRoomPersonalizacionNivelModel>();
                 foreach (var model in lista)
                 {
-                    model.Valor = model.Valor ?? "";
-                    model.ValorAnterior = model.ValorAnterior ?? "";
+                    model.Valor = Util.Trim(model.Valor);
+                    model.ValorAnterior = Util.Trim(model.ValorAnterior);
 
                     if (model.EsImagen)
                     {
