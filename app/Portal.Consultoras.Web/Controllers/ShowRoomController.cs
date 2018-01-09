@@ -1567,7 +1567,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var noPasa = ReservadoEnHorarioRestringido(out var mensaje);
+                string mensaje;
+                var noPasa = ReservadoEnHorarioRestringido(out mensaje);
                 if (noPasa)
                 {
                     return Json(new
@@ -1649,7 +1650,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var noPasa = ReservadoEnHorarioRestringido(out var mensaje);
+                string mensaje;
+                var noPasa = ReservadoEnHorarioRestringido(out mensaje);
                 if (noPasa)
                 {
                     return Json(new
