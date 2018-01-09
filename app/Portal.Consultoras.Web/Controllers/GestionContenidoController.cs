@@ -36,6 +36,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (!UsuarioModel.HasAcces(ViewBag.Permiso, "GestionContenido/ConfiguracionFormulariosInformativos"))
                 return RedirectToAction("Index", "Bienvenida");
+
             var model = new FormularioInformativoModel()
             {
                 listaPaises = DropDowListPaises()
@@ -43,10 +44,9 @@ namespace Portal.Consultoras.Web.Controllers
             return View(model);
         }
 
-
         public JsonResult GetFondoLogin()
         {
-            BEFormularioDato entidad = new BEFormularioDato();
+            BEFormularioDato entidad;
             using (ContenidoServiceClient sv = new ContenidoServiceClient())
             {
                 entidad = sv.SelectFormularioDato(ETipoFormulario.Login);
@@ -62,7 +62,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (!UsuarioModel.HasAcces(ViewBag.Permiso, "GestionContenido/FondoLogin"))
                 return RedirectToAction("Index", "Bienvenida");
-            BEFormularioDato entidad = new BEFormularioDato();
+
+            BEFormularioDato entidad;
             FondoLoginModel model = new FondoLoginModel();
 
             using (ContenidoServiceClient sv = new ContenidoServiceClient())
@@ -70,7 +71,7 @@ namespace Portal.Consultoras.Web.Controllers
                 entidad = sv.SelectFormularioDato(ETipoFormulario.Login);
             }
 
-            if (entidad.Archivo.ToString() == string.Empty)
+            if (entidad.Archivo == string.Empty)
             {
                 model.NombreImagenAnterior = Url.Content("~/Content/Images/") + "Question.png";
                 model.NombreImagen = "Question.png";
@@ -91,15 +92,17 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                string tempNombreImagen = string.Empty;
-                tempNombreImagen = form.NombreImagen;
-                BEFormularioDato entidad = new BEFormularioDato();
-                entidad.PaisID = form.PaisID;
-                entidad.FormularioDatoID = form.FormularioDatoID;
-                entidad.Descripcion = string.Empty;
-                entidad.URL = string.Empty;
-                entidad.TipoFormularioID = ETipoFormulario.Login;
-                entidad.Archivo = FileManager.CopyImages(Globals.RutaImagenesFondoLogin, tempNombreImagen, Globals.RutaImagenesTemp);
+                var tempNombreImagen = form.NombreImagen;
+                var entidad = new BEFormularioDato
+                {
+                    PaisID = form.PaisID,
+                    FormularioDatoID = form.FormularioDatoID,
+                    Descripcion = string.Empty,
+                    URL = string.Empty,
+                    TipoFormularioID = ETipoFormulario.Login,
+                    Archivo = FileManager.CopyImages(Globals.RutaImagenesFondoLogin, tempNombreImagen,
+                        Globals.RutaImagenesTemp)
+                };
 
                 using (ContenidoServiceClient sv = new ContenidoServiceClient())
                 {
@@ -141,7 +144,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var PaisID = userData.PaisID;
                 var pedidoWeb = ObtenerPedidoWeb();
                 var pedidoWebDetalle = ObtenerPedidoWebDetalle();
                 var ultimosTresPedidos = ObtenerUltimosDetallesPedido(soloCantidad, pedidoWebDetalle);
@@ -153,7 +155,7 @@ namespace Portal.Consultoras.Web.Controllers
                     cantidadProductos = pedidoWebDetalle.Sum(p => p.Cantidad),
                     ultimosTresPedidos = ultimosTresPedidos,
                     Simbolo = userData.Simbolo,
-                    paisID = PaisID,
+                    paisID = userData.PaisID,
                     montoWebConDescuentoStr = Util.DecimalToStringFormat(pedidoWebDetalle.Sum(p => p.ImporteTotal) - pedidoWeb.DescuentoProl, userData.CodigoISO),
                     DescuentoProlStr = Util.DecimalToStringFormat(pedidoWeb.DescuentoProl, userData.CodigoISO),
                     DescuentoProl = pedidoWeb.DescuentoProl,
@@ -198,14 +200,14 @@ namespace Portal.Consultoras.Web.Controllers
             return ultimosTresPedidos;
         }
 
-        public ServiceUsuario.BEUsuario GetUserData(int PaisID, string Codigo)
+        public ServiceUsuario.BEUsuario GetUserData(int paisId, string codigo)
         {
-            ServiceUsuario.BEUsuario oBEUsuario = null;
+            ServiceUsuario.BEUsuario obeUsuario;
             using (UsuarioServiceClient sv = new UsuarioServiceClient())
             {
-                oBEUsuario = sv.GetSesionUsuario(PaisID, Codigo);
+                obeUsuario = sv.GetSesionUsuario(paisId, codigo);
             }
-            return oBEUsuario;
+            return obeUsuario;
         }
 
         public JsonResult ValidUrl(string url)
@@ -213,18 +215,31 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
-                request.Method = "HEAD";
-                HttpWebResponse response = request.GetResponse() as HttpWebResponse;
-                if (response.StatusCode == HttpStatusCode.OK)
-                    return Json(new
-                    {
-                        result = true
-                    }, JsonRequestBehavior.AllowGet);
-                else
+                if (request == null)
+                {
                     return Json(new
                     {
                         result = false
                     }, JsonRequestBehavior.AllowGet);
+
+                }
+
+                request.Method = "HEAD";
+                HttpWebResponse response = request.GetResponse() as HttpWebResponse;
+
+                if (response == null)
+                {
+                    return Json(new
+                    {
+                        result = false
+                    }, JsonRequestBehavior.AllowGet);
+
+                }
+
+                return Json(new
+                {
+                    result = response.StatusCode == HttpStatusCode.OK
+                }, JsonRequestBehavior.AllowGet);
 
             }
             catch (FaultException ex)
@@ -253,8 +268,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (model.FormularioDatoID == 0)
                 return InsertBelCenter(model);
-            else
-                return UpdateBelCenter(model);
+
+            return UpdateBelCenter(model);
         }
 
         [HttpPost]
@@ -262,8 +277,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (model.FormularioDatoID == 0)
                 return InsertBelrPoliticas(model);
-            else
-                return UpdateBelPoliticas(model);
+
+            return UpdateBelPoliticas(model);
         }
 
         [HttpPost]
@@ -271,8 +286,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (model.FormularioDatoID == 0)
                 return InsertBelContratos(model);
-            else
-                return UpdateBelContratos(model);
+
+            return UpdateBelContratos(model);
         }
 
         [HttpPost]
@@ -280,8 +295,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (model.FormularioDatoID == 0)
                 return InsertLugaresPago(model);
-            else
-                return UpdateLugaresPago(model);
+
+            return UpdateLugaresPago(model);
         }
 
         [HttpPost]
@@ -291,10 +306,11 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 BEFormularioDato entidad = Mapper.Map<FormularioInformativoModel, BEFormularioDato>(model);
 
+                entidad.Archivo = string.Empty;
+                entidad.TipoFormularioID = ETipoFormulario.LugaresPago;
+
                 using (ContenidoServiceClient sv = new ContenidoServiceClient())
                 {
-                    entidad.Archivo = string.Empty;
-                    entidad.TipoFormularioID = ETipoFormulario.LugaresPago;
                     sv.InsertFormularioDato(entidad);
                 }
                 return Json(new
@@ -323,10 +339,11 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 BEFormularioDato entidad = Mapper.Map<FormularioInformativoModel, BEFormularioDato>(model);
 
+                entidad.Archivo = string.Empty;
+                entidad.TipoFormularioID = ETipoFormulario.LugaresPago;
+
                 using (ContenidoServiceClient sv = new ContenidoServiceClient())
                 {
-                    entidad.Archivo = string.Empty;
-                    entidad.TipoFormularioID = ETipoFormulario.LugaresPago;
                     sv.UpdateFormularioDato(entidad);
                 }
                 return Json(new
@@ -355,12 +372,13 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 BEFormularioDato entidad = Mapper.Map<FormularioInformativoModel, BEFormularioDato>(model);
 
-                using (ContenidoServiceClient sv = new ContenidoServiceClient())
-                {
                     entidad.Archivo = string.Empty;
                     entidad.Descripcion = string.Empty;
                     entidad.FormularioDatoID = 1;
                     entidad.TipoFormularioID = ETipoFormulario.Contratos;
+
+                using (ContenidoServiceClient sv = new ContenidoServiceClient())
+                {
                     sv.InsertFormularioDato(entidad);
                 }
                 return Json(new
@@ -389,11 +407,12 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 BEFormularioDato entidad = Mapper.Map<FormularioInformativoModel, BEFormularioDato>(model);
 
-                using (ContenidoServiceClient sv = new ContenidoServiceClient())
-                {
                     entidad.Archivo = string.Empty;
                     entidad.Descripcion = string.Empty;
                     entidad.TipoFormularioID = ETipoFormulario.Contratos;
+
+                using (ContenidoServiceClient sv = new ContenidoServiceClient())
+                {
                     sv.UpdateFormularioDato(entidad);
                 }
                 return Json(new
@@ -422,12 +441,13 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 BEFormularioDato entidad = Mapper.Map<FormularioInformativoModel, BEFormularioDato>(model);
 
-                using (ContenidoServiceClient sv = new ContenidoServiceClient())
-                {
                     entidad.Archivo = string.Empty;
                     entidad.Descripcion = string.Empty;
                     entidad.FormularioDatoID = 1;
                     entidad.TipoFormularioID = ETipoFormulario.Politicas;
+
+                using (ContenidoServiceClient sv = new ContenidoServiceClient())
+                {
                     sv.InsertFormularioDato(entidad);
                 }
                 return Json(new
@@ -456,11 +476,12 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 BEFormularioDato entidad = Mapper.Map<FormularioInformativoModel, BEFormularioDato>(model);
 
-                using (ContenidoServiceClient sv = new ContenidoServiceClient())
-                {
                     entidad.Archivo = string.Empty;
                     entidad.Descripcion = string.Empty;
                     entidad.TipoFormularioID = ETipoFormulario.Politicas;
+
+                using (ContenidoServiceClient sv = new ContenidoServiceClient())
+                {
                     sv.UpdateFormularioDato(entidad);
                 }
                 return Json(new
@@ -489,12 +510,13 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 BEFormularioDato entidad = Mapper.Map<FormularioInformativoModel, BEFormularioDato>(model);
 
-                using (ContenidoServiceClient sv = new ContenidoServiceClient())
-                {
                     entidad.Archivo = string.Empty;
                     entidad.Descripcion = string.Empty;
                     entidad.FormularioDatoID = 1;
                     entidad.TipoFormularioID = ETipoFormulario.Belcenter;
+
+                using (ContenidoServiceClient sv = new ContenidoServiceClient())
+                {
                     sv.InsertFormularioDato(entidad);
                 }
                 return Json(new
@@ -523,11 +545,12 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 BEFormularioDato entidad = Mapper.Map<FormularioInformativoModel, BEFormularioDato>(model);
 
-                using (ContenidoServiceClient sv = new ContenidoServiceClient())
-                {
                     entidad.Archivo = string.Empty;
                     entidad.Descripcion = string.Empty;
                     entidad.TipoFormularioID = ETipoFormulario.Belcenter;
+
+                using (ContenidoServiceClient sv = new ContenidoServiceClient())
+                {
                     sv.UpdateFormularioDato(entidad);
                 }
                 return Json(new
@@ -556,14 +579,15 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 BEFormularioDato entidad = Mapper.Map<FormularioInformativoModel, BEFormularioDato>(model);
 
-                using (ContenidoServiceClient sv = new ContenidoServiceClient())
-                {
                     entidad.Archivo = string.Empty;
                     entidad.URL = string.Empty;
                     entidad.TipoFormularioID = ETipoFormulario.Telefonos;
+
+                using (ContenidoServiceClient sv = new ContenidoServiceClient())
+                {
                     sv.InsertFormularioDato(entidad);
                 }
-                List<BEFormularioDato> lst = new List<BEFormularioDato>();
+                List<BEFormularioDato> lst;
                 using (ContenidoServiceClient sv = new ContenidoServiceClient())
                 {
                     lst = sv.SelectFormularioDatoByPais(model.PaisID, ETipoFormulario.Telefonos).ToList();
@@ -598,7 +622,7 @@ namespace Portal.Consultoras.Web.Controllers
                     sv.DeleteFormularioDato(PaisID, ETipoFormulario.Telefonos, FormularioDatoID);
                 }
 
-                List<BEFormularioDato> lst = new List<BEFormularioDato>();
+                List<BEFormularioDato> lst;
                 using (ContenidoServiceClient sv = new ContenidoServiceClient())
                 {
                     lst = sv.SelectFormularioDatoByPais(PaisID, ETipoFormulario.Telefonos).ToList();
@@ -627,7 +651,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ObteneterFormularioDato(int PaisID)
         {
-            List<BEFormularioDato> lst = new List<BEFormularioDato>();
+            List<BEFormularioDato> lst;
             using (ContenidoServiceClient sv = new ContenidoServiceClient())
             {
                 lst = sv.SelectFormularioDatoByPais(PaisID, ETipoFormulario.Belcenter).ToList();
@@ -641,7 +665,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ObteneterFormularioDatoTerminos(int PaisID)
         {
-            List<BEFormularioDato> lst = new List<BEFormularioDato>();
+            List<BEFormularioDato> lst;
             using (ContenidoServiceClient sv = new ContenidoServiceClient())
             {
                 lst = sv.SelectFormularioDatoByPais(PaisID, ETipoFormulario.Politicas).ToList();
@@ -655,7 +679,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ObtenerListaFormularioDatoTelefonos(int PaisID)
         {
-            List<BEFormularioDato> lst = new List<BEFormularioDato>();
+            List<BEFormularioDato> lst;
             using (ContenidoServiceClient sv = new ContenidoServiceClient())
             {
                 lst = sv.SelectFormularioDatoByPais(PaisID, ETipoFormulario.Telefonos).ToList();
@@ -669,7 +693,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ObteneterFormularioDatoCartas(int PaisID)
         {
-            List<BEFormularioDato> lst = new List<BEFormularioDato>();
+            List<BEFormularioDato> lst;
             using (ContenidoServiceClient sv = new ContenidoServiceClient())
             {
                 lst = sv.SelectFormularioDatoByPais(PaisID, ETipoFormulario.Contratos).ToList();
@@ -686,17 +710,21 @@ namespace Portal.Consultoras.Web.Controllers
             if (ModelState.IsValid)
             {
                 List<BEFormularioDato> lst = new List<BEFormularioDato>();
-                using (ContenidoServiceClient sv = new ContenidoServiceClient())
+                if (PaisID > 0)
                 {
-                    if (PaisID > 0)
+                    using (ContenidoServiceClient sv = new ContenidoServiceClient())
+                    {
                         lst = sv.SelectFormularioDatoByPais(PaisID, ETipoFormulario.LugaresPago).ToList();
+                    }
                 }
 
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
                 IEnumerable<BEFormularioDato> items = lst;
 
                 #region Sort Section
@@ -830,7 +858,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var lstPaises = new List<BEPais>();
+                List<BEPais> lstPaises;
                 using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
                 {
                     lstPaises = sv.SelectPaises().ToList().FindAll(x => x.PaisID == form.PaisID);
@@ -838,11 +866,20 @@ namespace Portal.Consultoras.Web.Controllers
 
                 string tempNombreImagenFondo = form.ImagenFondo;
                 string tempNombreImagenLogo = form.ImagenLogo;
-                BEContenidoDato entidad = new BEContenidoDato();
-                entidad.PaisID = form.PaisID;
-                entidad.CampaniaID = form.CampaniaID;
-                entidad.ImagenFondo = FileManager.CopyImagesFondoLogo(Globals.RutaImagenesFondoPortal + "\\" + lstPaises[0].CodigoISO, tempNombreImagenFondo, Globals.RutaImagenesTemp, lstPaises[0].CodigoISO, form.CampaniaID.ToString());
-                entidad.ImagenLogo = FileManager.CopyImagesFondoLogo(Globals.RutaImagenesLogoPortal + "\\" + lstPaises[0].CodigoISO, tempNombreImagenLogo, Globals.RutaImagenesTemp, lstPaises[0].CodigoISO, form.CampaniaID.ToString());
+                BEContenidoDato entidad = new BEContenidoDato
+                {
+                    PaisID = form.PaisID,
+                    CampaniaID = form.CampaniaID,
+                    ImagenFondo =
+                        FileManager.CopyImagesFondoLogo(Globals.RutaImagenesFondoPortal + "\\" + lstPaises[0].CodigoISO,
+                            tempNombreImagenFondo, Globals.RutaImagenesTemp, lstPaises[0].CodigoISO,
+                            form.CampaniaID.ToString()),
+                    ImagenLogo =
+                        FileManager.CopyImagesFondoLogo(Globals.RutaImagenesLogoPortal + "\\" + lstPaises[0].CodigoISO,
+                            tempNombreImagenLogo, Globals.RutaImagenesTemp, lstPaises[0].CodigoISO,
+                            form.CampaniaID.ToString())
+                };
+
                 FileManager.DeleteImagesInFolder(Globals.RutaImagenesTemp);
                 if (form.FlagTransaccion == 0)
                 {
@@ -889,13 +926,13 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult GetFondoyLogo(int PaisID, int CampaniaID)
         {
-            var lstPaises = new List<BEPais>();
+            List<BEPais> lstPaises;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
                 lstPaises = sv.SelectPaises().ToList().FindAll(x => x.PaisID == PaisID);
             }
 
-            List<BEContenidoDato> lista = new List<BEContenidoDato>();
+            List<BEContenidoDato> lista;
             using (ContenidoServiceClient sv = new ContenidoServiceClient())
             {
                 lista = sv.SelectContenidoDato(PaisID, CampaniaID).ToList();
@@ -912,13 +949,13 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult GetFondoyLogoPortal()
         {
-            var lstPaises = new List<BEPais>();
+            List<BEPais> lstPaises;
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
                 lstPaises = sv.SelectPaises().ToList().FindAll(x => x.PaisID == UserData().PaisID);
             }
 
-            List<BEContenidoDato> lista = new List<BEContenidoDato>();
+            List<BEContenidoDato> lista;
             using (ContenidoServiceClient sv = new ContenidoServiceClient())
             {
                 lista = sv.SelectContenidoDato(UserData().PaisID, UserData().CampaniaID).ToList();
