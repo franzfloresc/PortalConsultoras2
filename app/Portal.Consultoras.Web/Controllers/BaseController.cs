@@ -421,6 +421,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                mensaje = "";
                 if (userData == null)
                 {
                     mensaje = "Se sessión expiró, por favor vuelva a loguearse.";
