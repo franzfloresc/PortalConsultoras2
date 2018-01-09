@@ -81,7 +81,8 @@ namespace Portal.Consultoras.Web.Models
         public bool BloqueoRevistaImpresa { get; set; }
         public int? BloquearRevistaImpresaGeneral { get; set; }
         public int BloquearProductosSugeridos { get; set; }
-        
+        public bool SubscripcionAutomaticaAVirtualCoach { get; set; }
+
         public bool EsSuscritaInactiva()
         {
             return TieneRDC && EsSuscrita && !EsActiva;

@@ -14358,6 +14358,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string IsoPaisField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string OrigenField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int RevistaDigitalSuscripcionIDField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
@@ -14486,6 +14489,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.IsoPaisField, value) != true)) {
                     this.IsoPaisField = value;
                     this.RaisePropertyChanged("IsoPais");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Origen {
+            get {
+                return this.OrigenField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.OrigenField, value) != true)) {
+                    this.OrigenField = value;
+                    this.RaisePropertyChanged("Origen");
                 }
             }
         }
