@@ -79,8 +79,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (UserData().RolID == 2) lst = sv.SelectPaises().ToList();
                 else
                 {
-                    lst = new List<BEPais>();
-                    lst.Add(sv.SelectPais(UserData().PaisID));
+                    lst = new List<BEPais> {sv.SelectPais(UserData().PaisID)};
                 }
             }
 
@@ -187,12 +186,15 @@ namespace Portal.Consultoras.Web.Controllers
                     }
 
                 }
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
-                
+
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
+
                 IEnumerable<BESolicitudCredito> items = lst;
 
                 #region Sort Section
@@ -316,7 +318,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (vTipoSolicitud == "INS")
                     {
-                        listaSolicitudes = new List<BESolicitudCredito>();
                         BESolicitudCredito solicitud = new BESolicitudCredito()
                         {
                             PaisID = vPaisID,
@@ -333,7 +334,6 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     else
                     {
-                        listaSolicitudes = new List<BESolicitudCredito>();
                         BESolicitudCredito solicitud = new BESolicitudCredito()
                         {
                             PaisID = vPaisID,
@@ -358,23 +358,26 @@ namespace Portal.Consultoras.Web.Controllers
             
             var list = Mapper.Map<IList<BESolicitudCredito>, IList<SolicitudCreditoModel>>(listaSolicitudes);
 
-            if (UserData().CodigoISO == Consultoras.Common.Constantes.CodigosISOPais.PuertoRico)
+            if (UserData().CodigoISO == Constantes.CodigosISOPais.PuertoRico)
             {
                 list.ToList().ForEach(x =>
                 {
                     x.NumeroDocumento = x.NumeroDocumento.Length > 4 ? string.Format("*****{0}", x.NumeroDocumento.Remove(0, 5)) : string.Empty;
                 });
             }
-            Dictionary<string, string> dic = new Dictionary<string, string>();
-            dic.Add("Zona", "CodigoZona");
-            dic.Add("ID Interno", "SolicitudCreditoID");
-            dic.Add("Cod. Consultora que Refiere", "CodigoConsultoraRecomienda");
-            dic.Add("Nombre", "NombreConsultoraRecomienda");
-            dic.Add("Doc. Identidad", "NumeroDocumento");
-            dic.Add("Cod. Consultora", "CodigoConsultora");
-            dic.Add("Fecha", "FechaCreacion");
-            dic.Add("Estado", "EstadoDescripcion");
-            dic.Add("Tipo", "TipoSolicitud");
+
+            Dictionary<string, string> dic = new Dictionary<string, string>
+            {
+                {"Zona", "CodigoZona"},
+                {"ID Interno", "SolicitudCreditoID"},
+                {"Cod. Consultora que Refiere", "CodigoConsultoraRecomienda"},
+                {"Nombre", "NombreConsultoraRecomienda"},
+                {"Doc. Identidad", "NumeroDocumento"},
+                {"Cod. Consultora", "CodigoConsultora"},
+                {"Fecha", "FechaCreacion"},
+                {"Estado", "EstadoDescripcion"},
+                {"Tipo", "TipoSolicitud"}
+            };
             Util.ExportToExcel("SolicitudesExcel", list.ToList(), dic);
             return View();
 
@@ -387,19 +390,19 @@ namespace Portal.Consultoras.Web.Controllers
                 return RedirectToAction("SolicitudCredito", "SolicitudCredito");
             JObject obj = JObject.Parse(Request.Form["data"]);
 
-            BESolicitudCredito beSolicitud = new BESolicitudCredito();
-            SolicitudCreditoModel model = new SolicitudCreditoModel();
+            BESolicitudCredito beSolicitud;
 
-            int solicitudCreditoID = Convert.ToInt32(obj["SolicitudID"].ToString());
+            int solicitudCreditoId = Convert.ToInt32(obj["SolicitudID"].ToString());
 
             using (SACServiceClient srv = new SACServiceClient())
             {
-                beSolicitud = srv.BuscarSolicitudCreditoPorID(UserData().PaisID, solicitudCreditoID);
+                beSolicitud = srv.BuscarSolicitudCreditoPorID(UserData().PaisID, solicitudCreditoId);
             }
 
+            SolicitudCreditoModel model = new SolicitudCreditoModel();
             MapeoEntidadModelo(ref model, beSolicitud);
 
-            BEUbigeo beUbigeo = new BEUbigeo();
+            BEUbigeo beUbigeo;
             using (ODSServiceClient ods = new ODSServiceClient())
             {
                 beUbigeo = ods.GetUbigeoPorCodigoUbigeo(UserData().PaisID, model.CodigoUbigeo ?? "");
@@ -455,19 +458,19 @@ namespace Portal.Consultoras.Web.Controllers
                 return RedirectToAction("SolicitudCredito", "SolicitudCredito");
             JObject obj = JObject.Parse(Request.Form["data"]);
 
-            BESolicitudCredito beSolicitud = new BESolicitudCredito();
-            SolicitudCreditoModel model = new SolicitudCreditoModel();
+            BESolicitudCredito beSolicitud;
 
-            int solicitudCreditoID = Convert.ToInt32(obj["SolicitudID"].ToString());
+            int solicitudCreditoId = Convert.ToInt32(obj["SolicitudID"].ToString());
 
             using (SACServiceClient srv = new SACServiceClient())
             {
-                beSolicitud = srv.BuscarSolicitudCreditoPorID(UserData().PaisID, solicitudCreditoID);
+                beSolicitud = srv.BuscarSolicitudCreditoPorID(UserData().PaisID, solicitudCreditoId);
             }
 
+            SolicitudCreditoModel model = new SolicitudCreditoModel();
             MapeoEntidadModelo(ref model, beSolicitud);
 
-            BEUbigeo beUbigeo = new BEUbigeo();
+            BEUbigeo beUbigeo;
             using (ODSServiceClient ods = new ODSServiceClient())
             {
                 beUbigeo = ods.GetUbigeoPorCodigoUbigeo(UserData().PaisID, model.CodigoUbigeo ?? "");
@@ -494,19 +497,19 @@ namespace Portal.Consultoras.Web.Controllers
                 return RedirectToAction("SolicitudCredito", "SolicitudCredito");
             JObject obj = JObject.Parse(Request.Form["data"]);
 
-            BESolicitudCredito beSolicitud = new BESolicitudCredito();
-            SolicitudCreditoModel model = new SolicitudCreditoModel();
+            BESolicitudCredito beSolicitud;
 
-            int solicitudCreditoID = Convert.ToInt32(obj["SolicitudID"].ToString());
+            int solicitudCreditoId = Convert.ToInt32(obj["SolicitudID"].ToString());
 
             using (SACServiceClient srv = new SACServiceClient())
             {
-                beSolicitud = srv.BuscarSolicitudCreditoPorID(UserData().PaisID, solicitudCreditoID);
+                beSolicitud = srv.BuscarSolicitudCreditoPorID(UserData().PaisID, solicitudCreditoId);
             }
 
+            SolicitudCreditoModel model = new SolicitudCreditoModel();
             MapeoEntidadModelo(ref model, beSolicitud);
 
-            BEUbigeo beUbigeo = new BEUbigeo();
+            BEUbigeo beUbigeo;
             using (ODSServiceClient ods = new ODSServiceClient())
             {
                 beUbigeo = ods.GetUbigeoPorCodigoUbigeo(UserData().PaisID, model.CodigoUbigeo ?? "");
@@ -529,11 +532,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private void MapeoEntidadModelo(ref SolicitudCreditoModel model, BESolicitudCredito beSolicitudCredito)
         {
-            #region Mapeo
-            
             model = Mapper.Map<BESolicitudCredito, SolicitudCreditoModel>(beSolicitudCredito);
-
-            #endregion
         }
 
         private List<InfoGenerica> ObtenerAnioNacimiento()
@@ -544,9 +543,11 @@ namespace Portal.Consultoras.Web.Controllers
             int count;
             for (count = minAnho; count < maxAnho; count++)
             {
-                InfoGenerica infoGenerica = new InfoGenerica();
-                infoGenerica.Valor = count.ToString();
-                infoGenerica.Texto = count.ToString();
+                InfoGenerica infoGenerica = new InfoGenerica
+                {
+                    Valor = count.ToString(),
+                    Texto = count.ToString()
+                };
                 lista.Add(infoGenerica);
             }
 
@@ -574,20 +575,20 @@ namespace Portal.Consultoras.Web.Controllers
         private List<InfoGenerica> ObtenerMesNacimiento()
         {
             List<InfoGenerica> listaMesNacimiento = new List<InfoGenerica>()
-                                                        {
-                                                            new InfoGenerica() {Valor = "01", Texto = "Enero"},
-                                                            new InfoGenerica() {Valor = "02", Texto = "Febrero"},
-                                                            new InfoGenerica() {Valor = "03", Texto = "Marzo"},
-                                                            new InfoGenerica() {Valor = "04", Texto = "Abril"},
-                                                            new InfoGenerica() {Valor = "05", Texto = "Mayo"},
-                                                            new InfoGenerica() {Valor = "06", Texto = "Junio"},
-                                                            new InfoGenerica() {Valor = "07", Texto = "Julio"},
-                                                            new InfoGenerica() {Valor = "08", Texto = "Agosto"},
-                                                            new InfoGenerica() {Valor = "09", Texto = "Setiembre"},
-                                                            new InfoGenerica() {Valor = "10", Texto = "Octubre"},
-                                                            new InfoGenerica() {Valor = "11", Texto = "Noviembre"},
-                                                            new InfoGenerica() {Valor = "12", Texto = "Diciembre"},
-                                                        };
+            {
+                new InfoGenerica {Valor = "01", Texto = "Enero"},
+                new InfoGenerica {Valor = "02", Texto = "Febrero"},
+                new InfoGenerica {Valor = "03", Texto = "Marzo"},
+                new InfoGenerica {Valor = "04", Texto = "Abril"},
+                new InfoGenerica {Valor = "05", Texto = "Mayo"},
+                new InfoGenerica {Valor = "06", Texto = "Junio"},
+                new InfoGenerica {Valor = "07", Texto = "Julio"},
+                new InfoGenerica {Valor = "08", Texto = "Agosto"},
+                new InfoGenerica {Valor = "09", Texto = "Setiembre"},
+                new InfoGenerica {Valor = "10", Texto = "Octubre"},
+                new InfoGenerica {Valor = "11", Texto = "Noviembre"},
+                new InfoGenerica {Valor = "12", Texto = "Diciembre"},
+            };
             return listaMesNacimiento;
         }
 
@@ -610,23 +611,23 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             List<InfoGenerica> listaAvenidaCalle = new List<InfoGenerica>() {
-                new InfoGenerica(){ Valor="AV", Texto="Avenida" },
-                new InfoGenerica(){ Valor="CL", Texto="Calle" }
+                new InfoGenerica { Valor="AV", Texto="Avenida" },
+                new InfoGenerica { Valor="CL", Texto="Calle" }
             };
 
             List<InfoGenerica> listaCasaEdificio = new List<InfoGenerica>() {
-                new InfoGenerica(){ Valor="CAS", Texto="Casa" },
-                new InfoGenerica(){ Valor="EDF", Texto="Edificio" }
+                new InfoGenerica { Valor="CAS", Texto="Casa" },
+                new InfoGenerica { Valor="EDF", Texto="Edificio" }
             };
 
             List<InfoGenerica> listaUrbanizacionSector = new List<InfoGenerica>() {
-                new InfoGenerica(){ Valor="URB", Texto="Urbanización" },
-                new InfoGenerica(){ Valor="SEC", Texto="Sector" }
+                new InfoGenerica { Valor="URB", Texto="Urbanización" },
+                new InfoGenerica { Valor="SEC", Texto="Sector" }
             };
 
             List<InfoGenerica> listaApartamentoCasa = new List<InfoGenerica>() {
-                new InfoGenerica(){ Valor="APTO", Texto="N° Apartamento" },
-                new InfoGenerica(){ Valor="CASA", Texto="N° Casa" }
+                new InfoGenerica { Valor="APTO", Texto="N° Apartamento" },
+                new InfoGenerica { Valor="CASA", Texto="N° Casa" }
             };
 
             model.ListaAvenidaCalle = listaAvenidaCalle;
@@ -663,7 +664,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                string[] resultado = null;
+                string[] resultado;
 
                 using (var ws = new SACServiceClient())
                 {
@@ -681,14 +682,12 @@ namespace Portal.Consultoras.Web.Controllers
                         rutaSolActualizacion = resultado[1]
                     });
                 }
-                else
+
+                return Json(new
                 {
-                    return Json(new
-                    {
-                        success = true,
-                        mensaje = "El proceso de carga de solicitudes ha finalizado satisfactoriamente."
-                    });
-                }
+                    success = true,
+                    mensaje = "El proceso de carga de solicitudes ha finalizado satisfactoriamente."
+                });
             }
             catch (FaultException ex)
             {
