@@ -627,8 +627,9 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(new { success = true, name = ffFileName }, "text/html");
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new { success = false, message = "Hubo un error al cargar el archivo, intente nuevamente." }, "text/html");
             }
         }
@@ -1013,10 +1014,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.GetBannerPaisesAsignados(CampaniaId, BannerId).ToList();
             }
-            Mapper.CreateMap<BEBannerSegmentoZona, PaisModel>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisId))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.NombrePais))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombrePais));
 
             return Mapper.Map<IList<BEBannerSegmentoZona>, IEnumerable<PaisModel>>(lst);
         }

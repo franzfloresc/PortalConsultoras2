@@ -2,10 +2,10 @@
 /* CSS Document */
 body {
     background-color: #efeef2;
-    background-image: url(../../Images/comunidad/bg_login.png);
+    background-image: url('../../Images/comunidad/bg_login.png');
     background-position: right 100px;
     background-repeat: no-repeat;
-    font-family: "Roboto", sans-serif;
+    font-family: 'Roboto', sans-serif;
     color: #768ea3;
     font-size: 14px;
     text-align: left;
@@ -102,7 +102,7 @@ hr {
 }
 
 .wrapMain {
-    padding: 20px 0px 0px 10% !important;
+    padding: 20px 0 0 10% !important;
 }
 
 .hidden {
@@ -174,7 +174,7 @@ hr {
     .formcontrol .inputForm {
         height: 30px;
         line-height: 30px;
-        padding: 0px;
+        padding: 0;
         background: transparent;
         width: 100%;
         border: none;
@@ -185,7 +185,7 @@ hr {
     .formcontrol select {
         height: 30px;
         line-height: 30px;
-        padding: 0px;
+        padding: 0;
         background: transparent;
         width: 100%;
         border: none;
@@ -381,8 +381,8 @@ div label {
     }
 
     #wrap_header_menu {
-        -webkit-box-shadow: 0 3px 15px rgba(0,0,0,0.1);
-        box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+        -webkit-box-shadow: 0 3px 15px rgba(0,0,0,.1);
+        box-shadow: 0 3px 15px rgba(0,0,0,.1);
     }
 
     #cont_menus {
@@ -411,7 +411,7 @@ div label {
     background-color: #fff;
     padding: 20px 30px;
     border-radius: 2px;
-    box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 3px 15px rgba(0,0,0,.1);
     margin-bottom: 25px;
 }
 

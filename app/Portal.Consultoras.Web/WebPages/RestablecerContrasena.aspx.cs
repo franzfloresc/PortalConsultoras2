@@ -98,8 +98,10 @@ namespace Portal.Consultoras.Web.WebPages
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", "", "RestablecerContrasena - ModificarClaveCS");
+
                 return serializer.Serialize(new
                 {
                     succes = false,

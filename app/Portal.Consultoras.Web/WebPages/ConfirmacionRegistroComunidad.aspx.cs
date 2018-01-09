@@ -57,8 +57,9 @@ namespace Portal.Consultoras.Web.WebPages
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", "", "ConfirmacionRegistroComunidad - Page_Load");
             }
         }
 

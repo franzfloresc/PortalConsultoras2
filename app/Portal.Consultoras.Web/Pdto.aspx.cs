@@ -113,8 +113,9 @@ namespace Portal.Consultoras.Web
                     pMensaje1.InnerHtml = "Producto no encontrado. Contacte a su Consultora.";
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", "", "Pdto - Page_Load");
                 imgCuvProducto.Visible = false;
                 pMensaje1.InnerHtml = "Producto no encontrado. Contacte a su Consultora.";
             }           

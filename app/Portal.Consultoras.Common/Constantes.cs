@@ -1395,7 +1395,7 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_MOVIMIENTODETALLE_PEDIDOWEBFACTURADOID_NOENVIADO = "19";
                 public const string ERROR_MOVIMIENTODETALLE_CANTIDAD_NOENVIADO = "20";
                 public const string ERROR_MOVIMIENTODETALLE_PRECIOUNIDAD_NOENVIADO = "21";
-                public const string ERROR_RECORDATORIOINVALIDA = "22"; //todo: 
+                public const string ERROR_RECORDATORIOINVALIDA = "22";
             }
 
             public static Dictionary<string, string> Message

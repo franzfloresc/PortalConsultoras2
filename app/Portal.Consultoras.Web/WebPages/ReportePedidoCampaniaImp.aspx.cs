@@ -101,8 +101,10 @@ namespace Portal.Consultoras.Web.WebPages
             {
                 listaE = BusinessService.obtenerPedidoWebAnteriorDetalle(Campaniaddl_val, ISOWS, Regionddl, Zonaddl, CodConsultoratxt_ID);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", "", "ReportePedidoCampaniaImp - Page_Load - obtenerPedidoWebAnteriorDetalle");
+
                 listaE = null;
             }
 
@@ -149,9 +151,10 @@ namespace Portal.Consultoras.Web.WebPages
 
             lTabla.Text = sb.ToString();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", "", "ReportePedidoCampaniaImp - Page_Load");
+
                 throw;
             }
         }

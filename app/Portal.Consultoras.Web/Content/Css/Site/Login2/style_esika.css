@@ -4,7 +4,10 @@
 @font-face {
     font-family: 'logo_esika';
     src: url('../fonts/icomoon/logo_esika.eot?ur7cdc');
-    src: url('../fonts/icomoon/logo_esika.eot?ur7cdc#iefix') format('embedded-opentype'), url('../fonts/icomoon/logo_esika.ttf?ur7cdc') format('truetype'), url('../fonts/icomoon/logo_esika.woff?ur7cdc') format('woff'), url('../fonts/icomoon/logo_esika.svg?ur7cdc#icomoon') format('svg');
+    src: url('../fonts/icomoon/logo_esika.eot?ur7cdc#iefix') format('embedded-opentype'),
+        url('../fonts/icomoon/logo_esika.ttf?ur7cdc') format('truetype'),
+        url('../fonts/icomoon/logo_esika.woff?ur7cdc') format('woff'),
+        url('../fonts/icomoon/logo_esika.svg?ur7cdc#icomoon') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -20,38 +23,38 @@ html, body {
 body {
     font-size: 13px;
     font-family: 'lato-medium';
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     color: #555;
     text-align: center;
 }
 
 ul {
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
 }
 
 li {
     list-style-type: none;
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
 }
 
 p {
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
 }
 
 img {
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     vertical-align: top;
-    border: 0px;
+    border: 0;
 }
 
 input, textarea {
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
     outline: 0 none;
     font-family: Arial, Helvetica;
     color: #666;
@@ -68,8 +71,8 @@ input, textarea {
     }
 
 span {
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
     font-family: lato;
 }
 
@@ -116,7 +119,7 @@ h6, .h6 {
 
 #content {
     width: 100%;
-    margin-left: 0%;
+    margin-left: 0;
     clear: both;
     height: auto;
     min-height: 550px;
@@ -145,7 +148,7 @@ h6, .h6 {
 
 .wrapper {
     width: 100%;
-    margin: 0px auto;
+    margin: 0 auto;
     text-align: left;
 }
 
@@ -174,7 +177,7 @@ h6, .h6 {
 }
 
     .logo-esika:before {
-        content: "\e911";
+        content: '\e911';
         font-size: 55px;
         color: #e81c36;
     }
@@ -214,7 +217,7 @@ h6, .h6 {
     float: right;
     width: 24%;
     margin-top: 15px;
-    color: #FFF;
+    color: #fff;
     text-decoration: none;
     font-size: 13px;
     text-align: center;
@@ -224,7 +227,7 @@ h6, .h6 {
         float: left;
         position: relative;
         height: 25px;
-        margin: 0px 5px 0px 0px !important;
+        margin: 0 5px 0 0 !important;
     }
 
     .nav a span {
@@ -235,7 +238,7 @@ h6, .h6 {
     }
 
 .nav0 {
-    background: url(../Images/separador.png) no-repeat;
+    background: url('../Images/separador.png') no-repeat;
     background-position: right;
 }
 
@@ -243,14 +246,14 @@ Image .nav0:hover {
 }
 
 .nav1 {
-    background: url(../Images/separador.png) no-repeat;
+    background: url('../Images/separador.png') no-repeat;
     background-position: right;
 }
 
 
 
 .nav2 {
-    background: url(../Images/separador.png) no-repeat;
+    background: url('../Images/separador.png') no-repeat;
     background-position: right;
 }
 
@@ -262,9 +265,9 @@ Image .nav0:hover {
 
 
 .wrapMain {
-    padding: 0px 0px 0px 0px;
+    padding: 0 0 0 0;
     position: relative;
-    top: 0px;
+    top: 0;
 }
 
 .webForm {
@@ -316,7 +319,7 @@ Image .nav0:hover {
         font-size: 13px;
         color: #000;
         font-family: 'lato';
-        letter-spacing: 0.1pt;
+        letter-spacing: .1pt;
         float: left;
     }
 
@@ -329,7 +332,7 @@ Image .nav0:hover {
         font-size: 13px;
         color: white;
         font-family: 'lato';
-        letter-spacing: 0.3px;
+        letter-spacing: .3px;
         float: left;
     }
 
@@ -343,7 +346,7 @@ Image .nav0:hover {
         border: none;
         color: white;
         font-family: 'lato';
-        letter-spacing: 0.2px;
+        letter-spacing: .2px;
         -webkit-appearance: none;
         -moz-appearance: none;
         -ms-appearance: none;
@@ -387,10 +390,10 @@ Image .nav0:hover {
         height: 48px;
         border: none;
         cursor: pointer;
-        color: #FFF;
+        color: #fff;
         background: #cf2d3a !important;
         font-family: lato;
-        letter-spacing: 0.5px;
+        letter-spacing: .5px;
         font-size: 13px;
         font-weight: 700;
         margin-top: 20px;
@@ -416,7 +419,7 @@ Image .nav0:hover {
 }
 
     .user:before {
-        content: "\e903";
+        content: '\e903';
         font-size: 20px;
         text-align: left;
         color: #949494;
@@ -430,7 +433,7 @@ Image .nav0:hover {
 }
 
     .pass:before {
-        content: "\e900";
+        content: '\e900';
         font-size: 20px;
         text-align: left;
         color: #949494;
@@ -445,7 +448,7 @@ Image .nav0:hover {
 }
 
     .pais:before {
-        content: "\e901";
+        content: '\e901';
         visibility: hidden;
         font-size: 20px;
         text-align: left;
@@ -462,7 +465,7 @@ Image .nav0:hover {
 }
 
     .email:before {
-        content: "\e906";
+        content: '\e906';
         visibility: hidden;
         font-size: 20px;
         text-align: left;
@@ -484,7 +487,7 @@ Image .nav0:hover {
 }
 
     .helper:before {
-        content: "\e902";
+        content: '\e902';
         font-size: 18px;
         text-align: left;
         color: #949494;
@@ -502,7 +505,7 @@ Image .nav0:hover {
     .boxform .admin a {
         text-decoration: none;
         color: #959595;
-        background: url('../images/ico_admin_esika.png') 0px 0px no-repeat;
+        background: url('../images/ico_admin_esika.png') 0 0 no-repeat;
         padding-left: 15px;
         font-weight: 300;
         font-size: 11px;
@@ -531,7 +534,7 @@ Image .nav0:hover {
     -moz-border-radius: 10px;
     -khtml-border-radius: 10px;
     border-radius: 10px;
-    behavior: url(Pie/PIE.htc);
+    behavior: url('Pie/PIE.htc');
 }
 
 #det1 {
@@ -560,11 +563,11 @@ Image .nav0:hover {
     -moz-border-radius: 10px;
     -khtml-border-radius: 10px;
     border-radius: 10px;
-    behavior: url(Pie/PIE.htc);
+    behavior: url('Pie/PIE.htc');
 }
 
 .detalle_item {
-    padding: 5px 3px 0px 14px;
+    padding: 5px 3px 0 14px;
     font-size: 12px;
     color: #666;
     font-style: italic;
@@ -597,12 +600,15 @@ Image .nav0:hover {
 @font-face {
     font-family: 'icomoon';
     src: url('../fonts/icomoon/icomoon.eot?ur7cdc');
-    src: url('../fonts/icomoon/icomoon.eot?ur7cdc#iefix') format('embedded-opentype'), url('../fonts/icomoon/icomoon.ttf?ur7cdc') format('truetype'), url('../fonts/icomoon/icomoon.woff?ur7cdc') format('woff'), url('../fonts/icomoon/icomoon.svg?ur7cdc#icomoon') format('svg');
+    src: url('../fonts/icomoon/icomoon.eot?ur7cdc#iefix') format('embedded-opentype'),
+        url('../fonts/icomoon/icomoon.ttf?ur7cdc') format('truetype'),
+        url('../fonts/icomoon/icomoon.woff?ur7cdc') format('woff'),
+        url('../fonts/icomoon/icomoon.svg?ur7cdc#icomoon') format('svg');
     font-weight: normal;
     font-style: normal;
 }
 
-[class^="icon-"], [class*=" icon-"] {
+[class^='icon-'], [class*=' icon-'] {
     font-family: 'icomoon' !important;
     speak: none;
     font-style: normal;
@@ -619,7 +625,7 @@ Image .nav0:hover {
     left: 0;
     width: 34%;
     height: 100%;
-    background: rgba(0,0,0,0.6);
+    background: rgba(0,0,0,.6);
 }
 /* -------------------------------------------------- */
 /*  Main Navigation
@@ -633,17 +639,17 @@ Image .nav0:hover {
     -moz-border-radius: 10px;
     -khtml-border-radius: 10px;
     border-radius: 10px;
-    behavior: url(../../../../Content/Css/Pie/PIE.htc);
+    behavior: url('../../../../Content/Css/Pie/PIE.htc');
 }
 
 .ui-dialog .ui-dialog-buttonpane {
-    background: #FFFFFF;
+    background: #fff;
 }
 
 .ui-dialog .ui-dialog-title {
     float: left;
     font-weight: normal !important;
-    margin: 0.1em 16px 0.2em 0;
+    margin: .1em 16px .2em 0;
     color: #702789 !important;
     text-align: left;
 }
@@ -656,7 +662,7 @@ p {
 }
 
 h1 {
-    font-size: 0px;
+    font-size: 0;
 }
 
 h2 {
@@ -725,9 +731,9 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 9pt;
     font-family: lato;
     background: white;
-    -webkit-box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.75);
-    box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 0 0 8px 0 rgba(0,0,0,.75);
+    -moz-box-shadow: 0 0 8px 0 rgba(0,0,0,.75);
+    box-shadow: 0 0 8px 0 rgba(0,0,0,.75);
 }
 
     .alerta_red_peru_user.left::after, .alerta_red_bolivia_user.left::after, .alerta_red_chile_user.left::after, .alerta_red_pr_user.left::after,
@@ -742,7 +748,7 @@ h1, h2, h3, h4, h5, h6 {
 
     .alerta_red_peru_user::after, .alerta_red_bolivia_user::after, .alerta_red_chile_user::after, .alerta_red_pr_user::after, .alerta_red_do_user::after,
     .alerta_red_ec_user::after, .alerta_red_ve_user::after, .alerta_red_co_user::after, .alerta_red_cam_user7.left::after {
-        content: "";
+        content: '';
         position: absolute;
         border-style: solid;
         display: block;
@@ -757,9 +763,9 @@ h1, h2, h3, h4, h5, h6 {
     background: white;
     font-size: 9pt;
     font-family: lato;
-    -webkit-box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.75);
-    box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 0 0 8px 0 rgba(0,0,0,.75);
+    -moz-box-shadow: 0 0 8px 0 rgba(0,0,0,.75);
+    box-shadow: 0 0 8px 0 rgba(0,0,0,.75);
 }
 
     .alerta_red_peru_clave.left::after, .alerta_red_bolivia_clave.left::after, .alerta_red_chile_clave.left::after, .alerta_red_pr_clave.left::after,
@@ -774,7 +780,7 @@ h1, h2, h3, h4, h5, h6 {
 
     .alerta_red_peru_clave::after, .alerta_red_bolivia_clave::after, .alerta_red_chile_clave::after, .alerta_red_pr_clave::after,
     .alerta_red_do_clave::after, .alerta_red_ec_clave::after, .alerta_red_ve_clave::after, .alerta_red_co_clave::after, .alerta_red_cam_clave::after {
-        content: "";
+        content: '';
         position: absolute;
         border-width: 20px 0 0 20px;
         border-style: solid;
@@ -844,7 +850,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .cerrar-p {
-    background-image: url(../Images/popup/cerrar_04.png);
+    background-image: url('../Images/popup/cerrar_04.png');
     background-repeat: no-repeat;
     height: 16px;
     width: 16px;
@@ -857,23 +863,23 @@ h1, h2, h3, h4, h5, h6 {
 #divMant {
     position: absolute;
     width: 100%;
-    left: 0%;
+    left: 0;
     top: 20%;
     z-index: 1111;
 }
 
 @media only screen and (max-width : 654px) {
     .footer .footerWrap .logosRight a {
-        padding-left: 0px;
+        padding-left: 0;
         padding-right: 10px;
     }
 
     .p-right {
-        padding-right: 0px;
+        padding-right: 0;
     }
 
     .p-right2 {
-        padding-right: 0px;
+        padding-right: 0;
     }
 
     .m-width {
@@ -909,7 +915,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .flecha_select {
-    background: url(../Images/flecha_select.png) no-repeat;
+    background: url('../Images/flecha_select.png') no-repeat;
     background-position: right;
     height: 32px;
     margin-right: 1px;
@@ -917,7 +923,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .sombra_superior {
     width: 100%;
-    background: url(../Images/sombra_superior.png);
+    background: url('../Images/sombra_superior.png');
     position: absolute;
     height: 126px;
     z-index: -1;
@@ -967,7 +973,7 @@ h1, h2, h3, h4, h5, h6 {
     z-index: 1000;
     width: 100%;
     height: 100%;
-    background: url(../Images/popup_esika/fondo_pop_up.png);
+    background: url('../Images/popup_esika/fondo_pop_up.png');
 }
 
     #popup_olvidasteContrasenia .formcontrol {
@@ -1013,7 +1019,7 @@ h1, h2, h3, h4, h5, h6 {
     z-index: 1000;
     width: 100%;
     height: 100%;
-    background: url(../Images/popup_esika/fondo_pop_up.png);
+    background: url('../Images/popup_esika/fondo_pop_up.png');
 }
 
 .content_bg_1 {
@@ -1047,7 +1053,7 @@ h1, h2, h3, h4, h5, h6 {
 #header {
     height: 55px;
     width: 80%;
-    background: black url(../Images/popup_esika/fondo_header.png) top left no-repeat;
+    background: black url('../Images/popup_esika/fondo_header.png') top left no-repeat;
     background-position: right;
     FONT-FAMILY: LATO;
     color: white;
@@ -1056,7 +1062,7 @@ h1, h2, h3, h4, h5, h6 {
     padding-left: 15%;
     box-sizing: border-box;
     font-weight: 700;
-    letter-spacing: 0.4px;
+    letter-spacing: .4px;
     font-size: 11pt;
 }
 
@@ -1088,7 +1094,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .mensaje_pop_up_contraseniaEnviada h1 {
     margin-top: 56px;
-    margin-bottom: 0px;
+    margin-bottom: 0;
     font-size: 16pt;
     color: black;
     margin-left: 15%;
@@ -1147,7 +1153,7 @@ h1, h2, h3, h4, h5, h6 {
     height: 346px;
     width: 416px;
     z-index: 1;
-    left: 0px;
+    left: 0;
     top: 90px;
     position: relative;
 }
@@ -1213,7 +1219,7 @@ h1, h2, h3, h4, h5, h6 {
     float: left;
     height: 39px;
     width: 100%;
-    background-image: url(../Images/popup_esika/titulos_03.png);
+    background-image: url('../Images/popup_esika/titulos_03.png');
     background-repeat: no-repeat;
 }
 
@@ -1221,7 +1227,7 @@ h1, h2, h3, h4, h5, h6 {
     float: left;
     height: 39px;
     width: 100%;
-    background-image: url(../Images/popup_esika/titulos_06.png);
+    background-image: url('../Images/popup_esika/titulos_06.png');
     background-repeat: no-repeat;
 }
 
@@ -1229,7 +1235,7 @@ h1, h2, h3, h4, h5, h6 {
     float: left;
     height: 39px;
     width: 100%;
-    background-image: url(../Images/popup_esika/titulos_08.png);
+    background-image: url('../Images/popup_esika/titulos_08.png');
     background-repeat: no-repeat;
 }
 
@@ -1237,7 +1243,7 @@ h1, h2, h3, h4, h5, h6 {
     float: left;
     height: 63px;
     width: 100%;
-    background-image: url(../Images/popup_esika/corre_titulo_03.png);
+    background-image: url('../Images/popup_esika/corre_titulo_03.png');
     background-repeat: no-repeat;
 }
 
@@ -1251,7 +1257,7 @@ h1, h2, h3, h4, h5, h6 {
 .gmail {
     height: 67px;
     width: 187px;
-    background-image: url(../Images/popup_esika/gmail_03.png);
+    background-image: url('../Images/popup_esika/gmail_03.png');
     background-repeat: no-repeat;
     background-position: top;
     float: left;
@@ -1264,7 +1270,7 @@ h1, h2, h3, h4, h5, h6 {
 .yahoo {
     height: 67px;
     width: 187px;
-    background-image: url(../Images/popup_esika/yahoo_03.png);
+    background-image: url('../Images/popup_esika/yahoo_03.png');
     background-repeat: no-repeat;
     background-position: top;
     float: left;
@@ -1277,7 +1283,7 @@ h1, h2, h3, h4, h5, h6 {
 .hotmail {
     height: 67px;
     width: 187px;
-    background-image: url(../Images/popup_esika/hotmail_03.png);
+    background-image: url('../Images/popup_esika/hotmail_03.png');
     background-repeat: no-repeat;
     background-position: top;
     float: left;
@@ -1290,7 +1296,7 @@ h1, h2, h3, h4, h5, h6 {
 .outlook {
     height: 67px;
     width: 187px;
-    background-image: url(../Images/popup_esika/outlook_03.png);
+    background-image: url('../Images/popup_esika/outlook_03.png');
     background-repeat: no-repeat;
     background-position: top;
     float: left;
@@ -1301,7 +1307,7 @@ h1, h2, h3, h4, h5, h6 {
     }
 
 .cerrar {
-    background-image: url(../Images/popup_esika/cerrar_04.png);
+    background-image: url('../Images/popup_esika/cerrar_04.png');
     background-repeat: no-repeat;
     height: 24px;
     width: 24px;
@@ -1340,7 +1346,7 @@ h1, h2, h3, h4, h5, h6 {
 
     #cuadro2 {
         width: 85%;
-        top: 0px;
+        top: 0;
         padding-top: 67px;
         padding-bottom: 10px;
     }
@@ -1401,7 +1407,7 @@ h1, h2, h3, h4, h5, h6 {
     }
 
     #container {
-        background: rgba(0,0,0,0.6);
+        background: rgba(0,0,0,.6);
         height: 100%;
     }
 
@@ -1414,7 +1420,7 @@ h1, h2, h3, h4, h5, h6 {
     }
 
     .logo-esika {
-        margin-left: 0px;
+        margin-left: 0;
     }
 
     .fondo_form {
@@ -1501,10 +1507,10 @@ h1, h2, h3, h4, h5, h6 {
         }
 
     img.imgc {
-        margin: 0px;
-        padding: 0px;
+        margin: 0;
+        padding: 0;
         vertical-align: top;
-        border: 0px;
+        border: 0;
         float: left;
     }
 
@@ -1515,8 +1521,8 @@ h1, h2, h3, h4, h5, h6 {
     .webForm {
         max-width: 360px;
         margin: 0 auto;
-        padding-left: 0%;
-        padding-right: 0%;
+        padding-left: 0;
+        padding-right: 0;
     }
 
     #box-pop-up {
@@ -1525,7 +1531,7 @@ h1, h2, h3, h4, h5, h6 {
     }
 
     .content-alerta-red-user, .content-alerta-red-clave {
-        left: 0px;
+        left: 0;
         width: 100%;
         text-align: center;
     }
@@ -1538,7 +1544,7 @@ h1, h2, h3, h4, h5, h6 {
     .alerta_red_chile_clave, .alerta_red_pr_user, .alerta_red_pr_clave, .alerta_red_do_user, .alerta_red_do_clave,
     .alerta_red_mx_user, .alerta_red_mx_clave, .alerta_red_ec_user, .alerta_red_ec_clave, .alerta_red_ve_user, .alerta_red_ve_clave,
     .alerta_red_co_user, .alerta_red_co_clave, .alerta_red_cam_user7, .alerta_red_cam_user9, .alerta_red_cam_clave {
-        left: 0px;
+        left: 0;
     }
 
     .alerta_red_block {
@@ -1781,7 +1787,7 @@ h1, h2, h3, h4, h5, h6 {
 .header_facebook {
     height: 55px;
     width: 80%;
-    background: black url(../Images/popup_esika/fondo_header.png) top left no-repeat;
+    background: black url('../Images/popup_esika/fondo_header.png') top left no-repeat;
     background-position: right;
     FONT-FAMILY: 'Lato';
     color: white;
@@ -1790,12 +1796,12 @@ h1, h2, h3, h4, h5, h6 {
     padding-left: 15%;
     box-sizing: border-box;
     font-weight: 700;
-    letter-spacing: 0.4px;
+    letter-spacing: .4px;
     font-size: 12pt;
 }
 
 .btn_cerrar_login {
-    background-image: url(../Images/popup_esika/cerrar_04.png);
+    background-image: url('../Images/popup_esika/cerrar_04.png');
     background-repeat: no-repeat;
     height: 24px;
     width: 24px;
@@ -1818,7 +1824,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .icono_usuario:before {
-    content: "\e903";
+    content: '\e903';
     font-size: 20px;
     text-align: left;
     color: black;
@@ -1829,7 +1835,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .icono_pass:before {
-    content: "\e900";
+    content: '\e900';
     font-size: 20px;
     text-align: left;
     color: black;
@@ -1941,7 +1947,7 @@ h1, h2, h3, h4, h5, h6 {
         right: 100%;
         top: 24px;
         border: solid transparent;
-        content: " ";
+        content: ' ';
         height: 0;
         width: 0;
         position: absolute;
@@ -1986,7 +1992,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
     .helper_facebook:before {
-        content: "\e902";
+        content: '\e902';
         font-size: 18px;
         text-align: left;
         color: #949494;
@@ -2038,13 +2044,13 @@ h1, h2, h3, h4, h5, h6 {
     text-align: left;
     line-height: 34px;
     white-space: nowrap;
-    border-radius: 0.2em;
+    border-radius: .2em;
     font-size: 16px;
-    color: #FFF;
+    color: #fff;
 }
 
     .loginBtn:before {
-        content: "";
+        content: '';
         box-sizing: border-box;
         position: absolute;
         top: 0;
@@ -2058,7 +2064,7 @@ h1, h2, h3, h4, h5, h6 {
     }
 
     .loginBtn:active {
-        box-shadow: inset 0 0 0 32px rgba(0,0,0,0.1);
+        box-shadow: inset 0 0 0 32px rgba(0,0,0,.1);
     }
 
 .loginBtn--facebook {
@@ -2068,7 +2074,7 @@ h1, h2, h3, h4, h5, h6 {
     font-family: 'LAto';
     font-size: 12.5px;
     font-weight: 700;
-    letter-spacing: 0.8px;
+    letter-spacing: .8px;
     text-transform: uppercase;
     overflow: hidden;
     cursor: pointer;
@@ -2192,13 +2198,13 @@ h1, h2, h3, h4, h5, h6 {
     box-sizing: border-box;
     position: relative;
     background: transparent;
-    letter-spacing: 0.3px;
+    letter-spacing: .3px;
 }
 
 .content_pop_login {
     position: fixed;
     top: 0;
-    background: rgba(0,0,0,0.8);
+    background: rgba(0,0,0,.8);
     width: 100%;
     height: 100%;
     z-index: 998;
@@ -2218,13 +2224,13 @@ h1, h2, h3, h4, h5, h6 {
 
 /*Fin Facebook*/
 .icono_esika {
-    background: url(../../../Images/Esika/icono_advertencia_notificacion.svg) no-repeat;
+    background: url('../../../Images/Esika/icono_advertencia_notificacion.svg') no-repeat;
     background-size: 15px;
     color: #e81c36;
 }
 
 .fondo_estandar {
-    background: url(../Images/login-esika-1920.jpg) center center no-repeat fixed;
+    background: url('../Images/login-esika-1920.jpg') center center no-repeat fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;

@@ -11,7 +11,7 @@
     display: inline-block;
 }
 
-    .jq-ry-container[readonly="readonly"] {
+    .jq-ry-container[readonly='readonly'] {
         cursor: default;
     }
 

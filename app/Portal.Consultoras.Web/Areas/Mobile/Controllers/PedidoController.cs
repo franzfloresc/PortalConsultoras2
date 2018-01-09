@@ -665,8 +665,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     listaParametriaOfertaFinal = sv.GetParametriaOfertaFinal(userData.PaisID, GetOfertaFinal().Algoritmo).ToList() ?? new List<BEEscalaDescuento>();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 listaParametriaOfertaFinal = new List<BEEscalaDescuento>();
             }
 

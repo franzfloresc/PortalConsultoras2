@@ -248,13 +248,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.SelectCampanias(PaisID);
             }
-            Mapper.CreateMap<BECampania, CampaniaModel>()
-                .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo))
-                .ForMember(t => t.Anio, f => f.MapFrom(c => c.Anio))
-                .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto))
-                .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                .ForMember(t => t.Activo, f => f.MapFrom(c => c.Activo));
 
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
         }
@@ -272,17 +265,7 @@ namespace Portal.Consultoras.Web.Controllers
             var lista = from a in lst
                         where a.FlagActivo == 1
                         select a;
-
-            Mapper.CreateMap<BETipoEstrategia, TipoEstrategiaModel>()
-                .ForMember(t => t.TipoEstrategiaID, f => f.MapFrom(c => c.TipoEstrategiaID))
-                .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.DescripcionEstrategia))
-                .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                .ForMember(t => t.FlagNueva, f => f.MapFrom(c => c.FlagNueva))
-                .ForMember(t => t.FlagRecoPerfil, f => f.MapFrom(c => c.FlagRecoPerfil))
-                .ForMember(t => t.FlagRecoProduc, f => f.MapFrom(c => c.FlagRecoProduc))
-                .ForMember(t => t.Imagen, f => f.MapFrom(c => c.ImagenEstrategia))
-                .ForMember(t => t.CodigoPrograma, f => f.MapFrom(c => c.CodigoPrograma));
-
+            
             return Mapper.Map<IList<BETipoEstrategia>, IEnumerable<TipoEstrategiaModel>>(lista.ToList());
         }
 

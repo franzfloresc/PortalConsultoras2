@@ -1,16 +1,14 @@
 ﻿using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Controllers;
 using Portal.Consultoras.Web.CustomFilters;
 using Portal.Consultoras.Web.Helpers;
 using Portal.Consultoras.Web.Infraestructure;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceSAC;
-
 using System;
+using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
-using System.Linq;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -29,7 +27,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 return;
             }
 
-            var userData = UserData();
             ViewBag.CodigoCampania = userData.CampaniaID.ToString();
 
             try
@@ -122,7 +119,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                var oddModel = this.GetOfertaDelDiaModel();
+                var oddModel = GetOfertaDelDiaModel();
                 return Json(new
                 {
                     success = oddModel != null,
@@ -175,15 +172,15 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private bool SiempreMostrarBannerPL20()
         {
-            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
-            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+            string controllerName = ControllerContext.RouteData.Values["controller"].ToString();
+            string actionName = ControllerContext.RouteData.Values["action"].ToString();
 
             if (controllerName == "Bienvenida" && actionName == "Index") return true;
             return false;
         }
         private bool NuncaMostrarBannerPL20()
         {
-            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+            string controllerName = ControllerContext.RouteData.Values["controller"].ToString();
 
             if (controllerName == "Pedido") return true;
             if (controllerName == "CatalogoPersonalizado") return true;
@@ -203,8 +200,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private bool NuncaMostrarBannerTopPL20()
         {
-            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
-            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+            string controllerName = ControllerContext.RouteData.Values["controller"].ToString();
+            string actionName = ControllerContext.RouteData.Values["action"].ToString();
 
             if (controllerName == "Bienvenida" && actionName == "Index") return true;
             if (controllerName == "Pedido") return true;
@@ -221,7 +218,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private bool NoMostrarBannerODD()
         {
-            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+            string controllerName = ControllerContext.RouteData.Values["controller"].ToString();
 
             if (controllerName == "OfertaLiquidacion") return true;
             if (controllerName == "CatalogoPersonalizado") return true;

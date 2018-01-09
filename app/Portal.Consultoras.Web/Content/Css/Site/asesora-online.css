@@ -57,7 +57,7 @@
 .cabecera_asesora_online {
     display: block;
     position: relative;
-    background: #FFF;
+    background: #fff;
     height: 393px;
     max-width: 610px;
     position: relative;
@@ -66,7 +66,7 @@
 
 .extension_fondo_cabecera {
     display: block;
-    background: #FFF;
+    background: #fff;
     width: 100%;
     height: 393px;
     position: absolute;
@@ -81,7 +81,7 @@
     right: -55px;
     width: 100%;
     height: 393px;
-    background: #FFF;
+    background: #fff;
     transform: skewX(-14deg);
     -moz-transform: skewX(-14deg);
     -o-transform: skewX(-14deg);
@@ -123,7 +123,7 @@
 }
 
 .fondo_titulo_asesora {
-    background: #FFF;
+    background: #fff;
     padding: 13px 0 6px 0;
     max-width: 342px;
     position: relative;
@@ -132,7 +132,7 @@
 
 .extension_fondo {
     height: 69.5px;
-    background: #FFF;
+    background: #fff;
     position: absolute;
     top: 0;
     left: -474px;
@@ -184,7 +184,7 @@
     max-width: 515px;
     color: #000;
     margin: 40px 0 52px 0;
-    letter-spacing: 0.8px;
+    letter-spacing: .8px;
     line-height: 20px;
     position: relative;
     z-index: 4;
@@ -192,7 +192,7 @@
 
     .descripcion_asesora_online div {
         display: block;
-        letter-spacing: 0.5px;
+        letter-spacing: .5px;
         font-size: 18px;
     }
 
@@ -206,26 +206,26 @@
 .cta_inscripcion {
     max-width: 311px;
     background: rgba(0,0,0,1);
-    color: #FFF;
+    color: #fff;
     position: relative;
     text-align: center;
     height: 42px;
     line-height: 40px;
     font-size: 15px;
     letter-spacing: 1.5px;
-    transition: all 0.3s ease;
-    -moz-transition: all 0.3s ease;
-    -o-transition: all 0.3s ease;
-    -ms-transition: all 0.3s ease;
-    -webkit-transition: all 0.3s ease;
+    transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -webkit-transition: all .3s ease;
 }
 
     .cta_inscripcion:hover {
-        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
-        -moz-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
-        -o-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
-        -ms-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
-        -webkit-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,.5);
+        -moz-box-shadow: 0 4px 8px 0 rgba(0,0,0,.5);
+        -o-box-shadow: 0 4px 8px 0 rgba(0,0,0,.5);
+        -ms-box-shadow: 0 4px 8px 0 rgba(0,0,0,.5);
+        -webkit-box-shadow: 0 4px 8px 0 rgba(0,0,0,.5);
     }
 
 .cta_inscripcion_fixed {
@@ -275,13 +275,13 @@
 
 .pregunta_inscripcion {
     font-size: 16px;
-    letter-spacing: 0.8px;
+    letter-spacing: .8px;
     margin-bottom: 23px;
 }
 
 .conoce_beneficios {
     font-size: 23px;
-    letter-spacing: 0.4px;
+    letter-spacing: .4px;
     line-height: 28px;
 }
 
@@ -299,7 +299,7 @@
     max-width: 202px;
     height: 98px;
     padding: 22px 22px 18px 22px;
-    background-image: url("../../../Content/Images/img_dialog.png");
+    background-image: url('../../../Content/Images/img_dialog.png');
     background-repeat: no-repeat;
     background-size: 202px;
     background-position: center;
@@ -308,7 +308,7 @@
 }
 
 .contenedor_titulo_beneficio_ofertas {
-    background-image: url("../../../Content/Images/img_dialog2.png");
+    background-image: url('../../../Content/Images/img_dialog2.png');
     background-size: 235px;
     max-width: 235px;
 }
@@ -357,13 +357,13 @@
 }
 
     .titulo_beneficios_asesora_online > span {
-        opacity: 0.7;
+        opacity: .7;
     }
 
 .descripcion_beneficios_asesora_online {
     font-size: 13px;
     max-width: 188px;
-    letter-spacing: 0.31px;
+    letter-spacing: .31px;
     line-height: 17px;
     padding-left: 14px;
 }
@@ -412,7 +412,7 @@
 }
 
 .contenedor_formulario {
-    background: rgba(255,255,255,0.9);
+    background: rgba(255,255,255,.9);
     height: auto;
     text-align: left;
 }
@@ -463,38 +463,38 @@
     margin-bottom: 8px;
 }
 
-    .opcion_crecimiento_negocio input[type="checkbox"] {
+    .opcion_crecimiento_negocio input[type='checkbox'] {
         display: none !important;
     }
 
-        .opcion_crecimiento_negocio input[type="checkbox"] + label span, .opcion_crecimiento_negocio label {
+        .opcion_crecimiento_negocio input[type='checkbox'] + label span, .opcion_crecimiento_negocio label {
             display: inline-block;
             vertical-align: middle;
         }
 
-        .opcion_crecimiento_negocio input[type="checkbox"] + label span {
+        .opcion_crecimiento_negocio input[type='checkbox'] + label span {
             width: 16px;
             height: 16px;
-            border: 1px solid rgba(0,0,0,0.25);
+            border: 1px solid rgba(0,0,0,.25);
             border-radius: 100%;
-            background: rgba(255,255,255,0.9);
+            background: rgba(255,255,255,.9);
             margin-left: -41px;
             margin-right: 20px;
-            transition: all 0.3s ease;
-            -moz-transition: all 0.3s ease;
-            -o-transition: all 0.3s ease;
-            -ms-transition: all 0.3s ease;
-            -webkit-transition: all 0.3s ease;
+            transition: all .3s ease;
+            -moz-transition: all .3s ease;
+            -o-transition: all .3s ease;
+            -ms-transition: all .3s ease;
+            -webkit-transition: all .3s ease;
         }
 
-        .opcion_crecimiento_negocio input[type="checkbox"]:checked + label span {
+        .opcion_crecimiento_negocio input[type='checkbox']:checked + label span {
             border: 1px solid #e81c36;
             background: #e81c36;
         }
 
     .opcion_crecimiento_negocio label, .datos_consultora input {
         font-size: 13px !important;
-        background: #FFF;
+        background: #fff;
         border: 1px solid #979797;
         width: 100%;
         max-width: 258px;
@@ -552,7 +552,7 @@
             margin-bottom: 17px;
         }
 
-        .terminos_condiciones_form > div a, .terminos_condiciones_form input[type="checkbox"] + label span {
+        .terminos_condiciones_form > div a, .terminos_condiciones_form input[type='checkbox'] + label span {
             display: inline-block;
         }
 
@@ -560,11 +560,11 @@
             text-decoration: underline;
         }
 
-    .terminos_condiciones_form input[type="checkbox"] {
+    .terminos_condiciones_form input[type='checkbox'] {
         display: none !important;
     }
 
-        .terminos_condiciones_form input[type="checkbox"] + label span {
+        .terminos_condiciones_form input[type='checkbox'] + label span {
             width: 13px;
             height: 13px;
             border: 1px solid #000;
@@ -573,8 +573,8 @@
             margin-right: 5px;
         }
 
-        .terminos_condiciones_form input[type="checkbox"]:checked + label span {
-            background: url(../../../Content/Images/check-acepto-terminos.png);
+        .terminos_condiciones_form input[type='checkbox']:checked + label span {
+            background: url('../../../Content/Images/check-acepto-terminos.png');
             background-repeat: no-repeat;
             background-position: center center;
         }
@@ -588,7 +588,7 @@
     margin: 0 auto;
     background: #e81c36;
     border: none;
-    color: #FFF;
+    color: #fff;
     width: 246px;
     height: 40px;
     line-height: 40px;
@@ -596,15 +596,15 @@
     font-size: 14px;
     letter-spacing: 1.5px;
     opacity: 1;
-    transition: all 0.3s ease;
-    -moz-transition: all 0.3s ease;
-    -o-transition: all 0.3s ease;
-    -ms-transition: all 0.3s ease;
-    -webkit-transition: all 0.3s ease;
+    transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -webkit-transition: all .3s ease;
 }
 
     .btn_enviar_form:hover {
-        opacity: 0.9;
+        opacity: .9;
     }
 
 .seccion_instagram {
@@ -640,11 +640,11 @@
     color: #000;
     text-align: center;
     z-index: 1000;
-    box-shadow: 1px 6px 10px 0 rgba(0,0,0,0.7);
-    -moz-box-shadow: 1px 6px 10px 0 rgba(0,0,0,0.7);
-    -o-box-shadow: 1px 6px 10px 0 rgba(0,0,0,0.7);
-    -ms-box-shadow: 1px 6px 10px 0 rgba(0,0,0,0.7);
-    -webkit-box-shadow: 1px 6px 10px 0 rgba(0,0,0,0.7);
+    box-shadow: 1px 6px 10px 0 rgba(0,0,0,.7);
+    -moz-box-shadow: 1px 6px 10px 0 rgba(0,0,0,.7);
+    -o-box-shadow: 1px 6px 10px 0 rgba(0,0,0,.7);
+    -ms-box-shadow: 1px 6px 10px 0 rgba(0,0,0,.7);
+    -webkit-box-shadow: 1px 6px 10px 0 rgba(0,0,0,.7);
 }
 
 .info_derechos_belcorp {
@@ -816,7 +816,7 @@
         display: block;
         width: 285px;
         height: 284px;
-        background: url(../../../Content/Images/img_cabecera_asesora_online_mobile.png);
+        background: url('../../../Content/Images/img_cabecera_asesora_online_mobile.png');
         background-position: center;
         background-repeat: no-repeat;
         background-size: 285px;
@@ -863,7 +863,7 @@
     .titulo_principal_asesora_online {
         font-size: 14px;
         line-height: 20px;
-        letter-spacing: 0.7px;
+        letter-spacing: .7px;
     }
 
     .titulo_tu_asesora_online {
@@ -905,16 +905,16 @@
         font-size: 15px;
         letter-spacing: 1.5px;
         max-width: none;
-        box-shadow: 0 -4px 6px rgba(0,0,0,0.2);
-        -moz-box-shadow: 0 -4px 6px rgba(0,0,0,0.2);
-        -o-box-shadow: 0 -4px 6px rgba(0,0,0,0.2);
-        -ms-box-shadow: 0 -4px 6px rgba(0,0,0,0.2);
-        -webkit-box-shadow: 0 -4px 6px rgba(0,0,0,0.2);
-        transition: all 0.3s ease;
-        -moz-transition: all 0.3s ease;
-        -o-transition: all 0.3s ease;
-        -ms-transition: all 0.3s ease;
-        -webkit-transition: all 0.3s ease;
+        box-shadow: 0 -4px 6px rgba(0,0,0,.2);
+        -moz-box-shadow: 0 -4px 6px rgba(0,0,0,.2);
+        -o-box-shadow: 0 -4px 6px rgba(0,0,0,.2);
+        -ms-box-shadow: 0 -4px 6px rgba(0,0,0,.2);
+        -webkit-box-shadow: 0 -4px 6px rgba(0,0,0,.2);
+        transition: all .3s ease;
+        -moz-transition: all .3s ease;
+        -o-transition: all .3s ease;
+        -ms-transition: all .3s ease;
+        -webkit-transition: all .3s ease;
         opacity: 0;
         visibility: hidden;
     }
@@ -1120,11 +1120,11 @@
         font-size: 12px;
         line-height: 19px;
         top: -19px;
-        box-shadow: 1px 5px 5px 0 rgba(0,0,0,0.5);
-        -moz-box-shadow: 1px 5px 5px 0 rgba(0,0,0,0.5);
-        -o-box-shadow: 1px 5px 5px 0 rgba(0,0,0,0.5);
-        -ms-box-shadow: 1px 5px 5px 0 rgba(0,0,0,0.5);
-        -webkit-box-shadow: 1px 5px 5px 0 rgba(0,0,0,0.5);
+        box-shadow: 1px 5px 5px 0 rgba(0,0,0,.5);
+        -moz-box-shadow: 1px 5px 5px 0 rgba(0,0,0,.5);
+        -o-box-shadow: 1px 5px 5px 0 rgba(0,0,0,.5);
+        -ms-box-shadow: 1px 5px 5px 0 rgba(0,0,0,.5);
+        -webkit-box-shadow: 1px 5px 5px 0 rgba(0,0,0,.5);
     }
 
     .info_derechos_belcorp {
@@ -1161,7 +1161,7 @@
         position: absolute;
         width: 287px;
         height: 361px;
-        background: url(../../../Content/Images/img_cabecera_asesora_online_mobile_landscape.png);
+        background: url('../../../Content/Images/img_cabecera_asesora_online_mobile_landscape.png');
         background-size: 285px;
         background-repeat: no-repeat;
     }
@@ -1227,26 +1227,26 @@
 .cta_inscripcion_popup {
     max-width: 311px;
     background: rgba(0,0,0,1);
-    color: #FFF;
+    color: #fff;
     position: relative;
     text-align: center;
     height: 40px;
     line-height: 38px;
     font-size: 13px;
     letter-spacing: 1.5px;
-    transition: all 0.3s ease;
-    -moz-transition: all 0.3s ease;
-    -o-transition: all 0.3s ease;
-    -ms-transition: all 0.3s ease;
-    -webkit-transition: all 0.3s ease;
+    transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -webkit-transition: all .3s ease;
 }
 
     .cta_inscripcion_popup:hover {
-        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
-        -moz-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
-        -o-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
-        -ms-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
-        -webkit-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,.5);
+        -moz-box-shadow: 0 4px 8px 0 rgba(0,0,0,.5);
+        -o-box-shadow: 0 4px 8px 0 rgba(0,0,0,.5);
+        -ms-box-shadow: 0 4px 8px 0 rgba(0,0,0,.5);
+        -webkit-box-shadow: 0 4px 8px 0 rgba(0,0,0,.5);
     }
 
 .bg_popup {
@@ -1254,7 +1254,7 @@
     position: fixed;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.8);
+    background: rgba(0,0,0,.8);
 }
 
 .popup_inscripcion_asesoria_online {
@@ -1277,7 +1277,7 @@
     padding-top: 35px;
     padding-left: 42px;
     height: 437px;
-    background: #FFF;
+    background: #fff;
     max-width: 555px;
     z-index: 4;
 }
@@ -1289,7 +1289,7 @@
     right: -58px;
     width: 100%;
     height: 437px;
-    background: #FFF;
+    background: #fff;
     transform: skewX(-14deg);
     -moz-transform: skewX(-14deg);
     -o-transform: skewX(-14deg);
@@ -1351,7 +1351,7 @@
 }
 
     .mensaje_popup div {
-        letter-spacing: 0.3px;
+        letter-spacing: .3px;
     }
 
         .mensaje_popup div:first-child {
@@ -1412,7 +1412,7 @@
 
     .beneficio_descripcion > span {
         display: block;
-        opacity: 0.8;
+        opacity: .8;
     }
 
         .beneficio_descripcion > span:first-child {
@@ -1421,14 +1421,14 @@
             padding-top: 10px;
             padding-left: 16px;
             margin-bottom: 5px;
-            letter-spacing: 0.45px;
+            letter-spacing: .45px;
         }
 
         .beneficio_descripcion > span:last-child {
             font-size: 8px;
             text-align: center;
             color: #5F5B5B;
-            letter-spacing: 0.1px;
+            letter-spacing: .1px;
         }
 
 .beneficio_inscripcion:last-child {
@@ -1442,7 +1442,7 @@
 .descripcion_beneficio_inscripcion {
     width: 122px;
     height: 47px;
-    border-right: 1px solid #FFF;
+    border-right: 1px solid #fff;
     font-size: 12px;
     padding-right: 15px;
     transform: skewX(-14deg);
@@ -1508,29 +1508,29 @@
 }
 
 .enlace_no_volver_mostrar_mensaje {
-    color: #FFF;
+    color: #fff;
     font-size: 12px;
-    opacity: 0.5;
+    opacity: .5;
     position: absolute;
     bottom: -18px;
     left: 0;
-    letter-spacing: 0.5px;
-    transition: opacity 0.3s ease;
-    -moz-transition: opacity 0.3s ease;
-    -o-transition: opacity 0.3s ease;
-    -ms-transition: opacity 0.3s ease;
-    -webkit-transition: opacity 0.3s ease;
+    letter-spacing: .5px;
+    transition: opacity .3s ease;
+    -moz-transition: opacity .3s ease;
+    -o-transition: opacity .3s ease;
+    -ms-transition: opacity .3s ease;
+    -webkit-transition: opacity .3s ease;
 }
 
     .enlace_no_volver_mostrar_mensaje:hover {
-        opacity: 0.2;
+        opacity: .2;
     }
 
 .cerrar_popup_inscripcion {
     display: block;
     width: 30px;
     height: 31px;
-    background: url(../../../Content/Images/icono-cerrar-popup-inscripcion.svg);
+    background: url('../../../Content/Images/icono-cerrar-popup-inscripcion.svg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: 100%;
@@ -1538,16 +1538,16 @@
     top: 0;
     right: -40px;
     z-index: 1000;
-    transition: opacity, top 0.3s ease;
-    -moz-transition: opacity, top 0.3s ease;
-    -o-transition: opacity, top 0.3s ease;
-    -ms-transition: opacity, top 0.3s ease;
-    -webkit-transition: opacity, top 0.3s ease;
+    transition: opacity, top .3s ease;
+    -moz-transition: opacity, top .3s ease;
+    -o-transition: opacity, top .3s ease;
+    -ms-transition: opacity, top .3s ease;
+    -webkit-transition: opacity, top .3s ease;
 }
 
     .cerrar_popup_inscripcion:hover {
         top: 8px;
-        opacity: 0.4;
+        opacity: .4;
     }
 
     .cerrar_popup_inscripcion img {
@@ -1578,7 +1578,7 @@
     text-align: center;
     width: 100%;
     max-width: 588px;
-    background: #FFF;
+    background: #fff;
     height: 346px;
     padding: 60px 70px 70px 70px;
 }
@@ -1588,11 +1588,11 @@
     top: 15px;
     width: 24px;
     height: 24px;
-    transition: all 0.3s ease;
-    -moz-transition: all 0.3s ease;
-    -o-transition: all 0.3s ease;
-    -ms-transition: all 0.3s ease;
-    -webkit-transition: all 0.3s ease;
+    transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -webkit-transition: all .3s ease;
 }
 
     .cerrar_popup_mensaje_enviado:hover {
@@ -1655,7 +1655,7 @@
     width: 100%;
     max-width: 742px;
     height: auto;
-    background: #FFF;
+    background: #fff;
     position: relative;
     top: 50%;
     padding-bottom: 47px;
@@ -1717,7 +1717,7 @@
 .bloque_der_datos > .datos_consultora_inscrita {
     text-align: left;
     font-size: 18px;
-    letter-spacing: 0.7px;
+    letter-spacing: .7px;
 }
 
 .bloque_der_datos .datos_consultora_inscrita:last-child {
@@ -1752,19 +1752,19 @@
     height: 40px;
     line-height: 36px;
     border: 1px solid #000;
-    background: #FFF;
+    background: #fff;
     margin-bottom: 8px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    -moz-transition: all 0.3s ease;
-    -o-transition: all 0.3s ease;
-    -ms-transition: all 0.3s ease;
-    -webkit-transition: all 0.3s ease;
+    transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -webkit-transition: all .3s ease;
 }
 
     .btn_modificar_datos button:hover {
         background: #000;
-        color: #FFF;
+        color: #fff;
     }
 
 .btn_modificar_datos button, .btn_modificar_datos span {
@@ -1777,7 +1777,7 @@
 @media screen and (max-width:991px) {
 
     .cerrar_popup_inscripcion {
-        background: url(../../../Content/Images/mobile/icono-cerrar-popup-inscripcion-mobile.svg);
+        background: url('../../../Content/Images/mobile/icono-cerrar-popup-inscripcion-mobile.svg');
         background-size: 100%;
         background-position: center;
         background-repeat: no-repeat;
@@ -1896,7 +1896,7 @@
 .mensaje_advertencia_datos_registrados {
     max-width: 392px;
     font-size: 20px;
-    letter-spacing: 0.5px;
+    letter-spacing: .5px;
     text-align: left;
     line-height: 24px;
 }

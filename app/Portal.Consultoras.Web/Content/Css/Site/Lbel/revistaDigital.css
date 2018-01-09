@@ -26,11 +26,11 @@
         }
 
         .revistadigital .pedido p.marca:before {
-            border: 0px solid;
+            border: 0 solid;
         }
 
         .revistadigital .pedido .giftext:after {
-            border: 0px solid;
+            border: 0 solid;
         }
 
         .revistadigital .pedido .giftext {
@@ -127,9 +127,9 @@
 
         .revistadigital .revistadigital-items img {
             height: 340px;
-            -webkit-box-shadow: 0px 15px 21px -8px rgba(150, 150, 150, 0.6);
-            -moz-box-shadow: 0px 15px 21px -8px rgba(150, 150, 150, 0.6);
-            box-shadow: 0px 15px 21px -8px rgba(150, 150, 150, 0.6);
+            -webkit-box-shadow: 0 15px 21px -8px rgba(150, 150, 150, .6);
+            -moz-box-shadow: 0 15px 21px -8px rgba(150, 150, 150, .6);
+            box-shadow: 0 15px 21px -8px rgba(150, 150, 150, .6);
         }
 
         .revistadigital .revistadigital-items .item2 {
@@ -137,7 +137,7 @@
         }
 
         .revistadigital .revistadigital-items .item3 {
-            margin: 0 20px 0px 0px;
+            margin: 0 20px 0 0;
         }
 
     .revistadigital .boxoffer {
@@ -149,27 +149,27 @@
         background: transparent;
         overflow: hidden;
         cursor: pointer;
-        transition: all 0.3s ease;
-        -moz-transition: all 0.3s ease;
-        -o-transition: all 0.3s ease;
-        -ms-transition: all 0.3s ease;
-        -webkit-transition: all 0.3s ease;
+        transition: all .3s ease;
+        -moz-transition: all .3s ease;
+        -o-transition: all .3s ease;
+        -ms-transition: all .3s ease;
+        -webkit-transition: all .3s ease;
     }
 
         .revistadigital .boxoffer:hover {
-            opacity: 0.95;
+            opacity: .95;
             right: -35px;
         }
 
 .revistaDigital_catalogosRevistas .boxoffer {
     top: 216px;
     left: 11px;
-    right: 0px;
+    right: 0;
     cursor: pointer;
 }
 
     .revistaDigital_catalogosRevistas .boxoffer:hover {
-        opacity: 0.95;
+        opacity: .95;
         left: 20px;
     }
 
@@ -180,23 +180,23 @@
     transform: skewX(-14deg);
     position: absolute;
     left: -14px;
-    background: -moz-linear-gradient(top, rgba(213,37,31,1) 0%, rgba(163,16,18,1) 100%);
-    background: -webkit-linear-gradient(top, rgba(213,37,31,1) 0%, rgba(163,16,18,1) 100%);
-    background: -o-linear-gradient(top, rgba(213,37,31,1) 0%, rgba(163,16,18,1) 100%);
-    background: -ms-linear-gradient(top, rgba(213,37,31,1) 0%, rgba(163,16,18,1) 100%);
-    background: linear-gradient(to bottom, rgba(213,37,31,1) 0%, rgba(163,16,18,1) 100%);
-    box-shadow: 3px 2px 5px rgba(0,0,0,0.25);
-    -moz-box-shadow: 3px 2px 5px rgba(0,0,0,0.25);
-    -o-box-shadow: 3px 2px 5px rgba(0,0,0,0.25);
-    -ms-box-shadow: 3px 2px 5px rgba(0,0,0,0.25);
-    -webkit-box-shadow: 3px 2px 5px rgba(0,0,0,0.25);
+    background: -moz-linear-gradient(top, rgba(213,37,31,1) 0, rgba(163,16,18,1) 100%);
+    background: -webkit-linear-gradient(top, rgba(213,37,31,1) 0, rgba(163,16,18,1) 100%);
+    background: -o-linear-gradient(top, rgba(213,37,31,1) 0, rgba(163,16,18,1) 100%);
+    background: -ms-linear-gradient(top, rgba(213,37,31,1) 0, rgba(163,16,18,1) 100%);
+    background: linear-gradient(to bottom, rgba(213,37,31,1) 0, rgba(163,16,18,1) 100%);
+    box-shadow: 3px 2px 5px rgba(0,0,0,.25);
+    -moz-box-shadow: 3px 2px 5px rgba(0,0,0,.25);
+    -o-box-shadow: 3px 2px 5px rgba(0,0,0,.25);
+    -ms-box-shadow: 3px 2px 5px rgba(0,0,0,.25);
+    -webkit-box-shadow: 3px 2px 5px rgba(0,0,0,.25);
 }
 
 .revistadigital .boxoffer .texto_boton {
     position: absolute;
     font-family: 'Lato';
     font-size: 13px;
-    color: #FFF;
+    color: #fff;
     top: 17px;
     left: 20px;
     text-align: left;
@@ -208,10 +208,10 @@
         width: 20px;
         height: 50px;
         position: absolute;
-        content: "";
-        top: 0px;
+        content: '';
+        top: 0;
         right: -6px;
-        background: url(../../../Images/flecha-right.svg) no-repeat center center;
+        background: url('../../../Images/flecha-right.svg') no-repeat center center;
         background-size: 100%;
         z-index: 100;
     }
@@ -285,9 +285,9 @@
     display: block;
     width: 100%;
     height: 100vh;
-    bottom: 0px;
+    bottom: 0;
     position: absolute;
-    background: url(../../../Images/mujer-seccion-revista-bienvenida.png) no-repeat -153px 8px;
+    background: url('../../../Images/mujer-seccion-revista-bienvenida.png') no-repeat -153px 8px;
     background-size: contain;
     background-attachment: fixed;
 }
@@ -311,7 +311,7 @@
     display: block;
     width: 100%;
     height: 572px;
-    background: #FFF;
+    background: #fff;
     position: relative;
     overflow: hidden;
     padding-left: 43px;
@@ -330,11 +330,11 @@
     -o-transform: skewX(-14deg);
     -ms-transform: skewX(-14deg);
     -webkit-transform: skewX(-14deg);
-    background: -moz-linear-gradient(-45deg, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 20%, rgba(223,40,34,1) 100%);
-    background: -webkit-linear-gradient(-45deg, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 20%, rgba(223,40,34,1) 100%);
-    background: -o-linear-gradient(-45deg, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 20%, rgba(223,40,34,1) 100%);
-    background: -ms-linear-gradient(-45deg, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 20%, rgba(223,40,34,1) 100%);
-    background: linear-gradient(135deg, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 20%, rgba(223,40,34,1) 100%);
+    background: -moz-linear-gradient(-45deg, rgba(177,19,19,1) 0, rgba(197,31,28,1) 20%, rgba(223,40,34,1) 100%);
+    background: -webkit-linear-gradient(-45deg, rgba(177,19,19,1) 0, rgba(197,31,28,1) 20%, rgba(223,40,34,1) 100%);
+    background: -o-linear-gradient(-45deg, rgba(177,19,19,1) 0, rgba(197,31,28,1) 20%, rgba(223,40,34,1) 100%);
+    background: -ms-linear-gradient(-45deg, rgba(177,19,19,1) 0, rgba(197,31,28,1) 20%, rgba(223,40,34,1) 100%);
+    background: linear-gradient(135deg, rgba(177,19,19,1) 0, rgba(197,31,28,1) 20%, rgba(223,40,34,1) 100%);
 }
 
 .popup_revistaSuscripcion_logoMarca, .popup_revistaSuscripcion_contenido, .popup_revistaSuscripcion_grupoBotones, .popup_revistaSuscripcion_terminos {
@@ -360,7 +360,7 @@
 .popup_revistaSuscripcion_contenido span {
     display: block;
     font-size: 18px;
-    color: #FFF;
+    color: #fff;
     letter-spacing: 1.5px;
 }
 
@@ -393,13 +393,13 @@
         border: none;
         text-align: center;
         font-family: 'Lato';
-        letter-spacing: 0.5px;
+        letter-spacing: .5px;
         font-size: 15px;
     }
 
         .popup_revistaSuscripcion_grupoBotones button:first-child {
             background: #000;
-            color: #FFF;
+            color: #fff;
         }
 
         .popup_revistaSuscripcion_grupoBotones button:nth-child(2) {
@@ -412,7 +412,7 @@
     width: 430px;
     font-family: 'Lato';
     font-size: 13px;
-    color: #FFF;
+    color: #fff;
     letter-spacing: 1px;
 }
 
@@ -425,13 +425,13 @@
     display: block;
     position: absolute;
     bottom: -6px;
-    right: 0px;
+    right: 0;
 }
 
 .popup_revistaSuscripcion_noAMostrarMensaje {
     margin-top: 7px;
     font-family: 'Lato';
-    color: #FFF;
+    color: #fff;
     font-size: 12px;
     margin-left: 100px;
 }
@@ -439,12 +439,12 @@
     .popup_revistaSuscripcion_noAMostrarMensaje a {
         color: white;
         text-decoration: underline;
-        transition: opacity 0.3s ease;
-        -moz-transition: opacity 0.3s ease;
-        -o-transition: opacity 0.3s ease;
-        -ms-transition: opacity 0.3s ease;
-        -webkit-transition: opacity 0.3s ease;
-        opacity: 0.4;
+        transition: opacity .3s ease;
+        -moz-transition: opacity .3s ease;
+        -o-transition: opacity .3s ease;
+        -ms-transition: opacity .3s ease;
+        -webkit-transition: opacity .3s ease;
+        opacity: .4;
     }
 
         .popup_revistaSuscripcion_noAMostrarMensaje a:hover {
@@ -458,12 +458,12 @@
     float: left;
     position: relative;
     background: rgba(177,19,20,1);
-    background: -moz-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
-    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(177,19,20,1)), color-stop(18%, rgba(197,31,28,1)), color-stop(100%, rgba(223,41,34,1)));
-    background: -webkit-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
-    background: -o-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
-    background: -ms-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
-    background: linear-gradient(to bottom, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: -moz-linear-gradient(top, rgba(177,19,20,1) 0, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0, rgba(177,19,20,1)), color-stop(18%, rgba(197,31,28,1)), color-stop(100%, rgba(223,41,34,1)));
+    background: -webkit-linear-gradient(top, rgba(177,19,20,1) 0, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: -o-linear-gradient(top, rgba(177,19,20,1) 0, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: -ms-linear-gradient(top, rgba(177,19,20,1) 0, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: linear-gradient(to bottom, rgba(177,19,20,1) 0, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b11314', endColorstr='#df2922', GradientType=0 );
 }
 
@@ -485,12 +485,12 @@
     height: 120px;
     z-index: 100;
     background: rgba(177,19,20,1);
-    background: -moz-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
-    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(177,19,20,1)), color-stop(18%, rgba(197,31,28,1)), color-stop(100%, rgba(223,41,34,1)));
-    background: -webkit-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
-    background: -o-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
-    background: -ms-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
-    background: linear-gradient(to bottom, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: -moz-linear-gradient(top, rgba(177,19,20,1) 0, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0, rgba(177,19,20,1)), color-stop(18%, rgba(197,31,28,1)), color-stop(100%, rgba(223,41,34,1)));
+    background: -webkit-linear-gradient(top, rgba(177,19,20,1) 0, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: -o-linear-gradient(top, rgba(177,19,20,1) 0, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: -ms-linear-gradient(top, rgba(177,19,20,1) 0, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: linear-gradient(to bottom, rgba(177,19,20,1) 0, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b11314', endColorstr='#df2922', GradientType=0 );
 }
 
@@ -507,7 +507,7 @@
     padding-left: 60px;
     padding-right: 60px;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: .5px;
     position: relative;
 }
 
@@ -574,9 +574,9 @@
     z-index: 20;
     max-width: 50%;
     border: 1px solid #e7e1e1;
-    -webkit-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
-    -moz-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
-    box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
+    -webkit-box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
+    -moz-box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
+    box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
     height: 395px;
 }
 
@@ -692,11 +692,11 @@
         width: 100%;
         background: #000;
         left: 0;
-        padding: 0px 80px;
+        padding: 0 80px;
         z-index: 100;
-        box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5);
-        -webkit-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5);
-        -moz-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5);
+        box-shadow: 0 4px 4px 0 rgba(126, 126, 126, .5);
+        -webkit-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, .5);
+        -moz-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, .5);
     }
 
         .BloqueLandingRD .fix-search .cantidad_productos_fav {
@@ -751,7 +751,7 @@
     font-weight: 700;
     padding-left: 20px;
     padding-right: 20px;
-    background: url(../../../Images/RevistaDigital/fondo_titulo.png) no-repeat top left;
+    background: url('../../../Images/RevistaDigital/fondo_titulo.png') no-repeat top left;
 }
 
 .marca_ept {
@@ -761,7 +761,7 @@
     padding-left: 7px;
     font-size: 12px;
     float: right;
-    letter-spacing: 0.3px;
+    letter-spacing: .3px;
     margin-left: 10px;
 }
 
@@ -841,12 +841,12 @@
     position: absolute;
     width: 139px;
     height: 100%;
-    background: -moz-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    background: -webkit-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    background: -o-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    background: -ms-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    background: linear-gradient(to right, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    top: 0px;
+    background: -moz-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -webkit-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -o-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -ms-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: linear-gradient(to right, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    top: 0;
     left: -23px;
     transform: skewX(-14deg);
     -moz-transform: skewX(-14deg);
@@ -895,7 +895,7 @@
     text-transform: uppercase;
     width: 100%;
     margin-top: 34px;
-    margin-bottom: 0px;
+    margin-bottom: 0;
     padding: 0 19px;
     font-weight: 300;
 }
@@ -909,7 +909,7 @@
 .cabecera_esikaParaMi, .cabecera_fondo_rojo, .cabecera_content span, .cabecera_boton_inscribeteAEsikaParaMi, .cabecera_boton_inscribeteAEsikaParaMi button, .cabecera_boton_inscribeteAEsikaParaMi span {
     display: block;
     font-family: 'Lato';
-    color: #FFF;
+    color: #fff;
 }
 
     .cabecera_logoMarca, .cabecera_content, .cabecera_boton_inscribeteAEsikaParaMi, .cabecera_boton_inscribeteAEsikaParaMi span a, .imagen_modeloRevistaDigital, .contenido_esikaParaMi {
@@ -925,9 +925,9 @@
 }
 
     .cabecera_esikaParaMi:after {
-        content: "";
+        content: '';
         position: absolute;
-        top: 0px;
+        top: 0;
         width: 300%;
         height: 165px;
         left: 100px;
@@ -939,14 +939,14 @@
     width: 227px;
     height: 165px;
     position: absolute;
-    top: 0px;
+    top: 0;
     left: -25px;
     z-index: 3;
-    background: -moz-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    background: -webkit-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    background: -o-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    background: -ms-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    background: linear-gradient(to right, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -moz-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -webkit-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -o-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -ms-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: linear-gradient(to right, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
     transform: skewX(-14deg);
     -moz-transform: skewX(-14deg);
     -o-transform: skewX(-14deg);
@@ -956,17 +956,17 @@
 
     .cabecera_fondo_rojo:before {
         display: block;
-        content: "";
+        content: '';
         width: 300%;
         height: 165px;
         position: absolute;
-        top: 0px;
+        top: 0;
         left: -454px;
-        background: -moz-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-        background: -webkit-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-        background: -o-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-        background: -ms-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-        background: linear-gradient(to right, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+        background: -moz-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+        background: -webkit-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+        background: -o-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+        background: -ms-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+        background: linear-gradient(to right, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
         z-index: 2;
     }
 
@@ -999,7 +999,7 @@
 
     .cabecera_content span:nth-child(2) {
         font-size: 20px;
-        letter-spacing: 0.4px;
+        letter-spacing: .4px;
         line-height: 27px;
     }
 
@@ -1020,22 +1020,22 @@
 
     .cabecera_boton_inscribeteAEsikaParaMi button {
         background: #FF1534;
-        border: 0px;
+        border: 0;
         width: 256px;
         height: 52px;
-        color: #FFF;
+        color: #fff;
         margin-bottom: 9px;
         position: relative;
-        top: 0px;
-        transition: all 0.3s ease;
-        -moz-transition: all 0.3s ease;
-        -o-transition: all 0.3s ease;
-        -ms-transition: all 0.3s ease;
-        -webkit-transition: all 0.3s ease;
+        top: 0;
+        transition: all .3s ease;
+        -moz-transition: all .3s ease;
+        -o-transition: all .3s ease;
+        -ms-transition: all .3s ease;
+        -webkit-transition: all .3s ease;
     }
 
         .cabecera_boton_inscribeteAEsikaParaMi button:hover, .contenido_fondoDesenfocado button:hover {
-            opacity: 0.8;
+            opacity: .8;
             top: -8px;
         }
 
@@ -1064,7 +1064,7 @@
 .contenido_esikaParaMi {
     font-family: 'Lato';
     color: #000;
-    padding: 60px 0px 0px 0px;
+    padding: 60px 0 0 0;
     position: relative;
     z-index: 2;
 }
@@ -1096,8 +1096,8 @@
     .contenido_comoFuncionaEsikaParaMi h4, .contenido_beneficiosEsikaParaMi h4 {
         display: block;
         font-size: 15px;
-        margin: 0px 0px 14px 0px;
-        padding: 0px;
+        margin: 0 0 14px 0;
+        padding: 0;
         color: #000;
     }
 
@@ -1106,7 +1106,7 @@
 }
 
     .contenido_pasos_comoFunciona:last-child, .contenido_beneficiosEsikaParaMi:last-child {
-        margin-right: 0px;
+        margin-right: 0;
     }
 
     .contenido_pasos_comoFunciona span:first-child {
@@ -1130,7 +1130,7 @@
         color: #DA2621;
         font-size: 45px;
         margin-bottom: 14px;
-        letter-spacing: 0.4px;
+        letter-spacing: .4px;
     }
 
     .contenido_beneficiosEsikaParaMi span:nth-child(2) {
@@ -1146,10 +1146,10 @@
 
 .fondo_sobreContenidoDesenfocado, .fondo_sobreContenidoDesenfocado:before, .fondo_sobreContenidoDesenfocado:after {
     position: absolute;
-    top: 0px;
+    top: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.4);
+    background: rgba(0,0,0,.4);
     z-index: 3;
 }
 
@@ -1158,7 +1158,7 @@
 }
 
     .fondo_sobreContenidoDesenfocado:before, .fondo_sobreContenidoDesenfocado:after {
-        content: "";
+        content: '';
     }
 
     .fondo_sobreContenidoDesenfocado:before {
@@ -1179,7 +1179,7 @@
     display: block;
     margin: 0 auto;
     width: 706px;
-    color: #FFF;
+    color: #fff;
 }
 
     .contenido_fondoDesenfocado span, .contenido_fondoDesenfocado button {
@@ -1209,29 +1209,29 @@
         width: 291px;
         height: 59px;
         border: none;
-        color: #FFF;
+        color: #fff;
         font-family: 'Lato';
         background: #FF1534;
         font-size: 15px;
-        letter-spacing: 0.1px;
+        letter-spacing: .1px;
         position: relative;
-        top: 0px;
-        box-shadow: 10px 10px 10px rgba(0,0,0,0.35);
-        -moz-box-shadow: 10px 10px 10px rgba(0,0,0,0.35);
-        -o-box-shadow: 10px 10px 10px rgba(0,0,0,0.35);
-        -ms-box-shadow: 10px 10px 10px rgba(0,0,0,0.35);
-        -webkit-box-shadow: 10px 10px 10px rgba(0,0,0,0.35);
-        transition: all 0.3s ease;
-        -moz-transition: all 0.3s ease;
-        -o-transition: all 0.3s ease;
-        -ms-transition: all 0.3s ease;
-        -webkit-transition: all 0.3s ease;
+        top: 0;
+        box-shadow: 10px 10px 10px rgba(0,0,0,.35);
+        -moz-box-shadow: 10px 10px 10px rgba(0,0,0,.35);
+        -o-box-shadow: 10px 10px 10px rgba(0,0,0,.35);
+        -ms-box-shadow: 10px 10px 10px rgba(0,0,0,.35);
+        -webkit-box-shadow: 10px 10px 10px rgba(0,0,0,.35);
+        transition: all .3s ease;
+        -moz-transition: all .3s ease;
+        -o-transition: all .3s ease;
+        -ms-transition: all .3s ease;
+        -webkit-transition: all .3s ease;
     }
 
     .contenido_fondoDesenfocado span:last-child {
         font-family: 'Lato';
         font-size: 14px;
-        letter-spacing: 0.4px;
+        letter-spacing: .4px;
         line-height: 18px;
         width: 507px;
         margin: 0 auto;
@@ -1241,7 +1241,7 @@
         .contenido_fondoDesenfocado span:last-child a {
             display: inline-block;
             text-decoration: underline;
-            color: #FFF;
+            color: #fff;
         }
 
 /* POPUP INSCRITA A REVISTA DIGITAL */
@@ -1262,15 +1262,15 @@
     padding: 29px 20px 9px 20px;
     text-align: center;
     font-family: 'Lato';
-    color: #FFF;
+    color: #fff;
     margin: 0 auto;
     width: 100%;
     height: 215px;
-    background: -moz-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    background: -webkit-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    background: -o-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    background: -ms-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    background: linear-gradient(to right, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -moz-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -webkit-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -o-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -ms-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: linear-gradient(to right, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
 }
 
 .contenido_felicitaciones, .contenido_felicitaciones span, .contenido_recuerdaIngresar, .link_entendido {
@@ -1298,7 +1298,7 @@
 
     .contenido_recuerdaIngresar span {
         font-size: 13px;
-        letter-spacing: 0.5px;
+        letter-spacing: .5px;
         line-height: 18px;
     }
 
@@ -1309,7 +1309,7 @@
     height: 43px;
     line-height: 41px;
     font-size: 13px;
-    letter-spacing: 0.4px;
+    letter-spacing: .4px;
 }
 
 /*REVISTA DIGITAL DETALLE DESKTOP */
@@ -1322,10 +1322,10 @@
 
     .revista_ficha .rd_volver {
         font-size: 13px;
-        letter-spacing: 0.5px;
+        letter-spacing: .5px;
         position: absolute;
         top: -20px;
-        transition: all 0.2s ease-in-out;
+        transition: all .2s ease-in-out;
         padding-left: 0;
     }
 
@@ -1339,7 +1339,7 @@
 
         .revista_ficha .rd_volver:hover {
             font-weight: 800;
-            transition: all 0.2s ease-in-out;
+            transition: all .2s ease-in-out;
         }
 
             .revista_ficha .rd_volver:hover .previous_volver {
@@ -1375,7 +1375,7 @@
                 top: 0;
                 width: 0;
                 height: 0;
-                border-left: 0px solid transparent;
+                border-left: 0 solid transparent;
                 border-right: 15px solid transparent;
                 border-top: 35px solid #000;
                 clear: both;
@@ -1391,10 +1391,10 @@
         .revista_ficha .content_revista_ficha_descripcion .descripcion_text .revista_separador {
             font-size: 13px;
             font-weight: 500;
-            letter-spacing: 0.5px;
+            letter-spacing: .5px;
             border-bottom: 1px solid black;
             padding-bottom: 5px;
-            margin: 10px 0px 20px;
+            margin: 10px 0 20px;
             line-height: 15px;
         }
 
@@ -1450,13 +1450,13 @@
 /*QUERIES*/
 @media (max-width: 1189px) {
     .revista_ficha {
-        background-position: -375px 0px !important;
+        background-position: -375px 0 !important;
     }
 }
 
 @media (max-width: 900px) {
     .revista_ficha {
-        background-position: -420px 0px !important;
+        background-position: -420px 0 !important;
     }
 
         .revista_ficha .content_revista_ficha_descripcion {
@@ -1471,12 +1471,12 @@
 
 .rd_logo {
     background: rgba(97,60,135,1);
-    background: -moz-linear-gradient(-45deg, rgba(97,60,135,1) 0%, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
-    background: -webkit-gradient(left top, right bottom, color-stop(0%, rgba(97,60,135,1)), color-stop(31%, rgba(97,60,135,1)), color-stop(100%, rgba(97,60,135,1)));
-    background: -webkit-linear-gradient(-45deg, rgba(97,60,135,1) 0%, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
-    background: -o-linear-gradient(-45deg, rgba(97,60,135,1) 0%, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
-    background: -ms-linear-gradient(-45deg, rgba(97,60,135,1) 0%, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
-    background: linear-gradient(135deg, rgba(97,60,135,1) 0%, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
+    background: -moz-linear-gradient(-45deg, rgba(97,60,135,1) 0, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
+    background: -webkit-gradient(left top, right bottom, color-stop(0, rgba(97,60,135,1)), color-stop(31%, rgba(97,60,135,1)), color-stop(100%, rgba(97,60,135,1)));
+    background: -webkit-linear-gradient(-45deg, rgba(97,60,135,1) 0, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
+    background: -o-linear-gradient(-45deg, rgba(97,60,135,1) 0, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
+    background: -ms-linear-gradient(-45deg, rgba(97,60,135,1) 0, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
+    background: linear-gradient(135deg, rgba(97,60,135,1) 0, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#613c87', endColorstr='#9d071d', GradientType=1 );
     text-align: center;
     position: relative;
@@ -1512,7 +1512,7 @@
 
 .rd_desc {
     position: absolute;
-    letter-spacing: 0.5px;
+    letter-spacing: .5px;
     line-height: 15px;
 }
 
@@ -1526,16 +1526,16 @@
 }
 
     .btn_diagonal:after {
-        content: "";
+        content: '';
         position: absolute;
         top: 0;
         width: 208px;
         height: 298px;
         z-index: -1;
-        transform-origin: 0% 0%;
+        transform-origin: 0 0;
         transform: translateX(calc(20% - 25px)) translateY(10%) rotate(-45deg);
         transform: translateY(40%) translateX(270px) rotate(-75deg);
-        transition: transform 0.5s;
+        transition: transform .5s;
     }
 
     .btn_diagonal:hover::after {
@@ -1547,7 +1547,7 @@
     width: 260px;
     left: 50%;
     margin-left: -130px;
-    border: 0px solid;
+    border: 0 solid;
     color: #fff;
     font-size: 13px;
 }
@@ -1556,19 +1556,19 @@
     background: #613c87;
     width: 220px;
     right: 0;
-    border: 0px solid;
+    border: 0 solid;
     color: #fff;
     font-size: 13px;
 }
 
 .rd_btn_rojo:after {
     background: rgba(97,60,135,1);
-    background: -moz-linear-gradient(-45deg, rgba(97,60,135,1) 0%, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
-    background: -webkit-gradient(left top, right bottom, color-stop(0%, rgba(97,60,135,1)), color-stop(31%, rgba(97,60,135,1)), color-stop(100%, rgba(97,60,135,1)));
-    background: -webkit-linear-gradient(-45deg, rgba(97,60,135,1) 0%, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
-    background: -o-linear-gradient(-45deg, rgba(97,60,135,1) 0%, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
-    background: -ms-linear-gradient(-45deg, rgba(97,60,135,1) 0%, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
-    background: linear-gradient(135deg, rgba(97,60,135,1) 0%, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
+    background: -moz-linear-gradient(-45deg, rgba(97,60,135,1) 0, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
+    background: -webkit-gradient(left top, right bottom, color-stop(0, rgba(97,60,135,1)), color-stop(31%, rgba(97,60,135,1)), color-stop(100%, rgba(97,60,135,1)));
+    background: -webkit-linear-gradient(-45deg, rgba(97,60,135,1) 0, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
+    background: -o-linear-gradient(-45deg, rgba(97,60,135,1) 0, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
+    background: -ms-linear-gradient(-45deg, rgba(97,60,135,1) 0, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
+    background: linear-gradient(135deg, rgba(97,60,135,1) 0, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
 }
 /* fin boton rojo*/
 
@@ -1590,7 +1590,7 @@
     text-align: center;
     text-decoration: none;
     line-height: 45px;
-    transition: all 0.6s ease-in-out;
+    transition: all .6s ease-in-out;
 }
 /*BTN STROKE BLACK*/
 .btn_stroke {
@@ -1658,7 +1658,7 @@
 
             .popup_rd .popup_rd_cabecera .rd_logo:after {
                 border-left: 22px solid transparent;
-                border-right: 0px solid transparent;
+                border-right: 0 solid transparent;
                 border-bottom: 80px solid #000;
             }
 
@@ -1666,7 +1666,7 @@
             color: white;
             font-weight: 300;
             position: absolute;
-            letter-spacing: 0.5px;
+            letter-spacing: .5px;
             left: 230px;
             width: 430px;
             line-height: 18px;
@@ -1699,7 +1699,7 @@
         top: 320px;
         font-size: 12px;
         text-align: center;
-        letter-spacing: 0.5px;
+        letter-spacing: .5px;
         line-height: 15px;
     }
 
@@ -1741,9 +1741,9 @@
     }
 
         .rd_inscripcion .popup_rd_content .btn_diagonal:after {
-            background: -webkit-linear-gradient(top left, #613c87 0%, #613c87 31%, rgb(97,60,135) 100%);
-            background: -o-linear-gradient(top left, #613c87 0%, #613c87 31%, rgb(97,60,135) 100%);
-            background: linear-gradient(to bottom right, #613c87 0%, #613c87 31%, rgb(97,60,135) 100%);
+            background: -webkit-linear-gradient(top left, #613c87 0, #613c87 31%, rgb(97,60,135) 100%);
+            background: -o-linear-gradient(top left, #613c87 0, #613c87 31%, rgb(97,60,135) 100%);
+            background: linear-gradient(to bottom right, #613c87 0, #613c87 31%, rgb(97,60,135) 100%);
         }
 
         .rd_inscripcion .popup_rd_content .btn_diagonal a {
@@ -1785,12 +1785,12 @@
 
     .rd_confirmacion .btn_diagonal a {
         color: black;
-        transition: all 0.2s ease-in-out;
+        transition: all .2s ease-in-out;
     }
 
     .rd_confirmacion .btn_diagonal:hover a {
         color: white;
-        transition: all 0.2s ease-in-out;
+        transition: all .2s ease-in-out;
     }
 
 /*MODIFICACION LANDING*/
@@ -1798,9 +1798,9 @@
     position: relative;
     background: #f6f6f6;
     border-bottom: 2px solid black;
-    -webkit-box-shadow: 0px 3px 7px 0px rgba(0,0,0,0.25);
-    -moz-box-shadow: 0px 3px 7px 0px rgba(0,0,0,0.25);
-    box-shadow: 0px 3px 7px 0px rgba(0,0,0,0.25);
+    -webkit-box-shadow: 0 3px 7px 0 rgba(0,0,0,.25);
+    -moz-box-shadow: 0 3px 7px 0 rgba(0,0,0,.25);
+    box-shadow: 0 3px 7px 0 rgba(0,0,0,.25);
 }
 
 .content_tabs_bpt {
@@ -1932,7 +1932,7 @@
     line-height: 18px;
     float: left;
     margin-top: 20px;
-    LETTER-SPACING: 0.5PX;
+    letter-spacing: .5px;
 }
 
     .bloque_respuesta:last-child {
@@ -2019,8 +2019,8 @@
 }
 
 .box_pregunta_ept .tit_pregunta_ept:after {
-    content: "";
-    background: url(../../../Images/RevistaDigital/Polygon.png) no-repeat right center;
+    content: '';
+    background: url('../../../Images/RevistaDigital/Polygon.png') no-repeat right center;
     right: 0;
     top: 20px;
     position: absolute;
@@ -2030,8 +2030,8 @@
 }
 
 .box_pregunta_ept2 .tit_pregunta_ept2:after {
-    content: "";
-    background: url(../../../Images/RevistaDigital/Polygon.png) no-repeat right center;
+    content: '';
+    background: url('../../../Images/RevistaDigital/Polygon.png') no-repeat right center;
     right: 0;
     top: 20px;
     position: absolute;
@@ -2080,7 +2080,7 @@
     margin-bottom: 30px;
     width: 63%;
     text-align: center;
-    letter-spacing: 0.4px;
+    letter-spacing: .4px;
 }
 
 .btn_cancelar_inscripcion {
@@ -2099,18 +2099,18 @@
 
 
 .rd_ver_mas:hover {
-    transition: all 0.2s ease-in-out;
+    transition: all .2s ease-in-out;
 }
 
 .rd_ver_mas:after {
-    background-image: url(../../../Images/RevistaDigital/rd_arrowright.png);
+    background-image: url('../../../Images/RevistaDigital/rd_arrowright.png');
     background-repeat: no-repeat;
     background-size: 6px 8px;
     display: inline-block;
     width: 6px;
     position: absolute;
     height: 10px;
-    content: "";
+    content: '';
     margin-left: 8px;
     margin-top: 4px;
     z-index: 10;
@@ -2151,10 +2151,10 @@
         .ol_detalle > li:before {
             display: inline-block;
             width: 1.5em;
-            padding-right: 0.5em;
+            padding-right: .5em;
             font-weight: bold;
             text-align: right;
-            content: counter(item) ".";
+            content: counter(item) '.';
         }
 
 /*TRANSITIONS*/
@@ -2239,7 +2239,7 @@
 
     .home_block_rd .rd_logo:after {
         border-left: 30px solid transparent;
-        border-right: 0px solid transparent;
+        border-right: 0 solid transparent;
         border-bottom: 120px solid #000;
     }
 
@@ -2296,9 +2296,9 @@
 
 .content_item_home_bpt {
     background: white;
-    -webkit-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
-    -moz-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
-    box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
+    -webkit-box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
+    -moz-box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
+    box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
     position: relative;
 }
 
@@ -2309,7 +2309,7 @@
     position: relative;
     background-color: #F6F6F6;
     height: auto;
-    box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px 8px rgba(0, 0, 0, .2);
     margin-bottom: 20px;
 }
 
@@ -2327,12 +2327,12 @@
             width: 79%;
             margin: auto;
             display: block;
-            padding: 5px 5px 10px 0px;
+            padding: 5px 5px 10px 0;
         }
 
         .cabecera_pedido_rd .rd_logo:after {
             border-left: 20px solid transparent;
-            border-right: 0px solid transparent;
+            border-right: 0 solid transparent;
             border-bottom: 85px solid #000;
         }
 
@@ -2347,7 +2347,7 @@
     top: 15px;
     left: 40%;
     font-weight: 700;
-    letter-spacing: 0.5px;
+    letter-spacing: .5px;
     line-height: 18px;
     font-size: 14px;
     text-transform: uppercase;
@@ -2382,7 +2382,7 @@
 
     .banner_pedido_masofertas .btn_diagonal a {
         color: black;
-        transition: all 0.2s ease-in-out;
+        transition: all .2s ease-in-out;
         font-size: 13px;
         letter-spacing: 1.2px;
         position: relative;
@@ -2391,7 +2391,7 @@
 
     .banner_pedido_masofertas .btn_diagonal:hover a {
         color: white;
-        transition: all 0.2s ease-in-out;
+        transition: all .2s ease-in-out;
     }
 
         .banner_pedido_masofertas .btn_diagonal:hover a .rd_arrowright {
@@ -2410,11 +2410,11 @@
     }
 
 .home_rd1 {
-    background-color: #FFF;
+    background-color: #fff;
 }
 
     .home_rd1 .content_belcorp {
-        box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 5px 8px rgba(0, 0, 0, .2);
     }
 
     .home_rd1 .btn_diagonal {
@@ -2426,14 +2426,14 @@
     }
 
         .home_rd1 .btn_diagonal:after {
-            background: -webkit-linear-gradient(top left, #613c87 0%, #613c87 31%, rgb(97,60,135) 100%);
-            background: -o-linear-gradient(top left, #613c87 0%, #613c87 31%, rgb(97,60,135) 100%);
-            background: linear-gradient(to bottom right, #613c87 0%, #613c87 31%, rgb(97,60,135) 100%);
+            background: -webkit-linear-gradient(top left, #613c87 0, #613c87 31%, rgb(97,60,135) 100%);
+            background: -o-linear-gradient(top left, #613c87 0, #613c87 31%, rgb(97,60,135) 100%);
+            background: linear-gradient(to bottom right, #613c87 0, #613c87 31%, rgb(97,60,135) 100%);
         }
 
         .home_rd1 .btn_diagonal a {
             color: black;
-            transition: all 0.2s ease-in-out;
+            transition: all .2s ease-in-out;
             font-size: 13px;
             letter-spacing: 1.2px;
             position: relative;
@@ -2443,7 +2443,7 @@
 
         .home_rd1 .btn_diagonal:hover a {
             color: white;
-            transition: all 0.2s ease-in-out;
+            transition: all .2s ease-in-out;
         }
 
             .home_rd1 .btn_diagonal:hover a .rd_arrowright, .home_rd1 .btn_diagonal:hover a .rd_arrowright_blanco {
@@ -2483,14 +2483,14 @@
     }
 
         .home_rd .btn_diagonal:after {
-            background: -webkit-linear-gradient(top left, #613c87 0%, #613c87 31%, rgb(97,60,135) 100%);
-            background: -o-linear-gradient(top left, #613c87 0%, #613c87 31%, rgb(97,60,135) 100%);
-            background: linear-gradient(to bottom right, #613c87 0%, #613c87 31%, rgb(97,60,135) 100%);
+            background: -webkit-linear-gradient(top left, #613c87 0, #613c87 31%, rgb(97,60,135) 100%);
+            background: -o-linear-gradient(top left, #613c87 0, #613c87 31%, rgb(97,60,135) 100%);
+            background: linear-gradient(to bottom right, #613c87 0, #613c87 31%, rgb(97,60,135) 100%);
         }
 
         .home_rd .btn_diagonal a {
             color: black;
-            transition: all 0.2s ease-in-out;
+            transition: all .2s ease-in-out;
             font-size: 13px;
             letter-spacing: 1.2px;
             position: relative;
@@ -2500,7 +2500,7 @@
 
         .home_rd .btn_diagonal:hover a {
             color: white;
-            transition: all 0.2s ease-in-out;
+            transition: all .2s ease-in-out;
         }
 
             .home_rd .btn_diagonal:hover a .rd_arrowright, .home_rd .btn_diagonal:hover a .rd_arrowright_blanco {
@@ -2609,22 +2609,22 @@
         line-height: 20px;
         color: black;
         text-decoration: none;
-        transition: all 0.2s ease-in-out;
+        transition: all .2s ease-in-out;
         text-transform: uppercase;
     }
 
     .popup_rd_bloqueado a {
-        transition: all 0.2s ease-in-out;
+        transition: all .2s ease-in-out;
     }
 
         .popup_rd_bloqueado a:hover {
             font-weight: 700;
-            transition: all 0.2s ease-in-out;
+            transition: all .2s ease-in-out;
         }
 
     .popup_rd_bloqueado .rd_ver_mas:after {
-        content: "";
-        background-image: url(../../../Images/RevistaDigital/rd_arrowright.png);
+        content: '';
+        background-image: url('../../../Images/RevistaDigital/rd_arrowright.png');
         background-repeat: no-repeat;
         background-size: 8px 12px;
         display: inline-block;
@@ -2646,7 +2646,7 @@
     float: left;
     background: white;
     padding: 20px;
-    border-right: 1px solid rgba(0, 0, 0, 0.12);
+    border-right: 1px solid rgba(0, 0, 0, .12);
 }
 
     #bc_promo .bc_promo_contenido {
@@ -2662,16 +2662,16 @@
             text-decoration: none;
             color: black;
             border-bottom: 2px solid white;
-            letter-spacing: 0.75pt;
+            letter-spacing: .75pt;
             text-align: center;
-            padding: 0px 50px;
+            padding: 0 50px;
             margin-bottom: 5px;
         }
 
         #bc_promo .bc_promo_contenido a.btn-descubre {
             background: black;
             color: white;
-            letter-spacing: 0.75pt;
+            letter-spacing: .75pt;
             font-family: 'lato';
             font-weight: 700;
             font-size: 10px;
@@ -2691,7 +2691,7 @@
             font-size: 10px;
             text-decoration: none;
             color: black;
-            letter-spacing: 0.75pt;
+            letter-spacing: .75pt;
             text-align: center;
             display: block;
             text-align: center;
@@ -2745,12 +2745,12 @@
             font-size: 10px;
             text-decoration: none;
             color: black;
-            letter-spacing: 0.75pt;
+            letter-spacing: .75pt;
             text-align: center;
             display: block;
             text-align: left;
             width: 100%;
-            padding: 0px 22px;
+            padding: 0 22px;
             margin-bottom: 10px;
         }
 
@@ -2764,10 +2764,10 @@
             width: 100% !important;
             overflow: hidden !important;
             display: inline-block !important;
-            margin-right: 0% !important;
-            margin-left: 0% !important;
-            padding-bottom: 0px !important;
-            margin-bottom: 0px !important;
+            margin-right: 0 !important;
+            margin-left: 0 !important;
+            padding-bottom: 0 !important;
+            margin-bottom: 0 !important;
         }
 
         .bc_productos .bc_productos_contenido .grid-item--width2 {
@@ -2794,7 +2794,7 @@
     position: relative;
     height: 135px;
     text-align: center;
-    margin: 10px 10px 0px 10px;
+    margin: 10px 10px 0 10px;
 }
 
     .producto_img_home_bpt img {
@@ -2812,14 +2812,14 @@
     padding-right: 16px;
     height: auto;
     font-family: 'Lato';
-    letter-spacing: 0.2px;
+    letter-spacing: .2px;
     text-align: center;
     position: relative;
 }
 
     .producto_nombre_descripcion_bpt h6 {
-        margin: 0px;
-        padding: 0px;
+        margin: 0;
+        padding: 0;
         font-size: 11px;
         color: #000;
         margin-bottom: 2px;
@@ -2845,13 +2845,13 @@
     padding-left: 16px;
     padding-right: 16px;
     font-family: 'Lato';
-    letter-spacing: 0.2px;
+    letter-spacing: .2px;
     color: #000;
 }
 
 
 .block_inscribete_predio {
-    margin: 15px 0px;
+    margin: 15px 0;
 }
 
 .rd-fitlros-fix {
@@ -2866,7 +2866,7 @@
 
 .rd-seccion2 {
     width: 100%;
-    padding: 0px 6%;
+    padding: 0 6%;
     height: 75px;
 }
 
@@ -2921,7 +2921,7 @@
         height: auto;
         float: initial;
         height: 80px;
-        background: url(../../../Images/Lbel/logotipo-club-ganamas-morado.svg);
+        background: url('../../../Images/Lbel/logotipo-club-ganamas-morado.svg');
         background-size: cover;
         background-position: center center;
     }
@@ -2931,7 +2931,7 @@
         text-align: center;
         font-weight: bold;
         font-size: 17px;
-        letter-spacing: 0.5px;
+        letter-spacing: .5px;
         margin-bottom: 50px;
     }
 
@@ -2969,14 +2969,14 @@
         text-align: center;
         color: white;
         font-weight: 600;
-        letter-spacing: 0.5;
+        letter-spacing: .5;
         font-size: 17px;
         margin-top: 0;
         margin-bottom: 5px;
     }
 
     .gana-mas span.txt-bloque {
-        letter-spacing: 0.5px;
+        letter-spacing: .5px;
         font-size: 13px;
         color: white;
         font-weight: 300;
@@ -2999,7 +2999,7 @@
     .gana-mas .txt-img-cont-uno {
         width: 250px;
         height: 80px !important;
-        background: url(../../../Images/Lbel/personalizacion-visual-desktop.gif);
+        background: url('../../../Images/Lbel/personalizacion-visual-desktop.gif');
         background-size: cover;
         background-position: center center;
     }
@@ -3007,7 +3007,7 @@
     .gana-mas .txt-img-cont-dos {
         width: 250px;
         height: 80px !important;
-        background: url(../../../Images/no-mas-codigo-visual-desktop.png);
+        background: url('../../../Images/no-mas-codigo-visual-desktop.png');
         background-size: cover;
         background-position: center center;
     }
@@ -3015,7 +3015,7 @@
     .gana-mas .txt-img-cont-tres {
         width: 250px;
         height: 80px !important;
-        background: url(../../../Images/Lbel/consejos-y-tips-visual.png);
+        background: url('../../../Images/Lbel/consejos-y-tips-visual.png');
         background-size: 100%;
         background-position: center center;
         background-repeat: no-repeat;
@@ -3023,7 +3023,7 @@
 
     .gana-mas img.img-referencial {
         max-width: 200px !important;
-        margin: 15px 0px 0px 0px;
+        margin: 15px 0 0 0;
     }
 
     .gana-mas .clear {
@@ -3042,7 +3042,7 @@
         margin: auto;
         width: 20px;
         height: 26px !important;
-        background: url(../../../Images/Lbel/Triangle.svg);
+        background: url('../../../Images/Lbel/Triangle.svg');
         background-size: contain;
         background-position: center center;
         background-repeat: no-repeat;
@@ -3054,7 +3054,7 @@
         text-align: center;
         font-weight: bold;
         font-size: 17px;
-        letter-spacing: 0.5px;
+        letter-spacing: .5px;
         margin-top: 10px !important;
         padding-top: 0;
         margin-bottom: 20px;
@@ -3063,7 +3063,7 @@
     .como-funciona .caja-texto {
         width: 60%;
         float: left;
-        padding: 20px 0px;
+        padding: 20px 0;
     }
 
         .como-funciona .caja-texto span.nro {
@@ -3077,7 +3077,7 @@
 
         .como-funciona .caja-texto span.txt {
             float: left;
-            letter-spacing: 0.5px;
+            letter-spacing: .5px;
             text-align: left;
             margin-bottom: 20px;
             font-size: 15px;
@@ -3097,7 +3097,7 @@
         }
 
         .como-funciona .caja-img .visual-funcionamiento {
-            background: url(/Content/Images/Esika/visual-de-funcionamiento.png);
+            background: url('/Content/Images/Esika/visual-de-funcionamiento.png');
             width: 250px;
             height: 278px;
             background-repeat: no-repeat;
@@ -3118,7 +3118,7 @@
     .como-funciona span.recuerda-txt {
         color: #613c87;
         font-weight: 700;
-        letter-spacing: 0.5px !important;
+        letter-spacing: .5px !important;
         text-transform: uppercase;
         margin-left: -8px;
         font-weight: 700;
@@ -3170,12 +3170,12 @@
         text-align: center;
         color: white;
         text-decoration: none;
-        padding: 17px 0px;
+        padding: 17px 0;
         width: 330px;
         letter-spacing: 1px;
         font-weight: bold;
         font-size: 17px;
-        box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.30);
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .3);
         margin-top: 50px;
         margin-bottom: 30px;
     }
@@ -3194,7 +3194,7 @@
         text-align: center;
         display: block;
         margin-bottom: 20px;
-        letter-spacing: 0.5px;
+        letter-spacing: .5px;
         font-size: 15px;
         color: #613c87;
         font-weight: 700;
@@ -3206,7 +3206,7 @@
         text-align: center;
         padding: 0 20px;
         font-size: 13px;
-        letter-spacing: 0.5px;
+        letter-spacing: .5px;
         margin-top: 20px;
     }
 
@@ -3225,7 +3225,7 @@
 
     .preguntas-frecuentes-cont-sus span.titulo-p-frecuente {
         font-size: 17px;
-        letter-spacing: 0.5px;
+        letter-spacing: .5px;
         display: block;
         text-align: center;
         margin-top: 40px;
@@ -3233,7 +3233,7 @@
     }
 
     .preguntas-frecuentes-cont-sus .contenedor-mobile-fix {
-        padding: 0px 25px;
+        padding: 0 25px;
     }
 
         .preguntas-frecuentes-cont-sus .contenedor-mobile-fix p {
@@ -3241,7 +3241,7 @@
             color: black;
             font-size: 13px;
             padding: 10px 15px;
-            box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .2);
             text-align: left;
             margin-bottom: 0;
             position: relative;
@@ -3297,19 +3297,19 @@
                 font-weight: bolder;
                 margin-bottom: 5pt;
                 display: block;
-                letter-spacing: 0.5px;
+                letter-spacing: .5px;
                 margin-top: 15px;
             }
 
             .preguntas-frecuentes-cont-sus ul.preg-frecuentes ul span {
                 display: block;
-                letter-spacing: 0.5px;
+                letter-spacing: .5px;
                 line-height: 17px;
                 text-align: left;
             }
 
     .preguntas-frecuentes-cont-sus a.descargar {
-        letter-spacing: 0.5px;
+        letter-spacing: .5px;
         display: block;
         text-align: left;
         color: black;

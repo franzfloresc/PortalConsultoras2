@@ -5,8 +5,8 @@
 
 /************************** Tags ***************************/
 body {
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     font-family: museo-sans, sans-serif;
 }
 
@@ -434,10 +434,10 @@ img {
 
 #white_bg_for_menu {
     position: absolute;
-    width: 0px;
+    width: 0;
     height: 100px;
-    top: 0px;
-    right: 0px;
+    top: 0;
+    right: 0;
 }
 
 #wrap_header_menu {
@@ -445,7 +445,7 @@ img {
     height: 100px;
     text-transform: uppercase;
     max-width: 1280px;
-    margin: 0px auto;
+    margin: 0 auto;
     height: 100px;
     min-width: 960px;
     background-color: white;
@@ -461,7 +461,7 @@ img {
     background-color: #758692;
     height: 30px;
     font-size: 11px;
-    color: #FFFFFF;
+    color: #fff;
     padding-left: 10px;
 }
 
@@ -469,7 +469,7 @@ img {
     background: #758692;
     height: 21px;
     font-size: 11px;
-    color: #FFFFFF;
+    color: #fff;
     padding-right: 20px;
     padding-top: 9px;
     text-align: right;
@@ -556,19 +556,19 @@ img {
 }
 
 .cbp-fwslider {
-    padding: 0px !important;
+    padding: 0 !important;
     clear: both;
 }
 
 .banner_imagen {
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
     z-index: 0;
 }
 
 
 #slides_inscripcion {
-    background-image: url("/Content/Images/ConsultoraOnline/bg_body.png");
+    background-image: url('/Content/Images/ConsultoraOnline/bg_body.png');
     background-size: cover;
     background-position: right;
     width: 100%;
@@ -598,14 +598,14 @@ img {
 #wrap_menu_principal {
     color: #993399;
     height: 70px;
-    margin-top: 0px;
+    margin-top: 0;
 }
 
 #menu {
-    background-color: #FFF;
+    background-color: #fff;
     float: left;
-    margin-left: 0%;
-    margin-right: 0%;
+    margin-left: 0;
+    margin-right: 0;
     position: relative;
     width: 100%;
     height: 70px;
@@ -618,10 +618,10 @@ img {
     }
 
         #menu > li {
-            border-bottom: 0px solid transparent;
+            border-bottom: 0 solid transparent;
             color: #993399;
             float: left;
-            margin-bottom: 0px;
+            margin-bottom: 0;
             text-align: left;
             -moz-transition: color 250ms ease-in-out 0s;
             -ms-transition: color 250ms ease-in-out 0s;
@@ -657,7 +657,7 @@ img {
 
             #menu > li:hover {
                 background-color: #E7EBE9;
-                background: rgba(231, 235, 233, 0.95);
+                background: rgba(231, 235, 233, .95);
                 border-top: 5px solid #d226aa;
                 height: 58px;
                 padding-bottom: 7px;
@@ -665,7 +665,7 @@ img {
 
 .li_selected {
     background-color: #E7EBE9;
-    background: rgba(231, 235, 233, 0.95);
+    background: rgba(231, 235, 233, .95);
     border-top: 5px solid #d226aa;
     height: 58px !important;
     padding-bottom: 7px;
@@ -673,7 +673,7 @@ img {
 
 #menu .menu_item_selected {
     background-color: #E7EBE9;
-    background: rgba(231, 235, 233, 0.55);
+    background: rgba(231, 235, 233, .55);
     border-top: 5px solid #d226aa;
     height: 58px;
     padding-bottom: 7px;
@@ -688,14 +688,14 @@ img {
 
 .submenu {
     background-color: #E7EBE9;
-    background-color: rgba(231, 235, 233, 0.95);
+    background-color: rgba(231, 235, 233, .95);
     color: #333333;
     height: auto;
     display: none;
     opacity: 0;
     padding: 2% 1%;
     position: absolute;
-    left: 0px;
+    left: 0;
     top: 100px;
     width: 100%;
     max-width: 1280px;
@@ -716,7 +716,7 @@ img {
         .submenu > ul > li {
             display: inline-block;
             vertical-align: top;
-            margin: 0px;
+            margin: 0;
         }
 
             .submenu > ul > li a {
@@ -734,7 +734,7 @@ img {
 
 .submenu > ul > li ul > li {
     float: none;
-    padding: 3px 0px;
+    padding: 3px 0;
     -moz-transition: padding 150ms ease-out 0s;
     -ms-transition: padding 150ms ease-out 0s;
     -o-transition: padding 150ms ease-out 0s;
@@ -778,13 +778,13 @@ img {
     height: 21px;
     padding-left: 22px;
     padding-top: 3px;
-    background-image: url(../../images/comunidad/box-01.png);
+    background-image: url('../../images/comunidad/box-01.png');
     background-repeat: no-repeat;
     transition: background-image 250ms ease;
 }
 
     #wrap_box:hover {
-        background-image: url(../../images/comunidad/box-02.png);
+        background-image: url('../../images/comunidad/box-02.png');
     }
 
 .item_selected {
@@ -817,7 +817,7 @@ img {
     background-color: #758692;
     color: #ffffff;
     text-transform: uppercase;
-    bottom: 0px;
+    bottom: 0;
     min-width: 960px;
     padding: 14px 30px;
     padding-bottom: 1px;
@@ -866,7 +866,7 @@ img {
     background-color: #758692;
     color: #ffffff;
     text-transform: uppercase;
-    bottom: 0px;
+    bottom: 0;
     min-width: 960px;
     padding: 14px 30px;
     text-align: left;
@@ -922,8 +922,8 @@ img {
 
     #menu .submenu > ul > li li {
         float: none;
-        padding: 3px 0px;
-        font-size: 0.9em;
+        padding: 3px 0;
+        font-size: .9em;
     }
 
     .parrafocont {
@@ -934,7 +934,7 @@ img {
 
 @media screen and (min-width: 1400px) {
     .footer_margin_text {
-        margin-top: 0px;
+        margin-top: 0;
     }
 }
 
@@ -999,7 +999,10 @@ img {
 @font-face {
     font-family: 'museo_sans_900regular';
     src: url('../../fonts/museo/museosans_900-webfont.eot');
-    src: url('../../fonts/museo/museosans_900-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/museo/museosans_900-webfont.woff') format('woff'), url('../../fonts/museo/museosans_900-webfont.ttf') format('truetype'), url('../../fonts/museo/museosans_900-webfont.svg#museo_sans_900regular') format('svg');
+    src: url('../../fonts/museo/museosans_900-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../../fonts/museo/museosans_900-webfont.woff') format('woff'),
+        url('../../fonts/museo/museosans_900-webfont.ttf') format('truetype'),
+        url('../../fonts/museo/museosans_900-webfont.svg#museo_sans_900regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -1007,7 +1010,10 @@ img {
 @font-face {
     font-family: 'museo_sans_700regular';
     src: url('../../fonts/museo/museosans_700-webfont.eot');
-    src: url('../../fonts/museo/museosans_700-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/museo/museosans_700-webfont.woff') format('woff'), url('../../fonts/museo/museosans_700-webfont.ttf') format('truetype'), url('../../fonts/museo/museosans_700-webfont.svg#museo_sans_700regular') format('svg');
+    src: url('../../fonts/museo/museosans_700-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../../fonts/museo/museosans_700-webfont.woff') format('woff'),
+        url('../../fonts/museo/museosans_700-webfont.ttf') format('truetype'),
+        url('../../fonts/museo/museosans_700-webfont.svg#museo_sans_700regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -1015,7 +1021,10 @@ img {
 @font-face {
     font-family: 'museo_sans_500regular';
     src: url('../../fonts/museo/museosans_500-webfont.eot');
-    src: url('../../fonts/museo/museosans_500-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/museo/museosans_500-webfont.woff') format('woff'), url('../../fonts/museo/museosans_500-webfont.ttf') format('truetype'), url('../../fonts/museo/museosans_500-webfont.svg#museo_sans_900regular') format('svg');
+    src: url('../../fonts/museo/museosans_500-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../../fonts/museo/museosans_500-webfont.woff') format('woff'),
+        url('../../fonts/museo/museosans_500-webfont.ttf') format('truetype'),
+        url('../../fonts/museo/museosans_500-webfont.svg#museo_sans_900regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -1023,7 +1032,10 @@ img {
 @font-face {
     font-family: 'museo_300regular';
     src: url('../../fonts/museo/museo300-regular-webfont.eot');
-    src: url('../../fonts/museo/museo300-regular-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/museo/museo300-regular-webfont.woff') format('woff'), url('../../fonts/museo/museo300-regular-webfont.ttf') format('truetype'), url('../../fonts/museo/museo300-regular-webfont.svg#museo_300regular') format('svg');
+    src: url('../../fonts/museo/museo300-regular-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../../fonts/museo/museo300-regular-webfont.woff') format('woff'),
+        url('../../fonts/museo/museo300-regular-webfont.ttf') format('truetype'),
+        url('../../fonts/museo/museo300-regular-webfont.svg#museo_300regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -1031,7 +1043,10 @@ img {
 @font-face {
     font-family: 'museo_sans_100regular';
     src: url('../../fonts/museo/museosans-100-webfont.eot');
-    src: url('../../fonts/museo/museosans-100-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/museo/museosans-100-webfont.woff') format('woff'), url('../../fonts/museo/museosans-100-webfont.ttf') format('truetype'), url('../../fonts/museo/museosans-100-webfont.svg#museo_sans_100regular') format('svg');
+    src: url('../../fonts/museo/museosans-100-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../../fonts/museo/museosans-100-webfont.woff') format('woff'),
+        url('../../fonts/museo/museosans-100-webfont.ttf') format('truetype'),
+        url('../../fonts/museo/museosans-100-webfont.svg#museo_sans_100regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -1049,7 +1064,7 @@ img {
     height: 598px;
     width: 435px;
     background-color: white;
-    background-color: rgba(255,255,255,0.5);
+    background-color: rgba(255,255,255,.5);
     padding: 20px 32px 10px;
     box-sizing: border-box;
     font-size: 12px;
@@ -1060,7 +1075,7 @@ img {
         font-size: 18px;
         color: #722789;
         font-weight: 300 !important;
-        margin: 0px 0px 5px;
+        margin: 0 0 5px;
     }
 
         .inscribir_consultora h2 strong {
@@ -1092,7 +1107,7 @@ img {
     font-size: 28px;
     color: #722789;
     font-weight: 300 !important;
-    margin: 0px 0px 5px;
+    margin: 0 0 5px;
 }
 
     .cont_activate h2 strong {
@@ -1135,7 +1150,7 @@ img {
         font-size: 23.5px;
         color: #722789;
         font-weight: 500;
-        margin: 0px 0px 5px;
+        margin: 0 0 5px;
     }
 
 .cont_pasos {
@@ -1175,7 +1190,7 @@ img {
 }
 
 .cont_mas_preguntas {
-    background-image: url("/Content/Images/ConsultoraOnline/bg_mas_preguntas.jpg");
+    background-image: url('/Content/Images/ConsultoraOnline/bg_mas_preguntas.jpg');
     background-size: cover;
     height: auto;
     overflow: hidden;
@@ -1193,11 +1208,11 @@ img {
         width: 100%;
         position: relative;
         float: left;
-        margin: 130px 0px 55px;
+        margin: 130px 0 55px;
     }
 
 .cont_pregunta {
-    background-color: #FFFFFF;
+    background-color: #fff;
     width: 277px;
     height: 368px;
     position: relative;
@@ -1226,7 +1241,7 @@ img {
 }
 
 .banner_pedidos {
-    background-image: url("/Content/Images/ConsultoraOnline/banner_pedidos.jpg");
+    background-image: url('/Content/Images/ConsultoraOnline/banner_pedidos.jpg');
     background-size: 100%;
     min-height: 238px;
     width: 100%;
@@ -1238,7 +1253,7 @@ img {
 }
 
 .banner_bienvenida {
-    background-image: url("/Content/Images/ConsultoraOnline/bg_bienvenida.jpg");
+    background-image: url('/Content/Images/ConsultoraOnline/bg_bienvenida.jpg');
     background-size: 100%;
     min-height: 240px;
     width: 100%;
@@ -1262,7 +1277,7 @@ img {
         font-size: 24px;
         color: #722789;
         font-weight: 300;
-        margin: 15px 0px 5px;
+        margin: 15px 0 5px;
     }
 
         .text_bienvenida h2 strong {
@@ -1334,7 +1349,7 @@ img {
     font-size: 14px;
     padding-top: 47px !important;
     box-sizing: border-box;
-    padding: 0px 2% 20px 0px;
+    padding: 0 2% 20px 0;
 }
 
     .cont_pedido h2 {
@@ -1371,7 +1386,7 @@ img {
 }
 
 .cont_mas_clientes {
-    background-image: url("/Content/Images/ConsultoraOnline/bg_consejos.png");
+    background-image: url('/Content/Images/ConsultoraOnline/bg_consejos.png');
     background-position: right;
     background-repeat: no-repeat;
     min-height: 510px;
@@ -1383,11 +1398,11 @@ img {
     .cont_mas_clientes p {
         width: 70%;
         max-width: 513px;
-        margin: 5px 0px 30px;
+        margin: 5px 0 30px;
     }
 
     .cont_mas_clientes strong {
-        margin: 10px 0px 13px;
+        margin: 10px 0 13px;
         color: #405160;
         font-weight: 700;
         font-size: 16px;
@@ -1404,7 +1419,7 @@ img {
     position: relative;
     float: left;
     font-size: 14px;
-    padding: 47px 0px 40px;
+    padding: 47px 0 40px;
     box-sizing: border-box;
 }
 
@@ -1433,7 +1448,7 @@ img {
     height: 156px;
     position: relative;
     clear: both;
-    margin: 0px auto;
+    margin: 0 auto;
     border-radius: 80px;
 }
 
@@ -1468,7 +1483,7 @@ img {
     color: #415261;
     font-size: 13px;
     font-weight: 700;
-    padding: 0px;
+    padding: 0;
 }
 
     .lista_datos li {
@@ -1490,7 +1505,7 @@ img {
     color: #415261;
     font-size: 13px;
     font-weight: 700;
-    padding: 0px 0px 0px 10px;
+    padding: 0 0 0 10px;
 }
 
     .lista_datos_respuesta li {
@@ -1510,7 +1525,7 @@ img {
     color: #415261;
     font-size: 13px;
     font-weight: 700;
-    padding: 0px 0px 0px 10px;
+    padding: 0 0 0 10px;
 }
 
     .lista_datos_respuesta_ver li {
@@ -1537,7 +1552,7 @@ img {
 
 .con_notificacion {
     max-width: 920px;
-    margin: 0px auto 20px;
+    margin: 0 auto 20px;
 }
 
 .text_notificacion {
@@ -1546,8 +1561,8 @@ img {
     background-color: #f2f2f2;
     position: relative;
     float: left;
-    margin: 0px;
-    padding: 14px 24px 0px 15px;
+    margin: 0;
+    padding: 14px 24px 0 15px;
     box-sizing: border-box;
     color: #768ea3;
     font-size: 16px;
@@ -1590,7 +1605,7 @@ img {
     .menu_paginacion li {
         position: relative;
         float: left;
-        margin: 0px 5px;
+        margin: 0 5px;
     }
 
 .btn_correo_direc {
@@ -1605,7 +1620,7 @@ img {
     box-sizing: border-box;
     max-width: 246px;
     left: -285px;
-    top: 0px;
+    top: 0;
 }
 
 .ic_pregunta {
@@ -1636,14 +1651,14 @@ img {
 .mensaje_notificacion {
     max-width: 170px;
     position: relative;
-    margin: 20px auto 0px;
+    margin: 20px auto 0;
     text-align: center;
 }
 
 .boton_morado_2 {
     background-color: #722789;
     color: #fff !important;
-    border: 0px;
+    border: 0;
     border-radius: 20px;
     padding: 10px 30px;
     font-size: 12px;
@@ -1659,7 +1674,7 @@ img {
     font-size: 12px;
     font-weight: 300;
     border: 1px solid #712788;
-    margin: 0px auto;
+    margin: 0 auto;
     max-width: 125px;
     background-color: transparent;
     box-sizing: border-box;
@@ -1673,7 +1688,7 @@ img {
     width: 100%;
     position: relative;
     float: left;
-    border-spacing: 0px;
+    border-spacing: 0;
     font-size: 12px;
     font-weight: 600;
     color: #415261;
@@ -1734,7 +1749,7 @@ img {
 
 .tsm input {
     width: 100%;
-    padding: 0px 8px;
+    padding: 0 8px;
     height: 34px;
     position: relative;
     float: left;
@@ -1761,7 +1776,7 @@ img {
     width: 20px;
     height: 20px;
     border: 1px solid #768ea3;
-    border-radius: 0px;
+    border-radius: 0;
     background-color: #fff;
 }
 
@@ -1774,51 +1789,51 @@ img {
 }
 
 .tsm input[type=radio] + label:before {
-    content: "";
+    content: '';
     display: inline-block;
     width: 18px;
     height: 18px;
     vertical-align: middle;
     margin-right: 8px;
-    background-color: #FFF;
+    background-color: #fff;
     border-radius: 8px;
     border: 1px solid #768ea3;
     box-sizing: border-box;
 }
 
 .ie8 .tsm input[type=radio] + label:before {
-    width: 0px !important;
+    width: 0 !important;
     border: none !important;
 }
 
 .tsm input[type=checkbox] + label:before {
-    content: "";
+    content: '';
     display: inline-block;
     width: 12px;
     height: 12px;
     vertical-align: middle;
     margin-right: 8px;
-    background-color: #FFF;
+    background-color: #fff;
     border-radius: 4px;
     border: 1px solid #5B6F7B;
 }
 
 .tsm input[type=radio]:checked + label:before {
-    content: "";
+    content: '';
     color: transparent;
-    background-color: #FFF;
+    background-color: #fff;
     font-size: 1.8em;
     text-align: center;
     line-height: 14px;
-    background-image: url(/Content/Images/ConsultoraOnline/ic_aceptar.png);
+    background-image: url('/Content/Images/ConsultoraOnline/ic_aceptar.png');
     background-size: 18px;
     border: none;
 }
 
 .tsm input[type=checkbox]:checked + label:before {
-    content: "\2714";
+    content: '\2714';
     color: #BB378D;
-    background-color: #FFF;
+    background-color: #fff;
     text-align: center;
     line-height: 12px;
     border: 1px solid #5B6F7B;
@@ -1847,7 +1862,7 @@ button {
 .boton_morado {
     background-color: #722789;
     color: #fff !important;
-    border: 0px;
+    border: 0;
     border-radius: 20px;
     padding: 10px 40px;
     font-size: 12px;
@@ -2086,7 +2101,7 @@ button {
 
     #modal_aceptar_pedido table tr td {
         color: #415261 !important;
-        padding: 15px 0px;
+        padding: 15px 0;
     }
 
     #modal_aceptar_pedido .comment {
@@ -2124,7 +2139,7 @@ button {
     }
 
     #modal_cancelar_pedido .fuzemodal_buttons {
-        padding-bottom: 0px;
+        padding-bottom: 0;
     }
 
     #modal_cancelar_pedido textarea {
@@ -2175,9 +2190,9 @@ button {
     position: relative;
     float: left;
     font-size: 14px;
-    padding-top: 0px !important;
+    padding-top: 0 !important;
     box-sizing: border-box;
-    padding: 0px 2% 20px 0px;
+    padding: 0 2% 20px 0;
 }
 
     .cont_beneficio h2 {
@@ -2190,7 +2205,7 @@ button {
 div.subir_archivo {
     width: 20px;
     height: 20px;
-    background: url(/Content/Images/ConsultoraOnline/ic_subir_foto.png);
+    background: url('/Content/Images/ConsultoraOnline/ic_subir_foto.png');
     margin-left: 60px;
 }
 
@@ -2206,7 +2221,7 @@ div.subir_archivo {
     width: 100%;
     position: relative;
     float: left;
-    border-spacing: 0px;
+    border-spacing: 0;
     font-size: 12px;
     font-weight: 600;
     color: #415261;
@@ -2243,7 +2258,7 @@ div.subir_archivo {
 
 .rad_ input {
     width: 100%;
-    padding: 0px 8px;
+    padding: 0 8px;
     height: 34px;
     position: relative;
     float: left;
@@ -2270,7 +2285,7 @@ div.subir_archivo {
     width: 20px;
     height: 20px;
     border: 1px solid #768ea3;
-    border-radius: 0px;
+    border-radius: 0;
     background-color: #fff;
 }
 
@@ -2283,51 +2298,51 @@ div.subir_archivo {
 }
 
 .rad_ input[type=radio] + label:before {
-    content: "";
+    content: '';
     display: inline-block;
     width: 18px;
     height: 18px;
     vertical-align: middle;
     margin-right: 8px;
-    background-color: #FFF;
+    background-color: #fff;
     border-radius: 8px;
     border: 1px solid #768ea3;
     box-sizing: border-box;
 }
 
 .ie8 .rad_ input[type=radio] + label:before {
-    width: 0px !important;
+    width: 0 !important;
     border: none !important;
 }
 
 .rad_ input[type=checkbox] + label:before {
-    content: "";
+    content: '';
     display: inline-block;
     width: 12px;
     height: 12px;
     vertical-align: middle;
     margin-right: 8px;
-    background-color: #FFF;
+    background-color: #fff;
     border-radius: 4px;
     border: 1px solid #5B6F7B;
 }
 
 .rad_ input[type=radio]:checked + label:before {
-    content: "";
+    content: '';
     color: transparent;
-    background-color: #FFF;
+    background-color: #fff;
     font-size: 1.8em;
     text-align: center;
     line-height: 14px;
-    background-image: url(/Content/Images/ConsultoraOnline/ic_aceptar.png);
+    background-image: url('/Content/Images/ConsultoraOnline/ic_aceptar.png');
     background-size: 18px;
     border: none;
 }
 
 .rad_ input[type=checkbox]:checked + label:before {
-    content: "\2714";
+    content: '\2714';
     color: #BB378D;
-    background-color: #FFF;
+    background-color: #fff;
     text-align: center;
     line-height: 12px;
     border: 1px solid #5B6F7B;
@@ -2350,7 +2365,7 @@ div.subir_archivo {
     border-radius: 118px;
     width: 156px;
     height: 156px;
-    behavior: url(../../../../Content/Css/Pie/PIE.htc);
+    behavior: url('../../../../Content/Css/Pie/PIE.htc');
 }
 
 .lista_datos_perfil_ver {
@@ -2362,7 +2377,7 @@ div.subir_archivo {
     color: #415261;
     font-size: 13px;
     font-weight: 700;
-    padding: 0px 0px 0px 10px;
+    padding: 0 0 0 10px;
 }
 
     .lista_datos_perfil_ver li {
@@ -2397,7 +2412,7 @@ div.subir_archivo {
     margin-left: 12%;
     line-height: 156px;
     border-radius: 118px;
-    behavior: url(../../../../Content/Css/Pie/PIE.htc);
+    behavior: url('../../../../Content/Css/Pie/PIE.htc');
 }
 
 .tsm tbody tr td #tdTotalPrecio {
@@ -2410,7 +2425,7 @@ div.subir_archivo {
 
     #idTablaListaPedido tbody tr td {
         border-bottom: 1px solid #bac6d2 !important;
-        padding: 10px 0px;
+        padding: 10px 0;
         box-sizing: border-box;
         vertical-align: top;
         text-align: center;

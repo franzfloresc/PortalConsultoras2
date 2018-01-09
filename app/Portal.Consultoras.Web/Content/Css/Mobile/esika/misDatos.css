@@ -42,10 +42,10 @@
     color: #000;
 }
 
-.grupo_input_actualizarMisDatos div input[type="text"], .grupo_input_actualizarMisDatos div input[type="email"], .grupo_input_actualizarMisDatos div input[type="password"] {
+.grupo_input_actualizarMisDatos div input[type='text'], .grupo_input_actualizarMisDatos div input[type='email'], .grupo_input_actualizarMisDatos div input[type='password'] {
     display: block;
     border: 1px solid #CCC;
-    background: #FFF;
+    background: #fff;
     width: 100%;
     height: 45px;
     line-height: 45px;
@@ -79,7 +79,7 @@
     vertical-align: top !important;
 }
 
-    .checkbox_condiciones input[type="checkbox"] {
+    .checkbox_condiciones input[type='checkbox'] {
         display: none !important;
     }
 
@@ -95,22 +95,22 @@
     }
 
     .texto_terminosCondiciones:before {
-        content: "";
+        content: '';
         position: absolute;
-        left: 0px;
+        left: 0;
         width: 16px;
         height: 16px;
         margin-top: 3px;
         margin-right: 10px;
         margin-bottom: 10px;
-        background: #FFF;
+        background: #fff;
         border: 2px solid #bababa;
         cursor: pointer;
         z-index: 10;
     }
 
-.checkbox_condiciones input[type="checkbox"]:checked + .texto_terminosCondiciones:before {
-    content: "";
+.checkbox_condiciones input[type='checkbox']:checked + .texto_terminosCondiciones:before {
+    content: '';
     width: 16px;
     height: 16px;
     border-radius: 3px;
@@ -135,7 +135,7 @@
     line-height: 45px;
     font-family: 'Lato';
     font-size: 16px;
-    letter-spacing: 0.7px;
+    letter-spacing: .7px;
     font-weight: bold;
     text-align: center;
 }
@@ -143,13 +143,13 @@
 .btn_actualizarMisDatos {
     border: none;
     background: #e81c36;
-    color: #FFF;
+    color: #fff;
     margin-top: 28px;
 }
 
 .btn_cancelar {
     border: 1px solid #000;
-    background: #FFF;
+    background: #fff;
     color: #000;
 }
 

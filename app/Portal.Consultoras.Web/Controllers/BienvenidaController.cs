@@ -735,8 +735,9 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         Util.EnviarMail3("no-responder@somosbelcorp.com", correoDestino, "Usted ha firmado el contrato con SomosBelcorp", cadena, true, string.Empty, filePath, userData.NombreConsultora);
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
+                        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                         return Json(new
                         {
                             success = false,

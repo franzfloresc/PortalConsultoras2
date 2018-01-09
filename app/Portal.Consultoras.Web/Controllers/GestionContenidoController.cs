@@ -289,11 +289,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<FormularioInformativoModel, BEFormularioDato>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.URL, f => f.MapFrom(c => c.URL))
-                    .ForMember(t => t.Archivo, f => f.MapFrom(c => c.NombreArchivoPdf));
-
                 BEFormularioDato entidad = Mapper.Map<FormularioInformativoModel, BEFormularioDato>(model);
 
                 using (ContenidoServiceClient sv = new ContenidoServiceClient())
@@ -326,11 +321,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<FormularioInformativoModel, BEFormularioDato>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.URL, f => f.MapFrom(c => c.URL))
-                    .ForMember(t => t.Archivo, f => f.MapFrom(c => c.NombreArchivoPdf));
-
                 BEFormularioDato entidad = Mapper.Map<FormularioInformativoModel, BEFormularioDato>(model);
 
                 using (ContenidoServiceClient sv = new ContenidoServiceClient())
@@ -363,11 +353,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<FormularioInformativoModel, BEFormularioDato>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.URL, f => f.MapFrom(c => c.URL))
-                    .ForMember(t => t.Archivo, f => f.MapFrom(c => c.NombreArchivoPdf));
-
                 BEFormularioDato entidad = Mapper.Map<FormularioInformativoModel, BEFormularioDato>(model);
 
                 using (ContenidoServiceClient sv = new ContenidoServiceClient())
@@ -402,12 +387,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<FormularioInformativoModel, BEFormularioDato>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.URL, f => f.MapFrom(c => c.URL))
-                    .ForMember(t => t.FormularioDatoID, f => f.MapFrom(c => c.FormularioDatoID))
-                    .ForMember(t => t.Archivo, f => f.MapFrom(c => c.NombreArchivoPdf));
-
                 BEFormularioDato entidad = Mapper.Map<FormularioInformativoModel, BEFormularioDato>(model);
 
                 using (ContenidoServiceClient sv = new ContenidoServiceClient())
@@ -441,11 +420,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<FormularioInformativoModel, BEFormularioDato>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.URL, f => f.MapFrom(c => c.URL))
-                    .ForMember(t => t.Archivo, f => f.MapFrom(c => c.NombreArchivoPdf));
-
                 BEFormularioDato entidad = Mapper.Map<FormularioInformativoModel, BEFormularioDato>(model);
 
                 using (ContenidoServiceClient sv = new ContenidoServiceClient())
@@ -480,12 +454,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<FormularioInformativoModel, BEFormularioDato>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.URL, f => f.MapFrom(c => c.URL))
-                    .ForMember(t => t.FormularioDatoID, f => f.MapFrom(c => c.FormularioDatoID))
-                    .ForMember(t => t.Archivo, f => f.MapFrom(c => c.NombreArchivoPdf));
-
                 BEFormularioDato entidad = Mapper.Map<FormularioInformativoModel, BEFormularioDato>(model);
 
                 using (ContenidoServiceClient sv = new ContenidoServiceClient())
@@ -519,11 +487,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<FormularioInformativoModel, BEFormularioDato>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.URL, f => f.MapFrom(c => c.URL))
-                    .ForMember(t => t.Archivo, f => f.MapFrom(c => c.NombreArchivoPdf));
-
                 BEFormularioDato entidad = Mapper.Map<FormularioInformativoModel, BEFormularioDato>(model);
 
                 using (ContenidoServiceClient sv = new ContenidoServiceClient())
@@ -558,12 +521,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<FormularioInformativoModel, BEFormularioDato>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.URL, f => f.MapFrom(c => c.URL))
-                    .ForMember(t => t.FormularioDatoID, f => f.MapFrom(c => c.FormularioDatoID))
-                    .ForMember(t => t.Archivo, f => f.MapFrom(c => c.NombreArchivoPdf));
-
                 BEFormularioDato entidad = Mapper.Map<FormularioInformativoModel, BEFormularioDato>(model);
 
                 using (ContenidoServiceClient sv = new ContenidoServiceClient())
@@ -597,12 +554,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<FormularioInformativoModel, BEFormularioDato>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.URL, f => f.MapFrom(c => c.URL))
-                    .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
-                    .ForMember(t => t.Archivo, f => f.MapFrom(c => c.NombreArchivoPdf));
-
                 BEFormularioDato entidad = Mapper.Map<FormularioInformativoModel, BEFormularioDato>(model);
 
                 using (ContenidoServiceClient sv = new ContenidoServiceClient())
@@ -869,10 +820,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lista = servicezona.SelectCampanias(PaisID).ToList();
             }
-            Mapper.CreateMap<BECampania, CampaniaModel>()
-                .ForMember(x => x.CampaniaID, t => t.MapFrom(c => c.CampaniaID))
-                .ForMember(x => x.NombreCorto, t => t.MapFrom(c => c.NombreCorto))
-                .ForMember(x => x.Codigo, t => t.MapFrom(c => c.Codigo));
 
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lista);
         }

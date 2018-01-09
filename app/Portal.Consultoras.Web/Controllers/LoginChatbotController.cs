@@ -60,8 +60,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 return Mapper.Map<List<BEPais>, List<PaisModel>>(lst);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", "", "DropDowListPaises");
                 return new List<PaisModel>();
             }
         }

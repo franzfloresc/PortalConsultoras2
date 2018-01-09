@@ -73,10 +73,9 @@ namespace Portal.Consultoras.Web.WebPages
                     }
                 } while (length > 0); //Repeat until no data is read
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                
-                
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", "", "DownloadPDF - Page_Load");
             }
             finally
             {

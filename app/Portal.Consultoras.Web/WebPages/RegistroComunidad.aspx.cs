@@ -96,8 +96,10 @@ namespace Portal.Consultoras.Web.WebPages
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", "", "RegistroComunidad - RegistrarUsuarioComunidad");
+
                 return serializer.Serialize(new
                 {
                     success = false

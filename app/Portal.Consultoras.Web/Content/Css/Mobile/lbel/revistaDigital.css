@@ -22,7 +22,7 @@
     height: 85px;
     left: -9px;
     margin-top: 14px;
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 
     .popup_revistaSuscripcion_logoMarca img {
@@ -33,7 +33,7 @@
 .popup_revistaSuscripcion_contenido span {
     display: block;
     font-size: 13px;
-    color: #FFF;
+    color: #fff;
     letter-spacing: 1.5px;
 }
 
@@ -66,13 +66,13 @@
         border: none;
         text-align: center;
         font-family: 'Lato';
-        letter-spacing: 0.5px;
+        letter-spacing: .5px;
         font-size: 12px;
     }
 
         .popup_revistaSuscripcion_grupoBotones button:first-child {
             background: #000;
-            color: #FFF;
+            color: #fff;
         }
 
         .popup_revistaSuscripcion_grupoBotones button:nth-child(2) {
@@ -84,28 +84,28 @@
 .popup_revistaSuscripcion_terminos {
     font-family: 'Lato';
     font-size: 11px;
-    color: #FFF;
+    color: #fff;
     letter-spacing: 1px;
 }
 
     .popup_revistaSuscripcion_terminos a {
         display: inline-block;
         text-decoration: underline;
-        color: #FFF;
+        color: #fff;
     }
 
 .popup_revistaSuscripcion .img_modeloRevista {
     display: none;
     position: absolute;
     bottom: -6px;
-    right: 0px;
+    right: 0;
 }
 
 .popup_revistaSuscripcion_noAMostrarMensaje {
     width: 213px;
     margin-top: 9px;
     font-family: 'Lato';
-    color: #FFF;
+    color: #fff;
     font-size: 11px;
     position: relative;
     top: 17px;
@@ -113,24 +113,24 @@
 }
 
     .popup_revistaSuscripcion_noAMostrarMensaje a {
-        color: #FFF;
+        color: #fff;
         text-decoration: underline;
-        transition: opacity 0.3s ease;
-        -moz-transition: opacity 0.3s ease;
-        -o-transition: opacity 0.3s ease;
-        -ms-transition: opacity 0.3s ease;
-        -webkit-transition: opacity 0.3s ease;
+        transition: opacity .3s ease;
+        -moz-transition: opacity .3s ease;
+        -o-transition: opacity .3s ease;
+        -ms-transition: opacity .3s ease;
+        -webkit-transition: opacity .3s ease;
     }
 
         .popup_revistaSuscripcion_noAMostrarMensaje a:hover {
-            opacity: 0.7;
+            opacity: .7;
         }
 
 .popup_revistaSuscripcion {
     display: block;
     width: 100%;
     height: auto;
-    background: #FFF;
+    background: #fff;
     position: relative;
     overflow: hidden;
     margin-top: 13px;
@@ -152,11 +152,11 @@
     -o-transform: skewX(-14deg);
     -ms-transform: skewX(-14deg);
     -webkit-transform: skewX(-14deg);
-    background: -moz-linear-gradient(-45deg, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 20%, rgba(223,40,34,1) 100%);
-    background: -webkit-linear-gradient(-45deg, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 20%, rgba(223,40,34,1) 100%);
-    background: -o-linear-gradient(-45deg, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 20%, rgba(223,40,34,1) 100%);
-    background: -ms-linear-gradient(-45deg, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 20%, rgba(223,40,34,1) 100%);
-    background: linear-gradient(135deg, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 20%, rgba(223,40,34,1) 100%);
+    background: -moz-linear-gradient(-45deg, rgba(177,19,19,1) 0, rgba(197,31,28,1) 20%, rgba(223,40,34,1) 100%);
+    background: -webkit-linear-gradient(-45deg, rgba(177,19,19,1) 0, rgba(197,31,28,1) 20%, rgba(223,40,34,1) 100%);
+    background: -o-linear-gradient(-45deg, rgba(177,19,19,1) 0, rgba(197,31,28,1) 20%, rgba(223,40,34,1) 100%);
+    background: -ms-linear-gradient(-45deg, rgba(177,19,19,1) 0, rgba(197,31,28,1) 20%, rgba(223,40,34,1) 100%);
+    background: linear-gradient(135deg, rgba(177,19,19,1) 0, rgba(197,31,28,1) 20%, rgba(223,40,34,1) 100%);
 }
 
 /* SECCIÓN REVISTA DIGITAL VISTA BIENVENIDA MOBILE */
@@ -178,12 +178,12 @@
     position: absolute;
     width: 139px;
     height: 100%;
-    background: -moz-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    background: -webkit-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    background: -o-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    background: -ms-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    background: linear-gradient(to right, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    top: 0px;
+    background: -moz-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -webkit-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -o-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -ms-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: linear-gradient(to right, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    top: 0;
     left: -23px;
     transform: skewX(-14deg);
     -moz-transform: skewX(-14deg);
@@ -198,7 +198,7 @@
     height: 117px;
     position: absolute;
     background: #000;
-    top: 0px;
+    top: 0;
     transform: skewX(-14deg);
     left: 115px;
 }
@@ -232,7 +232,7 @@
     font-family: 'Lato';
     font-size: 14px;
     text-align: left;
-    color: #FFF;
+    color: #fff;
     padding-left: 28px;
     letter-spacing: 1px;
 }
@@ -257,15 +257,15 @@
     background: transparent;
     overflow: hidden;
     cursor: pointer;
-    transition: all 0.3s ease;
-    -moz-transition: all 0.3s ease;
-    -o-transition: all 0.3s ease;
-    -ms-transition: all 0.3s ease;
-    -webkit-transition: all 0.3s ease;
+    transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -webkit-transition: all .3s ease;
 }
 
     .revistadigital .boxoffer:hover, .contenedor_botonVerMasOfertas .boxoffer:hover {
-        opacity: 0.95;
+        opacity: .95;
     }
 
     .revistadigital .boxoffer .fondo_boton, .contenedor_botonVerMasOfertas .boxoffer .fondo_boton {
@@ -275,23 +275,23 @@
         transform: skewX(-14deg);
         position: absolute;
         left: -14px;
-        background: -moz-linear-gradient(top, rgba(213,37,31,1) 0%, rgba(163,16,18,1) 100%);
-        background: -webkit-linear-gradient(top, rgba(213,37,31,1) 0%, rgba(163,16,18,1) 100%);
-        background: -o-linear-gradient(top, rgba(213,37,31,1) 0%, rgba(163,16,18,1) 100%);
-        background: -ms-linear-gradient(top, rgba(213,37,31,1) 0%, rgba(163,16,18,1) 100%);
-        background: linear-gradient(to bottom, rgba(213,37,31,1) 0%, rgba(163,16,18,1) 100%);
-        box-shadow: 3px 2px 5px rgba(0,0,0,0.25);
-        -moz-box-shadow: 3px 2px 5px rgba(0,0,0,0.25);
-        -o-box-shadow: 3px 2px 5px rgba(0,0,0,0.25);
-        -ms-box-shadow: 3px 2px 5px rgba(0,0,0,0.25);
-        -webkit-box-shadow: 3px 2px 5px rgba(0,0,0,0.25);
+        background: -moz-linear-gradient(top, rgba(213,37,31,1) 0, rgba(163,16,18,1) 100%);
+        background: -webkit-linear-gradient(top, rgba(213,37,31,1) 0, rgba(163,16,18,1) 100%);
+        background: -o-linear-gradient(top, rgba(213,37,31,1) 0, rgba(163,16,18,1) 100%);
+        background: -ms-linear-gradient(top, rgba(213,37,31,1) 0, rgba(163,16,18,1) 100%);
+        background: linear-gradient(to bottom, rgba(213,37,31,1) 0, rgba(163,16,18,1) 100%);
+        box-shadow: 3px 2px 5px rgba(0,0,0,.25);
+        -moz-box-shadow: 3px 2px 5px rgba(0,0,0,.25);
+        -o-box-shadow: 3px 2px 5px rgba(0,0,0,.25);
+        -ms-box-shadow: 3px 2px 5px rgba(0,0,0,.25);
+        -webkit-box-shadow: 3px 2px 5px rgba(0,0,0,.25);
     }
 
     .revistadigital .boxoffer .texto_boton, .contenedor_botonVerMasOfertas .boxoffer .texto_boton {
         position: absolute;
         font-family: 'Lato';
         font-size: 11px;
-        color: #FFF;
+        color: #fff;
         top: 8px;
         left: 12px;
         text-align: left;
@@ -303,10 +303,10 @@
             width: 13px;
             height: 32px;
             position: absolute;
-            content: "";
+            content: '';
             top: 7px;
             right: 5px;
-            background: url(../../../Images/flecha-right.svg) no-repeat center center;
+            background: url('../../../Images/flecha-right.svg') no-repeat center center;
             background-size: 100%;
             z-index: 100;
         }
@@ -335,7 +335,7 @@
 
 .revistadigital .content_item_home .etiqueta-producto span {
     display: block;
-    color: #FFF;
+    color: #fff;
     font-family: 'Lato';
     font-size: 13px;
     position: relative;
@@ -400,9 +400,9 @@ div#tab_revistasdigital_mobile {
 }
 
     .contenedor_botonVerMasOfertas .boxoffer {
-        left: 0px;
-        right: 0px;
-        top: 0px;
+        left: 0;
+        right: 0;
+        top: 0;
     }
 
 @media screen and (max-width:365px) {
@@ -421,7 +421,7 @@ div#tab_revistasdigital_mobile {
 
 .contenedor_cabecera_revistaDigital.cabecera_vistaRevistaSuscripcion {
     width: 100%;
-    left: 0px;
+    left: 0;
 }
 
 .texto_ofertas_bonificaciones.texto_vistaRevistaSuscripcion {
@@ -432,7 +432,7 @@ div#tab_revistasdigital_mobile {
 .cabecera_esikaParaMi, .cabecera_fondo_rojo, .cabecera_content span, .cabecera_boton_inscribeteAEsikaParaMi, .cabecera_boton_inscribeteAEsikaParaMi button, .cabecera_boton_inscribeteAEsikaParaMi span {
     display: block;
     font-family: 'Lato';
-    color: #FFF;
+    color: #fff;
 }
 
     .cabecera_logoMarca, .cabecera_content, .cabecera_boton_inscribeteAEsikaParaMi, .cabecera_boton_inscribeteAEsikaParaMi span a, .imagen_modeloRevistaDigital, .contenido_esikaParaMi {
@@ -449,9 +449,9 @@ div#tab_revistasdigital_mobile {
 }
 
     .cabecera_esikaParaMi:after {
-        content: "";
+        content: '';
         position: absolute;
-        top: 0px;
+        top: 0;
         width: 300%;
         height: 165px;
         left: 100px;
@@ -463,14 +463,14 @@ div#tab_revistasdigital_mobile {
     width: 227px;
     height: 165px;
     position: absolute;
-    top: 0px;
+    top: 0;
     left: -25px;
     z-index: 3;
-    background: -moz-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    background: -webkit-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    background: -o-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    background: -ms-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    background: linear-gradient(to right, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -moz-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -webkit-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -o-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -ms-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: linear-gradient(to right, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
     transform: skewX(-14deg);
     -moz-transform: skewX(-14deg);
     -o-transform: skewX(-14deg);
@@ -480,17 +480,17 @@ div#tab_revistasdigital_mobile {
 
     .cabecera_fondo_rojo:before {
         display: block;
-        content: "";
+        content: '';
         width: 300%;
         height: 165px;
         position: absolute;
-        top: 0px;
+        top: 0;
         left: -454px;
-        background: -moz-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-        background: -webkit-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-        background: -o-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-        background: -ms-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-        background: linear-gradient(to right, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+        background: -moz-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+        background: -webkit-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+        background: -o-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+        background: -ms-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+        background: linear-gradient(to right, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
         z-index: 2;
     }
 
@@ -523,7 +523,7 @@ div#tab_revistasdigital_mobile {
 
     .cabecera_content span:nth-child(2) {
         font-size: 20px;
-        letter-spacing: 0.4px;
+        letter-spacing: .4px;
         line-height: 27px;
     }
 
@@ -544,22 +544,22 @@ div#tab_revistasdigital_mobile {
 
     .cabecera_boton_inscribeteAEsikaParaMi button {
         background: #FF1534;
-        border: 0px;
+        border: 0;
         width: 256px;
         height: 52px;
-        color: #FFF;
+        color: #fff;
         margin-bottom: 9px;
         position: relative;
-        top: 0px;
-        transition: all 0.3s ease;
-        -moz-transition: all 0.3s ease;
-        -o-transition: all 0.3s ease;
-        -ms-transition: all 0.3s ease;
-        -webkit-transition: all 0.3s ease;
+        top: 0;
+        transition: all .3s ease;
+        -moz-transition: all .3s ease;
+        -o-transition: all .3s ease;
+        -ms-transition: all .3s ease;
+        -webkit-transition: all .3s ease;
     }
 
         .cabecera_boton_inscribeteAEsikaParaMi button:hover {
-            opacity: 0.8;
+            opacity: .8;
             top: -8px;
         }
 
@@ -588,7 +588,7 @@ div#tab_revistasdigital_mobile {
 .contenido_esikaParaMi {
     font-family: 'Lato';
     color: #000;
-    padding: 22px 20px 0px 20px;
+    padding: 22px 20px 0 20px;
     position: relative;
     z-index: 2;
     width: 100%;
@@ -623,18 +623,18 @@ div#tab_revistasdigital_mobile {
     .contenido_comoFuncionaEsikaParaMi h4, .contenido_beneficiosEsikaParaMi h4 {
         display: block;
         font-size: 15px;
-        margin: 0px 0px 14px 0px;
-        padding: 0px;
+        margin: 0 0 14px 0;
+        padding: 0;
         color: #000;
     }
 
 .contenido_pasos_comoFunciona {
-    margin-right: 0px;
+    margin-right: 0;
     text-align: left;
 }
 
     .contenido_pasos_comoFunciona:last-child, .contenido_beneficiosEsikaParaMi:last-child {
-        margin-right: 0px;
+        margin-right: 0;
     }
 
     .contenido_pasos_comoFunciona span:first-child {
@@ -651,20 +651,20 @@ div#tab_revistasdigital_mobile {
     }
 
 .contenido_beneficiosEsikaParaMi {
-    margin-right: 0px;
+    margin-right: 0;
     margin-bottom: 27px;
     text-align: center;
 }
 
     .contenido_beneficiosEsikaParaMi:last-child {
-        margin-bottom: 0px;
+        margin-bottom: 0;
     }
 
     .contenido_beneficiosEsikaParaMi span:first-child {
         color: #DA2621;
         font-size: 28px;
         margin-bottom: 14px;
-        letter-spacing: 0.4px;
+        letter-spacing: .4px;
         width: 160px;
         padding-top: 7px;
         text-align: left;
@@ -686,10 +686,10 @@ div#tab_revistasdigital_mobile {
 
 .fondo_sobreContenidoDesenfocado, .fondo_sobreContenidoDesenfocado:before, .fondo_sobreContenidoDesenfocado:after {
     position: absolute;
-    top: 0px;
+    top: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.4);
+    background: rgba(0,0,0,.4);
     z-index: 3;
 }
 
@@ -698,7 +698,7 @@ div#tab_revistasdigital_mobile {
 }
 
     .fondo_sobreContenidoDesenfocado:before, .fondo_sobreContenidoDesenfocado:after {
-        content: "";
+        content: '';
     }
 
     .fondo_sobreContenidoDesenfocado:before {
@@ -726,7 +726,7 @@ div#tab_revistasdigital_mobile {
     display: block;
     margin: 0 auto;
     width: 100%;
-    color: #FFF;
+    color: #fff;
 }
 
     .contenido_fondoDesenfocado span, .contenido_fondoDesenfocado button {
@@ -749,7 +749,7 @@ div#tab_revistasdigital_mobile {
             line-height: 24px;
             letter-spacing: 1px;
             margin-bottom: 60px;
-            padding: 0px 18px;
+            padding: 0 18px;
         }
 
     .contenido_fondoDesenfocado button {
@@ -757,40 +757,40 @@ div#tab_revistasdigital_mobile {
         width: 100%;
         height: 59px;
         border: none;
-        color: #FFF;
+        color: #fff;
         font-family: 'Lato';
         background: #FF1534;
         font-size: 15px;
-        letter-spacing: 0.1px;
+        letter-spacing: .1px;
         position: absolute;
         bottom: -37px;
-        box-shadow: 0px -2px 11px rgba(0,0,0,0.25);
-        -moz-box-shadow: 0px -2px 11px rgba(0,0,0,0.25);
-        -o-box-shadow: 0px -2px 11px rgba(0,0,0,0.25);
-        -ms-box-shadow: 0px -2px 11px rgba(0,0,0,0.25);
-        -webkit-box-shadow: 0px -2px 11px rgba(0,0,0,0.25);
-        transition: all 0.3s ease;
-        -moz-transition: all 0.3s ease;
-        -o-transition: all 0.3s ease;
-        -ms-transition: all 0.3s ease;
-        -webkit-transition: all 0.3s ease;
+        box-shadow: 0 -2px 11px rgba(0,0,0,.25);
+        -moz-box-shadow: 0 -2px 11px rgba(0,0,0,.25);
+        -o-box-shadow: 0 -2px 11px rgba(0,0,0,.25);
+        -ms-box-shadow: 0 -2px 11px rgba(0,0,0,.25);
+        -webkit-box-shadow: 0 -2px 11px rgba(0,0,0,.25);
+        transition: all .3s ease;
+        -moz-transition: all .3s ease;
+        -o-transition: all .3s ease;
+        -ms-transition: all .3s ease;
+        -webkit-transition: all .3s ease;
     }
 
     .contenido_fondoDesenfocado span:last-child {
         font-family: 'Lato';
         font-size: 13px;
-        letter-spacing: 0.4px;
+        letter-spacing: .4px;
         line-height: 18px;
         width: 100%;
         margin: 0 auto;
-        padding: 0px 16px;
+        padding: 0 16px;
         font-weight: 300;
     }
 
         .contenido_fondoDesenfocado span:last-child a {
             display: inline-block;
             text-decoration: underline;
-            color: #FFF;
+            color: #fff;
         }
 
 @media screen and (max-width:374px) {
@@ -804,7 +804,7 @@ div#tab_revistasdigital_mobile {
     }
 
     .contenido_esikaParaMi {
-        padding: 22px 13px 0px 13px;
+        padding: 22px 13px 0 13px;
     }
 
     .contenido_comoFuncionaEsikaParaMi.fondoContenido {
@@ -838,15 +838,15 @@ div#tab_revistasdigital_mobile {
     padding: 29px 20px 18px 20px;
     text-align: center;
     font-family: 'Lato';
-    color: #FFF;
+    color: #fff;
     margin: 0 auto;
     width: 100%;
     height: auto;
-    background: -moz-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    background: -webkit-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    background: -o-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    background: -ms-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
-    background: linear-gradient(to right, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -moz-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -webkit-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -o-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -ms-linear-gradient(left, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: linear-gradient(to right, rgba(177,19,19,1) 0, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
 }
 
 .contenido_felicitaciones, .contenido_felicitaciones span, .contenido_recuerdaIngresar, .link_entendido {
@@ -874,7 +874,7 @@ div#tab_revistasdigital_mobile {
 
     .contenido_recuerdaIngresar span {
         font-size: 13px;
-        letter-spacing: 0.5px;
+        letter-spacing: .5px;
         line-height: 18px;
     }
 
@@ -885,8 +885,8 @@ div#tab_revistasdigital_mobile {
     height: 43px;
     line-height: 41px;
     font-size: 13px;
-    letter-spacing: 0.4px;
-    color: #FFF;
+    letter-spacing: .4px;
+    color: #fff;
 }
 
 .logo_EPT_content {
@@ -897,12 +897,12 @@ div#tab_revistasdigital_mobile {
     float: left;
     position: relative;
     background: rgba(177,19,20,1);
-    background: -moz-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
-    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(177,19,20,1)), color-stop(18%, rgba(197,31,28,1)), color-stop(100%, rgba(223,41,34,1)));
-    background: -webkit-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
-    background: -o-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
-    background: -ms-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
-    background: linear-gradient(to bottom, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: -moz-linear-gradient(top, rgba(177,19,20,1) 0, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0, rgba(177,19,20,1)), color-stop(18%, rgba(197,31,28,1)), color-stop(100%, rgba(223,41,34,1)));
+    background: -webkit-linear-gradient(top, rgba(177,19,20,1) 0, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: -o-linear-gradient(top, rgba(177,19,20,1) 0, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: -ms-linear-gradient(top, rgba(177,19,20,1) 0, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: linear-gradient(to bottom, rgba(177,19,20,1) 0, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b11314', endColorstr='#df2922', GradientType=0 );
     padding-top: 15px;
 }
@@ -925,7 +925,7 @@ div#tab_revistasdigital_mobile {
     padding-left: 17px;
     padding-right: 14px;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: .5px;
     position: relative;
 }
 
@@ -960,9 +960,9 @@ div#tab_revistasdigital_mobile {
 .content_item_ept {
     background: white;
     border: 1px solid #e7e1e1;
-    -webkit-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
-    -moz-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
-    box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
+    -webkit-box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
+    -moz-box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
+    box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
     position: relative;
     margin-bottom: 20px;
     padding: 0;
@@ -1176,7 +1176,7 @@ div#tab_revistasdigital_mobile {
     color: black;
     top: 10px;
     padding-left: 20px;
-    background: url(../../../Images/Esika/pagina.png) no-repeat;
+    background: url('../../../Images/Esika/pagina.png') no-repeat;
     background-position: 3px 2px;
     height: 20px;
 }
@@ -1190,18 +1190,18 @@ div#tab_revistasdigital_mobile {
 }
 
 .rd_ver_mas:hover {
-    transition: all 0.2s ease-in-out;
+    transition: all .2s ease-in-out;
 }
 
 .rd_ver_mas:after {
-    background-image: url(../../../Images/RevistaDigital/rd_arrowright.png);
+    background-image: url('../../../Images/RevistaDigital/rd_arrowright.png');
     background-repeat: no-repeat;
     background-size: 6px 10px;
     display: inline-block;
     width: 6px;
     position: absolute;
     height: 10px;
-    content: "";
+    content: '';
     margin-left: 8px;
     margin-top: 4px;
 }
@@ -1332,17 +1332,17 @@ div#tab_revistasdigital_mobile {
     width: 90%;
     max-width: 200px;
     min-width: 160px;
-    letter-spacing: 0.5px;
+    letter-spacing: .5px;
 }
 
 .mrd_logo {
     background: rgba(97,60,135,1);
-    background: -moz-linear-gradient(-45deg, rgba(97,60,135,1) 0%, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
-    background: -webkit-gradient(left top, right bottom, color-stop(0%, rgba(97,60,135,1)), color-stop(31%, rgba(97,60,135,1)), color-stop(100%, rgba(97,60,135,1)));
-    background: -webkit-linear-gradient(-45deg, rgba(97,60,135,1) 0%, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
-    background: -o-linear-gradient(-45deg, rgba(97,60,135,1) 0%, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
-    background: -ms-linear-gradient(-45deg, rgba(97,60,135,1) 0%, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
-    background: linear-gradient(135deg, rgba(97,60,135,1) 0%, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
+    background: -moz-linear-gradient(-45deg, rgba(97,60,135,1) 0, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
+    background: -webkit-gradient(left top, right bottom, color-stop(0, rgba(97,60,135,1)), color-stop(31%, rgba(97,60,135,1)), color-stop(100%, rgba(97,60,135,1)));
+    background: -webkit-linear-gradient(-45deg, rgba(97,60,135,1) 0, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
+    background: -o-linear-gradient(-45deg, rgba(97,60,135,1) 0, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
+    background: -ms-linear-gradient(-45deg, rgba(97,60,135,1) 0, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
+    background: linear-gradient(135deg, rgba(97,60,135,1) 0, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#613c87', endColorstr='#9d071d', GradientType=1 );
     text-align: center;
     position: relative;
@@ -1370,7 +1370,7 @@ div#tab_revistasdigital_mobile {
 
     .mrd_logo:after {
         border-left: 22px solid transparent;
-        border-right: 0px solid transparent;
+        border-right: 0 solid transparent;
         border-bottom: 85px solid #000;
     }
 /* CONTENIDO POPUP INSCRIPCIÓN */
@@ -1383,7 +1383,7 @@ div#tab_revistasdigital_mobile {
 
 .mpopup_saludo {
     font-size: 15px;
-    letter-spacing: 0.5px;
+    letter-spacing: .5px;
     line-height: 20px;
 }
 
@@ -1449,7 +1449,7 @@ div#tab_revistasdigital_mobile {
     .mpopup_rd .mpopup_nomostrar a {
         font-size: 11px;
         color: #757575;
-        letter-spacing: 0.5px;
+        letter-spacing: .5px;
         text-decoration: underline;
     }
 
@@ -1475,12 +1475,12 @@ div#tab_revistasdigital_mobile {
 }
 
 .mob_rd_confirmacion .btn_transparent a {
-    letter-spacing: 0.2px;
+    letter-spacing: .2px;
     width: 240px;
 }
 
 .mob_rd_confirmacion .mpopup_text {
-    letter-spacing: 0.5px;
+    letter-spacing: .5px;
     line-height: 17px;
     margin: 30px 0 50px;
 }
@@ -1564,7 +1564,7 @@ div#tab_revistasdigital_mobile {
 }
 
 .box_preguntas_ept {
-    margin: 0px 0 40px;
+    margin: 0 0 40px;
 }
 
 .box_cancelarInscripcion_ept {
@@ -1634,8 +1634,8 @@ div#tab_revistasdigital_mobile {
 }
 
     .box_pregunta_ept .tit_pregunta_ept:after {
-        content: "";
-        background: url(../../../Images/RevistaDigital/Polygon.png) no-repeat right center;
+        content: '';
+        background: url('../../../Images/RevistaDigital/Polygon.png') no-repeat right center;
         right: 0;
         top: 20px;
         position: absolute;
@@ -1684,7 +1684,7 @@ div#tab_revistasdigital_mobile {
 
 @media (min-width: 460px) {
     .mpopup_text div {
-        margin-bottom: 0px;
+        margin-bottom: 0;
     }
 
     .mpopup_text .mtit {
@@ -1728,12 +1728,12 @@ div#tab_revistasdigital_mobile {
         height: 48px;
         padding-top: 0;
         background: rgba(177,19,20,1);
-        background: -moz-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
-        background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(177,19,20,1)), color-stop(18%, rgba(197,31,28,1)), color-stop(100%, rgba(223,41,34,1)));
-        background: -webkit-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
-        background: -o-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
-        background: -ms-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
-        background: linear-gradient(to bottom, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+        background: -moz-linear-gradient(top, rgba(177,19,20,1) 0, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+        background: -webkit-gradient(left top, left bottom, color-stop(0, rgba(177,19,20,1)), color-stop(18%, rgba(197,31,28,1)), color-stop(100%, rgba(223,41,34,1)));
+        background: -webkit-linear-gradient(top, rgba(177,19,20,1) 0, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+        background: -o-linear-gradient(top, rgba(177,19,20,1) 0, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+        background: -ms-linear-gradient(top, rgba(177,19,20,1) 0, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+        background: linear-gradient(to bottom, rgba(177,19,20,1) 0, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
         filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b11314', endColorstr='#df2922', GradientType=0 );
     }
 
@@ -1770,10 +1770,10 @@ div#tab_revistasdigital_mobile {
         .ol_detalle > li:before {
             display: inline-block;
             width: 1.5em;
-            padding-right: 0.5em;
+            padding-right: .5em;
             font-weight: bold;
             text-align: right;
-            content: counter(item) ".";
+            content: counter(item) '.';
         }
 
 .precio_tachado_bpt {
@@ -1801,9 +1801,9 @@ div#tab_revistasdigital_mobile {
 .content_item_home_bpt {
     background: white;
     border: 1px solid #e7e1e1;
-    -webkit-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
-    -moz-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
-    box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
+    -webkit-box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
+    -moz-box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
+    box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
     position: relative;
     margin-bottom: 10px;
 }
@@ -1874,12 +1874,12 @@ div#tab_revistasdigital_mobile {
 
 .rd_logo {
     background: rgba(97,60,135,1);
-    background: -moz-linear-gradient(-45deg, rgba(97,60,135,1) 0%, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
-    background: -webkit-gradient(left top, right bottom, color-stop(0%, rgba(97,60,135,1)), color-stop(31%, rgba(97,60,135,1)), color-stop(100%, rgba(97,60,135,1)));
-    background: -webkit-linear-gradient(-45deg, rgba(97,60,135,1) 0%, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
-    background: -o-linear-gradient(-45deg, rgba(97,60,135,1) 0%, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
-    background: -ms-linear-gradient(-45deg, rgba(97,60,135,1) 0%, rgba(97,60, 135,1) 31%, rgba(97,60,135,1) 100%);
-    background: linear-gradient(135deg, rgba(97,60,135,1) 0%, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
+    background: -moz-linear-gradient(-45deg, rgba(97,60,135,1) 0, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
+    background: -webkit-gradient(left top, right bottom, color-stop(0, rgba(97,60,135,1)), color-stop(31%, rgba(97,60,135,1)), color-stop(100%, rgba(97,60,135,1)));
+    background: -webkit-linear-gradient(-45deg, rgba(97,60,135,1) 0, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
+    background: -o-linear-gradient(-45deg, rgba(97,60,135,1) 0, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
+    background: -ms-linear-gradient(-45deg, rgba(97,60,135,1) 0, rgba(97,60, 135,1) 31%, rgba(97,60,135,1) 100%);
+    background: linear-gradient(135deg, rgba(97,60,135,1) 0, rgba(97,60,135,1) 31%, rgba(97,60,135,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#613c87', endColorstr='#9d071d', GradientType=1 );
     text-align: center;
     position: relative;
@@ -1902,7 +1902,7 @@ div#tab_revistasdigital_mobile {
     position: relative;
     background-color: #F6F6F6;
     height: auto;
-    box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px 8px rgba(0, 0, 0, .2);
     margin-bottom: 20px;
     font-family: 'Lato';
 }
@@ -1921,12 +1921,12 @@ div#tab_revistasdigital_mobile {
             width: 79%;
             margin: auto;
             display: block;
-            padding: 5px 5px 10px 0px;
+            padding: 5px 5px 10px 0;
         }
 
         .cabecera_pedido_rd .rd_logo:after {
             border-left: 20px solid transparent;
-            border-right: 0px solid transparent;
+            border-right: 0 solid transparent;
             border-bottom: 85px solid #000;
         }
 
@@ -1941,7 +1941,7 @@ div#tab_revistasdigital_mobile {
     top: 13px;
     left: 130px;
     font-weight: 700;
-    letter-spacing: 0.5px;
+    letter-spacing: .5px;
     line-height: 18px;
     font-size: 13px;
     text-align: left;
@@ -1971,7 +1971,7 @@ div#tab_revistasdigital_mobile {
         border: 1px solid #613c87;
         font-size: 13px;
         font-weight: 700;
-        letter-spacing: 0.5px;
+        letter-spacing: .5px;
         font-family: 'Lato';
     }
 
@@ -1982,7 +1982,7 @@ div#tab_revistasdigital_mobile {
         border: 1px solid black;
         font-size: 12px;
         font-weight: 700;
-        letter-spacing: 0.5px;
+        letter-spacing: .5px;
     }
 
 .rd_arrowright {
@@ -2000,7 +2000,7 @@ div#tab_revistasdigital_mobile {
     border: 1px solid black;
     font-size: 13px;
     font-weight: 700;
-    letter-spacing: 0.5px;
+    letter-spacing: .5px;
 }
 
 .btn_white_stroke a {
@@ -2019,7 +2019,7 @@ div#tab_revistasdigital_mobile {
     font-family: 'Lato';
     letter-spacing: 1px;
     padding: 10px 0;
-    box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 -4px 6px rgba(0, 0, 0, .25);
 }
 
     .rd_producto_bloqueado a {
@@ -2269,7 +2269,7 @@ div#tab_revistasdigital_mobile {
         display: block;
         text-align: center;
         font-weight: 700;
-        letter-spacing: 0.5px;
+        letter-spacing: .5px;
         font-size: 13px;
         text-transform: uppercase;
         margin-bottom: 20px;
@@ -2297,7 +2297,7 @@ div#tab_revistasdigital_mobile {
         margin: auto;
         width: 20px;
         height: 26px !important;
-        background: url(../../../Images/Lbel/Triangle.svg);
+        background: url('../../../Images/Lbel/Triangle.svg');
         background-size: contain;
         background-position: center center;
         background-repeat: no-repeat;
@@ -2305,7 +2305,7 @@ div#tab_revistasdigital_mobile {
 
     .como-funciona p.titulo {
         font-size: 15px;
-        letter-spacing: 0.5;
+        letter-spacing: .5;
         font-weight: 700;
         text-align: center;
         display: block;
@@ -2317,7 +2317,7 @@ div#tab_revistasdigital_mobile {
         display: inline-block;
         text-align: center;
         font-weight: 700;
-        letter-spacing: 0.5px;
+        letter-spacing: .5px;
         color: #613c87;
         margin-bottom: 10px;
         width: 100%;
@@ -2354,7 +2354,7 @@ div#tab_revistasdigital_mobile {
         .bloques-gana-mas .contenedor-mobile-fix > .bloque-img .cnt-uno {
             width: 135px;
             height: 80px !important;
-            background: url(../../../Images/Lbel/personalizacion-visual-desktop.gif);
+            background: url('../../../Images/Lbel/personalizacion-visual-desktop.gif');
             background-size: contain;
             background-position: center center;
             background-repeat: no-repeat;
@@ -2363,7 +2363,7 @@ div#tab_revistasdigital_mobile {
         .bloques-gana-mas .contenedor-mobile-fix > .bloque-img .cnt-dos {
             width: 135px;
             height: 80px !important;
-            background: url(../../../Images/no-mas-codigo-visual.png);
+            background: url('../../../Images/no-mas-codigo-visual.png');
             background-size: 40%;
             background-position: center center;
             background-repeat: no-repeat;
@@ -2372,7 +2372,7 @@ div#tab_revistasdigital_mobile {
         .bloques-gana-mas .contenedor-mobile-fix > .bloque-img .cnt-tres {
             width: 135px;
             height: 80px !important;
-            background: url(../../../Images/Lbel/consejos-y-tips-visual.png);
+            background: url('../../../Images/Lbel/consejos-y-tips-visual.png');
             background-size: contain;
             background-position: center center;
             background-repeat: no-repeat;
@@ -2384,7 +2384,7 @@ div#tab_revistasdigital_mobile {
 
     .bloques-gana-mas .contenedor-mobile-fix p.titulo {
         display: block;
-        letter-spacing: 0.5px;
+        letter-spacing: .5px;
         font-size: 15px;
         font-weight: 700;
         margin: 0 0 5pt 0;
@@ -2395,7 +2395,7 @@ div#tab_revistasdigital_mobile {
         display: block;
         text-align: left;
         font-size: 13px;
-        letter-spacing: 0.5px;
+        letter-spacing: .5px;
         color: white;
         font-weight: 300;
     }
@@ -2411,7 +2411,7 @@ div#tab_revistasdigital_mobile {
     .bloques-gana-mas .contenedor-mobile-fix span.txt {
         float: left;
         width: 83%;
-        letter-spacing: 0.5px;
+        letter-spacing: .5px;
         text-align: left;
         margin-bottom: 30px;
         font-size: 13px;
@@ -2441,7 +2441,7 @@ div#tab_revistasdigital_mobile {
     }
 
     .bloques-gana-mas .contenedor-mobile-fix .visual-funcionamiento {
-        background: url(/Content/Images/Lbel/visual-de-funcionamiento.png);
+        background: url('/Content/Images/Lbel/visual-de-funcionamiento.png');
         width: 124px;
         height: 135px;
         background-repeat: no-repeat;
@@ -2458,7 +2458,7 @@ div#tab_revistasdigital_mobile {
         height: auto;
         float: initial;
         height: 50px;
-        background: url(../../../Images/Lbel/logotipo-club-ganamas-morado.svg);
+        background: url('../../../Images/Lbel/logotipo-club-ganamas-morado.svg');
         background-size: cover;
         background-position: center center;
     }
@@ -2517,12 +2517,12 @@ div#tab_revistasdigital_mobile {
     width: 100%;
     display: block;
     text-align: center;
-    padding: 20px 0px;
+    padding: 20px 0;
     text-transform: uppercase;
-    margin: 30px 0px;
+    margin: 30px 0;
     font-size: 13px;
     letter-spacing: 1px;
-    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.30);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .3);
 }
 
 .suscribete-gratis a.terminos {
@@ -2537,7 +2537,7 @@ div#tab_revistasdigital_mobile {
 .suscribete-gratis p.txt-deseas-cancelar {
     color: #613c87;
     font-weight: 700;
-    letter-spacing: 0.5px !important;
+    letter-spacing: .5px !important;
     text-transform: uppercase;
     margin-left: -8px;
     display: block;
@@ -2551,7 +2551,7 @@ div#tab_revistasdigital_mobile {
     text-align: center;
     padding: 0 20px;
     font-size: 13px;
-    letter-spacing: 0.5px;
+    letter-spacing: .5px;
     margin-top: 20px;
 }
 
@@ -2563,7 +2563,7 @@ a.btn-suscribete-video {
     width: 100%;
     display: block;
     text-align: center;
-    padding: 20px 0px;
+    padding: 20px 0;
     text-transform: uppercase;
     position: fixed;
     bottom: -100%;
@@ -2583,10 +2583,10 @@ a.btn-suscribete-video-baja {
     width: 100%;
     display: block;
     text-align: center;
-    padding: 20px 0px;
+    padding: 20px 0;
     text-transform: uppercase;
     position: fixed;
-    bottom: 0%;
+    bottom: 0;
     letter-spacing: 1.5px;
     text-align: center;
     box-shadow: 1px 2px 3px 4px #0000000f;
@@ -2595,7 +2595,7 @@ a.btn-suscribete-video-baja {
 }
 
     a.btn-suscribete-video-baja span.baja-ver-mas {
-        background: url(../../../Images/Lbel/scroll-down-icon-esika.svg);
+        background: url('../../../Images/Lbel/scroll-down-icon-esika.svg');
         background-size: contain;
         background-repeat: no-repeat;
         width: 14px;
@@ -2624,7 +2624,7 @@ a.btn-suscribete-video-baja {
     }
 
         .bloques-gana-mas .contenedor-mobile-fix > .bloque-img .cnt-uno {
-            background: url(../../../Images/Lbel/personalizacion-visual-mobile.gif);
+            background: url('../../../Images/Lbel/personalizacion-visual-mobile.gif');
             background-size: contain;
             background-position: center center;
             background-repeat: no-repeat;
@@ -2692,7 +2692,7 @@ a.btn-suscribete-video-baja {
 
 @media (max-width: 550px) {
     .que-ofrecemos .ofrece-bloque .icono img {
-        padding-top: 0px;
+        padding-top: 0;
     }
 
     .show-gana .contenedor .img-descriptiva img {
@@ -2756,7 +2756,7 @@ a.btn-suscribete-video-baja {
 }
 
     .preguntas-frecuentes-cont-sus .contenedor-mobile-fix {
-        padding: 0px 25px;
+        padding: 0 25px;
     }
 
         .preguntas-frecuentes-cont-sus .contenedor-mobile-fix p {
@@ -2764,7 +2764,7 @@ a.btn-suscribete-video-baja {
             color: black;
             font-size: 13px;
             padding: 15px;
-            box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .2);
             text-align: left;
             margin-bottom: 0;
             position: relative;
@@ -2806,12 +2806,12 @@ a.btn-suscribete-video-baja {
                 font-weight: bolder;
                 margin-bottom: 5pt;
                 display: block;
-                letter-spacing: 0.5px;
+                letter-spacing: .5px;
             }
 
             .preguntas-frecuentes-cont-sus ul.preg-frecuentes ul span {
                 display: block;
-                letter-spacing: 0.5px;
+                letter-spacing: .5px;
                 margin-bottom: 15pt;
                 text-align: left;
             }

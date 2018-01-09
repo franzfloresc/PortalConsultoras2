@@ -69,8 +69,9 @@ namespace Portal.Consultoras.Web.WebPages
                     }
                 } while (length > 0); //Repeat until no data is read
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", "", "Download - Page_Load");
 
                 FileWebRequest fileReq = (FileWebRequest)FileWebRequest.Create(url);
                 FileWebResponse fileResp = (FileWebResponse)fileReq.GetResponse();

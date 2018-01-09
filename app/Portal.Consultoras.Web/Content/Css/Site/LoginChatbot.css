@@ -2,7 +2,10 @@
 @font-face {
     font-family: 'icomoon';
     src: url('fonts/icomoon/icomoon.eot?ur7cdc');
-    src: url('fonts/icomoon/icomoon.eot?ur7cdc#iefix') format('embedded-opentype'), url('fonts/icomoon/icomoon.ttf?ur7cdc') format('truetype'), url('fonts/icomoon/icomoon.woff?ur7cdc') format('woff'), url('fonts/icomoon/icomoon.svg?ur7cdc#icomoon') format('svg');
+    src: url('fonts/icomoon/icomoon.eot?ur7cdc#iefix') format('embedded-opentype'),
+        url('fonts/icomoon/icomoon.ttf?ur7cdc') format('truetype'),
+        url('fonts/icomoon/icomoon.woff?ur7cdc') format('woff'),
+        url('fonts/icomoon/icomoon.svg?ur7cdc#icomoon') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -10,7 +13,10 @@
 @font-face {
     font-family: 'logo_esika';
     src: url('fonts/icomoon/logo_esika.eot?ur7cdc');
-    src: url('fonts/icomoon/logo_esika.eot?ur7cdc#iefix') format('embedded-opentype'), url('fonts/icomoon/logo_esika.ttf?ur7cdc') format('truetype'), url('fonts/icomoon/logo_esika.woff?ur7cdc') format('woff'), url('fonts/icomoon/logo_esika.svg?ur7cdc#icomoon') format('svg');
+    src: url('fonts/icomoon/logo_esika.eot?ur7cdc#iefix') format('embedded-opentype'),
+        url('fonts/icomoon/logo_esika.ttf?ur7cdc') format('truetype'),
+        url('fonts/icomoon/logo_esika.woff?ur7cdc') format('woff'),
+        url('fonts/icomoon/logo_esika.svg?ur7cdc#icomoon') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -29,7 +35,7 @@ body {
     right: 0;
     bottom: 0;
     left: 0;
-    background: rgba(147, 148, 151, 0.5);
+    background: rgba(147, 148, 151, .5);
     z-index: 99999;
     display: none;
 }
@@ -69,41 +75,41 @@ body {
             position: absolute;
             width: 7px;
             height: 7px;
-            background: #FFFFFF;
-            left: 0px;
-            top: 0px;
+            background: #fff;
+            left: 0;
+            top: 0;
             -o-border-radius: 11px;
             border-radius: 11px;
         }
 
     .busy-loader .ball-1 {
-        -webkit-animation-delay: 0.96s;
-        -ms-animation-delay: 0.96s;
-        animation-delay: 0.96s;
+        -webkit-animation-delay: .96s;
+        -ms-animation-delay: .96s;
+        animation-delay: .96s;
     }
 
     .busy-loader .ball-2 {
-        -webkit-animation-delay: 0.19s;
-        -ms-animation-delay: 0.19s;
-        animation-delay: 0.19s;
+        -webkit-animation-delay: .19s;
+        -ms-animation-delay: .19s;
+        animation-delay: .19s;
     }
 
     .busy-loader .ball-3 {
-        -webkit-animation-delay: 0.38s;
-        -ms-animation-delay: 0.38s;
-        animation-delay: 0.38s;
+        -webkit-animation-delay: .38s;
+        -ms-animation-delay: .38s;
+        animation-delay: .38s;
     }
 
     .busy-loader .ball-4 {
-        -webkit-animation-delay: 0.58s;
-        -ms-animation-delay: 0.58s;
-        animation-delay: 0.58s;
+        -webkit-animation-delay: .58s;
+        -ms-animation-delay: .58s;
+        animation-delay: .58s;
     }
 
     .busy-loader .ball-5 {
-        -webkit-animation-delay: 0.77s;
-        -ms-animation-delay: 0.77s;
-        animation-delay: 0.77s;
+        -webkit-animation-delay: .77s;
+        -ms-animation-delay: .77s;
+        animation-delay: .77s;
     }
 
 @-webkit-keyframes orbit {
@@ -118,7 +124,7 @@ body {
         opacity: 1;
         -webkit-transform: rotate(300deg);
         -webkit-animation-timing-function: linear;
-        -webkit-origin: 0%;
+        -webkit-origin: 0;
     }
 
     30% {
@@ -172,7 +178,7 @@ body {
         opacity: 1;
         -ms-transform: rotate(300deg);
         -ms-animation-timing-function: linear;
-        -ms-origin: 0%;
+        -ms-origin: 0;
     }
 
     30% {
@@ -230,7 +236,7 @@ body {
         transform: rotate(300deg);
         -webkit-animation-timing-function: linear;
         animation-timing-function: linear;
-        origin: 0%;
+        origin: 0;
     }
 
     30% {
@@ -292,7 +298,7 @@ body {
     height: 100%;
     padding: 15px;
     top: 0;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0,0,0,.5);
 }
 
 .content_mensajeAlerta {
@@ -327,12 +333,12 @@ body {
 }
 
 .check_icono_mobile {
-    background: url("../../Images/Esika/icono_check_esika.svg") no-repeat;
+    background: url('../../Images/Esika/icono_check_esika.svg') no-repeat;
     background-size: cover;
 }
 
 .exclamacion_icono_mobile {
-    background: url("../../Images/Esika/icono_exclamacion_esika.png") no-repeat;
+    background: url('../../Images/Esika/icono_exclamacion_esika.png') no-repeat;
     background-size: cover;
 }
 
@@ -344,7 +350,7 @@ body {
     font-family: 'Lato';
     font-size: 24px;
     font-weight: 300;
-    line-height: 0.82;
+    line-height: .82;
     text-align: center;
     color: #000000;
     margin-top: 30px;
@@ -371,7 +377,7 @@ body {
     margin-bottom: 20px;
     color: #FFF !important;
     text-decoration: none !important;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;
     font-size: 14px;
 }
 
@@ -395,7 +401,7 @@ body {
     font-family: 'Lato';
     padding: 0;
     padding-left: 16px;
-    background: #3b56a8 url(../../Images/PL20/facebook_login.png) no-repeat;
+    background: #3b56a8 url('../../Images/PL20/facebook_login.png') no-repeat;
     background-position: 21px 14px;
     display: block;
     text-align: center;
@@ -412,7 +418,7 @@ body {
     margin-top: 3px;
     margin-left: 14px;
     margin-bottom: 15px;
-    letter-spacing: 0.2px;
+    letter-spacing: .2px;
     font-family: 'Lato';
     font-size: 12px;
 }
@@ -427,7 +433,7 @@ body {
 }
 
     .logo_esika_facebook:before {
-        content: "\e911";
+        content: '\e911';
         font-size: 24px;
         color: #e81c36;
     }
@@ -443,13 +449,13 @@ body {
     height: 20px;
     margin-bottom: -2px;
     margin-right: 11px;
-    letter-spacing: 0.3px;
+    letter-spacing: .3px;
     font-weight: 700;
     font-family: 'Lato';
     font-size: 12px;
     text-decoration: none;
     color: black;
-    background: url(../../Images/PL20/flecha_regresa_chat.png) no-repeat;
+    background: url('../../Images/PL20/flecha_regresa_chat.png') no-repeat;
 }
 
 .campo_input_chat {
@@ -477,7 +483,7 @@ body {
     position: relative;
     background: transparent;
     font-family: 'Lato';
-    letter-spacing: 0.3px;
+    letter-spacing: .3px;
 }
 
 .select_pais_chat {
@@ -521,7 +527,7 @@ body {
 }
 
 .icono_usuario_chatbot:before {
-    content: "\e903";
+    content: '\e903';
     font-size: 20px;
     text-align: left;
     color: black;
@@ -532,7 +538,7 @@ body {
 }
 
 .icono_pass_chatbot:before {
-    content: "\e900";
+    content: '\e900';
     font-size: 20px;
     text-align: left;
     color: black;
@@ -633,7 +639,7 @@ body {
 }
 
     .helper_facebook_chatBot:before {
-        content: "\e902";
+        content: '\e902';
         font-size: 18px;
         text-align: left;
         color: #949494;
@@ -663,7 +669,7 @@ body {
     left: 100%;
     top: 24px;
     border: solid transparent;
-    content: " ";
+    content: ' ';
     height: 0;
     width: 0;
     position: absolute;
@@ -696,7 +702,7 @@ body {
 }
 
     .logo_normal:before {
-        content: "\e911";
+        content: '\e911';
         font-size: 24px;
         color: #e81c36;
     }

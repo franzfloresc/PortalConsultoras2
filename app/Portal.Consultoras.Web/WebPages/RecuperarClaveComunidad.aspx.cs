@@ -132,8 +132,10 @@ namespace Portal.Consultoras.Web.WebPages
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", "", "RecuperarClaveComunidad - RecuperarClaveUsuarioComunidad");
+
                 return serializer.Serialize(new
                 {
                     success = false

@@ -80,7 +80,7 @@ namespace Portal.Consultoras.BizLogic
                     lstParametriaOfertaFinal = new List<BEEscalaDescuento>();
                     if (lstEscalaDescuentoTemp.Count > 0)
                     {
-                        lstParametriaOfertaFinal.AddRange((List<BEEscalaDescuento>)lstEscalaDescuentoTemp);
+                        lstParametriaOfertaFinal.AddRange(lstEscalaDescuentoTemp);
                     }
 
                     CacheManager<BEEscalaDescuento>.AddData(paisID, ECacheItem.ParametriaOfertaFinal, lstParametriaOfertaFinal);

@@ -3,10 +3,10 @@
 
 body {
     background: white;
-    font-size: .80em;
-    font-family: "Helvetica Neue", "Lucida Grande", "Segoe UI", Arial, Helvetica, Verdana, sans-serif;
-    margin: 0px;
-    padding: 0px;
+    font-size: .8em;
+    font-family: 'Helvetica Neue', 'Lucida Grande', 'Segoe UI', Arial, Helvetica, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
     color: #696969;
 }
 
@@ -29,7 +29,7 @@ p {
 }
 
 
-/* HEADINGS   
+/* HEADINGS  
 ----------------------------------------------------------*/
 
 h1, h2, h3, h4, h5, h6 {
@@ -38,13 +38,13 @@ h1, h2, h3, h4, h5, h6 {
     font-variant: small-caps;
     text-transform: none;
     font-weight: 200;
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 
 h1 {
     font-size: 1.6em;
-    padding-bottom: 0px;
-    margin-bottom: 0px;
+    padding-bottom: 0;
+    margin-bottom: 0;
 }
 
 h2 {
@@ -64,35 +64,35 @@ h5, h6 {
     font-size: 1em;
 }
 
-/* this rule styles <h1> and <h2> tags that are the 
+/* this rule styles <h1> and <h2> tags that are the
 first child of the left and right table columns */
 .rightColumn > h1, .rightColumn > h2, .leftColumn > h1, .leftColumn > h2 {
-    margin-top: 0px;
+    margin-top: 0;
 }
 
 
-/* PRIMARY LAYOUT ELEMENTS   
+/* PRIMARY LAYOUT ELEMENTS  
 ----------------------------------------------------------*/
 
 .page {
     width: 960px;
     background-color: #fff;
-    margin: 20px auto 0px auto;
+    margin: 20px auto 0 auto;
     border: 1px solid #496077;
 }
 
 .header {
     position: relative;
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     background: #4b6c9e;
     width: 100%;
 }
 
     .header h1 {
         font-weight: 700;
-        margin: 0px;
-        padding: 0px 0px 0px 20px;
+        margin: 0;
+        padding: 0 0 0 20px;
         color: #f9f9f9;
         border: none;
         line-height: 2em;
@@ -100,13 +100,13 @@ first child of the left and right table columns */
     }
 
 .main {
-    padding: 0px 12px;
+    padding: 0 12px;
     margin: 12px 8px 8px 8px;
     min-height: 420px;
 }
 
 .leftCol {
-    padding: 6px 0px;
+    padding: 6px 0;
     margin: 12px 8px 8px 8px;
     width: 200px;
     min-height: 200px;
@@ -114,14 +114,14 @@ first child of the left and right table columns */
 
 .footer {
     color: #4e5766;
-    padding: 8px 0px 0px 0px;
-    margin: 0px auto;
+    padding: 8px 0 0 0;
+    margin: 0 auto;
     text-align: center;
     line-height: normal;
 }
 
 
-/* TAB MENU   
+/* TAB MENU  
 ----------------------------------------------------------*/
 
 div.hideSkiplink {
@@ -130,13 +130,13 @@ div.hideSkiplink {
 }
 
 div.menu {
-    padding: 4px 0px 4px 8px;
+    padding: 4px 0 4px 8px;
 }
 
     div.menu ul {
         list-style: none;
-        margin: 0px;
-        padding: 0px;
+        margin: 0;
+        padding: 0;
         width: auto;
     }
 
@@ -163,7 +163,7 @@ div.menu {
                 text-decoration: none;
             }
 
-/* FORM ELEMENTS   
+/* FORM ELEMENTS  
 ----------------------------------------------------------*/
 
 fieldset {
@@ -212,7 +212,7 @@ div.accountInfo {
     width: 42%;
 }
 
-/* MISC  
+/* MISC 
 ----------------------------------------------------------*/
 
 .clear {
@@ -247,7 +247,7 @@ div.accountInfo {
 .row {
     display: table-row;
     height: 8px;
-    margin-left: 0px;
+    margin-left: 0;
 }
 
 .cell {
@@ -461,7 +461,7 @@ div.accountInfo {
 
 .button {
     font-weight: bold;
-    color: #FFFFFF;
+    color: #fff;
     background-color: #555555;
     border-style: solid;
     border-color: #000000;
@@ -504,7 +504,7 @@ div.accountInfo {
 }
 
 .textbox {
-    background: #FFFFFF url(../images/search.png) no-repeat 4px 4px;
+    background: #FFFFFF url('../images/search.png') no-repeat 4px 4px;
     padding: 4px 4px 4px 22px;
     border: 1px solid #CCCCCC;
     width: 60px;
@@ -513,8 +513,8 @@ div.accountInfo {
 .backgroundColor {
     background-color: Gray;
     filter: alpha(opacity=70);
-    opacity: 0.7;
-    -moz-opacity: 0.7;
+    opacity: .7;
+    -moz-opacity: .7;
 }
 
 .gradient3 {
@@ -638,14 +638,14 @@ div.accountInfo {
     height: 40px;
     line-height: 40px;
     padding: 0;
-    background: white url(../../images/webtracking/regresar.png) no-repeat -1px 0px;
+    background: white url('../../images/webtracking/regresar.png') no-repeat -1px 0;
     color: black;
     border: 0;
     cursor: pointer;
     font-family: 'Lato';
     text-transform: uppercase;
     font-size: 15px;
-    letter-spacing: 0.25px;
+    letter-spacing: .25px;
 }
 
 #upTracking {
@@ -654,18 +654,18 @@ div.accountInfo {
 }
 
 .lupa_tracking {
-    top: 0px;
+    top: 0;
     position: relative;
-    transition: all 0.3s ease;
-    -moz-transition: all 0.3s ease;
-    -o-transition: all 0.3s ease;
-    -ms-transition: all 0.3s ease;
-    -webkit-transition: all 0.3s ease;
+    transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -webkit-transition: all .3s ease;
 }
 
     .lupa_tracking:hover {
         top: -5px;
-        opacity: 0.5;
+        opacity: .5;
         filter: alpha(opacity=60);
     }
 

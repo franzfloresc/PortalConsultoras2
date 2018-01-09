@@ -32,7 +32,7 @@
         display: table-cell;
         vertical-align: middle;
         height: 70px;
-        padding: 0px 2%;
+        padding: 0 2%;
         overflow-y: hidden;
     }
 
@@ -63,7 +63,7 @@
         display: inline-block;
         width: 33.3%;
         cursor: pointer;
-        margin-top: 0px;
+        margin-top: 0;
     }
 
         .bc_para_ti-menu ul li:nth-child(2) a {
@@ -75,7 +75,7 @@
             display: block;
             cursor: pointer;
             text-align: center;
-            background: rgba(255, 255, 255, 0.50);
+            background: rgba(255, 255, 255, .5);
             font-size: 13px;
             color: white;
             text-decoration: none;
@@ -112,7 +112,7 @@
         margin: 0;
         padding: 0;
         list-style-type: none;
-        box-shadow: 1px 2px 12px rgba(0, 0, 0, 0.14);
+        box-shadow: 1px 2px 12px rgba(0, 0, 0, .14);
         z-index: 100;
     }
 
@@ -141,9 +141,9 @@
 
 .slick-slider-fixed-mobile {
     height: 40px !important;
-    box-shadow: 0 2px 6px 0 rgba(126, 126, 126, 0.4) !important;
-    -webkit-box-shadow: 0 2px 6px 0 rgba(126, 126, 126, 0.4) !important;
-    -moz-box-shadow: 0 2px 6px 0 rgba(126, 126, 126, 0.4) !important;
+    box-shadow: 0 2px 6px 0 rgba(126, 126, 126, .4) !important;
+    -webkit-box-shadow: 0 2px 6px 0 rgba(126, 126, 126, .4) !important;
+    -moz-box-shadow: 0 2px 6px 0 rgba(126, 126, 126, .4) !important;
     background: white;
 }
 
@@ -275,7 +275,7 @@ section {
 
     .bc-menu-vertical-prev img, .bc-menu-vertical-next img {
         height: 20px !important;
-        padding: 0px 19px !important;
+        padding: 0 19px !important;
         margin-top: 13px !important;
     }
 
@@ -305,7 +305,7 @@ section {
 }
 
 .bc_para_ti-menu-opciones ul li a.activo p::after {
-    content: "";
+    content: '';
     display: block;
     width: 75%;
     margin: auto;
@@ -333,7 +333,7 @@ img.icono-submenu-tabs {
 }
 
 .activo .opcion_home_vistaOfertas::after {
-    content: "";
+    content: '';
     display: block;
     width: 72%;
     margin: auto;
@@ -418,7 +418,7 @@ img.icono-submenu-tabs {
     }
 
     .bc_mobile-texto .mobile-txt {
-        padding: 0px 10%;
+        padding: 0 10%;
     }
 }
 
@@ -427,7 +427,7 @@ img.icono-submenu-tabs {
 
 @media (max-width:359px) {
     .slick-list {
-        padding: 8px 0px !important;
+        padding: 8px 0 !important;
     }
 }
 
