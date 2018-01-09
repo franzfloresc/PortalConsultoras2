@@ -53,5 +53,8 @@ namespace Portal.Consultoras.Web.Models
         public string CodigoPrograma { get; set; }
         public string CodigoConcurso { get; set; }
         public string TipoConcurso { get; set; }
+
+        public string RutaImagenCompleta { get; set; }
+
     }
 }

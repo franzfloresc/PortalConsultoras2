@@ -20,6 +20,7 @@ using System.ServiceModel;
 using System.Text;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
+using Portal.Consultoras.Common.MagickNet;
 using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -134,7 +135,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (lst != null && lst.Count > 0)
             {
-                var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+                var carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
                 lst.Update(x => x.ImagenEstrategia = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenEstrategia, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO));
 
                 var lista = (from a in lst
@@ -236,7 +237,7 @@ namespace Portal.Consultoras.Web.Controllers
                         lst = new List<BEEstrategia>();
                     }
 
-                    var carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+                    string carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
 
                     if (lst.Count > 0)
                         lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL, carpetapais));
@@ -689,10 +690,11 @@ namespace Portal.Consultoras.Web.Controllers
 
         [HttpPost]
         public JsonResult RegistrarEstrategia(RegistrarEstrategiaModel model)
-        {
+        {           
             try
             {
-                var _nroPedido = Util.Trim(model.NumeroPedido);
+                string mensajeErrorImagenResize = "";
+                string _nroPedido = Util.Trim(model.NumeroPedido);
 
                 if (_nroPedido.Contains(",")) model.NumeroPedido = "0";
 
@@ -745,6 +747,15 @@ namespace Portal.Consultoras.Web.Controllers
                                 entidad = VerficarArchivos(entidad, estrategiaDetalle);
                             }
                         }
+
+                        #region Imagen Resize  
+
+                        var listaImagenesResize = ObtenerListaImagenesResize(model.RutaImagenCompleta);
+                        if (listaImagenesResize != null && listaImagenesResize.Count > 0)
+                            mensajeErrorImagenResize = MagickNetLibrary.GuardarImagenesResize(listaImagenesResize);
+
+                        #endregion
+
                         entidad.EstrategiaID = sv.InsertarEstrategia(entidad);
                     }
                 }
@@ -765,7 +776,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = true,
-                    message = "Se grabó con éxito la estrategia.",
+                    message = "Se grabó con éxito la estrategia. " + mensajeErrorImagenResize,
                     extra = ""
                 });
             }
@@ -789,7 +800,7 @@ namespace Portal.Consultoras.Web.Controllers
                     extra = ""
                 });
             }
-        }
+        }        
 
         private void UpdateCacheListaOfertaFinal(string campania)
         {
@@ -945,7 +956,7 @@ namespace Portal.Consultoras.Web.Controllers
                 lst = sv.FiltrarEstrategiaPedido(entidad).ToList();
             }
 
-            var carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+            string carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
 
             if (lst.Count > 0)
             {
@@ -956,8 +967,8 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(new
             {
                 data = lst[0],
-                precio = userData.PaisID == 4 ? lst[0].Precio.ToString("#,##0").Replace(',', '.') : lst[0].Precio.ToString("#,##0.00"),
-                precio2 = userData.PaisID == 4 ? lst[0].Precio2.ToString("#,##0").Replace(',', '.') : lst[0].Precio2.ToString("#,##0.00")
+                precio = (userData.PaisID == 4) ? lst[0].Precio.ToString("#,##0").Replace(',', '.') : lst[0].Precio.ToString("#,##0.00"),
+                precio2 = (userData.PaisID == 4) ? lst[0].Precio2.ToString("#,##0").Replace(',', '.') : lst[0].Precio2.ToString("#,##0.00")
             }, JsonRequestBehavior.AllowGet);
         }
 
@@ -1051,7 +1062,7 @@ namespace Portal.Consultoras.Web.Controllers
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }
-        }
+        }        
 
         [HttpPost]
         public JsonResult InsertEstrategiaPortal(PedidoDetalleModel model)
@@ -2164,5 +2175,71 @@ namespace Portal.Consultoras.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest, ex.Message);
             }
         }
+
+        #region CargaMasivaImagenes
+
+        public JsonResult CargaMasivaImagenes(int campaniaId)
+        {
+            try
+            {
+                var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+                var listaEstrategias = new List<BECargaMasivaImagenes>();
+
+                using (PedidoServiceClient ps = new PedidoServiceClient())
+                {
+                    listaEstrategias = ps.GetListaImagenesEstrategiasByCampania(userData.PaisID, campaniaId).ToList();
+                }
+                //listaEstrategias = listaEstrategias.Take(5).ToList();
+                var cantidadImagenesGeneradas = 0;
+                var cuvNoGenerados = "";
+                var cuvNoExistentes = "";
+
+                foreach (var estrategia in listaEstrategias)
+                {                    
+                    var rutaImagenCompleta = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.RutaImagen);
+                    var mensajeError = "";
+                    var listaImagenesResize = ObtenerListaImagenesResize(rutaImagenCompleta);
+                    if (listaImagenesResize != null && listaImagenesResize.Count > 0)
+                        mensajeError = MagickNetLibrary.GuardarImagenesResize(listaImagenesResize);
+                    else
+                        cuvNoExistentes += estrategia.Cuv + ",";
+
+                    if (mensajeError == "")
+                        cantidadImagenesGeneradas++;
+                    else
+                        cuvNoGenerados += estrategia.Cuv + ",";
+                }
+
+                var mensaje = "Se generaron las imagenes SMALL y MEDIUM de todas las imagenes.";
+                if (cuvNoGenerados != "")
+                {
+                    mensaje += " Excepto los siguientes Cuvs: " + cuvNoGenerados;
+                }
+                if(cuvNoExistentes != "")
+                {
+                    mensaje += " Excepto los siguientes Cuvs (imagen orignal no encontrada o ya existen): " + cuvNoExistentes;
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    message = mensaje,
+                    extra = ""
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    extra = ""
+                }, JsonRequestBehavior.AllowGet);
+            }            
+        }
+
+        #endregion
+
     }
 }

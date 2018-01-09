@@ -14,12 +14,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public string RutaChile { get; set; }
         public string UrlChileEncriptada { get; set; }
         public string MensajeCierreCampania { get; set; }
-        public int TieneFechaPromesa { get; set; }
         public int IsConsultoraOnline { get; set; }
         public string codigoConsultora { get; set; }
         public int PaisID { get; set; }
-        public int DiaFechaPromesa { get; set; }
-        public string MensajeFechaPromesa { get; set; }
         public int IndicadorPermisoFIC { get; set; }
         public string InscritaFlexipago { get; set; }
         public string InvitacionRechazada { get; set; }
@@ -44,6 +41,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public int ActivacionAppCatalogoWhastUp { get; set; }
         public string CodigoUsuario { get; set; }
         public int ShowRoomMostrarLista { get; set; }
+        public bool RevistaDigitalPopUpMostrar { get; set; }
         public string EMail { get; set; }
         public int CampaniaMasDos { get; set; }
         public string Celular { get; set; }
