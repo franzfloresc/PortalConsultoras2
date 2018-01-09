@@ -2105,7 +2105,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 BEUsuarioCorreo pRestaurar = ((BEUsuarioCorreo)Session["RestaurarClave"]);
 
-                var urlApi = "http://localhost:49416/"; //ConfigurationManager.AppSettings.Get("UrlAPISB2");
+                var urlApi = ConfigurationManager.AppSettings.Get("UrlAPISB2");
                 string requestUrl = "Api/EnviarSMS";
 
                 CodigoIso = Util.GetPaisISO(paisID);

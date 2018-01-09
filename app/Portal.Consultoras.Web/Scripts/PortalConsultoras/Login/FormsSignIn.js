@@ -322,7 +322,7 @@ $(document).ready(function () {
         RecuperarClave("1");       
     });
 
-    $("#divChatearConNosotros").click(function () {                       
+    $("#divChatearConNosotros").click(function () {   
         $(".lk_chat").get(0).click();
     });
     
@@ -402,7 +402,7 @@ function Construir_EnlacexDispositivo(Modo) {
     var paisId = $("#cboPaisCambioClave").val();
     var codigoUsuario = $("#hdCodigoConsultora").val();
     var v_url = v_urlbase.substring(0, v_urlbase, v_urlbase.length - 1) + urlChatBelCorp + 
-        "?paisId=" + paisId + "&codigoUsuario=" + codigoUsuario;
+        "?paisId=" + paisId + "&codigoUsuario=" + codigoUsuario + "&emt_type=1";
 
     var DeshabilitarBotonCorreo = $("#divChatearConNosotros").hasClass("deshabilitar_opcion_correo");
     
@@ -1178,7 +1178,7 @@ function RecuperarClave(tipoRecuperar) {
                         $(".mensajeDeBloqueoSMS").hide();
                     }
                 }                
-
+                
                 switch (response.resul)
                 {
                     case "prioridad1":
