@@ -4002,7 +4002,7 @@
     <None Include="Service References\ServiceUnete\PortalService7.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService81.xsd">
+    <None Include="Service References\ServiceUnete\PortalService9.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceUsuarioExt\UsuarioWebService.wsdl" />
@@ -4530,6 +4530,7 @@
     <Content Include="Views\Bienvenida\_PartialSectionBpt.cshtml" />
     <Content Include="Views\Pedido\_PartialSectionBpt.cshtml" />
     <Content Include="Views\MisCatalogosRevistas\_PartialSectionBpt.cshtml" />
+    <Content Include="Views\Unete\_Message.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
