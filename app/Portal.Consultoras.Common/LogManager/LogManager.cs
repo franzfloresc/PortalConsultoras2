@@ -25,6 +25,42 @@ namespace Portal.Consultoras.Common
             });
         }
 
+        public static void SaveLog(Exception exception, string codigoUsuario, int paisId)
+        {
+            SaveLog(new LogError
+            {
+                Exception = exception,
+                CodigoUsuario = codigoUsuario,
+                IsoPais = paisId.ToString(),
+                Origen = "Servidor",
+                Titulo = "Seguimiento de Errores Servicio Portal"
+            });
+        }
+
+        public static void SaveLog(Exception exception, long consultoraId, int paisId)
+        {
+            SaveLog(new LogError
+            {
+                Exception = exception,
+                CodigoUsuario = consultoraId.ToString(),
+                IsoPais = paisId.ToString(),
+                Origen = "Servidor",
+                Titulo = "Seguimiento de Errores Servicio Portal"
+            });
+        }
+
+        public static void SaveLog(Exception exception, long consultoraId, string paisIso)
+        {
+            SaveLog(new LogError
+            {
+                Exception = exception,
+                CodigoUsuario = consultoraId.ToString(),
+                IsoPais = paisIso,
+                Origen = "Servidor",
+                Titulo = "Seguimiento de Errores Servicio Portal"
+            });
+        }
+
         public static void SaveLog(LogError logError, string pathFile = "")
         {
             try
