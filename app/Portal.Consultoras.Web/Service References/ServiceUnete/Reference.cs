@@ -1347,6 +1347,9 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         private System.Nullable<int> EstadoPostulanteField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> EstadoPostulanteInicialField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<int> EstadoTelefonicoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -2175,6 +2178,19 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 if ((this.EstadoPostulanteField.Equals(value) != true)) {
                     this.EstadoPostulanteField = value;
                     this.RaisePropertyChanged("EstadoPostulante");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> EstadoPostulanteInicial {
+            get {
+                return this.EstadoPostulanteInicialField;
+            }
+            set {
+                if ((this.EstadoPostulanteInicialField.Equals(value) != true)) {
+                    this.EstadoPostulanteInicialField = value;
+                    this.RaisePropertyChanged("EstadoPostulanteInicial");
                 }
             }
         }
@@ -3489,6 +3505,9 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         private int EstadoPostulanteIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string EstadoPostulanteInicialField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string EstadoTelefonicoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -4353,6 +4372,19 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 if ((this.EstadoPostulanteIDField.Equals(value) != true)) {
                     this.EstadoPostulanteIDField = value;
                     this.RaisePropertyChanged("EstadoPostulanteID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string EstadoPostulanteInicial {
+            get {
+                return this.EstadoPostulanteInicialField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EstadoPostulanteInicialField, value) != true)) {
+                    this.EstadoPostulanteInicialField = value;
+                    this.RaisePropertyChanged("EstadoPostulanteInicial");
                 }
             }
         }
