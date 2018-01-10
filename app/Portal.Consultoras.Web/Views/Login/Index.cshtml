@@ -39,25 +39,41 @@
 
         function loginFB() {
             existeAccesoFacebook(function(){
+                /*
                 FB.login(
                     function (response) { if (response.status === 'connected') getInfoFB(2); },
                     { scope: 'public_profile,email,user_birthday,user_location' }
                 );
+                */
+                FB.getLoginStatus(function (response) {
+                    if (response.status === 'connected') {
+                        getInfoFB(2);
+                    }
+                    else {
+                        FB.login(function (response) {
+                            if (response.status === 'connected')
+                                getInfoFB(2);
+                        });
+                    }
+                });
             },
             function () { alert('@Html.Raw(Constantes.MensajesError.SinConexion_LoginChatbot)'); });
         }
 
         function getInfoFB(opt) {
-            var fp = null;
+            //var fp = null;
 
             FB.api('/me', 'GET', { fields: 'birthday,email,first_name,gender,hometown,id,last_name,link,location,name,picture.type(large)' }, function (response) {
                 
-                if (response.id !== null && response.id !== "") {
+                //if (response.id !== null && response.id !== "") {
+                if (typeof response.id !== 'undefined' && response.id !== null) {
+                    //console.log(response);
                     var exists = checkExternalUser('Facebook', response.id);
+                    var fp = (typeof response.picture === 'object') ? response.picture.data.url : "";
+                    var lc = (typeof response.location === 'object') ? response.location.name : "";
 
                     if (exists) {
                         if (opt == 2) {
-                            fp = (typeof response.picture === 'object') ? response.picture.data.url : "";
                             validExternalUser('Facebook', response.id, fp);
                         }
                         else {
@@ -72,7 +88,7 @@
                             
                             $('#btnLoginFB2').removeClass('center_facebook');
                             $('#btnLoginFB2').text('Continuar como ' + fname);
-                            $('#imgFotoPerfil2').attr('src', response.picture.data.url);
+                            $('#imgFotoPerfil2').attr('src', fp);
                             
                             $('#_nomusufb').html('¿No eres ' + response.name + '? ');
                             $('#_nomusufb').append('<a class="_ccfb" onclick="mostrarLoginAnterior()">Cambiar de cuenta</a>');
@@ -87,8 +103,6 @@
                     }
                     else {                        
                         if (opt == 2) {
-                            var lc = (typeof response.location === 'object') ? response.location.name : "";
-                            fp = (typeof response.picture === 'object') ? response.picture.data.url : "";
                             $('#hdeProveedor').val('Facebook');
                             $('#hdeIdApp').val(response.id);
                             $('#hdeLogin').val(response.name);
@@ -106,7 +120,7 @@
                             $('#ErrorTextLabel2').html('');
 
                             $('.nombre_usuario_facebook').text(response.name);
-                            $('.foto_pop_face img').attr('src', response.picture.data.url);
+                            $('.foto_pop_face img').attr('src', fp);
 
                             $('#divMensajeError2').hide();
                             $('#popupAsociarUsuarioExt').show();
@@ -210,7 +224,7 @@
 
             waitingDialog();
             FB.api('/me', function (response) {
-                console.log(response);
+                //console.log(response);
                 closeWaitingDialog();
 
                 if (response.error != null && response.error.message === 'unknown error') {
