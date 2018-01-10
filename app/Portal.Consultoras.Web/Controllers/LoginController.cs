@@ -58,8 +58,9 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (EsUsuarioAutenticado())
             {
-                if (!EsDispositivoMovil()) return RedirectToAction("Index", "Bienvenida");
-                return RedirectToAction("Index", "Bienvenida", new {area = "Mobile"});
+                return EsDispositivoMovil() 
+                    ? RedirectToAction("Index", "Bienvenida", new { area = "Mobile" }) 
+                    : RedirectToAction("Index", "Bienvenida");
             }
 
             var ip = string.Empty;
@@ -71,14 +72,17 @@ namespace Portal.Consultoras.Web.Controllers
                 model.ListaPaises = ObtenerPaises();
                 model.ListaEventos = ObtenerEventoFestivo(0, Constantes.EventoFestivoAlcance.LOGIN, 0);
 
-                if (model.ListaEventos.Count == 0) model.NombreClase = "fondo_estandar";
+                if (model.ListaEventos.Count == 0)
+                    model.NombreClase = "fondo_estandar";
                 else
                 {
                     model.NombreClase = "fondo_festivo";
+
                     model.RutaEventoEsika =
                     (from g in model.ListaEventos
                         where g.Nombre == Constantes.EventoFestivoNombre.FONDO_ESIKA
                         select g.Personalizacion).FirstOrDefault();
+
                     model.RutaEventoLBel =
                     (from g in model.ListaEventos
                         where g.Nombre == Constantes.EventoFestivoNombre.FONDO_LBEL
@@ -88,13 +92,13 @@ namespace Portal.Consultoras.Web.Controllers
                 if (EstaActivoBuscarIsoPorIp())
                 {
                     ip = GetIpCliente();
-                    if (!string.IsNullOrWhiteSpace(ip)) iso = Util.GetISObyIPAddress(ip);
-                }
+                    iso = Util.GetISObyIPAddress(ip);
 
-                if (string.IsNullOrEmpty(iso))
-                {
-                    ip = IP_DEFECTO;
-                    iso = ISO_DEFECTO;
+                    if (string.IsNullOrEmpty(iso))
+                    {
+                        ip = IP_DEFECTO;
+                        iso = ISO_DEFECTO;
+                    }
                 }
 
                 AsignarViewBagPorIso(iso);
@@ -111,6 +115,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             ViewBag.FBAppId = ConfigurationManager.AppSettings["FB_AppId"];
+
             return View(model);
         }
 
@@ -209,23 +214,19 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.EsPaisEsika = true;
             ViewBag.EsPaisLbel = false;
             ViewBag.AvisoASP = 1;
+            ViewBag.BanderaOk = true;
 
-            if (GetPaisesEsikaFromConfig().Contains(iso))
-            {
-                ViewBag.BanderaOk = true;
-            }
-            else if (GetPaisesLbelFromConfig().Contains(iso))
+            if (GetPaisesLbelFromConfig().Contains(iso))
             {
                 ViewBag.TituloPagina = " L'BEL ";
                 ViewBag.IconoPagina = "/Content/Images/Lbel/favicon.ico";
                 ViewBag.EsPaisEsika = false;
                 ViewBag.EsPaisLbel = true;
                 if (iso == "MX") ViewBag.AvisoASP = 2;
-                ViewBag.BanderaOk = true;
             }
             else
             {
-                ViewBag.BanderaOk = false;
+                ViewBag.BanderaOk = GetPaisesEsikaFromConfig().Contains(iso);
             }
         }
 
