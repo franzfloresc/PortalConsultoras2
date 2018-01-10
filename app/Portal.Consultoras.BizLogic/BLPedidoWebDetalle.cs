@@ -333,18 +333,6 @@ namespace Portal.Consultoras.BizLogic
 
             #endregion
 
-            #region Update Descripcion Estrategia
-
-            foreach (var item in pedidoWebDetalle)
-            {
-                if (item.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.Lanzamiento
-                    || item.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi
-                    || item.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso)
-                    item.DescripcionOferta = "Ésika Para Mí";
-            }
-
-            #endregion
-
             return pedidoWebDetalle;
         }
 

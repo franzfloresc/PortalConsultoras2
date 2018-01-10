@@ -122,6 +122,9 @@ var rdAnalyticsModule = (function () {
     _filterCode = {
         precio: "precio",
         marca: "marca"
+    },
+    _category = {
+        ganaMas: "Gana Más"
     }
 
 
