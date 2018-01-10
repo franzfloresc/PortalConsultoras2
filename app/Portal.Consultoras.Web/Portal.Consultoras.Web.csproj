@@ -1311,6 +1311,7 @@
     <Content Include="Content\Images\Lbel\personalizacion-visual-desktop.gif" />
     <Content Include="Content\Images\Lbel\personalizacion-visual-mobile.gif" />
     <Content Include="Content\Images\Lbel\visual-de-funcionamiento-lbel.png" />
+    <Content Include="Content\Images\logo-mastercard.svg" />
     <Content Include="Content\Images\logo-visa.svg" />
     <Content Include="Content\Images\marquesina-landing.jpg" />
     <Content Include="Content\Images\check-acepto-terminos.png" />

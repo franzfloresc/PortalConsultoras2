@@ -8,7 +8,7 @@
 
 @{
     Model.RevistaDigital = Model.RevistaDigital ?? new RevistaDigitalModel();
-    var layout =  ViewContext.MobileLayout();
+    var layout = ViewContext.MobileLayout();
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
     var urlDomain = Util.GetUrlHost(Request);
     var nombreConsultora = Util.SubStrCortarNombre(Model.NombreConsultora, 10, "!");
@@ -22,10 +22,10 @@
             background: #FFF !important;
         }
 
-        .bloqueOfertaDia_vistaOfertas{
-            width:100%;
-            box-shadow:none;
-            margin:0;
+        .bloqueOfertaDia_vistaOfertas {
+            width: 100%;
+            box-shadow: none;
+            margin: 0;
         }
     </style>
     @Styles.Render("~/bundles/Css/Site/CcsBienvenida")
@@ -35,11 +35,11 @@
     <div class="contenedor-tutorial-lbel">
         <div class="flexsliderTutorialMobile">
             <ul class="slides">
-                <li><img data-src="/Content/Images/Lbel/tutorial/tuto1.png" data-lazy-seccion-tutorial=""/></li>
-                <li><img data-src="/Content/Images/Lbel/tutorial/tuto2.png" data-lazy-seccion-tutorial=""/></li>
-                <li><img data-src="/Content/Images/Lbel/tutorial/tuto3.png" data-lazy-seccion-tutorial=""/></li>
-                <li><img data-src="/Content/Images/Lbel/tutorial/tuto4.png" data-lazy-seccion-tutorial=""/></li>
-                <li><img data-src="/Content/Images/Lbel/tutorial/tuto5.png" data-lazy-seccion-tutorial=""/></li>
+                <li><img data-src="/Content/Images/Lbel/tutorial/tuto1.png" data-lazy-seccion-tutorial="" /></li>
+                <li><img data-src="/Content/Images/Lbel/tutorial/tuto2.png" data-lazy-seccion-tutorial="" /></li>
+                <li><img data-src="/Content/Images/Lbel/tutorial/tuto3.png" data-lazy-seccion-tutorial="" /></li>
+                <li><img data-src="/Content/Images/Lbel/tutorial/tuto4.png" data-lazy-seccion-tutorial="" /></li>
+                <li><img data-src="/Content/Images/Lbel/tutorial/tuto5.png" data-lazy-seccion-tutorial="" /></li>
             </ul>
         </div>
 
@@ -54,14 +54,14 @@
     <div class="contenedor-tutorial-esika">
         <div class="flexsliderTutorialMobile">
             <ul class="slides">
-                <li><img data-src="/Content/Images/Esika/tutorial/tuto1.png" data-lazy-seccion-tutorial=""/></li>
-                <li><img data-src="/Content/Images/Esika/tutorial/tuto2.png" data-lazy-seccion-tutorial=""/></li>
-                <li><img data-src="/Content/Images/Esika/tutorial/tuto3.png" data-lazy-seccion-tutorial=""/></li>
-                <li><img data-src="/Content/Images/Esika/tutorial/tuto4.png" data-lazy-seccion-tutorial=""/></li>
-                <li><img data-src="/Content/Images/Esika/tutorial/tuto5.png" data-lazy-seccion-tutorial=""/></li>
+                <li><img data-src="/Content/Images/Esika/tutorial/tuto1.png" data-lazy-seccion-tutorial="" /></li>
+                <li><img data-src="/Content/Images/Esika/tutorial/tuto2.png" data-lazy-seccion-tutorial="" /></li>
+                <li><img data-src="/Content/Images/Esika/tutorial/tuto3.png" data-lazy-seccion-tutorial="" /></li>
+                <li><img data-src="/Content/Images/Esika/tutorial/tuto4.png" data-lazy-seccion-tutorial="" /></li>
+                <li><img data-src="/Content/Images/Esika/tutorial/tuto5.png" data-lazy-seccion-tutorial="" /></li>
                 @if (Model.CatalogoPersonalizadoMobile != 0 && Model.EsCatalogoPersonalizadoZonaValida)
                 {
-                    <li><img data-src="/Content/Images/Esika/Tutorial/tuto6.jpg" data-lazy-seccion-tutorial=""/></li>
+                    <li><img data-src="/Content/Images/Esika/Tutorial/tuto6.jpg" data-lazy-seccion-tutorial="" /></li>
                 }
             </ul>
         </div>
@@ -243,15 +243,57 @@
             <div class="texto_inferior js-div-vencimiento">Vencimiento: <span>@Model.FechaVencimiento</span></div>
             @if (Model.PaisID == 3) //Chile
             {
-                <a role="link" region="Central" parent="Mi Estado de Cuenta" title="Paga en línea" class="btn_paga_online_mobile" href="javascript:;" onclick="RedirectPagaEnLineaAnalytics();"> PAGA EN L&Iacute;NEA</a>
-            }
+                <a role="link" region="Central" parent="Mi Estado de Cuenta" title="Paga en línea" class="btn_paga_online_mobile" href="javascript:;" onclick="RedirectPagaEnLineaAnalytics();">
+                    <div class="texto_btn_pago_en_linea">
+                        <span>PAGA EN LÍNEA</span>
+                        <span>con Tarjeta Crédito</span>
+                    </div>
+                    <div class="logo_visa">
+                        <img src="@Url.Content("~/Content/Images/logo-visa.svg")" alt="Visa" />
+                    </div>
+                    <div class="logo_mastercard">
+                        <img src="@Url.Content("~/Content/Images/logo-mastercard.svg")" alt="Mastercard" />
+                    </div>
+                </a>
+                <p class="info_lugares_de_pago">
+                    También puedes ver los lugares de pago <a href="javascript:;" title="Lugares de pago">aquí</a>
+                </p>
+             }
             else if (Model.PaisID == 4) //Colombia
             {
-                <a role="link" region="Central" parent="Mi Estado de Cuenta" title="Paga en línea" class="btn_paga_online_mobile" href="https://www.zonapagos.com/t_belstar/pagos.asp" target="_blank"> PAGA EN L&Iacute;NEA</a>
+                <a role="link" region="Central" parent="Mi Estado de Cuenta" title="Paga en línea" class="btn_paga_online_mobile" href="https://www.zonapagos.com/t_belstar/pagos.asp" target="_blank">
+                    <div class="texto_btn_pago_en_linea">
+                        <span>PAGA EN LÍNEA</span>
+                        <span>con Tarjeta Crédito</span>
+                    </div>
+                    <div class="logo_visa">
+                        <img src="@Url.Content("~/Content/Images/logo-visa.svg")" alt="Visa" />
+                    </div>
+                    <div class="logo_mastercard">
+                        <img src="@Url.Content("~/Content/Images/logo-mastercard.svg")" alt="Mastercard" />
+                    </div>
+                </a>
+                <p class="info_lugares_de_pago">
+                    También puedes ver los lugares de pago <a href="javascript:;" title="Lugares de pago">aquí</a>
+                </p>
             }
             else if (Model.PaisID == 12) //Puerto Rico
             {
-                <a role="link" region="Central" parent="Mi Estado de Cuenta" title="Paga en línea" class="btn_paga_online_mobile" href="@Url.Action("Index", "Paypal", new { area = "Mobile" })"> PAGA EN L&Iacute;NEA</a>
+                <a role="link" region="Central" parent="Mi Estado de Cuenta" title="Paga en línea" class="btn_paga_online_mobile" href="@Url.Action("Index", "Paypal", new { area = "Mobile" })">
+                    <div class="texto_btn_pago_en_linea">
+                        <span>PAGA EN LÍNEA</span>
+                        <span>con Tarjeta Crédito</span>
+                    </div>
+                    <div class="logo_visa">
+                        <img src="@Url.Content("~/Content/Images/logo-visa.svg")" alt="Visa" />
+                    </div>
+                    <div class="logo_mastercard">
+                        <img src="@Url.Content("~/Content/Images/logo-mastercard.svg")" alt="Mastercard" />
+                    </div>
+                </a>
+                <p class="info_lugares_de_pago">
+                    También puedes ver los lugares de pago <a href="javascript:;" title="Lugares de pago">aquí</a>
+                </p>
             }
             else if (Model.PaisID == 6 || Model.PaisID == 11)
             {
@@ -285,7 +327,7 @@
 
 <!--INICIO CARRUSEL-->
 <div id="divListaEstrategias" style="display: none; padding-top: 22px;">
-    @Html.Partial("~/Areas/Mobile/Views/Bienvenida/_PartialSectionBpt.cshtml", Model.RevistaDigital) 
+    @Html.Partial("~/Areas/Mobile/Views/Bienvenida/_PartialSectionBpt.cshtml", Model.RevistaDigital)
 </div>
 <!--FIN CARRUSEL-->
 
@@ -342,7 +384,7 @@
         </div>
         <a role="link" region="Central" parent="App de Catálogos" title="Entérate Más"
            class="btn_compartelos" href="@Url.Action("EnterateMas", "Catalogo", new { area = "Mobile" })">
-            <div class="imagen_catalogo celular_esika"><img data-src="@Model.UrlImagenAppCatalogo" alt="-" data-lazy-seccion-banner-home=""/></div>
+            <div class="imagen_catalogo celular_esika"><img data-src="@Model.UrlImagenAppCatalogo" alt="-" data-lazy-seccion-banner-home="" /></div>
         </a>
         <hr class="clear" />
         <div class="linea_separadora_mobile"></div>
@@ -358,7 +400,7 @@
         <div class="nueva_seccion_fav" onclick="mostrarCatalogoPersonalizado();" style="cursor: pointer;">
             <div class="content_banner_fav">
                 <div class="content_imagen_banner_fav">
-                    <img data-src="@ViewBag.UrlImagenFAVMobile" alt="favoritos" data-lazy-seccion-banner-home=""/>
+                    <img data-src="@ViewBag.UrlImagenFAVMobile" alt="favoritos" data-lazy-seccion-banner-home="" />
                 </div>
                 <div class="texto_fav_banner">
                     @ViewBag.NombreConsultoraFAV, estos son los
@@ -388,7 +430,7 @@
     </div>
     <a role="link" region="Central" parent="Entra A Mi Academia" title="Entra a Mi Academia" class="btn_compartelos" href="@Url.Action("Index", "MiAcademia", new { area = "" })">
         <div class="imagen_catalogo video_esika">
-            <img data-src="@Model.UrlImagenMiAcademia" alt="-" data-lazy-seccion-banner-home=""/>
+            <img data-src="@Model.UrlImagenMiAcademia" alt="-" data-lazy-seccion-banner-home="" />
         </div>
     </a>
     <hr class="clear" />
@@ -404,7 +446,7 @@
         </div>
         <div class="imagen_catalogo liquidacion_esika">
             <a href="@Url.Action("Index", "OfertaLiquidacion", new { area = "Mobile" })">
-                <img data-src="@Model.UrlImagenLiquidaciones" alt="-" data-lazy-seccion-banner-home=""/>
+                <img data-src="@Model.UrlImagenLiquidaciones" alt="-" data-lazy-seccion-banner-home="" />
             </a>
         </div>
         <hr class="clear" />
@@ -649,8 +691,8 @@
 <!--POP UP REVISTA DIGITAL-->
 @if (Model.RevistaDigital.TieneRDS == true)
 {
-    <div class="Content_general_pop_up CompartirCorreoPop contenedor_fondo_popup" id="PopRDSuscripcion" data-popup-main="" 
-         style="display:none; font-family: 'Lato' !important;" 
+    <div class="Content_general_pop_up CompartirCorreoPop contenedor_fondo_popup" id="PopRDSuscripcion" data-popup-main=""
+         style="display:none; font-family: 'Lato' !important;"
          data-popup-function-hide="RDPopupCerrar()">
         <div class="content_pop_up_intriga" data-popup-body="">
             <div class="contenido-popup-nuevo-2017">
@@ -821,5 +863,5 @@
         var OrigenDesktopODD = 1;
     </script>
     @Scripts.Render("~/bundles/JsMobile/Bienvenida")
-   
+
 }
