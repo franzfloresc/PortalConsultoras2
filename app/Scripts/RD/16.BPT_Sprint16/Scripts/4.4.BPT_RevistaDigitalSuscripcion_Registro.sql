@@ -10,6 +10,7 @@ ALTER PROCEDURE [dbo].[RevistaDigitalSuscripcion_Registro]
 	,@FechaSuscripcion datetime = null
 	,@FechaDesuscripcion datetime = null
 	,@EstadoRegistro int = -1
+	,@Origen varchar(100) = ''
 	,@EstadoEnvio int = 0
 	,@IsoPais varchar(2) = ''
 	,@CodigoZona varchar(4) = ''
@@ -31,6 +32,7 @@ BEGIN
 			,FechaSuscripcion
 			,FechaDesuscripcion
 			,EstadoRegistro
+			,Origen
 			,EstadoEnvio
 			,IsoPais
 			,CodigoZona
@@ -43,6 +45,7 @@ BEGIN
 			,case when @EstadoRegistro = 1 then dbo.fnObtenerFechaHoraPais() else null end
 			,case when @EstadoRegistro = 2 then dbo.fnObtenerFechaHoraPais() else null end
 			,@EstadoRegistro
+			,@Origen
 			,0
 			,@IsoPais
 			,@CodigoZona
@@ -82,6 +85,7 @@ ALTER PROCEDURE [dbo].[RevistaDigitalSuscripcion_Registro]
 	,@FechaSuscripcion datetime = null
 	,@FechaDesuscripcion datetime = null
 	,@EstadoRegistro int = -1
+	,@Origen varchar(100) = ''
 	,@EstadoEnvio int = 0
 	,@IsoPais varchar(2) = ''
 	,@CodigoZona varchar(4) = ''
@@ -103,6 +107,7 @@ BEGIN
 			,FechaSuscripcion
 			,FechaDesuscripcion
 			,EstadoRegistro
+			,Origen
 			,EstadoEnvio
 			,IsoPais
 			,CodigoZona
@@ -115,6 +120,7 @@ BEGIN
 			,case when @EstadoRegistro = 1 then dbo.fnObtenerFechaHoraPais() else null end
 			,case when @EstadoRegistro = 2 then dbo.fnObtenerFechaHoraPais() else null end
 			,@EstadoRegistro
+			,@Origen
 			,0
 			,@IsoPais
 			,@CodigoZona
@@ -154,6 +160,7 @@ ALTER PROCEDURE [dbo].[RevistaDigitalSuscripcion_Registro]
 	,@FechaSuscripcion datetime = null
 	,@FechaDesuscripcion datetime = null
 	,@EstadoRegistro int = -1
+	,@Origen varchar(100) = ''
 	,@EstadoEnvio int = 0
 	,@IsoPais varchar(2) = ''
 	,@CodigoZona varchar(4) = ''
@@ -175,6 +182,7 @@ BEGIN
 			,FechaSuscripcion
 			,FechaDesuscripcion
 			,EstadoRegistro
+			,Origen
 			,EstadoEnvio
 			,IsoPais
 			,CodigoZona
@@ -187,6 +195,7 @@ BEGIN
 			,case when @EstadoRegistro = 1 then dbo.fnObtenerFechaHoraPais() else null end
 			,case when @EstadoRegistro = 2 then dbo.fnObtenerFechaHoraPais() else null end
 			,@EstadoRegistro
+			,@Origen
 			,0
 			,@IsoPais
 			,@CodigoZona
@@ -226,6 +235,7 @@ ALTER PROCEDURE [dbo].[RevistaDigitalSuscripcion_Registro]
 	,@FechaSuscripcion datetime = null
 	,@FechaDesuscripcion datetime = null
 	,@EstadoRegistro int = -1
+	,@Origen varchar(100) = ''
 	,@EstadoEnvio int = 0
 	,@IsoPais varchar(2) = ''
 	,@CodigoZona varchar(4) = ''
@@ -247,6 +257,7 @@ BEGIN
 			,FechaSuscripcion
 			,FechaDesuscripcion
 			,EstadoRegistro
+			,Origen
 			,EstadoEnvio
 			,IsoPais
 			,CodigoZona
@@ -259,6 +270,7 @@ BEGIN
 			,case when @EstadoRegistro = 1 then dbo.fnObtenerFechaHoraPais() else null end
 			,case when @EstadoRegistro = 2 then dbo.fnObtenerFechaHoraPais() else null end
 			,@EstadoRegistro
+			,@Origen
 			,0
 			,@IsoPais
 			,@CodigoZona
@@ -298,6 +310,7 @@ ALTER PROCEDURE [dbo].[RevistaDigitalSuscripcion_Registro]
 	,@FechaSuscripcion datetime = null
 	,@FechaDesuscripcion datetime = null
 	,@EstadoRegistro int = -1
+	,@Origen varchar(100) = ''
 	,@EstadoEnvio int = 0
 	,@IsoPais varchar(2) = ''
 	,@CodigoZona varchar(4) = ''
@@ -319,6 +332,7 @@ BEGIN
 			,FechaSuscripcion
 			,FechaDesuscripcion
 			,EstadoRegistro
+			,Origen
 			,EstadoEnvio
 			,IsoPais
 			,CodigoZona
@@ -331,6 +345,7 @@ BEGIN
 			,case when @EstadoRegistro = 1 then dbo.fnObtenerFechaHoraPais() else null end
 			,case when @EstadoRegistro = 2 then dbo.fnObtenerFechaHoraPais() else null end
 			,@EstadoRegistro
+			,@Origen
 			,0
 			,@IsoPais
 			,@CodigoZona
@@ -370,6 +385,7 @@ ALTER PROCEDURE [dbo].[RevistaDigitalSuscripcion_Registro]
 	,@FechaSuscripcion datetime = null
 	,@FechaDesuscripcion datetime = null
 	,@EstadoRegistro int = -1
+	,@Origen varchar(100) = ''
 	,@EstadoEnvio int = 0
 	,@IsoPais varchar(2) = ''
 	,@CodigoZona varchar(4) = ''
@@ -391,6 +407,7 @@ BEGIN
 			,FechaSuscripcion
 			,FechaDesuscripcion
 			,EstadoRegistro
+			,Origen
 			,EstadoEnvio
 			,IsoPais
 			,CodigoZona
@@ -403,6 +420,7 @@ BEGIN
 			,case when @EstadoRegistro = 1 then dbo.fnObtenerFechaHoraPais() else null end
 			,case when @EstadoRegistro = 2 then dbo.fnObtenerFechaHoraPais() else null end
 			,@EstadoRegistro
+			,@Origen
 			,0
 			,@IsoPais
 			,@CodigoZona
@@ -442,6 +460,7 @@ ALTER PROCEDURE [dbo].[RevistaDigitalSuscripcion_Registro]
 	,@FechaSuscripcion datetime = null
 	,@FechaDesuscripcion datetime = null
 	,@EstadoRegistro int = -1
+	,@Origen varchar(100) = ''
 	,@EstadoEnvio int = 0
 	,@IsoPais varchar(2) = ''
 	,@CodigoZona varchar(4) = ''
@@ -463,6 +482,7 @@ BEGIN
 			,FechaSuscripcion
 			,FechaDesuscripcion
 			,EstadoRegistro
+			,Origen
 			,EstadoEnvio
 			,IsoPais
 			,CodigoZona
@@ -475,6 +495,7 @@ BEGIN
 			,case when @EstadoRegistro = 1 then dbo.fnObtenerFechaHoraPais() else null end
 			,case when @EstadoRegistro = 2 then dbo.fnObtenerFechaHoraPais() else null end
 			,@EstadoRegistro
+			,@Origen
 			,0
 			,@IsoPais
 			,@CodigoZona
@@ -514,6 +535,7 @@ ALTER PROCEDURE [dbo].[RevistaDigitalSuscripcion_Registro]
 	,@FechaSuscripcion datetime = null
 	,@FechaDesuscripcion datetime = null
 	,@EstadoRegistro int = -1
+	,@Origen varchar(100) = ''
 	,@EstadoEnvio int = 0
 	,@IsoPais varchar(2) = ''
 	,@CodigoZona varchar(4) = ''
@@ -535,6 +557,7 @@ BEGIN
 			,FechaSuscripcion
 			,FechaDesuscripcion
 			,EstadoRegistro
+			,Origen
 			,EstadoEnvio
 			,IsoPais
 			,CodigoZona
@@ -547,6 +570,7 @@ BEGIN
 			,case when @EstadoRegistro = 1 then dbo.fnObtenerFechaHoraPais() else null end
 			,case when @EstadoRegistro = 2 then dbo.fnObtenerFechaHoraPais() else null end
 			,@EstadoRegistro
+			,@Origen
 			,0
 			,@IsoPais
 			,@CodigoZona
@@ -586,6 +610,7 @@ ALTER PROCEDURE [dbo].[RevistaDigitalSuscripcion_Registro]
 	,@FechaSuscripcion datetime = null
 	,@FechaDesuscripcion datetime = null
 	,@EstadoRegistro int = -1
+	,@Origen varchar(100) = ''
 	,@EstadoEnvio int = 0
 	,@IsoPais varchar(2) = ''
 	,@CodigoZona varchar(4) = ''
@@ -607,6 +632,7 @@ BEGIN
 			,FechaSuscripcion
 			,FechaDesuscripcion
 			,EstadoRegistro
+			,Origen
 			,EstadoEnvio
 			,IsoPais
 			,CodigoZona
@@ -619,6 +645,7 @@ BEGIN
 			,case when @EstadoRegistro = 1 then dbo.fnObtenerFechaHoraPais() else null end
 			,case when @EstadoRegistro = 2 then dbo.fnObtenerFechaHoraPais() else null end
 			,@EstadoRegistro
+			,@Origen
 			,0
 			,@IsoPais
 			,@CodigoZona
@@ -658,6 +685,7 @@ ALTER PROCEDURE [dbo].[RevistaDigitalSuscripcion_Registro]
 	,@FechaSuscripcion datetime = null
 	,@FechaDesuscripcion datetime = null
 	,@EstadoRegistro int = -1
+	,@Origen varchar(100) = ''
 	,@EstadoEnvio int = 0
 	,@IsoPais varchar(2) = ''
 	,@CodigoZona varchar(4) = ''
@@ -679,6 +707,7 @@ BEGIN
 			,FechaSuscripcion
 			,FechaDesuscripcion
 			,EstadoRegistro
+			,Origen
 			,EstadoEnvio
 			,IsoPais
 			,CodigoZona
@@ -691,6 +720,7 @@ BEGIN
 			,case when @EstadoRegistro = 1 then dbo.fnObtenerFechaHoraPais() else null end
 			,case when @EstadoRegistro = 2 then dbo.fnObtenerFechaHoraPais() else null end
 			,@EstadoRegistro
+			,@Origen
 			,0
 			,@IsoPais
 			,@CodigoZona
@@ -730,6 +760,7 @@ ALTER PROCEDURE [dbo].[RevistaDigitalSuscripcion_Registro]
 	,@FechaSuscripcion datetime = null
 	,@FechaDesuscripcion datetime = null
 	,@EstadoRegistro int = -1
+	,@Origen varchar(100) = ''
 	,@EstadoEnvio int = 0
 	,@IsoPais varchar(2) = ''
 	,@CodigoZona varchar(4) = ''
@@ -751,6 +782,7 @@ BEGIN
 			,FechaSuscripcion
 			,FechaDesuscripcion
 			,EstadoRegistro
+			,Origen
 			,EstadoEnvio
 			,IsoPais
 			,CodigoZona
@@ -763,6 +795,7 @@ BEGIN
 			,case when @EstadoRegistro = 1 then dbo.fnObtenerFechaHoraPais() else null end
 			,case when @EstadoRegistro = 2 then dbo.fnObtenerFechaHoraPais() else null end
 			,@EstadoRegistro
+			,@Origen
 			,0
 			,@IsoPais
 			,@CodigoZona
@@ -802,6 +835,7 @@ ALTER PROCEDURE [dbo].[RevistaDigitalSuscripcion_Registro]
 	,@FechaSuscripcion datetime = null
 	,@FechaDesuscripcion datetime = null
 	,@EstadoRegistro int = -1
+	,@Origen varchar(100) = ''
 	,@EstadoEnvio int = 0
 	,@IsoPais varchar(2) = ''
 	,@CodigoZona varchar(4) = ''
@@ -823,6 +857,7 @@ BEGIN
 			,FechaSuscripcion
 			,FechaDesuscripcion
 			,EstadoRegistro
+			,Origen
 			,EstadoEnvio
 			,IsoPais
 			,CodigoZona
@@ -835,6 +870,7 @@ BEGIN
 			,case when @EstadoRegistro = 1 then dbo.fnObtenerFechaHoraPais() else null end
 			,case when @EstadoRegistro = 2 then dbo.fnObtenerFechaHoraPais() else null end
 			,@EstadoRegistro
+			,@Origen
 			,0
 			,@IsoPais
 			,@CodigoZona
@@ -874,6 +910,7 @@ ALTER PROCEDURE [dbo].[RevistaDigitalSuscripcion_Registro]
 	,@FechaSuscripcion datetime = null
 	,@FechaDesuscripcion datetime = null
 	,@EstadoRegistro int = -1
+	,@Origen varchar(100) = ''
 	,@EstadoEnvio int = 0
 	,@IsoPais varchar(2) = ''
 	,@CodigoZona varchar(4) = ''
@@ -895,6 +932,7 @@ BEGIN
 			,FechaSuscripcion
 			,FechaDesuscripcion
 			,EstadoRegistro
+			,Origen
 			,EstadoEnvio
 			,IsoPais
 			,CodigoZona
@@ -907,6 +945,7 @@ BEGIN
 			,case when @EstadoRegistro = 1 then dbo.fnObtenerFechaHoraPais() else null end
 			,case when @EstadoRegistro = 2 then dbo.fnObtenerFechaHoraPais() else null end
 			,@EstadoRegistro
+			,@Origen
 			,0
 			,@IsoPais
 			,@CodigoZona
